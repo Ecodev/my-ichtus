@@ -11,6 +11,5 @@ var params = {
     mount: [['/components', './node_modules']], // Mount a directory to a route.
     logLevel: 2, // 0 = errors only, 1 = some, 2 = lots
     watch: './app/*',
-    middleware: [function(req, res, next) { next(); }] // Takes an array of Connect-compatible middleware that are injected into the server middleware stack
   };
 liveServer.start(params);
