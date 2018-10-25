@@ -1,0 +1,267 @@
+﻿#divTabCahierTop {
+    height: 200px;
+}
+
+#divTabCahierProgress {
+    position: absolute;
+    left: 2.5%;
+    top: 30px;
+    width: 95%;
+    height: 82px;
+    background-color: white;
+    border-width: 0px;
+    border-color: gray;
+    border-style: solid; /*borders ?*/
+    border-radius: 10px;
+    -webkit-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
+}
+
+.divTabCahierProgressStep {
+    position: absolute;
+    /*left:5%;*/
+    top: 0px;
+    height: 100%;
+    width: 10%;
+    /*background-color: orange;*/
+}
+
+.divTabCahierProgressStepCompleted {
+    cursor: pointer;
+}
+
+
+.divTabCahierProgressCircle {
+    position: absolute;
+    left: 50%;
+    margin-left: -27px;
+    top: 5px;
+    /*margin-top: -27px;*/
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background-color: white;
+    border-width: 2px;
+    border-color: rgb(66, 133, 244);
+    border-style: solid;
+    color: black;
+    font-size: 50px;
+    text-align: center;
+    transition: all 0.1s linear 0s;
+    z-index: 7;
+}
+
+.divTabCahierProgressStepCompleted .divTabCahierProgressCircle {
+    border-color: rgb(66, 133, 244);
+    background-image: url(Img/IconCheckSignBlue.png);
+    background-repeat: no-repeat;
+    background-color: white;
+}
+
+.divTabCahierProgressStepCompleted:hover .divTabCahierProgressCircle {
+    border-color: rgb(66, 133, 244);
+    background-image: none;
+    background-color: rgb(66, 133, 244);
+}
+
+.divTabCahierProgressStepCurrent .divTabCahierProgressCircle {
+    border-color: rgb(66, 133, 244);
+    background-image: none;
+    background-color: rgb(66, 133, 244);
+}
+
+.divTabCahierProgressStepIncompleted .divTabCahierProgressCircle {
+    border-color: lightgray;
+    background-image: none;
+    background-color: white;
+}
+
+.divTabCahierProgressNumber {
+    position: absolute;
+    left: 0px;
+    top: 10px;
+    width: 100%;
+    height: 40px;
+    color: black;
+    font-size: 40px;
+    text-align: center;
+    transition: all 0.3s linear 0s;
+    z-index: 8;
+    /*background-color:green;*/
+}
+
+.divTabCahierProgressStepCompleted .divTabCahierProgressNumber {
+    opacity: 0;
+    color: gray;
+}
+
+.divTabCahierProgressStepCompleted:hover .divTabCahierProgressNumber {
+    opacity: 1;
+    color: white;
+}
+
+.divTabCahierProgressStepCurrent .divTabCahierProgressNumber {
+    opacity: 1;
+    color: white;
+}
+
+.divTabCahierProgressStepIncompleted .divTabCahierProgressNumber {
+    opacity: 1;
+    color: gray;
+}
+
+
+.divTabCahierProgressText {
+    position: absolute;
+    left: 0px;
+    top: 60px;
+    width: 100%;
+    height: 20px;
+    color: rgb(66, 133, 244);
+    font-size: 15px;
+    text-align: center;
+    transition: all 0.3s linear 0s;
+    /*background-color: red;*/
+}
+
+.divTabCahierProgressStepCompleted .divTabCahierProgressText {
+    color: rgb(66, 133, 244);
+}
+
+.divTabCahierProgressStepCurrent .divTabCahierProgressText {
+    color: rgb(66, 133, 244);
+}
+
+.divTabCahierProgressStepIncompleted .divTabCahierProgressText {
+    color: gray;
+}
+
+
+#divTabCahierProgressBar {
+    position: absolute;
+    top: 32px;
+    margin-top: -1px;
+    width: 78%;
+    margin-right: -50px;
+    height: 2px;
+    background-color: lightgray;
+    z-index: 5;
+}
+
+#divTabCahierProgressBarBlue {
+    position: absolute;
+    left: 12%;
+    top: 32px;
+    margin-top: -2px;
+    width: 0%;
+    height: 4px;
+    background-color: rgb(66, 133, 244);
+    z-index: 6;
+    transition: all 1s linear 0s;
+}
+
+
+
+
+#divTabCahierInfosBar {
+    position: absolute;
+    left: 2.5%;
+    top: 185px;
+    width: 95%;
+    height: 2px;
+    background-color: lightgray;
+}
+
+
+#divTabCahierInfosName {
+    position: absolute;
+    left: 2.5%;
+    top: 140px;
+    /*width: 500px;*/
+    height: 45px;
+    color: gray;
+    font-size: 40px;
+}
+
+#divTabCahierChangeNameButton2 {
+    position: absolute;
+    left: 2.5%;
+    margin-left: 300px;
+    top: 150px;
+    width: 86px;
+    height: 25px;
+    padding-left: 8px;
+    padding-top: 3px;
+    color: black;
+    font-size: 20px;
+    background-color: white;
+    border-radius: 5px;
+    -webkit-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
+    transition: all 0.1s linear 0s;
+}
+#divTabCahierChangeNameButton2:hover {
+    margin-top: 3px;
+    -webkit-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.75);
+}
+
+#divTabCahierChangeNameButton {
+    position: absolute;
+    right: 2.5%;
+    margin-right: 220px;
+    top: 170px;
+    width: 180px;
+    height: 25px;
+    border-radius: 5px;
+    border: 2px solid gray;
+    padding-top: 3px;
+    padding-left: 10px;
+    color: gray;
+    font-size: 20px;
+    background-color: white;
+    background-image: url(Img/IconCancel.png);
+    background-size: 25px;
+    background-repeat: no-repeat;
+    background-position-x: 160px;
+    background-position-y: 2px;
+    cursor: pointer;
+    transition: all 0.1s linear 0s;
+}
+#divTabCahierChangeNameButton:hover {
+    background-color: lightgray;
+    color: black;
+    background-image: url(Img/IconCancelBlack.png);
+}
+
+
+#divTabCahierCancelButton {
+    position: absolute;
+    right: 2.5%;
+    margin-right: 20px;
+    top: 170px;
+    width: 180px;
+    height: 25px;
+    border-radius: 5px;
+    border: 2px solid gray;
+    padding-top: 3px;
+    padding-left: 10px;
+    color: gray;
+    font-size: 20px;
+    background-color: white;
+    background-image: url(Img/IconCancel.png);
+    background-size: 25px;
+    background-repeat: no-repeat;
+    background-position-x: 160px;
+    background-position-y: 2px;
+    cursor: pointer;
+    transition: all 0.1s linear 0s;
+}
+#divTabCahierCancelButton:hover {
+    background-color: lightgray;
+    color: black;
+    background-image: url(Img/IconCancelBlack.png);
+}

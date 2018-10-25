@@ -1,0 +1,251 @@
+﻿/*#region div Bars & Screen */
+#divLeftBar {
+    position: absolute;
+    height: 100%;
+    background-color: lightgray;
+    /*background-image:linear-gradient(lightgray,rgb(164, 164, 164));*/
+    left: 0px;
+    z-index: 10000;
+    opacity: 0.8;
+}
+
+#divRightBar {
+    position: absolute;
+    height: 100%;
+    background-color: lightgray;
+    right: 0px;
+    z-index: 1000;
+    opacity: 0.8;
+}
+
+#divTopBar {
+    position: fixed;
+    width: 100%;
+    height: 120px;
+    background-color: black;
+    z-index: 100000; /*définir*/
+    transition: all 0.1s linear 0s;
+    -webkit-box-shadow: 0px 10px 40px 0px black;
+    -moz-box-shadow: 0px 10px 40px 0px black;
+    box-shadow: 0px 10px 40px 0px black;
+    -webkit-border-bottom-right-radius: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    -moz-border-radius-bottomright: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+
+   
+}
+/*#endregion*/
+
+/*#region Inside Top Bar*/
+#imgTopBarIchtusLogo {
+position: absolute;
+left: 5px;
+top: 5px;
+width: 110px;
+transition: all 0.1s linear 0s;
+animation: EnterFromLeft 0.5s ease-out 1 normal;
+}
+#imgTopBarIchtusText {
+    position: absolute;
+    left: 120px;
+    top: 5px;
+    width: 275px;
+    height: 110px;
+    transition: all 0.1s linear 0s;
+    animation: EnterFromTop 0.5s ease-out 1 normal;
+}
+
+@keyframes EnterFromRight{
+    from{
+        margin-right:-150px;
+    }
+    to {
+        margin-right:0px;
+    }
+}
+
+@keyframes EnterFromLeft {
+    from {
+        margin-left: -120px;
+    }
+
+    to {
+        margin-left: 0px;
+    }
+}
+
+@keyframes EnterFromTop {
+    from {
+        margin-top: -120px;
+    }
+
+    to {
+        margin-top: 0px;
+    }
+}
+
+#divTopBarTime {
+    position: absolute;
+    right: 5px;
+    bottom:5px;
+    width: 150px;    
+    color: white;
+    font-size:18px;
+    text-align: right;
+    font-family:Arial;
+    transition: all 0.1s linear 0s;
+    animation: EnterFromRight 0.5s ease-out 1 normal;
+}
+#divTopBarTime::first-line {
+    font-size:30px;
+}
+#divTopBarWind {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 150px;
+    height: 50px;
+    opacity: 1;
+    color: white;
+    font-size: 20px;
+    text-align: right;
+    font-family: "Agency FB";
+    transition: opacity 0.3s linear 0s;
+    background-color: red;
+    animation: EnterFromRight 0.5s ease-out 1 normal;
+}
+/*#endregion*/
+
+/*#region Buttons*/
+.divTopBarButtons {
+    position: absolute;
+    left: 50%;
+    bottom:5px;
+    width: 200px;
+    height: 40px;
+
+    cursor:pointer;
+    transition:margin-left 0.2s linear 0s; 
+
+    /*background-color:blue;*/
+}
+.divTopBarButtons div:nth-child(1) {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-size: 40px;
+    z-index: 6;
+
+    /*background-color: purple;*/
+}
+.divTopBarButtons div:nth-child(2) {
+    position: absolute;
+    height: 30px;
+    top: 5px;
+    color: white;
+    font-size: 26px;
+    text-align: center;
+     
+    font-style: normal;
+    font-weight: 100;
+    z-index: 5;
+
+    /*background-color: gray;*/
+}
+.divTopBarButtons div:nth-child(3) {
+    position: absolute;
+    bottom:2px;
+    height: 2px;
+    width:0px;
+    background-color:white;
+    left:50%;
+    margin-left:0px;
+    transition:all 0.1s linear 0s;
+}
+
+#divTopBarButtonMateriel:hover div:nth-child(3) {
+    width: 93px;
+    margin-left: -17px;
+}
+#divTopBarButtonCahier:hover div:nth-child(3) {
+    width: 76px;
+    margin-left: -10px;
+}
+#divTopBarButtonStatistiques:hover div:nth-child(3) {
+    width: 135px;
+    margin-left: -43px;
+}
+
+
+#divTopBarButtonMateriel div:nth-child(1) {
+    left:33px;
+    background-image: url(Img/IconCahier.png);
+}
+#divTopBarButtonMateriel:hover div:nth-child(1) {
+    background-image: url(Img/IchtusText.jpg);
+}
+#divTopBarButtonMateriel div:nth-child(2) {
+    left: 83px;
+}
+
+#divTopBarButtonCahier div:nth-child(1) {
+    left:40px;
+    background-image: url(Img/IconCahier.png);
+}
+#divTopBarButtonCahier:hover div:nth-child(1) {
+    background-image: url(Img/IchtusText.jpg);
+}
+#divTopBarButtonCahier div:nth-child(2) {
+    left: 90px;
+}
+
+#divTopBarButtonStatistiques div:nth-child(1) {
+    left: 8px;
+    background-image: url(Img/IconCahier.png);
+}
+#divTopBarButtonStatistiques:hover div:nth-child(1) {
+    background-image: url(Img/IchtusText.jpg);
+}
+#divTopBarButtonStatistiques div:nth-child(2) {
+    right: 8px;
+}
+
+
+#divTopBarButtonsBar {
+    position: absolute;
+    bottom: -5px;
+    width: 0px;
+    height: 5px;
+    background-color: white;
+    left: 50%;
+    border-radius:2.5px;
+
+    transition: margin-left 0.2s ease-in-out 0s;
+}
+/*#endregion*/
+
+
+#divTopBarTopText {
+    position: absolute;
+    left: 50%;
+    margin-left: 0px;
+    bottom: 65px;
+    width: 800px;
+    height: 50px;
+    background-color: darkgray;
+    animation: EnterFromTopWithBottom 0.5s linear 0s;
+}
+
+
+@keyframes EnterFromTopWithBottom {
+    from {
+        margin-bottom: 60px;
+    }
+
+    to {
+        margin-bottom: 0px;
+    }
+}
