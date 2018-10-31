@@ -114,7 +114,7 @@ function checkPhoneNumber(elem) {
 
 
 
-    var txt = elem.value.toUpperCase();
+    txt = elem.value.toUpperCase();
 
     if (txt.length == 13) {
         AcceptInfos(elem);
@@ -135,7 +135,7 @@ function writeDestination(elem) {
     }
 }
 function writeNbrInvites(elem) {
-    if (elem.value.length < 2 && elem.value != "") {
+    if (parseInt(elem.value) < 21 && elem.value != "") {
         AcceptInfos(elem);
     }
     else {
@@ -211,7 +211,7 @@ function checkInfos() {
         }
     }
     if (allInfosOkay == true || document.getElementById("divTabCahierInfosDestination").getElementsByTagName("input")[0].value == "pass") {
-        changeProgress(2);
+        changeProgress(3);
     }
  
 }

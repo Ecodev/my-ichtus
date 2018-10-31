@@ -183,10 +183,9 @@ function changeTab(newElement, sign) {
     }
 
     //EnterCahierTop
-    if (newElement.id == "divTabCahierInfos" && currentTabElement.id != "divTabCahierMateriel" && currentTabElement.id != "divTabCahierConfirmation") {
+    if (newElement.id == "divTabCahierMateriel" && currentTabElement.id != "divTabCahierinfos" && currentTabElement.id != "divTabCahierConfirmation") {
         document.documentElement.scrollTop = 60;
-        document.getElementById("divTabCahierTop").style.zIndex = 6;
-        setTimeout(function () { document.getElementById("divTabCahierTop").style.zIndex = 11; }, changeTime * 1000);
+        enterProgressBar()
       //  alert("scroll up + CahierTOp zindex 6 -11");
     }
     //Remove CahierTop 
@@ -194,24 +193,36 @@ function changeTab(newElement, sign) {
         alert("~Attention vous quittez votre inscription??"); 
         clearData();
         currentProgress = 0; //!!!!!!!!!!!!!!!!!!!!
-        document.getElementById("divTabCahierTop").style.zIndex = "11"; //11
-        document.getElementById("divTabCahierTop").style.transition = "transform " + changeTime + "s linear 0s";
-        document.getElementById("divTabCahierTop").style.transform = "translate(" + (-sign) + "00%)";
-        
-        setTimeout(function () {
-
-            document.getElementById("divTabCahierTop").style.zIndex = "2";
-            document.getElementById("divTabCahierTop").style.transition = "none";
-
-            document.getElementById("divTabCahierTop").style.transform = "translate(0px)";
-
-            setTimeout(function () { document.getElementById("divTabCahierTop").style.transition = "transform " + changeTime + "s linear 0s"; }, 20);
-
-        }, changeTime * 1000);
+        removeProgressBar(sign);
        // alert("remove cahiertop");
     }
 
 }
+
+//ENTER PROGRESS BAR
+function enterProgressBar() {
+    document.getElementById("divTabCahierTop").style.zIndex = 6;
+    setTimeout(function () { document.getElementById("divTabCahierTop").style.zIndex = 11; }, changeTime * 1000);
+}
+//REMOVE PROGRESS BAR
+function removeProgressBar(sign) {
+    document.getElementById("divTabCahierTop").style.zIndex = "11"; //11
+    document.getElementById("divTabCahierTop").style.transition = "transform " + changeTime + "s linear 0s";
+    document.getElementById("divTabCahierTop").style.transform = "translate(" + (-sign) + "00%)";
+
+    setTimeout(function () {
+
+        document.getElementById("divTabCahierTop").style.zIndex = "2";
+        document.getElementById("divTabCahierTop").style.transition = "none";
+
+        document.getElementById("divTabCahierTop").style.transform = "translate(0px)";
+
+        setTimeout(function () { document.getElementById("divTabCahierTop").style.transition = "transform " + changeTime + "s linear 0s"; }, 20);
+
+    }, changeTime * 1000);
+}
+
+
 
 function clickTab(buttonID) {
 

@@ -6,8 +6,7 @@
     <!-- Ajouter les transitions pour les différents exploreurs + box shadows + border radius --> 
     <!-- TESTEST GIT -->
 
-	<!-- HALLO-->
-    <!-- Hallo oooo-->
+
     <meta charset="utf-8" />
     <title>Cahier de sortie</title>
 
@@ -113,8 +112,8 @@
             </div>
 
             <div id="divTabCahierInfosNbrInvites" class="TabCahierFields">
-                Nbr d'invités
-                <input type="number" min="0" max="9" spellcheck="false" placeholder="Max 4?" value="" onkeyup="writeNbrInvites(this);" />
+                Nbr d'accompagnants
+                <input type="number" min="0" max="20" spellcheck="false" placeholder="Max 4?" value="" onkeyup="writeNbrInvites(this);" />
                 <div></div>
             </div>
 
@@ -139,12 +138,20 @@
 
         <!--Div Tab CahierMateriel-->
         <div id="divTabCahierMateriel" class="divTab">
+            <div id="divTabCahierMaterielCodeEmbarcation">
+                <input type="text" placeholder="Catégorie" onfocusin="focusInOrOutInputTypeEmbarcation(this,true)" onkeyup="keyUpInputTypeEmbarcation(this)" onfocusout="focusInOrOutInputTypeEmbarcation(this,false)" />
+                <input type="number" placeholder="Code" /> 
+                
+                <div id="divTabCahierMaterielCodeEmbarcationText">Code de l'embarcation</div>
+                <div id="divTabCahierMaterielCodeEmbarcationTypeResults"></div>
+            </div>
+            <div id="divTabCahierMaterielOther">Ou</div>
             <div class="divTabCahierInfosValidateButtons" onclick="checkMateriel();">Suivant</div>
         </div>
 
-        <!--Div Tab CahierMateriel-->
+        <!--Div Tab CahierConfirmation-->
         <div id="divTabCahierConfirmation" class="divTab">
-
+            
         </div>
 
         <!--Div Tab Statistiques-->

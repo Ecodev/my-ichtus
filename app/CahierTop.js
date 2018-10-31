@@ -1,7 +1,7 @@
 ﻿//ProgressBar
 function createProgressBar() {
 
-    var Texts = ["Nom", "Infos", "Matériel", "Confirmation"];
+    var Texts = ["Nom", "Embarcation", "Infos", "Confirmation"];
 
     for (var i = 0; i < 4; i++) {
 
@@ -78,10 +78,10 @@ function changeProgress(c) {
         document.documentElement.scrollTop = 0; //scroll up
     }
     if (c == 1) {
-        changeTab(document.getElementById("divTabCahierInfos"), sign);
+        changeTab(document.getElementById("divTabCahierMateriel"), sign);
     }
     if (c == 2) {
-        changeTab(document.getElementById("divTabCahierMateriel"), sign);
+        changeTab(document.getElementById("divTabCahierInfos"), sign);
     } 
     if (c == 3) {
         changeTab(document.getElementById("divTabCahierConfirmation"), sign);
