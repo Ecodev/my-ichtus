@@ -47,7 +47,7 @@
 .TabCahierFields input:focus { 
     /*border-color:rgb(66, 133, 244);*/
     -webkit-box-shadow: 4px 6px 10px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 42px 6px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 4px 6px 10px 0px rgba(0,0,0,0.75);
     box-shadow: 4px 6px 10px 0px rgba(0,0,0,0.75);
     text-decoration:underline;
 }

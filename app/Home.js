@@ -13,6 +13,7 @@ function load() {
     document.getElementById("divTopBarTopText").innerHTML = currentTabElement.id + "bonsoir";
     createProgressBar();
     createAllPropositions();
+    createCategories();
 }
 
 function TimeGetMinutes() {

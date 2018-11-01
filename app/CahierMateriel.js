@@ -39,3 +39,19 @@ function keyUpInputTypeEmbarcation(elem) {
     }
    
 }
+
+var categories = ["SUP", "Canoé/Kayak", "Planche à voile", "Voilier"];
+function createCategories() {
+    for (var i = 0; i < categories.length; i++) {
+        var d = document.createElement("div");
+        d.innerHTML = categories[i];
+        document.getElementById("divTabCahierMaterielCategories").appendChild(d);
+        
+        var d1 = document.createElement("div");
+        d.appendChild(d1);
+
+        var d2 = document.createElement("div");
+        d2.innerHTML = categories[i];
+        d1.appendChild(d2);
+    }
+}

@@ -36,7 +36,18 @@ input[type="number"] {
     -webkit-appearance: textfield;
     -moz-appearance: textfield;
     appearance: textfield;
+    cursor: pointer;
 }
+input[type="number"]:focus {
+    cursor: text;
+}
+
+/*input + div {
+    cursor:pointer;
+}
+input:focus + div {
+    cursor:text;
+}*/
 
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
