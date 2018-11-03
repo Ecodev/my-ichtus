@@ -11,7 +11,7 @@ function focusInOrOutInputTypeEmbarcation(elem, InOrOut) {
     if (InOrOut == true && elem.value == "") {
         for (var i = 0; i < types.length; i++) {
                 var divResult = document.createElement("div");
-                divResult.classList.add("divTabMaterielCodeEmbarcationTypeResult");
+                divResult.classList.add("divTabCahierMaterielCodeEmbarcationTypeResult");
                 document.getElementById("divTabCahierMaterielCodeEmbarcationTypeResults").appendChild(divResult);
 
                 //divResult.addEventListener("mousedown", function () { chosePerson(this.getElementsByClassName("spanTabCahierName")[0].innerHTML, this.getElementsByClassName("spanTabCahierSurname")[0].innerHTML); });

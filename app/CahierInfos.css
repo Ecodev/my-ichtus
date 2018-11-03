@@ -198,33 +198,8 @@
 }
 
 
-.divTabCahierInfosValidateButtons {
-    position: absolute;
+#divTabCahierInfos .divTabCahierInfosValidateButtons {
     right: 2.5%;
-    top: 600px;
-    width: 155px;
-    height: 45px;
-    padding-top: 10px;
-    padding-left: 10px;
-    border-radius: 10px;
-    color: white;
-    font-size: 30px;     
-    background-color: rgb(66, 133, 244);
-    -webkit-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
-    box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
-    background-image:url(Img/IconArrow.png);
-    background-size:35px;
-    background-repeat:no-repeat;
-    background-position-x:115px;
-    background-position-y:10px;
-    cursor:pointer;
-    transition:all 0.1s linear 0s;
+    top: 400px;
 }
 
-.divTabCahierInfosValidateButtons:hover {
-    margin-top:4px;
-    -webkit-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.75);
-    box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.75);
-}
