@@ -37,7 +37,7 @@
     background-image: none;
     background-repeat: no-repeat;
     background-size: 40px;
-    background-position-x: 235px;
+    background-position-x: 65px;
     background-position-y: 4px;
     color: black;
     font-size: 20px;
@@ -116,7 +116,7 @@
 #divTabCahierMaterielCodeEmbarcationTypeResults {
     position: absolute;
     left: 50%;
-    margin-left: -120px;
+    margin-left: -208px;
     top: 72px;
     background-color: red;
 }

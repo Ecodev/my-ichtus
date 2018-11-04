@@ -1,5 +1,15 @@
-﻿function checkMateriel() {
-    changeProgress(2);
+﻿function checkCodeMateriel() {
+    if (document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1].value != "1") {
+        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].style.borderColor = "red";
+        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1].style.borderColor = "red";
+        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("div")[0].style.backgroundColor = "red";
+    }
+    else {
+        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].style.borderColor = "black";
+        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1].style.borderColor = "black";
+        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("div")[0].style.backgroundColor = "black";
+        changeProgress(2);
+    }
 }
 
 
@@ -7,14 +17,17 @@
 var types = ["Canoé", "Kayak", "Planche à voile", "Voilier"];
 function focusInOrOutInputTypeEmbarcation(elem, InOrOut) {
     document.getElementById("divTabCahierMaterielCodeEmbarcationTypeResults").innerHTML = "";
-    elem.value = "";
-    if (InOrOut == true && elem.value == "") {
+
+    if (InOrOut == true) {
+        elem.value = "";
         for (var i = 0; i < types.length; i++) {
                 var divResult = document.createElement("div");
                 divResult.classList.add("divTabCahierMaterielCodeEmbarcationTypeResult");
                 document.getElementById("divTabCahierMaterielCodeEmbarcationTypeResults").appendChild(divResult);
 
-                //divResult.addEventListener("mousedown", function () { chosePerson(this.getElementsByClassName("spanTabCahierName")[0].innerHTML, this.getElementsByClassName("spanTabCahierSurname")[0].innerHTML); });
+            divResult.addEventListener("mousedown", function () {
+                document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].value = this.getElementsByClassName("spanTabMaterielCodeEmbarcationType")[0].innerHTML;
+            });
 
                 var span1 = document.createElement("span");
                 span1.classList.add("spanTabMaterielCodeEmbarcationTypeLetter");
@@ -37,8 +50,22 @@ function keyUpInputTypeEmbarcation(elem) {
             elem.value = types[i];
         }
     }
-   
+    if (elem.value == "") {
+        focusInOrOutInputTypeEmbarcation(elem, true);
+    }
 }
+
+
+function AcceptDenyCodeEmbarcation() {
+    //check
+    if (document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].value == "Canoé" && document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1].value == "1") {
+        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1].style.backgroundImage = "url(Img/IconCheckSignBlack.png)";
+    }
+    else {
+        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1].style.backgroundImage = "none";
+    }
+}
+
 
 var categories = ["SUP", "Canoé/Kayak", "Planche à voile", "Voilier"];
 function createCategories() {

@@ -139,15 +139,15 @@
         <!--Div Tab CahierMateriel-->
         <div id="divTabCahierMateriel" class="divTab">
             <div id="divTabCahierMaterielCodeEmbarcation">
-                <input type="text" placeholder="Type" onfocusin="focusInOrOutInputTypeEmbarcation(this,true)" onkeyup="keyUpInputTypeEmbarcation(this)" onfocusout="focusInOrOutInputTypeEmbarcation(this,false)" />
-                <input type="number" placeholder="Numéro" />
+                <input type="text" placeholder="Type" onfocusin="focusInOrOutInputTypeEmbarcation(this,true)" onkeyup="keyUpInputTypeEmbarcation(this); AcceptDenyCodeEmbarcation();" onfocusout="focusInOrOutInputTypeEmbarcation(this,false)" />
+                <input type="number" placeholder="Numéro" onkeyup="AcceptDenyCodeEmbarcation();"/>
                 <div></div>
                 <div>Code de l'embarcation</div>
                 <div id="divTabCahierMaterielCodeEmbarcationTypeResults"></div>
-                <div class="divTabCahierInfosValidateButtons" onclick="checkMateriel();">Valider</div>
+                <div class="divTabCahierInfosValidateButtons" onclick="checkCodeMateriel();">Valider</div>
             </div>
         
-            <div id="divTabCahierMaterielOther">Ou<br />Par catégorie</div>
+            <div id="divTabCahierMaterielOther">Ou<br /><br />Par catégorie</div>
             <div id="divTabCahierMaterielCategories"></div>
 
 
