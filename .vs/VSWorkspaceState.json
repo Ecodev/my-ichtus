@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\app"
+    "\\app",
+    "\\app\\Img",
+    "\\app\\Img\\Materiel"
   ],
-  "SelectedNode": "\\app\\main.html",
+  "SelectedNode": "\\app\\CahierMateriel.css",
   "PreviewInSolutionExplorer": false
 }

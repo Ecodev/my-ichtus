@@ -57,7 +57,12 @@ function keyUpInputTypeEmbarcation(elem) {
 }
 
 
-function AcceptDenyCodeEmbarcation() {
+function AcceptDenyCodeEmbarcation(e) {
+
+    if (e.keyCode == 13) {
+        checkCodeMateriel();
+    }
+
     //check
     if (document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].value == "Canoé" && document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1].value == "1") {
         document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1].style.backgroundImage = "url(Img/IconCheckSignBlack.png)";
@@ -82,4 +87,12 @@ function createCategories() {
         d2.innerHTML = categories[i];
         d1.appendChild(d2);
     }
+} 
+
+
+
+
+function loadMateriel() {
+
+
 }
