@@ -27,6 +27,7 @@ function focusInOrOutInputTypeEmbarcation(elem, InOrOut) {
 
             divResult.addEventListener("mousedown", function () {
                 document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].value = this.getElementsByClassName("spanTabMaterielCodeEmbarcationType")[0].innerHTML;
+                AcceptDenyCodeEmbarcation();
             });
 
                 var span1 = document.createElement("span");
