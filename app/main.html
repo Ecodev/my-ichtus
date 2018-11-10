@@ -2,26 +2,27 @@
 <html>
 <head>
 
-    <!-- !! --> 
-    <!-- Ajouter les transitions pour les différents exploreurs + box shadows + border radius --> 
+    <!-- !! -->
+    <!-- Ajouter les transitions pour les différents exploreurs + box shadows + border radius -->
     <!-- TESTEST GIT -->
 
 
     <meta charset="utf-8" />
     <title>Cahier de sortie</title>
 
-    <!-- Style Sheets --> 
+    <!-- Style Sheets -->
     <link href="General.css" rel="stylesheet" />
-    <link href="TopBar.css"  rel="stylesheet" />
+    <link href="Top.css" rel="stylesheet" />
+    <link href="Bottom.css" rel="stylesheet" />
     <link href="Materiel.css" rel="stylesheet" />
-    <link href="Cahier.css"  rel="stylesheet" />
-    <link href="CahierTop.css"  rel="stylesheet" />
+    <link href="Cahier.css" rel="stylesheet" />
+    <link href="CahierTop.css" rel="stylesheet" />
     <link href="CahierInfos.css" rel="stylesheet" />
     <link href="CahierMateriel.css" rel="stylesheet" />
     <link href="CahierConfirmation.css" rel="stylesheet" />
     <link href="Statistiques.css" rel="stylesheet" />
 
-     <!-- JavaScript Files --> 
+    <!-- JavaScript Files -->
     <script src="Home.js"></script>
     <script src="Screen.js"></script>
     <script src="Cahier.js"></script>
@@ -35,15 +36,15 @@
 
 </head>
 <body onload="load();">
-    
-    <!-- Top Bar --> 
+
+    <!-- Top Bar -->
     <div id="divTopBar">
-        <img id="imgTopBarIchtusLogo" src="Img/IchtusLogo.png"/>
-        <img id="imgTopBarIchtusText" src="Img/IchtusText.jpg"/>
+        <img id="imgTopBarIchtusLogo" src="Img/IchtusLogo.png" />
+        <img id="imgTopBarIchtusText" src="Img/IchtusText.jpg" />
 
 
-        <div id="divTopBarButtonMateriel"     class="divTopBarButtons"><div></div><div>Matériel</div><div></div></div>
-        <div id="divTopBarButtonCahier"       class="divTopBarButtons"><div></div><div>Cahier</div><div></div></div>  
+        <div id="divTopBarButtonMateriel" class="divTopBarButtons"><div></div><div>Matériel</div><div></div></div>
+        <div id="divTopBarButtonCahier" class="divTopBarButtons"><div></div><div>Cahier</div><div></div></div>
         <div id="divTopBarButtonStatistiques" class="divTopBarButtons"><div></div><div>Statistiques</div><div></div></div>
 
         <div id="divTopBarButtonsBar"></div>
@@ -54,27 +55,27 @@
         <div id="divTopBarTime"></div>
     </div>
 
-    <!-- Left Bar & Right Bar --> 
+    <!-- Left Bar & Right Bar -->
     <div id="divLeftBar"></div>
     <div id="divRightBar"></div>
 
 
 
-    <!-- Div Screen --> 
+    <!-- Div Screen -->
     <div id="divScreen">
-       
+
         <!--Div Tab Materiel-->
         <div id="divTabMateriel" class="divTab">
-             <br/><br/>MATOS ;)
-     
+            <br /><br />MATOS ;)
+
 
         </div>
-        
+
         <!--Div Tab Cahier-->
-        <div id="divTabCahier"  class="divTab">           
-            <input id="inputTabCahierSearch" spellcheck="false" type="text" placeholder="Rechercher..." autofocus onkeyup="Search(event)"/>
+        <div id="divTabCahier" class="divTab">
+            <input id="inputTabCahierSearch" spellcheck="false" type="text" placeholder="Rechercher..." autofocus onkeyup="Search(event)" />
             <div id="divTabCahierSearchResult"></div>
-            <img src="Img/TableExemple.png" style="width:80%; top:400px; left:10%; position:absolute;"/>
+            <img src="Img/TableExemple.png" style="width:80%; top:400px; left:10%; position:absolute;" />
             <img src="Img/TableExemple.png" style="width:80%; top:1000px; left:10%; position:absolute; filter:grayscale(100%)" />
         </div>
 
@@ -90,7 +91,7 @@
 
         <!--Div Tab CahierInfos-->
         <div id="divTabCahierInfos" class="divTab">
-           
+
 
             <div id="divTabCahierInfosPhoneNumber" class="TabCahierFields">
                 Numéro de téléphone
@@ -104,9 +105,9 @@
 
             <div id="divTabCahierInfosDestination" class="TabCahierFields">
                 Destination (facultatif ??)
-                <input type="text" spellcheck="false" placeholder="??" onkeyup="writeDestination(this);"   onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" /> <!--/> mmmmh ??-->
+                <input type="text" spellcheck="false" placeholder="??" onkeyup="writeDestination(this);" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" /> <!--/> mmmmh ??-->
                 <div></div>
-                <div id="divTabCahierInfosDestinationPropositions"  class="PropositionsContainer">
+                <div id="divTabCahierInfosDestinationPropositions" class="PropositionsContainer">
                     <div>Baie</div><div>La Ramée</div><div>La Tène</div><div>Neuchâtel</div><div>Cudrefin</div>
                 </div>
             </div>
@@ -119,13 +120,13 @@
 
             <div id="divTabCahierInfosStartTime" class="TabCahierFields">
                 Heure de départ
-                <input type="time" min="0:00" max="21:00" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);"/>
+                <input type="time" min="0:00" max="21:00" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" />
                 <div></div>
             </div>
 
             <div id="divTabCahierInfosEndTime" class="TabCahierFields">
                 Heure d'arivée
-                <input type="time" min="12:00" max="24:00"  onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" />
+                <input type="time" min="12:00" max="24:00" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" />
                 <div></div>
                 <div id="divTabCahierInfosEndTimePropositions" class="PropositionsContainer">
                     <div>30min</div><div>45min</div><div>1h</div><div>1h30</div><div>2h</div><div>3h</div><div>4h</div>
@@ -140,13 +141,13 @@
         <div id="divTabCahierMateriel" class="divTab">
             <div id="divTabCahierMaterielCodeEmbarcation">
                 <input type="text" placeholder="Type" onfocusin="focusInOrOutInputTypeEmbarcation(this,true)" onkeyup="keyUpInputTypeEmbarcation(this); AcceptDenyCodeEmbarcation();" onfocusout="focusInOrOutInputTypeEmbarcation(this,false)" />
-                <input type="number" placeholder="Numéro" onkeyup="AcceptDenyCodeEmbarcation(event);"/>
+                <input type="number" placeholder="Numéro" min="1" onkeyup="AcceptDenyCodeEmbarcation(event);" />
                 <div></div>
                 <div>Code de l'embarcation</div>
                 <div id="divTabCahierMaterielCodeEmbarcationTypeResults"></div>
                 <div class="divTabCahierInfosValidateButtons" onclick="checkCodeMateriel();">Valider</div>
             </div>
-        
+
             <div id="divTabCahierMaterielOther">Ou<br /><br />Par catégorie</div>
             <div id="divTabCahierMaterielCategories"></div>
 
@@ -167,22 +168,25 @@
 
         <!--Div Tab CahierConfirmation-->
         <div id="divTabCahierConfirmation" class="divTab">
-            
+
         </div>
 
         <!--Div Tab Statistiques-->
         <div id="divTabStatistiques" class="divTab">
 
             <br /><br /> STATS
+            <input type="file" id="file" value="main.html" />
+            <input type="button" onclick="ReadText()" />
         </div>
 
+        <!-- Div Bottom-->
+        <div id="divBottom">
 
-
-        
-
-        
+        </div>
     </div>
-    
+
+   
+
 
 </body>
 </html>

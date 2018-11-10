@@ -149,7 +149,7 @@ function changeTab(newElement, sign) {
 
     //alert(sign);
 
-    var allDivInDivScreen = document.getElementById("divScreen").getElementsByClassName("divTab");
+    var allDivTabs = document.getElementById("divScreen").getElementsByClassName("divTab");
 
     currentTabElement.style.zIndex = "10";
     currentTabElement.style.transition = "transform " + changeTime + "s linear 0s";
@@ -157,6 +157,17 @@ function changeTab(newElement, sign) {
     newElement.style.zIndex = "5";
    
     currentTabElement.style.transform = "translate(" + (-sign) + "00%)";  //element.style.transform = "translate(" + (-sign * widthToDisplay) + "px)"; //meme chose
+
+    newElement.style.top = "0px";
+
+    //for (var i = 0; i < allDivTabs.length; i++) {
+    //    if (allDivTabs[i] != newElement && allDivTabs[i] != document.getElementById("divTabCahierTop") && allDivTabs[i] != currentTabElement) {
+    //        allDivTabs[i].style.top = "-3000px";
+    //    }
+    //    else {
+    //        allDivTabs[i].style.top = "0px";
+    //    }
+    //}
 
     setTimeout(function () {
 
@@ -168,11 +179,14 @@ function changeTab(newElement, sign) {
         setTimeout(function () { currentTabElement.style.transition = "transform " + changeTime + "s linear 0s"; }, 30);
         setTimeout(function () {
             stillMoving = false;
+            currentTabElement.style.top = "-3000px";
             currentTabElement = newElement;
-            document.getElementById("divTopBarTopText").innerHTML = currentTabElement.id + "   " + stillMoving;
+            document.getElementById("divTopBarTopText").innerHTML = currentTabElement.id + "   " + stillMoving;           
         }, 50);
 
     }, changeTime * 1000);
+
+    
 
     //inputTabCahierSearch focus / blur
     if (newElement.id == "divTabCahier") {
@@ -254,6 +268,29 @@ function clickTab(buttonID) {
     else {
         alert("same tab");
     }
+
 }
 
 
+
+
+function ReadText() {
+
+
+
+    var myFileInput = document.getElementById('file');
+    var myFile = myFileInput.files[0];
+
+
+    var reader = new FileReader();
+
+    reader.onload = function () {
+        var fileContents = this.result;
+        alert(fileContents);
+    }
+
+    if (myFile != null) {
+        reader.readAsText(myFile);
+    }
+
+}

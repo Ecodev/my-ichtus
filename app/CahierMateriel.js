@@ -73,19 +73,37 @@ function AcceptDenyCodeEmbarcation(e) {
 }
 
 
-var categories = ["SUP", "Canoé/Kayak", "Planche à voile", "Voilier"];
+var categories = ["SUP", "Canoé", "Planche à voile", "Voilier","Kayak"];
 function createCategories() {
     for (var i = 0; i < categories.length; i++) {
         var d = document.createElement("div");
-        d.innerHTML = categories[i];
+        d.classList.add("divTabCahierMaterielBoxesContainer");
+        d.innerHTML = "300x " + categories[i] + "s";
         document.getElementById("divTabCahierMaterielCategories").appendChild(d);
         
         var d1 = document.createElement("div");
+        d1.classList.add("divTabCahierMaterielBoxes");
         d.appendChild(d1);
 
-        var d2 = document.createElement("div");
-        d2.innerHTML = categories[i];
-        d1.appendChild(d2);
+        var dTop = document.createElement("div");  
+        dTop.classList.add("divTabCahierMaterielBoxesTop");
+        d1.appendChild(dTop);
+
+        var dBottom = document.createElement("div");
+        dBottom.classList.add("divTabCahierMaterielBoxesBottom");
+        d1.appendChild(dBottom);
+
+        var dBottomText1 = document.createElement("div");
+        dBottomText1.classList.add("divTabCahierMaterielBoxesBottomText1");
+        dBottom.appendChild(dBottomText1);
+        dBottomText1.innerHTML = categories[i];
+
+        d.addEventListener("click", function () {
+           document.getElementById("divTabCahierMateriel").style.marginTop = "-1000px";
+
+
+
+        });
     }
 } 
 
