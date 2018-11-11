@@ -99,7 +99,9 @@ function createCategories() {
         dBottomText1.innerHTML = categories[i];
 
         d.addEventListener("click", function () {
-           document.getElementById("divTabCahierMateriel").style.marginTop = "-1000px";
+
+            changeTab(document.getElementById("divTabCahierMaterielElements"),1);
+           //document.getElementById("divTabCahierMateriel").style.marginTop = "-1000px";
 
 
 

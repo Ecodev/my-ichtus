@@ -74,6 +74,22 @@ function AdjustScreen(w, h) {
 
     document.getElementById("divTopBarTopText").style.marginLeft = -3/2 * d + "px";
     document.getElementById("divTopBarTopText").style.width = 3 * d + "px";
+
+    AdjustBottomBar();
+}
+
+
+function AdjustBottomBar() {
+    document.getElementById("divBottom").style.top = "-100px";
+
+    let scrollHeight = Math.max( //Full document height, with scrolled out part: 
+        document.body.scrollHeight, document.documentElement.scrollHeight,
+        document.body.offsetHeight, document.documentElement.offsetHeight,
+        document.body.clientHeight, document.documentElement.clientHeight
+    );
+    document.getElementById("divBottom").style.top = (scrollHeight - 100) + "px";
+
+    document.getElementById("divBottom").innerHTML = scrollHeight + " -100 ";
 }
 
 
@@ -142,7 +158,7 @@ function getTabNumber(x) {
 
 var tab = 0;
 var stillMoving = false;
-var currentTabElement; //see load for the first element = divtabcahier
+var currentTabElement;// = document.getElementById("divTabCahier"); //see load for the first element = divtabcahier
 var changeTime = 0.3;
 
 function changeTab(newElement, sign) {
@@ -160,15 +176,6 @@ function changeTab(newElement, sign) {
 
     newElement.style.top = "0px";
 
-    //for (var i = 0; i < allDivTabs.length; i++) {
-    //    if (allDivTabs[i] != newElement && allDivTabs[i] != document.getElementById("divTabCahierTop") && allDivTabs[i] != currentTabElement) {
-    //        allDivTabs[i].style.top = "-3000px";
-    //    }
-    //    else {
-    //        allDivTabs[i].style.top = "0px";
-    //    }
-    //}
-
     setTimeout(function () {
 
         currentTabElement.style.zIndex = "2";
@@ -181,7 +188,8 @@ function changeTab(newElement, sign) {
             stillMoving = false;
             currentTabElement.style.top = "-3000px";
             currentTabElement = newElement;
-            document.getElementById("divTopBarTopText").innerHTML = currentTabElement.id + "   " + stillMoving;           
+            document.getElementById("divTopBarTopText").innerHTML = currentTabElement.id + "   " + stillMoving;
+            AdjustBottomBar();
         }, 50);
 
     }, changeTime * 1000);
@@ -198,20 +206,21 @@ function changeTab(newElement, sign) {
 
     //EnterCahierTop
     if (newElement.id == "divTabCahierMateriel" && currentTabElement.id != "divTabCahierinfos" && currentTabElement.id != "divTabCahierConfirmation") {
-        document.documentElement.scrollTop = 60;
-        enterProgressBar()
+       // document.documentElement.scrollTop = 60;
+        enterProgressBar();
       //  alert("scroll up + CahierTOp zindex 6 -11");
     }
     //Remove CahierTop 
-    else if ((currentTabElement.id == "divTabCahierInfos" || currentTabElement.id == "divTabCahierMateriel" || currentTabElement.id == "divTabCahierConfirmation") && newElement.id != "divTabCahierInfos" && newElement.id != "divTabCahierMateriel" && newElement.id != "divTabCahierConfirmation") {
+    else if ((currentTabElement.id == "divTabCahierMaterielElements" || currentTabElement.id == "divTabCahierInfos" || currentTabElement.id == "divTabCahierMateriel" || currentTabElement.id == "divTabCahierConfirmation") && newElement.id != "divTabCahierInfos" && newElement.id != "divTabCahierMaterielElements" && newElement.id != "divTabCahierMateriel"&& newElement.id != "divTabCahierConfirmation") {
         alert("~Attention vous quittez votre inscription??"); 
         clearData();
         currentProgress = 0; //!!!!!!!!!!!!!!!!!!!!
         removeProgressBar(sign);
        // alert("remove cahiertop");
     }
-
 }
+
+
 
 //ENTER PROGRESS BAR
 function enterProgressBar() {

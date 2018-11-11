@@ -1,5 +1,6 @@
 ﻿#divTabCahierInfos {
-    background-color: white;
+    background-color: gray;
+    height:100%;
 }
 .TabCahierFields {
     position: absolute;

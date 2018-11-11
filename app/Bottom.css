@@ -1,9 +1,9 @@
 #divBottom {
 	position:absolute;
-	background-color:black;
+	background-color:green;
 	height:100px;
 	width:100%;
-	bottom:0px;
-	z-index:10;
-	opacity:0.1;
+	top:2200px;
+	z-index:20;
+	opacity:0.8;
 }
