@@ -5,6 +5,7 @@
 
 
 var widthScreen;
+var heightScreen;
 var widthToDisplay;
 var SmallerThan1500px = false;
 var SpaceLeft = 300;
@@ -15,6 +16,7 @@ function AdjustScreen(w, h) {
     var MaxWidth = 1500;
 
     widthScreen = w;
+    heightScreen = h;
 
     var _divLeftBar  = document.getElementById('divLeftBar' ).style;
     var _divRightBar = document.getElementById('divRightBar').style;
@@ -87,7 +89,13 @@ function AdjustBottomBar() {
         document.body.offsetHeight, document.documentElement.offsetHeight,
         document.body.clientHeight, document.documentElement.clientHeight
     );
-    document.getElementById("divBottom").style.top = (scrollHeight - 100) + "px";
+
+    if (scrollHeight + 5 > heightScreen && scrollHeight - 5 < heightScreen) {
+        document.getElementById("divBottom").style.top = (scrollHeight - 100) + "px";
+    }
+    else {
+        document.getElementById("divBottom").style.top = (scrollHeight + 0) + "px";
+    }
 
     document.getElementById("divBottom").innerHTML = scrollHeight + " -100 ";
 }
@@ -164,6 +172,8 @@ var changeTime = 0.3;
 function changeTab(newElement, sign) {
 
     //alert(sign);
+
+    document.documentElement.scrollTop = 0;
 
     var allDivTabs = document.getElementById("divScreen").getElementsByClassName("divTab");
 

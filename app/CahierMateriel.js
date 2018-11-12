@@ -57,7 +57,7 @@ function keyUpInputTypeEmbarcation(elem) {
 }
 
 
-function AcceptDenyCodeEmbarcation(e) {
+function AcceptDenyCodeEmbarcation(e) { //pas parfait...
 
     if (e.keyCode == 13) {
         checkCodeMateriel();
@@ -66,6 +66,9 @@ function AcceptDenyCodeEmbarcation(e) {
     //check
     if (document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].value == "Canoé" && document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1].value == "1") {
         document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1].style.backgroundImage = "url(Img/IconCheckSignBlack.png)";
+        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].style.borderColor = "black";
+        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1].style.borderColor = "black";
+        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("div")[0].style.backgroundColor = "black";
     }
     else {
         document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1].style.backgroundImage = "none";

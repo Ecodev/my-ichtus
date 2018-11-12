@@ -4,6 +4,7 @@
 
     <!-- !! -->
     <!-- Ajouter les transitions pour les différents exploreurs + box shadows + border radius -->
+    <!-- Keyupdown sur le premier input code embarcation n'importe quoi...-->
     <!-- TESTEST GIT -->
 
 
@@ -76,8 +77,10 @@
         <div id="divTabCahier" class="divTab">
             <input id="inputTabCahierSearch" spellcheck="false" type="text" placeholder="Rechercher..." autofocus onkeyup="Search(event)" />
             <div id="divTabCahierSearchResult"></div>
-            <img src="Img/TableExemple.png" style="width:80%; top:520px; left:10%; position:absolute;" />
-            <img src="Img/TableExemple.png" style="width:80%; top:1000px; left:10%; position:absolute; filter:grayscale(100%)" />
+            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+            <img src="Img/TableExemple.png" style="width:80%; top:0px; left:10%; position:relative;" />bonjour
+            <img src="Img/TableExemple.png" style="width:80%; top:0px; left:10%; position:relative; filter:grayscale(100%)" />
+            hello
         </div>
 
         <!--Div Tab Cahier Top-->
@@ -93,15 +96,10 @@
         <!--Div Tab CahierInfos-->
         <div id="divTabCahierInfos" class="divTab">
 
-
-            <div id="divTabCahierInfosPhoneNumber" class="TabCahierFields">
-                Numéro de téléphone
-                <input type="text" spellcheck="false" placeholder="07X XXX XX XX" pattern="[0-9]{6}" onkeydown="writePhoneNumber(event,this)" onkeyup="checkPhoneNumber(this)" />
+            <div id="divTabCahierInfosNbrInvites" class="TabCahierFields">
+                Nbr d'accompagnants
+                <input type="number" min="0" max="20" spellcheck="false" placeholder="Max 4?" value="" onkeyup="writeNbrInvites(this);" />
                 <div></div>
-                <div id="checkBoxTabCahierInfosPhoneNumberRemember" onclick="check(this)">
-                    <div class="checkBox"></div><div>Se souvenir de mon numéro</div>
-                </div>
-
             </div>
 
             <div id="divTabCahierInfosDestination" class="TabCahierFields">
@@ -113,11 +111,19 @@
                 </div>
             </div>
 
-            <div id="divTabCahierInfosNbrInvites" class="TabCahierFields">
-                Nbr d'accompagnants
-                <input type="number" min="0" max="20" spellcheck="false" placeholder="Max 4?" value="" onkeyup="writeNbrInvites(this);" />
+            <div id="divTabCahierInfosPhoneNumber" class="TabCahierFields">
+                Numéro de téléphone
+                <input type="text" spellcheck="false" placeholder="07X XXX XX XX" pattern="[0-9]{6}" onkeydown="writePhoneNumber(event,this)" onkeyup="checkPhoneNumber(this)" />
                 <div></div>
+                <div id="checkBoxTabCahierInfosPhoneNumberRemember" onclick="check(this)">
+                    <div class="checkBox"></div><div>Se souvenir de mon numéro</div>
+                </div>
+
             </div>
+
+
+
+
 
             <div id="divTabCahierInfosStartTime" class="TabCahierFields">
                 Heure de départ
@@ -141,7 +147,7 @@
         <!--Div Tab CahierMateriel-->
         <div id="divTabCahierMateriel" class="divTab">
             <div id="divTabCahierMaterielCodeEmbarcation">
-                <input type="text" placeholder="Type" onfocusin="focusInOrOutInputTypeEmbarcation(this,true)" onkeyup="keyUpInputTypeEmbarcation(this); AcceptDenyCodeEmbarcation();" onfocusout="focusInOrOutInputTypeEmbarcation(this,false)" />
+                <input type="text" placeholder="Type"onkeyup="AcceptDenyCodeEmbarcation(event);" onfocusin="focusInOrOutInputTypeEmbarcation(this,true)" onkeyup="keyUpInputTypeEmbarcation(this);" onfocusout="focusInOrOutInputTypeEmbarcation(this,false)" />
                 <input type="number" placeholder="Numéro" min="1" onkeyup="AcceptDenyCodeEmbarcation(event);" />
                 <div></div>
                 <div>Code de l'embarcation</div>

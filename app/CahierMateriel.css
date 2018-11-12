@@ -1,7 +1,5 @@
 ﻿#divTabCahierMateriel {
-    background-color: white;
-    height:100%;
-    margin-top: 0px;
+    margin-top:0px;
     -moz-transition: margin-top 0.2s linear 0s;
     -o-transition: margin-top 0.2s linear 0s;
     -webkit-transition: margin-top 0.2s linear 0s;
@@ -9,10 +7,11 @@
 }
 
 #divTabCahierMaterielCodeEmbarcation {
-    position: absolute;
+    position: relative;
     left: 50%;
     margin-left:-250px;
-    top: 360px;
+    margin-top:360px;
+    top: 0px;
     width: 500px;
     height: 80px;
     /*border: 2px solid gray;*/
@@ -195,9 +194,9 @@
 
 
 #divTabCahierMaterielOther {
-    position: absolute;
+    position: relative;
     left: 0px;
-    top: 450px;
+    top: 0px;
     width: 100%;
     font-size:40px;
     color:black;
@@ -228,12 +227,13 @@
 
 
 #divTabCahierMaterielCategories {
-    position: absolute;
+    position: relative;
     left: 2.5%;
-    top: 600px;
+    top: 0px;
     width: 95%;
-    height: 100px;
+    min-height: 100px;
     text-align:center;
+    background-color:azure;
 }
 
 

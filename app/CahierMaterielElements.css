@@ -1,16 +1,15 @@
 #divTabCahierMaterielElements{
-    background-color:white;
-    height:100%;
+
 }
 
 
 #divTabCahierMaterielCategoriesElementsContainer {
-    position: absolute;
-    top: 340px;
+    position: relative;
+    margin-top: 340px;
     width: 95%;
     left: 2.5%;
-    height: 500px;
-    background-color: white;
+    min-height: 100px;
+    background-color: azure;
     text-align: center;
 }
 

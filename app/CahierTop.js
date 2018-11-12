@@ -79,6 +79,11 @@ function changeProgress(c) {
     }
     if (c == 1) {
         changeTab(document.getElementById("divTabCahierMateriel"), sign);
+        setTimeout(function () {
+
+            document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].focus();
+        }, changeTime);
+        
     }
     if (c == 2) {
         changeTab(document.getElementById("divTabCahierInfos"), sign);
