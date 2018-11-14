@@ -1,94 +1,111 @@
 ﻿function checkCodeMateriel() {
-    if (document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1].value != "1") {
-        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].style.borderColor = "red";
-        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1].style.borderColor = "red";
-        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("div")[0].style.backgroundColor = "red";
+    if (inputTypeCodeMateriel.value.toUpperCase() == "Canoé".toUpperCase() && inputNumberCodeMateriel.value == "1") {
+        return true;
+ 
     }
     else {
+        return false;
+    
+    }
+}
+
+function actualizeCodeMateriel() { //v sign or not
+    if (checkCodeMateriel()) {
+        inputNumberCodeMateriel.style.backgroundImage = "url(Img/IconCheckSignBlack.png)";
+        inputTypeCodeMateriel.style.borderColor = "black";
+        inputNumberCodeMateriel.style.borderColor = "black";
+        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("div")[0].style.backgroundColor = "black";
+     
+    }
+    else {
+        inputNumberCodeMateriel.style.backgroundImage = "none";
+    }
+}
+
+
+function validateCodeMateriel() {
+    if (checkCodeMateriel()) {
         document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].style.borderColor = "black";
         document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1].style.borderColor = "black";
         document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("div")[0].style.backgroundColor = "black";
         changeProgress(2);
     }
+    else {
+        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].style.borderColor = "red";
+        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1].style.borderColor = "red";
+        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("div")[0].style.backgroundColor = "red";
+    }
+}
+
+function writeCodeMateriel() {
+    for (var i = 0; i < types.length; i++) {
+        if (inputTypeCodeMateriel.value.toUpperCase() == types[i][0]) {
+            inputTypeCodeMateriel.value = types[i];
+            inputNumberCodeMateriel.focus();
+        }
+    }
 }
 
 
+
+var inputTypeCodeMateriel; 
+var inputNumberCodeMateriel; 
 
 var types = ["Canoé", "Kayak", "Planche à voile", "Voilier"];
-function focusInOrOutInputTypeEmbarcation(elem, InOrOut) {
+function openPropositionsCodeMateriel() {
+
     document.getElementById("divTabCahierMaterielCodeEmbarcationTypeResults").innerHTML = "";
 
-    if (InOrOut == true) {
-        elem.value = "";
-        for (var i = 0; i < types.length; i++) {
-                var divResult = document.createElement("div");
-                divResult.classList.add("divTabCahierMaterielCodeEmbarcationTypeResult");
-                document.getElementById("divTabCahierMaterielCodeEmbarcationTypeResults").appendChild(divResult);
+    inputTypeCodeMateriel.value = "";
 
-            divResult.addEventListener("mousedown", function () {
-                document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].value = this.getElementsByClassName("spanTabMaterielCodeEmbarcationType")[0].innerHTML;
-                AcceptDenyCodeEmbarcation();
-            });
-
-                var span1 = document.createElement("span");
-                span1.classList.add("spanTabMaterielCodeEmbarcationTypeLetter");
-                span1.innerHTML = types[i][0];
-                divResult.appendChild(span1);
-
-                var span2 = document.createElement("span");
-                span2.classList.add("spanTabMaterielCodeEmbarcationType");
-                span2.innerHTML = types[i];
-                divResult.appendChild(span2);
-        }
-    }
-}
-
-function keyUpInputTypeEmbarcation(elem) {
-    document.getElementById("divTabCahierMaterielCodeEmbarcationTypeResults").innerHTML = "";
     for (var i = 0; i < types.length; i++) {
-        if (elem.value.toUpperCase() == types[i][0]) {
-            document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1].focus();
-            elem.value = types[i];
-        }
-    }
-    if (elem.value == "") {
-        focusInOrOutInputTypeEmbarcation(elem, true);
-    }
+        var divResult = document.createElement("div");
+        divResult.classList.add("divTabCahierMaterielCodeEmbarcationTypeResult");
+        document.getElementById("divTabCahierMaterielCodeEmbarcationTypeResults").appendChild(divResult);
+
+        divResult.addEventListener("mousedown", function () {
+            inputTypeCodeMateriel.value = this.getElementsByClassName("spanTabMaterielCodeEmbarcationType")[0].innerHTML;          
+            actualizeCodeMateriel();
+            closePropositionsCodeMateriel();
+            inputNumberCodeMateriel.focus();//marche pas
+        });
+
+
+        var span1 = document.createElement("span");
+        span1.classList.add("spanTabMaterielCodeEmbarcationTypeLetter");
+        span1.innerHTML = types[i][0];
+        divResult.appendChild(span1);
+
+        var span2 = document.createElement("span");
+        span2.classList.add("spanTabMaterielCodeEmbarcationType");
+        span2.innerHTML = types[i];
+        divResult.appendChild(span2);
+    }   
 }
 
 
-function AcceptDenyCodeEmbarcation(e) { //pas parfait...
 
-    if (e.keyCode == 13) {
-        checkCodeMateriel();
-    }
-
-    //check
-    if (document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].value == "Canoé" && document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1].value == "1") {
-        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1].style.backgroundImage = "url(Img/IconCheckSignBlack.png)";
-        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].style.borderColor = "black";
-        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1].style.borderColor = "black";
-        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("div")[0].style.backgroundColor = "black";
-    }
-    else {
-        document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1].style.backgroundImage = "none";
-    }
+function closePropositionsCodeMateriel() {
+       document.getElementById("divTabCahierMaterielCodeEmbarcationTypeResults").innerHTML = "";
 }
 
 
 var categories = ["SUP", "Canoé", "Planche à voile", "Voilier","Kayak"];
-function createCategories() {
+function loadMateriel() {
+    inputTypeCodeMateriel = document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0];
+    inputNumberCodeMateriel = document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1];
+
     for (var i = 0; i < categories.length; i++) {
         var d = document.createElement("div");
         d.classList.add("divTabCahierMaterielBoxesContainer");
         d.innerHTML = "300x " + categories[i] + "s";
         document.getElementById("divTabCahierMaterielCategories").appendChild(d);
-        
+
         var d1 = document.createElement("div");
         d1.classList.add("divTabCahierMaterielBoxes");
         d.appendChild(d1);
 
-        var dTop = document.createElement("div");  
+        var dTop = document.createElement("div");
         dTop.classList.add("divTabCahierMaterielBoxesTop");
         d1.appendChild(dTop);
 
@@ -103,19 +120,11 @@ function createCategories() {
 
         d.addEventListener("click", function () {
 
-            changeTab(document.getElementById("divTabCahierMaterielElements"),1);
-           //document.getElementById("divTabCahierMateriel").style.marginTop = "-1000px";
+            changeTab(document.getElementById("divTabCahierMaterielElements"), 1);
+            //document.getElementById("divTabCahierMateriel").style.marginTop = "-1000px";
 
 
 
         });
     }
-} 
-
-
-
-
-function loadMateriel() {
-
-
 }

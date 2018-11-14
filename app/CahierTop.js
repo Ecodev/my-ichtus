@@ -81,7 +81,7 @@ function changeProgress(c) {
         changeTab(document.getElementById("divTabCahierMateriel"), sign);
         setTimeout(function () {
 
-            document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].focus();
+          //  document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].focus();
         }, changeTime);
         
     }
