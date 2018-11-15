@@ -116,7 +116,7 @@ input[type=time]::-webkit-clear-button {
     position: absolute;
     left: 0px;
     margin-left: 0px;
-    top: -3000px;
+    top: -30000px;
     margin-top:0px;
     width: 100%;
     float: left; /*//*/
@@ -134,7 +134,7 @@ input[type=time]::-webkit-clear-button {
 
 
 .divTabCahierInfosValidateButtons {
-    position: absolute;
+    position: relative;
     width: 155px;
     height: 44px;
     padding-top: 10px;
@@ -149,10 +149,11 @@ input[type=time]::-webkit-clear-button {
     background-image: url(Img/IconArrow.png);
     background-size: 35px;
     background-repeat: no-repeat;
-    background-position-x: 115px;
+    background-position-x: 105px;
     background-position-y: 10px;
     cursor: pointer;
     transition: all 0.1s linear 0s;
+    text-align:left;
 }
 
 .divTabCahierInfosValidateButtons:hover {

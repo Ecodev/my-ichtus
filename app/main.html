@@ -31,6 +31,7 @@
     <script src="CahierTop.js"></script>
     <script src="CahierInfos.js"></script>
     <script src="CahierMateriel.js"></script>
+    <script src="CahierMaterielElements.js"></script>
     <script src="CahierConfirmation.js"></script>
 
     <!--Favicon-->
@@ -89,58 +90,62 @@
             <div id="divTabCahierInfosName"></div>
             <div id="divTabCahierInfosBar"></div>
             <div id="divTabCahierCancelButton" onclick=" changeProgress(0); clearData();">Annuler la sortie</div>
-            <div id="divTabCahierChangeNameButton2" onclick="changeProgress(0);">pasbeau</div>
-            <div id="divTabCahierChangeNameButton" onclick="changeProgress(0);">???</div>
+            <!--<div id="divTabCahierChangeNameButton2" onclick="changeProgress(0);">pasbeau</div>-->
+            <!--<div id="divTabCahierChangeNameButton" onclick="changeProgress(0);">???</div>-->
         </div>
 
         <!--Div Tab CahierInfos-->
         <div id="divTabCahierInfos" class="divTab">
 
-            <div id="divTabCahierInfosNbrInvites" class="TabCahierFields">
-                Nbr d'accompagnants
-                <input type="number" min="0" max="20" spellcheck="false" placeholder="Max 4?" value="" onkeyup="writeNbrInvites(this);" />
-                <div></div>
-            </div>
+            <div id="divTabCahierFieldsContainer">
 
-            <div id="divTabCahierInfosDestination" class="TabCahierFields">
-                Destination (facultatif ??)
-                <input type="text" spellcheck="false" placeholder="??" onkeyup="writeDestination(this);" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" /> <!--/> mmmmh ??-->
-                <div></div>
-                <div id="divTabCahierInfosDestinationPropositions" class="PropositionsContainer">
-                    <div>Baie</div><div>La Ramée</div><div>La Tène</div><div>Neuchâtel</div><div>Cudrefin</div>
-                </div>
-            </div>
-
-            <div id="divTabCahierInfosPhoneNumber" class="TabCahierFields">
-                Numéro de téléphone
-                <input type="text" spellcheck="false" placeholder="07X XXX XX XX" pattern="[0-9]{6}" onkeydown="writePhoneNumber(event,this)" onkeyup="checkPhoneNumber(this)" />
-                <div></div>
-                <div id="checkBoxTabCahierInfosPhoneNumberRemember" onclick="check(this)">
-                    <div class="checkBox"></div><div>Se souvenir de mon numéro</div>
+                <div id="divTabCahierInfosNbrInvites" class="TabCahierFields">
+                    Nbr d'accompagnants
+                    <input type="number" min="0" max="20" spellcheck="false" placeholder="0" value="" onkeyup="writeNbrInvites(this);" />
+                    <div></div>
                 </div>
 
-            </div>
-
-
-
-
-
-            <div id="divTabCahierInfosStartTime" class="TabCahierFields">
-                Heure de départ
-                <input type="time" min="0:00" max="21:00" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" />
-                <div></div>
-            </div>
-
-            <div id="divTabCahierInfosEndTime" class="TabCahierFields">
-                Heure d'arivée
-                <input type="time" min="12:00" max="24:00" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" />
-                <div></div>
-                <div id="divTabCahierInfosEndTimePropositions" class="PropositionsContainer">
-                    <div>30min</div><div>45min</div><div>1h</div><div>1h30</div><div>2h</div><div>3h</div><div>4h</div>
+                <div id="divTabCahierInfosDestination" class="TabCahierFields">
+                    Destination
+                    <input type="text" spellcheck="false" placeholder="Baie" onkeyup="writeDestination(this);" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" /> <!--/> mmmmh ??-->
+                    <div></div>
+                    <div id="divTabCahierInfosDestinationPropositions" class="PropositionsContainer">
+                        <div>Baie</div><div>La Ramée</div><div>La Tène</div><div>Neuchâtel</div><div>Cudrefin</div>
+                    </div>
                 </div>
+
+                <div id="divTabCahierInfosPhoneNumber" class="TabCahierFields">
+                    Numéro de téléphone
+                    <input type="text" spellcheck="false" placeholder="07X XXX XX XX" pattern="[0-9]{6}" onkeydown="writePhoneNumber(event,this)" onkeyup="checkPhoneNumber(this)" />
+                    <div></div>
+                    <div id="checkBoxTabCahierInfosPhoneNumberRemember" onclick="check(this)">
+                        <div class="checkBox"></div><div>Se souvenir de mon numéro</div>
+                    </div>
+
+                </div>
+
+
+                <!--<div id="divTabCahierInfosStartTime" class="TabCahierFields">
+            Heure de départ
+            <input type="time" min="0:00" max="21:00" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" />
+            <div></div>
+        </div>
+
+        <div id="divTabCahierInfosEndTime" class="TabCahierFields">
+            Heure d'arivée
+            <input type="time" min="12:00" max="24:00" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" />
+            <div></div>
+            <div id="divTabCahierInfosEndTimePropositions" class="PropositionsContainer">
+                <div>30min</div><div>45min</div><div>1h</div><div>1h30</div><div>2h</div><div>3h</div><div>4h</div>
+            </div>
+        </div>-->
             </div>
 
             <div class="divTabCahierInfosValidateButtons" onclick="checkInfos();">Suivant</div>
+
+            <br />
+            <br />
+            end
 
         </div>
 
@@ -156,6 +161,9 @@
             </div>
 
             <div id="divTabCahierMaterielOther">Ou<br /><br />Par catégorie</div>
+
+
+
             <div id="divTabCahierMaterielCategories"></div>
 
         
@@ -168,12 +176,6 @@
         <div id="divTabCahierMaterielElements" class="divTab">
 
             <div id="divTabCahierMaterielCategoriesElementsContainer">
-                <div><div><div>7.0</div><div><div>Severne</div><div>Overdrive 2017</div></div><div></div><div></div></div></div>
-                <div><div><div>7.0</div><div><div>Severne</div><div>Overdrive 2017</div></div><div></div><div></div></div></div>
-                <div><div><div>7.0</div><div><div>Severne</div><div>Overdrive 2017</div></div><div></div><div></div></div></div>
-                <div><div><div>7.0</div><div><div>Severne</div><div>Overdrive 2017</div></div><div></div><div></div></div></div>
-                <div><div><div>7.0</div><div><div>Severne</div><div>Overdrive 2017</div></div><div></div><div></div></div></div>
-                <div><div><div>7.0</div><div><div>Severne</div><div>Overdrive 2017</div></div><div></div><div></div></div></div><div><div><div>7.0</div><div><div>Severne</div><div>Overdrive 2017</div></div><div></div><div></div></div></div>
 
 
             </div>

@@ -196,7 +196,7 @@ function changeTab(newElement, sign) {
         setTimeout(function () { currentTabElement.style.transition = "transform " + changeTime + "s linear 0s"; }, 30);
         setTimeout(function () {
             stillMoving = false;
-            currentTabElement.style.top = "-3000px";
+            currentTabElement.style.top = "-30000px";
             currentTabElement = newElement;
             document.getElementById("divTopBarTopText").innerHTML = currentTabElement.id + "   " + stillMoving;
             AdjustBottomBar();
@@ -216,7 +216,7 @@ function changeTab(newElement, sign) {
 
     //EnterCahierTop
     if (newElement.id == "divTabCahierMateriel" && currentTabElement.id != "divTabCahierinfos" && currentTabElement.id != "divTabCahierConfirmation") {
-       // document.documentElement.scrollTop = 60;
+        document.documentElement.scrollTop = 60;
         enterProgressBar();
       //  alert("scroll up + CahierTOp zindex 6 -11");
     }

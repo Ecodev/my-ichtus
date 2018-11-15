@@ -39,7 +39,7 @@ function validateCodeMateriel() {
 
 function writeCodeMateriel() {
     for (var i = 0; i < types.length; i++) {
-        if (inputTypeCodeMateriel.value.toUpperCase() == types[i][0]) {
+        if (types[i].toUpperCase().includes(inputTypeCodeMateriel.value.toUpperCase()) && inputTypeCodeMateriel.value != "") {
             inputTypeCodeMateriel.value = types[i];
             inputNumberCodeMateriel.focus();
         }
@@ -97,6 +97,7 @@ function loadMateriel() {
 
     for (var i = 0; i < categories.length; i++) {
         var d = document.createElement("div");
+        d.id = categories[i];
         d.classList.add("divTabCahierMaterielBoxesContainer");
         d.innerHTML = "300x " + categories[i] + "s";
         document.getElementById("divTabCahierMaterielCategories").appendChild(d);
@@ -123,8 +124,7 @@ function loadMateriel() {
             changeTab(document.getElementById("divTabCahierMaterielElements"), 1);
             //document.getElementById("divTabCahierMateriel").style.marginTop = "-1000px";
 
-
-
+            loadElements(this.id);
         });
     }
 }

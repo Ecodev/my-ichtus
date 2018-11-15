@@ -1,15 +1,27 @@
 ﻿#divTabCahierInfos {
-    background-color: moccasin;
+    background-color: white;  
+    text-align:center;
 }
+#divTabCahierFieldsContainer {
+    position: relative;
+    background-color: azure;
+    text-align: center;
+    min-height:100px;
+    margin-top:330px;
+}
+
 .TabCahierFields {
     position: relative;
     padding: 8px;
     color: black;
     font-size: 20px;
     width: 268px;
-    left:50%;
-    margin-left:-234px;
-    /*background-color: lightgray;*/
+    height: 150px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 0px;
+    display: inline-block;
+    background-color: lightgray;
 }
 .TabCahierFields input {
     position: absolute;
@@ -80,14 +92,15 @@
 
 
 #divTabCahierInfosDestination { 
-    right: 2.5%;
-    top: 250px;  
+    /*right: 2.5%;
+    top: 250px;*/  
 }
 #divTabCahierInfosDestination > div:nth-child(2){
     background-image: url(Img/IconDestinationTransparent.png);
 }
 .PropositionsContainer {
     position: absolute;
+    text-align:left;
     left: 50px;
     top: 94px; 
 }
@@ -95,7 +108,7 @@
 #divTabCahierInfosDestinationPropositions {
     width: 220px;
     height: 50px;
-    background-color: orange;
+    background-color: transparent;
 }
 #divTabCahierInfosEndTimePropositions {
     width: 500px;
@@ -132,8 +145,8 @@
 
 
 #divTabCahierInfosPhoneNumber {
-    left: 2.5%;
-    top: 400px;
+    /*left: 2.5%;
+    top: 400px;*/
 }
 #divTabCahierInfosPhoneNumber > div:nth-child(2) {
     background-image: url(Img/IconPhoneTransparent.png);
@@ -157,16 +170,21 @@
 
 #divTabCahierInfosNbrInvites {
     /*left:2.5%;*/
-    margin-left:0px;
-    margin-top:330px;
+    /*margin-left:0px;*/
+    /*margin-top:330px;*/
 }
 #divTabCahierInfosNbrInvites input {
+    left:50%;
+    margin-left:-65px;
     width: 70px;
     background-position-x: 90px;
 }
 #divTabCahierInfosNbrInvites > div:nth-child(2) {
-    background-image:url(Img/IconInvitesTransparent.png);
+    background-image: url(Img/IconInvitesTransparent.png);
+    left: 50%;
+    margin-left: -65px;
 }
+
 
 
 
@@ -201,7 +219,8 @@
 
 
 #divTabCahierInfos .divTabCahierInfosValidateButtons {
-    right: 2.5%;
-    top: 400px;
+    margin-top:5px;
+    background-position-x: 115px; 
+    display:inline-block;
 }
 
