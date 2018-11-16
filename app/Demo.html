@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Test</title>
+        <style>
+            body {
+                font-size: 16px;
+            }
+
+            pre {
+                display: inline-block;
+                vertical-align: top;
+                background-color: lightblue;
+            }
+        </style>
+        <script type="text/javascript" src="https://my.ichtus.ch/vanilla/runtime.js"></script>
+        <script type="text/javascript" src="https://my.ichtus.ch/vanilla/main.js"></script>
+    </head>
+    <body>
+
+        <h1>
+            Demo de l'api
+            <button onclick="login()">Login</button>
+        </h1>
+
+        <div style="display: flex;flex-direction:row;">
+
+            <div style="flex:1; display: flex;flex-direction:column;margin-right:30px;overflow:auto">
+
+                <h2>Ressources
+                    <button onclick="addItem()">Ajouter</button>
+                </h2>
+                <div style="display: flex;flex-direction:column;">
+                    Non filtrées
+                    <pre id="items"></pre>
+                </div>
+
+                <div style="display: flex;flex-direction:column;">
+                    Ressources that contain "26" string
+                    <pre id="filteredItems"></pre>
+                </div>
+            </div>
+
+            <div style="flex:1; display: flex;flex-direction:column;overflow:auto">
+                <h2>Sorties
+                    <button onclick="createBooking(3000)">Ajouter avec la ressource 3000</button>
+                    <button onclick="createBooking(3000)">Ajouter avec la ressource 3001</button>
+                </h2>
+                <pre id="bookings"></pre>
+            </div>
+
+        </div>
+
+        <script>
+
+          // For debugging purpose only
+          function prettyJson(data) {
+            return JSON.stringify(data, null, 2);
+          }
+
+            // Get the API
+            const api = window.ichtusApi;
+            console.warn('API : ', api);
+
+            // Use predefined service to get one user
+            function getItemList(filter = {}, resultDiv = 'items') {
+
+                // Config filters
+                const variables = new api.QueryVariablesManager();
+                variables.set('variables', filter);
+
+                // Get all items
+                api.itemService.getAll(variables).subscribe(result => {
+                    console.log('Items list : ', result);
+                    document.getElementById(resultDiv).innerHTML = prettyJson(result.items);
+                });
+            }
+
+            // Get Item list at page loading
+            getItemList();
+
+            // Get filtered items
+            getItemList({
+                filter: {
+                    groups: [
+                        {conditions: [{name: {like: {value: '%26%'}}}]}
+                    ]
+                },
+                pagination: {
+                    pageSize: 5,
+                    pageIndex: 0
+                }
+            }, 'filteredItems');
+
+            // Add an item
+            function addItem() {
+                const item = {name: 'Ma ressource ' + Date.now()};
+                api.itemService.create(item).subscribe(result => {
+                    console.log('Item created', result);
+                    getItemList();
+                })
+            }
+
+            // Use bookings
+            function getBookingList(filter = {}, resultDiv = 'bookings') {
+
+                // Config filters
+                const variables = new api.QueryVariablesManager();
+                variables.set('variables', filter);
+
+                // Get all items
+                api.bookingService.getAll(variables).subscribe(result => {
+                    console.log('Booking list : ', result);
+                    document.getElementById(resultDiv).innerHTML = prettyJson(result.items);
+                });
+            }
+
+            getBookingList();
+
+            // Create booking
+            function createBooking(itemId) {
+
+                // Get all items
+                api.bookingService.create({destination: "Jusqu'à l'infini et au delà"}).subscribe(booking => {
+                    console.log('Created booking : ', booking);
+                    api.linkMutation.link(booking, {
+                        id: itemId,
+                        __typename: 'Item'
+                    }).subscribe(() => {
+                        getBookingList();
+                    });
+
+                });
+            }
+
+            // Create custom GraphQL query
+            function getCountries() {
+                const customQuery = api.gql`
+                query Countries {
+                    countries {
+                        items {
+                            code
+                            name
+                        }
+                    }
+                }`;
+
+                // Execute custom query
+                api.apollo.query({query: customQuery}).subscribe(result => {
+                    console.log(result);
+                    document.getElementById('test2').innerHTML = prettyJson(result);
+                });
+            }
+
+            // Get currently logged in user
+            // api.userService.getCurrentUser().subscribe(user => console.log(user));
+
+            // Login new user
+            function login() {
+                api.userService.login({
+                    login: 'administrator',
+                    password: 'administrator'
+                }).subscribe(result => console.log(result));
+            }
+
+        </script>
+    </body>
+</html>
