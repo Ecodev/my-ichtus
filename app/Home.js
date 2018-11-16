@@ -14,6 +14,9 @@ function load() {
     createProgressBar();
     createAllPropositions();
     loadMateriel();
+
+    ServerInitialize();
+
 }
 
 function TimeGetMinutes() {

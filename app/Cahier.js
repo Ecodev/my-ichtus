@@ -18,6 +18,7 @@ function Person(name, surname, gender) {
 }
 
 
+
 function Search(e) {
 
     var text = document.getElementById("inputTabCahierSearch").value.toUpperCase();
@@ -29,84 +30,69 @@ function Search(e) {
             chosePerson(name, surname);
         }
     }
-    
+   
+    if (text != "") {
+        Requests.getUsersList(text, 5);
+    }
+    else {
+        document.getElementById("divTabCahierSearchResult").innerHTML = "";
+    }
+}
+function createSearchEntries(PeopleCorresponding) {
+    console.log(PeopleCorresponding);
+
     document.getElementById("divTabCahierSearchResult").innerHTML = "";
 
-    if (text != "") {
+    var c = 0;
 
-        var textParts = text.split(" ");
+    if (PeopleCorresponding.length == 0) {
+        var divResult = document.createElement("div");
+        divResult.classList.add("divTabCahierResultEntry");
+        document.getElementById("divTabCahierSearchResult").appendChild(divResult);
 
-        var totalDivs = 5;
+        var span1 = document.createElement("span");
+        span1.classList.add("spanTabCahierName");
+        span1.innerHTML = "Aucun résultat :(";
+        divResult.appendChild(span1);
 
-        var c = 0;
+        divResult.style.backgroundImage = "url('Img/IconNoResult.png')";
+    }
+    else {
 
-        for (var i = 0; i < People.length; i++) {
-
-            var accept = false;
-
-            if (c < totalDivs) {
-                if (textParts.length == 1) { //no spaces
-                    if ((People[i].name + " " + People[i].surname).toUpperCase().indexOf(text) != -1) {
-                        accept = true;
-                    }
-                }
-                else if ((People[i].name.toUpperCase().indexOf(textParts[0]) != -1 && People[i].surname.toUpperCase().indexOf(textParts[1]) != -1) || (People[i].name.toUpperCase().indexOf(textParts[1]) != -1 && People[i].surname.toUpperCase().indexOf(textParts[0]) != -1)) {
-                    accept = true;
-                }
-
-                if (accept == true) {
-
-                    var divResult = document.createElement("div");
-                    divResult.classList.add("divTabCahierResultEntry");
-                    document.getElementById("divTabCahierSearchResult").appendChild(divResult);
-
-                    divResult.addEventListener("mousedown", function () { chosePerson(this.getElementsByClassName("spanTabCahierName")[0].innerHTML, this.getElementsByClassName("spanTabCahierSurname")[0].innerHTML); });
-
-                    var span1 = document.createElement("span");
-                    span1.classList.add("spanTabCahierName");
-                    span1.innerHTML = People[i].name;
-                    divResult.appendChild(span1);
-
-                    var span2 = document.createElement("span");
-                    span2.classList.add("spanTabCahierSurname");
-                    span2.innerHTML = People[i].surname;
-                    divResult.appendChild(span2);
-
-                    if (c == 0) {
-                        var img = document.createElement("img");
-                        img.id = "imgTabCahierSearchIconEnter";
-                        img.src = "Img/IconEnter.png";
-                        divResult.appendChild(img);
-                    }
-
-                    if (People[i].gender == "M") {
-                        divResult.style.backgroundImage = "url('Img/IconMan.png')";
-                    }
-                    else {
-                        divResult.style.backgroundImage = "url('Img/IconWoman.png')";
-                    }
-                    c++;
-                }
-
-            }
-            else {
-                break; //déjà c divs rempli
-            }
-        }
-        if (c == 0) {
+        for (var i = 0; i < PeopleCorresponding.length; i++) {
             var divResult = document.createElement("div");
             divResult.classList.add("divTabCahierResultEntry");
             document.getElementById("divTabCahierSearchResult").appendChild(divResult);
 
+            divResult.addEventListener("mousedown", function () { chosePerson(this.getElementsByClassName("spanTabCahierName")[0].innerHTML, this.getElementsByClassName("spanTabCahierSurname")[0].innerHTML); });
+
             var span1 = document.createElement("span");
             span1.classList.add("spanTabCahierName");
-            span1.innerHTML = "Aucun résultat :(";
+            span1.innerHTML = PeopleCorresponding[i].name;
             divResult.appendChild(span1);
 
-            divResult.style.backgroundImage = "url('Img/IconNoResult.png')";
-        }      
+            var span2 = document.createElement("span");
+            span2.classList.add("spanTabCahierSurname");
+            span2.innerHTML = PeopleCorresponding[i].id;
+            divResult.appendChild(span2);
+
+            if (i == 0) {
+                var img = document.createElement("img");
+                img.id = "imgTabCahierSearchIconEnter";
+                img.src = "Img/IconEnter.png";
+                divResult.appendChild(img);
+            }
+
+            if (PeopleCorresponding[i].name == "administrator") {
+                divResult.style.backgroundImage = "url('Img/IconMan.png')";
+            }
+            else {
+                divResult.style.backgroundImage = "url('Img/IconWoman.png')";
+            }
+        }
     }
 }
+
 
 
 function chosePerson(name, surname) {

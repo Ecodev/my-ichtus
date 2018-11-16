@@ -91,5 +91,7 @@ function changeProgress(c) {
     if (c == 3) {
         changeTab(document.getElementById("divTabCahierConfirmation"), sign);
     } 
+
+    window.location = "#Cahier" + c;
     document.getElementById("divTabCahierProgressBarBlue").style.width = (c * 26) + "%";
 }

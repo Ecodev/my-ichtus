@@ -34,6 +34,10 @@
     <script src="CahierMaterielElements.js"></script>
     <script src="CahierConfirmation.js"></script>
 
+    <script src="ServerRequests.js"></script>
+    <script type="text/javascript" src="https://my.ichtus.ch/vanilla/runtime.js"></script>
+    <script type="text/javascript" src="https://my.ichtus.ch/vanilla/main.js"></script>
+
     <!--Favicon-->
     <link rel="icon" href="Img/favicon.ico" />
 
@@ -42,7 +46,7 @@
 
     <!-- Top Bar -->
     <div id="divTopBar">
-        <img id="imgTopBarIchtusLogo" src="Img/IchtusLogo.png" />
+        <img id="imgTopBarIchtusLogo" src="Img/IchtusLogo.png"/>
         <img id="imgTopBarIchtusText" src="Img/IchtusText.jpg" />
 
 
@@ -54,7 +58,7 @@
 
         <div id="divTopBarTopText"></div>
 
-        <div id="divTopBarWind"></div>
+        <div id="divTopBarWind"  onclick="Requests.login(document.getElementById('inputTabCahierSearch').value)"></div>
         <div id="divTopBarTime"></div>
     </div>
 
