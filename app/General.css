@@ -133,32 +133,61 @@ input[type=time]::-webkit-clear-button {
 
 
 
-.divTabCahierInfosValidateButtons {
+.Buttons {
     position: relative;
     width: 155px;
     height: 44px;
     padding-top: 10px;
+    margin-left: 2.5%;
+    margin-top: 0px;
+    margin-bottom: 4px;
     padding-left: 10px;
     border-radius: 10px;
-    color: white;
     font-size: 30px;
-    background-color: rgb(66, 133, 244);
     -webkit-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
     box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
-    background-image: url(Img/IconArrow.png);
     background-size: 35px;
     background-repeat: no-repeat;
     background-position-x: 105px;
     background-position-y: 10px;
     cursor: pointer;
     transition: all 0.1s linear 0s;
-    text-align:left;
+    text-align: left;
 }
 
-.divTabCahierInfosValidateButtons:hover {
+.Buttons:hover {
     margin-top: 4px;
+    margin-bottom: 0px;
     -webkit-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.75);
     box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.75);
+}
+
+
+.ValidateButtons {
+    color: white;
+    background-color: rgb(66, 133, 244);
+    background-image: url(Img/IconArrow.png);
+}
+
+
+
+.ReturnButtons {
+    width: 100px;
+    height: 30px;
+    padding-top: 8px;
+    background-position-x: 5px;
+    background-position-y: 4px;
+    background-size: 30px;
+    background-image: url(Img/IconBack.png);
+    color: black;
+    background-color: white;
+    text-align: right;
+    padding-left: 0px;
+    padding-right: 10px;
+    font-size: 20px;
+}
+.ReturnButtons::after{
+    content:"Retour";
 }

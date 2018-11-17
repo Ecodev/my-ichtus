@@ -9,6 +9,7 @@
         allTabCahierFields[i].getElementsByTagName("input")[0].style.borderColor = "black";
         allTabCahierFields[i].getElementsByTagName("div")[0].style.backgroundColor = "black";
     }
+    document.getElementById("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0].value = "0";
     if (document.getElementById("checkBoxTabCahierInfosPhoneNumberRemember").getElementsByClassName("checkBox")[0].id == 1) {
         check(document.getElementById("checkBoxTabCahierInfosPhoneNumberRemember"));
     }
@@ -135,7 +136,7 @@ function writeDestination(elem) {
         DenyInfos(elem);
     }
 }
-function writeNbrInvites(elem) {
+function writeNbrInvites(elem = document.getElementById("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0]) {
     if (parseInt(elem.value) < 21 && elem.value != "") {
         AcceptInfos(elem);
     }

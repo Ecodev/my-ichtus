@@ -20,6 +20,7 @@
     <link href="CahierTop.css" rel="stylesheet" />
     <link href="CahierInfos.css" rel="stylesheet" />
     <link href="CahierMateriel.css" rel="stylesheet" />
+    <link href="CahierMaterielOptions.css" rel="stylesheet" />
     <link href="CahierMaterielElements.css" rel="stylesheet" />
     <link href="CahierConfirmation.css" rel="stylesheet" />
     <link href="Statistiques.css" rel="stylesheet" />
@@ -82,9 +83,12 @@
         <div id="divTabCahier" class="divTab">
             <input id="inputTabCahierSearch" spellcheck="false" type="text" placeholder="Rechercher..." autofocus onkeyup="Search(event)" />
             <div id="divTabCahierSearchResult"></div>
-            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
             <img src="Img/TableExemple.png" style="width:80%; top:0px; left:10%; position:relative;" />bonjour
             <img src="Img/TableExemple.png" style="width:80%; top:0px; left:10%; position:relative; filter:grayscale(100%)" />
+            <div class="Buttons ValidateButtons"></div><br />
+            <div class="Buttons ValidateButtons"></div><br/>
+            <div class="Buttons ValidateButtons"></div><br />
             hello
         </div>
 
@@ -105,7 +109,7 @@
 
                 <div id="divTabCahierInfosNbrInvites" class="TabCahierFields">
                     Nbr d'accompagnants
-                    <input type="number" min="0" max="20" spellcheck="false" placeholder="0" value="" onkeyup="writeNbrInvites(this);" />
+                    <input type="number" min="0" max="20" spellcheck="false" placeholder="0" value="0" onkeyup="writeNbrInvites(this);" />
                     <div></div>
                 </div>
 
@@ -145,7 +149,7 @@
         </div>-->
             </div>
 
-            <div class="divTabCahierInfosValidateButtons" onclick="checkInfos();">Suivant</div>
+            <div class="Buttons ValidateButtons" onclick="checkInfos();">Suivant</div>
 
             <br />
             <br />
@@ -161,7 +165,7 @@
                 <div></div>
                 <div>Code de l'embarcation</div>
                 <div id="divTabCahierMaterielCodeEmbarcationTypeResults"></div>
-                <div class="divTabCahierInfosValidateButtons" onclick="validateCodeMateriel();">Valider</div>
+                <div class="Buttons ValidateButtons" onclick="validateCodeMateriel();">Valider</div>
             </div>
 
             <div id="divTabCahierMaterielOther">Ou<br /><br />Par catégorie</div>
@@ -174,6 +178,20 @@
 
 
 
+        </div>
+
+
+        <!-- DIv Tab CahierMaterielOptions -->
+        <div id="divTabCahierMaterielOptions" class="divTab">
+            <div style="margin-top:300px; position:relative;"></div>
+            <br />
+            <div class="Buttons ReturnButtons" onclick="changeProgress(0)"></div>
+            <div id="divTabCahierMaterielOptionsContainer">
+                <div>Option 1</div>
+                <div>Option 2</div>
+                <div>Option 3</div>
+            </div>
+            <br />
         </div>
 
         <!-- Div Tab CahierMaterielCategories-->

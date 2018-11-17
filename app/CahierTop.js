@@ -78,7 +78,7 @@ function changeProgress(c) {
         document.documentElement.scrollTop = 0; //scroll up
     }
     if (c == 1) {
-        changeTab(document.getElementById("divTabCahierMateriel"), sign);
+        changeTab(document.getElementById("divTabCahierMaterielOptions"), sign);
         setTimeout(function () {
 
           //  document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].focus();
@@ -87,6 +87,7 @@ function changeProgress(c) {
     }
     if (c == 2) {
         changeTab(document.getElementById("divTabCahierInfos"), sign);
+        writeNbrInvites();
     } 
     if (c == 3) {
         changeTab(document.getElementById("divTabCahierConfirmation"), sign);

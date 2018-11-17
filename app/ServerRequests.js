@@ -39,6 +39,10 @@ var Requests = {
             pagination: {
                 pageSize: nbr,
                 pageIndex: 0
+            },
+            sorting: {
+                field: name, //Marche pas ???
+                order:'ASC'
             }
         };
         // Config filters
@@ -64,7 +68,7 @@ var Requests = {
 
         var TheQuery = Server.gql`
         {
-            `+ a + `{
+            {
                 items {
                     id
                 }
@@ -73,7 +77,7 @@ var Requests = {
         }`;
 
         Server.apollo.query({ query: TheQuery }).subscribe(result => {
-            console.log(table + " Query", result);
+            console.log(" Query", result);
            // return result;
         });
     },

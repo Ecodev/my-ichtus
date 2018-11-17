@@ -1,0 +1,29 @@
+#divTabCahierMaterielOptions {
+
+}
+
+
+#divTabCahierMaterielOptionsContainer {
+    position:relative;
+    width:95%;
+    min-height:10px;
+    margin-left:2.5%;
+    text-align:center;
+
+
+    background-color:azure;
+}
+
+#divTabCahierMaterielOptionsContainer > div {
+    display:inline-block;
+    width:200px;
+    height:200px;
+
+    margin-right:10px;
+    margin-left:10px;
+
+    
+
+    background-color:orange;
+
+}

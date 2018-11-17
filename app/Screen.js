@@ -215,13 +215,13 @@ function changeTab(newElement, sign) {
     }
 
     //EnterCahierTop
-    if (newElement.id == "divTabCahierMateriel" && currentTabElement.id != "divTabCahierinfos" && currentTabElement.id != "divTabCahierConfirmation") {
+    if (newElement.id == "divTabCahierMaterielOptions" && currentTabElement.id != "divTabCahierinfos" && currentTabElement.id != "divTabCahierConfirmation") {
         document.documentElement.scrollTop = 60;
         enterProgressBar();
       //  alert("scroll up + CahierTOp zindex 6 -11");
     }
     //Remove CahierTop 
-    else if ((currentTabElement.id == "divTabCahierMaterielElements" || currentTabElement.id == "divTabCahierInfos" || currentTabElement.id == "divTabCahierMateriel" || currentTabElement.id == "divTabCahierConfirmation") && newElement.id != "divTabCahierInfos" && newElement.id != "divTabCahierMaterielElements" && newElement.id != "divTabCahierMateriel"&& newElement.id != "divTabCahierConfirmation") {
+    else if ((currentTabElement.id == "divTabCahierMaterielOptions" || currentTabElement.id == "divTabCahierMaterielElements" || currentTabElement.id == "divTabCahierInfos" || currentTabElement.id == "divTabCahierMateriel" || currentTabElement.id == "divTabCahierConfirmation") && newElement.id != "divTabCahierInfos" && newElement.id != "divTabCahierMaterielOptions"&& newElement.id != "divTabCahierMaterielElements" && newElement.id != "divTabCahierMateriel"&& newElement.id != "divTabCahierConfirmation") {
         alert("~Attention vous quittez votre inscription??"); 
         clearData();
         currentProgress = 0; //!!!!!!!!!!!!!!!!!!!!
