@@ -4,26 +4,26 @@
 
 
 #divTabCahierMaterielOptionsContainer {
-    position:relative;
-    width:95%;
-    min-height:10px;
-    margin-left:2.5%;
-    text-align:center;
+    position: relative;
+    margin-top: 50px;
+    margin-left: 2.5%;
+    width: 95%;
+    min-height: 10px;
+    text-align: center;
 
-
-    background-color:azure;
+    background-color: azure;
 }
 
-#divTabCahierMaterielOptionsContainer > div {
-    display:inline-block;
-    width:200px;
-    height:200px;
+    #divTabCahierMaterielOptionsContainer  .BoxesTop {
+        background-image: url(Img/IconChose.png), none;
+    }
 
-    margin-right:10px;
-    margin-left:10px;
 
-    
+        
 
-    background-color:orange;
-
+#divTabCahierMaterielOptionsContainer .Buttons {
+    position:absolute;
+    margin-left:0px;
 }
+
+

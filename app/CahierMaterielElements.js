@@ -7,7 +7,7 @@ function loadElements(type) {
 
         var container = document.createElement("div");
         container.addEventListener("click", function () {
-            changeProgress(2);
+            newTab("divTabCahierInfos");
 
         });
         document.getElementById("divTabCahierMaterielCategoriesElementsContainer").appendChild(container);

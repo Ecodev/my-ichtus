@@ -11,7 +11,16 @@ function createProgressBar() {
         divStep.addEventListener("click", function () {
             var c = (parseInt(this.style.left) - 6) / 26;
             if (c < currentProgress) {
-                changeProgress(c)
+                switch (c) {
+                    case 0: newTab("divTabCahier");
+                break;
+                    case 1: newTab("divTabCahierMaterielOptions");
+                break;
+                   case 2: newTab("divTabCahierInfos");
+                break;
+                    default:
+                break;
+                }
             }
            
         });
@@ -51,7 +60,7 @@ function changeProgress(c) {
 
     var sign;
     if (c == currentProgress) {
-        alert("c == currentProgress !!");
+       // alert("c == currentProgress !!");
     }
     else {
         sign = Math.abs(c - currentProgress) / (c - currentProgress);
@@ -59,7 +68,6 @@ function changeProgress(c) {
 
     //alert(c + " current: " + currentProgress);
      
-
     currentProgress = c;
     for (var i = 0; i < 4; i++) {
         document.getElementsByClassName("divTabCahierProgressStep")[i].className = "divTabCahierProgressStep";
@@ -73,26 +81,24 @@ function changeProgress(c) {
             document.getElementsByClassName("divTabCahierProgressStep")[i].classList.add("divTabCahierProgressStepIncompleted");
         }
     }
-    if (c == 0) {
-        changeTab(document.getElementById("divTabCahier"), sign);
-        document.documentElement.scrollTop = 0; //scroll up
-    }
-    if (c == 1) {
-        changeTab(document.getElementById("divTabCahierMaterielOptions"), sign);
-        setTimeout(function () {
+    //if (c == 0) {
+    //    changeTab(document.getElementById("divTabCahier"), sign);
+    //    document.documentElement.scrollTop = 0; //scroll up
+    //}
+    //if (c == 1) {
+    //    changeTab(document.getElementById("divTabCahierMaterielOptions"), sign);
+    //    setTimeout(function () {
 
-          //  document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].focus();
-        }, changeTime);
+    //      //  document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].focus();
+    //    }, changeTime);
         
-    }
-    if (c == 2) {
-        changeTab(document.getElementById("divTabCahierInfos"), sign);
-        writeNbrInvites();
-    } 
-    if (c == 3) {
-        changeTab(document.getElementById("divTabCahierConfirmation"), sign);
-    } 
-
-    window.location = "#Cahier" + c;
+    //}
+    //if (c == 2) {
+    //    changeTab(document.getElementById("divTabCahierInfos"), sign);
+    //    writeNbrInvites();
+    //} 
+    //if (c == 3) {
+    //    changeTab(document.getElementById("divTabCahierConfirmation"), sign);
+    //} 
     document.getElementById("divTabCahierProgressBarBlue").style.width = (c * 26) + "%";
 }

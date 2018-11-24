@@ -72,7 +72,7 @@ function AdjustScreen(w, h) {
     document.getElementById("divTopBarButtonStatistiques").style.marginLeft = (-100 + d) + "px";
 
     document.getElementById("divTopBarButtonsBar").style.width = d + "px";
-    document.getElementById("divTopBarButtonsBar").style.marginLeft = -(widthScreen - 2 * SpaceLeft) / 3 * (-tab + 0.5) + "px";
+    document.getElementById("divTopBarButtonsBar").style.marginLeft = -(widthScreen - 2 * SpaceLeft) / 3 * (-oldPosition + 0.5) + "px";
 
     document.getElementById("divTopBarTopText").style.marginLeft = -3/2 * d + "px";
     document.getElementById("divTopBarTopText").style.width = 3 * d + "px";
@@ -125,7 +125,7 @@ function AdjustTopBar() {
 function loadButtons() {
     var allButtons = document.getElementsByClassName("divTopBarButtons");
     for (var i = 0; i < allButtons.length; i++) {
-        allButtons[i].addEventListener("click", function () { clickTab(this.id) });
+        allButtons[i].addEventListener("click", function () { newTab("divTab" + this.id.substr(this.id.indexOf("Button")+6)) });
     }
 }
 
@@ -171,8 +171,6 @@ var changeTime = 0.3;
 
 function changeTab(newElement, sign) {
 
-    //alert(sign);
-
     document.documentElement.scrollTop = 0;
 
     var allDivTabs = document.getElementById("divScreen").getElementsByClassName("divTab");
@@ -204,7 +202,7 @@ function changeTab(newElement, sign) {
 
     }, changeTime * 1000);
 
-    
+   // window.location = "" + newElement.id;
 
     //inputTabCahierSearch focus / blur
     if (newElement.id == "divTabCahier") {
@@ -228,9 +226,10 @@ function changeTab(newElement, sign) {
         removeProgressBar(sign);
        // alert("remove cahiertop");
     }
+
+
+
 }
-
-
 
 //ENTER PROGRESS BAR
 function enterProgressBar() {
@@ -256,40 +255,102 @@ function removeProgressBar(sign) {
 }
 
 
+//pas utilisé
+//function clickTab(buttonID) {
 
-function clickTab(buttonID) {
+//    var oldTab = tab;
+//    var newTab = getTabNumber(buttonID);
 
-    var oldTab = tab;
-    var newTab = getTabNumber(buttonID);
+//    if (stillMoving == false && currentTabElement.id != "divTab" + getTabName(newTab)) {
 
-    if (stillMoving == false && currentTabElement.id != "divTab" + getTabName(newTab)) {
+//        stillMoving = true;
 
-        stillMoving = true;
+//        var sign;
+//        if (newTab - tab != 0) { //Cahier change
+//            sign = (newTab - tab) / Math.abs(newTab - tab); // +1 or -1
+//        }
+//        else {
+//            sign = -1; //?
+//        }
 
-        var sign;
-        if (newTab - tab != 0) { //Cahier change
-            sign = (newTab - tab) / Math.abs(newTab - tab); // +1 or -1
-        }
-        else {
-            sign = -1; //?
-        }
+//        var _oldTab = document.getElementById("divTab" + getTabName(oldTab));
+//        var _newTab = document.getElementById("divTab" + getTabName(newTab));
 
-        var _oldTab = document.getElementById("divTab" + getTabName(oldTab));
-        var _newTab = document.getElementById("divTab" + getTabName(newTab));
+//        changeTab(_newTab, sign);
 
-        changeTab(_newTab, sign);
+//        document.documentElement.scrollTop = 0; //scroll up
 
-        document.documentElement.scrollTop = 0; //scroll up
-
-        tab = newTab;
-        document.getElementById("divTopBarButtonsBar").style.marginLeft = -(widthScreen - 2 * SpaceLeft) / 3 * (-tab + 0.5) + "px";
-    }
-    else {
-        alert("same tab");
-    }
+//        tab = newTab;
+//        document.getElementById("divTopBarButtonsBar").style.marginLeft = -(widthScreen - 2 * SpaceLeft) / 3 * (-tab + 0.5) + "px";
+//    }
+//    else {
+//        alert("same tab");
+//    }
 
 }
 
+
+function newTab(id) {
+    window.location = "#" + id;
+}
+
+var oldLocation = "divTabCahier";
+var tabs = [];
+tabs.push({ id: "divTabMateriel", order: -1, progress: 0, position:-1 });
+tabs.push({ id: "divTabCahier", order: 0, progress: 0, position: 0 });
+tabs.push({ id: "divTabStatistiques", order: 1, progress: 0, position: 1 });
+tabs.push({ id: "divTabCahierMaterielOptions", order: 10, progress: 1, position: 0 });
+tabs.push({ id: "divTabCahierMateriel", order: 11, progress: 1, position: 0 });
+tabs.push({ id: "divTabCahierMaterielCategories", order: 12, progress: 1, position: 0 });
+tabs.push({ id: "divTabCahierMaterielElements", order: 13, progress: 1, position: 0 });
+tabs.push({ id: "divTabCahierInfos", order: 14, progress: 2, position: 0  });
+tabs.push({ id: "divTabCahierConfirmation", order: 15, progress: 3, position: 0  });
+
+
+//WINDOW LOCATION CHANGE
+var oldOrder = 0;
+var oldProgress = 0; 
+var oldPosition = 0;
+window.onhashchange = function () {
+    var newLocation = window.location.toString();
+    var i = newLocation.indexOf("#");
+    var res = newLocation.substr(i + 1);
+
+    var newOrder = 0;
+    var newPorgress = 0;
+
+    for (var i = 0; i < tabs.length; i++) {
+        if (tabs[i].id == res) {
+            newOrder = tabs[i].order;
+            newPorgress = tabs[i].progress;
+            oldPosition = tabs[i].position;
+        }
+    }
+
+    if (newPorgress == 0 && oldProgress != 0) {
+        changeTab(document.getElementById(res), newOrder);
+    }
+    else {
+
+        if (newOrder < oldOrder) {
+            changeTab(document.getElementById(res), -1);
+        }
+        else {
+            changeTab(document.getElementById(res), 1);
+        }
+    }
+
+   // alert("new:" + newOrder + "   old:" + oldOrder);
+
+    oldOrder = newOrder; 
+
+    document.getElementById("divTopBarButtonsBar").style.marginLeft = -(widthScreen - 2 * SpaceLeft) / 3 * (-oldPosition + 0.5) + "px";
+    
+
+    changeProgress(newPorgress);
+    oldProgress = newPorgress;
+   
+};
 
 
 

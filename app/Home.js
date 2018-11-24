@@ -14,6 +14,7 @@ function load() {
     createProgressBar();
     createAllPropositions();
     loadMateriel();
+    window.location = "#" + "divTabCahier";
 
     ServerInitialize();
 

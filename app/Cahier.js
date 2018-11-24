@@ -96,7 +96,8 @@ function createSearchEntries(PeopleCorresponding) {
 
 
 function chosePerson(name, surname) {
-    changeProgress(1);
+   // changeProgress(1);
+    newTab("divTabCahierMaterielOptions");
     document.getElementById("divTabCahierInfosName").innerHTML = name + " " + surname;
     document.getElementById("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0].focus();
 }

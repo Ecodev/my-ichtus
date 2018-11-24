@@ -213,7 +213,7 @@ function checkInfos() {
         }
     }
     if (allInfosOkay == true || document.getElementById("divTabCahierInfosDestination").getElementsByTagName("input")[0].value == "pass") {
-        changeProgress(3);
+        newTab("divTabCahierConfirmation");
     }
  
 }

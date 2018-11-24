@@ -5,6 +5,7 @@
     <!-- !! -->
     <!-- Ajouter les transitions pour les différents exploreurs + box shadows + border radius -->
     <!-- Keyupdown sur le premier input code embarcation n'importe quoi...-->
+    <!-- Si personne a déjà une sortie -> voir les sorties actuelles de la personne -->
     <!-- TESTEST GIT -->
 
 
@@ -97,13 +98,17 @@
             <div id="divTabCahierProgress"></div>
             <div id="divTabCahierInfosName"></div>
             <div id="divTabCahierInfosBar"></div>
-            <div id="divTabCahierCancelButton" onclick=" changeProgress(0); clearData();">Annuler la sortie</div>
+            <div id="divTabCahierCancelButton" onclick=" newTab('divTabCahier'); clearData();">Annuler la sortie</div>
             <!--<div id="divTabCahierChangeNameButton2" onclick="changeProgress(0);">pasbeau</div>-->
             <!--<div id="divTabCahierChangeNameButton" onclick="changeProgress(0);">???</div>-->
         </div>
 
         <!--Div Tab CahierInfos-->
         <div id="divTabCahierInfos" class="divTab">
+            <div style="margin-top:300px; position:relative;"></div>
+            <br />
+            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielOptions')"></div>
+            <br />
 
             <div id="divTabCahierFieldsContainer">
 
@@ -149,9 +154,9 @@
         </div>-->
             </div>
 
-            <div class="Buttons ValidateButtons" onclick="checkInfos();">Suivant</div>
+            <div class="Buttons ValidateButtons" onclick="checkInfos();">Suivant</div>  <br />
 
-            <br />
+
             <br />
             end
 
@@ -185,14 +190,28 @@
         <div id="divTabCahierMaterielOptions" class="divTab">
             <div style="margin-top:300px; position:relative;"></div>
             <br />
-            <div class="Buttons ReturnButtons" onclick="changeProgress(0)"></div>
-            <div id="divTabCahierMaterielOptionsContainer">
-                <div>Option 1</div>
-                <div>Option 2</div>
-                <div>Option 3</div>
-            </div>
+            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahier')"></div>
             <br />
-        </div>
+            <div id="divTabCahierMaterielOptionsContainer">
+                <div class="BoxesContainer" onclick="newTab('divTabCahierInfos')">
+
+                    <div class="Boxes"><div class="BoxesTop"></div><div class="BoxesBottom"><div class="BoxesBottomText1">Materiel Perso</div></div></div>
+
+                </div><div class="BoxesContainer" onclick="newTab('divTabCahierMateriel')">
+
+                    <div class="Boxes"><div class="BoxesTop"></div><div class="BoxesBottom"><div class="BoxesBottomText1">Code/Embarcation</div></div></div>
+
+                </div><div class="BoxesContainer" onclick="newTab('divTabCahierMaterielElements')">
+
+                    <div class="Boxes"><div class="BoxesTop"></div><div class="BoxesBottom"><div class="BoxesBottomText1"><div class="ValidateButtons Buttons">option</div><br /> </div></div></div>
+
+                </div>
+
+                    <div><div class="ValidateButtons Buttons">options 1</div><br />     </div>
+                </div><div>
+                    <div><div class="ValidateButtons Buttons">options 3</div> <br />     </div>
+                </div>
+            </div>
 
         <!-- Div Tab CahierMaterielCategories-->
         <div id="divTabCahierMaterielElements" class="divTab">
@@ -220,7 +239,10 @@
         <div id="divBottom">
             BOTTOM BAR ?
         </div>
-    </div>
+
+
+
+    </div><!-- close div Screen -->
 
 
 

@@ -28,7 +28,7 @@ function validateCodeMateriel() {
         document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].style.borderColor = "black";
         document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1].style.borderColor = "black";
         document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("div")[0].style.backgroundColor = "black";
-        changeProgress(2);
+        newTab('divTabCahierInfos');
     }
     else {
         document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].style.borderColor = "red";
@@ -98,30 +98,30 @@ function loadMateriel() {
     for (var i = 0; i < categories.length; i++) {
         var d = document.createElement("div");
         d.id = categories[i];
-        d.classList.add("divTabCahierMaterielBoxesContainer");
+        d.classList.add("BoxesContainer");
         d.innerHTML = "300x " + categories[i] + "s";
         document.getElementById("divTabCahierMaterielCategories").appendChild(d);
 
         var d1 = document.createElement("div");
-        d1.classList.add("divTabCahierMaterielBoxes");
+        d1.classList.add("Boxes");
         d.appendChild(d1);
 
         var dTop = document.createElement("div");
-        dTop.classList.add("divTabCahierMaterielBoxesTop");
+        dTop.classList.add("BoxesTop");
         d1.appendChild(dTop);
 
         var dBottom = document.createElement("div");
-        dBottom.classList.add("divTabCahierMaterielBoxesBottom");
+        dBottom.classList.add("BoxesBottom");
         d1.appendChild(dBottom);
 
         var dBottomText1 = document.createElement("div");
-        dBottomText1.classList.add("divTabCahierMaterielBoxesBottomText1");
+        dBottomText1.classList.add("BoxesBottomText1");
         dBottom.appendChild(dBottomText1);
         dBottomText1.innerHTML = categories[i];
 
         d.addEventListener("click", function () {
 
-            changeTab(document.getElementById("divTabCahierMaterielElements"), 1);
+            newTab("divTabCahierMaterielElements");
             //document.getElementById("divTabCahierMateriel").style.marginTop = "-1000px";
 
             loadElements(this.id);
