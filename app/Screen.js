@@ -18,8 +18,8 @@ function AdjustScreen(w, h) {
     widthScreen = w;
     heightScreen = h;
 
-    var _divLeftBar  = document.getElementById('divLeftBar' ).style;
-    var _divRightBar = document.getElementById('divRightBar').style;
+    var _divLeftBar  = $('divLeftBar' ).style;
+    var _divRightBar = $('divRightBar').style;
 
     if (w > MaxWidth) { //Plus grand que le max -> Barres sur les côtés
         widthCache = (w - 1500) / 2;
@@ -38,51 +38,51 @@ function AdjustScreen(w, h) {
     _divRightBar.width = widthCache + "px";
 
     //_divScreen 
-    var _divScreen = document.getElementById('divScreen').style;
+    var _divScreen = $('divScreen').style;
     _divScreen.width = widthToDisplay + "px";
     _divScreen.left = widthCache + "px"; 
 
     if (SmallerThan1500px == true) {
         SpaceLeft = 160;
-        document.getElementById("imgTopBarIchtusText").style.visibility = "hidden";  
+        $("imgTopBarIchtusText").style.visibility = "hidden";  
 
-        document.getElementById("divTopBarTime").style.visibility = "visible";
-        document.getElementById("divTopBarWind").style.visibility = "visible";
-        document.getElementById("imgTopBarIchtusLogo").style.visibility = "visible";
+        $("divTopBarTime").style.visibility = "visible";
+        $("divTopBarWind").style.visibility = "visible";
+        $("imgTopBarIchtusLogo").style.visibility = "visible";
         if ((widthScreen - 2 * SpaceLeft) / 3 < 200) {
             SpaceLeft = 0;
-            document.getElementById("divTopBarTime").style.visibility = "hidden";
-            document.getElementById("divTopBarWind").style.visibility = "hidden";
-            document.getElementById("imgTopBarIchtusLogo").style.visibility = "hidden";
+            $("divTopBarTime").style.visibility = "hidden";
+            $("divTopBarWind").style.visibility = "hidden";
+            $("imgTopBarIchtusLogo").style.visibility = "hidden";
         }
     }
     else {
         SpaceLeft = 400;
-        document.getElementById("imgTopBarIchtusText").style.visibility = "visible";
-        document.getElementById("divTopBarTime").style.visibility = "visible";
-        document.getElementById("divTopBarWind").style.visibility = "visible";
-        document.getElementById("imgTopBarIchtusLogo").style.visibility = "visible";
+        $("imgTopBarIchtusText").style.visibility = "visible";
+        $("divTopBarTime").style.visibility = "visible";
+        $("divTopBarWind").style.visibility = "visible";
+        $("imgTopBarIchtusLogo").style.visibility = "visible";
         
     }
     
     var d = (widthScreen - 2 * SpaceLeft) / 3;
 
-    document.getElementById("divTopBarButtonMateriel").style.marginLeft = (-100 - d) + "px";
-    document.getElementById("divTopBarButtonCahier").style.marginLeft = (-100 + 0) + "px";
-    document.getElementById("divTopBarButtonStatistiques").style.marginLeft = (-100 + d) + "px";
+    $("divTopBarButtonMateriel").style.marginLeft = (-100 - d) + "px";
+    $("divTopBarButtonCahier").style.marginLeft = (-100 + 0) + "px";
+    $("divTopBarButtonStatistiques").style.marginLeft = (-100 + d) + "px";
 
-    document.getElementById("divTopBarButtonsBar").style.width = d + "px";
-    document.getElementById("divTopBarButtonsBar").style.marginLeft = -(widthScreen - 2 * SpaceLeft) / 3 * (-oldPosition + 0.5) + "px";
+    $("divTopBarButtonsBar").style.width = d + "px";
+    $("divTopBarButtonsBar").style.marginLeft = -(widthScreen - 2 * SpaceLeft) / 3 * (-OldElement.position + 0.5) + "px";
 
-    document.getElementById("divTopBarTopText").style.marginLeft = -3/2 * d + "px";
-    document.getElementById("divTopBarTopText").style.width = 3 * d + "px";
+    $("divTopBarTopText").style.marginLeft = -3/2 * d + "px";
+    $("divTopBarTopText").style.width = 3 * d + "px";
 
     AdjustBottomBar();
 }
 
 
 function AdjustBottomBar() {
-    document.getElementById("divBottom").style.top = "-100px";
+    $("divBottom").style.top = "-100px";
 
     let scrollHeight = Math.max( //Full document height, with scrolled out part: 
         document.body.scrollHeight, document.documentElement.scrollHeight,
@@ -91,13 +91,13 @@ function AdjustBottomBar() {
     );
 
     if (scrollHeight + 5 > heightScreen && scrollHeight - 5 < heightScreen) {
-        document.getElementById("divBottom").style.top = (scrollHeight - 100) + "px";
+        $("divBottom").style.top = (scrollHeight - 100) + "px";
     }
     else {
-        document.getElementById("divBottom").style.top = (scrollHeight + 0) + "px";
+        $("divBottom").style.top = (scrollHeight + 0) + "px";
     }
 
-    document.getElementById("divBottom").innerHTML = scrollHeight + " -100 ";
+    $("divBottom").innerHTML = scrollHeight + " -100 ";
 }
 
 
@@ -105,19 +105,19 @@ function AdjustBottomBar() {
 window.onscroll = function () { AdjustTopBar() };
 function AdjustTopBar() {
     if (document.documentElement.scrollTop >= 60) { //Small
-        document.getElementById("divTopBar").style.height = "60px"; 
-        document.getElementById("imgTopBarIchtusLogo").style.width = "50px";
-        document.getElementById("imgTopBarIchtusText").style.height = "50px";
-        document.getElementById("imgTopBarIchtusText").style.left = "60px";
-        document.getElementById("divTopBarTime").style.fontSize = "13px";
-        document.getElementById("divTopBarWind").style.opacity = 0;   
+        $("divTopBar").style.height = "60px"; 
+        $("imgTopBarIchtusLogo").style.width = "50px";
+        $("imgTopBarIchtusText").style.height = "50px";
+        $("imgTopBarIchtusText").style.left = "60px";
+        $("divTopBarTime").style.fontSize = "13px";
+        $("divTopBarWind").style.opacity = 0;   
     } else { //Big
-        document.getElementById("divTopBar").style.height = "120px"; 
-        document.getElementById("imgTopBarIchtusLogo").style.width = "110px";
-        document.getElementById("imgTopBarIchtusText").style.height = "110px";
-        document.getElementById("imgTopBarIchtusText").style.left = "120px";
-        document.getElementById("divTopBarTime").style.fontSize = "18px";
-        document.getElementById("divTopBarWind").style.opacity = 1;
+        $("divTopBar").style.height = "120px"; 
+        $("imgTopBarIchtusLogo").style.width = "110px";
+        $("imgTopBarIchtusText").style.height = "110px";
+        $("imgTopBarIchtusText").style.left = "120px";
+        $("divTopBarTime").style.fontSize = "18px";
+        $("divTopBarWind").style.opacity = 1;
     }
 }
 
@@ -130,50 +130,17 @@ function loadButtons() {
 }
 
 
-function getTabName(x) {
-    var r = "Cahier";
-    switch (x) {
-        case -1:
-            r = "Materiel";
-            break;
-        case 0:
-            r = "Cahier";
-            break;
-        case 1:
-            r = "Statistiques";
-            break;
-        default:
-            break;
-            
-    }
-    return r;
-}
-function getTabNumber(x) {
-    var r = 0;
-    if (x.indexOf("Materiel") !== -1) {
-        r = -1;
-    }
-    else if (x.indexOf("Cahier") !== -1) {
-        r = 0;
-    }
-    else if (x.indexOf("Statistiques") !== -1) {
-        r = 1;
-    }
-    return r;
-}
 
 
-
-var tab = 0;
 var stillMoving = false;
-var currentTabElement;// = document.getElementById("divTabCahier"); //see load for the first element = divtabcahier
+var currentTabElement;// = $("divTabCahier"); //see load for the first element = divtabcahier
 var changeTime = 0.3;
 
 function changeTab(newElement, sign) {
 
-    document.documentElement.scrollTop = 0;
+    stillMoving = true;
 
-    var allDivTabs = document.getElementById("divScreen").getElementsByClassName("divTab");
+    document.documentElement.scrollTop = 0;
 
     currentTabElement.style.zIndex = "10";
     currentTabElement.style.transition = "transform " + changeTime + "s linear 0s";
@@ -196,161 +163,115 @@ function changeTab(newElement, sign) {
             stillMoving = false;
             currentTabElement.style.top = "-30000px";
             currentTabElement = newElement;
-            document.getElementById("divTopBarTopText").innerHTML = currentTabElement.id + "   " + stillMoving;
+            $("divTopBarTopText").innerHTML = NewElement.id + "  " + NewElement.order + "   " + stillMoving;
             AdjustBottomBar();
         }, 50);
 
     }, changeTime * 1000);
-
-   // window.location = "" + newElement.id;
-
-    //inputTabCahierSearch focus / blur
-    if (newElement.id == "divTabCahier") {
-        document.getElementById("inputTabCahierSearch").focus();
-    }
-    if (currentTabElement.id =="divTabCahier") {
-        document.getElementById("inputTabCahierSearch").blur();
-    }
-
-    //EnterCahierTop
-    if (newElement.id == "divTabCahierMaterielOptions" && currentTabElement.id != "divTabCahierinfos" && currentTabElement.id != "divTabCahierConfirmation") {
-        document.documentElement.scrollTop = 60;
-        enterProgressBar();
-      //  alert("scroll up + CahierTOp zindex 6 -11");
-    }
-    //Remove CahierTop 
-    else if ((currentTabElement.id == "divTabCahierMaterielOptions" || currentTabElement.id == "divTabCahierMaterielElements" || currentTabElement.id == "divTabCahierInfos" || currentTabElement.id == "divTabCahierMateriel" || currentTabElement.id == "divTabCahierConfirmation") && newElement.id != "divTabCahierInfos" && newElement.id != "divTabCahierMaterielOptions"&& newElement.id != "divTabCahierMaterielElements" && newElement.id != "divTabCahierMateriel"&& newElement.id != "divTabCahierConfirmation") {
-        alert("~Attention vous quittez votre inscription??"); 
-        clearData();
-        currentProgress = 0; //!!!!!!!!!!!!!!!!!!!!
-        removeProgressBar(sign);
-       // alert("remove cahiertop");
-    }
-
-
-
-}
-
-//ENTER PROGRESS BAR
-function enterProgressBar() {
-    document.getElementById("divTabCahierTop").style.zIndex = 6;
-    setTimeout(function () { document.getElementById("divTabCahierTop").style.zIndex = 11; }, changeTime * 1000);
-}
-//REMOVE PROGRESS BAR
-function removeProgressBar(sign) {
-    document.getElementById("divTabCahierTop").style.zIndex = "11"; //11
-    document.getElementById("divTabCahierTop").style.transition = "transform " + changeTime + "s linear 0s";
-    document.getElementById("divTabCahierTop").style.transform = "translate(" + (-sign) + "00%)";
-
-    setTimeout(function () {
-
-        document.getElementById("divTabCahierTop").style.zIndex = "2";
-        document.getElementById("divTabCahierTop").style.transition = "none";
-
-        document.getElementById("divTabCahierTop").style.transform = "translate(0px)";
-
-        setTimeout(function () { document.getElementById("divTabCahierTop").style.transition = "transform " + changeTime + "s linear 0s"; }, 20);
-
-    }, changeTime * 1000);
-}
-
-
-//pas utilisé
-//function clickTab(buttonID) {
-
-//    var oldTab = tab;
-//    var newTab = getTabNumber(buttonID);
-
-//    if (stillMoving == false && currentTabElement.id != "divTab" + getTabName(newTab)) {
-
-//        stillMoving = true;
-
-//        var sign;
-//        if (newTab - tab != 0) { //Cahier change
-//            sign = (newTab - tab) / Math.abs(newTab - tab); // +1 or -1
-//        }
-//        else {
-//            sign = -1; //?
-//        }
-
-//        var _oldTab = document.getElementById("divTab" + getTabName(oldTab));
-//        var _newTab = document.getElementById("divTab" + getTabName(newTab));
-
-//        changeTab(_newTab, sign);
-
-//        document.documentElement.scrollTop = 0; //scroll up
-
-//        tab = newTab;
-//        document.getElementById("divTopBarButtonsBar").style.marginLeft = -(widthScreen - 2 * SpaceLeft) / 3 * (-tab + 0.5) + "px";
-//    }
-//    else {
-//        alert("same tab");
-//    }
-
 }
 
 
 function newTab(id) {
-    window.location = "#" + id;
+    if (stillMoving == false) {
+        window.location = "#" + id;
+    }
 }
 
-var oldLocation = "divTabCahier";
 var tabs = [];
-tabs.push({ id: "divTabMateriel", order: -1, progress: 0, position:-1 });
-tabs.push({ id: "divTabCahier", order: 0, progress: 0, position: 0 });
-tabs.push({ id: "divTabStatistiques", order: 1, progress: 0, position: 1 });
-tabs.push({ id: "divTabCahierMaterielOptions", order: 10, progress: 1, position: 0 });
-tabs.push({ id: "divTabCahierMateriel", order: 11, progress: 1, position: 0 });
-tabs.push({ id: "divTabCahierMaterielCategories", order: 12, progress: 1, position: 0 });
-tabs.push({ id: "divTabCahierMaterielElements", order: 13, progress: 1, position: 0 });
-tabs.push({ id: "divTabCahierInfos", order: 14, progress: 2, position: 0  });
-tabs.push({ id: "divTabCahierConfirmation", order: 15, progress: 3, position: 0  });
+tabs.push({ id: "divTabMateriel",                order: -1, progress: 0, position: -1,TopBar: false, Enter: function () { }, Remove: function () { }});
+tabs.push({ id: "divTabCahier",                  order: 0,  progress: 0, position: 0, TopBar: false, Enter: function () { $("inputTabCahierSearch").focus(); }, Remove: function () { $("inputTabCahierSearch").blur();}});
+tabs.push({ id: "divTabStatistiques",            order: 1,  progress: 0, position: 1, TopBar: false, Enter: function () { }, Remove: function () { }});
+tabs.push({ id: "divTabCahierMaterielOptions",   order: 10, progress: 1, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
+tabs.push({ id: "divTabCahierMateriel",          order: 11, progress: 1, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
+tabs.push({ id: "divTabCahierMaterielCategories",order: 12, progress: 1, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
+tabs.push({ id: "divTabCahierMaterielElements",  order: 13, progress: 1, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
+tabs.push({ id: "divTabCahierInfos",             order: 14, progress: 2, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
+tabs.push({ id: "divTabCahierConfirmation",      order: 15, progress: 3, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
 
 
 //WINDOW LOCATION CHANGE
-var oldOrder = 0;
-var oldProgress = 0; 
-var oldPosition = 0;
+var OldElement = tabs[1];
+var NewElement = tabs[1];
 window.onhashchange = function () {
+
     var newLocation = window.location.toString();
-    var i = newLocation.indexOf("#");
-    var res = newLocation.substr(i + 1);
+    var res = newLocation.substr(newLocation.indexOf("#") + 1);
 
-    var newOrder = 0;
-    var newPorgress = 0;
+    if (res != currentTabElement.id) { //onload refresh
 
-    for (var i = 0; i < tabs.length; i++) {
-        if (tabs[i].id == res) {
-            newOrder = tabs[i].order;
-            newPorgress = tabs[i].progress;
-            oldPosition = tabs[i].position;
+        var i0;
+        for (var i = 0; i < tabs.length; i++) {
+            if (tabs[i].id == res) {
+                i0 = i;
+                NewElement = tabs[i];
+                break;
+            }
         }
-    }
 
-    if (newPorgress == 0 && oldProgress != 0) {
-        changeTab(document.getElementById(res), newOrder);
-    }
-    else {
-
-        if (newOrder < oldOrder) {
-            changeTab(document.getElementById(res), -1);
+        var sign = 1;
+        if (NewElement.progress == 0 && OldElement.progress != 0 && NewElement.id != "divTabCahier") {
+            sign = NewElement.order; 
         }
-        else {
-            changeTab(document.getElementById(res), 1);
+        else if (NewElement.order < OldElement.order) {
+                sign = -1;
         }
+        
+        changeTab($(NewElement.id), sign);
+
+        // TopBar Enter/Remove
+        if (NewElement.TopBar == true && OldElement.TopBar == false) {
+            enterProgressBar(sign);
+        }
+        else if (NewElement.TopBar == false && OldElement.TopBar == true) {
+            removeProgressBar(sign);
+        }
+
+        // Enter & Remove Functions
+        NewElement.Enter();
+        OldElement.Remove();
+
+        // WhiteBar
+        $("divTopBarButtonsBar").style.marginLeft = -(widthScreen - 2 * SpaceLeft) / 3 * (-NewElement.position + 0.5) + "px";
+
+        // change ProgressBar
+        changeProgress(NewElement.progress);
+
+        // save OldElement
+        OldElement = tabs[i0];
+
+
+
+        // alert("new:" + newOrder + "   old:" + oldOrder);
     }
-
-   // alert("new:" + newOrder + "   old:" + oldOrder);
-
-    oldOrder = newOrder; 
-
-    document.getElementById("divTopBarButtonsBar").style.marginLeft = -(widthScreen - 2 * SpaceLeft) / 3 * (-oldPosition + 0.5) + "px";
-    
-
-    changeProgress(newPorgress);
-    oldProgress = newPorgress;
-   
 };
+
+
+
+
+
+//ENTER PROGRESS BAR
+function enterProgressBar() {
+    $("divTabCahierTop").style.zIndex = 6;
+    setTimeout(function () { $("divTabCahierTop").style.zIndex = 11; }, changeTime * 1000);
+}
+//REMOVE PROGRESS BAR
+function removeProgressBar(sign) {
+    $("divTabCahierTop").style.zIndex = "11"; //11
+    $("divTabCahierTop").style.transition = "transform " + changeTime + "s linear 0s";
+    $("divTabCahierTop").style.transform = "translate(" + (-sign) + "00%)";
+
+    setTimeout(function () {
+
+        $("divTabCahierTop").style.zIndex = "2";
+        $("divTabCahierTop").style.transition = "none";
+
+        $("divTabCahierTop").style.transform = "translate(0px)";
+
+        setTimeout(function () { $("divTabCahierTop").style.transition = "transform " + changeTime + "s linear 0s"; }, 20);
+
+    }, changeTime * 1000);
+}
+
 
 
 
@@ -358,7 +279,7 @@ function ReadText() {
 
 
 
-    var myFileInput = document.getElementById('file');
+    var myFileInput = $('file');
     var myFile = myFileInput.files[0];
 
 

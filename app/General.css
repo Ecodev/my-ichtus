@@ -1,6 +1,6 @@
 ﻿body {
     margin: 0px;
-    background-color: rgb(230,230,230);
+    background-color: purple;
     background-image: linear-gradient(white,gray);
     overflow-x: hidden;
     overflow-y: scroll;

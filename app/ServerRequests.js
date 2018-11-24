@@ -7,7 +7,7 @@ function ServerInitialize() {
   //  Requests.getItemList();
 
    // getCountries();
-   // Requests.createQuery();
+ //  Requests.createQuery();
 }
 
 
@@ -61,24 +61,25 @@ var Requests = {
 
 
 
-
+    
 
     // createQuery
-    createQuery: function (table = "bookings", conditions, sorting, items) { // marche pas ?
+    createQuery: function (table = "users", conditions, sorting, items) { 
 
         var TheQuery = Server.gql`
         {
+            `+ table +` 
             {
                 items {
-                    id
+                    id 
+                    name
                 }
             }
         
         }`;
 
         Server.apollo.query({ query: TheQuery }).subscribe(result => {
-            console.log(" Query", result);
-           // return result;
+            console.log("Result of Requests.createQuery(): ",result);
         });
     },
 

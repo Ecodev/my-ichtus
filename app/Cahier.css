@@ -1,7 +1,8 @@
 ﻿#divTabCahier {
-    top: 0px;
+    top:0px;
     background-color: white;
     z-index: 5;
+    opacity: 1;
 }
 
 

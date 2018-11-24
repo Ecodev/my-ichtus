@@ -24,7 +24,7 @@ function createProgressBar() {
             }
            
         });
-        document.getElementById("divTabCahierProgress").appendChild(divStep);
+        $("divTabCahierProgress").appendChild(divStep);
 
         divStep.classList.add("divTabCahierProgressStepCompleted");
 
@@ -46,12 +46,12 @@ function createProgressBar() {
     var divBar = document.createElement("divBar");
     divBar.id = "divTabCahierProgressBar";
     divBar.style.left = (11 + 26 * 0) + "%";
-    document.getElementById("divTabCahierProgress").appendChild(divBar);
+    $("divTabCahierProgress").appendChild(divBar);
 
     var divBarBlue = document.createElement("divBar");
     divBarBlue.id = "divTabCahierProgressBarBlue";
     divBarBlue.style.left = (11 + 26 * 0) + "%";
-    document.getElementById("divTabCahierProgress").appendChild(divBarBlue);
+    $("divTabCahierProgress").appendChild(divBarBlue);
 
 }
 
@@ -82,23 +82,23 @@ function changeProgress(c) {
         }
     }
     //if (c == 0) {
-    //    changeTab(document.getElementById("divTabCahier"), sign);
+    //    changeTab($("divTabCahier"), sign);
     //    document.documentElement.scrollTop = 0; //scroll up
     //}
     //if (c == 1) {
-    //    changeTab(document.getElementById("divTabCahierMaterielOptions"), sign);
+    //    changeTab($("divTabCahierMaterielOptions"), sign);
     //    setTimeout(function () {
 
-    //      //  document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].focus();
+    //      //  $("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].focus();
     //    }, changeTime);
         
     //}
     //if (c == 2) {
-    //    changeTab(document.getElementById("divTabCahierInfos"), sign);
+    //    changeTab($("divTabCahierInfos"), sign);
     //    writeNbrInvites();
     //} 
     //if (c == 3) {
-    //    changeTab(document.getElementById("divTabCahierConfirmation"), sign);
+    //    changeTab($("divTabCahierConfirmation"), sign);
     //} 
-    document.getElementById("divTabCahierProgressBarBlue").style.width = (c * 26) + "%";
+    $("divTabCahierProgressBarBlue").style.width = (c * 26) + "%";
 }

@@ -6,7 +6,7 @@
     /*background-image:linear-gradient(lightgray,rgb(164, 164, 164));*/
     left: 0px;
     z-index: 10000;
-    opacity: 0;
+    opacity: 1;
 
 }
 
@@ -16,7 +16,7 @@
     background-color: lightgray;
     right: 0px;
     z-index: 1000;
-    opacity: 0;
+    opacity: 1;
 }
 
 #divTopBar {

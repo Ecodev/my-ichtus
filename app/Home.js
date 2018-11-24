@@ -1,5 +1,9 @@
 ﻿//Tabs
-var Tab = 0; //Tab -1 -> Cahier, Tab 0 -> Matériel, Tab -1 -> Statistiques
+//var Tab = 0; //Tab -1 -> Cahier, Tab 0 -> Matériel, Tab -1 -> Statistiques
+
+function $(id) {
+    return document.getElementById(id);
+}
 
 
 //Load
@@ -9,8 +13,8 @@ function load() {
     actualizeTime(); 
     setInterval(actualizeTime, 5000);  //5 secondes
     loadButtons();
-    currentTabElement = document.getElementById("divTabCahier");
-    document.getElementById("divTopBarTopText").innerHTML = currentTabElement.id + "bonsoir";
+    currentTabElement = $("divTabCahier");
+    $("divTopBarTopText").innerHTML = currentTabElement.id + "bonsoir";
     createProgressBar();
     createAllPropositions();
     loadMateriel();
@@ -39,7 +43,7 @@ var Jours = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Sam
 var Mois = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
 function actualizeTime() {
     date = new Date();
-    document.getElementById("divTopBarTime").innerHTML = date.getHours() + ":" + TimeGetMinutes() + "<br/>" + Jours[date.getDay()] + " " + date.getDate() + " " + Mois[date.getMonth()].substring(0, 3); //.substring(0, 3)
+    $("divTopBarTime").innerHTML = date.getHours() + ":" + TimeGetMinutes() + "<br/>" + Jours[date.getDay()] + " " + date.getDate() + " " + Mois[date.getMonth()].substring(0, 3); //.substring(0, 3)
 
 
 }

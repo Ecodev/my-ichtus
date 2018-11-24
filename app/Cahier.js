@@ -21,7 +21,7 @@ function Person(name, surname, gender) {
 
 function Search(e) {
 
-    var text = document.getElementById("inputTabCahierSearch").value.toUpperCase();
+    var text = $("inputTabCahierSearch").value.toUpperCase();
 
     if (e.keyCode == 13) {
         if (typeof document.getElementsByClassName("spanTabCahierSurname")[0] != "undefined") {
@@ -35,20 +35,20 @@ function Search(e) {
         Requests.getUsersList(text, 5);
     }
     else {
-        document.getElementById("divTabCahierSearchResult").innerHTML = "";
+        $("divTabCahierSearchResult").innerHTML = "";
     }
 }
 function createSearchEntries(PeopleCorresponding) {
     console.log(PeopleCorresponding);
 
-    document.getElementById("divTabCahierSearchResult").innerHTML = "";
+    $("divTabCahierSearchResult").innerHTML = "";
 
     var c = 0;
 
     if (PeopleCorresponding.length == 0) {
         var divResult = document.createElement("div");
         divResult.classList.add("divTabCahierResultEntry");
-        document.getElementById("divTabCahierSearchResult").appendChild(divResult);
+        $("divTabCahierSearchResult").appendChild(divResult);
 
         var span1 = document.createElement("span");
         span1.classList.add("spanTabCahierName");
@@ -62,7 +62,7 @@ function createSearchEntries(PeopleCorresponding) {
         for (var i = 0; i < PeopleCorresponding.length; i++) {
             var divResult = document.createElement("div");
             divResult.classList.add("divTabCahierResultEntry");
-            document.getElementById("divTabCahierSearchResult").appendChild(divResult);
+            $("divTabCahierSearchResult").appendChild(divResult);
 
             divResult.addEventListener("mousedown", function () { chosePerson(this.getElementsByClassName("spanTabCahierName")[0].innerHTML, this.getElementsByClassName("spanTabCahierSurname")[0].innerHTML); });
 
@@ -98,8 +98,8 @@ function createSearchEntries(PeopleCorresponding) {
 function chosePerson(name, surname) {
    // changeProgress(1);
     newTab("divTabCahierMaterielOptions");
-    document.getElementById("divTabCahierInfosName").innerHTML = name + " " + surname;
-    document.getElementById("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0].focus();
+    $("divTabCahierInfosName").innerHTML = name + " " + surname;
+    $("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0].focus();
 }
 
 
