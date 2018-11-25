@@ -99,7 +99,6 @@ function chosePerson(name, surname) {
    // changeProgress(1);
     newTab("divTabCahierMaterielOptions");
     $("divTabCahierInfosName").innerHTML = name + " " + surname;
-    $("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0].focus();
 }
 
 

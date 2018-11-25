@@ -94,18 +94,89 @@
             <div class="Buttons ValidateButtons"></div><br />
             <div class="Buttons ValidateButtons"></div><br />
             hello
-            <div id="test"></div>
-            bonsoir
         </div>
 
         <!--Div Tab Cahier Top-->
-        <div id="divTabCahierTop" class="divTab">
+        <div id="divTabCahierTop">
             <div id="divTabCahierProgress"></div>
             <div id="divTabCahierInfosName"></div>
             <div id="divTabCahierInfosBar"></div>
             <div id="divTabCahierCancelButton" onclick=" newTab('divTabCahier'); clearData();">Annuler la sortie</div>
             <!--<div id="divTabCahierChangeNameButton2" onclick="changeProgress(0);">pasbeau</div>-->
             <!--<div id="divTabCahierChangeNameButton" onclick="changeProgress(0);">???</div>-->
+        </div>
+
+
+
+        <!-- Div Tab CahierMaterielOptions -->
+        <div id="divTabCahierMaterielOptions" class="divTab">
+            <div style="margin-top:300px; position:relative;"></div>
+            <br />
+            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahier')"></div>
+            <br />
+            <div id="divTabCahierMaterielOptionsContainer">
+                <div class="BoxesContainer" onclick="newTab('divTabCahierInfos')">
+
+                    <div class="Boxes"><div class="BoxesTop"></div><div class="BoxesBottom"><div class="BoxesBottomText1">Materiel Perso</div></div></div>
+
+                </div><div class="BoxesContainer" onclick="newTab('divTabCahierMaterielCode')">
+
+                    <div class="Boxes"><div class="BoxesTop"></div><div class="BoxesBottom"><div class="BoxesBottomText1">Code</div></div></div>
+
+                </div><div class="BoxesContainer" onclick="newTab('divTabCahierMaterielCategories')">
+
+                    <div class="Boxes"><div class="BoxesTop"></div><div class="BoxesBottom"><div class="BoxesBottomText1">Catégories</div></div></div>
+
+                </div>
+
+                <div class="ValidateButtons Buttons">options 1</div><br />
+            </div>
+
+        </div>
+
+
+
+        <!--Div Tab CahierMaterielCode-->
+        <div id="divTabCahierMaterielCode" class="divTab">
+            <div style="margin-top:300px; position:relative;"></div>
+            <br />
+            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielOptions')"></div>
+            <br />
+            <div id="divTabCahierMaterielCodeEmbarcation">
+                <input type="text" placeholder="Type" onkeyup="writeCodeMateriel(); actualizeCodeMateriel();" onfocusin="openPropositionsCodeMateriel(); actualizeCodeMateriel();" onfocusout="closePropositionsCodeMateriel();" />
+                <input type="number" placeholder="Numéro" min="1" onkeyup="if (event.keyCode == 13) { validateCodeMateriel(); }; actualizeCodeMateriel();"/ >
+                <div></div>
+                <div>Code de l'embarcation</div>
+                <div id="divTabCahierMaterielCodeEmbarcationTypeResults"></div>
+                <div class="Buttons ValidateButtons" onclick="validateCodeMateriel();">Valider</div>
+            </div>
+        </div>
+
+
+
+
+        <!-- Div Tab CahierMaterielCategories -->
+        <div id="divTabCahierMaterielCategories" class="divTab">
+            <div style="margin-top:300px; position:relative;"></div>
+            <br />
+            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielOptions')"></div>
+            <br />
+
+            <div id="divTabCahierMaterielCategoriesOther">Par catégorie</div>
+            <div id="divTabCahierMaterielCategoriesContainer"></div>
+        </div>
+
+
+        <!-- Div Tab CahierMaterielElements-->
+        <div id="divTabCahierMaterielElements" class="divTab">
+            <div style="margin-top:300px; position:relative;"></div>
+            <br />
+            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')"></div>
+            <br />
+            <div id="divTabCahierMaterielElementsContainer">
+
+
+            </div>
         </div>
 
         <!--Div Tab CahierInfos-->
@@ -119,8 +190,11 @@
 
                 <div id="divTabCahierInfosNbrInvites" class="TabCahierFields">
                     Nbr d'accompagnants
-                    <input type="number" min="0" max="20" spellcheck="false" placeholder="0" value="0" onkeyup="writeNbrInvites(this);" />
+                    <input type="number" min="0" max="20" spellcheck="false" placeholder="0" value="0" onkeyup="writeNbrInvites(this);" onfocusin="this.value =''; writeNbrInvites(this); focusInOrOut(this,true);"  onfocusout="if (this.value == '') { this.value = '0'; writeNbrInvites(this);}focusInOrOut(this,false);"/> 
                     <div></div>
+                    <div id="divTabCahierInfosNbrInvitesPropositions" class="PropositionsContainer">
+                        <div>Aucun</div><div> 1 </div><div> 2 </div><div> 3 </div><div> 4 </div>
+                    </div>
                 </div>
 
                 <div id="divTabCahierInfosDestination" class="TabCahierFields">
@@ -159,89 +233,17 @@
             </div>-->
             </div>
 
-            <div class="Buttons ValidateButtons" onclick="checkInfos();">Suivant</div>  <br />
-
-
             <br />
-            end
+            <div class="Buttons ValidateButtons" onclick="checkInfos();">Suivant</div>
 
-        </div>
-
-        <!-- Div Tab CahierMaterielOptions -->
-        <div id="divTabCahierMaterielOptions" class="divTab">
-            <div style="margin-top:300px; position:relative;"></div>
-            <br />
-            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahier')"></div>
-            <br />
-            <div id="divTabCahierMaterielOptionsContainer">
-                <div class="BoxesContainer" onclick="newTab('divTabCahierInfos')">
-
-                    <div class="Boxes"><div class="BoxesTop"></div><div class="BoxesBottom"><div class="BoxesBottomText1">Materiel Perso</div></div></div>
-
-                </div><div class="BoxesContainer" onclick="newTab('divTabCahierMaterielCode')">
-
-                    <div class="Boxes"><div class="BoxesTop"></div><div class="BoxesBottom"><div class="BoxesBottomText1">Code/Embarcation</div></div></div>
-
-                </div><div class="BoxesContainer" onclick="newTab('divTabCahierMaterielCategories')">
-
-                    <div class="Boxes"><div class="BoxesTop"></div><div class="BoxesBottom"><div class="BoxesBottomText1">Catégories</div></div></div>
-
-                </div>
-
-                <div><div class="ValidateButtons Buttons">options 1</div><br />     </div>
-            </div>
-        </div>
-
-
-
-        <!--Div Tab CahierMaterielCode-->
-        <div id="divTabCahierMaterielCode" class="divTab">
-            <div style="margin-top:300px; position:relative;"></div>
-            <br />
-            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielOptions')"></div>
-            <br />
-            <div id="divTabCahierMaterielCodeEmbarcation">
-                <input type="text" placeholder="Type" onkeyup="writeCodeMateriel(); actualizeCodeMateriel();" onfocusin="openPropositionsCodeMateriel(); actualizeCodeMateriel();" onfocusout="closePropositionsCodeMateriel();" />
-                <input type="number" placeholder="Numéro" min="1" onkeyup="if (event.keyCode == 13) { validateCodeMateriel(); }; actualizeCodeMateriel();"/ >
-                <div></div>
-                <div>Code de l'embarcation</div>
-                <div id="divTabCahierMaterielCodeEmbarcationTypeResults"></div>
-                <div class="Buttons ValidateButtons" onclick="validateCodeMateriel();">Valider</div>
-            </div>
-
-
-        </div>
-
-
-
-
-        <!-- Div Tab CahierMaterielCategories -->
-        <div id="divTabCahierMaterielCategories" class="divTab">
-            <div style="margin-top:300px; position:relative;"></div>
-            <br />
-            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielOptions')"></div>
-            <br />
-
-            <div id="divTabCahierMaterielCategoriesOther">Par catégorie</div>
-            <div id="divTabCahierMaterielCategoriesContainer"></div>
-        </div>
-
-
-        <!-- Div Tab CahierMaterielElements-->
-        <div id="divTabCahierMaterielElements" class="divTab">
-            <div style="margin-top:300px; position:relative;"></div>
-            <br />
-            <div class="Buttons ReturnButtons"  onclick="newTab('divTabCahierMaterielCategories')"></div>
-            <br />
-            <div id="divTabCahierMaterielElementsContainer">
-
-
-            </div>
         </div>
 
         <!--Div Tab CahierConfirmation-->
         <div id="divTabCahierConfirmation" class="divTab">
-
+            <div style="margin-top:300px; position:relative;"></div>
+            <br />
+            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierInfos')"></div>
+            <br />
         </div>
 
         <!--Div Tab Statistiques-->
@@ -252,17 +254,15 @@
             <input type="button" onclick="ReadText()" />
         </div>
 
-        <!-- Div Bottom-->
-        <div id="divBottom">
+
+        <!--<div id="divBottom">
             BOTTOM BAR ?
-        </div>
+        </div>-->
 
 
 
-    </div><!-- close div Screen -->
 
-
-
+    </div>
 
 </body>
 </html>

@@ -118,6 +118,8 @@ var changeTime = 0.3;
 
 function changeTab(newElement, sign) {
 
+    AdjustBottomBar(newElement);
+
     stillMoving = true;
 
     document.documentElement.scrollTop = 0;
@@ -144,7 +146,6 @@ function changeTab(newElement, sign) {
             currentTabElement.style.top = "-30000px";
             currentTabElement = newElement;
             $("divTopBarTopText").innerHTML = NewElement.id + "  " + NewElement.order + "   " + stillMoving;
-            AdjustBottomBar();
         }, 50);
 
     }, changeTime * 1000);
@@ -164,8 +165,8 @@ tabs.push({ id: "divTabStatistiques",            order: 1,  progress: 0, positio
 tabs.push({ id: "divTabCahierMaterielOptions",   order: 10, progress: 1, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
 tabs.push({ id: "divTabCahierMaterielCode",          order: 11, progress: 1, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
 tabs.push({ id: "divTabCahierMaterielCategories",order: 12, progress: 1, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
-tabs.push({ id: "divTabCahierMaterielElements",  order: 13, progress: 1, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
-tabs.push({ id: "divTabCahierInfos",             order: 14, progress: 2, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
+tabs.push({ id: "divTabCahierMaterielElements", order: 13, progress: 1, position: 0, TopBar: true, Enter: function () { }, Remove: function () { } });
+tabs.push({ id: "divTabCahierInfos", order: 14, progress: 2, position: 0, TopBar: true, Enter: function () { $("divTabCahierInfosPhoneNumber").getElementsByTagName("input")[0].focus(); writeNbrInvites($("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0])}, Remove: function () { }});
 tabs.push({ id: "divTabCahierConfirmation",      order: 15, progress: 3, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
 
 

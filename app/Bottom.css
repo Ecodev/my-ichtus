@@ -1,4 +1,4 @@
-#divBottom {
+/*#divBottom {
 	position:relative;
 	background-color:green;
 	height:100px;
@@ -6,12 +6,26 @@
 	top:2200px;
 	z-index:20;
 	opacity:0.3;
-}
+}*/
 
-#test {
+.divBottoms {
     position:absolute;
     bottom:0px;
-    width:50%;
+    width:100%;
     height:100px;
-    background-color:sandybrown;
+    background-color:black;
+    color:white;
+    font-size:30px;
+    text-align:center;
+}
+
+.divSpacers {
+    position: relative;
+    bottom: 0px;
+    width: 10%;
+    margin-left:90%;
+    height: 100px;
+    background-color: yellowgreen;
+    opacity:0.5;
+    z-index:2;
 }

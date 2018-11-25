@@ -8,12 +8,12 @@ function $(id) {
 
 //Load
 function load() {
+    currentTabElement = $("divTabCahier");
     var scrollBarLength = window.innerWidth - document.documentElement.clientWidth;
     AdjustScreen(window.innerWidth - scrollBarLength, window.innerHeight);
     actualizeTime(); 
     setInterval(actualizeTime, 5000);  //5 secondes
     loadButtons();
-    currentTabElement = $("divTabCahier");
     $("divTopBarTopText").innerHTML = currentTabElement.id + "bonsoir";
     createProgressBar();
     createAllPropositions();
@@ -21,8 +21,9 @@ function load() {
     window.location = "#" + "divTabCahier";
   //  loadReturnButtons(); // OUI OU NON ???????
 
-    ServerInitialize();
+    loadSpacers();
 
+    ServerInitialize();
 }
 
 function TimeGetMinutes() {

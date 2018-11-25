@@ -85,6 +85,10 @@ function writePhoneNumber(e, elem) {
         }
     }
 
+    if (e.keyCode == 13) {
+        checkInfos();
+    }
+
 
 
 
@@ -148,11 +152,24 @@ function writeNbrInvites(elem = document.getElementById("divTabCahierInfosNbrInv
 
 
 function createAllPropositions() {
-    var allDestinationPropositions = document.getElementById("divTabCahierInfosDestinationPropositions").getElementsByTagName("div");
+    var allDestinationPropositions = $("divTabCahierInfosDestinationPropositions").getElementsByTagName("div");
     for (var i = 0; i < allDestinationPropositions.length; i++) {
         allDestinationPropositions[i].addEventListener("mousedown", function () {
             document.getElementById("divTabCahierInfosDestination").getElementsByTagName("input")[0].value = this.innerHTML;
             writeDestination(document.getElementById("divTabCahierInfosDestination").getElementsByTagName("input")[0]);
+        });
+    }
+
+    var allNbrInvitesPropositions = $("divTabCahierInfosNbrInvitesPropositions").getElementsByTagName("div");
+    for (var i = 0; i < allNbrInvitesPropositions.length; i++) {
+        allNbrInvitesPropositions[i].addEventListener("mousedown", function () {
+            if (this.innerHTML == "Aucun") {
+                document.getElementById("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0].value = 0;
+            }
+            else {
+                document.getElementById("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0].value = parseInt(this.innerHTML);
+            }
+            writeNbrInvites(document.getElementById("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0]);
         });
     }
 
@@ -173,7 +190,7 @@ function focusInOrOut(elem, focus) {
     }
 }
 
-function enterProposition(elem) {
+function enterProposition(elem,x) {
     elem.style.marginLeft = "0px";
     elem.style.marginRight = "10px";
     elem.style.opacity = 1;
