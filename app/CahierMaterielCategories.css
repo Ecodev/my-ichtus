@@ -1,0 +1,30 @@
+#divTabCahierMaterielCategories {
+    background-color:greenyellow;
+}
+
+
+
+
+
+#divTabCahierMaterielCategoriesOther {
+    position: relative;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    font-size: 40px;
+    color: black;
+    text-align: center;
+}
+
+
+
+#divTabCahierMaterielCategoriesContainer {
+    position: relative;
+    left: 2.5%;
+    top: 0px;
+    width: 95%;
+    min-height: 100px;
+    text-align: center;
+    background-color: azure;
+}
+

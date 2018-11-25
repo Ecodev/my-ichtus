@@ -10,7 +10,7 @@ function loadElements(type) {
             newTab("divTabCahierInfos");
 
         });
-        document.getElementById("divTabCahierMaterielCategoriesElementsContainer").appendChild(container);
+        document.getElementById("divTabCahierMaterielElementsContainer").appendChild(container);
 
             var secondContainer = document.createElement("div");
             container.appendChild(secondContainer);

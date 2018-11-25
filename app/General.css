@@ -107,7 +107,7 @@ input[type=time]::-webkit-clear-button {
 #divScreen {
     position: absolute;
     width: 1500px;
-    height: 100%;
+    MIN-height: 100%;
     top: 0px;
     background-color: yellow;
     z-index: 80;
@@ -212,6 +212,7 @@ input[type=time]::-webkit-clear-button {
     font-size: 14px;
     text-align: center;
     background-color:red;
+    cursor:pointer;
 }
 
 .Boxes {

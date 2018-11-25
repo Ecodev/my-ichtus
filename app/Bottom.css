@@ -1,9 +1,17 @@
 #divBottom {
-	position:absolute;
+	position:relative;
 	background-color:green;
 	height:100px;
 	width:100%;
 	top:2200px;
 	z-index:20;
-	opacity:0.8;
+	opacity:0.3;
+}
+
+#test {
+    position:absolute;
+    bottom:0px;
+    width:50%;
+    height:100px;
+    background-color:sandybrown;
 }

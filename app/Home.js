@@ -19,6 +19,7 @@ function load() {
     createAllPropositions();
     loadMateriel();
     window.location = "#" + "divTabCahier";
+  //  loadReturnButtons(); // OUI OU NON ???????
 
     ServerInitialize();
 
@@ -61,5 +62,13 @@ function check(checkParent) {
     }
 }
 
-
+function loadReturnButtons() {
+    var allReturnButtons = document.getElementsByClassName("ReturnButtons");
+    for (var i = 0; i < allReturnButtons.length; i++) {
+        allReturnButtons[i].onclick = "";
+        allReturnButtons[i].addEventListener("click", function () {
+            window.history.back();
+        });
+    }
+}
 

@@ -1,4 +1,4 @@
-﻿#divTabCahierMateriel {
+﻿#divTabCahierMaterielCode {
     margin-top:0px;
     -moz-transition: margin-top 0.2s linear 0s;
     -o-transition: margin-top 0.2s linear 0s;
@@ -10,7 +10,7 @@
     position: relative;
     left: 50%;
     margin-left:-250px;
-    margin-top:360px;
+    margin-top:0px;
     top: 0px;
     width: 500px;
     height: 80px;
@@ -193,26 +193,12 @@
 
 
 
-#divTabCahierMaterielOther {
-    position: relative;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    font-size:40px;
-    color:black;
-    text-align:center;
-}
 
 
 
 
 
-
-
-
-
-
-#divTabCahierMateriel .ValidateButtons {
+#divTabCahierMaterielCode .ValidateButtons {
     position: absolute;
     top: 15px;
     left: 50%;
@@ -225,14 +211,4 @@
 
 
 
-
-#divTabCahierMaterielCategories {
-    position: relative;
-    left: 2.5%;
-    top: 0px;
-    width: 95%;
-    min-height: 100px;
-    text-align:center;
-    background-color:azure;
-}
 

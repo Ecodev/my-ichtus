@@ -3,9 +3,8 @@
 }
 
 
-#divTabCahierMaterielCategoriesElementsContainer {
+#divTabCahierMaterielElementsContainer {
     position: relative;
-    margin-top: 340px;
     width: 95%;
     left: 2.5%;
     min-height: 100px;
@@ -13,7 +12,7 @@
     text-align: center;
 }
 
-    #divTabCahierMaterielCategoriesElementsContainer > div {
+    #divTabCahierMaterielElementsContainer > div {
         position: relative;
         display: inline-block;
         box-sizing: border-box; /*TELLEMENT BIEN !!*/
@@ -24,7 +23,7 @@
         margin: 10px;
     }
 
-        #divTabCahierMaterielCategoriesElementsContainer > div > div {
+        #divTabCahierMaterielElementsContainer > div > div {
             position: absolute;
             box-sizing: border-box; /*TELLEMENT BIEN !!*/
             /*border: 2px solid black;*/
@@ -40,7 +39,7 @@
             transition: all 0.1s linear 0s;
         }
 
-        #divTabCahierMaterielCategoriesElementsContainer > div:hover > div {
+        #divTabCahierMaterielElementsContainer > div:hover > div {
             top: 15px;
             -webkit-box-shadow: 3px 6px 10px 0px rgba(0,0,0,0.75);
             -moz-box-shadow: 3px 6px 10px 0px rgba(0,0,0,0.75);
@@ -48,7 +47,7 @@
         }
 
 
-        #divTabCahierMaterielCategoriesElementsContainer > div > div > div:nth-child(1) {
+        #divTabCahierMaterielElementsContainer > div > div > div:nth-child(1) {
             position: absolute;
             right: 0px;
             bottom: 80px;
@@ -67,7 +66,7 @@
             z-index: 2;
         }
 
-        #divTabCahierMaterielCategoriesElementsContainer > div > div > div:nth-child(2) {
+        #divTabCahierMaterielElementsContainer > div > div > div:nth-child(2) {
             position: absolute;
             left: 0px;
             top: 220px;
@@ -82,7 +81,7 @@
             z-index: 3;
         }
 
-            #divTabCahierMaterielCategoriesElementsContainer > div > div > div:nth-child(2) > div:nth-child(1) {
+            #divTabCahierMaterielElementsContainer > div > div > div:nth-child(2) > div:nth-child(1) {
                 position: absolute;
                 left: 2.5%;
                 top: 10px;
@@ -95,7 +94,7 @@
             }
 
 
-            #divTabCahierMaterielCategoriesElementsContainer > div > div > div:nth-child(2) > div:nth-child(2) {
+            #divTabCahierMaterielElementsContainer > div > div > div:nth-child(2) > div:nth-child(2) {
                 position: absolute;
                 left: 2.5%;
                 top: 40px;
@@ -106,15 +105,15 @@
                 transition: all 0.1s linear 0s;
             }
 
-        #divTabCahierMaterielCategoriesElementsContainer > div:hover div > div:nth-child(2) > div:nth-child(1) {
+        #divTabCahierMaterielElementsContainer > div:hover div > div:nth-child(2) > div:nth-child(1) {
             font-size: 23px;
         }
 
-        #divTabCahierMaterielCategoriesElementsContainer > div:hover div > div:nth-child(2) > div:nth-child(2) {
+        #divTabCahierMaterielElementsContainer > div:hover div > div:nth-child(2) > div:nth-child(2) {
             font-size: 25px;
         }
 
-        #divTabCahierMaterielCategoriesElementsContainer > div > div > div:nth-child(3) {
+        #divTabCahierMaterielElementsContainer > div > div > div:nth-child(3) {
             position: absolute;
             right: 15px;
             top: -10px;
@@ -133,12 +132,12 @@
             z-index: 5;
         }
 
-        #divTabCahierMaterielCategoriesElementsContainer > div:hover > div > div:nth-child(3) {
+        #divTabCahierMaterielElementsContainer > div:hover > div > div:nth-child(3) {
             opacity: 1;
             top: 15px;
         }
 
-        #divTabCahierMaterielCategoriesElementsContainer > div > div > div:nth-child(3):hover {
+        #divTabCahierMaterielElementsContainer > div > div > div:nth-child(3):hover {
             top: 17px;
             -webkit-box-shadow: 2px 0px 10px 0px rgba(0,0,0,0.75);
             -moz-box-shadow: 2px 0px 10px 0px rgba(0,0,0,0.75);
@@ -147,7 +146,7 @@
 
 
 
-        #divTabCahierMaterielCategoriesElementsContainer > div > div > div:nth-child(4) {
+        #divTabCahierMaterielElementsContainer > div > div > div:nth-child(4) {
             position: absolute;
             left: 0px;
             top: 0px;
@@ -162,7 +161,7 @@
             transition: all 0.2s linear 0s;
         }
 
-        #divTabCahierMaterielCategoriesElementsContainer > div:hover > div > div:nth-child(4) {
+        #divTabCahierMaterielElementsContainer > div:hover > div > div:nth-child(4) {
             background-position-x: 0px,-20px;
             background-position-y: 0px,-20px;
             background-size: 200px,240px;

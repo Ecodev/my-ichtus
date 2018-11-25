@@ -100,7 +100,7 @@ function loadMateriel() {
         d.id = categories[i];
         d.classList.add("BoxesContainer");
         d.innerHTML = "300x " + categories[i] + "s";
-        document.getElementById("divTabCahierMaterielCategories").appendChild(d);
+        document.getElementById("divTabCahierMaterielCategoriesContainer").appendChild(d);
 
         var d1 = document.createElement("div");
         d1.classList.add("Boxes");
@@ -122,7 +122,7 @@ function loadMateriel() {
         d.addEventListener("click", function () {
 
             newTab("divTabCahierMaterielElements");
-            //document.getElementById("divTabCahierMateriel").style.marginTop = "-1000px";
+            //document.getElementById("divTabCahierMaterielCode").style.marginTop = "-1000px";
 
             loadElements(this.id);
         });

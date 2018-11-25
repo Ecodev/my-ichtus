@@ -81,26 +81,6 @@ function AdjustScreen(w, h) {
 }
 
 
-function AdjustBottomBar() {
-    $("divBottom").style.top = "-100px";
-
-    let scrollHeight = Math.max( //Full document height, with scrolled out part: 
-        document.body.scrollHeight, document.documentElement.scrollHeight,
-        document.body.offsetHeight, document.documentElement.offsetHeight,
-        document.body.clientHeight, document.documentElement.clientHeight
-    );
-
-    if (scrollHeight + 5 > heightScreen && scrollHeight - 5 < heightScreen) {
-        $("divBottom").style.top = (scrollHeight - 100) + "px";
-    }
-    else {
-        $("divBottom").style.top = (scrollHeight + 0) + "px";
-    }
-
-    $("divBottom").innerHTML = scrollHeight + " -100 ";
-}
-
-
 
 window.onscroll = function () { AdjustTopBar() };
 function AdjustTopBar() {
@@ -182,7 +162,7 @@ tabs.push({ id: "divTabMateriel",                order: -1, progress: 0, positio
 tabs.push({ id: "divTabCahier",                  order: 0,  progress: 0, position: 0, TopBar: false, Enter: function () { $("inputTabCahierSearch").focus(); }, Remove: function () { $("inputTabCahierSearch").blur();}});
 tabs.push({ id: "divTabStatistiques",            order: 1,  progress: 0, position: 1, TopBar: false, Enter: function () { }, Remove: function () { }});
 tabs.push({ id: "divTabCahierMaterielOptions",   order: 10, progress: 1, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
-tabs.push({ id: "divTabCahierMateriel",          order: 11, progress: 1, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
+tabs.push({ id: "divTabCahierMaterielCode",          order: 11, progress: 1, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
 tabs.push({ id: "divTabCahierMaterielCategories",order: 12, progress: 1, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
 tabs.push({ id: "divTabCahierMaterielElements",  order: 13, progress: 1, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
 tabs.push({ id: "divTabCahierInfos",             order: 14, progress: 2, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
