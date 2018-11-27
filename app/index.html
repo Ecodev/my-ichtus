@@ -32,6 +32,7 @@
     <script src="Screen.js"></script>
     <script src="Bottom.js"></script>
     <script src="Cahier.js"></script>
+    <script src="CahierMethods.js"></script>
     <script src="CahierTop.js"></script>
     <script src="CahierInfos.js"></script>
     <script src="CahierMaterielCode.js"></script>
@@ -101,7 +102,7 @@
             <div id="divTabCahierProgress"></div>
             <div id="divTabCahierInfosName"></div>
             <div id="divTabCahierInfosBar"></div>
-            <div id="divTabCahierCancelButton" onclick=" newTab('divTabCahier'); clearData();">Annuler la sortie</div>
+            <div id="divTabCahierCancelButton" onclick=" newTab('divTabCahier'); Cahier.cancel();">Annuler la sortie</div>
             <!--<div id="divTabCahierChangeNameButton2" onclick="changeProgress(0);">pasbeau</div>-->
             <!--<div id="divTabCahierChangeNameButton" onclick="changeProgress(0);">???</div>-->
         </div>
@@ -171,8 +172,29 @@
         <div id="divTabCahierMaterielElements" class="divTab">
             <div style="margin-top:300px; position:relative;"></div>
             <br />
-            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')"></div>
-            <br />
+            <div id="divTabCahierMaterielElementsButtonsContainer">
+                <div>
+                    <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')"></div>
+                </div><div style="width:120px;"></div><div>
+                    <div class="Buttons NormalButtons" style="width:230px; background-image:url(Img/IconSearchBlack.png)" onclick="newTab('divTabCahierMaterielCategories')">Changer de catégorie</div>
+                </div><div style="width:250px;"></div><div>
+                    <div id="divTabCahierMaterielElementsSelect">
+                        <div class="Buttons NormalButtons" id="divTabCahierMaterielElementsSelectIcon"></div>
+                        <select>
+                            <option>Nom</option>
+                            <option>Taille</option>
+                            <option>Dernière utilisation</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div id="divTabCahierMaterielElementsBar">
+                <div>Trier par</div>
+                <div>
+                    <div>Nom</div><div>Taille</div><div>Dernière utilisation</div>
+                </div>
+            </div>
             <div id="divTabCahierMaterielElementsContainer">
 
 

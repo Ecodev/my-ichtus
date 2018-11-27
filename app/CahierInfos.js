@@ -1,27 +1,4 @@
-﻿function clearData() { //annuler la sortie
-    document.getElementById("inputTabCahierSearch").value = "";
-    var allTabCahierFields = document.getElementsByClassName("TabCahierFields");
-    //Search("lkj"); //devrait envoyer un event mais ???
-    document.getElementById("divTabCahierSearchResult").innerHTML = "";
-    for (var i = 0; i < allTabCahierFields.length; i++) {
-        allTabCahierFields[i].getElementsByTagName("input")[0].value = "";
-        allTabCahierFields[i].getElementsByTagName("input")[0].style.backgroundImage = "none";
-        allTabCahierFields[i].getElementsByTagName("input")[0].style.borderColor = "black";
-        allTabCahierFields[i].getElementsByTagName("div")[0].style.backgroundColor = "black";
-    }
-    document.getElementById("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0].value = "0";
-    if (document.getElementById("checkBoxTabCahierInfosPhoneNumberRemember").getElementsByClassName("checkBox")[0].id == 1) {
-        check(document.getElementById("checkBoxTabCahierInfosPhoneNumberRemember"));
-    }
-}
-
-
-
-
-
-
-
-function writePhoneNumber(e, elem) {
+﻿function writePhoneNumber(e, elem) {
     var txt = elem.value;
 
     var t = txt.split(" ");

@@ -1,9 +1,11 @@
-function loadElements(type) {
-    var i = categories.findIndex(type);
+function loadElements(Resources) {
+    //var i = categories.findIndex(type);
 
 
-    var nbrOfElements = 10;
-    for (var i = 0; i < nbrOfElements; i++) {
+    //var nbrOfElements = 10;
+
+    document.getElementById("divTabCahierMaterielElementsContainer").innerHTML = "";
+    for (var i = 0; i < Resources.length; i++) {
 
         var container = document.createElement("div");
         container.addEventListener("click", function () {
@@ -23,11 +25,11 @@ function loadElements(type) {
                 secondContainer.appendChild(bottom);
 
                     var brand = document.createElement("div");
-                    brand.innerHTML = "Marque";
+                    brand.innerHTML = Resources[i].name;
                     bottom.appendChild(brand);
 
                     var model = document.createElement("div");
-                    model.innerHTML = "Modèle" + " " + i;
+                    model.innerHTML = "Modèle" + " " + Resources[i].id;
                     bottom.appendChild(model);
 
                 var info = document.createElement("div");

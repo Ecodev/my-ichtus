@@ -167,3 +167,93 @@
             background-size: 200px,240px;
             /*filter:grayscale(1);*/
         }
+
+#divTabCahierMaterielElementsChangeButton {
+    position: absolute;
+    top: 318px;
+    left: 2.5%;
+    margin-left: 120px;
+    width:233px;
+    background-image:url(Img/IconEnter.png)
+}
+#divTabCahierMaterielElementsChangeButton:after{
+    content:"";
+}
+
+    #divTabCahierMaterielElementsBar {
+        position: relative;
+        width: 95%;
+        margin-left: 2.5%;
+        margin-top: 0px;
+        height: 75px;
+        background-color: white;
+        border: 2px solid lightgray;
+        border-radius: 10px;
+        box-sizing: border-box;
+    }
+
+#divTabCahierMaterielElementsBar > div:nth-child(1) {
+    position:absolute;
+    margin-top:10px;
+    margin-left:10px;
+    min-width:1px;
+    min-height:10px;
+    background-color:white;
+    font-size:20px;
+}
+
+#divTabCahierMaterielElementsButtonsContainer {
+    position:relative;
+    min-width:10px;
+    min-height:10px;
+    text-align:left;
+    background-color:red;
+    left:2.5%;
+}
+
+#divTabCahierMaterielElementsButtonsContainer > div  {
+    display:inline-block;
+    position:relative;
+    background-color:transparent;
+    top:0px;
+    height:40px; /*important ?*/
+    vertical-align:top;
+}
+
+    #divTabCahierMaterielElementsButtonsContainer > div > div {
+        position:absolute;
+    }
+
+    #divTabCahierMaterielElementsButtonsContainer > div select {
+        position: absolute;
+        padding-left: 10px;
+        margin-left: 40px;
+        border-bottom-left-radius: 0px;
+        border-top-left-radius: 0px;
+        background-color: white;
+    }
+
+#divTabCahierMaterielElementsSelect > div {
+    position: absolute;
+    width: 30px;
+    background-color: white;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    background-image: url(Img/IconSup.png);
+    -webkit-box-shadow: -2px 0px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: -2px 0px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: -2px 0px 10px 0px rgba(0,0,0,0.75);
+}
+
+#divTabCahierMaterielElementsSelect>div:hover {
+    margin-top: 0px;
+}
+
+#divTabCahierMaterielElementsSelect {
+    transition:all 0.1s linear 0s;
+}
+
+#divTabCahierMaterielElementsSelect:hover {
+    margin-top:4px;
+}
+

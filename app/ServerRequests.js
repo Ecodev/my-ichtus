@@ -55,7 +55,29 @@ var Requests = {
         });
     },
 
+    // getRessourcesList
+    getRessourcesList: function (cat) {
+        var filter = {
+            filter: {
+            },
+            pagination: {
+                pageSize: 20,
+                pageIndex: 0
+            },
+            sorting: {
+                field: name, //Marche pas ???
+                order: 'ASC'
+            }
+        };
+        // Config filters
+        var variables = new Server.QueryVariablesManager();
+        variables.set('variables', filter);
 
+        Server.resourceService.getAll(variables).subscribe(result => {
+            console.log("getRessourcesList(): ", result);
+            loadElements(result.items);
+        });
+    },
 
 
 
