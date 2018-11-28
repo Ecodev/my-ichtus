@@ -1,7 +1,6 @@
 ﻿//ProgressBar
-function createProgressBar() {
 
-    var Texts = ["Nom", "Embarcation", "Infos", "Confirmation"];
+function createProgressBar() {
 
     for (var i = 0; i < 4; i++) {
 
@@ -39,16 +38,16 @@ function createProgressBar() {
 
         var divText = document.createElement("div");
         divText.classList.add("divTabCahierProgressText");
-        divText.innerHTML = Texts[i];
+        divText.innerHTML = Cahier.ProgressBarTexts[i];
         divStep.appendChild(divText);
     }
 
-    var divBar = document.createElement("divBar");
+    var divBar = document.createElement("div");
     divBar.id = "divTabCahierProgressBar";
     divBar.style.left = (11 + 26 * 0) + "%";
     $("divTabCahierProgress").appendChild(divBar);
 
-    var divBarBlue = document.createElement("divBar");
+    var divBarBlue = document.createElement("div");
     divBarBlue.id = "divTabCahierProgressBarBlue";
     divBarBlue.style.left = (11 + 26 * 0) + "%";
     $("divTabCahierProgress").appendChild(divBarBlue);

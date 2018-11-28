@@ -131,15 +131,16 @@
 
 .divTabCahierProgressText {
     position: absolute;
-    left: 0px;
+    /*display:inline-block;*/
+    left: -100%;
     top: 60px;
-    width: 100%;
+    width: 300%;
     height: 20px;
     color: rgb(66, 133, 244);
     font-size: 15px;
     text-align: center;
     transition: all 0.3s linear 0s;
-    /*background-color: red;*/
+    background-color: transparent;
 }
 
 .divTabCahierProgressStepCompleted .divTabCahierProgressText {
@@ -153,7 +154,6 @@
 .divTabCahierProgressStepIncompleted .divTabCahierProgressText {
     color: gray;
 }
-
 
 #divTabCahierProgressBar {
     position: absolute;
@@ -258,8 +258,8 @@
 #divTabCahierCancelButton {
     position: absolute;
     right: 2.5%;
-    margin-right: 20px;
-    top: 170px;
+    /*margin-right: 20px;*/
+    top:135px; /*top: 170px;*/
     width: 180px;
     height: 25px;
     border-radius: 5px;

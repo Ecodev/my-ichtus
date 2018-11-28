@@ -124,7 +124,7 @@ function loadMateriel() {
             newTab("divTabCahierMaterielElements");
             //document.getElementById("divTabCahierMaterielCode").style.marginTop = "-1000px";
 
-            Requests.getRessourcesList(this.id);
+
            // loadElements(this.id);
         });
     }

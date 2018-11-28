@@ -8,6 +8,9 @@ function ServerInitialize() {
 
    // getCountries();
  //  Requests.createQuery();
+   // Requests.addResource();
+
+ //   Requests.personalQuery();
 }
 
 
@@ -40,12 +43,12 @@ var Requests = {
                 pageSize: nbr,
                 pageIndex: 0
             },
-            sorting: {
-                field: name, //Marche pas ???
-                order:'ASC'
+            sort: { //sorting ? ["] ?
+                field: 'name', //Marche pas ???
+                order: 'DESC'
             }
         };
-        // Config filters
+
         var variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);
 
@@ -55,93 +58,132 @@ var Requests = {
         });
     },
 
-    // getRessourcesList
-    getRessourcesList: function (cat) {
-        var filter = {
+    // getResourcesList
+    getResourcesList: function () {
+
+        var sort;
+        if ($('divTabCahierMaterielElementsSelectIcon').style.backgroundImage == 'url("Img/IconBack.png")') {
+            sort = "ASC";
+        }
+        else {
+            sort = "DESC";
+        }
+
+        var whichField = "id";
+
+        var f = {
             filter: {
+                groups: [{
+                    conditionsLogic:'OR',
+                    conditions: [{
+                        name: {
+                            like: {
+                                value: "%" + $('inputTabCahierMaterielElementsInputSearch').value + "%"
+                            }
+                        }
+                    },
+                    {
+                        id: {
+                            like: {
+                                value: "%" + $('inputTabCahierMaterielElementsInputSearch').value + "%"
+                            }
+                        }
+                    }]
+                }]
             },
+            sorting: [
+                { field: whichField, order: sort }
+            ],
             pagination: {
-                pageSize: 20,
+                pageSize: parseInt($('divTabCahierMaterielElementsSelectPageSize').getElementsByTagName('select')[0].value),
                 pageIndex: 0
-            },
-            sorting: {
-                field: name, //Marche pas ???
-                order: 'ASC'
-            }
+            }          
         };
-        // Config filters
+
         var variables = new Server.QueryVariablesManager();
-        variables.set('variables', filter);
+        variables.set('variables', f);
 
         Server.resourceService.getAll(variables).subscribe(result => {
-            console.log("getRessourcesList(): ", result);
+            console.log("getResourcesList(): ", result);
             loadElements(result.items);
         });
     },
 
 
 
+    // Add an item
+    addResource: function () {
+        const item = { name: 'R' + Date.now(), description: "Bonsoir" };
+        Server.resourceService.create(item).subscribe(result => {
+            console.log('Resource created', result);
+        });
+    },
 
 
-    
 
-    // createQuery
-    createQuery: function (table = "users", conditions, sorting, items) { 
+    // personalQuery
+    personalQuery: function () {
 
         var TheQuery = Server.gql`
         {
-            `+ table +` 
-            {
-                items {
-                    id 
+              resources(
+                filter:{
+      
+                  groups:[{
+        
+                    conditionsLogic:OR
+        
+        
+                    conditions:[
+                      {
+                        id:{
+                          like:{
+                            value:"%3001%"
+                          }
+                        }
+                        name:{
+                          like:{
+                            value:"%R15%"
+                          }
+                        }
+                      }
+                    ]}
+        
+        
+        
+                  ]
+      
+                },
+                sorting: [{
+    	            field:id
+                  order:DESC
+                }]
+              )
+              {
+                  items {
+                    id
                     name
+                    description
+        
+                    tags {
+                      id
+                    }
+
+                  }
                 }
             }
-        
-        }`;
+            `;
 
         Server.apollo.query({ query: TheQuery }).subscribe(result => {
-            console.log("Result of Requests.createQuery(): ",result);
+            console.log("Result of Requests.createQuery(): ", result);
         });
-    },
+    }
 
 
 
 
 
-    // getItemList
-    getItemList: function (filter = {}) {
-
-        // Config filters
-        var variables = new Server.QueryVariablesManager();
-        variables.set('variables', filter);
-
-        // Get all items
-        Server.itemService.getAll(variables).subscribe(result => {
-            console.log('Items list : ', result);
-            console.log(result);
-        });
-    },
 
 
 
-
-}
-
-// Create custom GraphQL query
-function getCountries() {
-    const customQuery = Server.gql`
-                query Countries {
-                    countries {
-                        items {
-                            code
-                            name
-                        }
-                    }
-                }`;
-    // Execute custom query
-    Server.apollo.query({ query: customQuery }).subscribe(result => {
-        console.log(result);
-    });
-}
-
+};

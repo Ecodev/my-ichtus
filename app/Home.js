@@ -5,6 +5,12 @@ function $(id) {
     return document.getElementById(id);
 }
 
+function div(loc) {
+    var x = document.createElement("div");
+    loc.appendChild(x);
+    return x;
+}
+
 
 //Load
 function load() {
@@ -19,7 +25,7 @@ function load() {
     createAllPropositions();
     loadMateriel();
     window.location = "#" + "divTabCahier";
-  //  loadReturnButtons(); // OUI OU NON ???????
+    loadReturnButtons(); // OUI OU NON ???????
 
     loadSpacers();
 
@@ -66,10 +72,29 @@ function check(checkParent) {
 function loadReturnButtons() {
     var allReturnButtons = document.getElementsByClassName("ReturnButtons");
     for (var i = 0; i < allReturnButtons.length; i++) {
-        allReturnButtons[i].onclick = "";
-        allReturnButtons[i].addEventListener("click", function () {
-            window.history.back();
-        });
+        //allReturnButtons[i].onclick = "";
+      //  allReturnButtons[i].addEventListener("click", function () {
+     //       window.history.back();
+      //  });
+        allReturnButtons[i].title = "Retour";
+    }
+}
+
+
+
+function openPopUp() {
+    $('divModal').style.display = 'block';
+    setTimeout(function () { $('divModal').style.opacity = 1; }, 10);
+    $('divModal').innerHTML = "";
+
+
+
+}
+
+function closePopUp(e) {
+    if (e.target == $('divModal')) {
+        $('divModal').style.opacity = 0;
+        setTimeout(function () { $('divModal').style.display = 'none'; $('divModal').innerHTML = ""; }, 100);
     }
 }
 

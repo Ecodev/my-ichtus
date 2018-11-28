@@ -96,7 +96,10 @@ function createSearchEntries(PeopleCorresponding) {
 
 
 function chosePerson(name, surname) {
-   // changeProgress(1);
+    // changeProgress(1);
+    Cahier.personName = name;
+    Cahier.personSurname = surname;
+    Cahier.personId = surname;
     newTab("divTabCahierMaterielOptions");
     $("divTabCahierInfosName").innerHTML = name + " " + surname;
 }

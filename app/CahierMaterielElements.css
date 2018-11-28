@@ -8,7 +8,7 @@
     width: 95%;
     left: 2.5%;
     min-height: 100px;
-    background-color: azure;
+    background-color: transparent;
     text-align: center;
 }
 
@@ -168,47 +168,17 @@
             /*filter:grayscale(1);*/
         }
 
-#divTabCahierMaterielElementsChangeButton {
-    position: absolute;
-    top: 318px;
-    left: 2.5%;
-    margin-left: 120px;
-    width:233px;
-    background-image:url(Img/IconEnter.png)
-}
-#divTabCahierMaterielElementsChangeButton:after{
-    content:"";
-}
-
-    #divTabCahierMaterielElementsBar {
-        position: relative;
-        width: 95%;
-        margin-left: 2.5%;
-        margin-top: 0px;
-        height: 75px;
-        background-color: white;
-        border: 2px solid lightgray;
-        border-radius: 10px;
-        box-sizing: border-box;
-    }
-
-#divTabCahierMaterielElementsBar > div:nth-child(1) {
-    position:absolute;
-    margin-top:10px;
-    margin-left:10px;
-    min-width:1px;
-    min-height:10px;
-    background-color:white;
-    font-size:20px;
-}
-
 #divTabCahierMaterielElementsButtonsContainer {
     position:relative;
-    min-width:10px;
+    width:95%;
+    border-left-width:130px;
+    border-left-style:solid;
+    
     min-height:10px;
-    text-align:left;
-    background-color:red;
+    text-align:right;
+    background-color:transparent;
     left:2.5%;
+    box-sizing:border-box;
 }
 
 #divTabCahierMaterielElementsButtonsContainer > div  {
@@ -218,6 +188,8 @@
     top:0px;
     height:40px; /*important ?*/
     vertical-align:top;
+    margin-bottom:5px;
+
 }
 
     #divTabCahierMaterielElementsButtonsContainer > div > div {
@@ -233,6 +205,16 @@
         background-color: white;
     }
 
+
+
+#divTabCahierMaterielElementsSelect {
+    transition:all 0.1s linear 0s;
+    z-index:2;
+}
+#divTabCahierMaterielElementsSelect:hover {
+    margin-top: 4px;
+}
+
 #divTabCahierMaterielElementsSelect > div {
     position: absolute;
     width: 30px;
@@ -240,20 +222,101 @@
     border-bottom-right-radius: 0px;
     border-top-right-radius: 0px;
     background-image: url(Img/IconSup.png);
-    -webkit-box-shadow: -2px 0px 10px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: -2px 0px 10px 0px rgba(0,0,0,0.75);
-    box-shadow: -2px 0px 10px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
+}
+#divTabCahierMaterielElementsSelect>div:hover {
+    margin-top: 0px;
+    background-size:50px;
 }
 
-#divTabCahierMaterielElementsSelect>div:hover {
+
+
+
+
+#divTabCahierMaterielElementsSelectPageSize {
+    transition: all 0.1s linear 0s;
+    z-index:2;
+}
+#divTabCahierMaterielElementsSelectPageSize:hover {
+    margin-top:4px;
+}
+#divTabCahierMaterielElementsSelectPageSize > div {
+    position: absolute;
+    width: 30px;
+    background-color: white;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    background-image: url(Img/IconEye.png);
+    -webkit-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
+}
+#divTabCahierMaterielElementsSelectPageSize > div:hover {
     margin-top: 0px;
 }
 
-#divTabCahierMaterielElementsSelect {
-    transition:all 0.1s linear 0s;
+    #inputTabCahierMaterielElementsInputSearch {
+        position: relative;
+        border-width: 2px;
+        border-style: solid;
+        border-color: black;
+        background-color: white; /*rgb(237,237,237);*/
+        padding-left: 40px;
+        padding-top: 0px;
+        height: 34px;
+        width: 120px;
+        padding-bottom: 0px;
+        background-image: none;
+        background-repeat: no-repeat;
+        background-size: 40px;
+        background-position-x: 65px;
+        background-position-y: 4px;
+        color: black;
+        font-size: 20px;
+        text-transform: capitalize;
+        -webkit-box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.75);
+        box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.75);
+        transition: all 0.1s linear 0s, width 0.2s linear 0s, margin-left 0.2s linear 0s;
+        outline: none; /*pour enlever le cadre bleu quand sélectionné*/
+        border-radius: 10px;
+        background-image: url(Img/IconSearchBlack.png);
+        background-position-x: 0px;
+        background-position-y: 0px;
+        background-size: 34px;
+        /*text-align: center;*/
+    }
+#inputTabCahierMaterielElementsInputSearch::placeholder {
+    color: gray;
+}
+#inputTabCahierMaterielElementsInputSearch:focus {
+    /*border-color:rgb(66, 133, 244);*/
+    width: 200px;
+    -webkit-box-shadow: 2px 3px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 3px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 3px 10px 0px rgba(0,0,0,0.75);
 }
 
-#divTabCahierMaterielElementsSelect:hover {
-    margin-top:4px;
+#inputTabCahierMaterielElementsInputSearch:hover {
+    margin-top: 4px;
 }
 
+
+#divTabCahierMaterielElementsPopUp {
+    position:relative;
+    left:50%;
+    margin-left:-350px;
+    top:50%;
+    margin-top:-225px;
+    width:700px;
+    height:450px;
+}
+
+#divTabCahierMaterielElementsPopUp> div:nth-child(1) {
+    position:absolute;
+    right:10px;
+    top:10px;
+    background-image:url(Img/IconCancel.png);
+}

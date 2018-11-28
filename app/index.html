@@ -6,7 +6,8 @@
     <!-- Ajouter les transitions pour les différents exploreurs + box shadows + border radius -->
     <!-- Keyupdown sur le premier input code embarcation n'importe quoi...-->
     <!-- Si personne a déjà une sortie -> voir les sorties actuelles de la personne -->
-    <!-- TESTEST GIT -->
+    <!-- ACCENTS... -->
+
 
 
     <meta charset="utf-8" />
@@ -50,8 +51,12 @@
 </head>
 <body onload="load();">
 
+    <div id="divModal" onclick="closePopUp(event);"></div>
+
+    <div id="divModalContainer"></div>
+
     <!-- Top Bar -->
-    <div id="divTopBar">
+    <div id="divTopBar" onclick="openPopUp();">
         <img id="imgTopBarIchtusLogo" src="Img/IchtusLogo.png"/>
         <img id="imgTopBarIchtusText" src="Img/IchtusText.jpg" />
 
@@ -86,7 +91,7 @@
 
         <!--Div Tab Cahier-->
         <div id="divTabCahier" class="divTab">
-            <input id="inputTabCahierSearch" spellcheck="false" type="text" placeholder="Rechercher..." autofocus onkeyup="Search(event)" />
+            <input id="inputTabCahierSearch" spellcheck="false" type="text" placeholder="Rechercher" autofocus onkeyup="Search(event)" />
             <div id="divTabCahierSearchResult"></div>
 
             <img src="Img/TableExemple.png" style="width:80%; top:0px; left:10%; position:relative;" />bonjour
@@ -99,7 +104,9 @@
 
         <!--Div Tab Cahier Top-->
         <div id="divTabCahierTop">
-            <div id="divTabCahierProgress"></div>
+            <div id="divTabCahierProgress">
+
+            </div>
             <div id="divTabCahierInfosName"></div>
             <div id="divTabCahierInfosBar"></div>
             <div id="divTabCahierCancelButton" onclick=" newTab('divTabCahier'); Cahier.cancel();">Annuler la sortie</div>
@@ -171,34 +178,43 @@
         <!-- Div Tab CahierMaterielElements-->
         <div id="divTabCahierMaterielElements" class="divTab">
             <div style="margin-top:300px; position:relative;"></div>
+
             <br />
+
+            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielOptions')" style="position:absolute;"></div>
             <div id="divTabCahierMaterielElementsButtonsContainer">
-                <div>
-                    <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')"></div>
-                </div><div style="width:120px;"></div><div>
-                    <div class="Buttons NormalButtons" style="width:230px; background-image:url(Img/IconSearchBlack.png)" onclick="newTab('divTabCahierMaterielCategories')">Changer de catégorie</div>
-                </div><div style="width:250px;"></div><div>
-                    <div id="divTabCahierMaterielElementsSelect">
-                        <div class="Buttons NormalButtons" id="divTabCahierMaterielElementsSelectIcon"></div>
+                <!--<div style="width:120px;">
+            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')" style="margin-left:0px;"></div>
+        </div>-->
+                <div style="width:250px;">
+                    <div class="Buttons NormalButtons" style="width:230px; background-image:url(Img/IconEnter.png)" onclick="newTab('divTabCahierMaterielCategories')" title="Changer de catégorie">Changer de catégorie</div>
+                </div><div style="width:248px;">
+                    <div id="divTabCahierMaterielElementsSelect" title="Trier par">
+                        <div class="Buttons NormalButtons" id="divTabCahierMaterielElementsSelectIcon" onclick="clickSortIcon(this); Requests.getResourcesList();"></div>
                         <select>
                             <option>Nom</option>
                             <option>Taille</option>
-                            <option>Dernière utilisation</option>
+                            <option selected="selected">Dernière utilisation</option>
                         </select>
                     </div>
+                </div><div style="width:105px;">
+                    <div id="divTabCahierMaterielElementsSelectPageSize" title="Nombre d'éléments affichés par page">
+                        <div class="Buttons NormalButtons" id="divTabCahierMaterielElementsSelectIconPageSize" ></div>
+                        <select onchange="Requests.getResourcesList()">
+                            <option>10</option>
+                            <option selected="selected">20</option>
+                            <option>50</option>
+                        </select>
+                    </div>
+                </div><div style="min-width:100px;" title="Rechercher">
+                <input id="inputTabCahierMaterielElementsInputSearch" type="text" value="" placeholder="Rechercher" onkeyup="Requests.getResourcesList();" />
                 </div>
             </div>
-            <br/>
-            <div id="divTabCahierMaterielElementsBar">
-                <div>Trier par</div>
-                <div>
-                    <div>Nom</div><div>Taille</div><div>Dernière utilisation</div>
-                </div>
-            </div>
-            <div id="divTabCahierMaterielElementsContainer">
 
 
-            </div>
+            <div id="divTabCahierInfosBar" style="position:relative; top:0px; margin-top:5px; margin-bottom:5px;"></div>
+            <div id="divTabCahierMaterielElementsContainer"></div>
+
         </div>
 
         <!--Div Tab CahierInfos-->
