@@ -76,8 +76,6 @@ function AdjustScreen(w, h) {
 
     $("divTopBarTopText").style.marginLeft = -3/2 * d + "px";
     $("divTopBarTopText").style.width = 3 * d + "px";
-
-    AdjustBottomBar();
 }
 
 
@@ -117,8 +115,6 @@ var currentTabElement;// = $("divTabCahier"); //see load for the first element =
 var changeTime = 0.3;
 
 function changeTab(newElement, sign) {
-
-    AdjustBottomBar(newElement);
 
     stillMoving = true;
 

@@ -160,7 +160,7 @@ option {
     width: 155px;
     height: 44px;
     padding-top: 10px;
-    margin-left: 2.5%;
+    margin-left: 0%; /*changed*/
     margin-top: 0px;
     margin-bottom: 4px;
     padding-left: 10px;
@@ -210,6 +210,7 @@ option {
     padding-left: 0px;
     padding-right: 10px;
     font-size: 20px;
+    margin-left: 2.5%; /*changed*/
 }
 .ReturnButtons::after{
     content:"Retour";

@@ -1,8 +1,11 @@
 var MaterielElementsFirstLoad = false;
+
+var currentResouces;
+
 function loadElements(Resources) {
     //var i = categories.findIndex(type);
 
-
+    currentResouces = Resources;
     //var nbrOfElements = 10;
 
     document.getElementById("divTabCahierMaterielElementsContainer").innerHTML = "";
@@ -13,21 +16,57 @@ function loadElements(Resources) {
         for (var i = 0; i < Resources.length; i++) {
 
             var container = document.createElement("div");
-            container.id = Resources[i].id + ";" + Resources[i].name;
+            container.id = i;
             container.addEventListener("click", function () {
-               // newTab("divTabCahierInfos");
+               // 
                 openPopUp();
 
                 var pop = div($('divModal'));
                 pop.id = "divTabCahierMaterielElementsPopUp";
                 pop.classList.add("Boxes");
                 
-
                 var close = div(pop);
-                close.innerHTML = "jjaj";
-               
-                Cahier.resourceId = this.id.split(";")[0];
-                Cahier.resourceName = this.id.split(";")[1];
+                close.onclick = function () {
+                    closePopUp({ target: $('divModal') });
+                        };
+
+                var imgContainer = div(pop);
+                imgContainer.id = this.id;
+
+                var descriptionTitle = div(pop);
+                descriptionTitle.innerHTML = "Description";
+
+                var description = div(pop);
+                description.innerHTML = currentResouces[this.id].description;
+
+                var btn = div(pop);
+                btn.classList.add("Buttons"); btn.classList.add("ValidateButtons");
+                btn.innerHTML = "Choisir";
+
+                var btn2 = div(pop);
+                btn2.classList.add("Buttons"); btn2.classList.add("ReturnButtons");
+                btn2.innerHTML = "Historique";
+
+                var textsContainer = div(pop);
+                textsContainer.id = "divTabCahierMaterielElementsContainerTextsContainer";
+
+                var name = div(textsContainer);
+                name.innerHTML = currentResouces[this.id].name;
+
+                var id = div(textsContainer);
+                id.innerHTML = "ID: " + currentResouces[this.id].id;
+
+                var creationDate = div(textsContainer);
+                creationDate.innerHTML = currentResouces[this.id].creationDate + "<br/> Dernière utilisation date + personne, nbr total de sorties, catégorie?";              
+              
+                btn.addEventListener("click", function () {
+                    Cahier.resourceId = currentResouces[this.parentElement.getElementsByTagName("div")[1].id].id;
+                    Cahier.resourceName = currentResouces[this.parentElement.getElementsByTagName("div")[1].id].name;
+                    closePopUp({ target: $('divModal') });
+                    newTab("divTabCahierInfos");
+                });
+
+
             });
             $("divTabCahierMaterielElementsContainer").appendChild(container);
 
