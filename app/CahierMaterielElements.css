@@ -206,29 +206,60 @@
     }
 
 
-
-#divTabCahierMaterielElementsSelect {
-    transition:all 0.1s linear 0s;
-    z-index:2;
+#divTabCahierMaterielElementsSelectSort {
+    transition: all 0.1s linear 0s;
+    z-index: 2;
 }
-#divTabCahierMaterielElementsSelect:hover {
+
+#divTabCahierMaterielElementsSelectSort:hover {
     margin-top: 4px;
 }
 
-#divTabCahierMaterielElementsSelect > div {
+#divTabCahierMaterielElementsSelectSort > div {
     position: absolute;
     width: 30px;
     background-color: white;
     border-bottom-right-radius: 0px;
     border-top-right-radius: 0px;
-    background-image: url(Img/IconSup.png);
+    background-image: url(Img/IconSortASC.png);
     -webkit-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
     box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
 }
-#divTabCahierMaterielElementsSelect>div:hover {
+
+#divTabCahierMaterielElementsSelectSort > div:hover {
     margin-top: 0px;
-    background-size:50px;
+    background-position-x:0px;
+    background-position-y:-1px;
+    background-size: 40px;
+}
+
+
+
+
+
+#divTabCahierMaterielElementsSelectCategorie {
+    transition:all 0.1s linear 0s;
+    z-index:2;
+}
+#divTabCahierMaterielElementsSelectCategorie:hover {
+    margin-top: 4px;
+}
+
+#divTabCahierMaterielElementsSelectCategorie > div {
+    position: absolute;
+    width: 30px;
+    background-color: white;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    background-image: url(Img/IconChose.png);
+    -webkit-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
+}
+#divTabCahierMaterielElementsSelectCategorie > div:hover {
+    margin-top: 0px;
+
 }
 
 
@@ -291,13 +322,14 @@
 #inputTabCahierMaterielElementsInputSearch::placeholder {
     color: gray;
 }
-#inputTabCahierMaterielElementsInputSearch:focus {
-    /*border-color:rgb(66, 133, 244);*/
-    width: 200px;
-    -webkit-box-shadow: 2px 3px 10px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 3px 10px 0px rgba(0,0,0,0.75);
-    box-shadow: 2px 3px 10px 0px rgba(0,0,0,0.75);
-}
+    #inputTabCahierMaterielElementsInputSearch:focus {
+        border-color: rgb(66, 133, 244);
+        background-image: url(Img/IconSearchBlue.png);
+        width: 200px;
+        -webkit-box-shadow: 2px 3px 10px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 2px 3px 10px 0px rgba(0,0,0,0.75);
+        box-shadow: 2px 3px 10px 0px rgba(0,0,0,0.75);
+    }
 
 #inputTabCahierMaterielElementsInputSearch:hover {
     margin-top: 4px;

@@ -188,19 +188,29 @@
         </div>-->
                 <div style="width:250px;">
                     <div class="Buttons NormalButtons" style="width:230px; background-image:url(Img/IconEnter.png)" onclick="newTab('divTabCahierMaterielCategories')" title="Changer de catégorie">Changer de catégorie</div>
+                </div><div style="min-width:218px;">
+                    <div id="divTabCahierMaterielElementsSelectCategorie" title="Catégorie">
+                        <div class="Buttons NormalButtons"></div>
+                        <select onchange="changeSelectCategorie(this); Requests.getResourcesList();">
+                            <option value="Sup">Sup</option>
+                            <option value="Ka">Kayak</option>
+                            <option selected="selected">Planche à voile</option>
+                        </select>
+                    </div>
                 </div><div style="width:248px;">
-                    <div id="divTabCahierMaterielElementsSelect" title="Trier par">
-                        <div class="Buttons NormalButtons" id="divTabCahierMaterielElementsSelectIcon" onclick="clickSortIcon(this); Requests.getResourcesList();"></div>
-                        <select>
-                            <option>Nom</option>
-                            <option>Taille</option>
-                            <option selected="selected">Dernière utilisation</option>
+                    <div id="divTabCahierMaterielElementsSelectSort" title="Trier par">
+                        <div class="Buttons NormalButtons" id="divTabCahierMaterielElementsSelectIconSort" onclick="clickSortIcon(this); Requests.getResourcesList();"></div>
+                        <select onchange="Requests.getResourcesList();">
+                            <option value="id">ID</option>
+                            <option value="name">Nom</option>
+                            <option value="description">Description</option>
+                            <option value="">Dernière utilisation</option>
                         </select>
                     </div>
                 </div><div style="width:105px;">
                     <div id="divTabCahierMaterielElementsSelectPageSize" title="Nombre d'éléments affichés par page">
-                        <div class="Buttons NormalButtons" id="divTabCahierMaterielElementsSelectIconPageSize" ></div>
-                        <select onchange="Requests.getResourcesList()">
+                        <div class="Buttons NormalButtons" ></div>
+                        <select onchange="Requests.getResourcesList();">
                             <option>10</option>
                             <option selected="selected">20</option>
                             <option>50</option>
@@ -282,6 +292,9 @@
             <br />
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierInfos')"></div>
             <br />
+
+            <div class="Buttons ValidateButtons" onclick="Cahier.confirm()"></div>
+
         </div>
 
         <!--Div Tab Statistiques-->

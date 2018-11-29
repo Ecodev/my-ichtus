@@ -74,7 +74,7 @@ function loadElements(Resources) {
             container.appendChild(secondContainer);
 
             var size = document.createElement("div");
-            size.innerHTML = i + "." + (i + 1);
+            size.innerHTML = Resources[i].id;
             secondContainer.appendChild(size);
 
             var bottom = document.createElement("div");
@@ -116,10 +116,15 @@ Array.prototype.findIndex = function (x) {
 
 
 function clickSortIcon(elem) {
-    if (elem.style.backgroundImage == 'url("Img/IconBack.png")') {
-        elem.style.backgroundImage = 'url("Img/IconEnter.png")';
+    if (elem.style.backgroundImage == 'url("Img/IconSortDESC.png")') {
+        elem.style.backgroundImage = 'url("Img/IconSortASC.png")';
     }
     else {
-        elem.style.backgroundImage = 'url("Img/IconBack.png")';
+        elem.style.backgroundImage = 'url("Img/IconSortDESC.png")';
     }
 } 
+
+
+function changeSelectCategorie(elem) {
+    $('divTabCahierMaterielElementsSelectCategorie').getElementsByTagName("div")[0].style.backgroundImage = "url(Img/Categorie/" + elem.value + ".png)";
+}

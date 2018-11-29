@@ -62,14 +62,14 @@ var Requests = {
     getResourcesList: function () {
 
         var sort;
-        if ($('divTabCahierMaterielElementsSelectIcon').style.backgroundImage == 'url("Img/IconBack.png")') {
-            sort = "ASC";
-        }
-        else {
+        if ($('divTabCahierMaterielElementsSelectIconSort').style.backgroundImage == 'url("Img/IconSortDESC.png")') {
             sort = "DESC";
         }
+        else {
+            sort = "ASC";
+        }
 
-        var whichField = "id";
+        var whichField = $('divTabCahierMaterielElementsSelectSort').getElementsByTagName("select")[0].value;
 
         var f = {
             filter: {
@@ -119,6 +119,25 @@ var Requests = {
         });
     },
 
+
+    // createBooking
+    createBooking:function() {
+        alert(Cahier.nbrAccompagnants);
+        // Get all items
+        Server.bookingService.create({
+            destination: Cahier.destination,
+            participantCount: Cahier.nbrAccompagnants            
+        }).subscribe(booking => {
+            console.log('Created booking : ', booking);
+            Server.linkMutation.link(booking, {
+                id: Cahier.resourceId,
+                __typename: 'Resource'
+            }).subscribe(() => {
+               // getBookingList();
+            });
+
+        });
+    },
 
 
     // personalQuery

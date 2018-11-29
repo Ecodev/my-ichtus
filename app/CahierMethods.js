@@ -54,6 +54,9 @@ var Cahier = {
 
     },
 
+    confirm: function () {
+        Requests.createBooking();
+    },
 
     actualizeProgressBar: function () {
         var alldivTabCahierProgressTexts = document.getElementsByClassName("divTabCahierProgressText");

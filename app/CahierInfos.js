@@ -207,6 +207,11 @@ function checkInfos() {
         }
     }
     if (allInfosOkay == true || document.getElementById("divTabCahierInfosDestination").getElementsByTagName("input")[0].value == "pass") {
+
+        Cahier.nbrAccompagnants = parseInt($('divTabCahierInfosNbrInvites').getElementsByTagName('input')[0].value);
+        Cahier.destination =              $('divTabCahierInfosDestination').getElementsByTagName('input')[0].value;
+        
+
         newTab("divTabCahierConfirmation");
     }
  
