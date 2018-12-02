@@ -12,6 +12,18 @@ var Cahier = {
     nbrAccompagnants: 0,
     destination: "",
     startComment: "",
+    getNbrAccompagnantsText: function () {
+        if (Cahier.nbrAccompagnants == 0) {
+            return "Aucun";
+        }
+        else if (Cahier.nbrAccompagnants == 1) {
+            return "1 Accompagnant";
+        }
+        else {
+            return Cahier.nbrAccompagnants + " Accompagnants";
+        }
+    },
+
 
 
 
@@ -59,27 +71,46 @@ var Cahier = {
     },
 
     actualizeProgressBar: function () {
-        var alldivTabCahierProgressTexts = document.getElementsByClassName("divTabCahierProgressText");
-        for (var i = 0; i < alldivTabCahierProgressTexts.length; i++) {
+        var allDivTabCahierProgressTexts = document.getElementsByClassName("divTabCahierProgressText");
+        for (var i = 0; i < allDivTabCahierProgressTexts.length; i++) {
             if (i < currentProgress) {
                 switch (i) {
                     case 0:
-                        alldivTabCahierProgressTexts[i].innerHTML = Cahier.getFullName();
+                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.getFullName();
                         break;
                     case 1:
-                        alldivTabCahierProgressTexts[i].innerHTML = Cahier.resourceName;
+                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.resourceName;
                         break;
                     case 2:
-                        alldivTabCahierProgressTexts[i].innerHTML = Cahier.destination + " " + Cahier.nbrAccompagnants;
+                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.destination + ", " + Cahier.nbrAccompagnants + " Acc."
                         break;
                     default:
                         break;
                 }
             }
             else {
-                alldivTabCahierProgressTexts[i].innerHTML = Cahier.ProgressBarTexts[i];
+                allDivTabCahierProgressTexts[i].innerHTML = Cahier.ProgressBarTexts[i];
             }
         }
+    },
+
+    actualizeConfirmation: function () {
+        var allDiv = $('divTabCahierConfirmationContainer').getElementsByClassName("divConfirmationTexts");
+        var allDivTexts = [];
+        for (var i = 0; i < allDiv.length; i++) {
+            allDivTexts[i] = allDiv[i].getElementsByTagName('div')[2];
+        }
+
+        allDivTexts[0].innerHTML = Cahier.getFullName();
+        allDivTexts[1].innerHTML = date.getHours() + ":" + TimeGetMinutes();
+        allDivTexts[2].innerHTML = "1880923 857h12";
+
+        $('divTabCahierConfirmationContainerTextsContainer').getElementsByTagName('div')[0].innerHTML = Cahier.resourceName;
+        $('divTabCahierConfirmationContainerTextsContainer').getElementsByTagName('div')[1].innerHTML = Cahier.resourceId;
+
+        allDivTexts[6].innerHTML = Cahier.getNbrAccompagnantsText();
+        allDivTexts[7].innerHTML = Cahier.destination;
+        allDivTexts[8].innerHTML = Cahier.startComment;
     }
 
     // 

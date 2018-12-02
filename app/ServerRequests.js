@@ -109,6 +109,31 @@ var Requests = {
         });
     },
 
+    // getResourceInfos
+    getResourceInfos: function (resourceId) {
+
+        var filter = {
+            filter: {
+                groups: [
+                    { conditions: [{ id: { like: { value: resourceId } } }] }
+                ]
+            },
+            pagination: {
+                pageSize: 1,
+                pageIndex: 0
+            }
+        };
+
+        var variables = new Server.QueryVariablesManager();
+        variables.set('variables', filter);
+
+        Server.resourceService.getAll(variables).subscribe(result => {
+            console.log("getResourceInfos(): ", result);
+            
+        });
+
+
+    },
 
 
     // Add an item
@@ -121,12 +146,13 @@ var Requests = {
 
 
     // createBooking
-    createBooking:function() {
+    createBooking: function () {
+
         alert(Cahier.nbrAccompagnants);
         // Get all items
         Server.bookingService.create({
-            destination: Cahier.destination,
-            participantCount: Cahier.nbrAccompagnants            
+            destination: "kjlkj",
+            //participantCount: Cahier.nbrAccompagnants            
         }).subscribe(booking => {
             console.log('Created booking : ', booking);
             Server.linkMutation.link(booking, {
@@ -136,7 +162,8 @@ var Requests = {
                // getBookingList();
             });
 
-        });
+            });
+
     },
 
 
