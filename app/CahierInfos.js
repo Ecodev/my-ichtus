@@ -117,6 +117,14 @@ function writeDestination(elem) {
         DenyInfos(elem);
     }
 }
+function writeCommment(elem) {
+    if (elem.value.length > -1) {
+        AcceptInfos(elem);
+    }
+    else {
+        DenyInfos(elem);
+    }
+}
 function writeNbrInvites(elem = document.getElementById("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0]) {
     if (parseInt(elem.value) < 21 && elem.value != "") {
         AcceptInfos(elem);
@@ -209,8 +217,8 @@ function checkInfos() {
     if (allInfosOkay == true || document.getElementById("divTabCahierInfosDestination").getElementsByTagName("input")[0].value == "pass") {
 
         Cahier.nbrAccompagnants = parseInt($('divTabCahierInfosNbrInvites').getElementsByTagName('input')[0].value);
-        Cahier.destination =              $('divTabCahierInfosDestination').getElementsByTagName('input')[0].value;
-        
+        Cahier.destination = $('divTabCahierInfosDestination').getElementsByTagName('input')[0].value;
+        Cahier.startComment = $('divTabCahierInfosStartComment').getElementsByTagName('input')[0].value;
 
         newTab("divTabCahierConfirmation");
     }

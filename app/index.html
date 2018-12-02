@@ -238,7 +238,7 @@
 
                 <div id="divTabCahierInfosNbrInvites" class="TabCahierFields">
                     Nbr d'accompagnants
-                    <input type="number" min="0" max="20" spellcheck="false" placeholder="0" value="0" onkeyup="writeNbrInvites(this);" onfocusin="this.value =''; writeNbrInvites(this); focusInOrOut(this,true);"  onfocusout="if (this.value == '') { this.value = '0'; writeNbrInvites(this);}focusInOrOut(this,false);"/> 
+                    <input type="number" min="0" max="20" spellcheck="false" placeholder="0" value="0" onkeyup="writeNbrInvites(this);" onfocusin="this.value =''; writeNbrInvites(this); focusInOrOut(this,true);" onfocusout="if (this.value == '') { this.value = '0'; writeNbrInvites(this);}focusInOrOut(this,false);" />
                     <div></div>
                     <div id="divTabCahierInfosNbrInvitesPropositions" class="PropositionsContainer">
                         <div>Aucun</div><div> 1 </div><div> 2 </div><div> 3 </div><div> 4 </div>
@@ -264,22 +264,35 @@
 
                 </div>
 
+                <div id="divTabCahierInfosStartCommentOld" class="TabCahierFields">
+                    Commentaire (facultatif)
+                    <input type="text" spellcheck="false" placeholder="Numéro, habillement..." onkeyup="writeCommment(this);" /> <!--/> mmmmh ??-->
+                    <div></div>
+                </div>
+
+
+                <div  id="divTabCahierInfosStartComment" class="TabCahierFields">
+                    Comm    
+                    <textarea></textarea>
+                </div>
 
                 <!--<div id="divTabCahierInfosStartTime" class="TabCahierFields">
-                Heure de départ
-                <input type="time" min="0:00" max="21:00" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" />
-                <div></div>
+        Heure de départ
+        <input type="time" min="0:00" max="21:00" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" />
+        <div></div>
+    </div>
+
+    <div id="divTabCahierInfosEndTime" class="TabCahierFields">
+        Heure d'arivée
+        <input type="time" min="12:00" max="24:00" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" />
+        <div></div>
+        <div id="divTabCahierInfosEndTimePropositions" class="PropositionsContainer">
+            <div>30min</div><div>45min</div><div>1h</div><div>1h30</div><div>2h</div><div>3h</div><div>4h</div>
+        </div>
+    </div>-->
             </div>
 
-            <div id="divTabCahierInfosEndTime" class="TabCahierFields">
-                Heure d'arivée
-                <input type="time" min="12:00" max="24:00" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" />
-                <div></div>
-                <div id="divTabCahierInfosEndTimePropositions" class="PropositionsContainer">
-                    <div>30min</div><div>45min</div><div>1h</div><div>1h30</div><div>2h</div><div>3h</div><div>4h</div>
-                </div>
-            </div>-->
-            </div>
+       
 
             <br />
             <div class="Buttons ValidateButtons" onclick="checkInfos();">Suivant</div>
@@ -316,7 +329,7 @@
 
                     <div id="divTabCahierConfirmationEmbarcationBox">
                         <div></div><div id="divTabCahierConfirmationContainerTextsContainer"><div>asldkfj</div><div>asdfasdf</div></div>
-                        <div class="ReturnButtons Buttons">Infos</div>  <div class="ReturnButtons Buttons">Modifier</div>
+                        <div class="ReturnButtons Buttons" onclick="popMateriel(Cahier.resourceId)">Infos</div>  <div class="ReturnButtons Buttons" onclick="newTab('divTabCahierMaterielCategories')">Modifier</div>
                     </div>
 
                     <div class="divConfirmationTexts">
@@ -334,7 +347,7 @@
                     </div>
 
                     <div id="divTabCahierConfirmationInfosBox">
-                        <div class="ReturnButtons Buttons">Modifier</div><br/>
+                        <div class="ReturnButtons Buttons" onclick="newTab('divTabCahierInfos')">Modifier</div><br/>
                     </div>
 
 

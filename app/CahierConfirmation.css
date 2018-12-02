@@ -2,10 +2,10 @@
     background-color:white;
 }
 
-#divTabCahierConfirmation .Buttons::after {
-    content:none;
+#divTabCahierConfirmationFirstContainer .Buttons::after {
+    content: none;
 }
-#divTabCahierConfirmation .Buttons {
+#divTabCahierConfirmationFirstContainer .Buttons {
     position: absolute;
     right: 10px;
     margin-left: 0px;

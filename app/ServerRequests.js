@@ -129,10 +129,8 @@ var Requests = {
 
         Server.resourceService.getAll(variables).subscribe(result => {
             console.log("getResourceInfos(): ", result);
-            
+            actualizePopMateriel(result.items);
         });
-
-
     },
 
 
