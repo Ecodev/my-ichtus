@@ -16,27 +16,30 @@
     width: 95%;
     left: 2.5%;
     min-height: 20px;
-    background-color: orange;
+    background-color: transparent;
     text-align:center;
 }
 
     #divTabCahierConfirmationContainer {
-       display:inline-block;
-       position:relative;
-       background-color:gray;
-       border:2px solid black;
-       padding:10px;
-       border-radius:10px;
+        display: inline-block;
+        position: relative;
+        background-color: white;
+        /*border: 2px solid black;*/
+        padding: 10px;
+        border-radius: 10px;
+        -webkit-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
+        box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
     }
 
         .divConfirmationTexts {
             position:relative;
             min-height:10px;
-            background-color:purple;
+            background-color:white;
             width:700px;
         }
         .divConfirmationTexts:nth-child(2n) {
-            background-color:mistyrose;
+            background-color:lightgray;
         }
 
             .divConfirmationTexts > div {

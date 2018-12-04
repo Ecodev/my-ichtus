@@ -237,43 +237,37 @@
             <div id="divTabCahierFieldsContainer">
 
                 <div id="divTabCahierInfosNbrInvites" class="TabCahierFields">
-                    Nbr d'accompagnants
+                    *Nbr d'accompagnants
                     <input type="number" min="0" max="20" spellcheck="false" placeholder="0" value="0" onkeyup="writeNbrInvites(this);" onfocusin="this.value =''; writeNbrInvites(this); focusInOrOut(this,true);" onfocusout="if (this.value == '') { this.value = '0'; writeNbrInvites(this);}focusInOrOut(this,false);" />
                     <div></div>
                     <div id="divTabCahierInfosNbrInvitesPropositions" class="PropositionsContainer">
                         <div>Aucun</div><div> 1 </div><div> 2 </div><div> 3 </div><div> 4 </div>
                     </div>
-                </div>
 
-                <div id="divTabCahierInfosDestination" class="TabCahierFields">
-                    Destination
+
+                </div><div id="divTabCahierInfosDestination" class="TabCahierFields">
+                    *Destination
                     <input type="text" spellcheck="false" placeholder="Baie" onkeyup="writeDestination(this);" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" /> <!--/> mmmmh ??-->
                     <div></div>
                     <div id="divTabCahierInfosDestinationPropositions" class="PropositionsContainer">
                         <div>Baie</div><div>La Ramée</div><div>La Tène</div><div>Neuchâtel</div><div>Cudrefin</div>
                     </div>
-                </div>
 
-                <div id="divTabCahierInfosPhoneNumber" class="TabCahierFields">
-                    Numéro de téléphone
+
+                </div><div id="divTabCahierInfosPhoneNumber" class="TabCahierFields">
+                    *Numéro de téléphone
                     <input type="text" spellcheck="false" placeholder="07X XXX XX XX" pattern="[0-9]{6}" onkeydown="writePhoneNumber(event,this)" onkeyup="checkPhoneNumber(this)" />
                     <div></div>
                     <div id="checkBoxTabCahierInfosPhoneNumberRemember" onclick="check(this)">
                         <div class="checkBox"></div><div>Se souvenir de mon numéro</div>
                     </div>
 
-                </div>
-
-                <div id="divTabCahierInfosStartCommentOld" class="TabCahierFields">
-                    Commentaire (facultatif)
-                    <input type="text" spellcheck="false" placeholder="Numéro, habillement..." onkeyup="writeCommment(this);" /> <!--/> mmmmh ??-->
-                    <div></div>
-                </div>
 
 
-                <div  id="divTabCahierInfosStartComment" class="TabCahierFields">
-                    Comm    
-                    <textarea></textarea>
+                </div><div id="divTabCahierInfosStartComment" class="TabCahierFields">
+                    Commentaire de départ
+                    <textarea spellcheck="false" placeholder="Informations, numéro de téléphone, habillement..." value=""></textarea>
+                    <div style="height:100px;"></div>
                 </div>
 
                 <!--<div id="divTabCahierInfosStartTime" class="TabCahierFields">
@@ -292,10 +286,13 @@
     </div>-->
             </div>
 
-       
+            <div style="text-align:left; margin-left:2.5%">Les champs avec un * sont obligatoires !</div>             
 
             <br />
-            <div class="Buttons ValidateButtons" onclick="checkInfos();">Suivant</div>
+
+            <div style="text-align:center;">
+                <div class="Buttons ValidateButtons" onclick="checkInfos();">Suivant</div>
+            </div>
 
         </div>
 
@@ -303,15 +300,17 @@
         <div id="divTabCahierConfirmation" class="divTab">
             <div style="margin-top:300px; position:relative;"></div>
             <br />
-            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierInfos')"></div>
-            <br />
+            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierInfos')" style="position:absolute;"></div>
 
             <div id="divTabCahierConfirmationFirstContainer">
 
                 <div id="divTabCahierConfirmationContainer">
 
+                    <div style=" font-size:20px; text-align:left;">Votre sortie</div>
+                    <div style="background-color:gray; height:2px; margin-bottom:15px; border-radius:2px;"></div>
+
                     <div class="divConfirmationTexts">
-                        <div></div><div style="font-size:40px;">Responsable</div><div style="font-size:40px;"></div>
+                        <div></div><div style="font-size:35px;">Responsable</div><div style="font-size:35px;"></div>
                     </div>
                     <div class="divConfirmationTexts">
                         <div></div><div>Heure de départ</div><div></div>
@@ -347,7 +346,7 @@
                     </div>
 
                     <div id="divTabCahierConfirmationInfosBox">
-                        <div class="ReturnButtons Buttons" onclick="newTab('divTabCahierInfos')">Modifier</div><br/>
+                        <div class="ReturnButtons Buttons" onclick="newTab('divTabCahierInfos')">Modifier</div><br />
                     </div>
 
 
@@ -355,7 +354,11 @@
                 </div>
             </div>
 
-            <div class="Buttons ValidateButtons" onclick="Cahier.confirm()"></div>
+            <br/>
+
+            <div style="text-align:center;">
+                <div class="Buttons ValidateButtons" style="display:inline-block" onclick="Cahier.confirm()" ></div>
+            </div>
 
         </div>
 

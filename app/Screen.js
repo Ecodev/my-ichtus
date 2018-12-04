@@ -141,7 +141,7 @@ function changeTab(newElement, sign) {
             stillMoving = false;
             currentTabElement.style.top = "-30000px";
             currentTabElement = newElement;
-            $("divTopBarTopText").innerHTML = NewElement.id + "  " + NewElement.order + "   " + stillMoving;
+            $("divTopBarTopText").innerHTML = NewElement.id + "  " + NewElement.order + "   " + stillMoving + " topbar:" + NewElement.TopBar;
         }, 50);
 
     }, changeTime * 1000);
@@ -164,7 +164,7 @@ tabs.push({ id: "divTabCahierMaterielOptions",      order: 10, progress: 1, posi
 tabs.push({ id: "divTabCahierMaterielCode",         order: 11, progress: 1, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
 tabs.push({ id: "divTabCahierMaterielCategories",   order: 12, progress: 1, position: 0, TopBar: true, Enter: function () { }, Remove: function () { } });
 tabs.push({ id: "divTabCahierMaterielElements",     order: 13, progress: 1, position: 0, TopBar: true, Enter: function () { MaterielElementsFirstLoad = true; Requests.getResourcesList(); $('inputTabCahierMaterielElementsInputSearch').focus(); }, Remove: function () { } });
-tabs.push({ id: "divTabCahierInfos",                order: 14, progress: 2, position: 0, TopBar: true, Enter: function () { $("divTabCahierInfosDestination").getElementsByTagName("input")[0].focus(); writeNbrInvites($("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0]); writeCommment($("divTabCahierInfosStartComment").getElementsByTagName("input")[0]); }, Remove: function () { } });
+tabs.push({ id: "divTabCahierInfos",                order: 14, progress: 2, position: 0, TopBar: true, Enter: function () { if ($("divTabCahierInfosDestination").getElementsByTagName("input")[0].value == "") {$("divTabCahierInfosDestination").getElementsByTagName("input")[0].focus(); }  writeNbrInvites($("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0]); }, Remove: function () { } });
 tabs.push({ id: "divTabCahierConfirmation",         order: 15, progress: 3, position: 0, TopBar: true, Enter: function () { Cahier.actualizeConfirmation(); }, Remove: function () { }});
 
 
@@ -206,6 +206,8 @@ window.onhashchange = function () {
         }
 
 
+        //alert("NEW: " + NewElement.id + " / " + NewElement.TopBar +"  OLD: " + OldElement.id +" / " +OldElement.TopBar);
+
 
         // Enter & Remove Functions
         NewElement.Enter();
@@ -221,9 +223,7 @@ window.onhashchange = function () {
         Cahier.actualizeProgressBar();
 
         // save OldElement
-        OldElement = tabs[i0];
-
-
+        OldElement = NewElement;
 
         // alert("new:" + newOrder + "   old:" + oldOrder);
     }

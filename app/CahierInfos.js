@@ -63,7 +63,7 @@
     }
 
     if (e.keyCode == 13) {
-        checkInfos();
+      //  checkInfos();
     }
 
 
@@ -207,7 +207,7 @@ function DenyInfos(elem) {
 function checkInfos() {
     var allTabCahierFields = document.getElementsByClassName("TabCahierFields");
     var allInfosOkay = true;
-    for (var i = 0; i < allTabCahierFields.length; i++) {
+    for (var i = 0; i < allTabCahierFields.length-1; i++) { //POUR EVITER LE TEXTAREA... 
         if (allTabCahierFields[i].getElementsByTagName("input")[0].style.backgroundImage == "" || allTabCahierFields[i].getElementsByTagName("input")[0].style.backgroundImage =="none") {
             allTabCahierFields[i].getElementsByTagName("input")[0].style.borderColor = "red";
             allTabCahierFields[i].getElementsByTagName("div")[0].style.backgroundColor = "red";
@@ -218,7 +218,7 @@ function checkInfos() {
 
         Cahier.nbrAccompagnants = parseInt($('divTabCahierInfosNbrInvites').getElementsByTagName('input')[0].value);
         Cahier.destination = $('divTabCahierInfosDestination').getElementsByTagName('input')[0].value;
-        Cahier.startComment = $('divTabCahierInfosStartComment').getElementsByTagName('input')[0].value;
+        Cahier.startComment = $('divTabCahierInfosStartComment').getElementsByTagName('textarea')[0].value;
 
         newTab("divTabCahierConfirmation");
     }

@@ -39,13 +39,15 @@ var Cahier = {
         // #divCahierInfos
         var allTabCahierFields = document.getElementsByClassName("TabCahierFields");
 
-        for (var i = 0; i < allTabCahierFields.length; i++) {
+        for (var i = 0; i < allTabCahierFields.length-1; i++) { // -1 POUR EVITER LA TEXTAREA
             allTabCahierFields[i].getElementsByTagName("input")[0].value = "";
             allTabCahierFields[i].getElementsByTagName("input")[0].style.backgroundImage = "none";
             allTabCahierFields[i].getElementsByTagName("input")[0].style.borderColor = "black";
             allTabCahierFields[i].getElementsByTagName("div")[0].style.backgroundColor = "black";
         }
-        document.getElementById("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0].value = "0"; //instead of "";
+
+        $('divTabCahierInfosStartComment').getElementsByTagName("textarea")[0].value = "";
+        $("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0].value = "0"; //instead of "";
 
 
         if ($("checkBoxTabCahierInfosPhoneNumberRemember").getElementsByClassName("checkBox")[0].id == 1) {
