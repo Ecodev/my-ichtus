@@ -27,8 +27,8 @@
 
             <div style="flex:1; display: flex;flex-direction:column;margin-right:30px;overflow:auto">
 
-                <h2>Ressources
-                    <button onclick="addResource()">Ajouter</button>
+                <h2>Bookables
+                    <button onclick="addBookable()">Ajouter</button>
                 </h2>
                 <div style="display: flex;flex-direction:column;">
                     Non filtrées
@@ -36,15 +36,15 @@
                 </div>
 
                 <div style="display: flex;flex-direction:column;">
-                    Ressources that contain "01" string
-                    <pre id="filteredResources"></pre>
+                    Bookables that contain "01" string
+                    <pre id="filteredBookables"></pre>
                 </div>
             </div>
 
             <div style="flex:1; display: flex;flex-direction:column;overflow:auto">
                 <h2>Sorties
-                    <button onclick="createBooking(3000)">Ajouter avec la ressource 3000</button>
-                    <button onclick="createBooking(3001)">Ajouter avec la ressource 3001</button>
+                    <button onclick="createBooking(3000)">Ajouter avec la bookable 3000</button>
+                    <button onclick="createBooking(3001)">Ajouter avec la bookable 3001</button>
                 </h2>
                 <pre id="bookings"></pre>
             </div>
@@ -63,24 +63,24 @@
             console.warn('API : ', api);
 
             // Use predefined service to get one user
-            function getResourceList(filter = {}, resultDiv = 'items') {
+            function getBookableList(filter = {}, resultDiv = 'items') {
 
                 // Config filters
                 const variables = new api.QueryVariablesManager();
                 variables.set('variables', filter);
 
                 // Get all items
-                api.resourceService.getAll(variables).subscribe(result => {
-                    console.log('Resources list : ', result);
+                api.bookableService.getAll(variables).subscribe(result => {
+                    console.log('Bookables list : ', result);
                     document.getElementById(resultDiv).innerHTML = prettyJson(result.items);
                 });
             }
 
-            // Get Resource list at page loading
-            getResourceList();
+            // Get Bookable list at page loading
+            getBookableList();
 
             // Get filtered items
-            getResourceList({
+            getBookableList({
                 filter: {
                     groups: [
                         {conditions: [{name: {like: {value: '%01%'}}}]}
@@ -96,14 +96,14 @@
                         order: "DESC"
                     }
                 ]
-            }, 'filteredResources');
+            }, 'filteredBookables');
 
             // Add an item
-            function addResource() {
-                const item = {name: 'Ma ressource ' + Date.now()};
-                api.resourceService.create(item).subscribe(result => {
-                    console.log('Resource created', result);
-                    getResourceList();
+            function addBookable() {
+                const item = {name: 'Ma bookable ' + Date.now()};
+                api.bookableService.create(item).subscribe(result => {
+                    console.log('Bookable created', result);
+                    getBookableList();
                 })
             }
 
@@ -131,7 +131,7 @@
                     console.log('Created booking : ', booking);
                     api.linkMutation.link(booking, {
                         id: itemId,
-                        __typename: 'Resource'
+                        __typename: 'Bookable'
                     }).subscribe(() => {
                         getBookingList();
                     });

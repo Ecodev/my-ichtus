@@ -23,7 +23,7 @@ function AdjustScreen(w, h) {
 
     if (w > MaxWidth) { //Plus grand que le max -> Barres sur les côtés
         widthCache = (w - 1500) / 2;
-        widthToDisplay = 1500; 
+        widthToDisplay = 1500;
         SmallerThan1500px = false;
     }
     else { //Plus petit donc pas de barres et compression ?
@@ -37,14 +37,14 @@ function AdjustScreen(w, h) {
     _divLeftBar.width = widthCache + "px";
     _divRightBar.width = widthCache + "px";
 
-    //_divScreen 
+    //_divScreen
     var _divScreen = $('divScreen').style;
     _divScreen.width = widthToDisplay + "px";
-    _divScreen.left = widthCache + "px"; 
+    _divScreen.left = widthCache + "px";
 
     if (SmallerThan1500px == true) {
         SpaceLeft = 160;
-        $("imgTopBarIchtusText").style.visibility = "hidden";  
+        $("imgTopBarIchtusText").style.visibility = "hidden";
 
         $("divTopBarTime").style.visibility = "visible";
         $("divTopBarWind").style.visibility = "visible";
@@ -62,9 +62,9 @@ function AdjustScreen(w, h) {
         $("divTopBarTime").style.visibility = "visible";
         $("divTopBarWind").style.visibility = "visible";
         $("imgTopBarIchtusLogo").style.visibility = "visible";
-        
+
     }
-    
+
     var d = (widthScreen - 2 * SpaceLeft) / 3;
 
     $("divTopBarButtonMateriel").style.marginLeft = (-100 - d) + "px";
@@ -83,14 +83,14 @@ function AdjustScreen(w, h) {
 window.onscroll = function () { AdjustTopBar() };
 function AdjustTopBar() {
     if (document.documentElement.scrollTop >= 60) { //Small
-        $("divTopBar").style.height = "60px"; 
+        $("divTopBar").style.height = "60px";
         $("imgTopBarIchtusLogo").style.width = "50px";
         $("imgTopBarIchtusText").style.height = "50px";
         $("imgTopBarIchtusText").style.left = "60px";
         $("divTopBarTime").style.fontSize = "13px";
-        $("divTopBarWind").style.opacity = 0;   
+        $("divTopBarWind").style.opacity = 0;
     } else { //Big
-        $("divTopBar").style.height = "120px"; 
+        $("divTopBar").style.height = "120px";
         $("imgTopBarIchtusLogo").style.width = "110px";
         $("imgTopBarIchtusText").style.height = "110px";
         $("imgTopBarIchtusText").style.left = "120px";
@@ -124,7 +124,7 @@ function changeTab(newElement, sign) {
     currentTabElement.style.transition = "transform " + changeTime + "s linear 0s";
 
     newElement.style.zIndex = "5";
-   
+
     currentTabElement.style.transform = "translate(" + (-sign) + "00%)";  //element.style.transform = "translate(" + (-sign * widthToDisplay) + "px)"; //meme chose
 
     newElement.style.top = "0px";
@@ -163,7 +163,7 @@ tabs.push({ id: "divTabStatistiques",               order: 1,  progress: 0, posi
 tabs.push({ id: "divTabCahierMaterielOptions",      order: 10, progress: 1, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
 tabs.push({ id: "divTabCahierMaterielCode",         order: 11, progress: 1, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
 tabs.push({ id: "divTabCahierMaterielCategories",   order: 12, progress: 1, position: 0, TopBar: true, Enter: function () { }, Remove: function () { } });
-tabs.push({ id: "divTabCahierMaterielElements",     order: 13, progress: 1, position: 0, TopBar: true, Enter: function () { MaterielElementsFirstLoad = true; Requests.getResourcesList(); $('inputTabCahierMaterielElementsInputSearch').focus(); }, Remove: function () { } });
+tabs.push({ id: "divTabCahierMaterielElements",     order: 13, progress: 1, position: 0, TopBar: true, Enter: function () { MaterielElementsFirstLoad = true; Requests.getBookablesList(); $('inputTabCahierMaterielElementsInputSearch').focus(); }, Remove: function () { } });
 tabs.push({ id: "divTabCahierInfos",                order: 14, progress: 2, position: 0, TopBar: true, Enter: function () { if ($("divTabCahierInfosDestination").getElementsByTagName("input")[0].value == "") {$("divTabCahierInfosDestination").getElementsByTagName("input")[0].focus(); }  writeNbrInvites($("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0]); }, Remove: function () { } });
 tabs.push({ id: "divTabCahierConfirmation",         order: 15, progress: 3, position: 0, TopBar: true, Enter: function () { Cahier.actualizeConfirmation(); }, Remove: function () { }});
 
@@ -189,12 +189,12 @@ window.onhashchange = function () {
 
         var sign = 1;
         if (NewElement.progress == 0 && OldElement.progress != 0 && NewElement.id != "divTabCahier") {
-            sign = NewElement.order; 
+            sign = NewElement.order;
         }
         else if (NewElement.order < OldElement.order) {
                 sign = -1;
         }
-        
+
         changeTab($(NewElement.id), sign);
 
         // TopBar Enter/Remove

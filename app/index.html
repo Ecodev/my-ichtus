@@ -191,7 +191,7 @@
                 </div><div style="min-width:218px;">
                     <div id="divTabCahierMaterielElementsSelectCategorie" title="Catégorie">
                         <div class="Buttons NormalButtons"></div>
-                        <select onchange="changeSelectCategorie(this); Requests.getResourcesList();">
+                        <select onchange="changeSelectCategorie(this); Requests.getBookablesList();">
                             <option value="Sup">Sup</option>
                             <option value="Ka">Kayak</option>
                             <option selected="selected">Planche à voile</option>
@@ -199,8 +199,8 @@
                     </div>
                 </div><div style="width:248px;">
                     <div id="divTabCahierMaterielElementsSelectSort" title="Trier par">
-                        <div class="Buttons NormalButtons" id="divTabCahierMaterielElementsSelectIconSort" onclick="clickSortIcon(this); Requests.getResourcesList();"></div>
-                        <select onchange="Requests.getResourcesList();">
+                        <div class="Buttons NormalButtons" id="divTabCahierMaterielElementsSelectIconSort" onclick="clickSortIcon(this); Requests.getBookablesList();"></div>
+                        <select onchange="Requests.getBookablesList();">
                             <option value="id">ID</option>
                             <option value="name">Nom</option>
                             <option value="description">Description</option>
@@ -210,14 +210,14 @@
                 </div><div style="width:105px;">
                     <div id="divTabCahierMaterielElementsSelectPageSize" title="Nombre d'éléments affichés par page">
                         <div class="Buttons NormalButtons" ></div>
-                        <select onchange="Requests.getResourcesList();">
+                        <select onchange="Requests.getBookablesList();">
                             <option>10</option>
                             <option selected="selected">20</option>
                             <option>50</option>
                         </select>
                     </div>
                 </div><div style="min-width:100px;" title="Rechercher">
-                <input id="inputTabCahierMaterielElementsInputSearch" type="text" value="" placeholder="Rechercher" onkeyup="Requests.getResourcesList();" />
+                <input id="inputTabCahierMaterielElementsInputSearch" type="text" value="" placeholder="Rechercher" onkeyup="Requests.getBookablesList();" />
                 </div>
             </div>
 
@@ -286,7 +286,7 @@
     </div>-->
             </div>
 
-            <div style="text-align:left; margin-left:2.5%">Les champs avec un * sont obligatoires !</div>             
+            <div style="text-align:left; margin-left:2.5%">Les champs avec un * sont obligatoires !</div>
 
             <br />
 
@@ -328,7 +328,7 @@
 
                     <div id="divTabCahierConfirmationEmbarcationBox">
                         <div></div><div id="divTabCahierConfirmationContainerTextsContainer"><div>asldkfj</div><div>asdfasdf</div></div>
-                        <div class="ReturnButtons Buttons" onclick="popMateriel(Cahier.resourceId)">Infos</div>  <div class="ReturnButtons Buttons" onclick="newTab('divTabCahierMaterielCategories')">Modifier</div>
+                        <div class="ReturnButtons Buttons" onclick="popMateriel(Cahier.bookableId)">Infos</div>  <div class="ReturnButtons Buttons" onclick="newTab('divTabCahierMaterielCategories')">Modifier</div>
                     </div>
 
                     <div class="divConfirmationTexts">

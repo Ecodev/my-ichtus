@@ -8,7 +8,7 @@ function ServerInitialize() {
 
    // getCountries();
  //  Requests.createQuery();
-   // Requests.addResource();
+   // Requests.addBookable();
 
  //   Requests.personalQuery();
 }
@@ -58,8 +58,8 @@ var Requests = {
         });
     },
 
-    // getResourcesList
-    getResourcesList: function () {
+    // getBookablesList
+    getBookablesList: function () {
 
         var sort;
         if ($('divTabCahierMaterielElementsSelectIconSort').style.backgroundImage == 'url("Img/IconSortDESC.png")') {
@@ -97,25 +97,25 @@ var Requests = {
             pagination: {
                 pageSize: parseInt($('divTabCahierMaterielElementsSelectPageSize').getElementsByTagName('select')[0].value),
                 pageIndex: 0
-            }          
+            }
         };
 
         var variables = new Server.QueryVariablesManager();
         variables.set('variables', f);
 
-        Server.resourceService.getAll(variables).subscribe(result => {
-            console.log("getResourcesList(): ", result);
+        Server.bookableService.getAll(variables).subscribe(result => {
+            console.log("getBookablesList(): ", result);
             loadElements(result.items);
         });
     },
 
-    // getResourceInfos
-    getResourceInfos: function (resourceId) {
+    // getBookableInfos
+    getBookableInfos: function (bookableId) {
 
         var filter = {
             filter: {
                 groups: [
-                    { conditions: [{ id: { like: { value: resourceId } } }] }
+                    { conditions: [{ id: { like: { value: bookableId } } }] }
                 ]
             },
             pagination: {
@@ -127,18 +127,18 @@ var Requests = {
         var variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);
 
-        Server.resourceService.getAll(variables).subscribe(result => {
-            console.log("getResourceInfos(): ", result);
+        Server.bookableService.getAll(variables).subscribe(result => {
+            console.log("getBookableInfos(): ", result);
             actualizePopMateriel(result.items);
         });
     },
 
 
     // Add an item
-    addResource: function () {
+    addBookable: function () {
         const item = { name: 'R' + Date.now(), description: "Bonsoir" };
-        Server.resourceService.create(item).subscribe(result => {
-            console.log('Resource created', result);
+        Server.bookableService.create(item).subscribe(result => {
+            console.log('Bookable created', result);
         });
     },
 
@@ -150,12 +150,12 @@ var Requests = {
         // Get all items
         Server.bookingService.create({
             destination: "kjlkj",
-            //participantCount: Cahier.nbrAccompagnants            
+            //participantCount: Cahier.nbrAccompagnants
         }).subscribe(booking => {
             console.log('Created booking : ', booking);
             Server.linkMutation.link(booking, {
-                id: Cahier.resourceId,
-                __typename: 'Resource'
+                id: Cahier.bookableId,
+                __typename: 'Bookable'
             }).subscribe(() => {
                // getBookingList();
             });
@@ -170,7 +170,7 @@ var Requests = {
 
         var TheQuery = Server.gql`
         {
-              resources(
+              bookables(
                 filter:{
       
                   groups:[{

@@ -3,11 +3,11 @@ var MaterielElementsFirstLoad = false;
 var currentResouces;
 
 
-function popMateriel(resourceId,i = -1) {
+function popMateriel(bookableId,i = -1) {
 
-   // alert(resourceId);
+   // alert(bookableId);
 
-    Requests.getResourceInfos(resourceId);
+    Requests.getBookableInfos(bookableId);
 
     openPopUp();
 
@@ -34,13 +34,13 @@ function popMateriel(resourceId,i = -1) {
         btn.classList.add("Buttons"); btn.classList.add("ValidateButtons");
         btn.innerHTML = "Choisir";
         btn.addEventListener("click", function () {
-            Cahier.resourceId = currentResouces[this.parentElement.getElementsByTagName("div")[1].id].id;
-            Cahier.resourceName = currentResouces[this.parentElement.getElementsByTagName("div")[1].id].name;
+            Cahier.bookableId = currentResouces[this.parentElement.getElementsByTagName("div")[1].id].id;
+            Cahier.bookableName = currentResouces[this.parentElement.getElementsByTagName("div")[1].id].name;
             closePopUp({ target: $('divModal') });
             newTab("divTabCahierInfos");
         });
     }
- 
+
 
     var btn2 = div(pop);
     btn2.classList.add("Buttons"); btn2.classList.add("ReturnButtons");
@@ -56,56 +56,56 @@ function popMateriel(resourceId,i = -1) {
 //    id.innerHTML = "ID: " + currentResouces[this.id].id;
 
     var creationDate = div(textsContainer);
- //   creationDate.innerHTML = currentResouces[this.id].creationDate + "<br/> Dernière utilisation date + personne, nbr total de sorties, catégorie?";
+ //   creationDate.innerHTML = currentResouces[this.id].creationDate + "<br/> DerniÃ¨re utilisation date + personne, nbr total de sorties, catÃ©gorie?";
 
-  
+
 }
 
-function actualizePopMateriel(resource) {
-    $('divTabCahierMaterielElementsPopUp').getElementsByTagName("div")[3].innerHTML = resource[0].description;
-    $('divTabCahierMaterielElementsContainerTextsContainer').getElementsByTagName("div")[0].innerHTML = resource[0].name;
-    $('divTabCahierMaterielElementsContainerTextsContainer').getElementsByTagName("div")[1].innerHTML = "ID: " + resource[0].id;
-    $('divTabCahierMaterielElementsContainerTextsContainer').getElementsByTagName("div")[2].innerHTML = "ID: " + resource[0].creationDate + "<br/> Dernière utilisation date + personne, nbr total de sorties, catégorie?";
+function actualizePopMateriel(bookable) {
+    $('divTabCahierMaterielElementsPopUp').getElementsByTagName("div")[3].innerHTML = bookable[0].description;
+    $('divTabCahierMaterielElementsContainerTextsContainer').getElementsByTagName("div")[0].innerHTML = bookable[0].name;
+    $('divTabCahierMaterielElementsContainerTextsContainer').getElementsByTagName("div")[1].innerHTML = "ID: " + bookable[0].id;
+    $('divTabCahierMaterielElementsContainerTextsContainer').getElementsByTagName("div")[2].innerHTML = "ID: " + bookable[0].creationDate + "<br/> DerniÃ¨re utilisation date + personne, nbr total de sorties, catÃ©gorie?";
 }
 
 
-function loadElements(Resources) {
+function loadElements(Bookables) {
     //var i = categories.findIndex(type);
 
-    currentResouces = Resources;
+    currentResouces = Bookables;
     //var nbrOfElements = 10;
 
     document.getElementById("divTabCahierMaterielElementsContainer").innerHTML = "";
-    if (Resources.length == 0) {
-        $("divTabCahierMaterielElementsContainer").innerHTML = "Pas de résultats";
+    if (Bookables.length == 0) {
+        $("divTabCahierMaterielElementsContainer").innerHTML = "Pas de rÃ©sultats";
     }
     else {
-        for (var i = 0; i < Resources.length; i++) {
+        for (var i = 0; i < Bookables.length; i++) {
 
             var container = document.createElement("div");
             container.id = i;
             container.addEventListener("click", function () {
-                popMateriel(Resources[this.id].id, this.id);
-            }); 
-  
+                popMateriel(Bookables[this.id].id, this.id);
+            });
+
             $("divTabCahierMaterielElementsContainer").appendChild(container);
 
             var secondContainer = document.createElement("div");
             container.appendChild(secondContainer);
 
             var size = document.createElement("div");
-            size.innerHTML = Resources[i].id;
+            size.innerHTML = Bookables[i].id;
             secondContainer.appendChild(size);
 
             var bottom = document.createElement("div");
             secondContainer.appendChild(bottom);
 
             var brand = document.createElement("div");
-            brand.innerHTML = Resources[i].name;
+            brand.innerHTML = Bookables[i].name;
             bottom.appendChild(brand);
 
             var model = document.createElement("div");
-            model.innerHTML = Resources[i].id;
+            model.innerHTML = Bookables[i].id;
             bottom.appendChild(model);
 
             var info = document.createElement("div");
@@ -142,7 +142,7 @@ function clickSortIcon(elem) {
     else {
         elem.style.backgroundImage = 'url("Img/IconSortDESC.png")';
     }
-} 
+}
 
 
 function changeSelectCategorie(elem) {
