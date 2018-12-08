@@ -6,8 +6,8 @@ var Cahier = {
     personSurname: "",
     getFullName: function () { return this.personName + " " + this.personSurname;},
 
-    resourceId: undefined,
-    resourceName: "aa",
+    bookableId: undefined,
+    bookableName: "aa",
 
     nbrAccompagnants: 0,
     destination: "",
@@ -59,8 +59,8 @@ var Cahier = {
         Cahier.personId = undefined;
         Cahier.personName = "";
 
-        Cahier.resourceId = undefined;
-        Cahier.resourceName = "";
+        Cahier.bookableId = undefined;
+        Cahier.bookableName = "";
 
         Cahier.nbrAccompagnants = 0;
         Cahier.destination = "";
@@ -81,7 +81,7 @@ var Cahier = {
                         allDivTabCahierProgressTexts[i].innerHTML = Cahier.getFullName();
                         break;
                     case 1:
-                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.resourceName;
+                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.bookableName;
                         break;
                     case 2:
                         allDivTabCahierProgressTexts[i].innerHTML = Cahier.destination + ", " + Cahier.nbrAccompagnants + " Acc."
@@ -107,15 +107,15 @@ var Cahier = {
         allDivTexts[1].innerHTML = date.getHours() + ":" + TimeGetMinutes();
         allDivTexts[2].innerHTML = "1880923 857h12";
 
-        $('divTabCahierConfirmationContainerTextsContainer').getElementsByTagName('div')[0].innerHTML = Cahier.resourceName;
-        $('divTabCahierConfirmationContainerTextsContainer').getElementsByTagName('div')[1].innerHTML = Cahier.resourceId;
+        $('divTabCahierConfirmationContainerTextsContainer').getElementsByTagName('div')[0].innerHTML = Cahier.bookableName;
+        $('divTabCahierConfirmationContainerTextsContainer').getElementsByTagName('div')[1].innerHTML = Cahier.bookableId;
 
         allDivTexts[6].innerHTML = Cahier.getNbrAccompagnantsText();
         allDivTexts[7].innerHTML = Cahier.destination;
         allDivTexts[8].innerHTML = Cahier.startComment;
     }
 
-    // 
+    //
 
 
 };
