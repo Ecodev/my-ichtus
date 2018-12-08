@@ -1,11 +1,11 @@
 var MaterielElementsFirstLoad = false;
 
-var currentResouces;
+var currentBookables;
 
 
-function popMateriel(bookableId,i = -1) {
+function popMateriel(bookableId, i = -1) {
 
-   // alert(bookableId);
+    // alert(bookableId);
 
     Requests.getBookableInfos(bookableId);
 
@@ -27,15 +27,15 @@ function popMateriel(bookableId,i = -1) {
     descriptionTitle.innerHTML = "Description";
 
     var description = div(pop);
-   // description.innerHTML = currentResouces[this.id].description;
+    // description.innerHTML = currentBookables[this.id].description;
 
     if (i != -1) {
         var btn = div(pop);
         btn.classList.add("Buttons"); btn.classList.add("ValidateButtons");
         btn.innerHTML = "Choisir";
         btn.addEventListener("click", function () {
-            Cahier.bookableId = currentResouces[this.parentElement.getElementsByTagName("div")[1].id].id;
-            Cahier.bookableName = currentResouces[this.parentElement.getElementsByTagName("div")[1].id].name;
+            Cahier.bookableId = currentBookables[this.parentElement.getElementsByTagName("div")[1].id].id;
+            Cahier.bookableName = currentBookables[this.parentElement.getElementsByTagName("div")[1].id].name;
             closePopUp({ target: $('divModal') });
             newTab("divTabCahierInfos");
         });
@@ -44,19 +44,19 @@ function popMateriel(bookableId,i = -1) {
 
     var btn2 = div(pop);
     btn2.classList.add("Buttons"); btn2.classList.add("ReturnButtons");
-  //  btn2.innerHTML = "Historique";
+    //  btn2.innerHTML = "Historique";
 
     var textsContainer = div(pop);
     textsContainer.id = "divTabCahierMaterielElementsContainerTextsContainer";
 
     var name = div(textsContainer);
-   // name.innerHTML = currentResouces[this.id].name;
+    // name.innerHTML = currentBookables[this.id].name;
 
     var id = div(textsContainer);
-//    id.innerHTML = "ID: " + currentResouces[this.id].id;
+    //    id.innerHTML = "ID: " + currentBookables[this.id].id;
 
     var creationDate = div(textsContainer);
- //   creationDate.innerHTML = currentResouces[this.id].creationDate + "<br/> Dernière utilisation date + personne, nbr total de sorties, catégorie?";
+    //   creationDate.innerHTML = currentBookables[this.id].creationDate + "<br/> Dernière utilisation date + personne, nbr total de sorties, catégorie?";
 
 
 }
@@ -68,12 +68,12 @@ function actualizePopMateriel(bookable) {
     $('divTabCahierMaterielElementsContainerTextsContainer').getElementsByTagName("div")[2].innerHTML = "ID: " + bookable[0].creationDate + "<br/> Dernière utilisation date + personne, nbr total de sorties, catégorie?";
 }
 
-
 function loadElements(Bookables) {
     //var i = categories.findIndex(type);
 
-    currentResouces = Bookables;
+    currentBookables = Bookables;
     //var nbrOfElements = 10;
+
 
     document.getElementById("divTabCahierMaterielElementsContainer").innerHTML = "";
     if (Bookables.length == 0) {
@@ -100,26 +100,23 @@ function loadElements(Bookables) {
             var bottom = document.createElement("div");
             secondContainer.appendChild(bottom);
 
-            var brand = document.createElement("div");
-            brand.innerHTML = Bookables[i].name;
-            bottom.appendChild(brand);
+            var brand = div(bottom);
+            brand.innerHTML = Bookables[i].name.shorten(15);
 
-            var model = document.createElement("div");
+            var model = div(bottom);
             model.innerHTML = Bookables[i].id;
-            bottom.appendChild(model);
 
-            var info = document.createElement("div");
-            secondContainer.appendChild(info);
+            //var info = div(secondContainer);
 
-            var background = document.createElement("div");
-            secondContainer.appendChild(background);
+            var background = div(secondContainer);
+
         }
         if (MaterielElementsFirstLoad == true) {
             MaterielElementsFirstLoad = false;
             document.documentElement.scrollTop = 60;
         }
     }
-   // <div>     <div>       <div>7.0</div>          <div><div>Severne</div><div>Overdrive 2017</div></div>      <div></div><div></div>      </div>       </div>
+    // <div>     <div>       <div>7.0</div>          <div><div>Severne</div><div>Overdrive 2017</div></div>      <div></div><div></div>      </div>       </div>
 }
 
 

@@ -18,7 +18,7 @@ function AdjustScreen(w, h) {
     widthScreen = w;
     heightScreen = h;
 
-    var _divLeftBar  = $('divLeftBar' ).style;
+    var _divLeftBar = $('divLeftBar').style;
     var _divRightBar = $('divRightBar').style;
 
     if (w > MaxWidth) { //Plus grand que le max -> Barres sur les côtés
@@ -37,7 +37,7 @@ function AdjustScreen(w, h) {
     _divLeftBar.width = widthCache + "px";
     _divRightBar.width = widthCache + "px";
 
-    //_divScreen
+    //_divScreen 
     var _divScreen = $('divScreen').style;
     _divScreen.width = widthToDisplay + "px";
     _divScreen.left = widthCache + "px";
@@ -74,7 +74,7 @@ function AdjustScreen(w, h) {
     $("divTopBarButtonsBar").style.width = d + "px";
     $("divTopBarButtonsBar").style.marginLeft = -(widthScreen - 2 * SpaceLeft) / 3 * (-OldElement.position + 0.5) + "px";
 
-    $("divTopBarTopText").style.marginLeft = -3/2 * d + "px";
+    $("divTopBarTopText").style.marginLeft = -3 / 2 * d + "px";
     $("divTopBarTopText").style.width = 3 * d + "px";
 }
 
@@ -103,7 +103,7 @@ function AdjustTopBar() {
 function loadButtons() {
     var allButtons = document.getElementsByClassName("divTopBarButtons");
     for (var i = 0; i < allButtons.length; i++) {
-        allButtons[i].addEventListener("click", function () { newTab("divTab" + this.id.substr(this.id.indexOf("Button")+6)) });
+        allButtons[i].addEventListener("click", function () { newTab("divTab" + this.id.substr(this.id.indexOf("Button") + 6)) });
     }
 }
 
@@ -157,15 +157,15 @@ function newTab(id) {
 //    document.documentElement.scrollTop = 60;
 
 var tabs = [];
-tabs.push({ id: "divTabMateriel",                   order: -1, progress: 0, position: -1, TopBar: false, Enter: function () { }, Remove: function () { } });
-tabs.push({ id: "divTabCahier",                     order: 0, progress: 0, position: 0, TopBar: false, Enter: function () { $("inputTabCahierSearch").focus(); Cahier.cancel(); }, Remove: function () { $("inputTabCahierSearch").blur(); } });
-tabs.push({ id: "divTabStatistiques",               order: 1,  progress: 0, position: 1, TopBar: false, Enter: function () { }, Remove: function () { }});
-tabs.push({ id: "divTabCahierMaterielOptions",      order: 10, progress: 1, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
-tabs.push({ id: "divTabCahierMaterielCode",         order: 11, progress: 1, position: 0, TopBar: true,  Enter: function () { }, Remove: function () { }});
-tabs.push({ id: "divTabCahierMaterielCategories",   order: 12, progress: 1, position: 0, TopBar: true, Enter: function () { }, Remove: function () { } });
-tabs.push({ id: "divTabCahierMaterielElements",     order: 13, progress: 1, position: 0, TopBar: true, Enter: function () { MaterielElementsFirstLoad = true; Requests.getBookablesList(); $('inputTabCahierMaterielElementsInputSearch').focus(); }, Remove: function () { } });
-tabs.push({ id: "divTabCahierInfos",                order: 14, progress: 2, position: 0, TopBar: true, Enter: function () { if ($("divTabCahierInfosDestination").getElementsByTagName("input")[0].value == "") {$("divTabCahierInfosDestination").getElementsByTagName("input")[0].focus(); }  writeNbrInvites($("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0]); }, Remove: function () { } });
-tabs.push({ id: "divTabCahierConfirmation",         order: 15, progress: 3, position: 0, TopBar: true, Enter: function () { Cahier.actualizeConfirmation(); }, Remove: function () { }});
+tabs.push({ id: "divTabMateriel", order: -1, progress: 0, position: -1, TopBar: false, Enter: function () { }, Remove: function () { } });
+tabs.push({ id: "divTabCahier", order: 0, progress: 0, position: 0, TopBar: false, Enter: function () { $("inputTabCahierSearch").focus(); Cahier.cancel(); }, Remove: function () { $("inputTabCahierSearch").blur(); } });
+tabs.push({ id: "divTabStatistiques", order: 1, progress: 0, position: 1, TopBar: false, Enter: function () { }, Remove: function () { } });
+tabs.push({ id: "divTabCahierMaterielOptions", order: 10, progress: 1, position: 0, TopBar: true, Enter: function () { }, Remove: function () { } });
+tabs.push({ id: "divTabCahierMaterielCode", order: 11, progress: 1, position: 0, TopBar: true, Enter: function () { }, Remove: function () { } });
+tabs.push({ id: "divTabCahierMaterielCategories", order: 12, progress: 1, position: 0, TopBar: true, Enter: function () { }, Remove: function () { } });
+tabs.push({ id: "divTabCahierMaterielElements", order: 13, progress: 1, position: 0, TopBar: true, Enter: function () { $('divTabCahierCancelButton').style.top = "135px"; MaterielElementsFirstLoad = true; Requests.getBookablesList(); $('inputTabCahierMaterielElementsInputSearch').focus(); }, Remove: function () { $('divTabCahierCancelButton').style.top = "170px"; } });
+tabs.push({ id: "divTabCahierInfos", order: 14, progress: 2, position: 0, TopBar: true, Enter: function () { if ($("divTabCahierInfosDestination").getElementsByTagName("input")[0].value == "") { $("divTabCahierInfosDestination").getElementsByTagName("input")[0].focus(); } writeNbrInvites($("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0]); }, Remove: function () { } });
+tabs.push({ id: "divTabCahierConfirmation", order: 15, progress: 3, position: 0, TopBar: true, Enter: function () { Cahier.actualizeConfirmation(); }, Remove: function () { } });
 
 
 //WINDOW LOCATION CHANGE
@@ -192,7 +192,7 @@ window.onhashchange = function () {
             sign = NewElement.order;
         }
         else if (NewElement.order < OldElement.order) {
-                sign = -1;
+            sign = -1;
         }
 
         changeTab($(NewElement.id), sign);

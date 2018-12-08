@@ -17,7 +17,7 @@ function load() {
     currentTabElement = $("divTabCahier");
     var scrollBarLength = window.innerWidth - document.documentElement.clientWidth;
     AdjustScreen(window.innerWidth - scrollBarLength, window.innerHeight);
-    actualizeTime(); 
+    actualizeTime();
     setInterval(actualizeTime, 5000);  //5 secondes
     loadButtons();
     $("divTopBarTopText").innerHTML = currentTabElement.id + "bonsoir";
@@ -48,7 +48,7 @@ function TimeGetMinutes() {
 //Time
 var date;
 var Jours = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
-var Mois = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
+var Mois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
 function actualizeTime() {
     date = new Date();
     $("divTopBarTime").innerHTML = date.getHours() + ":" + TimeGetMinutes() + "<br/>" + Jours[date.getDay()] + " " + date.getDate() + " " + Mois[date.getMonth()].substring(0, 3); //.substring(0, 3)
@@ -73,9 +73,9 @@ function loadReturnButtons() {
     var allReturnButtons = document.getElementsByClassName("ReturnButtons");
     for (var i = 0; i < allReturnButtons.length; i++) {
         //allReturnButtons[i].onclick = "";
-      //  allReturnButtons[i].addEventListener("click", function () {
-     //       window.history.back();
-      //  });
+        //  allReturnButtons[i].addEventListener("click", function () {
+        //       window.history.back();
+        //  });
         allReturnButtons[i].title = "Retour";
     }
 }
@@ -86,9 +86,6 @@ function openPopUp() {
     $('divModal').style.display = 'block';
     setTimeout(function () { $('divModal').style.opacity = 1; }, 10);
     $('divModal').innerHTML = "";
-
-
-
 }
 
 function closePopUp(e) {
@@ -98,3 +95,15 @@ function closePopUp(e) {
     }
 }
 
+
+
+
+
+String.prototype.shorten = function (maxLength) {
+    if (this.length > maxLength) {
+        return this.substr(0, maxLength) + "...";
+    }
+    else {
+        return this;
+    }
+}

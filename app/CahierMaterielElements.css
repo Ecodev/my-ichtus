@@ -1,5 +1,4 @@
-#divTabCahierMaterielElements{
-
+#divTabCahierMaterielElements {
 }
 
 
@@ -44,6 +43,7 @@
             -webkit-box-shadow: 3px 6px 10px 0px rgba(0,0,0,0.75);
             -moz-box-shadow: 3px 6px 10px 0px rgba(0,0,0,0.75);
             box-shadow: 3px 6px 10px 0px rgba(0,0,0,0.75);
+            background-color: lightgray;
         }
 
 
@@ -79,31 +79,34 @@
             background-color: white;
             opacity: 1;
             z-index: 3;
+            transition: background-color 0.1s linear 0s;
         }
 
-            #divTabCahierMaterielElementsContainer > div > div > div:nth-child(2) > div:nth-child(1) {
-                position: absolute;
-                left: 2.5%;
-                top: 10px;
-                width: 95%;
-                height: 25px;
-                font-size: 20px;
-                background-color: white;
-                color: gray;
-                transition: all 0.1s linear 0s;
-            }
+        #divTabCahierMaterielElementsContainer > div:hover > div > div:nth-child(2) {
+            /*background-color:lightgray;*/
+        }
+
+        #divTabCahierMaterielElementsContainer > div > div > div:nth-child(2) > div:nth-child(1) {
+            position: absolute;
+            left: 2.5%;
+            top: 10px;
+            width: 95%;
+            height: 25px;
+            font-size: 20px;
+            color: gray;
+            transition: all 0.1s linear 0s;
+        }
 
 
-            #divTabCahierMaterielElementsContainer > div > div > div:nth-child(2) > div:nth-child(2) {
-                position: absolute;
-                left: 2.5%;
-                top: 40px;
-                width: 95%;
-                height: 25px;
-                font-size: 23px;
-                background-color: white;
-                transition: all 0.1s linear 0s;
-            }
+        #divTabCahierMaterielElementsContainer > div > div > div:nth-child(2) > div:nth-child(2) {
+            position: absolute;
+            left: 2.5%;
+            top: 40px;
+            width: 95%;
+            height: 25px;
+            font-size: 23px;
+            transition: all 0.1s linear 0s;
+        }
 
         #divTabCahierMaterielElementsContainer > div:hover div > div:nth-child(2) > div:nth-child(1) {
             font-size: 23px;
@@ -113,14 +116,14 @@
             font-size: 25px;
         }
 
-        #divTabCahierMaterielElementsContainer > div > div > div:nth-child(3) {
+        /*#divTabCahierMaterielElementsContainer > div > div > div:nth-child(3) {
             position: absolute;
             right: 15px;
             top: -10px;
             width: 45px;
             height: 45px;
             border-radius: 22.5px;
-            /*border: 1px solid white;*/ /*OU ALORS GRAY AVEC BORD NOIR OU BLANC*/
+            border: 1px solid white; OU ALORS GRAY AVEC BORD NOIR OU BLANC
             background-color: gray;
             -webkit-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
             -moz-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
@@ -130,9 +133,9 @@
             opacity: 0;
             transition: all 0.2s linear 0s;
             z-index: 5;
-        }
+        }*/
 
-        #divTabCahierMaterielElementsContainer > div:hover > div > div:nth-child(3) {
+        /*#divTabCahierMaterielElementsContainer > div:hover > div > div:nth-child(3) {
             opacity: 1;
             top: 15px;
         }
@@ -142,11 +145,11 @@
             -webkit-box-shadow: 2px 0px 10px 0px rgba(0,0,0,0.75);
             -moz-box-shadow: 2px 0px 10px 0px rgba(0,0,0,0.75);
             box-shadow: 2px 0px 10px 0px rgba(0,0,0,0.75);
-        }
+        }*/
 
 
 
-        #divTabCahierMaterielElementsContainer > div > div > div:nth-child(4) {
+        #divTabCahierMaterielElementsContainer > div > div > div:nth-child(3) {
             position: absolute;
             left: 0px;
             top: 0px;
@@ -161,7 +164,7 @@
             transition: all 0.2s linear 0s;
         }
 
-        #divTabCahierMaterielElementsContainer > div:hover > div > div:nth-child(4) {
+        #divTabCahierMaterielElementsContainer > div:hover > div > div:nth-child(3) {
             background-position-x: 0px,-20px;
             background-position-y: 0px,-20px;
             background-size: 200px,240px;
@@ -169,41 +172,39 @@
         }
 
 #divTabCahierMaterielElementsButtonsContainer {
-    position:relative;
-    width:95%;
-    border-left-width:130px;
-    border-left-style:solid;
-
-    min-height:10px;
-    text-align:right;
-    background-color:transparent;
-    left:2.5%;
-    box-sizing:border-box;
+    position: relative;
+    width: 95%;
+    border-left-width: 130px;
+    border-left-style: solid;
+    min-height: 10px;
+    text-align: right;
+    background-color: transparent;
+    left: 2.5%;
+    box-sizing: border-box;
 }
 
-#divTabCahierMaterielElementsButtonsContainer > div  {
-    display:inline-block;
-    position:relative;
-    background-color:transparent;
-    top:0px;
-    height:40px; /*important ?*/
-    vertical-align:top;
-    margin-bottom:5px;
-
-}
-
-    #divTabCahierMaterielElementsButtonsContainer > div > div {
-        position:absolute;
+    #divTabCahierMaterielElementsButtonsContainer > div {
+        display: inline-block;
+        position: relative;
+        background-color: transparent;
+        top: 0px;
+        height: 40px; /*important ?*/
+        vertical-align: top;
+        margin-bottom: 5px;
     }
 
-    #divTabCahierMaterielElementsButtonsContainer > div select {
-        position: absolute;
-        padding-left: 10px;
-        margin-left: 40px;
-        border-bottom-left-radius: 0px;
-        border-top-left-radius: 0px;
-        background-color: white;
-    }
+        #divTabCahierMaterielElementsButtonsContainer > div > div {
+            position: absolute;
+        }
+
+        #divTabCahierMaterielElementsButtonsContainer > div select {
+            position: absolute;
+            padding-left: 10px;
+            margin-left: 40px;
+            border-bottom-left-radius: 0px;
+            border-top-left-radius: 0px;
+            background-color: white;
+        }
 
 
 #divTabCahierMaterielElementsSelectSort {
@@ -211,56 +212,57 @@
     z-index: 2;
 }
 
-#divTabCahierMaterielElementsSelectSort:hover {
-    margin-top: 4px;
-}
+    #divTabCahierMaterielElementsSelectSort:hover {
+        margin-top: 4px;
+    }
 
-#divTabCahierMaterielElementsSelectSort > div {
-    position: absolute;
-    width: 30px;
-    background-color: white;
-    border-bottom-right-radius: 0px;
-    border-top-right-radius: 0px;
-    background-image: url(Img/IconSortASC.png);
-    -webkit-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
-}
+    #divTabCahierMaterielElementsSelectSort > div {
+        position: absolute;
+        width: 30px;
+        background-color: white;
+        border-bottom-right-radius: 0px;
+        border-top-right-radius: 0px;
+        background-image: url(Img/IconSortASC.png);
+        -webkit-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
+        box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
+    }
 
-#divTabCahierMaterielElementsSelectSort > div:hover {
-    margin-top: 0px;
-    background-position-x:0px;
-    background-position-y:-1px;
-    background-size: 40px;
-}
+        #divTabCahierMaterielElementsSelectSort > div:hover {
+            margin-top: 0px;
+            background-position-x: 0px;
+            background-position-y: -1px;
+            background-size: 40px;
+        }
 
 
 
 
 
 #divTabCahierMaterielElementsSelectCategorie {
-    transition:all 0.1s linear 0s;
-    z-index:2;
-}
-#divTabCahierMaterielElementsSelectCategorie:hover {
-    margin-top: 4px;
+    transition: all 0.1s linear 0s;
+    z-index: 2;
 }
 
-#divTabCahierMaterielElementsSelectCategorie > div {
-    position: absolute;
-    width: 30px;
-    background-color: white;
-    border-bottom-right-radius: 0px;
-    border-top-right-radius: 0px;
-    background-image: url(Img/IconChose.png);
-    -webkit-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
-}
-#divTabCahierMaterielElementsSelectCategorie > div:hover {
-    margin-top: 0px;
+    #divTabCahierMaterielElementsSelectCategorie:hover {
+        margin-top: 4px;
+    }
 
-}
+    #divTabCahierMaterielElementsSelectCategorie > div {
+        position: absolute;
+        width: 30px;
+        background-color: white;
+        border-bottom-right-radius: 0px;
+        border-top-right-radius: 0px;
+        background-image: url(Img/IconChose.png);
+        -webkit-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
+        box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
+    }
+
+        #divTabCahierMaterielElementsSelectCategorie > div:hover {
+            margin-top: 0px;
+        }
 
 
 
@@ -268,60 +270,65 @@
 
 #divTabCahierMaterielElementsSelectPageSize {
     transition: all 0.1s linear 0s;
-    z-index:2;
-}
-#divTabCahierMaterielElementsSelectPageSize:hover {
-    margin-top:4px;
-}
-#divTabCahierMaterielElementsSelectPageSize > div {
-    position: absolute;
-    width: 30px;
-    background-color: white;
-    border-bottom-right-radius: 0px;
-    border-top-right-radius: 0px;
-    background-image: url(Img/IconEye.png);
-    -webkit-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
-}
-#divTabCahierMaterielElementsSelectPageSize > div:hover {
-    margin-top: 0px;
+    z-index: 2;
 }
 
-    #inputTabCahierMaterielElementsInputSearch {
-        position: relative;
-        border-width: 2px;
-        border-style: solid;
-        border-color: black;
-        background-color: white; /*rgb(237,237,237);*/
-        padding-left: 40px;
-        padding-top: 0px;
-        height: 34px;
-        width: 120px;
-        padding-bottom: 0px;
-        background-image: none;
-        background-repeat: no-repeat;
-        background-size: 40px;
-        background-position-x: 65px;
-        background-position-y: 4px;
-        color: black;
-        font-size: 20px;
-        text-transform: capitalize;
-        -webkit-box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.75);
-        -moz-box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.75);
-        box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.75);
-        transition: all 0.1s linear 0s, width 0.2s linear 0s, margin-left 0.2s linear 0s;
-        outline: none; /*pour enlever le cadre bleu quand sélectionné*/
-        border-radius: 10px;
-        background-image: url(Img/IconSearchBlack.png);
-        background-position-x: 0px;
-        background-position-y: 0px;
-        background-size: 34px;
-        /*text-align: center;*/
+    #divTabCahierMaterielElementsSelectPageSize:hover {
+        margin-top: 4px;
     }
-#inputTabCahierMaterielElementsInputSearch::placeholder {
-    color: gray;
+
+    #divTabCahierMaterielElementsSelectPageSize > div {
+        position: absolute;
+        width: 30px;
+        background-color: white;
+        border-bottom-right-radius: 0px;
+        border-top-right-radius: 0px;
+        background-image: url(Img/IconEye.png);
+        -webkit-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
+        box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
+    }
+
+        #divTabCahierMaterielElementsSelectPageSize > div:hover {
+            margin-top: 0px;
+        }
+
+#inputTabCahierMaterielElementsInputSearch {
+    position: relative;
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
+    background-color: white; /*rgb(237,237,237);*/
+    padding-left: 40px;
+    padding-top: 0px;
+    height: 34px;
+    width: 120px;
+    padding-bottom: 0px;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-size: 40px;
+    background-position-x: 65px;
+    background-position-y: 4px;
+    color: black;
+    font-size: 20px;
+    text-transform: capitalize;
+    -webkit-box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.75);
+    transition: all 0.1s linear 0s, width 0.2s linear 0s, margin-left 0.2s linear 0s;
+    outline: none; /*pour enlever le cadre bleu quand sélectionné*/
+    border-radius: 10px;
+    background-image: url(Img/IconSearchBlack.png);
+    background-position-x: 0px;
+    background-position-y: 0px;
+    background-size: 34px;
+    /*text-align: center;*/
 }
+
+    #inputTabCahierMaterielElementsInputSearch::placeholder {
+        color: gray;
+    }
+
     #inputTabCahierMaterielElementsInputSearch:focus {
         border-color: rgb(66, 133, 244);
         background-image: url(Img/IconSearchBlue.png);
@@ -331,9 +338,9 @@
         box-shadow: 2px 3px 10px 0px rgba(0,0,0,0.75);
     }
 
-#inputTabCahierMaterielElementsInputSearch:hover {
-    margin-top: 4px;
-}
+    #inputTabCahierMaterielElementsInputSearch:hover {
+        margin-top: 4px;
+    }
 
 
 #divTabCahierMaterielElementsPopUp {
@@ -346,92 +353,100 @@
     height: 450px;
 }
 
-#divTabCahierMaterielElementsPopUp > div:nth-child(1) {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    width: 30px;
-    height: 30px;
-    background-image: url(Img/IconCancelBlack.png);
-    background-repeat: no-repeat;
-    background-position-x: right;
-    opacity: 0.5;
-    z-index: 4;
-    transition: all 0.1s linear 0s;
-}
-#divTabCahierMaterielElementsPopUp > div:nth-child(1):hover {
-    opacity: 1;
-}
-#divTabCahierMaterielElementsPopUp > div:nth-child(2) {
-    position: absolute;
-    left: 20px;
-    top: 20px;
-    width: 215px;
-    height: 220px;
-    background-image: url(Img/Materiel/Sail.png);
-    background-repeat: no-repeat;
-    border-radius: 10px;
-    border: 2px solid lightgray;
-    -moz-box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);
-    box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);
-}
-#divTabCahierMaterielElementsPopUp > div:nth-child(3) {
-    position: absolute;
-    left: 20px;
-    margin-left:10px;
-    top: 260px;
-    width: 660px;
-    height: 40px;
-    font-size:25px;
-}
-#divTabCahierMaterielElementsPopUp > div:nth-child(4) {
-    position: absolute;
-    left: 20px;
-    top: 290px;
-    width: 495px;
-    height: 140px;
-    border-radius: 10px;
-    border: 2px solid lightgray;
-    box-sizing:border-box;
-    padding:8px;
-    /*-moz-box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);
-    box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);*/
-}
-#divTabCahierMaterielElementsPopUp >  .ValidateButtons{
-    position: absolute;
-    right: 20px;
-    top: 376px;
-    width: 145px;
-}
-#divTabCahierMaterielElementsPopUp > .ReturnButtons{
-    position: absolute;
-    right: 20px;
-    top: 290px;
-    width: 145px;
-    margin-left:0px;
-}
-#divTabCahierMaterielElementsPopUp > .ReturnButtons::after{
-    content:none;
-}
-
-
-    #divTabCahierMaterielElementsContainerTextsContainer {
+    #divTabCahierMaterielElementsPopUp > div:nth-child(1) {
         position: absolute;
-        left: 260px;
+        right: 10px;
+        top: 10px;
+        width: 30px;
+        height: 30px;
+        background-image: url(Img/IconCancelBlack.png);
+        background-repeat: no-repeat;
+        background-position-x: right;
+        opacity: 0.5;
+        z-index: 4;
+        transition: all 0.1s linear 0s;
+    }
+
+        #divTabCahierMaterielElementsPopUp > div:nth-child(1):hover {
+            opacity: 1;
+        }
+
+    #divTabCahierMaterielElementsPopUp > div:nth-child(2) {
+        position: absolute;
+        left: 20px;
         top: 20px;
-        width: 420px;
-        min-height: 20px;
+        width: 215px;
+        height: 220px;
+        background-image: url(Img/Materiel/Sail.png);
+        background-repeat: no-repeat;
+        border-radius: 10px;
+        border: 2px solid lightgray;
+        -moz-box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);
+        -webkit-box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);
+        box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);
+    }
+
+    #divTabCahierMaterielElementsPopUp > div:nth-child(3) {
+        position: absolute;
+        left: 20px;
+        margin-left: 10px;
+        top: 260px;
+        width: 660px;
+        height: 40px;
         font-size: 25px;
     }
-#divTabCahierMaterielElementsContainerTextsContainer > div {
-    position:relative;
-    min-height:20px;
-    margin-bottom:5px;
+
+    #divTabCahierMaterielElementsPopUp > div:nth-child(4) {
+        position: absolute;
+        left: 20px;
+        top: 290px;
+        width: 495px;
+        height: 140px;
+        border-radius: 10px;
+        border: 2px solid lightgray;
+        box-sizing: border-box;
+        padding: 8px;
+        /*-moz-box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);*/
+    }
+
+    #divTabCahierMaterielElementsPopUp > .ValidateButtons {
+        position: absolute;
+        right: 20px;
+        top: 376px;
+        width: 145px;
+    }
+
+    #divTabCahierMaterielElementsPopUp > .ReturnButtons {
+        position: absolute;
+        right: 20px;
+        top: 290px;
+        width: 145px;
+        margin-left: 0px;
+    }
+
+        #divTabCahierMaterielElementsPopUp > .ReturnButtons::after {
+            content: none;
+        }
+
+
+#divTabCahierMaterielElementsContainerTextsContainer {
+    position: absolute;
+    left: 260px;
+    top: 20px;
+    width: 420px;
+    min-height: 20px;
+    font-size: 25px;
 }
 
-#divTabCahierMaterielElementsContainerTextsContainer > div:nth-child(2) {
-    font-size:20px;
-    color:darkgray;
-}
+    #divTabCahierMaterielElementsContainerTextsContainer > div {
+        position: relative;
+        min-height: 20px;
+        margin-bottom: 5px;
+    }
+
+        #divTabCahierMaterielElementsContainerTextsContainer > div:nth-child(2) {
+            font-size: 20px;
+            color: darkgray;
+        }

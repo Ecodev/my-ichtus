@@ -4,7 +4,8 @@ var Cahier = {
     personId: undefined,
     personName: "Michel",
     personSurname: "",
-    getFullName: function () { return this.personName + " " + this.personSurname;},
+    personGender: "Man",
+    getFullName: function () { return this.personName + " " + this.personSurname; },
 
     bookableId: undefined,
     bookableName: "aa",
@@ -12,6 +13,8 @@ var Cahier = {
     nbrAccompagnants: 0,
     destination: "",
     startComment: "",
+
+
     getNbrAccompagnantsText: function () {
         if (Cahier.nbrAccompagnants == 0) {
             return "Aucun";
@@ -21,6 +24,15 @@ var Cahier = {
         }
         else {
             return Cahier.nbrAccompagnants + " Accompagnants";
+        }
+    },
+
+    getStartCommentText: function () {
+        if (Cahier.startComment == "") {
+            return "Pas de commentaire";
+        }
+        else {
+            return Cahier.startComment;
         }
     },
 
@@ -39,7 +51,7 @@ var Cahier = {
         // #divCahierInfos
         var allTabCahierFields = document.getElementsByClassName("TabCahierFields");
 
-        for (var i = 0; i < allTabCahierFields.length-1; i++) { // -1 POUR EVITER LA TEXTAREA
+        for (var i = 0; i < allTabCahierFields.length - 1; i++) { // -1 POUR EVITER LA TEXTAREA
             allTabCahierFields[i].getElementsByTagName("input")[0].value = "";
             allTabCahierFields[i].getElementsByTagName("input")[0].style.backgroundImage = "none";
             allTabCahierFields[i].getElementsByTagName("input")[0].style.borderColor = "black";
@@ -99,23 +111,31 @@ var Cahier = {
     actualizeConfirmation: function () {
         var allDiv = $('divTabCahierConfirmationContainer').getElementsByClassName("divConfirmationTexts");
         var allDivTexts = [];
+        var allDivIcons = [];
         for (var i = 0; i < allDiv.length; i++) {
-            allDivTexts[i] = allDiv[i].getElementsByTagName('div')[2];
+            allDivIcons[i] = allDiv[i].getElementsByTagName("div")[0].getElementsByTagName("div")[0];
+            allDivTexts[i] = allDiv[i].getElementsByTagName('div')[3];
         }
 
         allDivTexts[0].innerHTML = Cahier.getFullName();
+        allDivIcons[0].style.backgroundImage = "url(Img/Icon" + Cahier.personGender + ".png)";
+
         allDivTexts[1].innerHTML = date.getHours() + ":" + TimeGetMinutes();
+        allDivIcons[1].style.backgroundImage = "";
+
         allDivTexts[2].innerHTML = "1880923 857h12";
 
         $('divTabCahierConfirmationContainerTextsContainer').getElementsByTagName('div')[0].innerHTML = Cahier.bookableName;
         $('divTabCahierConfirmationContainerTextsContainer').getElementsByTagName('div')[1].innerHTML = Cahier.bookableId;
 
-        allDivTexts[6].innerHTML = Cahier.getNbrAccompagnantsText();
-        allDivTexts[7].innerHTML = Cahier.destination;
-        allDivTexts[8].innerHTML = Cahier.startComment;
+        allDivTexts[4].innerHTML = Cahier.getNbrAccompagnantsText();
+        allDivIcons[4].style.backgroundImage = "url(Img/IconInvitesTransparent.png)";
+        allDivTexts[5].innerHTML = Cahier.destination;
+        allDivIcons[5].style.backgroundImage = "url(Img/IconDestinationBlack.png)";
+        allDivTexts[6].innerHTML = Cahier.getStartCommentText();
     }
 
-    //
+    // 
 
 
 };

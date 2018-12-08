@@ -100,7 +100,7 @@ function chosePerson(name, surname) {
     Cahier.personName = name;
     Cahier.personSurname = surname;
     Cahier.personId = surname;
-    newTab("divTabCahierMaterielOptions");
+    newTab("divTabCahierMaterielCategories");
     $("divTabCahierInfosName").innerHTML = name + " " + surname;
 }
 

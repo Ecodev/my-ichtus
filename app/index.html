@@ -57,7 +57,7 @@
 
     <!-- Top Bar -->
     <div id="divTopBar">
-        <img id="imgTopBarIchtusLogo" src="Img/IchtusLogo.png" onclick="alert('')"/>
+        <img id="imgTopBarIchtusLogo" src="Img/IchtusLogo.png" onclick="alert('')" />
         <img id="imgTopBarIchtusText" src="Img/IchtusText.jpg" />
 
 
@@ -69,7 +69,7 @@
 
         <div id="divTopBarTopText"></div>
 
-        <div id="divTopBarWind"  onclick="Requests.login($('inputTabCahierSearch').value)"></div>
+        <div id="divTopBarWind" onclick="Requests.login($('inputTabCahierSearch').value)"></div>
         <div id="divTopBarTime"></div>
     </div>
 
@@ -184,8 +184,8 @@
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielOptions')" style="position:absolute;"></div>
             <div id="divTabCahierMaterielElementsButtonsContainer">
                 <!--<div style="width:120px;">
-            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')" style="margin-left:0px;"></div>
-        </div>-->
+                    <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')" style="margin-left:0px;"></div>
+                </div>-->
                 <div style="width:250px;">
                     <div class="Buttons NormalButtons" style="width:230px; background-image:url(Img/IconEnter.png)" onclick="newTab('divTabCahierMaterielCategories')" title="Changer de catégorie">remove</div>
                 </div><div style="min-width:218px;">
@@ -200,7 +200,7 @@
                 </div><div style="width:248px;">
                     <div id="divTabCahierMaterielElementsSelectSort" title="Trier par">
                         <div class="Buttons NormalButtons" id="divTabCahierMaterielElementsSelectIconSort" onclick="clickSortIcon(this); Requests.getBookablesList();"></div>
-                        <select onchange="Requests.getBookablesList();">
+                        <select onchange="Requests.getResourcesList();">
                             <option value="id">ID</option>
                             <option value="name">Nom</option>
                             <option value="description">Description</option>
@@ -209,7 +209,7 @@
                     </div>
                 </div><div style="width:105px;">
                     <div id="divTabCahierMaterielElementsSelectPageSize" title="Nombre d'éléments affichés par page">
-                        <div class="Buttons NormalButtons" ></div>
+                        <div class="Buttons NormalButtons"></div>
                         <select onchange="Requests.getBookablesList();">
                             <option>10</option>
                             <option selected="selected">20</option>
@@ -217,7 +217,7 @@
                         </select>
                     </div>
                 </div><div style="min-width:100px;" title="Rechercher">
-                <input id="inputTabCahierMaterielElementsInputSearch" type="text" value="" placeholder="Rechercher" onkeyup="Requests.getBookablesList();" />
+                    <input id="inputTabCahierMaterielElementsInputSearch" type="text" value="" placeholder="Rechercher" onkeyup="Requests.getBookablesList();" />
                 </div>
             </div>
 
@@ -271,19 +271,19 @@
                 </div>
 
                 <!--<div id="divTabCahierInfosStartTime" class="TabCahierFields">
-        Heure de départ
-        <input type="time" min="0:00" max="21:00" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" />
-        <div></div>
-    </div>
+                    Heure de départ
+                    <input type="time" min="0:00" max="21:00" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" />
+                    <div></div>
+                </div>
 
-    <div id="divTabCahierInfosEndTime" class="TabCahierFields">
-        Heure d'arivée
-        <input type="time" min="12:00" max="24:00" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" />
-        <div></div>
-        <div id="divTabCahierInfosEndTimePropositions" class="PropositionsContainer">
-            <div>30min</div><div>45min</div><div>1h</div><div>1h30</div><div>2h</div><div>3h</div><div>4h</div>
-        </div>
-    </div>-->
+                <div id="divTabCahierInfosEndTime" class="TabCahierFields">
+                    Heure d'arivée
+                    <input type="time" min="12:00" max="24:00" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" />
+                    <div></div>
+                    <div id="divTabCahierInfosEndTimePropositions" class="PropositionsContainer">
+                        <div>30min</div><div>45min</div><div>1h</div><div>1h30</div><div>2h</div><div>3h</div><div>4h</div>
+                    </div>
+                </div>-->
             </div>
 
             <div style="text-align:left; margin-left:2.5%">Les champs avec un * sont obligatoires !</div>
@@ -300,49 +300,46 @@
         <div id="divTabCahierConfirmation" class="divTab">
             <div style="margin-top:300px; position:relative;"></div>
             <br />
-            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierInfos')" style="position:absolute;"></div>
+            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierInfos')"></div>
 
             <div id="divTabCahierConfirmationFirstContainer">
 
                 <div id="divTabCahierConfirmationContainer">
 
-                    <div style=" font-size:20px; text-align:left;">Votre sortie</div>
-                    <div style="background-color:gray; height:2px; margin-bottom:15px; border-radius:2px;"></div>
+                    <div style=" font-size:25px; text-align:center; color:black;">Votre sortie</div>
+                    <div style="background-color:gray; height:2px; margin-bottom:15px;  margin-top:5px; border-radius:2px;"></div>
 
                     <div class="divConfirmationTexts">
-                        <div></div><div style="font-size:35px;">Responsable</div><div style="font-size:35px;"></div>
+                        <div><div></div></div><div style="font-size:35px;">Responsable</div><div style="font-size:35px;"></div>
                     </div>
                     <div class="divConfirmationTexts">
-                        <div></div><div>Heure de départ</div><div></div>
+                        <div><div></div></div><div>Heure de départ</div><div></div>
                     </div>
                     <div class="divConfirmationTexts">
-                        <div></div><div>Catégorie</div><div></div>
-                    </div>
-                    <div class="divConfirmationTexts">
-                        <div></div><div></div><div></div>
+                        <div><div></div></div><div>Catégorie</div><div></div>
                     </div>
 
-                    <div class="divConfirmationTexts">
-                        <div></div><div>Embarcation</div><div></div>
+                    <div style="background-color:gray; height:2px; margin-bottom:15px; margin-top:15px; border-radius:2px; /*border-left:40px solid white;*/ "></div>
+
+                    <div class="divConfirmationTexts" style="background-color:lightgray">
+                        <div><div></div></div><div>Embarcation</div><div></div>
                     </div>
 
                     <div id="divTabCahierConfirmationEmbarcationBox">
-                        <div></div><div id="divTabCahierConfirmationContainerTextsContainer"><div>asldkfj</div><div>asdfasdf</div></div>
+                        <div><div></div></div><div id="divTabCahierConfirmationContainerTextsContainer"><div>asldkfj</div><div>asdfasdf</div></div>
                         <div class="ReturnButtons Buttons" onclick="popMateriel(Cahier.bookableId)">Infos</div>  <div class="ReturnButtons Buttons" onclick="newTab('divTabCahierMaterielCategories')">Modifier</div>
                     </div>
 
-                    <div class="divConfirmationTexts">
-                        <div></div><div></div><div></div>
-                    </div>
+                    <div style="background-color:gray; height:2px; margin-bottom:15px; margin-top:15px; border-radius:2px; /*border-left:40px solid white;*/  "></div><!--<div style="height:50px; background-color:red;"></div>-->
 
                     <div class="divConfirmationTexts">
-                        <div></div><div>Nbr d'accompagnants</div><div></div>
+                        <div><div></div></div><div>Nbr d'acc.</div><div></div>
                     </div>
                     <div class="divConfirmationTexts">
-                        <div></div><div>Destination</div><div></div>
+                        <div><div></div></div><div>Destination</div><div></div>
                     </div>
                     <div class="divConfirmationTexts">
-                        <div></div><div>Commentaire</div><div></div>
+                        <div><div></div></div><div>Commentaire</div><div></div>
                     </div>
 
                     <div id="divTabCahierConfirmationInfosBox">
@@ -354,10 +351,10 @@
                 </div>
             </div>
 
-            <br/>
+            <br />
 
             <div style="text-align:center;">
-                <div class="Buttons ValidateButtons" style="display:inline-block" onclick="Cahier.confirm()" ></div>
+                <div class="Buttons ValidateButtons" style="display:inline-block" onclick="Cahier.confirm()"></div>
             </div>
 
         </div>
