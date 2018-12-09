@@ -145,3 +145,133 @@
     width: 30px;
 }
 
+
+
+#divTabCahierTables {
+    margin-left:2.5%;
+    width:95%;
+    height:1000px;
+    background-color:azure;
+}
+
+
+#divTabCahierTableActualBookings {
+    width: 100%;
+    height: 200px;
+
+    position: relative;
+    background-color: lightblue;
+    border-radius: 20px;
+    -webkit-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
+}
+
+.TopBarTable {
+    width: 100%;
+    height: 50px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background-color: white;
+    box-sizing: border-box;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    text-align: left;
+    vertical-align: bottom;
+}
+
+    .TopBarTable > div {
+        position: relative;
+        display: inline-block;
+        margin-top:5px;
+        height: 45px;
+        width: 100px;
+        box-sizing: border-box;
+        background-color: transparent;
+        border-bottom: 4px outset transparent;
+        border-left: 0px solid gray;
+        border-right: 0px solid gray;
+        color: gray;
+        font-size: 17px;
+        transition: all 0.3s linear 0s;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .TopBarTable > div:hover {
+        border-bottom: 4px outset black;
+        background-color:lightgray;
+    }
+
+        
+
+    .TopBarTable > div > div:nth-child(1) {
+        position: absolute;
+        right: 0px;
+        bottom:5px;
+        width:20px;
+        height:20px;
+        background-size:0px;
+        background-repeat:no-repeat;
+        background-image:url(Img/IconSortASC.png);
+        transition:all 0.1s linear 0s;
+    }
+
+    .TopBarTable > div:hover > div:nth-child(1) {
+        background-size: 20px;
+    }
+
+        .TopBarTable > div > div:nth-child(2) {
+            position: absolute;
+            box-sizing:border-box;
+            border-right:20px solid transparent;
+            border-left:4px solid transparent;
+            min-height: 0px;
+            width: 100%;
+            bottom: 5px;
+            text-align: left;           
+            background-color: transparent;
+            
+
+        }
+
+.TableEntries {
+    background-color: white;
+    display: table;
+    width:100%;
+    min-height: 30px;
+    box-sizing: border-box;
+    border-bottom: 1px solid gray;
+    font-size: 20px;
+    transition: all 0.1s linear 0s;
+}
+
+.TableEntries:nth-child(2n+1) {
+    background-color: lightgray;
+}
+
+
+    .TableEntries:hover {
+        background-color: gray;
+        color: white;
+    }
+
+
+
+    .TableEntries > div:nth-child(1) {
+        width: 40px;
+        text-align: center;
+    }
+
+    .TableEntries > div {
+        position: relative;
+        /*display: inline-block;*/
+        width: 100px;
+        min-height: 30px;
+        box-sizing: border-box;
+        padding: 2px;
+
+
+        display: table-cell;
+        vertical-align: middle;
+    }

@@ -10,7 +10,9 @@ function ServerInitialize() {
  //  Requests.createQuery();
    // Requests.addBookable();
 
- //   Requests.personalQuery();
+ //   Requests.personalQuery();$
+
+    Requests.addBookable("Planche 1", "une magnifique planche qui flotte dotée d'une dérive pour ne pas dériver");
 }
 
 
@@ -121,6 +123,10 @@ var Requests = {
             pagination: {
                 pageSize: 1,
                 pageIndex: 0
+            },
+            sorting: {
+                field: "id", //USELESS
+                order:"ASC" //USELESS
             }
         };
 
@@ -135,11 +141,14 @@ var Requests = {
 
 
     // Add an item
-    addBookable: function () {
-        const item = { name: 'R' + Date.now(), description: "Bonsoir" };
+    addBookable: function (_name, _description) {
+
+        const item = { name: "1", description: "kj", bookableType: "self_approved" };
+
         Server.bookableService.create(item).subscribe(result => {
             console.log('Bookable created', result);
         });
+
     },
 
 
