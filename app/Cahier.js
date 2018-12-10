@@ -106,6 +106,53 @@ function chosePerson(name, surname) {
 
 
 
+function actualizeActualBookings(actualBookings) {
+
+    //var container = div($('divTabCahierTableActualBookings'));
+
+    //container.classList.add("TableEntries");
+    //container.classList.add("TableEntriesHover");
+
+    //var id = div(container);
+    //id.innerHTML = "ID";
+
+    //var id = div(container);
+    //id.innerHTML = "rep";
+
+    //var id = div(container);
+    //id.innerHTML = "monsieru bonsoirsoi";
+
+    //var id = div(container);
+    //id.innerHTML = "d";
+
+    //var id = div(container);
+    //id.innerHTML = "lkj";
+
+    for (var i = 0; i < actualBookings.length; i++) {
+        var container = div($('divTabCahierTableActualBookings'));
+
+        container.classList.add("TableEntries");
+        container.classList.add("TableEntriesHover");
+
+        var id = div(container);
+        id.innerHTML = actualBookings[i].id;
+
+        var id = div(container);
+        id.innerHTML = actualBookings[i].startDate;
+
+        var id = div(container);
+        id.innerHTML = actualBookings[i].participantCount;
+
+        var id = div(container);
+        id.innerHTML = actualBookings[i].id;
+
+ 
+    }
+
+
+}
+
+
 
 
 

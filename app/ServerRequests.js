@@ -12,7 +12,7 @@ function ServerInitialize() {
 
  //   Requests.personalQuery();$
 
-    Requests.addBookable("Planche 1", "une magnifique planche qui flotte dotée d'une dérive pour ne pas dériver");
+  //  Requests.addBookable("Planche 1", "une magnifique planche qui flotte dotée d'une dérive pour ne pas dériver");
 }
 
 
@@ -45,10 +45,10 @@ var Requests = {
                 pageSize: nbr,
                 pageIndex: 0
             },
-            sort: { //sorting ? ["] ?
-                field: 'name', //Marche pas ???
+            sorting:[{
+                field: 'name', 
                 order: 'DESC'
-            }
+            }]
         };
 
         var variables = new Server.QueryVariablesManager();
@@ -124,10 +124,10 @@ var Requests = {
                 pageSize: 1,
                 pageIndex: 0
             },
-            sorting: {
+            sorting: [{
                 field: "id", //USELESS
                 order:"ASC" //USELESS
-            }
+            }]
         };
 
         var variables = new Server.QueryVariablesManager();
@@ -147,6 +147,34 @@ var Requests = {
 
         Server.bookableService.create(item).subscribe(result => {
             console.log('Bookable created', result);
+        });
+
+    },
+
+
+    getBookingList: function () {
+
+        var filter = {
+            filter: {
+                groups: [
+                    {}
+                ]
+            },
+            pagination: {
+                pageSize: 10,
+                pageIndex: 0
+            },
+            sorting: [
+                { field: "id", order: "DESC" }
+            ]
+        };
+
+        var variables = new Server.QueryVariablesManager();
+        variables.set('variables', filter);
+
+        Server.bookingService.getAll(variables).subscribe(result => {
+            console.log("getBookingList(): ", result);
+            actualizeActualBookings(result.items);
         });
 
     },
