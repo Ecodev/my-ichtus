@@ -96,13 +96,17 @@
 
 
             <div id="divTabCahierTables">
+
+                <div style="position:absolute; width:95%; background-color:gray; height:2px; margin-bottom:0px; margin-top:50px; border-radius:2px;z-index:2;"></div>
+
                 <div id="divTabCahierTableActualBookings">
- 
+
 
                     <div id="divTabCahierTableActualBookingsTopBar" class="TableEntries">
 
 
-                        <div>ID<div></div>
+                        <div>
+                            ID<div></div>
                         </div><div>
                             Personne<div></div>
                         </div><div>
@@ -111,76 +115,13 @@
                             4<div></div>
                         </div><div>
                             5<div></div>
+                        </div><div>
+                            5<div></div>
+                        </div><div>
+                            5<div></div>
                         </div>
 
-                    </div>
-
-                    <div style="background-color:gray; height:2px; margin-bottom:0px; margin-top:-4px; border-radius:2px;   "></div>
-
-                    <!--<div class="TableEntries TableEntriesHover">
-
-
-                        <div>1</div><div>
-                            michel  bonsoir asdf asdf
-                        </div><div>
-                            michel
-                        </div><div>
-                            michel
-                        </div><div>
-                            michel
-                        </div>
-
-                    </div>
-
-                    <div class="TableEntries TableEntriesHover">
-
-
-                        <div>1</div><div>
-                            2
-                        </div><div>
-                            3
-                        </div><div>
-                            4
-                        </div><div>
-                            5
-                        </div>
-
-                    </div>
-
-                    <div class="TableEntries TableEntriesHover">
-
-
-                        <div>1</div><div>
-                            michel
-                        </div><div>
-                            michel
-                        </div><div>
-                            michel 1 2 12 1 2 12 12  1345 213495 82309485 20398457 098 7
-                        </div><div>
-                            michel
-                        </div>
-
-                    </div>
-
-
-
-                    <div class="TableEntries TableEntriesHover">
-
-
-                        <div>1</div><div>
-                            michel
-                        </div><div>
-                            michel
-                        </div><div>
-                            michel
-                        </div><div>
-                            michel
-                        </div>
-
-                    </div>-->
-
-
-                </div>
+                    </div></div>
             </div>
 
 
@@ -239,7 +180,7 @@
         <div id="divTabCahierMaterielCode" class="divTab">
             <div style="margin-top:300px; position:relative;"></div>
             <br />
-            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielOptions')"></div>
+            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')"></div>
             <br />
             <div id="divTabCahierMaterielCodeEmbarcation">
                 <input type="text" placeholder="Type" onkeyup="writeCodeMateriel(); actualizeCodeMateriel();" onfocusin="openPropositionsCodeMateriel(); actualizeCodeMateriel();" onfocusout="closePropositionsCodeMateriel();" />
@@ -258,7 +199,7 @@
         <div id="divTabCahierMaterielCategories" class="divTab">
             <div style="margin-top:300px; position:relative;"></div>
             <br />
-            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielOptions')"></div>
+            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahier')"></div>
             <br />
 
             <div id="divTabCahierMaterielCategoriesOther">Par catégorie</div>
@@ -272,27 +213,26 @@
 
             <br />
 
-            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielOptions')" style="position:absolute;"></div>
+            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')" style="position:absolute;"></div>
             <div id="divTabCahierMaterielElementsButtonsContainer">
                 <!--<div style="width:120px;">
                     <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')" style="margin-left:0px;"></div>
                 </div>-->
                 <div style="width:250px;">
                     <div class="Buttons NormalButtons" style="width:230px; background-image:url(Img/IconEnter.png)" onclick="newTab('divTabCahierMaterielCategories')" title="Changer de catégorie">remove</div>
-                </div><div style="min-width:218px;">
+                </div><div style="min-width:258px;">
                     <div id="divTabCahierMaterielElementsSelectCategorie" title="Catégorie">
                         <div class="Buttons NormalButtons"></div>
                         <select onchange="changeSelectCategorie(this); Requests.getBookablesList();">
-                            <option value="Sup">Sup</option>
-                            <option value="Ka">Kayak</option>
-                            <option selected="selected">Planche à voile</option>
+                            <option value="all">Toutes</option>
                         </select>
                     </div>
                 </div><div style="width:248px;">
                     <div id="divTabCahierMaterielElementsSelectSort" title="Trier par">
                         <div class="Buttons NormalButtons" id="divTabCahierMaterielElementsSelectIconSort" onclick="clickSortIcon(this); Requests.getBookablesList();"></div>
-                        <select onchange="Requests.getResourcesList();">
+                        <select onchange="Requests.getBookablesList();">
                             <option value="id">ID</option>
+                            <option value="code">Code</option>
                             <option value="name">Nom</option>
                             <option value="description">Description</option>
                             <option value="">Dernière utilisation</option>
@@ -302,6 +242,7 @@
                     <div id="divTabCahierMaterielElementsSelectPageSize" title="Nombre d'éléments affichés par page">
                         <div class="Buttons NormalButtons"></div>
                         <select onchange="Requests.getBookablesList();">
+                            <option>5</option>
                             <option>10</option>
                             <option selected="selected">20</option>
                             <option>50</option>
@@ -322,7 +263,7 @@
         <div id="divTabCahierInfos" class="divTab">
             <div style="margin-top:300px; position:relative;"></div>
             <br />
-            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielOptions')"></div>
+            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')"></div>
             <br />
 
             <div id="divTabCahierFieldsContainer">
@@ -418,7 +359,7 @@
 
                     <div id="divTabCahierConfirmationEmbarcationBox">
                         <div><div></div></div><div id="divTabCahierConfirmationContainerTextsContainer"><div>asldkfj</div><div>asdfasdf</div></div>
-                        <div class="ReturnButtons Buttons" onclick="popMateriel(Cahier.bookableId)">Infos</div>  <div class="ReturnButtons Buttons" onclick="newTab('divTabCahierMaterielCategories')">Modifier</div>
+                        <div class="ReturnButtons Buttons" onclick="popBookable(Cahier.bookableId)">Infos</div>  <div class="ReturnButtons Buttons" onclick="newTab('divTabCahierMaterielCategories')">Modifier</div>
                     </div>
 
                     <div style="background-color:gray; height:2px; margin-bottom:15px; margin-top:10px; border-radius:2px; /*border-left:40px solid white;*/  "></div><!--<div style="height:50px; background-color:red;"></div>-->

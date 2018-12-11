@@ -39,7 +39,7 @@ function Search(e) {
     }
 }
 function createSearchEntries(PeopleCorresponding) {
-    console.log(PeopleCorresponding);
+    console.log("createSearchEntries(): ", PeopleCorresponding);
 
     $("divTabCahierSearchResult").innerHTML = "";
 
@@ -108,45 +108,21 @@ function chosePerson(name, surname) {
 
 function actualizeActualBookings(actualBookings) {
 
-    //var container = div($('divTabCahierTableActualBookings'));
-
-    //container.classList.add("TableEntries");
-    //container.classList.add("TableEntriesHover");
-
-    //var id = div(container);
-    //id.innerHTML = "ID";
-
-    //var id = div(container);
-    //id.innerHTML = "rep";
-
-    //var id = div(container);
-    //id.innerHTML = "monsieru bonsoirsoi";
-
-    //var id = div(container);
-    //id.innerHTML = "d";
-
-    //var id = div(container);
-    //id.innerHTML = "lkj";
-
     for (var i = 0; i < actualBookings.length; i++) {
         var container = div($('divTabCahierTableActualBookings'));
 
+        container.id = actualBookings[i].id;
         container.classList.add("TableEntries");
         container.classList.add("TableEntriesHover");
 
-        var id = div(container);
-        id.innerHTML = actualBookings[i].id;
+        container.addEventListener("click", function () { popBooking(this.id);});
 
-        var id = div(container);
-        id.innerHTML = actualBookings[i].startDate;
-
-        var id = div(container);
-        id.innerHTML = actualBookings[i].participantCount;
-
-        var id = div(container);
-        id.innerHTML = actualBookings[i].id;
-
- 
+        div(container).innerHTML = actualBookings[i].id;
+        //div(container).innerHTML = actualBookings[i].responsible.name;
+        div(container).innerHTML = "ACC:" +  actualBookings[i].participantCount;
+        div(container).innerHTML = actualBookings[i].startComment.shorten(200,20);
+        div(container).innerHTML = actualBookings[i].startDate;
+        div(container).innerHTML = actualBookings[i].startComment.shorten(200, 20);
     }
 
 
@@ -156,5 +132,59 @@ function actualizeActualBookings(actualBookings) {
 
 
 
+function popBooking(bookingId) {
+
+    Requests.getBookingInfos(bookingId);
+
+    openPopUp();
+
+    var pop = div($('divModal'));
+    pop.id = "divTabCahierPopUp";
+    pop.classList.add("Boxes");
+
+    var close = div(pop);
+    close.onclick = function () {
+        closePopUp({ target: $('divModal') });
+    };
 
 
+
+
+
+    //var imgContainer = div(pop);
+
+    //var descriptionTitle = div(pop);
+    //descriptionTitle.innerHTML = "Description";
+
+    //var description = div(pop);
+
+
+    //var btn = div(pop);
+    //btn.classList.add("Buttons"); btn.classList.add("ValidateButtons");
+    //btn.innerHTML = "Choisir";
+    //btn.addEventListener("click", function () {
+    //    Cahier.bookableId = currentBookables[this.parentElement.getElementsByTagName("div")[1].id].id;
+    //    Cahier.bookableName = currentBookables[this.parentElement.getElementsByTagName("div")[1].id].name;
+    //    closePopUp({ target: $('divModal') });
+    //    newTab("divTabCahierInfos");
+    //});
+    
+
+
+    //var btn2 = div(pop);
+    //btn2.classList.add("Buttons"); btn2.classList.add("ReturnButtons");
+    ////  btn2.innerHTML = "Historique";
+
+    //var textsContainer = div(pop);
+    //textsContainer.id = "divTabCahierMaterielElementsContainerTextsContainer";
+
+    //div(textsContainer);
+    //div(textsContainer);
+    //div(textsContainer);
+    //div(textsContainer);
+    //div(textsContainer);
+}
+
+
+
+function actualizePopBooking() { }

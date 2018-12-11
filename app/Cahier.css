@@ -151,17 +151,17 @@
     margin-left:2.5%;
     width:95%;
     height:1000px;
-    background-color:azure;
+    background-color:blue;
 }
 
 
 #divTabCahierTableActualBookings {
     width: 100%;
-    height: 200px;
-
+    min-height: 0px;
+    display: table;
     position: relative;
-    background-color: lightblue;
-    border-radius: 20px;
+    background-color: white;
+    border-radius: 10px;
     -webkit-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
     box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
@@ -169,14 +169,15 @@
 
 
 #divTabCahierTableActualBookingsTopBar {
-    background-color:white;
+    background-color:transparent;
     height: 50px;
+    margin-bottom:40px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 }
     #divTabCahierTableActualBookingsTopBar > div {
         height: 45px;
-        background-color: transparent;
+        background-color: white;
         border-top: 10px solid transparent;
         border-bottom: 4px solid transparent;
         border-left: 0px solid gray;
@@ -190,6 +191,7 @@
     }
     #divTabCahierTableActualBookingsTopBar > div:nth-child(1) {
         padding-left:0px;
+        width:5%;
     }
 
         #divTabCahierTableActualBookingsTopBar > div:hover {
@@ -217,13 +219,12 @@
 
 .TableEntries {
     background-color: white;
-    display: table;
-    width:100%;
     min-height: 30px;
     box-sizing: border-box;
     border-bottom: 1px solid gray;
     font-size: 20px;
     transition: all 0.1s linear 0s;
+    display:table-row;
 }
 
 .TableEntries:nth-child(2n) {
@@ -231,7 +232,7 @@
 }
 
     .TableEntries > div:nth-child(1) {
-        width: 20px;
+        /*width: 20px;*/
         text-align: center;
     }
 
@@ -253,3 +254,40 @@
     background-color: gray;
     color: white;
 }
+
+
+
+
+
+
+
+
+
+
+
+#divTabCahierPopUp {
+    position: relative;
+    left: 50%;
+    margin-left: -350px;
+    top: 50%;
+    margin-top: -225px;
+    width: 700px;
+    height: 450px;
+}
+    #divTabCahierPopUp > div:nth-child(1) {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        width: 30px;
+        height: 30px;
+        background-image: url(Img/IconCancelBlack.png);
+        background-repeat: no-repeat;
+        background-position-x: right;
+        opacity: 0.5;
+        z-index: 4;
+        transition: all 0.1s linear 0s;
+    }
+
+    #divTabCahierPopUp > div:nth-child(1):hover {
+        opacity: 1;
+    }

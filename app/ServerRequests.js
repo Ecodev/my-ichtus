@@ -12,7 +12,7 @@ function ServerInitialize() {
 
  //   Requests.personalQuery();$
 
-  //  Requests.addBookable("Planche 1", "une magnifique planche qui flotte dotée d'une dérive pour ne pas dériver");
+   // Requests.addBookable("Planche 1", "une magnifique planche qui flotte dotée d'une dérive pour ne pas dériver");
 }
 
 
@@ -73,25 +73,69 @@ var Requests = {
 
         var whichField = $('divTabCahierMaterielElementsSelectSort').getElementsByTagName("select")[0].value;
 
+        var txt = $('inputTabCahierMaterielElementsInputSearch').value;
+
+        var categorie = $('divTabCahierMaterielElementsSelectCategorie').getElementsByTagName("select")[0].value;
+        if (categorie == "all") { categorie = ""; }
+
+        //alert(categorie);
+
         var f = {
             filter: {
-                groups: [{
-                    conditionsLogic:'OR',
-                    conditions: [{
-                        name: {
-                            like: {
-                                value: "%" + $('inputTabCahierMaterielElementsInputSearch').value + "%"
-                            }
-                        }
-                    },
+                groups: [
                     {
-                        id: {
-                            like: {
-                                value: "%" + $('inputTabCahierMaterielElementsInputSearch').value + "%"
+                        groupLogic:'AND',
+                        conditionsLogic:'OR',
+                        conditions: [
+                            {
+                                name: {
+                                    like: {
+                                        value: "%" + txt + "%"
+                                    }
+                                }
+                            },
+                            { //enlever dans le futur
+                                id: {
+                                    like: {
+                                        value: "%" + txt + "%"
+                                    }
+                                }
+                            },
+                            {
+                                code: {
+                                    like: {
+                                        value: "%" + txt + "%"
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {       //CATEGORIES...
+                        groupLogic: 'AND',
+                        conditionsLogic: 'AND',
+                        conditions: [
+                            {
+                                bookingType: {
+                                    like: {
+                                        value: "self_approved"
+                                    }
+                                }
+                            }
+                        ],
+                        joins: {
+                            type: {
+                                conditions: [{
+                                    name: {
+                                        like: {
+                                            value:"%" + categorie
+                                        }
+                                    }
+                                }]
                             }
                         }
-                    }]
-                }]
+
+                    }
+                ]
             },
             sorting: [
                 { field: whichField, order: sort }
@@ -135,7 +179,7 @@ var Requests = {
 
         Server.bookableService.getAll(variables).subscribe(result => {
             console.log("getBookableInfos(): ", result);
-            actualizePopMateriel(result.items);
+            actualizePopBookable(result.items);
         });
     },
 
@@ -143,7 +187,7 @@ var Requests = {
     // Add an item
     addBookable: function (_name, _description) {
 
-        const item = { name: "1", description: "kj", bookableType: "self_approved" };
+        const item = { name: "1", description: "kj", bookingType: "self_approved" , type:6004};
 
         Server.bookableService.create(item).subscribe(result => {
             console.log('Bookable created', result);
@@ -161,7 +205,7 @@ var Requests = {
                 ]
             },
             pagination: {
-                pageSize: 10,
+                pageSize: 20,
                 pageIndex: 0
             },
             sorting: [
@@ -179,25 +223,69 @@ var Requests = {
 
     },
 
+    // getBookingInfos
+    getBookingInfos: function (bookingId) {
+
+        var filter = {
+            filter: {
+                groups: [
+                    { conditions: [{ id: { like: { value: bookingId } } }] }
+                ]
+            },
+            pagination: {
+                pageSize: 1,
+                pageIndex: 0
+            },
+            sorting: [{
+                field: "id", //USELESS
+                order: "ASC" //USELESS
+            }]
+        };
+
+        var variables = new Server.QueryVariablesManager();
+        variables.set('variables', filter);
+
+        Server.bookingService.getAll(variables).subscribe(result => {
+            console.log("getBookingInfos(): ", result);
+            actualizePopBooking(result.items);
+        });
+    },
 
     // createBooking
     createBooking: function () {
 
         alert(Cahier.nbrAccompagnants);
+
+
         // Get all items
         Server.bookingService.create({
-            destination: "kjlkj",
-            //participantCount: Cahier.nbrAccompagnants
+
+            participantCount: Cahier.nbrAccompagnants,
+            destination: Cahier.destination,
+            startComment: Cahier.startComment
+
         }).subscribe(booking => {
+
             console.log('Created booking : ', booking);
+
+            // LINK BOOKABLE
             Server.linkMutation.link(booking, {
                 id: Cahier.bookableId,
                 __typename: 'Bookable'
             }).subscribe(() => {
-               // getBookingList();
+                console.log('Linked Bookable : ', booking);
+                Requests.getBookingList();
             });
 
-            });
+            // LINK RESPONSIBLE
+      //      Server.linkMutation.link(booking, {
+           //     id: Cahier.personId,
+        //        __typename: 'Responsible'
+        //    }).subscribe(() => {
+        //        console.log('Linked Responsible : ', booking);
+       //     });
+
+        });
 
     },
 

@@ -37,8 +37,6 @@ var Cahier = {
     },
 
 
-
-
     ProgressBarTexts: ["Nom", "Embarcation", "Infos", "Confirmation"],
 
     // cancel - clearData
@@ -78,10 +76,13 @@ var Cahier = {
         Cahier.destination = "";
         Cahier.startComment = "";
 
+
+        console.log("--> Cahier.cancel()");
     },
 
     confirm: function () {
         Requests.createBooking();
+        console.log("--> Cahier.confirm()");
     },
 
     actualizeProgressBar: function () {

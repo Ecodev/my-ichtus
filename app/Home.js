@@ -26,7 +26,7 @@ function load() {
     loadMateriel();
     window.location = "#" + "divTabCahier";
     loadReturnButtons(); // OUI OU NON ???????
-
+    loadConfirmation();
     loadSpacers();
 
     ServerInitialize();
@@ -97,13 +97,23 @@ function closePopUp(e) {
 
 
 
+String.prototype.pixelLength = function (_fontSize = 20) {
+    var c = document.createElement("span");
+    document.body.appendChild(c);
+    c.innerHTML = this;
+    c.style.fontSize = _fontSize + "px";
+    var length = c.offsetWidth;
+    document.body.removeChild(c);
+    return length;
+}
 
-
-String.prototype.shorten = function (maxLength) {
-    if (this.length > maxLength) {
-        return this.substr(0, maxLength) + "...";
-    }
-    else {
+String.prototype.shorten = function (maxLength,_fontSize = 20) {
+    var txt = this;
+    if (this == "" || (txt).pixelLength(_fontSize) <= maxLength) {
         return this;
     }
+    while ((txt + "...").pixelLength(_fontSize) > maxLength - 13 && txt.length > 0) {
+        txt = txt.substr(0, txt.length - 1);
+    }
+    return txt + "...";   
 }

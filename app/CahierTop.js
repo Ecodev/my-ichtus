@@ -13,7 +13,7 @@ function createProgressBar() {
                 switch (c) {
                     case 0: newTab("divTabCahier");
                 break;
-                    case 1: newTab("divTabCahierMaterielOptions");
+                    case 1: newTab("divTabCahierMaterielCategories");
                 break;
                    case 2: newTab("divTabCahierInfos");
                 break;
