@@ -63,12 +63,12 @@ var Requests = {
     // getBookablesList
     getBookablesList: function () {
 
-        var sort;
+        var order;
         if ($('divTabCahierMaterielElementsSelectIconSort').style.backgroundImage == 'url("Img/IconSortDESC.png")') {
-            sort = "DESC";
+            order = "DESC";
         }
         else {
-            sort = "ASC";
+            order = "ASC";
         }
 
         var whichField = $('divTabCahierMaterielElementsSelectSort').getElementsByTagName("select")[0].value;
@@ -138,7 +138,7 @@ var Requests = {
                 ]
             },
             sorting: [
-                { field: whichField, order: sort }
+                { field: whichField, order: order }
             ],
             pagination: {
                 pageSize: parseInt($('divTabCahierMaterielElementsSelectPageSize').getElementsByTagName('select')[0].value),
@@ -198,6 +198,21 @@ var Requests = {
 
     getBookingList: function () {
 
+        var all = document.getElementsByClassName("TableEntries");
+        for (var i = 0; i < all.length; i++) {
+            if (all[i].id != "divTabCahierTableActualBookingsTopBar") {
+                all[i].parentNode.removeChild(all[i]);
+                i--;
+            }
+        }
+
+        var order = "ASC";
+        if (document.getElementsByClassName("BookingsTopBarSorted")[0].getElementsByTagName("div")[0].style.backgroundImage == 'url("Img/IconSortDESC.png")') {
+            order = "DESC";
+        }
+
+        var sort = document.getElementsByClassName("BookingsTopBarSorted")[0].id;
+
         var filter = {
             filter: {
                 groups: [
@@ -209,7 +224,10 @@ var Requests = {
                 pageIndex: 0
             },
             sorting: [
-                { field: "id", order: "DESC" }
+                {
+                    field: sort,
+                    order: order
+                }
             ]
         };
 
@@ -218,9 +236,48 @@ var Requests = {
 
         Server.bookingService.getAll(variables).subscribe(result => {
             console.log("getBookingList(): ", result);
-            actualizeActualBookings(result.items);
+            this.showBooking(0, result.items); 
         });
 
+    },
+
+
+    showBooking: function (i, bookings) {
+
+        if (bookings[i].bookables == undefined) {
+            actualizeActualBookings(bookings[i], { name: "", id: "", code: "---" });
+            if (i < bookings.length-1) {
+                i++;
+                this.showBooking(i, bookings);
+            }
+        }
+        else {
+            var filter = {
+                filter: {
+                    groups: [
+                        { conditions: [{ id: { like: { value: bookings[i].bookables[0].id } } }] }
+                    ]
+                },
+                pagination: {
+                    pageSize: 1,
+                    pageIndex: 0
+                }
+            };
+
+            var variables = new Server.QueryVariablesManager();
+            variables.set('variables', filter);
+
+            Server.bookableService.getAll(variables).subscribe(resultBookable => {
+                console.log("getBookingList_getBookableInfos(): " + i, resultBookable);
+                actualizeActualBookings(bookings[i], resultBookable.items[0]);
+
+                if (i < bookings.length-1) {
+                    i++;
+                    this.showBooking(i, bookings);
+                }
+
+            });
+        }   
     },
 
     // getBookingInfos

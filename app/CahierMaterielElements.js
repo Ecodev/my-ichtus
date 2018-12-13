@@ -7,7 +7,7 @@ function popBookable(bookableId, i = -1) {
 
     // alert(bookableId);
 
-    Requests.getBookableInfos(bookableId);
+    Requests.getBookableInfos(bookableId, function () { actualizePopBookable(result.items); });
 
     openPopUp();
 

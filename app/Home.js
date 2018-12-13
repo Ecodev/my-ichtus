@@ -28,6 +28,7 @@ function load() {
     loadReturnButtons(); // OUI OU NON ???????
     loadConfirmation("tab");
     loadSpacers();
+    loadBookingsTopBar();
 
     ServerInitialize();
 }

@@ -106,34 +106,26 @@ function chosePerson(name, surname) {
 
 
 
-function actualizeActualBookings(actualBookings) {
+function actualizeActualBookings(actualBookings,actualBookingsBookable) {
 
-    for (var i = 0; i < actualBookings.length; i++) {
         var container = div($('divTabCahierTableActualBookings'));
 
-        container.id = actualBookings[i].id;
+        container.id = actualBookings.id;
         container.classList.add("TableEntries");
         container.classList.add("TableEntriesHover");
 
         container.addEventListener("click", function () { popBooking(this.id);});
 
-        div(container).innerHTML = actualBookings[i].id;
-        div(container);
-        div(container).innerHTML = actualBookings[i].responsible.name;
-        div(container).innerHTML = actualBookings[i].startDate;
+        div(container).innerHTML = actualBookings.id;
+        div(container).innerHTML = actualBookingsBookable.code;
+        div(container).innerHTML = actualBookings.responsible.name;
+        div(container).innerHTML = actualBookings.startDate;
 
-        var bookableId = actualBookings[i].bookables[0].id;
-
-        div(container).innerHTML = actualBookings[i].bookables[0];
-        div(container).innerHTML = actualBookings[i].bookables[0].name.shorten(100, 20);
-        div(container).innerHTML = actualBookings[i].participantCount;
-        div(container).innerHTML = actualBookings[i].destination.shorten(150,20);
-        div(container).innerHTML = Cahier.getStartCommentText(actualBookings[i].startComment).shorten(200, 20);
-        div(container).innerHTML = Cahier.getStartCommentText(actualBookings[i].endComment).shorten(200, 20);
-
-    }
-
-
+        div(container).innerHTML = actualBookingsBookable.code;
+        div(container).innerHTML = actualBookingsBookable.name.shorten(250, 20);
+        div(container).innerHTML = actualBookings.participantCount;
+        div(container).innerHTML = actualBookings.destination.shorten(150,20);
+        div(container).innerHTML = Cahier.getStartCommentText(actualBookings.startComment).shorten(200, 20);
 }
 
 
@@ -180,4 +172,44 @@ function actualizePopBooking(booking) {
 
     allDivTexts[7].innerHTML = Cahier.getStartCommentText(booking.startComment);
     allDivTexts[8].innerHTML = Cahier.getStartCommentText(booking.endComment);
+}
+
+
+
+
+
+
+
+function loadBookingsTopBar() {
+    var top = $('divTabCahierTableActualBookingsTopBar');
+    var all = top.getElementsByTagName("div");
+    for (var i = 0; i < all.length; i = i +2) {
+        all[i].getElementsByTagName("div")[0].style.backgroundImage = "url(Img/IconSortASC.png)";
+        all[i].addEventListener("click", function () {
+
+            if (this.getElementsByTagName("div")[0].style.backgroundImage == 'url("Img/IconSortDESC.png")' || !(this.classList.contains("BookingsTopBarSorted"))) {
+                this.getElementsByTagName("div")[0].style.backgroundImage = "url(Img/IconSortASC.png)";
+            }
+            else {
+                this.getElementsByTagName("div")[0].style.backgroundImage = "url(Img/IconSortDESC.png)";
+              
+            }
+
+           // alert(this.getElementsByTagName("div")[0].style.backgroundImage);
+
+            var top = $('divTabCahierTableActualBookingsTopBar');
+            var all = top.getElementsByTagName("div");
+            for (var i = 0; i < all.length; i = i + 2) {
+                if (all[i] != this) {
+                    all[i].classList.remove("BookingsTopBarSorted");
+                    all[i].getElementsByTagName("div")[0].style.backgroundImage = "url(Img/IconSortASC.png)";
+                }               
+            }
+            this.classList.add("BookingsTopBarSorted");
+
+            Requests.getBookingList();
+
+        });
+
+    }
 }

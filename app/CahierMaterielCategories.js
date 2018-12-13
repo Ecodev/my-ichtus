@@ -34,15 +34,9 @@ function loadMateriel() {
             changeSelectCategorie($('divTabCahierMaterielElementsSelectCategorie').getElementsByTagName("select")[0]);
         });
 
-
-
-        
-
         var opt = document.createElement("option");
         opt.innerHTML = categories[i];
         opt.value = categoriesValues[i];
         $('divTabCahierMaterielElementsSelectCategorie').getElementsByTagName("select")[0].appendChild(opt);
-
-
     }
 }
