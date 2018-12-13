@@ -344,32 +344,15 @@
 
 
 #divTabCahierMaterielElementsPopUp {
-    position: relative;
-    left: 50%;
-    margin-left: -350px;
+    position: absolute;
     top: 50%;
-    margin-top: -225px;
+    left: 50%;
+    transform: translate(-50%,-50%);
     width: 700px;
     height: 450px;
 }
 
-    #divTabCahierMaterielElementsPopUp > div:nth-child(1) {
-        position: absolute;
-        right: 10px;
-        top: 10px;
-        width: 30px;
-        height: 30px;
-        background-image: url(Img/IconCancelBlack.png);
-        background-repeat: no-repeat;
-        background-position-x: right;
-        opacity: 0.5;
-        z-index: 4;
-        transition: all 0.1s linear 0s;
-    }
 
-        #divTabCahierMaterielElementsPopUp > div:nth-child(1):hover {
-            opacity: 1;
-        }
 
     #divTabCahierMaterielElementsPopUp > div:nth-child(2) {
         position: absolute;

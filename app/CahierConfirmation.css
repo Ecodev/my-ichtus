@@ -22,23 +22,40 @@
 }
 
 #divTabCahierConfirmationContainer {
-    display: inline-block;
     position: relative;
+    left:50%;
+    margin-left:-350px;
+
     background-color: white;
+
     /*border: 2px solid black;*/
     padding: 10px;
+    width: 680px;
     border-radius: 10px;
     -webkit-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
     box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
 }
 
-.divConfirmationTexts {
+    #divTabCahierConfirmationContainer .Buttons {
+        position: absolute;
+        right: 10px;
+        margin-left: 0px;
+    }
+    #divTabCahierConfirmationContainer .Buttons::after {
+        content:none;
+    }
+    .divConfirmationTexts {
     position: relative;
     min-height: 10px;
     background-color: white;
-    width: 700px;
+    width:680px;
     border-radius: 5px;
+    font-size:25px;
+}
+
+.divConfirmationTexts:nth-child(3) {
+    font-size:35px;
 }
 
     .divConfirmationTexts:nth-child(2n) {
@@ -69,16 +86,16 @@
             }
 
         .divConfirmationTexts > div:nth-child(2) {
-            width: 250px;
+            width: 240px;
             box-sizing: border-box;
-            font-size: 25px;
+            /*font-size: 25px;*/
             color: gray;
             text-align: left;
         }
 
         .divConfirmationTexts > div:nth-child(3) {
-            width: 400px;
-            font-size: 25px;
+            width: 390px;
+            /*font-size: 25px;*/
             color: black;
             text-align: left;
         }
@@ -86,7 +103,7 @@
 #divTabCahierConfirmationEmbarcationBox {
     position: relative;
     margin-left: 40px;
-    width: 660px;
+    width: 640px;
     height: 124px;
     background-color: white;
 }
@@ -112,7 +129,7 @@
     margin-top: 10px;
     margin-left: 130px;
     /*top: 20px;*/
-    width: 420px;
+    width: 380px;
     min-height: 20px;
     font-size: 25px;
     text-align: left;
@@ -140,11 +157,31 @@
 #divTabCahierConfirmationInfosBox {
     position: relative;
     margin-left: 40px;
-    width: 660px;
+    width: 640px;
     height: 50px;
     background-color: azure;
 }
 
     #divTabCahierConfirmationInfosBox > .Buttons {
         top: 10px;
+    }
+
+
+
+#divTabCahierConfirmationPopUp > div:nth-child(1) {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    background-image: url(Img/IconCancelBlack.png);
+    background-repeat: no-repeat;
+    background-position-x: right;
+    opacity: 0.5;
+    z-index: 4;
+    transition: all 0.1s linear 0s;
+}
+
+    #divTabCahierConfirmationPopUp > div:nth-child(1):hover {
+        opacity: 1;
     }

@@ -16,6 +16,7 @@ function popBookable(bookableId, i = -1) {
     pop.classList.add("Boxes");
 
     var close = div(pop);
+    close.id = "divPopUpClose";
     close.onclick = function () {
         closePopUp({ target: $('divModal') });
     };

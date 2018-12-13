@@ -3,8 +3,9 @@
     "",
     "\\app",
     "\\app\\Img",
+    "\\app\\Img\\Categorie",
     "\\app\\Img\\Materiel"
   ],
-  "SelectedNode": "\\app\\CahierMethods.js",
+  "SelectedNode": "\\app\\index.html",
   "PreviewInSolutionExplorer": false
 }

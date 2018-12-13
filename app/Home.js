@@ -26,7 +26,7 @@ function load() {
     loadMateriel();
     window.location = "#" + "divTabCahier";
     loadReturnButtons(); // OUI OU NON ???????
-    loadConfirmation();
+    loadConfirmation("tab");
     loadSpacers();
 
     ServerInitialize();

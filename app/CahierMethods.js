@@ -5,7 +5,7 @@ var Cahier = {
     personName: "Michel",
     personSurname: "",
     personGender: "Man",
-    getFullName: function () { return this.personName + " " + this.personSurname; },
+    getFullName: function (name = this.personName, surname = this.surname) { return name + " " + surname;},
 
     bookableId: undefined,
     bookableName: "aa",
@@ -15,24 +15,24 @@ var Cahier = {
     startComment: "",
 
 
-    getNbrAccompagnantsText: function () {
-        if (Cahier.nbrAccompagnants == 0) {
+    getNbrAccompagnantsText: function (nbr = Cahier.nbrAccompagnants) {
+        if (nbr == 0) {
             return "Aucun";
         }
-        else if (Cahier.nbrAccompagnants == 1) {
+        else if (nbr== 1) {
             return "1 Accompagnant";
         }
         else {
-            return Cahier.nbrAccompagnants + " Accompagnants";
+            return nbr + " Accompagnants";
         }
     },
 
-    getStartCommentText: function () {
-        if (Cahier.startComment == "") {
+    getStartCommentText: function (txt = Cahier.startComment) {
+        if (txt.length < 1 || txt == undefined || txt == null || txt == "") {
             return "Pas de commentaire";
         }
         else {
-            return Cahier.startComment;
+            return txt;
         }
     },
 

@@ -118,11 +118,19 @@ function actualizeActualBookings(actualBookings) {
         container.addEventListener("click", function () { popBooking(this.id);});
 
         div(container).innerHTML = actualBookings[i].id;
-        //div(container).innerHTML = actualBookings[i].responsible.name;
-        div(container).innerHTML = "ACC:" +  actualBookings[i].participantCount;
-        div(container).innerHTML = actualBookings[i].startComment.shorten(200,20);
+        div(container);
+        div(container).innerHTML = actualBookings[i].responsible.name;
         div(container).innerHTML = actualBookings[i].startDate;
-        div(container).innerHTML = actualBookings[i].startComment.shorten(200, 20);
+
+        var bookableId = actualBookings[i].bookables[0].id;
+
+        div(container).innerHTML = actualBookings[i].bookables[0];
+        div(container).innerHTML = actualBookings[i].bookables[0].name.shorten(100, 20);
+        div(container).innerHTML = actualBookings[i].participantCount;
+        div(container).innerHTML = actualBookings[i].destination.shorten(150,20);
+        div(container).innerHTML = Cahier.getStartCommentText(actualBookings[i].startComment).shorten(200, 20);
+        div(container).innerHTML = Cahier.getStartCommentText(actualBookings[i].endComment).shorten(200, 20);
+
     }
 
 
@@ -133,58 +141,43 @@ function actualizeActualBookings(actualBookings) {
 
 
 function popBooking(bookingId) {
-
     Requests.getBookingInfos(bookingId);
-
     openPopUp();
-
-    var pop = div($('divModal'));
-    pop.id = "divTabCahierPopUp";
-    pop.classList.add("Boxes");
-
-    var close = div(pop);
-    close.onclick = function () {
-        closePopUp({ target: $('divModal') });
-    };
-
-
-
-
-
-    //var imgContainer = div(pop);
-
-    //var descriptionTitle = div(pop);
-    //descriptionTitle.innerHTML = "Description";
-
-    //var description = div(pop);
-
-
-    //var btn = div(pop);
-    //btn.classList.add("Buttons"); btn.classList.add("ValidateButtons");
-    //btn.innerHTML = "Choisir";
-    //btn.addEventListener("click", function () {
-    //    Cahier.bookableId = currentBookables[this.parentElement.getElementsByTagName("div")[1].id].id;
-    //    Cahier.bookableName = currentBookables[this.parentElement.getElementsByTagName("div")[1].id].name;
-    //    closePopUp({ target: $('divModal') });
-    //    newTab("divTabCahierInfos");
-    //});
-    
-
-
-    //var btn2 = div(pop);
-    //btn2.classList.add("Buttons"); btn2.classList.add("ReturnButtons");
-    ////  btn2.innerHTML = "Historique";
-
-    //var textsContainer = div(pop);
-    //textsContainer.id = "divTabCahierMaterielElementsContainerTextsContainer";
-
-    //div(textsContainer);
-    //div(textsContainer);
-    //div(textsContainer);
-    //div(textsContainer);
-    //div(textsContainer);
+    loadConfirmation("pop");
 }
 
 
 
-function actualizePopBooking() { }
+function actualizePopBooking(booking) {
+    var allDiv = $('divTabCahierConfirmationContainer').getElementsByClassName("divConfirmationTexts");
+    var allDivTexts = [];
+    var allDivIcons = [];
+    for (var i = 0; i < allDiv.length; i++) {
+        allDivIcons[i] = allDiv[i].getElementsByTagName("div")[0].getElementsByTagName("div")[0];
+        allDivTexts[i] = allDiv[i].getElementsByTagName('div')[3];
+    }
+
+    $('divTabCahierConfirmationContainer').getElementsByTagName("div")[0].innerHTML = "Sortie du " + booking.creationDate;
+
+    $('divTabCahierConfirmationEmbarcationBox').getElementsByClassName("Buttons")[0].addEventListener("click", function () { closePopUp({ target: $('divModal') }); setTimeout(function () { popBookable(booking.bookables[0].id); }, 100); });
+
+
+    allDivTexts[0].innerHTML = booking.responsible.name;
+    allDivIcons[0].style.backgroundImage = "url(Img/Icon" + Cahier.personGender + ".png)";
+
+    allDivTexts[1].innerHTML = booking.creationDate;
+    allDivIcons[1].style.backgroundImage = "";
+
+    allDivTexts[3].innerHTML = "1880923 857h12";
+
+    $('divTabCahierConfirmationContainerTextsContainer').getElementsByTagName('div')[0].innerHTML = booking.bookables[0].name;
+    $('divTabCahierConfirmationContainerTextsContainer').getElementsByTagName('div')[1].innerHTML = booking.bookables[0].code;
+
+    allDivTexts[5].innerHTML = Cahier.getNbrAccompagnantsText(booking.participantCount);
+    allDivIcons[5].style.backgroundImage = "url(Img/IconInvitesTransparent.png)";
+    allDivTexts[6].innerHTML = booking.destination;
+    allDivIcons[6].style.backgroundImage = "url(Img/IconDestinationBlack.png)";
+
+    allDivTexts[7].innerHTML = Cahier.getStartCommentText(booking.startComment);
+    allDivTexts[8].innerHTML = Cahier.getStartCommentText(booking.endComment);
+}

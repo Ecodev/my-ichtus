@@ -247,22 +247,20 @@ var Requests = {
 
         Server.bookingService.getAll(variables).subscribe(result => {
             console.log("getBookingInfos(): ", result);
-            actualizePopBooking(result.items);
+            actualizePopBooking(result.items[0]);
         });
     },
 
     // createBooking
     createBooking: function () {
 
-        alert(Cahier.nbrAccompagnants);
-
-
         // Get all items
         Server.bookingService.create({
 
             participantCount: Cahier.nbrAccompagnants,
             destination: Cahier.destination,
-            startComment: Cahier.startComment
+            startComment: Cahier.startComment,
+            responsible: {id:Cahier.personId,name:Cahier.personName}
 
         }).subscribe(booking => {
 

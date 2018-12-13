@@ -342,3 +342,23 @@ option {
     transition:all 0.1s linear 0s;
 }
 
+#divPopUpClose {
+    position: absolute;
+    display:table-cell;
+    vertical-align:middle;
+    text-align:center;
+    right: 10px;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    background-image: url(Img/IconCancelBlack.png);
+    background-repeat: no-repeat;
+    background-position-x: right;
+    opacity: 0.5;
+    z-index: 4;
+    transition: all 0.1s linear 0s;
+}
+
+    #divPopUpClose:hover {
+        opacity: 1;
+    }
