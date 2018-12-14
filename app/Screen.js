@@ -80,7 +80,7 @@ function AdjustScreen(w, h) {
 
 
 
-window.onscroll = function () { AdjustTopBar() };
+window.onscroll = function () { AdjustTopBar(); };
 function AdjustTopBar() {
     if (document.documentElement.scrollTop >= 60) { //Small
         $("divTopBar").style.height = "60px";

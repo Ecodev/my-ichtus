@@ -150,8 +150,9 @@
 #divTabCahierTables {
     margin-left:2.5%;
     width:95%;
-    height:1000px;
-    background-color:white;
+    min-height:200px;
+    background-color:lightcyan;
+    margin-bottom:50px;
 }
 
 

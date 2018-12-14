@@ -9,16 +9,17 @@ function popBookable(bookableId, i = -1) {
 
     Requests.getBookableInfos(bookableId, function () { actualizePopBookable(result.items); });
 
-    openPopUp();
+    var modal = openPopUp();
 
-    var pop = div($('divModal'));
+    //var pop = div($('divModal'));
+    var pop = div(modal);
     pop.id = "divTabCahierMaterielElementsPopUp";
     pop.classList.add("Boxes");
 
     var close = div(pop);
     close.id = "divPopUpClose";
     close.onclick = function () {
-        closePopUp({ target: $('divModal') });
+        closePopUp({target:modal},modal);
     };
 
     var imgContainer = div(pop);
@@ -36,7 +37,7 @@ function popBookable(bookableId, i = -1) {
         btn.addEventListener("click", function () {
             Cahier.bookableId = currentBookables[this.parentElement.getElementsByTagName("div")[1].id].id;
             Cahier.bookableName = currentBookables[this.parentElement.getElementsByTagName("div")[1].id].name;
-            closePopUp({ target: $('divModal') });
+            closePopUp({ target: modal},modal);
             newTab("divTabCahierInfos");
         });
     }
@@ -75,13 +76,36 @@ function loadElements(Bookables) {
 
 
     document.getElementById("divTabCahierMaterielElementsContainer").innerHTML = "";
-    if (Bookables.length == 0) {
-        $("divTabCahierMaterielElementsContainer").innerHTML = "Pas de résultats";
-    }
-    else {
+
+        var container = document.createElement("div");
+        container.addEventListener("click", function () {
+            alert("materiel perso...");
+        });
+
+        $("divTabCahierMaterielElementsContainer").appendChild(container);
+
+        var secondContainer = document.createElement("div");
+        container.appendChild(secondContainer);
+
+        var size = document.createElement("div");
+        size.innerHTML = "M.P.";
+        secondContainer.appendChild(size);
+
+        var bottom = document.createElement("div");
+        secondContainer.appendChild(bottom);
+
+        var brand = div(bottom);
+        brand.innerHTML = "Materiel";
+
+        var model = div(bottom);
+        model.innerHTML = "Personel";
+
+        var background = div(secondContainer);
+        background.style.backgroundImage = "url(Img/IconChose.png),url(Img/IconMan.png)";
+
         for (var i = 0; i < Bookables.length; i++) {
 
-            var container = document.createElement("div");
+            container = document.createElement("div");
             container.id = i;
             container.addEventListener("click", function () {
                 popBookable(Bookables[this.id].id, this.id);
@@ -89,32 +113,31 @@ function loadElements(Bookables) {
 
             $("divTabCahierMaterielElementsContainer").appendChild(container);
 
-            var secondContainer = document.createElement("div");
+            secondContainer = document.createElement("div");
             container.appendChild(secondContainer);
 
-            var size = document.createElement("div");
+            size = document.createElement("div");
             size.innerHTML = Bookables[i].code;
             secondContainer.appendChild(size);
 
-            var bottom = document.createElement("div");
+            bottom = document.createElement("div");
             secondContainer.appendChild(bottom);
 
-            var brand = div(bottom);
+            brand = div(bottom);
             brand.innerHTML = Bookables[i].name.shorten(180);
 
-            var model = div(bottom);
+            model = div(bottom);
             model.innerHTML = Bookables[i].id;
 
             //var info = div(secondContainer);
 
-            var background = div(secondContainer);
+            background = div(secondContainer);
 
         }
         if (MaterielElementsFirstLoad == true) {
             MaterielElementsFirstLoad = false;
-            document.documentElement.scrollTop = 60;
+            //document.documentElement.scrollTop = 60;
         }
-    }
     // <div>     <div>       <div>7.0</div>          <div><div>Severne</div><div>Overdrive 2017</div></div>      <div></div><div></div>      </div>       </div>
 }
 

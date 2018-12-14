@@ -1,25 +1,19 @@
-﻿function loadConfirmation(elem = "pop") {
+﻿function loadConfirmation(elem = $('divTabCahierConfirmation')) {
 
     var fields = ["Responsable", "Heure de départ", "Catégorie", "Embarcation", "Nbr d'acc.", "Destination", "Commentaire dép.", "Commentaire arr."];
 
     var container;
-    if (elem == "tab") {
-        container = div($('divTabCahierConfirmation'));
-    }
-    else {
-        container = div($('divModal'));  
-        container.style.position = "absolute";
-        container.style.top = "50%";
-        container.style.marginLeft = "0px";
-        container.style.left = "50%";
-        container.style.transform = "translate(-50%,-50%)";
-    }
-    container.id = "divTabCahierConfirmationContainer";
- 
+    container = div(elem);
+    container.style.position = "absolute";
+    container.style.top = "50%";
+    container.style.marginLeft = "0px";
+    container.style.left = "50%";
+    container.style.transform = "translate(-50%,-50%)";
 
+    container.className = "divTabCahierConfirmationContainer";
+ 
     container.innerHTML += '<div style=" font-size:25px; text-align:center; color:black;">Votre sortie</div>';
     container.innerHTML += '<div style="background-color:gray; height:2px; margin-bottom:15px;  margin-top:5px; border-radius:2px;"></div>';
-
 
     for (var i = 0; i < 3; i++) {
         var d = div(container);
@@ -46,24 +40,17 @@
     div(d);
 
     var emb = div(container);
-    emb.id = "divTabCahierConfirmationEmbarcationBox";
+    emb.className = "divTabCahierConfirmationEmbarcationBox";
     div(div(emb));
 
         var texts = div(emb);
-        texts.id = "divTabCahierConfirmationContainerTextsContainer";
+        texts.className = "divTabCahierConfirmationContainerTextsContainer";
         div(texts).innerHTML = "TITLE";
         div(texts).innerHTML = "n2";
     
         var btnInfos = div(emb);
         btnInfos.className = "ReturnButtons Buttons";
         btnInfos.innerHTML = "Infos";
-        if (elem == "tab") {
-            btnInfos.addEventListener("click", function () { closePopUp({ target: $('divModal') }); setTimeout(function () { popBookable(Cahier.bookableId); }, 100); });
-            var btnChange = div(emb);
-            btnChange.className = "ReturnButtons Buttons";
-            btnChange.addEventListener("click", function () { closePopUp({ target: $('divModal') }); newTab('divTabCahierMaterielCategories'); });
-            btnChange.innerHTML = "Modifier";
-        }
      
     grayBar(container);
 
@@ -76,28 +63,20 @@
         div(d);
     }
 
-    if (elem != "tab") {
-        d = div(container);
-        d.classList.add("divConfirmationTexts");
-        div(div(d));
-        div(d).innerHTML = fields[7];
-        div(d);
 
-        var close = div(container);
-        close.id = "divPopUpClose";
-        close.onclick = function () {
-            closePopUp({ target: $('divModal') });
-        };
-    }
-    else {
-        var infos = div(container);
-        infos.id = "divTabCahierConfirmationInfosBox";
+    d = div(container);
+    d.classList.add("divConfirmationTexts");
+    div(div(d));
+    div(d).innerHTML = fields[7];
+    div(d);
 
-        btnChange = div(infos);
-        btnChange.className = "ReturnButtons Buttons";
-        btnChange.addEventListener("click", function () { closePopUp({ target: $('divModal') }); newTab('divTabCahierInfos'); });
-        btnChange.innerHTML = "Modifier";
-    }
+    var close = div(container);
+    close.id = "divPopUpClose";
+    close.onclick = function () {
+        closePopUp({ target: elem },elem);
+    };
+
+
 
 
 }

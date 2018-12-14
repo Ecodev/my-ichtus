@@ -51,10 +51,6 @@
 </head>
 <body onload="load();">
 
-    <div id="divModal" onclick="closePopUp(event);"></div>
-
-    <div id="divModalContainer"></div>
-
     <!-- Top Bar -->
     <div id="divTopBar">
         <img id="imgTopBarIchtusLogo" src="Img/IchtusLogo.png" onclick="alert('')" />
@@ -70,7 +66,7 @@
         <div id="divTopBarTopText"></div>
 
         <div id="divTopBarWind" onclick="Requests.login($('inputTabCahierSearch').value)"></div>
-        <div id="divTopBarTime" onclick="Requests.getBookingList();"></div>
+        <div id="divTopBarTime" onclick="sort();"></div>
     </div>
 
     <!-- Left Bar & Right Bar -->
@@ -91,50 +87,47 @@
 
         <!--Div Tab Cahier-->
         <div id="divTabCahier" class="divTab">
-            <input id="inputTabCahierSearch" spellcheck="false" type="text" placeholder="Rechercher" autofocus onkeyup="Search(event)" />
+            <input id="inputTabCahierSearch" spellcheck="false" type="text" placeholder="Rechercher" autofocus onkeyup="Search(event)" onkeydown="SearchDown(event)" />
             <div id="divTabCahierSearchResult"></div>
-
 
             <div id="divTabCahierTables">
 
-                <div style="position:absolute; width:95%; background-color:gray; height:2px; margin-bottom:0px; margin-top:50px; border-radius:2px;z-index:2;"></div>
+                <div style="font-size:30px; margin-bottom:5px;">Sorties en cours</div>
 
                 <div id="divTabCahierTableActualBookings">
 
-
                     <div id="divTabCahierTableActualBookingsTopBar" class="TableEntries">
 
-                        <div class="BookingsTopBarSorted" id="id">
+                        <div class="BookingsTopBarSorted" id="0">
                             ID<div></div>
-                        </div><div id="id">
+                        </div><div id="1">
                             Logo<div></div>
-                        </div><div  id="id">
-                            Personne<div></div>
-                        </div><div id="startDate">
+                        </div><div id="2">
+                            Responsable<div></div>
+                        </div><div id="3">
                             Départ<div></div>
-                        </div><div id="id">
+                        </div><div id="4">
                             Catégorie<div></div>
-                        </div><div>
+                        </div><div id="5">
                             Embarcation<div></div>
-                        </div><div  id="participantCount">
+                        </div><div id="6">
                             Nbr d'acc.<div></div>
-                        </div><div id="destination">
+                        </div><div id="7">
                             Destination<div></div>
-                        </div><div id="startComment">
+                        </div><div id="8">
                             Commentaire<div></div>
                         </div>
 
-                    </div></div>
+                    </div>
+                    <div style="position:absolute; width:100%; background-color:gray; height:2px; margin-bottom:0px; margin-top:0px; border-radius:2px;z-index:2;"></div>
+                </div>
             </div>
 
 
 
-            <img src="Img/TableExemple.png" style="width:80%; top:0px; left:10%; position:relative;" />bonjour
+            <img src="Img/TableExemple.png" style="width:80%; top:0px; left:10%; position:relative;" />
             <img src="Img/TableExemple.png" style="width:80%; top:0px; left:10%; position:relative; filter:grayscale(100%)" />
-            <div class="Buttons ValidateButtons"></div><br />
-            <div class="Buttons ValidateButtons"></div><br />
-            <div class="Buttons ValidateButtons"></div><br />
-            hello
+
         </div>
 
         <!--Div Tab Cahier Top-->
@@ -266,7 +259,7 @@
         <div id="divTabCahierInfos" class="divTab">
             <div style="margin-top:300px; position:relative;"></div>
             <br />
-            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')"></div>
+            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielElements')"></div>
             <br />
 
             <div id="divTabCahierFieldsContainer">
@@ -339,7 +332,7 @@
 
   
 
-                <div id="divTabCahierConfirmationContainer">
+                <div class="divTabCahierConfirmationContainer">
 
                     <div style=" font-size:25px; text-align:center; color:black;">Votre sortie</div>
                     <div style="background-color:gray; height:2px; margin-bottom:15px;  margin-top:5px; border-radius:2px;"></div>
@@ -360,8 +353,8 @@
                         <div><div></div></div><div>Embarcation</div><div></div>
                     </div>
 
-                    <div id="divTabCahierConfirmationEmbarcationBox">
-                        <div><div></div></div><div id="divTabCahierConfirmationContainerTextsContainer"><div>asldkfj</div><div>asdfasdf</div></div>
+                    <div class="divTabCahierConfirmationEmbarcationBox">
+                        <div><div></div></div><div class="divTabCahierConfirmationContainerTextsContainer"><div>asldkfj</div><div>asdfasdf</div></div>
                         <div class="ReturnButtons Buttons" onclick="popBookable(Cahier.bookableId)">Infos</div>  <div class="ReturnButtons Buttons" onclick="newTab('divTabCahierMaterielCategories')">Modifier</div>
                     </div>
 

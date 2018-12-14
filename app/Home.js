@@ -26,11 +26,10 @@ function load() {
     loadMateriel();
     window.location = "#" + "divTabCahier";
     loadReturnButtons(); // OUI OU NON ???????
-    loadConfirmation("tab");
     loadSpacers();
     loadBookingsTopBar();
-
     ServerInitialize();
+    Requests.getBookingList();
 }
 
 function TimeGetMinutes() {
@@ -82,17 +81,30 @@ function loadReturnButtons() {
 }
 
 
-
+var lastModals = 0;
 function openPopUp() {
-    $('divModal').style.display = 'block';
-    setTimeout(function () { $('divModal').style.opacity = 1; }, 10);
-    $('divModal').innerHTML = "";
+
+    var modal = div(document.body);
+    modal.onclick = function (event) {
+        closePopUp(event,this);
+    };
+    lastModals++;
+    modal.id = "divModal" + lastModals;
+    modal.classList.add("Modals");
+    modal.style.display = "block";
+    setTimeout(function () { modal.style.opacity = 1; }, 10);
+
+    return modal;
 }
 
-function closePopUp(e) {
-    if (e.target == $('divModal')) {
-        $('divModal').style.opacity = 0;
-        setTimeout(function () { $('divModal').style.display = 'none'; $('divModal').innerHTML = ""; }, 100);
+function closePopUp(e, elem) {
+    var modal = e.target;
+    if (modal.id.indexOf("divModal") != -1) {
+        modal = $('divModal' + lastModals);
+        modal.style.opacity = 0;
+        setTimeout(function () { modal.style.display = 'none'; modal.innerHTML = ""; modal.parentNode.removeChild(modal); }, 100);  
+        lastModals--;
+        //alert(lastModals);
     }
 }
 

@@ -21,7 +21,7 @@
     text-align: center;
 }
 
-#divTabCahierConfirmationContainer {
+.divTabCahierConfirmationContainer {
     position: relative;
     left:50%;
     margin-left:-350px;
@@ -37,12 +37,12 @@
     box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
 }
 
-    #divTabCahierConfirmationContainer .Buttons {
+    .divTabCahierConfirmationContainer .Buttons {
         position: absolute;
         right: 10px;
         margin-left: 0px;
     }
-    #divTabCahierConfirmationContainer .Buttons::after {
+    .divTabCahierConfirmationContainer .Buttons::after {
         content:none;
     }
     .divConfirmationTexts {
@@ -100,7 +100,7 @@
             text-align: left;
         }
 
-#divTabCahierConfirmationEmbarcationBox {
+.divTabCahierConfirmationEmbarcationBox {
     position: relative;
     margin-left: 40px;
     width: 640px;
@@ -108,7 +108,7 @@
     background-color: white;
 }
 
-    #divTabCahierConfirmationEmbarcationBox > div:nth-child(1) {
+    .divTabCahierConfirmationEmbarcationBox > div:nth-child(1) {
         position: absolute;
         margin: 10px;
         width: 100px;
@@ -124,7 +124,7 @@
         box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);
     }
 
-#divTabCahierConfirmationContainerTextsContainer {
+.divTabCahierConfirmationContainerTextsContainer {
     position: absolute;
     margin-top: 10px;
     margin-left: 130px;
@@ -135,22 +135,22 @@
     text-align: left;
 }
 
-    #divTabCahierConfirmationContainerTextsContainer > div {
+    .divTabCahierConfirmationContainerTextsContainer > div {
         position: relative;
         min-height: 20px;
         margin-bottom: 5px;
     }
 
-        #divTabCahierConfirmationContainerTextsContainer > div:nth-child(2) {
+        .divTabCahierConfirmationContainerTextsContainer > div:nth-child(2) {
             font-size: 20px;
             color: darkgray;
         }
 
-#divTabCahierConfirmationEmbarcationBox > .Buttons:nth-child(3) {
+.divTabCahierConfirmationEmbarcationBox > .Buttons:nth-child(3) {
     top: 10px;
 }
 
-#divTabCahierConfirmationEmbarcationBox > .Buttons:nth-child(4) {
+.divTabCahierConfirmationEmbarcationBox > .Buttons:nth-child(4) {
     top: 75px;
 }
 
@@ -167,21 +167,3 @@
     }
 
 
-
-#divTabCahierConfirmationPopUp > div:nth-child(1) {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    width: 30px;
-    height: 30px;
-    background-image: url(Img/IconCancelBlack.png);
-    background-repeat: no-repeat;
-    background-position-x: right;
-    opacity: 0.5;
-    z-index: 4;
-    transition: all 0.1s linear 0s;
-}
-
-    #divTabCahierConfirmationPopUp > div:nth-child(1):hover {
-        opacity: 1;
-    }

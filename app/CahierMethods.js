@@ -59,6 +59,10 @@ var Cahier = {
         $('divTabCahierInfosStartComment').getElementsByTagName("textarea")[0].value = "";
         $("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0].value = "0"; //instead of "";
 
+        $('inputTabCahierMaterielElementsInputSearch').value = "";
+
+        $('divTabCahierMaterielElementsSelectSort').getElementsByTagName("select")[0].getElementsByTagName("option")[0].selected = "selected";
+        $('divTabCahierMaterielElementsSelectSort').getElementsByTagName("div")[0].style.backgroundImage = 'url("Img/IconSortASC.png")';
 
         if ($("checkBoxTabCahierInfosPhoneNumberRemember").getElementsByClassName("checkBox")[0].id == 1) {
             check($("checkBoxTabCahierInfosPhoneNumberRemember"));
@@ -110,7 +114,7 @@ var Cahier = {
     },
 
     actualizeConfirmation: function () {
-        var allDiv = $('divTabCahierConfirmationContainer').getElementsByClassName("divConfirmationTexts");
+        var allDiv = $('divTabCahierConfirmation').getElementsByClassName("divConfirmationTexts");
         var allDivTexts = [];
         var allDivIcons = [];
         for (var i = 0; i < allDiv.length; i++) {
@@ -126,8 +130,8 @@ var Cahier = {
 
         allDivTexts[2].innerHTML = "1880923 857h12";
 
-        $('divTabCahierConfirmationContainerTextsContainer').getElementsByTagName('div')[0].innerHTML = Cahier.bookableName;
-        $('divTabCahierConfirmationContainerTextsContainer').getElementsByTagName('div')[1].innerHTML = Cahier.bookableId;
+        $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = Cahier.bookableName;
+        $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = Cahier.bookableId;
 
         allDivTexts[4].innerHTML = Cahier.getNbrAccompagnantsText();
         allDivIcons[4].style.backgroundImage = "url(Img/IconInvitesTransparent.png)";

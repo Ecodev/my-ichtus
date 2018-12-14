@@ -16,8 +16,8 @@ function ServerInitialize() {
 }
 
 
+var bookingsResult = [];
 
-var a = "bookings";
 var Requests = {
 
     // login
@@ -34,7 +34,7 @@ var Requests = {
 
 
     // getUsersList FOR CAHIER.JS
-    getUsersList: function (text = "", nbr = 5) {
+    getUsersList: function (text = "") {
         var filter = {
             filter: {
                 groups: [
@@ -42,12 +42,12 @@ var Requests = {
                 ]
             },
             pagination: {
-                pageSize: nbr,
+                pageSize: 5,
                 pageIndex: 0
             },
             sorting:[{
                 field: 'name', 
-                order: 'DESC'
+                order: 'ASC'
             }]
         };
 
@@ -198,20 +198,15 @@ var Requests = {
 
     getBookingList: function () {
 
-        var all = document.getElementsByClassName("TableEntries");
-        for (var i = 0; i < all.length; i++) {
-            if (all[i].id != "divTabCahierTableActualBookingsTopBar") {
-                all[i].parentNode.removeChild(all[i]);
-                i--;
-            }
-        }
+        //var all = document.getElementsByClassName("TableEntries");
+        //for (var i = 0; i < all.length; i++) {
+        //    if (all[i].id != "divTabCahierTableActualBookingsTopBar") {
+        //        all[i].parentNode.removeChild(all[i]);
+        //        i--;
+        //    }
+        //}
 
-        var order = "ASC";
-        if (document.getElementsByClassName("BookingsTopBarSorted")[0].getElementsByTagName("div")[0].style.backgroundImage == 'url("Img/IconSortDESC.png")') {
-            order = "DESC";
-        }
-
-        var sort = document.getElementsByClassName("BookingsTopBarSorted")[0].id;
+        bookingsResult = [];
 
         var filter = {
             filter: {
@@ -225,8 +220,8 @@ var Requests = {
             },
             sorting: [
                 {
-                    field: sort,
-                    order: order
+                    field: "id",
+                    order: "ASC"
                 }
             ]
         };
@@ -241,12 +236,12 @@ var Requests = {
 
     },
 
-
     showBooking: function (i, bookings) {
 
         if (bookings[i].bookables == undefined) {
             actualizeActualBookings(bookings[i], { name: "", id: "", code: "---" });
-            if (i < bookings.length-1) {
+            if (i < bookings.length - 1) {
+                bookingsResult.push({name:"--",id:"--",code:"--"});
                 i++;
                 this.showBooking(i, bookings);
             }
@@ -268,20 +263,24 @@ var Requests = {
             variables.set('variables', filter);
 
             Server.bookableService.getAll(variables).subscribe(resultBookable => {
-                console.log("getBookingList_getBookableInfos(): " + i, resultBookable);
-                actualizeActualBookings(bookings[i], resultBookable.items[0]);
+                console.log("getBookingList_getBookableInfos(): " + i, resultBookable.items);
 
-                if (i < bookings.length-1) {
+                //actualizeActualBookings(bookings[i], resultBookable.items[0]);
+                bookingsResult.push(resultBookable.items[0]);
+
+                if (i < bookings.length - 1) {
                     i++;
                     this.showBooking(i, bookings);
                 }
-
+                else {                       
+                    actualizeActualBookings2(bookings, bookingsResult);             
+                }
             });
         }   
     },
 
     // getBookingInfos
-    getBookingInfos: function (bookingId) {
+    getBookingInfos: function (bookingId,elem) {
 
         var filter = {
             filter: {
@@ -304,7 +303,7 @@ var Requests = {
 
         Server.bookingService.getAll(variables).subscribe(result => {
             console.log("getBookingInfos(): ", result);
-            actualizePopBooking(result.items[0]);
+            actualizePopBooking(result.items[0],elem);
         });
     },
 

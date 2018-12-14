@@ -18,28 +18,54 @@ function Person(name, surname, gender) {
 }
 
 
-
+var enterSearchPosition = 0;
 function Search(e) {
 
     var text = $("inputTabCahierSearch").value.toUpperCase();
 
     if (e.keyCode == 13) {
-        if (typeof document.getElementsByClassName("spanTabCahierSurname")[0] != "undefined") {
-            var name = document.getElementsByClassName("spanTabCahierName")[0].innerHTML;
-            var surname = document.getElementsByClassName("spanTabCahierSurname")[0].innerHTML;
-            chosePerson(name, surname);
+        var all = document.getElementsByClassName("divTabCahierResultEntry");
+        for (var i = 0; i < all.length; i++) {
+            if (typeof all[i].getElementsByTagName("img")[0] != "undefined") {
+                var name = all[i].getElementsByClassName("spanTabCahierName")[0].innerHTML;
+                var surname = all[i].getElementsByClassName("spanTabCahierSurname")[0].innerHTML;
+                chosePerson(name, surname);
+            }
         }
     }
-   
-    if (text != "") {
+    else if (e.keyCode == 40 || e.keyCode == 38) {
+
+    }
+    else if (text != "") {
         Requests.getUsersList(text, 5);
+        enterSearchPosition = 0;
     }
     else {
         $("divTabCahierSearchResult").innerHTML = "";
     }
 }
+
+
+function SearchDown(e) {
+    if (e.keyCode == 40 || e.keyCode == 38) {
+        if (e.keyCode == 40) {
+            enterSearchPosition++;
+        }
+        else {
+            enterSearchPosition--;
+        }
+        if (lastPeople != undefined) {
+            createSearchEntries(lastPeople);
+        }
+        e.preventDefault();
+    }
+}
+
+
+var lastPeople;
 function createSearchEntries(PeopleCorresponding) {
-    console.log("createSearchEntries(): ", PeopleCorresponding);
+
+    lastPeople = PeopleCorresponding;
 
     $("divTabCahierSearchResult").innerHTML = "";
 
@@ -76,11 +102,13 @@ function createSearchEntries(PeopleCorresponding) {
             span2.innerHTML = PeopleCorresponding[i].id;
             divResult.appendChild(span2);
 
-            if (i == 0) {
+            if (i == (enterSearchPosition % PeopleCorresponding.length + PeopleCorresponding.length) % PeopleCorresponding.length) {
                 var img = document.createElement("img");
                 img.id = "imgTabCahierSearchIconEnter";
                 img.src = "Img/IconEnter.png";
                 divResult.appendChild(img);
+
+                divResult.style.backgroundColor = "gray";
             }
 
             if (PeopleCorresponding[i].name == "administrator") {
@@ -129,19 +157,56 @@ function actualizeActualBookings(actualBookings,actualBookingsBookable) {
 }
 
 
+function actualizeActualBookings2(actualBookings, actualBookingsBookable) {
 
+    var all = document.getElementsByClassName("TableEntries");
+    for (var i = 0; i < all.length; i++) {
+        if (all[i].id != "divTabCahierTableActualBookingsTopBar") {
+            all[i].parentNode.removeChild(all[i]);
+            i--;
+        }
+    }
 
+    console.log("aa", actualBookingsBookable);
+    //$('divTabCahierTableActualBookings').innerHTML = "";
+    //alert(actualBookings.length + " " + actualBookingsBookable.length);
 
-function popBooking(bookingId) {
-    Requests.getBookingInfos(bookingId);
-    openPopUp();
-    loadConfirmation("pop");
+    for (var i = 0; i < actualBookings.length; i++) {
+        var container = div($('divTabCahierTableActualBookings'));
+
+        container.id = actualBookings[i].id;
+        container.classList.add("TableEntries");
+        container.classList.add("TableEntriesHover");
+
+        container.addEventListener("click", function () { popBooking(this.id); });
+
+        div(container).innerHTML = actualBookings[i].id;
+        div(container).innerHTML = actualBookingsBookable[i].code;
+        div(container).innerHTML = actualBookings[i].responsible.name;
+        div(container).innerHTML = actualBookings[i].startDate;
+
+        div(container).innerHTML = actualBookingsBookable[i].code;
+        div(container).innerHTML = actualBookingsBookable[i].name.shorten(250, 20);
+        div(container).innerHTML = actualBookings[i].participantCount;
+        div(container).innerHTML = actualBookings[i].destination.shorten(150, 20);
+        div(container).innerHTML = Cahier.getStartCommentText(actualBookings[i].startComment).shorten(200, 20);
+    }
 }
 
 
 
-function actualizePopBooking(booking) {
-    var allDiv = $('divTabCahierConfirmationContainer').getElementsByClassName("divConfirmationTexts");
+
+
+function popBooking(bookingId) {
+    var elem = openPopUp();
+    Requests.getBookingInfos(bookingId,elem);
+    loadConfirmation(elem);
+}
+
+
+
+function actualizePopBooking(booking, container = $('divTabCahierConfirmationContainer')) {
+    var allDiv = container.getElementsByClassName("divConfirmationTexts");
     var allDivTexts = [];
     var allDivIcons = [];
     for (var i = 0; i < allDiv.length; i++) {
@@ -149,10 +214,9 @@ function actualizePopBooking(booking) {
         allDivTexts[i] = allDiv[i].getElementsByTagName('div')[3];
     }
 
-    $('divTabCahierConfirmationContainer').getElementsByTagName("div")[0].innerHTML = "Sortie du " + booking.creationDate;
+    container.getElementsByClassName('divTabCahierConfirmationContainer')[0].getElementsByTagName("div")[0].innerHTML = "Sortie du " + booking.creationDate;
 
-    $('divTabCahierConfirmationEmbarcationBox').getElementsByClassName("Buttons")[0].addEventListener("click", function () { closePopUp({ target: $('divModal') }); setTimeout(function () { popBookable(booking.bookables[0].id); }, 100); });
-
+    container.getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByClassName("Buttons")[0].addEventListener("click", function () { popBookable(booking.bookables[0].id); });
 
     allDivTexts[0].innerHTML = booking.responsible.name;
     allDivIcons[0].style.backgroundImage = "url(Img/Icon" + Cahier.personGender + ".png)";
@@ -162,8 +226,8 @@ function actualizePopBooking(booking) {
 
     allDivTexts[3].innerHTML = "1880923 857h12";
 
-    $('divTabCahierConfirmationContainerTextsContainer').getElementsByTagName('div')[0].innerHTML = booking.bookables[0].name;
-    $('divTabCahierConfirmationContainerTextsContainer').getElementsByTagName('div')[1].innerHTML = booking.bookables[0].code;
+    container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = booking.bookables[0].name;
+    container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = booking.bookables[0].code;
 
     allDivTexts[5].innerHTML = Cahier.getNbrAccompagnantsText(booking.participantCount);
     allDivIcons[5].style.backgroundImage = "url(Img/IconInvitesTransparent.png)";
@@ -189,9 +253,11 @@ function loadBookingsTopBar() {
 
             if (this.getElementsByTagName("div")[0].style.backgroundImage == 'url("Img/IconSortDESC.png")' || !(this.classList.contains("BookingsTopBarSorted"))) {
                 this.getElementsByTagName("div")[0].style.backgroundImage = "url(Img/IconSortASC.png)";
+                order = 1;
             }
             else {
                 this.getElementsByTagName("div")[0].style.backgroundImage = "url(Img/IconSortDESC.png)";
+                order = -1;
               
             }
 
@@ -206,10 +272,27 @@ function loadBookingsTopBar() {
                 }               
             }
             this.classList.add("BookingsTopBarSorted");
-
-            Requests.getBookingList();
-
+            sort(parseInt(this.id), order);
         });
 
+    }
+}
+
+
+
+
+
+
+function sort(field = 0,order = 1) {
+    var all = $('divTabCahierTableActualBookings').getElementsByClassName("TableEntries");
+    var switching = true;
+    while (switching) {
+        switching = false;
+        for (var i = 1; i < all.length-1; i++) {
+            if (all[i].getElementsByTagName("div")[field].innerHTML.toLowerCase() > all[i + 1].getElementsByTagName("div")[field].innerHTML.toLowerCase() && order == 1 || all[i].getElementsByTagName("div")[field].innerHTML.toLowerCase() < all[i + 1].getElementsByTagName("div")[field].innerHTML.toLowerCase() && order == -1) {
+                all[i].parentElement.insertBefore(all[i + 1], all[i]);
+                switching = true;
+            }
+        }
     }
 }

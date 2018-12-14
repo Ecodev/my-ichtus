@@ -362,3 +362,18 @@ option {
     #divPopUpClose:hover {
         opacity: 1;
     }
+
+
+
+.Modals {
+    display: none;
+    position: fixed; /*important*/
+    z-index: 2000;
+    /*padding-top: 20%;
+    padding-left:20%;*/
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    opacity: 0;
+    transition: all 0.1s linear 0s;
+}
