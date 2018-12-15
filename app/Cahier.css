@@ -249,10 +249,36 @@
     transition: all 0.1s linear 0s;
     display: table-row;
 }
+    /*.TableEntries:nth-child(2n+1) .Buttons {
+        background-color:black;
+    }*/    
 
-.TableEntries:nth-child(2n) {
-    background-color: lightgray;
-}
+    .TableEntries .Buttons {
+        position: relative;
+        height:40px;
+        width:100px;
+        left: 50%;
+        transform: translate(-50%,-0%);
+        box-sizing: border-box;
+        font-size: 20px;
+        color:white !important;
+        background-color:red;
+        margin-right:4px;
+        margin-bottom:0px;
+        margin-top:0px;
+    }
+    .TableEntries .Buttons::after {
+        content: "Terminer";
+    }
+    .TableEntries .Buttons:hover {
+        margin-left:4px;
+        margin-right:0px;
+        background-color:rgb(137, 16, 16)
+    }
+
+        .TableEntries:nth-child(2n) {
+            background-color: lightgray;
+        }
 
     .TableEntries > div:nth-child(1) {
         padding-left: 10px;
@@ -322,3 +348,69 @@
     #divTabCahierPopUp > div:nth-child(1):hover {
         opacity: 1;
     }
+
+
+
+
+.radioContainer {
+    position:absolute;
+    width:340px;
+    min-height:10px;
+    background-color:transparent;
+    left:300px;
+    top:5px;
+}
+
+.radioContainer > div {
+    position:relative;
+    display:inline-block;
+    background-color:transparent;
+    cursor:pointer;
+}
+
+    .radioContainer > .radioSelected {
+        cursor:initial;
+    }
+        .radioContainer > .radioSelected > div:nth-child(1){
+            background-color: white;
+        }
+        .radioContainer > .radioSelected > div:nth-child(2) {
+            color: rgb(66,133,244);
+        }
+
+        .radioContainer > .radioSelected > div:nth-child(1) > div {
+            background-color: rgb(66,133,244);
+        }  
+
+    .radioContainer > div > div {
+        display:inline-block;
+        vertical-align:middle;
+    }
+        .radioContainer > div > div:nth-child(1) {
+            box-sizing: border-box;
+            border: 1px solid black;
+            width: 20px;
+            height: 20px;
+            border-radius: 20px;
+            background-color: lightgray;
+            transition: all 0.1s linear 0s;
+        }
+            .radioContainer > div > div:nth-child(1) > div {
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                left: 5px;
+                top: 5px;
+                border-radius: 10px;
+                background-color: transparent;
+                transition: all 0.1s linear 0s;
+            }
+        .radioContainer > div > div:nth-child(2) {
+            margin-left: 5px;
+            margin-right: 20px;
+            min-width: 10px;
+            height: 20px;
+            background-color: transparent;
+            font-size: 18px;
+            transition: all 0.1s linear 0s;
+        }

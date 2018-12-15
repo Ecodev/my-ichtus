@@ -178,7 +178,17 @@ function actualizeActualBookings2(actualBookings, actualBookingsBookable) {
         container.classList.add("TableEntries");
         container.classList.add("TableEntriesHover");
 
-        container.addEventListener("click", function () { popBooking(this.id); });
+        container.addEventListener("click", function (event) {
+            if (event.target.classList.contains("Buttons")) {
+                openFinishBooking(openPopUp());
+            }
+            else if (typeof event.target.getElementsByTagName("div")[0] == "undefined") {
+                popBooking(this.id);
+            }
+            else {
+                openFinishBooking(openPopUp());
+            }         
+        });
 
         div(container).innerHTML = actualBookings[i].id;
         div(container).innerHTML = actualBookingsBookable[i].code;
@@ -190,6 +200,14 @@ function actualizeActualBookings2(actualBookings, actualBookingsBookable) {
         div(container).innerHTML = actualBookings[i].participantCount;
         div(container).innerHTML = actualBookings[i].destination.shorten(150, 20);
         div(container).innerHTML = Cahier.getStartCommentText(actualBookings[i].startComment).shorten(200, 20);
+
+        var c = div(container);
+        var btn = div(c);
+        btn.classList.add("Buttons");
+        c.addEventListener("click", function () {
+           //openFinishBooking(openPopUp());
+        });
+
     }
 }
 
@@ -216,7 +234,7 @@ function actualizePopBooking(booking, container = $('divTabCahierConfirmationCon
 
     container.getElementsByClassName('divTabCahierConfirmationContainer')[0].getElementsByTagName("div")[0].innerHTML = "Sortie du " + booking.creationDate;
 
-    container.getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByClassName("Buttons")[0].addEventListener("click", function () { popBookable(booking.bookables[0].id); });
+    container.getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].addEventListener("click", function () { popBookable(booking.bookables[0].id); });
 
     allDivTexts[0].innerHTML = booking.responsible.name;
     allDivIcons[0].style.backgroundImage = "url(Img/Icon" + Cahier.personGender + ".png)";
@@ -235,7 +253,7 @@ function actualizePopBooking(booking, container = $('divTabCahierConfirmationCon
     allDivIcons[6].style.backgroundImage = "url(Img/IconDestinationBlack.png)";
 
     allDivTexts[7].innerHTML = Cahier.getStartCommentText(booking.startComment);
-    allDivTexts[8].innerHTML = Cahier.getStartCommentText(booking.endComment);
+    allDivTexts[8].innerHTML = Cahier.getStartCommentText(booking.endComment); 
 }
 
 
