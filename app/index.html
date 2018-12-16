@@ -87,8 +87,15 @@
 
         <!--Div Tab Cahier-->
         <div id="divTabCahier" class="divTab">
-            <input id="inputTabCahierSearch" spellcheck="false" type="text" placeholder="Rechercher" autofocus onkeyup="Search(event)" onkeydown="SearchDown(event)" />
-            <div id="divTabCahierSearchResult"></div>
+
+            <div style="margin-top:200px; position:relative;"></div>
+            <div style="font-size:30px; margin-bottom:5px; text-align:center;">Nouvelle sortie</div>
+
+
+            <input id="inputTabCahierSearch" title="Nouvelle sortie pour les membres d'Ichtus" spellcheck="false" type="text" placeholder="Rechercher" autofocus onkeyup="Search(event)" onkeydown="SearchDown(event)" />
+            <div style="position:absolute; height:34px; top:239px; left:70%; margin-left:10px; background-image:url(Img/IconInvitesBlack.png)" class="Buttons NormalButtons" title="Non membres d'Ichtus">Invité</div>
+
+           <div id="divTabCahierSearchResult"></div>
 
             <div id="divTabCahierTables">
 
@@ -124,11 +131,6 @@
                     <div style="position:absolute; width:100%; background-color:gray; height:2px; margin-bottom:0px; margin-top:0px; border-radius:2px;z-index:2;"></div>
                 </div>
             </div>
-         
-
-
-            <img src="Img/TableExemple.png" style="width:80%; top:0px; left:10%; position:relative;" />
-            <img src="Img/TableExemple.png" style="width:80%; top:0px; left:10%; position:relative; filter:grayscale(100%)" />
 
         </div>
 
@@ -220,7 +222,7 @@
                     <div id="divTabCahierMaterielElementsSelectCategorie" title="Catégorie">
                         <div class="Buttons NormalButtons"></div>
                         <select onchange="changeSelectCategorie(this); Requests.getBookablesList();">
-                            <option value="all">Toutes</option>
+                            <option value="all">Toutes enelver ?</option>
                         </select>
                     </div>
                 </div><div style="width:248px;">

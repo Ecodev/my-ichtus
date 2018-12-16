@@ -55,7 +55,26 @@ function SearchDown(e) {
             enterSearchPosition--;
         }
         if (lastPeople != undefined) {
-            createSearchEntries(lastPeople);
+
+            for (var i = 0; i < lastPeople.length; i++) {
+
+                var elem = document.getElementsByClassName("divTabCahierResultEntry")[i];
+
+                elem.style.backgroundColor = "";
+                if (typeof elem.getElementsByTagName("img")[0] != "undefined") {
+                    elem.removeChild(elem.getElementsByTagName("img")[0]);
+                }
+                if (i == (enterSearchPosition % lastPeople.length + lastPeople.length) % lastPeople.length) {
+                    var img = document.createElement("img");
+                    img.id = "imgTabCahierSearchIconEnter";
+                    img.src = "Img/IconEnter.png";
+                    elem.appendChild(img);
+
+                    elem.style.backgroundColor = "gray";
+                }
+            }
+
+            //createSearchEntries(lastPeople);
         }
         e.preventDefault();
     }
@@ -102,7 +121,7 @@ function createSearchEntries(PeopleCorresponding) {
             span2.innerHTML = PeopleCorresponding[i].id;
             divResult.appendChild(span2);
 
-            if (i == (enterSearchPosition % PeopleCorresponding.length + PeopleCorresponding.length) % PeopleCorresponding.length) {
+            if (i == 0) {
                 var img = document.createElement("img");
                 img.id = "imgTabCahierSearchIconEnter";
                 img.src = "Img/IconEnter.png";
@@ -180,13 +199,13 @@ function actualizeActualBookings2(actualBookings, actualBookingsBookable) {
 
         container.addEventListener("click", function (event) {
             if (event.target.classList.contains("Buttons")) {
-                openFinishBooking(openPopUp());
+                openFinishBooking(openPopUp(),this.id);
             }
             else if (typeof event.target.getElementsByTagName("div")[0] == "undefined") {
                 popBooking(this.id);
             }
             else {
-                openFinishBooking(openPopUp());
+                openFinishBooking(openPopUp(),this.id);
             }         
         });
 

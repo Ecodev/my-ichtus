@@ -125,7 +125,7 @@ String.prototype.shorten = function (maxLength,_fontSize = 20) {
     if (this == "" || (txt).pixelLength(_fontSize) <= maxLength) {
         return this;
     }
-    while ((txt + "...").pixelLength(_fontSize) > maxLength - 13 && txt.length > 0) {
+    while ((txt + "...").pixelLength(_fontSize) > maxLength - "...".pixelLength(_fontSize) && txt.length > 0) {
         txt = txt.substr(0, txt.length - 1);
     }
     return txt + "...";   

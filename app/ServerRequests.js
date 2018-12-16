@@ -45,8 +45,8 @@ var Requests = {
                 pageSize: 5,
                 pageIndex: 0
             },
-            sorting:[{
-                field: 'name', 
+            sorting: [{
+                field: 'name',
                 order: 'ASC'
             }]
         };
@@ -84,8 +84,8 @@ var Requests = {
             filter: {
                 groups: [
                     {
-                        groupLogic:'AND',
-                        conditionsLogic:'OR',
+                        groupLogic: 'AND',
+                        conditionsLogic: 'OR',
                         conditions: [
                             {
                                 name: {
@@ -127,7 +127,7 @@ var Requests = {
                                 conditions: [{
                                     name: {
                                         like: {
-                                            value:"%" + categorie
+                                            value: "%" + categorie
                                         }
                                     }
                                 }]
@@ -170,7 +170,7 @@ var Requests = {
             },
             sorting: [{
                 field: "id", //USELESS
-                order:"ASC" //USELESS
+                order: "ASC" //USELESS
             }]
         };
 
@@ -187,7 +187,7 @@ var Requests = {
     // Add an item
     addBookable: function (_name, _description) {
 
-        const item = { name: "1", description: "kj", bookingType: "self_approved" , type:6004};
+        const item = { name: "1", description: "kj", bookingType: "self_approved", type: 6004 };
 
         Server.bookableService.create(item).subscribe(result => {
             console.log('Bookable created', result);
@@ -231,7 +231,7 @@ var Requests = {
 
         Server.bookingService.getAll(variables).subscribe(result => {
             console.log("getBookingList(): ", result);
-            this.showBooking(0, result.items); 
+            this.showBooking(0, result.items);
         });
 
     },
@@ -241,7 +241,7 @@ var Requests = {
         if (bookings[i].bookables == undefined) {
             actualizeActualBookings(bookings[i], { name: "", id: "", code: "---" });
             if (i < bookings.length - 1) {
-                bookingsResult.push({name:"--",id:"--",code:"--"});
+                bookingsResult.push({ name: "--", id: "--", code: "--" });
                 i++;
                 this.showBooking(i, bookings);
             }
@@ -272,15 +272,15 @@ var Requests = {
                     i++;
                     this.showBooking(i, bookings);
                 }
-                else {                       
-                    actualizeActualBookings2(bookings, bookingsResult);             
+                else {
+                    actualizeActualBookings2(bookings, bookingsResult);
                 }
             });
-        }   
+        }
     },
 
     // getBookingInfos
-    getBookingInfos: function (bookingId,elem) {
+    getBookingInfos: function (bookingId, elem) {
 
         var filter = {
             filter: {
@@ -303,8 +303,41 @@ var Requests = {
 
         Server.bookingService.getAll(variables).subscribe(result => {
             console.log("getBookingInfos(): ", result);
-            actualizePopBooking(result.items[0],elem);
+            actualizePopBooking(result.items[0], elem);
         });
+    },
+
+    getBookingFinishInfos: function (bookingId, elem) {
+
+        var filter = {
+            filter: {
+                groups: [
+                    { conditions: [{ id: { like: { value: bookingId } } }] }
+                ]
+            },
+            pagination: {
+                pageSize: 1,
+                pageIndex: 0
+            },
+            sorting: [{
+                field: "id", //USELESS
+                order: "ASC" //USELESS
+            }]
+        };
+
+        var variables = new Server.QueryVariablesManager();
+        variables.set('variables', filter);
+
+        Server.bookingService.getAll(variables).subscribe(result => {
+            console.log("getBookingFinishInfos(): ", result);
+            actualizePopBookingFinish(result.items[0],elem);
+        });
+    },
+
+    updateBooking: function (bookingId, input= { endComment: "A"}) {
+
+        alert(input.endComment);
+
     },
 
     // createBooking
