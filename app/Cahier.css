@@ -1,5 +1,5 @@
 ﻿#divTabCahier {
-    top:0px;
+    top: 0px;
     background-color: white;
     z-index: 5;
     opacity: 1;
@@ -12,7 +12,7 @@
     transform: translate(-50%,-0%);
     margin-top: 0px;
     width: 40%;
-    box-sizing:border-box;
+    box-sizing: border-box;
     height: 42px;
     border: 2px solid black;
     border-radius: 10px;
@@ -36,22 +36,24 @@
     outline: none; /*pour enlever le cadre bleu quand sélectionné*/
     z-index: 5;
 }
-#inputTabCahierSearch:focus {
-    border: 2px solid rgb(66, 133, 244);
-    background-color: white;
-    width: 60%;
-    -webkit-box-shadow: 5px 9px 10px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 3px 5px 10px 0px rgba(0,0,0,0.75);
-    box-shadow: 5px 9px 10px 0px rgba(0,0,0,0.75);
-    background-image: url(Img/IconSearchBlue.png);
-}
-#inputTabCahierSearch:hover {
-    background-color: white;
-}
 
-#inputTabCahierSearch:focus + div{
-    left:80% !important;
-}
+    #inputTabCahierSearch:focus {
+        border: 2px solid rgb(66, 133, 244);
+        background-color: white;
+        width: 60%;
+        -webkit-box-shadow: 5px 9px 10px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 3px 5px 10px 0px rgba(0,0,0,0.75);
+        box-shadow: 5px 9px 10px 0px rgba(0,0,0,0.75);
+        background-image: url(Img/IconSearchBlue.png);
+    }
+
+    #inputTabCahierSearch:hover {
+        background-color: white;
+    }
+
+    #inputTabCahierSearch:focus + div {
+        left: 80% !important;
+    }
 
 
 #divTabCahierSearchResult {
@@ -68,6 +70,7 @@
     opacity: 0;
     transition: all 0.2s linear 0s;
 }
+
 #inputTabCahierSearch:focus ~ #divTabCahierSearchResult {
     opacity: 1;
     left: 20%;
@@ -83,10 +86,9 @@
     height: 40px;
     background-color: blue; /*useless*/
     font-size: 20px;
-     
     padding-left: 45px;
     transition: all 0.1s linear 0s;
-    -webkit-transition:all 0.1s linear 0s;
+    -webkit-transition: all 0.1s linear 0s;
     -moz-transition: all 0.1s linear 0s;
     border-width: 2px;
     border-color: gray;
@@ -104,19 +106,22 @@
     -moz-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
     box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
 }
-.divTabCahierResultEntry:nth-child(2n) {
-    background-color: white;
-}
-.divTabCahierResultEntry:nth-child(2n+1) {
-    background-color: lightgray;
-}
-.divTabCahierResultEntry:hover {
-    background-color: gray;
-    margin-left: 10px;
-}
+
+    .divTabCahierResultEntry:nth-child(2n) {
+        background-color: white;
+    }
+
+    .divTabCahierResultEntry:nth-child(2n+1) {
+        background-color: lightgray;
+    }
+
+    .divTabCahierResultEntry:hover {
+        background-color: gray;
+        margin-left: 10px;
+    }
 
 
-.spanTabCahierName {/*#divTabCahierSearchResult > div > span:nth-child(1) {*/
+.spanTabCahierName { /*#divTabCahierSearchResult > div > span:nth-child(1) {*/
     position: relative;
     display: table-cell;
     vertical-align: middle;
@@ -124,10 +129,12 @@
     width: 120px;
     /*background-color: red;*/
 }
+
 .divTabCahierResultEntry:hover .spanTabCahierName {
     text-decoration: underline;
 }
-.spanTabCahierSurname{/*#divTabCahierSearchResult > div > span:nth-child(2) {*/
+
+.spanTabCahierSurname { /*#divTabCahierSearchResult > div > span:nth-child(2) {*/
     position: relative;
     display: table-cell;
     vertical-align: middle;
@@ -136,6 +143,7 @@
     text-align: left;
     /*background-color: green;*/
 }
+
 .divTabCahierResultEntry:hover .spanTabCahierSurname {
     text-decoration: underline;
 }
@@ -151,11 +159,11 @@
 
 
 #divTabCahierTables {
-    margin-left:2.5%;
-    width:95%;
-    min-height:200px;
-    background-color:lightcyan;
-    margin-bottom:50px;
+    margin-left: 2.5%;
+    width: 95%;
+    min-height: 200px;
+    background-color: lightcyan;
+    margin-bottom: 50px;
 }
 
 
@@ -172,22 +180,23 @@
 }
 
 
-#divTabCahierTableActualBookingsTopBar {
-    background-color:transparent;
+.TableTopBar {
+    background-color: transparent;
     height: 50px;
-    margin-bottom:40px;
+    margin-bottom: 40px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 }
-    #divTabCahierTableActualBookingsTopBar > div {
+
+    .TableTopBar > div {
         height: 45px;
         background-color: white;
         border-top: 10px solid transparent;
         border-bottom: 4px solid transparent;
-        box-sizing:border-box;
+        box-sizing: border-box;
         border-left: 0px solid gray;
         border-right: 0px solid gray;
-        padding-right:30px;
+        padding-right: 30px;
         color: gray;
         font-size: 17px;
         transition: all 0.3s linear 0s;
@@ -195,17 +204,18 @@
         border-top-right-radius: 10px;
         padding-left: 5px;
     }
-    #divTabCahierTableActualBookingsTopBar > div:nth-child(1) {
-        padding-left:10px;
-        width:5%;
-    }
 
-        #divTabCahierTableActualBookingsTopBar > div:hover {
+        .TableTopBar > div:nth-child(1) {
+            padding-left: 10px;
+            width: 5%;
+        }
+
+        .TableTopBar > div:hover {
             border-bottom: 4px outset black;
             background-color: lightgray;
         }
 
-        #divTabCahierTableActualBookingsTopBar > div > div:nth-child(1) {
+        .TableTopBar > div > div:nth-child(1) {
             position: absolute;
             right: 0px;
             bottom: 5px;
@@ -220,28 +230,30 @@
             /*background-color: red;*/
         }
 
-        #divTabCahierTableActualBookingsTopBar > div:hover > div:nth-child(1) {
+        .TableTopBar > div:hover > div:nth-child(1) {
             background-size: 20px;
             background-position-x: 5px;
             background-position-y: 5px;
         }
 
-        .BookingsTopBarSorted {
-            background-color: gray !important;
-            color: white !important;
-            border-bottom: 4px outset black !important;
-        }
-        .BookingsTopBarSorted:hover {
-            background-color: darkgray !important;
-        }
-        .BookingsTopBarSorted > div{
-            background-size: 30px !important;
-            background-position-x:0px !important;
-            background-position-y:0px !important;
-        }
-        .BookingsTopBarSorted:hover > div {
-            
-        }
+.BookingsTopBarSorted {
+    background-color: gray !important;
+    color: white !important;
+    border-bottom: 4px outset black !important;
+}
+
+    .BookingsTopBarSorted:hover {
+        background-color: darkgray !important;
+    }
+
+    .BookingsTopBarSorted > div {
+        background-size: 30px !important;
+        background-position-x: 0px !important;
+        background-position-y: 0px !important;
+    }
+
+    .BookingsTopBarSorted:hover > div {
+    }
 
 
 .TableEntries {
@@ -254,34 +266,36 @@
 }
     /*.TableEntries:nth-child(2n+1) .Buttons {
         background-color:black;
-    }*/    
+    }*/
 
     .TableEntries .Buttons {
         position: relative;
-        height:40px;
-        width:100px;
+        height: 40px;
+        width: 100px;
         left: 50%;
         transform: translate(-50%,-0%);
         box-sizing: border-box;
         font-size: 20px;
-        color:white !important;
-        background-color:red;
-        margin-right:4px;
-        margin-bottom:0px;
-        margin-top:0px;
-    }
-    .TableEntries .Buttons::after {
-        content: "Terminer";
-    }
-    .TableEntries .Buttons:hover {
-        margin-left:4px;
-        margin-right:0px;
-        background-color:rgb(137, 16, 16)
+        color: white !important;
+        background-color: red;
+        margin-right: 4px;
+        margin-bottom: 0px;
+        margin-top: 0px;
     }
 
-        .TableEntries:nth-child(2n) {
-            background-color: lightgray;
+        .TableEntries .Buttons::after {
+            content: "Terminer";
         }
+
+        .TableEntries .Buttons:hover {
+            margin-left: 4px;
+            margin-right: 0px;
+            background-color: rgb(137, 16, 16)
+        }
+
+    .TableEntries:nth-child(2n) {
+        background-color: lightgray;
+    }
 
     .TableEntries > div:nth-child(1) {
         padding-left: 10px;
@@ -292,6 +306,7 @@
     .TableEntries:last-child > div:last-child {
         border-bottom-right-radius: 10px;
     }
+
     .TableEntries:last-child > div:first-child {
         border-bottom-left-radius: 10px;
     }
@@ -303,8 +318,6 @@
         min-height: 30px;
         box-sizing: border-box;
         padding: 2px;
-
-
         display: table-cell;
         vertical-align: middle;
     }
@@ -334,6 +347,7 @@
     width: 700px;
     height: 450px;
 }
+
     #divTabCahierPopUp > div:nth-child(1) {
         position: absolute;
         right: 10px;
@@ -348,47 +362,50 @@
         transition: all 0.1s linear 0s;
     }
 
-    #divTabCahierPopUp > div:nth-child(1):hover {
-        opacity: 1;
-    }
+        #divTabCahierPopUp > div:nth-child(1):hover {
+            opacity: 1;
+        }
 
 
 
 
 .radioContainer {
-    position:absolute;
-    width:290px;
-    min-height:10px;
-    background-color:transparent;
-    left:350px;
-    top:5px;
+    position: absolute;
+    width: 290px;
+    min-height: 10px;
+    background-color: transparent;
+    left: 350px;
+    top: 5px;
 }
 
-.radioContainer > div {
-    position:relative;
-    display:inline-block;
-    background-color:transparent;
-    cursor:pointer;
-}
+    .radioContainer > div {
+        position: relative;
+        display: inline-block;
+        background-color: transparent;
+        cursor: pointer;
+    }
 
     .radioContainer > .radioSelected {
-        cursor:initial;
+        cursor: initial;
     }
-        .radioContainer > .radioSelected > div:nth-child(1){
+
+        .radioContainer > .radioSelected > div:nth-child(1) {
             background-color: white;
         }
+
         .radioContainer > .radioSelected > div:nth-child(2) {
             color: rgb(66,133,244);
         }
 
         .radioContainer > .radioSelected > div:nth-child(1) > div {
             background-color: rgb(66,133,244);
-        }  
+        }
 
     .radioContainer > div > div {
-        display:inline-block;
-        vertical-align:middle;
+        display: inline-block;
+        vertical-align: middle;
     }
+
         .radioContainer > div > div:nth-child(1) {
             box-sizing: border-box;
             border: 1px solid black;
@@ -398,6 +415,7 @@
             background-color: lightgray;
             transition: all 0.1s linear 0s;
         }
+
             .radioContainer > div > div:nth-child(1) > div {
                 position: absolute;
                 width: 10px;
@@ -408,6 +426,7 @@
                 background-color: transparent;
                 transition: all 0.1s linear 0s;
             }
+
         .radioContainer > div > div:nth-child(2) {
             margin-left: 5px;
             margin-right: 20px;
@@ -417,3 +436,55 @@
             font-size: 18px;
             transition: all 0.1s linear 0s;
         }
+
+
+
+
+
+
+.PopUpBookingsListTable {
+    position: relative;
+    display: table;
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    -webkit-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
+}
+
+.PopUpBookingsListRow {
+    position: relative;
+    display: table-row;
+    width: 100%;
+    height: 50px;
+    box-sizing: border-box;
+    background-color: lightgray;
+    border: 2px solid lightgray;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: all 0.1s linear 0s;
+}
+
+    .PopUpBookingsListRow:nth-child(2n) {
+        background-color: white;
+        border: 2px solid black;
+    }
+
+    .PopUpBookingsListRow:hover {
+        background-color: gray;
+    }
+
+.PopUpBookingsListCell:first-child {
+    padding-left: 10px;
+}
+
+.PopUpBookingsListRow > div {
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 20px;
+}
+
+    .PopUpBookingsListRow > div:first-child {
+        padding-left: 10px;
+    }

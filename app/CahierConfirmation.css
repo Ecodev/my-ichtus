@@ -169,7 +169,7 @@
         }
 
 .divTabCahierConfirmationEmbarcationBox > .Buttons:nth-child(3) {
-    top: 10px;
+    bottom:0px;
 }
 
 .divTabCahierConfirmationEmbarcationBox > .Buttons:nth-child(4) {

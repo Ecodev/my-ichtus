@@ -156,7 +156,7 @@ var Requests = {
     },
 
     // getBookableInfos
-    getBookableInfos: function (bookableId) {
+    getBookableInfos: function (bookableId,elem) {
 
         var filter = {
             filter: {
@@ -179,7 +179,7 @@ var Requests = {
 
         Server.bookableService.getAll(variables).subscribe(result => {
             console.log("getBookableInfos(): ", result);
-            actualizePopBookable(result.items);
+            actualizePopBookable(result.items,elem);
         });
     },
 
@@ -277,6 +277,46 @@ var Requests = {
                 }
             });
         }
+    },
+
+    // getBookingsListForBookable
+    getBookingsListForBookable: function (bookableId, elem) {
+
+        var filter = {
+            filter: {
+                groups: [
+                    {
+                        joins: {
+                            bookables: {
+                                conditions: [{
+                                    id: {
+                                        like: {
+                                            value: bookableId
+                                        }
+                                    }
+                                }]
+                            }
+                        }
+                    }
+                ]
+            },
+            pagination: {
+                pageSize: 10,
+                pageIndex: 0
+            },
+            sorting: [{
+                field: "id", //USELESS
+                order: "ASC" //USELESS
+            }]
+        };
+
+        var variables = new Server.QueryVariablesManager();
+        variables.set('variables', filter);
+
+        Server.bookingService.getAll(variables).subscribe(result => {
+            console.log("getBookingsListForBookable(): ", result);
+            actualizePopBookingsList(result.items, elem);
+        });
     },
 
     // getBookingInfos

@@ -343,18 +343,20 @@
     }
 
 
-#divTabCahierMaterielElementsPopUp {
+.divTabCahierMaterielElementsPopUp {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
     width: 700px;
     height: 450px;
+    /*font-size: 25px;*/
+    background-color:white;
+    border-radius:20px;
 }
 
 
-
-    #divTabCahierMaterielElementsPopUp > div:nth-child(2) {
+    .divTabCahierMaterielElementsPopUp > div:nth-child(2) {
         position: absolute;
         left: 20px;
         top: 20px;
@@ -369,7 +371,7 @@
         box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);
     }
 
-    #divTabCahierMaterielElementsPopUp > div:nth-child(3) {
+    .divTabCahierMaterielElementsPopUp > div:nth-child(3) {
         position: absolute;
         left: 20px;
         margin-left: 10px;
@@ -379,7 +381,7 @@
         font-size: 25px;
     }
 
-    #divTabCahierMaterielElementsPopUp > div:nth-child(4) {
+    .divTabCahierMaterielElementsPopUp > div:nth-child(4) {
         position: absolute;
         left: 20px;
         top: 290px;
@@ -389,19 +391,20 @@
         border: 2px solid lightgray;
         box-sizing: border-box;
         padding: 8px;
+
         /*-moz-box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);
-    box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);*/
+        -webkit-box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);
+         box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);*/
     }
 
-    #divTabCahierMaterielElementsPopUp > .ValidateButtons {
+    .divTabCahierMaterielElementsPopUp > .ValidateButtons {
         position: absolute;
         right: 20px;
         top: 376px;
         width: 145px;
     }
 
-    #divTabCahierMaterielElementsPopUp > .ReturnButtons {
+    .divTabCahierMaterielElementsPopUp > .ReturnButtons {
         position: absolute;
         right: 20px;
         top: 290px;
@@ -409,27 +412,37 @@
         margin-left: 0px;
     }
 
-        #divTabCahierMaterielElementsPopUp > .ReturnButtons::after {
+        .divTabCahierMaterielElementsPopUp > .ReturnButtons::after {
             content: none;
         }
 
 
-#divTabCahierMaterielElementsContainerTextsContainer {
-    position: absolute;
-    left: 260px;
-    top: 20px;
-    width: 420px;
-    min-height: 20px;
-    font-size: 25px;
-}
 
-    #divTabCahierMaterielElementsContainerTextsContainer > div {
-        position: relative;
-        min-height: 20px;
-        margin-bottom: 5px;
-    }
-
-        #divTabCahierMaterielElementsContainerTextsContainer > div:nth-child(2) {
-            font-size: 20px;
+        .divTabCahierMaterielElementsPopUp > div:nth-child(2) {
+            font-size: 120px;
             color: darkgray;
         }
+
+
+.divTabCahierMaterielElementsContainerTextsContainer {
+    position:absolute;
+    left:260px;
+    width:420px;
+    top:20px;
+    font-size:20px;
+}
+
+.divTabCahierMaterielElementsContainerTextsContainer > div {
+    margin-bottom:2px;
+}
+
+.divTabCahierMaterielElementsContainerTextsContainer > div:nth-child(1) {
+    font-size: 30px;
+}
+
+    .divTabCahierMaterielElementsContainerTextsContainer > div:nth-child(2) {
+        color:darkgray;
+    }
+
+
+

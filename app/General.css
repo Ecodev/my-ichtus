@@ -342,7 +342,7 @@ option {
     transition:all 0.1s linear 0s;
 }
 
-#divPopUpClose {
+.divPopUpClose {
     position: absolute;
     display:table-cell;
     vertical-align:middle;
@@ -359,7 +359,7 @@ option {
     transition: all 0.1s linear 0s;
 }
 
-    #divPopUpClose:hover {
+    .divPopUpClose:hover {
         opacity: 1;
     }
 

@@ -70,7 +70,7 @@
     div(d);
 
     var close = div(container);
-    close.id = "divPopUpClose";
+    close.className  = "divPopUpClose";
     close.onclick = function () {
         closePopUp({ target: elem },elem);
     };
@@ -145,7 +145,7 @@ function openFinishBooking(elem,bookingId) {
     area.style.top = "30px";
     area.style.height = "95px";
     area.style.width = "290px";
-    area.style.backgroundPositionX = "295px";
+    area.style.backgroundPositionX = "245px";
     emb.appendChild(area);
     area.focus();
 
@@ -173,7 +173,7 @@ function openFinishBooking(elem,bookingId) {
 
 
     var close = div(container);
-    close.id = "divPopUpClose";
+    close.className = "divPopUpClose";
     close.onclick = function () {
         closePopUp({ target: elem }, elem);
     };

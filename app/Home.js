@@ -27,7 +27,7 @@ function load() {
     window.location = "#" + "divTabCahier";
     loadReturnButtons(); // OUI OU NON ???????
     loadSpacers();
-    loadBookingsTopBar();
+    loadTableTopBars();
     ServerInitialize();
     Requests.getBookingList();
 }
