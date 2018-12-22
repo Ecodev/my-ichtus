@@ -64,9 +64,9 @@ var Cahier = {
         $('divTabCahierMaterielElementsSelectSort').getElementsByTagName("select")[0].getElementsByTagName("option")[0].selected = "selected";
         $('divTabCahierMaterielElementsSelectSort').getElementsByTagName("div")[0].style.backgroundImage = 'url("Img/IconSortASC.png")';
 
-        if ($("checkBoxTabCahierInfosPhoneNumberRemember").getElementsByClassName("checkBox")[0].id == 1) {
-            check($("checkBoxTabCahierInfosPhoneNumberRemember"));
-        }
+        //if ($("checkBoxTabCahierInfosPhoneNumberRemember").getElementsByClassName("checkBox")[0].id == 1) {
+        //    check($("checkBoxTabCahierInfosPhoneNumberRemember"));
+        //}
 
 
         // data

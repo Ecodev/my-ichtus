@@ -16,7 +16,7 @@
     height: 42px;
     border: 2px solid black;
     border-radius: 10px;
-    background-color: rgb(237, 237, 237);
+    background-color: rgb(245, 245, 245);
     padding-left: 45px;
     padding-top: 0px;
     padding-bottom: 0px;
@@ -29,9 +29,9 @@
     font-size: 20px;
     font-family: Arial;
     text-transform: capitalize;
-    -webkit-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
-    box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.5);
+    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.5);
     transition: all 0.1s linear 0s, width 0.2s linear 0s, margin-left 0.2s linear 0s;
     outline: none; /*pour enlever le cadre bleu quand sélectionné*/
     z-index: 5;
@@ -41,9 +41,9 @@
         border: 2px solid rgb(66, 133, 244);
         background-color: white;
         width: 60%;
-        -webkit-box-shadow: 5px 9px 10px 0px rgba(0,0,0,0.75);
-        -moz-box-shadow: 3px 5px 10px 0px rgba(0,0,0,0.75);
-        box-shadow: 5px 9px 10px 0px rgba(0,0,0,0.75);
+        -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.6);
+        -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.6);
+        box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.6);
         background-image: url(Img/IconSearchBlue.png);
     }
 
@@ -81,7 +81,8 @@
 .divTabCahierResultEntry { /*divTabCahierSearchResult > div {*/
     position: relative;
     left: -2px;
-    margin-bottom: 2px;
+    margin-bottom: 5px;
+    box-sizing:border-box;
     width: 100%;
     height: 40px;
     background-color: blue; /*useless*/
@@ -90,7 +91,7 @@
     transition: all 0.1s linear 0s;
     -webkit-transition: all 0.1s linear 0s;
     -moz-transition: all 0.1s linear 0s;
-    border-width: 2px;
+    border-width: 0px;
     border-color: gray;
     border-style: outset;
     border-radius: 10px;
@@ -102,9 +103,9 @@
     background-position-x: 8px;
     background-position-y: 5px;
     display: table;
-    -webkit-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
-    box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
 }
 
     .divTabCahierResultEntry:nth-child(2n) {
@@ -116,7 +117,7 @@
     }
 
     .divTabCahierResultEntry:hover {
-        background-color: gray;
+        background-color: darkgray;
         margin-left: 10px;
     }
 
@@ -162,7 +163,7 @@
     margin-left: 2.5%;
     width: 95%;
     min-height: 200px;
-    background-color: lightcyan;
+    /*background-color: lightcyan;*/
     margin-bottom: 50px;
 }
 
@@ -174,9 +175,9 @@
     position: relative;
     background-color: white;
     border-radius: 10px;
-    -webkit-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
-    box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
 }
 
 
@@ -231,25 +232,25 @@
         }
 
         .TableTopBar > div:hover > div:nth-child(1) {
-            background-size: 20px;
-            background-position-x: 5px;
-            background-position-y: 5px;
+            background-size: 15px;
+            background-position-x: 7.5px;
+            background-position-y: 7.5px;
         }
 
 .BookingsTopBarSorted {
-    background-color: gray !important;
-    color: white !important;
+    background-color: rgb(235,235,235) !important;
+    /*color: white !important;*/
     border-bottom: 4px outset black !important;
 }
 
     .BookingsTopBarSorted:hover {
-        background-color: darkgray !important;
+        background-color: lightgray !important;
     }
 
     .BookingsTopBarSorted > div {
-        background-size: 30px !important;
-        background-position-x: 0px !important;
-        background-position-y: 0px !important;
+        background-size: 20px !important;
+        background-position-x: 5px !important;
+        background-position-y: 5px !important;
     }
 
     .BookingsTopBarSorted:hover > div {
@@ -294,7 +295,7 @@
         }
 
     .TableEntries:nth-child(2n) {
-        background-color: lightgray;
+        background-color: rgb(235, 235, 235);
     }
 
     .TableEntries > div:nth-child(1) {
@@ -324,8 +325,7 @@
 
 
 .TableEntriesHover:hover {
-    background-color: gray;
-    color: white;
+    background-color: lightgray;
 }
 
 
@@ -448,9 +448,9 @@
     width: 100%;
     background-color: white;
     border-radius: 10px;
-    -webkit-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
-    box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
 }
 
 .PopUpBookingsListRow {
@@ -459,7 +459,7 @@
     width: 100%;
     height: 50px;
     box-sizing: border-box;
-    background-color: lightgray;
+    background-color: rgb(235,235,235);
     border: 2px solid lightgray;
     border-radius: 10px;
     margin-bottom: 10px;
@@ -472,14 +472,12 @@
     }
 
     .PopUpBookingsListRow:hover {
-        background-color: gray;
+        background-color: lightgray;
     }
 
-.PopUpBookingsListCell:first-child {
-    padding-left: 10px;
-}
 
 .PopUpBookingsListRow > div {
+    position:relative;
     display: table-cell;
     vertical-align: middle;
     font-size: 20px;

@@ -70,7 +70,7 @@ function SearchDown(e) {
                     img.src = "Img/IconEnter.png";
                     elem.appendChild(img);
 
-                    elem.style.backgroundColor = "gray";
+                    elem.style.backgroundColor = "darkgray";
                 }
             }
 
@@ -127,7 +127,7 @@ function createSearchEntries(PeopleCorresponding) {
                 img.src = "Img/IconEnter.png";
                 divResult.appendChild(img);
 
-                divResult.style.backgroundColor = "gray";
+                divResult.style.backgroundColor = "darkgray";
             }
 
             if (PeopleCorresponding[i].name == "administrator") {
@@ -342,12 +342,11 @@ function popBookingsList(bookableId) {
     c1.classList.add("BookingsTopBarSorted");
     c1.innerHTML = "kjk";
     div(c1);
-    div(c1).innerHTML = "Lkj";
 
     var c2 = div(r);
-   c2.innerHTML = "destination";
+    c2.innerHTML = "destination";
     div(c2);
-    div(c2).innerHTML = "Lkjélkj";
+
 
 
     grayBar(container);

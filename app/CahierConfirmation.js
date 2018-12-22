@@ -34,7 +34,6 @@
 
     d = div(container);
     d.classList.add("divConfirmationTexts");
-    d.style.backgroundColor = "lightgray";
     div(div(d));
     div(d).innerHTML = fields[3];
     div(d);
@@ -112,7 +111,6 @@ function openFinishBooking(elem,bookingId) {
 
     d = div(container);
     d.classList.add("divConfirmationTexts");
-    d.style.backgroundColor = "lightgray";
     div(div(d));
     div(d).innerHTML = fields[2];
     div(d);
@@ -153,7 +151,7 @@ function openFinishBooking(elem,bookingId) {
 
     d = div(container);
     d.classList.add("divConfirmationTexts");
-    d.style.backgroundColor = "lightgray";
+    d.style.backgroundColor = "rgb(235,235,235)";
     div(div(d));
     div(d).innerHTML = fields[3];
     area = document.createElement("textarea");

@@ -44,33 +44,36 @@
     border-radius: 10px;
     background-color: white; /*rgb(237,237,237);*/
     padding-left: 60px;
-    padding-top: 5px;
-    padding-right:10px;
+    padding-top: 7px;
+    padding-right: 10px;
     padding-bottom: 0px;
     background-image: url(Img/IconCheckSignBlack.png);
     background-repeat: no-repeat;
     background-size: 40px;
-    background-position-x: 235px;
+    background-position-x: 240px;
     background-position-y: 50px;
     color: black;
     font-size: 20px;
     font-family: Arial;
-    -webkit-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
-    box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
     transition: all 0.1s linear 0s, width 0.2s linear 0s, margin-left 0.2s linear 0s;
     outline: none; /*pour enlever le cadre bleu quand sélectionné*/
+    cursor:pointer;
 }
-#divTabCahierInfosStartComment {
-    /*width: 500px;*/
-}
+
+    #divTabCahierInfosStartComment {
+        /*width: 500px;*/
+    }
 #divTabCahierInfosStartComment > div:nth-child(2) {
     background-image: url(Img/IconInvitesTransparent.png);
+    margin-top:-2px;
 }
 
 .TabCahierFields input {
     position: absolute;
-    left:0px;
+    left: 0px;
     top: 32px;
     width: 220px;
     height: 50px;
@@ -82,18 +85,17 @@
     padding-left: 60px;
     padding-top: 0px;
     padding-bottom: 0px;
-    background-image:none;
+    background-image: none;
     background-repeat: no-repeat;
     background-size: 40px;
-    background-position-x: 235px;
+    background-position-x: 240px;
     background-position-y: 4px;
     color: black;
     font-size: 20px;
-     
     text-transform: capitalize;
-    -webkit-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
-    box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
     transition: all 0.1s linear 0s, width 0.2s linear 0s, margin-left 0.2s linear 0s;
     outline: none; /*pour enlever le cadre bleu quand sélectionné*/
 }
@@ -103,13 +105,13 @@
 .TabCahierFields input:hover {
     background-color: white;
 }
-.TabCahierFields input:focus { 
-    /*border-color:rgb(66, 133, 244);*/
-    -webkit-box-shadow: 4px 6px 10px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 4px 6px 10px 0px rgba(0,0,0,0.75);
-    box-shadow: 4px 6px 10px 0px rgba(0,0,0,0.75);
-    text-decoration:underline;
-}
+    .TabCahierFields input:focus {
+        /*border-color:rgb(66, 133, 244);*/
+        -webkit-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
+        -moz-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
+        box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
+        text-decoration: underline;
+    }
 .TabCahierFields > div:nth-child(2) {
     position: absolute;
     left: 2px;
@@ -173,18 +175,18 @@
     color: black;
     font-size: 15px;
     font-weight: bold;
-    -webkit-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 1px 1px 4px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 1px 1px 4px 0px rgba(0,0,0,0.5);
+    box-shadow: 1px 1px 4px 0px rgba(0,0,0,0.5);
     transition: all 0.2s linear 0s, background-color 0.1s linear 0s;
     cursor: pointer;
 }
-.PropositionsContainer > div:hover {
-    background-color: lightgray;
-    -webkit-box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.75);
-}
+    .PropositionsContainer > div:hover {
+        background-color: lightgray;
+        -webkit-box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.5);
+        -moz-box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.5);
+        box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.5);
+    }
 
 
 #divTabCahierInfosPhoneNumber {
