@@ -107,6 +107,13 @@ var Requests = {
                                         value: "%" + txt + "%"
                                     }
                                 }
+                            },
+                            {
+                                custom: {
+                                    search: {
+                                        value: "%" + txt + "%"
+                                    }
+                                }
                             }
                         ]
                     },
@@ -196,22 +203,46 @@ var Requests = {
     },
 
 
-    getBookingList: function () {
-
-        //var all = document.getElementsByClassName("TableEntries");
-        //for (var i = 0; i < all.length; i++) {
-        //    if (all[i].id != "divTabCahierTableActualBookingsTopBar") {
-        //        all[i].parentNode.removeChild(all[i]);
-        //        i--;
-        //    }
-        //}
+    getActualBookingList: function () {
 
         bookingsResult = [];
 
         var filter = {
             filter: {
-                groups: [
-                    {}
+                groups: [                   
+                    {
+                        groupLogic:"AND",
+                        conditions: [{
+                                status: {
+                                    equal: {
+                                        value: "booked"
+                                    }
+                                }
+                            },
+                            {
+                                endDate: {
+                                    null: {
+                                        not:false
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        groupLogic: "AND",
+                        joins: {
+                            bookables: {
+                                conditions: [{
+                                    bookingType: {
+                                        equal: {
+                                            value: "self_approved"
+                                        }
+                                    }
+                                }]
+                            }
+                        }
+                    }
+                    
                 ]
             },
             pagination: {
@@ -230,7 +261,7 @@ var Requests = {
         variables.set('variables', filter);
 
         Server.bookingService.getAll(variables).subscribe(result => {
-            console.log("getBookingList(): ", result);
+            console.log("getActualBookingList(): ", result);
             this.showBooking(0, result.items);
         });
 
@@ -319,6 +350,75 @@ var Requests = {
         });
     },
 
+    getBookableHistory: function (bookableId, elem) {
+        var filter = {
+            filter: {
+                groups: [
+                    {
+                        joins: {
+                            bookables: {
+                                conditions: [{
+                                    id: {
+                                        like: {
+                                            value: bookableId
+                                        }
+                                    }
+                                }]
+                            }
+                        }
+                    }
+                ]
+            },
+            pagination: {
+                pageSize: 10,
+                pageIndex: 0
+            },
+            sorting: [{
+                field: "id", //USELESS
+                order: "ASC" //USELESS
+            }]
+        };
+
+        var variables = new Server.QueryVariablesManager();
+        variables.set('variables', filter);
+
+        Server.bookingService.getAll(variables).subscribe(result => {
+            console.log("getgetBookableHistory(): ", result);
+            actualizePopBookableHistory(result.items, elem);
+        });
+    },
+
+    getBookingsNbrBetween: function (start,end) {
+        var filter = {
+            filter: {
+                groups: [
+                    {    
+                    conditions: [{
+                        startDate: {
+                            between: {
+                                from: from,
+                                to:end
+                            }
+                        }
+                    }]                                               
+                    }
+                ]
+            },
+            pagination: {
+                pageSize: 0,
+                pageIndex: 0
+            }
+        };
+
+        var variables = new Server.QueryVariablesManager();
+        variables.set('variables', filter);
+
+        Server.bookingService.getAll(variables).subscribe(result => {
+            console.log("getBookingsNbrBetween(): ", result.length + " sorties",result);
+          //  actualizePopBookableHistory(result.items, elem);
+        });
+    },
+
     // getBookingInfos
     getBookingInfos: function (bookingId, elem) {
 
@@ -401,7 +501,7 @@ var Requests = {
                 __typename: 'Bookable'
             }).subscribe(() => {
                 console.log('Linked Bookable : ', booking);
-                Requests.getBookingList();
+                Requests.getActualBookingList();
             });
 
             // LINK RESPONSIBLE

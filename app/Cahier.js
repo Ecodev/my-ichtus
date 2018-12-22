@@ -234,50 +234,6 @@ function actualizeActualBookings2(actualBookings, actualBookingsBookable) {
 
 
 
-function popBooking(bookingId) {
-    var elem = openPopUp();
-    Requests.getBookingInfos(bookingId,elem);
-    loadConfirmation(elem);
-}
-
-
-
-function actualizePopBooking(booking, container = $('divTabCahierConfirmationContainer')) {
-    var allDiv = container.getElementsByClassName("divConfirmationTexts");
-    var allDivTexts = [];
-    var allDivIcons = [];
-    for (var i = 0; i < allDiv.length; i++) {
-        allDivIcons[i] = allDiv[i].getElementsByTagName("div")[0].getElementsByTagName("div")[0];
-        allDivTexts[i] = allDiv[i].getElementsByTagName('div')[3];
-    }
-
-    container.getElementsByClassName('divTabCahierConfirmationContainer')[0].getElementsByTagName("div")[0].innerHTML = "Sortie du " + booking.creationDate;
-
-    container.getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].addEventListener("click", function () { popBookable(booking.bookables[0].id); });
-
-    allDivTexts[0].innerHTML = booking.responsible.name;
-    allDivIcons[0].style.backgroundImage = "url(Img/Icon" + Cahier.personGender + ".png)";
-
-    allDivTexts[1].innerHTML = booking.creationDate;
-    allDivIcons[1].style.backgroundImage = "";
-
-    allDivTexts[3].innerHTML = "1880923 857h12";
-
-    container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = booking.bookables[0].name;
-    container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = booking.bookables[0].code;
-
-    allDivTexts[5].innerHTML = Cahier.getNbrAccompagnantsText(booking.participantCount);
-    allDivIcons[5].style.backgroundImage = "url(Img/IconInvitesTransparent.png)";
-    allDivTexts[6].innerHTML = booking.destination;
-    allDivIcons[6].style.backgroundImage = "url(Img/IconDestinationBlack.png)";
-
-    allDivTexts[7].innerHTML = Cahier.getStartCommentText(booking.startComment);
-    allDivTexts[8].innerHTML = Cahier.getStartCommentText(booking.endComment); 
-}
-
-
-
-
 
 
 

@@ -15,15 +15,15 @@ var Cahier = {
     startComment: "",
 
 
-    getNbrAccompagnantsText: function (nbr = Cahier.nbrAccompagnants) {
+    getNbrAccompagnantsText: function (nbr = Cahier.nbrAccompagnants,txt = " Accompagnant") {
         if (nbr == 0) {
             return "Aucun";
         }
         else if (nbr== 1) {
-            return "1 Accompagnant";
+            return "1" + txt;
         }
         else {
-            return nbr + " Accompagnants";
+            return nbr + txt + "s";
         }
     },
 

@@ -29,7 +29,7 @@ function load() {
     loadSpacers();
     loadTableTopBars();
     ServerInitialize();
-    Requests.getBookingList();
+    Requests.getActualBookingList();
 }
 
 function TimeGetMinutes() {
