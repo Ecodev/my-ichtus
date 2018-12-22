@@ -36,26 +36,54 @@ function popBookableHistory(bookableId) {
 
 }
 
-
 function actualizePopBookableHistory(bookings, elem) {
+
+    var bookableId = bookings[0].bookables[0].id;
+
     var container = elem.getElementsByTagName("div")[0];
+    container.getElementsByTagName("div")[0].innerHTML = "Historique de ->nom" + bookableId;
 
     var scroll = div(container);
     scroll.className = "PopUpBookableHistoryContainerScroll";
 
-    var date = new Date(bookings[0].startDate);
 
-    var month = div(scroll);
-    month.className = "PopUpMonth";
-    month.innerHTML = Mois[date.getMonth()];
+    var currentMonth = 99;
+    var currentDay = 99;
+    for (var i = 0; i < bookings.length; i++) {
 
-    var day = div(scroll);
-    day.className = "PopUpDay";
-    day.innerHTML = Jours[date.getDay()] + " " + date.getDate() + " " + Mois[date.getMonth()];
+        var d = new Date(bookings[i].startDate);
 
-    Requests.getBookingsNbrBetween("2018-01-01T14:15:00+01:00", "2018-12-31T23:59:00+01:00");
+        var newMonth = d.getMonth();
+        if (newMonth != currentMonth) {
+            var month = div(scroll);
+            month.className = "PopUpMonth";
+            month.innerHTML = Mois[newMonth];  
 
-    div(scroll).innerHTML =  "<br/>" + bookings[0].startDate;
+            var start = new Date(d.getFullYear(), newMonth, 1, 0, 0, 0, 1);
+            var end = new Date(d.getFullYear(), newMonth + 1, 1, 0, 0, 0, 1);
+            Requests.getBookingsNbrBetween(start.toISOString(), end.toISOString(), bookableId, month);
+        }
 
+        var newDay = d.getDate();
+        if (newDay != currentDay || newMonth != currentMonth) {         
+            var day = div(scroll);
+            day.className = "PopUpDay";
+            day.innerHTML = Jours[d.getDay()] + " " + newDay + " " + Mois[newMonth];
 
+            var start = new Date(d.getFullYear(), newMonth, newDay, 0, 0, 0, 1);
+            var end = new Date(d.getFullYear(), newMonth , newDay + 1, 0, 0, 0, 1);
+            Requests.getBookingsNbrBetween(start.toISOString(), end.toISOString(), bookableId, day);
+        }
+
+        while (newDay == currentDay) {
+
+        }
+
+        currentMonth = newMonth;
+        currentDay = newDay;
+
+        var time = div(scroll);
+        time.className = "PopUpTime";
+        time.innerHTML = d.getHours() + ":" + TimeGetMinutes(d.getMinutes());
+    }
 }

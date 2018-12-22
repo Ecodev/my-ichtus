@@ -32,8 +32,7 @@ function load() {
     Requests.getActualBookingList();
 }
 
-function TimeGetMinutes() {
-    var m = date.getMinutes();
+function TimeGetMinutes(m = date.getMinutes()) {
     if (m < 10) {
         x = "0" + m;
     }

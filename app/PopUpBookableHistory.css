@@ -4,8 +4,7 @@
 }
 .PopUpBookableHistoryContainerScroll {
     position:relative;
-    height:50px;
-    background-color:lightgray;
+    height:400px;
     overflow-y: auto;
 }
     .PopUpBookableHistoryContainerScroll::-webkit-scrollbar {
@@ -20,10 +19,13 @@
         border-radius: 10px;
     }
 
-    .PopUpMonth {
-        font-size: 40px;
-    }
+.PopUpMonth {
+    font-size: 40px;
+}
 .PopUpDay {
     margin-left:40px;
     font-size: 20px;
+}
+.PopUpTime {
+    margin-left:100px;
 }

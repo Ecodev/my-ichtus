@@ -374,8 +374,8 @@ var Requests = {
                 pageIndex: 0
             },
             sorting: [{
-                field: "id", //USELESS
-                order: "ASC" //USELESS
+                field: "startDate", 
+                order: "DESC" 
             }]
         };
 
@@ -388,15 +388,28 @@ var Requests = {
         });
     },
 
-    getBookingsNbrBetween: function (start,end) {
+    getBookingsNbrBetween: function (start,end,bookableId = "%",elem=document.body) {
         var filter = {
             filter: {
                 groups: [
+                    {
+                        joins: {
+                            bookables: {
+                                conditions: [{
+                                    id: {
+                                        equal: {
+                                            value: bookableId
+                                        }
+                                    }
+                                }]
+                            }
+                        }
+                    },
                     {    
                     conditions: [{
                         startDate: {
                             between: {
-                                from: from,
+                                from: start,
                                 to:end
                             }
                         }
@@ -415,7 +428,7 @@ var Requests = {
 
         Server.bookingService.getAll(variables).subscribe(result => {
             console.log("getBookingsNbrBetween(): ", result.length + " sorties",result);
-          //  actualizePopBookableHistory(result.items, elem);
+            elem.innerHTML += " (" + result.length + ")";
         });
     },
 
