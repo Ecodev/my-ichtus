@@ -388,7 +388,7 @@ var Requests = {
         });
     },
 
-    getBookingsNbrBetween: function (start,end,bookableId = "%",elem=document.body) {
+    getBookingsNbrBetween: function (start,end,bookableId = "%",elem=document.body,writeIfOne = true) {
         var filter = {
             filter: {
                 groups: [
@@ -427,8 +427,14 @@ var Requests = {
         variables.set('variables', filter);
 
         Server.bookingService.getAll(variables).subscribe(result => {
-            console.log("getBookingsNbrBetween(): ", result.length + " sorties",result);
-            elem.innerHTML += " (" + result.length + ")";
+            console.log("getBookingsNbrBetween(): ", result.length + " sorties", result);
+            if (result.length != 1 || writeIfOne == true) {
+             //   elem.innerHTML += " (" + result.length + ")";
+                elem.innerHTML += result.length;
+            }     
+            else {
+                elem.parentElement.parentElement.removeChild(elem.parentElement);
+            }
         });
     },
 

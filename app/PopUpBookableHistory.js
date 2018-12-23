@@ -36,7 +36,65 @@ function popBookableHistory(bookableId) {
 
 }
 
+
+Array.prototype.switch = function (i1, i2) {
+    var content_i1 = this[i1];
+    this.splice(i1, 1, this[i2]);
+    this.splice(i2, 1, content_i1);
+    return this;
+};
+
+Array.prototype.inverse = function (i1, i2) {
+    for (var i = i1; i < parseInt((i1+i2) / 2+0.5); i++) {
+        this.switch(i, i1+i2-i);
+    }
+    return this;
+};
+
+//var a = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+
+function changeDaySorting(bookings) {
+
+    var oldDate = (new Date(bookings[0].startDate)).getDate();
+    var oldMonth = (new Date(bookings[0].startDate)).getMonth();
+
+    var result = bookings;
+
+    var c = 0;
+    for (var i = 1; i < result.length; i++) {
+        var newDate = (new Date(result[i].startDate)).getDate();
+        var newMonth = (new Date(result[i].startDate)).getMonth();
+        if (oldDate == newDate && oldMonth == newMonth) {
+            c++;
+            console.log("i:" + i, "c++");
+        }
+        else if (c!= 0) { //c!=0
+            var i1 = i - 1 - c;
+            var i2 = i - 1;
+            c = 0;
+            console.log("i:" + i,"switch - " + i1 + "to" + i2);
+            result.inverse(i1, i2);
+        }
+        console.log("i:" + i, "old:" + oldDate + "/" + oldMonth + "<br/>" + "new:" + newDate + "/" + newMonth + "<br/> c:" + c); 
+        oldDate = newDate;
+        oldMonth = newMonth;
+       
+    }
+    if (c != 0) {
+        var i1 = i - 1 - c;
+        var i2 = i - 1;
+        result.inverse(i1, i2);
+        console.log("switch",i1, i2);
+    }
+    return result;
+}
+
 function actualizePopBookableHistory(bookings, elem) {
+
+    bookings = changeDaySorting(bookings); 
+
+    console.log(bookings);
 
     var bookableId = bookings[0].bookables[0].id;
 
@@ -46,18 +104,26 @@ function actualizePopBookableHistory(bookings, elem) {
     var scroll = div(container);
     scroll.className = "PopUpBookableHistoryContainerScroll";
 
+    var currentYear = -1;
+    var currentMonth = .1;
+    var currentDay = -1;
 
-    var currentMonth = 99;
-    var currentDay = 99;
     for (var i = 0; i < bookings.length; i++) {
 
         var d = new Date(bookings[i].startDate);
 
+        var newYear = d.getFullYear();
+        if (newYear != currentYear) {
+            var year = popUpYear(scroll, newYear);
+
+            var start = new Date(d.getFullYear(), 0, 0, 0, 0, 1);
+            var end = new Date(d.getFullYear()+1, 0, 1, 0, 0, 0, 1);
+            Requests.getBookingsNbrBetween(start.toISOString(), end.toISOString(), bookableId, year);
+        }
+
         var newMonth = d.getMonth();
-        if (newMonth != currentMonth) {
-            var month = div(scroll);
-            month.className = "PopUpMonth";
-            month.innerHTML = Mois[newMonth];  
+        if (newMonth != currentMonth || newYear != currentYear) {
+            var month = popUpMonth(scroll, Mois[newMonth]);
 
             var start = new Date(d.getFullYear(), newMonth, 1, 0, 0, 0, 1);
             var end = new Date(d.getFullYear(), newMonth + 1, 1, 0, 0, 0, 1);
@@ -65,25 +131,51 @@ function actualizePopBookableHistory(bookings, elem) {
         }
 
         var newDay = d.getDate();
-        if (newDay != currentDay || newMonth != currentMonth) {         
-            var day = div(scroll);
-            day.className = "PopUpDay";
-            day.innerHTML = Jours[d.getDay()] + " " + newDay + " " + Mois[newMonth];
-
-            var start = new Date(d.getFullYear(), newMonth, newDay, 0, 0, 0, 1);
-            var end = new Date(d.getFullYear(), newMonth , newDay + 1, 0, 0, 0, 1);
-            Requests.getBookingsNbrBetween(start.toISOString(), end.toISOString(), bookableId, day);
+        if (newDay != currentDay || newMonth != currentMonth || newYear != currentYear) {         
+            popUpDay(scroll, Jours[d.getDay()] + " " + newDay + " " + Mois[newMonth]);
         }
 
-        while (newDay == currentDay) {
-
-        }
-
+        currentYear = newYear;
         currentMonth = newMonth;
         currentDay = newDay;
 
         var time = div(scroll);
         time.className = "PopUpTime";
-        time.innerHTML = d.getHours() + ":" + TimeGetMinutes(d.getMinutes());
+        time.innerHTML = d.getHours() + ":" + TimeGetMinutes(d.getMinutes()) + "   " + bookings[i].id;
+
+
     }
+}
+
+
+function popUpYear(container,txt) {
+    var c = div(container);
+    c.className = "PopUpYear";
+    div(c);
+    var inner = div(c);
+    inner.innerHTML = txt;
+    var nbr = div(div(c));
+      
+    return nbr;
+}
+
+
+function popUpMonth(container, txt) {
+    var c = div(container);
+    c.className = "PopUpMonth";
+    div(c);
+    var inner = div(c);
+    inner.innerHTML = txt;
+    var nbr = div(div(c));
+
+    return nbr;
+}
+
+
+function popUpDay(container, txt) {
+    var c = div(container);
+    c.className = "PopUpDay";
+    div(c);
+    var inner = div(c);
+    inner.innerHTML = txt;
 }
