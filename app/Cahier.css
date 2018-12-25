@@ -486,3 +486,59 @@
     .PopUpBookingsListRow > div:first-child {
         padding-left: 10px;
     }
+
+
+
+
+
+
+#inputTabCahierActualBookingsSearch {
+    position: absolute;
+    right:2.5%;
+    margin-top:-9px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
+    background-color: white; /*rgb(237,237,237);*/
+    padding-left: 40px;
+    padding-top: 0px;
+    height: 34px;
+    width: 120px;
+    padding-bottom: 0px;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-size: 40px;
+    background-position-x: 65px;
+    background-position-y: 4px;
+    color: black;
+    font-size: 20px;
+    text-transform: capitalize;
+    -webkit-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    transition: all 0.1s linear 0s, width 0.2s linear 0s, margin-left 0.2s linear 0s;
+    outline: none; /*pour enlever le cadre bleu quand sélectionné*/
+    border-radius: 10px;
+    background-image: url(Img/IconSearchBlack.png);
+    background-position-x: 0px;
+    background-position-y: 0px;
+    background-size: 34px;
+    /*text-align: center;*/
+}
+
+    #inputTabCahierActualBookingsSearch::placeholder {
+        color: gray;
+    }
+
+    #inputTabCahierActualBookingsSearch:focus {
+        border-color: rgb(66, 133, 244);
+        background-image: url(Img/IconSearchBlue.png);
+        width: 200px;
+        -webkit-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
+        -moz-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
+        box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
+    }
+
+    #inputTabCahierActualBookingsSearch:hover {
+        margin-top: -5px;
+    }

@@ -212,7 +212,8 @@ function actualizeActualBookings2(actualBookings, actualBookingsBookable) {
         div(container).innerHTML = actualBookings[i].id;
         div(container).innerHTML = actualBookingsBookable[i].code;
         div(container).innerHTML = actualBookings[i].responsible.name;
-        div(container).innerHTML = actualBookings[i].startDate;
+        var d = new Date(actualBookings[i].startDate);
+        div(container).innerHTML = d.getNiceTime();
 
         div(container).innerHTML = actualBookingsBookable[i].code;
         div(container).innerHTML = actualBookingsBookable[i].name.shorten(250, 20);
@@ -258,78 +259,78 @@ function sort(field = 0,order = 1) {
 
 
 
-function popBookingsList(bookableId) {
+//function popBookingsList(bookableId) {
 
-    var modal = openPopUp();
+//    var modal = openPopUp();
 
-    Requests.getBookingsListForBookable(bookableId,modal);
+//    Requests.getBookingsListForBookable(bookableId,modal);
 
-    var container;
-    container = div(modal);
-    container.classList.add("Boxes");
-    container.style.position = "absolute";
-    container.style.width = "700px";
-    container.style.minHeight = "100px"; 
-    container.style.maxHeight = "800px"; 
-    container.style.top = "50%";
-    container.style.marginLeft = "0px";
-    container.style.left = "50%";
-    container.style.transform = "translate(-50%,-50%)";
-    container.style.padding = "10px";
+//    var container;
+//    container = div(modal);
+//    container.classList.add("Boxes");
+//    container.style.position = "absolute";
+//    container.style.width = "700px";
+//    container.style.minHeight = "100px"; 
+//    container.style.maxHeight = "800px"; 
+//    container.style.top = "50%";
+//    container.style.marginLeft = "0px";
+//    container.style.left = "50%";
+//    container.style.transform = "translate(-50%,-50%)";
+//    container.style.padding = "10px";
 
-    container.innerHTML += '<div style=" font-size:25px; text-align:center; color:black;">Historique</div>';
-    container.innerHTML += '<div style="background-color:gray; height:2px; margin-bottom:15px;  margin-top:5px; border-radius:2px;"></div>';
+//    container.innerHTML += '<div style=" font-size:25px; text-align:center; color:black;">Historique</div>';
+//    container.innerHTML += '<div style="background-color:gray; height:2px; margin-bottom:15px;  margin-top:5px; border-radius:2px;"></div>';
 
-    var close = div(container);
-    close.className = "divPopUpClose";
-    close.onclick = function () {
-        closePopUp({ target: modal }, modal);
-    };
-
-
-    var t = div(container);
-    t.className = "PopUpBookingsListTable";
-
-    var r = div(t);
-    r.classList.add("PopUpBookingsListRow");
-    r.classList.add("TableTopBar");
-
-    var c1 = div(r);
-    c1.classList.add("BookingsTopBarSorted");
-    c1.innerHTML = "kjk";
-    div(c1);
-
-    var c2 = div(r);
-    c2.innerHTML = "destination";
-    div(c2);
+//    var close = div(container);
+//    close.className = "divPopUpClose";
+//    close.onclick = function () {
+//        closePopUp({ target: modal }, modal);
+//    };
 
 
+//    var t = div(container);
+//    t.className = "PopUpBookingsListTable";
 
-    grayBar(container);
+//    var r = div(t);
+//    r.classList.add("PopUpBookingsListRow");
+//    r.classList.add("TableTopBar");
 
-    loadTableTopBars(r);
+//    var c1 = div(r);
+//    c1.classList.add("BookingsTopBarSorted");
+//    c1.innerHTML = "kjk";
+//    div(c1);
+
+//    var c2 = div(r);
+//    c2.innerHTML = "destination";
+//    div(c2);
 
 
-}
+
+//    grayBar(container);
+
+//    loadTableTopBars(r);
 
 
-function actualizePopBookingsList(bookings, elem) {
+//}
 
-    var t = elem.getElementsByClassName("PopUpBookingsListTable")[0];
 
-    for(var i = 0; i < bookings.length; i++) {
-        var r = div(t);
-        r.id = bookings[i].id;
-        r.className = "PopUpBookingsListRow";
-        r.onclick = function () {
-            popBooking(this.id);
-        };
+//function actualizePopBookingsList(bookings, elem) {
 
-        div(r).innerHTML = bookings[i].id;
-        div(r).innerHTML = bookings[i].destination;
+//    var t = elem.getElementsByClassName("PopUpBookingsListTable")[0];
 
-    }
-}
+//    for(var i = 0; i < bookings.length; i++) {
+//        var r = div(t);
+//        r.id = bookings[i].id;
+//        r.className = "PopUpBookingsListRow";
+//        r.onclick = function () {
+//            popBooking(this.id);
+//        };
+
+//        div(r).innerHTML = bookings[i].id;
+//        div(r).innerHTML = bookings[i].destination;
+
+//    }
+//}
 
 
 

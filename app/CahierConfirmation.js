@@ -104,7 +104,7 @@ function openFinishBooking(elem,bookingId) {
 }
 function actualizePopBookingFinish(booking,elem) {
     elem.getElementsByTagName("div")[0].getElementsByTagName("div")[6].innerHTML = booking.responsible.name;
-    elem.getElementsByTagName("div")[0].getElementsByTagName("div")[11].innerHTML = date.getHours() + ":" + TimeGetMinutes();
+    elem.getElementsByTagName("div")[0].getElementsByTagName("div")[11].innerHTML = date.getNiceTime();
     elem.getElementsByClassName("divTabCahierConfirmationEmbarcationBox")[0].getElementsByTagName("div")[0].addEventListener("click", function () { popBookable(booking.bookables[0].id); });
     elem.getElementsByClassName("divTabCahierConfirmationContainerTextsContainer")[0].getElementsByTagName("div")[0].innerHTML = booking.bookables[0].name.shorten(210, 25);
     elem.getElementsByClassName("divTabCahierConfirmationContainerTextsContainer")[0].getElementsByTagName("div")[1].innerHTML = "toujours rien";

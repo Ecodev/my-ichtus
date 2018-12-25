@@ -125,7 +125,7 @@ var Cahier = {
         allDivTexts[0].innerHTML = Cahier.getFullName();
         allDivIcons[0].style.backgroundImage = "url(Img/Icon" + Cahier.personGender + ".png)";
 
-        allDivTexts[1].innerHTML = date.getHours() + ":" + TimeGetMinutes();
+        allDivTexts[1].innerHTML = date.getNiceTime();
         allDivIcons[1].style.backgroundImage = "";
 
         allDivTexts[2].innerHTML = "1880923 857h12";

@@ -96,14 +96,17 @@
             <div style="font-size:30px; margin-bottom:5px; text-align:center;">Nouvelle sortie</div>
 
 
-            <input id="inputTabCahierSearch" title="Nouvelle sortie pour les membres d'Ichtus" spellcheck="false" type="text" placeholder="Rechercher" autofocus onkeyup="Search(event)" onkeydown="SearchDown(event)" />
+            <input id="inputTabCahierSearch" title="Nouvelle sortie pour les membres d'Ichtus" spellcheck="false" type="text" placeholder="Nom, prénom..." autofocus onkeyup="Search(event)" onkeydown="SearchDown(event)" />
             <div style="position:absolute; height:34px; top:239px; left:70%; margin-left:10px; background-image:url(Img/IconInvitesBlack.png)" class="Buttons NormalButtons" title="Non membres d'Ichtus">Invité</div>
 
            <div id="divTabCahierSearchResult"></div>
 
             <div id="divTabCahierTables">
-
-                <div style="font-size:30px; margin-bottom:5px;">Sorties en cours</div>
+                
+      
+                <input id="inputTabCahierActualBookingsSearch" type="text" value="" placeholder="Rechercher" onkeyup="alert('a');" />
+                <div style="position:relative; font-size:30px; width:500px">Sorties en cours</div>
+       
 
                 <div id="divTabCahierTableActualBookings">
 

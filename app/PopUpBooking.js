@@ -87,21 +87,22 @@ function actualizePopBooking(booking, container = $('divTabCahierConfirmationCon
         allDivTexts[i] = allDiv[i].getElementsByTagName('div')[3];
     }
 
-    container.getElementsByClassName('divTabCahierConfirmationContainer')[0].getElementsByTagName("div")[0].innerHTML = "Sortie du " + booking.creationDate;
+
+    container.getElementsByClassName('divTabCahierConfirmationContainer')[0].getElementsByTagName("div")[0].innerHTML = "Sortie du " + (new Date(booking.startDate)).getNiceDate();
 
     container.getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].addEventListener("click", function () { popBookable(booking.bookables[0].id); });
 
     allDivTexts[0].innerHTML = booking.responsible.name;
     //allDivIcons[0].style.backgroundImage = "url(Img/Icon" + booking.responsible.gender + ".png)";
 
-    allDivTexts[1].innerHTML = booking.creationDate;
+    allDivTexts[1].innerHTML = (new Date(booking.startDate)).getNiceTime();
     allDivIcons[1].style.backgroundImage = "";
 
     if (booking.endDate == null) {
         allDivTexts[2].innerHTML = "Pas encore rentré(e)";
     }
     else {
-        allDivTexts[2].innerHTML = booking.endDate;
+        allDivTexts[2].innerHTML = (new Date(booking.endDate)).getNiceDate();
     }
 
     container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = booking.bookables[0].name;

@@ -32,16 +32,35 @@ function load() {
     Requests.getActualBookingList();
 }
 
-function TimeGetMinutes(m = date.getMinutes()) {
-    if (m < 10) {
-        x = "0" + m;
+
+
+var Time = {
+
+    getActualMinutes: function (m = date.getMinutes()) {
+        if (m < 10) {
+            x = "0" + m;
+        }
+        else {
+            x = m.toString();
+        }
+        return x;
+    }
+
+};
+
+
+Date.prototype.getNiceTime = function (separator = ":") {
+    return this.getHours() + separator + Time.getActualMinutes(this.getMinutes());
+};
+Date.prototype.getNiceDate = function (substr = false) {
+    if (substr == true) {
+        return Jours[this.getDay()] + " " + this.getDate() + " " + Mois[this.getMonth()].substring(0,3);
     }
     else {
-        x = m.toString();
+        return Jours[this.getDay()] + " " + this.getDate() + " " + Mois[this.getMonth()];
     }
-    return x;
-}
 
+};
 
 
 //Time
@@ -50,7 +69,7 @@ var Jours = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Sam
 var Mois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
 function actualizeTime() {
     date = new Date();
-    $("divTopBarTime").innerHTML = date.getHours() + ":" + TimeGetMinutes() + "<br/>" + Jours[date.getDay()] + " " + date.getDate() + " " + Mois[date.getMonth()].substring(0, 3); //.substring(0, 3)
+    $("divTopBarTime").innerHTML = date.getNiceTime() + "<br/>" + date.getNiceDate(true); //.substring(0, 3)
 
 
 }

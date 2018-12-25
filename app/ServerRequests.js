@@ -350,7 +350,10 @@ var Requests = {
         });
     },
 
-    getBookableHistory: function (bookableId, elem) {
+    getBookableHistory: function (bookableId, elem, lastDate, Size = 10) {
+
+        console.log("getbookableHistory", bookableId, "lastDate:", lastDate, "Size",Size);
+
         var filter = {
             filter: {
                 groups: [
@@ -366,11 +369,20 @@ var Requests = {
                                 }]
                             }
                         }
+                    },
+                    {
+                        conditions: [{
+                            startDate: {
+                                less: {
+                                    value: lastDate.toISOString()
+                                }
+                            }
+                        }]
                     }
                 ]
             },
             pagination: {
-                pageSize: 10,
+                pageSize: Size,
                 pageIndex: 0
             },
             sorting: [{
@@ -382,9 +394,75 @@ var Requests = {
         var variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);
 
-        Server.bookingService.getAll(variables).subscribe(result => {
-            console.log("getgetBookableHistory(): ", result);
-            actualizePopBookableHistory(result.items, elem);
+        Server.bookingService.getAll(variables).subscribe(first => {
+            console.log("getBookableHistory(): ", first);
+
+            var bookings = first.items;
+
+            if (first.items.length == 0) {
+                if (elem.getElementsByClassName("Buttons").length == 1) {
+                    elem.getElementsByClassName("Buttons")[0].parentElement.removeChild(elem.getElementsByClassName("Buttons")[0]);
+                    elem.getElementsByTagName("br")[0].parentElement.removeChild(elem.getElementsByTagName("br")[0]);
+                    var t = div(elem.getElementsByClassName("PopUpBookableHistoryContainerScroll")[0]);
+                    t.innerHTML = 'Toutes les sorties ont été chargées !';
+                    t.style.textAlign = 'center';
+                 }
+            }
+            else {
+                var end = new Date(bookings[bookings.length - 1].startDate);
+                var start = new Date(end.getFullYear(), end.getMonth(), end.getDate(), 0, 0, 0, 1);
+                end = new Date(end.getFullYear(), end.getMonth(), end.getDate(), end.getHours(), end.getMinutes(), end.getSeconds() - 1, 0);
+
+                var filter = {
+                    filter: {
+                        groups: [
+                            {
+                                joins: {
+                                    bookables: {
+                                        conditions: [{
+                                            id: {
+                                                equal: {
+                                                    value: bookableId
+                                                }
+                                            }
+                                        }]
+                                    }
+                                }
+                            },
+                            {
+                                conditions: [{
+                                    startDate: {
+                                        between: {
+                                            from: start.toISOString(),
+                                            to: end.toISOString()
+                                        }
+                                    }
+                                }]
+                            }
+                        ]
+                    },
+                    pagination: {
+                        pageSize: 100,
+                        pageIndex: 0 
+                    },
+                    sorting: [{
+                        field: "startDate",
+                        order: "DESC"
+                    }]
+                };
+
+                var variables = new Server.QueryVariablesManager();
+                variables.set('variables', filter);
+
+                Server.bookingService.getAll(variables).subscribe(addition => {
+                    console.log("getBookableHistory()_Addition: ", addition);
+
+                    var total = bookings.concat(addition.items);
+
+                    actualizePopBookableHistory(total, elem);
+                });
+
+            }
         });
     },
 
@@ -429,11 +507,11 @@ var Requests = {
         Server.bookingService.getAll(variables).subscribe(result => {
             console.log("getBookingsNbrBetween(): ", result.length + " sorties", result);
             if (result.length != 1 || writeIfOne == true) {
-             //   elem.innerHTML += " (" + result.length + ")";
                 elem.innerHTML += result.length;
+                elem.parentElement.style.opacity = 1;
             }     
             else {
-                elem.parentElement.parentElement.removeChild(elem.parentElement);
+                //elem.parentElement.style.display = "none";
             }
         });
     },

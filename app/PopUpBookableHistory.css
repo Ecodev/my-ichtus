@@ -1,10 +1,9 @@
 .PopUpBookableHistoryContainer {
-    height:800px;
-
+    height:700px;
 }
 .PopUpBookableHistoryContainerScroll {
     position:relative;
-    height:400px;
+    height:640px;
     overflow-y: auto;
 }
     .PopUpBookableHistoryContainerScroll::-webkit-scrollbar {
@@ -15,7 +14,7 @@
         border-radius: 10px;
     }
     .PopUpBookableHistoryContainerScroll::-webkit-scrollbar-thumb {
-        background: lightgray;
+        background: darkgray;
         border-radius: 10px;
     }
 .PopUpYear {
@@ -50,12 +49,14 @@
         color: gray;
     }
         .PopUpYear > div:nth-child(3) > div {
-            position: absolute;
+            position: relative;
             top: 50%;
             left: 50%;
             transform: translate(-50%,-50%);
-            margin-right: 4px;
+            padding-right: 5px;
+            padding-left: 5px;
             font-size: 13px;
+            text-align:center;
         }
 
 
@@ -91,24 +92,30 @@
         border-radius: 15px;
     }
         .PopUpMonth > div:nth-child(3) > div {
-            position:absolute;
+            position: relative;
             top: 50%;
             left: 50%;
             transform: translate(-50%,-50%);
-            margin-right: 4px;
+            padding-right: 5px;
+            padding-left: 5px;
             font-size: 20px;
+            text-align:center;
         }
 
 
 
 .PopUpDay {
     position: relative;
+    margin-bottom:35px;
 }
+    .PopUpDay > div:nth-child(1){
+        margin-bottom:4px;
+    }     
 
-    .PopUpDay > div:nth-child(1) {
+    .PopUpDay > div:nth-child(1) > div:nth-child(1) {
         display: inline-block;
         vertical-align: middle;
-        margin-left:40px;
+        margin-left: 40px;
         margin-right: 5px;
         width: 6px;
         height: 6px;
@@ -116,13 +123,13 @@
         border-radius: 3px;
     }
 
-    .PopUpDay > div:nth-child(2) {
+    .PopUpDay > div:nth-child(1) > div:nth-child(2) {
         display: inline-block;
         vertical-align: middle;
         font-size: 20px;
     }
 
-    .PopUpDay > div:nth-child(3) {
+    .PopUpDay > div:nth-child(1) > div:nth-child(3) {
         position: relative;
         display: inline-block;
         vertical-align: middle;
@@ -132,20 +139,106 @@
         border: 1px solid black;
         box-sizing: border-box;
         border-radius: 15px;
+        opacity:0;
+        transition:all 0.1s linear 0s;
     }
 
-        .PopUpDay > div:nth-child(3) > div {
-            position: absolute;
+        .PopUpDay > div:nth-child(1) > div:nth-child(3) > div {
+            position: relative;
             top: 50%;
             left: 50%;
             transform: translate(-50%,-50%);
-            margin-right: 4px;
+            padding-right: 5px;
+            padding-left: 5px;
+            text-align: center;
             font-size: 12px;
         }
 
 
 
 
-.PopUpTime {
-    margin-left:100px;
+.PopUpSortie {    
+    position:relative;
+    height:40px;
+    margin-left:70px;
+    /*background-color:red;*/
+    margin-bottom:5px;
+}
+
+    .PopUpSortie > div {
+        display:inline-block;
+        vertical-align:middle;
+    }
+
+    .PopUpSortie > div:nth-child(1){
+        color:gray;
+        width:50px;
+        /*background-color:yellow;*/
+        text-align:center;
+        transition:all 0.1s linear 0s;
+    }
+    .PopUpSortie:hover > div:nth-child(1) {
+        color: black;
+    }
+
+    .PopUpSortie > div:nth-child(2) {
+        height: 40px;
+        width: 550px;
+        background-color: rgb(235,235,235);
+        border-radius: 10px;
+        box-sizing: border-box;
+        border: 2px solid gray;
+        transition: all 0.1s linear 0s;
+    }
+    .PopUpDay:nth-child(2n) > .PopUpSortie:nth-child(2n+1) > div:nth-child(2) {
+        background-color: white;
+    }   
+    .PopUpDay:nth-child(2n+1) > .PopUpSortie:nth-child(2n) > div:nth-child(2){
+        background-color: white;
+    }
+    .PopUpSortie:hover > div:nth-child(2) {
+        background-color: lightgray !important;
+    }
+
+        .PopUpSortie > div:nth-child(2) > div {
+            display: inline-block;
+            /*background-color: wheat;*/
+            vertical-align: middle;
+            font-size:15px;
+        }
+
+        .PopUpSortie > div:nth-child(2) > div:nth-child(1) {
+            margin-left:3px;
+            background-image:url(Img/IconMan.png);
+            background-repeat:no-repeat;
+            background-size:30px;
+            background-position-y:3px;
+            height:36px;
+            width:36px;
+            background-color:transparent;
+        }
+
+        .PopUpSortie > div:nth-child(2) > div:nth-child(2) {
+            font-size:20px;
+            width: 200px;
+            /*background-color: yellow;*/
+        }
+
+        .PopUpSortie > div:nth-child(2) > div:nth-child(3) {
+            width: 100px;
+            /*background-color: green;*/
+        }
+
+        .PopUpSortie > div:nth-child(2) > div:nth-child(4) {
+            width: 200px;
+            /*background-color: yellow;*/
+        }
+
+
+.PopUpBookableHistoryContainerScroll .Buttons {
+    left: 50%;
+    transform: translate(-50%);
+    background-image:url(Img/IconEye.png);
+    width:150px;
+    top:-30px;
 }
