@@ -1,7 +1,4 @@
-﻿
-
-
-function openFinishBooking(elem,bookingId) {
+﻿function openFinishBooking(elem,bookingId) {
 
     Requests.getBookingFinishInfos(bookingId,elem);
 
@@ -18,7 +15,7 @@ function openFinishBooking(elem,bookingId) {
     container.className = "divTabCahierConfirmationContainer";
 
     container.innerHTML += '<div style=" font-size:25px; text-align:center; color:black;">Terminer votre sortie</div>';
-    container.innerHTML += '<div style="background-color:gray; height:2px; margin-bottom:15px;  margin-top:5px; border-radius:2px;"></div>';
+    grayBar(container, 5);
 
     var d = div(container);
     d.classList.add("divConfirmationTexts");
@@ -117,13 +114,3 @@ function actualizePopBookingFinish(booking,elem) {
 
 
 
-function grayBar(elem) {
-    var d = div(elem);
-    d.style.backgroundColor = "gray";
-    d.style.height = "2px";
-    d.style.marginBottom = "15px";
-    d.style.marginTop = "10px";
-    d.borderRadius = "2px";
-
-   // '<div style="background-color:gray; height:2px; margin-bottom:15px; margin-top:10px; border-radius:2px;"></div>';
-}

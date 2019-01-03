@@ -494,12 +494,12 @@
 
 #inputTabCahierActualBookingsSearch {
     position: absolute;
-    right:2.5%;
-    margin-top:-9px;
+    right: 2.5%;
+    margin-top: -9px;
     border-width: 2px;
     border-style: solid;
     border-color: black;
-    background-color: white; /*rgb(237,237,237);*/
+    background-color: rgb(245, 245, 245); 
     padding-left: 40px;
     padding-top: 0px;
     height: 34px;
@@ -540,5 +540,6 @@
     }
 
     #inputTabCahierActualBookingsSearch:hover {
-        margin-top: -5px;
+        background-color:white;
+        /*margin-top: -5px;*/
     }

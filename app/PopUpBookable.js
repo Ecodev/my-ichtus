@@ -1,4 +1,3 @@
-
 function popBookable(bookableId, i = -1) {
 
 	// alert(bookableId);
@@ -58,15 +57,17 @@ function popBookable(bookableId, i = -1) {
 
 
 // !! CHANGER PLUS DE $ QUE CLASSS
-function actualizePopBookable(bookable, elem) {
+function actualizePopBookable(bookable,bookings, elem) {
 
-	elem.getElementsByClassName('divTabCahierMaterielElementsPopUp')[0].getElementsByTagName("div")[3].innerHTML = bookable[0].description;
-	elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[0].innerHTML = bookable[0].name.shorten(420, 30);
-	elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[1].innerHTML = bookable[0].type.name + " / " + bookable[0].id;
-	elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].innerHTML = "CODE: " + bookable[0].code;
-	elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[3].innerHTML = "date: " + bookable[0].creationDate;
+	elem.getElementsByClassName('divTabCahierMaterielElementsPopUp')[0].getElementsByTagName("div")[3].innerHTML = bookable.description;
+	elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[0].innerHTML = bookable.name.shorten(420, 30);
+	elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[1].innerHTML = bookable.type.name + " / " + bookable.id;
+	elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].innerHTML = bookable.code;
+    elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[3].innerHTML = "Dernière utilisation le " + (new Date(bookings.items[0].startDate)).getNiceDate() + " par " + bookings.items[0].responsible.name;
+    elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[4].innerHTML = bookings.length + " sorties";
+    grayBar(elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0]);
 
-	elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[1].id = bookable[0].id;
+	elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[1].id = bookable.id;
 
 	elem.getElementsByClassName('Buttons')[0].addEventListener("click", function () {
 		popBookableHistory(this.parentElement.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[1].id);

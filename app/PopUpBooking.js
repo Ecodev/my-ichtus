@@ -18,7 +18,7 @@ function loadConfirmation(elem = $('divTabCahierConfirmation')) {
     container.className = "divTabCahierConfirmationContainer";
 
     container.innerHTML += '<div style=" font-size:25px; text-align:center; color:black;">Votre sortie</div>';
-    container.innerHTML += '<div style="background-color:gray; height:2px; margin-bottom:15px;  margin-top:5px; border-radius:2px;"></div>';
+    grayBar(container, 5);
 
     for (var i = 0; i < 2; i++) {
         var d = div(container);

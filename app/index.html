@@ -27,7 +27,8 @@
     <link href="CahierMaterielElements.css" rel="stylesheet" />
     <link href="CahierConfirmation.css" rel="stylesheet" />
     <link href="Statistiques.css" rel="stylesheet" />
-    <link href="PopUPBookableHistory.css" rel="stylesheet"/>
+    <link href="PopUpBookableHistory.css" rel="stylesheet" />
+    <link href="PopUpGuest.css" rel="stylesheet" />
 
     <!-- JavaScript Files -->
     <script src="Home.js"></script>
@@ -44,6 +45,7 @@
     <script src="PopUpBookable.js"></script>
     <script src="PopUpBookableHistory.js"></script>
     <script src="PopUpBooking.js"></script>
+    <script src="PopUpGuest.js"></script>
 
     <script src="ServerRequests.js"></script>
     <script type="text/javascript" src="https://my.ichtus.ch/vanilla/runtime.js"></script>
@@ -96,15 +98,15 @@
             <div style="font-size:30px; margin-bottom:5px; text-align:center;">Nouvelle sortie</div>
 
 
-            <input id="inputTabCahierSearch" title="Nouvelle sortie pour les membres d'Ichtus" spellcheck="false" type="text" placeholder="Nom, prénom..." autofocus onkeyup="Search(event)" onkeydown="SearchDown(event)" />
-            <div style="position:absolute; height:34px; top:239px; left:70%; margin-left:10px; background-image:url(Img/IconInvitesBlack.png)" class="Buttons NormalButtons" title="Non membres d'Ichtus">Invité</div>
+            <input id="inputTabCahierSearch" title="Nouvelle sortie pour les membres d'Ichtus" spellcheck="false" type="text" placeholder="Nom, prénom..." onkeyup="Search(event)" onkeydown="SearchDown(event)" />
+            <div style="position:absolute; height:34px; top:239px; left:70%; margin-left:10px; background-image:url(Img/IconInvitesBlack.png)" class="Buttons NormalButtons" title="Non membres d'Ichtus" onclick="popGuest();">Invité</div>
 
            <div id="divTabCahierSearchResult"></div>
 
             <div id="divTabCahierTables">
                 
       
-                <input id="inputTabCahierActualBookingsSearch" type="text" value="" placeholder="Rechercher" onkeyup="alert('a');" />
+                <input id="inputTabCahierActualBookingsSearch" type="text" value="" spellcheck="false" placeholder="Rechercher" onkeyup="alert('a');" />
                 <div style="position:relative; font-size:30px; width:500px">Sorties en cours</div>
        
 

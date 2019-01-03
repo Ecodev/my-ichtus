@@ -2,16 +2,16 @@ var Cahier = {
 
     // data
     personId: undefined,
-    personName: "Michel",
+    personName: "Invité",
     personSurname: "",
     personGender: "Man",
     getFullName: function (name = this.personName, surname = this.surname) { return name + " " + surname;},
 
     bookableId: undefined,
-    bookableName: "aa",
+    bookableName: "Matériel personel",
 
     nbrAccompagnants: 0,
-    destination: "",
+    destination: "Non défini",
     startComment: "",
 
 

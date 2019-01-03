@@ -20,8 +20,10 @@ function popBookableHistory(bookableId) {
     container.style.padding = "10px";
     container.classList.add("PopUpBookableHistoryContainer");
 
+
+
     container.innerHTML += '<div style=" font-size:25px; text-align:center; color:black;">Historique</div>';
-    container.innerHTML += '<div style="background-color:gray; height:2px; margin-bottom:5px;  margin-top:5px; border-radius:2px;"></div>';
+    grayBar(container, 5);
 
     var close = div(container);
     close.className = "divPopUpClose";
@@ -73,7 +75,7 @@ function actualizePopBookableHistory(bookings, elem) {
         if (newYear != currentYear) {
             var year = popUpYear(scroll, newYear);
 
-            var start = new Date(d.getFullYear(), 0, 0, 0, 0, 1);
+            var start = new Date(d.getFullYear(), 0, 1, 0, 0, 1);
             var end = new Date(d.getFullYear() + 1, 0, 1, 0, 0, 0, 1);
             Requests.getBookingsNbrBetween(start.toISOString(), end.toISOString(), bookableId, year);
         }

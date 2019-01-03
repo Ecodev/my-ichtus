@@ -112,6 +112,9 @@ function openPopUp() {
     modal.style.display = "block";
     setTimeout(function () { modal.style.opacity = 1; }, 10);
 
+    $('divScreen').classList.add("Blur");
+    $('divTopBar').classList.add("Blur");
+
     return modal;
 }
 
@@ -122,7 +125,11 @@ function closePopUp(e, elem) {
         modal.style.opacity = 0;
         setTimeout(function () { modal.style.display = 'none'; modal.innerHTML = ""; modal.parentNode.removeChild(modal); }, 100);  
         lastModals--;
-        //alert(lastModals);
+
+        if (lastModals == 0) {
+            $('divScreen').classList.remove("Blur");
+            $('divTopBar').classList.remove("Blur");
+        }
     }
 }
 
@@ -136,9 +143,9 @@ String.prototype.pixelLength = function (_fontSize = 20) {
     var length = c.offsetWidth;
     document.body.removeChild(c);
     return length;
-}
+};
 
-String.prototype.shorten = function (maxLength,_fontSize = 20) {
+String.prototype.shorten = function (maxLength, _fontSize = 20) {
     var txt = this;
     if (this == "" || (txt).pixelLength(_fontSize) <= maxLength) {
         return this;
@@ -146,5 +153,17 @@ String.prototype.shorten = function (maxLength,_fontSize = 20) {
     while ((txt + "...").pixelLength(_fontSize) > maxLength - "...".pixelLength(_fontSize) && txt.length > 0) {
         txt = txt.substr(0, txt.length - 1);
     }
-    return txt + "...";   
+    return txt + "...";
+};
+
+
+function grayBar(elem,marginTop = 10) {
+    var d = div(elem);
+    d.style.backgroundColor = "lightgray";
+    d.style.height = "2px";
+    d.style.marginBottom = "15px";
+    d.style.marginTop = marginTop + "px";
+    d.borderRadius = "2px";
+
+    // '<div style="background-color:gray; height:2px; margin-bottom:15px; margin-top:10px; border-radius:2px;"></div>';
 }

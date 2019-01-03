@@ -133,7 +133,21 @@ option {
     top: 0px;
     background-color: yellow;
     z-index: 80;
+    transition: filter 0.2s linear 0s;
+    -moz-transition: -moz-filter 0.2s linear 0s;
+    -o-transition: -o-filter 0.2s linear 0s;
+    -webkit-transition: -webkit-filter 0.2s linear 0s;
 }
+.Blur {
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -ms-filter: blur(2px);
+    -o-filter: blur(2px);
+    filter: blur(2px);
+}
+
+
+
 .divTab { /*#divScreen div[id*=Tab]    #divScreen > div  */
     position: absolute;
     left: 0px;
@@ -345,18 +359,6 @@ option {
 
 
 
-#divModal {
-    display: none; 
-    position: fixed;  /*important*/
-    z-index: 2000; 
-    /*padding-top: 20%;
-    padding-left:20%;*/
-    width: 100%; 
-    height: 100%; 
-    background-color: rgba(0,0,0,0.4);
-    opacity:0;
-    transition:all 0.1s linear 0s;
-}
 
 .divPopUpClose {
     position: absolute;
@@ -374,7 +376,6 @@ option {
     z-index: 4;
     transition: all 0.1s linear 0s;
 }
-
     .divPopUpClose:hover {
         opacity: 1;
     }
@@ -385,11 +386,11 @@ option {
     display: none;
     position: fixed; /*important*/
     z-index: 2000;
-    /*padding-top: 20%;
-    padding-left:20%;*/
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.4);
     opacity: 0;
     transition: all 0.1s linear 0s;
+
 }
+

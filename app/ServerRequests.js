@@ -186,7 +186,43 @@ var Requests = {
 
         Server.bookableService.getAll(variables).subscribe(result => {
             console.log("getBookableInfos(): ", result);
-            actualizePopBookable(result.items,elem);
+
+            var filter = {
+                filter: {
+                    groups: [
+                        {
+                            joins: {
+                                bookables: {
+                                    conditions: [{
+                                        id: {
+                                            like: {
+                                                value: bookableId
+                                            }
+                                        }
+                                    }]
+                                }
+                            }
+                        }
+                    ]
+                },
+                pagination: {
+                    pageSize: 1,
+                    pageIndex: 0
+                },
+                sorting: [{
+                    field: "startDate", //USELESS
+                    order: "DESC" //USELESS
+                }]
+            };
+
+            var variables = new Server.QueryVariablesManager();
+            variables.set('variables', filter);
+
+            Server.bookingService.getAll(variables).subscribe(bookings => {
+                console.log("getBookableInfos()_getLastBooking: ", bookings);
+
+                actualizePopBookable(result.items[0], bookings, elem);
+            });
         });
     },
 
@@ -246,7 +282,7 @@ var Requests = {
                 ]
             },
             pagination: {
-                pageSize: 20,
+                pageSize: 50,
                 pageIndex: 0
             },
             sorting: [
@@ -310,46 +346,7 @@ var Requests = {
         }
     },
 
-    // getBookingsListForBookable
-    getBookingsListForBookable: function (bookableId, elem) {
-
-        var filter = {
-            filter: {
-                groups: [
-                    {
-                        joins: {
-                            bookables: {
-                                conditions: [{
-                                    id: {
-                                        like: {
-                                            value: bookableId
-                                        }
-                                    }
-                                }]
-                            }
-                        }
-                    }
-                ]
-            },
-            pagination: {
-                pageSize: 10,
-                pageIndex: 0
-            },
-            sorting: [{
-                field: "id", //USELESS
-                order: "ASC" //USELESS
-            }]
-        };
-
-        var variables = new Server.QueryVariablesManager();
-        variables.set('variables', filter);
-
-        Server.bookingService.getAll(variables).subscribe(result => {
-            console.log("getBookingsListForBookable(): ", result);
-            actualizePopBookingsList(result.items, elem);
-        });
-    },
-
+    // getBookableHistory()
     getBookableHistory: function (bookableId, elem, lastDate, Size = 10) {
 
         console.log("getbookableHistory", bookableId, "lastDate:", lastDate, "Size",Size);
