@@ -1,7 +1,6 @@
 ﻿body {
     margin: 0px;
-    background-color: purple;
-    background-image: linear-gradient(white,gray);
+    background-color:rgb(234,234,234);
     overflow-x: hidden;
     overflow-y: scroll;
     -webkit-touch-callout: none; /* iOS Safari */
@@ -128,8 +127,11 @@ option {
 
 #divScreen {
     position: absolute;
-    width: 1500px;
-    MIN-height: 100%;
+    left:50%;
+    transform:translate(-50%,0%);
+    max-width: 1500px;
+    width:100%;
+    min-height: 100%;
     top: 0px;
     background-color: yellow;
     z-index: 80;

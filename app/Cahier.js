@@ -153,42 +153,17 @@ function chosePerson(name, surname) {
 
 
 
-function actualizeActualBookings(actualBookings,actualBookingsBookable) {
-
-        var container = div($('divTabCahierTableActualBookings'));
-
-        container.id = actualBookings.id;
-        container.classList.add("TableEntries");
-        container.classList.add("TableEntriesHover");
-
-        container.addEventListener("click", function () { popBooking(this.id);});
-
-        div(container).innerHTML = actualBookings.id;
-        div(container).innerHTML = actualBookingsBookable.code;
-        div(container).innerHTML = actualBookings.responsible.name;
-        div(container).innerHTML = actualBookings.startDate;
-
-        div(container).innerHTML = actualBookingsBookable.code;
-        div(container).innerHTML = actualBookingsBookable.name.shorten(250, 20);
-        div(container).innerHTML = actualBookings.participantCount;
-        div(container).innerHTML = actualBookings.destination.shorten(150,20);
-        div(container).innerHTML = Cahier.getStartCommentText(actualBookings.startComment).shorten(200, 20);
-}
 
 
-function actualizeActualBookings2(actualBookings, actualBookingsBookable) {
+function actualizeActualBookings(actualBookings) {
 
-    var all = document.getElementsByClassName("TableEntries");
+    var all = $('divTabCahierTableActualBookings').getElementsByClassName("TableEntries");
     for (var i = 0; i < all.length; i++) {
         if (all[i].id != "divTabCahierTableActualBookingsTopBar") {
             all[i].parentNode.removeChild(all[i]);
             i--;
         }
     }
-
-    console.log("aa", actualBookingsBookable);
-    //$('divTabCahierTableActualBookings').innerHTML = "";
-    //alert(actualBookings.length + " " + actualBookingsBookable.length);
 
     for (var i = 0; i < actualBookings.length; i++) {
         var container = div($('divTabCahierTableActualBookings'));
@@ -209,14 +184,13 @@ function actualizeActualBookings2(actualBookings, actualBookingsBookable) {
             }         
         });
 
-        div(container).innerHTML = actualBookings[i].id;
-        div(container).innerHTML = actualBookingsBookable[i].code;
+        div(container).innerHTML = (new Date(actualBookings[i].startDate)).getNiceTime();
         div(container).innerHTML = actualBookings[i].responsible.name;
-        var d = new Date(actualBookings[i].startDate);
-        div(container).innerHTML = d.getNiceTime();
+        div(container).innerHTML = actualBookings[i].id;
+        div(container).innerHTML = "?";
 
-        div(container).innerHTML = actualBookingsBookable[i].code;
-        div(container).innerHTML = actualBookingsBookable[i].name.shorten(250, 20);
+        div(container).innerHTML = "code";
+        div(container).innerHTML = "nom".shorten(250, 20);
         div(container).innerHTML = actualBookings[i].participantCount;
         div(container).innerHTML = actualBookings[i].destination.shorten(150, 20);
         div(container).innerHTML = Cahier.getStartCommentText(actualBookings[i].startComment).shorten(200, 20);
@@ -224,82 +198,76 @@ function actualizeActualBookings2(actualBookings, actualBookingsBookable) {
         var c = div(container);
         var btn = div(c);
         btn.classList.add("Buttons");
-        c.addEventListener("click", function () {
-           //openFinishBooking(openPopUp());
-        });
-
     }
+
+    sortTable($('divTabCahierTableActualBookings'));
 }
 
 
 
+function loadTableTopBars() {
 
+    var allTables = document.getElementsByClassName("BookingsTable");
 
+    for (var u = 0; u < allTables.length; u++) {
 
+        var table = allTables[u];
+        var top = table.getElementsByClassName("TableTopBar")[0];
+        var all = top.getElementsByTagName("div");
 
+        for (var i = 0; i < all.length; i = i + 2) {
+            all[i].getElementsByTagName("div")[0].style.backgroundImage = "url(Img/IconSortASC.png)";
 
+            all[i].addEventListener("click", function () {
 
+                if (this.getElementsByTagName("div")[0].style.backgroundImage == 'url("Img/IconSortDESC.png")' || !(this.classList.contains("BookingsTopBarSorted"))) {
+                    this.getElementsByTagName("div")[0].style.backgroundImage = "url(Img/IconSortASC.png)";
+                    order = 1;
+                }
+                else {
+                    this.getElementsByTagName("div")[0].style.backgroundImage = "url(Img/IconSortDESC.png)";
+                    order = -1;
 
+                }
 
+                var allButtons = this.parentElement.getElementsByTagName("div");
+                for (var k = 0; k < all.length; k = k + 2) {
+                    if (allButtons[k] != this) {
+                        allButtons[k].classList.remove("BookingsTopBarSorted");
+                        allButtons[k].getElementsByTagName("div")[0].style.backgroundImage = "url(Img/IconSortASC.png)";
+                    }
+                }
+                this.classList.add("BookingsTopBarSorted");
 
-function sort(field = 0,order = 1) {
-    var all = $('divTabCahierTableActualBookings').getElementsByClassName("TableEntries");
+               sortTable(this.parentElement.parentElement);
+            });
+        }  
+    }
+}
+
+function sortTable(table) {
+
+    var field = parseInt(table.getElementsByClassName("BookingsTopBarSorted")[0].id);
+    var order = function () {
+        if (table.getElementsByClassName("BookingsTopBarSorted")[0].getElementsByTagName("div")[0].style.backgroundImage == 'url("Img/IconSortDESC.png")') {
+            return -1;
+        }
+        else {
+            return 1;
+        }
+    };
+
+    console.log("table.id: " + table.id, "field: " + field, "order: " + order());
+
+    var all = table.getElementsByClassName("TableEntries");
     var switching = true;
     while (switching) {
         switching = false;
-        for (var i = 1; i < all.length-1; i++) {
-            if (all[i].getElementsByTagName("div")[field].innerHTML.toLowerCase() > all[i + 1].getElementsByTagName("div")[field].innerHTML.toLowerCase() && order == 1 || all[i].getElementsByTagName("div")[field].innerHTML.toLowerCase() < all[i + 1].getElementsByTagName("div")[field].innerHTML.toLowerCase() && order == -1) {
+        for (var i = 1; i < all.length - 1; i++) {
+            if (all[i].getElementsByTagName("div")[field].innerHTML.toLowerCase() > all[i + 1].getElementsByTagName("div")[field].innerHTML.toLowerCase() && order() == 1 || all[i].getElementsByTagName("div")[field].innerHTML.toLowerCase() < all[i + 1].getElementsByTagName("div")[field].innerHTML.toLowerCase() && order() == -1) {
                 all[i].parentElement.insertBefore(all[i + 1], all[i]);
                 switching = true;
             }
         }
     }
-}
-
-
-
-
-
-
-
-
-
-function loadTableTopBars(top = $('divTabCahierTableActualBookingsTopBar')) {
-
-    var all = top.getElementsByTagName("div");
-
-    for (var i = 0; i < all.length; i = i + 2) {
-        all[i].getElementsByTagName("div")[0].style.backgroundImage = "url(Img/IconSortASC.png)";
-        all[i].addEventListener("click", function () {
-
-            if (this.getElementsByTagName("div")[0].style.backgroundImage == 'url("Img/IconSortDESC.png")' || !(this.classList.contains("BookingsTopBarSorted"))) {
-                this.getElementsByTagName("div")[0].style.backgroundImage = "url(Img/IconSortASC.png)";
-                order = 1;
-            }
-            else {
-                this.getElementsByTagName("div")[0].style.backgroundImage = "url(Img/IconSortDESC.png)";
-                order = -1;
-
-            }
-
-            // alert(this.getElementsByTagName("div")[0].style.backgroundImage);
-
-            for (var i = 0; i < all.length; i = i + 2) {
-                if (all[i] != this) {
-                    all[i].classList.remove("BookingsTopBarSorted");
-                    all[i].getElementsByTagName("div")[0].style.backgroundImage = "url(Img/IconSortASC.png)";
-                }
-            }
-            this.classList.add("BookingsTopBarSorted");
-
-
-            // FAUDRA FAIRE UN SORT GENERAL POUR N'IMPORTE QUEL TABLE
-            if (top == $('divTabCahierTableActualBookingsTopBar')) {
-                sort(parseInt(this.id), order);
-            }
-
-           
-        });
-    }
-    
 }

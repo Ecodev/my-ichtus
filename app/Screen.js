@@ -31,51 +31,6 @@ function AdjustScreen(w, h) {
         widthToDisplay = widthScreen;
         SmallerThan1500px = true;
     }
-
-    //widthToDisplay = 400;
-
-    _divLeftBar.width = widthCache + "px";
-    _divRightBar.width = widthCache + "px";
-
-    //_divScreen 
-    var _divScreen = $('divScreen').style;
-    _divScreen.width = widthToDisplay + "px";
-    _divScreen.left = widthCache + "px";
-
-    if (SmallerThan1500px == true) {
-        SpaceLeft = 160;
-        $("imgTopBarIchtusText").style.visibility = "hidden";
-
-        $("divTopBarTime").style.visibility = "visible";
-        $("divTopBarWind").style.visibility = "visible";
-        $("imgTopBarIchtusLogo").style.visibility = "visible";
-        if ((widthScreen - 2 * SpaceLeft) / 3 < 200) {
-            SpaceLeft = 0;
-            $("divTopBarTime").style.visibility = "hidden";
-            $("divTopBarWind").style.visibility = "hidden";
-            $("imgTopBarIchtusLogo").style.visibility = "hidden";
-        }
-    }
-    else {
-        SpaceLeft = 400;
-        $("imgTopBarIchtusText").style.visibility = "visible";
-        $("divTopBarTime").style.visibility = "visible";
-        $("divTopBarWind").style.visibility = "visible";
-        $("imgTopBarIchtusLogo").style.visibility = "visible";
-
-    }
-
-    var d = (widthScreen - 2 * SpaceLeft) / 3;
-
-    $("divTopBarButtonMateriel").style.marginLeft = (-100 - d) + "px";
-    $("divTopBarButtonCahier").style.marginLeft = (-100 + 0) + "px";
-    $("divTopBarButtonStatistiques").style.marginLeft = (-100 + d) + "px";
-
-    $("divTopBarButtonsBar").style.width = d + "px";
-    $("divTopBarButtonsBar").style.marginLeft = -(widthScreen - 2 * SpaceLeft) / 3 * (-OldElement.position + 0.5) + "px";
-
-    $("divTopBarTopText").style.marginLeft = -3 / 2 * d + "px";
-    $("divTopBarTopText").style.width = 3 * d + "px";
 }
 
 
@@ -83,19 +38,19 @@ function AdjustScreen(w, h) {
 window.onscroll = function () { AdjustTopBar(); };
 function AdjustTopBar() {
     if (document.documentElement.scrollTop >= 60) { //Small
-        $("divTopBar").style.height = "60px";
-        $("imgTopBarIchtusLogo").style.width = "50px";
-        $("imgTopBarIchtusText").style.height = "50px";
-        $("imgTopBarIchtusText").style.left = "60px";
-        $("divTopBarTime").style.fontSize = "13px";
-        $("divTopBarWind").style.opacity = 0;
+       // $("divTopBar").style.height = "60px";
+      //  $("imgTopBarIchtusLogo").style.width = "50px";
+     //   $("imgTopBarIchtusText").style.height = "50px";
+     //   $("imgTopBarIchtusText").style.left = "60px";
+    //    $("divTopBarTime").style.fontSize = "13px";
+    //    $("divTopBarWind").style.opacity = 0;
     } else { //Big
-        $("divTopBar").style.height = "120px";
-        $("imgTopBarIchtusLogo").style.width = "110px";
-        $("imgTopBarIchtusText").style.height = "110px";
-        $("imgTopBarIchtusText").style.left = "120px";
-        $("divTopBarTime").style.fontSize = "18px";
-        $("divTopBarWind").style.opacity = 1;
+     //   $("divTopBar").style.height = "120px";
+     //   $("imgTopBarIchtusLogo").style.width = "110px";
+     //   $("imgTopBarIchtusText").style.height = "110px";
+     //   $("imgTopBarIchtusText").style.left = "120px";
+      //  $("divTopBarTime").style.fontSize = "18px";
+      //  $("divTopBarWind").style.opacity = 1;
     }
 }
 
@@ -141,7 +96,7 @@ function changeTab(newElement, sign) {
             stillMoving = false;
             currentTabElement.style.top = "-30000px";
             currentTabElement = newElement;
-            $("divTopBarTopText").innerHTML = NewElement.id + "  " + NewElement.order + "   " + stillMoving + " topbar:" + NewElement.TopBar;
+            //$("divTopBarTopText").innerHTML = NewElement.id + "  " + NewElement.order + "   " + stillMoving + " topbar:" + NewElement.TopBar;
         }, 50);
 
     }, changeTime * 1000);
@@ -163,7 +118,7 @@ tabs.push({ id: "divTabStatistiques", order: 1, progress: 0, position: 1, TopBar
 tabs.push({ id: "divTabCahierMaterielOptions", order: 10, progress: 1, position: 0, TopBar: true, Enter: function () { }, Remove: function () { } });
 tabs.push({ id: "divTabCahierMaterielCode", order: 11, progress: 1, position: 0, TopBar: true, Enter: function () { }, Remove: function () { } });
 tabs.push({ id: "divTabCahierMaterielCategories", order: 12, progress: 1, position: 0, TopBar: true, Enter: function () { }, Remove: function () { } });
-tabs.push({ id: "divTabCahierMaterielElements", order: 13, progress: 1, position: 0, TopBar: true, Enter: function () { $('divTabCahierCancelButton').style.top = "135px"; MaterielElementsFirstLoad = true; Requests.getBookablesList(); $('inputTabCahierMaterielElementsInputSearch').focus(); }, Remove: function () { $('divTabCahierCancelButton').style.top = "170px"; } });
+tabs.push({ id: "divTabCahierMaterielElements", order: 13, progress: 1, position: 0, TopBar: true, Enter: function () { $('divTabCahierCancelButton').style.top = "135px"; MaterielElementsFirstLoad = true; Requests.getBookablesList(); $('inputTabCahierMaterielElementsInputSearch').focus(); }, Remove: function () { $('divTabCahierCancelButton').style.top = "160px"; } });
 tabs.push({ id: "divTabCahierInfos", order: 14, progress: 2, position: 0, TopBar: true, Enter: function () { $("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0].focus(); writeNbrInvites($("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0]); }, Remove: function () { } });
 tabs.push({ id: "divTabCahierConfirmation", order: 15, progress: 3, position: 0, TopBar: true, Enter: function () { Cahier.actualizeConfirmation(); }, Remove: function () { } });
 

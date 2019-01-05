@@ -20,7 +20,7 @@ function load() {
     actualizeTime();
     setInterval(actualizeTime, 5000);  //5 secondes
     loadButtons();
-    $("divTopBarTopText").innerHTML = currentTabElement.id + "bonsoir";
+ //   $("divTopBarTopText").innerHTML = currentTabElement.id + "bonsoir";
     createProgressBar();
     createAllPropositions();
     loadMateriel();

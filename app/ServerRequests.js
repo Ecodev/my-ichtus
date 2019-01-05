@@ -238,7 +238,7 @@ var Requests = {
 
     },
 
-
+    // getActualBookingList()
     getActualBookingList: function () {
 
         bookingsResult = [];
@@ -248,12 +248,26 @@ var Requests = {
                 groups: [                   
                     {
                         groupLogic:"AND",
+
                         conditions: [{
                                 status: {
                                     equal: {
                                         value: "booked"
                                     }
-                                }
+                                },
+
+                            // custom: {
+                          //  search: {
+                          //      value: "%1%"
+                          //  }
+                       // }  ,
+
+                                id: {
+                                    like: {
+                                        value: "%" + $('inputTabCahierActualBookingsSearch').value + "%"
+                                    }
+                                }                             
+
                             },
                             {
                                 endDate: {
@@ -298,53 +312,55 @@ var Requests = {
 
         Server.bookingService.getAll(variables).subscribe(result => {
             console.log("getActualBookingList(): ", result);
-            this.showBooking(0, result.items);
+            actualizeActualBookings(result.items);
         });
 
     },
 
-    showBooking: function (i, bookings) {
 
-        if (bookings[i].bookables == undefined) {
-            actualizeActualBookings(bookings[i], { name: "", id: "", code: "---" });
-            if (i < bookings.length - 1) {
-                bookingsResult.push({ name: "--", id: "--", code: "--" });
-                i++;
-                this.showBooking(i, bookings);
-            }
-        }
-        else {
-            var filter = {
-                filter: {
-                    groups: [
-                        { conditions: [{ id: { like: { value: bookings[i].bookables[0].id } } }] }
-                    ]
-                },
-                pagination: {
-                    pageSize: 1,
-                    pageIndex: 0
-                }
-            };
 
-            var variables = new Server.QueryVariablesManager();
-            variables.set('variables', filter);
+    //showBooking: function (i, bookings) {
 
-            Server.bookableService.getAll(variables).subscribe(resultBookable => {
-                console.log("getBookingList_getBookableInfos(): " + i, resultBookable.items);
+    //    if (bookings[i].bookables == undefined) {
+    //        actualizeActualBookings(bookings[i], { name: "", id: "", code: "---" });
+    //        if (i < bookings.length - 1) {
+    //            bookingsResult.push({ name: "--", id: "--", code: "--" });
+    //            i++;
+    //            this.showBooking(i, bookings);
+    //        }
+    //    }
+    //    else {
+    //        var filter = {
+    //            filter: {
+    //                groups: [
+    //                    { conditions: [{ id: { like: { value: bookings[i].bookables[0].id } } }] }
+    //                ]
+    //            },
+    //            pagination: {
+    //                pageSize: 1,
+    //                pageIndex: 0
+    //            }
+    //        };
 
-                //actualizeActualBookings(bookings[i], resultBookable.items[0]);
-                bookingsResult.push(resultBookable.items[0]);
+    //        var variables = new Server.QueryVariablesManager();
+    //        variables.set('variables', filter);
 
-                if (i < bookings.length - 1) {
-                    i++;
-                    this.showBooking(i, bookings);
-                }
-                else {
-                    actualizeActualBookings2(bookings, bookingsResult);
-                }
-            });
-        }
-    },
+    //        Server.bookableService.getAll(variables).subscribe(resultBookable => {
+    //            console.log("getBookingList_getBookableInfos(): " + i, resultBookable.items);
+
+    //            //actualizeActualBookings(bookings[i], resultBookable.items[0]);
+    //            bookingsResult.push(resultBookable.items[0]);
+
+    //            if (i < bookings.length - 1) {
+    //                i++;
+    //                this.showBooking(i, bookings);
+    //            }
+    //            else {
+    //                actualizeActualBookings2(bookings, bookingsResult);
+    //            }
+    //        });
+    //    }
+    //},
 
     // getBookableHistory()
     getBookableHistory: function (bookableId, elem, lastDate, Size = 10) {
@@ -580,7 +596,7 @@ var Requests = {
         // Get all items
         Server.bookingService.create({
 
-            participantCount: Cahier.nbrAccompagnants,
+            participantCount: Cahier.nbrAccompagnants + 1,
             destination: Cahier.destination,
             startComment: Cahier.startComment,
             responsible: {id:Cahier.personId,name:Cahier.personName}

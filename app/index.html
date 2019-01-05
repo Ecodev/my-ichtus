@@ -59,20 +59,19 @@
 
     <!-- Top Bar -->
     <div id="divTopBar">
-        <img id="imgTopBarIchtusLogo" src="Img/IchtusLogo.png" onclick="alert('')" />
-        <img id="imgTopBarIchtusText" src="Img/IchtusText.jpg" />
 
+        <div id="divTopBarLogo" onclick="newTab('divTabCahier')";>
+            <img src="Img/svg/6.svg" alt="?" />
+            <img src="Img/svg/3.svg" alt="?" />
+        </div>
 
-        <div id="divTopBarButtonMateriel" class="divTopBarButtons"><div></div><div>Matériel</div><div></div></div>
-        <div id="divTopBarButtonCahier" class="divTopBarButtons"><div></div><div>Cahier</div><div></div></div>
-        <div id="divTopBarButtonStatistiques" class="divTopBarButtons"><div></div><div>Statistiques</div><div></div></div>
+        <div id="divTopBarText">Cahier de sortie</div>
+       <!-- <img id="imgTopBarIchtusLogo" src="Img/svg/1.svg" onclick="alert('')" />-->
 
         <div id="divTopBarButtonsBar"></div>
 
-        <div id="divTopBarTopText"></div>
 
-        <div id="divTopBarWind" onclick="Requests.login($('inputTabCahierSearch').value)"></div>
-        <div id="divTopBarTime" onclick="sort();"></div>
+        <div id="divTopBarTime" onclick="Requests.login($('inputTabCahierSearch').value)""></div>
     </div>
 
     <!-- Left Bar & Right Bar -->
@@ -94,52 +93,87 @@
         <!--Div Tab Cahier-->
         <div id="divTabCahier" class="divTab">
 
-            <div style="margin-top:200px; position:relative;"></div>
+            <div style="margin-top:150px; position:relative;"></div>
             <div style="font-size:30px; margin-bottom:5px; text-align:center;">Nouvelle sortie</div>
 
 
             <input id="inputTabCahierSearch" title="Nouvelle sortie pour les membres d'Ichtus" spellcheck="false" type="text" placeholder="Nom, prénom..." onkeyup="Search(event)" onkeydown="SearchDown(event)" />
-            <div style="position:absolute; height:34px; top:239px; left:70%; margin-left:10px; background-image:url(Img/IconInvitesBlack.png)" class="Buttons NormalButtons" title="Non membres d'Ichtus" onclick="popGuest();">Invité</div>
+            <div style="position:absolute; height:34px; top:189px; left:70%; margin-left:10px; background-image:url(Img/IconInvitesBlack.png)" class="Buttons NormalButtons" title="Non membres d'Ichtus" onclick="popGuest();">Invité</div>
 
            <div id="divTabCahierSearchResult"></div>
 
-            <div id="divTabCahierTables">
-                
-      
-                <input id="inputTabCahierActualBookingsSearch" type="text" value="" spellcheck="false" placeholder="Rechercher" onkeyup="alert('a');" />
-                <div style="position:relative; font-size:30px; width:500px">Sorties en cours</div>
-       
+           <div id="divTabCahierTables">
 
-                <div id="divTabCahierTableActualBookings">
 
-                    <div id="divTabCahierTableActualBookingsTopBar" class="TableEntries TableTopBar">
+               <input id="inputTabCahierActualBookingsSearch" type="text" value="" spellcheck="false" placeholder="Rechercher" onkeyup="Requests.getActualBookingList();" />
+               <div style="position:relative; font-size:30px; width:500px">Sorties en cours</div>
 
-                        <div class="BookingsTopBarSorted" id="0">
-                            ID<div></div>
-                        </div><div id="1">
-                            Logo<div></div>
-                        </div><div id="2">
-                            Responsable<div></div>
-                        </div><div id="3">
-                            Départ<div></div>
-                        </div><div id="4">
-                            Catégorie<div></div>
-                        </div><div id="5">
-                            Embarcation<div></div>
-                        </div><div id="6">
-                            Nbr d'acc.<div></div>
-                        </div><div id="7">
-                            Destination<div></div>
-                        </div><div id="8">
-                            Commentaire<div></div>
-                        </div><div id="9">
-                            <div></div>
-                        </div>
 
-                    </div>
-                    <div style="position:absolute; width:100%; background-color:gray; height:2px; margin-bottom:0px; margin-top:0px; border-radius:2px;z-index:2;"></div>
-                </div>
-            </div>
+               <div id="divTabCahierTableActualBookings" class="BookingsTable">
+
+                   <div id="divTabCahierTableActualBookingsTopBar" class="TableEntries TableTopBar">
+
+                       <div class="BookingsTopBarSorted" id="0">
+                           Dép.<div></div>
+                       </div><div id="1">
+                           Responsable<div></div>
+                       </div><div id="2">
+                           Nbr de part.<div></div>
+                       </div><div id="3">
+                           Départ<div></div>
+                       </div><div id="4">
+                           Catégorie<div></div>
+                       </div><div id="5">
+                           Embarcation<div></div>
+                       </div><div id="6">
+                           Nbr de part.<div></div>
+                       </div><div id="7">
+                           Destination<div></div>
+                       </div><div id="8">
+                           Commentaire<div></div>
+                       </div><div id="9">
+                           <div></div>
+                       </div>
+
+                   </div>
+                   <div style="position:absolute; width:100%; background-color:gray; height:2px; margin-bottom:0px; margin-top:0px; border-radius:2px;z-index:2;"></div>
+               </div>
+
+               <div style="margin-top:50px"></div>
+               <input id="inputTabCahierFinishedBookingsSearch" type="text" value="" spellcheck="false" placeholder="Rechercher" onkeyup="alert('a');" />
+               <div style="position:relative; font-size:30px; width:500px">Sorties terminées</div>
+
+               <div id="divTabCahierTableFinishedBookings" class="BookingsTable">
+
+                   <div id="divTabCahierTableFinishedBookingsTopBar" class="TableEntries TableTopBar">
+
+                       <div class="BookingsTopBarSorted" id="0">
+                           ID<div></div>
+                       </div><div id="1">
+                           Logo<div></div>
+                       </div><div id="2">
+                           Responsable<div></div>
+                       </div><div id="3">
+                           Départ<div></div>
+                       </div><div id="4">
+                           Catégorie<div></div>
+                       </div><div id="5">
+                           Embarcation<div></div>
+                       </div><div id="6">
+                           Nbr de part.<div></div>
+                       </div><div id="7">
+                           Destination<div></div>
+                       </div><div id="8">
+                           Commentaire<div></div>
+                       </div><div id="9">
+                           <div></div>
+                       </div>
+
+                   </div>
+                   <div style="position:absolute; width:100%; background-color:gray; height:2px; margin-bottom:0px; margin-top:0px; border-radius:2px;z-index:2;"></div>
+               </div>
+
+           </div>
 
         </div>
 
@@ -157,7 +191,7 @@
 
         <!-- Div Tab CahierMaterielOptions -->
         <div id="divTabCahierMaterielOptions" class="divTab">
-            <div style="margin-top:300px; position:relative;"></div>
+            <div style="margin-top:215px; position:relative;"></div>
             <br />
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahier')"></div>
             <br />
@@ -183,7 +217,7 @@
 
         <!--Div Tab CahierMaterielCode-->
         <div id="divTabCahierMaterielCode" class="divTab">
-            <div style="margin-top:300px; position:relative;"></div>
+            <div style="margin-top:215px; position:relative;"></div>
             <br />
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')"></div>
             <br />
@@ -202,7 +236,7 @@
 
         <!-- Div Tab CahierMaterielCategories -->
         <div id="divTabCahierMaterielCategories" class="divTab">
-            <div style="margin-top:300px; position:relative;"></div>
+            <div style="margin-top:215px; position:relative;"></div>
             <br />
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahier')"></div>
             <br />
@@ -214,7 +248,7 @@
 
         <!-- Div Tab CahierMaterielElements-->
         <div id="divTabCahierMaterielElements" class="divTab">
-            <div style="margin-top:300px; position:relative;"></div>
+            <div style="margin-top:215px; position:relative;"></div>
 
             <br />
 
@@ -266,7 +300,7 @@
 
         <!--Div Tab CahierInfos-->
         <div id="divTabCahierInfos" class="divTab">
-            <div style="margin-top:300px; position:relative;"></div>
+            <div style="margin-top:215px; position:relative;"></div>
             <br />
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielElements')"></div>
             <br />
@@ -335,7 +369,7 @@
 
         <!--Div Tab CahierConfirmation-->
         <div id="divTabCahierConfirmation" class="divTab">
-            <div style="margin-top:300px; position:relative;"></div>
+            <div style="margin-top:215px; position:relative;"></div>
             <br />
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierInfos')"></div>
 
