@@ -1,21 +1,21 @@
 var Cahier = {
 
     // data
-    personId: undefined,
-    personName: "?",
-    personSurname: "?",
+    personId: "",
+    personName: "Invité",
+    personSurname: "Michel le bg",
     personGender: "Man",
     getFullName: function (name = this.personName, surname = this.personSurname) { return name + " " + surname;},
 
-    bookableId: undefined,
+    bookableId: "", //important
     bookableName: "Matériel personel",
 
-    nbrAccompagnants: 0,
+    nbrParticipants: 1,
     destination: "Non défini",
     startComment: "",
 
 
-    getNbrAccompagnantsText: function (nbr = Cahier.nbrAccompagnants,txt = " Accompagnant") {
+    getnbrParticipantsText: function (nbr = Cahier.nbrParticipants,txt = " Participant") {
         if (nbr == 0) {
             return "Aucun";
         }
@@ -31,9 +31,9 @@ var Cahier = {
 
         var result = "";
 
-        if (Cahier.personName == "Invité") {
-            result += "[" + Cahier.personSurname + "] ";
-        }
+        //if (Cahier.personName == "Invité") {
+        //    result += "[" + Cahier.personSurname + "] ";
+        //}
 
         if (txt.length < 1 || txt == undefined || txt == null || txt == "") {
             return result + "Pas de commentaire";
@@ -83,7 +83,7 @@ var Cahier = {
         Cahier.bookableId = undefined;
         Cahier.bookableName = "";
 
-        Cahier.nbrAccompagnants = 0;
+        Cahier.nbrParticipants = 0;
         Cahier.destination = "";
         Cahier.startComment = "";
 
@@ -108,7 +108,7 @@ var Cahier = {
                         allDivTabCahierProgressTexts[i].innerHTML = Cahier.bookableName;
                         break;
                     case 2:
-                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.destination + ", " + Cahier.nbrAccompagnants + " Acc."
+                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.destination + ", " + Cahier.nbrParticipants + " Acc."
                         break;
                     default:
                         break;
@@ -140,11 +140,20 @@ var Cahier = {
         $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = Cahier.bookableName;
         $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = Cahier.bookableId;
 
-        allDivTexts[4].innerHTML = Cahier.getNbrAccompagnantsText();
+        if (Cahier.bookableId == "") {
+            $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].style.backgroundImage = "url('Img/IconSup.png')";
+        }
+     
+        allDivTexts[4].innerHTML = Cahier.getnbrParticipantsText();
         allDivIcons[4].style.backgroundImage = "url(Img/IconInvitesTransparent.png)";
         allDivTexts[5].innerHTML = Cahier.destination;
         allDivIcons[5].style.backgroundImage = "url(Img/IconDestinationBlack.png)";
+
         allDivTexts[6].innerHTML = Cahier.getStartCommentText();
+        if (Cahier.personId == "") {
+            allDivTexts[6].innerHTML = "[" + Cahier.personSurname + "] " + Cahier.getStartCommentText();
+        }
+        
     }
 
     // 

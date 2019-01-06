@@ -115,7 +115,7 @@ function actualizePopBooking(booking, container = $('divTabCahierConfirmationCon
     container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = booking.bookables[0].name;
     container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = booking.bookables[0].code;
 
-    allDivTexts[4].innerHTML = Cahier.getNbrAccompagnantsText(booking.participantCount, " Participant");
+    allDivTexts[4].innerHTML = Cahier.getnbrParticipantsText(booking.participantCount, " Participant");
     allDivIcons[4].style.backgroundImage = "url(Img/IconInvitesTransparent.png)";
     allDivTexts[5].innerHTML = booking.destination;
     allDivIcons[5].style.backgroundImage = "url(Img/IconDestinationBlack.png)";

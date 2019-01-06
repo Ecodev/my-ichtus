@@ -239,9 +239,7 @@ var Requests = {
     },
 
     // getActualBookingList()
-    getActualBookingList: function () {
-
-        bookingsResult = [];
+    getActualBookingList: function (first = false) {
 
         var filter = {
             filter: {
@@ -312,21 +310,21 @@ var Requests = {
 
         Server.bookingService.getAll(variables).subscribe(result => {
             console.log("getActualBookingList(): ", result);
-            actualizeActualBookings(result.items);
+            actualizeActualBookings(result.items,first);
         });
 
     },
 
-    // getActualBookingList()
-    getFinishedBookingList: function () {
-
-        bookingsResult = [];
-
-
-        var d = new Date();
+    // getFinishedBookingListForDay()
+    getFinishedBookingListForDay: function (d = new Date(),table = "?", title,first = false) {
 
         var start = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
         var end = new Date(d.getFullYear(), d.getMonth(), d.getDate()+1, 0, 0, 0, 0);
+
+        var txt = "%";
+        if (table != "?") {
+            txt = "%" + table.previousElementSibling.previousElementSibling.value + "%";
+        }
 
         var filter = {
             filter: {
@@ -349,7 +347,7 @@ var Requests = {
 
                             id: {
                                 like: {
-                                    value: "%" + $('inputTabCahierFinishedBookingsSearch').value + "%"
+                                    value: txt
                                 }
                             },
 
@@ -403,56 +401,24 @@ var Requests = {
         variables.set('variables', filter);
 
         Server.bookingService.getAll(variables).subscribe(result => {
-            console.log("getFinishedBookingList(): ", result);
-            actualizeFinishedBookings(result.items);
-        });
+            console.log("getFinishedBookingListForDay(): ", result);
 
+            if (first == true) {
+                if (result.length == 0) {
+                    createNoBookingMessage(d);
+                }
+                else {
+                    table = createBookingsTable(d, title + " (" + result.length+")");
+                    actualizeFinishedBookingListForDay(result.items, table);
+                }
+            }
+            else { // first == false
+                 actualizeFinishedBookingListForDay(result.items, table); 
+            }                   
+        });
     },
 
-
-
-    //showBooking: function (i, bookings) {
-
-    //    if (bookings[i].bookables == undefined) {
-    //        actualizeActualBookings(bookings[i], { name: "", id: "", code: "---" });
-    //        if (i < bookings.length - 1) {
-    //            bookingsResult.push({ name: "--", id: "--", code: "--" });
-    //            i++;
-    //            this.showBooking(i, bookings);
-    //        }
-    //    }
-    //    else {
-    //        var filter = {
-    //            filter: {
-    //                groups: [
-    //                    { conditions: [{ id: { like: { value: bookings[i].bookables[0].id } } }] }
-    //                ]
-    //            },
-    //            pagination: {
-    //                pageSize: 1,
-    //                pageIndex: 0
-    //            }
-    //        };
-
-    //        var variables = new Server.QueryVariablesManager();
-    //        variables.set('variables', filter);
-
-    //        Server.bookableService.getAll(variables).subscribe(resultBookable => {
-    //            console.log("getBookingList_getBookableInfos(): " + i, resultBookable.items);
-
-    //            //actualizeActualBookings(bookings[i], resultBookable.items[0]);
-    //            bookingsResult.push(resultBookable.items[0]);
-
-    //            if (i < bookings.length - 1) {
-    //                i++;
-    //                this.showBooking(i, bookings);
-    //            }
-    //            else {
-    //                actualizeActualBookings2(bookings, bookingsResult);
-    //            }
-    //        });
-    //    }
-    //},
+    
 
     // getBookableHistory()
     getBookableHistory: function (bookableId, elem, lastDate, Size = 10) {
@@ -685,51 +651,43 @@ var Requests = {
     // createBooking
     createBooking: function () {
 
-        Server.bookingService.create({
-
-            participantCount: Cahier.nbrAccompagnants + 1,
+        var input = {
+            responsible: { id: Cahier.personId },
+            participantCount: Cahier.nbrParticipants + 0,
             destination: Cahier.destination,
             startComment: Cahier.startComment
 
-        }).subscribe(booking => {
+        };
+
+        if (Cahier.personId == "") {
+            input = {
+                participantCount: Cahier.nbrParticipants + 0,
+                destination: Cahier.destination,
+                startComment: "[" + Cahier.personSurname + "] " + Cahier.startComment
+            };
+        }
+
+
+        Server.bookingService.create(input).subscribe(booking => {
 
             console.log('Created booking : ', booking);
 
             // LINK BOOKABLE
-            Server.linkMutation.link(booking, {
-                id: Cahier.bookableId,
-                __typename: 'Bookable'
-            }).subscribe(() => {
-                console.log('Linked Bookable : ', booking);   
-
-                if (Cahier.personName != "Invité") {
-                    Server.bookingService.update({
-                        id: booking.id,
-
-                        responsible: {
-                            id: Cahier.personId
-                        }
-
-                    }).subscribe(result => {
-                        console.log("updated", result);
-                        Requests.getActualBookingList();
-                    });
-                }
-                else {
-                     console.log("Invité");
+            if (Cahier.bookableId != "") {
+                Server.linkMutation.link(booking, {
+                    id: Cahier.bookableId,
+                    __typename: 'Bookable'
+                }).subscribe(() => {
+                    console.log('Linked Bookable : ', booking);
                     Requests.getActualBookingList();
-                }
-                
+                });
+            }
+            else {
+                console.log("Matériel Personel");
+                Requests.getActualBookingList();
+            }
+      
 
-            });
-
-            // LINK RESPONSIBLE
-            //      Server.linkMutation.link(booking, {
-            //     id: Cahier.personId,
-            //        __typename: 'Responsible'
-            //    }).subscribe(() => {
-            //        console.log('Linked Responsible : ', booking);
-            //     });
 
             });
 

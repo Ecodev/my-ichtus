@@ -81,11 +81,12 @@
 }
 
 
-#divTopBarLogo{
-    position:absolute;
-    background-color:transparent;
-    width:65px;
-    height:65px;
+#divTopBarLogo {
+    position: absolute;
+    background-color: transparent;
+    width: 65px;
+    height: 65px;
+    animation: EnterFromLeft 0.5s ease-out 1 normal;
 }
     #divTopBarLogo > img {
         position:absolute;
@@ -107,11 +108,137 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    font-size:30px;
+    font-size: 30px;
+    animation: EnterFromTop 0.5s ease-out 1 normal;
 }
 
 /*#endregion*/
 
+.svg {
+    position: fixed;
+    z-index: 9999;
+
+    background-size: 100%;
+    background-repeat: no-repeat;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.svgWidth {
+    width: 100vw;
+    height: 100vw;
+}
+.svgHeight {
+    width: 100vh;
+    height: 100vh;
+}
+
+@keyframes AniFish {
+    from {
+        transform: translate(5%,-100%);
+    }
+
+    to {
+        transform: translate(-50%,-50%);
+    }
+}
+@keyframes AniFishTurn {
+    from {
+        transform: rotate(0deg) translate(-50%,-50%);
+    }
+
+    to {
+        transform: rotate(-360deg) translate(-50%,-50%);
+    }
+}
+#fish {
+    transform-origin:0% 0%;
+    background-image: url(Img/svg/fish.svg);
+    animation-name: AniFish, AniFishTurn;
+    animation-duration: 1s, 1s;
+    animation-timing-function: ease,ease;
+    animation-delay:0s,2s;
+}
+
+@keyframes AniWaves {
+    from {
+        transform: translate(-50%,0%);
+    }
+    to {
+        transform: translate(-50%,-50%);
+    }
+}
+#waves {
+    background-image: url(Img/svg/waves.svg);
+    animation-name: AniWaves;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+    margin-right:0px;
+}
+
+@keyframes AniCircleWidth {
+    from {
+        opacity:0;
+        width:0vw;
+    }
+    to {
+        opacity:1;
+        width:100vw;
+    }
+}
+@keyframes AniCircleHeight {
+    from {
+        opacity: 0;
+        width: 0vh;
+    }
+
+    to {
+        opacity: 1;
+        width: 100vh;
+    }
+}
+#circle {
+    z-index: 9995;
+    background-image: url(Img/svg/circle.svg);
+    animation-duration: 2s;
+    animation-delay: 1s;
+    animation-timing-function: ease;
+    margin-right: 0px;
+    opacity: 0;
+}
 
 
 
+
+
+@keyframes AniBlack {
+    from  {
+        opacity:0;
+    }
+    to {
+        opacity:0.9;
+    }
+}
+#black {
+    position: fixed;
+    z-index: 9900;
+    background-color: rgb(20,20,20);
+    opacity:0.9;
+    width: 100%;
+    height: 100%;
+    animation-name: AniBlack;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+}
+
+
+.svgLetters {
+    z-index: 9999;
+    animation-name: AniWaves;
+    animation-duration: 0.3s;
+    animation-delay: 0s;
+    animation-timing-function: ease;
+    opacity: 1;
+    transform: translate(-50%,-50%);
+}

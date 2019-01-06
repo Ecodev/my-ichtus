@@ -33,6 +33,7 @@
     <!-- JavaScript Files -->
     <script src="Home.js"></script>
     <script src="Screen.js"></script>
+    <script src="Top.js"></script>
     <script src="Bottom.js"></script>
     <script src="Cahier.js"></script>
     <script src="CahierMethods.js"></script>
@@ -100,82 +101,51 @@
             <input id="inputTabCahierSearch" title="Nouvelle sortie pour les membres d'Ichtus" spellcheck="false" type="text" placeholder="Nom, prénom..." onkeyup="Search(event)" onkeydown="SearchDown(event)" />
             <div style="position:absolute; height:34px; top:189px; left:70%; margin-left:10px; background-image:url(Img/IconInvitesBlack.png)" class="Buttons NormalButtons" title="Non membres d'Ichtus" onclick="popGuest();">Invité</div>
 
-           <div id="divTabCahierSearchResult"></div>
+            <div id="divTabCahierSearchResult"></div>
 
-           <div id="divTabCahierTables">
+            <div id="divTabCahierTables">
 
+                <input id="inputTabCahierActualBookingsSearch" type="text" value="" spellcheck="false" placeholder="Rechercher" onkeyup="Requests.getActualBookingList();" style="margin-top:-10px;" />
+                <div style="position:relative; font-size:30px; width:500px">Sorties en cours</div>
 
-               <input id="inputTabCahierActualBookingsSearch" type="text" value="" spellcheck="false" placeholder="Rechercher" onkeyup="Requests.getActualBookingList();" />
-               <div style="position:relative; font-size:30px; width:500px">Sorties en cours</div>
+                <div id="divTabCahierTableActualBookings" class="BookingsTable">
+                    <div id="divTabCahierTableActualBookingsTopBar" class="TableEntries TableTopBar">
 
+                        <div class="BookingsTopBarSorted" id="0">
+                            Dép.<div></div>
+                        </div><div id="1">
+                            Responsable<div></div>
+                        </div><div id="2">
+                            Nbr de part.<div></div>
+                        </div><div id="3">
+                            Départ<div></div>
+                        </div><div id="4">
+                            Catégorie<div></div>
+                        </div><div id="5">
+                            Embarcation<div></div>
+                        </div><div id="6">
+                            Nbr de part.<div></div>
+                        </div><div id="7">
+                            Destination<div></div>
+                        </div><div id="8">
+                            Commentaire<div></div>
+                        </div><div id="9">
+                            <div></div>
+                        </div>
 
-               <div id="divTabCahierTableActualBookings" class="BookingsTable">
+                    </div>
+                    <div style="position:absolute; width:100%; background-color:gray; height:2px; z-index:2;"></div>
+                </div>
 
-                   <div id="divTabCahierTableActualBookingsTopBar" class="TableEntries TableTopBar">
+            </div>
 
-                       <div class="BookingsTopBarSorted" id="0">
-                           Dép.<div></div>
-                       </div><div id="1">
-                           Responsable<div></div>
-                       </div><div id="2">
-                           Nbr de part.<div></div>
-                       </div><div id="3">
-                           Départ<div></div>
-                       </div><div id="4">
-                           Catégorie<div></div>
-                       </div><div id="5">
-                           Embarcation<div></div>
-                       </div><div id="6">
-                           Nbr de part.<div></div>
-                       </div><div id="7">
-                           Destination<div></div>
-                       </div><div id="8">
-                           Commentaire<div></div>
-                       </div><div id="9">
-                           <div></div>
-                       </div>
-
-                   </div>
-                   <div style="position:absolute; width:100%; background-color:gray; height:2px; margin-bottom:0px; margin-top:0px; border-radius:2px;z-index:2;"></div>
-               </div>
-
-               <div style="margin-top:50px"></div>
-               <input id="inputTabCahierFinishedBookingsSearch" type="text" value="" spellcheck="false" placeholder="Rechercher" onkeyup="alert('a');" />
-               <div style="position:relative; font-size:30px; width:500px">Sorties terminées</div>
-
-               <div id="divTabCahierTableFinishedBookings" class="BookingsTable">
-
-                   <div id="divTabCahierTableFinishedBookingsTopBar" class="TableEntries TableTopBar">
-
-                       <div class="BookingsTopBarSorted" id="0">
-                           ID<div></div>
-                       </div><div id="1">
-                           Logo<div></div>
-                       </div><div id="2">
-                           Responsable<div></div>
-                       </div><div id="3">
-                           Départ<div></div>
-                       </div><div id="4">
-                           Catégorie<div></div>
-                       </div><div id="5">
-                           Embarcation<div></div>
-                       </div><div id="6">
-                           Nbr de part.<div></div>
-                       </div><div id="7">
-                           Destination<div></div>
-                       </div><div id="8">
-                           Commentaire<div></div>
-                       </div><div id="9">
-                           <div></div>
-                       </div>
-
-                   </div>
-                   <div style="position:absolute; width:100%; background-color:gray; height:2px; margin-bottom:0px; margin-top:0px; border-radius:2px;z-index:2;"></div>
-               </div>
-
-           </div>
+            <div style="text-align:center" id="divTabCahierButtonMoreBookingsContainer">
+                <div id="" class="Buttons NormalButtons" style="width:370px; color:black; background-color:white; display:inline-block; background-image:none; padding-right:0px;  text-align:center;" onclick="newBookingTable(new Date(this.id));">Charger plus de sorties</div>
+            </div>
+            <br />
 
         </div>
+
 
         <!--Div Tab Cahier Top-->
         <div id="divTabCahierTop">
@@ -308,11 +278,11 @@
             <div id="divTabCahierFieldsContainer">
 
                 <div id="divTabCahierInfosNbrInvites" class="TabCahierFields">
-                    *Nbr d'accompagnants
-                    <input type="number" min="0" max="20" spellcheck="false" placeholder="0" value="0" onkeyup="writeNbrInvites(this);" onfocusin="this.value =''; writeNbrInvites(this); focusInOrOut(this,true);" onfocusout="if (this.value == '') { this.value = '0'; writeNbrInvites(this);}focusInOrOut(this,false);" />
+                    *Nbr de participants
+                    <input type="number" min="1" max="20" spellcheck="false" placeholder="1" value="1" onkeyup="writeNbrInvites(this);" onfocusin="this.value =''; writeNbrInvites(this); focusInOrOut(this,true);" onfocusout="if (this.value == '') { this.value = '1'; writeNbrInvites(this);}focusInOrOut(this,false);" />
                     <div></div>
                     <div id="divTabCahierInfosNbrInvitesPropositions" class="PropositionsContainer">
-                        <div>Aucun</div><div> 1 </div><div> 2 </div><div> 3 </div><div> 4 </div>
+                        <div> 1 </div><div> 2 </div><div> 3 </div><div> 4 </div><div> 5 </div><div> 8 </div><div> 10 </div>
                     </div>
 
 
@@ -397,14 +367,14 @@
                     </div>
 
                     <div class="divTabCahierConfirmationEmbarcationBox">
-                        <div  onclick="popBookable(Cahier.bookableId)"><div></div></div><div class="divTabCahierConfirmationContainerTextsContainer"><div>asldkfj</div><div>asdfasdf</div></div>
+                        <div  onclick="popBookable(Cahier.bookableId)"></div><div class="divTabCahierConfirmationContainerTextsContainer"><div>asldkfj</div><div>asdfasdf</div></div>
                         <!--<div class="ReturnButtons Buttons" onclick="popBookable(Cahier.bookableId)">Infos</div>-->  <div class="ReturnButtons Buttons" onclick="newTab('divTabCahierMaterielCategories')">Modifier</div>
                     </div>
 
                     <div style="background-color:gray; height:2px; margin-bottom:15px; margin-top:10px; border-radius:2px; /*border-left:40px solid white;*/  "></div><!--<div style="height:50px; background-color:red;"></div>-->
 
                     <div class="divConfirmationTexts">
-                        <div><div></div></div><div>Nbr d'acc.</div><div></div>
+                        <div><div></div></div><div>Nbr de part.</div><div></div>
                     </div>
                     <div class="divConfirmationTexts">
                         <div><div></div></div><div>Destination</div><div></div>

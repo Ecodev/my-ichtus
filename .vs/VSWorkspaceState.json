@@ -4,8 +4,9 @@
     "\\app",
     "\\app\\Img",
     "\\app\\Img\\Categorie",
-    "\\app\\Img\\Materiel"
+    "\\app\\Img\\Materiel",
+    "\\app\\Img\\svg"
   ],
-  "SelectedNode": "\\app\\Home.js",
+  "SelectedNode": "\\app\\ServerRequests.js",
   "PreviewInSolutionExplorer": false
 }

@@ -3,7 +3,6 @@ var MaterielElementsFirstLoad = false;
 var currentBookables;
 
 
-
 function loadElements(Bookables) {
     //var i = categories.findIndex(type);
 
@@ -15,7 +14,10 @@ function loadElements(Bookables) {
 
         var container = document.createElement("div");
         container.addEventListener("click", function () {
-            alert("materiel perso...");
+            Cahier.bookableId = "";
+            Cahier.bookableName = "Matériel Personel";
+            console.log(Cahier.bookableId);
+            newTab("divTabCahierInfos");
         });
 
         $("divTabCahierMaterielElementsContainer").appendChild(container);

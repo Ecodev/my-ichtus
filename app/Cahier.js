@@ -138,7 +138,7 @@ function chosePerson(name, surname,id) {
 
 
 
-function actualizeActualBookings(actualBookings) {
+function actualizeActualBookings(actualBookings,first) {
 
     var all = $('divTabCahierTableActualBookings').getElementsByClassName("TableEntries");
     for (var i = 0; i < all.length; i++) {
@@ -148,7 +148,21 @@ function actualizeActualBookings(actualBookings) {
         }
     }
 
+    if (actualBookings.length == 0) {
+        var entry = div($('divTabCahierTableActualBookings'));
+
+        entry.classList.add("TableEntries");
+        entry.classList.add("TableEntriesHover");
+
+        var cell = div(entry);
+    }
+
+    if (first == true) {
+        $('divTabCahierTableActualBookings').previousElementSibling.innerHTML += " (" + actualBookings.length + ")";
+    }
+
     for (var i = 0; i < actualBookings.length; i++) {
+
         var container = div($('divTabCahierTableActualBookings'));
 
         container.id = actualBookings[i].id;
@@ -193,64 +207,9 @@ function actualizeActualBookings(actualBookings) {
     sortTable($('divTabCahierTableActualBookings'));
 }
 
-function actualizeFinishedBookings(finishedBookings) {
 
-    var all = $('divTabCahierTableFinishedBookings').getElementsByClassName("TableEntries");
-    for (var i = 0; i < all.length; i++) {
-        if (all[i].id != "divTabCahierTableFinishedBookingsTopBar") {
-            all[i].parentNode.removeChild(all[i]);
-            i--;
-        }
-    }
 
-    for (var i = 0; i < finishedBookings.length; i++) {
-        var container = div($('divTabCahierTableFinishedBookings'));
-
-        container.id = finishedBookings[i].id;
-        container.classList.add("TableEntries");
-        container.classList.add("TableEntriesHover");
-
-        container.addEventListener("click", function (event) {
-            if (event.target.classList.contains("Buttons")) {
-                openFinishBooking(openPopUp(), this.id);
-            }
-            else if (typeof event.target.getElementsByTagName("div")[0] == "undefined") {
-                popBooking(this.id);
-            }
-            else {
-                openFinishBooking(openPopUp(), this.id);
-            }
-        });
-
-        div(container).innerHTML = (new Date(finishedBookings[i].startDate)).getNiceTime(":", true);
-        div(container).innerHTML = (new Date(finishedBookings[i].endDate)).getNiceTime(":", true);
-
-        if (finishedBookings[i].responsible != null) {
-            div(container).innerHTML = finishedBookings[i].responsible.name;
-        }
-        else {
-            div(container).innerHTML = "Invité";
-        }
-     
-        div(container).innerHTML = finishedBookings[i].id;
-        div(container).innerHTML = "?";
-
-        div(container).innerHTML = "code";
-        div(container).innerHTML = "nom".shorten(250, 20);
-        div(container).innerHTML = finishedBookings[i].participantCount;
-        div(container).innerHTML = finishedBookings[i].destination.shorten(150, 20);
-        div(container).innerHTML = Cahier.getStartCommentText(finishedBookings[i].startComment).shorten(200, 20);
-
-        var c = div(container);
-
-    }
-
-    sortTable($('divTabCahierTableFinishedBookings'));
-}
-
-function loadTableTopBars() {
-
-    var allTables = document.getElementsByClassName("BookingsTable");
+function loadTableTopBars(allTables = document.getElementsByClassName("BookingsTable")) {
 
     for (var u = 0; u < allTables.length; u++) {
 
@@ -314,3 +273,144 @@ function sortTable(table) {
         }
     }
 }
+
+
+
+
+
+
+
+function newBookingTable(date,title = "?") {
+    if (title == "?"){title = date.getNiceDate();}
+    Requests.getFinishedBookingListForDay(date, undefined,title,true);
+
+    $('divTabCahierButtonMoreBookingsContainer').getElementsByTagName("div")[0].id = date.getPreviousDate();
+    $('divTabCahierButtonMoreBookingsContainer').getElementsByTagName("div")[0].innerHTML = "Charger les sorties du " + date.getPreviousDate().getNiceDate(true);
+}
+
+
+
+function createBookingsTable(date,title) {
+
+    var input = document.createElement("input");
+    input.type = "text";
+    input.value = "";
+    input.spellcheck = "false";
+    input.placeholder = "Rechercher";
+    input.onkeyup = function () { Requests.getFinishedBookingListForDay(date, table, false); };
+    $('divTabCahierTables').appendChild(input);
+
+    var t = div($('divTabCahierTables'));
+    t.classList.add("BookingsTableText");
+    if (title == "?") {
+        title = date.getNiceDate();
+    }
+    t.innerHTML = title;
+
+    var table = div($('divTabCahierTables'));
+    table.id = date.toISOString();
+    table.classList.add("BookingsTable");
+
+    var topBar = div(table);
+    topBar.classList.add("TableEntries");
+    topBar.classList.add("TableTopBar");
+
+    var fields = ["Dép,", "Arr.", ",", ",", ",", "a", "b", "c"];
+
+    for (var i = 0; i < fields.length; i++) {
+        var d = div(topBar);
+        d.id = i;
+        d.innerHTML = fields[i];
+        div(d);
+    }
+
+    topBar.getElementsByTagName("div")[0].classList.add("BookingsTopBarSorted");
+
+    var b = div(table);
+    b.style.position = "absolute";
+    b.style.width = "100%";
+    b.style.height = "2px";
+    b.style.backgroundColor = "gray";
+    b.style.zIndex = "2";
+
+
+    loadTableTopBars([table]);
+
+    return table;
+}
+
+function createNoBookingMessage(date) {
+    var t = div($('divTabCahierTables'));
+    t.classList.add("BookingsTableTextNoBooking");    
+    t.innerHTML = "Aucune sortie le "+ date.getNiceDate();
+}
+
+function actualizeFinishedBookingListForDay(bookings,table) {
+
+
+    var all = table.getElementsByClassName("TableEntries");
+    for (var i = 0; i < all.length; i++) {
+        if (all[i].classList.contains("TableTopBar") == false) {
+            all[i].parentNode.removeChild(all[i]);
+            i--;
+        }
+    }
+
+
+    if (bookings.length == 0) {
+        var entry = div(table);
+
+        entry.classList.add("TableEntries");
+        entry.classList.add("TableEntriesHover");
+
+        var cell = div(entry);
+    }
+    else {
+        for (var i = 0; i < bookings.length; i++) {
+
+            var entry = div(table);
+
+            entry.id = bookings[i].id;
+            entry.classList.add("TableEntries");
+            entry.classList.add("TableEntriesHover");
+
+            entry.addEventListener("click", function (event) {
+                if (event.target.classList.contains("Buttons")) { // à cause du bouton terminer
+                    openFinishBooking(openPopUp(), this.id);
+                }
+                else if (typeof event.target.getElementsByTagName("div")[0] == "undefined") {
+                    popBooking(this.id);
+                }
+                else {
+                    openFinishBooking(openPopUp(), this.id);
+                }
+            });
+
+            div(entry).innerHTML = (new Date(bookings[i].startDate)).getNiceTime(":", true);
+            div(entry).innerHTML = (new Date(bookings[i].endDate)).getNiceTime(":", true);
+
+            if (bookings[i].responsible != null) {
+                div(entry).innerHTML = bookings[i].responsible.name;
+            }
+            else {
+                div(entry).innerHTML = "Invité";
+            }
+
+            div(entry).innerHTML = bookings[i].id;
+            div(entry).innerHTML = "?";
+
+            div(entry).innerHTML = "code";
+            div(entry).innerHTML = "nom".shorten(250, 20);
+            //div(entry).innerHTML = bookings[i].participantCount;
+            //div(entry).innerHTML = bookings[i].destination.shorten(150, 20);
+            div(entry).innerHTML = Cahier.getStartCommentText(bookings[i].startComment).shorten(200, 20);
+
+        }
+
+        sortTable(table);
+    }
+}
+
+
+
+

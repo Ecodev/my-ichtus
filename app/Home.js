@@ -29,8 +29,8 @@ function load() {
     loadSpacers();
     loadTableTopBars();
     ServerInitialize();
-    Requests.getActualBookingList();
-    Requests.getFinishedBookingList();
+    Requests.getActualBookingList(true);
+    newBookingTable(new Date(),"Sorties terminées");
 }
 
 
@@ -67,6 +67,12 @@ Date.prototype.getNiceDate = function (substr = false) {
     }
 
 };
+
+Date.prototype.getPreviousDate = function () {
+    var yesterday = new Date(this);
+    yesterday.setDate(this.getDate() - 1);
+    return yesterday;
+}
 
 
 //Time
