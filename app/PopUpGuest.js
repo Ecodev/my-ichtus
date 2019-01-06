@@ -33,4 +33,14 @@ function popGuest() {
     b.classList.add("Buttons");
     b.classList.add("ValidateButtons");
     b.innerHTML = "Valider";
+    b.addEventListener("click", function () {
+        chosePerson("Invité", this.parentElement.getElementsByTagName("input")[0].value.capitalize() + " " + this.parentElement.getElementsByTagName("input")[1].value.capitalize(),""); //null undefined nan ?
+        closePopUp({ target: elem }, elem);
+    });
+}
+
+
+
+String.prototype.capitalize = function () {
+    return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
 }

@@ -3,7 +3,7 @@
 }
 .PopUpBookableHistoryContainerScroll {
     position:relative;
-    height:640px;
+    height:630px;
     overflow-y: auto;
 }
     .PopUpBookableHistoryContainerScroll::-webkit-scrollbar {

@@ -2,10 +2,10 @@ var Cahier = {
 
     // data
     personId: undefined,
-    personName: "Invité",
-    personSurname: "",
+    personName: "?",
+    personSurname: "?",
     personGender: "Man",
-    getFullName: function (name = this.personName, surname = this.surname) { return name + " " + surname;},
+    getFullName: function (name = this.personName, surname = this.personSurname) { return name + " " + surname;},
 
     bookableId: undefined,
     bookableName: "Matériel personel",
@@ -28,11 +28,18 @@ var Cahier = {
     },
 
     getStartCommentText: function (txt = Cahier.startComment) {
+
+        var result = "";
+
+        if (Cahier.personName == "Invité") {
+            result += "[" + Cahier.personSurname + "] ";
+        }
+
         if (txt.length < 1 || txt == undefined || txt == null || txt == "") {
-            return "Pas de commentaire";
+            return result + "Pas de commentaire";
         }
         else {
-            return txt;
+            return result + txt;
         }
     },
 

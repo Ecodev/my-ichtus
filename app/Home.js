@@ -30,6 +30,7 @@ function load() {
     loadTableTopBars();
     ServerInitialize();
     Requests.getActualBookingList();
+    Requests.getFinishedBookingList();
 }
 
 
@@ -49,8 +50,13 @@ var Time = {
 };
 
 
-Date.prototype.getNiceTime = function (separator = ":") {
-    return this.getHours() + separator + Time.getActualMinutes(this.getMinutes());
+Date.prototype.getNiceTime = function (separator = ":", addZero = false) {
+    if (addZero == true && this.getHours() < 10) {
+        return Time.getActualMinutes(this.getHours()) + separator + Time.getActualMinutes(this.getMinutes());
+    }
+    else {
+        return this.getHours() + separator + Time.getActualMinutes(this.getMinutes());
+    }
 };
 Date.prototype.getNiceDate = function (substr = false) {
     if (substr == true) {

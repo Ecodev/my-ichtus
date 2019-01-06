@@ -117,7 +117,14 @@ function actualizePopBookableHistory(bookings, elem) {
         div(sortie).innerHTML = d.getNiceTime();
         var c = div(sortie);
         div(c).style.backgroundImage = "url(Img/IconWoman.png)";
-        div(c).innerHTML = bookings[i].responsible.name.shorten(200, 20);
+
+        if (bookings[i].responsible != null) {
+            div(c).innerHTML = bookings[i].responsible.name.shorten(200, 20);
+        }
+        else {
+            div(c).innerHTML = "Invité";
+        }
+
         div(c).innerHTML = bookings[i].destination.shorten(100, 15);
         div(c).innerHTML = bookings[i].startComment.shorten(200, 15);
 

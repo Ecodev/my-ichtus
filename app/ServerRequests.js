@@ -317,6 +317,98 @@ var Requests = {
 
     },
 
+    // getActualBookingList()
+    getFinishedBookingList: function () {
+
+        bookingsResult = [];
+
+
+        var d = new Date();
+
+        var start = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
+        var end = new Date(d.getFullYear(), d.getMonth(), d.getDate()+1, 0, 0, 0, 0);
+
+        var filter = {
+            filter: {
+                groups: [
+                    {
+                        groupLogic: "AND",
+
+                        conditions: [{
+                            status: {
+                                equal: {
+                                    value: "booked"
+                                }
+                            },
+
+                            // custom: {
+                            //  search: {
+                            //      value: "%1%"
+                            //  }
+                            // }  ,
+
+                            id: {
+                                like: {
+                                    value: "%" + $('inputTabCahierFinishedBookingsSearch').value + "%"
+                                }
+                            },
+
+                            startDate: {
+                                between: {
+                                    from: start.toISOString(),
+                                    to: end.toISOString()
+                                }
+                            }
+
+                        },
+                        {
+                            endDate: {
+                                null: {
+                                    not: true
+                                }
+                            }
+                        }
+                        ]
+                    },
+                    {
+                        groupLogic: "AND",
+                        joins: {
+                            bookables: {
+                                conditions: [{
+                                    bookingType: {
+                                        equal: {
+                                            value: "self_approved"
+                                        }
+                                    }
+                                }]
+                            }
+                        }
+                    }
+
+                ]
+            },
+            pagination: {
+                pageSize: 50,
+                pageIndex: 0
+            },
+            sorting: [
+                {
+                    field: "id",
+                    order: "ASC"
+                }
+            ]
+        };
+
+        var variables = new Server.QueryVariablesManager();
+        variables.set('variables', filter);
+
+        Server.bookingService.getAll(variables).subscribe(result => {
+            console.log("getFinishedBookingList(): ", result);
+            actualizeFinishedBookings(result.items);
+        });
+
+    },
+
 
 
     //showBooking: function (i, bookings) {
@@ -417,7 +509,7 @@ var Requests = {
                     elem.getElementsByClassName("Buttons")[0].parentElement.removeChild(elem.getElementsByClassName("Buttons")[0]);
                     elem.getElementsByTagName("br")[0].parentElement.removeChild(elem.getElementsByTagName("br")[0]);
                     var t = div(elem.getElementsByClassName("PopUpBookableHistoryContainerScroll")[0]);
-                    t.innerHTML = 'Toutes les sorties ont été chargées !';
+                    t.innerHTML = 'Toutes les sorties ont été chargées ! <br/>';
                     t.style.textAlign = 'center';
                  }
             }
@@ -593,13 +685,11 @@ var Requests = {
     // createBooking
     createBooking: function () {
 
-        // Get all items
         Server.bookingService.create({
 
             participantCount: Cahier.nbrAccompagnants + 1,
             destination: Cahier.destination,
-            startComment: Cahier.startComment,
-            responsible: {id:Cahier.personId,name:Cahier.personName}
+            startComment: Cahier.startComment
 
         }).subscribe(booking => {
 
@@ -610,19 +700,40 @@ var Requests = {
                 id: Cahier.bookableId,
                 __typename: 'Bookable'
             }).subscribe(() => {
-                console.log('Linked Bookable : ', booking);
-                Requests.getActualBookingList();
+                console.log('Linked Bookable : ', booking);   
+
+                if (Cahier.personName != "Invité") {
+                    Server.bookingService.update({
+                        id: booking.id,
+
+                        responsible: {
+                            id: Cahier.personId
+                        }
+
+                    }).subscribe(result => {
+                        console.log("updated", result);
+                        Requests.getActualBookingList();
+                    });
+                }
+                else {
+                     console.log("Invité");
+                    Requests.getActualBookingList();
+                }
+                
+
             });
 
             // LINK RESPONSIBLE
-      //      Server.linkMutation.link(booking, {
-           //     id: Cahier.personId,
-        //        __typename: 'Responsible'
-        //    }).subscribe(() => {
-        //        console.log('Linked Responsible : ', booking);
-       //     });
+            //      Server.linkMutation.link(booking, {
+            //     id: Cahier.personId,
+            //        __typename: 'Responsible'
+            //    }).subscribe(() => {
+            //        console.log('Linked Responsible : ', booking);
+            //     });
 
-        });
+            });
+
+       
 
     },
 

@@ -1,22 +1,4 @@
-﻿//PROBLèEME AVECS LES ACCENTS
-
-var People = [];
-People.push(new Person("Michel", "Lamato", "M"));
-People.push(new Person("Mike", "Lamato", "M"));
-People.push(new Person("Julie", "Jackson", "W"));
-People.push(new Person("Marine", "Hules", "W"));
-People.push(new Person("Pierre", "Thomas", "M"));
-People.push(new Person("Aurélien", "Tam", "M"));
-People.push(new Person("Aurélien", "Tam", "M"));
-People.push(new Person("Aurélien", "Tam", "M"));
-People.push(new Person("Aurélien", "Tam", "M"));
-
-function Person(name, surname, gender) {
-    this.name = name;
-    this.surname = surname;
-    this.gender = gender;
-}
-
+﻿
 
 var enterSearchPosition = 0;
 function Search(e) {
@@ -29,6 +11,7 @@ function Search(e) {
             if (typeof all[i].getElementsByTagName("img")[0] != "undefined") {
                 var name = all[i].getElementsByClassName("spanTabCahierName")[0].innerHTML;
                 var surname = all[i].getElementsByClassName("spanTabCahierSurname")[0].innerHTML;
+                //var id = 
                 chosePerson(name, surname);
             }
         }
@@ -106,10 +89,11 @@ function createSearchEntries(PeopleCorresponding) {
 
         for (var i = 0; i < PeopleCorresponding.length; i++) {
             var divResult = document.createElement("div");
+            divResult.id = PeopleCorresponding[i].id;
             divResult.classList.add("divTabCahierResultEntry");
             $("divTabCahierSearchResult").appendChild(divResult);
 
-            divResult.addEventListener("mousedown", function () { chosePerson(this.getElementsByClassName("spanTabCahierName")[0].innerHTML, this.getElementsByClassName("spanTabCahierSurname")[0].innerHTML); });
+            divResult.addEventListener("mousedown", function () { chosePerson(this.getElementsByClassName("spanTabCahierName")[0].innerHTML, this.getElementsByClassName("spanTabCahierSurname")[0].innerHTML,this.id); });
 
             var span1 = document.createElement("span");
             span1.classList.add("spanTabCahierName");
@@ -142,11 +126,10 @@ function createSearchEntries(PeopleCorresponding) {
 
 
 
-function chosePerson(name, surname) {
-    // changeProgress(1);
+function chosePerson(name, surname,id) {
     Cahier.personName = name;
     Cahier.personSurname = surname;
-    Cahier.personId = surname;
+    Cahier.personId = id;
     newTab("divTabCahierMaterielCategories");
     $("divTabCahierInfosName").innerHTML = name + " " + surname;
 }
@@ -184,8 +167,15 @@ function actualizeActualBookings(actualBookings) {
             }         
         });
 
-        div(container).innerHTML = (new Date(actualBookings[i].startDate)).getNiceTime();
-        div(container).innerHTML = actualBookings[i].responsible.name;
+        div(container).innerHTML = (new Date(actualBookings[i].startDate)).getNiceTime(":", true);
+
+        if (actualBookings[i].responsible != null) {
+            div(container).innerHTML = actualBookings[i].responsible.name;
+        }
+        else {
+            div(container).innerHTML = "Invité";
+        }
+
         div(container).innerHTML = actualBookings[i].id;
         div(container).innerHTML = "?";
 
@@ -203,7 +193,60 @@ function actualizeActualBookings(actualBookings) {
     sortTable($('divTabCahierTableActualBookings'));
 }
 
+function actualizeFinishedBookings(finishedBookings) {
 
+    var all = $('divTabCahierTableFinishedBookings').getElementsByClassName("TableEntries");
+    for (var i = 0; i < all.length; i++) {
+        if (all[i].id != "divTabCahierTableFinishedBookingsTopBar") {
+            all[i].parentNode.removeChild(all[i]);
+            i--;
+        }
+    }
+
+    for (var i = 0; i < finishedBookings.length; i++) {
+        var container = div($('divTabCahierTableFinishedBookings'));
+
+        container.id = finishedBookings[i].id;
+        container.classList.add("TableEntries");
+        container.classList.add("TableEntriesHover");
+
+        container.addEventListener("click", function (event) {
+            if (event.target.classList.contains("Buttons")) {
+                openFinishBooking(openPopUp(), this.id);
+            }
+            else if (typeof event.target.getElementsByTagName("div")[0] == "undefined") {
+                popBooking(this.id);
+            }
+            else {
+                openFinishBooking(openPopUp(), this.id);
+            }
+        });
+
+        div(container).innerHTML = (new Date(finishedBookings[i].startDate)).getNiceTime(":", true);
+        div(container).innerHTML = (new Date(finishedBookings[i].endDate)).getNiceTime(":", true);
+
+        if (finishedBookings[i].responsible != null) {
+            div(container).innerHTML = finishedBookings[i].responsible.name;
+        }
+        else {
+            div(container).innerHTML = "Invité";
+        }
+     
+        div(container).innerHTML = finishedBookings[i].id;
+        div(container).innerHTML = "?";
+
+        div(container).innerHTML = "code";
+        div(container).innerHTML = "nom".shorten(250, 20);
+        div(container).innerHTML = finishedBookings[i].participantCount;
+        div(container).innerHTML = finishedBookings[i].destination.shorten(150, 20);
+        div(container).innerHTML = Cahier.getStartCommentText(finishedBookings[i].startComment).shorten(200, 20);
+
+        var c = div(container);
+
+    }
+
+    sortTable($('divTabCahierTableFinishedBookings'));
+}
 
 function loadTableTopBars() {
 
