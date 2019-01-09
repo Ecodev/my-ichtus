@@ -750,10 +750,9 @@ var Requests = {
         });
     },
 
-    updateBooking: function (bookingId, input= { endComment: "A"}) {
 
-        alert(input.endComment);
-
+    terminateBooking: function (bookingId, comment) {
+        Server.terminateBooking(bookingId,comment); //{ id: bookingId, comment: comment }
     },
 
     // createBooking

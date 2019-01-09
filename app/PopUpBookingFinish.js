@@ -52,10 +52,10 @@
 
     var r1 = div(radioContainer);
     r1.classList.add("radioSelected");
-    r1.onclick = function () { this.classList.add("radioSelected"); r2.classList.remove("radioSelected"); };
+    r1.onclick = function () { this.classList.add("radioSelected"); r2.classList.remove("radioSelected"); area.disabled = true; area.style.opacity = 0.5; area.style.backgroundColor = "lightgray";};
     div(div(r1)); div(r1).innerHTML = "En bon état";
     var r2 = div(radioContainer);
-    r2.onclick = function () { this.classList.add("radioSelected"); r1.classList.remove("radioSelected"); };
+    r2.onclick = function () { this.classList.add("radioSelected"); r1.classList.remove("radioSelected"); area.disabled = false; area.style.opacity = 1; area.style.backgroundColor = "white"; };
     div(div(r2)); div(r2).innerHTML = "Endommagé";
 
     var area = document.createElement("textarea");
@@ -66,6 +66,7 @@
     area.style.height = "95px";
     area.style.width = "290px";
     area.style.backgroundPositionX = "245px";
+    area.disabled = "true"; area.style.opacity = "0.5"; area.style.backgroundColor = "lightgray";
     emb.appendChild(area);
     area.focus();
 
@@ -76,20 +77,24 @@
     d.style.backgroundColor = "rgb(235,235,235)";
     div(div(d));
     div(d).innerHTML = fields[3];
-    area = document.createElement("textarea");
-    area.spellcheck = false;
-    area.placeholder = "Comment ça s'est passé...";
-    div(d).appendChild(area);
+    var area2 = document.createElement("textarea");
+    area2.spellcheck = false;
+    area2.placeholder = "Comment ça s'est passé...";
+    div(d).appendChild(area2);
   
  
     var btnFinish = div(container);
+    btnFinish.id = bookingId;
     btnFinish.classList.add("Buttons");
     btnFinish.classList.add("ValidateButtons");
     btnFinish.style.backgroundColor = "red";
     btnFinish.innerHTML = "Terminer";
     btnFinish.addEventListener("click", function () {
+        Requests.terminateBooking(this.id, "fini");
         closePopUp({ target: elem }, elem);
+        // Requests.updateBooking(booking.id, { endComment: elem.getElementsByClassName("divConfirmationTexts")[3].getElementsByTagName("textarea")[0].value});
     });
+   
 
 
     var close = div(container);
@@ -116,9 +121,7 @@ function actualizePopBookingFinish(booking,elem) {
     }
   
 
-    elem.getElementsByClassName("Buttons")[0].addEventListener("click", function () {
-        Requests.updateBooking(booking.id, { endComment: elem.getElementsByClassName("divConfirmationTexts")[3].getElementsByTagName("textarea")[0].value});
-    });
+
 }
 
 
