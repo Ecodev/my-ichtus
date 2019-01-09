@@ -72,6 +72,12 @@ Date.prototype.getPreviousDate = function () {
     var yesterday = new Date(this);
     yesterday.setDate(this.getDate() - 1);
     return yesterday;
+};
+
+function DeleteObjects() {
+    for (var i = 0; i < arguments.length; i++) {
+        arguments[i].parentElement.removeChild(arguments[i]);
+    }
 }
 
 
@@ -178,4 +184,14 @@ function grayBar(elem,marginTop = 10) {
     d.borderRadius = "2px";
 
     // '<div style="background-color:gray; height:2px; margin-bottom:15px; margin-top:10px; border-radius:2px;"></div>';
+}
+
+
+function responsibleGuestOrNot(responsible) {
+    if (responsible != null) {
+        return responsible.name;
+    }
+    else {
+       return "Invité";
+    }
 }

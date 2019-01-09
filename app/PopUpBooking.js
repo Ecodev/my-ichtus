@@ -50,8 +50,8 @@ function loadConfirmation(elem = $('divTabCahierConfirmation')) {
 
     var texts = div(emb);
     texts.className = "divTabCahierConfirmationContainerTextsContainer";
-    div(texts).innerHTML = "TITLE";
-    div(texts).innerHTML = "n2";
+    div(texts).innerHTML = "...";
+    div(texts).innerHTML = "...";
 
     grayBar(container);
 
@@ -90,8 +90,8 @@ function actualizePopBooking(booking, container = $('divTabCahierConfirmationCon
 
     container.getElementsByClassName('divTabCahierConfirmationContainer')[0].getElementsByTagName("div")[0].innerHTML = "Sortie du " + (new Date(booking.startDate)).getNiceDate();
 
-    container.getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].addEventListener("click", function () { popBookable(booking.bookables[0].id); });
-
+   
+  
 
     if (booking.responsible != null) {
         allDivTexts[0].innerHTML = booking.responsible.name;
@@ -111,9 +111,17 @@ function actualizePopBooking(booking, container = $('divTabCahierConfirmationCon
     else {
         allDivTexts[2].innerHTML = (new Date(booking.endDate)).getNiceTime();
     }
+    if (booking.bookables.length != 0) {
+        container.getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].addEventListener("click", function () { popBookable(booking.bookables[0].id); });
+        container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = booking.bookables[0].name;
+        container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = booking.bookables[0].code + " caté";
+    }
+    else {
+        container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = "Matériel personel";
+        container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = "";
+        container.getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].style.visibility =  "hidden";
+    }
 
-    container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = booking.bookables[0].name;
-    container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = booking.bookables[0].code;
 
     allDivTexts[4].innerHTML = Cahier.getnbrParticipantsText(booking.participantCount, " Participant");
     allDivIcons[4].style.backgroundImage = "url(Img/IconInvitesTransparent.png)";

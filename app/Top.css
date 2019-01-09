@@ -136,11 +136,13 @@
 
 @keyframes AniFish {
     from {
+        opacity:0.5;
         transform: translate(5%,-100%);
     }
 
     to {
         transform: translate(-50%,-50%);
+        opacity:1;
     }
 }
 @keyframes AniFishTurn {
@@ -152,29 +154,53 @@
         transform: rotate(-360deg) translate(-50%,-50%);
     }
 }
+@keyframes AniFishExit {
+    from{
+        opacity:1;
+    }
+    to {
+        width:0px;
+
+    }
+}
 #fish {
-    transform-origin:0% 0%;
+    transform-origin: 0% 0%;
     background-image: url(Img/svg/fish.svg);
     animation-name: AniFish, AniFishTurn;
-    animation-duration: 1s, 1s;
-    animation-timing-function: ease,ease;
-    animation-delay:0s,2s;
+    animation-duration: 1s, 2.5s;
+    animation-timing-function: ease-in-out,ease-in-out;
+    animation-delay: 0s,1.5s;
 }
 
 @keyframes AniWaves {
     from {
-        transform: translate(-50%,0%);
+        margin-top:100vh;
+        opacity:0.5;
     }
+
     to {
-        transform: translate(-50%,-50%);
+        margin-top: 0vh;
+        opacity:1;
+    }
+}
+@keyframes AniWavesExit {
+    from {
+        margin-top: 0vh;
+        opacity: 1;
+    }
+
+    to {
+        margin-top: 110vh;
+        opacity: 0;
     }
 }
 #waves {
     background-image: url(Img/svg/waves.svg);
     animation-name: AniWaves;
     animation-duration: 1s;
-    animation-timing-function: ease;
-    margin-right:0px;
+    animation-timing-function: ease-in-out;
+    margin-right: 0px;
+    opacity:1;
 }
 
 @keyframes AniCircleWidth {
@@ -198,47 +224,90 @@
         width: 100vh;
     }
 }
+@keyframes AniCircleExit {
+    from {
+        opacity:1;
+        margin-top:0vh;
+    }
+    to {
+        opacity:0;
+        margin-top:-100vh;
+    }
+}
 #circle {
     z-index: 9995;
     background-image: url(Img/svg/circle.svg);
     animation-duration: 2s;
-    animation-delay: 1s;
+    animation-delay: 0s;
     animation-timing-function: ease;
     margin-right: 0px;
-    opacity: 0;
+    opacity: 1;
 }
+
 
 
 
 
 
 @keyframes AniBlack {
-    from  {
-        opacity:0;
+    from {
+        margin-top: -100vh;
     }
+
     to {
-        opacity:0.9;
+        margin-top: 0vh;
+    }
+}
+@keyframes AniBlackExit {
+    from {
+        margin-top: 0vh;
+    }
+
+    to {
+        margin-top: -100vh;
     }
 }
 #black {
     position: fixed;
     z-index: 9900;
     background-color: rgb(20,20,20);
-    opacity:0.9;
+    opacity: 0.9;
     width: 100%;
     height: 100%;
-    animation-name: AniBlack;
+    animation-name:AniBlack;
     animation-duration: 1s;
-    animation-timing-function: ease;
+    animation-timing-function: ease;   
 }
 
 
 .svgLetters {
     z-index: 9999;
     animation-name: AniWaves;
-    animation-duration: 0.3s;
+    animation-duration: 0.6s;
     animation-delay: 0s;
     animation-timing-function: ease;
     opacity: 1;
     transform: translate(-50%,-50%);
+}
+@keyframes AniLettersExitLeft {
+    from {
+        opacity: 1;
+        margin-left: 0vw;
+    }
+
+    to {
+        opacity: 0;
+        margin-left: -100vw;
+    }
+}
+@keyframes AniLettersExitRight {
+    from {
+        opacity: 1;
+        margin-left: 0vw;
+    }
+
+    to {
+        opacity: 0;
+        margin-left: 100vw;
+    }
 }

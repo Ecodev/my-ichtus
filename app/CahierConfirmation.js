@@ -100,16 +100,25 @@
 
 }
 function actualizePopBookingFinish(booking,elem) {
-    elem.getElementsByTagName("div")[0].getElementsByTagName("div")[6].innerHTML = booking.responsible.name;
+    elem.getElementsByTagName("div")[0].getElementsByTagName("div")[6].innerHTML =  responsibleGuestOrNot(booking.responsible);
     elem.getElementsByTagName("div")[0].getElementsByTagName("div")[11].innerHTML = date.getNiceTime();
-    elem.getElementsByClassName("divTabCahierConfirmationEmbarcationBox")[0].getElementsByTagName("div")[0].addEventListener("click", function () { popBookable(booking.bookables[0].id); });
-    elem.getElementsByClassName("divTabCahierConfirmationContainerTextsContainer")[0].getElementsByTagName("div")[0].innerHTML = booking.bookables[0].name.shorten(210, 25);
-    elem.getElementsByClassName("divTabCahierConfirmationContainerTextsContainer")[0].getElementsByTagName("div")[1].innerHTML = "toujours rien";
+   
+  
+    if (booking.bookables.length != 0) {
+        elem.getElementsByClassName("divTabCahierConfirmationContainerTextsContainer")[0].getElementsByTagName("div")[0].innerHTML = booking.bookables[0].name.shorten(210, 25);
+        elem.getElementsByClassName("divTabCahierConfirmationContainerTextsContainer")[0].getElementsByTagName("div")[1].innerHTML = booking.bookables[0].code;
+        elem.getElementsByClassName("divTabCahierConfirmationEmbarcationBox")[0].getElementsByTagName("div")[0].addEventListener("click", function () { popBookable(booking.bookables[0].id); });
+    }
+    else {
+        elem.getElementsByClassName("divTabCahierConfirmationContainerTextsContainer")[0].getElementsByTagName("div")[0].innerHTML = "Matériel personel";
+        elem.getElementsByClassName("divTabCahierConfirmationContainerTextsContainer")[0].getElementsByTagName("div")[1].innerHTML = "";
+        elem.getElementsByClassName("divTabCahierConfirmationEmbarcationBox")[0].getElementsByTagName("div")[0].style.visibility = "hidden";
+    }
+  
 
     elem.getElementsByClassName("Buttons")[0].addEventListener("click", function () {
         Requests.updateBooking(booking.id, { endComment: elem.getElementsByClassName("divConfirmationTexts")[3].getElementsByTagName("textarea")[0].value});
     });
-
 }
 
 

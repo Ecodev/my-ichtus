@@ -177,6 +177,7 @@
     -webkit-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
     -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
     box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    border-collapse: collapse;
 }
     .BookingsTable:not( #divTabCahierTableActualBookings) .TableEntries > div:nth-child(1) {
         width: 5%;
@@ -203,6 +204,7 @@
     margin-bottom: 40px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
+   
 }
 
     .TableTopBar > div {
@@ -220,6 +222,7 @@
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
         padding-left: 5px;
+        border-width: 0px !important;
     }     
 
         .TableTopBar > div:hover {
@@ -286,7 +289,8 @@
     font-size: 20px;
     transition: all 0.1s linear 0s;
     display: table-row;
-    animation: OpacityAnimation 1s linear;
+    /*animation: OpacityAnimation 1s linear;*/
+
 }
     /*.TableEntries:nth-child(2n+1) .Buttons {
         background-color:black;
@@ -321,14 +325,19 @@
         background-color: rgb(235, 235, 235);
     }
 
-    
+
 
     .TableEntries:last-child > div:last-child {
         border-bottom-right-radius: 10px;
+        border-right-width: 0px;
     }
 
     .TableEntries:last-child > div:first-child {
         border-bottom-left-radius: 10px;
+        border-left-width: 0px;
+    }
+    .TableEntries:last-child > div{
+        border-bottom-width:0px;
     }
 
     .TableEntries > div {
@@ -340,6 +349,20 @@
         padding: 2px;
         display: table-cell;
         vertical-align: middle;
+        border: 1px solid lightgray;
+        padding-left:10px;
+        padding-right:10px;
+    }
+
+    #divTabCahierTableActualBookings .TableEntries > div:last-child {
+        width:1%;
+    }
+    #divTabCahierTableActualBookings .TableEntries > div:nth-child(2) {
+        width: 0.01%;
+        text-align:center;
+    }
+    #divTabCahierTableActualBookings .TableEntries > div:nth-child(4) {
+        width: 40%;
     }
 
 
@@ -348,20 +371,61 @@
 }
 
 
+.TableEntriesBookableBox {
 
-
-
-
-
-#divTabCahierPopUp {
-    position: relative;
-    left: 50%;
-    margin-left: -350px;
-    top: 50%;
-    margin-top: -225px;
-    width: 700px;
-    height: 450px;
 }
+    /*.TableEntriesBookableBox:hover {
+        background-color: rgba(128, 128, 128, 0.29);
+    }*/
+    /*.TableEntriesBookableBox:before {
+        content: "";
+        display: inline-block;
+        vertical-align: middle;
+        height: 100%;
+    }*/
+    .TableEntriesBookableBox > div {
+        position:relative;
+        display: inline-block;
+        vertical-align:middle;
+        margin-top:5px;
+        margin-bottom:5px;
+    }
+    .TableEntriesBookableBox > div:nth-child(1) {
+        width: 35px;
+        height: 35px;
+        background-image: url(Img/IconSup.png);
+        background-size: 35px;
+        margin-right: 5px;
+    }
+    .TableEntriesBookableBox > div:nth-child(2) {
+        width: 35px;
+        height: 35px;
+        background-image: url(Img/Materiel/Sail.png);
+        background-size: 35px;
+    }
+    .TableEntriesBookableBox > div:nth-child(3) {
+        color:black;
+        font-size:25px;
+        font-weight:300;
+    }
+    .TableEntriesBookableBox > div:nth-child(4) {
+        color: black;
+        font-size: 18px;
+        margin-left: 10px;
+    }
+
+
+
+
+    #divTabCahierPopUp {
+        position: relative;
+        left: 50%;
+        margin-left: -350px;
+        top: 50%;
+        margin-top: -225px;
+        width: 700px;
+        height: 450px;
+    }
 
     #divTabCahierPopUp > div:nth-child(1) {
         position: absolute;

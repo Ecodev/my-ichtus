@@ -173,31 +173,35 @@ function actualizeActualBookings(actualBookings,first) {
             if (event.target.classList.contains("Buttons")) {
                 openFinishBooking(openPopUp(),this.id);
             }
-            else if (typeof event.target.getElementsByTagName("div")[0] == "undefined") {
-                popBooking(this.id);
+            else if (typeof event.target.getElementsByTagName("div")[0] != "undefined") {
+                if (event.target.getElementsByTagName("div")[0].classList.contains("Buttons")) {
+                     openFinishBooking(openPopUp(), this.id);
+                }
+                else {
+                    popBooking(this.id);
+                }
             }
             else {
-                openFinishBooking(openPopUp(),this.id);
+                popBooking(this.id);
             }         
         });
 
         div(container).innerHTML = (new Date(actualBookings[i].startDate)).getNiceTime(":", true);
 
-        if (actualBookings[i].responsible != null) {
-            div(container).innerHTML = actualBookings[i].responsible.name;
+        div(container).innerHTML = actualBookings[i].participantCount;
+
+        div(container).innerHTML = responsibleGuestOrNot(actualBookings[i].responsible);
+
+        if (actualBookings[i].bookables.length == 0) {
+            div(container).innerHTML = "MP";
         }
         else {
-            div(container).innerHTML = "Invité";
+            createBookingBookableBox(div(container), { code: actualBookings[i].bookables[0].code, name: actualBookings[i].bookables[0].name });
         }
 
-        div(container).innerHTML = actualBookings[i].id;
-        div(container).innerHTML = "?";
+        div(container).innerHTML = actualBookings[i].destination.shorten(150,20);
 
-        div(container).innerHTML = "code";
-        div(container).innerHTML = "nom".shorten(250, 20);
-        div(container).innerHTML = actualBookings[i].participantCount;
-        div(container).innerHTML = actualBookings[i].destination.shorten(150, 20);
-        div(container).innerHTML = Cahier.getStartCommentText(actualBookings[i].startComment).shorten(200, 20);
+        div(container).innerHTML = actualBookings[i].startComment.shorten(200, 20);
 
         var c = div(container);
         var btn = div(c);
@@ -207,6 +211,16 @@ function actualizeActualBookings(actualBookings,first) {
     sortTable($('divTabCahierTableActualBookings'));
 }
 
+function createBookingBookableBox(elem, infos = { code: 9, name: "hello" },isGuest = false) {
+    var d = elem;
+    var cat = div(d);
+    var img = div(d);
+    var code = div(d);
+    code.innerHTML = infos.code;
+    var name = div(d);
+    name.innerHTML = infos.name.shorten(200, 18);
+    d.classList.add("TableEntriesBookableBox");
+}
 
 
 function loadTableTopBars(allTables = document.getElementsByClassName("BookingsTable")) {
@@ -389,15 +403,11 @@ function actualizeFinishedBookingListForDay(bookings,table) {
             div(entry).innerHTML = (new Date(bookings[i].startDate)).getNiceTime(":", true);
             div(entry).innerHTML = (new Date(bookings[i].endDate)).getNiceTime(":", true);
 
-            if (bookings[i].responsible != null) {
-                div(entry).innerHTML = bookings[i].responsible.name;
-            }
-            else {
-                div(entry).innerHTML = "Invité";
-            }
+            div(entry).innerHTML = responsibleGuestOrNot(bookings[i].responsible);
 
             div(entry).innerHTML = bookings[i].id;
-            div(entry).innerHTML = "?";
+            createBookingBookableBox(div(entry), { code: bookings[i].bookables[0].code, name: bookings[i].bookables[0].name });
+
 
             div(entry).innerHTML = "code";
             div(entry).innerHTML = "nom".shorten(250, 20);
