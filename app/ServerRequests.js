@@ -85,42 +85,39 @@ var Requests = {
                 groups: [
                     {
                         groupLogic: 'AND',
-                        conditionsLogic: 'OR',
+                        conditionsLogic: 'AND',
                         conditions: [
                             {
                                 custom: { // marche pas pour description
                                     search: {
                                         value: "%" + txt + "%"
                                     }
-                                }
-                            }
-                        ]
-                    },
-                    {       //CATEGORIES...
-                        groupLogic: 'AND',
-                        conditionsLogic: 'AND',
-                        conditions: [
-                            {
+                                },
                                 bookingType: {
                                     like: {
                                         value: "self_approved"
                                     }
                                 }
-                            }
-                        ]//,
-                        //joins: {
-                        //    type: {
-                        //        conditions: [{
-                        //            name: {
-                        //                like: {
-                        //                    value: "%" + categorie
-                        //                }
-                        //            }
-                        //        }]
-                        //    }
-                        //}
+                            }                          
+                        ]
+                    },
+                    //{       //CATEGORIES...
+                    //    groupLogic: 'OR',
+                    //    joins: {
+                    //        bookableTags: {
+                    //            conditions: [
+                    //                {
+                    //                    id: {
+                    //                        like: {
+                    //                            value:"%"
+                    //                        }
+                    //                    }
+                    //                }
+                    //            ]
+                    //        }
+                    //    }
 
-                    }
+                    //}
                 ]
             },
             sorting: [
@@ -236,14 +233,18 @@ var Requests = {
                                     search: {
                                         value: "%" + $('inputTabCahierActualBookingsSearch').value + "%"
                                     }
-                                }                         
-                            },
-                            {
+                                },
                                 endDate: {
                                     null: {
-                                        not:false
+                                        not: false
+                                    }
+                                },   
+                                bookables: {
+                                    empty: {
+                                        not: true
                                     }
                                 }
+                                
                             }
                         ],
                         //joins: {
@@ -257,153 +258,36 @@ var Requests = {
                         //        }]
                         //    }
                         //}
+                     
                     },
-                    //{
-                    //    groupLogic:"OR",
-                    //    joins: {
-                    //        bookables: {
-                    //            conditions: [{
-                    //                bookingType: {
-                    //                    equal: {
-                    //                        value: "self_approved"
-                    //                    }
-                    //                }
-                    //            }]
-                    //        }
-                    //    }
-                    //},
-
-
-
-                    // OR
-
-
                     {
                         groupLogic: "OR",
 
-                        conditions: [
-                            {
-                                status: {
-                                    equal: {
-                                        value: "booked"
-                                    }
-                                },
-                                custom: {
-                                    search: {
-                                        value: "%" + $('inputTabCahierActualBookingsSearch').value + "%"
-                                    }
-                                },
-                                endDate: {
-                                    null: {
-                                        not: false
-                                    }
-                                },
-                            }, //nouveau condition group inutile...
-                            {
-                                bookables: {
-                                    empty: {
-                                        not: false
-                                    }
+                        conditions: [{
+                            status: {
+                                equal: {
+                                    value: "booked"
+                                }
+                            },
+                            custom: {
+                                search: {
+                                    value: "%" + $('inputTabCahierActualBookingsSearch').value + "%"
+                                }
+                            },
+                            endDate: {
+                                null: {
+                                    not: false
+                                }
+                            },
+                            bookables: {
+                                empty: {
+                                    not:false
                                 }
                             }
-                        ],
-
+                        }
+                        ]
                     }
 
-                    //{
-                    //    groupLogic: "OR",
-
-                    //    conditions: [
-                    //        {
-                    //            id: {
-                    //                like: {
-                    //                    value: "%0%"
-                    //                }
-                    //            }
-                    //        },
-                    //        //{
-                    //        //    status: {
-                    //        //        equal: {
-                    //        //            value: "booked"
-                    //        //        }
-                    //        //    },
-                    //        //    custom: {
-                    //        //        search: {
-                    //        //            value: "%" + $('inputTabCahierActualBookingsSearch').value + "%"
-                    //        //        }
-                    //        //    }
-                    //        //},
-                    //        //{
-                    //        //    endDate: {
-                    //        //        null: {
-                    //        //            not: false
-                    //        //        }
-                    //        //    }
-                    //        //},
-                    //        {
-                    //            bookables: {
-                    //                empty: {
-                    //                    not:false
-                    //                }
-                    //            }
-                    //        }
-                    //    ]
-                    //}
- 
-                    
-                    //{
-                    //    groupLogic: "OR",
-
-                    //    conditions: [{
-                    //        status: {
-                    //            equal: {
-                    //                value: "booked"
-                    //            }
-                    //        },
-                    //        custom: {
-                    //            search: {
-                    //                value: "%" + $('inputTabCahierActualBookingsSearch').value + "%"
-                    //            }
-                    //        }
-                    //    },
-                    //    {
-                    //        endDate: {
-                    //            null: {
-                    //                not: false
-                    //            }
-                    //        }
-                    //    }]    
-                        
-                    //},
-                    //{
-                    //    groupLogic: "AND",
-
-                    //    joins: {
-                    //        responsible: {
-                    //            conditions: [{
-                    //                name: {
-                    //                    like: {
-                    //                        value: "%" + $('inputTabCahierActualBookingsSearch').value + "%" //////////bien bien BIEN bien
-                    //                    }
-                    //                }
-                    //            }]
-                    //        }
-                    //    }
-                    //},
-                    //{
-                        //groupLogic: "AND",
-                        //joins: {
-                        //    bookables: {
-                        //        conditions: [{
-                        //            bookingType: {
-                        //                equal: {
-                        //                    value: "self_approved"
-                        //                }
-                        //            }
-                        //        }]
-                        //    }
-                        //}
-                   // }
                     
                 ]
             },
@@ -752,7 +636,8 @@ var Requests = {
 
 
     terminateBooking: function (bookingId, comment) {
-        Server.terminateBooking(bookingId,comment); //{ id: bookingId, comment: comment }
+        alert(comment);
+        Server.bookingService.terminateBooking(bookingId, comment); //{ id: bookingId, comment: comment }
     },
 
     // createBooking

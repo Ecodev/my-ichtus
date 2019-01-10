@@ -27,21 +27,7 @@ var Cahier = {
         }
     },
 
-    getStartCommentText: function (txt = Cahier.startComment) {
 
-        var result = "";
-
-        //if (Cahier.personName == "Invité") {
-        //    result += "[" + Cahier.personSurname + "] ";
-        //}
-
-        if (txt.length < 1 || txt == undefined || txt == null || txt == "") {
-            return result + "Pas de commentaire";
-        }
-        else {
-            return result + txt;
-        }
-    },
 
 
     ProgressBarTexts: ["Nom", "Embarcation", "Infos", "Confirmation"],
@@ -149,14 +135,9 @@ var Cahier = {
         allDivTexts[5].innerHTML = Cahier.destination;
         allDivIcons[5].style.backgroundImage = "url(Img/IconDestinationBlack.png)";
 
-        allDivTexts[6].innerHTML = Cahier.getStartCommentText();
+        allDivTexts[6].innerHTML = Cahier.startComment;
         if (Cahier.personId == "") {
-            allDivTexts[6].innerHTML = "[" + Cahier.personSurname + "] " + Cahier.getStartCommentText();
-        }
-        
+            allDivTexts[6].innerHTML = "[" + Cahier.personSurname + "] " + Cahier.startComment;
+        }  
     }
-
-    // 
-
-
 };

@@ -90,7 +90,12 @@
     btnFinish.style.backgroundColor = "red";
     btnFinish.innerHTML = "Terminer";
     btnFinish.addEventListener("click", function () {
-        Requests.terminateBooking(this.id, "fini");
+        var txt = "";
+        if (area.style.opacity == 1) {
+            txt += "! " + area.value + " ! ";
+        }
+        txt += area2.value;
+        Requests.terminateBooking(this.id, txt);
         closePopUp({ target: elem }, elem);
         // Requests.updateBooking(booking.id, { endComment: elem.getElementsByClassName("divConfirmationTexts")[3].getElementsByTagName("textarea")[0].value});
     });
@@ -105,7 +110,7 @@
 
 }
 function actualizePopBookingFinish(booking,elem) {
-    elem.getElementsByTagName("div")[0].getElementsByTagName("div")[6].innerHTML =  responsibleGuestOrNot(booking.responsible);
+    elem.getElementsByTagName("div")[0].getElementsByTagName("div")[6].innerHTML =  getResponsibleNameFromBooking(booking);
     elem.getElementsByTagName("div")[0].getElementsByTagName("div")[11].innerHTML = date.getNiceTime();
    
   

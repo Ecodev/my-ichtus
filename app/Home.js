@@ -187,11 +187,63 @@ function grayBar(elem,marginTop = 10) {
 }
 
 
-function responsibleGuestOrNot(responsible) {
-    if (responsible != null) {
-        return responsible.name;
+function getResponsibleNameFromBooking(booking, wantImg = false) {
+    //mettre un id sur lequel sortTable() va faire le tri puisque c'est le premier texte qui diffère des autres éléments
+    if (booking.responsible != null) {
+        if (wantImg) {
+            return "<div id='" + booking.responsible.name + "' class='TableEntriesImg' style='background-image:url(Img/IconMan.png);  display: inline-block;vertical-align: middle;'>" + "</div>" + "<div style=' display: inline-block;vertical-align: middle;'>" + booking.responsible.name + "</div>";
+        }
+        else {
+            return booking.responsible.name;
+        }  
     }
     else {
-       return "Invité";
+        var a = booking.startComment.indexOf("[");
+        var b = booking.startComment.indexOf("]");
+        var txt = "";
+        var inv = "Invité";
+        if (a == 0  && b != -1) {
+            txt += "(" + booking.startComment.slice(a + 1, b) + ")";
+        }
+
+        if (wantImg) {
+            return "<div id='ZZZZ" + txt + "' class='TableEntriesImg' style='background-image:url(Img/IconInfo.png);  display: inline-block;vertical-align: middle;'></div>" + "<div style=' display: inline-block;vertical-align: middle;'>" + inv + "</div>" + "<div style='margin-left:5px; font-size:15px;  display: inline-block;vertical-align: middle;'>" + txt + "</div>";
+        }
+        else {
+            return "Invité " + txt;
+        }
+ 
     }
+}
+function getStartCommentFromBooking(booking,fill = false) {
+    var a = booking.startComment.indexOf("[");
+    var b = booking.startComment.indexOf("]");
+    var txt = "";
+
+    if (a == 0 && b != -1) {
+        txt = booking.startComment.slice(b+1, booking.startComment.length);
+    }
+    else {
+        txt = booking.startComment;
+    }
+    if (txt.length == 0 && fill) {
+        txt = "Pas de commentaire";
+    }
+    return txt;
+}
+function getEndCommentFromBooking(booking, fill = false) {
+    var a = booking.endComment.indexOf("[");
+    var b = booking.endComment.indexOf("]");
+    var txt = "";
+
+    if (a == 0 && b != -1) {
+        txt = booking.endComment.slice(b + 1, booking.endComment.length);
+    }
+    else {
+        txt = booking.endComment;
+    }
+    if (txt.length == 0 && fill) {
+        txt = "Pas de commentaire";
+    }
+    return txt;
 }

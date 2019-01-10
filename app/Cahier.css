@@ -179,19 +179,7 @@
     box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
     border-collapse: collapse;
 }
-    .BookingsTable:not( #divTabCahierTableActualBookings) .TableEntries > div:nth-child(1) {
-        width: 5%;
-        text-align: center;
-    }
-    .BookingsTable:not( #divTabCahierTableActualBookings) .TableEntries > div:nth-child(2) {
-        width: 5%;
-        text-align: center;
-    }
 
-    .TableEntries > div:nth-child(1) {
-        width: 5%;
-        text-align:center;
-    }
 
 
 
@@ -354,16 +342,53 @@
         padding-right:10px;
     }
 
-    #divTabCahierTableActualBookings .TableEntries > div:last-child {
-        width:1%;
+
+    .TableEntries > div:nth-child(1) {
+        width: 1%;
+        text-align: center;
     }
+
+
     #divTabCahierTableActualBookings .TableEntries > div:nth-child(2) {
         width: 0.01%;
         text-align:center;
     }
-    #divTabCahierTableActualBookings .TableEntries > div:nth-child(4) {
-        width: 40%;
+    #divTabCahierTableActualBookings .TableEntries > div:nth-child(3) {
+        width:20%;
     }
+    #divTabCahierTableActualBookings .TableEntries > div:nth-child(4) {
+        width: 35%;
+    }
+    #divTabCahierTableActualBookings .TableEntries > div:nth-child(5) {
+        width: 15%;
+    }
+    #divTabCahierTableActualBookings .TableEntries > div:last-child {
+        width: 1%;
+    }
+
+
+
+  
+    .BookingsTable:not( #divTabCahierTableActualBookings) .TableEntries > div:nth-child(2) {
+        width: 1%;
+        text-align: center;
+    }
+    .BookingsTable:not( #divTabCahierTableActualBookings) .TableEntries > div:nth-child(3) {
+        width: 0.1%;
+        text-align:center;
+    }
+    .BookingsTable:not( #divTabCahierTableActualBookings) .TableEntries > div:nth-child(4) {
+        width: 20%;
+    }
+        .BookingsTable:not( #divTabCahierTableActualBookings) .TableEntries > div:nth-child(4) > div {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    .BookingsTable:not( #divTabCahierTableActualBookings) .TableEntries > div:nth-child(5) {
+        width: 35%;
+    }
+
+   
 
 
 .TableEntriesHover:hover {
@@ -412,6 +437,15 @@
         color: black;
         font-size: 18px;
         margin-left: 10px;
+    }
+
+    .TableEntriesImg {
+        width: 35px;
+        height: 35px;
+        background-image: url(Img/IconSup.png);
+        background-size: 35px;
+        margin-right: 5px;
+        background-repeat: no-repeat;
     }
 
 

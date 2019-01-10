@@ -190,7 +190,7 @@ function actualizeActualBookings(actualBookings,first) {
 
         div(container).innerHTML = actualBookings[i].participantCount;
 
-        div(container).innerHTML = responsibleGuestOrNot(actualBookings[i].responsible);
+        div(container).innerHTML = getResponsibleNameFromBooking(actualBookings[i],true);
 
         if (actualBookings[i].bookables.length == 0) {
             div(container).innerHTML = "MP";
@@ -201,7 +201,7 @@ function actualizeActualBookings(actualBookings,first) {
 
         div(container).innerHTML = actualBookings[i].destination.shorten(150,20);
 
-        div(container).innerHTML = actualBookings[i].startComment.shorten(200, 20);
+        div(container).innerHTML = getStartCommentFromBooking(actualBookings[i]).shorten(200, 20);
 
         var c = div(container);
         var btn = div(c);
@@ -211,9 +211,10 @@ function actualizeActualBookings(actualBookings,first) {
     sortTable($('divTabCahierTableActualBookings'));
 }
 
-function createBookingBookableBox(elem, infos = { code: 9, name: "hello" },isGuest = false) {
+function createBookingBookableBox(elem, infos = { code: 9, name: "hello" }) {
     var d = elem;
     var cat = div(d);
+    cat.id = "catégorie" + infos.code;
     var img = div(d);
     var code = div(d);
     code.innerHTML = infos.code;
@@ -280,7 +281,7 @@ function sortTable(table) {
     while (switching) {
         switching = false;
         for (var i = 1; i < all.length - 1; i++) {
-            if (all[i].getElementsByTagName("div")[field].innerHTML.toLowerCase() > all[i + 1].getElementsByTagName("div")[field].innerHTML.toLowerCase() && order() == 1 || all[i].getElementsByTagName("div")[field].innerHTML.toLowerCase() < all[i + 1].getElementsByTagName("div")[field].innerHTML.toLowerCase() && order() == -1) {
+            if (all[i].children[field].innerHTML.toLowerCase() > all[i + 1].children[field].innerHTML.toLowerCase() && order() == 1 || all[i].children[field].innerHTML.toLowerCase() < all[i + 1].children[field].innerHTML.toLowerCase() && order() == -1) {
                 all[i].parentElement.insertBefore(all[i + 1], all[i]);
                 switching = true;
             }
@@ -329,7 +330,7 @@ function createBookingsTable(date,title) {
     topBar.classList.add("TableEntries");
     topBar.classList.add("TableTopBar");
 
-    var fields = ["Dép,", "Arr.", ",", ",", ",", "a", "b", "c"];
+    var fields = ["Dép.", "Arr.", "Nbr", "Responsable", "Embarcation", "Destination", "Comm. de départ", "Comm. d'arrivée"];
 
     for (var i = 0; i < fields.length; i++) {
         var d = div(topBar);
@@ -389,31 +390,21 @@ function actualizeFinishedBookingListForDay(bookings,table) {
             entry.classList.add("TableEntriesHover");
 
             entry.addEventListener("click", function (event) {
-                if (event.target.classList.contains("Buttons")) { // à cause du bouton terminer
-                    openFinishBooking(openPopUp(), this.id);
-                }
-                else if (typeof event.target.getElementsByTagName("div")[0] == "undefined") {
                     popBooking(this.id);
-                }
-                else {
-                    openFinishBooking(openPopUp(), this.id);
-                }
             });
 
             div(entry).innerHTML = (new Date(bookings[i].startDate)).getNiceTime(":", true);
             div(entry).innerHTML = (new Date(bookings[i].endDate)).getNiceTime(":", true);
 
-            div(entry).innerHTML = responsibleGuestOrNot(bookings[i].responsible);
+            div(entry).innerHTML = bookings[i].participantCount;
 
-            div(entry).innerHTML = bookings[i].id;
+            div(entry).innerHTML = getResponsibleNameFromBooking(bookings[i],true);
+
             createBookingBookableBox(div(entry), { code: bookings[i].bookables[0].code, name: bookings[i].bookables[0].name });
 
-
-            div(entry).innerHTML = "code";
-            div(entry).innerHTML = "nom".shorten(250, 20);
-            //div(entry).innerHTML = bookings[i].participantCount;
-            //div(entry).innerHTML = bookings[i].destination.shorten(150, 20);
-            div(entry).innerHTML = Cahier.getStartCommentText(bookings[i].startComment).shorten(200, 20);
+            div(entry).innerHTML = bookings[i].destination.shorten(150, 20);
+            div(entry).innerHTML = getStartCommentFromBooking(bookings[i]).startComment.shorten(200, 20);
+            div(entry).innerHTML = getEndCommentFromBooking(bookings[i]).endComment.shorten(200, 20);
 
         }
 

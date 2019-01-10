@@ -70,6 +70,15 @@
         background-color: rgb(235,235,235);
     }
 
+        .divConfirmationTexts:nth-child(1){
+            
+        }
+            .divConfirmationTexts:nth-child(1) > div {
+                width:100px;
+                display: inline-block;
+                vertical-align: middle;
+            }
+
     .divConfirmationTexts > div {
         position: relative;
         display: inline-block;
