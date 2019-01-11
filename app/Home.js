@@ -187,11 +187,11 @@ function grayBar(elem,marginTop = 10) {
 }
 
 
-function getResponsibleNameFromBooking(booking, wantImg = false) {
+function getResponsibleNameFromBooking(booking, wantImg = false, shortenOptions = {length:100000,fontSize:20}) {
     //mettre un id sur lequel sortTable() va faire le tri puisque c'est le premier texte qui diffère des autres éléments
     if (booking.responsible != null) {
         if (wantImg) {
-            return "<div id='" + booking.responsible.name + "' class='TableEntriesImg' style='background-image:url(Img/IconMan.png);  display: inline-block;vertical-align: middle;'>" + "</div>" + "<div style=' display: inline-block;vertical-align: middle;'>" + booking.responsible.name + "</div>";
+            return "<div id='" + booking.responsible.name + "' class='TableEntriesImg' style='background-image:url(Img/IconMan.png);  display: inline-block;vertical-align: middle;'>" + "</div>" + "<div style=' display: inline-block;vertical-align: middle;'>" + booking.responsible.name.shorten(shortenOptions.length-40, shortenOptions.fontSize) + "</div>";
         }
         else {
             return booking.responsible.name;
@@ -201,16 +201,16 @@ function getResponsibleNameFromBooking(booking, wantImg = false) {
         var a = booking.startComment.indexOf("[");
         var b = booking.startComment.indexOf("]");
         var txt = "";
-        var inv = "Invité";
+        var inv = "Invita";
         if (a == 0  && b != -1) {
             txt += "(" + booking.startComment.slice(a + 1, b) + ")";
         }
 
         if (wantImg) {
-            return "<div id='ZZZZ" + txt + "' class='TableEntriesImg' style='background-image:url(Img/IconInfo.png);  display: inline-block;vertical-align: middle;'></div>" + "<div style=' display: inline-block;vertical-align: middle;'>" + inv + "</div>" + "<div style='margin-left:5px; font-size:15px;  display: inline-block;vertical-align: middle;'>" + txt + "</div>";
+            return "<div id='ZZZZ" + txt + "' class='TableEntriesImg' style='background-image:url(Img/IconInfo.png);  display: inline-block;vertical-align: middle;'></div>" + "<div style=' display: inline-block;vertical-align: middle; width:48px'>" + "Invité" + "</div>" + "<div style='margin-left:5px; font-size:15px;  display: inline-block;vertical-align: middle;'>" + txt.shorten(shortenOptions.length-40-48-5, 15) + "</div>";
         }
         else {
-            return "Invité " + txt;
+            return ("Invité " + txt).shorten(shortenOptions.length, shortenOptions.fontSize);
         }
  
     }

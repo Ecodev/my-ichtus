@@ -116,18 +116,11 @@ function actualizePopBookableHistory(bookings, elem) {
         };
         div(sortie).innerHTML = d.getNiceTime();
         var c = div(sortie);
-        div(c).style.backgroundImage = "url(Img/IconWoman.png)";
 
-        if (bookings[i].responsible != null) {
-            div(c).innerHTML = bookings[i].responsible.name.shorten(200, 20);
-        }
-        else {
-            div(c).innerHTML = "Invité";
-        }
+        div(c).innerHTML = getResponsibleNameFromBooking(bookings[i], true, { length: 240, fontSize: 20 });
 
-        div(c).innerHTML = bookings[i].destination.shorten(100, 15);
-        div(c).innerHTML = bookings[i].startComment.shorten(200, 15);
-
+        div(c).innerHTML = bookings[i].destination.shorten(150, 20);
+        div(c).innerHTML = getStartCommentFromBooking(bookings[i]).shorten(150, 15);
     }
 
     var space = document.createElement("br");

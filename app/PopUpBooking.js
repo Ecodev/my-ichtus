@@ -6,6 +6,7 @@ function popBooking(bookingId) {
 function loadConfirmation(elem = $('divTabCahierConfirmation')) {
 
     var fields = ["Responsable", "Heure de départ", "Embarcation", "Nbr de participants", "Destination", "Commentaire dép.", "Commentaire arr."];
+    var images = ["IconResponsible", "IconStart",  "IconSail","IconParticipantCount", "IconDestination", "IconStartComment", "IconEndComment"];
 
     var container;
     container = div(elem);
@@ -23,13 +24,13 @@ function loadConfirmation(elem = $('divTabCahierConfirmation')) {
     for (var i = 0; i < 2; i++) {
         var d = div(container);
         d.classList.add("divConfirmationTexts");
-        div(div(d));
+        div(div(d)).style.backgroundImage = "url(Img/" + images[i] + ".png)";
         div(d).innerHTML = fields[i];
         div(d);
         if (i == 1 && elem != "tab") {
             d = div(container);
             d.classList.add("divConfirmationTexts");
-            div(div(d));
+            div(div(d)).style.backgroundImage = "url(Img/" + "IconEnd" + ".png)";
             div(d).innerHTML = "Heure d'arrivée";
             div(d);
         }
@@ -40,7 +41,7 @@ function loadConfirmation(elem = $('divTabCahierConfirmation')) {
     d = div(container);
     d.classList.add("divConfirmationTexts");
     d.style.backgroundColor = "rgb(235,235,235)";
-    div(div(d));
+    div(div(d)).style.backgroundImage = "url(Img/" + images[2] + ".png)";
     div(d).innerHTML = fields[2];
     div(d);
 
@@ -58,7 +59,7 @@ function loadConfirmation(elem = $('divTabCahierConfirmation')) {
     for (var i = 3; i < 6; i++) {
         d = div(container);
         d.classList.add("divConfirmationTexts");
-        div(div(d));
+        div(div(d)).style.backgroundImage = "url(Img/" + images[i] + ".png)";
         div(d).innerHTML = fields[i];
         div(d);
     }
@@ -66,7 +67,7 @@ function loadConfirmation(elem = $('divTabCahierConfirmation')) {
 
     d = div(container);
     d.classList.add("divConfirmationTexts");
-    div(div(d));
+    div(div(d)).style.backgroundImage = "url(Img/" + images[6] + ".png)";
     div(d).innerHTML = fields[6];
     div(d);
 
@@ -96,7 +97,6 @@ function actualizePopBooking(booking, container = $('divTabCahierConfirmationCon
     //allDivIcons[0].style.backgroundImage = "url(Img/Icon" + booking.responsible.gender + ".png)";
 
     allDivTexts[1].innerHTML = (new Date(booking.startDate)).getNiceTime();
-    allDivIcons[1].style.backgroundImage = "";
 
     if (booking.endDate == null) {
         allDivTexts[2].innerHTML = "Pas encore rentré(e)";
@@ -117,9 +117,7 @@ function actualizePopBooking(booking, container = $('divTabCahierConfirmationCon
 
 
     allDivTexts[4].innerHTML = Cahier.getnbrParticipantsText(booking.participantCount, " Participant");
-    allDivIcons[4].style.backgroundImage = "url(Img/IconInvitesTransparent.png)";
     allDivTexts[5].innerHTML = booking.destination;
-    allDivIcons[5].style.backgroundImage = "url(Img/IconDestinationBlack.png)";
 
     allDivTexts[6].innerHTML = getStartCommentFromBooking(booking,true);
     allDivTexts[7].innerHTML = getEndCommentFromBooking(booking,true);

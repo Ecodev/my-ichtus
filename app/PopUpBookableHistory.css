@@ -208,31 +208,28 @@
         }
 
         .PopUpSortie > div:nth-child(2) > div:nth-child(1) {
-            margin-left:3px;
-            background-image:url(Img/IconMan.png);
-            background-repeat:no-repeat;
-            background-size:30px;
-            background-position-y:3px;
-            height:36px;
-            width:36px;
-            background-color:transparent;
+             width:240px;
+             font-size:20px;
+             /*background-color:rgba(255, 0, 0, 0.5);*/
         }
+            .PopUpSortie > div:nth-child(2) > div:nth-child(1) > div {
+                background-position-x: 2.5px;
+                background-position-y: 2.5px;
+                background-size: 30px;
+            }
 
         .PopUpSortie > div:nth-child(2) > div:nth-child(2) {
             font-size:20px;
-            width: 200px;
+            width: 150px;
             /*background-color: yellow;*/
         }
 
         .PopUpSortie > div:nth-child(2) > div:nth-child(3) {
-            width: 100px;
+            width: 150px;
             /*background-color: green;*/
         }
 
-        .PopUpSortie > div:nth-child(2) > div:nth-child(4) {
-            width: 200px;
-            /*background-color: yellow;*/
-        }
+
 
 
 .PopUpBookableHistoryContainerScroll .Buttons {

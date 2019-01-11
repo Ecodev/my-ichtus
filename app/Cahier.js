@@ -219,7 +219,7 @@ function createBookingBookableBox(elem, infos = { code: 9, name: "hello" }) {
     var code = div(d);
     code.innerHTML = infos.code;
     var name = div(d);
-    name.innerHTML = infos.name.shorten(200, 18);
+    name.innerHTML = infos.name;//.shorten(200, 18);
     d.classList.add("TableEntriesBookableBox");
 }
 
@@ -330,13 +330,20 @@ function createBookingsTable(date,title) {
     topBar.classList.add("TableEntries");
     topBar.classList.add("TableTopBar");
 
-    var fields = ["Dép.", "Arr.", "Nbr", "Responsable", "Embarcation", "Destination", "Comm. de départ", "Comm. d'arrivée"];
+    var fields = ["", "", "", "Responsable", "Embarcation", "Destination", "Commentaire de départ", "Commentaire d'arrivée"];
+    var images = ["IconStart", "IconEnd","IconParticipantCount","IconResponsible","IconSail", "IconDestination", "IconStartComment", "IconEndComment"];
 
     for (var i = 0; i < fields.length; i++) {
         var d = div(topBar);
         d.id = i;
-        d.innerHTML = fields[i];
         div(d);
+        var img = document.createElement("img");
+        img.src = "Img/" + images[i] + ".png";
+        img.alt = "?";
+        img.style.width = "25px";
+        img.style.marginRight = "5px";
+        d.appendChild(img);
+        d.innerHTML += fields[i];
     }
 
     topBar.getElementsByTagName("div")[0].classList.add("BookingsTopBarSorted");
@@ -403,8 +410,8 @@ function actualizeFinishedBookingListForDay(bookings,table) {
             createBookingBookableBox(div(entry), { code: bookings[i].bookables[0].code, name: bookings[i].bookables[0].name });
 
             div(entry).innerHTML = bookings[i].destination.shorten(150, 20);
-            div(entry).innerHTML = getStartCommentFromBooking(bookings[i]).startComment.shorten(200, 20);
-            div(entry).innerHTML = getEndCommentFromBooking(bookings[i]).endComment.shorten(200, 20);
+            div(entry).innerHTML = getStartCommentFromBooking(bookings[i]).shorten(200, 20);; // "".shorten(200, 200);//getStartCommentFromBooking(bookings[i]);//.startComment.shorten(200, 20); // BIZARRRRERELRKJASéDL KFJASéDLF JKAéSLDKFJ 
+            div(entry).innerHTML = getEndCommentFromBooking(bookings[i]);//.endComment.shorten(200, 20);
 
         }
 

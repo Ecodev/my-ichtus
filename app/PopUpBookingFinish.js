@@ -2,7 +2,9 @@
 
     Requests.getBookingFinishInfos(bookingId,elem);
 
-    var fields = ["Responsable","Heure d'arrivée", "Embarcation", "Commentaire d'arrivée"];
+    var fields = ["Responsable", "Heure d'arrivée", "Embarcation", "Commentaire d'arrivée"];
+    var images = ["IconResponsible", "IconEnd", "IconSail", "IconEndComment"];
+
 
     var container;
     container = div(elem);
@@ -19,13 +21,13 @@
 
     var d = div(container);
     d.classList.add("divConfirmationTexts");
-    div(div(d));
+    div(div(d)).style.backgroundImage = "url(Img/" + images[0] + ".png)";
     div(d).innerHTML = fields[0];
     div(d);
 
     d = div(container);
     d.classList.add("divConfirmationTexts");
-    div(div(d));
+    div(div(d)).style.backgroundImage = "url(Img/" + images[1] + ".png)";
     div(d).innerHTML = fields[1];
     div(d);
 
@@ -33,7 +35,7 @@
 
     d = div(container);
     d.classList.add("divConfirmationTexts");
-    div(div(d));
+    div(div(d)).style.backgroundImage = "url(Img/" + images[2] + ".png)";
     div(d).innerHTML = fields[2];
     div(d);
 
@@ -75,7 +77,7 @@
     d = div(container);
     d.classList.add("divConfirmationTexts");
     d.style.backgroundColor = "rgb(235,235,235)";
-    div(div(d));
+    div(div(d)).style.backgroundImage = "url(Img/" + images[3] + ".png)";
     div(d).innerHTML = fields[3];
     var area2 = document.createElement("textarea");
     area2.spellcheck = false;
