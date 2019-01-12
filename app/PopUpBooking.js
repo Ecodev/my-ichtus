@@ -91,8 +91,8 @@ function actualizePopBooking(booking, container = $('divTabCahierConfirmationCon
 
     container.getElementsByClassName('divTabCahierConfirmationContainer')[0].getElementsByTagName("div")[0].innerHTML = "Sortie du " + (new Date(booking.startDate)).getNiceDate();
 
-   
-    allDivTexts[0].innerHTML = getResponsibleNameFromBooking(booking,true);
+
+    allDivTexts[0].innerHTML = getResponsibleNameFromBooking(booking, true, { length: 1000000, fontSize: 35 });
 
     //allDivIcons[0].style.backgroundImage = "url(Img/Icon" + booking.responsible.gender + ".png)";
 

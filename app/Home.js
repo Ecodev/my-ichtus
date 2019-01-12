@@ -207,10 +207,10 @@ function getResponsibleNameFromBooking(booking, wantImg = false, shortenOptions 
         }
 
         if (wantImg) {
-            return "<div id='ZZZZ" + txt + "' class='TableEntriesImg' style='background-image:url(Img/IconInfo.png);  display: inline-block;vertical-align: middle;'></div>" + "<div style=' display: inline-block;vertical-align: middle; width:48px'>" + "Invité" + "</div>" + "<div style='margin-left:5px; font-size:15px;  display: inline-block;vertical-align: middle;'>" + txt.shorten(shortenOptions.length-40-48-5, 15) + "</div>";
+            return "<div id='ZZZZ" + txt + "' class='TableEntriesImg' style='background-image:url(Img/IconInfo.png);  display: inline-block;vertical-align: middle;'></div>" + "<div style=' display: inline-block;vertical-align: middle; min-width:" + 10 + "px'>" + "Invité" + "</div>" + "<div style='margin-left:5px; font-size:15px;  display: inline-block;vertical-align: middle;'>" + txt.shorten(shortenOptions.length - 40 - "Invité".pixelLength(shortenOptions.fontSize)-5, 15) + "</div>";
         }
         else {
-            return ("Invité " + txt).shorten(shortenOptions.length, shortenOptions.fontSize);
+            return ("Invité " + txt).shorten(shortenOptions.length, shortenOptions.fontSize); //
         }
  
     }

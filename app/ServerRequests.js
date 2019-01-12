@@ -292,7 +292,7 @@ var Requests = {
                 ]
             },
             pagination: {
-                pageSize: 50,
+                pageSize: 100,
                 pageIndex: 0
             },
             sorting: [

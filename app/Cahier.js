@@ -336,7 +336,7 @@ function createBookingsTable(date,title) {
     for (var i = 0; i < fields.length; i++) {
         var d = div(topBar);
         d.id = i;
-        div(d);
+        div(d); 
         var img = document.createElement("img");
         img.src = "Img/" + images[i] + ".png";
         img.alt = "?";
