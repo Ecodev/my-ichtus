@@ -112,17 +112,17 @@
                     <div id="divTabCahierTableActualBookingsTopBar" class="TableEntries TableTopBar">
 
                         <div class="BookingsTopBarSorted" id="0">
-                            <div></div><img src="Img/IconStart.png" alt="rip" style="width:25px; margin-right:5px;" />
+                            <div></div><img src="Img/IconStart.png" alt="rip" />
                         </div><div id="1">
-                            <div></div><img src="Img/IconParticipantCount.png" alt="rip" style="width:25px" />
+                            <div></div><img src="Img/IconParticipantCount.png" alt="rip"/>
                         </div><div id="2">
-                            <div></div><img src="Img/IconResponsible.png" alt="rip" style="width:25px; margin-right:5px;"/>Responsable
+                            <div></div><img src="Img/IconResponsible.png" alt="rip"/>Responsable
                         </div><div id="3">
-                            <div></div><img src="Img/IconSail.png" alt="rip" style="width:25px; margin-right:5px;"/>Embarcation
+                            <div></div><img src="Img/IconSail.png" alt="rip"/>Embarcation
                         </div><div id="4">
-                            <div></div><img src="Img/IconDestination.png" alt="rip" style="width:25px; margin-right:5px;"/>Destination
+                            <div></div><img src="Img/IconDestination.png" alt="rip"/>Destination
                         </div><div id="5">
-                            <div></div><img src="Img/IconStartComment.png" alt="rip" style="width:25px; margin-right:5px;"/>Com.
+                            <div></div><img src="Img/IconStartComment.png" alt="rip"/>Com.
                         </div><div id="6">
                             <div></div>
                         </div>
@@ -155,7 +155,7 @@
 
         <!-- Div Tab CahierMaterielOptions -->
         <div id="divTabCahierMaterielOptions" class="divTab">
-            <div style="margin-top:215px; position:relative;"></div>
+            <div style="margin-top:200px; position:relative;"></div>
             <br />
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahier')"></div>
             <br />
@@ -181,7 +181,7 @@
 
         <!--Div Tab CahierMaterielCode-->
         <div id="divTabCahierMaterielCode" class="divTab">
-            <div style="margin-top:215px; position:relative;"></div>
+            <div style="margin-top:200px; position:relative;"></div>
             <br />
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')"></div>
             <br />
@@ -200,10 +200,10 @@
 
         <!-- Div Tab CahierMaterielCategories -->
         <div id="divTabCahierMaterielCategories" class="divTab">
-            <div style="margin-top:215px; position:relative;"></div>
+            <div style="margin-top:200px; position:relative;"></div>
             <br />
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahier')"></div>
-            <br />
+            <!--<br />-->
 
             <div id="divTabCahierMaterielCategoriesOther">Par catégorie</div>
             <div id="divTabCahierMaterielCategoriesContainer"></div>
@@ -212,7 +212,7 @@
 
         <!-- Div Tab CahierMaterielElements-->
         <div id="divTabCahierMaterielElements" class="divTab">
-            <div style="margin-top:215px; position:relative;"></div>
+            <div style="margin-top:200px; position:relative;"></div>
 
             <br />
 
@@ -264,7 +264,7 @@
 
         <!--Div Tab CahierInfos-->
         <div id="divTabCahierInfos" class="divTab">
-            <div style="margin-top:215px; position:relative;"></div>
+            <div style="margin-top:200px; position:relative;"></div>
             <br />
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielElements')"></div>
             <br />
@@ -333,64 +333,17 @@
 
         <!--Div Tab CahierConfirmation-->
         <div id="divTabCahierConfirmation" class="divTab">
-            <div style="margin-top:215px; position:relative;"></div>
+            <div style="margin-top:200px; position:relative;"></div>
             <br />
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierInfos')"></div>
 
-  
-
-                <div class="divTabCahierConfirmationContainer">
-
-                    <div style=" font-size:25px; text-align:center; color:black;">Votre sortie</div>
-                    <div style="background-color:gray; height:2px; margin-bottom:15px;  margin-top:5px; border-radius:2px;"></div>
-
-                    <div class="divConfirmationTexts">
-                        <div><div></div></div><div>Responsable</div><div style="font-size:35px;"></div>
-                    </div>
-                    <div class="divConfirmationTexts">
-                        <div><div></div></div><div>Heure de départ</div><div></div>
-                    </div>
-                    <div class="divConfirmationTexts">
-                        <div><div></div></div><div>Catégorie</div><div></div>
-                    </div>
-
-                    <div style="background-color:gray; height:2px; margin-bottom:15px; margin-top:10px; border-radius:2px; /*border-left:40px solid white;*/ "></div>
-
-                    <div class="divConfirmationTexts" style="background-color:lightgray">
-                        <div><div></div></div><div>Embarcation</div><div></div>
-                    </div>
-
-                    <div class="divTabCahierConfirmationEmbarcationBox">
-                        <div  onclick="popBookable(Cahier.bookableId)"></div><div class="divTabCahierConfirmationContainerTextsContainer"><div>asldkfj</div><div>asdfasdf</div></div>
-                        <!--<div class="ReturnButtons Buttons" onclick="popBookable(Cahier.bookableId)">Infos</div>-->  <div class="ReturnButtons Buttons" onclick="newTab('divTabCahierMaterielCategories')">Modifier</div>
-                    </div>
-
-                    <div style="background-color:gray; height:2px; margin-bottom:15px; margin-top:10px; border-radius:2px; /*border-left:40px solid white;*/  "></div><!--<div style="height:50px; background-color:red;"></div>-->
-
-                    <div class="divConfirmationTexts">
-                        <div><div></div></div><div>Nbr de part.</div><div></div>
-                    </div>
-                    <div class="divConfirmationTexts">
-                        <div><div></div></div><div>Destination</div><div></div>
-                    </div>
-                    <div class="divConfirmationTexts">
-                        <div><div></div></div><div>Commentaire</div><div></div>
-                    </div>
-
-                    <div id="divTabCahierConfirmationInfosBox">
-                        <div class="ReturnButtons Buttons" onclick="newTab('divTabCahierInfos')">Modifier</div><br />
-                    </div>
-
-
-
-                </div>
-          
-
             <br />
 
-            <div style="text-align:center;">
-                <div class="Buttons ValidateButtons" style="display:inline-block" onclick="Cahier.confirm()"></div>
+            <div style="text-align:center; margin-top:15px;">
+                <div class="Buttons ValidateButtons" style="display:inline-block" onclick="Cahier.confirm()">V</div>
             </div>
+
+            <br/>
 
         </div>
 
@@ -398,16 +351,9 @@
         <div id="divTabStatistiques" class="divTab">
 
             <br /><br /> STATS
-            <input type="file" id="file" value="main.html" />
+            <input type="file" id="file" value="tttttt.html" />
             <input type="button" onclick="ReadText()" />
         </div>
-
-
-        <!--<div id="divBottom">
-            BOTTOM BAR ?
-        </div>-->
-
-
 
 
     </div>

@@ -9,12 +9,21 @@ function loadConfirmation(elem = $('divTabCahierConfirmation')) {
     var images = ["IconResponsible", "IconStart",  "IconSail","IconParticipantCount", "IconDestination", "IconStartComment", "IconEndComment"];
 
     var container;
-    container = div(elem);
-    container.style.position = "absolute";
-    container.style.top = "50%";
-    container.style.marginLeft = "0px";
-    container.style.left = "50%";
-    container.style.transform = "translate(-50%,-50%)";
+
+    if (elem != $('divTabCahierConfirmation')) {
+        container = div(elem);
+        container.style.position = "absolute";
+        container.style.top = "50%";
+        container.style.marginLeft = "0px";
+        container.style.left = "50%";
+        container.style.transform = "translate(-50%,-50%)";
+    }
+    else {
+        container = document.createElement("div");
+        elem.insertBefore(container, elem.getElementsByClassName("ValidateButtons")[0].parentElement);
+        container.style.position = "relative";
+        container.style.minHeight = "10px";
+    }
 
     container.className = "divTabCahierConfirmationContainer";
 
@@ -27,7 +36,7 @@ function loadConfirmation(elem = $('divTabCahierConfirmation')) {
         div(div(d)).style.backgroundImage = "url(Img/" + images[i] + ".png)";
         div(d).innerHTML = fields[i];
         div(d);
-        if (i == 1 && elem != "tab") {
+        if (i == 1 && elem != $('divTabCahierConfirmation')) {
             d = div(container);
             d.classList.add("divConfirmationTexts");
             div(div(d)).style.backgroundImage = "url(Img/" + "IconEnd" + ".png)";
@@ -62,39 +71,42 @@ function loadConfirmation(elem = $('divTabCahierConfirmation')) {
         div(div(d)).style.backgroundImage = "url(Img/" + images[i] + ".png)";
         div(d).innerHTML = fields[i];
         div(d);
+        if (elem == $('divTabCahierConfirmation')) {
+            if (i / 2 == Math.floor(i / 2)) {
+                d.style.backgroundColor = "white";
+            }
+            else {
+                d.style.backgroundColor = "rgb(235,235,235)";
+            }
+        }
     }
 
+    if (elem != $('divTabCahierConfirmation')) {
+        d = div(container);
+        d.classList.add("divConfirmationTexts");
+        div(div(d)).style.backgroundImage = "url(Img/" + images[6] + ".png)";
+        div(d).innerHTML = fields[6];
+        div(d);
 
-    d = div(container);
-    d.classList.add("divConfirmationTexts");
-    div(div(d)).style.backgroundImage = "url(Img/" + images[6] + ".png)";
-    div(d).innerHTML = fields[6];
-    div(d);
-
-    var close = div(container);
-    close.className = "divPopUpClose";
-    close.onclick = function () {
-        closePopUp({ target: elem }, elem);
-    };
+        var close = div(container);
+        close.className = "divPopUpClose";
+        close.onclick = function () {
+            closePopUp({ target: elem }, elem);
+        };
+    }  
 }
 
 
 function actualizePopBooking(booking, container = $('divTabCahierConfirmationContainer')) {
     var allDiv = container.getElementsByClassName("divConfirmationTexts");
     var allDivTexts = [];
-    var allDivIcons = [];
     for (var i = 0; i < allDiv.length; i++) {
-        allDivIcons[i] = allDiv[i].getElementsByTagName("div")[0].getElementsByTagName("div")[0];
         allDivTexts[i] = allDiv[i].getElementsByTagName('div')[3];
     }
 
-
     container.getElementsByClassName('divTabCahierConfirmationContainer')[0].getElementsByTagName("div")[0].innerHTML = "Sortie du " + (new Date(booking.startDate)).getNiceDate();
 
-
     allDivTexts[0].innerHTML = getResponsibleNameFromBooking(booking, true, { length: 1000000, fontSize: 35 });
-
-    //allDivIcons[0].style.backgroundImage = "url(Img/Icon" + booking.responsible.gender + ".png)";
 
     allDivTexts[1].innerHTML = (new Date(booking.startDate)).getNiceTime();
 
@@ -104,6 +116,7 @@ function actualizePopBooking(booking, container = $('divTabCahierConfirmationCon
     else {
         allDivTexts[2].innerHTML = (new Date(booking.endDate)).getNiceTime();
     }
+
     if (booking.bookables.length != 0) {
         container.getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].addEventListener("click", function () { popBookable(booking.bookables[0].id); });
         container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = booking.bookables[0].name;
@@ -114,7 +127,6 @@ function actualizePopBooking(booking, container = $('divTabCahierConfirmationCon
         container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = "";
         container.getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].style.visibility =  "hidden";
     }
-
 
     allDivTexts[4].innerHTML = Cahier.getnbrParticipantsText(booking.participantCount, " Participant");
     allDivTexts[5].innerHTML = booking.destination;

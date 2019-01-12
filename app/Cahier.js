@@ -340,8 +340,8 @@ function createBookingsTable(date,title) {
         var img = document.createElement("img");
         img.src = "Img/" + images[i] + ".png";
         img.alt = "?";
-        img.style.width = "25px";
-        img.style.marginRight = "5px";
+       // img.style.width = "25px";
+       // img.style.marginRight = "5px";
         d.appendChild(img);
         d.innerHTML += fields[i];
     }

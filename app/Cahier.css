@@ -188,15 +188,12 @@
 
 .TableTopBar {
     background-color: transparent;
-    height: 50px;
     margin-bottom: 40px;
     border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-   
+    border-top-right-radius: 20px;   
 }
 
     .TableTopBar > div {
-        height: 45px;
         background-color: white;
         border-top: 10px solid transparent;
         border-bottom: 4px solid transparent;
@@ -210,12 +207,21 @@
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
         padding-left: 5px;
-        border-width: 0px !important;
-    }     
+        border-top-width: 0px !important;
+        border-left-width: 0px !important;
+        border-right-width: 0px !important;
+        border-bottom-width: 0px !important;
+        border-bottom-color: red !important;
+    }
+
+        .TableTopBar > div::first-line {
+            line-height: 35px;
+        }
 
         .TableTopBar > div:hover {
             border-bottom: 4px outset black;
             background-color: lightgray;
+
         }
 
         .TableTopBar > div > div:nth-child(1) {
@@ -244,11 +250,19 @@
             vertical-align:middle;
         }
 
-.BookingsTopBarSorted {
-    background-color: rgb(235,235,235) !important;
-    /*color: white !important;*/
-    border-bottom: 4px outset black !important;
-}
+    .TableTopBar img {
+        -moz-filter: brightness(0.5);
+        -ms-filter: brightness(0.5);
+        -webkit-filter: brightness(0.5);
+        filter: brightness(0.5)rightness(0.5);
+        width: 25px;
+        margin-right: 5px;
+    }
+
+    .BookingsTopBarSorted {
+        background-color: rgb(235,235,235) !important;
+        /*border-bottom: 4px outset black !important;*/
+    }
 
     .BookingsTopBarSorted:hover {
         background-color: lightgray !important;

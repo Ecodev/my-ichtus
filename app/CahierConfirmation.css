@@ -175,8 +175,16 @@
             color: darkgray;
         }
 
+    .divConfirmationTexts > div:first-child > div:first-child {
+        -moz-filter: brightness(0.5);
+        -ms-filter: brightness(0.5);
+        -webkit-filter: brightness(0.5);
+        filter: brightness(0.5)rightness(0.5);
+        /*background-size:*/
+    }
+
 .divTabCahierConfirmationEmbarcationBox > .Buttons:nth-child(3) {
-    bottom:0px;
+    bottom: 0px;
 }
 
 .divTabCahierConfirmationEmbarcationBox > .Buttons:nth-child(4) {

@@ -29,6 +29,7 @@ function load() {
     loadSpacers();
     loadTableTopBars();
     ServerInitialize();
+    loadConfirmation();
     Requests.getActualBookingList(true);
     newBookingTable(new Date(),"Sorties terminées");
 }
