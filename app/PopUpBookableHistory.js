@@ -141,19 +141,6 @@ function actualizePopBookableHistory(bookings, elem) {
 }
 
 
-Array.prototype.switch = function (i1, i2) {
-    var content_i1 = this[i1];
-    this.splice(i1, 1, this[i2]);
-    this.splice(i2, 1, content_i1);
-    return this;
-};
-
-Array.prototype.inverse = function (i1, i2) {
-    for (var i = i1; i < parseInt((i1+i2) / 2+0.5); i++) {
-        this.switch(i, i1+i2-i);
-    }
-    return this;
-};
 
 //var a = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 

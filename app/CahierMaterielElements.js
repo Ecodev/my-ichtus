@@ -80,16 +80,6 @@ function loadElements(Bookables) {
 }
 
 
-Array.prototype.findIndex = function (x) {
-    var Index = undefined;
-    for (var i = 0; i < this.length; i++) {
-        if (this[i].toString() == x.toString()) {
-            Index = i;
-            break;
-        }
-    }
-    return Index;
-}
 
 
 function clickSortIcon(elem) {

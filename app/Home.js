@@ -248,3 +248,51 @@ function getEndCommentFromBooking(booking, fill = false) {
     }
     return txt;
 }
+
+
+
+// ARRAY PROTOTYPES
+Array.prototype.switch = function (i1, i2) {
+    var content_i1 = this[i1];
+    this.splice(i1, 1, this[i2]);
+    this.splice(i2, 1, content_i1);
+    return this;
+};
+
+Array.prototype.inverse = function (i1, i2) {
+    for (var i = i1; i < parseInt((i1 + i2) / 2 + 0.5); i++) {
+        this.switch(i, i1 + i2 - i);
+    }
+    return this;
+};
+Array.prototype.findIndex = function (x) {
+    var Index = undefined;
+    for (var i = 0; i < this.length; i++) {
+        if (this[i].toString() == x.toString()) {
+            Index = i;
+            break;
+        }
+    }
+    return Index;
+};
+
+
+
+Array.prototype.sortBy = function (sortFields, order = 1) {
+
+    console.log("sortBy: " + this, "by: " + sortFields, "order: " + order);
+
+    var switching = true;
+    while (switching) {
+        switching = false;
+        for (var i = 0; i < this.length - 1; i++) {
+            if (sortFields[i] > sortFields[i + 1] && order == 1 || sortFields[i] < sortFields[i + 1] && order == -1) { // 
+                this.switch(i, i + 1);
+                sortFields.switch(i, i + 1);
+                switching = true;
+            }
+        }
+    }
+
+    console.log(this,sortFields);
+};

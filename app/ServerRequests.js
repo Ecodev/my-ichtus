@@ -38,7 +38,7 @@ var Requests = {
         var filter = {
             filter: {
                 groups: [
-                    { conditions: [{ name: { like: { value: '%' + text + '%' } } }] }
+                    { conditions: [{ custom: { search: { value: '%' + text + '%' } } }] }
                 ]
             },
             pagination: {
@@ -71,7 +71,9 @@ var Requests = {
             order = "ASC";
         }
 
+        var lastUse = false;
         var whichField = $('divTabCahierMaterielElementsSelectSort').getElementsByTagName("select")[0].value;
+        if (whichField == "lastUse") { whichField = "id"; lastUse = true;}
 
         var txt = $('inputTabCahierMaterielElementsInputSearch').value;
 
@@ -134,7 +136,59 @@ var Requests = {
 
         Server.bookableService.getAll(variables).subscribe(result => {
             console.log("getBookablesList(): ", result);
-            loadElements(result.items);
+
+            if (!lastUse) {
+                loadElements(result.items);
+            }
+            else {
+                
+                console.log("lastUse ! ");
+
+
+                var bookings = [];
+
+                for (var i = 0; i < result.items.length; i++) {
+
+                    var filter = {
+                        filter: {
+                            groups: [
+                                { conditions: [{ bookables: { have: { values: [result.items[i].id] } } }] }
+                            ]
+                        },
+                        pagination: {
+                            pageSize: 1,
+                            pageIndex: 0
+                        },
+                        sorting: [
+                            {
+                                field: "startDate",
+                                order: "DESC"
+                            }
+                        ]
+                    };
+
+
+                    var variables = new Server.QueryVariablesManager();
+                    variables.set('variables', filter);
+
+                    Server.bookingService.getAll(variables).subscribe(r => {
+                        bookings.push(r.items[0].startDate); // if no booking !!!!!!!
+                        console.log(r);
+                        if (bookings.length == result.items.length) {
+                            console.log(bookings);
+
+                            result.items.sortBy(bookings,order);
+
+                            loadElements(result.items);
+
+                        }
+                    }); 
+
+                }
+               
+            }
+
+
         });
     },
 

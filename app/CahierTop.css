@@ -1,8 +1,7 @@
 ﻿#divTabCahierTop {
     top: 50px;
-    height: 200px;
-    max-height: 200px;
-    min-height: 200px;
+    max-height: 0px;
+    min-height: 0px;
     background-color: transparent;
     position: absolute;
     left: 0px;
@@ -15,6 +14,7 @@
     transition: transform 0.3s linear 0s;
     z-index: 3;
     opacity: 1;
+    background-color:red;
 }
 
 #divTabCahierProgress {
