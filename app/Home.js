@@ -276,8 +276,6 @@ Array.prototype.findIndex = function (x) {
     return Index;
 };
 
-
-
 Array.prototype.sortBy = function (sortFields, order = 1) {
 
     console.log("sortBy: " + this, "by: " + sortFields, "order: " + order);

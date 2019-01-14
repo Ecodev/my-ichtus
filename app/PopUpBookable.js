@@ -66,7 +66,7 @@ function actualizePopBookable(bookable,bookings, elem) {
 
 
 
-    elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[3].innerHTML = "Dernière utilisation le " + (new Date(bookings.items[0].startDate)).getNiceDate() + " par " + getResponsibleNameFromBooking(bookings.items[0],false);
+    elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[3].innerHTML = "DerniÃ¨re utilisation le " + (new Date(bookings.items[0].startDate)).getNiceDate() + " par " + getResponsibleNameFromBooking(bookings.items[0],false);
     
 
  
