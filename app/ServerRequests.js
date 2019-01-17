@@ -46,7 +46,7 @@ var Requests = {
                 pageIndex: 0
             },
             sorting: [{
-                field: 'name',
+                field: 'id', // CHANGE
                 order: 'ASC'
             }]
         };
@@ -301,17 +301,18 @@ var Requests = {
                                 
                             }
                         ],
-                        //joins: {
-                        //    bookables: {
-                        //        conditions: [{
-                        //            bookingType: {
-                        //                equal: {
-                        //                    value: "self_approved"
-                        //                }
-                        //            }
-                        //        }]
-                        //    }
-                        //}
+                        joins: {
+                            bookables: {
+                                type:"leftJoin",
+                                conditions: [{
+                                    bookingType: {
+                                        equal: {
+                                            value: "self_approved"
+                                        }
+                                    }
+                                }]
+                            }
+                        }
                      
                     },
                     {
@@ -698,7 +699,7 @@ var Requests = {
     createBooking: function () {
 
         var input = {
-            responsible: { id: Cahier.personId },
+            responsible: Cahier.personId,
             participantCount: Cahier.nbrParticipants + 0,
             destination: Cahier.destination,
             startComment: Cahier.startComment
@@ -706,6 +707,7 @@ var Requests = {
         };
 
         if (Cahier.personId == "") {
+            console.log('Invité');
             input = {
                 participantCount: Cahier.nbrParticipants + 0,
                 destination: Cahier.destination,
@@ -732,13 +734,7 @@ var Requests = {
                 console.log("Matériel Personel");
                 Requests.getActualBookingList();
             }
-      
-
-
-            });
-
-       
-
+            });    
     },
 
 

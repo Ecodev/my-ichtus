@@ -93,7 +93,29 @@ function loadConfirmation(elem = $('divTabCahierConfirmation')) {
         close.onclick = function () {
             closePopUp({ target: elem }, elem);
         };
-    }  
+    }
+    else {
+        var btn = div(emb);
+        btn.innerHTML = "Modifier";
+        btn.classList.add("Buttons");
+        btn.classList.add("ReturnButtons");
+        btn.onclick = function () { newTab('divTabCahierMaterielCategories'); };
+
+       
+        var bar = div(container);
+        bar.classList.add("divConfirmationTexts");
+        bar.style.height = "50px";
+        bar.style.backgroundColor = "white";
+        div(bar);
+        div(bar);
+        var u = div(bar);
+        u.style.height = "100%";
+        var btn2 = div(u);
+        btn2.innerHTML = "Modifier";
+        btn2.classList.add("Buttons");
+        btn2.classList.add("ReturnButtons");
+        btn2.onclick = function () { newTab('divTabCahierInfos'); };
+    }
 }
 
 
@@ -104,7 +126,7 @@ function actualizePopBooking(booking, container = $('divTabCahierConfirmationCon
         allDivTexts[i] = allDiv[i].getElementsByTagName('div')[3];
     }
 
-    container.getElementsByClassName('divTabCahierConfirmationContainer')[0].getElementsByTagName("div")[0].innerHTML = "Sortie du " + (new Date(booking.startDate)).getNiceDate();
+    container.getElementsByClassName('divTabCahierConfirmationContainer')[0].getElementsByTagName("div")[0].innerHTML = "Sortie du " + (new Date(booking.startDate)).getNiceDate(false,true);
 
     allDivTexts[0].innerHTML = getResponsibleNameFromBooking(booking, true, { length: 1000000, fontSize: 35 });
 

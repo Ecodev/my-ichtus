@@ -59,14 +59,18 @@ Date.prototype.getNiceTime = function (separator = ":", addZero = false) {
         return this.getHours() + separator + Time.getActualMinutes(this.getMinutes());
     }
 };
-Date.prototype.getNiceDate = function (substr = false) {
-    if (substr == true) {
-        return Jours[this.getDay()] + " " + this.getDate() + " " + Mois[this.getMonth()].substring(0,3);
+Date.prototype.getNiceDate = function (substr = false, year = false) {
+    var r = "";
+    if (substr) {
+        r = Jours[this.getDay()] + " " + this.getDate() + " " + Mois[this.getMonth()].substring(0,3);
     }
     else {
-        return Jours[this.getDay()] + " " + this.getDate() + " " + Mois[this.getMonth()];
+        r = Jours[this.getDay()] + " " + this.getDate() + " " + Mois[this.getMonth()];
     }
-
+    if (year) {
+        r += " " + this.getFullYear();
+    }
+    return r;
 };
 
 Date.prototype.getPreviousDate = function () {
@@ -222,11 +226,12 @@ function getStartCommentFromBooking(booking,fill = false) {
     var txt = "";
 
     if (a == 0 && b != -1) {
-        txt = booking.startComment.slice(b+1, booking.startComment.length);
+        txt = booking.startComment.slice(b + 2, booking.startComment.length); // +2 pour enlever l'espace après le ]
     }
     else {
         txt = booking.startComment;
     }
+    console.log(txt.length);
     if (txt.length == 0 && fill) {
         txt = "Pas de commentaire";
     }

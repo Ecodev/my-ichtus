@@ -38,20 +38,18 @@
     .divTabCahierConfirmationContainer .Buttons {
         position: absolute;
         right: 10px;
+        bottom:0px;
+        width:110px;
         margin-left: 0px;
+        background-image:url(Img/IconEdit.png);
+        background-size:25px;
+        background-position-y:6px;
+        background-position-x:6px;
+
     }
     .divTabCahierConfirmationContainer .Buttons::after {
         content:none;
     }
-    .divTabCahierConfirmationContainer .ValidateButtons {
-        position: relative;
-        background-image: none;
-        top:5px;
-        width:130px;
-        left: 50%;
-        transform: translate(-50%,0%);
-    }
-
 
     .divConfirmationTexts {
         position: relative;
@@ -183,13 +181,6 @@
         /*background-size:*/
     }
 
-.divTabCahierConfirmationEmbarcationBox > .Buttons:nth-child(3) {
-    bottom: 0px;
-}
-
-.divTabCahierConfirmationEmbarcationBox > .Buttons:nth-child(4) {
-    top: 75px;
-}
 
 #divTabCahierConfirmationInfosBox {
     position: relative;
@@ -199,9 +190,6 @@
     background-color: azure;
 }
 
-    #divTabCahierConfirmationInfosBox > .Buttons {
-        top: 10px;
-    }
 
 
 

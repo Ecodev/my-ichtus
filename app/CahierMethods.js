@@ -80,6 +80,8 @@ var Cahier = {
 
     confirm: function () {
         Requests.createBooking();
+        animate();
+        setTimeout(newTab, 3000, 'divTabCahier');
         console.log("--> Cahier.confirm()");
     },
 

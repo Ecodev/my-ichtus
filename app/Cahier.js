@@ -169,6 +169,8 @@ function actualizeActualBookings(actualBookings,first) {
         container.classList.add("TableEntries");
         container.classList.add("TableEntriesHover");
 
+       
+
         container.addEventListener("click", function (event) {
             if (event.target.classList.contains("Buttons")) {
                 openFinishBooking(openPopUp(),this.id);
@@ -186,7 +188,25 @@ function actualizeActualBookings(actualBookings,first) {
             }         
         });
 
-        div(container).innerHTML = (new Date(actualBookings[i].startDate)).getNiceTime(":", true);
+        var divDate = div(container);
+       
+
+        var maxDays = 10; // CHANGE
+        if (Date.now() - (new Date(actualBookings[i].startDate)).getTime() > maxDays/2 * 24 * 60 * 60 * 1000) {
+
+            var d = div(divDate);
+            d.classList.add('TableEntriesAlert');
+            d.style.filter = "grayscale(1)";
+
+            if (Date.now() - (new Date(actualBookings[i].startDate)).getTime() > maxDays * 24 * 60 * 60 * 1000) {
+                d.style.filter = "none";
+            }
+        }
+        
+
+        divDate.id = "SORTING" + (new Date(actualBookings[i].startDate)).toISOString(); // for the sorting
+        divDate.innerHTML += (new Date(actualBookings[i].startDate)).getNiceTime(":", true);
+
 
         div(container).innerHTML = actualBookings[i].participantCount;
 
@@ -281,11 +301,20 @@ function sortTable(table) {
     while (switching) {
         switching = false;
         for (var i = 1; i < all.length - 1; i++) {
-            if (all[i].children[field].innerHTML.toLowerCase() > all[i + 1].children[field].innerHTML.toLowerCase() && order() == 1 || all[i].children[field].innerHTML.toLowerCase() < all[i + 1].children[field].innerHTML.toLowerCase() && order() == -1) {
+            if (getSortingText(all[i].children[field]) > getSortingText(all[i + 1].children[field]) && order() == 1 || getSortingText(all[i].children[field]) < getSortingText(all[i + 1].children[field]) && order() == -1) {
                 all[i].parentElement.insertBefore(all[i + 1], all[i]);
                 switching = true;
             }
         }
+    }
+}
+
+function getSortingText(elem) {
+    if (elem.id.indexOf("SORTING") == 0) {
+        return elem.id;
+    }
+    else {
+        return elem.innerHTML.toUpperCase();
     }
 }
 
