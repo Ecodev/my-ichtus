@@ -1,5 +1,5 @@
-var categories = ["Lorem..","Fusce...","SUP", "Canoé", "Planche à voile", "Voilier", "Kayak"];
-var categoriesValues = ["Lorem ipsum","Fusce Cursus","SUP", "Canoé", "PlancheAVoile", "Voilier", "Kayak"];
+var categories = ["Lorem..","Fusce...","SUP", "CanoÃ©", "Planche Ã  voile", "Voilier", "Kayak"];
+var categoriesValues = ["Lorem ipsum","Fusce Cursus","SUP", "CanoÃ©", "PlancheAVoile", "Voilier", "Kayak"];
 function loadMateriel() {
     inputTypeCodeMateriel = document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0];
     inputNumberCodeMateriel = document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1];

@@ -1,16 +1,13 @@
-var MaterielElementsFirstLoad = false;
-
 var currentBookables;
 
 
 function loadElements(Bookables) {
-    //var i = categories.findIndex(type);
 
     currentBookables = Bookables;
-    //var nbrOfElements = 10;
-
 
     document.getElementById("divTabCahierMaterielElementsContainer").innerHTML = "";
+
+    if ($('inputTabCahierMaterielElementsInputSearch').value == "") {
 
         var container = document.createElement("div");
         container.addEventListener("click", function () {
@@ -41,42 +38,39 @@ function loadElements(Bookables) {
         var background = div(secondContainer);
         background.style.backgroundImage = "url(Img/IconChose.png),url(Img/IconMan.png)";
 
-        for (var i = 0; i < Bookables.length; i++) {
+    }
 
-            container = document.createElement("div");
-            container.id = i;
-            container.addEventListener("click", function () {
-                popBookable(Bookables[this.id].id, this.id);
-            });
+    for (var i = 0; i < Bookables.length; i++) {
 
-            $("divTabCahierMaterielElementsContainer").appendChild(container);
+        container = document.createElement("div");
+        container.id = i;
+        container.addEventListener("click", function () {
+            popBookable(Bookables[this.id].id, this.id);
+        });
 
-            secondContainer = document.createElement("div");
-            container.appendChild(secondContainer);
+        $("divTabCahierMaterielElementsContainer").appendChild(container);
 
-            size = document.createElement("div");
-            size.innerHTML = Bookables[i].code;
-            secondContainer.appendChild(size);
+        secondContainer = document.createElement("div");
+        container.appendChild(secondContainer);
 
-            bottom = document.createElement("div");
-            secondContainer.appendChild(bottom);
+        size = document.createElement("div");
+        size.innerHTML = Bookables[i].code;
+        secondContainer.appendChild(size);
 
-            brand = div(bottom);
-            brand.innerHTML = Bookables[i].name.shorten(180);
+        bottom = document.createElement("div");
+        secondContainer.appendChild(bottom);
 
-            model = div(bottom);
-            model.innerHTML = Bookables[i].id;
+        brand = div(bottom);
+        brand.innerHTML = Bookables[i].name.shorten(180);
 
-            //var info = div(secondContainer);
+        model = div(bottom);
+        model.innerHTML = Bookables[i].id;
 
-            background = div(secondContainer);
+        //var info = div(secondContainer);
 
-        }
-        if (MaterielElementsFirstLoad == true) {
-            MaterielElementsFirstLoad = false;
-            //document.documentElement.scrollTop = 60;
-        }
-    // <div>     <div>       <div>7.0</div>          <div><div>Severne</div><div>Overdrive 2017</div></div>      <div></div><div></div>      </div>       </div>
+        background = div(secondContainer);
+
+    }
 }
 
 

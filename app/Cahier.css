@@ -214,6 +214,14 @@
         border-bottom-color: red !important;
     }
 
+    #divTabCahierTableActualBookings .TableTopBar > div:last-child:hover {
+        background-color: white;
+    }
+
+        #divTabCahierTableActualBookings .TableTopBar > div:last-child:hover > div:nth-child(1) {
+            background-size: 0px;
+        }
+
         .TableTopBar > div::first-line {
             line-height: 35px;
         }
@@ -274,8 +282,7 @@
         background-position-y: 5px !important;
     }
 
-    .BookingsTopBarSorted:hover > div {
-    }
+
 
 
 
@@ -315,7 +322,7 @@
         background-color: red;
         margin-right: 4px;
         margin-bottom: 0px;
-        margin-top: 0px;
+        /*margin-top: 0px;*/
     }
 
         .TableEntries .Buttons::after {
@@ -323,8 +330,9 @@
         }
 
         .TableEntries .Buttons:hover {
-            margin-left: 4px;
-            margin-right: 0px;
+            /*margin-left: 4px;*/
+            /*margin-right: 0px;*/
+            
             background-color: rgb(137, 16, 16)
         }
 

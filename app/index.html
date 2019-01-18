@@ -234,10 +234,9 @@
                     <div id="divTabCahierMaterielElementsSelectSort" title="Trier par">
                         <div class="Buttons NormalButtons" id="divTabCahierMaterielElementsSelectIconSort" onclick="clickSortIcon(this); Requests.getBookablesList();"></div>
                         <select onchange="Requests.getBookablesList();">
-                            <option value="id">ID</option>
                             <option value="code">Code</option>
                             <option value="name">Nom</option>
-                            <option value="description">Description</option>
+                            <option value="nbrBookings">Nbr de sorties</option>
                             <option value="lastUse">Dernière utilisation</option>
                         </select>
                     </div>
@@ -343,7 +342,7 @@
                 <div class="Buttons ValidateButtons" style="display:inline-block" onclick="Cahier.confirm()">Confirmer</div>
             </div>
 
-            <br/>
+            <br />
 
         </div>
 

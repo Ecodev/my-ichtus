@@ -383,6 +383,7 @@ var Requests = {
             filter: {
                 groups: [
                     {
+
                         groupLogic: "AND",
 
                         conditions: [{
@@ -391,34 +392,33 @@ var Requests = {
                                     value: "booked"
                                 }
                             },
-
                             custom: {
                                 search: {
                                     value: "%" + txt + "%"
                                 }
                             },
-
+                            endDate: {
+                                null: {
+                                    not: true
+                                }
+                            },
                             startDate: {
                                 between: {
                                     from: start.toISOString(),
                                     to: end.toISOString()
                                 }
-                            }
-
-                        },
-                        {
-                            endDate: {
-                                null: {
+                            },
+                            bookables: {
+                                empty: {
                                     not: true
                                 }
                             }
+
                         }
-                        ]
-                    },
-                    {
-                        groupLogic: "AND",
+                        ],
                         joins: {
                             bookables: {
+                                type: "leftJoin",
                                 conditions: [{
                                     bookingType: {
                                         equal: {
@@ -428,20 +428,42 @@ var Requests = {
                                 }]
                             }
                         }
-                    }
 
-                ]
-            },
-            pagination: {
-                pageSize: 50,
-                pageIndex: 0
-            },
-            sorting: [
-                {
-                    field: "id",
-                    order: "ASC"
-                }
-            ]
+                    },
+                    {
+                        groupLogic: "OR",
+
+                        conditions: [{
+                            status: {
+                                equal: {
+                                    value: "booked"
+                                }
+                            },
+                            custom: {
+                                search: {
+                                    value: "%" + txt + "%"
+                                }
+                            },
+                            endDate: {
+                                null: {
+                                    not: true
+                                }
+                            },
+                            startDate: {
+                                between: {
+                                    from: start.toISOString(),
+                                    to: end.toISOString()
+                                }
+                            },
+                            bookables: {
+                                empty: {
+                                    not: false
+                                }
+                            }
+                        }]
+                    }    
+                    ]
+            }
         };
 
         var variables = new Server.QueryVariablesManager();
@@ -689,10 +711,10 @@ var Requests = {
         });
     },
 
-
+    // finishBooking
     terminateBooking: function (bookingId, comment) {
-        alert(comment);
-        Server.bookingService.terminateBooking(bookingId, comment); //{ id: bookingId, comment: comment }
+        Server.bookingService.flagEndDate(bookingId, comment);
+        Requests.getActualBookingList(true);
     },
 
     // createBooking
@@ -727,12 +749,10 @@ var Requests = {
                     __typename: 'Bookable'
                 }).subscribe(() => {
                     console.log('Linked Bookable : ', booking);
-                    Requests.getActualBookingList();
                 });
             }
             else {
                 console.log("Matériel Personel");
-                Requests.getActualBookingList();
             }
             });    
     },

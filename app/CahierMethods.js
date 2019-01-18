@@ -83,6 +83,7 @@ var Cahier = {
         animate();
         setTimeout(newTab, 3000, 'divTabCahier');
         console.log("--> Cahier.confirm()");
+        Requests.getActualBookingList(true);
     },
 
     actualizeProgressBar: function () {

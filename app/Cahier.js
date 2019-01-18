@@ -80,7 +80,11 @@ function createSearchEntries(PeopleCorresponding) {
 
         var span1 = document.createElement("span");
         span1.classList.add("spanTabCahierName");
-        span1.innerHTML = "Aucun résultat :(";
+        span1.innerHTML = "Aucun résultat - Cliquez pour vous rendre sur <c style='color:blue; text-decoration:underline;'> ichtus.ch </c>";
+        span1.onclick = function () {
+            var win = window.open("https://ichtus.ch", '_blank');
+            win.focus();
+        };
         divResult.appendChild(span1);
 
         divResult.style.backgroundImage = "url('Img/IconNoResult.png')";
@@ -169,8 +173,6 @@ function actualizeActualBookings(actualBookings,first) {
         container.classList.add("TableEntries");
         container.classList.add("TableEntriesHover");
 
-       
-
         container.addEventListener("click", function (event) {
             if (event.target.classList.contains("Buttons")) {
                 openFinishBooking(openPopUp(),this.id);
@@ -188,17 +190,21 @@ function actualizeActualBookings(actualBookings,first) {
             }         
         });
 
-        var divDate = div(container);
-       
+        var divDate = div(container);    
 
-        var maxDays = 10; // CHANGE
-        if (Date.now() - (new Date(actualBookings[i].startDate)).getTime() > maxDays/2 * 24 * 60 * 60 * 1000) {
+        var maxHours = 24; 
+        if (Date.now() - (new Date(actualBookings[i].startDate)).getTime() > maxHours/4 * 60 * 60 * 1000) {
 
             var d = div(divDate);
             d.classList.add('TableEntriesAlert');
-            d.style.filter = "grayscale(1)";
+            d.style.filter = "grayscale(1) invert(1)";
 
-            if (Date.now() - (new Date(actualBookings[i].startDate)).getTime() > maxDays * 24 * 60 * 60 * 1000) {
+            if (Date.now() - (new Date(actualBookings[i].startDate)).getTime() > maxHours/2 * 60 * 60 * 1000) {
+                d.style.filter = "none";
+                d.style.filter = "grayscale(1)";
+            }
+
+            if (Date.now() - (new Date(actualBookings[i].startDate)).getTime() > maxHours * 60 * 60 * 1000) {
                 d.style.filter = "none";
             }
         }
@@ -213,7 +219,7 @@ function actualizeActualBookings(actualBookings,first) {
         div(container).innerHTML = getResponsibleNameFromBooking(actualBookings[i],true);
 
         if (actualBookings[i].bookables.length == 0) {
-            div(container).innerHTML = "MP";
+            div(container).innerHTML = "Matériel Personel";
         }
         else {
             createBookingBookableBox(div(container), { code: actualBookings[i].bookables[0].code, name: actualBookings[i].bookables[0].name });
@@ -255,29 +261,33 @@ function loadTableTopBars(allTables = document.getElementsByClassName("BookingsT
         for (var i = 0; i < all.length; i = i + 2) {
             all[i].getElementsByTagName("div")[0].style.backgroundImage = "url(Img/IconSortASC.png)";
 
-            all[i].addEventListener("click", function () {
+            if (!(all[i].parentElement.id == 'divTabCahierTableActualBookingsTopBar' && all[i].id == '6')) { // not sort finish buttons
+            
+                all[i].addEventListener("click", function () {
 
-                if (this.getElementsByTagName("div")[0].style.backgroundImage == 'url("Img/IconSortDESC.png")' || !(this.classList.contains("BookingsTopBarSorted"))) {
-                    this.getElementsByTagName("div")[0].style.backgroundImage = "url(Img/IconSortASC.png)";
-                    order = 1;
-                }
-                else {
-                    this.getElementsByTagName("div")[0].style.backgroundImage = "url(Img/IconSortDESC.png)";
-                    order = -1;
-
-                }
-
-                var allButtons = this.parentElement.getElementsByTagName("div");
-                for (var k = 0; k < all.length; k = k + 2) {
-                    if (allButtons[k] != this) {
-                        allButtons[k].classList.remove("BookingsTopBarSorted");
-                        allButtons[k].getElementsByTagName("div")[0].style.backgroundImage = "url(Img/IconSortASC.png)";
+                    if (this.getElementsByTagName("div")[0].style.backgroundImage == 'url("Img/IconSortDESC.png")' || !(this.classList.contains("BookingsTopBarSorted"))) {
+                        this.getElementsByTagName("div")[0].style.backgroundImage = "url(Img/IconSortASC.png)";
+                        order = 1;
                     }
-                }
-                this.classList.add("BookingsTopBarSorted");
+                    else {
+                        this.getElementsByTagName("div")[0].style.backgroundImage = "url(Img/IconSortDESC.png)";
+                        order = -1;
 
-               sortTable(this.parentElement.parentElement);
-            });
+                    }
+
+                    var allButtons = this.parentElement.getElementsByTagName("div");
+                    for (var k = 0; k < all.length; k = k + 2) {
+                        if (allButtons[k] != this) {
+                            allButtons[k].classList.remove("BookingsTopBarSorted");
+                            allButtons[k].getElementsByTagName("div")[0].style.backgroundImage = "url(Img/IconSortASC.png)";
+                        }
+                    }
+                    this.classList.add("BookingsTopBarSorted");
+
+                   sortTable(this.parentElement.parentElement);
+                });
+
+            }
         }  
     }
 }
@@ -436,7 +446,12 @@ function actualizeFinishedBookingListForDay(bookings,table) {
 
             div(entry).innerHTML = getResponsibleNameFromBooking(bookings[i],true);
 
-            createBookingBookableBox(div(entry), { code: bookings[i].bookables[0].code, name: bookings[i].bookables[0].name });
+            if (bookings[i].bookables.length == 0) {
+                div(entry).innerHTML = "Matériel Personel";
+            }
+            else {
+                createBookingBookableBox(div(entry), { code: bookings[i].bookables[0].code, name: bookings[i].bookables[0].name });
+            }
 
             div(entry).innerHTML = bookings[i].destination.shorten(150, 20);
             div(entry).innerHTML = getStartCommentFromBooking(bookings[i]).shorten(200, 20);; // "".shorten(200, 200);//getStartCommentFromBooking(bookings[i]);//.startComment.shorten(200, 20); // BIZARRRRERELRKJASéDL KFJASéDLF JKAéSLDKFJ 

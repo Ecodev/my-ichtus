@@ -1,4 +1,4 @@
-﻿function openFinishBooking(elem,bookingId) {
+function openFinishBooking(elem,bookingId) {
 
     Requests.getBookingFinishInfos(bookingId,elem);
 
@@ -97,13 +97,12 @@
     btnFinish.innerHTML = "Terminer";
     btnFinish.addEventListener("click", function () {
         var txt = "";
-        if (area.style.opacity == 1) {
+        if (area.parentElement.style.opacity == 1) {
             txt += "! " + area.value + " ! ";
         }
         txt += area2.value;
         Requests.terminateBooking(this.id, txt);
         closePopUp({ target: elem }, elem);
-        // Requests.updateBooking(booking.id, { endComment: elem.getElementsByClassName("divConfirmationTexts")[3].getElementsByTagName("textarea")[0].value});
     });
    
 
