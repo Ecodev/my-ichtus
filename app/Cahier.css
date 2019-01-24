@@ -122,7 +122,7 @@
     }
 
 
-.spanTabCahierName { /*#divTabCahierSearchResult > div > span:nth-child(1) {*/
+.spanTabCahierSurName { /*#divTabCahierSearchResult > div > span:nth-child(1) {*/
     position: relative;
     display: table-cell;
     vertical-align: middle;
@@ -131,11 +131,11 @@
     /*background-color: red;*/
 }
 
-.divTabCahierResultEntry:hover .spanTabCahierName {
+.divTabCahierResultEntry:hover .spanTabCahierSurName {
     text-decoration: underline;
 }
 
-.spanTabCahierSurname { /*#divTabCahierSearchResult > div > span:nth-child(2) {*/
+.spanTabCahierFirstName { /*#divTabCahierSearchResult > div > span:nth-child(2) {*/
     position: relative;
     display: table-cell;
     vertical-align: middle;
@@ -145,7 +145,7 @@
     /*background-color: green;*/
 }
 
-.divTabCahierResultEntry:hover .spanTabCahierSurname {
+.divTabCahierResultEntry:hover .spanTabCahierFirstName {
     text-decoration: underline;
 }
 
@@ -699,6 +699,7 @@
         -webkit-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
         -moz-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
         box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
+        background-color:white;
     }
 
     #divTabCahierTables > input:hover {

@@ -98,15 +98,15 @@
             <div style="font-size:30px; margin-bottom:5px; text-align:center;">Nouvelle sortie</div>
 
 
-            <input id="inputTabCahierSearch" title="Nouvelle sortie pour les membres d'Ichtus" spellcheck="false" type="text" placeholder="Entrez votre nom, prénom..." onkeyup="Search(event)" onkeydown="SearchDown(event)" />
+            <input  autocomplete="off" id="inputTabCahierSearch" title="Nouvelle sortie pour les membres d'Ichtus" spellcheck="false" type="text" placeholder="Entrez votre nom, prénom..." onkeyup="Search(event)" onkeydown="SearchDown(event)" />
             <div style="position:absolute; height:34px; top:189px; left:70%; margin-left:10px; background-image:url(Img/IconInvitesBlack.png)" class="Buttons NormalButtons" title="Non membres d'Ichtus" onclick="popGuest();">Invité</div>
 
             <div id="divTabCahierSearchResult"></div>
 
             <div id="divTabCahierTables">
 
-                <input id="inputTabCahierActualBookingsSearch" type="text" value="" spellcheck="false" placeholder="Rechercher" onkeyup="Requests.getActualBookingList();" style="margin-top:-10px;" />
-                <div style="position:relative; font-size:30px; width:500px">Sorties en cours</div>
+                <input  autocomplete="off" id="inputTabCahierActualBookingsSearch" type="text" value="" spellcheck="false" placeholder="Rechercher" onkeyup="Requests.getActualBookingList();" style="margin-top:-10px;" />
+                <div id="divTabCahierActualBookingsSearchTitle" style="position:relative; font-size:30px; width:500px">Sorties en cours</div>
 
                 <div id="divTabCahierTableActualBookings" class="BookingsTable">
                     <div id="divTabCahierTableActualBookingsTopBar" class="TableEntries TableTopBar">
@@ -186,8 +186,8 @@
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')"></div>
             <br />
             <div id="divTabCahierMaterielCodeEmbarcation">
-                <input type="text" placeholder="Type" onkeyup="writeCodeMateriel(); actualizeCodeMateriel();" onfocusin="openPropositionsCodeMateriel(); actualizeCodeMateriel();" onfocusout="closePropositionsCodeMateriel();" />
-                <input type="number" placeholder="Numéro" min="1" onkeyup="if (event.keyCode == 13) { validateCodeMateriel(); }; actualizeCodeMateriel();"/ >
+                <input  autocomplete="off" type="text" placeholder="Type" onkeyup="writeCodeMateriel(); actualizeCodeMateriel();" onfocusin="openPropositionsCodeMateriel(); actualizeCodeMateriel();" onfocusout="closePropositionsCodeMateriel();" />
+                <input  autocomplete="off" type="number" placeholder="Numéro" min="1" onkeyup="if (event.keyCode == 13) { validateCodeMateriel(); }; actualizeCodeMateriel();"/ >
                 <div></div>
                 <div>Code de l'embarcation</div>
                 <div id="divTabCahierMaterielCodeEmbarcationTypeResults"></div>
@@ -221,14 +221,12 @@
                 <!--<div style="width:120px;">
                     <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')" style="margin-left:0px;"></div>
                 </div>-->
-                <div style="width:250px;">
+                <!--<div style="width:250px;">
                     <div class="Buttons NormalButtons" style="width:230px; background-image:url(Img/IconEnter.png)" onclick="newTab('divTabCahierMaterielCategories')" title="Changer de catégorie">remove</div>
-                </div><div style="min-width:258px;">
+                </div>--><div style="min-width:271px;">
                     <div id="divTabCahierMaterielElementsSelectCategorie" title="Catégorie">
                         <div class="Buttons NormalButtons"></div>
-                        <select onchange="changeSelectCategorie(this); Requests.getBookablesList();">
-                            <option value="all">Toutes enelver ?</option>
-                        </select>
+                        <select onchange="changeSelectCategorie(this); Requests.getBookablesList();"></select>
                     </div>
                 </div><div style="width:248px;">
                     <div id="divTabCahierMaterielElementsSelectSort" title="Trier par">
@@ -251,7 +249,7 @@
                         </select>
                     </div>
                 </div><div style="min-width:100px;" title="Rechercher">
-                    <input id="inputTabCahierMaterielElementsInputSearch" type="text" value="" placeholder="Rechercher" onkeyup="Requests.getBookablesList();" />
+                    <input  autocomplete="off" id="inputTabCahierMaterielElementsInputSearch" type="text" value="" placeholder="Rechercher" onkeyup="Requests.getBookablesList();" />
                 </div>
             </div>
 
@@ -272,7 +270,7 @@
 
                 <div id="divTabCahierInfosNbrInvites" class="TabCahierFields">
                     *Nbr de participants
-                    <input type="number" min="1" max="20" spellcheck="false" placeholder="1" value="1" onkeyup="writeNbrInvites(this);" onfocusin="this.value =''; writeNbrInvites(this); focusInOrOut(this,true);" onfocusout="if (this.value == '') { this.value = '1'; writeNbrInvites(this);}focusInOrOut(this,false);" />
+                    <input  autocomplete="off" type="number" min="1" max="20" spellcheck="false" placeholder="1" value="1" onkeyup="writeNbrInvites(this);" onfocusin="this.value =''; writeNbrInvites(this); focusInOrOut(this,true);" onfocusout="if (this.value == '') { this.value = '1'; writeNbrInvites(this);}focusInOrOut(this,false);" />
                     <div></div>
                     <div id="divTabCahierInfosNbrInvitesPropositions" class="PropositionsContainer">
                         <div> 1 </div><div> 2 </div><div> 3 </div><div> 4 </div><div> 5 </div><div> 8 </div><div> 10 </div>
@@ -281,7 +279,7 @@
 
                 </div><div id="divTabCahierInfosDestination" class="TabCahierFields">
                     *Destination
-                    <input type="text" spellcheck="false" placeholder="Baie" onkeyup="writeDestination(this);" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" /> <!--/> mmmmh ??-->
+                    <input  autocomplete="off" type="text" spellcheck="false" placeholder="Baie" onkeyup="writeDestination(this);" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" /> <!--/> mmmmh ??-->
                     <div></div>
                     <div id="divTabCahierInfosDestinationPropositions" class="PropositionsContainer">
                         <div>Baie</div><div>La Ramée</div><div>La Tène</div><div>Neuchâtel</div><div>Cudrefin</div>
@@ -290,7 +288,7 @@
 
                 </div><!--<div id="divTabCahierInfosPhoneNumber" class="TabCahierFields">
                     *Numéro de téléphone
-                    <input type="text" spellcheck="false" placeholder="07X XXX XX XX" pattern="[0-9]{6}" onkeydown="writePhoneNumber(event,this)" onkeyup="checkPhoneNumber(this)" />
+                    <input  autocomplete="off" type="text" spellcheck="false" placeholder="07X XXX XX XX" pattern="[0-9]{6}" onkeydown="writePhoneNumber(event,this)" onkeyup="checkPhoneNumber(this)" />
                     <div></div>
                     <div id="checkBoxTabCahierInfosPhoneNumberRemember" onclick="check(this)">
                         <div class="checkBox"></div><div>Se souvenir de mon numéro</div>
@@ -306,13 +304,13 @@
 
                 <!--<div id="divTabCahierInfosStartTime" class="TabCahierFields">
                     Heure de départ
-                    <input type="time" min="0:00" max="21:00" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" />
+                    <input  autocomplete="off" type="time" min="0:00" max="21:00" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" />
                     <div></div>
                 </div>
 
                 <div id="divTabCahierInfosEndTime" class="TabCahierFields">
                     Heure d'arivée
-                    <input type="time" min="12:00" max="24:00" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" />
+                    <input  autocomplete="off" type="time" min="12:00" max="24:00" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" />
                     <div></div>
                     <div id="divTabCahierInfosEndTimePropositions" class="PropositionsContainer">
                         <div>30min</div><div>45min</div><div>1h</div><div>1h30</div><div>2h</div><div>3h</div><div>4h</div>
@@ -350,8 +348,8 @@
         <div id="divTabStatistiques" class="divTab">
 
             <br /><br /> STATS
-            <input type="file" id="file" value="tttttt.html" />
-            <input type="button" onclick="ReadText()" />
+            <input  autocomplete="off" type="file" id="file" value="tttttt.html" />
+            <input  autocomplete="off" type="button" onclick="ReadText()" />
         </div>
 
 

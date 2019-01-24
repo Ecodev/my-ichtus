@@ -9,10 +9,11 @@ function Search(e) {
         var all = document.getElementsByClassName("divTabCahierResultEntry");
         for (var i = 0; i < all.length; i++) {
             if (typeof all[i].getElementsByTagName("img")[0] != "undefined") {
-                var name = all[i].getElementsByClassName("spanTabCahierName")[0].innerHTML;
-                var surname = all[i].getElementsByClassName("spanTabCahierSurname")[0].innerHTML;
-                //var id = 
-                chosePerson(name, surname);
+                var firstName = all[i].getElementsByClassName("spanTabCahierFirstName")[0].innerHTML;
+                var surName = all[i].getElementsByClassName("spanTabCahierSurName")[0].innerHTML;
+                var id = all[i].id;
+
+                Cahier.chosePerson(surName, firstName, id); 
             }
         }
     }
@@ -25,6 +26,7 @@ function Search(e) {
     }
     else {
         $("divTabCahierSearchResult").innerHTML = "";
+        lastPeople = [];
     }
 }
 
@@ -79,7 +81,7 @@ function createSearchEntries(PeopleCorresponding) {
         $("divTabCahierSearchResult").appendChild(divResult);
 
         var span1 = document.createElement("span");
-        span1.classList.add("spanTabCahierName");
+        span1.classList.add("spanTabCahierSurName");
         span1.innerHTML = "Aucun résultat - Cliquez pour vous rendre sur <c style='color:blue; text-decoration:underline;'> ichtus.ch </c>";
         span1.onclick = function () {
             var win = window.open("https://ichtus.ch", '_blank');
@@ -97,16 +99,16 @@ function createSearchEntries(PeopleCorresponding) {
             divResult.classList.add("divTabCahierResultEntry");
             $("divTabCahierSearchResult").appendChild(divResult);
 
-            divResult.addEventListener("mousedown", function () { chosePerson(this.getElementsByClassName("spanTabCahierName")[0].innerHTML, this.getElementsByClassName("spanTabCahierSurname")[0].innerHTML,this.id); });
+            divResult.addEventListener("mousedown", function () { Cahier.chosePerson(this.getElementsByClassName("spanTabCahierSurName")[0].innerHTML, this.getElementsByClassName("spanTabCahierFirstName")[0].innerHTML,this.id); });
 
             var span1 = document.createElement("span");
-            span1.classList.add("spanTabCahierName");
-            span1.innerHTML = PeopleCorresponding[i].name;
+            span1.classList.add("spanTabCahierSurName");
+            span1.innerHTML = PeopleCorresponding[i].name.split(" ")[1]; //.firstN/name
             divResult.appendChild(span1);
 
             var span2 = document.createElement("span");
-            span2.classList.add("spanTabCahierSurname");
-            span2.innerHTML = PeopleCorresponding[i].id;
+            span2.classList.add("spanTabCahierFirstName");
+            span2.innerHTML = PeopleCorresponding[i].name.split(" ")[0]; //.surname //lastName ???
             divResult.appendChild(span2);
 
             if (i == 0) {
@@ -130,17 +132,6 @@ function createSearchEntries(PeopleCorresponding) {
 
 
 
-function chosePerson(name, surname,id) {
-    Cahier.personName = name;
-    Cahier.personSurname = surname;
-    Cahier.personId = id;
-    newTab("divTabCahierMaterielCategories");
-    $("divTabCahierInfosName").innerHTML = name + " " + surname;
-}
-
-
-
-
 
 function actualizeActualBookings(actualBookings,first) {
 
@@ -161,8 +152,18 @@ function actualizeActualBookings(actualBookings,first) {
         var cell = div(entry);
     }
 
-    if (first == true) {
-        $('divTabCahierTableActualBookings').previousElementSibling.innerHTML += " (" + actualBookings.length + ")";
+    console.log("first", first);
+    if (first == true) { // so new generated not just a search
+        $('divTabCahierTableActualBookings').previousElementSibling.innerHTML = "Sorties en cours (" + actualBookings.length + ")";
+
+        var children = $('divTabCahierTables').children;
+        for (var i = 0; i < children.length; i++) {
+            if (children[i].id != "divTabCahierTableActualBookings" && children[i].id != "inputTabCahierActualBookingsSearch" && children[i].id != "divTabCahierActualBookingsSearchTitle") {
+                $('divTabCahierTables').removeChild(children[i]);
+                i--;
+            }           
+        }
+        newBookingTable(new Date(), "Sorties terminées");// tables sorties finies
     }
 
     for (var i = 0; i < actualBookings.length; i++) {

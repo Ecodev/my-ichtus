@@ -27,7 +27,8 @@ function popBookable(bookableId, i = -1) {
 	var description = div(pop);
 
 	var btn2 = div(pop);
-	btn2.classList.add("Buttons"); btn2.classList.add("ReturnButtons");
+    btn2.classList.add("Buttons"); btn2.classList.add("ReturnButtons");
+    btn2.style.visibility = "hidden";
 	btn2.innerHTML = "Historique";
 
 	if (i != -1) {
@@ -65,17 +66,23 @@ function actualizePopBookable(bookable,bookings, elem) {
     elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].innerHTML = bookable.code;
 
 
+    if (bookings.length != 0) {
+        elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[3].innerHTML = "Dernière utilisation le " + (new Date(bookings.items[0].startDate)).getNiceDate() + " par " + getResponsibleNameFromBooking(bookings.items[0], false);
+        elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[4].innerHTML = bookings.length + " sorties";
+        elem.getElementsByClassName('Buttons')[0].style.visibility = "visible";
+        elem.getElementsByClassName('Buttons')[0].addEventListener("click", function () {
+            popBookableHistory(this.parentElement.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[1].id);
+        });
+    }
+    else {
+        elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[3].innerHTML = "Encore aucune sortie enregistrée";
+        elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[4].innerHTML = "";
+        elem.getElementsByClassName('Buttons')[0].style.visibility = "hidden";
+    } 
 
-    elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[3].innerHTML = "Dernière utilisation le " + (new Date(bookings.items[0].startDate)).getNiceDate() + " par " + getResponsibleNameFromBooking(bookings.items[0],false);
-    
-
- 
-    elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[4].innerHTML = bookings.length + " sorties";
     grayBar(elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0]);
 
 	elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[1].id = bookable.id;
 
-	elem.getElementsByClassName('Buttons')[0].addEventListener("click", function () {
-		popBookableHistory(this.parentElement.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[1].id);
-	});
+
 }

@@ -346,20 +346,6 @@ option {
     z-index: 3;
 }
 
-.BoxesBottomText1 {
-    position: absolute;
-    left: 2.5%;
-    top: 20px;
-    width: 95%;
-    height: 25px;
-    font-size: 30px;
-    text-align: center;
-    background-color: white;
-    color: black;
-    transition: all 0.1s linear 0s;
-}
-
-
 
 
 .divPopUpClose {

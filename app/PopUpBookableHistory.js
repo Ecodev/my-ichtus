@@ -29,20 +29,10 @@ function popBookableHistory(bookableId) {
     close.className = "divPopUpClose";
     close.onclick = function () {
         closePopUp({ target: modal }, modal);
-    };
-
-
-    
+    }; 
  
     var scroll = div(container);
     scroll.className = "PopUpBookableHistoryContainerScroll";
-
-
-
-
-
-
-
 }
 
 

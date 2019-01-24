@@ -24,7 +24,7 @@ var Requests = {
     login: function (pwd) {
         alert("ok");
         Server.userService.login({
-            login: 'administrator',
+            login: 'bookingonly',
             password: pwd
         }).subscribe(result => {
             console.log(result);
@@ -46,7 +46,11 @@ var Requests = {
                 pageIndex: 0
             },
             sorting: [{
-                field: 'id', // CHANGE
+                field: 'lastName', //lastName?
+                order: 'ASC'
+            },
+            {   //if same family name sort by firstName
+                field: 'firstName', //lastName?
                 order: 'ASC'
             }]
         };
@@ -72,8 +76,10 @@ var Requests = {
         }
 
         var lastUse = false;
+        var nbrBookings = false;
         var whichField = $('divTabCahierMaterielElementsSelectSort').getElementsByTagName("select")[0].value;
-        if (whichField == "lastUse") { whichField = "id"; lastUse = true;}
+        if (whichField == "lastUse") { whichField = "id"; lastUse = true; }
+        if (whichField == "nbrBookings") { whichField = "id"; nbrBookings = true; }
 
         var txt = $('inputTabCahierMaterielElementsInputSearch').value;
 
@@ -100,26 +106,27 @@ var Requests = {
                                         value: "self_approved"
                                     }
                                 }
-                            }                          
+                            }
                         ]
                     },
-                    //{       //CATEGORIES...
-                    //    groupLogic: 'OR',
-                    //    joins: {
-                    //        bookableTags: {
-                    //            conditions: [
-                    //                {
-                    //                    id: {
-                    //                        like: {
-                    //                            value:"%"
-                    //                        }
-                    //                    }
-                    //                }
-                    //            ]
-                    //        }
-                    //    }
+                    {       //CATEGORIES...
+                        groupLogic: 'AND',
+                        joins: {
+                            bookableTags: {
+                                //type:"innerJoin", marhce pas.... left/inner =?
+                                conditions: [
+                                    {
+                                        name: {
+                                            like: {
+                                                value: "%" + categorie + "%"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
 
-                    //}
+                    }
                 ]
             },
             sorting: [
@@ -137,15 +144,15 @@ var Requests = {
         Server.bookableService.getAll(variables).subscribe(result => {
             console.log("getBookablesList(): ", result);
 
-            if (!lastUse) {
+            if (!lastUse && !nbrBookings) {
                 loadElements(result.items);
             }
-            else {
-                
+            else if (lastUse) {
+
                 console.log("lastUse ! ");
 
-
                 var bookings = [];
+                bookings.fill(result.items.length);
 
                 for (var i = 0; i < result.items.length; i++) {
 
@@ -162,38 +169,154 @@ var Requests = {
                         sorting: [
                             {
                                 field: "startDate",
-                                order: "DESC"
+                                order: "DESC" //get the latest booking !
                             }
                         ]
                     };
 
+                    var counter = 0;
 
                     var variables = new Server.QueryVariablesManager();
                     variables.set('variables', filter);
 
                     Server.bookingService.getAll(variables).subscribe(r => {
-                        bookings.push(r.items[0].startDate); // if no booking !!!!!!!
+
                         console.log(r);
-                        if (bookings.length == result.items.length) {
-                            console.log(bookings);
 
-                            result.items.sortBy(bookings,order);
+                        if (r.items.length != 0) {         // else : already a zero ? maybe change to start of the universe lol        
+                            var bookableId = r.items[0].bookables[0].id;
+                            console.log(bookableId);
 
-                            loadElements(result.items);
+                            var c = -1;
+                            var firstArray = result.items;
+                            for (var i = 0; i < firstArray.length; i++) {
+                                if (firstArray[i].id == bookableId) {
+                                    c = i;
+                                    break;
+                                }
+                            }
 
+                            bookings[c] = r.items[0].startDate;
                         }
-                    }); 
 
+                        counter++;
+
+                        console.log(c);
+
+                        if (counter == result.items.length) {
+                            result.items.sortBy(bookings, order);
+                            loadElements(result.items);
+                        }
+                    });
                 }
-               
+            }
+            else if (nbrBookings) {
+                console.log("nbrBookings ! ");
+
+                var bookings = [];
+                bookings.fill(result.items.length);
+
+                for (var i = 0; i < result.items.length; i++) {
+
+                    var filter = {
+                        filter: {
+                            groups: [
+                                { conditions: [{ bookables: { have: { values: [result.items[i].id] } } }] }
+                            ]
+                        },
+                        pagination: {
+                            pageSize: 1 // just for identifying the id
+                        },
+                    };
+
+                    var counter = 0;
+
+                    var variables = new Server.QueryVariablesManager();
+                    variables.set('variables', filter);
+
+                    Server.bookingService.getAll(variables).subscribe(r => {
+
+                        console.log(r);
+
+                        // r.length ! r.items.length     // else : already a zero ? maybe change to start of the universe lol        
+                        var bookableId = r.items[0].bookables[0].id;
+                        console.log(bookableId);
+
+                        var c = -1;
+                        var firstArray = result.items;
+                        for (var i = 0; i < firstArray.length; i++) {
+                            if (firstArray[i].id == bookableId) {
+                                c = i;
+                                break;
+                            }
+                        }
+
+                        bookings[c] = r.length; // not items.length haha             
+
+                        counter++;
+
+                        console.log(c);
+
+                        if (counter == result.items.length) {
+                            result.items.sortBy(bookings, order);
+                            loadElements(result.items);
+                        }
+                    });
+                }
+            }
+            else {
+                alert("mmmhh.");
             }
 
+        });
+    },
 
+
+
+    getBookableNbrForBookableTag: function (bookableTag, elem, before = "", after = "") {
+
+        var filter = {
+            filter: {
+                groups: [{
+                    joins: {
+                        bookableTags: {
+                            conditions: [
+                                {
+                                    name: {
+                                        like: {
+                                            value: "%" + bookableTag + "%"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+                ]
+            },
+            pagination: {
+                pageSize: 0,
+                pageIndex: 0
+            }
+        };
+
+        var variables = new Server.QueryVariablesManager();
+        variables.set('variables', filter); 
+
+        Server.bookableService.getAll(variables).subscribe(result => {
+            var txt = before + result.length + after;    
+            elem.innerHTML = txt;
         });
     },
 
     // getBookableInfos
     getBookableInfos: function (bookableId,elem) {
+
+
+
+
+       
+
 
         var filter = {
             filter: {
@@ -733,7 +856,7 @@ var Requests = {
             input = {
                 participantCount: Cahier.nbrParticipants + 0,
                 destination: Cahier.destination,
-                startComment: "[" + Cahier.personSurname + "] " + Cahier.startComment
+                startComment: "[" + Cahier.personFirstName + "] " + Cahier.startComment
             };
         }
 
@@ -749,10 +872,12 @@ var Requests = {
                     __typename: 'Bookable'
                 }).subscribe(() => {
                     console.log('Linked Bookable : ', booking);
+                    Requests.getActualBookingList(true);
                 });
             }
             else {
                 console.log("Matériel Personel");
+                Requests.getActualBookingList(true);
             }
             });    
     },

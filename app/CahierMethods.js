@@ -2,10 +2,10 @@ var Cahier = {
 
     // data
     personId: "",
-    personName: "Invité",
-    personSurname: "??",
+    personFirstName: "Invité",
+    personSurName: "??",
     personGender: "Man",
-    getFullName: function (name = this.personName, surname = this.personSurname) { return name + " " + surname;},
+    getFullName: function (surName = this.personSurName, firstName = this.personFirstName) { return surName + " " + firstName;},
 
     bookableId: "", //important
     bookableName: "Matériel personel",
@@ -26,8 +26,6 @@ var Cahier = {
             return nbr + txt + "s";
         }
     },
-
-
 
 
     ProgressBarTexts: ["Nom", "Embarcation", "Infos", "Confirmation"],
@@ -64,8 +62,8 @@ var Cahier = {
 
         // data
         Cahier.personId = "";
-        Cahier.personName = "Invité";
-        Cahier.personSurname=  "??";
+        Cahier.personFirstName = "Invité";
+        Cahier.personSurName=  "??";
 
         Cahier.bookableId = "";
         Cahier.bookableName = "Matériel personel";
@@ -83,7 +81,7 @@ var Cahier = {
         animate();
         setTimeout(newTab, 3000, 'divTabCahier');
         console.log("--> Cahier.confirm()");
-        Requests.getActualBookingList(true);
+        //        Requests.getActualBookingList(true); moved to the requets, otherwise too fast and doesn't link bookable on the first screen
     },
 
     actualizeProgressBar: function () {
@@ -120,12 +118,12 @@ var Cahier = {
             allDivTexts[i] = allDiv[i].getElementsByTagName('div')[3];
         }
 
-        var booking = {};
+        var booking = {}; //simuler un vrai booking 
         if (Cahier.personId != "") {
             booking = { responsible: { name: Cahier.getFullName() } };
         }
         else {
-            booking = { startComment: "[" + Cahier.personSurname + "]" };
+            booking = { startComment: "[" + Cahier.personFirstName + "]" };
         }
         allDivTexts[0].innerHTML = getResponsibleNameFromBooking(booking, { length: 1000000, fontSize: 35 });
 
@@ -158,7 +156,17 @@ var Cahier = {
     
         allDivTexts[5].innerHTML = Cahier.startComment;
         if (Cahier.personId == "") {
-            allDivTexts[5].innerHTML = "[" + Cahier.personSurname + "] " + Cahier.startComment;
+            allDivTexts[5].innerHTML = "[" + Cahier.personFirstName + "] " + Cahier.startComment;
         }  
+    },
+
+    chosePerson:function(surName, firstName, id) {
+        Cahier.personFirstName = firstName;
+        Cahier.personSurName = surName;
+        Cahier.personId = id;
+        newTab("divTabCahierMaterielCategories");
+        $("divTabCahierInfosName").innerHTML = surName + " " + firstName;
+        console.log("chosePerson -->", "surName: " + surName, "firstName: " + firstName, "id: " + id);
     }
+
 };

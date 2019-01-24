@@ -13,7 +13,6 @@ function loadElements(Bookables) {
         container.addEventListener("click", function () {
             Cahier.bookableId = "";
             Cahier.bookableName = "Matériel Personel";
-            console.log(Cahier.bookableId);
             newTab("divTabCahierInfos");
         });
 

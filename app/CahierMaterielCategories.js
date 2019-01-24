@@ -1,5 +1,5 @@
-var categories = ["Lorem..","Fusce...","SUP", "Canoé", "Planche à voile", "Voilier", "Kayak"];
-var categoriesValues = ["Lorem ipsum","Fusce Cursus","SUP", "Canoé", "PlancheAVoile", "Voilier", "Kayak"];
+var categories = ["Lorem","Fusce","SUP", "Canoé", "Planche à voile", "Voilier", "Kayak"];
+var categoriesValues = ["Lorem ipsum","Fusce Cursus","SUP", "Canoë", "PlancheAVoile", "Voilier", "Kayak"];
 function loadMateriel() {
     inputTypeCodeMateriel = document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0];
     inputNumberCodeMateriel = document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1];
@@ -8,8 +8,7 @@ function loadMateriel() {
         var d = document.createElement("div");
         d.id = categories[i];
         d.classList.add("BoxesContainer");
-        d.innerHTML = "300x " + categories[i] + "s";
-        document.getElementById("divTabCahierMaterielCategoriesContainer").appendChild(d);
+        document.getElementById("divTabCahierMaterielCategoriesContainer").appendChild(d);        
 
         var d1 = div(d);
         d1.id = i;
@@ -28,15 +27,36 @@ function loadMateriel() {
         dBottom.appendChild(dBottomText1);
         dBottomText1.innerHTML = categories[i];
 
-        d.addEventListener("click", function () {
-            newTab("divTabCahierMaterielElements");
-            $('divTabCahierMaterielElementsSelectCategorie').getElementsByTagName("select")[0].getElementsByTagName("option")[parseInt(this.getElementsByTagName("div")[0].id) + 1].selected = "selected";
-            changeSelectCategorie($('divTabCahierMaterielElementsSelectCategorie').getElementsByTagName("select")[0]);
-        });
+        var dBottomText2 = document.createElement("div");
+        dBottomText2.classList.add("BoxesBottomText2");
+        dBottom.appendChild(dBottomText2);
+        Requests.getBookableNbrForBookableTag(categoriesValues[i], dBottomText2, "", " "+ categories[i] + "s")
+
+        if (categoriesValues[i] == "MP") { // useless
+            d.addEventListener("click", function () {
+                Cahier.bookableId = "";
+                Cahier.bookableName = "Matériel Personel";
+                newTab("divTabCahierInfos");
+           });
+        }
+        else {
+            d.addEventListener("click", function () {
+                newTab("divTabCahierMaterielElements");
+                $('divTabCahierMaterielElementsSelectCategorie').getElementsByTagName("select")[0].getElementsByTagName("option")[parseInt(this.getElementsByTagName("div")[0].id) + 0].selected = "selected";
+                changeSelectCategorie($('divTabCahierMaterielElementsSelectCategorie').getElementsByTagName("select")[0]);
+            });
+        }
 
         var opt = document.createElement("option");
         opt.innerHTML = categories[i];
         opt.value = categoriesValues[i];
         $('divTabCahierMaterielElementsSelectCategorie').getElementsByTagName("select")[0].appendChild(opt);
     }
+
+    var opt = document.createElement("option");
+    opt.innerHTML = "Toutes les catégories";
+    opt.value = "all";
+    $('divTabCahierMaterielElementsSelectCategorie').getElementsByTagName("select")[0].appendChild(opt);
+
 }
+

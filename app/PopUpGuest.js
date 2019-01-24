@@ -64,7 +64,7 @@ function ValidateGuest() {
     }
 
     if (i[0].style.borderColor == "black" && i[1].style.borderColor == "black") {
-        chosePerson("Invité", i[0].value.capitalize() + " " + i[1].value.capitalize(), ""); //null undefined nan ?
+        Cahier.chosePerson("Invité", i[0].value.capitalize() + " " + i[1].value.capitalize(), ""); // "" --> invité
         closePopUp({ target: c.parentElement }, c.parentElement);
     }
 

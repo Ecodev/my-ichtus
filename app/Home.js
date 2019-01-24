@@ -20,18 +20,18 @@ function load() {
     actualizeTime();
     setInterval(actualizeTime, 5000);  //5 secondes
     loadButtons();
- //   $("divTopBarTopText").innerHTML = currentTabElement.id + "bonsoir";
     createProgressBar();
     createAllPropositions();
-    loadMateriel();
     window.location = "#" + "divTabCahier";
     loadReturnButtons(); // OUI OU NON ???????
     loadSpacers();
     loadTableTopBars();
-    ServerInitialize();
     loadConfirmation();
+
+    //SERVER
+    ServerInitialize();
     Requests.getActualBookingList(true);
-    newBookingTable(new Date(),"Sorties terminées");
+    loadMateriel();
 }
 
 
@@ -206,7 +206,7 @@ function getResponsibleNameFromBooking(booking, wantImg = false, shortenOptions 
         var a = booking.startComment.indexOf("[");
         var b = booking.startComment.indexOf("]");
         var txt = "";
-        var inv = "Invita";
+        var inv = "Invité";
         if (a == 0  && b != -1) {
             txt += "(" + booking.startComment.slice(a + 1, b) + ")";
         }
@@ -231,7 +231,7 @@ function getStartCommentFromBooking(booking,fill = false) {
     else {
         txt = booking.startComment;
     }
-    console.log(txt.length);
+    //console.log(txt.length);
     if (txt.length == 0 && fill) {
         txt = "Pas de commentaire";
     }
@@ -283,7 +283,14 @@ Array.prototype.findIndex = function (x) {
 
 Array.prototype.sortBy = function (sortFields, order = 1) {
 
-    console.log("sortBy: " + this, "by: " + sortFields, "order: " + order);
+    if (order == "ASC") {
+        order = -1;
+    }
+    else if (order == "DESC") {
+        order = 1;
+    }
+
+    console.log("sort: ", this, "by: ", sortFields, "order: ", order);
 
     var switching = true;
     while (switching) {
@@ -296,6 +303,56 @@ Array.prototype.sortBy = function (sortFields, order = 1) {
             }
         }
     }
-
-    console.log(this,sortFields);
+    console.log(this, sortFields);
 };
+
+Array.prototype.fill = function (length, what = 0) {
+    for (var i = 0; i < length; i++) {
+        this[i] = what;
+    }
+};
+
+
+
+
+// ABANDONNED
+//function add(bookableId,c) {
+
+
+//    var filter = {
+//        filter: {
+//            groups: [
+//                { conditions: [{ bookables: { have: { values: [bookableId] } } }] }
+//            ]
+//        },
+//        pagination: {
+//            pageSize: 0
+//        },
+//    };
+
+
+//    var counter = 0;
+
+//    var variables = new Server.QueryVariablesManager();
+//    variables.set('variables', filter);
+
+//    Server.bookingService.getAll(variables).subscribe(r => {
+
+//        console.log(r);
+//                                                    // else : already a zero ? maybe change to start of the universe lol        
+
+
+//        bookings[c] = r.length; // not items.length haha
+
+
+
+//        counter++;
+
+//        console.log(c);
+
+//        if (counter == result.items.length) {
+//            result.items.sortBy(bookings, order);
+//            loadElements(result.items);
+//        }
+//    });
+//}
