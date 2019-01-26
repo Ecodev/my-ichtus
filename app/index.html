@@ -11,7 +11,7 @@
 
 
     <meta charset="utf-8" />
-    <title>Cahier de sortie test git</title>
+    <title>Cahier de sortie</title>
 
     <!-- Style Sheets -->
     <link href="General.css" rel="stylesheet" />
@@ -275,11 +275,12 @@
                     <div id="divTabCahierInfosNbrInvitesPropositions" class="PropositionsContainer">
                         <div> 1 </div><div> 2 </div><div> 3 </div><div> 4 </div><div> 5 </div><div> 8 </div><div> 10 </div>
                     </div>
+                    <div style="margin-top:110px; position:absolute; text-align:center; width:100%; font-size:15px;">(Vous inclu / minimum 1)</div>
 
 
                 </div><div id="divTabCahierInfosDestination" class="TabCahierFields">
                     *Destination
-                    <input  autocomplete="off" type="text" spellcheck="false" placeholder="Baie" onkeyup="writeDestination(this);" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" /> <!--/> mmmmh ??-->
+                    <input  autocomplete="off" value="Baie" type="text" spellcheck="false" placeholder="Destination" onkeyup="writeDestination(this);" onfocusin="if (this.value == 'Baie') { this.value = '';}; focusInOrOut(this,true); writeDestination(this);" onfocusout="focusInOrOut(this,false); writeDestination(this);" /> <!--/> mmmmh ??-->
                     <div></div>
                     <div id="divTabCahierInfosDestinationPropositions" class="PropositionsContainer">
                         <div>Baie</div><div>La Ramée</div><div>La Tène</div><div>Neuchâtel</div><div>Cudrefin</div>

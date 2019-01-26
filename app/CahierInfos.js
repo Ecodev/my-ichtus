@@ -126,7 +126,7 @@ function writeCommment(elem) {
     }
 }
 function writeNbrInvites(elem = document.getElementById("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0]) {
-    if (parseInt(elem.value) < 21 && elem.value != "") {
+    if (parseInt(elem.value) < 21 && elem.value != "" && parseInt(elem.value)!= 0) {
         AcceptInfos(elem);
     }
     else {

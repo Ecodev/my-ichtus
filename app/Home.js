@@ -192,14 +192,14 @@ function grayBar(elem,marginTop = 10) {
 }
 
 
-function getResponsibleNameFromBooking(booking, wantImg = false, shortenOptions = {length:100000,fontSize:20}) {
+function getownerNameFromBooking(booking, wantImg = false, shortenOptions = {length:100000,fontSize:20}) {
     //mettre un id sur lequel sortTable() va faire le tri puisque c'est le premier texte qui diffère des autres éléments
-    if (booking.responsible != null) {
+    if (booking.owner != null) {
         if (wantImg) {
-            return "<div id='" + booking.responsible.name + "' class='TableEntriesImg' style='background-image:url(Img/IconMan.png);  display: inline-block;vertical-align: middle;'>" + "</div>" + "<div style=' display: inline-block;vertical-align: middle;'>" + booking.responsible.name.shorten(shortenOptions.length-40, shortenOptions.fontSize) + "</div>";
+            return "<div id='" + booking.owner.name + "' class='TableEntriesImg' style='background-image:url(Img/IconMan.png);  display: inline-block;vertical-align: middle;'>" + "</div>" + "<div style=' display: inline-block;vertical-align: middle;'>" + booking.owner.name.shorten(shortenOptions.length-40, shortenOptions.fontSize) + "</div>";
         }
         else {
-            return booking.responsible.name;
+            return booking.owner.name;
         }  
     }
     else {

@@ -836,15 +836,16 @@ var Requests = {
 
     // finishBooking
     terminateBooking: function (bookingId, comment) {
-        Server.bookingService.flagEndDate(bookingId, comment);
-        Requests.getActualBookingList(true);
+        Server.bookingService.flagEndDate(bookingId, comment).subscribe(result => {
+            Requests.getActualBookingList(true);
+        });
     },
 
     // createBooking
     createBooking: function () {
 
         var input = {
-            responsible: Cahier.personId,
+            owner: Cahier.personId,
             participantCount: Cahier.nbrParticipants + 0,
             destination: Cahier.destination,
             startComment: Cahier.startComment

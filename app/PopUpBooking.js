@@ -128,7 +128,7 @@ function actualizePopBooking(booking, container = $('divTabCahierConfirmationCon
 
     container.getElementsByClassName('divTabCahierConfirmationContainer')[0].getElementsByTagName("div")[0].innerHTML = "Sortie du " + (new Date(booking.startDate)).getNiceDate(false,true);
 
-    allDivTexts[0].innerHTML = getResponsibleNameFromBooking(booking, true, { length: 1000000, fontSize: 35 });
+    allDivTexts[0].innerHTML = getownerNameFromBooking(booking, true, { length: 1000000, fontSize: 35 });
 
     allDivTexts[1].innerHTML = (new Date(booking.startDate)).getNiceTime();
 

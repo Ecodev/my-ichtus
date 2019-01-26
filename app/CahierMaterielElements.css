@@ -176,6 +176,7 @@
     width: 95%;
     border-left-width: 130px;
     border-left-style: solid;
+    border-color:transparent;
     min-height: 10px;
     text-align: right;
     background-color: transparent;

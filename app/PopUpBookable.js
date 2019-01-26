@@ -67,7 +67,7 @@ function actualizePopBookable(bookable,bookings, elem) {
 
 
     if (bookings.length != 0) {
-        elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[3].innerHTML = "Dernière utilisation le " + (new Date(bookings.items[0].startDate)).getNiceDate() + " par " + getResponsibleNameFromBooking(bookings.items[0], false);
+        elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[3].innerHTML = "Dernière utilisation le " + (new Date(bookings.items[0].startDate)).getNiceDate() + " par " + getownerNameFromBooking(bookings.items[0], false);
         elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[4].innerHTML = bookings.length + " sorties";
         elem.getElementsByClassName('Buttons')[0].style.visibility = "visible";
         elem.getElementsByClassName('Buttons')[0].addEventListener("click", function () {

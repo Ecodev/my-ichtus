@@ -48,7 +48,8 @@ var Cahier = {
         }
 
         $('divTabCahierInfosStartComment').getElementsByTagName("textarea")[0].value = "";
-        $("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0].value = "0"; //instead of "";
+        $("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0].value = "1"; 
+        $("divTabCahierInfosDestination").getElementsByTagName("input")[0].value = "Baie"; 
 
         $('inputTabCahierMaterielElementsInputSearch').value = "";
 
@@ -120,12 +121,12 @@ var Cahier = {
 
         var booking = {}; //simuler un vrai booking 
         if (Cahier.personId != "") {
-            booking = { responsible: { name: Cahier.getFullName() } };
+            booking = { owner: { name: Cahier.getFullName() } };
         }
         else {
             booking = { startComment: "[" + Cahier.personFirstName + "]" };
         }
-        allDivTexts[0].innerHTML = getResponsibleNameFromBooking(booking, { length: 1000000, fontSize: 35 });
+        allDivTexts[0].innerHTML = getownerNameFromBooking(booking, { length: 1000000, fontSize: 35 });
 
         allDivTexts[1].innerHTML = date.getNiceTime();
 
@@ -156,7 +157,7 @@ var Cahier = {
     
         allDivTexts[5].innerHTML = Cahier.startComment;
         if (Cahier.personId == "") {
-            allDivTexts[5].innerHTML = "[" + Cahier.personFirstName + "] " + Cahier.startComment;
+            allDivTexts[5].innerHTML = Cahier.startComment; // "[" + Cahier.personFirstName + "] "  hidden
         }  
     },
 

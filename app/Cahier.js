@@ -217,7 +217,7 @@ function actualizeActualBookings(actualBookings,first) {
 
         div(container).innerHTML = actualBookings[i].participantCount;
 
-        div(container).innerHTML = getResponsibleNameFromBooking(actualBookings[i],true);
+        div(container).innerHTML = getownerNameFromBooking(actualBookings[i],true);
 
         if (actualBookings[i].bookables.length == 0) {
             div(container).innerHTML = "Matériel Personel";
@@ -445,7 +445,7 @@ function actualizeFinishedBookingListForDay(bookings,table) {
 
             div(entry).innerHTML = bookings[i].participantCount;
 
-            div(entry).innerHTML = getResponsibleNameFromBooking(bookings[i],true);
+            div(entry).innerHTML = getownerNameFromBooking(bookings[i],true);
 
             if (bookings[i].bookables.length == 0) {
                 div(entry).innerHTML = "Matériel Personel";
