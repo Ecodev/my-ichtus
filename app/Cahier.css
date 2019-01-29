@@ -56,6 +56,74 @@
     }
 
 
+#divTabCahierNewBookingBox {
+    position:relative;
+    width:500px;
+    height:290px;
+    background-color:white;
+    left:50%;
+    margin-left:-250px;
+    text-align:center;
+    border:2px solid lightgray;
+    border-radius:20px;  
+}
+    #divTabCahierNewBookingBox > div {
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        width: 170px;
+        height: 270px;
+        margin: 10px;
+        /*background-color: yellow;*/
+        text-align:center;
+    }
+        #divTabCahierNewBookingBox > div:nth-child(2n+1) > div {
+            transition:all 0.1s linear 0s;
+            cursor:pointer;
+        }
+        #divTabCahierNewBookingBox > div:nth-child(2n+1):hover > div {
+            margin-top:10px;
+        }
+
+            #divTabCahierNewBookingBox > div > div > .Boxes{
+              position:relative;
+              height:205px;
+              margin-bottom:10px;
+              background-color:rgb(245,245,245);
+            }
+
+            #divTabCahierNewBookingBox > div:nth-child(1) > div > .Boxes {
+                background-image: url(Img/svg/1.svg);
+                background-size: 130px;
+                background-repeat: no-repeat;
+                background-position-x: 20px;
+                background-position-y: 10px;
+            }
+
+            #divTabCahierNewBookingBox > div > div > .Boxes > div:first-child {
+                position: absolute;
+                width:100%;
+                bottom: 5px;
+                text-align:center;
+                font-size:25px;
+
+            }
+
+            #divTabCahierNewBookingBox > div > div > .Buttons {
+                position: relative;
+            }
+
+
+        #divTabCahierNewBookingBox > div:nth-child(2) {
+            width: 100px;
+            margin: 0px;
+        }
+            #divTabCahierNewBookingBox > div:nth-child(2) > div {
+                line-height:270px;
+                font-size:30px;             
+            }
+
+
 #divTabCahierSearchResult {
     position: relative;
     left: 30%;

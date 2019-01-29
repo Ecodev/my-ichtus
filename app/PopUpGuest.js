@@ -15,7 +15,7 @@ function popGuest() {
     var d = div(container);
     d.style.textAlign = "center";
     d.style.fontSize = "25px";
-    d.innerHTML = "Nom et prÈnom de l'invitÈ";
+    d.innerHTML = "Nom et pr√©nom de l'invit√©";
 
     grayBar(container, 5);
 
@@ -26,7 +26,7 @@ function popGuest() {
 
 
     var i2 = document.createElement("input");
-    i2.placeholder = "PrÈnom";
+    i2.placeholder = "Pr√©nom";
     i2.spellcheck = "false";
     i2.addEventListener("keyup", function (event) {
         if (event.keyCode == 13) {
@@ -64,7 +64,7 @@ function ValidateGuest() {
     }
 
     if (i[0].style.borderColor == "black" && i[1].style.borderColor == "black") {
-        Cahier.chosePerson("InvitÈ", i[0].value.capitalize() + " " + i[1].value.capitalize(), ""); // "" --> invitÈ
+        Cahier.chosePerson("Invit√©", i[0].value.capitalize() + " " + i[1].value.capitalize(), ""); // "" --> invit√©
         closePopUp({ target: c.parentElement }, c.parentElement);
     }
 

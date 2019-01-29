@@ -12,7 +12,7 @@ function ServerInitialize() {
 
  //   Requests.personalQuery();$
 
-   // Requests.addBookable("Planche 1", "une magnifique planche qui flotte dotÈe d'une dÈrive pour ne pas dÈriver");
+   // Requests.addBookable("Planche 1", "une magnifique planche qui flotte dot√©e d'une d√©rive pour ne pas d√©river");
 }
 
 
@@ -144,7 +144,7 @@ var Requests = {
         Server.bookableService.getAll(variables).subscribe(result => {
             console.log("getBookablesList(): ", result);
 
-            if (!lastUse && !nbrBookings) {
+            if (!lastUse && !nbrBookings || result.items.length == 0) {
                 loadElements(result.items);
             }
             else if (lastUse) {
@@ -152,7 +152,7 @@ var Requests = {
                 console.log("lastUse ! ");
 
                 var bookings = [];
-                bookings.fill(result.items.length);
+                bookings.fillArray(result.items.length,"1111-01-02T13:32:51+01:00");
 
                 for (var i = 0; i < result.items.length; i++) {
 
@@ -201,8 +201,6 @@ var Requests = {
 
                         counter++;
 
-                        console.log(c);
-
                         if (counter == result.items.length) {
                             result.items.sortBy(bookings, order);
                             loadElements(result.items);
@@ -214,7 +212,7 @@ var Requests = {
                 console.log("nbrBookings ! ");
 
                 var bookings = [];
-                bookings.fill(result.items.length);
+                bookings.fillArray(result.items.length,0);
 
                 for (var i = 0; i < result.items.length; i++) {
 
@@ -236,26 +234,27 @@ var Requests = {
 
                     Server.bookingService.getAll(variables).subscribe(r => {
 
-                        console.log(r);
+                        if (r.items.length == 0) {
+                            console.log("no booking");
+                        }
+                        else {
+                             // r.length != r.items.length           !!
+                            var bookableId = r.items[0].bookables[0].id;
+                            console.log(bookableId);
 
-                        // r.length ! r.items.length     // else : already a zero ? maybe change to start of the universe lol        
-                        var bookableId = r.items[0].bookables[0].id;
-                        console.log(bookableId);
-
-                        var c = -1;
-                        var firstArray = result.items;
-                        for (var i = 0; i < firstArray.length; i++) {
-                            if (firstArray[i].id == bookableId) {
-                                c = i;
-                                break;
+                            var c = -1;
+                            var firstArray = result.items;
+                            for (var i = 0; i < firstArray.length; i++) {
+                                if (firstArray[i].id == bookableId) {
+                                    c = i;
+                                    break;
+                                }
                             }
+
+                            bookings[c] = r.length; // not items.length !             
                         }
 
-                        bookings[c] = r.length; // not items.length haha             
-
                         counter++;
-
-                        console.log(c);
 
                         if (counter == result.items.length) {
                             result.items.sortBy(bookings, order);
@@ -667,7 +666,7 @@ var Requests = {
                     elem.getElementsByClassName("Buttons")[0].parentElement.removeChild(elem.getElementsByClassName("Buttons")[0]);
                     elem.getElementsByTagName("br")[0].parentElement.removeChild(elem.getElementsByTagName("br")[0]);
                     var t = div(elem.getElementsByClassName("PopUpBookableHistoryContainerScroll")[0]);
-                    t.innerHTML = 'Toutes les sorties ont ÈtÈ chargÈes ! <br/>';
+                    t.innerHTML = 'Toutes les sorties ont √©t√© charg√©es ! <br/>';
                     t.style.textAlign = 'center';
                  }
             }
@@ -836,6 +835,7 @@ var Requests = {
 
     // finishBooking
     terminateBooking: function (bookingId, comment) {
+        alert(comment);
         Server.bookingService.flagEndDate(bookingId, comment).subscribe(result => {
             Requests.getActualBookingList(true);
         });
@@ -853,7 +853,7 @@ var Requests = {
         };
 
         if (Cahier.personId == "") {
-            console.log('InvitÈ');
+            console.log('Invit√©');
             input = {
                 participantCount: Cahier.nbrParticipants + 0,
                 destination: Cahier.destination,
@@ -877,7 +877,7 @@ var Requests = {
                 });
             }
             else {
-                console.log("MatÈriel Personel");
+                console.log("Mat√©riel Personel");
                 Requests.getActualBookingList(true);
             }
             });    

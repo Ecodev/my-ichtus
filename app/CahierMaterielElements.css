@@ -434,16 +434,19 @@
 }
 
 .divTabCahierMaterielElementsContainerTextsContainer > div {
-    margin-bottom:2px;
+    margin-bottom:5px;
 }
 
 .divTabCahierMaterielElementsContainerTextsContainer > div:nth-child(1) {
     font-size: 30px;
+    margin-bottom:0px;
 }
 
     .divTabCahierMaterielElementsContainerTextsContainer > div:nth-child(2) {
         color:darkgray;
+        margin-bottom:10px;
     }
+
 
 
 

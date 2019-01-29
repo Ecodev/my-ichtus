@@ -290,7 +290,7 @@ Array.prototype.sortBy = function (sortFields, order = 1) {
         order = 1;
     }
 
-    console.log("sort: ", this, "by: ", sortFields, "order: ", order);
+    //console.log("sort: ", this, "by: ", sortFields, "order: ", order);
 
     var switching = true;
     while (switching) {
@@ -303,10 +303,10 @@ Array.prototype.sortBy = function (sortFields, order = 1) {
             }
         }
     }
-    console.log(this, sortFields);
+    console.log("result of sorting: ",this, "by: ", sortFields);
 };
 
-Array.prototype.fill = function (length, what = 0) {
+Array.prototype.fillArray = function (length, what = 0) {
     for (var i = 0; i < length; i++) {
         this[i] = what;
     }

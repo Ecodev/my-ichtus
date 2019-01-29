@@ -28,6 +28,7 @@
     <link href="CahierConfirmation.css" rel="stylesheet" />
     <link href="Statistiques.css" rel="stylesheet" />
     <link href="PopUpBookableHistory.css" rel="stylesheet" />
+    <link href="PopUpUser.css" rel="stylesheet" />
     <link href="PopUpGuest.css" rel="stylesheet" />
 
     <!-- JavaScript Files -->
@@ -46,6 +47,7 @@
     <script src="PopUpBookable.js"></script>
     <script src="PopUpBookableHistory.js"></script>
     <script src="PopUpBooking.js"></script>
+    <script src="PopUpUser.js"></script>
     <script src="PopUpGuest.js"></script>
 
     <script src="ServerRequests.js"></script>
@@ -95,11 +97,16 @@
         <div id="divTabCahier" class="divTab">
 
             <div style="margin-top:150px; position:relative;"></div>
-            <div style="font-size:30px; margin-bottom:5px; text-align:center;">Nouvelle sortie</div>
+            <div style="font-size:30px; margin-bottom:5px; text-align:center;">Créer une nouvelle sortie</div>
 
+            <div id="divTabCahierNewBookingBox">
+                <div onclick="popGuest();"><div><div class="Boxes"><div>Membre d'Ichtus</div></div><div class="Buttons ValidateButtons">Choisir</div></div></div>
+                <div><div>Ou</div></div>
+                <div onclick="popGuest();"><div><div class="Boxes"><div>Non-membre<br/>(Invité)</div></div><div class="Buttons ValidateButtons">Choisir</div></div></div>
+            </div>
 
             <input  autocomplete="off" id="inputTabCahierSearch" title="Nouvelle sortie pour les membres d'Ichtus" spellcheck="false" type="text" placeholder="Entrez votre nom, prénom..." onkeyup="Search(event)" onkeydown="SearchDown(event)" />
-            <div style="position:absolute; height:34px; top:189px; left:70%; margin-left:10px; background-image:url(Img/IconInvitesBlack.png)" class="Buttons NormalButtons" title="Non membres d'Ichtus" onclick="popGuest();">Invité</div>
+            <div style="position:absolute; height:34px; top:589px; left:70%; margin-left:10px; background-image:url(Img/IconInvitesBlack.png)" class="Buttons NormalButtons" title="Non membres d'Ichtus" onclick="popGuest();">Invité</div>
 
             <div id="divTabCahierSearchResult"></div>
 

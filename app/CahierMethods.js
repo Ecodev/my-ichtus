@@ -2,16 +2,16 @@ var Cahier = {
 
     // data
     personId: "",
-    personFirstName: "Invité",
+    personFirstName: "InvitÃ©",
     personSurName: "??",
     personGender: "Man",
     getFullName: function (surName = this.personSurName, firstName = this.personFirstName) { return surName + " " + firstName;},
 
     bookableId: "", //important
-    bookableName: "Matériel personel",
+    bookableName: "MatÃ©riel personel",
 
     nbrParticipants: 1,
-    destination: "Non défini",
+    destination: "Non dÃ©fini",
     startComment: "",
 
 
@@ -63,14 +63,14 @@ var Cahier = {
 
         // data
         Cahier.personId = "";
-        Cahier.personFirstName = "Invité";
+        Cahier.personFirstName = "InvitÃ©";
         Cahier.personSurName=  "??";
 
         Cahier.bookableId = "";
-        Cahier.bookableName = "Matériel personel";
+        Cahier.bookableName = "MatÃ©riel personel";
 
         Cahier.nbrParticipants = 1;
-        Cahier.destination = "Non défini";
+        Cahier.destination = "Non dÃ©fini";
         Cahier.startComment = "";
 
 
@@ -141,11 +141,11 @@ var Cahier = {
         if (Cahier.bookableId != "") {
             $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].addEventListener("click", function () { popBookable(Cahier.bookableId); });
             $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = Cahier.bookableName;
-            $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = Cahier.bookableId + " caté";
+            $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = Cahier.bookableId + " catÃ©";
             $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].style.visibility = "visible";
         }
         else {
-            $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = "Matériel personel";
+            $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = "MatÃ©riel personel";
             $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = "";
             $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].style.visibility = "hidden";
         }
