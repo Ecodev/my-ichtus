@@ -100,19 +100,21 @@
             <div style="font-size:30px; margin-bottom:5px; text-align:center;">Créer une nouvelle sortie</div>
 
             <div id="divTabCahierNewBookingBox">
-                <div onclick="popGuest();"><div><div class="Boxes"><div>Membre d'Ichtus</div></div><div class="Buttons ValidateButtons">Choisir</div></div></div>
+                <div onclick="popUser();"><div><div class="Boxes"><div>Membre d'Ichtus</div></div><div class="Buttons ValidateButtons">Choisir</div></div></div>
                 <div><div>Ou</div></div>
-                <div onclick="popGuest();"><div><div class="Boxes"><div>Non-membre<br/>(Invité)</div></div><div class="Buttons ValidateButtons">Choisir</div></div></div>
+                <div onclick="popGuest();"><div><div class="Boxes"><div>Non-membre<br />(Invité)</div></div><div class="Buttons ValidateButtons">Choisir</div></div></div>
             </div>
 
-            <input  autocomplete="off" id="inputTabCahierSearch" title="Nouvelle sortie pour les membres d'Ichtus" spellcheck="false" type="text" placeholder="Entrez votre nom, prénom..." onkeyup="Search(event)" onkeydown="SearchDown(event)" />
             <div style="position:absolute; height:34px; top:589px; left:70%; margin-left:10px; background-image:url(Img/IconInvitesBlack.png)" class="Buttons NormalButtons" title="Non membres d'Ichtus" onclick="popGuest();">Invité</div>
 
-            <div id="divTabCahierSearchResult"></div>
+
+            <!--<input autocomplete="off" id="inputTabCahierSearch" title="Nouvelle sortie pour les membres d'Ichtus" spellcheck="false" type="text" placeholder="Entrez votre nom, prénom..." onkeyup="Search(event)" onkeydown="SearchDown(event)" />
+
+            <div id="divTabCahierSearchResult"></div>-->
 
             <div id="divTabCahierTables">
 
-                <input  autocomplete="off" id="inputTabCahierActualBookingsSearch" type="text" value="" spellcheck="false" placeholder="Rechercher" onkeyup="Requests.getActualBookingList();" style="margin-top:-10px;" />
+                <input autocomplete="off" id="inputTabCahierActualBookingsSearch" type="text" value="" spellcheck="false" placeholder="Rechercher" onkeyup="Requests.getActualBookingList();" style="margin-top:-10px;" />
                 <div id="divTabCahierActualBookingsSearchTitle" style="position:relative; font-size:30px; width:500px">Sorties en cours</div>
 
                 <div id="divTabCahierTableActualBookings" class="BookingsTable">
@@ -121,15 +123,15 @@
                         <div class="BookingsTopBarSorted" id="0">
                             <div></div><img src="Img/IconStart.png" alt="rip" />
                         </div><div id="1">
-                            <div></div><img src="Img/IconParticipantCount.png" alt="rip"/>
+                            <div></div><img src="Img/IconParticipantCount.png" alt="rip" />
                         </div><div id="2">
-                            <div></div><img src="Img/IconResponsible.png" alt="rip"/>Responsable
+                            <div></div><img src="Img/IconResponsible.png" alt="rip" />Responsable
                         </div><div id="3">
-                            <div></div><img src="Img/IconSail.png" alt="rip"/>Embarcation
+                            <div></div><img src="Img/IconSail.png" alt="rip" />Embarcation
                         </div><div id="4">
-                            <div></div><img src="Img/IconDestination.png" alt="rip"/>Destination
+                            <div></div><img src="Img/IconDestination.png" alt="rip" />Destination
                         </div><div id="5">
-                            <div></div><img src="Img/IconStartComment.png" alt="rip"/>Com.
+                            <div></div><img src="Img/IconStartComment.png" alt="rip" />Com.
                         </div><div id="6">
                             <div></div>
                         </div>
