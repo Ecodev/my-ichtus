@@ -65,6 +65,7 @@ function ValidateGuest() {
 
     if (i[0].style.borderColor == "black" && i[1].style.borderColor == "black") {
         Cahier.chosePerson("Invité", i[0].value.capitalize() + " " + i[1].value.capitalize(), ""); // "" --> invité
+        console.log(c.parentElement);
         closePopUp({ target: c.parentElement }, c.parentElement);
     }
 

@@ -34,5 +34,5 @@ function popUser() {
     var d = div(container);
     d.id = "divTabCahierSearchResult";
 
-
+    Search({ keyCode: 1 });
 }

@@ -141,18 +141,27 @@ function openPopUp() {
     return modal;
 }
 
-function closePopUp(e, elem) {
-    var modal = e.target;
-    if (modal.id.indexOf("divModal") != -1) {
-        modal = $('divModal' + lastModals);
+function closePopUp(e, UselsesElem) {
+    var t = false;
+    if (e == "last") {
+        t = true;
+    }
+    else if (e.target.id.indexOf("divModal") != -1) {
+        t = true;
+    }
+    if (t) {
+        var modal = $('divModal' + lastModals);
         modal.style.opacity = 0;
-        setTimeout(function () { modal.style.display = 'none'; modal.innerHTML = ""; modal.parentNode.removeChild(modal); }, 100);  
+        setTimeout(function () { modal.style.display = 'none'; modal.innerHTML = ""; modal.parentNode.removeChild(modal); }, 100);
+        
         lastModals--;
 
         if (lastModals == 0) {
             $('divScreen').classList.remove("Blur");
             $('divTopBar').classList.remove("Blur");
         }
+
+      
     }
 }
 

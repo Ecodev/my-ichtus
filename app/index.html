@@ -63,9 +63,10 @@
     <!-- Top Bar -->
     <div id="divTopBar">
 
-        <div id="divTopBarLogo" onclick="newTab('divTabCahier')";>
-            <img src="Img/svg/6.svg" alt="?" />
-            <img src="Img/svg/3.svg" alt="?" />
+        <div id="divTopBarLogo" onclick="newTab('divTabCahier')" ;>
+            <img src="Img/svg/circle.svg" alt="?" />
+            <img src="Img/svg/fish.svg" alt="?" />
+            <img src="Img/svg/background_transparent.svg" alt="?" />
         </div>
 
         <div id="divTopBarText">Cahier de sortie</div>
@@ -74,7 +75,7 @@
         <div id="divTopBarButtonsBar"></div>
 
 
-        <div id="divTopBarTime" onclick="Requests.login($('inputTabCahierSearch').value)""></div>
+        <div id="divTopBarTime" onclick="Requests.login(prompt('mdp'));"></div>
     </div>
 
     <!-- Left Bar & Right Bar -->
@@ -100,17 +101,20 @@
             <div style="font-size:30px; margin-bottom:5px; text-align:center;">Créer une nouvelle sortie</div>
 
             <div id="divTabCahierNewBookingBox">
-                <div onclick="popUser();"><div><div class="Boxes"><div>Membre d'Ichtus</div></div><div class="Buttons ValidateButtons">Choisir</div></div></div>
+                <div title="Pour les membres d'Ichtus" onclick="popUser();" onmouseover="$('divTabCahierToolTip').innerHTML = textToolTipUser" onmouseout="$('divTabCahierToolTip').innerHTML ='<br/><br/>'"><div>
+                    <div class="Boxes">
+                        <img src="Img/svg/circle.svg" alt="?" />
+                        <img src="Img/svg/fish.svg" alt="?" />
+                        <img src="Img/svg/background_transparent.svg" alt="?" />
+                        <div>Membre d'Ichtus</div>
+                    </div>
+                    <div class="Buttons ValidateButtons"></div></div>
+                </div>
+
                 <div><div>Ou</div></div>
-                <div onclick="popGuest();"><div><div class="Boxes"><div>Non-membre<br />(Invité)</div></div><div class="Buttons ValidateButtons">Choisir</div></div></div>
+                <div title="Pour les invités" onclick="popGuest();" onmouseover="$('divTabCahierToolTip').innerHTML = textToolTipGuest" onmouseout="$('divTabCahierToolTip').innerHTML ='<br/><br/>'"><div><div class="Boxes"><div>Non-membre<br />(Invité)</div></div><div class="Buttons ValidateButtons"></div></div></div>
             </div>
-
-            <div style="position:absolute; height:34px; top:589px; left:70%; margin-left:10px; background-image:url(Img/IconInvitesBlack.png)" class="Buttons NormalButtons" title="Non membres d'Ichtus" onclick="popGuest();">Invité</div>
-
-
-            <!--<input autocomplete="off" id="inputTabCahierSearch" title="Nouvelle sortie pour les membres d'Ichtus" spellcheck="false" type="text" placeholder="Entrez votre nom, prénom..." onkeyup="Search(event)" onkeydown="SearchDown(event)" />
-
-            <div id="divTabCahierSearchResult"></div>-->
+            <div id="divTabCahierToolTip" style="text-align:center; font-size:15px; margin-top:5px; margin-bottom:5px; color:gray;"><br/><br/></div>
 
             <div id="divTabCahierTables">
 
@@ -214,7 +218,7 @@
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahier')"></div>
             <!--<br />-->
 
-            <div id="divTabCahierMaterielCategoriesOther">Par catégorie</div>
+            <div id="divTabCahierMaterielCategoriesOther">Catégories</div>
             <div id="divTabCahierMaterielCategoriesContainer"></div>
         </div>
 

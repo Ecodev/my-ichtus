@@ -48,7 +48,7 @@ function actualizePopBookableHistory(bookings, elem) {
     var bookableId = bookings[0].bookables[0].id;
 
     var container = elem.getElementsByTagName("div")[0];
-    container.getElementsByTagName("div")[0].innerHTML = "Historique de " + bookings[0].bookables[0].name;
+    container.getElementsByTagName("div")[0].innerHTML = ("Historique de " + bookings[0].bookables[0].name).shorten(600,25);
 
     var scroll = container.getElementsByClassName("PopUpBookableHistoryContainerScroll")[0];
 

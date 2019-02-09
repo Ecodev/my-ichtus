@@ -1,4 +1,5 @@
-﻿
+﻿var textToolTipGuest = "Un non-membre doit toujours être accompagné par un membre d'Ichtus <br/> Il n'a donc pas le droit d'aller seul.";
+var textToolTipUser = "Sortie pour les membres d'Ichtus<br/><br/>";
 
 var enterSearchPosition = 0;
 function Search(e) {
@@ -20,14 +21,14 @@ function Search(e) {
     else if (e.keyCode == 40 || e.keyCode == 38) {
 
     }
-    else if (text != "") {
+    else { //text != ""
         Requests.getUsersList(text, 5);
         enterSearchPosition = 0;
     }
-    else {
-        $("divTabCahierSearchResult").innerHTML = "";
-        lastPeople = [];
-    }
+    //else { // so text == ""
+    //    $("divTabCahierSearchResult").innerHTML = "";
+    //    lastPeople = [];
+    //}
 }
 
 
@@ -39,7 +40,7 @@ function SearchDown(e) {
         else {
             enterSearchPosition--;
         }
-        if (lastPeople != undefined) {
+        if (lastPeople.length != 0) {
 
             for (var i = 0; i < lastPeople.length; i++) {
 
@@ -66,7 +67,7 @@ function SearchDown(e) {
 }
 
 
-var lastPeople;
+var lastPeople = [];
 function createSearchEntries(PeopleCorresponding) {
 
     lastPeople = PeopleCorresponding;
@@ -90,6 +91,8 @@ function createSearchEntries(PeopleCorresponding) {
         divResult.appendChild(span1);
 
         divResult.style.backgroundImage = "url('Img/IconNoResult.png')";
+
+        lastPeople = [];
     }
     else {
 

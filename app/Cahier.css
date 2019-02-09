@@ -44,25 +44,34 @@
               background-color:rgb(245,245,245);
             }
 
-            #divTabCahierNewBookingBox > div:nth-child(1) > div > .Boxes {
-                background-image: url(Img/svg/1.svg);
-                background-size: 130px;
-                background-repeat: no-repeat;
-                background-position-x: 20px;
-                background-position-y: 10px;
-            }
-
-            #divTabCahierNewBookingBox > div > div > .Boxes > div:first-child {
+            #divTabCahierNewBookingBox > div > div > .Boxes > div {
                 position: absolute;
-                width:100%;
+                width: 100%;
                 bottom: 5px;
-                text-align:center;
-                font-size:25px;
-
+                text-align: center;
+                font-size: 25px;
+            }
+            #divTabCahierNewBookingBox > div > div > .Boxes > img {
+                position: absolute;
+                width: 130px;
+                top: 10px;
+                left: 20px;
+                -moz-transition: all 2s ease 0.5s;
+                -o-transition: all 2s ease 0.5s;
+                -webkit-transition: all 2s ease 0.5s;
+                transition: all 2s ease 0.5s;
+            }
+            #divTabCahierNewBookingBox > div:nth-child(1):hover > div > .Boxes > img:nth-child(2) {
+                -moz-transform: rotate(-360deg);
+                -ms-transform: rotate(-360deg);
+                -o-transform: rotate(-360deg);
+                -webkit-transform: rotate(-360deg);
+                transform: rotate(-360deg);
             }
 
             #divTabCahierNewBookingBox > div > div > .Buttons {
                 position: relative;
+                background-position:center;
             }
 
 

@@ -34,8 +34,8 @@ var Cahier = {
     cancel: function () {
 
         // #divCahier
-        $("inputTabCahierSearch").value = "";
-        $("divTabCahierSearchResult").innerHTML = "";
+        //$("inputTabCahierSearch").value = "";
+        //$("divTabCahierSearchResult").innerHTML = "";
 
         // #divCahierInfos
         var allTabCahierFields = document.getElementsByClassName("TabCahierFields");
@@ -168,6 +168,7 @@ var Cahier = {
         newTab("divTabCahierMaterielCategories");
         $("divTabCahierInfosName").innerHTML = surName + " " + firstName;
         console.log("chosePerson -->", "surName: " + surName, "firstName: " + firstName, "id: " + id);
+        closePopUp("last");
     }
 
 };
