@@ -2,7 +2,7 @@
     background-color: white;
 }
 
-#divTabCahierConfirmationFirstContainer .Buttons::after {
+/*#divTabCahierConfirmationFirstContainer .Buttons::after {
     content: none;
 }
 
@@ -19,14 +19,13 @@
     min-height: 20px;
     background-color: transparent;
     text-align: center;
-}
+}*/
 
 .divTabCahierConfirmationContainer {
     position: relative;
     left: 50%;
     margin-left: -350px;
     background-color: white;
-    /*border: 2px solid black;*/
     padding: 10px;
     width: 680px;
     border-radius: 20px;
@@ -35,50 +34,63 @@
     box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.5);
 }
 
+.divTabCahierConfirmationContainer.confirmationTab {
+    position: relative;
+    width: 680px;
+    height:265px;
+}
+
     .divTabCahierConfirmationContainer .ReturnButtons {
         position: absolute;
         right: 10px;
-        bottom:0px;
-        width:110px;
+        bottom: 0px;
+        width: 110px;
         margin-left: 0px;
-        background-image:url(Img/IconEdit.png);
-        background-size:25px;
-        background-position-y:6px;
-        background-position-x:6px;
-
+        background-image: url(Img/IconEdit.png);
+        background-size: 25px;
+        background-position-y: 6px;
+        background-position-x: 6px;
     }
     .divTabCahierConfirmationContainer .ReturnButtons::after {
         content:none;
     }
+    .divTabCahierConfirmationContainer.confirmationTab .ReturnButtons:nth-child(8) {
+        position:relative;
+        left:350px;
+        transform:translateX(-100%);
+        top:5px;
+    }
 
     .divTabCahierConfirmationContainer .ValidateButtons { /*Terminer Button*/
         left: 50%;
-        transform:translate(-50%,5px);
-        background-image:none;
-        padding-left:0px;
-        text-align:center;
+        transform: translate(-50%,5px);
+        background-image: none;
+        padding-left: 0px;
+        text-align: center;
     }
 
-    .divConfirmationTexts {
-        position: relative;
-        min-height: 10px;
-        background-color: white;
-        width: 680px;
-        border-radius: 5px;
-        font-size: 25px;
-    }
-
-.divConfirmationTexts:nth-child(3) {
-    font-size:35px;
+.divConfirmationTexts {
+    position: relative;
+    min-height: 10px;
+    background-color: white;
+    width: 680px;
+    border-radius: 5px;
+    font-size: 25px;
+}
+.divConfirmationTexts.confirmationTab {
+    width: 350px;
+}
+.divConfirmationTexts.confirmationTab:nth-child(3) {
+    width:680px;
+    margin-bottom:10px;
 }
 
+    .divConfirmationTexts:nth-child(3) {
+        font-size: 35px;
+    }
     .divConfirmationTexts:nth-child(2n) {
         background-color: rgb(235,235,235);
     }
-
-        .divConfirmationTexts:nth-child(1){
-            
-        }
             .divConfirmationTexts:nth-child(1) > div {
                 width:100px;
                 display: inline-block;
@@ -108,6 +120,7 @@
                 border-radius: 10px;
             }
 
+
         .divConfirmationTexts > div:nth-child(2) {
             width: 240px;
             box-sizing: border-box;
@@ -115,14 +128,43 @@
             color: gray;
             text-align: left;
         }
+        .divConfirmationTexts.confirmationTab:not(:nth-child(3)) > div:nth-child(2) {
+            color: blue;
+            width:295px;
+            background-color:red;
+        }
+        .divTabCahierConfirmationEmbarcationBoxContainer.confirmationTab .divConfirmationTexts > div:nth-child(2) {
+            width:200px;
+        }/*Embarcation text in confirmation*/
 
         .divConfirmationTexts > div:nth-child(3) {
             width: 390px;
-            /*font-size: 25px;*/
             color: black;
             text-align: left;
         }
+        .divConfirmationTexts.confirmationTab > div:nth-child(2) {
+            width: 490px;
+            background-color: blueviolet;
+        }
+        .divConfirmationTexts.confirmationTab > div:nth-child(3) {
+            width: 140px;
+            background-color:yellow;
+        }
 
+        .divConfirmationTexts > div:first-child > div:first-child {
+            -moz-filter: brightness(0.5);
+            -ms-filter: brightness(0.5);
+            -webkit-filter: brightness(0.5);
+            filter: brightness(0.5)rightness(0.5);
+        }
+
+.divTabCahierConfirmationEmbarcationBoxContainer {
+    position: absolute;
+    top: 55px;
+    margin-top:53px;
+    left: 370px;
+    width: 320px;
+}
 .divTabCahierConfirmationEmbarcationBox {
     position: relative;
     margin-left: 40px;
@@ -130,23 +172,34 @@
     height: 124px;
     background-color: white;
 }
-
-    .divTabCahierConfirmationEmbarcationBox > div:nth-child(1) {
-        position: absolute;
-        margin: 10px;
-        width: 100px;
-        height: 100px;
-        background-image: url(Img/Materiel/Sail.png),url(Img/IconInfo.png);
-        background-size: 100px, 25px;
-        background-repeat: no-repeat;
-        border-radius: 10px;
-        border: 2px solid lightgray;
-        background-color: white;
-        -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.5);
-        -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.5);
-        box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.5);
-        transition: all 0.1s linear 0s;
+    .divTabCahierConfirmationEmbarcationBox.confirmationTab {
+        position:absolute;
+        width:280px;
+        margin-left:40px;
     }
+    .divTabCahierConfirmationEmbarcationBoxContainer .divConfirmationTexts {
+        width: 320px;
+    }
+    .divTabCahierConfirmationEmbarcationBoxContainer .ReturnButtons {
+        top:85px;
+    }
+
+.divTabCahierConfirmationEmbarcationBox > div:nth-child(1) {
+    position: absolute;
+    margin: 10px;
+    width: 100px;
+    height: 100px;
+    background-image: url(Img/Materiel/Sail.png),url(Img/IconInfo.png);
+    background-size: 100px, 25px;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    border: 2px solid lightgray;
+    background-color: white;
+    -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.5);
+    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.5);
+    transition: all 0.1s linear 0s;
+}
 
         .divTabCahierConfirmationEmbarcationBox > div:nth-child(1):hover {
             margin-top: 15px;
@@ -181,13 +234,6 @@
             color: darkgray;
         }
 
-    .divConfirmationTexts > div:first-child > div:first-child {
-        -moz-filter: brightness(0.5);
-        -ms-filter: brightness(0.5);
-        -webkit-filter: brightness(0.5);
-        filter: brightness(0.5)rightness(0.5);
-        /*background-size:*/
-    }
 
 
 #divTabCahierConfirmationInfosBox {
@@ -197,9 +243,6 @@
     height: 50px;
     background-color: azure;
 }
-
-
-
 
 .divTabCahierConfirmationContainer textarea {
     position: relative;
@@ -239,3 +282,18 @@
         -moz-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.6);
         box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.6);
     }
+
+
+.divTabCahierConfirmationDeleteBooking{
+    position:absolute;
+    top:-10px;
+    right:-10px;
+    width:30px;
+    height:30px;
+    border-radius:50px;
+    background-color:dimgray;
+    background-image:url(Img/IconCancel.png);
+    background-size:30px;
+}
+
+

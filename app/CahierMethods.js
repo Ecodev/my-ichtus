@@ -126,6 +126,11 @@ var Cahier = {
         else {
             booking = { startComment: "[" + Cahier.personFirstName + "]" };
         }
+
+        $('divTabConfirmationTitle').innerHTML = getownerNameFromBooking(booking, { length: 1000000, fontSize: 25 }) + "<div style='display:inline-block; vertical-align:middle; margin-left:8px;'> à "+ date.getNiceTime()+ "</div>";
+    //    $('divTabConfirmationStartTime').innerHTML = "Départ à " + date.getNiceTime();
+
+
         allDivTexts[0].innerHTML = getownerNameFromBooking(booking, { length: 1000000, fontSize: 35 });
 
         allDivTexts[1].innerHTML = date.getNiceTime();

@@ -190,7 +190,7 @@
         -moz-filter: brightness(0.5);
         -ms-filter: brightness(0.5);
         -webkit-filter: brightness(0.5);
-        filter: brightness(0.5)rightness(0.5);
+        filter: brightness(0.5);
         width: 25px;
         margin-right: 5px;
     }
