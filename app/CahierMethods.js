@@ -5,7 +5,7 @@ var Cahier = {
     personFirstName: "Invité",
     personSurName: "??",
     personGender: "Man",
-    getFullName: function (surName = this.personSurName, firstName = this.personFirstName) { return surName + " " + firstName;},
+  //  getFullName: function (surName = this.personSurName, firstName = this.personFirstName) { return surName + " " + firstName;},
 
     bookableId: "", //important
     bookableName: "Matériel personel",
@@ -14,8 +14,20 @@ var Cahier = {
     destination: "Non défini",
     startComment: "",
 
+    bookings: [{
+        owner: {id:"", firstName:"Invité", surName:"??", sex:"male"},
+        bookables: [{ id: "", name: "Matériel personel", code: "" }],
+        guest: true,
+        guestName:"Il est beau",
+        participantCount: 1,
+        destination: "Non défini",
+        startComment: "",
+    }],
 
-    getnbrParticipantsText: function (nbr = Cahier.nbrParticipants,txt = " Participant") {
+    getFullName: function (booking = Cahier.bookings[0]) { return booking.owner.surName + " " + booking.owner.firstName; },
+
+
+    getnbrParticipantsText: function (nbr = Cahier.nbrParticipants, txt = " Participant") {
         if (nbr == 0) {
             return "Aucun";
         }
@@ -91,13 +103,13 @@ var Cahier = {
             if (i < currentProgress) {
                 switch (i) {
                     case 0:
-                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.getFullName();
+                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.getFullName(Cahier.bookings[0]);
                         break;
                     case 1:
-                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.bookableName;
+                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.bookings[0].bookables[0].name;
                         break;
                     case 2:
-                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.destination + ", " + Cahier.nbrParticipants + " Acc."
+                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.bookings[0].destination + ", " + Cahier.bookings[0].participantCount + " Acc.";
                         break;
                     default:
                         break;
@@ -164,16 +176,55 @@ var Cahier = {
         if (Cahier.personId == "") {
             allDivTexts[5].innerHTML = Cahier.startComment; // "[" + Cahier.personFirstName + "] "  hidden
         }  
+
+
+
+        for (var i = 0; i < Cahier.bookings.length; i++) {
+            createConfirmationBooking(Cahier.bookings[i],i);
+        }
     },
 
-    chosePerson:function(surName, firstName, id) {
-        Cahier.personFirstName = firstName;
-        Cahier.personSurName = surName;
-        Cahier.personId = id;
-        newTab("divTabCahierMaterielCategories");
-        $("divTabCahierInfosName").innerHTML = surName + " " + firstName;
-        console.log("chosePerson -->", "surName: " + surName, "firstName: " + firstName, "id: " + id);
-        closePopUp("last");
+    //chosePerson:function(surName, firstName, id) {
+    //    Cahier.personFirstName = firstName;
+    //    Cahier.personSurName = surName;
+    //    Cahier.personId = id;
+
+    //    newTab("divTabCahierMaterielCategories");
+    //    $("divTabCahierInfosName").innerHTML = surName + " " + firstName;
+    //    console.log("chosePerson -->", "surName: " + surName, "firstName: " + firstName, "id: " + id);
+    //    closePopUp("last");
+    //},
+
+    setOwner: function (nbr = 0, _owner = { id: "", firstName: "", surName: "", sex: "female" }, _guest = false, _guestName = "Michel le guest") {
+        Cahier.bookings[nbr].owner = _owner;
+        Cahier.bookings[nbr].guest = _guest;
+        if (_guest) {
+            Cahier.bookings[nbr].guestName = _guestName;
+        }
+        else {
+            Cahier.bookings[nbr].guestName = "Pas d'invité";
+        }
+
+        console.log("setOwner(): ", nbr, Cahier.bookings[nbr].owner, Cahier.bookings[nbr].guest, Cahier.bookings[nbr].guestName);
+       
+        if (nbr == 0) {
+            newTab("divTabCahierMaterielCategories");
+            $("divTabCahierInfosName").innerHTML = Cahier.bookings[0].owner.surName + " " + Cahier.bookings[0].owner.firstName;
+        }
+    },
+
+    setBookable: function (nbr = 0, _bookable = { id: "", name: "", code: "" }) {
+        Cahier.bookings[nbr].bookables[0] = _bookable;
+
+        console.log("setBookable(): ", nbr, Cahier.bookings[nbr].bookables[0]);
+    },
+
+    setInfos: function (nbr = 0, _participantCount = 1, _destination = "Non choisi", _startComment = "mmh.") {
+        Cahier.bookings[nbr].participantCount = _participantCount;
+        Cahier.bookings[nbr].destination = _destination;
+        Cahier.bookings[nbr].startComment = _startComment;
+
+        console.log("setInfos(): ", nbr, Cahier.bookings[nbr].participantCount, Cahier.bookings[nbr].destination, Cahier.bookings[nbr].startComment);
     }
 
 };

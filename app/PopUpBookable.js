@@ -35,9 +35,16 @@ function popBookable(bookableId, i = -1) {
 		var btn = div(pop);
 		btn.classList.add("Buttons"); btn.classList.add("ValidateButtons");
 		btn.innerHTML = "Choisir";
-		btn.addEventListener("click", function () {
-			Cahier.bookableId = currentBookables[this.parentElement.getElementsByTagName("div")[1].id].id;
-			Cahier.bookableName = currentBookables[this.parentElement.getElementsByTagName("div")[1].id].name;
+        btn.addEventListener("click", function () {
+
+            var _bookable = { id: currentBookables[this.parentElement.getElementsByTagName("div")[1].id].id, name: currentBookables[this.parentElement.getElementsByTagName("div")[1].id].name, code: currentBookables[this.parentElement.getElementsByTagName("div")[1].id].code};
+
+            Cahier.setBookable(0, _bookable);
+
+		//	Cahier.bookableId = currentBookables[this.parentElement.getElementsByTagName("div")[1].id].id;
+          //  Cahier.bookableName = currentBookables[this.parentElement.getElementsByTagName("div")[1].id].name;
+
+
 			closePopUp({ target: modal},modal);
 			newTab("divTabCahierInfos");
 		});

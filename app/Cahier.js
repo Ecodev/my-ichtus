@@ -10,11 +10,16 @@ function Search(e) {
         var all = document.getElementsByClassName("divTabCahierResultEntry");
         for (var i = 0; i < all.length; i++) {
             if (typeof all[i].getElementsByTagName("img")[0] != "undefined") {
-                var firstName = all[i].getElementsByClassName("spanTabCahierFirstName")[0].innerHTML;
-                var surName = all[i].getElementsByClassName("spanTabCahierSurName")[0].innerHTML;
-                var id = all[i].id;
+                var _firstName = all[i].getElementsByClassName("spanTabCahierFirstName")[0].innerHTML;
+                var _surName = all[i].getElementsByClassName("spanTabCahierSurName")[0].innerHTML;
+                var _id = all[i].id;
+                var _sex = "male";
 
-                Cahier.chosePerson(surName, firstName, id); 
+                var owner = { id: _id, firstName: _firstName, surName: _surName, sex: _sex };
+
+                Cahier.setOwner(0, owner);
+
+                closePopUp("last");
             }
         }
     }
@@ -98,11 +103,18 @@ function createSearchEntries(PeopleCorresponding) {
 
         for (var i = 0; i < PeopleCorresponding.length; i++) {
             var divResult = document.createElement("div");
-            divResult.id = PeopleCorresponding[i].id;
+          //  divResult.id = PeopleCorresponding[i].id;
             divResult.classList.add("divTabCahierResultEntry");
             $("divTabCahierSearchResult").appendChild(divResult);
 
-            divResult.addEventListener("mousedown", function () { Cahier.chosePerson(this.getElementsByClassName("spanTabCahierSurName")[0].innerHTML, this.getElementsByClassName("spanTabCahierFirstName")[0].innerHTML,this.id); });
+            var _firstName = PeopleCorresponding[i].name.split(" ")[0];
+            var _surName = PeopleCorresponding[i].name.split(" ")[1];
+            var _id = PeopleCorresponding[i].id;
+            var _sex = PeopleCorresponding[i].sex;
+
+            divResult.id = i;
+
+            divResult.addEventListener("mousedown", function () { Cahier.setOwner(0, { id: PeopleCorresponding[this.id].id, firstName: PeopleCorresponding[this.id].name.split(" ")[0], surName: PeopleCorresponding[this.id].name.split(" ")[1], sex: PeopleCorresponding[this.id].sex}); closePopUp("last"); });
 
             var span1 = document.createElement("span");
             span1.classList.add("spanTabCahierSurName");
@@ -123,7 +135,7 @@ function createSearchEntries(PeopleCorresponding) {
                 divResult.style.backgroundColor = "darkgray";
             }
 
-            if (PeopleCorresponding[i].name == "administrator") {
+            if (PeopleCorresponding[i].sex == "male") {
                 divResult.style.backgroundImage = "url('Img/IconMan.png')";
             }
             else {

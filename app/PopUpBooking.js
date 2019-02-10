@@ -171,11 +171,9 @@ function actualizePopBooking(booking, container = $('divTabCahierConfirmationCon
 
 
 
-function createConfirmationBooking(owner = "michel", participantCount = 4, destination = "Baie", startComment = "Bonsoir j'adore voyager askfjalskdfjaésldkfj", bookableId) {
-    var fields = [owner, Cahier.getnbrParticipantsText(participantCount), destination, startComment.shorten(295,25), "Embarcation"];
+function createConfirmationBooking(booking, nbr, owner = "michel", participantCount = 4, destination = "Baie", startComment = "Bonsoir j'adore voyager askfjalskdfjaésldkfj", bookableId = 3001, bookableName = "Canoé wesh 123456789", bookableCodeAndCategory = "Canoé - C32 123456789") {
+    var fields = [Cahier.getFullName(booking), Cahier.getnbrParticipantsText(booking.participantCount), booking.destination, booking.startComment.shorten(295, 25), "Embarcation"];
     var images = ["IconResponsible", "IconParticipantCount", "IconDestination", "IconStartComment","IconSail"];
-
-    
 
     var container = div($('divTabConfirmationBookingsContainer'));
     container.style.position = "relative";
@@ -202,8 +200,6 @@ function createConfirmationBooking(owner = "michel", participantCount = 4, desti
         }
     }
 
-    //grayBar(container);
-
     var embarcationContainer = div(container);
     embarcationContainer.classList.add("divTabCahierConfirmationEmbarcationBoxContainer");
     embarcationContainer.classList.add("confirmationTab");
@@ -220,10 +216,12 @@ function createConfirmationBooking(owner = "michel", participantCount = 4, desti
     emb.classList.add("confirmationTab");
     div(div(emb));
 
+    container.getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].addEventListener("click", function () { popBookable(bookableId); });
+
     var texts = div(emb);
     texts.className = "divTabCahierConfirmationContainerTextsContainer";
-    div(texts).innerHTML = "...";
-    div(texts).innerHTML = "...";
+    div(texts).innerHTML = booking.bookables[0].name.shorten(180,25);
+    div(texts).innerHTML = booking.bookables[0].code.shorten(180,20);
 
 
     var btn = div(container);

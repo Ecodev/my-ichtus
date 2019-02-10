@@ -64,7 +64,13 @@ function ValidateGuest() {
     }
 
     if (i[0].style.borderColor == "black" && i[1].style.borderColor == "black") {
-        Cahier.chosePerson("Invité", i[0].value.capitalize() + " " + i[1].value.capitalize(), ""); // "" --> invité
+
+        var owner = { };
+        var guest = true;
+        var guestName = i[0].value.capitalize() + " " + i[1].value.capitalize();
+
+        Cahier.setOwner(0, owner, guest, guestName);
+
         console.log(c.parentElement);
         closePopUp({ target: c.parentElement }, c.parentElement);
     }

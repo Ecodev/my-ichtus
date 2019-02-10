@@ -214,11 +214,13 @@ function checkInfos() {
             allInfosOkay = false;
         }
     }
-    if (allInfosOkay == true || document.getElementById("divTabCahierInfosDestination").getElementsByTagName("input")[0].value == "pass") {
+    if (allInfosOkay == true || document.getElementById("divTabCahierInfosDestination").getElementsByTagName("input")[0].value == "pass") {    
 
-        Cahier.nbrParticipants = parseInt($('divTabCahierInfosNbrInvites').getElementsByTagName('input')[0].value);
-        Cahier.destination = $('divTabCahierInfosDestination').getElementsByTagName('input')[0].value;
-        Cahier.startComment = $('divTabCahierInfosStartComment').getElementsByTagName('textarea')[0].value;
+        var _participantCount = parseInt($('divTabCahierInfosNbrInvites').getElementsByTagName('input')[0].value);
+        var _destination = $('divTabCahierInfosDestination').getElementsByTagName('input')[0].value;
+        var _startComment = $('divTabCahierInfosStartComment').getElementsByTagName('textarea')[0].value;
+
+        Cahier.setInfos(0, _participantCount, _destination, _startComment);
 
         newTab("divTabCahierConfirmation");
     }

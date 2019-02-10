@@ -174,14 +174,16 @@
 }
     .divTabCahierConfirmationEmbarcationBox.confirmationTab {
         position:absolute;
-        width:280px;
-        margin-left:40px;
+        width:320px;
+        top:50px;
+        margin-left:0px;
+        background-color:rgba(156, 118, 39, 0.35);
     }
     .divTabCahierConfirmationEmbarcationBoxContainer .divConfirmationTexts {
         width: 320px;
     }
     .divTabCahierConfirmationEmbarcationBoxContainer .ReturnButtons {
-        top:85px;
+        top:75px;
     }
 
 .divTabCahierConfirmationEmbarcationBox > div:nth-child(1) {
