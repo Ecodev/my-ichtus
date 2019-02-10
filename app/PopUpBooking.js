@@ -130,7 +130,7 @@ function actualizePopBooking(booking, container = $('divTabCahierConfirmationCon
 
     container.getElementsByClassName('divTabCahierConfirmationContainer')[0].getElementsByTagName("div")[0].innerHTML = "Sortie du " + (new Date(booking.startDate)).getNiceDate(false,true);
 
-    allDivTexts[0].innerHTML = getownerNameFromBooking(booking, true, { length: 1000000, fontSize: 35 });
+    allDivTexts[0].innerHTML = Cahier.getOwner(booking, true, { length: 1000000, fontSize: 35 });
 
     allDivTexts[1].innerHTML = (new Date(booking.startDate)).getNiceTime();
 
@@ -171,8 +171,8 @@ function actualizePopBooking(booking, container = $('divTabCahierConfirmationCon
 
 
 
-function createConfirmationBooking(booking, nbr, owner = "michel", participantCount = 4, destination = "Baie", startComment = "Bonsoir j'adore voyager askfjalskdfjaésldkfj", bookableId = 3001, bookableName = "Canoé wesh 123456789", bookableCodeAndCategory = "Canoé - C32 123456789") {
-    var fields = [Cahier.getFullName(booking), Cahier.getnbrParticipantsText(booking.participantCount), booking.destination, booking.startComment.shorten(295, 25), "Embarcation"];
+function createConfirmationBooking(booking,nbr) {
+    var fields = [Cahier.getOwner(booking,true), Cahier.getnbrParticipantsText(booking.participantCount), booking.destination, booking.startComment.shorten(295, 25), Cahier.getBookableName(booking).shorten(265,25)];
     var images = ["IconResponsible", "IconParticipantCount", "IconDestination", "IconStartComment","IconSail"];
 
     var container = div($('divTabConfirmationBookingsContainer'));
@@ -181,7 +181,13 @@ function createConfirmationBooking(booking, nbr, owner = "michel", participantCo
     container.classList.add("divTabCahierConfirmationContainer");
     container.classList.add("confirmationTab");
 
-    container.innerHTML += '<div style=" font-size:25px; text-align:center; color:black;">Votre sortie</div>';
+    if (nbr == 0) {
+        container.innerHTML += '<div style=" font-size:25px; text-align:center; color:black;">Votre sortie</div>';
+    }
+    else {
+        container.innerHTML += '<div style=" font-size:25px; text-align:center; color:black;"> Sortie de ' + Cahier.getFullName(booking) + '</div>';
+    }
+    
     grayBar(container, 5,10);
 
     for (var i = 0; i < 4; i++) {
@@ -190,13 +196,21 @@ function createConfirmationBooking(booking, nbr, owner = "michel", participantCo
         d.classList.add("confirmationTab");
         div(div(d)).style.backgroundImage = "url(Img/" + images[i] + ".png)";
         div(d).innerHTML = fields[i];
-        if (i == 0) {
+        if (i == 0 && nbr != 0) {
             var a = div(d);
             var btn = div(a);
-            btn.innerHTML = "Changer le responsable";
+            btn.innerHTML = "Changer";
             btn.classList.add("Buttons");
             btn.classList.add("ReturnButtons");
-            btn.onclick = function () { newTab('divTabCahierMaterielCategories'); };
+            btn.style.backgroundImage = "url(Img/IconResponsible.png)";
+            btn.style.backgroundBlendMode = "exclusion";
+            if (booking.guest) {
+                btn.onclick = function () { popGuest(nbr); };
+            }
+            else {
+                btn.onclick = function () { popUser(nbr); };
+            }
+            
         }
     }
 
@@ -220,9 +234,8 @@ function createConfirmationBooking(booking, nbr, owner = "michel", participantCo
 
     var texts = div(emb);
     texts.className = "divTabCahierConfirmationContainerTextsContainer";
-    div(texts).innerHTML = booking.bookables[0].name.shorten(180,25);
-    div(texts).innerHTML = booking.bookables[0].code.shorten(180,20);
-
+    div(texts).innerHTML = Cahier.getBookableName(booking).shorten(180,25);
+    div(texts).innerHTML = Cahier.getBookableCode(booking).shorten(180,20);
 
     var btn = div(container);
     btn.innerHTML = "Modifier";
@@ -234,9 +247,15 @@ function createConfirmationBooking(booking, nbr, owner = "michel", participantCo
     btn.innerHTML = "Modifier";
     btn.classList.add("Buttons");
     btn.classList.add("ReturnButtons");
-    btn.onclick = function () { newTab('divTabCahierMaterielCategories'); };    
+    btn.onclick = function () { newTab('divTabCahierMaterielCategories'); };  
+    btn.style.backgroundImage = "url(Img/IconSail.png)";
+    btn.style.backgroundBlendMode = "exclusion";
 
-    var r = div(container);
-    r.classList.add("divTabCahierConfirmationDeleteBooking");
+
+
+    if (nbr != 0) {
+        var r = div(container);
+        r.classList.add("divTabCahierConfirmationDeleteBooking");
+    }
 
 }

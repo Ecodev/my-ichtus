@@ -1,8 +1,9 @@
-function popGuest() {
+function popGuest(nbr = 0) {
     var elem = openPopUp();
 
     var container;
     container = div(elem);
+    container.id = nbr;
     container.classList.add("PopUpGuestContainer");
     container.classList.add("Boxes");
 
@@ -68,8 +69,9 @@ function ValidateGuest() {
         var owner = { };
         var guest = true;
         var guestName = i[0].value.capitalize() + " " + i[1].value.capitalize();
+        var nbr = parseInt(document.getElementsByClassName('PopUpGuestContainer')[0].id);
 
-        Cahier.setOwner(0, owner, guest, guestName);
+        Cahier.setOwner(nbr, owner, guest, guestName);
 
         console.log(c.parentElement);
         closePopUp({ target: c.parentElement }, c.parentElement);

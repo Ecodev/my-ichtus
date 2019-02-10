@@ -841,23 +841,24 @@ var Requests = {
         });
     },
 
-    // createBooking
-    createBooking: function () {
+    //createBooking
+    createBooking: function (i) {
 
         var input = {
-            owner: Cahier.personId,
-            participantCount: Cahier.nbrParticipants + 0,
-            destination: Cahier.destination,
-            startComment: Cahier.startComment
-
+            owner: Cahier.bookings[i].owner.id,
+            participantCount: Cahier.bookings[i].nbrParticipants,
+            destination: Cahier.bookings[i].destination,
+            startComment: Cahier.bookings[i].startComment,
+            guest: Cahier.bookings[i].guest
         };
 
-        if (Cahier.personId == "") {
+        if (Cahier.bookings[i].guest == true) {
             console.log('Invité');
             input = {
-                participantCount: Cahier.nbrParticipants + 0,
-                destination: Cahier.destination,
-                startComment: "[" + Cahier.personFirstName + "] " + Cahier.startComment
+                participantCount: Cahier.bookings[i].nbrParticipants,
+                destination: Cahier.bookings[i].destination,
+                startComment: "[" + Cahier.bookings[i].guestName + "] " + Cahier.bookings[i].startComment,
+                guest: Cahier.bookings[i].guest
             };
         }
 
@@ -866,10 +867,12 @@ var Requests = {
 
             console.log('Created booking : ', booking);
 
+            //modifier c to alalalalla 
+
             // LINK BOOKABLE
-            if (Cahier.bookableId != "") {
+            if (Cahier.bookings[i].bookables.length == 0) {
                 Server.linkMutation.link(booking, {
-                    id: Cahier.bookableId,
+                    id: Cahier.bookings[i].bookables[0].id,
                     __typename: 'Bookable'
                 }).subscribe(() => {
                     console.log('Linked Bookable : ', booking);
@@ -880,8 +883,52 @@ var Requests = {
                 console.log("Matériel Personel");
                 Requests.getActualBookingList(true);
             }
-            });    
+        });
+
+        
     },
+
+    // createBooking
+    //createBooking: function () {
+
+    //    var input = {
+    //        owner: Cahier.personId,
+    //        participantCount: Cahier.nbrParticipants + 0,
+    //        destination: Cahier.destination,
+    //        startComment: Cahier.startComment
+
+    //    };
+
+    //    if (Cahier.personId == "") {
+    //        console.log('Invité');
+    //        input = {
+    //            participantCount: Cahier.nbrParticipants + 0,
+    //            destination: Cahier.destination,
+    //            startComment: "[" + Cahier.personFirstName + "] " + Cahier.startComment
+    //        };
+    //    }
+
+
+    //    Server.bookingService.create(input).subscribe(booking => {
+
+    //        console.log('Created booking : ', booking);
+
+    //        // LINK BOOKABLE
+    //        if (Cahier.bookableId != "") {
+    //            Server.linkMutation.link(booking, {
+    //                id: Cahier.bookableId,
+    //                __typename: 'Bookable'
+    //            }).subscribe(() => {
+    //                console.log('Linked Bookable : ', booking);
+    //                Requests.getActualBookingList(true);
+    //            });
+    //        }
+    //        else {
+    //            console.log("Matériel Personel");
+    //            Requests.getActualBookingList(true);
+    //        }
+    //        });    
+    //},
 
 
     // personalQuery

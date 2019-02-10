@@ -38,6 +38,7 @@
     position: relative;
     width: 680px;
     height:265px;
+    margin-top:50px;
 }
 
     .divTabCahierConfirmationContainer .ReturnButtons {
@@ -54,11 +55,14 @@
     .divTabCahierConfirmationContainer .ReturnButtons::after {
         content:none;
     }
+    .divTabCahierConfirmationContainer.confirmationTab .divConfirmationTexts > div:nth-child(3) > .ReturnButtons{
+        top:-3px;
+    }
     .divTabCahierConfirmationContainer.confirmationTab .ReturnButtons:nth-child(8) {
-        position:relative;
-        left:350px;
-        transform:translateX(-100%);
-        top:5px;
+        position: relative;
+        left: 350px;
+        transform: translateX(-100%);
+        top: 5px;
     }
 
     .divTabCahierConfirmationContainer .ValidateButtons { /*Terminer Button*/
@@ -128,13 +132,18 @@
             color: gray;
             text-align: left;
         }
+        .divConfirmationTexts.confirmationTab:nth-child(3) > div:nth-child(2){
+            color:black;
+        }
         .divConfirmationTexts.confirmationTab:not(:nth-child(3)) > div:nth-child(2) {
-            color: blue;
-            width:295px;
-            background-color:red;
+            color: black;
+            width: 295px;
+        }
+        .divTabCahierConfirmationEmbarcationBoxContainer .divConfirmationTexts.confirmationTab:not(:nth-child(3)) > div:nth-child(2) {
+          
         }
         .divTabCahierConfirmationEmbarcationBoxContainer.confirmationTab .divConfirmationTexts > div:nth-child(2) {
-            width:200px;
+            width: 200px;
         }/*Embarcation text in confirmation*/
 
         .divConfirmationTexts > div:nth-child(3) {
@@ -144,11 +153,9 @@
         }
         .divConfirmationTexts.confirmationTab > div:nth-child(2) {
             width: 490px;
-            background-color: blueviolet;
         }
         .divConfirmationTexts.confirmationTab > div:nth-child(3) {
             width: 140px;
-            background-color:yellow;
         }
 
         .divConfirmationTexts > div:first-child > div:first-child {
@@ -160,7 +167,7 @@
 
 .divTabCahierConfirmationEmbarcationBoxContainer {
     position: absolute;
-    top: 55px;
+    top: 57px;
     margin-top:53px;
     left: 370px;
     width: 320px;
@@ -177,13 +184,16 @@
         width:320px;
         top:50px;
         margin-left:0px;
-        background-color:rgba(156, 118, 39, 0.35);
+        /*background-color:rgba(156, 118, 39, 0.35);*/
     }
     .divTabCahierConfirmationEmbarcationBoxContainer .divConfirmationTexts {
         width: 320px;
     }
+    .divTabCahierConfirmationEmbarcationBoxContainer .divConfirmationTexts > div:nth-child(2) {
+        width:265px !important;
+    }
     .divTabCahierConfirmationEmbarcationBoxContainer .ReturnButtons {
-        top:75px;
+        top: 75px;
     }
 
 .divTabCahierConfirmationEmbarcationBox > div:nth-child(1) {

@@ -1,37 +1,25 @@
 var Cahier = {
 
-    // data
-    personId: "",
-    personFirstName: "Invité",
-    personSurName: "??",
-    personGender: "Man",
-  //  getFullName: function (surName = this.personSurName, firstName = this.personFirstName) { return surName + " " + firstName;},
-
-    bookableId: "", //important
-    bookableName: "Matériel personel",
-
-    nbrParticipants: 1,
-    destination: "Non défini",
-    startComment: "",
-
     bookings: [{
-        owner: {id:"", firstName:"Invité", surName:"??", sex:"male"},
-        bookables: [{ id: "", name: "Matériel personel", code: "" }],
+        owner: {},
+        bookables: [],
         guest: true,
-        guestName:"Il est beau",
+        guestName: "Il est beau",
         participantCount: 1,
         destination: "Non défini",
-        startComment: "",
+        startComment: ""
     }],
 
-    getFullName: function (booking = Cahier.bookings[0]) { return booking.owner.surName + " " + booking.owner.firstName; },
+    getFullName: function (booking = Cahier.bookings[0]) {
+        if (booking.guest) { return booking.guestName; } else { return booking.owner.surName + " " + booking.owner.firstName; }
+    },
 
 
     getnbrParticipantsText: function (nbr = Cahier.nbrParticipants, txt = " Participant") {
         if (nbr == 0) {
             return "Aucun";
         }
-        else if (nbr== 1) {
+        else if (nbr == 1) {
             return "1" + txt;
         }
         else {
@@ -39,6 +27,145 @@ var Cahier = {
         }
     },
 
+    getBookableName: function (booking) {
+        if (booking.bookables.length == 0) {
+            return "Matériel Personel";
+        }
+        else {
+            return booking.bookables[0].name;
+        }
+    },
+
+    getBookableCode: function (booking) {
+        if (booking.bookables.length == 0) {
+            return "";
+        }
+        else {
+            return booking.bookables[0].code;
+        }
+    },
+
+    // new with guest:
+    getOwner: function (booking, wantImg = false, shortenOptions = { length: 10000, fontSize: 20 }) {
+
+        if (booking.guest == false) {
+            if (wantImg) {
+                var img = "Img/IconWoman.png";
+                if (booking.owner.sex == "male") { img = "Img/IconMan.png"; }
+
+                return "<div id='" + booking.owner.name + "' class='TableEntriesImg' style='background-image:url(" + img + ");  display: inline-block;vertical-align: middle;'>" + "</div>" + "<div style=' display: inline-block;vertical-align: middle;'>" + booking.owner.name.shorten(shortenOptions.length - 40, shortenOptions.fontSize) + "</div>";
+            }
+            else {
+                return booking.owner.name;
+            }
+        }
+        else {
+            var guestName = "";
+
+            if (booking.guestName != undefined) {
+                guestName = " (" + booking.guestName + ")";
+            }
+            else {
+                var a = booking.startComment.indexOf("[");
+                var b = booking.startComment.indexOf("]");
+
+                var inv = "Invité";
+                if (a == 0 && b != -1) {
+                    guestName = " (" + booking.startComment.slice(a + 1, b) + ")";
+                }
+            }
+
+            if (wantImg) {
+                return "<div id='ZZZZ" + booking.owner.name + "' class='TableEntriesImg' style='background-image:url(Img/IconInfo.png);  display: inline-block;vertical-align: middle;'></div>" + "<div style=' display: inline-block;vertical-align: middle; min-width:" + 10 + "px'>" + booking.owner.name + "</div>" + "<div style='margin-left:5px; font-size:15px;  display: inline-block;vertical-align: middle;'>" + guestName.shorten(shortenOptions.length - 40 - "Invité".pixelLength(shortenOptions.fontSize) - 5, 15) + "</div>";
+            }
+            else {
+                return (booking.owner.name + guestName).shorten(shortenOptions.length, shortenOptions.fontSize); //
+            }
+        }
+    },
+
+    //getOwnerNameFromBooking: function (booking, wantImg = false, shortenOptions = { length: 100000, fontSize: 20 }) {
+    //    //mettre un id sur lequel sortTable() va faire le tri puisque c'est le premier texte qui diffère des autres éléments
+
+    //    var t = false;
+
+    //    if (booking.owner != null) {
+    //        if (booking.owner.id != undefined) {
+    //            if (wantImg) {
+    //                var img = "Img/IconWoman.png";
+    //                if (booking.owner.sex == "male") { img = "Img/IconMan.png"; }
+
+    //                return "<div id='" + booking.owner.name + "' class='TableEntriesImg' style='background-image:url(" + img + ");  display: inline-block;vertical-align: middle;'>" + "</div>" + "<div style=' display: inline-block;vertical-align: middle;'>" + booking.owner.name.shorten(shortenOptions.length - 40, shortenOptions.fontSize) + "</div>";
+    //            }
+    //            else {
+    //                return booking.owner.name;
+    //            }
+    //        }
+    //        else {
+    //            t = true;
+    //        }
+
+    //    }
+    //    else { t = true; }
+
+    //    if (t) {
+
+    //        var guestName = "";
+
+    //        if (booking.guestName != undefined) {
+    //            guestName = " (" + booking.guestName + ")";
+    //        }
+    //        else {
+    //            var a = booking.startComment.indexOf("[");
+    //            var b = booking.startComment.indexOf("]");
+
+    //            var inv = "Invité";
+    //            if (a == 0 && b != -1) {
+    //                guestName = " (" + booking.startComment.slice(a + 1, b) + ")";
+    //            }
+    //        }
+
+    //        if (wantImg) {
+    //            return "<div id='ZZZZ" + guestName + "' class='TableEntriesImg' style='background-image:url(Img/IconInfo.png);  display: inline-block;vertical-align: middle;'></div>" + "<div style=' display: inline-block;vertical-align: middle; min-width:" + 10 + "px'>" + "Invité" + "</div>" + "<div style='margin-left:5px; font-size:15px;  display: inline-block;vertical-align: middle;'>" + guestName.shorten(shortenOptions.length - 40 - "Invité".pixelLength(shortenOptions.fontSize) - 5, 15) + "</div>";
+    //        }
+    //        else {
+    //            return ("Invité " + guestName).shorten(shortenOptions.length, shortenOptions.fontSize); //
+    //        }
+
+    //    }
+    //},
+
+    //new Booking
+    newUserBooking: function () {
+
+        popUser(Cahier.bookings.length);
+
+        Cahier.bookings.push({
+            owner: {},
+            bookables: [],
+            guest: false,
+            guestName: "Waw",
+            participantCount: 1,
+            destination: Cahier.bookings[0].destination,
+            startComment: Cahier.bookings[0].startComment
+        });       
+    },
+
+    //new Booking
+    newGuestBooking: function () {
+
+        popGuest(Cahier.bookings.length);
+
+        Cahier.bookings.push({
+            owner: {},
+            bookables: [],
+            guest: false,
+            guestName: "Waw",
+            participantCount: 1,
+            destination: Cahier.bookings[0].destination,
+            startComment: Cahier.bookings[0].startComment
+        });
+    },
 
     ProgressBarTexts: ["Nom", "Embarcation", "Infos", "Confirmation"],
 
@@ -72,29 +199,19 @@ var Cahier = {
         //    check($("checkBoxTabCahierInfosPhoneNumberRemember"));
         //}
 
-
-        // data
-        Cahier.personId = "";
-        Cahier.personFirstName = "Invité";
-        Cahier.personSurName=  "??";
-
-        Cahier.bookableId = "";
-        Cahier.bookableName = "Matériel personel";
-
-        Cahier.nbrParticipants = 1;
-        Cahier.destination = "Non défini";
-        Cahier.startComment = "";
-
-
         console.log("--> Cahier.cancel()");
     },
 
     confirm: function () {
-        Requests.createBooking();
+
+        for (var i = 0; i < Cahier.bookings.length; i++) {
+            Requests.createBooking(i);
+        }
+       
         animate();
         setTimeout(newTab, 3000, 'divTabCahier');
         console.log("--> Cahier.confirm()");
-        //        Requests.getActualBookingList(true); moved to the requets, otherwise too fast and doesn't link bookable on the first screen
+        //        Requests.getActualBookingList(true); moved to the requests, otherwise too fast and doesn't link bookable on the first screen
     },
 
     actualizeProgressBar: function () {
@@ -106,7 +223,7 @@ var Cahier = {
                         allDivTabCahierProgressTexts[i].innerHTML = Cahier.getFullName(Cahier.bookings[0]);
                         break;
                     case 1:
-                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.bookings[0].bookables[0].name;
+                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.getBookableName(Cahier.bookings[0]);
                         break;
                     case 2:
                         allDivTabCahierProgressTexts[i].innerHTML = Cahier.bookings[0].destination + ", " + Cahier.bookings[0].participantCount + " Acc.";
@@ -123,13 +240,13 @@ var Cahier = {
 
     actualizeConfirmation: function () {
 
-        var allDiv = $('divTabCahierConfirmation').getElementsByClassName("divConfirmationTexts");
-        var allDivTexts = [];
-        var allDivIcons = [];
-        for (var i = 0; i < allDiv.length; i++) {
-            allDivIcons[i] = allDiv[i].getElementsByTagName("div")[0].getElementsByTagName("div")[0];
-            allDivTexts[i] = allDiv[i].getElementsByTagName('div')[3];
-        }
+        //var allDiv = $('divTabCahierConfirmation').getElementsByClassName("divConfirmationTexts");
+        //var allDivTexts = [];
+        //var allDivIcons = [];
+        //for (var i = 0; i < allDiv.length; i++) {
+        //    allDivIcons[i] = allDiv[i].getElementsByTagName("div")[0].getElementsByTagName("div")[0];
+        //    allDivTexts[i] = allDiv[i].getElementsByTagName('div')[3];
+        //}
 
         var booking = {}; //simuler un vrai booking 
         if (Cahier.personId != "") {
@@ -139,45 +256,48 @@ var Cahier = {
             booking = { startComment: "[" + Cahier.personFirstName + "]" };
         }
 
-        $('divTabConfirmationTitle').innerHTML = getownerNameFromBooking(booking, { length: 1000000, fontSize: 25 }) + "<div style='display:inline-block; vertical-align:middle; margin-left:8px;'> à "+ date.getNiceTime()+ "</div>";
+        $('divTabConfirmationTitle').innerHTML = Cahier.getOwner(Cahier.bookings[0], true, { length: 1000000, fontSize: 25 }) + "<div style='display:inline-block; vertical-align:middle; margin-left:8px;'> à " + date.getNiceTime() + "</div>";
+
+
+
     //    $('divTabConfirmationStartTime').innerHTML = "Départ à " + date.getNiceTime();
 
 
-        allDivTexts[0].innerHTML = getownerNameFromBooking(booking, { length: 1000000, fontSize: 35 });
+        //allDivTexts[0].innerHTML = Cahier.getOwnerNameFromBooking(booking, { length: 1000000, fontSize: 35 });
 
-        allDivTexts[1].innerHTML = date.getNiceTime();
+        //allDivTexts[1].innerHTML = date.getNiceTime();
 
-        $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = Cahier.bookableName;
-        $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = Cahier.bookableId;
+        //$('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = Cahier.bookableName;
+        //$('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = Cahier.bookableId;
 
-        if (Cahier.bookableId == "") {
-            $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].style.backgroundImage = "url('Img/IconSup.png')";
-        }
+        //if (Cahier.bookableId == "") {
+        //    $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].style.backgroundImage = "url('Img/IconSup.png')";
+        //}
 
 
-        if (Cahier.bookableId != "") {
-            $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].addEventListener("click", function () { popBookable(Cahier.bookableId); });
-            $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = Cahier.bookableName;
-            $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = Cahier.bookableId + " caté";
-            $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].style.visibility = "visible";
-        }
-        else {
-            $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = "Matériel personel";
-            $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = "";
-            $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].style.visibility = "hidden";
-        }
+        //if (Cahier.bookableId != "") {
+        //    $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].addEventListener("click", function () { popBookable(Cahier.bookableId); });
+        //    $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = Cahier.bookableName;
+        //    $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = Cahier.bookableId + " caté";
+        //    $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].style.visibility = "visible";
+        //}
+        //else {
+        //    $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = "Matériel personel";
+        //    $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = "";
+        //    $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].style.visibility = "hidden";
+        //}
 
      
-        allDivTexts[3].innerHTML = Cahier.getnbrParticipantsText();
-        allDivTexts[4].innerHTML = Cahier.destination;
+        //allDivTexts[3].innerHTML = Cahier.getnbrParticipantsText();
+        //allDivTexts[4].innerHTML = Cahier.destination;
 
     
-        allDivTexts[5].innerHTML = Cahier.startComment;
-        if (Cahier.personId == "") {
-            allDivTexts[5].innerHTML = Cahier.startComment; // "[" + Cahier.personFirstName + "] "  hidden
-        }  
+       // allDivTexts[5].innerHTML = Cahier.startComment;
+        //if (Cahier.personId == "") {
+        //    allDivTexts[5].innerHTML = Cahier.startComment; // "[" + Cahier.personFirstName + "] "  hidden
+        //}  
 
-
+        $('divTabConfirmationBookingsContainer').innerHTML = "";
 
         for (var i = 0; i < Cahier.bookings.length; i++) {
             createConfirmationBooking(Cahier.bookings[i],i);
@@ -196,27 +316,41 @@ var Cahier = {
     //},
 
     setOwner: function (nbr = 0, _owner = { id: "", firstName: "", surName: "", sex: "female" }, _guest = false, _guestName = "Michel le guest") {
-        Cahier.bookings[nbr].owner = _owner;
+
         Cahier.bookings[nbr].guest = _guest;
         if (_guest) {
             Cahier.bookings[nbr].guestName = _guestName;
+            Cahier.bookings[nbr].owner = Cahier.bookings[0].owner;
         }
         else {
             Cahier.bookings[nbr].guestName = "Pas d'invité";
+            Cahier.bookings[nbr].owner.id = _owner.id;
+            Cahier.bookings[nbr].owner.firstName = _owner.firstName;
+            Cahier.bookings[nbr].owner.surName = _owner.surName;
+            Cahier.bookings[nbr].owner.name = _owner.surName + " " + _owner.firstName;
+            Cahier.bookings[nbr].owner.sex = _owner.sex;
         }
 
         console.log("setOwner(): ", nbr, Cahier.bookings[nbr].owner, Cahier.bookings[nbr].guest, Cahier.bookings[nbr].guestName);
+        Cahier.actualizeConfirmation();
        
         if (nbr == 0) {
             newTab("divTabCahierMaterielCategories");
-            $("divTabCahierInfosName").innerHTML = Cahier.bookings[0].owner.surName + " " + Cahier.bookings[0].owner.firstName;
+            $("divTabCahierInfosName").innerHTML = Cahier.getFullName(Cahier.bookings[0]);
         }
     },
 
-    setBookable: function (nbr = 0, _bookable = { id: "", name: "", code: "" }) {
-        Cahier.bookings[nbr].bookables[0] = _bookable;
+    setBookable: function (nbr = 0, _bookable = {}) {
 
-        console.log("setBookable(): ", nbr, Cahier.bookings[nbr].bookables[0]);
+        if (_bookable.id == undefined) { // no id means MP
+            Cahier.bookings[nbr].bookables = []; 
+        }
+        else {
+            Cahier.bookings[nbr].bookables[0] = _bookable;
+        }
+
+        console.log("setBookable(): ", nbr, Cahier.bookings[nbr].bookables);
+        Cahier.actualizeConfirmation();
     },
 
     setInfos: function (nbr = 0, _participantCount = 1, _destination = "Non choisi", _startComment = "mmh.") {
@@ -225,6 +359,7 @@ var Cahier = {
         Cahier.bookings[nbr].startComment = _startComment;
 
         console.log("setInfos(): ", nbr, Cahier.bookings[nbr].participantCount, Cahier.bookings[nbr].destination, Cahier.bookings[nbr].startComment);
+        Cahier.actualizeConfirmation();
     }
 
 };

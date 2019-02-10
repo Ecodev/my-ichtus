@@ -201,34 +201,6 @@ function grayBar(elem,marginTop = 10, marginBottom = 15) {
 }
 
 
-function getownerNameFromBooking(booking, wantImg = false, shortenOptions = {length:100000,fontSize:20}) {
-    //mettre un id sur lequel sortTable() va faire le tri puisque c'est le premier texte qui diffère des autres éléments
-    if (booking.owner != null) {
-        if (wantImg) {
-            return "<div id='" + booking.owner.name + "' class='TableEntriesImg' style='background-image:url(Img/IconMan.png);  display: inline-block;vertical-align: middle;'>" + "</div>" + "<div style=' display: inline-block;vertical-align: middle;'>" + booking.owner.name.shorten(shortenOptions.length-40, shortenOptions.fontSize) + "</div>";
-        }
-        else {
-            return booking.owner.name;
-        }  
-    }
-    else {
-        var a = booking.startComment.indexOf("[");
-        var b = booking.startComment.indexOf("]");
-        var txt = "";
-        var inv = "Invité";
-        if (a == 0  && b != -1) {
-            txt += "(" + booking.startComment.slice(a + 1, b) + ")";
-        }
-
-        if (wantImg) {
-            return "<div id='ZZZZ" + txt + "' class='TableEntriesImg' style='background-image:url(Img/IconInfo.png);  display: inline-block;vertical-align: middle;'></div>" + "<div style=' display: inline-block;vertical-align: middle; min-width:" + 10 + "px'>" + "Invité" + "</div>" + "<div style='margin-left:5px; font-size:15px;  display: inline-block;vertical-align: middle;'>" + txt.shorten(shortenOptions.length - 40 - "Invité".pixelLength(shortenOptions.fontSize)-5, 15) + "</div>";
-        }
-        else {
-            return ("Invité " + txt).shorten(shortenOptions.length, shortenOptions.fontSize); //
-        }
- 
-    }
-}
 function getStartCommentFromBooking(booking,fill = false) {
     var a = booking.startComment.indexOf("[");
     var b = booking.startComment.indexOf("]");
@@ -320,48 +292,3 @@ Array.prototype.fillArray = function (length, what = 0) {
         this[i] = what;
     }
 };
-
-
-
-
-// ABANDONNED
-//function add(bookableId,c) {
-
-
-//    var filter = {
-//        filter: {
-//            groups: [
-//                { conditions: [{ bookables: { have: { values: [bookableId] } } }] }
-//            ]
-//        },
-//        pagination: {
-//            pageSize: 0
-//        },
-//    };
-
-
-//    var counter = 0;
-
-//    var variables = new Server.QueryVariablesManager();
-//    variables.set('variables', filter);
-
-//    Server.bookingService.getAll(variables).subscribe(r => {
-
-//        console.log(r);
-//                                                    // else : already a zero ? maybe change to start of the universe lol        
-
-
-//        bookings[c] = r.length; // not items.length haha
-
-
-
-//        counter++;
-
-//        console.log(c);
-
-//        if (counter == result.items.length) {
-//            result.items.sortBy(bookings, order);
-//            loadElements(result.items);
-//        }
-//    });
-//}

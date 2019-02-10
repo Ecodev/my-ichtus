@@ -115,7 +115,7 @@ function openFinishBooking(elem,bookingId) {
 
 }
 function actualizePopBookingFinish(booking, elem) {
-    elem.getElementsByClassName('divConfirmationTexts')[0].children[2].innerHTML = getownerNameFromBooking(booking, true, { length: 1000000, fontSize: 35 });
+    elem.getElementsByClassName('divConfirmationTexts')[0].children[2].innerHTML = Cahier.getOwner(booking, true, { length: 1000000, fontSize: 35 });
     elem.getElementsByClassName('divConfirmationTexts')[1].children[2].innerHTML = date.getNiceTime();
    
     if (booking.bookables.length != 0) {
