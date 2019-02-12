@@ -241,7 +241,7 @@ function createConfirmationBooking(booking,nbr) {
     btn.innerHTML = "Modifier";
     btn.classList.add("Buttons");
     btn.classList.add("ReturnButtons");
-    btn.onclick = function () { newTab('divTabCahierMaterielCategories'); };
+    btn.onclick = function () { popCahierInfos(nbr); };
 
     var btn = div(emb);
     btn.innerHTML = "Modifier";

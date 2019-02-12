@@ -1,32 +1,152 @@
-//<div id="divTabCahierFieldsContainer">
+function popCahierInfos(nbr) {
 
-//    <div id="divTabCahierInfosNbrInvites" class="TabCahierFields">
-//        *Nbr de participants
-//                    <input autocomplete="off" type="number" min="1" max="20" spellcheck="false" placeholder="1" value="1" onkeyup="writeNbrInvites(this);" onfocusin="this.value =''; writeNbrInvites(this); focusInOrOut(this,true);" onfocusout="if (this.value == '') { this.value = '1'; writeNbrInvites(this);}focusInOrOut(this,false);" />
-//        <div></div>
-//        <div id="divTabCahierInfosNbrInvitesPropositions" class="PropositionsContainer">
-//            <div> 1 </div><div> 2 </div><div> 3 </div><div> 4 </div><div> 5 </div><div> 8 </div><div> 10 </div>
-//        </div>
-//        <div style="margin-top:110px; position:absolute; text-align:center; width:100%; font-size:15px;">(Vous inclu / minimum 1)</div>
+    var elem = openPopUp();
+
+    var container;
+    container = div(elem);
+    container.id = nbr;
+    container.classList.add("PopUpCahierInfosContainer");
+    container.classList.add("Boxes");
+
+    var close = div(container);
+    close.className = "divPopUpClose";
+    close.onclick = function () {
+        closePopUp({ target: elem }, elem);
+    };
+
+    var d = div(container);
+    d.style.textAlign = "center";
+    d.style.fontSize = "25px";
+    d.innerHTML = "Informations";
+
+    grayBar(container, 5);
+
+    var c = div(container);
+    c.classList.add("divTabCahierFieldsContainer");
+
+        var divParticipantCount = div(c);
+        divParticipantCount.classList.add("TabCahierFields");
+        divParticipantCount.classList.add("divTabCahierInfosNbrInvites");
+        divParticipantCount.innerHTML += "*Nbr de participants";
+
+            var i = input(divParticipantCount);
+            i.type = "number";
+            i.min = "1";
+            i.max = "20";
+            i.value = Cahier.bookings[nbr].participantCount;
+            i.placeholder = "1";
+            i.addEventListener("keyup",  function () {
+                writeNbrInvites(this);
+            });
+            i.addEventListener("focusin", function () {
+                console.log("lkjl√©kj");
+                this.value = "";
+                writeNbrInvites(this);
+                focusInOrOut(this, true);
+            });
+            i.addEventListener("focusout",  function () {
+                if (this.value == '') { this.value = '1'; writeNbrInvites(this); }
+                focusInOrOut(this, false);
+            });
+
+            div(divParticipantCount);
+
+            var p = div(divParticipantCount);
+            p.classList.add("PropositionsContainer");
+            p.classList.add("divTabCahierInfosNbrInvitesPropositions");
+            div(p).innerHTML = "1";
+            div(p).innerHTML = "2";
+            div(p).innerHTML = "3";
+            div(p).innerHTML = "4";
+            div(p).innerHTML = "5";
+            div(p).innerHTML = "8";
+            div(p).innerHTML = "10";
+
+            var info = div(divParticipantCount);
+            info.innerHTML = "(Vous inclu / minimum 1)";
+            info.style.position = "absolute";
+            info.style.marginTop = "110px";
+            info.style.textAlign = "center";
+            info.style.width = "100%";
+            info.style.fontSize = "15px";
+
+            writeNbrInvites(i); 
 
 
-//    </div><div id="divTabCahierInfosDestination" class="TabCahierFields">
-//        *Destination
-//                    <input autocomplete="off" value="Baie" type="text" spellcheck="false" placeholder="Destination" onkeyup="writeDestination(this);" onfocusin="if (this.value == 'Baie') { this.value = '';}; focusInOrOut(this,true); writeDestination(this);" onfocusout="focusInOrOut(this,false); writeDestination(this);" /> <!--/> mmmmh ??-->
-//                    <div></div>
-//        <div id="divTabCahierInfosDestinationPropositions" class="PropositionsContainer">
-//            <div>Baie</div><div>La RamÈe</div><div>La TËne</div><div>Neuch‚tel</div><div>Cudrefin</div>
-//        </div>
+
+    var divDestination = div(c);
+    divDestination.classList.add("TabCahierFields");
+    divDestination.classList.add("divTabCahierInfosDestination");
+    divDestination.innerHTML += "*Destination";
+
+        var i = input(divDestination);
+        i.value = Cahier.bookings[nbr].destination;
+        i.placeholder = "Destination";
+        i.addEventListener("keyup", function () {
+            writeDestination(this);
+        });
+        i.addEventListener("focusin", function () {
+            writeDestination(this);
+            focusInOrOut(this, true);
+        });
+        i.addEventListener("focusout", function () {
+            writeDestination(this);
+            focusInOrOut(this, false);
+        });
+
+        div(divDestination);
+
+        var p = div(divDestination);
+        p.classList.add("PropositionsContainer");
+        p.classList.add("divTabCahierInfosDestinationPropositions");
+        div(p).innerHTML = "Baie";
+        div(p).innerHTML = "La Ram√©e";
+        div(p).innerHTML = "La T√®ne";
+        div(p).innerHTML = "Neuch√¢tel";
+        div(p).innerHTML = "Cudrefin";
+
+        writeDestination(i); 
 
 
-//    </div><div id="divTabCahierInfosStartComment" class="TabCahierFields">
-//        Commentaire de dÈpart
-//                    <textarea spellcheck="false" placeholder="Informations, numÈro de tÈlÈphone, habillement..." value=""></textarea>
-//        <div style="height:100px;"></div>
-//    </div>
 
-   
-//            </div>
+    var divStartComment = div(c);
+    divStartComment.classList.add("TabCahierFields");
+    divStartComment.classList.add("divTabCahierInfosStartComment");
+    divStartComment.innerHTML += "Commentaire";
+
+        var area = document.createElement("textarea");
+        divStartComment.appendChild(area);
+        area.value = Cahier.bookings[nbr].startComment;
+        area.spellcheck = "false";
+        area.placeholder = "Informations, num√©ro de t√©l√©phone, habillement...";
+
+        div(divStartComment).style.height = "100px";
+
+
+    createAllPropositions(c);
+
+    //var t = div(container);
+    //t.style.textAlign = "center";
+    //t.innerHTML = "Les champs avec un * sont obligatoires !";
+    //br(container);
+
+    var btnContainer = div(container);
+    btnContainer.style.position = "relative";
+    btnContainer.style.textAlign = "center";
+
+        var btn = div(btnContainer);
+        btn.classList.add("Buttons");
+        btn.classList.add("ValidateButtons");
+        btn.style.display = "inline-block";
+        btn.innerHTML = "Valider";
+        btn.addEventListener("click", function () { checkInfos(elem, nbr); });
+}
+
+
+
+
+
+
 
 //    <div style="text-align:center; margin-left:2.5%">Les champs avec un * sont obligatoires !</div>
 
@@ -35,13 +155,3 @@
 //    <div style="text-align:center;">
 //        <div class="Buttons ValidateButtons" onclick="checkInfos();">Suivant</div>
 //    </div>
-
-
-function popCahierInfos(nbr) {
-
-    var elem = openPopUp();
-
-    var container;
-    container = div(elem);
-
-}

@@ -84,87 +84,15 @@ var Cahier = {
         }
     },
 
-    //getOwnerNameFromBooking: function (booking, wantImg = false, shortenOptions = { length: 100000, fontSize: 20 }) {
-    //    //mettre un id sur lequel sortTable() va faire le tri puisque c'est le premier texte qui diffère des autres éléments
-
-    //    var t = false;
-
-    //    if (booking.owner != null) {
-    //        if (booking.owner.id != undefined) {
-    //            if (wantImg) {
-    //                var img = "Img/IconWoman.png";
-    //                if (booking.owner.sex == "male") { img = "Img/IconMan.png"; }
-
-    //                return "<div id='" + booking.owner.name + "' class='TableEntriesImg' style='background-image:url(" + img + ");  display: inline-block;vertical-align: middle;'>" + "</div>" + "<div style=' display: inline-block;vertical-align: middle;'>" + booking.owner.name.shorten(shortenOptions.length - 40, shortenOptions.fontSize) + "</div>";
-    //            }
-    //            else {
-    //                return booking.owner.name;
-    //            }
-    //        }
-    //        else {
-    //            t = true;
-    //        }
-
-    //    }
-    //    else { t = true; }
-
-    //    if (t) {
-
-    //        var guestName = "";
-
-    //        if (booking.guestName != undefined) {
-    //            guestName = " (" + booking.guestName + ")";
-    //        }
-    //        else {
-    //            var a = booking.startComment.indexOf("[");
-    //            var b = booking.startComment.indexOf("]");
-
-    //            var inv = "Invité";
-    //            if (a == 0 && b != -1) {
-    //                guestName = " (" + booking.startComment.slice(a + 1, b) + ")";
-    //            }
-    //        }
-
-    //        if (wantImg) {
-    //            return "<div id='ZZZZ" + guestName + "' class='TableEntriesImg' style='background-image:url(Img/IconInfo.png);  display: inline-block;vertical-align: middle;'></div>" + "<div style=' display: inline-block;vertical-align: middle; min-width:" + 10 + "px'>" + "Invité" + "</div>" + "<div style='margin-left:5px; font-size:15px;  display: inline-block;vertical-align: middle;'>" + guestName.shorten(shortenOptions.length - 40 - "Invité".pixelLength(shortenOptions.fontSize) - 5, 15) + "</div>";
-    //        }
-    //        else {
-    //            return ("Invité " + guestName).shorten(shortenOptions.length, shortenOptions.fontSize); //
-    //        }
-
-    //    }
-    //},
 
     //new Booking
     newUserBooking: function () {
-
-        popUser(Cahier.bookings.length);
-
-        Cahier.bookings.push({
-            owner: {},
-            bookables: [],
-            guest: false,
-            guestName: "Waw",
-            participantCount: 1,
-            destination: Cahier.bookings[0].destination,
-            startComment: Cahier.bookings[0].startComment
-        });       
+        popUser(Cahier.bookings.length); 
     },
 
     //new Booking
     newGuestBooking: function () {
-
         popGuest(Cahier.bookings.length);
-
-        Cahier.bookings.push({
-            owner: {},
-            bookables: [],
-            guest: false,
-            guestName: "Waw",
-            participantCount: 1,
-            destination: Cahier.bookings[0].destination,
-            startComment: Cahier.bookings[0].startComment
-        });
     },
 
     ProgressBarTexts: ["Nom", "Embarcation", "Infos", "Confirmation"],
@@ -186,9 +114,9 @@ var Cahier = {
             allTabCahierFields[i].getElementsByTagName("div")[0].style.backgroundColor = "black";
         }
 
-        $('divTabCahierInfosStartComment').getElementsByTagName("textarea")[0].value = "";
-        $("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0].value = "1"; 
-        $("divTabCahierInfosDestination").getElementsByTagName("input")[0].value = "Baie"; 
+        document.getElementsByClassName("divTabCahierInfosStartComment")[0].getElementsByTagName("textarea")[0].value = "";
+        document.getElementsByClassName("divTabCahierInfosNbrInvites")[0].getElementsByTagName("input")[0].value = "1"; 
+        document.getElementsByClassName("divTabCahierInfosDestination")[0].getElementsByTagName("input")[0].value = "Baie"; 
 
         $('inputTabCahierMaterielElementsInputSearch').value = "";
 
@@ -198,6 +126,16 @@ var Cahier = {
         //if ($("checkBoxTabCahierInfosPhoneNumberRemember").getElementsByClassName("checkBox")[0].id == 1) {
         //    check($("checkBoxTabCahierInfosPhoneNumberRemember"));
         //}
+
+        Cahier.bookings = [{
+            owner: {},
+            bookables: [],
+            guest: true,
+            guestName: "Il est beau",
+            participantCount: 1,
+            destination: "Non défini",
+            startComment: ""
+        }];
 
         console.log("--> Cahier.cancel()");
     },
@@ -316,6 +254,33 @@ var Cahier = {
     //},
 
     setOwner: function (nbr = 0, _owner = { id: "", firstName: "", surName: "", sex: "female" }, _guest = false, _guestName = "Michel le guest") {
+
+        if (nbr >= Cahier.bookings.length) {
+            if (_guest) {
+                Cahier.bookings.push({
+                    owner: {},
+                    bookables: [],
+                    guest: false,
+                    guestName: "Waw",
+                    participantCount: 1,
+                    destination: Cahier.bookings[0].destination,
+                    startComment: Cahier.bookings[0].startComment
+                });
+            }
+            else {
+                Cahier.bookings.push({
+                    owner: {},
+                    bookables: [],
+                    guest: false,
+                    guestName: "Waw",
+                    participantCount: 1,
+                    destination: Cahier.bookings[0].destination,
+                    startComment: Cahier.bookings[0].startComment
+                });
+            }
+            console.log("New Booking !");
+        }
+
 
         Cahier.bookings[nbr].guest = _guest;
         if (_guest) {

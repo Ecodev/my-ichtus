@@ -94,7 +94,7 @@ function changeProgress(c) {
     //}
     //if (c == 2) {
     //    changeTab($("divTabCahierInfos"), sign);
-    //    writeNbrInvites();
+
     //} 
     //if (c == 3) {
     //    changeTab($("divTabCahierConfirmation"), sign);

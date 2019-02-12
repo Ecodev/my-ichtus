@@ -30,6 +30,7 @@
     <link href="PopUpBookableHistory.css" rel="stylesheet" />
     <link href="PopUpUser.css" rel="stylesheet" />
     <link href="PopUpGuest.css" rel="stylesheet" />
+    <link href="PopUpCahierInfos.css" rel="stylesheet" />
 
     <!-- JavaScript Files -->
     <script src="Home.js"></script>
@@ -219,7 +220,7 @@
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahier')"></div>
             <!--<br />-->
 
-            <div id="divTabCahierMaterielCategoriesOther">Catégories</div>
+            <div id="divTabCahierMaterielCategoriesOther">Activité</div>
             <div id="divTabCahierMaterielCategoriesContainer"></div>
         </div>
 
@@ -280,57 +281,32 @@
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielElements')"></div>
             <br />
 
-            <div id="divTabCahierFieldsContainer">
+            <div class="divTabCahierFieldsContainer">
 
-                <div id="divTabCahierInfosNbrInvites" class="TabCahierFields">
+                <div class="divTabCahierInfosNbrInvites TabCahierFields">
                     *Nbr de participants
                     <input  autocomplete="off" type="number" min="1" max="20" spellcheck="false" placeholder="1" value="1" onkeyup="writeNbrInvites(this);" onfocusin="this.value =''; writeNbrInvites(this); focusInOrOut(this,true);" onfocusout="if (this.value == '') { this.value = '1'; writeNbrInvites(this);}focusInOrOut(this,false);" />
                     <div></div>
-                    <div id="divTabCahierInfosNbrInvitesPropositions" class="PropositionsContainer">
+                    <div class="divTabCahierInfosNbrInvitesPropositions PropositionsContainer">
                         <div> 1 </div><div> 2 </div><div> 3 </div><div> 4 </div><div> 5 </div><div> 8 </div><div> 10 </div>
                     </div>
                     <div style="margin-top:110px; position:absolute; text-align:center; width:100%; font-size:15px;">(Vous inclu / minimum 1)</div>
 
 
-                </div><div id="divTabCahierInfosDestination" class="TabCahierFields">
+                </div><div class="divTabCahierInfosDestination TabCahierFields">
                     *Destination
                     <input  autocomplete="off" value="Baie" type="text" spellcheck="false" placeholder="Destination" onkeyup="writeDestination(this);" onfocusin="if (this.value == 'Baie') { this.value = '';}; focusInOrOut(this,true); writeDestination(this);" onfocusout="focusInOrOut(this,false); writeDestination(this);" /> <!--/> mmmmh ??-->
                     <div></div>
-                    <div id="divTabCahierInfosDestinationPropositions" class="PropositionsContainer">
+                    <div class="divTabCahierInfosDestinationPropositions PropositionsContainer">
                         <div>Baie</div><div>La Ramée</div><div>La Tène</div><div>Neuchâtel</div><div>Cudrefin</div>
                     </div>
 
 
-                </div><!--<div id="divTabCahierInfosPhoneNumber" class="TabCahierFields">
-                    *Numéro de téléphone
-                    <input  autocomplete="off" type="text" spellcheck="false" placeholder="07X XXX XX XX" pattern="[0-9]{6}" onkeydown="writePhoneNumber(event,this)" onkeyup="checkPhoneNumber(this)" />
-                    <div></div>
-                    <div id="checkBoxTabCahierInfosPhoneNumberRemember" onclick="check(this)">
-                        <div class="checkBox"></div><div>Se souvenir de mon numéro</div>
-                    </div>
-
-
-
-                </div>--><div id="divTabCahierInfosStartComment" class="TabCahierFields">
+                </div><div class="divTabCahierInfosStartComment TabCahierFields">
                     Commentaire de départ
                     <textarea spellcheck="false" placeholder="Informations, numéro de téléphone, habillement..." value=""></textarea>
                     <div style="height:100px;"></div>
                 </div>
-
-                <!--<div id="divTabCahierInfosStartTime" class="TabCahierFields">
-                    Heure de départ
-                    <input  autocomplete="off" type="time" min="0:00" max="21:00" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" />
-                    <div></div>
-                </div>
-
-                <div id="divTabCahierInfosEndTime" class="TabCahierFields">
-                    Heure d'arivée
-                    <input  autocomplete="off" type="time" min="12:00" max="24:00" onfocusin="focusInOrOut(this,true);" onfocusout="focusInOrOut(this,false);" />
-                    <div></div>
-                    <div id="divTabCahierInfosEndTimePropositions" class="PropositionsContainer">
-                        <div>30min</div><div>45min</div><div>1h</div><div>1h30</div><div>2h</div><div>3h</div><div>4h</div>
-                    </div>
-                </div>-->
             </div>
 
             <div style="text-align:center; margin-left:2.5%">Les champs avec un * sont obligatoires !</div>

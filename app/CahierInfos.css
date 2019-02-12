@@ -2,7 +2,7 @@
     background-color: white;  
 
 }
-#divTabCahierFieldsContainer {
+.divTabCahierFieldsContainer {
     text-align: center;
     width:95%;
     margin-left:2.5%;
@@ -30,7 +30,7 @@
 }
 
 
-#divTabCahierInfos textarea {
+.divTabCahierInfosStartComment textarea {
     position: absolute;
     resize: none;
     left: 0px;
@@ -60,17 +60,20 @@
     box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
     transition: all 0.1s linear 0s, width 0.2s linear 0s, margin-left 0.2s linear 0s;
     outline: none; /*pour enlever le cadre bleu quand sélectionné*/
-    cursor:pointer;
+    cursor: pointer;
 }
 
-    #divTabCahierInfosStartComment {
+    .divTabCahierInfosStartComment {
         /*width: 500px;*/
     }
-#divTabCahierInfosStartComment > div:nth-child(2) {
+.divTabCahierInfosStartComment > div:nth-child(2) {
     background-image: url(Img/IconStartComment.png);
     margin-top:-2px;
     background-position-x:-1px;
     
+}
+.divTabCahierFieldsContainer + div {
+    color:gray;
 }
 
 .TabCahierFields input {
@@ -139,11 +142,11 @@
 
 
 
-#divTabCahierInfosDestination {
+.divTabCahierInfosDestination {
     /*right: 2.5%;
     top: 250px;*/
 }
-#divTabCahierInfosDestination > div:nth-child(2){
+.divTabCahierInfosDestination > div:nth-child(2){
     background-image: url(Img/IconDestination.png);
 }
 .PropositionsContainer {
@@ -153,7 +156,7 @@
     top: 94px; 
 }
 
-#divTabCahierInfosDestinationPropositions {
+.divTabCahierInfosDestinationPropositions {
     width: 220px;
     height: 50px;
     background-color: transparent;
@@ -216,18 +219,18 @@
     text-decoration: underline;
 }
 
-#divTabCahierInfosNbrInvites {
+.divTabCahierInfosNbrInvites {
     /*left:2.5%;*/
     /*margin-left:0px;*/
     /*margin-top:330px;*/
 }
-#divTabCahierInfosNbrInvites input {
+.divTabCahierInfosNbrInvites input {
     left:50%;
     margin-left:-65px;
     width: 70px;
     background-position-x: 90px;
 }
-    #divTabCahierInfosNbrInvites > div:nth-child(2) {
+    .divTabCahierInfosNbrInvites > div:nth-child(2) {
         background-image: url(Img/IconParticipantCount.png);
         left: 50%;
         margin-left: -65px;

@@ -125,46 +125,48 @@ function writeCommment(elem) {
         DenyInfos(elem);
     }
 }
-function writeNbrInvites(elem = document.getElementById("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0]) {
+function writeNbrInvites(elem) {
     if (parseInt(elem.value) < 21 && elem.value != "" && parseInt(elem.value)!= 0) {
         AcceptInfos(elem);
     }
     else {
         DenyInfos(elem);
     }
+    console.log(elem);
 }
 
 
 
-function createAllPropositions() {
-    var allDestinationPropositions = $("divTabCahierInfosDestinationPropositions").getElementsByTagName("div");
+function createAllPropositions(location = $('divTabCahierInfos')) {
+
+    console.log(location);
+
+    var allDestinationPropositions = location.getElementsByClassName("divTabCahierInfosDestinationPropositions")[0].getElementsByTagName("div");
     for (var i = 0; i < allDestinationPropositions.length; i++) {
         allDestinationPropositions[i].addEventListener("mousedown", function () {
-            document.getElementById("divTabCahierInfosDestination").getElementsByTagName("input")[0].value = this.innerHTML;
-            writeDestination(document.getElementById("divTabCahierInfosDestination").getElementsByTagName("input")[0]);
+            location.getElementsByClassName("divTabCahierInfosDestination")[0].getElementsByTagName("input")[0].value = this.innerHTML;
+            writeDestination(location.getElementsByClassName("divTabCahierInfosDestination")[0].getElementsByTagName("input")[0]);
         });
     }
 
-    var allNbrInvitesPropositions = $("divTabCahierInfosNbrInvitesPropositions").getElementsByTagName("div");
+    var allNbrInvitesPropositions = location.getElementsByClassName("divTabCahierInfosNbrInvitesPropositions")[0].getElementsByTagName("div");
     for (var i = 0; i < allNbrInvitesPropositions.length; i++) {
         allNbrInvitesPropositions[i].addEventListener("mousedown", function () {
             if (this.innerHTML == "Aucun") {
-                document.getElementById("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0].value = 0;
+                location.getElementsByClassName("divTabCahierInfosNbrInvites")[0].getElementsByTagName("input")[0].value = 0;
             }
             else {
-                document.getElementById("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0].value = parseInt(this.innerHTML);
+                location.getElementsByClassName("divTabCahierInfosNbrInvites")[0].getElementsByTagName("input")[0].value = parseInt(this.innerHTML);
             }
-            writeNbrInvites(document.getElementById("divTabCahierInfosNbrInvites").getElementsByTagName("input")[0]);
+            writeNbrInvites(location.getElementsByClassName("divTabCahierInfosNbrInvites")[0].getElementsByTagName("input")[0]);
         });
     }
-
-
-    //initalize timepropositions
 }
+
+
 
 function focusInOrOut(elem, focus) {
     var allPropositions = elem.parentElement.getElementsByClassName("PropositionsContainer")[0].getElementsByTagName("div");
-
     for (var i = 0; i < allPropositions.length; i++) {
         if (focus == true) {
             setTimeout(enterProposition, i * 60, allPropositions[i]);
@@ -175,7 +177,7 @@ function focusInOrOut(elem, focus) {
     }
 }
 
-function enterProposition(elem,x) {
+function enterProposition(elem) {
     elem.style.marginLeft = "0px";
     elem.style.marginRight = "10px";
     elem.style.opacity = 1;
@@ -191,10 +193,6 @@ function exitProposition(elem) {
 
 
 
-
-
-
-
 function AcceptInfos(elem) {
     elem.style.backgroundImage = "url(Img/IconCheckSignBlack.png)";
     elem.style.borderColor = "black";
@@ -204,8 +202,8 @@ function DenyInfos(elem) {
     elem.style.backgroundImage = "none";
 }
 
-function checkInfos() {
-    var allTabCahierFields = document.getElementsByClassName("TabCahierFields");
+function checkInfos(location = $('divTabCahierInfos'), nbr = 0) {
+    var allTabCahierFields = location.getElementsByClassName("TabCahierFields");
     var allInfosOkay = true;
     for (var i = 0; i < allTabCahierFields.length-1; i++) { //POUR EVITER LE TEXTAREA... 
         if (allTabCahierFields[i].getElementsByTagName("input")[0].style.backgroundImage == "" || allTabCahierFields[i].getElementsByTagName("input")[0].style.backgroundImage =="none") {
@@ -214,15 +212,21 @@ function checkInfos() {
             allInfosOkay = false;
         }
     }
-    if (allInfosOkay == true || document.getElementById("divTabCahierInfosDestination").getElementsByTagName("input")[0].value == "pass") {    
+    if (allInfosOkay == true) {    
 
-        var _participantCount = parseInt($('divTabCahierInfosNbrInvites').getElementsByTagName('input')[0].value);
-        var _destination = $('divTabCahierInfosDestination').getElementsByTagName('input')[0].value;
-        var _startComment = $('divTabCahierInfosStartComment').getElementsByTagName('textarea')[0].value;
+        var _participantCount = parseInt(location.getElementsByClassName("divTabCahierInfosNbrInvites")[0].getElementsByTagName('input')[0].value);
+        var _destination = location.getElementsByClassName("divTabCahierInfosDestination")[0].getElementsByTagName('input')[0].value;
+        var _startComment = location.getElementsByClassName("divTabCahierInfosStartComment")[0].getElementsByTagName('textarea')[0].value;
 
-        Cahier.setInfos(0, _participantCount, _destination, _startComment);
+        Cahier.setInfos(nbr, _participantCount, _destination, _startComment);
 
-        newTab("divTabCahierConfirmation");
+        if (location == $('divTabCahierInfos')) {
+            newTab("divTabCahierConfirmation");
+        }
+        else {
+            closePopUp("last");
+        }
+      
     }
  
 }

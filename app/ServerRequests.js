@@ -846,7 +846,7 @@ var Requests = {
 
         var input = {
             owner: Cahier.bookings[i].owner.id,
-            participantCount: Cahier.bookings[i].nbrParticipants,
+            participantCount: Cahier.bookings[i].participantCount,
             destination: Cahier.bookings[i].destination,
             startComment: Cahier.bookings[i].startComment,
             guest: Cahier.bookings[i].guest
@@ -855,7 +855,7 @@ var Requests = {
         if (Cahier.bookings[i].guest == true) {
             console.log('Invité');
             input = {
-                participantCount: Cahier.bookings[i].nbrParticipants,
+                participantCount: Cahier.bookings[i].participantCount,
                 destination: Cahier.bookings[i].destination,
                 startComment: "[" + Cahier.bookings[i].guestName + "] " + Cahier.bookings[i].startComment,
                 guest: Cahier.bookings[i].guest
@@ -870,7 +870,7 @@ var Requests = {
             //modifier c to alalalalla 
 
             // LINK BOOKABLE
-            if (Cahier.bookings[i].bookables.length == 0) {
+            if (Cahier.bookings[i].bookables.length != 0) {
                 Server.linkMutation.link(booking, {
                     id: Cahier.bookings[i].bookables[0].id,
                     __typename: 'Bookable'

@@ -5,12 +5,24 @@ function $(id) {
     return document.getElementById(id);
 }
 
+
 function div(loc) {
     var x = document.createElement("div");
     loc.appendChild(x);
     return x;
 }
-
+function input(loc) {
+    var x = document.createElement("input");
+    x.autocomplete = "off";
+    x.type = "text";
+    x.spellcheck = "false";
+    loc.appendChild(x);
+    return x;
+}
+function br(loc) {
+    var x = document.createElement("br");
+    loc.appendChild(x);
+}
 
 //Load
 function load() {
@@ -26,7 +38,7 @@ function load() {
     loadReturnButtons(); // OUI OU NON ???????
     loadSpacers();
     loadTableTopBars();
-    loadConfirmation();
+ //   loadConfirmation();
 
     //SERVER
     ServerInitialize();
