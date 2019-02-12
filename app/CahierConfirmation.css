@@ -39,6 +39,20 @@
     width: 680px;
     height:265px;
     margin-top:50px;
+    animation-duration:1s;
+    animation-iteration-count:1;
+    animation-timing-function:ease;
+}
+@keyframes shrink {
+    from {
+        transform:scale(1);
+        opacity:1;
+    }
+
+    to {
+        transform: scale(0);
+        opacity:0;
+    }
 }
 
     .divTabCahierConfirmationContainer .ReturnButtons {

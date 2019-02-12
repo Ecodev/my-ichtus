@@ -174,7 +174,7 @@ function sortTable(table) {
         }
     };
 
-    console.log("table.id: " + table.id, "field: " + field, "order: " + order());
+  //  console.log("table.id: " + table.id, "field: " + field, "order: " + order());
 
     var all = table.getElementsByClassName("TableEntries");
     var switching = true;

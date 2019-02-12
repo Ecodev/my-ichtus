@@ -6,7 +6,6 @@
     <!-- Ajouter les transitions pour les différents exploreurs + box shadows + border radius -->
     <!-- Keyupdown sur le premier input code embarcation n'importe quoi...-->
     <!-- Si personne a déjà une sortie -> voir les sorties actuelles de la personne -->
-    <!-- ACCENTS... -->
 
 
 
@@ -31,9 +30,11 @@
     <link href="PopUpUser.css" rel="stylesheet" />
     <link href="PopUpGuest.css" rel="stylesheet" />
     <link href="PopUpCahierInfos.css" rel="stylesheet" />
+    <link href="PopUpCahierBookable.css" rel="stylesheet" />
 
     <!-- JavaScript Files -->
     <script src="Home.js"></script>
+    <script src="ServerRequests.js"></script>
     <script src="Screen.js"></script>
     <script src="Top.js"></script>
     <script src="Bottom.js"></script>
@@ -51,8 +52,8 @@
     <script src="PopUpUser.js"></script>
     <script src="PopUpGuest.js"></script>
     <script src="PopUpCahierInfos.js"></script>
+    <script src="PopUpCahierBookable.js"></script>
 
-    <script src="ServerRequests.js"></script>
     <script type="text/javascript" src="https://my.ichtus.ch/vanilla/runtime.js"></script>
     <script type="text/javascript" src="https://my.ichtus.ch/vanilla/main.js"></script>
 
@@ -359,20 +360,20 @@
 
             <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
             <div style="text-align:center; margin-top:15px;">
-                <div class="Buttons ValidateButtons" style="display:inline-block" onclick="Cahier.confirm()">Confirmer</div>
+                <div class="Buttons ValidateButtons" style="display:inline-block; width:350px; height:70px; border-radius:25px; line-height:70px; padding-top:0px; text-align:center; background-image:none" onclick="Cahier.confirm()">Créer votre sortie</div>
             </div>
 
             <br />
 
         </div>
 
-            <!--Div Tab Statistiques-->
-            <div id="divTabStatistiques" class="divTab">
+        <!--Div Tab Statistiques-->
+        <div id="divTabStatistiques" class="divTab">
 
-                <br /><br /> STATS
-                <input autocomplete="off" type="file" id="file" value="tttttt.html" />
-                <input autocomplete="off" type="button" onclick="ReadText()" />
-            </div>
+            <br /><br /> STATS
+            <input autocomplete="off" type="file" id="file" value="tttttt.html" />
+            <input autocomplete="off" type="button" onclick="ReadText()" />
+        </div>
 
 
         </div>

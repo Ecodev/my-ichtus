@@ -140,10 +140,15 @@ var Cahier = {
         console.log("--> Cahier.cancel()");
     },
 
+    deleteBooking: function (nbr) {
+        Cahier.bookings.splice(nbr, 1);
+        Cahier.actualizeConfirmation();
+    },
+
     confirm: function () {
 
         for (var i = 0; i < Cahier.bookings.length; i++) {
-            Requests.createBooking(i);
+            Requests.createBooking(i,Cahier.bookings.length);
         }
        
         animate();
@@ -258,9 +263,9 @@ var Cahier = {
         if (nbr >= Cahier.bookings.length) {
             if (_guest) {
                 Cahier.bookings.push({
-                    owner: {},
+                    owner: Cahier.bookings[0].owner,
                     bookables: [],
-                    guest: false,
+                    guest: true,
                     guestName: "Waw",
                     participantCount: 1,
                     destination: Cahier.bookings[0].destination,

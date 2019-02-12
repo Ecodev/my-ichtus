@@ -225,12 +225,13 @@ function createConfirmationBooking(booking,nbr) {
     div(div(d)).style.backgroundImage = "url(Img/" + images[4] + ".png)";
     div(d).innerHTML = fields[4];
 
+    //$$ only if not MP
     var emb = div(embarcationContainer);
     emb.classList.add("divTabCahierConfirmationEmbarcationBox");
     emb.classList.add("confirmationTab");
     div(div(emb));
 
-    container.getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].addEventListener("click", function () { popBookable(bookableId); });
+    container.getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].addEventListener("click", function () { popBookable(booking.bookables[0].id); });
 
     var texts = div(emb);
     texts.className = "divTabCahierConfirmationContainerTextsContainer";
@@ -247,15 +248,20 @@ function createConfirmationBooking(booking,nbr) {
     btn.innerHTML = "Modifier";
     btn.classList.add("Buttons");
     btn.classList.add("ReturnButtons");
-    btn.onclick = function () { newTab('divTabCahierMaterielCategories'); };  
+    btn.onclick = function () { popCahierBookable(nbr); };  
     btn.style.backgroundImage = "url(Img/IconSail.png)";
     btn.style.backgroundBlendMode = "exclusion";
-
-
 
     if (nbr != 0) {
         var r = div(container);
         r.classList.add("divTabCahierConfirmationDeleteBooking");
+        r.addEventListener("click", function () {
+            this.parentElement.style.animationName = "shrink";
+            setTimeout(function () { Cahier.deleteBooking(nbr); }, 1000);
+        });
     }
+    else {
+        container.style.border = "5px solid lightgray";
+    } 
 
 }

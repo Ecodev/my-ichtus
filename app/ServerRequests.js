@@ -842,7 +842,8 @@ var Requests = {
     },
 
     //createBooking
-    createBooking: function (i) {
+    counter: 0,
+    createBooking: function (i,tot) {
 
         var input = {
             owner: Cahier.bookings[i].owner.id,
@@ -855,6 +856,7 @@ var Requests = {
         if (Cahier.bookings[i].guest == true) {
             console.log('Invité');
             input = {
+                owner: Cahier.bookings[0].owner.id, // donc celui qui invite
                 participantCount: Cahier.bookings[i].participantCount,
                 destination: Cahier.bookings[i].destination,
                 startComment: "[" + Cahier.bookings[i].guestName + "] " + Cahier.bookings[i].startComment,
@@ -867,8 +869,6 @@ var Requests = {
 
             console.log('Created booking : ', booking);
 
-            //modifier c to alalalalla 
-
             // LINK BOOKABLE
             if (Cahier.bookings[i].bookables.length != 0) {
                 Server.linkMutation.link(booking, {
@@ -876,12 +876,14 @@ var Requests = {
                     __typename: 'Bookable'
                 }).subscribe(() => {
                     console.log('Linked Bookable : ', booking);
-                    Requests.getActualBookingList(true);
+                    Requests.counter++;
+                    if (Requests.counter == tot) { Requests.getActualBookingList(true); }   
                 });
             }
             else {
                 console.log("Matériel Personel");
-                Requests.getActualBookingList(true);
+                Requests.counter++;
+                if (Requests.counter == tot) {  Requests.getActualBookingList(true); }          
             }
         });
 
