@@ -46,7 +46,7 @@ var Cahier = {
     },
 
     // new with guest:
-    getOwner: function (booking, wantImg = false, shortenOptions = { length: 10000, fontSize: 20 }) {
+    getOwner: function (booking, wantImg = false, shortenOptions = { length: 10000, fontSize: 20 }, onlyName = false) {
 
         if (booking.guest == false) {
             if (wantImg) {
@@ -69,17 +69,27 @@ var Cahier = {
                 var a = booking.startComment.indexOf("[");
                 var b = booking.startComment.indexOf("]");
 
-                var inv = "Invité";
                 if (a == 0 && b != -1) {
                     guestName = " (" + booking.startComment.slice(a + 1, b) + ")";
                 }
             }
 
             if (wantImg) {
-                return "<div id='ZZZZ" + booking.owner.name + "' class='TableEntriesImg' style='background-image:url(Img/IconInfo.png);  display: inline-block;vertical-align: middle;'></div>" + "<div style=' display: inline-block;vertical-align: middle; min-width:" + 10 + "px'>" + booking.owner.name + "</div>" + "<div style='margin-left:5px; font-size:15px;  display: inline-block;vertical-align: middle;'>" + guestName.shorten(shortenOptions.length - 40 - "Invité".pixelLength(shortenOptions.fontSize) - 5, 15) + "</div>";
+                if (onlyName) {
+                    return "<div id='" + guestName.slice(2,-1) + "' class='TableEntriesImg' style='background-image:url(" + "Img/IconGuest.png" + ");  display: inline-block;vertical-align: middle;'>" + "</div>" + "<div style=' display: inline-block;vertical-align: middle;'>" + guestName.slice(2,-1).shorten(shortenOptions.length - 40, shortenOptions.fontSize) + "</div>";
+
+                }
+                else {
+                    return "<div id='ZZZZ" + booking.owner.name + "' class='TableEntriesImg' style='background-image:url(Img/IconGuest.png);  display: inline-block;vertical-align: middle;'></div>" + "<div style=' display: inline-block;vertical-align: middle; min-width:" + 10 + "px'>" + booking.owner.name + "</div>" + "<div style='margin-left:5px; font-size:15px;  display: inline-block;vertical-align: middle;'>" + guestName.shorten(shortenOptions.length - 40 - "Invité".pixelLength(shortenOptions.fontSize) - 5, 15) + "</div>";
+                }
             }
             else {
-                return (booking.owner.name + guestName).shorten(shortenOptions.length, shortenOptions.fontSize); //
+                if (onlyName) {
+                    return guestName.shorten(shortenOptions.length, shortenOptions.fontSize); //
+                }
+                else {
+                    return (booking.owner.name + guestName).shorten(shortenOptions.length, shortenOptions.fontSize); //
+                }
             }
         }
     },

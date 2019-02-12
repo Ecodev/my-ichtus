@@ -1,4 +1,4 @@
-﻿var textToolTipGuest = "Un non-membre doit toujours être accompagné par un membre d'Ichtus <br/> Il n'a donc pas le droit d'aller seul.";
+﻿var textToolTipGuest = "Un non-membre doit toujours être accompagné par un membre d'Ichtus. <br/> Il n'a donc pas le droit d'aller seul.";
 var textToolTipUser = "Sortie pour les membres d'Ichtus<br/><br/>";
 
 

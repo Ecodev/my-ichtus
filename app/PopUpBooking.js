@@ -173,7 +173,8 @@ function actualizePopBooking(booking, container = $('divTabCahierConfirmationCon
 
 function createConfirmationBooking(booking,nbr) {
     var fields = [Cahier.getOwner(booking,true), Cahier.getnbrParticipantsText(booking.participantCount), booking.destination, booking.startComment.shorten(295, 25), Cahier.getBookableName(booking).shorten(265,25)];
-    var images = ["IconResponsible", "IconParticipantCount", "IconDestination", "IconStartComment","IconSail"];
+    var images = ["IconResponsible", "IconParticipantCount", "IconDestination", "IconStartComment", "IconSail"];
+    var titles = ["Reponsable", "Nbr de participants", "Destination", "Commentaire","Embarcation"];
 
     var container = div($('divTabConfirmationBookingsContainer'));
     container.style.position = "relative";
@@ -194,6 +195,7 @@ function createConfirmationBooking(booking,nbr) {
         var d = div(container);
         d.classList.add("divConfirmationTexts");
         d.classList.add("confirmationTab");
+        d.title = titles[i];
         div(div(d)).style.backgroundImage = "url(Img/" + images[i] + ".png)";
         div(d).innerHTML = fields[i];
         if (i == 0 && nbr != 0) {
@@ -221,6 +223,7 @@ function createConfirmationBooking(booking,nbr) {
     d = div(embarcationContainer);
     d.classList.add("divConfirmationTexts");
     d.classList.add("confirmationTab");
+    d.title = titles[4];
     d.style.backgroundColor = "rgb(235,235,235)";
     div(div(d)).style.backgroundImage = "url(Img/" + images[4] + ".png)";
     div(d).innerHTML = fields[4];

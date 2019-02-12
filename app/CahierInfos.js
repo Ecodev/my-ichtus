@@ -126,13 +126,12 @@ function writeCommment(elem) {
     }
 }
 function writeNbrInvites(elem) {
-    if (parseInt(elem.value) < 21 && elem.value != "" && parseInt(elem.value)!= 0) {
+    if (parseInt(elem.value) < 21 && elem.value != "" && parseInt(elem.value)!= 0 && parseInt(elem.value) > 0) {
         AcceptInfos(elem);
     }
     else {
         DenyInfos(elem);
     }
-    console.log(elem);
 }
 
 

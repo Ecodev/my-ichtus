@@ -107,7 +107,7 @@ function actualizePopBookableHistory(bookings, elem) {
         div(sortie).innerHTML = d.getNiceTime();
         var c = div(sortie);
 
-        div(c).innerHTML = Cahier.getOwner(bookings[i], true, { length: 240, fontSize: 20 });
+        div(c).innerHTML = Cahier.getOwner(bookings[i], true, { length: 240, fontSize: 20 },true);
 
         div(c).innerHTML = bookings[i].destination.shorten(150, 20);
         div(c).innerHTML = getStartCommentFromBooking(bookings[i]).shorten(150, 15);

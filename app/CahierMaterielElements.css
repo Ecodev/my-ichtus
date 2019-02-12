@@ -411,6 +411,7 @@
         top: 290px;
         width: 145px;
         margin-left: 0px;
+        background-image:url(Img/IconHistory.png);
     }
 
         .divTabCahierMaterielElementsPopUp > .ReturnButtons::after {
