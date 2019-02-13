@@ -42,7 +42,8 @@ function load() {
 
     //SERVER
     ServerInitialize();
-    Requests.getActualBookingList(true);
+    Requests.checkLogin();
+
     loadMateriel();
 }
 

@@ -1,53 +1,69 @@
+var running = true;
 function animate() {
 
-    var b = div(document.body);
+    running = true;
+
+    var cancelFunction = function () { running = false; DeleteObjects(b, c, w, f, document.getElementsByClassName("svgLetters")[0], document.getElementsByClassName("svgLetters")[1], document.getElementsByClassName("svgLetters")[2], document.getElementsByClassName("svgLetters")[3], document.getElementsByClassName("svgLetters")[4], document.getElementsByClassName("svgLetters")[5]); };
+
+    var b, c, w, f;
+    var eventListener;
+
+    b = div(document.body);
     b.id = "black";
        
     setTimeout(function () {
 
-        var c = div(document.body);
-        c.id = "circle";
-        addSvgClass(c);
+        if (running) {
+            c = div(document.body);
+            c.id = "circle";
+            addSvgClass(c);
 
-        if (document.documentElement.clientWidth < window.innerHeight) {
-            c.style.animationName = "AniCircleWidth";
-        }
-        else {
-            c.style.animationName = "AniCircleHeight";
-        }
+            if (document.documentElement.clientWidth < window.innerHeight) {
+                c.style.animationName = "AniCircleWidth";
+            }
+            else {
+                c.style.animationName = "AniCircleHeight";
+            }
+           
+            setTimeout(newLetter, 1000, 0);
 
-        setTimeout(newLetter, 1000, 0);
+            w = div(document.body);
+            w.id = "waves";
+            addSvgClass(w);
 
-        var w = div(document.body);
-        w.id = "waves";
-        addSvgClass(w);
-
-
-        var f;
-        setTimeout(function () {
-            f = div(document.body);
-            f.id = "fish";
-            addSvgClass(f);
-        }, 200);
-        
-
-        setTimeout(function () {
-            
-            w.style.animationName = "AniWavesExit";
-            c.style.animationDuration = "1s";
-            c.style.animationName = "AniCircleExit";
-            f.style.animationName = "AniFishExit,none";
-
-            setTimeout(function () { DeleteObjects(w,c,f); }, 1000);
 
             setTimeout(function () {
-                b.style.animationName = "AniBlackExit";
-                DeleteObjects(b);
-            }, 500);
+                if (running) {
+                    f = div(document.body);
+                    f.id = "fish";
+                    addSvgClass(f);
+                }
+            }, 200);
 
-        }, 4500);
+            setTimeout(function () {
+                if (running) {
+                    w.style.animationName = "AniWavesExit";
+                    c.style.animationDuration = "1s";
+                    c.style.animationName = "AniCircleExit";
+                    f.style.animationName = "AniFishExit,none";
+                }
+
+                setTimeout(function () { if (running) { DeleteObjects(w, c, f); } }, 1000);
+
+                setTimeout(function () {
+                    if (running) {
+                        b.style.animationName = "AniBlackExit";
+                        DeleteObjects(b);
+                    }
+                    document.body.removeEventListener(eventListener, cancelFunction); // ALWAYS
+                }, 500);
+
+            }, 4500);
+        }
 
     }, 500);   
+
+    eventListener = document.body.addEventListener("click", cancelFunction);
 }
 
 function addSvgClass(elem) {
@@ -61,33 +77,34 @@ function addSvgClass(elem) {
 }
 
 function newLetter(i) {
+    if (running) {
+        var d = div(document.body);
+        d.classList.add("svgLetters");
+        d.classList.add("svg");
+        d.id = i;
+        if (document.documentElement.clientWidth < window.innerHeight) {
+            d.classList.add("svgWidth");
+        }
+        else {
+            d.classList.add("svgHeight");
+        }
+        d.style.backgroundImage = "url(Img/svg/" + "ichtus"[i] + ".svg)";
 
-    var d = div(document.body);
-    d.classList.add("svgLetters");
-    d.classList.add("svg");
-    d.id = i;
-    if (document.documentElement.clientWidth < window.innerHeight) {
-        d.classList.add("svgWidth");
-    }
-    else {
-        d.classList.add("svgHeight");
-    }
-    d.style.backgroundImage = "url(Img/svg/" + "ichtus"[i] + ".svg)";
+        if (i < "ichtus".length - 1) {
+            setTimeout(newLetter, 100, i + 1);
+        }
 
-    if (i < "ichtus".length-1) {
-        setTimeout(newLetter, 100, i+1);
-    }
-
-    if (i > 2) {
-        setTimeout(function () {
-            d.style.animationName = "AniLettersExitRight";
-            setTimeout(DeleteObjects, 550, d);
-        }, 3000 - 100 + (3-i)*2*100);
-    }
-    else {
-        setTimeout(function () {
-            d.style.animationName = "AniLettersExitLeft";
-            setTimeout(DeleteObjects, 550, d);
-        }, 3000);
+        if (i > 2) {
+            setTimeout(function () {
+                d.style.animationName = "AniLettersExitRight";
+                setTimeout(DeleteObjects, 550, d);
+            }, 3000 - 100 + (3 - i) * 2 * 100);
+        }
+        else {
+            setTimeout(function () {
+                d.style.animationName = "AniLettersExitLeft";
+                setTimeout(DeleteObjects, 550, d);
+            }, 3000);
+        }
     }
 }

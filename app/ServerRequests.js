@@ -22,13 +22,28 @@ var Requests = {
 
     // login
     login: function (pwd) {
-        alert("ok");
         Server.userService.login({
             login: 'bookingonly',
             password: pwd
         }).subscribe(result => {
             console.log(result);
-            alert("logged");
+            closePopUp("last");
+            });
+
+    },
+
+    // actualizeLoginButton
+    checkLogin: function () {
+        Server.userService.getCurrentUser().subscribe(function (user) {
+            if (!user) {
+                // pas connecté
+                console.log("pas connecté");
+                popLogin();
+            } else {
+                // connecté
+                console.log("connecté");
+                Requests.getActualBookingList(true);
+            }
         });
     },
 
