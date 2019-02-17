@@ -21,7 +21,7 @@ function loadElements(Bookables) {
         container.appendChild(secondContainer);
 
         var size = document.createElement("div");
-        size.innerHTML = "M.P.";
+        size.style.visibility = "hidden";
         secondContainer.appendChild(size);
 
         var bottom = document.createElement("div");
@@ -29,12 +29,13 @@ function loadElements(Bookables) {
 
         var brand = div(bottom);
         brand.innerHTML = "Materiel";
+        brand.style.color = "black";
 
         var model = div(bottom);
         model.innerHTML = "Personel";
 
         var background = div(secondContainer);
-        background.style.backgroundImage = "url(Img/IconChose.png),url(Img/IconMan.png)";
+        background.style.backgroundImage = "url(Img/IconChose.png),url(Img/IconPersonalSail.png)";
 
     }
 

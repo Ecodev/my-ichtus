@@ -245,7 +245,12 @@
     opacity: 1;
 }
 
-
+#info {
+    position: fixed;
+    z-index: 9994;
+    color: white;
+    font-size: 20px;
+}
 
 
 

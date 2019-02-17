@@ -620,6 +620,7 @@
         color: gray;
     }
 
+
     #divTabCahierTables > input:focus {
         border-color: rgb(66, 133, 244);
         background-image: url(Img/IconSearchBlue.png);

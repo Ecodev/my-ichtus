@@ -144,12 +144,12 @@ function actualizePopBooking(booking, container = $('divTabCahierConfirmationCon
     if (booking.bookables.length != 0) {
         container.getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].addEventListener("click", function () { popBookable(booking.bookables[0].id); });
         container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = booking.bookables[0].name;
-        container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = booking.bookables[0].code + " caté";
+        container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = booking.bookables[0].code + " caté$$";
     }
     else {
         container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = "Matériel personel";
         container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = "";
-        container.getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].style.visibility =  "hidden";
+        container.getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].classList.add("PersonalSail");
     }
 
     allDivTexts[4].innerHTML = Cahier.getnbrParticipantsText(booking.participantCount, " Participant");
@@ -233,8 +233,12 @@ function createConfirmationBooking(booking,nbr) {
     emb.classList.add("divTabCahierConfirmationEmbarcationBox");
     emb.classList.add("confirmationTab");
     div(div(emb));
-
-    container.getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].addEventListener("click", function () { popBookable(booking.bookables[0].id); });
+    if (booking.bookables.length != 0) {
+        emb.getElementsByTagName("div")[0].addEventListener("click", function () { popBookable(booking.bookables[0].id); });
+    }
+    else {
+        emb.getElementsByTagName("div")[0].classList.add("PersonalSail");
+    }
 
     var texts = div(emb);
     texts.className = "divTabCahierConfirmationContainerTextsContainer";
@@ -248,7 +252,12 @@ function createConfirmationBooking(booking,nbr) {
     btn.onclick = function () { popCahierInfos(nbr); };
 
     var btn = div(emb);
-    btn.innerHTML = "Modifier";
+    if (booking.bookables.length != 0) {
+        btn.innerHTML = "Modifier";
+    }
+    else {
+        btn.innerHTML = "Choisir";
+    }  
     btn.classList.add("Buttons");
     btn.classList.add("ReturnButtons");
     btn.onclick = function () { popCahierBookable(nbr); };  
@@ -260,7 +269,7 @@ function createConfirmationBooking(booking,nbr) {
         r.classList.add("divTabCahierConfirmationDeleteBooking");
         r.addEventListener("click", function () {
             this.parentElement.style.animationName = "shrink";
-            setTimeout(function () { Cahier.deleteBooking(nbr); }, 1000);
+            setTimeout(function () { Cahier.deleteBooking(nbr); }, 500);
         });
     }
     else {

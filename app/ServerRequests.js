@@ -28,6 +28,7 @@ var Requests = {
         }).subscribe(result => {
             console.log(result);
             closePopUp("last");
+            location.reload();
             });
 
     },
@@ -892,13 +893,13 @@ var Requests = {
                 }).subscribe(() => {
                     console.log('Linked Bookable : ', booking);
                     Requests.counter++;
-                    if (Requests.counter == tot) { Requests.getActualBookingList(true); }   
+                    if (Requests.counter == tot) { Requests.getActualBookingList(true); newTab("divTabCahier");}   
                 });
             }
             else {
                 console.log("Matériel Personel");
                 Requests.counter++;
-                if (Requests.counter == tot) {  Requests.getActualBookingList(true); }          
+                if (Requests.counter == tot) { Requests.getActualBookingList(true); newTab("divTabCahier");}          
             }
         });
 

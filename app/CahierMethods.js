@@ -162,7 +162,6 @@ var Cahier = {
         }
        
         animate();
-        setTimeout(newTab, 3000, 'divTabCahier');
         console.log("--> Cahier.confirm()");
         //        Requests.getActualBookingList(true); moved to the requests, otherwise too fast and doesn't link bookable on the first screen
     },

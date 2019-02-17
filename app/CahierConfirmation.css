@@ -39,7 +39,7 @@
     width: 680px;
     height:265px;
     margin-top:50px;
-    animation-duration:1s;
+    animation-duration:0.5s;
     animation-iteration-count:1;
     animation-timing-function:ease;
 }
@@ -226,8 +226,14 @@
     box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.5);
     transition: all 0.1s linear 0s;
 }
-
-        .divTabCahierConfirmationEmbarcationBox > div:nth-child(1):hover {
+    .divTabCahierConfirmationEmbarcationBox > div:nth-child(1).PersonalSail {
+        background-image: url(Img/IconPersonalSail.png),none;
+        border-width: 0px;
+        -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0);
+        -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0);
+        box-shadow: 1px 1px 5px 0px rgba(0,0,0,0);
+    }
+    .divTabCahierConfirmationEmbarcationBox > div:nth-child(1):not(.PersonalSail):hover {
             margin-top: 15px;
             background-position-x: 0px,0px;
             background-position-y: 0px,0px;
@@ -310,16 +316,27 @@
     }
 
 
-.divTabCahierConfirmationDeleteBooking{
-    position:absolute;
-    top:-10px;
-    right:-10px;
-    width:30px;
-    height:30px;
-    border-radius:50px;
-    background-color:dimgray;
-    background-image:url(Img/IconCancel.png);
+.divTabCahierConfirmationDeleteBooking {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+    background-color: dimgray;
+    background-image: url(Img/IconCancel.png);
+    background-blend-mode: color-dodge;
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition:all 0.1s linear 0s;
+}
+.divTabCahierConfirmationDeleteBooking:hover {
     background-size:30px;
+    width:40px;
+    height:40px;
+    top:-15px;
+    right:-15px;
 }
 
 

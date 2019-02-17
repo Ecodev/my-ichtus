@@ -75,7 +75,7 @@
         </div>
 
         <div id="divTopBarText">Cahier de sortie</div>
-       <!-- <img id="imgTopBarIchtusLogo" src="Img/svg/1.svg" onclick="alert('')" />-->
+        <!-- <img id="imgTopBarIchtusLogo" src="Img/svg/1.svg" onclick="alert('')" />-->
 
         <div id="divTopBarButtonsBar"></div>
 
@@ -86,8 +86,6 @@
     <!-- Left Bar & Right Bar -->
     <div id="divLeftBar"></div>
     <div id="divRightBar"></div>
-
-
 
     <!-- Div Screen -->
     <div id="divScreen">
@@ -106,26 +104,30 @@
             <div style="font-size:30px; margin-bottom:5px; text-align:center;">Créer une nouvelle sortie</div>
 
             <div id="divTabCahierNewBookingBox">
-                <div title="Pour les membres d'Ichtus" onclick="popUser();" onmouseover="$('divTabCahierToolTip').innerHTML = textToolTipUser" onmouseout="$('divTabCahierToolTip').innerHTML ='<br/><br/>'"><div>
-                    <div class="Boxes">
-                        <img src="Img/svg/circle.svg" alt="?" />
-                        <img src="Img/svg/fish.svg" alt="?" />
-                        <img src="Img/svg/background_transparent.svg" alt="?" />
-                        <div>Membre d'Ichtus</div>
+                <div title="Pour les membres d'Ichtus" onclick="popUser();" onmouseover="$('divTabCahierToolTip').innerHTML = textToolTipUser" onmouseout="$('divTabCahierToolTip').innerHTML ='<br/><br/>'">
+                    <div>
+                        <div class="Boxes">
+                            <img src="Img/svg/circle.svg" alt="?" />
+                            <img src="Img/svg/fish.svg" alt="?" />
+                            <img src="Img/svg/background_transparent.svg" alt="?" />
+                            <div>Membre d'Ichtus</div>
+                        </div>
+                        <div class="Buttons ValidateButtons"></div>
                     </div>
-                    <div class="Buttons ValidateButtons"></div></div>
                 </div>
 
                 <div><div>Ou</div></div>
-                <div title="Pour les invités" onclick="popGuest();" onmouseover="$('divTabCahierToolTip').innerHTML = textToolTipGuest" onmouseout="$('divTabCahierToolTip').innerHTML ='<br/><br/>'"><div>
-                    <div class="Boxes">
-                        <img src="Img/IconGuest.png"/>
-                        <div>Non-membre<br />(Invité)</div>
+                <div title="Pour les invités" onclick="popGuest();" onmouseover="$('divTabCahierToolTip').innerHTML = textToolTipGuest" onmouseout="$('divTabCahierToolTip').innerHTML ='<br/><br/>'">
+                    <div>
+                        <div class="Boxes">
+                            <img src="Img/IconGuest.png" />
+                            <div>Non-membre<br />(Invité)</div>
+                        </div>
+                        <div class="Buttons ValidateButtons"></div>
                     </div>
-                    <div class="Buttons ValidateButtons"></div></div>
                 </div>
             </div>
-            <div id="divTabCahierToolTip" style="text-align:center; font-size:15px; margin-top:5px; margin-bottom:5px; color:gray;"><br/><br/></div>
+            <div id="divTabCahierToolTip" style="text-align:center; font-size:15px; margin-top:5px; margin-bottom:5px; color:gray;"><br /><br /></div>
 
             <div id="divTabCahierTables">
 
@@ -210,8 +212,8 @@
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')"></div>
             <br />
             <div id="divTabCahierMaterielCodeEmbarcation">
-                <input  autocomplete="off" type="text" placeholder="Type" onkeyup="writeCodeMateriel(); actualizeCodeMateriel();" onfocusin="openPropositionsCodeMateriel(); actualizeCodeMateriel();" onfocusout="closePropositionsCodeMateriel();" />
-                <input  autocomplete="off" type="number" placeholder="Numéro" min="1" onkeyup="if (event.keyCode == 13) { validateCodeMateriel(); }; actualizeCodeMateriel();"/ >
+                <input autocomplete="off" type="text" placeholder="Type" onkeyup="writeCodeMateriel(); actualizeCodeMateriel();" onfocusin="openPropositionsCodeMateriel(); actualizeCodeMateriel();" onfocusout="closePropositionsCodeMateriel();" />
+                <input autocomplete="off" type="number" placeholder="Numéro" min="1" onkeyup="if (event.keyCode == 13) { validateCodeMateriel(); }; actualizeCodeMateriel();"/ >
                 <div></div>
                 <div>Code de l'embarcation</div>
                 <div id="divTabCahierMaterielCodeEmbarcationTypeResults"></div>
@@ -247,7 +249,8 @@
                 </div>-->
                 <!--<div style="width:250px;">
                     <div class="Buttons NormalButtons" style="width:230px; background-image:url(Img/IconEnter.png)" onclick="newTab('divTabCahierMaterielCategories')" title="Changer de catégorie">remove</div>
-                </div>--><div style="min-width:271px;">
+                </div>-->
+                <div style="min-width:271px;">
                     <div id="divTabCahierMaterielElementsSelectCategorie" title="Catégorie">
                         <div class="Buttons NormalButtons"></div>
                         <select onchange="changeSelectCategorie(this); Requests.getBookablesList();"></select>
@@ -273,7 +276,7 @@
                         </select>
                     </div>
                 </div><div style="min-width:100px;" title="Rechercher">
-                    <input  autocomplete="off" id="inputTabCahierMaterielElementsInputSearch" type="text" value="" placeholder="Rechercher" onkeyup="Requests.getBookablesList();" />
+                    <input autocomplete="off" id="inputTabCahierMaterielElementsInputSearch" type="text" value="" placeholder="Rechercher" onkeyup="Requests.getBookablesList();" />
                 </div>
             </div>
 
@@ -294,7 +297,7 @@
 
                 <div class="divTabCahierInfosNbrInvites TabCahierFields">
                     *Nbr de participants
-                    <input  autocomplete="off" type="number" min="1" max="20" spellcheck="false" placeholder="1" value="1" onkeyup="writeNbrInvites(this);" onfocusin="this.value =''; writeNbrInvites(this); focusInOrOut(this,true);" onfocusout="if (this.value == '') { this.value = '1'; writeNbrInvites(this);}focusInOrOut(this,false);" />
+                    <input autocomplete="off" type="number" min="1" max="20" spellcheck="false" placeholder="1" value="1" onkeyup="writeNbrInvites(this);" onfocusin="this.value =''; writeNbrInvites(this); focusInOrOut(this,true);" onfocusout="if (this.value == '') { this.value = '1'; writeNbrInvites(this);}focusInOrOut(this,false);" />
                     <div></div>
                     <div class="divTabCahierInfosNbrInvitesPropositions PropositionsContainer">
                         <div> 1 </div><div> 2 </div><div> 3 </div><div> 4 </div><div> 5 </div><div> 8 </div><div> 10 </div>
@@ -304,7 +307,7 @@
 
                 </div><div class="divTabCahierInfosDestination TabCahierFields">
                     *Destination
-                    <input  autocomplete="off" value="Baie" type="text" spellcheck="false" placeholder="Destination" onkeyup="writeDestination(this);" onfocusin="if (this.value == 'Baie') { this.value = '';}; focusInOrOut(this,true); writeDestination(this);" onfocusout="focusInOrOut(this,false); writeDestination(this);" /> <!--/> mmmmh ??-->
+                    <input autocomplete="off" value="Baie" type="text" spellcheck="false" placeholder="Destination" onkeyup="writeDestination(this);" onfocusin="if (this.value == 'Baie') { this.value = '';}; focusInOrOut(this,true); writeDestination(this);" onfocusout="focusInOrOut(this,false); writeDestination(this);" /> <!--/> mmmmh ??-->
                     <div></div>
                     <div class="divTabCahierInfosDestinationPropositions PropositionsContainer">
                         <div>Baie</div><div>La Ramée</div><div>La Tène</div><div>Neuchâtel</div><div>Cudrefin</div>
@@ -348,22 +351,22 @@
 
 
             <!--<div class="divTabCahierConfirmationContainer" style="position: relative; min-height: 10px;">
-        <div style=" font-size:25px; text-align:center; color:black;">Votre sortie ?</div>
-        <div style="background-color: lightgray; height: 2px; margin-bottom: 15px; margin-top: 5px;"></div>
-        <div class="divConfirmationTexts">
-            <div>
-                <div style="background-image: url(&quot;Img/IconResponsible.png&quot;);"></div>
-            </div>
-        <div>Responsable</div>
-        <div></div>
-            </div>
-    <div class="divConfirmationTexts"><div><div style="background-image: url(&quot;Img/IconStart.png&quot;);"></div>
-                            </div><div>Heure de départ</div><div>21:28</div></div><div style="background-color: lightgray; height: 2px; margin-bottom: 15px; margin-top: 10px;"></div>
-        <div class="divConfirmationTexts" style="background-color: rgb(235, 235, 235);">
-            <div>
-            <div style="background-image: url(&quot;Img/IconSail.png&quot;);"></div>
-            </div>
-            <div>Embarcation</div><div></div></div><div class="divTabCahierConfirmationEmbarcationBox"><div style="background-image: url(&quot;Img/IconSup.png&quot;); visibility: visible;"><div></div></div><div class="divTabCahierConfirmationContainerTextsContainer"><div>Canoe C1 (3001, carnet de sortie, occupé)</div><div>3001 caté</div></div><div class="Buttons ReturnButtons">Modifier</div></div><div style="background-color: lightgray; height: 2px; margin-bottom: 15px; margin-top: 10px;"></div><div class="divConfirmationTexts" style="background-color: rgb(235, 235, 235);"><div><div style="background-image: url(&quot;Img/IconParticipantCount.png&quot;);"></div></div><div>Nbr de participants</div><div>1 Participant</div></div><div class="divConfirmationTexts" style="background-color: white;"><div><div style="background-image: url(&quot;Img/IconDestination.png&quot;);"></div></div><div>Destination</div><div>Baie</div></div><div class="divConfirmationTexts" style="background-color: rgb(235, 235, 235);"><div><div style="background-image: url(&quot;Img/IconStartComment.png&quot;);"></div></div><div>Commentaire dép.</div><div></div></div><div class="divConfirmationTexts" style="height: 50px; background-color: white;"><div></div><div></div><div style="height: 100%;"><div class="Buttons ReturnButtons">Modifier</div></div></div></div>-->
+                <div style=" font-size:25px; text-align:center; color:black;">Votre sortie ?</div>
+                <div style="background-color: lightgray; height: 2px; margin-bottom: 15px; margin-top: 5px;"></div>
+                <div class="divConfirmationTexts">
+                    <div>
+                        <div style="background-image: url(&quot;Img/IconResponsible.png&quot;);"></div>
+                    </div>
+                <div>Responsable</div>
+                <div></div>
+                    </div>
+            <div class="divConfirmationTexts"><div><div style="background-image: url(&quot;Img/IconStart.png&quot;);"></div>
+                                    </div><div>Heure de départ</div><div>21:28</div></div><div style="background-color: lightgray; height: 2px; margin-bottom: 15px; margin-top: 10px;"></div>
+                <div class="divConfirmationTexts" style="background-color: rgb(235, 235, 235);">
+                    <div>
+                    <div style="background-image: url(&quot;Img/IconSail.png&quot;);"></div>
+                    </div>
+                    <div>Embarcation</div><div></div></div><div class="divTabCahierConfirmationEmbarcationBox"><div style="background-image: url(&quot;Img/IconSup.png&quot;); visibility: visible;"><div></div></div><div class="divTabCahierConfirmationContainerTextsContainer"><div>Canoe C1 (3001, carnet de sortie, occupé)</div><div>3001 caté</div></div><div class="Buttons ReturnButtons">Modifier</div></div><div style="background-color: lightgray; height: 2px; margin-bottom: 15px; margin-top: 10px;"></div><div class="divConfirmationTexts" style="background-color: rgb(235, 235, 235);"><div><div style="background-image: url(&quot;Img/IconParticipantCount.png&quot;);"></div></div><div>Nbr de participants</div><div>1 Participant</div></div><div class="divConfirmationTexts" style="background-color: white;"><div><div style="background-image: url(&quot;Img/IconDestination.png&quot;);"></div></div><div>Destination</div><div>Baie</div></div><div class="divConfirmationTexts" style="background-color: rgb(235, 235, 235);"><div><div style="background-image: url(&quot;Img/IconStartComment.png&quot;);"></div></div><div>Commentaire dép.</div><div></div></div><div class="divConfirmationTexts" style="height: 50px; background-color: white;"><div></div><div></div><div style="height: 100%;"><div class="Buttons ReturnButtons">Modifier</div></div></div></div>-->
 
 
             <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
@@ -384,7 +387,7 @@
         </div>
 
 
-        </div>
+    </div>
 
 </body>
 </html>

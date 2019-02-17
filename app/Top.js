@@ -3,9 +3,9 @@ function animate() {
 
     running = true;
 
-    var cancelFunction = function () { running = false; DeleteObjects(b, c, w, f, document.getElementsByClassName("svgLetters")[0], document.getElementsByClassName("svgLetters")[1], document.getElementsByClassName("svgLetters")[2], document.getElementsByClassName("svgLetters")[3], document.getElementsByClassName("svgLetters")[4], document.getElementsByClassName("svgLetters")[5]); };
+    var cancelFunction = function () { running = false; DeleteObjects(b, c, w, f, info, document.getElementsByClassName("svgLetters")[0], document.getElementsByClassName("svgLetters")[1], document.getElementsByClassName("svgLetters")[2], document.getElementsByClassName("svgLetters")[3], document.getElementsByClassName("svgLetters")[4], document.getElementsByClassName("svgLetters")[5]); };
 
-    var b, c, w, f;
+    var b, c, w, f, info;
     var eventListener;
 
     b = div(document.body);
@@ -31,6 +31,10 @@ function animate() {
             w.id = "waves";
             addSvgClass(w);
 
+            info = div(document.body);
+            info.innerHTML = "Cliquer pour passer l'animation";
+            info.id = "info";
+            //addSvgClass(info);
 
             setTimeout(function () {
                 if (running) {
@@ -53,7 +57,7 @@ function animate() {
                 setTimeout(function () {
                     if (running) {
                         b.style.animationName = "AniBlackExit";
-                        DeleteObjects(b);
+                        DeleteObjects(b,info);
                     }
                     document.body.removeEventListener(eventListener, cancelFunction); // ALWAYS
                 }, 500);
@@ -63,7 +67,7 @@ function animate() {
 
     }, 500);   
 
-    eventListener = document.body.addEventListener("click", cancelFunction);
+    eventListener = document.body.addEventListener("mousedown", cancelFunction);
 }
 
 function addSvgClass(elem) {
