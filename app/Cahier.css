@@ -570,10 +570,45 @@
 
 
 
+#divTabCahierAlertButtonsLegend {
+    position:relative;
+    margin-top:10px;
+    line-height:45px;
+    width:100%;
+    height:45px;
+    background-color:rgb(237, 237, 237);
+    border-radius:10px;
+    text-align:center;
+}
+
+    #divTabCahierAlertButtonsLegend div {
+        width: 25px;
+        height: 25px;
+        background-image: url(Img/IconAlert.png);
+        background-size: 25px;
+        background-position: center;
+        margin-right: 5px;
+        margin-left:20px;
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+    }
+        #divTabCahierAlertButtonsLegend div:first-child {
+            -moz-filter: grayscale(1) invert(1);
+            -ms-filter: grayscale(1) invert(1);
+            -webkit-filter: grayscale(1) invert(1);
+            filter: grayscale(1) invert(1);
+        }
+        #divTabCahierAlertButtonsLegend div:nth-child(2) {
+            -moz-filter: grayscale(1);
+            -ms-filter: grayscale(1);
+            -webkit-filter: grayscale(1);
+            filter: grayscale(1);
+        }
 
 
-@keyframes InputAnimation {
-    from {
+    @keyframes InputAnimation {
+        from {
         right: -200px;
     }
 

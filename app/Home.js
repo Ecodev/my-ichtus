@@ -94,7 +94,12 @@ Date.prototype.getPreviousDate = function () {
 
 function DeleteObjects() {
     for (var i = 0; i < arguments.length; i++) {
-        arguments[i].parentElement.removeChild(arguments[i]);
+        if (typeof arguments[i] != "undefined" && typeof arguments[i].parentElement != "undefined") {
+            arguments[i].parentElement.removeChild(arguments[i]);
+        }
+        else {
+            console.log("tried to delete a non-existent object");
+        }
     }
 }
 

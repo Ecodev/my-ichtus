@@ -1,9 +1,9 @@
-var running = true;
+var running = false;
 function animate() {
 
     running = true;
 
-    var cancelFunction = function () { running = false; DeleteObjects(b, c, w, f, info, document.getElementsByClassName("svgLetters")[0], document.getElementsByClassName("svgLetters")[1], document.getElementsByClassName("svgLetters")[2], document.getElementsByClassName("svgLetters")[3], document.getElementsByClassName("svgLetters")[4], document.getElementsByClassName("svgLetters")[5]); };
+    var cancelFunction = function () { console.log("skipped animation"); running = false; DeleteObjects(b, c, w, f, info, document.getElementsByClassName("svgLetters")[0], document.getElementsByClassName("svgLetters")[1], document.getElementsByClassName("svgLetters")[2], document.getElementsByClassName("svgLetters")[3], document.getElementsByClassName("svgLetters")[4], document.getElementsByClassName("svgLetters")[5]); };
 
     var b, c, w, f, info;
     var eventListener;
@@ -101,13 +101,13 @@ function newLetter(i) {
         if (i > 2) {
             setTimeout(function () {
                 d.style.animationName = "AniLettersExitRight";
-                setTimeout(DeleteObjects, 550, d);
+                setTimeout(function (elem) { if (running) { DeleteObjects(elem);} } , 550, d);
             }, 3000 - 100 + (3 - i) * 2 * 100);
         }
         else {
             setTimeout(function () {
                 d.style.animationName = "AniLettersExitLeft";
-                setTimeout(DeleteObjects, 550, d);
+                setTimeout(function (elem) { if (running) { DeleteObjects(elem); } }, 550, d);
             }, 3000);
         }
     }

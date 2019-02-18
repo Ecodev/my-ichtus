@@ -27,14 +27,14 @@ function actualizeActualBookings(actualBookings,first) {
 
         var children = $('divTabCahierTables').children;
         for (var i = 0; i < children.length; i++) {
-            if (children[i].id != "divTabCahierTableActualBookings" && children[i].id != "inputTabCahierActualBookingsSearch" && children[i].id != "divTabCahierActualBookingsSearchTitle") {
+            if (children[i].id != "divTabCahierTableActualBookings" && children[i].id != "inputTabCahierActualBookingsSearch" && children[i].id != "divTabCahierActualBookingsSearchTitle" && children[i].id != "divTabCahierAlertButtonsLegend") {
                 $('divTabCahierTables').removeChild(children[i]);
                 i--;
             }           
         }
         newBookingTable(new Date(), "Sorties terminées");// tables sorties finies
     }
-
+ 
     for (var i = 0; i < actualBookings.length; i++) {
 
         var container = div($('divTabCahierTableActualBookings'));
@@ -63,19 +63,22 @@ function actualizeActualBookings(actualBookings,first) {
         var divDate = div(container);    
 
         var maxHours = 24; 
-        if (Date.now() - (new Date(actualBookings[i].startDate)).getTime() > maxHours/4 * 60 * 60 * 1000) {
+        if (Date.now() - (new Date(actualBookings[i].startDate)).getTime() > maxHours/6 * 60 * 60 * 1000) {
 
             var d = div(divDate);
             d.classList.add('TableEntriesAlert');
             d.style.filter = "grayscale(1) invert(1)";
+            d.title = "+ de 4 heures";
 
             if (Date.now() - (new Date(actualBookings[i].startDate)).getTime() > maxHours/2 * 60 * 60 * 1000) {
                 d.style.filter = "none";
                 d.style.filter = "grayscale(1)";
+                d.title = "+ de 12 heures";
             }
 
             if (Date.now() - (new Date(actualBookings[i].startDate)).getTime() > maxHours * 60 * 60 * 1000) {
                 d.style.filter = "none";
+                d.title = "+ de 24 heures";
             }
         }
         
@@ -278,7 +281,6 @@ function createNoBookingMessage(date) {
 
 function actualizeFinishedBookingListForDay(bookings,table) {
 
-
     var all = table.getElementsByClassName("TableEntries");
     for (var i = 0; i < all.length; i++) {
         if (all[i].classList.contains("TableTopBar") == false) {
@@ -286,7 +288,6 @@ function actualizeFinishedBookingListForDay(bookings,table) {
             i--;
         }
     }
-
 
     if (bookings.length == 0) {
         var entry = div(table);

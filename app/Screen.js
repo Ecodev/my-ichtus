@@ -178,7 +178,7 @@ window.onhashchange = function () {
 
 
         // WhiteBar
-        $("divTopBarButtonsBar").style.marginLeft = -(widthScreen - 2 * SpaceLeft) / 3 * (-NewElement.position + 0.5) + "px";
+        //$("divTopBarButtonsBar").style.marginLeft = -(widthScreen - 2 * SpaceLeft) / 3 * (-NewElement.position + 0.5) + "px";
 
         // change ProgressBar
         changeProgress(NewElement.progress);
