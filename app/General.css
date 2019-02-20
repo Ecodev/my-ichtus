@@ -109,6 +109,15 @@ option {
     border-radius:10px;
 }
 
+.title {
+    position: relative;
+    margin-top: -30px;
+    width: 100%;
+    font-size: 40px;
+    color: black;
+    text-align: center;
+}
+
 
 .checkBox {
     position: absolute;

@@ -233,7 +233,16 @@
             <br />
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahier')"></div>
             <!--<br />-->
+            <div  class="title">Choix de l'embarcation</div>
 
+            <div class="divTabCahierMaterielChoiceInputCodeContainer">
+                <input type="text" autocomplete="off" spellcheck="false" placeholder="Taper le code..." onkeyup="Requests.getBookablesList(this);" />
+                <div></div>
+            </div>
+
+            <div>
+                <div class="NormalButtons">Matériel Personel</div><div class="NormalButtons">Visiter</div>
+            </div>
         </div>
 
 
@@ -244,7 +253,7 @@
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahier')"></div>
             <!--<br />-->
 
-            <div id="divTabCahierMaterielCategoriesOther">Activité</div>
+            <div class="title">Activité</div>
             <div id="divTabCahierMaterielCategoriesContainer"></div>
         </div>
 
@@ -255,7 +264,7 @@
 
             <br />
 
-            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')" style="position:absolute;"></div>
+            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielChoice')" style="position:absolute;"></div>
 
             <div id="divTabCahierMaterielElementsButtonsContainer">
                 <!--<div style="width:120px;">
@@ -296,11 +305,6 @@
 
             <div id="divTabCahierInfosBar" style="position:relative; top:0px; margin-top:5px; margin-bottom:5px;"></div>
 
-            <div class="divTabCahierMaterielElementsInputCodeContainer">
-
-                <input type="text" autocomplete="off" spellcheck="false" placeholder="Taper le code..." onkeyup="Requests.getBookablesList(this);" />
-                <div></div>
-            </div>
 
             <div id="divTabCahierMaterielElementsContainer"></div>
 

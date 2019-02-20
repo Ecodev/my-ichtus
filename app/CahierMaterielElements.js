@@ -5,7 +5,7 @@ function loadElements(bookables) {
 
     document.getElementById("divTabCahierMaterielElementsContainer").innerHTML = "";
 
-    if ($('inputTabCahierMaterielElementsInputSearch').value == "" && document.getElementsByClassName('divTabCahierMaterielElementsInputCodeContainer')[0].getElementsByTagName("input")[0].value == "") {
+    if ($('inputTabCahierMaterielElementsInputSearch').value == "") {
 
         var container = document.createElement("div");
         container.addEventListener("click", function () {

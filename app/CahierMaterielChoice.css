@@ -1,3 +1,55 @@
 #divTabCahierMaterielChoice {
     background-color:orange;
 }
+
+
+
+.divTabCahierMaterielChoiceInputCodeContainer {
+    /*background-color:blue;*/
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+
+    .divTabCahierMaterielChoiceInputCodeContainer > div {
+        position: absolute;
+        display: inline-block;
+        margin-top: 2px;
+        margin-left: -268px;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+        width: 50px;
+        height: 50px;
+        background-color: black;
+        z-index: 9;
+        background-position: left;
+        background-size: 50px;
+        background-image: url(Img/IconHashtag.png);
+        transition: all 0.1s linear 0s;
+    }
+
+    .divTabCahierMaterielChoiceInputCodeContainer input {
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+        height: 50px;
+        width: 200px;
+        padding-left: 60px;
+        font-size: 25px;
+        background-color: rgb(245, 245, 245);
+    }
+
+        .divTabCahierMaterielChoiceInputCodeContainer input:focus {
+            border-color: rgb(66, 133, 244);
+            background-color: white;
+        }
+
+        .divTabCahierMaterielChoiceInputCodeContainer input:hover {
+            background-color: white;
+        }
+
+    .divTabCahierMaterielChoiceInputCodeContainer > input:focus ~ div {
+        background-color: rgb(66, 133, 244);
+    }
+
+
