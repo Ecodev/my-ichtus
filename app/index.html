@@ -20,6 +20,7 @@
     <link href="Cahier.css" rel="stylesheet" />
     <link href="CahierTop.css" rel="stylesheet" />
     <link href="CahierInfos.css" rel="stylesheet" />
+    <link href="CahierMaterielChoice.css" rel="stylesheet" />
     <link href="CahierMaterielOptions.css" rel="stylesheet" />
     <link href="CahierMaterielCode.css" rel="stylesheet" />
     <link href="CahierMaterielCategories.css" rel="stylesheet" />
@@ -43,6 +44,7 @@
     <script src="CahierMethods.js"></script>
     <script src="CahierTop.js"></script>
     <script src="CahierInfos.js"></script>
+    <script src="CahierMaterielChoice.js"></script>
     <script src="CahierMaterielCode.js"></script>
     <script src="CahierMaterielCategories.js"></script>
     <script src="CahierMaterielElements.js"></script>
@@ -225,7 +227,14 @@
             </div>
         </div>
 
+        <!-- Div Tab CahierMaterielChoice -->
+        <div id="divTabCahierMaterielChoice" class="divTab">
+            <div style="margin-top:200px; position:relative;"></div>
+            <br />
+            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahier')"></div>
+            <!--<br />-->
 
+        </div>
 
 
         <!-- Div Tab CahierMaterielCategories -->
@@ -247,13 +256,14 @@
             <br />
 
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')" style="position:absolute;"></div>
+
             <div id="divTabCahierMaterielElementsButtonsContainer">
                 <!--<div style="width:120px;">
-                    <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')" style="margin-left:0px;"></div>
-                </div>-->
+                <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')" style="margin-left:0px;"></div>
+            </div>-->
                 <!--<div style="width:250px;">
-                    <div class="Buttons NormalButtons" style="width:230px; background-image:url(Img/IconEnter.png)" onclick="newTab('divTabCahierMaterielCategories')" title="Changer de catégorie">remove</div>
-                </div>-->
+                <div class="Buttons NormalButtons" style="width:230px; background-image:url(Img/IconEnter.png)" onclick="newTab('divTabCahierMaterielCategories')" title="Changer de catégorie">remove</div>
+            </div>-->
                 <div style="min-width:271px;">
                     <div id="divTabCahierMaterielElementsSelectCategorie" title="Catégorie">
                         <div class="Buttons NormalButtons"></div>
@@ -280,12 +290,18 @@
                         </select>
                     </div>
                 </div><div style="min-width:100px;" title="Rechercher">
-                    <input autocomplete="off" id="inputTabCahierMaterielElementsInputSearch" type="text" value="" placeholder="Rechercher" onkeyup="Requests.getBookablesList();" />
+                    <input autocomplete="off" spellcheck="false" id="inputTabCahierMaterielElementsInputSearch" type="text" value="" placeholder="Rechercher" onkeyup="Requests.getBookablesList(this);" />
                 </div>
             </div>
 
-
             <div id="divTabCahierInfosBar" style="position:relative; top:0px; margin-top:5px; margin-bottom:5px;"></div>
+
+            <div class="divTabCahierMaterielElementsInputCodeContainer">
+
+                <input type="text" autocomplete="off" spellcheck="false" placeholder="Taper le code..." onkeyup="Requests.getBookablesList(this);" />
+                <div></div>
+            </div>
+
             <div id="divTabCahierMaterielElementsContainer"></div>
 
         </div>
@@ -355,22 +371,22 @@
 
 
             <!--<div class="divTabCahierConfirmationContainer" style="position: relative; min-height: 10px;">
-                <div style=" font-size:25px; text-align:center; color:black;">Votre sortie ?</div>
-                <div style="background-color: lightgray; height: 2px; margin-bottom: 15px; margin-top: 5px;"></div>
-                <div class="divConfirmationTexts">
-                    <div>
-                        <div style="background-image: url(&quot;Img/IconResponsible.png&quot;);"></div>
-                    </div>
-                <div>Responsable</div>
-                <div></div>
-                    </div>
-            <div class="divConfirmationTexts"><div><div style="background-image: url(&quot;Img/IconStart.png&quot;);"></div>
-                                    </div><div>Heure de départ</div><div>21:28</div></div><div style="background-color: lightgray; height: 2px; margin-bottom: 15px; margin-top: 10px;"></div>
-                <div class="divConfirmationTexts" style="background-color: rgb(235, 235, 235);">
-                    <div>
-                    <div style="background-image: url(&quot;Img/IconSail.png&quot;);"></div>
-                    </div>
-                    <div>Embarcation</div><div></div></div><div class="divTabCahierConfirmationEmbarcationBox"><div style="background-image: url(&quot;Img/IconSup.png&quot;); visibility: visible;"><div></div></div><div class="divTabCahierConfirmationContainerTextsContainer"><div>Canoe C1 (3001, carnet de sortie, occupé)</div><div>3001 caté</div></div><div class="Buttons ReturnButtons">Modifier</div></div><div style="background-color: lightgray; height: 2px; margin-bottom: 15px; margin-top: 10px;"></div><div class="divConfirmationTexts" style="background-color: rgb(235, 235, 235);"><div><div style="background-image: url(&quot;Img/IconParticipantCount.png&quot;);"></div></div><div>Nbr de participants</div><div>1 Participant</div></div><div class="divConfirmationTexts" style="background-color: white;"><div><div style="background-image: url(&quot;Img/IconDestination.png&quot;);"></div></div><div>Destination</div><div>Baie</div></div><div class="divConfirmationTexts" style="background-color: rgb(235, 235, 235);"><div><div style="background-image: url(&quot;Img/IconStartComment.png&quot;);"></div></div><div>Commentaire dép.</div><div></div></div><div class="divConfirmationTexts" style="height: 50px; background-color: white;"><div></div><div></div><div style="height: 100%;"><div class="Buttons ReturnButtons">Modifier</div></div></div></div>-->
+            <div style=" font-size:25px; text-align:center; color:black;">Votre sortie ?</div>
+            <div style="background-color: lightgray; height: 2px; margin-bottom: 15px; margin-top: 5px;"></div>
+            <div class="divConfirmationTexts">
+                <div>
+                    <div style="background-image: url(&quot;Img/IconResponsible.png&quot;);"></div>
+                </div>
+            <div>Responsable</div>
+            <div></div>
+                </div>
+        <div class="divConfirmationTexts"><div><div style="background-image: url(&quot;Img/IconStart.png&quot;);"></div>
+                                </div><div>Heure de départ</div><div>21:28</div></div><div style="background-color: lightgray; height: 2px; margin-bottom: 15px; margin-top: 10px;"></div>
+            <div class="divConfirmationTexts" style="background-color: rgb(235, 235, 235);">
+                <div>
+                <div style="background-image: url(&quot;Img/IconSail.png&quot;);"></div>
+                </div>
+                <div>Embarcation</div><div></div></div><div class="divTabCahierConfirmationEmbarcationBox"><div style="background-image: url(&quot;Img/IconSup.png&quot;); visibility: visible;"><div></div></div><div class="divTabCahierConfirmationContainerTextsContainer"><div>Canoe C1 (3001, carnet de sortie, occupé)</div><div>3001 caté</div></div><div class="Buttons ReturnButtons">Modifier</div></div><div style="background-color: lightgray; height: 2px; margin-bottom: 15px; margin-top: 10px;"></div><div class="divConfirmationTexts" style="background-color: rgb(235, 235, 235);"><div><div style="background-image: url(&quot;Img/IconParticipantCount.png&quot;);"></div></div><div>Nbr de participants</div><div>1 Participant</div></div><div class="divConfirmationTexts" style="background-color: white;"><div><div style="background-image: url(&quot;Img/IconDestination.png&quot;);"></div></div><div>Destination</div><div>Baie</div></div><div class="divConfirmationTexts" style="background-color: rgb(235, 235, 235);"><div><div style="background-image: url(&quot;Img/IconStartComment.png&quot;);"></div></div><div>Commentaire dép.</div><div></div></div><div class="divConfirmationTexts" style="height: 50px; background-color: white;"><div></div><div></div><div style="height: 100%;"><div class="Buttons ReturnButtons">Modifier</div></div></div></div>-->
 
 
             <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />

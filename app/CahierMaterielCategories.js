@@ -1,6 +1,6 @@
-var categories = ["Lorem","Fusce","SUP", "Canoé", "Planche à voile", "Voilier", "Kayak"];
-var categoriesValues = ["Lorem ipsum","Fusce Cursus","SUP", "Canoë", "PlancheAVoile", "Voilier", "Kayak"];
-function loadMateriel() {
+var categories = ["Canoë & Kayak","SUP","Rame", "Planche à voile", "Dériveur"];
+var categoriesValues = ["Canoë Kayak","SUP", "R", "R", "Voilier"];
+function loadMateriel(container = $("divTabCahierMaterielCategoriesContainer")) {
     inputTypeCodeMateriel = document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0];
     inputNumberCodeMateriel = document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1];
 
@@ -8,7 +8,7 @@ function loadMateriel() {
         var d = document.createElement("div");
         d.id = categories[i];
         d.classList.add("BoxesContainer");
-        document.getElementById("divTabCahierMaterielCategoriesContainer").appendChild(d);        
+        container.appendChild(d);        
 
         var d1 = div(d);
         d1.id = i;

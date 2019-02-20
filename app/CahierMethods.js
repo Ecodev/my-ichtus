@@ -74,13 +74,18 @@ var Cahier = {
                 }
             }
 
+            var ownerName = booking.owner.name;
+            if (booking.owner.name == undefined || booking.owner.name == "Booking Only") { //$$ booking only
+                ownerName = "Invité";
+            }
+
             if (wantImg) {
                 if (onlyName) {
                     return "<div id='" + guestName.slice(2,-1) + "' class='TableEntriesImg' style='background-image:url(" + "Img/IconGuest.png" + ");  display: inline-block;vertical-align: middle;'>" + "</div>" + "<div style=' display: inline-block;vertical-align: middle;'>" + guestName.slice(2,-1).shorten(shortenOptions.length - 40, shortenOptions.fontSize) + "</div>";
 
                 }
                 else {
-                    return "<div id='ZZZZ" + booking.owner.name + "' class='TableEntriesImg' style='background-image:url(Img/IconGuest.png);  display: inline-block;vertical-align: middle;'></div>" + "<div style=' display: inline-block;vertical-align: middle; min-width:" + 10 + "px'>" + booking.owner.name + "</div>" + "<div style='margin-left:5px; font-size:15px;  display: inline-block;vertical-align: middle;'>" + guestName.shorten(shortenOptions.length - 40 - "Invité".pixelLength(shortenOptions.fontSize) - 5, 15) + "</div>";
+                    return "<div id='ZZZZ" + ownerName + "' class='TableEntriesImg' style='background-image:url(Img/IconGuest.png);  display: inline-block;vertical-align: middle;'></div>" + "<div style=' display: inline-block;vertical-align: middle; min-width:" + 10 + "px'>" + ownerName + "</div>" + "<div style='margin-left:5px; font-size:15px;  display: inline-block;vertical-align: middle;'>" + guestName.shorten(shortenOptions.length - 40 - "Invité".pixelLength(shortenOptions.fontSize) - 5, 15) + "</div>";
                 }
             }
             else {
@@ -272,7 +277,7 @@ var Cahier = {
         if (nbr >= Cahier.bookings.length) {
             if (_guest) {
                 Cahier.bookings.push({
-                    owner: Cahier.bookings[0].owner,
+                    owner: {},
                     bookables: [],
                     guest: true,
                     guestName: "Waw",
@@ -299,7 +304,12 @@ var Cahier = {
         Cahier.bookings[nbr].guest = _guest;
         if (_guest) {
             Cahier.bookings[nbr].guestName = _guestName;
-            Cahier.bookings[nbr].owner = Cahier.bookings[0].owner;
+            if (nbr != 0) {
+                Cahier.bookings[nbr].owner = Cahier.bookings[0].owner;
+            }
+            else {
+                console.log('Sortie principale avec un invité !');
+            }
         }
         else {
             Cahier.bookings[nbr].guestName = "Pas d'invité";

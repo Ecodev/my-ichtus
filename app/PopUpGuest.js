@@ -20,11 +20,12 @@ function popGuest(nbr = 0) {
 
     grayBar(container, 5);
 
+    div(container);
+
     var i1 = document.createElement("input");
     container.appendChild(i1);
     i1.placeholder = "Nom";
     i1.spellcheck = "false";
-
 
     var i2 = document.createElement("input");
     i2.placeholder = "Prénom";
@@ -39,7 +40,8 @@ function popGuest(nbr = 0) {
     var b = div(container);
     b.classList.add("Buttons");
     b.classList.add("ValidateButtons");
-    b.innerHTML = "Valider";
+    b.innerHTML = "Suivant";
+    b.style.backgroundPositionX = "115px";
     b.addEventListener("click", function () {
         ValidateGuest();
     });
@@ -51,11 +53,13 @@ function ValidateGuest() {
     var i = c.getElementsByTagName("input");
     if (i[0].value.length < 2) {
         i[0].style.borderColor = "red";
-        i[0].style.backgroundImage = "url('Img/IconInfo.png')";
+        i[0].previousElementSibling.style.backgroundColor = "red";
+        //i[0].style.backgroundImage = "url('Img/IconInfo.png')";
     }
     else {
         i[0].style.borderColor = "black";
-        i[0].style.backgroundImage = "url('Img/IconEye.png')";
+        i[0].previousElementSibling.style.backgroundColor = "white";
+        //i[0].style.backgroundImage = "url('Img/IconEye.png')";
     }
     if (i[1].value.length < 2) {
         i[1].style.borderColor = "red";

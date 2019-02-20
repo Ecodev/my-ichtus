@@ -301,6 +301,7 @@
     border-color: black;
     background-color: white; /*rgb(237,237,237);*/
     padding-left: 40px;
+    padding-right:5px;
     padding-top: 0px;
     height: 34px;
     width: 120px;
@@ -312,7 +313,7 @@
     background-position-y: 4px;
     color: black;
     font-size: 20px;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
     -webkit-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
     -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
     box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
@@ -392,11 +393,20 @@
         border: 2px solid lightgray;
         box-sizing: border-box;
         padding: 8px;
-
+        overflow-y:auto;
         /*-moz-box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);
         -webkit-box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);
          box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);*/
     }
+
+    /*.divTabCahierMaterielElementsPopUp > div:nth-child(4)::-webkit-scrollbar{
+        width:2px;
+        background-color:lightgray;
+    }
+        .divTabCahierMaterielElementsPopUp > div:nth-child(4)::-webkit-scrollbar-thumb {
+            width: 2px;
+            background-color: gray;
+        }*/
 
     .divTabCahierMaterielElementsPopUp > .ValidateButtons {
         position: absolute;
@@ -449,5 +459,47 @@
     }
 
 
+.divTabCahierMaterielElementsInputCodeContainer {
+    /*background-color:blue;*/
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+    .divTabCahierMaterielElementsInputCodeContainer > div {
+        position: absolute;
+        display: inline-block;
+        margin-top: 2px;
+        margin-left: -268px;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+        width: 50px;
+        height: 50px;
+        background-color: black;
+        z-index: 9;
+        background-position: left;
+        background-size: 50px;
+        background-image: url(Img/IconHashtag.png);
+        transition:all 0.1s linear 0s;
+    }
+    .divTabCahierMaterielElementsInputCodeContainer input {
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+        height: 50px;
+        width: 200px;
+        padding-left: 60px;
+        font-size: 25px;
+        background-color: rgb(245, 245, 245);
+    }
+        .divTabCahierMaterielElementsInputCodeContainer input:focus {
+            border-color: rgb(66, 133, 244);
+            background-color:white;
+        }
+        .divTabCahierMaterielElementsInputCodeContainer input:hover {
+            background-color: white;
+        }
+        .divTabCahierMaterielElementsInputCodeContainer > input:focus ~ div {
+            background-color: rgb(66, 133, 244);
+        }
 
 

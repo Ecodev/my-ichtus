@@ -20,4 +20,6 @@ function popCahierBookable(nbr) {
     d.innerHTML = "Embarcation";
 
     grayBar(container, 5);
+
+    loadMateriel(container);
 }

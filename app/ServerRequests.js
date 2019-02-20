@@ -81,7 +81,7 @@ var Requests = {
     },
 
     // getBookablesList
-    getBookablesList: function () {
+    getBookablesList: function (elem = $('inputTabCahierMaterielElementsInputSearch')) { //
 
         var order;
         if ($('divTabCahierMaterielElementsSelectIconSort').style.backgroundImage == 'url("Img/IconSortDESC.png")') {
@@ -97,10 +97,11 @@ var Requests = {
         if (whichField == "lastUse") { whichField = "id"; lastUse = true; }
         if (whichField == "nbrBookings") { whichField = "id"; nbrBookings = true; }
 
-        var txt = $('inputTabCahierMaterielElementsInputSearch').value;
+        var txt = elem.value;
 
         var categorie = $('divTabCahierMaterielElementsSelectCategorie').getElementsByTagName("select")[0].value;
         if (categorie == "all") { categorie = ""; }
+        if (categorie == "Canoë Kayak") {categorie = "Kayak";}
 
         //alert(categorie);
 
@@ -127,6 +128,7 @@ var Requests = {
                     },
                     {       //CATEGORIES...
                         groupLogic: 'AND',
+                        conditionsLogic:'OR',
                         joins: {
                             bookableTags: {
                                 //type:"innerJoin", marhce pas.... left/inner =?
@@ -153,6 +155,16 @@ var Requests = {
                 pageIndex: 0
             }
         };
+
+        if (categorie == "Kayak") {
+            f.filter.groups[1].joins.bookableTags.conditions.push({
+                                        name: {
+                                            like: {
+                                                value: "%" + "Canoë" + "%"
+                                            }
+                                        }
+                                    });
+        }
 
         var variables = new Server.QueryVariablesManager();
         variables.set('variables', f);
@@ -239,8 +251,9 @@ var Requests = {
                             ]
                         },
                         pagination: {
-                            pageSize: 1 // just for identifying the id
-                        },
+                            pageSize: 1,
+                            pageIndex:0 // just for identifying the id
+                        }
                     };
 
                     var counter = 0;
@@ -287,12 +300,15 @@ var Requests = {
     },
 
 
-
+    // getBookableNbrForBookableTag()
     getBookableNbrForBookableTag: function (bookableTag, elem, before = "", after = "") {
+        
+        if (bookableTag == "Canoë Kayak") {bookableTag = "Kayak"}
 
         var filter = {
             filter: {
                 groups: [{
+                    conditionsLogic:'OR',
                     joins: {
                         bookableTags: {
                             conditions: [
@@ -315,6 +331,16 @@ var Requests = {
             }
         };
 
+         if (bookableTag == "Kayak") {
+            filter.filter.groups[0].joins.bookableTags.conditions.push({
+                                        name: {
+                                            like: {
+                                                value: "%" + "Canoë" + "%"
+                                            }
+                                        }
+                                    });
+        }
+
         var variables = new Server.QueryVariablesManager();
         variables.set('variables', filter); 
 
@@ -326,12 +352,6 @@ var Requests = {
 
     // getBookableInfos
     getBookableInfos: function (bookableId,elem) {
-
-
-
-
-       
-
 
         var filter = {
             filter: {
@@ -395,7 +415,7 @@ var Requests = {
     },
 
 
-    // Add an item
+    // Add an item NO MORE USED
     addBookable: function (_name, _description) {
 
         const item = { name: "1", description: "kj", bookingType: "self_approved", type: 6004 };

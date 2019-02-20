@@ -11,7 +11,6 @@ function popBookable(bookableId, i = -1) {
 	pop.classList.add("Boxes");
 	pop.classList.add("divTabCahierMaterielElementsPopUp");
 
-
 	var close = div(pop);
 	close.className  = "divPopUpClose";
 	close.onclick = function () {
@@ -67,11 +66,11 @@ function popBookable(bookableId, i = -1) {
 // !! CHANGER PLUS DE $ QUE CLASSS
 function actualizePopBookable(bookable,bookings, elem) {
 
+    elem.getElementsByTagName("div")[2].style.backgroundImage = "url(Img/" + bookable.image.id + ".png)";
 	elem.getElementsByClassName('divTabCahierMaterielElementsPopUp')[0].getElementsByTagName("div")[3].innerHTML = bookable.description;
 	elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[0].innerHTML = bookable.name.shorten(420, 30);
 	elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[1].innerHTML = bookable.bookingType + " - " + bookable.code;
   //  elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].innerHTML = bookable.code;
-
 
     if (bookings.length != 0) {
         elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[3].innerHTML = "Dernière utilisation le " + (new Date(bookings.items[0].startDate)).getNiceDate() + "<br/> par " + Cahier.getOwner(bookings.items[0], false);

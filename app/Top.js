@@ -1,19 +1,25 @@
 var running = false;
+var cancelFunction;
 function animate() {
 
     running = true;
 
-    var cancelFunction = function () { console.log("skipped animation"); running = false; DeleteObjects(b, c, w, f, info, document.getElementsByClassName("svgLetters")[0], document.getElementsByClassName("svgLetters")[1], document.getElementsByClassName("svgLetters")[2], document.getElementsByClassName("svgLetters")[3], document.getElementsByClassName("svgLetters")[4], document.getElementsByClassName("svgLetters")[5]); };
+     cancelFunction = function () {
+        console.log("skipped animation");
+        document.body.removeEventListener("mousedown", cancelFunction);
+        running = false;
+        DeleteObjects(b, c, w, f, info, document.getElementsByClassName("svgLetters")[0], document.getElementsByClassName("svgLetters")[1], document.getElementsByClassName("svgLetters")[2], document.getElementsByClassName("svgLetters")[3], document.getElementsByClassName("svgLetters")[4], document.getElementsByClassName("svgLetters")[5]);
+    };
 
+   
     var b, c, w, f, info;
-    var eventListener;
 
     b = div(document.body);
     b.id = "black";
        
     setTimeout(function () {
-
-        if (running) {
+        if (!running) { return; }
+        else {
             c = div(document.body);
             c.id = "circle";
             addSvgClass(c);
@@ -34,10 +40,10 @@ function animate() {
             info = div(document.body);
             info.innerHTML = "Cliquer pour passer l'animation";
             info.id = "info";
-            //addSvgClass(info);
 
             setTimeout(function () {
-                if (running) {
+                if (!running) { return; }
+                else {
                     f = div(document.body);
                     f.id = "fish";
                     addSvgClass(f);
@@ -45,29 +51,32 @@ function animate() {
             }, 200);
 
             setTimeout(function () {
-                if (running) {
+                if (!running) { return; }
+                else {
                     w.style.animationName = "AniWavesExit";
                     c.style.animationDuration = "1s";
                     c.style.animationName = "AniCircleExit";
                     f.style.animationName = "AniFishExit,none";
-                }
+                
 
                 setTimeout(function () { if (running) { DeleteObjects(w, c, f); } }, 1000);
 
                 setTimeout(function () {
-                    if (running) {
+                    if (!running) { return; }
+                    else {
                         b.style.animationName = "AniBlackExit";
                         DeleteObjects(b,info);
                     }
-                    document.body.removeEventListener(eventListener, cancelFunction); // ALWAYS
-                }, 500);
+                    document.body.removeEventListener("mousedown", cancelFunction);
+                    }, 500);
+                }
 
             }, 4500);
         }
 
     }, 500);   
 
-    eventListener = document.body.addEventListener("mousedown", cancelFunction);
+    document.body.addEventListener("mousedown", cancelFunction);
 }
 
 function addSvgClass(elem) {
@@ -101,7 +110,7 @@ function newLetter(i) {
         if (i > 2) {
             setTimeout(function () {
                 d.style.animationName = "AniLettersExitRight";
-                setTimeout(function (elem) { if (running) { DeleteObjects(elem);} } , 550, d);
+                setTimeout(function (elem) { if (running) { DeleteObjects(elem); } }, 550, d);
             }, 3000 - 100 + (3 - i) * 2 * 100);
         }
         else {

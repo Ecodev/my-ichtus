@@ -1,11 +1,11 @@
 var currentBookables;
-function loadElements(Bookables) {
+function loadElements(bookables) {
 
-    currentBookables = Bookables;
+    currentBookables = bookables;
 
     document.getElementById("divTabCahierMaterielElementsContainer").innerHTML = "";
 
-    if ($('inputTabCahierMaterielElementsInputSearch').value == "") {
+    if ($('inputTabCahierMaterielElementsInputSearch').value == "" && document.getElementsByClassName('divTabCahierMaterielElementsInputCodeContainer')[0].getElementsByTagName("input")[0].value == "") {
 
         var container = document.createElement("div");
         container.addEventListener("click", function () {
@@ -39,12 +39,12 @@ function loadElements(Bookables) {
 
     }
 
-    for (var i = 0; i < Bookables.length; i++) {
+    for (var i = 0; i < bookables.length; i++) {
 
         container = document.createElement("div");
         container.id = i;
         container.addEventListener("click", function () {
-            popBookable(Bookables[this.id].id, this.id);
+            popBookable(bookables[this.id].id, this.id);
         });
 
         $("divTabCahierMaterielElementsContainer").appendChild(container);
@@ -53,22 +53,27 @@ function loadElements(Bookables) {
         container.appendChild(secondContainer);
 
         size = document.createElement("div");
-        size.innerHTML = Bookables[i].code;
+        size.innerHTML = bookables[i].code;
         secondContainer.appendChild(size);
 
         bottom = document.createElement("div");
         secondContainer.appendChild(bottom);
 
         brand = div(bottom);
-        brand.innerHTML = Bookables[i].name.shorten(180);
+        brand.innerHTML = bookables[i].name.shorten(180);
 
         model = div(bottom);
-        model.innerHTML = Bookables[i].id;
+        model.innerHTML = bookables[i].id;
 
         //var info = div(secondContainer);
 
         background = div(secondContainer);
 
+    }
+    if (bookables.length == 0) {
+        var d = div($("divTabCahierMaterielElementsContainer"));
+        d.innerHTML = "Aucun résultat";
+        console.log('Aucun résultat');
     }
 }
 
