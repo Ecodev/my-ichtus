@@ -1,6 +1,4 @@
-function popBookable(bookableId, i = -1) {
-
-	// alert(bookableId);
+function popBookable(bookableId, justPreview = true, CahierBookingNbr = 0, i = -1) {
 
 	var modal = openPopUp();
 
@@ -23,22 +21,26 @@ function popBookable(bookableId, i = -1) {
 	var descriptionTitle = div(pop);
 	descriptionTitle.innerHTML = "Description";
 
-	var description = div(pop);
+    div(pop); // description box
 
 	var btn2 = div(pop);
     btn2.classList.add("Buttons"); btn2.classList.add("ReturnButtons");
     btn2.style.visibility = "hidden";
 	btn2.innerHTML = "Historique";
 
-	if (i != -1) {
+	if (!justPreview) {
 		var btn = div(pop);
 		btn.classList.add("Buttons"); btn.classList.add("ValidateButtons");
 		btn.innerHTML = "Choisir";
         btn.addEventListener("click", function () {
 
-            var _bookable = { id: currentBookables[this.parentElement.getElementsByTagName("div")[1].id].id, name: currentBookables[this.parentElement.getElementsByTagName("div")[1].id].name, code: currentBookables[this.parentElement.getElementsByTagName("div")[1].id].code};
+            var _bookable = {
+                id: currentBookables[this.parentElement.getElementsByTagName("div")[1].id].id,
+                name: currentBookables[this.parentElement.getElementsByTagName("div")[1].id].name,
+                code: currentBookables[this.parentElement.getElementsByTagName("div")[1].id].code
+            };
 
-            Cahier.setBookable(0, _bookable);
+            Cahier.setBookable(CahierBookingNbr, _bookable);
 
 		//	Cahier.bookableId = currentBookables[this.parentElement.getElementsByTagName("div")[1].id].id;
           //  Cahier.bookableName = currentBookables[this.parentElement.getElementsByTagName("div")[1].id].name;
@@ -48,8 +50,7 @@ function popBookable(bookableId, i = -1) {
 			newTab("divTabCahierInfos");
 		});
 	}
-
-    
+  
 
 	var textsContainer = div(pop);
 	textsContainer.className = "divTabCahierMaterielElementsContainerTextsContainer";
@@ -59,7 +60,6 @@ function popBookable(bookableId, i = -1) {
 	div(textsContainer);
 	div(textsContainer);
 	div(textsContainer);
-
 }
 
 
@@ -73,7 +73,7 @@ function actualizePopBookable(bookable,bookings, elem) {
   //  elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].innerHTML = bookable.code;
 
     if (bookings.length != 0) {
-        elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[3].innerHTML = "Dernière utilisation le " + (new Date(bookings.items[0].startDate)).getNiceDate() + "<br/> par " + Cahier.getOwner(bookings.items[0], false);
+        elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[3].innerHTML = "Dernière utilisation le " + (new Date(bookings.items[0].startDate)).getNiceDate() + "<br/> Par " + Cahier.getOwner(bookings.items[0], false);
         elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[4].innerHTML = bookings.length + " sortie(s)";
         elem.getElementsByClassName('Buttons')[0].style.visibility = "visible";
         elem.getElementsByClassName('Buttons')[0].addEventListener("click", function () {

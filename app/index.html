@@ -232,16 +232,22 @@
             <div style="margin-top:200px; position:relative;"></div>
             <br />
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahier')"></div>
-            <!--<br />-->
+
             <div  class="title">Choix de l'embarcation</div>
 
-            <div class="divTabCahierMaterielChoiceInputCodeContainer">
-                <input type="text" autocomplete="off" spellcheck="false" placeholder="Taper le code..." onkeyup="Requests.getBookablesList(this);" />
-                <div></div>
-            </div>
-
-            <div>
-                <div class="NormalButtons">Matériel Personel</div><div class="NormalButtons">Visiter</div>
+            <div class="divTabCahierMaterielChoiceContainer">
+                <div class="divTabCahierMaterielChoiceInputCodeContainer">
+                    <input type="text" autocomplete="off" spellcheck="false" placeholder="Taper le code..." onkeydown="if (event.keyCode == 13) {Requests.getBookableByCode(this);}" /> 
+                    <div></div>
+                    <div>
+                        <div class="ValidateButtons Buttons" onclick="Requests.getBookableByCode(this.parentElement.previousElementSibling.previousElementSibling);">Choisir</div>
+                    </div>
+                </div>
+                <div style="text-align:center; color:gray; font-size:15px; margin-bottom:50px;">Par exemple C32...</div>
+                <div style="text-align:center; margin-bottom:20px;">Ou</div>
+                <div>
+                    <div class="NormalButtons Buttons" onclick="newTab('divTabCahierInfos')">Prendre du matériel personel</div><div class="NormalButtons Buttons" onclick="newTab('divTabCahierMaterielCategories')">Voir la liste du matériel</div>
+                </div>
             </div>
         </div>
 
@@ -261,9 +267,7 @@
         <!-- Div Tab CahierMaterielElements-->
         <div id="divTabCahierMaterielElements" class="divTab">
             <div style="margin-top:200px; position:relative;"></div>
-
             <br />
-
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielChoice')" style="position:absolute;"></div>
 
             <div id="divTabCahierMaterielElementsButtonsContainer">

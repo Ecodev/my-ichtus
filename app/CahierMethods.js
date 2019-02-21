@@ -324,7 +324,7 @@ var Cahier = {
         Cahier.actualizeConfirmation();
        
         if (nbr == 0) {
-            newTab("divTabCahierMaterielCategories");
+            newTab("divTabCahierMaterielChoice");
             $("divTabCahierInfosName").innerHTML = Cahier.getFullName(Cahier.bookings[0]);
         }
     },

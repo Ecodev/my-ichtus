@@ -183,6 +183,7 @@ option {
 
 
 
+
 .divTab { /*#divScreen div[id*=Tab]    #divScreen > div  */
     position: absolute;
     left: 0px;
@@ -200,6 +201,10 @@ option {
     background-color:white;
 }
 
+
+.resetAnimation {
+    animation:none;
+}
 
 
 
@@ -225,7 +230,7 @@ option {
     cursor: pointer;
     transition: all 0.1s linear 0s;
     text-align: left;
-    z-index:2;
+    z-index: 2;
 }
 
 .Buttons:hover {

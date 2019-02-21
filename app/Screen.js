@@ -115,7 +115,7 @@ var tabs = [];
 tabs.push({ id: "divTabMateriel", order: -1, progress: 0, position: -1, TopBar: false, Enter: function () { }, Remove: function () { } });
 tabs.push({ id: "divTabCahier", order: 0, progress: 0, position: 0, TopBar: false, Enter: function () { Cahier.cancel(); }, Remove: function () { } });
 tabs.push({ id: "divTabStatistiques", order: 1, progress: 0, position: 1, TopBar: false, Enter: function () { }, Remove: function () { } });
-tabs.push({ id: "divTabCahierMaterielChoice", order: 9, progress: 1, position: 0, TopBar: true, Enter: function () { }, Remove: function () { } });
+tabs.push({ id: "divTabCahierMaterielChoice", order: 9, progress: 1, position: 0, TopBar: true, title: "Taper le code de votre embarcation", Enter: function () { document.getElementsByClassName('divTabCahierMaterielChoiceInputCodeContainer')[0].getElementsByTagName("input")[0].focus(); console.log("sdfk"); }, Remove: function () { } });
 tabs.push({ id: "divTabCahierMaterielOptions", order: 10, progress: 1, position: 0, TopBar: true, Enter: function () { }, Remove: function () { } });
 tabs.push({ id: "divTabCahierMaterielCode", order: 11, progress: 1, position: 0, TopBar: true, Enter: function () { }, Remove: function () { } });
 tabs.push({ id: "divTabCahierMaterielCategories", order: 12, progress: 1, position: 0, TopBar: true, title: "Veuillez choisir votre type d'activité", Enter: function () { }, Remove: function () { } });

@@ -44,7 +44,7 @@ function loadElements(bookables) {
         container = document.createElement("div");
         container.id = i;
         container.addEventListener("click", function () {
-            popBookable(bookables[this.id].id, this.id);
+            popBookable(bookables[this.id].id, false, 0, this.id);
         });
 
         $("divTabCahierMaterielElementsContainer").appendChild(container);
