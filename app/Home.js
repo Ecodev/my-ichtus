@@ -1,21 +1,18 @@
-﻿//Tabs
-//var Tab = 0; //Tab -1 -> Cahier, Tab 0 -> Matériel, Tab -1 -> Statistiques
-
+﻿// shortucts 
 function $(id) {
     return document.getElementById(id);
 }
-
-
 function div(loc) {
     var x = document.createElement("div");
     loc.appendChild(x);
     return x;
 }
-function input(loc) {
+function input(loc,_placeholder = "") {
     var x = document.createElement("input");
     x.autocomplete = "off";
     x.type = "text";
     x.spellcheck = "false";
+    x.placeholder = _placeholder;
     loc.appendChild(x);
     return x;
 }
@@ -23,6 +20,7 @@ function br(loc) {
     var x = document.createElement("br");
     loc.appendChild(x);
 }
+
 
 //Load
 function load() {
@@ -38,6 +36,8 @@ function load() {
     loadReturnButtons(); // OUI OU NON ???????
     loadSpacers();
     loadTableTopBars();
+    loadCahierMaterielChoice();
+    loadEscListener();
  //   loadConfirmation();
 
     //SERVER
@@ -45,9 +45,16 @@ function load() {
     Requests.checkLogin();
 
     loadMateriel();
+  //  loadButtonFocus();
 }
 
-
+// too complicated for now...
+function loadButtonFocus() {
+    var btn = document.getElementsByClassName('ValidateButtons');
+    for (var i = 0, len = btn.length; i < len; i++) {
+        btn[i].setAttribute('tabindex', '0');
+    }
+}
 
 var Time = {
 
@@ -145,7 +152,7 @@ function openPopUp() {
 
     var modal = div(document.body);
     modal.onclick = function (event) {
-        closePopUp(event,this);
+        closePopUp(event);
     };
     lastModals++;
     modal.id = "divModal" + lastModals;
@@ -158,11 +165,12 @@ function openPopUp() {
 
     return modal;
 }
-
-function closePopUp(e, UselsesElem) {
+function closePopUp(e) {
     var t = false;
     if (e == "last") {
-        t = true;
+        if (lastModals != 0) {
+            t = true;    
+        }
     }
     else if (e.target.id.indexOf("divModal") != -1) {
         t = true;
@@ -171,16 +179,26 @@ function closePopUp(e, UselsesElem) {
         var modal = $('divModal' + lastModals);
         modal.style.opacity = 0;
         setTimeout(function () { modal.style.display = 'none'; modal.innerHTML = ""; modal.parentNode.removeChild(modal); }, 100);
-        
+
         lastModals--;
 
         if (lastModals == 0) {
             $('divScreen').classList.remove("Blur");
             $('divTopBar').classList.remove("Blur");
-        }
 
-      
+            //special
+            //document.body.removeEventListener("keyup", eventListenerFunction);
+        }
     }
+}
+function loadEscListener() {
+    document.body.addEventListener("keydown", function () {
+        if (event.keyCode == 27) {
+            console.log("ESC");
+            closePopUp("last");
+
+        }
+    });
 }
 
 

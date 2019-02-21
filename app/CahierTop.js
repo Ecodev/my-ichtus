@@ -13,7 +13,7 @@ function createProgressBar() {
                 switch (c) {
                     case 0: newTab("divTabCahier");
                 break;
-                    case 1: newTab("divTabCahierMaterielCategories");
+                    case 1: newTab("divTabCahierMaterielChoice");
                 break;
                    case 2: newTab("divTabCahierInfos");
                 break;
@@ -80,24 +80,6 @@ function changeProgress(c) {
             document.getElementsByClassName("divTabCahierProgressStep")[i].classList.add("divTabCahierProgressStepIncompleted");
         }
     }
-    //if (c == 0) {
-    //    changeTab($("divTabCahier"), sign);
-    //    document.documentElement.scrollTop = 0; //scroll up
-    //}
-    //if (c == 1) {
-    //    changeTab($("divTabCahierMaterielOptions"), sign);
-    //    setTimeout(function () {
 
-    //      //  $("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0].focus();
-    //    }, changeTime);
-        
-    //}
-    //if (c == 2) {
-    //    changeTab($("divTabCahierInfos"), sign);
-
-    //} 
-    //if (c == 3) {
-    //    changeTab($("divTabCahierConfirmation"), sign);
-    //} 
     $("divTabCahierProgressBarBlue").style.width = (c * 26) + "%";
 }

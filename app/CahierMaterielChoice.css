@@ -10,19 +10,18 @@
     text-align: center;
     margin-top: 20px;
     margin-bottom: 5px;
-    height:80px;
-    background-color:red;
+    height:55px;
 }
 
     .divTabCahierMaterielChoiceInputCodeContainer > div:nth-child(2) {
         position: absolute;
         display: inline-block;
-        margin-top: 2px;
-        margin-left: -272px;
-        border-top-left-radius: 8px;
-        border-bottom-left-radius: 8px;
-        width: 50px;
-        height: 50px;
+        margin-top: 0px;
+        margin-left: -269px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        width: 54px;
+        height: 54px;
         background-color: black;
         z-index: 9;
         background-position: left;
@@ -65,28 +64,54 @@
             background-color: white;
         }
 
-        .divTabCahierMaterielChoiceContainer  input:focus ~ div {
+        .divTabCahierMaterielChoiceContainer  input:focus ~ div:nth-child(2) {
             background-color: rgb(66, 133, 244);
         }
 
 
-    .divTabCahierMaterielChoiceInputCodeContainer > div:nth-child(3){
-        display:inline-block;
-        vertical-align:middle;
-        background-color:yellow;
-        width:165px;
-    }
+      
+        .divTabCahierMaterielChoiceInputCodeContainer > div:nth-child(3) {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 10px;
+            width: 100px;
+        }
         .divTabCahierMaterielChoiceInputCodeContainer > div:nth-child(3) .Buttons {
+            width:100px;
+            padding-left:0px;
+            background-color:lightgray;
             margin-top: 0px;
             margin-bottom: 0px;
             -moz-transition: all 0.1s linear 0s;
             -o-transition: all 0.1s linear 0s;
             -webkit-transition: all 0.1s linear 0s;
             transition: all 0.1s linear 0s;
+            background-image:url(Img/IconArrow.png);
+            background-position:center;
+            background-position-x:30px;
         }
             .divTabCahierMaterielChoiceInputCodeContainer > div:nth-child(3):hover .Buttons {
-                margin-left:4px;              
+                margin-left: 4px;
+                -webkit-box-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.6) !important;
+                -moz-box-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.6) !important;
+                box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.6) !important;
             }
+
+
+
+
+.divTabCahierMaterielChoiceInputCodeContainer + div {
+    text-align: center;
+    color: gray;
+    font-size: 15px;
+    margin-bottom: 50px;
+    margin-left: -90px;
+}
+.divTabCahierMaterielChoiceInputCodeContainer + div + div{
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 20px;
+}
 
 
 .divTabCahierMaterielChoiceContainer .NormalButtons {

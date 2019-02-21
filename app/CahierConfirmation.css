@@ -208,7 +208,16 @@
     }
     .divTabCahierConfirmationEmbarcationBoxContainer .ReturnButtons {
         top: 75px;
+        background-blend-mode:exclusion;
+        background-image:url(Img/IconSail.png);
     }
+        .divTabCahierConfirmationEmbarcationBoxContainer .ReturnButtons.ButtonChose {
+            background-size:30px;
+            background-color:rgb(66,133,244);
+            color:white;
+            background-blend-mode:unset;
+            background-position-y: 3px;
+        }
 
 .divTabCahierConfirmationEmbarcationBox > div:nth-child(1) {
     position: absolute;

@@ -211,7 +211,7 @@ option {
 /* TOUJOURS METTER UN <BR/> POUR EVITER QUE TOUTE LA PAGE BOUGE AVEC... */
 .Buttons {
     position: relative;
-    width: 155px;
+    width: 151px;
     height: 44px;
     padding-top: 10px;
     margin-left: 0%; /*changed*/
@@ -220,9 +220,9 @@ option {
     padding-left: 10px;
     border-radius: 10px;
     font-size: 30px;
-    -webkit-box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.6);
-    -moz-box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.6);
-    box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.6);
+    -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.6);
+    -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.6);
+    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.6);
     background-size: 35px;
     background-repeat: no-repeat;
     background-position-x: 105px;
@@ -231,44 +231,53 @@ option {
     transition: all 0.1s linear 0s;
     text-align: left;
     z-index: 2;
+    /*border:2px solid transparent;*/
 }
 
-.Buttons:hover {
-    margin-top: 4px;
-    margin-bottom: 0px;
-    -webkit-box-shadow: 2px 1px 10px 0px rgba(0,0,0,0.6);
-    -moz-box-shadow: 2px 1px 10px 0px rgba(0,0,0,0.6);
-    box-shadow: 2px 1px 10px 0px rgba(0,0,0,0.6);
-}
+    .Buttons:hover {
+        margin-top: 4px;
+        margin-bottom: 0px;
+        -webkit-box-box-shadow: 1px 0px 5px 0px rgba(0,0,0,0.6);
+        -moz-box-box-shadow: 1px 0px 5px 0px rgba(0,0,0,0.6);
+        box-shadow: 1px 0px 5px 0px rgba(0,0,0,0.6);
+    }
 
+    .Buttons:focus {
+        /*border-color: rgb(66, 133, 244);*/
+        outline: 0;
+    }
 
 .ValidateButtons {
     color: white;
     background-color: rgb(66, 133, 244);
     background-image: url(Img/IconArrow.png);
 }
+/*.ValidateButtons:focus {
+    border-color:black;
+    outline: 0;
+}*/
 
 
 
-.ReturnButtons {
-    width: 100px;
-    height: 30px;
-    padding-top: 8px;
-    background-position-x: 5px;
-    background-position-y: 4px;
-    background-size: 30px;
-    background-image: url(Img/IconBack.png);
-    color: black;
-    background-color: white;
-    text-align: right;
-    padding-left: 0px;
-    padding-right: 10px;
-    font-size: 20px;
-    margin-left: 2.5%; /*changed*/
-    -webkit-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5) !important;
-    -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5) !important;
-    box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5) !important;
-}
+    .ReturnButtons {
+        width: 100px;
+        height: 30px;
+        padding-top: 8px;
+        background-position-x: 5px;
+        background-position-y: 4px;
+        background-size: 30px;
+        background-image: url(Img/IconBack.png);
+        color: black;
+        background-color: white;
+        text-align: right;
+        padding-left: 0px;
+        padding-right: 10px;
+        font-size: 20px;
+        margin-left: 2.5%; /*changed*/
+        -webkit-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5) !important;
+        -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5) !important;
+        box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5) !important;
+    }
 .ReturnButtons::after{
     content:"Retour";
 }

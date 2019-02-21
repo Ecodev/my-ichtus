@@ -1,5 +1,14 @@
 var running = false;
 var cancelFunction;
+var info;
+
+// see ServerRequests for skipping animation
+function ableToSkipAnimaiton() {
+    document.body.addEventListener("mousedown", cancelFunction);
+    info = div(document.body);
+    info.innerHTML = "Cliquer pour passer l'animation";
+    info.id = "info";
+}
 function animate() {
 
     running = true;
@@ -12,7 +21,7 @@ function animate() {
     };
 
    
-    var b, c, w, f, info;
+    var b, c, w, f;
 
     b = div(document.body);
     b.id = "black";
@@ -36,10 +45,6 @@ function animate() {
             w = div(document.body);
             w.id = "waves";
             addSvgClass(w);
-
-            info = div(document.body);
-            info.innerHTML = "Cliquer pour passer l'animation";
-            info.id = "info";
 
             setTimeout(function () {
                 if (!running) { return; }
@@ -75,8 +80,6 @@ function animate() {
         }
 
     }, 500);   
-
-    document.body.addEventListener("mousedown", cancelFunction);
 }
 
 function addSvgClass(elem) {

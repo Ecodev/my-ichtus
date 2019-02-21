@@ -155,8 +155,8 @@ function actualizePopBooking(booking, container = $('divTabCahierConfirmationCon
     allDivTexts[4].innerHTML = Cahier.getnbrParticipantsText(booking.participantCount, " Participant");
     allDivTexts[5].innerHTML = booking.destination;
 
-    allDivTexts[6].innerHTML = getStartCommentFromBooking(booking,true);
-    allDivTexts[7].innerHTML = getEndCommentFromBooking(booking,true);
+    allDivTexts[6].innerHTML = getStartCommentFromBooking(booking,false);
+    allDivTexts[7].innerHTML = getEndCommentFromBooking(booking,false);
 }
 
 
@@ -252,17 +252,17 @@ function createConfirmationBooking(booking,nbr) {
     btn.onclick = function () { popCahierInfos(nbr); };
 
     var btn = div(emb);
+    btn.classList.add("Buttons");
+    btn.classList.add("ReturnButtons");
+    btn.onclick = function () { popCahierBookable(nbr); };
     if (booking.bookables.length != 0) {
         btn.innerHTML = "Modifier";
     }
     else {
+        btn.classList.add("ButtonChose");
         btn.innerHTML = "Choisir";
     }  
-    btn.classList.add("Buttons");
-    btn.classList.add("ReturnButtons");
-    btn.onclick = function () { popCahierBookable(nbr); };  
-    btn.style.backgroundImage = "url(Img/IconSail.png)";
-    btn.style.backgroundBlendMode = "exclusion";
+
 
     if (nbr != 0) {
         var r = div(container);

@@ -110,7 +110,7 @@ var Cahier = {
         popGuest(Cahier.bookings.length);
     },
 
-    ProgressBarTexts: ["Nom", "Embarcation", "Infos", "Confirmation"],
+    ProgressBarTexts: ["Nom", "Embarcation", "Informations", "Confirmation"],
 
     // cancel - clearData
     cancel: function () {
@@ -137,6 +137,8 @@ var Cahier = {
 
         $('divTabCahierMaterielElementsSelectSort').getElementsByTagName("select")[0].getElementsByTagName("option")[0].selected = "selected";
         $('divTabCahierMaterielElementsSelectSort').getElementsByTagName("div")[0].style.backgroundImage = 'url("Img/IconSortASC.png")';
+
+        document.getElementsByClassName('divTabCahierMaterielChoiceInputCodeContainer')[0].getElementsByTagName('input')[0].value = "";
 
         //if ($("checkBoxTabCahierInfosPhoneNumberRemember").getElementsByClassName("checkBox")[0].id == 1) {
         //    check($("checkBoxTabCahierInfosPhoneNumberRemember"));

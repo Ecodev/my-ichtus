@@ -352,12 +352,23 @@ var Requests = {
 
 
     // getBookableByCode
-    getBookableByCode: function (elem) {
+    getBookableByCode: function (elem,nbr = 0) {
 
         var filter = {
             filter: {
                 groups: [
-                    { conditions: [{ code: { like: { value: elem.value } } }] }
+                    {
+                        conditions: [
+                            { code: { like: { value: elem.value } } },
+                            {
+                                bookingType: {
+                                    like: {
+                                        value: "self_approved"
+                                    }
+                                }
+                            }
+                        ]
+                    }
                 ]
             },
             pagination: {
@@ -372,7 +383,7 @@ var Requests = {
         Server.bookableService.getAll(variables).subscribe(result => {
             console.log("getBookableByCode(): ", result);
             if (result.items.length == 1) {
-                popBookable(result.items[0].id, false);
+                popBookable(result.items[0].id, false,nbr);
 
                 elem.classList.remove("animationShake");
                 elem.nextElementSibling.classList.remove("animationShake");
@@ -401,7 +412,7 @@ var Requests = {
     },
 
     // getBookableInfos
-    getBookableInfos: function (bookableId,elem) {
+    getBookableInfos: function (nbr, bookableId,elem) {
 
         var filter = {
             filter: {
@@ -459,7 +470,30 @@ var Requests = {
             Server.bookingService.getAll(variables).subscribe(bookings => {
                 console.log("getBookableInfos()_getLastBooking: ", bookings);
 
-                actualizePopBookable(result.items[0], bookings, elem);
+
+                var filter = {
+                    filter: {
+                        groups: [{
+                            conditions: [{
+                                bookable: {
+                                    have:
+                                        { values: [bookableId] }
+
+                                }
+                            }
+                            ]
+                        }]
+                    }
+                };
+
+                var variables = new Server.QueryVariablesManager();
+                variables.set('variables', filter);
+
+              //  Server.metadataService.getAll(variables).subscribe(metadatas => {
+                  //  console.log("getBookableInfos()_getMetadatas: ", metadatas);
+
+                actualizePopBookable(nbr, result.items[0], bookings, elem); //metadatas.items);
+              //  });
             });
         });
     },
@@ -963,13 +997,14 @@ var Requests = {
                 }).subscribe(() => {
                     console.log('Linked Bookable : ', booking);
                     Requests.counter++;
-                    if (Requests.counter == tot) { Requests.getActualBookingList(true); newTab("divTabCahier");}   
+                    if (Requests.counter == tot) { Requests.getActualBookingList(true); newTab("divTabCahier"); ableToSkipAnimaiton();}
+                   
                 });
             }
             else {
                 console.log("Matériel Personel");
                 Requests.counter++;
-                if (Requests.counter == tot) { Requests.getActualBookingList(true); newTab("divTabCahier");}          
+                if (Requests.counter == tot) { Requests.getActualBookingList(true); newTab("divTabCahier"); ableToSkipAnimaiton();}  
             }
         });
 

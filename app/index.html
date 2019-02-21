@@ -233,21 +233,34 @@
             <br />
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahier')"></div>
 
-            <div  class="title">Choix de l'embarcation</div>
+            <div class="title">Choix de l'embarcation</div>
 
-            <div class="divTabCahierMaterielChoiceContainer">
-                <div class="divTabCahierMaterielChoiceInputCodeContainer">
-                    <input type="text" autocomplete="off" spellcheck="false" placeholder="Taper le code..." onkeydown="if (event.keyCode == 13) {Requests.getBookableByCode(this);}" /> 
-                    <div></div>
-                    <div>
-                        <div class="ValidateButtons Buttons" onclick="Requests.getBookableByCode(this.parentElement.previousElementSibling.previousElementSibling);">Choisir</div>
-                    </div>
-                </div>
-                <div style="text-align:center; color:gray; font-size:15px; margin-bottom:50px;">Par exemple C32...</div>
-                <div style="text-align:center; margin-bottom:20px;">Ou</div>
+            <div class="MaterielChoiceContainer">
+
+                <!--
+
+        <div class="divTabCahierMaterielChoiceContainer">
+            <div class="divTabCahierMaterielChoiceInputCodeContainer">
+                <input type="text" autocomplete="off" spellcheck="false" placeholder="Taper le code..." onkeyup="
+                    if (event.keyCode == 13) {
+                        Requests.getBookableByCode(this);
+                    }
+                    if (this.value != '') {
+                        this.nextElementSibling.nextElementSibling.children[0].style.backgroundColor = 'rgb(66, 133, 244)';
+                    }
+                    else {this.nextElementSibling.nextElementSibling.children[0].style.backgroundColor = 'lightgray'; }" />
+                <div></div>
                 <div>
-                    <div class="NormalButtons Buttons" onclick="newTab('divTabCahierInfos')">Prendre du matériel personel</div><div class="NormalButtons Buttons" onclick="newTab('divTabCahierMaterielCategories')">Voir la liste du matériel</div>
+                    <div class="ValidateButtons Buttons" onclick="Requests.getBookableByCode(this.parentElement.previousElementSibling.previousElementSibling);" onkeydown="if (event.keyCode == 13) {Requests.getBookableByCode(this.parentElement.previousElementSibling.previousElementSibling); }"></div>
                 </div>
+            </div>
+            <div>Par exemple C32...</div>
+            <div style="text-align:center; margin-bottom:50px; font-size:20px;">Ou</div>
+            <div>
+                <div class="NormalButtons Buttons" onclick="newTab('divTabCahierInfos')">Prendre du matériel personel</div><div class="NormalButtons Buttons" onclick="newTab('divTabCahierMaterielCategories')">Voir la liste du matériel</div>
+            </div>
+        </div>-->
+
             </div>
         </div>
 
@@ -256,7 +269,7 @@
         <div id="divTabCahierMaterielCategories" class="divTab">
             <div style="margin-top:200px; position:relative;"></div>
             <br />
-            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahier')"></div>
+            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielChoice')"></div>
             <!--<br />-->
 
             <div class="title">Activité</div>
@@ -318,7 +331,7 @@
         <div id="divTabCahierInfos" class="divTab">
             <div style="margin-top:200px; position:relative;"></div>
             <br />
-            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielElements')"></div>
+            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielChoice')"></div>
             <br />
 
             <div class="divTabCahierFieldsContainer">
@@ -354,7 +367,7 @@
             <br />
 
             <div style="text-align:center;">
-                <div class="Buttons ValidateButtons" onclick="checkInfos();">Suivant</div>
+                <div class="Buttons ValidateButtons" onclick="checkInfos();" onkeydown="if (event.keyCode == 13) { checkInfos();}">Suivant</div>
             </div>
 
         </div>

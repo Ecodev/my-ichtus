@@ -1,13 +1,18 @@
-function popBookable(bookableId, justPreview = true, CahierBookingNbr = 0, i = -1) {
+function popBookable(bookableId, justPreview = true, nbr = 0) {
+
+    console.log("OPEN OPEN OPEN");
 
 	var modal = openPopUp();
 
-	Requests.getBookableInfos(bookableId, modal);
+	Requests.getBookableInfos(nbr, bookableId, modal);
 
 	//var pop = div($('divModal'));
 	var pop = div(modal);
 	pop.classList.add("Boxes");
-	pop.classList.add("divTabCahierMaterielElementsPopUp");
+    pop.classList.add("divTabCahierMaterielElementsPopUp");
+
+   // document.getElementsByClassName('divTabCahierMaterielChoiceInputCodeContainer')[0].getElementsByTagName('input')[0].blur();
+  //  document.getElementsByClassName('divTabCahierMaterielChoiceInputCodeContainer')[0].getElementsByClassName('ValidateButtons')[0].blur();
 
 	var close = div(pop);
 	close.className  = "divPopUpClose";
@@ -16,7 +21,7 @@ function popBookable(bookableId, justPreview = true, CahierBookingNbr = 0, i = -
 	};
 
 	var imgContainer = div(pop);
-	imgContainer.id = i;
+	//imgContainer.id = i;
 
 	var descriptionTitle = div(pop);
 	descriptionTitle.innerHTML = "Description";
@@ -31,24 +36,14 @@ function popBookable(bookableId, justPreview = true, CahierBookingNbr = 0, i = -
 	if (!justPreview) {
 		var btn = div(pop);
 		btn.classList.add("Buttons"); btn.classList.add("ValidateButtons");
-		btn.innerHTML = "Choisir";
-        btn.addEventListener("click", function () {
+        btn.innerHTML = "Choisir";
+        btn.setAttribute('tabindex', '0');
+        btn.focus();
 
-            var _bookable = {
-                id: currentBookables[this.parentElement.getElementsByTagName("div")[1].id].id,
-                name: currentBookables[this.parentElement.getElementsByTagName("div")[1].id].name,
-                code: currentBookables[this.parentElement.getElementsByTagName("div")[1].id].code
-            };
+        if (currentTabElement.id == "divTabCahierConfirmation") {
+            btn.style.backgroundImage = "url(Img/IconValidated.png)";
+        }
 
-            Cahier.setBookable(CahierBookingNbr, _bookable);
-
-		//	Cahier.bookableId = currentBookables[this.parentElement.getElementsByTagName("div")[1].id].id;
-          //  Cahier.bookableName = currentBookables[this.parentElement.getElementsByTagName("div")[1].id].name;
-
-
-			closePopUp({ target: modal},modal);
-			newTab("divTabCahierInfos");
-		});
 	}
   
 
@@ -63,8 +58,9 @@ function popBookable(bookableId, justPreview = true, CahierBookingNbr = 0, i = -
 }
 
 
-// !! CHANGER PLUS DE $ QUE CLASSS
-function actualizePopBookable(bookable,bookings, elem) {
+
+var eventListenerFunction;
+function actualizePopBookable(nbr, bookable,bookings, elem) {
 
     elem.getElementsByTagName("div")[2].style.backgroundImage = "url(Img/" + bookable.image.id + ".png)";
 	elem.getElementsByClassName('divTabCahierMaterielElementsPopUp')[0].getElementsByTagName("div")[3].innerHTML = bookable.description;
@@ -86,9 +82,45 @@ function actualizePopBookable(bookable,bookings, elem) {
         elem.getElementsByClassName('Buttons')[0].style.visibility = "hidden";
     } 
 
+
+    if (elem.getElementsByClassName("ValidateButtons").length == 1) { // if !justPreview
+
+        var choseFunction = function () {
+
+            Cahier.setBookable(nbr, bookable);
+            closePopUp({ target: elem }, elem);
+            //document.body.removeEventListener("keyup", eventListenerFunction);
+
+            if (currentTabElement.id == "divTabCahierConfirmation") {
+                 closePopUp("last");
+            }
+            else {
+                newTab("divTabCahierInfos");
+            }
+        };
+
+        elem.getElementsByClassName("ValidateButtons")[0].addEventListener("click", choseFunction);
+
+        eventListenerFunction = function (event) {
+            if (event.keyCode == 13 && elem.id == "divModal" + lastModals) { // so the highest modal open
+              //  choseFunction();
+           }
+        };
+
+      //  setTimeout(function () { document.body.addEventListener("keyup", eventListenerFunction); console.log("added event listener"); },4000);
+      //  ("keyup", eventListenerFunction);
+    }
+
     grayBar(elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0]);
 
 	elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[1].id = bookable.id;
 
 
+}
+
+function a() {
+
+    setTimeout(function () {
+        document.getElementsByClassName('divTabCahierMaterielElementsPopUp')[0].getElementsByClassName('ValidateButtons')[0].focus();
+    }, 2000);
 }

@@ -11,7 +11,7 @@ function popCahierBookable(nbr) {
     var close = div(container);
     close.className = "divPopUpClose";
     close.onclick = function () {
-        closePopUp({ target: elem }, elem);
+        closePopUp({ target: elem });
     };
 
     var d = div(container);
@@ -21,5 +21,5 @@ function popCahierBookable(nbr) {
 
     grayBar(container, 5);
 
-    loadMateriel(container);
+    loadCahierMaterielChoice(container,nbr);
 }
