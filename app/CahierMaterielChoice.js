@@ -18,9 +18,9 @@ function loadCahierMaterielChoice(loc = $('divTabCahierMaterielChoice').getEleme
             Requests.getBookableByCode(this,nbr);
         }
         if (this.value != '') {
-            this.nextElementSibling.nextElementSibling.children[0].style.backgroundColor = 'rgb(66, 133, 244)';
+            this.nextElementSibling.nextElementSibling.children[0].classList.add("activated");
         }
-        else { this.nextElementSibling.nextElementSibling.children[0].style.backgroundColor = 'lightgray'; } 
+        else { this.nextElementSibling.nextElementSibling.children[0].classList.remove("activated"); } 
     };
 
     if (!isTab) {

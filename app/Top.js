@@ -17,11 +17,11 @@ function animate() {
         console.log("skipped animation");
         document.body.removeEventListener("mousedown", cancelFunction);
         running = false;
-        DeleteObjects(b, c, w, f, info, document.getElementsByClassName("svgLetters")[0], document.getElementsByClassName("svgLetters")[1], document.getElementsByClassName("svgLetters")[2], document.getElementsByClassName("svgLetters")[3], document.getElementsByClassName("svgLetters")[4], document.getElementsByClassName("svgLetters")[5]);
+        DeleteObjects(b, c, w, f, r, info, document.getElementsByClassName("svgLetters")[0], document.getElementsByClassName("svgLetters")[1], document.getElementsByClassName("svgLetters")[2], document.getElementsByClassName("svgLetters")[3], document.getElementsByClassName("svgLetters")[4], document.getElementsByClassName("svgLetters")[5]);
     };
 
    
-    var b, c, w, f;
+    var b, c, w, f, r;
 
     b = div(document.body);
     b.id = "black";
@@ -29,15 +29,22 @@ function animate() {
     setTimeout(function () {
         if (!running) { return; }
         else {
+
+            r = div(document.body);
+            r.id = "white_circle";
+            addSvgClass(r);
+
             c = div(document.body);
             c.id = "circle";
             addSvgClass(c);
 
             if (document.documentElement.clientWidth < window.innerHeight) {
                 c.style.animationName = "AniCircleWidth";
+                r.style.animationName = "AniCircleWidth";
             }
             else {
                 c.style.animationName = "AniCircleHeight";
+                r.style.animationName = "AniCircleHeight";
             }
            
             setTimeout(newLetter, 1000, 0);
@@ -60,11 +67,13 @@ function animate() {
                 else {
                     w.style.animationName = "AniWavesExit";
                     c.style.animationDuration = "1s";
+                    r.style.animationDuration = "1s";
                     c.style.animationName = "AniCircleExit";
+                    r.style.animationName = "AniCircleExit";
                     f.style.animationName = "AniFishExit,none";
                 
 
-                setTimeout(function () { if (running) { DeleteObjects(w, c, f); } }, 1000);
+                setTimeout(function () { if (running) { DeleteObjects(w, c,r, f); } }, 1000);
 
                 setTimeout(function () {
                     if (!running) { return; }
@@ -104,7 +113,7 @@ function newLetter(i) {
         else {
             d.classList.add("svgHeight");
         }
-        d.style.backgroundImage = "url(Img/svg/" + "ichtus"[i] + ".svg)";
+        d.style.backgroundImage = "url(Img/Logo/" + "ichtus"[i] + ".svg)";
 
         if (i < "ichtus".length - 1) {
             setTimeout(newLetter, 100, i + 1);

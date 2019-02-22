@@ -43,7 +43,7 @@
 }
 
 .PopUpGuestContainer input:focus {
-    /*border-color: rgb(66, 133, 244);*/
+    /*border-color: var(--accent);*/
     /*background-image: url(Img/IconSearchBlue.png);*/
     -webkit-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
     -moz-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);

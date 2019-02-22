@@ -27,7 +27,14 @@ function popUser(nbr = 0) {
     i1.spellcheck = "false";
     i1.type = "text";
     i1.placeholder = "Entrez votre nom, pérnom...";
-    i1.onkeyup = function(){Search(event);};
+    i1.onkeyup = function () {
+        if (this.value.length > 2) {
+            Search(event);
+        }
+        else {
+            $("divTabCahierSearchResult").innerHTML = "<div style='margin-top:10px; color:gray;'>Veuillez taper au moins deux caractères</div>";
+        }
+    };
     i1.onkeydown = function () {SearchDown(event);};
     container.appendChild(i1);
     i1.focus();
@@ -35,12 +42,8 @@ function popUser(nbr = 0) {
     var d = div(container);
     d.id = "divTabCahierSearchResult";
 
-    Search({ keyCode: 1 });
+  //  Search({ keyCode: 1 });
 }
-
-
-
-
 
 
 
@@ -107,8 +110,6 @@ function SearchDown(e) {
                     elem.style.backgroundColor = "darkgray";
                 }
             }
-
-            //createSearchEntries(lastPeople);
         }
         e.preventDefault();
     }
@@ -122,7 +123,7 @@ function createSearchEntries(PeopleCorresponding) {
 
     $("divTabCahierSearchResult").innerHTML = "";
 
-    if (PeopleCorresponding.length == 0) {
+    if (PeopleCorresponding.length == 0) {     
         var divResult = document.createElement("div");
         divResult.classList.add("divTabCahierResultEntry");
         $("divTabCahierSearchResult").appendChild(divResult);
@@ -147,11 +148,6 @@ function createSearchEntries(PeopleCorresponding) {
             //  divResult.id = PeopleCorresponding[i].id;
             divResult.classList.add("divTabCahierResultEntry");
             $("divTabCahierSearchResult").appendChild(divResult);
-
-            //var _firstName = PeopleCorresponding[i].name.split(" ")[0]; // modifier to only peoplecorresponsding[id] fin
-            //var _surName = PeopleCorresponding[i].name.split(" ")[1];
-            //var _id = PeopleCorresponding[i].id;
-            //var _sex = PeopleCorresponding[i].sex;
 
             var nbr = parseInt(document.getElementsByClassName('PopUpUserContainer')[0].id); // modifier problem si plusieurs popUp ouverts...
 

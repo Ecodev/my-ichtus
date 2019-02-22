@@ -44,7 +44,7 @@
 }
 
     #inputTabCahierSearch:focus {
-        border: 2px solid rgb(66, 133, 244);
+        border: 2px solid var(--accent);
         background-color: white;
         -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.6);
         -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.6);
@@ -106,6 +106,7 @@
     -webkit-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
     -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
     box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    color:var(--fontBlack);
 }
 
     .divTabCahierResultEntry:nth-child(2n) {
@@ -128,7 +129,6 @@
     vertical-align: middle;
     left: 0px;
     width: 120px;
-    /*background-color: red;*/
 }
 
 .divTabCahierResultEntry:hover .spanTabCahierSurName {
@@ -140,9 +140,7 @@
     display: table-cell;
     vertical-align: middle;
     left: 0px;
-    /*width: 90%;*/
     text-align: left;
-    /*background-color: green;*/
 }
 
 .divTabCahierResultEntry:hover .spanTabCahierFirstName {

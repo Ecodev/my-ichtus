@@ -1,15 +1,15 @@
 var currentBookables;
-function loadElements(bookables) {
+function loadElements(bookables,nbr = 0) {
 
     currentBookables = bookables;
 
     document.getElementById("divTabCahierMaterielElementsContainer").innerHTML = "";
 
-    if ($('inputTabCahierMaterielElementsInputSearch').value == "") {
+    if ($('inputTabCahierMaterielElementsInputSearch').value == "" && false) { // no more personal sail, the choice could already have been done...
 
         var container = document.createElement("div");
         container.addEventListener("click", function () {
-            Cahier.setBookable(0);
+            Cahier.setBookable(nbr);
             newTab("divTabCahierInfos");
         });
 
@@ -42,7 +42,9 @@ function loadElements(bookables) {
         container = document.createElement("div");
         container.id = i;
         container.addEventListener("click", function () {
-            popBookable(bookables[this.id].id, false, 0, this.id);
+            //popBookable(bookables[this.id].id, false, 0, this.id);
+            Cahier.setBookable(nbr,bookables[this.id]);
+            newTab("divTabCahierInfos");
         });
 
         $("divTabCahierMaterielElementsContainer").appendChild(container);
@@ -58,10 +60,10 @@ function loadElements(bookables) {
         secondContainer.appendChild(bottom);
 
         brand = div(bottom);
-        brand.innerHTML = bookables[i].name.shorten(180);
+        brand.innerHTML = bookables[i].name.shorten(180*2,20);
 
-        model = div(bottom);
-        model.innerHTML = bookables[i].id;
+      //  model = div(bottom);
+      //  model.innerHTML = bookables[i].id;
 
         //var info = div(secondContainer);
 

@@ -1,5 +1,4 @@
 #divTabCahierMaterielChoice {
-    background-color:white;
 }
 
 .divTabCahierMaterielChoiceContainer {
@@ -8,7 +7,7 @@
 
 .divTabCahierMaterielChoiceInputCodeContainer {
     text-align: center;
-    margin-top: 20px;
+    margin-top:15px;
     margin-bottom: 5px;
     height:55px;
 }
@@ -56,7 +55,7 @@
         text-transform: initial;
     }
         .divTabCahierMaterielChoiceContainer input:focus {
-            border-color: rgb(66, 133, 244);
+            border-color: var(--accent);
             background-color: white;
         }
 
@@ -65,7 +64,7 @@
         }
 
         .divTabCahierMaterielChoiceContainer  input:focus ~ div:nth-child(2) {
-            background-color: rgb(66, 133, 244);
+            background-color: var(--accent);
         }
 
 
@@ -90,11 +89,14 @@
             background-position:center;
             background-position-x:30px;
         }
-            .divTabCahierMaterielChoiceInputCodeContainer > div:nth-child(3):hover .Buttons {
-                margin-left: 4px;
-                -webkit-box-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.6) !important;
-                -moz-box-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.6) !important;
-                box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.6) !important;
+            .divTabCahierMaterielChoiceInputCodeContainer > div:nth-child(3) .Buttons:not(.activated) {
+                cursor:initial  ;
+            }
+            .divTabCahierMaterielChoiceInputCodeContainer > div:nth-child(3) .Buttons.activated {
+                background-color:var(--accent);
+            }
+            .divTabCahierMaterielChoiceInputCodeContainer > div:nth-child(3) .Buttons.activated:hover {
+                background-color: var(--accentHover);
             }
 
 
@@ -110,7 +112,7 @@
 .divTabCahierMaterielChoiceInputCodeContainer + div + div{
     text-align: center;
     margin-bottom: 50px;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 

@@ -69,16 +69,19 @@ function actualizeActualBookings(actualBookings,first) {
             d.classList.add('TableEntriesAlert');
             d.style.filter = "grayscale(1) invert(1)";
             d.title = "+ de 4 heures";
+            divDate.title = "+ de 4 heures";
 
             if (Date.now() - (new Date(actualBookings[i].startDate)).getTime() > maxHours/2 * 60 * 60 * 1000) {
                 d.style.filter = "none";
                 d.style.filter = "grayscale(1)";
                 d.title = "+ de 12 heures";
+                divDate.title = "+ de 12 heures";
             }
 
             if (Date.now() - (new Date(actualBookings[i].startDate)).getTime() > maxHours * 60 * 60 * 1000) {
                 d.style.filter = "none";
                 d.title = "+ de 24 heures";
+                divDate.title = "+ de 24 heures";
             }
         }
         
@@ -87,20 +90,22 @@ function actualizeActualBookings(actualBookings,first) {
         divDate.innerHTML += (new Date(actualBookings[i].startDate)).getNiceTime(":", true);
 
 
-        div(container).innerHTML = actualBookings[i].participantCount;
+        var participantCount = div(container);
+        participantCount.innerHTML = actualBookings[i].participantCount;
+        participantCount.title = Cahier.getnbrParticipantsText(actualBookings[i].participantCount);
 
         div(container).innerHTML = Cahier.getOwner(actualBookings[i],true);
 
         if (actualBookings[i].bookables.length == 0) {
-            div(container).innerHTML = "Matériel Personel";
+            createBookingBookableBox(div(container));
         }
         else {
-            createBookingBookableBox(div(container), { code: actualBookings[i].bookables[0].code, name: actualBookings[i].bookables[0].name });
+            createBookingBookableBox(div(container), { code: actualBookings[i].bookables[0].code, name: actualBookings[i].bookables[0].name, image: { id: "url(Img/IconWoman.png)" }  });
         }
 
-        div(container).innerHTML = actualBookings[i].destination.shorten(150,20);
+        div(container).innerHTML = actualBookings[i].destination.shorten(150,16);
 
-        div(container).innerHTML = getStartCommentFromBooking(actualBookings[i]).shorten(200, 20);
+        div(container).innerHTML = getStartCommentFromBooking(actualBookings[i]).shorten(200, 16);
 
         var c = div(container);
         var btn = div(c);
@@ -110,15 +115,26 @@ function actualizeActualBookings(actualBookings,first) {
     sortTable($('divTabCahierTableActualBookings'));
 }
 
-function createBookingBookableBox(elem, infos = { code: 9, name: "hello" }) {
-    var d = elem;
-    var cat = div(d);
-    cat.id = "catégorie" + infos.code;
+function createBookingBookableBox(d, bookable = { code: "ZZZ", name: "", image: { id: ""} }) { // $$ not id but ?
+    
     var img = div(d);
+    img.id = bookable.code;
     var code = div(d);
-    code.innerHTML = infos.code;
+
+    if (bookable.code == "ZZZ") { // to be at the bottom of the list
+        img.style.backgroundImage = "url(Img/IconPersonalSail.png)";
+        code.style.backgroundImage = "none";
+        code.innerHTML = "Matériel Personel";
+        code.style.fontSize = "16px";
+        code.style.width = "200px";
+        code.style.lineHeight = "35px";
+    }
+    else {
+        img.style.backgroundImage = bookable.image.id;
+        code.innerHTML = bookable.code;
+    }
     var name = div(d);
-    name.innerHTML = infos.name;//.shorten(200, 18);
+    name.innerHTML = bookable.name;//.shorten(200, 18);
     d.classList.add("TableEntriesBookableBox");
 }
 
@@ -318,15 +334,15 @@ function actualizeFinishedBookingListForDay(bookings,table) {
             div(entry).innerHTML = Cahier.getOwner(bookings[i],true);
 
             if (bookings[i].bookables.length == 0) {
-                div(entry).innerHTML = "Matériel Personel";
+                createBookingBookableBox(div(entry));
             }
             else {
-                createBookingBookableBox(div(entry), { code: bookings[i].bookables[0].code, name: bookings[i].bookables[0].name });
+                createBookingBookableBox(div(entry), { code: bookings[i].bookables[0].code, name: bookings[i].bookables[0].name, image: {id:"url(Img/IconWoman.png)"} });
             }
 
-            div(entry).innerHTML = bookings[i].destination.shorten(150, 20);
-            div(entry).innerHTML = getStartCommentFromBooking(bookings[i]).shorten(200, 20);; // "".shorten(200, 200);//getStartCommentFromBooking(bookings[i]);//.startComment.shorten(200, 20); // BIZARRRRERELRKJASéDL KFJASéDLF JKAéSLDKFJ 
-            div(entry).innerHTML = getEndCommentFromBooking(bookings[i]);//.endComment.shorten(200, 20);
+            div(entry).innerHTML = bookings[i].destination.shorten(150, 16);
+            div(entry).innerHTML = getStartCommentFromBooking(bookings[i]).shorten(200, 16);; // "".shorten(200, 200);//getStartCommentFromBooking(bookings[i]);//.startComment.shorten(200, 20); // BIZARRRRERELRKJASéDL KFJASéDLF JKAéSLDKFJ 
+            div(entry).innerHTML = getEndCommentFromBooking(bookings[i]).shorten(200,16);//.endComment.shorten(200, 20);
 
         }
 

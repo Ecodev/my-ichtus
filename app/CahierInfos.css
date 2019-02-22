@@ -1,6 +1,4 @@
 ﻿#divTabCahierInfos {
-    background-color: white;  
-
 }
 .divTabCahierFieldsContainer {
     text-align: center;
@@ -112,7 +110,7 @@
     background-color: white;
 }
     .TabCahierFields input:focus {
-        /*border-color:rgb(66, 133, 244);*/
+        /*border-color:var(--accent);*/
         -webkit-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
         -moz-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
         box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
@@ -137,7 +135,7 @@
     background-size:50px;
 }
 /*.TabCahierFields input[type=text]:focus ~ div:nth-child(2) {
-    background-color:rgb(66, 133, 244);
+    background-color:var(--accent);
 }*/
 
 

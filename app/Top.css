@@ -7,7 +7,6 @@
     left: 0px;
     z-index: 90;
     opacity: 1;
-
 }
 
 #divRightBar {
@@ -23,7 +22,7 @@
     position: fixed;
     width: 100%;
     height: 65px;
-    background-color: rgb(0, 0, 0);
+    background-color: black;
     z-index: 100; /*définir*/
     transition: all 0.1s linear 0s;
     -moz-box-shadow: 1px 1px 5px rgba(0,0,0,0.7);
@@ -84,17 +83,23 @@
 #divTopBarLogo {
     position: absolute;
     background-color: transparent;
-    width: 65px;
-    height: 65px;
+    width: 60px;
+    height: 60px;
+    top:2px;
+    left:2px;
     animation: EnterFromLeft 0.5s ease-out 1 normal;
 }
     #divTopBarLogo > img {
         position:absolute;
-        width:65px;
+        width:60px;
         transition:all 2s ease-in-out 0s;
     }
-    #divTopBarLogo:hover > img:nth-child(2) {
-        transform:rotate(-360deg);
+    #divTopBarLogo:hover > img:nth-child(3) {
+        -moz-transform: rotate(-360deg);
+        -ms-transform: rotate(-360deg);
+        -o-transform: rotate(-360deg);
+        -webkit-transform: rotate(-360deg);
+        transform: rotate(-360deg);
     }
 
     #divTopBarLogo:hover > img {
@@ -108,8 +113,13 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    font-size: 30px;
+    font-size: 35px;
     animation: EnterFromTop 0.5s ease-out 1 normal;
+    width:100%;
+    padding-left:150px;
+    padding-right:150px;
+    box-sizing:border-box;
+    text-align:center;
 }
 
 /*#endregion*/
@@ -165,7 +175,7 @@
 }
 #fish {
     transform-origin: 0% 0%;
-    background-image: url(Img/svg/fish.svg);
+    background-image: url(Img/Logo/fish.svg);
     animation-name: AniFish, AniFishTurn;
     animation-duration: 1s, 2.5s;
     animation-timing-function: ease-in-out,ease-in-out;
@@ -196,7 +206,7 @@
     }
 }
 #waves {
-    background-image: url(Img/svg/waves.svg);
+    background-image: url(Img/Logo/waves.svg);
     animation-name: AniWaves;
     animation-duration: 1s;
     animation-timing-function: ease-in-out;
@@ -237,7 +247,17 @@
 }
 #circle {
     z-index: 9995;
-    background-image: url(Img/svg/circle.svg);
+    background-image: url(Img/Logo/circle.svg);
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-timing-function: ease;
+    margin-right: 0px;
+    opacity: 1;
+}
+
+#white_circle {
+    z-index: 9993;
+    background-image: url(Img/Logo/white_circle.svg);
     animation-duration: 2s;
     animation-delay: 0s;
     animation-timing-function: ease;

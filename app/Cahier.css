@@ -1,6 +1,5 @@
 ﻿#divTabCahier {
     top: 0px;
-    background-color: white;
     z-index: 5;
     opacity: 1;
 }
@@ -26,7 +25,6 @@
         width: 170px;
         height: 270px;
         margin: 10px;
-        /*background-color: yellow;*/
         text-align:center;
     }
         #divTabCahierNewBookingBox > div:nth-child(2n+1) > div {
@@ -49,7 +47,7 @@
                 width: 100%;
                 bottom: 5px;
                 text-align: center;
-                font-size: 25px;
+                font-size: 20px;
             }
             #divTabCahierNewBookingBox > div > div > .Boxes > img {
                 position: absolute;
@@ -61,7 +59,7 @@
                 -webkit-transition: all 2s ease 0.5s;
                 transition: all 2s ease 0.5s;
             }
-            #divTabCahierNewBookingBox > div:nth-child(1):hover > div > .Boxes > img:nth-child(2) {
+            #divTabCahierNewBookingBox > div:nth-child(1):hover > div > .Boxes > img:nth-child(3) {
                 -moz-transform: rotate(-360deg);
                 -ms-transform: rotate(-360deg);
                 -o-transform: rotate(-360deg);
@@ -228,9 +226,10 @@
     background-color: white;
     min-height: 50px;
     box-sizing: border-box;
-    font-size: 20px;
+    font-size: 16px;
     transition: all 0.1s linear 0s;
     display: table-row;
+    color:var(--fontBlack);
     /*animation: OpacityAnimation 1s linear;*/
 
 }
@@ -258,9 +257,6 @@
         }
 
         .TableEntries .Buttons:hover {
-            /*margin-left: 4px;*/
-            /*margin-right: 0px;*/
-            
             background-color: rgb(137, 16, 16)
         }
 
@@ -383,28 +379,26 @@
         margin-top:5px;
         margin-bottom:5px;
     }
-    .TableEntriesBookableBox > div:nth-child(1) {
+    /*.TableEntriesBookableBox > div:nth-child(1) {
         width: 35px;
         height: 35px;
         background-image: url(Img/IconSup.png);
         background-size: 35px;
         margin-right: 5px;
-    }
-    .TableEntriesBookableBox > div:nth-child(2) {
+    }*/
+    .TableEntriesBookableBox > div:nth-child(1) {
         width: 35px;
         height: 35px;
         background-image: url(Img/Materiel/Sail.png);
         background-size: 35px;
     }
-    .TableEntriesBookableBox > div:nth-child(3) {
-        color:black;
-        font-size:25px;
+    .TableEntriesBookableBox > div:nth-child(2) {
+        font-size:20px;
         font-weight:300;
+        margin:5px;
     }
-    .TableEntriesBookableBox > div:nth-child(4) {
-        color: black;
-        font-size: 18px;
-        margin-left: 10px;
+    .TableEntriesBookableBox > div:nth-child(3) {
+        font-size: 16px;
     }
 
     .TableEntriesImg {
@@ -462,7 +456,6 @@
     .radioContainer > div {
         position: relative;
         display: inline-block;
-        background-color: transparent;
         cursor: pointer;
     }
 
@@ -475,12 +468,14 @@
         }
 
         .radioContainer > .radioSelected > div:nth-child(2) {
-            color: rgb(66,133,244);
+            color: var(--accent);
         }
 
+
         .radioContainer > .radioSelected > div:nth-child(1) > div {
-            background-color: rgb(66,133,244);
+            background-color: var(--accent);
         }
+
 
     .radioContainer > div > div {
         display: inline-block;
@@ -657,7 +652,7 @@
 
 
     #divTabCahierTables > input:focus {
-        border-color: rgb(66, 133, 244);
+        border-color: var(--accent);
         background-image: url(Img/IconSearchBlue.png);
         width: 200px;
         -webkit-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
@@ -682,7 +677,8 @@
 }
 .BookingsTableText {
     margin-top:50px;
-    font-size: 30px;
+    margin-bottom:10px;
+    font-size: 25px;
     animation: TextAnimation 0.4s ease-out 1 normal;
 }
 .BookingsTableTextNoBooking {

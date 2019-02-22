@@ -58,7 +58,7 @@
     border-radius: 50px;
     background-color: white;
     border-width: 2px;
-    border-color: rgb(66, 133, 244);
+    border-color: var(--accent);
     border-style: solid;
     color: black;
     font-size: 50px;
@@ -68,22 +68,22 @@
 }
 
 .divTabCahierProgressStepCompleted .divTabCahierProgressCircle {
-    border-color: rgb(66, 133, 244);
+    border-color: var(--accent);
     background-image: url(Img/IconCheckSignBlue.png);
     background-repeat: no-repeat;
     background-color: white;
 }
 
 .divTabCahierProgressStepCompleted:hover .divTabCahierProgressCircle {
-    border-color: rgb(66, 133, 244);
+    border-color: var(--accent);
     background-image: none;
-    background-color: rgb(66, 133, 244);
+    background-color: var(--accent);
 }
 
 .divTabCahierProgressStepCurrent .divTabCahierProgressCircle {
-    border-color: rgb(66, 133, 244);
+    border-color: var(--accent);
     background-image: none;
-    background-color: rgb(66, 133, 244);
+    background-color: var(--accent);
 }
 
 .divTabCahierProgressStepIncompleted .divTabCahierProgressCircle {
@@ -134,7 +134,7 @@
     top: 60px;
     width: 300%;
     height: 20px;
-    color: rgb(66, 133, 244);
+    color: var(--accent);
     font-size: 15px;
     text-align: center;
     transition: all 0.3s linear 0s;
@@ -142,11 +142,11 @@
 }
 
 .divTabCahierProgressStepCompleted .divTabCahierProgressText {
-    color: rgb(66, 133, 244);
+    color: var(--accent);
 }
 
 .divTabCahierProgressStepCurrent .divTabCahierProgressText {
-    color: rgb(66, 133, 244);
+    color: var(--accent);
 }
 
 .divTabCahierProgressStepIncompleted .divTabCahierProgressText {
@@ -171,7 +171,7 @@
     margin-top: -2px;
     width: 0%;
     height: 4px;
-    background-color: rgb(66, 133, 244);
+    background-color: var(--accent);
     z-index: 6;
     transition: all 1s linear 0s;
 }
@@ -192,10 +192,10 @@
 #divTabCahierInfosName {
     position: absolute;
     left: 2.5%;
-    top: 127px;
+    top: 130px;
     height: 45px;
     color: gray;
-    font-size: 30px;
+    font-size: 25px;
 }
 
 

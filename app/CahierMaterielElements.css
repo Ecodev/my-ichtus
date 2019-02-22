@@ -55,9 +55,9 @@
             height: 40px;
             border-top-left-radius: 20px;
             background-color: white;
-            -webkit-box-shadow: -1px -1px 5px 0px rgba(0,0,0,0.75);
-            -moz-box-shadow: -1px -1px 5px 0px rgba(0,0,0,0.75);
-            box-shadow: -1px -1px 5px 0px rgba(0,0,0,0.75);
+            -webkit-box-shadow: -1px -1px 3px 0px rgba(0,0,0,0.3);
+            -moz-box-shadow: -1px -1px 3px 0px rgba(0,0,0,0.3);
+            box-shadow: -1px -1px 3px 0px rgba(0,0,0,0.3);
             font-size: 25px;
             font-weight: bold;
             text-align: center;
@@ -68,6 +68,7 @@
 
         #divTabCahierMaterielElementsContainer > div > div > div:nth-child(2) {
             position: absolute;
+            display:table;
             left: 0px;
             top: 220px;
             width: 100%;
@@ -80,6 +81,7 @@
             opacity: 1;
             z-index: 3;
             transition: background-color 0.1s linear 0s;
+            text-align:right;
         }
 
         #divTabCahierMaterielElementsContainer > div:hover > div > div:nth-child(2) {
@@ -87,18 +89,21 @@
         }
 
         #divTabCahierMaterielElementsContainer > div > div > div:nth-child(2) > div:nth-child(1) {
-            position: absolute;
-            left: 2.5%;
-            top: 10px;
-            width: 95%;
+            position: relative;
+            display: table-cell;
+            vertical-align: middle;
+            margin-top: 20px;
+            width: 200px;
             height: 25px;
             font-size: 20px;
-            color: gray;
+            color: black;
             transition: all 0.1s linear 0s;
+            text-align: center;
+            padding: 5px 10px 5px 10px;
         }
 
 
-        #divTabCahierMaterielElementsContainer > div > div > div:nth-child(2) > div:nth-child(2) {
+        /*#divTabCahierMaterielElementsContainer > div > div > div:nth-child(2) > div:nth-child(2) {
             position: absolute;
             left: 2.5%;
             top: 40px;
@@ -106,15 +111,15 @@
             height: 25px;
             font-size: 23px;
             transition: all 0.1s linear 0s;
-        }
+        }*/
 
-        #divTabCahierMaterielElementsContainer > div:hover div > div:nth-child(2) > div:nth-child(1) {
+        /*#divTabCahierMaterielElementsContainer > div:hover div > div:nth-child(2) > div:nth-child(1) {
             font-size: 23px;
         }
 
         #divTabCahierMaterielElementsContainer > div:hover div > div:nth-child(2) > div:nth-child(2) {
             font-size: 25px;
-        }
+        }*/
 
         /*#divTabCahierMaterielElementsContainer > div > div > div:nth-child(3) {
             position: absolute;
@@ -332,7 +337,7 @@
     }
 
     #inputTabCahierMaterielElementsInputSearch:focus {
-        border-color: rgb(66, 133, 244);
+        border-color: var(--accent);
         background-image: url(Img/IconSearchBlue.png);
         width: 200px;
         -webkit-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
@@ -394,19 +399,9 @@
         box-sizing: border-box;
         padding: 8px;
         overflow-y:auto;
-        /*-moz-box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);
-        -webkit-box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);
-         box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75);*/
+        color:var(--fontBlack);
     }
 
-    /*.divTabCahierMaterielElementsPopUp > div:nth-child(4)::-webkit-scrollbar{
-        width:2px;
-        background-color:lightgray;
-    }
-        .divTabCahierMaterielElementsPopUp > div:nth-child(4)::-webkit-scrollbar-thumb {
-            width: 2px;
-            background-color: gray;
-        }*/
 
     .divTabCahierMaterielElementsPopUp > .ValidateButtons {
         position: absolute;
@@ -442,6 +437,7 @@
     width:420px;
     top:20px;
     font-size:20px;
+    color:var(--fontBlack);
 }
 
 .divTabCahierMaterielElementsContainerTextsContainer > div {
@@ -454,11 +450,16 @@
 }
 
     .divTabCahierMaterielElementsContainerTextsContainer > div:nth-child(2) {
-        color:darkgray;
-        margin-bottom:10px;
+        color: var(--fontBlack);
+        margin-bottom: 10px;
+    }
+
+    .divTabCahierMaterielElementsContainerTextsContainer > div:nth-child(3) {
+       font-size:15px;
+       color:darkgray;
     }
 
     .divTabCahierMaterielElementsContainerTextsContainer > div:nth-child(4) {
-       font-size:15px;
+        color: gray;
     }
 

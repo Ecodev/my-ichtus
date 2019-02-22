@@ -20,15 +20,15 @@
     top: 20px;
     width: 95%;
     height: 25px;
-    font-size: 30px;
+    font-size: 25px;
     text-align: center;
     background-color: white;
     color: black;
     transition: all 0.1s linear 0s;
 }
-.Boxes:hover .BoxesBottomText1 {
-    font-size: 35px;
-}
+/*.Boxes:hover .BoxesBottomText1 {
+    font-size: 30px;
+}*/
 
     .BoxesBottomText2 {
         position: absolute;
