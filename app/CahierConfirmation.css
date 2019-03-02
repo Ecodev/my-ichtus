@@ -350,4 +350,31 @@
     right:-15px;
 }
 
-
+#divTabConfrimationButtonsContainer {
+    position: relative;
+    width: 600px;
+    min-height: 10px;
+    /*background-color: white;*/
+    left: 50%;
+    transform:translateX(-50%);
+    text-align: center;
+    /*border: 2px solid lightgray;*/
+    border-radius: 20px;
+    text-align: center;
+    margin-top: 5px;
+}
+    #divTabConfrimationButtonsContainer > .Buttons:first-child {
+        background-image: url(Img/Logo/full_icon.svg);
+    }
+    #divTabConfrimationButtonsContainer > .Buttons:nth-child(2){
+        background-image: url(Img/IconGuest.png);
+    }
+    #divTabConfrimationButtonsContainer >  .Buttons {
+        vertical-align:bottom;
+        display: inline-block;
+        width:170px;
+        background-position:center;
+        background-position-x:5px;
+        padding-left:50px;
+        margin:10px 10px 10px 10px;
+    }

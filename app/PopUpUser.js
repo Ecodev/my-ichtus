@@ -32,7 +32,7 @@ function popUser(nbr = 0) {
             Search(event);
         }
         else {
-            $("divTabCahierSearchResult").innerHTML = "<div style='margin-top:10px; color:gray;'>Veuillez taper au moins deux caractères</div>";
+            $("divTabCahierSearchResult").innerHTML = "<div style='margin-top:10px; color:gray;'>Veuillez taper au moins trois caractères</div>";
         }
     };
     i1.onkeydown = function () {SearchDown(event);};

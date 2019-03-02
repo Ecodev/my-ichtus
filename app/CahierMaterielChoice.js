@@ -3,7 +3,6 @@ function loadCahierMaterielChoice(loc = $('divTabCahierMaterielChoice').getEleme
     var isTab = true;
     if (loc != $('divTabCahierMaterielChoice').getElementsByClassName("MaterielChoiceContainer")[0]) {
         isTab = false;
-
     }     
 
     var container = div(loc);
@@ -61,7 +60,10 @@ function loadCahierMaterielChoice(loc = $('divTabCahierMaterielChoice').getEleme
             btn2.onclick = function () { newTab('divTabCahierMaterielCategories'); };
         }
         else {
-            btn2.onclick = function () { alert('a'); };
+           // btn2.onclick = function () { alert('a'); };
+            btn2.style.backgroundColor = "lightgray";
+            btn2.style.opacity = 0.5;
+            btn2.style.cursor = "no-drop";
         }
         btn2.classList.add("NormalButtons", "Buttons");
 }

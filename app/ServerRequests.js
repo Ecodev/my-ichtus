@@ -848,6 +848,7 @@ var Requests = {
         });
     },
 
+    // getBookingsNbrBetween
     getBookingsNbrBetween: function (start,end,bookableId = "%",elem=document.body,writeIfOne = true) {
         var filter = {
             filter: {
@@ -926,6 +927,7 @@ var Requests = {
         });
     },
 
+    // getBookingFinishInfos
     getBookingFinishInfos: function (bookingId, elem) {
 
         var filter = {
@@ -957,11 +959,13 @@ var Requests = {
     terminateBooking: function (bookingId, comment) {
         alert(comment);
         Server.bookingService.flagEndDate(bookingId, comment).subscribe(result => {
-            Requests.getActualBookingList(true);
+            setTimeout(function () {
+                Requests.getActualBookingList(true);
+            }, 5000);
         });
     },
 
-    //createBooking
+    // createBooking
     counter: 0,
     createBooking: function (i,tot) {
 

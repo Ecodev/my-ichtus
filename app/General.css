@@ -18,7 +18,7 @@
     --accent: rgb(49, 118, 162);
     /*--accent: blue;*/
     --accentHover: rgb(62, 149, 204);
-    --fontBlack: RED;
+    --fontBlack: #444;
 }
 
 td {
@@ -121,7 +121,7 @@ option {
     margin-top: -30px;
     width: 100%;
     font-size: 25px;
-    color: black;
+    color: var(--fontBlack);
     text-align: center;
 }
 
