@@ -60,8 +60,8 @@ function Search(e) {
             if (typeof all[i].getElementsByTagName("img")[0] != "undefined") {
                 var _firstName = all[i].getElementsByClassName("spanTabCahierFirstName")[0].innerHTML;
                 var _surName = all[i].getElementsByClassName("spanTabCahierSurName")[0].innerHTML;
-                var _id = all[i].id;
-                var _sex = "male"; // modifier
+                var _id = lastPeople[all[i].id].id;
+                var _sex = lastPeople[all[i].id].sex; // modifier
 
                 var nbr = parseInt(document.getElementsByClassName('PopUpUserContainer')[0].id); // modifier problem si plusieurs popUp ouverts...
 

@@ -899,6 +899,87 @@ var Requests = {
         });
     },
 
+    // getMonthlyBookingsNbr
+    getMonthlyBookingsNbr: function (start, end, elem) {
+        var filter = {
+            filter: {
+                groups: [
+                    {
+                        conditions: [{
+                            startDate: {
+                                between: {
+                                    from: start,
+                                    to: end
+                                }
+                            }
+                        }]
+                    }
+                ]
+            },
+            pagination: {
+                pageSize: 0,
+                pageIndex: 0
+            }
+        };
+
+        var variables = new Server.QueryVariablesManager();
+        variables.set('variables', filter);
+
+        Server.bookingService.getAll(variables).subscribe(result => {
+            console.log("getMonthlyBookingsNbr(): ", result.length + " sorties", result);
+
+            var all = document.getElementsByClassName("divBottoms");
+            for (var i = 0; i < all.length; i++) {
+                if (result.length == 0) {
+                    all[i].children[0].innerHTML = "Aucune sortie ce mois";
+                }
+                else {
+                    all[i].children[0].innerHTML = Cahier.getSingularOrPlural(result.length, " sortie") + " ce mois";
+                }
+            }
+            
+        });
+    },
+
+
+    // getStats
+    getStats: function (start,end,elem) {
+
+        var f = {
+            filter: {
+                groups: [
+                    {
+                        conditions: [{
+                            startDate: {
+                                between: {
+                                    from: start,
+                                    to: end
+                                }
+                            }
+                        }]
+                    }
+                ]
+            },
+            pagination: {
+                pageSize: 10000,
+                pageIndex: 0
+            },
+            sorting: [{
+                field: "startDate",
+                order:"ASC"
+            }]
+        };
+
+        var variables = new Server.QueryVariablesManager();
+        variables.set('variables', f);
+
+        Server.bookingService.getAll(variables).subscribe(result => {
+            console.log("getStats(): ", result);
+
+            actualizeStats(start,end, elem,result.items);
+        });
+    },
+
     // getBookingInfos
     getBookingInfos: function (bookingId, elem) {
 
@@ -988,6 +1069,8 @@ var Requests = {
             };
         }
 
+        console.log(input);
+
 
         Server.bookingService.create(input).subscribe(booking => {
 
@@ -1001,14 +1084,14 @@ var Requests = {
                 }).subscribe(() => {
                     console.log('Linked Bookable : ', booking);
                     Requests.counter++;
-                    if (Requests.counter == tot) { Requests.getActualBookingList(true); newTab("divTabCahier"); ableToSkipAnimaiton();}
+                    if (Requests.counter == tot) { newTab("divTabCahier"); Requests.getActualBookingList(true);  ableToSkipAnimaiton();}
                    
                 });
             }
             else {
                 console.log("Matériel Personel");
                 Requests.counter++;
-                if (Requests.counter == tot) { Requests.getActualBookingList(true); newTab("divTabCahier"); ableToSkipAnimaiton();}  
+                if (Requests.counter == tot) { newTab("divTabCahier"); Requests.getActualBookingList(true);  ableToSkipAnimaiton();}  
             }
         });
 

@@ -27,7 +27,7 @@ function popCahierInfos(nbr) {
         var divParticipantCount = div(c);
         divParticipantCount.classList.add("TabCahierFields");
         divParticipantCount.classList.add("divTabCahierInfosNbrInvites");
-        divParticipantCount.innerHTML += "*Nbr de participants";
+        divParticipantCount.innerHTML += "Nbr de participants";
 
             var i = input(divParticipantCount);
             i.type = "number";
@@ -77,7 +77,7 @@ function popCahierInfos(nbr) {
     var divDestination = div(c);
     divDestination.classList.add("TabCahierFields");
     divDestination.classList.add("divTabCahierInfosDestination");
-    divDestination.innerHTML += "*Destination";
+    divDestination.innerHTML += "Destination";
 
         var i = input(divDestination);
         i.value = Cahier.bookings[nbr].destination;

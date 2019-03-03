@@ -161,9 +161,7 @@ window.onhashchange = function () {
             removeProgressBar(sign);
         }
 
-
         //alert("NEW: " + NewElement.id + " / " + NewElement.TopBar +"  OLD: " + OldElement.id +" / " +OldElement.TopBar);
-
 
         // Enter & Remove Functions
         NewElement.Enter();
@@ -176,7 +174,6 @@ window.onhashchange = function () {
         else {
             $('divTopBarText').innerHTML = "Cahier de sortie";
         }
-
 
         // WhiteBar
         //$("divTopBarButtonsBar").style.marginLeft = -(widthScreen - 2 * SpaceLeft) / 3 * (-NewElement.position + 0.5) + "px";
@@ -194,6 +191,13 @@ window.onhashchange = function () {
     }
 };
 
+// historyBackTab
+function historyBackTab(elem) {
+    //var actualTab = elem.parentElement.id;
+    if (true) {
+        window.history.back();
+    }
+}
 
 
 

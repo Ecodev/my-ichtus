@@ -79,7 +79,8 @@ function animate() {
                     if (!running) { return; }
                     else {
                         b.style.animationName = "AniBlackExit";
-                        DeleteObjects(b,info);
+                        DeleteObjects(b, info);
+                     //   location.reload();
                     }
                     document.body.removeEventListener("mousedown", cancelFunction);
                     }, 500);

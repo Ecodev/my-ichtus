@@ -34,7 +34,7 @@ function load() {
     createAllPropositions();
     window.location = "#" + "divTabCahier";
     loadReturnButtons(); // OUI OU NON ???????
-    loadSpacers();
+
     loadTableTopBars();
     loadCahierMaterielChoice();
     loadEscListener();
@@ -43,6 +43,7 @@ function load() {
     //SERVER
     ServerInitialize();
     Requests.checkLogin();
+    loadBottoms();
 
     loadMateriel();
   //  loadButtonFocus();

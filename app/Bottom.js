@@ -1,4 +1,5 @@
-function loadSpacers() {
+function loadBottoms() {
+
     var allDivTabs = document.getElementsByClassName("divTab"); 
     for (var i = 0; i < allDivTabs.length; i++) {
         var s = div(allDivTabs[i]);
@@ -6,5 +7,12 @@ function loadSpacers() {
 
         var b = div(allDivTabs[i]);
         b.className = "divBottoms";
+
+        var divMonth = div(b);
+        divMonth.onclick = function () { popStats(); };
     }
+
+    var end = new Date();
+    var start = new Date(end.getFullYear(), end.getMonth(), 0, 0, 0, 0, 1);
+    Requests.getMonthlyBookingsNbr(start, end);
 }

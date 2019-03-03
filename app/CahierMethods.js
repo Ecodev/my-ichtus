@@ -15,7 +15,7 @@ var Cahier = {
     },
 
 
-    getnbrParticipantsText: function (nbr = Cahier.nbrParticipants, txt = " Participant") {
+    getSingularOrPlural: function (nbr = Cahier.nbrParticipants, txt = " Participant") {
         if (nbr == 0) {
             return "Aucun";
         }
@@ -199,14 +199,6 @@ var Cahier = {
 
     actualizeConfirmation: function () {
 
-        //var allDiv = $('divTabCahierConfirmation').getElementsByClassName("divConfirmationTexts");
-        //var allDivTexts = [];
-        //var allDivIcons = [];
-        //for (var i = 0; i < allDiv.length; i++) {
-        //    allDivIcons[i] = allDiv[i].getElementsByTagName("div")[0].getElementsByTagName("div")[0];
-        //    allDivTexts[i] = allDiv[i].getElementsByTagName('div')[3];
-        //}
-
         var booking = {}; //simuler un vrai booking 
         if (Cahier.personId != "") {
             booking = { owner: { name: Cahier.getFullName() } };
@@ -218,44 +210,6 @@ var Cahier = {
         $('divTabConfirmationTitle').innerHTML = Cahier.getOwner(Cahier.bookings[0], true, { length: 1000000, fontSize: 25 }) + "<div style='display:inline-block; vertical-align:middle; margin-left:8px;'> à " + date.getNiceTime() + "</div>";
 
 
-
-    //    $('divTabConfirmationStartTime').innerHTML = "Départ à " + date.getNiceTime();
-
-
-        //allDivTexts[0].innerHTML = Cahier.getOwnerNameFromBooking(booking, { length: 1000000, fontSize: 35 });
-
-        //allDivTexts[1].innerHTML = date.getNiceTime();
-
-        //$('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = Cahier.bookableName;
-        //$('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = Cahier.bookableId;
-
-        //if (Cahier.bookableId == "") {
-        //    $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].style.backgroundImage = "url('Img/IconSup.png')";
-        //}
-
-
-        //if (Cahier.bookableId != "") {
-        //    $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].addEventListener("click", function () { popBookable(Cahier.bookableId); });
-        //    $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = Cahier.bookableName;
-        //    $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = Cahier.bookableId + " caté";
-        //    $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].style.visibility = "visible";
-        //}
-        //else {
-        //    $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = "Matériel personel";
-        //    $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = "";
-        //    $('divTabCahierConfirmation').getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].style.visibility = "hidden";
-        //}
-
-     
-        //allDivTexts[3].innerHTML = Cahier.getnbrParticipantsText();
-        //allDivTexts[4].innerHTML = Cahier.destination;
-
-    
-       // allDivTexts[5].innerHTML = Cahier.startComment;
-        //if (Cahier.personId == "") {
-        //    allDivTexts[5].innerHTML = Cahier.startComment; // "[" + Cahier.personFirstName + "] "  hidden
-        //}  
-
         $('divTabConfirmationBookingsContainer').innerHTML = "";
 
         for (var i = 0; i < Cahier.bookings.length; i++) {
@@ -263,16 +217,6 @@ var Cahier = {
         }
     },
 
-    //chosePerson:function(surName, firstName, id) {
-    //    Cahier.personFirstName = firstName;
-    //    Cahier.personSurName = surName;
-    //    Cahier.personId = id;
-
-    //    newTab("divTabCahierMaterielCategories");
-    //    $("divTabCahierInfosName").innerHTML = surName + " " + firstName;
-    //    console.log("chosePerson -->", "surName: " + surName, "firstName: " + firstName, "id: " + id);
-    //    closePopUp("last");
-    //},
 
     setOwner: function (nbr = 0, _owner = { id: "", firstName: "", surName: "", sex: "female" }, _guest = false, _guestName = "Michel le guest") {
 

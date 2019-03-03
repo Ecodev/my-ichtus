@@ -152,7 +152,7 @@ function actualizePopBooking(booking, container = $('divTabCahierConfirmationCon
         container.getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].classList.add("PersonalSail");
     }
 
-    allDivTexts[4].innerHTML = Cahier.getnbrParticipantsText(booking.participantCount, " Participant");
+    allDivTexts[4].innerHTML = Cahier.getSingularOrPlural(booking.participantCount, " Participant");
     allDivTexts[5].innerHTML = booking.destination;
 
     allDivTexts[6].innerHTML = getStartCommentFromBooking(booking,false);
@@ -172,7 +172,7 @@ function actualizePopBooking(booking, container = $('divTabCahierConfirmationCon
 
 
 function createConfirmationBooking(booking,nbr) {
-    var fields = [Cahier.getOwner(booking,true), Cahier.getnbrParticipantsText(booking.participantCount), booking.destination, booking.startComment.shorten(295, 25), Cahier.getBookableName(booking).shorten(265,25)];
+    var fields = [Cahier.getOwner(booking,true), Cahier.getSingularOrPlural(booking.participantCount), booking.destination, booking.startComment.shorten(295, 25), Cahier.getBookableName(booking).shorten(265,25)];
     var images = ["IconResponsible", "IconParticipantCount", "IconDestination", "IconStartComment", "IconSail"];
     var titles = ["Reponsable", "Nbr de participants", "Destination", "Commentaire","Embarcation"];
 
