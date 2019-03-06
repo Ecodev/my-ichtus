@@ -4,22 +4,94 @@
     left: 50%;
     transform: translate(-50%,-50%);
     width: 700px;
-    height: 600px;
+    height: 450px;
     padding: 10px;
     box-sizing: border-box;
 }
 
 .divStatsContainer {
     position:absolute;
+    margin-top:20px;
     width:680px;
     height:400px;
 }
-    /*SCALE*/
-    .divStatsContainer > div:first-child {
-        position:absolute;
-        height:320px;
-        width:50px;
+
+.PopUpStatsContainerTitle {
+    margin-top:-5px;
+}
+.PopUpStatsContainerTitle div {
+    position: relative;
+    display: inline-block;
+    margin-left: 5px;
+    vertical-align:middle;
+}
+    .PopUpStatsContainerTitle > div:nth-child(1), .PopUpStatsContainerTitle > div:nth-child(2):before {
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+        background-image: url(Img/IconArrowBackBlack.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 20px;
+        cursor: pointer;
+        transition:all 0.1s linear 0s;
+        border-radius:8px;
     }
+    .PopUpStatsContainerTitle > div:nth-child(1):hover, .PopUpStatsContainerTitle > div:nth-child(2):hover:before {
+        background-color: rgb(235, 235, 235);
+    }
+
+    .PopUpStatsContainerTitle > div:nth-child(2) {
+        position:absolute;
+        right:10px;
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+    }
+        .PopUpStatsContainerTitle > div:nth-child(2):before {
+            content: "";
+            position:absolute;
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+    .PopUpStatsContainerTitle > div:nth-child(3){
+        color:var(--fontBlack);
+        font-weight:bold;
+        font-size:18px;
+    }
+    .PopUpStatsContainerTitle > div {
+        color: var(--fontBlack);
+        font-size: 16px;
+    }
+     
+
+/*nbr de sorties & jours*/
+.PopUpStatsContainer > div:nth-child(4) {
+    position: absolute;
+    top: 90px;
+    left: 15px;
+    width: 100px;
+    text-align: left;
+    color: gray;
+    font-size: 12px;
+}
+.PopUpStatsContainer > div:nth-child(5) {
+    position:absolute;
+    top:415px;
+    right:10px;
+    width:100px;
+    text-align:right;
+    color:gray;
+    font-size:12px;
+}
+
+
+/*SCALE*/
+.divStatsContainer > div:first-child {
+    position: absolute;
+    height: 300px;
+    width: 50px;
+}
 
         .divStatsContainer > div:first-child > div:nth-child(1) {
             position: absolute;
@@ -80,16 +152,16 @@
             position: relative;
             display: inline-block;
             height: 300px;
-            min-width: 20px;
             line-height: 20px;
-            box-sizing:border-box;
-            text-align:left;
-            line-height:300px;
+            box-sizing: border-box;
+            text-align: left;
+            line-height: 300px;
         }
 
             .divStatsContainer > div:nth-child(2) > div > div:first-child {
                 background-color: black;
-                width: 100%;
+                width: 90%;
+                margin-left:5%;
                 display: inline-block;
                 vertical-align: bottom;
                 border-top-left-radius: 5px;
@@ -99,7 +171,8 @@
             .divStatsContainer > div:nth-child(2) > div > div:nth-child(2) {
                 position: absolute;
                 top: 0px;
-                width: 100%;
+                width: 90%;
+                margin-left: 5%;
                 text-align: center;
                 color: transparent;
                 transition: all 0.1s linear 0s;
@@ -142,12 +215,23 @@
         .divStatsContainer > div:nth-child(3) > div:not(:first-child):not(:nth-child(2)) {
             position: relative;
             display: inline-block;
-            padding:5px;
             vertical-align:top;
             min-height: 20px;
             margin-top: 5px;
             box-sizing: border-box;
             text-align: center;
             color:var(--fontBlack);
-            background-color:red;
+            /*background-color:rgba(183, 195, 24, 0.29);*/
         }
+
+            .divStatsContainer > div:nth-child(3) > div:not(:first-child):not(:nth-child(2)) > div {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                min-width: 10px;
+                min-height: 20px;
+                vertical-align: top;
+                box-sizing: border-box;
+                color: var(--fontBlack);
+                /*background-color: rgba(183, 0, 24, 0.29);*/
+            }

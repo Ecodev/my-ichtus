@@ -131,10 +131,6 @@ function actualizePopBookableHistory(bookings, elem) {
 }
 
 
-
-//var a = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-
-
 function changeDaySorting(bookings) {
 
     var oldDate = (new Date(bookings[0].startDate)).getDate();

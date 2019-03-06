@@ -899,8 +899,8 @@ var Requests = {
         });
     },
 
-    // getMonthlyBookingsNbr
-    getMonthlyBookingsNbr: function (start, end, elem) {
+    // getMonthlyBookingsNbr for divBottoms
+    getMonthlyBookingsNbr: function (start, end) {
         var filter = {
             filter: {
                 groups: [

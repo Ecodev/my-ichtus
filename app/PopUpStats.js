@@ -20,9 +20,47 @@ function popStats() {
 
     grayBar(container, 5);
 
+    div(container).innerHTML = "Sorties";
+    div(container).innerHTML = "Jours";
+
+    var t = div(container);
+    t.classList.add("PopUpStatsContainerTitle");
+
+    div(t);
+
     var c = div(container);
     c.classList.add("divStatsContainer");
 
+    loadStats();
+}
+
+function loadStats(end = new Date()) {
+
+    var start = new Date(end.getFullYear(), end.getMonth(), 1, 0, 0, 0, 1);
+
+    var t = document.getElementsByClassName("PopUpStatsContainerTitle")[0];
+    t.innerHTML = "";
+    var btn = div(t);
+    btn.onclick = function () {
+        loadStats(new Date(start.getFullYear(), start.getMonth(), 0, 0, 0, 0, 1)); // day 0
+    };
+
+    var btn2 = div(t);
+    if (new Date(end.getFullYear(), end.getMonth()+1, 0, 0, 0, 0, 1) > new Date()) {
+        btn2.style.visibility = "hidden";
+    }
+    else {
+        btn2.onclick = function () {
+            loadStats(new Date(start.getFullYear(), start.getMonth() + 2, 0, 0, 0, 0, 1)); // day 0
+        };
+    }
+
+
+    div(t).innerHTML = Mois[start.getMonth()];
+
+    var c = document.getElementsByClassName("divStatsContainer")[0];
+    c.innerHTML = "";
+    
     var scale = div(c);
     var center = div(c);
     var legend = div(c);
@@ -34,11 +72,7 @@ function popStats() {
     div(legend);
     div(legend);
 
-    var end = new Date();
-    var start = new Date(end.getFullYear(), end.getMonth()-1, 1, 0, 0, 0, 1);
-    Requests.getMonthlyBookingsNbr(start, end);
-
-    Requests.getStats(start,end,c);
+    Requests.getStats(start, end, c);
 }
 
 function actualizeStats(start, end, elem, bookings) {
@@ -61,23 +95,19 @@ function actualizeStats(start, end, elem, bookings) {
         stats[daysNbr]++;
     }
 
-
+    div(elem.parentElement.getElementsByClassName("PopUpStatsContainerTitle")[0]).innerHTML = Cahier.getSingularOrPlural(bookings.length, " sortie");
 
     var scale = elem.children[0];
     var center = elem.children[1];
     var legend = elem.children[2];
 
-  //  var stats = [25, 34, 100, 7, 100, 9, 25, 100, 7, 100, 9, 25, 100];
-
     var legends = Jours.concat(Jours).concat(Jours);
-   // var stats = [25, 34, 100, 7, 100, 9, 25, 100, 7, 100, 9, 25, 100]
+    //stats = [1, 25, 50, 75, 100, 9, 25, 100, 7, 100, 9, 25, 100, 1, 25, 50, 75, 100, 9, 25, 100, 7, 100, 9, 25, 100, 1, 25, 50, 75, 100, 9, 25, 100, 7, 100, 9, 25, 100];
     var max = stats.max();
 
     for (var i = 0; i < stats.length; i++) {
         var d = div(center);
-        d.style.width = 100 / stats.length * 0.8 + "%";
-        d.style.marginLeft = 100 / stats.length * 0.1 + "%";
-        d.style.marginRight = 100 / stats.length * 0.1 + "%";
+        d.style.width = 100 / stats.length + "%";
 
         var bar = div(d);
         bar.style.height = stats[i] / max * 90 + "%";
@@ -86,12 +116,15 @@ function actualizeStats(start, end, elem, bookings) {
         nbr.innerHTML = stats[i];
 
         var l = div(legend);
-        l.style.width = 100 / stats.length * 1 + "%";
+        l.style.width = 100 / stats.length + "%";
 
-        var date = new Date(start);
-        date.setDate(start.getDate() + i);
+        if (i % parseInt(stats.length / 10) == 0 || stats.length / 10 < 1) {
+            var date = new Date(start);
+            date.setDate(start.getDate() + i);
 
-        l.innerHTML = date.getDate();
+            div(l).innerHTML = date.getDate();
+        }
+    
     }
 
 
