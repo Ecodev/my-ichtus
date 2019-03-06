@@ -2,7 +2,7 @@
 }
 
 
-#divTabCahierMaterielElementsContainer {
+.divTabCahierMaterielElementsContainer {
     position: relative;
     width: 95%;
     left: 2.5%;
@@ -11,7 +11,7 @@
     text-align: center;
 }
 
-    #divTabCahierMaterielElementsContainer > div {
+    .divTabCahierMaterielElementsContainer > div {
         position: relative;
         display: inline-block;
         box-sizing: border-box; /*TELLEMENT BIEN !!*/
@@ -20,9 +20,16 @@
         width: 215px;
         height: 300px;
         margin: 10px;
+        cursor:pointer;
     }
 
-        #divTabCahierMaterielElementsContainer > div > div {
+        .divTabCahierMaterielElementsContainer > div.selected > div {
+            /*background-color: lightgray;*/
+            border:2px solid var(--accent);
+        }
+         
+
+        .divTabCahierMaterielElementsContainer > div > div {
             position: absolute;
             box-sizing: border-box; /*TELLEMENT BIEN !!*/
             /*border: 2px solid black;*/
@@ -38,7 +45,7 @@
             transition: all 0.1s linear 0s;
         }
 
-        #divTabCahierMaterielElementsContainer > div:hover > div {
+        .divTabCahierMaterielElementsContainer > div:hover > div {
             top: 15px;
             -webkit-box-shadow: 2px 3px 8px 0px rgba(0,0,0,0.5);
             -moz-box-shadow: 2px 3px 8px 0px rgba(0,0,0,0.5);
@@ -47,7 +54,7 @@
         }
 
 
-        #divTabCahierMaterielElementsContainer > div > div > div:nth-child(1) {
+        .divTabCahierMaterielElementsContainer > div > div > div:nth-child(1) {
             position: absolute;
             right: 0px;
             bottom: 80px;
@@ -66,7 +73,7 @@
             z-index: 2;
         }
 
-        #divTabCahierMaterielElementsContainer > div > div > div:nth-child(2) {
+        .divTabCahierMaterielElementsContainer > div > div > div:nth-child(2) {
             position: absolute;
             display:table;
             left: 0px;
@@ -77,18 +84,17 @@
             border-top: 2px solid gray;
             border-bottom-right-radius: 20px;
             border-bottom-left-radius: 20px;
-            background-color: white;
             opacity: 1;
             z-index: 3;
             transition: background-color 0.1s linear 0s;
             text-align:right;
         }
 
-        #divTabCahierMaterielElementsContainer > div:hover > div > div:nth-child(2) {
+        .divTabCahierMaterielElementsContainer > div:hover > div > div:nth-child(2) {
             /*background-color:lightgray;*/
         }
 
-        #divTabCahierMaterielElementsContainer > div > div > div:nth-child(2) > div:nth-child(1) {
+        .divTabCahierMaterielElementsContainer > div > div > div:nth-child(2) > div:nth-child(1) {
             position: relative;
             display: table-cell;
             vertical-align: middle;
@@ -103,7 +109,7 @@
         }
 
 
-        /*#divTabCahierMaterielElementsContainer > div > div > div:nth-child(2) > div:nth-child(2) {
+        /*.divTabCahierMaterielElementsContainer > div > div > div:nth-child(2) > div:nth-child(2) {
             position: absolute;
             left: 2.5%;
             top: 40px;
@@ -113,15 +119,15 @@
             transition: all 0.1s linear 0s;
         }*/
 
-        /*#divTabCahierMaterielElementsContainer > div:hover div > div:nth-child(2) > div:nth-child(1) {
+        /*.divTabCahierMaterielElementsContainer > div:hover div > div:nth-child(2) > div:nth-child(1) {
             font-size: 23px;
         }
 
-        #divTabCahierMaterielElementsContainer > div:hover div > div:nth-child(2) > div:nth-child(2) {
+        .divTabCahierMaterielElementsContainer > div:hover div > div:nth-child(2) > div:nth-child(2) {
             font-size: 25px;
         }*/
 
-        /*#divTabCahierMaterielElementsContainer > div > div > div:nth-child(3) {
+        /*.divTabCahierMaterielElementsContainer > div > div > div:nth-child(3) {
             position: absolute;
             right: 15px;
             top: -10px;
@@ -140,12 +146,12 @@
             z-index: 5;
         }*/
 
-        /*#divTabCahierMaterielElementsContainer > div:hover > div > div:nth-child(3) {
+        /*.divTabCahierMaterielElementsContainer > div:hover > div > div:nth-child(3) {
             opacity: 1;
             top: 15px;
         }
 
-        #divTabCahierMaterielElementsContainer > div > div > div:nth-child(3):hover {
+        .divTabCahierMaterielElementsContainer > div > div > div:nth-child(3):hover {
             top: 17px;
             -webkit-box-shadow: 2px 0px 10px 0px rgba(0,0,0,0.75);
             -moz-box-shadow: 2px 0px 10px 0px rgba(0,0,0,0.75);
@@ -154,7 +160,7 @@
 
 
 
-        #divTabCahierMaterielElementsContainer > div > div > div:nth-child(3) {
+        .divTabCahierMaterielElementsContainer > div > div > div:nth-child(3) {
             position: absolute;
             left: 0px;
             top: 0px;
@@ -164,16 +170,23 @@
             background-image: url(Img/IconChose.png), url(Img/Materiel/Sail.png);
             background-repeat: no-repeat, no-repeat;
             background-size: 0px, 215px;
-            background-position-x: 100px,0px;
-            background-position-y: 100px,0px;
+            background-position: center,center;
+            /*background-position-y: center,0px;*/
             transition: all 0.2s linear 0s;
         }
 
-        #divTabCahierMaterielElementsContainer > div:hover > div > div:nth-child(3) {
-            background-position-x: 0px,-20px;
-            background-position-y: 0px,-20px;
+        .divTabCahierMaterielElementsContainer > div:hover > div > div:nth-child(3) {
             background-size: 200px,240px;
-            /*filter:grayscale(1);*/
+        }
+
+        .divTabCahierMaterielElementsContainer > div.selected > div > div:nth-child(3) {
+            background-size: 200px,240px;
+            background-image: url(Img/IconChoseBlue.png), url(Img/Materiel/Sail.png);
+        }
+
+        .divTabCahierMaterielElementsContainer > div.selected:hover > div > div:nth-child(3) {
+            background-size: 100px,240px;
+            background-image: url(Img/IconChoseBlue.png), url(Img/Materiel/Sail.png);
         }
 
 #divTabCahierMaterielElementsButtonsContainer {
@@ -435,9 +448,11 @@
     position:absolute;
     left:260px;
     width:420px;
+    height:225px;
     top:20px;
     font-size:20px;
     color:var(--fontBlack);
+    overflow-y:scroll;
 }
 
 .divTabCahierMaterielElementsContainerTextsContainer > div {
@@ -461,5 +476,9 @@
 
     .divTabCahierMaterielElementsContainerTextsContainer > div:nth-child(4) {
         color: gray;
+    }
+
+    .divTabCahierMaterielElementsContainerTextsContainer > div:nth-child(1n+5) {
+        color: darkgray;
     }
 

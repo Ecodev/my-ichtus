@@ -110,7 +110,7 @@ var Cahier = {
         popGuest(Cahier.bookings.length);
     },
 
-    ProgressBarTexts: ["Nom", "Embarcation", "Informations", "Confirmation"],
+    ProgressBarTexts: ["Nom", "Informations", "Embarcations", "Confirmation"],
 
     // cancel - clearData
     cancel: function () {
@@ -182,10 +182,10 @@ var Cahier = {
                         allDivTabCahierProgressTexts[i].innerHTML = Cahier.getFullName(Cahier.bookings[0]);
                         break;
                     case 1:
-                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.getBookableName(Cahier.bookings[0]);
+                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.bookings[0].destination + ", " + Cahier.bookings[0].participantCount + " Acc.";
                         break;
                     case 2:
-                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.bookings[0].destination + ", " + Cahier.bookings[0].participantCount + " Acc.";
+                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.getBookableName(Cahier.bookings[0]);
                         break;
                     default:
                         break;
@@ -270,22 +270,41 @@ var Cahier = {
         Cahier.actualizeConfirmation();
        
         if (nbr == 0) {
-            newTab("divTabCahierMaterielChoice");
+            newTab("divTabCahierInfos");
             $("divTabCahierInfosName").innerHTML = Cahier.getFullName(Cahier.bookings[0]);
         }
     },
 
-    setBookable: function (nbr = 0, _bookable = {}) {
+    addBookable: function (nbr = 0, _bookable = {}) {
 
-        if (_bookable.id == undefined) { // no id means MP
+        if (_bookable.id == undefined) { // no id means MP  NO MORE POSSIBLE!
             Cahier.bookings[nbr].bookables = []; 
         }
         else {
-            Cahier.bookings[nbr].bookables[0] = _bookable;
+            Cahier.bookings[nbr].bookables.push(_bookable);
+            actualizeBookableList();
         }
 
         console.log("setBookable(): ", nbr, Cahier.bookings[nbr].bookables);
         Cahier.actualizeConfirmation();
+    },
+
+    removeBookable: function (nbr = 0, _bookable = 0) {
+
+        for (var i = 0; i < Cahier.bookings[nbr].bookables.length; i++) {
+            if (Cahier.bookings[nbr].bookables[i].code == _bookable.code) {
+                break;
+            }
+        }
+
+        Cahier.bookings[nbr].bookables.splice(i, 1);
+
+        console.log("removeBookable(): ", nbr, Cahier.bookings[nbr].bookables);
+        Cahier.actualizeConfirmation();
+        actualizeBookableList();
+        if (currentTabElement.id == "divTabCahierMaterielElements") {
+            loadElements(currentBookables);
+        }
     },
 
     setInfos: function (nbr = 0, _participantCount = 1, _destination = "Non choisi", _startComment = "mmh.") {

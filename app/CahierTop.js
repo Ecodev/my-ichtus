@@ -13,9 +13,9 @@ function createProgressBar() {
                 switch (c) {
                     case 0: newTab("divTabCahier");
                 break;
-                    case 1: newTab("divTabCahierMaterielChoice");
+                    case 1: newTab("divTabCahierInfos");
                 break;
-                   case 2: newTab("divTabCahierInfos");
+                    case 2: newTab("divTabCahierMaterielChoice");
                 break;
                     default:
                 break;
@@ -81,5 +81,5 @@ function changeProgress(c) {
         }
     }
 
-    $("divTabCahierProgressBarBlue").style.width = (c * 26) + "%";
+    $("divTabCahierProgressBarBlue").style.width = c * 26 + "%";
 }

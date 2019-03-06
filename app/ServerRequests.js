@@ -354,61 +354,73 @@ var Requests = {
     // getBookableByCode
     getBookableByCode: function (elem,nbr = 0) {
 
-        var filter = {
-            filter: {
-                groups: [
-                    {
-                        conditions: [
-                            { code: { like: { value: elem.value } } },
-                            {
-                                bookingType: {
-                                    like: {
-                                        value: "self_approved"
+        t = true;
+        for (var i = 0; i < Cahier.bookings[0].bookables.length; i++) {
+            console.log(Cahier.bookings[0].bookables[i].code, elem.value);
+            if (Cahier.bookings[0].bookables[i].code.toUpperCase() == elem.value.toUpperCase()) {
+                t = false;
+            }
+        }
+        if (!t) {
+            popAlert("Vous avez déjà choisi cette embarcation");
+        }
+        else {
+            var filter = {
+                filter: {
+                    groups: [
+                        {
+                            conditions: [
+                                { code: { like: { value: elem.value } } },
+                                {
+                                    bookingType: {
+                                        like: {
+                                            value: "self_approved"
+                                        }
                                     }
                                 }
-                            }
-                        ]
-                    }
-                ]
-            },
-            pagination: {
-                pageSize: 1,
-                pageIndex: 0
-            }
-        };
+                            ]
+                        }
+                    ]
+                },
+                pagination: {
+                    pageSize: 1,
+                    pageIndex: 0
+                }
+            };
 
-        var variables = new Server.QueryVariablesManager();
-        variables.set('variables', filter);
+            var variables = new Server.QueryVariablesManager();
+            variables.set('variables', filter);
 
-        Server.bookableService.getAll(variables).subscribe(result => {
-            console.log("getBookableByCode(): ", result);
-            if (result.items.length == 1) {
-                popBookable(result.items[0].id, false,nbr);
+            Server.bookableService.getAll(variables).subscribe(result => {
+                console.log("getBookableByCode(): ", result);
+                if (result.items.length == 1) {
+                    popBookable(result.items[0].id, false,nbr);
 
-                elem.classList.remove("animationShake");
-                elem.nextElementSibling.classList.remove("animationShake");
-            }
-            else {
-                // retrigger animation
-                elem.classList.remove("animationShake");
-                elem.nextElementSibling.classList.remove("animationShake");
+                    elem.classList.remove("animationShake");
+                    elem.nextElementSibling.classList.remove("animationShake");
+                }
+                else {
+                    // retrigger animation
+                    elem.classList.remove("animationShake");
+                    elem.nextElementSibling.classList.remove("animationShake");
 
-                elem.classList.add("resetAnimation");
-                elem.nextElementSibling.classList.add("resetAnimation");
+                    elem.classList.add("resetAnimation");
+                    elem.nextElementSibling.classList.add("resetAnimation");
 
-                setTimeout(function () {
-                    elem.classList.remove("resetAnimation");
-                    elem.nextElementSibling.classList.remove("resetAnimation");
+                    setTimeout(function () {
+                        elem.classList.remove("resetAnimation");
+                        elem.nextElementSibling.classList.remove("resetAnimation");
 
-                    elem.classList.add("animationShake");
-                    elem.nextElementSibling.classList.add("animationShake");
+                        elem.classList.add("animationShake");
+                        elem.nextElementSibling.classList.add("animationShake");
 
-                    //elem.style.borderColor = "red";
-                    //elem.nextElementSibling.style.backgroundColor = "red";
-                }, 5);
+                        //elem.style.borderColor = "red";
+                        //elem.nextElementSibling.style.backgroundColor = "red";
+                    }, 5);
 
-            }
-        });
+                }
+            });
+        }
     },
 
     // getBookableInfos
@@ -489,11 +501,11 @@ var Requests = {
                 var variables = new Server.QueryVariablesManager();
                 variables.set('variables', filter);
 
-              //  Server.metadataService.getAll(variables).subscribe(metadatas => {
-                  //  console.log("getBookableInfos()_getMetadatas: ", metadatas);
+                Server.bookableMetaDataService.getAll(variables).subscribe(metadatas => {
+                   console.log("getBookableInfos()_getMetadatas: ", metadatas);
 
-                actualizePopBookable(nbr, result.items[0], bookings, elem); //metadatas.items);
-              //  });
+                    actualizePopBookable(nbr, result.items[0], bookings, elem, metadatas.items); //metadatas.items);
+                });
             });
         });
     },

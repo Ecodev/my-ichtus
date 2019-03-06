@@ -289,9 +289,9 @@ Array.prototype.inverse = function (i1, i2) {
     return this;
 };
 Array.prototype.findIndex = function (x) {
-    var Index = undefined;
+    var Index = -1;
     for (var i = 0; i < this.length; i++) {
-        if (this[i].toString() == x.toString()) {
+        if (this[i] == x) {
             Index = i;
             break;
         }

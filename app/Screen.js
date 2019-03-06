@@ -112,16 +112,16 @@ function newTab(id) {
 //    document.documentElement.scrollTop = 60;
 
 var tabs = [];
-tabs.push({ id: "divTabMateriel", order: -1, progress: 0, position: -1, TopBar: false, Enter: function () { }, Remove: function () { } });
-tabs.push({ id: "divTabCahier", order: 0, progress: 0, position: 0, TopBar: false, Enter: function () { Cahier.cancel(); }, Remove: function () { } });
-tabs.push({ id: "divTabStatistiques", order: 1, progress: 0, position: 1, TopBar: false, Enter: function () { }, Remove: function () { } });
-tabs.push({ id: "divTabCahierMaterielChoice", order: 9, progress: 1, position: 0, TopBar: true, title: "Tapez le code de votre embarcation", Enter: function () { document.getElementsByClassName('divTabCahierMaterielChoiceInputCodeContainer')[0].getElementsByTagName("input")[0].focus();}, Remove: function () { } });
-tabs.push({ id: "divTabCahierMaterielOptions", order: 10, progress: 1, position: 0, TopBar: true, Enter: function () { }, Remove: function () { } });
-tabs.push({ id: "divTabCahierMaterielCode", order: 11, progress: 1, position: 0, TopBar: true, Enter: function () { }, Remove: function () { } });
-tabs.push({ id: "divTabCahierMaterielCategories", order: 12, progress: 1, position: 0, TopBar: true, title: "Veuillez choisir votre type d'activité", Enter: function () { }, Remove: function () { } });
-tabs.push({ id: "divTabCahierMaterielElements", order: 13, progress: 1, position: 0, TopBar: true, title: "Sélectionnez votre embarcation", Enter: function () { $('divTabCahierCancelButton').style.top = "120px"; MaterielElementsFirstLoad = true; Requests.getBookablesList(); $('inputTabCahierMaterielElementsInputSearch').focus(); }, Remove: function () { $('divTabCahierCancelButton').style.top = "145px"; } });
-tabs.push({ id: "divTabCahierInfos", order: 14, progress: 2, position: 0, TopBar: true, title: "Complétez les champs", Enter: function () { document.getElementsByClassName("divTabCahierInfosNbrInvites")[0].getElementsByTagName("input")[0].focus(); writeNbrInvites(document.getElementsByClassName("divTabCahierInfosNbrInvites")[0].getElementsByTagName("input")[0]); writeDestination(document.getElementsByClassName("divTabCahierInfosDestination")[0].getElementsByTagName("input")[0]) }, Remove: function () { } });
-tabs.push({ id: "divTabCahierConfirmation", order: 15, progress: 3, position: 0, TopBar: true, title: "Confirmez et créez votre sortie", Enter: function () { Cahier.actualizeConfirmation(); }, Remove: function () { } });
+tabs.push({ id: "divTabMateriel", order: -1, progress: 0, position: -1, TopBar: false, ListBar: false, Enter: function () { }, Remove: function () { } });
+tabs.push({ id: "divTabCahier", order: 0, progress: 0, position: 0, TopBar: false, ListBar: false, Enter: function () { Cahier.cancel(); }, Remove: function () { } });
+tabs.push({ id: "divTabStatistiques", order: 1, progress: 0, position: 1, TopBar: false, ListBar: false, Enter: function () { }, Remove: function () { } });
+tabs.push({ id: "divTabCahierInfos", order: 7, progress: 1, position: 0, TopBar: true, ListBar: false, title: "Complétez les champs", Enter: function () { document.getElementsByClassName("divTabCahierInfosNbrInvites")[0].getElementsByTagName("input")[0].focus(); writeNbrInvites(document.getElementsByClassName("divTabCahierInfosNbrInvites")[0].getElementsByTagName("input")[0]); writeDestination(document.getElementsByClassName("divTabCahierInfosDestination")[0].getElementsByTagName("input")[0]) }, Remove: function () { } });
+tabs.push({ id: "divTabCahierMaterielChoice", order: 9, progress: 2, position: 0, TopBar: true, ListBar: true, title: "Tapez le code de votre embarcation", Enter: function () { document.getElementsByClassName('divTabCahierMaterielChoiceInputCodeContainer')[0].getElementsByTagName("input")[0].focus(); }, Remove: function () { } });
+tabs.push({ id: "divTabCahierMaterielOptions", order: 10, progress: 2, position: 0, TopBar: true, ListBar: true, Enter: function () { }, Remove: function () { } });
+tabs.push({ id: "divTabCahierMaterielCode", order: 11, progress: 2, position: 0, TopBar: true, ListBar:true, Enter: function () { }, Remove: function () { } });
+tabs.push({ id: "divTabCahierMaterielCategories", order: 12, progress: 2, position: 0, TopBar: true, ListBar: true,title: "Veuillez choisir votre type d'activité", Enter: function () { }, Remove: function () { } });
+tabs.push({ id: "divTabCahierMaterielElements", order: 13, progress: 2, position: 0, TopBar: true, ListBar: true, title: "Sélectionnez votre embarcation", Enter: function () { MaterielElementsFirstLoad = true; Requests.getBookablesList(); $('inputTabCahierMaterielElementsInputSearch').focus(); }, Remove: function () {  } });
+tabs.push({ id: "divTabCahierConfirmation", order: 15, progress: 3, position: 0, TopBar: true, ListBar: false, title: "Confirmez et créez votre sortie", Enter: function () { Cahier.actualizeConfirmation(); }, Remove: function () { } });
 
 
 //WINDOW LOCATION CHANGE
@@ -161,7 +161,23 @@ window.onhashchange = function () {
             removeProgressBar(sign);
         }
 
-        //alert("NEW: " + NewElement.id + " / " + NewElement.TopBar +"  OLD: " + OldElement.id +" / " +OldElement.TopBar);
+        // Cancel Button Position
+        if (NewElement.ListBar == true) {
+            $('divTabCahierCancelButton').style.top = "120px";
+        }
+        else {
+            $('divTabCahierCancelButton').style.top = "120px"; 
+        }
+
+        // ListBar Enter/Remove
+        if (NewElement.ListBar == true && OldElement.ListBar == false) {
+            enterListBar(sign);
+            actualizeBookableList();
+        }
+        else if (NewElement.ListBar == false && OldElement.ListBar == true) {
+            removeListBar(sign);
+        }
+
 
         // Enter & Remove Functions
         NewElement.Enter();
@@ -221,6 +237,30 @@ function removeProgressBar(sign) {
         $("divTabCahierTop").style.transform = "translate(0px)";
 
         setTimeout(function () { $("divTabCahierTop").style.transition = "transform " + changeTime + "s linear 0s"; }, 20);
+
+    }, changeTime * 1000);
+}
+
+
+//ENTER LIST BAR
+function enterListBar() {
+    $("divTabCahierTopList").style.zIndex = 6;
+    setTimeout(function () { $("divTabCahierTopList").style.zIndex = 11; }, changeTime * 1000);
+}
+//REMOVE LIST BAR
+function removeListBar(sign) {
+    $("divTabCahierTopList").style.zIndex = "11"; //11
+    $("divTabCahierTopList").style.transition = "transform " + changeTime + "s linear 0s";
+    $("divTabCahierTopList").style.transform = "translate(" + (-sign) + "00%)";
+
+    setTimeout(function () {
+
+        $("divTabCahierTopList").style.zIndex = "2";
+        $("divTabCahierTopList").style.transition = "none";
+
+        $("divTabCahierTopList").style.transform = "translate(0px)";
+
+        setTimeout(function () { $("divTabCahierTopList").style.transition = "transform " + changeTime + "s linear 0s"; }, 20);
 
     }, changeTime * 1000);
 }

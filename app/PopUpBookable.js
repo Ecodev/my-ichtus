@@ -40,7 +40,7 @@ function popBookable(bookableId, justPreview = true, nbr = 0) {
         btn.setAttribute('tabindex', '0');
         btn.focus();
 
-        if (currentTabElement.id == "divTabCahierConfirmation") {
+        if (true) { //currentTabElement.id == "divTabCahierConfirmation"
             btn.style.backgroundImage = "url(Img/IconValidated.png)";
         }
 
@@ -52,27 +52,33 @@ function popBookable(bookableId, justPreview = true, nbr = 0) {
 
 	div(textsContainer);
 	div(textsContainer);
-	div(textsContainer);
-	div(textsContainer);
-	div(textsContainer);
+    div(textsContainer);
+    div(textsContainer);
 }
 
 
 
 var eventListenerFunction;
-function actualizePopBookable(nbr, bookable,bookings, elem) {
+function actualizePopBookable(nbr, bookable,bookings, elem, metadatas) {
+
+    console.log(metadatas);
 
     elem.getElementsByTagName("div")[2].style.backgroundImage = "url(Img/" + bookable.image.id + ".png)";
     elem.getElementsByClassName('divTabCahierMaterielElementsPopUp')[0].getElementsByTagName("div")[3].innerHTML = bookable.description;
-    elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[0].innerHTML = bookable.code;
-    elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[1].innerHTML = bookable.name.shorten(420, 20);
 
-	//elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].innerHTML = bookable.bookingType + " - " + bookable.code;
+    var textsContainer = elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0];
 
+    textsContainer.getElementsByTagName("div")[0].innerHTML = bookable.code;
+    textsContainer.getElementsByTagName("div")[1].innerHTML = bookable.name.shorten(420, 20);
+
+    for (var i = 0; i < metadatas.length; i++) {
+        div(textsContainer).innerHTML = metadatas[i].name + " " + metadatas[i].value;
+    }
+    
 
     if (bookings.length != 0) {
         elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].innerHTML = "Dernière utilisation le " + (new Date(bookings.items[0].startDate)).getNiceDate() + "<br/> Par " + Cahier.getOwner(bookings.items[0], false);
-        elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[3].innerHTML = bookings.length + " sortie(s)";
+        elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[3].innerHTML = Cahier.getSingularOrPlural(bookings.length, " sortie");
         elem.getElementsByClassName('Buttons')[0].style.visibility = "visible";
         elem.getElementsByClassName('Buttons')[0].addEventListener("click", function () {
             popBookableHistory(this.parentElement.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[1].id);
@@ -80,7 +86,6 @@ function actualizePopBookable(nbr, bookable,bookings, elem) {
     }
     else {
         elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[3].innerHTML = "Encore aucune sortie enregistrée";
-        elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[4].innerHTML = "";
         elem.getElementsByClassName('Buttons')[0].style.visibility = "hidden";
     } 
 
@@ -89,7 +94,10 @@ function actualizePopBookable(nbr, bookable,bookings, elem) {
 
         var choseFunction = function () {
 
-            Cahier.setBookable(nbr, bookable);
+            Cahier.addBookable(nbr, bookable);
+
+            $('divTabCahierMaterielChoice').getElementsByClassName('divTabCahierMaterielChoiceInputCodeContainer')[0].getElementsByTagName("input")[0].value = "";
+
             closePopUp({ target: elem }, elem);
             //document.body.removeEventListener("keyup", eventListenerFunction);
 
@@ -97,7 +105,7 @@ function actualizePopBookable(nbr, bookable,bookings, elem) {
                  closePopUp("last");
             }
             else {
-                newTab("divTabCahierInfos");
+                //newTab("divTabCahierInfos");
             }
         };
 

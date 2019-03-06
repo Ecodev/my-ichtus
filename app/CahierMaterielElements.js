@@ -1,15 +1,15 @@
 var currentBookables;
-function loadElements(bookables,nbr = 0) {
+function loadElements(bookables ,nbr = 0) {
 
     currentBookables = bookables;
 
-    document.getElementById("divTabCahierMaterielElementsContainer").innerHTML = "";
+    document.getElementsByClassName("divTabCahierMaterielElementsContainer")[0].innerHTML = "";
 
     if ($('inputTabCahierMaterielElementsInputSearch').value == "" && false) { // no more personal sail, the choice could already have been done...
 
         var container = document.createElement("div");
         container.addEventListener("click", function () {
-            Cahier.setBookable(nbr);
+            Cahier.addBookable(nbr);
             newTab("divTabCahierInfos");
         });
 
@@ -37,17 +37,32 @@ function loadElements(bookables,nbr = 0) {
 
     }
 
+    var codes = [];
+    for (var i = 0; i < Cahier.bookings[nbr].bookables.length; i++) {
+        codes.push(Cahier.bookings[nbr].bookables[i].code);
+    }
+
     for (var i = 0; i < bookables.length; i++) {
 
         container = document.createElement("div");
         container.id = i;
-        container.addEventListener("click", function () {
-            //popBookable(bookables[this.id].id, false, 0, this.id);
-            Cahier.setBookable(nbr,bookables[this.id]);
-            newTab("divTabCahierInfos");
-        });
 
-        $("divTabCahierMaterielElementsContainer").appendChild(container);
+        if (codes.findIndex(bookables[i].code) != -1) {
+            container.classList.add("selected");
+            container.addEventListener("click", function () {
+                Cahier.removeBookable(nbr, bookables[this.id]);
+                loadElements(currentBookables);
+            });
+        }
+        else {
+            container.addEventListener("click", function () {
+                //popBookable(bookables[this.id].id, false, 0, this.id);
+                Cahier.addBookable(nbr, bookables[this.id]);
+                loadElements(currentBookables);               
+            });
+        }
+
+        document.getElementsByClassName("divTabCahierMaterielElementsContainer")[0].appendChild(container);
 
         secondContainer = document.createElement("div");
         container.appendChild(secondContainer);

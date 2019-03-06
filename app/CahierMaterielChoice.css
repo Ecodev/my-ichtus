@@ -75,20 +75,20 @@
             margin-left: 10px;
             width: 100px;
         }
-        .divTabCahierMaterielChoiceInputCodeContainer > div:nth-child(3) .Buttons {
-            width:100px;
-            padding-left:0px;
-            background-color:lightgray;
-            margin-top: 0px;
-            margin-bottom: 0px;
-            -moz-transition: all 0.1s linear 0s;
-            -o-transition: all 0.1s linear 0s;
-            -webkit-transition: all 0.1s linear 0s;
-            transition: all 0.1s linear 0s;
-            background-image:url(Img/IconArrow.png);
-            background-position:center;
-            background-position-x:30px;
-        }
+            .divTabCahierMaterielChoiceInputCodeContainer > div:nth-child(3) .Buttons {
+                width: 100px;
+                padding-left: 0px;
+                background-color: lightgray;
+                margin-top: 0px;
+                margin-bottom: 0px;
+                -moz-transition: all 0.1s linear 0s;
+                -o-transition: all 0.1s linear 0s;
+                -webkit-transition: all 0.1s linear 0s;
+                transition: all 0.1s linear 0s;
+                background-image: url(Img/IconValidated.png);
+                background-position: center;
+                background-position-x: 30px;
+            }
             .divTabCahierMaterielChoiceInputCodeContainer > div:nth-child(3) .Buttons:not(.activated) {
                 cursor:initial  ;
             }
