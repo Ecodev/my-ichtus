@@ -1,92 +1,46 @@
+function loadConfirmation() {
+    var elem = $('divTabConfirmationOneBookingContainer');
+    openBooking("confirmation", elem);
+}
+
 function popBooking(bookingId) {
     var elem = openPopUp();
-    Requests.getBookingInfos(bookingId, elem);
-    loadConfirmation(elem);
+    openBooking("infos", elem);
+    Requests.getBookingInfos(bookingId, "infos", elem);
 }
-function loadConfirmation(elem = $('divTabCahierConfirmation')) {
 
-    var fields = ["Responsable", "Heure de départ", "Embarcation", "Nbr de participants", "Destination", "Commentaire dép.", "Commentaire arr."];
-    var images = ["IconResponsible", "IconStart",  "IconSail","IconParticipantCount", "IconDestination", "IconStartComment", "IconEndComment"];
+function popBookingFinish(bookingId) {
+    var elem = openPopUp();
+    openBooking("finish", elem);
+    Requests.getBookingInfos(bookingId, "finish", elem);
+}
+
+
+
+
+function openBooking(which = "confirmation", elem = $('divTabConfirmationOneBookingContainer')) {
+
+    var fields = ["Responsable", "Heure de départ", "Heure d'arrivée", "Embarcations", "Nbr de participants", "Destination", "Commentaire dép.", "Commentaire arr."];
+    var images = ["IconResponsible", "IconStart", "IconEnd", "IconSail", "IconParticipantCount", "IconDestination", "IconStartComment", "IconEndComment"];
 
     var container;
 
-    if (elem != $('divTabCahierConfirmation')) {
+    // TITLE
+    if (which == "confirmation") {
+        elem.innerHTML = ""; // empty elem
+        container = div(elem);
+        container.style.position = "relative";
+        container.style.minHeight = "10px";
+        container.innerHTML += '<div style=" font-size:25px; text-align:center; color:black;">Votre sortie</div>';
+    }
+    else {
         container = div(elem);
         container.style.position = "absolute";
         container.style.top = "50%";
         container.style.marginLeft = "0px";
         container.style.left = "50%";
         container.style.transform = "translate(-50%,-50%)";
-    }
-    else {
-        container = document.createElement("div");
-        elem.insertBefore(container, elem.getElementsByClassName("ValidateButtons")[0].parentElement);
-        container.style.position = "relative";
-        container.style.minHeight = "10px";
-    }
-
-    container.className = "divTabCahierConfirmationContainer";
-
-    container.innerHTML += '<div style=" font-size:25px; text-align:center; color:black;">Votre sortie</div>';
-    grayBar(container, 5);
-
-    for (var i = 0; i < 2; i++) {
-        var d = div(container);
-        d.classList.add("divConfirmationTexts");
-        div(div(d)).style.backgroundImage = "url(Img/" + images[i] + ".png)";
-        div(d).innerHTML = fields[i];
-        div(d);
-        if (i == 1 && elem != $('divTabCahierConfirmation')) {
-            d = div(container);
-            d.classList.add("divConfirmationTexts");
-            div(div(d)).style.backgroundImage = "url(Img/" + "IconEnd" + ".png)";
-            div(d).innerHTML = "Heure d'arrivée";
-            div(d);
-        }
-    }
-
-    grayBar(container);
-
-    d = div(container);
-    d.classList.add("divConfirmationTexts");
-    d.style.backgroundColor = "rgb(235,235,235)";
-    div(div(d)).style.backgroundImage = "url(Img/" + images[2] + ".png)";
-    div(d).innerHTML = fields[2];
-    div(d);
-
-    var emb = div(container);
-    emb.className = "divTabCahierConfirmationEmbarcationBox";
-    div(div(emb));
-
-    var texts = div(emb);
-    texts.className = "divTabCahierConfirmationContainerTextsContainer";
-    div(texts).innerHTML = "...";
-    div(texts).innerHTML = "...";
-
-    grayBar(container);
-
-    for (var i = 3; i < 6; i++) {
-        d = div(container);
-        d.classList.add("divConfirmationTexts");
-        div(div(d)).style.backgroundImage = "url(Img/" + images[i] + ".png)";
-        div(d).innerHTML = fields[i];
-        div(d);
-        if (elem == $('divTabCahierConfirmation')) {
-            if (i / 2 == Math.floor(i / 2)) {
-                d.style.backgroundColor = "white";
-            }
-            else {
-                d.style.backgroundColor = "rgb(235,235,235)";
-            }
-        }
-    }
-
-    if (elem != $('divTabCahierConfirmation')) {
-        d = div(container);
-        d.classList.add("divConfirmationTexts");
-        div(div(d)).style.backgroundImage = "url(Img/" + images[6] + ".png)";
-        div(d).innerHTML = fields[6];
-        div(d);
+        container.innerHTML += '<div style=" font-size:25px; text-align:center; color:black;">Sortie en chargement...</div>';
 
         var close = div(container);
         close.className = "divPopUpClose";
@@ -94,14 +48,146 @@ function loadConfirmation(elem = $('divTabCahierConfirmation')) {
             closePopUp({ target: elem }, elem);
         };
     }
-    else {
+
+    container.className = "divTabCahierConfirmationContainer";
+
+    grayBar(container, 5);
+
+    // OWNER & DATES
+    var c = 2;
+    if (which != "confirmation") {
+        c = 3;
+    }
+    for (let i = 0; i < c; i++) {
+        var d = div(container);
+        d.classList.add("divConfirmationTexts");
+        div(div(d)).style.backgroundImage = "url(Img/" + images[i] + ".png)";
+        div(d).innerHTML = fields[i];
+        div(d);      
+    }
+
+    grayBar(container);
+
+    // EMBARCATIONS
+    d = div(container);
+    d.classList.add("divConfirmationTexts");
+    d.style.backgroundColor = "rgb(235,235,235)";
+    div(div(d)).style.backgroundImage = "url(Img/" + images[3] + ".png)";
+    div(d).innerHTML = fields[3];
+    div(d);
+
+    var embContainer = div(container);
+    embContainer.classList.add("divTabCahierConfirmationEmbarcationContainer");
+
+    var emb = div(embContainer);
+    emb.className = "divTabCahierConfirmationEmbarcationBox";
+    div(div(emb));
+
+    var texts = div(emb);
+    texts.className = "divTabCahierConfirmationContainerTextsContainer";
+
+    div(texts).innerHTML = "...";
+    div(texts).innerHTML = "...";
+
+    if (which == "finish") {
+
+        var radioContainer = div(emb);
+        radioContainer.className = "radioContainer";
+
+        var r1 = div(radioContainer);
+        r1.classList.add("radioSelected");
+        r1.onclick = function () { this.classList.add("radioSelected"); this.nextElementSibling.classList.remove("radioSelected"); this.parentElement.nextElementSibling.children[0].disabled = true; this.parentElement.nextElementSibling.children[0].style.backgroundColor = "lightgray"; this.parentElement.nextElementSibling.style.opacity = 0.5; }; //this.parentElement.parentElement.getElementsByTagName("textarea")[0].style.opacity = 0; 
+        div(div(r1)); div(r1).innerHTML = "En bon état";
+        var r2 = div(radioContainer);
+        r2.onclick = function () { this.classList.add("radioSelected"); this.previousElementSibling.classList.remove("radioSelected"); this.parentElement.nextElementSibling.children[0].disabled = false; this.parentElement.nextElementSibling.children[0].style.backgroundColor = "white"; this.parentElement.nextElementSibling.style.opacity = 1; };//area.style.opacity = 1;}; 
+        div(div(r2)); div(r2).innerHTML = "Endommagé";
+
+        var areaContainer = div(emb);
+        areaContainer.style.width = "0px";
+        areaContainer.style.height = "0px";
+        areaContainer.style.opacity = 0.5;
+        var area = document.createElement("textarea");
+        area.placeholder = "État de l'embarcation...";
+        area.spellcheck = false;
+        area.style.left = "350px";
+        area.style.top = "30px";
+        area.style.height = "95px";
+        area.style.width = "290px";
+        area.style.backgroundPositionX = "245px";
+        area.disabled = "true"; area.style.backgroundColor = "lightgray";
+        areaContainer.appendChild(area);
+    }
+    
+
+    grayBar(container);
+
+
+    // END COMMENT
+    if (which == "finish") {
+
+        d = div(container);
+        d.classList.add("divConfirmationTexts");
+        d.style.backgroundColor = "rgb(235,235,235)";
+        div(div(d)).style.backgroundImage = "url(Img/" + images[7] + ".png)";
+        div(d).innerHTML = fields[7];
+        var area2 = document.createElement("textarea");
+        area2.spellcheck = false;
+        area2.placeholder = "Comment ça s'est passé...";
+        div(d).appendChild(area2);
+
+        var btnFinish = div(container);
+        btnFinish.classList.add("Buttons");
+        btnFinish.classList.add("ValidateButtons");
+        btnFinish.style.backgroundColor = "red";
+        btnFinish.innerHTML = "Terminer";
+        btnFinish.addEventListener("click", function () {
+            var txt = "";
+            if (area.parentElement.style.opacity == 1) {
+                txt += "! " + area.value + " ! ";
+            }
+            txt += area2.value;
+            Requests.terminateBooking(this.id, txt);
+            closePopUp({ target: elem }, elem);
+        });
+    }
+   
+
+
+    // INFOS
+    var l = 8;
+    if (which == "confirmation") {
+        l = 7;
+    }
+    else if (which == "finish") {
+        l = 4; //no infos
+    }
+
+    for (var i = 4; i < l; i++) {
+        d = div(container);
+        d.classList.add("divConfirmationTexts");
+        div(div(d)).style.backgroundImage = "url(Img/" + images[i] + ".png)";
+        div(d).innerHTML = fields[i];
+        div(d);
+        if (i / 2 == Math.floor(i / 2)) {
+            d.style.backgroundColor = "rgb(235,235,235)";
+        }
+        else {
+            d.style.backgroundColor = "white";
+        }
+    }
+
+
+
+    // EDIT BUTTON
+    if (which == "confirmation") {
+
+        // EMBARCATIONS
         var btn = div(emb);
-        btn.innerHTML = "Modifier";
+        btn.innerHTML = "Ajouter une embarcation";
         btn.classList.add("Buttons");
-        btn.classList.add("ReturnButtons");
         btn.onclick = function () { newTab('divTabCahierMaterielCategories'); };
 
-       
+        // INFOS
         var bar = div(container);
         bar.classList.add("divConfirmationTexts");
         bar.style.height = "50px";
@@ -110,54 +196,144 @@ function loadConfirmation(elem = $('divTabCahierConfirmation')) {
         div(bar);
         var u = div(bar);
         u.style.height = "100%";
+
         var btn2 = div(u);
         btn2.innerHTML = "Modifier";
         btn2.classList.add("Buttons");
         btn2.classList.add("ReturnButtons");
-        btn2.onclick = function () { newTab('divTabCahierInfos'); };
+        btn2.onclick = function () { popCahierInfos(0); };
+    }
+
+
+    // FILL POP UP BOOKING
+    if (which == "confirmation") {
+         actualizePopBooking(Cahier.bookings[0], which, elem);
     }
 }
 
 
 
 
-function actualizePopBooking(booking, container = $('divTabCahierConfirmationContainer')) {
+function actualizePopBooking(booking, which, container = $('divTabCahierConfirmationContainer')) {
+
     var allDiv = container.getElementsByClassName("divConfirmationTexts");
     var allDivTexts = [];
     for (var i = 0; i < allDiv.length; i++) {
         allDivTexts[i] = allDiv[i].getElementsByTagName('div')[3];
     }
 
-    container.getElementsByClassName('divTabCahierConfirmationContainer')[0].getElementsByTagName("div")[0].innerHTML = "Sortie du " + (new Date(booking.startDate)).getNiceDate(false,true);
-
     allDivTexts[0].innerHTML = Cahier.getOwner(booking, true, { length: 1000000, fontSize: 35 });
 
-    allDivTexts[1].innerHTML = (new Date(booking.startDate)).getNiceTime();
+    if (which == "confirmation") {
+        allDivTexts[1].innerHTML = (new Date()).getNiceTime();
+        allDivTexts[3].innerHTML = Cahier.getSingularOrPlural(booking.participantCount, " Participant");
+        allDivTexts[4].innerHTML = booking.destination;
+        allDivTexts[5].innerHTML = getStartCommentFromBooking(booking, false);
+    }
+    else if (which == "infos") {
+        container.getElementsByClassName('divTabCahierConfirmationContainer')[0].getElementsByTagName("div")[0].innerHTML = "Sortie du " + (new Date(booking.startDate)).getNiceDate(false, true);
+        allDivTexts[1].innerHTML = (new Date(booking.startDate)).getNiceTime();
+        if (booking.endDate == null) {
+            allDivTexts[2].innerHTML = "Pas encore rentré(e)";
+        }
+        else {
+            allDivTexts[2].innerHTML = (new Date(booking.endDate)).getNiceTime();
+        }
+        allDivTexts[4].innerHTML = Cahier.getSingularOrPlural(booking.participantCount, " Participant");
+        allDivTexts[5].innerHTML = booking.destination;
+        allDivTexts[6].innerHTML = getStartCommentFromBooking(booking, false);
+        allDivTexts[7].innerHTML = getEndCommentFromBooking(booking, false);
+    }
+    else if (which == "finish") {
+        container.getElementsByClassName('divTabCahierConfirmationContainer')[0].getElementsByTagName("div")[0].innerHTML = "Terminer sortie du " + (new Date(booking.startDate)).getNiceDate(false, true);
+        allDivTexts[1].innerHTML = (new Date(booking.startDate)).getNiceTime();
+        allDivTexts[2].innerHTML = (new Date()).getNiceTime();
+    }
 
-    if (booking.endDate == null) {
-        allDivTexts[2].innerHTML = "Pas encore rentré(e)";
-    }
-    else {
-        allDivTexts[2].innerHTML = (new Date(booking.endDate)).getNiceTime();
-    }
 
-    if (booking.bookables.length != 0) {
-        container.getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].addEventListener("click", function () { popBookable(booking.bookables[0].id); });
-        container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = booking.bookables[0].name;
-        container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = booking.bookables[0].code + " caté$$";
-    }
-    else {
+
+
+
+    var embContainer = container.getElementsByClassName('divTabCahierConfirmationEmbarcationContainer')[0];
+    var emb1 = embContainer.getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0];
+
+    if (booking.bookables.length == 0) {
         container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = "Matériel personel";
         container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[1].innerHTML = "";
-        container.getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0].getElementsByTagName("div")[0].classList.add("PersonalSail");
+        emb1.getElementsByTagName("div")[0].classList.add("PersonalSail");
+
+
+
+    }
+    else {
+
+
+        embContainer.innerHTML = "";
+
+
+        for (let i = 0; i < booking.bookables.length; i++) {
+            var emb = div(embContainer);
+            emb.className = "divTabCahierConfirmationEmbarcationBox";
+            var img = div(emb);
+            div(img);
+            img.addEventListener("click", function () { popBookable(booking.bookables[i].id); });
+
+            texts = div(emb);
+            texts.className = "divTabCahierConfirmationContainerTextsContainer";
+
+            div(texts).innerHTML = booking.bookables[i].name;
+            div(texts).innerHTML = booking.bookables[i].code;
+
+            if (which == "finish") {
+
+                var radioContainer = div(emb);
+                radioContainer.className = "radioContainer";
+
+                var r1 = div(radioContainer);
+                r1.classList.add("radioSelected");
+                r1.onclick = function () { this.classList.add("radioSelected"); this.nextElementSibling.classList.remove("radioSelected"); this.parentElement.nextElementSibling.children[0].disabled = true; this.parentElement.nextElementSibling.children[0].style.backgroundColor = "lightgray"; this.parentElement.nextElementSibling.style.opacity = 0.5; }; //this.parentElement.parentElement.getElementsByTagName("textarea")[0].style.opacity = 0; 
+                div(div(r1)); div(r1).innerHTML = "En bon état";
+                var r2 = div(radioContainer);
+                r2.onclick = function () { this.classList.add("radioSelected"); this.previousElementSibling.classList.remove("radioSelected"); this.parentElement.nextElementSibling.children[0].disabled = false; this.parentElement.nextElementSibling.children[0].style.backgroundColor = "white"; this.parentElement.nextElementSibling.style.opacity = 1; };//area.style.opacity = 1;}; 
+                div(div(r2)); div(r2).innerHTML = "Endommagé";
+
+                var areaContainer = div(emb);
+                areaContainer.style.width = "0px";
+                areaContainer.style.height = "0px";
+                areaContainer.style.opacity = 0.5;
+                var area = document.createElement("textarea");
+                area.placeholder = "État de l'embarcation...";
+                area.spellcheck = false;
+                area.style.left = "350px";
+                area.style.top = "30px";
+                area.style.height = "95px";
+                area.style.width = "290px";
+                area.style.backgroundPositionX = "245px";
+                area.disabled = "true"; area.style.backgroundColor = "lightgray";
+                areaContainer.appendChild(area);
+                //area.focus();
+            }
+        }
+
+
+
     }
 
-    allDivTexts[4].innerHTML = Cahier.getSingularOrPlural(booking.participantCount, " Participant");
-    allDivTexts[5].innerHTML = booking.destination;
 
-    allDivTexts[6].innerHTML = getStartCommentFromBooking(booking,false);
-    allDivTexts[7].innerHTML = getEndCommentFromBooking(booking,false);
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
 
 
 

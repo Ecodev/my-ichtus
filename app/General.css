@@ -421,6 +421,7 @@ option {
     opacity: 0.5;
     z-index: 4;
     transition: all 0.1s linear 0s;
+    cursor:pointer;
 }
     .divPopUpClose:hover {
         opacity: 1;

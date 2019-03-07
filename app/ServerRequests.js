@@ -993,7 +993,7 @@ var Requests = {
     },
 
     // getBookingInfos
-    getBookingInfos: function (bookingId, elem) {
+    getBookingInfos: function (bookingId, which, elem) {
 
         var filter = {
             filter: {
@@ -1016,7 +1016,7 @@ var Requests = {
 
         Server.bookingService.getAll(variables).subscribe(result => {
             console.log("getBookingInfos(): ", result);
-            actualizePopBooking(result.items[0], elem);
+            actualizePopBooking(result.items[0],which, elem);
         });
     },
 
@@ -1050,7 +1050,7 @@ var Requests = {
 
     // finishBooking
     terminateBooking: function (bookingId, comment) {
-        alert(comment);
+        alert(comment + "  " + "attendre 5 secondes");
         Server.bookingService.flagEndDate(bookingId, comment).subscribe(result => {
             setTimeout(function () {
                 Requests.getActualBookingList(true);

@@ -8,9 +8,10 @@ function actualizeBookableList() {
         var d = div($('divTabCahierTopList').children[0]);
         d.id = i;
         d.onclick = function (event) {
-            if (event.target == this) {
+            if (event.target == this.children[0] || event.target == this.children[2]) {
                 popBookable(Cahier.bookings[0].bookables[this.id].id);
             }
+            console.log(event.target);
         };
 
         var img = div(d);

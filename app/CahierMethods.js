@@ -182,7 +182,7 @@ var Cahier = {
                         allDivTabCahierProgressTexts[i].innerHTML = Cahier.getFullName(Cahier.bookings[0]);
                         break;
                     case 1:
-                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.bookings[0].destination + ", " + Cahier.bookings[0].participantCount + " Acc.";
+                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.bookings[0].destination + " & " + Cahier.bookings[0].participantCount + " Part.";
                         break;
                     case 2:
                         allDivTabCahierProgressTexts[i].innerHTML = Cahier.getBookableName(Cahier.bookings[0]);
@@ -199,22 +199,27 @@ var Cahier = {
 
     actualizeConfirmation: function () {
 
-        var booking = {}; //simuler un vrai booking 
-        if (Cahier.personId != "") {
-            booking = { owner: { name: Cahier.getFullName() } };
+        //var booking = {}; //simuler un vrai booking 
+        //if (Cahier.personId != "") {
+        //    booking = { owner: { name: Cahier.getFullName() } };
+        //}
+        //else {
+        //    booking = { startComment: "[" + Cahier.personFirstName + "]" };
+        //}
+
+     //   $('divTabConfirmationTitle').innerHTML = Cahier.getOwner(Cahier.bookings[0], true, { length: 1000000, fontSize: 25 }) + "<div style='display:inline-block; vertical-align:middle; margin-left:8px;'> à " + date.getNiceTime() + "</div>";
+
+
+     //   $('divTabConfirmationBookingsContainer').innerHTML = "";
+       // for (var i = 0; i < Cahier.bookings.length; i++) {
+            //createConfirmationBooking(Cahier.bookings[i],i);
+       // }
+
+        if (currentTabElement.id == "divTabCahierConfirmation") {
+            loadConfirmation();
         }
-        else {
-            booking = { startComment: "[" + Cahier.personFirstName + "]" };
-        }
-
-        $('divTabConfirmationTitle').innerHTML = Cahier.getOwner(Cahier.bookings[0], true, { length: 1000000, fontSize: 25 }) + "<div style='display:inline-block; vertical-align:middle; margin-left:8px;'> à " + date.getNiceTime() + "</div>";
 
 
-        $('divTabConfirmationBookingsContainer').innerHTML = "";
-
-        for (var i = 0; i < Cahier.bookings.length; i++) {
-            createConfirmationBooking(Cahier.bookings[i],i);
-        }
     },
 
 

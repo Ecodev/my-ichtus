@@ -45,11 +45,11 @@ function actualizeActualBookings(actualBookings,first) {
 
         container.addEventListener("click", function (event) {
             if (event.target.classList.contains("Buttons")) {
-                openFinishBooking(openPopUp(),this.id);
+                popBookingFinish(this.id);
             }
             else if (typeof event.target.getElementsByTagName("div")[0] != "undefined") {
                 if (event.target.getElementsByTagName("div")[0].classList.contains("Buttons")) {
-                     openFinishBooking(openPopUp(), this.id);
+                    popBookingFinish(this.id);
                 }
                 else {
                     popBooking(this.id);
