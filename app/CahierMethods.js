@@ -1,14 +1,23 @@
 var Cahier = {
 
     bookings: [{
-        owner: {},
+        owner: {id:0,name:"Michel pas défini",sex:"male"},
         bookables: [],
         participantCount: 1,
         destination: "Non défini",
         startComment: ""
     }],
 
+    personalBookable: {
+        id: 0,
+        code: "MP",
+        name:"Matériel personel"
+    },
+
     getImageUrl: function (_bookable, size = 220) {
+        if (_bookable.code == "MP") {
+            return 'url(Img/IconPersonalSail.png)';
+        }
         return 'url(https://my.ichtus.ch/image/' + _bookable.image.id + '/' + size + ')';
     },
 
@@ -107,6 +116,9 @@ var Cahier = {
 
         changeProgress(1);
 
+        document.getElementsByClassName("divTabCahierMaterielChoiceContainer")[0].children[3].children[0].classList.remove("buttonNonActive");
+
+
         Cahier.bookings = [{
             owner: {},
             bookables: [],
@@ -125,15 +137,10 @@ var Cahier = {
 
     confirm: function () {
 
-        //for (var i = 0; i < Cahier.bookings.length; i++) {
-        //    Requests.createBooking(i,Cahier.bookings.length);
-        //}
-
         Requests.createBooking();
 
         animate();
         console.log("--> Cahier.confirm()");
-        //        Requests.getActualBookingList(true); moved to the requests, otherwise too fast and doesn't link bookable on the first screen
     },
 
     actualizeProgressBar: function () {
@@ -142,13 +149,18 @@ var Cahier = {
             if (i < currentProgress-1) {
                 switch (i) {
                     case 0:
-                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.getFullName(Cahier.bookings[0]);
+                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.bookings[0].owner.name;
                         break;
                     case 1:
                         allDivTabCahierProgressTexts[i].innerHTML = Cahier.bookings[0].destination + " & " + Cahier.bookings[0].participantCount + " P.";
                         break;
                     case 2:
-                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.getBookableName(Cahier.bookings[0]);
+                        var txt = "";
+                        for (let k = 0; k < Cahier.bookings[0].bookables.length; k++) {
+                            txt += Cahier.bookings[0].bookables[k].code + ", ";
+                        }
+                        txt = txt.substring(0,txt.length - 2);
+                        allDivTabCahierProgressTexts[i].innerHTML = txt;
                         break;
                     default:
                         break;
@@ -193,14 +205,15 @@ var Cahier = {
         newTab("divTabCahierInfos");
     },
 
-    addBookable: function (nbr = 0, _bookable = {}) {
+    addBookable: function (nbr = 0, _bookable = Cahier.personalBookable) {
 
-        if (_bookable.id == undefined) { // no id means MP  NO MORE POSSIBLE!
-            Cahier.bookings[nbr].bookables = []; 
-        }
-        else {
-            Cahier.bookings[nbr].bookables.push(_bookable);
-            actualizeBookableList();
+        Cahier.bookings[nbr].bookables.push(_bookable);
+        actualizeBookableList();
+
+        console.log(_bookable);
+
+        if (_bookable == Cahier.personalBookable) {
+            document.getElementsByClassName("divTabCahierMaterielChoiceContainer")[0].children[3].children[0].classList.add("buttonNonActive");
         }
 
         console.log("setBookable(): ", nbr, Cahier.bookings[nbr].bookables);
@@ -213,6 +226,10 @@ var Cahier = {
             if (Cahier.bookings[nbr].bookables[i].code == _bookable.code) {
                 break;
             }
+        }
+
+        if (_bookable == Cahier.personalBookable) {
+            document.getElementsByClassName("divTabCahierMaterielChoiceContainer")[0].children[3].children[0].classList.remove("buttonNonActive");
         }
 
         Cahier.bookings[nbr].bookables.splice(i, 1);

@@ -16,11 +16,6 @@ function animate() {
 
     cancelFunction = function () {
         location.reload();
-    //    console.log("skipped animation");
-    //    document.body.removeEventListener("mousedown", cancelFunction);
-    //    running = false;
-    //    DeleteObjects(b, c, w, f, r, info, document.getElementsByClassName("svgLetters")[0], document.getElementsByClassName("svgLetters")[1], document.getElementsByClassName("svgLetters")[2], document.getElementsByClassName("svgLetters")[3], document.getElementsByClassName("svgLetters")[4], document.getElementsByClassName("svgLetters")[5]);
-         //
      };
 
    
@@ -76,14 +71,14 @@ function animate() {
                     f.style.animationName = "AniFishExit,none";
                 
 
-                setTimeout(function () { if (running) { DeleteObjects(w, c,r, f);     running = false;} }, 1000);
+                    setTimeout(function () { if (running) { DeleteObjects(w, c, r, f); running = false; } Requests.getActualBookingList(true);}, 1000);
 
                 setTimeout(function () {
                     if (!running) { return; }
                     else {
                         b.style.animationName = "AniBlackExit";
                         DeleteObjects(b, info);
-                    
+        
                      //   location.reload();
                     }
                     document.body.removeEventListener("mousedown", cancelFunction);

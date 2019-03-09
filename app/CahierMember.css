@@ -7,14 +7,22 @@
 }
 
     #divTabCahierMemberContainer > div {
-        position:relative !important;
-        top:0px !important;
-        left:0px !important;
-        background-color:transparent !important;
-        margin-left:50%;
-        transform:translateX(-50%);
-        width: 700px;
+        position: relative !important;
+        top: 0px !important;
+        left: 0px !important;
+        background-color: rgb(240,240,240) !important;
+        height: 300px !important;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        width: 60% !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
         height: 350px;
         padding: 10px;
         text-align: center;
+        border-radius:20px;
+    }
+
+    #divTabCahierMemberContainer  #inputTabCahierSearch {
+        margin-top:20px;
     }

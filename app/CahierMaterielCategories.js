@@ -1,5 +1,5 @@
-var categories = ["Canoë & Kayak","SUP","Rame", "Planche à voile", "Dériveur"];
-var categoriesValues = ["Canoë Kayak","SUP", "R", "R", "Voilier"];
+var categories = ["Canoë & Kayak","SUP","Rame", "Planche à voile", "Voile"];
+var categoriesValues = ["Canoe_Kayak","SUP", "Aviron", "Planche", "Voile"];
 function loadMateriel(container = $("divTabCahierMaterielCategoriesContainer")) {
     inputTypeCodeMateriel = document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[0];
     inputNumberCodeMateriel = document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("input")[1];
@@ -14,9 +14,10 @@ function loadMateriel(container = $("divTabCahierMaterielCategoriesContainer")) 
         d1.id = i;
         d1.classList.add("Boxes");
 
-        var dTop = document.createElement("div");
+        var dTop = div(d1);
         dTop.classList.add("BoxesTop");
-        d1.appendChild(dTop);
+        dTop.style.backgroundImage = "url(Img/IconChose.png)," + "url(Img/Categorie/" + categoriesValues[i] + ".png)";
+        console.log(i);
 
         var dBottom = document.createElement("div");
         dBottom.classList.add("BoxesBottom");
@@ -30,7 +31,7 @@ function loadMateriel(container = $("divTabCahierMaterielCategoriesContainer")) 
         var dBottomText2 = document.createElement("div");
         dBottomText2.classList.add("BoxesBottomText2");
         dBottom.appendChild(dBottomText2);
-        Requests.getBookableNbrForBookableTag(categoriesValues[i], dBottomText2, "", " "+ categories[i] + "s")
+        Requests.getBookableNbrForBookableTag(categoriesValues[i], dBottomText2, "", " " + categories[i] + "s");
 
         if (categoriesValues[i] == "MP") { // useless
             d.addEventListener("click", function () {

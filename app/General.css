@@ -379,7 +379,6 @@ option {
     width: 200px;
     height: 220px;
     z-index: 0;
-    background-image: url(Img/IconChose.png), url(Img/Materiel/Sail.png);
     background-repeat: no-repeat, no-repeat;
     background-size: 0px, 200px;
     background-position-x: 100px,0px;

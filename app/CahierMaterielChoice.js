@@ -42,13 +42,21 @@ function loadCahierMaterielChoice(loc = $('divTabCahierMaterielChoice').getEleme
         btn1.innerHTML = "Prendre du matériel personel";
         if (isTab) {
             btn1.onclick = function () {
-                //Cahier.addBookable(nbr);
-                newTab('divTabCahierConfirmation');
+                var t = true;
+                for (let k = 0; k < Cahier.bookings[0].bookables.length; k++) {
+                    if (Cahier.bookings[0].bookables[k] == Cahier.personalBookable) {
+                        t = false;
+                        break;
+                    }
+                }
+                if (t) {
+                    Cahier.addBookable(nbr);
+                } 
             };
         }
         else {
             btn1.onclick = function () {
-                //Cahier.addBookable(nbr);
+                Cahier.addBookable(nbr);
                 closePopUp("last");
             };
         }

@@ -55,14 +55,9 @@ var currentProgress = 0;
 function changeProgress(c) {
 
     var sign;
-    if (c == currentProgress) {
-       // alert("c == currentProgress !!");
-    }
-    else {
+    if (c != currentProgress) {
         sign = Math.abs(c - currentProgress) / (c - currentProgress);
     }
-
-    //alert(c + " current: " + currentProgress);
      
     currentProgress = c;
     for (var i = 1; i < 5; i++) {

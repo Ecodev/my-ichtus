@@ -13,7 +13,7 @@
     z-index: 4;
     opacity: 1;
     box-sizing: border-box;
-    visibility: hidden;
+
     /*background-color:blue;*/
     /*position: absolute;
     top: 180px;
@@ -43,7 +43,8 @@
         padding: 2px;
         line-height: 92px;
         text-align: center;*/
-
+        transition:opacity 0.3s linear 0s;
+        opacity:0;
         left: 2.5%;
         width: 100%;
         min-height: 100px;
@@ -56,11 +57,7 @@
         padding: 2px;
         /*line-height: 92px;*/
         text-align: center;
-        overflow-y:scroll;
-
-
-        /*background-color: red;*/
-        
+        overflow-y:scroll;        
     }
 
         #divTabCahierTopList > div:first-child > div {
@@ -86,13 +83,20 @@
         }
 
 
+            #divTabCahierTopList > div:first-child > div.PersonalSail >div{
+                cursor:unset !important;
+            }
+
+                #divTabCahierTopList > div:first-child > div.PersonalSail:hover {
+                    background-color: white;
+                }
+
             #divTabCahierTopList > div:first-child > div > div:first-child {
                 position: absolute;
                 width: 100%;
                 height: 100%;
                 background-position: center;
                 background-repeat: no-repeat;
-                background-image: url(Img/Materiel/Sail.png);
                 background-size: 80px;
                 cursor: pointer;
                 -moz-transition: all 0.1s linear 0s;
@@ -100,9 +104,7 @@
                 -webkit-transition: all 0.1s linear 0s;
                 transition: all 0.1s linear 0s;
             }
-            #divTabCahierTopList > div:first-child > div:hover > div:first-child {
-                /*background-size: 850x;*/
-            }
+
 
             #divTabCahierTopList > div:first-child > div > div:nth-child(2) {
                 position: absolute;
@@ -137,7 +139,7 @@
                 bottom: 0px;
                 color: var(--fontBlack);
                 border-top-left-radius: 15px;
-                border-bottom-right-radius: 15px;
+                border-bottom-right-radius: 5px;
                 background-color: white;
                 -webkit-box-shadow: -1px -1px 3px 0px rgba(0,0,0,0.3);
                 -moz-box-shadow: -1px -1px 3px 0px rgba(0,0,0,0.3);
@@ -159,30 +161,3 @@
     font-size:0px;
 }
 
-            /*#divTabCahierTopList > div:first-child > div:last-child{
-               width:80px;
-               height:50px;
-               margin-top:0px;
-               margin-bottom:0px;
-               vertical-align:top;
-            }
-
-                #divTabCahierTopList > div:first-child > div:last-child > .Buttons {
-                    width: 90px;
-                    height: 40px;
-                    margin: 0px;
-                    margin-left:-10px;
-                    margin-top: 0px;
-                    background-color: var(--accent);
-                    background-image: url(Img/IconArrow.png);
-                    background-size: 30px;
-                    background-position-x: center;
-                    background-position-y: center;
-                    border-radius:8px;
-                    color:white;
-                    font-size:0px;
-                    line-height:30px;
-                }
-                #divTabCahierTopList > div:first-child > div:last-child > .Buttons:hover {
-                    background-color:var(--accentHover);
-                }*/

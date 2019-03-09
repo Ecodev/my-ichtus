@@ -177,6 +177,10 @@
             filter: brightness(0.5)rightness(0.5);
         }
 
+        /*.divConfirmationTexts > div:nth-child(4).Buttons {
+            top:-60px;
+        }*/
+
 .divTabCahierConfirmationEmbarcationBoxContainer {
     position: absolute;
     top: 57px;
@@ -223,35 +227,36 @@
                 background-color: var(--accentHover);
             }
 
-            .divTabCahierConfirmationEmbarcationBox > div:nth-child(1) {
-                position: absolute;
-                margin: 10px;
-                width: 100px;
-                height: 100px;
-                background-image: url(Img/Materiel/Sail.png),url(Img/IconInfo.png);
-                background-size: 100px, 25px;
-                background-repeat: no-repeat;
-                border-radius: 10px;
-                border: 2px solid lightgray;
-                background-color: white;
-                -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.5);
-                -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.5);
-                box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.5);
-                transition: all 0.1s linear 0s;
-                cursor:pointer;
-            }
+.divTabCahierConfirmationEmbarcationBox > div:nth-child(1) {
+    position: absolute;
+    margin: 10px;
+    width: 100px;
+    height: 100px;
+    background-image:,url(Img/IconInfo.png),none;
+    background-size: 25px, 100px;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    border: 2px solid lightgray;
+    background-color: white;
+    -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.5);
+    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.5);
+    transition: all 0.1s linear 0s;
+    cursor: pointer;
+}
     .divTabCahierConfirmationEmbarcationBox > div:nth-child(1).PersonalSail {
-        background-image: url(Img/IconPersonalSail.png),none;
+        background-size:0px,100px;
         border-width: 0px;
         -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0);
         -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0);
         box-shadow: 1px 1px 5px 0px rgba(0,0,0,0);
+        cursor:unset;
     }
     .divTabCahierConfirmationEmbarcationBox > div:nth-child(1):not(.PersonalSail):hover {
             margin-top: 15px;
             background-position-x: 0px,0px;
             background-position-y: 0px,0px;
-            background-size: 100px,30px;
+            background-size: 30px, 100px;
             -moz-box-shadow: 1px 1px 8px 0px rgba(0,0,0,0.6);
             -webkit-box-shadow: 1px 1px 8px 0px rgba(0,0,0,0.6);
             box-shadow: 1px 1px 8px 0px rgba(0,0,0,0.6);
@@ -282,14 +287,23 @@
         }
 
 
-
-#divTabCahierConfirmationInfosBox {
-    position: relative;
-    margin-left: 40px;
-    width: 640px;
-    height: 50px;
-    background-color: azure;
+.divTabCahierConfirmationEmbarcationButtonContainer {
+    position:relative;
+    height:30px;
+    width:100%;
 }
+    .divTabCahierConfirmationEmbarcationButtonContainer > .Buttons {
+        background-image: url(Img/IconSail.png);
+        background-blend-mode: exclusion;
+    }
+
+    #divTabCahierConfirmationInfosBox {
+        position: relative;
+        margin-left: 40px;
+        width: 640px;
+        height: 50px;
+        background-color: azure;
+    }
 
 .divTabCahierConfirmationContainer textarea {
     position: relative;
@@ -298,7 +312,7 @@
     top: 5px;
     margin-bottom: 5px;
     width: 385px;
-    height: 95px;
+    height:95px;
     box-sizing: border-box;
     border-width: 2px;
     border-style: solid;

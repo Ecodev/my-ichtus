@@ -104,6 +104,8 @@
 
 
 
+
+
 .divTabCahierMaterielChoiceInputCodeContainer + div {
     text-align: center;
     color: gray;
@@ -140,6 +142,12 @@
 .divTabCahierMaterielChoiceContainer > div:nth-child(4) {
     text-align: center;
 }
+
+    .divTabCahierMaterielChoiceContainer > div:nth-child(4) .Buttons.buttonNonActive {
+        background-color: lightgray;
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
 
 /* IDEA IS FROM  https://css-tricks.com/snippets/css/shake-css-keyframe-animation/ */
 @keyframes shake {

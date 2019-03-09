@@ -17,15 +17,19 @@ function loadElements(bookables ,nbr = 0) {
 
         if (codes.findIndex(bookables[i].code) != -1) {
             container.classList.add("selected");
-            container.onclick =  function () {
-                Cahier.removeBookable(nbr, bookables[this.id]);
-                actualizeElements();
+            container.onclick = function (event) {
+                if (!(event.target.classList.contains("infoJS"))) {
+                    Cahier.removeBookable(nbr, bookables[this.id]);
+                    actualizeElements();
+                }
             };
         }
         else {
-            container.onclick = function () {
-                Cahier.addBookable(nbr, bookables[this.id]);
-                actualizeElements();               
+            container.onclick = function (event) {
+                if (!(event.target.classList.contains("infoJS"))) {
+                    Cahier.addBookable(nbr, bookables[this.id]);
+                    actualizeElements();       
+                }
             };
         }
 
@@ -47,12 +51,17 @@ function loadElements(bookables ,nbr = 0) {
       //  model = div(bottom);
       //  model.innerHTML = bookables[i].id;
 
-        //var info = div(secondContainer);
-
         var background = div(secondContainer);
         background.style.backgroundImage = Cahier.getImageUrl(bookables[i]);
 
         var selection = div(secondContainer);
+
+        var info = div(secondContainer);
+        info.id = bookables[i].id;
+        info.classList.add("infoJS");
+        info.onclick = function () {
+            popBookable(this.id);
+        };
 
     }
     if (bookables.length == 0) {
@@ -81,16 +90,20 @@ function actualizeElements() {
 
         if (codes.findIndex(bookables[i].code) != -1) {
             container.classList.add("selected");
-            container.onclick = function () {
-                Cahier.removeBookable(0, bookables[this.id]);
-                actualizeElements();
+            container.onclick = function (event) {
+                if (!(event.target.classList.contains("infoJS"))) {
+                    Cahier.removeBookable(0, bookables[this.id]);
+                    actualizeElements();
+                }
             };
         }
         else {
             container.classList.remove("selected");
-            container.onclick = function () {
-                Cahier.addBookable(0, bookables[this.id]);
-                actualizeElements();
+            container.onclick = function (event) {
+                if (!(event.target.classList.contains("infoJS"))) {
+                    Cahier.addBookable(0, bookables[this.id]);
+                    actualizeElements();
+                }
             };
         }
 
@@ -109,5 +122,6 @@ function clickSortIcon(elem) {
 
 
 function changeSelectCategorie(elem) {
+    console.log(elem.value);
     $('divTabCahierMaterielElementsSelectCategorie').getElementsByTagName("div")[0].style.backgroundImage = "url(Img/Categorie/" + elem.value + ".png)";
 }

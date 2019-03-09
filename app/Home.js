@@ -333,25 +333,46 @@ Array.prototype.fillArray = function (length, what = 0) {
 };
 
 
-function transformBookings(array) { // one booking with many bookables
+function transformBookings(_bookings) { // one booking with many bookables
 
-    console.log(array);
+    console.log(_bookings);
 
-    var final = [];
-    final.push(array[0]);
-
-    for (var i = 1; i < array.length; i++) {
-        if (array[i].startDate == array[i - 1].startDate && array[i].owner.id == array[i - 1].owner.id) {
-            final[final.length - 1].bookables.push(array[i].bookables[0]);
+    if (_bookings.length > 0) {
+        var final = [];
+        final.push(_bookings[0]);
+        final[0].ids = [_bookings[0].id];
+        if (final[0].bookables.length == 0) {
+            final[0].bookables.push(Cahier.personalBookable);
         }
-        else {
-            final.push(array[i]);
+
+        for (var i = 1; i < _bookings.length; i++) {
+            if (_bookings[i].startDate == _bookings[i - 1].startDate && _bookings[i].owner.id == _bookings[i - 1].owner.id) {
+
+                if (_bookings[i].bookables.length == 0) {
+                    final[final.length - 1].bookables.push(Cahier.personalBookable);
+                }
+                else {
+                    final[final.length - 1].bookables.push(_bookings[i].bookables[0]);
+                }
+                
+                final[final.length - 1].ids.push(_bookings[i].id);
+            }
+            else {
+                final.push(_bookings[i]);
+                final[final.length - 1].ids = [_bookings[i].id];
+                if (final[final.length - 1].bookables.length == 0) {
+                    final[final.length - 1].bookables.push(Cahier.personalBookable);
+                }
+            }
         }
+
+        console.log(final);
+
+        return final;
     }
-
-    console.log(final);
-
-    return final;
+    else {
+        return [];
+    }
 }
 
 //Array.prototype.transformBookings = function () {

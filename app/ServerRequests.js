@@ -101,7 +101,8 @@ var Requests = {
 
         var categorie = $('divTabCahierMaterielElementsSelectCategorie').getElementsByTagName("select")[0].value;
         if (categorie == "all") { categorie = ""; }
-        if (categorie == "Canoë Kayak") {categorie = "Kayak";}
+        if (categorie == "Canoe_Kayak") { categorie = "Kayak"; }
+        if (categorie == "Voile") { categorie = "Voile lestée"; }
 
         //alert(categorie);
 
@@ -158,12 +159,21 @@ var Requests = {
 
         if (categorie == "Kayak") {
             f.filter.groups[1].joins.bookableTags.conditions.push({
-                                        name: {
-                                            like: {
-                                                value: "%" + "Canoë" + "%"
-                                            }
-                                        }
-                                    });
+                name: {
+                    like: {
+                        value: "%" + "Canoë" + "%"
+                    }
+                }
+            });
+        }
+        else if (categorie == "Voile lestée") {
+            f.filter.groups[1].joins.bookableTags.conditions.push({
+                name: {
+                    like: {
+                        value: "%" + "voile légère" + "%"
+                    }
+                }
+            });
         }
 
         var variables = new Server.QueryVariablesManager();
@@ -303,7 +313,8 @@ var Requests = {
     // getBookableNbrForBookableTag()
     getBookableNbrForBookableTag: function (bookableTag, elem, before = "", after = "") {
         
-        if (bookableTag == "Canoë Kayak") {bookableTag = "Kayak"}
+        if (bookableTag == "Canoe_Kayak") { bookableTag = "Kayak"; }
+        if (bookableTag == "Voile") { bookableTag = "Voile lestée"; }
 
         var filter = {
             filter: {
@@ -333,13 +344,22 @@ var Requests = {
 
          if (bookableTag == "Kayak") {
             filter.filter.groups[0].joins.bookableTags.conditions.push({
-                                        name: {
-                                            like: {
-                                                value: "%" + "Canoë" + "%"
-                                            }
-                                        }
-                                    });
+                name: {
+                    like: {
+                        value: "%" + "Canoë" + "%"
+                    }
+                }
+            });
         }
+        else if (bookableTag == "Voile lestée") {
+             filter.filter.groups[0].joins.bookableTags.conditions.push({
+                 name: {
+                     like: {
+                         value: "%" + "voile légère" + "%"
+                     }
+                 }
+             });
+         }
 
         var variables = new Server.QueryVariablesManager();
         variables.set('variables', filter); 
@@ -1052,19 +1072,27 @@ var Requests = {
 
             var send = transformBookings(result.items)[0];
 
-     //       actualizePopBooking(send, which, elem); // should only give one booking
+           actualizePopBooking(send, which, elem); // should only give one booking
         });
 
     },
 
 
     // finishBooking
-    terminateBooking: function (bookingId, comment) {
-        console.log("terminateBooking", bookingId, comment);
-        Server.bookingService.flagEndDate(bookingId, comment).subscribe(result => {
-            console.log("booking ended !");
-            Requests.getActualBookingList(true);
-        });
+    terminateBooking: function (bookingIds = [], comments = []) {
+        var c = 0;
+        console.log(comments);
+        for (var i = 0; i < bookingIds.length; i++) {
+            console.log("terminateBooking", bookingIds[i], comments[i]);
+            Server.bookingService.flagEndDate(bookingIds[i], comments[i]).subscribe(result => {
+                c++;
+                console.log(c);
+                if (c == bookingIds.length) {
+                    console.log("this.terminateBooking done !");
+                    Requests.getActualBookingList(true);
+                }
+            });
+        }      
     },
 
     // createBooking
@@ -1139,7 +1167,7 @@ var Requests = {
                 console.log('Created booking : ', booking);
 
                 // LINK BOOKABLE
-                if (true) { // MP
+                if (Cahier.bookings[0].bookables[i] != Cahier.personalBookable) { // MP
                     Server.linkMutation.link(booking, {
                         id: Cahier.bookings[0].bookables[i].id,
                         __typename: 'Bookable'
@@ -1147,15 +1175,13 @@ var Requests = {
                         console.log('Linked Bookable : ', booking);
 
                         Requests.counter++;
-                        if (Requests.counter == Cahier.bookings[0].bookables.length) { newTab("divTabCahier"); Requests.getActualBookingList(true);  ableToSkipAnimaiton();}  
+                        if (Requests.counter == Cahier.bookings[0].bookables.length) { newTab("divTabCahier"); ableToSkipAnimaiton();}  
                     });
                 }
                 else {
-                    console.log("Matériel Personel");
-
-
-                    //Requests.counter++; // non pour l emoment
-                    if (Requests.counter == Cahier.bookings[0].bookables.length) { newTab("divTabCahier"); Requests.getActualBookingList(true); ableToSkipAnimaiton(); }  
+                    console.log("+1Matériel Personel");
+                    Requests.counter++;
+                    if (Requests.counter == Cahier.bookings[0].bookables.length) { newTab("divTabCahier"); ableToSkipAnimaiton(); }  
            
                 }
             });    

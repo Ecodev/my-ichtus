@@ -89,6 +89,7 @@
     left:2px;
     animation: EnterFromLeft 0.5s ease-out 1 normal;
     z-index:3;
+    cursor:pointer;
 }
     #divTopBarLogo > img {
         position:absolute;

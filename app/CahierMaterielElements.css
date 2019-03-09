@@ -46,11 +46,11 @@
         }
 
         .divTabCahierMaterielElementsContainer > div:hover > div {
-            top: 15px;
+            top: 5px;
             -webkit-box-shadow: 2px 3px 8px 0px rgba(0,0,0,0.5);
             -moz-box-shadow: 2px 3px 8px 0px rgba(0,0,0,0.5);
             box-shadow: 2px 3px 8px 0px rgba(0,0,0,0.5);
-            background-color: lightgray;
+            /*background-color: lightgray;*/
         }
 
 
@@ -151,6 +151,25 @@
             background-image: url(Img/IconChoseBlue.png);
         }
 
+
+        .divTabCahierMaterielElementsContainer > div > div > div:nth-child(5) {
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            width: 30px;
+            height: 30px;
+            background-image: url(Img/IconInfo.png);
+            background-repeat: no-repeat;
+            background-size: 30px;
+            background-position: center;
+            transition: all 0.1s linear 0s;
+            border-radius:30px;
+        }
+
+            .divTabCahierMaterielElementsContainer > div > div > div:nth-child(5):hover {
+                background-color: white;
+                background-size:40px;
+            }
 
 
 
@@ -347,7 +366,6 @@
         top: 20px;
         width: 215px;
         height: 220px;
-        background-image: url(Img/Materiel/Sail.png);
         background-repeat: no-repeat;
         border-radius: 10px;
         border: 2px solid lightgray;

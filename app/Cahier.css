@@ -322,7 +322,7 @@
         width:20%;
     }
     #divTabCahierTableActualBookings .TableEntries > div:nth-child(4) {
-        width: 35%;
+        width: 32%;
     }
     #divTabCahierTableActualBookings .TableEntries > div:nth-child(5) {
         width: 15%;
@@ -390,7 +390,6 @@
         .TableEntriesBookableBox > div > div:nth-child(3n+1) {
             width: 35px;
             height: 35px;
-            background-image: url(Img/Materiel/Sail.png);
             background-size: 35px;
             background-repeat:no-repeat;
             border-radius:5px;
