@@ -1,5 +1,7 @@
 ﻿//ProgressBar
 
+var progessionTabNames = ["divTabCahier","divTabCahierMember", "divTabCahierInfos", "divTabCahierMaterielChoice", "divTabCahierConfirmation"];
+
 function createProgressBar() {
 
     for (var i = 0; i < 4; i++) {
@@ -8,18 +10,11 @@ function createProgressBar() {
         divStep.classList.add("divTabCahierProgressStep");
         divStep.style.left = (6 + 26 * i) + "%";
         divStep.addEventListener("click", function () {
-            var c = (parseInt(this.style.left) - 6) / 26;
+            var c = (parseInt(this.style.left) - 6) / 26 +1;
             if (c < currentProgress) {
-                switch (c) {
-                    case 0: newTab("divTabCahier");
-                break;
-                    case 1: newTab("divTabCahierInfos");
-                break;
-                    case 2: newTab("divTabCahierMaterielChoice");
-                break;
-                    default:
-                break;
-                }
+
+                newTab(progessionTabNames[c]);
+
             }
            
         });
@@ -27,15 +22,17 @@ function createProgressBar() {
 
         divStep.classList.add("divTabCahierProgressStepCompleted");
 
-        var divCircle = document.createElement("div");
-        divCircle.classList.add("divTabCahierProgressCircle");
-        divStep.appendChild(divCircle);
-
         var divNumber = document.createElement("div");
         divNumber.classList.add("divTabCahierProgressNumber");
         divNumber.innerHTML = (i + 1);
         divStep.appendChild(divNumber);
 
+
+        var divCircle = document.createElement("div");
+        divCircle.classList.add("divTabCahierProgressCircle");
+        divStep.appendChild(divCircle);
+
+      
         var divText = document.createElement("div");
         divText.classList.add("divTabCahierProgressText");
         divText.innerHTML = Cahier.ProgressBarTexts[i];
@@ -68,18 +65,18 @@ function changeProgress(c) {
     //alert(c + " current: " + currentProgress);
      
     currentProgress = c;
-    for (var i = 0; i < 4; i++) {
-        document.getElementsByClassName("divTabCahierProgressStep")[i].className = "divTabCahierProgressStep";
+    for (var i = 1; i < 5; i++) {
+        document.getElementsByClassName("divTabCahierProgressStep")[i-1].className = "divTabCahierProgressStep";
         if (i < c) {
-            document.getElementsByClassName("divTabCahierProgressStep")[i].classList.add("divTabCahierProgressStepCompleted");
+            document.getElementsByClassName("divTabCahierProgressStep")[i-1].classList.add("divTabCahierProgressStepCompleted");
         }
         else if (i == c) {
-            document.getElementsByClassName("divTabCahierProgressStep")[i].classList.add("divTabCahierProgressStepCurrent");
+            document.getElementsByClassName("divTabCahierProgressStep")[i-1].classList.add("divTabCahierProgressStepCurrent");
         }
         else {
-            document.getElementsByClassName("divTabCahierProgressStep")[i].classList.add("divTabCahierProgressStepIncompleted");
+            document.getElementsByClassName("divTabCahierProgressStep")[i-1].classList.add("divTabCahierProgressStepIncompleted");
         }
     }
 
-    $("divTabCahierProgressBarBlue").style.width = c * 26 + "%";
+    $("divTabCahierProgressBarBlue").style.width = (c-1) * 26 + "%";
 }

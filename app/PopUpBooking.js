@@ -140,15 +140,7 @@ function openBooking(which = "confirmation", elem = $('divTabConfirmationOneBook
         btnFinish.classList.add("ValidateButtons");
         btnFinish.style.backgroundColor = "red";
         btnFinish.innerHTML = "Terminer";
-        btnFinish.addEventListener("click", function () {
-            var txt = "";
-            if (area.parentElement.style.opacity == 1) {
-                txt += "! " + area.value + " ! ";
-            }
-            txt += area2.value;
-            Requests.terminateBooking(this.id, txt);
-            closePopUp({ target: elem }, elem);
-        });
+        // for function see - actualizeBooking...
     }
    
 
@@ -248,6 +240,20 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
         container.getElementsByClassName('divTabCahierConfirmationContainer')[0].getElementsByTagName("div")[0].innerHTML = "Terminer sortie du " + (new Date(booking.startDate)).getNiceDate(false, true);
         allDivTexts[1].innerHTML = (new Date(booking.startDate)).getNiceTime();
         allDivTexts[2].innerHTML = (new Date()).getNiceTime();
+
+        var btn = container.getElementsByClassName("ValidateButtons")[0];
+        btn.id = booking.id;
+
+        btn.addEventListener("click", function () {
+            var txt = "";
+            if (true) { // $$ area.style.opacity == 1
+               // txt += "! " + area.value + " ! ";
+            }
+            txt += container.getElementsByTagName("textarea")[container.getElementsByTagName("textarea").length-1].value;
+            Requests.terminateBooking(this.id, txt);
+            closePopUp({ target: container }, container);
+        });
+
     }
 
 

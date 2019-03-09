@@ -3,6 +3,7 @@ function actualizeBookableList() {
     var bookables = Cahier.bookings[0].bookables;
 
     $('divTabCahierTopList').children[0].innerHTML = "";
+    $('divTabCahierTopList').children[0].style.visibility = "visible";
 
     for (var i = 0; i < bookables.length; i++) {
         var d = div($('divTabCahierTopList').children[0]);
@@ -27,13 +28,16 @@ function actualizeBookableList() {
         code.innerHTML = bookables[i].code;
     }
 
-    if (true) {
-        var d = div($('divTabCahierTopList').children[0]);
+    if (bookables.length == 0) {
 
-        d.onclick = function () { newTab('divTabCahierMaterielChoice'); };
+        $('divTabCahierTopList').children[0].style.visibility = "hidden";
 
-        var img = div(d);
-        img.style.backgroundImage = 'url(Img/IconEye.png)';
+        //var d = div($('divTabCahierTopList').children[0]);
+
+        //d.onclick = function () { newTab('divTabCahierMaterielChoice'); };
+
+        //var img = div(d);
+        //img.style.backgroundImage = 'url(Img/IconEye.png)';
     }
 
 }

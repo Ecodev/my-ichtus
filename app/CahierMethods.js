@@ -144,6 +144,9 @@ var Cahier = {
         //    check($("checkBoxTabCahierInfosPhoneNumberRemember"));
         //}
 
+        $('divTabCahierMember').getElementsByTagName("input")[0].value = "";
+        $("divTabCahierSearchResult").innerHTML = "";
+
         Cahier.bookings = [{
             owner: {},
             bookables: [],
@@ -176,13 +179,13 @@ var Cahier = {
     actualizeProgressBar: function () {
         var allDivTabCahierProgressTexts = document.getElementsByClassName("divTabCahierProgressText");
         for (var i = 0; i < allDivTabCahierProgressTexts.length; i++) {
-            if (i < currentProgress) {
+            if (i < currentProgress-1) {
                 switch (i) {
                     case 0:
                         allDivTabCahierProgressTexts[i].innerHTML = Cahier.getFullName(Cahier.bookings[0]);
                         break;
                     case 1:
-                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.bookings[0].destination + " & " + Cahier.bookings[0].participantCount + " Part.";
+                        allDivTabCahierProgressTexts[i].innerHTML = Cahier.bookings[0].destination + " & " + Cahier.bookings[0].participantCount + " P.";
                         break;
                     case 2:
                         allDivTabCahierProgressTexts[i].innerHTML = Cahier.getBookableName(Cahier.bookings[0]);
@@ -195,25 +198,20 @@ var Cahier = {
                 allDivTabCahierProgressTexts[i].innerHTML = Cahier.ProgressBarTexts[i];
             }
         }
+
+
+        if (currentProgress == 1) {
+            $('divTabCahierProgressReturn').style.visibility = "hidden";
+        }
+        else {
+            $('divTabCahierProgressReturn').style.visibility = "visible";
+            $('divTabCahierProgressReturn').onclick = function () {
+                newTab(progessionTabNames[currentProgress - 1]);
+            };
+        }
     },
 
     actualizeConfirmation: function () {
-
-        //var booking = {}; //simuler un vrai booking 
-        //if (Cahier.personId != "") {
-        //    booking = { owner: { name: Cahier.getFullName() } };
-        //}
-        //else {
-        //    booking = { startComment: "[" + Cahier.personFirstName + "]" };
-        //}
-
-     //   $('divTabConfirmationTitle').innerHTML = Cahier.getOwner(Cahier.bookings[0], true, { length: 1000000, fontSize: 25 }) + "<div style='display:inline-block; vertical-align:middle; margin-left:8px;'> à " + date.getNiceTime() + "</div>";
-
-
-     //   $('divTabConfirmationBookingsContainer').innerHTML = "";
-       // for (var i = 0; i < Cahier.bookings.length; i++) {
-            //createConfirmationBooking(Cahier.bookings[i],i);
-       // }
 
         if (currentTabElement.id == "divTabCahierConfirmation") {
             loadConfirmation();
@@ -276,7 +274,7 @@ var Cahier = {
        
         if (nbr == 0) {
             newTab("divTabCahierInfos");
-            $("divTabCahierInfosName").innerHTML = Cahier.getFullName(Cahier.bookings[0]);
+         //   $("divTabCahierInfosName").innerHTML = Cahier.getFullName(Cahier.bookings[0]);
         }
     },
 

@@ -1,6 +1,6 @@
 #divTabCahierTopList {
     position: absolute;
-    top: 210px;
+    top: 180px;
     max-height: 0px;
     min-height: 0px;
     left: 0px;
@@ -27,6 +27,7 @@
         border-radius: 10px;
         padding:2px;
         line-height:92px;
+        text-align:center;
     }
 
         #divTabCahierTopList > div:first-child > div {

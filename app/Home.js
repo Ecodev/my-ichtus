@@ -34,6 +34,7 @@ function load() {
     createAllPropositions();
     window.location = "#" + "divTabCahier";
     loadReturnButtons(); // OUI OU NON ???????
+    popUser(0, $("divTabCahierMemberContainer"));
 
     loadTableTopBars();
     loadCahierMaterielChoice();

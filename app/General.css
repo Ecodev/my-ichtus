@@ -416,6 +416,7 @@ option {
     width: 30px;
     height: 30px;
     background-image: url(Img/IconCancelBlack.png);
+    background-size:25px;
     background-repeat: no-repeat;
     background-position-x: right;
     opacity: 0.5;

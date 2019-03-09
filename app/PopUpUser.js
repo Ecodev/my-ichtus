@@ -1,24 +1,30 @@
-function popUser(nbr = 0) {
-    var elem = openPopUp();
+function popUser(nbr = 0, elem = openPopUp()) {
+
+    //if (elem == $("divTabCahierMemberContainer")) {
+    //    elem.innerHTML = "";
+    //}
 
     var container;
     container = div(elem);
     container.id = nbr;
     container.classList.add("PopUpUserContainer");
-    container.classList.add("Boxes");
 
-    var close = div(container);
-    close.className = "divPopUpClose";
-    close.onclick = function () {
-        closePopUp({ target: elem }, elem);
-    };
+    if (elem != $("divTabCahierMemberContainer")) {
+        container.classList.add("Boxes");
+        var close = div(container);
+        close.className = "divPopUpClose";
+        close.onclick = function () {
+            closePopUp({ target: elem }, elem);
+        };
+        var d = div(container);
+        d.style.textAlign = "center";
+        d.style.fontSize = "25px";
+        d.innerHTML = "Nom et prénom du membre";
 
-    var d = div(container);
-    d.style.textAlign = "center";
-    d.style.fontSize = "25px";
-    d.innerHTML = "Nom et prénom du membre";
+        grayBar(container, 5);
+    }
 
-    grayBar(container, 5);
+   
 
     var i1 = document.createElement("input");
     i1.autocomplete = "off";
@@ -37,12 +43,14 @@ function popUser(nbr = 0) {
     };
     i1.onkeydown = function () {SearchDown(event);};
     container.appendChild(i1);
-    i1.focus();
+
+    if (elem != $("divTabCahierMemberContainer")) {
+        i1.focus();
+    }
 
     var d = div(container);
     d.id = "divTabCahierSearchResult";
 
-  //  Search({ keyCode: 1 });
 }
 
 

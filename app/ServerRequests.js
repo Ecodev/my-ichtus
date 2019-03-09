@@ -615,7 +615,7 @@ var Requests = {
         var variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);
 
-        Server.bookingService.getAll(variables).subscribe(result => {
+        Server.bookingService.getAll(variables, true).subscribe(result => { // force = true
             console.log("getActualBookingList(): ", result);
             actualizeActualBookings(result.items,first);
         });
@@ -721,9 +721,9 @@ var Requests = {
         };
 
         var variables = new Server.QueryVariablesManager();
-        variables.set('variables', filter);
+        variables.set('variables', filter); 
 
-        Server.bookingService.getAll(variables).subscribe(result => {
+        Server.bookingService.getAll(variables, true).subscribe(result => {// force = true);
             console.log("getFinishedBookingListForDay(): ", result);
 
             if (first == true) {
@@ -1050,11 +1050,10 @@ var Requests = {
 
     // finishBooking
     terminateBooking: function (bookingId, comment) {
-        alert(comment + "  " + "attendre 5 secondes");
+        console.log("terminateBooking", bookingId, comment);
         Server.bookingService.flagEndDate(bookingId, comment).subscribe(result => {
-            setTimeout(function () {
-                Requests.getActualBookingList(true);
-            }, 5000);
+            console.log("booking ended !");
+            Requests.getActualBookingList(true);
         });
     },
 
