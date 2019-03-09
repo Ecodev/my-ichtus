@@ -11,7 +11,7 @@ function loadCahierMaterielChoice(loc = $('divTabCahierMaterielChoice').getEleme
     var c = div(container);
     c.classList.add("divTabCahierMaterielChoiceInputCodeContainer");
 
-    var i = input(c, "Taper le code...");
+    var i = input(c, "Taper un code...");
     i.onkeyup = function (event) {
         if (event.keyCode == 13) {
             Requests.getBookableByCode(this,nbr);

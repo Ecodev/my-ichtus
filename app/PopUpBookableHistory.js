@@ -99,10 +99,10 @@ function actualizePopBookableHistory(bookings, elem) {
         var all = scroll.getElementsByClassName("PopUpDay");
 
         var sortie = div(all[all.length-1]);
-        sortie.id = bookings[i].id;
+        sortie.id = i;
         sortie.classList.add("PopUpSortie");
         sortie.onclick = function () {
-            popBooking(this.id);
+            popBooking(bookings[this.id]);
         };
         div(sortie).innerHTML = d.getNiceTime();
         var c = div(sortie);

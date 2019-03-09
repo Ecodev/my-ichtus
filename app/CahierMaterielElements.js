@@ -5,38 +5,6 @@ function loadElements(bookables ,nbr = 0) {
 
     document.getElementsByClassName("divTabCahierMaterielElementsContainer")[0].innerHTML = "";
 
-    if ($('inputTabCahierMaterielElementsInputSearch').value == "" && false) { // no more personal sail, the choice could already have been done...
-
-        var container = document.createElement("div");
-        container.addEventListener("click", function () {
-            Cahier.addBookable(nbr);
-            newTab("divTabCahierInfos");
-        });
-
-        $("divTabCahierMaterielElementsContainer").appendChild(container);
-
-        var secondContainer = document.createElement("div");
-        container.appendChild(secondContainer);
-
-        var size = document.createElement("div");
-        size.style.visibility = "hidden";
-        secondContainer.appendChild(size);
-
-        var bottom = document.createElement("div");
-        secondContainer.appendChild(bottom);
-
-        var brand = div(bottom);
-        brand.innerHTML = "Materiel";
-        brand.style.color = "black";
-
-        var model = div(bottom);
-        model.innerHTML = "Personel";
-
-        var background = div(secondContainer);
-        background.style.backgroundImage = "url(Img/IconChose.png),url(Img/IconPersonalSail.png)";
-
-    }
-
     var codes = [];
     for (var i = 0; i < Cahier.bookings[nbr].bookables.length; i++) {
         codes.push(Cahier.bookings[nbr].bookables[i].code);
@@ -49,44 +17,46 @@ function loadElements(bookables ,nbr = 0) {
 
         if (codes.findIndex(bookables[i].code) != -1) {
             container.classList.add("selected");
-            container.addEventListener("click", function () {
+            container.onclick =  function () {
                 Cahier.removeBookable(nbr, bookables[this.id]);
-                loadElements(currentBookables);
-            });
+                actualizeElements();
+            };
         }
         else {
-            container.addEventListener("click", function () {
-                //popBookable(bookables[this.id].id, false, 0, this.id);
+            container.onclick = function () {
                 Cahier.addBookable(nbr, bookables[this.id]);
-                loadElements(currentBookables);               
-            });
+                actualizeElements();               
+            };
         }
 
         document.getElementsByClassName("divTabCahierMaterielElementsContainer")[0].appendChild(container);
 
-        secondContainer = document.createElement("div");
+        var secondContainer = document.createElement("div");
         container.appendChild(secondContainer);
 
-        size = document.createElement("div");
+        var size = document.createElement("div");
         size.innerHTML = bookables[i].code;
         secondContainer.appendChild(size);
 
-        bottom = document.createElement("div");
+        var bottom = document.createElement("div");
         secondContainer.appendChild(bottom);
 
-        brand = div(bottom);
-        brand.innerHTML = bookables[i].name.shorten(180*2,20);
+        var brand = div(bottom);
+        brand.innerHTML = bookables[i].name.shorten(160*2,20);
 
       //  model = div(bottom);
       //  model.innerHTML = bookables[i].id;
 
         //var info = div(secondContainer);
 
-        background = div(secondContainer);
+        var background = div(secondContainer);
+        background.style.backgroundImage = Cahier.getImageUrl(bookables[i]);
+
+        var selection = div(secondContainer);
 
     }
     if (bookables.length == 0) {
-        var d = div($("divTabCahierMaterielElementsContainer"));
+        var d = div(document.getElementsByClassName("divTabCahierMaterielElementsContainer")[0]);
         d.innerHTML = "Aucun résultat";
         console.log('Aucun résultat');
     }
@@ -94,6 +64,39 @@ function loadElements(bookables ,nbr = 0) {
 
 
 
+function actualizeElements() {
+
+    var bookables = currentBookables;
+
+    var codes = [];
+    for (var i = 0; i < Cahier.bookings[0].bookables.length; i++) {
+        codes.push(Cahier.bookings[0].bookables[i].code);
+    }
+
+    var containers = document.getElementsByClassName("divTabCahierMaterielElementsContainer")[0].children;
+
+    for (var i = 0; i < containers.length; i++) {
+
+        var container = containers[i];
+
+        if (codes.findIndex(bookables[i].code) != -1) {
+            container.classList.add("selected");
+            container.onclick = function () {
+                Cahier.removeBookable(0, bookables[this.id]);
+                actualizeElements();
+            };
+        }
+        else {
+            container.classList.remove("selected");
+            container.onclick = function () {
+                Cahier.addBookable(0, bookables[this.id]);
+                actualizeElements();
+            };
+        }
+
+
+    }
+}
 
 function clickSortIcon(elem) {
     if (elem.style.backgroundImage == 'url("Img/IconSortDESC.png")') {

@@ -23,6 +23,7 @@
     <link href="CahierMember.css" rel="stylesheet" />
     <link href="CahierInfos.css" rel="stylesheet" />
     <link href="CahierMaterielChoice.css" rel="stylesheet" />
+    <link href="CahierMaterielBookable.css" rel="stylesheet" />
     <link href="CahierMaterielOptions.css" rel="stylesheet" />
     <link href="CahierMaterielCode.css" rel="stylesheet" />
     <link href="CahierMaterielCategories.css" rel="stylesheet" />
@@ -126,18 +127,7 @@
                         </div>
                         <div class="Buttons ValidateButtons"></div>
                     </div>
-                </div>
-
-                <div><div>Ou</div></div>
-                <div title="Pour les invités" onclick="popGuest();" onmouseover="$('divTabCahierToolTip').innerHTML = textToolTipGuest" onmouseout="$('divTabCahierToolTip').innerHTML ='<br/><br/>'">
-                    <div>
-                        <div class="Boxes">
-                            <img src="Img/IconGuest.png" />
-                            <div>Non-membre<br />(Invité)</div>
-                        </div>
-                        <div class="Buttons ValidateButtons"></div>
-                    </div>
-                </div>
+                </div>         
             </div>
             <div id="divTabCahierToolTip" style="text-align:center; font-size:15px; margin-top:5px; margin-bottom:5px; color:gray;"><br /><br /></div>
 
@@ -192,34 +182,34 @@
             </div>
 
             <!--<div id="divTabCahierInfosName"></div>-->
-            <div id="divTabCahierInfosBar"></div>
+            <!--<div id="divTabCahierInfosBar"></div>-->
             <!--<div id="divTabCahierCancelButton" onclick=" newTab('divTabCahier'); Cahier.cancel();">Annuler la sortie</div>-->
         </div>
 
         <!--Div Tab Cahier Top List-->
         <div id="divTabCahierTopList">
-            <div></div>
+            <div></div><div class="Buttons ValidateButtons" onclick="newTab('divTabCahierConfirmation')">Suivant</div>
         </div>
 
         <!--Div Tab Cahier Member-->
         <div id="divTabCahierMember" class="divTab">
-            <div style="margin-top:200px; position:relative;"></div>
-            <br />
+            <div class="divCahierSpacers"></div>
+        
 
             <div id="divTabCahierMemberContainer"></div>
 
             <br />
 
             <!--<div style="text-align:center;">
-                <div class="Buttons ValidateButtons" onclick="">Suivant</div>
-            </div>-->
+            <div class="Buttons ValidateButtons" onclick="">Suivant</div>
+        </div>-->
 
         </div>
 
 
         <!--Div Tab CahierInfos-->
         <div id="divTabCahierInfos" class="divTab">
-            <div style="margin-top:200px; position:relative;"></div>
+            <div class="divCahierSpacers"></div>
             <br />
             <!--<div class="Buttons ReturnButtons" onclick="newTab('divTabCahier')"></div>
         <br />-->
@@ -267,8 +257,8 @@
 
         <!-- Div Tab CahierMaterielOptions -->
         <div id="divTabCahierMaterielOptions" class="divTab">
-            <div style="margin-top:200px; position:relative;"></div>
-            <!--LIST BAR SPACER--> <div style="margin-top:300px; position:relative;"></div>
+            <div class="divCahierSpacers"></div>
+            <div class="divMaterielSpacers"></div>
 
             <br />
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahier')"></div>
@@ -293,10 +283,11 @@
 
 
 
+
         <!--Div Tab CahierMaterielCode-->
         <div id="divTabCahierMaterielCode" class="divTab">
-            <div style="margin-top:200px; position:relative;"></div>
-            <!--LIST BAR SPACER--> <div style="margin-top:300px; position:relative;"></div>
+            <div class="divCahierSpacers"></div>
+            <div class="divMaterielSpacers"></div>
             <br />
             <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')"></div>
             <br />
@@ -312,8 +303,8 @@
 
         <!-- Div Tab CahierMaterielChoice -->
         <div id="divTabCahierMaterielChoice" class="divTab">
-            <div style="margin-top:200px; position:relative;"></div>
-            <!--LIST BAR SPACER--> <div style="margin-top:300px; position:relative;"></div>
+            <div class="divCahierSpacers"></div>
+            <div class="divMaterielSpacers"></div>
             <br />
             <!--<div class="Buttons ReturnButtons" onclick="newTab('divTabCahier')"></div>-->
             <!--<div class="title">Choix des embarcations</div>-->
@@ -322,13 +313,27 @@
 
         </div>
 
+        <!--Div Tab CahierMaterielBookable-->
+        <div id="divTabCahierMaterielBookable" class="divTab">
+            <div class="divCahierSpacers"></div>
+            <div class="divMaterielSpacers">     
+                <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielChoice')"></div>
+            </div>
+          
+            <div id="divTabCahierMaterielBookableContainer"></div>
+
+            
+       
+        </div>
+
 
         <!-- Div Tab CahierMaterielCategories -->
         <div id="divTabCahierMaterielCategories" class="divTab">
-            <div style="margin-top:200px; position:relative;"></div>
-            <!--LIST BAR SPACER--> <div style="margin-top:300px; position:relative;"></div>
-            <br />
-            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielChoice')"></div>
+            <div class="divCahierSpacers"></div>
+            <div class="divMaterielSpacers">
+                <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielChoice')"></div>
+            </div>
+          
             <!--<br />-->
             <!--<div class="title">Activité</div>-->
             <div id="divTabCahierMaterielCategoriesContainer"></div>
@@ -337,51 +342,53 @@
 
         <!-- Div Tab CahierMaterielElements-->
         <div id="divTabCahierMaterielElements" class="divTab">
-            <div style="margin-top:200px; position:relative;"></div>
-            <!--LIST BAR SPACER--> <div style="margin-top:300px; position:relative;"></div>
-            <br />
-            <div class="Buttons ReturnButtons" onclick="historyBackTab();" style="position:absolute;"></div>
+            <div class="divCahierSpacers"></div>
+            <div class="divMaterielSpacers">
 
-            <div id="divTabCahierMaterielElementsButtonsContainer">
-                <!--<div style="width:120px;">
-                <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')" style="margin-left:0px;"></div>
-            </div>-->
-                <!--<div style="width:250px;">
-                <div class="Buttons NormalButtons" style="width:230px; background-image:url(Img/IconEnter.png)" onclick="newTab('divTabCahierMaterielCategories')" title="Changer de catégorie">remove</div>
-            </div>-->
-                <div style="min-width:271px;">
-                    <div id="divTabCahierMaterielElementsSelectCategorie" title="Catégorie">
-                        <div class="Buttons NormalButtons"></div>
-                        <select onchange="changeSelectCategorie(this); Requests.getBookablesList();"></select>
+                <div class="Buttons ReturnButtons" onclick="historyBackTab();" style="position:absolute;"></div>
+
+                <div id="divTabCahierMaterielElementsButtonsContainer">
+                    <!--<div style="width:120px;">
+            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')" style="margin-left:0px;"></div>
+        </div>-->
+                    <!--<div style="width:250px;">
+            <div class="Buttons NormalButtons" style="width:230px; background-image:url(Img/IconEnter.png)" onclick="newTab('divTabCahierMaterielCategories')" title="Changer de catégorie">remove</div>
+        </div>-->
+                    <div style="min-width:271px;">
+                        <div id="divTabCahierMaterielElementsSelectCategorie" title="Catégorie">
+                            <div class="Buttons NormalButtons"></div>
+                            <select onchange="changeSelectCategorie(this); Requests.getBookablesList();"></select>
+                        </div>
+                    </div><div style="width:248px;">
+                        <div id="divTabCahierMaterielElementsSelectSort" title="Trier par">
+                            <div class="Buttons NormalButtons" id="divTabCahierMaterielElementsSelectIconSort" onclick="clickSortIcon(this); Requests.getBookablesList();"></div>
+                            <select onchange="Requests.getBookablesList();">
+                                <option value="code">Code</option>
+                                <option value="name">Nom</option>
+                                <option value="nbrBookings">Nbr de sorties</option>
+                                <option value="lastUse">Dernière utilisation</option>
+                            </select>
+                        </div>
+                    </div><div style="width:105px;">
+                        <div id="divTabCahierMaterielElementsSelectPageSize" title="Nombre d'éléments affichés par page">
+                            <div class="Buttons NormalButtons"></div>
+                            <select onchange="Requests.getBookablesList();">
+                                <option>5</option>
+                                <option>10</option>
+                                <option selected="selected">20</option>
+                                <option>50</option>
+                            </select>
+                        </div>
+                    </div><div style="min-width:100px;" title="Rechercher">
+                        <input autocomplete="off" spellcheck="false" id="inputTabCahierMaterielElementsInputSearch" type="text" value="" placeholder="Rechercher" onkeyup="Requests.getBookablesList(this);" />
                     </div>
-                </div><div style="width:248px;">
-                    <div id="divTabCahierMaterielElementsSelectSort" title="Trier par">
-                        <div class="Buttons NormalButtons" id="divTabCahierMaterielElementsSelectIconSort" onclick="clickSortIcon(this); Requests.getBookablesList();"></div>
-                        <select onchange="Requests.getBookablesList();">
-                            <option value="code">Code</option>
-                            <option value="name">Nom</option>
-                            <option value="nbrBookings">Nbr de sorties</option>
-                            <option value="lastUse">Dernière utilisation</option>
-                        </select>
-                    </div>
-                </div><div style="width:105px;">
-                    <div id="divTabCahierMaterielElementsSelectPageSize" title="Nombre d'éléments affichés par page">
-                        <div class="Buttons NormalButtons"></div>
-                        <select onchange="Requests.getBookablesList();">
-                            <option>5</option>
-                            <option>10</option>
-                            <option selected="selected">20</option>
-                            <option>50</option>
-                        </select>
-                    </div>
-                </div><div style="min-width:100px;" title="Rechercher">
-                    <input autocomplete="off" spellcheck="false" id="inputTabCahierMaterielElementsInputSearch" type="text" value="" placeholder="Rechercher" onkeyup="Requests.getBookablesList(this);" />
                 </div>
+
+                <div id="divTabCahierInfosBar" style="position:relative; top:0px; margin-top:5px; margin-bottom:5px;"></div>
+
             </div>
 
-            <div id="divTabCahierInfosBar" style="position:relative; top:0px; margin-top:5px; margin-bottom:5px;"></div>
-
-
+         
             <div class="divTabCahierMaterielElementsContainer"></div>
 
         </div>
@@ -390,42 +397,13 @@
 
         <!--Div Tab CahierConfirmation-->
         <div id="divTabCahierConfirmation" class="divTab">
-            <div style="margin-top:200px; position:relative;"></div>
-            <br />
-            <!--<div class="Buttons ReturnButtons" onclick="window.history.back();"></div>
-
-        <br />-->
-            <!--   <div id="divTabConfirmationTitle" title="Responsable" style="position:absolute; right:2.5%; font-size:25px; margin-top:-30px; opacity:0;">Nom prénom</div>-->
-            <!--   <div id="divTabConfirmationStartTime" title="Heure de départ" style="position:absolute; right:2.5%; font-size:25px;">Heure de départ</div>-->
-            <!--<div class="title" style="margin-top:-30px;">Ajouter une embarcation pour</div>
-        <div id="divTabConfrimationButtonsContainer">
-            <div class="Buttons" onclick="Cahier.newUserBooking()">Un membre</div>
-            <div class="Buttons" onclick="Cahier.newGuestBooking()">Un invité</div>
-        </div>-->
+            <div class="divCahierSpacers"></div>
 
             <div id="divTabConfirmationBookingsContainer"></div>
 
             <div id="divTabConfirmationOneBookingContainer"></div>
 
-            <!--<div class="divTabCahierConfirmationContainer" style="position: relative; min-height: 10px;">
-        <div style=" font-size:25px; text-align:center; color:black;">Votre sortie ?</div>
-        <div style="background-color: lightgray; height: 2px; margin-bottom: 15px; margin-top: 5px;"></div>
-        <div class="divConfirmationTexts">
-        <div>
-            <div style="background-image: url(&quot;Img/IconResponsible.png&quot;);"></div>
-        </div>
-        <div>Responsable</div>
-        <div></div>
-        </div>
-        <div class="divConfirmationTexts"><div><div style="background-image: url(&quot;Img/IconStart.png&quot;);"></div>
-                        </div><div>Heure de départ</div><div>21:28</div></div><div style="background-color: lightgray; height: 2px; margin-bottom: 15px; margin-top: 10px;"></div>
-        <div class="divConfirmationTexts" style="background-color: rgb(235, 235, 235);">
-        <div>
-        <div style="background-image: url(&quot;Img/IconSail.png&quot;);"></div>
-        </div>
-        <div>Embarcation</div><div></div></div><div class="divTabCahierConfirmationEmbarcationBox"><div style="background-image: url(&quot;Img/IconSup.png&quot;); visibility: visible;"><div></div></div><div class="divTabCahierConfirmationContainerTextsContainer"><div>Canoe C1 (3001, carnet de sortie, occupé)</div><div>3001 caté</div></div><div class="Buttons ReturnButtons">Modifier</div></div><div style="background-color: lightgray; height: 2px; margin-bottom: 15px; margin-top: 10px;"></div><div class="divConfirmationTexts" style="background-color: rgb(235, 235, 235);"><div><div style="background-image: url(&quot;Img/IconParticipantCount.png&quot;);"></div></div><div>Nbr de participants</div><div>1 Participant</div></div><div class="divConfirmationTexts" style="background-color: white;"><div><div style="background-image: url(&quot;Img/IconDestination.png&quot;);"></div></div><div>Destination</div><div>Baie</div></div><div class="divConfirmationTexts" style="background-color: rgb(235, 235, 235);"><div><div style="background-image: url(&quot;Img/IconStartComment.png&quot;);"></div></div><div>Commentaire dép.</div><div></div></div><div class="divConfirmationTexts" style="height: 50px; background-color: white;"><div></div><div></div><div style="height: 100%;"><div class="Buttons ReturnButtons">Modifier</div></div></div></div>-->
-
-            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+            <br /><br /><br /><br />
             <div style="text-align:center; margin-top:15px;">
                 <div class="Buttons ValidateButtons" style="display:inline-block; width:350px; height:70px; border-radius:25px; line-height:70px; padding-top:0px; text-align:center; background-image:none" onclick="Cahier.confirm()">Annoncer votre sortie</div>
             </div>

@@ -291,6 +291,7 @@
         border: 1px solid lightgray;
         padding-left:10px;
         padding-right:10px;
+        /*cursor:pointer;*/
     }
 
 
@@ -363,43 +364,45 @@
 .TableEntriesBookableBox {
 
 }
-    /*.TableEntriesBookableBox:hover {
-        background-color: rgba(128, 128, 128, 0.29);
-    }*/
-    /*.TableEntriesBookableBox:before {
-        content: "";
-        display: inline-block;
-        vertical-align: middle;
-        height: 100%;
-    }*/
+
     .TableEntriesBookableBox > div {
         position:relative;
         display: inline-block;
         vertical-align:middle;
         margin-top:5px;
         margin-bottom:5px;
+        /*background-color:rgba(0, 0, 0, 0.04);*/
+        margin-right:10px;
+        border-radius:5px;
+        transition:all 0.1s linear 0s;
+        cursor:pointer;
+        width:200px;
     }
-    /*.TableEntriesBookableBox > div:nth-child(1) {
-        width: 35px;
-        height: 35px;
-        background-image: url(Img/IconSup.png);
-        background-size: 35px;
-        margin-right: 5px;
-    }*/
-    .TableEntriesBookableBox > div:nth-child(1) {
-        width: 35px;
-        height: 35px;
-        background-image: url(Img/Materiel/Sail.png);
-        background-size: 35px;
+    .TableEntriesBookableBox > div:hover {
+        background-color: rgba(0, 0, 0, 0.14);
     }
-    .TableEntriesBookableBox > div:nth-child(2) {
-        font-size:20px;
-        font-weight:300;
-        margin:5px;
+    .TableEntriesBookableBox > div >div{
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
     }
-    .TableEntriesBookableBox > div:nth-child(3) {
-        font-size: 16px;
-    }
+
+        .TableEntriesBookableBox > div > div:nth-child(3n+1) {
+            width: 35px;
+            height: 35px;
+            background-image: url(Img/Materiel/Sail.png);
+            background-size: 35px;
+            background-repeat:no-repeat;
+            border-radius:5px;
+        }
+        .TableEntriesBookableBox > div > div:nth-child(3n+2) {
+            font-size: 20px;
+            font-weight: 300;
+            margin: 5px;
+        }
+        .TableEntriesBookableBox > div > div:nth-child(3n+3) {
+            font-size: 16px;
+        }
 
     .TableEntriesImg {
         width: 35px;

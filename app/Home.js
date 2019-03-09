@@ -22,6 +22,7 @@ function br(loc) {
 }
 
 
+
 //Load
 function load() {
     currentTabElement = $("divTabCahier");
@@ -51,12 +52,12 @@ function load() {
 }
 
 // too complicated for now...
-function loadButtonFocus() {
-    var btn = document.getElementsByClassName('ValidateButtons');
-    for (var i = 0, len = btn.length; i < len; i++) {
-        btn[i].setAttribute('tabindex', '0');
-    }
-}
+//function loadButtonFocus() {
+//    var btn = document.getElementsByClassName('ValidateButtons');
+//    for (var i = 0, len = btn.length; i < len; i++) {
+//        btn[i].setAttribute('tabindex', '0');
+//    }
+//}
 
 var Time = {
 
@@ -103,7 +104,7 @@ Date.prototype.getPreviousDate = function () {
 
 function DeleteObjects() {
     for (var i = 0; i < arguments.length; i++) {
-        if (typeof arguments[i] != "undefined" && typeof arguments[i].parentElement != "undefined") {
+        if (typeof arguments[i] != "undefined" && typeof arguments[i].parentElement != "undefined" && arguments[i].parentElement != null) {
             arguments[i].parentElement.removeChild(arguments[i]);
         }
         else {
@@ -330,3 +331,44 @@ Array.prototype.fillArray = function (length, what = 0) {
         this[i] = what;
     }
 };
+
+
+function transformBookings(array) { // one booking with many bookables
+
+    console.log(array);
+
+    var final = [];
+    final.push(array[0]);
+
+    for (var i = 1; i < array.length; i++) {
+        if (array[i].startDate == array[i - 1].startDate && array[i].owner.id == array[i - 1].owner.id) {
+            final[final.length - 1].bookables.push(array[i].bookables[0]);
+        }
+        else {
+            final.push(array[i]);
+        }
+    }
+
+    console.log(final);
+
+    return final;
+}
+
+//Array.prototype.transformBookings = function () {
+
+//    console.log(this);
+
+//    var final = [];
+//    final.push(this[0]);
+
+//    for (var i = 1; i < this.length; i++) {
+//        if (this[i].startDate == this[i - 1].startDate && this[i].owner.id == this[i - 1].owner.id) {
+//            final[final.length - 1].bookables.push(this[i].bookables[0]);
+//        }
+//        else {
+//            final.push(this[i]);
+//        }
+//    }
+
+//    return final;
+//};

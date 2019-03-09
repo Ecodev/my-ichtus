@@ -76,7 +76,7 @@ function changeTab(newElement, sign) {
     document.documentElement.scrollTop = 0;
 
     currentTabElement.style.zIndex = "10";
-    currentTabElement.style.transition = "transform " + changeTime + "s linear 0s";
+    currentTabElement.style.transition = "transform " + changeTime + "s linear 0s,padding-right 0.3s linear 0s";
 
     newElement.style.zIndex = "5";
 
@@ -91,7 +91,7 @@ function changeTab(newElement, sign) {
 
         currentTabElement.style.transform = "translate(0px)";
 
-        setTimeout(function () { currentTabElement.style.transition = "transform " + changeTime + "s linear 0s"; }, 30);
+        setTimeout(function () { currentTabElement.style.transition = "transform " + changeTime + "s linear 0s, padding-right 0.3s linear 0s"; }, 30);
         setTimeout(function () {
             stillMoving = false;
             currentTabElement.style.top = "-30000px";
@@ -130,7 +130,8 @@ tabs.push({
     }, Remove: function () { }
 });
 tabs.push({ id: "divTabCahierMaterielChoice", order: 9, progress: 3, position: 0, TopBar: true, ListBar: true, title: "Tapez les codes de vos embarcations", Enter: function () { document.getElementsByClassName('divTabCahierMaterielChoiceInputCodeContainer')[0].getElementsByTagName("input")[0].focus(); }, Remove: function () { } });
-tabs.push({ id: "divTabCahierMaterielOptions", order: 10, progress: 3, position: 0, TopBar: true, ListBar: true, Enter: function () { }, Remove: function () { } });
+tabs.push({ id: "divTabCahierMaterielBookable", order: 10, progress: 3, position: 0, TopBar: true, ListBar: true, title: "Validez cette embarcation", Enter: function () {}, Remove: function () { } });
+tabs.push({ id: "divTabCahierMaterielOptions", order: 10.5, progress: 3, position: 0, TopBar: true, ListBar: true, Enter: function () { }, Remove: function () { } });
 tabs.push({ id: "divTabCahierMaterielCode", order: 11, progress: 3, position: 0, TopBar: true, ListBar:true, Enter: function () { }, Remove: function () { } });
 tabs.push({ id: "divTabCahierMaterielCategories", order: 12, progress: 3, position: 0, TopBar: true, ListBar: true,title: "Veuillez choisir votre type d'activité", Enter: function () { }, Remove: function () { } });
 tabs.push({ id: "divTabCahierMaterielElements", order: 13, progress: 3, position: 0, TopBar: true, ListBar: true, title: "Sélectionnez votre embarcation", Enter: function () { MaterielElementsFirstLoad = true; Requests.getBookablesList(); $('inputTabCahierMaterielElementsInputSearch').focus(); }, Remove: function () {  } });

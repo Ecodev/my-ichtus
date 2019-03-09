@@ -196,17 +196,23 @@ option {
     left: 0px;
     margin-left: 0px;
     top: -30000px;
-    margin-top:0px;
+    margin-top: 0px;
     width: 100%;
     float: left; /*//*/
     min-height: 100%; /*//*/
-
+    padding-right: 0px;
     transform: translate(0px);
     transition: transform 0.3s linear 0s;
     z-index: 3;
     opacity: 1;
-    background-color:#fafafa;
+    background-color: #fafafa;
+
+    transition: padding-right 0.3s linear 0s;
+    box-sizing: border-box;
 }
+    .divTab.listBarActive {
+        padding-right: 120px;
+    }
 
 
 .resetAnimation {
@@ -441,4 +447,18 @@ option {
     transition: all 0.1s linear 0s;
 
 }
+.divCahierSpacers {
+    position:relative;
+    height:220px;
+    /*background-color:rgba(186, 29, 29, 0.04);*/
+}
+.divMaterielSpacers {
+    position: relative;
+    min-height: 30px;
+    margin-top:-30px; /*takes no place hehe*/
+    /*background-color: rgba(186, 256, 29, 0.05);*/
+}
 
+    .divMaterielSpacers .Buttons {
+        background-image: url(Img/IconArrowBackBlack.png);
+    }

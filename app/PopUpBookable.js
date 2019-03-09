@@ -1,24 +1,32 @@
-function popBookable(bookableId, justPreview = true, nbr = 0) {
-
-    console.log("OPEN OPEN OPEN");
-
-	var modal = openPopUp();
+function popBookable(bookableId, justPreview = true, nbr = 0, modal = openPopUp()) {
 
 	Requests.getBookableInfos(nbr, bookableId, modal);
 
-	//var pop = div($('divModal'));
-	var pop = div(modal);
-	pop.classList.add("Boxes");
+    if (modal == $('divTabCahierMaterielBookableContainer')) {
+        modal.innerHTML = "";
+    }
+
+    var pop = div(modal);
+    pop.classList.add("Boxes");
     pop.classList.add("divTabCahierMaterielElementsPopUp");
+
+    if (modal != $('divTabCahierMaterielBookableContainer')) {
+    
+        var close = div(pop);
+        close.className = "divPopUpClose";
+        close.onclick = function () {
+            closePopUp({ target: modal }, modal);
+        };
+    }
+    else {
+        div(pop);
+        newTab('divTabCahierMaterielBookable');
+    }
+
 
    // document.getElementsByClassName('divTabCahierMaterielChoiceInputCodeContainer')[0].getElementsByTagName('input')[0].blur();
   //  document.getElementsByClassName('divTabCahierMaterielChoiceInputCodeContainer')[0].getElementsByClassName('ValidateButtons')[0].blur();
 
-	var close = div(pop);
-	close.className  = "divPopUpClose";
-	close.onclick = function () {
-		closePopUp({target:modal},modal);
-	};
 
 	var imgContainer = div(pop);
 	//imgContainer.id = i;
@@ -63,7 +71,8 @@ function actualizePopBookable(nbr, bookable,bookings, elem, metadatas) {
 
     console.log(metadatas);
 
-    elem.getElementsByTagName("div")[2].style.backgroundImage = "url(Img/" + bookable.image.id + ".png)";
+    elem.getElementsByTagName("div")[2].style.backgroundImage = Cahier.getImageUrl(bookable);
+    
     elem.getElementsByClassName('divTabCahierMaterielElementsPopUp')[0].getElementsByTagName("div")[3].innerHTML = bookable.description;
 
     var textsContainer = elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0];
@@ -96,17 +105,20 @@ function actualizePopBookable(nbr, bookable,bookings, elem, metadatas) {
 
             Cahier.addBookable(nbr, bookable);
 
-            $('divTabCahierMaterielChoice').getElementsByClassName('divTabCahierMaterielChoiceInputCodeContainer')[0].getElementsByTagName("input")[0].value = "";
+            newTab('divTabCahierMaterielChoice');
 
-            closePopUp({ target: elem }, elem);
+            $('divTabCahierMaterielChoice').getElementsByClassName('divTabCahierMaterielChoiceInputCodeContainer')[0].getElementsByTagName("input")[0].value = "";
+            $('divTabCahierMaterielChoice').getElementsByClassName('divTabCahierMaterielChoiceInputCodeContainer')[0].getElementsByTagName("input")[0].nextElementSibling.nextElementSibling.children[0].classList.remove("activated");
+
+            //closePopUp({ target: elem }, elem);
             //document.body.removeEventListener("keyup", eventListenerFunction);
 
-            if (currentTabElement.id == "divTabCahierConfirmation") {
-                 closePopUp("last");
-            }
-            else {
-                //newTab("divTabCahierInfos");
-            }
+            //if (currentTabElement.id == "divTabCahierConfirmation") {
+            //     closePopUp("last");
+            //}
+            //else {
+            //    //newTab("divTabCahierInfos");
+            //}
         };
 
         elem.getElementsByClassName("ValidateButtons")[0].addEventListener("click", choseFunction);

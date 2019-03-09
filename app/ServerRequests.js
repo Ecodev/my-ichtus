@@ -394,7 +394,7 @@ var Requests = {
             Server.bookableService.getAll(variables).subscribe(result => {
                 console.log("getBookableByCode(): ", result);
                 if (result.items.length == 1) {
-                    popBookable(result.items[0].id, false,nbr);
+                    popBookable(result.items[0].id, false, nbr, $('divTabCahierMaterielBookableContainer'));
 
                     elem.classList.remove("animationShake");
                     elem.nextElementSibling.classList.remove("animationShake");
@@ -617,7 +617,7 @@ var Requests = {
 
         Server.bookingService.getAll(variables, true).subscribe(result => { // force = true
             console.log("getActualBookingList(): ", result);
-            actualizeActualBookings(result.items,first);
+            actualizeActualBookings(transformBookings(result.items),first);
         });
 
     },
@@ -726,17 +726,19 @@ var Requests = {
         Server.bookingService.getAll(variables, true).subscribe(result => {// force = true);
             console.log("getFinishedBookingListForDay(): ", result);
 
+            var transformedBoookings = transformBookings(result.items);
+
             if (first == true) {
                 if (result.length == 0) {
                     createNoBookingMessage(d);
                 }
                 else {
-                    table = createBookingsTable(d, title + " (" + result.length+")");
-                    actualizeFinishedBookingListForDay(result.items, table);
+                    table = createBookingsTable(d, title + " (" + transformedBoookings.length + ")");
+                    actualizeFinishedBookingListForDay(transformedBoookings, table);
                 }
             }
             else { // first == false
-                 actualizeFinishedBookingListForDay(result.items, table); 
+                actualizeFinishedBookingListForDay(transformedBoookings, table); 
             }                   
         });
     },
@@ -912,7 +914,7 @@ var Requests = {
     },
 
     // getMonthlyBookingsNbr for divBottoms
-    getMonthlyBookingsNbr: function (start, end) {
+    getMonthlyBookingsNbr: function (start, end) { // wrong numbers haha due to bookables...
         var filter = {
             filter: {
                 groups: [
@@ -988,65 +990,73 @@ var Requests = {
         Server.bookingService.getAll(variables).subscribe(result => {
             console.log("getStats(): ", result);
 
-            actualizeStats(start,end, elem,result.items);
+            actualizeStats(start, end, elem, transformBookings(result.items));
         });
     },
 
     // getBookingInfos
-    getBookingInfos: function (bookingId, which, elem) {
+    //getBookingInfos: function (bookingId, which, elem) {
+
+    //    var filter = {
+    //        filter: {
+    //            groups: [
+    //                { conditions: [{ id: { like: { value: bookingId } } }] }
+    //            ]
+    //        },
+    //        pagination: {
+    //            pageSize: 1,
+    //            pageIndex: 0
+    //        },
+    //        sorting: [{
+    //            field: "id", //USELESS
+    //            order: "ASC" //USELESS
+    //        }]
+    //    };
+
+    //    var variables = new Server.QueryVariablesManager();
+    //    variables.set('variables', filter);
+
+    //    Server.bookingService.getAll(variables).subscribe(result => {
+    //        console.log("getBookingInfos(): ", result);
+    //        actualizePopBooking(result.items[0],which, elem);
+    //    });
+    //},
+
+    // getBookingWithBookablesInfos
+    getBookingWithBookablesInfos: function (_booking,which,elem) {
+
+        console.log(_booking.startDate);
 
         var filter = {
             filter: {
                 groups: [
-                    { conditions: [{ id: { like: { value: bookingId } } }] }
+                    {
+                        conditions: [
+                            { owner: { equal: { value: _booking.owner.id } } },
+                            { startDate: { equal: { value: _booking.startDate } } }
+                        ]
+                    }
                 ]
             },
             pagination: {
-                pageSize: 1,
+                pageSize: 100,
                 pageIndex: 0
-            },
-            sorting: [{
-                field: "id", //USELESS
-                order: "ASC" //USELESS
-            }]
+            }
         };
 
         var variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);
 
         Server.bookingService.getAll(variables).subscribe(result => {
-            console.log("getBookingInfos(): ", result);
-            actualizePopBooking(result.items[0],which, elem);
+            console.log("getBookingWithBookablesInfos(): ", result);
+
+            var send = transformBookings(result.items)[0];
+
+     //       actualizePopBooking(send, which, elem); // should only give one booking
         });
+
     },
 
-    // getBookingFinishInfos
-    getBookingFinishInfos: function (bookingId, elem) {
-
-        var filter = {
-            filter: {
-                groups: [
-                    { conditions: [{ id: { like: { value: bookingId } } }] }
-                ]
-            },
-            pagination: {
-                pageSize: 1,
-                pageIndex: 0
-            },
-            sorting: [{
-                field: "id", //USELESS
-                order: "ASC" //USELESS
-            }]
-        };
-
-        var variables = new Server.QueryVariablesManager();
-        variables.set('variables', filter);
-
-        Server.bookingService.getAll(variables).subscribe(result => {
-            console.log("getBookingFinishInfos(): ", result);
-            actualizePopBookingFinish(result.items[0],elem);
-        });
-    },
 
     // finishBooking
     terminateBooking: function (bookingId, comment) {
@@ -1058,98 +1068,102 @@ var Requests = {
     },
 
     // createBooking
-    counter: 0,
-    createBooking: function (i,tot) {
+    //counter: 0,
+    //createBooking: function (i,tot) {
 
-        var input = {
-            owner: Cahier.bookings[i].owner.id,
-            participantCount: Cahier.bookings[i].participantCount,
-            destination: Cahier.bookings[i].destination,
-            startComment: Cahier.bookings[i].startComment,
-            guest: Cahier.bookings[i].guest
-        };
-
-        if (Cahier.bookings[i].guest == true) {
-            console.log('Invité');
-            input = {
-                owner: Cahier.bookings[0].owner.id, // donc celui qui invite
-                participantCount: Cahier.bookings[i].participantCount,
-                destination: Cahier.bookings[i].destination,
-                startComment: "[" + Cahier.bookings[i].guestName + "] " + Cahier.bookings[i].startComment,
-                guest: Cahier.bookings[i].guest
-            };
-        }
-
-        console.log(input);
-
-
-        Server.bookingService.create(input).subscribe(booking => {
-
-            console.log('Created booking : ', booking);
-
-            // LINK BOOKABLE
-            if (Cahier.bookings[i].bookables.length != 0) {
-                Server.linkMutation.link(booking, {
-                    id: Cahier.bookings[i].bookables[0].id,
-                    __typename: 'Bookable'
-                }).subscribe(() => {
-                    console.log('Linked Bookable : ', booking);
-                    Requests.counter++;
-                    if (Requests.counter == tot) { newTab("divTabCahier"); Requests.getActualBookingList(true);  ableToSkipAnimaiton();}
-                   
-                });
-            }
-            else {
-                console.log("Matériel Personel");
-                Requests.counter++;
-                if (Requests.counter == tot) { newTab("divTabCahier"); Requests.getActualBookingList(true);  ableToSkipAnimaiton();}  
-            }
-        });
-
-        
-    },
-
-    // createBooking
-    //createBooking: function () {
+    //    Requests.counter = 0;
 
     //    var input = {
-    //        owner: Cahier.personId,
-    //        participantCount: Cahier.nbrParticipants + 0,
-    //        destination: Cahier.destination,
-    //        startComment: Cahier.startComment
-
+    //        owner: Cahier.bookings[i].owner.id,
+    //        participantCount: Cahier.bookings[i].participantCount,
+    //        destination: Cahier.bookings[i].destination,
+    //        startComment: Cahier.bookings[i].startComment,
+    //        guest: Cahier.bookings[i].guest
     //    };
 
-    //    if (Cahier.personId == "") {
+    //    if (Cahier.bookings[i].guest == true) {
     //        console.log('Invité');
     //        input = {
-    //            participantCount: Cahier.nbrParticipants + 0,
-    //            destination: Cahier.destination,
-    //            startComment: "[" + Cahier.personFirstName + "] " + Cahier.startComment
+    //            owner: Cahier.bookings[0].owner.id, // donc celui qui invite
+    //            participantCount: Cahier.bookings[i].participantCount,
+    //            destination: Cahier.bookings[i].destination,
+    //            startComment: "[" + Cahier.bookings[i].guestName + "] " + Cahier.bookings[i].startComment,
+    //            guest: Cahier.bookings[i].guest
     //        };
     //    }
 
+    //    console.log(input);
 
     //    Server.bookingService.create(input).subscribe(booking => {
 
     //        console.log('Created booking : ', booking);
 
     //        // LINK BOOKABLE
-    //        if (Cahier.bookableId != "") {
+    //        if (Cahier.bookings[i].bookables.length != 0) {
     //            Server.linkMutation.link(booking, {
-    //                id: Cahier.bookableId,
+    //                id: Cahier.bookings[i].bookables[0].id,
     //                __typename: 'Bookable'
     //            }).subscribe(() => {
     //                console.log('Linked Bookable : ', booking);
-    //                Requests.getActualBookingList(true);
+    //                Requests.counter++;
+    //                if (Requests.counter == tot) { newTab("divTabCahier"); Requests.getActualBookingList(true);  ableToSkipAnimaiton();}
+                   
     //            });
     //        }
     //        else {
     //            console.log("Matériel Personel");
-    //            Requests.getActualBookingList(true);
+    //            Requests.counter++;
+    //            if (Requests.counter == tot) { newTab("divTabCahier"); Requests.getActualBookingList(true);  ableToSkipAnimaiton();}  
     //        }
-    //        });    
+    //    });
+
+        
     //},
+
+    // createBooking
+    counter: 0,
+    createBooking: function () {
+
+        Requests.counter = 0;
+
+        for (let i = 0; i < Cahier.bookings[0].bookables.length; i++) {
+            var input = {
+                owner: Cahier.bookings[0].owner.id,
+                participantCount: Cahier.bookings[0].participantCount,
+                destination: Cahier.bookings[0].destination,
+                startComment: Cahier.bookings[0].startComment
+            };
+
+            Server.bookingService.create(input).subscribe(booking => {
+
+                console.log('Created booking : ', booking);
+
+                // LINK BOOKABLE
+                if (true) { // MP
+                    Server.linkMutation.link(booking, {
+                        id: Cahier.bookings[0].bookables[i].id,
+                        __typename: 'Bookable'
+                    }).subscribe(() => {
+                        console.log('Linked Bookable : ', booking);
+
+                        Requests.counter++;
+                        if (Requests.counter == Cahier.bookings[0].bookables.length) { newTab("divTabCahier"); Requests.getActualBookingList(true);  ableToSkipAnimaiton();}  
+                    });
+                }
+                else {
+                    console.log("Matériel Personel");
+
+
+                    //Requests.counter++; // non pour l emoment
+                    if (Requests.counter == Cahier.bookings[0].bookables.length) { newTab("divTabCahier"); Requests.getActualBookingList(true); ableToSkipAnimaiton(); }  
+           
+                }
+            });    
+
+        }   
+
+        
+    },
 
 
     // personalQuery

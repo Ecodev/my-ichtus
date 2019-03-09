@@ -32,7 +32,7 @@ function popUser(nbr = 0, elem = openPopUp()) {
     i1.title = "Veuillez écrire votre nom et prénom";
     i1.spellcheck = "false";
     i1.type = "text";
-    i1.placeholder = "Entrez votre nom, pérnom...";
+    i1.placeholder = "Entrez votre nom, prénom...";
     i1.onkeyup = function () {
         if (this.value.length > 2) {
             Search(event);

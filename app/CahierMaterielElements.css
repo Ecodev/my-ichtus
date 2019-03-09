@@ -6,6 +6,7 @@
     position: relative;
     width: 95%;
     left: 2.5%;
+    margin-top:30px;
     min-height: 100px;
     background-color: transparent;
     text-align: center;
@@ -14,8 +15,7 @@
     .divTabCahierMaterielElementsContainer > div {
         position: relative;
         display: inline-block;
-        box-sizing: border-box; /*TELLEMENT BIEN !!*/
-        /*border: 2px solid black;*/
+        box-sizing: border-box;
         top: 0px;
         width: 215px;
         height: 300px;
@@ -24,10 +24,9 @@
     }
 
         .divTabCahierMaterielElementsContainer > div.selected > div {
-            /*background-color: lightgray;*/
-            border:2px solid var(--accent);
+            border:5px solid var(--accent);
         }
-         
+
 
         .divTabCahierMaterielElementsContainer > div > div {
             position: absolute;
@@ -37,12 +36,13 @@
             width: 100%;
             height: 100%;
             margin: 0px;
-            border-radius: 20px;
+            border-radius: 24px;
             background-color: white;
             -webkit-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
             -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
             box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
             transition: all 0.1s linear 0s;
+            border: 5px solid transparent;
         }
 
         .divTabCahierMaterielElementsContainer > div:hover > div {
@@ -57,7 +57,7 @@
         .divTabCahierMaterielElementsContainer > div > div > div:nth-child(1) {
             position: absolute;
             right: 0px;
-            bottom: 80px;
+            bottom: 70px;
             width: 80px;
             height: 40px;
             border-top-left-radius: 20px;
@@ -79,7 +79,7 @@
             left: 0px;
             top: 220px;
             width: 100%;
-            height: 80px;
+            height: 70px;
             box-sizing: border-box; /*TELLEMENT BIEN !!*/
             border-top: 2px solid gray;
             border-bottom-right-radius: 20px;
@@ -90,9 +90,6 @@
             text-align:right;
         }
 
-        .divTabCahierMaterielElementsContainer > div:hover > div > div:nth-child(2) {
-            /*background-color:lightgray;*/
-        }
 
         .divTabCahierMaterielElementsContainer > div > div > div:nth-child(2) > div:nth-child(1) {
             position: relative;
@@ -109,85 +106,53 @@
         }
 
 
-        /*.divTabCahierMaterielElementsContainer > div > div > div:nth-child(2) > div:nth-child(2) {
-            position: absolute;
-            left: 2.5%;
-            top: 40px;
-            width: 95%;
-            height: 25px;
-            font-size: 23px;
-            transition: all 0.1s linear 0s;
-        }*/
-
-        /*.divTabCahierMaterielElementsContainer > div:hover div > div:nth-child(2) > div:nth-child(1) {
-            font-size: 23px;
-        }
-
-        .divTabCahierMaterielElementsContainer > div:hover div > div:nth-child(2) > div:nth-child(2) {
-            font-size: 25px;
-        }*/
-
-        /*.divTabCahierMaterielElementsContainer > div > div > div:nth-child(3) {
-            position: absolute;
-            right: 15px;
-            top: -10px;
-            width: 45px;
-            height: 45px;
-            border-radius: 22.5px;
-            border: 1px solid white; OU ALORS GRAY AVEC BORD NOIR OU BLANC
-            background-color: gray;
-            -webkit-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
-            -moz-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
-            box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
-            font-size: 25px;
-            background-image: url(Img/IconInfo.png);
-            opacity: 0;
-            transition: all 0.2s linear 0s;
-            z-index: 5;
-        }*/
-
-        /*.divTabCahierMaterielElementsContainer > div:hover > div > div:nth-child(3) {
-            opacity: 1;
-            top: 15px;
-        }
-
-        .divTabCahierMaterielElementsContainer > div > div > div:nth-child(3):hover {
-            top: 17px;
-            -webkit-box-shadow: 2px 0px 10px 0px rgba(0,0,0,0.75);
-            -moz-box-shadow: 2px 0px 10px 0px rgba(0,0,0,0.75);
-            box-shadow: 2px 0px 10px 0px rgba(0,0,0,0.75);
-        }*/
-
-
-
         .divTabCahierMaterielElementsContainer > div > div > div:nth-child(3) {
+            position: absolute;
+            width: 100%;           
+            height: 220px;
+            z-index: 0;
+            background-repeat: no-repeat;
+            background-size: 220px;
+            background-position: center;
+            transition: all 0.2s linear 0s;
+            border-top-left-radius: 18px;
+            border-top-right-radius: 18px;
+        }
+
+        .divTabCahierMaterielElementsContainer > div:hover > div > div:nth-child(3) {
+            background-size: 240px;
+        }
+
+
+        .divTabCahierMaterielElementsContainer > div > div > div:nth-child(4) {
             position: absolute;
             left: 0px;
             top: 0px;
             width: 100%;
             height: 220px;
             z-index: 0;
-            background-image: url(Img/IconChose.png), url(Img/Materiel/Sail.png);
-            background-repeat: no-repeat, no-repeat;
-            background-size: 0px, 215px;
-            background-position: center,center;
-            /*background-position-y: center,0px;*/
+            background-image: url(Img/IconChose.png);
+            background-repeat: no-repeat;
+            background-size: 0px;
+            background-position: center;
             transition: all 0.2s linear 0s;
         }
 
-        .divTabCahierMaterielElementsContainer > div:hover > div > div:nth-child(3) {
-            background-size: 200px,240px;
+        .divTabCahierMaterielElementsContainer > div:hover > div > div:nth-child(4) {
+            background-size: 218px;
         }
 
-        .divTabCahierMaterielElementsContainer > div.selected > div > div:nth-child(3) {
-            background-size: 200px,240px;
-            background-image: url(Img/IconChoseBlue.png), url(Img/Materiel/Sail.png);
+        .divTabCahierMaterielElementsContainer > div.selected:hover > div > div:nth-child(4) {
+            background-size: 100px;
+            background-image: url(Img/IconChoseBlue.png);
+        }
+        .divTabCahierMaterielElementsContainer > div.selected > div > div:nth-child(4) {
+            background-size: 200px;
+            background-image: url(Img/IconChoseBlue.png);
         }
 
-        .divTabCahierMaterielElementsContainer > div.selected:hover > div > div:nth-child(3) {
-            background-size: 100px,240px;
-            background-image: url(Img/IconChoseBlue.png), url(Img/Materiel/Sail.png);
-        }
+
+
 
 #divTabCahierMaterielElementsButtonsContainer {
     position: relative;

@@ -1,13 +1,15 @@
 #divTabCahierMaterielChoice {
 }
+    #divTabCahierMaterielChoice.listBarActive {
+        padding-right:0px;
+    }
 
-.divTabCahierMaterielChoiceContainer {
-
-}
+    .divTabCahierMaterielChoiceContainer {
+    }
 
 .divTabCahierMaterielChoiceInputCodeContainer {
     text-align: center;
-    margin-top:15px;
+    /*margin-top:15px;*/
     margin-bottom: 5px;
     height:55px;
 }
@@ -106,12 +108,12 @@
     text-align: center;
     color: gray;
     font-size: 15px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     margin-left: -90px;
 }
 .divTabCahierMaterielChoiceInputCodeContainer + div + div{
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     font-size: 25px;
 }
 

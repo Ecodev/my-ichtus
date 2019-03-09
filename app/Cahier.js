@@ -23,6 +23,7 @@ function actualizeActualBookings(actualBookings,first) {
 
     console.log("first", first);
     if (first == true) { // so new generated not just a search
+
         $('divTabCahierTableActualBookings').previousElementSibling.innerHTML = "Sorties en cours (" + actualBookings.length + ")";
 
         var children = $('divTabCahierTables').children;
@@ -39,24 +40,28 @@ function actualizeActualBookings(actualBookings,first) {
 
         var container = div($('divTabCahierTableActualBookings'));
 
-        container.id = actualBookings[i].id;
+        container.id = i;
         container.classList.add("TableEntries");
         container.classList.add("TableEntriesHover");
 
         container.addEventListener("click", function (event) {
+
             if (event.target.classList.contains("Buttons")) {
-                popBookingFinish(this.id);
+                popBookingFinish(actualBookings[this.id]);
+            }
+            else if (event.target.parentElement.classList.contains("TableEntriesBookableBox") || event.target.parentElement.parentElement.classList.contains("TableEntriesBookableBox")) {
+                // do nothing
             }
             else if (typeof event.target.getElementsByTagName("div")[0] != "undefined") {
-                if (event.target.getElementsByTagName("div")[0].classList.contains("Buttons")) {
-                    popBookingFinish(this.id);
+                if (event.target.getElementsByTagName("div")[0].classList.contains("Buttons")) {            
+                    popBookingFinish(actualBookings[this.id]);
                 }
                 else {
-                    popBooking(this.id);
+                    popBookingInfos(actualBookings[this.id]);
                 }
             }
             else {
-                popBooking(this.id);
+                popBookingInfos(actualBookings[this.id]);
             }         
         });
 
@@ -100,7 +105,10 @@ function actualizeActualBookings(actualBookings,first) {
             createBookingBookableBox(div(container));
         }
         else {
-            createBookingBookableBox(div(container), { code: actualBookings[i].bookables[0].code, name: actualBookings[i].bookables[0].name, image: { id: "url(Img/IconWoman.png)" }  });
+            var c = div(container);
+            for (let k = 0; k < actualBookings[i].bookables.length; k++) {
+                createBookingBookableBox(c, actualBookings[i].bookables[k]);
+            }
         }
 
         div(container).innerHTML = actualBookings[i].destination.shorten(150,16);
@@ -115,9 +123,13 @@ function actualizeActualBookings(actualBookings,first) {
     sortTable($('divTabCahierTableActualBookings'));
 }
 
-function createBookingBookableBox(d, bookable = { code: "ZZZ", name: "", image: { id: ""} }) { // $$ not id but ?
-    
+function createBookingBookableBox(elem, bookable = {code:"ZZZ"}) { 
+
+    var d = div(elem);
+
     var img = div(d);
+
+
     img.id = bookable.code;
     var code = div(d);
 
@@ -125,17 +137,25 @@ function createBookingBookableBox(d, bookable = { code: "ZZZ", name: "", image: 
         img.style.backgroundImage = "url(Img/IconPersonalSail.png)";
         code.style.backgroundImage = "none";
         code.innerHTML = "Matériel Personel";
+        code.style.margin = "0px";
         code.style.fontSize = "16px";
-        code.style.width = "200px";
         code.style.lineHeight = "35px";
     }
     else {
-        img.style.backgroundImage = bookable.image.id;
+        d.onclick = function () {
+            popBookable(bookable.id);
+        };
+        img.style.backgroundImage = Cahier.getImageUrl(bookable,35);
         code.innerHTML = bookable.code;
+        if (bookable.code.length > 2) {
+            div(d).innerHTML = bookable.name.shorten(120, 18);
+        }
+        else {
+            div(d).innerHTML = bookable.name.shorten(150, 18);
+        }        
     }
-    var name = div(d);
-    name.innerHTML = bookable.name;//.shorten(200, 18);
-    d.classList.add("TableEntriesBookableBox");
+
+    elem.classList.add("TableEntriesBookableBox");
 }
 
 
@@ -318,12 +338,15 @@ function actualizeFinishedBookingListForDay(bookings,table) {
 
             var entry = div(table);
 
-            entry.id = bookings[i].id;
+            entry.id = i;
             entry.classList.add("TableEntries");
             entry.classList.add("TableEntriesHover");
 
             entry.addEventListener("click", function (event) {
-                    popBooking(this.id);
+                 if (!(event.target.parentElement.classList.contains("TableEntriesBookableBox") || event.target.parentElement.parentElement.classList.contains("TableEntriesBookableBox"))) {
+                     popBookingInfos(bookings[this.id]);
+                }
+                   
             });
 
             div(entry).innerHTML = (new Date(bookings[i].startDate)).getNiceTime(":", true);
@@ -333,11 +356,15 @@ function actualizeFinishedBookingListForDay(bookings,table) {
 
             div(entry).innerHTML = Cahier.getOwner(bookings[i],true);
 
+
             if (bookings[i].bookables.length == 0) {
                 createBookingBookableBox(div(entry));
             }
             else {
-                createBookingBookableBox(div(entry), { code: bookings[i].bookables[0].code, name: bookings[i].bookables[0].name, image: {id:"url(Img/IconWoman.png)"} });
+                var c = div(entry);
+                for (let k = 0; k < bookings[i].bookables.length; k++) {
+                    createBookingBookableBox(c, bookings[i].bookables[k]);
+                }
             }
 
             div(entry).innerHTML = bookings[i].destination.shorten(150, 16);

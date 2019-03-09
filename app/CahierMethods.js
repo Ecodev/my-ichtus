@@ -3,12 +3,14 @@ var Cahier = {
     bookings: [{
         owner: {},
         bookables: [],
-        guest: true,
-        guestName: "Il est beau",
         participantCount: 1,
         destination: "Non défini",
         startComment: ""
     }],
+
+    getImageUrl: function (_bookable, size = 220) {
+        return 'url(https://my.ichtus.ch/image/' + _bookable.image.id + '/' + size + ')';
+    },
 
     getFullName: function (booking = Cahier.bookings[0]) {
         if (booking.guest) { return booking.guestName; } else { return booking.owner.surName + " " + booking.owner.firstName; }
@@ -46,56 +48,16 @@ var Cahier = {
     },
 
     // new with guest:
-    getOwner: function (booking, wantImg = false, shortenOptions = { length: 10000, fontSize: 20 }, onlyName = false) {
+    getOwner: function (booking, wantImg = false, shortenOptions = { length: 10000, fontSize: 20 }) {
 
-        if (booking.guest == false) {
-            if (wantImg) {
-                var img = "Img/IconWoman.png";
-                if (booking.owner.sex == "male") { img = "Img/IconMan.png"; }
+        if (wantImg) {
+            var img = "Img/IconWoman.png";
+            if (booking.owner.sex == "male") { img = "Img/IconMan.png"; }
 
-                return "<div id='" + booking.owner.name + "' class='TableEntriesImg' style='background-image:url(" + img + ");  display: inline-block;vertical-align: middle;'>" + "</div>" + "<div style=' display: inline-block;vertical-align: middle;'>" + booking.owner.name.shorten(shortenOptions.length - 40, shortenOptions.fontSize) + "</div>";
-            }
-            else {
-                return booking.owner.name;
-            }
+            return "<div id='" + booking.owner.name + "' class='TableEntriesImg' style='background-image:url(" + img + ");  display: inline-block;vertical-align: middle;'>" + "</div>" + "<div style=' display: inline-block;vertical-align: middle;'>" + booking.owner.name.shorten(shortenOptions.length - 40, shortenOptions.fontSize) + "</div>";
         }
         else {
-            var guestName = "";
-
-            if (booking.guestName != undefined) {
-                guestName = " (" + booking.guestName + ")";
-            }
-            else {
-                var a = booking.startComment.indexOf("[");
-                var b = booking.startComment.indexOf("]");
-
-                if (a == 0 && b != -1) {
-                    guestName = " (" + booking.startComment.slice(a + 1, b) + ")";
-                }
-            }
-
-            var ownerName = booking.owner.name;
-            if (booking.owner.name == undefined || booking.owner.name == "Booking Only") { //$$ booking only
-                ownerName = "Invité";
-            }
-
-            if (wantImg) {
-                if (onlyName) {
-                    return "<div id='" + guestName.slice(2,-1) + "' class='TableEntriesImg' style='background-image:url(" + "Img/IconGuest.png" + ");  display: inline-block;vertical-align: middle;'>" + "</div>" + "<div style=' display: inline-block;vertical-align: middle;'>" + guestName.slice(2,-1).shorten(shortenOptions.length - 40, shortenOptions.fontSize) + "</div>";
-
-                }
-                else {
-                    return "<div id='ZZZZ" + ownerName + "' class='TableEntriesImg' style='background-image:url(Img/IconGuest.png);  display: inline-block;vertical-align: middle;'></div>" + "<div style=' display: inline-block;vertical-align: middle; min-width:" + 10 + "px'>" + ownerName + "</div>" + "<div style='margin-left:5px; font-size:15px;  display: inline-block;vertical-align: middle;'>" + guestName.shorten(shortenOptions.length - 40 - "Invité".pixelLength(shortenOptions.fontSize) - 5, 15) + "</div>";
-                }
-            }
-            else {
-                if (onlyName) {
-                    return guestName.shorten(shortenOptions.length, shortenOptions.fontSize); //
-                }
-                else {
-                    return (booking.owner.name + guestName).shorten(shortenOptions.length, shortenOptions.fontSize); //
-                }
-            }
+            return booking.owner.name;
         }
     },
 
@@ -140,18 +102,14 @@ var Cahier = {
 
         document.getElementsByClassName('divTabCahierMaterielChoiceInputCodeContainer')[0].getElementsByTagName('input')[0].value = "";
 
-        //if ($("checkBoxTabCahierInfosPhoneNumberRemember").getElementsByClassName("checkBox")[0].id == 1) {
-        //    check($("checkBoxTabCahierInfosPhoneNumberRemember"));
-        //}
-
         $('divTabCahierMember').getElementsByTagName("input")[0].value = "";
         $("divTabCahierSearchResult").innerHTML = "";
+
+        changeProgress(1);
 
         Cahier.bookings = [{
             owner: {},
             bookables: [],
-            guest: true,
-            guestName: "Il est beau",
             participantCount: 1,
             destination: "Non défini",
             startComment: ""
@@ -167,10 +125,12 @@ var Cahier = {
 
     confirm: function () {
 
-        for (var i = 0; i < Cahier.bookings.length; i++) {
-            Requests.createBooking(i,Cahier.bookings.length);
-        }
-       
+        //for (var i = 0; i < Cahier.bookings.length; i++) {
+        //    Requests.createBooking(i,Cahier.bookings.length);
+        //}
+
+        Requests.createBooking();
+
         animate();
         console.log("--> Cahier.confirm()");
         //        Requests.getActualBookingList(true); moved to the requests, otherwise too fast and doesn't link bookable on the first screen
@@ -216,66 +176,21 @@ var Cahier = {
         if (currentTabElement.id == "divTabCahierConfirmation") {
             loadConfirmation();
         }
-
-
     },
 
 
-    setOwner: function (nbr = 0, _owner = { id: "", firstName: "", surName: "", sex: "female" }, _guest = false, _guestName = "Michel le guest") {
+    setOwner: function (nbr = 0, _owner = { id: "", firstName: "", surName: "", sex: "female" }) {
 
-        if (nbr >= Cahier.bookings.length) {
-            if (_guest) {
-                Cahier.bookings.push({
-                    owner: {},
-                    bookables: [],
-                    guest: true,
-                    guestName: "Waw",
-                    participantCount: 1,
-                    destination: Cahier.bookings[0].destination,
-                    startComment: Cahier.bookings[0].startComment
-                });
-            }
-            else {
-                Cahier.bookings.push({
-                    owner: {},
-                    bookables: [],
-                    guest: false,
-                    guestName: "Waw",
-                    participantCount: 1,
-                    destination: Cahier.bookings[0].destination,
-                    startComment: Cahier.bookings[0].startComment
-                });
-            }
-            console.log("New Booking !");
-        }
-
-
-        Cahier.bookings[nbr].guest = _guest;
-        if (_guest) {
-            Cahier.bookings[nbr].guestName = _guestName;
-            if (nbr != 0) {
-                Cahier.bookings[nbr].owner = Cahier.bookings[0].owner;
-            }
-            else {
-                console.log('Sortie principale avec un invité !');
-            }
-        }
-        else {
-            Cahier.bookings[nbr].guestName = "Pas d'invité";
-            Cahier.bookings[nbr].owner.id = _owner.id;
-            Cahier.bookings[nbr].owner.firstName = _owner.firstName;
-            Cahier.bookings[nbr].owner.surName = _owner.surName;
-            Cahier.bookings[nbr].owner.name = _owner.surName + " " + _owner.firstName;
-            Cahier.bookings[nbr].owner.sex = _owner.sex;
-        }
-
-        console.log("setOwner(): ", nbr, Cahier.bookings[nbr].owner, Cahier.bookings[nbr].guest, Cahier.bookings[nbr].guestName);
+        Cahier.bookings[nbr].owner.id = _owner.id;
+        Cahier.bookings[nbr].owner.firstName = _owner.firstName;
+        Cahier.bookings[nbr].owner.surName = _owner.surName;
+        Cahier.bookings[nbr].owner.name = _owner.surName + " " + _owner.firstName;
+        Cahier.bookings[nbr].owner.sex = _owner.sex;
+        
+        console.log("setOwner(): ", nbr, Cahier.bookings[nbr].owner);
         Cahier.actualizeConfirmation();
        
-        if (nbr == 0) {
-            newTab("divTabCahierInfos");
-         //   $("divTabCahierInfosName").innerHTML = Cahier.getFullName(Cahier.bookings[0]);
-        }
+        newTab("divTabCahierInfos");
     },
 
     addBookable: function (nbr = 0, _bookable = {}) {
@@ -306,7 +221,7 @@ var Cahier = {
         Cahier.actualizeConfirmation();
         actualizeBookableList();
         if (currentTabElement.id == "divTabCahierMaterielElements") {
-            loadElements(currentBookables);
+            actualizeElements();
         }
     },
 
@@ -320,3 +235,5 @@ var Cahier = {
     }
 
 };
+
+

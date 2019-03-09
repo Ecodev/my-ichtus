@@ -188,10 +188,11 @@
 }
 .divTabCahierConfirmationEmbarcationBox {
     position: relative;
+    display:inline-block;
     margin-left: 40px;
-    width: 340px;
+    width: 300px;
     height: 124px;
-    background-color: rgba(110, 250, 0, 0.36);
+    /*background-color: rgba(110, 250, 0, 0.36);*/
 }
     .divTabCahierConfirmationEmbarcationBox.confirmationTab {
         position:absolute;
@@ -261,8 +262,7 @@
             position: absolute;
             margin-top: 10px;
             margin-left: 130px;
-            /*top: 20px;*/
-            width: 250px;
+            width: 170px;
             min-height: 20px;
             font-size: 25px;
             text-align: left;
@@ -273,12 +273,12 @@
         min-height: 20px;
         margin-bottom: 5px;
         color:var(--fontBlack);
+        font-size:30px;
     }
 
         .divTabCahierConfirmationContainerTextsContainer > div:nth-child(2) {
             font-size: 20px;
-            color: darkgray;
-            background-color:red;
+            color: gray;
         }
 
 
