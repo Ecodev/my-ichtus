@@ -130,16 +130,18 @@ function createBookingBookableBox(elem, bookable = {code:"ZZZ"}) {
     var img = div(d);
 
 
-    img.id = bookable.code;
+    d.id = bookable.code;
     var code = div(d);
 
-    if (bookable.code == "ZZZ") { // to be at the bottom of the list
+    if (bookable == Cahier.personalBookable) {
         img.style.backgroundImage = "url(Img/IconPersonalSail.png)";
         code.style.backgroundImage = "none";
         code.innerHTML = "Matériel Personel";
         code.style.margin = "0px";
         code.style.fontSize = "16px";
         code.style.lineHeight = "35px";
+        d.style.cursor = "unset";
+        d.id = "ZZZZ"; // // to be at the bottom of the list
     }
     else {
         d.onclick = function () {

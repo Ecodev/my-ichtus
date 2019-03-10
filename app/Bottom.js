@@ -12,7 +12,7 @@ function loadBottoms() {
         divMonth.onclick = function () { popStats(); };
     }
 
-    var end = new Date();
+    var end = new Date(Date.now());
     var start = new Date(end.getFullYear(), end.getMonth(), 0, 0, 0, 0, 1);
     Requests.getMonthlyBookingsNbr(start, end);
 }

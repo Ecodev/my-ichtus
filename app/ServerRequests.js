@@ -935,18 +935,30 @@ var Requests = {
 
     // getMonthlyBookingsNbr for divBottoms
     getMonthlyBookingsNbr: function (start, end) { // wrong numbers haha due to bookables...
+
+        console.log(start.toISOString(), end.toISOString());
+
         var filter = {
             filter: {
                 groups: [
                     {
-                        conditions: [{
-                            startDate: {
-                                between: {
-                                    from: start,
-                                    to: end
+                        conditions: [
+                            {
+                                startDate: {
+                                    between: {
+                                        from: start,
+                                        to: end
+                                    }
+                                }                         
+                            },
+                            {
+                                startDate: {
+                                    group: {
+                                        value: true
+                                    }
                                 }
-                            }
-                        }]
+                            }                   
+                        ]
                     }
                 ]
             },
@@ -1010,7 +1022,11 @@ var Requests = {
         Server.bookingService.getAll(variables).subscribe(result => {
             console.log("getStats(): ", result);
 
-            actualizeStats(start, end, elem, transformBookings(result.items));
+            var send = transformBookings(result.items);
+
+            console.log("send", send);
+
+            actualizeStats(start, end, elem, send);
         });
     },
 
@@ -1068,11 +1084,16 @@ var Requests = {
         variables.set('variables', filter);
 
         Server.bookingService.getAll(variables).subscribe(result => {
+
+            console.clear();
+
             console.log("getBookingWithBookablesInfos(): ", result);
 
-            var send = transformBookings(result.items)[0];
+            var send = transformBookings(result.items); 
 
-           actualizePopBooking(send, which, elem); // should only give one booking
+            console.log("send", send);
+
+            actualizePopBooking(send[0], which, elem); // should only give one booking
         });
 
     },
