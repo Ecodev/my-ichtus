@@ -114,8 +114,6 @@ var Mois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "A
 function actualizeTime() {
     date = new Date();
     $("divTopBarTime").innerHTML = date.getNiceTime() + "<br/>" + date.getNiceDate(true); //.substring(0, 3)
-
-
 }
 
 
@@ -134,10 +132,6 @@ function check(checkParent) {
 function loadReturnButtons() {
     var allReturnButtons = document.getElementsByClassName("ReturnButtons");
     for (var i = 0; i < allReturnButtons.length; i++) {
-        //allReturnButtons[i].onclick = "";
-        //  allReturnButtons[i].addEventListener("click", function () {
-        //       window.history.back();
-        //  });
         allReturnButtons[i].title = "Retour";
     }
 }
@@ -377,22 +371,3 @@ function transformBookings(_bookings) { // one booking with many bookables
         return [];
     }
 }
-
-//Array.prototype.transformBookings = function () {
-
-//    console.log(this);
-
-//    var final = [];
-//    final.push(this[0]);
-
-//    for (var i = 1; i < this.length; i++) {
-//        if (this[i].startDate == this[i - 1].startDate && this[i].owner.id == this[i - 1].owner.id) {
-//            final[final.length - 1].bookables.push(this[i].bookables[0]);
-//        }
-//        else {
-//            final.push(this[i]);
-//        }
-//    }
-
-//    return final;
-//};

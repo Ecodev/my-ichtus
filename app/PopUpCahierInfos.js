@@ -118,7 +118,7 @@ function popCahierInfos(nbr) {
         divStartComment.appendChild(area);
         area.value = Cahier.bookings[nbr].startComment;
         area.spellcheck = "false";
-        area.placeholder = "Informations, numéro de téléphone, habillement...";
+        area.placeholder = "Informations, numéro de téléphone, heure estimée de retour...";
 
         div(divStartComment).style.height = "100px";
 

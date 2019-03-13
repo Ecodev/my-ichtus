@@ -116,18 +116,18 @@
                 <div id="divTabCahierTableActualBookings" class="BookingsTable">
                     <div id="divTabCahierTableActualBookingsTopBar" class="TableEntries TableTopBar">
 
-                        <div class="BookingsTopBarSorted" id="0">
+                        <div class="BookingsTopBarSorted" id="0" title="Heure de départ">
                             <div></div><img src="Img/IconStart.png" alt="rip" />
-                        </div><div id="1">
+                        </div><div id="1"  title="Nombre de participants">
                             <div></div><img src="Img/IconParticipantCount.png" alt="rip" />
-                        </div><div id="2">
+                        </div><div id="2"  title="Responsable">
                             <div></div><img src="Img/IconResponsible.png" alt="rip" />Responsable
-                        </div><div id="3">
-                            <div></div><img src="Img/IconSail.png" alt="rip" />Embarcation
-                        </div><div id="4">
+                        </div><div id="3"  title="Embarcations">
+                            <div></div><img src="Img/IconSail.png" alt="rip" />Embarcations
+                        </div><div id="4"  title="Destination">
                             <div></div><img src="Img/IconDestination.png" alt="rip" />Destination
-                        </div><div id="5">
-                            <div></div><img src="Img/IconStartComment.png" alt="rip" />Com.
+                        </div><div id="5" title="Commentaire de départ">
+                            <div></div><img src="Img/IconStartComment.png" alt="rip" />Commentaire
                         </div><div id="6">
                             <div></div>
                         </div>
@@ -159,16 +159,13 @@
 
         <!--Div Tab Cahier Top List-->
         <div id="divTabCahierTopList">
-            <div></div><div class="Buttons ValidateButtons" onclick="newTab('divTabCahierConfirmation')">Suivant</div>
+            <div></div><div class="Buttons ValidateButtons" onclick="newTab('divTabCahierConfirmation');" title="Suivant">Suivant</div>
         </div>
 
         <!--Div Tab Cahier Member-->
         <div id="divTabCahierMember" class="divTab">
-            <div class="divCahierSpacers"></div>
-        
-
+            <div class="divCahierSpacers"></div>       
             <div id="divTabCahierMemberContainer"></div>
-
             <br />
         </div>
 
@@ -200,7 +197,7 @@
 
                 </div><div class="divTabCahierInfosStartComment TabCahierFields">
                     Commentaire de départ
-                    <textarea spellcheck="false" placeholder="Informations, numéro de téléphone, habillement..." value=""></textarea>
+                    <textarea spellcheck="false" placeholder="Informations, numéro de téléphone, heure estimée de retour..." value=""></textarea>
                     <div style="height:100px;"></div>
                 </div>
             </div>
@@ -210,7 +207,7 @@
             <br />
 
             <div style="text-align:center;">
-                <div class="Buttons ValidateButtons" style="display:inline-block;" onclick="checkInfos();">Suivant</div>
+                <div class="Buttons ValidateButtons" style="display:inline-block;" onclick="checkInfos();" title="Suivant">Suivant</div>
             </div>
 
         </div>
@@ -242,7 +239,7 @@
             <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
             <div style="text-align:center;">
-                <div id="btnNext" class="Buttons ValidateButtons" style="display:inline-block;" onclick="if (this.classList.contains('activated')) {newTab('divTabCahierConfirmation'); }">Suivant</div>
+                <div id="btnNext" class="Buttons ValidateButtons" style="display:inline-block;" onclick="if (this.classList.contains('activated')) {newTab('divTabCahierConfirmation'); }"  title="Suivant">Suivant</div>
             </div>
 
         </div>
@@ -327,7 +324,7 @@
 
             <br /><br /><br /><br />
             <div style="text-align:center; margin-top:15px;">
-                <div class="Buttons ValidateButtons" style="display:inline-block; width:350px; height:70px; border-radius:25px; line-height:70px; padding-top:0px; text-align:center; background-image:none" onclick="Cahier.confirm()">Annoncer votre sortie</div>
+                <div title="Annoncer votre sortie" class="Buttons ValidateButtons" style="display:inline-block; width:350px; height:70px; border-radius:25px; line-height:70px; padding-top:0px; text-align:center; background-image:none" onclick="Cahier.confirm()">Annoncer votre sortie</div>
             </div>
 
             <br />

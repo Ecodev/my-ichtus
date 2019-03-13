@@ -30,6 +30,7 @@ function loadCahierMaterielChoice(loc = $('divTabCahierMaterielChoice').getEleme
 
     var btn = div(div(c));
     btn.classList.add("ValidateButtons", "Buttons");
+    btn.title = "Choisir cette embarcation";
     btn.onclick = function () { Requests.getBookableByCode(this.parentElement.previousElementSibling.previousElementSibling,nbr); };
 
     div(container).innerHTML = "Par exemple: C32";
@@ -40,6 +41,7 @@ function loadCahierMaterielChoice(loc = $('divTabCahierMaterielChoice').getEleme
 
         var btn1 = div(btnContainer);
         btn1.innerHTML = "Prendre du matériel personel";
+        btn1.title = "Prendre du matériel personel";
         if (isTab) {
             btn1.onclick = function () {
                 var t = true;
@@ -75,4 +77,5 @@ function loadCahierMaterielChoice(loc = $('divTabCahierMaterielChoice').getEleme
             btn2.style.cursor = "no-drop";
         }
         btn2.classList.add("NormalButtons", "Buttons");
+        btn2.title = "Voir la liste du matériel";
 }
