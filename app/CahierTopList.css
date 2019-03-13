@@ -152,12 +152,16 @@
                 cursor: pointer;
             }
 
-#divTabCahierTopList > div:nth-child(2) {
-    width:100px;
-    margin-top:10px;
-    margin-left:0px;
-    /*background-position-x:115px;*/
-    background-position:center;
-    font-size:0px;
-}
+    #divTabCahierTopList > div:nth-child(2) {
+        width: 90px;
+        margin-top: 10px;
+        margin-left: 0px;
+        background-position-x: center;
+        background-position-y: 38px;
+        font-size:26.8px;
+        height: 67px;
+        padding-right:10px;
+        opacity:0;
+        transition: all 0.1s linear 0s;
+    }
 

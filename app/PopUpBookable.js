@@ -86,7 +86,18 @@ function actualizePopBookable(nbr, bookable,bookings, elem, metadatas) {
     
 
     if (bookings.length != 0) {
-        elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].innerHTML = "Dernière utilisation le " + (new Date(bookings.items[0].startDate)).getNiceDate() + "<br/> Par " + Cahier.getOwner(bookings.items[0], false);
+
+        if (currentTabElement.id != "divTabCahier" && bookings.items[0].endDate == null) {
+            console.log("embarcation déjà utilisée");
+            elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].innerHTML = "Cette embarcation semble déjà être utlisée par " + Cahier.getOwner(bookings.items[0], false);
+            elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].style.color = "red";
+            elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].style.backgroundImage = "url(Img/IconAlert.png)";
+            elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].style.paddingLeft = "35px";
+        }
+        else {
+            elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].innerHTML = "Dernière utilisation le " + (new Date(bookings.items[0].startDate)).getNiceDate() + "<br/> Par " + Cahier.getOwner(bookings.items[0], false);
+        }
+
         elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[3].innerHTML = Cahier.getSingularOrPlural(bookings.length, " sortie");
         elem.getElementsByClassName('Buttons')[0].style.visibility = "visible";
         elem.getElementsByClassName('Buttons')[0].addEventListener("click", function () {
@@ -109,16 +120,6 @@ function actualizePopBookable(nbr, bookable,bookings, elem, metadatas) {
 
             $('divTabCahierMaterielChoice').getElementsByClassName('divTabCahierMaterielChoiceInputCodeContainer')[0].getElementsByTagName("input")[0].value = "";
             $('divTabCahierMaterielChoice').getElementsByClassName('divTabCahierMaterielChoiceInputCodeContainer')[0].getElementsByTagName("input")[0].nextElementSibling.nextElementSibling.children[0].classList.remove("activated");
-
-            //closePopUp({ target: elem }, elem);
-            //document.body.removeEventListener("keyup", eventListenerFunction);
-
-            //if (currentTabElement.id == "divTabCahierConfirmation") {
-            //     closePopUp("last");
-            //}
-            //else {
-            //    //newTab("divTabCahierInfos");
-            //}
         };
 
         elem.getElementsByClassName("ValidateButtons")[0].addEventListener("click", choseFunction);

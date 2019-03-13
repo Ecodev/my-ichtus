@@ -455,6 +455,10 @@
     .divTabCahierMaterielElementsContainerTextsContainer > div:nth-child(3) {
        font-size:15px;
        color:darkgray;
+       background-repeat:no-repeat;
+       background-position-y:center;
+       background-position-x:5px;
+       background-size:20px;
     }
 
     .divTabCahierMaterielElementsContainerTextsContainer > div:nth-child(4) {

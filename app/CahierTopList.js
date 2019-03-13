@@ -10,7 +10,7 @@ function actualizeBookableList() {
         var d = div($('divTabCahierTopList').children[0]);
         d.id = i;
 
-        if (Cahier.bookings[0].bookables[i].code != "MP") {
+        if (Cahier.bookings[0].bookables[i] != Cahier.personalBookable) {
             d.onclick = function (event) {
                 if (event.target == this.children[0] || event.target == this.children[2]) {
                     popBookable(Cahier.bookings[0].bookables[this.id].id);
@@ -47,6 +47,7 @@ function actualizeBookableList() {
                 $(tabs[i].id).classList.remove("listBarActive");
             }
         }
+        $("btnNext").classList.remove("activated");
     }
     else {
         for (let i = 0; i < tabs.length; i++) {
@@ -54,6 +55,7 @@ function actualizeBookableList() {
                 $(tabs[i].id).classList.add("listBarActive");
             }
         }
+        $("btnNext").classList.add("activated");
     }
 
 }

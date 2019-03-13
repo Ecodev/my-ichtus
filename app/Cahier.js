@@ -142,6 +142,7 @@ function createBookingBookableBox(elem, bookable = {code:"ZZZ"}) {
         code.style.lineHeight = "35px";
         d.style.cursor = "unset";
         d.id = "ZZZZ"; // // to be at the bottom of the list
+        d.style.backgroundColor = "transparent";
     }
     else {
         d.onclick = function () {

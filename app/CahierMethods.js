@@ -10,12 +10,12 @@ var Cahier = {
 
     personalBookable: {
         id: 0,
-        code: "MP",
+        code: "Perso",
         name:"Matériel personel"
     },
 
     getImageUrl: function (_bookable, size = 220) {
-        if (_bookable.code == "MP") {
+        if (_bookable == Cahier.personalBookable) {
             return 'url(Img/IconPersonalSail.png)';
         }
         return 'url(https://my.ichtus.ch/image/' + _bookable.image.id + '/' + size + ')';

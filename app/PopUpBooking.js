@@ -304,7 +304,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
             div(texts).innerHTML = booking.bookables[i].code;
             div(texts).innerHTML = booking.bookables[i].name.shorten(2 * 150, 20);
 
-            if (booking.bookables[i].code == "MP") {
+            if (booking.bookables[i] == Cahier.personalBookable) {
                 img.classList.add("PersonalSail");
                 img.innerHTML = "";
             }
@@ -316,7 +316,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
 
                 emb.style.display = "block";
 
-                if (booking.bookables[i].code != "MP") {
+                if (booking.bookables[i] != Cahier.personalBookable) {
 
                     var radioContainer = div(emb);
                     radioContainer.className = "radioContainer";

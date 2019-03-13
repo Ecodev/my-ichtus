@@ -265,6 +265,7 @@ option {
     color: white;
     background-color: var(--accent);
     background-image: url(Img/IconArrow.png);
+    background-position-x: 115px;
 }
     .ValidateButtons:hover {
         background-color: var(--accentHover);

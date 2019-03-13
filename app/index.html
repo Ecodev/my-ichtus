@@ -16,7 +16,6 @@
     <link href="General.css" rel="stylesheet" />
     <link href="Top.css" rel="stylesheet" />
     <link href="Bottom.css" rel="stylesheet" />
-    <link href="Materiel.css" rel="stylesheet" />
     <link href="Cahier.css" rel="stylesheet" />
     <link href="CahierTop.css" rel="stylesheet" />
     <link href="CahierTopList.css" rel="stylesheet" />
@@ -29,7 +28,6 @@
     <link href="CahierMaterielCategories.css" rel="stylesheet" />
     <link href="CahierMaterielElements.css" rel="stylesheet" />
     <link href="CahierConfirmation.css" rel="stylesheet" />
-    <link href="Statistiques.css" rel="stylesheet" />
     <link href="PopUpBookableHistory.css" rel="stylesheet" />
     <link href="PopUpUser.css" rel="stylesheet" />
     <link href="PopUpGuest.css" rel="stylesheet" />
@@ -86,12 +84,8 @@
         </div>
 
         <div id="divTopBarText">Cahier de sortie</div>
-        <!-- <img id="imgTopBarIchtusLogo" src="Img/Logo/1.svg" onclick="alert('')" />-->
-
-       <!-- <div id="divTopBarButtonsBar"></div>-->
-
-
         <div id="divTopBarTime" onclick=""></div>
+
     </div>
 
     <!-- Left Bar & Right Bar -->
@@ -100,13 +94,6 @@
 
     <!-- Div Screen -->
     <div id="divScreen">
-
-        <!--Div Tab Materiel-->
-        <div id="divTabMateriel" class="divTab">
-            <br /><br />MATOS ;)
-
-
-        </div>
 
         <!--Div Tab Cahier-->
         <div id="divTabCahier" class="divTab">
@@ -159,9 +146,7 @@
                 <div id="" class="Buttons NormalButtons" style="width:370px;  display:inline-block; background-image:none; padding-right:0px; text-align:center;" onclick="newBookingTable(new Date(this.id));">Charger plus de sorties</div>
             </div>
             <br />
-
         </div>
-
 
         <!--Div Tab Cahier Top-->
         <div id="divTabCahierTop">
@@ -170,10 +155,6 @@
                 <div id="divTabCahierProgressCancel" title="Annuler la sortie" onclick="newTab('divTabCahier')"></div>
                 <div id="divTabCahierProgress"></div>
             </div>
-
-            <!--<div id="divTabCahierInfosName"></div>-->
-            <!--<div id="divTabCahierInfosBar"></div>-->
-            <!--<div id="divTabCahierCancelButton" onclick=" newTab('divTabCahier'); Cahier.cancel();">Annuler la sortie</div>-->
         </div>
 
         <!--Div Tab Cahier Top List-->
@@ -189,11 +170,6 @@
             <div id="divTabCahierMemberContainer"></div>
 
             <br />
-
-            <!--<div style="text-align:center;">
-            <div class="Buttons ValidateButtons" onclick="">Suivant</div>
-        </div>-->
-
         </div>
 
 
@@ -234,42 +210,10 @@
             <br />
 
             <div style="text-align:center;">
-                <div class="Buttons ValidateButtons" onclick="checkInfos();" onkeydown="if (event.keyCode == 13) { checkInfos();}">Suivant</div>
+                <div class="Buttons ValidateButtons" style="display:inline-block;" onclick="checkInfos();">Suivant</div>
             </div>
 
         </div>
-
-
-
-
-        <!-- Div Tab CahierMaterielOptions -->
-        <!--<div id="divTabCahierMaterielOptions" class="divTab">
-            <div class="divCahierSpacers"></div>
-            <div class="divMaterielSpacers"></div>
-
-            <br />
-            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahier')"></div>
-            <br />
-            <div id="divTabCahierMaterielOptionsContainer">
-                <div class="BoxesContainer" onclick="newTab('divTabCahierInfos')">
-
-                    <div class="Boxes"><div class="BoxesTop"></div><div class="BoxesBottom"><div class="BoxesBottomText1">Materiel Perso</div></div></div>
-
-                </div><div class="BoxesContainer" onclick="newTab('divTabCahierMaterielCode')">
-
-                    <div class="Boxes"><div class="BoxesTop"></div><div class="BoxesBottom"><div class="BoxesBottomText1">Code</div></div></div>
-
-                </div><div class="BoxesContainer" onclick="newTab('divTabCahierMaterielCategories')">
-
-                    <div class="Boxes"><div class="BoxesTop"></div><div class="BoxesBottom"><div class="BoxesBottomText1">Catégories</div></div></div>
-
-                </div>
-            </div>
-
-        </div>-->
-
-
-
 
         <!--Div Tab CahierMaterielCode-->
         <div id="divTabCahierMaterielCode" class="divTab">
@@ -293,15 +237,12 @@
             <div class="divCahierSpacers"></div>
             <div class="divMaterielSpacers"></div>
 
-            <!--<div class="Buttons ReturnButtons" onclick="newTab('divTabCahier')"></div>-->
-            <!--<div class="title">Choix des embarcations</div>-->
-
             <div class="MaterielChoiceContainer"></div>
 
             <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
             <div style="text-align:center;">
-                <div class="Buttons ValidateButtons" style="display:inline-block;">??</div>
+                <div id="btnNext" class="Buttons ValidateButtons" style="display:inline-block;" onclick="if (this.classList.contains('activated')) {newTab('divTabCahierConfirmation'); }">Suivant</div>
             </div>
 
         </div>
@@ -313,10 +254,7 @@
                 <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielChoice')"></div>
             </div>
           
-            <div id="divTabCahierMaterielBookableContainer"></div>
-
-            
-       
+            <div id="divTabCahierMaterielBookableContainer"></div>     
         </div>
 
 
@@ -341,12 +279,6 @@
                 <div class="Buttons ReturnButtons" onclick="historyBackTab();" style="position:absolute;"></div>
 
                 <div id="divTabCahierMaterielElementsButtonsContainer">
-                    <!--<div style="width:120px;">
-            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')" style="margin-left:0px;"></div>
-        </div>-->
-                    <!--<div style="width:250px;">
-            <div class="Buttons NormalButtons" style="width:230px; background-image:url(Img/IconEnter.png)" onclick="newTab('divTabCahierMaterielCategories')" title="Changer de catégorie">remove</div>
-        </div>-->
                     <div style="min-width:271px;">
                         <div id="divTabCahierMaterielElementsSelectCategorie" title="Catégorie">
                             <div class="Buttons NormalButtons"></div>
@@ -376,12 +308,9 @@
                         <input autocomplete="off" spellcheck="false" id="inputTabCahierMaterielElementsInputSearch" type="text" value="" placeholder="Rechercher" onkeyup="Requests.getBookablesList(this);" />
                     </div>
                 </div>
-
                 <div id="divTabCahierInfosBar" style="position:relative; top:0px; margin-top:5px; margin-bottom:5px;"></div>
-
             </div>
-
-         
+        
             <div class="divTabCahierMaterielElementsContainer"></div>
 
         </div>
@@ -404,15 +333,6 @@
             <br />
 
         </div>
-
-        <!--Div Tab Statistiques-->
-        <div id="divTabStatistiques" class="divTab">
-
-            <br /><br /> STATS
-            <input autocomplete="off" type="file" id="file" value="tttttt.html" />
-            <input autocomplete="off" type="button" onclick="ReadText()" />
-        </div>
-
 
     </div>
 

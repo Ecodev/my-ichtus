@@ -3,20 +3,8 @@ function ServerInitialize() {
     // Get the API
     Server = window.ichtusApi;
     console.warn('Server(API) = ', Server);
-
-  //  Requests.getItemList();
-
-   // getCountries();
- //  Requests.createQuery();
-   // Requests.addBookable();
-
- //   Requests.personalQuery();$
-
-   // Requests.addBookable("Planche 1", "une magnifique planche qui flotte dotée d'une dérive pour ne pas dériver");
 }
 
-
-var bookingsResult = [];
 
 var Requests = {
 
@@ -62,11 +50,11 @@ var Requests = {
                 pageIndex: 0
             },
             sorting: [{
-                field: 'lastName', //lastName?
+                field: 'lastName', 
                 order: 'ASC'
             },
             {   //if same family name sort by firstName
-                field: 'firstName', //lastName?
+                field: 'firstName',
                 order: 'ASC'
             }]
         };
@@ -104,8 +92,6 @@ var Requests = {
         if (categorie == "Canoe_Kayak") { categorie = "Kayak"; }
         if (categorie == "Voile") { categorie = "Voile lestée"; }
 
-        //alert(categorie);
-
         var f = {
             filter: {
                 groups: [
@@ -114,7 +100,7 @@ var Requests = {
                         conditionsLogic: 'AND',
                         conditions: [
                             {
-                                custom: { // marche pas pour description
+                                custom: { // marche pour description
                                     search: {
                                         value: "%" + txt + "%"
                                     }
@@ -127,12 +113,11 @@ var Requests = {
                             }
                         ]
                     },
-                    {       //CATEGORIES...
+                    {   //CATEGORIES...
                         groupLogic: 'AND',
                         conditionsLogic:'OR',
                         joins: {
                             bookableTags: {
-                                //type:"innerJoin", marhce pas.... left/inner =?
                                 conditions: [
                                     {
                                         name: {
@@ -221,7 +206,7 @@ var Requests = {
 
                         console.log(r);
 
-                        if (r.items.length != 0) {         // else : already a zero ? maybe change to start of the universe lol        
+                        if (r.items.length != 0) {         // else : already a zero ? maybe change to start of the universe lol hhaa        
                             var bookableId = r.items[0].bookables[0].id;
                             console.log(bookableId);
 
@@ -277,7 +262,7 @@ var Requests = {
                             console.log("no booking");
                         }
                         else {
-                             // r.length != r.items.length           !!
+                             // r.length != r.items.length           !! not the same
                             var bookableId = r.items[0].bookables[0].id;
                             console.log(bookableId);
 

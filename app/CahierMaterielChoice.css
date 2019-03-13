@@ -102,7 +102,13 @@
             }
 
 
-
+            #btnNext {
+                transition: all 0.1s linear 0s;
+            }
+            #btnNext:not(.activated) {
+                cursor: initial;
+                background-color: lightgray;
+            }
 
 
 

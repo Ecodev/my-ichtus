@@ -26,21 +26,17 @@ function br(loc) {
 //Load
 function load() {
     currentTabElement = $("divTabCahier");
-    var scrollBarLength = window.innerWidth - document.documentElement.clientWidth;
-    AdjustScreen(window.innerWidth - scrollBarLength, window.innerHeight);
     actualizeTime();
     setInterval(actualizeTime, 5000);  //5 secondes
-    loadButtons();
     createProgressBar();
     createAllPropositions();
     window.location = "#" + "divTabCahier";
-    loadReturnButtons(); // OUI OU NON ???????
+    loadReturnButtons(); 
     popUser(0, $("divTabCahierMemberContainer"));
 
     loadTableTopBars();
     loadCahierMaterielChoice();
     loadEscListener();
- //   loadConfirmation();
 
     //SERVER
     ServerInitialize();
@@ -48,10 +44,9 @@ function load() {
     loadBottoms();
 
     loadMateriel();
-  //  loadButtonFocus();
 }
 
-// too complicated for now...
+// too complicated now...
 //function loadButtonFocus() {
 //    var btn = document.getElementsByClassName('ValidateButtons');
 //    for (var i = 0, len = btn.length; i < len; i++) {
@@ -60,7 +55,6 @@ function load() {
 //}
 
 var Time = {
-
     getActualMinutes: function (m = date.getMinutes()) {
         if (m < 10) {
             x = "0" + m;
@@ -70,7 +64,6 @@ var Time = {
         }
         return x;
     }
-
 };
 
 
@@ -335,8 +328,6 @@ Array.prototype.fillArray = function (length, what = 0) {
 
 function transformBookings(_bookings) { // one booking with many bookables
 
-    console.log(_bookings);
-
     if (_bookings.length > 0) { //if no booking return []
 
         var final = [];
@@ -380,10 +371,6 @@ function transformBookings(_bookings) { // one booking with many bookables
 
             }
         }
-
-
-        console.log("final",final);
-
         return final;
     }
     else {
