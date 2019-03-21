@@ -1,0 +1,20 @@
+.PopUpCahierInfosContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: 0px;
+    transform: translate(-50%,-50%);
+    width: 380px; /*680 380*/
+    height: 695px; /* 695*/
+    padding: 10px;
+    background-color: white;
+    text-align: center;
+}
+    .PopUpCahierInfosContainer .divTabCahierFieldsContainer {
+        width:100%;
+        margin-left:0px;
+    }
+    .PopUpCahierInfosContainer .ValidateButtons {
+        background-image: url(../Img/IconVAlidated.png);
+        background-position-x: 115px;
+    }

@@ -1,0 +1,175 @@
+#divTabCahierMaterielChoice {
+}
+    #divTabCahierMaterielChoice.listBarActive {
+        padding-right:0px;
+    }
+
+    .divTabCahierMaterielChoiceContainer {
+    }
+
+.divTabCahierMaterielChoiceInputCodeContainer {
+    text-align: center;
+    /*margin-top:15px;*/
+    margin-bottom: 5px;
+    height:55px;
+}
+
+    .divTabCahierMaterielChoiceInputCodeContainer > div:nth-child(2) {
+        position: absolute;
+        display: inline-block;
+        margin-top: 0px;
+        margin-left: -269px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        width: 54px;
+        height: 54px;
+        background-color: black;
+        z-index: 9;
+        background-position: left;
+        background-size: 50px;
+        background-image: url(../Img/IconHashtag.png);
+        transition: all 0.1s linear 0s;
+    }
+
+    .divTabCahierMaterielChoiceContainer input {
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+        height: 50px;
+        width: 200px;
+        padding-left: 60px;
+        font-size: 25px;
+        background-color: rgb(245, 245, 245);
+        text-transform: uppercase;
+    }
+    .divTabCahierMaterielChoiceContainer input.animationShake {
+        border-color:red !important;
+    }
+    .divTabCahierMaterielChoiceContainer input + div.animationShake {
+        background-color: red !important;
+    }
+    .animationShake {
+        animation-name: shake;
+        animation-duration: 1s;
+        animation-iteration-count: 1;
+    }
+    .divTabCahierMaterielChoiceContainer input::placeholder {
+        text-transform: initial;
+    }
+        .divTabCahierMaterielChoiceContainer input:focus {
+            border-color: var(--accent);
+            background-color: white;
+        }
+
+        .divTabCahierMaterielChoiceContainer input:hover {
+            background-color: white;
+        }
+
+        .divTabCahierMaterielChoiceContainer  input:focus ~ div:nth-child(2) {
+            background-color: var(--accent);
+        }
+
+
+
+        .divTabCahierMaterielChoiceInputCodeContainer > div:nth-child(3) {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 10px;
+            width: 100px;
+        }
+            .divTabCahierMaterielChoiceInputCodeContainer > div:nth-child(3) .Buttons {
+                width: 100px;
+                padding-left: 0px;
+                background-color: lightgray;
+                margin-top: 0px;
+                margin-bottom: 0px;
+                -moz-transition: all 0.1s linear 0s;
+                -o-transition: all 0.1s linear 0s;
+                -webkit-transition: all 0.1s linear 0s;
+                transition: all 0.1s linear 0s;
+                background-image: url(..//Img/IconValidated.png);
+                background-position: center;
+                background-position-x: 30px;
+            }
+            .divTabCahierMaterielChoiceInputCodeContainer > div:nth-child(3) .Buttons:not(.activated) {
+                cursor:initial  ;
+            }
+            .divTabCahierMaterielChoiceInputCodeContainer > div:nth-child(3) .Buttons.activated {
+                background-color:var(--accent);
+            }
+            .divTabCahierMaterielChoiceInputCodeContainer > div:nth-child(3) .Buttons.activated:hover {
+                background-color: var(--accentHover);
+            }
+
+
+            #btnNext {
+                transition: all 0.1s linear 0s;
+            }
+            #btnNext:not(.activated) {
+                cursor: initial;
+                background-color: lightgray;
+            }
+
+
+
+.divTabCahierMaterielChoiceInputCodeContainer + div {
+    text-align: center;
+    color: gray;
+    font-size: 15px;
+    margin-bottom: 20px;
+    margin-left: -90px;
+}
+.divTabCahierMaterielChoiceInputCodeContainer + div + div{
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 25px;
+}
+
+
+.divTabCahierMaterielChoiceContainer .NormalButtons {
+    width: 160px;
+    padding-left: 50px;
+    height: 50px;
+    display: inline-block;
+    vertical-align: middle;
+    background-image: url(../Img/IconPersonalSail.png);
+    background-position: center;
+    background-position-x: 5px;
+    background-size: 40px;
+    line-height: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.divTabCahierMaterielChoiceContainer .NormalButtons:nth-child(2) {
+    background-image: url(../Img/IconSail.png);
+    background-blend-mode:exclusion;
+}
+
+.divTabCahierMaterielChoiceContainer > div:nth-child(4) {
+    text-align: center;
+}
+
+    .divTabCahierMaterielChoiceContainer > div:nth-child(4) .Buttons.buttonNonActive {
+        background-color: lightgray;
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+/* IDEA IS FROM  https://css-tricks.com/snippets/css/shake-css-keyframe-animation/ */
+@keyframes shake {
+    10%, 90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%, 80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%, 50%, 70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%, 60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}

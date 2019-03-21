@@ -1,0 +1,691 @@
+﻿#divTabCahier {
+    top: 0px;
+    z-index: 5;
+    opacity: 1;
+}
+
+
+
+
+#divTabCahierNewBookingBox {
+    position:relative;
+    width:500px;
+    height:290px;
+    background-color:white;
+    left:50%;
+    margin-left:-250px;
+    text-align:center;
+    border:2px solid lightgray;
+    border-radius:20px;
+}
+    #divTabCahierNewBookingBox > div {
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        width: 170px;
+        height: 270px;
+        margin: 10px;
+        text-align:center;
+    }
+        #divTabCahierNewBookingBox > div:nth-child(2n+1) > div {
+            transition:all 0.1s linear 0s;
+            cursor:pointer;
+        }
+        #divTabCahierNewBookingBox > div:nth-child(2n+1):hover > div {
+            margin-top:10px;
+        }
+
+            #divTabCahierNewBookingBox > div > div > .Boxes{
+              position:relative;
+              height:205px;
+              margin-bottom:10px;
+              background-color:rgb(245,245,245);
+            }
+
+            #divTabCahierNewBookingBox > div > div > .Boxes > div {
+                position: absolute;
+                width: 100%;
+                bottom: 5px;
+                text-align: center;
+                font-size: 20px;
+            }
+            #divTabCahierNewBookingBox > div > div > .Boxes > img {
+                position: absolute;
+                width: 130px;
+                top: 10px;
+                left: 20px;
+                -moz-transition: all 2s ease 0.5s;
+                -o-transition: all 2s ease 0.5s;
+                -webkit-transition: all 2s ease 0.5s;
+                transition: all 2s ease 0.5s;
+            }
+            #divTabCahierNewBookingBox > div:nth-child(1):hover > div > .Boxes > img:nth-child(3) {
+                -moz-transform: rotate(-360deg);
+                -ms-transform: rotate(-360deg);
+                -o-transform: rotate(-360deg);
+                -webkit-transform: rotate(-360deg);
+                transform: rotate(-360deg);
+            }
+
+            #divTabCahierNewBookingBox > div > div > .Buttons {
+                position: relative;
+                background-position:center;
+            }
+
+
+        #divTabCahierNewBookingBox > div:nth-child(2) {
+            width: 100px;
+            margin: 0px;
+        }
+            #divTabCahierNewBookingBox > div:nth-child(2) > div {
+                line-height:270px;
+                font-size:30px;
+            }
+
+
+
+
+#divTabCahierTables {
+    margin-left: 2.5%;
+    width: 95%;
+    min-height: 200px;
+    /*background-color: lightcyan;*/
+    margin-bottom: 50px;
+}
+
+.BookingsTable {
+    width: 100%;
+    min-height: 0px;
+    display: table;
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    -webkit-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    border-collapse: collapse;
+}
+
+
+
+
+
+
+
+.TableTopBar {
+    background-color: transparent;
+    margin-bottom: 40px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+    .TableTopBar > div {
+        background-color: white;
+        border-top: 10px solid transparent;
+        border-bottom: 4px solid transparent;
+        box-sizing: border-box;
+        border-left: 0px solid gray;
+        border-right: 0px solid gray;
+        padding-right: 30px;
+        color: gray;
+        font-size: 17px;
+        transition: all 0.3s linear 0s;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding-left: 5px;
+        border-top-width: 0px !important;
+        border-left-width: 0px !important;
+        border-right-width: 0px !important;
+        border-bottom-width: 0px !important;
+        border-bottom-color: red !important;
+    }
+
+    #divTabCahierTableActualBookings .TableTopBar > div:last-child:hover {
+        background-color: white;
+    }
+
+        #divTabCahierTableActualBookings .TableTopBar > div:last-child:hover > div:nth-child(1) {
+            background-size: 0px;
+        }
+
+        .TableTopBar > div::first-line {
+            line-height: 35px;
+        }
+
+        .TableTopBar > div:hover {
+            border-bottom: 4px outset black;
+            background-color: lightgray;
+
+        }
+
+        .TableTopBar > div > div:nth-child(1) {
+            position: absolute;
+            right: 0px;
+            bottom: 5px;
+            width: 30px;
+            height: 30px;
+            background-size: 0px;
+            background-position-x: 15px;
+            background-position-y: 15px;
+            background-repeat: no-repeat;
+            background-image: url(../Img/IconSortASC.png);
+            transition: all 0.1s linear 0s;
+            /*background-color: red;*/
+        }
+
+        .TableTopBar > div:hover > div:nth-child(1) {
+            background-size: 15px;
+            background-position-x: 7.5px;
+            background-position-y: 7.5px;
+        }
+
+        .TableTopBar > div  * {
+            display:inline-block;
+            vertical-align:middle;
+        }
+
+    .TableTopBar img {
+        -moz-filter: brightness(0.5);
+        -ms-filter: brightness(0.5);
+        -webkit-filter: brightness(0.5);
+        filter: brightness(0.5);
+        width: 25px;
+        margin-right: 5px;
+    }
+
+    .BookingsTopBarSorted {
+        background-color: rgb(235,235,235) !important;
+        /*border-bottom: 4px outset black !important;*/
+    }
+
+    .BookingsTopBarSorted:hover {
+        background-color: lightgray !important;
+    }
+
+    .BookingsTopBarSorted > div {
+        background-size: 20px !important;
+        background-position-x: 5px !important;
+        background-position-y: 5px !important;
+    }
+
+
+
+
+
+@keyframes OpacityAnimation {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.TableEntries {
+    background-color: white;
+    min-height: 50px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: all 0.1s linear 0s;
+    display: table-row;
+    color:var(--fontBlack);
+    /*animation: OpacityAnimation 1s linear;*/
+
+}
+    /*.TableEntries:nth-child(2n+1) .Buttons {
+        background-color:black;
+    }*/
+
+    .TableEntries .Buttons {
+        position: relative;
+        height: 40px;
+        width: 100px;
+        left: 50%;
+        transform: translate(-50%,-0%);
+        box-sizing: border-box;
+        font-size: 20px;
+        color: white !important;
+        background-color: red;
+        margin-right: 4px;
+        margin-bottom: 0px;
+        /*margin-top: 0px;*/
+    }
+
+        .TableEntries .Buttons::after {
+            content: "Terminer";
+        }
+
+        .TableEntries .Buttons:hover {
+            background-color: rgb(137, 16, 16)
+        }
+
+    .TableEntries:nth-child(2n) {
+        background-color: rgb(235, 235, 235);
+    }
+
+
+
+    .TableEntries:last-child > div:last-child {
+        border-bottom-right-radius: 10px;
+        border-right-width: 0px;
+    }
+
+    .TableEntries:last-child > div:first-child {
+        border-bottom-left-radius: 10px;
+        border-left-width: 0px;
+    }
+    .TableEntries:last-child > div{
+        border-bottom-width:0px;
+    }
+
+    .TableEntries > div {
+        position: relative;
+        /*display: inline-block;*/
+        width: 100px;
+        height: 50px;
+        box-sizing: border-box;
+        padding: 2px;
+        display: table-cell;
+        vertical-align: middle;
+        border: 1px solid lightgray;
+        padding-left:10px;
+        padding-right:10px;
+        /*cursor:pointer;*/
+    }
+
+
+    .TableEntries > div:nth-child(1) {
+        width: 1%;
+        text-align: center;
+    }
+
+    .TableEntriesAlert {
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        margin-left: -40px;
+        margin-top: -2.5px;
+        vertical-align: middle;
+        background-repeat: no-repeat;
+        background-position: top left;
+        background-size: 25px;
+        background-image:url(../Img/IconAlert.png);
+    }
+
+
+    #divTabCahierTableActualBookings .TableEntries > div:nth-child(2) {
+        width: 0.01%;
+        text-align:center;
+    }
+    #divTabCahierTableActualBookings .TableEntries > div:nth-child(3) {
+        width:20%;
+    }
+    #divTabCahierTableActualBookings .TableEntries > div:nth-child(4) {
+        width: 32%;
+    }
+    #divTabCahierTableActualBookings .TableEntries > div:nth-child(5) {
+        width: 15%;
+    }
+    #divTabCahierTableActualBookings .TableEntries > div:last-child {
+        width: 1%;
+    }
+
+
+
+
+    .BookingsTable:not( #divTabCahierTableActualBookings) .TableEntries > div:nth-child(2) {
+        width: 1%;
+        text-align: center;
+    }
+    .BookingsTable:not( #divTabCahierTableActualBookings) .TableEntries > div:nth-child(3) {
+        width: 0.1%;
+        text-align:center;
+    }
+    .BookingsTable:not( #divTabCahierTableActualBookings) .TableEntries > div:nth-child(4) {
+        width: 20%;
+    }
+        .BookingsTable:not( #divTabCahierTableActualBookings) .TableEntries > div:nth-child(4) > div {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    .BookingsTable:not( #divTabCahierTableActualBookings) .TableEntries > div:nth-child(5) {
+        width: 35%;
+    }
+
+
+
+
+.TableEntriesHover:hover {
+    background-color: lightgray;
+}
+
+
+.TableEntriesBookableBox {
+
+}
+
+    .TableEntriesBookableBox > div {
+        position:relative;
+        display: inline-block;
+        vertical-align:middle;
+        margin-top:5px;
+        margin-bottom:5px;
+        /*background-color:rgba(0, 0, 0, 0.04);*/
+        margin-right:10px;
+        border-radius:5px;
+        transition:all 0.1s linear 0s;
+        cursor:pointer;
+        width:200px;
+    }
+    .TableEntriesBookableBox > div:hover {
+        background-color: rgba(0, 0, 0, 0.14);
+    }
+    .TableEntriesBookableBox > div >div{
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+        .TableEntriesBookableBox > div > div:nth-child(3n+1) {
+            width: 35px;
+            height: 35px;
+            background-size: 35px;
+            background-repeat:no-repeat;
+            border-radius:5px;
+        }
+        .TableEntriesBookableBox > div > div:nth-child(3n+2) {
+            font-size: 20px;
+            font-weight: 300;
+            margin: 5px;
+        }
+        .TableEntriesBookableBox > div > div:nth-child(3n+3) {
+            font-size: 16px;
+        }
+
+    .TableEntriesImg {
+        width: 35px;
+        height: 35px;
+        background-image: url(../Img/IconSup.png);
+        background-size: 35px;
+        margin-right: 5px;
+        background-repeat: no-repeat;
+    }
+
+
+
+
+    #divTabCahierPopUp {
+        position: relative;
+        left: 50%;
+        margin-left: -350px;
+        top: 50%;
+        margin-top: -225px;
+        width: 700px;
+        height: 450px;
+    }
+
+    #divTabCahierPopUp > div:nth-child(1) {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        width: 30px;
+        height: 30px;
+        background-image: url(../Img/IconCancelBlack.png);
+        background-repeat: no-repeat;
+        background-position-x: right;
+        opacity: 0.5;
+        z-index: 4;
+        transition: all 0.1s linear 0s;
+    }
+
+        #divTabCahierPopUp > div:nth-child(1):hover {
+            opacity: 1;
+        }
+
+
+
+
+.radioContainer {
+    position: absolute;
+    width: 290px;
+    min-height: 10px;
+    background-color: transparent;
+    left: 350px;
+    top: 5px;
+}
+
+    .radioContainer > div {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .radioContainer > .radioSelected {
+        cursor: initial;
+    }
+
+        .radioContainer > .radioSelected > div:nth-child(1) {
+            background-color: white;
+        }
+
+        .radioContainer > .radioSelected > div:nth-child(2) {
+            color: var(--accent);
+        }
+
+
+        .radioContainer > .radioSelected > div:nth-child(1) > div {
+            background-color: var(--accent);
+        }
+
+
+    .radioContainer > div > div {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+        .radioContainer > div > div:nth-child(1) {
+            box-sizing: border-box;
+            border: 1px solid black;
+            width: 20px;
+            height: 20px;
+            border-radius: 20px;
+            background-color: lightgray;
+            transition: all 0.1s linear 0s;
+        }
+
+            .radioContainer > div > div:nth-child(1) > div {
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                left: 5px;
+                top: 5px;
+                border-radius: 10px;
+                background-color: transparent;
+                transition: all 0.1s linear 0s;
+            }
+
+        .radioContainer > div > div:nth-child(2) {
+            margin-left: 5px;
+            margin-right: 20px;
+            min-width: 10px;
+            height: 20px;
+            background-color: transparent;
+            font-size: 18px;
+            transition: all 0.1s linear 0s;
+        }
+
+
+
+
+
+
+.PopUpBookingsListTable {
+    position: relative;
+    display: table;
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    -webkit-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+}
+
+.PopUpBookingsListRow {
+    position: relative;
+    display: table-row;
+    width: 100%;
+    height: 50px;
+    box-sizing: border-box;
+    background-color: rgb(235,235,235);
+    border: 2px solid lightgray;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: all 0.1s linear 0s;
+}
+
+    .PopUpBookingsListRow:nth-child(2n) {
+        background-color: white;
+        border: 2px solid black;
+    }
+
+    .PopUpBookingsListRow:hover {
+        background-color: lightgray;
+    }
+
+
+.PopUpBookingsListRow > div {
+    position:relative;
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 20px;
+}
+
+    .PopUpBookingsListRow > div:first-child {
+        padding-left: 10px;
+    }
+
+
+
+#divTabCahierAlertButtonsLegend {
+    position:relative;
+    margin-top:10px;
+    line-height:45px;
+    width:100%;
+    height:45px;
+    background-color:rgb(237, 237, 237);
+    border-radius:10px;
+    text-align:center;
+}
+
+    #divTabCahierAlertButtonsLegend div {
+        width: 25px;
+        height: 25px;
+        background-image: url(../Img/IconAlert.png);
+        background-size: 25px;
+        background-position: center;
+        margin-right: 5px;
+        margin-left:20px;
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+    }
+        #divTabCahierAlertButtonsLegend div:first-child {
+            -moz-filter: grayscale(1) invert(1);
+            -ms-filter: grayscale(1) invert(1);
+            -webkit-filter: grayscale(1) invert(1);
+            filter: grayscale(1) invert(1);
+        }
+        #divTabCahierAlertButtonsLegend div:nth-child(2) {
+            -moz-filter: grayscale(1);
+            -ms-filter: grayscale(1);
+            -webkit-filter: grayscale(1);
+            filter: grayscale(1);
+        }
+
+
+    @keyframes InputAnimation {
+        from {
+        right: -200px;
+    }
+
+    to {
+        right: 2.5%;
+    }
+}
+#divTabCahierTables > input {
+    position: absolute;
+    right: 2.5%;
+    margin-top: 40px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
+    background-color: rgb(245, 245, 245);
+    padding-left: 40px;
+    padding-top: 0px;
+    height: 34px;
+    width: 120px;
+    padding-bottom: 0px;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-size: 40px;
+    background-position-x: 65px;
+    background-position-y: 4px;
+    color: black;
+    font-size: 20px;
+    text-transform: capitalize;
+    -webkit-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    transition: all 0.1s linear 0s, width 0.2s linear 0s, margin-left 0.2s linear 0s;
+    outline: none; /*pour enlever le cadre bleu quand sélectionné*/
+    border-radius: 10px;
+    background-image: url(../Img/IconSearchBlack.png);
+    background-position-x: 0px;
+    background-position-y: 0px;
+    background-size: 34px;
+    animation: InputAnimation 0.4s ease-out 1 normal;
+    /*text-align: center;*/
+}
+
+    #divTabCahierTables > input::placeholder {
+        color: gray;
+    }
+
+
+    #divTabCahierTables > input:focus {
+        border-color: var(--accent);
+        background-image: url(../Img/IconSearchBlue.png);
+        width: 200px;
+        -webkit-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
+        -moz-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
+        box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
+        background-color:white;
+    }
+
+    #divTabCahierTables > input:hover {
+        background-color: white;
+        /*margin-top: -5px;*/
+    }
+
+@keyframes TextAnimation {
+    from {
+        margin-left: -200px;
+    }
+
+    to {
+        margin-left: 0%;
+    }
+}
+.BookingsTableText {
+    margin-top:50px;
+    margin-bottom:10px;
+    font-size: 25px;
+    animation: TextAnimation 0.4s ease-out 1 normal;
+}
+.BookingsTableTextNoBooking {
+    margin-top:20px;
+    font-size: 20px;
+    color:gray;
+    animation: TextAnimation 0.4s ease-out 1 normal;
+}

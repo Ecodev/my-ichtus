@@ -4,71 +4,65 @@
 
     <!-- !! -->
     <!-- Ajouter les transitions pour les différents exploreurs + box shadows + border radius -->
-    <!-- Keyupdown sur le premier input code embarcation n'importe quoi...-->
     <!-- Si personne a déjà une sortie -> voir les sorties actuelles de la personne -->
-
-
+    <!--meilleur bouton infos sur materiel elements-->
 
     <meta charset="utf-8" />
     <title>Cahier de sortie</title>
 
     <!-- Style Sheets -->
-    <link href="General.css" rel="stylesheet" />
-    <link href="Top.css" rel="stylesheet" />
-    <link href="Bottom.css" rel="stylesheet" />
-    <link href="Cahier.css" rel="stylesheet" />
-    <link href="CahierTop.css" rel="stylesheet" />
-    <link href="CahierTopList.css" rel="stylesheet" />
-    <link href="CahierMember.css" rel="stylesheet" />
-    <link href="CahierInfos.css" rel="stylesheet" />
-    <link href="CahierMaterielChoice.css" rel="stylesheet" />
-    <link href="CahierMaterielBookable.css" rel="stylesheet" />
-    <link href="CahierMaterielOptions.css" rel="stylesheet" />
-    <link href="CahierMaterielCode.css" rel="stylesheet" />
-    <link href="CahierMaterielCategories.css" rel="stylesheet" />
-    <link href="CahierMaterielElements.css" rel="stylesheet" />
-    <link href="CahierConfirmation.css" rel="stylesheet" />
-    <link href="PopUpBookableHistory.css" rel="stylesheet" />
-    <link href="PopUpUser.css" rel="stylesheet" />
-    <link href="PopUpGuest.css" rel="stylesheet" />
-    <link href="PopUpCahierInfos.css" rel="stylesheet" />
-    <link href="PopUpCahierBookable.css" rel="stylesheet" />
-    <link href="PopUpLogin.css" rel="stylesheet" />
-    <link href="PopUpStats.css" rel="stylesheet" />
-    <link href="PopUpAlert.css" rel="stylesheet" />
+    <link href="general/General.css" rel="stylesheet" />
+    <link href="general/PopUpAlert.css" rel="stylesheet" />
+    <link href="page/Top.css" rel="stylesheet" />
+    <link href="page/Bottom.css" rel="stylesheet" />
+    <link href="page/PopUpStats.css" rel="stylesheet" />
+    <link href="cahier/Cahier.css" rel="stylesheet" />
+    <link href="cahier/CahierTop.css" rel="stylesheet" />
+    <link href="cahier/CahierTopList.css" rel="stylesheet" />
+    <link href="member/PopUpUser.css" rel="stylesheet" />
+    <link href="member/PopUpGuest.css" rel="stylesheet" />
+    <link href="member/CahierMember.css" rel="stylesheet" />
+    <link href="member/PopUpLogin.css" rel="stylesheet" />
+    <link href="materiel/CahierMaterielChoice.css" rel="stylesheet" />
+    <link href="materiel/CahierMaterielBookable.css" rel="stylesheet" />
+    <link href="materiel/CahierMaterielOptions.css" rel="stylesheet" />
+    <link href="materiel/CahierMaterielCategories.css" rel="stylesheet" />
+    <link href="materiel/CahierMaterielElements.css" rel="stylesheet" />
+    <link href="materiel/PopUpBookableHistory.css" rel="stylesheet" />
+    <link href="infos/CahierInfos.css" rel="stylesheet" />
+    <link href="infos/PopUpCahierInfos.css" rel="stylesheet" />
+    <link href="confirmation/CahierConfirmation.css" rel="stylesheet" />
 
     <!-- JavaScript Files -->
-    <script src="Home.js"></script>
-    <script src="ServerRequests.js"></script>
-    <script src="Screen.js"></script>
-    <script src="Top.js"></script>
-    <script src="Bottom.js"></script>
-    <script src="Cahier.js"></script>
-    <script src="CahierMethods.js"></script>
-    <script src="CahierTop.js"></script>
-    <script src="CahierTopList.js"></script>
-    <script src="CahierInfos.js"></script>
-    <script src="CahierMaterielChoice.js"></script>
-    <script src="CahierMaterielCode.js"></script>
-    <script src="CahierMaterielCategories.js"></script>
-    <script src="CahierMaterielElements.js"></script>
-    <script src="PopUpBookingFinish.js"></script>
-    <script src="PopUpBookable.js"></script>
-    <script src="PopUpBookableHistory.js"></script>
-    <script src="PopUpBooking.js"></script>
-    <script src="PopUpUser.js"></script>
-    <script src="PopUpGuest.js"></script>
-    <script src="PopUpCahierInfos.js"></script>
-    <script src="PopUpCahierBookable.js"></script>
-    <script src="PopUpLogin.js"></script>
-    <script src="PopUpStats.js"></script>
-    <script src="PopUpAlert.js"></script>
-
+    <script src="general/Home.js"></script>
+    <script src="general/ServerRequests.js"></script>
+    <script src="general/Screen.js"></script>
+    <script src="general/PopUpAlert.js"></script>
+    <script src="page/Top.js"></script>
+    <script src="page/Bottom.js"></script>
+    <script src="page/PopUpStats.js"></script>
+    <script src="cahier/Cahier.js"></script>
+    <script src="cahier/CahierMethods.js"></script>
+    <script src="cahier/CahierTop.js"></script>
+    <script src="cahier/CahierTopList.js"></script>
+    <script src="cahier/PopUpBooking.js"></script>
+    <script src="member/PopUpUser.js"></script>
+    <script src="member/PopUpGuest.js"></script>
+    <script src="member/PopUpLogin.js"></script>
+    <script src="materiel/CahierMaterielChoice.js"></script>
+    <script src="materiel/CahierMaterielCategories.js"></script>
+    <script src="materiel/CahierMaterielElements.js"></script>
+    <script src="materiel/PopUpBookable.js"></script>
+    <script src="materiel/PopUpBookableHistory.js"></script>
+    <script src="infos/CahierInfos.js"></script>
+    <script src="infos/PopUpCahierInfos.js"></script>
     <script type="text/javascript" src="https://dev.ichtus.club/vanilla/runtime.js"></script>
     <script type="text/javascript" src="https://dev.ichtus.club/vanilla/main.js"></script>
 
+
+
     <!--Favicon-->
-    <link rel="icon" href="Img/favicon.ico" />
+    <link rel="icon" href="Img/Logo/favicon.ico" />
 
 </head>
 <body onload="load();">
@@ -85,7 +79,6 @@
 
         <div id="divTopBarText">Cahier de sortie</div>
         <div id="divTopBarTime" onclick=""></div>
-
     </div>
 
     <!-- Left Bar & Right Bar -->
@@ -212,23 +205,6 @@
 
         </div>
 
-        <!--Div Tab CahierMaterielCode-->
-        <div id="divTabCahierMaterielCode" class="divTab">
-            <div class="divCahierSpacers"></div>
-            <div class="divMaterielSpacers"></div>
-            <br />
-            <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielCategories')"></div>
-            <br />
-            <div id="divTabCahierMaterielCodeEmbarcation">
-                <input autocomplete="off" type="text" placeholder="Type" onkeyup="writeCodeMateriel(); actualizeCodeMateriel();" onfocusin="openPropositionsCodeMateriel(); actualizeCodeMateriel();" onfocusout="closePropositionsCodeMateriel();" />
-                <input autocomplete="off" type="number" placeholder="Numéro" min="1" onkeyup="if (event.keyCode == 13) { validateCodeMateriel(); }; actualizeCodeMateriel();"/ >
-                <div></div>
-                <div>Code de l'embarcation</div>
-                <div id="divTabCahierMaterielCodeEmbarcationTypeResults"></div>
-                <div class="Buttons ValidateButtons" onclick="validateCodeMateriel();">Valider</div>
-            </div>
-        </div>
-
         <!-- Div Tab CahierMaterielChoice -->
         <div id="divTabCahierMaterielChoice" class="divTab">
             <div class="divCahierSpacers"></div>
@@ -241,7 +217,6 @@
             <div style="text-align:center;">
                 <div id="btnNext" class="Buttons ValidateButtons" style="display:inline-block;" onclick="if (this.classList.contains('activated')) {newTab('divTabCahierConfirmation'); }"  title="Suivant">Suivant</div>
             </div>
-
         </div>
 
         <!--Div Tab CahierMaterielBookable-->
