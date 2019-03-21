@@ -60,7 +60,7 @@ function loadStats(end = new Date()) {
 
     var c = document.getElementsByClassName("divStatsContainer")[0];
     c.innerHTML = "";
-    
+
     var scale = div(c);
     var center = div(c);
     var legend = div(c);
@@ -80,7 +80,7 @@ function actualizeStats(start, end, elem, bookings) {
     var stats = [];
 
     var elapsedTime = Math.abs(end.getTime() - start.getTime());
-    var daysNbr = parseInt(elapsedTime / (1000 * 3600 * 24)); 
+    var daysNbr = parseInt(elapsedTime / (1000 * 3600 * 24));
     for (var i = 0; i < daysNbr+1; i++) {
         stats.push(0);
     }
@@ -90,7 +90,7 @@ function actualizeStats(start, end, elem, bookings) {
         var date = new Date(bookings[i].startDate);
 
         var elapsedTime = Math.abs(date.getTime() - start.getTime());
-        var daysNbr = parseInt(elapsedTime / (1000 * 3600 * 24)); 
+        var daysNbr = parseInt(elapsedTime / (1000 * 3600 * 24));
 
         stats[daysNbr]++;
     }
@@ -124,7 +124,7 @@ function actualizeStats(start, end, elem, bookings) {
 
             div(l).innerHTML = date.getDate();
         }
-    
+
     }
 
 

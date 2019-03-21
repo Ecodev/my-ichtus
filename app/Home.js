@@ -1,4 +1,4 @@
-﻿// shortucts 
+﻿// shortucts
 function $(id) {
     return document.getElementById(id);
 }
@@ -31,7 +31,7 @@ function load() {
     createProgressBar();
     createAllPropositions();
     window.location = "#" + "divTabCahier";
-    loadReturnButtons(); 
+    loadReturnButtons();
     popUser(0, $("divTabCahierMemberContainer"));
 
     loadTableTopBars();
@@ -159,7 +159,7 @@ function closePopUp(e) {
     var t = false;
     if (e == "last") {
         if (lastModals != 0) {
-            t = true;    
+            t = true;
         }
     }
     else if (e.target.id.indexOf("divModal") != -1) {
@@ -303,7 +303,7 @@ Array.prototype.sortBy = function (sortFields, order = 1) {
     while (switching) {
         switching = false;
         for (var i = 0; i < this.length - 1; i++) {
-            if (sortFields[i] > sortFields[i + 1] && order == 1 || sortFields[i] < sortFields[i + 1] && order == -1) { // 
+            if (sortFields[i] > sortFields[i + 1] && order == 1 || sortFields[i] < sortFields[i + 1] && order == -1) { //
                 this.switch(i, i + 1);
                 sortFields.switch(i, i + 1);
                 switching = true;
@@ -347,15 +347,15 @@ function transformBookings(_bookings) { // one booking with many bookables
                 else {
                     final[final.length - 1].bookables.push(_bookings[i].bookables[0]);
                 }
-                
+
                 final[final.length - 1].ids.push(_bookings[i].id);
             }
 
             // new booking
-            else { 
+            else {
                 final.push(_bookings[i]);
                 final[final.length - 1].ids = [_bookings[i].id];
- 
+
                 if (_bookings[i].bookables.length == 0) {
                     final[final.length - 1].bookables = [Cahier.personalBookable];
                 }

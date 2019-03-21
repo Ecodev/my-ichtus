@@ -28,7 +28,7 @@ function loadElements(bookables ,nbr = 0) {
             container.onclick = function (event) {
                 if (!(event.target.classList.contains("infoJS"))) {
                     Cahier.addBookable(nbr, bookables[this.id]);
-                    actualizeElements();       
+                    actualizeElements();
                 }
             };
         }

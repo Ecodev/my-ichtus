@@ -3,7 +3,7 @@ function loadCahierMaterielChoice(loc = $('divTabCahierMaterielChoice').getEleme
     var isTab = true;
     if (loc != $('divTabCahierMaterielChoice').getElementsByClassName("MaterielChoiceContainer")[0]) {
         isTab = false;
-    }     
+    }
 
     var container = div(loc);
     container.classList.add("divTabCahierMaterielChoiceContainer");
@@ -19,7 +19,7 @@ function loadCahierMaterielChoice(loc = $('divTabCahierMaterielChoice').getEleme
         if (this.value != '') {
             this.nextElementSibling.nextElementSibling.children[0].classList.add("activated");
         }
-        else { this.nextElementSibling.nextElementSibling.children[0].classList.remove("activated"); } 
+        else { this.nextElementSibling.nextElementSibling.children[0].classList.remove("activated"); }
     };
 
     if (!isTab) {
@@ -53,7 +53,7 @@ function loadCahierMaterielChoice(loc = $('divTabCahierMaterielChoice').getEleme
                 }
                 if (t) {
                     Cahier.addBookable(nbr);
-                } 
+                }
             };
         }
         else {
@@ -62,7 +62,7 @@ function loadCahierMaterielChoice(loc = $('divTabCahierMaterielChoice').getEleme
                 closePopUp("last");
             };
         }
-        
+
         btn1.classList.add("NormalButtons", "Buttons");
 
         var btn2 = div(btnContainer);

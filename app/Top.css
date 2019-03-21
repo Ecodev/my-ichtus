@@ -67,7 +67,7 @@
     position: absolute;
     right: 5px;
     bottom:5px;
-    width: 150px;    
+    width: 150px;
     color: white;
     font-size:18px;
     text-align: right;
@@ -106,7 +106,7 @@
 
 
     #divTopBarLogo:hover > img {
-        
+
     }
 
 
@@ -306,7 +306,7 @@
     height: 100%;
     animation-name:AniBlack;
     animation-duration: 1s;
-    animation-timing-function: ease;   
+    animation-timing-function: ease;
 }
 
 

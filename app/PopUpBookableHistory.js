@@ -29,8 +29,8 @@ function popBookableHistory(bookableId) {
     close.className = "divPopUpClose";
     close.onclick = function () {
         closePopUp({ target: modal }, modal);
-    }; 
- 
+    };
+
     var scroll = div(container);
     scroll.className = "PopUpBookableHistoryContainerScroll";
 }
@@ -55,7 +55,7 @@ function actualizePopBookableHistory(bookings, elem) {
     if (scroll.getElementsByClassName("Buttons").length ==1 ) {
         scroll.removeChild(scroll.getElementsByClassName("Buttons")[0]);
         scroll.removeChild(scroll.getElementsByTagName("br")[0]);
-    }   
+    }
 
     for (var i = 0; i < bookings.length; i++) {
 
@@ -153,10 +153,10 @@ function changeDaySorting(bookings) {
             //console.log("i:" + i,"switch - " + i1 + "to" + i2);
             result.inverse(i1, i2);
         }
-        //console.log("i:" + i, "old:" + oldDate + "/" + oldMonth + "<br/>" + "new:" + newDate + "/" + newMonth + "<br/> c:" + c); 
+        //console.log("i:" + i, "old:" + oldDate + "/" + oldMonth + "<br/>" + "new:" + newDate + "/" + newMonth + "<br/> c:" + c);
         oldDate = newDate;
         oldMonth = newMonth;
-       
+
     }
     if (c != 0) {
         var i1 = i - 1 - c;
@@ -174,7 +174,7 @@ function popUpYear (container,txt) {
     var inner = div(c);
     inner.innerHTML = txt;
     var nbr = div(div(c));
-      
+
     return nbr;
 }
 

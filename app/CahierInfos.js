@@ -19,7 +19,7 @@
     //    // alert(number + "  length:" + number.length);
 
     //    var r = "";
-    //    for (var i = 0; i < number.length-1; i++) {            
+    //    for (var i = 0; i < number.length-1; i++) {
     //        r += number[i];
     //        if (r.length == 3 || r.length == 7 || r.length == 10) {
     //            r += " ";
@@ -58,7 +58,7 @@
             }
         }
         else {
-           
+
         }
     }
 
@@ -74,7 +74,7 @@
 
 
 function checkPhoneNumber(elem) {
- 
+
 
     var txt = elem.value;
 
@@ -86,7 +86,7 @@ function checkPhoneNumber(elem) {
 
     var r = "";
     for (var i = 0; i < number.length; i++) {
-        
+
         if (r.length == 3 || r.length == 7 || r.length == 10) {
             r += " ";
         }
@@ -109,7 +109,7 @@ function checkPhoneNumber(elem) {
 
 
 function writeDestination(elem) {
-    
+
     if (elem.value.length > 2) {
         AcceptInfos(elem);
     }
@@ -204,14 +204,14 @@ function DenyInfos(elem) {
 function checkInfos(location = $('divTabCahierInfos'), nbr = 0) {
     var allTabCahierFields = location.getElementsByClassName("TabCahierFields");
     var allInfosOkay = true;
-    for (var i = 0; i < allTabCahierFields.length-1; i++) { //POUR EVITER LE TEXTAREA... 
+    for (var i = 0; i < allTabCahierFields.length-1; i++) { //POUR EVITER LE TEXTAREA...
         if (allTabCahierFields[i].getElementsByTagName("input")[0].style.backgroundImage == "" || allTabCahierFields[i].getElementsByTagName("input")[0].style.backgroundImage =="none") {
             allTabCahierFields[i].getElementsByTagName("input")[0].style.borderColor = "red";
             allTabCahierFields[i].getElementsByTagName("div")[0].style.backgroundColor = "red";
             allInfosOkay = false;
         }
     }
-    if (allInfosOkay == true) {    
+    if (allInfosOkay == true) {
 
         var _participantCount = parseInt(location.getElementsByClassName("divTabCahierInfosNbrInvites")[0].getElementsByTagName('input')[0].value);
         var _destination = location.getElementsByClassName("divTabCahierInfosDestination")[0].getElementsByTagName('input')[0].value;
@@ -225,7 +225,7 @@ function checkInfos(location = $('divTabCahierInfos'), nbr = 0) {
         else {
             closePopUp("last");
         }
-      
+
     }
- 
+
 }

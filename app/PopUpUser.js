@@ -24,7 +24,7 @@ function popUser(nbr = 0, elem = openPopUp()) {
         grayBar(container, 5);
     }
 
-   
+
 
     var i1 = document.createElement("input");
     i1.autocomplete = "off";
@@ -131,7 +131,7 @@ function createSearchEntries(PeopleCorresponding) {
 
     $("divTabCahierSearchResult").innerHTML = "";
 
-    if (PeopleCorresponding.length == 0) {     
+    if (PeopleCorresponding.length == 0) {
         var divResult = document.createElement("div");
         divResult.classList.add("divTabCahierResultEntry");
         $("divTabCahierSearchResult").appendChild(divResult);
@@ -159,7 +159,7 @@ function createSearchEntries(PeopleCorresponding) {
 
             var nbr = parseInt(document.getElementsByClassName('PopUpUserContainer')[0].id); // modifier problem si plusieurs popUp ouverts...
 
-            divResult.id = i;  
+            divResult.id = i;
 
             divResult.addEventListener("mousedown", function () { Cahier.setOwner(nbr, { id: PeopleCorresponding[this.id].id, firstName: PeopleCorresponding[this.id].name.split(" ")[0], surName: PeopleCorresponding[this.id].name.split(" ")[1], sex: PeopleCorresponding[this.id].sex }); closePopUp("last"); });
 

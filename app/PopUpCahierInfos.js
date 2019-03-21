@@ -70,7 +70,7 @@ function popCahierInfos(nbr) {
             info.style.width = "100%";
             info.style.fontSize = "15px";
 
-            writeNbrInvites(i); 
+            writeNbrInvites(i);
 
 
 
@@ -105,7 +105,7 @@ function popCahierInfos(nbr) {
         div(p).innerHTML = "Neuchâtel";
         div(p).innerHTML = "Cudrefin";
 
-        writeDestination(i); 
+        writeDestination(i);
 
 
 

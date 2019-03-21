@@ -69,7 +69,7 @@
     background-image: url(Img/IconStartComment.png);
     margin-top:-2px;
     background-position-x:-1px;
-    
+
 }
 .divTabCahierFieldsContainer + div {
     color:gray;
@@ -152,7 +152,7 @@
     position: absolute;
     text-align:left;
     left: 50px;
-    top: 100px; 
+    top: 100px;
 }
 
 .divTabCahierInfosDestinationPropositions {
@@ -214,7 +214,7 @@
     left: 30px;
     top: 4px;
     color: gray;
-    font-size: 15px;    
+    font-size: 15px;
     text-decoration: underline;
 }
 

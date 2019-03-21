@@ -16,7 +16,7 @@ function createProgressBar() {
                 newTab(progessionTabNames[c]);
 
             }
-           
+
         });
         $("divTabCahierProgress").appendChild(divStep);
 
@@ -32,7 +32,7 @@ function createProgressBar() {
         divCircle.classList.add("divTabCahierProgressCircle");
         divStep.appendChild(divCircle);
 
-      
+
         var divText = document.createElement("div");
         divText.classList.add("divTabCahierProgressText");
         divText.innerHTML = Cahier.ProgressBarTexts[i];
@@ -58,7 +58,7 @@ function changeProgress(c) {
     if (c != currentProgress) {
         sign = Math.abs(c - currentProgress) / (c - currentProgress);
     }
-     
+
     currentProgress = c;
     for (var i = 1; i < 5; i++) {
         document.getElementsByClassName("divTabCahierProgressStep")[i-1].className = "divTabCahierProgressStep";

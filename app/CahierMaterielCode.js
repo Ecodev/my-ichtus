@@ -1,11 +1,11 @@
 ﻿function checkCodeMateriel() {
     if (inputTypeCodeMateriel.value.toUpperCase() == "Canoé".toUpperCase() && inputNumberCodeMateriel.value == "1") {
         return true;
- 
+
     }
     else {
         return false;
-    
+
     }
 }
 
@@ -15,7 +15,7 @@ function actualizeCodeMateriel() { //v sign or not
         inputTypeCodeMateriel.style.borderColor = "black";
         inputNumberCodeMateriel.style.borderColor = "black";
         document.getElementById("divTabCahierMaterielCodeEmbarcation").getElementsByTagName("div")[0].style.backgroundColor = "black";
-     
+
     }
     else {
         inputNumberCodeMateriel.style.backgroundImage = "none";
@@ -48,8 +48,8 @@ function writeCodeMateriel() {
 
 
 
-var inputTypeCodeMateriel; 
-var inputNumberCodeMateriel; 
+var inputTypeCodeMateriel;
+var inputNumberCodeMateriel;
 
 var types = ["Canoé", "Kayak", "Planche à voile", "Voilier"];
 function openPropositionsCodeMateriel() {
@@ -64,7 +64,7 @@ function openPropositionsCodeMateriel() {
         document.getElementById("divTabCahierMaterielCodeEmbarcationTypeResults").appendChild(divResult);
 
         divResult.addEventListener("mousedown", function () {
-            inputTypeCodeMateriel.value = this.getElementsByClassName("spanTabMaterielCodeEmbarcationType")[0].innerHTML;          
+            inputTypeCodeMateriel.value = this.getElementsByClassName("spanTabMaterielCodeEmbarcationType")[0].innerHTML;
             actualizeCodeMateriel();
             closePropositionsCodeMateriel();
             inputNumberCodeMateriel.focus();//marche pas
@@ -80,7 +80,7 @@ function openPropositionsCodeMateriel() {
         span2.classList.add("spanTabMaterielCodeEmbarcationType");
         span2.innerHTML = types[i];
         divResult.appendChild(span2);
-    }   
+    }
 }
 
 

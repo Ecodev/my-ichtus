@@ -108,7 +108,7 @@
 
         .divTabCahierMaterielElementsContainer > div > div > div:nth-child(3) {
             position: absolute;
-            width: 100%;           
+            width: 100%;
             height: 220px;
             z-index: 0;
             background-repeat: no-repeat;

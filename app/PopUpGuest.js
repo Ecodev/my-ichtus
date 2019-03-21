@@ -81,7 +81,7 @@ function ValidateGuest() {
         closePopUp({ target: c.parentElement }, c.parentElement);
     }
 
- 
+
 }
 
 String.prototype.capitalize = function () {

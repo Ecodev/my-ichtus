@@ -50,7 +50,7 @@ var Requests = {
                 pageIndex: 0
             },
             sorting: [{
-                field: 'lastName', 
+                field: 'lastName',
                 order: 'ASC'
             },
             {   //if same family name sort by firstName
@@ -206,7 +206,7 @@ var Requests = {
 
                         console.log(r);
 
-                        if (r.items.length != 0) {         // else : already a zero ? maybe change to start of the universe lol hhaa        
+                        if (r.items.length != 0) {         // else : already a zero ? maybe change to start of the universe lol hhaa
                             var bookableId = r.items[0].bookables[0].id;
                             console.log(bookableId);
 
@@ -275,7 +275,7 @@ var Requests = {
                                 }
                             }
 
-                            bookings[c] = r.length; // not items.length !             
+                            bookings[c] = r.length; // not items.length !
                         }
 
                         counter++;
@@ -297,7 +297,7 @@ var Requests = {
 
     // getBookableNbrForBookableTag()
     getBookableNbrForBookableTag: function (bookableTag, elem, before = "", after = "") {
-        
+
         if (bookableTag == "Canoe_Kayak") { bookableTag = "Kayak"; }
         if (bookableTag == "Voile") { bookableTag = "Voile lestée"; }
 
@@ -347,10 +347,10 @@ var Requests = {
          }
 
         var variables = new Server.QueryVariablesManager();
-        variables.set('variables', filter); 
+        variables.set('variables', filter);
 
         Server.bookableService.getAll(variables).subscribe(result => {
-            var txt = before + result.length + after;    
+            var txt = before + result.length + after;
             elem.innerHTML = txt;
         });
     },
@@ -532,7 +532,7 @@ var Requests = {
 
         var filter = {
             filter: {
-                groups: [   
+                groups: [
                     {
                         groupLogic:"AND",
 
@@ -551,13 +551,13 @@ var Requests = {
                                     null: {
                                         not: false
                                     }
-                                },   
+                                },
                                 bookables: {
                                     empty: {
                                         not: true
                                     }
                                 }
-                                
+
                             }
                         ],
                         joins: {
@@ -572,7 +572,7 @@ var Requests = {
                                 }]
                             }
                         }
-                     
+
                     },
                     {
                         groupLogic: "OR",
@@ -602,7 +602,7 @@ var Requests = {
                         ]
                     }
 
-                    
+
                 ]
             },
             pagination: {
@@ -720,13 +720,13 @@ var Requests = {
                                 }
                             }
                         }]
-                    }    
+                    }
                     ]
             }
         };
 
         var variables = new Server.QueryVariablesManager();
-        variables.set('variables', filter); 
+        variables.set('variables', filter);
 
         Server.bookingService.getAll(variables, true).subscribe(result => {// force = true);
             console.log("getFinishedBookingListForDay(): ", result);
@@ -743,12 +743,12 @@ var Requests = {
                 }
             }
             else { // first == false
-                actualizeFinishedBookingListForDay(transformedBoookings, table); 
-            }                   
+                actualizeFinishedBookingListForDay(transformedBoookings, table);
+            }
         });
     },
 
-    
+
 
     // getBookableHistory()
     getBookableHistory: function (bookableId, elem, lastDate, Size = 10) {
@@ -787,8 +787,8 @@ var Requests = {
                 pageIndex: 0
             },
             sorting: [{
-                field: "startDate", 
-                order: "DESC" 
+                field: "startDate",
+                order: "DESC"
             }]
         };
 
@@ -844,7 +844,7 @@ var Requests = {
                     },
                     pagination: {
                         pageSize: 100,
-                        pageIndex: 0 
+                        pageIndex: 0
                     },
                     sorting: [{
                         field: "startDate",
@@ -885,7 +885,7 @@ var Requests = {
                             }
                         }
                     },
-                    {    
+                    {
                     conditions: [{
                         startDate: {
                             between: {
@@ -893,7 +893,7 @@ var Requests = {
                                 to:end
                             }
                         }
-                    }]                                               
+                    }]
                     }
                 ]
             },
@@ -911,7 +911,7 @@ var Requests = {
             if (result.length != 1 || writeIfOne == true) {
                 elem.innerHTML += result.length;
                 elem.parentElement.style.opacity = 1;
-            }     
+            }
             else {
                 //elem.parentElement.style.display = "none";
             }
@@ -934,7 +934,7 @@ var Requests = {
                                         from: start,
                                         to: end
                                     }
-                                }                         
+                                }
                             },
                             {
                                 startDate: {
@@ -942,7 +942,7 @@ var Requests = {
                                         value: true
                                     }
                                 }
-                            }                   
+                            }
                         ]
                     }
                 ]
@@ -968,7 +968,7 @@ var Requests = {
                     all[i].children[0].innerHTML = Cahier.getSingularOrPlural(result.length, " sortie") + " ce mois";
                 }
             }
-            
+
         });
     },
 
@@ -1074,7 +1074,7 @@ var Requests = {
 
             console.log("getBookingWithBookablesInfos(): ", result);
 
-            var send = transformBookings(result.items); 
+            var send = transformBookings(result.items);
 
             console.log("send", send);
 
@@ -1098,7 +1098,7 @@ var Requests = {
                     Requests.getActualBookingList(true);
                 }
             });
-        }      
+        }
     },
 
     // createBooking
@@ -1141,17 +1141,17 @@ var Requests = {
     //                console.log('Linked Bookable : ', booking);
     //                Requests.counter++;
     //                if (Requests.counter == tot) { newTab("divTabCahier"); Requests.getActualBookingList(true);  ableToSkipAnimaiton();}
-                   
+
     //            });
     //        }
     //        else {
     //            console.log("Matériel Personel");
     //            Requests.counter++;
-    //            if (Requests.counter == tot) { newTab("divTabCahier"); Requests.getActualBookingList(true);  ableToSkipAnimaiton();}  
+    //            if (Requests.counter == tot) { newTab("divTabCahier"); Requests.getActualBookingList(true);  ableToSkipAnimaiton();}
     //        }
     //    });
 
-        
+
     //},
 
     // createBooking
@@ -1181,20 +1181,20 @@ var Requests = {
                         console.log('Linked Bookable : ', booking);
 
                         Requests.counter++;
-                        if (Requests.counter == Cahier.bookings[0].bookables.length) { newTab("divTabCahier"); ableToSkipAnimaiton();}  
+                        if (Requests.counter == Cahier.bookings[0].bookables.length) { newTab("divTabCahier"); ableToSkipAnimaiton();}
                     });
                 }
                 else {
                     console.log("+1Matériel Personel");
                     Requests.counter++;
-                    if (Requests.counter == Cahier.bookings[0].bookables.length) { newTab("divTabCahier"); ableToSkipAnimaiton(); }  
-           
+                    if (Requests.counter == Cahier.bookings[0].bookables.length) { newTab("divTabCahier"); ableToSkipAnimaiton(); }
+
                 }
-            });    
+            });
 
-        }   
+        }
 
-        
+
     },
 
 
@@ -1205,12 +1205,12 @@ var Requests = {
         {
               bookables(
                 filter:{
-      
+
                   groups:[{
-        
+
                     conditionsLogic:OR
-        
-        
+
+
                     conditions:[
                       {
                         id:{
@@ -1225,11 +1225,11 @@ var Requests = {
                         }
                       }
                     ]}
-        
-        
-        
+
+
+
                   ]
-      
+
                 },
                 sorting: [{
     	            field:id
@@ -1241,7 +1241,7 @@ var Requests = {
                     id
                     name
                     description
-        
+
                     tags {
                       id
                     }

@@ -61,7 +61,7 @@
 
 
 .PopUpMonth {
-    position:relative;  
+    position:relative;
 }
     .PopUpMonth > div:nth-child(1) {
         display: inline-block;
@@ -77,7 +77,7 @@
     }
     .PopUpMonth > div:nth-child(2) {
         display: inline-block;
-        vertical-align: middle;     
+        vertical-align: middle;
         font-size: 40px;
     }
     .PopUpMonth > div:nth-child(3) {
@@ -110,7 +110,7 @@
 }
     .PopUpDay > div:nth-child(1){
         margin-bottom:4px;
-    }     
+    }
 
     .PopUpDay > div:nth-child(1) > div:nth-child(1) {
         display: inline-block;
@@ -157,7 +157,7 @@
 
 
 
-.PopUpSortie {    
+.PopUpSortie {
     position:relative;
     height:40px;
     margin-left:70px;
@@ -192,7 +192,7 @@
     }
     .PopUpDay:nth-child(2n) > .PopUpSortie:nth-child(2n+1) > div:nth-child(2) {
         background-color: white;
-    }   
+    }
     .PopUpDay:nth-child(2n+1) > .PopUpSortie:nth-child(2n) > div:nth-child(2){
         background-color: white;
     }

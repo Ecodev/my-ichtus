@@ -31,11 +31,11 @@ function actualizeActualBookings(actualBookings,first) {
             if (children[i].id != "divTabCahierTableActualBookings" && children[i].id != "inputTabCahierActualBookingsSearch" && children[i].id != "divTabCahierActualBookingsSearchTitle" && children[i].id != "divTabCahierAlertButtonsLegend") {
                 $('divTabCahierTables').removeChild(children[i]);
                 i--;
-            }           
+            }
         }
         newBookingTable(new Date(), "Sorties terminées");// tables sorties finies
     }
- 
+
     for (var i = 0; i < actualBookings.length; i++) {
 
         var container = div($('divTabCahierTableActualBookings'));
@@ -53,7 +53,7 @@ function actualizeActualBookings(actualBookings,first) {
                 // do nothing
             }
             else if (typeof event.target.getElementsByTagName("div")[0] != "undefined") {
-                if (event.target.getElementsByTagName("div")[0].classList.contains("Buttons")) {            
+                if (event.target.getElementsByTagName("div")[0].classList.contains("Buttons")) {
                     popBookingFinish(actualBookings[this.id]);
                 }
                 else {
@@ -62,12 +62,12 @@ function actualizeActualBookings(actualBookings,first) {
             }
             else {
                 popBookingInfos(actualBookings[this.id]);
-            }         
+            }
         });
 
-        var divDate = div(container);    
+        var divDate = div(container);
 
-        var maxHours = 24; 
+        var maxHours = 24;
         if (Date.now() - (new Date(actualBookings[i].startDate)).getTime() > maxHours/6 * 60 * 60 * 1000) {
 
             var d = div(divDate);
@@ -89,7 +89,7 @@ function actualizeActualBookings(actualBookings,first) {
                 divDate.title = "+ de 24 heures";
             }
         }
-        
+
 
         divDate.id = "SORTING" + (new Date(actualBookings[i].startDate)).toISOString(); // for the sorting
         divDate.innerHTML += (new Date(actualBookings[i].startDate)).getNiceTime(":", true);
@@ -124,7 +124,7 @@ function actualizeActualBookings(actualBookings,first) {
     sortTable($('divTabCahierTableActualBookings'));
 }
 
-function createBookingBookableBox(elem, bookable = {code:"ZZZ"}) { 
+function createBookingBookableBox(elem, bookable = {code:"ZZZ"}) {
 
     var d = div(elem);
 
@@ -156,7 +156,7 @@ function createBookingBookableBox(elem, bookable = {code:"ZZZ"}) {
         }
         else {
             div(d).innerHTML = bookable.name.shorten(150, 18);
-        }        
+        }
     }
 
     elem.classList.add("TableEntriesBookableBox");
@@ -175,7 +175,7 @@ function loadTableTopBars(allTables = document.getElementsByClassName("BookingsT
             all[i].getElementsByTagName("div")[0].style.backgroundImage = "url(Img/IconSortASC.png)";
 
             if (!(all[i].parentElement.id == 'divTabCahierTableActualBookingsTopBar' && all[i].id == '6')) { // not sort finish buttons
-            
+
                 all[i].addEventListener("click", function () {
 
                     if (this.getElementsByTagName("div")[0].style.backgroundImage == 'url("Img/IconSortDESC.png")' || !(this.classList.contains("BookingsTopBarSorted"))) {
@@ -201,7 +201,7 @@ function loadTableTopBars(allTables = document.getElementsByClassName("BookingsT
                 });
 
             }
-        }  
+        }
     }
 }
 
@@ -288,7 +288,7 @@ function createBookingsTable(date,title) {
     for (var i = 0; i < fields.length; i++) {
         var d = div(topBar);
         d.id = i;
-        div(d); 
+        div(d);
         var img = document.createElement("img");
         img.src = "Img/" + images[i] + ".png";
         img.alt = "?";
@@ -315,7 +315,7 @@ function createBookingsTable(date,title) {
 
 function createNoBookingMessage(date) {
     var t = div($('divTabCahierTables'));
-    t.classList.add("BookingsTableTextNoBooking");    
+    t.classList.add("BookingsTableTextNoBooking");
     t.innerHTML = "Aucune sortie le "+ date.getNiceDate();
 }
 
@@ -350,7 +350,7 @@ function actualizeFinishedBookingListForDay(bookings,table) {
                  if (!(event.target.parentElement.classList.contains("TableEntriesBookableBox") || event.target.parentElement.parentElement.classList.contains("TableEntriesBookableBox"))) {
                      popBookingInfos(bookings[this.id]);
                 }
-                   
+
             });
 
             div(entry).innerHTML = (new Date(bookings[i].startDate)).getNiceTime(":", true);
@@ -372,7 +372,7 @@ function actualizeFinishedBookingListForDay(bookings,table) {
             }
 
             div(entry).innerHTML = bookings[i].destination.shorten(150, 16);
-            div(entry).innerHTML = getStartCommentFromBooking(bookings[i]).shorten(200, 16);; // "".shorten(200, 200);//getStartCommentFromBooking(bookings[i]);//.startComment.shorten(200, 20); // BIZARRRRERELRKJASéDL KFJASéDLF JKAéSLDKFJ 
+            div(entry).innerHTML = getStartCommentFromBooking(bookings[i]).shorten(200, 16);; // "".shorten(200, 200);//getStartCommentFromBooking(bookings[i]);//.startComment.shorten(200, 20); // BIZARRRRERELRKJASéDL KFJASéDLF JKAéSLDKFJ
             div(entry).innerHTML = getEndCommentFromBooking(bookings[i]).shorten(200,16);//.endComment.shorten(200, 20);
 
         }

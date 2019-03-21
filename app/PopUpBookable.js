@@ -11,7 +11,7 @@ function popBookable(bookableId, justPreview = true, nbr = 0, modal = openPopUp(
     pop.classList.add("divTabCahierMaterielElementsPopUp");
 
     if (modal != $('divTabCahierMaterielBookableContainer')) {
-    
+
         var close = div(pop);
         close.className = "divPopUpClose";
         close.onclick = function () {
@@ -53,7 +53,7 @@ function popBookable(bookableId, justPreview = true, nbr = 0, modal = openPopUp(
         }
 
 	}
-  
+
 
 	var textsContainer = div(pop);
 	textsContainer.className = "divTabCahierMaterielElementsContainerTextsContainer";
@@ -72,7 +72,7 @@ function actualizePopBookable(nbr, bookable,bookings, elem, metadatas) {
     console.log(metadatas);
 
     elem.getElementsByTagName("div")[2].style.backgroundImage = Cahier.getImageUrl(bookable);
-    
+
     elem.getElementsByClassName('divTabCahierMaterielElementsPopUp')[0].getElementsByTagName("div")[3].innerHTML = bookable.description;
 
     var textsContainer = elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0];
@@ -83,7 +83,7 @@ function actualizePopBookable(nbr, bookable,bookings, elem, metadatas) {
     for (var i = 0; i < metadatas.length; i++) {
         div(textsContainer).innerHTML = metadatas[i].name + " " + metadatas[i].value;
     }
-    
+
 
     if (bookings.length != 0) {
 
@@ -107,7 +107,7 @@ function actualizePopBookable(nbr, bookable,bookings, elem, metadatas) {
     else {
         elem.getElementsByClassName('divTabCahierMaterielElementsContainerTextsContainer')[0].getElementsByTagName("div")[3].innerHTML = "Encore aucune sortie enregistrée";
         elem.getElementsByClassName('Buttons')[0].style.visibility = "hidden";
-    } 
+    }
 
 
     if (elem.getElementsByClassName("ValidateButtons").length == 1) { // if !justPreview

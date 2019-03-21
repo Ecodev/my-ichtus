@@ -78,7 +78,7 @@
     height: 50px;
     padding-left:55px;
     border-bottom-left-radius: 10px;
-    border-top-left-radius: 10px; 
+    border-top-left-radius: 10px;
 }
 #divTabCahierMaterielCodeEmbarcation input:nth-child(2) + div{ /*#divTabCahierMaterielCodeEmbarcationInputTypeBack*/
     position: absolute;

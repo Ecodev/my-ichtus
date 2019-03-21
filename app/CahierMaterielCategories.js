@@ -8,7 +8,7 @@ function loadMateriel(container = $("divTabCahierMaterielCategoriesContainer")) 
         var d = document.createElement("div");
         d.id = categories[i];
         d.classList.add("BoxesContainer");
-        container.appendChild(d);        
+        container.appendChild(d);
 
         var d1 = div(d);
         d1.id = i;

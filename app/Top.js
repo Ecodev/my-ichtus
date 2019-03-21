@@ -18,12 +18,12 @@ function animate() {
         location.reload();
      };
 
-   
+
     var b, c, w, f, r;
 
     b = div(document.body);
     b.id = "black";
-       
+
     setTimeout(function () {
         if (!running) { return; }
         else {
@@ -44,7 +44,7 @@ function animate() {
                 c.style.animationName = "AniCircleHeight";
                 r.style.animationName = "AniCircleHeight";
             }
-           
+
             setTimeout(newLetter, 1000, 0);
 
             w = div(document.body);
@@ -69,7 +69,7 @@ function animate() {
                     c.style.animationName = "AniCircleExit";
                     r.style.animationName = "AniCircleExit";
                     f.style.animationName = "AniFishExit,none";
-                
+
 
                     setTimeout(function () { if (running) { DeleteObjects(w, c, r, f); running = false; } Requests.getActualBookingList(true);}, 1000);
 
@@ -78,7 +78,7 @@ function animate() {
                     else {
                         b.style.animationName = "AniBlackExit";
                         DeleteObjects(b, info);
-        
+
                      //   location.reload();
                     }
                     document.body.removeEventListener("mousedown", cancelFunction);
@@ -88,7 +88,7 @@ function animate() {
             }, 4500);
         }
 
-    }, 500);   
+    }, 500);
 }
 
 function addSvgClass(elem) {

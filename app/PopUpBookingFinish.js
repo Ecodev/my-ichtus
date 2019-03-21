@@ -54,10 +54,10 @@ function openFinishBooking(elem,bookingId) {
 
     var r1 = div(radioContainer);
     r1.classList.add("radioSelected");
-    r1.onclick = function () { this.classList.add("radioSelected"); r2.classList.remove("radioSelected"); area.disabled = true; area.style.backgroundColor = "lightgray"; areaContainer.style.opacity = 0.5;}; //this.parentElement.parentElement.getElementsByTagName("textarea")[0].style.opacity = 0; 
+    r1.onclick = function () { this.classList.add("radioSelected"); r2.classList.remove("radioSelected"); area.disabled = true; area.style.backgroundColor = "lightgray"; areaContainer.style.opacity = 0.5;}; //this.parentElement.parentElement.getElementsByTagName("textarea")[0].style.opacity = 0;
     div(div(r1)); div(r1).innerHTML = "En bon état";
     var r2 = div(radioContainer);
-    r2.onclick = function () { this.classList.add("radioSelected"); r1.classList.remove("radioSelected"); area.disabled = false; area.style.backgroundColor = "white"; areaContainer.style.opacity = 1;};//area.style.opacity = 1;}; 
+    r2.onclick = function () { this.classList.add("radioSelected"); r1.classList.remove("radioSelected"); area.disabled = false; area.style.backgroundColor = "white"; areaContainer.style.opacity = 1;};//area.style.opacity = 1;};
     div(div(r2)); div(r2).innerHTML = "Endommagé";
 
     var areaContainer = div(emb);
@@ -87,8 +87,8 @@ function openFinishBooking(elem,bookingId) {
     area2.spellcheck = false;
     area2.placeholder = "Comment ça s'est passé...";
     div(d).appendChild(area2);
-  
- 
+
+
     var btnFinish = div(container);
     btnFinish.id = bookingId;
     btnFinish.classList.add("Buttons");
@@ -104,7 +104,7 @@ function openFinishBooking(elem,bookingId) {
         Requests.terminateBooking(this.id, txt);
         closePopUp({ target: elem }, elem);
     });
-   
+
 
 
     var close = div(container);
@@ -117,7 +117,7 @@ function openFinishBooking(elem,bookingId) {
 function actualizePopBookingFinish(booking, elem) {
     elem.getElementsByClassName('divConfirmationTexts')[0].children[2].innerHTML = Cahier.getOwner(booking, true, { length: 1000000, fontSize: 35 });
     elem.getElementsByClassName('divConfirmationTexts')[1].children[2].innerHTML = date.getNiceTime();
-   
+
     if (booking.bookables.length != 0) {
         elem.getElementsByClassName("divTabCahierConfirmationContainerTextsContainer")[0].getElementsByTagName("div")[0].innerHTML = booking.bookables[0].name.shorten(210, 25);
         elem.getElementsByClassName("divTabCahierConfirmationContainerTextsContainer")[0].getElementsByTagName("div")[1].innerHTML = booking.bookables[0].code;

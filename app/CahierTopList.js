@@ -21,7 +21,7 @@ function actualizeBookableList() {
         else {
             d.classList.add("PersonalSail");
         }
-     
+
         var img = div(d);
         img.style.backgroundImage = Cahier.getImageUrl(Cahier.bookings[0].bookables[i]);
 
@@ -35,7 +35,7 @@ function actualizeBookableList() {
         code.innerHTML = bookables[i].code;
     }
 
-   
+
 
     if (bookables.length == 0) {
 

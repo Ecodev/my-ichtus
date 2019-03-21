@@ -16,7 +16,7 @@
     margin-left:-250px;
     text-align:center;
     border:2px solid lightgray;
-    border-radius:20px;  
+    border-radius:20px;
 }
     #divTabCahierNewBookingBox > div {
         position: relative;
@@ -79,7 +79,7 @@
         }
             #divTabCahierNewBookingBox > div:nth-child(2) > div {
                 line-height:270px;
-                font-size:30px;             
+                font-size:30px;
             }
 
 
@@ -116,7 +116,7 @@
     background-color: transparent;
     margin-bottom: 40px;
     border-top-left-radius: 20px;
-    border-top-right-radius: 20px;   
+    border-top-right-radius: 20px;
 }
 
     .TableTopBar > div {
@@ -333,7 +333,7 @@
 
 
 
-  
+
     .BookingsTable:not( #divTabCahierTableActualBookings) .TableEntries > div:nth-child(2) {
         width: 1%;
         text-align: center;
@@ -353,7 +353,7 @@
         width: 35%;
     }
 
-   
+
 
 
 .TableEntriesHover:hover {

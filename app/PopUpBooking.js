@@ -6,7 +6,7 @@ function loadConfirmation() {
 function popBooking(_booking) { // without all bookables... so if the booking is not complete
     var elem = openPopUp();
     openBooking("infos", elem);
-   
+
     Requests.getBookingWithBookablesInfos(_booking, "infos", elem);
 }
 
@@ -70,7 +70,7 @@ function openBooking(which = "confirmation", elem = $('divTabConfirmationOneBook
         d.classList.add("divConfirmationTexts");
         div(div(d)).style.backgroundImage = "url(Img/" + images[i] + ".png)";
         div(d).innerHTML = fields[i];
-        div(d);      
+        div(d);
     }
 
     grayBar(container);
@@ -103,10 +103,10 @@ function openBooking(which = "confirmation", elem = $('divTabConfirmationOneBook
 
         var r1 = div(radioContainer);
         r1.classList.add("radioSelected");
-        r1.onclick = function () { this.classList.add("radioSelected"); this.nextElementSibling.classList.remove("radioSelected"); this.parentElement.nextElementSibling.children[0].disabled = true; this.parentElement.nextElementSibling.children[0].style.backgroundColor = "lightgray"; this.parentElement.nextElementSibling.style.opacity = 0.5; }; //this.parentElement.parentElement.getElementsByTagName("textarea")[0].style.opacity = 0; 
+        r1.onclick = function () { this.classList.add("radioSelected"); this.nextElementSibling.classList.remove("radioSelected"); this.parentElement.nextElementSibling.children[0].disabled = true; this.parentElement.nextElementSibling.children[0].style.backgroundColor = "lightgray"; this.parentElement.nextElementSibling.style.opacity = 0.5; }; //this.parentElement.parentElement.getElementsByTagName("textarea")[0].style.opacity = 0;
         div(div(r1)); div(r1).innerHTML = "En bon état";
         var r2 = div(radioContainer);
-        r2.onclick = function () { this.classList.add("radioSelected"); this.previousElementSibling.classList.remove("radioSelected"); this.parentElement.nextElementSibling.children[0].disabled = false; this.parentElement.nextElementSibling.children[0].style.backgroundColor = "white"; this.parentElement.nextElementSibling.style.opacity = 1; };//area.style.opacity = 1;}; 
+        r2.onclick = function () { this.classList.add("radioSelected"); this.previousElementSibling.classList.remove("radioSelected"); this.parentElement.nextElementSibling.children[0].disabled = false; this.parentElement.nextElementSibling.children[0].style.backgroundColor = "white"; this.parentElement.nextElementSibling.style.opacity = 1; };//area.style.opacity = 1;};
         div(div(r2)); div(r2).innerHTML = "Endommagé";
 
         var areaContainer = div(emb);
@@ -159,7 +159,7 @@ function openBooking(which = "confirmation", elem = $('divTabConfirmationOneBook
         btnFinish.innerHTML = "Terminer";
         // for function see - actualizeBooking...
     }
-   
+
 
 
     // INFOS
@@ -296,7 +296,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
             var img = div(emb);
             img.style.backgroundImage = "url(Img/IconInfo.png)," + Cahier.getImageUrl(booking.bookables[i]) ;
             div(img);
-           
+
 
             texts = div(emb);
             texts.className = "divTabCahierConfirmationContainerTextsContainer";
@@ -323,10 +323,10 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
 
                     var r1 = div(radioContainer);
                     r1.classList.add("radioSelected");
-                    r1.onclick = function () { this.classList.add("radioSelected"); this.nextElementSibling.classList.remove("radioSelected"); this.parentElement.nextElementSibling.children[0].disabled = true; this.parentElement.nextElementSibling.children[0].style.backgroundColor = "lightgray"; this.parentElement.nextElementSibling.style.opacity = 0.3; }; //this.parentElement.parentElement.getElementsByTagName("textarea")[0].style.opacity = 0; 
+                    r1.onclick = function () { this.classList.add("radioSelected"); this.nextElementSibling.classList.remove("radioSelected"); this.parentElement.nextElementSibling.children[0].disabled = true; this.parentElement.nextElementSibling.children[0].style.backgroundColor = "lightgray"; this.parentElement.nextElementSibling.style.opacity = 0.3; }; //this.parentElement.parentElement.getElementsByTagName("textarea")[0].style.opacity = 0;
                     div(div(r1)); div(r1).innerHTML = "En bon état";
                     var r2 = div(radioContainer);
-                    r2.onclick = function () { this.classList.add("radioSelected"); this.previousElementSibling.classList.remove("radioSelected"); this.parentElement.nextElementSibling.children[0].disabled = false; this.parentElement.nextElementSibling.children[0].style.backgroundColor = "white"; this.parentElement.nextElementSibling.style.opacity = 1; };//area.style.opacity = 1;}; 
+                    r2.onclick = function () { this.classList.add("radioSelected"); this.previousElementSibling.classList.remove("radioSelected"); this.parentElement.nextElementSibling.children[0].disabled = false; this.parentElement.nextElementSibling.children[0].style.backgroundColor = "white"; this.parentElement.nextElementSibling.style.opacity = 1; };//area.style.opacity = 1;};
                     div(div(r2)); div(r2).innerHTML = "Endommagé";
 
                     var areaContainer = div(emb);
@@ -395,7 +395,7 @@ function createConfirmationBooking(booking,nbr) {
     else {
         container.innerHTML += '<div style=" font-size:25px; text-align:center; color:black;"> Sortie de ' + Cahier.getFullName(booking) + '</div>';
     }
-    
+
     grayBar(container, 5,10);
 
     for (var i = 0; i < 4; i++) {
@@ -419,7 +419,7 @@ function createConfirmationBooking(booking,nbr) {
             else {
                 btn.onclick = function () { popUser(nbr); };
             }
-            
+
         }
     }
 
@@ -468,7 +468,7 @@ function createConfirmationBooking(booking,nbr) {
     else {
         btn.classList.add("ButtonChose");
         btn.innerHTML = "Choisir";
-    }  
+    }
 
 
     if (nbr != 0) {
@@ -481,6 +481,6 @@ function createConfirmationBooking(booking,nbr) {
     }
     else {
         container.style.border = "5px solid lightgray";
-    } 
+    }
 
 }
