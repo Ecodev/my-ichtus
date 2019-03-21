@@ -18,7 +18,7 @@ var Cahier = {
         if (_bookable == Cahier.personalBookable) {
             return 'url(Img/IconPersonalSail.png)';
         }
-        return 'url(https://my.ichtus.ch/image/' + _bookable.image.id + '/' + size + ')';
+        return 'url(https://dev.ichtus.club/image/' + _bookable.image.id + '/' + size + ')';
     },
 
     getFullName: function (booking = Cahier.bookings[0]) {
@@ -73,7 +73,7 @@ var Cahier = {
 
     //new Booking
     newUserBooking: function () {
-        popUser(Cahier.bookings.length); 
+        popUser(Cahier.bookings.length);
     },
 
     //new Booking
@@ -101,8 +101,8 @@ var Cahier = {
         }
 
         document.getElementsByClassName("divTabCahierInfosStartComment")[0].getElementsByTagName("textarea")[0].value = "";
-        document.getElementsByClassName("divTabCahierInfosNbrInvites")[0].getElementsByTagName("input")[0].value = "1"; 
-        document.getElementsByClassName("divTabCahierInfosDestination")[0].getElementsByTagName("input")[0].value = "Baie"; 
+        document.getElementsByClassName("divTabCahierInfosNbrInvites")[0].getElementsByTagName("input")[0].value = "1";
+        document.getElementsByClassName("divTabCahierInfosDestination")[0].getElementsByTagName("input")[0].value = "Baie";
 
         $('inputTabCahierMaterielElementsInputSearch').value = "";
 
@@ -198,10 +198,10 @@ var Cahier = {
         Cahier.bookings[nbr].owner.surName = _owner.surName;
         Cahier.bookings[nbr].owner.name = _owner.surName + " " + _owner.firstName;
         Cahier.bookings[nbr].owner.sex = _owner.sex;
-        
+
         console.log("setOwner(): ", nbr, Cahier.bookings[nbr].owner);
         Cahier.actualizeConfirmation();
-       
+
         newTab("divTabCahierInfos");
     },
 
