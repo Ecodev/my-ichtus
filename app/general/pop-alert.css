@@ -10,8 +10,22 @@
     background-color: white;
     text-align: center;
 }
+    .PopUpAlertContainer > div:nth-child(4) {
+        font-size:18px;
+        min-height:50px;
+    }
 
-.PopUpAlertContainer > div:nth-child(4) {
-    font-size:18px;
-    min-height:50px;
+
+.PopUpAlertContainer.booking {
+    height: 200px;
+    width: 460px;
 }
+    .PopUpAlertContainer.booking .Buttons {
+        margin: 10px;
+        margin-top:0px;
+        font-size:21px;
+        padding-top:0px;
+        height:54px;
+        line-height:54px;
+    }
+

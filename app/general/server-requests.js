@@ -68,7 +68,7 @@ var Requests = {
     },
 
     // getBookablesList
-    getBookablesList: function (elem = $('inputTabCahierMaterielElementsInputSearch')) { //
+    getBookablesList: function (elem = $('inputTabCahierEquipmentElementsInputSearch')) { //
 
         var order;
         if ($('divTabCahierEquipmentElementsSelectIconSort').style.backgroundImage == 'url(../("Img/IconSortDESC.png")') {

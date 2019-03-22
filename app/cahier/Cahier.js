@@ -1,8 +1,7 @@
 ﻿var textToolTipGuest = "Un non-membre doit toujours être accompagné par un membre d'Ichtus. <br/> Il n'a donc pas le droit d'aller seul.";
 var textToolTipUser = "Sortie pour les membres d'Ichtus<br/><br/>";
 
-
-function actualizeActualBookings(actualBookings,first) {
+function actualizeActualBookings(_actualBookings,first) {
 
     var all = $('divTabCahierTableActualBookings').getElementsByClassName("TableEntries");
     for (var i = 0; i < all.length; i++) {
@@ -12,7 +11,7 @@ function actualizeActualBookings(actualBookings,first) {
         }
     }
 
-    if (actualBookings.length == 0) {
+    if (_actualBookings.length == 0) {
         var entry = div($('divTabCahierTableActualBookings'));
 
         entry.classList.add("TableEntries");
@@ -21,10 +20,10 @@ function actualizeActualBookings(actualBookings,first) {
         var cell = div(entry);
     }
 
-    //console.log("first", first);
-    if (first == true) { // so new generated not just a search
+    if (first) { // so will be new generated not just a search
 
-        $('divTabCahierTableActualBookings').previousElementSibling.innerHTML = "Sorties en cours (" + actualBookings.length + ")";
+        Cahier.actualBookings = _actualBookings;
+        $('divTabCahierTableActualBookings').previousElementSibling.innerHTML = "Sorties en cours (" + _actualBookings.length + ")";
 
         var children = $('divTabCahierTables').children;
         for (var i = 0; i < children.length; i++) {
@@ -36,7 +35,7 @@ function actualizeActualBookings(actualBookings,first) {
         newBookingTable(new Date(), "Sorties terminées");// tables sorties finies
     }
 
-    for (var i = 0; i < actualBookings.length; i++) {
+    for (var i = 0; i < _actualBookings.length; i++) {
 
         var container = div($('divTabCahierTableActualBookings'));
 
@@ -47,28 +46,28 @@ function actualizeActualBookings(actualBookings,first) {
         container.addEventListener("click", function (event) {
 
             if (event.target.classList.contains("Buttons")) {
-                popBookingFinish(actualBookings[this.id]);
+                popBookingFinish(_actualBookings[this.id]);
             }
             else if (event.target.parentElement.classList.contains("TableEntriesBookableBox") || event.target.parentElement.parentElement.classList.contains("TableEntriesBookableBox")) {
                 // do nothing
             }
             else if (typeof event.target.getElementsByTagName("div")[0] != "undefined") {
                 if (event.target.getElementsByTagName("div")[0].classList.contains("Buttons")) {
-                    popBookingFinish(actualBookings[this.id]);
+                    popBookingFinish(_actualBookings[this.id]);
                 }
                 else {
-                    popBookingInfos(actualBookings[this.id]);
+                    popBookingInfos(_actualBookings[this.id]);
                 }
             }
             else {
-                popBookingInfos(actualBookings[this.id]);
+                popBookingInfos(_actualBookings[this.id]);
             }
         });
 
         var divDate = div(container);
 
         var maxHours = 24;
-        if (Date.now() - (new Date(actualBookings[i].startDate)).getTime() > maxHours/6 * 60 * 60 * 1000) {
+        if (Date.now() - (new Date(_actualBookings[i].startDate)).getTime() > maxHours/6 * 60 * 60 * 1000) {
 
             var d = div(divDate);
             d.classList.add('TableEntriesAlert');
@@ -76,14 +75,14 @@ function actualizeActualBookings(actualBookings,first) {
             d.title = "+ de 4 heures";
             divDate.title = "+ de 4 heures";
 
-            if (Date.now() - (new Date(actualBookings[i].startDate)).getTime() > maxHours/2 * 60 * 60 * 1000) {
+            if (Date.now() - (new Date(_actualBookings[i].startDate)).getTime() > maxHours/2 * 60 * 60 * 1000) {
                 d.style.filter = "none";
                 d.style.filter = "grayscale(1)";
                 d.title = "+ de 12 heures";
                 divDate.title = "+ de 12 heures";
             }
 
-            if (Date.now() - (new Date(actualBookings[i].startDate)).getTime() > maxHours * 60 * 60 * 1000) {
+            if (Date.now() - (new Date(_actualBookings[i].startDate)).getTime() > maxHours * 60 * 60 * 1000) {
                 d.style.filter = "none";
                 d.title = "+ de 24 heures";
                 divDate.title = "+ de 24 heures";
@@ -91,29 +90,29 @@ function actualizeActualBookings(actualBookings,first) {
         }
 
 
-        divDate.id = "SORTING" + (new Date(actualBookings[i].startDate)).toISOString(); // for the sorting
-        divDate.innerHTML += (new Date(actualBookings[i].startDate)).getNiceTime(":", true);
+        divDate.id = "SORTING" + (new Date(_actualBookings[i].startDate)).toISOString(); // for the sorting
+        divDate.innerHTML += (new Date(_actualBookings[i].startDate)).getNiceTime(":", true);
 
 
         var participantCount = div(container);
-        participantCount.innerHTML = actualBookings[i].participantCount;
-        participantCount.title = Cahier.getSingularOrPlural(actualBookings[i].participantCount);
+        participantCount.innerHTML = _actualBookings[i].participantCount;
+        participantCount.title = Cahier.getSingularOrPlural(_actualBookings[i].participantCount);
 
-        div(container).innerHTML = Cahier.getOwner(actualBookings[i],true);
+        div(container).innerHTML = Cahier.getOwner(_actualBookings[i],true);
 
-        if (actualBookings[i].bookables.length == 0) {
+        if (_actualBookings[i].bookables.length == 0) {
             createBookingBookableBox(div(container));
         }
         else {
             var c = div(container);
-            for (let k = 0; k < actualBookings[i].bookables.length; k++) {
-                createBookingBookableBox(c, actualBookings[i].bookables[k]);
+            for (let k = 0; k < _actualBookings[i].bookables.length; k++) {
+                createBookingBookableBox(c, _actualBookings[i].bookables[k]);
             }
         }
 
-        div(container).innerHTML = actualBookings[i].destination.shorten(150,16);
+        div(container).innerHTML = _actualBookings[i].destination.shorten(150,16);
 
-        div(container).innerHTML = getStartCommentFromBooking(actualBookings[i]).shorten(200, 16);
+        div(container).innerHTML = getStartCommentFromBooking(_actualBookings[i]).shorten(200, 16);
 
         var c = div(container);
         c.title = "Terminer cette sortie";
@@ -135,7 +134,7 @@ function createBookingBookableBox(elem, bookable = {code:"ZZZ"}) {
     var code = div(d);
 
     if (bookable == Cahier.personalBookable) {
-        img.style.backgroundImage = "url(../(Img/IconPersonalSail.png)";
+        img.style.backgroundImage = "url(../Img/IconPersonalSail.png)";
         code.style.backgroundImage = "none";
         code.innerHTML = "Matériel Personel";
         code.style.margin = "0px";

@@ -1,5 +1,7 @@
 var Cahier = {
 
+    actualBookings:[],
+
     bookings: [{
         owner: {id:0,name:"Michel pas défini",sex:"male"},
         bookables: [],
@@ -104,7 +106,7 @@ var Cahier = {
         document.getElementsByClassName("divTabCahierInfosNbrInvites")[0].getElementsByTagName("input")[0].value = "1";
         document.getElementsByClassName("divTabCahierInfosDestination")[0].getElementsByTagName("input")[0].value = "Baie";
 
-        $('inputTabCahierMaterielElementsInputSearch').value = "";
+        $('inputTabCahierEquipmentElementsInputSearch').value = "";
 
         $('divTabCahierEquipmentElementsSelectSort').getElementsByTagName("select")[0].getElementsByTagName("option")[0].selected = "selected";
         $('divTabCahierEquipmentElementsSelectSort').getElementsByTagName("div")[0].style.backgroundImage = 'url(../"Img/IconSortASC.png")';
@@ -191,18 +193,35 @@ var Cahier = {
     },
 
 
-    setOwner: function (nbr = 0, _owner = { id: "", firstName: "", surName: "", sex: "female" }) {
+    setOwner: function (nbr = 0, _owner = { id: "", firstName: "", surName: "", sex: "female" }, force = false) {
 
-        Cahier.bookings[nbr].owner.id = _owner.id;
-        Cahier.bookings[nbr].owner.firstName = _owner.firstName;
-        Cahier.bookings[nbr].owner.surName = _owner.surName;
-        Cahier.bookings[nbr].owner.name = _owner.surName + " " + _owner.firstName;
-        Cahier.bookings[nbr].owner.sex = _owner.sex;
+        var t = true;
+        if (!force) {
+            for (var i = 0; i < Cahier.actualBookings.length; i++) {
+                if (Cahier.actualBookings[i].owner.id == _owner.id) {
+                    t = false;
+                    break;
+                }
+            }
+        }
 
-        //console.log("setOwner(): ", nbr, Cahier.bookings[nbr].owner);
-        Cahier.actualizeConfirmation();
+        if (t) {
+            Cahier.bookings[nbr].owner.id = _owner.id;
+            Cahier.bookings[nbr].owner.firstName = _owner.firstName;
+            Cahier.bookings[nbr].owner.surName = _owner.surName;
+            Cahier.bookings[nbr].owner.name = _owner.surName + " " + _owner.firstName;
+            Cahier.bookings[nbr].owner.sex = _owner.sex;
 
-        newTab("divTabCahierInfos");
+            //console.log("setOwner(): ", nbr, Cahier.bookings[nbr].owner);
+            Cahier.actualizeConfirmation();
+
+            newTab("divTabCahierInfos");
+        }
+        else {
+            popAlertAlreadyHavingABooking(_owner);
+        }
+
+
     },
 
     addBookable: function (nbr = 0, _bookable = Cahier.personalBookable) {

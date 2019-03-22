@@ -38,7 +38,7 @@ function popUser(nbr = 0, elem = openPopUp()) {
             Search(event);
         }
         else {
-            $("divTabCahierSearchResult").innerHTML = "<div style='margin-top:10px; color:gray;'>Veuillez taper au moins trois caractères</div>";
+            $("divTabCahierSearchResult").innerHTML = "<div style='margin-top:10px; color:var(--fontBlack);'>Veuillez taper au moins trois caractères</div>";
         }
     };
     i1.onkeydown = function () {SearchDown(event);};
@@ -76,13 +76,11 @@ function Search(e) {
                 var owner = { id: _id, firstName: _firstName, surName: _surName, sex: _sex };
 
                 Cahier.setOwner(nbr, owner);
-
-                closePopUp("last");
             }
         }
     }
     else if (e.keyCode == 40 || e.keyCode == 38) {
-
+            //do nothing
     }
     else { //text != ""
         Requests.getUsersList(text, 5);
@@ -145,7 +143,7 @@ function createSearchEntries(PeopleCorresponding) {
         };
         divResult.appendChild(span1);
 
-        divResult.style.backgroundImage = "url(../'Img/IconNoResult.png')";
+        divResult.style.backgroundImage = "url(../Img/IconNoResult.png)";
 
         lastPeople = [];
     }
@@ -161,7 +159,7 @@ function createSearchEntries(PeopleCorresponding) {
 
             divResult.id = i;
 
-            divResult.addEventListener("mousedown", function () { Cahier.setOwner(nbr, { id: PeopleCorresponding[this.id].id, firstName: PeopleCorresponding[this.id].name.split(" ")[0], surName: PeopleCorresponding[this.id].name.split(" ")[1], sex: PeopleCorresponding[this.id].sex }); closePopUp("last"); });
+            divResult.addEventListener("mousedown", function () { Cahier.setOwner(nbr, { id: PeopleCorresponding[this.id].id, firstName: PeopleCorresponding[this.id].name.split(" ")[0], surName: PeopleCorresponding[this.id].name.split(" ")[1], sex: PeopleCorresponding[this.id].sex });  });
 
             var span1 = document.createElement("span");
             span1.classList.add("spanTabCahierSurName");
@@ -183,10 +181,10 @@ function createSearchEntries(PeopleCorresponding) {
             }
 
             if (PeopleCorresponding[i].sex == "male") {
-                divResult.style.backgroundImage = "url(../'Img/IconMan.png')";
+                divResult.style.backgroundImage = "url(../Img/IconMan.png)";
             }
             else {
-                divResult.style.backgroundImage = "url(../'Img/IconWoman.png')";
+                divResult.style.backgroundImage = "url(../Img/IconWoman.png)";
             }
         }
     }

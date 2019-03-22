@@ -74,7 +74,7 @@ tabs.push({ id: "divTabCahierEquipmentCategories", order: 12, progress: 3, posit
 tabs.push({
     id: "divTabCahierEquipmentElements", order: 13, progress: 3, position: 0, TopBar: true, ListBar: true, title: "Sélectionnez votre embarcation",
     Enter: function () {
-        MaterielElementsFirstLoad = true; Requests.getBookablesList(); $('inputTabCahierMaterielElementsInputSearch').focus();
+        MaterielElementsFirstLoad = true; Requests.getBookablesList(); $('inputTabCahierEquipmentElementsInputSearch').focus();
         $('divTabCahierTopList').children[1].style.opacity = 1;
     },
     Remove: function () {

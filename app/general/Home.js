@@ -33,7 +33,7 @@ function load() {
     popUser(0, $("divTabCahierMemberContainer"));
 
     loadTableTopBars();
-    loadCahierMaterielChoice();
+    loadCahierEquipmentChoice();
     loadEscListener();
 
     //SERVER

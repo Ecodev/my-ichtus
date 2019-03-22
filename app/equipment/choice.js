@@ -1,4 +1,4 @@
-function loadCahierMaterielChoice(loc = $('divTabCahierEquipmentChoice').getElementsByClassName("MaterielChoiceContainer")[0],nbr = 0) {
+function loadCahierEquipmentChoice(loc = $('divTabCahierEquipmentChoice').getElementsByClassName("MaterielChoiceContainer")[0],nbr = 0) {
 
     var isTab = true;
     if (loc != $('divTabCahierEquipmentChoice').getElementsByClassName("MaterielChoiceContainer")[0]) {
