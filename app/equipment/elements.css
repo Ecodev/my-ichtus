@@ -1,8 +1,8 @@
-#divTabCahierMaterielElements {
+#divTabCahierEquipmentElements {
 }
 
 
-.divTabCahierMaterielElementsContainer {
+.divTabCahierEquipmentElementsContainer {
     position: relative;
     width: 95%;
     left: 2.5%;
@@ -12,7 +12,7 @@
     text-align: center;
 }
 
-    .divTabCahierMaterielElementsContainer > div {
+    .divTabCahierEquipmentElementsContainer > div {
         position: relative;
         display: inline-block;
         box-sizing: border-box;
@@ -23,12 +23,12 @@
         cursor:pointer;
     }
 
-        .divTabCahierMaterielElementsContainer > div.selected > div {
+        .divTabCahierEquipmentElementsContainer > div.selected > div {
             border:5px solid var(--accent);
         }
 
 
-        .divTabCahierMaterielElementsContainer > div > div {
+        .divTabCahierEquipmentElementsContainer > div > div {
             position: absolute;
             box-sizing: border-box; /*TELLEMENT BIEN !!*/
             /*border: 2px solid black;*/
@@ -45,7 +45,7 @@
             border: 5px solid transparent;
         }
 
-        .divTabCahierMaterielElementsContainer > div:hover > div {
+        .divTabCahierEquipmentElementsContainer > div:hover > div {
             top: 5px;
             -webkit-box-shadow: 2px 3px 8px 0px rgba(0,0,0,0.5);
             -moz-box-shadow: 2px 3px 8px 0px rgba(0,0,0,0.5);
@@ -54,7 +54,7 @@
         }
 
 
-        .divTabCahierMaterielElementsContainer > div > div > div:nth-child(1) {
+        .divTabCahierEquipmentElementsContainer > div > div > div:nth-child(1) {
             position: absolute;
             right: 0px;
             bottom: 70px;
@@ -73,7 +73,7 @@
             z-index: 2;
         }
 
-        .divTabCahierMaterielElementsContainer > div > div > div:nth-child(2) {
+        .divTabCahierEquipmentElementsContainer > div > div > div:nth-child(2) {
             position: absolute;
             display:table;
             left: 0px;
@@ -91,7 +91,7 @@
         }
 
 
-        .divTabCahierMaterielElementsContainer > div > div > div:nth-child(2) > div:nth-child(1) {
+        .divTabCahierEquipmentElementsContainer > div > div > div:nth-child(2) > div:nth-child(1) {
             position: relative;
             display: table-cell;
             vertical-align: middle;
@@ -106,7 +106,7 @@
         }
 
 
-        .divTabCahierMaterielElementsContainer > div > div > div:nth-child(3) {
+        .divTabCahierEquipmentElementsContainer > div > div > div:nth-child(3) {
             position: absolute;
             width: 100%;
             height: 220px;
@@ -119,12 +119,12 @@
             border-top-right-radius: 18px;
         }
 
-        .divTabCahierMaterielElementsContainer > div:hover > div > div:nth-child(3) {
+        .divTabCahierEquipmentElementsContainer > div:hover > div > div:nth-child(3) {
             background-size: 240px;
         }
 
 
-        .divTabCahierMaterielElementsContainer > div > div > div:nth-child(4) {
+        .divTabCahierEquipmentElementsContainer > div > div > div:nth-child(4) {
             position: absolute;
             left: 0px;
             top: 0px;
@@ -138,21 +138,21 @@
             transition: all 0.2s linear 0s;
         }
 
-        .divTabCahierMaterielElementsContainer > div:hover > div > div:nth-child(4) {
+        .divTabCahierEquipmentElementsContainer > div:hover > div > div:nth-child(4) {
             background-size: 218px;
         }
 
-        .divTabCahierMaterielElementsContainer > div.selected:hover > div > div:nth-child(4) {
+        .divTabCahierEquipmentElementsContainer > div.selected:hover > div > div:nth-child(4) {
             background-size: 100px;
             background-image: url(../Img/IconChoseBlue.png);
         }
-        .divTabCahierMaterielElementsContainer > div.selected > div > div:nth-child(4) {
+        .divTabCahierEquipmentElementsContainer > div.selected > div > div:nth-child(4) {
             background-size: 200px;
             background-image: url(../Img/IconChoseBlue.png);
         }
 
 
-        .divTabCahierMaterielElementsContainer > div > div > div:nth-child(5) {
+        .divTabCahierEquipmentElementsContainer > div > div > div:nth-child(5) {
             position: absolute;
             left: 5px;
             top: 5px;
@@ -166,14 +166,14 @@
             border-radius:30px;
         }
 
-            .divTabCahierMaterielElementsContainer > div > div > div:nth-child(5):hover {
+            .divTabCahierEquipmentElementsContainer > div > div > div:nth-child(5):hover {
                 background-color: white;
                 background-size:40px;
             }
 
 
 
-#divTabCahierMaterielElementsButtonsContainer {
+#divTabCahierEquipmentElementsButtonsContainer {
     position: relative;
     width: 95%;
     border-left-width: 130px;
@@ -186,7 +186,7 @@
     box-sizing: border-box;
 }
 
-    #divTabCahierMaterielElementsButtonsContainer > div {
+    #divTabCahierEquipmentElementsButtonsContainer > div {
         display: inline-block;
         position: relative;
         background-color: transparent;
@@ -196,11 +196,11 @@
         margin-bottom: 5px;
     }
 
-        #divTabCahierMaterielElementsButtonsContainer > div > div {
+        #divTabCahierEquipmentElementsButtonsContainer > div > div {
             position: absolute;
         }
 
-        #divTabCahierMaterielElementsButtonsContainer > div select {
+        #divTabCahierEquipmentElementsButtonsContainer > div select {
             position: absolute;
             padding-left: 10px;
             margin-left: 40px;
@@ -210,16 +210,16 @@
         }
 
 
-#divTabCahierMaterielElementsSelectSort {
+#divTabCahierEquipmentElementsSelectSort {
     transition: all 0.1s linear 0s;
     z-index: 2;
 }
 
-    #divTabCahierMaterielElementsSelectSort:hover {
+    #divTabCahierEquipmentElementsSelectSort:hover {
         margin-top: 4px;
     }
 
-    #divTabCahierMaterielElementsSelectSort > div {
+    #divTabCahierEquipmentElementsSelectSort > div {
         position: absolute;
         width: 30px;
         background-color: white;
@@ -231,7 +231,7 @@
         box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
     }
 
-        #divTabCahierMaterielElementsSelectSort > div:hover {
+        #divTabCahierEquipmentElementsSelectSort > div:hover {
             margin-top: 0px;
             background-position-x: 0px;
             background-position-y: -1px;
@@ -242,16 +242,16 @@
 
 
 
-#divTabCahierMaterielElementsSelectCategorie {
+#divTabCahierEquipmentElementsSelectCategorie {
     transition: all 0.1s linear 0s;
     z-index: 2;
 }
 
-    #divTabCahierMaterielElementsSelectCategorie:hover {
+    #divTabCahierEquipmentElementsSelectCategorie:hover {
         margin-top: 4px;
     }
 
-    #divTabCahierMaterielElementsSelectCategorie > div {
+    #divTabCahierEquipmentElementsSelectCategorie > div {
         position: absolute;
         width: 30px;
         background-color: white;
@@ -263,7 +263,7 @@
         box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
     }
 
-        #divTabCahierMaterielElementsSelectCategorie > div:hover {
+        #divTabCahierEquipmentElementsSelectCategorie > div:hover {
             margin-top: 0px;
         }
 
@@ -271,16 +271,16 @@
 
 
 
-#divTabCahierMaterielElementsSelectPageSize {
+#divTabCahierEquipmentElementsSelectPageSize {
     transition: all 0.1s linear 0s;
     z-index: 2;
 }
 
-    #divTabCahierMaterielElementsSelectPageSize:hover {
+    #divTabCahierEquipmentElementsSelectPageSize:hover {
         margin-top: 4px;
     }
 
-    #divTabCahierMaterielElementsSelectPageSize > div {
+    #divTabCahierEquipmentElementsSelectPageSize > div {
         position: absolute;
         width: 30px;
         background-color: white;
@@ -292,7 +292,7 @@
         box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
     }
 
-        #divTabCahierMaterielElementsSelectPageSize > div:hover {
+        #divTabCahierEquipmentElementsSelectPageSize > div:hover {
             margin-top: 0px;
         }
 
@@ -344,129 +344,5 @@
 
     #inputTabCahierMaterielElementsInputSearch:hover {
         margin-top: 4px;
-    }
-
-
-.divTabCahierMaterielElementsPopUp {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    width: 700px;
-    height: 450px;
-    /*font-size: 25px;*/
-    background-color:white;
-    border-radius:20px;
-}
-
-
-    .divTabCahierMaterielElementsPopUp > div:nth-child(2) {
-        position: absolute;
-        left: 20px;
-        top: 20px;
-        width: 215px;
-        height: 220px;
-        background-repeat: no-repeat;
-        border-radius: 10px;
-        border: 2px solid lightgray;
-        -moz-box-shadow: 1px 1px 3px 0px rgba(0,0,0,0.5);
-        -webkit-box-shadow: 1px 1px 3px 0px rgba(0,0,0,0.5);
-        box-shadow: 1px 1px 3px 0px rgba(0,0,0,0.5);
-    }
-
-    .divTabCahierMaterielElementsPopUp > div:nth-child(3) {
-        position: absolute;
-        left: 20px;
-        margin-left: 10px;
-        top: 260px;
-        width: 660px;
-        height: 40px;
-        font-size: 25px;
-    }
-
-    .divTabCahierMaterielElementsPopUp > div:nth-child(4) {
-        position: absolute;
-        left: 20px;
-        top: 290px;
-        width: 495px;
-        height: 140px;
-        border-radius: 10px;
-        border: 2px solid lightgray;
-        box-sizing: border-box;
-        padding: 8px;
-        overflow-y:auto;
-        color:var(--fontBlack);
-    }
-
-
-    .divTabCahierMaterielElementsPopUp > .ValidateButtons {
-        position: absolute;
-        right: 20px;
-        top: 376px;
-        width: 145px;
-        background-image:url(../Img/IconValidated.png);
-    }
-
-    .divTabCahierMaterielElementsPopUp > .ReturnButtons {
-        position: absolute;
-        right: 20px;
-        top: 290px;
-        width: 145px;
-        margin-left: 0px;
-        background-image:url(../Img/IconHistory.png);
-    }
-
-        .divTabCahierMaterielElementsPopUp > .ReturnButtons::after {
-            content: none;
-        }
-
-
-
-        .divTabCahierMaterielElementsPopUp > div:nth-child(2) {
-            font-size: 120px;
-            color: darkgray;
-        }
-
-
-.divTabCahierMaterielElementsContainerTextsContainer {
-    position:absolute;
-    left:260px;
-    width:420px;
-    height:225px;
-    top:20px;
-    font-size:20px;
-    color:var(--fontBlack);
-    overflow-y:scroll;
-}
-
-.divTabCahierMaterielElementsContainerTextsContainer > div {
-    margin-bottom:5px;
-}
-
-.divTabCahierMaterielElementsContainerTextsContainer > div:nth-child(1) {
-    font-size: 30px;
-    margin-bottom:0px;
-}
-
-    .divTabCahierMaterielElementsContainerTextsContainer > div:nth-child(2) {
-        color: var(--fontBlack);
-        margin-bottom: 10px;
-    }
-
-    .divTabCahierMaterielElementsContainerTextsContainer > div:nth-child(3) {
-       font-size:15px;
-       color:darkgray;
-       background-repeat:no-repeat;
-       background-position-y:center;
-       background-position-x:5px;
-       background-size:20px;
-    }
-
-    .divTabCahierMaterielElementsContainerTextsContainer > div:nth-child(4) {
-        color: gray;
-    }
-
-    .divTabCahierMaterielElementsContainerTextsContainer > div:nth-child(1n+5) {
-        color: darkgray;
     }
 

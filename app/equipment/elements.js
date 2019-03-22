@@ -3,7 +3,7 @@ function loadElements(bookables ,nbr = 0) {
 
     currentBookables = bookables;
 
-    document.getElementsByClassName("divTabCahierMaterielElementsContainer")[0].innerHTML = "";
+    document.getElementsByClassName("divTabCahierEquipmentElementsContainer")[0].innerHTML = "";
 
     var codes = [];
     for (var i = 0; i < Cahier.bookings[nbr].bookables.length; i++) {
@@ -33,7 +33,7 @@ function loadElements(bookables ,nbr = 0) {
             };
         }
 
-        document.getElementsByClassName("divTabCahierMaterielElementsContainer")[0].appendChild(container);
+        document.getElementsByClassName("divTabCahierEquipmentElementsContainer")[0].appendChild(container);
 
         var secondContainer = document.createElement("div");
         container.appendChild(secondContainer);
@@ -65,7 +65,7 @@ function loadElements(bookables ,nbr = 0) {
 
     }
     if (bookables.length == 0) {
-        var d = div(document.getElementsByClassName("divTabCahierMaterielElementsContainer")[0]);
+        var d = div(document.getElementsByClassName("divTabCahierEquipmentElementsContainer")[0]);
         d.innerHTML = "Aucun résultat";
         //console.log('Aucun résultat');
     }
@@ -82,7 +82,7 @@ function actualizeElements() {
         codes.push(Cahier.bookings[0].bookables[i].code);
     }
 
-    var containers = document.getElementsByClassName("divTabCahierMaterielElementsContainer")[0].children;
+    var containers = document.getElementsByClassName("divTabCahierEquipmentElementsContainer")[0].children;
 
     for (var i = 0; i < containers.length; i++) {
 
@@ -123,5 +123,5 @@ function clickSortIcon(elem) {
 
 function changeSelectCategorie(elem) {
     //console.log(elem.value);
-    $('divTabCahierMaterielElementsSelectCategorie').getElementsByTagName("div")[0].style.backgroundImage = "url(../Img/Categorie/" + elem.value + ".png)";
+    $('divTabCahierEquipmentElementsSelectCategorie').getElementsByTagName("div")[0].style.backgroundImage = "url(../Img/Categorie/" + elem.value + ".png)";
 }

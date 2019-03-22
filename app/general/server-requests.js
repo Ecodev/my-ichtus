@@ -71,7 +71,7 @@ var Requests = {
     getBookablesList: function (elem = $('inputTabCahierMaterielElementsInputSearch')) { //
 
         var order;
-        if ($('divTabCahierMaterielElementsSelectIconSort').style.backgroundImage == 'url(../("Img/IconSortDESC.png")') {
+        if ($('divTabCahierEquipmentElementsSelectIconSort').style.backgroundImage == 'url(../("Img/IconSortDESC.png")') {
             order = "DESC";
         }
         else {
@@ -80,13 +80,13 @@ var Requests = {
 
         var lastUse = false;
         var nbrBookings = false;
-        var whichField = $('divTabCahierMaterielElementsSelectSort').getElementsByTagName("select")[0].value;
+        var whichField = $('divTabCahierEquipmentElementsSelectSort').getElementsByTagName("select")[0].value;
         if (whichField == "lastUse") { whichField = "id"; lastUse = true; }
         if (whichField == "nbrBookings") { whichField = "id"; nbrBookings = true; }
 
         var txt = elem.value;
 
-        var categorie = $('divTabCahierMaterielElementsSelectCategorie').getElementsByTagName("select")[0].value;
+        var categorie = $('divTabCahierEquipmentElementsSelectCategorie').getElementsByTagName("select")[0].value;
         if (categorie == "all") { categorie = ""; }
         if (categorie == "Canoe_Kayak") { categorie = "Kayak"; }
         if (categorie == "Voile") { categorie = "Voile lestée"; }
@@ -136,7 +136,7 @@ var Requests = {
                 { field: whichField, order: order }
             ],
             pagination: {
-                pageSize: parseInt($('divTabCahierMaterielElementsSelectPageSize').getElementsByTagName('select')[0].value),
+                pageSize: parseInt($('divTabCahierEquipmentElementsSelectPageSize').getElementsByTagName('select')[0].value),
                 pageIndex: 0
             }
         };
@@ -398,7 +398,7 @@ var Requests = {
             Server.bookableService.getAll(variables).subscribe(result => {
                 //console.log("getBookableByCode(): ", result);
                 if (result.items.length == 1) {
-                    popBookable(result.items[0].id, false, nbr, $('divTabCahierMaterielBookableContainer'));
+                    popBookable(result.items[0].id, false, nbr, $('divTabCahierEquipmentBookableContainer'));
 
                     elem.classList.remove("animationShake");
                     elem.nextElementSibling.classList.remove("animationShake");
@@ -1078,12 +1078,10 @@ var Requests = {
     // finishBooking
     terminateBooking: function (bookingIds = [], comments = []) {
         var c = 0;
-        //console.log(comments);
         for (var i = 0; i < bookingIds.length; i++) {
             //console.log("terminateBooking", bookingIds[i], comments[i]);
             Server.bookingService.flagEndDate(bookingIds[i], comments[i]).subscribe(result => {
                 c++;
-                //console.log(c);
                 if (c == bookingIds.length) {
                     //console.log("this.terminateBooking done !");
                     Requests.getActualBookingList(true);

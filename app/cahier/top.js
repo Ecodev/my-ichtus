@@ -1,6 +1,6 @@
 ﻿//ProgressBar
 
-var progessionTabNames = ["divTabCahier","divTabCahierMember", "divTabCahierInfos", "divTabCahierMaterielChoice", "divTabCahierConfirmation"];
+var progessionTabNames = ["divTabCahier","divTabCahierMember", "divTabCahierInfos", "divTabCahierEquipmentChoice", "divTabCahierConfirmation"];
 
 function createProgressBar() {
 

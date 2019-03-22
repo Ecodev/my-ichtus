@@ -1,15 +1,15 @@
-function loadCahierMaterielChoice(loc = $('divTabCahierMaterielChoice').getElementsByClassName("MaterielChoiceContainer")[0],nbr = 0) {
+function loadCahierMaterielChoice(loc = $('divTabCahierEquipmentChoice').getElementsByClassName("MaterielChoiceContainer")[0],nbr = 0) {
 
     var isTab = true;
-    if (loc != $('divTabCahierMaterielChoice').getElementsByClassName("MaterielChoiceContainer")[0]) {
+    if (loc != $('divTabCahierEquipmentChoice').getElementsByClassName("MaterielChoiceContainer")[0]) {
         isTab = false;
     }
 
     var container = div(loc);
-    container.classList.add("divTabCahierMaterielChoiceContainer");
+    container.classList.add("divTabCahierEquipmentChoiceContainer");
 
     var c = div(container);
-    c.classList.add("divTabCahierMaterielChoiceInputCodeContainer");
+    c.classList.add("divTabCahierEquipmentChoiceInputCodeContainer");
 
     var i = input(c, "Taper un code...");
     i.onkeyup = function (event) {
@@ -68,7 +68,7 @@ function loadCahierMaterielChoice(loc = $('divTabCahierMaterielChoice').getEleme
         var btn2 = div(btnContainer);
         btn2.innerHTML = "Voir la liste du matériel";
         if (isTab) {
-            btn2.onclick = function () { newTab('divTabCahierMaterielCategories'); };
+            btn2.onclick = function () { newTab('divTabCahierEquipmentCategories'); };
         }
         else {
            // btn2.onclick = function () { alert('a'); };

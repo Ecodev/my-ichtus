@@ -1,7 +1,7 @@
 var categories = ["Canoë & Kayak","SUP","Rame", "Planche à voile", "Voile"];
 var categoriesValues = ["Canoe_Kayak", "SUP", "Aviron", "Planche", "Voile"];
 
-function loadMateriel(container = $("divTabCahierMaterielCategoriesContainer")) {
+function loadMateriel(container = $("divTabCahierEquipmentCategoriesContainer")) {
 
     for (var i = 0; i < categories.length; i++) {
         var d = document.createElement("div");
@@ -40,22 +40,22 @@ function loadMateriel(container = $("divTabCahierMaterielCategoriesContainer")) 
         }
         else {
             d.addEventListener("click", function () {
-                newTab("divTabCahierMaterielElements");
-                $('divTabCahierMaterielElementsSelectCategorie').getElementsByTagName("select")[0].getElementsByTagName("option")[parseInt(this.getElementsByTagName("div")[0].id) + 0].selected = "selected";
-                changeSelectCategorie($('divTabCahierMaterielElementsSelectCategorie').getElementsByTagName("select")[0]);
+                newTab("divTabCahierEquipmentElements");
+                $('divTabCahierEquipmentElementsSelectCategorie').getElementsByTagName("select")[0].getElementsByTagName("option")[parseInt(this.getElementsByTagName("div")[0].id) + 0].selected = "selected";
+                changeSelectCategorie($('divTabCahierEquipmentElementsSelectCategorie').getElementsByTagName("select")[0]);
             });
         }
 
         var opt = document.createElement("option");
         opt.innerHTML = categories[i];
         opt.value = categoriesValues[i];
-        $('divTabCahierMaterielElementsSelectCategorie').getElementsByTagName("select")[0].appendChild(opt);
+        $('divTabCahierEquipmentElementsSelectCategorie').getElementsByTagName("select")[0].appendChild(opt);
     }
 
     var opt = document.createElement("option");
     opt.innerHTML = "Toutes les catégories";
     opt.value = "all";
-    $('divTabCahierMaterielElementsSelectCategorie').getElementsByTagName("select")[0].appendChild(opt);
+    $('divTabCahierEquipmentElementsSelectCategorie').getElementsByTagName("select")[0].appendChild(opt);
 
 }
 

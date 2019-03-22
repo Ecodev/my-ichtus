@@ -11,51 +11,50 @@
     <title>Cahier de sortie</title>
 
     <!-- Style Sheets -->
-    <link href="general/General.css" rel="stylesheet" />
-    <link href="general/PopUpAlert.css" rel="stylesheet" />
-    <link href="page/Top.css" rel="stylesheet" />
-    <link href="page/Bottom.css" rel="stylesheet" />
-    <link href="page/PopUpStats.css" rel="stylesheet" />
-    <link href="cahier/Cahier.css" rel="stylesheet" />
-    <link href="cahier/CahierTop.css" rel="stylesheet" />
-    <link href="cahier/CahierTopList.css" rel="stylesheet" />
-    <link href="member/PopUpUser.css" rel="stylesheet" />
-    <link href="member/PopUpGuest.css" rel="stylesheet" />
-    <link href="member/CahierMember.css" rel="stylesheet" />
-    <link href="member/PopUpLogin.css" rel="stylesheet" />
-    <link href="materiel/CahierMaterielChoice.css" rel="stylesheet" />
-    <link href="materiel/CahierMaterielBookable.css" rel="stylesheet" />
-    <link href="materiel/CahierMaterielOptions.css" rel="stylesheet" />
-    <link href="materiel/CahierMaterielCategories.css" rel="stylesheet" />
-    <link href="materiel/CahierMaterielElements.css" rel="stylesheet" />
-    <link href="materiel/PopUpBookableHistory.css" rel="stylesheet" />
-    <link href="infos/CahierInfos.css" rel="stylesheet" />
-    <link href="infos/PopUpCahierInfos.css" rel="stylesheet" />
-    <link href="confirmation/CahierConfirmation.css" rel="stylesheet" />
+    <link href="general/general.css" rel="stylesheet" />
+    <link href="general/pop-alert.css" rel="stylesheet" />
+    <link href="page/top.css" rel="stylesheet" />
+    <link href="page/bottom.css" rel="stylesheet" />
+    <link href="page/pop-stats.css" rel="stylesheet" />
+    <link href="cahier/cahier.css" rel="stylesheet" />
+    <link href="cahier/top.css" rel="stylesheet" />
+    <link href="cahier/top-list.css" rel="stylesheet" />
+    <link href="member/user.css" rel="stylesheet" />
+    <link href="member/guest.css" rel="stylesheet" />
+    <link href="member/member.css" rel="stylesheet" />
+    <link href="member/login.css" rel="stylesheet" />
+    <link href="equipment/choice.css" rel="stylesheet" />
+    <link href="equipment/categories.css" rel="stylesheet" />
+    <link href="equipment/elements.css" rel="stylesheet" />
+    <link href="equipment/pop-bookable.css" rel="stylesheet" />
+    <link href="equipment/pop-bookable-history.css" rel="stylesheet" />
+    <link href="infos/infos.css" rel="stylesheet" />
+    <link href="infos/pop-infos.css" rel="stylesheet" />
+    <link href="confirmation/confirmation.css" rel="stylesheet" />
 
     <!-- JavaScript Files -->
-    <script src="general/Home.js"></script>
-    <script src="general/ServerRequests.js"></script>
-    <script src="general/Screen.js"></script>
-    <script src="general/PopUpAlert.js"></script>
-    <script src="page/Top.js"></script>
-    <script src="page/Bottom.js"></script>
-    <script src="page/PopUpStats.js"></script>
-    <script src="cahier/Cahier.js"></script>
-    <script src="cahier/CahierMethods.js"></script>
-    <script src="cahier/CahierTop.js"></script>
-    <script src="cahier/CahierTopList.js"></script>
-    <script src="cahier/PopUpBooking.js"></script>
-    <script src="member/PopUpUser.js"></script>
-    <script src="member/PopUpGuest.js"></script>
-    <script src="member/PopUpLogin.js"></script>
-    <script src="materiel/CahierMaterielChoice.js"></script>
-    <script src="materiel/CahierMaterielCategories.js"></script>
-    <script src="materiel/CahierMaterielElements.js"></script>
-    <script src="materiel/PopUpBookable.js"></script>
-    <script src="materiel/PopUpBookableHistory.js"></script>
-    <script src="infos/CahierInfos.js"></script>
-    <script src="infos/PopUpCahierInfos.js"></script>
+    <script src="general/home.js"></script>
+    <script src="general/server-requests.js"></script>
+    <script src="general/screen.js"></script>
+    <script src="general/pop-alert.js"></script>
+    <script src="page/top.js"></script>
+    <script src="page/bottom.js"></script>
+    <script src="page/pop-stats.js"></script>
+    <script src="cahier/cahier.js"></script>
+    <script src="cahier/methods.js"></script>
+    <script src="cahier/top.js"></script>
+    <script src="cahier/top-list.js"></script>
+    <script src="cahier/pop-booking.js"></script>
+    <script src="member/user.js"></script>
+    <script src="member/guest.js"></script>
+    <script src="member/login.js"></script>
+    <script src="equipment/choice.js"></script>
+    <script src="equipment/categories.js"></script>
+    <script src="equipment/elements.js"></script>
+    <script src="equipment/pop-bookable.js"></script>
+    <script src="equipment/pop-bookable-history.js"></script>
+    <script src="infos/infos.js"></script>
+    <script src="infos/pop-infos.js"></script>
     <script type="text/javascript" src="https://dev.ichtus.club/vanilla/runtime.js"></script>
     <script type="text/javascript" src="https://dev.ichtus.club/vanilla/main.js"></script>
 
@@ -206,7 +205,7 @@
         </div>
 
         <!-- Div Tab CahierMaterielChoice -->
-        <div id="divTabCahierMaterielChoice" class="divTab">
+        <div id="divTabCahierEquipmentChoice" class="divTab">
             <div class="divCahierSpacers"></div>
             <div class="divMaterielSpacers"></div>
 
@@ -220,45 +219,45 @@
         </div>
 
         <!--Div Tab CahierMaterielBookable-->
-        <div id="divTabCahierMaterielBookable" class="divTab">
+        <div id="divTabCahierEquipmentBookable" class="divTab">
             <div class="divCahierSpacers"></div>
             <div class="divMaterielSpacers">
-                <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielChoice')"></div>
+                <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierEquipmentChoice')"></div>
             </div>
 
-            <div id="divTabCahierMaterielBookableContainer"></div>
+            <div id="divTabCahierEquipmentBookableContainer"></div>
         </div>
 
 
         <!-- Div Tab CahierMaterielCategories -->
-        <div id="divTabCahierMaterielCategories" class="divTab">
+        <div id="divTabCahierEquipmentCategories" class="divTab">
             <div class="divCahierSpacers"></div>
             <div class="divMaterielSpacers">
-                <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierMaterielChoice')"></div>
+                <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierEquipmentChoice')"></div>
             </div>
 
             <!--<br />-->
             <!--<div class="title">Activité</div>-->
-            <div id="divTabCahierMaterielCategoriesContainer"></div>
+            <div id="divTabCahierEquipmentCategoriesContainer"></div>
         </div>
 
 
         <!-- Div Tab CahierMaterielElements-->
-        <div id="divTabCahierMaterielElements" class="divTab">
+        <div id="divTabCahierEquipmentElements" class="divTab">
             <div class="divCahierSpacers"></div>
             <div class="divMaterielSpacers">
 
                 <div class="Buttons ReturnButtons" onclick="historyBackTab();" style="position:absolute;"></div>
 
-                <div id="divTabCahierMaterielElementsButtonsContainer">
+                <div id="divTabCahierEquipmentElementsButtonsContainer">
                     <div style="min-width:271px;">
-                        <div id="divTabCahierMaterielElementsSelectCategorie" title="Catégorie">
+                        <div id="divTabCahierEquipmentElementsSelectCategorie" title="Catégorie">
                             <div class="Buttons NormalButtons"></div>
                             <select onchange="changeSelectCategorie(this); Requests.getBookablesList();"></select>
                         </div>
                     </div><div style="width:248px;">
-                        <div id="divTabCahierMaterielElementsSelectSort" title="Trier par">
-                            <div class="Buttons NormalButtons" id="divTabCahierMaterielElementsSelectIconSort" onclick="clickSortIcon(this); Requests.getBookablesList();"></div>
+                        <div id="divTabCahierEquipmentElementsSelectSort" title="Trier par">
+                            <div class="Buttons NormalButtons" id="divTabCahierEquipmentElementsSelectIconSort" onclick="clickSortIcon(this); Requests.getBookablesList();"></div>
                             <select onchange="Requests.getBookablesList();">
                                 <option value="code">Code</option>
                                 <option value="name">Nom</option>
@@ -267,7 +266,7 @@
                             </select>
                         </div>
                     </div><div style="width:105px;">
-                        <div id="divTabCahierMaterielElementsSelectPageSize" title="Nombre d'éléments affichés par page">
+                        <div id="divTabCahierEquipmentElementsSelectPageSize" title="Nombre d'éléments affichés par page">
                             <div class="Buttons NormalButtons"></div>
                             <select onchange="Requests.getBookablesList();">
                                 <option>5</option>
@@ -283,7 +282,7 @@
                 <div id="divTabCahierInfosBar" style="position:relative; top:0px; margin-top:5px; margin-bottom:5px;"></div>
             </div>
 
-            <div class="divTabCahierMaterielElementsContainer"></div>
+            <div class="divTabCahierEquipmentElementsContainer"></div>
 
         </div>
 

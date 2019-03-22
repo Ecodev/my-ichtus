@@ -106,17 +106,17 @@ var Cahier = {
 
         $('inputTabCahierMaterielElementsInputSearch').value = "";
 
-        $('divTabCahierMaterielElementsSelectSort').getElementsByTagName("select")[0].getElementsByTagName("option")[0].selected = "selected";
-        $('divTabCahierMaterielElementsSelectSort').getElementsByTagName("div")[0].style.backgroundImage = 'url(../"Img/IconSortASC.png")';
+        $('divTabCahierEquipmentElementsSelectSort').getElementsByTagName("select")[0].getElementsByTagName("option")[0].selected = "selected";
+        $('divTabCahierEquipmentElementsSelectSort').getElementsByTagName("div")[0].style.backgroundImage = 'url(../"Img/IconSortASC.png")';
 
-        document.getElementsByClassName('divTabCahierMaterielChoiceInputCodeContainer')[0].getElementsByTagName('input')[0].value = "";
+        document.getElementsByClassName('divTabCahierEquipmentChoiceInputCodeContainer')[0].getElementsByTagName('input')[0].value = "";
 
         $('divTabCahierMember').getElementsByTagName("input")[0].value = "";
         $("divTabCahierSearchResult").innerHTML = "";
 
         changeProgress(1);
 
-        document.getElementsByClassName("divTabCahierMaterielChoiceContainer")[0].children[3].children[0].classList.remove("buttonNonActive");
+        document.getElementsByClassName("divTabCahierEquipmentChoiceContainer")[0].children[3].children[0].classList.remove("buttonNonActive");
 
 
         Cahier.bookings = [{
@@ -213,7 +213,7 @@ var Cahier = {
         //console.log(_bookable);
 
         if (_bookable == Cahier.personalBookable) {
-            document.getElementsByClassName("divTabCahierMaterielChoiceContainer")[0].children[3].children[0].classList.add("buttonNonActive");
+            document.getElementsByClassName("divTabCahierEquipmentChoiceContainer")[0].children[3].children[0].classList.add("buttonNonActive");
         }
 
         //console.log("setBookable(): ", nbr, Cahier.bookings[nbr].bookables);
@@ -229,7 +229,7 @@ var Cahier = {
         }
 
         if (_bookable == Cahier.personalBookable) {
-            document.getElementsByClassName("divTabCahierMaterielChoiceContainer")[0].children[3].children[0].classList.remove("buttonNonActive");
+            document.getElementsByClassName("divTabCahierEquipmentChoiceContainer")[0].children[3].children[0].classList.remove("buttonNonActive");
         }
 
         Cahier.bookings[nbr].bookables.splice(i, 1);
@@ -237,7 +237,7 @@ var Cahier = {
         //console.log("removeBookable(): ", nbr, Cahier.bookings[nbr].bookables);
         Cahier.actualizeConfirmation();
         actualizeBookableList();
-        if (currentTabElement.id == "divTabCahierMaterielElements") {
+        if (currentTabElement.id == "divTabCahierEquipmentElements") {
             actualizeElements();
         }
     },

@@ -132,7 +132,7 @@ function openBooking(which = "confirmation", elem = $('divTabConfirmationOneBook
         btn.innerHTML = "Modifier";
         btn.classList.add("Buttons");
         btn.classList.add("ReturnButtons");
-        btn.onclick = function () { newTab('divTabCahierMaterielChoice'); };
+        btn.onclick = function () { newTab('divTabCahierEquipmentChoice'); };
 
     }
 
@@ -259,8 +259,14 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
             comments = [];
 
             for (var i = 0; i < booking.ids.length; i++) {
-                if (container.getElementsByTagName("textarea")[i].value != "") {
-                    comments[i] = "!" + container.getElementsByTagName("textarea")[i].value + "! " + container.getElementsByTagName("textarea")[container.getElementsByTagName("textarea").length - 1].value;
+                var area = container.getElementsByClassName("divTabCahierConfirmationEmbarcationBox")[i].getElementsByTagName("textarea")[0];
+                if (typeof area != "undefined") {
+                    if (area.value != "") {
+                        comments[i] = "![" + area.value + "]! " + container.getElementsByTagName("textarea")[container.getElementsByTagName("textarea").length - 1].value;
+                    }
+                    else {
+                        comments[i] = container.getElementsByTagName("textarea")[container.getElementsByTagName("textarea").length - 1].value;
+                    }
                 }
                 else {
                     comments[i] = container.getElementsByTagName("textarea")[container.getElementsByTagName("textarea").length - 1].value;

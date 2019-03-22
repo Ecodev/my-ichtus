@@ -105,7 +105,7 @@ function checkInfos(location = $('divTabCahierInfos'), nbr = 0) {
         Cahier.setInfos(nbr, _participantCount, _destination, _startComment);
 
         if (location == $('divTabCahierInfos')) {
-            newTab("divTabCahierMaterielChoice");
+            newTab("divTabCahierEquipmentChoice");
         }
         else {
             closePopUp("last");
