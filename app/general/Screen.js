@@ -68,6 +68,7 @@ tabs.push({
     id: "divTabCahierEquipmentChoice", order: 9, progress: 3, position: 0, TopBar: true, ListBar: true, title: "Tapez les codes de vos embarcations",
     Enter: function () {
         document.getElementsByClassName('divTabCahierEquipmentChoiceInputCodeContainer')[0].getElementsByTagName("input")[0].focus();
+        document.getElementsByClassName('divTabCahierEquipmentChoiceInputCodeContainer')[0].getElementsByTagName("input")[0].value = "";
     }, Remove: function () {}});
 tabs.push({ id: "divTabCahierEquipmentBookable", order: 10, progress: 3, position: 0, TopBar: true, ListBar: true, title: "Validez cette embarcation", Enter: function () {}, Remove: function () { } });
 tabs.push({ id: "divTabCahierEquipmentCategories", order: 12, progress: 3, position: 0, TopBar: true, ListBar: true,title: "Veuillez choisir votre type d'activité", Enter: function () { }, Remove: function () { } });

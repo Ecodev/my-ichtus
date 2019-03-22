@@ -171,18 +171,18 @@ function loadTableTopBars(allTables = document.getElementsByClassName("BookingsT
         var all = top.getElementsByTagName("div");
 
         for (var i = 0; i < all.length; i = i + 2) {
-            all[i].getElementsByTagName("div")[0].style.backgroundImage = "url(../(Img/IconSortASC.png)";
+            all[i].getElementsByTagName("div")[0].style.backgroundImage = "url(../Img/IconSortASC.png)";
 
             if (!(all[i].parentElement.id == 'divTabCahierTableActualBookingsTopBar' && all[i].id == '6')) { // not sort finish buttons
 
                 all[i].addEventListener("click", function () {
 
-                    if (this.getElementsByTagName("div")[0].style.backgroundImage == 'url("Img/IconSortDESC.png")' || !(this.classList.contains("BookingsTopBarSorted"))) {
-                        this.getElementsByTagName("div")[0].style.backgroundImage = "url(../(Img/IconSortASC.png)";
+                    if (this.getElementsByTagName("div")[0].style.backgroundImage == 'url("../Img/IconSortDESC.png")' || !(this.classList.contains("BookingsTopBarSorted"))) {
+                        this.getElementsByTagName("div")[0].style.backgroundImage = "url(../Img/IconSortASC.png)";
                         order = 1;
                     }
                     else {
-                        this.getElementsByTagName("div")[0].style.backgroundImage = "url(../(Img/IconSortDESC.png)";
+                        this.getElementsByTagName("div")[0].style.backgroundImage = "url(../Img/IconSortDESC.png)";
                         order = -1;
 
                     }
@@ -191,7 +191,7 @@ function loadTableTopBars(allTables = document.getElementsByClassName("BookingsT
                     for (var k = 0; k < all.length; k = k + 2) {
                         if (allButtons[k] != this) {
                             allButtons[k].classList.remove("BookingsTopBarSorted");
-                            allButtons[k].getElementsByTagName("div")[0].style.backgroundImage = "url(../(Img/IconSortASC.png)";
+                            allButtons[k].getElementsByTagName("div")[0].style.backgroundImage = "url(../Img/IconSortASC.png)";
                         }
                     }
                     this.classList.add("BookingsTopBarSorted");
@@ -208,7 +208,7 @@ function sortTable(table) {
 
     var field = parseInt(table.getElementsByClassName("BookingsTopBarSorted")[0].id);
     var order = function () {
-        if (table.getElementsByClassName("BookingsTopBarSorted")[0].getElementsByTagName("div")[0].style.backgroundImage == 'url("Img/IconSortDESC.png")') {
+        if (table.getElementsByClassName("BookingsTopBarSorted")[0].getElementsByTagName("div")[0].style.backgroundImage == 'url("../Img/IconSortDESC.png")') {
             return -1;
         }
         else {
