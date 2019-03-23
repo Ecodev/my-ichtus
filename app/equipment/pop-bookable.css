@@ -64,7 +64,7 @@
         right: 20px;
         top: 376px;
         width: 145px;
-        background-image: url(../Img/IconValidated.png);
+        background-image: url(../img/IconValidated.png);
     }
 
     .divTabCahierEquipmentElementsPopUp > .ReturnButtons {
@@ -73,7 +73,7 @@
         top: 290px;
         width: 145px;
         margin-left: 0px;
-        background-image: url(../Img/IconHistory.png);
+        background-image: url(../img/IconHistory.png);
     }
 
         .divTabCahierEquipmentElementsPopUp > .ReturnButtons::after {

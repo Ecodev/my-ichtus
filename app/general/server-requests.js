@@ -71,7 +71,7 @@ var Requests = {
     getBookablesList: function (elem = $('inputTabCahierEquipmentElementsInputSearch')) { //
 
         var order;
-        if ($('divTabCahierEquipmentElementsSelectIconSort').style.backgroundImage == 'url(../("Img/IconSortDESC.png")') {
+        if ($('divTabCahierEquipmentElementsSelectIconSort').style.backgroundImage == 'url("img/IconSortDESC.png")') {
             order = "DESC";
         }
         else {

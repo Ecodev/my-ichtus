@@ -112,16 +112,16 @@ function actualizeElements() {
 }
 
 function clickSortIcon(elem) {
-    if (elem.style.backgroundImage == 'url(../"Img/IconSortDESC.png")') {
-        elem.style.backgroundImage = 'url(../"Img/IconSortASC.png")';
+    if (elem.style.backgroundImage == 'url("img/IconSortDESC.png")') {
+        elem.style.backgroundImage = 'url("img/IconSortASC.png")';
     }
     else {
-        elem.style.backgroundImage = 'url(../"Img/IconSortDESC.png")';
+        elem.style.backgroundImage = 'url("img/IconSortDESC.png")';
     }
 }
 
 
 function changeSelectCategorie(elem) {
     //console.log(elem.value);
-    $('divTabCahierEquipmentElementsSelectCategorie').getElementsByTagName("div")[0].style.backgroundImage = "url(../Img/Categorie/" + elem.value + ".png)";
+    $('divTabCahierEquipmentElementsSelectCategorie').getElementsByTagName("div")[0].style.backgroundImage = "url(img/categorie/" + elem.value + ".png)";
 }

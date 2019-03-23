@@ -82,7 +82,7 @@
         bottom: 0px;
         width: 110px;
         margin-left: 0px;
-        background-image: url(../Img/IconEdit.png);
+        background-image: url(../img/IconEdit.png);
         background-size: 25px;
         background-position-y: 6px;
         background-position-x: 6px;
@@ -236,7 +236,7 @@
     .divTabCahierConfirmationEmbarcationBoxContainer .ReturnButtons {
         top: 75px;
         background-blend-mode:exclusion;
-        background-image:url(../Img/IconSail.png);
+        background-image:url(../img/IconSail.png);
     }
         .divTabCahierConfirmationEmbarcationBoxContainer .ReturnButtons.ButtonChose {
             background-size:30px;
@@ -254,7 +254,7 @@
     margin: 10px;
     width: 100px;
     height: 100px;
-    background-image:,url(../Img/IconInfo.png),none;
+    background-image:,url(../img/IconInfo.png),none;
     background-size: 25px, 100px;
     background-repeat: no-repeat;
     border-radius: 10px;
@@ -315,7 +315,7 @@
     width:100%;
 }
     .divTabCahierConfirmationEmbarcationButtonContainer > .Buttons {
-        background-image: url(../Img/IconSail.png);
+        background-image: url(../img/IconSail.png);
         background-blend-mode: exclusion;
     }
 
@@ -345,7 +345,7 @@
     padding-top: 5px;
     padding-right: 10px;
     padding-bottom: 0px;
-    background-image: url(../Img/IconCheckSignBlack.png);
+    background-image: url(../img/IconCheckSignBlack.png);
     background-repeat: no-repeat;
     background-size: 40px;
     background-position-x: 340px;
@@ -375,7 +375,7 @@
     height: 30px;
     border-radius: 50px;
     background-color: dimgray;
-    background-image: url(../Img/IconCancel.png);
+    background-image: url(../img/IconCancel.png);
     background-blend-mode: color-dodge;
     background-size: 24px;
     background-repeat: no-repeat;
@@ -404,10 +404,10 @@
     margin-top: 5px;
 }
     #divTabConfrimationButtonsContainer > .Buttons:first-child {
-        background-image: url(../Img/Logo/full_icon.svg);
+        background-image: url(../img/logo/full_icon.svg);
     }
     #divTabConfrimationButtonsContainer > .Buttons:nth-child(2){
-        background-image: url(../Img/IconGuest.png);
+        background-image: url(../img/IconGuest.png);
     }
     #divTabConfrimationButtonsContainer >  .Buttons {
         vertical-align:bottom;

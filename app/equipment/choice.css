@@ -27,7 +27,7 @@
         z-index: 9;
         background-position: left;
         background-size: 50px;
-        background-image: url(../Img/IconHashtag.png);
+        background-image: url(../img/IconHashtag.png);
         transition: all 0.1s linear 0s;
     }
 
@@ -87,7 +87,7 @@
                 -o-transition: all 0.1s linear 0s;
                 -webkit-transition: all 0.1s linear 0s;
                 transition: all 0.1s linear 0s;
-                background-image: url(..//Img/IconValidated.png);
+                background-image: url(..//img/IconValidated.png);
                 background-position: center;
                 background-position-x: 30px;
             }
@@ -132,7 +132,7 @@
     height: 50px;
     display: inline-block;
     vertical-align: middle;
-    background-image: url(../Img/IconPersonalSail.png);
+    background-image: url(../img/IconPersonalSail.png);
     background-position: center;
     background-position-x: 5px;
     background-size: 40px;
@@ -141,7 +141,7 @@
     margin-right: 10px;
 }
 .divTabCahierEquipmentChoiceContainer .NormalButtons:nth-child(2) {
-    background-image: url(../Img/IconSail.png);
+    background-image: url(../img/IconSail.png);
     background-blend-mode:exclusion;
 }
 

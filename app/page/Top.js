@@ -112,7 +112,7 @@ function newLetter(i) {
         else {
             d.classList.add("svgHeight");
         }
-        d.style.backgroundImage = "url(../Img/Logo/" + "ichtus"[i] + ".svg)";
+        d.style.backgroundImage = "url(img/logo/" + "ichtus"[i] + ".svg)";
 
         if (i < "ichtus".length - 1) {
             setTimeout(newLetter, 100, i + 1);

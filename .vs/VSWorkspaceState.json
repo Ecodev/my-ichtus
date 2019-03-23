@@ -2,8 +2,14 @@
   "ExpandedNodes": [
     "",
     "\\app",
-    "\\app\\Img\\Materiel"
+    "\\app\\cahier",
+    "\\app\\confirmation",
+    "\\app\\equipment",
+    "\\app\\general",
+    "\\app\\infos",
+    "\\app\\member",
+    "\\app\\page"
   ],
-  "SelectedNode": "\\app\\index.html",
+  "SelectedNode": "\\app\\Img",
   "PreviewInSolutionExplorer": false
 }

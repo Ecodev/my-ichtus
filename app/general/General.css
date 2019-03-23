@@ -264,7 +264,7 @@ option {
 .ValidateButtons {
     color: white;
     background-color: var(--accent);
-    background-image: url(../Img/IconArrow.png);
+    background-image: url(../img/IconArrow.png);
     background-position-x: 115px;
 }
     .ValidateButtons:hover {
@@ -284,7 +284,7 @@ option {
     background-position-x: 5px;
     background-position-y: 4px;
     background-size: 30px;
-    background-image: url(../Img/IconBack.png);
+    background-image: url(../img/IconBack.png);
     color: black;
     background-color: white;
     text-align: right;
@@ -313,7 +313,7 @@ option {
     background-position-x: 5px;
     background-position-y: 4px;
     background-size: 30px;
-    background-image: url(../Img/IconBack.png);
+    background-image: url(../img/IconBack.png);
     color: black;
     background-color: white;
     text-align: right;
@@ -421,7 +421,7 @@ option {
     top: 10px;
     width: 30px;
     height: 30px;
-    background-image: url(../Img/IconCancelBlack.png);
+    background-image: url(../img/IconCancelBlack.png);
     background-size:25px;
     background-repeat: no-repeat;
     background-position-x: right;
@@ -460,5 +460,5 @@ option {
 }
 
     .divMaterielSpacers .Buttons {
-        background-image: url(../Img/IconArrowBackBlack.png);
+        background-image: url(../img/IconArrowBackBlack.png);
     }

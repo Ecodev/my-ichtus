@@ -68,7 +68,7 @@ function openBooking(which = "confirmation", elem = $('divTabConfirmationOneBook
     for (let i = 0; i < c; i++) {
         var d = div(container);
         d.classList.add("divConfirmationTexts");
-        div(div(d)).style.backgroundImage = "url(../Img/" + images[i] + ".png)";
+        div(div(d)).style.backgroundImage = "url(img/" + images[i] + ".png)";
         div(d).innerHTML = fields[i];
         div(d);
     }
@@ -79,7 +79,7 @@ function openBooking(which = "confirmation", elem = $('divTabConfirmationOneBook
     d = div(container);
     d.classList.add("divConfirmationTexts");
     d.style.backgroundColor = "rgb(235,235,235)";
-    div(div(d)).style.backgroundImage = "url(../Img/" + images[3] + ".png)";
+    div(div(d)).style.backgroundImage = "url(img/" + images[3] + ".png)";
     div(d).innerHTML = fields[3];
     div(d);
 
@@ -145,7 +145,7 @@ function openBooking(which = "confirmation", elem = $('divTabConfirmationOneBook
         d = div(container);
         d.classList.add("divConfirmationTexts");
         d.style.backgroundColor = "rgb(235,235,235)";
-        div(div(d)).style.backgroundImage = "url(../Img/" + images[7] + ".png)";
+        div(div(d)).style.backgroundImage = "url(img/" + images[7] + ".png)";
         div(d).innerHTML = fields[7];
         var area2 = document.createElement("textarea");
         area2.spellcheck = false;
@@ -174,7 +174,7 @@ function openBooking(which = "confirmation", elem = $('divTabConfirmationOneBook
     for (var i = 4; i < l; i++) {
         d = div(container);
         d.classList.add("divConfirmationTexts");
-        div(div(d)).style.backgroundImage = "url(../Img/" + images[i] + ".png)";
+        div(div(d)).style.backgroundImage = "url(img/" + images[i] + ".png)";
         div(d).innerHTML = fields[i];
         div(d);
         if (i / 2 == Math.floor(i / 2)) {
@@ -295,7 +295,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
             var emb = div(embContainer);
             emb.className = "divTabCahierConfirmationEmbarcationBox";
             var img = div(emb);
-            img.style.backgroundImage = "url(../Img/IconInfo.png)," + Cahier.getImageUrl(booking.bookables[i]);
+            img.style.backgroundImage = "url(img/IconInfo.png)," + Cahier.getImageUrl(booking.bookables[i]);
             div(img);
 
             texts = div(emb);
@@ -387,7 +387,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
 //        d.classList.add("divConfirmationTexts");
 //        d.classList.add("confirmationTab");
 //        d.title = titles[i];
-//        div(div(d)).style.backgroundImage = "url(../Img/" + images[i] + ".png)";
+//        div(div(d)).style.backgroundImage = "url(img/" + images[i] + ".png)";
 //        div(d).innerHTML = fields[i];
 //        if (i == 0 && nbr != 0) {
 //            var a = div(d);
@@ -395,7 +395,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
 //            btn.innerHTML = "Changer";
 //            btn.classList.add("Buttons");
 //            btn.classList.add("ReturnButtons");
-//            btn.style.backgroundImage = "url(../Img/IconResponsible.png)";
+//            btn.style.backgroundImage = "url(img/IconResponsible.png)";
 //            btn.style.backgroundBlendMode = "exclusion";
 //            if (booking.guest) {
 //                btn.onclick = function () { popGuest(nbr); };
@@ -416,7 +416,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
 //    d.classList.add("confirmationTab");
 //    d.title = titles[4];
 //    d.style.backgroundColor = "rgb(235,235,235)";
-//    div(div(d)).style.backgroundImage = "url(../Img/" + images[4] + ".png)";
+//    div(div(d)).style.backgroundImage = "url(img/" + images[4] + ".png)";
 //    div(d).innerHTML = fields[4];
 
 //    //$$ only if not MP

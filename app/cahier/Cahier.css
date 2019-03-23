@@ -168,7 +168,7 @@
             background-position-x: 15px;
             background-position-y: 15px;
             background-repeat: no-repeat;
-            background-image: url(../Img/IconSortASC.png);
+            background-image: url(../img/IconSortASC.png);
             transition: all 0.1s linear 0s;
             /*background-color: red;*/
         }
@@ -310,7 +310,7 @@
         background-repeat: no-repeat;
         background-position: top left;
         background-size: 25px;
-        background-image:url(../Img/IconAlert.png);
+        background-image:url(../img/IconAlert.png);
     }
 
 
@@ -406,7 +406,7 @@
     .TableEntriesImg {
         width: 35px;
         height: 35px;
-        background-image: url(../Img/IconSup.png);
+        background-image: url(../img/IconSup.png);
         background-size: 35px;
         margin-right: 5px;
         background-repeat: no-repeat;
@@ -431,7 +431,7 @@
         top: 10px;
         width: 30px;
         height: 30px;
-        background-image: url(../Img/IconCancelBlack.png);
+        background-image: url(../img/IconCancelBlack.png);
         background-repeat: no-repeat;
         background-position-x: right;
         opacity: 0.5;
@@ -581,7 +581,7 @@
     #divTabCahierAlertButtonsLegend div {
         width: 25px;
         height: 25px;
-        background-image: url(../Img/IconAlert.png);
+        background-image: url(../img/IconAlert.png);
         background-size: 25px;
         background-position: center;
         margin-right: 5px;
@@ -639,7 +639,7 @@
     transition: all 0.1s linear 0s, width 0.2s linear 0s, margin-left 0.2s linear 0s;
     outline: none; /*pour enlever le cadre bleu quand sélectionné*/
     border-radius: 10px;
-    background-image: url(../Img/IconSearchBlack.png);
+    background-image: url(../img/IconSearchBlack.png);
     background-position-x: 0px;
     background-position-y: 0px;
     background-size: 34px;
@@ -654,7 +654,7 @@
 
     #divTabCahierTables > input:focus {
         border-color: var(--accent);
-        background-image: url(../Img/IconSearchBlue.png);
+        background-image: url(../img/IconSearchBlue.png);
         width: 200px;
         -webkit-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
         -moz-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);

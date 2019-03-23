@@ -44,7 +44,7 @@
 
         .PopUpLoginContainer input:focus {
             /*border-color: var(--accent);*/
-            /*background-image: url(../Img/IconSearchBlue.png);*/
+            /*background-image: url(../img/IconSearchBlue.png);*/
             -webkit-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
             -moz-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
             box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
@@ -67,7 +67,7 @@
     background-repeat: no-repeat;
     transition: all 0.1s linear 0s;
     background-size: 50px;
-    background-image:url(../Img/IconPassword.png);
+    background-image:url(../img/IconPassword.png);
 }
 
 .PopUpLoginContainer .Buttons {

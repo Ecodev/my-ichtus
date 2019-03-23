@@ -44,7 +44,7 @@
 
 .PopUpGuestContainer input:focus {
     /*border-color: varurl(../--accent);*/
-    /*background-image: urlurl(../Img/IconSearchBlue.png);*/
+    /*background-image: urlurl(../img/IconSearchBlue.png);*/
     -webkit-box-shadow: 2px 3px 5px 0px rgbaurl(../0,0,0,0.5);
     -moz-box-shadow: 2px 3px 5px 0px rgbaurl(../0,0,0,0.5);
     box-shadow: 2px 3px 5px 0px rgbaurl(../0,0,0,0.5);
@@ -61,7 +61,7 @@
         height: 42px;
         background-color: white;
         border-right:2px solid black;
-        background-image: urlurl(../Img/IconGuest.png);
+        background-image: urlurl(../img/IconGuest.png);
         background-size: 38px;
         background-position:center;
         background-position-x:2px;

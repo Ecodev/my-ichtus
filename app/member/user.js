@@ -110,7 +110,7 @@ function SearchDown(e) {
                 if (i == (enterSearchPosition % lastPeople.length + lastPeople.length) % lastPeople.length) {
                     var img = document.createElement("img");
                     img.id = "imgTabCahierSearchIconEnter";
-                    img.src = "Img/IconEnter.png";
+                    img.src = "img/IconEnter.png";
                     elem.appendChild(img);
 
                     elem.style.backgroundColor = "darkgray";
@@ -143,7 +143,7 @@ function createSearchEntries(PeopleCorresponding) {
         };
         divResult.appendChild(span1);
 
-        divResult.style.backgroundImage = "url(../Img/IconNoResult.png)";
+        divResult.style.backgroundImage = "url(img/IconNoResult.png)";
 
         lastPeople = [];
     }
@@ -174,17 +174,17 @@ function createSearchEntries(PeopleCorresponding) {
             if (i == 0) {
                 var img = document.createElement("img");
                 img.id = "imgTabCahierSearchIconEnter";
-                img.src = "Img/IconEnter.png";
+                img.src = "img/IconEnter.png";
                 divResult.appendChild(img);
 
                 divResult.style.backgroundColor = "darkgray";
             }
 
             if (PeopleCorresponding[i].sex == "male") {
-                divResult.style.backgroundImage = "url(../Img/IconMan.png)";
+                divResult.style.backgroundImage = "url(img/IconMan.png)";
             }
             else {
-                divResult.style.backgroundImage = "url(../Img/IconWoman.png)";
+                divResult.style.backgroundImage = "url(img/IconWoman.png)";
             }
         }
     }

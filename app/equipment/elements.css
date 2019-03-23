@@ -131,7 +131,7 @@
             width: 100%;
             height: 220px;
             z-index: 0;
-            background-image: url(../Img/IconChose.png);
+            background-image: url(../img/IconChose.png);
             background-repeat: no-repeat;
             background-size: 0px;
             background-position: center;
@@ -144,11 +144,11 @@
 
         .divTabCahierEquipmentElementsContainer > div.selected:hover > div > div:nth-child(4) {
             background-size: 100px;
-            background-image: url(../Img/IconChoseBlue.png);
+            background-image: url(../img/IconChoseBlue.png);
         }
         .divTabCahierEquipmentElementsContainer > div.selected > div > div:nth-child(4) {
             background-size: 200px;
-            background-image: url(../Img/IconChoseBlue.png);
+            background-image: url(../img/IconChoseBlue.png);
         }
 
 
@@ -158,7 +158,7 @@
             top: 5px;
             width: 30px;
             height: 30px;
-            background-image: url(../Img/IconInfo.png);
+            background-image: url(../img/IconInfo.png);
             background-repeat: no-repeat;
             background-size: 30px;
             background-position: center;
@@ -225,7 +225,7 @@
         background-color: white;
         border-bottom-right-radius: 0px;
         border-top-right-radius: 0px;
-        background-image: url(../Img/IconSortASC.png);
+        background-image: url(../img/IconSortASC.png);
         -webkit-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
         -moz-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
         box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
@@ -257,7 +257,7 @@
         background-color: white;
         border-bottom-right-radius: 0px;
         border-top-right-radius: 0px;
-        background-image: url(../Img/IconChose.png);
+        background-image: url(../img/IconChose.png);
         -webkit-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
         -moz-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
         box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
@@ -286,7 +286,7 @@
         background-color: white;
         border-bottom-right-radius: 0px;
         border-top-right-radius: 0px;
-        background-image: url(../Img/IconEye.png);
+        background-image: url(../img/IconEye.png);
         -webkit-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
         -moz-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
         box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
@@ -321,7 +321,7 @@
     transition: all 0.1s linear 0s, width 0.2s linear 0s, margin-left 0.2s linear 0s;
     outline: none; /*pour enlever le cadre bleu quand sélectionné*/
     border-radius: 10px;
-    background-image: url(../Img/IconSearchBlack.png);
+    background-image: url(../img/IconSearchBlack.png);
     background-position-x: 0px;
     background-position-y: 0px;
     background-size: 34px;
@@ -334,7 +334,7 @@
 
     #inputTabCahierEquipmentElementsInputSearch:focus {
         border-color: var(--accent);
-        background-image: url(../Img/IconSearchBlue.png);
+        background-image: url(../img/IconSearchBlue.png);
         width: 200px;
         -webkit-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
         -moz-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);

@@ -18,7 +18,7 @@ var Cahier = {
 
     getImageUrl: function (_bookable, size = 220) {
         if (_bookable == Cahier.personalBookable) {
-            return 'url(../Img/IconPersonalSail.png)';
+            return 'url(img/IconPersonalSail.png)';
         }
         return 'url(https://dev.ichtus.club/image/' + _bookable.image.id + '/' + size + ')';
     },
@@ -62,8 +62,8 @@ var Cahier = {
     getOwner: function (booking, wantImg = false, shortenOptions = { length: 10000, fontSize: 20 }) {
 
         if (wantImg) {
-            var img = "Img/IconWoman.png";
-            if (booking.owner.sex == "male") { img = "Img/IconMan.png"; }
+            var img = "img/IconWoman.png";
+            if (booking.owner.sex == "male") { img = "img/IconMan.png"; }
 
             return "<div id='" + booking.owner.name + "' class='TableEntriesImg' style='background-image:url(" + img + ");  display: inline-block;vertical-align: middle;'>" + "</div>" + "<div style=' display: inline-block;vertical-align: middle;'>" + booking.owner.name.shorten(shortenOptions.length - 40, shortenOptions.fontSize) + "</div>";
         }
@@ -109,7 +109,7 @@ var Cahier = {
         $('inputTabCahierEquipmentElementsInputSearch').value = "";
 
         $('divTabCahierEquipmentElementsSelectSort').getElementsByTagName("select")[0].getElementsByTagName("option")[0].selected = "selected";
-        $('divTabCahierEquipmentElementsSelectSort').getElementsByTagName("div")[0].style.backgroundImage = 'url(../"Img/IconSortASC.png")';
+        $('divTabCahierEquipmentElementsSelectSort').getElementsByTagName("div")[0].style.backgroundImage = 'url("img/IconSortASC.png")';
 
         document.getElementsByClassName('divTabCahierEquipmentChoiceInputCodeContainer')[0].getElementsByTagName('input')[0].value = "";
 

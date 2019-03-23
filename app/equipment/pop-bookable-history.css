@@ -231,7 +231,7 @@
 .PopUpBookableHistoryContainerScroll .Buttons {
     left: 50%;
     transform: translate(-50%);
-    background-image:url(../Img/IconEye.png);
+    background-image:url(../img/IconEye.png);
     width:150px;
     top:-30px;
 }

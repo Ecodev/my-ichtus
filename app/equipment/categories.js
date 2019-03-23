@@ -15,7 +15,7 @@ function loadMateriel(container = $("divTabCahierEquipmentCategoriesContainer"))
 
         var dTop = div(d1);
         dTop.classList.add("BoxesTop");
-        dTop.style.backgroundImage = "url(../Img/IconChose.png)," + "url(../Img/Categorie/" + categoriesValues[i] + ".png)";
+        dTop.style.backgroundImage = "url(img/IconChose.png)," + "url(img/categorie/" + categoriesValues[i] + ".png)";
 
         var dBottom = document.createElement("div");
         dBottom.classList.add("BoxesBottom");

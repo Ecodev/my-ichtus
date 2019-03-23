@@ -179,7 +179,7 @@
 }
 #fish {
     transform-origin: 0% 0%;
-    background-image: url(../Img/Logo/fish.svg);
+    background-image: url(../img/logo/fish.svg);
     animation-name: AniFish, AniFishTurn;
     animation-duration: 1s, 2.5s;
     animation-timing-function: ease-in-out,ease-in-out;
@@ -210,7 +210,7 @@
     }
 }
 #waves {
-    background-image: url(../Img/Logo/waves.svg);
+    background-image: url(../img/logo/waves.svg);
     animation-name: AniWaves;
     animation-duration: 1s;
     animation-timing-function: ease-in-out;
@@ -251,7 +251,7 @@
 }
 #circle {
     z-index: 9995;
-    background-image: url(../Img/Logo/circle.svg);
+    background-image: url(../img/logo/circle.svg);
     animation-duration: 2s;
     animation-delay: 0s;
     animation-timing-function: ease;
@@ -261,7 +261,7 @@
 
 #white_circle {
     z-index: 9993;
-    background-image: url(../Img/Logo/white_circle.svg);
+    background-image: url(../img/logo/white_circle.svg);
     animation-duration: 2s;
     animation-delay: 0s;
     animation-timing-function: ease;
