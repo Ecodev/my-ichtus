@@ -46,7 +46,7 @@
     padding-top: 7px;
     padding-right: 10px;
     padding-bottom: 0px;
-    background-image: url(../img/IconCheckSignBlack.png);
+    background-image: url(../img/icons/check-black.png);
     background-repeat: no-repeat;
     background-size: 40px;
     background-position-x: 220px;
@@ -66,7 +66,7 @@
         /*width: 500px;*/
     }
 .divTabCahierInfosStartComment > div:nth-child(2) {
-    background-image: url(../img/IconStartComment.png);
+    background-image: url(../img/icons/start-comment.png);
     margin-top:-2px;
     background-position-x:-1px;
 
@@ -146,7 +146,7 @@
     top: 250px;*/
 }
 .divTabCahierInfosDestination > div:nth-child(2){
-    background-image: url(../img/IconDestination.png);
+    background-image: url(../img/icons/destination.png);
 }
 .PropositionsContainer {
     position: absolute;
@@ -230,7 +230,7 @@
     background-position-x: 90px;
 }
     .divTabCahierInfosNbrInvites > div:nth-child(2) {
-        background-image: url(../img/IconParticipantCount.png);
+        background-image: url(../img/icons/participant-count.png);
         left: 50%;
         margin-left: -65px;
     }
@@ -248,7 +248,7 @@
     background-position-x: 90px;
 }
 #divTabCahierInfosStartTime > div:nth-child(2) {
-    background-image: url(../img/IconParticipantCount.png);
+    background-image: url(../img/icons/participant-count.png);
 }
 
 

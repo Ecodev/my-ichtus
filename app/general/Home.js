@@ -123,7 +123,7 @@ function check(checkParent) {
     }
     else {
         checkParent.getElementsByClassName('checkBox')[0].id = 1;
-        checkParent.getElementsByClassName('checkBox')[0].style.backgroundImage = 'url(img/IconCheckSignBlack.png)';
+        checkParent.getElementsByClassName('checkBox')[0].style.backgroundImage = 'url(img/icons/check-black.png)';
     }
 }
 

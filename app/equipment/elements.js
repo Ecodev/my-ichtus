@@ -112,11 +112,11 @@ function actualizeElements() {
 }
 
 function clickSortIcon(elem) {
-    if (elem.style.backgroundImage == 'url("img/IconSortDESC.png")') {
-        elem.style.backgroundImage = 'url("img/IconSortASC.png")';
+    if (elem.style.backgroundImage == 'url("img/icons/sort-desc.png")') {
+        elem.style.backgroundImage = 'url("img/icons/sort-asc.png")';
     }
     else {
-        elem.style.backgroundImage = 'url("img/IconSortDESC.png")';
+        elem.style.backgroundImage = 'url("img/icons/sort-desc.png")';
     }
 }
 

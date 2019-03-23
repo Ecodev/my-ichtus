@@ -28,7 +28,7 @@ function popBookingFinish(_booking) {
 function openBooking(which = "confirmation", elem = $('divTabConfirmationOneBookingContainer')) {
 
     var fields = ["Responsable", "Heure de départ", "Heure d'arrivée", "Embarcations", "Nbr de participants", "Destination", "Commentaire dép.", "Commentaire arr."];
-    var images = ["IconResponsible", "IconStart", "IconEnd", "IconSail", "IconParticipantCount", "IconDestination", "IconStartComment", "IconEndComment"];
+    var images = ["icons/responsible", "icons/start", "icons/end", "icons/sail", "icons/participant-count", "icons/destination", "icons/start-comment", "icons/end-comment"];
 
     var container;
 
@@ -295,7 +295,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
             var emb = div(embContainer);
             emb.className = "divTabCahierConfirmationEmbarcationBox";
             var img = div(emb);
-            img.style.backgroundImage = "url(img/IconInfo.png)," + Cahier.getImageUrl(booking.bookables[i]);
+            img.style.backgroundImage = "url(img/icons/info.png)," + Cahier.getImageUrl(booking.bookables[i]);
             div(img);
 
             texts = div(emb);
@@ -364,7 +364,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
 
 //function createConfirmationBooking(booking,nbr) {
 //    var fields = [Cahier.getOwner(booking,true), Cahier.getSingularOrPlural(booking.participantCount), booking.destination, booking.startComment.shorten(295, 25), Cahier.getBookableName(booking).shorten(265,25)];
-//    var images = ["IconResponsible", "IconParticipantCount", "IconDestination", "IconStartComment", "IconSail"];
+//    var images = ["icons/responsible", "icons/participant-count", "icons/destination", "icons/start-comment", "icons/sail"];
 //    var titles = ["Reponsable", "Nbr de participants", "Destination", "Commentaire","Embarcation"];
 
 //    var container = div($('divTabConfirmationBookingsContainer'));
@@ -395,7 +395,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
 //            btn.innerHTML = "Changer";
 //            btn.classList.add("Buttons");
 //            btn.classList.add("ReturnButtons");
-//            btn.style.backgroundImage = "url(img/IconResponsible.png)";
+//            btn.style.backgroundImage = "url(img/icons/responsible.png)";
 //            btn.style.backgroundBlendMode = "exclusion";
 //            if (booking.guest) {
 //                btn.onclick = function () { popGuest(nbr); };

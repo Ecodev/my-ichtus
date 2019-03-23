@@ -26,7 +26,7 @@
     padding-left: 45px;
     padding-top: 0px;
     padding-bottom: 0px;
-    background-image: url(../img/IconSearchBlack.png);
+    background-image: url(../img/icons/search-black.png);
     background-position-x: 0px;
     background-position-y: 0px;
     background-repeat: no-repeat;
@@ -48,7 +48,7 @@
         -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.6);
         -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.6);
         box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.6);
-        background-image: url(../img/IconSearchBlue.png);
+        background-image: url(../img/icons/search-blue.png);
     }
 
     #inputTabCahierSearch:hover {
@@ -96,7 +96,7 @@
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
-    background-image: url(../img/IconMan.png);
+    background-image: url(../img/icons/man.png);
     background-repeat: no-repeat;
     background-size: 30px;
     background-position-x: 8px;
@@ -147,7 +147,7 @@
 }
 
 
-#imgTabCahierSearchIconEnter {
+#imgTabCahierSearchicons/enter {
     position: absolute;
     right: 5px;
     top: 5px;

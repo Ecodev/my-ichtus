@@ -35,7 +35,7 @@
         height: 40px;
         border-radius:10px;
         /*background-color: yellow;*/
-        background-image:url(../img/IconBack.png);
+        background-image:url(../img/icons/back.png);
         background-repeat:no-repeat;
         background-size:40px;
         cursor:pointer;
@@ -54,7 +54,7 @@
         width: 35px;
         height: 35px;
         border-radius:10px;
-        background-image:url(../img/IconCancel.png);
+        background-image:url(../img/icons/cancel.png);
         background-position:center;
         background-repeat:no-repeat;
         background-size:25px;
@@ -66,7 +66,7 @@
 
     #divTabCahierProgressCancel:hover {
         background-color: rgb(235,235,235);
-        background-image:url(../img/IconCancelBlack.png)
+        background-image:url(../img/icons/cancel-black.png)
     }
 
 #divTabCahierProgress {
@@ -115,7 +115,7 @@
 
 .divTabCahierProgressStepCompleted .divTabCahierProgressCircle {
     border-color: var(--accent);
-    background-image: url(../img/IconCheckSignBlue.png);
+    background-image: url(../img/icons/check-blue.png);
     background-repeat: no-repeat;
     background-color: white;
 }
@@ -262,7 +262,7 @@
     color: gray;
     font-size: 20px;
     background-color: white;
-    background-image: url(../img/IconCancel.png);
+    background-image: url(../img/icons/cancel.png);
     background-size: 25px;
     background-repeat: no-repeat;
     background-position-x: 160px;
@@ -274,5 +274,5 @@
     #divTabCahierCancelButton:hover {
         background-color: lightgray;
         color: black;
-        background-image: url(../img/IconCancelBlack.png);
+        background-image: url(../img/icons/cancel-black.png);
     }

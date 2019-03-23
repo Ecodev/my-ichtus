@@ -78,7 +78,7 @@ function exitProposition(elem) {
 
 
 function AcceptInfos(elem) {
-    elem.style.backgroundImage = "url(img/IconCheckSignBlack.png)";
+    elem.style.backgroundImage = "url(img/icons/check-black.png)";
     elem.style.borderColor = "black";
     elem.parentElement.getElementsByTagName("div")[0].style.backgroundColor = "black";
 }

@@ -134,7 +134,7 @@ function createBookingBookableBox(elem, bookable = {code:"ZZZ"}) {
     var code = div(d);
 
     if (bookable == Cahier.personalBookable) {
-        img.style.backgroundImage = "url(img/IconPersonalSail.png)";
+        img.style.backgroundImage = "url(img/icons/own-sail.png)";
         code.style.backgroundImage = "none";
         code.innerHTML = "Matériel Personel";
         code.style.margin = "0px";
@@ -171,18 +171,18 @@ function loadTableTopBars(allTables = document.getElementsByClassName("BookingsT
         var all = top.getElementsByTagName("div");
 
         for (var i = 0; i < all.length; i = i + 2) {
-            all[i].getElementsByTagName("div")[0].style.backgroundImage = "url(img/IconSortASC.png)";
+            all[i].getElementsByTagName("div")[0].style.backgroundImage = "url(img/icons/sort-asc.png)";
 
             if (!(all[i].parentElement.id == 'divTabCahierTableActualBookingsTopBar' && all[i].id == '6')) { // not sort finish buttons
 
                 all[i].addEventListener("click", function () {
 
-                    if (this.getElementsByTagName("div")[0].style.backgroundImage == 'url("img/IconSortDESC.png")' || !(this.classList.contains("BookingsTopBarSorted"))) {
-                        this.getElementsByTagName("div")[0].style.backgroundImage = "url(img/IconSortASC.png)";
+                    if (this.getElementsByTagName("div")[0].style.backgroundImage == 'url("img/icons/sort-desc.png")' || !(this.classList.contains("BookingsTopBarSorted"))) {
+                        this.getElementsByTagName("div")[0].style.backgroundImage = "url(img/icons/sort-asc.png)";
                         order = 1;
                     }
                     else {
-                        this.getElementsByTagName("div")[0].style.backgroundImage = "url(img/IconSortDESC.png)";
+                        this.getElementsByTagName("div")[0].style.backgroundImage = "url(img/icons/sort-desc.png)";
                         order = -1;
 
                     }
@@ -191,7 +191,7 @@ function loadTableTopBars(allTables = document.getElementsByClassName("BookingsT
                     for (var k = 0; k < all.length; k = k + 2) {
                         if (allButtons[k] != this) {
                             allButtons[k].classList.remove("BookingsTopBarSorted");
-                            allButtons[k].getElementsByTagName("div")[0].style.backgroundImage = "url(img/IconSortASC.png)";
+                            allButtons[k].getElementsByTagName("div")[0].style.backgroundImage = "url(img/icons/sort-asc.png)";
                         }
                     }
                     this.classList.add("BookingsTopBarSorted");
@@ -208,7 +208,7 @@ function sortTable(table) {
 
     var field = parseInt(table.getElementsByClassName("BookingsTopBarSorted")[0].id);
     var order = function () {
-        if (table.getElementsByClassName("BookingsTopBarSorted")[0].getElementsByTagName("div")[0].style.backgroundImage == 'url("img/IconSortDESC.png")') {
+        if (table.getElementsByClassName("BookingsTopBarSorted")[0].getElementsByTagName("div")[0].style.backgroundImage == 'url("img/icons/sort-desc.png")') {
             return -1;
         }
         else {
@@ -282,7 +282,7 @@ function createBookingsTable(date,title) {
     topBar.classList.add("TableTopBar");
 
     var fields = ["", "", "", "Responsable", "Embarcation", "Destination", "Commentaire de départ", "Commentaire d'arrivée"];
-    var images = ["IconStart", "IconEnd","IconParticipantCount","IconResponsible","IconSail", "IconDestination", "IconStartComment", "IconEndComment"];
+    var images = ["icons/start", "icons/end","icons/participant-count","icons/responsible","icons/sail", "icons/destination", "icons/start-comment", "icons/end-comment"];
 
     for (var i = 0; i < fields.length; i++) {
         var d = div(topBar);
