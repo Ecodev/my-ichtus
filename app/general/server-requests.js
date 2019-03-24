@@ -30,13 +30,13 @@ var Requests = {
             } else {
                 // connecté
                 console.warn("Connecté");
-                Requests.getActualBookingList(true);
+                Requests.getActualBookingList();
             }
         });
     },
 
 
-    // getUsersList FOR CAHIER.JS
+    // getUsersList FOR user.js
     getUsersList: function (text = "") {
         var filter = {
             filter: {
@@ -507,7 +507,6 @@ var Requests = {
 
                 Server.bookableMetaDataService.getAll(variables).subscribe(metadatas => {
                    //console.log("getBookableInfos()_getMetadatas: ", metadatas);
-
                     actualizePopBookable(nbr, result.items[0], bookings, elem, metadatas.items); //metadatas.items);
                 });
             });
@@ -527,7 +526,7 @@ var Requests = {
     },
 
     // getActualBookingList()
-    getActualBookingList: function (first = false) {
+    getActualBookingList: function () {
 
         var filter = {
             filter: {
@@ -539,11 +538,6 @@ var Requests = {
                                 status: {
                                     equal: {
                                         value: "booked"
-                                    }
-                                },
-                                custom: {
-                                    search: {
-                                        value: "%" + $('inputTabCahierActualBookingsSearch').value + "%"
                                     }
                                 },
                                 endDate: {
@@ -582,11 +576,6 @@ var Requests = {
                                     value: "booked"
                                 }
                             },
-                            custom: {
-                                search: {
-                                    value: "%" + $('inputTabCahierActualBookingsSearch').value + "%"
-                                }
-                            },
                             endDate: {
                                 null: {
                                     not: false
@@ -620,22 +609,17 @@ var Requests = {
         variables.set('variables', filter);
 
         Server.bookingService.getAll(variables, true).subscribe(result => { // force = true
-            //console.log("getActualBookingList(): ", result);
-            actualizeActualBookings(transformBookings(result.items),first);
+            var send = transformBookings(result.items);
+            loadActualBookings(send);
         });
 
     },
 
     // getFinishedBookingListForDay()
-    getFinishedBookingListForDay: function (d = new Date(),table = "?", title,first = false) {
+    getFinishedBookingListForDay: function (d = new Date(),table = "?", title) {
 
         var start = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
-        var end = new Date(d.getFullYear(), d.getMonth(), d.getDate()+1, 0, 0, 0, 0);
-
-        var txt = "%";
-        if (table != "?") {
-            txt = "%" + table.previousElementSibling.previousElementSibling.value + "%";
-        }
+        var end = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1, 0, 0, 0, 0);
 
         var filter = {
             filter: {
@@ -648,11 +632,6 @@ var Requests = {
                             status: {
                                 equal: {
                                     value: "booked"
-                                }
-                            },
-                            custom: {
-                                search: {
-                                    value: "%" + txt + "%"
                                 }
                             },
                             endDate: {
@@ -697,11 +676,6 @@ var Requests = {
                                     value: "booked"
                                 }
                             },
-                            custom: {
-                                search: {
-                                    value: "%" + txt + "%"
-                                }
-                            },
                             endDate: {
                                 null: {
                                     not: true
@@ -729,19 +703,13 @@ var Requests = {
 
         Server.bookingService.getAll(variables, true).subscribe(result => {// force = true);
             //console.log("getFinishedBookingListForDay(): ", result);
-
             var transformedBoookings = transformBookings(result.items);
-
-            if (first == true) {
-                if (result.length == 0) {
-                    createNoBookingMessage(d);
-                }
-                else {
-                    table = createBookingsTable(d, title + " (" + transformedBoookings.length + ")");
-                    actualizeFinishedBookingListForDay(transformedBoookings, table);
-                }
+            if (result.length == 0) {
+                createNoBookingMessage(d);
             }
-            else { // first == false
+            else {
+                table = createBookingsTable(d, title + " (" + transformedBoookings.length + ")");
+                Cahier.finishedBookings.push(transformedBoookings); //important
                 actualizeFinishedBookingListForDay(transformedBoookings, table);
             }
         });
@@ -1084,7 +1052,7 @@ var Requests = {
                 c++;
                 if (c == bookingIds.length) {
                     //console.log("this.terminateBooking done !");
-                    Requests.getActualBookingList(true);
+                    Requests.getActualBookingList();
                 }
             });
         }

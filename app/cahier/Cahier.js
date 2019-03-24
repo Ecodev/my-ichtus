@@ -1,7 +1,29 @@
 ﻿var textToolTipGuest = "Un non-membre doit toujours être accompagné par un membre d'Ichtus. <br/> Il n'a donc pas le droit d'aller seul.";
 var textToolTipUser = "Sortie pour les membres d'Ichtus<br/><br/>";
 
-function actualizeActualBookings(_actualBookings,first) {
+function loadActualBookings(_actualBookings) {
+    Cahier.actualBookings = _actualBookings;
+
+    $('divTabCahierTableActualBookings').previousElementSibling.innerHTML = "Sorties en cours (" + _actualBookings.length + ")";
+
+    var children = $('divTabCahierTables').children;
+    for (var i = 0; i < children.length; i++) {
+        if (children[i].id != "divTabCahierTableActualBookings" && children[i].id != "inputTabCahierActualBookingsSearch" && children[i].id != "divTabCahierActualBookingsSearchTitle" && children[i].id != "divTabCahierAlertButtonsLegend") {
+            $('divTabCahierTables').removeChild(children[i]);
+            i--;
+        }
+    }
+
+    Cahier.finishedBookings = [];
+
+    newBookingTable(new Date(), "Sorties terminées");// tables sorties finies
+
+    $('inputTabCahierActualBookingsSearch').value = "";
+
+    actualizeActualBookings(Cahier.actualBookings);
+}
+
+function actualizeActualBookings(_actualBookings) {
 
     var all = $('divTabCahierTableActualBookings').getElementsByClassName("TableEntries");
     for (var i = 0; i < all.length; i++) {
@@ -18,21 +40,6 @@ function actualizeActualBookings(_actualBookings,first) {
         entry.classList.add("TableEntriesHover");
 
         var cell = div(entry);
-    }
-
-    if (first) { // so will be new generated not just a search
-
-        Cahier.actualBookings = _actualBookings;
-        $('divTabCahierTableActualBookings').previousElementSibling.innerHTML = "Sorties en cours (" + _actualBookings.length + ")";
-
-        var children = $('divTabCahierTables').children;
-        for (var i = 0; i < children.length; i++) {
-            if (children[i].id != "divTabCahierTableActualBookings" && children[i].id != "inputTabCahierActualBookingsSearch" && children[i].id != "divTabCahierActualBookingsSearchTitle" && children[i].id != "divTabCahierAlertButtonsLegend") {
-                $('divTabCahierTables').removeChild(children[i]);
-                i--;
-            }
-        }
-        newBookingTable(new Date(), "Sorties terminées");// tables sorties finies
     }
 
     for (var i = 0; i < _actualBookings.length; i++) {
@@ -123,12 +130,89 @@ function actualizeActualBookings(_actualBookings,first) {
     sortTable($('divTabCahierTableActualBookings'));
 }
 
+
+// new search system
+function bookingTableSearch(_table) {
+
+    var bookings;
+    txts = _table.previousElementSibling.previousElementSibling.value.split(" ");
+    // means finishedBookings
+    if (_table != $('divTabCahierTableActualBookings'))  {
+        var all = document.getElementsByClassName("BookingsTable");
+        for (var i = 1; i < all.length; i++) {
+            if (all[i] == _table) {
+                break;
+            }
+        }
+        bookings = Cahier.finishedBookings[i - 1];
+    }
+    else { // means actualBookings
+        bookings = Cahier.actualBookings;
+    }
+    var result = [];
+
+    for (let t = 0; t < txts.length; t++) {
+        result[t] = [];
+        for (let b = 0; b < bookings.length; b++) {
+
+            var add = false;
+
+            if (bookings[b].owner.name.toUpperCase().includes(txts[t].toUpperCase())) {
+                add = true;
+            }
+            else if ((new Date(bookings[b].startDate)).getNiceTime(":", true).includes(txts[t].toUpperCase())) {
+                add = true;
+            }
+            else if ((new Date(bookings[b].endDate)).getNiceTime(":", true).includes(txts[t].toUpperCase())) {
+                add = true;
+            }
+            else if (bookings[b].destination.toUpperCase().includes(txts[t].toUpperCase())) {
+                add = true;
+            }
+            else if (bookings[b].startComment.toUpperCase().includes(txts[t].toUpperCase())) {
+                add = true;
+            }
+            else if (bookings[b].endComment.toUpperCase().includes(txts[t].toUpperCase())) {
+                add = true;
+            }
+            else if (bookings[b].participantCount.toString().includes(txts[t])) {
+                add = true;
+            }
+            else {
+                for (let e = 0; e < bookings[b].bookables.length; e++) {
+                    if (bookings[b].bookables[e].name.toUpperCase().includes(txts[t].toUpperCase())) {
+                        add = true;
+                        break;
+                    }
+                    else if (bookings[b].bookables[e].code.toUpperCase().includes(txts[t].toUpperCase())) {
+                        add = true;
+                        break;
+                    }
+                }
+            }
+            if (add) {
+                result[t].push(bookings[b]);
+            }
+        }
+    }
+
+    // merge but only take the bookings which are in every search result !
+    var send = result.mergeAND();
+    if (_table == $('divTabCahierTableActualBookings')) {
+        actualizeActualBookings(send);
+    }
+    else {
+        actualizeFinishedBookingListForDay(send, _table);
+    }
+}
+
+
+
 function createBookingBookableBox(elem, bookable = {code:"ZZZ"}) {
 
     var d = div(elem);
 
     var img = div(d);
-
 
     d.id = bookable.code;
     var code = div(d);
@@ -136,7 +220,7 @@ function createBookingBookableBox(elem, bookable = {code:"ZZZ"}) {
     if (bookable == Cahier.personalBookable) {
         img.style.backgroundImage = "url(img/icons/own-sail.png)";
         code.style.backgroundImage = "none";
-        code.innerHTML = "Matériel Personel";
+        code.innerHTML = Cahier.personalBookable.name;
         code.style.margin = "0px";
         code.style.fontSize = "16px";
         code.style.lineHeight = "35px";
@@ -243,12 +327,9 @@ function getSortingText(elem) {
 
 
 
-
-
-
 function newBookingTable(date,title = "?") {
     if (title == "?"){title = date.getNiceDate();}
-    Requests.getFinishedBookingListForDay(date, undefined,title,true);
+    Requests.getFinishedBookingListForDay(date, undefined,title);
 
     $('divTabCahierButtonMoreBookingsContainer').getElementsByTagName("div")[0].id = date.getPreviousDate();
     $('divTabCahierButtonMoreBookingsContainer').getElementsByTagName("div")[0].innerHTML = "Charger les sorties du " + date.getPreviousDate().getNiceDate(true);
@@ -263,7 +344,9 @@ function createBookingsTable(date,title) {
     input.value = "";
     input.spellcheck = "false";
     input.placeholder = "Rechercher";
-    input.onkeyup = function () { Requests.getFinishedBookingListForDay(date, table, false); };
+    input.onkeyup = function () {
+        bookingTableSearch(table);
+    };
     $('divTabCahierTables').appendChild(input);
 
     var t = div($('divTabCahierTables'));

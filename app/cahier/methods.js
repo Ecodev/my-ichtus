@@ -1,6 +1,8 @@
 var Cahier = {
 
-    actualBookings:[],
+    actualBookings: [],
+
+    finishedBookings:[],
 
     bookings: [{
         owner: {id:0,name:"Michel pas défini",sex:"male"},
@@ -13,7 +15,7 @@ var Cahier = {
     personalBookable: {
         id: 0,
         code: "Perso",
-        name:"Matériel personel"
+        name:"Matériel personnel"
     },
 
     getImageUrl: function (_bookable, size = 220) {

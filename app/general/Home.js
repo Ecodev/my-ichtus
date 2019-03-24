@@ -276,14 +276,14 @@ Array.prototype.inverse = function (i1, i2) {
     return this;
 };
 Array.prototype.findIndex = function (x) {
-    var Index = -1;
+    var index = -1;
     for (var i = 0; i < this.length; i++) {
         if (this[i] == x) {
-            Index = i;
+            index = i;
             break;
         }
     }
-    return Index;
+    return index;
 };
 
 Array.prototype.sortBy = function (sortFields, order = 1) {
@@ -317,6 +317,23 @@ Array.prototype.fillArray = function (length, what = 0) {
     }
 };
 
+// merge and only takes the elements which are in every array
+Array.prototype.mergeAND = function () {
+    var send = [];
+    for (let b = 0; b < this[0].length; b++) {
+        var item = this[0][b];
+        var c = 0;
+        for (let r2 = 1; r2 < this.length; r2++) {
+            if (this[r2].findIndex(item) != -1) {
+                c++;
+            }
+        }
+        if (c == this.length - 1) {
+            send.push(item);
+        }
+    }
+    return send;
+};
 
 function transformBookings(_bookings) { // one booking with many bookables
 

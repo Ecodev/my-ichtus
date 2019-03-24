@@ -55,8 +55,6 @@ function popBookable(bookableId, justPreview = true, nbr = 0, modal = openPopUp(
 var eventListenerFunction;
 function actualizePopBookable(nbr, bookable,bookings, elem, metadatas) {
 
-    //console.log(metadatas);
-
     elem.getElementsByTagName("div")[2].style.backgroundImage = Cahier.getImageUrl(bookable);
 
     elem.getElementsByClassName('divTabCahierEquipmentElementsPopUp')[0].getElementsByTagName("div")[3].innerHTML = bookable.description;

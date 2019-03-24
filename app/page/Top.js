@@ -70,7 +70,7 @@ function animate() {
                     f.style.animationName = "AniFishExit,none";
 
 
-                    setTimeout(function () { if (running) { DeleteObjects(w, c, r, f); running = false; } Requests.getActualBookingList(true);}, 1000);
+                    setTimeout(function () { if (running) { DeleteObjects(w, c, r, f); running = false; } Requests.getActualBookingList();}, 1000);
 
                 setTimeout(function () {
                     if (!running) { return; }

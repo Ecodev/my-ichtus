@@ -40,8 +40,8 @@ function loadCahierEquipmentChoice(loc = $('divTabCahierEquipmentChoice').getEle
     var btnContainer = div(container);
 
         var btn1 = div(btnContainer);
-        btn1.innerHTML = "Prendre du matériel personel";
-        btn1.title = "Prendre du matériel personel";
+        btn1.innerHTML = "Prendre du matériel personnel";
+        btn1.title = "Prendre du matériel personnel";
         if (isTab) {
             btn1.onclick = function () {
                 var t = true;
