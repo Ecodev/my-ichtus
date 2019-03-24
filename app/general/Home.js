@@ -361,17 +361,6 @@ function transformBookings(_bookings) { // one booking with many bookables
                 }
                 else {
                     final[final.length - 1].bookables.push(_bookings[i].bookables[0]);
-
-                    // $$ change to end comment
-                    //var a = final[final.length - 1].startComment.indexOf("![");
-                    //var b = final[final.length - 1].startComment.indexOf("]!");
-                    //if (a != -1 && b != -1) {
-                    //    var bookableComment = final[final.length - 1].startComment.slice(a+2, b);
-                    //    final[final.length - 1].bookables[final[final.length - 1].bookables.length-1].comment = bookableComment;
-                    //}
-                    //else {
-                    //    final[final.length - 1].bookables[final[final.length - 1].bookables.length - 1].comment = "";
-                    //}
                 }
 
                 final[final.length - 1].ids.push(_bookings[i].id);
@@ -387,17 +376,6 @@ function transformBookings(_bookings) { // one booking with many bookables
                 }
                 else {
                     final[final.length - 1].bookables = [_bookings[i].bookables[0]];
-
-                    // $$ change to end comment
-                    //var a = final[final.length - 1].startComment.indexOf("![");
-                    //var b = final[final.length - 1].startComment.indexOf("]!");
-                    //if (a != -1 && b != -1) {
-                    //    var bookableComment = final[final.length - 1].startComment.slice(a+2, b);
-                    //    final[final.length - 1].bookables[0].comment = bookableComment;
-                    //}
-                    //else {
-                    //    final[final.length - 1].bookables[0].comment = "";
-                    //}
                 }
 
             }

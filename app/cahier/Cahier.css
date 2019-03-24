@@ -106,7 +106,58 @@
     border-collapse: collapse;
 }
 
+#divTabCahierActualize {
+    position: absolute;
+    top: 65px;
+    right: 0px;
+    text-align: right;
+    background-image: url(../img/icons/actualize.png);
+    background-position: center;
+    background-size: 25px;
+    background-repeat: no-repeat;
+    height: 35px;
+    width: 35px;
+    -moz-transition: all 1s ease 0s;
+    -o-transition: all 1s ease 0s;
+    -webkit-transition: all 1s ease 0s;
+    transition: all 1s ease 0s;
+    z-index: 2;
+    cursor: pointer;
+    border-radius:20px;
+}
+    #divTabCahierActualize:hover {
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+        background-color:lightgray;
+    }
 
+
+#divTabCahierLogin {
+    position: absolute;
+    top: 95px;
+    right: 0px;
+    text-align: right;
+    background-image: url(../img/icons/password-black.png);
+    background-position: center;
+    background-size: 25px;
+    background-repeat: no-repeat;
+    height: 35px;
+    width: 35px;
+    -moz-transition: all 1s ease 0s;
+    -o-transition: all 1s ease 0s;
+    -webkit-transition: all 1s ease 0s;
+    transition: all 1s ease 0s;
+    z-index: 2;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+    #divTabCahierLogin:hover {
+        background-color: lightgray;
+    }
 
 
 

@@ -109,7 +109,7 @@ function SearchDown(e) {
                 }
                 if (i == (enterSearchPosition % lastPeople.length + lastPeople.length) % lastPeople.length) {
                     var img = document.createElement("img");
-                    img.id = "imgTabCahierSearchicons/enter";
+                    img.id = "imgTabCahierSearchEnter";
                     img.src = "img/icons/enter.png";
                     elem.appendChild(img);
 
@@ -173,7 +173,7 @@ function createSearchEntries(PeopleCorresponding) {
 
             if (i == 0) {
                 var img = document.createElement("img");
-                img.id = "imgTabCahierSearchicons/enter";
+                img.id = "imgTabCahierSearchEnter";
                 img.src = "img/icons/enter.png";
                 divResult.appendChild(img);
 
