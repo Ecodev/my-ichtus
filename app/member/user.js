@@ -33,7 +33,7 @@ function popUser(nbr = 0, elem = openPopUp()) {
     i1.spellcheck = "false";
     i1.type = "text";
     i1.placeholder = "Entrez votre nom, prénom...";
-    i1.onkeyup = function () {
+    i1.onkeyup = function (event) {
         if (this.value.length > 2) {
             Search(event);
         }
@@ -41,7 +41,7 @@ function popUser(nbr = 0, elem = openPopUp()) {
             $("divTabCahierSearchResult").innerHTML = "<div style='margin-top:10px; color:var(--fontBlack);'>Veuillez taper au moins trois caractères</div>";
         }
     };
-    i1.onkeydown = function () {SearchDown(event);};
+    i1.onkeydown = function (event) {SearchDown(event);};
     container.appendChild(i1);
 
     if (elem != $("divTabCahierMemberContainer")) {

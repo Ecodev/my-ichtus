@@ -180,7 +180,7 @@ function closePopUp(e) {
     }
 }
 function loadEscListener() {
-    document.body.addEventListener("keydown", function () {
+    document.body.addEventListener("keydown", function (event) {
         if (event.keyCode == 27) {
             //console.log("ESC");
             closePopUp("last");
