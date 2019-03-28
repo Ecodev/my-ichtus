@@ -1048,7 +1048,7 @@ var Requests = {
         var c = 0;
         for (var i = 0; i < bookingIds.length; i++) {
             //console.log("terminateBooking", bookingIds[i], comments[i]);
-            Server.bookingService.flagEndDate(bookingIds[i], comments[i]).subscribe(result => {
+            Server.bookingService.terminateBooking(bookingIds[i], comments[i]).subscribe(result => {
                 c++;
                 if (c == bookingIds.length) {
                     //console.log("this.terminateBooking done !");
