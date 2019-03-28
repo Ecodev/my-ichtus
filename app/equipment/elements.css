@@ -156,20 +156,24 @@
             position: absolute;
             left: 5px;
             top: 5px;
-            width: 30px;
-            height: 30px;
-            background-image: url(../img/icons/info.png);
+            width: 40px;
+            height: 40px;
+            background-image: none;
             background-repeat: no-repeat;
-            background-size: 30px;
+            background-size: 0px;
             background-position: center;
-            transition: all 0.1s linear 0s;
-            border-radius:30px;
+            transition: background-color 0.5s ease 0s, background-size 0.1s linear 0s;
+            border-radius: 30px;
+            background-image: url(../img/icons/info.png);
         }
 
-            .divTabCahierEquipmentElementsContainer > div > div > div:nth-child(5):hover {
-                background-color: white;
-                background-size:40px;
-            }
+        .divTabCahierEquipmentElementsContainer > div:hover > div > div:nth-child(5) {
+            background-size: 30px;
+        }
+
+    .divTabCahierEquipmentElementsContainer > div > div > div:nth-child(5):hover {
+        background-color: lightgray;
+    }
 
 
 

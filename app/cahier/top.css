@@ -54,14 +54,14 @@
         width: 35px;
         height: 35px;
         border-radius:10px;
-        background-image:url(../img/icons/cancel.png);
+        background-image:url(../img/icons/cancel-black.png);
         background-position:center;
         background-repeat:no-repeat;
         background-size:25px;
         cursor:pointer;
         transition:all 0.1s linear 0s;
         z-index:3;
-        border:2px solid gray;
+        border:2px solid black;
     }
 
     #divTabCahierProgressCancel:hover {
