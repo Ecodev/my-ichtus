@@ -32,7 +32,6 @@ function popCahierInfos(nbr) {
             var i = input(divParticipantCount);
             i.type = "number";
             i.min = "1";
-            i.max = "20";
             i.value = Cahier.bookings[nbr].participantCount;
             i.placeholder = "1";
             i.addEventListener("keyup",  function () {
