@@ -90,10 +90,6 @@ var Cahier = {
     // cancel - clearData
     cancel: function () {
 
-        // #divCahier
-        //$("inputTabCahierSearch").value = "";
-        //$("divTabCahierSearchResult").innerHTML = "";
-
         // #divCahierInfos
         var allTabCahierFields = document.getElementsByClassName("TabCahierFields");
 
@@ -122,6 +118,7 @@ var Cahier = {
 
         document.getElementsByClassName("divTabCahierEquipmentChoiceContainer")[0].children[3].children[0].classList.remove("buttonNonActive");
 
+        Requests.getActualBookingList();
 
         Cahier.bookings = [{
             owner: {},

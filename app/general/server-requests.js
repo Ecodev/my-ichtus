@@ -528,6 +528,13 @@ var Requests = {
     // getActualBookingList()
     getActualBookingList: function () {
 
+        // auto actualize every .. minutes
+        setTimeout(function () {
+            if (currentTabElement.id == "divTabCahier") {
+                Requests.getActualBookingList();
+            }
+        }, 2 * 60 * 1000);
+
         var filter = {
             filter: {
                 groups: [
@@ -1052,7 +1059,8 @@ var Requests = {
                 c++;
                 if (c == bookingIds.length) {
                     //console.log("this.terminateBooking done !");
-                    Requests.getActualBookingList();
+                    //Requests.getActualBookingList();
+                    newTab("divTabCahier");
                 }
             });
         }
