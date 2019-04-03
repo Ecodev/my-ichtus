@@ -18,6 +18,8 @@ var Cahier = {
         name:"Matériel personnel"
     },
 
+    ProgressBarTexts: ["Nom", "Informations", "Embarcations", "Confirmation"],
+
     getImageUrl: function (_bookable, size = 220) {
         if (_bookable == Cahier.personalBookable) {
             return 'url(img/icons/own-sail.png)';
@@ -28,7 +30,6 @@ var Cahier = {
     getFullName: function (booking = Cahier.bookings[0]) {
         if (booking.guest) { return booking.guestName; } else { return booking.owner.surName + " " + booking.owner.firstName; }
     },
-
 
     getSingularOrPlural: function (nbr = Cahier.nbrParticipants, txt = " Participant") {
         if (nbr == 0) {
@@ -60,20 +61,17 @@ var Cahier = {
         }
     },
 
-    // new with guest:
+    // get Owner
     getOwner: function (booking, wantImg = false, shortenOptions = { length: 10000, fontSize: 20 }) {
-
         if (wantImg) {
             var img = "img/icons/woman.png";
             if (booking.owner.sex == "male") { img = "img/icons/man.png"; }
-
             return "<div id='" + booking.owner.name + "' class='TableEntriesImg' style='background-image:url(" + img + ");  display: inline-block;vertical-align: middle;'>" + "</div>" + "<div style=' display: inline-block;vertical-align: middle;'>" + booking.owner.name.shorten(shortenOptions.length - 40, shortenOptions.fontSize) + "</div>";
         }
         else {
             return booking.owner.name;
         }
     },
-
 
     //new Booking
     newUserBooking: function () {
@@ -84,8 +82,6 @@ var Cahier = {
     newGuestBooking: function () {
         popGuest(Cahier.bookings.length);
     },
-
-    ProgressBarTexts: ["Nom", "Informations", "Embarcations", "Confirmation"],
 
     // cancel - clearData
     cancel: function () {
@@ -137,9 +133,7 @@ var Cahier = {
     },
 
     confirm: function () {
-
         Requests.createBooking();
-
         animate();
         //console.log("--> Cahier.confirm()");
     },
@@ -172,7 +166,6 @@ var Cahier = {
             }
         }
 
-
         if (currentProgress == 1) {
             $('divTabCahierProgressReturn').style.visibility = "hidden";
         }
@@ -185,7 +178,6 @@ var Cahier = {
     },
 
     actualizeConfirmation: function () {
-
         if (currentTabElement.id == "divTabCahierConfirmation") {
             loadConfirmation();
         }
@@ -210,8 +202,6 @@ var Cahier = {
             Cahier.bookings[nbr].owner.surName = _owner.surName;
             Cahier.bookings[nbr].owner.name = _owner.surName + " " + _owner.firstName;
             Cahier.bookings[nbr].owner.sex = _owner.sex;
-
-            //console.log("setOwner(): ", nbr, Cahier.bookings[nbr].owner);
             Cahier.actualizeConfirmation();
 
             newTab("divTabCahierInfos");
@@ -220,15 +210,11 @@ var Cahier = {
             popAlertAlreadyHavingABooking(_owner);
         }
 
-
     },
 
     addBookable: function (nbr = 0, _bookable = Cahier.personalBookable) {
-
         Cahier.bookings[nbr].bookables.push(_bookable);
         actualizeBookableList();
-
-        //console.log(_bookable);
 
         if (_bookable == Cahier.personalBookable) {
             document.getElementsByClassName("divTabCahierEquipmentChoiceContainer")[0].children[3].children[0].classList.add("buttonNonActive");

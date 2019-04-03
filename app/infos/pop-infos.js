@@ -70,8 +70,6 @@ function popCahierInfos(nbr) {
 
             writeNbrInvites(i);
 
-
-
     var divDestination = div(c);
     divDestination.classList.add("TabCahierFields");
     divDestination.classList.add("divTabCahierInfosDestination");
@@ -106,7 +104,6 @@ function popCahierInfos(nbr) {
         writeDestination(i);
 
 
-
     var divStartComment = div(c);
     divStartComment.classList.add("TabCahierFields");
     divStartComment.classList.add("divTabCahierInfosStartComment");
@@ -123,11 +120,6 @@ function popCahierInfos(nbr) {
 
     createAllPropositions(c);
 
-    //var t = div(container);
-    //t.style.textAlign = "center";
-    //t.innerHTML = "Les champs avec un * sont obligatoires !";
-    //br(container);
-
     var btnContainer = div(container);
     btnContainer.style.position = "relative";
     btnContainer.style.textAlign = "center";
@@ -139,17 +131,3 @@ function popCahierInfos(nbr) {
         btn.innerHTML = "Valider";
         btn.addEventListener("click", function () { checkInfos(elem, nbr); });
 }
-
-
-
-
-
-
-
-//    <div style="text-align:center; margin-left:2.5%">Les champs avec un * sont obligatoires !</div>
-
-//    <br />
-
-//    <div style="text-align:center;">
-//        <div class="Buttons ValidateButtons" onclick="checkInfos();">Suivant</div>
-//    </div>

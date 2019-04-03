@@ -41,7 +41,7 @@
     border-style: solid;
     border-color: black;
     border-radius: 10px;
-    background-color: white; /*rgb(237,237,237);*/
+    background-color: white;
     padding-left: 60px;
     padding-top: 7px;
     padding-right: 10px;
@@ -58,13 +58,9 @@
     -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
     box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
     transition: all 0.1s linear 0s, width 0.2s linear 0s, margin-left 0.2s linear 0s;
-    outline: none; /*pour enlever le cadre bleu quand sélectionné*/
+    outline: none;
     cursor: pointer;
 }
-
-    .divTabCahierInfosStartComment {
-        /*width: 500px;*/
-    }
 .divTabCahierInfosStartComment > div:nth-child(2) {
     background-image: url(../img/icons/start-comment.png);
     margin-top:-2px;
@@ -85,7 +81,7 @@
     border-style: solid;
     border-color: black;
     border-radius: 10px;
-    background-color: white; /*rgb(237,237,237);*/
+    background-color: white;
     padding-left: 60px;
     padding-top: 0px;
     padding-bottom: 0px;
@@ -101,7 +97,7 @@
     -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
     box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
     transition: all 0.1s linear 0s, width 0.2s linear 0s, margin-left 0.2s linear 0s;
-    outline: none; /*pour enlever le cadre bleu quand sélectionné*/
+    outline: none;
 }
 .TabCahierFields input::placeholder {
     color: gray;
@@ -110,7 +106,6 @@
     background-color: white;
 }
     .TabCahierFields input:focus {
-        /*border-color:var(--accent);*/
         -webkit-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
         -moz-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
         box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.5);
@@ -134,17 +129,8 @@
     transition:all 0.1s linear 0s;
     background-size:50px;
 }
-/*.TabCahierFields input[type=text]:focus ~ div:nth-child(2) {
-    background-color:var(--accent);
-}*/
 
 
-
-
-.divTabCahierInfosDestination {
-    /*right: 2.5%;
-    top: 250px;*/
-}
 .divTabCahierInfosDestination > div:nth-child(2){
     background-image: url(../img/icons/destination.png);
 }
@@ -193,36 +179,6 @@
         box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.5);
     }
 
-
-#divTabCahierInfosPhoneNumber {
-    /*left: 2.5%;
-    top: 400px;*/
-}
-#divTabCahierInfosPhoneNumber > div:nth-child(2) {
-    background-image: url(../img/IconPhoneTransparent.png);
-}
-#checkBoxTabCahierInfosPhoneNumberRemember {
-    position: absolute;
-    left: 2.5%;
-    margin-left: 10px;
-    top: 95px;
-    width: 400px;
-    cursor: pointer;
-}
-#checkBoxTabCahierInfosPhoneNumberRemember > div:nth-child(2) {
-    position: absolute;
-    left: 30px;
-    top: 4px;
-    color: gray;
-    font-size: 15px;
-    text-decoration: underline;
-}
-
-.divTabCahierInfosNbrInvites {
-    /*left:2.5%;*/
-    /*margin-left:0px;*/
-    /*margin-top:330px;*/
-}
 .divTabCahierInfosNbrInvites input {
     left:50%;
     margin-left:-65px;
@@ -234,37 +190,3 @@
         left: 50%;
         margin-left: -65px;
     }
-
-
-
-
-#divTabCahierInfosStartTime {
-    left: 2.5%;
-    margin-left: 200px;
-    top: 260px;
-}
-#divTabCahierInfosStartTime input {
-    width: 150px;
-    background-position-x: 90px;
-}
-#divTabCahierInfosStartTime > div:nth-child(2) {
-    background-image: url(../img/icons/participant-count.png);
-}
-
-
-#divTabCahierInfosEndTime {
-    left: 2.5%;
-    margin-left: 300px;
-    top: 460px;
-}
-
-#divTabCahierInfosEndTime input {
-    width: 150px;
-    background-position-x: 90px;
-}
-
-#divTabCahierInfosEndTime > div:nth-child(2) {
-    background-image: url(../img/IconInvitesTransparent.png);
-}
-
-

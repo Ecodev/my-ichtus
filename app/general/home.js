@@ -1,7 +1,9 @@
-﻿// shortucts
+﻿// shortcut
 function $(id) {
     return document.getElementById(id);
 }
+
+// createElements
 function div(loc) {
     var x = document.createElement("div");
     loc.appendChild(x);
@@ -42,6 +44,15 @@ function load() {
     loadBottoms();
 
     loadMateriel();
+
+
+    // auto actualize every .. minutes
+    setInterval(function () {
+        if (currentTabElement.id == "divTabCahier") {
+            Requests.getActualBookingList();
+        }
+    }, 2 * 60 * 1000);
+
 }
 
 // too complicated now...
@@ -52,6 +63,7 @@ function load() {
 //    }
 //}
 
+// could be improved...
 var Time = {
     getActualMinutes: function (m = date.getMinutes()) {
         if (m < 10) {
@@ -114,18 +126,18 @@ function actualizeTime() {
     $("divTopBarTime").innerHTML = date.getNiceTime() + "<br/>" + date.getNiceDate(true); //.substring(0, 3)
 }
 
-
+// NOt USED ANYMORE
 // 1 -> checked //  0 --> not
-function check(checkParent) {
-    if (checkParent.getElementsByClassName('checkBox')[0].id == undefined || checkParent.getElementsByClassName('checkBox')[0].id == 1) {
-        checkParent.getElementsByClassName('checkBox')[0].id = 0;
-        checkParent.getElementsByClassName('checkBox')[0].style.backgroundImage = 'none';
-    }
-    else {
-        checkParent.getElementsByClassName('checkBox')[0].id = 1;
-        checkParent.getElementsByClassName('checkBox')[0].style.backgroundImage = 'url(img/icons/check-black.png)';
-    }
-}
+//function check(checkParent) {
+//    if (checkParent.getElementsByClassName('checkBox')[0].id == undefined || checkParent.getElementsByClassName('checkBox')[0].id == 1) {
+//        checkParent.getElementsByClassName('checkBox')[0].id = 0;
+//        checkParent.getElementsByClassName('checkBox')[0].style.backgroundImage = 'none';
+//    }
+//    else {
+//        checkParent.getElementsByClassName('checkBox')[0].id = 1;
+//        checkParent.getElementsByClassName('checkBox')[0].style.backgroundImage = 'url(img/icons/check-black.png)';
+//    }
+//}
 
 function loadReturnButtons() {
     var allReturnButtons = document.getElementsByClassName("ReturnButtons");
@@ -134,7 +146,7 @@ function loadReturnButtons() {
     }
 }
 
-
+// Modals
 var lastModals = 0;
 function openPopUp() {
 
@@ -220,8 +232,6 @@ function grayBar(elem,marginTop = 10, marginBottom = 15) {
     d.style.marginBottom = marginBottom + "px";
     d.style.marginTop = marginTop + "px";
     d.borderRadius = "2px";
-
-    // '<div style="background-color:gray; height:2px; margin-bottom:15px; margin-top:10px; border-radius:2px;"></div>';
 }
 
 
@@ -236,7 +246,6 @@ function getStartCommentFromBooking(booking,fill = false) {
     else {
         txt = booking.startComment;
     }
-    ////console.log(txt.length);
     if (txt.length == 0 && fill) {
         txt = "Pas de commentaire";
     }
@@ -286,6 +295,7 @@ Array.prototype.findIndex = function (x) {
     return index;
 };
 
+// sortBy
 Array.prototype.sortBy = function (sortFields, order = 1) {
 
     if (order == "ASC") {
@@ -294,8 +304,6 @@ Array.prototype.sortBy = function (sortFields, order = 1) {
     else if (order == "DESC") {
         order = 1;
     }
-
-    ////console.log("sort: ", this, "by: ", sortFields, "order: ", order);
 
     var switching = true;
     while (switching) {
@@ -308,7 +316,6 @@ Array.prototype.sortBy = function (sortFields, order = 1) {
             }
         }
     }
-    //console.log("result of sorting: ",this, "by: ", sortFields);
 };
 
 Array.prototype.fillArray = function (length, what = 0) {
@@ -335,9 +342,10 @@ Array.prototype.mergeAND = function () {
     return send;
 };
 
+// transformBookings
 function transformBookings(_bookings) { // one booking with many bookables
 
-    if (_bookings.length > 0) { //if no booking return []
+    if (_bookings.length > 0) {
 
         var final = [];
 
@@ -362,7 +370,6 @@ function transformBookings(_bookings) { // one booking with many bookables
                 else {
                     final[final.length - 1].bookables.push(_bookings[i].bookables[0]);
                 }
-
                 final[final.length - 1].ids.push(_bookings[i].id);
             }
 
@@ -377,7 +384,6 @@ function transformBookings(_bookings) { // one booking with many bookables
                 else {
                     final[final.length - 1].bookables = [_bookings[i].bookables[0]];
                 }
-
             }
         }
         return final;

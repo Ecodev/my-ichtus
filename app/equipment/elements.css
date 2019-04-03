@@ -30,7 +30,7 @@
 
         .divTabCahierEquipmentElementsContainer > div > div {
             position: absolute;
-            box-sizing: border-box; /*TELLEMENT BIEN !!*/
+            box-sizing: border-box;
             /*border: 2px solid black;*/
             top: 0px;
             width: 100%;
@@ -80,7 +80,7 @@
             top: 220px;
             width: 100%;
             height: 70px;
-            box-sizing: border-box; /*TELLEMENT BIEN !!*/
+            box-sizing: border-box;
             border-top: 2px solid gray;
             border-bottom-right-radius: 20px;
             border-bottom-left-radius: 20px;

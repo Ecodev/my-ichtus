@@ -171,8 +171,6 @@ var Requests = {
             }
             else if (lastUse) {
 
-                //console.log("lastUse ! ");
-
                 var bookings = [];
                 bookings.fillArray(result.items.length,"1111-01-02T13:32:51+01:00");
 
@@ -191,7 +189,7 @@ var Requests = {
                         sorting: [
                             {
                                 field: "startDate",
-                                order: "DESC" //get the latest booking !
+                                order: "DESC" //get the latest booking
                             }
                         ]
                     };
@@ -203,11 +201,8 @@ var Requests = {
 
                     Server.bookingService.getAll(variables).subscribe(r => {
 
-                        //console.log(r);
-
-                        if (r.items.length != 0) {         // else : already a zero ? maybe change to start of the universe lol hhaa
+                        if (r.items.length != 0) {         // else : already a zero ? maybe change to start of the universe lol
                             var bookableId = r.items[0].bookables[0].id;
-                            //console.log(bookableId);
 
                             var c = -1;
                             var firstArray = result.items;
@@ -231,7 +226,6 @@ var Requests = {
                 }
             }
             else if (nbrBookings) {
-                //console.log("nbrBookings ! ");
 
                 var bookings = [];
                 bookings.fillArray(result.items.length,0);
@@ -258,13 +252,10 @@ var Requests = {
                     Server.bookingService.getAll(variables).subscribe(r => {
 
                         if (r.items.length == 0) {
-                            //console.log("no booking");
+                            // no booking
                         }
                         else {
-                             // r.length != r.items.length           !! not the same
-                            var bookableId = r.items[0].bookables[0].id;
-                            //console.log(bookableId);
-
+                            var bookableId = r.items[0].bookables[0].id;        // r.length != r.items.length      !! not the same
                             var c = -1;
                             var firstArray = result.items;
                             for (var i = 0; i < firstArray.length; i++) {
@@ -273,10 +264,8 @@ var Requests = {
                                     break;
                                 }
                             }
-
                             bookings[c] = r.length; // not items.length !
                         }
-
                         counter++;
 
                         if (counter == result.items.length) {
@@ -287,7 +276,7 @@ var Requests = {
                 }
             }
             else {
-                alert("mmmhh.");
+                // should not happen
             }
 
         });
@@ -357,10 +346,8 @@ var Requests = {
 
     // getBookableByCode
     getBookableByCode: function (elem,nbr = 0) {
-
-        t = true;
+        var t = true;
         for (var i = 0; i < Cahier.bookings[0].bookables.length; i++) {
-            //console.log(Cahier.bookings[0].bookables[i].code, elem.value);
             if (Cahier.bookings[0].bookables[i].code.toUpperCase() == elem.value.toUpperCase()) {
                 t = false;
             }
@@ -417,9 +404,6 @@ var Requests = {
 
                         elem.classList.add("animationShake");
                         elem.nextElementSibling.classList.add("animationShake");
-
-                        //elem.style.borderColor = "red";
-                        //elem.nextElementSibling.style.backgroundColor = "red";
                     }, 5);
 
                 }
@@ -439,11 +423,7 @@ var Requests = {
             pagination: {
                 pageSize: 1,
                 pageIndex: 0
-            },
-            sorting: [{
-                field: "id", //USELESS
-                order: "ASC" //USELESS
-            }]
+            }
         };
 
         var variables = new Server.QueryVariablesManager();
@@ -451,7 +431,6 @@ var Requests = {
 
         Server.bookableService.getAll(variables).subscribe(result => {
             //console.log("getBookableInfos(): ", result);
-
             var filter = {
                 filter: {
                     groups: [
@@ -475,8 +454,8 @@ var Requests = {
                     pageIndex: 0
                 },
                 sorting: [{
-                    field: "startDate", //USELESS
-                    order: "DESC" //USELESS
+                    field: "startDate",
+                    order: "DESC" // important
                 }]
             };
 
@@ -485,7 +464,6 @@ var Requests = {
 
             Server.bookingService.getAll(variables).subscribe(bookings => {
                 //console.log("getBookableInfos()_getLastBooking: ", bookings);
-
 
                 var filter = {
                     filter: {
@@ -514,26 +492,19 @@ var Requests = {
     },
 
 
-    // Add an item NO MORE USED
-    addBookable: function (_name, _description) {
+    //// Add an item NO MORE USED
+    //addBookable: function (_name, _description) {
 
-        const item = { name: "1", description: "kj", bookingType: "self_approved", type: 6004 };
+    //    const item = { name: "1", description: "kj", bookingType: "self_approved", type: 6004 };
 
-        Server.bookableService.create(item).subscribe(result => {
-            //console.log('Bookable created', result);
-        });
+    //    Server.bookableService.create(item).subscribe(result => {
+    //        //console.log('Bookable created', result);
+    //    });
 
-    },
+    //},
 
     // getActualBookingList()
     getActualBookingList: function () {
-
-        // auto actualize every .. minutes
-        setTimeout(function () {
-            if (currentTabElement.id == "divTabCahier") {
-                Requests.getActualBookingList();
-            }
-        }, 2 * 60 * 1000);
 
         var filter = {
             filter: {
@@ -632,7 +603,6 @@ var Requests = {
             filter: {
                 groups: [
                     {
-
                         groupLogic: "AND",
 
                         conditions: [{
@@ -831,9 +801,7 @@ var Requests = {
 
                 Server.bookingService.getAll(variables).subscribe(addition => {
                     //console.log("getBookableHistory()_Addition: ", addition);
-
                     var total = bookings.concat(addition.items);
-
                     actualizePopBookableHistory(total, elem);
                 });
 
@@ -886,16 +854,11 @@ var Requests = {
                 elem.innerHTML += result.length;
                 elem.parentElement.style.opacity = 1;
             }
-            else {
-                //elem.parentElement.style.display = "none";
-            }
         });
     },
 
     // getMonthlyBookingsNbr for divBottoms
     getMonthlyBookingsNbr: function (start, end) { // wrong numbers haha due to bookables...
-
-        //console.log(start.toISOString(), end.toISOString());
 
         var filter = {
             filter: {
@@ -980,47 +943,13 @@ var Requests = {
 
         Server.bookingService.getAll(variables).subscribe(result => {
             //console.log("getStats(): ", result);
-
             var send = transformBookings(result.items);
-
-            //console.log("send", send);
-
             actualizeStats(start, end, elem, send);
         });
     },
 
-    // getBookingInfos
-    //getBookingInfos: function (bookingId, which, elem) {
-
-    //    var filter = {
-    //        filter: {
-    //            groups: [
-    //                { conditions: [{ id: { like: { value: bookingId } } }] }
-    //            ]
-    //        },
-    //        pagination: {
-    //            pageSize: 1,
-    //            pageIndex: 0
-    //        },
-    //        sorting: [{
-    //            field: "id", //USELESS
-    //            order: "ASC" //USELESS
-    //        }]
-    //    };
-
-    //    var variables = new Server.QueryVariablesManager();
-    //    variables.set('variables', filter);
-
-    //    Server.bookingService.getAll(variables).subscribe(result => {
-    //        //console.log("getBookingInfos(): ", result);
-    //        actualizePopBooking(result.items[0],which, elem);
-    //    });
-    //},
-
     // getBookingWithBookablesInfos
     getBookingWithBookablesInfos: function (_booking,which,elem) {
-
-        //console.log(_booking.startDate);
 
         var filter = {
             filter: {
@@ -1059,8 +988,7 @@ var Requests = {
                 c++;
                 if (c == bookingIds.length) {
                     //console.log("this.terminateBooking done !");
-                    //Requests.getActualBookingList();
-                    newTab("divTabCahier");
+                    Requests.getActualBookingList();
                 }
             });
         }
@@ -1082,8 +1010,6 @@ var Requests = {
 
             Server.bookingService.create(input).subscribe(booking => {
 
-                //console.log('Created booking : ', booking);
-
                 // LINK BOOKABLE
                 if (Cahier.bookings[0].bookables[i] != Cahier.personalBookable) { // MP
                     Server.linkMutation.link(booking, {
@@ -1097,10 +1023,9 @@ var Requests = {
                     });
                 }
                 else {
-                    //console.log("+1Matériel Personel");
+                    //console.log("Matériel Personel");
                     Requests.counter++;
                     if (Requests.counter == Cahier.bookings[0].bookables.length) { newTab("divTabCahier"); ableToSkipAnimaiton(); }
-
                 }
             });
 

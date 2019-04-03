@@ -325,11 +325,7 @@ option {
     -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5) !important;
     box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5) !important;
 }
-    .NormalButtons:hover {
-        /*-webkit-box-shadow: 2px 1px 5px 0px rgba(0,0,0,0.5) !important;
-        -moz-box-shadow: 2px 1px 5px 0px rgba(0,0,0,0.5) !important;
-        box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.5) !important;*/
-    }
+
 
 
 
@@ -339,8 +335,7 @@ option {
 .BoxesContainer {
     position: relative;
     display: inline-block;
-    box-sizing: border-box; /*TELLEMENT BIEN !!*/
-    /*border: 2px solid black;*/
+    box-sizing: border-box;
     top: 0px;
     width: 265px;
     height: 300px;
@@ -353,7 +348,7 @@ option {
 
 .Boxes {
     position: absolute;
-    box-sizing: border-box; /*TELLEMENT BIEN !!*/
+    box-sizing: border-box;
     top: 0px;
     width: 100%;
     height: 100%;
@@ -391,7 +386,6 @@ option {
     background-position-x: 0px,-20px;
     background-position-y: 0px,-20px;
     background-size: 200px,240px;
-    /*filter:grayscale(1);*/
 }
 
 
@@ -401,7 +395,7 @@ option {
     top: 220px;
     width: 100%;
     height: 80px;
-    box-sizing: border-box; /*TELLEMENT BIEN !!*/
+    box-sizing: border-box;
     border-top: 2px solid gray;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;

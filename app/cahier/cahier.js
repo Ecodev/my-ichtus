@@ -16,7 +16,7 @@ function loadActualBookings(_actualBookings) {
 
     Cahier.finishedBookings = [];
 
-    newBookingTable(new Date(), "Sorties terminées");// tables sorties finies
+    newBookingTable(new Date(), "Sorties terminées"); // tables sorties finies
 
     $('inputTabCahierActualBookingsSearch').value = "";
 
@@ -39,7 +39,7 @@ function actualizeActualBookings(_actualBookings) {
         entry.classList.add("TableEntries");
         entry.classList.add("TableEntriesHover");
 
-        var cell = div(entry);
+        div(entry);
     }
 
     for (var i = 0; i < _actualBookings.length; i++) {
@@ -96,10 +96,8 @@ function actualizeActualBookings(_actualBookings) {
             }
         }
 
-
         divDate.id = "SORTING" + (new Date(_actualBookings[i].startDate)).toISOString(); // for the sorting
         divDate.innerHTML += (new Date(_actualBookings[i].startDate)).getNiceTime(":", true);
-
 
         var participantCount = div(container);
         participantCount.innerHTML = _actualBookings[i].participantCount;
@@ -157,6 +155,7 @@ function bookingTableSearch(_table) {
 
             var add = false;
 
+            // fields taken into account in the search
             if (bookings[b].owner.name.toUpperCase().includes(txts[t].toUpperCase())) {
                 add = true;
             }
@@ -211,10 +210,8 @@ function bookingTableSearch(_table) {
 function createBookingBookableBox(elem, bookable = {code:"ZZZ"}) {
 
     var d = div(elem);
-
-    var img = div(d);
-
     d.id = bookable.code;
+    var img = div(d);
     var code = div(d);
 
     if (bookable == Cahier.personalBookable) {
@@ -241,7 +238,6 @@ function createBookingBookableBox(elem, bookable = {code:"ZZZ"}) {
             div(d).innerHTML = bookable.name.shorten(150, 18);
         }
     }
-
     elem.classList.add("TableEntriesBookableBox");
 }
 
@@ -282,7 +278,6 @@ function loadTableTopBars(allTables = document.getElementsByClassName("BookingsT
 
                    sortTable(this.parentElement.parentElement);
                 });
-
             }
         }
     }
@@ -299,8 +294,6 @@ function sortTable(table) {
             return 1;
         }
     };
-
-  //  //console.log("table.id: " + table.id, "field: " + field, "order: " + order());
 
     var all = table.getElementsByClassName("TableEntries");
     var switching = true;
@@ -374,8 +367,6 @@ function createBookingsTable(date,title) {
         var img = document.createElement("img");
         img.src = "img/" + images[i] + ".png";
         img.alt = "?";
-       // img.style.width = "25px";
-       // img.style.marginRight = "5px";
         d.appendChild(img);
         d.innerHTML += fields[i];
     }
@@ -388,7 +379,6 @@ function createBookingsTable(date,title) {
     b.style.height = "2px";
     b.style.backgroundColor = "gray";
     b.style.zIndex = "2";
-
 
     loadTableTopBars([table]);
 
@@ -413,21 +403,17 @@ function actualizeFinishedBookingListForDay(bookings,table) {
 
     if (bookings.length == 0) {
         var entry = div(table);
-
         entry.classList.add("TableEntries");
         entry.classList.add("TableEntriesHover");
-
-        var cell = div(entry);
+        div(entry);
     }
     else {
         for (var i = 0; i < bookings.length; i++) {
 
             var entry = div(table);
-
             entry.id = i;
             entry.classList.add("TableEntries");
             entry.classList.add("TableEntriesHover");
-
             entry.addEventListener("click", function (event) {
                  if (!(event.target.parentElement.classList.contains("TableEntriesBookableBox") || event.target.parentElement.parentElement.classList.contains("TableEntriesBookableBox"))) {
                      popBookingInfos(bookings[this.id]);
@@ -437,11 +423,8 @@ function actualizeFinishedBookingListForDay(bookings,table) {
 
             div(entry).innerHTML = (new Date(bookings[i].startDate)).getNiceTime(":", true);
             div(entry).innerHTML = (new Date(bookings[i].endDate)).getNiceTime(":", true);
-
             div(entry).innerHTML = bookings[i].participantCount;
-
             div(entry).innerHTML = Cahier.getOwner(bookings[i],true);
-
 
             if (bookings[i].bookables.length == 0) {
                 createBookingBookableBox(div(entry));
@@ -458,7 +441,6 @@ function actualizeFinishedBookingListForDay(bookings,table) {
             div(entry).innerHTML = getEndCommentFromBooking(bookings[i]).shorten(200,16);//.endComment.shorten(200, 20);
 
         }
-
         sortTable(table);
     }
 }

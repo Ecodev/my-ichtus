@@ -3,9 +3,6 @@
 <head>
 
     <!-- !! -->
-    <!-- Ajouter les transitions pour les différents exploreurs + box shadows + border radius -->
-    <!-- Si personne a déjà une sortie -> voir les sorties actuelles de la personne -->
-    <!--meilleur bouton infos sur materiel elements-->
 
     <meta charset="utf-8" />
     <title>Cahier de sortie</title>
@@ -60,24 +57,21 @@
     <script type="text/javascript" src="https://dev.ichtus.club/vanilla/runtime.js"></script>
     <script type="text/javascript" src="https://dev.ichtus.club/vanilla/main.js"></script>
 
-
-
     <!--Favicon-->
     <link rel="icon" href="img/logo/favicon.ico" />
 
 </head>
+
 <body onload="load();">
 
     <!-- Top Bar -->
     <div id="divTopBar">
-
         <div id="divTopBarLogo" onclick="newTab('divTabCahier')" ;>
             <img src="img/logo/white_circle.svg" alt="?" />
             <img src="img/logo/circle.svg" alt="?" />
             <img src="img/logo/fish.svg" alt="?" />
             <img src="img/logo/background_transparent.svg" alt="?" />
         </div>
-
         <div id="divTopBarText">Cahier de sortie</div>
         <div id="divTopBarTime" onclick=""></div>
     </div>
@@ -96,13 +90,12 @@
             <div style="font-size:25px; margin-bottom:5px; text-align:center;">Nouvelle sortie</div>
 
             <div id="divTabCahierActualize" title="Actualiser les sorties" onclick="Requests.getActualBookingList();"></div>
-            <div id="divTabCahierLogin" title="Connexion" onclick="popLogin();//Requests.checkLogin();"></div>
+            <div id="divTabCahierLogin" title="Connexion" onclick="popLogin();"></div>
 
             <div style="text-align:center; width:100%;">
                 <div title="Annoncer une nouvelle sortie" class="Buttons ValidateButtons" style="display:inline-block; width:350px;height:70px; border-radius:25px; line-height:70px; padding-top:0px; text-align:center; background-image:none;" onclick="newTab('divTabCahierMember');">Annoncer une sortie</div>
             </div>
 
-            <!--</div>-->
             <div id="divTabCahierToolTip" style="text-align:center; font-size:15px; margin-top:5px; margin-bottom:5px; color:gray;"><br /><br /></div>
 
             <div id="divTabCahierTables">
@@ -111,8 +104,8 @@
                 <div id="divTabCahierActualBookingsSearchTitle" class="BookingsTableText" style="margin-top:0px;">Sorties en cours</div>
 
                 <div id="divTabCahierTableActualBookings" class="BookingsTable">
-                    <div id="divTabCahierTableActualBookingsTopBar" class="TableEntries TableTopBar">
 
+                    <div id="divTabCahierTableActualBookingsTopBar" class="TableEntries TableTopBar">
                         <div class="BookingsTopBarSorted" id="0" title="Heure de départ">
                             <div></div><img src="img/icons/start.png" alt="rip" />
                         </div><div id="1" title="Nombre de participants">
@@ -134,7 +127,6 @@
                 </div>
 
                 <div id="divTabCahierAlertButtonsLegend"> <div></div>+ de 4 heures<div></div>+ de 12 heures<div></div>+ de 24 heures</div>
-
                 <img />
 
             </div>
@@ -143,6 +135,7 @@
                 <div id="" class="Buttons NormalButtons" style="width:370px;  display:inline-block; background-image:none; padding-right:0px; text-align:center;" onclick="newBookingTable(new Date(this.id));">Charger plus de sorties</div>
             </div>
             <br />
+
         </div>
 
         <!--Div Tab Cahier Top-->
@@ -198,11 +191,7 @@
                     <div style="height:100px;"></div>
                 </div>
             </div>
-
-            <!--<div style="text-align:center; margin-left:2.5%;">Les champs avec un * sont obligatoires !</div>-->
-
             <br />
-
             <div style="text-align:center;">
                 <div class="Buttons ValidateButtons" style="display:inline-block;" onclick="checkInfos();" title="Suivant">Suivant</div>
             </div>
@@ -240,9 +229,6 @@
             <div class="divMaterielSpacers">
                 <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierEquipmentChoice')"></div>
             </div>
-
-            <!--<br />-->
-            <!--<div class="title">Activité</div>-->
             <div id="divTabCahierEquipmentCategoriesContainer"></div>
         </div>
 
@@ -251,9 +237,7 @@
         <div id="divTabCahierEquipmentElements" class="divTab">
             <div class="divCahierSpacers"></div>
             <div class="divMaterielSpacers">
-
                 <div class="Buttons ReturnButtons" onclick="historyBackTab();" style="position:absolute;"></div>
-
                 <div id="divTabCahierEquipmentElementsButtonsContainer">
                     <div style="min-width:271px;">
                         <div id="divTabCahierEquipmentElementsSelectCategorie" title="Catégorie">
@@ -286,9 +270,7 @@
                 </div>
                 <div id="divTabCahierInfosBar" style="position:relative; top:0px; margin-top:5px; margin-bottom:5px;"></div>
             </div>
-
             <div class="divTabCahierEquipmentElementsContainer"></div>
-
         </div>
 
 
@@ -305,7 +287,6 @@
             <div style="text-align:center; margin-top:15px;">
                 <div title="Confirmer votre sortie" class="Buttons ValidateButtons" style="display:inline-block; width:350px; height:70px; border-radius:25px; line-height:70px; padding-top:0px; text-align:center; background-image:none" onclick="Cahier.confirm()">Confirmer votre sortie</div>
             </div>
-
             <br />
 
         </div>
@@ -337,4 +318,4 @@
 
     CAHIER
     http://atelier-broichot.fr/toutes-nos-realisations/icon-cahier/
-    -->
+-->

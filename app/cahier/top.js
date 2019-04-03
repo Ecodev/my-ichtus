@@ -16,10 +16,9 @@ function createProgressBar() {
                 newTab(progessionTabNames[c]);
 
             }
-
         });
-        $("divTabCahierProgress").appendChild(divStep);
 
+        $("divTabCahierProgress").appendChild(divStep);
         divStep.classList.add("divTabCahierProgressStepCompleted");
 
         var divNumber = document.createElement("div");
@@ -27,11 +26,9 @@ function createProgressBar() {
         divNumber.innerHTML = (i + 1);
         divStep.appendChild(divNumber);
 
-
         var divCircle = document.createElement("div");
         divCircle.classList.add("divTabCahierProgressCircle");
         divStep.appendChild(divCircle);
-
 
         var divText = document.createElement("div");
         divText.classList.add("divTabCahierProgressText");
@@ -48,16 +45,15 @@ function createProgressBar() {
     divBarBlue.id = "divTabCahierProgressBarBlue";
     divBarBlue.style.left = (11 + 26 * 0) + "%";
     $("divTabCahierProgress").appendChild(divBarBlue);
-
 }
 
 var currentProgress = 0;
 function changeProgress(c) {
 
-    var sign;
-    if (c != currentProgress) {
-        sign = Math.abs(c - currentProgress) / (c - currentProgress);
-    }
+    //var sign;
+    //if (c != currentProgress) {
+    //    sign = Math.abs(c - currentProgress) / (c - currentProgress);
+    //}
 
     currentProgress = c;
     for (var i = 1; i < 5; i++) {

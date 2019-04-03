@@ -55,7 +55,6 @@ function loadStats(end = new Date()) {
         };
     }
 
-
     div(t).innerHTML = Mois[start.getMonth()];
 
     var c = document.getElementsByClassName("divStatsContainer")[0];
@@ -102,7 +101,6 @@ function actualizeStats(start, end, elem, bookings) {
     var legend = elem.children[2];
 
     var legends = Jours.concat(Jours).concat(Jours);
-    //stats = [1, 25, 50, 75, 100, 9, 25, 100, 7, 100, 9, 25, 100, 1, 25, 50, 75, 100, 9, 25, 100, 7, 100, 9, 25, 100, 1, 25, 50, 75, 100, 9, 25, 100, 7, 100, 9, 25, 100];
     var max = stats.max();
 
     for (var i = 0; i < stats.length; i++) {
@@ -124,10 +122,7 @@ function actualizeStats(start, end, elem, bookings) {
 
             div(l).innerHTML = date.getDate();
         }
-
     }
-
-
 
     var step = 1;
     var count = (max - max % step) / step;
@@ -152,7 +147,6 @@ function actualizeStats(start, end, elem, bookings) {
         div(s);
         div(s);
     }
-
 }
 
 Array.prototype.max = function () {
