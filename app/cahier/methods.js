@@ -24,7 +24,7 @@ var Cahier = {
         if (_bookable == Cahier.personalBookable) {
             return 'url(img/icons/own-sail.png)';
         }
-        return 'url(https://dev.ichtus.club/image/' + _bookable.image.id + '/' + size + ')';
+        return 'url(https://tus.club/image/' + _bookable.image.id + '/' + size + ')';
     },
 
     getFullName: function (booking = Cahier.bookings[0]) {
