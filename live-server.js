@@ -10,6 +10,6 @@ var params = {
     wait: 0, // Waits for all changes, before reloading. Defaults to 0 sec.
     mount: [['/components', './node_modules']], // Mount a directory to a route.
     logLevel: 2, // 0 = errors only, 1 = some, 2 = lots
-    watch: './app/*',
+    watch: './app/**',
   };
 liveServer.start(params);

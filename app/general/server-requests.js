@@ -179,7 +179,7 @@ var Requests = {
                     var filter = {
                         filter: {
                             groups: [
-                                { conditions: [{ bookables: { have: { values: [result.items[i].id] } } }] }
+                                { conditions: [{ bookable: { have: { values: [result.items[i].id] } } }] }
                             ]
                         },
                         pagination: {
@@ -202,7 +202,7 @@ var Requests = {
                     Server.bookingService.getAll(variables).subscribe(r => {
 
                         if (r.items.length != 0) {         // else : already a zero ? maybe change to start of the universe lol
-                            var bookableId = r.items[0].bookables[0].id;
+                            var bookableId = r.items[0].bookable.id;
 
                             var c = -1;
                             var firstArray = result.items;
@@ -235,7 +235,7 @@ var Requests = {
                     var filter = {
                         filter: {
                             groups: [
-                                { conditions: [{ bookables: { have: { values: [result.items[i].id] } } }] }
+                                { conditions: [{ bookable: { have: { values: [result.items[i].id] } } }] }
                             ]
                         },
                         pagination: {
@@ -255,7 +255,7 @@ var Requests = {
                             // no booking
                         }
                         else {
-                            var bookableId = r.items[0].bookables[0].id;        // r.length != r.items.length      !! not the same
+                            var bookableId = r.items[0].bookable.id;        // r.length != r.items.length      !! not the same
                             var c = -1;
                             var firstArray = result.items;
                             for (var i = 0; i < firstArray.length; i++) {
@@ -436,7 +436,7 @@ var Requests = {
                     groups: [
                         {
                             joins: {
-                                bookables: {
+                                bookable: {
                                     conditions: [{
                                         id: {
                                             like: {
@@ -523,7 +523,7 @@ var Requests = {
                                         not: false
                                     }
                                 },
-                                bookables: {
+                                bookable: {
                                     empty: {
                                         not: true
                                     }
@@ -532,7 +532,7 @@ var Requests = {
                             }
                         ],
                         joins: {
-                            bookables: {
+                            bookable: {
                                 type:"leftJoin",
                                 conditions: [{
                                     bookingType: {
@@ -559,7 +559,7 @@ var Requests = {
                                     not: false
                                 }
                             },
-                            bookables: {
+                            bookable: {
                                 empty: {
                                     not:false
                                 }
@@ -622,7 +622,7 @@ var Requests = {
                                     to: end.toISOString()
                                 }
                             },
-                            bookables: {
+                            bookable: {
                                 empty: {
                                     not: true
                                 }
@@ -631,7 +631,7 @@ var Requests = {
                         }
                         ],
                         joins: {
-                            bookables: {
+                            bookable: {
                                 type: "leftJoin",
                                 conditions: [{
                                     bookingType: {
@@ -664,7 +664,7 @@ var Requests = {
                                     to: end.toISOString()
                                 }
                             },
-                            bookables: {
+                            bookable: {
                                 empty: {
                                     not: false
                                 }
@@ -704,7 +704,7 @@ var Requests = {
                 groups: [
                     {
                         joins: {
-                            bookables: {
+                            bookable: {
                                 conditions: [{
                                     id: {
                                         like: {
@@ -763,7 +763,7 @@ var Requests = {
                         groups: [
                             {
                                 joins: {
-                                    bookables: {
+                                    bookable: {
                                         conditions: [{
                                             id: {
                                                 equal: {
@@ -816,7 +816,7 @@ var Requests = {
                 groups: [
                     {
                         joins: {
-                            bookables: {
+                            bookable: {
                                 conditions: [{
                                     id: {
                                         equal: {
@@ -1005,28 +1005,13 @@ var Requests = {
                 owner: Cahier.bookings[0].owner.id,
                 participantCount: Cahier.bookings[0].participantCount,
                 destination: Cahier.bookings[0].destination,
-                startComment: Cahier.bookings[0].startComment
+                startComment: Cahier.bookings[0].startComment,
+                bookable: Cahier.bookings[0].bookables[i] != Cahier.personalBookable ? Cahier.bookings[0].bookables[i].id : null,
             };
 
             Server.bookingService.create(input).subscribe(booking => {
-
-                // LINK BOOKABLE
-                if (Cahier.bookings[0].bookables[i] != Cahier.personalBookable) { // MP
-                    Server.linkMutation.link(booking, {
-                        id: Cahier.bookings[0].bookables[i].id,
-                        __typename: 'Bookable'
-                    }).subscribe(() => {
-                        //console.log('Linked Bookable : ', booking);
-
-                        Requests.counter++;
-                        if (Requests.counter == Cahier.bookings[0].bookables.length) { newTab("divTabCahier"); ableToSkipAnimaiton();}
-                    });
-                }
-                else {
-                    //console.log("Matériel Personel");
-                    Requests.counter++;
-                    if (Requests.counter == Cahier.bookings[0].bookables.length) { newTab("divTabCahier"); ableToSkipAnimaiton(); }
-                }
+                Requests.counter++;
+                if (Requests.counter == Cahier.bookings[0].bookables.length) { newTab("divTabCahier"); ableToSkipAnimaiton(); }
             });
 
         }
