@@ -64,3 +64,39 @@ function popAlertAlreadyHavingABooking(_owner) {
     btn.innerHTML = "Continuer";
     btn.addEventListener("click", function () { Cahier.setOwner(0, _owner,true); closePopUp("last"); });
 }
+
+
+function popAlertMoreBookablesThanParticipants(bookables,participants) {
+    var elem = openPopUp();
+
+    var container;
+    container = div(elem);
+    container.classList.add("PopUpAlertContainer", "bookable");
+    container.classList.add("Boxes");
+
+    var close = div(container);
+    close.className = "divPopUpClose";
+    close.onclick = function () {
+        closePopUp({ target: elem }, elem);
+    };
+
+    var d = div(container);
+    d.style.textAlign = "center";
+    d.style.fontSize = "25px";
+    d.innerHTML = "Trop d'embarcations";
+
+    grayBar(container, 5);
+
+    var t = div(container);
+    t.innerHTML = "Vous avez choisi " + bookables + " embarcations pour seulement " + Cahier.getSingularOrPlural(participants, " participant") + " !";
+
+    var btnContainer = div(container);
+    btnContainer.style.position = "relative";
+    btnContainer.style.textAlign = "center";
+
+    var btn = div(btnContainer);
+    btn.classList.add("Buttons","ValidateButtons");
+    btn.style.display = "inline-block";
+    btn.innerHTML = "Modifier le nbr de participants";
+    btn.addEventListener("click", function () { closePopUp("last"); popCahierInfos(0);  });
+}

@@ -29,3 +29,20 @@
         line-height:54px;
     }
 
+
+    .PopUpAlertContainer.bookable {
+        height: 200px;
+        width: 460px;
+    }
+
+        .PopUpAlertContainer.bookable .Buttons {
+            margin: 10px;
+            margin-top: 16px;
+            font-size: 21px;
+            padding-top: 0px;
+            height: 49px;
+            line-height: 50px;
+            width: 285px;
+            background-image:none;
+        }
+

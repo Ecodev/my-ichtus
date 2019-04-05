@@ -133,9 +133,17 @@ var Cahier = {
     },
 
     confirm: function () {
-        Requests.createBooking();
-        animate();
+
+        // if more bookables than participants
+        if (Cahier.bookings[0].participantCount < Cahier.bookings[0].bookables.length) {
+            popAlertMoreBookablesThanParticipants(Cahier.bookings[0].bookables.length, Cahier.bookings[0].participantCount);
+        }
+        else {
+            Requests.createBooking();
+            animate();
         //console.log("--> Cahier.confirm()");
+        }
+
     },
 
     actualizeProgressBar: function () {

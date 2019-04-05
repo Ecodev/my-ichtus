@@ -20,8 +20,6 @@ function popBookableHistory(bookableId) {
     container.style.padding = "10px";
     container.classList.add("PopUpBookableHistoryContainer");
 
-
-
     container.innerHTML += '<div style=" font-size:25px; text-align:center; color:black;">Historique</div>';
     grayBar(container, 5);
 
@@ -45,10 +43,10 @@ function actualizePopBookableHistory(bookings, elem) {
 
     bookings = changeDaySorting(bookings);
 
-    var bookableId = bookings[0].bookables[0].id;
+    var bookableId = bookings[0].bookable.id;
 
     var container = elem.getElementsByTagName("div")[0];
-    container.getElementsByTagName("div")[0].innerHTML = ("Historique de " + bookings[0].bookables[0].name).shorten(600,25);
+    container.getElementsByTagName("div")[0].innerHTML = ("Historique de " + bookings[0].bookable.name).shorten(600,25);
 
     var scroll = container.getElementsByClassName("PopUpBookableHistoryContainerScroll")[0];
 

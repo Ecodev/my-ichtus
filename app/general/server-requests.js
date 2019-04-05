@@ -347,11 +347,24 @@ var Requests = {
     // getBookableByCode
     getBookableByCode: function (elem,nbr = 0) {
         var t = true;
+
+        var code = elem.value.toUpperCase();
+
         for (var i = 0; i < Cahier.bookings[0].bookables.length; i++) {
-            if (Cahier.bookings[0].bookables[i].code.toUpperCase() == elem.value.toUpperCase()) {
+            if (Cahier.bookings[0].bookables[i].code.toUpperCase() == code) {
                 t = false;
             }
         }
+
+        // accept NE538 although the real code is NE 538
+        if (code.indexOf("NE") == 0 && code.indexOf("NE ") == -1) {
+            code = "NE " + code.slice(2);
+            console.log(code);
+        }
+        else {
+            console.log(code.indexOf("NE"), code.indexOf("NE "));
+        }
+
         if (!t) {
             popAlert("Vous avez déjà choisi cette embarcation");
         }
@@ -361,7 +374,7 @@ var Requests = {
                     groups: [
                         {
                             conditions: [
-                                { code: { like: { value: elem.value } } },
+                                { code: { like: { value: code} } },
                                 {
                                     bookingType: {
                                         like: {
@@ -860,6 +873,8 @@ var Requests = {
     // getMonthlyBookingsNbr for divBottoms
     getMonthlyBookingsNbr: function (start, end) { // wrong numbers haha due to bookables...
 
+        end = new Date(end.getFullYear(), end.getMonth(), end.getDate(), 23, 59, 59, 99);
+
         var filter = {
             filter: {
                 groups: [
@@ -879,13 +894,54 @@ var Requests = {
                                         value: true
                                     }
                                 }
+                            },
+                            {
+                                bookable: {
+                                    empty: {
+                                        not: false
+                                    }
+                                }
                             }
                         ]
+                    },
+                    {
+                        groupLogic: "OR",
+                        conditions: [
+                            {
+                                startDate: {
+                                    between: {
+                                        from: start,
+                                        to: end
+                                    }
+                                }
+                            },
+                            {
+                                startDate: {
+                                    group: {
+                                        value: true
+                                    }
+                                }
+                            }
+                        ],
+                        joins: {
+                            bookable: {
+                                type: "leftJoin",
+                                conditions: [
+                                    {
+                                        bookingType: {
+                                            equal: {
+                                                value: "self_approved"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
                     }
                 ]
             },
             pagination: {
-                pageSize: 0,
+                pageSize: 10,
                 pageIndex: 0
             }
         };
@@ -911,7 +967,7 @@ var Requests = {
 
 
     // getStats
-    getStats: function (start,end,elem) {
+    getStats: function (start, end, elem) {
 
         var f = {
             filter: {
@@ -924,7 +980,40 @@ var Requests = {
                                     to: end
                                 }
                             }
-                        }]
+                        },
+                        {
+                            bookable: {
+                                empty: {
+                                    not: false
+                                }
+                            }
+                        }
+                        ]
+                    },
+                    {
+                        groupLogic:"OR",
+                        conditions: [{
+                            startDate: {
+                                between: {
+                                    from: start,
+                                    to: end
+                                }
+                            }
+                        }],
+                        joins: {
+                            bookable: {
+                                type: "leftJoin",
+                                conditions: [
+                                    {
+                                        bookingType: {
+                                            equal: {
+                                                value: "self_approved"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
                     }
                 ]
             },
@@ -1003,11 +1092,13 @@ var Requests = {
         for (let i = 0; i < Cahier.bookings[0].bookables.length; i++) {
             var input = {
                 owner: Cahier.bookings[0].owner.id,
-                participantCount: Cahier.bookings[0].participantCount,
+                participantCount: i == 0 ? Cahier.bookings[0].participantCount - Cahier.bookings[0].bookables.length + 1 : 1,
                 destination: Cahier.bookings[0].destination,
                 startComment: Cahier.bookings[0].startComment,
-                bookable: Cahier.bookings[0].bookables[i] != Cahier.personalBookable ? Cahier.bookings[0].bookables[i].id : null,
+                bookable: Cahier.bookings[0].bookables[i] != Cahier.personalBookable ? Cahier.bookings[0].bookables[i].id : null
             };
+
+            console.log(i, input.participantCount);
 
             Server.bookingService.create(input).subscribe(booking => {
                 Requests.counter++;

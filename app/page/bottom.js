@@ -13,6 +13,6 @@ function loadBottoms() {
     }
 
     var end = new Date(Date.now());
-    var start = new Date(end.getFullYear(), end.getMonth(), 0, 0, 0, 0, 1);
+    var start = new Date(end.getFullYear(), end.getMonth(), 1, 0, 0, 0, 1);
     Requests.getMonthlyBookingsNbr(start, end);
 }

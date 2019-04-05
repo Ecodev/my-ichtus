@@ -167,6 +167,7 @@
 .divTabCahierProgressStepCurrent .divTabCahierProgressNumber {
     opacity: 1;
     color: white;
+    cursor:pointer;
 }
 
 .divTabCahierProgressStepIncompleted .divTabCahierProgressNumber {

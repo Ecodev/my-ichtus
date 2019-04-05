@@ -371,6 +371,7 @@ function transformBookings(_bookings) { // one booking with many bookables
                     final[final.length - 1].bookables.push(_bookings[i].bookable);
                 }
                 final[final.length - 1].ids.push(_bookings[i].id);
+                final[final.length - 1].participantCount += _bookings[i].participantCount;
             }
 
             // new booking

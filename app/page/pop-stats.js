@@ -42,7 +42,7 @@ function loadStats(end = new Date()) {
     t.innerHTML = "";
     var btn = div(t);
     btn.onclick = function () {
-        loadStats(new Date(start.getFullYear(), start.getMonth(), 0, 0, 0, 0, 1)); // day 0
+        loadStats(new Date(start.getFullYear(), start.getMonth(), 0, 23, 59, 59, 99)); // day 0
     };
 
     var btn2 = div(t);
@@ -51,7 +51,7 @@ function loadStats(end = new Date()) {
     }
     else {
         btn2.onclick = function () {
-            loadStats(new Date(start.getFullYear(), start.getMonth() + 2, 0, 0, 0, 0, 1)); // day 0
+            loadStats(new Date(start.getFullYear(), start.getMonth() + 2, 0, 23, 59, 59, 99)); // day 0
         };
     }
 

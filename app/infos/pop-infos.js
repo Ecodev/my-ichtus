@@ -1,4 +1,4 @@
-function popCahierInfos(nbr) {
+function popCahierInfos(nbr = 0) {
 
     var elem = openPopUp();
 
