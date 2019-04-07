@@ -62,7 +62,7 @@ var Requests = {
         variables.set('variables', filter);
 
         Server.userService.getAll(variables).subscribe(result => {
-            //console.log("getUsersList(): ", result);
+            console.log("getUsersList(): ", result);
             createSearchEntries(result.items);
         });
     },
@@ -600,8 +600,13 @@ var Requests = {
         variables.set('variables', filter);
 
         Server.bookingService.getAll(variables, true).subscribe(result => { // force = true
-            var send = transformBookings(result.items);
-            loadActualBookings(send);
+            console.log(result.items);
+        //    var send = transformBookings(result.items);
+            var a = transformBookings(result.items);
+            var b = transformBookings(result.items);
+            var c = transformBookings(result.items);
+            console.log(transformBookings(result.items));
+            loadActualBookings(transformBookings(result.items));
         });
 
     },
@@ -941,7 +946,7 @@ var Requests = {
                 ]
             },
             pagination: {
-                pageSize: 10,
+                pageSize: 0,
                 pageIndex: 0
             }
         };

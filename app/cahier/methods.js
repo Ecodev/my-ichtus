@@ -24,8 +24,13 @@ var Cahier = {
         if (_bookable == Cahier.personalBookable) {
             return 'url(img/icons/own-sail.png)';
         }
-        return 'url(https://ichtus.club/image/' + _bookable.image.id + '/' + size + ')';
-    },
+        else if (_bookable.image != null) {
+            return 'url(https://ichtus.club/image/' + _bookable.image.id + '/' + size + ')';
+        }
+        else {
+            return 'url(img/icons/no-picture.png)';
+        }
+   },
 
     getFullName: function (booking = Cahier.bookings[0]) {
         if (booking.guest) { return booking.guestName; } else { return booking.owner.surName + " " + booking.owner.firstName; }
