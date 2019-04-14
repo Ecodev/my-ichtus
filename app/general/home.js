@@ -1,4 +1,7 @@
-﻿// shortcut
+﻿//options
+var options = { bookablesComment: false, showMetadatas: false };
+
+// shortcut
 function $(id) {
     return document.getElementById(id);
 }
@@ -318,6 +321,7 @@ Array.prototype.sortBy = function (sortFields, order = 1) {
     }
 };
 
+// fillArray
 Array.prototype.fillArray = function (length, what = 0) {
     for (var i = 0; i < length; i++) {
         this[i] = what;
@@ -342,6 +346,16 @@ Array.prototype.mergeAND = function () {
     return send;
 };
 
+
+
+// clone
+Object.prototype.clone = function () {
+    return JSON.parse(JSON.stringify(this));
+};
+
+
+
+
 // transformBookings
 function transformBookings(_bookings) {
 
@@ -349,7 +363,7 @@ function transformBookings(_bookings) {
 
         var final = [];
 
-        final.push(_bookings[0]);
+        final.push(_bookings[0].clone());
         final[0].ids = [_bookings[0].id];
 
         if (_bookings[0].bookable == null) {
@@ -376,7 +390,7 @@ function transformBookings(_bookings) {
 
             // new booking
             else {
-                final.push(_bookings[i]);
+                final.push(_bookings[i].clone());
                 final[final.length - 1].ids = [_bookings[i].id];
 
                 if (_bookings[i].bookable == null) {
@@ -394,3 +408,5 @@ function transformBookings(_bookings) {
         return [];
     }
 }
+
+

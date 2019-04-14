@@ -1,8 +1,3 @@
-// set true if wanna a comment by bookable !!
-var bookablesComment = false;
-
-
-
 // popBookings
 function loadConfirmation() {
     var elem = $('divTabConfirmationOneBookingContainer');
@@ -96,7 +91,7 @@ function openBooking(which = "confirmation", elem = $('divTabConfirmationOneBook
     div(texts).innerHTML = "...";
     div(texts).innerHTML = "...";
 
-    if (which == "finish" && bookablesComment) { // desactivated
+    if (which == "finish" && options.bookablesComment) { // desactivated
 
         var radioContainer = div(emb);
         radioContainer.className = "radioContainer";
@@ -253,7 +248,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
 
         btn.addEventListener("click", function () {
 
-            if (bookablesComment) {
+            if (options.bookablesComment) {
                 var comments = [];
 
                 for (var i = 0; i < booking.ids.length; i++) {
@@ -316,7 +311,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
                 img.addEventListener("click", function () { popBookable(booking.bookables[i].id); });
             }
 
-            if (which == "finish" && bookablesComment) {
+            if (which == "finish" && options.bookablesComment) {
 
                 emb.style.display = "block";
 

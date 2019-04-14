@@ -22,17 +22,19 @@ var Requests = {
 
     // actualizeLoginButton
     checkLogin: function () {
-        Server.userService.getCurrentUser().subscribe(function (user) {
-            if (!user) {
-                // pas connecté
-                console.error("Pas connecté");
-                popLogin();
-            } else {
-                // connecté
-                console.warn("Connecté");
-                Requests.getActualBookingList();
-            }
-        });
+        //Server.userService.getCurrentUser().subscribe(function (user) {
+        //    if (!user) {
+        //        // pas connecté
+        //        console.error("Pas connecté");
+        //        popLogin();
+        //    } else {
+        //        // connecté
+        //        console.warn("Connecté");
+        //        Requests.getActualBookingList();
+        //    }
+        //});
+
+        Requests.getActualBookingList();
     },
 
 
@@ -62,7 +64,7 @@ var Requests = {
         variables.set('variables', filter);
 
         Server.userService.getAll(variables).subscribe(result => {
-            console.log("getUsersList(): ", result);
+           // console.log("getUsersList(): ", result);
             createSearchEntries(result.items);
         });
     },
@@ -600,12 +602,6 @@ var Requests = {
         variables.set('variables', filter);
 
         Server.bookingService.getAll(variables, true).subscribe(result => { // force = true
-            console.log(result.items);
-        //    var send = transformBookings(result.items);
-            var a = transformBookings(result.items);
-            var b = transformBookings(result.items);
-            var c = transformBookings(result.items);
-            console.log(transformBookings(result.items));
             loadActualBookings(transformBookings(result.items));
         });
 
@@ -1103,7 +1099,7 @@ var Requests = {
                 bookable: Cahier.bookings[0].bookables[i] != Cahier.personalBookable ? Cahier.bookings[0].bookables[i].id : null
             };
 
-            console.log(i, input.participantCount);
+           // console.log(i, input.participantCount);
 
             Server.bookingService.create(input).subscribe(booking => {
                 Requests.counter++;

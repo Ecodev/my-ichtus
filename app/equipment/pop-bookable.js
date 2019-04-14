@@ -64,10 +64,12 @@ function actualizePopBookable(nbr, bookable,bookings, elem, metadatas) {
     textsContainer.getElementsByTagName("div")[0].innerHTML = bookable.code;
     textsContainer.getElementsByTagName("div")[1].innerHTML = bookable.name.shorten(420, 20);
 
-    for (var i = 0; i < metadatas.length; i++) {
-        div(textsContainer).innerHTML = metadatas[i].name + " " + metadatas[i].value;
+    // metadatas true | false
+    if (options.showMetadatas) {
+        for (var i = 0; i < metadatas.length; i++) {
+            div(textsContainer).innerHTML = metadatas[i].name + " " + metadatas[i].value;
+        }
     }
-
 
     if (bookings.length != 0) {
 
@@ -122,12 +124,4 @@ function actualizePopBookable(nbr, bookable,bookings, elem, metadatas) {
 
 	elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[1].id = bookable.id;
 
-
-}
-
-function a() {
-
-    setTimeout(function () {
-        document.getElementsByClassName('divTabCahierEquipmentElementsPopUp')[0].getElementsByClassName('ValidateButtons')[0].focus();
-    }, 2000);
 }
