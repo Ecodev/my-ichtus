@@ -163,12 +163,12 @@ function createSearchEntries(PeopleCorresponding) {
 
             var span1 = document.createElement("span");
             span1.classList.add("spanTabCahierSurName");
-            span1.innerHTML = PeopleCorresponding[i].name.split(" ")[1]; //.firstN/name
+            span1.innerHTML = PeopleCorresponding[i].name.split(" ")[0]; //changed ! --> div names are false $$
             divResult.appendChild(span1);
 
             var span2 = document.createElement("span");
             span2.classList.add("spanTabCahierFirstName");
-            span2.innerHTML = PeopleCorresponding[i].name.split(" ")[0]; //.surname //lastName ???
+            span2.innerHTML = PeopleCorresponding[i].name.split(" ")[1];
             divResult.appendChild(span2);
 
             if (i == 0) {

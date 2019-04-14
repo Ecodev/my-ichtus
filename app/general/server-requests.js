@@ -22,17 +22,17 @@ var Requests = {
 
     // actualizeLoginButton
     checkLogin: function () {
-        //Server.userService.getCurrentUser().subscribe(function (user) {
-        //    if (!user) {
-        //        // pas connecté
-        //        console.error("Pas connecté");
-        //        popLogin();
-        //    } else {
-        //        // connecté
-        //        console.warn("Connecté");
-        //        Requests.getActualBookingList();
-        //    }
-        //});
+        Server.userService.getViewer().subscribe(function (user) {
+            if (!user) {
+                // pas connecté
+                console.error("Pas connecté");
+                popLogin();
+            } else {
+                // connecté
+                console.warn("Connecté");
+                Requests.getActualBookingList();
+            }
+        });
 
         Requests.getActualBookingList();
     },
