@@ -64,7 +64,8 @@ var Requests = {
         variables.set('variables', filter);
 
         Server.userService.getAll(variables).subscribe(result => {
-           // console.log("getUsersList(): ", result);
+            console.log("getUsersList(): ", result);
+            console.log("gender of user !");
             createSearchEntries(result.items);
         });
     },
