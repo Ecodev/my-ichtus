@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Application\Acl;
 
 use Application\Acl\Assertion\All;
+use Application\Acl\Assertion\BookableAvailable;
 use Application\Acl\Assertion\ExpenseClaimStatusIsNew;
 use Application\Acl\Assertion\IsMyself;
 use Application\Acl\Assertion\IsOwner;
@@ -81,7 +82,8 @@ class Acl extends \Zend\Permissions\Acl\Acl
 
         $this->allow(User::ROLE_ANONYMOUS, [$country, $bookable, $bookableMetadata, $bookableTag, $image, $license, $transactionTag], ['read']);
 
-        $this->allow(User::ROLE_BOOKING_ONLY, $booking, ['create', 'read', 'update']);
+        $this->allow(User::ROLE_BOOKING_ONLY, $booking, ['create'], new BookableAvailable());
+        $this->allow(User::ROLE_BOOKING_ONLY, $booking, ['read', 'update']);
 
         $this->allow(User::ROLE_INDIVIDUAL, $user, ['read']);
         $this->allow(User::ROLE_INDIVIDUAL, $user, ['update'], new IsMyself());
