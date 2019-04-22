@@ -33,8 +33,6 @@ var Requests = {
                 Requests.getActualBookingList();
             }
         });
-
-        Requests.getActualBookingList();
     },
 
 
@@ -64,8 +62,7 @@ var Requests = {
         variables.set('variables', filter);
 
         Server.userService.getAll(variables).subscribe(result => {
-            console.log("getUsersList(): ", result);
-            console.log("gender of user !");
+        //    console.log("getUsersList(): ", result);
             createSearchEntries(result.items);
         });
     },
@@ -881,26 +878,38 @@ var Requests = {
             filter: {
                 groups: [
                     {
+                        groupLogic:"AND",
                         conditions: [
                             {
+                                // $$ $$ modifiy
+                                //status: {
+                                //    equal: {
+                                //        value: "booked"
+                                //    }
+                                //},
                                 startDate: {
                                     between: {
                                         from: start,
                                         to: end
                                     }
-                                }
+                                },
+
+                                bookable: {
+                                    empty: {
+                                        not: false
+                                    }
+                                }//,
+                                //startDate: {
+                                //    group: {
+                                //        value: true
+                                //    }
+                                //}
+
                             },
                             {
                                 startDate: {
                                     group: {
                                         value: true
-                                    }
-                                }
-                            },
-                            {
-                                bookable: {
-                                    empty: {
-                                        not: false
                                     }
                                 }
                             }

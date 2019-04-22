@@ -231,6 +231,9 @@ function createBookingBookableBox(elem, bookable = {code:"ZZZ"}) {
         };
         img.style.backgroundImage = Cahier.getImageUrl(bookable,35);
         code.innerHTML = bookable.code;
+
+      //  console.log(bookable);
+
         if (bookable.code.length > 2) {
             div(d).innerHTML = bookable.name.shorten(120, 18);
         }
