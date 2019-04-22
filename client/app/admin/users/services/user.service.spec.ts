@@ -3,84 +3,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { UserService } from './user.service';
 import { Apollo } from 'apollo-angular';
 import { Router } from '@angular/router';
-import { userMetaTesting } from '../../../shared/testing/userMetaTesting';
 import { MockApolloProvider } from '../../../shared/testing/MockApolloProvider';
 import { AbstractModelServiceSpec } from '../../../shared/testing/AbstractModelServiceSpec';
 import { PermissionsService } from '../../../shared/services/permissions.service';
 
 describe('UserService', () => {
-
-    const expectedOne = {
-        id: '456',
-        name: 'test string',
-        firstName: 'test string',
-        lastName: 'test string',
-        email: 'test@example.com',
-        phone: 'test string',
-        postcode: 'test string',
-        street: 'test string',
-        locality: 'test string',
-        birthday: '2018-02-27',
-        updateDate: '2018-01-18T11:43:31',
-        login: 'test string',
-        iban: 'test string',
-        resignDate: '2018-01-18T11:43:31',
-        familyRelationship: 'householder',
-        role: 'member',
-        status: 'active',
-        swissSailing: 'test string',
-        swissSailingType: 'junior',
-        swissWindsurfType: 'passive',
-        mobilePhone: 'test string',
-        firstLogin:  '2018-01-18T11:43:31',
-        lastLogin:  '2018-01-18T11:43:31',
-        age: 1,
-        hasInsurance: true,
-        door1: true,
-        door2: true,
-        door3: true,
-        door4: true,
-        canOpenDoor: true,
-        receivesNewsletter: true,
-        licenses: [
-            {
-                id: '456',
-                name: 'test string',
-                __typename: 'License',
-            },
-            {
-                id: '456',
-                name: 'test string',
-                __typename: 'License',
-            },
-        ],
-        account: {
-            id: '456',
-            balance: 'test string',
-            name: 'test string',
-            type: 'revenue',
-            __typename: 'Account',
-        },
-        billingType: 'electronic',
-        remarks: 'test string',
-        internalRemarks: 'test string',
-        owner: {
-            id: '456',
-            name: 'test string',
-            __typename: 'User',
-        },
-        sex: 'not_known',
-        welcomeSessionDate: '2018-01-18T11:43:31',
-        creationDate: '2018-01-18T11:43:31',
-        country: {
-            id: '456',
-            name: 'test string',
-            __typename: 'Country',
-        },
-        creator: userMetaTesting,
-        updater: userMetaTesting,
-        __typename: 'User',
-    };
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -107,7 +34,7 @@ describe('UserService', () => {
         service.getViewer().subscribe(v => actual = v);
         tick(1000);
 
-        expect(actual).toEqual(expectedOne);
+        expect(actual.__typename).toBe('User');
     })));
 
     it('should login', fakeAsync(inject([
@@ -124,7 +51,7 @@ describe('UserService', () => {
         }).subscribe(v => actual = v);
         tick(1000);
 
-        expect(actual).toEqual(expectedOne);
+        expect(actual.__typename).toBe('User');
         expect(resetStore).toHaveBeenCalledTimes(1);
     })));
 
