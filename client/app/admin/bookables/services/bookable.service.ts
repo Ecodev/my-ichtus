@@ -152,7 +152,7 @@ export class BookableService extends NaturalAbstractModelService<Bookable['booka
     public getFormValidators(): FormValidators {
         return {
             name: [Validators.required, Validators.maxLength(100)],
-            code: [Validators.maxLength(100)],
+            code: [Validators.maxLength(10)],
         };
     }
 
