@@ -40,6 +40,7 @@ var Requests = {
     getUsersList: function (text = "") {
         var filter = {
             filter: {
+                // $$ modify $$ to name only not mail number etc.
                 groups: [
                     { conditions: [{ custom: { search: { value: '%' + text + '%' } } }] }
                 ]
@@ -49,11 +50,11 @@ var Requests = {
                 pageIndex: 0
             },
             sorting: [{
-                field: 'lastName',
+                field: 'firstName',
                 order: 'ASC'
             },
-            {   //if same family name sort by firstName
-                field: 'firstName',
+            {   //if same family name sort by firstName // inversed
+                field: 'lastName',
                 order: 'ASC'
             }]
         };
@@ -359,10 +360,10 @@ var Requests = {
         // accept NE538 although the real code is NE 538
         if (code.indexOf("NE") == 0 && code.indexOf("NE ") == -1) {
             code = "NE " + code.slice(2);
-            console.log(code);
+          //  console.log(code);
         }
         else {
-            console.log(code.indexOf("NE"), code.indexOf("NE "));
+        //    console.log(code.indexOf("NE"), code.indexOf("NE "));
         }
 
         if (!t) {
@@ -496,6 +497,7 @@ var Requests = {
                 var variables = new Server.QueryVariablesManager();
                 variables.set('variables', filter);
 
+                // $$ $$ modify $$
                 Server.bookableMetaDataService.getAll(variables).subscribe(metadatas => {
                    //console.log("getBookableInfos()_getMetadatas: ", metadatas);
                     actualizePopBookable(nbr, result.items[0], bookings, elem, metadatas.items); //metadatas.items);

@@ -33,7 +33,7 @@ var Cahier = {
    },
 
     getFullName: function (booking = Cahier.bookings[0]) {
-        if (booking.guest) { return booking.guestName; } else { return booking.owner.surName + " " + booking.owner.firstName; }
+        if (booking.guest) { return booking.guestName; } else { return booking.owner.name; }
     },
 
     getSingularOrPlural: function (nbr = Cahier.nbrParticipants, txt = " Participant") {
@@ -69,8 +69,9 @@ var Cahier = {
     // get Owner
     getOwner: function (booking, wantImg = false, shortenOptions = { length: 10000, fontSize: 20 }) {
         if (wantImg) {
-            var img = "img/icons/woman.png";
-            if (booking.owner.sex == "male") { img = "img/icons/man.png"; }
+            var img = "img/icons/man.png";
+            console.log(booking.owner);
+            if (booking.owner.sex == "female") { img = "img/icons/woman.png"; }
             return "<div id='" + booking.owner.name + "' class='TableEntriesImg' style='background-image:url(" + img + ");  display: inline-block;vertical-align: middle;'>" + "</div>" + "<div style=' display: inline-block;vertical-align: middle;'>" + booking.owner.name.shorten(shortenOptions.length - 40, shortenOptions.fontSize) + "</div>";
         }
         else {
@@ -197,7 +198,7 @@ var Cahier = {
     },
 
 
-    setOwner: function (nbr = 0, _owner = { id: "", firstName: "", surName: "", sex: "female" }, force = false) {
+    setOwner: function (nbr = 0, _owner = { id: "", name: "", sex: "female" }, force = false) {
 
         var t = true;
         if (!force) {
@@ -211,9 +212,8 @@ var Cahier = {
 
         if (t) {
             Cahier.bookings[nbr].owner.id = _owner.id;
-            Cahier.bookings[nbr].owner.firstName = _owner.firstName;
-            Cahier.bookings[nbr].owner.surName = _owner.surName;
-            Cahier.bookings[nbr].owner.name = _owner.surName + " " + _owner.firstName;
+            Cahier.bookings[nbr].owner.name = _owner.name;
+          //  Cahier.bookings[nbr].owner.name = _owner.surName + " " + _owner.firstName;
             Cahier.bookings[nbr].owner.sex = _owner.sex;
             Cahier.actualizeConfirmation();
 
