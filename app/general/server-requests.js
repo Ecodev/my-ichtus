@@ -1181,6 +1181,13 @@ var Requests = {
         }
     },
 
+    // deleteBookings
+    deleteBookings: function (ids = ["3102"]) {
+
+      //  Server.bookingService.deleteBookings(ids).subscribe(result => { console.log(result); });
+
+    },
+
     // createBooking
     counter: 0,
     createBooking: function () {
