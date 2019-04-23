@@ -31,10 +31,11 @@ function actualizeBookableList() {
         };
 
         var code = div(d);
+        if (bookables[i].code.length > 4) {
+            code.style.fontSize = "12px";
+        }
         code.innerHTML = bookables[i].code;
     }
-
-
 
     if (bookables.length == 0) {
 

@@ -39,6 +39,9 @@ function loadElements(bookables ,nbr = 0) {
         container.appendChild(secondContainer);
 
         var size = document.createElement("div");
+        if (bookables[i].code.length > 4) {
+            size.style.fontSize = "17px";
+        }
         size.innerHTML = bookables[i].code;
         secondContainer.appendChild(size);
 
@@ -106,8 +109,6 @@ function actualizeElements() {
                 }
             };
         }
-
-
     }
 }
 
@@ -122,6 +123,5 @@ function clickSortIcon(elem) {
 
 
 function changeSelectCategorie(elem) {
-    //console.log(elem.value);
     $('divTabCahierEquipmentElementsSelectCategorie').getElementsByTagName("div")[0].style.backgroundImage = "url(img/categorie/" + elem.value + ".png)";
 }

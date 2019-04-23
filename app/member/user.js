@@ -24,8 +24,6 @@ function popUser(nbr = 0, elem = openPopUp()) {
         grayBar(container, 5);
     }
 
-
-
     var i1 = document.createElement("input");
     i1.autocomplete = "off";
     i1.id = "inputTabCahierSearch";
@@ -50,7 +48,6 @@ function popUser(nbr = 0, elem = openPopUp()) {
 
     var d = div(container);
     d.id = "divTabCahierSearchResult";
-
 }
 
 
@@ -128,6 +125,8 @@ function createSearchEntries(PeopleCorresponding) {
 
     lastPeople = PeopleCorresponding;
 
+    console.log(PeopleCorresponding);
+
     $("divTabCahierSearchResult").innerHTML = "";
 
     if (PeopleCorresponding.length == 0) {
@@ -137,9 +136,9 @@ function createSearchEntries(PeopleCorresponding) {
 
         var span1 = document.createElement("span");
         span1.classList.add("spanTabCahierSurName");
-        span1.innerHTML = "Aucun résultat - Cliquez pour vous rendre sur <c style='color:blue; text-decoration:underline;'> ichtus.ch </c>";
+        span1.innerHTML = "Aucun résultat - Cliquez pour vous rendre sur <c style='color:blue; text-decoration:underline;'> ichtus.club </c>";
         span1.onclick = function () {
-            var win = window.open("https://ichtus.ch", '_blank');
+            var win = window.open("https://ichtus.club", '_blank');
             win.focus();
         };
         divResult.appendChild(span1);

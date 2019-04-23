@@ -38,26 +38,111 @@ var Requests = {
 
     // getUsersList FOR user.js
     getUsersList: function (text = "") {
-        var filter = {
-            filter: {
-                // $$ modify $$ to name only not mail number etc.
-                groups: [
-                    { conditions: [{ custom: { search: { value: '%' + text + '%' } } }] }
-                ]
-            },
-            pagination: {
-                pageSize: 5,
-                pageIndex: 0
-            },
-            sorting: [{
-                field: 'firstName',
-                order: 'ASC'
-            },
-            {   //if same family name sort by firstName // inversed
-                field: 'lastName',
-                order: 'ASC'
-            }]
+
+        var filter;
+        var texts = [];
+
+        for (var i = 0; i < text.split(" ").length; i++) {
+            if (text.split(" ")[i] != "") {
+                texts.push(text.split(" ")[i]);
+            }
+        }
+
+        var nbr = texts.length;
+
+        if (nbr == 1) {
+
+            filter = {
+                filter: {
+                    groups: [
+                        {
+                            conditionsLogic: "OR",
+                            conditions: [
+                                {
+                                    firstName: {
+                                        like: {
+                                            value: '%' + text + '%'
+                                        }
+                                    }
+                                },
+                                {
+                                    lastName: {
+                                        like: {
+                                            value: '%' + text + '%'
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            };
+        }
+        else if (nbr == 2) {
+            filter = {
+                filter: {
+                    groups: [
+                        {
+                            conditions: [
+                                {
+                                    firstName: {
+                                        like: {
+                                            value: '%' + texts[0] + '%'
+                                        }
+                                    }
+                                },
+                                {
+                                    lastName: {
+                                        like: {
+                                            value: '%' + texts[1] + '%'
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            groupLogic: "OR",
+                            conditions: [
+                                {
+                                    firstName: {
+                                        like: {
+                                            value: '%' + texts[1] + '%'
+                                        }
+                                    }
+                                },
+                                {
+                                    lastName: {
+                                        like: {
+                                            value: '%' + texts[0] + '%'
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            };
+        }
+        else {
+            filter = {
+                filter: {
+                    groups: [{ conditions: [{ custom: { search: { value:  text} } }] }]
+                }
+            };
+        }
+
+        filter.pagination = {
+            pageSize: 5,
+            pageIndex: 0
         };
+        filter.sorting = [{
+            field: 'firstName',
+            order: 'ASC'
+        },
+        {
+            field: 'lastName',
+            order: 'ASC'
+        }];
 
         var variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);
@@ -69,7 +154,7 @@ var Requests = {
     },
 
     // getBookablesList
-    getBookablesList: function (elem = $('inputTabCahierEquipmentElementsInputSearch')) { //
+    getBookablesList: function (elem = $('inputTabCahierEquipmentElementsInputSearch')) {
 
         var order;
         if ($('divTabCahierEquipmentElementsSelectIconSort').style.backgroundImage == 'url("img/icons/sort-desc.png")') {

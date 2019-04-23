@@ -6,6 +6,17 @@ function loadActualBookings(_actualBookings) {
 
     $('divTabCahierTableActualBookings').previousElementSibling.innerHTML = "Sorties en cours (" + _actualBookings.length + ")";
 
+
+    var bookableNbr = 0;
+    var participantNbr = 0;
+
+    for (var i = 0; i < _actualBookings.length; i++) {
+        participantNbr += _actualBookings[i].participantCount;
+        bookableNbr += actualizeActualBookings[i].bookables.length;
+    }
+
+    $('divTabCahierTableActualBookings').previousElementSibling.title = "bookableNbr" + bookableNbr + "participantNbr" + participantNbr;
+
     var children = $('divTabCahierTables').children;
     for (var i = 0; i < children.length; i++) {
         if (children[i].id != "divTabCahierTableActualBookings" && children[i].id != "inputTabCahierActualBookingsSearch" && children[i].id != "divTabCahierActualBookingsSearchTitle" && children[i].id != "divTabCahierAlertButtonsLegend") {
@@ -35,10 +46,8 @@ function actualizeActualBookings(_actualBookings) {
 
     if (_actualBookings.length == 0) {
         var entry = div($('divTabCahierTableActualBookings'));
-
         entry.classList.add("TableEntries");
         entry.classList.add("TableEntriesHover");
-
         div(entry);
     }
 
@@ -124,7 +133,6 @@ function actualizeActualBookings(_actualBookings) {
         var btn = div(c);
         btn.classList.add("Buttons");
     }
-
     sortTable($('divTabCahierTableActualBookings'));
 }
 
