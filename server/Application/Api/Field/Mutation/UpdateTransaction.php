@@ -25,7 +25,7 @@ abstract class UpdateTransaction implements FieldInterface
                 'lines' => Type::listOf(Type::nonNull(_types()->getInput(TransactionLine::class))),
             ],
             'resolve' => function ($root, array $args, SessionInterface $session): Transaction {
-                // Do it
+                /** @var Transaction $transaction */
                 $transaction = $args['id']->getEntity();
                 $input = $args['input'];
                 Helper::hydrate($transaction, $input);
