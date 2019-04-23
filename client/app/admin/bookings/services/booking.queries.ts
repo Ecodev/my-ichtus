@@ -37,6 +37,7 @@ export const bookingsQuery = gql`
                 bookable {
                     id
                     name
+                    code
                     image {
                         id
                     }
