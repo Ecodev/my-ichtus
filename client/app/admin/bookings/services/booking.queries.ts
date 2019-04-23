@@ -20,6 +20,7 @@ export const bookingMetaFragment = gql`
         owner {
             id
             ...userMeta
+            sex
         }
         creator {
             id
