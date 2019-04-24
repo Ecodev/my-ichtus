@@ -28,7 +28,7 @@ function popUser(nbr = 0, elem = openPopUp()) {
     i1.autocomplete = "off";
     i1.id = "inputTabCahierSearch";
     i1.title = "Veuillez écrire votre nom et prénom";
-    i1.spellcheck = "false";
+    i1.spellcheck = false;
     i1.type = "text";
     i1.placeholder = "Entrez votre nom, prénom...";
     i1.onkeyup = function (event) {
@@ -39,6 +39,15 @@ function popUser(nbr = 0, elem = openPopUp()) {
             $("divTabCahierSearchResult").innerHTML = "<div style='margin-top:10px; color:var(--fontBlack);'>Veuillez taper au moins trois caractères</div>";
         }
     };
+    i1.oninput = function (event) {
+        if (this.value.length > 2) {
+            Search(event);
+        }
+        else {
+            $("divTabCahierSearchResult").innerHTML = "<div style='margin-top:10px; color:var(--fontBlack);'>Veuillez taper au moins trois caractères</div>";
+        }
+    };
+
     i1.onkeydown = function (event) {SearchDown(event);};
     container.appendChild(i1);
 
@@ -124,8 +133,6 @@ var lastPeople = [];
 function createSearchEntries(PeopleCorresponding) {
 
     lastPeople = PeopleCorresponding;
-
-    console.log(PeopleCorresponding);
 
     $("divTabCahierSearchResult").innerHTML = "";
 

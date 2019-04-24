@@ -48,7 +48,11 @@ var Requests = {
             }
         }
 
+
         var nbr = texts.length;
+
+
+        console.log(texts, nbr);
 
         if (nbr == 1) {
 
@@ -61,14 +65,27 @@ var Requests = {
                                 {
                                     firstName: {
                                         like: {
-                                            value: '%' + text + '%'
+                                            value: '%' + texts[0] + '%'
                                         }
                                     }
                                 },
                                 {
                                     lastName: {
                                         like: {
-                                            value: '%' + text + '%'
+                                            value: '%' + texts[0] + '%'
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            groupLogic: "AND",
+                            conditions: [
+                                {
+                                    id: {
+                                        equal: {
+                                            value: "7083",
+                                            not: true
                                         }
                                     }
                                 }
@@ -97,6 +114,14 @@ var Requests = {
                                             value: '%' + texts[1] + '%'
                                         }
                                     }
+                                },
+                                {
+                                    id: {
+                                        equal: {
+                                            value: "7083",
+                                            not: true
+                                        }
+                                    }
                                 }
                             ]
                         },
@@ -116,6 +141,14 @@ var Requests = {
                                             value: '%' + texts[0] + '%'
                                         }
                                     }
+                                },
+                                {
+                                    id: {
+                                        equal: {
+                                            value: "7083",
+                                            not: true
+                                        }
+                                    }
                                 }
                             ]
                         }
@@ -126,7 +159,25 @@ var Requests = {
         else {
             filter = {
                 filter: {
-                    groups: [{ conditions: [{ custom: { search: { value:  text} } }] }]
+                    groups: [{
+                        conditions: [
+                            {
+                                custom: {
+                                    search: {
+                                        value: text
+                                    }
+                                }
+                            },
+                            {
+                                id: {
+                                    equal: {
+                                        value: "7083",
+                                        not: true
+                                    }
+                                }
+                            }
+                        ]
+                    }]
                 }
             };
         }
@@ -563,30 +614,31 @@ var Requests = {
 
             Server.bookingService.getAll(variables).subscribe(bookings => {
                 //console.log("getBookableInfos()_getLastBooking: ", bookings);
+                actualizePopBookable(nbr, result.items[0], bookings, elem, []);
 
-                var filter = {
-                    filter: {
-                        groups: [{
-                            conditions: [{
-                                bookable: {
-                                    have:
-                                        { values: [bookableId] }
+                //var filter = {
+                //    filter: {
+                //        groups: [{
+                //            conditions: [{
+                //                bookable: {
+                //                    have:
+                //                        { values: [bookableId] }
 
-                                }
-                            }
-                            ]
-                        }]
-                    }
-                };
+                //                }
+                //            }
+                //            ]
+                //        }]
+                //    }
+                //};
 
-                var variables = new Server.QueryVariablesManager();
-                variables.set('variables', filter);
+                //var variables = new Server.QueryVariablesManager();
+                //variables.set('variables', filter);
 
-                // $$ $$ modify $$
-                Server.bookableMetaDataService.getAll(variables).subscribe(metadatas => {
-                   //console.log("getBookableInfos()_getMetadatas: ", metadatas);
-                    actualizePopBookable(nbr, result.items[0], bookings, elem, metadatas.items); //metadatas.items);
-                });
+                //// $$ $$ modify $$
+                //Server.bookableMetaDataService.getAll(variables).subscribe(metadatas => {
+                //   //console.log("getBookableInfos()_getMetadatas: ", metadatas);
+                //  //  actualizePopBookable(nbr, result.items[0], bookings, elem, metadatas.items); //metadatas.items);
+                //});
             });
         });
     },
@@ -957,7 +1009,7 @@ var Requests = {
     },
 
     // getMonthlyBookingsNbr for divBottoms
-    getMonthlyBookingsNbr: function (start, end) { // wrong numbers haha due to bookables...
+    getMonthlyBookingsNbr: function (start, end) {
 
         end = new Date(end.getFullYear(), end.getMonth(), end.getDate(), 23, 59, 59, 99);
 
@@ -968,38 +1020,52 @@ var Requests = {
                         groupLogic:"AND",
                         conditions: [
                             {
-                                // $$ $$ modifiy
-                                //status: {
-                                //    equal: {
-                                //        value: "booked"
-                                //    }
-                                //},
+                                //  $$ $$ modify
                                 startDate: {
                                     between: {
                                         from: start,
                                         to: end
-                                    }
-                                },
-
-                                bookable: {
-                                    empty: {
-                                        not: false
-                                    }
-                                }//,
-                                //startDate: {
-                                //    group: {
-                                //        value: true
-                                //    }
-                                //}
-
-                            },
-                            {
-                                startDate: {
+                                    },
                                     group: {
                                         value: true
                                     }
                                 }
-                            }
+                            },
+                            {
+                                status: {
+                                    equal: {
+                                        value: "booked"
+                                    }
+                                }//,
+                                // $ $$ modify
+                                //bookable: {
+                                //    empty: {
+                                //        not: false
+                                //    }
+                                //}
+                            }//,
+                            //{
+                            //    bookable: {
+                            //        empty: {
+                            //            not: false
+                            //        }
+                            //    }
+                            //}
+
+                            //{
+                            //    bookable: {
+                            //        empty: {
+                            //            not: false
+                            //        }
+                            //    }
+                            //},
+                            //{
+                            //    startDate: {
+                            //        group: {
+                            //            value: true
+                            //        }
+                            //    }
+                            //}
                         ]
                     },
                     {
@@ -1010,11 +1076,7 @@ var Requests = {
                                     between: {
                                         from: start,
                                         to: end
-                                    }
-                                }
-                            },
-                            {
-                                startDate: {
+                                    },
                                     group: {
                                         value: true
                                     }
@@ -1048,7 +1110,7 @@ var Requests = {
         variables.set('variables', filter);
 
         Server.bookingService.getAll(variables).subscribe(result => {
-            //console.log("getMonthlyBookingsNbr(): ", result.length + " sorties", result);
+            console.log("getMonthlyBookingsNbr(): ", result.length + " sorties", result);
 
             var all = document.getElementsByClassName("divBottoms");
             for (var i = 0; i < all.length; i++) {

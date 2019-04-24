@@ -12,7 +12,17 @@ function loadBottoms() {
         divMonth.onclick = function () { popStats(); };
     }
 
-    var end = new Date(Date.now());
-    var start = new Date(end.getFullYear(), end.getMonth(), 1, 0, 0, 0, 1);
-    Requests.getMonthlyBookingsNbr(start, end);
+    if (options.statsActivated) {
+        var end = new Date(Date.now());
+        var start = new Date(end.getFullYear(), end.getMonth(), 1, 0, 0, 0, 1);
+
+        Requests.getMonthlyBookingsNbr(start, end);
+    }
+    else {
+        var all = document.getElementsByClassName("divBottoms");
+        for (var i = 0; i < all.length; i++) {
+            all[i].children[0].innerHTML = "Voir les statistiques du mois";
+        }
+    }
+
 }

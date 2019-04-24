@@ -112,7 +112,7 @@ function popCahierInfos(nbr = 0) {
         var area = document.createElement("textarea");
         divStartComment.appendChild(area);
         area.value = Cahier.bookings[nbr].startComment;
-        area.spellcheck = "false";
+        area.spellcheck = false;
         area.placeholder = "Informations, numéro de téléphone, heure estimée de retour...";
 
         div(divStartComment).style.height = "100px";

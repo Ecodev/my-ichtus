@@ -1,5 +1,5 @@
 ﻿//options
-var options = { bookablesComment: false, showMetadatas: false };
+var options = { bookablesComment: false, statsActivated: false, showRemarks: true }; //showMetadatas: false,
 
 // shortcut
 function $(id) {
@@ -16,7 +16,7 @@ function input(loc,_placeholder = "") {
     var x = document.createElement("input");
     x.autocomplete = "off";
     x.type = "text";
-    x.spellcheck = "false";
+    x.spellcheck = false;
     x.placeholder = _placeholder;
     loc.appendChild(x);
     return x;
@@ -235,6 +235,7 @@ function grayBar(elem,marginTop = 10, marginBottom = 15) {
     d.style.marginBottom = marginBottom + "px";
     d.style.marginTop = marginTop + "px";
     d.borderRadius = "2px";
+    return d;
 }
 
 

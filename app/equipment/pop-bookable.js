@@ -28,20 +28,23 @@ function popBookable(bookableId, justPreview = true, nbr = 0, modal = openPopUp(
 	var descriptionTitle = div(pop);
 	descriptionTitle.innerHTML = "Description";
 
-    div(pop); // description box
+    var description = div(pop); // description box
 
 	var btn2 = div(pop);
     btn2.classList.add("Buttons"); btn2.classList.add("ReturnButtons");
     btn2.style.visibility = "hidden";
 	btn2.innerHTML = "Historique";
 
-	if (!justPreview) {
-		var btn = div(pop);
-		btn.classList.add("Buttons"); btn.classList.add("ValidateButtons");
+    if (!justPreview) {
+        var btn = div(pop);
+        btn.classList.add("Buttons"); btn.classList.add("ValidateButtons");
         btn.innerHTML = "Choisir";
         btn.setAttribute('tabindex', '0');
         btn.focus();
-	}
+    }
+    else {
+        description.style.width = "660px";
+    }
 
 	var textsContainer = div(pop);
 	textsContainer.className = "divTabCahierEquipmentElementsContainerTextsContainer";
@@ -53,7 +56,7 @@ function popBookable(bookableId, justPreview = true, nbr = 0, modal = openPopUp(
 }
 
 var eventListenerFunction;
-function actualizePopBookable(nbr, bookable,bookings, elem, metadatas) {
+function actualizePopBookable(nbr, bookable,bookings, elem) {
 
     elem.getElementsByTagName("div")[2].style.backgroundImage = Cahier.getImageUrl(bookable);
 
@@ -64,15 +67,12 @@ function actualizePopBookable(nbr, bookable,bookings, elem, metadatas) {
     textsContainer.getElementsByTagName("div")[0].innerHTML = bookable.code;
     textsContainer.getElementsByTagName("div")[1].innerHTML = bookable.name.shorten(420, 20);
 
-    // metadatas true | false
-    if (options.showMetadatas) {
-        for (var i = 0; i < metadatas.length; i++) {
-            div(textsContainer).innerHTML = metadatas[i].name + " " + metadatas[i].value;
-        }
+
+    if (options.showRemarks) {
+        div(textsContainer).innerHTML = bookable.remarks;
     }
 
     if (bookings.length != 0) {
-
         if (currentTabElement.id != "divTabCahier" && bookings.items[0].endDate == null) {
             //console.log("embarcation déjà utilisée");
             elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].innerHTML = "Cette embarcation semble déjà être utlisée par " + Cahier.getOwner(bookings.items[0], false);
@@ -120,7 +120,12 @@ function actualizePopBookable(nbr, bookable,bookings, elem, metadatas) {
       //  ("keyup", eventListenerFunction);
     }
 
-    grayBar(elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0]);
+    //if (bookable.remarks != "" && options.showRemarks) {
+    //    var bar = grayBar(elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0]);
+    //    bar.style.position = "absolute";
+    //    bar.style.bottom = "-13px";
+    //    bar.style.width = "100%";
+    //}
 
 	elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[1].id = bookable.id;
 

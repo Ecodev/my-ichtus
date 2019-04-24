@@ -6,13 +6,12 @@ function loadActualBookings(_actualBookings) {
 
     $('divTabCahierTableActualBookings').previousElementSibling.innerHTML = "Sorties en cours (" + _actualBookings.length + ")";
 
-
     var bookableNbr = 0;
     var participantNbr = 0;
 
     for (var i = 0; i < _actualBookings.length; i++) {
         participantNbr += _actualBookings[i].participantCount;
-        bookableNbr += actualizeActualBookings[i].bookables.length;
+        bookableNbr += _actualBookings[i].bookables.length;
     }
 
     $('divTabCahierTableActualBookings').previousElementSibling.title = "bookableNbr" + bookableNbr + "participantNbr" + participantNbr;
@@ -340,7 +339,7 @@ function createBookingsTable(date,title) {
     var input = document.createElement("input");
     input.type = "text";
     input.value = "";
-    input.spellcheck = "false";
+    input.spellcheck = false;
     input.placeholder = "Rechercher";
     input.onkeyup = function () {
         bookingTableSearch(table);

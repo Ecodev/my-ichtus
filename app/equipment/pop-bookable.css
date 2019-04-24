@@ -126,7 +126,10 @@
             color: gray;
         }
 
-        .divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(1n+5) {
-            color: darkgray;
+        .divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(5) {
+            color: var(--fontBlack);
+            position:absolute;
+            bottom:5px;
+            font-weight:bold;
         }
 

@@ -25,11 +25,11 @@ function popGuest(nbr = 0) {
     var i1 = document.createElement("input");
     container.appendChild(i1);
     i1.placeholder = "Nom";
-    i1.spellcheck = "false";
+    i1.spellcheck = false;
 
     var i2 = document.createElement("input");
     i2.placeholder = "Prénom";
-    i2.spellcheck = "false";
+    i2.spellcheck = false;
     i2.addEventListener("keyup", function (event) {
         if (event.keyCode == 13) {
             ValidateGuest();
