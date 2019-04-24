@@ -163,7 +163,7 @@ STRING;
         $username = $connection->getUsername();
         $password = empty($connection->getPassword()) ? '' : '-p' . $connection->getPassword();
 
-        $importCommand = "more $file | mysql -u $username $password $database";
+        $importCommand = "cat $file | mysql -u $username $password $database";
 
         self::executeLocalCommand($importCommand);
     }
