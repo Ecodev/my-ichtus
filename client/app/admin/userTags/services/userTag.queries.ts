@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { userMetaFragment } from '../../../shared/queries/fragments';
+import { permissionsFragment, userMetaFragment } from '../../../shared/queries/fragments';
 
 export const userTagsQuery = gql`
     query UserTags($filter: UserTagFilter, $sorting: [UserTagSorting!], $pagination: PaginationInput) {
@@ -30,9 +30,14 @@ export const userTagQuery = gql`
             updater {
                 ...userMeta
             }
+            permissions {
+                ...permissions
+            }
         }
     }
-${userMetaFragment}`;
+    ${userMetaFragment}
+    ${permissionsFragment}
+`;
 
 export const createUserTag = gql`
     mutation CreateUserTag($input: UserTagInput!) {

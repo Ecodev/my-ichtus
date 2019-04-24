@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { userMetaFragment } from '../../../shared/queries/fragments';
+import { permissionsFragment, userMetaFragment } from '../../../shared/queries/fragments';
 import { bookableMetaFragment } from '../../bookables/services/bookable.queries';
 
 export const bookingMetaFragment = gql`
@@ -108,11 +108,15 @@ export const bookingQuery = gql`
             updater {
                 ...userMeta
             }
+            permissions {
+                ...permissions
+            }
         }
     }
     ${bookableMetaFragment}
     ${bookingMetaFragment}
     ${userMetaFragment}
+    ${permissionsFragment}
 `;
 
 export const createBooking = gql`

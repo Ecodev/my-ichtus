@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { userMetaFragment } from '../../../shared/queries/fragments';
+import { permissionsFragment, userMetaFragment } from '../../../shared/queries/fragments';
 
 export const expenseClaimMetaFragment = gql`
     fragment expenseClaimMeta on ExpenseClaim {
@@ -57,10 +57,15 @@ export const expenseClaimQuery = gql`
             updater {
                 ...userMeta
             }
+            permissions {
+                ...permissions
+            }
         }
     }
     ${expenseClaimMetaFragment}
-${userMetaFragment}`;
+    ${userMetaFragment}
+    ${permissionsFragment}
+`;
 
 export const createExpenseClaim = gql`
     mutation CreateExpenseClaim($input: ExpenseClaimInput!) {

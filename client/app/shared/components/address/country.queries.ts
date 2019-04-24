@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { permissionsFragment } from '../../queries/fragments';
 
 export const countriesQuery = gql`
     query Countries($filter: CountryFilter, $pagination: PaginationInput) {
@@ -20,5 +21,10 @@ export const countryQuery = gql`
             id
             code
             name
+            permissions {
+                ...permissions
+            }
         }
-    }`;
+    }
+    ${permissionsFragment}
+`;

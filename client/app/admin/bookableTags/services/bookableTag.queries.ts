@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { userMetaFragment } from '../../../shared/queries/fragments';
+import { permissionsFragment, userMetaFragment } from '../../../shared/queries/fragments';
 
 export const bookableTagsQuery = gql`
     query BookableTags($filter: BookableTagFilter, $sorting: [BookableTagSorting!], $pagination: PaginationInput) {
@@ -30,9 +30,14 @@ export const bookableTagQuery = gql`
             updater {
                 ...userMeta
             }
+            permissions {
+                ...permissions
+            }
         }
     }
-${userMetaFragment}`;
+    ${userMetaFragment}
+    ${permissionsFragment}
+`;
 
 export const createBookableTag = gql`
     mutation CreateBookableTag($input: BookableTagInput!) {

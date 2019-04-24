@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { userMetaFragment } from '../../../shared/queries/fragments';
+import { permissionsFragment, userMetaFragment } from '../../../shared/queries/fragments';
 
 // Fragment for single display usage. Too much data for listings, and unused fields for mutations.
 export const userFieldsFragment = gql`
@@ -100,10 +100,14 @@ export const userQuery = gql`
     query User($id: UserID!) {
         user(id: $id) {
             ...userFields
+            permissions {
+                ...permissions
+            }
         }
     }
     ${userFieldsFragment}
     ${userMetaFragment}
+    ${permissionsFragment}
 `;
 
 export const userByTokenQuery = gql`

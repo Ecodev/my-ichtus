@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { userMetaFragment } from '../../../shared/queries/fragments';
+import { permissionsFragment, userMetaFragment } from '../../../shared/queries/fragments';
 
 export const bookableMetaFragment = gql`
     fragment bookableMeta on Bookable {
@@ -94,9 +94,13 @@ export const bookableQuery = gql`
     query Bookable($id: BookableID!) {
         bookable(id: $id) {
             ...bookableMeta
+            permissions {
+                ...permissions
+            }
         }
     }
     ${bookableMetaFragment}
+    ${permissionsFragment}
 `;
 
 export const createBookable = gql`

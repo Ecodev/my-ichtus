@@ -30,7 +30,7 @@
         "@angular/platform-browser": "~7.2.11",
         "@angular/platform-browser-dynamic": "~7.2.11",
         "@angular/router": "~7.2.11",
-        "@ecodev/natural": "^0.0.5",
+        "@ecodev/natural": "^0.0.11",
         "@ngx-progressbar/core": "^5.2.1",
         "@sambaptista/angular-particle-effect-button": "^0.0.3",
         "angular-file": "^0.5.9",

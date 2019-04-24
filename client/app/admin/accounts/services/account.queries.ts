@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
-import { userMetaFragment } from '../../../shared/queries/fragments';
+import { permissionsFragment, userMetaFragment } from '../../../shared/queries/fragments';
+import { bookingMetaFragment } from '../../bookings/services/booking.queries';
 
 export const accountMetaFragment = gql`
     fragment accountMeta on Account {
@@ -55,10 +56,15 @@ export const accountQuery = gql`
             updater {
                 ...userMeta
             }
+            permissions {
+                ...permissions
+            }
         }
     }
     ${accountMetaFragment}
-${userMetaFragment}`;
+    ${userMetaFragment}
+    ${permissionsFragment}
+`;
 
 export const createAccount = gql`
     mutation CreateAccount($input: AccountInput!) {

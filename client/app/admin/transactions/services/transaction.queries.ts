@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { userMetaFragment } from '../../../shared/queries/fragments';
+import { permissionsFragment, userMetaFragment } from '../../../shared/queries/fragments';
 
 export const transactionMetaFragment = gql`
     fragment transactionMeta on Transaction {
@@ -58,10 +58,15 @@ export const transactionQuery = gql`
             updater {
                 ...userMeta
             }
+            permissions {
+                ...permissions
+            }
         }
     }
     ${transactionMetaFragment}
-${userMetaFragment}`;
+    ${userMetaFragment}
+    ${permissionsFragment}
+`;
 
 export const createTransaction = gql`
     mutation CreateTransaction($input: TransactionInput!, $lines: [TransactionLineInput!]!) {
