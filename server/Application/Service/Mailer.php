@@ -128,6 +128,7 @@ class Mailer
         $body->setParts([$htmlPart]);
 
         $mailMessage = new Mail\Message();
+        $mailMessage->setEncoding('UTF-8');
         $mailMessage->setSubject($modelMessage->getSubject());
         $mailMessage->setBody($body);
         $mailMessage->setFrom($this->fromEmail, 'Ichtus');
