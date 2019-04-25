@@ -28,8 +28,8 @@ export const routes: Routes = [
         component: SafetyComponent,
         data: {
             title: 'Sorties en cours',
-            queryVariables: BookingService.runningSelfApprovedQV,
-            columns: ['bookable', 'destination', 'startDate', 'estimatedEndDate', 'participantCount'],
+            contextVariables: BookingService.runningSelfApprovedQV,
+            contextColumns: ['bookable', 'destination', 'startDate', 'estimatedEndDate', 'participantCount'],
         },
     },
     // Auth required routes
