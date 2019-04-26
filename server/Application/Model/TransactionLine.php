@@ -6,7 +6,7 @@ namespace Application\Model;
 
 use Application\Traits\HasName;
 use Application\Traits\HasRemarks;
-use Cake\Chronos\Date;
+use Cake\Chronos\Chronos;
 use Doctrine\ORM\Mapping as ORM;
 use GraphQL\Doctrine\Annotation as API;
 
@@ -68,8 +68,8 @@ class TransactionLine extends AbstractModel
     private $balance;
 
     /**
-     * @var Date
-     * @ORM\Column(name="transactionDate", type="date")
+     * @var Chronos
+     * @ORM\Column(type="datetime")
      */
     private $transactionDate;
 
@@ -210,9 +210,9 @@ class TransactionLine extends AbstractModel
     /**
      * Set date of transaction
      *
-     * @param Date $transactionDate
+     * @param Chronos $transactionDate
      */
-    public function setTransactionDate(Date $transactionDate): void
+    public function setTransactionDate(Chronos $transactionDate): void
     {
         $this->transactionDate = $transactionDate;
     }
@@ -220,9 +220,9 @@ class TransactionLine extends AbstractModel
     /**
      * Get date of transaction
      *
-     * @return Date
+     * @return Chronos
      */
-    public function getTransactionDate(): Date
+    public function getTransactionDate(): Chronos
     {
         return $this->transactionDate;
     }

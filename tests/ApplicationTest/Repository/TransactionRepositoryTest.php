@@ -10,7 +10,7 @@ use Application\Model\TransactionLine;
 use Application\Model\User;
 use Application\Repository\TransactionRepository;
 use ApplicationTest\Traits\LimitedAccessSubQuery;
-use Cake\Chronos\Date;
+use Cake\Chronos\Chronos;
 
 /**
  * @group Repository
@@ -55,7 +55,7 @@ class TransactionRepositoryTest extends AbstractRepositoryTest
 
         $transaction = new Transaction();
         $transaction->setName('foo');
-        $transaction->setTransactionDate(Date::today());
+        $transaction->setTransactionDate(Chronos::now());
         $line = new TransactionLine();
         $line->setTransaction($transaction);
 
@@ -63,7 +63,7 @@ class TransactionRepositoryTest extends AbstractRepositoryTest
         $lines = [
             [
                 'balance' => '5',
-                'transactionDate' => Date::today(),
+                'transactionDate' => Chronos::now(),
                 'credit' => $credit,
                 'debit' => $debit,
             ],
@@ -109,19 +109,18 @@ class TransactionRepositoryTest extends AbstractRepositoryTest
         $transaction = new Transaction();
         $transaction->setName('caisse à poste');
         $transaction->setRemarks('montants erronés');
-        $transaction->setTransactionDate(Date::today());
+        $transaction->setTransactionDate(Chronos::now());
         $line = new TransactionLine();
         $line->setTransaction($transaction);
 
         $lines = [
             [
                 'balance' => '1000',
-                'transactionDate' => Date::today(),
+                'transactionDate' => Chronos::now(),
                 'debit' => $debit,
             ],
             [
                 'balance' => '900',
-                'transactionDate' => Date::today(),
                 'credit' => $credit,
             ],
         ];

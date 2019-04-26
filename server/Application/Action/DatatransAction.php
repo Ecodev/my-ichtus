@@ -8,7 +8,7 @@ use Application\Model\Account;
 use Application\Model\Transaction;
 use Application\Model\TransactionLine;
 use Application\Model\User;
-use Cake\Chronos\Date;
+use Cake\Chronos\Chronos;
 use Doctrine\ORM\EntityManager;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -138,7 +138,7 @@ class DatatransAction extends AbstractAction
             throw new \Exception('Can only create transactions for CHF, but got: ' . $currency);
         }
 
-        $now = Date::today();
+        $now = Chronos::now();
         $datatransRef = $body['uppTransactionId'];
         $name = 'Versement en ligne';
 

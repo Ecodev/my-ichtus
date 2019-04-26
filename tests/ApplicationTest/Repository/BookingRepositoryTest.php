@@ -160,7 +160,7 @@ class BookingRepositoryTest extends AbstractRepositoryTest
                     'transaction_lines' => [
                         [
                             'balance' => '5.00',
-                            'transactionDate' => '2019-02-25',
+                            'transaction_date' => '2019-02-25',
                         ],
                     ],
                 ],
@@ -228,10 +228,10 @@ class BookingRepositoryTest extends AbstractRepositoryTest
         $negativeBookable[0]['bookings'][0]['bookable']['periodic_price'] = -10;
 
         $existingTransactionThisYear = $normal;
-        $existingTransactionThisYear[0]['account']['transaction_lines'][0]['transactionDate'] = '2020-02-01';
+        $existingTransactionThisYear[0]['account']['transaction_lines'][0]['transaction_date'] = '2020-02-01';
 
         $existingTransactionNextYear = $normal;
-        $existingTransactionNextYear[0]['account']['transaction_lines'][0]['transactionDate'] = '2021-02-01';
+        $existingTransactionNextYear[0]['account']['transaction_lines'][0]['transaction_date'] = '2021-02-01';
 
         return [
             'normal user get casier and cotisation' => [

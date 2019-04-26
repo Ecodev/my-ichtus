@@ -212,7 +212,7 @@ REPLACE INTO expense_claim (id, creation_date, owner_id, amount, status, name, d
 (7002, '2019-03-14', -1002, 50.00, 'processing', 'remboursement bancaire', '', 'refund'),
 (7003, '2019-01-10', -1007, 75.00, 'new', 'achats boissons', 'pour la fête', 'expenseClaim');
 
-REPLACE INTO transaction (id, creator_id, owner_id, transactionDate, name, remarks, expense_claim_id) VALUES
+REPLACE INTO transaction (id, creator_id, owner_id, transaction_date, name, remarks, expense_claim_id) VALUES
 (8000, -1002, -1002, '2019-03-01', 'Inscription cours nautique Active Member', '', NULL),
 (8001, NULL, NULL, '2019-03-10', 'Photocopies pour comité', '', NULL),
 (8002, -1002, -1002, '2019-03-12', 'Cotisation 2019', '', NULL),
@@ -230,7 +230,7 @@ REPLACE INTO transaction_tag (id, name) VALUES
 (15004, 'Camp France 2019'),
 (15005, 'Semaine nautique 2019');
 
-REPLACE INTO transaction_line (id, transaction_id, debit_id, credit_id, bookable_id, transaction_tag_id, balance, transactionDate, is_reconciled, name, remarks) VALUES
+REPLACE INTO transaction_line (id, transaction_id, debit_id, credit_id, bookable_id, transaction_tag_id, balance, transaction_date, is_reconciled, name, remarks) VALUES
 (14000, 8000, 10096, 10037, NULL, 15001, 100.00, '2019-03-01', 1, 'Inscription cours nautique Active Member', ''),
 (14001, 8001, 10085, 10025, NULL, NULL, 12.50, '2019-03-10', 1, 'Paiement par Postcard', ''),
 (14002, 8002, 10096, 10035, NULL, NULL, 90.00, '2019-03-12', 1, 'Cotisation 2019', ''),

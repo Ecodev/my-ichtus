@@ -12,7 +12,7 @@ use Application\Model\Transaction;
 use Application\Model\TransactionLine;
 use Application\Model\User;
 use Application\Repository\BookingRepository;
-use Cake\Chronos\Date;
+use Cake\Chronos\Chronos;
 use Doctrine\ORM\EntityManager;
 
 /**
@@ -93,8 +93,8 @@ class Invoicer
 
         $account = $this->entityManager->getRepository(Account::class)->getOrCreate($user);
         $transaction = new Transaction();
-        $transaction->setTransactionDate(Date::today());
-        $transaction->setName('Cotisation et services ' . Date::today()->format('Y'));
+        $transaction->setTransactionDate(Chronos::now());
+        $transaction->setName('Cotisation et services ' . Chronos::today()->format('Y'));
         $this->entityManager->persist($transaction);
 
         foreach ($bookings as $booking) {
@@ -158,6 +158,6 @@ class Invoicer
         $transactionLine->setCredit($credit);
         $transactionLine->setBalance($balance);
         $transactionLine->setTransaction($transaction);
-        $transactionLine->setTransactionDate(Date::today());
+        $transactionLine->setTransactionDate(Chronos::now());
     }
 }

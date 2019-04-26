@@ -7,7 +7,7 @@ namespace Application\Model;
 use Application\Traits\HasInternalRemarks;
 use Application\Traits\HasName;
 use Application\Traits\HasRemarks;
-use Cake\Chronos\Date;
+use Cake\Chronos\Chronos;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -25,8 +25,8 @@ class Transaction extends AbstractModel
     use HasInternalRemarks;
 
     /**
-     * @var Date
-     * @ORM\Column(name="transactionDate", type="date")
+     * @var Chronos
+     * @ORM\Column(type="datetime")
      */
     private $transactionDate;
 
@@ -71,9 +71,9 @@ class Transaction extends AbstractModel
     /**
      * Set date of transaction
      *
-     * @param Date $transactionDate
+     * @param Chronos $transactionDate
      */
-    public function setTransactionDate(Date $transactionDate): void
+    public function setTransactionDate(Chronos $transactionDate): void
     {
         $this->transactionDate = $transactionDate;
     }
@@ -81,9 +81,9 @@ class Transaction extends AbstractModel
     /**
      * Get date of transaction
      *
-     * @return Date
+     * @return Chronos
      */
-    public function getTransactionDate(): Date
+    public function getTransactionDate(): Chronos
     {
         return $this->transactionDate;
     }
