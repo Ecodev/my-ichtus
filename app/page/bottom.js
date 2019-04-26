@@ -12,7 +12,7 @@ function loadBottoms() {
         divMonth.onclick = function () { popStats(); };
     }
 
-    if (options.statsActivated) {
+    if (options.statsButtonTextActive) {
         var end = new Date(Date.now());
         var start = new Date(end.getFullYear(), end.getMonth(), 1, 0, 0, 0, 1);
 

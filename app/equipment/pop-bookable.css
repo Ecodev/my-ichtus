@@ -133,3 +133,17 @@
             font-weight:bold;
         }
 
+        .divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(6) {
+            font-size: 15px;
+            color: black;
+            background-image:url(../img/icons/license.png);
+            background-repeat: no-repeat;
+            background-position-y: center;
+            background-position-x: 5px;
+            background-size: 20px;
+            padding-left:35px;
+            height:20px;
+            margin-top:10px;
+            line-height:20px;
+        }
+

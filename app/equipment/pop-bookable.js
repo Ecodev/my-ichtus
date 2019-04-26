@@ -43,7 +43,7 @@ function popBookable(bookableId, justPreview = true, nbr = 0, modal = openPopUp(
         btn.focus();
     }
     else {
-        description.style.width = "660px";
+      //  description.style.width = "660px";
     }
 
 	var textsContainer = div(pop);
@@ -71,6 +71,15 @@ function actualizePopBookable(nbr, bookable,bookings, elem) {
     if (options.showRemarks) {
         div(textsContainer).innerHTML = bookable.remarks;
     }
+    else {
+        div(textsContainer);
+    }
+
+    for (var i = 0; i < bookable.licenses.length; i++) {
+        var lic = div(textsContainer);
+        lic.innerHTML = "<asdf style='font-weight:bold'>License requise: </asdf >" + bookable.licenses[i].name ;
+    }
+
 
     if (bookings.length != 0) {
         if (currentTabElement.id != "divTabCahier" && bookings.items[0].endDate == null) {

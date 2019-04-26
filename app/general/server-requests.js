@@ -48,12 +48,7 @@ var Requests = {
             }
         }
 
-
         var nbr = texts.length;
-
-
-        console.log(texts, nbr);
-
         if (nbr == 1) {
 
             filter = {
@@ -739,6 +734,7 @@ var Requests = {
         variables.set('variables', filter);
 
         Server.bookingService.getAll(variables, true).subscribe(result => { // force = true
+            loadBottoms();
             loadActualBookings(transformBookings(result.items));
         });
 
@@ -1020,15 +1016,12 @@ var Requests = {
                         groupLogic:"AND",
                         conditions: [
                             {
-                                //  $$ $$ modify
                                 startDate: {
                                     between: {
                                         from: start,
                                         to: end
                                     },
-                                    group: {
-                                        value: true
-                                    }
+                                    group: {}
                                 }
                             },
                             {
@@ -1036,36 +1029,11 @@ var Requests = {
                                     equal: {
                                         value: "booked"
                                     }
-                                }//,
-                                // $ $$ modify
-                                //bookable: {
-                                //    empty: {
-                                //        not: false
-                                //    }
-                                //}
-                            }//,
-                            //{
-                            //    bookable: {
-                            //        empty: {
-                            //            not: false
-                            //        }
-                            //    }
-                            //}
-
-                            //{
-                            //    bookable: {
-                            //        empty: {
-                            //            not: false
-                            //        }
-                            //    }
-                            //},
-                            //{
-                            //    startDate: {
-                            //        group: {
-                            //            value: true
-                            //        }
-                            //    }
-                            //}
+                                },
+                                bookable: {
+                                    empty: {}
+                                }
+                            }
                         ]
                     },
                     {
@@ -1077,9 +1045,7 @@ var Requests = {
                                         from: start,
                                         to: end
                                     },
-                                    group: {
-                                        value: true
-                                    }
+                                    group: {}
                                 }
                             }
                         ],
@@ -1110,7 +1076,7 @@ var Requests = {
         variables.set('variables', filter);
 
         Server.bookingService.getAll(variables).subscribe(result => {
-            console.log("getMonthlyBookingsNbr(): ", result.length + " sorties", result);
+           // console.log("getMonthlyBookingsNbr(): ", result.length + " sorties", result);
 
             var all = document.getElementsByClassName("divBottoms");
             for (var i = 0; i < all.length; i++) {
