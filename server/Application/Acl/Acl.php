@@ -87,7 +87,7 @@ class Acl extends \Zend\Permissions\Acl\Acl
 
         $this->allow(User::ROLE_INDIVIDUAL, $user, ['read']);
         $this->allow(User::ROLE_INDIVIDUAL, $user, ['update'], new IsMyself());
-        $this->allow(User::ROLE_INDIVIDUAL, [$account, $expenseClaim], ['create']);
+        $this->allow(User::ROLE_INDIVIDUAL, [$expenseClaim], ['create']);
         $this->allow(User::ROLE_INDIVIDUAL, [$expenseClaim], ['read'], new IsOwner());
         $this->allow(User::ROLE_INDIVIDUAL, [$expenseClaim], ['update', 'delete'], new All(new IsOwner(), new StatusIsNew()));
         $this->allow(User::ROLE_INDIVIDUAL, [$accountingDocument], ['create'], new ExpenseClaimStatusIsNew());
