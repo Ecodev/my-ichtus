@@ -104,7 +104,7 @@
 
                             <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" class="margin-bottom">
                                 <h2 class="mat-title no-margin-bottom">Début</h2>
-                                <div>{{ data.model.startDate | date: 'mediumDate' }} - {{ data.model.startDate | date: 'shortTime' }}</div>
+                                <div>{{ data.model.startDate | date: 'd MMM y - HH:mm' }}</div>
                             </div>
 
                             <mat-form-field>
@@ -128,8 +128,7 @@
 
                             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" class="margin-bottom">
                                 <h2 class="mat-title no-margin-bottom">Fin</h2>
-                                <div fxFlex>{{ data.model.endDate | date: 'mediumDate' }}
-                                    - {{ data.model.endDate | date: 'shortTime' }}</div>
+                                <div fxFlex>{{ data.model.endDate | date: 'd MMM y - HH:mm' }}</div>
                             </div>
 
                             <mat-form-field>

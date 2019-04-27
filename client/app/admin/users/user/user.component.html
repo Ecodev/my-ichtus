@@ -260,17 +260,17 @@
 
                     <div>
                         <span class="mat-body-2">Première connexion :</span>
-                        {{ data.model.firstLogin  | date: 'mediumDate' }} - {{ data.model.firstLogin | date: 'shortTime' }}
+                        {{ data.model.firstLogin  | date: 'd MMM y - HH:mm' }}
                     </div>
 
                     <div>
                         <span class="mat-body-2">Dernière connexion :</span>
-                        {{ data.model.lastLogin  | date: 'mediumDate' }} - {{ data.model.lastLogin | date: 'shortTime' }}
+                        {{ data.model.lastLogin  | date: 'd MMM y - HH:mm' }}
                     </div>
 
                     <div *ngIf="data.model.resignDate && data.model.status == 'archived'">
                         <span class="mat-body-2">Démission le :</span>
-                        {{ data.model.resignDate  | date: 'mediumDate' }} - {{ data.model.resignDate | date: 'shortTime' }}
+                        {{ data.model.resignDate  | date: 'd MMM y - HH:mm' }}
                     </div>
                 </div>
 
