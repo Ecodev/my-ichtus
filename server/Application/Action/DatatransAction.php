@@ -8,6 +8,7 @@ use Application\Model\Account;
 use Application\Model\Transaction;
 use Application\Model\TransactionLine;
 use Application\Model\User;
+use Application\Repository\AccountRepository;
 use Cake\Chronos\Chronos;
 use Doctrine\ORM\EntityManager;
 use Psr\Http\Message\ResponseInterface;
@@ -125,8 +126,9 @@ class DatatransAction extends AbstractAction
             throw new \Exception('Cannot create transactions without a user');
         }
 
-        $userAccount = $this->entityManager->getRepository(Account::class)->getOrCreate($user);
-        $bankAccount = $this->entityManager->getRepository(Account::class)->findOneById('10025');
+        $accountRepository = $this->entityManager->getRepository(Account::class);
+        $userAccount = $accountRepository->getOrCreate($user);
+        $bankAccount = $accountRepository->findOneById(AccountRepository::ACCOUNT_ID_FOR_BANK);
 
         if (!array_key_exists('amount', $body)) {
             // Do not support "registrations"
