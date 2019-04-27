@@ -8,53 +8,41 @@
 
                 <img src="assets/ichtus.svg" />
 
-                <div fxLayout="row" fxLayoutGap="30px">
+                <form fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="15px" style="min-width:300px">
 
-                    <form fxFlex="50 50 300px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+                    <mat-form-field>
+                        <mat-label>Nom d'utilisateur</mat-label>
+                        <input matInput autofocus name="login" [(ngModel)]="loginForm.login" required="required" [disabled]="loading">
+                    </mat-form-field>
 
-                        <mat-form-field>
-                            <mat-label>Nom d'utilisateur</mat-label>
-                            <input matInput
-                                   autofocus
-                                   name="login"
-                                   [(ngModel)]="loginForm.login"
-                                   required="required"
-                                   [disabled]="loading"
-                            >
-                        </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Mot de passe</mat-label>
+                        <input matInput
+                               type="password"
+                               name="password"
+                               color="warn"
+                               [(ngModel)]="loginForm.password"
+                               required="required"
+                               [disabled]="loading"
+                        >
+                    </mat-form-field>
 
-                        <mat-form-field>
-                            <mat-label>Mot de passe</mat-label>
-                            <input matInput
-                                   type="password"
-                                   name="password"
-                                   color="warn"
-                                   [(ngModel)]="loginForm.password"
-                                   required="required"
-                                   [disabled]="loading"
-                            >
-                        </mat-form-field>
-
-                        <div fxLayout="column" fxLayoutAlign="end center" fxLayoutGap="10px">
-                            <button type="submit"
-                                    mat-raised-button
-                                    color="primary"
-                                    (click)="login()"
-                                    [disabled]="loading || !loginForm.login || !loginForm.password"
-                                    i18n
-                            >Se connecter
-                            </button>
-                            <a mat-button routerLink="/user/request-password-reset">Mot de passe oublié ?</a>
-                        </div>
-
-                    </form>
-
-                    <mat-divider [vertical]="true"></mat-divider>
-
-                    <div fxFlex="50 50 300px">
-                        <a type="submit" mat-button mat-raised-button color="primary" routerLink="/user/new">Adhérer</a>
+                    <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">
+                        <a mat-button routerLink="/user/request-password-reset">Mot de passe oublié ?</a>
+                        <button type="submit"
+                                mat-raised-button
+                                color="primary"
+                                (click)="login()"
+                                [disabled]="loading || !loginForm.login || !loginForm.password"
+                                i18n
+                        >Se connecter
+                        </button>
                     </div>
-                </div>
+
+                    <mat-divider class="margin"></mat-divider>
+                    <a type="submit" mat-button mat-raised-button color="primary" routerLink="/user/new">Adhérer</a>
+
+                </form>
 
             </div>
         </div>
