@@ -2,4 +2,9 @@
     display: flex;
     flex: 1;
     flex-direction: column;
+
+    .big-button {
+        max-width: 120px;
+        margin-bottom: 20px;
+    }
 }

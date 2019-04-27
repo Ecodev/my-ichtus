@@ -4,6 +4,12 @@
     align-items: center;
     justify-content: center;
 
+    & > div {
+        width: 100%;
+        min-width: 300px;
+        max-width: 500px;
+    }
+
     input {
         font-size: 48px;
         text-align: center;
