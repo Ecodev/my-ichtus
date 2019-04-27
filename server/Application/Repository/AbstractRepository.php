@@ -33,9 +33,10 @@ abstract class AbstractRepository extends EntityRepository
      */
     protected function getAllIdsQuery(): string
     {
-        $qb = $this->getEntityManager()->getConnection()->createQueryBuilder()
+        $connection = $this->getEntityManager()->getConnection();
+        $qb = $connection->createQueryBuilder()
             ->select('id')
-            ->from($this->getClassMetadata()->getTableName());
+            ->from($connection->quoteIdentifier($this->getClassMetadata()->getTableName()));
 
         return $qb->getSQL();
     }
@@ -49,9 +50,10 @@ abstract class AbstractRepository extends EntityRepository
      */
     protected function getAllIdsForOwnerQuery(User $user): string
     {
-        $qb = $this->getEntityManager()->getConnection()->createQueryBuilder()
+        $connection = $this->getEntityManager()->getConnection();
+        $qb = $connection->createQueryBuilder()
             ->select('id')
-            ->from($this->getClassMetadata()->getTableName())
+            ->from($connection->quoteIdentifier($this->getClassMetadata()->getTableName()))
             ->andWhere('owner_id = ' . $user->getId());
 
         return $qb->getSQL();
