@@ -4,7 +4,6 @@ import { UserService } from './user.service';
 import { Apollo } from 'apollo-angular';
 import { Router } from '@angular/router';
 import { MockApolloProvider } from '../../../shared/testing/MockApolloProvider';
-import { AbstractModelServiceSpec } from '../../../shared/testing/AbstractModelServiceSpec';
 import { PermissionsService } from '../../../shared/services/permissions.service';
 
 describe('UserService', () => {
@@ -26,8 +25,6 @@ describe('UserService', () => {
             permissionsService.setUser = () => null as any;
         })();
     });
-
-    AbstractModelServiceSpec.test(UserService, true, true, true, true, true, false);
 
     it('should get current user', fakeAsync(inject([UserService], (service: UserService) => {
         let actual: any = null;
