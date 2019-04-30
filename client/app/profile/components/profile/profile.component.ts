@@ -51,6 +51,7 @@ export class ProfileComponent implements OnInit {
                 balance: Number(this.viewer.account.balance),
                 user: this.viewer,
             },
+            maxWidth: '600px'
         };
 
         this.dialog.open(ProvisionComponent, config).afterClosed().subscribe(amount => {

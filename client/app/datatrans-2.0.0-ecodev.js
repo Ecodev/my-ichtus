@@ -170,6 +170,12 @@
             value: 'lightbox',
         }));
 
+        paymentForm.appendChild(createElementWithAttributes('input', {
+            type: 'hidden',
+            name: 'language',
+            value: 'fr',
+        }));
+
         paymentFrame = createElementWithAttributes('div', {
             id: 'paymentFrameWrapper',
             style: 'z-index: 9999; position: fixed; right: 0; bottom: 0; left: 0; top: 0; overflow: hidden; -webkit-transform: translate3d(0, 0, 0); display: none',
