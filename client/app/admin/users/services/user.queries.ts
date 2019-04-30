@@ -49,6 +49,7 @@ export const userFieldsFragment = gql`
         owner {
             id
             name
+            email
         }
         sex
         welcomeSessionDate

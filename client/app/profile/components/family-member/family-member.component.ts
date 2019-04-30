@@ -65,7 +65,7 @@ export class FamilyMemberComponent
     public postCreate(model) {
         if (model.login) {
             this.userService.requestPasswordReset(model.login).subscribe(() => {
-                this.alertService.info('Un mail avec les instructions a été envoyé à ' + model.email, 5000);
+                this.alertService.info('Un mail avec les instructions a été envoyé à ' + (model.email || model.owner.email), 5000);
             });
         }
 

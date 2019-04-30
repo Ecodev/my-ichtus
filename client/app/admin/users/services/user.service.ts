@@ -166,7 +166,7 @@ export class UserService extends NaturalAbstractModelService<User['user'],
     protected getDefaultForServer(): UserInput {
         return {
             login: '',
-            email: '',
+            email: null,
             firstName: '',
             lastName: '',
             birthday: null,
@@ -209,7 +209,7 @@ export class UserService extends NaturalAbstractModelService<User['user'],
             login: [Validators.required, LoginValidatorFn],
             firstName: [Validators.required, Validators.maxLength(100)],
             lastName: [Validators.required, Validators.maxLength(100)],
-            email: [Validators.required, Validators.email],
+            email: [Validators.email],
             familyRelationship: [Validators.required],
             birthday: [Validators.required],
         };

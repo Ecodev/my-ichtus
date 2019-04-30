@@ -387,9 +387,9 @@ class User extends AbstractModel
      *
      * @API\Input(type="?Email")
      *
-     * @param string $email
+     * @param null|string $email
      */
-    public function setEmail(string $email): void
+    public function setEmail(?string $email): void
     {
         $this->email = $email;
     }

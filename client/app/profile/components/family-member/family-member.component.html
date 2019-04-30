@@ -3,9 +3,9 @@
     <div fxLayout="column">
 
         <natural-select-enum enumName="Relationship"
-                         formControlName="familyRelationship"
-                         (selectionChange)="update()"
-                         placeholder="Rôle dans la famille"
+                             formControlName="familyRelationship"
+                             (selectionChange)="update()"
+                             placeholder="Rôle dans la famille"
         ></natural-select-enum>
 
         <mat-divider class="margin-bottom"></mat-divider>
@@ -91,5 +91,7 @@
         <div [innerHTML]="form.get('remarks').value" class="line-break"></div>
     </div>
 
-    <button mat-raised-button *ngIf="!data.model.id" (click)="create(false)" [color]="form.invalid ? 'warn' : 'accent'">Créer</button>
+    <button mat-raised-button *ngIf="!data.model.id" (click)="create(false)" [color]="form.invalid ? 'warn' : 'accent'" class="margin-top">
+        Créer
+    </button>
 </div>
