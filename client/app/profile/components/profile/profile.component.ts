@@ -42,14 +42,26 @@ export class ProfileComponent implements OnInit {
     }
 
     public pay() {
-        if (this.viewer !== null) {
-            const config: MatDialogConfig = {data: {balance: Number(this.viewer.account.balance)}};
-            this.dialog.open(ProvisionComponent, config).afterClosed().subscribe(amount => {
-                if (amount) {
-                    this.doPayment(this.viewer, amount);
-                }
-            });
+        if (!this.viewer || !this.viewer.account) {
+            return;
         }
+
+        const config: MatDialogConfig = {
+            data: {
+                balance: Number(this.viewer.account.balance),
+                user: this.viewer,
+            },
+        };
+
+        this.dialog.open(ProvisionComponent, config).afterClosed().subscribe(amount => {
+            if (amount) {
+                this.doPayment(this.viewer, amount);
+            }
+        });
+    }
+
+    public canAccessServices() {
+        return UserService.canAccessServices(this.viewer);
     }
 
     private doPayment(user, amount): void {
@@ -89,10 +101,6 @@ export class ProfileComponent implements OnInit {
                 this.alertService.error('Le paiement a été annulé');
             },
         });
-    }
-
-    public canAccessServices() {
-        return UserService.canAccessServices(this.viewer);
     }
 
 }

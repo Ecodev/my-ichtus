@@ -1,20 +1,45 @@
 <h2 mat-dialog-title>Faire un versement</h2>
 <mat-dialog-content>
 
-    <p class="mat-body">Merci d'indiquer le montant que tu souhaites verser.</p>
+    <div fxLayout="column" fxLayoutGap="20px" *ngIf="!paymentMode">
 
-    <mat-form-field style="width:100%">
-        <mat-label>Montant</mat-label>
-        <input matInput type="number" step="1" [formControl]="formCtrl" [errorStateMatcher]="matcher" />
-        <mat-error *ngIf="formCtrl.errors?.min">Minimum {{ formCtrl.errors.min.min | currency : 'CHF' }}</mat-error>
-        <div matSuffix>CHF</div>
-    </mat-form-field>
+        <div class="mat-body-1">
+            Les organisme de paiement par carte de crédit prennent une commission. Bien que nous désirions offrir cette possibilité de
+            paiement, vous incitons à utiliser le paiement par e-banking qui est sans frais.
+        </div>
+
+        <div fxLayout="column" fxLayoutGap="10px">
+            <button mat-flat-button color="primary" (click)="paymentMode = 'ebanking'">
+                E-Banking <!-- : BVR--->
+            </button>
+
+            <button mat-flat-button color="primary" (click)="paymentMode = 'datatrans'">
+                En ligne <!-- : Postfinance / Visa / Mastercard-->
+            </button>
+        </div>
+    </div>
+
+    <div class="padding" *ngIf="paymentMode === 'datatrans'">
+        <p class="mat-body">Merci d'indiquer le montant que tu souhaites verser.</p>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+            <mat-form-field style="width:120px">
+                <mat-label>Montant</mat-label>
+                <input matInput type="number" step="1" [formControl]="formCtrl" [errorStateMatcher]="matcher" />
+                <mat-error *ngIf="formCtrl.errors?.min">Minimum {{ formCtrl.errors.min.min | currency : 'CHF' }}</mat-error>
+                <div matSuffix>CHF</div>
+            </mat-form-field>
+
+            <button mat-flat-button color="primary" [mat-dialog-close]="formCtrl.value" [disabled]="formCtrl.invalid">
+                Suivant
+            </button>
+        </div>
+    </div>
+
+    <app-bvr [bankingData]="bvrData" *ngIf="paymentMode === 'ebanking'"></app-bvr>
 
 </mat-dialog-content>
 
-<mat-dialog-actions style="display:flex;justify-content: flex-end;">
-    <button mat-button mat-dialog-close>{{ data?.cancelText || 'Annuler' }}</button>
-    <button mat-flat-button color="primary" [mat-dialog-close]="formCtrl.value" [disabled]="formCtrl.invalid">
-        {{ data?.confirmText || 'Suivant' }}
-    </button>
+<mat-dialog-actions fxLayout="row" fxLayoutAlign="end">
+    <button mat-button mat-dialog-close>Annuler</button>
 </mat-dialog-actions>

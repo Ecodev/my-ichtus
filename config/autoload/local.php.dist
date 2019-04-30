@@ -54,4 +54,10 @@ return [
         'password' => '',
         'port' => 3306,
     ],
+    'banking' => [
+        'bankAccount' => '', // Bank account number, eg: '800876'
+        'postAccount' => '', // Post account number, eg: '01-3456-0'
+        'paymentTo' => '', // Bank coordinate the payment will be made to, eg: 'Great Bank, Cayman Islands'
+        'paymentFor' => '', // Final recipient of payment, eg: 'John Doe, Main street 7, Sydney'
+    ],
 ];

@@ -17,6 +17,7 @@ import {
 } from '../shared/components/select-admin-approved-button/select-admin-approved-button.component';
 import { HistoryComponent } from './components/history/history.component';
 import { FinancesComponent } from './components/finances/finances.component';
+import { BvrComponent } from './components/bvr/bvr.component';
 
 @NgModule({
     declarations: [
@@ -32,6 +33,7 @@ import { FinancesComponent } from './components/finances/finances.component';
         SelectAdminApprovedButtonComponent,
         SelectAdminApprovedModalComponent,
         HistoryComponent,
+        BvrComponent
     ],
     imports: [
         CommonModule,
