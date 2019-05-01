@@ -183,11 +183,11 @@ function removeProgressBar(sign) {
 //ENTER LIST BAR
 function enterListBar() {
     $("divTabCahierTopList").style.zIndex = 6;
-    setTimeout(function () { $("divTabCahierTopList").style.zIndex = 11; }, changeTime * 1000);
+    setTimeout(function () { $("divTabCahierTopList").style.zIndex = 10; }, changeTime * 1000);
 }
 //REMOVE LIST BAR
 function removeListBar(sign) {
-    $("divTabCahierTopList").style.zIndex = "11"; //11
+    $("divTabCahierTopList").style.zIndex = "10"; //10
     $("divTabCahierTopList").style.transition = "transform " + changeTime + "s linear 0s";
     $("divTabCahierTopList").style.transform = "translate(" + (-sign) + "00%)";
 

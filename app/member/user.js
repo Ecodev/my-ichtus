@@ -143,11 +143,11 @@ function createSearchEntries(PeopleCorresponding) {
 
         var span1 = document.createElement("span");
         span1.classList.add("spanTabCahierSurName");
-        span1.innerHTML = "Aucun résultat - Cliquez pour vous rendre sur <c style='color:blue; text-decoration:underline;'> ichtus.club </c>";
-        span1.onclick = function () {
-            var win = window.open("https://ichtus.club", '_blank');
-            win.focus();
-        };
+        span1.innerHTML = "Aucun résultat"; //. Cliquez pour vous rendre sur <c style='color:blue; text-decoration:underline;'> ichtus.ch </c>";
+        //span1.onclick = function () {
+        //    var win = window.open("https://ichtus.ch", '_blank');
+        //    win.focus();
+        //};
         divResult.appendChild(span1);
 
         divResult.style.backgroundImage = "url(img/icons/no-result.png)";
