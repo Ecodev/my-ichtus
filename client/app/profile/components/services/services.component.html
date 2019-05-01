@@ -35,7 +35,7 @@
                 <ng-container matColumnDef="periodicPrice">
                     <th mat-header-cell *matHeaderCellDef app-7em-column app-align-right>Prix périodique</th>
                     <td mat-cell *matCellDef="let booking" app-align-right>
-                        <span *ngIf="booking.bookable.periodicPrice != 0"> {{ booking.bookable.periodicPrice | currency: 'CHF'}}
+                        <span *ngIf="booking.bookable.periodicPrice != '0.00'"> {{ booking.bookable.periodicPrice | currency: 'CHF'}}
                         </span>
                     </td>
                     <td mat-footer-cell *matFooterCellDef app-align-right>
@@ -48,7 +48,7 @@
                 <ng-container matColumnDef="initialPrice">
                     <th mat-header-cell *matHeaderCellDef app-7em-column app-align-right>Prix initial</th>
                     <td mat-cell *matCellDef="let booking" app-align-right>
-                        <span *ngIf="booking.bookable.initialPrice != 0"> {{ booking.bookable.initialPrice | currency: 'CHF'}}</span>
+                        <span *ngIf="booking.bookable.initialPrice != '0.00'"> {{ booking.bookable.initialPrice | currency: 'CHF'}}</span>
                     </td>
                     <td mat-footer-cell *matFooterCellDef app-align-right>
                         <span *ngIf="pendingApplicationsDS.data.totalInitialPrice > 0">

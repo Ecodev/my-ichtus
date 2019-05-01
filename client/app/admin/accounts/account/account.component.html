@@ -13,19 +13,19 @@
                         <mat-form-field>
                             <mat-label>Nom</mat-label>
                             <input matInput formControlName="name" (change)="update()">
-                            <mat-error *ngIf="form.get('name').hasError('maxlength')">
-                                Maximum {{form.get('name').errors.maxlength.requiredLength }} caractères
+                            <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
+                                Maximum {{form.get('name')?.errors.maxlength.requiredLength }} caractères
                             </mat-error>
-                            <mat-error *ngIf="form.get('name').hasError('required')">Requis</mat-error>
+                            <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
                         </mat-form-field>
 
-                        <mat-form-field *ngIf="!form.get('owner').value">
+                        <mat-form-field *ngIf="!form.get('owner')?.value">
                             <mat-label>IBAN Ichtus</mat-label>
                             <input matInput formControlName="iban" (change)="update()">
-                            <mat-error *ngIf="form.get('iban').hasError('maxlength')">
-                                Maximum {{form.get('iban').errors.maxlength.requiredLength }} caractères
+                            <mat-error *ngIf="form.get('iban')?.hasError('maxlength')">
+                                Maximum {{form.get('iban')?.errors.maxlength.requiredLength }} caractères
                             </mat-error>
-                            <mat-error *ngIf="form.get('iban').hasError('required')">Requis</mat-error>
+                            <mat-error *ngIf="form.get('iban')?.hasError('required')">Requis</mat-error>
                             <mat-hint>Pour les comptes bancaires ichtus uniquement</mat-hint>
                         </mat-form-field>
 
@@ -39,7 +39,7 @@
                                     [filter]="{groups: [{conditions: [{accounts: {empty: {not: false}}}]}]}"
                                     (selectionChange)="update()"
                                     [showIcon]="false"
-                                    [navigateTo]="form.get('owner').value?.id ? ['/admin/user', form.get('owner').value.id] : null"
+                                    [navigateTo]="form.get('owner')?.value?.id ? ['/admin/user', form.get('owner')?.value.id] : null"
                         ></natural-select>
 
                         <div *ngIf="form.get('owner')?.value">IBAN de l'utilisateur : {{ form.get('owner')?.value?.iban }}</div>

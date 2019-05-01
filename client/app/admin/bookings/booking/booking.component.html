@@ -2,7 +2,7 @@
 
     <natural-detail-header newLabel="Nouvelle réservation" label="Réservation" [model]="data.model" [listRoute]="['admin', 'booking']">
         <div fxLayout="row" fxLayoutGap="20px">
-            <button *ngIf="data.model.id && !form.get('endDate').value" mat-flat-button color="warn" (click)="endBooking()">
+            <button *ngIf="data.model.id && !form.get('endDate')?.value" mat-flat-button color="warn" (click)="endBooking()">
                 Terminer
             </button>
         </div>
@@ -21,7 +21,7 @@
                                         [service]="userService"
                                         (selectionChange)="update()"
                                         [showIcon]="false"
-                                        [navigateTo]="form.get('owner').value?.id ? ['/admin/user', form.get('owner').value.id] : null"
+                                        [navigateTo]="form.get('owner')?.value?.id ? ['/admin/user', form.get('owner')?.value.id] : null"
                             ></natural-select>
                         </div>
 
@@ -30,13 +30,13 @@
                                     [service]="bookableService"
                                     (selectionChange)="update()"
                                     [showIcon]="false"
-                                    [navigateTo]="form.get('bookable').value?.id ? ['/admin/bookable', form.get('bookable').value.id] : null"
+                                    [navigateTo]="form.get('bookable')?.value?.id ? ['/admin/bookable', form.get('bookable')?.value.id] : null"
                         ></natural-select>
 
                         <button mat-flat-button
                                 color="primary"
                                 *ngIf="isApplication() && isService() && data.model.status === BookingStatus.application"
-                                (click)="assignBookable(form.get('bookable').value)"
+                                (click)="assignBookable(form.get('bookable')?.value)"
                         >
                             Valider la demande
                         </button>

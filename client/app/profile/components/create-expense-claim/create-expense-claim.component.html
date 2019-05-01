@@ -6,17 +6,17 @@
         <mat-form-field fxFlex>
             <mat-label>Objet de la dépense</mat-label>
             <input matInput formControlName="name" (change)="update()">
-            <mat-error *ngIf="form.get('name').hasError('maxlength')">
-                Maximum {{form.get('name').errors.maxlength.requiredLength }} caractères
+            <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
+                Maximum {{form.get('name')?.errors.maxlength.requiredLength }} caractères
             </mat-error>
-            <mat-error *ngIf="form.get('name').hasError('required')">Requis</mat-error>
+            <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Montant</mat-label>
             <input matInput type="number" step="0.01" min="1" formControlName="amount" (change)="update()">
             <div matSuffix>CHF</div>
-            <mat-error *ngIf="form.get('amount').hasError('required')">Requis</mat-error>
-            <mat-error *ngIf="form.get('amount').hasError('min')">Le montant doit être positif</mat-error>
+            <mat-error *ngIf="form.get('amount')?.hasError('required')">Requis</mat-error>
+            <mat-error *ngIf="form.get('amount')?.hasError('min')">Le montant doit être positif</mat-error>
         </mat-form-field>
     </div>
 

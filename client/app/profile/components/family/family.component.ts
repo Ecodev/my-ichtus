@@ -16,7 +16,7 @@ import { NaturalAbstractModelService } from '@ecodev/natural';
 export class FamilyComponent implements OnInit {
 
     public viewer;
-    private familyMembers;
+    public familyMembers;
 
     constructor(public userService: UserService,
                 private route: ActivatedRoute,

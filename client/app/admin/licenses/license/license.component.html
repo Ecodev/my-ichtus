@@ -5,10 +5,10 @@
             <a mat-icon-button [routerLink]="['..']">
                 <natural-icon name="arrow_back"></natural-icon>
             </a>
-            <span *ngIf="!form.get('name').value">Nouvelle certification</span>
-            <span *ngIf="form.get('name').value" class="pageTitle">
+            <span *ngIf="!form.get('name')?.value">Nouvelle certification</span>
+            <span *ngIf="form.get('name')?.value" class="pageTitle">
                 <span>Certification</span>
-                {{ form.get('name').value }}
+                {{ form.get('name')?.value }}
             </span>
         </div>
     </div>
@@ -22,10 +22,10 @@
                         <mat-form-field>
                             <input matInput formControlName="name" (change)="update()">
                             <mat-label>Nom</mat-label>
-                            <mat-error *ngIf="form.get('name').hasError('maxlength')">
-                                Maximum {{form.get('name').errors.maxlength.requiredLength }} caractères
+                            <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
+                                Maximum {{form.get('name')?.errors.maxlength.requiredLength }} caractères
                             </mat-error>
-                            <mat-error *ngIf="form.get('name').hasError('required')">Requis</mat-error>
+                            <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
                         </mat-form-field>
 
                     </div>

@@ -11,10 +11,10 @@
                 <mat-form-field>
                     <mat-label>Nom</mat-label>
                     <input matInput formControlName="name">
-                    <mat-error *ngIf="form.get('lines').at(i).get('name').hasError('maxlength')">
-                        Maximum {{form.get('lines').at(i).get('name').errors.maxlength.requiredLength }} caractères
+                    <mat-error *ngIf="form.get('lines')?.at(i).get('name')?.hasError('maxlength')">
+                        Maximum {{form.get('lines')?.at(i).get('name')?.errors.maxlength.requiredLength }} caractères
                     </mat-error>
-                    <mat-error *ngIf="form.get('lines').at(i).get('name').hasError('required')">Requis</mat-error>
+                    <mat-error *ngIf="form.get('lines')?.at(i).get('name')?.hasError('required')">Requis</mat-error>
                 </mat-form-field>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
@@ -26,10 +26,10 @@
                 <mat-form-field>
                     <mat-label>Montant</mat-label>
                     <input matInput formControlName="balance">
-                    <mat-error *ngIf="form.get('lines').at(i).get('balance').hasError('min')">
-                        Doit être supérieur à {{form.get('lines').at(i).get('balance').errors.min.min }}
+                    <mat-error *ngIf="form.get('lines')?.at(i).get('balance')?.hasError('min')">
+                        Doit être supérieur à {{form.get('lines')?.at(i).get('balance')?.errors.min.min }}
                     </mat-error>
-                    <mat-error *ngIf="form.get('lines').at(i).get('balance').hasError('required')">Requis</mat-error>
+                    <mat-error *ngIf="form.get('lines')?.at(i).get('balance')?.hasError('required')">Requis</mat-error>
                 </mat-form-field>
             </td>
             <td mat-footer-cell *matFooterCellDef>
@@ -58,7 +58,7 @@
                             placeholder="Compte crédit"
                             [showIcon]="false"
                 >
-                    <!--<mat-error *ngIf="form.get('lines').at(i).hasError('atLeastOneAccountRequired')">Au moins un compte est requis</mat-error>-->
+                    <!--<mat-error *ngIf="form.get('lines')?.at(i).hasError('atLeastOneAccountRequired')">Au moins un compte est requis</mat-error>-->
                 </natural-select>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>

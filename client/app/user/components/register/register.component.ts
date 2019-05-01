@@ -20,7 +20,7 @@ export class RegisterComponent extends NaturalAbstractDetail<User['user'],
     UpdateUserVariables,
     any> implements OnInit {
 
-    private mandatoryBookables: NaturalDataSource;
+    public mandatoryBookables: NaturalDataSource;
 
     public step;
     public sending = false;

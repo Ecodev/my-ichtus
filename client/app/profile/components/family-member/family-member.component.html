@@ -18,19 +18,19 @@
                 <mat-label>email</mat-label>
                 <input matInput formControlName="email" (change)="update()">
                 <natural-icon matPrefix name="alternate_email"></natural-icon>
-                <mat-error *ngIf="form.get('email').hasError('required')">Requis</mat-error>
-                <mat-error *ngIf="form.get('email').hasError('email')">Adresse email invalide</mat-error>
+                <mat-error *ngIf="form.get('email')?.hasError('required')">Requis</mat-error>
+                <mat-error *ngIf="form.get('email')?.hasError('email')">Adresse email invalide</mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex>
                 <mat-label>Nom d'utilisateur</mat-label>
                 <input matInput formControlName="login" (change)="update()">
                 <natural-icon matPrefix name="person"></natural-icon>
-                <mat-error *ngIf="form.get('login').hasError('maxlength')">
-                    Maximum {{form.get('login').errors.maxlength.requiredLength}} caractères
+                <mat-error *ngIf="form.get('login')?.hasError('maxlength')">
+                    Maximum {{form.get('login')?.errors.maxlength.requiredLength}} caractères
                 </mat-error>
-                <mat-error *ngIf="form.get('login').hasError('required')">Requis</mat-error>
-                <mat-error *ngIf="form.get('login').hasError('invalid')">{{ form.get('login').getError('invalid') }}</mat-error>
+                <mat-error *ngIf="form.get('login')?.hasError('required')">Requis</mat-error>
+                <mat-error *ngIf="form.get('login')?.hasError('invalid')">{{ form.get('login')?.getError('invalid') }}</mat-error>
             </mat-form-field>
 
         </div>
@@ -42,19 +42,19 @@
         <mat-form-field>
             <mat-label>Prénom</mat-label>
             <input matInput formControlName="firstName" (change)="update()">
-            <mat-error *ngIf="form.get('firstName').hasError('maxlength')">
-                Maximum {{form.get('firstName').errors.maxlength.requiredLength}} caractères
+            <mat-error *ngIf="form.get('firstName')?.hasError('maxlength')">
+                Maximum {{form.get('firstName')?.errors.maxlength.requiredLength}} caractères
             </mat-error>
-            <mat-error *ngIf="form.get('firstName').hasError('required')">Requis</mat-error>
+            <mat-error *ngIf="form.get('firstName')?.hasError('required')">Requis</mat-error>
         </mat-form-field>
 
         <mat-form-field>
             <mat-label>Nom de famille</mat-label>
             <input matInput formControlName="lastName" (change)="update()">
-            <mat-error *ngIf="form.get('lastName').hasError('maxlength')">
-                Maximum {{form.get('lastName').errors.maxlength.requiredLength}} caractères
+            <mat-error *ngIf="form.get('lastName')?.hasError('maxlength')">
+                Maximum {{form.get('lastName')?.errors.maxlength.requiredLength}} caractères
             </mat-error>
-            <mat-error *ngIf="form.get('lastName').hasError('required')">Requis</mat-error>
+            <mat-error *ngIf="form.get('lastName')?.hasError('required')">Requis</mat-error>
         </mat-form-field>
 
         <natural-select-enum enumName="Sex" formControlName="sex" (selectionChange)="update()" placeholder="Genre"></natural-select-enum>
@@ -88,7 +88,7 @@
     <div *ngIf="form.get('remarks')?.value">
         <mat-divider class="margin-v"></mat-divider>
         <div class="mat-body-2">Remarques</div>
-        <div [innerHTML]="form.get('remarks').value" class="line-break"></div>
+        <div [innerHTML]="form.get('remarks')?.value" class="line-break"></div>
     </div>
 
     <button mat-raised-button *ngIf="!data.model.id" (click)="create(false)" [color]="form.invalid ? 'warn' : 'accent'" class="margin-top">

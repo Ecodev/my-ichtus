@@ -2,9 +2,9 @@
 
     <natural-detail-header newLabel="Nouvel réservable" label="Réservable" [model]="data.model" [listRoute]="['admin', 'bookable']">
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-            <div fxLayout="column" style="text-align:right" *ngIf="form.get('verificationDate').value">
+            <div fxLayout="column" style="text-align:right" *ngIf="form.get('verificationDate')?.value">
                 <div class="mat-body-2">Dernière vérification</div>
-                <div class="mat-body-1">{{ form.get('verificationDate').value | date: 'longDate' }}</div>
+                <div class="mat-body-1">{{ form.get('verificationDate')?.value | date: 'longDate' }}</div>
             </div>
             <button mat-flat-button color="primary" (click)="verify()" *ngIf="data.model.id && showVerified()">
                 Marquer comme vérifié
@@ -34,19 +34,19 @@
                                 <mat-form-field>
                                     <input matInput formControlName="name" (change)="update()">
                                     <mat-label>Nom</mat-label>
-                                    <mat-error *ngIf="form.get('name').hasError('maxlength')">
-                                        Maximum {{form.get('name').errors.maxlength.requiredLength }} caractères
+                                    <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
+                                        Maximum {{form.get('name')?.errors.maxlength.requiredLength }} caractères
                                     </mat-error>
-                                    <mat-error *ngIf="form.get('name').hasError('required')">Requis</mat-error>
+                                    <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field>
                                     <input matInput formControlName="code" (change)="update()">
                                     <mat-label>Code</mat-label>
-                                    <mat-error *ngIf="form.get('code').hasError('maxlength')">
-                                        Maximum {{form.get('code').errors.maxlength.requiredLength }} caractères
+                                    <mat-error *ngIf="form.get('code')?.hasError('maxlength')">
+                                        Maximum {{form.get('code')?.errors.maxlength.requiredLength }} caractères
                                     </mat-error>
-                                    <mat-error *ngIf="form.get('code').hasError('required')">Requis</mat-error>
+                                    <mat-error *ngIf="form.get('code')?.hasError('required')">Requis</mat-error>
                                 </mat-form-field>
 
                                 <natural-select-enum enumName="BookableState"
@@ -59,8 +59,8 @@
                                     <mat-label>Prix d'achat</mat-label>
                                     <input matInput type="number" step="0.01" min="0" formControlName="purchasePrice" (change)="update()">
                                     <div matSuffix>CHF</div>
-                                    <mat-error *ngIf="form.get('purchasePrice').hasError('required')">Requis</mat-error>
-                                    <mat-error *ngIf="form.get('purchasePrice').hasError('min')">Le montant doit être positif</mat-error>
+                                    <mat-error *ngIf="form.get('purchasePrice')?.hasError('required')">Requis</mat-error>
+                                    <mat-error *ngIf="form.get('purchasePrice')?.hasError('min')">Le montant doit être positif</mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
@@ -100,14 +100,14 @@
                             <mat-label>Prix initial</mat-label>
                             <input matInput type="number" step="0.01" formControlName="initialPrice" (change)="update()">
                             <div matSuffix>CHF</div>
-                            <mat-error *ngIf="form.get('initialPrice').hasError('required')">Requis</mat-error>
+                            <mat-error *ngIf="form.get('initialPrice')?.hasError('required')">Requis</mat-error>
                         </mat-form-field>
 
                         <mat-form-field *ngIf="isBookingPriceApplicable()">
                             <mat-label>Prix périodique</mat-label>
                             <input matInput type="number" step="0.01" formControlName="periodicPrice" (change)="update()">
                             <div matSuffix>CHF</div>
-                            <mat-error *ngIf="form.get('periodicPrice').hasError('required')">Requis</mat-error>
+                            <mat-error *ngIf="form.get('periodicPrice')?.hasError('required')">Requis</mat-error>
                         </mat-form-field>
 
                         <mat-form-field>
@@ -123,7 +123,7 @@
                                     [hierarchicSelectorConfig]="accountHierarchicConfig"
                                     (selectionChange)="update()"
                                     [showIcon]="false"
-                                    [navigateTo]="['/admin/account', form.get('creditAccount').value?.id]"
+                                    [navigateTo]="['/admin/account', form.get('creditAccount')?.value?.id]"
                         ></natural-select>
 
                     </div>

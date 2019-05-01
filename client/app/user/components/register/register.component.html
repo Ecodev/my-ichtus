@@ -12,8 +12,8 @@
                     <mat-label>email</mat-label>
                     <input matInput formControlName="email">
                     <natural-icon matPrefix name="alternate_email"></natural-icon>
-                    <mat-error *ngIf="form.get('email').hasError('required')">Requis</mat-error>
-                    <mat-error *ngIf="form.get('email').hasError('email')">Adresse email invalide</mat-error>
+                    <mat-error *ngIf="form.get('email')?.hasError('required')">Requis</mat-error>
+                    <mat-error *ngIf="form.get('email')?.hasError('email')">Adresse email invalide</mat-error>
                 </mat-form-field>
             </div>
         </div>
@@ -30,11 +30,11 @@
                     <mat-label>Nom d'utilisateur</mat-label>
                     <input matInput formControlName="login">
                     <natural-icon matPrefix name="person"></natural-icon>
-                    <mat-error *ngIf="form.get('login').hasError('maxlength')">
-                        Maximum {{form.get('login').errors.maxlength.requiredLength}} caractères
+                    <mat-error *ngIf="form.get('login')?.hasError('maxlength')">
+                        Maximum {{form.get('login')?.errors.maxlength.requiredLength}} caractères
                     </mat-error>
-                    <mat-error *ngIf="form.get('login').hasError('required')">Requis</mat-error>
-                    <mat-error *ngIf="form.get('login').hasError('invalid')">{{ form.get('login').getError('invalid') }}</mat-error>
+                    <mat-error *ngIf="form.get('login')?.hasError('required')">Requis</mat-error>
+                    <mat-error *ngIf="form.get('login')?.hasError('invalid')">{{ form.get('login')?.getError('invalid') }}</mat-error>
                 </mat-form-field>
 
                 <app-password [form]="form"></app-password>
@@ -48,19 +48,19 @@
                 <mat-form-field fxFlex>
                     <mat-label>Prénom</mat-label>
                     <input matInput formControlName="firstName">
-                    <mat-error *ngIf="form.get('firstName').hasError('maxlength')">
-                        Maximum {{form.get('firstName').errors.maxlength.requiredLength}} caractères
+                    <mat-error *ngIf="form.get('firstName')?.hasError('maxlength')">
+                        Maximum {{form.get('firstName')?.errors.maxlength.requiredLength}} caractères
                     </mat-error>
-                    <mat-error *ngIf="form.get('firstName').hasError('required')">Requis</mat-error>
+                    <mat-error *ngIf="form.get('firstName')?.hasError('required')">Requis</mat-error>
                 </mat-form-field>
 
                 <mat-form-field fxFlex>
                     <mat-label>Nom de famille</mat-label>
                     <input matInput formControlName="lastName">
-                    <mat-error *ngIf="form.get('lastName').hasError('maxlength')">
-                        Maximum {{form.get('lastName').errors.maxlength.requiredLength}} caractères
+                    <mat-error *ngIf="form.get('lastName')?.hasError('maxlength')">
+                        Maximum {{form.get('lastName')?.errors.maxlength.requiredLength}} caractères
                     </mat-error>
-                    <mat-error *ngIf="form.get('lastName').hasError('required')">Requis</mat-error>
+                    <mat-error *ngIf="form.get('lastName')?.hasError('required')">Requis</mat-error>
                 </mat-form-field>
             </div>
 
@@ -72,7 +72,7 @@
                     <input matInput formControlName="birthday" [matDatepicker]="picker">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
-                    <mat-error *ngIf="form.get('birthday').hasError('required')">Requis</mat-error>
+                    <mat-error *ngIf="form.get('birthday')?.hasError('required')">Requis</mat-error>
                 </mat-form-field>
             </div>
 
@@ -99,7 +99,7 @@
                     <ng-container matColumnDef="initialPrice">
                         <th mat-header-cell *matHeaderCellDef app-7em-column app-align-right>Prix initial</th>
                         <td mat-cell *matCellDef="let bookable" app-align-right>
-                            <span *ngIf="bookable.initialPrice != 0"> {{ bookable.initialPrice | currency: 'CHF' }}</span>
+                            <span *ngIf="bookable.initialPrice != '0.00'"> {{ bookable.initialPrice | currency: 'CHF' }}</span>
                         </td>
                         <td mat-footer-cell *matFooterCellDef app-align-right>
                             <span *ngIf="mandatoryBookables?.data?.totalInitialPrice > 0">
@@ -111,7 +111,7 @@
                     <ng-container matColumnDef="periodicPrice">
                         <th mat-header-cell *matHeaderCellDef app-7em-column app-align-right>Prix annuel</th>
                         <td mat-cell *matCellDef="let bookable" app-align-right>
-                            <span *ngIf="bookable.periodicPrice != 0"> {{ bookable.periodicPrice | currency: 'CHF' }}</span>
+                            <span *ngIf="bookable.periodicPrice != '0.00'"> {{ bookable.periodicPrice | currency: 'CHF' }}</span>
                         </td>
                         <td mat-footer-cell *matFooterCellDef app-align-right>
                             <span *ngIf="mandatoryBookables?.data?.totalPeriodicPrice > 0">
@@ -131,7 +131,7 @@
                 <mat-checkbox formControlName="hasInsurance" wrap>
                     Mon assurance RC couvre les dégâts commis par négligence au matériel nautique du club.
                 </mat-checkbox>
-                <mat-error class="mat-body-1" *ngIf="form.get('hasInsurance').touched && form.get('hasInsurance').hasError('required')">
+                <mat-error class="mat-body-1" *ngIf="form.get('hasInsurance')?.touched && form.get('hasInsurance')?.hasError('required')">
                     Requis
                 </mat-error>
                 <p class="mat-body-1"></p>
@@ -148,7 +148,7 @@
                     ainsi que tous les règlements et
                     <a href="https://ichtus.ch/statuts" target="_blank">statuts du club nautique Ichtus</a>
                 </p>
-                <mat-error class="mat-body-1" *ngIf="form.get('termsAgreement').touched && form.get('termsAgreement').hasError('required')">
+                <mat-error class="mat-body-1" *ngIf="form.get('termsAgreement')?.touched && form.get('termsAgreement')?.hasError('required')">
                     Requis
                 </mat-error>
             </div>

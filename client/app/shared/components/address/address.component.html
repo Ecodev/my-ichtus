@@ -2,7 +2,7 @@
     <mat-form-field>
         <mat-label>Rue</mat-label>
         <input matInput formControlName="street" (change)="update()">
-        <mat-error *ngIf="form.get('street').hasError('required')">Requis</mat-error>
+        <mat-error *ngIf="form.get('street')?.hasError('required')">Requis</mat-error>
     </mat-form-field>
 
     <div [fxLayout.gt-sm]="vertical ? 'column': 'row'" [fxLayoutGap.gt-sm]="vertical ? '0px' : '10px'" fxLayout="column">
@@ -10,14 +10,15 @@
         <mat-form-field [fxFlex]="!vertical">
             <mat-label>Localité</mat-label>
             <input matInput formControlName="locality" (change)="update()">
-            <mat-error *ngIf="form.get('locality').hasError('required')">Requis</mat-error>
+            <mat-error *ngIf="form.get('locality')?.hasError('required')">Requis</mat-error>
         </mat-form-field>
 
         <div fxLayout="row" fxLayoutGap="10px">
+
             <mat-form-field [style.width.px]="100">
                 <mat-label>NPA</mat-label>
                 <input matInput formControlName="postcode" (change)="update()">
-                <mat-error *ngIf="form.get('postcode').hasError('required')">Requis</mat-error>
+                <mat-error *ngIf="form.get('postcode')?.hasError('required')">Requis</mat-error>
             </mat-form-field>
 
             <natural-select [service]="countryService"

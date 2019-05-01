@@ -4,8 +4,10 @@
     "license": "MIT",
     "scripts": {
         "ng": "ng",
+        "ng-hm": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng",
+        "dev-aot": "yarn codegen && yarn run ng-hm serve --prod",
         "dev": "yarn codegen && ng serve",
-        "prod": "yarn codegen && ng build && ng build --prod vanilla --optimization=false",
+        "prod": "yarn codegen && ng build --prod && ng build --prod vanilla --optimization=false",
         "test": "yarn codegen && ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",

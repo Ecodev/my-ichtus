@@ -13,10 +13,10 @@
                         <mat-form-field>
                             <mat-label>Nom</mat-label>
                             <input matInput formControlName="name">
-                            <mat-error *ngIf="form.get('name').hasError('maxlength')">
-                                Maximum {{form.get('name').errors.maxlength.requiredLength }} caractères
+                            <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
+                                Maximum {{form.get('name')?.errors.maxlength.requiredLength }} caractères
                             </mat-error>
-                            <mat-error *ngIf="form.get('name').hasError('required')">Requis</mat-error>
+                            <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
                         </mat-form-field>
 
                     <div fxLayout="column" fxLayoutGap="10px">
@@ -29,7 +29,7 @@
                                     <div matSuffix xLayout="row" fxLayoutAlign="start center">
                                         <mat-datepicker-toggle [for]="picker2"></mat-datepicker-toggle>
                                         <mat-datepicker #picker2></mat-datepicker>
-                                        <mat-error *ngIf="form.get('transactionDate').hasError('required')">Requis</mat-error>
+                                        <mat-error *ngIf="form.get('transactionDate')?.hasError('required')">Requis</mat-error>
                                     </div>
 
                                 </mat-form-field>
