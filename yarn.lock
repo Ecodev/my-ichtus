@@ -377,10 +377,10 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@ecodev/natural@^0.0.11":
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-0.0.11.tgz#1eb267adcb4192ac0106f9fd9656a4c15b832e11"
-  integrity sha512-A1SGa11YrApNcRmXgKKZCWpFjX5kPm8CULErfifX7rHmleHXoRieEuXAGx9ZgbT9XRK+c3QVd5DopHKmrjeuiQ==
+"@ecodev/natural@^0.0.12":
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-0.0.12.tgz#d66e238e1072a0df8fd4f2146d4f6075491f44aa"
+  integrity sha512-gcxYodJ1qVxdb8uXxQSbXDwucLeLz3iZYf55gfnDApoG7vTPlyzQ4ZBeB1wl+L/I3qZtkK1cLQ+gDltSZNgt0w==
   dependencies:
     tslib "^1.9.0"
 
