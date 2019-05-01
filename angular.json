@@ -25,8 +25,12 @@
             "tsConfig": "client/tsconfig.app.json",
             "deleteOutputPath": false,
             "assets": [
-              "client/favicon.ico",
-              "client/assets"
+              "client/assets",
+              {
+                "input": "client/favicon",
+                "glob": "*",
+                "output": "/"
+              }
             ],
             "styles": [
               "client/styles/_themes.scss",
@@ -97,8 +101,12 @@
             ],
             "scripts": [],
             "assets": [
-              "client/favicon.ico",
-              "client/assets"
+              "client/assets",
+              {
+                "input": "client/favicon",
+                "glob": "*",
+                "output": "/"
+              }
             ]
           }
         },
