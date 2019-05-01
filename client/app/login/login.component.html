@@ -1,51 +1,44 @@
-<div fxLayout="column" fxFlexFill>
+<div fxLayout="column" fxFlexAlign="center center" fxFlexFill overflow>
 
-    <div fxFlex fxLayout="row" fxFlexAlign="center center">
+    <div class="padding" fxFlex="1 0 auto" fxLayout="column" fxLayoutAlign="center center">
 
-        <div class="login padding-v centered-content" fxFlex fxLayout="column" fxLayoutAlign="center center">
+        <img src="assets/ichtus.svg" />
 
-            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="30px">
+        <form fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="15px" style="min-width:300px">
 
-                <img src="assets/ichtus.svg" />
+            <mat-form-field>
+                <mat-label>Nom d'utilisateur</mat-label>
+                <input matInput autofocus name="login" [(ngModel)]="loginForm.login" required="required" [disabled]="loading">
+            </mat-form-field>
 
-                <form fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="15px" style="min-width:300px">
+            <mat-form-field>
+                <mat-label>Mot de passe</mat-label>
+                <input matInput
+                       type="password"
+                       name="password"
+                       color="warn"
+                       [(ngModel)]="loginForm.password"
+                       required="required"
+                       [disabled]="loading"
+                >
+            </mat-form-field>
 
-                    <mat-form-field>
-                        <mat-label>Nom d'utilisateur</mat-label>
-                        <input matInput autofocus name="login" [(ngModel)]="loginForm.login" required="required" [disabled]="loading">
-                    </mat-form-field>
-
-                    <mat-form-field>
-                        <mat-label>Mot de passe</mat-label>
-                        <input matInput
-                               type="password"
-                               name="password"
-                               color="warn"
-                               [(ngModel)]="loginForm.password"
-                               required="required"
-                               [disabled]="loading"
-                        >
-                    </mat-form-field>
-
-                    <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">
-                        <a mat-button routerLink="/user/request-password-reset">Mot de passe oublié ?</a>
-                        <button type="submit"
-                                mat-raised-button
-                                color="primary"
-                                (click)="login()"
-                                [disabled]="loading || !loginForm.login || !loginForm.password"
-                                i18n
-                        >Se connecter
-                        </button>
-                    </div>
-
-                    <mat-divider class="margin"></mat-divider>
-                    <a type="submit" mat-button mat-raised-button color="primary" routerLink="/user/new">Adhérer</a>
-
-                </form>
-
+            <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">
+                <a mat-button routerLink="/user/request-password-reset">Mot de passe oublié ?</a>
+                <button type="submit"
+                        mat-raised-button
+                        color="primary"
+                        (click)="login()"
+                        [disabled]="loading || !loginForm.login || !loginForm.password"
+                        i18n
+                >Se connecter
+                </button>
             </div>
-        </div>
+
+            <mat-divider class="margin"></mat-divider>
+            <a type="submit" mat-button mat-raised-button color="primary" routerLink="/user/new">Adhérer</a>
+
+        </form>
 
     </div>
 </div>
