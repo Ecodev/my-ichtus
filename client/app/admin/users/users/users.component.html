@@ -14,6 +14,11 @@
                             (selectionChange)="search($event)"
                             [multipleGroups]="true"
             >
+
+                <button mat-icon-button (click)="copy()">
+                    <natural-icon name="email"></natural-icon>
+                </button>
+
                 <natural-columns-picker (selectionChange)="selectedColumns = $event" [initialSelection]="initialColumns">
                     <span naturalColumnsPickerColumn="balance">Solde</span>
                     <span naturalColumnsPickerColumn="name">Nom</span>

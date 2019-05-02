@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { NaturalAbstractList } from '@ecodev/natural';
-import { Users, UserStatus, UsersVariables } from '../../../shared/generated-types';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NaturalAlertService } from '@ecodev/natural';
-import { NaturalPersistenceService } from '@ecodev/natural';
+import { NaturalAbstractList, NaturalAlertService, NaturalPersistenceService, NaturalQueryVariablesManager } from '@ecodev/natural';
+import { Apollo } from 'apollo-angular';
+import { Users, UserStatus, UsersVariables } from '../../../shared/generated-types';
 import { NaturalSearchConfigurationService } from '../../../shared/natural-search/natural-search-configuration.service';
-import { UserService } from '../services/user.service';
 import { PermissionsService } from '../../../shared/services/permissions.service';
+import { copy } from '../../../shared/utils';
+import { emailUsersQuery } from '../services/user.queries';
+import { UserService } from '../services/user.service';
 
 @Component({
     selector: 'app-users',
@@ -33,6 +35,8 @@ export class UsersComponent extends NaturalAbstractList<Users['users'], UsersVar
                 persistenceService: NaturalPersistenceService,
                 naturalSearchConfigurationService: NaturalSearchConfigurationService,
                 public permissionsService: PermissionsService,
+                private apollo: Apollo,
+                private snackBar: MatSnackBar,
     ) {
 
         super('users',
@@ -41,7 +45,6 @@ export class UsersComponent extends NaturalAbstractList<Users['users'], UsersVar
             route,
             alertService,
             persistenceService,
-
         );
 
     }
@@ -64,6 +67,32 @@ export class UsersComponent extends NaturalAbstractList<Users['users'], UsersVar
 
     public isNew(user) {
         return user.status === UserStatus.new;
+    }
+
+    public copy() {
+
+        if (this.apollo) {
+            const qvm = new NaturalQueryVariablesManager(this.variablesManager);
+            qvm.set('pagination', {pagination: {pageIndex: 0, pageSize: 9999}});
+
+            const snackbarOptions: MatSnackBarConfig = {
+                horizontalPosition: 'end',
+                verticalPosition: 'top',
+                duration: 6000,
+            };
+
+            this.apollo.query({query: emailUsersQuery, variables: qvm.variables.value}).subscribe(result => {
+                const simpleUsers = result.data['users'].items.map(u => u.email).join(' ;,'); // all separators for different mailboxes
+                copy(simpleUsers);
+                this.snackBar.open('La liste des utilisateurs a été copiée', 'Faire une copie avancée', snackbarOptions)
+                    .onAction()
+                    .subscribe(() => {
+                        // CSV usage : separator is ";"
+                        const csvUsers = result.data['users'].items.map(u => [u.email, u.firstName, u.lastName].join(';')).join('\n');
+                        copy(csvUsers);
+                    });
+            });
+        }
     }
 
 }
