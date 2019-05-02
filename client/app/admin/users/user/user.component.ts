@@ -61,7 +61,7 @@ export class UserComponent
                 const qvm = new NaturalQueryVariablesManager<UsersVariables>();
                 qvm.set('variables', UserService.getFamilyVariables(this.data.model));
                 this.userService.getAll(qvm).subscribe(family => {
-                    this.showFamilyTab = family.length > 1;
+                    this.showFamilyTab = family.items.length > 1;
                 });
 
                 this.familyVariables = UserService.getFamilyVariables(this.data.model);
