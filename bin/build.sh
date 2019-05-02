@@ -1,5 +1,26 @@
 #!/usr/bin/env bash
 
+# Default flags
+IS_PRODUCTION=1
+NO_PROGRESS=
+
+# Arguments parsing
+for arg
+do
+    case "$arg" in
+        --dev)
+            IS_PRODUCTION=0
+            ;;
+        --no-progress)
+            NO_PROGRESS='--no-progress'
+            ;;
+        *)
+            echo "Unknown argument: $arg"
+            exit 1
+            ;;
+     esac
+done
+
 # This script build all assets for production environment
 
 # If the deploy user exists on the machin****e, re-run script with that user
@@ -31,17 +52,6 @@ fi
 # Exit script on any error
 set -e
 
-# Disable progress
-if [ "$1" = '--no-progress' ]; then
-    NO_PROGRESS='--no-progress'
-    PROGRESS_GIT='--quiet'
-    export PROGRESS_NG='--progress false'
-else
-    NO_PROGRESS=
-    PROGRESS_GIT=
-    export PROGRESS_NG=
-fi
-
 echo "Installing git hooks..."
 ln -fs ../../bin/pre-commit.sh .git/hooks/pre-commit
 
@@ -62,5 +72,10 @@ $PHP ./bin/create-triggers.php
 echo "Delete old logs..."
 ./bin/delete-old-log.php
 
-echo "Building Angular application..."
-yarn run prod
+if [ $IS_PRODUCTION -eq 1 ]; then
+    echo "Building Angular application..."
+    yarn run prod
+else
+    echo "Running Angular dev server..."
+    yarn run dev
+fi
