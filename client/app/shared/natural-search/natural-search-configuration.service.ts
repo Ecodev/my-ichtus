@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { NaturalSearchConfiguration, Selection } from '@ecodev/natural';
+import {
+    ItemConfiguration,
+    NaturalQueryVariablesManager,
+    NaturalSearchConfiguration,
+    Selection, TypeNaturalSelectComponent,
+    TypeSelectComponent,
+} from '@ecodev/natural';
+import { UserTagService } from '../../admin/userTags/services/userTag.service';
 
 function wrapLike(s: Selection): Selection {
     if (s.condition.like) {
@@ -53,9 +60,23 @@ function replaceOperatorByName(s: Selection): Selection {
 })
 export class NaturalSearchConfigurationService {
 
-    private readonly allConfigurations: { [key: string]: NaturalSearchConfiguration } = {};
+    private readonly userTags: ItemConfiguration = {
+        display: 'Tags',
+        field: 'userTags',
+        component: TypeNaturalSelectComponent,
+        configuration: {
+            service: this.userTagService,
+            placeholder: 'Tags'
+        },
+    };
 
-    constructor() {
+    private readonly allConfigurations: { [key: string]: NaturalSearchConfiguration } = {
+        users: [
+            this.userTags,
+        ],
+    };
+
+    constructor(public userTagService: UserTagService) {
     }
 
     /**

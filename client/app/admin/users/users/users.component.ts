@@ -47,6 +47,7 @@ export class UsersComponent extends NaturalAbstractList<Users['users'], UsersVar
             persistenceService,
         );
 
+        this.naturalSearchConfig = naturalSearchConfigurationService.get('users');
     }
 
     public flagWelcomeSessionDate(user) {
