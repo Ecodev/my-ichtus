@@ -11,7 +11,7 @@ export class CreateRefundComponent implements OnInit {
 
     public expense: ExpenseClaimInput = {
         amount: '',
-        name: '',
+        name: 'Demande de remboursement',
         description: '',
     };
 

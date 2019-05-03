@@ -4,9 +4,7 @@ import { BookingType } from '../../../shared/generated-types';
 import { UserService } from '../../../admin/users/services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { BookingService } from '../../../admin/bookings/services/booking.service';
-import { NaturalAbstractController } from '@ecodev/natural';
-import { NaturalDataSource } from '@ecodev/natural';
-import { NaturalAlertService } from '@ecodev/natural';
+import { NaturalAbstractController, NaturalAlertService, NaturalDataSource } from '@ecodev/natural';
 
 @Component({
     selector: 'app-services',
@@ -87,8 +85,15 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
             .subscribe(confirmed => {
                 if (confirmed) {
                     this.userService.unregister(this.user).subscribe(() => {
-                        this.alertService.info('Vous avez démissioné', 5000);
-                        this.userService.logout();
+                        // If viewer is the unregistered viewer, log him out.
+                        if (this.route.snapshot.data.viewer.model.id === this.user.id) {
+                            this.alertService.info('Vous avez démissioné', 5000);
+                            this.userService.logout();
+                        } else {
+
+                            // If viewer is different (e.g Admin), don't log out
+                            this.alertService.info('La démission a été prise en compte', 4000);
+                        }
                     });
                 }
             });
