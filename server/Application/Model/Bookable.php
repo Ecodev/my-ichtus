@@ -425,6 +425,7 @@ class Bookable extends AbstractModel
 
         $isStorage = false;
         foreach ($this->getBookableTags() as $tag) {
+//            v($tag->getId(), BookableTagRepository::STORAGE_ID, $tag->getId() == BookableTagRepository::STORAGE_ID);
             if ($tag->getId() === BookableTagRepository::STORAGE_ID) {
                 $isStorage = true;
 
