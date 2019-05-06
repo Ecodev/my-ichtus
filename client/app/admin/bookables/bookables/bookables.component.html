@@ -116,7 +116,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="usage">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header app-3em-column app-align-center>Utilisations</th>
+                    <th mat-header-cell *matHeaderCellDef app-3em-column app-align-center>Utilisations</th>
                     <td mat-cell *matCellDef="let element"  app-align-center>
                         <div *ngFor="let b of element.sharedBookings" fxLayout="row">
                             <ngx-avatar [name]="b.owner.name" [size]="36"></ngx-avatar>
