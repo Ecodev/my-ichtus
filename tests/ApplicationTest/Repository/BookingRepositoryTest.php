@@ -21,7 +21,7 @@ class BookingRepositoryTest extends AbstractRepositoryTest
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = _em()->getRepository(Booking::class);
+        $this->repository = $this->getEntityManager()->getRepository(Booking::class);
         Date::setTestNow(new Date('2020-01-01'));
     }
 
@@ -48,7 +48,7 @@ class BookingRepositoryTest extends AbstractRepositoryTest
 
     public function testGetAllToInvoiceForUser(): void
     {
-        $user = _em()->getRepository(User::class)->getOneById(-1005);
+        $user = $this->getEntityManager()->getRepository(User::class)->getOneById(-1005);
 
         $bookings = $this->repository->getAllToInvoice($user);
         $actual = $this->modelToIds($bookings);

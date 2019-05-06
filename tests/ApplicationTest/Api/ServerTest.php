@@ -27,10 +27,10 @@ class ServerTest extends TestCase
      */
     public function testQuery(?string $user, ServerRequest $request, array $expected, ?callable $dataPreparator = null): void
     {
-        User::setCurrent(_em()->getRepository(User::class)->getOneByLogin($user));
+        User::setCurrent($this->getEntityManager()->getRepository(User::class)->getOneByLogin($user));
 
         if ($dataPreparator) {
-            $dataPreparator(_em()->getConnection());
+            $dataPreparator($this->getEntityManager()->getConnection());
         }
 
         // Use this flag to easily debug API test issues

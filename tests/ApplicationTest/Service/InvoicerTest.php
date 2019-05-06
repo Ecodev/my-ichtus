@@ -27,7 +27,7 @@ class InvoicerTest extends TestCase
         $actual = $invoicer->invoicePeriodic();
         self::assertSame(2, $actual);
 
-        _em()->flush();
+        $this->getEntityManager()->flush();
 
         $actual2 = $invoicer->invoicePeriodic();
         self::assertSame(0, $actual2, 'should not invoice things that are already invoiced');

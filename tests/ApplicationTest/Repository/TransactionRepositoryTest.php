@@ -27,7 +27,7 @@ class TransactionRepositoryTest extends AbstractRepositoryTest
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = _em()->getRepository(Transaction::class);
+        $this->repository = $this->getEntityManager()->getRepository(Transaction::class);
     }
 
     public function providerGetAccessibleSubQuery(): array
@@ -47,11 +47,11 @@ class TransactionRepositoryTest extends AbstractRepositoryTest
     public function testHydrateLinesAndFlush(): void
     {
         /** @var User $user */
-        $user = _em()->getRepository(User::class)->getOneByLogin('administrator');
+        $user = $this->getEntityManager()->getRepository(User::class)->getOneByLogin('administrator');
         User::setCurrent($user);
 
         $credit = $user->getAccount();
-        $debit = _em()->getRepository(Account::class)->findOneBy(['code' => 1000]);
+        $debit = $this->getEntityManager()->getRepository(Account::class)->findOneBy(['code' => 1000]);
 
         $transaction = new Transaction();
         $transaction->setName('foo');
@@ -100,11 +100,11 @@ class TransactionRepositoryTest extends AbstractRepositoryTest
     public function testHydrateLinesAndFlushMustThrowWithUnbalancedLines(): void
     {
         /** @var User $user */
-        $user = _em()->getRepository(User::class)->getOneByLogin('administrator');
+        $user = $this->getEntityManager()->getRepository(User::class)->getOneByLogin('administrator');
         User::setCurrent($user);
 
-        $debit = _em()->getRepository(Account::class)->findOneBy(['code' => 10201]);
-        $credit = _em()->getRepository(Account::class)->findOneBy(['code' => 1000]);
+        $debit = $this->getEntityManager()->getRepository(Account::class)->findOneBy(['code' => 10201]);
+        $credit = $this->getEntityManager()->getRepository(Account::class)->findOneBy(['code' => 1000]);
 
         $transaction = new Transaction();
         $transaction->setName('caisse à poste');

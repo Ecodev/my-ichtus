@@ -22,7 +22,7 @@ class DatatransActionTest extends TestCase
     public function testProcess(?array $data, string $expectedAmount, array $expectedViewModel): void
     {
         $userId = $data['refno'] ?? null;
-        $user = _em()->getRepository(User::class)->getOneById((int) $userId);
+        $user = $this->getEntityManager()->getRepository(User::class)->getOneById((int) $userId);
         User::setCurrent($user);
 
         // Message always include input data
@@ -35,11 +35,11 @@ class DatatransActionTest extends TestCase
         $request = new ServerRequest();
         $request = $request->withParsedBody($data);
 
-        $action = new DatatransAction(_em(), $renderer->reveal());
+        $action = new DatatransAction($this->getEntityManager(), $renderer->reveal());
         $action->process($request, $handler->reveal());
 
         if ($userId) {
-            $actualBalance = _em()->getConnection()->fetchColumn('SELECT balance FROM account WHERE owner_id = ' . $userId);
+            $actualBalance = $this->getEntityManager()->getConnection()->fetchColumn('SELECT balance FROM account WHERE owner_id = ' . $userId);
             self::assertSame($expectedAmount, $actualBalance);
         }
 

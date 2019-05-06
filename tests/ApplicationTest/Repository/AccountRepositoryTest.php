@@ -26,7 +26,7 @@ class AccountRepositoryTest extends AbstractRepositoryTest
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = _em()->getRepository(Account::class);
+        $this->repository = $this->getEntityManager()->getRepository(Account::class);
     }
 
     public function providerGetAccessibleSubQuery(): array

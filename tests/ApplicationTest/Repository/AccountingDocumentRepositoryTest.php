@@ -25,7 +25,7 @@ class AccountingDocumentRepositoryTest extends AbstractRepositoryTest
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = _em()->getRepository(AccountingDocument::class);
+        $this->repository = $this->getEntityManager()->getRepository(AccountingDocument::class);
     }
 
     public function providerGetAccessibleSubQuery(): array

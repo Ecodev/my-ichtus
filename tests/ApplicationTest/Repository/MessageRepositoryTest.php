@@ -20,7 +20,7 @@ class MessageRepositoryTest extends AbstractRepositoryTest
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = _em()->getRepository(Message::class);
+        $this->repository = $this->getEntityManager()->getRepository(Message::class);
     }
 
     public function providerGetAccessibleSubQuery(): array

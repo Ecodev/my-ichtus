@@ -21,7 +21,7 @@ class LogRepositoryTest extends AbstractRepositoryTest
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = _em()->getRepository(Log::class);
+        $this->repository = $this->getEntityManager()->getRepository(Log::class);
     }
 
     public function testLoginFailedOften(): void
@@ -64,7 +64,7 @@ class LogRepositoryTest extends AbstractRepositoryTest
 
     public function testGetLoginDate(): void
     {
-        $user = _em()->getRepository(User::class)->getOneByLogin('administrator');
+        $user = $this->getEntityManager()->getRepository(User::class)->getOneByLogin('administrator');
 
         $logs = [
             [
@@ -99,7 +99,7 @@ class LogRepositoryTest extends AbstractRepositoryTest
         $lastLogin = $this->repository->getLoginDate($user, false);
         self::assertSame('2019-01-04', $lastLogin->toDateString());
 
-        $otherUser = _em()->getRepository(User::class)->getOneByLogin('member');
+        $otherUser = $this->getEntityManager()->getRepository(User::class)->getOneByLogin('member');
         $never = $this->repository->getLoginDate($otherUser, false);
         self::assertNull($never);
     }

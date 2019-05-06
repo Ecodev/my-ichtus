@@ -23,7 +23,7 @@ class UserRepositoryTest extends AbstractRepositoryTest
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = _em()->getRepository(User::class);
+        $this->repository = $this->getEntityManager()->getRepository(User::class);
     }
 
     public function providerGetAccessibleSubQuery(): array
@@ -49,7 +49,7 @@ class UserRepositoryTest extends AbstractRepositoryTest
         self::assertNotNull($user);
         self::assertSame(-1000, $user->getId());
 
-        $hash = _em()->getConnection()->query('SELECT password FROM `user` WHERE id = -1000')->fetchColumn();
+        $hash = $this->getEntityManager()->getConnection()->query('SELECT password FROM `user` WHERE id = -1000')->fetchColumn();
         self::assertStringStartsWith('$', $hash, 'password should have been re-hashed automatically');
         self::assertNotSame(md5('administrator'), $hash, 'password should have been re-hashed automatically');
     }

@@ -22,7 +22,7 @@ class ImageRepositoryTest extends AbstractRepositoryTest
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = _em()->getRepository(Image::class);
+        $this->repository = $this->getEntityManager()->getRepository(Image::class);
     }
 
     public function tearDown(): void

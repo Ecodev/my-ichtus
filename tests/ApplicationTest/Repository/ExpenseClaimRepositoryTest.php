@@ -23,7 +23,7 @@ class ExpenseClaimRepositoryTest extends AbstractRepositoryTest
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = _em()->getRepository(ExpenseClaim::class);
+        $this->repository = $this->getEntityManager()->getRepository(ExpenseClaim::class);
     }
 
     public function providerGetAccessibleSubQuery(): array

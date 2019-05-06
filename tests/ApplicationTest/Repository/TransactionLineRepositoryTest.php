@@ -23,7 +23,7 @@ class TransactionLineRepositoryTest extends AbstractRepositoryTest
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = _em()->getRepository(TransactionLine::class);
+        $this->repository = $this->getEntityManager()->getRepository(TransactionLine::class);
     }
 
     public function providerGetAccessibleSubQuery(): array
