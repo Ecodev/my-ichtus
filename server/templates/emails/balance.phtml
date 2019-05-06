@@ -9,7 +9,8 @@ $urlServices = $this->serverUrl . '/profile/services';
 </p>
 
 <?php if ($this->user->getAccount()->getBalance() < 0): ?>
-    <p>Ton solde est insuffisant. Merci de <a href="<?php echo $urlTransaction ?>">faire un versement</a> et/ou ajuster <a
+    <p>Afin de sortir du route et être à nouveau au sommet de la vague pour surfer l'esprit libre, il te suffit
+       de <a href="<?php echo $urlTransaction ?>">faire un versement</a> et/ou ajuster <a
                 href="<?php echo $urlServices ?>">les services utilisés</a>.</p>
 
     <p style="text-align:center;margin:40px 0">
@@ -18,14 +19,13 @@ $urlServices = $this->serverUrl . '/profile/services';
             Faire un versement
         </a>
     </p>
-    <p>Si le solde devient trop négatif, tu ne pourras plus utiliser les services d'Ichtus.</p>
 
 <?php else: ?>
     <p>Ton solde est suffisant et tu n'as donc rien besoin de faire.</p>
 <?php endif; ?>
 
 
-<p>Pour rappel, tes prestations annuelles sont:</p>
+<p>Pour rappel, tes prestations annuelles sont :</p>
 
 <table style="margin-left: 2em; min-width: 300px; border-collapse: collapse">
     <?php foreach ($this->bookables as $bookable): ?>
@@ -36,5 +36,5 @@ $urlServices = $this->serverUrl . '/profile/services';
     <?php endforeach; ?>
 </table>
 
-<p>Voir aussi <a href="<?php echo $urlTransaction ?>">l'historique du compte</a> et <a
-            href="https://ichtus.ch/le-club/philosophie/">les FAQ de facturation</a>.</p>
+<p>Voir <a href="<?php echo $urlTransaction ?>">l'historique de tes transactions</a> et <a
+            href="https://ichtus.ch/e-banking/">infos relatives à l'e-banking</a>.</p>
