@@ -35,6 +35,10 @@ abstract class UserByToken implements FieldInterface
                         throw new Exception('User not found for token `' . $args['token'] . '`.');
                     }
 
+                    // Set current user for his ACL, but not in persisted session, only for the remaining execution time.
+                    // He will have to go through a proper login to persist the session.
+                    User::setCurrent($user);
+
                     return $user;
                 },
             ];
