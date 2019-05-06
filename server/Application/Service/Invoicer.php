@@ -72,7 +72,7 @@ class Invoicer
     {
         $this->bookingRepository->getAclFilter()->setEnabled(false);
 
-        if ($booking->getStatus() !== BookingStatusType::BOOKED) {
+        if ($booking->getId() || $booking->getStatus() !== BookingStatusType::BOOKED) {
             return;
         }
 
