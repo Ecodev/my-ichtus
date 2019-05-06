@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NaturalAbstractDetail } from '@ecodev/natural';
-import { NaturalAlertService } from '@ecodev/natural';
+import { NaturalAbstractDetail, NaturalAlertService } from '@ecodev/natural';
 import { TransactionService } from '../services/transaction.service';
 import {
     CreateTransaction,
@@ -106,8 +105,6 @@ export class TransactionComponent
             this.data.model.transactionLines = null;
         }
 
-        console.log('this.data.model.transactionLines', this.data.model.transactionLines);
-
         if (this.data.model.id) {
             this.update(true);
         } else {
@@ -125,5 +122,9 @@ export class TransactionComponent
         this.expenseClaimService.updatePartially(model).subscribe(() => {
             this.data.model.expenseClaim.status = status;
         });
+    }
+
+    public delete(redirectionRoute: any[]): void {
+        super.delete(['/admin/transaction-line']);
     }
 }

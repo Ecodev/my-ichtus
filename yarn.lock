@@ -377,10 +377,17 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@ecodev/natural@^0.0.12":
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-0.0.12.tgz#d66e238e1072a0df8fd4f2146d4f6075491f44aa"
-  integrity sha512-gcxYodJ1qVxdb8uXxQSbXDwucLeLz3iZYf55gfnDApoG7vTPlyzQ4ZBeB1wl+L/I3qZtkK1cLQ+gDltSZNgt0w==
+"@ecodev/fab-speed-dial@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@ecodev/fab-speed-dial/-/fab-speed-dial-3.1.0.tgz#2455d40d65d415ba8f3dbb79132e5af899e76ec0"
+  integrity sha512-zSky4jlSYCxeGl/xEUERzcH04A8rUpaeZyhKJDXCKdxKNJrW1J5LHWe529vH7eQR3acoPNJKOBDQed8If+F2xg==
+  dependencies:
+    tslib "^1.9.0"
+
+"@ecodev/natural@^0.0.13":
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-0.0.13.tgz#4cf6eae6cfcd8b5cf908410699f5a79e843a91a9"
+  integrity sha512-8lrqgHYsvnSqhIj7k8EbrJV/6QY8nrdWswzSvrEhFRz5s9es70CJ3LsRqXD55tGsSnVXWD6iqzzCqPDjJNyGEw==
   dependencies:
     tslib "^1.9.0"
 

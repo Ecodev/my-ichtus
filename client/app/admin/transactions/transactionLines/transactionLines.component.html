@@ -148,5 +148,5 @@
     </div>
 </div>
 
-<natural-fixed-button [routerLink]="['/admin/transaction/new']" icon="add" *ngIf="permissionsService.crud?.transaction.create"
+<natural-fixed-button [routerLink]="['/admin/transaction/new']" icon="add" *ngIf="!hideFab && permissionsService.crud?.transaction.create"
 ></natural-fixed-button>

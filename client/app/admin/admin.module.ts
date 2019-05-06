@@ -30,6 +30,7 @@ import { EditableTransactionLinesComponent } from './transactions/editable-trans
 import { SelectAdminOnlyModalComponent } from '../shared/components/select-admin-only-modal/select-admin-only-modal.component';
 import { ProfileModule } from '../profile/profile.module';
 import { BookableMetadataComponent } from './bookable-metadata/bookable-metadata.component';
+import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 
 @NgModule({
     declarations: [
@@ -65,6 +66,7 @@ import { BookableMetadataComponent } from './bookable-metadata/bookable-metadata
         IchtusModule,
         AvatarModule,
         ProfileModule,
+        EcoFabSpeedDialModule
     ],
     entryComponents: [
         SelectAdminOnlyModalComponent,

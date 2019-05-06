@@ -1,6 +1,10 @@
 <div [formGroup]="form" class="detail-body">
 
-    <natural-detail-header newLabel="Nouvelle transaction" label="Transaction" [model]="data.model" [listRoute]="['admin', 'transaction-line']">
+    <natural-detail-header newLabel="Nouvelle transaction"
+                           label="Transaction"
+                           [model]="data.model"
+                           [listRoute]="['admin', 'transaction-line']"
+    >
         <app-money [amount]="data.model.amount" sizeClass="mat-display-1"></app-money>
     </natural-detail-header>
 
@@ -19,29 +23,29 @@
                             <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
                         </mat-form-field>
 
-                    <div fxLayout="column" fxLayoutGap="10px">
-                        <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
-                            <div fxFlex="50" fxLayout="column">
-                                <mat-form-field>
-                                    <mat-label>Date</mat-label>
-                                    <input matInput formControlName="transactionDate" [matDatepicker]="picker2">
+                        <div fxLayout="column" fxLayoutGap="10px">
+                            <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
+                                <div fxFlex="50" fxLayout="column">
+                                    <mat-form-field>
+                                        <mat-label>Date</mat-label>
+                                        <input matInput formControlName="transactionDate" [matDatepicker]="picker2">
 
-                                    <div matSuffix xLayout="row" fxLayoutAlign="start center">
-                                        <mat-datepicker-toggle [for]="picker2"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker2></mat-datepicker>
-                                        <mat-error *ngIf="form.get('transactionDate')?.hasError('required')">Requis</mat-error>
-                                    </div>
+                                        <div matSuffix xLayout="row" fxLayoutAlign="start center">
+                                            <mat-datepicker-toggle [for]="picker2"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker2></mat-datepicker>
+                                            <mat-error *ngIf="form.get('transactionDate')?.hasError('required')">Requis</mat-error>
+                                        </div>
 
-                                </mat-form-field>
-                            </div>
-                            <div fxFlex="50" fxLayout="column">
-                                <mat-form-field>
-                                    <mat-label>Transaction Datatrans</mat-label>
-                                    <input matInput formControlName="datatransRef">
-                                </mat-form-field>
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex="50" fxLayout="column">
+                                    <mat-form-field>
+                                        <mat-label>Transaction Datatrans</mat-label>
+                                        <input matInput formControlName="datatransRef">
+                                    </mat-form-field>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
                     </div>
 
@@ -130,6 +134,7 @@
                 <div *ngIf="!updateTransactionLines && data.model.id">
                     <app-transaction-lines [persistSearch]="false"
                                            [contextVariables]="{filter: {groups: [{conditions:[{transaction: {equal: {value: data.model.id}}}]}]}}"
+                                           [hideFab]="true"
                     ></app-transaction-lines>
                 </div>
 
@@ -151,14 +156,34 @@
 
     </mat-tab-group>
 
-    <natural-fixed-button class="detail-speed-dial"
-                      (click)="save()"
-                      icon="save"
-                      color="accent"
-                      matTooltip="Sauvegarder"
-                      matTooltipPosition="left"
-                      [color]="form.invalid ? 'warn' : 'accent'"
+    <pre class="debug">data.model : {{ data.model | json }}</pre>
+
+    <natural-fixed-button *ngIf="!data.model.id"
+                          class="detail-speed-dial"
+                          (click)="save()"
+                          icon="save"
+                          color="accent"
+                          matTooltip="Sauvegarder"
+                          matTooltipPosition="left"
+                          [color]="form.invalid ? 'warn' : 'accent'"
     ></natural-fixed-button>
+
+    <eco-fab-speed-dial class="detail-speed-dial" *ngIf="data.model.id">
+        <eco-fab-speed-dial-trigger>
+            <button mat-fab>
+                <natural-icon name="more_vert"></natural-icon>
+            </button>
+        </eco-fab-speed-dial-trigger>
+
+        <eco-fab-speed-dial-actions>
+            <button mat-mini-fab (click)="save()">
+                <mat-icon>save</mat-icon>
+            </button>
+            <button mat-mini-fab (click)="delete()" color="warn">
+                <mat-icon>delete_forever</mat-icon>
+            </button>
+        </eco-fab-speed-dial-actions>
+    </eco-fab-speed-dial>
 
 </div>
 
