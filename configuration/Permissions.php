@@ -45,10 +45,6 @@ return [
         'permissions' => '0750',
     ],
     [
-        'path' => 'bin/import-filemaker.php',
-        'permissions' => '0750',
-    ],
-    [
         'path' => 'bin/send-all-messages.php',
         'permissions' => '0750',
     ],

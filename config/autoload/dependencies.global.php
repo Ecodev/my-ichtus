@@ -33,7 +33,6 @@ return [
             \Application\Service\Mailer::class => \Application\Service\MailerFactory::class,
             \Application\Service\MessageQueuer::class => \Application\Service\MessageQueuerFactory::class,
             \Application\Service\Invoicer::class => \Application\Service\InvoicerFactory::class,
-            \Application\Service\Importer::class => \Application\Service\ImporterFactory::class,
             \Zend\View\Renderer\RendererInterface::class => \Application\Service\RendererFactory::class,
             \Zend\Mail\Transport\TransportInterface::class => \Application\Service\TransportFactory::class,
             \Zend\Log\LoggerInterface::class => \Application\Log\LoggerFactory::class,

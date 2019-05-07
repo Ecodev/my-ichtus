@@ -40,20 +40,6 @@ return [
             'ssl' => 'tls',
         ],
     ],
-    'filemaker' => [
-        'driver' => '/path/to/fmodbc.so',
-        'dbname' => 'ichtus',
-        'host' => 'filemaker.example.com',
-        'user' => '',
-        'password' => '',
-    ],
-    'typo3' => [
-        'host' => 'localhost',
-        'dbname' => 'ichtus-typo3',
-        'user' => 'root',
-        'password' => '',
-        'port' => 3306,
-    ],
     'banking' => [
         'bankAccount' => '', // Bank account number, eg: '800876'
         'postAccount' => '', // Post account number, eg: '01-3456-0'
