@@ -33,17 +33,15 @@ abstract class BankingInfos implements FieldInterface
                     $userId = $args['user']->getId();
                     $amount = $args['amount'] ?? null;
 
-                    $referenceNumberToCopyPasteInEBanking = Bvr::getReferenceNumber($bankAccount, $userId);
-
-                    $referenceNumber = Bvr::concatReferenceNumber($bankAccount, $userId);
-                    $encodingLineToCopyPasteInEBanking = Bvr::getEncodingLine($referenceNumber, $postAccount, $amount);
+                    $referenceNumber = Bvr::getReferenceNumber($bankAccount, $userId);
+                    $encodingLine = Bvr::getEncodingLine($bankAccount, $userId, $postAccount, $amount);
 
                     return [
                         'postAccount' => $postAccount,
                         'paymentTo' => $paymentTo,
                         'paymentFor' => $paymentFor,
-                        'referenceNumber' => $referenceNumberToCopyPasteInEBanking,
-                        'encodingLine' => $encodingLineToCopyPasteInEBanking,
+                        'referenceNumber' => $referenceNumber,
+                        'encodingLine' => $encodingLine,
                     ];
                 },
             ];

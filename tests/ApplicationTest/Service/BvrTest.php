@@ -26,39 +26,22 @@ class BvrTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerConcatReferenceNumber
-     */
-    public function testConcatReferenceNumber(string $bankAccount, string $referenceNumber, string $expected): void
-    {
-        $actual = Bvr::concatReferenceNumber($bankAccount, $referenceNumber);
-        self::assertSame($expected, $actual);
-    }
-
-    public function providerConcatReferenceNumber()
-    {
-        return [
-            ['123456', '', '12345600000000000000000000'],
-            ['123456', '789', '12345600000000000000000789'],
-        ];
-    }
-
-    public function testGetEncodingLineMustThrowIfTooLongBankAccount(): void
+    public function testGetReferenceNumberMustThrowIfTooLongBankAccount(): void
     {
         $this->expectExceptionMessage('Invalid bank account. It must be exactly 6 digits, but got: `1234567`');
-        Bvr::concatReferenceNumber('1234567', '123');
+        Bvr::getReferenceNumber('1234567', '123');
     }
 
-    public function testGetEncodingLineMustThrowIfTooLongReferenceNumber(): void
+    public function testGetReferenceNumberMustThrowIfTooLongReferenceNumber(): void
     {
-        $this->expectExceptionMessage('Invalid reference number. It must be 20 or less digits, but got: `000000000000000000000`');
-        Bvr::concatReferenceNumber('123456', str_repeat('0', 21));
+        $this->expectExceptionMessage('Invalid custom ID. It must be 20 or less digits, but got: `000000000000000000000`');
+        Bvr::getReferenceNumber('123456', str_repeat('0', 21));
     }
 
-    public function testGetEncodingLineMustThrowIfInvalidReferenceNumber(): void
+    public function testGetReferenceNumberMustThrowIfInvalidReferenceNumber(): void
     {
-        $this->expectExceptionMessage('Invalid reference number. It must be 20 or less digits, but got: `1.5`');
-        Bvr::concatReferenceNumber('123456', '1.5');
+        $this->expectExceptionMessage('Invalid custom ID. It must be 20 or less digits, but got: `1.5`');
+        Bvr::getReferenceNumber('123456', '1.5');
     }
 
     /**
@@ -95,48 +78,48 @@ class BvrTest extends TestCase
     /**
      * @dataProvider providerGetEncodingLine
      */
-    public function testGetEncodingLine(string $referenceNumber, string $postalAccount, ?string $amount, string $expected): void
+    public function testGetEncodingLine(string $bankAccount, string $referenceNumber, string $postalAccount, ?string $amount, string $expected): void
     {
-        $actual = Bvr::getEncodingLine($referenceNumber, $postalAccount, $amount);
+        $actual = Bvr::getEncodingLine($bankAccount, $referenceNumber, $postalAccount, $amount);
         self::assertSame($expected, $actual);
     }
 
     public function providerGetEncodingLine()
     {
         return [
-            ['80082600000000000000000201', '01-4567-0', null, '042>800826000000000000000002016+ 010045670>'],
-            ['', '1-2-3', null, '042>000000000000000000000000000+ 010000023>'],
-            ['123', '01-4567-0', '1.45', '0100000001453>000000000000000000000001236+ 010045670>'],
+            ['800826', '00000000000000000201', '01-4567-0', null, '042>800826000000000000000002016+ 010045670>'],
+            ['000000', '', '1-2-3', null, '042>000000000000000000000000000+ 010000023>'],
+            ['000000', '123', '01-4567-0', '1.45', '0100000001453>000000000000000000000001236+ 010045670>'],
         ];
     }
 
     public function testGetEncodingLineMustThrowIfTooLongReference(): void
     {
-        $this->expectExceptionMessage('Invalid reference number');
-        Bvr::getEncodingLine(str_repeat('0', 27), '01-4567-0');
+        $this->expectExceptionMessage('Invalid custom ID. It must be 20 or less digits, but got: `000000000000000000000000000`');
+        Bvr::getEncodingLine('123456', str_repeat('0', 27), '01-4567-0');
     }
 
     public function testGetEncodingLineMustThrowIfInvalidReference(): void
     {
-        $this->expectExceptionMessage('Invalid reference number');
-        Bvr::getEncodingLine('0.0', '01-4567-0');
+        $this->expectExceptionMessage('Invalid custom ID. It must be 20 or less digits, but got: `0.0`');
+        Bvr::getEncodingLine('123456', '0.0', '01-4567-0');
     }
 
     public function testGetEncodingLineMustThrowIfInvalidPostAccount(): void
     {
         $this->expectExceptionMessage('Invalid post account number');
-        Bvr::getEncodingLine('0', '0145670');
+        Bvr::getEncodingLine('123456', '0', '0145670');
     }
 
     public function testGetEncodingLineMustThrowIfTooLongPostAccount(): void
     {
         $this->expectExceptionMessage('The post account number is too long');
-        Bvr::getEncodingLine('0', '0123-456789-0');
+        Bvr::getEncodingLine('123456', '0', '0123-456789-0');
     }
 
     public function testGetEncodingLineMustThrowIfInvalidAmount(): void
     {
         $this->expectExceptionMessage('Invalid amount. Must be numeric, but got: `foo`');
-        Bvr::getEncodingLine('0', '01-4567-0', 'foo');
+        Bvr::getEncodingLine('123456', '0', '01-4567-0', 'foo');
     }
 }

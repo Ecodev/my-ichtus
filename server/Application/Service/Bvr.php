@@ -25,8 +25,7 @@ use Exception;
  *
  * // OR get encoding line
  * $amount = '19.95';
- * $referenceNumber = Bvr::concatReferenceNumber($bankAccount, $myId);
- * $encodingLineToCopyPasteInEBanking = Bvr::getEncodingLine($referenceNumber, $postAccount, $amount);
+ * $encodingLineToCopyPasteInEBanking = Bvr::getEncodingLine($bankAccount, $myId, $postAccount, $amount);
  * ```
  *
  * @see https://www.postfinance.ch/content/dam/pfch/doc/cust/download/inpayslip_isr_man_fr.pdf
@@ -46,47 +45,48 @@ class Bvr
         [5, 0, 9, 4, 6, 8, 2, 7, 1, 3],
     ];
 
-    public static function getReferenceNumber(string $bankAccount, string $referenceNumber): string
+    /**
+     * Get the reference number, including the verification digit
+     *
+     * @param string $bankAccount
+     * @param string $customId
+     *
+     * @return string
+     */
+    public static function getReferenceNumber(string $bankAccount, string $customId): string
     {
-        $value = self::concatReferenceNumber($bankAccount, $referenceNumber);
-
-        return $value . self::modulo10($value);
-    }
-
-    public static function concatReferenceNumber(string $bankAccount, string $referenceNumber): string
-    {
-        if (!preg_match('~^\d{0,20}$~', $referenceNumber)) {
-            throw new Exception('Invalid reference number. It must be 20 or less digits, but got: `' . $referenceNumber . '`');
+        if (!preg_match('~^\d{0,20}$~', $customId)) {
+            throw new Exception('Invalid custom ID. It must be 20 or less digits, but got: `' . $customId . '`');
         }
 
         if (!preg_match('~^\d{6}$~', $bankAccount)) {
             throw new Exception('Invalid bank account. It must be exactly 6 digits, but got: `' . $bankAccount . '`');
         }
+        $value = $bankAccount . self::pad($customId, 20);
 
-        return $bankAccount . self::pad($referenceNumber, 20);
+        return $value . self::modulo10($value);
     }
 
-    public static function getEncodingLine(string $referenceNumber, string $postAccount, ?string $amount = null): string
+    /**
+     * Get the full encoding line
+     *
+     * @param string $bankAccount
+     * @param string $customId
+     * @param string $postAccount
+     * @param null|string $amount
+     *
+     * @return string
+     */
+    public static function getEncodingLine(string $bankAccount, string $customId, string $postAccount, ?string $amount = null): string
     {
-        if (!preg_match('~^\d{0,26}$~', $referenceNumber)) {
-            throw new Exception('Invalid reference number. It must be 26 or less digits, but got: `' . $referenceNumber . '`');
-        }
-
-        if ($amount === null) {
-            $firstPart = '04';
-        } elseif (is_numeric($amount)) {
-            $cents = bcmul($amount, '100', 0);
-            $firstPart = '01' . self::pad($cents, 10);
-        } else {
-            throw new Exception('Invalid amount. Must be numeric, but got: `' . $amount . '`');
-        }
-
-        $secondPart = self::pad($referenceNumber, 26);
+        $type = self::getType($amount);
+        $referenceNumber = self::getReferenceNumber($bankAccount, $customId);
+        $formattedPostAccount = self::getPostAccount($postAccount);
 
         $result =
-            $firstPart . self::modulo10($firstPart) . '>'
-            . $secondPart . self::modulo10($secondPart) . '+ '
-            . self::formatPostAccount($postAccount) . '>';
+            $type . '>'
+            . $referenceNumber . '+ '
+            . $formattedPostAccount . '>';
 
         return $result;
     }
@@ -111,7 +111,7 @@ class Bvr
         return (10 - $report) % 10;
     }
 
-    private static function formatPostAccount(string $postAccount): string
+    private static function getPostAccount(string $postAccount): string
     {
         if (!preg_match('~^(\d+)-(\d+)-(\d)$~', $postAccount, $m)) {
             throw new Exception('Invalid post account number, got `' . $postAccount . '`');
@@ -124,5 +124,26 @@ class Bvr
         }
 
         return $participantNumber;
+    }
+
+    /**
+     * Get type of document and amount
+     *
+     * @param null|string $amount
+     *
+     * @return string
+     */
+    private static function getType(?string $amount): string
+    {
+        if ($amount === null) {
+            $type = '04';
+        } elseif (is_numeric($amount)) {
+            $cents = bcmul($amount, '100', 0);
+            $type = '01' . self::pad($cents, 10);
+        } else {
+            throw new Exception('Invalid amount. Must be numeric, but got: `' . $amount . '`');
+        }
+
+        return $type . self::modulo10($type);
     }
 }
