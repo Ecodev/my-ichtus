@@ -25,7 +25,7 @@ class TransactionLine extends AbstractModel
      *
      * @ORM\ManyToOne(targetEntity="Transaction", inversedBy="transactionLines")
      * @ORM\JoinColumns({
-     *     @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     *     @ORM\JoinColumn(nullable=false, onDelete="RESTRICT")
      * })
      */
     private $transaction;

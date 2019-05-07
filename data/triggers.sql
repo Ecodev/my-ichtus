@@ -9,6 +9,22 @@
 | Group        | N/A          | N/A          |
  */
 
+DROP TRIGGER IF EXISTS transaction_DELETE;
+
+DELIMITER ~~
+
+CREATE TRIGGER transaction_DELETE
+    BEFORE DELETE
+    ON transaction
+    FOR EACH ROW
+BEGIN
+    -- Manually cascade the delete so that the transaction_line trigger is activated correctly, see https://jira.mariadb.org/browse/MDEV-19402
+    DELETE FROM transaction_line WHERE transaction_id = OLD.id;
+END; ~~
+
+DELIMITER ;
+
+
 DROP TRIGGER IF EXISTS transaction_line_INSERT;
 
 DELIMITER //
