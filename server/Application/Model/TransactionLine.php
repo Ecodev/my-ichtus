@@ -91,6 +91,39 @@ class TransactionLine extends AbstractModel
     private $isReconciled = false;
 
     /**
+     * This store the value of CAMT 054 `<AcctSvcrRef>` element that should
+     * hopefully be a universally unique transaction identifier.
+     *
+     * An absence of value means the line was not imported.
+     *
+     * @var null|string
+     * @ORM\Column(type="string", length=35, nullable=true, unique=true)
+     */
+    private $importedId;
+
+    /**
+     * Set importedId
+     *
+     * @API\Exclude
+     *
+     * @param string $importedId
+     */
+    public function setImportedId(string $importedId): void
+    {
+        $this->importedId = $importedId;
+    }
+
+    /**
+     * Get importedId
+     *
+     * @return null|string
+     */
+    public function getImportedId(): string
+    {
+        return $this->importedId;
+    }
+
+    /**
      * @API\Exclude
      *
      * @param Transaction $transaction

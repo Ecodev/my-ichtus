@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.054.001.04">
+    <BkToCstmrDbtCdtNtfctn>
+        <GrpHdr>
+            <MsgId>2019050200042949</MsgId>
+            <CreDtTm>2019-05-02T17:32:24</CreDtTm>
+        </GrpHdr>
+        <Ntfctn>
+            <Id>2019050200042949</Id>
+            <ElctrncSeqNb>1</ElctrncSeqNb>
+            <CreDtTm>2019-05-02T17:32:24</CreDtTm>
+            <Acct>
+                <Id>
+                    <IBAN>CH2133685416723344187</IBAN>
+                </Id>
+            </Acct>
+            <Ntry>
+                <Amt Ccy="CHF">100</Amt>
+                <CdtDbtInd>CRDT</CdtDbtInd>
+                <Sts>BOOK</Sts>
+                <ValDt>
+                    <Dt>2019-04-30</Dt>
+                </ValDt>
+                <BkTxCd>
+                    <Domn>
+                        <Cd>PMNT</Cd>
+                        <Fmly>
+                            <Cd>RCDT</Cd>
+                            <SubFmlyCd>VCOM</SubFmlyCd>
+                        </Fmly>
+                    </Domn>
+                </BkTxCd>
+                <NtryDtls>
+                    <TxDtls>
+                        <Refs>
+                            <AcctSvcrRef>ZV20190430/231344/1</AcctSvcrRef>
+                        </Refs>
+                        <Amt Ccy="CHF">100</Amt>
+                        <CdtDbtInd>CRDT</CdtDbtInd>
+                        <RmtInf>
+                            <Strd>
+                                <CdtrRefInf>
+                                    <Ref>800826000000000000000010024</Ref>
+                                </CdtrRefInf>
+                            </Strd>
+                        </RmtInf>
+                        <AddtlTxInf>Entrée BVR</AddtlTxInf>
+                    </TxDtls>
+                </NtryDtls>
+                <AddtlNtryInf>Entrée BVR</AddtlNtryInf>
+            </Ntry>
+        </Ntfctn>
+    </BkToCstmrDbtCdtNtfctn>
+</Document>

@@ -47,6 +47,7 @@
         "doctrine/migrations": "^2.0",
         "ecodev/graphql-doctrine": "^6.1",
         "ecodev/graphql-upload": "^4.0",
+        "genkgo/camt": "^0.6.0",
         "imagine/imagine": "^1.2",
         "zendframework/zend-component-installer": "^2.1",
         "zendframework/zend-config-aggregator": "^1.1",

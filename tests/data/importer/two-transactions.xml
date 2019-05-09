@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.054.001.04">
+    <BkToCstmrDbtCdtNtfctn>
+        <GrpHdr>
+            <MsgId>2019050200042949</MsgId>
+            <CreDtTm>2019-05-02T17:32:24</CreDtTm>
+            <MsgPgntn>
+                <PgNb>1</PgNb>
+                <LastPgInd>true</LastPgInd>
+            </MsgPgntn>
+        </GrpHdr>
+        <Ntfctn>
+            <Id>2019050200042949</Id>
+            <ElctrncSeqNb>1</ElctrncSeqNb>
+            <CreDtTm>2019-05-02T17:32:24</CreDtTm>
+            <FrToDt>
+                <FrDtTm>2019-01-31T00:00:00</FrDtTm>
+                <ToDtTm>2019-05-01T23:59:59</ToDtTm>
+            </FrToDt>
+            <RptgSrc>
+                <Prtry>OTHR</Prtry>
+            </RptgSrc>
+            <Acct>
+                <Id>
+                    <IBAN>CH7609000000200061375</IBAN>
+                </Id>
+                <Ccy>CHF</Ccy>
+                <Ownr>
+                    <Nm>Cooperative &quot;ACME&quot;</Nm>
+                    <PstlAdr>
+                        <AdrLine>Main Street 20</AdrLine>
+                        <AdrLine>2000 New York</AdrLine>
+                    </PstlAdr>
+                </Ownr>
+                <Svcr>
+                    <FinInstnId>
+                        <BICFI>ABCOCH31XXX</BICFI>
+                        <Nm>Awesome Bank</Nm>
+                    </FinInstnId>
+                </Svcr>
+            </Acct>
+            <Ntry>
+                <NtryRef>010092520</NtryRef>
+                <Amt Ccy="CHF">100</Amt>
+                <CdtDbtInd>CRDT</CdtDbtInd>
+                <RvslInd>false</RvslInd>
+                <Sts>BOOK</Sts>
+                <BookgDt>
+                    <Dt>2019-04-30</Dt>
+                </BookgDt>
+                <ValDt>
+                    <Dt>2019-04-30</Dt>
+                </ValDt>
+                <BkTxCd>
+                    <Domn>
+                        <Cd>PMNT</Cd>
+                        <Fmly>
+                            <Cd>RCDT</Cd>
+                            <SubFmlyCd>VCOM</SubFmlyCd>
+                        </Fmly>
+                    </Domn>
+                </BkTxCd>
+                <NtryDtls>
+                    <Btch>
+                        <NbOfTxs>1</NbOfTxs>
+                        <TtlAmt Ccy="CHF">100</TtlAmt>
+                        <CdtDbtInd>CRDT</CdtDbtInd>
+                    </Btch>
+                    <TxDtls>
+                        <Refs>
+                            <AcctSvcrRef>ZV20190430/231344/1</AcctSvcrRef>
+                            <EndToEndId>NOTPROVIDED</EndToEndId>
+                            <TxId>190426CH046LMCE3</TxId>
+                        </Refs>
+                        <Amt Ccy="CHF">100</Amt>
+                        <CdtDbtInd>CRDT</CdtDbtInd>
+                        <AmtDtls>
+                            <InstdAmt>
+                                <Amt Ccy="CHF">100</Amt>
+                            </InstdAmt>
+                        </AmtDtls>
+                        <BkTxCd>
+                            <Domn>
+                                <Cd>PMNT</Cd>
+                                <Fmly>
+                                    <Cd>RCDT</Cd>
+                                    <SubFmlyCd>VCOM</SubFmlyCd>
+                                </Fmly>
+                            </Domn>
+                        </BkTxCd>
+                        <RltdPties>
+                            <Dbtr>
+                                <Nm>McFly Marty and Marlene</Nm>
+                                <PstlAdr>
+                                    <StrtNm>Lyon Drive</StrtNm>
+                                    <BldgNb>10</BldgNb>
+                                    <PstCd>9303</PstCd>
+                                    <TwnNm>Lyon Estates</TwnNm>
+                                    <Ctry>US</Ctry>
+                                </PstlAdr>
+                            </Dbtr>
+                            <DbtrAcct>
+                                <Id>
+                                    <IBAN>CH4479327697748913817</IBAN>
+                                </Id>
+                            </DbtrAcct>
+                            <Cdtr>
+                                <Nm>Cooperative &quot;ACME&quot;</Nm>
+                                <PstlAdr>
+                                    <AdrLine>Main Street 20</AdrLine>
+                                    <AdrLine>2000 New York</AdrLine>
+                                </PstlAdr>
+                            </Cdtr>
+                        </RltdPties>
+                        <RltdAgts>
+                            <DbtrAgt>
+                                <FinInstnId>
+                                    <BICFI>PKMSCHBEXXX</BICFI>
+                                </FinInstnId>
+                            </DbtrAgt>
+                        </RltdAgts>
+                        <RmtInf>
+                            <Strd>
+                                <CdtrRefInf>
+                                    <Tp>
+                                        <CdOrPrtry>
+                                            <Prtry>ISR Reference</Prtry>
+                                        </CdOrPrtry>
+                                    </Tp>
+                                    <Ref>800826000000000000000010024</Ref>
+                                </CdtrRefInf>
+                            </Strd>
+                        </RmtInf>
+                        <AddtlTxInf>Entrée BVR</AddtlTxInf>
+                    </TxDtls>
+                </NtryDtls>
+                <AddtlNtryInf>Entrée BVR</AddtlNtryInf>
+            </Ntry>
+            <Ntry>
+                <NtryRef>010092520</NtryRef>
+                <Amt Ccy="CHF">500</Amt>
+                <CdtDbtInd>CRDT</CdtDbtInd>
+                <RvslInd>false</RvslInd>
+                <Sts>BOOK</Sts>
+                <BookgDt>
+                    <Dt>2019-04-30</Dt>
+                </BookgDt>
+                <ValDt>
+                    <Dt>2019-04-30</Dt>
+                </ValDt>
+                <BkTxCd>
+                    <Domn>
+                        <Cd>PMNT</Cd>
+                        <Fmly>
+                            <Cd>RCDT</Cd>
+                            <SubFmlyCd>VCOM</SubFmlyCd>
+                        </Fmly>
+                    </Domn>
+                </BkTxCd>
+                <NtryDtls>
+                    <Btch>
+                        <NbOfTxs>1</NbOfTxs>
+                        <TtlAmt Ccy="CHF">500</TtlAmt>
+                        <CdtDbtInd>CRDT</CdtDbtInd>
+                    </Btch>
+                    <TxDtls>
+                        <Refs>
+                            <AcctSvcrRef>ZV20190430/231292/1</AcctSvcrRef>
+                            <EndToEndId>NOTPROVIDED</EndToEndId>
+                            <TxId>90429457830.0001</TxId>
+                        </Refs>
+                        <Amt Ccy="CHF">500</Amt>
+                        <CdtDbtInd>CRDT</CdtDbtInd>
+                        <AmtDtls>
+                            <InstdAmt>
+                                <Amt Ccy="CHF">500</Amt>
+                            </InstdAmt>
+                        </AmtDtls>
+                        <BkTxCd>
+                            <Domn>
+                                <Cd>PMNT</Cd>
+                                <Fmly>
+                                    <Cd>RCDT</Cd>
+                                    <SubFmlyCd>VCOM</SubFmlyCd>
+                                </Fmly>
+                            </Domn>
+                        </BkTxCd>
+                        <RltdPties>
+                            <Dbtr>
+                                <Nm>Mister John Smith and</Nm>
+                                <PstlAdr>
+                                    <Ctry>CH</Ctry>
+                                    <AdrLine>Miss Jane Smith Small Street 17</AdrLine>
+                                    <AdrLine>1988 Seoul</AdrLine>
+                                </PstlAdr>
+                            </Dbtr>
+                            <DbtrAcct>
+                                <Id>
+                                    <IBAN>CH2133685416723344187</IBAN>
+                                </Id>
+                            </DbtrAcct>
+                            <Cdtr>
+                                <Nm>Cooperative &quot;ACME&quot;</Nm>
+                                <PstlAdr>
+                                    <AdrLine>Main Street 20</AdrLine>
+                                    <AdrLine>2000 New York</AdrLine>
+                                </PstlAdr>
+                            </Cdtr>
+                        </RltdPties>
+                        <RltdAgts>
+                            <DbtrAgt>
+                                <FinInstnId>
+                                    <ClrSysMmbId>
+                                        <ClrSysId>
+                                            <Cd>CHSIC</Cd>
+                                        </ClrSysId>
+                                        <MmbId>007669</MmbId>
+                                    </ClrSysMmbId>
+                                </FinInstnId>
+                            </DbtrAgt>
+                        </RltdAgts>
+                        <RmtInf>
+                            <Strd>
+                                <CdtrRefInf>
+                                    <Tp>
+                                        <CdOrPrtry>
+                                            <Prtry>ISR Reference</Prtry>
+                                        </CdOrPrtry>
+                                    </Tp>
+                                    <Ref>800826000000000000000010085</Ref>
+                                </CdtrRefInf>
+                            </Strd>
+                        </RmtInf>
+                        <AddtlTxInf>Entrée BVR</AddtlTxInf>
+                    </TxDtls>
+                </NtryDtls>
+                <AddtlNtryInf>Entrée BVR</AddtlNtryInf>
+            </Ntry>
+        </Ntfctn>
+    </BkToCstmrDbtCdtNtfctn>
+</Document>

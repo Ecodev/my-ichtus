@@ -68,6 +68,28 @@ class Bvr
     }
 
     /**
+     * Extract the custom ID as string from a valid reference number
+     *
+     * @param string $referenceNumber
+     *
+     * @return string
+     */
+    public static function extractCustomId(string $referenceNumber): string
+    {
+        if (!preg_match('~^\d{27}$~', $referenceNumber)) {
+            throw new Exception('Invalid reference number. It must be exactly 27 digits, but got: `' . $referenceNumber . '`');
+        }
+        $value = mb_substr($referenceNumber, 0, 26);
+        $expectedVerificationDigit = (int) mb_substr($referenceNumber, 26, 27);
+        $actualVerificationDigit = self::modulo10($value);
+        if ($expectedVerificationDigit !== $actualVerificationDigit) {
+            throw new Exception('Invalid reference number. The verification digit does not match. Expected `' . $expectedVerificationDigit . '`, but got `' . $actualVerificationDigit . '`');
+        }
+
+        return mb_substr($referenceNumber, 6, 20);
+    }
+
+    /**
      * Get the full encoding line
      *
      * @param string $bankAccount

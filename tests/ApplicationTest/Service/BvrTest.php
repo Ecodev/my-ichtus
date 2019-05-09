@@ -122,4 +122,34 @@ class BvrTest extends TestCase
         $this->expectExceptionMessage('Invalid amount. Must be numeric, but got: `foo`');
         Bvr::getEncodingLine('123456', '0', '01-4567-0', 'foo');
     }
+
+    /**
+     * @dataProvider providerExtractCustomId
+     */
+    public function testExtractCustomId(string $referenceNumber, string $expected): void
+    {
+        $actual = Bvr::extractCustomId($referenceNumber);
+        self::assertSame($expected, $actual);
+    }
+
+    public function providerExtractCustomId()
+    {
+        return [
+            ['800826000000000000000002016', '00000000000000000201'],
+            ['000000000000000000000000000', '00000000000000000000'],
+            ['000000000000000000000001236', '00000000000000000123'],
+        ];
+    }
+
+    public function testExtractCustomIdMustThrowIfInvalidReferenceNumber(): void
+    {
+        $this->expectExceptionMessage('Invalid reference number. It must be exactly 27 digits, but got: `foo`');
+        Bvr::extractCustomId('foo');
+    }
+
+    public function testExtractCustomIdMustThrowIfInvalidVerificationDigit(): void
+    {
+        $this->expectExceptionMessage('Invalid reference number. The verification digit does not match. Expected `0`, but got `6`');
+        Bvr::extractCustomId('800826000000000000000002010');
+    }
 }
