@@ -133,7 +133,7 @@ export class BookableService extends NaturalAbstractModelService<Bookable['booka
     protected getDefaultForServer(): BookableInput {
         return {
             name: '',
-            code: '',
+            code: null,
             description: '',
             initialPrice: '0',
             periodicPrice: '0',

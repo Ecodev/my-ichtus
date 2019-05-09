@@ -7,28 +7,32 @@ namespace Application\Traits;
 trait HasCode
 {
     /**
-     * @var string
+     * @var null|string
      *
-     * @ORM\Column(type="string", length=10, options={"default" = ""})
+     * @ORM\Column(type="string", length=10, nullable=true, unique=true)
      */
-    private $code = '';
+    private $code;
 
     /**
      * Set code
      *
-     * @param string $code
+     * @param null|string $code
      */
-    public function setCode(string $code): void
+    public function setCode(?string $code): void
     {
+        if (is_string($code) && trim($code) === '') {
+            $code = null;
+        }
+
         $this->code = $code;
     }
 
     /**
      * Get code
      *
-     * @return string
+     * @return null|string
      */
-    public function getCode(): string
+    public function getCode(): ?string
     {
         return $this->code;
     }
