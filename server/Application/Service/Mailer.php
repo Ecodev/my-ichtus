@@ -124,6 +124,9 @@ class Mailer
         // set Mime type html
         $htmlPart = new MimePart($modelMessage->getBody());
         $htmlPart->type = Mime::TYPE_HTML;
+        $htmlPart->charset = 'UTF-8';
+        $htmlPart->encoding = Mime::ENCODING_BASE64;
+
         $body = new MimeMessage();
         $body->setParts([$htmlPart]);
 
