@@ -34,5 +34,6 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
             persistenceService,
         );
 
+        this.naturalSearchConfig = naturalSearchConfigurationService.get(this.key);
     }
 }

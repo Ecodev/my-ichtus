@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-    ItemConfiguration,
-    NaturalQueryVariablesManager,
-    NaturalSearchConfiguration,
-    Selection, TypeNaturalSelectComponent,
-    TypeSelectComponent,
-} from '@ecodev/natural';
+import { ItemConfiguration, NaturalSearchConfiguration, Selection, TypeNaturalSelectComponent } from '@ecodev/natural';
 import { UserTagService } from '../../admin/userTags/services/userTag.service';
+import { TransactionService } from '../../admin/transactions/services/transaction.service';
 
 function wrapLike(s: Selection): Selection {
     if (s.condition.like) {
@@ -66,7 +61,16 @@ export class NaturalSearchConfigurationService {
         component: TypeNaturalSelectComponent,
         configuration: {
             service: this.userTagService,
-            placeholder: 'Tags'
+            placeholder: 'Tags',
+        },
+    };
+
+    private readonly transaction: ItemConfiguration = {
+        display: 'Transaction',
+        field: 'transaction',
+        component: TypeNaturalSelectComponent,
+        configuration: {
+            service: this.transactionService,
         },
     };
 
@@ -74,9 +78,15 @@ export class NaturalSearchConfigurationService {
         users: [
             this.userTags,
         ],
+        transactionLines: [
+            this.transaction,
+        ],
     };
 
-    constructor(public userTagService: UserTagService) {
+    constructor(
+        public userTagService: UserTagService,
+        private readonly transactionService: TransactionService,
+    ) {
     }
 
     /**

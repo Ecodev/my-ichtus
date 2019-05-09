@@ -38,6 +38,7 @@ import { TransactionLinesComponent } from './transactions/transactionLines/trans
 import { ExpenseClaimParamResolver } from './expenseClaim/services/expenseClaim.param.resolver';
 import { AdministrationGuard } from '../shared/guards/administration.guard';
 import { UsageBookableService } from './bookables/services/usage-bookable.service';
+import { ImportComponent } from './import/import.component';
 
 const routes: Routes = [
         {
@@ -459,6 +460,11 @@ const routes: Routes = [
                             },
                         },
                     ],
+                },
+                {
+                    path: 'import',
+                    component: ImportComponent,
+                    data: {title: 'Import des virement BVR'},
                 },
                 {
                     // Separated from other similar routes because of https://github.com/angular/angular/issues/27674

@@ -1,0 +1,30 @@
+<div fxLayout="column">
+
+    <div fxLayout="column">
+        <div class="mat-headline no-margin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">{{ routeData?.title }}</div>
+    </div>
+
+    <div>
+        <p class="mat-body">Upload un fichier XML CAMT 054 pour importer les virements qui ont été fait par BVR:</p>
+        <button
+                mat-raised-button
+                ngfSelect
+                [accept]="'text/xml'"
+                [ngfFixOrientation]="false"
+                (fileChange)="uploadFile($event)"
+                [disabled]="!permissionsService.crud?.transaction.create || importing"
+        >
+            <natural-icon name="file_upload"></natural-icon>
+            Uploader un CAMT 054
+        </button>
+
+        <div *ngIf="error !== null">
+            <p>L'erreur suivante s'est produite durant l'import et tout le processus a été complétement annulé:</p>
+            <p>
+                <mat-icon color="warn">error</mat-icon>
+                {{error.message}}
+            </p>
+        </div>
+
+    </div>
+</div>
