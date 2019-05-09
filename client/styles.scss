@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'styles/layout';
 @import 'app/shared/components/boot-loader/boot-loader.external';
 
 body {
@@ -114,4 +113,12 @@ mat-checkbox[wrap] {
 
 .mat-snack-bar-container {
     margin-top: 88px !important;
+}
+
+[app-date-column] {
+    width: 14em;
+}
+
+[app-price-column] {
+    width: 7em;
 }

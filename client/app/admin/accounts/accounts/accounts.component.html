@@ -48,7 +48,7 @@
 
                 <ng-container matColumnDef="navigation">
                     <th mat-header-cell *matHeaderCellDef></th>
-                    <td mat-cell *matCellDef="let element" app-2em-column>
+                    <td mat-cell *matCellDef="let element" natural-2em-column>
                         <natural-table-button icon="chevron_right" [navigate]="goToChildLink(element)" matTooltip="Afficher les sous-comptes"
                         ></natural-table-button>
                     </td>
@@ -91,7 +91,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="balance">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header app-4em-column>Solde</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header natural-4em-column>Solde</th>
                     <td mat-cell *matCellDef="let element">
                         <app-money [amount]="element.balance"></app-money>
                     </td>

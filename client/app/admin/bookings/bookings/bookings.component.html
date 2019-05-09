@@ -125,7 +125,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="terminateBooking">
-                    <th mat-header-cell *matHeaderCellDef app-5em-column></th>
+                    <th mat-header-cell *matHeaderCellDef natural-5em-column></th>
                     <td mat-cell *matCellDef="let element">
                         <button *ngIf="!element.endDate" mat-flat-button color="warn" (click)="bookingService.terminateBooking(element.id)">
                             Terminer

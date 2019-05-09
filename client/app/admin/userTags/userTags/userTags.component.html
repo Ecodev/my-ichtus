@@ -28,7 +28,7 @@
                 <tr mat-row *matRowDef="let row; columns: selectedColumns;"></tr>
 
                 <ng-container matColumnDef="color">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header app-3em-column></th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header natural-3em-column></th>
                     <td mat-cell *matCellDef="let element">
                         <ngx-avatar [bgColor]="element.color" [size]="32" [name]="element.name"></ngx-avatar>
                     </td>

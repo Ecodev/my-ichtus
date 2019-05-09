@@ -16,14 +16,14 @@
                 </ng-container>
 
                 <ng-container matColumnDef="periodicPrice">
-                    <th mat-header-cell *matHeaderCellDef app-7em-column app-align-right>Prix annuel</th>
-                    <td mat-cell *matCellDef="let bookable" app-align-right>
+                    <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix annuel</th>
+                    <td mat-cell *matCellDef="let bookable" natural-align-right>
                         <span *ngIf="bookable.periodicPrice != '0.00'"> {{ bookable.periodicPrice | currency: 'CHF' }}</span>
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="selection">
-                    <th mat-header-cell *matHeaderCellDef app-3em-column></th>
+                    <th mat-header-cell *matHeaderCellDef natural-3em-column></th>
                     <td mat-cell *matCellDef="let bookable">
                         <mat-checkbox (click)="$event.stopPropagation()"
                                       (change)="$event ? selection.toggle(bookable) : null"

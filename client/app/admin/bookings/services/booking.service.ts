@@ -7,6 +7,7 @@ import {
     BookingInput,
     BookingPartialInput,
     Bookings,
+    BookingSortingField,
     BookingStatus,
     BookingsVariables,
     BookingType,
@@ -15,6 +16,7 @@ import {
     DeleteBookings,
     JoinType,
     LogicalOperator,
+    SortingOrder,
     TerminateBooking,
     UpdateBooking,
     UpdateBookingVariables,
@@ -23,8 +25,7 @@ import { Validators } from '@angular/forms';
 import { forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BookingResolve } from '../booking';
-import { NaturalAbstractModelService, FormValidators } from '@ecodev/natural';
-import { NaturalEnumService } from '@ecodev/natural';
+import { FormValidators, NaturalAbstractModelService, NaturalEnumService } from '@ecodev/natural';
 import { BookableTagService } from '../../bookableTags/services/bookableTag.service';
 
 @Injectable({
@@ -67,6 +68,7 @@ export class BookingService extends NaturalAbstractModelService<Booking['booking
             ],
         },
         pagination: {
+            pageIndex: 0,
             pageSize: 1000,
         },
     };
@@ -87,8 +89,13 @@ export class BookingService extends NaturalAbstractModelService<Booking['booking
                     conditions: [{bookable: {empty: {}}}],
                 },
             ],
-
         },
+        sorting: [
+            {
+                field: BookingSortingField.startDate,
+                order: SortingOrder.DESC,
+            },
+        ],
     };
 
     public static readonly storageApplication: BookingsVariables = {

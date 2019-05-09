@@ -33,12 +33,12 @@
                 </ng-container>
 
                 <ng-container matColumnDef="periodicPrice">
-                    <th mat-header-cell *matHeaderCellDef app-7em-column app-align-right>Prix périodique</th>
-                    <td mat-cell *matCellDef="let booking" app-align-right>
+                    <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix périodique</th>
+                    <td mat-cell *matCellDef="let booking" natural-align-right>
                         <span *ngIf="booking.bookable.periodicPrice != '0.00'"> {{ booking.bookable.periodicPrice | currency: 'CHF'}}
                         </span>
                     </td>
-                    <td mat-footer-cell *matFooterCellDef app-align-right>
+                    <td mat-footer-cell *matFooterCellDef natural-align-right>
                         <span *ngIf="pendingApplicationsDS.data.totalPeriodicPrice > 0">
                             {{ pendingApplicationsDS.data.totalPeriodicPrice | currency: 'CHF' }}
                         </span>
@@ -46,11 +46,11 @@
                 </ng-container>
 
                 <ng-container matColumnDef="initialPrice">
-                    <th mat-header-cell *matHeaderCellDef app-7em-column app-align-right>Prix initial</th>
-                    <td mat-cell *matCellDef="let booking" app-align-right>
+                    <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix initial</th>
+                    <td mat-cell *matCellDef="let booking" natural-align-right>
                         <span *ngIf="booking.bookable.initialPrice != '0.00'"> {{ booking.bookable.initialPrice | currency: 'CHF'}}</span>
                     </td>
-                    <td mat-footer-cell *matFooterCellDef app-align-right>
+                    <td mat-footer-cell *matFooterCellDef natural-align-right>
                         <span *ngIf="pendingApplicationsDS.data.totalInitialPrice > 0">
                             {{ pendingApplicationsDS.data.totalInitialPrice | currency: 'CHF'}}
                         </span>
@@ -58,7 +58,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="cancel">
-                    <th mat-header-cell *matHeaderCellDef app-1em-column></th>
+                    <th mat-header-cell *matHeaderCellDef natural-1em-column></th>
                     <td mat-cell *matCellDef="let booking">
                         <button mat-icon-button color="warn" (click)="cancelApplication(booking)">
                             <natural-icon name="delete"></natural-icon>
@@ -68,7 +68,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="admin">
-                    <th mat-header-cell *matHeaderCellDef app-1em-column>Traiter</th>
+                    <th mat-header-cell *matHeaderCellDef natural-1em-column>Traiter</th>
                     <td mat-cell *matCellDef="let booking">
                         <a mat-icon-button mat-raised-button color="accent" [routerLink]="['/admin/booking', booking.id]">
                             <natural-icon name="chevron_right"></natural-icon>
@@ -107,11 +107,11 @@
                 </ng-container>
 
                 <ng-container matColumnDef="periodicPrice">
-                    <th mat-header-cell *matHeaderCellDef app-7em-column app-align-right>Prix périodique</th>
-                    <td mat-cell *matCellDef="let booking" app-align-right>
+                    <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix périodique</th>
+                    <td mat-cell *matCellDef="let booking" natural-align-right>
                         <span *ngIf="booking.periodicPrice"> {{ booking.periodicPrice | currency: 'CHF'}}</span>
                     </td>
-                    <td mat-footer-cell *matFooterCellDef app-align-right>
+                    <td mat-footer-cell *matFooterCellDef natural-align-right>
                         <span *ngIf="runningServicesDS.data.totalPeriodicPrice > 0">
                             {{ runningServicesDS.data.totalPeriodicPrice | currency: 'CHF' }}
                         </span>
@@ -119,7 +119,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="revoke">
-                    <th mat-header-cell *matHeaderCellDef app-1em-column></th>
+                    <th mat-header-cell *matHeaderCellDef natural-1em-column></th>
                     <td mat-cell *matCellDef="let booking">
                         <button mat-icon-button color="warn" (click)="revokeBooking(booking)" *ngIf="canRevoke(booking)">
                             <natural-icon name="delete_forever"></natural-icon>
@@ -129,8 +129,8 @@
                 </ng-container>
 
                 <ng-container matColumnDef="usage">
-                    <th mat-header-cell *matHeaderCellDef app-7em-column app-align-right>Utilisations</th>
-                    <td mat-cell *matCellDef="let booking" app-align-right>
+                    <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Utilisations</th>
+                    <td mat-cell *matCellDef="let booking" natural-align-right>
                         <div *ngFor="let b of booking.bookable.sharedBookings" fxLayout="row">
                             <ngx-avatar [name]="b.owner.name" [size]="36"></ngx-avatar>
                             <a mat-button [routerLink]="['/admin/user', b.owner.id]">
@@ -138,11 +138,11 @@
                             </a>
                         </div>
                     </td>
-                    <td mat-footer-cell *matFooterCellDef app-align-right></td>
+                    <td mat-footer-cell *matFooterCellDef natural-align-right></td>
                 </ng-container>
 
                 <ng-container matColumnDef="admin">
-                    <th mat-header-cell *matHeaderCellDef app-1em-column>Traiter</th>
+                    <th mat-header-cell *matHeaderCellDef natural-1em-column>Traiter</th>
                     <td mat-cell *matCellDef="let booking">
                         <a mat-icon-button mat-raised-button color="accent" [routerLink]="['/admin/booking', booking.id]">
                             <natural-icon name="chevron_right"></natural-icon>
