@@ -27,7 +27,7 @@
             <div fxFlex></div>
 
             <a mat-icon-button routerLink="/profile">
-                <ngx-avatar [name]="route.snapshot.data.viewer.model.name" [size]="50" style="position:relative;top:-5px;left:-5px"
+                <ngx-avatar [name]="route.snapshot.data.viewer.model.name" [size]="50" [ngStyle]="{position: 'relative', top:'-5px', left: '-5px'}"
                 ></ngx-avatar>
             </a>
         </div>
