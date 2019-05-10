@@ -46,7 +46,7 @@ class AccountRepositoryTest extends AbstractRepositoryTest
     public function testOneUserCanHaveOnlyOneAccount(): void
     {
         $this->expectException(UniqueConstraintViolationException::class);
-        $this->getEntityManager()->getConnection()->insert('account', ['owner_id' => -1000, 'iban' => uniqid()]);
+        $this->getEntityManager()->getConnection()->insert('account', ['owner_id' => 1000, 'iban' => uniqid()]);
     }
 
     public function testGetOrCreate(): void

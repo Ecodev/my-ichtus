@@ -5,7 +5,7 @@ declare(strict_types=1);
 return [
     [
         'query' => 'mutation {
-            unregister(id: -1007)
+            unregister(id: 1007)
         }',
     ],
     [

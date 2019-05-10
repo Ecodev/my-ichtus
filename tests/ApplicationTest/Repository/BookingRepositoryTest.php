@@ -37,10 +37,10 @@ class BookingRepositoryTest extends AbstractRepositoryTest
         $actual = $this->modelToIds($bookings);
 
         $expected = [
-            4007,
             4004,
             4005,
             4015,
+            4007,
         ];
 
         self::assertSame($expected, $actual);
@@ -48,7 +48,7 @@ class BookingRepositoryTest extends AbstractRepositoryTest
 
     public function testGetAllToInvoiceForUser(): void
     {
-        $user = $this->getEntityManager()->getRepository(User::class)->getOneById(-1005);
+        $user = $this->getEntityManager()->getRepository(User::class)->getOneById(1005);
 
         $bookings = $this->repository->getAllToInvoice($user);
         $actual = $this->modelToIds($bookings);

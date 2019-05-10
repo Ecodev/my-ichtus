@@ -14,18 +14,18 @@ class AgeTest extends AbstractSorting
         User::setCurrent($administrator);
         $result = $this->getSortedQueryResult(User::class, 'age');
         self::assertSame([
-            -1004,
-            -1002,
-            -1010,
-            -1000,
-            -1007,
-            -1001,
-            -1005,
-            -1006,
-            -1008,
-            -1009,
-            -1011,
-            -1003,
+            1004,
+            1002,
+            1010,
+            1000,
+            1007,
+            1001,
+            1005,
+            1006,
+            1008,
+            1009,
+            1003,
+            1011,
         ], $result);
     }
 }

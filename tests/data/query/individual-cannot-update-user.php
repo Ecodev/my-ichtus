@@ -5,7 +5,7 @@ declare(strict_types=1);
 return [
     [
         'query' => 'mutation ($inputUser: UserPartialInput!) {
-            updateUser(id: -1000 input: $inputUser) {
+            updateUser(id: 1000 input: $inputUser) {
                 id
                 email
             }
@@ -19,7 +19,7 @@ return [
     [
         'errors' => [
             [
-                'message' => 'User "individual" with role individual is not allowed on resource "User#-1000" with privilege "update"',
+                'message' => 'User "individual" with role individual is not allowed on resource "User#1000" with privilege "update"',
                 'extensions' => [
                     'category' => 'Permissions',
                 ],

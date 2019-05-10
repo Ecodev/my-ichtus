@@ -53,7 +53,7 @@ class DatatransActionTest extends TestCase
                 [
                     'uppTransactionId' => '123456789012345678',
                     'status' => 'success',
-                    'refno' => '-1007',
+                    'refno' => '1007',
                     'amount' => '10000',
                     'currency' => 'CHF',
                     'responseMessage' => 'Payment was successful',
@@ -70,7 +70,7 @@ class DatatransActionTest extends TestCase
                 [
                     'uppTransactionId' => '123456789012345678',
                     'status' => 'success',
-                    'refno' => '-1008',
+                    'refno' => '1008',
                     'amount' => '10000',
                     'currency' => 'CHF',
                     'responseMessage' => 'Payment was successful',
@@ -87,7 +87,7 @@ class DatatransActionTest extends TestCase
                 [
                     'uppTransactionId' => '876543210987654321',
                     'status' => 'error',
-                    'refno' => '-1007',
+                    'refno' => '1007',
                     'errorMessage' => 'Dear Sir/Madam, Fire! fire! help me! All the best, Maurice Moss.',
                 ],
                 '0.00',
@@ -102,7 +102,7 @@ class DatatransActionTest extends TestCase
                 [
                     'uppTransactionId' => '876543210987654321',
                     'status' => 'cancel',
-                    'refno' => '-1007',
+                    'refno' => '1007',
                 ],
                 '0.00',
                 [
@@ -126,7 +126,7 @@ class DatatransActionTest extends TestCase
                 [
                     'uppTransactionId' => '123456789012345678',
                     'status' => 'non-existing-status',
-                    'refno' => '-1007',
+                    'refno' => '1007',
                     'amount' => '10000',
                     'currency' => 'CHF',
                     'responseMessage' => 'Payment was successful',
@@ -159,7 +159,7 @@ class DatatransActionTest extends TestCase
                 [
                     'uppTransactionId' => '123456789012345678',
                     'status' => 'success',
-                    'refno' => '-1007',
+                    'refno' => '1007',
                     'currency' => 'CHF',
                     'responseMessage' => 'Payment was successful',
                 ],
@@ -175,7 +175,7 @@ class DatatransActionTest extends TestCase
                 [
                     'uppTransactionId' => '123456789012345678',
                     'status' => 'success',
-                    'refno' => '-1007',
+                    'refno' => '1007',
                     'amount' => '10000',
                     'currency' => 'USD',
                     'responseMessage' => 'Payment was successful',

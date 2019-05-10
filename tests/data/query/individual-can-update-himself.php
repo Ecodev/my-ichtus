@@ -7,7 +7,7 @@ use Application\Model\User;
 return [
     [
         'query' => 'mutation ($inputUser: UserPartialInput!) {
-            updateUser(id: -1007 input: $inputUser) {
+            updateUser(id: 1007 input: $inputUser) {
                 id
                 name
                 email
@@ -25,7 +25,7 @@ return [
     [
         'data' => [
             'updateUser' => [
-                'id' => -1007,
+                'id' => 1007,
                 'name' => 'test name',
                 'email' => 'test@example.com',
             ],

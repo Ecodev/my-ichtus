@@ -14,7 +14,7 @@ return [
     [
         'data' => [
             'login' => [
-                'id' => '-1000',
+                'id' => '1000',
                 'login' => 'administrator',
             ],
         ],

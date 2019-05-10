@@ -95,12 +95,12 @@ REPLACE INTO account (id, parent_id, owner_id, type, code, balance, iban, name) 
 (10091, 10021, NULL, 'expense', '65007', 0.00, '', 'Travail pour le club'),
 (10092, 10021, NULL, 'expense', '65008', 0.00, '', 'Comité'),
 (10093, 10021, NULL, 'expense', '65009', 0.00, '', 'Divers'),
-(10094, 10011, -1000, 'liability', '20300001', 0.00, '', 'Administrator'),
-(10095, 10011, -1001, 'liability', '20300002', 0.00, '', 'Responsable'),
-(10096, 10011, -1002, 'liability', '20300003', 50.00, '', 'Active Member'),
-(10097, 10011, -1007, 'liability', '20300004', 0.00, '', 'Conjoint'),
-(10098, 10011, -1010, 'liability', '20300007', 0.00, '', 'Voilier Member'),
-(10099, 10011, -1011, 'liability', '20300008', 0.00, '', 'Voilier Family'),
+(10094, 10011, 1000, 'liability', '20300001', 0.00, '', 'Administrator'),
+(10095, 10011, 1001, 'liability', '20300002', 0.00, '', 'Responsable'),
+(10096, 10011, 1002, 'liability', '20300003', 50.00, '', 'Active Member'),
+(10097, 10011, 1007, 'liability', '20300004', 0.00, '', 'Conjoint'),
+(10098, 10011, 1010, 'liability', '20300007', 0.00, '', 'Voilier Member'),
+(10099, 10011, 1011, 'liability', '20300008', 0.00, '', 'Voilier Family'),
 (10100, 10007, NULL, 'expense', '8000', 0.00, '', 'Charges hors exploitation'),
 (10101, 10007, NULL, 'revenue', '8100', 0.00, '', 'Produits hors exploitation'),
 (10102, 10007, NULL, 'expense', '8500', 0.00, '', 'Charges extraordinaires, exceptionnelles ou hors période'),
@@ -116,7 +116,7 @@ REPLACE INTO license (id, name) VALUES
 (2003, 'Aviron');
 
 REPLACE INTO license_user (license_id, user_id) VALUES
-(2000, -1010);
+(2000, 1010);
 
 REPLACE INTO bookable_tag (id, name) VALUES
 (6000, 'SUP'),
@@ -193,34 +193,34 @@ REPLACE INTO bookable_tag_bookable (bookable_tag_id, bookable_id) VALUES
 (6005, 3009);
 
 REPLACE INTO booking (id, owner_id, bookable_id, status, start_date, end_date, estimated_end_date, destination, start_comment) VALUE
-(4000, -1002, 3000, 'booked', '2018-01-01 14:15:00', '2018-01-01 18:21:43', '18h', 'Zamora', 'There comes a time, thief, when the jewels cease to sparkle, when the gold loses its luster, when the throne room becomes a prison, and all that is left is a father''s love for his child.'),
-(4001, -1002, 3001, 'booked', '2018-01-02 13:32:51', NULL, '21 oct 2015', 'Twin Pines Mall', 'Where we go we don''t need roads'),
-(4003, -1002, 3002, 'application', '2018-01-02 13:32:51', NULL, '', '', ''),
-(4004, -1002, 3003, 'booked', '2018-01-02 13:32:51', NULL, '', '', ''),
-(4005, -1002, 3006, 'booked', '2018-01-02 13:32:51', NULL, '', '', ''),
-(4006, -1002, 3004, 'application', '2018-01-02 13:32:51', NULL, '', '', ''),
-(4007, -1005, 3006, 'booked', '2018-01-02 13:32:51', NULL, '', '', ''),
-(4009, -1002, null, 'booked', '2018-01-02 13:32:51', NULL, 'Judgment day', 'Skynet bunker', 'Nulla vitae elit libero, a pharetra augue.'),
-(4012, -1008, 3011, 'booked', '2018-01-02 13:32:51', NULL, '29 sept 3021', 'Not middle earth', 'Soron is gone'),
-(4013, -1002, 3030, 'application', '2018-01-02 13:32:51', NULL, '', '', ''),
-(4014, -1002, 3031, 'application', '2018-01-02 13:32:51', NULL, '', '', ''),
-(4015, -1002, 3026, 'booked', '2018-01-02 13:32:51', NULL, '', '', '');
+(4000, 1002, 3000, 'booked', '2018-01-01 14:15:00', '2018-01-01 18:21:43', '18h', 'Zamora', 'There comes a time, thief, when the jewels cease to sparkle, when the gold loses its luster, when the throne room becomes a prison, and all that is left is a father''s love for his child.'),
+(4001, 1002, 3001, 'booked', '2018-01-02 13:32:51', NULL, '21 oct 2015', 'Twin Pines Mall', 'Where we go we don''t need roads'),
+(4003, 1002, 3002, 'application', '2018-01-02 13:32:51', NULL, '', '', ''),
+(4004, 1002, 3003, 'booked', '2018-01-02 13:32:51', NULL, '', '', ''),
+(4005, 1002, 3006, 'booked', '2018-01-02 13:32:51', NULL, '', '', ''),
+(4006, 1002, 3004, 'application', '2018-01-02 13:32:51', NULL, '', '', ''),
+(4007, 1005, 3006, 'booked', '2018-01-02 13:32:51', NULL, '', '', ''),
+(4009, 1002, null, 'booked', '2018-01-02 13:32:51', NULL, 'Judgment day', 'Skynet bunker', 'Nulla vitae elit libero, a pharetra augue.'),
+(4012, 1008, 3011, 'booked', '2018-01-02 13:32:51', NULL, '29 sept 3021', 'Not middle earth', 'Soron is gone'),
+(4013, 1002, 3030, 'application', '2018-01-02 13:32:51', NULL, '', '', ''),
+(4014, 1002, 3031, 'application', '2018-01-02 13:32:51', NULL, '', '', ''),
+(4015, 1002, 3026, 'booked', '2018-01-02 13:32:51', NULL, '', '', '');
 
 REPLACE INTO expense_claim (id, creation_date, owner_id, amount, status, name, description, type) VALUES
-(7000, '2019-01-10', -1002, 200.00, 'new', 'achats Jumbo', 'outils pour voilier', 'expenseClaim'),
-(7001, '2019-01-14', -1002, 100.00, 'processed', 'flyers', 'Cighelio', 'expenseClaim'),
-(7002, '2019-03-14', -1002, 50.00, 'processing', 'remboursement bancaire', '', 'refund'),
-(7003, '2019-01-10', -1007, 75.00, 'new', 'achats boissons', 'pour la fête', 'expenseClaim');
+(7000, '2019-01-10', 1002, 200.00, 'new', 'achats Jumbo', 'outils pour voilier', 'expenseClaim'),
+(7001, '2019-01-14', 1002, 100.00, 'processed', 'flyers', 'Cighelio', 'expenseClaim'),
+(7002, '2019-03-14', 1002, 50.00, 'processing', 'remboursement bancaire', '', 'refund'),
+(7003, '2019-01-10', 1007, 75.00, 'new', 'achats boissons', 'pour la fête', 'expenseClaim');
 
 REPLACE INTO transaction (id, creator_id, owner_id, transaction_date, name, remarks, expense_claim_id) VALUES
-(8000, -1002, -1002, '2019-03-01', 'Inscription cours nautique Active Member', '', NULL),
+(8000, 1002, 1002, '2019-03-01', 'Inscription cours nautique Active Member', '', NULL),
 (8001, NULL, NULL, '2019-03-10', 'Photocopies pour comité', '', NULL),
-(8002, -1002, -1002, '2019-03-12', 'Cotisation 2019', '', NULL),
+(8002, 1002, 1002, '2019-03-12', 'Cotisation 2019', '', NULL),
 (8003, NULL, NULL, '2019-01-15', 'Remboursement flyers pour cours nautique', 'Facture Cighelio du 10.01.2019', 7001),
 (8004, NULL, NULL, '2019-02-05', 'Location casier 1012', '', NULL),
-(8005, -1000, -1000, '2019-02-04', 'Achat d''un nouveau voilier', 'Paiement partiel par banque et poste', NULL),
-(8006, -1002, -1002, '2019-04-05', 'Versement en ligne', '', NULL),
-(8007, -1000, -1000, '2019-01-01', 'Solde à nouveau', 'Ouverture des comptes en début d\'exercice', NULL);
+(8005, 1000, 1000, '2019-02-04', 'Achat d''un nouveau voilier', 'Paiement partiel par banque et poste', NULL),
+(8006, 1002, 1002, '2019-04-05', 'Versement en ligne', '', NULL),
+(8007, 1000, 1000, '2019-01-01', 'Solde à nouveau', 'Ouverture des comptes en début d\'exercice', NULL);
 
 REPLACE INTO transaction_tag (id, name) VALUES
 (15000, 'Régate 2019'),
@@ -245,19 +245,19 @@ REPLACE INTO transaction_line (id, transaction_id, debit_id, credit_id, bookable
 (14011, 8002, 10096, 10104, NULL, NULL, 10.00, '2019-03-12', 1, 'Contribution au fond de réparation interne', '');
 
 REPLACE INTO accounting_document (id, expense_claim_id, owner_id, filename, mime) VALUES
-(9000, 7000, -1002, 'dw4jV3zYSPsqE2CB8BcP8ABD0.pdf', 'application/pdf');
+(9000, 7000, 1002, 'dw4jV3zYSPsqE2CB8BcP8ABD0.pdf', 'application/pdf');
 
 REPLACE INTO message (id, creator_id, owner_id, recipient_id, type, date_sent, email, subject, body) VALUES
-(11001, -1000, -1000, -1002, 'balance', '2019-01-01 12:00:00','member@example.com', 'Avertissement de crédit négatif', 'Bonjour, nous vous informons que votre compte Ichtus présente un solde négatif'),
-(11002, -1001, -1001, -1005, 'reset_password', NULL,'inactive@example.com', 'Nettoyage local', 'Bonjour, nous vous invitons à venir nous aider pour le nettoyage de printemps du local');
+(11001, 1000, 1000, 1002, 'balance', '2019-01-01 12:00:00','member@example.com', 'Avertissement de crédit négatif', 'Bonjour, nous vous informons que votre compte Ichtus présente un solde négatif'),
+(11002, 1001, 1001, 1005, 'reset_password', NULL,'inactive@example.com', 'Nettoyage local', 'Bonjour, nous vous invitons à venir nous aider pour le nettoyage de printemps du local');
 
 REPLACE INTO user_tag (id, creator_id, owner_id, name, color) VALUES
-(12000, -1000, -1000, 'Moniteur voile', '#0000FF'),
-(12001, -1000, -1000, 'Moniteur SUP', '#FF0000');
+(12000, 1000, 1000, 'Moniteur voile', '#0000FF'),
+(12001, 1000, 1000, 'Moniteur SUP', '#FF0000');
 
 REPLACE INTO user_tag_user (user_tag_id, user_id) VALUES
-(12000, -1008),
-(12001, -1009);
+(12000, 1008),
+(12001, 1009);
 
 REPLACE INTO bookable_metadata (id, bookable_id, name, value) VALUES
 (13000, 3000, 'Largeur', '1405 mm'),

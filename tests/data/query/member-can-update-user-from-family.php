@@ -5,7 +5,7 @@ declare(strict_types=1);
 return [
     [
         'query' => 'mutation ($inputUser: UserPartialInput!) {
-            updateUser(id: -1007 input: $inputUser) {
+            updateUser(id: 1007 input: $inputUser) {
                 id
                 email
             }
@@ -19,7 +19,7 @@ return [
     [
         'data' => [
             'updateUser' => [
-                'id' => -1007,
+                'id' => 1007,
                 'email' => 'test@example.com',
             ],
         ],

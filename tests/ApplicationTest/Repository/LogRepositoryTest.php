@@ -73,7 +73,7 @@ class LogRepositoryTest extends AbstractRepositoryTest
                 'message' => LogRepository::LOGIN_FAILED,
             ],
             [
-                'creator_id' => -1003,
+                'creator_id' => 1003,
                 'creation_date' => '2019-01-02',
                 'message' => LogRepository::LOGIN,
             ],

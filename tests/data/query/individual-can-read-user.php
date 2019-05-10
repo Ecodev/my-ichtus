@@ -5,7 +5,7 @@ declare(strict_types=1);
 return [
     [
         'query' => '{
-            user(id: "-1000") {
+            user(id: "1000") {
                 id
             }
         }',
@@ -13,7 +13,7 @@ return [
     [
         'data' => [
             'user' => [
-                'id' => '-1000',
+                'id' => '1000',
             ],
         ],
     ],

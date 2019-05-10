@@ -5,7 +5,7 @@ declare(strict_types=1);
 return [
     [
         'query' => 'mutation {
-            leaveFamily(id: -1007) {
+            leaveFamily(id: 1007) {
                 id
             }
         }',
@@ -13,7 +13,7 @@ return [
     [
         'data' => [
             'leaveFamily' => [
-                'id' => -1007,
+                'id' => 1007,
             ],
         ],
     ],
