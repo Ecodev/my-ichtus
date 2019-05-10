@@ -10,6 +10,10 @@ import { BankingInfosVariables } from '../../../shared/generated-types';
 })
 export class ProvisionComponent implements OnInit {
 
+    /**
+     * Minimum payment amount
+     * Positive number at the payment is always positive
+     */
     public min = 25;
     public defaultValue = this.min;
     public formCtrl: FormControl;
@@ -20,15 +24,11 @@ export class ProvisionComponent implements OnInit {
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
 
-        if (data.balance < 0) {
-            this.min = Math.abs(data.balance);
-        }
-
         this.bvrData = {
             user: data.user.id,
         };
 
-        this.formCtrl = new FormControl(Math.max(this.min, this.defaultValue), [Validators.min(this.min)]);
+        this.formCtrl = new FormControl(data.balance < 0 ? Math.abs(data.balance) : this.min, [Validators.min(this.min)]);
 
     }
 
