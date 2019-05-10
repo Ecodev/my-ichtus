@@ -18,7 +18,7 @@ export class ImportComponent implements OnInit {
     public routeData: Data;
 
     public importing = false;
-    private error: Error | null = null;
+    public error: Error | null = null;
 
     constructor(
         private route: ActivatedRoute,

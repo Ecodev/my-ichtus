@@ -464,7 +464,7 @@ const routes: Routes = [
                 {
                     path: 'import',
                     component: ImportComponent,
-                    data: {title: 'Import des virement BVR'},
+                    data: {title: 'Import des virements BVR'},
                 },
                 {
                     // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
