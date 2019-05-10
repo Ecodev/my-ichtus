@@ -118,7 +118,7 @@ class TransactionLine extends AbstractModel
      *
      * @return null|string
      */
-    public function getImportedId(): string
+    public function getImportedId(): ?string
     {
         return $this->importedId;
     }
