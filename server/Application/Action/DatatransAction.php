@@ -128,7 +128,7 @@ class DatatransAction extends AbstractAction
 
         $accountRepository = $this->entityManager->getRepository(Account::class);
         $userAccount = $accountRepository->getOrCreate($user);
-        $bankAccount = $accountRepository->findOneById(AccountRepository::ACCOUNT_ID_FOR_BANK);
+        $bankAccount = $accountRepository->getOneById(AccountRepository::ACCOUNT_ID_FOR_BANK);
 
         if (!array_key_exists('amount', $body)) {
             // Do not support "registrations"

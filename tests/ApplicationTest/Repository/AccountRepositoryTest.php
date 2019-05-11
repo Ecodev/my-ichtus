@@ -93,4 +93,13 @@ class AccountRepositoryTest extends AbstractRepositoryTest
         self::assertEquals(112.50, $totalExpense);
         self::assertEquals(35000, $totalEquity);
     }
+
+    public function testGetOneById(): void
+    {
+        $account = $this->repository->getOneById(10025); // Poste
+        self::assertNotNull($account);
+        self::assertSame(10025, $account->getId());
+        $this->expectExceptionMessage('Account #-9999 not found');
+        $account = $this->repository->getOneById(-9999);
+    }
 }

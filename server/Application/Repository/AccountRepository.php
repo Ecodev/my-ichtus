@@ -40,13 +40,18 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
      *
      * @param int $id
      *
-     * @return null|Account
+     * @throws \Exception
+     *
+     * @return Account
      */
-    private function getOneById(int $id): ?Account
+    public function getOneById(int $id): Account
     {
         $this->getAclFilter()->setEnabled(false);
         $account = $this->findOneById($id);
         $this->getAclFilter()->setEnabled(true);
+        if (!$account) {
+            throw new \Exception('Account #' . $id . ' not found');
+        }
 
         return $account;
     }
