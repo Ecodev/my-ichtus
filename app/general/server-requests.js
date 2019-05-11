@@ -60,14 +60,14 @@ var Requests = {
                                 {
                                     firstName: {
                                         like: {
-                                            value: '%' + texts[0] + '%'
+                                            value: '' + texts[0] + '%'
                                         }
                                     }
                                 },
                                 {
                                     lastName: {
                                         like: {
-                                            value: '%' + texts[0] + '%'
+                                            value: '' + texts[0] + '%'
                                         }
                                     }
                                 }
@@ -99,14 +99,14 @@ var Requests = {
                                 {
                                     firstName: {
                                         like: {
-                                            value: '%' + texts[0] + '%'
+                                            value: '' + texts[0] + '%'
                                         }
                                     }
                                 },
                                 {
                                     lastName: {
                                         like: {
-                                            value: '%' + texts[1] + '%'
+                                            value: '' + texts[1] + '%'
                                         }
                                     }
                                 },
@@ -126,14 +126,14 @@ var Requests = {
                                 {
                                     firstName: {
                                         like: {
-                                            value: '%' + texts[1] + '%'
+                                            value: '' + texts[1] + '%'
                                         }
                                     }
                                 },
                                 {
                                     lastName: {
                                         like: {
-                                            value: '%' + texts[0] + '%'
+                                            value: '' + texts[0] + '%'
                                         }
                                     }
                                 },
