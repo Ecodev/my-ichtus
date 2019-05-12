@@ -87,9 +87,6 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
             $account->setCode((string) $newCode);
 
             $parent = $this->getOneById(self::PARENT_ACCOUNT_ID_FOR_USER);
-            if (!$parent) {
-                throw new \Exception('Cannot find parent account for creation of user account');
-            }
             $account->setParent($parent);
         }
 
