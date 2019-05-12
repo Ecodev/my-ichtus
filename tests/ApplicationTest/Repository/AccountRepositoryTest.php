@@ -100,6 +100,6 @@ class AccountRepositoryTest extends AbstractRepositoryTest
         self::assertNotNull($account);
         self::assertSame(10025, $account->getId());
         $this->expectExceptionMessage('Account #-9999 not found');
-        $account = $this->repository->getOneById(-9999);
+        $this->repository->getOneById(-9999);
     }
 }
