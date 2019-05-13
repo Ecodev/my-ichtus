@@ -12,6 +12,7 @@ use Application\Utility;
 use Cake\Chronos\Chronos;
 use Doctrine\ORM\Mapping as ORM;
 use GraphQL\Doctrine\Annotation as API;
+use Money\Money;
 
 /**
  * A booking linking a user and a bookable
@@ -316,9 +317,9 @@ class Booking extends AbstractModel
      *
      * In case it uses shared admin_only bookables, the price is divided by the number of usages
      *
-     * @return string
+     * @return Money
      */
-    public function getPeriodicPrice(): string
+    public function getPeriodicPrice(): Money
     {
         $bookable = $this->getBookable();
         $bookings = $bookable->getSharedBookings();
@@ -327,6 +328,6 @@ class Booking extends AbstractModel
             return $bookable->getPeriodicPrice();
         }
 
-        return bcdiv($bookable->getPeriodicPrice(), (string) count($bookings));
+        return $bookable->getPeriodicPrice()->divide(count($bookings));
     }
 }

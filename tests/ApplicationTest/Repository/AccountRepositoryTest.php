@@ -10,6 +10,7 @@ use Application\Model\User;
 use Application\Repository\AccountRepository;
 use ApplicationTest\Traits\LimitedAccessSubQuery;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Money\Money;
 
 /**
  * @group Repository
@@ -87,11 +88,11 @@ class AccountRepositoryTest extends AbstractRepositoryTest
         $totalExpense = $this->repository->totalBalanceByType(AccountTypeType::EXPENSE);
         $totalEquity = $this->repository->totalBalanceByType(AccountTypeType::EQUITY);
 
-        self::assertEquals(35187.50, $totalAssets);
-        self::assertEquals(60, $totalLiabilities);
-        self::assertEquals(240, $totalRevenue);
-        self::assertEquals(112.50, $totalExpense);
-        self::assertEquals(35000, $totalEquity);
+        self::assertTrue(Money::CHF(3518750)->equals($totalAssets));
+        self::assertTrue(Money::CHF(6000)->equals($totalLiabilities));
+        self::assertTrue(Money::CHF(24000)->equals($totalRevenue));
+        self::assertTrue(Money::CHF(11250)->equals($totalExpense));
+        self::assertTrue(Money::CHF(3500000)->equals($totalEquity));
     }
 
     public function testGetOneById(): void

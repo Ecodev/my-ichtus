@@ -12,6 +12,7 @@ use Application\Model\TransactionLine;
 use Application\Model\User;
 use Application\Service\Invoicer;
 use ApplicationTest\Traits\TestWithTransaction;
+use Money\Money;
 use PHPUnit\Framework\TestCase;
 
 class InvoicerTest extends TestCase
@@ -36,11 +37,11 @@ class InvoicerTest extends TestCase
     /**
      * @dataProvider providerInvoiceInitial
      *
-     * @param string $initialPrice
-     * @param string $periodicPrice
+     * @param Money $initialPrice
+     * @param Money $periodicPrice
      * @param array $expected
      */
-    public function testInvoiceInitial(string $initialPrice, string $periodicPrice, array $expected): void
+    public function testInvoiceInitial(Money $initialPrice, Money $periodicPrice, array $expected): void
     {
         $user = new User();
         $user->setFirstName('John');
@@ -87,7 +88,7 @@ class InvoicerTest extends TestCase
                     $t->getBookable()->getName(),
                     $t->getDebit()->getName(),
                     $t->getCredit()->getName(),
-                    $t->getBalance(),
+                    $t->getBalance()->getAmount(),
                 ];
             }
 
@@ -99,73 +100,73 @@ class InvoicerTest extends TestCase
     {
         return [
             'free booking should create nothing' => [
-                '0',
-                '0',
+                Money::CHF(0),
+                Money::CHF(0),
                 [],
             ],
             'only initial' => [
-                '10.25',
-                '0',
+                Money::CHF(1025),
+                Money::CHF(0),
                 [
                     [
                         'Prestation ponctuelle',
                         'My bookable',
                         'John Doe',
                         'Bookable account',
-                        '10.25',
+                        '1025',
                     ],
                 ],
             ],
             'only periodic' => [
-                '0',
-                '90.25',
+                Money::CHF(0),
+                Money::CHF(9025),
                 [
                     [
                         'Prestation annuelle',
                         'My bookable',
                         'John Doe',
                         'Bookable account',
-                        '90.25',
+                        '9025',
                     ],
                 ],
             ],
             'both initial and periodic should create two lines' => [
-                '10.25',
-                '90.25',
+                Money::CHF(1025),
+                Money::CHF(9025),
                 [
                     [
                         'Prestation ponctuelle',
                         'My bookable',
                         'John Doe',
                         'Bookable account',
-                        '10.25',
+                        '1025',
                     ],
                     [
                         'Prestation annuelle',
                         'My bookable',
                         'John Doe',
                         'Bookable account',
-                        '90.25',
+                        '9025',
                     ],
                 ],
             ],
             'negative balance should swap accounts' => [
-                '-10.25',
-                '-90.25',
+                Money::CHF(-1025),
+                Money::CHF(-9025),
                 [
                     [
                         'Prestation ponctuelle',
                         'My bookable',
                         'Bookable account',
                         'John Doe',
-                        '10.25',
+                        '1025',
                     ],
                     [
                         'Prestation annuelle',
                         'My bookable',
                         'Bookable account',
                         'John Doe',
-                        '90.25',
+                        '9025',
                     ],
                 ],
             ],
@@ -176,8 +177,8 @@ class InvoicerTest extends TestCase
     {
         $user = new User();
         $bookable = new Bookable();
-        $bookable->setInitialPrice('1');
-        $bookable->setPeriodicPrice('1');
+        $bookable->setInitialPrice(Money::CHF(100));
+        $bookable->setPeriodicPrice(Money::CHF(100));
 
         $bookingWithoutOwner = new Booking();
         $bookingWithoutOwner->setBookable($bookable);

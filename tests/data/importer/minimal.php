@@ -16,7 +16,7 @@ return [
                 'name' => 'Versement BVR',
                 'remarks' => '',
                 'transactionDate' => '2019-04-30T00:00:00+02:00',
-                'balance' => '100.00',
+                'balance' => '10000',
                 'owner' => 'Active Member',
                 'debit' => 'PostFinance 20-6137-5',
                 'credit' => 'Active Member',

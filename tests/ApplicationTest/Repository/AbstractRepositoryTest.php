@@ -14,10 +14,10 @@ abstract class AbstractRepositoryTest extends TestCase
 {
     use TestWithTransaction;
 
-    protected function assertAccountBalance(int $id, string $expected, string $message): void
+    protected function assertAccountBalance(int $id, int $expected, string $message): void
     {
         $connection = $this->getEntityManager()->getConnection();
         $actual = $connection->fetchColumn('SELECT balance FROM account WHERE id = ' . $id);
-        self::assertSame($expected, $actual, $message);
+        self::assertSame($expected, (int) $actual, $message);
     }
 }

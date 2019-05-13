@@ -7,6 +7,7 @@ namespace Application\Repository;
 use Application\DBAL\Types\AccountTypeType;
 use Application\Model\Account;
 use Application\Model\User;
+use Money\Money;
 
 class AccountRepository extends AbstractRepository implements LimitedAccessSubQueryInterface
 {
@@ -100,9 +101,9 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
      *
      * @param string $accountType
      *
-     * @return string
+     * @return Money
      */
-    public function totalBalanceByType(string $accountType): string
+    public function totalBalanceByType(string $accountType): Money
     {
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder()
             ->select('SUM(balance)')
@@ -113,6 +114,6 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
 
         $result = $qb->execute();
 
-        return (string) $result->fetchColumn();
+        return Money::CHF($result->fetchColumn());
     }
 }

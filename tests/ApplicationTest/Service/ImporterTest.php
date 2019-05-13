@@ -139,7 +139,7 @@ class ImporterTest extends TestCase
             'name' => $line->getName(),
             'remarks' => $line->getRemarks(),
             'transactionDate' => $line->getTransactionDate()->toIso8601String(),
-            'balance' => $line->getBalance(),
+            'balance' => $line->getBalance()->getAmount(),
             'owner' => $this->nameOrNull($line->getOwner()),
             'debit' => $this->nameOrNull($line->getDebit()),
             'credit' => $this->nameOrNull($line->getCredit()),

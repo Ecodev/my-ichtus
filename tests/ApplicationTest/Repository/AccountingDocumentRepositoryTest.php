@@ -9,6 +9,7 @@ use Application\Model\ExpenseClaim;
 use Application\Model\User;
 use Application\Repository\AccountingDocumentRepository;
 use ApplicationTest\Traits\LimitedAccessSubQuery;
+use Money\Money;
 
 /**
  * @group Repository
@@ -49,7 +50,7 @@ class AccountingDocumentRepositoryTest extends AbstractRepositoryTest
         $user = new User();
 
         $expenseClaim->setOwner($user);
-        $expenseClaim->setAmount('100');
+        $expenseClaim->setAmount(Money::CHF(10000));
         $expenseClaim->setName('steaks');
         $document->setExpenseClaim($expenseClaim);
         $document->setFilename('test document.pdf');

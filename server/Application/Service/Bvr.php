@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Application\Service;
 
 use Exception;
+use Money\Money;
 
 /**
  * Class to generate BVR reference number and encoding lines.
@@ -24,7 +25,7 @@ use Exception;
  * $referenceNumberToCopyPasteInEBanking = Bvr::getReferenceNumber($bankAccount, $myId);
  *
  * // OR get encoding line
- * $amount = '19.95';
+ * $amount = Money::CHF(1995);
  * $encodingLineToCopyPasteInEBanking = Bvr::getEncodingLine($bankAccount, $myId, $postAccount, $amount);
  * ```
  *
@@ -95,11 +96,11 @@ class Bvr
      * @param string $bankAccount
      * @param string $customId
      * @param string $postAccount
-     * @param null|string $amount
+     * @param null|Money $amount
      *
      * @return string
      */
-    public static function getEncodingLine(string $bankAccount, string $customId, string $postAccount, ?string $amount = null): string
+    public static function getEncodingLine(string $bankAccount, string $customId, string $postAccount, ?Money $amount = null): string
     {
         $type = self::getType($amount);
         $referenceNumber = self::getReferenceNumber($bankAccount, $customId);
@@ -151,19 +152,18 @@ class Bvr
     /**
      * Get type of document and amount
      *
-     * @param null|string $amount
+     * @param null|Money $amount
      *
      * @return string
      */
-    private static function getType(?string $amount): string
+    private static function getType(?Money $amount): string
     {
         if ($amount === null) {
             $type = '04';
-        } elseif (is_numeric($amount)) {
-            $cents = bcmul($amount, '100', 0);
-            $type = '01' . self::pad($cents, 10);
+        } elseif ($amount->isNegative()) {
+            throw new Exception('Invalid amount. Must be positive, but got: `' . $amount->getAmount() . '`');
         } else {
-            throw new Exception('Invalid amount. Must be numeric, but got: `' . $amount . '`');
+            $type = '01' . self::pad($amount->getAmount(), 10);
         }
 
         return $type . self::modulo10($type);

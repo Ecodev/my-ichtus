@@ -36,12 +36,12 @@ CREATE TRIGGER transaction_line_INSERT
   BEGIN
     /* Update debit account balance */
     IF NEW.debit_id IS NOT NULL THEN
-      UPDATE account SET account.balance=IF(account.type IN ('liability', 'equity', 'revenue'), account.balance-NEW.balance, IF(account.type IN ('asset', 'expense'), account.balance+NEW.balance, account.balance)) WHERE account.id=NEW.debit_id;
+      UPDATE account SET account.balance=IF(account.type IN ('liability', 'equity', 'revenue'), account.balance - CAST(NEW.balance AS SIGNED), IF(account.type IN ('asset', 'expense'), account.balance + CAST(NEW.balance AS SIGNED), account.balance)) WHERE account.id=NEW.debit_id;
     END IF;
 
     /* Update credit account balance */
     IF NEW.credit_id IS NOT NULL THEN
-      UPDATE account SET account.balance=IF(account.type IN ('asset', 'expense'), account.balance-NEW.balance, IF(account.type IN ('liability', 'equity', 'revenue'), account.balance+NEW.balance, account.balance)) WHERE account.id=NEW.credit_id;
+      UPDATE account SET account.balance=IF(account.type IN ('asset', 'expense'), account.balance - CAST(NEW.balance AS SIGNED), IF(account.type IN ('liability', 'equity', 'revenue'), account.balance + CAST(NEW.balance AS SIGNED), account.balance)) WHERE account.id=NEW.credit_id;
     END IF;
   END; //
 
@@ -58,12 +58,12 @@ CREATE TRIGGER transaction_line_DELETE
   BEGIN
     /* Revert debit account balance */
     IF OLD.debit_id IS NOT NULL THEN
-      UPDATE account SET account.balance=IF(account.type IN ('liability', 'equity', 'revenue'), account.balance+OLD.balance, IF(account.type IN ('asset', 'expense'), account.balance-OLD.balance, account.balance)) WHERE account.id=OLD.debit_id;
+      UPDATE account SET account.balance=IF(account.type IN ('liability', 'equity', 'revenue'), account.balance + CAST(OLD.balance AS SIGNED), IF(account.type IN ('asset', 'expense'), account.balance - CAST(OLD.balance AS SIGNED), account.balance)) WHERE account.id=OLD.debit_id;
     END IF;
 
     /* Revert credit account balance */
     IF OLD.credit_id IS NOT NULL THEN
-      UPDATE account SET account.balance=IF(account.type IN ('asset', 'expense'), account.balance+OLD.balance, IF(account.type IN ('liability', 'equity', 'revenue'), account.balance-OLD.balance, account.balance)) WHERE account.id=OLD.credit_id;
+      UPDATE account SET account.balance=IF(account.type IN ('asset', 'expense'), account.balance + CAST(OLD.balance AS SIGNED), IF(account.type IN ('liability', 'equity', 'revenue'), account.balance - CAST(OLD.balance AS SIGNED), account.balance)) WHERE account.id=OLD.credit_id;
     END IF;
   END; //
 
@@ -80,22 +80,22 @@ CREATE TRIGGER transaction_line_UPDATE
   BEGIN
     /* Revert previous debit account balance */
     IF OLD.debit_id IS NOT NULL THEN
-      UPDATE account SET account.balance=IF(account.type IN ('liability', 'equity', 'revenue'), account.balance+OLD.balance, IF(account.type IN ('asset', 'expense'), account.balance-OLD.balance, account.balance)) WHERE account.id=OLD.debit_id;
+      UPDATE account SET account.balance=IF(account.type IN ('liability', 'equity', 'revenue'), account.balance + CAST(OLD.balance AS SIGNED), IF(account.type IN ('asset', 'expense'), account.balance - CAST(OLD.balance AS SIGNED), account.balance)) WHERE account.id=OLD.debit_id;
     END IF;
 
     /* Update new debit account balance */
     IF NEW.debit_id IS NOT NULL THEN
-      UPDATE account SET account.balance=IF(account.type IN ('liability', 'equity', 'revenue'), account.balance-NEW.balance, IF(account.type IN ('asset', 'expense'), account.balance+NEW.balance, account.balance)) WHERE account.id=NEW.debit_id;
+      UPDATE account SET account.balance=IF(account.type IN ('liability', 'equity', 'revenue'), account.balance - CAST(NEW.balance AS SIGNED), IF(account.type IN ('asset', 'expense'), account.balance + CAST(NEW.balance AS SIGNED), account.balance)) WHERE account.id=NEW.debit_id;
     END IF;
 
     /* Revert previous credit account balance */
     IF OLD.credit_id IS NOT NULL THEN
-      UPDATE account SET account.balance=IF(account.type IN ('asset', 'expense'), account.balance+OLD.balance, IF(account.type IN ('liability', 'equity', 'revenue'), account.balance-OLD.balance, account.balance)) WHERE account.id=OLD.credit_id;
+      UPDATE account SET account.balance=IF(account.type IN ('asset', 'expense'), account.balance + CAST(OLD.balance AS SIGNED), IF(account.type IN ('liability', 'equity', 'revenue'), account.balance - CAST(OLD.balance AS SIGNED), account.balance)) WHERE account.id=OLD.credit_id;
     END IF;
 
     /* Update new credit account balance */
     IF NEW.credit_id IS NOT NULL THEN
-      UPDATE account SET account.balance=IF(account.type IN ('asset', 'expense'), account.balance-NEW.balance, IF(account.type IN ('liability', 'equity', 'revenue'), account.balance+NEW.balance, account.balance)) WHERE account.id=NEW.credit_id;
+      UPDATE account SET account.balance=IF(account.type IN ('asset', 'expense'), account.balance - CAST(NEW.balance AS SIGNED), IF(account.type IN ('liability', 'equity', 'revenue'), account.balance + CAST(NEW.balance AS SIGNED), account.balance)) WHERE account.id=NEW.credit_id;
     END IF;
   END; //
 

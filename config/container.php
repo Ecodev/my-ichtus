@@ -9,9 +9,6 @@ use Zend\ServiceManager\ServiceManager;
 
 require_once 'server/Debug.php';
 
-// Default scale for CHF calculation for the entire project
-bcscale(2);
-
 // Secure cookie usage
 ini_set('session.cookie_secure', '1');
 ini_set('session.cookie_httponly', '1');

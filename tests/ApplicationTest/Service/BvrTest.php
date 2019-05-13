@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ApplicationTest\Service;
 
 use Application\Service\Bvr;
+use Money\Money;
 use PHPUnit\Framework\TestCase;
 
 class BvrTest extends TestCase
@@ -78,7 +79,7 @@ class BvrTest extends TestCase
     /**
      * @dataProvider providerGetEncodingLine
      */
-    public function testGetEncodingLine(string $bankAccount, string $referenceNumber, string $postalAccount, ?string $amount, string $expected): void
+    public function testGetEncodingLine(string $bankAccount, string $referenceNumber, string $postalAccount, ?Money $amount, string $expected): void
     {
         $actual = Bvr::getEncodingLine($bankAccount, $referenceNumber, $postalAccount, $amount);
         self::assertSame($expected, $actual);
@@ -89,7 +90,7 @@ class BvrTest extends TestCase
         return [
             ['800826', '00000000000000000201', '01-4567-0', null, '042>800826000000000000000002016+ 010045670>'],
             ['000000', '', '1-2-3', null, '042>000000000000000000000000000+ 010000023>'],
-            ['000000', '123', '01-4567-0', '1.45', '0100000001453>000000000000000000000001236+ 010045670>'],
+            ['000000', '123', '01-4567-0', Money::CHF(145), '0100000001453>000000000000000000000001236+ 010045670>'],
         ];
     }
 
@@ -119,8 +120,8 @@ class BvrTest extends TestCase
 
     public function testGetEncodingLineMustThrowIfInvalidAmount(): void
     {
-        $this->expectExceptionMessage('Invalid amount. Must be numeric, but got: `foo`');
-        Bvr::getEncodingLine('123456', '0', '01-4567-0', 'foo');
+        $this->expectExceptionMessage('Invalid amount. Must be positive, but got: `-100`');
+        Bvr::getEncodingLine('123456', '0', '01-4567-0', Money::CHF(-100));
     }
 
     /**

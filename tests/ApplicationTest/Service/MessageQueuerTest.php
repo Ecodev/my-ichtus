@@ -11,6 +11,7 @@ use Application\Model\Message;
 use Application\Model\User;
 use Application\Service\MessageQueuer;
 use Doctrine\ORM\EntityManager;
+use Money\Money;
 use Prophecy\Argument;
 use Zend\View\Renderer\RendererInterface;
 
@@ -63,8 +64,8 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
     public function testQueueBalancePositive(): void
     {
         $bookables = [];
-        $bookables[] = $this->createBookable('Cotisation', '90.00');
-        $bookables[] = $this->createBookable('Fonds de réparation interne', '10.00');
+        $bookables[] = $this->createBookable('Cotisation', Money::CHF(9000));
+        $bookables[] = $this->createBookable('Fonds de réparation interne', Money::CHF(1000));
 
         $this->queueBalance($bookables, 'positive');
     }
@@ -72,10 +73,10 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
     public function testQueueBalanceNegative(): void
     {
         $bookables = [];
-        $bookables[] = $this->createBookable('Cotisation', '90.00');
-        $bookables[] = $this->createBookable('Fonds de réparation interne', '10.00');
-        $bookables[] = $this->createBookable('Casier 1012', '20.00');
-        $bookables[] = $this->createBookable('Casier 1014', '20.00');
+        $bookables[] = $this->createBookable('Cotisation', Money::CHF(9000));
+        $bookables[] = $this->createBookable('Fonds de réparation interne', Money::CHF(1000));
+        $bookables[] = $this->createBookable('Casier 1012', Money::CHF(2000));
+        $bookables[] = $this->createBookable('Casier 1014', Money::CHF(2000));
 
         $this->queueBalance($bookables, 'negative');
     }
@@ -89,7 +90,7 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
         $user->setEmail('john.doe@example.com');
 
         $account = new Account();
-        $account->setBalance($variant === 'positive' ? '25.00' : '-45.00');
+        $account->setBalance(Money::CHF($variant === 'positive' ? 2500 : -4500));
         $account->setOwner($user);
 
         $messageQueuer = $this->createMockMessageQueuer();
@@ -192,7 +193,7 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($expected === $actual, 'File content does not match, compare with: meld ' . $file . ' ' . $logFile);
     }
 
-    private function createBookable(string $bookableName, string $periodicPrice): Bookable
+    private function createBookable(string $bookableName, Money $periodicPrice): Bookable
     {
         $bookable = new Bookable();
         $bookable->setName($bookableName);

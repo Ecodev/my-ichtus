@@ -9,6 +9,7 @@ use Application\Traits\HasRemarks;
 use Cake\Chronos\Chronos;
 use Doctrine\ORM\Mapping as ORM;
 use GraphQL\Doctrine\Annotation as API;
+use Money\Money;
 
 /**
  * A single line of accounting transaction
@@ -61,9 +62,9 @@ class TransactionLine extends AbstractModel
     private $bookable;
 
     /**
-     * @var string
+     * @var Money
      *
-     * @ORM\Column(type="decimal", precision=10, scale=2, options={"unsigned" = true})
+     * @ORM\Column(type="Money", options={"unsigned" = true})
      */
     private $balance;
 
@@ -225,17 +226,17 @@ class TransactionLine extends AbstractModel
     /**
      * Set balance
      *
-     * @param string $balance
+     * @param Money $balance
      */
-    public function setBalance(string $balance): void
+    public function setBalance(Money $balance): void
     {
         $this->balance = $balance;
     }
 
     /**
-     * @return string
+     * @return Money
      */
-    public function getBalance(): string
+    public function getBalance(): Money
     {
         return $this->balance;
     }

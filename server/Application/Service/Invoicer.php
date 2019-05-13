@@ -14,6 +14,7 @@ use Application\Model\User;
 use Application\Repository\BookingRepository;
 use Cake\Chronos\Chronos;
 use Doctrine\ORM\EntityManager;
+use Money\Money;
 
 /**
  * Service to create transactions for non-free booking, if needed, for all users or one user
@@ -77,7 +78,7 @@ class Invoicer
         }
 
         $bookable = $booking->getBookable();
-        if (!$bookable->getInitialPrice() && !$bookable->getPeriodicPrice()) {
+        if ($bookable->getInitialPrice()->isZero() && $bookable->getPeriodicPrice()->isZero()) {
             return;
         }
 
@@ -114,9 +115,9 @@ class Invoicer
     /**
      * @param Booking $booking
      *
-     * @return string
+     * @return Money
      */
-    private function calculateInitialBalance(Booking $booking): string
+    private function calculateInitialBalance(Booking $booking): Money
     {
         $bookable = $booking->getBookable();
 
@@ -128,22 +129,22 @@ class Invoicer
     /**
      * @param Booking $booking
      *
-     * @return string
+     * @return Money
      */
-    private function calculatePeriodicBalance(Booking $booking): string
+    private function calculatePeriodicBalance(Booking $booking): Money
     {
         return $booking->getPeriodicPrice();
     }
 
-    private function createTransactionLine(Transaction $transaction, Bookable $bookable, Account $account, string $balance, string $name): void
+    private function createTransactionLine(Transaction $transaction, Bookable $bookable, Account $account, Money $balance, string $name): void
     {
-        if ($balance > 0) {
+        if ($balance->isPositive()) {
             $debit = $account;
             $credit = $bookable->getCreditAccount();
-        } elseif ($balance < 0) {
+        } elseif ($balance->isNegative()) {
             $debit = $bookable->getCreditAccount();
             $credit = $account;
-            $balance = bcmul($balance, '-1'); // into positive
+            $balance = $balance->absolute();
         } else {
             // Never create a line with 0 balance
             return;

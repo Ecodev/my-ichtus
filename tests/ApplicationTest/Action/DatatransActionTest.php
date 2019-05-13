@@ -7,6 +7,7 @@ namespace ApplicationTest\Action;
 use Application\Action\DatatransAction;
 use Application\Model\User;
 use ApplicationTest\Traits\TestWithTransaction;
+use Money\Money;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\ServerRequest;
@@ -19,7 +20,7 @@ class DatatransActionTest extends TestCase
     /**
      * @dataProvider providerProcess
      */
-    public function testProcess(?array $data, string $expectedAmount, array $expectedViewModel): void
+    public function testProcess(?array $data, Money $expectedAmount, array $expectedViewModel): void
     {
         $userId = $data['refno'] ?? null;
         $user = $this->getEntityManager()->getRepository(User::class)->getOneById((int) $userId);
@@ -40,7 +41,7 @@ class DatatransActionTest extends TestCase
 
         if ($userId) {
             $actualBalance = $this->getEntityManager()->getConnection()->fetchColumn('SELECT balance FROM account WHERE owner_id = ' . $userId);
-            self::assertSame($expectedAmount, $actualBalance);
+            self::assertSame($expectedAmount->getAmount(), $actualBalance);
         }
 
         self::assertTrue(true); // Workaround when we only assert via prophesize
@@ -58,7 +59,7 @@ class DatatransActionTest extends TestCase
                     'currency' => 'CHF',
                     'responseMessage' => 'Payment was successful',
                 ],
-                '100.00',
+                Money::CHF(10000),
                 [
                     'message' => [
                         'status' => 'success',
@@ -75,7 +76,7 @@ class DatatransActionTest extends TestCase
                     'currency' => 'CHF',
                     'responseMessage' => 'Payment was successful',
                 ],
-                '100.00',
+                Money::CHF(10000),
                 [
                     'message' => [
                         'status' => 'success',
@@ -90,7 +91,7 @@ class DatatransActionTest extends TestCase
                     'refno' => '1007',
                     'errorMessage' => 'Dear Sir/Madam, Fire! fire! help me! All the best, Maurice Moss.',
                 ],
-                '0.00',
+                Money::CHF(0),
                 [
                     'message' => [
                         'status' => 'error',
@@ -104,7 +105,7 @@ class DatatransActionTest extends TestCase
                     'status' => 'cancel',
                     'refno' => '1007',
                 ],
-                '0.00',
+                Money::CHF(0),
                 [
                     'message' => [
                         'status' => 'cancel',
@@ -114,7 +115,7 @@ class DatatransActionTest extends TestCase
             ],
             'invalid body' => [
                 null,
-                '0.00',
+                Money::CHF(0),
                 [
                     'message' => [
                         'status' => 'error',
@@ -131,7 +132,7 @@ class DatatransActionTest extends TestCase
                     'currency' => 'CHF',
                     'responseMessage' => 'Payment was successful',
                 ],
-                '0.00',
+                Money::CHF(0),
                 [
                     'message' => [
                         'status' => 'error',
@@ -147,7 +148,7 @@ class DatatransActionTest extends TestCase
                     'currency' => 'CHF',
                     'responseMessage' => 'Payment was successful',
                 ],
-                '0.00',
+                Money::CHF(0),
                 [
                     'message' => [
                         'status' => 'error',
@@ -163,7 +164,7 @@ class DatatransActionTest extends TestCase
                     'currency' => 'CHF',
                     'responseMessage' => 'Payment was successful',
                 ],
-                '0.00',
+                Money::CHF(0),
                 [
                     'message' => [
                         'status' => 'error',
@@ -180,7 +181,7 @@ class DatatransActionTest extends TestCase
                     'currency' => 'USD',
                     'responseMessage' => 'Payment was successful',
                 ],
-                '0.00',
+                Money::CHF(0),
                 [
                     'message' => [
                         'status' => 'error',

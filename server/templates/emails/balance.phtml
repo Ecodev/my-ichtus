@@ -1,14 +1,20 @@
 <?php declare(strict_types=1);
+use Money\Currencies\ISOCurrencies;
+use Money\Formatter\DecimalMoneyFormatter;
+
+$currencies = new ISOCurrencies();
+$moneyFormatter = new DecimalMoneyFormatter($currencies);
+
 $urlTransaction = $this->serverUrl . '/profile/history';
 $urlServices = $this->serverUrl . '/profile/services';
 ?>
 <p>
     Ton solde actuel est de
-    <span style="text-align: right; font-weight: bold; color: <?php echo $this->user->getAccount()->getBalance() < 0 ? '#f44336' : '#008600' ?>">
-        <?php echo $this->user->getAccount()->getBalance() ?> CHF</span>.
+    <span style="text-align: right; font-weight: bold; color: <?php echo $this->user->getAccount()->getBalance()->isNegative() ? '#f44336' : '#008600' ?>">
+        <?php echo $moneyFormatter->format($this->user->getAccount()->getBalance()) ?> CHF</span>.
 </p>
 
-<?php if ($this->user->getAccount()->getBalance() < 0): ?>
+<?php if ($this->user->getAccount()->getBalance()->isNegative()): ?>
     <p>Afin de sortir du route et être à nouveau au sommet de la vague pour surfer l'esprit libre, il te suffit
        de <a href="<?php echo $urlTransaction ?>">faire un versement</a> et/ou ajuster <a
                 href="<?php echo $urlServices ?>">les services utilisés</a>.</p>
@@ -31,7 +37,7 @@ $urlServices = $this->serverUrl . '/profile/services';
     <?php foreach ($this->bookables as $bookable): ?>
         <tr>
             <td><?php echo $bookable->getName() ?></td>
-            <td style="text-align: right"><?php echo $bookable->getPeriodicPrice() ?> CHF</td>
+            <td style="text-align: right"><?php echo $moneyFormatter->format($bookable->getPeriodicPrice()) ?> CHF</td>
         </tr>
     <?php endforeach; ?>
 </table>

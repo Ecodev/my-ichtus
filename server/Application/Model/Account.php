@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use GraphQL\Doctrine\Annotation as API;
+use Money\Money;
 
 /**
  * Financial account
@@ -29,11 +30,11 @@ class Account extends AbstractModel
     use HasIban;
 
     /**
-     * @var string
+     * @var Money
      *
-     * @ORM\Column(type="decimal", precision=10, scale=2, options={"default" = "0.00"})
+     * @ORM\Column(type="Money", options={"default" = 0})
      */
-    private $balance = '0.00';
+    private $balance;
 
     /**
      * @var Account
@@ -82,6 +83,7 @@ class Account extends AbstractModel
      */
     public function __construct()
     {
+        $this->balance = Money::CHF(0);
         $this->children = new ArrayCollection();
         $this->debitTransactionLines = new ArrayCollection();
         $this->creditTransactionLines = new ArrayCollection();
@@ -108,19 +110,19 @@ class Account extends AbstractModel
     /**
      * Set balance
      *
-     * @param string $balance
+     * @param Money $balance
      *
      * @API\Exclude
      */
-    public function setBalance(string $balance): void
+    public function setBalance(Money $balance): void
     {
         $this->balance = $balance;
     }
 
     /**
-     * @return string
+     * @return Money
      */
-    public function getBalance(): string
+    public function getBalance(): Money
     {
         return $this->balance;
     }

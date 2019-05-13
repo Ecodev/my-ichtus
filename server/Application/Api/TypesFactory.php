@@ -44,6 +44,7 @@ class TypesFactory
             \Application\Api\Scalar\ColorType::class,
             \Application\Api\Scalar\ChronosType::class,
             \Application\Api\Scalar\DateType::class,
+            \Application\Api\Scalar\MoneyType::class,
             \Application\Api\Scalar\EmailType::class,
             \Application\Api\Scalar\LoginType::class,
             \Application\Api\Scalar\PasswordType::class,
@@ -55,6 +56,7 @@ class TypesFactory
             'datetime' => \Application\Api\Scalar\ChronosType::class,
             'date' => \Application\Api\Scalar\DateType::class,
             'UploadedFileInterface' => \GraphQL\Upload\UploadType::class,
+            'Money' => \Application\Api\Scalar\MoneyType::class,
         ];
 
         // Automatically add aliases for GraphQL type name from the invokable types

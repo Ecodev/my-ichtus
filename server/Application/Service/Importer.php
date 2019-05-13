@@ -124,8 +124,7 @@ class Importer
         $user = $this->loadUser($referenceNumber);
         $userAccount = $this->accountRepository->getOrCreate($user);
         $remarks = $this->getRemarks($detail, $referenceNumber);
-        $amount = $detail->getAmount()->getAmount()->getAmount();
-        $amount = bcdiv($amount, '100', 2);
+        $amount = $detail->getAmount()->getAmount();
 
         $accountServicerReference = $detail->getReference()->getAccountServiceReference();
         if (!$accountServicerReference) {

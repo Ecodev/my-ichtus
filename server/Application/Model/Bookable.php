@@ -16,6 +16,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use GraphQL\Doctrine\Annotation as API;
+use Money\Money;
 
 /**
  * An item that can be booked by a user
@@ -30,25 +31,25 @@ class Bookable extends AbstractModel
     use HasRemarks;
 
     /**
-     * @var string
+     * @var Money
      *
-     * @ORM\Column(type="decimal", precision=10, scale=2, options={"default" = "0.00"})
+     * @ORM\Column(type="Money", options={"default" = 0})
      */
-    private $initialPrice = '0';
+    private $initialPrice;
 
     /**
-     * @var string
+     * @var Money
      *
-     * @ORM\Column(type="decimal", precision=10, scale=2, options={"default" = "0.00"})
+     * @ORM\Column(type="Money", options={"default" = 0})
      */
-    private $periodicPrice = '0';
+    private $periodicPrice;
 
     /**
-     * @var string
+     * @var Money
      *
-     * @ORM\Column(type="decimal", precision=10, scale=2, options={"default" = "0.00", "unsigned" = true})
+     * @ORM\Column(type="Money",  options={"default" = 0, "unsigned" = true})
      */
-    private $purchasePrice = '0';
+    private $purchasePrice;
 
     /**
      * @var int
@@ -125,6 +126,10 @@ class Bookable extends AbstractModel
      */
     public function __construct()
     {
+        $this->initialPrice = Money::CHF(0);
+        $this->periodicPrice = Money::CHF(0);
+        $this->purchasePrice = Money::CHF(0);
+
         $this->bookings = new ArrayCollection();
         $this->licenses = new ArrayCollection();
         $this->bookableTags = new ArrayCollection();
@@ -191,49 +196,49 @@ class Bookable extends AbstractModel
     }
 
     /**
-     * @return string
+     * @return Money
      */
-    public function getInitialPrice(): string
+    public function getInitialPrice(): Money
     {
         return $this->initialPrice;
     }
 
     /**
-     * @param string $initialPrice
+     * @param Money $initialPrice
      */
-    public function setInitialPrice(string $initialPrice): void
+    public function setInitialPrice(Money $initialPrice): void
     {
         $this->initialPrice = $initialPrice;
     }
 
     /**
-     * @return string
+     * @return Money
      */
-    public function getPeriodicPrice(): string
+    public function getPeriodicPrice(): Money
     {
         return $this->periodicPrice;
     }
 
     /**
-     * @param string $periodicPrice
+     * @param Money $periodicPrice
      */
-    public function setPeriodicPrice(string $periodicPrice): void
+    public function setPeriodicPrice(Money $periodicPrice): void
     {
         $this->periodicPrice = $periodicPrice;
     }
 
     /**
-     * @return string
+     * @return Money
      */
-    public function getPurchasePrice(): string
+    public function getPurchasePrice(): Money
     {
         return $this->purchasePrice;
     }
 
     /**
-     * @param string $purchasePrice
+     * @param Money $purchasePrice
      */
-    public function setPurchasePrice(string $purchasePrice): void
+    public function setPurchasePrice(Money $purchasePrice): void
     {
         $this->purchasePrice = $purchasePrice;
     }

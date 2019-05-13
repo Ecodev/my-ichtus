@@ -50,6 +50,7 @@ class MockApollo extends Apollo {
             BillingType: () => 'electronic',
             SwissWindsurfType: () => 'passive',
             SwissSailingType: () => 'junior',
+            Money: () => '1.25',
         };
 
         addMockFunctionsToSchema({schema, mocks});

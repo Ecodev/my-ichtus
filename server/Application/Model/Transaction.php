@@ -11,6 +11,9 @@ use Cake\Chronos\Chronos;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Money\Currencies\ISOCurrencies;
+use Money\Formatter\DecimalMoneyFormatter;
+use Money\Money;
 
 /**
  * An accounting journal entry (simple or compound)
@@ -203,18 +206,22 @@ class Transaction extends AbstractModel
      */
     public function checkBalance(): void
     {
-        $totalDebit = '0.00';
-        $totalCredit = '0.00';
+        $totalDebit = Money::CHF(0);
+        $totalCredit = Money::CHF(0);
         foreach ($this->getTransactionLines() as $i => $line) {
             if ($line->getDebit()) {
-                $totalDebit = bcadd($totalDebit, $line->getBalance());
+                $totalDebit = $totalDebit->add($line->getBalance());
             }
             if ($line->getCredit()) {
-                $totalCredit = bcadd($totalCredit, $line->getBalance());
+                $totalCredit = $totalCredit->add($line->getBalance());
             }
         }
-        if (bccomp($totalDebit, $totalCredit) !== 0) {
-            throw new \Application\Api\Exception(sprintf('Transaction %s non-équilibrée, débits: %s, crédits: %s', $this->getId() ?? 'NEW', $totalDebit, $totalCredit));
+
+        if (!$totalDebit->equals($totalCredit)) {
+            $currencies = new ISOCurrencies();
+            $moneyFormatter = new DecimalMoneyFormatter($currencies);
+
+            throw new \Application\Api\Exception(sprintf('Transaction %s non-équilibrée, débits: %s, crédits: %s', $this->getId() ?? 'NEW', $moneyFormatter->format($totalDebit), $moneyFormatter->format($totalCredit)));
         }
     }
 }

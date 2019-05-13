@@ -11,6 +11,7 @@ use Application\Model\User;
 use Application\Repository\TransactionRepository;
 use ApplicationTest\Traits\LimitedAccessSubQuery;
 use Cake\Chronos\Chronos;
+use Money\Money;
 
 /**
  * @group Repository
@@ -62,7 +63,7 @@ class TransactionRepositoryTest extends AbstractRepositoryTest
         self::assertTrue($transaction->getTransactionLines()->contains($line));
         $lines = [
             [
-                'balance' => '5',
+                'balance' => Money::CHF(500),
                 'transactionDate' => Chronos::now(),
                 'credit' => $credit,
                 'debit' => $debit,
@@ -71,13 +72,13 @@ class TransactionRepositoryTest extends AbstractRepositoryTest
 
         $this->repository->hydrateLinesAndFlush($transaction, $lines);
 
-        self::assertSame('5.00', $credit->getBalance(), 'credit account balance must have been refreshed from DB');
-        self::assertSame('5.00', $debit->getBalance(), 'debit account balance must have been refreshed from DB');
+        self::assertTrue(Money::CHF(500)->equals($credit->getBalance()), 'credit account balance must have been refreshed from DB');
+        self::assertTrue(Money::CHF(500)->equals($debit->getBalance()), 'debit account balance must have been refreshed from DB');
         self::assertFalse($transaction->getTransactionLines()->contains($line), 'original line must have been deleted');
         self::assertCount(1, $transaction->getTransactionLines(), 'one line');
 
         $line = $transaction->getTransactionLines()->first();
-        self::assertSame('5', $line->getBalance());
+        self::assertTrue(Money::CHF(500)->equals($line->getBalance()));
         self::assertSame($credit, $line->getCredit());
         self::assertSame($debit, $line->getDebit());
     }
@@ -115,12 +116,12 @@ class TransactionRepositoryTest extends AbstractRepositoryTest
 
         $lines = [
             [
-                'balance' => '1000',
+                'balance' => Money::CHF(100000),
                 'transactionDate' => Chronos::now(),
                 'debit' => $debit,
             ],
             [
-                'balance' => '900',
+                'balance' => Money::CHF(90000),
                 'credit' => $credit,
             ],
         ];
@@ -134,14 +135,14 @@ class TransactionRepositoryTest extends AbstractRepositoryTest
         $account1 = 10096;
         $account2 = 10037;
 
-        $this->assertAccountBalance($account1, '50.00', 'initial balance');
-        $this->assertAccountBalance($account2, '100.00', 'initial balance');
+        $this->assertAccountBalance($account1, 5000, 'initial balance');
+        $this->assertAccountBalance($account2, 10000, 'initial balance');
 
         $connection = $this->getEntityManager()->getConnection();
         $count = $connection->delete('transaction', ['id' => 8000]);
 
         self::assertSame(1, $count);
-        $this->assertAccountBalance($account1, '150.00', 'balance should be increased after deletion');
-        $this->assertAccountBalance($account2, '0.00', 'balance should be decreased after deletion');
+        $this->assertAccountBalance($account1, 15000, 'balance should be increased after deletion');
+        $this->assertAccountBalance($account2, 0, 'balance should be decreased after deletion');
     }
 }

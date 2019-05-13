@@ -51,29 +51,29 @@ class PaginationType extends ObjectType
                         'description' => 'The total count of participant',
                     ];
                     $fields['totalInitialPrice'] = [
-                        'type' => self::string(),
+                        'type' => _types()->get('Money'),
                         'description' => 'The total initial price',
                     ];
                     $fields['totalPeriodicPrice'] = [
-                        'type' => self::string(),
+                        'type' => _types()->get('Money'),
                         'description' => 'The total periodic price',
                     ];
                 } elseif ($class === Bookable::class) {
                     $fields['totalPurchasePrice'] = [
-                        'type' => self::string(),
+                        'type' => _types()->get('Money'),
                         'description' => 'The total purchase price',
                     ];
                     $fields['totalInitialPrice'] = [
-                        'type' => self::string(),
+                        'type' => _types()->get('Money'),
                         'description' => 'The total initial price',
                     ];
                     $fields['totalPeriodicPrice'] = [
-                        'type' => self::string(),
+                        'type' => _types()->get('Money'),
                         'description' => 'The total periodic price',
                     ];
                 } elseif ($class === TransactionLine::class) {
                     $fields['totalBalance'] = [
-                        'type' => self::string(),
+                        'type' => _types()->get('Money'),
                         'description' => 'The total balance',
                     ];
                 }

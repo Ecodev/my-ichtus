@@ -11,6 +11,7 @@ use Application\Model\User;
 use Application\Repository\AccountRepository;
 use Cake\Chronos\Chronos;
 use Doctrine\ORM\EntityManager;
+use Money\Money;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -157,7 +158,7 @@ class DatatransAction extends AbstractAction
         $this->entityManager->persist($line);
         $line->setName($name);
         $line->setTransactionDate($now);
-        $line->setBalance((string) ($body['amount'] / 100));
+        $line->setBalance(Money::CHF($body['amount']));
         $line->setTransaction($transaction);
         $line->setCredit($userAccount);
         $line->setDebit($bankAccount);

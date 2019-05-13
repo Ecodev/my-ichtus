@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use GraphQL\Doctrine\Annotation as API;
+use Money\Money;
 
 /**
  * An expense claim to be refunded to an user
@@ -34,9 +35,9 @@ class ExpenseClaim extends AbstractModel
     use HasInternalRemarks;
 
     /**
-     * @var string
+     * @var Money
      *
-     * @ORM\Column(type="decimal", precision=10, scale=2, options={"unsigned" = true})
+     * @ORM\Column(type="Money", options={"unsigned" = true})
      */
     private $amount;
 
@@ -78,9 +79,9 @@ class ExpenseClaim extends AbstractModel
     /**
      * Set amount
      *
-     * @param string $amount
+     * @param Money $amount
      */
-    public function setAmount(string $amount): void
+    public function setAmount(Money $amount): void
     {
         $this->amount = $amount;
     }
@@ -88,9 +89,9 @@ class ExpenseClaim extends AbstractModel
     /**
      * Get amount
      *
-     * @return string
+     * @return Money
      */
-    public function getAmount(): string
+    public function getAmount(): Money
     {
         return $this->amount;
     }

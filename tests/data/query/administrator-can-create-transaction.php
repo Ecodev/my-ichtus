@@ -51,21 +51,21 @@ return [
                 'name' => 'Le club achète un nouveau voilier',
                 'transactionLines' => [
                     [
-                        'balance' => '10000',
+                        'balance' => '10000.00',
                         'credit' => null,
                         'debit' => [
                             'balance' => '10000.00',
                         ],
                     ],
                     [
-                        'balance' => '7000',
+                        'balance' => '7000.00',
                         'credit' => [
                             'balance' => '1187.50',
                         ],
                         'debit' => null,
                     ],
                     [
-                        'balance' => '3000',
+                        'balance' => '3000.00',
                         'credit' => [
                             'balance' => '14000.00',
                         ],

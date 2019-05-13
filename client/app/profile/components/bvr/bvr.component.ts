@@ -4,7 +4,7 @@ import { Apollo } from 'apollo-angular';
 import { BankingInfos, BankingInfos_bankingInfos, BankingInfosVariables } from '../../../shared/generated-types';
 
 const q = gql`
-    query BankingInfos($user: UserID!, $amount: String) {
+    query BankingInfos($user: UserID!, $amount: Money) {
         bankingInfos(user: $user, amount: $amount) {
             referenceNumber
             encodingLine

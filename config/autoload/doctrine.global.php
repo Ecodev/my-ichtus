@@ -57,6 +57,7 @@ return [
             'BillingType' => Application\DBAL\Types\BillingTypeType::class,
             'datetime' => Application\DBAL\Types\ChronosType::class,
             'date' => Application\DBAL\Types\DateType::class,
+            'Money' => Application\DBAL\Types\MoneyType::class,
             'ExpenseClaimStatus' => Application\DBAL\Types\ExpenseClaimStatusType::class,
             'ExpenseClaimType' => Application\DBAL\Types\ExpenseClaimTypeType::class,
             'MessageType' => Application\DBAL\Types\MessageTypeType::class,
