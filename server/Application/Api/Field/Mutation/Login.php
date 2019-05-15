@@ -11,6 +11,7 @@ use Application\Model\Log;
 use Application\Model\User;
 use Application\Repository\LogRepository;
 use GraphQL\Type\Definition\Type;
+use Zend\Expressive\Session\SessionCookiePersistenceInterface;
 use Zend\Expressive\Session\SessionInterface;
 
 abstract class Login implements FieldInterface
@@ -39,6 +40,7 @@ abstract class Login implements FieldInterface
                 // If we successfully authenticated
                 if ($user) {
                     $session->regenerate();
+                    $session->set(SessionCookiePersistenceInterface::SESSION_LIFETIME_KEY, 365 * 86400);
                     $session->set('user', $user->getId());
                     User::setCurrent($user);
                     _log()->info(LogRepository::LOGIN);
