@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Application\Api\Scalar;
 
 use GraphQL\Error\Error;
+use GraphQL\Language\AST\FloatValueNode;
+use GraphQL\Language\AST\IntValueNode;
 use GraphQL\Language\AST\Node;
 use GraphQL\Language\AST\StringValueNode;
 use GraphQL\Type\Definition\ScalarType;
@@ -47,9 +49,11 @@ class MoneyType extends ScalarType
      */
     public function parseValue($value)
     {
-        if (!is_string($value)) {
+        if (!is_scalar($value)) {
             throw new \UnexpectedValueException('Cannot represent value as Money: ' . Utils::printSafe($value));
         }
+
+        $value = (string) $value;
 
         if (!$this->isValid($value)) {
             throw new Error('Query error: Not a valid ' . $this->name, [$value]);
@@ -69,14 +73,11 @@ class MoneyType extends ScalarType
      */
     public function parseLiteral($ast, array $variables = null)
     {
-
-        // Note: throwing GraphQL\Error\Error vs \UnexpectedValueException to benefit from GraphQL
-        // error location in query:
-        if (!($ast instanceof StringValueNode)) {
-            throw new Error('Query error: Can only parse strings got: ' . $ast->kind, [$ast]);
+        if ($ast instanceof StringValueNode || $ast instanceof IntValueNode || $ast instanceof FloatValueNode) {
+            return $this->parseValue($ast->value);
         }
 
-        return $this->parseValue($ast->value);
+        throw new Error('Query error: Can only parse strings got: ' . $ast->kind, [$ast]);
     }
 
     private function isValid($value): bool

@@ -6,6 +6,8 @@ namespace OKpilotTest\Api\Scalar;
 
 use Application\Api\Scalar\MoneyType;
 use GraphQL\Error\Error;
+use GraphQL\Language\AST\FloatValueNode;
+use GraphQL\Language\AST\IntValueNode;
 use GraphQL\Language\AST\StringValueNode;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
@@ -35,13 +37,60 @@ class MoneyTypeTest extends TestCase
 
     /**
      * @dataProvider providerValues
-     *
-     * @param null|string $input
+     */
+    public function testParseValueAsFloat(string $input, Money $expected): void
+    {
+        $type = new MoneyType();
+
+        $actual = $type->parseValue((float) $input);
+        self::assertInstanceOf(Money::class, $actual);
+        self::assertTrue($expected->equals($actual));
+    }
+
+    /**
+     * @dataProvider providerIntValues
+     */
+    public function testParseValueAsInt(int $input, Money $expected): void
+    {
+        $type = new MoneyType();
+        $actual = $type->parseValue($input);
+        self::assertInstanceOf(Money::class, $actual);
+        self::assertSame((int) $expected->getAmount(), (int) $actual->getAmount());
+    }
+
+    /**
+     * @dataProvider providerValues
      */
     public function testParseLiteral(string $input, Money $expected): void
     {
         $type = new MoneyType();
         $ast = new StringValueNode(['value' => $input]);
+
+        $actual = $type->parseLiteral($ast);
+        self::assertInstanceOf(Money::class, $actual);
+        self::assertTrue($expected->equals($actual));
+    }
+
+    /**
+     * @dataProvider providerValues
+     */
+    public function testParseLiteralAsFloat(string $input, Money $expected): void
+    {
+        $type = new MoneyType();
+        $ast = new FloatValueNode(['value' => $input]);
+
+        $actual = $type->parseLiteral($ast);
+        self::assertInstanceOf(Money::class, $actual);
+        self::assertTrue($expected->equals($actual));
+    }
+
+    /**
+     * @dataProvider providerIntValues
+     */
+    public function testParseLiteralAsInt(int $input, Money $expected): void
+    {
+        $type = new MoneyType();
+        $ast = new IntValueNode(['value' => $input]);
 
         $actual = $type->parseLiteral($ast);
         self::assertInstanceOf(Money::class, $actual);
@@ -78,6 +127,15 @@ class MoneyTypeTest extends TestCase
             ['2.95', Money::CHF(295)],
             ['0', Money::CHF(0)],
             ['9.00', Money::CHF(900)],
+        ];
+    }
+
+    public function providerIntValues(): array
+    {
+        return [
+            [2, Money::CHF(200)],
+            [0, Money::CHF(0)],
+            [9, Money::CHF(900)],
         ];
     }
 
