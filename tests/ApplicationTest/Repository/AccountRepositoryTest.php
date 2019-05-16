@@ -82,6 +82,8 @@ class AccountRepositoryTest extends AbstractRepositoryTest
 
     public function testTotalBalance(): void
     {
+        $this->repository->clearCache();
+
         $totalAssets = $this->repository->totalBalanceByType(AccountTypeType::ASSET);
         $totalLiabilities = $this->repository->totalBalanceByType(AccountTypeType::LIABILITY);
         $totalRevenue = $this->repository->totalBalanceByType(AccountTypeType::REVENUE);
@@ -93,6 +95,18 @@ class AccountRepositoryTest extends AbstractRepositoryTest
         self::assertTrue(Money::CHF(24000)->equals($totalRevenue));
         self::assertTrue(Money::CHF(11250)->equals($totalExpense));
         self::assertTrue(Money::CHF(3500000)->equals($totalEquity));
+
+        User::setCurrent(new User(User::ROLE_ADMINISTRATOR));
+
+        $groupAccount = $this->repository->findOneByCode('2'); // 2. Passifs
+        $totalPassifs = $this->repository->totalBalanceByParent($groupAccount);
+        self::assertTrue(Money::CHF(3506000)->equals($totalPassifs));
+        self::assertEquals($groupAccount->getBalance(), $totalPassifs);
+
+        // Total balance can be computed only for accounts of type group
+        $otherAccount = $this->repository->findOneById('10023'); // 1000. Caisse
+        $this->expectExceptionMessage('Cannot compute total balance for Account #10023 of type asset');
+        $this->repository->totalBalanceByParent($otherAccount);
     }
 
     public function testGetOneById(): void

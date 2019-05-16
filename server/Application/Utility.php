@@ -60,4 +60,45 @@ abstract class Utility
         }
         echo PHP_EOL;
     }
+
+    /**
+     * Returns a unique key identifying all arguments in the array, so we can use the result as cache key
+     *
+     * This only works for in-memory objects. The key returned should *never* be
+     * persisted. And it may be expensive in memory because object are forced
+     * not to be garbage collected.
+     *
+     * @param mixed $value
+     *
+     * @return string
+     */
+    public static function getCacheKey($value): string
+    {
+        static $preventGarbageCollectorFromDestroyingObject = [];
+
+        if (is_object($value)) {
+            $preventGarbageCollectorFromDestroyingObject[] = $value;
+
+            return spl_object_hash($value);
+        }
+
+        if (is_array($value)) {
+            $key = '[ARRAY|';
+            foreach ($value as $i => $modelInCollection) {
+                $key .= $i . '>' . self::getCacheKey($modelInCollection) . ':';
+            }
+
+            return $key . ']';
+        }
+
+        if (is_bool($value)) {
+            return '[BOOL|' . $value . ']';
+        }
+
+        if ($value === null) {
+            return '[NULL]';
+        }
+
+        return (string) $value;
+    }
 }

@@ -7,12 +7,27 @@ namespace Application\Repository;
 use Application\DBAL\Types\AccountTypeType;
 use Application\Model\Account;
 use Application\Model\User;
+use Application\Utility;
+use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Money\Money;
 
 class AccountRepository extends AbstractRepository implements LimitedAccessSubQueryInterface
 {
     private const PARENT_ACCOUNT_ID_FOR_USER = 10011;
     const ACCOUNT_ID_FOR_BANK = 10025;
+
+    /**
+     * @var string[]
+     */
+    private $totalBalanceCache = [];
+
+    /**
+     * Clear all caches
+     */
+    public function clearCache(): void
+    {
+        $this->totalBalanceCache = [];
+    }
 
     /**
      * Returns pure SQL to get ID of all objects that are accessible to given user.
@@ -113,6 +128,46 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
         $qb->setParameter('type', $accountType);
 
         $result = $qb->execute();
+
+        return Money::CHF($result->fetchColumn());
+    }
+
+    /**
+     * Calculate the total balance of all child accounts of a group account
+     *
+     * @param Account $parentAccount
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     *
+     * @return Money
+     */
+    public function totalBalanceByParent(Account $parentAccount): Money
+    {
+        if ($parentAccount->getType() !== AccountTypeType::GROUP) {
+            throw new InvalidArgumentException(sprintf(
+                'Cannot compute total balance for Account #%d of type %s',
+                $parentAccount->getId(),
+                $parentAccount->getType()
+            ));
+        }
+
+        $cacheKey = Utility::getCacheKey(func_get_args());
+        if (array_key_exists($cacheKey, $this->totalBalanceCache)) {
+            return $this->totalBalanceCache[$cacheKey];
+        }
+
+        $connection = $this->getEntityManager()->getConnection();
+
+        $sql = 'WITH RECURSIVE child AS
+          (SELECT id, parent_id, `type`, balance
+           FROM account WHERE id = ?
+           UNION
+           SELECT account.id, account.parent_id, account.type, account.balance
+           FROM account
+           JOIN child ON account.parent_id = child.id)
+        SELECT SUM(balance) FROM child WHERE `type` <> ?';
+
+        $result = $connection->executeQuery($sql, [$parentAccount->getId(), AccountTypeType::GROUP]);
 
         return Money::CHF($result->fetchColumn());
     }

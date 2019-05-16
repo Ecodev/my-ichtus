@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Model;
 
+use Application\DBAL\Types\AccountTypeType;
 use Application\Traits\HasIban;
 use Application\Traits\HasName;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -124,6 +125,10 @@ class Account extends AbstractModel
      */
     public function getBalance(): Money
     {
+        if ($this->type === AccountTypeType::GROUP) {
+            return _em()->getRepository(self::class)->totalBalanceByParent($this);
+        }
+
         return $this->balance;
     }
 
