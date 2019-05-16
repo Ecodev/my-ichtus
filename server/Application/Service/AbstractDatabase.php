@@ -125,9 +125,9 @@ STRING;
     {
         self::executeLocalCommand(PHP_BINARY . ' ./vendor/bin/doctrine orm:schema-tool:drop --ansi --full-database --force');
         self::executeLocalCommand(PHP_BINARY . ' ./vendor/bin/doctrine-migrations migrations:migrate --ansi --no-interaction');
+        self::loadTriggers();
         self::loadTestUsers();
         self::importFile('tests/data/fixture.sql');
-        self::loadTriggers();
     }
 
     /**
