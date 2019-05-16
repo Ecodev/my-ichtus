@@ -19,7 +19,7 @@ before_install:
   - export PATH=$HOME/.yarn/bin:$PATH
 
 before_script:
-  - mysql -e 'CREATE DATABASE ichtus;'
+  - mysql -e 'CREATE DATABASE ichtus; SET GLOBAL sql_mode = "";'
   - cp config/autoload/local.php.dist config/autoload/local.php
   - ./bin/build.sh
   - ./bin/load-test-data.php
