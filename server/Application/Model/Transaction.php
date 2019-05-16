@@ -63,6 +63,13 @@ class Transaction extends AbstractModel
     private $datatransRef = '';
 
     /**
+     * @var Money
+     *
+     * @ORM\Column(type="Money", nullable=true, options={"unsigned" = true})
+     */
+    private $balance;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -223,5 +230,17 @@ class Transaction extends AbstractModel
 
             throw new \Application\Api\Exception(sprintf('Transaction %s non-équilibrée, débits: %s, crédits: %s', $this->getId() ?? 'NEW', $moneyFormatter->format($totalDebit), $moneyFormatter->format($totalCredit)));
         }
+    }
+
+    /**
+     * Get total balance
+     *
+     * Read only, computed by SQL triggers
+     *
+     * @return Money
+     */
+    public function getBalance(): Money
+    {
+        return $this->balance;
     }
 }
