@@ -28,7 +28,7 @@ return [
                     'name' => 'Acquisition voilier NE123456',
                     'balance' => '10000',
                     'transactionDate' => '2019-02-03',
-                    'debit' => 10054,
+                    'debit' => 10034,
                 ],
                 [
                     'name' => 'Paiement par PostFinance	',
@@ -54,7 +54,7 @@ return [
                         'balance' => '10000.00',
                         'credit' => null,
                         'debit' => [
-                            'balance' => '10000.00',
+                            'balance' => '20000.00',
                         ],
                     ],
                     [
