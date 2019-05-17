@@ -18,7 +18,7 @@ import { AccountingDocumentsComponent } from '../../admin/accounting-documents/a
 import { TimeagoModule } from 'ngx-timeago';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ParticleSwitchComponent } from '../components/particle-switch/particle-switch.component';
-import { NaturalSearchModule } from '@ecodev/natural';
+import { NaturalDropdownComponentsModule, NaturalSearchModule } from '@ecodev/natural';
 import {
     NaturalAlertModule,
     NaturalColumnsPickerModule,
@@ -119,6 +119,7 @@ const imports = [
     NaturalTableButtonModule,
     NaturalFixedButtonModule,
     NaturalFixedButtonDetailModule,
+    NaturalDropdownComponentsModule
 ];
 
 @NgModule({
