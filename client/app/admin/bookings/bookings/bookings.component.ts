@@ -24,8 +24,7 @@ export class BookingsComponent extends NaturalAbstractList<Bookings['bookings'],
                 public permissionsService: PermissionsService,
     ) {
 
-        super('bookings',
-            bookingService,
+        super(bookingService,
             router,
             route,
             alertService,

@@ -39,8 +39,7 @@ export class UsersComponent extends NaturalAbstractList<Users['users'], UsersVar
                 private snackBar: MatSnackBar,
     ) {
 
-        super('users',
-            userService,
+        super(userService,
             router,
             route,
             alertService,

@@ -24,8 +24,7 @@ export class LicensesComponent extends NaturalAbstractList<Licenses['licenses'],
                 public permissionsService: PermissionsService,
     ) {
 
-        super('licenses',
-            licenseService,
+        super(licenseService,
             router,
             route,
             alertService,

@@ -25,8 +25,7 @@ export class ExpenseClaimsComponent extends NaturalAbstractList<ExpenseClaims['e
                 public permissionsService: PermissionsService,
     ) {
 
-        super('expenseClaims',
-            expenseClaimService,
+        super(expenseClaimService,
             router,
             route,
             alertService,

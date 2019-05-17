@@ -24,8 +24,7 @@ export class UserTagsComponent extends NaturalAbstractList<UserTags['userTags'],
                 public permissionsService: PermissionsService,
     ) {
 
-        super('userTags',
-            userTagService,
+        super(userTagService,
             router,
             route,
             alertService,

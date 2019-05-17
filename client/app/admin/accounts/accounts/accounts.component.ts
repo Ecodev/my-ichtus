@@ -24,8 +24,7 @@ export class AccountsComponent extends NaturalAbstractNavigableList<Accounts['ac
                 public permissionsService: PermissionsService,
     ) {
 
-        super('accounts',
-            accountService,
+        super(accountService,
             router,
             route,
             alertService,

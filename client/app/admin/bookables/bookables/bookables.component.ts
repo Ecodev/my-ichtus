@@ -27,8 +27,7 @@ export class BookablesComponent extends NaturalAbstractList<Bookables['bookables
                 injector: Injector
     ) {
 
-        super('bookables',
-            bookableService,
+        super(bookableService,
             router,
             route,
             alertService,

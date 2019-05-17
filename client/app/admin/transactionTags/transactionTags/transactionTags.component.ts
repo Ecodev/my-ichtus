@@ -26,8 +26,7 @@ export class TransactionTagsComponent
                 public permissionsService: PermissionsService,
     ) {
 
-        super('transactionTags',
-            transactionTagService,
+        super(transactionTagService,
             router,
             route,
             alertService,

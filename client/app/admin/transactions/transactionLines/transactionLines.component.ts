@@ -26,14 +26,13 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
                 public permissionsService: PermissionsService,
     ) {
 
-        super('transactionLines',
-            transactionLineService,
+        super(transactionLineService,
             router,
             route,
             alertService,
             persistenceService,
         );
 
-        this.naturalSearchConfig = naturalSearchConfigurationService.get(this.key);
+        this.naturalSearchConfig = naturalSearchConfigurationService.get('transactionLines');
     }
 }

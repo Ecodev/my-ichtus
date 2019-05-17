@@ -24,8 +24,7 @@ export class BookableTagsComponent extends NaturalAbstractList<BookableTags['boo
                 public permissionsService: PermissionsService,
     ) {
 
-        super('bookableTags',
-            bookableTagService,
+        super(bookableTagService,
             router,
             route,
             alertService,

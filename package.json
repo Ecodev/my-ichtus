@@ -33,7 +33,7 @@
         "@angular/platform-browser-dynamic": "~7.2.11",
         "@angular/router": "~7.2.11",
         "@ecodev/fab-speed-dial": "^3.1.0",
-        "@ecodev/natural": "^0.0.14",
+        "@ecodev/natural": "^0.0.18",
         "@ngx-progressbar/core": "^5.2.1",
         "@sambaptista/angular-particle-effect-button": "^0.0.3",
         "angular-file": "^0.5.9",

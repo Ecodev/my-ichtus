@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ItemConfiguration, NaturalSearchConfiguration, Selection, TypeNaturalSelectComponent } from '@ecodev/natural';
+import {
+    DropdownConfiguration,
+    NaturalSearchConfiguration,
+    Selection,
+    TypeNaturalSelectComponent,
+    TypeSelectNaturalConfiguration,
+} from '@ecodev/natural';
 import { UserTagService } from '../../admin/userTags/services/userTag.service';
 import { TransactionService } from '../../admin/transactions/services/transaction.service';
 
@@ -55,7 +61,7 @@ function replaceOperatorByName(s: Selection): Selection {
 })
 export class NaturalSearchConfigurationService {
 
-    private readonly userTags: ItemConfiguration = {
+    private readonly userTags: DropdownConfiguration<TypeSelectNaturalConfiguration> = {
         display: 'Tags',
         field: 'userTags',
         component: TypeNaturalSelectComponent,
@@ -65,12 +71,13 @@ export class NaturalSearchConfigurationService {
         },
     };
 
-    private readonly transaction: ItemConfiguration = {
+    private readonly transaction: DropdownConfiguration<TypeSelectNaturalConfiguration> = {
         display: 'Transaction',
         field: 'transaction',
         component: TypeNaturalSelectComponent,
         configuration: {
             service: this.transactionService,
+            placeholder: 'Transaction',
         },
     };
 
