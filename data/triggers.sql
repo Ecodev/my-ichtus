@@ -36,24 +36,6 @@ CREATE PROCEDURE update_account_balance (IN account_id INT)
   END ~~
 
 
-DROP PROCEDURE IF EXISTS update_all_accounts_balance;
-
-CREATE PROCEDURE update_all_accounts_balance()
-  BEGIN
-    DECLARE _id BIGINT UNSIGNED;
-    DECLARE cur CURSOR FOR SELECT id FROM account;
-
-    OPEN cur;
-
-    accountLoop: LOOP
-      FETCH cur INTO _id;
-      CALL update_account_balance(_id);
-    END LOOP accountLoop;
-
-    CLOSE cur;
-  END ~~
-
-
 DROP TRIGGER IF EXISTS transaction_DELETE;
 
 CREATE TRIGGER transaction_DELETE

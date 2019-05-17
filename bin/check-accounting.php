@@ -16,6 +16,9 @@ $currencies = new ISOCurrencies();
 $moneyFormatter = new DecimalMoneyFormatter($currencies);
 $repo = _em()->getRepository(Account::class);
 
+// Update all accounts' balance from transactions
+$repo->updateAccountBalance();
+
 $assets = $repo->totalBalanceByType(AccountTypeType::ASSET);
 $liabilities = $repo->totalBalanceByType(AccountTypeType::LIABILITY);
 $revenue = $repo->totalBalanceByType(AccountTypeType::REVENUE);
