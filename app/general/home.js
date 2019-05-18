@@ -48,15 +48,21 @@ function load() {
 
     loadMateriel();
 
-
-    // auto actualize every .. minutes
-    setInterval(function () {
-        if (currentTabElement.id == "divTabCahier") {
-            Requests.getActualBookingList();
-        }
-    }, 2 * 60 * 1000);
-
+    //setInterval(function () {
+    //    if (currentTabElement.id == "divTabCahier") {
+    //        Requests.getActualBookingList();
+    //    }
+    //}, 2 * 60 * 1000);
 }
+
+// auto actualize if mouse doesn't move
+var timeout;
+document.onmousemove = function () {
+    clearTimeout(timeout);
+    timeout = setTimeout(function () { Requests.getActualBookingList(); }, 0.5 * 60 * 1000);
+};
+
+
 
 // too complicated now...
 //function loadButtonFocus() {
