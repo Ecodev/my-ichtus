@@ -15,8 +15,16 @@
                             [multipleGroups]="true"
             >
 
-                <button mat-icon-button (click)="copy()">
+                <button mat-icon-button (click)="download()" *ngIf="!usersEmail">
                     <natural-icon name="email"></natural-icon>
+                </button>
+
+                <button mat-icon-button (click)="copy(usersEmail)" *ngIf="usersEmail" matTooltip="Copier les e-mails">
+                    <natural-icon name="alternate_email"></natural-icon>
+                </button>
+
+                <button mat-icon-button (click)="copy(usersEmailAndName)" *ngIf="usersEmailAndName" matTooltip="Copier les e-mails et les noms">
+                    <natural-icon name="file_copy"></natural-icon>
                 </button>
 
                 <natural-columns-picker (selectionChange)="selectedColumns = $event" [initialSelection]="initialColumns">
