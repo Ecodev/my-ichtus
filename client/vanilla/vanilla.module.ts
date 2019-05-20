@@ -10,8 +10,7 @@ import { VanillaRoutingModule } from './vanilla-routing.module';
 import { APP_BASE_HREF } from '@angular/common';
 import { UserService } from '../app/admin/users/services/user.service';
 import { BookingService } from '../app/admin/bookings/services/booking.service';
-import { NaturalLinkMutationService } from '@ecodev/natural';
-import { NaturalQueryVariablesManager } from '@ecodev/natural';
+import { NaturalLinkMutationService, NaturalQueryVariablesManager } from '@ecodev/natural';
 
 @NgModule({
     imports: [
@@ -29,7 +28,9 @@ import { NaturalQueryVariablesManager } from '@ecodev/natural';
                 return {
                     cache: new InMemoryCache(),
                     link: httpLink.create({
-                        uri: 'https://ichtus.club/graphql',
+                        uri: window.location.hostname === 'navigations.ichtus.club' ?
+                            'https://ichtus.club/graphql' :
+                            'https://dev.ichtus.club/graphql',
                         withCredentials: true,
                     }),
                     defaultOptions: {
