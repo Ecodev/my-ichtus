@@ -57,10 +57,17 @@
     <script src="equipment/pop-bookable-history.js"></script>
     <script src="infos/infos.js"></script>
     <script src="infos/pop-infos.js"></script>
+    <script src="utils/utils.js"></script>
 
-    <!-- JavaScript Linked Files -->
-    <script type="text/javascript" src="https://ichtus.club/vanilla/runtime.js"></script>
-    <script type="text/javascript" src="https://ichtus.club/vanilla/main.js"></script>
+    <script>
+        if (window.location.hostname === 'navigations.ichtus.club') {
+            loadJs('https://ichtus.club/vanilla/runtime.js');
+            loadJs('https://ichtus.club/vanilla/main.js');
+        } else {
+            loadJs('https://dev.ichtus.club/vanilla/runtime.js');
+            loadJs('https://dev.ichtus.club/vanilla/main.js');
+        }
+    </script>
 
     <!-- JavaScript Linked Files For Wind -->
     <!--<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>-->
@@ -73,7 +80,7 @@
 
     <!-- Top Bar -->
     <div id="divTopBar">
-        <div id="divTopBarLogo" onclick="newTab('divTabCahier')" ;>
+        <div id="divTopBarLogo" onclick="newTab('divTabCahier')">
             <img src="img/logo/white_circle.svg" alt="?" />
             <img src="img/logo/circle.svg" alt="?" />
             <img src="img/logo/fish.svg" alt="?" />
