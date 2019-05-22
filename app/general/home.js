@@ -41,18 +41,22 @@ function load() {
     loadCahierEquipmentChoice();
     loadEscListener();
 
+    if (window.location.hostname === 'navigations.ichtus.club') {
+        $('divTopBarText').innerHTML = tabs[0].title;
+    }
+    else {
+        tabs[0].title = "Cahier de sortie (démo)";
+        $('divTopBarText').innerHTML = tabs[0].title;
+    }
+
     //SERVER
     ServerInitialize();
     Requests.checkLogin();
+
+
+
     loadBottoms();
-
     loadMateriel();
-
-    //setInterval(function () {
-    //    if (currentTabElement.id == "divTabCahier") {
-    //        Requests.getActualBookingList();
-    //    }
-    //}, 2 * 60 * 1000);
 }
 
 // auto actualize if mouse doesn't move

@@ -49,7 +49,7 @@ function historyBackTab(elem) {
 
 // tabs
 var tabs = [];
-tabs.push({ id: "divTabCahier", order: 0, progress: 0, position: 0, TopBar: false, ListBar: false, Enter: function () { Cahier.cancel(); }, Remove: function () { } });
+tabs.push({ id: "divTabCahier", order: 0, progress: 0, position: 0, TopBar: false, ListBar: false, title: "Cahier de sortie", Enter: function () { Cahier.cancel(); }, Remove: function () { } });
 tabs.push({
     id: "divTabCahierMember", order: 6, progress: 1, position: 0, TopBar: true, ListBar: false, title: "Veuillez écrire votre nom et prénom", Enter: function () {
         $('divTabCahierMember').getElementsByTagName("input")[0].focus();
@@ -139,7 +139,7 @@ window.onhashchange = function () {
             $('divTopBarText').innerHTML = NewElement.title;
         }
         else {
-            $('divTopBarText').innerHTML = "Cahier de sortie";
+            $('divTopBarText').innerHTML = "?";
         }
 
         // change ProgressBar

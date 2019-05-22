@@ -26,7 +26,12 @@ var Requests = {
             if (!user) {
                 // pas connecté
                 console.error("Pas connecté");
-                popLogin();
+                if (window.location.hostname === 'navigations.ichtus.club') {
+                    popLogin();
+                }
+                else {
+                    Requests.login('bookingonly'); // auto mdp
+                }
             } else {
                 // connecté
                 console.warn("Connecté");
