@@ -5,7 +5,7 @@ import { Bookings, BookingsVariables } from '../../../shared/generated-types';
 import { BookingService } from '../services/booking.service';
 import { NaturalAlertService } from '@ecodev/natural';
 import { NaturalPersistenceService } from '@ecodev/natural';
-import { NaturalSearchConfigurationService } from '../../../shared/natural-search/natural-search-configuration.service';
+import { NaturalSearchFacetsService } from '../../../shared/natural-search/natural-search-facets.service';
 import { PermissionsService } from '../../../shared/services/permissions.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class BookingsComponent extends NaturalAbstractList<Bookings['bookings'],
                 public bookingService: BookingService,
                 alertService: NaturalAlertService,
                 persistenceService: NaturalPersistenceService,
-                naturalSearchConfigurationService: NaturalSearchConfigurationService,
+                naturalSearchFacetsService: NaturalSearchFacetsService,
                 public permissionsService: PermissionsService,
     ) {
 

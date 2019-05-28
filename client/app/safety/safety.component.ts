@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { BookingsComponent } from '../admin/bookings/bookings/bookings.component';
 import { SafetyBookingService } from './safety-booking.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NaturalSearchConfigurationService } from '../shared/natural-search/natural-search-configuration.service';
+import { NaturalSearchFacetsService } from '../shared/natural-search/natural-search-facets.service';
 import { PermissionsService } from '../shared/services/permissions.service';
 import { NaturalAlertService } from '@ecodev/natural';
 import { NaturalPersistenceService } from '@ecodev/natural';
@@ -18,10 +18,10 @@ export class SafetyComponent extends BookingsComponent {
                 bookingService: SafetyBookingService, // Reason of the override
                 alertService: NaturalAlertService,
                 persistenceService: NaturalPersistenceService,
-                naturalSearchConfigurationService: NaturalSearchConfigurationService,
+                naturalSearchFacetsService: NaturalSearchFacetsService,
                 permissionsService: PermissionsService) {
 
-        super(route, router, bookingService, alertService, persistenceService, naturalSearchConfigurationService, permissionsService);
+        super(route, router, bookingService, alertService, persistenceService, naturalSearchFacetsService, permissionsService);
     }
 
 }

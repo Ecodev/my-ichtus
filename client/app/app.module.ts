@@ -15,7 +15,6 @@ import {
 import { NetworkActivityService } from './shared/services/network-activity.service';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { apolloDefaultOptions, createApolloLink } from './shared/config/apolloDefaultOptions';
-import { SwissParsingDateAdapter } from './shared/services/swiss-parsing-date-adapter.service';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { DoorComponent } from './door/door.component';
@@ -33,7 +32,7 @@ import { SafetyComponent } from './safety/safety.component';
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { TimeagoCustomFormatter, TimeagoFormatter, TimeagoIntl, TimeagoModule } from 'ngx-timeago';
 import { strings as frenchStrings } from 'ngx-timeago/language-strings/fr-short';
-import { NaturalAlertService } from '@ecodev/natural';
+import { NaturalAlertService, NaturalSwissParsingDateAdapter } from '@ecodev/natural';
 
 registerLocaleData(localeFRCH);
 
@@ -71,7 +70,7 @@ export class MyIntl extends TimeagoIntl {
         MatIconRegistry,
         {
             provide: DateAdapter,
-            useClass: SwissParsingDateAdapter,
+            useClass: NaturalSwissParsingDateAdapter,
         },
         {
             // Use OnDirty instead of default OnTouched, that allows to validate while editing. Touched is updated after blur.

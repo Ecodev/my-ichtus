@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NaturalAlertService } from '@ecodev/natural';
-import { NaturalSearchConfigurationService } from '../../../shared/natural-search/natural-search-configuration.service';
+import { NaturalSearchFacetsService } from '../../../shared/natural-search/natural-search-facets.service';
 import { UserTags, UserTagsVariables } from '../../../shared/generated-types';
 import { UserTagService } from '../services/userTag.service';
 import { PermissionsService } from '../../../shared/services/permissions.service';
@@ -20,7 +20,7 @@ export class UserTagsComponent extends NaturalAbstractList<UserTags['userTags'],
                 userTagService: UserTagService,
                 alertService: NaturalAlertService,
                 persistenceService: NaturalPersistenceService,
-                naturalSearchConfigurationService: NaturalSearchConfigurationService,
+                naturalSearchFacetsService: NaturalSearchFacetsService,
                 public permissionsService: PermissionsService,
     ) {
 

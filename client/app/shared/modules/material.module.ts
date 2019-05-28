@@ -28,7 +28,7 @@ import {
     MatTooltipModule,
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { SwissParsingDateAdapter } from '../services/swiss-parsing-date-adapter.service';
+import { NaturalSwissParsingDateAdapter } from '@ecodev/natural';
 
 const list = [
     MatButtonModule,
@@ -69,7 +69,7 @@ const list = [
     providers: [
         {
             provide: DateAdapter,
-            useClass: SwissParsingDateAdapter,
+            useClass: NaturalSwissParsingDateAdapter,
         },
     ],
 })

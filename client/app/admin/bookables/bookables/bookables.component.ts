@@ -2,7 +2,7 @@ import { Component, EventEmitter, Injector, OnInit, Output } from '@angular/core
 import { ActivatedRoute, Router } from '@angular/router';
 import { NaturalAlertService } from '@ecodev/natural';
 import { NaturalPersistenceService } from '@ecodev/natural';
-import { NaturalSearchConfigurationService } from '../../../shared/natural-search/natural-search-configuration.service';
+import { NaturalSearchFacetsService } from '../../../shared/natural-search/natural-search-facets.service';
 import { NaturalAbstractList } from '@ecodev/natural';
 import { Bookables, BookablesVariables } from '../../../shared/generated-types';
 import { BookableService } from '../services/bookable.service';
@@ -22,7 +22,7 @@ export class BookablesComponent extends NaturalAbstractList<Bookables['bookables
                 bookableService: BookableService,
                 alertService: NaturalAlertService,
                 persistenceService: NaturalPersistenceService,
-                naturalSearchConfigurationService: NaturalSearchConfigurationService,
+                naturalSearchFacetsService: NaturalSearchFacetsService,
                 public permissionsService: PermissionsService,
                 injector: Injector
     ) {

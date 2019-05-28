@@ -9,7 +9,7 @@ import {
 } from '@ecodev/natural';
 import { Apollo } from 'apollo-angular';
 import { Users, UserStatus, UsersVariables } from '../../../shared/generated-types';
-import { NaturalSearchConfigurationService } from '../../../shared/natural-search/natural-search-configuration.service';
+import { NaturalSearchFacetsService } from '../../../shared/natural-search/natural-search-facets.service';
 import { PermissionsService } from '../../../shared/services/permissions.service';
 import { emailUsersQuery } from '../services/user.queries';
 import { UserService } from '../services/user.service';
@@ -41,7 +41,7 @@ export class UsersComponent extends NaturalAbstractList<Users['users'], UsersVar
                 private userService: UserService,
                 alertService: NaturalAlertService,
                 persistenceService: NaturalPersistenceService,
-                naturalSearchConfigurationService: NaturalSearchConfigurationService,
+                naturalSearchFacetsService: NaturalSearchFacetsService,
                 public permissionsService: PermissionsService,
                 private apollo: Apollo,
     ) {
@@ -53,7 +53,7 @@ export class UsersComponent extends NaturalAbstractList<Users['users'], UsersVar
             persistenceService,
         );
 
-        this.naturalSearchConfig = naturalSearchConfigurationService.get('users');
+        this.naturalSearchFacets = naturalSearchFacetsService.get('users');
     }
 
     public flagWelcomeSessionDate(user) {
