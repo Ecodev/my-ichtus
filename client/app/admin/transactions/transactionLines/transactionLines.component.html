@@ -31,7 +31,7 @@
 
                 <tr mat-header-row *matHeaderRowDef="selectedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: selectedColumns;"></tr>
-                <!--<tr mat-footer-row *matFooterRowDef="selectedColumns"></tr>-->
+                <tr mat-footer-row *matFooterRowDef="selectedColumns"></tr>
 
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
@@ -41,7 +41,7 @@
                                           matTooltip="Éditer"
                         ></natural-table-button>
                     </td>
-                    <td mat-footer-cell *matFooterCellDef></td>
+                    <td mat-footer-cell *matFooterCellDef>Total</td>
                 </ng-container>
 
                 <ng-container matColumnDef="balance">
