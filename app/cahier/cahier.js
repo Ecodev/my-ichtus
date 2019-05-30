@@ -441,7 +441,7 @@ function actualizeFinishedBookingListForDay(bookings,table) {
             }
 
             div(entry).innerHTML = bookings[i].destination.shorten(150, 16);
-            div(entry).innerHTML = getStartCommentFromBooking(bookings[i]).shorten(200, 16);; // "".shorten(200, 200);//getStartCommentFromBooking(bookings[i]);//.startComment.shorten(200, 20); // BIZARRRRERELRKJASéDL KFJASéDLF JKAéSLDKFJ
+            div(entry).innerHTML = getStartCommentFromBooking(bookings[i]).shorten(200, 16); // "".shorten(200, 200);//getStartCommentFromBooking(bookings[i]);//.startComment.shorten(200, 20); // BIZARRRRERELRKJASéDL KFJASéDLF JKAéSLDKFJ
             div(entry).innerHTML = getEndCommentFromBooking(bookings[i]).shorten(200,16);//.endComment.shorten(200, 20);
 
         }

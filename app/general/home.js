@@ -42,9 +42,11 @@ function load() {
     loadEscListener();
 
     if (window.location.hostname === 'navigations.ichtus.club') {
+        console.warn("Version de production");
         $('divTopBarText').innerHTML = tabs[0].title;
     }
     else {
+        console.warn("Version de démo");
         tabs[0].title = "Cahier de sortie (démo)";
         $('divTopBarText').innerHTML = tabs[0].title;
     }
@@ -63,7 +65,14 @@ function load() {
 var timeout;
 document.onmousemove = function () {
     clearTimeout(timeout);
-    timeout = setTimeout(function () { Requests.getActualBookingList(); }, 0.5 * 60 * 1000);
+    timeout = setTimeout(function () {
+        if (currentTabElement.id === "divTabCahier") {
+            location.reload();
+        }
+        else {
+            Requests.getActualBookingList();
+        }
+    }, 1 * 60 * 1000);
 };
 
 
@@ -249,37 +258,54 @@ function grayBar(elem,marginTop = 10, marginBottom = 15) {
 }
 
 
-function getStartCommentFromBooking(booking,fill = false) {
-    var a = booking.startComment.indexOf("[");
-    var b = booking.startComment.indexOf("]");
-    var txt = "";
+String.prototype.replaceTxtByTxt = function (replace = "", by = "", caseSensitive = false) {
 
-    if (a == 0 && b != -1) {
-        txt = booking.startComment.slice(b + 2, booking.startComment.length); // +2 pour enlever l'espace après le ]
+    var i = 0;
+    var where = [];
+
+    var txt = caseSensitive ? this : this.toUpperCase();
+    var replaceTxt = caseSensitive ? replace : replace.toUpperCase();
+
+    while (txt.indexOf(replaceTxt, i) !== -1) {
+        where.push(txt.indexOf(replaceTxt, i));
+        i = where[where.length - 1]+1;
     }
-    else {
-        txt = booking.startComment;
+
+    var r = "";
+    for (let k = 0; k <= where.length; k++) {
+        let start = k === 0 ? 0 : where[k - 1];
+        let end = k === where.length ? this.length : where[k];
+        let s = this.slice(start, end);
+        let sTxt = caseSensitive ? s : s.toUpperCase();
+        let x = sTxt.indexOf(replaceTxt);
+        let t = x !== -1 ? s.slice(0, x) + by + s.slice(x + replace.length) : s;
+        r += t;
     }
+    return r;
+};
+
+function transformComment(txt,fill) {
+    txt = txt.replaceTxtByTxt("nft", " <img style='display:inline-block; vertical-align:middle;' src='img/comments/nft.png'/> ");
+    txt = txt.replaceTxtByTxt("Joran", " Joran<img style='display:inline-block; vertical-align:middle;' src='img/comments/joran.png'/> ", true);
+    txt = txt.replaceTxtByTxt("joran", " joran<img style='display:inline-block; vertical-align:middle;' src='img/comments/joran.png'/> ", true);
+    txt = txt.replaceTxtByTxt("soleil", "soleil<img style='display:inline-block; vertical-align:middle;' src='img/comments/soleil.png'/> ", true);
+    txt = txt.replaceTxtByTxt("Soleil", "Soleil<img style='display:inline-block; vertical-align:middle;' src='img/comments/soleil.png'/> ", true);
+
     if (txt.length == 0 && fill) {
         txt = "Pas de commentaire";
     }
     return txt;
 }
-function getEndCommentFromBooking(booking, fill = false) {
-    var a = booking.endComment.indexOf("[");
-    var b = booking.endComment.indexOf("]");
-    var txt = "";
 
-    if (a == 0 && b != -1) {
-        txt = booking.endComment.slice(b + 1, booking.endComment.length);
-    }
-    else {
-        txt = booking.endComment;
-    }
-    if (txt.length == 0 && fill) {
-        txt = "Pas de commentaire";
-    }
-    return txt;
+function getStartCommentFromBooking(booking, fill = false) {
+    var txt = booking.startComment;
+    return transformComment(txt,fill);
+}
+
+
+function getEndCommentFromBooking(booking, fill = false) {
+    var txt = booking.endComment;
+    return transformComment(txt,fill);
 }
 
 

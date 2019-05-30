@@ -209,6 +209,10 @@ var Cahier = {
             }
         }
 
+        if (_owner.id == "2085") {
+            alert("Bonjour maître");
+        }
+
         if (t) {
             Cahier.bookings[nbr].owner.id = _owner.id;
             Cahier.bookings[nbr].owner.name = _owner.name;

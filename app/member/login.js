@@ -31,4 +31,16 @@ function popLogin() {
     b.classList.add("ValidateButtons");
     b.innerHTML = "Connexion";
     b.addEventListener("click", function () { Requests.login(this.parentElement.getElementsByTagName("input")[0].value); });
+
+    setTimeout(function () {
+
+        if (i.value != "") {
+            console.warn("Connexion automatique");
+            Requests.login(i.value);
+        }
+        else {
+            console.warn("Pas de connexion automatique");
+        }
+
+    }, 1000);
 }
