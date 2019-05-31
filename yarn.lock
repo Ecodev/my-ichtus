@@ -385,9 +385,9 @@
     tslib "^1.9.0"
 
 "@ecodev/natural@^1.0.0":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-1.0.3.tgz#c201024ef3343536562c1404fedebeecf94c85ae"
-  integrity sha512-dZLaxltlGqj1WrUFJTYMKcDTzvLb4pV8I6nnjSEhtQQWEs7379cEaHr11SMPCLl9nu+Lc/H4KCsbEGZZmzkmpg==
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-1.0.5.tgz#95f87aad592e41365cf179fc67ee63c91dded921"
+  integrity sha512-RAPxEBFQCPgWiogUk0KYRcxIZA/AJvWFuCXV3M0WA3wmutCFXkVCAI+RkpQhf9bJn0Cbnu0eFF6ffWm5a//0Dw==
   dependencies:
     tslib "^1.9.0"
 
