@@ -78,13 +78,18 @@ export class RegisterComponent extends NaturalAbstractDetail<User['user'],
         this.apollo.mutate({
             mutation: mutation,
             variables: this.form.value,
-        }).subscribe(() => {
+        })
+        .subscribe(() => {
             this.sending = false;
 
             const message = 'Un email avec des instructions a été envoyé';
 
             this.alertService.info(message, 5000);
             this.router.navigate(['/login']);
-        }, () => this.sending = false);
+        },
+        (error) => {
+            this.sending = false;
+            this.alertService.error(error.message, 5000);
+        });
     }
 }

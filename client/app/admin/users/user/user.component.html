@@ -60,6 +60,9 @@
                             <input matInput formControlName="email" (change)="update()">
                             <mat-error *ngIf="form.get('email')?.hasError('required')">Requis</mat-error>
                             <mat-error *ngIf="form.get('email')?.hasError('email')">Adresse email invalide</mat-error>
+                            <mat-error *ngIf="form.get('email')?.hasError('duplicateValue')">
+                                Cet email est déjà attribué et doit être unique
+                            </mat-error>
                         </mat-form-field>
 
                         <mat-form-field>
@@ -70,6 +73,9 @@
                             </mat-error>
                             <mat-error *ngIf="form.get('login')?.hasError('required')">Requis</mat-error>
                             <mat-error *ngIf="form.get('login')?.hasError('invalid')">{{ form.get('login')?.getError('invalid') }}</mat-error>
+                            <mat-error *ngIf="form.get('login')?.hasError('duplicateValue')">
+                                Ce nom est déjà attribué à un utilisateur
+                            </mat-error>
                         </mat-form-field>
 
                         <mat-divider class="margin-bottom"></mat-divider>

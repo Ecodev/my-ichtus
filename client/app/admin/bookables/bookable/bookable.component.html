@@ -47,6 +47,7 @@
                                         Maximum {{form.get('code')?.errors.maxlength.requiredLength }} caractères
                                     </mat-error>
                                     <mat-error *ngIf="form.get('code')?.hasError('required')">Requis</mat-error>
+                                    <mat-error *ngIf="form.get('code')?.hasError('duplicateValue')">Ce code est déjà attribué</mat-error>
                                 </mat-form-field>
 
                                 <natural-select-enum enumName="BookableState"

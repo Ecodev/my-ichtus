@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { NaturalAbstractModelService, FormValidators } from '@ecodev/natural';
+import {NaturalAbstractModelService, FormValidators, NaturalValidators, FormAsyncValidators} from '@ecodev/natural';
 import { bookableTagQuery, bookableTagsQuery, createBookableTag, deleteBookableTags, updateBookableTag } from './bookableTag.queries';
 import {
     BookableTag,
@@ -51,6 +51,12 @@ export class BookableTagService extends NaturalAbstractModelService<BookableTag[
     public getFormValidators(): FormValidators {
         return {
             name: [Validators.required, Validators.maxLength(100)],
+        };
+    }
+
+    public getFormAsyncValidators(): FormAsyncValidators {
+        return {
+            name: [NaturalValidators.unique('name', this)],
         };
     }
 

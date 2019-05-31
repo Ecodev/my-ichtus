@@ -35,6 +35,7 @@
                     </mat-error>
                     <mat-error *ngIf="form.get('login')?.hasError('required')">Requis</mat-error>
                     <mat-error *ngIf="form.get('login')?.hasError('invalid')">{{ form.get('login')?.getError('invalid') }}</mat-error>
+                    <mat-error *ngIf="form.get('login')?.hasError('duplicateValue')">Ce nom d'utilisateur ne peut pas être choisi</mat-error>
                 </mat-form-field>
 
                 <app-password [form]="form"></app-password>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { NaturalAbstractModelService, FormValidators } from '@ecodev/natural';
+import {NaturalAbstractModelService, FormValidators, FormAsyncValidators, NaturalValidators} from '@ecodev/natural';
 import { createLicense, deleteLicenses, licenseQuery, licensesQuery, updateLicense } from './license.queries';
 import {
     CreateLicense,
@@ -41,6 +41,12 @@ export class LicenseService extends NaturalAbstractModelService<License['license
     public getFormValidators(): FormValidators {
         return {
             name: [Validators.required, Validators.maxLength(100)],
+        };
+    }
+
+    public getFormAsyncValidators(): FormAsyncValidators {
+        return {
+            name: [NaturalValidators.unique('name', this)],
         };
     }
 

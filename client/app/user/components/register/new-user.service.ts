@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Validators } from '@angular/forms';
 import { BookingService } from '../../../admin/bookings/services/booking.service';
 import { PermissionsService } from '../../../shared/services/permissions.service';
-import { FormValidators } from '@ecodev/natural';
+import { FormValidators, FormAsyncValidators, NaturalValidators } from '@ecodev/natural';
 import { PricedBookingService } from '../../../admin/bookings/services/PricedBooking.service';
 import { Literal } from '@ecodev/natural';
 import { AnonymousUserService } from './anonymous-user.service';
@@ -43,6 +43,12 @@ export class NewUserService extends AnonymousUserService {
             street: [Validators.required],
             postcode: [Validators.required],
             country: [Validators.required],
+        };
+    }
+
+    public getFormAsyncValidators(): FormAsyncValidators {
+        return {
+            login: [NaturalValidators.unique('login', this)],
         };
     }
 }

@@ -3,7 +3,7 @@ import { Apollo } from 'apollo-angular';
 import { Observable, of, Subject } from 'rxjs';
 import { DataProxy } from 'apollo-cache';
 import { map } from 'rxjs/operators';
-import { NaturalAbstractModelService, FormValidators } from '@ecodev/natural';
+import { NaturalAbstractModelService, FormValidators, NaturalValidators, FormAsyncValidators } from '@ecodev/natural';
 import {
     createUser,
     currentUserForProfileQuery,
@@ -212,6 +212,13 @@ export class UserService extends NaturalAbstractModelService<User['user'],
             email: [Validators.email],
             familyRelationship: [Validators.required],
             birthday: [Validators.required],
+        };
+    }
+
+    public getFormAsyncValidators(): FormAsyncValidators {
+        return {
+            login: [NaturalValidators.unique('login', this)],
+            email: [NaturalValidators.unique('email', this)],
         };
     }
 

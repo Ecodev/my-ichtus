@@ -25,7 +25,7 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BookingService } from '../../bookings/services/booking.service';
 import { intersectionBy } from 'lodash';
-import { NaturalAbstractModelService, FormValidators } from '@ecodev/natural';
+import { NaturalAbstractModelService, FormValidators, FormAsyncValidators, NaturalValidators } from '@ecodev/natural';
 import { NaturalQueryVariablesManager } from '@ecodev/natural';
 import { BookableTagService } from '../../bookableTags/services/bookableTag.service';
 
@@ -153,6 +153,12 @@ export class BookableService extends NaturalAbstractModelService<Bookable['booka
         return {
             name: [Validators.required, Validators.maxLength(100)],
             code: [Validators.maxLength(10)],
+        };
+    }
+
+    public getFormAsyncValidators(): FormAsyncValidators {
+        return {
+            code: [NaturalValidators.unique('code', this)],
         };
     }
 

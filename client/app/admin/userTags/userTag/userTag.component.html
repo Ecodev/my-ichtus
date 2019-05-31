@@ -19,6 +19,7 @@
                                 Maximum {{form.get('name')?.errors.maxlength.requiredLength }} caractères
                             </mat-error>
                             <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
+                            <mat-error *ngIf="form.get('name')?.hasError('duplicateValue')">Ce tag existe déjà</mat-error>
                         </mat-form-field>
 
                         <div *ngIf="data.model.id">

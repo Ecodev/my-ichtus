@@ -73,7 +73,11 @@ export class RegisterConfirmComponent extends RegisterComponent implements OnIni
 
             this.alertService.info(message, 5000);
             this.router.navigate(['/login']);
-        }, () => this.sending = false);
+        },
+        (error) => {
+            this.sending = false;
+            this.alertService.error(error.message, 5000);
+        });
     }
 
 }
