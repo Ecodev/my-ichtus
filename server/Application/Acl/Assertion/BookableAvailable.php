@@ -47,7 +47,7 @@ class BookableAvailable implements AssertionInterface
         }
 
         // Check that the user has ALL required licenses for the bookable
-        if (!$bookable->getLicenses()->isEmpty()) {
+        if (!$bookable->getLicenses()->isEmpty() && User::getCurrent()->getRole() !== User::ROLE_BOOKING_ONLY) {
             $userLicenses = User::getCurrent()->getLicenses();
 
             foreach ($bookable->getLicenses() as $requiredLicense) {
