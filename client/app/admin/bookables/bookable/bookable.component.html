@@ -1,6 +1,6 @@
 <div [formGroup]="form" class="detail-body">
 
-    <natural-detail-header newLabel="Nouvel réservable" label="Réservable" [model]="data.model" [listRoute]="['admin', 'bookable']">
+    <natural-detail-header newLabel="Nouveau réservable" label="Réservable" [model]="data.model" [listRoute]="['admin', 'bookable']">
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
             <div fxLayout="column" style="text-align:right" *ngIf="form.get('verificationDate')?.value">
                 <div class="mat-body-2">Dernière vérification</div>
