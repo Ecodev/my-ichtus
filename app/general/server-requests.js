@@ -511,6 +511,7 @@ var Requests = {
                     groups: [
                         {
                             conditions: [
+                                { isActive: { equal: { value: true} } },
                                 { code: { like: { value: code} } },
                                 {
                                     bookingType: {
