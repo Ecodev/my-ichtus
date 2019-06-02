@@ -233,17 +233,19 @@ var Requests = {
                 groups: [
                     {
                         groupLogic: 'AND',
-                        conditionsLogic: 'AND',
+                        conditionsLogic: 'OR',
                         conditions: [
                             {
                                 custom: { // marche pour description
                                     search: {
                                         value: "%" + txt + "%"
                                     }
-                                },
-                                bookingType: {
+                                }
+                            },
+                            {
+                                code: { // marche pour description
                                     like: {
-                                        value: "self_approved"
+                                        value: "%" + txt + "%"
                                     }
                                 }
                             }
@@ -254,6 +256,7 @@ var Requests = {
                         conditionsLogic:'OR',
                         joins: {
                             bookableTags: {
+                                type:"leftJoin",
                                 conditions: [
                                     {
                                         name: {
@@ -266,6 +269,24 @@ var Requests = {
                             }
                         }
 
+                    },
+                    {
+                        groupLogic: 'AND',
+                        conditionsLogic: 'AND',
+                        conditions: [
+                            {
+                                bookingType: {
+                                    like: {
+                                        value: "self_approved"
+                                    }
+                                },
+                                isActive: { // embarcation active
+                                    equal: {
+                                        value: true
+                                    }
+                                }
+                            }
+                        ]
                     }
                 ]
             },
@@ -429,9 +450,12 @@ var Requests = {
         var filter = {
             filter: {
                 groups: [{
-                    conditionsLogic:'OR',
+
+                    conditionsLogic: 'OR',
                     joins: {
+
                         bookableTags: {
+                            type:"leftJoin",
                             conditions: [
                                 {
                                     name: {
@@ -439,10 +463,17 @@ var Requests = {
                                             value: "%" + bookableTag + "%"
                                         }
                                     }
+
                                 }
                             ]
                         }
                     }
+                },
+                {
+
+                    conditions: [{
+                        isActive: { equal: { value: true } }
+                    }]
                 }
                 ]
             },
@@ -452,7 +483,7 @@ var Requests = {
             }
         };
 
-         if (bookableTag == "Kayak") {
+        if (bookableTag == "Kayak") {
             filter.filter.groups[0].joins.bookableTags.conditions.push({
                 name: {
                     like: {
@@ -469,7 +500,7 @@ var Requests = {
                      }
                  }
              });
-         }
+        }
 
         var variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);

@@ -286,8 +286,8 @@ String.prototype.replaceTxtByTxt = function (replace = "", by = "", caseSensitiv
 
 function transformComment(txt,fill) {
     txt = txt.replaceTxtByTxt("nft", " <img style='display:inline-block; vertical-align:middle;' src='img/comments/nft.png'/> ");
-    txt = txt.replaceTxtByTxt("Joran", " Joran<img style='display:inline-block; vertical-align:middle;' src='img/comments/joran.png'/> ", true);
     txt = txt.replaceTxtByTxt("joran", " joran<img style='display:inline-block; vertical-align:middle;' src='img/comments/joran.png'/> ", true);
+    txt = txt.replaceTxtByTxt("Joran", " Joran<img style='display:inline-block; vertical-align:middle;' src='img/comments/joran.png'/> ", true);
     txt = txt.replaceTxtByTxt("soleil", "soleil<img style='display:inline-block; vertical-align:middle;' src='img/comments/soleil.png'/> ", true);
     txt = txt.replaceTxtByTxt("Soleil", "Soleil<img style='display:inline-block; vertical-align:middle;' src='img/comments/soleil.png'/> ", true);
 

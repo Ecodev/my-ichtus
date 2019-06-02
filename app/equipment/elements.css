@@ -172,24 +172,36 @@
             background-size: 30px;
         }
 
-    .divTabCahierEquipmentElementsContainer > div > div > div:nth-child(5):hover {
-        background-color: lightgray;
+        .divTabCahierEquipmentElementsContainer > div > div > div:nth-child(5):hover {
+            background-color: lightgray;
+        }
+
+        .divTabCahierEquipmentElementsContainer > div > div > div:nth-child(6) {
+            position:absolute;
+            top:5px;
+            right:5px;
+            background-image:url(../img/icons/license.png);
+            background-repeat:no-repeat;
+            background-size:30px;
+            width:30px;
+            height:30px;
+            z-index:3;
+        }
+
+
+
+    #divTabCahierEquipmentElementsButtonsContainer {
+        position: relative;
+        width: 95%;
+        border-left-width: 130px;
+        border-left-style: solid;
+        border-color: transparent;
+        min-height: 10px;
+        text-align: right;
+        background-color: transparent;
+        left: 2.5%;
+        box-sizing: border-box;
     }
-
-
-
-#divTabCahierEquipmentElementsButtonsContainer {
-    position: relative;
-    width: 95%;
-    border-left-width: 130px;
-    border-left-style: solid;
-    border-color:transparent;
-    min-height: 10px;
-    text-align: right;
-    background-color: transparent;
-    left: 2.5%;
-    box-sizing: border-box;
-}
 
     #divTabCahierEquipmentElementsButtonsContainer > div {
         display: inline-block;

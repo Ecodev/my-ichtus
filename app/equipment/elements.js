@@ -66,6 +66,12 @@ function loadElements(bookables ,nbr = 0) {
             popBookable(this.id);
         };
 
+        if (bookables[i].licenses.length > 0) {
+            var license = div(secondContainer);
+            license.title = bookables[i].licenses[0].name;
+        }
+
+
     }
     if (bookables.length == 0) {
         var d = div(document.getElementsByClassName("divTabCahierEquipmentElementsContainer")[0]);

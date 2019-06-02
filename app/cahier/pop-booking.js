@@ -229,7 +229,13 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
         container.getElementsByClassName('divTabCahierConfirmationContainer')[0].getElementsByTagName("div")[0].innerHTML = "Sortie du " + (new Date(booking.startDate)).getNiceDate(false, true);
         allDivTexts[1].innerHTML = (new Date(booking.startDate)).getNiceTime();
         if (booking.endDate == null) {
-            allDivTexts[2].innerHTML = "Pas encore rentré(e)";
+            if (booking.owner.sex === "female") {
+                allDivTexts[2].innerHTML = "Pas encore rentrée";
+            }
+            else {
+                allDivTexts[2].innerHTML = "Pas encore rentré";
+            }
+
         }
         else {
             allDivTexts[2].innerHTML = (new Date(booking.endDate)).getNiceTime();

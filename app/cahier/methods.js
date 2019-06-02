@@ -210,7 +210,7 @@ var Cahier = {
         }
 
         if (_owner.id == "2085") {
-            alert("Bonjour maître");
+            //alert("Bonjour maître");
         }
 
         if (t) {
