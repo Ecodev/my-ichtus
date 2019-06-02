@@ -8,7 +8,6 @@ return [
     [
         'query' => 'mutation ($inputBooking: BookingInput!) {
             createBooking(input: $inputBooking) {
-                id
                 creator {
                     id
                 }
