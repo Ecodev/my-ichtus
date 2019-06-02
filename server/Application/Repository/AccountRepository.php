@@ -62,9 +62,10 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
      */
     public function getOneById(int $id): Account
     {
-        $this->getAclFilter()->setEnabled(false);
-        $account = $this->findOneById($id);
-        $this->getAclFilter()->setEnabled(true);
+        $account = $this->getAclFilter()->runWithoutAcl(function () use ($id) {
+            return $this->findOneById($id);
+        });
+
         if (!$account) {
             throw new \Exception('Account #' . $id . ' not found');
         }
@@ -87,9 +88,9 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
             return $user->getAccount();
         }
 
-        $this->getAclFilter()->setEnabled(false);
-        $account = $this->findOneByOwner($user);
-        $this->getAclFilter()->setEnabled(true);
+        $account = $this->getAclFilter()->runWithoutAcl(function () use ($user) {
+            return $this->findOneByOwner($user);
+        });
 
         if (!$account) {
             $account = new Account();

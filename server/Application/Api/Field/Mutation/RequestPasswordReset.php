@@ -45,9 +45,9 @@ abstract class RequestPasswordReset implements FieldInterface
 
                     // Fallback to householder if any
                     if (!$email && $user->getOwner()) {
-                        $repository->getAclFilter()->setEnabled(false);
-                        $email = $user->getOwner()->getEmail();
-                        $repository->getAclFilter()->setEnabled(true);
+                        $email = $repository->getAclFilter()->runWithoutAcl(function () use ($user) {
+                            return $user->getOwner()->getEmail();
+                        });
 
                         $relationship = $user->getFamilyRelationship();
                     }

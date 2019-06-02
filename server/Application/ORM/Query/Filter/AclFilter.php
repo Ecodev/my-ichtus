@@ -8,7 +8,6 @@ use Application\Model\User;
 use Application\Repository\LimitedAccessSubQueryInterface;
 use Doctrine\ORM\Mapping\ClassMetaData;
 use Doctrine\ORM\Query\Filter\SQLFilter;
-use LogicException;
 
 /**
  * Automatically filter objects according to what user is allowed to access.
@@ -42,26 +41,48 @@ class AclFilter extends SQLFilter
     private $disabledCount = 0;
 
     /**
-     * Enable or disable the filter
+     * Disable the ACL filter forever
+     *
+     * The only way to re-enable it is to create a new instance.
+     */
+    public function disableForever(): void
+    {
+        $this->setEnabled(false);
+    }
+
+    /**
+     * Run the given callable with ACL temporarily disabled
      *
      * This method MUST be used instead of `$entityManager->getFilters()->enable()` because
      * that method destroy the filter object and thus losing the current user. So to keep
      * our internal state intact we must implement a custom enable/disable mechanism.
      *
+     * @param callable $callable
+     *
+     * @return mixed whatever the callable returned
+     */
+    public function runWithoutAcl(callable $callable)
+    {
+        $this->setEnabled(false);
+
+        try {
+            return $callable();
+        } finally {
+            $this->setEnabled(true);
+        }
+    }
+
+    /**
+     * Enable or disable the filter
+     *
      * @param bool $enabled
      */
-    public function setEnabled(bool $enabled): void
+    private function setEnabled(bool $enabled): void
     {
         if ($enabled) {
             --$this->disabledCount;
         } else {
             ++$this->disabledCount;
-        }
-
-        if ($this->disabledCount < 0) {
-            $this->disabledCount = 0;
-
-            throw new LogicException('The ACL filter must not be enabled more times that it has been disabled');
         }
     }
 

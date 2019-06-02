@@ -72,9 +72,7 @@ class Importer
         $reader = new Reader(Config::getDefault());
         $this->message = $reader->readFile($file);
 
-        $this->userRepository->getAclFilter()->setEnabled(false);
-
-        try {
+        $this->userRepository->getAclFilter()->runWithoutAcl(function (): void {
             $records = $this->message->getRecords();
             foreach ($records as $record) {
                 $this->bankAccount = $this->loadAccount($record);
@@ -83,9 +81,7 @@ class Importer
                     $this->importTransaction($entry);
                 }
             }
-        } finally {
-            $this->userRepository->getAclFilter()->setEnabled(true);
-        }
+        });
 
         return $this->transactions;
     }

@@ -37,9 +37,9 @@ abstract class Register implements FieldInterface
                 $repository = _em()->getRepository(User::class);
 
                 /** @var User $user */
-                $repository->getAclFilter()->setEnabled(false);
-                $user = $repository->findOneByEmail($args['email']);
-                $repository->getAclFilter()->setEnabled(true);
+                $user = $repository->getAclFilter()->runWithoutAcl(function () use ($repository, $args) {
+                    return $repository->findOneByEmail($args['email']);
+                });
 
                 $existingUser = (bool) $user;
                 if (!$existingUser) {

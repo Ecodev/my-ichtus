@@ -45,45 +45,44 @@ class Invoicer
     public function invoicePeriodic(?User $user = null): int
     {
         $this->count = 0;
-        $this->bookingRepository->getAclFilter()->setEnabled(false);
-        $bookings = $this->bookingRepository->getAllToInvoice($user);
 
-        $user = null;
-        $bookingPerUser = [];
+        $this->bookingRepository->getAclFilter()->runWithoutAcl(function () use ($user): void {
+            $bookings = $this->bookingRepository->getAllToInvoice($user);
 
-        /** @var Booking $booking */
-        foreach ($bookings as $booking) {
-            if ($user !== $booking->getOwner()) {
-                $this->createTransaction($user, $bookingPerUser, false);
+            $user = null;
+            $bookingPerUser = [];
 
-                $user = $booking->getOwner();
-                $bookingPerUser = [];
+            /** @var Booking $booking */
+            foreach ($bookings as $booking) {
+                if ($user !== $booking->getOwner()) {
+                    $this->createTransaction($user, $bookingPerUser, false);
+
+                    $user = $booking->getOwner();
+                    $bookingPerUser = [];
+                }
+
+                $bookingPerUser[] = $booking;
             }
-
-            $bookingPerUser[] = $booking;
-        }
-        $this->createTransaction($user, $bookingPerUser, false);
-
-        $this->bookingRepository->getAclFilter()->setEnabled(true);
+            $this->createTransaction($user, $bookingPerUser, false);
+        });
 
         return $this->count;
     }
 
     public function invoiceInitial(User $user, Booking $booking): void
     {
-        $this->bookingRepository->getAclFilter()->setEnabled(false);
+        $this->bookingRepository->getAclFilter()->runWithoutAcl(function () use ($user, $booking): void {
+            if ($booking->getId() || $booking->getStatus() !== BookingStatusType::BOOKED) {
+                return;
+            }
 
-        if ($booking->getId() || $booking->getStatus() !== BookingStatusType::BOOKED) {
-            return;
-        }
+            $bookable = $booking->getBookable();
+            if ($bookable->getInitialPrice()->isZero() && $bookable->getPeriodicPrice()->isZero()) {
+                return;
+            }
 
-        $bookable = $booking->getBookable();
-        if ($bookable->getInitialPrice()->isZero() && $bookable->getPeriodicPrice()->isZero()) {
-            return;
-        }
-
-        $this->createTransaction($user, [$booking], true);
-        $this->bookingRepository->getAclFilter()->setEnabled(true);
+            $this->createTransaction($user, [$booking], true);
+        });
     }
 
     private function createTransaction(?User $user, array $bookings, bool $isInitial): void

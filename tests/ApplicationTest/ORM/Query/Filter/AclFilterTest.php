@@ -63,24 +63,48 @@ class AclFilterTest extends TestCase
 
         $this->assertNotSame('', $filter->addFilterConstraint($targetEntity, 'test'), 'enabled by default');
 
-        $filter->setEnabled(false);
-        $this->assertSame('', $filter->addFilterConstraint($targetEntity, 'test'), 'can disable');
+        $filter->runWithoutAcl(function () use ($filter, $targetEntity): void {
+            $this->assertSame('', $filter->addFilterConstraint($targetEntity, 'test'), 'can disable');
 
-        $filter->setEnabled(false);
-        $this->assertSame('', $filter->addFilterConstraint($targetEntity, 'test'), 'can disable one more time and still disabled');
+            $filter->runWithoutAcl(function () use ($filter, $targetEntity): void {
+                $this->assertSame('', $filter->addFilterConstraint($targetEntity, 'test'), 'can disable one more time and still disabled');
+            });
 
-        $filter->setEnabled(true);
-        $this->assertSame('', $filter->addFilterConstraint($targetEntity, 'test'), 'enable once and still disabled');
+            $this->assertSame('', $filter->addFilterConstraint($targetEntity, 'test'), 'enable once and still disabled');
+        });
 
-        $filter->setEnabled(true);
         $this->assertNotSame('', $filter->addFilterConstraint($targetEntity, 'test'), 'enabled a second time and really enabled');
     }
 
-    public function testEnablingTooMuchWillThrowException(): void
+    public function testDisableForever(): void
     {
         $filter = new AclFilter(_em());
+        $targetEntity = _em()->getMetadataFactory()->getMetadataFor(User::class);
 
-        $this->expectExceptionMessage('The ACL filter must not be enabled more times that it has been disabled');
-        $filter->setEnabled(true);
+        $this->assertNotSame('', $filter->addFilterConstraint($targetEntity, 'test'), 'enabled by default');
+
+        $filter->disableForever();
+        $this->assertSame('', $filter->addFilterConstraint($targetEntity, 'test'), 'disabled forever');
+
+        $filter->runWithoutAcl(function () use ($filter, $targetEntity): void {
+            $this->assertSame('', $filter->addFilterConstraint($targetEntity, 'test'), 'also disabled forever anyway');
+        });
+
+        $this->assertSame('', $filter->addFilterConstraint($targetEntity, 'test'), 'still disabled forever');
+    }
+
+    public function testExceptionWillReEnableFilter(): void
+    {
+        $filter = new AclFilter(_em());
+        $targetEntity = _em()->getMetadataFactory()->getMetadataFor(User::class);
+
+        try {
+            $filter->runWithoutAcl(function () use ($filter, $targetEntity): void {
+                throw new \Exception();
+            });
+        } catch (\Exception $e) {
+        }
+
+        $this->assertNotSame('', $filter->addFilterConstraint($targetEntity, 'test'), 'enabled even after exception');
     }
 }
