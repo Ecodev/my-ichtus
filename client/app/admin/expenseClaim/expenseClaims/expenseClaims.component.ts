@@ -33,5 +33,6 @@ export class ExpenseClaimsComponent extends NaturalAbstractList<ExpenseClaims['e
 
         );
 
+        this.naturalSearchFacets = naturalSearchFacetsService.get('expenseClaims');
     }
 }

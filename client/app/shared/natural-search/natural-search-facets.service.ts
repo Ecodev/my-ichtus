@@ -184,6 +184,8 @@ export class NaturalSearchFacetsService {
             this.userWelcomeSession,
             this.licenses,
             this.receivesNewsletter,
+            this.creationDate,
+            this.updateDate,
         ],
         transactionLines: [
             this.transaction,
@@ -321,6 +323,38 @@ export class NaturalSearchFacetsService {
                     step: 1,
                 },
             } as DropdownFacet<TypeNumberConfiguration>,
+            this.creationDate,
+            this.updateDate,
+        ],
+        expenseClaims: [
+            this.name,
+            {
+                display: 'Type',
+                field: 'type',
+                component: TypeSelectComponent,
+                configuration: {
+                    items: this.enumService.get('ExpenseClaimType'),
+                }
+            } as DropdownFacet<TypeSelectConfiguration>,
+            this.owner,
+            {
+                display: 'Statut',
+                field: 'status',
+                component: TypeSelectComponent,
+                configuration: {
+                    items: this.enumService.get('ExpenseClaimStatus'),
+                }
+            } as DropdownFacet<TypeSelectConfiguration>,
+            {
+                display: 'Montant',
+                field: 'amount',
+                component: TypeNumberComponent,
+                configuration: {
+                    step: 1,
+                },
+            } as DropdownFacet<TypeNumberConfiguration>,
+            this.creationDate,
+            this.updateDate,
         ],
     };
 
