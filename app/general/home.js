@@ -1,5 +1,5 @@
 ﻿//options
-var options = { bookablesComment: false, statsButtonTextActive: false, showRemarks: true }; //showMetadatas: false,
+var options = { bookablesComment: false, statsButtonTextActive: false, showRemarks: true, automaticConnexion: true }; //showMetadatas: false,
 
 // shortcut
 function $(id) {

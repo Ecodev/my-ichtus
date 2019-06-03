@@ -73,7 +73,7 @@ tabs.push({
 tabs.push({ id: "divTabCahierEquipmentBookable", order: 10, progress: 3, position: 0, TopBar: true, ListBar: true, title: "Validez cette embarcation", Enter: function () {}, Remove: function () { } });
 tabs.push({ id: "divTabCahierEquipmentCategories", order: 12, progress: 3, position: 0, TopBar: true, ListBar: true,title: "Veuillez choisir votre type d'activité", Enter: function () { }, Remove: function () { } });
 tabs.push({
-    id: "divTabCahierEquipmentElements", order: 13, progress: 3, position: 0, TopBar: true, ListBar: true, title: "Sélectionnez votre embarcation",
+    id: "divTabCahierEquipmentElements", order: 13, progress: 3, position: 0, TopBar: true, ListBar: true, title: "Sélectionnez vos embarcations",
     Enter: function () {
         MaterielElementsFirstLoad = true; Requests.getBookablesList(); $('inputTabCahierEquipmentElementsInputSearch').focus();
         $('divTabCahierTopList').children[1].style.opacity = 1;

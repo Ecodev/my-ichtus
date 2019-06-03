@@ -34,7 +34,7 @@ function popLogin() {
 
     setTimeout(function () {
 
-        if (i.value != "") {
+        if (i.value != "" && options.automaticConnexion) {
             console.warn("Connexion automatique");
             Requests.login(i.value);
         }

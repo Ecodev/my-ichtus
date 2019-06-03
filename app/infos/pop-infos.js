@@ -99,7 +99,7 @@ function popCahierInfos(nbr = 0) {
         div(p).innerHTML = "La Ramée";
         div(p).innerHTML = "La Tène";
         div(p).innerHTML = "Neuchâtel";
-        div(p).innerHTML = "Cudrefin";
+        div(p).innerHTML = "Hauterive";
 
         writeDestination(i);
 
