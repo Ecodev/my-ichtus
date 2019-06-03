@@ -9,6 +9,7 @@ use Application\Api\Input\PaginationInputType;
 use Application\Model\AbstractModel;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use GraphQL\Type\Definition\Type;
+use Money\Money;
 use ReflectionClass;
 
 /**
@@ -40,7 +41,8 @@ abstract class Standard
                 'type' => Type::nonNull(_types()->get($shortName . 'Pagination')),
                 'args' => $listArgs,
                 'resolve' => function ($root, array $args) use ($class): array {
-                    $qb = _types()->createFilteredQueryBuilder($class, $args['filter'] ?? [], $args['sorting'] ?? []);
+                    $filters = self::customTypesToScalar($args['filter'] ?? []);
+                    $qb = _types()->createFilteredQueryBuilder($class, $filters, $args['sorting'] ?? []);
 
                     $items = Helper::paginate($args['pagination'], $qb);
                     $aggregatedFields = Helper::aggregatedFields($class, $qb);
@@ -310,5 +312,26 @@ abstract class Standard
         ];
 
         return $defaultSorting;
+    }
+
+    /**
+     * Recursively convert custom scalars that don't implement __toString() to their scalar
+     * representation to injected back into DQL/SQL
+     *
+     * @param array $args
+     *
+     * @return array
+     */
+    private static function customTypesToScalar(array $args): array
+    {
+        foreach ($args as &$p) {
+            if (is_array($p)) {
+                $p = self::customTypesToScalar($p);
+            } elseif ($p instanceof Money) {
+                $p = $p->getAmount();
+            }
+        }
+
+        return $args;
     }
 }

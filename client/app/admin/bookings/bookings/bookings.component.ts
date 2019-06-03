@@ -31,5 +31,6 @@ export class BookingsComponent extends NaturalAbstractList<Bookings['bookings'],
             persistenceService,
 
         );
+        this.naturalSearchFacets = naturalSearchFacetsService.get('bookings');
     }
 }
