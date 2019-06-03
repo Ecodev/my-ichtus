@@ -302,6 +302,26 @@ export class NaturalSearchFacetsService {
             this.creationDate,
             this.updateDate,
         ],
+        accounts: [
+            this.name,
+            this.code,
+            {
+                display: 'Type',
+                field: 'type',
+                component: TypeSelectComponent,
+                configuration: {
+                    items: this.enumService.get('AccountType'),
+                }
+            } as DropdownFacet<TypeSelectConfiguration>,
+            {
+                display: 'Solde',
+                field: 'balance',
+                component: TypeNumberComponent,
+                configuration: {
+                    step: 1,
+                },
+            } as DropdownFacet<TypeNumberConfiguration>,
+        ],
     };
 
     constructor(
