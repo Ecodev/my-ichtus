@@ -34,7 +34,7 @@ var Requests = {
                 }
             } else {
                 // connecté
-                console.warn("Connecté");
+                console.warn("Connecté à " + new Date().getNiceTime());
                 Requests.getActualBookingList();
             }
         });
