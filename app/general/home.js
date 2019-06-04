@@ -63,7 +63,9 @@ function load() {
 
 // auto actualize if mouse doesn't move
 var timeout;
-document.onmousemove = function () {
+
+function setTimeoutMove() {
+    //console.log("start timeout");
     clearTimeout(timeout);
     timeout = setTimeout(function () {
         if (currentTabElement.id === "divTabCahier") {
@@ -73,6 +75,12 @@ document.onmousemove = function () {
             Requests.getActualBookingList();
         }
     }, 1 * 60 * 1000);
+}
+
+setTimeoutMove();
+
+document.onmousemove = function () {
+    setTimeoutMove();
 };
 
 
