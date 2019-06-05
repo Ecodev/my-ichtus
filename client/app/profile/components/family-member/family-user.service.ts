@@ -4,7 +4,7 @@ import { Apollo } from 'apollo-angular';
 import { Router } from '@angular/router';
 import { BookingService } from '../../../admin/bookings/services/booking.service';
 import { PermissionsService } from '../../../shared/services/permissions.service';
-import { Relationship } from '../../../shared/generated-types';
+import { Relationship, UserRole, UserStatus } from '../../../shared/generated-types';
 import { FormValidators } from '@ecodev/natural';
 import { PricedBookingService } from '../../../admin/bookings/services/PricedBooking.service';
 
@@ -28,6 +28,11 @@ export class FamilyUserService extends UserService {
             hasInsurance: false,
             termsAgreement: false,
             familyRelationship: Relationship.partner,
+            role: UserRole.individual,
+            status: UserStatus.active,
+            door1: true,
+            door2: true,
+            door3: true,
         };
     }
 
