@@ -12,7 +12,7 @@ function actualizeBookableList() {
 
         if (Cahier.bookings[0].bookables[i] != Cahier.personalBookable) {
             d.onclick = function (event) {
-                if (event.target == this.children[0] || event.target == this.children[2]) {
+                if (event.target == this.children[0] || event.target == this.children[2] || event.target == this.children[3]) {
                     popBookable(Cahier.bookings[0].bookables[this.id].id);
                 }
             };
@@ -35,6 +35,11 @@ function actualizeBookableList() {
             code.style.fontSize = "12px";
         }
         code.innerHTML = bookables[i].code;
+
+        if (bookables[i].available == false) {
+            var alert = div(d);
+          //  code.style.color = "red";
+        }
     }
 
     if (bookables.length == 0) {

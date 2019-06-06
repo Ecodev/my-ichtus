@@ -647,32 +647,49 @@ var Requests = {
             Server.bookingService.getAll(variables).subscribe(bookings => {
                 //console.log("getBookableInfos()_getLastBooking: ", bookings);
                 actualizePopBookable(nbr, result.items[0], bookings, elem, []);
-
-                //var filter = {
-                //    filter: {
-                //        groups: [{
-                //            conditions: [{
-                //                bookable: {
-                //                    have:
-                //                        { values: [bookableId] }
-
-                //                }
-                //            }
-                //            ]
-                //        }]
-                //    }
-                //};
-
-                //var variables = new Server.QueryVariablesManager();
-                //variables.set('variables', filter);
-
-                //// $$ $$ modify $$
-                //Server.bookableMetaDataService.getAll(variables).subscribe(metadatas => {
-                //   //console.log("getBookableInfos()_getMetadatas: ", metadatas);
-                //  //  actualizePopBookable(nbr, result.items[0], bookings, elem, metadatas.items); //metadatas.items);
-                //});
             });
         });
+    },
+
+
+    getBookableLastBooking: function (bookableId) {
+
+        var filter = {
+            filter: {
+                groups: [
+                    {
+                        joins: {
+                            bookable: {
+                                conditions: [{
+                                    id: {
+                                        like: {
+                                            value: bookableId
+                                        }
+                                    }
+                                }]
+                            }
+                        }
+                    }
+                ]
+            },
+            pagination: {
+                pageSize: 1,
+                pageIndex: 0
+            },
+            sorting: [{
+                field: "startDate",
+                order: "DESC" // important
+            }]
+        };
+
+        var variables = new Server.QueryVariablesManager();
+        variables.set('variables', filter);
+
+        Server.bookingService.getAll(variables).subscribe(bookings => {
+            console.log("getBookableLastBooking(): ", bookings);
+            Cahier.actualizeAvailability(bookableId, bookings.items);
+        });
+
     },
 
 

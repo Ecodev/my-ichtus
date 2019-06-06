@@ -152,6 +152,20 @@
                 cursor: pointer;
             }
 
+
+            #divTabCahierTopList > div:first-child > div > div:nth-child(4) {
+                position: absolute;
+                width: 25px;
+                height: 25px;
+                left: 2px;
+                bottom: 2px;
+
+                background-image:url(../img/icons/alert.png);
+                background-repeat:no-repeat;
+                background-size:25px;
+                cursor:pointer;
+            }
+
     #divTabCahierTopList > div:nth-child(2) {
         width: 90px;
         margin-top: 10px;

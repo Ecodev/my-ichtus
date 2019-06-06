@@ -15,7 +15,9 @@ function loadElements(bookables ,nbr = 0) {
         container = document.createElement("div");
         container.id = i;
 
-        if (codes.findIndex(bookables[i].code) != -1) {
+        var x = codes.findIndex(bookables[i].code);
+
+        if (x !== -1) {
             container.classList.add("selected");
             container.onclick = function (event) {
                 if (!(event.target.classList.contains("infoJS"))) {
@@ -65,6 +67,7 @@ function loadElements(bookables ,nbr = 0) {
         info.onclick = function () {
             popBookable(this.id);
         };
+
 
         if (bookables[i].licenses.length > 0) {
             var license = div(secondContainer);

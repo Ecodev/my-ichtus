@@ -228,16 +228,44 @@ var Cahier = {
 
     },
 
-    addBookable: function (nbr = 0, _bookable = Cahier.personalBookable) {
+    addBookable: function (nbr = 0, _bookable = Cahier.personalBookable, _available) {
         Cahier.bookings[nbr].bookables.push(_bookable);
-        actualizeBookableList();
+
 
         if (_bookable == Cahier.personalBookable) {
             document.getElementsByClassName("divTabCahierEquipmentChoiceContainer")[0].children[3].children[0].classList.add("buttonNonActive");
         }
+        else if (_available != undefined) {
+            Cahier.bookings[nbr].bookables[Cahier.bookings[nbr].bookables.length - 1].available = _available;
+            console.log("automatic", _available);
+        }
+        else {
+            Requests.getBookableLastBooking(_bookable.id);
+            console.log("need request");
+        }
 
         //console.log("setBookable(): ", nbr, Cahier.bookings[nbr].bookables);
+        actualizeBookableList();
         Cahier.actualizeConfirmation();
+    },
+
+    actualizeAvailability: function (bookableId, bookings) {
+
+        for (var i = 0; i < Cahier.bookings[0].bookables.length; i++) {
+            if (Cahier.bookings[0].bookables[i].id === bookableId.toString()) {
+                break;
+            }
+        }
+
+        if (bookings.length !== 0) {
+            Cahier.bookings[0].bookables[i].available = bookings[0].endDate == null ? false : true;
+        }
+        else {
+            Cahier.bookings[0].bookables[i].available = true;
+        }
+
+        console.log(Cahier.bookings[0].bookables[i].available);
+        actualizeBookableList();
     },
 
     removeBookable: function (nbr = 0, _bookable = 0) {

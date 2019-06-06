@@ -235,7 +235,6 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
             else {
                 allDivTexts[2].innerHTML = "Pas encore rentré";
             }
-
         }
         else {
             allDivTexts[2].innerHTML = (new Date(booking.endDate)).getNiceTime();
@@ -300,7 +299,8 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
             var emb = div(embContainer);
             emb.className = "divTabCahierConfirmationEmbarcationBox";
             var img = div(emb);
-            img.style.backgroundImage = "url(img/icons/info.png)," + Cahier.getImageUrl(booking.bookables[i]);
+
+            img.style.backgroundImage = booking.bookables[i].available === false ? "url(img/icons/info.png), url(img/icons/alert.png)," + Cahier.getImageUrl(booking.bookables[i]) : "url(img/icons/info.png), none," + Cahier.getImageUrl(booking.bookables[i]);
             div(img);
 
             texts = div(emb);
@@ -316,6 +316,12 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
             else {
                 img.addEventListener("click", function () { popBookable(booking.bookables[i].id); });
             }
+
+            //if (which === "confirmation" && ) {
+            //    var a = div(emb);
+            //    a.innerHTML = "asdfasdf";
+            //    console.log("alert");
+            //}
 
             if (which == "finish" && options.bookablesComment) {
 
