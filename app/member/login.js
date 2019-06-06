@@ -32,8 +32,6 @@ function popLogin() {
     b.innerHTML = "Connexion";
     b.addEventListener("click", function () { Requests.login(this.parentElement.getElementsByTagName("input")[0].value); });
 
-    i.focus();
-
     setTimeout(function () {
 
         i.focus();
