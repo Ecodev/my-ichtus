@@ -144,8 +144,21 @@ var Cahier = {
             popAlertMoreBookablesThanParticipants(Cahier.bookings[0].bookables.length, Cahier.bookings[0].participantCount);
         }
         else {
-            Requests.createBooking();
-            animate();
+
+            // if bookables already used
+            for (var i = 0; i < Cahier.bookings[0].bookables.length; i++) {
+                if (Cahier.bookings[0].bookables[i].available === false) {
+                    break;
+                }
+            }
+
+            if (Cahier.bookings[0].bookables.length != i) {
+                popAlertBookablesNotAvailable();
+            }
+            else {
+                Requests.createBooking();
+                animate();
+            }
         //console.log("--> Cahier.confirm()");
         }
 
@@ -228,20 +241,21 @@ var Cahier = {
 
     },
 
-    addBookable: function (nbr = 0, _bookable = Cahier.personalBookable, _available) {
+    addBookable: function (nbr = 0, _bookable = Cahier.personalBookable, _lastBooking) {
         Cahier.bookings[nbr].bookables.push(_bookable);
 
 
         if (_bookable == Cahier.personalBookable) {
             document.getElementsByClassName("divTabCahierEquipmentChoiceContainer")[0].children[3].children[0].classList.add("buttonNonActive");
         }
-        else if (_available != undefined) {
-            Cahier.bookings[nbr].bookables[Cahier.bookings[nbr].bookables.length - 1].available = _available;
-            console.log("automatic", _available);
+        else if (_lastBooking != undefined) {
+            Cahier.bookings[nbr].bookables[Cahier.bookings[nbr].bookables.length - 1].available = _lastBooking.endDate == null ? false : true;
+            Cahier.bookings[nbr].bookables[Cahier.bookings[nbr].bookables.length - 1].lastBooking = _lastBooking;
+           //console.log("automatic", Cahier.bookings[nbr].bookables[Cahier.bookings[nbr].bookables.length - 1].available);
         }
         else {
             Requests.getBookableLastBooking(_bookable.id);
-            console.log("need request");
+           //console.log("need request");
         }
 
         //console.log("setBookable(): ", nbr, Cahier.bookings[nbr].bookables);
@@ -259,12 +273,11 @@ var Cahier = {
 
         if (bookings.length !== 0) {
             Cahier.bookings[0].bookables[i].available = bookings[0].endDate == null ? false : true;
+            Cahier.bookings[0].bookables[i].lastBooking = bookings[0];
         }
         else {
             Cahier.bookings[0].bookables[i].available = true;
         }
-
-        console.log(Cahier.bookings[0].bookables[i].available);
         actualizeBookableList();
     },
 

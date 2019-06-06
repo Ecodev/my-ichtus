@@ -343,6 +343,16 @@ Array.prototype.findIndex = function (x) {
     return index;
 };
 
+Array.prototype.deleteMultiples = function () {
+    var r = [];
+    for (var i = 0; i < this.length; i++) {
+        if (r.findIndex(this[i]) === -1) {
+            r.push(this[i]);
+        }
+    }
+    return r;
+}
+
 // sortBy
 Array.prototype.sortBy = function (sortFields, order = 1) {
 

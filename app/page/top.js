@@ -3,7 +3,7 @@ var cancelFunction;
 var info;
 
 // see ServerRequests for skipping animation
-function ableToSkipAnimaiton() {
+function ableToSkipAnimation() {
     document.body.addEventListener("mousedown", cancelFunction);
     info = div(document.body);
     info.innerHTML = "Cliquer pour passer l'animation";

@@ -38,7 +38,7 @@ function popCahierInfos(nbr = 0) {
                 writeNbrInvites(this);
             });
             i.addEventListener("focusin", function () {
-                this.value = "";
+                if (this.value == '1') { this.value = ''; }
                 writeNbrInvites(this);
                 focusInOrOut(this, true);
             });

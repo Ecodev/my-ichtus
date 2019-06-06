@@ -686,7 +686,7 @@ var Requests = {
         variables.set('variables', filter);
 
         Server.bookingService.getAll(variables).subscribe(bookings => {
-            console.log("getBookableLastBooking(): ", bookings);
+          //  console.log("getBookableLastBooking(): ", bookings);
             Cahier.actualizeAvailability(bookableId, bookings.items);
         });
 
@@ -1249,15 +1249,20 @@ var Requests = {
 
 
     // finishBooking
-    terminateBooking: function (bookingIds = [], comments = []) {
+    terminateBooking: function (bookingIds = [], comments = [], realTerminate = true) {
         var c = 0;
         for (var i = 0; i < bookingIds.length; i++) {
             //console.log("terminateBooking", bookingIds[i], comments[i]);
             Server.bookingService.terminateBooking(bookingIds[i], comments[i]).subscribe(result => {
                 c++;
-                if (c == bookingIds.length) {
+                if (c === bookingIds.length) {
+                    if (realTerminate) {
+                        Requests.getActualBookingList();
+                    }
+                    else {
+                        Requests.createBooking();
+                    }
                     //console.log("this.terminateBooking done !");
-                    Requests.getActualBookingList();
                 }
             });
         }
@@ -1289,7 +1294,7 @@ var Requests = {
 
             Server.bookingService.create(input).subscribe(booking => {
                 Requests.counter++;
-                if (Requests.counter == Cahier.bookings[0].bookables.length) { newTab("divTabCahier"); ableToSkipAnimaiton(); }
+                if (Requests.counter == Cahier.bookings[0].bookables.length) { newTab("divTabCahier"); ableToSkipAnimation(); }
             });
 
         }

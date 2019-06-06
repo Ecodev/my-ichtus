@@ -182,7 +182,7 @@
 
                 <div class="divTabCahierInfosNbrInvites TabCahierFields">
                     Nbr de participants
-                    <input autocomplete="off" type="number" min="1" max="20" spellcheck="false" placeholder="1" value="1" onkeyup="writeNbrInvites(this);" onfocusin="this.value =''; writeNbrInvites(this); focusInOrOut(this,true);" onfocusout="if (this.value == '') { this.value = '1'; writeNbrInvites(this);}focusInOrOut(this,false);" />
+                    <input autocomplete="off" type="number" min="1" max="20" spellcheck="false" placeholder="1" value="1" onkeyup="writeNbrInvites(this);" onfocusin="if (this.value == '1') { this.value = '';}; writeNbrInvites(this); focusInOrOut(this,true);" onfocusout="if (this.value == '') { this.value = '1'; writeNbrInvites(this);}focusInOrOut(this,false);" />
                     <div></div>
                     <div class="divTabCahierInfosNbrInvitesPropositions PropositionsContainer">
                         <div> 1 </div><div> 2 </div><div> 3 </div><div> 4 </div><div> 5 </div><div> 8 </div><div> 10 </div>

@@ -81,12 +81,10 @@ function actualizePopBookable(nbr, bookable,bookings, elem) {
     }
 
 
-    var available = true;
 
     if (bookings.length != 0) {
         if (currentTabElement.id != "divTabCahier" && bookings.items[0].endDate == null) {
             //console.log("embarcation déjà utilisée");
-            available = false;
             elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].innerHTML = "Cette embarcation semble déjà être utlisée par " + Cahier.getOwner(bookings.items[0], false);
             elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].style.color = "red";
             elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].style.backgroundImage = "url(img/icons/alert.png)";
@@ -113,7 +111,7 @@ function actualizePopBookable(nbr, bookable,bookings, elem) {
 
         var choseFunction = function () {
 
-            Cahier.addBookable(nbr, bookable, available);
+            Cahier.addBookable(nbr, bookable, bookings.items[0]);
 
             newTab('divTabCahierEquipmentChoice');
 
