@@ -35,13 +35,17 @@ function popLogin() {
     setTimeout(function () {
 
         i.focus();
-        if (i.value != "" && options.automaticConnexion) {
-            console.warn("Connexion automatique");
-            Requests.login(i.value);
-        }
-        else {
-            console.warn("Pas de connexion automatique");
-        }
 
-    }, 1000);
+        setTimeout(function () {
+
+            if (i.value != "" && options.automaticConnexion) {
+                console.warn("Connexion automatique");
+                Requests.login(i.value);
+            }
+            else {
+                console.warn("Pas de connexion automatique");
+            }
+        }, 50);
+
+    }, 800);
 }

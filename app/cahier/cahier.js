@@ -58,6 +58,10 @@ function actualizeActualBookings(_actualBookings) {
         container.classList.add("TableEntries");
         container.classList.add("TableEntriesHover");
 
+        if (_actualBookings[i].creator.name === "Booking Only" && options.seeWhichApplication) {
+            container.style.backgroundColor = "lightblue";
+        }
+
         container.addEventListener("click", function (event) {
 
             if (event.target.classList.contains("Buttons")) {
@@ -424,6 +428,10 @@ function actualizeFinishedBookingListForDay(bookings,table) {
                 }
 
             });
+
+            if (bookings[i].creator.name === "Booking Only" && options.seeWhichApplication) {
+                entry.style.backgroundColor = "lightblue";
+            }
 
             div(entry).innerHTML = (new Date(bookings[i].startDate)).getNiceTime(":", true);
             div(entry).innerHTML = (new Date(bookings[i].endDate)).getNiceTime(":", true);
