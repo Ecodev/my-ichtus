@@ -78,7 +78,7 @@ export class NaturalSearchFacetsService {
     private readonly userWelcomeSession: FlagFacet = {
         display: 'N\'a pas été accueilli',
         field: 'welcomeSessionDate',
-        condition: {true: {}} as UserFilterGroupCondition,
+        condition: {null: {}} as UserFilterGroupCondition,
     };
 
     private readonly receivesNewsletter: FlagFacet = {
