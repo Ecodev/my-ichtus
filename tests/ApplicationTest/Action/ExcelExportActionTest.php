@@ -31,6 +31,9 @@ class ExcelExportActionTest extends TestCase
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         $response = curl_exec($ch);
+
+        $this->assertNotFalse($response, curl_error($ch));
+
         $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
         $header = mb_substr($response, 0, $headerSize);
 
