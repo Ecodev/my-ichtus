@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { NaturalAbstractModelService, FormValidators } from '@ecodev/natural';
-import { transactionLineQuery, transactionLinesQuery } from './transactionLine.queries';
+import { transactionLineQuery, transactionLinesQuery, transactionLinesForExportQuery } from './transactionLine.queries';
 import {
     Account,
     LogicalOperator,
@@ -14,8 +14,9 @@ import {
     TransactionLineVariables,
 } from '../../../shared/generated-types';
 import { FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
-import { NaturalQueryVariablesManager } from '@ecodev/natural';
+import { Observable, Subject} from 'rxjs';
+import { map } from 'rxjs/operators';
+import { NaturalQueryVariablesManager, NaturalUtility } from '@ecodev/natural';
 
 function atLeastOneAccount(formGroup: FormGroup): ValidationErrors | null {
     if (!formGroup || !formGroup.controls) {
@@ -103,4 +104,15 @@ export class TransactionLineService extends NaturalAbstractModelService<Transact
         return this.watchAll(qvm, expire);
     }
 
+    public getExportLink(qvm: NaturalQueryVariablesManager<TransactionLinesVariables>): Observable<string> {
+
+        return this.apollo.query<any>({
+           query: transactionLinesForExportQuery,
+           variables: qvm.variables.value,
+        }).pipe(map(result => {
+            const plural = NaturalUtility.makePlural(this.name);
+            return result.data[plural].excelExport;
+        }));
+
+    }
 }

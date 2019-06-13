@@ -45,8 +45,9 @@ abstract class Standard
                     $qb = _types()->createFilteredQueryBuilder($class, $filters, $args['sorting'] ?? []);
 
                     $items = Helper::paginate($args['pagination'], $qb);
+                    $exportExcelField = Helper::excelExportField($class, $qb);
                     $aggregatedFields = Helper::aggregatedFields($class, $qb);
-                    $result = array_merge($aggregatedFields, $items);
+                    $result = array_merge($aggregatedFields, $exportExcelField, $items);
 
                     return $result;
                 },

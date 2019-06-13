@@ -54,4 +54,8 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
         BodyParamsMiddleware::class,
         \Application\Action\DatatransAction::class,
     ], 'datatrans');
+
+    $app->get('/export/transactionLines/{key:[0-9a-f]+}/{name:.+\.xlsx}', [
+        \Application\Action\ExportTransactionLinesAction::class,
+    ], 'transactionsLines');
 };

@@ -49,6 +49,7 @@
         "ecodev/graphql-upload": "^4.0",
         "genkgo/camt": "^0.6.0",
         "imagine/imagine": "^1.2",
+        "phpoffice/phpspreadsheet": "^1.7",
         "zendframework/zend-component-installer": "^2.1",
         "zendframework/zend-config-aggregator": "^1.1",
         "zendframework/zend-diactoros": "^2.1",

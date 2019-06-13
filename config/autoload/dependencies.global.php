@@ -28,6 +28,7 @@ return [
             \Application\Action\ImageAction::class => \Application\Action\ImageFactory::class,
             \Application\Action\AccountingDocumentAction::class => \Application\Action\AccountingDocumentFactory::class,
             \Application\Action\DatatransAction::class => \Application\Action\DatatransFactory::class,
+            \Application\Action\ExportTransactionLinesAction::class => \Application\Action\ExportTransactionLinesFactory::class,
             \Application\Service\ImageResizer::class => \Application\Service\ImageResizerFactory::class,
             \Imagine\Image\ImagineInterface::class => \Application\Service\ImagineFactory::class,
             \Application\Service\Mailer::class => \Application\Service\MailerFactory::class,

@@ -23,7 +23,13 @@
                     <span naturalColumnsPickerColumn="isReconciled">Pointé</span>
                     <span naturalColumnsPickerColumn="expenseClaim">Quittance</span>
                 </natural-columns-picker>
+
+                <button mat-icon-button (click)="download()" matTooltip="Télécharger la liste au format Excel">
+                    <natural-icon name="file_download"></natural-icon>
+                </button>
             </natural-search>
+
+
         </div>
 
         <div class="responsive-table">
