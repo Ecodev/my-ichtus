@@ -279,6 +279,7 @@ abstract class AbstractExcel extends AbstractAction
         $writer = new Xlsx($this->workbook);
 
         $tmpFile = bin2hex(random_bytes(16));
+        @mkdir($this->tmpDir);
         $writer->save($this->tmpDir . '/' . $tmpFile);
 
         return 'https://' . $this->hostname . '/export/' . $this->routeName . '/' . $tmpFile . '/' . $this->outputFileName;
