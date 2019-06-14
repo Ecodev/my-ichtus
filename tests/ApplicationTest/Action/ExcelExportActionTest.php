@@ -8,6 +8,8 @@ use Application\Action\ExportTransactionLinesAction;
 use Application\Model\TransactionLine;
 use ApplicationTest\Traits\TestWithTransaction;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Server\RequestHandlerInterface;
+use Zend\Diactoros\ServerRequest;
 
 class ExcelExportActionTest extends TestCase
 {
@@ -15,30 +17,34 @@ class ExcelExportActionTest extends TestCase
 
     public function testExportTransactionLines(): void
     {
-        // Query to generate the Excel file
+        // Query to generate the Excel file on disk
         $hostname = 'my-ichtus.lan';
         $qb = _em()->getRepository(TransactionLine::class)->createQueryBuilder('tl');
         $action = new ExportTransactionLinesAction($hostname);
         $url = $action->generate($qb->getQuery());
 
-        $this->assertStringStartsWith('https://' . $hostname . '/export/transactionLines/', $url);
+        $baseUrl = 'https://' . $hostname . '/export/transactionLines/';
 
-        // Try to download the Excel file
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        $response = curl_exec($ch);
+        $this->assertStringStartsWith($baseUrl, $url);
 
-        $this->assertNotFalse($response, curl_error($ch));
+        preg_match('#' . $baseUrl . '([0-9a-f]+)/(.+)#', $url, $m);
 
-        $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-        $header = mb_substr($response, 0, $headerSize);
+        // Make sure the XLSX file was generated on disk
+        $fpath = 'data/tmp/excel/' . $m[1];
+        $this->assertFileExists($fpath);
+        $size = filesize($fpath);
 
-        $this->assertStringContainsStringIgnoringCase('content-disposition: attachment; filename=Ichtus_compta_ecritures', $header);
-        $this->assertStringContainsStringIgnoringCase('content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', $header);
-        $this->assertRegExp('/content\-length: [1-9][0-9]+/', $header);
+        // Test middleware action to download the Excel file
+        $action = new ExportTransactionLinesAction('my-ichtus.lan');
+        // Mock route parsing: /export/transactionLines/{key:[0-9a-f]+}/{name:.+\.xlsx}
+        $request = (new ServerRequest())->withAttribute('key', $m[1])->withAttribute('name', $m[2]);
+
+        $handler = $this->prophesize(RequestHandlerInterface::class);
+
+        $response = $action->process($request, $handler->reveal());
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertStringContainsString('attachment; filename=Ichtus_compta_ecritures', $response->getHeaderLine('content-disposition'));
+        $this->assertEquals($size, $response->getHeaderLine('content-length'));
     }
 }
