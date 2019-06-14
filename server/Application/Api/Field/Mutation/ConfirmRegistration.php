@@ -39,8 +39,12 @@ abstract class ConfirmRegistration implements FieldInterface
                     return $repository->findOneByToken($args['token']);
                 });
 
-                if (!$user || !$user->isTokenValid()) {
+                if (!$user) {
                     throw new Exception('Cannot confirm registration with an invalid token');
+                }
+
+                if (!$user->isTokenValid()) {
+                    throw new Exception('Le lien que vous avez suivi est périmé. Veuillez effectuer une nouvelle demande.');
                 }
 
                 $input = $args['input'];

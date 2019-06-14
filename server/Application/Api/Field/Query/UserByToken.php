@@ -31,8 +31,12 @@ abstract class UserByToken implements FieldInterface
                         return $repository->findOneByToken($args['token']);
                     });
 
-                    if (!$user || !$user->isTokenValid()) {
+                    if (!$user) {
                         throw new Exception('User not found for token `' . $args['token'] . '`.');
+                    }
+
+                    if (!$user->isTokenValid()) {
+                        throw new Exception('Le lien que vous avez suivi est périmé. Veuillez effectuer une nouvelle demande.');
                     }
 
                     // Set current user for his ACL, but not in persisted session, only for the remaining execution time.
