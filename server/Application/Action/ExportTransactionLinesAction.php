@@ -58,9 +58,10 @@ class ExportTransactionLinesAction extends AbstractExcel
         $currentTransactionId = null;
 
         $mergeRowsFromColumns = [
-            $initialColumn + 1, // Transaction.name
-            $initialColumn + 2, // Transaction.remarks
-            $initialColumn + 3, // Transaction.internalRemarks
+            $initialColumn + 1, // Transaction.ID
+            $initialColumn + 2, // Transaction.name
+            $initialColumn + 3, // Transaction.remarks
+            $initialColumn + 4, // Transaction.internalRemarks
         ];
 
         foreach ($items as $index => $line) {
@@ -80,6 +81,10 @@ class ExportTransactionLinesAction extends AbstractExcel
             // Date
             $this->write($sheet, $line->getTransactionDate()->format('d.m.Y'));
 
+            // Transaction.ID
+            $this->write($sheet, $line->getTransaction()->getId());
+            $url = 'https://' . $this->hostname . '/admin/transaction/%u';
+            $sheet->getCellByColumnAndRow($this->column - 1, $this->row)->getHyperlink()->setUrl(sprintf($url, $line->getTransaction()->getId()));
             // Transaction.name
             $this->write($sheet, $line->getTransaction()->getName());
             // Transaction.remarks
@@ -94,9 +99,9 @@ class ExportTransactionLinesAction extends AbstractExcel
             // Bookable.name
             $this->write($sheet, $line->getBookable() ? $line->getBookable()->getName() : '');
             // Debit account
-            $this->write($sheet, $line->getDebit() ? $line->getDebit()->getName() : '');
+            $this->write($sheet, $line->getDebit() ? implode(' ', [$line->getDebit()->getCode(), $line->getDebit()->getName()]) : '');
             // Credit account
-            $this->write($sheet, $line->getCredit() ? $line->getCredit()->getName() : '');
+            $this->write($sheet, $line->getCredit() ? implode(' ', [$line->getCredit()->getCode(), $line->getCredit()->getName()]) : '');
             // Debit amount
             $this->write($sheet, $line->getDebit() ? $this->moneyFormatter->format($line->getBalance()) : '');
             // Credit amount
@@ -123,15 +128,16 @@ class ExportTransactionLinesAction extends AbstractExcel
     protected function getHeaders(): array
     {
         return [
-            ['label' => 'Date', 'width' => 10, 'formats' => [self::$dateFormat]],
+            ['label' => 'Date', 'width' => 12, 'formats' => [self::$dateFormat]],
+            ['label' => 'ID', 'width' => 5, 'formats' => [self::$headerFormat, self::$centerFormat]],
             ['label' => 'Transaction', 'width' => 'auto', 'formats' => [self::$wrapFormat]],
             ['label' => 'Remarques', 'width' => 'auto', 'formats' => [self::$wrapFormat]],
             ['label' => 'Remarques internes', 'width' => 'auto', 'formats' => [self::$wrapFormat]],
             ['label' => 'Écriture', 'width' => 'auto', 'formats' => [self::$wrapFormat]],
             ['label' => 'Remarques', 'width' => 'auto', 'formats' => [self::$wrapFormat]],
             ['label' => 'Réservable', 'width' => 'auto', 'formats' => [self::$wrapFormat]],
-            ['label' => 'Compte débit', 'width' => 25, 'formats' => [self::$wrapFormat]],
-            ['label' => 'Compte crédit', 'width' => 25, 'formats' => [self::$wrapFormat]],
+            ['label' => 'Compte débit', 'width' => 30, 'formats' => [self::$wrapFormat]],
+            ['label' => 'Compte crédit', 'width' => 30, 'formats' => [self::$wrapFormat]],
             ['label' => 'Montant débit', 'width' => 20, 'formats' => [self::$headerFormat]],
             ['label' => 'Montant crédit', 'width' => 20, 'formats' => [self::$headerFormat]],
             ['label' => 'Pointé', 'width' => 15, 'formats' => [self::$centerFormat]],
@@ -147,6 +153,8 @@ class ExportTransactionLinesAction extends AbstractExcel
         $initialColumn = $this->column;
 
         // Date
+        $this->write($sheet, '');
+        // ID
         $this->write($sheet, '');
         // Transaction.name
         $this->write($sheet, '');
