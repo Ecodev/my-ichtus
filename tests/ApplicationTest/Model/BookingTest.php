@@ -7,7 +7,9 @@ namespace ApplicationTest\Model;
 use Application\Model\Bookable;
 use Application\Model\Booking;
 use Application\Model\User;
+use Money\Money;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 
 class BookingTest extends TestCase
 {
@@ -47,5 +49,31 @@ class BookingTest extends TestCase
         self::assertCount(0, $bookable->getBookings(), 'bookable should not have any booking anymore');
         self::assertCount(1, $bookable2->getBookings(), 'bookable2 should have a new booking');
         self::assertSame($bookable2, $booking->getBookable(), 'booking should have only the second bookable left');
+    }
+
+    public function testGetPeriodicPriceWithoutSharing(): void
+    {
+        $booking = new Booking();
+
+        $prophecy1 = $this->prophesize(Bookable::class);
+        $prophecy1->getSharedBookings()->willReturn([]);
+        $prophecy1->getPeriodicPrice()->willReturn(Money::CHF(500));
+        $prophecy1->bookingAdded(Argument::is($booking));
+
+        $booking->setBookable($prophecy1->reveal());
+        self::assertEquals(Money::CHF(500), $booking->getPeriodicPrice(), 'price should be exactly the bookable price');
+    }
+
+    public function testGetPeriodicPriceWithSharing(): void
+    {
+        $booking = new Booking();
+
+        $prophecy1 = $this->prophesize(Bookable::class);
+        $prophecy1->getSharedBookings()->willReturn([1, 2, 3]);
+        $prophecy1->getPeriodicPrice()->willReturn(Money::CHF(500));
+        $prophecy1->bookingAdded(Argument::is($booking));
+
+        $booking->setBookable($prophecy1->reveal());
+        self::assertEquals(Money::CHF(167), $booking->getPeriodicPrice(), 'price should be divided by the number of shared booking');
     }
 }

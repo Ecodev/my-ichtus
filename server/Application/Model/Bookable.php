@@ -422,9 +422,9 @@ class Bookable extends AbstractModel
      *
      * For other bookable types, returns null
      *
-     * @return null|Booking[]
+     * @return Booking[]
      */
-    public function getSharedBookings()
+    public function getSharedBookings(): array
     {
         $isAdminOnly = $this->getBookingType() === \Application\DBAL\Types\BookingTypeType::ADMIN_ONLY;
 
@@ -438,12 +438,12 @@ class Bookable extends AbstractModel
         }
 
         if (!$isAdminOnly || !$isStorage) {
-            return null;
+            return [];
         }
 
-        $bookings = array_filter($this->getBookings()->toArray(), function (Booking $booking) {
+        $bookings = $this->getBookings()->filter(function (Booking $booking): bool {
             return !$booking->getEndDate();
-        });
+        })->toArray();
 
         return $bookings;
     }
