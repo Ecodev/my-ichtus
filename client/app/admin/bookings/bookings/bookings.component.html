@@ -63,7 +63,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="bookable">
-                    <th mat-header-cell *matHeaderCellDef>Réservable</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Réservable</th>
                     <td mat-cell *matCellDef="let element">
                         <div *ngIf="element.bookable" fxLayout="row">
                             <app-file [model]="element.bookable.image"

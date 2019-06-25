@@ -21,6 +21,9 @@ use Money\Money;
  * @ORM\AssociationOverrides({
  *     @ORM\AssociationOverride(name="owner", inversedBy="bookings")
  * })
+ * @API\Sorting({
+ *     "Application\Api\Input\Sorting\Bookable"
+ * })
  */
 class Booking extends AbstractModel
 {
