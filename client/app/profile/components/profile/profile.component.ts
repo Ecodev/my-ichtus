@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { BookableService } from '../../../admin/bookables/services/bookable.service';
-import { NaturalAlertService } from '@ecodev/natural';
+import { NaturalAbstractController, NaturalAlertService } from '@ecodev/natural';
 import { UserService } from '../../../admin/users/services/user.service';
 import * as Datatrans from '../../../datatrans-2.0.0-ecodev.js';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ProvisionComponent } from '../provision/provision.component';
 import { Apollo } from 'apollo-angular';
 import { ConfigService } from '../../../shared/services/config.service';
+import { filter, takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-profile',
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent extends NaturalAbstractController implements OnInit {
 
     public viewer;
 
@@ -26,19 +27,28 @@ export class ProfileComponent implements OnInit {
     constructor(public userService: UserService,
                 private alertService: NaturalAlertService,
                 private route: ActivatedRoute,
+                private router: Router,
                 public bookableService: BookableService,
                 private apollo: Apollo,
                 private dialog: MatDialog,
                 private configService: ConfigService,
     ) {
-
+        super();
         this.configService.get().subscribe(config => {
             this.config = config;
         });
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.viewer = this.route.snapshot.data.viewer.model;
+
+        // Clean up datatrans on any route change
+        this.router.events.pipe(
+            takeUntil(this.ngUnsubscribe),
+            filter(event => event instanceof NavigationStart),
+        ).subscribe(() => {
+            Datatrans.cleanup();
+        });
     }
 
     public pay() {
@@ -51,7 +61,7 @@ export class ProfileComponent implements OnInit {
                 balance: Number(this.viewer.account.balance),
                 user: this.viewer,
             },
-            maxWidth: '600px'
+            maxWidth: '600px',
         };
 
         this.dialog.open(ProvisionComponent, config).afterClosed().subscribe(amount => {

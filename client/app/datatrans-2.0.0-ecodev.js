@@ -94,20 +94,29 @@
     let paymentFrame;
     let paymentForm;
     let windowEventHandler;
-    let cleanup;
+
+    const cleanup = function () {
+        toggleLockHostpage(false);
+        if (paymentForm && paymentForm.parentNode) {
+            paymentForm.parentNode.removeChild(paymentForm);
+        }
+
+        if (paymentFrame && paymentFrame.parentNode) {
+            paymentFrame.parentNode.removeChild(paymentFrame);
+        }
+
+        if (windowEventHandler && window.removeEventListener) {
+            window.removeEventListener('message', windowEventHandler);
+        } else if (windowEventHandler && window.detachEvent) {
+            window.detachEvent('message', windowEventHandler);
+        }
+
+        paymentFrame = null;
+        paymentForm = null;
+        windowEventHandler = null;
+    };
 
     const startPayment = function (config) {
-        cleanup = function () {
-            toggleLockHostpage(false);
-            paymentForm.parentNode.removeChild(paymentForm);
-            paymentFrame.parentNode.removeChild(paymentFrame);
-            if (window.removeEventListener) {
-                window.removeEventListener('message', windowEventHandler);
-            } else if (window.detachEvent) {
-                window.detachEvent('message', windowEventHandler);
-            }
-        };
-
         toggleLockHostpage();
 
         if (typeof config.opened === 'function') {
@@ -223,10 +232,6 @@
 
     return {
         startPayment: startPayment,
-        close: function () {
-            if (typeof cleanup === 'function') {
-                cleanup();
-            }
-        },
+        cleanup: cleanup,
     };
 }));
