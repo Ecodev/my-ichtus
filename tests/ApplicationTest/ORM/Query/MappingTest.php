@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ApplicationTest\ORM;
+namespace ApplicationTest\ORM\Query;
 
 use Doctrine\ORM\Tools\SchemaValidator;
 use PHPUnit\Framework\TestCase;

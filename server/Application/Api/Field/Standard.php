@@ -79,7 +79,6 @@ abstract class Standard
         $reflect = new ReflectionClass($class);
         $name = $reflect->getShortName();
         $plural = self::makePlural($name);
-        $lowerName = lcfirst($name);
 
         return [
             [
@@ -89,7 +88,7 @@ abstract class Standard
                 'args' => [
                     'input' => Type::nonNull(_types()->getInput($class)),
                 ],
-                'resolve' => function ($root, array $args) use ($class, $lowerName): AbstractModel {
+                'resolve' => function ($root, array $args) use ($class): AbstractModel {
                     // Do it
                     $object = new $class();
                     $input = $args['input'];
@@ -112,7 +111,7 @@ abstract class Standard
                     'id' => Type::nonNull(_types()->getId($class)),
                     'input' => Type::nonNull(_types()->getPartialInput($class)),
                 ],
-                'resolve' => function ($root, array $args) use ($lowerName): AbstractModel {
+                'resolve' => function ($root, array $args): AbstractModel {
                     $object = $args['id']->getEntity();
 
                     // Check ACL
@@ -134,7 +133,7 @@ abstract class Standard
                 'args' => [
                     'ids' => Type::nonNull(Type::listOf(Type::nonNull(_types()->getId($class)))),
                 ],
-                'resolve' => function ($root, array $args) use ($lowerName): bool {
+                'resolve' => function ($root, array $args): bool {
                     foreach ($args['ids'] as $id) {
                         $object = $id->getEntity();
 
@@ -197,7 +196,7 @@ abstract class Standard
                 'description' => 'Create a relation between ' . $ownerName . ' and ' . $otherClassName . $semantic . '.' . PHP_EOL . PHP_EOL .
                     'If the relation already exists, it will have no effect.',
                 'args' => $args,
-                'resolve' => function ($root, array $args) use ($lowerOwnerName, $lowerOtherName, $otherName, $otherClass): AbstractModel {
+                'resolve' => function ($root, array $args) use ($lowerOwnerName, $lowerOtherName, $otherName): AbstractModel {
                     $owner = $args[$lowerOwnerName]->getEntity();
                     $other = $args[$lowerOtherName]->getEntity();
 
@@ -218,7 +217,7 @@ abstract class Standard
                 'description' => 'Delete a relation between ' . $ownerName . ' and ' . $otherClassName . $semantic . '.' . PHP_EOL . PHP_EOL .
                     'If the relation does not exist, it will have no effect.',
                 'args' => $args,
-                'resolve' => function ($root, array $args) use ($lowerOwnerName, $lowerOtherName, $otherName, $otherClass): AbstractModel {
+                'resolve' => function ($root, array $args) use ($lowerOwnerName, $lowerOtherName, $otherName): AbstractModel {
                     $owner = $args[$lowerOwnerName]->getEntity();
                     $other = $args[$lowerOtherName]->getEntity();
 

@@ -99,7 +99,7 @@ class AclFilterTest extends TestCase
         $targetEntity = _em()->getMetadataFactory()->getMetadataFor(User::class);
 
         try {
-            $filter->runWithoutAcl(function () use ($filter, $targetEntity): void {
+            $filter->runWithoutAcl(function (): void {
                 throw new \Exception();
             });
         } catch (\Exception $e) {

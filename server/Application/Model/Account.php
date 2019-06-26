@@ -133,16 +133,6 @@ class Account extends AbstractModel
     }
 
     /**
-     * Notify that an user was added
-     *
-     * @param null|User $user
-     */
-    public function userAdded(?User $user): void
-    {
-        $this->user = $user;
-    }
-
-    /**
      * Set parent
      *
      * @param null|Account $parent

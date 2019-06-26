@@ -6,7 +6,7 @@ namespace Application\ORM\Query\Filter;
 
 use Application\Model\User;
 use Application\Repository\LimitedAccessSubQueryInterface;
-use Doctrine\ORM\Mapping\ClassMetaData;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Filter\SQLFilter;
 
 /**

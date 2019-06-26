@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OKpilotTest\Api\Scalar;
+namespace ApplicationTest\Api\Scalar;
 
 use Application\Api\Scalar\MoneyType;
 use GraphQL\Error\Error;
