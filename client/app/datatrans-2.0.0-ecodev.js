@@ -1,5 +1,5 @@
 /* globals define module */
-(function(root, factory) {
+(function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         define([], factory);
     } else if (typeof module === 'object' && module.exports) {
@@ -7,16 +7,16 @@
     } else {
         root.Datatrans = factory();
     }
-}(typeof self !== 'undefined' ? self : this, function() {
-    var extend = function(defaults, options) {
-        var extended = {};
-        var prop;
-        for (prop in defaults) {
+}(typeof self !== 'undefined' ? self : this, function () {
+    const extend = function (defaults, options) {
+        const extended = {};
+        for (const prop in defaults) {
             if (Object.prototype.hasOwnProperty.call(defaults, prop)) {
                 extended[prop] = defaults[prop];
             }
         }
-        for (prop in options) {
+
+        for (const prop in options) {
             if (Object.prototype.hasOwnProperty.call(options, prop)) {
                 extended[prop] = options[prop];
             }
@@ -24,27 +24,27 @@
         return extended;
     };
 
-    var createElementWithAttributes = function(tag, attrs) {
-        var elem = document.createElement(tag);
+    const createElementWithAttributes = function (tag, attrs) {
+        const elem = document.createElement(tag);
         if (!attrs) {
             return elem;
         }
 
-        Object.keys(attrs).forEach(function(name) {
+        Object.keys(attrs).forEach(function (name) {
             elem.setAttribute(name, attrs[name]);
         });
 
         return elem;
     };
 
-    var stringifyReplacer = function(key, value) {
+    const stringifyReplacer = function (key, value) {
         if ((key.length > 0) && typeof value === 'object') {
             return undefined;
         }
         return value;
     };
 
-    var lockStyles = {
+    const lockStyles = {
         html: {
             width: '100%',
             height: '100%',
@@ -58,14 +58,14 @@
         },
     };
 
-    var preservedStyles = {};
+    let preservedStyles = {};
 
-    var toggleLockHostpage = function(toggle) {
-        var html = document.documentElement; // '<html>'
-        var body = document.body;
-        var lockAttr = html.getAttribute('data-datatrans-payment-lock') || 'unlocked';
-        var doActivate = toggle !== undefined ? toggle : lockAttr === 'unlocked';
-        var scrollPos;
+    const toggleLockHostpage = function (toggle) {
+        const html = document.documentElement; // '<html>'
+        const body = document.body;
+        const lockAttr = html.getAttribute('data-datatrans-payment-lock') || 'unlocked';
+        const doActivate = toggle !== undefined ? toggle : lockAttr === 'unlocked';
+        let scrollPos;
 
         if (doActivate) {
             html.setAttribute('data-datatrans-payment-lock', 'locked');
@@ -74,10 +74,10 @@
                 html: html.getAttribute('style'),
                 body: body.getAttribute('style'),
             };
-            Object.keys(lockStyles.html || {}).forEach(function(key) {
+            Object.keys(lockStyles.html || {}).forEach(function (key) {
                 html.style[key] = lockStyles.html[key];
             });
-            Object.keys(lockStyles.body || {}).forEach(function(key) {
+            Object.keys(lockStyles.body || {}).forEach(function (key) {
                 body.style[key] = lockStyles.body[key];
             });
             body.style.top = -scrollPos;
@@ -91,13 +91,13 @@
         }
     };
 
-    var paymentFrame;
-    var paymentForm;
-    var windowEventHandler;
-    var cleanup;
+    let paymentFrame;
+    let paymentForm;
+    let windowEventHandler;
+    let cleanup;
 
-    var startPayment = function(config) {
-        cleanup = function() {
+    const startPayment = function (config) {
+        cleanup = function () {
             toggleLockHostpage(false);
             paymentForm.parentNode.removeChild(paymentForm);
             paymentFrame.parentNode.removeChild(paymentFrame);
@@ -114,20 +114,20 @@
             config.opened();
         }
 
-        var params = extend({}, config.params);
+        const params = extend({}, config.params);
 
         params['theme'] = 'DT2015';
         params['version'] = '2.0.0';
 
-        var action = config.params.endpoint + '/upp/jsp/upStart.jsp';
-        var method = 'post';
+        let action = config.params.endpoint + '/upp/jsp/upStart.jsp';
+        let method = 'post';
 
         if (config.paymentId !== undefined) {
             action = config.params.endpoint + '/upp/v1/start/' + config.paymentId;
             method = 'get';
         }
 
-        var needsRedirect = false;
+        const needsRedirect = false;
 
         paymentForm = createElementWithAttributes('form', {
             id: 'datatransPaymentForm',
@@ -138,7 +138,7 @@
             target: 'datatransPaymentFrame',
         });
 
-        for (var name in params) {
+        for (const name in params) {
             if (name === 'paymentmethod') {
                 return;
             }
@@ -192,7 +192,7 @@
         document.body.appendChild(paymentFrame);
         document.body.appendChild(paymentForm);
 
-        windowEventHandler = function(event) {
+        windowEventHandler = function (event) {
 
             if (event.data === 'cancel') {
                 cleanup();
@@ -223,7 +223,7 @@
 
     return {
         startPayment: startPayment,
-        close: function() {
+        close: function () {
             if (typeof cleanup === 'function') {
                 cleanup();
             }
