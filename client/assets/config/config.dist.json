@@ -1,6 +1,8 @@
 {
-    "datatransMerchantId": "",
-    "datatransSign": "",
-    "datatransProduction": false,
-    "datatransEndpoint": "https://pay.sandbox.datatrans.com"
+    "datatrans": {
+        "merchantId": "",
+        "sign": "",
+        "production": false,
+        "endpoint": "https://pay.sandbox.datatrans.com"
+    }
 }

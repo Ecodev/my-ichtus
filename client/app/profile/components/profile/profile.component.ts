@@ -73,13 +73,13 @@ export class ProfileComponent implements OnInit {
 
         Datatrans.startPayment({
             params: {
-                production: this.config.datatransProduction,
-                merchantId: this.config.datatransMerchantId,
-                sign: this.config.datatransSign,
+                production: this.config.datatrans.production,
+                merchantId: this.config.datatrans.merchantId,
+                sign: this.config.datatrans.sign,
                 refno: user.id,
                 amount: amount * 100,
                 currency: 'CHF',
-                endpoint: this.config.datatransEndpoint,
+                endpoint: this.config.datatrans.endpoint,
             },
             success: () => {
                 this.alertService.info('Paiement réussi');
