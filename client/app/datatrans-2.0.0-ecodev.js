@@ -48,14 +48,13 @@
         // Inject a fake state
         history.pushState(null, null, window.location.href);
 
-        // When user go back to our fake state, actually skip over it and the iframe state
-        // and go back to whatever state was before payment started
-        const previous = window.onpopstate;
-        window.onpopstate = function () {
+        // When user go back to our fake state, destroy the iframe
+        // so data cannot be resubmitted when going back one more time.
+        // One more back might trigger a full refresh of an Angular app though,
+        // but at least the user-experience is not entirely broken
+        window.addEventListener('popstate', () => {
             cleanup();
-            history.go(-1);
-            window.onpopstate = previous;
-        };
+        }, {capture: false, once: true});
     };
 
     const lockStyles = {
