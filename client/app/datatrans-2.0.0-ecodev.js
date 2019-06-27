@@ -118,10 +118,8 @@
             paymentFrame.parentNode.removeChild(paymentFrame);
         }
 
-        if (windowEventHandler && window.removeEventListener) {
+        if (windowEventHandler) {
             window.removeEventListener('message', windowEventHandler);
-        } else if (windowEventHandler && window.detachEvent) {
-            window.detachEvent('message', windowEventHandler);
         }
 
         paymentFrame = null;
@@ -231,11 +229,7 @@
             }
         };
 
-        if (window.addEventListener) {
-            window.addEventListener('message', windowEventHandler);
-        } else if (window.attachEvent) {
-            window.attachEvent('message', windowEventHandler);
-        }
+        window.addEventListener('message', windowEventHandler);
 
         if (needsRedirect) {
             location.href = redirectUrl;
