@@ -44,6 +44,20 @@
         return value;
     };
 
+    const preventResubmitWithBackButton = function () {
+        // Inject a fake state
+        history.pushState(null, null, window.location.href);
+
+        // When user go back to our fake state, actually skip over it and the iframe state
+        // and go back to whatever state was before payment started
+        const previous = window.onpopstate;
+        window.onpopstate = function () {
+            cleanup();
+            history.go(-1);
+            window.onpopstate = previous;
+        };
+    };
+
     const lockStyles = {
         html: {
             width: '100%',
@@ -206,6 +220,7 @@
             if (event.data === 'cancel') {
                 cleanup();
             } else if (event.data === 'frameReady') {
+                preventResubmitWithBackButton();
                 paymentFrame.style.display = 'block';
             } else if (typeof event.data === 'object' && ['success', 'error', 'cancel'].includes(event.data.status)) {
 
