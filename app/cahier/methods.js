@@ -323,7 +323,8 @@ function transformComment(txt, fill) {
     txt = txt.replaceTxtByTxt("Joran", " Joran<img style='display:inline-block; vertical-align:middle;' src='img/comments/joran.png'/> ", true);
     txt = txt.replaceTxtByTxt("soleil", "soleil<img style='display:inline-block; vertical-align:middle;' src='img/comments/soleil.png'/> ", true);
     txt = txt.replaceTxtByTxt("Soleil", "Soleil<img style='display:inline-block; vertical-align:middle;' src='img/comments/soleil.png'/> ", true);
-    txt = txt.replaceTxtByTxt("CORTO", "<img style='display:inline-block; vertical-align:middle;' src='img/comments/soleil.png'/> ", true);
+    txt = txt.replaceTxtByTxt("Corto", "<img style='display:inline-block; vertical-align:middle;' src='img/comments/corto.png'/> ", true);
+    txt = txt.replaceTxtByTxt("Dimitri", "<img style='display:inline-block; vertical-align:middle;' src='img/comments/dimitri.png'/> ", true);
 
     if (txt.length == 0 && fill) {
         txt = "Pas de commentaire";
