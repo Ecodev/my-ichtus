@@ -315,3 +315,29 @@ var Cahier = {
 };
 
 
+
+
+function transformComment(txt, fill) {
+    txt = txt.replaceTxtByTxt("nft", " <img style='display:inline-block; vertical-align:middle;' src='img/comments/nft.png'/> ");
+    txt = txt.replaceTxtByTxt("joran", " joran<img style='display:inline-block; vertical-align:middle;' src='img/comments/joran.png'/> ", true);
+    txt = txt.replaceTxtByTxt("Joran", " Joran<img style='display:inline-block; vertical-align:middle;' src='img/comments/joran.png'/> ", true);
+    txt = txt.replaceTxtByTxt("soleil", "soleil<img style='display:inline-block; vertical-align:middle;' src='img/comments/soleil.png'/> ", true);
+    txt = txt.replaceTxtByTxt("Soleil", "Soleil<img style='display:inline-block; vertical-align:middle;' src='img/comments/soleil.png'/> ", true);
+    txt = txt.replaceTxtByTxt("CORTO", "<img style='display:inline-block; vertical-align:middle;' src='img/comments/soleil.png'/> ", true);
+
+    if (txt.length == 0 && fill) {
+        txt = "Pas de commentaire";
+    }
+    return txt;
+}
+
+function getStartCommentFromBooking(booking, fill = false) {
+    var txt = booking.startComment;
+    return transformComment(txt, fill);
+}
+
+
+function getEndCommentFromBooking(booking, fill = false) {
+    var txt = booking.endComment;
+    return transformComment(txt, fill);
+}
