@@ -24,12 +24,60 @@
         cursor:pointer;
     }
 
-        .divTabCahierEquipmentElementsContainer > div.selected > div {
+        .divTabCahierEquipmentElementsContainer > div.selected > div:first-child {
             border:5px solid var(--accent);
+        }
+        .divTabCahierEquipmentElementsContainer > div.selected.used > div:first-child {
+            border: 5px solid red;
+        }
+
+        .divTabCahierEquipmentElementsContainer > div > div:nth-child(2) {
+            -moz-transition: opacity 0.1s linear 0s;
+            -o-transition: opacity 0.1s linear 0s;
+            -webkit-transition: opacity 0.1s linear 0s;
+            transition: opacity 0.1s linear 0s;
+        }
+
+        .divTabCahierEquipmentElementsContainer > div.used {
+            opacity:0.4;
+        }
+        .divTabCahierEquipmentElementsContainer > div.selected.used {
+            opacity: 1;
+        }
+
+        .divTabCahierEquipmentElementsContainer > div.used > div > div{
+            color:gray;
+        }
+        .divTabCahierEquipmentElementsContainer > div.selected.used > div > div {
+            color: black;
+        }
+
+            .divTabCahierEquipmentElementsContainer > div.used > div:nth-child(2) {
+                position:absolute;
+                top:90px;
+                left:10px;
+                width: 200px;
+                height: 50px;
+                font-size:25px;
+                background-color:transparent;
+                border-radius:0px;
+                border:0px !important;
+                color:rgb(30, 30, 30);
+                font-weight:bold;
+                box-shadow:none;
+                -moz-transform: rotate(-45deg);
+                -ms-transform: rotate(-45deg);
+                -o-transform: rotate(-45deg);
+                -webkit-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+            }
+
+        .divTabCahierEquipmentElementsContainer > div.selected.used > div:nth-child(2) {
+            opacity:0;
         }
 
 
-        .divTabCahierEquipmentElementsContainer > div > div {
+        .divTabCahierEquipmentElementsContainer > div > div:first-child {
             position: absolute;
             box-sizing: border-box;
             /*border: 2px solid black;*/
@@ -46,7 +94,7 @@
             border: 5px solid transparent;
         }
 
-        .divTabCahierEquipmentElementsContainer > div:hover > div {
+        .divTabCahierEquipmentElementsContainer > div:hover > div:first-child {
             top: 5px;
             -webkit-box-shadow: 2px 3px 8px 0px rgba(0,0,0,0.5);
             -moz-box-shadow: 2px 3px 8px 0px rgba(0,0,0,0.5);
@@ -125,6 +173,8 @@
         }
 
 
+
+
         .divTabCahierEquipmentElementsContainer > div > div > div:nth-child(4) {
             position: absolute;
             left: 0px;
@@ -139,7 +189,7 @@
             transition: all 0.2s linear 0s;
         }
 
-        .divTabCahierEquipmentElementsContainer > div:hover > div > div:nth-child(4) {
+        .divTabCahierEquipmentElementsContainer > div:hover > div:first-child > div:nth-child(4) {
             background-size: 218px;
         }
 
@@ -150,6 +200,17 @@
         .divTabCahierEquipmentElementsContainer > div.selected > div > div:nth-child(4) {
             background-size: 200px;
             background-image: url(../img/icons/chose-blue.png);
+        }
+
+
+
+        .divTabCahierEquipmentElementsContainer > div.selected.used:hover > div > div:nth-child(4) {
+            background-size: 100px;
+            background-image: url(../img/icons/chose-red.png);
+        }
+        .divTabCahierEquipmentElementsContainer > div.used.selected > div > div:nth-child(4) {
+            background-size: 200px;
+            background-image: url(../img/icons/chose-red.png);
         }
 
 

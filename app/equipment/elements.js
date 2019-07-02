@@ -3,6 +3,8 @@ function loadElements(bookables ,nbr = 0) {
 
     currentBookables = bookables;
 
+    console.log(currentBookables);
+
     document.getElementsByClassName("divTabCahierEquipmentElementsContainer")[0].innerHTML = "";
 
     var codes = [];
@@ -14,6 +16,11 @@ function loadElements(bookables ,nbr = 0) {
 
         container = document.createElement("div");
         container.id = i;
+
+        if (bookables[i].used === true) {
+            container.classList.add("used");
+            container.title = "Cette embarcation est déjà utilisée";
+        }
 
         var x = codes.findIndex(bookables[i].code);
 
@@ -69,9 +76,15 @@ function loadElements(bookables ,nbr = 0) {
         };
 
 
+
         if (bookables[i].licenses.length > 0) {
             var license = div(secondContainer);
             license.title = bookables[i].licenses[0].name;
+        }
+
+        if (bookables[i].used) {
+            var used = div(container);
+            used.innerHTML = "Déjà utilisé";
         }
 
 

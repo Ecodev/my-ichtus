@@ -367,7 +367,7 @@ function createBookingsTable(date,title) {
     topBar.classList.add("TableEntries");
     topBar.classList.add("TableTopBar");
 
-    var fields = ["", "", "", "Responsable", "Embarcation", "Destination", "Commentaire de départ", "Commentaire d'arrivée"];
+    var fields = ["", "", "", "Responsable", "Embarcations", "Destination", "Commentaire de départ", "Commentaire d'arrivée"];
     var images = ["icons/start", "icons/end","icons/participant-count","icons/responsible","icons/sail", "icons/destination", "icons/start-comment", "icons/end-comment"];
 
     for (var i = 0; i < fields.length; i++) {

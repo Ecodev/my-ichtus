@@ -324,118 +324,189 @@ var Requests = {
         Server.bookableService.getAll(variables).subscribe(result => {
             //console.log("getBookablesList(): ", result);
 
-            if (!lastUse && !nbrBookings || result.items.length == 0) {
-                loadElements(result.items);
-            }
-            else if (lastUse) {
-
-                var bookings = [];
-                bookings.fillArray(result.items.length,"1111-01-02T13:32:51+01:00");
-
-                for (var i = 0; i < result.items.length; i++) {
-
-                    var filter = {
-                        filter: {
-                            groups: [
-                                { conditions: [{ bookable: { have: { values: [result.items[i].id] } } }] }
-                            ]
-                        },
-                        pagination: {
-                            pageSize: 1,
-                            pageIndex: 0
-                        },
-                        sorting: [
-                            {
-                                field: "startDate",
-                                order: "DESC" //get the latest booking
-                            }
-                        ]
-                    };
-
-                    var counter = 0;
-
-                    var variables = new Server.QueryVariablesManager();
-                    variables.set('variables', filter);
-
-                    Server.bookingService.getAll(variables).subscribe(r => {
-
-                        if (r.items.length != 0) {         // else : already a zero ? maybe change to start of the universe lol
-                            var bookableId = r.items[0].bookable.id;
-
-                            var c = -1;
-                            var firstArray = result.items;
-                            for (var i = 0; i < firstArray.length; i++) {
-                                if (firstArray[i].id == bookableId) {
-                                    c = i;
-                                    break;
-                                }
-                            }
-
-                            bookings[c] = r.items[0].startDate;
-                        }
-
-                        counter++;
-
-                        if (counter == result.items.length) {
-                            result.items.sortBy(bookings, order);
-                            loadElements(result.items);
-                        }
-                    });
-                }
-            }
-            else if (nbrBookings) {
-
-                var bookings = [];
-                bookings.fillArray(result.items.length,0);
-
-                for (var i = 0; i < result.items.length; i++) {
-
-                    var filter = {
-                        filter: {
-                            groups: [
-                                { conditions: [{ bookable: { have: { values: [result.items[i].id] } } }] }
-                            ]
-                        },
-                        pagination: {
-                            pageSize: 1,
-                            pageIndex:0 // just for identifying the id
-                        }
-                    };
-
-                    var counter = 0;
-
-                    var variables = new Server.QueryVariablesManager();
-                    variables.set('variables', filter);
-
-                    Server.bookingService.getAll(variables).subscribe(r => {
-
-                        if (r.items.length == 0) {
-                            // no booking
-                        }
-                        else {
-                            var bookableId = r.items[0].bookable.id;        // r.length != r.items.length      !! not the same
-                            var c = -1;
-                            var firstArray = result.items;
-                            for (var i = 0; i < firstArray.length; i++) {
-                                if (firstArray[i].id == bookableId) {
-                                    c = i;
-                                    break;
-                                }
-                            }
-                            bookings[c] = r.length; // not items.length !
-                        }
-                        counter++;
-
-                        if (counter == result.items.length) {
-                            result.items.sortBy(bookings, order);
-                            loadElements(result.items);
-                        }
-                    });
-                }
+            if (result.items.length === 0) {
+                console.loG("NOTHING");
+                loadElements([]);
             }
             else {
-                // should not happen
+
+                var ids = [];
+                for (let i = 0; i < result.items.length; i++) {
+                    result.items[i].used = false;
+                    ids.push(result.items[i].id);
+                }
+
+                var filter = {
+
+                    filter: {
+                        groups: [{
+                            conditions: [
+                                {
+                                    endDate: {
+                                        null: {
+                                            not: false
+                                        }
+                                    }
+                                }
+                            ],
+                            joins: {
+                                    bookable: {
+                                            type: "leftJoin",
+                                            conditions: [
+                                                {
+                                                    id: {
+                                                        in: {
+                                                            values: ids
+                                                        }
+
+                                                    }
+                                                }
+                                            ]
+                                    }
+                            }
+
+                        }]
+                    }
+                };
+                var variables = new Server.QueryVariablesManager();
+                variables.set('variables', filter);
+
+                Server.bookingService.getAll(variables).subscribe(r => {
+
+                    var bookables = result.items;
+                    var bookings = r.items;
+
+                    for (let i = 0; i < bookings.length; i++) {
+
+                        for (let k = 0; k < bookables.length; k++) {
+                            if (bookables[k].id === bookings[i].bookable.id) {
+                                bookables[k].used = true;
+                            }
+                        }
+
+                        console.log(r.items[i].bookable.id,r.items[i].bookable.name);
+                    }
+
+                    console.log(bookables);
+
+                    loadElements(bookables);
+                });
+
             }
+
+
+            //if (!lastUse && !nbrBookings || result.items.length == 0) {
+            //    loadElements(result.items);
+            //}
+            //else if (lastUse) {
+
+            //    var bookings = [];
+            //    bookings.fillArray(result.items.length,"1111-01-02T13:32:51+01:00");
+
+            //    for (var i = 0; i < result.items.length; i++) {
+
+            //        var filter = {
+            //            filter: {
+            //                groups: [
+            //                    { conditions: [{ bookable: { have: { values: [result.items[i].id] } } }] }
+            //                ]
+            //            },
+            //            pagination: {
+            //                pageSize: 1,
+            //                pageIndex: 0
+            //            },
+            //            sorting: [
+            //                {
+            //                    field: "startDate",
+            //                    order: "DESC" //get the latest booking
+            //                }
+            //            ]
+            //        };
+
+            //        var counter = 0;
+
+            //        var variables = new Server.QueryVariablesManager();
+            //        variables.set('variables', filter);
+
+            //        Server.bookingService.getAll(variables).subscribe(r => {
+
+            //            if (r.items.length != 0) {         // else : already a zero ? maybe change to start of the universe lol
+            //                var bookableId = r.items[0].bookable.id;
+
+            //                var c = -1;
+            //                var firstArray = result.items;
+            //                for (var i = 0; i < firstArray.length; i++) {
+            //                    if (firstArray[i].id == bookableId) {
+            //                        c = i;
+            //                        break;
+            //                    }
+            //                }
+
+            //                bookings[c] = r.items[0].startDate;
+            //            }
+
+            //            counter++;
+
+            //            if (counter == result.items.length) {
+            //                result.items.sortBy(bookings, order);
+            //                loadElements(result.items);
+            //            }
+            //        });
+            //    }
+            //}
+            //else if (nbrBookings) {
+
+            //    var bookings = [];
+            //    bookings.fillArray(result.items.length,0);
+
+            //    for (var i = 0; i < result.items.length; i++) {
+
+            //        var filter = {
+            //            filter: {
+            //                groups: [
+            //                    { conditions: [{ bookable: { have: { values: [result.items[i].id] } } }] }
+            //                ]
+            //            },
+            //            pagination: {
+            //                pageSize: 1,
+            //                pageIndex:0 // just for identifying the id
+            //            }
+            //        };
+
+            //        var counter = 0;
+
+            //        var variables = new Server.QueryVariablesManager();
+            //        variables.set('variables', filter);
+
+            //        Server.bookingService.getAll(variables).subscribe(r => {
+
+            //            if (r.items.length == 0) {
+            //                // no booking
+            //            }
+            //            else {
+            //                var bookableId = r.items[0].bookable.id;        // r.length != r.items.length      !! not the same
+            //                var c = -1;
+            //                var firstArray = result.items;
+            //                for (var i = 0; i < firstArray.length; i++) {
+            //                    if (firstArray[i].id == bookableId) {
+            //                        c = i;
+            //                        break;
+            //                    }
+            //                }
+            //                bookings[c] = r.length; // not items.length !
+            //            }
+            //            counter++;
+
+            //            if (counter == result.items.length) {
+            //                result.items.sortBy(bookings, order);
+            //                loadElements(result.items);
+            //            }
+            //        });
+            //    }
+            //}
+            //else {
+            //    // should not happen
+            //}
 
         });
     },
