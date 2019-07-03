@@ -52,7 +52,15 @@ const routes: Routes = [
                     data: {
                         title: 'Sorties en cours',
                         contextVariables: BookingService.runningSelfApprovedQV,
-                        contextColumns: ['edit', 'owner', 'bookable', 'startDate', 'estimatedEndDate', 'terminateBooking'],
+                        contextColumns: [
+                            'edit',
+                            'owner',
+                            'bookable',
+                            'startDate',
+                            'estimatedEndDate',
+                            'participantCount',
+                            'terminateBooking',
+                        ],
                     },
                 },
                 {
@@ -202,7 +210,7 @@ const routes: Routes = [
                                 title: 'Armoires',
                                 contextColumns: ['image', 'name', 'code', 'date', 'verificationDate', 'usage'],
                                 contextVariables: BookableService.adminByTag(6009),
-                                contextService: UsageBookableService
+                                contextService: UsageBookableService,
                             },
                         },
                         {
@@ -211,7 +219,7 @@ const routes: Routes = [
                             data: {
                                 title: 'Casiers',
                                 contextVariables: BookableService.adminByTag(6010),
-                                contextService: UsageBookableService
+                                contextService: UsageBookableService,
                             },
                         },
                         {
@@ -220,7 +228,7 @@ const routes: Routes = [
                             data: {
                                 title: 'Flotteurs',
                                 contextVariables: BookableService.adminByTag(6011),
-                                contextService: UsageBookableService
+                                contextService: UsageBookableService,
                             },
                         },
                         {
@@ -229,7 +237,7 @@ const routes: Routes = [
                             data: {
                                 title: 'Râteliers WBC',
                                 contextVariables: BookableService.adminByTag(6016),
-                                contextService: UsageBookableService
+                                contextService: UsageBookableService,
                             },
                         },
                         {
