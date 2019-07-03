@@ -384,10 +384,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@ecodev/natural@^1.0.7":
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-1.0.7.tgz#fbac1db32ecfd753ea6f1808b39f76eaecc7fd67"
-  integrity sha512-cEZN6kzFc+0Tu4EXa+bMGf2MiVwT10NAejLwRyoujP2xJQOHIT/OGzlUI+LXUwpv77IoejThIVIQTKNobSt3Iw==
+"@ecodev/natural@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-1.1.1.tgz#5ff37a8f16b7805420df8135e589eb09b15a13f3"
+  integrity sha512-UnTYcnVsk1we0vTDucJexf61FQu/Ui0l/nUjhtuGKmJ3q6vE51vSSr81Tg/yyoX7mCJI8Ofxmugv7s4nip2SBg==
   dependencies:
     tslib "^1.9.0"
 
