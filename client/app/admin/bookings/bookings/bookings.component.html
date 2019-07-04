@@ -71,7 +71,7 @@
                                       [style.width.px]="40"
                                       [style.borderRadius.px]="40"
                             ></app-file>
-                            <natural-table-button [label]="element.bookable.name"
+                            <natural-table-button [label]="element.bookable.code + ' ' + element.bookable.name "
                                               [navigate]="['/admin/bookable/', element.bookable.id]"
                                               matTooltip="Éditer"
                             ></natural-table-button>

@@ -63,6 +63,7 @@ class SearchOperatorType extends AbstractOperator
             'destination',
             'startComment',
             'endComment ',
+            'code',
         ];
 
         // Find most textual fields for the entity
