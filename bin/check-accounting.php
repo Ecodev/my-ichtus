@@ -41,7 +41,7 @@ Capital   : ' . $moneyFormatter->format($equity) . '
 $errors = [];
 
 if (!$discrepancy->isZero()) {
-    $errors[] = sprintf('ERREUR: écart de %s au bilan des comptes!', $discrepancy);
+    $errors[] = sprintf('ERREUR: écart de %s au bilan des comptes!', $moneyFormatter->format($discrepancy));
 }
 
 foreach (_em()->getRepository(Transaction::class)->findAll() as $transaction) {

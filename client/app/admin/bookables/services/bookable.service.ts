@@ -20,7 +20,7 @@ import {
     UpdateBookableVariables,
     User,
 } from '../../../shared/generated-types';
-import { Validators } from '@angular/forms';
+import {FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BookingService } from '../../bookings/services/booking.service';
@@ -28,6 +28,16 @@ import { intersectionBy } from 'lodash';
 import { NaturalAbstractModelService, FormValidators, FormAsyncValidators, NaturalValidators } from '@ecodev/natural';
 import { NaturalQueryVariablesManager } from '@ecodev/natural';
 import { BookableTagService } from '../../bookableTags/services/bookableTag.service';
+
+function creditAccountRequiredValidator(formGroup: FormGroup): ValidationErrors | null {
+    if (!formGroup || !formGroup.controls) {
+        return null;
+    }
+    const periodicPrice = formGroup.controls.periodicPrice.value;
+    const initialPrice = formGroup.controls.initialPrice.value;
+    const creditAccount = formGroup.controls.creditAccount.value;
+    return (periodicPrice > 0 || initialPrice > 0) && !creditAccount ? {creditAccountRequired: true} : null;
+}
 
 @Injectable({
     providedIn: 'root',
@@ -160,6 +170,10 @@ export class BookableService extends NaturalAbstractModelService<Bookable['booka
         return {
             code: [NaturalValidators.unique('code', this)],
         };
+    }
+
+    public getFormGroupValidators(): ValidatorFn[] {
+        return [creditAccountRequiredValidator];
     }
 
     public getMandatoryBookables(): Observable<Bookables['bookables']> {

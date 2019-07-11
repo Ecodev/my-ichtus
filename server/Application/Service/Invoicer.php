@@ -77,7 +77,7 @@ class Invoicer
             }
 
             $bookable = $booking->getBookable();
-            if ($bookable->getInitialPrice()->isZero() && $bookable->getPeriodicPrice()->isZero()) {
+            if (!$bookable->getCreditAccount() || ($bookable->getInitialPrice()->isZero() && $bookable->getPeriodicPrice()->isZero())) {
                 return;
             }
 

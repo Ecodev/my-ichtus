@@ -126,7 +126,7 @@
                                     [showIcon]="false"
                                     [navigateTo]="['/admin/account', form.get('creditAccount')?.value?.id]"
                         ></natural-select>
-
+                        <mat-error *ngIf="form?.hasError('creditAccountRequired')">Compte requis pour un réservable payants</mat-error>
                     </div>
                 </div>
 
