@@ -39,6 +39,9 @@ class DatatransActionTest extends TestCase
         $action = new DatatransAction($this->getEntityManager(), $renderer->reveal());
         $action->process($request, $handler->reveal());
 
+        // Submit the same request again to make sure it is accounted only once
+        $action->process($request, $handler->reveal());
+
         if ($userId) {
             $actualBalance = $this->getEntityManager()->getConnection()->fetchColumn('SELECT balance FROM account WHERE owner_id = ' . $userId);
             self::assertSame($expectedAmount->getAmount(), $actualBalance);
@@ -51,6 +54,23 @@ class DatatransActionTest extends TestCase
     {
         return [
             'normal' => [
+                [
+                    'uppTransactionId' => '123456789012345678',
+                    'status' => 'success',
+                    'refno' => '1007',
+                    'amount' => '10000',
+                    'currency' => 'CHF',
+                    'responseMessage' => 'Payment was successful',
+                ],
+                Money::CHF(10000),
+                [
+                    'message' => [
+                        'status' => 'success',
+                        'message' => 'Payment was successful',
+                    ],
+                ],
+            ],
+            'duplicate' => [
                 [
                     'uppTransactionId' => '123456789012345678',
                     'status' => 'success',

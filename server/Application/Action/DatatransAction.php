@@ -119,6 +119,15 @@ class DatatransAction extends AbstractAction
 
     private function createTransactions(array $body): void
     {
+        // Create only if a transaction with the same Datatrans reference doesn't already exist
+        $datatransRef = $body['uppTransactionId'];
+        $transactionRepository = $this->entityManager->getRepository(Transaction::class);
+        $existing = $transactionRepository->count(['datatransRef' => $datatransRef]);
+
+        if ($existing) {
+            return;
+        }
+
         $userId = $body['refno'] ?? null;
 
         /** @var User $user */
@@ -142,7 +151,6 @@ class DatatransAction extends AbstractAction
         }
 
         $now = Chronos::now();
-        $datatransRef = $body['uppTransactionId'];
         $name = 'Versement en ligne';
 
         $transaction = new Transaction();
