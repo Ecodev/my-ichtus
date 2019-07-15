@@ -61,9 +61,9 @@ class Account extends AbstractModel
     private $type;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(type="string", length=10, nullable=false, unique=true)
+     * @ORM\Column(type="integer", nullable=false, unique=true, options={"unsigned" = true})
      */
     private $code;
 
@@ -193,9 +193,9 @@ class Account extends AbstractModel
     /**
      * Set code
      *
-     * @param string $code
+     * @param int $code
      */
-    public function setCode(string $code): void
+    public function setCode(int $code): void
     {
         $this->code = $code;
     }
@@ -203,9 +203,9 @@ class Account extends AbstractModel
     /**
      * Get code
      *
-     * @return string
+     * @return int
      */
-    public function getCode(): string
+    public function getCode(): int
     {
         return $this->code;
     }

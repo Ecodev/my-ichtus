@@ -66,6 +66,12 @@ export const accountQuery = gql`
     ${permissionsFragment}
 `;
 
+export const nextCodeAvailableQuery = gql`
+    query NextAccountCode {
+        nextAccountCode
+    }
+`;
+
 export const createAccount = gql`
     mutation CreateAccount($input: AccountInput!) {
         createAccount(input: $input) {

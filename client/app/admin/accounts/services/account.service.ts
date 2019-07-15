@@ -6,6 +6,7 @@ import {
     createAccount,
     deleteAccounts,
     updateAccount,
+    nextCodeAvailableQuery,
 } from './account.queries';
 import {
     AccountInput,
@@ -19,9 +20,12 @@ import {
     DeleteAccounts,
     UpdateAccount,
     UpdateAccountVariables,
+    NextAccountCode,
 } from '../../../shared/generated-types';
 import { Validators } from '@angular/forms';
-import { NaturalAbstractModelService, FormValidators } from '@ecodev/natural';
+import { NaturalAbstractModelService, FormValidators, NaturalValidators, FormAsyncValidators } from '@ecodev/natural';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -48,18 +52,34 @@ export class AccountService extends NaturalAbstractModelService<Account['account
 
     protected getDefaultForServer(): AccountInput {
         return {
+            owner: null,
+            parent: null,
+            type: AccountType.expense,
+            code: 0,
             name: '',
             iban: '',
-            type: AccountType.expense,
-            code: '',
-            owner: null,
         };
     }
 
     public getFormValidators(): FormValidators {
         return {
             name: [Validators.required, Validators.maxLength(100)],
+            code: [Validators.required, Validators.maxLength(20)],
         };
+    }
+
+    public getFormAsyncValidators(): FormAsyncValidators {
+        return {
+            code: [NaturalValidators.unique('code', this)],
+        };
+    }
+
+    public getNextCodeAvailable(): Observable<number> {
+        return this.apollo.query<NextAccountCode>({
+            query: nextCodeAvailableQuery,
+        }).pipe(map(result => {
+            return result.data.nextAccountCode;
+        }));
     }
 
 }

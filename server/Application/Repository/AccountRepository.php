@@ -101,7 +101,7 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
 
             $maxCode = $this->getEntityManager()->getConnection()->fetchColumn('SELECT MAX(code) FROM account WHERE parent_id = ' . self::PARENT_ACCOUNT_ID_FOR_USER);
             $newCode = ++$maxCode;
-            $account->setCode((string) $newCode);
+            $account->setCode($newCode);
 
             $parent = $this->getOneById(self::PARENT_ACCOUNT_ID_FOR_USER);
             $account->setParent($parent);
@@ -192,5 +192,19 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
                 $connection->executeQuery($sql, [$a->getId()]);
             }
         }
+    }
+
+    /**
+     * Return the next available Account code
+     *
+     * @return int
+     */
+    public function getNextCodeAvailable(): int
+    {
+        $qb = _em()->getConnection()->createQueryBuilder()
+            ->select('IFNULL(MAX(a.code) + 1, 1)')
+            ->from('account', 'a');
+
+        return (int) $qb->execute()->fetchColumn();
     }
 }
