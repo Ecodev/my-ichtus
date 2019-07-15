@@ -1,5 +1,5 @@
-import { AccountService } from './accounts/services/account.service';
-import { AccountType } from '../shared/generated-types';
+import { AccountService } from '../../admin/accounts/services/account.service';
+import { AccountType } from '../generated-types';
 import { NaturalHierarchicConfiguration } from '@ecodev/natural';
 
 export const AccountHierarchicConfiguration: NaturalHierarchicConfiguration[] = [

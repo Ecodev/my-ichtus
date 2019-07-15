@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TransactionLineService } from '../services/transactionLine.service';
 import { BookableService } from '../../bookables/services/bookable.service';
-import { Transaction, TransactionLinesVariables } from '../../../shared/generated-types';
+import { Account, Transaction, TransactionLinesVariables } from '../../../shared/generated-types';
 import { TransactionTagService } from '../../transactionTags/services/transactionTag.service';
 import { NaturalAbstractEditableList } from '@ecodev/natural';
-import { AccountHierarchicConfiguration } from '../../AccountHierarchicConfiguration';
+import { AccountHierarchicConfiguration } from '../../../shared/hierarchic-selector/AccountHierarchicConfiguration';
 
 @Component({
     selector: 'app-editable-transaction-lines',
@@ -40,6 +40,10 @@ export class EditableTransactionLinesComponent extends NaturalAbstractEditableLi
         } else {
             this.addEmpty();
         }
+    }
+
+    public getAccountLabel(account: Account['account']): string {
+        return [account.code, account.name].join(' ');
     }
 
 }

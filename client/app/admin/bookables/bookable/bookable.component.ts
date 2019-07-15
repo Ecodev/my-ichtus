@@ -19,7 +19,7 @@ import {
 import { LicenseService } from '../../licenses/services/license.service';
 import { BookableTagService } from '../../bookableTags/services/bookableTag.service';
 import { ImageService } from '../services/image.service';
-import { AccountHierarchicConfiguration } from '../../AccountHierarchicConfiguration';
+import { AccountHierarchicConfiguration } from '../../../shared/hierarchic-selector/AccountHierarchicConfiguration';
 
 @Component({
     selector: 'app-bookable',
