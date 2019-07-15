@@ -9,17 +9,37 @@
             <div fxLayout="column" fxLayoutGap="30px" class="padding-top">
                 <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
                     <div fxFlex="66" fxLayout="column">
+                        <div fxLayout="row" fxLayoutGap="30px">
+                            <mat-form-field [style.width.px]="250">
+                                <mat-label>Numéro</mat-label>
+                                <input matInput type="number" formControlName="code" (change)="update()">
+                                <button mat-button
+                                        matSuffix
+                                        mat-icon-button
+                                        matToolTip="Utiliser le code suggéré"
+                                        (click)="form.get('code')?.setValue(this.nextCodeAvailable); update()"
+                                >
+                                    <mat-icon>reply</mat-icon>
+                                </button>
+                                <mat-error *ngIf="form.get('code')?.hasError('maxlength')">
+                                    Maximum {{form.get('code')?.errors.maxlength.requiredLength }} caractères
+                                </mat-error>
+                                <mat-error *ngIf="form.get('code')?.hasError('required')">Requis</mat-error>
+                                <mat-error *ngIf="form.get('code')?.hasError('duplicateValue')">Ce numéro est déjà attribué</mat-error>
+                                <mat-hint>Prochain n° disponible: {{ nextCodeAvailable }}</mat-hint>
+                            </mat-form-field>
 
-                        <mat-form-field>
-                            <mat-label>Nom</mat-label>
-                            <input matInput formControlName="name" (change)="update()">
-                            <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
-                                Maximum {{form.get('name')?.errors.maxlength.requiredLength }} caractères
-                            </mat-error>
-                            <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
-                        </mat-form-field>
+                            <mat-form-field fxFlex>
+                                <mat-label>Nom</mat-label>
+                                <input matInput formControlName="name" (change)="update()">
+                                <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
+                                    Maximum {{form.get('name')?.errors.maxlength.requiredLength }} caractères
+                                </mat-error>
+                                <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
+                            </mat-form-field>
+                        </div>
 
-                        <mat-form-field *ngIf="!form.get('owner')?.value">
+                        <mat-form-field *ngIf="form.get('type').value === 'asset'">
                             <mat-label>IBAN Ichtus</mat-label>
                             <input matInput formControlName="iban" (change)="update()">
                             <mat-error *ngIf="form.get('iban')?.hasError('maxlength')">
@@ -33,7 +53,23 @@
 
                     <div fxFlex="33" fxLayout="column">
 
-                        <natural-select formControlName="owner"
+                        <natural-select formControlName="parent"
+                                        placeholder="Compte parent"
+                                        [hierarchicSelectorConfig]="accountHierarchicConfig"
+                                        (selectionChange)="update()"
+                                        [showIcon]="false"
+                                        [navigateTo]="['./', form.get('account')?.value?.id]"
+                                        [displayWith]="getAccountLabel"
+                        ></natural-select>
+
+                        <natural-select-enum enumName="AccountType"
+                                             formControlName="type"
+                                             (selectionChange)="updateLinkedFields(); update()"
+                                             placeholder="Type"
+                        ></natural-select-enum>
+
+                        <natural-select *ngIf="form.get('type').value === 'liability'"
+                                    formControlName="owner"
                                     placeholder="Membre"
                                     [service]="userService"
                                     [filter]="{groups: [{conditions: [{accounts: {empty: {not: false}}}]}]}"
