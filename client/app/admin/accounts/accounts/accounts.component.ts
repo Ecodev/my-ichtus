@@ -13,7 +13,7 @@ import { NaturalAbstractNavigableList } from '@ecodev/natural';
     templateUrl: './accounts.component.html',
     styleUrls: ['./accounts.component.scss'],
 })
-export class AccountsComponent extends NaturalAbstractNavigableList<Accounts['accounts'], AccountsVariables> implements OnInit {
+export class AccountsComponent extends NaturalAbstractNavigableList<Accounts['accounts'], AccountsVariables> {
 
     constructor(route: ActivatedRoute,
                 router: Router,
@@ -32,6 +32,14 @@ export class AccountsComponent extends NaturalAbstractNavigableList<Accounts['ac
 
         );
         this.naturalSearchFacets = naturalSearchFacetsService.get('accounts');
+    }
 
+    public addLink(): any[] {
+        let route: any[] = ['/admin/account/new'];
+        const parentId = this.route.snapshot.params['parent'];
+        if (parentId) {
+            route = route.concat([{parent: parentId}]);
+        }
+        return route;
     }
 }
