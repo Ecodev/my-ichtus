@@ -39,8 +39,8 @@
                             </mat-form-field>
                         </div>
 
-                        <mat-form-field *ngIf="form.get('type').value === 'asset'">
-                            <mat-label>IBAN Ichtus</mat-label>
+                        <mat-form-field *ngIf="form.get('type')?.value === 'asset'">
+                            <mat-label>IBAN Ichtus</mat-label>cta
                             <input matInput formControlName="iban" (change)="update()">
                             <mat-error *ngIf="form.get('iban')?.hasError('maxlength')">
                                 Maximum {{form.get('iban')?.errors.maxlength.requiredLength }} caractères
@@ -68,7 +68,7 @@
                                              placeholder="Type"
                         ></natural-select-enum>
 
-                        <natural-select *ngIf="form.get('type').value === 'liability'"
+                        <natural-select *ngIf="form.get('type')?.value === 'liability'"
                                     formControlName="owner"
                                     placeholder="Membre"
                                     [service]="userService"
