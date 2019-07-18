@@ -37,8 +37,8 @@ if id "$DEPLOY_USER" >/dev/null 2>&1; then
     export HOME="/tmp/$DEPLOY_USER"
 fi
 
-# Try to use PHP 7.2, or fallback to default version
-PHP=`which php7.2` || PHP='php'
+# Try to use PHP 7.3, or fallback to default version
+PHP=`which php7.3` || PHP='php'
 
 # Because Travis has several composer installed in parallel we
 # cannot prefix it with the correct PHP, but luckily it doesn't matter

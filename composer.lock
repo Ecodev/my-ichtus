@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ff2c8ccb5af081f2868ccf14c3613ab6",
+    "content-hash": "ef03122ee866097db310758be51c4adb",
     "packages": [
         {
             "name": "beberlei/DoctrineExtensions",
@@ -6152,7 +6152,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
@@ -6596,7 +6596,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.2",
+        "php": "^7.3",
         "ext-bcmath": "*",
         "ext-fileinfo": "*",
         "ext-json": "*",
