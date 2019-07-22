@@ -5,7 +5,8 @@
 /data/cache/*.*
 /data/cache/DoctrineORMModule/*
 /data/cache/images/*
-/data/accounting/
+/data/accounting/*
+/data/session/*
 !/data/accounting/dw4jV3zYSPsqE2CB8BcP8ABD0.pdf
 /data/images/*
 !/data/images/chat1.jpg

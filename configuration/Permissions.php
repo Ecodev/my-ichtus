@@ -29,6 +29,11 @@ return [
         'recursive' => true,
     ],
     [
+        'path' => 'data/session',
+        'permissions' => '0770',
+        'recursive' => true,
+    ],
+    [
         'path' => 'bin/build.sh',
         'permissions' => '0750',
     ],
@@ -80,6 +85,11 @@ return [
         'path' => 'bin/pre-commit.sh',
         'permissions' => '0750',
     ],
+    [
+        'path' => 'bin/check-accounting.sh',
+        'permissions' => '0750',
+    ],
+
     [
         'path' => 'bin/queue-message-for-all-balance.php',
         'permissions' => '0750',

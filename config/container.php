@@ -12,6 +12,8 @@ require_once 'server/Debug.php';
 // Secure cookie usage
 ini_set('session.cookie_secure', '1');
 ini_set('session.cookie_httponly', '1');
+ini_set('session.save_path', dirname(__DIR__) . '/data/session');
+ini_set('session.gc_maxlifetime', (string) (365 * 86400));
 
 // Load configuration
 $config = require __DIR__ . '/config.php';
