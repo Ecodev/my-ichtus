@@ -5,5 +5,9 @@
     [class.text-decoration]="displayMode === 'amount'"
 >
     <span *ngIf="displayMode === 'amount'">{{ isIncome ? '➚' : '➘︎' }}&nbsp;{{ transactionLine.balance  | currency : 'CHF'}}</span>
-    <a *ngIf="displayMode === 'account'" (click)="propagateAccount(relativeToAccount)" [routerLink]="transactionLineService.linkToTransactionForAccount(relativeToAccount)">{{ isIncome ? '➚' : '➘︎' }}&nbsp;{{ relativeToAccount.name }}</a>
+    <a *ngIf="displayMode === 'account'"
+       (click)="propagateAccount(relativeToAccount)"
+       [routerLink]="transactionLineService.linkToTransactionForAccount(relativeToAccount)"
+       matTooltip="Voir les transactions"
+    >{{ isIncome ? '➚' : '➘︎' }}&nbsp;{{ relativeToAccount.name }}</a>
 </div>
