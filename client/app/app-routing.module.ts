@@ -21,7 +21,7 @@ export const routes: Routes = [
         // Registration
         path: 'user',
         component: HomeComponent,
-        loadChildren: './user/user.module#UserModule',
+        loadChildren: () => import('./user/user.module').then(m => m.UserModule),
     },
     {
         path: 'safety',
@@ -45,15 +45,15 @@ export const routes: Routes = [
             },
             {
                 path: 'booking',
-                loadChildren: './booking/booking.module#BookingModule',
+                loadChildren: () => import('./booking/booking.module').then(m => m.BookingModule),
             },
             {
                 path: 'admin',
-                loadChildren: './admin/admin.module#AdminModule',
+                loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
             },
             {
                 path: 'profile',
-                loadChildren: './profile/profile.module#ProfileModule',
+                loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
             },
             {
                 path: 'door',

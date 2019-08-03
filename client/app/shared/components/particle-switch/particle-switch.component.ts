@@ -1,4 +1,13 @@
-import { AfterViewInit, Component, ContentChild, ElementRef, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ContentChild,
+    ElementRef,
+    Input,
+    OnInit,
+    TemplateRef,
+    ViewChild,
+} from '@angular/core';
 
 @Component({
     selector: 'app-particle-switch',
@@ -7,8 +16,8 @@ import { AfterViewInit, Component, ContentChild, ElementRef, Input, OnInit, Temp
 })
 export class ParticleSwitchComponent implements OnInit, AfterViewInit {
 
-    @ContentChild(TemplateRef) template: TemplateRef<any>;
-    @ViewChild('wrapper') wrapper: ElementRef<any>;
+    @ContentChild(TemplateRef, {static: true}) template: TemplateRef<any>;
+    @ViewChild('wrapper', {static: true}) wrapper: ElementRef<any>;
 
     public _data1;
     public _data2;

@@ -16,7 +16,8 @@ import {
 } from '../../generated-types';
 import { NaturalQueryVariablesManager } from '@ecodev/natural';
 import { Observable } from 'rxjs';
-import { MatDialog, MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { CommentComponent } from './comment.component';
 import { NaturalAbstractController } from '@ecodev/natural';
 import { NaturalAlertService } from '@ecodev/natural';

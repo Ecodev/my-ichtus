@@ -29,7 +29,7 @@ export class CreateExpenseClaimComponent
         UpdateExpenseClaimVariables,
         any> implements OnInit {
 
-    @ViewChild(AccountingDocumentsComponent) accountingDocuments: AccountingDocumentsComponent;
+    @ViewChild(AccountingDocumentsComponent, { static: true }) accountingDocuments: AccountingDocumentsComponent;
 
     constructor(alertService: NaturalAlertService,
                 expenseClaimService: ExpenseClaimService,

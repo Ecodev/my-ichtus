@@ -4,7 +4,7 @@ import { BookableService } from '../../bookables/services/bookable.service';
 import { Account, Transaction, TransactionLinesVariables } from '../../../shared/generated-types';
 import { TransactionTagService } from '../../transactionTags/services/transactionTag.service';
 import { NaturalAbstractEditableList } from '@ecodev/natural';
-import { AccountHierarchicConfiguration } from '../../../shared/hierarchic-selector/AccountHierarchicConfiguration';
+import { accountHierarchicConfiguration } from '../../../shared/hierarchic-selector/AccountHierarchicConfiguration';
 
 @Component({
     selector: 'app-editable-transaction-lines',
@@ -15,7 +15,7 @@ export class EditableTransactionLinesComponent extends NaturalAbstractEditableLi
 
     @Input() transaction: Transaction['transaction'];
 
-    public accountHierarchicConfig = AccountHierarchicConfiguration;
+    public accountHierarchicConfig = accountHierarchicConfiguration;
     public columns = ['name', 'balance', 'debit', 'credit', 'isReconciled', 'bookable', 'transactionTag', 'remarks', 'remove'];
 
     constructor(private transactionLineService: TransactionLineService,

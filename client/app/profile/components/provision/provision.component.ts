@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, ShowOnDirtyErrorStateMatcher } from '@angular/material';
+import { ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormControl, Validators } from '@angular/forms';
 import { BankingInfosVariables } from '../../../shared/generated-types';
 

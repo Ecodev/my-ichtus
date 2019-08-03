@@ -12,7 +12,7 @@ import {
     UpdateAccountVariables,
 } from '../../../shared/generated-types';
 import { UserService } from '../../users/services/user.service';
-import { GroupAccountHierarchicConfiguration } from '../../../shared/hierarchic-selector/GroupAccountHierarchicConfiguration';
+import { groupAccountHierarchicConfiguration } from '../../../shared/hierarchic-selector/GroupAccountHierarchicConfiguration';
 
 @Component({
     selector: 'app-account',
@@ -29,7 +29,7 @@ export class AccountComponent
         any> implements OnInit {
 
     public nextCodeAvailable: number;
-    public accountHierarchicConfig = GroupAccountHierarchicConfiguration;
+    public accountHierarchicConfig = groupAccountHierarchicConfiguration;
 
     constructor(alertService: NaturalAlertService,
                 public accountService: AccountService,

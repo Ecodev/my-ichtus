@@ -5,13 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {
-    DateAdapter,
-    ErrorStateMatcher,
-    MAT_FORM_FIELD_DEFAULT_OPTIONS,
-    MatIconRegistry,
-    ShowOnDirtyErrorStateMatcher,
-} from '@angular/material';
+import { DateAdapter, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { MatIconRegistry } from '@angular/material/icon';
 import { NetworkActivityService } from './shared/services/network-activity.service';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { apolloDefaultOptions, createApolloLink } from './shared/config/apolloDefaultOptions';

@@ -34,8 +34,8 @@ export class TransactionComponent
         UpdateTransactionVariables,
         DeleteTransactions> implements OnInit {
 
-    @ViewChild(EditableTransactionLinesComponent) transactionLinesComponent: EditableTransactionLinesComponent;
-    @ViewChild('transactionDocuments') accountingDocuments: AccountingDocumentsComponent;
+    @ViewChild(EditableTransactionLinesComponent, { static: false }) transactionLinesComponent: EditableTransactionLinesComponent;
+    @ViewChild('transactionDocuments', { static: true }) accountingDocuments: AccountingDocumentsComponent;
 
     public updateTransactionLines = false;
     public ExpenseClaimType = ExpenseClaimType;

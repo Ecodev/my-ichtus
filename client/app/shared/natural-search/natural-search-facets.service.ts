@@ -24,7 +24,7 @@ import { LicenseService } from '../../admin/licenses/services/license.service';
 import { TransactionService } from '../../admin/transactions/services/transaction.service';
 import { UserFilterGroupCondition } from '../generated-types';
 import { AccountService } from '../../admin/accounts/services/account.service';
-import { AccountHierarchicConfiguration } from '../hierarchic-selector/AccountHierarchicConfiguration';
+import { accountHierarchicConfiguration } from '../hierarchic-selector/AccountHierarchicConfiguration';
 import { BookableTagService } from '../../admin/bookableTags/services/bookableTag.service';
 
 /**
@@ -204,7 +204,7 @@ export class NaturalSearchFacetsService {
                 configuration: {
                     key: 'account',
                     service: this.accountService,
-                    config: AccountHierarchicConfiguration,
+                    config: accountHierarchicConfiguration,
                 },
             } as DropdownFacet<TypeHierarchicSelectorConfiguration>,
             {
@@ -214,7 +214,7 @@ export class NaturalSearchFacetsService {
                 configuration: {
                     key: 'account',
                     service: this.accountService,
-                    config: AccountHierarchicConfiguration,
+                    config: accountHierarchicConfiguration,
                 },
             } as DropdownFacet<TypeHierarchicSelectorConfiguration>,
             {

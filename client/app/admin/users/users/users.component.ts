@@ -89,7 +89,7 @@ export class UsersComponent extends NaturalAbstractList<Users['users'], UsersVar
             qvm.set('pagination', {pagination: {pageIndex: 0, pageSize: 9999}});
             qvm.set('emailFilter', {filter: {groups: [{conditions: [{email: {null: {not: true}}}]}]}} as UsersVariables);
 
-            this.apollo.query({query: emailUsersQuery, variables: qvm.variables.value}).subscribe(result => {
+            this.apollo.query<Users>({query: emailUsersQuery, variables: qvm.variables.value}).subscribe(result => {
                 this.usersEmail = result.data['users'].items.map(u => u.email).join(' ;,'); // all separators for different mailboxes
                 this.usersEmailAndName = result.data['users'].items.map(u => [u.email, u.firstName, u.lastName].join(';')).join('\n');
             });

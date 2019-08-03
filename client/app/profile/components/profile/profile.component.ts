@@ -4,7 +4,7 @@ import { BookableService } from '../../../admin/bookables/services/bookable.serv
 import { NaturalAbstractController, NaturalAlertService } from '@ecodev/natural';
 import { UserService } from '../../../admin/users/services/user.service';
 import * as Datatrans from '../../../datatrans-2.0.0-ecodev.js';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ProvisionComponent } from '../provision/provision.component';
 import { Apollo } from 'apollo-angular';
 import { ConfigService } from '../../../shared/services/config.service';

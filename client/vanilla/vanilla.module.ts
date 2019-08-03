@@ -51,7 +51,7 @@ export class VanillaModule implements DoBootstrap {
                 bookingService: BookingService,
                 linkMutation: NaturalLinkMutationService<any>,
     ) {
-
+        // tslint:disable-next-line - Disables all rules for the following line
         const QueryVariablesManager = NaturalQueryVariablesManager; // for retro compatibility
 
         const api = {

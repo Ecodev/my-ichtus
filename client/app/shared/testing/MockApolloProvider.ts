@@ -68,7 +68,7 @@ class MockApollo extends Apollo {
 /**
  * This is the only way to use our MockApollo
  */
-export const MockApolloProvider = {
+export const mockApolloProvider = {
     provide: Apollo,
     useClass: MockApollo,
 };

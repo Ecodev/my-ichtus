@@ -3,7 +3,7 @@ import { ExpenseClaimStatus, ExpenseClaimType } from '../../../shared/generated-
 import { UserService } from '../../../admin/users/services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { ExpenseClaimService } from '../../../admin/expenseClaim/services/expenseClaim.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { CreateRefundComponent } from '../create-refund/create-refund.component';
 import { NaturalAlertService } from '@ecodev/natural';
 import { TransactionLineService } from '../../../admin/transactions/services/transactionLine.service';

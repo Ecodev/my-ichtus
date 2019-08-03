@@ -62,7 +62,7 @@ export class BookingComponent
         this.bookingService.terminateBooking(this.data.model.id).subscribe(() => {
             const endDate = this.form.get('endDate');
             if (endDate) {
-                endDate.setValue((new Date).toISOString());
+                endDate.setValue((new Date()).toISOString());
             }
         });
     }
