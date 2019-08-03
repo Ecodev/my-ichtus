@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
+import { FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import {
+    FormValidators,
+    NaturalAbstractModelService,
+    NaturalSearchSelections,
+    NaturalUtility,
+    NaturalQueryVariablesManager,
+    toUrl
+} from '@ecodev/natural';
 import { Apollo } from 'apollo-angular';
-import { NaturalAbstractModelService, FormValidators } from '@ecodev/natural';
 import { transactionLineQuery, transactionLinesQuery, transactionLinesForExportQuery } from './transactionLine.queries';
 import {
     Account,
@@ -13,10 +21,9 @@ import {
     TransactionLinesVariables,
     TransactionLineVariables,
 } from '../../../shared/generated-types';
-import { FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Observable, Subject} from 'rxjs';
 import { map } from 'rxjs/operators';
-import { NaturalQueryVariablesManager, NaturalUtility } from '@ecodev/natural';
+import { RouterLink } from '@angular/router';
 
 function atLeastOneAccount(formGroup: FormGroup): ValidationErrors | null {
     if (!formGroup || !formGroup.controls) {
@@ -52,6 +59,31 @@ export class TransactionLineService extends NaturalAbstractModelService<Transact
             null);
     }
 
+    public static getSelectionForAccount(account: Account['account']): NaturalSearchSelections {
+        return [
+            [
+                {
+                    field: 'debit',
+                    condition: {
+                        have: {
+                            values: [account.id],
+                        },
+                    },
+                },
+            ],
+            [
+                {
+                    field: 'credit',
+                    condition: {
+                        have: {
+                            values: [account.id],
+                        },
+                    },
+                },
+            ],
+        ];
+    }
+
     protected getDefaultForServer(): TransactionLineInput {
         return {
             name: '',
@@ -64,6 +96,14 @@ export class TransactionLineService extends NaturalAbstractModelService<Transact
             transactionDate: new Date(),
             transactionTag: null,
         };
+    }
+
+    public linkToTransactionForAccount(account: Account['account']): RouterLink['routerLink'] {
+        const selection = TransactionLineService.getSelectionForAccount(account);
+        return [
+            '/admin/transaction-line',
+            {ns: JSON.stringify(toUrl(selection))},
+        ];
     }
 
     public getFormValidators(): FormValidators {

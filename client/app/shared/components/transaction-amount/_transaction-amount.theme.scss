@@ -17,6 +17,11 @@
             }
         }
 
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
         .background-decoration {
             &.positive {
                 background: #008600;

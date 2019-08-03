@@ -1,9 +1,9 @@
-<div *ngIf="transactionLine && relativeToAccount && transactionLine?.balance != '0.00' && isIncome !== null"
-     [class.positive]="isIncome === true"
-     [class.negative]="isIncome === false"
-     [class.background-decoration]="displayMode === 'account'"
-     [class.text-decoration]="displayMode === 'amount'"
+<div *ngIf="transactionLine && relativeToAccount && transactionLine.balance != '0.00' && isIncome !== null"
+    [class.positive]="isIncome === true"
+    [class.negative]="isIncome === false"
+    [class.background-decoration]="displayMode === 'account'"
+    [class.text-decoration]="displayMode === 'amount'"
 >
     <span *ngIf="displayMode === 'amount'">{{ isIncome ? '➚' : '➘︎' }}&nbsp;{{ transactionLine.balance  | currency : 'CHF'}}</span>
-    <span *ngIf="displayMode === 'account'">{{ isIncome ? '➚' : '➘︎' }}&nbsp;{{ relativeToAccount.name }}</span>
+    <a *ngIf="displayMode === 'account'" (click)="propagateAccount(relativeToAccount)" [routerLink]="transactionLineService.linkToTransactionForAccount(relativeToAccount)">{{ isIncome ? '➚' : '➘︎' }}&nbsp;{{ relativeToAccount.name }}</a>
 </div>

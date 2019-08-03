@@ -68,11 +68,13 @@
                                 <app-transaction-amount displayMode="account"
                                                         [transactionLine]="element"
                                                         [relativeToAccount]="element.debit"
+                                                        (accountClick)="searchAccount($event)"
                                                         style="margin: 0 3px 3px 0"
                                 ></app-transaction-amount>
                                 <app-transaction-amount displayMode="account"
                                                         [transactionLine]="element"
                                                         [relativeToAccount]="element.credit"
+                                                        (accountClick)="searchAccount($event)"
                                 ></app-transaction-amount>
                             </div>
                             <div *ngIf="!!relativeToAccount">

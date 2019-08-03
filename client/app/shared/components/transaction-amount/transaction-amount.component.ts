@@ -1,5 +1,6 @@
-import { Component, HostBinding, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Account, AccountType, TransactionLine } from '../../generated-types';
+import { TransactionLineService } from '../../../admin/transactions/services/transactionLine.service';
 
 @Component({
     selector: 'app-transaction-amount',
@@ -15,10 +16,11 @@ export class TransactionAmountComponent implements OnInit, OnChanges {
      */
     @Input() relativeToAccount: Account['account'];
     @Input() displayMode: 'amount' | 'account' = 'amount';
+    @Output() accountClick: EventEmitter<Account['account']> = new EventEmitter();
 
     public isIncome: boolean | null = null;
 
-    constructor() {
+    constructor(public transactionLineService: TransactionLineService) {
     }
 
     ngOnInit() {
@@ -36,6 +38,10 @@ export class TransactionAmountComponent implements OnInit, OnChanges {
                 this.isIncome = null;
             }
         }
+    }
+
+    public propagateAccount(account: Account['account']) {
+        this.accountClick.emit(account);
     }
 
 }
