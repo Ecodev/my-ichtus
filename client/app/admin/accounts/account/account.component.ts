@@ -65,7 +65,10 @@ export class AccountComponent
     }
 
     public getAccountLabel(account: Account['account']): string {
-        return [account.code, account.name].join(' ');
+        if (account) {
+            return [account.code, account.name].join(' ');
+        }
+        return '';
     }
 
     public updateLinkedFields(): void {

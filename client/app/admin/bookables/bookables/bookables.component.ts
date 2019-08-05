@@ -34,7 +34,6 @@ export class BookablesComponent extends NaturalAbstractList<Bookables['bookables
             persistenceService,
             injector
         );
-        this.naturalSearchFacets = naturalSearchFacetsService.get('bookables');
-
+        this.naturalSearchFacets = naturalSearchFacetsService.get(this.route.snapshot.data.isStorage ? 'storage' : 'bookables');
     }
 }

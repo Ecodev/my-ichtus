@@ -15,7 +15,7 @@ import {
     TypeTextComponent,
     TypeSelectComponent,
     TypeSelectConfiguration,
-    wrapLike,
+    wrapLike, replaceOperatorByName,
 } from '@ecodev/natural';
 import { UserTagService } from '../../admin/userTags/services/userTag.service';
 import { BookableService } from '../../admin/bookables/services/bookable.service';
@@ -224,6 +224,31 @@ export class NaturalSearchFacetsService {
             } as DropdownFacet<TypeDateConfiguration>,
             this.bookable,
             this.owner,
+            this.creationDate,
+            this.updateDate,
+        ],
+        storage: [
+            this.name,
+            this.code,
+            {
+                display: 'Réservations simultanées',
+                field: 'simultaneousBookingMaximum',
+                component: TypeNumberComponent,
+                configuration: {
+                    step: 1,
+                },
+            } as DropdownFacet<TypeNumberConfiguration>,
+            {
+                display: 'Utilisateur',
+                field: 'custom',
+                name: 'bookableUsage',
+                transform: replaceOperatorByName,
+                component: TypeNaturalSelectComponent,
+                configuration: <TypeSelectNaturalConfiguration> {
+                    service: this.userService,
+                    placeholder: 'Utilisateur',
+                },
+            } as DropdownFacet<TypeSelectNaturalConfiguration>,
             this.creationDate,
             this.updateDate,
         ],

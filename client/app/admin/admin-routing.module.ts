@@ -211,6 +211,7 @@ const routes: Routes = [
                                 contextColumns: ['image', 'name', 'code', 'date', 'verificationDate', 'usage'],
                                 contextVariables: BookableService.adminByTag(6009),
                                 contextService: UsageBookableService,
+                                isStorage: true,
                             },
                         },
                         {
@@ -220,6 +221,7 @@ const routes: Routes = [
                                 title: 'Casiers',
                                 contextVariables: BookableService.adminByTag(6010),
                                 contextService: UsageBookableService,
+                                isStorage: true,
                             },
                         },
                         {
@@ -229,6 +231,7 @@ const routes: Routes = [
                                 title: 'Flotteurs',
                                 contextVariables: BookableService.adminByTag(6011),
                                 contextService: UsageBookableService,
+                                isStorage: true,
                             },
                         },
                         {
@@ -238,6 +241,7 @@ const routes: Routes = [
                                 title: 'Râteliers WBC',
                                 contextVariables: BookableService.adminByTag(6016),
                                 contextService: UsageBookableService,
+                                isStorage: true,
                             },
                         },
                         {
