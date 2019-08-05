@@ -244,7 +244,7 @@ export class NaturalSearchFacetsService {
                 name: 'bookableUsage',
                 transform: replaceOperatorByName,
                 component: TypeNaturalSelectComponent,
-                configuration: <TypeSelectNaturalConfiguration> {
+                configuration: {
                     service: this.userService,
                     placeholder: 'Utilisateur',
                 },
