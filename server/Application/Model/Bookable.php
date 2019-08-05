@@ -22,6 +22,9 @@ use Money\Money;
  * An item that can be booked by a user
  *
  * @ORM\Entity(repositoryClass="Application\Repository\BookableRepository")
+ * @API\Filters({
+ *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\BookableUsageOperatorType", type="id"),
+ * })
  */
 class Bookable extends AbstractModel
 {

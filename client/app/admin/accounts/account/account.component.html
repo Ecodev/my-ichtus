@@ -58,7 +58,7 @@
                                         [hierarchicSelectorConfig]="accountHierarchicConfig"
                                         (selectionChange)="update()"
                                         [showIcon]="false"
-                                        [navigateTo]="['./', form.get('account')?.value?.id]"
+                                        [navigateTo]="['../', form.get('parent')?.value?.id]"
                                         [displayWith]="getAccountLabel"
                         ></natural-select>
 
