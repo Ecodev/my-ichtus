@@ -23,7 +23,6 @@ export class BvrComponent {
 
     @Input() set bankingData(data: BankingInfosVariables) {
 
-        console.log('data', data);
         this.apollo.query<BankingInfos, BankingInfosVariables>({
             query: q,
             fetchPolicy: 'cache-first',
