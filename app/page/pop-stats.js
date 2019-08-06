@@ -21,7 +21,7 @@ function popStats() {
     grayBar(container, 5);
 
     div(container).innerHTML = "Sorties";
-    div(container).innerHTML = "Jours";
+    div(container).innerHTML = "Jour";
 
     var t = div(container);
     t.classList.add("PopUpStatsContainerTitle");

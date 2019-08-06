@@ -409,20 +409,20 @@ function actualizeFinishedBookingListForDay(bookings,table) {
 
     var all = table.getElementsByClassName("TableEntries");
     for (var i = 0; i < all.length; i++) {
-        if (all[i].classList.contains("TableTopBar") == false) {
+        if (all[i].classList.contains("TableTopBar") === false) {
             all[i].parentNode.removeChild(all[i]);
             i--;
         }
     }
 
-    if (bookings.length == 0) {
-        var entry = div(table);
-        entry.classList.add("TableEntries");
-        entry.classList.add("TableEntriesHover");
-        div(entry);
+    if (bookings.length === 0) {
+        var ent = div(table);
+        ent.classList.add("TableEntries");
+        ent.classList.add("TableEntriesHover");
+        div(ent);
     }
     else {
-        for (var i = 0; i < bookings.length; i++) {
+        for (let i = 0; i < bookings.length; i++) {
 
             var entry = div(table);
             entry.id = i;
@@ -432,7 +432,6 @@ function actualizeFinishedBookingListForDay(bookings,table) {
                  if (!(event.target.parentElement.classList.contains("TableEntriesBookableBox") || event.target.parentElement.parentElement.classList.contains("TableEntriesBookableBox"))) {
                      popBookingInfos(bookings[this.id]);
                 }
-
             });
 
             if (options.seeWhichApplication) {
@@ -450,7 +449,7 @@ function actualizeFinishedBookingListForDay(bookings,table) {
             div(entry).innerHTML = bookings[i].participantCount;
             div(entry).innerHTML = Cahier.getOwner(bookings[i],true);
 
-            if (bookings[i].bookables.length == 0) {
+            if (bookings[i].bookables.length === 0) {
                 createBookingBookableBox(div(entry));
             }
             else {

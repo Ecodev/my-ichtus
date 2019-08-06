@@ -844,7 +844,7 @@ var Requests = {
                 ]
             },
             pagination: {
-                pageSize: 100,
+                pageSize: 500,
                 pageIndex: 0
             },
             sorting: [
@@ -944,6 +944,10 @@ var Requests = {
                         }]
                     }
                     ]
+            },
+            pagination: {
+                pageSize: 500,
+                pageIndex: 0
             }
         };
 
