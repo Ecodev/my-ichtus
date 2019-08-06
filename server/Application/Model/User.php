@@ -33,6 +33,9 @@ use GraphQL\Doctrine\Annotation as API;
  *     "Application\Api\Input\Sorting\Age",
  *     "Application\Api\Input\Sorting\Balance",
  * })
+ * @API\Filters({
+ *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\HasBookingWithTaggedBookableOperatorType", type="id"),
+ * })
  */
 class User extends AbstractModel
 {

@@ -183,6 +183,17 @@ export class NaturalSearchFacetsService {
             } as DropdownFacet<TypeDateConfiguration>,
             this.userWelcomeSession,
             this.licenses,
+            {
+                display: 'Tag de réservable',
+                field: 'custom',
+                name: 'hasBookingWithTaggedBookable',
+                transform: replaceOperatorByName,
+                component: TypeNaturalSelectComponent,
+                configuration: {
+                    service: this.bookableTagService,
+                    placeholder: 'Tag de réservable',
+                },
+            } as DropdownFacet<TypeSelectNaturalConfiguration>,
             this.receivesNewsletter,
             this.creationDate,
             this.updateDate,
