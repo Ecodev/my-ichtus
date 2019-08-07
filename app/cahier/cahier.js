@@ -60,11 +60,11 @@ function actualizeActualBookings(_actualBookings) {
         container.classList.add("TableEntriesHover");
 
         if (options.seeWhichApplication) {
-            if (_actualBookings[i].creator.name.toLowerCase() === "booking only") {
-                container.style.backgroundColor = "lightgreen";
+            if (_actualBookings[i].creator.name.toLowerCase() === "booking only" || _actualBookings[i].creator.name.toLowerCase() === "frédéric huissoud") { // parce que Fred s'est connecté sur ichtus.club grrr...
+                container.style.backgroundColor = "green";
             }
             else {
-                container.style.backgroundColor = "lightred";
+                container.style.backgroundColor = "orange";
             }
         }
 
@@ -435,11 +435,11 @@ function actualizeFinishedBookingListForDay(bookings,table) {
             });
 
             if (options.seeWhichApplication) {
-                if (bookings[i].creator.name.toLowerCase() === "booking only") {
-                    entry.style.backgroundColor = "lightgreen";
+                if (bookings[i].creator.name.toLowerCase() === "booking only" || bookings[i].creator.name.toLowerCase() === "frédéric huissoud") { // parce que Fred s'est connecté sur ichtus.club grrr...
+                    entry.style.backgroundColor = "green";
                 }
                 else {
-                    entry.style.backgroundColor = "lightred";
+                    entry.style.backgroundColor = "orange";
                 }
             }
 
