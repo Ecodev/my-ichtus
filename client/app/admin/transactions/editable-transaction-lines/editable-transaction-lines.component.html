@@ -75,9 +75,9 @@
         </ng-container>
 
         <ng-container matColumnDef="transactionTag">
-            <th mat-header-cell *matHeaderCellDef>Catégorie</th>
+            <th mat-header-cell *matHeaderCellDef>Tag</th>
             <td mat-cell *matCellDef="let element; let i = index;" [formGroupName]="i">
-                <natural-select [service]="transactionTagService" formControlName="transactionTag" placeholder="Catégorie" [showIcon]="false"
+                <natural-select [service]="transactionTagService" formControlName="transactionTag" placeholder="Tag" [showIcon]="false"
                 ></natural-select>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NaturalAbstractList, NaturalAlertService, NaturalPersistenceService, NaturalQueryVariablesManager } from '@ecodev/natural';
 import { NaturalSearchFacetsService } from '../../../shared/natural-search/natural-search-facets.service';
 import { TransactionLineService } from '../services/transactionLine.service';
-import { TransactionLines, TransactionLinesVariables, Account } from '../../../shared/generated-types';
+import { TransactionLines, TransactionLinesVariables, Account, TransactionLine, TransactionTag } from '../../../shared/generated-types';
 import { PermissionsService } from '../../../shared/services/permissions.service';
 
 @Component({
@@ -45,7 +45,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
         });
     }
 
-    public searchAccount(account: Account['account']) {
+    public filterByAccount(account: Account['account']): void {
         if (this.hideFab) {
             const link = this.transactionLineService.linkToTransactionForAccount(account);
             if (typeof link === 'string') {
@@ -55,6 +55,21 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
             }
         } else {
             const selection = TransactionLineService.getSelectionForAccount(account);
+            this.naturalSearchSelections = selection;
+            this.search(selection);
+        }
+    }
+
+    public filterByTag(tag: TransactionTag['transactionTag']): void {
+        if (this.hideFab) {
+            const link = this.transactionLineService.linkToTransactionForTag(tag);
+            if (typeof link === 'string') {
+                this.router.navigateByUrl(link);
+            } else {
+                this.router.navigate(link);
+            }
+        } else {
+            const selection = TransactionLineService.getSelectionForTag(tag);
             this.naturalSearchSelections = selection;
             this.search(selection);
         }

@@ -22,6 +22,7 @@ import { BookableService } from '../../admin/bookables/services/bookable.service
 import { UserService } from '../../admin/users/services/user.service';
 import { LicenseService } from '../../admin/licenses/services/license.service';
 import { TransactionService } from '../../admin/transactions/services/transaction.service';
+import { TransactionTagService } from '../../admin/transactionTags/services/transactionTag.service';
 import { UserFilterGroupCondition } from '../generated-types';
 import { AccountService } from '../../admin/accounts/services/account.service';
 import { accountHierarchicConfiguration } from '../hierarchic-selector/AccountHierarchicConfiguration';
@@ -41,6 +42,16 @@ export class NaturalSearchFacetsService {
         component: TypeNaturalSelectComponent,
         configuration: {
             service: this.userTagService,
+            placeholder: 'Tags',
+        },
+    };
+
+    private readonly transactionTags: DropdownFacet<TypeSelectNaturalConfiguration> = {
+        display: 'Tags',
+        field: 'transactionTag',
+        component: TypeNaturalSelectComponent,
+        configuration: {
+            service: this.transactionTagService,
             placeholder: 'Tags',
         },
     };
@@ -234,6 +245,7 @@ export class NaturalSearchFacetsService {
                 component: TypeDateComponent,
             } as DropdownFacet<TypeDateConfiguration>,
             this.bookable,
+            this.transactionTags,
             this.owner,
             this.creationDate,
             this.updateDate,
@@ -398,6 +410,7 @@ export class NaturalSearchFacetsService {
         private readonly enumService: NaturalEnumService<any>,
         private readonly userTagService: UserTagService,
         private readonly transactionService: TransactionService,
+        private readonly transactionTagService: TransactionTagService,
         private readonly bookableService: BookableService,
         private readonly bookableTagService: BookableTagService,
         private readonly accountService: AccountService,

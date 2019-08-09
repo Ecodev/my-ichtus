@@ -20,6 +20,7 @@ import {
     TransactionLineSortingField,
     TransactionLinesVariables,
     TransactionLineVariables,
+    TransactionTag,
 } from '../../../shared/generated-types';
 import { Observable, Subject} from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -84,6 +85,21 @@ export class TransactionLineService extends NaturalAbstractModelService<Transact
         ];
     }
 
+    public static getSelectionForTag(tag: TransactionTag['transactionTag']): NaturalSearchSelections {
+        return [
+            [
+                {
+                    field: 'transactionTag',
+                    condition: {
+                        have: {
+                            values: [tag.id],
+                        },
+                    },
+                },
+            ]
+        ];
+    }
+
     protected getDefaultForServer(): TransactionLineInput {
         return {
             name: '',
@@ -100,6 +116,14 @@ export class TransactionLineService extends NaturalAbstractModelService<Transact
 
     public linkToTransactionForAccount(account: Account['account']): RouterLink['routerLink'] {
         const selection = TransactionLineService.getSelectionForAccount(account);
+        return [
+            '/admin/transaction-line',
+            {ns: JSON.stringify(toUrl(selection))},
+        ];
+    }
+
+    public linkToTransactionForTag(tag: TransactionTag['transactionTag']): RouterLink['routerLink'] {
+        const selection = TransactionLineService.getSelectionForTag(tag);
         return [
             '/admin/transaction-line',
             {ns: JSON.stringify(toUrl(selection))},

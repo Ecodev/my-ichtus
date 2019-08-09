@@ -5,6 +5,7 @@ import { NaturalPersistenceService } from '@ecodev/natural';
 import { NaturalSearchFacetsService } from '../../../shared/natural-search/natural-search-facets.service';
 import { TransactionTags, TransactionTagsVariables } from '../../../shared/generated-types';
 import { TransactionTagService } from '../services/transactionTag.service';
+import { TransactionLineService } from '../../transactions/services/transactionLine.service';
 import { PermissionsService } from '../../../shared/services/permissions.service';
 import { NaturalAbstractList } from '@ecodev/natural';
 
@@ -24,6 +25,7 @@ export class TransactionTagsComponent
                 persistenceService: NaturalPersistenceService,
                 naturalSearchFacetsService: NaturalSearchFacetsService,
                 public permissionsService: PermissionsService,
+                public transactionLineService: TransactionLineService,
     ) {
 
         super(transactionTagService,
@@ -31,7 +33,6 @@ export class TransactionTagsComponent
             route,
             alertService,
             persistenceService,
-
         );
 
     }

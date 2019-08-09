@@ -22,6 +22,7 @@
                     <span naturalColumnsPickerColumn="account">Compte</span>
                     <span naturalColumnsPickerColumn="isReconciled">Pointé</span>
                     <span naturalColumnsPickerColumn="expenseClaim">Quittance</span>
+                    <span naturalColumnsPickerColumn="tag">Tag</span>
                 </natural-columns-picker>
 
                 <button mat-icon-button (click)="download()" matTooltip="Télécharger la liste au format Excel">
@@ -50,6 +51,14 @@
                     <td mat-footer-cell *matFooterCellDef>Total</td>
                 </ng-container>
 
+                <ng-container matColumnDef="remarks">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Remarques</th>
+                    <td mat-cell *matCellDef="let element">
+                        <div [innerHTML]="element.remarks" class="line-break"></div>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
                 <ng-container matColumnDef="balance">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header natural-4em-column>Montant</th>
                     <td mat-cell *matCellDef="let element">
@@ -68,13 +77,13 @@
                                 <app-transaction-amount displayMode="account"
                                                         [transactionLine]="element"
                                                         [relativeToAccount]="element.debit"
-                                                        (accountClick)="searchAccount($event)"
+                                                        (accountClick)="filterByAccount($event)"
                                                         style="margin: 0 3px 3px 0"
                                 ></app-transaction-amount>
                                 <app-transaction-amount displayMode="account"
                                                         [transactionLine]="element"
                                                         [relativeToAccount]="element.credit"
-                                                        (accountClick)="searchAccount($event)"
+                                                        (accountClick)="filterByAccount($event)"
                                 ></app-transaction-amount>
                             </div>
                             <div *ngIf="!!relativeToAccount">
@@ -126,10 +135,17 @@
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 
-                <ng-container matColumnDef="remarks">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Remarques</th>
+                <ng-container matColumnDef="tag">
+                    <th mat-header-cell *matHeaderCellDef>Tag</th>
                     <td mat-cell *matCellDef="let element">
-                        <div [innerHTML]="element.remarks" class="line-break"></div>
+                        <div *ngIf="element.transactionTag" fxLayout="row" fxLayoutAlign="start start">
+                            <ngx-avatar [bgColor]="element.transactionTag.color" [size]="32" [name]="element.transactionTag.name"></ngx-avatar>
+                            <natural-table-button
+                                    [label]="element.transactionTag.name"
+                                    (click)="filterByTag(element.transactionTag)"
+                                    matTooltip="Voir les transactions"
+                            ></natural-table-button>
+                        </div>
                     </td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>

@@ -134,6 +134,7 @@
                 <div *ngIf="!updateTransactionLines && data.model.id">
                     <app-transaction-lines [persistSearch]="false"
                                            [contextVariables]="{filter: {groups: [{conditions:[{transaction: {equal: {value: data.model.id}}}]}]}}"
+                                           [contextColumns]="['transactionDate', 'name', 'remarks', 'balance', 'account', 'isReconciled', 'tag']"
                                            [hideFab]="true"
                     ></app-transaction-lines>
                 </div>
