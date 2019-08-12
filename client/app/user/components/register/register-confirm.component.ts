@@ -57,6 +57,7 @@ export class RegisterConfirmComponent extends RegisterComponent implements OnIni
             'locality',
             'country',
             'birthday',
+            'mobilePhone'
         ];
 
         const input = pick(NaturalUtility.relationsToIds(this.form.value), fieldWhitelist);

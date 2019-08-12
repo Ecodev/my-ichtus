@@ -39,6 +39,7 @@ export class NewUserService extends AnonymousUserService {
             email: [Validators.required, Validators.email],
             familyRelationship: [Validators.required],
             birthday: [Validators.required],
+            mobilePhone: [Validators.required, Validators.maxLength(25)],
             locality: [Validators.required],
             street: [Validators.required],
             postcode: [Validators.required],

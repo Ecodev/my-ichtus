@@ -67,8 +67,17 @@
 
             <app-address [form]="form"></app-address>
 
-            <div>
-                <mat-form-field>
+            <div fxLayout="row" fxLayoutGap="10px">
+                <mat-form-field fxFlex>
+                    <mat-label>Téléphone mobile</mat-label>
+                    <natural-icon matPrefix name="smartphone"></natural-icon>
+                    <input matInput formControlName="mobilePhone">
+                    <mat-error *ngIf="form.get('mobilePhone')?.hasError('maxlength')">
+                        Maximum {{form.get('mobilePhone')?.errors.maxlength.requiredLength}} caractères
+                    </mat-error>
+                    <mat-error *ngIf="form.get('mobilePhone')?.hasError('required')">Requis</mat-error>
+                </mat-form-field>
+                <mat-form-field fxFlex>
                     <mat-label>Date de naissance</mat-label>
                     <input matInput formControlName="birthday" [matDatepicker]="picker">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
