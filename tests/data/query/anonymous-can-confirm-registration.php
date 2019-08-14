@@ -17,6 +17,7 @@ return [
                 'locality' => 'New York',
                 'postcode' => '2000',
                 'birthday' => '2000-01-01',
+                'mobilePhone' => '+41791234567',
             ],
         ],
     ],
