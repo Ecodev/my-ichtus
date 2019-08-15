@@ -81,11 +81,20 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
             return;
         }
 
+        const sign = Datatrans.getHexaSHA256Signature(
+            '',
+            this.config.datatrans.key,
+            this.config.datatrans.merchantId,
+            amount * 100,
+            'CHF',
+            user.id
+        );
+
         Datatrans.startPayment({
             params: {
                 production: this.config.datatrans.production,
                 merchantId: this.config.datatrans.merchantId,
-                sign: this.config.datatrans.sign,
+                sign: sign,
                 refno: user.id,
                 amount: amount * 100,
                 currency: 'CHF',

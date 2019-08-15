@@ -28,10 +28,23 @@ class DatatransAction extends AbstractAction
      */
     private $entityManager;
 
-    public function __construct(EntityManager $entityManager, TemplateRendererInterface $template)
+    /**
+     * @var array
+     */
+    private $config;
+
+    /**
+     * DatatransAction constructor.
+     *
+     * @param EntityManager $entityManager
+     * @param TemplateRendererInterface $template
+     * @param array $config
+     */
+    public function __construct(EntityManager $entityManager, TemplateRendererInterface $template, array $config)
     {
         $this->entityManager = $entityManager;
         $this->template = $template;
+        $this->config = $config;
     }
 
     /**
@@ -54,6 +67,10 @@ class DatatransAction extends AbstractAction
                 throw new \Exception('Parsed body is expected to be an array but got: ' . gettype($body));
             }
 
+            if (isset($this->config['key'])) {
+                $this->checkSignature($body, $this->config['key']);
+            }
+
             $status = $body['status'] ?? '';
 
             $message = $this->dispatch($status, $body);
@@ -66,6 +83,27 @@ class DatatransAction extends AbstractAction
         ];
 
         return new HtmlResponse($this->template->render('app::datatrans', $viewModel));
+    }
+
+    /**
+     * Make sure the signature protecting important body fields is valid
+     *
+     * @param array $body
+     * @param string $key HMAC-SHA256 signing key in hexadecimal format
+     *
+     * @throws \Exception
+     */
+    private function checkSignature(array $body, string $key): void
+    {
+        if (!isset($body['sign'])) {
+            throw new \Exception('Missing HMAC signature');
+        }
+        $aliasCC = $body['aliasCC'] ?? '';
+        $valueToSign = $aliasCC . @$body['merchantId'] . @$body['amount'] . @$body['currency'] . @$body['refno'];
+        $expectedSign = hash_hmac('sha256', trim($valueToSign), hex2bin(trim($key)));
+        if ($expectedSign !== $body['sign']) {
+            throw new \Exception('Invalid HMAC signature');
+        }
     }
 
     /**

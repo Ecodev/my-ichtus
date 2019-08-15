@@ -238,7 +238,20 @@
         }
     };
 
+    const getHexaSHA256Signature = function(aliasCC, hexaKey, merchandId, amount, currency, refno) {
+        if (hexaKey === null) {
+            throw new Error('Missing HMAC key');
+        }
+        const HmacSHA256 = require('crypto-js/hmac-sha256');
+        const HexEnc = require('crypto-js/enc-hex');
+        const valueToSign = aliasCC + merchandId + amount + currency + refno;
+        const wordKey = HexEnc.parse(hexaKey);
+        const wordSig = HmacSHA256(valueToSign, wordKey);
+        return HexEnc.stringify(wordSig);
+    };
+
     return {
+        getHexaSHA256Signature: getHexaSHA256Signature,
         startPayment: startPayment,
         cleanup: cleanup,
     };
