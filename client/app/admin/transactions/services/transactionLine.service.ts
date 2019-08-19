@@ -16,7 +16,7 @@ import {
     SortingOrder,
     TransactionLine,
     TransactionLineInput,
-    TransactionLines,
+    TransactionLines, TransactionLinesForExport, TransactionLinesForExportVariables,
     TransactionLineSortingField,
     TransactionLinesVariables,
     TransactionLineVariables,
@@ -168,9 +168,9 @@ export class TransactionLineService extends NaturalAbstractModelService<Transact
         return this.watchAll(qvm, expire);
     }
 
-    public getExportLink(qvm: NaturalQueryVariablesManager<TransactionLinesVariables>): Observable<string> {
+    public getExportLink(qvm: NaturalQueryVariablesManager<TransactionLinesForExportVariables>): Observable<string> {
 
-        return this.apollo.query<any>({
+        return this.apollo.query<TransactionLinesForExport, TransactionLinesForExportVariables>({
            query: transactionLinesForExportQuery,
            variables: qvm.variables.value,
         }).pipe(map(result => {

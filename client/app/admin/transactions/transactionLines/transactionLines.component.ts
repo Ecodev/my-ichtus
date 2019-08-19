@@ -2,7 +2,13 @@ import { Component, Injector, Input, OnInit } from '@angular/core';
 import { NaturalAbstractList, NaturalQueryVariablesManager } from '@ecodev/natural';
 import { NaturalSearchFacetsService } from '../../../shared/natural-search/natural-search-facets.service';
 import { TransactionLineService } from '../services/transactionLine.service';
-import { Account, TransactionLines, TransactionLinesVariables, TransactionTag } from '../../../shared/generated-types';
+import {
+    Account,
+    TransactionLines,
+    TransactionLinesForExportVariables,
+    TransactionLinesVariables,
+    TransactionTag,
+} from '../../../shared/generated-types';
 import { PermissionsService } from '../../../shared/services/permissions.service';
 
 @Component({
@@ -28,7 +34,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
     }
 
     public download(): void {
-        const qvm = new NaturalQueryVariablesManager(this.variablesManager);
+        const qvm = new NaturalQueryVariablesManager<TransactionLinesForExportVariables>(this.variablesManager);
         qvm.set('pagination', {pagination: {pageIndex: 0, pageSize: 9999}});
 
         this.transactionLineService.getExportLink(qvm).subscribe(url => {

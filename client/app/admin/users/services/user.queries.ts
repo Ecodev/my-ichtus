@@ -98,7 +98,7 @@ export const usersQuery = gql`
 `;
 
 export const emailUsersQuery = gql`
-    query Users($filter: UserFilter, $sorting: [UserSorting!], $pagination: PaginationInput) {
+    query EmailUsers($filter: UserFilter, $sorting: [UserSorting!], $pagination: PaginationInput) {
         users(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
                 id
