@@ -1,13 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NaturalAlertService } from '@ecodev/natural';
-import { NaturalPersistenceService } from '@ecodev/natural';
-import { NaturalSearchFacetsService } from '../../../shared/natural-search/natural-search-facets.service';
+import { Component, Injector, OnInit } from '@angular/core';
+import { NaturalAbstractList } from '@ecodev/natural';
 import { TransactionTags, TransactionTagsVariables } from '../../../shared/generated-types';
 import { TransactionTagService } from '../services/transactionTag.service';
 import { TransactionLineService } from '../../transactions/services/transactionLine.service';
 import { PermissionsService } from '../../../shared/services/permissions.service';
-import { NaturalAbstractList } from '@ecodev/natural';
 
 @Component({
     selector: 'app-transaction-tags',
@@ -18,22 +14,13 @@ export class TransactionTagsComponent
     extends NaturalAbstractList<TransactionTags['transactionTags'], TransactionTagsVariables>
     implements OnInit {
 
-    constructor(route: ActivatedRoute,
-                router: Router,
-                transactionTagService: TransactionTagService,
-                alertService: NaturalAlertService,
-                persistenceService: NaturalPersistenceService,
-                naturalSearchFacetsService: NaturalSearchFacetsService,
+    constructor(transactionTagService: TransactionTagService,
+                injector: Injector,
                 public permissionsService: PermissionsService,
                 public transactionLineService: TransactionLineService,
     ) {
 
-        super(transactionTagService,
-            router,
-            route,
-            alertService,
-            persistenceService,
-        );
+        super(transactionTagService, injector);
 
     }
 }

@@ -1,8 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NaturalAlertService } from '@ecodev/natural';
-import { NaturalPersistenceService } from '@ecodev/natural';
-import { NaturalSearchFacetsService } from '../../../shared/natural-search/natural-search-facets.service';
+import { Component, Injector, OnInit } from '@angular/core';
 import { NaturalAbstractList } from '@ecodev/natural';
 import { BookableTags, BookableTagsVariables } from '../../../shared/generated-types';
 import { BookableTagService } from '../services/bookableTag.service';
@@ -15,22 +11,12 @@ import { PermissionsService } from '../../../shared/services/permissions.service
 })
 export class BookableTagsComponent extends NaturalAbstractList<BookableTags['bookableTags'], BookableTagsVariables> implements OnInit {
 
-    constructor(route: ActivatedRoute,
-                router: Router,
-                bookableTagService: BookableTagService,
-                alertService: NaturalAlertService,
-                persistenceService: NaturalPersistenceService,
-                naturalSearchFacetsService: NaturalSearchFacetsService,
+    constructor(bookableTagService: BookableTagService,
+                injector: Injector,
                 public permissionsService: PermissionsService,
     ) {
 
-        super(bookableTagService,
-            router,
-            route,
-            alertService,
-            persistenceService,
-
-        );
+        super(bookableTagService, injector);
 
     }
 }

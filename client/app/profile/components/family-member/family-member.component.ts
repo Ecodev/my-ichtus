@@ -1,10 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Injector, Input, OnInit } from '@angular/core';
 import { CreateUser, CreateUserVariables, UpdateUser, UpdateUserVariables, User, UserVariables } from '../../../shared/generated-types';
-import { NaturalAlertService } from '@ecodev/natural';
-import { ActivatedRoute, Router } from '@angular/router';
+import { NaturalAbstractDetail } from '@ecodev/natural';
 import { merge } from 'lodash';
 import { FamilyUserService } from './family-user.service';
-import { NaturalAbstractDetail } from '@ecodev/natural';
 
 @Component({
     selector: 'app-family-member',
@@ -24,12 +22,8 @@ export class FamilyMemberComponent
     @Input() user: User['user'];
     @Input() readonly = false;
 
-    constructor(alertService: NaturalAlertService,
-                private userService: FamilyUserService,
-                router: Router,
-                route: ActivatedRoute,
-    ) {
-        super('user', userService, alertService, router, route);
+    constructor(private userService: FamilyUserService, injector: Injector) {
+        super('user', userService, injector);
     }
 
     /**

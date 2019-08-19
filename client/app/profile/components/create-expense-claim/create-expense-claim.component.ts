@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { ExpenseClaimService } from '../../../admin/expenseClaim/services/expenseClaim.service';
 import {
     CreateExpenseClaim,
@@ -9,11 +9,9 @@ import {
     UpdateExpenseClaim,
     UpdateExpenseClaimVariables,
 } from '../../../shared/generated-types';
-import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../admin/users/services/user.service';
-import { NaturalAlertService } from '@ecodev/natural';
-import { AccountingDocumentsComponent } from '../../../admin/accounting-documents/accounting-documents.component';
 import { NaturalAbstractDetail } from '@ecodev/natural';
+import { AccountingDocumentsComponent } from '../../../admin/accounting-documents/accounting-documents.component';
 
 @Component({
     selector: 'app-create-expense-claim',
@@ -31,13 +29,11 @@ export class CreateExpenseClaimComponent
 
     @ViewChild(AccountingDocumentsComponent, { static: true }) accountingDocuments: AccountingDocumentsComponent;
 
-    constructor(alertService: NaturalAlertService,
-                expenseClaimService: ExpenseClaimService,
-                router: Router,
-                route: ActivatedRoute,
+    constructor(expenseClaimService: ExpenseClaimService,
+                injector: Injector,
                 public userService: UserService,
     ) {
-        super('expenseClaim', expenseClaimService, alertService, router, route);
+        super('expenseClaim', expenseClaimService, injector);
     }
 
     ngOnInit() {

@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Injector, OnInit } from '@angular/core';
 import { BookingService } from '../services/booking.service';
 import {
     BookablesVariables,
@@ -17,7 +16,6 @@ import { UserService } from '../../users/services/user.service';
 import { BookableService } from '../../bookables/services/bookable.service';
 import { BookableTagService } from '../../bookableTags/services/bookableTag.service';
 import { NaturalAbstractDetail } from '@ecodev/natural';
-import { NaturalAlertService } from '@ecodev/natural';
 import { UsageBookableService } from '../../bookables/services/usage-bookable.service';
 
 @Component({
@@ -43,14 +41,12 @@ export class BookingComponent
      */
     public newBooking;
 
-    constructor(alertService: NaturalAlertService,
-                public bookingService: BookingService,
-                router: Router,
-                route: ActivatedRoute,
+    constructor(public bookingService: BookingService,
+                injector: Injector,
                 public bookableService: BookableService,
                 public userService: UserService,
     ) {
-        super('booking', bookingService, alertService, router, route);
+        super('booking', bookingService, injector);
     }
 
     ngOnInit() {

@@ -1,7 +1,5 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Injector } from '@angular/core';
 import { NaturalAbstractDetail } from '@ecodev/natural';
-import { NaturalAlertService } from '@ecodev/natural';
 import {
     CreateUserTag,
     CreateUserTagVariables,
@@ -28,12 +26,10 @@ export class UserTagComponent
         UpdateUserTagVariables,
         DeleteUserTags> {
 
-    constructor(alertService: NaturalAlertService,
-                userTagService: UserTagService,
-                router: Router,
-                route: ActivatedRoute,
+    constructor(userTagService: UserTagService,
+                injector: Injector,
                 public userService: UserService,
     ) {
-        super('userTag', userTagService, alertService, router, route);
+        super('userTag', userTagService, injector);
     }
 }

@@ -1,7 +1,5 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Injector } from '@angular/core';
 import { NaturalAbstractDetail } from '@ecodev/natural';
-import { NaturalAlertService } from '@ecodev/natural';
 import {
     BookableTag,
     BookableTagVariables,
@@ -27,12 +25,10 @@ export class BookableTagComponent
         UpdateBookableTagVariables,
         DeleteBookableTags> {
 
-    constructor(alertService: NaturalAlertService,
-                bookableTagService: BookableTagService,
-                router: Router,
-                route: ActivatedRoute,
+    constructor(bookableTagService: BookableTagService,
+                injector: Injector,
                 public tagService: BookableTagService,
     ) {
-        super('bookableTag', bookableTagService, alertService, router, route);
+        super('bookableTag', bookableTagService, injector);
     }
 }

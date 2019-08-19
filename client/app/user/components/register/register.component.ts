@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { CreateUser, CreateUserVariables, UpdateUser, UpdateUserVariables, User, UserVariables } from '../../../shared/generated-types';
-import { ActivatedRoute, Router } from '@angular/router';
 import { BookableService } from '../../../admin/bookables/services/bookable.service';
 import { AnonymousUserService } from './anonymous-user.service';
 import gql from 'graphql-tag';
 import { Apollo } from 'apollo-angular';
-import { NaturalAbstractDetail, NaturalAlertService, NaturalDataSource } from '@ecodev/natural';
+import { NaturalAbstractDetail, NaturalDataSource } from '@ecodev/natural';
 
 @Component({
     selector: 'app-register',
@@ -26,13 +25,11 @@ export class RegisterComponent extends NaturalAbstractDetail<User['user'],
     public sending = false;
 
     constructor(userService: AnonymousUserService,
-                alertService: NaturalAlertService,
-                router: Router,
-                route: ActivatedRoute,
+                injector: Injector,
                 protected bookableService: BookableService,
                 protected apollo: Apollo,
     ) {
-        super('user', userService, alertService, router, route);
+        super('user', userService, injector);
     }
 
     ngOnInit() {
@@ -79,17 +76,17 @@ export class RegisterComponent extends NaturalAbstractDetail<User['user'],
             mutation: mutation,
             variables: this.form.value,
         })
-        .subscribe(() => {
-            this.sending = false;
+            .subscribe(() => {
+                    this.sending = false;
 
-            const message = 'Un email avec des instructions a été envoyé';
+                    const message = 'Un email avec des instructions a été envoyé';
 
-            this.alertService.info(message, 5000);
-            this.router.navigate(['/login']);
-        },
-        (error) => {
-            this.sending = false;
-            this.alertService.error(error.message, 5000);
-        });
+                    this.alertService.info(message, 5000);
+                    this.router.navigate(['/login']);
+                },
+                (error) => {
+                    this.sending = false;
+                    this.alertService.error(error.message, 5000);
+                });
     }
 }

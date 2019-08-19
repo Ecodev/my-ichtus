@@ -139,7 +139,6 @@
                             <natural-relations [main]="data.model"
                                            [service]="licenseService"
                                            [filter]="{groups: [{conditions: [{bookables: {have: {values: [data.model.id]}}}]}]}"
-                                           [hideSearch]="true"
                                            placeholder="Associer à une certification"
                             >
                                 <ng-template let-item="item">
@@ -157,7 +156,6 @@
                             <natural-relations [main]="data.model"
                                            [service]="bookableTagService"
                                            [filter]="{groups: [{conditions: [{bookables: {have: {values: [data.model.id]}}}]}]}"
-                                           [hideSearch]="true"
                                            placeholder="Ajouter un tag"
                             >
                                 <ng-template let-item="item">

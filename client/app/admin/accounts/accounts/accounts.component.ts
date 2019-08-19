@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NaturalAbstractNavigableList, NaturalAlertService, NaturalPersistenceService } from '@ecodev/natural';
+import { Component, Injector } from '@angular/core';
+import { NaturalAbstractNavigableList } from '@ecodev/natural';
 import { Accounts, AccountsVariables } from '../../../shared/generated-types';
 import { NaturalSearchFacetsService } from '../../../shared/natural-search/natural-search-facets.service';
 import { AccountService } from '../services/account.service';
@@ -14,23 +13,14 @@ import { TransactionLineService } from '../../transactions/services/transactionL
 })
 export class AccountsComponent extends NaturalAbstractNavigableList<Accounts['accounts'], AccountsVariables> {
 
-    constructor(route: ActivatedRoute,
-                router: Router,
-                accountService: AccountService,
-                alertService: NaturalAlertService,
-                persistenceService: NaturalPersistenceService,
+    constructor(accountService: AccountService,
+                injector: Injector,
                 naturalSearchFacetsService: NaturalSearchFacetsService,
                 public permissionsService: PermissionsService,
                 public transactionLineService: TransactionLineService,
     ) {
 
-        super(accountService,
-            router,
-            route,
-            alertService,
-            persistenceService,
-
-        );
+        super(accountService, injector);
         this.naturalSearchFacets = naturalSearchFacetsService.get('accounts');
     }
 

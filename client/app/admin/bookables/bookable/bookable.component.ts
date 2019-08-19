@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Injector, OnInit } from '@angular/core';
 import { NaturalAbstractDetail } from '@ecodev/natural';
-import { NaturalAlertService } from '@ecodev/natural';
 import { BookableService } from '../services/bookable.service';
 import {
     Bookable,
@@ -38,15 +36,13 @@ export class BookableComponent
     public accountHierarchicConfig = accountHierarchicConfiguration;
     public bookingsVariables;
 
-    constructor(alertService: NaturalAlertService,
-                bookableService: BookableService,
-                router: Router,
-                route: ActivatedRoute,
+    constructor(bookableService: BookableService,
+                injector: Injector,
                 public bookableTagService: BookableTagService,
                 public licenseService: LicenseService,
                 public imageService: ImageService,
     ) {
-        super('bookable', bookableService, alertService, router, route);
+        super('bookable', bookableService, injector);
     }
 
     ngOnInit(): void {

@@ -1,9 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NaturalAbstractList, NaturalAlertService, NaturalPersistenceService, NaturalQueryVariablesManager } from '@ecodev/natural';
+import { Component, Injector, Input, OnInit } from '@angular/core';
+import { NaturalAbstractList, NaturalQueryVariablesManager } from '@ecodev/natural';
 import { NaturalSearchFacetsService } from '../../../shared/natural-search/natural-search-facets.service';
 import { TransactionLineService } from '../services/transactionLine.service';
-import { TransactionLines, TransactionLinesVariables, Account, TransactionLine, TransactionTag } from '../../../shared/generated-types';
+import { Account, TransactionLines, TransactionLinesVariables, TransactionTag } from '../../../shared/generated-types';
 import { PermissionsService } from '../../../shared/services/permissions.service';
 
 @Component({
@@ -17,21 +16,13 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
     @Input() relativeToAccount;
     @Input() hideFab = false;
 
-    constructor(route: ActivatedRoute,
-                router: Router,
-                private transactionLineService: TransactionLineService,
-                alertService: NaturalAlertService,
-                persistenceService: NaturalPersistenceService,
+    constructor(private transactionLineService: TransactionLineService,
+                injector: Injector,
                 naturalSearchFacetsService: NaturalSearchFacetsService,
                 public permissionsService: PermissionsService,
     ) {
 
-        super(transactionLineService,
-            router,
-            route,
-            alertService,
-            persistenceService,
-        );
+        super(transactionLineService, injector);
 
         this.naturalSearchFacets = naturalSearchFacetsService.get('transactionLines');
     }

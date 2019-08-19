@@ -1,7 +1,5 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Injector } from '@angular/core';
 import { NaturalAbstractDetail } from '@ecodev/natural';
-import { NaturalAlertService } from '@ecodev/natural';
 import {
     CreateLicense,
     CreateLicenseVariables,
@@ -29,13 +27,11 @@ export class LicenseComponent
         UpdateLicenseVariables,
         DeleteLicenses> {
 
-    constructor(alertService: NaturalAlertService,
-                licenseService: LicenseService,
-                router: Router,
-                route: ActivatedRoute,
+    constructor(licenseService: LicenseService,
+                injector: Injector,
                 public userService: UserService,
                 public bookableService: BookableService,
     ) {
-        super('license', licenseService, alertService, router, route);
+        super('license', licenseService, injector);
     }
 }

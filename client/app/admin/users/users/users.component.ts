@@ -1,12 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import {
-    NaturalAbstractList,
-    NaturalAlertService,
-    NaturalPersistenceService,
-    NaturalQueryVariablesManager,
-    NaturalSearchSelections,
-} from '@ecodev/natural';
+import { Component, Injector, OnInit } from '@angular/core';
+import { NaturalAbstractList, NaturalQueryVariablesManager, NaturalSearchSelections } from '@ecodev/natural';
 import { Apollo } from 'apollo-angular';
 import { Users, UserStatus, UsersVariables } from '../../../shared/generated-types';
 import { NaturalSearchFacetsService } from '../../../shared/natural-search/natural-search-facets.service';
@@ -36,23 +29,14 @@ export class UsersComponent extends NaturalAbstractList<Users['users'], UsersVar
     public usersEmail;
     public usersEmailAndName;
 
-    constructor(route: ActivatedRoute,
-                router: Router,
-                private userService: UserService,
-                alertService: NaturalAlertService,
-                persistenceService: NaturalPersistenceService,
+    constructor(private userService: UserService,
+                injector: Injector,
                 naturalSearchFacetsService: NaturalSearchFacetsService,
                 public permissionsService: PermissionsService,
                 private apollo: Apollo,
     ) {
 
-        super(userService,
-            router,
-            route,
-            alertService,
-            persistenceService,
-        );
-
+        super(userService, injector);
         this.naturalSearchFacets = naturalSearchFacetsService.get('users');
     }
 

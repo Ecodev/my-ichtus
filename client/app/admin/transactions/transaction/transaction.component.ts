@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NaturalAbstractDetail, NaturalAlertService } from '@ecodev/natural';
+import { Component, Injector, OnInit, ViewChild } from '@angular/core';
+import { NaturalAbstractDetail } from '@ecodev/natural';
 import { TransactionService } from '../services/transaction.service';
 import {
     CreateTransaction,
@@ -41,15 +40,13 @@ export class TransactionComponent
     public ExpenseClaimType = ExpenseClaimType;
     public ExpenseClaimStatus = ExpenseClaimStatus;
 
-    constructor(alertService: NaturalAlertService,
-                private transactionService: TransactionService,
-                router: Router,
-                route: ActivatedRoute,
+    constructor(private transactionService: TransactionService,
+                injector: Injector,
                 public bookableService: BookableService,
                 public transactionLineService: TransactionLineService,
                 private expenseClaimService: ExpenseClaimService,
     ) {
-        super('transaction', transactionService, alertService, router, route);
+        super('transaction', transactionService, injector);
     }
 
     ngOnInit() {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { NaturalAlertService } from '@ecodev/natural';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookableService } from '../../../admin/bookables/services/bookable.service';
@@ -17,13 +17,13 @@ import { NaturalUtility } from '@ecodev/natural';
 export class RegisterConfirmComponent extends RegisterComponent implements OnInit {
 
     constructor(userService: NewUserService,
+                injector: Injector,
                 router: Router,
                 route: ActivatedRoute,
                 bookableService: BookableService,
                 apollo: Apollo,
-                alertService: NaturalAlertService,
     ) {
-        super(userService, alertService, router, route, bookableService, apollo);
+        super(userService, injector, bookableService, apollo);
     }
 
     protected initForm(): void {

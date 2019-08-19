@@ -1,13 +1,11 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Injector } from '@angular/core';
 import { NaturalAbstractDetail } from '@ecodev/natural';
-import { NaturalAlertService } from '@ecodev/natural';
 import {
-    TransactionTag,
-    TransactionTagVariables,
     CreateTransactionTag,
     CreateTransactionTagVariables,
     DeleteTransactionTags,
+    TransactionTag,
+    TransactionTagVariables,
     UpdateTransactionTag,
     UpdateTransactionTagVariables,
 } from '../../../shared/generated-types';
@@ -27,12 +25,7 @@ export class TransactionTagComponent
         UpdateTransactionTagVariables,
         DeleteTransactionTags> {
 
-
-    constructor(alertService: NaturalAlertService,
-                transactionTagService: TransactionTagService,
-                router: Router,
-                route: ActivatedRoute,
-    ) {
-        super('transactionTag', transactionTagService, alertService, router, route);
+    constructor(transactionTagService: TransactionTagService, injector: Injector) {
+        super('transactionTag', transactionTagService, injector);
     }
 }

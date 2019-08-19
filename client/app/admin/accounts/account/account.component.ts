@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NaturalAbstractDetail } from '@ecodev/natural';
 import { NaturalAlertService } from '@ecodev/natural';
@@ -31,13 +31,11 @@ export class AccountComponent
     public nextCodeAvailable: number;
     public accountHierarchicConfig = groupAccountHierarchicConfiguration;
 
-    constructor(alertService: NaturalAlertService,
-                public accountService: AccountService,
-                router: Router,
-                route: ActivatedRoute,
+    constructor(public accountService: AccountService,
+                injector: Injector,
                 public userService: UserService,
     ) {
-        super('account', accountService, alertService, router, route);
+        super('account', accountService, injector);
     }
 
     ngOnInit(): void {

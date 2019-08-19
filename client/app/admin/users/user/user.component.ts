@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NaturalAbstractDetail, NaturalAlertService, NaturalQueryVariablesManager } from '@ecodev/natural';
+import { Component, Injector, OnInit } from '@angular/core';
+import { NaturalAbstractDetail, NaturalQueryVariablesManager } from '@ecodev/natural';
 import { UserService } from '../services/user.service';
 import {
     CreateUser,
@@ -40,16 +39,14 @@ export class UserComponent
     public transactionLinesVariables;
     public familyVariables;
 
-    constructor(alertService: NaturalAlertService,
-                private userService: UserService,
-                router: Router,
-                route: ActivatedRoute,
+    constructor(private userService: UserService,
+                injector: Injector,
                 public userTagService: UserTagService,
                 public licenseService: LicenseService,
                 public bookingService: BookingService,
                 public accountService: AccountService,
     ) {
-        super('user', userService, alertService, router, route);
+        super('user', userService, injector);
     }
 
     ngOnInit() {

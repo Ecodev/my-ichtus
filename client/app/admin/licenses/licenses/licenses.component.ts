@@ -1,9 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NaturalAlertService } from '@ecodev/natural';
-import { NaturalPersistenceService } from '@ecodev/natural';
-import { NaturalSearchFacetsService } from '../../../shared/natural-search/natural-search-facets.service';
+import { Component, Injector, OnInit } from '@angular/core';
 import { NaturalAbstractList } from '@ecodev/natural';
+import { NaturalSearchFacetsService } from '../../../shared/natural-search/natural-search-facets.service';
 import { Licenses, LicensesVariables } from '../../../shared/generated-types';
 import { LicenseService } from '../services/license.service';
 import { PermissionsService } from '../../../shared/services/permissions.service';
@@ -15,22 +12,13 @@ import { PermissionsService } from '../../../shared/services/permissions.service
 })
 export class LicensesComponent extends NaturalAbstractList<Licenses['licenses'], LicensesVariables> implements OnInit {
 
-    constructor(route: ActivatedRoute,
-                router: Router,
-                licenseService: LicenseService,
-                alertService: NaturalAlertService,
-                persistenceService: NaturalPersistenceService,
+    constructor(licenseService: LicenseService,
+                injector: Injector,
                 naturalSearchFacetsService: NaturalSearchFacetsService,
                 public permissionsService: PermissionsService,
     ) {
 
-        super(licenseService,
-            router,
-            route,
-            alertService,
-            persistenceService,
-
-        );
+        super(licenseService, injector);
 
     }
 }

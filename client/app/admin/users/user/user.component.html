@@ -194,7 +194,6 @@
                                            [service]="licenseService"
                                            [filter]="{groups: [{conditions: [{users: {have: {values: [data.model.id]}}}]}]}"
                                            placeholder="Attribuer une certification"
-                                           [hideSearch]="true"
                         >
                             <ng-template let-item="item">
                                 <natural-table-button [navigate]="['/admin/license/', item.id]" [label]="item.name"></natural-table-button>
@@ -207,7 +206,6 @@
                         <natural-relations [main]="data.model"
                                            [service]="userTagService"
                                            [filter]="{groups: [{conditions: [{users: {have: {values: [data.model.id]}}}]}]}"
-                                           [hideSearch]="true"
                                            placeholder="Ajouter un tag"
                         >
                             <ng-template let-item="item">

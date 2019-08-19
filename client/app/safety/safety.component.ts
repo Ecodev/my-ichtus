@@ -1,10 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { BookingsComponent } from '../admin/bookings/bookings/bookings.component';
 import { SafetyBookingService } from './safety-booking.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { NaturalSearchFacetsService } from '../shared/natural-search/natural-search-facets.service';
 import { PermissionsService } from '../shared/services/permissions.service';
-import { NaturalAlertService } from '@ecodev/natural';
 import { NaturalPersistenceService } from '@ecodev/natural';
 
 @Component({
@@ -13,15 +11,13 @@ import { NaturalPersistenceService } from '@ecodev/natural';
 })
 export class SafetyComponent extends BookingsComponent {
 
-    constructor(route: ActivatedRoute,
-                router: Router,
-                bookingService: SafetyBookingService, // Reason of the override
-                alertService: NaturalAlertService,
+    constructor(bookingService: SafetyBookingService, // Reason of the override
+                injector: Injector,
                 persistenceService: NaturalPersistenceService,
                 naturalSearchFacetsService: NaturalSearchFacetsService,
                 permissionsService: PermissionsService) {
 
-        super(route, router, bookingService, alertService, persistenceService, naturalSearchFacetsService, permissionsService);
+        super(bookingService, injector, naturalSearchFacetsService, permissionsService);
     }
 
 }

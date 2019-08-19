@@ -1,12 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NaturalAlertService } from '@ecodev/natural';
+import { Component, Injector, OnInit } from '@angular/core';
+import { NaturalAbstractList } from '@ecodev/natural';
 import { NaturalSearchFacetsService } from '../../../shared/natural-search/natural-search-facets.service';
 import { UserTags, UserTagsVariables } from '../../../shared/generated-types';
 import { UserTagService } from '../services/userTag.service';
 import { PermissionsService } from '../../../shared/services/permissions.service';
-import { NaturalPersistenceService } from '@ecodev/natural';
-import { NaturalAbstractList } from '@ecodev/natural';
 
 @Component({
     selector: 'app-user-tags',
@@ -15,22 +12,12 @@ import { NaturalAbstractList } from '@ecodev/natural';
 })
 export class UserTagsComponent extends NaturalAbstractList<UserTags['userTags'], UserTagsVariables> implements OnInit {
 
-    constructor(route: ActivatedRoute,
-                router: Router,
-                userTagService: UserTagService,
-                alertService: NaturalAlertService,
-                persistenceService: NaturalPersistenceService,
-                naturalSearchFacetsService: NaturalSearchFacetsService,
+    constructor(userTagService: UserTagService,
+                injector: Injector,
                 public permissionsService: PermissionsService,
     ) {
 
-        super(userTagService,
-            router,
-            route,
-            alertService,
-            persistenceService,
-
-        );
+        super(userTagService, injector);
 
     }
 }
