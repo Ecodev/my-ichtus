@@ -1,5 +1,5 @@
 <div [formGroup]="form" *ngIf="form" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px" class="responsive-table">
-    <table mat-table [dataSource]="dataSource" formArrayName="lines">
+    <table mat-table [dataSource]="dataSource" formArrayName="rows">
 
         <tr mat-header-row *matHeaderRowDef="columns"></tr>
         <tr mat-row *matRowDef="let row; columns: columns;"></tr>
@@ -11,10 +11,10 @@
                 <mat-form-field>
                     <mat-label>Nom</mat-label>
                     <input matInput formControlName="name">
-                    <mat-error *ngIf="form.get('lines')?.at(i).get('name')?.hasError('maxlength')">
-                        Maximum {{form.get('lines')?.at(i).get('name')?.errors.maxlength.requiredLength }} caractères
+                    <mat-error *ngIf="formArray.at(i).get('name')?.hasError('maxlength')">
+                        Maximum {{formArray.at(i).get('name')?.errors.maxlength.requiredLength }} caractères
                     </mat-error>
-                    <mat-error *ngIf="form.get('lines')?.at(i).get('name')?.hasError('required')">Requis</mat-error>
+                    <mat-error *ngIf="formArray.at(i).get('name')?.hasError('required')">Requis</mat-error>
                 </mat-form-field>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
@@ -26,15 +26,14 @@
                 <mat-form-field>
                     <mat-label>Montant</mat-label>
                     <input matInput formControlName="balance">
-                    <mat-error *ngIf="form.get('lines')?.at(i).get('balance')?.hasError('min')">
-                        Doit être supérieur à {{form.get('lines')?.at(i).get('balance')?.errors.min.min }}
+                    <mat-error *ngIf="formArray.at(i).get('balance')?.hasError('min')">
+                        Doit être supérieur à {{formArray.at(i).get('balance')?.errors.min.min }}
                     </mat-error>
-                    <mat-error *ngIf="form.get('lines')?.at(i).get('balance')?.hasError('required')">Requis</mat-error>
+                    <mat-error *ngIf="formArray.at(i).get('balance')?.hasError('required')">Requis</mat-error>
                 </mat-form-field>
             </td>
             <td mat-footer-cell *matFooterCellDef>
                 {{0 | currency : 'CHF'}} <!--TODO : remove when implemented-->
-                <span *ngIf="result?.totalAmount > 0">{{result.totalAmount | currency : 'CHF'}}</span>
             </td>
         </ng-container>
 
@@ -60,7 +59,7 @@
                             [showIcon]="false"
                             [displayWith]="getAccountLabel"
                 >
-                    <!--<mat-error *ngIf="form.get('lines')?.at(i).hasError('atLeastOneAccountRequired')">Au moins un compte est requis</mat-error>-->
+                    <!--<mat-error *ngIf="formArray.at(i).hasError('atLeastOneAccountRequired')">Au moins un compte est requis</mat-error>-->
                 </natural-select>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>

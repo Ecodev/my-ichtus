@@ -1,7 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TransactionLineService } from '../services/transactionLine.service';
 import { BookableService } from '../../bookables/services/bookable.service';
-import { Account, Transaction, TransactionLines, TransactionLinesVariables } from '../../../shared/generated-types';
+import {
+    Account,
+    Transaction,
+    TransactionLineInput,
+    TransactionLines_transactionLines_items,
+    TransactionLinesVariables,
+} from '../../../shared/generated-types';
 import { TransactionTagService } from '../../transactionTags/services/transactionTag.service';
 import { NaturalAbstractEditableList } from '@ecodev/natural';
 import { accountHierarchicConfiguration } from '../../../shared/hierarchic-selector/AccountHierarchicConfiguration';
@@ -12,7 +18,7 @@ import { accountHierarchicConfiguration } from '../../../shared/hierarchic-selec
     styleUrls: ['./editable-transaction-lines.component.scss'],
 })
 export class EditableTransactionLinesComponent
-    extends NaturalAbstractEditableList<TransactionLines['transactionLines'], TransactionLinesVariables>
+    extends NaturalAbstractEditableList<TransactionLines_transactionLines_items | TransactionLineInput, TransactionLinesVariables>
     implements OnInit {
 
     @Input() transaction: Transaction['transaction'];
@@ -25,11 +31,10 @@ export class EditableTransactionLinesComponent
         public transactionTagService: TransactionTagService,
         public bookableService: BookableService,
     ) {
-        super('transactionLine', transactionLineService);
+        super(transactionLineService);
     }
 
     ngOnInit() {
-        super.ngOnInit();
 
         if (this.transaction && this.transaction.id) {
 
@@ -39,7 +44,7 @@ export class EditableTransactionLinesComponent
 
             // TODO : Replace getAll by watchAll
             this.service.getAll(this.variablesManager).subscribe(results => {
-                this.add(results);
+                this.setItems(results.items);
             });
         } else {
             this.addEmpty();

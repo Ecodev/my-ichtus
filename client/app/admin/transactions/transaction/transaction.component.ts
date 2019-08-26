@@ -75,10 +75,10 @@ export class TransactionComponent
 
                 if (expenseClaim.type === ExpenseClaimType.expenseClaim) {
                     const preset = this.transactionService.getExpenseClaimPreset(expenseClaim.owner.account, expenseClaim.amount);
-                    this.transactionLinesComponent.setLines(preset);
+                    this.transactionLinesComponent.setItems(preset);
                 } else if (expenseClaim.type === ExpenseClaimType.refund) {
                     const preset = this.transactionService.getRefundPreset(expenseClaim.owner.account, expenseClaim.amount);
-                    this.transactionLinesComponent.setLines(preset);
+                    this.transactionLinesComponent.setItems(preset);
                 }
             }
         });
@@ -89,7 +89,7 @@ export class TransactionComponent
         this.accountingDocuments.save();
 
         if (this.transactionLinesComponent) {
-            const rawTransactionLines = this.transactionLinesComponent.getList();
+            const rawTransactionLines = this.transactionLinesComponent.getItems();
             this.data.model.transactionLines = rawTransactionLines.map(line => this.transactionLineService.getInput(line));
 
             this.transactionLinesComponent.validateForm();

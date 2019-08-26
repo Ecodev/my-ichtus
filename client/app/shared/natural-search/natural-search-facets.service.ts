@@ -407,7 +407,7 @@ export class NaturalSearchFacetsService {
     };
 
     constructor(
-        private readonly enumService: NaturalEnumService<any>,
+        private readonly enumService: NaturalEnumService,
         private readonly userTagService: UserTagService,
         private readonly transactionService: TransactionService,
         private readonly transactionTagService: TransactionTagService,
