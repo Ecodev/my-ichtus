@@ -178,7 +178,13 @@ var Cahier = {
                     case 2:
                         var txt = "";
                         for (let k = 0; k < Cahier.bookings[0].bookables.length; k++) {
-                            txt += Cahier.bookings[0].bookables[k].code + ", ";
+
+                            if (Cahier.bookings[0].bookables[k].code != null) {
+                                txt += Cahier.bookings[0].bookables[k].code + ", ";
+                            }
+                            else {
+                                txt += Cahier.bookings[0].bookables[k].name + ", ";
+                            }
                         }
                         txt = txt.substring(0,txt.length - 2);
                         allDivTabCahierProgressTexts[i].innerHTML = txt;
@@ -284,7 +290,7 @@ var Cahier = {
     removeBookable: function (nbr = 0, _bookable = 0) {
 
         for (var i = 0; i < Cahier.bookings[nbr].bookables.length; i++) {
-            if (Cahier.bookings[nbr].bookables[i].code == _bookable.code) {
+            if (Cahier.bookings[nbr].bookables[i].id == _bookable.id) {
                 break;
             }
         }

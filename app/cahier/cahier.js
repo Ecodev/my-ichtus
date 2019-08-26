@@ -227,7 +227,13 @@ function bookingTableSearch(_table) {
 function createBookingBookableBox(elem, bookable = {code:"ZZZ"}) {
 
     var d = div(elem);
-    d.id = bookable.code;
+    if (bookable.code != null) {
+        d.id = bookable.code;
+    }
+    else {
+        d.id = "999";
+    }
+
     var img = div(d);
     var code = div(d);
 
@@ -246,11 +252,17 @@ function createBookingBookableBox(elem, bookable = {code:"ZZZ"}) {
         d.onclick = function () {
             popBookable(bookable.id);
         };
-        img.style.backgroundImage = Cahier.getImageUrl(bookable,35);
-        code.innerHTML = bookable.code;
+        img.style.backgroundImage = Cahier.getImageUrl(bookable, 35);
 
-        var codeLength = bookable.code.pixelLength(20);
-        div(d).innerHTML = bookable.name.shorten(170 -codeLength, 18);
+        if (bookable.code != null) {
+            code.innerHTML = bookable.code;
+            var codeLength = bookable.code.pixelLength(20);
+            div(d).innerHTML = bookable.name.shorten(170 - codeLength, 18);
+        }
+        else {
+            code.innerHTML = "";
+            div(d).innerHTML = bookable.name.shorten(170 - 0, 18);
+        }
     }
     elem.classList.add("TableEntriesBookableBox");
 }

@@ -64,7 +64,14 @@ function actualizePopBookable(nbr, bookable,bookings, elem) {
 
     var textsContainer = elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0];
 
-    textsContainer.getElementsByTagName("div")[0].innerHTML = bookable.code;
+    if (bookable.code != null) {
+        textsContainer.getElementsByTagName("div")[0].innerHTML = bookable.code;
+    }
+    else {
+        textsContainer.getElementsByTagName("div")[0].innerHTML = "";
+    }
+
+
     textsContainer.getElementsByTagName("div")[1].innerHTML = bookable.name.shorten(420, 20);
 
 

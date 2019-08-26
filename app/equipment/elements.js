@@ -3,13 +3,11 @@ function loadElements(bookables ,nbr = 0) {
 
     currentBookables = bookables;
 
-    console.log(currentBookables);
-
     document.getElementsByClassName("divTabCahierEquipmentElementsContainer")[0].innerHTML = "";
 
     var codes = [];
     for (var i = 0; i < Cahier.bookings[nbr].bookables.length; i++) {
-        codes.push(Cahier.bookings[nbr].bookables[i].code);
+        codes.push(Cahier.bookings[nbr].bookables[i].id);
     }
 
     for (var i = 0; i < bookables.length; i++) {
@@ -22,7 +20,7 @@ function loadElements(bookables ,nbr = 0) {
             container.title = "Cette embarcation est déjà utilisée";
         }
 
-        var x = codes.findIndex(bookables[i].code);
+        var x = codes.findIndex(bookables[i].id);
 
         if (x !== -1) {
             container.classList.add("selected");
@@ -48,10 +46,17 @@ function loadElements(bookables ,nbr = 0) {
         container.appendChild(secondContainer);
 
         var size = document.createElement("div");
-        if (bookables[i].code.length > 4) {
-            size.style.fontSize = "17px";
+
+        if (bookables[i].code != null) {
+            size.innerHTML = bookables[i].code;
+            if (bookables[i].code.length > 4) {
+                size.style.fontSize = "17px";
+            }
         }
-        size.innerHTML = bookables[i].code;
+        else {
+            size.innerHTML = "";
+        }
+
         secondContainer.appendChild(size);
 
         var bottom = document.createElement("div");
@@ -104,7 +109,7 @@ function actualizeElements() {
 
     var codes = [];
     for (var i = 0; i < Cahier.bookings[0].bookables.length; i++) {
-        codes.push(Cahier.bookings[0].bookables[i].code);
+        codes.push(Cahier.bookings[0].bookables[i].id);
     }
 
     var containers = document.getElementsByClassName("divTabCahierEquipmentElementsContainer")[0].children;
@@ -113,7 +118,7 @@ function actualizeElements() {
 
         var container = containers[i];
 
-        if (codes.findIndex(bookables[i].code) != -1) {
+        if (codes.findIndex(bookables[i].id) != -1) {
             container.classList.add("selected");
             container.onclick = function (event) {
                 if (!(event.target.classList.contains("infoJS"))) {

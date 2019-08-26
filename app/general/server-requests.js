@@ -387,7 +387,7 @@ var Requests = {
                         console.log(r.items[i].bookable.id,r.items[i].bookable.name);
                     }
 
-                    console.log(bookables);
+                 //   console.log(bookables);
 
                     loadElements(bookables);
                 });
