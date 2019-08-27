@@ -49,7 +49,7 @@ export class VanillaModule implements DoBootstrap {
                 userService: UserService,
                 bookableService: BookableService,
                 bookingService: BookingService,
-                linkMutation: NaturalLinkMutationService<any>,
+                linkMutation: NaturalLinkMutationService,
     ) {
         // tslint:disable-next-line - Disables all rules for the following line
         const QueryVariablesManager = NaturalQueryVariablesManager; // for retro compatibility

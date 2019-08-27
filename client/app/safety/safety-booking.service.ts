@@ -45,7 +45,7 @@ const safetyBookings = gql`
 })
 export class SafetyBookingService extends BookingService {
 
-    constructor(apollo: Apollo, enumService: NaturalEnumService<any>) {
+    constructor(apollo: Apollo, enumService: NaturalEnumService) {
         super(apollo, enumService);
         this.allQuery = safetyBookings;
     }

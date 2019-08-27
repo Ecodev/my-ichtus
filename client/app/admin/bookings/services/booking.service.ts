@@ -129,7 +129,7 @@ export class BookingService extends NaturalAbstractModelService<Booking['booking
         },
     };
 
-    constructor(apollo: Apollo, private enumService: NaturalEnumService<any>) {
+    constructor(apollo: Apollo, private enumService: NaturalEnumService) {
         super(apollo,
             'booking',
             bookingQuery,
