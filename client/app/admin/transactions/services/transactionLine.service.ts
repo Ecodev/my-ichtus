@@ -60,6 +60,23 @@ export class TransactionLineService extends NaturalAbstractModelService<Transact
             null);
     }
 
+    public static getVariablesForExport(): TransactionLinesVariables {
+        return {
+            filter: {
+                groups: [
+                    {
+                        conditions: [
+                            {
+                                custom: {transactionExport: {value: true}},
+                            },
+                        ],
+                    },
+                ],
+            },
+            pagination: {pageIndex: 0, pageSize: 15000},
+        };
+    }
+
     public static getSelectionForAccount(account: Account['account']): NaturalSearchSelections {
         return [
             [
@@ -169,6 +186,8 @@ export class TransactionLineService extends NaturalAbstractModelService<Transact
     }
 
     public getExportLink(qvm: NaturalQueryVariablesManager<TransactionLinesForExportVariables>): Observable<string> {
+
+        qvm.merge('variables', TransactionLineService.getVariablesForExport());
 
         return this.apollo.query<TransactionLinesForExport, TransactionLinesForExportVariables>({
            query: transactionLinesForExportQuery,
