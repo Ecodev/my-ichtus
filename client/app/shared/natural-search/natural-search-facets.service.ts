@@ -15,7 +15,7 @@ import {
     TypeTextComponent,
     TypeSelectComponent,
     TypeSelectConfiguration,
-    wrapLike, replaceOperatorByName,
+    wrapLike, replaceOperatorByName, NaturalSearchSelection,
 } from '@ecodev/natural';
 import { UserTagService } from '../../admin/userTags/services/userTag.service';
 import { BookableService } from '../../admin/bookables/services/bookable.service';
@@ -222,7 +222,9 @@ export class NaturalSearchFacetsService {
             {
                 display: 'Compte au débit',
                 field: 'debit',
+                name: 'debit-included',
                 component: TypeHierarchicSelectorComponent,
+                showValidateButton: true,
                 configuration: {
                     key: 'account',
                     service: this.accountService,
@@ -232,11 +234,49 @@ export class NaturalSearchFacetsService {
             {
                 display: 'Compte au crédit',
                 field: 'credit',
+                name: 'credit-included',
                 component: TypeHierarchicSelectorComponent,
+                showValidateButton: true,
                 configuration: {
                     key: 'account',
                     service: this.accountService,
                     config: accountHierarchicConfiguration,
+                },
+            } as DropdownFacet<TypeHierarchicSelectorConfiguration>,
+            {
+                display: 'Compte au débit exclu',
+                field: 'debit',
+                name: 'debit-excluded',
+                component: TypeHierarchicSelectorComponent,
+                showValidateButton: true,
+                configuration: {
+                    key: 'account',
+                    service: this.accountService,
+                    config: accountHierarchicConfiguration,
+                },
+                transform: (selection: NaturalSearchSelection): NaturalSearchSelection => {
+                    if (selection.condition && selection.condition.have) {
+                        selection.condition.have.not = true;
+                    }
+                    return selection;
+                },
+            } as DropdownFacet<TypeHierarchicSelectorConfiguration>,
+            {
+                display: 'Compte au crédit exclus',
+                field: 'credit',
+                name: 'credit-excluded',
+                component: TypeHierarchicSelectorComponent,
+                showValidateButton: true,
+                configuration: {
+                    key: 'account',
+                    service: this.accountService,
+                    config: accountHierarchicConfiguration,
+                },
+                transform: (selection: NaturalSearchSelection): NaturalSearchSelection => {
+                    if (selection.condition && selection.condition.have) {
+                        selection.condition.have.not = true;
+                    }
+                    return selection;
                 },
             } as DropdownFacet<TypeHierarchicSelectorConfiguration>,
             {
