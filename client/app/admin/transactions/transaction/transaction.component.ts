@@ -1,6 +1,9 @@
 import { Component, Injector, OnInit, ViewChild } from '@angular/core';
+import { NavigationEnd } from '@angular/router';
 import { NaturalAbstractDetail } from '@ecodev/natural';
 import { TransactionService } from '../services/transaction.service';
+import { Subject } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 import {
     CreateTransaction,
     CreateTransactionVariables,
@@ -34,8 +37,8 @@ export class TransactionComponent
         UpdateTransactionVariables,
         DeleteTransactions> implements OnInit {
 
-    @ViewChild(EditableTransactionLinesComponent, { static: false }) transactionLinesComponent: EditableTransactionLinesComponent;
-    @ViewChild('transactionDocuments', { static: true }) accountingDocuments: AccountingDocumentsComponent;
+    @ViewChild(EditableTransactionLinesComponent, {static: false}) transactionLinesComponent: EditableTransactionLinesComponent;
+    @ViewChild('transactionDocuments', {static: true}) accountingDocuments: AccountingDocumentsComponent;
 
     public updateTransactionLines = false;
     public ExpenseClaimType = ExpenseClaimType;
@@ -117,6 +120,30 @@ export class TransactionComponent
         }
 
         this.updateTransactionLines = false;
+    }
+
+    protected postUpdate(model): void {
+        this.goToNew();
+    }
+
+    /**
+     * Wait the creation redirection, to have an url like /transaction/123, then redirect to /transaction/new
+     * If we dont wait first navigation, we would try to redirect to the same route /transaction/new -> /transaction/new
+     * and nothing would happen.
+     *
+     */
+    protected postCreate(model): void {
+        const expire = new Subject();
+        this.router.events.pipe(takeUntil(expire), filter((ev) => ev instanceof NavigationEnd)).subscribe(() => {
+            expire.next();
+            expire.complete();
+            this.goToNew();
+        });
+    }
+
+    private goToNew() {
+        this.router.navigateByUrl('/admin/transaction/new');
+
     }
 
     public flagExpenseClaim(status: ExpenseClaimStatus) {
