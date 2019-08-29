@@ -65,32 +65,38 @@ class ExportTransactionLinesAction extends AbstractExcel
         ];
 
         foreach ($items as $index => $line) {
+            $transaction = $line->getTransaction();
+            $transactionId = $transaction->getId();
+
             if (!$currentTransactionId) {
-                $currentTransactionId = $line->getTransaction()->getId();
+                $currentTransactionId = $transactionId;
                 $currentTransactionRowStart = $this->row;
-            } elseif ($line->getTransaction()->getId() !== $currentTransactionId) {
-                // Current line is the first of a new transaction
-                // Merge cells that have the same value because from the same transaction
-                foreach ($mergeRowsFromColumns as $column) {
-                    $sheet->mergeCellsByColumnAndRow($column, $currentTransactionRowStart, $column, $this->row - 1);
+            } elseif ($transactionId !== $currentTransactionId) {
+                // Current line starts a new transaction
+                if ($currentTransactionRowStart < $this->row - 1) {
+                    // Multi-line transaction
+                    // Merge cells that have the same value because from the same transaction
+                    foreach ($mergeRowsFromColumns as $column) {
+                        $sheet->mergeCellsByColumnAndRow($column, $currentTransactionRowStart, $column, $this->row - 1);
+                    }
                 }
                 $currentTransactionRowStart = $this->row;
-                $currentTransactionId = $line->getTransaction()->getId();
+                $currentTransactionId = $transactionId;
             }
 
             // Date
             $this->write($sheet, $line->getTransactionDate()->format('d.m.Y'));
 
             // Transaction.ID
-            $this->write($sheet, $line->getTransaction()->getId());
+            $this->write($sheet, $transactionId);
             $url = 'https://' . $this->hostname . '/admin/transaction/%u';
-            $sheet->getCellByColumnAndRow($this->column - 1, $this->row)->getHyperlink()->setUrl(sprintf($url, $line->getTransaction()->getId()));
+            $sheet->getCellByColumnAndRow($this->column - 1, $this->row)->getHyperlink()->setUrl(sprintf($url, $transactionId));
             // Transaction.name
-            $this->write($sheet, $line->getTransaction()->getName());
+            $this->write($sheet, $transaction->getName());
             // Transaction.remarks
-            $this->write($sheet, $line->getTransaction()->getRemarks());
+            $this->write($sheet, $transaction->getRemarks());
             // Transaction.internalRemarks
-            $this->write($sheet, $line->getTransaction()->getInternalRemarks());
+            $this->write($sheet, $transaction->getInternalRemarks());
 
             // TransactionLine.name
             $this->write($sheet, $line->getName());
@@ -99,13 +105,15 @@ class ExportTransactionLinesAction extends AbstractExcel
             // Bookable.name
             $this->write($sheet, $line->getBookable() ? $line->getBookable()->getName() : '');
             // Debit account
-            $this->write($sheet, $line->getDebit() ? implode(' ', [$line->getDebit()->getCode(), $line->getDebit()->getName()]) : '');
+            $debit = $line->getDebit();
+            $this->write($sheet, $debit ? implode(' ', [$debit->getCode(), $debit->getName()]) : '');
             // Credit account
-            $this->write($sheet, $line->getCredit() ? implode(' ', [$line->getCredit()->getCode(), $line->getCredit()->getName()]) : '');
+            $credit = $line->getCredit();
+            $this->write($sheet, $credit ? implode(' ', [$credit->getCode(), $credit->getName()]) : '');
             // Debit amount
-            $this->write($sheet, $line->getDebit() ? $this->moneyFormatter->format($line->getBalance()) : '');
+            $this->write($sheet, $debit ? $this->moneyFormatter->format($line->getBalance()) : '');
             // Credit amount
-            $this->write($sheet, $line->getCredit() ? $this->moneyFormatter->format($line->getBalance()) : '');
+            $this->write($sheet, $credit ? $this->moneyFormatter->format($line->getBalance()) : '');
             // Reconciled
             $this->write($sheet, $line->isReconciled() ? '✔️' : '');
 
@@ -129,13 +137,13 @@ class ExportTransactionLinesAction extends AbstractExcel
     {
         return [
             ['label' => 'Date', 'width' => 12, 'formats' => [self::$dateFormat]],
-            ['label' => 'ID', 'width' => 5, 'formats' => [self::$headerFormat, self::$centerFormat]],
-            ['label' => 'Transaction', 'width' => 'auto', 'formats' => [self::$wrapFormat]],
-            ['label' => 'Remarques', 'width' => 'auto', 'formats' => [self::$wrapFormat]],
-            ['label' => 'Remarques internes', 'width' => 'auto', 'formats' => [self::$wrapFormat]],
-            ['label' => 'Écriture', 'width' => 'auto', 'formats' => [self::$wrapFormat]],
-            ['label' => 'Remarques', 'width' => 'auto', 'formats' => [self::$wrapFormat]],
-            ['label' => 'Réservable', 'width' => 'auto', 'formats' => [self::$wrapFormat]],
+            ['label' => 'ID', 'width' => 7, 'formats' => [self::$headerFormat, self::$centerFormat]],
+            ['label' => 'Transaction', 'width' => 25, 'formats' => [self::$wrapFormat]],
+            ['label' => 'Remarques', 'width' => 25, 'formats' => [self::$wrapFormat]],
+            ['label' => 'Remarques internes', 'width' => 25, 'formats' => [self::$wrapFormat]],
+            ['label' => 'Écriture', 'width' => 25, 'formats' => [self::$wrapFormat]],
+            ['label' => 'Remarques', 'width' => 25, 'formats' => [self::$wrapFormat]],
+            ['label' => 'Réservable', 'width' => 30, 'formats' => [self::$wrapFormat]],
             ['label' => 'Compte débit', 'width' => 30, 'formats' => [self::$wrapFormat]],
             ['label' => 'Compte crédit', 'width' => 30, 'formats' => [self::$wrapFormat]],
             ['label' => 'Montant débit', 'width' => 20, 'formats' => [self::$headerFormat]],

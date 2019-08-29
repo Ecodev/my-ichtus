@@ -35,7 +35,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
 
     public download(): void {
         const qvm = new NaturalQueryVariablesManager<TransactionLinesForExportVariables>(this.variablesManager);
-        qvm.set('pagination', {pagination: {pageIndex: 0, pageSize: 9999}});
+        qvm.set('pagination', {pagination: {pageIndex: 0, pageSize: 15000}});
 
         this.transactionLineService.getExportLink(qvm).subscribe(url => {
             window.location.href = url;

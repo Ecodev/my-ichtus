@@ -263,7 +263,7 @@ abstract class AbstractExcel extends AbstractAction
      */
     public function generate(Query $query): string
     {
-        $items = $query->setMaxResults(1000)->getResult();
+        $items = $query->getResult();
 
         $this->workbook->getDefaultStyle()->applyFromArray(self::$defaultFormat);
         $sheet = $this->workbook->getActiveSheet();

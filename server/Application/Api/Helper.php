@@ -110,6 +110,14 @@ abstract class Helper
         $repository = _em()->getRepository($class);
 
         if ($repository instanceof ExportExcelInterface) {
+            $qb->join('transactionLine1.transaction', 'transaction1');
+            $qb->leftJoin('transactionLine1.transactionTag', 'tag1');
+            $qb->leftJoin('transactionLine1.debit', 'debitAccount');
+            $qb->leftJoin('transactionLine1.credit', 'creditAccount');
+            $qb->addSelect('transaction1');
+            $qb->addSelect('tag1');
+            $qb->addSelect('debitAccount');
+            $qb->addSelect('creditAccount');
             $query = $qb->getQuery();
             $result['excelExport'] = function () use ($query, $repository): string {
                 return $repository->exportExcel($query);
