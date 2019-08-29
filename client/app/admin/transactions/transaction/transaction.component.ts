@@ -18,6 +18,7 @@ import { EditableTransactionLinesComponent } from '../editable-transaction-lines
 import { TransactionLineService } from '../services/transactionLine.service';
 import { AccountingDocumentsComponent } from '../../accounting-documents/accounting-documents.component';
 import { ExpenseClaimService } from '../../expenseClaim/services/expenseClaim.service';
+import { UserService } from '../../users/services/user.service';
 
 @Component({
     selector: 'app-transaction',
@@ -39,11 +40,13 @@ export class TransactionComponent
     public updateTransactionLines = false;
     public ExpenseClaimType = ExpenseClaimType;
     public ExpenseClaimStatus = ExpenseClaimStatus;
+    public viewer;
 
     constructor(private transactionService: TransactionService,
                 injector: Injector,
                 public bookableService: BookableService,
                 public transactionLineService: TransactionLineService,
+                public userService: UserService,
                 private expenseClaimService: ExpenseClaimService,
     ) {
         super('transaction', transactionService, injector);
@@ -51,6 +54,8 @@ export class TransactionComponent
 
     ngOnInit() {
         super.ngOnInit();
+
+        this.viewer = this.route.snapshot.data.viewer.model;
 
         setTimeout(() => {
             const expenseClaim: ExpenseClaim['expenseClaim'] = this.data.expenseClaim ? this.data.expenseClaim.model : null;
@@ -87,6 +92,10 @@ export class TransactionComponent
     public save() {
 
         this.accountingDocuments.save();
+
+        if (!this.userService.canUpdateTransaction(this.viewer)) {
+            return;
+        }
 
         if (this.transactionLinesComponent) {
             const rawTransactionLines = this.transactionLinesComponent.getItems();

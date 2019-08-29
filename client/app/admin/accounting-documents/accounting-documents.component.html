@@ -8,7 +8,7 @@
                       [style.width.px]="fileWidth"
                       [action]="getAction(file, i, last)"
             ></app-file>
-            <button mat-icon-button (click)="!last ? removeFile(i) : null" *ngIf="!_disabled && !last">
+            <button mat-icon-button (click)="!last ? removeFile(i) : null" *ngIf="canRemove && !_disabled && !last">
                 <natural-icon name="clear" ></natural-icon>
             </button>
             <p *ngIf="!_disabled && last" class="mat-body"[style.maxWidth.px]="fileWidth" style="text-align: center">Images (jpg, png, webp, svg, gif, bmp) ou document PDF uniquement</p>

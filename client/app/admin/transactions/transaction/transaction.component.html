@@ -110,7 +110,7 @@
 
                         </div>
 
-                        <app-accounting-documents [disabled]="true" [model]="data.model.expenseClaim" [fileHeight]="150" [fileWidth]="200"
+                        <app-accounting-documents [disabled]="true" [canRemove]="userService.canDeleteAccountingDocument(viewer)" [model]="data.model.expenseClaim" [fileHeight]="150" [fileWidth]="200"
                         ></app-accounting-documents>
                     </div>
 
@@ -120,15 +120,17 @@
                 <mat-divider></mat-divider>
                 <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
                     <h2 class="mat-title" class="no-margin-bottom no-margin-top">Écritures</h2>
-                    <button mat-stroked-button (click)="updateTransactionLines = true" *ngIf="!(updateTransactionLines || !data.model.id)">
-                        Éditer
-                    </button>
-                    <button mat-stroked-button (click)="updateTransactionLines = false" *ngIf="updateTransactionLines && data.model.id">
-                        Annuler
-                    </button>
-                    <button mat-flat-button color="primary" (click)="transactionLinesComponent.addEmpty()" *ngIf="updateTransactionLines">
-                        Ajouter une écriture
-                    </button>
+                    <div *ngIf="userService.canUpdateTransaction(viewer)">
+                        <button mat-stroked-button (click)="updateTransactionLines = true" *ngIf="!(updateTransactionLines || !data.model.id)">
+                            Éditer
+                        </button>
+                        <button mat-stroked-button (click)="updateTransactionLines = false" *ngIf="updateTransactionLines && data.model.id">
+                            Annuler
+                        </button>
+                        <button mat-flat-button color="primary" (click)="transactionLinesComponent.addEmpty()" *ngIf="updateTransactionLines">
+                            Ajouter une écriture
+                        </button>
+                    </div>
                 </div>
 
                 <div *ngIf="!updateTransactionLines && data.model.id">
@@ -145,7 +147,10 @@
 
                 <div>
                     <div class="mat-title">Documents justificatifs de la transaction</div>
-                    <app-accounting-documents #transactionDocuments [model]="data.model"></app-accounting-documents>
+                    <app-accounting-documents #transactionDocuments
+                                              [canRemove]="userService.canDeleteAccountingDocument(viewer)"
+                                              [model]="data.model"
+                    ></app-accounting-documents>
                 </div>
 
                 <mat-divider></mat-divider>
@@ -178,7 +183,7 @@
             <button mat-mini-fab (click)="save()">
                 <mat-icon>save</mat-icon>
             </button>
-            <button mat-mini-fab (click)="delete()" color="warn">
+            <button mat-mini-fab (click)="delete()" color="warn" *ngIf="userService.canUpdateTransaction(viewer)">
                 <mat-icon>delete_forever</mat-icon>
             </button>
         </eco-fab-speed-dial-actions>

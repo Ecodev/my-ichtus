@@ -454,6 +454,20 @@ export class UserService extends NaturalAbstractModelService<User['user'],
         return !isMember && !this.canLeaveFamily(user);
     }
 
+    public canUpdateTransaction(user: CurrentUserForProfile['viewer']): boolean {
+        if (!user) {
+            return false;
+        }
+        return user.role === UserRole.administrator;
+    }
+
+    public canDeleteAccountingDocument(user: CurrentUserForProfile['viewer']): boolean {
+        if (!user) {
+            return false;
+        }
+        return user.role === UserRole.administrator;
+    }
+
     public requestPasswordReset(login) {
         const mutation = gql`
             mutation RequestPasswordReset($login: Login!) {

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AccountingDocumentInput, ExpenseClaim, Transaction } from '../../shared/generated-types';
 import { forkJoin, Observable } from 'rxjs';
-import { AccountingDocumentService } from './accounting-document.service';
+import { AccountingDocumentService } from './services/accounting-document.service';
 
 @Component({
     selector: 'app-accounting-documents',
@@ -14,6 +14,7 @@ export class AccountingDocumentsComponent implements OnInit {
     @Input() service;
     @Input() fileHeight = 250;
     @Input() fileWidth = 250;
+    @Input() canRemove = true;
 
     /**
      * When changing disabled status, add or remove an empty item in list to allow new upload or deny it.
@@ -29,6 +30,7 @@ export class AccountingDocumentsComponent implements OnInit {
     }
 
     public _files: any[] = [];
+    public _removedFiles: any[] = [];
     public _disabled = false;
 
     constructor(public accountingDocumentService: AccountingDocumentService) {
@@ -52,7 +54,7 @@ export class AccountingDocumentsComponent implements OnInit {
     }
 
     public removeFile(index) {
-        this._files.splice(index, 1);
+        this._removedFiles = this._removedFiles.concat(this._files.splice(index, 1));
     }
 
     public trackByFn(index, item) {
@@ -72,6 +74,11 @@ export class AccountingDocumentsComponent implements OnInit {
             }
             observables.push(this.accountingDocumentService.create(document));
         });
+
+        this._removedFiles.filter(f => f && f.id).forEach((file) => {
+            observables.push(this.accountingDocumentService.delete([file]));
+        });
+        this._removedFiles.length = 0;
 
         forkJoin(observables).subscribe(result => {
             // this.alertService.info('Votre demande a bien été enregistrée');
