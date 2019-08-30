@@ -40,9 +40,14 @@ export class TransactionComponent
     @ViewChild(EditableTransactionLinesComponent, {static: false}) transactionLinesComponent: EditableTransactionLinesComponent;
     @ViewChild('transactionDocuments', {static: true}) accountingDocuments: AccountingDocumentsComponent;
 
+    /**
+     * Edition mode, allows to edit lines
+     */
     public updateTransactionLines = false;
+
     public ExpenseClaimType = ExpenseClaimType;
     public ExpenseClaimStatus = ExpenseClaimStatus;
+
     public viewer;
 
     constructor(private transactionService: TransactionService,
@@ -59,6 +64,11 @@ export class TransactionComponent
         super.ngOnInit();
 
         this.viewer = this.route.snapshot.data.viewer.model;
+
+        // Activate edition mode on creation
+        if (!this.data.model.id) {
+            this.updateTransactionLines = true;
+        }
 
         setTimeout(() => {
             const expenseClaim: ExpenseClaim['expenseClaim'] = this.data.expenseClaim ? this.data.expenseClaim.model : null;
@@ -122,6 +132,20 @@ export class TransactionComponent
         this.updateTransactionLines = false;
     }
 
+    public flagExpenseClaim(status: ExpenseClaimStatus) {
+        const model = {
+            id: this.data.model.expenseClaim.id,
+            status: status,
+        };
+        this.expenseClaimService.updatePartially(model).subscribe(() => {
+            this.data.model.expenseClaim.status = status;
+        });
+    }
+
+    public delete(redirectionRoute: any[]): void {
+        super.delete(['/admin/transaction-line']);
+    }
+
     protected postUpdate(model): void {
         this.goToNew();
     }
@@ -144,19 +168,5 @@ export class TransactionComponent
     private goToNew() {
         this.router.navigateByUrl('/admin/transaction/new');
 
-    }
-
-    public flagExpenseClaim(status: ExpenseClaimStatus) {
-        const model = {
-            id: this.data.model.expenseClaim.id,
-            status: status,
-        };
-        this.expenseClaimService.updatePartially(model).subscribe(() => {
-            this.data.model.expenseClaim.status = status;
-        });
-    }
-
-    public delete(redirectionRoute: any[]): void {
-        super.delete(['/admin/transaction-line']);
     }
 }

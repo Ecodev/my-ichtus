@@ -24,7 +24,7 @@ export class EditableTransactionLinesComponent
     @Input() transaction: Transaction['transaction'];
 
     public accountHierarchicConfig = accountHierarchicConfiguration;
-    public columns = ['name', 'balance', 'debit', 'credit', 'isReconciled', 'bookable', 'transactionTag', 'remarks', 'remove'];
+    public columns = ['name', 'balance', 'debit', 'credit', 'bookable', 'transactionTag', 'remarks', 'isReconciled', 'remove'];
 
     constructor(
         private transactionLineService: TransactionLineService,
