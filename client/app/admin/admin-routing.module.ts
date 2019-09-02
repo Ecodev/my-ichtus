@@ -265,6 +265,7 @@ const routes: Routes = [
                     component: UsersComponent,
                     data: {
                         title: 'Tous les utilisateurs',
+                        contextColumns: ['balance', 'name', 'login', 'age', 'status', 'flagWelcomeSessionDate'],
                     },
                 },
                 {
@@ -276,6 +277,7 @@ const routes: Routes = [
                             data: {
                                 title: 'Membres actifs',
                                 contextVariables: UserService.getFilters([UserRole.member], [UserStatus.active]),
+                                contextColumns: ['balance', 'name', 'login', 'age', 'status', 'flagWelcomeSessionDate'],
                             },
                         },
                         {
@@ -293,6 +295,7 @@ const routes: Routes = [
                             data: {
                                 title: 'Staff',
                                 contextVariables: UserService.getFilters([UserRole.responsible, UserRole.administrator], null),
+                                contextColumns: ['balance', 'name', 'login', 'age', 'status', 'flagWelcomeSessionDate'],
                             },
                         },
                         {
