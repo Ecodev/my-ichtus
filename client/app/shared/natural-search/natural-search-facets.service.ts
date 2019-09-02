@@ -28,6 +28,13 @@ import { AccountService } from '../../admin/accounts/services/account.service';
 import { accountHierarchicConfiguration } from '../hierarchic-selector/AccountHierarchicConfiguration';
 import { BookableTagService } from '../../admin/bookableTags/services/bookableTag.service';
 
+function dontHave(selection: NaturalSearchSelection): NaturalSearchSelection {
+    if (selection.condition && selection.condition.have) {
+        selection.condition.have.not = true;
+    }
+    return selection;
+}
+
 /**
  * Collection of facets for natural-search accessible by the object name
  */
@@ -38,8 +45,28 @@ export class NaturalSearchFacetsService {
 
     private readonly userTags: DropdownFacet<TypeSelectNaturalConfiguration> = {
         display: 'Tags',
+        name: 'withTags',
         field: 'userTags',
         component: TypeNaturalSelectComponent,
+        configuration: {
+            service: this.userTagService,
+            placeholder: 'Tags',
+        },
+    };
+
+    private readonly userWithNoTags: FlagFacet = {
+        display: 'Sans tag',
+        field: 'userTags',
+        name: 'userNoTags',
+        condition: {empty: {}} as UserFilterGroupCondition,
+    };
+
+    private readonly userWithoutTags: DropdownFacet<TypeSelectNaturalConfiguration> = {
+        display: 'Tags exclus',
+        field: 'userTags',
+        name: 'withoutTags',
+        component: TypeNaturalSelectComponent,
+        transform: dontHave,
         configuration: {
             service: this.userTagService,
             placeholder: 'Tags',
@@ -192,6 +219,9 @@ export class NaturalSearchFacetsService {
                 field: 'welcomeSessionDate',
                 component: TypeDateComponent,
             } as DropdownFacet<TypeDateConfiguration>,
+            this.userTags,
+            this.userWithNoTags,
+            this.userWithoutTags,
             this.userWelcomeSession,
             this.licenses,
             {
@@ -254,12 +284,7 @@ export class NaturalSearchFacetsService {
                     service: this.accountService,
                     config: accountHierarchicConfiguration,
                 },
-                transform: (selection: NaturalSearchSelection): NaturalSearchSelection => {
-                    if (selection.condition && selection.condition.have) {
-                        selection.condition.have.not = true;
-                    }
-                    return selection;
-                },
+                transform: dontHave,
             } as DropdownFacet<TypeHierarchicSelectorConfiguration>,
             {
                 display: 'Compte au crédit exclus',
@@ -272,12 +297,7 @@ export class NaturalSearchFacetsService {
                     service: this.accountService,
                     config: accountHierarchicConfiguration,
                 },
-                transform: (selection: NaturalSearchSelection): NaturalSearchSelection => {
-                    if (selection.condition && selection.condition.have) {
-                        selection.condition.have.not = true;
-                    }
-                    return selection;
-                },
+                transform: dontHave,
             } as DropdownFacet<TypeHierarchicSelectorConfiguration>,
             {
                 display: 'Date de transaction',
