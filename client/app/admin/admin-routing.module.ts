@@ -64,13 +64,13 @@ const routes: Routes = [
                     },
                 },
                 {
+                    path: 'booking', // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
+                    component: BookingsComponent,
+                    data: {title: 'Réservations'},
+                },
+                {
                     path: 'booking',
                     children: [
-                        {
-                            path: '',
-                            component: BookingsComponent,
-                            data: {title: 'Réservations'},
-                        },
                         {
                             path: 'self-approved',
                             component: BookingsComponent,
@@ -125,13 +125,13 @@ const routes: Routes = [
                     ],
                 },
                 {
+                    path: 'bookable', // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
+                    component: BookablesComponent,
+                    data: {title: 'Réservables'},
+                },
+                {
                     path: 'bookable',
                     children: [
-                        {
-                            path: '',
-                            component: BookablesComponent,
-                            data: {title: 'Réservables'},
-                        },
                         {
                             path: 'services',
                             component: BookablesComponent,
@@ -261,16 +261,16 @@ const routes: Routes = [
                     ],
                 },
                 {
+                    path: 'user', // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
+                    component: UsersComponent,
+                    data: {
+                        title: 'Tous les utilisateurs',
+                        contextColumns: ['balance', 'name', 'login', 'age', 'status', 'flagWelcomeSessionDate'],
+                    },
+                },
+                {
                     path: 'user',
                     children: [
-                        {
-                            path: '',
-                            component: UsersComponent,
-                            data: {
-                                title: 'Tous les utilisateurs',
-                                contextColumns: ['balance', 'name', 'login', 'age', 'status', 'flagWelcomeSessionDate'],
-                            },
-                        },
                         {
                             path: 'member',
                             component: UsersComponent,
@@ -325,15 +325,15 @@ const routes: Routes = [
                     ],
                 },
                 {
+                    path: 'license', // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
+                    component: LicensesComponent,
+                    data: {
+                        title: 'Certifications',
+                    },
+                },
+                {
                     path: 'license',
                     children: [
-                        {
-                            path: '',
-                            component: LicensesComponent,
-                            data: {
-                                title: 'Certifications',
-                            },
-                        },
                         {
                             path: 'new',
                             component: LicenseComponent,
@@ -351,15 +351,15 @@ const routes: Routes = [
                     ],
                 },
                 {
+                    path: 'user-tag', // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
+                    component: UserTagsComponent,
+                    data: {
+                        title: 'Tags d\'utilisateurs',
+                    },
+                },
+                {
                     path: 'user-tag',
                     children: [
-                        {
-                            path: '',
-                            component: UserTagsComponent,
-                            data: {
-                                title: 'Tags d\'utilisateurs',
-                            },
-                        },
                         {
                             path: 'new',
                             component: UserTagComponent,
@@ -377,13 +377,15 @@ const routes: Routes = [
                     ],
                 },
                 {
+                    path: 'bookable-tag', // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
+                    component: BookableTagsComponent,
+                    data: {
+                        title: 'Tags de réservables',
+                    },
+                },
+                {
                     path: 'bookable-tag',
                     children: [
-                        {
-                            path: '',
-                            component: BookableTagsComponent,
-                            data: {title: 'Tags de réservables'},
-                        },
                         {
                             path: 'new',
                             component: BookableTagComponent,
@@ -421,7 +423,8 @@ const routes: Routes = [
                     ],
                 },
                 {
-                    path: 'transaction-line',
+                    path: 'transaction-line', // Separated from other similar routes because of
+                                              // https://github.com/angular/angular/issues/27674
                     component: TransactionLinesComponent,
                     data: {title: 'Écritures'},
                 },
@@ -450,13 +453,13 @@ const routes: Routes = [
                     ],
                 },
                 {
+                    path: 'expense-claim', // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
+                    component: ExpenseClaimsComponent,
+                    data: {title: 'Notes de frais'},
+                },
+                {
                     path: 'expense-claim',
                     children: [
-                        {
-                            path: '',
-                            component: ExpenseClaimsComponent,
-                            data: {title: 'Notes de frais'},
-                        },
                         {
                             path: 'new',
                             component: ExpenseClaimComponent,
@@ -479,13 +482,14 @@ const routes: Routes = [
                     data: {title: 'Import des virements BVR'},
                 },
                 {
+                    // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
+                    path: 'transaction-tag',
+                    component: TransactionTagsComponent,
+                    data: {title: 'Tags'},
+                },
+                {
                     path: 'transaction-tag',
                     children: [
-                        {
-                            path: '',
-                            component: TransactionTagsComponent,
-                            data: {title: 'Tags'},
-                        },
                         {
                             path: 'new',
                             component: TransactionTagComponent,
