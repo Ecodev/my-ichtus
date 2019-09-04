@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Acl\Assertion;
 
+use Application\Model\AbstractModel;
 use Application\Model\User;
 use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Assertion\AssertionInterface;
@@ -15,7 +16,7 @@ class IsOwner implements AssertionInterface
     /**
      * Assert that the object belongs to the current user
      *
-     * @param Acl $acl
+     * @param \Application\Acl\Acl $acl
      * @param RoleInterface $role
      * @param ResourceInterface $resource
      * @param string $privilege
@@ -24,8 +25,13 @@ class IsOwner implements AssertionInterface
      */
     public function assert(Acl $acl, RoleInterface $role = null, ResourceInterface $resource = null, $privilege = null)
     {
+        /** @var AbstractModel $object */
         $object = $resource->getInstance();
 
-        return User::getCurrent() && User::getCurrent() === $object->getOwner();
+        if (User::getCurrent() && User::getCurrent() === $object->getOwner()) {
+            return true;
+        }
+
+        return $acl->reject('the object does not belong to the user');
     }
 }

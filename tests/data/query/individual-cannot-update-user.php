@@ -19,7 +19,7 @@ return [
     [
         'errors' => [
             [
-                'message' => 'User "individual" with role individual is not allowed on resource "User#1000" with privilege "update"',
+                'message' => 'User "individual" with role individual is not allowed on resource "User#1000" with privilege "update" because it is not himself',
                 'extensions' => [
                     'category' => 'Permissions',
                 ],

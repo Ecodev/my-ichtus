@@ -16,7 +16,7 @@ class ExpenseClaimStatusIsNew implements AssertionInterface
     /**
      * Assert that the accounting document's expense claim is new (not processed yet)
      *
-     * @param Acl $acl
+     * @param \Application\Acl\Acl $acl
      * @param RoleInterface $role
      * @param ResourceInterface $resource
      * @param string $privilege
@@ -25,14 +25,15 @@ class ExpenseClaimStatusIsNew implements AssertionInterface
      */
     public function assert(Acl $acl, RoleInterface $role = null, ResourceInterface $resource = null, $privilege = null)
     {
-        $object = $resource->getInstance()->getExpenseClaim();
+        /** @var ExpenseClaim $expenseClaim */
+        $expenseClaim = $resource->getInstance()->getExpenseClaim();
 
-        if (!$object) {
+        if (!$expenseClaim) {
             return true;
         }
 
         $assertion = new StatusIsNew();
 
-        return $assertion->assert($acl, $role, new ModelResource(ExpenseClaim::class, $object), $privilege);
+        return $assertion->assert($acl, $role, new ModelResource(ExpenseClaim::class, $expenseClaim), $privilege);
     }
 }

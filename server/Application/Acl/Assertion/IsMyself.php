@@ -15,7 +15,7 @@ class IsMyself implements AssertionInterface
     /**
      * Assert that the user is the current user himself
      *
-     * @param Acl $acl
+     * @param \Application\Acl\Acl $acl
      * @param RoleInterface $role
      * @param ResourceInterface $resource
      * @param string $privilege
@@ -26,6 +26,10 @@ class IsMyself implements AssertionInterface
     {
         $user = $resource->getInstance();
 
-        return User::getCurrent() && User::getCurrent() === $user;
+        if (User::getCurrent() && User::getCurrent() === $user) {
+            return true;
+        }
+
+        return $acl->reject('it is not himself');
     }
 }

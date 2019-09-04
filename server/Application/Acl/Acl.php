@@ -37,6 +37,11 @@ class Acl extends \Zend\Permissions\Acl\Acl
      */
     private $message;
 
+    /**
+     * @var null|string
+     */
+    private $reason;
+
     public function __construct()
     {
         // Each role is strictly "stronger" than the last one
@@ -122,14 +127,31 @@ class Acl extends \Zend\Permissions\Acl\Acl
     public function isCurrentUserAllowed(AbstractModel $model, string $privilege): bool
     {
         $resource = new ModelResource($this->getClass($model), $model);
-
         $role = $this->getCurrentRole();
+        $this->reason = null;
 
         $isAllowed = $this->isAllowed($role, $resource, $privilege);
 
         $this->message = $this->buildMessage($resource, $privilege, $role, $isAllowed);
 
         return $isAllowed;
+    }
+
+    /**
+     * Set the reason for rejection that will be shown to end-user
+     *
+     * This method always return false for usage convenience and should be used by all assertions,
+     * instead of only return false themselves.
+     *
+     * @param string $reason
+     *
+     * @return false
+     */
+    public function reject(string $reason): bool
+    {
+        $this->reason = $reason;
+
+        return false;
     }
 
     private function getClass(AbstractModel $resource): string
@@ -141,7 +163,7 @@ class Acl extends \Zend\Permissions\Acl\Acl
     {
         $user = User::getCurrent();
         if (!$user) {
-            return 'anonymous';
+            return User::ROLE_ANONYMOUS;
         }
 
         return $user->getRole();
@@ -160,7 +182,13 @@ class Acl extends \Zend\Permissions\Acl\Acl
         $user = User::getCurrent() ? 'User "' . User::getCurrent()->getLogin() . '"' : 'Non-logged user';
         $privilege = $privilege === null ? 'NULL' : $privilege;
 
-        return "$user with role $role is not allowed on resource \"$resource\" with privilege \"$privilege\"";
+        $message = "$user with role $role is not allowed on resource \"$resource\" with privilege \"$privilege\"";
+
+        if ($this->reason) {
+            $message .= ' because ' . $this->reason;
+        }
+
+        return $message;
     }
 
     /**
