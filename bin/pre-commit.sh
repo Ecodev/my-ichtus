@@ -2,11 +2,11 @@
 
 pass=true
 
-files=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(ts|html)$')
-if [ "$files" != "" ]; then
+files=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(ts)$' | xargs printf -- '--files=%s\n')
+if [ "$files" != "--files=" ]; then
 
     # Run TypeScript syntax check before commit
-    ./node_modules/.bin/lint-staged
+    echo "$files" | xargs ./node_modules/.bin/ng lint my-ichtus --
     if [ $? -ne 0 ]; then
         pass=false
     fi
