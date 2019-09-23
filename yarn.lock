@@ -916,10 +916,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@ecodev/natural@^6.0.2":
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-6.0.2.tgz#44559eeb77c3bcf2b8fd6989022561e420c2212a"
-  integrity sha512-10BE0YihH9+oWcXBvPJt6IfEw6Hweq8UiUlLNTfKUPPOnki57kVfTC5oRDJeya6eIbU2lLg+qbiZfOTk+rg/0Q==
+"@ecodev/natural@^7.1.2":
+  version "7.1.2"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-7.1.2.tgz#1bfa98e534fa20dd4a3527540e3e5d3f9b0ceea0"
+  integrity sha512-0jtYZNjYmv8VlpPIcyhD/INaPBU54qPAg9vZNky+nvP7iQmpmqjq1S3e8RRKUw9GTJ//phYbEdTYU4Zt2tv7tg==
   dependencies:
     tslib "^1.9.0"
 
@@ -1103,14 +1103,6 @@
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@oclif/screen/-/screen-1.0.4.tgz#b740f68609dfae8aa71c3a6cab15d816407ba493"
   integrity sha512-60CHpq+eqnTxLZQ4PGHYNwUX572hgpMHGPtTWMjdTMsAvlm69lZV/4ly6O3sAYkomo4NggGcomrDpBe34rxUqw==
-
-"@sambaptista/angular-particle-effect-button@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@sambaptista/angular-particle-effect-button/-/angular-particle-effect-button-0.0.3.tgz#96fbb49e35b9475283c6a96dd9e087d56c45939e"
-  integrity sha512-hJxiaGPDOMXSD9kfkaljENx6k+pGJMRu5rPR5gM9sqfSzvXbi5sV9T5hKGOqx6WzfhBvbGaE8EhzFaxDIL8hVQ==
-  dependencies:
-    animejs "^2.2.0"
-    tslib "^1.9.0"
 
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
@@ -1500,6 +1492,14 @@ angular-file@^0.5.9:
   version "0.5.9"
   resolved "https://registry.yarnpkg.com/angular-file/-/angular-file-0.5.9.tgz#f3f809600e911b806c1ba2803d19614d62d36de1"
   integrity sha512-ULq2S0oG49p8gUjVjFZtUMkneDRbwWaU0Jl/GvzgBsDILZHPFCUnpKpAOzogsiH663bNhZgb5elX4co4+XPkJA==
+
+angular-particle-effect-button@^0.0.42:
+  version "0.0.42"
+  resolved "https://registry.yarnpkg.com/angular-particle-effect-button/-/angular-particle-effect-button-0.0.42.tgz#d9e5e182eb862608f032a960f1cb497886e0010c"
+  integrity sha512-CY96ZvEzkGoPtDDGxQgjJoVr/5hxPWFPjsjk7gXzgYdVji3hXkS7jQwMRL7pBqlbn8LtMe3vdRdOtKYi+apFpw==
+  dependencies:
+    animejs "^2.2.0"
+    tslib "^1.9.0"
 
 animejs@^2.2.0:
   version "2.2.0"
