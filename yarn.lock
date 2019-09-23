@@ -1493,10 +1493,10 @@ angular-file@^0.5.9:
   resolved "https://registry.yarnpkg.com/angular-file/-/angular-file-0.5.9.tgz#f3f809600e911b806c1ba2803d19614d62d36de1"
   integrity sha512-ULq2S0oG49p8gUjVjFZtUMkneDRbwWaU0Jl/GvzgBsDILZHPFCUnpKpAOzogsiH663bNhZgb5elX4co4+XPkJA==
 
-angular-particle-effect-button@^0.0.42:
-  version "0.0.42"
-  resolved "https://registry.yarnpkg.com/angular-particle-effect-button/-/angular-particle-effect-button-0.0.42.tgz#d9e5e182eb862608f032a960f1cb497886e0010c"
-  integrity sha512-CY96ZvEzkGoPtDDGxQgjJoVr/5hxPWFPjsjk7gXzgYdVji3hXkS7jQwMRL7pBqlbn8LtMe3vdRdOtKYi+apFpw==
+angular-particle-effect-button@^0.0.43:
+  version "0.0.43"
+  resolved "https://registry.yarnpkg.com/angular-particle-effect-button/-/angular-particle-effect-button-0.0.43.tgz#5632dcf18f999aa2d39b8a2aad21e23ccccf02de"
+  integrity sha512-SILWkVcR3ejnRAuEMOF8uCMwANRrM5FC+8A2PZbGS7H0+SAfttMea+t6IFl5Xwi6MOmu9+tMIhGITv/JL6q6Kw==
   dependencies:
     animejs "^2.2.0"
     tslib "^1.9.0"

@@ -29,7 +29,7 @@
         "@ecodev/natural": "^7.1.2",
         "@ngx-progressbar/core": "^5.2.1",
         "angular-file": "^0.5.9",
-        "angular-particle-effect-button": "^0.0.42",
+        "angular-particle-effect-button": "^0.0.43",
         "apollo": "^2.16.3",
         "apollo-angular": "^1.6.0",
         "apollo-angular-link-http": "^1.8.0",
