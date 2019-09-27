@@ -52,7 +52,12 @@ class AccountingDocumentAction extends AbstractAction
         }
         $size = filesize($path);
         $type = mime_content_type($path);
-        $response = new Response($resource, 200, ['content-type' => $type, 'content-length' => $size]);
+        $ext = pathinfo($path, PATHINFO_EXTENSION);
+        $response = new Response($resource, 200, [
+            'content-type' => $type,
+            'content-length' => $size,
+            'content-disposition' => 'attachment; filename=' . $id . '.' . $ext,
+        ]);
 
         return $response;
     }
