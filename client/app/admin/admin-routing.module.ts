@@ -22,7 +22,7 @@ import { BookableService } from './bookables/services/bookable.service';
 import { BookableTagsComponent } from './bookableTags/bookableTags/bookableTags.component';
 import { BookableTagComponent } from './bookableTags/bookableTag/bookableTag.component';
 import { BookableTagResolver } from './bookableTags/services/bookableTag.resolver';
-import { UserRole, UserStatus } from '../shared/generated-types';
+import { ExpenseClaimSortingField, ExpenseClaimsVariables, SortingOrder, UserRole, UserStatus } from '../shared/generated-types';
 import { TransactionResolver } from './transactions/services/transaction.resolver';
 import { TransactionComponent } from './transactions/transaction/transaction.component';
 import { AccountsComponent } from './accounts/accounts/accounts.component';
@@ -455,7 +455,16 @@ const routes: Routes = [
                 {
                     path: 'expense-claim', // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
                     component: ExpenseClaimsComponent,
-                    data: {title: 'Notes de frais'},
+                    data: {
+                        title: 'Notes de frais',
+                        contextColumns: ['name', 'owner', 'date', 'status', 'type', 'amount'],
+                        contextVariables: {
+                            sorting: [
+                                {field: ExpenseClaimSortingField.status, order: SortingOrder.ASC},
+                                {field: ExpenseClaimSortingField.creationDate, order: SortingOrder.DESC},
+                            ],
+                        } as ExpenseClaimsVariables,
+                    },
                 },
                 {
                     path: 'expense-claim',
