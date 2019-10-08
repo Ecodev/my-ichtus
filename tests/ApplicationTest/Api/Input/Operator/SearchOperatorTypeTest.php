@@ -63,7 +63,7 @@ class SearchOperatorTypeTest extends AbstractOperatorType
                 Booking::class,
                 'foo',
                 2,
-                '(a.destination LIKE :filter1 OR a.startComment LIKE :filter1 OR user1.firstName LIKE :filter1 OR user1.lastName LIKE :filter1 OR user1.email LIKE :filter1 OR user1.locality LIKE :filter1 OR bookable1.name LIKE :filter1 OR bookable1.code LIKE :filter1)',
+                '(a.destination LIKE :filter1 OR a.startComment LIKE :filter1 OR a.endComment LIKE :filter1 OR user1.firstName LIKE :filter1 OR user1.lastName LIKE :filter1 OR user1.email LIKE :filter1 OR user1.locality LIKE :filter1 OR bookable1.name LIKE :filter1 OR bookable1.code LIKE :filter1)',
             ],
         ];
     }
