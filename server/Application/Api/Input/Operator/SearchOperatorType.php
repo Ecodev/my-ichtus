@@ -62,7 +62,7 @@ class SearchOperatorType extends AbstractOperator
             'email',
             'destination',
             'startComment',
-            'endComment ',
+            'endComment',
             'code',
         ];
 
