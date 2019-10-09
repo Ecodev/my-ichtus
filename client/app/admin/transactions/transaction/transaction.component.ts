@@ -104,8 +104,6 @@ export class TransactionComponent
 
     public save() {
 
-        this.accountingDocuments.save();
-
         if (!this.userService.canUpdateTransaction(this.viewer)) {
             return;
         }
@@ -147,6 +145,7 @@ export class TransactionComponent
     }
 
     protected postUpdate(model): void {
+        this.accountingDocuments.save();
         this.goToNew();
     }
 
@@ -157,6 +156,7 @@ export class TransactionComponent
      *
      */
     protected postCreate(model): void {
+        this.accountingDocuments.save();
         const expire = new Subject();
         this.router.events.pipe(takeUntil(expire), filter((ev) => ev instanceof NavigationEnd)).subscribe(() => {
             expire.next();
