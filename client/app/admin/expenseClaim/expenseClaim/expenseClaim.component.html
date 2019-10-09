@@ -108,13 +108,13 @@
 
                 </div>
 
-                <mat-divider *ngIf="data.model.accountingDocuments.length"></mat-divider>
+                <mat-divider *ngIf="data?.model?.accountingDocuments?.length"></mat-divider>
 
-                <div *ngIf="data.model.accountingDocuments.length">
+                <div *ngIf="data?.model?.accountingDocuments?.length">
                     <div class="mat-title">Pièces justificatives</div>
 
                     <div fxLayout="row" fxLayoutGap="10px">
-                        <app-file *ngFor="let file of data.model.accountingDocuments"
+                        <app-file *ngFor="let file of data?.model?.accountingDocuments"
                                   [model]="file"
                                   [height]="150"
                                   [style.width.px]="200"
