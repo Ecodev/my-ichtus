@@ -916,10 +916,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@ecodev/natural@^7.1.2":
-  version "7.1.2"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-7.1.2.tgz#1bfa98e534fa20dd4a3527540e3e5d3f9b0ceea0"
-  integrity sha512-0jtYZNjYmv8VlpPIcyhD/INaPBU54qPAg9vZNky+nvP7iQmpmqjq1S3e8RRKUw9GTJ//phYbEdTYU4Zt2tv7tg==
+"@ecodev/natural@^9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-9.0.0.tgz#2cc867251b924f9163aec76b4d7ffd1b401f8dc0"
+  integrity sha512-gZm0T+DqTi2OLVIRbyrD8t2nDgr3XQjn8VG/2KvAEUABVQot5F/otCoRKhyHo13WEA3V4JtTjFL5GMYuMtDBww==
   dependencies:
     tslib "^1.9.0"
 
