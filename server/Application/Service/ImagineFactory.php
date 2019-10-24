@@ -26,6 +26,6 @@ class ImagineFactory
             return new \Imagine\Imagick\Imagine();
         }
 
-        return new \Imagine\Gd\Imagine();
+        throw new \Exception('Gmagick and Imagick are missing, install one of those module');
     }
 }
