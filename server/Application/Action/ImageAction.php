@@ -22,12 +22,12 @@ class ImageAction extends AbstractAction
     /**
      * @var ImageResizer
      */
-    private $imageService;
+    private $imageResizer;
 
     public function __construct(ImageRepository $imageRepository, ImageResizer $imageService)
     {
         $this->imageRepository = $imageRepository;
-        $this->imageService = $imageService;
+        $this->imageResizer = $imageService;
     }
 
     /**
@@ -55,15 +55,22 @@ class ImageAction extends AbstractAction
 
         $maxHeight = (int) $request->getAttribute('maxHeight');
         if ($maxHeight) {
-            $path = $this->imageService->resize($image, $maxHeight);
+            $path = $this->imageResizer->resize($image, $maxHeight);
         }
 
         $resource = fopen($path, 'r');
         if ($resource === false) {
             return $this->createError("Cannot open file for image $id on disk");
         }
+
         $size = filesize($path);
         $type = mime_content_type($path);
+
+        // Be sure that browser show SVG instead of downloading
+        if ($type === 'image/svg') {
+            $type = 'image/svg+xml';
+        }
+
         $response = new Response($resource, 200, ['content-type' => $type, 'content-length' => $size]);
 
         return $response;

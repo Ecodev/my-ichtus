@@ -132,15 +132,15 @@ REPLACE INTO bookable_tag (id, name) VALUES
 (6010, 'Casier'),
 (6011, 'Flotteurs');
 
-REPLACE INTO image (id, filename, width, height) VALUES
-(5000, 'chat1.jpg', 1000, 482),
-(5001, 'chat2.jpg', 1024, 680),
-(5002, 'chat3.jpg', 625, 768),
-(5003, 'chat4.jpg', 767, 767),
-(5004, 'chat5.jpg', 1144, 899),
-(5005, 'chat6.jpg', 630, 330),
-(5006, 'chat7.jpg', 820, 457),
-(5007, 'chat8.jpg', 1000, 1000);
+REPLACE INTO image (id, filename, width, height, mime) VALUES
+(5000, 'chat1.jpg', 1000, 482, 'image/jpeg'),
+(5001, 'chat2.jpg', 1024, 680, 'image/jpeg'),
+(5002, 'chat3.jpg', 625, 768, 'image/jpeg'),
+(5003, 'chat4.jpg', 767, 767, 'image/jpeg'),
+(5004, 'chat5.jpg', 1144, 899, 'image/jpeg'),
+(5005, 'chat6.jpg', 630, 330, 'image/jpeg'),
+(5006, 'chat7.jpg', 820, 457, 'image/jpeg'),
+(5007, 'chat8.jpg', 1000, 1000, 'image/jpeg');
 
 REPLACE INTO bookable (id, image_id, credit_account_id, purchase_price, periodic_price, initial_price, name, code, booking_type, simultaneous_booking_maximum, description) VALUES
 (3000, 5000, NULL, 30000, 0, 0, 'Stand up S1 (3000, carnet de sortie, occupé)', 'S1', 'self_approved', 1, 'No, no, no, no. You gotta listen to the way people talk. You don''t say "affirmative," or some shit like that. You say "no problemo." And if someone comes on to you with an attitude you say "eat me." And if you want to shine them on it''s "hasta la vista, baby."'),

@@ -20,7 +20,7 @@ export class FileComponent extends NaturalAbstractController implements OnInit, 
     /**
      * Comma separated list of accepted mimetypes
      */
-    @Input() accept = 'image/bmp,image/gif,image/jpeg,image/pjpeg,image/png,image/svg+xml,image/webp';
+    @Input() accept = 'image/bmp,image/gif,image/jpeg,image/pjpeg,image/png,image/svg+xml,image/svg,image/webp';
 
     @Input() service;
     @Input() model; // todo : when __typename included in queries : FileType;
@@ -75,7 +75,8 @@ export class FileComponent extends NaturalAbstractController implements OnInit, 
         if (this.model.file && this.model.file.type.includes('image/')) {
             // Model from upload (before saving)
             this.getBase64(this.model.file).subscribe(result => {
-                this.imagePreview = this.sanitizer.bypassSecurityTrustStyle('url(data:image;base64,' + result + ')');
+                const content = 'url(data:' + this.model.file.type + ';base64,' + result + ')';
+                this.imagePreview = this.sanitizer.bypassSecurityTrustStyle(content);
             });
 
         } else if (this.model.file) {
@@ -99,13 +100,13 @@ export class FileComponent extends NaturalAbstractController implements OnInit, 
         }
     }
 
-    private getBase64(file): Observable<any> {
+    private getBase64(file: File | null): Observable<string> {
 
         if (!file) {
-            return of(null);
+            return of('');
         }
 
-        const subject = new Subject();
+        const subject = new Subject<string>();
 
         const reader = new FileReader();
         reader.addEventListener('load', (ev: any) => {

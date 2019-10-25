@@ -117,10 +117,12 @@ class Image extends AbstractFile
         $imagine = $container->get(ImagineInterface::class);
         $image = $imagine->open($path);
 
-        // Auto-rotate image if EXIF says it's rotated
-        $autorotate = new Autorotate();
-        $autorotate->apply($image);
-        $image->save($path);
+        // Auto-rotate image if EXIF says it's rotated, but only JPG, otherwise it might deteriorate other format (SVG)
+        if ($this->getMime() === 'image/jpeg') {
+            $autorotate = new Autorotate();
+            $autorotate->apply($image);
+            $image->save($path);
+        }
 
         $size = $image->getSize();
 

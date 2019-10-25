@@ -147,6 +147,10 @@ abstract class AbstractFile extends AbstractModel
         $path = $this->getPath();
         $mime = mime_content_type($path);
 
+        if ($mime === 'image/svg') {
+            $mime = 'image/svg+xml';
+        }
+
         // Validate mimetype
         if (!in_array($mime, $this->getAcceptedMimeTypes(), true)) {
             unlink($path);

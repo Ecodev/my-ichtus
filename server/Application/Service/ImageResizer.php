@@ -35,7 +35,7 @@ class ImageResizer
      */
     public function resize(Image $image, int $maxHeight): string
     {
-        if ($image->getHeight() <= $maxHeight) {
+        if ($image->getHeight() <= $maxHeight || $image->getMime() === 'image/svg+xml') {
             return $image->getPath();
         }
 
