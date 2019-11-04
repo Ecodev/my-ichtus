@@ -89,11 +89,11 @@ export class NaturalSearchFacetsService {
         component: TypeNaturalSelectComponent,
         configuration: {
             service: this.licenceService,
-            placeholder: 'Certifications'
+            placeholder: 'Certifications',
         },
     };
 
-    private readonly  bookableTags: DropdownFacet<TypeSelectNaturalConfiguration> = {
+    private readonly bookableTags: DropdownFacet<TypeSelectNaturalConfiguration> = {
         display: 'Tags',
         field: 'bookableTags',
         component: TypeNaturalSelectComponent,
@@ -198,6 +198,14 @@ export class NaturalSearchFacetsService {
                     items: this.enumService.get('BillingType'),
                 },
             } as DropdownFacet<TypeSelectConfiguration>,
+            {
+                display: 'Solde',
+                field: 'balance',
+                component: TypeNumberComponent,
+                configuration: {
+                    step: 0.01,
+                },
+            } as DropdownFacet<TypeNumberConfiguration>,
             {
                 display: 'Login',
                 field: 'login',
@@ -421,7 +429,7 @@ export class NaturalSearchFacetsService {
                 component: TypeSelectComponent,
                 configuration: {
                     items: this.enumService.get('AccountType'),
-                }
+                },
             } as DropdownFacet<TypeSelectConfiguration>,
             {
                 display: 'Solde',
@@ -442,7 +450,7 @@ export class NaturalSearchFacetsService {
                 component: TypeSelectComponent,
                 configuration: {
                     items: this.enumService.get('ExpenseClaimType'),
-                }
+                },
             } as DropdownFacet<TypeSelectConfiguration>,
             this.owner,
             {
@@ -451,7 +459,7 @@ export class NaturalSearchFacetsService {
                 component: TypeSelectComponent,
                 configuration: {
                     items: this.enumService.get('ExpenseClaimStatus'),
-                }
+                },
             } as DropdownFacet<TypeSelectConfiguration>,
             {
                 display: 'Montant',

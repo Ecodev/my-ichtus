@@ -82,6 +82,6 @@ class MoneyType extends ScalarType
 
     private function isValid($value): bool
     {
-        return is_string($value) && preg_match('~^\d+(\.\d{0,2})?$~', $value);
+        return is_string($value) && preg_match('~^-?\d+(\.\d{0,2})?$~', $value);
     }
 }
