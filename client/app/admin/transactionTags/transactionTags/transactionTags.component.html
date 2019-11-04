@@ -24,7 +24,7 @@
         </div>
 
         <div class="responsive-table">
-            <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting($event)">
+            <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting([$event])">
 
                 <tr mat-header-row *matHeaderRowDef="selectedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: selectedColumns;"></tr>
