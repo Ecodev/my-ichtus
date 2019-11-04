@@ -5,8 +5,8 @@ import { NaturalHierarchicConfiguration } from '@ecodev/natural';
 export const accountHierarchicConfiguration: NaturalHierarchicConfiguration[] = [
     {
         service: AccountService,
-        parentsFilters: ['parent'],
-        childrenFilters: ['parent'],
+        parentsRelationNames: ['parent'],
+        childrenRelationNames: ['parent'],
         selectableAtKey: 'account',
         isSelectableCallback: (account) => account.type !== AccountType.group
     },

@@ -6,8 +6,8 @@ export const groupAccountHierarchicConfiguration: NaturalHierarchicConfiguration
     {
         service: AccountService,
         filter: {groups: [{conditions: [{type: {equal: {value: AccountType.group}}}]}]}, // only accounts of type Group
-        parentsFilters: ['parent'],
-        childrenFilters: ['parent'],
+        parentsRelationNames: ['parent'],
+        childrenRelationNames: ['parent'],
         selectableAtKey: 'account',
     },
 ];
