@@ -173,7 +173,20 @@ export class NaturalSearchFacetsService {
 
     private readonly allFacets: { [key: string]: NaturalSearchFacets } = {
         users: [
+            this.userWithNoTags,
             this.userTags,
+            this.userWithoutTags,
+            {
+                display: 'Tag de réservable',
+                field: 'custom',
+                name: 'hasBookingWithTaggedBookable',
+                transform: replaceOperatorByName,
+                component: TypeNaturalSelectComponent,
+                configuration: {
+                    service: this.bookableTagService,
+                    placeholder: 'Tag de réservable',
+                },
+            } as DropdownFacet<TypeSelectNaturalConfiguration>,
             {
                 display: 'Statut',
                 field: 'status',
@@ -190,6 +203,18 @@ export class NaturalSearchFacetsService {
                     items: this.enumService.get('UserRole'),
                 },
             } as DropdownFacet<TypeSelectConfiguration>,
+
+            this.licenses,
+            this.receivesNewsletter,
+
+            this.userWelcomeSession,
+
+            {
+                display: 'Date d\'accueil',
+                field: 'welcomeSessionDate',
+                component: TypeDateComponent,
+            } as DropdownFacet<TypeDateConfiguration>,
+
             {
                 display: 'Mode de paiement',
                 field: 'billingType',
@@ -207,45 +232,17 @@ export class NaturalSearchFacetsService {
                 },
             } as DropdownFacet<TypeNumberConfiguration>,
             {
-                display: 'Login',
-                field: 'login',
-                component: TypeTextComponent,
-                transform: wrapLike,
-            } as DropdownFacet<never>,
-            {
                 display: 'Date de naissance',
                 field: 'birthday',
                 component: TypeDateComponent,
             } as DropdownFacet<TypeDateConfiguration>,
+            this.creationDate,
+            this.updateDate,
             {
                 display: 'Date de démission',
                 field: 'resignDate',
                 component: TypeDateComponent,
             } as DropdownFacet<TypeDateConfiguration>,
-            {
-                display: 'Date d\'accueil',
-                field: 'welcomeSessionDate',
-                component: TypeDateComponent,
-            } as DropdownFacet<TypeDateConfiguration>,
-            this.userTags,
-            this.userWithNoTags,
-            this.userWithoutTags,
-            this.userWelcomeSession,
-            this.licenses,
-            {
-                display: 'Tag de réservable',
-                field: 'custom',
-                name: 'hasBookingWithTaggedBookable',
-                transform: replaceOperatorByName,
-                component: TypeNaturalSelectComponent,
-                configuration: {
-                    service: this.bookableTagService,
-                    placeholder: 'Tag de réservable',
-                },
-            } as DropdownFacet<TypeSelectNaturalConfiguration>,
-            this.receivesNewsletter,
-            this.creationDate,
-            this.updateDate,
         ],
         transactionLines: [
             this.transaction,
