@@ -52,6 +52,7 @@ class MutationType extends ObjectType
             UpdateTransaction::build(),
             ImportCamt::build(),
             Standard::buildMutation(Transaction::class)[2], // Only delete mutation
+            UpdateConfiguration::build(),
         ];
 
         $fields = array_merge(

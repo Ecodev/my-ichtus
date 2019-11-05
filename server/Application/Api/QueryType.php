@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Application\Api;
 
 use Application\Api\Field\Query\BankingInfos;
+use Application\Api\Field\Query\Configuration;
 use Application\Api\Field\Query\NextAccountCode;
 use Application\Api\Field\Query\Permissions;
 use Application\Api\Field\Query\UserByToken;
@@ -38,6 +39,7 @@ class QueryType extends ObjectType
             Permissions::build(),
             BankingInfos::build(),
             NextAccountCode::build(),
+            Configuration::build(),
         ];
 
         $fields = array_merge(

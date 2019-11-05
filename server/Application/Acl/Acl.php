@@ -17,6 +17,7 @@ use Application\Model\Bookable;
 use Application\Model\BookableMetadata;
 use Application\Model\BookableTag;
 use Application\Model\Booking;
+use Application\Model\Configuration;
 use Application\Model\Country;
 use Application\Model\ExpenseClaim;
 use Application\Model\Image;
@@ -67,6 +68,7 @@ class Acl extends \Zend\Permissions\Acl\Acl
         $expenseClaim = new ModelResource(ExpenseClaim::class);
         $message = new ModelResource(Message::class);
         $transaction = new ModelResource(Transaction::class);
+        $configuration = new ModelResource(Configuration::class);
 
         $this->addResource($bookable);
         $this->addResource($bookableMetadata);
@@ -83,9 +85,9 @@ class Acl extends \Zend\Permissions\Acl\Acl
         $this->addResource($expenseClaim);
         $this->addResource($message);
         $this->addResource($transaction);
+        $this->addResource($configuration);
 
-        $this->allow(User::ROLE_ANONYMOUS, [$country, $bookable, $bookableMetadata, $bookableTag, $image, $license, $transactionTag], ['read']);
-
+        $this->allow(User::ROLE_ANONYMOUS, [$country, $bookable, $bookableMetadata, $bookableTag, $image, $license, $transactionTag, $configuration], ['read']);
         $this->allow(User::ROLE_BOOKING_ONLY, $booking, ['create'], new BookableAvailable());
         $this->allow(User::ROLE_BOOKING_ONLY, $booking, ['read', 'update']);
 
@@ -112,6 +114,7 @@ class Acl extends \Zend\Permissions\Acl\Acl
         $this->allow(User::ROLE_RESPONSIBLE, [$booking], ['delete']);
 
         $this->allow(User::ROLE_ADMINISTRATOR, [$transaction, $account, $transactionTag, $accountingDocument], ['create', 'update', 'delete']);
+        $this->allow(User::ROLE_ADMINISTRATOR, [$configuration], ['update']);
     }
 
     /**
