@@ -26,6 +26,7 @@ const permissions = gql`
                 transactionTag { create }
                 user { create }
                 userTag { create }
+                configuration { create }
             }
         }
     }

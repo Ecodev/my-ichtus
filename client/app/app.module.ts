@@ -9,6 +9,9 @@ import { DateAdapter, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@a
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatIconRegistry } from '@angular/material/icon';
 import { NetworkActivityService } from './shared/services/network-activity.service';
+import { NaturalAlertService, NaturalSwissParsingDateAdapter } from '@ecodev/natural';
+import { NgProgressModule } from '@ngx-progressbar/core';
+import { HttpBatchLink, HttpBatchLinkModule } from 'apollo-angular-link-http-batch';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { apolloDefaultOptions, createApolloLink } from './shared/config/apolloDefaultOptions';
 import { LoginComponent } from './login/login.component';
@@ -20,15 +23,12 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ErrorComponent } from './shared/components/error/error.component';
 import { MaterialModule } from './shared/modules/material.module';
 import { IchtusModule } from './shared/modules/ichtus.module';
-import { HttpBatchLink, HttpBatchLinkModule } from 'apollo-angular-link-http-batch';
 import { NetworkInterceptorService } from './shared/services/network-interceptor.service';
 import localeFRCH from '@angular/common/locales/fr-CH';
 import { registerLocaleData } from '@angular/common';
 import { SafetyComponent } from './safety/safety.component';
-import { NgProgressModule } from '@ngx-progressbar/core';
 import { TimeagoCustomFormatter, TimeagoFormatter, TimeagoIntl, TimeagoModule } from 'ngx-timeago';
 import { strings as frenchStrings } from 'ngx-timeago/language-strings/fr-short';
-import { NaturalAlertService, NaturalSwissParsingDateAdapter } from '@ecodev/natural';
 
 registerLocaleData(localeFRCH);
 

@@ -18,24 +18,27 @@ import { AccountingDocumentsComponent } from '../../admin/accounting-documents/a
 import { TimeagoModule } from 'ngx-timeago';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ParticleSwitchComponent } from '../components/particle-switch/particle-switch.component';
-import { NaturalDropdownComponentsModule, NaturalSearchModule } from '@ecodev/natural';
 import {
     NaturalAlertModule,
     NaturalColumnsPickerModule,
     NaturalCommonModule,
     NaturalDetailHeaderModule,
+    NaturalDropdownComponentsModule,
     NaturalFixedButtonDetailModule,
     NaturalFixedButtonModule,
     NaturalHierarchicSelectorModule,
     NaturalIconModule,
     NaturalIconsConfig,
     NaturalRelationsModule,
+    NaturalSearchModule,
     NaturalSelectEnumModule,
     NaturalSelectModule,
     NaturalSidenavModule,
     NaturalStampModule,
     NaturalTableButtonModule,
 } from '@ecodev/natural';
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { SupportComponent } from '../../admin/configurations/support/support.component';
 
 const iconsConfig: NaturalIconsConfig = {
     qr: {
@@ -80,6 +83,9 @@ const iconsConfig: NaturalIconsConfig = {
     ichtus: {
         svg: 'assets/ichtus.svg',
     },
+    support: {
+        svg: 'assets/icons/signpost.svg',
+    },
 };
 
 const declarations = [
@@ -94,6 +100,7 @@ const declarations = [
     TransactionAmountComponent,
     AccountingDocumentsComponent,
     ParticleSwitchComponent,
+    SupportComponent,
 ];
 
 const imports = [
@@ -119,7 +126,8 @@ const imports = [
     NaturalTableButtonModule,
     NaturalFixedButtonModule,
     NaturalFixedButtonDetailModule,
-    NaturalDropdownComponentsModule
+    NaturalDropdownComponentsModule,
+    EditorModule,
 ];
 
 @NgModule({

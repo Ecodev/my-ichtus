@@ -15,6 +15,7 @@ use Application\Api\Field\Mutation\Register;
 use Application\Api\Field\Mutation\RequestPasswordReset;
 use Application\Api\Field\Mutation\TerminateBooking;
 use Application\Api\Field\Mutation\Unregister;
+use Application\Api\Field\Mutation\UpdateConfiguration;
 use Application\Api\Field\Mutation\UpdatePassword;
 use Application\Api\Field\Mutation\UpdateTransaction;
 use Application\Api\Field\Standard;

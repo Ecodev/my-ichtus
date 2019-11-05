@@ -1,0 +1,40 @@
+@mixin support($theme) {
+
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
+
+    app-support {
+
+        a {
+
+            text-decoration: none;
+            border-bottom-width: 2px;
+            border-bottom-style: solid;
+
+            color: mat-color($foreground, text);
+            border-color: mat-color($accent);
+
+            &:hover {
+                color: mat-color($accent);
+                border-color: mat-color($accent)
+            }
+
+        }
+
+
+        h1 {
+            font: 300 45px/48px Roboto, "Helvetica Neue", sans-serif;
+            letter-spacing: -0.005em;
+            margin: 0 0 50px;
+        }
+
+        h2 {
+            font: 300 34px/40px Roboto, "Helvetica Neue", sans-serif;
+            margin: 32px 0 16px 0;
+        }
+
+    }
+
+}

@@ -18,20 +18,21 @@ import { BookingsComponent } from './bookings/bookings/bookings.component';
 import { BookingComponent } from './bookings/booking/booking.component';
 import { BookableTagsComponent } from './bookableTags/bookableTags/bookableTags.component';
 import { BookableTagComponent } from './bookableTags/bookableTag/bookableTag.component';
+
+import { ExpenseClaimComponent } from './expenseClaim/expenseClaim/expenseClaim.component';
+import { ExpenseClaimsComponent } from './expenseClaim/expenseClaims/expenseClaims.component';
+import { ImportComponent } from './import/import.component';
+import { EditableTransactionLinesComponent } from './transactions/editable-transaction-lines/editable-transaction-lines.component';
 import { TransactionComponent } from './transactions/transaction/transaction.component';
 import { AccountsComponent } from './accounts/accounts/accounts.component';
 import { AccountComponent } from './accounts/account/account.component';
-import { ExpenseClaimsComponent } from './expenseClaim/expenseClaims/expenseClaims.component';
-import { ExpenseClaimComponent } from './expenseClaim/expenseClaim/expenseClaim.component';
 import { TransactionTagsComponent } from './transactionTags/transactionTags/transactionTags.component';
 import { TransactionTagComponent } from './transactionTags/transactionTag/transactionTag.component';
 import { TransactionLinesComponent } from './transactions/transactionLines/transactionLines.component';
-import { EditableTransactionLinesComponent } from './transactions/editable-transaction-lines/editable-transaction-lines.component';
 import { SelectAdminOnlyModalComponent } from '../shared/components/select-admin-only-modal/select-admin-only-modal.component';
 import { ProfileModule } from '../profile/profile.module';
 import { BookableMetadataComponent } from './bookable-metadata/bookable-metadata.component';
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
-import { ImportComponent } from './import/import.component';
 
 @NgModule({
     declarations: [
@@ -68,7 +69,7 @@ import { ImportComponent } from './import/import.component';
         IchtusModule,
         AvatarModule,
         ProfileModule,
-        EcoFabSpeedDialModule
+        EcoFabSpeedDialModule,
     ],
     entryComponents: [
         SelectAdminOnlyModalComponent,

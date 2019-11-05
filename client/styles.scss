@@ -34,6 +34,22 @@ pre.debug {
     border: 2px solid green;
 }
 
+
+.pac-container {
+    margin-top: 15px;
+    margin-left: -10px;
+}
+
+.tox-statusbar,
+.tox-notifications-container {
+    display: none !important;
+}
+
+.tox-tinymce-inline.tox-toolbar-dock-transition {
+    z-index: 999;
+}
+
+
 /* Disable login autofill background color */
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     transition-delay: 3600s;

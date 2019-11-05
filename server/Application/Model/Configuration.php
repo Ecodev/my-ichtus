@@ -30,7 +30,7 @@ class Configuration extends AbstractModel
      */
     private $value = '';
 
-    public function __construct(string $key)
+    public function __construct(string $key = '')
     {
         $this->key = $key;
     }

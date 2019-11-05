@@ -28,6 +28,7 @@ import { TransactionComponent } from './transactions/transaction/transaction.com
 import { AccountsComponent } from './accounts/accounts/accounts.component';
 import { AccountComponent } from './accounts/account/account.component';
 import { AccountResolver } from './accounts/services/account.resolver';
+import { SupportComponent } from './configurations/support/support.component';
 import { ExpenseClaimsComponent } from './expenseClaim/expenseClaims/expenseClaims.component';
 import { ExpenseClaimComponent } from './expenseClaim/expenseClaim/expenseClaim.component';
 import { ExpenseClaimResolver } from './expenseClaim/services/expenseClaim.resolver';
@@ -514,6 +515,11 @@ const routes: Routes = [
                             },
                         },
                     ],
+                },
+                {
+                    path: 'support',
+                    component: SupportComponent,
+                    data: {readonly: false}
                 },
             ],
         },

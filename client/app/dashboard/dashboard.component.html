@@ -29,6 +29,7 @@
 
         <h1 class="mat-display-2 margin-bottom text-center">Autres</h1>
         <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="center">
+
             <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="door" *ngIf="canAccessDoor()" class="big-button">
                 <natural-icon name="doors" [size]="70"></natural-icon>
                 Accéder au local
@@ -39,11 +40,16 @@
                 Mon compte
             </a>
 
+            <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="/support" class="big-button">
+                <natural-icon name="support" [size]="70"></natural-icon>
+                Guide
+            </a>
+
             <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="admin" *ngIf="canAccessAdmin()" class="big-button">
                 <natural-icon name="administrator" [size]="70"></natural-icon>
                 Administration
             </a>
-            
+
             <a mat-button fxLayout="column" fxLayoutAlign="start center" (click)="userService.logout()" class="big-button">
                 <natural-icon name="exit" [size]="70"></natural-icon>
                 Déconnexion

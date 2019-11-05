@@ -1,6 +1,6 @@
-<natural-sidenav-container name="adminMenu" [noScroll]="true" fxFlex>
+<natural-sidenav-container [noScroll]="true" fxFlex name="adminMenu">
     <natural-sidenav>
-        <div overflow class="margin">
+        <div class="margin" overflow>
             <mat-accordion displayMode="flat">
                 <mat-expansion-panel class="mat-elevation-z0">
                     <mat-expansion-panel-header>
@@ -89,6 +89,16 @@
                         <a mat-list-item routerLink="booking">Réservations</a>
                     </mat-nav-list>
                 </mat-expansion-panel>
+
+                <mat-expansion-panel *ngIf="permissionsService.crud?.configuration?.create" class="mat-elevation-z0">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Configuration</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <a mat-list-item routerLink="support">Support</a>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+
             </mat-accordion>
         </div>
     </natural-sidenav>
