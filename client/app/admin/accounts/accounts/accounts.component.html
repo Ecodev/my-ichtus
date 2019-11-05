@@ -2,7 +2,7 @@
 
     <div fxLayout="column">
         <div fxLayout="row wrap" fxLayoutAlign="start center">
-            <div [routerLink]="goToChildLink(null)"
+            <div [routerLink]="getChildLink(null)"
                  fxLayout="row"
                  fxLayoutAlign="start center"
                  fxLayoutGap="5px"
@@ -13,7 +13,7 @@
             </div>
             <div *ngFor="let element of breadcrumbs;">
                 /
-                <a mat-button color="primary" [routerLink]="goToChildLink(element)">{{ element.name }}</a>
+                <a mat-button color="primary" [routerLink]="getChildLink(element)">{{ element.name }}</a>
             </div>
         </div>
 
@@ -49,7 +49,7 @@
                 <ng-container matColumnDef="navigation">
                     <th mat-header-cell *matHeaderCellDef></th>
                     <td mat-cell *matCellDef="let element" natural-2em-column>
-                        <natural-table-button *ngIf="element.type === 'group'" icon="chevron_right" [navigate]="goToChildLink(element)" matTooltip="Afficher les sous-comptes"
+                        <natural-table-button *ngIf="element.type === 'group'" icon="chevron_right" [navigate]="getChildLink(element)" matTooltip="Afficher les sous-comptes"
                         ></natural-table-button>
                     </td>
                 </ng-container>
