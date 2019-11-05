@@ -29,8 +29,8 @@ abstract class UpdateConfiguration implements FieldInterface
                 /** @var Configuration $configuration */
                 $configuration = _em()->getRepository(\Application\Model\Configuration::class)->getOrCreate($key);
 
-                // Check ACL
-                Helper::throwIfDenied($configuration, 'update');
+                // Check ACL, exceptionally test 'create' privilege instead of 'update'
+                Helper::throwIfDenied($configuration, 'create');
 
                 $configuration->setValue($value);
 

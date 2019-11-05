@@ -114,7 +114,7 @@ class Acl extends \Zend\Permissions\Acl\Acl
         $this->allow(User::ROLE_RESPONSIBLE, [$booking], ['delete']);
 
         $this->allow(User::ROLE_ADMINISTRATOR, [$transaction, $account, $transactionTag, $accountingDocument], ['create', 'update', 'delete']);
-        $this->allow(User::ROLE_ADMINISTRATOR, [$configuration], ['update']);
+        $this->allow(User::ROLE_ADMINISTRATOR, [$configuration], ['create']);
     }
 
     /**
