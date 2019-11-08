@@ -519,7 +519,18 @@ const routes: Routes = [
                 {
                     path: 'support',
                     component: SupportComponent,
-                    data: {readonly: false}
+                    data: {
+                        readonly: false,
+                        configurationKey: 'support-text',
+                    },
+                },
+                {
+                    path: 'announcement',
+                    component: SupportComponent,
+                    data: {
+                        readonly: false,
+                        configurationKey: 'announcement-text',
+                    },
                 },
             ],
         },

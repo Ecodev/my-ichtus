@@ -63,6 +63,8 @@
                         <a mat-list-item routerLink="booking/other-application">Demandes en attente</a>
                         <a mat-list-item routerLink="license">Certifications</a>
                         <a mat-list-item routerLink="bookable-tag">Tags de réservables</a>
+                        <a *ngIf="permissionsService.crud?.configuration?.create" mat-list-item routerLink="support">Guide / Support</a>
+                        <a *ngIf="permissionsService.crud?.configuration?.create" mat-list-item routerLink="announcement">Annonce</a>
                     </mat-nav-list>
                 </mat-expansion-panel>
 
@@ -87,15 +89,6 @@
                     <mat-nav-list>
                         <a mat-list-item routerLink="bookable">Réservables</a>
                         <a mat-list-item routerLink="booking">Réservations</a>
-                    </mat-nav-list>
-                </mat-expansion-panel>
-
-                <mat-expansion-panel *ngIf="permissionsService.crud?.configuration?.create" class="mat-elevation-z0">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>Configuration</mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <mat-nav-list>
-                        <a mat-list-item routerLink="support">Support</a>
                     </mat-nav-list>
                 </mat-expansion-panel>
 

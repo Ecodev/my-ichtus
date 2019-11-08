@@ -11,6 +11,7 @@ import { SafetyComponent } from './safety/safety.component';
 import { BookingService } from './admin/bookings/services/booking.service';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { DoorGuard } from './shared/guards/door.guard';
+import { NaturalDialogTriggerComponent, NaturalDialogTriggerRoutingData } from '@ecodev/natural';
 
 export const routes: Routes = [
     {
@@ -65,9 +66,30 @@ export const routes: Routes = [
             {
                 path: 'support',
                 component: SupportComponent,
-                data: {readonly: true},
+                data: {
+                    readonly: true,
+                    configurationKey: 'support-text',
+                },
             },
         ],
+    },
+    {
+        path: 'announcement',
+        component: NaturalDialogTriggerComponent,
+        outlet: 'secondary',
+        data: {
+            component: SupportComponent,
+            afterClosedRoute: [{outlets: {secondary: null}}],
+            dialogConfig: {
+                width: '600px',
+                maxWidth: '95vw',
+                maxHeight: '97vh',
+                data: {
+                    readonly: true,
+                    configurationKey: 'announcement-text',
+                },
+            },
+        } as NaturalDialogTriggerRoutingData,
     },
     {
         path: 'error',

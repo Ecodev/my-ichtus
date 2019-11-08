@@ -1,33 +1,37 @@
-<div fxLayout="column" fxFlexFill>
+<div fxFlexFill fxLayout="column">
 
     <mat-toolbar fxFlex="none" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
 
-        <button mat-icon-button *ngIf="menu" (click)="menu.toggle()">
+        <button (click)="menu.toggle()" *ngIf="menu" mat-icon-button>
             <natural-icon name="menu"></natural-icon>
         </button>
 
         <a routerLink="/" style="width:50px; height:50px">
-            <natural-icon name="ichtus" [size]="50"></natural-icon>
+            <natural-icon [size]="50" name="ichtus"></natural-icon>
         </a>
 
-        <div *ngIf="route.snapshot.data.viewer?.model" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" fxFlex>
+        <div *ngIf="route.snapshot.data.viewer?.model" fxFlex fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
             <div fxFlex></div>
 
-            <div fxFlex id="searchByCode" fxLayout="row" fxLayoutAlign="start center" fxHide.xs>
-                <input fxFlex placeholder="Recherche par code" [(ngModel)]="code" (keydown.enter)="goToCode()" (keydown.esc)="code = ''">
-                <a mat-icon-button [routerLink]="['/booking', code]">
+            <div fxFlex fxHide.xs fxLayout="row" fxLayoutAlign="start center" id="searchByCode">
+                <input (keydown.enter)="goToCode()" (keydown.esc)="code = ''" [(ngModel)]="code" fxFlex placeholder="Recherche par code">
+                <a [routerLink]="['/booking', code]" mat-icon-button>
                     <natural-icon name="search"></natural-icon>
                 </a>
             </div>
 
-            <a mat-icon-button mat-flat-button color="primary" routerLink="/booking/by-scan">
-                <natural-icon name="simple-qr" [size]="24"></natural-icon>
+            <a color="primary" mat-flat-button mat-icon-button routerLink="/booking/by-scan">
+                <natural-icon [size]="24" name="simple-qr"></natural-icon>
             </a>
 
             <div fxFlex></div>
 
+            <a [routerLink]="getAnnouncementLink()" color="primary" mat-flat-button mat-icon-button>
+                <natural-icon [size]="24" name="announcement"></natural-icon>
+            </a>
+
             <a mat-icon-button routerLink="/profile">
-                <ngx-avatar [name]="route.snapshot.data.viewer.model.name" [size]="50" ></ngx-avatar>
+                <ngx-avatar [name]="route.snapshot.data.viewer.model.name" [size]="50"></ngx-avatar>
             </a>
         </div>
 

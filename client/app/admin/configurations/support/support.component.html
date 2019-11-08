@@ -1,7 +1,7 @@
 <div class="mat-body-1 content-wrapper">
-    <editor class="content" *ngIf="!route.snapshot.data.readonly" [(ngModel)]="text" [init]="tinyInit"></editor>
-    <div class="content" *ngIf="route.snapshot.data.readonly" [innerHTML]="text"></div>
+    <editor *ngIf="!readonly" [(ngModel)]="text" [init]="tinyInit" class="content"></editor>
+    <div *ngIf="readonly" [innerHTML]="text" class="content"></div>
 </div>
 
-<natural-fixed-button (click)="update()" *ngIf="permissionsService.crud?.configuration.create && !route.snapshot.data.readonly" icon="save"
+<natural-fixed-button (click)="update()" *ngIf="permissionsService.crud?.configuration.create && !readonly" icon="save"
 ></natural-fixed-button>

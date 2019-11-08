@@ -22,7 +22,7 @@ import {
     NaturalAlertModule,
     NaturalColumnsPickerModule,
     NaturalCommonModule,
-    NaturalDetailHeaderModule,
+    NaturalDetailHeaderModule, NaturalDialogTriggerModule,
     NaturalDropdownComponentsModule,
     NaturalFixedButtonDetailModule,
     NaturalFixedButtonModule,
@@ -86,6 +86,9 @@ const iconsConfig: NaturalIconsConfig = {
     support: {
         svg: 'assets/icons/signpost.svg',
     },
+    announcement: {
+        svg: 'assets/icons/megaphone.svg',
+    },
 };
 
 const declarations = [
@@ -128,6 +131,7 @@ const imports = [
     NaturalFixedButtonDetailModule,
     NaturalDropdownComponentsModule,
     EditorModule,
+    NaturalDialogTriggerModule
 ];
 
 @NgModule({
