@@ -23,6 +23,16 @@ export class SupportComponent implements OnInit {
 
     public readonly = false;
 
+    /**
+     * Specific to announcement
+     */
+    public active = false;
+
+    /**
+     * Specific to announcement
+     */
+    public activable = false;
+
     constructor(private configurationService: ConfigurationService,
                 public permissionsService: PermissionsService,
                 public route: ActivatedRoute,
@@ -32,6 +42,12 @@ export class SupportComponent implements OnInit {
     ngOnInit(): void {
         this.readonly = this.route.snapshot.data.readonly || this.data && this.data.readonly;
         this.configurationService.get(this.getConfigKey()).subscribe(value => this.text = value);
+
+        this.activable = this.route.snapshot.data.activable; // ignore modal mode
+
+        if (this.activable) {
+            this.configurationService.get('announcement-active').subscribe(value => this.active = value === '1');
+        }
     }
 
     public update() {
@@ -40,6 +56,13 @@ export class SupportComponent implements OnInit {
 
     private getConfigKey(): string {
         return this.data && this.data.configurationKey || this.route.snapshot.data.configurationKey;
+    }
+
+    /**
+     * Specific to announcement
+     */
+    public setActive(value: boolean) {
+        this.configurationService.set('announcement-active', value ? '1' : '0');
     }
 
 }

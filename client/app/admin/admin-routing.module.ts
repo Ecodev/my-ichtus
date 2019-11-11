@@ -530,6 +530,7 @@ const routes: Routes = [
                     data: {
                         readonly: false,
                         configurationKey: 'announcement-text',
+                        activable: true
                     },
                 },
             ],

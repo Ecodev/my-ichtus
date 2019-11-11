@@ -19,6 +19,8 @@ export class HomeComponent extends NaturalAbstractController implements OnInit {
      */
     public code;
 
+    public announcementActive = false;
+
     constructor(private userService: UserService,
                 private router: Router,
                 public route: ActivatedRoute,
@@ -28,14 +30,23 @@ export class HomeComponent extends NaturalAbstractController implements OnInit {
 
     ngOnInit() {
 
-        // Navigate/open announcement if last content is different from current one
-        const announcementConfigKey = 'announcement-text';
-        const announcementStoredValue = localStorage.getItem(announcementConfigKey);
-        this.configurationService.get(announcementConfigKey).subscribe(announcementValue => {
-            if (announcementValue !== announcementStoredValue) {
-                this.router.navigate(this.getAnnouncementLink());
+        this.configurationService.get('announcement-active').subscribe(active => {
+
+            if (!active) {
+                return;
             }
-            localStorage.setItem(announcementConfigKey, announcementValue);
+
+            this.announcementActive = true;
+
+            // Navigate/open announcement if last content is different from current one
+            const announcementConfigKey = 'announcement-text';
+            const announcementStoredValue = localStorage.getItem(announcementConfigKey);
+            this.configurationService.get(announcementConfigKey).subscribe(announcementValue => {
+                if (announcementValue !== announcementStoredValue) {
+                    this.router.navigate(this.getAnnouncementLink());
+                }
+                localStorage.setItem(announcementConfigKey, announcementValue);
+            });
         });
 
         NaturalSidenavService.sideNavsChange.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {

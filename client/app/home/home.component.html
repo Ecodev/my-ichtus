@@ -26,7 +26,7 @@
 
             <div fxFlex></div>
 
-            <a [routerLink]="getAnnouncementLink()" color="primary" mat-flat-button mat-icon-button>
+            <a [routerLink]="getAnnouncementLink()" color="primary" mat-flat-button mat-icon-button *ngIf="announcementActive">
                 <natural-icon [size]="24" name="announcement"></natural-icon>
             </a>
 
