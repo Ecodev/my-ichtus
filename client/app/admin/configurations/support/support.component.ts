@@ -52,17 +52,11 @@ export class SupportComponent implements OnInit {
 
     public update() {
         this.configurationService.set(this.getConfigKey(), this.text);
+        this.configurationService.set('announcement-active', this.active ? '1' : '0');
     }
 
     private getConfigKey(): string {
         return this.data && this.data.configurationKey || this.route.snapshot.data.configurationKey;
-    }
-
-    /**
-     * Specific to announcement
-     */
-    public setActive(value: boolean) {
-        this.configurationService.set('announcement-active', value ? '1' : '0');
     }
 
 }

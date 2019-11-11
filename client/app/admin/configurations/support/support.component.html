@@ -1,7 +1,6 @@
-<mat-slide-toggle [(ngModel)]="active" *ngIf="!readonly && activable" (change)="setActive($event.checked)">Actif</mat-slide-toggle>
-
-<div class="mat-body-1 content-wrapper">
-    <editor *ngIf="!readonly" [(ngModel)]="text" [init]="tinyInit" class="content"></editor>
+<div class="mat-body-1 content">
+    <mat-slide-toggle [(ngModel)]="active" *ngIf="!readonly && activable">Actif</mat-slide-toggle>
+    <editor *ngIf="!readonly" [(ngModel)]="text" [init]="tinyInit" ></editor>
     <div *ngIf="readonly" [innerHTML]="text" class="content"></div>
 </div>
 
