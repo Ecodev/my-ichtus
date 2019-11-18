@@ -22,11 +22,19 @@ import { BookableService } from './bookables/services/bookable.service';
 import { BookableTagsComponent } from './bookableTags/bookableTags/bookableTags.component';
 import { BookableTagComponent } from './bookableTags/bookableTag/bookableTag.component';
 import { BookableTagResolver } from './bookableTags/services/bookableTag.resolver';
-import { ExpenseClaimSortingField, ExpenseClaimsVariables, SortingOrder, UserRole, UserStatus } from '../shared/generated-types';
+import {
+    ExpenseClaimSortingField,
+    ExpenseClaimsVariables,
+    SortingOrder,
+    TransactionLineSortingField,
+    UserRole,
+    UserStatus,
+} from '../shared/generated-types';
 import { TransactionResolver } from './transactions/services/transaction.resolver';
 import { TransactionComponent } from './transactions/transaction/transaction.component';
-import { AccountsComponent } from './accounts/accounts/accounts.component';
+import { AdministrationGuard } from '../shared/guards/administration.guard';
 import { AccountComponent } from './accounts/account/account.component';
+import { AccountsComponent } from './accounts/accounts/accounts.component';
 import { AccountResolver } from './accounts/services/account.resolver';
 import { SupportComponent } from './configurations/support/support.component';
 import { ExpenseClaimsComponent } from './expenseClaim/expenseClaims/expenseClaims.component';
@@ -37,7 +45,6 @@ import { TransactionTagComponent } from './transactionTags/transactionTag/transa
 import { TransactionTagResolver } from './transactionTags/services/transactionTag-resolver.service';
 import { TransactionLinesComponent } from './transactions/transactionLines/transactionLines.component';
 import { ExpenseClaimParamResolver } from './expenseClaim/services/expenseClaim.param.resolver';
-import { AdministrationGuard } from '../shared/guards/administration.guard';
 import { UsageBookableService } from './bookables/services/usage-bookable.service';
 import { ImportComponent } from './import/import.component';
 
@@ -427,7 +434,21 @@ const routes: Routes = [
                     path: 'transaction-line', // Separated from other similar routes because of
                                               // https://github.com/angular/angular/issues/27674
                     component: TransactionLinesComponent,
-                    data: {title: 'Écritures'},
+                    data: {
+                        title: 'Écritures',
+                        contextVariables: {
+                            sorting: [
+                                {
+                                    field: TransactionLineSortingField.creationDate,
+                                    order: SortingOrder.DESC,
+                                },
+                                {
+                                    field: TransactionLineSortingField.latestModification,
+                                    order: SortingOrder.DESC,
+                                },
+                            ],
+                        },
+                    },
                 },
                 {
                     path: 'account', // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
@@ -530,7 +551,7 @@ const routes: Routes = [
                     data: {
                         readonly: false,
                         configurationKey: 'announcement-text',
-                        activable: true
+                        activable: true,
                     },
                 },
             ],
