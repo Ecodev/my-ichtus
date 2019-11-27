@@ -9,6 +9,7 @@ use Application\Api\Exception;
 use Application\Api\Field\FieldInterface;
 use Application\Api\Output\OpenDoorType;
 use Application\Model\User;
+use Application\Repository\LogRepository;
 use GraphQL\Type\Definition\Type;
 use Zend\Expressive\Session\SessionInterface;
 use Zend\Http\Client;
@@ -39,31 +40,46 @@ abstract class OpenDoor implements FieldInterface
                 }
 
                 $apiConfig = $container->get('config')['doorsApi'];
+                $attrs = [
+                    'door' => $doorIndex,
+                    'token' => $apiConfig['token'],
+                ];
+
                 $request = new Request();
                 $request->getHeaders()->addHeaders(['Content-Type' => 'application/json']);
                 $request->setUri($apiConfig['endpoint'] . '/open');
                 $request->setMethod(Request::METHOD_POST);
-                $request->setContent(json_encode([
-                    'door' => $doorIndex,
-                    'token' => $apiConfig['token'],
-                ]));
+                $request->setContent(json_encode($attrs));
 
                 $client = new Client();
 
                 try {
                     $response = $client->dispatch($request);
                 } catch (\Zend\Http\Client\Exception\RuntimeException $e) {
-                    // No answer from the web server
+                    // No answer from the websocket
+                    _log()->err($e->getMessage(), $attrs);
+
                     throw new Exception('Commande de porte temporairement inaccessible, veuillez essayez plus tard ou contacter un administrateur');
                 }
+
                 $content = json_decode($response->getContent(), true);
+
                 if ($response->getStatusCode() === 200) {
+                    _log()->info(LogRepository::DOOR_OPENED . $doorIndex, $attrs);
+
                     return $content;
                 }
+
                 if (preg_match('/^5[0-9]{2}/', (string) $response->getStatusCode())) {
                     $errorMsg = "Commande de porte inaccessible en raison d'une erreur serveur, veuillez essayez plus tard ou contacter un administrateur";
                 } else {
                     $errorMsg = $content['message'] ?? 'Erreur de commande de porte, veuillez essayez plus tard ou contact un administrateur';
+                }
+
+                // Log body if we have anything
+                $body = trim($response->getBody());
+                if ($body) {
+                    _log()->err($response->getBody(), $attrs);
                 }
 
                 throw new Exception($errorMsg);

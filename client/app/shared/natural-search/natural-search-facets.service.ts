@@ -171,6 +171,23 @@ export class NaturalSearchFacetsService {
         component: TypeDateComponent,
     };
 
+    private readonly creator: DropdownFacet<TypeSelectNaturalConfiguration> = {
+        display: 'Utilisateur',
+        field: 'creator',
+        component: TypeNaturalSelectComponent,
+        configuration: {
+            placeholder: 'Utilisateur',
+            service: this.userService,
+        },
+    };
+
+    private readonly message: DropdownFacet<never> = {
+        display: 'Message',
+        field: 'message',
+        component: TypeTextComponent,
+        transform: wrapLike,
+    };
+
     private readonly allFacets: { [key: string]: NaturalSearchFacets } = {
         users: [
             this.userWithNoTags,
@@ -468,6 +485,11 @@ export class NaturalSearchFacetsService {
             } as DropdownFacet<TypeNumberConfiguration>,
             this.creationDate,
             this.updateDate,
+        ],
+        logs: [
+            this.creationDate,
+            this.creator,
+            this.message,
         ],
     };
 

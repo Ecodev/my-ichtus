@@ -21,6 +21,7 @@ use Application\Model\Country;
 use Application\Model\ExpenseClaim;
 use Application\Model\Image;
 use Application\Model\License;
+use Application\Model\Log;
 use Application\Model\Message;
 use Application\Model\Transaction;
 use Application\Model\TransactionLine;
@@ -60,7 +61,8 @@ class QueryType extends ObjectType
             Standard::buildQuery(TransactionTag::class),
             Standard::buildQuery(ExpenseClaim::class),
             Standard::buildQuery(AccountingDocument::class),
-            Standard::buildQuery(Message::class)
+            Standard::buildQuery(Message::class),
+            Standard::buildQuery(Log::class),
         );
 
         $config = [

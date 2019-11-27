@@ -1,0 +1,89 @@
+<div *ngIf="dataSource" fxLayout="column">
+
+    <div fxLayout="column">
+        <div class="mat-headline no-margin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">{{routeData?.title}}</div>
+    </div>
+
+    <div fxLayout="column">
+
+        <div class="margin-v" fxLayout="row" overflow>
+
+            <natural-search (selectionChange)="search($event)"
+                            [facets]="naturalSearchFacets"
+                            [multipleGroups]="true"
+                            [selections]="naturalSearchSelections"
+                            fxFlex
+            >
+                <natural-columns-picker (selectionChange)="selectedColumns = $event" [initialSelection]="initialColumns">
+                    <span naturalColumnsPickerColumn="creationDate">Date</span>
+                    <span naturalColumnsPickerColumn="message">Message</span>
+                    <span naturalColumnsPickerColumn="creator">Utilisateur</span>
+                    <span naturalColumnsPickerColumn="ip" *ngIf="viewer.role === UserRole.administrator">IP</span>
+                    <span naturalColumnsPickerColumn="referer" *ngIf="viewer.role === UserRole.administrator">Referer</span>
+                </natural-columns-picker>
+            </natural-search>
+
+        </div>
+
+        <div class="responsive-table">
+            <table (matSortChange)="sorting([$event])" [dataSource]="dataSource" mat-table matSort>
+
+                <tr *matHeaderRowDef="selectedColumns" mat-header-row></tr>
+                <tr *matRowDef="let row; columns: selectedColumns;" mat-row></tr>
+
+
+                <ng-container matColumnDef="creationDate">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header>Date</th>
+                    <td *matCellDef="let element" mat-cell>
+                        {{ element.creationDate | date: 'd MMM y - HH:mm:ss' }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="message">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header>Message</th>
+                    <td *matCellDef="let element" mat-cell>{{ element.message }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="creator">
+                    <th *matHeaderCellDef mat-header-cell>Utilisateur</th>
+                    <td *matCellDef="let element" mat-cell>
+                        <natural-table-button
+                                *ngIf="element.creator"
+                                [label]="element.creator?.name"
+                                [navigate]="['/admin/user', element.creator?.id]"
+                                matTooltip="Éditer"
+                        ></natural-table-button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="ip">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header natural-3em-column>IP</th>
+                    <td *matCellDef="let element" mat-cell>{{ element.ip }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="referer">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header>Referer</th>
+                    <td *matCellDef="let element" mat-cell>{{ element.referer }}</td>
+                </ng-container>
+
+            </table>
+        </div>
+
+        <div *ngIf="dataSource.length === 0" class="margin" fxLayout="column" fxLayoutAlign="center center">
+            <div>Pas de résultats</div>
+        </div>
+
+        <div *ngIf="dataSource.length === null" class="margin" fxLayout="column" fxLayoutAlign="center center">
+            <mat-progress-spinner [diameter]="40" mode="indeterminate"></mat-progress-spinner>
+        </div>
+
+        <mat-paginator (page)="pagination($event)"
+                       *ngIf="dataSource.data?.length"
+                       [length]="dataSource.data?.length"
+                       [pageIndex]="dataSource.data?.pageIndex"
+                       [pageSizeOptions]="pageSizeOptions"
+                       [pageSize]="dataSource.data?.pageSize"
+        ></mat-paginator>
+
+    </div>
+</div>

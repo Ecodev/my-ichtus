@@ -47,6 +47,7 @@ import { TransactionLinesComponent } from './transactions/transactionLines/trans
 import { ExpenseClaimParamResolver } from './expenseClaim/services/expenseClaim.param.resolver';
 import { UsageBookableService } from './bookables/services/usage-bookable.service';
 import { ImportComponent } from './import/import.component';
+import { LogsComponent } from './logs/logs/logs.component';
 
 const routes: Routes = [
         {
@@ -552,6 +553,13 @@ const routes: Routes = [
                         readonly: false,
                         configurationKey: 'announcement-text',
                         activable: true,
+                    },
+                },
+                {
+                    path: 'log',
+                    component: LogsComponent,
+                    data: {
+                        title: 'Activité',
                     },
                 },
             ],

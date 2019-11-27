@@ -33,6 +33,7 @@ import { SelectAdminOnlyModalComponent } from '../shared/components/select-admin
 import { ProfileModule } from '../profile/profile.module';
 import { BookableMetadataComponent } from './bookable-metadata/bookable-metadata.component';
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
+import { LogsComponent } from './logs/logs/logs.component';
 
 @NgModule({
     declarations: [
@@ -61,6 +62,7 @@ import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
         SelectAdminOnlyModalComponent,
         BookableMetadataComponent,
         ImportComponent,
+        LogsComponent,
     ],
     imports: [
         CommonModule,
