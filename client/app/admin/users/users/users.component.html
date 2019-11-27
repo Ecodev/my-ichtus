@@ -43,7 +43,10 @@
                     <span naturalColumnsPickerColumn="updateDate">Modifié le</span>
                     <span naturalColumnsPickerColumn="resignDate">Date démission</span>
                     <span naturalColumnsPickerColumn="status">Status</span>
+                    <span naturalColumnsPickerColumn="email">Email</span>
+                    <span naturalColumnsPickerColumn="mobilePhone">Telephone</span>
                     <span naturalColumnsPickerColumn="flagWelcomeSessionDate">Séance d'accueil</span>
+                    <span naturalColumnsPickerColumn="provision" [checked]="false">Versement</span>
                 </natural-columns-picker>
             </natural-search>
         </div>
@@ -143,6 +146,26 @@
                         ></app-money>
                     </td>
                 </ng-container>
+
+                <ng-container matColumnDef="mobilePhone">
+                    <th mat-header-cell *matHeaderCellDef>Tél.</th>
+                    <td mat-cell *matCellDef="let element">{{ element.mobilePhone }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef>e-mail</th>
+                    <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="provision">
+                    <th mat-header-cell *matHeaderCellDef app-date-column natural-align-center>Versement</th>
+                    <td mat-cell *matCellDef="let element" natural-align-center>
+                        <button mat-flat-button (click)="showProvision(element)">
+                            Faire un versement
+                        </button>
+                    </td>
+                </ng-container>
+
             </table>
         </div>
 

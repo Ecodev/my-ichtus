@@ -1,12 +1,23 @@
 import {Component, Injector, OnInit} from '@angular/core';
 import {NaturalAbstractList, NaturalQueryVariablesManager, NaturalSearchSelections} from '@ecodev/natural';
 import {Apollo} from 'apollo-angular';
-import {EmailUsers, EmailUsersVariables, Users, UserStatus, UsersVariables} from '../../../shared/generated-types';
+import {
+    BankingInfosVariables,
+    EmailUsers,
+    EmailUsersVariables,
+    Users,
+    Users_users_items,
+    UserStatus,
+    UsersVariables,
+} from '../../../shared/generated-types';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {emailUsersQuery} from '../services/user.queries';
 import {UserService} from '../services/user.service';
 import {copy} from '../../../shared/utils';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {ProvisionComponent} from '../../../profile/components/provision/provision.component';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-users',
@@ -29,11 +40,13 @@ export class UsersComponent extends NaturalAbstractList<Users['users'], UsersVar
     public usersEmailAndName;
 
     constructor(
+        route: ActivatedRoute,
         private userService: UserService,
         injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,
         public permissionsService: PermissionsService,
         private apollo: Apollo,
+        private dialog: MatDialog,
     ) {
         super(userService, injector);
         this.naturalSearchFacets = naturalSearchFacetsService.get('users');
@@ -41,21 +54,21 @@ export class UsersComponent extends NaturalAbstractList<Users['users'], UsersVar
 
     public flagWelcomeSessionDate(user) {
         this.userService.flagWelcomeSessionDate(user.id).subscribe(u => {
-            user = u;
+            user.welcomeSessionDate = u.welcomeSessionDate;
         });
     }
 
     public activate(user) {
         this.userService.activate(user.id).subscribe(u => {
-            user = u;
+            user.status = u.status;
         });
     }
 
-    public isActive(user) {
+    public isActive(user: Users_users_items) {
         return user.status === UserStatus.active;
     }
 
-    public isNew(user) {
+    public isNew(user: Users_users_items) {
         return user.status === UserStatus.new;
     }
 
@@ -89,5 +102,15 @@ export class UsersComponent extends NaturalAbstractList<Users['users'], UsersVar
 
     public copy(data) {
         copy(data);
+    }
+
+    public showProvision(user: Users_users_items): void {
+        const config: MatDialogConfig<BankingInfosVariables> = {
+            data: {
+                user: user,
+            },
+        };
+
+        this.dialog.open(ProvisionComponent, config);
     }
 }

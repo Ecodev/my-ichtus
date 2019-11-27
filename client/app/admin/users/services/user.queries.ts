@@ -142,6 +142,7 @@ export const updateUser = gql`
             name
             welcomeSessionDate
             updateDate
+            status
             updater {
                 ...userMeta
             }
