@@ -8,7 +8,16 @@
 
             <mat-form-field>
                 <mat-label>Nom d'utilisateur</mat-label>
-                <input matInput autofocus name="login" [(ngModel)]="loginForm.login" required="required" [disabled]="loading">
+                <input matInput
+                       autofocus
+                       name="login"
+                       [(ngModel)]="loginForm.login"
+                       required="required"
+                       [disabled]="loading"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       spellcheck="false"
+                >
             </mat-form-field>
 
             <mat-form-field>
