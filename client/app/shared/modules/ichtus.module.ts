@@ -37,8 +37,8 @@ import {
     NaturalStampModule,
     NaturalTableButtonModule,
 } from '@ecodev/natural';
-import { EditorModule } from '@tinymce/tinymce-angular';
 import { SupportComponent } from '../../admin/configurations/support/support.component';
+import { ProsemirrorComponent } from '../../admin/proseMirror/proseMirror.component';
 
 const iconsConfig: NaturalIconsConfig = {
     qr: {
@@ -104,6 +104,7 @@ const declarations = [
     AccountingDocumentsComponent,
     ParticleSwitchComponent,
     SupportComponent,
+    ProsemirrorComponent,
 ];
 
 const imports = [
@@ -130,7 +131,6 @@ const imports = [
     NaturalFixedButtonModule,
     NaturalFixedButtonDetailModule,
     NaturalDropdownComponentsModule,
-    EditorModule,
     NaturalDialogTriggerModule
 ];
 

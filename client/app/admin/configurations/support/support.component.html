@@ -1,6 +1,6 @@
 <div class="mat-body-1 content">
     <mat-slide-toggle [(ngModel)]="active" *ngIf="!readonly && activable">Actif</mat-slide-toggle>
-    <editor *ngIf="!readonly" [(ngModel)]="text" [init]="tinyInit" ></editor>
+    <app-prosemirror *ngIf="!readonly" [(ngModel)]="text"></app-prosemirror>
     <div *ngIf="readonly" [innerHTML]="text" class="content"></div>
 </div>
 
