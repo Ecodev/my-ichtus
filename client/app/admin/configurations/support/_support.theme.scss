@@ -23,16 +23,16 @@
 
         }
 
-
+        // Copied from .mat-headline
         h1 {
-            font: 300 45px/48px Roboto, "Helvetica Neue", sans-serif;
-            letter-spacing: -0.005em;
-            margin: 0 0 50px;
+            font: 400 24px/32px Roboto, "Helvetica Neue", sans-serif;
+            margin: 0 0 16px;
         }
 
+        // Copied from .mat-title
         h2 {
-            font: 300 34px/40px Roboto, "Helvetica Neue", sans-serif;
-            margin: 32px 0 16px 0;
+            font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+            margin: 0 0 16px;
         }
 
     }
