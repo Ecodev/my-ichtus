@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { PermissionsService } from '../../../shared/services/permissions.service';
 import { ConfigurationService } from '../services/configuration.service';
-import { MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
     selector: 'app-support',

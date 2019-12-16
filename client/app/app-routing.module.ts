@@ -87,6 +87,7 @@ export const routes: Routes = [
                 data: {
                     readonly: true,
                     configurationKey: 'announcement-text',
+                    showCloseButton: true
                 },
             },
         } as NaturalDialogTriggerRoutingData,
