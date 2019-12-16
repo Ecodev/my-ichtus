@@ -36,7 +36,7 @@ export class SupportComponent implements OnInit {
     constructor(private configurationService: ConfigurationService,
                 public permissionsService: PermissionsService,
                 public route: ActivatedRoute,
-                @Optional() @Inject(MAT_DIALOG_DATA) private data?: any) {
+                @Optional() @Inject(MAT_DIALOG_DATA) public data?: any) {
     }
 
     public ngOnInit(): void {
