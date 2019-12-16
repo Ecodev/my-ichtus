@@ -39,7 +39,7 @@ export class SupportComponent implements OnInit {
                 @Optional() @Inject(MAT_DIALOG_DATA) private data?: any) {
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.readonly = this.route.snapshot.data.readonly || this.data && this.data.readonly;
         this.configurationService.get(this.getConfigKey()).subscribe(value => this.text = value);
 

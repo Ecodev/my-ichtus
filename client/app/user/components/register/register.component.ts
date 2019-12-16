@@ -32,7 +32,7 @@ export class RegisterComponent extends NaturalAbstractDetail<User['user'],
         super('user', userService, injector);
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
 
         this.step = +this.route.snapshot.data.step;
 

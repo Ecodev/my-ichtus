@@ -34,7 +34,7 @@ export class EditableTransactionLinesComponent
         super(transactionLineService);
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
 
         if (this.transaction && this.transaction.id) {
 

@@ -11,7 +11,7 @@ export class BookingHistoryComponent implements OnInit {
     constructor(public route: ActivatedRoute) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
     }
 
 }

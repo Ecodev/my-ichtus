@@ -9,7 +9,7 @@ export class BootLoaderComponent implements OnInit {
     constructor() {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
     }
 
 }

@@ -60,7 +60,7 @@ export class TransactionComponent
         super('transaction', transactionService, injector);
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         super.ngOnInit();
 
         this.viewer = this.route.snapshot.data.viewer.model;

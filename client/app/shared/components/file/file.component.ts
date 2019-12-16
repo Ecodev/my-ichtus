@@ -34,7 +34,7 @@ export class FileComponent extends NaturalAbstractController implements OnInit, 
         super();
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.uploadService.filesChanged.pipe(takeUntil(this.ngUnsubscribe)).subscribe((files: File[]) => {
             // subscription required to activate hover overlay. Upload function is called from fileChanged in template that
             // works for both : drag-n-drop and click select
@@ -43,7 +43,7 @@ export class FileComponent extends NaturalAbstractController implements OnInit, 
         this.updateImage();
     }
 
-    ngOnChanges(changes: SimpleChanges) {
+    public ngOnChanges(changes: SimpleChanges): void {
         if (changes.model && changes.model.previousValue !== changes.model.currentValue) {
             this.updateImage();
         }

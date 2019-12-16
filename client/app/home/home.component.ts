@@ -28,7 +28,7 @@ export class HomeComponent extends NaturalAbstractController implements OnInit {
         super();
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
 
         this.configurationService.get('announcement-active').subscribe(active => {
 

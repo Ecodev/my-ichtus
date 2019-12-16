@@ -33,7 +33,7 @@ export class ProvisionComponent implements OnInit {
 
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
     }
 
 }

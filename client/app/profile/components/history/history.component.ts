@@ -26,7 +26,7 @@ export class HistoryComponent extends NaturalAbstractController implements OnIni
         super();
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.viewer = this.route.snapshot.data.viewer.model;
 
         if (this.viewer.account) {

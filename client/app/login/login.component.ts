@@ -46,7 +46,7 @@ export class LoginComponent extends NaturalAbstractController implements OnInit,
         super();
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
         const logout = this.route.snapshot.queryParams['logout'] || false;
 

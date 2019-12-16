@@ -23,10 +23,10 @@ export class TransactionAmountComponent implements OnInit, OnChanges {
     constructor(public transactionLineService: TransactionLineService) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
     }
 
-    ngOnChanges() {
+    public ngOnChanges(): void {
         const account = this.relativeToAccount;
         const transaction = this.transactionLine;
         if (account && transaction) {

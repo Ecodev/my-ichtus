@@ -39,7 +39,7 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
         });
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.viewer = this.route.snapshot.data.viewer.model;
 
         // Clean up datatrans on any route change

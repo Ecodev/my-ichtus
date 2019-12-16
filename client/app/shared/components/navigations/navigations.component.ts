@@ -55,7 +55,7 @@ export class NavigationsComponent extends NaturalAbstractController implements O
         super();
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
 
         const qvm = new NaturalQueryVariablesManager<UsersVariables>();
         qvm.set('variables', {

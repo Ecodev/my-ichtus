@@ -29,7 +29,7 @@ export class FamilyMemberComponent
     /**
      * Replace resolved data from router by input and server query
      */
-    ngOnInit() {
+    public ngOnInit(): void {
 
         if (this.user && this.user.id) {
             this.service.getOne(this.user.id).subscribe(user => {

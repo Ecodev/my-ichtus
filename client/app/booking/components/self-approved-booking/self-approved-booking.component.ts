@@ -24,7 +24,7 @@ export class SelfApprovedBookingComponent implements OnInit {
                 private alertService: NaturalAlertService) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
 
         this.booking = this.bookingService.getConsolidatedForClient();
         this.booking.status = BookingStatus.booked;

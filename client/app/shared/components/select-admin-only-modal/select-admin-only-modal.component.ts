@@ -14,7 +14,7 @@ export class SelectAdminOnlyModalComponent implements OnInit {
     constructor(public bookableService: BookableService) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
     }
 
 }

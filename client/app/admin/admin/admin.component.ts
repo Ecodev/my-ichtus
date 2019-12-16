@@ -11,7 +11,7 @@ export class AdminComponent implements OnInit {
     constructor(public permissionsService: PermissionsService) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
     }
 
 }

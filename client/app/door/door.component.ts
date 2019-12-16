@@ -36,7 +36,7 @@ export class DoorComponent extends NaturalAbstractController implements OnInit {
         );
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.viewer = this.route.snapshot.data.viewer.model;
     }
 

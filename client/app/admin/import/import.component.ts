@@ -29,7 +29,7 @@ export class ImportComponent implements OnInit {
     ) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.routeData = this.route.snapshot.data;
     }
 

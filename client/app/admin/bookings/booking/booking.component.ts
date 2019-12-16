@@ -49,7 +49,7 @@ export class BookingComponent
         super('booking', bookingService, injector);
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         super.ngOnInit();
         this.storageVariables = this.getStorageVariables();
     }

@@ -19,7 +19,7 @@ export class SelectAdminApprovedModalComponent implements OnInit {
     constructor(private bookableService: BookableService) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         const serviceVariables = BookableService.adminApprovedByTag(BookableTagService.SERVICE);
         const qvmServices = new NaturalQueryVariablesManager<BookablesVariables>();
         qvmServices.set('variables', serviceVariables);

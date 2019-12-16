@@ -38,7 +38,7 @@ export class AccountComponent
         super('account', accountService, injector);
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         super.ngOnInit();
 
         this.accountService.getNextCodeAvailable().subscribe(code => {

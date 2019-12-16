@@ -13,7 +13,7 @@ export class CodeInputComponent implements OnInit {
     constructor(private router: Router) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
     }
 
     public goToBookable(code: string) {

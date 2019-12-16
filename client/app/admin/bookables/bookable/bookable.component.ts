@@ -45,7 +45,7 @@ export class BookableComponent
         super('bookable', bookableService, injector);
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         super.ngOnInit();
 
         this.bookingsVariables = this.getBookingsVariables();

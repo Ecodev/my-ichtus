@@ -38,7 +38,7 @@ export class PasswordComponent implements OnInit {
 
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.form.removeControl('password');
         this.form.addControl('password', new NaturalFormControl('', [Validators.required, Validators.minLength(12)]));
         this.form.addControl('confirmPassword', new NaturalFormControl(''));

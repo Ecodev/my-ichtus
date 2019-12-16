@@ -36,7 +36,7 @@ export class CreateExpenseClaimComponent
         super('expenseClaim', expenseClaimService, injector);
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         super.ngOnInit();
         this.form.patchValue({
             owner: this.route.snapshot.data.viewer.model.id,

@@ -36,7 +36,7 @@ export class AccountingDocumentsComponent implements OnInit {
     constructor(public accountingDocumentService: AccountingDocumentService) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         if (this.model.accountingDocuments) {
             this._files = this.model.accountingDocuments;
         }

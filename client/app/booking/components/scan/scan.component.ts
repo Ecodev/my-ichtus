@@ -21,7 +21,7 @@ export class ScanComponent extends NaturalAbstractController implements OnInit, 
         super();
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.qrService.qrCode.pipe(takeUntil(this.ngUnsubscribe)).subscribe(code => {
             const parsedCode = code.toLowerCase().replace('https://ichtus.club/booking/', '');
             this.router.navigate(['..', parsedCode], {relativeTo: this.route});
@@ -43,7 +43,7 @@ export class ScanComponent extends NaturalAbstractController implements OnInit, 
         this.qrService.start();
     }
 
-    ngOnDestroy() {
+    public ngOnDestroy(): void {
         super.ngOnDestroy();
         this.qrService.stop();
     }

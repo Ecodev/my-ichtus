@@ -40,7 +40,7 @@ export class BookableComponent extends NaturalAbstractController implements OnIn
         super();
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.route.data.subscribe(data => {
             this.bookable = data.bookable.model;
             if (this.bookable) {

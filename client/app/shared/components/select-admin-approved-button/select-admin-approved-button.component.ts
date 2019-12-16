@@ -16,7 +16,7 @@ export class SelectAdminApprovedButtonComponent implements OnInit {
     constructor(private dialog: MatDialog, private bookingService: BookingService) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
 
     }
 

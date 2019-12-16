@@ -49,7 +49,7 @@ export class UserComponent
         super('user', userService, injector);
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         super.ngOnInit();
 
         this.route.data.subscribe(() => {

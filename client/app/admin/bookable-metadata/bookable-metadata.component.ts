@@ -21,7 +21,7 @@ export class BookableMetadataComponent implements OnInit {
     constructor(private bookableMetaService: BookableMetadataService) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
 
         if (this.edit) {
             this.columns = ['name', 'value', 'delete'];
