@@ -4,7 +4,7 @@ import { Apollo, ApolloModule } from 'apollo-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { MatPaginatorIntl } from '@angular/material';
 import { DateAdapter, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatIconRegistry } from '@angular/material/icon';
@@ -23,6 +23,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ErrorComponent } from './shared/components/error/error.component';
 import { MaterialModule } from './shared/modules/material.module';
 import { IchtusModule } from './shared/modules/ichtus.module';
+import { LocalizedPaginatorIntlService } from './shared/services/localized-paginator-intl.service';
 import { NetworkInterceptorService } from './shared/services/network-interceptor.service';
 import localeFRCH from '@angular/common/locales/fr-CH';
 import { registerLocaleData } from '@angular/common';
@@ -85,6 +86,10 @@ export class MyIntl extends TimeagoIntl {
             multi: true,
         },
         {provide: LOCALE_ID, useValue: 'fr-CH'},
+        {
+            provide: MatPaginatorIntl,
+            useClass: LocalizedPaginatorIntlService,
+        },
     ],
     bootstrap: [AppComponent],
 })
