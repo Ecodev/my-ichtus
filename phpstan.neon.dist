@@ -1,20 +1,16 @@
 parameters:
-    level: 2
+    level: 3
     paths:
         - server/
 #        - tests/
     doctrine:
         repositoryClass: Application\Repository\AbstractRepository
-
-#    excludes_analyse:
-#        - tests/data/i18n/code.php
-#    autoload_files:
-#        - tests/bootstrap.php
     inferPrivatePropertyTypeFromConstructor: true
     ignoreErrors:
         - '~^Call to an undefined method Application\\Repository\\.*Repository::find(One)?By.*\(\)\.$~'
         - '~Call to an undefined method Laminas\\Permissions\\Acl\\Resource\\ResourceInterface\:\:getInstance\(\)\.~'
         - '~Access to an undefined property GraphQL\\Language\\AST\\Node\:\:\$kind\.~'
+        - '~Property .* does not accept Application\\Repository\\AbstractRepository\<Application\\Model\\.*\>\.~'
 includes:
     - vendor/phpstan/phpstan-doctrine/extension.neon
     - vendor/phpstan/phpstan-doctrine/rules.neon

@@ -17,7 +17,7 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
     const ACCOUNT_ID_FOR_BANK = 10025;
 
     /**
-     * @var string[]
+     * @var Money[]
      */
     private $totalBalanceCache = [];
 
@@ -170,7 +170,10 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
 
         $result = $connection->executeQuery($sql, [$parentAccount->getId(), AccountTypeType::GROUP]);
 
-        return Money::CHF($result->fetchColumn());
+        $money = Money::CHF($result->fetchColumn());
+        $this->totalBalanceCache[$cacheKey] = $money;
+
+        return $money;
     }
 
     /**

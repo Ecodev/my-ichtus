@@ -128,7 +128,7 @@ class Bvr
         }
 
         foreach (str_split($number) as $value) {
-            $report = self::TABLE[$report][$value];
+            $report = self::TABLE[$report][(int) $value];
         }
 
         return (10 - $report) % 10;

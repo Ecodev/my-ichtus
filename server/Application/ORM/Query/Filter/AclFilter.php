@@ -148,7 +148,9 @@ class AclFilter extends SQLFilter
 
         // Other users need subqueries
         if (!array_key_exists($class, $this->subQueriesCache)) {
-            $subQuery = _em()->getRepository($class)->getAccessibleSubQuery($this->user);
+            /** @var LimitedAccessSubQueryInterface $repository */
+            $repository = _em()->getRepository($class);
+            $subQuery = $repository->getAccessibleSubQuery($this->user);
             $this->subQueriesCache[$class] = $subQuery;
         }
 

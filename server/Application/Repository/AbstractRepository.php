@@ -23,7 +23,10 @@ abstract class AbstractRepository extends EntityRepository
      */
     public function getAclFilter(): AclFilter
     {
-        return $this->getEntityManager()->getFilters()->getFilter(AclFilter::class);
+        /** @var AclFilter $aclFilter */
+        $aclFilter = $this->getEntityManager()->getFilters()->getFilter(AclFilter::class);
+
+        return $aclFilter;
     }
 
     /**

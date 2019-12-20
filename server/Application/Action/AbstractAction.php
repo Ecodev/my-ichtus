@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Application\Action;
 
 use Laminas\Diactoros\Response\JsonResponse;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\MiddlewareInterface;
 
 abstract class AbstractAction implements MiddlewareInterface
@@ -12,9 +13,9 @@ abstract class AbstractAction implements MiddlewareInterface
     /**
      * @param string $message
      *
-     * @return JsonResponse
+     * @return ResponseInterface
      */
-    protected function createError(string $message): JsonResponse
+    protected function createError(string $message): ResponseInterface
     {
         $response = new JsonResponse(['error' => $message]);
 
