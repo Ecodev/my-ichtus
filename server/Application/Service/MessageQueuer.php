@@ -9,6 +9,7 @@ use Application\Model\Bookable;
 use Application\Model\Booking;
 use Application\Model\Message;
 use Application\Model\User;
+use Application\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\RendererInterface;
@@ -164,14 +165,18 @@ class MessageQueuer
 
     public function queueAllBalance(): int
     {
-        $users = $this->entityManager->getRepository(User::class)->getAllToQueueBalanceMessage();
+        /** @var UserRepository $userRepository */
+        $userRepository = $this->entityManager->getRepository(User::class);
+        $users = $userRepository->getAllToQueueBalanceMessage();
 
         return $this->queueBalanceForEachUsers($users);
     }
 
     public function queueNegativeBalance(): int
     {
-        $users = $this->entityManager->getRepository(User::class)->getAllToQueueBalanceMessage(true);
+        /** @var UserRepository $userRepository */
+        $userRepository = $this->entityManager->getRepository(User::class);
+        $users = $userRepository->getAllToQueueBalanceMessage(true);
 
         return $this->queueBalanceForEachUsers($users);
     }

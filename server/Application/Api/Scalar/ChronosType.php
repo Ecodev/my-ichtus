@@ -60,7 +60,7 @@ class ChronosType extends ScalarType
     /**
      * Parses an externally provided literal value to use as an input (e.g. in Query AST)
      *
-     * @param $ast Node
+     * @param Node $ast
      *
      * @return null|string
      */

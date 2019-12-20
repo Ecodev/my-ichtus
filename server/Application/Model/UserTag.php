@@ -48,7 +48,7 @@ class UserTag extends AbstractModel
     /**
      * Add user
      *
-     * @param user $user
+     * @param User $user
      */
     public function addUser(User $user): void
     {
@@ -61,7 +61,7 @@ class UserTag extends AbstractModel
     /**
      * Remove user
      *
-     * @param user $user
+     * @param User $user
      */
     public function removeUser(User $user): void
     {

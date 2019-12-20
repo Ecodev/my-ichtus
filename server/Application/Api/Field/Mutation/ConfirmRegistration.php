@@ -12,6 +12,7 @@ use Application\DBAL\Types\BookingTypeType;
 use Application\Model\Bookable;
 use Application\Model\Booking;
 use Application\Model\User;
+use Application\Repository\BookableRepository;
 use Application\Repository\UserRepository;
 use Cake\Chronos\Chronos;
 use GraphQL\Type\Definition\Type;
@@ -64,7 +65,9 @@ abstract class ConfirmRegistration implements FieldInterface
                 // Create mandatory booking for him
                 User::setCurrent($user);
 
-                $mandatoryBookables = _em()->getRepository(Bookable::class)->findByBookingType(BookingTypeType::MANDATORY);
+                /** @var BookableRepository $bookableRepository */
+                $bookableRepository = _em()->getRepository(Bookable::class);
+                $mandatoryBookables = $bookableRepository->findByBookingType(BookingTypeType::MANDATORY);
                 foreach ($mandatoryBookables as $bookable) {
                     $booking = new Booking();
                     _em()->persist($booking);

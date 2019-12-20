@@ -13,6 +13,7 @@
         "development-status": "laminas-development-mode status",
         "check": [
             "php-cs-fixer fix --ansi --dry-run --diff",
+            "phpstan analyse --ansi",
             "@test"
         ],
         "fix": [
@@ -22,6 +23,20 @@
         "serve": "php -S 0.0.0.0:8080 -t htdocs/",
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+    },
+    "autoload": {
+        "psr-4": {
+            "Application\\": "server/Application/"
+        },
+        "files": [
+            "server/Debug.php",
+            "server/functions.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ApplicationTest\\": "tests/ApplicationTest/"
+        }
     },
     "extra": {
         "zf": {
@@ -68,18 +83,9 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.14",
-        "phpunit/phpunit": "^8.0",
+        "laminas/laminas-development-mode": "^3.2",
         "mezzio/mezzio-tooling": "^1.2",
-        "laminas/laminas-development-mode": "^3.2"
-    },
-    "autoload": {
-        "psr-4": {
-            "Application\\": "server/Application/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "ApplicationTest\\": "tests/ApplicationTest/"
-        }
+        "phpstan/phpstan-doctrine": "^0.12.7",
+        "phpunit/phpunit": "^8.0"
     }
 }

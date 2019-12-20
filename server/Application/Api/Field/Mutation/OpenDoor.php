@@ -13,6 +13,7 @@ use Application\Repository\LogRepository;
 use GraphQL\Type\Definition\Type;
 use Laminas\Http\Client;
 use Laminas\Http\Request;
+use Laminas\Http\Response;
 use Mezzio\Session\SessionInterface;
 
 abstract class OpenDoor implements FieldInterface
@@ -54,6 +55,7 @@ abstract class OpenDoor implements FieldInterface
                 $client = new Client();
 
                 try {
+                    /** @var Response $response */
                     $response = $client->dispatch($request);
                 } catch (\Laminas\Http\Client\Exception\RuntimeException $e) {
                     // No answer from the websocket

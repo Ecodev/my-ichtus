@@ -12,6 +12,8 @@ $container = require 'config/container.php';
 $entityManager = $container->get(EntityManager::class);
 
 // Disable all ACL filters to be able to access anything
-$entityManager->getFilters()->getFilter(AclFilter::class)->disableForever(false);
+/** @var AclFilter $aclFilter */
+$aclFilter = $entityManager->getFilters()->getFilter(AclFilter::class);
+$aclFilter->disableForever();
 
 return $container;

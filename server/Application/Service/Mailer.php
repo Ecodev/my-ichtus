@@ -6,6 +6,7 @@ namespace Application\Service;
 
 use Application\Model\Message;
 use Application\Repository\LogRepository;
+use Application\Repository\MessageRepository;
 use Cake\Chronos\Chronos;
 use Doctrine\ORM\EntityManager;
 use Exception;
@@ -145,7 +146,10 @@ class Mailer
     public function sendAllMessages(): void
     {
         $this->acquireLock();
-        $messages = $this->entityManager->getRepository(Message::class)->getAllMessageToSend();
+
+        /** @var MessageRepository $messageRepository */
+        $messageRepository = $this->entityManager->getRepository(Message::class);
+        $messages = $messageRepository->getAllMessageToSend();
         foreach ($messages as $message) {
             $this->sendMessage($message);
         }

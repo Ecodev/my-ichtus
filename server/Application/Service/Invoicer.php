@@ -11,6 +11,7 @@ use Application\Model\Booking;
 use Application\Model\Transaction;
 use Application\Model\TransactionLine;
 use Application\Model\User;
+use Application\Repository\AccountRepository;
 use Application\Repository\BookingRepository;
 use Cake\Chronos\Chronos;
 use Doctrine\ORM\EntityManager;
@@ -91,7 +92,9 @@ class Invoicer
             return;
         }
 
-        $account = $this->entityManager->getRepository(Account::class)->getOrCreate($user);
+        /** @var AccountRepository $accountRepository */
+        $accountRepository = $this->entityManager->getRepository(Account::class);
+        $account = $accountRepository->getOrCreate($user);
         $transaction = new Transaction();
         $transaction->setTransactionDate(Chronos::now());
         $transaction->setName('Cotisation et services ' . Chronos::today()->format('Y'));

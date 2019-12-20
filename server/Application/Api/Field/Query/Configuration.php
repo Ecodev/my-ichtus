@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Application\Api\Field\Query;
 
 use Application\Api\Field\FieldInterface;
+use Application\Repository\ConfigurationRepository;
 use GraphQL\Type\Definition\Type;
 
 abstract class Configuration implements FieldInterface
@@ -22,8 +23,9 @@ abstract class Configuration implements FieldInterface
                 'resolve' => function ($root, array $args): string {
                     $key = $args['key'];
 
-                    /** @var \Application\Model\Configuration $configuration */
-                    $configuration = _em()->getRepository(\Application\Model\Configuration::class)->getOrCreate($key);
+                    /** @var ConfigurationRepository $configurationRepository */
+                    $configurationRepository = _em()->getRepository(\Application\Model\Configuration::class);
+                    $configuration = $configurationRepository->getOrCreate($key);
 
                     return $configuration->getValue();
                 },

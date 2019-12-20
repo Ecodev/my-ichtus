@@ -10,6 +10,7 @@ use Application\Api\Scalar\LoginType;
 use Application\Model\Log;
 use Application\Model\User;
 use Application\Repository\LogRepository;
+use Application\Repository\UserRepository;
 use GraphQL\Type\Definition\Type;
 use Mezzio\Session\SessionCookiePersistenceInterface;
 use Mezzio\Session\SessionInterface;
@@ -27,7 +28,9 @@ abstract class Login implements FieldInterface
                 'password' => Type::nonNull(Type::string()),
             ],
             'resolve' => function ($root, array $args, SessionInterface $session): User {
-                if (_em()->getRepository(Log::class)->loginFailedOften()) {
+                /** @var LogRepository $logRepository */
+                $logRepository = _em()->getRepository(Log::class);
+                if ($logRepository->loginFailedOften()) {
                     throw new Exception("Trop de tentatives d'accès ont échouées. Veuillez ressayer plus tard.");
                 }
 
@@ -35,7 +38,9 @@ abstract class Login implements FieldInterface
                 $session->clear();
                 User::setCurrent(null);
 
-                $user = _em()->getRepository(User::class)->getOneByLoginPassword($args['login'], $args['password']);
+                /** @var UserRepository $userRepository */
+                $userRepository = _em()->getRepository(User::class);
+                $user = $userRepository->getOneByLoginPassword($args['login'], $args['password']);
 
                 // If we successfully authenticated
                 if ($user) {

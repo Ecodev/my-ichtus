@@ -8,6 +8,7 @@ use Application\Api\Field\FieldInterface;
 use Application\Api\Helper;
 use Application\Model\Transaction;
 use Application\Model\TransactionLine;
+use Application\Repository\TransactionRepository;
 use GraphQL\Type\Definition\Type;
 use Mezzio\Session\SessionInterface;
 
@@ -35,7 +36,9 @@ abstract class UpdateTransaction implements FieldInterface
                 $lines = $args['lines'];
 
                 if ($lines !== null) {
-                    _em()->getRepository(Transaction::class)->hydrateLinesAndFlush($transaction, $lines);
+                    /** @var TransactionRepository $transactionRepository */
+                    $transactionRepository = _em()->getRepository(Transaction::class);
+                    $transactionRepository->hydrateLinesAndFlush($transaction, $lines);
                 } else {
                     // Update the date of each line to match the one of the transaction
                     foreach ($transaction->getTransactionLines() as $line) {

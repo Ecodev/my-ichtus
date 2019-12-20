@@ -8,6 +8,7 @@ use Application\Api\Field\FieldInterface;
 use Application\Api\Helper;
 use Application\Model\Transaction;
 use Application\Model\TransactionLine;
+use Application\Repository\TransactionRepository;
 use GraphQL\Type\Definition\Type;
 use Mezzio\Session\SessionInterface;
 
@@ -33,7 +34,9 @@ abstract class CreateTransaction implements FieldInterface
                 Helper::throwIfDenied($transaction, 'create');
                 $lines = $args['lines'];
 
-                _em()->getRepository(Transaction::class)->hydrateLinesAndFlush($transaction, $lines);
+                /** @var TransactionRepository $transactionRepository */
+                $transactionRepository = _em()->getRepository(Transaction::class);
+                $transactionRepository->hydrateLinesAndFlush($transaction, $lines);
 
                 return $transaction;
             },

@@ -29,7 +29,7 @@ class All implements AssertionInterface
     /**
      * Assert that all given assert are correct (AND logic)
      *
-     * @param Acl $acl
+     * @param \Application\Acl\Acl $acl
      * @param RoleInterface $role
      * @param ResourceInterface $resource
      * @param string $privilege

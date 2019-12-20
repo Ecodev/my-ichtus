@@ -9,6 +9,7 @@ use Application\Model\Transaction;
 use Application\Model\TransactionLine;
 use Application\Model\User;
 use Application\Repository\AccountRepository;
+use Application\Repository\UserRepository;
 use Cake\Chronos\Chronos;
 use Doctrine\ORM\EntityManager;
 use Laminas\Diactoros\Response\HtmlResponse;
@@ -128,7 +129,7 @@ class DatatransAction extends AbstractAction
      * Dispatch the data received from Datatrans to take appropriate actions
      *
      * @param string $status
-     * @param $body
+     * @param array $body
      *
      * @return array
      */
@@ -168,12 +169,14 @@ class DatatransAction extends AbstractAction
 
         $userId = $body['refno'] ?? null;
 
-        /** @var User $user */
-        $user = $this->entityManager->getRepository(User::class)->getOneById((int) $userId);
+        /** @var UserRepository $userRepository */
+        $userRepository = $this->entityManager->getRepository(User::class);
+        $user = $userRepository->getOneById((int) $userId);
         if (!$user) {
             throw new \Exception('Cannot create transactions without a user');
         }
 
+        /** @var AccountRepository $accountRepository */
         $accountRepository = $this->entityManager->getRepository(Account::class);
         $userAccount = $accountRepository->getOrCreate($user);
         $bankAccount = $accountRepository->getOneById(AccountRepository::ACCOUNT_ID_FOR_BANK);

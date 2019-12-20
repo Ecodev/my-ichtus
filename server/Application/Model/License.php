@@ -74,7 +74,7 @@ class License extends AbstractModel
     /**
      * Add user
      *
-     * @param user $user
+     * @param User $user
      */
     public function addUser(User $user): void
     {
@@ -87,7 +87,7 @@ class License extends AbstractModel
     /**
      * Remove user
      *
-     * @param user $user
+     * @param User $user
      */
     public function removeUser(User $user): void
     {

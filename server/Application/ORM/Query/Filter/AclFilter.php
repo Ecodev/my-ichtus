@@ -6,6 +6,7 @@ namespace Application\ORM\Query\Filter;
 
 use Application\Model\User;
 use Application\Repository\LimitedAccessSubQueryInterface;
+use Doctrine\Common\Cache\ClearableCache;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Filter\SQLFilter;
 
@@ -117,7 +118,11 @@ class AclFilter extends SQLFilter
     {
         $this->user = $user;
         $this->resetCache();
-        _em()->getConfiguration()->getQueryCacheImpl()->deleteAll();
+
+        $cache = _em()->getConfiguration()->getQueryCacheImpl();
+        if ($cache instanceof ClearableCache) {
+            $cache->deleteAll();
+        }
     }
 
     private function resetCache(): void

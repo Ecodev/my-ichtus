@@ -89,7 +89,7 @@ class Bookable extends AbstractModel
     private $verificationDate;
 
     /**
-     * @var BookableTag
+     * @var Collection
      *
      * @ORM\ManyToMany(targetEntity="BookableTag", mappedBy="bookables")
      */

@@ -6,6 +6,7 @@ namespace Application\Api\Field\Query;
 
 use Application\Api\Field\FieldInterface;
 use Application\Model\Account;
+use Application\Repository\AccountRepository;
 use GraphQL\Type\Definition\Type;
 
 abstract class NextAccountCode implements FieldInterface

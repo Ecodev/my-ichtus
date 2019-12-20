@@ -7,6 +7,7 @@ namespace Application\Api\Field\Mutation;
 use Application\Api\Field\FieldInterface;
 use Application\Api\Helper;
 use Application\Model\Configuration;
+use Application\Repository\ConfigurationRepository;
 use GraphQL\Type\Definition\Type;
 use Mezzio\Session\SessionInterface;
 
@@ -26,8 +27,9 @@ abstract class UpdateConfiguration implements FieldInterface
                 $key = $args['key'];
                 $value = $args['value'];
 
-                /** @var Configuration $configuration */
-                $configuration = _em()->getRepository(\Application\Model\Configuration::class)->getOrCreate($key);
+                /** @var ConfigurationRepository $configurationRepository */
+                $configurationRepository = _em()->getRepository(Configuration::class);
+                $configuration = $configurationRepository->getOrCreate($key);
 
                 // Check ACL, exceptionally test 'create' privilege instead of 'update'
                 Helper::throwIfDenied($configuration, 'create');

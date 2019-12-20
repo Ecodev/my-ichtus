@@ -28,7 +28,9 @@ abstract class UpdatePassword implements FieldInterface
                 'password' => Type::nonNull(_types()->get(PasswordType::class)),
             ],
             'resolve' => function ($root, array $args, SessionInterface $session): bool {
-                if (_em()->getRepository(Log::class)->updatePasswordFailedOften()) {
+                /** @var LogRepository $logRepository */
+                $logRepository = _em()->getRepository(Log::class);
+                if ($logRepository->updatePasswordFailedOften()) {
                     throw new Exception('Trop de tentatives de changement de mot de passe ont échouées. Veuillez ressayer plus tard.');
                 }
 

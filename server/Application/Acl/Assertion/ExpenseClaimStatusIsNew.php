@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Application\Acl\Assertion;
 
 use Application\Acl\ModelResource;
+use Application\Model\AccountingDocument;
 use Application\Model\ExpenseClaim;
 use Laminas\Permissions\Acl\Acl;
 use Laminas\Permissions\Acl\Assertion\AssertionInterface;
@@ -25,8 +26,9 @@ class ExpenseClaimStatusIsNew implements AssertionInterface
      */
     public function assert(Acl $acl, RoleInterface $role = null, ResourceInterface $resource = null, $privilege = null)
     {
-        /** @var ExpenseClaim $expenseClaim */
-        $expenseClaim = $resource->getInstance()->getExpenseClaim();
+        /** @var AccountingDocument $instance */
+        $instance = $resource->getInstance();
+        $expenseClaim = $instance->getExpenseClaim();
 
         if (!$expenseClaim) {
             return true;

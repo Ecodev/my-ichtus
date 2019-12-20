@@ -231,7 +231,7 @@ abstract class AbstractExcel extends AbstractAction
     /**
      * Write the value and style in the cell selected by `column` and `row` variables and move to next column
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $sheet
+     * @param Worksheet $sheet
      * @param mixed $value
      * @param array[] ...$formats optional list of formats to be applied successively
      */
