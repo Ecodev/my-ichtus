@@ -7,6 +7,7 @@ namespace ApplicationTest\ORM\Query\Filter;
 use Application\Model\License;
 use Application\Model\User;
 use Application\ORM\Query\Filter\AclFilter;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use PHPUnit\Framework\TestCase;
 
 class AclFilterTest extends TestCase
@@ -41,10 +42,11 @@ class AclFilterTest extends TestCase
      */
     public function testFilter(?string $login, string $class, string $expected): void
     {
-        $user = _em()->getRepository(User::class)->getOneByLogin($login);
-        $filter = new AclFilter(_em());
-        $filter->setUser($user);
+        /** @var ClassMetadata $targetEntity */
         $targetEntity = _em()->getMetadataFactory()->getMetadataFor($class);
+        $filter = new AclFilter(_em());
+        $user = _em()->getRepository(User::class)->getOneByLogin($login);
+        $filter->setUser($user);
         $actual = $filter->addFilterConstraint($targetEntity, 'test');
 
         if ($expected === '') {
@@ -56,10 +58,11 @@ class AclFilterTest extends TestCase
 
     public function testDeactivable(): void
     {
-        $user = new User();
-        $filter = new AclFilter(_em());
-        $filter->setUser($user);
+        /** @var ClassMetadata $targetEntity */
         $targetEntity = _em()->getMetadataFactory()->getMetadataFor(User::class);
+        $filter = new AclFilter(_em());
+        $user = new User();
+        $filter->setUser($user);
 
         $this->assertNotSame('', $filter->addFilterConstraint($targetEntity, 'test'), 'enabled by default');
 
@@ -78,8 +81,9 @@ class AclFilterTest extends TestCase
 
     public function testDisableForever(): void
     {
-        $filter = new AclFilter(_em());
+        /** @var ClassMetadata $targetEntity */
         $targetEntity = _em()->getMetadataFactory()->getMetadataFor(User::class);
+        $filter = new AclFilter(_em());
 
         $this->assertNotSame('', $filter->addFilterConstraint($targetEntity, 'test'), 'enabled by default');
 
@@ -95,8 +99,9 @@ class AclFilterTest extends TestCase
 
     public function testExceptionWillReEnableFilter(): void
     {
-        $filter = new AclFilter(_em());
+        /** @var ClassMetadata $targetEntity */
         $targetEntity = _em()->getMetadataFactory()->getMetadataFor(User::class);
+        $filter = new AclFilter(_em());
 
         try {
             $filter->runWithoutAcl(function (): void {

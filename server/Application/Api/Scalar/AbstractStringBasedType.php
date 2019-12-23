@@ -63,11 +63,11 @@ abstract class AbstractStringBasedType extends ScalarType
         // Note: throwing GraphQL\Error\Error vs \UnexpectedValueException to benefit from GraphQL
         // error location in query:
         if (!($ast instanceof StringValueNode)) {
-            throw new Error('Query error: Can only parse strings got: ' . $ast->kind, [$ast]);
+            throw new Error('Query error: Can only parse strings got: ' . $ast->kind, $ast);
         }
 
         if (!$this->isValid($ast->value)) {
-            throw new Error('Query error: Not a valid ' . $this->name, [$ast]);
+            throw new Error('Query error: Not a valid ' . $this->name, $ast);
         }
 
         return $ast->value;

@@ -13,6 +13,7 @@ class MailerTest extends \PHPUnit\Framework\TestCase
 {
     private function createMockMailer(): Mailer
     {
+        /** @var EntityManager $entityManager */
         $entityManager = $this->createMock(EntityManager::class);
         $transport = new InMemory();
 

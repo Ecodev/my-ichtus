@@ -101,6 +101,7 @@ class SearchOperatorType extends AbstractOperator
         $association = $metadata->getAssociationMapping($fieldName);
         $targetEntity = $association['targetEntity'];
 
+        /** @var ClassMetadata $joinedMetadata */
         $joinedMetadata = $queryBuilder->getEntityManager()->getMetadataFactory()->getMetadataFor($targetEntity);
         $joinedAlias = $uniqueNameFactory->createAliasName($targetEntity);
 

@@ -87,7 +87,7 @@ class Server
     private function handleError(Throwable $exception, callable $formatter): array
     {
         // Always log exception in DB (and by email)
-        _log()->err($exception);
+        _log()->err($exception->__toString());
 
         // If we are absolutely certain that the error comes from one of our trigger with a custom message for end-user,
         // then wrap the exception to make it showable to the end-user
@@ -96,7 +96,7 @@ class Server
             $message = $previous->getPrevious()->getPrevious()->getMessage();
             $userMessage = preg_replace('~SQLSTATE\[45000\]: <<Unknown error>>: \d+ ~', '', $message, -1, $count);
             if ($count === 1) {
-                $exception = new Exception($userMessage, null, $exception);
+                $exception = new Exception($userMessage, 0, $exception);
             }
         }
 

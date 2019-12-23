@@ -107,7 +107,8 @@ class AccountRepositoryTest extends AbstractRepositoryTest
         self::assertSame($totalPassifs, $totalPassifsCached, 'should return exactly same from cache');
 
         // Total balance can be computed only for accounts of type group
-        $otherAccount = $this->repository->findOneById('10023'); // 1000. Caisse
+        /** @var Account $otherAccount */
+        $otherAccount = $this->repository->findOneById(10023); // 1000. Caisse
         $this->expectExceptionMessage('Cannot compute total balance for Account #10023 of type asset');
         $this->repository->totalBalanceByParent($otherAccount);
     }
