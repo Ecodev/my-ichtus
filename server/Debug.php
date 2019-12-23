@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 class Debug
 {
     /**
@@ -14,7 +15,7 @@ class Debug
      *
      * @return string string representation of variable
      */
-    public static function export($data, $return = false, $level = 0)
+    public static function export($data, $return = false, int $level = 0): string
     {
         $result = '';
         if (is_array($data)) {
@@ -43,7 +44,7 @@ class Debug
     }
 }
 
-function ve($a, $return = false)
+function ve($a, $return = false): string
 {
     return Debug::export($a, $return);
 }

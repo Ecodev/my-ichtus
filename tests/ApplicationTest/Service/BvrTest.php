@@ -19,7 +19,7 @@ class BvrTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function providerGetReferenceNumber()
+    public function providerGetReferenceNumber(): array
     {
         return [
             ['123456', '', '123456000000000000000000006'],
@@ -54,7 +54,7 @@ class BvrTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function providerModulo10()
+    public function providerModulo10(): array
     {
         return [
             ['', 0],
@@ -85,7 +85,7 @@ class BvrTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function providerGetEncodingLine()
+    public function providerGetEncodingLine(): array
     {
         return [
             ['800826', '00000000000000000201', '01-4567-0', null, '042>800826000000000000000002016+ 010045670>'],
@@ -133,7 +133,7 @@ class BvrTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function providerExtractCustomId()
+    public function providerExtractCustomId(): array
     {
         return [
             ['800826000000000000000002016', '00000000000000000201'],

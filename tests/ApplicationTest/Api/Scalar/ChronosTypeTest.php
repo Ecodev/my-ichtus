@@ -9,6 +9,9 @@ use PHPUnit\Framework\TestCase;
 
 class ChronosTypeTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $timezone;
 
     public function setUp(): void

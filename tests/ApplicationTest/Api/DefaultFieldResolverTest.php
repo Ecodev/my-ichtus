@@ -67,6 +67,9 @@ class DefaultFieldResolverTest extends TestCase
     public function testLoad($value, $expected): void
     {
         $model = new class($value) {
+            /**
+             * @var mixed
+             */
             private $value;
 
             public function __construct($value)
