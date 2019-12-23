@@ -67,10 +67,10 @@ class ServerTest extends TestCase
             // Convert arg into request
             $request = new ServerRequest();
             $args[0] = $request
-                ->withMethod('POST')
-                ->withHeader('content-type', ['application/json'])
                 ->withParsedBody($args[0])
-                ->withAttribute(SessionMiddleware::SESSION_ATTRIBUTE, new Session([]));
+                ->withAttribute(SessionMiddleware::SESSION_ATTRIBUTE, new Session([]))
+                ->withMethod('POST')
+                ->withHeader('content-type', ['application/json']);
 
             array_unshift($args, $user);
             $data[$name] = $args;

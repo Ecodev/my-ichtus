@@ -24,8 +24,9 @@ class DefaultFieldResolverTest extends TestCase
             {
             }
 
-            public function __isInitialized(): void
+            public function __isInitialized(): bool
             {
+                return true;
             }
         };
 
@@ -35,8 +36,9 @@ class DefaultFieldResolverTest extends TestCase
                 throw new EntityNotFoundException();
             }
 
-            public function __isInitialized(): void
+            public function __isInitialized(): bool
             {
+                return true;
             }
         };
 

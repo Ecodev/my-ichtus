@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ApplicationTest\Traits;
 
 use Application\Model\User;
+use Application\Repository\UserRepository;
 
 /**
  * Trait to test limited access sub queries
@@ -19,7 +20,9 @@ trait LimitedAccessSubQuery
      */
     public function testGetAccessibleSubQuery(?string $login, array $expected): void
     {
-        $user = _em()->getRepository(User::class)->getOneByLogin($login);
+        /** @var UserRepository $userRepository */
+        $userRepository = _em()->getRepository(User::class);
+        $user = $userRepository->getOneByLogin($login);
         $subQuery = $this->repository->getAccessibleSubQuery($user);
         if ($subQuery === '-1') {
             $ids = [];

@@ -73,8 +73,8 @@ class InvoicerTest extends TestCase
             );
             $actual = [];
 
-            /** @var TransactionLine $t */
             $transaction = null;
+            /** @var TransactionLine $t */
             foreach ($all as $t) {
                 if (!$transaction) {
                     $transaction = $t->getTransaction();

@@ -83,6 +83,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.14",
+        "jangregor/phpstan-prophecy": "^0.6.0",
         "laminas/laminas-development-mode": "^3.2",
         "mezzio/mezzio-tooling": "^1.2",
         "phpstan/phpstan-doctrine": "^0.12.7",
