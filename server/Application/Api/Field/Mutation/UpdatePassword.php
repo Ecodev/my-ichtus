@@ -37,7 +37,7 @@ abstract class UpdatePassword implements FieldInterface
                 /** @var UserRepository $repository */
                 $repository = _em()->getRepository(User::class);
 
-                /** @var User $user */
+                /** @var null|User $user */
                 $user = $repository->getAclFilter()->runWithoutAcl(function () use ($repository, $args) {
                     return $repository->findOneByToken($args['token']);
                 });

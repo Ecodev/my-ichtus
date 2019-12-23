@@ -35,7 +35,7 @@ class AccountingDocument extends AbstractFile
     }
 
     /**
-     * @var ExpenseClaim
+     * @var null|ExpenseClaim
      *
      * @ORM\ManyToOne(targetEntity="ExpenseClaim", inversedBy="accountingDocuments")
      * @ORM\JoinColumns({
@@ -45,7 +45,7 @@ class AccountingDocument extends AbstractFile
     private $expenseClaim;
 
     /**
-     * @var Transaction
+     * @var null|Transaction
      *
      * @ORM\ManyToOne(targetEntity="Transaction", inversedBy="accountingDocuments")
      * @ORM\JoinColumns({

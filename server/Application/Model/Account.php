@@ -96,7 +96,7 @@ class Account extends AbstractModel
      *
      * @param null|User $owner
      */
-    public function setOwner(User $owner = null): void
+    public function setOwner(?User $owner): void
     {
         if ($this->getOwner()) {
             $this->getOwner()->accountRemoved();

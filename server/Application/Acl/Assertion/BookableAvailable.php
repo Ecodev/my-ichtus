@@ -25,7 +25,7 @@ class BookableAvailable implements AssertionInterface
      */
     public function assert(Acl $acl, RoleInterface $role = null, ResourceInterface $resource = null, $privilege = null)
     {
-        /** @var Booking $booking */
+        /** @var null|Booking $booking */
         $booking = $resource->getInstance();
 
         if (!$booking) {

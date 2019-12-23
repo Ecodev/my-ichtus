@@ -62,7 +62,7 @@ abstract class AbstractModel
     private $creator;
 
     /**
-     * @var User
+     * @var null|User
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
@@ -154,9 +154,9 @@ abstract class AbstractModel
     /**
      * Set owner
      *
-     * @param User $owner
+     * @param null|User $owner
      */
-    public function setOwner(User $owner = null): void
+    public function setOwner(?User $owner): void
     {
         if ($owner === $this->owner) {
             return;
@@ -168,7 +168,7 @@ abstract class AbstractModel
 
         if ($this->owner && !$isAdmin && !$isOwner) {
             $currentLogin = $user ? $user->getLogin() : '[anonymous]';
-            $currentOwnerLogin = $this->owner ? $this->owner->getLogin() : '[nobody]';
+            $currentOwnerLogin = $this->owner->getLogin();
             $futureOwnerLogin = $owner ? $owner->getLogin() : '[nobody]';
 
             throw new Exception($currentLogin . ' is not allowed to change owner to ' . $futureOwnerLogin . ' because it belongs to ' . $currentOwnerLogin);

@@ -36,7 +36,7 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
      */
     public function getOneByLoginPassword(string $login, string $password): ?User
     {
-        /** @var User $user */
+        /** @var null|User $user */
         $user = $this->getOneByLogin($login);
 
         if (!$user) {

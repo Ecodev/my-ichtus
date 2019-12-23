@@ -34,6 +34,7 @@ class ServerTest extends TestCase
         }
 
         // Use this flag to easily debug API test issues
+        /** @var bool $debug */
         $debug = false;
 
         // Configure server

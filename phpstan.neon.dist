@@ -1,5 +1,5 @@
 parameters:
-    level: 3
+    level: 4
     paths:
         - server/
         - tests/
@@ -13,6 +13,11 @@ parameters:
         - '~^Access to an undefined property GraphQL\\Language\\AST\\Node::\$kind\.$~'
         - '~^Property .* does not accept Application\\Repository\\AbstractRepository\<Application\\Model\\.*\>\.$~'
         - '~^Property .* does not accept PHPUnit\\Framework\\MockObject\\MockObject\.$~'
+        - '~^Call to method Prophecy\\Prophecy\\ObjectProphecy\:\:.*\(\) on a separate line has no effect\.$~'
+        -
+            message: '~^If condition is always true\.$~'
+            path: server/Application/Model/TransactionLine.php
+
 includes:
     - vendor/jangregor/phpstan-prophecy/src/extension.neon
     - vendor/phpstan/phpstan-doctrine/extension.neon

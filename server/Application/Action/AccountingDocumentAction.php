@@ -35,7 +35,7 @@ class AccountingDocumentAction extends AbstractAction
     {
         $id = $request->getAttribute('id');
 
-        /** @var AccountingDocument $accountingDocument */
+        /** @var null|AccountingDocument $accountingDocument */
         $accountingDocument = $this->accountingDocumentRepository->findOneById($id);
         if (!$accountingDocument) {
             return $this->createError("AccountingDocument $id not found in database");

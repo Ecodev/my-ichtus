@@ -9,7 +9,7 @@ use Cake\Chronos\Chronos;
 abstract class Utility
 {
     /**
-     * @var Chronos
+     * @var null|Chronos
      */
     private static $now;
 

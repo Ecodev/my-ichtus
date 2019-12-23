@@ -42,7 +42,7 @@ class ImageAction extends AbstractAction
     {
         $id = $request->getAttribute('id');
 
-        /** @var Image $image */
+        /** @var null|Image $image */
         $image = $this->imageRepository->findOneById($id);
         if (!$image) {
             return $this->createError("Image $id not found in database");

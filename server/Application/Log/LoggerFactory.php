@@ -14,7 +14,7 @@ use Laminas\ServiceManager\Factory\FactoryInterface;
 class LoggerFactory implements FactoryInterface
 {
     /**
-     * @var Logger
+     * @var null|Logger
      */
     private $logger;
 

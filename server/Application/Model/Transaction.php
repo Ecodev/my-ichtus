@@ -46,7 +46,7 @@ class Transaction extends AbstractModel
     private $accountingDocuments;
 
     /**
-     * @var ExpenseClaim
+     * @var null|ExpenseClaim
      *
      * @ORM\ManyToOne(targetEntity="ExpenseClaim", inversedBy="transactions")
      * @ORM\JoinColumns({
@@ -167,12 +167,15 @@ class Transaction extends AbstractModel
      */
     public function setExpenseClaim(?ExpenseClaim $expenseClaim): void
     {
-        if ($this->expenseClaim && $expenseClaim !== $this->expenseClaim) {
+        if ($this->expenseClaim) {
             $this->expenseClaim->transactionRemoved($this);
         }
 
         $this->expenseClaim = $expenseClaim;
-        $this->expenseClaim && $this->expenseClaim->transactionAdded($this);
+
+        if ($this->expenseClaim) {
+            $this->expenseClaim->transactionAdded($this);
+        }
     }
 
     /**

@@ -148,6 +148,7 @@ class Importer
         $parts[] = $this->partyLabel($party);
         $parts[] = $party->getName();
 
+        /** @var null|Address $address */
         $address = $party->getAddress();
         if ($address) {
             $parts[] = $this->addressToString($address);

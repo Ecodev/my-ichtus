@@ -86,7 +86,7 @@ class ImporterTest extends TestCase
     }
 
     /**
-     * @param Account|User $o
+     * @param null|Account|User $o
      *
      * @return string
      */
