@@ -43,7 +43,6 @@
         "beberlei/doctrineextensions": "^1.2",
         "cakephp/chronos": "^1.2",
         "dasprid/container-interop-doctrine": "^1.1",
-        "doctrine/dbal": "2.9.1",
         "doctrine/migrations": "^2.0",
         "ecodev/graphql-doctrine": "^6.1",
         "ecodev/graphql-upload": "^4.0",

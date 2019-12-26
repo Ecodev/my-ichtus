@@ -13,7 +13,7 @@ use GraphQL\Doctrine\Annotation as API;
  * @ORM\Table(indexes={
  *     @ORM\Index(name="priority", columns={"creation_date"}),
  *     @ORM\Index(name="date_created", columns={"creation_date"}),
- *     @ORM\Index(name="message", columns={"message"})
+ *     @ORM\Index(name="message", columns={"message"}, options={"lengths" = {191}})
  * })
  * @ORM\Entity(repositoryClass="Application\Repository\LogRepository")
  */
