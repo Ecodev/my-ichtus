@@ -120,9 +120,9 @@ class Importer
         $user = $this->loadUser($referenceNumber);
         $userAccount = $this->accountRepository->getOrCreate($user);
         $remarks = $this->getRemarks($detail, $referenceNumber);
-        $amount = $detail->getAmount()->getAmount();
+        $amount = $detail->getAmount();
 
-        $accountServicerReference = $detail->getReference()->getAccountServiceReference();
+        $accountServicerReference = $detail->getReference()->getAccountServicerReference();
         if (!$accountServicerReference) {
             throw new Exception('Cannot import a transaction without a account servicer reference to store a universal identifier.');
         }
