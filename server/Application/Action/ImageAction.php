@@ -7,10 +7,10 @@ namespace Application\Action;
 use Application\Model\Image;
 use Application\Repository\ImageRepository;
 use Application\Service\ImageResizer;
+use Laminas\Diactoros\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Diactoros\Response;
 
 class ImageAction extends AbstractAction
 {

@@ -9,7 +9,7 @@ use Application\Api\Helper;
 use Application\DBAL\Types\RelationshipType;
 use Application\Model\User;
 use GraphQL\Type\Definition\Type;
-use Zend\Expressive\Session\SessionInterface;
+use Mezzio\Session\SessionInterface;
 
 abstract class LeaveFamily implements FieldInterface
 {

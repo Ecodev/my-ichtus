@@ -10,7 +10,7 @@ use Application\Repository\UserRepository;
 use Application\Service\Mailer;
 use Application\Service\MessageQueuer;
 use GraphQL\Type\Definition\Type;
-use Zend\Expressive\Session\SessionInterface;
+use Mezzio\Session\SessionInterface;
 
 abstract class Register implements FieldInterface
 {

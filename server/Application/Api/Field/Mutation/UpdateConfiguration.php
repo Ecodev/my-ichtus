@@ -8,7 +8,7 @@ use Application\Api\Field\FieldInterface;
 use Application\Api\Helper;
 use Application\Model\Configuration;
 use GraphQL\Type\Definition\Type;
-use Zend\Expressive\Session\SessionInterface;
+use Mezzio\Session\SessionInterface;
 
 abstract class UpdateConfiguration implements FieldInterface
 {

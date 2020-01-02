@@ -6,6 +6,7 @@ namespace Application\Action;
 
 use Application\Model\AbstractModel;
 use Doctrine\ORM\Query;
+use Laminas\Diactoros\Response;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
@@ -17,7 +18,6 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Diactoros\Response;
 
 abstract class AbstractExcel extends AbstractAction
 {

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Application\Service;
 
 use Interop\Container\ContainerInterface;
-use Zend\View\Renderer\PhpRenderer;
-use Zend\View\Renderer\RendererInterface;
-use Zend\View\Resolver\TemplatePathStack;
+use Laminas\View\Renderer\PhpRenderer;
+use Laminas\View\Renderer\RendererInterface;
+use Laminas\View\Resolver\TemplatePathStack;
 
 class RendererFactory
 {

@@ -28,7 +28,7 @@ trait HasIban
      */
     public function setIban(string $iban): void
     {
-        $validator = new \Zend\Validator\Iban(['country_code' => 'CH']);
+        $validator = new \Laminas\Validator\Iban(['country_code' => 'CH']);
         if (empty($iban)) {
             $this->iban = '';
         } elseif ($validator->isValid($iban)) {

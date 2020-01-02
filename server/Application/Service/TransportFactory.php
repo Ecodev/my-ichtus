@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Application\Service;
 
 use Interop\Container\ContainerInterface;
-use Zend\Mail\Transport\InMemory;
-use Zend\Mail\Transport\Smtp;
-use Zend\Mail\Transport\SmtpOptions;
-use Zend\Mail\Transport\TransportInterface;
+use Laminas\Mail\Transport\InMemory;
+use Laminas\Mail\Transport\Smtp;
+use Laminas\Mail\Transport\SmtpOptions;
+use Laminas\Mail\Transport\TransportInterface;
 
 class TransportFactory
 {

@@ -13,7 +13,7 @@ use Application\Model\User;
 use Application\Repository\LogRepository;
 use Application\Repository\UserRepository;
 use GraphQL\Type\Definition\Type;
-use Zend\Expressive\Session\SessionInterface;
+use Mezzio\Session\SessionInterface;
 
 abstract class UpdatePassword implements FieldInterface
 {

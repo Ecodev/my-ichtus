@@ -11,6 +11,7 @@ use Doctrine\Common\Persistence\Proxy;
 use Doctrine\ORM\EntityNotFoundException;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
+use GraphQL\Type\Definition\Type;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -77,7 +78,7 @@ class DefaultFieldResolverTest extends TestCase
             }
         };
 
-        $resolve = new ResolveInfo('field', null, null, new ObjectType(['name' => 'foo']), [], new Schema(), [], null, null, []);
+        $resolve = new ResolveInfo('field', [], Type::boolean(), new ObjectType(['name' => 'foo']), [], new Schema(), [], null, null, []);
         $resolver = new DefaultFieldResolver();
         self::assertSame($expected, $resolver($model, [], [], $resolve));
     }

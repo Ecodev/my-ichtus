@@ -6,10 +6,10 @@ namespace Application\Action;
 
 use Application\Model\AccountingDocument;
 use Application\Repository\AccountingDocumentRepository;
+use Laminas\Diactoros\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Diactoros\Response;
 
 class AccountingDocumentAction extends AbstractAction
 {

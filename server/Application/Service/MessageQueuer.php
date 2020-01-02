@@ -10,8 +10,8 @@ use Application\Model\Booking;
 use Application\Model\Message;
 use Application\Model\User;
 use Doctrine\ORM\EntityManager;
-use Zend\View\Model\ViewModel;
-use Zend\View\Renderer\RendererInterface;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Renderer\RendererInterface;
 
 /**
  * Service to queue new message for pre-defined purposes

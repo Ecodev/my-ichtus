@@ -15,7 +15,7 @@ use Application\Model\User;
 use Application\Repository\UserRepository;
 use Cake\Chronos\Chronos;
 use GraphQL\Type\Definition\Type;
-use Zend\Expressive\Session\SessionInterface;
+use Mezzio\Session\SessionInterface;
 
 abstract class ConfirmRegistration implements FieldInterface
 {

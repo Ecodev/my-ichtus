@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 use Application\Action\GraphQLAction;
 use GraphQL\Upload\UploadMiddleware;
+use Mezzio\Application;
+use Mezzio\Helper\BodyParams\BodyParamsMiddleware;
+use Mezzio\MiddlewareFactory;
 use Psr\Container\ContainerInterface;
-use Zend\Expressive\Application;
-use Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware;
-use Zend\Expressive\MiddlewareFactory;
 
 /**
  * Setup routes with a single request method:
@@ -31,7 +31,7 @@ use Zend\Expressive\MiddlewareFactory;
  * $app->route(
  *     '/contact',
  *     App\Handler\ContactHandler::class,
- *     Zend\Expressive\Router\Route::HTTP_METHOD_ANY,
+ *     Mezzio\Router\Route::HTTP_METHOD_ANY,
  *     'contact'
  * );
  */

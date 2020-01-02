@@ -7,7 +7,7 @@ namespace Application\Repository;
 use Application\Model\User;
 use Cake\Chronos\Chronos;
 use Doctrine\DBAL\Connection;
-use Zend\Log\Logger;
+use Laminas\Log\Logger;
 
 class LogRepository extends AbstractRepository implements LimitedAccessSubQueryInterface
 {

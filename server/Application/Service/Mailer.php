@@ -9,11 +9,11 @@ use Application\Repository\LogRepository;
 use Cake\Chronos\Chronos;
 use Doctrine\ORM\EntityManager;
 use Exception;
-use Zend\Mail;
-use Zend\Mail\Transport\TransportInterface;
-use Zend\Mime\Message as MimeMessage;
-use Zend\Mime\Mime;
-use Zend\Mime\Part as MimePart;
+use Laminas\Mail;
+use Laminas\Mail\Transport\TransportInterface;
+use Laminas\Mime\Message as MimeMessage;
+use Laminas\Mime\Mime;
+use Laminas\Mime\Part as MimePart;
 
 /**
  * Service to send a message as an email

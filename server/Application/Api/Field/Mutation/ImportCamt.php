@@ -10,8 +10,8 @@ use Application\Model\Transaction;
 use Application\Service\Importer;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Upload\UploadType;
+use Mezzio\Session\SessionInterface;
 use Psr\Http\Message\UploadedFileInterface;
-use Zend\Expressive\Session\SessionInterface;
 
 abstract class ImportCamt implements FieldInterface
 {

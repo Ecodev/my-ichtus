@@ -9,7 +9,7 @@ use Application\Api\Helper;
 use Application\Model\Transaction;
 use Application\Model\TransactionLine;
 use GraphQL\Type\Definition\Type;
-use Zend\Expressive\Session\SessionInterface;
+use Mezzio\Session\SessionInterface;
 
 abstract class CreateTransaction implements FieldInterface
 {

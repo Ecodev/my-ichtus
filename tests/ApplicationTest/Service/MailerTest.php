@@ -7,7 +7,7 @@ namespace ApplicationTest\Service;
 use Application\Model\Message;
 use Application\Service\Mailer;
 use Doctrine\ORM\EntityManager;
-use Zend\Mail\Transport\InMemory;
+use Laminas\Mail\Transport\InMemory;
 
 class MailerTest extends \PHPUnit\Framework\TestCase
 {

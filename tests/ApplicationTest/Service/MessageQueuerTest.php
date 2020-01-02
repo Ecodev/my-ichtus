@@ -11,9 +11,9 @@ use Application\Model\Message;
 use Application\Model\User;
 use Application\Service\MessageQueuer;
 use Doctrine\ORM\EntityManager;
+use Laminas\View\Renderer\RendererInterface;
 use Money\Money;
 use Prophecy\Argument;
-use Zend\View\Renderer\RendererInterface;
 
 class MessageQueuerTest extends \PHPUnit\Framework\TestCase
 {

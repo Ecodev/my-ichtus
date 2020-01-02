@@ -11,9 +11,9 @@ use Application\Api\Output\OpenDoorType;
 use Application\Model\User;
 use Application\Repository\LogRepository;
 use GraphQL\Type\Definition\Type;
-use Zend\Expressive\Session\SessionInterface;
-use Zend\Http\Client;
-use Zend\Http\Request;
+use Laminas\Http\Client;
+use Laminas\Http\Request;
+use Mezzio\Session\SessionInterface;
 
 abstract class OpenDoor implements FieldInterface
 {
@@ -55,7 +55,7 @@ abstract class OpenDoor implements FieldInterface
 
                 try {
                     $response = $client->dispatch($request);
-                } catch (\Zend\Http\Client\Exception\RuntimeException $e) {
+                } catch (\Laminas\Http\Client\Exception\RuntimeException $e) {
                     // No answer from the websocket
                     _log()->err($e->getMessage(), $attrs);
 

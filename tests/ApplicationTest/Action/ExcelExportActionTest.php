@@ -7,9 +7,9 @@ namespace ApplicationTest\Action;
 use Application\Action\ExportTransactionLinesAction;
 use Application\Model\TransactionLine;
 use ApplicationTest\Traits\TestWithTransaction;
+use Laminas\Diactoros\ServerRequest;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Diactoros\ServerRequest;
 
 class ExcelExportActionTest extends TestCase
 {

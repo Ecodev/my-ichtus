@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 use Doctrine\ORM\EntityManager;
 use GraphQL\Doctrine\Types;
-use Zend\Log\LoggerInterface;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\Log\LoggerInterface;
+use Laminas\ServiceManager\ServiceManager;
 
 require_once 'server/Debug.php';
 

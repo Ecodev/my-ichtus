@@ -11,8 +11,8 @@ use Application\Model\Log;
 use Application\Model\User;
 use Application\Repository\LogRepository;
 use GraphQL\Type\Definition\Type;
-use Zend\Expressive\Session\SessionCookiePersistenceInterface;
-use Zend\Expressive\Session\SessionInterface;
+use Mezzio\Session\SessionCookiePersistenceInterface;
+use Mezzio\Session\SessionInterface;
 
 abstract class Login implements FieldInterface
 {

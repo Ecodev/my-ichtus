@@ -6,7 +6,7 @@ namespace Application\Log;
 
 use Application\Model\User;
 use Application\Repository\LogRepository;
-use Zend\Log\Writer\AbstractWriter;
+use Laminas\Log\Writer\AbstractWriter;
 
 class DbWriter extends AbstractWriter
 {

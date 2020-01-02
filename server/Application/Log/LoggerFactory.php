@@ -7,9 +7,9 @@ namespace Application\Log;
 use Application\Model\Log;
 use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;
-use Zend\Log\Logger;
-use Zend\Log\Writer\Stream;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\Log\Logger;
+use Laminas\Log\Writer\Stream;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class LoggerFactory implements FactoryInterface
 {
