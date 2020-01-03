@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Application\Api;
 
-use Doctrine\Common\Persistence\Proxy;
 use Doctrine\ORM\EntityNotFoundException;
+use Doctrine\Persistence\Proxy;
 use GraphQL\Type\Definition\ResolveInfo;
 
 /**
