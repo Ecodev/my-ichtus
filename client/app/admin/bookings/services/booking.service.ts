@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { bookingQuery, bookingsQuery, createBooking, deleteBookings, terminateBooking, updateBooking } from './booking.queries';
+import {
+    bookingQuery,
+    bookingsQuery,
+    createBooking,
+    deleteBookings,
+    terminateBooking,
+    updateBooking,
+} from './booking.queries';
 import {
     Bookable,
     Booking,
@@ -18,6 +25,7 @@ import {
     LogicalOperator,
     SortingOrder,
     TerminateBooking,
+    TerminateBookingVariables,
     UpdateBooking,
     UpdateBookingVariables,
 } from '../../../shared/generated-types';
@@ -123,7 +131,18 @@ export class BookingService extends NaturalAbstractModelService<Booking['booking
             groups: [
                 {
                     conditions: [{status: {equal: {value: BookingStatus.application}}}],
-                    joins: {bookable: {conditions: [{bookableTags: {have: {values: [BookableTagService.STORAGE], not: true}}}]}},
+                    joins: {
+                        bookable: {
+                            conditions: [{
+                                bookableTags: {
+                                    have: {
+                                        values: [BookableTagService.STORAGE],
+                                        not: true,
+                                    },
+                                },
+                            }],
+                        },
+                    },
                 },
             ],
         },
@@ -162,8 +181,20 @@ export class BookingService extends NaturalAbstractModelService<Booking['booking
         };
     }
 
-    public terminateBooking(id: string, comment: string = ''): Observable<TerminateBooking['terminateBooking']> {
-        return this.mutate(terminateBooking, {id: id, comment: comment});
+    public terminateBooking(id: string, comment: string = ''): Observable<unknown> {
+        const observable = this.apollo.mutate<TerminateBooking, TerminateBookingVariables>({
+            mutation: terminateBooking,
+            variables: {
+                id: id,
+                comment: comment,
+            },
+        });
+
+        observable.subscribe(() => {
+            this.apollo.getClient().reFetchObservableQueries();
+        });
+
+        return observable;
     }
 
     public resolve(id: string): Observable<BookingResolve> {
