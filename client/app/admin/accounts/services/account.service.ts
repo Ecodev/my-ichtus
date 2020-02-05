@@ -5,12 +5,11 @@ import {
     accountsQuery,
     createAccount,
     deleteAccounts,
-    updateAccount,
     nextCodeAvailableQuery,
+    updateAccount,
 } from './account.queries';
 import {
-    AccountInput,
-    Account,
+    Account, Account_account,
     AccountVariables,
     Accounts,
     AccountsVariables,
@@ -20,10 +19,15 @@ import {
     DeleteAccounts,
     UpdateAccount,
     UpdateAccountVariables,
-    NextAccountCode,
+    NextAccountCode, AccountInput,
 } from '../../../shared/generated-types';
 import { Validators } from '@angular/forms';
-import { NaturalAbstractModelService, FormValidators, NaturalValidators, FormAsyncValidators } from '@ecodev/natural';
+import {
+    FormAsyncValidators,
+    FormValidators,
+    NaturalAbstractModelService,
+    unique,
+} from '@ecodev/natural';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -68,9 +72,9 @@ export class AccountService extends NaturalAbstractModelService<Account['account
         };
     }
 
-    public getFormAsyncValidators(): FormAsyncValidators {
+    public getFormAsyncValidators(model: Account_account): FormAsyncValidators {
         return {
-            code: [NaturalValidators.unique('code', this)],
+            code: [unique('code', model.id, this)],
         };
     }
 

@@ -1,9 +1,19 @@
 import { Injectable } from '@angular/core';
+import { FormControl, ValidationErrors, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import {
+    FormAsyncValidators,
+    FormValidators,
+    Literal,
+    NaturalAbstractModelService,
+    NaturalFormControl,
+    NaturalQueryVariablesManager,
+    unique,
+} from '@ecodev/natural';
 import { Apollo } from 'apollo-angular';
 import { Observable, of, Subject } from 'rxjs';
 import { DataProxy } from 'apollo-cache';
 import { map } from 'rxjs/operators';
-import { NaturalAbstractModelService, FormValidators, NaturalValidators, FormAsyncValidators } from '@ecodev/natural';
 import {
     createUser,
     currentUserForProfileQuery,
@@ -38,7 +48,7 @@ import {
     UnregisterVariables,
     UpdateUser,
     UpdateUserVariables,
-    User,
+    User, User_user,
     UserByToken,
     UserByTokenVariables,
     UserInput,
@@ -50,14 +60,9 @@ import {
     UsersVariables,
     UserVariables,
 } from '../../../shared/generated-types';
-import { Router } from '@angular/router';
-import { FormControl, ValidationErrors, Validators } from '@angular/forms';
-import { Literal } from '@ecodev/natural';
 import { BookingService } from '../../bookings/services/booking.service';
 import { PermissionsService } from '../../../shared/services/permissions.service';
 import gql from 'graphql-tag';
-import { NaturalFormControl } from '@ecodev/natural';
-import { NaturalQueryVariablesManager } from '@ecodev/natural';
 import { PricedBookingService } from '../../bookings/services/PricedBooking.service';
 
 export function LoginValidatorFn(control: FormControl): ValidationErrors | null {
@@ -215,10 +220,10 @@ export class UserService extends NaturalAbstractModelService<User['user'],
         };
     }
 
-    public getFormAsyncValidators(): FormAsyncValidators {
+    public getFormAsyncValidators(model: User_user): FormAsyncValidators {
         return {
-            login: [NaturalValidators.unique('login', this)],
-            email: [NaturalValidators.unique('email', this)],
+            login: [unique('login', model.id, this)],
+            email: [unique('email', model.id, this)],
         };
     }
 

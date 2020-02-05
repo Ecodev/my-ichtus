@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { Validators } from '@angular/forms';
 import { BookingService } from '../../../admin/bookings/services/booking.service';
 import { PermissionsService } from '../../../shared/services/permissions.service';
-import { FormValidators, FormAsyncValidators, NaturalValidators } from '@ecodev/natural';
+import { FormValidators, FormAsyncValidators, unique } from '@ecodev/natural';
 import { PricedBookingService } from '../../../admin/bookings/services/PricedBooking.service';
 import { Literal } from '@ecodev/natural';
 import { AnonymousUserService } from './anonymous-user.service';
 import { LoginValidatorFn } from '../../../admin/users/services/user.service';
+import { User_user } from '../../../shared/generated-types';
 
 @Injectable({
     providedIn: 'root',
@@ -47,9 +48,9 @@ export class NewUserService extends AnonymousUserService {
         };
     }
 
-    public getFormAsyncValidators(): FormAsyncValidators {
+    public getFormAsyncValidators(model: User_user): FormAsyncValidators {
         return {
-            login: [NaturalValidators.unique('login', this)],
+            login: [unique('login', model.id, this)],
         };
     }
 }
