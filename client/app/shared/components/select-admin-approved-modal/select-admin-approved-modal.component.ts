@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BookableService } from '../../../admin/bookables/services/bookable.service';
-import { Bookables, BookablesVariables } from '../../generated-types';
+import { Bookables, BookableSortingField, BookablesVariables } from '../../generated-types';
 import { SelectionModel } from '@angular/cdk/collections';
-import { NaturalQueryVariablesManager } from '@ecodev/natural';
-import { NaturalDataSource } from '@ecodev/natural';
+import { NaturalDataSource, NaturalQueryVariablesManager } from '@ecodev/natural';
 import { BookableTagService } from '../../../admin/bookableTags/services/bookableTag.service';
 
 @Component({
@@ -32,6 +31,7 @@ export class SelectAdminApprovedModalComponent implements OnInit {
         const storageVariables = BookableService.adminApprovedByTag(BookableTagService.STORAGE);
         const qvmStorage = new NaturalQueryVariablesManager<BookablesVariables>();
         qvmStorage.set('variables', storageVariables);
+        qvmStorage.set('sorting', {sorting: [{field: BookableSortingField.name}]});
 
         // Get all because requirable storages should not change
         this.bookableService.getAll(qvmStorage).subscribe(result => {
