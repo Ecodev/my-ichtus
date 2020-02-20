@@ -13,7 +13,7 @@
             Aucun résultat
         </div>
 
-        <div class="responsive-table" *ngIf="transactionLinesDS && transactionLinesDS.data.length">
+        <div class="responsive-table" *ngIf="transactionLinesDS?.data?.length">
             <table mat-table [dataSource]="transactionLinesDS">
                 <tr mat-header-row *matHeaderRowDef="transactionsColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: transactionsColumns;"></tr>

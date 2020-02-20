@@ -39,7 +39,7 @@
                         </span>
                     </td>
                     <td mat-footer-cell *matFooterCellDef natural-align-right>
-                        <span *ngIf="pendingApplicationsDS.data.totalPeriodicPrice > 0">
+                        <span *ngIf="pendingApplicationsDS.data?.totalPeriodicPrice > 0">
                             {{ pendingApplicationsDS.data.totalPeriodicPrice | currency: 'CHF' }}
                         </span>
                     </td>
@@ -51,7 +51,7 @@
                         <span *ngIf="booking.bookable.initialPrice != '0.00'"> {{ booking.bookable.initialPrice | currency: 'CHF'}}</span>
                     </td>
                     <td mat-footer-cell *matFooterCellDef natural-align-right>
-                        <span *ngIf="pendingApplicationsDS.data.totalInitialPrice > 0">
+                        <span *ngIf="pendingApplicationsDS.data?.totalInitialPrice > 0">
                             {{ pendingApplicationsDS.data.totalInitialPrice | currency: 'CHF'}}
                         </span>
                     </td>
@@ -93,7 +93,7 @@
             Aucune prestation en cours
         </div>
 
-        <div class="responsive-table" *ngIf="runningServicesDS && runningServicesDS.data.length">
+        <div class="responsive-table" *ngIf="runningServicesDS?.data?.length">
             <table mat-table [dataSource]="runningServicesDS">
                 <tr mat-header-row *matHeaderRowDef="servicesColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: servicesColumns;"></tr>
@@ -112,7 +112,7 @@
                         <span *ngIf="booking.periodicPrice"> {{ booking.periodicPrice | currency: 'CHF'}}</span>
                     </td>
                     <td mat-footer-cell *matFooterCellDef natural-align-right>
-                        <span *ngIf="runningServicesDS.data.totalPeriodicPrice > 0">
+                        <span *ngIf="runningServicesDS.data?.totalPeriodicPrice > 0">
                             {{ runningServicesDS.data.totalPeriodicPrice | currency: 'CHF' }}
                         </span>
                     </td>
