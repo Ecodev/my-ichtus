@@ -61,7 +61,7 @@
             <div>Pas de résultats</div>
         </div>
 
-        <div fxLayout="column" fxLayoutAlign="center center" class="margin" *ngIf="dataSource.data?.length === null">
+        <div fxLayout="column" fxLayoutAlign="center center" class="margin" *ngIf="!dataSource?.data">
             <mat-progress-spinner mode="indeterminate" [diameter]="40"></mat-progress-spinner>
         </div>
 
