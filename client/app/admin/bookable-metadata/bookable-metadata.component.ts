@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BookableMetadataService } from './bookable-metadata.service';
 import { NaturalDataSource } from '@ecodev/natural';
-import { BookableMetadatasVariables } from '../../shared/generated-types';
+import { BookableMetadatas_bookableMetadatas_items, BookableMetadatasVariables } from '../../shared/generated-types';
 import { NaturalQueryVariablesManager } from '@ecodev/natural';
 
 @Component({
@@ -14,7 +14,7 @@ export class BookableMetadataComponent implements OnInit {
     @Input() bookable;
     @Input() edit = false;
 
-    public dataSource: NaturalDataSource;
+    public dataSource: NaturalDataSource<BookableMetadatas_bookableMetadatas_items>;
 
     public columns;
 
@@ -39,7 +39,7 @@ export class BookableMetadataComponent implements OnInit {
 
             // TODO : replace by watchAll because two admins may work on same object and meta data could change between two visits
             this.bookableMetaService.getAll(qvm).subscribe(bookables => {
-                this.dataSource = new NaturalDataSource(bookables);
+                this.dataSource = new NaturalDataSource<BookableMetadatas_bookableMetadatas_items>(bookables);
                 this.addLine();
             });
         } else {
@@ -52,11 +52,10 @@ export class BookableMetadataComponent implements OnInit {
      * Add line if edit mode is true and last item is not already empty
      */
     public addLine() {
-        if (this.edit) {
-            const nbItems = this.dataSource.data.items.length;
-            const lastItem = nbItems > 0 ? this.dataSource.data.items[nbItems - 1] : 0;
-            if (lastItem.name !== '' || lastItem.value !== '') {
-                this.dataSource.push(this.bookableMetaService.getConsolidatedForClient());
+        if (this.edit && this.dataSource.data) {
+            const lastItem = this.dataSource.data.items[this.dataSource.data.items.length];
+            if (lastItem && lastItem.name !== '' || lastItem.value !== '') {
+                this.dataSource.push(this.bookableMetaService.getConsolidatedForClient() as BookableMetadatas_bookableMetadatas_items);
             }
         }
     }
