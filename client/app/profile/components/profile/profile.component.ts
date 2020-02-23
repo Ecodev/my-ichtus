@@ -7,7 +7,7 @@ import * as Datatrans from '../../../datatrans-2.0.0-ecodev.js';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ProvisionComponent } from '../provision/provision.component';
 import { Apollo } from 'apollo-angular';
-import { ConfigService } from '../../../shared/services/config.service';
+import { ConfigService, FrontEndConfig } from '../../../shared/services/config.service';
 import { filter, takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -22,7 +22,7 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
     /**
      * Install FE config
      */
-    public config;
+    public config: FrontEndConfig | null = null;
 
     constructor(public userService: UserService,
                 private alertService: NaturalAlertService,
@@ -31,10 +31,10 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
                 public bookableService: BookableService,
                 private apollo: Apollo,
                 private dialog: MatDialog,
-                private configService: ConfigService,
+                configService: ConfigService,
     ) {
         super();
-        this.configService.get().subscribe(config => {
+        configService.get().subscribe(config => {
             this.config = config;
         });
     }
