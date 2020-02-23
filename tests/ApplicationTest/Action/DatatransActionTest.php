@@ -11,6 +11,7 @@ use Laminas\Diactoros\ServerRequest;
 use Mezzio\Template\TemplateRendererInterface;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 use Psr\Http\Server\RequestHandlerInterface;
 
 class DatatransActionTest extends TestCase
@@ -29,7 +30,8 @@ class DatatransActionTest extends TestCase
         // Message always include input data
         $expectedViewModel['message']['detail'] = $data;
         $renderer = $this->prophesize(TemplateRendererInterface::class);
-        $renderer->render('app::datatrans', $expectedViewModel);
+        $renderer->render('app::datatrans', $expectedViewModel)->shouldBeCalled();
+        $renderer->render('app::datatrans', Argument::any())->willReturn('');
 
         $handler = $this->prophesize(RequestHandlerInterface::class);
 
@@ -111,6 +113,24 @@ class DatatransActionTest extends TestCase
                     'message' => [
                         'status' => 'error',
                         'message' => 'Invalid HMAC signature',
+                    ],
+                ],
+            ],
+            'missing HMAC signature' => [
+                [
+                    'uppTransactionId' => '123456789012345678',
+                    'status' => 'success',
+                    'refno' => '1007',
+                    'merchantId' => '123456789',
+                    'amount' => '10000',
+                    'currency' => 'CHF',
+                    'responseMessage' => 'Payment was successful',
+                ],
+                Money::CHF(0),
+                [
+                    'message' => [
+                        'status' => 'error',
+                        'message' => 'Missing HMAC signature',
                     ],
                 ],
             ],
