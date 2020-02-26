@@ -2,12 +2,12 @@
 $url = $this->serverUrl . '/user/confirm/' . $this->token;
 ?>
 <p>
-    Une demande de création de compte au Club Nautique Ichtus a été faite pour l'adresse email <?php echo $this->email ?>.
+    Une demande de création de compte au Club Nautique Ichtus a été faite pour l'adresse email <?php echo $this->escapeHtml($this->email) ?>.
     Pour terminer le processus d'adhésion, merci de cliquer sur le lien ci-dessous :
 </p>
 
 <p style="text-align:center;margin:40px 0">
-    <a href="<?php echo $url ?>" style="padding:10px; background:#3176a2; text-decoration:none; color:white;">
+    <a href="<?php echo $this->escapeHtmlAttr($url) ?>" style="padding:10px; background:#3176a2; text-decoration:none; color:white;">
         Valider mon compte et finaliser l'adhésion
     </a>
 </p>

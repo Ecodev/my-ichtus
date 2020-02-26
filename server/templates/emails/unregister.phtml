@@ -4,13 +4,13 @@ $url = $this->serverUrl . '/admin/user/' . $this->unregisteredUser->getId();
 <p>Le membre suivant a démissioné :</p>
 
 <ul>
-    <li><?php echo $this->unregisteredUser->getName() ?></li>
+    <li><?php echo $this->escapeHtml($this->unregisteredUser->getName()) ?></li>
     <?php if ($this->unregisteredUser->getEmail()): ?>
         <li>
-            <a href="mailto:<?php echo $this->unregisteredUser->getEmail() ?>"><?php echo $this->unregisteredUser->getEmail() ?></a>
+            <a href="mailto:<?php echo $this->escapeHtmlAttr($this->unregisteredUser->getEmail()) ?>"><?php echo $this->escapeHtml($this->unregisteredUser->getEmail()) ?></a>
         </li>
     <?php endif; ?>
-    <li><a href="<?php echo $url ?>"><?php echo $url ?></a></li>
+    <li><a href="<?php echo $this->escapeHtmlAttr($url) ?>"><?php echo $this->escapeHtml($url) ?></a></li>
 </ul>
 
 

@@ -12,16 +12,16 @@ $urlServices = $this->serverUrl . '/profile/services';
 <p>
     Ton solde actuel est de
     <span style="text-align: right; font-weight: bold; color: <?php echo $this->user->getAccount()->getBalance()->isNegative() ? '#f44336' : '#008600' ?>">
-        <?php echo $moneyFormatter->format($this->user->getAccount()->getBalance()) ?> CHF</span>.
+        <?php echo $this->escapeHtml($moneyFormatter->format($this->user->getAccount()->getBalance())) ?> CHF</span>.
 </p>
 
 <?php if ($this->user->getAccount()->getBalance()->isNegative()): ?>
     <p>Afin de sortir du rouge et être à nouveau au sommet de la vague pour surfer l'esprit libre, il te suffit
-       de <a href="<?php echo $urlTransaction ?>">faire un versement</a> et/ou ajuster <a
-                href="<?php echo $urlServices ?>">les services utilisés</a>.</p>
+       de <a href="<?php echo $this->escapeHtmlAttr($urlTransaction) ?>">faire un versement</a> et/ou ajuster <a
+                href="<?php echo $this->escapeHtmlAttr($urlServices) ?>">les services utilisés</a>.</p>
 
     <p style="text-align:center;margin:40px 0">
-        <a href="<?php echo $urlTransaction ?>"
+        <a href="<?php echo $this->escapeHtmlAttr($urlTransaction) ?>"
            style="padding:10px; background:#3176a2; text-decoration:none; color:white;">
             Faire un versement
         </a>
@@ -37,8 +37,8 @@ $urlServices = $this->serverUrl . '/profile/services';
 <table style="margin-left: 2em; min-width: 300px; border-collapse: collapse">
     <?php foreach ($this->bookables as $bookable): ?>
         <tr>
-            <td><?php echo $bookable->getName() ?></td>
-            <td style="text-align: right"><?php echo $moneyFormatter->format($bookable->getPeriodicPrice()) ?> CHF</td>
+            <td><?php echo $this->escapeHtml($bookable->getName()) ?></td>
+            <td style="text-align: right"><?php echo $this->escapeHtml($moneyFormatter->format($bookable->getPeriodicPrice())) ?> CHF</td>
         </tr>
     <?php endforeach; ?>
 </table>
