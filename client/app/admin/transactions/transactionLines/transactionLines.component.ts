@@ -3,13 +3,14 @@ import { NaturalAbstractList, NaturalQueryVariablesManager } from '@ecodev/natur
 import { NaturalSearchFacetsService } from '../../../shared/natural-search/natural-search-facets.service';
 import { TransactionLineService } from '../services/transactionLine.service';
 import {
-    Account,
+    Account, TransactionLine,
     TransactionLines,
     TransactionLinesForExportVariables,
     TransactionLinesVariables,
     TransactionTag,
 } from '../../../shared/generated-types';
 import { PermissionsService } from '../../../shared/services/permissions.service';
+import { union } from 'lodash';
 
 @Component({
     selector: 'app-transaction-lines',
@@ -54,6 +55,16 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
             this.naturalSearchSelections = selection;
             this.search(selection);
         }
+    }
+
+    public documentCount(tl: TransactionLine['transactionLine']): number {
+        const transaction = tl.transaction;
+        const expenseClaim = transaction.expenseClaim;
+
+        return union(
+            transaction.accountingDocuments.map((document) => document ? document.id : null),
+            expenseClaim ? expenseClaim.accountingDocuments.map((document) => document ? document.id : null) : [],
+        ).length;
     }
 
     public filterByTag(tag: TransactionTag['transactionTag']): void {

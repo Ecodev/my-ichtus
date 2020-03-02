@@ -31,7 +31,7 @@ class AccountingDocumentRepositoryTest extends AbstractRepositoryTest
 
     public function providerGetAccessibleSubQuery(): array
     {
-        $all = [9000];
+        $all = [9000, 9001];
 
         return [
             ['anonymous', []],

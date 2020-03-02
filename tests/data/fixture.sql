@@ -244,8 +244,9 @@ REPLACE INTO transaction_line (id, transaction_id, debit_id, credit_id, bookable
 (14010, 8007, 10026, 10106, NULL, NULL, 2000000, '2019-01-01', 1, 'Solde à nouveau', 'Ouverture de Raiffeisen'),
 (14011, 8002, 10096, 10104, NULL, NULL, 1000, '2019-03-12', 1, 'Contribution au fond de réparation interne', '');
 
-REPLACE INTO accounting_document (id, expense_claim_id, owner_id, filename, mime) VALUES
-(9000, 7000, 1002, 'dw4jV3zYSPsqE2CB8BcP8ABD0.pdf', 'application/pdf');
+REPLACE INTO accounting_document (id, expense_claim_id, transaction_id, owner_id, filename, mime) VALUES
+(9000, 7000, NULL, 1002, 'dw4jV3zYSPsqE2CB8BcP8ABD0.pdf', 'application/pdf'),
+(9001, NULL, 8001, 1000, '4k123pkopvs3iDFV948abcde.pdf', 'application/pdf');
 
 REPLACE INTO message (id, creator_id, owner_id, recipient_id, type, date_sent, email, subject, body) VALUES
 (11001, 1000, 1000, 1002, 'balance', '2019-01-01 12:00:00','member@example.com', 'Avertissement de crédit négatif', 'Bonjour, nous vous informons que votre compte Ichtus présente un solde négatif'),

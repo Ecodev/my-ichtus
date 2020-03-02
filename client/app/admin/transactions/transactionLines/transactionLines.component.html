@@ -21,7 +21,7 @@
                     <span naturalColumnsPickerColumn="balance">Montant</span>
                     <span naturalColumnsPickerColumn="account">Compte</span>
                     <span naturalColumnsPickerColumn="isReconciled">Pointé</span>
-                    <span naturalColumnsPickerColumn="expenseClaim">Quittance</span>
+                    <span naturalColumnsPickerColumn="documents">Justificatifs</span>
                     <span naturalColumnsPickerColumn="tag">Tag</span>
                 </natural-columns-picker>
 
@@ -122,15 +122,10 @@
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 
-                <ng-container matColumnDef="expenseClaim">
-                    <th mat-header-cell *matHeaderCellDef>Quittance</th>
+                <ng-container matColumnDef="documents">
+                    <th mat-header-cell *matHeaderCellDef>Justificatifs</th>
                     <td mat-cell *matCellDef="let element">
-                        <a mat-icon-button
-                           *ngIf="element.transaction.expenseClaim"
-                           [routerLink]="['/admin/expense-claim', element.transaction.expenseClaim.id]"
-                        >
-                            <natural-icon name="receipt"></natural-icon>
-                        </a>
+                        {{ documentCount(element) || '' }}
                     </td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>

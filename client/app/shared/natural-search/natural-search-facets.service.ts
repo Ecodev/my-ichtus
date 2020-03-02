@@ -23,10 +23,11 @@ import { UserService } from '../../admin/users/services/user.service';
 import { LicenseService } from '../../admin/licenses/services/license.service';
 import { TransactionService } from '../../admin/transactions/services/transaction.service';
 import { TransactionTagService } from '../../admin/transactionTags/services/transactionTag.service';
-import { UserFilterGroupCondition } from '../generated-types';
+import { UserFilterGroupCondition, TransactionLineFilterGroupCondition } from '../generated-types';
 import { AccountService } from '../../admin/accounts/services/account.service';
 import { accountHierarchicConfiguration } from '../hierarchic-selector/AccountHierarchicConfiguration';
 import { BookableTagService } from '../../admin/bookableTags/services/bookableTag.service';
+import { TypeSelectItem } from '@ecodev/natural/lib/modules/dropdown-components/type-select/type-select.component';
 
 function dontHave(selection: NaturalSearchSelection): NaturalSearchSelection {
     if (selection.condition && selection.condition.have) {
@@ -326,6 +327,19 @@ export class NaturalSearchFacetsService {
                 field: 'transactionDate',
                 component: TypeDateComponent,
             } as DropdownFacet<TypeDateConfiguration>,
+            {
+                display: 'Justificatif',
+                field: 'custom',
+                component: TypeSelectComponent,
+                name: 'transactionWithDocument',
+                transform: replaceOperatorByName,
+                configuration: {
+                    items: [
+                        {value: true, name: 'Avec'},
+                        {value: false, name: 'Sans'},
+                    ],
+                },
+            } as DropdownFacet<TypeSelectConfiguration>,
             this.bookable,
             this.transactionTags,
             this.owner,
