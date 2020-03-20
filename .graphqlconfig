@@ -1,0 +1,13 @@
+{
+    "schemaPath": "client/app/shared/generated-schema.graphql",
+    "extensions": {
+        "endpoints": {
+            "Default (https://my-ichtus.lan/graphql)": {
+                "url": "https://my-ichtus.lan/graphql",
+                "headers": {
+                    "user-agent": "JS GraphQL"
+                }
+            }
+        }
+    }
+}

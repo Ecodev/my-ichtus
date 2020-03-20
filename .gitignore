@@ -40,6 +40,7 @@
 /node_modules/
 /phpunit.xml
 /vendor/
+client/app/shared/generated-schema.graphql
 client/app/shared/generated-types.ts
 /client/assets/config/*.local.json
 .DS_Store
