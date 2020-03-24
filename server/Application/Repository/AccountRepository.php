@@ -99,9 +99,10 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
             $account->setType(AccountTypeType::LIABILITY);
             $account->setName($user->getName());
 
-            $maxCode = $this->getEntityManager()->getConnection()->fetchColumn('SELECT MAX(code) FROM account WHERE parent_id = ' . self::PARENT_ACCOUNT_ID_FOR_USER);
-            $newCode = ++$maxCode;
-            $account->setCode($newCode);
+            // Find the next available account code, using the liability parent code as prefix
+            $nextQuery = 'SELECT MAX(children.code)+1 from account parent, account children where parent.id=' . self::PARENT_ACCOUNT_ID_FOR_USER . ' and children.code LIKE CONCAT(parent.code, \'%\')';
+            $nextCode = (int) $this->getEntityManager()->getConnection()->fetchColumn($nextQuery);
+            $account->setCode($nextCode);
 
             $parent = $this->getOneById(self::PARENT_ACCOUNT_ID_FOR_USER);
             $account->setParent($parent);
