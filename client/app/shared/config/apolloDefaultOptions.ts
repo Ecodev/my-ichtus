@@ -21,21 +21,27 @@ export const apolloDefaultOptions: DefaultOptions = {
  */
 function createErrorLink(networkActivityService: NetworkActivityService,
                          alertService: NaturalAlertService): ApolloLink {
-    return onError(({graphQLErrors, networkError}) => {
+    return onError(errorResponse => {
 
-        // Network errors seems not to be caught by above middleware, and we need to be informed to decrease pending queries
-        if (networkError) {
+        // Network errors are not caught by uploadInterceptor, so we need to decrease pending queries
+        if (errorResponse.networkError) {
             alertService.error('Une erreur est survenue sur le réseau');
             networkActivityService.decrease();
         }
 
-        // Graphql responses with errors are valid responses and are caught by the above middleware.
-        // There seems to be no need to do something here
-        if (graphQLErrors) {
-            graphQLErrors.forEach((error: any) => {
-                alertService.error('Une erreur est survenue du côté du serveur');
+        // Show Graphql responses with errors to end-users (but do not decrease pending queries because it is done by uploadInterceptor)
+        if (errorResponse.graphQLErrors) {
+            errorResponse.graphQLErrors.forEach(error => {
+                // Use generic message for internal error not to frighten end-user too much
+                if (error.extensions && error.extensions.category === 'internal') {
+                    alertService.error('Une erreur est survenue du côté du serveur');
+                } else {
+                    // Show whatever server prepared for end-user, with a little bit more time to read
+                    alertService.error(error.message, 5000);
+                }
             });
-            networkActivityService.updateErrors(graphQLErrors);
+
+            networkActivityService.updateErrors(errorResponse.graphQLErrors);
         }
     });
 }

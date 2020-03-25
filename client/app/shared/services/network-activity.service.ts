@@ -16,7 +16,7 @@ export class NetworkActivityService {
      * Observable specifying if app is loading or not
      */
     public readonly isPending = new BehaviorSubject<boolean>(false);
-    public readonly errors = new Subject<any[]>();
+    public readonly errors = new Subject<readonly Error[]>();
 
     constructor(private progressService: NgProgress) {
     }
@@ -50,7 +50,7 @@ export class NetworkActivityService {
         }
     }
 
-    public updateErrors(errors): void {
+    public updateErrors(errors: readonly Error[]): void {
         if (errors && errors.length) {
             this.errors.next(errors);
         }
