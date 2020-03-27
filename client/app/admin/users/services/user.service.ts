@@ -41,7 +41,7 @@ import {
     Login,
     LoginVariables,
     Logout,
-    Relationship,
+    Relationship, RequestPasswordReset, RequestPasswordResetVariables,
     Sex,
     SortingOrder,
     Unregister,
@@ -250,8 +250,9 @@ export class UserService extends NaturalAbstractModelService<User['user'],
             this.apollo.mutate<Login, LoginVariables>({
                 mutation: loginMutation,
                 variables: loginData,
-                update: (proxy: DataProxy, {data: {login}}) => {
+                update: (proxy: DataProxy, result) => {
 
+                    const login = (result.data as Login).login;
                     this.cacheViewer(login);
 
                     // Inject the freshly logged in user as the current user into Apollo data store
@@ -262,7 +263,7 @@ export class UserService extends NaturalAbstractModelService<User['user'],
                     });
                     this.permissionsService.setUser(login);
                 },
-            }).pipe(map(({data: {login}}) => login)).subscribe(subject);
+            }).pipe(map(result => (result.data as Login).login)).subscribe(subject);
         });
 
         return subject;
@@ -284,7 +285,8 @@ export class UserService extends NaturalAbstractModelService<User['user'],
         this.router.navigate(['/login'], {queryParams: {logout: true}}).then(() => {
             this.apollo.mutate<Logout>({
                 mutation: logoutMutation,
-            }).pipe(map(({data: {logout}}) => logout)).subscribe((v) => {
+            }).subscribe(result => {
+                const v = (result.data as Logout).logout;
                 this.cacheViewer(null);
                 (this.apollo.getClient().resetStore() as Promise<null>).then(() => {
                     subject.next(v);
@@ -415,22 +417,22 @@ export class UserService extends NaturalAbstractModelService<User['user'],
         }));
     }
 
-    public unregister(user): Observable<{ model: Unregister['unregister'] }> {
+    public unregister(user): Observable<Unregister['unregister']> {
         return this.apollo.mutate<Unregister, UnregisterVariables>({
             mutation: unregisterMutation,
             variables: {
                 id: user.id,
             },
-        }).pipe(map(result => result.data.unregister));
+        }).pipe(map(result => (result.data as Unregister).unregister));
     }
 
-    public leaveFamily(user): Observable<{ model: LeaveFamily['leaveFamily'] }> {
+    public leaveFamily(user): Observable<LeaveFamily['leaveFamily']> {
         return this.apollo.mutate<LeaveFamily, LeaveFamilyVariables>({
             mutation: leaveFamilyMutation,
             variables: {
                 id: user.id,
             },
-        }).pipe(map(result => result.data.leaveFamily));
+        }).pipe(map(result => (result.data as LeaveFamily).leaveFamily));
     }
 
     /**
@@ -473,18 +475,18 @@ export class UserService extends NaturalAbstractModelService<User['user'],
         return user.role === UserRole.administrator;
     }
 
-    public requestPasswordReset(login) {
+    public requestPasswordReset(login: string): Observable<RequestPasswordReset['requestPasswordReset']> {
         const mutation = gql`
             mutation RequestPasswordReset($login: Login!) {
                 requestPasswordReset(login: $login)
             }
         `;
 
-        return this.apollo.mutate({
+        return this.apollo.mutate<RequestPasswordReset, RequestPasswordResetVariables>({
             mutation: mutation,
             variables: {
                 login: login,
             },
-        });
+        }).pipe(map(result => (result.data as RequestPasswordReset).requestPasswordReset));
     }
 }

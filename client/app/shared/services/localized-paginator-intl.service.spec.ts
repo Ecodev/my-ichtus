@@ -11,7 +11,7 @@ describe('LocalizedPaginatorIntlService', () => {
             declarations: [],
             imports: [],
         });
-        service = TestBed.get(LocalizedPaginatorIntlService);
+        service = TestBed.inject(LocalizedPaginatorIntlService);
 
     });
 

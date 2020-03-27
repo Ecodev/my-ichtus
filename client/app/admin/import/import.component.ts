@@ -51,8 +51,9 @@ export class ImportComponent implements OnInit {
                 file: file,
             },
         }).subscribe((result) => {
+                const importCamt = (result.data as ImportCamt).importCamt;
                 const naturalSearchSelections: NaturalSearchSelections = [
-                    result.data.importCamt.map(transaction => {
+                    importCamt.map(transaction => {
                         return {
                             field: 'transaction',
                             condition: {
@@ -66,7 +67,7 @@ export class ImportComponent implements OnInit {
 
                 const ns = JSON.stringify(toUrl(naturalSearchSelections));
                 this.importing = false;
-                this.alertService.info(result.data.importCamt.length + ' transactions importées', 5000);
+                this.alertService.info(importCamt.length + ' transactions importées', 5000);
                 this.router.navigate(['/admin/transaction-line', {ns}]);
             },
             (error) => {

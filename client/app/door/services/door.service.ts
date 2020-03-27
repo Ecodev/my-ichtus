@@ -46,6 +46,6 @@ export class DoorService {
         return this.apollo.mutate<OpenDoor, OpenDoorVariables>({
             mutation: openDoorMutation,
             variables: openData,
-        }).pipe(map(({data: {openDoor}}) => openDoor));
+        }).pipe(map(result => (result.data as OpenDoor).openDoor));
     }
 }

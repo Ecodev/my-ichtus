@@ -5,6 +5,7 @@ import { NaturalAlertService } from '@ecodev/natural';
 import { FormGroup } from '@angular/forms';
 import gql from 'graphql-tag';
 import { finalize } from 'rxjs/operators';
+import { UpdatePassword, UpdatePasswordVariables } from '../../../shared/generated-types';
 
 @Component({
     selector: 'app-change-password',
@@ -36,7 +37,7 @@ export class ChangePasswordComponent {
             }
         `;
 
-        this.apollo.mutate({
+        this.apollo.mutate<UpdatePassword, UpdatePasswordVariables>({
             mutation: mutation,
             variables: {
                 token: this.token,
@@ -44,8 +45,8 @@ export class ChangePasswordComponent {
             },
         })
             .pipe(finalize(() => this.sending = false))
-            .subscribe(v => {
-                if (v.data.updatePassword) {
+            .subscribe(result => {
+                if ((result.data as UpdatePassword).updatePassword) {
                     this.alertService.info('Le mot de passe a été mis à jour', 5000);
                     this.router.navigate(['/login']);
                 } else {

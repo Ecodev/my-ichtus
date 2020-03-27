@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SelectAdminApprovedModalComponent } from '../select-admin-approved-modal/select-admin-approved-modal.component';
-import { MatDialogConfig } from '@angular/material/dialog/typings/dialog-config';
 import { BookingService } from '../../../admin/bookings/services/booking.service';
 import { BookingPartialInput, BookingStatus } from '../../generated-types';
 
