@@ -140,7 +140,7 @@ class LogRepository extends AbstractRepository implements LimitedAccessSubQueryI
             return $qb->getQuery()->setMaxResults(1)->getOneOrNullResult();
         });
 
-        return $result['creationDate'];
+        return $result['creationDate'] ?? null;
     }
 
     /**
