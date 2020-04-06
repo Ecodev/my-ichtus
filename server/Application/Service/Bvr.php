@@ -127,7 +127,7 @@ class Bvr
             return $report;
         }
 
-        foreach (str_split($number) as $value) {
+        foreach (mb_str_split($number) as $value) {
             $report = self::TABLE[$report][(int) $value];
         }
 
