@@ -3,8 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NaturalAlertService } from '@ecodev/natural';
 import { NaturalAbstractController } from '@ecodev/natural';
-import { UserService } from '../admin/users/services/user.service';
+import { loginValidator, UserService } from '../admin/users/services/user.service';
 import { finalize } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-login',
@@ -13,17 +14,11 @@ import { finalize } from 'rxjs/operators';
 })
 export class LoginComponent extends NaturalAbstractController implements OnInit, OnDestroy {
 
-    public loading = false;
-
     /**
      * Stores the received redirect URL until we need to use it (when login is successfull)
      */
     public returnUrl: string;
-
-    public loginForm = {
-        login: '',
-        password: '',
-    };
+    public form: FormGroup;
 
     constructor(
         private route: ActivatedRoute,
@@ -31,8 +26,13 @@ export class LoginComponent extends NaturalAbstractController implements OnInit,
         private userService: UserService,
         public alertService: NaturalAlertService,
         public snackBar: MatSnackBar,
+        private readonly fb: FormBuilder,
     ) {
         super();
+        this.form = this.fb.group({
+            login: ['', [Validators.required, Validators.maxLength(50), loginValidator]],
+            password: ['', [Validators.required]],
+        });
     }
 
     public ngOnInit(): void {
@@ -52,10 +52,10 @@ export class LoginComponent extends NaturalAbstractController implements OnInit,
      */
     public login(): void {
         this.snackBar.dismiss();
-        this.loading = true;
+        this.form.disable();
 
-        this.userService.login(this.loginForm)
-            .pipe(finalize(() => this.loading = false))
+        this.userService.login(this.form.value)
+            .pipe(finalize(() => this.form.enable()))
             .subscribe(() => {
                 this.redirect();
             });

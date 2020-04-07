@@ -65,9 +65,9 @@ import { PermissionsService } from '../../../shared/services/permissions.service
 import gql from 'graphql-tag';
 import { PricedBookingService } from '../../bookings/services/PricedBooking.service';
 
-export function LoginValidatorFn(control: FormControl): ValidationErrors | null {
+export function loginValidator(control: FormControl): ValidationErrors | null {
     const value = control.value || '';
-    if (!value.match(/^[a-zA-Z0-9\\.-]+$/)) {
+    if (value && !value.match(/^[a-zA-Z0-9\\.-]+$/)) {
         return {
             invalid: 'Le login doit contenir seulement des lettres, chiffres, "." et "-"',
         };
@@ -211,7 +211,7 @@ export class UserService extends NaturalAbstractModelService<User['user'],
 
     public getFormValidators(): FormValidators {
         return {
-            login: [Validators.required, LoginValidatorFn],
+            login: [Validators.required, loginValidator],
             firstName: [Validators.required, Validators.maxLength(100)],
             lastName: [Validators.required, Validators.maxLength(100)],
             email: [Validators.email],

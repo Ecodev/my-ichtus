@@ -8,7 +8,7 @@ import { FormValidators, FormAsyncValidators, unique } from '@ecodev/natural';
 import { PricedBookingService } from '../../../admin/bookings/services/PricedBooking.service';
 import { Literal } from '@ecodev/natural';
 import { AnonymousUserService } from './anonymous-user.service';
-import { LoginValidatorFn } from '../../../admin/users/services/user.service';
+import { loginValidator } from '../../../admin/users/services/user.service';
 import { User_user } from '../../../shared/generated-types';
 
 @Injectable({
@@ -34,7 +34,7 @@ export class NewUserService extends AnonymousUserService {
 
     public getFormValidators(): FormValidators {
         return {
-            login: [Validators.required, LoginValidatorFn],
+            login: [Validators.required, loginValidator],
             firstName: [Validators.required, Validators.maxLength(100)],
             lastName: [Validators.required, Validators.maxLength(100)],
             email: [Validators.required, Validators.email],
