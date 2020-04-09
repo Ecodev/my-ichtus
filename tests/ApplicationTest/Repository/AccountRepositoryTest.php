@@ -82,8 +82,6 @@ class AccountRepositoryTest extends AbstractRepositoryTest
 
     public function testTotalBalance(): void
     {
-        $this->repository->clearCache();
-
         $totalAssets = $this->repository->totalBalanceByType(AccountTypeType::ASSET);
         $totalLiabilities = $this->repository->totalBalanceByType(AccountTypeType::LIABILITY);
         $totalRevenue = $this->repository->totalBalanceByType(AccountTypeType::REVENUE);
@@ -96,21 +94,15 @@ class AccountRepositoryTest extends AbstractRepositoryTest
         self::assertTrue(Money::CHF(11250)->equals($totalExpense));
         self::assertTrue(Money::CHF(3500000)->equals($totalEquity));
 
-        User::setCurrent(new User(User::ROLE_ADMINISTRATOR));
+        $groupAccount = $this->repository->getOneById(10001); // 2. Passifs
+        self::assertSame(AccountTypeType::GROUP, $groupAccount->getType(), 'is a group');
+        self::assertTrue(Money::CHF(0)->equals($groupAccount->getBalance()), 'balance for group account is always 0');
+        self::assertTrue(Money::CHF(3506000)->equals($groupAccount->getTotalBalance()), 'total balance for group account should have been computed via DB triggers');
 
-        $groupAccount = $this->repository->findOneByCode(2); // 2. Passifs
-        $totalPassifs = $this->repository->totalBalanceByParent($groupAccount);
-        self::assertTrue(Money::CHF(3506000)->equals($totalPassifs));
-        self::assertEquals($groupAccount->getBalance(), $totalPassifs);
-
-        $totalPassifsCached = $this->repository->totalBalanceByParent($groupAccount);
-        self::assertSame($totalPassifs, $totalPassifsCached, 'should return exactly same from cache');
-
-        // Total balance can be computed only for accounts of type group
-        /** @var Account $otherAccount */
-        $otherAccount = $this->repository->findOneById(10023); // 1000. Caisse
-        $this->expectExceptionMessage('Cannot compute total balance for Account #10023 of type asset');
-        $this->repository->totalBalanceByParent($otherAccount);
+        $otherAccount = $this->repository->getOneById(10025); // 10201. PostFinance
+        self::assertNotSame(AccountTypeType::GROUP, $otherAccount->getType(), 'not a group');
+        self::assertTrue(Money::CHF(818750)->equals($otherAccount->getBalance()), 'balance for non-group should have been computed via DB triggers');
+        self::assertTrue($otherAccount->getBalance()->equals($otherAccount->getTotalBalance()), 'total balance for non-group should be equal to balance');
     }
 
     public function testGetOneById(): void

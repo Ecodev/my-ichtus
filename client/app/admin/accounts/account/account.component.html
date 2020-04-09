@@ -1,7 +1,7 @@
 <div [formGroup]="form" class="detail-body">
 
     <natural-detail-header newLabel="Nouveau compte" label="Compte" [model]="data.model" [listRoute]="['admin', 'account']">
-        <app-money [amount]="data.model.balance" sizeClass="mat-display-1"></app-money>
+        <app-money [amount]="data.model.totalBalance" sizeClass="mat-display-1"></app-money>
     </natural-detail-header>
 
     <mat-tab-group [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">

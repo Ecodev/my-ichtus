@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Application\Model;
 
-use Application\DBAL\Types\AccountTypeType;
-use Application\Repository\AccountRepository;
 use Application\Traits\HasIban;
 use Application\Traits\HasName;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -81,11 +79,19 @@ class Account extends AbstractModel
     private $creditTransactionLines;
 
     /**
+     * @var Money
+     *
+     * @ORM\Column(type="Money", options={"default" = 0})
+     */
+    private $totalBalance;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->balance = Money::CHF(0);
+        $this->totalBalance = Money::CHF(0);
         $this->children = new ArrayCollection();
         $this->debitTransactionLines = new ArrayCollection();
         $this->creditTransactionLines = new ArrayCollection();
@@ -126,14 +132,17 @@ class Account extends AbstractModel
      */
     public function getBalance(): Money
     {
-        if ($this->type === AccountTypeType::GROUP) {
-            /** @var AccountRepository $accountRepository */
-            $accountRepository = _em()->getRepository(self::class);
-
-            return $accountRepository->totalBalanceByParent($this);
-        }
-
         return $this->balance;
+    }
+
+    /**
+     * Total balance, recursively including all child account if this account is a group
+     *
+     * @return Money
+     */
+    public function getTotalBalance(): Money
+    {
+        return $this->totalBalance;
     }
 
     /**
