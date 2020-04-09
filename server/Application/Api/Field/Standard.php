@@ -7,6 +7,8 @@ namespace Application\Api\Field;
 use Application\Api\Helper;
 use Application\Api\Input\PaginationInputType;
 use Application\Model\AbstractModel;
+use Application\Model\Account;
+use Application\Model\TransactionLine;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use GraphQL\Type\Definition\Type;
 use Money\Money;
@@ -40,9 +42,22 @@ abstract class Standard
                 'name' => $plural,
                 'type' => Type::nonNull(_types()->get($shortName . 'Pagination')),
                 'args' => $listArgs,
-                'resolve' => function ($root, array $args) use ($class): array {
+                'resolve' => function ($root, array $args) use ($class, $metadata): array {
                     $filters = self::customTypesToScalar($args['filter'] ?? []);
-                    $qb = _types()->createFilteredQueryBuilder($class, $filters, $args['sorting'] ?? []);
+
+                    // If null or empty list is provided by client, fallback on default sorting
+                    $sorting = $args['sorting'] ?? [];
+                    if (!$sorting) {
+                        $sorting = self::getDefaultSorting($metadata);
+                    }
+
+                    // And **always** sort by ID
+                    $sorting[] = [
+                        'field' => 'id',
+                        'order' => 'ASC',
+                    ];
+
+                    $qb = _types()->createFilteredQueryBuilder($class, $filters, $sorting);
 
                     $items = Helper::paginate($args['pagination'], $qb);
                     $exportExcelField = Helper::excelExportField($class, $qb);
@@ -298,18 +313,26 @@ abstract class Standard
     /**
      * Get default sorting values with some fallback for some special cases
      *
-     * @param ClassMetadata $class
+     * @param ClassMetadata $metadata
      *
      * @return array
      */
-    private static function getDefaultSorting(ClassMetadata $class): array
+    private static function getDefaultSorting(ClassMetadata $metadata): array
     {
         $defaultSorting = [];
 
-        $defaultSorting[] = [
-            'field' => 'id',
-            'order' => 'ASC',
-        ];
+        $class = $metadata->getName();
+        if ($class === Account::class) {
+            $defaultSorting[] = [
+                'field' => 'code',
+                'order' => 'ASC',
+            ];
+        } elseif ($class === TransactionLine::class) {
+            $defaultSorting[] = [
+                'field' => 'transactionDate',
+                'order' => 'DESC',
+            ];
+        }
 
         return $defaultSorting;
     }

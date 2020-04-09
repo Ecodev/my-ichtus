@@ -13,11 +13,9 @@ import { transactionLineQuery, transactionLinesQuery, transactionLinesForExportQ
 import {
     Account,
     LogicalOperator,
-    SortingOrder,
     TransactionLine,
     TransactionLineInput,
     TransactionLines, TransactionLinesForExport, TransactionLinesForExportVariables,
-    TransactionLineSortingField,
     TransactionLinesVariables,
     TransactionLineVariables,
     TransactionTag,
@@ -176,7 +174,6 @@ export class TransactionLineService extends NaturalAbstractModelService<Transact
 
                 ],
             },
-            sorting: [{field: TransactionLineSortingField.transactionDate, order: SortingOrder.DESC}],
             pagination: {pageIndex: 0, pageSize: 9999},
         };
 
@@ -190,8 +187,8 @@ export class TransactionLineService extends NaturalAbstractModelService<Transact
         qvm.merge('variables', TransactionLineService.getVariablesForExport());
 
         return this.apollo.query<TransactionLinesForExport, TransactionLinesForExportVariables>({
-           query: transactionLinesForExportQuery,
-           variables: qvm.variables.value,
+            query: transactionLinesForExportQuery,
+            variables: qvm.variables.value,
         }).pipe(map(result => {
             const plural = NaturalUtility.makePlural(this.name);
             return result.data[plural].excelExport;
