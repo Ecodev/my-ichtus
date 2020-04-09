@@ -26,8 +26,8 @@
 
         <div style="background:#f5f5f5; padding:20px">
             <div style="max-width:650px; width:100%; margin: auto;">
-                <a href="<?php echo $this->escapeHtmlAttr($this->serverUrl) ?>" style="text-decoration:none; color:#494949; font-size:20px; font-weight:bold;">
-                    <img src="<?php echo $this->escapeHtmlAttr($this->serverUrl) ?>/assets/ichtus.png"
+                <a href="<?php echo $this->serverUrl; ?>" style="text-decoration:none; color:#494949; font-size:20px; font-weight:bold;">
+                    <img src="<?php echo $this->serverUrl; ?>/assets/ichtus.png"
                          border="0"
                          width="60"
                          height="60"
@@ -51,7 +51,7 @@
                 </p>
                 <p style="font-size: 0.8em; margin-top:0;">
                     Ceci est un message automatique de notification envoyé par
-                    <a href="<?php echo $this->escapeHtmlAttr($this->serverUrl) ?>" style="text-decoration:none; color:#cce4ee;"><?php echo $this->escapeHtml($this->hostname) ?></a>, n'y répond pas.
+                    <a href="<?php echo $this->serverUrl; ?>" style="text-decoration:none; color:#cce4ee;"><?php echo $this->escapeHtml($this->hostname) ?></a>, n'y répond pas.
                 </p>
             </div>
         </div>

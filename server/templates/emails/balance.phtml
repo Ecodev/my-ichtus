@@ -17,11 +17,11 @@ $urlServices = $this->serverUrl . '/profile/services';
 
 <?php if ($this->user->getAccount()->getBalance()->isNegative()): ?>
     <p>Afin de sortir du rouge et être à nouveau au sommet de la vague pour surfer l'esprit libre, il te suffit
-       de <a href="<?php echo $this->escapeHtmlAttr($urlTransaction) ?>">faire un versement</a> et/ou ajuster <a
-                href="<?php echo $this->escapeHtmlAttr($urlServices) ?>">les services utilisés</a>.</p>
+       de <a href="<?php echo $urlTransaction; ?>">faire un versement</a> et/ou ajuster <a
+                href="<?php echo $urlServices; ?>">les services utilisés</a>.</p>
 
     <p style="text-align:center;margin:40px 0">
-        <a href="<?php echo $this->escapeHtmlAttr($urlTransaction) ?>"
+        <a href="<?php echo $urlTransaction; ?>"
            style="padding:10px; background:#3176a2; text-decoration:none; color:white;">
             Faire un versement
         </a>
