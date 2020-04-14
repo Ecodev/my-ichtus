@@ -50,9 +50,4 @@ export class EditableTransactionLinesComponent
             this.addEmpty();
         }
     }
-
-    public getAccountLabel(account: Account['account']): string {
-        return [account.code, account.name].join(' ');
-    }
-
 }

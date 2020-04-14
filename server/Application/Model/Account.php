@@ -98,6 +98,16 @@ class Account extends AbstractModel
     }
 
     /**
+     * Get full name including code and name
+     *
+     * @return string
+     */
+    public function getFullName(): string
+    {
+        return implode(' - ', array_filter([$this->getCode(), $this->getName()]));
+    }
+
+    /**
      * Assign the account to an user
      *
      * @param null|User $owner

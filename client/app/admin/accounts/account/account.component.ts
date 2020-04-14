@@ -62,13 +62,6 @@ export class AccountComponent
         }
     }
 
-    public getAccountLabel(account: Account['account']): string {
-        if (account) {
-            return [account.code, account.name].join(' ');
-        }
-        return '';
-    }
-
     public updateLinkedFields(): void {
         const typeField = this.form.get('type');
         if (typeField && typeField.value !== 'liability') {
