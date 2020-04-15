@@ -110,7 +110,9 @@ class Mailer
         $message->setDateSent(new Chronos());
         $this->entityManager->flush();
 
-        echo 'email sent to: ' . $message->getEmail() . "\t" . $overriddenBy . "\t" . $message->getSubject() . PHP_EOL;
+        $addressList = $mailMessage->getFrom();
+        $addressList->rewind();
+        echo 'email from ' . $addressList->current()->getEmail() . ' sent to: ' . $message->getEmail() . "\t" . $overriddenBy . "\t" . $message->getSubject() . PHP_EOL;
     }
 
     /**
