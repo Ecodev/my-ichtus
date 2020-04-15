@@ -19,17 +19,21 @@
                     "options": {
                         "aot": true,
                         "preserveSymlinks": true,
-                        "outputPath": "htdocs",
+                        "outputPath": "data/tmp/build",
                         "index": "client/index.html",
                         "main": "client/main.ts",
                         "polyfills": "client/polyfills.ts",
                         "tsConfig": "client/tsconfig.app.json",
-                        "deleteOutputPath": false,
                         "assets": [
                             "client/assets",
                             {
                                 "input": "client/favicon",
                                 "glob": "*",
+                                "output": "/"
+                            },
+                            {
+                                "input": "server/",
+                                "glob": "index.php",
                                 "output": "/"
                             }
                         ],
@@ -111,6 +115,11 @@
                                 "input": "client/favicon",
                                 "glob": "*",
                                 "output": "/"
+                            },
+                            {
+                                "input": "server/",
+                                "glob": "index.php",
+                                "output": "/"
                             }
                         ]
                     }
@@ -168,7 +177,7 @@
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
                         "aot": true,
-                        "outputPath": "htdocs/vanilla",
+                        "outputPath": "data/tmp/build-vanilla",
                         "index": "client/vanilla/index.html",
                         "main": "client/vanilla/main.ts",
                         "tsConfig": "client/vanilla/tsconfig.app.json"

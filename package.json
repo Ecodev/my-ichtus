@@ -4,9 +4,10 @@
     "license": "MIT",
     "scripts": {
         "ng": "ng",
-        "dev": "yarn codegen && ng serve",
-        "prod": "yarn codegen && ng build --prod",
-        "test": "yarn codegen && ng test",
+        "prerequisite": "mkdir -p htdocs/ && cp -v server/index.php htdocs/ && yarn codegen",
+        "dev": "yarn prerequisite && ng serve",
+        "prod": "yarn prerequisite && ng build --prod && ng build --prod vanilla && rm -rf htdocs/ && mv -v data/tmp/build htdocs && mv -v data/tmp/build-vanilla htdocs/vanilla",
+        "test": "yarn prerequisite && ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
         "codegen": "./bin/dump-schema && apollo client:codegen -c apollo.config.js  --outputFlat --target typescript client/app/shared/generated-types.ts"
