@@ -13,7 +13,6 @@ parameters:
         - '~^Access to an undefined property GraphQL\\Language\\AST\\Node::\$kind\.$~'
         - '~^Property .* does not accept Application\\Repository\\AbstractRepository\<Application\\Model\\.*\>\.$~'
         - '~^Property .* does not accept PHPUnit\\Framework\\MockObject\\MockObject\.$~'
-        - '~^Call to method Prophecy\\Prophecy\\ObjectProphecy\:\:.*\(\) on a separate line has no effect\.$~'
         - '~^Parameter \#1 \$wrappedType of static method GraphQL\\Type\\Definition\\Type\:\:nonNull\(\) expects GraphQL\\Type\\Definition\\NullableType, GraphQL\\Type\\Definition\\.* given\.$~'
         - '~^Parameter \#3 \$type of method Doctrine\\ORM\\AbstractQuery\:\:setParameter\(\) expects string\|null, int given\.$~'
         -
@@ -21,6 +20,5 @@ parameters:
             path: server/Application/Model/TransactionLine.php
 
 includes:
-    - vendor/jangregor/phpstan-prophecy/src/extension.neon
     - vendor/phpstan/phpstan-doctrine/extension.neon
     - vendor/phpstan/phpstan-doctrine/rules.neon

@@ -39,9 +39,9 @@ class ExcelExportActionTest extends TestCase
         // Mock route parsing: /export/transactionLines/{key:[0-9a-f]+}/{name:.+\.xlsx}
         $request = (new ServerRequest())->withAttribute('key', $m[1])->withAttribute('name', $m[2]);
 
-        $handler = $this->prophesize(RequestHandlerInterface::class);
+        $handler = $this->createMock(RequestHandlerInterface::class);
 
-        $response = $action->process($request, $handler->reveal());
+        $response = $action->process($request, $handler);
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertStringContainsString('attachment; filename=Ichtus_compta_ecritures', $response->getHeaderLine('content-disposition'));

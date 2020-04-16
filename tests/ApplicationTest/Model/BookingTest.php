@@ -9,7 +9,6 @@ use Application\Model\Booking;
 use Application\Model\User;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
 
 class BookingTest extends TestCase
 {
@@ -55,12 +54,16 @@ class BookingTest extends TestCase
     {
         $booking = new Booking();
 
-        $prophecy1 = $this->prophesize(Bookable::class);
-        $prophecy1->getSharedBookings()->willReturn([]);
-        $prophecy1->getPeriodicPrice()->willReturn(Money::CHF(500));
-        $prophecy1->bookingAdded(Argument::is($booking));
+        $bookable = $this->createMock(Bookable::class);
+        $bookable->expects($this->any())
+            ->method('getSharedBookings')
+            ->willReturn([]);
 
-        $booking->setBookable($prophecy1->reveal());
+        $bookable->expects($this->any())
+            ->method('getPeriodicPrice')
+            ->willReturn(Money::CHF(500));
+
+        $booking->setBookable($bookable);
         self::assertEquals(Money::CHF(500), $booking->getPeriodicPrice(), 'price should be exactly the bookable price');
     }
 
@@ -68,12 +71,16 @@ class BookingTest extends TestCase
     {
         $booking = new Booking();
 
-        $prophecy1 = $this->prophesize(Bookable::class);
-        $prophecy1->getSharedBookings()->willReturn([1, 2, 3]);
-        $prophecy1->getPeriodicPrice()->willReturn(Money::CHF(500));
-        $prophecy1->bookingAdded(Argument::is($booking));
+        $bookable = $this->createMock(Bookable::class);
+        $bookable->expects($this->any())
+            ->method('getSharedBookings')
+            ->willReturn([1, 2, 3]);
 
-        $booking->setBookable($prophecy1->reveal());
+        $bookable->expects($this->any())
+            ->method('getPeriodicPrice')
+            ->willReturn(Money::CHF(500));
+
+        $booking->setBookable($bookable);
         self::assertEquals(Money::CHF(167), $booking->getPeriodicPrice(), 'price should be divided by the number of shared booking');
     }
 }

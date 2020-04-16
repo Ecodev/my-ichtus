@@ -65,6 +65,6 @@ class AccountingDocumentRepositoryTest extends AbstractRepositoryTest
 
         $this->getEntityManager()->remove($document);
         $this->getEntityManager()->flush();
-        self::assertFileNotExists($path, 'test file must have been deleted when record was deleted');
+        self::assertFileDoesNotExist($path, 'test file must have been deleted when record was deleted');
     }
 }

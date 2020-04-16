@@ -46,7 +46,7 @@ class ImageRepositoryTest extends AbstractRepositoryTest
 
         $this->getEntityManager()->remove($image);
         $this->getEntityManager()->flush();
-        self::assertFileNotExists($path, 'test file must have been deleted when record was deleted');
+        self::assertFileDoesNotExist($path, 'test file must have been deleted when record was deleted');
     }
 
     public function testDoctrineDoesNotFuckUpAndDeleteImageFromUnrelatedBookable(): void
@@ -87,7 +87,7 @@ class ImageRepositoryTest extends AbstractRepositoryTest
         $mustBeDeleted = 'data/images/chat1.jpg';
         foreach ($paths as $p) {
             if ($p === $mustBeDeleted) {
-                self::assertFileNotExists($p);
+                self::assertFileDoesNotExist($p);
             } else {
                 self::assertFileExists($p);
             }

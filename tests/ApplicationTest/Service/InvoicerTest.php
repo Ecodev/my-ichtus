@@ -103,12 +103,12 @@ class InvoicerTest extends TestCase
                 Money::CHF(0),
                 Money::CHF(0),
                 [],
-            ],
+                            ],
             'only initial' => [
                 Money::CHF(1025),
                 Money::CHF(0),
                 [
-                    [
+                [
                         'Prestation ponctuelle',
                         'My bookable',
                         'John Doe',
@@ -116,20 +116,20 @@ class InvoicerTest extends TestCase
                         '1025',
                     ],
                 ],
-            ],
+                    ],
             'only periodic' => [
                 Money::CHF(0),
                 Money::CHF(9025),
                 [
-                    [
+                        [
                         'Prestation annuelle',
                         'My bookable',
-                        'John Doe',
+                    'John Doe',
                         'Bookable account',
                         '9025',
-                    ],
                 ],
-            ],
+                    ],
+                    ],
             'both initial and periodic should create two lines' => [
                 Money::CHF(1025),
                 Money::CHF(9025),
@@ -141,10 +141,10 @@ class InvoicerTest extends TestCase
                         'Bookable account',
                         '1025',
                     ],
-                    [
+                [
                         'Prestation annuelle',
                         'My bookable',
-                        'John Doe',
+                    'John Doe',
                         'Bookable account',
                         '9025',
                     ],
@@ -154,14 +154,14 @@ class InvoicerTest extends TestCase
                 Money::CHF(-1025),
                 Money::CHF(-9025),
                 [
-                    [
+                        [
                         'Prestation ponctuelle',
                         'My bookable',
                         'Bookable account',
-                        'John Doe',
+                    'John Doe',
                         '1025',
-                    ],
-                    [
+                ],
+                [
                         'Prestation annuelle',
                         'My bookable',
                         'Bookable account',
