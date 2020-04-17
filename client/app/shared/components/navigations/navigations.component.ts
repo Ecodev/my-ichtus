@@ -115,7 +115,7 @@ export class NavigationsComponent extends NaturalAbstractController implements O
         });
     }
 
-    public getNavigations(users: Users['users']['items']): Observable<Bookings['bookings']> {
+    private getNavigations(users: Users['users']['items']): Observable<Bookings['bookings']> {
 
         const owner = {in: {values: users.map(u => u.id)}};
         const endDate = this.activeOnly ? {null: {}} : null;
