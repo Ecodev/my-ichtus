@@ -16,6 +16,8 @@ export const accountMetaFragment = gql`
             name
             iban
         }
+        creationDate
+        updateDate
     }
 `;
 
@@ -49,11 +51,9 @@ export const accountQuery = gql`
                     }
                 }
             }
-            creationDate
             creator {
                 ...userMeta
             }
-            updateDate
             updater {
                 ...userMeta
             }
