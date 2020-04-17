@@ -66,7 +66,16 @@ class AccountRepositoryTest extends AbstractRepositoryTest
         self::assertSame($account, $user->getAccount());
 
         $account2 = $this->repository->getOrCreate($user);
-        self::assertSame($account, $account2, 'should return the same one if called more than once');
+        self::assertSame($account, $account2, 'should return the same account if called more than once for same user');
+
+        $user2 = new User();
+        $user2->setFirstName('Alice');
+        $user2->setLastName('Stark');
+
+        $account3 = $this->repository->getOrCreate($user2);
+        self::assertNotSame($account, $account3, 'creating a second account for a second user should not give same code');
+        self::assertNotSame($account->getCode(), $account3->getCode(), 'creating a second account for a second user should not give same code');
+        self::assertSame(20300010, $account3->getCode(), 'should have been incremented from maxCode in memory');
     }
 
     public function testGetOrCreateInMemory(): void

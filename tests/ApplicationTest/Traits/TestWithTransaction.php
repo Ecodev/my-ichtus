@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ApplicationTest\Traits;
 
+use Application\Model\Account;
 use Application\Model\User;
 use Doctrine\ORM\EntityManager;
 
@@ -39,5 +40,6 @@ trait TestWithTransaction
         $this->getEntityManager()->rollback();
         $this->getEntityManager()->clear();
         $this->getEntityManager()->getConnection()->close();
+        $this->getEntityManager()->getRepository(Account::class)->clearCache();
     }
 }

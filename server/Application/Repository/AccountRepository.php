@@ -15,6 +15,19 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
     const ACCOUNT_ID_FOR_BANK = 10025;
 
     /**
+     * In memory max code that keep being incremented if we create several account at once without flushing in DB
+     */
+    private ?int $maxCode = null;
+
+    /**
+     * Clear all caches
+     */
+    public function clearCache(): void
+    {
+        $this->maxCode = null;
+    }
+
+    /**
      * Returns pure SQL to get ID of all objects that are accessible to given user.
      *
      * @param null|User $user
@@ -40,8 +53,6 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
      * This should only be used in tests or controlled environment.
      *
      * @param int $id
-     *
-     * @throws \Exception
      *
      * @return Account
      */
@@ -84,12 +95,17 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
             $account->setType(AccountTypeType::LIABILITY);
             $account->setName($user->getName());
 
-            // Find the next available account code, using the liability parent code as prefix
-            $nextQuery = 'SELECT MAX(children.code)+1 from account parent, account children where parent.id=' . self::PARENT_ACCOUNT_ID_FOR_USER . ' and children.code LIKE CONCAT(parent.code, \'%\')';
-            $nextCode = (int) $this->getEntityManager()->getConnection()->fetchColumn($nextQuery);
+            $parent = $this->getOneById(self::PARENT_ACCOUNT_ID_FOR_USER);
+
+            // Find the max account code, using the liability parent code as prefix
+            if (!$this->maxCode) {
+                $maxQuery = 'SELECT MAX(code) FROM account WHERE code LIKE ' . $this->getEntityManager()->getConnection()->quote($parent->getCode() . '%');
+                $this->maxCode = (int) $this->getEntityManager()->getConnection()->fetchColumn($maxQuery);
+            }
+
+            $nextCode = ++$this->maxCode;
             $account->setCode($nextCode);
 
-            $parent = $this->getOneById(self::PARENT_ACCOUNT_ID_FOR_USER);
             $account->setParent($parent);
         }
 
