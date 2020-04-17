@@ -4,8 +4,7 @@ import { Apollo } from 'apollo-angular';
 import { Relationship } from '../../../shared/generated-types';
 import { Router } from '@angular/router';
 import { UserService } from '../../../admin/users/services/user.service';
-import { NaturalAlertService } from '@ecodev/natural';
-import { NaturalFormControl } from '@ecodev/natural';
+import { NaturalAlertService, NaturalFormControl } from '@ecodev/natural';
 
 @Component({
     selector: 'app-request-password-reset',

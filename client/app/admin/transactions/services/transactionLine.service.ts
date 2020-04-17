@@ -3,24 +3,26 @@ import { FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/f
 import {
     FormValidators,
     NaturalAbstractModelService,
+    NaturalQueryVariablesManager,
     NaturalSearchSelections,
     NaturalUtility,
-    NaturalQueryVariablesManager,
-    toUrl
+    toUrl,
 } from '@ecodev/natural';
 import { Apollo } from 'apollo-angular';
-import { transactionLineQuery, transactionLinesQuery, transactionLinesForExportQuery } from './transactionLine.queries';
+import { transactionLineQuery, transactionLinesForExportQuery, transactionLinesQuery } from './transactionLine.queries';
 import {
     Account,
     LogicalOperator,
     TransactionLine,
     TransactionLineInput,
-    TransactionLines, TransactionLinesForExport, TransactionLinesForExportVariables,
+    TransactionLines,
+    TransactionLinesForExport,
+    TransactionLinesForExportVariables,
     TransactionLinesVariables,
     TransactionLineVariables,
     TransactionTag,
 } from '../../../shared/generated-types';
-import { Observable, Subject} from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RouterLink } from '@angular/router';
 

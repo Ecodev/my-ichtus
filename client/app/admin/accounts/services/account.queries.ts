@@ -1,6 +1,5 @@
 import gql from 'graphql-tag';
 import { permissionsFragment, userMetaFragment } from '../../../shared/queries/fragments';
-import { bookingMetaFragment } from '../../bookings/services/booking.queries';
 
 export const accountMetaFragment = gql`
     fragment accountMeta on Account {

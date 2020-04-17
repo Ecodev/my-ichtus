@@ -3,10 +3,8 @@ import { UsersVariables } from '../../../shared/generated-types';
 import { UserService } from '../../../admin/users/services/user.service';
 import { PermissionsService } from '../../../shared/services/permissions.service';
 import { ActivatedRoute } from '@angular/router';
-import { NaturalAlertService } from '@ecodev/natural';
+import { NaturalAbstractModelService, NaturalAlertService, NaturalQueryVariablesManager } from '@ecodev/natural';
 import { mergeWith } from 'lodash';
-import { NaturalQueryVariablesManager } from '@ecodev/natural';
-import { NaturalAbstractModelService } from '@ecodev/natural';
 
 @Component({
     selector: 'app-family',

@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { TransactionLineService } from '../services/transactionLine.service';
 import { BookableService } from '../../bookables/services/bookable.service';
 import {
-    Account,
     Transaction,
     TransactionLineInput,
     TransactionLines_transactionLines_items,

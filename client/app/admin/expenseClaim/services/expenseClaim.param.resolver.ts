@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ExpenseClaimResolve } from '../expenseClaim';
 import { ErrorService } from '../../../shared/components/error/error.service';
 import { ExpenseClaimService } from './expenseClaim.service';

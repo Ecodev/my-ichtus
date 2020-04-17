@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { NaturalAlertService } from '@ecodev/natural';
+import { NaturalUtility } from '@ecodev/natural';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookableService } from '../../../admin/bookables/services/bookable.service';
 import { RegisterComponent } from './register.component';
@@ -7,7 +7,6 @@ import { NewUserService } from './new-user.service';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { pick } from 'lodash';
-import { NaturalUtility } from '@ecodev/natural';
 
 @Component({
     selector: 'app-confirm',

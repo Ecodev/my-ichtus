@@ -1,10 +1,9 @@
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../../../admin/users/services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { ExpenseClaimService } from '../../../admin/expenseClaim/services/expenseClaim.service';
 import { TransactionLineService } from '../../../admin/transactions/services/transactionLine.service';
-import { NaturalAbstractController } from '@ecodev/natural';
-import { NaturalDataSource } from '@ecodev/natural';
+import { NaturalAbstractController, NaturalDataSource } from '@ecodev/natural';
 
 @Component({
     selector: 'app-history',

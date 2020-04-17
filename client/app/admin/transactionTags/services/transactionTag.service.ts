@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { NaturalAbstractModelService, FormValidators } from '@ecodev/natural';
+import { FormValidators, NaturalAbstractModelService } from '@ecodev/natural';
 import {
-    transactionTagsQuery,
-    transactionTagQuery,
     createTransactionTag,
     deleteTransactionTags,
+    transactionTagQuery,
+    transactionTagsQuery,
     updateTransactionTag,
 } from './transactionTag.queries';
 import {
-    TransactionTags,
-    TransactionTagsVariables,
-    TransactionTagInput,
-    TransactionTag,
-    TransactionTagVariables,
     CreateTransactionTag,
     CreateTransactionTagVariables,
+    TransactionTag,
+    TransactionTagInput,
+    TransactionTags,
+    TransactionTagsVariables,
+    TransactionTagVariables,
     UpdateTransactionTag,
     UpdateTransactionTagVariables,
 } from '../../../shared/generated-types';

@@ -1,5 +1,12 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { CreateUser, CreateUserVariables, UpdateUser, UpdateUserVariables, User, UserVariables } from '../../../shared/generated-types';
+import {
+    CreateUser,
+    CreateUserVariables,
+    UpdateUser,
+    UpdateUserVariables,
+    User,
+    UserVariables,
+} from '../../../shared/generated-types';
 import { BookableService } from '../../../admin/bookables/services/bookable.service';
 import { AnonymousUserService } from './anonymous-user.service';
 import gql from 'graphql-tag';

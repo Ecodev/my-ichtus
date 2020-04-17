@@ -1,5 +1,12 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
-import { CreateUser, CreateUserVariables, UpdateUser, UpdateUserVariables, User, UserVariables } from '../../../shared/generated-types';
+import {
+    CreateUser,
+    CreateUserVariables,
+    UpdateUser,
+    UpdateUserVariables,
+    User,
+    UserVariables,
+} from '../../../shared/generated-types';
 import { NaturalAbstractDetail } from '@ecodev/natural';
 import { merge } from 'lodash';
 import { FamilyUserService } from './family-user.service';

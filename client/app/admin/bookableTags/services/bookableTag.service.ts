@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import {
-    NaturalAbstractModelService,
-    FormValidators,
-    FormAsyncValidators,
-    unique,
-} from '@ecodev/natural';
+import { FormAsyncValidators, FormValidators, NaturalAbstractModelService, unique } from '@ecodev/natural';
 import {
     bookableTagQuery,
     bookableTagsQuery,
@@ -14,7 +9,8 @@ import {
     updateBookableTag,
 } from './bookableTag.queries';
 import {
-    BookableTag, BookableTag_bookableTag,
+    BookableTag,
+    BookableTag_bookableTag,
     BookableTagInput,
     BookableTags,
     BookableTagsVariables,

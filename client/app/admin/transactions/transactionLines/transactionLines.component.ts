@@ -3,7 +3,8 @@ import { NaturalAbstractList, NaturalQueryVariablesManager } from '@ecodev/natur
 import { NaturalSearchFacetsService } from '../../../shared/natural-search/natural-search-facets.service';
 import { TransactionLineService } from '../services/transactionLine.service';
 import {
-    Account, TransactionLine,
+    Account,
+    TransactionLine,
     TransactionLines,
     TransactionLinesForExportVariables,
     TransactionLinesVariables,

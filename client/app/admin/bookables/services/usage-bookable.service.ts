@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { bookableQuery, createBookable, deleteBookables, updateBookable, usageBookablesQuery } from './bookable.queries';
+import {
+    bookableQuery,
+    createBookable,
+    deleteBookables,
+    updateBookable,
+    usageBookablesQuery,
+} from './bookable.queries';
 import {
     Bookable,
     Bookables,

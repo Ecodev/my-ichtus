@@ -1,22 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import {
-    NaturalAbstractModelService,
-    FormValidators,
-    FormAsyncValidators,
-    unique,
-} from '@ecodev/natural';
+import { FormAsyncValidators, FormValidators, NaturalAbstractModelService, unique } from '@ecodev/natural';
 import { createUserTag, deleteUserTags, updateUserTag, userTagQuery, userTagsQuery } from './userTag.queries';
 import {
     CreateUserTag,
     CreateUserTagVariables,
     UpdateUserTag,
     UpdateUserTagVariables,
-    UserTagInput,
     UserTag,
-    UserTagVariables,
+    UserTag_userTag,
+    UserTagInput,
     UserTags,
-    UserTagsVariables, UserTag_userTag,
+    UserTagsVariables,
+    UserTagVariables,
 } from '../../../shared/generated-types';
 import { Validators } from '@angular/forms';
 

@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { NaturalAbstractModelService, FormValidators, FormAsyncValidators, unique } from '@ecodev/natural';
+import { FormAsyncValidators, FormValidators, NaturalAbstractModelService, unique } from '@ecodev/natural';
 import { createLicense, deleteLicenses, licenseQuery, licensesQuery, updateLicense } from './license.queries';
 import {
     CreateLicense,
     CreateLicenseVariables,
-    LicenseInput,
     License,
-    LicenseVariables,
+    License_license,
+    LicenseInput,
     Licenses,
     LicensesVariables,
+    LicenseVariables,
     UpdateLicense,
-    UpdateLicenseVariables, License_license,
+    UpdateLicenseVariables,
 } from '../../../shared/generated-types';
 import { Validators } from '@angular/forms';
 

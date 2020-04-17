@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DoorService } from './services/door.service';
-import { NaturalAbstractController } from '@ecodev/natural';
+import { Literal, NaturalAbstractController, NaturalAlertService } from '@ecodev/natural';
 import { UserService } from '../admin/users/services/user.service';
 import { ActivatedRoute } from '@angular/router';
-import { Literal } from '@ecodev/natural';
-import { NaturalAlertService } from '@ecodev/natural';
-
 
 @Component({
     selector: 'app-door',

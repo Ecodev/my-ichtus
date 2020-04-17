@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { bookableQuery, bookablesQuery, createBookable, deleteBookables, updateBookable } from './bookable.queries';
 import {
-    Bookable, Bookable_bookable,
+    Bookable,
+    Bookable_bookable,
     BookableInput,
     Bookables,
     BookableState,
@@ -25,8 +26,13 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BookingService } from '../../bookings/services/booking.service';
 import { intersectionBy } from 'lodash';
-import { NaturalAbstractModelService, FormValidators, FormAsyncValidators, unique } from '@ecodev/natural';
-import { NaturalQueryVariablesManager } from '@ecodev/natural';
+import {
+    FormAsyncValidators,
+    FormValidators,
+    NaturalAbstractModelService,
+    NaturalQueryVariablesManager,
+    unique,
+} from '@ecodev/natural';
 import { BookableTagService } from '../../bookableTags/services/bookableTag.service';
 
 function creditAccountRequiredValidator(formGroup: FormGroup): ValidationErrors | null {

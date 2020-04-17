@@ -1,19 +1,19 @@
 import {
     Component,
-    Output,
-    ViewChild,
+    ElementRef,
     EventEmitter,
     OnDestroy,
-    Optional,
-    Self,
-    ElementRef,
     OnInit,
+    Optional,
+    Output,
+    Self,
+    ViewChild,
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { EditorView } from 'prosemirror-view';
 import { EditorState } from 'prosemirror-state';
 import { exampleSetup } from 'prosemirror-example-setup';
-import { DOMSerializer, DOMParser } from 'prosemirror-model';
+import { DOMParser, DOMSerializer } from 'prosemirror-model';
 import { schema } from './schema';
 
 /**

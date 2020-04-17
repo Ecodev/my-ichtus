@@ -4,18 +4,20 @@ import {
     FlagFacet,
     NaturalEnumService,
     NaturalSearchFacets,
-    TypeNaturalSelectComponent,
-    TypeSelectNaturalConfiguration,
-    TypeNumberComponent,
-    TypeNumberConfiguration,
-    TypeHierarchicSelectorComponent,
-    TypeHierarchicSelectorConfiguration,
+    NaturalSearchSelection,
+    replaceOperatorByName,
     TypeDateComponent,
     TypeDateConfiguration,
-    TypeTextComponent,
+    TypeHierarchicSelectorComponent,
+    TypeHierarchicSelectorConfiguration,
+    TypeNaturalSelectComponent,
+    TypeNumberComponent,
+    TypeNumberConfiguration,
     TypeSelectComponent,
     TypeSelectConfiguration,
-    wrapLike, replaceOperatorByName, NaturalSearchSelection,
+    TypeSelectNaturalConfiguration,
+    TypeTextComponent,
+    wrapLike,
 } from '@ecodev/natural';
 import { UserTagService } from '../../admin/userTags/services/userTag.service';
 import { BookableService } from '../../admin/bookables/services/bookable.service';
@@ -23,11 +25,10 @@ import { UserService } from '../../admin/users/services/user.service';
 import { LicenseService } from '../../admin/licenses/services/license.service';
 import { TransactionService } from '../../admin/transactions/services/transaction.service';
 import { TransactionTagService } from '../../admin/transactionTags/services/transactionTag.service';
-import { UserFilterGroupCondition, TransactionLineFilterGroupCondition } from '../generated-types';
+import { UserFilterGroupCondition } from '../generated-types';
 import { AccountService } from '../../admin/accounts/services/account.service';
 import { accountHierarchicConfiguration } from '../hierarchic-selector/AccountHierarchicConfiguration';
 import { BookableTagService } from '../../admin/bookableTags/services/bookableTag.service';
-import { TypeSelectItem } from '@ecodev/natural/lib/modules/dropdown-components/type-select/type-select.component';
 
 function dontHave(selection: NaturalSearchSelection): NaturalSearchSelection {
     if (selection.condition && selection.condition.have) {

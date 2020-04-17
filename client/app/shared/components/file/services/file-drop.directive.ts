@@ -1,6 +1,5 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
 import { ngfDrop } from 'angular-file';
-import { debounce } from 'lodash';
 import { UploadService } from './upload.service';
 
 @Directive({

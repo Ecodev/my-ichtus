@@ -9,25 +9,22 @@ import {
     updateAccount,
 } from './account.queries';
 import {
-    Account, Account_account,
-    AccountVariables,
+    Account,
+    Account_account,
+    AccountInput,
     Accounts,
     AccountsVariables,
     AccountType,
+    AccountVariables,
     CreateAccount,
     CreateAccountVariables,
     DeleteAccounts,
+    NextAccountCode,
     UpdateAccount,
     UpdateAccountVariables,
-    NextAccountCode, AccountInput,
 } from '../../../shared/generated-types';
 import { Validators } from '@angular/forms';
-import {
-    FormAsyncValidators,
-    FormValidators,
-    NaturalAbstractModelService,
-    unique,
-} from '@ecodev/natural';
+import { FormAsyncValidators, FormValidators, NaturalAbstractModelService, unique } from '@ecodev/natural';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

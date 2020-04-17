@@ -1,6 +1,5 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { NaturalAbstractList } from '@ecodev/natural';
-import { NaturalSearchFacetsService } from '../../../shared/natural-search/natural-search-facets.service';
 import { UserTags, UserTagsVariables } from '../../../shared/generated-types';
 import { UserTagService } from '../services/userTag.service';
 import { PermissionsService } from '../../../shared/services/permissions.service';
