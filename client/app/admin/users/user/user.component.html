@@ -181,7 +181,7 @@
                             ></textarea>
                         </mat-form-field>
 
-                    </div>
+                </div>
                 </div>
 
                 <!-- Bookings -->
@@ -237,46 +237,46 @@
                 <mat-divider></mat-divider>
 
                 <div fxLayout="column" fxLayoutGap="15px">
-                    <natural-stamp [item]="data.model"></natural-stamp>
+                        <natural-stamp [item]="data.model"></natural-stamp>
 
-                    <!-- Welcome session date -->
-                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                        <!-- Welcome session date -->
+                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
 
-                        <mat-form-field>
-                            <mat-label>Séance d'accueil</mat-label>
-                            <input matInput formControlName="welcomeSessionDate" [matDatepicker]="picker2" (dateChange)="update()">
+                            <mat-form-field>
+                                <mat-label>Séance d'accueil</mat-label>
+                                <input matInput formControlName="welcomeSessionDate" [matDatepicker]="picker2" (dateChange)="update()">
 
-                            <div matSuffix xLayout="row" fxLayoutAlign="start center">
-                                <mat-datepicker-toggle [for]="picker2"></mat-datepicker-toggle>
-                                <mat-datepicker #picker2></mat-datepicker>
+                                <div matSuffix xLayout="row" fxLayoutAlign="start center">
+                                    <mat-datepicker-toggle [for]="picker2"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker2></mat-datepicker>
 
-                                <button mat-icon-button
-                                        *ngIf="form.get('welcomeSessionDate')?.value"
-                                        (click)="form.get('welcomeSessionDate')?.setValue(null); update()"
-                                >
-                                    <natural-icon name="close"></natural-icon>
-                                </button>
-                            </div>
+                                    <button mat-icon-button
+                                            *ngIf="form.get('welcomeSessionDate')?.value"
+                                            (click)="form.get('welcomeSessionDate')?.setValue(null); update()"
+                                    >
+                                        <natural-icon name="close"></natural-icon>
+                                    </button>
+                                </div>
 
-                        </mat-form-field>
+                            </mat-form-field>
 
+                        </div>
+
+                        <div>
+                            <span class="mat-body-2">Première connexion :</span>
+                            {{ data.model.firstLogin | swissDate }}
+                        </div>
+
+                        <div>
+                            <span class="mat-body-2">Dernière connexion :</span>
+                            {{ data.model.lastLogin | swissDate }}
+                        </div>
+
+                        <div *ngIf="data.model.resignDate && data.model.status == 'archived'">
+                            <span class="mat-body-2">Démission le :</span>
+                            {{ data.model.resignDate | swissDate }}
+                        </div>
                     </div>
-
-                    <div>
-                        <span class="mat-body-2">Première connexion :</span>
-                        {{ data.model.firstLogin  | date: 'd MMM y - HH:mm' }}
-                    </div>
-
-                    <div>
-                        <span class="mat-body-2">Dernière connexion :</span>
-                        {{ data.model.lastLogin  | date: 'd MMM y - HH:mm' }}
-                    </div>
-
-                    <div *ngIf="data.model.resignDate && data.model.status == 'archived'">
-                        <span class="mat-body-2">Démission le :</span>
-                        {{ data.model.resignDate  | date: 'd MMM y - HH:mm' }}
-                    </div>
-                </div>
 
             </div>
 

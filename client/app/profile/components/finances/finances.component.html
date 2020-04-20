@@ -62,7 +62,7 @@
                 <ng-container matColumnDef="date">
                     <th mat-header-cell *matHeaderCellDef>Dernière modification</th>
                     <td mat-cell *matCellDef="let expenseClaim">
-                        {{ expenseClaim.updateDate || expenseClaim.creationDate | date: 'fullDate' | capitalize}}
+                        {{ expenseClaim.updateDate || expenseClaim.creationDate | date: 'dd.MM.y'}}
                     </td>
                 </ng-container>
 

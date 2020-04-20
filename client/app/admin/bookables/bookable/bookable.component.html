@@ -4,7 +4,7 @@
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
             <div fxLayout="column" style="text-align:right" *ngIf="form.get('verificationDate')?.value">
                 <div class="mat-body-2">Dernière vérification</div>
-                <div class="mat-body-1">{{ form.get('verificationDate')?.value | date: 'longDate' }}</div>
+                <div class="mat-body-1">{{ form.get('verificationDate')?.value | date: 'dd.MM.y' }}</div>
             </div>
             <button mat-flat-button color="primary" (click)="verify()" *ngIf="data.model.id && showVerified()">
                 Marquer comme vérifié

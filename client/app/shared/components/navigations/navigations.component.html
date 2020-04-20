@@ -26,10 +26,10 @@
                             Retour prévu : {{ booking.estimatedEndDate }}
                         </div>
                         <div>
-                            Début : {{ booking.startDate  | date: 'd MMM y - HH:mm' }}
+                            Début : {{ booking.startDate  | swissDate }}
                         </div>
                         <div *ngIf="booking.endDate">
-                            Fin : {{ booking.endDate  | date: 'd MMM y - HH:mm' }}
+                            Fin : {{ booking.endDate  | swissDate }}
                         </div>
 
                         <div fxLayout="row" fxLayoutAlign="end center">
