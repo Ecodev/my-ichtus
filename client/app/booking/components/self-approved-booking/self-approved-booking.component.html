@@ -21,7 +21,7 @@
 
             <app-card>
                 <card-illustration class="padding">
-                    <ngx-avatar *ngIf="!!booking.owner" [name]="booking.owner.name" [size]="160"></ngx-avatar>
+                    <ngx-avatar *ngIf="!!booking.owner" [name]="booking.owner.name" [gravatarId]="booking.owner.email" [size]="160"></ngx-avatar>
                     <ngx-avatar *ngIf="!booking.owner" name="Invité" [size]="160"></ngx-avatar>
                 </card-illustration>
 

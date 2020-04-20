@@ -119,7 +119,7 @@
                     <th mat-header-cell *matHeaderCellDef natural-3em-column natural-align-center>Utilisations</th>
                     <td mat-cell *matCellDef="let element"  natural-align-center>
                         <div *ngFor="let b of element.sharedBookings" fxLayout="row">
-                            <ngx-avatar [name]="b.owner.name" [size]="36"></ngx-avatar>
+                            <ngx-avatar [name]="b.owner.name" [gravatarId]="element.owner?.email" [size]="36"></ngx-avatar>
                             <a mat-button [routerLink]="['/admin/user', b.owner.id]">
                                 {{ b.owner.name }}
                             </a>

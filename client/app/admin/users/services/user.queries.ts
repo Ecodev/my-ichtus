@@ -76,6 +76,7 @@ export const usersQuery = gql`
                 id
                 login
                 name
+                email
                 status
                 familyRelationship
                 updateDate

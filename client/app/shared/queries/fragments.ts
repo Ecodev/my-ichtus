@@ -4,6 +4,7 @@ export const userMetaFragment = gql`
     fragment userMeta on User {
         id
         name
+        email
     }`;
 
 export const permissionsFragment = gql`

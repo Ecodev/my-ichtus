@@ -31,7 +31,7 @@
             </a>
 
             <a mat-icon-button routerLink="/profile">
-                <ngx-avatar [name]="route.snapshot.data.viewer.model.name" [size]="50"></ngx-avatar>
+                <ngx-avatar [name]="route.snapshot.data.viewer.model.name" [gravatarId]="route.snapshot.data.viewer.model.email" [size]="50"></ngx-avatar>
             </a>
         </div>
 

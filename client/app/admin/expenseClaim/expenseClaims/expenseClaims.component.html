@@ -43,7 +43,7 @@
                     <td mat-cell *matCellDef="let element">
 
                         <div fxLayout="row" fxLayoutAlign="start center" *ngIf="element.owner">
-                            <ngx-avatar [name]="element.owner?.name" [size]="36"></ngx-avatar>
+                            <ngx-avatar [name]="element.owner?.name" [gravatarId]="element.owner?.email" [size]="36"></ngx-avatar>
                             <natural-table-button [label]="element.owner?.name" [navigate]="['/admin/user/', element.owner?.id]"
 
                                                   matTooltip="Éditer"

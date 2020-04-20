@@ -37,26 +37,26 @@
     <natural-sidenav-content>
         <div fxLayout="column" fxLayoutGap="30px" style="width:100%; max-width:1300px; margin:0 auto" class="padding">
 
-            <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap.gt-xs="0px" fxLayoutGap="30px">
-                <div fxFlex="none" fxFlex.gt-xs fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="10px">
-                    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                        <ngx-avatar [name]="viewer.name" [size]="50"></ngx-avatar>
-                        <div>
+    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap.gt-xs="0px" fxLayoutGap="30px">
+        <div fxFlex="none" fxFlex.gt-xs fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="10px">
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                        <ngx-avatar [name]="viewer.name" [gravatarId]="viewer.email" [size]="50"></ngx-avatar>
+                <div>
                             <div class="mat-display-1 no-margin-bottom">{{ viewer.name }}</div>
                             <div class="mat-subheading-1 no-margin-bottom">{{ viewer.status | enum: 'UserStatus' | capitalize | async}}</div>
-                        </div>
-                    </div>
-                    <a mat-flat-button
-                       color="accent"
-                       *ngIf="userService.canBecomeMember(viewer)"
-                       [disabled]="!viewer.email"
-                       [matTooltip]="!viewer.email ? 'Vous devez avoir saisi une adresse e-mail dans vos données personnelles' : null"
-                       [routerLink]="['/user/new', {email: viewer.email}]"
+                </div>
+            </div>
+            <a mat-flat-button
+               color="accent"
+               *ngIf="userService.canBecomeMember(viewer)"
+               [disabled]="!viewer.email"
+               [matTooltip]="!viewer.email ? 'Vous devez avoir saisi une adresse e-mail dans vos données personnelles' : null"
+               [routerLink]="['/user/new', {email: viewer.email}]"
                     >
                         Devenir membre
                     </a>
-                    <!-- TODO : UPDATE email when user add e-mail in family member component -->
-                </div>
+            <!-- TODO : UPDATE email when user add e-mail in family member component -->
+        </div>
 
                 <!-- CREDIT -->
                 <div fxFlex="none" fxLayout="row" fxLayoutAlign="center">
@@ -77,14 +77,14 @@
                     </div>
                 </div>
 
-            </div>
+    </div>
 
-            <mat-divider></mat-divider>
-            <div fxLayout="column">
-                <router-outlet></router-outlet>
-            </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="column">
+        <router-outlet></router-outlet>
+    </div>
 
-        </div>
+</div>
 
     </natural-sidenav-content>
 </natural-sidenav-container>
