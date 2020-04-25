@@ -99,12 +99,6 @@ mat-form-field.no-bottom-spacing {
     }
 }
 
-mat-checkbox.wrap {
-    .mat-checkbox-label {
-        white-space: initial;
-    }
-}
-
 .line-break {
     white-space: pre-wrap;
 }
@@ -119,4 +113,14 @@ mat-checkbox.wrap {
 
 .app-price-column {
     width: 7em;
+}
+
+// Allow mat-checkbox with long labels to wrap, see https://github.com/angular/components/issues/8416
+.mat-checkbox-layout {
+    white-space: normal !important;
+}
+
+// Keep the mat-checkbox's checkbox on the first line, see https://github.com/angular/components/issues/8416
+.mat-checkbox-inner-container {
+    margin-top: 4px !important;
 }
