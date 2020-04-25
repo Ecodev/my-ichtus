@@ -6,7 +6,7 @@
 
     <div fxLayout="column">
 
-        <div fxLayout="row" class="margin-v" overflow>
+        <div fxLayout="row" class="margin-v overflow">
             <natural-search fxFlex
                             [facets]="naturalSearchFacets"
                             [selections]="naturalSearchSelections"
@@ -44,8 +44,8 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
                     <td mat-cell *matCellDef="let element">
                         <natural-table-button [label]="element.name"
-                                          [navigate]="['/admin', 'transaction', element.transaction.id]"
-                                          matTooltip="Éditer"
+                                              [navigate]="['/admin', 'transaction', element.transaction.id]"
+                                              matTooltip="Éditer"
                         ></natural-table-button>
                     </td>
                     <td mat-footer-cell *matFooterCellDef>Total</td>
@@ -98,7 +98,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="isReconciled">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header app-date-column>Pointé</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="app-date-column">Pointé</th>
                     <td mat-cell *matCellDef="let element">{{ element.isReconciled ? '✔︎' : '' }}</td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
@@ -107,15 +107,15 @@
                     <th mat-header-cell *matHeaderCellDef>Réservable</th>
                     <td mat-cell *matCellDef="let element">
                         <natural-table-button *ngIf="element.bookable"
-                                          [label]="element.bookable.name"
-                                          [navigate]="['/admin/bookable', element.bookable.id]"
+                                              [label]="element.bookable.name"
+                                              [navigate]="['/admin/bookable', element.bookable.id]"
                         ></natural-table-button>
                     </td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 
                 <ng-container matColumnDef="transactionDate">
-                    <th mat-header-cell *matHeaderCellDef app-date-column mat-sort-header>Date</th>
+                    <th mat-header-cell *matHeaderCellDef class="app-date-column" mat-sort-header>Date</th>
                     <td mat-cell *matCellDef="let element">
                         {{ element.transactionDate | swissDate }}
                     </td>

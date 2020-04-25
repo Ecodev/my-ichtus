@@ -6,7 +6,7 @@
 
     <div fxLayout="column">
 
-        <div fxLayout="row" class="margin-v" overflow>
+        <div fxLayout="row" class="margin-v overflow">
             <natural-search fxFlex
                             [facets]="naturalSearchFacets"
                             [selections]="naturalSearchSelections"
@@ -65,13 +65,13 @@
                 </ng-container>
 
                 <ng-container matColumnDef="date">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header app-date-column>Dernière modification</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="app-date-column">Dernière modification</th>
                     <td mat-cell *matCellDef="let element">{{ element.updateDate || element.creationDate | swissDate }}</td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 
                 <ng-container matColumnDef="remarks">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header app-date-column>Dernière modification</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="app-date-column">Dernière modification</th>
                     <td mat-cell *matCellDef="let element">
                         <div [innerHTML]="element.remarks" class="line-break"></div>
                     </td>

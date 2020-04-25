@@ -119,7 +119,7 @@
                 <!-- TODO : add selectors for ExpanseClaim -->
                 <mat-divider></mat-divider>
                 <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                    <h2 class="mat-title" class="no-margin-bottom no-margin-top">Écritures</h2>
+                    <h2 class="mat-title no-margin-bottom no-margin-top">Écritures</h2>
                     <div *ngIf="userService.canUpdateTransaction(viewer)">
                         <button mat-stroked-button (click)="updateTransactionLines = true" *ngIf="!(updateTransactionLines || !data.model.id)">
                             Éditer

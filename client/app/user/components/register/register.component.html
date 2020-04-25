@@ -138,7 +138,7 @@
 
         <div fxLayout="row" fxLayoutGap="30px" *ngIf="step === 1">
             <div fxFlex>
-                <mat-checkbox formControlName="hasInsurance" wrap>
+                <mat-checkbox formControlName="hasInsurance" class="wrap">
                     Mon assurance RC couvre les dégâts commis par négligence au matériel nautique du club.
                 </mat-checkbox>
                 <mat-error class="mat-body-1" *ngIf="form.get('hasInsurance')?.touched && form.get('hasInsurance')?.hasError('required')">
@@ -148,7 +148,7 @@
             </div>
             <mat-divider [vertical]="true"></mat-divider>
             <div fxFlex>
-                <mat-checkbox formControlName="termsAgreement" required wrap>
+                <mat-checkbox formControlName="termsAgreement" required class="wrap">
                     Je m'engage à respecter :
                 </mat-checkbox>
 

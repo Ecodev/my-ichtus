@@ -12,7 +12,7 @@
 
                     <!-- style="overflow:hidden;" -->
                     <div fxLayout="column" fxLayoutGap="10px" >
-                        <a mat-button [routerLink]="booking.bookable ? ['/booking', booking.bookable.code] : null" app-button-wrap>
+                        <a mat-button [routerLink]="booking.bookable ? ['/booking', booking.bookable.code] : null" class="app-button-wrap">
                             {{ booking.bookable?.name || 'Matériel personnel' }}
                         </a>
                         <div style="position:relative">
@@ -57,7 +57,7 @@
 
                     <div class="comment padding" fxLayout="column" fxLayoutGap="10px">
 
-                        <div fxFlex overflow fxLayout="column">
+                        <div fxFlex class="overflow" fxLayout="column">
 
                             <div class="mat-title">Commentaires</div>
                             <mat-form-field>

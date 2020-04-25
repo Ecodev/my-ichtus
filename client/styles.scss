@@ -22,19 +22,6 @@ pre.debug {
     font-family: Courrier, monospace;
 }
 
-[debug] {
-    border: 2px solid red;
-}
-
-[debug][children] > * {
-    border: 2px solid orange;
-}
-
-[debug][children][grandchildren] > * > * {
-    border: 2px solid green;
-}
-
-
 .pac-container {
     margin-top: 15px;
     margin-left: -10px;
@@ -66,12 +53,8 @@ app-admin router-outlet + * {
     z-index: 999; // < than 1000 that is the z-index of overlay contents
 }
 
-[overflow] {
+.overflow {
     overflow: auto;
-}
-
-[overflow-x] {
-    overflow-x: auto;
 }
 
 .mat-column-amount,
@@ -93,8 +76,7 @@ mat-form-field.no-bottom-spacing {
 }
 
 .mat-button {
-    &.app-button-wrap,
-    &[app-button-wrap] {
+    &.app-button-wrap {
         line-height: 16px;
         min-height: 36px;
 
@@ -117,7 +99,7 @@ mat-form-field.no-bottom-spacing {
     }
 }
 
-mat-checkbox[wrap] {
+mat-checkbox.wrap {
     .mat-checkbox-label {
         white-space: initial;
     }
@@ -131,10 +113,10 @@ mat-checkbox[wrap] {
     margin-top: 88px !important;
 }
 
-[app-date-column] {
+.app-date-column {
     width: 14em;
 }
 
-[app-price-column] {
+.app-price-column {
     width: 7em;
 }
