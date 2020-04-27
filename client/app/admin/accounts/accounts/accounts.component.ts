@@ -13,6 +13,13 @@ import { TransactionLineService } from '../../transactions/services/transactionL
 })
 export class AccountsComponent extends NaturalAbstractNavigableList<Accounts['accounts'], AccountsVariables> {
 
+    public initialColumns = [
+        'navigation',
+        'code',
+        'name',
+        'totalBalance',
+    ];
+
     constructor(accountService: AccountService,
                 injector: Injector,
                 naturalSearchFacetsService: NaturalSearchFacetsService,
