@@ -21,6 +21,8 @@ export class MoneyComponent {
 
     @Input() showSignal = true;
 
+    @Input() showCurrency = true;
+
     constructor() {
     }
 
