@@ -26,12 +26,14 @@ import { IchtusModule } from './shared/modules/ichtus.module';
 import { LocalizedPaginatorIntlService } from './shared/services/localized-paginator-intl.service';
 import { NetworkInterceptorService } from './shared/services/network-interceptor.service';
 import localeFRCH from '@angular/common/locales/fr-CH';
+import localeDECH from '@angular/common/locales/de-CH';
 import { registerLocaleData } from '@angular/common';
 import { SafetyComponent } from './safety/safety.component';
 import { TimeagoCustomFormatter, TimeagoFormatter, TimeagoIntl, TimeagoModule } from 'ngx-timeago';
 import { strings as frenchStrings } from 'ngx-timeago/language-strings/fr-short';
 
 registerLocaleData(localeFRCH);
+registerLocaleData(localeDECH);
 
 export class MyIntl extends TimeagoIntl {
     // do extra stuff here...
