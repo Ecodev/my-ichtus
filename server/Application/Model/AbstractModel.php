@@ -208,6 +208,16 @@ abstract class AbstractModel
     }
 
     /**
+     * Get default owner for creation
+     *
+     * @return null|User
+     */
+    public function getOwnerForCreation(): ?User
+    {
+        return User::getCurrent();
+    }
+
+    /**
      * Automatically called by Doctrine when the object is saved for the first time
      *
      * @ORM\PrePersist
@@ -218,7 +228,7 @@ abstract class AbstractModel
         $this->setCreator(User::getCurrent());
 
         if (!$this->getOwner()) {
-            $this->setOwner(User::getCurrent());
+            $this->setOwner($this->getOwnerForCreation());
         }
     }
 
