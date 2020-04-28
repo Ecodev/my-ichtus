@@ -78,6 +78,16 @@ class AccountRepositoryTest extends AbstractRepositoryTest
         self::assertSame(20300010, $account3->getCode(), 'should have been incremented from maxCode in memory');
     }
 
+    public function testGetOrCreateForTheFirstTime(): void
+    {
+        $this->getEntityManager()->getConnection()->executeQuery('DELETE FROM transaction');
+        $this->getEntityManager()->getConnection()->executeQuery('DELETE FROM account WHERE code LIKE "20300%"');
+        $user = new User();
+
+        $account = $this->repository->getOrCreate($user);
+        self::assertSame(20300001, $account->getCode());
+    }
+
     public function testGetOrCreateInMemory(): void
     {
         $user = new User();

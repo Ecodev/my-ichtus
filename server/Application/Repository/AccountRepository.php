@@ -101,6 +101,11 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
             if (!$this->maxCode) {
                 $maxQuery = 'SELECT MAX(code) FROM account WHERE code LIKE ' . $this->getEntityManager()->getConnection()->quote($parent->getCode() . '%');
                 $this->maxCode = (int) $this->getEntityManager()->getConnection()->fetchColumn($maxQuery);
+
+                // If there is no child account yet, reserve enough digits for many users
+                if ($this->maxCode === $parent->getCode()) {
+                    $this->maxCode = $parent->getCode() * 10000;
+                }
             }
 
             $nextCode = ++$this->maxCode;
