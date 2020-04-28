@@ -113,7 +113,7 @@ class Acl extends \Laminas\Permissions\Acl\Acl
         $this->allow(User::ROLE_RESPONSIBLE, [$bookable, $bookableMetadata, $bookableTag, $image, $license], ['create', 'update', 'delete']);
         $this->allow(User::ROLE_RESPONSIBLE, [$booking], ['delete']);
 
-        $this->allow(User::ROLE_ADMINISTRATOR, [$transaction, $account, $transactionTag, $accountingDocument], ['create', 'update', 'delete']);
+        $this->allow(User::ROLE_ADMINISTRATOR, [$transaction, $account, $transactionTag, $accountingDocument, $expenseClaim], ['create', 'update', 'delete']);
         $this->allow(User::ROLE_ADMINISTRATOR, [$configuration], ['create']);
     }
 
