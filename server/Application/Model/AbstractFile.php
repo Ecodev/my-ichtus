@@ -34,6 +34,9 @@ abstract class AbstractFile extends AbstractModel
 
     /**
      * @var string
+     *
+     * @API\Exclude
+     *
      * @ORM\Column(type="string", length=190)
      */
     private $filename = '';

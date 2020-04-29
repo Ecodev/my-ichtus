@@ -116,6 +116,8 @@ class User extends AbstractModel
     /**
      * @var string
      *
+     * @API\Exclude
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $password = '';
