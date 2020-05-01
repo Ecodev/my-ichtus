@@ -70,7 +70,7 @@
 
                         <app-particle-switch [data]="viewer?.account?.balance || 0">
                             <ng-template let-data="data">
-                                <app-money [amount]="data" sizeClass="mat-display-2"></app-money>
+                                <app-money [amount]="data" sizeClass="mat-display-1" [showSignal]="true" [showCurrency]="true"></app-money>
                             </ng-template>
                         </app-particle-switch>
 

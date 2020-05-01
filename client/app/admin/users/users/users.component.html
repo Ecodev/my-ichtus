@@ -119,7 +119,7 @@
                 <ng-container matColumnDef="balance">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header natural-6em-column>Solde</th>
                     <td mat-cell *matCellDef="let element">
-                        <app-money [amount]="element.account?.balance"></app-money>
+                        <app-money [showCurrency]="false" [showSignal]="true" [amount]="element.account?.balance"></app-money>
                     </td>
                 </ng-container>
 

@@ -7,6 +7,7 @@ export const transactionMetaFragment = gql`
         name
         datatransRef
         transactionDate
+        balance
         accountingDocuments {
             id
             mime

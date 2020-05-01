@@ -62,10 +62,10 @@
                 <ng-container matColumnDef="balance">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header natural-4em-column>Montant</th>
                     <td mat-cell *matCellDef="let element">
-                        <app-money [amount]="element.balance" [showSignal]="false"></app-money>
+                        <app-money [amount]="element.balance" [showCurrency]="false" [showSignal]="false"></app-money>
                     </td>
                     <td mat-footer-cell *matFooterCellDef>
-                        <span *ngIf="dataSource?.data?.totalBalance > 0">{{dataSource.data.totalBalance | currency : 'CHF'}}</span>
+                        <span *ngIf="dataSource?.data?.totalBalance > 0"><app-money [amount]="dataSource.data.totalBalance" [showCurrency]="false" [showSignal]="false"></app-money></span>
                     </td>
                 </ng-container>
 
