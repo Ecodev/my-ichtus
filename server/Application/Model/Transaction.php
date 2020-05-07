@@ -69,6 +69,7 @@ class Transaction extends AbstractModel
      */
     public function __construct()
     {
+        $this->balance = Money::CHF(0);
         $this->transactionLines = new ArrayCollection();
         $this->accountingDocuments = new ArrayCollection();
     }
