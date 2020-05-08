@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Application\Api\Enum;
 
-class BookingTypeType extends AbstractEnumType
+use Ecodev\Felix\Api\Enum\EnumType;
+
+class BookingTypeType extends EnumType
 {
     public function __construct()
     {

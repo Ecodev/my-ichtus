@@ -11,34 +11,21 @@ use Application\Model\Message;
 use Application\Model\User;
 use Application\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
-use Laminas\View\Model\ViewModel;
-use Laminas\View\Renderer\RendererInterface;
+use Ecodev\Felix\Service\MessageRenderer;
 
 /**
  * Service to queue new message for pre-defined purposes
  */
 class MessageQueuer
 {
-    /**
-     * @var EntityManager
-     */
-    private $entityManager;
+    private EntityManager $entityManager;
 
-    /**
-     * @var string
-     */
-    private $hostname;
+    private MessageRenderer $messageRenderer;
 
-    /**
-     * @var RendererInterface
-     */
-    private $viewRenderer;
-
-    public function __construct(EntityManager $entityManager, RendererInterface $viewRenderer, string $hostname)
+    public function __construct(EntityManager $entityManager, MessageRenderer $messageRenderer)
     {
         $this->entityManager = $entityManager;
-        $this->hostname = $hostname;
-        $this->viewRenderer = $viewRenderer;
+        $this->messageRenderer = $messageRenderer;
     }
 
     public function queueRegister(User $user): Message
@@ -116,23 +103,7 @@ class MessageQueuer
      */
     private function createMessage(?User $user, string $email, string $subject, string $type, array $mailParams): Message
     {
-        // First render the view
-        $serverUrl = 'https://' . $this->hostname;
-        $model = new ViewModel($mailParams);
-        $model->setTemplate(str_replace('_', '-', $type));
-        $model->setVariable('email', $email);
-        $model->setVariable('user', $user);
-        $model->setVariable('serverUrl', $serverUrl);
-        $partialContent = $this->viewRenderer->render($model);
-
-        // Then inject it into layout
-        $layoutModel = new ViewModel([$model->captureTo() => $partialContent]);
-        $layoutModel->setTemplate('layout');
-        $layoutModel->setVariable('subject', $subject);
-        $layoutModel->setVariable('user', $user);
-        $layoutModel->setVariable('serverUrl', $serverUrl);
-        $layoutModel->setVariable('hostname', $this->hostname);
-        $content = $this->viewRenderer->render($layoutModel);
+        $content = $this->messageRenderer->render($user, $email, $subject, $type, $mailParams);
 
         $message = new Message();
         $message->setType($type);

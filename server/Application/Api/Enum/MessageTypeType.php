@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Application\Api\Enum;
 
-class MessageTypeType extends AbstractEnumType
+use Ecodev\Felix\Api\Enum\EnumType;
+
+class MessageTypeType extends EnumType
 {
     public function __construct()
     {

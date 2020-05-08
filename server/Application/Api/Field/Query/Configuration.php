@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Application\Api\Field\Query;
 
-use Application\Api\Field\FieldInterface;
 use Application\Repository\ConfigurationRepository;
+use Ecodev\Felix\Api\Field\FieldInterface;
 use GraphQL\Type\Definition\Type;
 
 abstract class Configuration implements FieldInterface

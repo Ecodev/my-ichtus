@@ -5,33 +5,24 @@ declare(strict_types=1);
 namespace Application\Model;
 
 use Doctrine\ORM\Mapping as ORM;
+use GraphQL\Doctrine\Annotation as API;
 
 /**
  * A document attesting an expense claim
  *
  * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Application\Repository\AccountingDocumentRepository")
+ * @ORM\Table(uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="unique_name", columns={"filename"})
+ * })
  */
-class AccountingDocument extends AbstractFile
+class AccountingDocument extends AbstractModel implements \Ecodev\Felix\Model\File
 {
+    use \Ecodev\Felix\Model\Traits\File;
+
     protected function getBasePath(): string
     {
         return 'data/accounting/';
-    }
-
-    protected function getAcceptedMimeTypes(): array
-    {
-        return [
-            'image/bmp',
-            'image/gif',
-            'image/jpeg',
-            'image/pjpeg',
-            'image/png',
-            'image/svg+xml',
-            'image/webp',
-            'application/pdf',
-            'application/x-pdf',
-        ];
     }
 
     /**

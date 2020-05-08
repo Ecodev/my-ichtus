@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Application\Api\Field\Query;
 
-use Application\Api\Field\FieldInterface;
 use Application\Model\User;
-use Application\Service\Bvr;
+use Ecodev\Felix\Api\Field\FieldInterface;
+use Ecodev\Felix\Service\Bvr;
 use GraphQL\Type\Definition\Type;
 
 abstract class BankingInfos implements FieldInterface

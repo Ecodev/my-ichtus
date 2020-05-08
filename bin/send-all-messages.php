@@ -1,7 +1,7 @@
 #! /usr/bin/env php
 <?php
 
-use Application\Service\Mailer;
+use Ecodev\Felix\Service\Mailer;
 
 $container = require_once 'server/cli.php';
 

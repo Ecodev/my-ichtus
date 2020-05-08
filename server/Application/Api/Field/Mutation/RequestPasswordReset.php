@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Application\Api\Field\Mutation;
 
-use Application\Api\Field\FieldInterface;
-use Application\Api\Scalar\LoginType;
 use Application\DBAL\Types\RelationshipType;
 use Application\Model\User;
 use Application\Repository\UserRepository;
-use Application\Service\Mailer;
 use Application\Service\MessageQueuer;
+use Ecodev\Felix\Api\Field\FieldInterface;
+use Ecodev\Felix\Api\Scalar\LoginType;
+use Ecodev\Felix\Service\Mailer;
 use GraphQL\Type\Definition\Type;
 use Mezzio\Session\SessionInterface;
 

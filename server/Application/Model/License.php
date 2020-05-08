@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Application\Model;
 
-use Application\Traits\HasName;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Ecodev\Felix\Model\Traits\HasName;
 
 /**
  * A license that is required for a booking and can be owned by a user.

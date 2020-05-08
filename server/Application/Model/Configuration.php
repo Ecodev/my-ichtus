@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Application\Model;
 
-use Application\Traits\HasDescription;
 use Doctrine\ORM\Mapping as ORM;
+use Ecodev\Felix\Model\Traits\HasDescription;
 
 /**
  * Configuration

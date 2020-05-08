@@ -6,6 +6,7 @@ namespace ApplicationTest\Api\Input\Sorting;
 
 use Application\Model\ExpenseClaim;
 use Application\Model\User;
+use Ecodev\Felix\Testing\Api\Input\Sorting\AbstractSorting;
 
 class LatestModificationTest extends AbstractSorting
 {
@@ -20,7 +21,7 @@ class LatestModificationTest extends AbstractSorting
         $user = _em()->getRepository(User::class)->getOneByLogin('member');
         User::setCurrent($user);
 
-        $result = $this->getSortedQueryResult(ExpenseClaim::class, 'latestModification');
+        $result = $this->getSortedQueryResult(_types(), ExpenseClaim::class, 'latestModification');
         self::assertSame([
             7002,
             7001,

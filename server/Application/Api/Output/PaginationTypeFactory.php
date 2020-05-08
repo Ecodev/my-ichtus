@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Application\Api\Output;
 
-use Application\Model\AbstractModel;
-use Interop\Container\ContainerInterface;
-use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
+use Application\Model\Bookable;
+use Application\Model\Booking;
+use Application\Model\TransactionLine;
+use Application\Repository\ExportExcelInterface;
+use GraphQL\Type\Definition\Type;
 
 /**
  * Create a Pagination type for the entity extracted from name.
@@ -14,31 +16,54 @@ use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
  * For example, if given "ActionPagination", it will create a Pagination
  * type for the Action entity.
  */
-class PaginationTypeFactory implements AbstractFactoryInterface
+class PaginationTypeFactory extends \Ecodev\Felix\Api\Output\PaginationTypeFactory
 {
-    private const PATTERN = '~^(.*)Pagination$~';
-
-    public function canCreate(ContainerInterface $container, $requestedName): bool
+    protected function getExtraFields(string $class): array
     {
-        $class = $this->getClass($requestedName);
+        $fields = [];
 
-        return $class && is_a($class, AbstractModel::class, true);
-    }
-
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): PaginationType
-    {
-        $class = $this->getClass($requestedName);
-        $type = new PaginationType($class, $requestedName);
-
-        return $type;
-    }
-
-    private function getClass(string $requestedName): ?string
-    {
-        if (preg_match(self::PATTERN, $requestedName, $m)) {
-            return 'Application\Model\\' . $m[1];
+        // Add specific total fields if needed
+        if ($class === Booking::class) {
+            $fields['totalParticipantCount'] = [
+                'type' => Type::int(),
+                'description' => 'The total count of participant',
+            ];
+            $fields['totalInitialPrice'] = [
+                'type' => _types()->get('Money'),
+                'description' => 'The total initial price',
+            ];
+            $fields['totalPeriodicPrice'] = [
+                'type' => _types()->get('Money'),
+                'description' => 'The total periodic price',
+            ];
+        } elseif ($class === Bookable::class) {
+            $fields['totalPurchasePrice'] = [
+                'type' => _types()->get('Money'),
+                'description' => 'The total purchase price',
+            ];
+            $fields['totalInitialPrice'] = [
+                'type' => _types()->get('Money'),
+                'description' => 'The total initial price',
+            ];
+            $fields['totalPeriodicPrice'] = [
+                'type' => _types()->get('Money'),
+                'description' => 'The total periodic price',
+            ];
+        } elseif ($class === TransactionLine::class) {
+            $fields['totalBalance'] = [
+                'type' => _types()->get('Money'),
+                'description' => 'The total balance',
+            ];
         }
 
-        return null;
+        $repository = _em()->getRepository($class);
+        if ($repository instanceof ExportExcelInterface) {
+            $fields['excelExport'] = [
+                'type' => Type::nonNull(Type::string()),
+                'description' => 'URL to download filtered Excel listing',
+            ];
+        }
+
+        return $fields;
     }
 }

@@ -10,9 +10,9 @@ use Application\Model\Bookable;
 use Application\Model\Booking;
 use Application\Model\TransactionLine;
 use Application\Repository\ExportExcelInterface;
-use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Ecodev\Felix\Api\Exception;
 use GraphQL\Doctrine\Definition\EntityID;
 
 abstract class Helper

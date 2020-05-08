@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Application\Api\Field\Mutation;
 
-use Application\Api\Exception;
-use Application\Api\Field\FieldInterface;
-use Application\Api\Scalar\PasswordType;
-use Application\Api\Scalar\TokenType;
 use Application\Model\Log;
 use Application\Model\User;
 use Application\Repository\LogRepository;
 use Application\Repository\UserRepository;
+use Ecodev\Felix\Api\Exception;
+use Ecodev\Felix\Api\Field\FieldInterface;
+use Ecodev\Felix\Api\Scalar\PasswordType;
+use Ecodev\Felix\Api\Scalar\TokenType;
 use GraphQL\Type\Definition\Type;
 use Mezzio\Session\SessionInterface;
 

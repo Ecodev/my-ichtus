@@ -6,7 +6,7 @@ namespace ApplicationTest\Action;
 
 use Application\Action\DatatransAction;
 use Application\Model\User;
-use ApplicationTest\Traits\TestWithTransaction;
+use ApplicationTest\Traits\TestWithTransactionAndUser;
 use Laminas\Diactoros\ServerRequest;
 use Mezzio\Template\TemplateRendererInterface;
 use Money\Money;
@@ -15,7 +15,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class DatatransActionTest extends TestCase
 {
-    use TestWithTransaction;
+    use TestWithTransactionAndUser;
 
     /**
      * @dataProvider providerProcess

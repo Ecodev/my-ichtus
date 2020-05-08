@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Application\Model;
 
 use Application\Traits\HasColor;
-use Application\Traits\HasName;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Ecodev\Felix\Model\Traits\HasName;
 
 /**
  * A type of bookable.

@@ -2,8 +2,8 @@
 <?php
 
 use Application\Model\Message;
-use Application\Service\Mailer;
 use Doctrine\ORM\EntityManager;
+use Ecodev\Felix\Service\Mailer;
 
 $id = $argv[1] ?? null;
 if (!$id) {

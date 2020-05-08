@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Application\Model;
 
 use Application\Traits\HasIban;
-use Application\Traits\HasName;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Ecodev\Felix\Model\Traits\HasName;
 use GraphQL\Doctrine\Annotation as API;
 use Money\Money;
 

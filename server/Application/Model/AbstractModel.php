@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Application\Model;
 
 use Application\Acl\Acl;
-use Application\Api\Exception;
-use Application\Utility;
 use Cake\Chronos\Chronos;
 use Doctrine\ORM\Mapping as ORM;
+use Ecodev\Felix\Api\Exception;
+use Ecodev\Felix\Model\HasOwner;
+use Ecodev\Felix\Model\Model;
 use GraphQL\Doctrine\Annotation as API;
 
 /**
@@ -26,7 +27,7 @@ use GraphQL\Doctrine\Annotation as API;
  *     "Application\Api\Input\Sorting\Owner"
  * })
  */
-abstract class AbstractModel
+abstract class AbstractModel implements Model, HasOwner
 {
     /**
      * @var int
@@ -224,7 +225,7 @@ abstract class AbstractModel
      */
     public function timestampCreation(): void
     {
-        $this->setCreationDate(Utility::getNow());
+        $this->setCreationDate(new Chronos());
         $this->setCreator(User::getCurrent());
 
         if (!$this->getOwner()) {
@@ -239,7 +240,7 @@ abstract class AbstractModel
      */
     public function timestampUpdate(): void
     {
-        $this->setUpdateDate(Utility::getNow());
+        $this->setUpdateDate(new Chronos());
         $this->setUpdater(User::getCurrent());
     }
 

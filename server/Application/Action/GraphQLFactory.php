@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace Application\Action;
 
-use Doctrine\ORM\EntityManager;
+use Application\Api\Schema;
+use Ecodev\Felix\Action\GraphQLAction;
+use Ecodev\Felix\Api\Server;
 use Interop\Container\ContainerInterface;
 
 class GraphQLFactory
 {
     public function __invoke(ContainerInterface $container)
     {
-        $entityManager = $container->get(EntityManager::class);
+        $server = new Server(new Schema(), true);
 
-        return new GraphQLAction($entityManager);
+        return new GraphQLAction($server);
     }
 }

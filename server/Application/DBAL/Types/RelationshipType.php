@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Application\DBAL\Types;
 
-class RelationshipType extends AbstractEnumType
+use Ecodev\Felix\DBAL\Types\EnumType;
+
+class RelationshipType extends EnumType
 {
     const HOUSEHOLDER = 'householder';
     const PARTNER = 'partner';

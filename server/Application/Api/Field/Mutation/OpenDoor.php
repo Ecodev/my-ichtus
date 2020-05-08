@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Application\Api\Field\Mutation;
 
 use Application\Api\Enum\DoorType;
-use Application\Api\Exception;
-use Application\Api\Field\FieldInterface;
 use Application\Api\Output\OpenDoorType;
 use Application\Model\User;
 use Application\Repository\LogRepository;
+use Ecodev\Felix\Api\Exception;
+use Ecodev\Felix\Api\Field\FieldInterface;
 use GraphQL\Type\Definition\Type;
 use Laminas\Http\Client;
 use Laminas\Http\Request;

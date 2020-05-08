@@ -7,7 +7,7 @@
  * It is up to the user to then take appropriate action based on that information.
  */
 use Application\Model\Image;
-use Application\Utility;
+use Ecodev\Felix\Utility;
 
 require_once 'server/cli.php';
 

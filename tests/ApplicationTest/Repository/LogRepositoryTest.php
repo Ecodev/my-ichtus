@@ -65,6 +65,7 @@ class LogRepositoryTest extends AbstractRepositoryTest
     public function testGetLoginDate(): void
     {
         $user = $this->getEntityManager()->getRepository(User::class)->getOneByLogin('administrator');
+        User::setCurrent($user);
 
         $logs = [
             [

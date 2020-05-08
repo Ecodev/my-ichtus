@@ -4,22 +4,23 @@ declare(strict_types=1);
 
 namespace Application\Model;
 
-use Application\Api\Exception;
 use Application\DBAL\Types\BillingTypeType;
 use Application\DBAL\Types\RelationshipType;
-use Application\ORM\Query\Filter\AclFilter;
 use Application\Repository\LogRepository;
+use Application\Repository\UserRepository;
 use Application\Traits\HasAddress;
 use Application\Traits\HasDoorAccess;
 use Application\Traits\HasIban;
-use Application\Traits\HasInternalRemarks;
 use Application\Traits\HasRemarks;
-use Application\Utility;
 use Cake\Chronos\Chronos;
 use Cake\Chronos\Date;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Ecodev\Felix\Api\Exception;
+use Ecodev\Felix\Model\CurrentUser;
+use Ecodev\Felix\Model\Traits\HasInternalRemarks;
+use Ecodev\Felix\Model\Traits\HasPassword;
 use GraphQL\Doctrine\Annotation as API;
 
 /**
@@ -43,7 +44,7 @@ use GraphQL\Doctrine\Annotation as API;
  *     @API\Filter(field="balance", operator="Application\Api\Input\Operator\AccountBalance\LessOrEqualOperatorType", type="Money"),
  * })
  */
-class User extends AbstractModel
+class User extends AbstractModel implements \Ecodev\Felix\Model\User
 {
     const ROLE_ANONYMOUS = 'anonymous';
     const ROLE_BOOKING_ONLY = 'booking_only';
@@ -62,6 +63,7 @@ class User extends AbstractModel
     use HasInternalRemarks;
     use HasAddress;
     use HasIban;
+    use HasPassword;
 
     /**
      * @var User
@@ -79,9 +81,12 @@ class User extends AbstractModel
         self::$currentUser = $user;
 
         // Initalize ACL filter with current user if a logged in one exists
-        /** @var AclFilter $aclFilter */
-        $aclFilter = _em()->getFilters()->getFilter(AclFilter::class);
+        /** @var UserRepository $userRepository */
+        $userRepository = _em()->getRepository(self::class);
+        $aclFilter = $userRepository->getAclFilter();
         $aclFilter->setUser($user);
+
+        CurrentUser::set($user);
     }
 
     /**
@@ -112,15 +117,6 @@ class User extends AbstractModel
      * @ORM\Column(type="string", length=191)
      */
     private $lastName = '';
-
-    /**
-     * @var string
-     *
-     * @API\Exclude
-     *
-     * @ORM\Column(type="string", length=255)
-     */
-    private $password = '';
 
     /**
      * @var null|string
@@ -225,19 +221,6 @@ class User extends AbstractModel
     private $billingType = BillingTypeType::ELECTRONIC;
 
     /**
-     * @var null|string
-     * @ORM\Column(type="string", length=32, nullable=true, unique=true)
-     */
-    private $token;
-
-    /**
-     * @var null|Chronos
-     *
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $tokenCreationDate;
-
-    /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="Booking", mappedBy="owner")
      */
@@ -314,36 +297,6 @@ class User extends AbstractModel
     public function getLogin(): ?string
     {
         return $this->login;
-    }
-
-    /**
-     * Hash and change the user password
-     *
-     * @param string $password
-     */
-    public function setPassword(string $password): void
-    {
-        // Ignore empty password that could be sent "by mistake" by the client
-        // when agreeing to terms
-        if ($password === '') {
-            return;
-        }
-
-        $this->revokeToken();
-
-        $this->password = password_hash($password, PASSWORD_DEFAULT);
-    }
-
-    /**
-     * Returns the hashed password
-     *
-     * @API\Exclude
-     *
-     * @return string
-     */
-    public function getPassword(): string
-    {
-        return $this->password;
     }
 
     /**
@@ -996,44 +949,6 @@ class User extends AbstractModel
     }
 
     /**
-     * Generate a new random token to reset password
-     */
-    public function createToken(): string
-    {
-        $this->token = bin2hex(random_bytes(16));
-        $this->tokenCreationDate = new Chronos();
-
-        return $this->token;
-    }
-
-    /**
-     * Destroy existing token
-     */
-    public function revokeToken(): void
-    {
-        $this->token = null;
-        $this->tokenCreationDate = null;
-    }
-
-    /**
-     * Check if token is valid.
-     *
-     * @API\Exclude
-     *
-     * @return bool
-     */
-    public function isTokenValid(): bool
-    {
-        if (!$this->tokenCreationDate) {
-            return false;
-        }
-
-        $timeLimit = $this->tokenCreationDate->addMinutes(30);
-
-        return $timeLimit->isFuture();
-    }
-
-    /**
      * Check if the user can *really* open a door
      * This also takes into account the user status and role
      *
@@ -1066,7 +981,7 @@ class User extends AbstractModel
      */
     public function timestampCreation(): void
     {
-        $this->setCreationDate(Utility::getNow());
+        $this->setCreationDate(new Chronos());
         $this->setCreator(self::getCurrent());
     }
 }

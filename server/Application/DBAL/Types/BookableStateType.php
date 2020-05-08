@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Application\DBAL\Types;
 
-class BookableStateType extends AbstractEnumType
+use Ecodev\Felix\DBAL\Types\EnumType;
+
+class BookableStateType extends EnumType
 {
     const GOOD = 'good';
     const USED = 'used';

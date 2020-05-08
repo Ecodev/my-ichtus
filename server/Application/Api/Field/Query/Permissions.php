@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Application\Api\Field\Query;
 
-use Application\Api\Field\FieldInterface;
 use Application\Api\Output\AllPermissionsType;
+use Ecodev\Felix\Api\Field\FieldInterface;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 

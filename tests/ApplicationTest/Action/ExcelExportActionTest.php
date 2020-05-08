@@ -6,14 +6,14 @@ namespace ApplicationTest\Action;
 
 use Application\Action\ExportTransactionLinesAction;
 use Application\Model\TransactionLine;
-use ApplicationTest\Traits\TestWithTransaction;
+use ApplicationTest\Traits\TestWithTransactionAndUser;
 use Laminas\Diactoros\ServerRequest;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Server\RequestHandlerInterface;
 
 class ExcelExportActionTest extends TestCase
 {
-    use TestWithTransaction;
+    use TestWithTransactionAndUser;
 
     public function testExportTransactionLines(): void
     {

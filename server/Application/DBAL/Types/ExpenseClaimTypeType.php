@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Application\DBAL\Types;
 
-class ExpenseClaimTypeType extends AbstractEnumType
+use Ecodev\Felix\DBAL\Types\EnumType;
+
+class ExpenseClaimTypeType extends EnumType
 {
     const EXPENSE_CLAIM = 'expenseClaim';
     const REFUND = 'refund';

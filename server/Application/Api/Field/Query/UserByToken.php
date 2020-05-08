@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Application\Api\Field\Query;
 
-use Application\Api\Exception;
-use Application\Api\Field\FieldInterface;
 use Application\Model\User;
 use Application\Repository\UserRepository;
+use Ecodev\Felix\Api\Exception;
+use Ecodev\Felix\Api\Field\FieldInterface;
 use GraphQL\Type\Definition\Type;
 
 abstract class UserByToken implements FieldInterface

@@ -6,13 +6,13 @@ namespace Application\Model;
 
 use Application\DBAL\Types\ExpenseClaimStatusType;
 use Application\DBAL\Types\ExpenseClaimTypeType;
-use Application\Traits\HasDescription;
-use Application\Traits\HasInternalRemarks;
-use Application\Traits\HasName;
 use Application\Traits\HasRemarks;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Ecodev\Felix\Model\Traits\HasDescription;
+use Ecodev\Felix\Model\Traits\HasInternalRemarks;
+use Ecodev\Felix\Model\Traits\HasName;
 use GraphQL\Doctrine\Annotation as API;
 use Money\Money;
 

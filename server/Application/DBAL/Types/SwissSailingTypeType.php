@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Application\DBAL\Types;
 
-class SwissSailingTypeType extends AbstractEnumType
+use Ecodev\Felix\DBAL\Types\EnumType;
+
+class SwissSailingTypeType extends EnumType
 {
     const ACTIVE = 'active';
     const PASSIVE = 'passive';

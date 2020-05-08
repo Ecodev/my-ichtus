@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Application\DBAL\Types;
 
-class BillingTypeType extends AbstractEnumType
+use Ecodev\Felix\DBAL\Types\EnumType;
+
+class BillingTypeType extends EnumType
 {
     const ELECTRONIC = 'electronic';
     const PAPER = 'paper';

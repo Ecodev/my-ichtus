@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Application\Acl\Assertion;
 
-use Application\Acl\ModelResource;
 use Application\Model\AccountingDocument;
 use Application\Model\ExpenseClaim;
+use Ecodev\Felix\Acl\ModelResource;
 use Laminas\Permissions\Acl\Acl;
 use Laminas\Permissions\Acl\Assertion\AssertionInterface;
 use Laminas\Permissions\Acl\Resource\ResourceInterface;

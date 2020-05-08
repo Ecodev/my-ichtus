@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace ApplicationTest\Api\Input\Sorting;
 
 use Application\Model\Booking;
+use Ecodev\Felix\Testing\Api\Input\Sorting\AbstractSorting;
 
 class OwnerTest extends AbstractSorting
 {
     public function testSorting(): void
     {
-        $result = $this->getSortedQueryResult(Booking::class, 'owner');
+        $result = $this->getSortedQueryResult(_types(), Booking::class, 'owner');
         self::assertSame([
             4000,
             4001,

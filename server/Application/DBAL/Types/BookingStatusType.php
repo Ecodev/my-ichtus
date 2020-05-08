@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Application\DBAL\Types;
 
-class BookingStatusType extends AbstractEnumType
+use Ecodev\Felix\DBAL\Types\EnumType;
+
+class BookingStatusType extends EnumType
 {
     const APPLICATION = 'application';
     const BOOKED = 'booked';

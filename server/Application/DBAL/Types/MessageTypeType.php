@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Application\DBAL\Types;
 
-class MessageTypeType extends AbstractEnumType
+use Ecodev\Felix\DBAL\Types\EnumType;
+
+class MessageTypeType extends EnumType
 {
     const REGISTER = 'register';
     const UNREGISTER = 'unregister';

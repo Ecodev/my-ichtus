@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Application\Api\Input\Sorting;
 
-use Application\Model\User;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
 use GraphQL\Doctrine\Factory\UniqueNameFactory;

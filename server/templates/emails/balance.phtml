@@ -1,10 +1,6 @@
 <?php declare(strict_types=1);
 
-use Money\Currencies\ISOCurrencies;
-use Money\Formatter\DecimalMoneyFormatter;
-
-$currencies = new ISOCurrencies();
-$moneyFormatter = new DecimalMoneyFormatter($currencies);
+use Ecodev\Felix\Format;
 
 $urlTransaction = $this->serverUrl . '/profile/history';
 $urlServices = $this->serverUrl . '/profile/services';
@@ -12,7 +8,7 @@ $urlServices = $this->serverUrl . '/profile/services';
 <p>
     Ton solde actuel est de
     <span style="text-align: right; font-weight: bold; color: <?php echo $this->user->getAccount()->getBalance()->isNegative() ? '#f44336' : '#008600' ?>">
-        <?php echo $this->escapeHtml($moneyFormatter->format($this->user->getAccount()->getBalance())) ?> CHF</span>.
+        <?php echo $this->escapeHtml(Format::money($this->user->getAccount()->getBalance())) ?> CHF</span>.
 </p>
 
 <?php if ($this->user->getAccount()->getBalance()->isNegative()): ?>
@@ -38,7 +34,7 @@ $urlServices = $this->serverUrl . '/profile/services';
     <?php foreach ($this->bookables as $bookable): ?>
         <tr>
             <td><?php echo $this->escapeHtml($bookable->getName()) ?></td>
-            <td style="text-align: right"><?php echo $this->escapeHtml($moneyFormatter->format($bookable->getPeriodicPrice())) ?> CHF</td>
+            <td style="text-align: right"><?php echo $this->escapeHtml(Format::money($bookable->getPeriodicPrice())) ?> CHF</td>
         </tr>
     <?php endforeach; ?>
 </table>

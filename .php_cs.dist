@@ -109,7 +109,7 @@ return PhpCsFixer\Config::create()
         'no_unneeded_curly_braces' => true,
         'no_unneeded_final_method' => true,
         'no_unreachable_default_argument_value' => true,
-        'no_unused_imports' => true,
+        'no_unused_imports' => false, // Cannot use this because of we need imports for used traits, see https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/3941
         'no_useless_else' => true,
         'no_useless_return' => true,
         'no_whitespace_before_comma_in_array' => true,

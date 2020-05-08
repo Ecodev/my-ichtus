@@ -4,16 +4,14 @@
 /**
  * A script to check that accounts are balanced
  */
+
 use Application\DBAL\Types\AccountTypeType;
 use Application\Model\Account;
 use Application\Model\Transaction;
-use Money\Currencies\ISOCurrencies;
-use Money\Formatter\DecimalMoneyFormatter;
+use Ecodev\Felix\Format;
 
 require_once 'server/cli.php';
 
-$currencies = new ISOCurrencies();
-$moneyFormatter = new DecimalMoneyFormatter($currencies);
 $repo = _em()->getRepository(Account::class);
 
 // Update all accounts' balance from transactions
@@ -30,18 +28,18 @@ $income = $revenue->subtract($expense);
 $discrepancy = $assets->subtract($income)->subtract($liabilities->add($equity));
 
 echo '
-Produits  : ' . $moneyFormatter->format($revenue) . '
-Charges   : ' . $moneyFormatter->format($expense) . '
-' . ($income->isNegative() ? 'Déficit   : ' : 'Bénéfice  : ') . $moneyFormatter->format($income) . '
-Actifs    : ' . $moneyFormatter->format($assets) . '
-Passifs   : ' . $moneyFormatter->format($liabilities) . '
-Capital   : ' . $moneyFormatter->format($equity) . '
-Écart     : ' . $moneyFormatter->format($discrepancy) . PHP_EOL;
+Produits  : ' . Format::money($revenue) . '
+Charges   : ' . Format::money($expense) . '
+' . ($income->isNegative() ? 'Déficit   : ' : 'Bénéfice  : ') . Format::money($income) . '
+Actifs    : ' . Format::money($assets) . '
+Passifs   : ' . Format::money($liabilities) . '
+Capital   : ' . Format::money($equity) . '
+Écart     : ' . Format::money($discrepancy) . PHP_EOL;
 
 $errors = [];
 
 if (!$discrepancy->isZero()) {
-    $errors[] = sprintf('ERREUR: écart de %s au bilan des comptes!', $moneyFormatter->format($discrepancy));
+    $errors[] = sprintf('ERREUR: écart de %s au bilan des comptes!', Format::money($discrepancy));
 }
 
 foreach (_em()->getRepository(Transaction::class)->findAll() as $transaction) {

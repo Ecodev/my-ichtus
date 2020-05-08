@@ -11,13 +11,13 @@ use Application\Model\Booking;
 use Application\Model\TransactionLine;
 use Application\Model\User;
 use Application\Service\Invoicer;
-use ApplicationTest\Traits\TestWithTransaction;
+use ApplicationTest\Traits\TestWithTransactionAndUser;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 
 class InvoicerTest extends TestCase
 {
-    use TestWithTransaction;
+    use TestWithTransactionAndUser;
 
     public function testInvoice(): void
     {

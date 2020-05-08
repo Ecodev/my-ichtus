@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ApplicationTest\Api\Input\Sorting;
 
 use Application\Model\User;
+use Ecodev\Felix\Testing\Api\Input\Sorting\AbstractSorting;
 
 class AgeTest extends AbstractSorting
 {
@@ -12,7 +13,7 @@ class AgeTest extends AbstractSorting
     {
         $administrator = new User(User::ROLE_ADMINISTRATOR);
         User::setCurrent($administrator);
-        $result = $this->getSortedQueryResult(User::class, 'age');
+        $result = $this->getSortedQueryResult(_types(), User::class, 'age');
         self::assertSame([
             1004,
             1002,

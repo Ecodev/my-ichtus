@@ -7,7 +7,7 @@ namespace ApplicationTest\Repository;
 use Application\Model\Bookable;
 use Application\Model\Image;
 use Application\Repository\ImageRepository;
-use Application\Service\AbstractDatabase;
+use Ecodev\Felix\Service\AbstractDatabase;
 
 /**
  * @group Repository

@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Application\ORM\Query\Filter\AclFilter;
 use Doctrine\ORM\EntityManager;
+use Ecodev\Felix\ORM\Query\Filter\AclFilter;
 
 require_once 'vendor/autoload.php';
 $container = require 'config/container.php';

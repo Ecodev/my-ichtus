@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Application\DBAL\Types;
 
-class BookingTypeType extends AbstractEnumType
+use Ecodev\Felix\DBAL\Types\EnumType;
+
+class BookingTypeType extends EnumType
 {
     const SELF_APPROVED = 'self_approved';
     const ADMIN_APPROVED = 'admin_approved';

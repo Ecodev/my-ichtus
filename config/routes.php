@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Application\Action\GraphQLAction;
+use Ecodev\Felix\Action\GraphQLAction;
 use GraphQL\Upload\UploadMiddleware;
 use Mezzio\Application;
 use Mezzio\Helper\BodyParams\BodyParamsMiddleware;
@@ -43,7 +43,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     ], 'graphql');
 
     $app->get('/image/{id:\d+}[/{maxHeight:\d+}]', [
-        \Application\Action\ImageAction::class,
+        \Ecodev\Felix\Action\ImageAction::class,
     ], 'image');
 
     $app->get('/accounting-document/{id:\d+}', [

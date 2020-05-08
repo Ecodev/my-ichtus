@@ -6,8 +6,9 @@ namespace ApplicationTest\Api\Input\Operator;
 
 use Application\Model\Bookable;
 use Application\Model\User;
+use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
 
-class BookableUsageOperatorTypeTest extends AbstractOperatorType
+class BookableUsageOperatorTypeTest extends OperatorType
 {
     public function providerGetDqlCondition(): array
     {

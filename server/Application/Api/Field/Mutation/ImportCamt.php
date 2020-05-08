@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Application\Api\Field\Mutation;
 
-use Application\Api\Field\FieldInterface;
 use Application\Api\Helper;
 use Application\Model\Transaction;
 use Application\Service\Importer;
+use Ecodev\Felix\Api\Field\FieldInterface;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Upload\UploadType;
 use Mezzio\Session\SessionInterface;

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Application\Api\Enum;
 
-class ExpenseClaimTypeType extends AbstractEnumType
+use Ecodev\Felix\Api\Enum\EnumType;
+
+class ExpenseClaimTypeType extends EnumType
 {
     public function __construct()
     {

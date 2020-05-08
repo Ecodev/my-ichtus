@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Application\DBAL\Types;
 
-class AccountTypeType extends AbstractEnumType
+use Ecodev\Felix\DBAL\Types\EnumType;
+
+class AccountTypeType extends EnumType
 {
     const ASSET = 'asset';
     const LIABILITY = 'liability';

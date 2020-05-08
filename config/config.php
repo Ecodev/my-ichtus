@@ -14,8 +14,9 @@ $cacheConfig = [
 
 $aggregator = new ConfigAggregator([
     \Laminas\Log\ConfigProvider::class,
-    \Mezzio\LaminasView\ConfigProvider::class,
+    \Laminas\Diactoros\ConfigProvider::class,
     \Laminas\Mail\ConfigProvider::class,
+    \Mezzio\LaminasView\ConfigProvider::class,
     \Laminas\Validator\ConfigProvider::class,
     \Mezzio\Helper\ConfigProvider::class,
     \Mezzio\Router\FastRouteRouter\ConfigProvider::class,

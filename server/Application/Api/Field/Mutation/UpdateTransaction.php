@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Application\Api\Field\Mutation;
 
-use Application\Api\Field\FieldInterface;
 use Application\Api\Helper;
 use Application\Model\Transaction;
 use Application\Model\TransactionLine;
 use Application\Repository\TransactionRepository;
+use Ecodev\Felix\Api\Field\FieldInterface;
 use GraphQL\Type\Definition\Type;
 use Mezzio\Session\SessionInterface;
 

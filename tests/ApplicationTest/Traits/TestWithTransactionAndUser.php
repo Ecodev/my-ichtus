@@ -7,21 +7,16 @@ namespace ApplicationTest\Traits;
 use Application\Model\Account;
 use Application\Model\User;
 use Application\Repository\AccountRepository;
-use Doctrine\ORM\EntityManager;
+use Ecodev\Felix\Testing\Traits\TestWithTransaction;
 
 /**
  * Allow to run test within a database transaction, so database will be unchanged after test
  */
-trait TestWithTransaction
+trait TestWithTransactionAndUser
 {
-    /**
-     * Get EntityManager
-     *
-     * @return EntityManager
-     */
-    public function getEntityManager(): EntityManager
-    {
-        return _em();
+    use TestWithTransaction {
+        setUp as traitSetupWithTransaction;
+        tearDown as traitTearDownWithTransaction;
     }
 
     /**
@@ -29,7 +24,7 @@ trait TestWithTransaction
      */
     public function setUp(): void
     {
-        $this->getEntityManager()->beginTransaction();
+        $this->traitSetupWithTransaction();
         User::setCurrent(null);
     }
 
@@ -38,12 +33,12 @@ trait TestWithTransaction
      */
     public function tearDown(): void
     {
-        $this->getEntityManager()->rollback();
-        $this->getEntityManager()->clear();
-        $this->getEntityManager()->getConnection()->close();
+        User::setCurrent(null);
 
         /** @var AccountRepository $accountRepository */
         $accountRepository = $this->getEntityManager()->getRepository(Account::class);
         $accountRepository->clearCache();
+
+        $this->traitTearDownWithTransaction();
     }
 }

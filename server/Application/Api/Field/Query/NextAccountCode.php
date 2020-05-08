@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Application\Api\Field\Query;
 
-use Application\Api\Field\FieldInterface;
 use Application\Model\Account;
 use Application\Repository\AccountRepository;
+use Ecodev\Felix\Api\Field\FieldInterface;
 use GraphQL\Type\Definition\Type;
 
 abstract class NextAccountCode implements FieldInterface

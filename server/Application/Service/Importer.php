@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Application\Service;
 
-use Application\Api\Exception;
 use Application\Model\Account;
 use Application\Model\Transaction;
 use Application\Model\TransactionLine;
@@ -12,6 +11,8 @@ use Application\Model\User;
 use Application\Repository\AccountRepository;
 use Application\Repository\UserRepository;
 use Cake\Chronos\Chronos;
+use Ecodev\Felix\Api\Exception;
+use Ecodev\Felix\Service\Bvr;
 use Genkgo\Camt\Config;
 use Genkgo\Camt\DTO\Address;
 use Genkgo\Camt\DTO\Entry;

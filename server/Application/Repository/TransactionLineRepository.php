@@ -7,17 +7,14 @@ namespace Application\Repository;
 use Application\Action\ExportTransactionLinesAction;
 use Application\Model\User;
 use Doctrine\ORM\Query;
+use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 
-class TransactionLineRepository extends AbstractRepository implements LimitedAccessSubQueryInterface, ExportExcelInterface
+class TransactionLineRepository extends AbstractRepository implements LimitedAccessSubQuery, ExportExcelInterface
 {
     /**
      * Returns pure SQL to get ID of all objects that are accessible to given user.
-     *
-     * @param null|User $user
-     *
-     * @return string
      */
-    public function getAccessibleSubQuery(?User $user): string
+    public function getAccessibleSubQuery(?\Ecodev\Felix\Model\User $user): string
     {
         if (!$user) {
             return '-1';

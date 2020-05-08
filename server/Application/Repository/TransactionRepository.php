@@ -4,22 +4,20 @@ declare(strict_types=1);
 
 namespace Application\Repository;
 
-use Application\Api\Exception;
 use Application\Api\Helper;
 use Application\Model\Transaction;
 use Application\Model\TransactionLine;
 use Application\Model\User;
+use Ecodev\Felix\Api\Exception;
+use Ecodev\Felix\Repository\LimitedAccessSubQuery;
+use Ecodev\Felix\Utility;
 
-class TransactionRepository extends AbstractRepository implements LimitedAccessSubQueryInterface
+class TransactionRepository extends AbstractRepository implements LimitedAccessSubQuery
 {
     /**
      * Returns pure SQL to get ID of all objects that are accessible to given user.
-     *
-     * @param null|User $user
-     *
-     * @return string
      */
-    public function getAccessibleSubQuery(?User $user): string
+    public function getAccessibleSubQuery(?\Ecodev\Felix\Model\User $user): string
     {
         if (!$user) {
             return '-1';
@@ -70,7 +68,7 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
         $this->getEntityManager()->flush();
 
         // Be sure to refresh the new account balance that were computed by DB triggers
-        $accounts = array_filter(array_unique($accounts, SORT_REGULAR));
+        $accounts = array_filter(Utility::unique($accounts));
         foreach ($accounts as $account) {
             $this->getEntityManager()->refresh($account);
         }

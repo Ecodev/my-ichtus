@@ -1,7 +1,7 @@
 #! /usr/bin/env php
 <?php
 
-use Application\Service\AbstractDatabase;
+use Ecodev\Felix\Service\AbstractDatabase;
 
 require_once 'server/cli.php';
 

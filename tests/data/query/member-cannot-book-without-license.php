@@ -29,7 +29,7 @@ return [
     [
         'errors' => [
             [
-                'message' => 'User "member" with role member is not allowed on resource "Booking#" with privilege "create" because the user does not have the required license: Voile - niveau 1',
+                'message' => 'User "member" with role member is not allowed on resource "Booking#null" with privilege "create" because the user does not have the required license: Voile - niveau 1',
                 'extensions' => [
                     'category' => 'Permissions',
                 ],

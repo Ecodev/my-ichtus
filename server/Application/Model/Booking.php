@@ -6,11 +6,10 @@ namespace Application\Model;
 
 use Application\DBAL\Types\BookingStatusType;
 use Application\Service\Invoicer;
-use Application\Traits\HasInternalRemarks;
 use Application\Traits\HasRemarks;
-use Application\Utility;
 use Cake\Chronos\Chronos;
 use Doctrine\ORM\Mapping as ORM;
+use Ecodev\Felix\Model\Traits\HasInternalRemarks;
 use GraphQL\Doctrine\Annotation as API;
 use Money\Money;
 
@@ -292,7 +291,7 @@ class Booking extends AbstractModel
     {
         // Booking can only be terminated once
         if (!$this->getEndDate()) {
-            $this->setEndDate(Utility::getNow());
+            $this->setEndDate(new Chronos());
             if ($comment) {
                 $this->setEndComment($comment);
             }

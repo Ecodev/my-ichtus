@@ -4,13 +4,9 @@ declare(strict_types=1);
 
 namespace Application\Acl;
 
-use Application\Acl\Assertion\All;
 use Application\Acl\Assertion\BookableAvailable;
 use Application\Acl\Assertion\ExpenseClaimStatusIsNew;
-use Application\Acl\Assertion\IsMyself;
-use Application\Acl\Assertion\IsOwner;
 use Application\Acl\Assertion\StatusIsNew;
-use Application\Model\AbstractModel;
 use Application\Model\Account;
 use Application\Model\AccountingDocument;
 use Application\Model\Bookable;
@@ -27,22 +23,12 @@ use Application\Model\Transaction;
 use Application\Model\TransactionTag;
 use Application\Model\User;
 use Application\Model\UserTag;
-use Doctrine\Common\Util\ClassUtils;
+use Ecodev\Felix\Acl\Assertion\All;
+use Ecodev\Felix\Acl\Assertion\IsMyself;
+use Ecodev\Felix\Acl\Assertion\IsOwner;
 
-class Acl extends \Laminas\Permissions\Acl\Acl
+class Acl extends \Ecodev\Felix\Acl\Acl
 {
-    /**
-     * The message explaining the last denial
-     *
-     * @var null|string
-     */
-    private $message;
-
-    /**
-     * @var null|string
-     */
-    private $reason;
-
     public function __construct()
     {
         // Each role is strictly "stronger" than the last one
@@ -53,39 +39,22 @@ class Acl extends \Laminas\Permissions\Acl\Acl
         $this->addRole(User::ROLE_RESPONSIBLE, User::ROLE_MEMBER);
         $this->addRole(User::ROLE_ADMINISTRATOR, User::ROLE_RESPONSIBLE);
 
-        $bookable = new ModelResource(Bookable::class);
-        $bookableMetadata = new ModelResource(BookableMetadata::class);
-        $bookableTag = new ModelResource(BookableTag::class);
-        $booking = new ModelResource(Booking::class);
-        $image = new ModelResource(Image::class);
-        $license = new ModelResource(License::class);
-        $user = new ModelResource(User::class);
-        $userTag = new ModelResource(UserTag::class);
-        $country = new ModelResource(Country::class);
-        $account = new ModelResource(Account::class);
-        $accountingDocument = new ModelResource(AccountingDocument::class);
-        $transactionTag = new ModelResource(TransactionTag::class);
-        $expenseClaim = new ModelResource(ExpenseClaim::class);
-        $message = new ModelResource(Message::class);
-        $transaction = new ModelResource(Transaction::class);
-        $configuration = new ModelResource(Configuration::class);
-
-        $this->addResource($bookable);
-        $this->addResource($bookableMetadata);
-        $this->addResource($bookableTag);
-        $this->addResource($booking);
-        $this->addResource($image);
-        $this->addResource($license);
-        $this->addResource($user);
-        $this->addResource($userTag);
-        $this->addResource($country);
-        $this->addResource($account);
-        $this->addResource($accountingDocument);
-        $this->addResource($transactionTag);
-        $this->addResource($expenseClaim);
-        $this->addResource($message);
-        $this->addResource($transaction);
-        $this->addResource($configuration);
+        $bookable = $this->createModelResource(Bookable::class);
+        $bookableMetadata = $this->createModelResource(BookableMetadata::class);
+        $bookableTag = $this->createModelResource(BookableTag::class);
+        $booking = $this->createModelResource(Booking::class);
+        $image = $this->createModelResource(Image::class);
+        $license = $this->createModelResource(License::class);
+        $user = $this->createModelResource(User::class);
+        $userTag = $this->createModelResource(UserTag::class);
+        $country = $this->createModelResource(Country::class);
+        $account = $this->createModelResource(Account::class);
+        $accountingDocument = $this->createModelResource(AccountingDocument::class);
+        $transactionTag = $this->createModelResource(TransactionTag::class);
+        $expenseClaim = $this->createModelResource(ExpenseClaim::class);
+        $message = $this->createModelResource(Message::class);
+        $transaction = $this->createModelResource(Transaction::class);
+        $configuration = $this->createModelResource(Configuration::class);
 
         $this->allow(User::ROLE_ANONYMOUS, [$country, $bookable, $bookableMetadata, $bookableTag, $image, $license, $transactionTag, $configuration], ['read']);
         $this->allow(User::ROLE_BOOKING_ONLY, $booking, ['create'], new BookableAvailable());
@@ -115,92 +84,5 @@ class Acl extends \Laminas\Permissions\Acl\Acl
 
         $this->allow(User::ROLE_ADMINISTRATOR, [$transaction, $account, $transactionTag, $accountingDocument, $expenseClaim], ['create', 'update', 'delete']);
         $this->allow(User::ROLE_ADMINISTRATOR, [$configuration], ['create']);
-    }
-
-    /**
-     * Return whether the current user is allowed to do something
-     *
-     * This should be the main method to do all ACL checks.
-     *
-     * @param AbstractModel $model
-     * @param string $privilege
-     *
-     * @return bool
-     */
-    public function isCurrentUserAllowed(AbstractModel $model, string $privilege): bool
-    {
-        $resource = new ModelResource($this->getClass($model), $model);
-        $role = $this->getCurrentRole();
-        $this->reason = null;
-
-        $isAllowed = $this->isAllowed($role, $resource, $privilege);
-
-        $this->message = $this->buildMessage($resource, $privilege, $role, $isAllowed);
-
-        return $isAllowed;
-    }
-
-    /**
-     * Set the reason for rejection that will be shown to end-user
-     *
-     * This method always return false for usage convenience and should be used by all assertions,
-     * instead of only return false themselves.
-     *
-     * @param string $reason
-     *
-     * @return false
-     */
-    public function reject(string $reason): bool
-    {
-        $this->reason = $reason;
-
-        return false;
-    }
-
-    private function getClass(AbstractModel $resource): string
-    {
-        return ClassUtils::getRealClass(get_class($resource));
-    }
-
-    private function getCurrentRole(): string
-    {
-        $user = User::getCurrent();
-        if (!$user) {
-            return User::ROLE_ANONYMOUS;
-        }
-
-        return $user->getRole();
-    }
-
-    private function buildMessage($resource, ?string $privilege, string $role, bool $isAllowed): ?string
-    {
-        if ($isAllowed) {
-            return null;
-        }
-
-        if ($resource instanceof ModelResource) {
-            $resource = $resource->getName();
-        }
-
-        $user = User::getCurrent() ? 'User "' . User::getCurrent()->getLogin() . '"' : 'Non-logged user';
-        $privilege = $privilege === null ? 'NULL' : $privilege;
-
-        $message = "$user with role $role is not allowed on resource \"$resource\" with privilege \"$privilege\"";
-
-        if ($this->reason) {
-            $message .= ' because ' . $this->reason;
-        }
-
-        return $message;
-    }
-
-    /**
-     * Returns the message explaining the last denial, if any
-     *
-     * @return null|string
-     */
-    public function getLastDenialMessage(): ?string
-    {
-        return $this->message;
     }
 }

@@ -36,7 +36,7 @@ return [
                 'proxy_dir' => 'data/cache/DoctrineORMModule/Proxy',
                 'generate_proxies' => false,
                 'filters' => [
-                    \Application\ORM\Query\Filter\AclFilter::class => \Application\ORM\Query\Filter\AclFilter::class,
+                    \Ecodev\Felix\ORM\Query\Filter\AclFilter::class => \Ecodev\Felix\ORM\Query\Filter\AclFilter::class,
                 ],
                 'datetime_functions' => [],
                 'string_functions' => [
@@ -55,8 +55,8 @@ return [
             'BookingStatus' => Application\DBAL\Types\BookingStatusType::class,
             'Relationship' => Application\DBAL\Types\RelationshipType::class,
             'BillingType' => Application\DBAL\Types\BillingTypeType::class,
-            'datetime' => Application\DBAL\Types\ChronosType::class,
-            'date' => Application\DBAL\Types\DateType::class,
+            'datetime' => Ecodev\Felix\DBAL\Types\ChronosType::class,
+            'date' => Ecodev\Felix\DBAL\Types\DateType::class,
             'Money' => Application\DBAL\Types\MoneyType::class,
             'ExpenseClaimStatus' => Application\DBAL\Types\ExpenseClaimStatusType::class,
             'ExpenseClaimType' => Application\DBAL\Types\ExpenseClaimTypeType::class,

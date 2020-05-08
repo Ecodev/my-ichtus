@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace Application\Model;
 
 use Application\Traits\HasAutomaticUnsignedBalance;
-use Application\Traits\HasInternalRemarks;
-use Application\Traits\HasName;
 use Application\Traits\HasRemarks;
 use Cake\Chronos\Chronos;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Money\Currencies\ISOCurrencies;
-use Money\Formatter\DecimalMoneyFormatter;
+use Ecodev\Felix\Format;
+use Ecodev\Felix\Model\Traits\HasInternalRemarks;
+use Ecodev\Felix\Model\Traits\HasName;
 use Money\Money;
 
 /**
@@ -224,10 +223,7 @@ class Transaction extends AbstractModel
         }
 
         if (!$totalDebit->equals($totalCredit)) {
-            $currencies = new ISOCurrencies();
-            $moneyFormatter = new DecimalMoneyFormatter($currencies);
-
-            throw new \Application\Api\Exception(sprintf('Transaction %s non-équilibrée, débits: %s, crédits: %s', $this->getId() ?? 'NEW', $moneyFormatter->format($totalDebit), $moneyFormatter->format($totalCredit)));
+            throw new \Ecodev\Felix\Api\Exception(sprintf('Transaction %s non-équilibrée, débits: %s, crédits: %s', $this->getId() ?? 'NEW', Format::money($totalDebit), Format::money($totalCredit)));
         }
     }
 }

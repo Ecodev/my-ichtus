@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Application\Api\Enum;
 
-class DoorType extends AbstractEnumType
+use Ecodev\Felix\Api\Enum\EnumType;
+
+class DoorType extends EnumType
 {
     public function __construct()
     {

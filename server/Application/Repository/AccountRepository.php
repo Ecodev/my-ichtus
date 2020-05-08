@@ -7,9 +7,10 @@ namespace Application\Repository;
 use Application\DBAL\Types\AccountTypeType;
 use Application\Model\Account;
 use Application\Model\User;
+use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 use Money\Money;
 
-class AccountRepository extends AbstractRepository implements LimitedAccessSubQueryInterface
+class AccountRepository extends AbstractRepository implements LimitedAccessSubQuery
 {
     private const PARENT_ACCOUNT_ID_FOR_USER = 10011;
     const ACCOUNT_ID_FOR_BANK = 10025;
@@ -29,12 +30,8 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
 
     /**
      * Returns pure SQL to get ID of all objects that are accessible to given user.
-     *
-     * @param null|User $user
-     *
-     * @return string
      */
-    public function getAccessibleSubQuery(?User $user): string
+    public function getAccessibleSubQuery(?\Ecodev\Felix\Model\User $user): string
     {
         if (!$user) {
             return '-1';

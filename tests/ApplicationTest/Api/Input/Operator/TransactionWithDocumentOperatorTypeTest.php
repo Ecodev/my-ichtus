@@ -6,8 +6,9 @@ namespace ApplicationTest\Api\Input\Operator;
 
 use Application\Model\TransactionLine;
 use Application\Model\User;
+use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
 
-class TransactionWithDocumentOperatorTypeTest extends AbstractOperatorType
+class TransactionWithDocumentOperatorTypeTest extends OperatorType
 {
     public function providerGetDqlCondition(): array
     {

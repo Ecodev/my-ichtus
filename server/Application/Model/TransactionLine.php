@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Application\Model;
 
-use Application\Traits\HasName;
 use Application\Traits\HasRemarks;
 use Cake\Chronos\Chronos;
 use Doctrine\ORM\Mapping as ORM;
+use Ecodev\Felix\Model\Traits\HasName;
 use GraphQL\Doctrine\Annotation as API;
 use Money\Money;
 

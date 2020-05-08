@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Application\Action;
 
 use Application\Model\Image;
-use Application\Service\ImageResizer;
 use Doctrine\ORM\EntityManager;
+use Ecodev\Felix\Action\ImageAction;
+use Ecodev\Felix\Service\ImageResizer;
 use Interop\Container\ContainerInterface;
 
 class ImageFactory
