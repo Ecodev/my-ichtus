@@ -29,7 +29,7 @@ return [
             \Application\Action\AccountingDocumentAction::class => \Application\Action\AccountingDocumentFactory::class,
             \Application\Action\DatatransAction::class => \Application\Action\DatatransFactory::class,
             \Application\Action\ExportTransactionLinesAction::class => \Application\Action\ExportTransactionLinesFactory::class,
-            \Application\Action\ExportAccountingReportAction::class => \Application\Action\ExportAccountingReportFactory::class, \Ecodev\Felix\Service\ImageResizer::class => \Ecodev\Felix\Service\ImageResizerFactory::class,
+            \Ecodev\Felix\Service\ImageResizer::class => \Ecodev\Felix\Service\ImageResizerFactory::class,
             \Imagine\Image\ImagineInterface::class => \Ecodev\Felix\Service\ImagineFactory::class,
             \Ecodev\Felix\Service\Mailer::class => \Application\Service\MailerFactory::class,
             \Application\Service\MessageQueuer::class => \Application\Service\MessageQueuerFactory::class,
