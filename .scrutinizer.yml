@@ -12,6 +12,8 @@ coding_style:
 build:
     environment:
         node: 10
+        php:
+            version: '7.4'
     nodes:
         analysis:
             tests:
