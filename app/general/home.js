@@ -56,7 +56,6 @@ function load() {
     Requests.checkLogin();
 
 
-
     loadBottoms();
     loadMateriel();
 }
@@ -255,7 +254,7 @@ String.prototype.shorten = function (maxLength, _fontSize = 20) {
 };
 
 
-function grayBar(elem,marginTop = 10, marginBottom = 15) {
+function grayBar(elem, marginTop = 10, marginBottom = 15) {
     var d = div(elem);
     d.style.backgroundColor = "lightgray";
     d.style.height = "2px";

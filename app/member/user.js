@@ -1,9 +1,5 @@
 function popUser(nbr = 0, elem = openPopUp()) {
 
-    //if (elem == $("divTabCahierMemberContainer")) {
-    //    elem.innerHTML = "";
-    //}
-
     var container;
     container = div(elem);
     container.id = nbr;
