@@ -166,8 +166,6 @@ abstract class Standard
      * @param string $ownerClass The class owning the relation
      * @param string $otherClass The other class, not-owning the relation
      * @param null|string $otherName a specific semantic, if needed, to be use as adder. If `$otherName = 'Parent'`, then we will call `addParent()`
-     *
-     * @throws ReflectionException
      */
     public static function buildRelationMutation(string $ownerClass, string $otherClass, ?string $otherName = null): array
     {

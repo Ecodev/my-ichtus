@@ -85,8 +85,6 @@ class DatatransAction extends AbstractAction
      * Make sure the signature protecting important body fields is valid
      *
      * @param string $key HMAC-SHA256 signing key in hexadecimal format
-     *
-     * @throws Exception
      */
     private function checkSignature(array $body, string $key): void
     {

@@ -130,8 +130,6 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
      * Update accounts' balance
      *
      * @param null|Account $account the account to update, or null for all accounts
-     *
-     * @throws \Doctrine\DBAL\DBALException
      */
     public function updateAccountBalance(?Account $account = null): void
     {

@@ -21,8 +21,6 @@ trait HasIban
 
     /**
      * Set the IBAN (international bank account number)
-     *
-     * @throws InvalidArgumentException
      */
     public function setIban(string $iban): void
     {
