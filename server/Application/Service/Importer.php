@@ -63,8 +63,6 @@ class Importer
     /**
      * Import all transactions from a CAMT file
      *
-     * @param string $file
-     *
      * @return Transaction[]
      */
     public function import(string $file): array
@@ -87,9 +85,6 @@ class Importer
         return $this->transactions;
     }
 
-    /**
-     * @param Entry $entry
-     */
     private function importTransaction(Entry $entry): void
     {
         $nativeDate = $entry->getValueDate();
@@ -190,12 +185,6 @@ class Importer
         return implode(PHP_EOL, $nonEmptyLines);
     }
 
-    /**
-     * @param EntryTransactionDetail $detail
-     * @param string $referenceNumber
-     *
-     * @return string
-     */
     private function getRemarks(EntryTransactionDetail $detail, string $referenceNumber): string
     {
         $parts = [];
@@ -211,11 +200,6 @@ class Importer
         return $remarks;
     }
 
-    /**
-     * @param Record $record
-     *
-     * @return Account
-     */
     private function loadAccount(Record $record): Account
     {
         $accountFromFile = $record->getAccount();
@@ -229,11 +213,6 @@ class Importer
         return $account;
     }
 
-    /**
-     * @param string $referenceNumber
-     *
-     * @return User
-     */
     private function loadUser(string $referenceNumber): User
     {
         $userId = (int) Bvr::extractCustomId($referenceNumber);

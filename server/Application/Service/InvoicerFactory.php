@@ -11,10 +11,6 @@ class InvoicerFactory
 {
     /**
      * Return a configured invoicer
-     *
-     * @param ContainerInterface $container
-     *
-     * @return Invoicer
      */
     public function __invoke(ContainerInterface $container): Invoicer
     {

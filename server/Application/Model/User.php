@@ -91,8 +91,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Returns currently logged user or null
-     *
-     * @return null|self
      */
     public static function getCurrent(): ?self
     {
@@ -279,8 +277,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      * Set login (eg: johndoe)
      *
      * @API\Input(type="Login")
-     *
-     * @param string $login
      */
     public function setLogin(string $login): void
     {
@@ -291,8 +287,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      * Get login (eg: johndoe)
      *
      * @API\Field(type="?Login")
-     *
-     * @return null|string
      */
     public function getLogin(): ?string
     {
@@ -311,8 +305,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Get first name
-     *
-     * @return string
      */
     public function getFirstName(): string
     {
@@ -331,8 +323,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Get last name
-     *
-     * @return string
      */
     public function getLastName(): string
     {
@@ -341,8 +331,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Get full name
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -353,8 +341,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      * Set email
      *
      * @API\Input(type="?Email")
-     *
-     * @param null|string $email
      */
     public function setEmail(?string $email): void
     {
@@ -365,8 +351,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      * Get email
      *
      * @API\Field(type="?Email")
-     *
-     * @return null|string
      */
     public function getEmail(): ?string
     {
@@ -391,8 +375,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      *
      * But the current user is **not** allowed to demote a user who has a higher role than himself.
      * That means that a Responsible cannot demote an Admin to Individual.
-     *
-     * @param string $role
      */
     public function setRole(string $role): void
     {
@@ -432,7 +414,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
         $this->role = $role;
     }
 
-    public function setOwner(self $owner = null): void
+    public function setOwner(?self $owner = null): void
     {
         if ($owner && $owner !== $this) {
             if ($owner->getOwner() && $owner !== $owner->getOwner()) {
@@ -460,8 +442,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * @API\Field(type="Application\Api\Enum\UserStatusType")
-     *
-     * @return string
      */
     public function getStatus(): string
     {
@@ -470,8 +450,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * @API\Input(type="Application\Api\Enum\UserStatusType")
-     *
-     * @param string $newStatus
      */
     public function setStatus(string $newStatus): void
     {
@@ -497,49 +475,31 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
         $this->setStatus(self::STATUS_NEW);
     }
 
-    /**
-     * @return string
-     */
     public function getPhone(): string
     {
         return $this->phone;
     }
 
-    /**
-     * @param string $phone
-     */
     public function setPhone(string $phone): void
     {
         $this->phone = $phone;
     }
 
-    /**
-     * @return string
-     */
     public function getMobilePhone(): string
     {
         return $this->mobilePhone;
     }
 
-    /**
-     * @param string $mobilePhone
-     */
     public function setMobilePhone(string $mobilePhone): void
     {
         $this->mobilePhone = $mobilePhone;
     }
 
-    /**
-     * @return null|Date
-     */
     public function getBirthday(): ?Date
     {
         return $this->birthday;
     }
 
-    /**
-     * @param null|Date $birthday
-     */
     public function setBirthday(?Date $birthday): void
     {
         $this->birthday = $birthday;
@@ -559,8 +519,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Get bookings
-     *
-     * @return Collection
      */
     public function getBookings(): Collection
     {
@@ -570,8 +528,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     /**
      * Notify the user that it has a new booking.
      * This should only be called by Booking::setResponsible()
-     *
-     * @param Booking $booking
      */
     public function bookingAdded(Booking $booking): void
     {
@@ -581,25 +537,17 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     /**
      * Notify the user that it has a booking was removed.
      * This should only be called by Booking::setResponsible()
-     *
-     * @param Booking $booking
      */
     public function bookingRemoved(Booking $booking): void
     {
         $this->bookings->removeElement($booking);
     }
 
-    /**
-     * @return Collection
-     */
     public function getLicenses(): Collection
     {
         return $this->licenses;
     }
 
-    /**
-     * @return Collection
-     */
     public function getUserTags(): Collection
     {
         return $this->userTags;
@@ -608,8 +556,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     /**
      * Notify the user that it has a new license.
      * This should only be called by License::addUser()
-     *
-     * @param License $license
      */
     public function licenseAdded(License $license): void
     {
@@ -619,8 +565,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     /**
      * Notify the user that it a license was removed.
      * This should only be called by License::removeUser()
-     *
-     * @param License $license
      */
     public function licenseRemoved(License $license): void
     {
@@ -630,8 +574,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     /**
      * Notify the user that it has a new userTag.
      * This should only be called by UserTag::addUser()
-     *
-     * @param UserTag $userTag
      */
     public function userTagAdded(UserTag $userTag): void
     {
@@ -641,89 +583,57 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     /**
      * Notify the user that a userTag was removed.
      * This should only be called by UserTag::removeUser()
-     *
-     * @param UserTag $userTag
      */
     public function userTagRemoved(UserTag $userTag): void
     {
         $this->userTags->removeElement($userTag);
     }
 
-    /**
-     * @return bool
-     */
     public function isTermsAgreement(): bool
     {
         return $this->termsAgreement;
     }
 
-    /**
-     * @param bool $termsAgreement
-     */
     public function setTermsAgreement(bool $termsAgreement): void
     {
         $this->termsAgreement = $termsAgreement;
     }
 
-    /**
-     * @return bool
-     */
     public function hasInsurance(): bool
     {
         return $this->hasInsurance;
     }
 
-    /**
-     * @param bool $hasInsurance
-     */
     public function setHasInsurance(bool $hasInsurance): void
     {
         $this->hasInsurance = $hasInsurance;
     }
 
-    /**
-     * @return null|Chronos
-     */
     public function getWelcomeSessionDate(): ?Chronos
     {
         return $this->welcomeSessionDate;
     }
 
-    /**
-     * @param null|Chronos $welcomeSessionDate
-     */
     public function setWelcomeSessionDate(?Chronos $welcomeSessionDate): void
     {
         $this->welcomeSessionDate = $welcomeSessionDate;
     }
 
-    /**
-     * @return null|Chronos
-     */
     public function getResignDate(): ?Chronos
     {
         return $this->resignDate;
     }
 
-    /**
-     * @param null|Chronos $resignDate
-     */
     public function setResignDate(?Chronos $resignDate): void
     {
         $this->resignDate = $resignDate;
     }
 
-    /**
-     * @return bool
-     */
     public function getReceivesNewsletter(): bool
     {
         return $this->receivesNewsletter;
     }
 
-    /**
-     * @param bool $receivesNewsletter
-     */
     public function setReceivesNewsletter(bool $receivesNewsletter): void
     {
         $this->receivesNewsletter = $receivesNewsletter;
@@ -733,8 +643,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      * Get the sex
      *
      * @API\Field(type="Sex")
-     *
-     * @return int
      */
     public function getSex(): int
     {
@@ -745,8 +653,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      * Set the sex
      *
      * @API\Input(type="Sex")
-     *
-     * @param int $sex
      */
     public function setSex(int $sex): void
     {
@@ -755,17 +661,12 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Get the Swiss Sailing licence number
-     *
-     * @return string
      */
     public function getSwissSailing(): string
     {
         return $this->swissSailing;
     }
 
-    /**
-     * @param string $swissSailing
-     */
     public function setSwissSailing(string $swissSailing): void
     {
         $this->swissSailing = $swissSailing;
@@ -775,8 +676,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      * Get the Swiss Sailing licence type
      *
      * @API\Field(type="?SwissSailingType")
-     *
-     * @return null|string
      */
     public function getSwissSailingType(): ?string
     {
@@ -787,8 +686,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      * Set the Swiss Sailing licence type
      *
      * @API\Input(type="?SwissSailingType")
-     *
-     * @param null|string $swissSailingType
      */
     public function setSwissSailingType(?string $swissSailingType): void
     {
@@ -799,8 +696,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      * Get the Swiss Windsurf licence type
      *
      * @API\Field(type="?SwissWindsurfType")
-     *
-     * @return null|string
      */
     public function getSwissWindsurfType(): ?string
     {
@@ -811,8 +706,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      * Set the Swiss Windsurf licence type
      *
      * @API\Input(type="?SwissWindsurfType")
-     *
-     * @param null|string $swissWindsurfType
      */
     public function setSwissWindsurfType(?string $swissWindsurfType): void
     {
@@ -821,8 +714,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Get the first login date
-     *
-     * @return null|Chronos
      */
     public function getFirstLogin(): ?Chronos
     {
@@ -834,8 +725,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Get the last login date
-     *
-     * @return null|Chronos
      */
     public function getLastLogin(): ?Chronos
     {
@@ -847,8 +736,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * @API\Field(type="Relationship")
-     *
-     * @return string
      */
     public function getFamilyRelationship(): string
     {
@@ -857,8 +744,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * @API\Input(type="Relationship")
-     *
-     * @param string $familyRelationship
      */
     public function setFamilyRelationship(string $familyRelationship): void
     {
@@ -867,8 +752,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * @API\Field(type="BillingType")
-     *
-     * @return string
      */
     public function getBillingType(): string
     {
@@ -877,8 +760,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * @API\Input(type="BillingType")
-     *
-     * @param string $billingType
      */
     public function setBillingType(string $billingType): void
     {
@@ -887,8 +768,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Get the user transaction account
-     *
-     * @return null|Account
      */
     public function getAccount(): ?Account
     {
@@ -898,8 +777,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     /**
      * Notify the user that it has a new account
      * This should only be called by Account::setOwner()
-     *
-     * @param Account $account
      */
     public function accountAdded(Account $account): void
     {
@@ -918,8 +795,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Get messages sent to the user
-     *
-     * @return Collection
      */
     public function getMessages(): Collection
     {
@@ -929,8 +804,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     /**
      * Notify the user that it has a new message
      * This should only be called by Message::setRecipient()
-     *
-     * @param Message $message
      */
     public function messageAdded(Message $message): void
     {
@@ -940,8 +813,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     /**
      * Notify the user that a message was removed
      * This should only be called by Message::setRecipient()
-     *
-     * @param Message $message
      */
     public function messageRemoved(Message $message): void
     {
@@ -955,8 +826,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      * @API\Field(args={@API\Argument(name="door", type="?Application\Api\Enum\DoorType")})
      *
      * @param null|string $door a particular door, or null for any
-     *
-     * @return bool
      */
     public function getCanOpenDoor(?string $door = null): bool
     {

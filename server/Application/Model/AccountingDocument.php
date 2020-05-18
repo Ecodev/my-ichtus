@@ -45,9 +45,6 @@ class AccountingDocument extends AbstractModel implements \Ecodev\Felix\Model\Fi
      */
     private $transaction;
 
-    /**
-     * @param null|ExpenseClaim $expenseClaim
-     */
     public function setExpenseClaim(?ExpenseClaim $expenseClaim): void
     {
         if ($this->expenseClaim) {
@@ -61,17 +58,11 @@ class AccountingDocument extends AbstractModel implements \Ecodev\Felix\Model\Fi
         }
     }
 
-    /**
-     * @return null|ExpenseClaim
-     */
     public function getExpenseClaim(): ?ExpenseClaim
     {
         return $this->expenseClaim;
     }
 
-    /**
-     * @param null|Transaction $transaction
-     */
     public function setTransaction(?Transaction $transaction): void
     {
         if ($this->transaction) {
@@ -85,9 +76,6 @@ class AccountingDocument extends AbstractModel implements \Ecodev\Felix\Model\Fi
         }
     }
 
-    /**
-     * @return null|Transaction
-     */
     public function getTransaction(): ?Transaction
     {
         return $this->transaction;

@@ -25,7 +25,7 @@ use Psr\Http\Message\ServerRequestInterface;
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     /** @var ErrorHandler $errorHandler */
     $errorHandler = $container->get(ErrorHandler::class);
-    $errorHandler->attachListener(function (\Throwable $throwable, ServerRequestInterface $request, ResponseInterface $response): void {
+    $errorHandler->attachListener(function (Throwable $throwable, ServerRequestInterface $request, ResponseInterface $response): void {
         _log()->err($throwable->getMessage() . "\n" . $throwable->getTraceAsString());
     });
 

@@ -14,10 +14,6 @@ class MailerFactory
 {
     /**
      * Return a configured mailer
-     *
-     * @param ContainerInterface $container
-     *
-     * @return Mailer
      */
     public function __invoke(ContainerInterface $container): Mailer
     {

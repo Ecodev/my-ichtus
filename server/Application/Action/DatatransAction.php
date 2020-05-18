@@ -12,16 +12,20 @@ use Application\Repository\AccountRepository;
 use Application\Repository\UserRepository;
 use Cake\Chronos\Chronos;
 use Doctrine\ORM\EntityManager;
+use Exception;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Mezzio\Template\TemplateRendererInterface;
 use Money\Money;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Throwable;
 
 class DatatransAction extends AbstractAction
 {
-    /** @var TemplateRendererInterface */
+    /**
+     * @var TemplateRendererInterface
+     */
     private $template;
 
     /**
@@ -36,10 +40,6 @@ class DatatransAction extends AbstractAction
 
     /**
      * DatatransAction constructor.
-     *
-     * @param EntityManager $entityManager
-     * @param TemplateRendererInterface $template
-     * @param array $config
      */
     public function __construct(EntityManager $entityManager, TemplateRendererInterface $template, array $config)
     {
@@ -52,11 +52,6 @@ class DatatransAction extends AbstractAction
      * Webhook called by datatrans when a payment was made
      *
      * See documentation: https://api-reference.datatrans.ch/#failed-unsuccessful-authorization-response
-     *
-     * @param ServerRequestInterface $request
-     * @param RequestHandlerInterface $handler
-     *
-     * @return ResponseInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
@@ -65,7 +60,7 @@ class DatatransAction extends AbstractAction
 
         try {
             if (!is_array($body)) {
-                throw new \Exception('Parsed body is expected to be an array but got: ' . gettype($body));
+                throw new Exception('Parsed body is expected to be an array but got: ' . gettype($body));
             }
 
             if (isset($this->config['key'])) {
@@ -75,7 +70,7 @@ class DatatransAction extends AbstractAction
             $status = $body['status'] ?? '';
 
             $message = $this->dispatch($status, $body);
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             $message = $this->createMessage('error', $exception->getMessage(), is_array($body) ? $body : []);
         }
 
@@ -89,32 +84,25 @@ class DatatransAction extends AbstractAction
     /**
      * Make sure the signature protecting important body fields is valid
      *
-     * @param array $body
      * @param string $key HMAC-SHA256 signing key in hexadecimal format
      *
-     * @throws \Exception
+     * @throws Exception
      */
     private function checkSignature(array $body, string $key): void
     {
         if (!isset($body['sign'])) {
-            throw new \Exception('Missing HMAC signature');
+            throw new Exception('Missing HMAC signature');
         }
         $aliasCC = $body['aliasCC'] ?? '';
         $valueToSign = $aliasCC . @$body['merchantId'] . @$body['amount'] . @$body['currency'] . @$body['refno'];
         $expectedSign = hash_hmac('sha256', trim($valueToSign), hex2bin(trim($key)));
         if ($expectedSign !== $body['sign']) {
-            throw new \Exception('Invalid HMAC signature');
+            throw new Exception('Invalid HMAC signature');
         }
     }
 
     /**
      * Create a message in a coherent way
-     *
-     * @param string $status
-     * @param string $message
-     * @param array $detail
-     *
-     * @return array
      */
     private function createMessage(string $status, string $message, array $detail): array
     {
@@ -127,11 +115,6 @@ class DatatransAction extends AbstractAction
 
     /**
      * Dispatch the data received from Datatrans to take appropriate actions
-     *
-     * @param string $status
-     * @param array $body
-     *
-     * @return array
      */
     private function dispatch(string $status, array $body): array
     {
@@ -150,7 +133,7 @@ class DatatransAction extends AbstractAction
 
                 break;
             default:
-                throw new \Exception('Unsupported status in Datatrans data: ' . $status);
+                throw new Exception('Unsupported status in Datatrans data: ' . $status);
         }
 
         return $message;
@@ -173,7 +156,7 @@ class DatatransAction extends AbstractAction
         $userRepository = $this->entityManager->getRepository(User::class);
         $user = $userRepository->getOneById((int) $userId);
         if (!$user) {
-            throw new \Exception('Cannot create transactions without a user');
+            throw new Exception('Cannot create transactions without a user');
         }
 
         /** @var AccountRepository $accountRepository */
@@ -183,12 +166,12 @@ class DatatransAction extends AbstractAction
 
         if (!array_key_exists('amount', $body)) {
             // Do not support "registrations"
-            throw new \Exception('Cannot create transactions without an amount');
+            throw new Exception('Cannot create transactions without an amount');
         }
 
         $currency = $body['currency'] ?? '';
         if ($currency !== 'CHF') {
-            throw new \Exception('Can only create transactions for CHF, but got: ' . $currency);
+            throw new Exception('Can only create transactions for CHF, but got: ' . $currency);
         }
 
         $now = Chronos::now();

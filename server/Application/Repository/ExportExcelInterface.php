@@ -14,8 +14,6 @@ interface ExportExcelInterface
     /**
      * Generates an Excel spreadsheet with the query result
      *
-     * @param Query $query
-     *
      * @return string name of the temporary file
      */
     public function exportExcel(Query $query): string;

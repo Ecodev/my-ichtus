@@ -37,9 +37,6 @@ class UserTag extends AbstractModel
         $this->users = new ArrayCollection();
     }
 
-    /**
-     * @return Collection
-     */
     public function getUsers(): Collection
     {
         return $this->users;
@@ -47,8 +44,6 @@ class UserTag extends AbstractModel
 
     /**
      * Add user
-     *
-     * @param User $user
      */
     public function addUser(User $user): void
     {
@@ -60,8 +55,6 @@ class UserTag extends AbstractModel
 
     /**
      * Remove user
-     *
-     * @param User $user
      */
     public function removeUser(User $user): void
     {

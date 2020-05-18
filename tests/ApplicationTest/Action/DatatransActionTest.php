@@ -29,7 +29,7 @@ class DatatransActionTest extends TestCase
         // Message always include input data
         $expectedViewModel['message']['detail'] = $data ?? [];
         $renderer = $this->createMock(TemplateRendererInterface::class);
-        $renderer->expects($this->atLeastOnce())->method('render')->with('app::datatrans', $expectedViewModel)->willReturn('');
+        $renderer->expects(self::atLeastOnce())->method('render')->with('app::datatrans', $expectedViewModel)->willReturn('');
 
         $handler = $this->createMock(RequestHandlerInterface::class);
 

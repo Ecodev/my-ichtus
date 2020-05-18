@@ -37,8 +37,6 @@ class Configuration extends AbstractModel
 
     /**
      * Get key
-     *
-     * @return string
      */
     public function getKey(): string
     {
@@ -47,8 +45,6 @@ class Configuration extends AbstractModel
 
     /**
      * Set value
-     *
-     * @param string $value
      */
     public function setValue(string $value): void
     {
@@ -57,8 +53,6 @@ class Configuration extends AbstractModel
 
     /**
      * Get value
-     *
-     * @return string
      */
     public function getValue(): string
     {

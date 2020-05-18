@@ -12,10 +12,6 @@ class MessageQueuerFactory
 {
     /**
      * Return a configured mailer
-     *
-     * @param ContainerInterface $container
-     *
-     * @return MessageQueuer
      */
     public function __invoke(ContainerInterface $container): MessageQueuer
     {

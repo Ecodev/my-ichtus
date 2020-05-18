@@ -18,14 +18,14 @@ class BookingRepositoryTest extends AbstractRepositoryTest
      */
     private $repository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->repository = $this->getEntityManager()->getRepository(Booking::class);
         Date::setTestNow(new Date('2020-01-01'));
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         Date::setTestNow(null);
         parent::tearDown();
@@ -327,8 +327,6 @@ class BookingRepositoryTest extends AbstractRepositoryTest
 
     /**
      * @param Booking[] $bookings
-     *
-     * @return array
      */
     private function modelToIds(array $bookings): array
     {

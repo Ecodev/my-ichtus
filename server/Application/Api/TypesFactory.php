@@ -54,11 +54,13 @@ class TypesFactory
 
         $aliases = [
             \Cake\Chronos\Chronos::class => \Ecodev\Felix\Api\Scalar\ChronosType::class,
+            \Cake\Chronos\Date::class => \Ecodev\Felix\Api\Scalar\DateType::class,
             'datetime' => \Ecodev\Felix\Api\Scalar\ChronosType::class,
             'date' => \Ecodev\Felix\Api\Scalar\DateType::class,
             \Psr\Http\Message\UploadedFileInterface::class => \GraphQL\Upload\UploadType::class,
             'UploadedFileInterface' => \GraphQL\Upload\UploadType::class,
             'Money' => \Application\Api\Scalar\MoneyType::class,
+            \Money\Money::class => \Application\Api\Scalar\MoneyType::class,
         ];
 
         // Automatically add aliases for GraphQL type name from the invokable types
@@ -72,8 +74,8 @@ class TypesFactory
             'invokables' => $invokables,
             'aliases' => $aliases,
             'services' => [
-//                // This is not quite right because it allow to compare a string with a json array.
-//                // TODO: either hide the json_array filter or find a cleaner solution
+                // This is not quite right because it allow to compare a string with a json array.
+                // TODO: either hide the json_array filter or find a cleaner solution
                 'json_array' => \GraphQL\Type\Definition\Type::string(),
             ],
             'abstract_factories' => [

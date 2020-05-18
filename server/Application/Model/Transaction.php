@@ -75,8 +75,6 @@ class Transaction extends AbstractModel
 
     /**
      * Set date of transaction
-     *
-     * @param Chronos $transactionDate
      */
     public function setTransactionDate(Chronos $transactionDate): void
     {
@@ -85,8 +83,6 @@ class Transaction extends AbstractModel
 
     /**
      * Get date of transaction
-     *
-     * @return Chronos
      */
     public function getTransactionDate(): Chronos
     {
@@ -96,8 +92,6 @@ class Transaction extends AbstractModel
     /**
      * Notify when a transaction line is added
      * This should only be called by TransactionLine::setTransaction()
-     *
-     * @param TransactionLine $transactionLine
      */
     public function transactionLineAdded(TransactionLine $transactionLine): void
     {
@@ -107,17 +101,12 @@ class Transaction extends AbstractModel
     /**
      * Notify when a transaction line is removed
      * This should only be called by TransactionLine::setTransaction()
-     *
-     * @param TransactionLine $transactionLine
      */
     public function transactionLineRemoved(TransactionLine $transactionLine): void
     {
         $this->transactionLines->removeElement($transactionLine);
     }
 
-    /**
-     * @return Collection
-     */
     public function getTransactionLines(): Collection
     {
         return $this->transactionLines;
@@ -126,8 +115,6 @@ class Transaction extends AbstractModel
     /**
      * Notify the transaction that an accounting document was added
      * This should only be called by AccountingDocument::setTransaction()
-     *
-     * @param AccountingDocument $document
      */
     public function accountingDocumentAdded(AccountingDocument $document): void
     {
@@ -137,8 +124,6 @@ class Transaction extends AbstractModel
     /**
      * Notify the transaction that an accounting document was removed
      * This should only be called by AccountingDocument::setTransaction()
-     *
-     * @param AccountingDocument $document
      */
     public function accountingDocumentRemoved(AccountingDocument $document): void
     {
@@ -147,8 +132,6 @@ class Transaction extends AbstractModel
 
     /**
      * Get accounting documents
-     *
-     * @return Collection
      */
     public function getAccountingDocuments(): Collection
     {
@@ -157,8 +140,6 @@ class Transaction extends AbstractModel
 
     /**
      * Set expense claim
-     *
-     * @param null|ExpenseClaim $expenseClaim
      */
     public function setExpenseClaim(?ExpenseClaim $expenseClaim): void
     {
@@ -175,8 +156,6 @@ class Transaction extends AbstractModel
 
     /**
      * Get expense claim
-     *
-     * @return null|ExpenseClaim
      */
     public function getExpenseClaim(): ?ExpenseClaim
     {
@@ -185,8 +164,6 @@ class Transaction extends AbstractModel
 
     /**
      * Get Datatrans payment reference number
-     *
-     * @param string $datatransRef
      */
     public function setDatatransRef(string $datatransRef): void
     {
@@ -195,8 +172,6 @@ class Transaction extends AbstractModel
 
     /**
      * Set Datatrans payment reference number
-     *
-     * @return string
      */
     public function getDatatransRef(): string
     {

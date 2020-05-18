@@ -99,8 +99,6 @@ class Account extends AbstractModel
 
     /**
      * Get full name including code and name
-     *
-     * @return string
      */
     public function getFullName(): string
     {
@@ -109,8 +107,6 @@ class Account extends AbstractModel
 
     /**
      * Assign the account to an user
-     *
-     * @param null|User $owner
      */
     public function setOwner(?User $owner): void
     {
@@ -128,8 +124,6 @@ class Account extends AbstractModel
     /**
      * Only members' liability accounts must have an owner
      * and there must be only an account per member
-     *
-     * @return null|User
      */
     public function getOwnerForCreation(): ?User
     {
@@ -139,8 +133,6 @@ class Account extends AbstractModel
     /**
      * Set balance
      *
-     * @param Money $balance
-     *
      * @API\Exclude
      */
     public function setBalance(Money $balance): void
@@ -148,9 +140,6 @@ class Account extends AbstractModel
         $this->balance = $balance;
     }
 
-    /**
-     * @return Money
-     */
     public function getBalance(): Money
     {
         return $this->balance;
@@ -158,8 +147,6 @@ class Account extends AbstractModel
 
     /**
      * Total balance, recursively including all child account if this account is a group
-     *
-     * @return Money
      */
     public function getTotalBalance(): Money
     {
@@ -192,9 +179,6 @@ class Account extends AbstractModel
         return $this->parent;
     }
 
-    /**
-     * @return Collection
-     */
     public function getChildren(): Collection
     {
         return $this->children;
@@ -204,8 +188,6 @@ class Account extends AbstractModel
      * Set type
      *
      * @API\Input(type="AccountType")
-     *
-     * @param string $type
      */
     public function setType(string $type): void
     {
@@ -216,8 +198,6 @@ class Account extends AbstractModel
      * Get type
      *
      * @API\Field(type="AccountType")
-     *
-     * @return string
      */
     public function getType(): string
     {
@@ -226,8 +206,6 @@ class Account extends AbstractModel
 
     /**
      * Set code
-     *
-     * @param int $code
      */
     public function setCode(int $code): void
     {
@@ -236,8 +214,6 @@ class Account extends AbstractModel
 
     /**
      * Get code
-     *
-     * @return int
      */
     public function getCode(): int
     {
@@ -247,8 +223,6 @@ class Account extends AbstractModel
     /**
      * Notify when a transaction line is added
      * This should only be called by TransactionLine::setDebit()
-     *
-     * @param TransactionLine $transactionLine
      */
     public function debitTransactionLineAdded(TransactionLine $transactionLine): void
     {
@@ -258,17 +232,12 @@ class Account extends AbstractModel
     /**
      * Notify when a transaction line is removed
      * This should only be called by TransactionLine::setDebit()
-     *
-     * @param TransactionLine $transactionLine
      */
     public function debitTransactionLineRemoved(TransactionLine $transactionLine): void
     {
         $this->debitTransactionLines->removeElement($transactionLine);
     }
 
-    /**
-     * @return Collection
-     */
     public function getDebitTransactionLines(): Collection
     {
         return $this->debitTransactionLines;
@@ -277,8 +246,6 @@ class Account extends AbstractModel
     /**
      * Notify when a transaction line is added
      * This should only be called by TransactionLine::setCredit()
-     *
-     * @param TransactionLine $transactionLine
      */
     public function creditTransactionLineAdded(TransactionLine $transactionLine): void
     {
@@ -288,17 +255,12 @@ class Account extends AbstractModel
     /**
      * Notify when a transaction line is removed
      * This should only be called by TransactionLine::setCredit()
-     *
-     * @param TransactionLine $transactionLine
      */
     public function creditTransactionLineRemoved(TransactionLine $transactionLine): void
     {
         $this->creditTransactionLines->removeElement($transactionLine);
     }
 
-    /**
-     * @return Collection
-     */
     public function getCreditTransactionLines(): Collection
     {
         return $this->creditTransactionLines;

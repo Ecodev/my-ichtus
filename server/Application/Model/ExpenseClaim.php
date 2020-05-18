@@ -78,8 +78,6 @@ class ExpenseClaim extends AbstractModel
 
     /**
      * Set amount
-     *
-     * @param Money $amount
      */
     public function setAmount(Money $amount): void
     {
@@ -88,8 +86,6 @@ class ExpenseClaim extends AbstractModel
 
     /**
      * Get amount
-     *
-     * @return Money
      */
     public function getAmount(): Money
     {
@@ -100,8 +96,6 @@ class ExpenseClaim extends AbstractModel
      * Set status
      *
      * @API\Input(type="ExpenseClaimStatus")
-     *
-     * @param string $status
      */
     public function setStatus(string $status): void
     {
@@ -112,8 +106,6 @@ class ExpenseClaim extends AbstractModel
      * Get status
      *
      * @API\Field(type="ExpenseClaimStatus")
-     *
-     * @return string
      */
     public function getStatus(): string
     {
@@ -124,8 +116,6 @@ class ExpenseClaim extends AbstractModel
      * Set type
      *
      * @API\Input(type="ExpenseClaimType")
-     *
-     * @param string $type
      */
     public function setType(string $type): void
     {
@@ -136,8 +126,6 @@ class ExpenseClaim extends AbstractModel
      * Get type
      *
      * @API\Field(type="ExpenseClaimType")
-     *
-     * @return string
      */
     public function getType(): string
     {
@@ -147,8 +135,6 @@ class ExpenseClaim extends AbstractModel
     /**
      * Notify the expense claim that a transaction was added
      * This should only be called by Transaction::setExpenseClaim()
-     *
-     * @param Transaction $transaction
      */
     public function transactionAdded(Transaction $transaction): void
     {
@@ -158,8 +144,6 @@ class ExpenseClaim extends AbstractModel
     /**
      * Notify the expense claim that a transaction was removed
      * This should only be called by Transaction::setExpenseClaim()
-     *
-     * @param Transaction $transaction
      */
     public function transactionRemoved(Transaction $transaction): void
     {
@@ -168,8 +152,6 @@ class ExpenseClaim extends AbstractModel
 
     /**
      * Get the transactions created from this expense claim
-     *
-     * @return Collection
      */
     public function getTransactions(): Collection
     {
@@ -179,8 +161,6 @@ class ExpenseClaim extends AbstractModel
     /**
      * Notify the expense that an accounting document was added
      * This should only be called by AccountingDocument::setExpenseClaim()
-     *
-     * @param AccountingDocument $document
      */
     public function accountingDocumentAdded(AccountingDocument $document): void
     {
@@ -190,8 +170,6 @@ class ExpenseClaim extends AbstractModel
     /**
      * Notify the expense that an accounting document was removed
      * This should only be called by AccountingDocument::setExpenseClaim()
-     *
-     * @param AccountingDocument $document
      */
     public function accountingDocumentRemoved(AccountingDocument $document): void
     {
@@ -200,8 +178,6 @@ class ExpenseClaim extends AbstractModel
 
     /**
      * Get accounting documents
-     *
-     * @return Collection
      */
     public function getAccountingDocuments(): Collection
     {

@@ -110,8 +110,6 @@ class TransactionLine extends AbstractModel
      * Set importedId
      *
      * @API\Exclude
-     *
-     * @param string $importedId
      */
     public function setImportedId(string $importedId): void
     {
@@ -120,8 +118,6 @@ class TransactionLine extends AbstractModel
 
     /**
      * Get importedId
-     *
-     * @return null|string
      */
     public function getImportedId(): ?string
     {
@@ -130,8 +126,6 @@ class TransactionLine extends AbstractModel
 
     /**
      * @API\Exclude
-     *
-     * @param Transaction $transaction
      */
     public function setTransaction(Transaction $transaction): void
     {
@@ -143,9 +137,6 @@ class TransactionLine extends AbstractModel
         $transaction->transactionLineAdded($this);
     }
 
-    /**
-     * @return Transaction
-     */
     public function getTransaction(): Transaction
     {
         return $this->transaction;
@@ -153,8 +144,6 @@ class TransactionLine extends AbstractModel
 
     /**
      * Set debit account
-     *
-     * @param null|Account $account
      */
     public function setDebit(?Account $account): void
     {
@@ -171,8 +160,6 @@ class TransactionLine extends AbstractModel
 
     /**
      * Get debit account
-     *
-     * @return null|Account
      */
     public function getDebit(): ?Account
     {
@@ -181,8 +168,6 @@ class TransactionLine extends AbstractModel
 
     /**
      * Set credit account
-     *
-     * @param null|Account $account
      */
     public function setCredit(?Account $account): void
     {
@@ -199,8 +184,6 @@ class TransactionLine extends AbstractModel
 
     /**
      * Get credit account
-     *
-     * @return null|Account
      */
     public function getCredit(): ?Account
     {
@@ -209,8 +192,6 @@ class TransactionLine extends AbstractModel
 
     /**
      * Get related equipment or service
-     *
-     * @return null|Bookable
      */
     public function getBookable(): ?Bookable
     {
@@ -219,8 +200,6 @@ class TransactionLine extends AbstractModel
 
     /**
      * Set related equipment or service
-     *
-     * @param null|Bookable $bookable
      */
     public function setBookable(?Bookable $bookable): void
     {
@@ -229,17 +208,12 @@ class TransactionLine extends AbstractModel
 
     /**
      * Set balance
-     *
-     * @param Money $balance
      */
     public function setBalance(Money $balance): void
     {
         $this->balance = $balance;
     }
 
-    /**
-     * @return Money
-     */
     public function getBalance(): Money
     {
         return $this->balance;
@@ -247,8 +221,6 @@ class TransactionLine extends AbstractModel
 
     /**
      * Set date of transaction
-     *
-     * @param Chronos $transactionDate
      */
     public function setTransactionDate(Chronos $transactionDate): void
     {
@@ -257,8 +229,6 @@ class TransactionLine extends AbstractModel
 
     /**
      * Get date of transaction
-     *
-     * @return Chronos
      */
     public function getTransactionDate(): Chronos
     {
@@ -267,8 +237,6 @@ class TransactionLine extends AbstractModel
 
     /**
      * Set transaction tag
-     *
-     * @param null|TransactionTag $transactionTag
      */
     public function setTransactionTag(?TransactionTag $transactionTag): void
     {
@@ -277,8 +245,6 @@ class TransactionLine extends AbstractModel
 
     /**
      * Get transaction tag
-     *
-     * @return null|TransactionTag
      */
     public function getTransactionTag(): ?TransactionTag
     {
@@ -287,8 +253,6 @@ class TransactionLine extends AbstractModel
 
     /**
      * Whether this line of transaction was reconciled (e.g. from a bank statement)
-     *
-     * @return bool
      */
     public function isReconciled(): bool
     {
@@ -297,8 +261,6 @@ class TransactionLine extends AbstractModel
 
     /**
      * Whether this line of transaction was reconciled (e.g. from a bank statement)
-     *
-     * @param bool $isReconciled
      */
     public function setIsReconciled(bool $isReconciled): void
     {

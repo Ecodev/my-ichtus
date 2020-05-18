@@ -25,11 +25,6 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
 
     /**
      * Returns the user authenticated by its email and password
-     *
-     * @param string $login
-     * @param string $password
-     *
-     * @return null|User
      */
     public function getOneByLoginPassword(string $login, string $password): ?User
     {
@@ -68,10 +63,6 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
      * Unsecured way to get a user from its ID.
      *
      * This should only be used in tests or controlled environment.
-     *
-     * @param int $id
-     *
-     * @return null|User
      */
     public function getOneById(int $id): ?User
     {
@@ -86,10 +77,6 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
      * Unsecured way to get a user from its login.
      *
      * This should only be used in tests or controlled environment.
-     *
-     * @param null|string $login
-     *
-     * @return null|User
      */
     public function getOneByLogin(?string $login): ?User
     {

@@ -19,13 +19,13 @@ class ImporterTest extends TestCase
      */
     private $previousTimeZone;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->previousTimeZone = date_default_timezone_get();
         date_default_timezone_set('Europe/Zurich');
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         date_default_timezone_set($this->previousTimeZone);
 
@@ -33,11 +33,6 @@ class ImporterTest extends TestCase
         _em()->clear();
     }
 
-    /**
-     * @param string $filename
-     *
-     * @return array
-     */
     private function import(string $filename): array
     {
         $importer = new Importer();
@@ -97,8 +92,6 @@ class ImporterTest extends TestCase
 
     /**
      * @param Transaction[] $transactions
-     *
-     * @return array
      */
     private function extract(array $transactions): array
     {

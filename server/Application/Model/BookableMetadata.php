@@ -35,33 +35,21 @@ class BookableMetadata extends AbstractModel
      */
     private $bookable;
 
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
         return $this->value;
     }
 
-    /**
-     * @param string $value
-     */
     public function setValue(string $value): void
     {
         $this->value = $value;
     }
 
-    /**
-     * @return Bookable
-     */
     public function getBookable(): Bookable
     {
         return $this->bookable;
     }
 
-    /**
-     * @param Bookable $bookable
-     */
     public function setBookable(Bookable $bookable): void
     {
         $this->bookable = $bookable;

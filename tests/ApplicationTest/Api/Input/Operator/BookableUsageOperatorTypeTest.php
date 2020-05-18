@@ -21,9 +21,6 @@ class BookableUsageOperatorTypeTest extends OperatorType
 
     /**
      * @dataProvider providerGetDqlCondition
-     *
-     * @param int $expected
-     * @param array $users
      */
     public function testGetDqlCondition(int $expected, array $users): void
     {

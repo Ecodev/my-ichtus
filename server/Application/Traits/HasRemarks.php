@@ -15,8 +15,6 @@ trait HasRemarks
 
     /**
      * Set remarks
-     *
-     * @param string $remarks
      */
     public function setRemarks(string $remarks): void
     {
@@ -25,8 +23,6 @@ trait HasRemarks
 
     /**
      * Get remarks
-     *
-     * @return string
      */
     public function getRemarks(): string
     {

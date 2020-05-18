@@ -5,11 +5,11 @@ $url = $this->serverUrl . '/admin/user/' . $this->unregisteredUser->getId();
 
 <ul>
     <li><?php echo $this->escapeHtml($this->unregisteredUser->getName()) ?></li>
-    <?php if ($this->unregisteredUser->getEmail()): ?>
+    <?php if ($this->unregisteredUser->getEmail()) { ?>
         <li>
             <a href="mailto:<?php echo $this->unregisteredUser->getEmail(); ?>"><?php echo $this->escapeHtml($this->unregisteredUser->getEmail()) ?></a>
         </li>
-    <?php endif; ?>
+    <?php } ?>
     <li><a href="<?php echo $url; ?>"><?php echo $this->escapeHtml($url) ?></a></li>
 </ul>
 

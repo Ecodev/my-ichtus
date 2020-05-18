@@ -6,7 +6,7 @@ namespace Application\Repository;
 
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 
-class MessageRepository extends AbstractRepository implements LimitedAccessSubQuery, \Ecodev\Felix\Repository\MessageRepository
+class MessageRepository extends AbstractRepository implements \Ecodev\Felix\Repository\MessageRepository, LimitedAccessSubQuery
 {
     use \Ecodev\Felix\Repository\Traits\MessageRepository;
 

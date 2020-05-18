@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Application\Action;
 
 use Application\Model\AbstractModel;
+use DateTimeImmutable;
+use DateTimeInterface;
 use Doctrine\ORM\Query;
 use Laminas\Diactoros\Response;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -163,9 +165,6 @@ abstract class AbstractExcel extends AbstractAction
 
     /**
      * Constructor
-     *
-     * @param string $hostname
-     * @param string $routeName
      */
     public function __construct(string $hostname, string $routeName)
     {
@@ -176,7 +175,6 @@ abstract class AbstractExcel extends AbstractAction
     }
 
     /**
-     * @param Worksheet $sheet
      * @param AbstractModel[] $items
      */
     protected function writeHeaders(Worksheet $sheet, array $items): void
@@ -210,7 +208,6 @@ abstract class AbstractExcel extends AbstractAction
     /**
      * Write the items, one per line, in the body part of the sheet
      *
-     * @param Worksheet $sheet
      * @param AbstractModel[] $items
      */
     abstract protected function writeData(Worksheet $sheet, array $items): void;
@@ -218,20 +215,15 @@ abstract class AbstractExcel extends AbstractAction
     /**
      * Write the footer line
      *
-     * @param Worksheet $sheet
      * @param AbstractModel[] $items
      */
     abstract protected function writeFooter(Worksheet $sheet, array $items): void;
 
-    /**
-     * @return array
-     */
     abstract protected function getHeaders(): array;
 
     /**
      * Write the value and style in the cell selected by `column` and `row` variables and move to next column
      *
-     * @param Worksheet $sheet
      * @param mixed $value
      * @param array[] ...$formats optional list of formats to be applied successively
      */
@@ -246,18 +238,16 @@ abstract class AbstractExcel extends AbstractAction
         }
 
         // Automatic conversion of date to Excel format
-        if ($value instanceof \DateTimeInterface) {
-            $dateTime = new \DateTime($value->format('c'));
+        if ($value instanceof DateTimeInterface) {
+            $dateTime = new DateTimeImmutable($value->format('c'));
             $value = Date::PHPToExcel($dateTime);
         }
 
         $cell->setValue($value);
     }
 
-    /*
+    /**
      * Called by the field resolver or repository to generate a spreadsheet from the query builder
-     *
-     * @param Query $query
      *
      * @return string the generated spreadsheet file path
      */
@@ -287,11 +277,6 @@ abstract class AbstractExcel extends AbstractAction
 
     /**
      * Process the GET query to download previously generated spreasheet on disk
-     *
-     * @param ServerRequestInterface $request
-     * @param RequestHandlerInterface $handler
-     *
-     * @return ResponseInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
@@ -303,7 +288,7 @@ abstract class AbstractExcel extends AbstractAction
         }
 
         $size = filesize($tmpFile);
-        $output = fopen($tmpFile, 'r');
+        $output = fopen($tmpFile, 'rb');
 
         $response = new Response($output, 200, [
             'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',

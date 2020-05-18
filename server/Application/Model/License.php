@@ -42,9 +42,6 @@ class License extends AbstractModel
         $this->users = new ArrayCollection();
     }
 
-    /**
-     * @return Collection
-     */
     public function getBookables(): Collection
     {
         return $this->bookables;
@@ -52,8 +49,6 @@ class License extends AbstractModel
 
     /**
      * Add bookable
-     *
-     * @param Bookable $bookable
      */
     public function addBookable(Bookable $bookable): void
     {
@@ -63,9 +58,6 @@ class License extends AbstractModel
         }
     }
 
-    /**
-     * @return Collection
-     */
     public function getUsers(): Collection
     {
         return $this->users;
@@ -73,8 +65,6 @@ class License extends AbstractModel
 
     /**
      * Add user
-     *
-     * @param User $user
      */
     public function addUser(User $user): void
     {
@@ -86,8 +76,6 @@ class License extends AbstractModel
 
     /**
      * Remove user
-     *
-     * @param User $user
      */
     public function removeUser(User $user): void
     {
@@ -97,8 +85,6 @@ class License extends AbstractModel
 
     /**
      * Remove bookable
-     *
-     * @param Bookable $bookable
      */
     public function removeBookable(Bookable $bookable): void
     {

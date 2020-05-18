@@ -101,7 +101,7 @@ class Booking extends AbstractModel
     {
     }
 
-    public function setOwner(User $owner = null): void
+    public function setOwner(?User $owner = null): void
     {
         if ($this->getOwner()) {
             $this->getOwner()->bookingRemoved($this);
@@ -118,113 +118,72 @@ class Booking extends AbstractModel
 
     /**
      * Total count of participant, at least 1.
-     *
-     * @return int
      */
     public function getParticipantCount(): int
     {
         return $this->participantCount;
     }
 
-    /**
-     * @param int $participantCount
-     */
     public function setParticipantCount(int $participantCount): void
     {
         $this->participantCount = $participantCount;
     }
 
-    /**
-     * @return string
-     */
     public function getDestination(): string
     {
         return $this->destination;
     }
 
-    /**
-     * @param string $destination
-     */
     public function setDestination(string $destination): void
     {
         $this->destination = $destination;
     }
 
-    /**
-     * @return string
-     */
     public function getStartComment(): string
     {
         return $this->startComment;
     }
 
-    /**
-     * @param string $startComment
-     */
     public function setStartComment(string $startComment): void
     {
         $this->startComment = $startComment;
     }
 
-    /**
-     * @return string
-     */
     public function getEndComment(): string
     {
         return $this->endComment;
     }
 
-    /**
-     * @param string $endComment
-     */
     public function setEndComment(string $endComment): void
     {
         $this->endComment = $endComment;
     }
 
-    /**
-     * @return Chronos
-     */
     public function getStartDate(): Chronos
     {
         return $this->startDate;
     }
 
-    /**
-     * @param Chronos $startDate
-     */
     public function setStartDate(Chronos $startDate): void
     {
         $this->startDate = $startDate;
     }
 
-    /**
-     * @return null|Chronos
-     */
     public function getEndDate(): ?Chronos
     {
         return $this->endDate;
     }
 
-    /**
-     * @param null|Chronos $endDate
-     */
     public function setEndDate(?Chronos $endDate): void
     {
         $this->endDate = $endDate;
     }
 
-    /**
-     * @return string
-     */
     public function getEstimatedEndDate(): string
     {
         return $this->estimatedEndDate;
     }
 
-    /**
-     * @param string $estimatedEndDate
-     */
     public function setEstimatedEndDate(string $estimatedEndDate): void
     {
         $this->estimatedEndDate = $estimatedEndDate;
@@ -232,8 +191,6 @@ class Booking extends AbstractModel
 
     /**
      * Get bookable, may be null for "my own material" case
-     *
-     * @return null|Bookable
      */
     public function getBookable(): ?Bookable
     {
@@ -242,8 +199,6 @@ class Booking extends AbstractModel
 
     /**
      * Set bookable
-     *
-     * @param null|Bookable $bookable
      */
     public function setBookable(?Bookable $bookable): void
     {
@@ -262,8 +217,6 @@ class Booking extends AbstractModel
 
     /**
      * @API\Field(type="BookingStatus")
-     *
-     * @return string
      */
     public function getStatus(): string
     {
@@ -272,8 +225,6 @@ class Booking extends AbstractModel
 
     /**
      * @API\Input(type="BookingStatus")
-     *
-     * @param string $status
      */
     public function setStatus(string $status): void
     {
@@ -284,8 +235,6 @@ class Booking extends AbstractModel
     /**
      * Mark the booking as terminated with an optional comment,
      * but only if not already terminated
-     *
-     * @param null|string $comment
      */
     public function terminate(?string $comment): void
     {
@@ -318,8 +267,6 @@ class Booking extends AbstractModel
      * Returns the next invoicable periodic price
      *
      * In case it uses shared admin_only bookables, the price is divided by the number of usages
-     *
-     * @return Money
      */
     public function getPeriodicPrice(): Money
     {

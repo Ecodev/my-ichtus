@@ -19,8 +19,6 @@ class ExportTransactionLinesAction extends AbstractExcel
 
     /**
      * ReportTransactionsAction constructor.
-     *
-     * @param string $hostname
      */
     public function __construct(string $hostname)
     {
@@ -38,8 +36,6 @@ class ExportTransactionLinesAction extends AbstractExcel
 
     /**
      * The model class name
-     *
-     * @return string
      */
     protected function getModelClass(): string
     {
@@ -47,7 +43,6 @@ class ExportTransactionLinesAction extends AbstractExcel
     }
 
     /**
-     * @param Worksheet $sheet
      * @param TransactionLine[] $items
      */
     protected function writeData(Worksheet $sheet, array $items): void
@@ -153,7 +148,6 @@ class ExportTransactionLinesAction extends AbstractExcel
     }
 
     /**
-     * @param Worksheet $sheet
      * @param TransactionLine[] $items
      */
     protected function writeFooter(Worksheet $sheet, array $items): void

@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class ImageTest extends TestCase
 {
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         User::setCurrent(null);
     }

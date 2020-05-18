@@ -25,13 +25,13 @@ class ExcelExportActionTest extends TestCase
 
         $baseUrl = 'https://' . $hostname . '/export/transactionLines/';
 
-        $this->assertStringStartsWith($baseUrl, $url);
+        self::assertStringStartsWith($baseUrl, $url);
 
         preg_match('#' . $baseUrl . '([0-9a-f]+)/(.+)#', $url, $m);
 
         // Make sure the XLSX file was generated on disk
         $fpath = 'data/tmp/excel/' . $m[1];
-        $this->assertFileExists($fpath);
+        self::assertFileExists($fpath);
         $size = filesize($fpath);
 
         // Test middleware action to download the Excel file
@@ -43,8 +43,8 @@ class ExcelExportActionTest extends TestCase
 
         $response = $action->process($request, $handler);
 
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertStringContainsString('attachment; filename=Ichtus_compta_ecritures', $response->getHeaderLine('content-disposition'));
-        $this->assertEquals($size, $response->getHeaderLine('content-length'));
+        self::assertEquals(200, $response->getStatusCode());
+        self::assertStringContainsString('attachment; filename=Ichtus_compta_ecritures', $response->getHeaderLine('content-disposition'));
+        self::assertEquals($size, $response->getHeaderLine('content-length'));
     }
 }

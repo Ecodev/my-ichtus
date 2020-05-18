@@ -12,7 +12,7 @@ use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class DbWriterFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
         $logRepository = $container->get(EntityManager::class)->getRepository(Log::class);
         $config = $container->get('config');

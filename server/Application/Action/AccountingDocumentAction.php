@@ -25,11 +25,6 @@ class AccountingDocumentAction extends AbstractAction
 
     /**
      * Serve a downloaded file from disk
-     *
-     * @param ServerRequestInterface $request
-     * @param RequestHandlerInterface $handler
-     *
-     * @return ResponseInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
@@ -46,7 +41,7 @@ class AccountingDocumentAction extends AbstractAction
             return $this->createError("File for accounting document $id not found on disk, or not readable");
         }
 
-        $resource = fopen($path, 'r');
+        $resource = fopen($path, 'rb');
         if ($resource === false) {
             return $this->createError("Cannot open file for accounting document $id on disk");
         }

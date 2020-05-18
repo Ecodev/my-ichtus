@@ -11,7 +11,7 @@ $urlServices = $this->serverUrl . '/profile/services';
         <?php echo $this->escapeHtml(Format::money($this->user->getAccount()->getBalance())) ?> CHF</span>.
 </p>
 
-<?php if ($this->user->getAccount()->getBalance()->isNegative()): ?>
+<?php if ($this->user->getAccount()->getBalance()->isNegative()) { ?>
     <p>Afin de sortir du rouge et être à nouveau au sommet de la vague pour surfer l'esprit libre, il te suffit
        de <a href="<?php echo $urlTransaction; ?>">faire un versement</a> et/ou ajuster <a
                 href="<?php echo $urlServices; ?>">les services utilisés</a>.</p>
@@ -23,20 +23,20 @@ $urlServices = $this->serverUrl . '/profile/services';
         </a>
     </p>
 
-<?php else: ?>
+<?php } else { ?>
     <p>Ton solde est suffisant et tu n'as donc rien besoin de faire.</p>
-<?php endif; ?>
+<?php } ?>
 
 
 <p>Pour rappel, tes prestations annuelles sont :</p>
 
 <table style="margin-left: 2em; min-width: 300px; border-collapse: collapse">
-    <?php foreach ($this->bookables as $bookable): ?>
+    <?php foreach ($this->bookables as $bookable) { ?>
         <tr>
             <td><?php echo $this->escapeHtml($bookable->getName()) ?></td>
             <td style="text-align: right"><?php echo $this->escapeHtml(Format::money($bookable->getPeriodicPrice())) ?> CHF</td>
         </tr>
-    <?php endforeach; ?>
+    <?php } ?>
 </table>
 
 <p>

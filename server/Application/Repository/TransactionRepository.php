@@ -33,10 +33,6 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
               WHERE account.owner_id = ' . $user->getId();
     }
 
-    /**
-     * @param Transaction $transaction
-     * @param array $lines
-     */
     public function hydrateLinesAndFlush(Transaction $transaction, array $lines): void
     {
         if (!$lines) {

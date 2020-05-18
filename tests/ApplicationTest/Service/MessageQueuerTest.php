@@ -119,31 +119,31 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
     {
         $user = $this->createMock(User::class);
 
-        $user->expects($this->any())
+        $user->expects(self::any())
             ->method('getId')
             ->willReturn(123);
 
-        $user->expects($this->any())
+        $user->expects(self::any())
             ->method('getLogin')
             ->willReturn('john.doe');
 
-        $user->expects($this->any())
+        $user->expects(self::any())
             ->method('getFirstName')
             ->willReturn('John');
 
-        $user->expects($this->any())
+        $user->expects(self::any())
             ->method('getLastName')
             ->willReturn('Doe');
 
-        $user->expects($this->any())
+        $user->expects(self::any())
             ->method('getName')
             ->willReturn('John Doe');
 
-        $user->expects($this->any())
+        $user->expects(self::any())
             ->method('getEmail')
             ->willReturn('john.doe@example.com');
 
-        $user->expects($this->any())
+        $user->expects(self::any())
             ->method('createToken')
             ->willReturn(str_repeat('X', 32));
 
@@ -153,19 +153,19 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
     private function createMockUserAdmin(): User
     {
         $user = $this->createMock(User::class);
-        $user->expects($this->any())
+        $user->expects(self::any())
             ->method('getLogin')
             ->willReturn('admin');
 
-        $user->expects($this->any())
+        $user->expects(self::any())
             ->method('getFirstName')
             ->willReturn('Admin');
 
-        $user->expects($this->any())
+        $user->expects(self::any())
             ->method('getLastName')
             ->willReturn('Istrator');
 
-        $user->expects($this->any())
+        $user->expects(self::any())
             ->method('getEmail')
             ->willReturn('administrator@example.com');
 
@@ -175,11 +175,11 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
     private function createMockUserMinimal(): User
     {
         $user = $this->createMock(User::class);
-        $user->expects($this->any())
+        $user->expects(self::any())
             ->method('getEmail')
             ->willReturn('minimal@example.com');
 
-        $user->expects($this->any())
+        $user->expects(self::any())
             ->method('createToken')
             ->willReturn(str_repeat('X', 32));
 
@@ -201,9 +201,6 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Custom assert that will not produce gigantic diff
-     *
-     * @param string $file
-     * @param string $actual
      */
     private function assertFile(string $file, string $actual): void
     {

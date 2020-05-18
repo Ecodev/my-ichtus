@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class AccountingDocumentTest extends TestCase
 {
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         User::setCurrent(null);
     }

@@ -19,8 +19,6 @@ trait HasAutomaticUnsignedBalance
      * Get total balance
      *
      * Read only, computed by SQL triggers
-     *
-     * @return Money
      */
     public function getBalance(): Money
     {

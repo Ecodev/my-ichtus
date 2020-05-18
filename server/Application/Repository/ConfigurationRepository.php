@@ -10,10 +10,6 @@ class ConfigurationRepository extends AbstractRepository
 {
     /**
      * Get or create the configuration for the given key
-     *
-     * @param string $key
-     *
-     * @return Configuration
      */
     public function getOrCreate(string $key): Configuration
     {

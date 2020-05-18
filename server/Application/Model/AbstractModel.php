@@ -27,7 +27,7 @@ use GraphQL\Doctrine\Annotation as API;
  *     "Application\Api\Input\Sorting\Owner"
  * })
  */
-abstract class AbstractModel implements Model, HasOwner
+abstract class AbstractModel implements HasOwner, Model
 {
     /**
      * @var int
@@ -84,8 +84,6 @@ abstract class AbstractModel implements Model, HasOwner
 
     /**
      * Get id
-     *
-     * @return null|int
      */
     public function getId(): ?int
     {
@@ -97,15 +95,13 @@ abstract class AbstractModel implements Model, HasOwner
      *
      * @param Chronos $creationDate
      */
-    protected function setCreationDate(Chronos $creationDate = null): void
+    protected function setCreationDate(?Chronos $creationDate = null): void
     {
         $this->creationDate = $creationDate;
     }
 
     /**
      * Get creation date
-     *
-     * @return null|Chronos
      */
     public function getCreationDate(): ?Chronos
     {
@@ -117,15 +113,13 @@ abstract class AbstractModel implements Model, HasOwner
      *
      * @param Chronos $updateDate
      */
-    private function setUpdateDate(Chronos $updateDate = null): void
+    private function setUpdateDate(?Chronos $updateDate = null): void
     {
         $this->updateDate = $updateDate;
     }
 
     /**
      * Get update date
-     *
-     * @return null|Chronos
      */
     public function getUpdateDate(): ?Chronos
     {
@@ -137,15 +131,13 @@ abstract class AbstractModel implements Model, HasOwner
      *
      * @param User $creator
      */
-    protected function setCreator(User $creator = null): void
+    protected function setCreator(?User $creator = null): void
     {
         $this->creator = $creator;
     }
 
     /**
      * Get creator
-     *
-     * @return null|User
      */
     public function getCreator(): ?User
     {
@@ -154,8 +146,6 @@ abstract class AbstractModel implements Model, HasOwner
 
     /**
      * Set owner
-     *
-     * @param null|User $owner
      */
     public function setOwner(?User $owner): void
     {
@@ -180,8 +170,6 @@ abstract class AbstractModel implements Model, HasOwner
 
     /**
      * Get owner
-     *
-     * @return null|User
      */
     public function getOwner(): ?User
     {
@@ -190,18 +178,14 @@ abstract class AbstractModel implements Model, HasOwner
 
     /**
      * Set updater
-     *
-     * @param null|User $updater
      */
-    private function setUpdater(User $updater = null): void
+    private function setUpdater(?User $updater = null): void
     {
         $this->updater = $updater;
     }
 
     /**
      * Get updater
-     *
-     * @return null|User
      */
     public function getUpdater(): ?User
     {
@@ -210,8 +194,6 @@ abstract class AbstractModel implements Model, HasOwner
 
     /**
      * Get default owner for creation
-     *
-     * @return null|User
      */
     public function getOwnerForCreation(): ?User
     {
@@ -248,8 +230,6 @@ abstract class AbstractModel implements Model, HasOwner
      * Get permissions on this object for the current user
      *
      * @API\Field(type="Permissions")
-     *
-     * @return array
      */
     public function getPermissions(): array
     {

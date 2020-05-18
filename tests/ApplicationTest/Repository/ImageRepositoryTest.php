@@ -19,13 +19,13 @@ class ImageRepositoryTest extends AbstractRepositoryTest
      */
     private $repository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->repository = $this->getEntityManager()->getRepository(Image::class);
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         // Restore all images that might have been deleted
         AbstractDatabase::executeLocalCommand('git checkout -- data/images/');

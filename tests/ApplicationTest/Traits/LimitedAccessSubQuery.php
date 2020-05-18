@@ -6,6 +6,7 @@ namespace ApplicationTest\Traits;
 
 use Application\Model\User;
 use Application\Repository\UserRepository;
+use PDO;
 
 /**
  * Trait to test limited access sub queries
@@ -14,9 +15,6 @@ trait LimitedAccessSubQuery
 {
     /**
      * @dataProvider providerGetAccessibleSubQuery
-     *
-     * @param null|string $login
-     * @param array $expected
      */
     public function testGetAccessibleSubQuery(?string $login, array $expected): void
     {
@@ -27,7 +25,7 @@ trait LimitedAccessSubQuery
         if ($subQuery === '-1') {
             $ids = [];
         } else {
-            $ids = _em()->getConnection()->executeQuery($subQuery)->fetchAll(\PDO::FETCH_COLUMN);
+            $ids = _em()->getConnection()->executeQuery($subQuery)->fetchAll(PDO::FETCH_COLUMN);
         }
 
         sort($ids);

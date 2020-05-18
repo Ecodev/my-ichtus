@@ -23,9 +23,6 @@ class HasBookingWithTaggedBookableOperatorTypeTest extends OperatorType
 
     /**
      * @dataProvider providerGetDqlCondition
-     *
-     * @param int $expected
-     * @param array $tags
      */
     public function testGetDqlCondition(int $expected, array $tags): void
     {

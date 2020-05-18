@@ -8,6 +8,7 @@ use Application\DBAL\Types\AccountTypeType;
 use Application\Model\Account;
 use Application\Model\User;
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
+use Exception;
 use Money\Money;
 
 class AccountRepository extends AbstractRepository implements LimitedAccessSubQuery
@@ -48,10 +49,6 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
      * Unsecured way to get a account from its ID.
      *
      * This should only be used in tests or controlled environment.
-     *
-     * @param int $id
-     *
-     * @return Account
      */
     public function getOneById(int $id): Account
     {
@@ -60,7 +57,7 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
         });
 
         if (!$account) {
-            throw new \Exception('Account #' . $id . ' not found');
+            throw new Exception('Account #' . $id . ' not found');
         }
 
         return $account;
@@ -68,10 +65,6 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
 
     /**
      * This will return, and potentially create, an account for the given user
-     *
-     * @param User $user
-     *
-     * @return Account
      */
     public function getOrCreate(User $user): Account
     {
@@ -118,10 +111,6 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
      * Sum balance by account type
      *
      * @API\Input(type="AccountType")
-     *
-     * @param string $accountType
-     *
-     * @return Money
      */
     public function totalBalanceByType(string $accountType): Money
     {
@@ -160,8 +149,6 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
 
     /**
      * Return the next available Account code
-     *
-     * @return int
      */
     public function getNextCodeAvailable(): int
     {

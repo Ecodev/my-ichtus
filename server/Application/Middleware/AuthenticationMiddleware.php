@@ -27,11 +27,6 @@ class AuthenticationMiddleware implements MiddlewareInterface
 
     /**
      * Load current user from session if exists and still valid
-     *
-     * @param ServerRequestInterface $request
-     * @param RequestHandlerInterface $handler
-     *
-     * @return ResponseInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {

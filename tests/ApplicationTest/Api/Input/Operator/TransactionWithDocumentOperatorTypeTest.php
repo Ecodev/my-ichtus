@@ -21,9 +21,6 @@ class TransactionWithDocumentOperatorTypeTest extends OperatorType
 
     /**
      * @dataProvider providerGetDqlCondition
-     *
-     * @param int $expected
-     * @param array $values
      */
     public function testGetDqlCondition(int $expected, array $values): void
     {

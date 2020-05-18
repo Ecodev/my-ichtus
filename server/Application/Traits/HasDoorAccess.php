@@ -35,65 +35,41 @@ trait HasDoorAccess
      */
     private $door4 = false;
 
-    /**
-     * @return bool
-     */
     public function getDoor1(): bool
     {
         return $this->door1;
     }
 
-    /**
-     * @param bool $door1
-     */
     public function setDoor1(bool $door1): void
     {
         $this->door1 = $door1;
     }
 
-    /**
-     * @return bool
-     */
     public function getDoor2(): bool
     {
         return $this->door2;
     }
 
-    /**
-     * @param bool $door2
-     */
     public function setDoor2(bool $door2): void
     {
         $this->door2 = $door2;
     }
 
-    /**
-     * @return bool
-     */
     public function getDoor3(): bool
     {
         return $this->door3;
     }
 
-    /**
-     * @param bool $door3
-     */
     public function setDoor3(bool $door3): void
     {
         $this->door3 = $door3;
     }
 
-    /**
-     * @return bool
-     */
     public function getDoor4(): bool
     {
         return $this->door4;
     }
 
-    /**
-     * @param bool $door4
-     */
     public function setDoor4(bool $door4): void
     {
         $this->door4 = $door4;

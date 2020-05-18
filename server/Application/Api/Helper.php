@@ -57,11 +57,6 @@ abstract class Helper
 
     /**
      * Returns aggregated fields (as scalar) for the given QueryBuilder
-     *
-     * @param string $class
-     * @param QueryBuilder $qb
-     *
-     * @return array
      */
     public static function aggregatedFields(string $class, QueryBuilder $qb): array
     {
@@ -97,11 +92,6 @@ abstract class Helper
 
     /**
      * Lazy resolve the Excel export of the listing query
-     *
-     * @param string $class
-     * @param QueryBuilder $qb
-     *
-     * @return array
      */
     public static function excelExportField(string $class, QueryBuilder $qb): array
     {

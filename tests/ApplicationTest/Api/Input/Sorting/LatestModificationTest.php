@@ -10,7 +10,7 @@ use Ecodev\Felix\Testing\Api\Input\Sorting\AbstractSorting;
 
 class LatestModificationTest extends AbstractSorting
 {
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         User::setCurrent(null);
     }

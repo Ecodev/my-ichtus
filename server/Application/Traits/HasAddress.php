@@ -37,65 +37,41 @@ trait HasAddress
      */
     private $country;
 
-    /**
-     * @return string
-     */
     public function getStreet(): string
     {
         return $this->street;
     }
 
-    /**
-     * @param string $street
-     */
     public function setStreet(string $street): void
     {
         $this->street = $street;
     }
 
-    /**
-     * @return string
-     */
     public function getPostcode(): string
     {
         return $this->postcode;
     }
 
-    /**
-     * @param string $postcode
-     */
     public function setPostcode(string $postcode): void
     {
         $this->postcode = $postcode;
     }
 
-    /**
-     * @return string
-     */
     public function getLocality(): string
     {
         return $this->locality;
     }
 
-    /**
-     * @param string $locality
-     */
     public function setLocality(string $locality): void
     {
         $this->locality = $locality;
     }
 
-    /**
-     * @return null|Country
-     */
     public function getCountry(): ?Country
     {
         return $this->country;
     }
 
-    /**
-     * @param null|Country $country
-     */
     public function setCountry(?Country $country = null): void
     {
         $this->country = $country;

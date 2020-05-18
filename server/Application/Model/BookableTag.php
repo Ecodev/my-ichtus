@@ -39,9 +39,6 @@ class BookableTag extends AbstractModel
         $this->bookables = new ArrayCollection();
     }
 
-    /**
-     * @return Collection
-     */
     public function getBookables(): Collection
     {
         return $this->bookables;
@@ -49,8 +46,6 @@ class BookableTag extends AbstractModel
 
     /**
      * Add bookable
-     *
-     * @param Bookable $bookable
      */
     public function addBookable(Bookable $bookable): void
     {
@@ -62,8 +57,6 @@ class BookableTag extends AbstractModel
 
     /**
      * Remove bookable
-     *
-     * @param Bookable $bookable
      */
     public function removeBookable(Bookable $bookable): void
     {

@@ -19,8 +19,6 @@ trait HasColor
      * Set color
      *
      * @API\Input(type="Color")
-     *
-     * @param string $color
      */
     public function setColor(string $color): void
     {
@@ -31,8 +29,6 @@ trait HasColor
      * Get color
      *
      * @API\Field(type="Color")
-     *
-     * @return string
      */
     public function getColor(): string
     {

@@ -114,11 +114,6 @@ class Invoicer
         ++$this->count;
     }
 
-    /**
-     * @param Booking $booking
-     *
-     * @return Money
-     */
     private function calculateInitialBalance(Booking $booking): Money
     {
         $bookable = $booking->getBookable();
@@ -128,11 +123,6 @@ class Invoicer
         return $bookable->getInitialPrice();
     }
 
-    /**
-     * @param Booking $booking
-     *
-     * @return Money
-     */
     private function calculatePeriodicBalance(Booking $booking): Money
     {
         return $booking->getPeriodicPrice();

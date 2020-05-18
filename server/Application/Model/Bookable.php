@@ -138,9 +138,6 @@ class Bookable extends AbstractModel
         $this->bookableTags = new ArrayCollection();
     }
 
-    /**
-     * @return Collection
-     */
     public function getBookings(): Collection
     {
         return $this->bookings;
@@ -149,8 +146,6 @@ class Bookable extends AbstractModel
     /**
      * Notify the bookable that it has a new booking.
      * This should only be called by Booking::addBookable()
-     *
-     * @param Booking $booking
      */
     public function bookingAdded(Booking $booking): void
     {
@@ -160,17 +155,12 @@ class Bookable extends AbstractModel
     /**
      * Notify the bookable that it a booking was removed.
      * This should only be called by Booking::removeBookable()
-     *
-     * @param Booking $booking
      */
     public function bookingRemoved(Booking $booking): void
     {
         $this->bookings->removeElement($booking);
     }
 
-    /**
-     * @return Collection
-     */
     public function getLicenses(): Collection
     {
         return $this->licenses;
@@ -179,8 +169,6 @@ class Bookable extends AbstractModel
     /**
      * Notify the bookable that it has a new license.
      * This should only be called by License::addBookable()
-     *
-     * @param License $license
      */
     public function licenseAdded(License $license): void
     {
@@ -190,73 +178,47 @@ class Bookable extends AbstractModel
     /**
      * Notify the bookable that it a license was removed.
      * This should only be called by License::removeBookable()
-     *
-     * @param License $license
      */
     public function licenseRemoved(License $license): void
     {
         $this->licenses->removeElement($license);
     }
 
-    /**
-     * @return Money
-     */
     public function getInitialPrice(): Money
     {
         return $this->initialPrice;
     }
 
-    /**
-     * @param Money $initialPrice
-     */
     public function setInitialPrice(Money $initialPrice): void
     {
         $this->initialPrice = $initialPrice;
     }
 
-    /**
-     * @return Money
-     */
     public function getPeriodicPrice(): Money
     {
         return $this->periodicPrice;
     }
 
-    /**
-     * @param Money $periodicPrice
-     */
     public function setPeriodicPrice(Money $periodicPrice): void
     {
         $this->periodicPrice = $periodicPrice;
     }
 
-    /**
-     * @return Money
-     */
     public function getPurchasePrice(): Money
     {
         return $this->purchasePrice;
     }
 
-    /**
-     * @param Money $purchasePrice
-     */
     public function setPurchasePrice(Money $purchasePrice): void
     {
         $this->purchasePrice = $purchasePrice;
     }
 
-    /**
-     * @return int
-     */
     public function getSimultaneousBookingMaximum(): int
     {
         return $this->simultaneousBookingMaximum;
     }
 
-    /**
-     * @param int $simultaneousBookingMaximum
-     */
     public function setSimultaneousBookingMaximum(int $simultaneousBookingMaximum): void
     {
         $this->simultaneousBookingMaximum = $simultaneousBookingMaximum;
@@ -264,8 +226,6 @@ class Bookable extends AbstractModel
 
     /**
      * @API\Field(type="BookingType")
-     *
-     * @return string
      */
     public function getBookingType(): string
     {
@@ -274,8 +234,6 @@ class Bookable extends AbstractModel
 
     /**
      * Whether this bookable can be booked
-     *
-     * @return bool
      */
     public function isActive(): bool
     {
@@ -284,8 +242,6 @@ class Bookable extends AbstractModel
 
     /**
      * Whether this bookable can be booked
-     *
-     * @param bool $isActive
      */
     public function setIsActive(bool $isActive): void
     {
@@ -294,8 +250,6 @@ class Bookable extends AbstractModel
 
     /**
      * @API\Input(type="BookingType")
-     *
-     * @param string $state
      */
     public function setBookingType(string $state): void
     {
@@ -306,8 +260,6 @@ class Bookable extends AbstractModel
      * State of the bookable
      *
      * @API\Field(type="BookableState")
-     *
-     * @return string
      */
     public function getState(): string
     {
@@ -318,8 +270,6 @@ class Bookable extends AbstractModel
      * State of the bookable
      *
      * @API\Input(type="BookableState")
-     *
-     * @param string $state
      */
     public function setState(string $state): void
     {
@@ -328,8 +278,6 @@ class Bookable extends AbstractModel
 
     /**
      * The date then the bookable was last checked
-     *
-     * @return null|Date
      */
     public function getVerificationDate(): ?Date
     {
@@ -338,17 +286,12 @@ class Bookable extends AbstractModel
 
     /**
      * The date then the bookable was last checked
-     *
-     * @param null|Date $verificationDate
      */
     public function setVerificationDate(?Date $verificationDate): void
     {
         $this->verificationDate = $verificationDate;
     }
 
-    /**
-     * @return Collection
-     */
     public function getBookableTags(): Collection
     {
         return $this->bookableTags;
@@ -357,8 +300,6 @@ class Bookable extends AbstractModel
     /**
      * Notify the user that it has a new bookableTag.
      * This should only be called by BookableTag::addUser()
-     *
-     * @param BookableTag $bookableTag
      */
     public function bookableTagAdded(BookableTag $bookableTag): void
     {
@@ -368,25 +309,17 @@ class Bookable extends AbstractModel
     /**
      * Notify the user that it a bookableTag was removed.
      * This should only be called by BookableTag::removeUser()
-     *
-     * @param BookableTag $bookableTag
      */
     public function bookableTagRemoved(BookableTag $bookableTag): void
     {
         $this->bookableTags->removeElement($bookableTag);
     }
 
-    /**
-     * @return null|Image
-     */
     public function getImage(): ?Image
     {
         return $this->image;
     }
 
-    /**
-     * @param null|Image $image
-     */
     public function setImage(?Image $image): void
     {
         // We must trigger lazy loading, otherwise Doctrine will seriously
@@ -400,8 +333,6 @@ class Bookable extends AbstractModel
 
     /**
      * The account to credit when booking this bookable
-     *
-     * @return null|Account
      */
     public function getCreditAccount(): ?Account
     {
@@ -410,8 +341,6 @@ class Bookable extends AbstractModel
 
     /**
      * The account to credit when booking this bookable
-     *
-     * @param null|Account $creditAccount
      */
     public function setCreditAccount(?Account $creditAccount): void
     {

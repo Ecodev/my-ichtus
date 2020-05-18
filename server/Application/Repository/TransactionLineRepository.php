@@ -9,7 +9,7 @@ use Application\Model\User;
 use Doctrine\ORM\Query;
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 
-class TransactionLineRepository extends AbstractRepository implements LimitedAccessSubQuery, ExportExcelInterface
+class TransactionLineRepository extends AbstractRepository implements ExportExcelInterface, LimitedAccessSubQuery
 {
     /**
      * Returns pure SQL to get ID of all objects that are accessible to given user.
@@ -31,8 +31,6 @@ class TransactionLineRepository extends AbstractRepository implements LimitedAcc
 
     /**
      * Generates an Excel spreadsheet with the query result
-     *
-     * @param Query $query
      *
      * @return string name of the temporary file
      */
