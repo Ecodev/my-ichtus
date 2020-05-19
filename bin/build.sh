@@ -70,7 +70,7 @@ $PHP ./vendor/bin/doctrine orm:generate-proxies
 $PHP ./bin/create-triggers.php
 
 echo "Delete old logs..."
-./bin/delete-old-log.php
+$PHP ./bin/delete-old-log.php
 
 if [ $IS_PRODUCTION -eq 1 ]; then
     echo "Building Angular application..."
