@@ -180,7 +180,8 @@
                         "outputPath": "data/tmp/build-vanilla",
                         "index": "client/vanilla/index.html",
                         "main": "client/vanilla/main.ts",
-                        "tsConfig": "client/vanilla/tsconfig.app.json"
+                        "tsConfig": "client/vanilla/tsconfig.app.json",
+                        "polyfills": "client/vanilla/polyfills.ts"
                     },
                     "configurations": {
                         "production": {
