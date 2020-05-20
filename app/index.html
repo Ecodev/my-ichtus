@@ -60,13 +60,11 @@
     <script src="utils/utils.js"></script>
 
     <script>
-        if (window.location.hostname === 'navigations.ichtus.club') {
-            loadJs('https://ichtus.club/vanilla/runtime-es5.js');
-            loadJs('https://ichtus.club/vanilla/main-es5.js');
-        } else {
-            loadJs('https://dev.ichtus.club/vanilla/runtime-es5.js');
-            loadJs('https://dev.ichtus.club/vanilla/main-es5.js');
-        }
+        const apiServer = window.location.hostname === 'navigations.ichtus.club' ? 'ichtus.club' : 'dev.ichtus.club';
+
+        loadJs('https://' + apiServer + '/vanilla/runtime-es2015.js');
+        loadJs('https://' + apiServer + '/vanilla/polyfills-es2015.js');
+        loadJs('https://' + apiServer + '/vanilla/main-es2015.js');
     </script>
 
     <!-- JavaScript Linked Files For Wind -->
