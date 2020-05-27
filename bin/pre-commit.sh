@@ -10,6 +10,9 @@ if [ "$files" != "" ]; then
     if [ $? -ne 0 ]; then
         pass=false
     fi
+
+    # Automatically add files that may have been fixed by prettier
+    echo "$files" | xargs git add
 fi
 
 files=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(php|phtml)$')
