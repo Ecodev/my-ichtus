@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { FormControl, ValidationErrors, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import {Injectable} from '@angular/core';
+import {FormControl, ValidationErrors, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 import {
     FormAsyncValidators,
     FormValidators,
@@ -9,10 +9,10 @@ import {
     NaturalQueryVariablesManager,
     unique,
 } from '@ecodev/natural';
-import { Apollo } from 'apollo-angular';
-import { Observable, of, Subject } from 'rxjs';
-import { DataProxy } from 'apollo-cache';
-import { map } from 'rxjs/operators';
+import {Apollo} from 'apollo-angular';
+import {Observable, of, Subject} from 'rxjs';
+import {DataProxy} from 'apollo-cache';
+import {map} from 'rxjs/operators';
 import {
     createUser,
     currentUserForProfileQuery,
@@ -62,10 +62,10 @@ import {
     UsersVariables,
     UserVariables,
 } from '../../../shared/generated-types';
-import { BookingService } from '../../bookings/services/booking.service';
-import { PermissionsService } from '../../../shared/services/permissions.service';
+import {BookingService} from '../../bookings/services/booking.service';
+import {PermissionsService} from '../../../shared/services/permissions.service';
 import gql from 'graphql-tag';
-import { PricedBookingService } from '../../bookings/services/PricedBooking.service';
+import {PricedBookingService} from '../../bookings/services/PricedBooking.service';
 
 export function loginValidator(control: FormControl): ValidationErrors | null {
     const value = control.value || '';
@@ -81,7 +81,8 @@ export function loginValidator(control: FormControl): ValidationErrors | null {
 @Injectable({
     providedIn: 'root',
 })
-export class UserService extends NaturalAbstractModelService<User['user'],
+export class UserService extends NaturalAbstractModelService<
+    User['user'],
     UserVariables,
     Users['users'],
     UsersVariables,
@@ -89,26 +90,21 @@ export class UserService extends NaturalAbstractModelService<User['user'],
     CreateUserVariables,
     UpdateUser['updateUser'],
     UpdateUserVariables,
-    any> {
-
+    any
+> {
     /**
      * Should be used only by getViewer and cacheViewer
      */
     private viewerCache: CurrentUserForProfile['viewer'] | null = null;
 
-    constructor(apollo: Apollo,
-                protected router: Router,
-                protected bookingService: BookingService,
-                private permissionsService: PermissionsService,
-                protected pricedBookingService: PricedBookingService,
+    constructor(
+        apollo: Apollo,
+        protected router: Router,
+        protected bookingService: BookingService,
+        private permissionsService: PermissionsService,
+        protected pricedBookingService: PricedBookingService,
     ) {
-        super(apollo,
-            'user',
-            userQuery,
-            usersQuery,
-            createUser,
-            updateUser,
-            null);
+        super(apollo, 'user', userQuery, usersQuery, createUser, updateUser, null);
     }
 
     /**
@@ -153,7 +149,6 @@ export class UserService extends NaturalAbstractModelService<User['user'],
     }
 
     public static getFamilyVariables(user): UsersVariables {
-
         const familyBoss = user.owner || user;
 
         return {
@@ -243,35 +238,35 @@ export class UserService extends NaturalAbstractModelService<User['user'],
     }
 
     public login(loginData: LoginVariables): Observable<Login['login']> {
-
         const subject = new Subject<Login['login']>();
 
         // Be sure to destroy all Apollo data, before changing user
         (this.apollo.getClient().resetStore() as Promise<null>).then(() => {
+            this.apollo
+                .mutate<Login, LoginVariables>({
+                    mutation: loginMutation,
+                    variables: loginData,
+                    update: (proxy: DataProxy, result) => {
+                        const login = (result.data as Login).login;
+                        this.cacheViewer(login);
 
-            this.apollo.mutate<Login, LoginVariables>({
-                mutation: loginMutation,
-                variables: loginData,
-                update: (proxy: DataProxy, result) => {
-
-                    const login = (result.data as Login).login;
-                    this.cacheViewer(login);
-
-                    // Inject the freshly logged in user as the current user into Apollo data store
-                    const data = {viewer: login};
-                    proxy.writeQuery({
-                        query: currentUserForProfileQuery,
-                        data,
-                    });
-                    this.permissionsService.setUser(login);
-                },
-            }).pipe(map(result => (result.data as Login).login)).subscribe(subject);
+                        // Inject the freshly logged in user as the current user into Apollo data store
+                        const data = {viewer: login};
+                        proxy.writeQuery({
+                            query: currentUserForProfileQuery,
+                            data,
+                        });
+                        this.permissionsService.setUser(login);
+                    },
+                })
+                .pipe(map(result => (result.data as Login).login))
+                .subscribe(subject);
         });
 
         return subject;
     }
 
-    public flagWelcomeSessionDate(id: string, value = (new Date()).toISOString()) {
+    public flagWelcomeSessionDate(id: string, value = new Date().toISOString()) {
         const user: UserPartialInput = {welcomeSessionDate: value};
         return this.updatePartially({id: id, ...user});
     }
@@ -285,15 +280,17 @@ export class UserService extends NaturalAbstractModelService<User['user'],
         const subject = new Subject<Logout['logout']>();
 
         this.router.navigate(['/login'], {queryParams: {logout: true}}).then(() => {
-            this.apollo.mutate<Logout>({
-                mutation: logoutMutation,
-            }).subscribe(result => {
-                const v = (result.data as Logout).logout;
-                this.cacheViewer(null);
-                (this.apollo.getClient().resetStore() as Promise<null>).then(() => {
-                    subject.next(v);
+            this.apollo
+                .mutate<Logout>({
+                    mutation: logoutMutation,
+                })
+                .subscribe(result => {
+                    const v = (result.data as Logout).logout;
+                    this.cacheViewer(null);
+                    (this.apollo.getClient().resetStore() as Promise<null>).then(() => {
+                        subject.next(v);
+                    });
                 });
-            });
         });
 
         return subject;
@@ -362,17 +359,20 @@ export class UserService extends NaturalAbstractModelService<User['user'],
     }
 
     public getViewer(): Observable<CurrentUserForProfile['viewer']> {
-
         if (this.viewerCache) {
             return of(this.viewerCache);
         }
 
-        return this.apollo.query<CurrentUserForProfile>({
-            query: currentUserForProfileQuery,
-        }).pipe(map(result => {
-            this.cacheViewer(result.data.viewer);
-            return result.data.viewer;
-        }));
+        return this.apollo
+            .query<CurrentUserForProfile>({
+                query: currentUserForProfileQuery,
+            })
+            .pipe(
+                map(result => {
+                    this.cacheViewer(result.data.viewer);
+                    return result.data.viewer;
+                }),
+            );
     }
 
     /**
@@ -401,47 +401,55 @@ export class UserService extends NaturalAbstractModelService<User['user'],
     /**
      * Resolve items related to users, and the user if the id is provided, in order to show a form
      */
-    public resolveViewer(): Observable<{ model: CurrentUserForProfile['viewer'] }> {
-        return this.getViewer().pipe(map(result => {
-            return {model: result};
-        }));
+    public resolveViewer(): Observable<{model: CurrentUserForProfile['viewer']}> {
+        return this.getViewer().pipe(
+            map(result => {
+                return {model: result};
+            }),
+        );
     }
 
-    public resolveByToken(token: string): Observable<{ model: UserByToken['userByToken'] }> {
-
-        return this.apollo.query<UserByToken, UserByTokenVariables>({
-            query: userByTokenQuery,
-            variables: {
-                token: token,
-            },
-        }).pipe(map(result => {
-            return {model: result.data.userByToken};
-        }));
+    public resolveByToken(token: string): Observable<{model: UserByToken['userByToken']}> {
+        return this.apollo
+            .query<UserByToken, UserByTokenVariables>({
+                query: userByTokenQuery,
+                variables: {
+                    token: token,
+                },
+            })
+            .pipe(
+                map(result => {
+                    return {model: result.data.userByToken};
+                }),
+            );
     }
 
     public unregister(user): Observable<Unregister['unregister']> {
-        return this.apollo.mutate<Unregister, UnregisterVariables>({
-            mutation: unregisterMutation,
-            variables: {
-                id: user.id,
-            },
-        }).pipe(map(result => (result.data as Unregister).unregister));
+        return this.apollo
+            .mutate<Unregister, UnregisterVariables>({
+                mutation: unregisterMutation,
+                variables: {
+                    id: user.id,
+                },
+            })
+            .pipe(map(result => (result.data as Unregister).unregister));
     }
 
     public leaveFamily(user): Observable<LeaveFamily['leaveFamily']> {
-        return this.apollo.mutate<LeaveFamily, LeaveFamilyVariables>({
-            mutation: leaveFamilyMutation,
-            variables: {
-                id: user.id,
-            },
-        }).pipe(map(result => (result.data as LeaveFamily).leaveFamily));
+        return this.apollo
+            .mutate<LeaveFamily, LeaveFamilyVariables>({
+                mutation: leaveFamilyMutation,
+                variables: {
+                    id: user.id,
+                },
+            })
+            .pipe(map(result => (result.data as LeaveFamily).leaveFamily));
     }
 
     /**
      * Can leave home if has an owner
      */
     public canLeaveFamily(user: CurrentUserForProfile['viewer']): boolean {
-
         if (!user) {
             return false;
         }
@@ -453,7 +461,6 @@ export class UserService extends NaturalAbstractModelService<User['user'],
      * Can become a member has no owner and is not member
      */
     public canBecomeMember(user: CurrentUserForProfile['viewer']): boolean {
-
         if (!user) {
             return false;
         }
@@ -484,11 +491,13 @@ export class UserService extends NaturalAbstractModelService<User['user'],
             }
         `;
 
-        return this.apollo.mutate<RequestPasswordReset, RequestPasswordResetVariables>({
-            mutation: mutation,
-            variables: {
-                login: login,
-            },
-        }).pipe(map(result => (result.data as RequestPasswordReset).requestPasswordReset));
+        return this.apollo
+            .mutate<RequestPasswordReset, RequestPasswordResetVariables>({
+                mutation: mutation,
+                variables: {
+                    login: login,
+                },
+            })
+            .pipe(map(result => (result.data as RequestPasswordReset).requestPasswordReset));
     }
 }

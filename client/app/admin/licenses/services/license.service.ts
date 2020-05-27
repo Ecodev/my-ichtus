@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Apollo } from 'apollo-angular';
-import { FormAsyncValidators, FormValidators, NaturalAbstractModelService, unique } from '@ecodev/natural';
-import { createLicense, deleteLicenses, licenseQuery, licensesQuery, updateLicense } from './license.queries';
+import {Injectable} from '@angular/core';
+import {Apollo} from 'apollo-angular';
+import {FormAsyncValidators, FormValidators, NaturalAbstractModelService, unique} from '@ecodev/natural';
+import {createLicense, deleteLicenses, licenseQuery, licensesQuery, updateLicense} from './license.queries';
 import {
     CreateLicense,
     CreateLicenseVariables,
@@ -14,12 +14,13 @@ import {
     UpdateLicense,
     UpdateLicenseVariables,
 } from '../../../shared/generated-types';
-import { Validators } from '@angular/forms';
+import {Validators} from '@angular/forms';
 
 @Injectable({
     providedIn: 'root',
 })
-export class LicenseService extends NaturalAbstractModelService<License['license'],
+export class LicenseService extends NaturalAbstractModelService<
+    License['license'],
     LicenseVariables,
     Licenses['licenses'],
     LicensesVariables,
@@ -27,8 +28,8 @@ export class LicenseService extends NaturalAbstractModelService<License['license
     CreateLicenseVariables,
     UpdateLicense['updateLicense'],
     UpdateLicenseVariables,
-    any> {
-
+    any
+> {
     constructor(apollo: Apollo) {
         super(apollo, 'license', licenseQuery, licensesQuery, createLicense, updateLicense, deleteLicenses);
     }
@@ -50,5 +51,4 @@ export class LicenseService extends NaturalAbstractModelService<License['license
             name: [unique('name', model.id, this)],
         };
     }
-
 }

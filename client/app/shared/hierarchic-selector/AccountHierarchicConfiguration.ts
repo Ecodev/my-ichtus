@@ -1,6 +1,6 @@
-import { AccountService } from '../../admin/accounts/services/account.service';
-import { AccountType } from '../generated-types';
-import { NaturalHierarchicConfiguration } from '@ecodev/natural';
+import {AccountService} from '../../admin/accounts/services/account.service';
+import {AccountType} from '../generated-types';
+import {NaturalHierarchicConfiguration} from '@ecodev/natural';
 
 export const accountHierarchicConfiguration: NaturalHierarchicConfiguration[] = [
     {
@@ -8,7 +8,6 @@ export const accountHierarchicConfiguration: NaturalHierarchicConfiguration[] = 
         parentsRelationNames: ['parent'],
         childrenRelationNames: ['parent'],
         selectableAtKey: 'account',
-        isSelectableCallback: (account) => account.type !== AccountType.group
+        isSelectableCallback: account => account.type !== AccountType.group,
     },
 ];
-

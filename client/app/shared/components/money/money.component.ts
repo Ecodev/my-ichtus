@@ -1,11 +1,10 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
     selector: 'app-money',
     templateUrl: './money.component.html',
 })
 export class MoneyComponent {
-
     /**
      * If user or account, display the amount
      * If transaction or expenseClaim, displays the amount
@@ -23,7 +22,5 @@ export class MoneyComponent {
 
     @Input() showCurrency = true;
 
-    constructor() {
-    }
-
+    constructor() {}
 }

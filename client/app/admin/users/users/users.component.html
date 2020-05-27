@@ -1,20 +1,19 @@
 <div *ngIf="dataSource" fxLayout="column">
-
     <div fxLayout="column">
-        <div class="mat-headline no-margin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">{{routeData?.title}}</div>
+        <div class="mat-headline no-margin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+            {{ routeData?.title }}
+        </div>
     </div>
 
     <div fxLayout="column">
-
         <div fxLayout="row" class="margin-v overflow">
-
-            <natural-search fxFlex
-                            [facets]="naturalSearchFacets"
-                            [selections]="naturalSearchSelections"
-                            (selectionChange)="search($event)"
-                            [multipleGroups]="true"
+            <natural-search
+                fxFlex
+                [facets]="naturalSearchFacets"
+                [selections]="naturalSearchSelections"
+                (selectionChange)="search($event)"
+                [multipleGroups]="true"
             >
-
                 <button mat-icon-button (click)="download()" *ngIf="!usersEmail">
                     <natural-icon name="email"></natural-icon>
                 </button>
@@ -23,11 +22,19 @@
                     <natural-icon name="alternate_email"></natural-icon>
                 </button>
 
-                <button mat-icon-button (click)="copy(usersEmailAndName)" *ngIf="usersEmailAndName" matTooltip="Copier les e-mails et les noms">
+                <button
+                    mat-icon-button
+                    (click)="copy(usersEmailAndName)"
+                    *ngIf="usersEmailAndName"
+                    matTooltip="Copier les e-mails et les noms"
+                >
                     <natural-icon name="file_copy"></natural-icon>
                 </button>
 
-                <natural-columns-picker (selectionChange)="selectedColumns = $event" [initialSelection]="initialColumns">
+                <natural-columns-picker
+                    (selectionChange)="selectedColumns = $event"
+                    [initialSelection]="initialColumns"
+                >
                     <span naturalColumnsPickerColumn="balance">Solde</span>
                     <span naturalColumnsPickerColumn="name">Nom</span>
                     <span naturalColumnsPickerColumn="login">Login</span>
@@ -39,21 +46,22 @@
                     <span naturalColumnsPickerColumn="flagWelcomeSessionDate">Séance d'accueil</span>
                 </natural-columns-picker>
             </natural-search>
-
         </div>
 
         <div class="responsive-table">
             <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting([$event])">
-
                 <tr mat-header-row *matHeaderRowDef="selectedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: selectedColumns;"></tr>
+                <tr mat-row *matRowDef="let row; columns: selectedColumns"></tr>
 
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header="lastName">Nom</th>
                     <td mat-cell *matCellDef="let element">
                         <div fxLayout="row" fxLayoutAlign="start center">
                             <ngx-avatar [name]="element.name" [gravatarId]="element.email" [size]="36"></ngx-avatar>
-                            <natural-table-button [label]="element.name" [navigate]="['/admin/user', element.id]" matTooltip="Éditer"
+                            <natural-table-button
+                                [label]="element.name"
+                                [navigate]="['/admin/user', element.id]"
+                                matTooltip="Éditer"
                             ></natural-table-button>
                         </div>
                     </td>
@@ -70,14 +78,19 @@
                 </ng-container>
 
                 <ng-container matColumnDef="status">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="app-date-column" natural-align-center>Status</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="app-date-column" natural-align-center>
+                        Status
+                    </th>
                     <td mat-cell *matCellDef="let element" natural-align-center>
-                        <span *ngIf="isActive(element)">{{ element.status | enum: 'UserStatus' | capitalize | async }}</span>
-                        <button mat-flat-button
-                                [color]="isNew(element) ? 'accent' : 'primary'"
-                                (click)="activate(element)"
-                                *ngIf="!isActive(element)"
-                                [style.width.px]="150"
+                        <span *ngIf="isActive(element)">{{
+                            element.status | enum: 'UserStatus' | capitalize | async
+                        }}</span>
+                        <button
+                            mat-flat-button
+                            [color]="isNew(element) ? 'accent' : 'primary'"
+                            (click)="activate(element)"
+                            *ngIf="!isActive(element)"
+                            [style.width.px]="150"
                         >
                             Activer ({{ element.status | enum: 'UserStatus' | capitalize | async }})
                         </button>
@@ -101,13 +114,17 @@
                 <ng-container matColumnDef="flagWelcomeSessionDate">
                     <th mat-header-cell *matHeaderCellDef natural-7em-column>Accueil</th>
                     <td mat-cell *matCellDef="let element">
-                        <button mat-flat-button
-                                color="primary"
-                                *ngIf="!element.welcomeSessionDate"
-                                (click)="flagWelcomeSessionDate(element)"
-                        >A participé
+                        <button
+                            mat-flat-button
+                            color="primary"
+                            *ngIf="!element.welcomeSessionDate"
+                            (click)="flagWelcomeSessionDate(element)"
+                        >
+                            A participé
                         </button>
-                        <span *ngIf="element.welcomeSessionDate">{{ element.welcomeSessionDate | date: 'dd.MM.y' }}</span>
+                        <span *ngIf="element.welcomeSessionDate">{{
+                            element.welcomeSessionDate | date: 'dd.MM.y'
+                        }}</span>
                     </td>
                 </ng-container>
 
@@ -119,10 +136,13 @@
                 <ng-container matColumnDef="balance">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header natural-6em-column>Solde</th>
                     <td mat-cell *matCellDef="let element">
-                        <app-money [showCurrency]="false" [showSignal]="true" [amount]="element.account?.balance"></app-money>
+                        <app-money
+                            [showCurrency]="false"
+                            [showSignal]="true"
+                            [amount]="element.account?.balance"
+                        ></app-money>
                     </td>
                 </ng-container>
-
             </table>
         </div>
 
@@ -134,15 +154,19 @@
             <mat-progress-spinner mode="indeterminate" [diameter]="40"></mat-progress-spinner>
         </div>
 
-        <mat-paginator *ngIf="dataSource.data?.length"
-                       [length]="dataSource.data?.length"
-                       [pageSize]="dataSource.data?.pageSize"
-                       [pageIndex]="dataSource.data?.pageIndex"
-                       [pageSizeOptions]="pageSizeOptions"
-                       (page)="pagination($event)"
+        <mat-paginator
+            *ngIf="dataSource.data?.length"
+            [length]="dataSource.data?.length"
+            [pageSize]="dataSource.data?.pageSize"
+            [pageIndex]="dataSource.data?.pageIndex"
+            [pageSizeOptions]="pageSizeOptions"
+            (page)="pagination($event)"
         ></mat-paginator>
-
     </div>
 </div>
 
-<natural-fixed-button [routerLink]="['/admin/user/new']" icon="add" *ngIf="permissionsService.crud?.user.create"></natural-fixed-button>
+<natural-fixed-button
+    [routerLink]="['/admin/user/new']"
+    icon="add"
+    *ngIf="permissionsService.crud?.user.create"
+></natural-fixed-button>

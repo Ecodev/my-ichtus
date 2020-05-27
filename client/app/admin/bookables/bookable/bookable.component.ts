@@ -1,6 +1,6 @@
-import { Component, Injector, OnInit } from '@angular/core';
-import { NaturalAbstractDetail } from '@ecodev/natural';
-import { BookableService } from '../services/bookable.service';
+import {Component, Injector, OnInit} from '@angular/core';
+import {NaturalAbstractDetail} from '@ecodev/natural';
+import {BookableService} from '../services/bookable.service';
 import {
     Bookable,
     BookableVariables,
@@ -14,10 +14,10 @@ import {
     UpdateBookable,
     UpdateBookableVariables,
 } from '../../../shared/generated-types';
-import { LicenseService } from '../../licenses/services/license.service';
-import { BookableTagService } from '../../bookableTags/services/bookableTag.service';
-import { ImageService } from '../services/image.service';
-import { accountHierarchicConfiguration } from '../../../shared/hierarchic-selector/AccountHierarchicConfiguration';
+import {LicenseService} from '../../licenses/services/license.service';
+import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
+import {ImageService} from '../services/image.service';
+import {accountHierarchicConfiguration} from '../../../shared/hierarchic-selector/AccountHierarchicConfiguration';
 
 @Component({
     selector: 'app-bookable',
@@ -25,22 +25,25 @@ import { accountHierarchicConfiguration } from '../../../shared/hierarchic-selec
     styleUrls: ['./bookable.component.scss'],
 })
 export class BookableComponent
-    extends NaturalAbstractDetail<Bookable['bookable'],
+    extends NaturalAbstractDetail<
+        Bookable['bookable'],
         BookableVariables,
         CreateBookable['createBookable'],
         CreateBookableVariables,
         UpdateBookable['updateBookable'],
         UpdateBookableVariables,
-        any> implements OnInit {
-
+        any
+    >
+    implements OnInit {
     public accountHierarchicConfig = accountHierarchicConfiguration;
     public bookingsVariables;
 
-    constructor(bookableService: BookableService,
-                injector: Injector,
-                public bookableTagService: BookableTagService,
-                public licenseService: LicenseService,
-                public imageService: ImageService,
+    constructor(
+        bookableService: BookableService,
+        injector: Injector,
+        public bookableTagService: BookableTagService,
+        public licenseService: LicenseService,
+        public imageService: ImageService,
     ) {
         super('bookable', bookableService, injector);
     }
@@ -52,12 +55,10 @@ export class BookableComponent
     }
 
     public verify() {
-
-        const partialBookable = {id: this.data.model.id, verificationDate: (new Date()).toISOString()};
-        this.service.updatePartially(partialBookable).subscribe((bookable) => {
+        const partialBookable = {id: this.data.model.id, verificationDate: new Date().toISOString()};
+        this.service.updatePartially(partialBookable).subscribe(bookable => {
             this.form.patchValue(bookable);
         });
-
     }
 
     public showVerified() {
@@ -72,7 +73,6 @@ export class BookableComponent
     }
 
     public newImage(image: CreateImage['createImage']) {
-
         const imageField = this.form.get('image');
         if (imageField) {
             imageField.setValue(image);
@@ -83,13 +83,14 @@ export class BookableComponent
     }
 
     public update() {
-
         // While not saved, automatically update simultaneousBookingMaximum to 1 if navigable (self-approved) or -1 if other.
         if (!this.data.model.id) {
             const bookingType = this.form.get('bookingType');
             const simultaneousBookingMaximum = this.form.get('simultaneousBookingMaximum');
             if (simultaneousBookingMaximum) {
-                simultaneousBookingMaximum.setValue(bookingType && bookingType.value === BookingType.self_approved ? 1 : -1);
+                simultaneousBookingMaximum.setValue(
+                    bookingType && bookingType.value === BookingType.self_approved ? 1 : -1,
+                );
             }
         }
 
@@ -106,5 +107,4 @@ export class BookableComponent
             sorting: [{field: BookingSortingField.startDate, order: SortingOrder.DESC}],
         };
     }
-
 }

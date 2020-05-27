@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { NaturalAbstractController, NaturalAlertService } from '@ecodev/natural';
-import { loginValidator, UserService } from '../admin/users/services/user.service';
-import { finalize } from 'rxjs/operators';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {NaturalAbstractController, NaturalAlertService} from '@ecodev/natural';
+import {loginValidator, UserService} from '../admin/users/services/user.service';
+import {finalize} from 'rxjs/operators';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
     selector: 'app-login',
@@ -12,7 +12,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent extends NaturalAbstractController implements OnInit, OnDestroy {
-
     /**
      * Stores the received redirect URL until we need to use it (when login is successfull)
      */
@@ -53,7 +52,8 @@ export class LoginComponent extends NaturalAbstractController implements OnInit,
         this.snackBar.dismiss();
         this.form.disable();
 
-        this.userService.login(this.form.value)
+        this.userService
+            .login(this.form.value)
             .pipe(finalize(() => this.form.enable()))
             .subscribe(() => {
                 this.redirect();
@@ -66,5 +66,4 @@ export class LoginComponent extends NaturalAbstractController implements OnInit,
     private redirect(): void {
         this.router.navigateByUrl(this.returnUrl || '/');
     }
-
 }

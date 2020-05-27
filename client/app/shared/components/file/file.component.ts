@@ -1,9 +1,9 @@
-import { Component, EventEmitter, HostBinding, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { UploadService } from './services/upload.service';
-import { takeUntil } from 'rxjs/operators';
-import { NaturalAbstractController } from '@ecodev/natural';
-import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
-import { Observable, of, Subject } from 'rxjs';
+import {Component, EventEmitter, HostBinding, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {UploadService} from './services/upload.service';
+import {takeUntil} from 'rxjs/operators';
+import {NaturalAbstractController} from '@ecodev/natural';
+import {DomSanitizer, SafeStyle} from '@angular/platform-browser';
+import {Observable, of, Subject} from 'rxjs';
 
 @Component({
     selector: 'app-file',
@@ -12,7 +12,6 @@ import { Observable, of, Subject } from 'rxjs';
     providers: [UploadService],
 })
 export class FileComponent extends NaturalAbstractController implements OnInit, OnChanges {
-
     @HostBinding('style.height.px') @Input() height = 250;
 
     @Input() action: 'upload' | 'download' | null = null;
@@ -25,7 +24,7 @@ export class FileComponent extends NaturalAbstractController implements OnInit, 
     @Input() service;
     @Input() model; // todo : when __typename included in queries : FileType;
 
-    @Output() modelChange = new EventEmitter<{ file: File }>();
+    @Output() modelChange = new EventEmitter<{file: File}>();
 
     public imagePreview: SafeStyle | null;
     public filePreview: string | null;
@@ -50,12 +49,11 @@ export class FileComponent extends NaturalAbstractController implements OnInit, 
     }
 
     public upload(file: File) {
-
         this.model = {file: file};
         this.updateImage();
 
         if (this.service) {
-            this.service.create(this.model).subscribe((result) => {
+            this.service.create(this.model).subscribe(result => {
                 this.model = result;
                 this.modelChange.emit(result);
             });
@@ -65,7 +63,6 @@ export class FileComponent extends NaturalAbstractController implements OnInit, 
     }
 
     private updateImage() {
-
         this.imagePreview = null;
         this.filePreview = null;
         if (!this.model) {
@@ -78,22 +75,18 @@ export class FileComponent extends NaturalAbstractController implements OnInit, 
                 const content = 'url(data:' + this.model.file.type + ';base64,' + result + ')';
                 this.imagePreview = this.sanitizer.bypassSecurityTrustStyle(content);
             });
-
         } else if (this.model.file) {
             this.filePreview = this.model.file.type.split('/')[1];
-
         } else if (this.model.__typename === 'Image' && this.model.id) {
             // Model image with id, use specific API to render image by size
             const loc = window.location;
-            const height = (this.height ? '/' + this.height : '');
+            const height = this.height ? '/' + this.height : '';
 
             // create image url without port to stay compatible with dev mode
             const image = loc.protocol + '//' + loc.hostname + '/image/' + this.model.id + height;
             this.imagePreview = this.sanitizer.bypassSecurityTrustStyle('url(' + image + ')');
-
         } else if (this.model.__typename === 'AccountingDocument') {
             this.filePreview = this.model.mime.split('/')[1];
-
         } else if (this.model.src) {
             // external url
             this.imagePreview = this.sanitizer.bypassSecurityTrustStyle('url(' + this.model.src + ')');
@@ -101,7 +94,6 @@ export class FileComponent extends NaturalAbstractController implements OnInit, 
     }
 
     private getBase64(file: File | null): Observable<string> {
-
         if (!file) {
             return of('');
         }
@@ -119,7 +111,6 @@ export class FileComponent extends NaturalAbstractController implements OnInit, 
     }
 
     public getDownloadLink(): null | string {
-
         if (this.action !== 'download') {
             return null;
         }
@@ -134,5 +125,4 @@ export class FileComponent extends NaturalAbstractController implements OnInit, 
 
         return null;
     }
-
 }

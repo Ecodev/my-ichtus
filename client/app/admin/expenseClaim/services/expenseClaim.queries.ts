@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { permissionsFragment, userMetaFragment } from '../../../shared/queries/fragments';
+import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
 
 export const expenseClaimMetaFragment = gql`
     fragment expenseClaimMeta on ExpenseClaim {
@@ -40,7 +40,8 @@ export const expenseClaimsQuery = gql`
             length
         }
     }
-${expenseClaimMetaFragment}`;
+    ${expenseClaimMetaFragment}
+`;
 
 export const expenseClaimQuery = gql`
     query ExpenseClaim($id: ExpenseClaimID!) {
@@ -82,7 +83,7 @@ export const createExpenseClaim = gql`
 
 export const updateExpenseClaim = gql`
     mutation UpdateExpenseClaim($id: ExpenseClaimID!, $input: ExpenseClaimPartialInput!) {
-        updateExpenseClaim(id:$id, input:$input) {
+        updateExpenseClaim(id: $id, input: $input) {
             id
             updateDate
             updater {
@@ -94,6 +95,7 @@ export const updateExpenseClaim = gql`
 `;
 
 export const deleteExpenseClaims = gql`
-    mutation DeleteExpenseClaims ($ids: [ExpenseClaimID!]!){
+    mutation DeleteExpenseClaims($ids: [ExpenseClaimID!]!) {
         deleteExpenseClaims(ids: $ids)
-    }`;
+    }
+`;

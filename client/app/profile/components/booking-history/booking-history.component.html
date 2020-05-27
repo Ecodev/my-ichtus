@@ -1,5 +1,9 @@
 <h2 class="mat-headline">Historique des sorties</h2>
 
 <div *ngIf="route.snapshot.data?.viewer?.model">
-    <app-navigations [user]="route.snapshot.data.viewer.model" [activeOnly]="false" [showEmptyMessage]="true"></app-navigations>
+    <app-navigations
+        [user]="route.snapshot.data.viewer.model"
+        [activeOnly]="false"
+        [showEmptyMessage]="true"
+    ></app-navigations>
 </div>

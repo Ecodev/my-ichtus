@@ -1,14 +1,14 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { ExpenseClaimStatus, ExpenseClaimType } from '../../../shared/generated-types';
-import { UserService } from '../../../admin/users/services/user.service';
-import { ActivatedRoute } from '@angular/router';
-import { ExpenseClaimService } from '../../../admin/expenseClaim/services/expenseClaim.service';
-import { MatDialog } from '@angular/material/dialog';
-import { CreateRefundComponent } from '../create-refund/create-refund.component';
-import { NaturalAbstractController, NaturalAlertService, NaturalDataSource } from '@ecodev/natural';
-import { TransactionLineService } from '../../../admin/transactions/services/transactionLine.service';
-import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
+import {UserService} from '../../../admin/users/services/user.service';
+import {ActivatedRoute} from '@angular/router';
+import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
+import {MatDialog} from '@angular/material/dialog';
+import {CreateRefundComponent} from '../create-refund/create-refund.component';
+import {NaturalAbstractController, NaturalAlertService, NaturalDataSource} from '@ecodev/natural';
+import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
+import {catchError} from 'rxjs/operators';
+import {of} from 'rxjs';
 
 @Component({
     selector: 'app-finances',
@@ -16,7 +16,6 @@ import { of } from 'rxjs';
     styleUrls: ['./finances.component.scss'],
 })
 export class FinancesComponent extends NaturalAbstractController implements OnInit, OnChanges, OnDestroy {
-
     @Input() user;
 
     public runningExpenseClaimsDS: NaturalDataSource;
@@ -32,7 +31,8 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
         private expenseClaimService: ExpenseClaimService,
         private transactionLineService: TransactionLineService,
         private alertService: NaturalAlertService,
-        private dialog: MatDialog) {
+        private dialog: MatDialog,
+    ) {
         super();
     }
 
@@ -71,37 +71,43 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
     }
 
     public createRefund() {
-
         const config = {
             data: {
                 confirmText: 'Envoyer la demande',
             },
         };
-        this.dialog.open(CreateRefundComponent, config).afterClosed().subscribe(expense => {
-            if (expense) {
-                expense.type = ExpenseClaimType.refund;
-                this.expenseClaimService.create(expense).subscribe(() => {
-                    this.alertService.info('Votre demande de remboursement a bien été enregistrée');
-                });
-            }
-        });
-
+        this.dialog
+            .open(CreateRefundComponent, config)
+            .afterClosed()
+            .subscribe(expense => {
+                if (expense) {
+                    expense.type = ExpenseClaimType.refund;
+                    this.expenseClaimService.create(expense).subscribe(() => {
+                        this.alertService.info('Votre demande de remboursement a bien été enregistrée');
+                    });
+                }
+            });
     }
 
     public updateIban(iban: string) {
-        this.userService.updatePartially({id: this.user.id, iban: iban}).pipe(catchError(() => {
-            this.alertService.error('L\'IBAN est invalide');
-            return of(null);
-        })).subscribe(user => {
-            if (user) {
-                this.ibanLocked = true;
-                this.alertService.info('Votre IBAN a été modifié');
-                this.user.iban = iban;
-                this.lockIbanIfDefined();
-            } else {
-                this.ibanLocked = false;
-            }
-        });
+        this.userService
+            .updatePartially({id: this.user.id, iban: iban})
+            .pipe(
+                catchError(() => {
+                    this.alertService.error("L'IBAN est invalide");
+                    return of(null);
+                }),
+            )
+            .subscribe(user => {
+                if (user) {
+                    this.ibanLocked = true;
+                    this.alertService.info('Votre IBAN a été modifié');
+                    this.user.iban = iban;
+                    this.lockIbanIfDefined();
+                } else {
+                    this.ibanLocked = false;
+                }
+            });
     }
 
     public lockIbanIfDefined() {
@@ -109,5 +115,4 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
             this.ibanLocked = true;
         }
     }
-
 }

@@ -1,12 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Apollo } from 'apollo-angular';
-import {
-    bookableQuery,
-    createBookable,
-    deleteBookables,
-    updateBookable,
-    usageBookablesQuery,
-} from './bookable.queries';
+import {Injectable} from '@angular/core';
+import {Apollo} from 'apollo-angular';
+import {bookableQuery, createBookable, deleteBookables, updateBookable, usageBookablesQuery} from './bookable.queries';
 import {
     Bookable,
     Bookables,
@@ -18,13 +12,14 @@ import {
     UpdateBookableVariables,
     UsageBookablesVariables,
 } from '../../../shared/generated-types';
-import { BookingService } from '../../bookings/services/booking.service';
-import { NaturalAbstractModelService } from '@ecodev/natural';
+import {BookingService} from '../../bookings/services/booking.service';
+import {NaturalAbstractModelService} from '@ecodev/natural';
 
 @Injectable({
     providedIn: 'root',
 })
-export class UsageBookableService extends NaturalAbstractModelService<Bookable['bookable'],
+export class UsageBookableService extends NaturalAbstractModelService<
+    Bookable['bookable'],
     BookableVariables,
     Bookables['bookables'],
     UsageBookablesVariables,
@@ -32,16 +27,9 @@ export class UsageBookableService extends NaturalAbstractModelService<Bookable['
     CreateBookableVariables,
     UpdateBookable['updateBookable'],
     UpdateBookableVariables,
-    DeleteBookables> {
-
+    DeleteBookables
+> {
     constructor(apollo: Apollo, protected bookingService: BookingService) {
-        super(apollo,
-            'bookable',
-            bookableQuery,
-            usageBookablesQuery,
-            createBookable,
-            updateBookable,
-            deleteBookables);
+        super(apollo, 'bookable', bookableQuery, usageBookablesQuery, createBookable, updateBookable, deleteBookables);
     }
-
 }

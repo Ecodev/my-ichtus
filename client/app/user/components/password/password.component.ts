@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, Validators} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
 
 function samePasswordsValidator(formGroup: FormGroup): ValidationErrors | null {
     if (!formGroup || !formGroup.controls) {
@@ -15,7 +15,6 @@ function samePasswordsValidator(formGroup: FormGroup): ValidationErrors | null {
 
 class ConfirmPasswordStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-
         if (control && control.parent && control.parent instanceof FormGroup) {
             return !!samePasswordsValidator(control.parent) && control.dirty;
         }
@@ -33,9 +32,7 @@ export class PasswordComponent implements OnInit {
     @Input() form: FormGroup;
     public confirmPasswordStateMatcher = new ConfirmPasswordStateMatcher();
 
-    constructor() {
-
-    }
+    constructor() {}
 
     public ngOnInit(): void {
         this.form.removeControl('password');
@@ -43,5 +40,4 @@ export class PasswordComponent implements OnInit {
         this.form.addControl('confirmPassword', new FormControl(''));
         this.form.setValidators(samePasswordsValidator);
     }
-
 }

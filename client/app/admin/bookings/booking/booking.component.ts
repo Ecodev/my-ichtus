@@ -1,5 +1,5 @@
-import { Component, Injector, OnInit } from '@angular/core';
-import { BookingService } from '../services/booking.service';
+import {Component, Injector, OnInit} from '@angular/core';
+import {BookingService} from '../services/booking.service';
 import {
     BookablesVariables,
     Booking,
@@ -12,11 +12,11 @@ import {
     UpdateBooking,
     UpdateBookingVariables,
 } from '../../../shared/generated-types';
-import { UserService } from '../../users/services/user.service';
-import { BookableService } from '../../bookables/services/bookable.service';
-import { BookableTagService } from '../../bookableTags/services/bookableTag.service';
-import { NaturalAbstractDetail } from '@ecodev/natural';
-import { UsageBookableService } from '../../bookables/services/usage-bookable.service';
+import {UserService} from '../../users/services/user.service';
+import {BookableService} from '../../bookables/services/bookable.service';
+import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
+import {NaturalAbstractDetail} from '@ecodev/natural';
+import {UsageBookableService} from '../../bookables/services/usage-bookable.service';
 
 @Component({
     selector: 'app-booking',
@@ -24,14 +24,16 @@ import { UsageBookableService } from '../../bookables/services/usage-bookable.se
     styleUrls: ['./booking.component.scss'],
 })
 export class BookingComponent
-    extends NaturalAbstractDetail<Booking['booking'],
+    extends NaturalAbstractDetail<
+        Booking['booking'],
         BookingVariables,
         CreateBooking['createBooking'],
         CreateBookingVariables,
         UpdateBooking['updateBooking'],
         UpdateBookingVariables,
-        any> implements OnInit {
-
+        any
+    >
+    implements OnInit {
     public UsageBookableService = UsageBookableService;
     public BookingStatus = BookingStatus;
     public storageVariables;
@@ -41,10 +43,11 @@ export class BookingComponent
      */
     public newBooking;
 
-    constructor(public bookingService: BookingService,
-                injector: Injector,
-                public bookableService: BookableService,
-                public userService: UserService,
+    constructor(
+        public bookingService: BookingService,
+        injector: Injector,
+        public bookableService: BookableService,
+        public userService: UserService,
     ) {
         super('booking', bookingService, injector);
     }
@@ -58,7 +61,7 @@ export class BookingComponent
         this.bookingService.terminateBooking(this.data.model.id).subscribe(() => {
             const endDate = this.form.get('endDate');
             if (endDate) {
-                endDate.setValue((new Date()).toISOString());
+                endDate.setValue(new Date().toISOString());
             }
         });
     }
@@ -67,12 +70,10 @@ export class BookingComponent
         const bookable = this.form.get('bookable');
         if (bookable) {
             return bookable.value ? bookable.value.bookingType === BookingType.self_approved : false;
-
         }
     }
 
     public isApplication() {
-
         const status = this.form.get('status');
         if (status && status.value !== BookingStatus.booked) {
             return true;
@@ -80,8 +81,10 @@ export class BookingComponent
 
         const bookable = this.form.get('bookable');
         if (bookable && status) {
-            return status.value !== BookingStatus.booked ||
-                   bookable.value && bookable.value.bookingType === BookingType.admin_approved;
+            return (
+                status.value !== BookingStatus.booked ||
+                (bookable.value && bookable.value.bookingType === BookingType.admin_approved)
+            );
         }
     }
 
@@ -103,12 +106,12 @@ export class BookingComponent
     }
 
     public assignBookable(bookable) {
+        const message =
+            'Êtes-vous sûr de vouloir attribuer cette prestation ou espace de stockage ? ' +
+            'Cette action va créer une nouvelle réservation et débitera automatiquement le compte du membre. ' +
+            'Pour annuler cette action, il sera nécessaire de supprimer la nouvelle réservation.';
 
-        const message = 'Êtes-vous sûr de vouloir attribuer cette prestation ou espace de stockage ? ' +
-                        'Cette action va créer une nouvelle réservation et débitera automatiquement le compte du membre. ' +
-                        'Pour annuler cette action, il sera nécessaire de supprimer la nouvelle réservation.';
-
-        this.alertService.confirm('Confirmer l\'attribution', message, 'Confirmer').subscribe(confirm => {
+        this.alertService.confirm("Confirmer l'attribution", message, 'Confirmer').subscribe(confirm => {
             if (confirm) {
                 this.doAssignBookable(bookable);
             }
@@ -117,7 +120,7 @@ export class BookingComponent
 
     public doAssignBookable(bookable) {
         const partialBooking: BookingPartialInput = {status: BookingStatus.booked};
-        this.bookingService.createWithBookable(bookable, this.data.model.owner, partialBooking).subscribe((booking) => {
+        this.bookingService.createWithBookable(bookable, this.data.model.owner, partialBooking).subscribe(booking => {
             this.newBooking = Object.assign(booking, {bookable: bookable});
             this.alertService.info('Le stockage sélectionné a bien été attribué à ' + this.data.model.owner.name);
             const status = this.form.get('status');
@@ -146,5 +149,4 @@ export class BookingComponent
 
         return variables;
     }
-
 }

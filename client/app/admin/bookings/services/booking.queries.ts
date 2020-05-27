@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
-import { permissionsFragment, userMetaFragment } from '../../../shared/queries/fragments';
-import { bookableMetaFragment } from '../../bookables/services/bookable.queries';
+import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
+import {bookableMetaFragment} from '../../bookables/services/bookable.queries';
 
 export const bookingMetaFragment = gql`
     fragment bookingMeta on Booking {
@@ -120,8 +120,8 @@ export const bookingQuery = gql`
 `;
 
 export const createBooking = gql`
-    mutation CreateBooking ($input: BookingInput!) {
-        createBooking (input: $input) {
+    mutation CreateBooking($input: BookingInput!) {
+        createBooking(input: $input) {
             id
             creator {
                 ...userMeta
@@ -133,7 +133,7 @@ export const createBooking = gql`
 
 export const updateBooking = gql`
     mutation UpdateBooking($id: BookingID!, $input: BookingPartialInput!) {
-        updateBooking(id:$id, input:$input) {
+        updateBooking(id: $id, input: $input) {
             id
             updateDate
             updater {
@@ -145,13 +145,13 @@ export const updateBooking = gql`
 `;
 
 export const deleteBookings = gql`
-    mutation DeleteBookings ($ids: [BookingID!]!){
+    mutation DeleteBookings($ids: [BookingID!]!) {
         deleteBookings(ids: $ids)
     }
 `;
 
 export const terminateBooking = gql`
-    mutation TerminateBooking ($id: BookingID!, $comment: String) {
+    mutation TerminateBooking($id: BookingID!, $comment: String) {
         terminateBooking(id: $id, comment: $comment) {
             id
             endDate

@@ -1,4 +1,4 @@
-import { User } from '../../shared/generated-types';
+import {User} from '../../shared/generated-types';
 
 export interface UserResolve {
     model: User['user'];

@@ -1,19 +1,19 @@
-<a matRipple
-   [matRippleDisabled]="!action"
-   ngfSelect
-   [accept]="accept"
-   appFileDrop
-   [fileDropDisabled]="action !== 'upload'"
-   [ngfFixOrientation]="false"
-   (fileChange)="upload($event)"
-   [attr.href]="getDownloadLink()"
-   target="_blank"
-   download
-   [style.backgroundImage]="imagePreview"
-   [class.has-action]="!!action"
-   [class.suggest-upload]="!model && action === 'upload'"
+<a
+    matRipple
+    [matRippleDisabled]="!action"
+    ngfSelect
+    [accept]="accept"
+    appFileDrop
+    [fileDropDisabled]="action !== 'upload'"
+    [ngfFixOrientation]="false"
+    (fileChange)="upload($event)"
+    [attr.href]="getDownloadLink()"
+    target="_blank"
+    download
+    [style.backgroundImage]="imagePreview"
+    [class.has-action]="!!action"
+    [class.suggest-upload]="!model && action === 'upload'"
 >
-
     <div class="file-preview" *ngIf="filePreview">
         <natural-icon name="attachment" [size]="height * 0.33"></natural-icon>
         {{ filePreview | uppercase }}
@@ -23,5 +23,4 @@
         <natural-icon name="cloud_upload" [size]="height * 0.66" *ngIf="action === 'upload'"></natural-icon>
         <natural-icon name="get_app" [size]="height * 0.66" *ngIf="action === 'download'"></natural-icon>
     </div>
-
 </a>

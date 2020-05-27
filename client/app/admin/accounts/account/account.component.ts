@@ -1,6 +1,6 @@
-import { Component, Injector, OnInit } from '@angular/core';
-import { NaturalAbstractDetail } from '@ecodev/natural';
-import { AccountService } from '../services/account.service';
+import {Component, Injector, OnInit} from '@angular/core';
+import {NaturalAbstractDetail} from '@ecodev/natural';
+import {AccountService} from '../services/account.service';
 import {
     Account,
     AccountVariables,
@@ -9,8 +9,8 @@ import {
     UpdateAccount,
     UpdateAccountVariables,
 } from '../../../shared/generated-types';
-import { UserService } from '../../users/services/user.service';
-import { groupAccountHierarchicConfiguration } from '../../../shared/hierarchic-selector/GroupAccountHierarchicConfiguration';
+import {UserService} from '../../users/services/user.service';
+import {groupAccountHierarchicConfiguration} from '../../../shared/hierarchic-selector/GroupAccountHierarchicConfiguration';
 
 @Component({
     selector: 'app-account',
@@ -18,21 +18,20 @@ import { groupAccountHierarchicConfiguration } from '../../../shared/hierarchic-
     styleUrls: ['./account.component.scss'],
 })
 export class AccountComponent
-    extends NaturalAbstractDetail<Account['account'],
+    extends NaturalAbstractDetail<
+        Account['account'],
         AccountVariables,
         CreateAccount['createAccount'],
         CreateAccountVariables,
         UpdateAccount['updateAccount'],
         UpdateAccountVariables,
-        any> implements OnInit {
-
+        any
+    >
+    implements OnInit {
     public nextCodeAvailable: number;
     public accountHierarchicConfig = groupAccountHierarchicConfiguration;
 
-    constructor(public accountService: AccountService,
-                injector: Injector,
-                public userService: UserService,
-    ) {
+    constructor(public accountService: AccountService, injector: Injector, public userService: UserService) {
         super('account', accountService, injector);
     }
 
@@ -54,7 +53,10 @@ export class AccountComponent
             this.accountService.getOne(parentId).subscribe(parentAccount => {
                 const parentField = this.form.get('parent');
                 if (parentAccount.id && parentField) {
-                    parentField.setValue({id: parentAccount.id, name: [parentAccount.code, parentAccount.name].join(' ')});
+                    parentField.setValue({
+                        id: parentAccount.id,
+                        name: [parentAccount.code, parentAccount.name].join(' '),
+                    });
                 }
             });
         }
@@ -74,7 +76,5 @@ export class AccountComponent
                 ibanField.setValue('');
             }
         }
-
     }
-
 }

@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
-import { Apollo } from 'apollo-angular';
+import {Injectable} from '@angular/core';
+import {Apollo} from 'apollo-angular';
 import {
     bookableMetadatasQuery,
     createBookableMetadataMutation,
     deleteBookableMetadatas,
     updateBookableMetadataMutation,
 } from './bookable-metadata.queries';
-import { Validators } from '@angular/forms';
+import {Validators} from '@angular/forms';
 
-import { FormValidators, NaturalAbstractModelService } from '@ecodev/natural';
+import {FormValidators, NaturalAbstractModelService} from '@ecodev/natural';
 import {
     BookableMetadataInput,
     BookableMetadatas,
@@ -21,7 +21,8 @@ import {
 @Injectable({
     providedIn: 'root',
 })
-export class BookableMetadataService extends NaturalAbstractModelService<any,
+export class BookableMetadataService extends NaturalAbstractModelService<
+    any,
     any,
     BookableMetadatas['bookableMetadatas'],
     BookableMetadatasVariables,
@@ -29,16 +30,18 @@ export class BookableMetadataService extends NaturalAbstractModelService<any,
     any,
     UpdateBookableMetadata['updateBookableMetadata'],
     UpdateBookableMetadataVariables,
-    DeleteBookableMetadatas> {
-
+    DeleteBookableMetadatas
+> {
     constructor(apollo: Apollo) {
-        super(apollo,
+        super(
+            apollo,
             'bookableMetadata',
             null,
             bookableMetadatasQuery,
             createBookableMetadataMutation,
             updateBookableMetadataMutation,
-            deleteBookableMetadatas);
+            deleteBookableMetadatas,
+        );
     }
 
     protected getDefaultForServer(): BookableMetadataInput {
@@ -55,5 +58,4 @@ export class BookableMetadataService extends NaturalAbstractModelService<any,
             value: [Validators.required],
         };
     }
-
 }

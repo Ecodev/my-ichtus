@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Apollo } from 'apollo-angular';
+import {Injectable} from '@angular/core';
+import {Apollo} from 'apollo-angular';
 import {
     bookingQuery,
     bookingsQuery,
@@ -29,17 +29,18 @@ import {
     UpdateBooking,
     UpdateBookingVariables,
 } from '../../../shared/generated-types';
-import { Validators } from '@angular/forms';
-import { forkJoin, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { BookingResolve } from '../booking';
-import { FormValidators, NaturalAbstractModelService, NaturalEnumService } from '@ecodev/natural';
-import { BookableTagService } from '../../bookableTags/services/bookableTag.service';
+import {Validators} from '@angular/forms';
+import {forkJoin, Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {BookingResolve} from '../booking';
+import {FormValidators, NaturalAbstractModelService, NaturalEnumService} from '@ecodev/natural';
+import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 
 @Injectable({
     providedIn: 'root',
 })
-export class BookingService extends NaturalAbstractModelService<Booking['booking'],
+export class BookingService extends NaturalAbstractModelService<
+    Booking['booking'],
     BookingVariables,
     Bookings['bookings'],
     BookingsVariables,
@@ -47,8 +48,8 @@ export class BookingService extends NaturalAbstractModelService<Booking['booking
     any,
     UpdateBooking['updateBooking'],
     UpdateBookingVariables,
-    DeleteBookings> {
-
+    DeleteBookings
+> {
     /**
      * Filters for bookings with endDate with self-approved bookable or no bookable linked
      */
@@ -133,14 +134,16 @@ export class BookingService extends NaturalAbstractModelService<Booking['booking
                     conditions: [{status: {equal: {value: BookingStatus.application}}}],
                     joins: {
                         bookable: {
-                            conditions: [{
-                                bookableTags: {
-                                    have: {
-                                        values: [BookableTagService.STORAGE],
-                                        not: true,
+                            conditions: [
+                                {
+                                    bookableTags: {
+                                        have: {
+                                            values: [BookableTagService.STORAGE],
+                                            not: true,
+                                        },
                                     },
                                 },
-                            }],
+                            ],
                         },
                     },
                 },
@@ -149,13 +152,7 @@ export class BookingService extends NaturalAbstractModelService<Booking['booking
     };
 
     constructor(apollo: Apollo, private enumService: NaturalEnumService) {
-        super(apollo,
-            'booking',
-            bookingQuery,
-            bookingsQuery,
-            createBooking,
-            updateBooking,
-            deleteBookings);
+        super(apollo, 'booking', bookingQuery, bookingsQuery, createBooking, updateBooking, deleteBookings);
     }
 
     protected getDefaultForServer(): BookingInput {
@@ -168,7 +165,7 @@ export class BookingService extends NaturalAbstractModelService<Booking['booking
             startComment: '',
             endComment: '',
             estimatedEndDate: '',
-            startDate: (new Date()).toISOString(),
+            startDate: new Date().toISOString(),
             endDate: '',
             remarks: '',
             internalRemarks: '',
@@ -198,30 +195,29 @@ export class BookingService extends NaturalAbstractModelService<Booking['booking
     }
 
     public resolve(id: string): Observable<BookingResolve> {
+        const observables = [super.resolve(id), this.enumService.get('BookingStatus')];
 
-        const observables = [
-            super.resolve(id),
-            this.enumService.get('BookingStatus'),
-        ];
-
-        return forkJoin(observables).pipe(map((data: any) => {
-            return {
-                model: data[0].model,
-                status: data[1],
-            };
-        }));
+        return forkJoin(observables).pipe(
+            map((data: any) => {
+                return {
+                    model: data[0].model,
+                    status: data[1],
+                };
+            }),
+        );
     }
 
     /**
      * Create a booking with given owner and bookable.
      * Accepts optional third parameter with other default fields of booking
      */
-    public createWithBookable(bookable: Bookable['bookable'],
-                              owner: { id: string },
-                              booking: BookingPartialInput = {}): Observable<CreateBooking['createBooking']> {
-
+    public createWithBookable(
+        bookable: Bookable['bookable'],
+        owner: {id: string},
+        booking: BookingPartialInput = {},
+    ): Observable<CreateBooking['createBooking']> {
         if (!booking.startDate) {
-            booking.startDate = (new Date()).toISOString();
+            booking.startDate = new Date().toISOString();
         }
 
         if (!booking.status) {
@@ -233,5 +229,4 @@ export class BookingService extends NaturalAbstractModelService<Booking['booking
 
         return this.create(booking);
     }
-
 }

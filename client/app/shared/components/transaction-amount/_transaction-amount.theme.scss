@@ -6,7 +6,6 @@
     $foreground: map-get($theme, foreground);
 
     app-transaction-amount {
-
         .text-decoration {
             &.positive {
                 color: #008600;
@@ -33,9 +32,5 @@
                 color: mat-color($warn, default-contrast);
             }
         }
-
     }
-
 }
-
-

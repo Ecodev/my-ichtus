@@ -1,19 +1,16 @@
 <div fxLayout="column" fxFlex>
-
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
         <h1 class="mat-display-1" fxFlex>Nouvelle sortie</h1>
     </div>
     <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="20px">
-
         <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="center" fxLayoutGap="30px">
-
             <app-card [file]="bookable?.image">
                 <card-illustration class="padding" *ngIf="!bookable?.image">
                     <ngx-avatar name="?" [size]="160"></ngx-avatar>
                 </card-illustration>
                 <h2 class="mat-title">Matériel</h2>
                 <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
-                    <div class="mat-body-2" fxFlex>{{ bookable?.name || 'Mon propre matériel'}}</div>
+                    <div class="mat-body-2" fxFlex>{{ bookable?.name || 'Mon propre matériel' }}</div>
                     <mat-divider [vertical]="true" *ngIf="bookable"></mat-divider>
                     <div class="mat-body-2">{{ bookable?.code }}</div>
                 </div>
@@ -21,7 +18,12 @@
 
             <app-card>
                 <card-illustration class="padding">
-                    <ngx-avatar *ngIf="!!booking.owner" [name]="booking.owner.name" [gravatarId]="booking.owner.email" [size]="160"></ngx-avatar>
+                    <ngx-avatar
+                        *ngIf="!!booking.owner"
+                        [name]="booking.owner.name"
+                        [gravatarId]="booking.owner.email"
+                        [size]="160"
+                    ></ngx-avatar>
                     <ngx-avatar *ngIf="!booking.owner" name="Invité" [size]="160"></ngx-avatar>
                 </card-illustration>
 
@@ -36,20 +38,20 @@
             </app-card>
         </div>
 
-        <div fxFlex="none"
-             fxFlex.gt-sm
-             fxLayout="column"
-             fxLayout.gt-xs="row"
-             fxLayoutGap="20px"
-             fxLayout.gt-sm="column"
-             fxLayoutGap.gt-sm="0px"
+        <div
+            fxFlex="none"
+            fxFlex.gt-sm
+            fxLayout="column"
+            fxLayout.gt-xs="row"
+            fxLayoutGap="20px"
+            fxLayout.gt-sm="column"
+            fxLayoutGap.gt-sm="0px"
         >
-
             <div fxFlex="none" fxFlex.gt-xs fxFlex.gt-sm="none" fxLayout="column">
                 <div>
                     <mat-form-field>
                         <mat-label>Nombre de participants</mat-label>
-                        <input matInput type="number" step="1" min="1" [(ngModel)]="booking.participantCount">
+                        <input matInput type="number" step="1" min="1" [(ngModel)]="booking.participantCount" />
                     </mat-form-field>
                 </div>
 
@@ -60,24 +62,22 @@
             </div>
 
             <div fxFlex="none" fxFlex.gt-xs fxFlex.gt-sm="none" fxLayout="column">
-
                 <mat-form-field>
                     <mat-label>Heure estimée de retour</mat-label>
-                    <input matInput [(ngModel)]="booking.estimatedEndDate">
+                    <input matInput [(ngModel)]="booking.estimatedEndDate" />
                 </mat-form-field>
 
                 <mat-form-field>
                     <mat-label>Remarques</mat-label>
-                    <textarea matInput
-                              [(ngModel)]="booking.startComment"
-                              matTextareaAutosize
-                              [matAutosizeMinRows]="5"
-                              [matAutosizeMaxRows]="5"
+                    <textarea
+                        matInput
+                        [(ngModel)]="booking.startComment"
+                        matTextareaAutosize
+                        [matAutosizeMinRows]="5"
+                        [matAutosizeMaxRows]="5"
                     ></textarea>
                 </mat-form-field>
-
             </div>
-
         </div>
     </div>
 </div>

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-booking-history',
@@ -7,11 +7,7 @@ import { ActivatedRoute } from '@angular/router';
     styleUrls: ['./booking-history.component.scss'],
 })
 export class BookingHistoryComponent implements OnInit {
+    constructor(public route: ActivatedRoute) {}
 
-    constructor(public route: ActivatedRoute) {
-    }
-
-    public ngOnInit(): void {
-    }
-
+    public ngOnInit(): void {}
 }

@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { UserService } from '../../../admin/users/services/user.service';
-import { BookingService } from '../../../admin/bookings/services/booking.service';
-import { animate, style, transition, trigger } from '@angular/animations';
+import {Component, Input, OnInit} from '@angular/core';
+import {UserService} from '../../../admin/users/services/user.service';
+import {BookingService} from '../../../admin/bookings/services/booking.service';
+import {animate, style, transition, trigger} from '@angular/animations';
 import {
     BookingPartialInput,
     Bookings,
@@ -14,26 +14,21 @@ import {
     Users,
     UsersVariables,
 } from '../../generated-types';
-import { NaturalAbstractController, NaturalAlertService, NaturalQueryVariablesManager } from '@ecodev/natural';
-import { Observable } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { CommentComponent } from './comment.component';
+import {NaturalAbstractController, NaturalAlertService, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {Observable} from 'rxjs';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
+import {CommentComponent} from './comment.component';
 
 @Component({
     selector: 'app-navigations',
     templateUrl: './navigations.component.html',
     styleUrls: ['./navigations.component.scss'],
     animations: [
-        trigger('terminate', [
-            transition(':leave', [
-                animate('0.2s ease-in-out', style({transform: 'scale(0, 0)'})),
-            ]),
-        ]),
+        trigger('terminate', [transition(':leave', [animate('0.2s ease-in-out', style({transform: 'scale(0, 0)'}))])]),
     ],
 })
 export class NavigationsComponent extends NaturalAbstractController implements OnInit {
-
     @Input() user;
     @Input() activeOnly = true;
     @Input() showEmptyMessage = false;
@@ -45,29 +40,32 @@ export class NavigationsComponent extends NaturalAbstractController implements O
     private currentPage = 0;
     private family;
 
-    constructor(public userService: UserService,
-                public bookingService: BookingService,
-                private alertService: NaturalAlertService,
-                private dialog: MatDialog,
-                private snackbar: MatSnackBar) {
+    constructor(
+        public userService: UserService,
+        public bookingService: BookingService,
+        private alertService: NaturalAlertService,
+        private dialog: MatDialog,
+        private snackbar: MatSnackBar,
+    ) {
         super();
     }
 
     public ngOnInit(): void {
-
         const qvm = new NaturalQueryVariablesManager<UsersVariables>();
         qvm.set('variables', {
-            filter: {groups: [{conditions: [{owner: {equal: {value: this.user.owner ? this.user.owner.id : this.user.id}}}]}]},
+            filter: {
+                groups: [
+                    {conditions: [{owner: {equal: {value: this.user.owner ? this.user.owner.id : this.user.id}}}]},
+                ],
+            },
         });
         this.userService.getAll(qvm).subscribe(family => {
             this.family = [this.user, ...family.items];
-            this.getNavigations(this.family).subscribe(bookings => this.bookings = bookings);
+            this.getNavigations(this.family).subscribe(bookings => (this.bookings = bookings));
         });
-
     }
 
     public endBooking(booking) {
-
         const snackbarOptions: MatSnackBarConfig = {
             horizontalPosition: 'end',
             verticalPosition: 'top',
@@ -85,25 +83,28 @@ export class NavigationsComponent extends NaturalAbstractController implements O
 
         this.bookingService.terminateBooking(booking.id).subscribe(() => {
             booking.endDate = new Date();
-            this.snackbar.open('La sortie est terminée', 'Faire un commentaire', snackbarOptions).onAction().subscribe(() => {
-
-                this.dialog.open(CommentComponent, modalOptions).afterClosed().subscribe(comment => {
-                    if (comment && comment !== '') {
-                        booking.endComment = comment;
-                        const partialBooking = {id: booking.id, endComment: comment} as BookingPartialInput;
-                        this.bookingService.updatePartially(partialBooking).subscribe((res) => {
-                            this.alertService.info('Merci pour votre commentaire');
+            this.snackbar
+                .open('La sortie est terminée', 'Faire un commentaire', snackbarOptions)
+                .onAction()
+                .subscribe(() => {
+                    this.dialog
+                        .open(CommentComponent, modalOptions)
+                        .afterClosed()
+                        .subscribe(comment => {
+                            if (comment && comment !== '') {
+                                booking.endComment = comment;
+                                const partialBooking = {id: booking.id, endComment: comment} as BookingPartialInput;
+                                this.bookingService.updatePartially(partialBooking).subscribe(res => {
+                                    this.alertService.info('Merci pour votre commentaire');
+                                });
+                            }
                         });
-                    }
-
                 });
-            });
         });
     }
 
     public update(partialBooking) {
-        this.bookingService.updatePartially(partialBooking).subscribe(() => {
-        });
+        this.bookingService.updatePartially(partialBooking).subscribe(() => {});
     }
 
     public nextPage() {
@@ -114,7 +115,6 @@ export class NavigationsComponent extends NaturalAbstractController implements O
     }
 
     private getNavigations(users: Users['users']['items']): Observable<Bookings['bookings']> {
-
         const owner = {in: {values: users.map(u => u.id)}};
         const endDate = this.activeOnly ? {null: {}} : null;
 
@@ -159,5 +159,4 @@ export class NavigationsComponent extends NaturalAbstractController implements O
 
         return this.bookingService.getAll(this.bookingsQVM);
     }
-
 }

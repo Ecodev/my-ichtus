@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { permissionsFragment, userMetaFragment } from '../../../shared/queries/fragments';
+import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
 
 // Fragment for single display usage. Too much data for listings, and unused fields for mutations.
 export const userFieldsFragment = gql`
@@ -111,7 +111,6 @@ export const emailUsersQuery = gql`
     }
 `;
 
-
 export const userQuery = gql`
     query User($id: UserID!) {
         user(id: $id) {
@@ -138,7 +137,7 @@ export const userByTokenQuery = gql`
 
 export const updateUser = gql`
     mutation UpdateUser($id: UserID!, $input: UserPartialInput!) {
-        updateUser(id:$id, input:$input) {
+        updateUser(id: $id, input: $input) {
             id
             name
             welcomeSessionDate
@@ -152,8 +151,8 @@ export const updateUser = gql`
 `;
 
 export const createUser = gql`
-    mutation CreateUser ($input: UserInput!) {
-        createUser (input: $input) {
+    mutation CreateUser($input: UserInput!) {
+        createUser(input: $input) {
             id
             name
             creator {
@@ -167,11 +166,12 @@ export const createUser = gql`
 export const logoutMutation = gql`
     mutation Logout {
         logout
-    }`;
+    }
+`;
 
 export const loginMutation = gql`
     mutation Login($login: Login!, $password: String!) {
-        login(login:$login, password:$password) {
+        login(login: $login, password: $password) {
             ...userFields
         }
     }

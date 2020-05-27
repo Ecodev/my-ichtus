@@ -1,21 +1,28 @@
 <div fxLayout="column" fxLayoutGap="20px">
     <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="20px grid" *ngIf="bookings">
-
         <div *ngIf="!bookings.items.length && showEmptyMessage" class="padding mat-body-2">Aucun résultat</div>
 
         <ng-container *ngFor="let booking of bookings.items; let i = index">
-            <div [@terminate] *ngIf="!activeOnly || activeOnly && !booking.terminated">
-                <app-card [file]="booking.bookable?.image" [style.width.px]="300" [class.showComments]="booking.showComments">
+            <div [@terminate] *ngIf="!activeOnly || (activeOnly && !booking.terminated)">
+                <app-card
+                    [file]="booking.bookable?.image"
+                    [style.width.px]="300"
+                    [class.showComments]="booking.showComments"
+                >
                     <card-illustration *ngIf="!booking.bookable?.image" class="padding">
                         <ngx-avatar name="?" [size]="160"></ngx-avatar>
                     </card-illustration>
 
                     <!-- style="overflow:hidden;" -->
-                    <div fxLayout="column" fxLayoutGap="10px" >
-                        <a mat-button [routerLink]="booking.bookable ? ['/booking', booking.bookable.code] : null" class="app-button-wrap">
+                    <div fxLayout="column" fxLayoutGap="10px">
+                        <a
+                            mat-button
+                            [routerLink]="booking.bookable ? ['/booking', booking.bookable.code] : null"
+                            class="app-button-wrap"
+                        >
                             {{ booking.bookable?.name || 'Matériel personnel' }}
                         </a>
-                        <div style="position:relative">
+                        <div style="position: relative;">
                             <mat-divider></mat-divider>
                         </div>
                         <div class="mat-body-2">{{ booking.owner.name }}</div>
@@ -25,12 +32,8 @@
                         <div class="mat-body-1" *ngIf="!booking.endDate && booking.estimatedEndDate">
                             Retour prévu : {{ booking.estimatedEndDate }}
                         </div>
-                        <div>
-                            Début : {{ booking.startDate  | swissDate }}
-                        </div>
-                        <div *ngIf="booking.endDate">
-                            Fin : {{ booking.endDate  | swissDate }}
-                        </div>
+                        <div>Début : {{ booking.startDate | swissDate }}</div>
+                        <div *ngIf="booking.endDate">Fin : {{ booking.endDate | swissDate }}</div>
 
                         <div fxLayout="row" fxLayoutAlign="end center">
                             <button mat-icon-button (click)="booking.showComments = true">
@@ -38,48 +41,49 @@
                             </button>
                             <div fxFlex></div>
 
-                            <button mat-flat-button
-                                    color="warn"
-                                    (click)="endBooking(booking)"
-                                    [pHidden]="!!booking.endDate"
-                                    (pComplete)="booking.terminated = true"
-                                    libParticleEffectButton
-                                    [pParticlesAmountCoefficient]="2"
-                                    [pOscillationCoefficient]="100"
-                                    [pDuration]="350"
-                                    pEasing="easeOutQuad"
-                                    [pSpeed]="0.1"
-                                    pColor="#f44336"
-                            >Annoncer retour</button>
-
+                            <button
+                                mat-flat-button
+                                color="warn"
+                                (click)="endBooking(booking)"
+                                [pHidden]="!!booking.endDate"
+                                (pComplete)="booking.terminated = true"
+                                libParticleEffectButton
+                                [pParticlesAmountCoefficient]="2"
+                                [pOscillationCoefficient]="100"
+                                [pDuration]="350"
+                                pEasing="easeOutQuad"
+                                [pSpeed]="0.1"
+                                pColor="#f44336"
+                            >
+                                Annoncer retour
+                            </button>
                         </div>
                     </div>
 
                     <div class="comment padding" fxLayout="column" fxLayoutGap="10px">
-
                         <div fxFlex class="overflow" fxLayout="column">
-
                             <div class="mat-title">Commentaires</div>
                             <mat-form-field>
                                 <mat-label>Commentaire de départ</mat-label>
-                                <textarea matInput
-                                          [ngModel]="booking.startComment"
-                                          (change)="update({id: booking.id, startComment: $event.target.value})"
-                                          matTextareaAutosize
-                                          [matAutosizeMinRows]="3"
+                                <textarea
+                                    matInput
+                                    [ngModel]="booking.startComment"
+                                    (change)="update({id: booking.id, startComment: $event.target.value})"
+                                    matTextareaAutosize
+                                    [matAutosizeMinRows]="3"
                                 ></textarea>
                             </mat-form-field>
 
                             <mat-form-field>
                                 <mat-label>Commentaire de fin</mat-label>
-                                <textarea matInput
-                                          [ngModel]="booking.endComment"
-                                          (change)="update({id: booking.id, endComment: $event.target.value})"
-                                          matTextareaAutosize
-                                          [matAutosizeMinRows]="3"
+                                <textarea
+                                    matInput
+                                    [ngModel]="booking.endComment"
+                                    (change)="update({id: booking.id, endComment: $event.target.value})"
+                                    matTextareaAutosize
+                                    [matAutosizeMinRows]="3"
                                 ></textarea>
                             </mat-form-field>
-
                         </div>
 
                         <div fxLayout="row">
@@ -87,12 +91,13 @@
                                 <natural-icon name="clear"></natural-icon>
                             </button>
                         </div>
-
                     </div>
                 </app-card>
             </div>
         </ng-container>
     </div>
 
-    <button mat-button (click)="nextPage()" *ngIf="bookings && bookings.length > bookings.items.length">Voir plus</button>
+    <button mat-button (click)="nextPage()" *ngIf="bookings && bookings.length > bookings.items.length">
+        Voir plus
+    </button>
 </div>

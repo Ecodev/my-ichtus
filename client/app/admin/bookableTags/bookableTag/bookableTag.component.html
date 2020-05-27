@@ -1,9 +1,9 @@
 <div [formGroup]="form" class="detail-body">
-
-    <natural-detail-header newLabel="Nouveau tag de réservable"
-                       label="Tag de réservable"
-                       [model]="data.model"
-                       [listRoute]="['admin', 'bookable']"
+    <natural-detail-header
+        newLabel="Nouveau tag de réservable"
+        label="Tag de réservable"
+        [model]="data.model"
+        [listRoute]="['admin', 'bookable']"
     ></natural-detail-header>
 
     <mat-tab-group [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
@@ -11,34 +11,40 @@
             <div fxLayout="column" fxLayoutGap="30px" class="padding-top">
                 <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
                     <div fxFlex="66" fxLayout="column">
-
                         <mat-form-field>
-                            <input matInput formControlName="name" (change)="update()">
+                            <input matInput formControlName="name" (change)="update()" />
                             <mat-label>Nom</mat-label>
                             <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
-                                Maximum {{form.get('name')?.errors.maxlength.requiredLength }} caractères
+                                Maximum {{ form.get('name')?.errors.maxlength.requiredLength }} caractères
                             </mat-error>
                             <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
                             <mat-error *ngIf="form.get('name')?.hasError('duplicateValue')">
                                 Ce tag existe déjà
                             </mat-error>
                         </mat-form-field>
-
                     </div>
 
                     <div fxFlex="33" fxLayout="column">
-                        <input matInput type="color" formControlName="color" (change)="update()" style="height:50px; width:50px;">
+                        <input
+                            matInput
+                            type="color"
+                            formControlName="color"
+                            (change)="update()"
+                            style="height: 50px; width: 50px;"
+                        />
                     </div>
                 </div>
 
                 <natural-stamp [item]="data.model"></natural-stamp>
-
             </div>
         </mat-tab>
-
     </mat-tab-group>
 
-    <natural-fixed-button-detail *ngIf="showFabButton" [form]="form" [model]="data.model" (create)="create()" (delete)="delete()"
+    <natural-fixed-button-detail
+        *ngIf="showFabButton"
+        [form]="form"
+        [model]="data.model"
+        (create)="create()"
+        (delete)="delete()"
     ></natural-fixed-button-detail>
-
 </div>

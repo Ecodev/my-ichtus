@@ -1,53 +1,57 @@
 <div fxLayout="column" fxFlexAlign="center center" fxFlexFill class="overflow">
-
     <div class="padding" fxFlex="1 0 auto" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
+        <img src="assets/ichtus.svg" />
 
-        <img src="assets/ichtus.svg"/>
-
-        <form [formGroup]="form" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="15px" style="min-width:300px">
-
+        <form
+            [formGroup]="form"
+            fxLayout="column"
+            fxLayoutAlign="start stretch"
+            fxLayoutGap="15px"
+            style="min-width: 300px;"
+        >
             <mat-form-field>
                 <mat-label>Nom d'utilisateur</mat-label>
-                <input matInput
-                       formControlName="login"
-                       required="required"
-                       autofocus
-                       autocorrect="off"
-                       autocapitalize="off"
-                       spellcheck="false"
+                <input
+                    matInput
+                    formControlName="login"
+                    required="required"
+                    autofocus
+                    autocorrect="off"
+                    autocapitalize="off"
+                    spellcheck="false"
+                />
+                <mat-error *ngIf="form.get('login')?.hasError('maxlength')"
+                    >Maximum {{ form.get('login').errors.maxlength.requiredLength }} caractères</mat-error
                 >
-                <mat-error *ngIf="form.get('login')?.hasError('maxlength')">Maximum {{ form.get('login').errors.maxlength.requiredLength }} caractères</mat-error>
-                <mat-error *ngIf="form.get('login')?.hasError('invalid')">{{ form.get('login').getError('invalid') }}</mat-error>
+                <mat-error *ngIf="form.get('login')?.hasError('invalid')">{{
+                    form.get('login').getError('invalid')
+                }}</mat-error>
                 <mat-error *ngIf="form.get('login')?.hasError('required')">Requis</mat-error>
             </mat-form-field>
 
             <mat-form-field>
                 <mat-label>Mot de passe</mat-label>
-                <input matInput
-                       formControlName="password"
-                       required="required"
-                       type="password"
-                >
+                <input matInput formControlName="password" required="required" type="password" />
                 <mat-error *ngIf="form.get('password')?.hasError('required')">Requis</mat-error>
             </mat-form-field>
 
             <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">
                 <a mat-button routerLink="/user/request-password-reset">Mot de passe oublié ?</a>
-                <button type="submit"
-                        mat-raised-button
-                        color="primary"
-                        (click)="login()"
-                        [disabled]="form.disabled || form.invalid"
-                >Se connecter
+                <button
+                    type="submit"
+                    mat-raised-button
+                    color="primary"
+                    (click)="login()"
+                    [disabled]="form.disabled || form.invalid"
+                >
+                    Se connecter
                 </button>
             </div>
 
             <mat-divider class="margin"></mat-divider>
 
-            <div class="mat-subheading-2" style="text-align:center">Pas encore membre ?</div>
+            <div class="mat-subheading-2" style="text-align: center;">Pas encore membre ?</div>
             <a type="submit" mat-stroked-button routerLink="/user/new">Adhérer</a>
-
         </form>
-
     </div>
 </div>

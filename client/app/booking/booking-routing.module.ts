@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { ScanComponent } from './components/scan/scan.component';
-import { BookableComponent } from './bookable/bookable.component';
-import { BookableByCodeResolver } from './bookable/bookable-by-code.resolver';
-import { CodeInputComponent } from './components/code-input/code-input.component';
-import { SelfApprovedBookingComponent } from './components/self-approved-booking/self-approved-booking.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {ScanComponent} from './components/scan/scan.component';
+import {BookableComponent} from './bookable/bookable.component';
+import {BookableByCodeResolver} from './bookable/bookable-by-code.resolver';
+import {CodeInputComponent} from './components/code-input/code-input.component';
+import {SelfApprovedBookingComponent} from './components/self-approved-booking/self-approved-booking.component';
 
 const routes: Routes = [
     {
@@ -32,5 +32,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
-export class BookingRoutingModule {
-}
+export class BookingRoutingModule {}

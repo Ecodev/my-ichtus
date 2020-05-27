@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Apollo } from 'apollo-angular';
-import { bookableQuery, bookablesQuery, createBookable, deleteBookables, updateBookable } from './bookable.queries';
+import {Injectable} from '@angular/core';
+import {Apollo} from 'apollo-angular';
+import {bookableQuery, bookablesQuery, createBookable, deleteBookables, updateBookable} from './bookable.queries';
 import {
     Bookable,
     Bookable_bookable,
@@ -21,11 +21,11 @@ import {
     UpdateBookableVariables,
     User,
 } from '../../../shared/generated-types';
-import { FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { BookingService } from '../../bookings/services/booking.service';
-import { intersectionBy } from 'lodash';
+import {FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {Observable, of} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {BookingService} from '../../bookings/services/booking.service';
+import {intersectionBy} from 'lodash';
 import {
     FormAsyncValidators,
     FormValidators,
@@ -33,7 +33,7 @@ import {
     NaturalQueryVariablesManager,
     unique,
 } from '@ecodev/natural';
-import { BookableTagService } from '../../bookableTags/services/bookableTag.service';
+import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 
 function creditAccountRequiredValidator(formGroup: FormGroup): ValidationErrors | null {
     if (!formGroup || !formGroup.controls) {
@@ -48,7 +48,8 @@ function creditAccountRequiredValidator(formGroup: FormGroup): ValidationErrors 
 @Injectable({
     providedIn: 'root',
 })
-export class BookableService extends NaturalAbstractModelService<Bookable['bookable'],
+export class BookableService extends NaturalAbstractModelService<
+    Bookable['bookable'],
     BookableVariables,
     Bookables['bookables'],
     BookablesVariables,
@@ -56,8 +57,8 @@ export class BookableService extends NaturalAbstractModelService<Bookable['booka
     CreateBookableVariables,
     UpdateBookable['updateBookable'],
     UpdateBookableVariables,
-    DeleteBookables> {
-
+    DeleteBookables
+> {
     public static readonly membershipServices: BookablesVariables = {
         filter: {
             groups: [
@@ -87,13 +88,7 @@ export class BookableService extends NaturalAbstractModelService<Bookable['booka
     };
 
     constructor(apollo: Apollo, private bookingService: BookingService) {
-        super(apollo,
-            'bookable',
-            bookableQuery,
-            bookablesQuery,
-            createBookable,
-            updateBookable,
-            deleteBookables);
+        super(apollo, 'bookable', bookableQuery, bookablesQuery, createBookable, updateBookable, deleteBookables);
     }
 
     public static getFiltersByTagId(tagId): BookablesVariables {
@@ -134,9 +129,10 @@ export class BookableService extends NaturalAbstractModelService<Bookable['booka
         };
     }
 
-    public static isLicenseGranted(bookable: Bookable['bookable'],
-                                   user: User['user'] | CurrentUserForProfile['viewer']): boolean {
-
+    public static isLicenseGranted(
+        bookable: Bookable['bookable'],
+        user: User['user'] | CurrentUserForProfile['viewer'],
+    ): boolean {
         if (!bookable || !user) {
             return false;
         }
@@ -192,9 +188,9 @@ export class BookableService extends NaturalAbstractModelService<Bookable['booka
         return this.getAll(qvm); // getAll because mandatory bookables should not change
     }
 
-    public getAvailability(bookable: Bookable['bookable']):
-        Observable<{ isAvailable: boolean, result: Bookings['bookings'] }> {
-
+    public getAvailability(
+        bookable: Bookable['bookable'],
+    ): Observable<{isAvailable: boolean; result: Bookings['bookings']}> {
         // Variable for pending bookings related to given bookable
         const variables: BookingsVariables = {
             filter: {
@@ -214,21 +210,21 @@ export class BookableService extends NaturalAbstractModelService<Bookable['booka
         const qvm = new NaturalQueryVariablesManager<BookingsVariables>();
         qvm.set('variables', variables);
 
-        return this.bookingService.getAll(qvm).pipe(map(result => {
-            const isAvailable = bookable.isActive && (
-                bookable.simultaneousBookingMaximum < 0
-                || bookable.simultaneousBookingMaximum > result.length
-            );
+        return this.bookingService.getAll(qvm).pipe(
+            map(result => {
+                const isAvailable =
+                    bookable.isActive &&
+                    (bookable.simultaneousBookingMaximum < 0 || bookable.simultaneousBookingMaximum > result.length);
 
-            return {
-                isAvailable: isAvailable,
-                result: result,
-            };
-        }));
+                return {
+                    isAvailable: isAvailable,
+                    result: result,
+                };
+            }),
+        );
     }
 
-    public resolveByCode(code: string): Observable<{ model: any }> {
-
+    public resolveByCode(code: string): Observable<{model: any}> {
         if (code) {
             const qvm = new NaturalQueryVariablesManager<BookablesVariables>();
             const variables: BookablesVariables = {
@@ -236,13 +232,13 @@ export class BookableService extends NaturalAbstractModelService<Bookable['booka
             };
             qvm.set('variables', variables);
 
-            return this.getAll(qvm).pipe(map(result => {
-                return {model: result && result.items.length ? result.items[0] : null};
-            }));
+            return this.getAll(qvm).pipe(
+                map(result => {
+                    return {model: result && result.items.length ? result.items[0] : null};
+                }),
+            );
         } else {
             return of({model: null});
         }
-
     }
-
 }

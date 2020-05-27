@@ -1,9 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CountryService } from './country.service';
-import { FormGroup } from '@angular/forms';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {CountryService} from './country.service';
+import {FormGroup} from '@angular/forms';
 
-export const markFormGroupTouched = (formGroup) => {
-
+export const markFormGroupTouched = formGroup => {
     (Object as any).values(formGroup.controls).forEach(control => {
         control.markAsTouched();
         if (control.controls) {
@@ -18,16 +17,13 @@ export const markFormGroupTouched = (formGroup) => {
     styleUrls: ['./address.component.scss'],
 })
 export class AddressComponent {
-
     @Input() vertical = false;
     @Input() form: FormGroup;
     @Output() change: EventEmitter<boolean> = new EventEmitter();
 
-    constructor(public countryService: CountryService) {
-    }
+    constructor(public countryService: CountryService) {}
 
     public update() {
         this.change.emit(true);
     }
-
 }

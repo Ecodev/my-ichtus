@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AccountingDocumentInput, ExpenseClaim, Transaction } from '../../shared/generated-types';
-import { forkJoin, Observable } from 'rxjs';
-import { AccountingDocumentService } from './services/accounting-document.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {AccountingDocumentInput, ExpenseClaim, Transaction} from '../../shared/generated-types';
+import {forkJoin, Observable} from 'rxjs';
+import {AccountingDocumentService} from './services/accounting-document.service';
 
 @Component({
     selector: 'app-accounting-documents',
@@ -9,7 +9,6 @@ import { AccountingDocumentService } from './services/accounting-document.servic
     styleUrls: ['./accounting-documents.component.scss'],
 })
 export class AccountingDocumentsComponent implements OnInit {
-
     @Input() model: Transaction['transaction'] | ExpenseClaim['expenseClaim'];
     @Input() service;
     @Input() fileHeight = 250;
@@ -33,8 +32,7 @@ export class AccountingDocumentsComponent implements OnInit {
     public _removedFiles: any[] = [];
     public _disabled = false;
 
-    constructor(public accountingDocumentService: AccountingDocumentService) {
-    }
+    constructor(public accountingDocumentService: AccountingDocumentService) {}
 
     public ngOnInit(): void {
         if (this.model.accountingDocuments) {
@@ -62,36 +60,36 @@ export class AccountingDocumentsComponent implements OnInit {
     }
 
     public save() {
-
         const observables: Observable<any>[] = [];
 
-        this._files.filter(f => f && f.file).forEach((file: {file: File}) => {
-            const document: AccountingDocumentInput = {file: file.file};
-            if (this.model.__typename === 'Transaction') {
-                document.transaction = this.model.id;
-            } else if (this.model.__typename === 'ExpenseClaim') {
-                document.expenseClaim = this.model.id;
-            }
-            observables.push(this.accountingDocumentService.create(document));
-        });
+        this._files
+            .filter(f => f && f.file)
+            .forEach((file: {file: File}) => {
+                const document: AccountingDocumentInput = {file: file.file};
+                if (this.model.__typename === 'Transaction') {
+                    document.transaction = this.model.id;
+                } else if (this.model.__typename === 'ExpenseClaim') {
+                    document.expenseClaim = this.model.id;
+                }
+                observables.push(this.accountingDocumentService.create(document));
+            });
 
-        this._removedFiles.filter(f => f && f.id).forEach((file) => {
-            observables.push(this.accountingDocumentService.delete([file]));
-        });
+        this._removedFiles
+            .filter(f => f && f.id)
+            .forEach(file => {
+                observables.push(this.accountingDocumentService.delete([file]));
+            });
         this._removedFiles.length = 0;
 
         forkJoin(observables).subscribe(result => {
             // this.alertService.info('Votre demande a bien été enregistrée');
             // this.router.navigateByUrl('/profile/finances');
         });
-
     }
 
     public getAction(file, i, last) {
-
         if (file && file.id) {
             return 'download'; // if there is non null file, and it has ID, it's downloadable
-
         } else if ((!file || !file.id) && last && !this._disabled) {
             return 'upload'; // If cmp is not readonly and file is last of list (null item), allow upload
         }
@@ -99,5 +97,4 @@ export class AccountingDocumentsComponent implements OnInit {
         // Other cases : there is uploaded file, but wihtout ID for now, it no more uploadable, and not downloadable either
         return null;
     }
-
 }

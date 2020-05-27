@@ -1,22 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { BookableService } from '../../../admin/bookables/services/bookable.service';
-import { Bookables, BookableSortingField, BookablesVariables } from '../../generated-types';
-import { SelectionModel } from '@angular/cdk/collections';
-import { NaturalDataSource, NaturalQueryVariablesManager } from '@ecodev/natural';
-import { BookableTagService } from '../../../admin/bookableTags/services/bookableTag.service';
+import {Component, OnInit} from '@angular/core';
+import {BookableService} from '../../../admin/bookables/services/bookable.service';
+import {Bookables, BookableSortingField, BookablesVariables} from '../../generated-types';
+import {SelectionModel} from '@angular/cdk/collections';
+import {NaturalDataSource, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {BookableTagService} from '../../../admin/bookableTags/services/bookableTag.service';
 
 @Component({
     selector: 'natural-select-admin-approved-modal',
     templateUrl: './select-admin-approved-modal.component.html',
 })
 export class SelectAdminApprovedModalComponent implements OnInit {
-
     public servicesDataSource;
     public storagesDataSource;
     public selection = new SelectionModel<Bookables['bookables']['items']>(true, []);
 
-    constructor(private bookableService: BookableService) {
-    }
+    constructor(private bookableService: BookableService) {}
 
     public ngOnInit(): void {
         const serviceVariables = BookableService.adminApprovedByTag(BookableTagService.SERVICE);
@@ -37,7 +35,5 @@ export class SelectAdminApprovedModalComponent implements OnInit {
         this.bookableService.getAll(qvmStorage).subscribe(result => {
             this.storagesDataSource = new NaturalDataSource(result);
         });
-
     }
-
 }

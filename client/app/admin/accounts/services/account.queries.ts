@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { permissionsFragment, userMetaFragment } from '../../../shared/queries/fragments';
+import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
 
 export const accountMetaFragment = gql`
     fragment accountMeta on Account {
@@ -32,7 +32,8 @@ export const accountsQuery = gql`
             length
         }
     }
-${accountMetaFragment}`;
+    ${accountMetaFragment}
+`;
 
 export const accountQuery = gql`
     query Account($id: AccountID!) {
@@ -87,7 +88,7 @@ export const createAccount = gql`
 
 export const updateAccount = gql`
     mutation UpdateAccount($id: AccountID!, $input: AccountPartialInput!) {
-        updateAccount(id:$id, input:$input) {
+        updateAccount(id: $id, input: $input) {
             id
             updateDate
             updater {
@@ -99,6 +100,7 @@ export const updateAccount = gql`
 `;
 
 export const deleteAccounts = gql`
-    mutation DeleteAccounts ($ids: [AccountID!]!){
+    mutation DeleteAccounts($ids: [AccountID!]!) {
         deleteAccounts(ids: $ids)
-    }`;
+    }
+`;

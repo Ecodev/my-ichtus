@@ -1,4 +1,4 @@
-import { Transaction, TransactionLine } from '../../shared/generated-types';
+import {Transaction, TransactionLine} from '../../shared/generated-types';
 
 export interface TransactionLineResolve {
     model: TransactionLine['transactionLine'];

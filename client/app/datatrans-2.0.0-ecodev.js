@@ -7,7 +7,7 @@
     } else {
         root.Datatrans = factory();
     }
-}(typeof self !== 'undefined' ? self : this, function () {
+})(typeof self !== 'undefined' ? self : this, function () {
     const extend = function (defaults, options) {
         const extended = {};
         for (const prop in defaults) {
@@ -38,7 +38,7 @@
     };
 
     const stringifyReplacer = function (key, value) {
-        if ((key.length > 0) && typeof value === 'object') {
+        if (key.length > 0 && typeof value === 'object') {
             return undefined;
         }
         return value;
@@ -52,13 +52,17 @@
         // so data cannot be resubmitted when going back one more time.
         // One more back might trigger a full refresh of an Angular app though,
         // but at least the user-experience is not entirely broken
-        window.addEventListener('popstate', () => {
-            cleanup();
-        }, {capture: false, once: true});
+        window.addEventListener(
+            'popstate',
+            () => {
+                cleanup();
+            },
+            {capture: false, once: true},
+        );
     };
 
     const lockStyles = {
-        html: { 
+        html: {
             width: '100%',
             height: '100%',
             overflow: 'hidden',
@@ -95,7 +99,7 @@
             });
             body.style.top = -scrollPos;
         } else {
-            scrollPos = -(parseInt(body.style.top, 10));
+            scrollPos = -parseInt(body.style.top, 10);
             html.setAttribute('style', preservedStyles.html);
             body.setAttribute('style', preservedStyles.body);
             body.scrollTop = scrollPos;
@@ -152,7 +156,7 @@
         paymentForm = createElementWithAttributes('form', {
             id: 'datatransPaymentForm',
             name: 'datatransPaymentForm',
-            'method': method,
+            method: method,
             style: 'display: none;',
             action: action,
             target: 'datatransPaymentFrame',
@@ -164,63 +168,75 @@
             }
 
             if (typeof params[name] === 'object') {
-                paymentForm.appendChild(createElementWithAttributes('input', {
-                    type: 'hidden',
-                    name: name,
-                    value: JSON.stringify(params[name], stringifyReplacer),
-                }));
+                paymentForm.appendChild(
+                    createElementWithAttributes('input', {
+                        type: 'hidden',
+                        name: name,
+                        value: JSON.stringify(params[name], stringifyReplacer),
+                    }),
+                );
             } else {
-                paymentForm.appendChild(createElementWithAttributes('input', {
-                    type: 'hidden',
-                    name: name,
-                    value: params[name],
-                }));
+                paymentForm.appendChild(
+                    createElementWithAttributes('input', {
+                        type: 'hidden',
+                        name: name,
+                        value: params[name],
+                    }),
+                );
             }
         }
 
-        paymentForm.appendChild(createElementWithAttributes('input', {
-            type: 'hidden',
-            name: 'uppReturnTarget',
-            value: '_self', // changed
-        }));
+        paymentForm.appendChild(
+            createElementWithAttributes('input', {
+                type: 'hidden',
+                name: 'uppReturnTarget',
+                value: '_self', // changed
+            }),
+        );
 
-        paymentForm.appendChild(createElementWithAttributes('input', {
-            type: 'hidden',
-            name: 'mode',
-            value: 'lightbox',
-        }));
+        paymentForm.appendChild(
+            createElementWithAttributes('input', {
+                type: 'hidden',
+                name: 'mode',
+                value: 'lightbox',
+            }),
+        );
 
-        paymentForm.appendChild(createElementWithAttributes('input', {
-            type: 'hidden',
-            name: 'language',
-            value: 'fr',
-        }));
+        paymentForm.appendChild(
+            createElementWithAttributes('input', {
+                type: 'hidden',
+                name: 'language',
+                value: 'fr',
+            }),
+        );
 
         paymentFrame = createElementWithAttributes('div', {
             id: 'paymentFrameWrapper',
-            style: 'z-index: 9999; position: fixed; right: 0; bottom: 0; left: 0; top: 0; overflow: hidden; -webkit-transform: translate3d(0, 0, 0); display: none',
+            style:
+                'z-index: 9999; position: fixed; right: 0; bottom: 0; left: 0; top: 0; overflow: hidden; -webkit-transform: translate3d(0, 0, 0); display: none',
         });
 
-        paymentFrame.appendChild(createElementWithAttributes('iframe', {
-            id: 'datatransPaymentFrame',
-            name: 'datatransPaymentFrame',
-            frameborder: '0',
-            allowtransparency: 'true',
-            style: 'border: 0; margin: 0; padding: 0; width: 100%; height: 100%; -webkit-transform: translate3d(0, 0, 0);',
-        }));
+        paymentFrame.appendChild(
+            createElementWithAttributes('iframe', {
+                id: 'datatransPaymentFrame',
+                name: 'datatransPaymentFrame',
+                frameborder: '0',
+                allowtransparency: 'true',
+                style:
+                    'border: 0; margin: 0; padding: 0; width: 100%; height: 100%; -webkit-transform: translate3d(0, 0, 0);',
+            }),
+        );
 
         document.body.appendChild(paymentFrame);
         document.body.appendChild(paymentForm);
 
         windowEventHandler = function (event) {
-
             if (event.data === 'cancel') {
                 cleanup();
             } else if (event.data === 'frameReady') {
                 preventResubmitWithBackButton();
                 paymentFrame.style.display = 'block';
             } else if (typeof event.data === 'object' && ['success', 'error', 'cancel'].includes(event.data.status)) {
-
                 const callback = config[event.data.status];
                 if (typeof callback === 'function') {
                     callback(event.data);
@@ -238,7 +254,7 @@
         }
     };
 
-    const getHexaSHA256Signature = function(aliasCC, hexaKey, merchandId, amount, currency, refno) {
+    const getHexaSHA256Signature = function (aliasCC, hexaKey, merchandId, amount, currency, refno) {
         if (hexaKey === null) {
             throw new Error('Missing HMAC key');
         }
@@ -255,4 +271,4 @@
         startPayment: startPayment,
         cleanup: cleanup,
     };
-}));
+});

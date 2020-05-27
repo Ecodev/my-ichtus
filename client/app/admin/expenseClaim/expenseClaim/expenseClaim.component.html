@@ -1,25 +1,24 @@
 <div [formGroup]="form" class="detail-body">
-
-    <natural-detail-header newLabel="Nouveau compte"
-                       label="Frais et remboursement"
-                       [model]="data.model"
-                       [listRoute]="['admin', 'expense-claim']"
+    <natural-detail-header
+        newLabel="Nouveau compte"
+        label="Frais et remboursement"
+        [model]="data.model"
+        [listRoute]="['admin', 'expense-claim']"
     >
-
         <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center">
             <app-money [amount]="data.model.amount" sizeClass="mat-display-1" [showSignal]="false"></app-money>
 
-            <a *ngIf="data.model.id"
-               mat-flat-button
-               color="accent"
-               [routerLink]="['/admin/transaction/new', {expenseClaim: data.model.id}]"
+            <a
+                *ngIf="data.model.id"
+                mat-flat-button
+                color="accent"
+                [routerLink]="['/admin/transaction/new', {expenseClaim: data.model.id}]"
             >
                 <natural-icon name="check"></natural-icon>
                 <span>Valider</span> &nbsp;
                 <span *ngIf="data.model.type === ExpenseClaimType.expenseClaim">(créditer le solde)</span>
                 <span *ngIf="data.model.type === ExpenseClaimType.refund">(rembourser)</span>
             </a>
-
         </div>
     </natural-detail-header>
 
@@ -28,54 +27,65 @@
             <div fxLayout="column" fxLayoutGap="30px" class="padding-top">
                 <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
                     <div fxFlex="66" fxLayout="column">
-
                         <mat-form-field>
                             <mat-label>Nom</mat-label>
-                            <input matInput formControlName="name" (change)="update()">
+                            <input matInput formControlName="name" (change)="update()" />
                             <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
-                                Maximum {{form.get('name')?.errors.maxlength.requiredLength }} caractères
+                                Maximum {{ form.get('name')?.errors.maxlength.requiredLength }} caractères
                             </mat-error>
                             <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
                         </mat-form-field>
 
                         <mat-form-field>
                             <mat-label>Description</mat-label>
-                            <textarea matInput
-                                      formControlName="description"
-                                      (change)="update()"
-                                      matTextareaAutosize
-                                      [matAutosizeMinRows]="1"
+                            <textarea
+                                matInput
+                                formControlName="description"
+                                (change)="update()"
+                                matTextareaAutosize
+                                [matAutosizeMinRows]="1"
                             ></textarea>
                         </mat-form-field>
-
                     </div>
 
                     <div fxFlex="33" fxLayout="column">
-
-                        <natural-select-enum enumName="ExpenseClaimType" formControlName="type" (selectionChange)="update()" placeholder="Type"
+                        <natural-select-enum
+                            enumName="ExpenseClaimType"
+                            formControlName="type"
+                            (selectionChange)="update()"
+                            placeholder="Type"
                         ></natural-select-enum>
 
                         <div fxLayout="row" fxLayoutGap="20px">
                             <mat-form-field fxFlex="40">
                                 <mat-label>Montant</mat-label>
-                                <input matInput type="number" step="0.01" formControlName="amount" (change)="update()">
+                                <input
+                                    matInput
+                                    type="number"
+                                    step="0.01"
+                                    formControlName="amount"
+                                    (change)="update()"
+                                />
                                 <div matSuffix>CHF</div>
                                 <mat-error *ngIf="form.get('amount')?.hasError('required')">Requis</mat-error>
                             </mat-form-field>
 
-                            <natural-select-enum enumName="ExpenseClaimStatus"
-                                             formControlName="status"
-                                             (selectionChange)="update()"
-                                             placeholder="Status"
-                                             fxFlex
+                            <natural-select-enum
+                                enumName="ExpenseClaimStatus"
+                                formControlName="status"
+                                (selectionChange)="update()"
+                                placeholder="Status"
+                                fxFlex
                             ></natural-select-enum>
-
                         </div>
 
-                        <natural-select formControlName="owner" placeholder="Membre" [service]="userService" (selectionChange)="update()"
+                        <natural-select
+                            formControlName="owner"
+                            placeholder="Membre"
+                            [service]="userService"
+                            (selectionChange)="update()"
                         ></natural-select>
                     </div>
-
                 </div>
 
                 <mat-divider></mat-divider>
@@ -83,29 +93,31 @@
                 <h2 class="mat-title">Commentaires</h2>
 
                 <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
-
                     <div fxFlex fxLayout="column">
                         <mat-form-field>
                             <mat-label>Remarques</mat-label>
-                            <textarea matInput formControlName="remarks" (change)="update()" matTextareaAutosize [matAutosizeMinRows]="3"
+                            <textarea
+                                matInput
+                                formControlName="remarks"
+                                (change)="update()"
+                                matTextareaAutosize
+                                [matAutosizeMinRows]="3"
                             ></textarea>
                         </mat-form-field>
-
                     </div>
 
                     <div fxFlex fxLayout="column">
-
                         <mat-form-field>
                             <mat-label>Remarques internes</mat-label>
-                            <textarea matInput
-                                      formControlName="internalRemarks"
-                                      (change)="update()"
-                                      matTextareaAutosize
-                                      [matAutosizeMinRows]="3"
+                            <textarea
+                                matInput
+                                formControlName="internalRemarks"
+                                (change)="update()"
+                                matTextareaAutosize
+                                [matAutosizeMinRows]="3"
                             ></textarea>
                         </mat-form-field>
                     </div>
-
                 </div>
 
                 <mat-divider *ngIf="data?.model?.accountingDocuments?.length"></mat-divider>
@@ -114,11 +126,12 @@
                     <div class="mat-title">Pièces justificatives</div>
 
                     <div fxLayout="row" fxLayoutGap="10px">
-                        <app-file *ngFor="let file of data?.model?.accountingDocuments"
-                                  [model]="file"
-                                  [height]="150"
-                                  [style.width.px]="200"
-                                  action="download"
+                        <app-file
+                            *ngFor="let file of data?.model?.accountingDocuments"
+                            [model]="file"
+                            [height]="150"
+                            [style.width.px]="200"
+                            action="download"
                         ></app-file>
                     </div>
                 </div>
@@ -128,10 +141,13 @@
                 <natural-stamp [item]="data.model"></natural-stamp>
             </div>
         </mat-tab>
-
     </mat-tab-group>
 
-    <natural-fixed-button-detail *ngIf="showFabButton" [form]="form" [model]="data.model" (create)="create()" (delete)="delete()"
+    <natural-fixed-button-detail
+        *ngIf="showFabButton"
+        [form]="form"
+        [model]="data.model"
+        (create)="create()"
+        (delete)="delete()"
     ></natural-fixed-button-detail>
-
 </div>

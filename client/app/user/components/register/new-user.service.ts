@@ -1,25 +1,25 @@
-import { Injectable } from '@angular/core';
-import { Apollo } from 'apollo-angular';
-import { Router } from '@angular/router';
-import { Validators } from '@angular/forms';
-import { BookingService } from '../../../admin/bookings/services/booking.service';
-import { PermissionsService } from '../../../shared/services/permissions.service';
-import { FormAsyncValidators, FormValidators, Literal, unique } from '@ecodev/natural';
-import { PricedBookingService } from '../../../admin/bookings/services/PricedBooking.service';
-import { AnonymousUserService } from './anonymous-user.service';
-import { loginValidator } from '../../../admin/users/services/user.service';
-import { User_user } from '../../../shared/generated-types';
+import {Injectable} from '@angular/core';
+import {Apollo} from 'apollo-angular';
+import {Router} from '@angular/router';
+import {Validators} from '@angular/forms';
+import {BookingService} from '../../../admin/bookings/services/booking.service';
+import {PermissionsService} from '../../../shared/services/permissions.service';
+import {FormAsyncValidators, FormValidators, Literal, unique} from '@ecodev/natural';
+import {PricedBookingService} from '../../../admin/bookings/services/PricedBooking.service';
+import {AnonymousUserService} from './anonymous-user.service';
+import {loginValidator} from '../../../admin/users/services/user.service';
+import {User_user} from '../../../shared/generated-types';
 
 @Injectable({
     providedIn: 'root',
 })
 export class NewUserService extends AnonymousUserService {
-
-    constructor(apollo: Apollo,
-                router: Router,
-                bookingService: BookingService,
-                permissionsService: PermissionsService,
-                pricedBookingService: PricedBookingService,
+    constructor(
+        apollo: Apollo,
+        router: Router,
+        bookingService: BookingService,
+        permissionsService: PermissionsService,
+        pricedBookingService: PricedBookingService,
     ) {
         super(apollo, router, bookingService, permissionsService, pricedBookingService);
     }

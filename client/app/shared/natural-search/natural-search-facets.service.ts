@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
     DropdownFacet,
     FlagFacet,
@@ -19,16 +19,16 @@ import {
     TypeTextComponent,
     wrapLike,
 } from '@ecodev/natural';
-import { UserTagService } from '../../admin/userTags/services/userTag.service';
-import { BookableService } from '../../admin/bookables/services/bookable.service';
-import { UserService } from '../../admin/users/services/user.service';
-import { LicenseService } from '../../admin/licenses/services/license.service';
-import { TransactionService } from '../../admin/transactions/services/transaction.service';
-import { TransactionTagService } from '../../admin/transactionTags/services/transactionTag.service';
-import { UserFilterGroupCondition } from '../generated-types';
-import { AccountService } from '../../admin/accounts/services/account.service';
-import { accountHierarchicConfiguration } from '../hierarchic-selector/AccountHierarchicConfiguration';
-import { BookableTagService } from '../../admin/bookableTags/services/bookableTag.service';
+import {UserTagService} from '../../admin/userTags/services/userTag.service';
+import {BookableService} from '../../admin/bookables/services/bookable.service';
+import {UserService} from '../../admin/users/services/user.service';
+import {LicenseService} from '../../admin/licenses/services/license.service';
+import {TransactionService} from '../../admin/transactions/services/transaction.service';
+import {TransactionTagService} from '../../admin/transactionTags/services/transactionTag.service';
+import {UserFilterGroupCondition} from '../generated-types';
+import {AccountService} from '../../admin/accounts/services/account.service';
+import {accountHierarchicConfiguration} from '../hierarchic-selector/AccountHierarchicConfiguration';
+import {BookableTagService} from '../../admin/bookableTags/services/bookableTag.service';
 
 function dontHave(selection: NaturalSearchSelection): NaturalSearchSelection {
     if (selection.condition && selection.condition.have) {
@@ -44,7 +44,6 @@ function dontHave(selection: NaturalSearchSelection): NaturalSearchSelection {
     providedIn: 'root',
 })
 export class NaturalSearchFacetsService {
-
     private readonly userTags: DropdownFacet<TypeSelectNaturalConfiguration> = {
         display: 'Tags',
         name: 'withTags',
@@ -116,7 +115,7 @@ export class NaturalSearchFacetsService {
     };
 
     private readonly userWelcomeSession: FlagFacet = {
-        display: 'N\'a pas été accueilli',
+        display: "N'a pas été accueilli",
         field: 'welcomeSessionDate',
         condition: {null: {}} as UserFilterGroupCondition,
     };
@@ -190,7 +189,7 @@ export class NaturalSearchFacetsService {
         transform: wrapLike,
     };
 
-    private readonly allFacets: { [key: string]: NaturalSearchFacets } = {
+    private readonly allFacets: {[key: string]: NaturalSearchFacets} = {
         users: [
             this.userWithNoTags,
             this.userTags,
@@ -229,7 +228,7 @@ export class NaturalSearchFacetsService {
             this.userWelcomeSession,
 
             {
-                display: 'Date d\'accueil',
+                display: "Date d'accueil",
                 field: 'welcomeSessionDate',
                 component: TypeDateComponent,
             } as DropdownFacet<TypeDateConfiguration>,
@@ -401,7 +400,7 @@ export class NaturalSearchFacetsService {
                 },
             } as DropdownFacet<TypeNumberConfiguration>,
             {
-                display: 'Prix d\'achat',
+                display: "Prix d'achat",
                 field: 'purchasePrice',
                 component: TypeNumberComponent,
                 configuration: {
@@ -501,11 +500,7 @@ export class NaturalSearchFacetsService {
             this.creationDate,
             this.updateDate,
         ],
-        logs: [
-            this.creationDate,
-            this.creator,
-            this.message,
-        ],
+        logs: [this.creationDate, this.creator, this.message],
     };
 
     constructor(
@@ -518,8 +513,7 @@ export class NaturalSearchFacetsService {
         private readonly accountService: AccountService,
         private readonly userService: UserService,
         private readonly licenceService: LicenseService,
-    ) {
-    }
+    ) {}
 
     /**
      * Returns the natural search configuration for given, or null if non-existent
@@ -527,5 +521,4 @@ export class NaturalSearchFacetsService {
     public get(key: string): NaturalSearchFacets | null {
         return this.allFacets[key];
     }
-
 }

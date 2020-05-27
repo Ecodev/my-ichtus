@@ -1,10 +1,10 @@
-import { DefaultOptions } from 'apollo-client/ApolloClient';
-import { NetworkActivityService } from '../services/network-activity.service';
-import { HttpBatchLink } from 'apollo-angular-link-http-batch';
-import { ApolloLink } from 'apollo-link';
-import { onError } from 'apollo-link-error';
-import { createUploadLink } from 'apollo-upload-client';
-import { hasFilesAndProcessDate, NaturalAlertService } from '@ecodev/natural';
+import {DefaultOptions} from 'apollo-client/ApolloClient';
+import {NetworkActivityService} from '../services/network-activity.service';
+import {HttpBatchLink} from 'apollo-angular-link-http-batch';
+import {ApolloLink} from 'apollo-link';
+import {onError} from 'apollo-link-error';
+import {createUploadLink} from 'apollo-upload-client';
+import {hasFilesAndProcessDate, NaturalAlertService} from '@ecodev/natural';
 
 export const apolloDefaultOptions: DefaultOptions = {
     query: {
@@ -18,10 +18,11 @@ export const apolloDefaultOptions: DefaultOptions = {
 /**
  * Create an Apollo link to show alert in case of error, and message if network is down
  */
-function createErrorLink(networkActivityService: NetworkActivityService,
-                         alertService: NaturalAlertService): ApolloLink {
+function createErrorLink(
+    networkActivityService: NetworkActivityService,
+    alertService: NaturalAlertService,
+): ApolloLink {
     return onError(errorResponse => {
-
         // Network errors are not caught by uploadInterceptor, so we need to decrease pending queries
         if (errorResponse.networkError) {
             alertService.error('Une erreur est survenue sur le réseau');
@@ -48,9 +49,11 @@ function createErrorLink(networkActivityService: NetworkActivityService,
 /**
  * Create an Apollo link that support batch, file upload, and network activity
  */
-export function createApolloLink(networkActivityService: NetworkActivityService,
-                                 alertService: NaturalAlertService,
-                                 httpBatchLink: HttpBatchLink): ApolloLink {
+export function createApolloLink(
+    networkActivityService: NetworkActivityService,
+    alertService: NaturalAlertService,
+    httpBatchLink: HttpBatchLink,
+): ApolloLink {
     const options = {
         uri: '/graphql',
         credentials: 'include',

@@ -1,29 +1,35 @@
 <div class="wrapper" #wrapper>
     <div>
-        <div [pHidden]="!showData1"
-             libParticleEffectButton
-             [pParticlesAmountCoefficient]="settings1.pParticlesAmountCoefficient"
-             [pOscillationCoefficient]="settings1.pOscillationCoefficient"
-             [pDuration]="settings1.pDuration"
-             [pSpeed]="settings1.pSpeed"
-             [pDirection]="settings1.pDirection"
-             [pColor]="settings1.pColor"
+        <div
+            [pHidden]="!showData1"
+            libParticleEffectButton
+            [pParticlesAmountCoefficient]="settings1.pParticlesAmountCoefficient"
+            [pOscillationCoefficient]="settings1.pOscillationCoefficient"
+            [pDuration]="settings1.pDuration"
+            [pSpeed]="settings1.pSpeed"
+            [pDirection]="settings1.pDirection"
+            [pColor]="settings1.pColor"
         >
-            <ng-template #firstTemplate [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ data: _data1 }"></ng-template>
+            <ng-template
+                #firstTemplate
+                [ngTemplateOutlet]="template"
+                [ngTemplateOutletContext]="{data: _data1}"
+            ></ng-template>
         </div>
     </div>
 
     <div>
-        <div [pHidden]="!showData2"
-             libParticleEffectButton
-             [pParticlesAmountCoefficient]="settings2.pParticlesAmountCoefficient"
-             [pOscillationCoefficient]="settings2.pOscillationCoefficient"
-             [pDuration]="settings2.pDuration"
-             [pSpeed]="settings2.pSpeed"
-             [pDirection]="settings2.pDirection"
-             [pColor]="settings2.pColor"
+        <div
+            [pHidden]="!showData2"
+            libParticleEffectButton
+            [pParticlesAmountCoefficient]="settings2.pParticlesAmountCoefficient"
+            [pOscillationCoefficient]="settings2.pOscillationCoefficient"
+            [pDuration]="settings2.pDuration"
+            [pSpeed]="settings2.pSpeed"
+            [pDirection]="settings2.pDirection"
+            [pColor]="settings2.pColor"
         >
-            <ng-template [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ data: _data2 }"></ng-template>
+            <ng-template [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{data: _data2}"></ng-template>
         </div>
     </div>
 </div>

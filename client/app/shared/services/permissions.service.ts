@@ -1,32 +1,64 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import gql from 'graphql-tag';
-import { debounceTime, distinctUntilChanged, filter, skip, take } from 'rxjs/operators';
-import { isEqual } from 'lodash';
-import { BehaviorSubject, Observable, of, ReplaySubject } from 'rxjs';
-import { Apollo } from 'apollo-angular';
-import { Permissions, Permissions_permissions, Permissions_permissions_crud } from '../generated-types';
-import { Literal } from '@ecodev/natural';
+import {debounceTime, distinctUntilChanged, filter, skip, take} from 'rxjs/operators';
+import {isEqual} from 'lodash';
+import {BehaviorSubject, Observable, of, ReplaySubject} from 'rxjs';
+import {Apollo} from 'apollo-angular';
+import {Permissions, Permissions_permissions, Permissions_permissions_crud} from '../generated-types';
+import {Literal} from '@ecodev/natural';
 
 const permissions = gql`
     query Permissions {
         permissions {
             crud {
-                account { create }
-                accountingDocument { create }
-                bookable { create }
-                bookableMetadata { create }
-                bookableTag { create }
-                booking { create }
-                country { create }
-                expenseClaim { create }
-                image { create }
-                license { create }
-                message { create }
-                transaction { create }
-                transactionTag { create }
-                user { create }
-                userTag { create }
-                configuration { create }
+                account {
+                    create
+                }
+                accountingDocument {
+                    create
+                }
+                bookable {
+                    create
+                }
+                bookableMetadata {
+                    create
+                }
+                bookableTag {
+                    create
+                }
+                booking {
+                    create
+                }
+                country {
+                    create
+                }
+                expenseClaim {
+                    create
+                }
+                image {
+                    create
+                }
+                license {
+                    create
+                }
+                message {
+                    create
+                }
+                transaction {
+                    create
+                }
+                transactionTag {
+                    create
+                }
+                user {
+                    create
+                }
+                userTag {
+                    create
+                }
+                configuration {
+                    create
+                }
             }
         }
     }
@@ -65,12 +97,15 @@ export class PermissionsService {
         // Query the API when our variables changed
         this.currentContexts.pipe(distinctUntilChanged(isEqual), debounceTime(5)).subscribe(contexts => {
             // Fetch global permissions
-            apollo.query<Permissions>({
-                query: permissions,
-            }).pipe(filter(result => !result.loading)).subscribe(result => {
-                this.crud = result.data.permissions.crud;
-                this.changes.next(result.data.permissions);
-            });
+            apollo
+                .query<Permissions>({
+                    query: permissions,
+                })
+                .pipe(filter(result => !result.loading))
+                .subscribe(result => {
+                    this.crud = result.data.permissions.crud;
+                    this.changes.next(result.data.permissions);
+                });
         });
     }
 
@@ -99,5 +134,4 @@ export class PermissionsService {
 
         return this.setNewContexts(newContexts);
     }
-
 }

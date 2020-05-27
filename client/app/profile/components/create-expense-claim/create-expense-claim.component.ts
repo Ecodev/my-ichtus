@@ -1,5 +1,5 @@
-import { Component, Injector, OnInit, ViewChild } from '@angular/core';
-import { ExpenseClaimService } from '../../../admin/expenseClaim/services/expenseClaim.service';
+import {Component, Injector, OnInit, ViewChild} from '@angular/core';
+import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
 import {
     CreateExpenseClaim,
     CreateExpenseClaimVariables,
@@ -9,9 +9,9 @@ import {
     UpdateExpenseClaim,
     UpdateExpenseClaimVariables,
 } from '../../../shared/generated-types';
-import { UserService } from '../../../admin/users/services/user.service';
-import { NaturalAbstractDetail } from '@ecodev/natural';
-import { AccountingDocumentsComponent } from '../../../admin/accounting-documents/accounting-documents.component';
+import {UserService} from '../../../admin/users/services/user.service';
+import {NaturalAbstractDetail} from '@ecodev/natural';
+import {AccountingDocumentsComponent} from '../../../admin/accounting-documents/accounting-documents.component';
 
 @Component({
     selector: 'app-create-expense-claim',
@@ -19,20 +19,19 @@ import { AccountingDocumentsComponent } from '../../../admin/accounting-document
     styleUrls: ['./create-expense-claim.component.scss'],
 })
 export class CreateExpenseClaimComponent
-    extends NaturalAbstractDetail<ExpenseClaim['expenseClaim'],
+    extends NaturalAbstractDetail<
+        ExpenseClaim['expenseClaim'],
         ExpenseClaimVariables,
         CreateExpenseClaim['createExpenseClaim'],
         CreateExpenseClaimVariables,
         UpdateExpenseClaim['updateExpenseClaim'],
         UpdateExpenseClaimVariables,
-        any> implements OnInit {
+        any
+    >
+    implements OnInit {
+    @ViewChild(AccountingDocumentsComponent, {static: true}) accountingDocuments: AccountingDocumentsComponent;
 
-    @ViewChild(AccountingDocumentsComponent, { static: true }) accountingDocuments: AccountingDocumentsComponent;
-
-    constructor(expenseClaimService: ExpenseClaimService,
-                injector: Injector,
-                public userService: UserService,
-    ) {
+    constructor(expenseClaimService: ExpenseClaimService, injector: Injector, public userService: UserService) {
         super('expenseClaim', expenseClaimService, injector);
     }
 
@@ -49,5 +48,4 @@ export class CreateExpenseClaimComponent
         this.router.navigateByUrl('/profile/finances');
         this.alertService.info('Votre demande a bien été enregistrée');
     }
-
 }

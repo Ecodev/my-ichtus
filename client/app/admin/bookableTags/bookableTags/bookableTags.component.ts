@@ -1,22 +1,21 @@
-import { Component, Injector, OnInit } from '@angular/core';
-import { NaturalAbstractList } from '@ecodev/natural';
-import { BookableTags, BookableTagsVariables } from '../../../shared/generated-types';
-import { BookableTagService } from '../services/bookableTag.service';
-import { PermissionsService } from '../../../shared/services/permissions.service';
+import {Component, Injector, OnInit} from '@angular/core';
+import {NaturalAbstractList} from '@ecodev/natural';
+import {BookableTags, BookableTagsVariables} from '../../../shared/generated-types';
+import {BookableTagService} from '../services/bookableTag.service';
+import {PermissionsService} from '../../../shared/services/permissions.service';
 
 @Component({
     selector: 'app-bookable-tags',
     templateUrl: './bookableTags.component.html',
     styleUrls: ['./bookableTags.component.scss'],
 })
-export class BookableTagsComponent extends NaturalAbstractList<BookableTags['bookableTags'], BookableTagsVariables> implements OnInit {
-
-    constructor(bookableTagService: BookableTagService,
-                injector: Injector,
-                public permissionsService: PermissionsService,
+export class BookableTagsComponent extends NaturalAbstractList<BookableTags['bookableTags'], BookableTagsVariables>
+    implements OnInit {
+    constructor(
+        bookableTagService: BookableTagService,
+        injector: Injector,
+        public permissionsService: PermissionsService,
     ) {
-
         super(bookableTagService, injector);
-
     }
 }

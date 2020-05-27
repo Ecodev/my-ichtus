@@ -1,6 +1,10 @@
 <div [formGroup]="form" class="detail-body">
-
-    <natural-detail-header newLabel="Nouveau compte" label="Compte" [model]="data.model" [listRoute]="['admin', 'account']">
+    <natural-detail-header
+        newLabel="Nouveau compte"
+        label="Compte"
+        [model]="data.model"
+        [listRoute]="['admin', 'account']"
+    >
         <app-money [amount]="data.model.totalBalance" sizeClass="mat-display-1"></app-money>
     </natural-detail-header>
 
@@ -12,28 +16,31 @@
                         <div fxLayout="row" fxLayoutGap="30px">
                             <mat-form-field [style.width.px]="250">
                                 <mat-label>Numéro</mat-label>
-                                <input matInput type="number" formControlName="code" (change)="update()">
-                                <button mat-button
-                                        matSuffix
-                                        mat-icon-button
-                                        matToolTip="Utiliser le code suggéré"
-                                        (click)="form.get('code')?.setValue(this.nextCodeAvailable); update()"
+                                <input matInput type="number" formControlName="code" (change)="update()" />
+                                <button
+                                    mat-button
+                                    matSuffix
+                                    mat-icon-button
+                                    matToolTip="Utiliser le code suggéré"
+                                    (click)="form.get('code')?.setValue(this.nextCodeAvailable); update()"
                                 >
                                     <mat-icon>reply</mat-icon>
                                 </button>
                                 <mat-error *ngIf="form.get('code')?.hasError('maxlength')">
-                                    Maximum {{form.get('code')?.errors.maxlength.requiredLength }} caractères
+                                    Maximum {{ form.get('code')?.errors.maxlength.requiredLength }} caractères
                                 </mat-error>
                                 <mat-error *ngIf="form.get('code')?.hasError('required')">Requis</mat-error>
-                                <mat-error *ngIf="form.get('code')?.hasError('duplicateValue')">Ce numéro est déjà attribué</mat-error>
+                                <mat-error *ngIf="form.get('code')?.hasError('duplicateValue')"
+                                    >Ce numéro est déjà attribué</mat-error
+                                >
                                 <mat-hint>Prochain n° disponible: {{ nextCodeAvailable }}</mat-hint>
                             </mat-form-field>
 
                             <mat-form-field fxFlex>
                                 <mat-label>Nom</mat-label>
-                                <input matInput formControlName="name" (change)="update()">
+                                <input matInput formControlName="name" (change)="update()" />
                                 <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
-                                    Maximum {{form.get('name')?.errors.maxlength.requiredLength }} caractères
+                                    Maximum {{ form.get('name')?.errors.maxlength.requiredLength }} caractères
                                 </mat-error>
                                 <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
                             </mat-form-field>
@@ -41,45 +48,49 @@
 
                         <mat-form-field *ngIf="form.get('type')?.value === 'asset'">
                             <mat-label>IBAN Ichtus</mat-label>cta
-                            <input matInput formControlName="iban" (change)="update()">
+                            <input matInput formControlName="iban" (change)="update()" />
                             <mat-error *ngIf="form.get('iban')?.hasError('maxlength')">
-                                Maximum {{form.get('iban')?.errors.maxlength.requiredLength }} caractères
+                                Maximum {{ form.get('iban')?.errors.maxlength.requiredLength }} caractères
                             </mat-error>
                             <mat-error *ngIf="form.get('iban')?.hasError('required')">Requis</mat-error>
                             <mat-hint>Pour les comptes bancaires ichtus uniquement</mat-hint>
                         </mat-form-field>
-
                     </div>
 
                     <div fxFlex="33" fxLayout="column">
-
-                        <natural-select formControlName="parent"
-                                        placeholder="Compte parent"
-                                        [hierarchicSelectorConfig]="accountHierarchicConfig"
-                                        (selectionChange)="update()"
-                                        [showIcon]="false"
-                                        [navigateTo]="['../', form.get('parent')?.value?.id]"
+                        <natural-select
+                            formControlName="parent"
+                            placeholder="Compte parent"
+                            [hierarchicSelectorConfig]="accountHierarchicConfig"
+                            (selectionChange)="update()"
+                            [showIcon]="false"
+                            [navigateTo]="['../', form.get('parent')?.value?.id]"
                         ></natural-select>
 
-                        <natural-select-enum enumName="AccountType"
-                                             formControlName="type"
-                                             (selectionChange)="updateLinkedFields(); update()"
-                                             placeholder="Type"
+                        <natural-select-enum
+                            enumName="AccountType"
+                            formControlName="type"
+                            (selectionChange)="updateLinkedFields(); update()"
+                            placeholder="Type"
                         ></natural-select-enum>
 
-                        <natural-select *ngIf="form.get('type')?.value === 'liability'"
-                                    formControlName="owner"
-                                    placeholder="Membre"
-                                    [service]="userService"
-                                    [filter]="{groups: [{conditions: [{accounts: {empty: {not: false}}}]}]}"
-                                    (selectionChange)="update()"
-                                    [showIcon]="false"
-                                    [navigateTo]="form.get('owner')?.value?.id ? ['/admin/user', form.get('owner')?.value.id] : null"
+                        <natural-select
+                            *ngIf="form.get('type')?.value === 'liability'"
+                            formControlName="owner"
+                            placeholder="Membre"
+                            [service]="userService"
+                            [filter]="{groups: [{conditions: [{accounts: {empty: {not: false}}}]}]}"
+                            (selectionChange)="update()"
+                            [showIcon]="false"
+                            [navigateTo]="
+                                form.get('owner')?.value?.id ? ['/admin/user', form.get('owner')?.value.id] : null
+                            "
                         ></natural-select>
 
-                        <div *ngIf="form.get('owner')?.value">IBAN de l'utilisateur : {{ form.get('owner')?.value?.iban }}</div>
+                        <div *ngIf="form.get('owner')?.value">
+                            IBAN de l'utilisateur : {{ form.get('owner')?.value?.iban }}
+                        </div>
                     </div>
-
                 </div>
 
                 <mat-divider></mat-divider>
@@ -87,10 +98,13 @@
                 <natural-stamp [item]="data.model"></natural-stamp>
             </div>
         </mat-tab>
-
     </mat-tab-group>
 
-    <natural-fixed-button-detail *ngIf="showFabButton" [form]="form" [model]="data.model" (create)="create()" (delete)="delete()"
+    <natural-fixed-button-detail
+        *ngIf="showFabButton"
+        [form]="form"
+        [model]="data.model"
+        (create)="create()"
+        (delete)="delete()"
     ></natural-fixed-button-detail>
-
 </div>

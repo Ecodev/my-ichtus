@@ -5,7 +5,8 @@ body {
     margin: 0;
 }
 
-html, body {
+html,
+body {
     height: 100%;
 }
 
@@ -36,9 +37,10 @@ pre.debug {
     z-index: 999;
 }
 
-
 /* Disable login autofill background color */
-input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
     transition-delay: 3600s;
 }
 
@@ -72,7 +74,7 @@ mat-form-field.no-bottom-spacing {
 }
 
 .text-center {
-    text-align: center
+    text-align: center;
 }
 
 .mat-button {

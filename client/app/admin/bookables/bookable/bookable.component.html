@@ -1,8 +1,12 @@
 <div [formGroup]="form" class="detail-body">
-
-    <natural-detail-header newLabel="Nouveau réservable" label="Réservable" [model]="data.model" [listRoute]="['admin', 'bookable']">
+    <natural-detail-header
+        newLabel="Nouveau réservable"
+        label="Réservable"
+        [model]="data.model"
+        [listRoute]="['admin', 'bookable']"
+    >
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-            <div fxLayout="column" style="text-align:right" *ngIf="form.get('verificationDate')?.value">
+            <div fxLayout="column" style="text-align: right;" *ngIf="form.get('verificationDate')?.value">
                 <div class="mat-body-2">Dernière vérification</div>
                 <div class="mat-body-1">{{ form.get('verificationDate')?.value | date: 'dd.MM.y' }}</div>
             </div>
@@ -17,116 +21,157 @@
             <div fxLayout="column" fxLayoutGap="30px" class="padding-top">
                 <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
                     <div fxFlex="66" fxLayout="column">
-
                         <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start start" class="margin-bottom">
-
-                            <app-file fxFlex
-                                      [service]="imageService"
-                                      [model]="data.model.image"
-                                      class="mat-elevation-z2"
-                                      [style.borderRadius.px]="4"
-                                      [style.marginLeft.px]="2"
-                                      (modelChange)="newImage($event)"
-                                      action="upload"
+                            <app-file
+                                fxFlex
+                                [service]="imageService"
+                                [model]="data.model.image"
+                                class="mat-elevation-z2"
+                                [style.borderRadius.px]="4"
+                                [style.marginLeft.px]="2"
+                                (modelChange)="newImage($event)"
+                                action="upload"
                             ></app-file>
 
                             <div fxLayout="column" fxFlex>
                                 <mat-form-field>
-                                    <input matInput formControlName="name" (change)="update()">
+                                    <input matInput formControlName="name" (change)="update()" />
                                     <mat-label>Nom</mat-label>
                                     <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
-                                        Maximum {{form.get('name')?.errors.maxlength.requiredLength }} caractères
+                                        Maximum {{ form.get('name')?.errors.maxlength.requiredLength }} caractères
                                     </mat-error>
                                     <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field>
-                                    <input matInput formControlName="code" (change)="update()">
+                                    <input matInput formControlName="code" (change)="update()" />
                                     <mat-label>Code</mat-label>
                                     <mat-error *ngIf="form.get('code')?.hasError('maxlength')">
-                                        Maximum {{form.get('code')?.errors.maxlength.requiredLength }} caractères
+                                        Maximum {{ form.get('code')?.errors.maxlength.requiredLength }} caractères
                                     </mat-error>
                                     <mat-error *ngIf="form.get('code')?.hasError('required')">Requis</mat-error>
-                                    <mat-error *ngIf="form.get('code')?.hasError('duplicateValue')">Ce code est déjà attribué</mat-error>
+                                    <mat-error *ngIf="form.get('code')?.hasError('duplicateValue')"
+                                        >Ce code est déjà attribué</mat-error
+                                    >
                                 </mat-form-field>
 
-                                <natural-select-enum enumName="BookableState"
-                                                 formControlName="state"
-                                                 (selectionChange)="update()"
-                                                 placeholder="État"
+                                <natural-select-enum
+                                    enumName="BookableState"
+                                    formControlName="state"
+                                    (selectionChange)="update()"
+                                    placeholder="État"
                                 ></natural-select-enum>
 
                                 <mat-form-field>
                                     <mat-label>Prix d'achat</mat-label>
-                                    <input matInput type="number" step="0.01" min="0" formControlName="purchasePrice" (change)="update()">
+                                    <input
+                                        matInput
+                                        type="number"
+                                        step="0.01"
+                                        min="0"
+                                        formControlName="purchasePrice"
+                                        (change)="update()"
+                                    />
                                     <div matSuffix>CHF</div>
-                                    <mat-error *ngIf="form.get('purchasePrice')?.hasError('required')">Requis</mat-error>
-                                    <mat-error *ngIf="form.get('purchasePrice')?.hasError('min')">Le montant doit être positif</mat-error>
+                                    <mat-error *ngIf="form.get('purchasePrice')?.hasError('required')"
+                                        >Requis</mat-error
+                                    >
+                                    <mat-error *ngIf="form.get('purchasePrice')?.hasError('min')"
+                                        >Le montant doit être positif</mat-error
+                                    >
                                 </mat-form-field>
                             </div>
                         </div>
 
                         <mat-form-field>
                             <mat-label>Description</mat-label>
-                            <textarea matInput
-                                      formControlName="description"
-                                      (change)="update()"
-                                      matTextareaAutosize
-                                      [matAutosizeMinRows]="1"
+                            <textarea
+                                matInput
+                                formControlName="description"
+                                (change)="update()"
+                                matTextareaAutosize
+                                [matAutosizeMinRows]="1"
                             ></textarea>
                         </mat-form-field>
 
                         <mat-form-field>
                             <mat-label>Remarques</mat-label>
-                            <textarea matInput formControlName="remarks" (change)="update()" matTextareaAutosize [matAutosizeMinRows]="1"
+                            <textarea
+                                matInput
+                                formControlName="remarks"
+                                (change)="update()"
+                                matTextareaAutosize
+                                [matAutosizeMinRows]="1"
                             ></textarea>
                         </mat-form-field>
-
                     </div>
 
                     <div fxFlex="33" fxLayout="column">
-
                         <div fxLayout="row" fxLayoutAlign="start center" class="margin-bottom">
                             <h2 class="mat-title no-margin" fxFlex>Réservation</h2>
-                            <mat-slide-toggle formControlName="isActive" (change)="update()">Disponible</mat-slide-toggle>
+                            <mat-slide-toggle formControlName="isActive" (change)="update()"
+                                >Disponible</mat-slide-toggle
+                            >
                         </div>
 
-                        <natural-select-enum enumName="BookingType"
-                                         formControlName="bookingType"
-                                         (selectionChange)="update()"
-                                         placeholder="Type de réservation"
+                        <natural-select-enum
+                            enumName="BookingType"
+                            formControlName="bookingType"
+                            (selectionChange)="update()"
+                            placeholder="Type de réservation"
                         ></natural-select-enum>
 
                         <mat-form-field *ngIf="isBookingPriceApplicable()">
                             <mat-label>Prix initial</mat-label>
-                            <input matInput type="number" step="0.01" formControlName="initialPrice" (change)="update()">
+                            <input
+                                matInput
+                                type="number"
+                                step="0.01"
+                                formControlName="initialPrice"
+                                (change)="update()"
+                            />
                             <div matSuffix>CHF</div>
                             <mat-error *ngIf="form.get('initialPrice')?.hasError('required')">Requis</mat-error>
                         </mat-form-field>
 
                         <mat-form-field *ngIf="isBookingPriceApplicable()">
                             <mat-label>Prix périodique</mat-label>
-                            <input matInput type="number" step="0.01" formControlName="periodicPrice" (change)="update()">
+                            <input
+                                matInput
+                                type="number"
+                                step="0.01"
+                                formControlName="periodicPrice"
+                                (change)="update()"
+                            />
                             <div matSuffix>CHF</div>
                             <mat-error *ngIf="form.get('periodicPrice')?.hasError('required')">Requis</mat-error>
                         </mat-form-field>
 
                         <mat-form-field>
                             <mat-label>Nombre max. de réservations simultanées</mat-label>
-                            <input matInput type="number" step="1" min="-1" formControlName="simultaneousBookingMaximum" (change)="update()"
-                            >
+                            <input
+                                matInput
+                                type="number"
+                                step="1"
+                                min="-1"
+                                formControlName="simultaneousBookingMaximum"
+                                (change)="update()"
+                            />
                             <mat-hint>Saisir -1 pour aucune limite.</mat-hint>
                         </mat-form-field>
 
-                        <natural-select *ngIf="!isSelfApproved()"
-                                    formControlName="creditAccount"
-                                    placeholder="Compte à créditer lors de la réservation"
-                                    [hierarchicSelectorConfig]="accountHierarchicConfig"
-                                    (selectionChange)="update()"
-                                    [showIcon]="false"
-                                    [navigateTo]="['/admin/account', form.get('creditAccount')?.value?.id]"
+                        <natural-select
+                            *ngIf="!isSelfApproved()"
+                            formControlName="creditAccount"
+                            placeholder="Compte à créditer lors de la réservation"
+                            [hierarchicSelectorConfig]="accountHierarchicConfig"
+                            (selectionChange)="update()"
+                            [showIcon]="false"
+                            [navigateTo]="['/admin/account', form.get('creditAccount')?.value?.id]"
                         ></natural-select>
-                        <mat-error *ngIf="form?.hasError('creditAccountRequired')">Compte requis pour un réservable payants</mat-error>
+                        <mat-error *ngIf="form?.hasError('creditAccountRequired')"
+                            >Compte requis pour un réservable payants</mat-error
+                        >
                     </div>
                 </div>
 
@@ -136,33 +181,40 @@
                     <div fxFlex="66" fxLayout="column">
                         <div *ngIf="data.model.id && isSelfApproved()">
                             <h2 class="mat-title">Certifications</h2>
-                            <natural-relations [main]="data.model"
-                                           [service]="licenseService"
-                                           [filter]="{groups: [{conditions: [{bookables: {have: {values: [data.model.id]}}}]}]}"
-                                           placeholder="Associer à une certification"
+                            <natural-relations
+                                [main]="data.model"
+                                [service]="licenseService"
+                                [filter]="{groups: [{conditions: [{bookables: {have: {values: [data.model.id]}}}]}]}"
+                                placeholder="Associer à une certification"
                             >
                                 <ng-template let-item="item">
                                     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-                                        <natural-table-button [navigate]="['/admin/license/', item.id]" [label]="item.name"></natural-table-button>
+                                        <natural-table-button
+                                            [navigate]="['/admin/license/', item.id]"
+                                            [label]="item.name"
+                                        ></natural-table-button>
                                     </div>
                                 </ng-template>
                             </natural-relations>
                         </div>
                     </div>
                     <div fxFlex="33" fxLayout="column">
-
                         <div *ngIf="data.model.id">
                             <h2 class="mat-title">Tags</h2>
-                            <natural-relations [main]="data.model"
-                                           [service]="bookableTagService"
-                                           [filter]="{groups: [{conditions: [{bookables: {have: {values: [data.model.id]}}}]}]}"
-                                           placeholder="Ajouter un tag"
+                            <natural-relations
+                                [main]="data.model"
+                                [service]="bookableTagService"
+                                [filter]="{groups: [{conditions: [{bookables: {have: {values: [data.model.id]}}}]}]}"
+                                placeholder="Ajouter un tag"
                             >
                                 <ng-template let-item="item">
                                     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
                                         <!-- TODO : link to bookables list filtred by tag -->
                                         <ngx-avatar [bgColor]="item.color" [name]="item.name" [size]="32"></ngx-avatar>
-                                        <natural-table-button [navigate]="['/admin/bookable']" [label]="item.name"></natural-table-button>
+                                        <natural-table-button
+                                            [navigate]="['/admin/bookable']"
+                                            [label]="item.name"
+                                        ></natural-table-button>
                                     </div>
                                 </ng-template>
                             </natural-relations>
@@ -171,7 +223,6 @@
                 </div>
 
                 <natural-stamp [item]="data.model"></natural-stamp>
-
             </div>
         </mat-tab>
 
@@ -180,21 +231,26 @@
         </mat-tab>
 
         <mat-tab label="Écritures" *ngIf="data.model.id">
-            <app-transaction-lines [persistSearch]="false"
-                                   [contextVariables]="{filter: {groups: [{conditions: [{bookable: {equal: {value: data.model.id}}}]}]}}"
+            <app-transaction-lines
+                [persistSearch]="false"
+                [contextVariables]="{filter: {groups: [{conditions: [{bookable: {equal: {value: data.model.id}}}]}]}}"
             ></app-transaction-lines>
         </mat-tab>
 
         <mat-tab label="Utilisations" *ngIf="data.model.id">
-            <app-bookings [persistSearch]="false"
-                          [contextVariables]="bookingsVariables"
-                          [contextColumns]="['edit', 'owner', 'destination', 'startDate', 'endDate', 'estimatedEndDate']"
+            <app-bookings
+                [persistSearch]="false"
+                [contextVariables]="bookingsVariables"
+                [contextColumns]="['edit', 'owner', 'destination', 'startDate', 'endDate', 'estimatedEndDate']"
             ></app-bookings>
         </mat-tab>
-
     </mat-tab-group>
 
-    <natural-fixed-button-detail *ngIf="showFabButton" [form]="form" [model]="data.model" (create)="create()" (delete)="delete()"
+    <natural-fixed-button-detail
+        *ngIf="showFabButton"
+        [form]="form"
+        [model]="data.model"
+        (create)="create()"
+        (delete)="delete()"
     ></natural-fixed-button-detail>
-
 </div>

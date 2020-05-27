@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Apollo } from 'apollo-angular';
-import { FormValidators, NaturalAbstractModelService } from '@ecodev/natural';
+import {Injectable} from '@angular/core';
+import {Apollo} from 'apollo-angular';
+import {FormValidators, NaturalAbstractModelService} from '@ecodev/natural';
 import {
     createTransactionTag,
     deleteTransactionTags,
@@ -19,12 +19,13 @@ import {
     UpdateTransactionTag,
     UpdateTransactionTagVariables,
 } from '../../../shared/generated-types';
-import { Validators } from '@angular/forms';
+import {Validators} from '@angular/forms';
 
 @Injectable({
     providedIn: 'root',
 })
-export class TransactionTagService extends NaturalAbstractModelService<TransactionTag['transactionTag'],
+export class TransactionTagService extends NaturalAbstractModelService<
+    TransactionTag['transactionTag'],
     TransactionTagVariables,
     TransactionTags['transactionTags'],
     TransactionTagsVariables,
@@ -32,16 +33,18 @@ export class TransactionTagService extends NaturalAbstractModelService<Transacti
     CreateTransactionTagVariables,
     UpdateTransactionTag['updateTransactionTag'],
     UpdateTransactionTagVariables,
-    any> {
-
+    any
+> {
     constructor(apollo: Apollo) {
-        super(apollo,
+        super(
+            apollo,
             'transactionTag',
             transactionTagQuery,
             transactionTagsQuery,
             createTransactionTag,
             updateTransactionTag,
-            deleteTransactionTags);
+            deleteTransactionTags,
+        );
     }
 
     protected getDefaultForServer(): TransactionTagInput {
@@ -56,5 +59,4 @@ export class TransactionTagService extends NaturalAbstractModelService<Transacti
             name: [Validators.required, Validators.maxLength(100)],
         };
     }
-
 }

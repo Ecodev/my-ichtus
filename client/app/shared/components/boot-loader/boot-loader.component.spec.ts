@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { BootLoaderComponent } from './boot-loader.component';
+import {BootLoaderComponent} from './boot-loader.component';
 
 describe('BootLoaderComponent', () => {
     let component: BootLoaderComponent;
@@ -9,8 +9,7 @@ describe('BootLoaderComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [BootLoaderComponent],
-        })
-               .compileComponents();
+        }).compileComponents();
     }));
 
     beforeEach(() => {

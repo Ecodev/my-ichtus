@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { PermissionsService } from '../../shared/services/permissions.service';
+import {Component, OnInit} from '@angular/core';
+import {PermissionsService} from '../../shared/services/permissions.service';
 
 @Component({
     selector: 'app-admin',
@@ -7,11 +7,7 @@ import { PermissionsService } from '../../shared/services/permissions.service';
     styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements OnInit {
+    constructor(public permissionsService: PermissionsService) {}
 
-    constructor(public permissionsService: PermissionsService) {
-    }
-
-    public ngOnInit(): void {
-    }
-
+    public ngOnInit(): void {}
 }

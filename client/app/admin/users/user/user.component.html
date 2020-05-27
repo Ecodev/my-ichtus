@@ -1,7 +1,15 @@
 <div [formGroup]="form" class="detail-body">
-
-    <natural-detail-header newLabel="Nouvel utilisateur" label="Utilisateur" [model]="data.model" [listRoute]="['admin', 'user']">
-        <app-money *ngIf="data.model.account" [amount]="data.model.account.balance" sizeClass="mat-display-1"></app-money>
+    <natural-detail-header
+        newLabel="Nouvel utilisateur"
+        label="Utilisateur"
+        [model]="data.model"
+        [listRoute]="['admin', 'user']"
+    >
+        <app-money
+            *ngIf="data.model.account"
+            [amount]="data.model.account.balance"
+            sizeClass="mat-display-1"
+        ></app-money>
     </natural-detail-header>
 
     <mat-tab-group [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
@@ -9,55 +17,55 @@
             <div fxLayout="column" fxLayoutGap="30px" class="padding-top">
                 <div fxLayout="column" fxLayout.gt-md="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
                     <div fxFlex="66" fxLayout="column">
-
                         <h2 class="mat-title">Coordonnées</h2>
 
                         <div fxLayout="row" fxLayoutGap="10px">
                             <mat-form-field fxFlex>
                                 <mat-label>Prénom</mat-label>
-                                <input matInput formControlName="firstName" (change)="update()">
+                                <input matInput formControlName="firstName" (change)="update()" />
                                 <mat-error *ngIf="form.get('firstName')?.hasError('maxlength')">
-                                    Maximum {{form.get('firstName')?.errors.maxlength.requiredLength}} caractères
+                                    Maximum {{ form.get('firstName')?.errors.maxlength.requiredLength }} caractères
                                 </mat-error>
                                 <mat-error *ngIf="form.get('firstName')?.hasError('required')">Requis</mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex>
                                 <mat-label>Nom de famille</mat-label>
-                                <input matInput formControlName="lastName" (change)="update()">
+                                <input matInput formControlName="lastName" (change)="update()" />
                                 <mat-error *ngIf="form.get('lastName')?.hasError('maxlength')">
-                                    Maximum {{form.get('lastName')?.errors.maxlength.requiredLength}} caractères
+                                    Maximum {{ form.get('lastName')?.errors.maxlength.requiredLength }} caractères
                                 </mat-error>
                                 <mat-error *ngIf="form.get('lastName')?.hasError('required')">Requis</mat-error>
                             </mat-form-field>
 
-                            <natural-select-enum enumName="Sex" formControlName="sex" (selectionChange)="update()" placeholder="Genre"
+                            <natural-select-enum
+                                enumName="Sex"
+                                formControlName="sex"
+                                (selectionChange)="update()"
+                                placeholder="Genre"
                             ></natural-select-enum>
                         </div>
 
                         <app-address [form]="form" (change)="update()"></app-address>
 
                         <div fxLayout="row" fxLayoutGap="10px">
-
                             <mat-form-field fxFlex>
                                 <mat-label>Téléphone fixe</mat-label>
-                                <input matInput formControlName="phone" (change)="update()">
+                                <input matInput formControlName="phone" (change)="update()" />
                             </mat-form-field>
 
                             <mat-form-field fxFlex>
                                 <mat-label>Téléphone mobile</mat-label>
-                                <input matInput formControlName="mobilePhone" (change)="update()">
+                                <input matInput formControlName="mobilePhone" (change)="update()" />
                             </mat-form-field>
-
                         </div>
-
                     </div>
 
                     <div fxFlex="33" fxLayout="column">
                         <h2 class="mat-title">Compte</h2>
                         <mat-form-field>
                             <mat-label>email</mat-label>
-                            <input matInput formControlName="email" (change)="update()">
+                            <input matInput formControlName="email" (change)="update()" />
                             <mat-error *ngIf="form.get('email')?.hasError('required')">Requis</mat-error>
                             <mat-error *ngIf="form.get('email')?.hasError('email')">Adresse email invalide</mat-error>
                             <mat-error *ngIf="form.get('email')?.hasError('duplicateValue')">
@@ -67,12 +75,14 @@
 
                         <mat-form-field>
                             <mat-label>Nom d'utilisateur</mat-label>
-                            <input matInput formControlName="login" (change)="update()">
+                            <input matInput formControlName="login" (change)="update()" />
                             <mat-error *ngIf="form.get('login')?.hasError('maxlength')">
-                                Maximum {{form.get('login')?.errors.maxlength.requiredLength}} caractères
+                                Maximum {{ form.get('login')?.errors.maxlength.requiredLength }} caractères
                             </mat-error>
                             <mat-error *ngIf="form.get('login')?.hasError('required')">Requis</mat-error>
-                            <mat-error *ngIf="form.get('login')?.hasError('invalid')">{{ form.get('login')?.getError('invalid') }}</mat-error>
+                            <mat-error *ngIf="form.get('login')?.hasError('invalid')">{{
+                                form.get('login')?.getError('invalid')
+                            }}</mat-error>
                             <mat-error *ngIf="form.get('login')?.hasError('duplicateValue')">
                                 Ce nom est déjà attribué à un utilisateur
                             </mat-error>
@@ -82,15 +92,19 @@
 
                         <h2 class="mat-title">État</h2>
 
-                        <natural-select-enum enumName="UserStatus"
-                                             formControlName="status"
-                                             (selectionChange)="update()"
-                                             placeholder="Status"
+                        <natural-select-enum
+                            enumName="UserStatus"
+                            formControlName="status"
+                            (selectionChange)="update()"
+                            placeholder="Status"
                         ></natural-select-enum>
 
-                        <natural-select-enum enumName="UserRole" formControlName="role" (selectionChange)="update()" placeholder="Rôle"
+                        <natural-select-enum
+                            enumName="UserRole"
+                            formControlName="role"
+                            (selectionChange)="update()"
+                            placeholder="Rôle"
                         ></natural-select-enum>
-
                     </div>
                 </div>
 
@@ -100,41 +114,50 @@
                     <div fxFlex="66" fxLayout="column">
                         <h2 class="mat-title">Autres</h2>
 
-                        <natural-select [service]="service"
-                                        formControlName="owner"
-                                        placeholder="Chef de famille"
-                                        (selectionChange)="update()"
-                                        [showIcon]="false"
+                        <natural-select
+                            [service]="service"
+                            formControlName="owner"
+                            placeholder="Chef de famille"
+                            (selectionChange)="update()"
+                            [showIcon]="false"
                         ></natural-select>
 
                         <mat-form-field fxFlex>
                             <mat-label>Swiss sailling</mat-label>
-                            <input matInput formControlName="swissSailing" (change)="update()">
+                            <input matInput formControlName="swissSailing" (change)="update()" />
                         </mat-form-field>
 
-                        <natural-select-enum enumName="SwissSailingType"
-                                             formControlName="swissSailingType"
-                                             (selectionChange)="update()"
-                                             placeholder="Licence swiss sailing"
+                        <natural-select-enum
+                            enumName="SwissSailingType"
+                            formControlName="swissSailingType"
+                            (selectionChange)="update()"
+                            placeholder="Licence swiss sailing"
                         ></natural-select-enum>
 
-                        <natural-select-enum enumName="SwissWindsurfType"
-                                             formControlName="swissWindsurfType"
-                                             (selectionChange)="update()"
-                                             placeholder="License swiss windsurfing"
+                        <natural-select-enum
+                            enumName="SwissWindsurfType"
+                            formControlName="swissWindsurfType"
+                            (selectionChange)="update()"
+                            placeholder="License swiss windsurfing"
                         ></natural-select-enum>
 
                         <div fxLayout="row wrap" fxLayoutGap="20px">
-                            <natural-select-enum fxFlex
-                                                 enumName="BillingType"
-                                                 formControlName="billingType"
-                                                 (selectionChange)="update()"
-                                                 placeholder="Méthode de paiement"
+                            <natural-select-enum
+                                fxFlex
+                                enumName="BillingType"
+                                formControlName="billingType"
+                                (selectionChange)="update()"
+                                placeholder="Méthode de paiement"
                             ></natural-select-enum>
 
                             <mat-form-field fxFlex>
                                 <mat-label>Date de naissance</mat-label>
-                                <input matInput formControlName="birthday" [matDatepicker]="picker" (dateChange)="update()">
+                                <input
+                                    matInput
+                                    formControlName="birthday"
+                                    [matDatepicker]="picker"
+                                    (dateChange)="update()"
+                                />
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
                             </mat-form-field>
@@ -146,7 +169,6 @@
                         </div>
 
                         <div class="mat-body-1" fxLayout="column" fxLayoutGap="20px">
-
                             <!-- Has Insurance -->
                             <mat-checkbox formControlName="hasInsurance" (change)="update()">
                                 Assurance RC
@@ -156,63 +178,79 @@
                             <mat-checkbox formControlName="receivesNewsletter" (change)="update()">
                                 Abonné à la newsletter
                             </mat-checkbox>
-
                         </div>
-
                     </div>
 
                     <div fxFlex="33" fxLayout="column">
-
                         <h2 class="mat-title">Commentaires</h2>
 
                         <mat-form-field>
                             <mat-label>Remarques</mat-label>
-                            <textarea matInput formControlName="remarks" (change)="update()" matTextareaAutosize [matAutosizeMinRows]="3"
+                            <textarea
+                                matInput
+                                formControlName="remarks"
+                                (change)="update()"
+                                matTextareaAutosize
+                                [matAutosizeMinRows]="3"
                             ></textarea>
                         </mat-form-field>
 
                         <mat-form-field>
                             <mat-label>Remarques internes</mat-label>
-                            <textarea matInput
-                                      formControlName="internalRemarks"
-                                      (change)="update()"
-                                      matTextareaAutosize
-                                      [matAutosizeMinRows]="3"
+                            <textarea
+                                matInput
+                                formControlName="internalRemarks"
+                                (change)="update()"
+                                matTextareaAutosize
+                                [matAutosizeMinRows]="3"
                             ></textarea>
                         </mat-form-field>
-
-                </div>
+                    </div>
                 </div>
 
                 <!-- Bookings -->
                 <mat-divider *ngIf="data.model.id"></mat-divider>
 
-                <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px" *ngIf="data.model.id">
+                <div
+                    fxLayout="column"
+                    fxLayout.gt-sm="row"
+                    fxLayoutGap="0"
+                    fxLayoutGap.gt-sm="30px"
+                    *ngIf="data.model.id"
+                >
                     <div fxFlex="45" fxLayout="column">
                         <h2 class="mat-title">Certifications</h2>
-                        <natural-relations [main]="data.model"
-                                           [service]="licenseService"
-                                           [filter]="{groups: [{conditions: [{users: {have: {values: [data.model.id]}}}]}]}"
-                                           placeholder="Attribuer une certification"
+                        <natural-relations
+                            [main]="data.model"
+                            [service]="licenseService"
+                            [filter]="{groups: [{conditions: [{users: {have: {values: [data.model.id]}}}]}]}"
+                            placeholder="Attribuer une certification"
                         >
                             <ng-template let-item="item">
-                                <natural-table-button [navigate]="['/admin/license/', item.id]" [label]="item.name"></natural-table-button>
+                                <natural-table-button
+                                    [navigate]="['/admin/license/', item.id]"
+                                    [label]="item.name"
+                                ></natural-table-button>
                             </ng-template>
                         </natural-relations>
                     </div>
 
                     <div fxFlex="40" fxLayout="column">
                         <h2 class="mat-title">Tags</h2>
-                        <natural-relations [main]="data.model"
-                                           [service]="userTagService"
-                                           [filter]="{groups: [{conditions: [{users: {have: {values: [data.model.id]}}}]}]}"
-                                           placeholder="Ajouter un tag"
+                        <natural-relations
+                            [main]="data.model"
+                            [service]="userTagService"
+                            [filter]="{groups: [{conditions: [{users: {have: {values: [data.model.id]}}}]}]}"
+                            placeholder="Ajouter un tag"
                         >
                             <ng-template let-item="item">
                                 <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
                                     <!-- TODO : link to users list filtred by tag -->
                                     <ngx-avatar [bgColor]="item.color" [name]="item.name" [size]="36"></ngx-avatar>
-                                    <natural-table-button [navigate]="['/admin/user', item.id]" [label]="item.name"></natural-table-button>
+                                    <natural-table-button
+                                        [navigate]="['/admin/user', item.id]"
+                                        [label]="item.name"
+                                    ></natural-table-button>
                                 </div>
                             </ng-template>
                         </natural-relations>
@@ -237,49 +275,50 @@
                 <mat-divider></mat-divider>
 
                 <div fxLayout="column" fxLayoutGap="15px">
-                        <natural-stamp [item]="data.model"></natural-stamp>
+                    <natural-stamp [item]="data.model"></natural-stamp>
 
-                        <!-- Welcome session date -->
-                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                    <!-- Welcome session date -->
+                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                        <mat-form-field>
+                            <mat-label>Séance d'accueil</mat-label>
+                            <input
+                                matInput
+                                formControlName="welcomeSessionDate"
+                                [matDatepicker]="picker2"
+                                (dateChange)="update()"
+                            />
 
-                            <mat-form-field>
-                                <mat-label>Séance d'accueil</mat-label>
-                                <input matInput formControlName="welcomeSessionDate" [matDatepicker]="picker2" (dateChange)="update()">
+                            <div matSuffix xLayout="row" fxLayoutAlign="start center">
+                                <mat-datepicker-toggle [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
 
-                                <div matSuffix xLayout="row" fxLayoutAlign="start center">
-                                    <mat-datepicker-toggle [for]="picker2"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker2></mat-datepicker>
-
-                                    <button mat-icon-button
-                                            *ngIf="form.get('welcomeSessionDate')?.value"
-                                            (click)="form.get('welcomeSessionDate')?.setValue(null); update()"
-                                    >
-                                        <natural-icon name="close"></natural-icon>
-                                    </button>
-                                </div>
-
-                            </mat-form-field>
-
-                        </div>
-
-                        <div>
-                            <span class="mat-body-2">Première connexion :</span>
-                            {{ data.model.firstLogin | swissDate }}
-                        </div>
-
-                        <div>
-                            <span class="mat-body-2">Dernière connexion :</span>
-                            {{ data.model.lastLogin | swissDate }}
-                        </div>
-
-                        <div *ngIf="data.model.resignDate && data.model.status == 'archived'">
-                            <span class="mat-body-2">Démission le :</span>
-                            {{ data.model.resignDate | swissDate }}
-                        </div>
+                                <button
+                                    mat-icon-button
+                                    *ngIf="form.get('welcomeSessionDate')?.value"
+                                    (click)="form.get('welcomeSessionDate')?.setValue(null); update()"
+                                >
+                                    <natural-icon name="close"></natural-icon>
+                                </button>
+                            </div>
+                        </mat-form-field>
                     </div>
 
-            </div>
+                    <div>
+                        <span class="mat-body-2">Première connexion :</span>
+                        {{ data.model.firstLogin | swissDate }}
+                    </div>
 
+                    <div>
+                        <span class="mat-body-2">Dernière connexion :</span>
+                        {{ data.model.lastLogin | swissDate }}
+                    </div>
+
+                    <div *ngIf="data.model.resignDate && data.model.status == 'archived'">
+                        <span class="mat-body-2">Démission le :</span>
+                        {{ data.model.resignDate | swissDate }}
+                    </div>
+                </div>
+            </div>
         </mat-tab>
 
         <mat-tab label="Famille" *ngIf="data.model.id && showFamilyTab">
@@ -287,38 +326,41 @@
         </mat-tab>
 
         <mat-tab label="Historique" *ngIf="data.model.account">
-            <app-transaction-lines [contextColumns]="['name', 'bookable', 'transactionDate', 'remark', 'account']"
-                                   [contextVariables]="transactionLinesVariables"
-                                   [relativeToAccount]="data.model.account"
-                                   class="margin-top"
+            <app-transaction-lines
+                [contextColumns]="['name', 'bookable', 'transactionDate', 'remark', 'account']"
+                [contextVariables]="transactionLinesVariables"
+                [relativeToAccount]="data.model.account"
+                class="margin-top"
             ></app-transaction-lines>
         </mat-tab>
 
         <mat-tab label="Dépenses et remboursements" *ngIf="data.model.id">
-
             <div fxLayout="column" fxLayoutGap="30px">
                 <div fxLayout="row" fxLayoutGap="30px" class="margin-top">
-                    <natural-select fxFlex
-                                    formControlName="account"
-                                    placeholder="Compte"
-                                    [service]="accountService"
-                                    [showIcon]="false"
-                                    [navigateTo]="['/admin/account', form.get('account')?.value?.id]"
+                    <natural-select
+                        fxFlex
+                        formControlName="account"
+                        placeholder="Compte"
+                        [service]="accountService"
+                        [showIcon]="false"
+                        [navigateTo]="['/admin/account', form.get('account')?.value?.id]"
                     ></natural-select>
                 </div>
 
                 <app-finances [user]="data.model"></app-finances>
             </div>
-
         </mat-tab>
 
         <mat-tab label="Prestations et services" *ngIf="data.model.id">
             <br class="margin-top" />
             <app-services [user]="data.model"></app-services>
         </mat-tab>
-
     </mat-tab-group>
 
-    <natural-fixed-button-detail *ngIf="showFabButton" [form]="form" [model]="data.model" (create)="create()"></natural-fixed-button-detail>
-
+    <natural-fixed-button-detail
+        *ngIf="showFabButton"
+        [form]="form"
+        [model]="data.model"
+        (create)="create()"
+    ></natural-fixed-button-detail>
 </div>

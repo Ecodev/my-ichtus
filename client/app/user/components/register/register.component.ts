@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import {Component, Injector, OnInit} from '@angular/core';
 import {
     CreateUser,
     CreateUserVariables,
@@ -7,40 +7,43 @@ import {
     User,
     UserVariables,
 } from '../../../shared/generated-types';
-import { BookableService } from '../../../admin/bookables/services/bookable.service';
-import { AnonymousUserService } from './anonymous-user.service';
+import {BookableService} from '../../../admin/bookables/services/bookable.service';
+import {AnonymousUserService} from './anonymous-user.service';
 import gql from 'graphql-tag';
-import { Apollo } from 'apollo-angular';
-import { NaturalAbstractDetail, NaturalDataSource, validateAllFormControls } from '@ecodev/natural';
+import {Apollo} from 'apollo-angular';
+import {NaturalAbstractDetail, NaturalDataSource, validateAllFormControls} from '@ecodev/natural';
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent extends NaturalAbstractDetail<User['user'],
-    UserVariables,
-    CreateUser['createUser'],
-    CreateUserVariables,
-    UpdateUser['updateUser'],
-    UpdateUserVariables,
-    any> implements OnInit {
-
+export class RegisterComponent
+    extends NaturalAbstractDetail<
+        User['user'],
+        UserVariables,
+        CreateUser['createUser'],
+        CreateUserVariables,
+        UpdateUser['updateUser'],
+        UpdateUserVariables,
+        any
+    >
+    implements OnInit {
     public mandatoryBookables: NaturalDataSource;
 
     public step;
     public sending = false;
 
-    constructor(userService: AnonymousUserService,
-                injector: Injector,
-                protected bookableService: BookableService,
-                protected apollo: Apollo,
+    constructor(
+        userService: AnonymousUserService,
+        injector: Injector,
+        protected bookableService: BookableService,
+        protected apollo: Apollo,
     ) {
         super('user', userService, injector);
     }
 
     public ngOnInit(): void {
-
         this.step = +this.route.snapshot.data.step;
 
         super.ngOnInit();
@@ -55,7 +58,6 @@ export class RegisterComponent extends NaturalAbstractDetail<User['user'],
                 this.mandatoryBookables = new NaturalDataSource(bookables);
             }
         });
-
     }
 
     public submit(): void {
@@ -79,11 +81,13 @@ export class RegisterComponent extends NaturalAbstractDetail<User['user'],
             }
         `;
 
-        this.apollo.mutate({
-            mutation: mutation,
-            variables: this.form.value,
-        })
-            .subscribe(() => {
+        this.apollo
+            .mutate({
+                mutation: mutation,
+                variables: this.form.value,
+            })
+            .subscribe(
+                () => {
                     this.sending = false;
 
                     const message = 'Un email avec des instructions a été envoyé';
@@ -91,9 +95,10 @@ export class RegisterComponent extends NaturalAbstractDetail<User['user'],
                     this.alertService.info(message, 5000);
                     this.router.navigate(['/login']);
                 },
-                (error) => {
+                error => {
                     this.sending = false;
                     this.alertService.error(error.message, 5000);
-                });
+                },
+            );
     }
 }

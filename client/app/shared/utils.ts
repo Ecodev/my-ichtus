@@ -1,4 +1,3 @@
-
 /**
  * Copy text to clipboard.
  * Accepts line breaks \n as textarea do.

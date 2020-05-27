@@ -1,14 +1,14 @@
 <div fxLayout="column" fxLayoutGap="50px">
-
     <div>
         <div fxLayout="row" fxLayoutAlign="start center" class="margin-bottom">
             <h3 fxFlex class="mat-headline no-margin-bottom">Historique des transactions</h3>
         </div>
 
-        <div class="mat-body-1 padding margin"
-             fxLayout="column"
-             fxLayoutAlign="center center"
-             *ngIf="transactionLinesDS?.data?.length === 0"
+        <div
+            class="mat-body-1 padding margin"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            *ngIf="transactionLinesDS?.data?.length === 0"
         >
             Aucun résultat
         </div>
@@ -16,7 +16,7 @@
         <div class="responsive-table" *ngIf="transactionLinesDS?.data?.length">
             <table mat-table [dataSource]="transactionLinesDS">
                 <tr mat-header-row *matHeaderRowDef="transactionsColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: transactionsColumns;"></tr>
+                <tr mat-row *matRowDef="let row; columns: transactionsColumns"></tr>
 
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef>Nom</th>
@@ -25,13 +25,17 @@
 
                 <ng-container matColumnDef="transactionDate">
                     <th mat-header-cell *matHeaderCellDef>Date</th>
-                    <td mat-cell *matCellDef="let transactionLine">{{ transactionLine.transactionDate | date: 'dd.MM.y'}}</td>
+                    <td mat-cell *matCellDef="let transactionLine">
+                        {{ transactionLine.transactionDate | date: 'dd.MM.y' }}
+                    </td>
                 </ng-container>
 
                 <ng-container matColumnDef="amount">
                     <th mat-header-cell *matHeaderCellDef>Montant</th>
                     <td mat-cell *matCellDef="let transactionLine">
-                        <app-transaction-amount [transactionLine]="transactionLine" [relativeToAccount]="viewer.account"
+                        <app-transaction-amount
+                            [transactionLine]="transactionLine"
+                            [relativeToAccount]="viewer.account"
                         ></app-transaction-amount>
                     </td>
                 </ng-container>
@@ -47,9 +51,7 @@
                         <div [innerHTML]="transactionLine.remarks" class="line-break"></div>
                     </td>
                 </ng-container>
-
             </table>
         </div>
-
     </div>
 </div>

@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { permissionsFragment, userMetaFragment } from '../../../shared/queries/fragments';
+import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
 
 export const licensesQuery = gql`
     query Licenses($filter: LicenseFilter, $sorting: [LicenseSorting!], $pagination: PaginationInput) {
@@ -51,7 +51,7 @@ export const createLicense = gql`
 
 export const updateLicense = gql`
     mutation UpdateLicense($id: LicenseID!, $input: LicensePartialInput!) {
-        updateLicense(id:$id, input:$input) {
+        updateLicense(id: $id, input: $input) {
             id
             updateDate
             updater {
@@ -63,7 +63,7 @@ export const updateLicense = gql`
 `;
 
 export const deleteLicenses = gql`
-    mutation DeleteLicenses ($ids: [LicenseID!]!){
+    mutation DeleteLicenses($ids: [LicenseID!]!) {
         deleteLicenses(ids: $ids)
-    }`;
-
+    }
+`;

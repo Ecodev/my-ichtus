@@ -1,8 +1,17 @@
 <div class="detail-body" [formGroup]="form">
-
-    <natural-detail-header newLabel="Nouvelle réservation" label="Réservation" [model]="data.model" [listRoute]="['admin', 'booking']">
+    <natural-detail-header
+        newLabel="Nouvelle réservation"
+        label="Réservation"
+        [model]="data.model"
+        [listRoute]="['admin', 'booking']"
+    >
         <div fxLayout="row" fxLayoutGap="20px">
-            <button *ngIf="data.model.id && !form.get('endDate')?.value" mat-flat-button color="warn" (click)="endBooking()">
+            <button
+                *ngIf="data.model.id && !form.get('endDate')?.value"
+                mat-flat-button
+                color="warn"
+                (click)="endBooking()"
+            >
                 Terminer
             </button>
         </div>
@@ -13,30 +22,38 @@
             <div fxLayout="column" fxLayoutGap="30px" class="padding-top">
                 <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
                     <div fxFlex="50" fxLayout="column">
-
                         <div fxLayout="row" fxLayoutGap="10px">
-                            <natural-select fxFlex
-                                        formControlName="owner"
-                                        placeholder="Responsable"
-                                        [service]="userService"
-                                        (selectionChange)="update()"
-                                        [showIcon]="false"
-                                        [navigateTo]="form.get('owner')?.value?.id ? ['/admin/user', form.get('owner')?.value.id] : null"
+                            <natural-select
+                                fxFlex
+                                formControlName="owner"
+                                placeholder="Responsable"
+                                [service]="userService"
+                                (selectionChange)="update()"
+                                [showIcon]="false"
+                                [navigateTo]="
+                                    form.get('owner')?.value?.id ? ['/admin/user', form.get('owner')?.value.id] : null
+                                "
                             ></natural-select>
                         </div>
 
-                        <natural-select formControlName="bookable"
-                                    placeholder="Réservable"
-                                    [service]="bookableService"
-                                    (selectionChange)="update()"
-                                    [showIcon]="false"
-                                    [navigateTo]="form.get('bookable')?.value?.id ? ['/admin/bookable', form.get('bookable')?.value.id] : null"
+                        <natural-select
+                            formControlName="bookable"
+                            placeholder="Réservable"
+                            [service]="bookableService"
+                            (selectionChange)="update()"
+                            [showIcon]="false"
+                            [navigateTo]="
+                                form.get('bookable')?.value?.id
+                                    ? ['/admin/bookable', form.get('bookable')?.value.id]
+                                    : null
+                            "
                         ></natural-select>
 
-                        <button mat-flat-button
-                                color="primary"
-                                *ngIf="isApplication() && isService() && data.model.status === BookingStatus.application"
-                                (click)="assignBookable(form.get('bookable')?.value)"
+                        <button
+                            mat-flat-button
+                            color="primary"
+                            *ngIf="isApplication() && isService() && data.model.status === BookingStatus.application"
+                            (click)="assignBookable(form.get('bookable')?.value)"
                         >
                             Valider la demande
                         </button>
@@ -48,30 +65,43 @@
                                 <span class="mat-body-2">{{ newBooking.bookable.name }}</span>
                                 a été attribué(e).
                             </p>
-                            <a mat-stroked-button [routerLink]="['/admin/booking', newBooking.id]" (click)="newBooking = null;">
+                            <a
+                                mat-stroked-button
+                                [routerLink]="['/admin/booking', newBooking.id]"
+                                (click)="newBooking = null"
+                            >
                                 Voir la réservation
                             </a>
                         </div>
-
                     </div>
                     <div fxFlex="50" fxLayout="column">
-                        <natural-select-enum enumName="BookingStatus" formControlName="status" (selectionChange)="update()" placeholder="Status"
+                        <natural-select-enum
+                            enumName="BookingStatus"
+                            formControlName="status"
+                            (selectionChange)="update()"
+                            placeholder="Status"
                         ></natural-select-enum>
 
                         <h2 class="mat-title">Commentaires</h2>
                         <mat-form-field>
                             <mat-label>Remarques</mat-label>
-                            <textarea matInput formControlName="remarks" (change)="update()" matTextareaAutosize [matAutosizeMinRows]="3"
+                            <textarea
+                                matInput
+                                formControlName="remarks"
+                                (change)="update()"
+                                matTextareaAutosize
+                                [matAutosizeMinRows]="3"
                             ></textarea>
                         </mat-form-field>
 
                         <mat-form-field>
                             <mat-label>Remarques internes</mat-label>
-                            <textarea matInput
-                                      formControlName="internalRemarks"
-                                      (change)="update()"
-                                      matTextareaAutosize
-                                      [matAutosizeMinRows]="3"
+                            <textarea
+                                matInput
+                                formControlName="internalRemarks"
+                                (change)="update()"
+                                matTextareaAutosize
+                                [matAutosizeMinRows]="3"
                             ></textarea>
                         </mat-form-field>
                     </div>
@@ -80,11 +110,12 @@
                 <div *ngIf="isApplication() && isStorage() && data.model.status === BookingStatus.application">
                     <mat-divider class="margin-bottom"></mat-divider>
                     <div class="mat-title">Attribuer un stockage</div>
-                    <app-bookables [contextColumns]="['usage', 'name', 'code', 'periodicPrice', 'select']"
-                                   [contextService]="UsageBookableService"
-                                   [persistSearch]="false"
-                                   [contextVariables]="storageVariables"
-                                   (select)="assignBookable($event)"
+                    <app-bookables
+                        [contextColumns]="['usage', 'name', 'code', 'periodicPrice', 'select']"
+                        [contextService]="UsageBookableService"
+                        [persistSearch]="false"
+                        [contextVariables]="storageVariables"
+                        (select)="assignBookable($event)"
                     ></app-bookables>
                 </div>
 
@@ -93,15 +124,20 @@
 
                     <h1 class="mat-title">Sorties</h1>
 
-                    <mat-form-field style="width:100px">
+                    <mat-form-field style="width: 100px;">
                         <mat-label>Nb participants</mat-label>
-                        <input matInput type="number" step="1" min="1" formControlName="participantCount" (change)="update()">
+                        <input
+                            matInput
+                            type="number"
+                            step="1"
+                            min="1"
+                            formControlName="participantCount"
+                            (change)="update()"
+                        />
                     </mat-form-field>
 
                     <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
-
                         <div fxFlex="50" fxLayout="column">
-
                             <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" class="margin-bottom">
                                 <h2 class="mat-title no-margin-bottom">Début</h2>
                                 <div>{{ data.model.startDate | swissDate }}</div>
@@ -114,18 +150,17 @@
 
                             <mat-form-field>
                                 <mat-label>Commentaire de début</mat-label>
-                                <textarea matInput
-                                          formControlName="startComment"
-                                          (change)="update()"
-                                          matTextareaAutosize
-                                          [matAutosizeMinRows]="5"
-                                          [matAutosizeMaxRows]="5"
+                                <textarea
+                                    matInput
+                                    formControlName="startComment"
+                                    (change)="update()"
+                                    matTextareaAutosize
+                                    [matAutosizeMinRows]="5"
+                                    [matAutosizeMaxRows]="5"
                                 ></textarea>
                             </mat-form-field>
-
                         </div>
                         <div fxFlex="50" fxLayout="column">
-
                             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" class="margin-bottom">
                                 <h2 class="mat-title no-margin-bottom">Fin</h2>
                                 <div fxFlex>{{ data.model.endDate | swissDate }}</div>
@@ -133,35 +168,36 @@
 
                             <mat-form-field>
                                 <mat-label>Heure estimée de retour</mat-label>
-                                <input matInput formControlName="estimatedEndDate" (change)="update()">
+                                <input matInput formControlName="estimatedEndDate" (change)="update()" />
                             </mat-form-field>
 
                             <mat-form-field>
                                 <mat-label>Commentaire de fin</mat-label>
-                                <textarea matInput
-                                          formControlName="endComment"
-                                          (change)="update()"
-                                          matTextareaAutosize
-                                          [matAutosizeMinRows]="5"
-                                          [matAutosizeMaxRows]="5"
+                                <textarea
+                                    matInput
+                                    formControlName="endComment"
+                                    (change)="update()"
+                                    matTextareaAutosize
+                                    [matAutosizeMinRows]="5"
+                                    [matAutosizeMaxRows]="5"
                                 ></textarea>
                             </mat-form-field>
                         </div>
-
                     </div>
-
                 </div>
 
                 <mat-divider></mat-divider>
 
                 <natural-stamp [item]="data.model"></natural-stamp>
-
             </div>
         </mat-tab>
-
     </mat-tab-group>
 
-    <natural-fixed-button-detail *ngIf="showFabButton" [form]="form" [model]="data.model" (create)="create()" (delete)="delete()"
+    <natural-fixed-button-detail
+        *ngIf="showFabButton"
+        [form]="form"
+        [model]="data.model"
+        (create)="create()"
+        (delete)="delete()"
     ></natural-fixed-button-detail>
-
 </div>

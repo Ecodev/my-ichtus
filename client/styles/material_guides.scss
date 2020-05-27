@@ -18,18 +18,18 @@ nothing {
     disabled-button-toggle: #eeeeee;
 
     // Background dark;
-    status-bar: black,
-    app-bar: #212121,
-    background: #303030,
-    hover: rgba(255, 255, 255, 0.04),
-    card: #424242,
-    dialog: #424242,
-    disabled-button: rgba(255, 255, 255, 0.12),
-    raised-button: #424242,
-    focused-button: rgba(255, 255, 255, 0.06),
-    selected-button: #212121,
-    selected-disabled-button: #424242,
-    disabled-button-toggle: #000000
+    status-bar: black;
+    app-bar: #212121;
+    background: #303030;
+    hover: rgba(255, 255, 255, 0.04);
+    card: #424242;
+    dialog: #424242;
+    disabled-button: rgba(255, 255, 255, 0.12);
+    raised-button: #424242;
+    focused-button: rgba(255, 255, 255, 0.06);
+    selected-button: #212121;
+    selected-disabled-button: #424242;
+    disabled-button-toggle: #000000;
 
     // Foreground light;
     base: black;
@@ -61,5 +61,4 @@ nothing {
     slider-min: white;
     slider-off: rgba(255, 255, 255, 0.3);
     slider-off-active: rgba(255, 255, 255, 0.3);
-
 }

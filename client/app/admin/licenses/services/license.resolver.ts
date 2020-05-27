@@ -1,18 +1,15 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { Observable } from 'rxjs';
-import { ErrorService } from '../../../shared/components/error/error.service';
-import { LicenseService } from './license.service';
-import { LicenseResolve } from '../license';
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
+import {Observable} from 'rxjs';
+import {ErrorService} from '../../../shared/components/error/error.service';
+import {LicenseService} from './license.service';
+import {LicenseResolve} from '../license';
 
 @Injectable({
     providedIn: 'root',
 })
 export class LicenseResolver implements Resolve<LicenseResolve> {
-
-    constructor(private licenseService: LicenseService,
-                private errorService: ErrorService) {
-    }
+    constructor(private licenseService: LicenseService, private errorService: ErrorService) {}
 
     /**
      * Resolve license data for router and panels service

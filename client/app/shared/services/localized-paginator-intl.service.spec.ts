@@ -1,9 +1,8 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { LocalizedPaginatorIntlService } from './localized-paginator-intl.service';
+import {LocalizedPaginatorIntlService} from './localized-paginator-intl.service';
 
 describe('LocalizedPaginatorIntlService', () => {
-
     let service: LocalizedPaginatorIntlService;
 
     beforeEach(() => {
@@ -12,7 +11,6 @@ describe('LocalizedPaginatorIntlService', () => {
             imports: [],
         });
         service = TestBed.inject(LocalizedPaginatorIntlService);
-
     });
 
     it('should be created', () => {
@@ -28,5 +26,4 @@ describe('LocalizedPaginatorIntlService', () => {
         expect(service.getRangeLabel(2, 10, 0)).toEqual('0/0');
         expect(service.getRangeLabel(2, 0, 20)).toEqual('0/20');
     });
-
 });

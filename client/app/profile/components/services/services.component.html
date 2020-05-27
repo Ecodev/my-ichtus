@@ -1,23 +1,32 @@
 <div fxLayout="column" fxLayoutGap="50px">
-
     <div fxLayout="column" fxLayoutGap="10px">
-        <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="start center" fxLayoutAlign="start start" class="margin-bottom">
+        <div
+            fxLayout="column"
+            fxLayout.gt-xs="row"
+            fxLayoutAlign.gt-xs="start center"
+            fxLayoutAlign="start start"
+            class="margin-bottom"
+        >
             <h2 fxFlex class="mat-headline no-margin-bottom">Demandes en attente</h2>
-            <natural-select-admin-approved-button [user]="user" *ngIf="!adminMode"></natural-select-admin-approved-button>
+            <natural-select-admin-approved-button
+                [user]="user"
+                *ngIf="!adminMode"
+            ></natural-select-admin-approved-button>
         </div>
 
-        <div class="mat-body-1 padding margin"
-             fxLayout="column"
-             fxLayoutAlign="center center"
-             *ngIf="pendingApplicationsDS?.data?.length === 0"
-        >Aucune demande en attente
+        <div
+            class="mat-body-1 padding margin"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            *ngIf="pendingApplicationsDS?.data?.length === 0"
+        >
+            Aucune demande en attente
         </div>
 
         <div class="responsive-table" [fxHide]="!pendingApplicationsDS?.data?.length">
-
             <table mat-table [dataSource]="pendingApplicationsDS">
                 <tr mat-header-row *matHeaderRowDef="applicationsColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: applicationsColumns;"></tr>
+                <tr mat-row *matRowDef="let row; columns: applicationsColumns"></tr>
                 <tr mat-footer-row *matFooterRowDef="applicationsColumns"></tr>
 
                 <ng-container matColumnDef="name">
@@ -29,13 +38,14 @@
                 <ng-container matColumnDef="status">
                     <th mat-header-cell *matHeaderCellDef>Nom</th>
                     <td mat-cell *matCellDef="let booking">{{ booking.status | enum: 'BookingStatus' | async }}</td>
-                    <td mat-footer-cell *matFooterCellDef> Totaux</td>
+                    <td mat-footer-cell *matFooterCellDef>Totaux</td>
                 </ng-container>
 
                 <ng-container matColumnDef="periodicPrice">
                     <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix périodique</th>
                     <td mat-cell *matCellDef="let booking" natural-align-right>
-                        <span *ngIf="booking.bookable.periodicPrice != '0.00'"> {{ booking.bookable.periodicPrice | currency: 'CHF'}}
+                        <span *ngIf="booking.bookable.periodicPrice != '0.00'">
+                            {{ booking.bookable.periodicPrice | currency: 'CHF' }}
                         </span>
                     </td>
                     <td mat-footer-cell *matFooterCellDef natural-align-right>
@@ -48,11 +58,13 @@
                 <ng-container matColumnDef="initialPrice">
                     <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix initial</th>
                     <td mat-cell *matCellDef="let booking" natural-align-right>
-                        <span *ngIf="booking.bookable.initialPrice != '0.00'"> {{ booking.bookable.initialPrice | currency: 'CHF'}}</span>
+                        <span *ngIf="booking.bookable.initialPrice != '0.00'">
+                            {{ booking.bookable.initialPrice | currency: 'CHF' }}</span
+                        >
                     </td>
                     <td mat-footer-cell *matFooterCellDef natural-align-right>
                         <span *ngIf="pendingApplicationsDS.data?.totalInitialPrice > 0">
-                            {{ pendingApplicationsDS.data.totalInitialPrice | currency: 'CHF'}}
+                            {{ pendingApplicationsDS.data.totalInitialPrice | currency: 'CHF' }}
                         </span>
                     </td>
                 </ng-container>
@@ -70,25 +82,32 @@
                 <ng-container matColumnDef="admin">
                     <th mat-header-cell *matHeaderCellDef natural-1em-column>Traiter</th>
                     <td mat-cell *matCellDef="let booking">
-                        <a mat-icon-button mat-raised-button color="accent" [routerLink]="['/admin/booking', booking.id]">
+                        <a
+                            mat-icon-button
+                            mat-raised-button
+                            color="accent"
+                            [routerLink]="['/admin/booking', booking.id]"
+                        >
                             <natural-icon name="chevron_right"></natural-icon>
                         </a>
                     </td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
-
             </table>
         </div>
     </div>
 
     <div>
-
         <div fxLayout="row" fxLayoutAlign="start center" class="margin-bottom">
             <h2 fxFlex class="mat-headline no-margin-bottom">Cotisation / Prestations souscrites</h2>
             <button mat-stroked-button color="warn" (click)="unregister()">Démissionner</button>
         </div>
 
-        <div class="mat-body-1 padding margin" fxLayout="column" fxLayoutAlign="center center" *ngIf="runningServicesDS?.data?.length === 0"
+        <div
+            class="mat-body-1 padding margin"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            *ngIf="runningServicesDS?.data?.length === 0"
         >
             Aucune prestation en cours
         </div>
@@ -96,20 +115,20 @@
         <div class="responsive-table" *ngIf="runningServicesDS?.data?.length">
             <table mat-table [dataSource]="runningServicesDS">
                 <tr mat-header-row *matHeaderRowDef="servicesColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: servicesColumns;"></tr>
+                <tr mat-row *matRowDef="let row; columns: servicesColumns"></tr>
                 <!-- TODO : compute correctly totalPeriodicPrice considering bookable shared usages -->
                 <!-- <tr mat-footer-row *matFooterRowDef="servicesColumns"></tr>-->
 
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef>Nom</th>
                     <td mat-cell *matCellDef="let booking">{{ booking.bookable.name }}</td>
-                    <td mat-footer-cell *matFooterCellDef> Totaux</td>
+                    <td mat-footer-cell *matFooterCellDef>Totaux</td>
                 </ng-container>
 
                 <ng-container matColumnDef="periodicPrice">
                     <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix périodique</th>
                     <td mat-cell *matCellDef="let booking" natural-align-right>
-                        <span *ngIf="booking.periodicPrice"> {{ booking.periodicPrice | currency: 'CHF'}}</span>
+                        <span *ngIf="booking.periodicPrice"> {{ booking.periodicPrice | currency: 'CHF' }}</span>
                     </td>
                     <td mat-footer-cell *matFooterCellDef natural-align-right>
                         <span *ngIf="runningServicesDS.data?.totalPeriodicPrice > 0">
@@ -121,7 +140,12 @@
                 <ng-container matColumnDef="revoke">
                     <th mat-header-cell *matHeaderCellDef natural-1em-column></th>
                     <td mat-cell *matCellDef="let booking">
-                        <button mat-icon-button color="warn" (click)="revokeBooking(booking)" *ngIf="canRevoke(booking)">
+                        <button
+                            mat-icon-button
+                            color="warn"
+                            (click)="revokeBooking(booking)"
+                            *ngIf="canRevoke(booking)"
+                        >
                             <natural-icon name="delete_forever"></natural-icon>
                         </button>
                     </td>
@@ -144,13 +168,17 @@
                 <ng-container matColumnDef="admin">
                     <th mat-header-cell *matHeaderCellDef natural-1em-column>Traiter</th>
                     <td mat-cell *matCellDef="let booking">
-                        <a mat-icon-button mat-raised-button color="accent" [routerLink]="['/admin/booking', booking.id]">
+                        <a
+                            mat-icon-button
+                            mat-raised-button
+                            color="accent"
+                            [routerLink]="['/admin/booking', booking.id]"
+                        >
                             <natural-icon name="chevron_right"></natural-icon>
                         </a>
                     </td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
-
             </table>
         </div>
     </div>

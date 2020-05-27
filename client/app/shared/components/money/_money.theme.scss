@@ -6,7 +6,6 @@
     $foreground: map-get($theme, foreground);
 
     app-money {
-
         .positive {
             color: #008600;
         }
@@ -18,9 +17,5 @@
         .negative {
             color: mat-color($warn);
         }
-
     }
-
 }
-
-

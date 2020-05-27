@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import jsQR from 'jsqr';
-import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { distinctUntilChanged, filter } from 'rxjs/operators';
+import {Observable, ReplaySubject, Subject} from 'rxjs';
+import {distinctUntilChanged, filter} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
 })
 export class QrService {
-
     private stream: MediaStream | null;
 
     private video: HTMLVideoElement;
@@ -27,7 +26,10 @@ export class QrService {
     public readonly qrCode: Observable<string>;
 
     constructor() {
-        this.qrCode = this.scanObservable.pipe(distinctUntilChanged(), filter(v => !!v));
+        this.qrCode = this.scanObservable.pipe(
+            distinctUntilChanged(),
+            filter(v => !!v),
+        );
     }
 
     public getStream(): Observable<MediaStream> {
@@ -47,19 +49,20 @@ export class QrService {
         this.canvas = document.createElement('canvas');
         this.context = this.canvas.getContext('2d') as CanvasRenderingContext2D;
 
-        navigator.mediaDevices.getUserMedia({video: {facingMode: 'environment'}}).then(async (stream: MediaStream) => {
-            this.starting = false;
-            this.streamObservable.next(stream);
-            this.stream = stream;
-            this.video.srcObject = stream;
-            this.video.setAttribute('playsinline', 'true'); // required to tell iOS safari we don't want fullscreen
-            this.video.play();
-            this.queueDecoding();
-
-        }).catch((err) => {
-            this.scanObservable.error(err);
-        });
-
+        navigator.mediaDevices
+            .getUserMedia({video: {facingMode: 'environment'}})
+            .then(async (stream: MediaStream) => {
+                this.starting = false;
+                this.streamObservable.next(stream);
+                this.stream = stream;
+                this.video.srcObject = stream;
+                this.video.setAttribute('playsinline', 'true'); // required to tell iOS safari we don't want fullscreen
+                this.video.play();
+                this.queueDecoding();
+            })
+            .catch(err => {
+                this.scanObservable.error(err);
+            });
     }
 
     /**
@@ -107,5 +110,4 @@ export class QrService {
             requestAnimationFrame(this.decode.bind(this));
         }
     }
-
 }

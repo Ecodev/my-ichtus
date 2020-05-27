@@ -1,9 +1,9 @@
-import { Component, Injector, OnInit, ViewChild } from '@angular/core';
-import { NavigationEnd } from '@angular/router';
-import { NaturalAbstractDetail } from '@ecodev/natural';
-import { TransactionService } from '../services/transaction.service';
-import { Subject } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import {Component, Injector, OnInit, ViewChild} from '@angular/core';
+import {NavigationEnd} from '@angular/router';
+import {NaturalAbstractDetail} from '@ecodev/natural';
+import {TransactionService} from '../services/transaction.service';
+import {Subject} from 'rxjs';
+import {filter, takeUntil} from 'rxjs/operators';
 import {
     CreateTransaction,
     CreateTransactionVariables,
@@ -16,12 +16,12 @@ import {
     UpdateTransaction,
     UpdateTransactionVariables,
 } from '../../../shared/generated-types';
-import { BookableService } from '../../bookables/services/bookable.service';
-import { EditableTransactionLinesComponent } from '../editable-transaction-lines/editable-transaction-lines.component';
-import { TransactionLineService } from '../services/transactionLine.service';
-import { AccountingDocumentsComponent } from '../../accounting-documents/accounting-documents.component';
-import { ExpenseClaimService } from '../../expenseClaim/services/expenseClaim.service';
-import { UserService } from '../../users/services/user.service';
+import {BookableService} from '../../bookables/services/bookable.service';
+import {EditableTransactionLinesComponent} from '../editable-transaction-lines/editable-transaction-lines.component';
+import {TransactionLineService} from '../services/transactionLine.service';
+import {AccountingDocumentsComponent} from '../../accounting-documents/accounting-documents.component';
+import {ExpenseClaimService} from '../../expenseClaim/services/expenseClaim.service';
+import {UserService} from '../../users/services/user.service';
 
 @Component({
     selector: 'app-transaction',
@@ -29,14 +29,16 @@ import { UserService } from '../../users/services/user.service';
     styleUrls: ['./transaction.component.scss'],
 })
 export class TransactionComponent
-    extends NaturalAbstractDetail<Transaction['transaction'],
+    extends NaturalAbstractDetail<
+        Transaction['transaction'],
         TransactionVariables,
         CreateTransaction['createTransaction'],
         CreateTransactionVariables,
         UpdateTransaction['updateTransaction'],
         UpdateTransactionVariables,
-        DeleteTransactions> implements OnInit {
-
+        DeleteTransactions
+    >
+    implements OnInit {
     @ViewChild(EditableTransactionLinesComponent) transactionLinesComponent: EditableTransactionLinesComponent;
     @ViewChild('transactionDocuments', {static: true}) accountingDocuments: AccountingDocumentsComponent;
 
@@ -50,12 +52,13 @@ export class TransactionComponent
 
     public viewer;
 
-    constructor(private transactionService: TransactionService,
-                injector: Injector,
-                public bookableService: BookableService,
-                public transactionLineService: TransactionLineService,
-                public userService: UserService,
-                private expenseClaimService: ExpenseClaimService,
+    constructor(
+        private transactionService: TransactionService,
+        injector: Injector,
+        public bookableService: BookableService,
+        public transactionLineService: TransactionLineService,
+        public userService: UserService,
+        private expenseClaimService: ExpenseClaimService,
     ) {
         super('transaction', transactionService, injector);
     }
@@ -71,7 +74,9 @@ export class TransactionComponent
         }
 
         setTimeout(() => {
-            const expenseClaim: ExpenseClaim['expenseClaim'] = this.data.expenseClaim ? this.data.expenseClaim.model : null;
+            const expenseClaim: ExpenseClaim['expenseClaim'] = this.data.expenseClaim
+                ? this.data.expenseClaim.model
+                : null;
             if (expenseClaim && expenseClaim.owner && expenseClaim.owner.account) {
                 this.data.model.expenseClaim = expenseClaim;
                 this.updateTransactionLines = true;
@@ -92,10 +97,16 @@ export class TransactionComponent
                 }
 
                 if (expenseClaim.type === ExpenseClaimType.expenseClaim) {
-                    const preset = this.transactionService.getExpenseClaimPreset(expenseClaim.owner.account, expenseClaim.amount);
+                    const preset = this.transactionService.getExpenseClaimPreset(
+                        expenseClaim.owner.account,
+                        expenseClaim.amount,
+                    );
                     this.transactionLinesComponent.setItems(preset);
                 } else if (expenseClaim.type === ExpenseClaimType.refund) {
-                    const preset = this.transactionService.getRefundPreset(expenseClaim.owner.account, expenseClaim.amount);
+                    const preset = this.transactionService.getRefundPreset(
+                        expenseClaim.owner.account,
+                        expenseClaim.amount,
+                    );
                     this.transactionLinesComponent.setItems(preset);
                 }
             }
@@ -103,14 +114,15 @@ export class TransactionComponent
     }
 
     public save() {
-
         if (!this.userService.canUpdateTransaction(this.viewer)) {
             return;
         }
 
         if (this.transactionLinesComponent) {
             const rawTransactionLines = this.transactionLinesComponent.getItems();
-            this.data.model.transactionLines = rawTransactionLines.map(line => this.transactionLineService.getInput(line));
+            this.data.model.transactionLines = rawTransactionLines.map(line =>
+                this.transactionLineService.getInput(line),
+            );
 
             this.transactionLinesComponent.validateForm();
 
@@ -158,15 +170,19 @@ export class TransactionComponent
     protected postCreate(model): void {
         this.accountingDocuments.save();
         const expire = new Subject();
-        this.router.events.pipe(takeUntil(expire), filter((ev) => ev instanceof NavigationEnd)).subscribe(() => {
-            expire.next();
-            expire.complete();
-            this.goToNew();
-        });
+        this.router.events
+            .pipe(
+                takeUntil(expire),
+                filter(ev => ev instanceof NavigationEnd),
+            )
+            .subscribe(() => {
+                expire.next();
+                expire.complete();
+                this.goToNew();
+            });
     }
 
     private goToNew() {
         this.router.navigateByUrl('/admin/transaction/new');
-
     }
 }

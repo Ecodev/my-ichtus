@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import {Injectable} from '@angular/core';
+import {FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {
     FormValidators,
     NaturalAbstractModelService,
@@ -8,8 +8,8 @@ import {
     makePlural,
     toUrl,
 } from '@ecodev/natural';
-import { Apollo } from 'apollo-angular';
-import { transactionLineQuery, transactionLinesForExportQuery, transactionLinesQuery } from './transactionLine.queries';
+import {Apollo} from 'apollo-angular';
+import {transactionLineQuery, transactionLinesForExportQuery, transactionLinesQuery} from './transactionLine.queries';
 import {
     Account,
     LogicalOperator,
@@ -22,9 +22,9 @@ import {
     TransactionLineVariables,
     TransactionTag,
 } from '../../../shared/generated-types';
-import { Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { RouterLink } from '@angular/router';
+import {Observable, Subject} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {RouterLink} from '@angular/router';
 
 function atLeastOneAccount(formGroup: FormGroup): ValidationErrors | null {
     if (!formGroup || !formGroup.controls) {
@@ -40,7 +40,8 @@ function atLeastOneAccount(formGroup: FormGroup): ValidationErrors | null {
 @Injectable({
     providedIn: 'root',
 })
-export class TransactionLineService extends NaturalAbstractModelService<TransactionLine['transactionLine'],
+export class TransactionLineService extends NaturalAbstractModelService<
+    TransactionLine['transactionLine'],
     TransactionLineVariables,
     TransactionLines['transactionLines'],
     TransactionLinesVariables,
@@ -48,16 +49,10 @@ export class TransactionLineService extends NaturalAbstractModelService<Transact
     any,
     null,
     any,
-    null> {
-
+    null
+> {
     constructor(apollo: Apollo) {
-        super(apollo,
-            'transactionLine',
-            transactionLineQuery,
-            transactionLinesQuery,
-            null,
-            null,
-            null);
+        super(apollo, 'transactionLine', transactionLineQuery, transactionLinesQuery, null, null, null);
     }
 
     public static getVariablesForExport(): TransactionLinesVariables {
@@ -113,7 +108,7 @@ export class TransactionLineService extends NaturalAbstractModelService<Transact
                         },
                     },
                 },
-            ]
+            ],
         ];
     }
 
@@ -133,18 +128,12 @@ export class TransactionLineService extends NaturalAbstractModelService<Transact
 
     public linkToTransactionForAccount(account: Account['account']): RouterLink['routerLink'] {
         const selection = TransactionLineService.getSelectionForAccount(account);
-        return [
-            '/admin/transaction-line',
-            {ns: JSON.stringify(toUrl(selection))},
-        ];
+        return ['/admin/transaction-line', {ns: JSON.stringify(toUrl(selection))}];
     }
 
     public linkToTransactionForTag(tag: TransactionTag['transactionTag']): RouterLink['routerLink'] {
         const selection = TransactionLineService.getSelectionForTag(tag);
-        return [
-            '/admin/transaction-line',
-            {ns: JSON.stringify(toUrl(selection))},
-        ];
+        return ['/admin/transaction-line', {ns: JSON.stringify(toUrl(selection))}];
     }
 
     public getFormValidators(): FormValidators {
@@ -161,19 +150,17 @@ export class TransactionLineService extends NaturalAbstractModelService<Transact
         return [atLeastOneAccount];
     }
 
-    public getForAccount(account: Account['account'], expire: Subject<void>): Observable<TransactionLines['transactionLines']> {
-
+    public getForAccount(
+        account: Account['account'],
+        expire: Subject<void>,
+    ): Observable<TransactionLines['transactionLines']> {
         const variables: TransactionLinesVariables = {
             filter: {
                 groups: [
                     {
                         conditionsLogic: LogicalOperator.OR,
-                        conditions: [
-                            {credit: {equal: {value: account.id}}},
-                            {debit: {equal: {value: account.id}}},
-                        ],
+                        conditions: [{credit: {equal: {value: account.id}}}, {debit: {equal: {value: account.id}}}],
                     },
-
                 ],
             },
             pagination: {pageIndex: 0, pageSize: 9999},
@@ -185,16 +172,18 @@ export class TransactionLineService extends NaturalAbstractModelService<Transact
     }
 
     public getExportLink(qvm: NaturalQueryVariablesManager<TransactionLinesForExportVariables>): Observable<string> {
-
         qvm.merge('variables', TransactionLineService.getVariablesForExport());
 
-        return this.apollo.query<TransactionLinesForExport, TransactionLinesForExportVariables>({
-            query: transactionLinesForExportQuery,
-            variables: qvm.variables.value,
-        }).pipe(map(result => {
-            const plural = makePlural(this.name);
-            return result.data[plural].excelExport;
-        }));
-
+        return this.apollo
+            .query<TransactionLinesForExport, TransactionLinesForExportVariables>({
+                query: transactionLinesForExportQuery,
+                variables: qvm.variables.value,
+            })
+            .pipe(
+                map(result => {
+                    const plural = makePlural(this.name);
+                    return result.data[plural].excelExport;
+                }),
+            );
     }
 }

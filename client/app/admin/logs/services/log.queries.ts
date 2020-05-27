@@ -18,4 +18,5 @@ export const logsQuery = gql`
             pageIndex
             length
         }
-    }`;
+    }
+`;

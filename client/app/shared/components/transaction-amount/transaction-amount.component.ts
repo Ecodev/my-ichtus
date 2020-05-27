@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { Account, AccountType, TransactionLine } from '../../generated-types';
-import { TransactionLineService } from '../../../admin/transactions/services/transactionLine.service';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Account, AccountType, TransactionLine} from '../../generated-types';
+import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
 
 @Component({
     selector: 'app-transaction-amount',
@@ -8,7 +8,6 @@ import { TransactionLineService } from '../../../admin/transactions/services/tra
     styleUrls: ['./transaction-amount.component.scss'],
 })
 export class TransactionAmountComponent implements OnInit, OnChanges {
-
     @Input() transactionLine: TransactionLine['transactionLine'];
 
     /**
@@ -20,20 +19,21 @@ export class TransactionAmountComponent implements OnInit, OnChanges {
 
     public isIncome: boolean | null = null;
 
-    constructor(public transactionLineService: TransactionLineService) {
-    }
+    constructor(public transactionLineService: TransactionLineService) {}
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
     public ngOnChanges(): void {
         const account = this.relativeToAccount;
         const transaction = this.transactionLine;
         if (account && transaction) {
-            if (transaction.debit && account.id === transaction.debit.id) { // If account is at transaction debit
+            if (transaction.debit && account.id === transaction.debit.id) {
+                // If account is at transaction debit
                 this.isIncome = [AccountType.asset, AccountType.expense].indexOf(account.type) > -1;
-            } else if (transaction.credit && account.id === transaction.credit.id) { // If account is at transaction credit
-                this.isIncome = [AccountType.liability, AccountType.equity, AccountType.revenue].indexOf(account.type) > -1;
+            } else if (transaction.credit && account.id === transaction.credit.id) {
+                // If account is at transaction credit
+                this.isIncome =
+                    [AccountType.liability, AccountType.equity, AccountType.revenue].indexOf(account.type) > -1;
             } else {
                 this.isIncome = null;
             }
@@ -43,5 +43,4 @@ export class TransactionAmountComponent implements OnInit, OnChanges {
     public propagateAccount(account: Account['account']) {
         this.accountClick.emit(account);
     }
-
 }

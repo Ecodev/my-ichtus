@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { permissionsFragment, userMetaFragment } from '../../../shared/queries/fragments';
+import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
 
 export const transactionLineMetaFragment = gql`
     fragment transactionLineMeta on TransactionLine {
@@ -16,7 +16,7 @@ export const transactionLineMetaFragment = gql`
             name
             type
         }
-        bookable{
+        bookable {
             id
             name
             code
@@ -44,7 +44,11 @@ export const transactionLineMetaFragment = gql`
 `;
 
 export const transactionLinesQuery = gql`
-    query TransactionLines($filter: TransactionLineFilter, $sorting: [TransactionLineSorting!], $pagination: PaginationInput) {
+    query TransactionLines(
+        $filter: TransactionLineFilter
+        $sorting: [TransactionLineSorting!]
+        $pagination: PaginationInput
+    ) {
         transactionLines(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
                 ...transactionLineMeta
@@ -55,7 +59,8 @@ export const transactionLinesQuery = gql`
             totalBalance
         }
     }
-${transactionLineMetaFragment}`;
+    ${transactionLineMetaFragment}
+`;
 
 export const transactionLineQuery = gql`
     query TransactionLine($id: TransactionLineID!) {
@@ -81,7 +86,11 @@ export const transactionLineQuery = gql`
 `;
 
 export const transactionLinesForExportQuery = gql`
-    query TransactionLinesForExport($filter: TransactionLineFilter, $sorting: [TransactionLineSorting!], $pagination: PaginationInput) {
+    query TransactionLinesForExport(
+        $filter: TransactionLineFilter
+        $sorting: [TransactionLineSorting!]
+        $pagination: PaginationInput
+    ) {
         transactionLines(filter: $filter, sorting: $sorting, pagination: $pagination) {
             excelExport
         }

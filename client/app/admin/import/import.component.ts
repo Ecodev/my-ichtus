@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { PermissionsService } from '../../shared/services/permissions.service';
-import { ActivatedRoute, Data, Router } from '@angular/router';
-import { Apollo } from 'apollo-angular';
+import {Component, OnInit} from '@angular/core';
+import {PermissionsService} from '../../shared/services/permissions.service';
+import {ActivatedRoute, Data, Router} from '@angular/router';
+import {Apollo} from 'apollo-angular';
 import gql from 'graphql-tag';
-import { ImportCamt, ImportCamtVariables } from '../../shared/generated-types';
-import { NaturalAlertService, NaturalSearchSelections, toUrl } from '@ecodev/natural';
+import {ImportCamt, ImportCamtVariables} from '../../shared/generated-types';
+import {NaturalAlertService, NaturalSearchSelections, toUrl} from '@ecodev/natural';
 
 @Component({
     selector: 'app-import',
@@ -26,8 +26,7 @@ export class ImportComponent implements OnInit {
         public permissionsService: PermissionsService,
         private apollo: Apollo,
         private alertService: NaturalAlertService,
-    ) {
-    }
+    ) {}
 
     public ngOnInit(): void {
         this.routeData = this.route.snapshot.data;
@@ -45,35 +44,38 @@ export class ImportComponent implements OnInit {
             }
         `;
 
-        this.apollo.mutate<ImportCamt, ImportCamtVariables>({
-            mutation: m,
-            variables: {
-                file: file,
-            },
-        }).subscribe((result) => {
-                const importCamt = (result.data as ImportCamt).importCamt;
-                const naturalSearchSelections: NaturalSearchSelections = [
-                    importCamt.map(transaction => {
-                        return {
-                            field: 'transaction',
-                            condition: {
-                                have: {
-                                    values: [transaction.id],
+        this.apollo
+            .mutate<ImportCamt, ImportCamtVariables>({
+                mutation: m,
+                variables: {
+                    file: file,
+                },
+            })
+            .subscribe(
+                result => {
+                    const importCamt = (result.data as ImportCamt).importCamt;
+                    const naturalSearchSelections: NaturalSearchSelections = [
+                        importCamt.map(transaction => {
+                            return {
+                                field: 'transaction',
+                                condition: {
+                                    have: {
+                                        values: [transaction.id],
+                                    },
                                 },
-                            },
-                        };
-                    }),
-                ];
+                            };
+                        }),
+                    ];
 
-                const ns = JSON.stringify(toUrl(naturalSearchSelections));
-                this.importing = false;
-                this.alertService.info(importCamt.length + ' transactions importées', 5000);
-                this.router.navigate(['/admin/transaction-line', {ns}]);
-            },
-            (error) => {
-                this.error = error;
-                this.importing = false;
-            },
-        );
+                    const ns = JSON.stringify(toUrl(naturalSearchSelections));
+                    this.importing = false;
+                    this.alertService.info(importCamt.length + ' transactions importées', 5000);
+                    this.router.navigate(['/admin/transaction-line', {ns}]);
+                },
+                error => {
+                    this.error = error;
+                    this.importing = false;
+                },
+            );
     }
 }

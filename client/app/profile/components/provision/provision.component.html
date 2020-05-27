@@ -1,20 +1,22 @@
 <h2 mat-dialog-title>Faire un versement</h2>
 <mat-dialog-content>
-
     <div fxLayout="column" fxLayoutGap="20px" *ngIf="!paymentMode">
-
         <div>
-            <p class="mat-body-1">Nous t'encourageons à payer par e-banking (BVR) qui est sans frais pour le club. </p>
-            <p class="mat-body-1">Tu peux aussi payer en ligne par carte de débit / crédit (une commission sera prélevée au passage).</p>
+            <p class="mat-body-1">Nous t'encourageons à payer par e-banking (BVR) qui est sans frais pour le club.</p>
+            <p class="mat-body-1">
+                Tu peux aussi payer en ligne par carte de débit / crédit (une commission sera prélevée au passage).
+            </p>
         </div>
 
         <div fxLayout="column" fxLayoutGap="10px">
             <button mat-flat-button color="primary" (click)="paymentMode = 'ebanking'">
-                E-Banking <!-- : BVR--->
+                E-Banking
+                <!-- : BVR--->
             </button>
 
             <button mat-flat-button color="primary" (click)="paymentMode = 'datatrans'">
-                En ligne <!-- : Postfinance / Visa / Mastercard-->
+                En ligne
+                <!-- : Postfinance / Visa / Mastercard-->
             </button>
         </div>
     </div>
@@ -23,10 +25,12 @@
         <p class="mat-body">Merci d'indiquer le montant que tu souhaites verser.</p>
 
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-            <mat-form-field style="width:120px">
+            <mat-form-field style="width: 120px;">
                 <mat-label>Montant</mat-label>
                 <input matInput type="number" step="1" [formControl]="formCtrl" [errorStateMatcher]="matcher" />
-                <mat-error *ngIf="formCtrl.errors?.min">Minimum {{ formCtrl.errors.min.min | currency : 'CHF' }}</mat-error>
+                <mat-error *ngIf="formCtrl.errors?.min"
+                    >Minimum {{ formCtrl.errors.min.min | currency: 'CHF' }}</mat-error
+                >
                 <div matSuffix>CHF</div>
             </mat-form-field>
 
@@ -37,7 +41,6 @@
     </div>
 
     <app-bvr [bankingData]="bvrData" *ngIf="paymentMode === 'ebanking'"></app-bvr>
-
 </mat-dialog-content>
 
 <mat-dialog-actions fxLayout="row" fxLayoutAlign="end">

@@ -4,7 +4,6 @@
     $bg: map-get($theme, background);
 
     app-file {
-
         a {
             background-color: mat-color($bg, card);
         }
@@ -19,5 +18,4 @@
             color: mat-color($primary, default-contrast);
         }
     }
-
 }

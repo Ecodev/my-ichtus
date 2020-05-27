@@ -1,18 +1,15 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { Observable } from 'rxjs';
-import { ExpenseClaimResolve } from '../expenseClaim';
-import { ErrorService } from '../../../shared/components/error/error.service';
-import { ExpenseClaimService } from './expenseClaim.service';
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
+import {Observable} from 'rxjs';
+import {ExpenseClaimResolve} from '../expenseClaim';
+import {ErrorService} from '../../../shared/components/error/error.service';
+import {ExpenseClaimService} from './expenseClaim.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class ExpenseClaimResolver implements Resolve<ExpenseClaimResolve> {
-
-    constructor(private expenseClaimService: ExpenseClaimService,
-                private errorService: ErrorService) {
-    }
+    constructor(private expenseClaimService: ExpenseClaimService, private errorService: ErrorService) {}
 
     /**
      * Resolve expenseClaim data for router and panels service

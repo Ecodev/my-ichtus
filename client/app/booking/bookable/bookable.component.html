@@ -1,5 +1,4 @@
-<div fxLayout="column" style="max-width:1100px;margin:auto" fxLayoutGap="40px" class="padding" *ngIf="bookable">
-
+<div fxLayout="column" style="max-width: 1100px; margin: auto;" fxLayoutGap="40px" class="padding" *ngIf="bookable">
     <app-file [model]="bookable.image" [height]="400" [style.borderRadius.px]="4" class="mat-elevation-z2"></app-file>
 
     <div fxLayout="row" fxLayoutAlign="start stretch" class="mat-display-1">
@@ -11,21 +10,31 @@
     </div>
 
     <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
-        <div *ngIf="!isAvailable && runningBooking" class="mat-body-1">Sorti {{ runningBooking.startDate | timeago }}</div>
+        <div *ngIf="!isAvailable && runningBooking" class="mat-body-1">
+            Sorti {{ runningBooking.startDate | timeago }}
+        </div>
         <div *ngIf="!hasLicense">Vous ne disposez pas des licences requises pour utiliser cette embarcation</div>
 
-        <button mat-flat-button
-                color="primary"
-                *ngIf="isNavigable && isAvailable"
-                [disabled]="!hasLicense"
-                [routerLink]="['../new', {bookable: bookable.id}]"
+        <button
+            mat-flat-button
+            color="primary"
+            *ngIf="isNavigable && isAvailable"
+            [disabled]="!hasLicense"
+            [routerLink]="['../new', {bookable: bookable.id}]"
         >
             Annoncer une sortie
         </button>
-        <button mat-flat-button color="warn" *ngIf="isNavigable && !isAvailable && runningBooking" (click)="endBooking()">
+        <button
+            mat-flat-button
+            color="warn"
+            *ngIf="isNavigable && !isAvailable && runningBooking"
+            (click)="endBooking()"
+        >
             Terminer
         </button>
-        <a mat-stroked-button color="primary" *ngIf="canAccessAdmin" [routerLink]="['/admin/bookable', bookable.id]">Administration</a>
+        <a mat-stroked-button color="primary" *ngIf="canAccessAdmin" [routerLink]="['/admin/bookable', bookable.id]"
+            >Administration</a
+        >
     </div>
 
     <div class="mat-headline" [innerHTML]="bookable.description"></div>
@@ -33,6 +42,6 @@
 </div>
 
 <div *ngIf="!bookable" fxFlex fxLayout="column" fxLayoutAlign="center center" class="padding">
-    <div class="mat-display-1" style="text-align:center">Aucun matériel correspondant à ce code n'a été trouvé</div>
+    <div class="mat-display-1" style="text-align: center;">Aucun matériel correspondant à ce code n'a été trouvé</div>
     <button mat-flat-button color="primary" (click)="back()">Revenir à la page précédente</button>
 </div>

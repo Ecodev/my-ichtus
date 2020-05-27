@@ -1,7 +1,7 @@
-import { Component, Injector, Input, OnInit } from '@angular/core';
-import { NaturalAbstractList, NaturalQueryVariablesManager } from '@ecodev/natural';
-import { NaturalSearchFacetsService } from '../../../shared/natural-search/natural-search-facets.service';
-import { TransactionLineService } from '../services/transactionLine.service';
+import {Component, Injector, Input, OnInit} from '@angular/core';
+import {NaturalAbstractList, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
+import {TransactionLineService} from '../services/transactionLine.service';
 import {
     Account,
     TransactionLine,
@@ -10,26 +10,26 @@ import {
     TransactionLinesVariables,
     TransactionTag,
 } from '../../../shared/generated-types';
-import { PermissionsService } from '../../../shared/services/permissions.service';
-import { union } from 'lodash';
+import {PermissionsService} from '../../../shared/services/permissions.service';
+import {union} from 'lodash';
 
 @Component({
     selector: 'app-transaction-lines',
     templateUrl: './transactionLines.component.html',
     styleUrls: ['./transactionLines.component.scss'],
 })
-export class TransactionLinesComponent extends NaturalAbstractList<TransactionLines['transactionLines'], TransactionLinesVariables>
+export class TransactionLinesComponent
+    extends NaturalAbstractList<TransactionLines['transactionLines'], TransactionLinesVariables>
     implements OnInit {
-
     @Input() relativeToAccount;
     @Input() hideFab = false;
 
-    constructor(private transactionLineService: TransactionLineService,
-                injector: Injector,
-                naturalSearchFacetsService: NaturalSearchFacetsService,
-                public permissionsService: PermissionsService,
+    constructor(
+        private transactionLineService: TransactionLineService,
+        injector: Injector,
+        naturalSearchFacetsService: NaturalSearchFacetsService,
+        public permissionsService: PermissionsService,
     ) {
-
         super(transactionLineService, injector);
 
         this.naturalSearchFacets = naturalSearchFacetsService.get('transactionLines');
@@ -63,8 +63,8 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
         const expenseClaim = transaction.expenseClaim;
 
         return union(
-            transaction.accountingDocuments.map((document) => document ? document.id : null),
-            expenseClaim ? expenseClaim.accountingDocuments.map((document) => document ? document.id : null) : [],
+            transaction.accountingDocuments.map(document => (document ? document.id : null)),
+            expenseClaim ? expenseClaim.accountingDocuments.map(document => (document ? document.id : null)) : [],
         ).length;
     }
 

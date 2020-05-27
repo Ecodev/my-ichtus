@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
     selector: 'app-root',
@@ -6,15 +6,11 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-
     public title = 'my-ichtus';
 
     public initialized = false;
 
-    constructor() {
-    }
+    constructor() {}
 
-    public ngOnInit(): void {
-    }
-
+    public ngOnInit(): void {}
 }

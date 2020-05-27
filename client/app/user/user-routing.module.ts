@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { RegisterComponent } from './components/register/register.component';
-import { RegisterConfirmComponent } from './components/register/register-confirm.component';
-import { UserByTokenResolver } from '../admin/users/services/userByToken.resolver';
-import { RequestPasswordResetComponent } from './components/request-password-reset/request-password-reset.component';
-import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {RegisterComponent} from './components/register/register.component';
+import {RegisterConfirmComponent} from './components/register/register-confirm.component';
+import {UserByTokenResolver} from '../admin/users/services/userByToken.resolver';
+import {RequestPasswordResetComponent} from './components/request-password-reset/request-password-reset.component';
+import {ChangePasswordComponent} from './components/change-password/change-password.component';
 
 const routes: Routes = [
     {
@@ -21,7 +21,7 @@ const routes: Routes = [
             step: 2,
         },
         resolve: {
-            user: UserByTokenResolver
+            user: UserByTokenResolver,
         },
     },
     {
@@ -32,7 +32,7 @@ const routes: Routes = [
         path: 'change-password/:token',
         component: ChangePasswordComponent,
         resolve: {
-            user: UserByTokenResolver
+            user: UserByTokenResolver,
         },
     },
 ];
@@ -41,5 +41,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
-export class UserRoutingModule {
-}
+export class UserRoutingModule {}

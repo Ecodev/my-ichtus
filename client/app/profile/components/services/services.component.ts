@@ -1,10 +1,10 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { BookableService } from '../../../admin/bookables/services/bookable.service';
-import { BookingType } from '../../../shared/generated-types';
-import { UserService } from '../../../admin/users/services/user.service';
-import { ActivatedRoute } from '@angular/router';
-import { BookingService } from '../../../admin/bookings/services/booking.service';
-import { NaturalAbstractController, NaturalAlertService, NaturalDataSource } from '@ecodev/natural';
+import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {BookableService} from '../../../admin/bookables/services/bookable.service';
+import {BookingType} from '../../../shared/generated-types';
+import {UserService} from '../../../admin/users/services/user.service';
+import {ActivatedRoute} from '@angular/router';
+import {BookingService} from '../../../admin/bookings/services/booking.service';
+import {NaturalAbstractController, NaturalAlertService, NaturalDataSource} from '@ecodev/natural';
 
 @Component({
     selector: 'app-services',
@@ -12,7 +12,6 @@ import { NaturalAbstractController, NaturalAlertService, NaturalDataSource } fro
     styleUrls: ['./services.component.scss'],
 })
 export class ServicesComponent extends NaturalAbstractController implements OnInit, OnChanges, OnDestroy {
-
     @Input() user;
 
     public adminMode = false;
@@ -24,10 +23,12 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
     public servicesColumns = ['name', 'periodicPrice', 'revoke'];
     public applicationsColumns = ['name', 'status', 'initialPrice', 'periodicPrice', 'cancel'];
 
-    constructor(private userService: UserService,
-                private route: ActivatedRoute,
-                private alertService: NaturalAlertService,
-                private bookingService: BookingService) {
+    constructor(
+        private userService: UserService,
+        private route: ActivatedRoute,
+        private alertService: NaturalAlertService,
+        private bookingService: BookingService,
+    ) {
         super();
     }
 
@@ -64,7 +65,11 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
      */
     public revokeBooking(booking) {
         this.alertService
-            .confirm('Résiliation de prestation', 'Voulez-vous résilier définitivement cette prestation ?', 'Confirmer la résiliation')
+            .confirm(
+                'Résiliation de prestation',
+                'Voulez-vous résilier définitivement cette prestation ?',
+                'Confirmer la résiliation',
+            )
             .subscribe(confirmed => {
                 if (confirmed) {
                     this.bookingService.terminateBooking(booking.id);
@@ -81,7 +86,8 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
     }
 
     public unregister(): void {
-        this.alertService.confirm('Démission', 'Voulez-vous quitter le club Ichtus ?', 'Démissioner définitivement')
+        this.alertService
+            .confirm('Démission', 'Voulez-vous quitter le club Ichtus ?', 'Démissioner définitivement')
             .subscribe(confirmed => {
                 if (confirmed) {
                     this.userService.unregister(this.user).subscribe(() => {
@@ -90,7 +96,6 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
                             this.alertService.info('Vous avez démissioné', 5000);
                             this.userService.logout();
                         } else {
-
                             // If viewer is different (e.g Admin), don't log out
                             this.alertService.info('La démission a été prise en compte', 4000);
                         }

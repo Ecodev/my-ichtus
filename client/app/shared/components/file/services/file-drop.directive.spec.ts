@@ -1,25 +1,20 @@
-import { FileDropDirective } from './file-drop.directive';
-import { Component } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { UploadService } from './upload.service';
+import {FileDropDirective} from './file-drop.directive';
+import {Component} from '@angular/core';
+import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
+import {UploadService} from './upload.service';
 
 @Component({
     template: '<div appFileDrop>foo bar</div>',
 })
-class ContainerComponent {
-}
+class ContainerComponent {}
 
 describe('FileDropDirective', () => {
-
     let fixture: ComponentFixture<ContainerComponent>;
     let component: any;
     let uploadService: UploadService;
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [
-                ContainerComponent,
-                FileDropDirective,
-            ],
+            declarations: [ContainerComponent, FileDropDirective],
         }).compileComponents();
     }));
 
@@ -32,14 +27,13 @@ describe('FileDropDirective', () => {
         inject([UploadService], (us: UploadService) => {
             uploadService = us;
         })();
-
     });
 
-    it('should create an instance', ((done) => {
+    it('should create an instance', done => {
         expect(fixture).toBeTruthy();
         expect(component).toBeTruthy();
 
-        const event: CustomEvent & { dataTransfer?: any } = new CustomEvent('dragover', {
+        const event: CustomEvent & {dataTransfer?: any} = new CustomEvent('dragover', {
             bubbles: true,
             cancelable: true,
         });
@@ -57,8 +51,7 @@ describe('FileDropDirective', () => {
             expect(element.className).toBe('');
 
             // Subscribe to event
-            uploadService.filesChanged.subscribe(() => {
-            });
+            uploadService.filesChanged.subscribe(() => {});
             element.dispatchEvent(event);
 
             // After a short while the class must have been changed
@@ -66,8 +59,6 @@ describe('FileDropDirective', () => {
                 expect(element.className).toBe('show-action');
                 done();
             }, 220);
-
         }, 220);
-
-    }));
+    });
 });

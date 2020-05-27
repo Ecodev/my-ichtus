@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ErrorService } from './error.service';
+import {Component} from '@angular/core';
+import {ErrorService} from './error.service';
 
 @Component({
     selector: 'app-error',
@@ -7,11 +7,9 @@ import { ErrorService } from './error.service';
     styleUrls: ['./error.component.scss'],
 })
 export class ErrorComponent {
-
     public readonly error: Error | null;
 
     constructor(errorService: ErrorService) {
         this.error = errorService.getLastError();
     }
-
 }

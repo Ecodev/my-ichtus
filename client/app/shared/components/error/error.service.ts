@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {Observable, throwError} from 'rxjs';
+import {catchError} from 'rxjs/operators';
 
 /**
  * This service for storing the last error and redirect to error page conveniently
@@ -10,11 +10,9 @@ import { catchError } from 'rxjs/operators';
     providedIn: 'root',
 })
 export class ErrorService {
-
     private lastError: Error | null = null;
 
-    constructor(private router: Router) {
-    }
+    constructor(private router: Router) {}
 
     /**
      * Redirect to error page and display given error
@@ -33,10 +31,12 @@ export class ErrorService {
      * Redirect to error page if the observable fails
      */
     public redirectIfError<T>(observable: Observable<T>): Observable<T> {
-        return observable.pipe(catchError(error => {
-            this.redirectError(error);
+        return observable.pipe(
+            catchError(error => {
+                this.redirectError(error);
 
-            return throwError(error);
-        }));
+                return throwError(error);
+            }),
+        );
     }
 }

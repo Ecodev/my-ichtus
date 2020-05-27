@@ -1,13 +1,4 @@
-import {
-    AfterViewInit,
-    Component,
-    ContentChild,
-    ElementRef,
-    Input,
-    OnInit,
-    TemplateRef,
-    ViewChild,
-} from '@angular/core';
+import {AfterViewInit, Component, ContentChild, ElementRef, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
 
 @Component({
     selector: 'app-particle-switch',
@@ -15,7 +6,6 @@ import {
     styleUrls: ['./particle-switch.component.scss'],
 })
 export class ParticleSwitchComponent implements OnInit, AfterViewInit {
-
     @ContentChild(TemplateRef, {static: true}) template: TemplateRef<any>;
     @ViewChild('wrapper', {static: true}) wrapper: ElementRef<any>;
 
@@ -46,21 +36,19 @@ export class ParticleSwitchComponent implements OnInit, AfterViewInit {
     };
 
     @Input() set data(value: any) {
-
         if (!this.showData1) {
             this._data1 = value;
             this.showData2 = false;
             if (this.firstDisplay) {
                 this.showData1 = true;
             } else {
-                setTimeout(() => this.showData1 = true, this.duration - 100);
+                setTimeout(() => (this.showData1 = true), this.duration - 100);
             }
             this.invertAnimation = false;
-
         } else {
             this._data2 = value;
             this.showData1 = false;
-            setTimeout(() => this.showData2 = true, this.duration - 100);
+            setTimeout(() => (this.showData2 = true), this.duration - 100);
             this.invertAnimation = true;
         }
 
@@ -72,11 +60,9 @@ export class ParticleSwitchComponent implements OnInit, AfterViewInit {
         this.firstDisplay = false;
     }
 
-    constructor(private rootElement: ElementRef) {
-    }
+    constructor(private rootElement: ElementRef) {}
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
     ngAfterViewInit() {
         this.updateSize();
@@ -88,5 +74,4 @@ export class ParticleSwitchComponent implements OnInit, AfterViewInit {
         root.style.height = child.offsetHeight + 'px';
         root.style.width = child.offsetWidth + 'px';
     }
-
 }

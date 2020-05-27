@@ -1,17 +1,17 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { SupportComponent } from './admin/configurations/support/support.component';
-import { ViewerResolver } from './admin/users/services/viewer.resolver';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { DoorComponent } from './door/door.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ErrorComponent } from './shared/components/error/error.component';
-import { SafetyComponent } from './safety/safety.component';
-import { BookingService } from './admin/bookings/services/booking.service';
-import { AuthGuard } from './shared/guards/auth.guard';
-import { DoorGuard } from './shared/guards/door.guard';
-import { NaturalDialogTriggerComponent, NaturalDialogTriggerRoutingData } from '@ecodev/natural';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {SupportComponent} from './admin/configurations/support/support.component';
+import {ViewerResolver} from './admin/users/services/viewer.resolver';
+import {HomeComponent} from './home/home.component';
+import {LoginComponent} from './login/login.component';
+import {DoorComponent} from './door/door.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {ErrorComponent} from './shared/components/error/error.component';
+import {SafetyComponent} from './safety/safety.component';
+import {BookingService} from './admin/bookings/services/booking.service';
+import {AuthGuard} from './shared/guards/auth.guard';
+import {DoorGuard} from './shared/guards/door.guard';
+import {NaturalDialogTriggerComponent, NaturalDialogTriggerRoutingData} from '@ecodev/natural';
 
 export const routes: Routes = [
     {
@@ -87,7 +87,7 @@ export const routes: Routes = [
                 data: {
                     readonly: true,
                     configurationKey: 'announcement-text',
-                    showCloseButton: true
+                    showCloseButton: true,
                 },
             },
         } as NaturalDialogTriggerRoutingData,
@@ -112,5 +112,4 @@ export const routes: Routes = [
     ],
     exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

@@ -1,5 +1,7 @@
 :host {
-    .mat-cell, .mat-header-cell, .mat-footer-cell {
+    .mat-cell,
+    .mat-header-cell,
+    .mat-footer-cell {
         padding: 3px;
     }
 
@@ -15,11 +17,13 @@
         max-width: 10em;
     }
 
-    .mat-column-bookable, .mat-column-transactionTag {
+    .mat-column-bookable,
+    .mat-column-transactionTag {
         max-width: 10em;
     }
 
-    mat-form-field, natural-select {
+    mat-form-field,
+    natural-select {
         width: 100%;
     }
 }

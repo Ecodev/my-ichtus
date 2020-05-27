@@ -63,8 +63,15 @@
                         <a mat-list-item routerLink="booking/other-application">Demandes en attente</a>
                         <a mat-list-item routerLink="license">Certifications</a>
                         <a mat-list-item routerLink="bookable-tag">Tags de réservables</a>
-                        <a *ngIf="permissionsService.crud?.configuration?.create" mat-list-item routerLink="support">Guide / Support</a>
-                        <a *ngIf="permissionsService.crud?.configuration?.create" mat-list-item routerLink="announcement">Annonce</a>
+                        <a *ngIf="permissionsService.crud?.configuration?.create" mat-list-item routerLink="support"
+                            >Guide / Support</a
+                        >
+                        <a
+                            *ngIf="permissionsService.crud?.configuration?.create"
+                            mat-list-item
+                            routerLink="announcement"
+                            >Annonce</a
+                        >
                         <a mat-list-item routerLink="log">Activité</a>
                     </mat-nav-list>
                 </mat-expansion-panel>
@@ -92,14 +99,12 @@
                         <a mat-list-item routerLink="booking">Réservations</a>
                     </mat-nav-list>
                 </mat-expansion-panel>
-
             </mat-accordion>
         </div>
     </natural-sidenav>
     <natural-sidenav-content>
-        <div fxFlex fxLayout="column" style="padding:20px; overflow:auto;">
+        <div fxFlex fxLayout="column" style="padding: 20px; overflow: auto;">
             <router-outlet></router-outlet>
         </div>
     </natural-sidenav-content>
 </natural-sidenav-container>
-

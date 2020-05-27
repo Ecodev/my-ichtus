@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { permissionsFragment, userMetaFragment } from '../../../shared/queries/fragments';
+import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
 
 export const bookableMetaFragment = gql`
     fragment bookableMeta on Bookable {
@@ -57,7 +57,8 @@ export const bookablesQuery = gql`
             totalPeriodicPrice
         }
     }
-${bookableMetaFragment}`;
+    ${bookableMetaFragment}
+`;
 
 export const usageBookablesQuery = gql`
     query UsageBookables($filter: BookableFilter, $sorting: [BookableSorting!], $pagination: PaginationInput) {
@@ -117,7 +118,7 @@ export const createBookable = gql`
 
 export const updateBookable = gql`
     mutation UpdateBookable($id: BookableID!, $input: BookablePartialInput!) {
-        updateBookable(id:$id, input:$input) {
+        updateBookable(id: $id, input: $input) {
             id
             verificationDate
             updateDate
@@ -130,6 +131,7 @@ export const updateBookable = gql`
 `;
 
 export const deleteBookables = gql`
-    mutation DeleteBookables ($ids: [BookableID!]!){
+    mutation DeleteBookables($ids: [BookableID!]!) {
         deleteBookables(ids: $ids)
-    }`;
+    }
+`;

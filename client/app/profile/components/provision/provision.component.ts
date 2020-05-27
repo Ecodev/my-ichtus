@@ -1,8 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormControl, Validators } from '@angular/forms';
-import { BankingInfosVariables } from '../../../shared/generated-types';
+import {Component, Inject, OnInit} from '@angular/core';
+import {ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {FormControl, Validators} from '@angular/forms';
+import {BankingInfosVariables} from '../../../shared/generated-types';
 
 @Component({
     selector: 'app-provision',
@@ -10,7 +10,6 @@ import { BankingInfosVariables } from '../../../shared/generated-types';
     styleUrls: ['./provision.component.scss'],
 })
 export class ProvisionComponent implements OnInit {
-
     /**
      * Minimum payment amount
      * Positive number at the payment is always positive
@@ -24,16 +23,14 @@ export class ProvisionComponent implements OnInit {
     public paymentMode;
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
-
         this.bvrData = {
             user: data.user.id,
         };
 
-        this.formCtrl = new FormControl(data.balance < 0 ? Math.abs(data.balance) : this.min, [Validators.min(this.min)]);
-
+        this.formCtrl = new FormControl(data.balance < 0 ? Math.abs(data.balance) : this.min, [
+            Validators.min(this.min),
+        ]);
     }
 
-    public ngOnInit(): void {
-    }
-
+    public ngOnInit(): void {}
 }

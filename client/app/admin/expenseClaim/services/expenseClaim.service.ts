@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Apollo } from 'apollo-angular';
-import { FormValidators, NaturalAbstractModelService, NaturalQueryVariablesManager } from '@ecodev/natural';
+import {Injectable} from '@angular/core';
+import {Apollo} from 'apollo-angular';
+import {FormValidators, NaturalAbstractModelService, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {
     createExpenseClaim,
     deleteExpenseClaims,
@@ -22,13 +22,14 @@ import {
     UpdateExpenseClaim,
     UpdateExpenseClaimVariables,
 } from '../../../shared/generated-types';
-import { Validators } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import {Validators} from '@angular/forms';
+import {Observable, Subject} from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
 })
-export class ExpenseClaimService extends NaturalAbstractModelService<ExpenseClaim['expenseClaim'],
+export class ExpenseClaimService extends NaturalAbstractModelService<
+    ExpenseClaim['expenseClaim'],
     ExpenseClaimVariables,
     ExpenseClaims['expenseClaims'],
     ExpenseClaimsVariables,
@@ -36,16 +37,18 @@ export class ExpenseClaimService extends NaturalAbstractModelService<ExpenseClai
     CreateExpenseClaimVariables,
     UpdateExpenseClaim['updateExpenseClaim'],
     UpdateExpenseClaimVariables,
-    DeleteExpenseClaims> {
-
+    DeleteExpenseClaims
+> {
     constructor(apollo: Apollo) {
-        super(apollo,
+        super(
+            apollo,
             'expenseClaim',
             expenseClaimQuery,
             expenseClaimsQuery,
             createExpenseClaim,
             updateExpenseClaim,
-            deleteExpenseClaims);
+            deleteExpenseClaims,
+        );
     }
 
     protected getDefaultForServer(): ExpenseClaimInput {
@@ -88,5 +91,4 @@ export class ExpenseClaimService extends NaturalAbstractModelService<ExpenseClai
         qvm.set('variables', variables);
         return this.watchAll(qvm, expire);
     }
-
 }

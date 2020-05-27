@@ -1,12 +1,11 @@
-import { Directive, ElementRef, HostListener } from '@angular/core';
-import { ngfDrop } from 'angular-file';
-import { UploadService } from './upload.service';
+import {Directive, ElementRef, HostListener} from '@angular/core';
+import {ngfDrop} from 'angular-file';
+import {UploadService} from './upload.service';
 
 @Directive({
     selector: '[appFileDrop]',
 })
 export class FileDropDirective extends ngfDrop {
-
     private isOverlayVisible = false;
     private overlayVisibleClass = 'show-action';
 
@@ -26,7 +25,6 @@ export class FileDropDirective extends ngfDrop {
      * Prevent drag and drop if disabled or if nobody is waiting for files
      */
     @HostListener('dragover', ['$event']) onDragOver(event: Event): void {
-
         if (this.fileDropDisabled || this.uploadService.filesChanged.observers.length === 0) {
             return;
         }

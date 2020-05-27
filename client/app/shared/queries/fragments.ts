@@ -5,11 +5,13 @@ export const userMetaFragment = gql`
         id
         name
         email
-    }`;
+    }
+`;
 
 export const permissionsFragment = gql`
     fragment permissions on Permissions {
         read
         update
         delete
-    }`;
+    }
+`;

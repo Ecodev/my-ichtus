@@ -1,0 +1,12 @@
+/.git/
+/.idea/
+/composer.lock
+/config/
+/configuration/
+/data/
+/htdocs/
+/logs/
+/node_modules/
+/server/
+/tests/
+/vendor/

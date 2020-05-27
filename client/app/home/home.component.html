@@ -1,20 +1,30 @@
 <div fxFlexFill fxLayout="column">
-
     <mat-toolbar fxFlex="none" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-
         <button (click)="menu.toggle()" *ngIf="menu" mat-icon-button>
             <natural-icon name="menu"></natural-icon>
         </button>
 
-        <a routerLink="/" style="width:50px; height:50px">
+        <a routerLink="/" style="width: 50px; height: 50px;">
             <natural-icon [size]="50" name="ichtus"></natural-icon>
         </a>
 
-        <div *ngIf="route.snapshot.data.viewer?.model" fxFlex fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+        <div
+            *ngIf="route.snapshot.data.viewer?.model"
+            fxFlex
+            fxLayout="row"
+            fxLayoutAlign="start center"
+            fxLayoutGap="20px"
+        >
             <div fxFlex></div>
 
             <div fxFlex fxHide.xs fxLayout="row" fxLayoutAlign="start center" id="searchByCode">
-                <input (keydown.enter)="goToCode()" (keydown.esc)="code = ''" [(ngModel)]="code" fxFlex placeholder="Recherche par code">
+                <input
+                    (keydown.enter)="goToCode()"
+                    (keydown.esc)="code = ''"
+                    [(ngModel)]="code"
+                    fxFlex
+                    placeholder="Recherche par code"
+                />
                 <a [routerLink]="['/booking', code]" mat-icon-button>
                     <natural-icon name="search"></natural-icon>
                 </a>
@@ -26,18 +36,27 @@
 
             <div fxFlex></div>
 
-            <a [routerLink]="getAnnouncementLink()" color="primary" mat-flat-button mat-icon-button *ngIf="announcementActive">
+            <a
+                [routerLink]="getAnnouncementLink()"
+                color="primary"
+                mat-flat-button
+                mat-icon-button
+                *ngIf="announcementActive"
+            >
                 <natural-icon [size]="24" name="announcement"></natural-icon>
             </a>
 
             <a mat-icon-button routerLink="/profile">
-                <ngx-avatar [name]="route.snapshot.data.viewer.model.name" [gravatarId]="route.snapshot.data.viewer.model.email" [size]="50"></ngx-avatar>
+                <ngx-avatar
+                    [name]="route.snapshot.data.viewer.model.name"
+                    [gravatarId]="route.snapshot.data.viewer.model.email"
+                    [size]="50"
+                ></ngx-avatar>
             </a>
         </div>
-
     </mat-toolbar>
 
-    <div fxFlex fxLayout="column" style="overflow:auto;">
+    <div fxFlex fxLayout="column" style="overflow: auto;">
         <router-outlet></router-outlet>
     </div>
 </div>

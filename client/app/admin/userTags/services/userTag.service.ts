@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Apollo } from 'apollo-angular';
-import { FormAsyncValidators, FormValidators, NaturalAbstractModelService, unique } from '@ecodev/natural';
-import { createUserTag, deleteUserTags, updateUserTag, userTagQuery, userTagsQuery } from './userTag.queries';
+import {Injectable} from '@angular/core';
+import {Apollo} from 'apollo-angular';
+import {FormAsyncValidators, FormValidators, NaturalAbstractModelService, unique} from '@ecodev/natural';
+import {createUserTag, deleteUserTags, updateUserTag, userTagQuery, userTagsQuery} from './userTag.queries';
 import {
     CreateUserTag,
     CreateUserTagVariables,
@@ -14,12 +14,13 @@ import {
     UserTagsVariables,
     UserTagVariables,
 } from '../../../shared/generated-types';
-import { Validators } from '@angular/forms';
+import {Validators} from '@angular/forms';
 
 @Injectable({
     providedIn: 'root',
 })
-export class UserTagService extends NaturalAbstractModelService<UserTag['userTag'],
+export class UserTagService extends NaturalAbstractModelService<
+    UserTag['userTag'],
     UserTagVariables,
     UserTags['userTags'],
     UserTagsVariables,
@@ -27,8 +28,8 @@ export class UserTagService extends NaturalAbstractModelService<UserTag['userTag
     CreateUserTagVariables,
     UpdateUserTag['updateUserTag'],
     UpdateUserTagVariables,
-    any> {
-
+    any
+> {
     constructor(apollo: Apollo) {
         super(apollo, 'userTag', userTagQuery, userTagsQuery, createUserTag, updateUserTag, deleteUserTags);
     }
@@ -52,5 +53,4 @@ export class UserTagService extends NaturalAbstractModelService<UserTag['userTag
             name: [unique('name', model.id, this)],
         };
     }
-
 }

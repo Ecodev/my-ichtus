@@ -1,21 +1,23 @@
 <div *ngIf="dataSource" fxLayout="column">
-
     <div fxLayout="column">
         <div class="mat-headline no-margin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
-            <span>{{routeData.title}}</span>
+            <span>{{ routeData.title }}</span>
         </div>
     </div>
 
     <div fxLayout="column">
-
         <div fxLayout="row" class="margin-v overflow">
-            <natural-search fxFlex
-                            [facets]="naturalSearchFacets"
-                            [selections]="naturalSearchSelections"
-                            (selectionChange)="search($event)"
-                            [multipleGroups]="true"
+            <natural-search
+                fxFlex
+                [facets]="naturalSearchFacets"
+                [selections]="naturalSearchSelections"
+                (selectionChange)="search($event)"
+                [multipleGroups]="true"
             >
-                <natural-columns-picker (selectionChange)="selectedColumns = $event" [initialSelection]="initialColumns">
+                <natural-columns-picker
+                    (selectionChange)="selectedColumns = $event"
+                    [initialSelection]="initialColumns"
+                >
                     <span naturalColumnsPickerColumn="color">Couleur</span>
                     <span naturalColumnsPickerColumn="name">Nom</span>
                     <span naturalColumnsPickerColumn="transactions">Transactions</span>
@@ -25,9 +27,8 @@
 
         <div class="responsive-table">
             <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting([$event])">
-
                 <tr mat-header-row *matHeaderRowDef="selectedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: selectedColumns;"></tr>
+                <tr mat-row *matRowDef="let row; columns: selectedColumns"></tr>
 
                 <ng-container matColumnDef="color">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header natural-3em-column></th>
@@ -39,7 +40,10 @@
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
                     <td mat-cell *matCellDef="let element">
-                        <natural-table-button [label]="element.name" [navigate]="[element.id]" matTooltip="Éditer"
+                        <natural-table-button
+                            [label]="element.name"
+                            [navigate]="[element.id]"
+                            matTooltip="Éditer"
                         ></natural-table-button>
                     </td>
                 </ng-container>
@@ -48,12 +52,11 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Transactions</th>
                     <td mat-cell *matCellDef="let element">
                         <natural-table-button
-                                label="Voir les transactions"
-                                [navigate]="transactionLineService.linkToTransactionForTag(element)"
+                            label="Voir les transactions"
+                            [navigate]="transactionLineService.linkToTransactionForTag(element)"
                         ></natural-table-button>
                     </td>
                 </ng-container>
-
             </table>
         </div>
 
@@ -65,15 +68,19 @@
             <mat-progress-spinner mode="indeterminate" [diameter]="40"></mat-progress-spinner>
         </div>
 
-        <mat-paginator *ngIf="dataSource.data?.length"
-                       [length]="dataSource.data?.length"
-                       [pageSize]="dataSource.data?.pageSize"
-                       [pageIndex]="dataSource.data?.pageIndex"
-                       [pageSizeOptions]="pageSizeOptions"
-                       (page)="pagination($event)"
+        <mat-paginator
+            *ngIf="dataSource.data?.length"
+            [length]="dataSource.data?.length"
+            [pageSize]="dataSource.data?.pageSize"
+            [pageIndex]="dataSource.data?.pageIndex"
+            [pageSizeOptions]="pageSizeOptions"
+            (page)="pagination($event)"
         ></mat-paginator>
-
     </div>
 </div>
 
-<natural-fixed-button [routerLink]="['/admin/transaction-tag/new']" icon="add" *ngIf="permissionsService.crud?.transactionTag.create"></natural-fixed-button>
+<natural-fixed-button
+    [routerLink]="['/admin/transaction-tag/new']"
+    icon="add"
+    *ngIf="permissionsService.crud?.transactionTag.create"
+></natural-fixed-button>

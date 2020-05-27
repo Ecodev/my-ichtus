@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Validators } from '@angular/forms';
-import { FormValidators, Literal, NaturalAbstractModelService } from '@ecodev/natural';
-import { Apollo } from 'apollo-angular';
+import {Injectable} from '@angular/core';
+import {Validators} from '@angular/forms';
+import {FormValidators, Literal, NaturalAbstractModelService} from '@ecodev/natural';
+import {Apollo} from 'apollo-angular';
 import {
     CreateTransaction,
     CreateTransactionVariables,
@@ -22,12 +22,13 @@ import {
     transactionsQuery,
     updateTransaction,
 } from './transaction.queries';
-import { TransactionLineService } from './transactionLine.service';
+import {TransactionLineService} from './transactionLine.service';
 
 @Injectable({
     providedIn: 'root',
 })
-export class TransactionService extends NaturalAbstractModelService<Transaction['transaction'],
+export class TransactionService extends NaturalAbstractModelService<
+    Transaction['transaction'],
     TransactionVariables,
     Transactions['transactions'],
     TransactionsVariables,
@@ -35,22 +36,21 @@ export class TransactionService extends NaturalAbstractModelService<Transaction[
     CreateTransactionVariables,
     UpdateTransaction['updateTransaction'],
     UpdateTransactionVariables,
-    DeleteTransactions> {
-
-    constructor(apollo: Apollo,
-                private transactionLineService: TransactionLineService,
-    ) {
-        super(apollo,
+    DeleteTransactions
+> {
+    constructor(apollo: Apollo, private transactionLineService: TransactionLineService) {
+        super(
+            apollo,
             'transaction',
             transactionQuery,
             transactionsQuery,
             createTransaction,
             updateTransaction,
-            deleteTransactions);
+            deleteTransactions,
+        );
     }
 
-    public getRefundPreset(account: { id: string }, amount: string): TransactionLineInput[] {
-
+    public getRefundPreset(account: {id: string}, amount: string): TransactionLineInput[] {
         const emptyLine = this.transactionLineService.getConsolidatedForClient();
 
         const line: TransactionLineInput = {
@@ -64,8 +64,7 @@ export class TransactionService extends NaturalAbstractModelService<Transaction[
         return [Object.assign(emptyLine, line)];
     }
 
-    public getExpenseClaimPreset(account: { id: string }, amount: string): TransactionLineInput[] {
-
+    public getExpenseClaimPreset(account: {id: string}, amount: string): TransactionLineInput[] {
         const emptyLine = this.transactionLineService.getConsolidatedForClient();
 
         const line: TransactionLineInput = {
@@ -103,5 +102,4 @@ export class TransactionService extends NaturalAbstractModelService<Transaction[
     protected getContextForCreation(object): Literal {
         return {lines: object.transactionLines};
     }
-
 }

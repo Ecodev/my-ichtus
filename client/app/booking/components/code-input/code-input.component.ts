@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-code-input',
@@ -7,14 +7,11 @@ import { Router } from '@angular/router';
     styleUrls: ['./code-input.component.scss'],
 })
 export class CodeInputComponent implements OnInit {
-
     public code;
 
-    constructor(private router: Router) {
-    }
+    constructor(private router: Router) {}
 
-    public ngOnInit(): void {
-    }
+    public ngOnInit(): void {}
 
     public goToBookable(code: string) {
         this.router.navigate(['/booking', code]);

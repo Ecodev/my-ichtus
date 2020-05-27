@@ -1,7 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { FileComponent } from './file.component';
-import { IchtusModule } from '../../modules/ichtus.module';
+import {FileComponent} from './file.component';
+import {IchtusModule} from '../../modules/ichtus.module';
 
 describe('FileComponent', () => {
     let component: FileComponent;

@@ -1,6 +1,8 @@
-<div fxLayout="column" fxLayoutGap="30px"  class="margin">
+<div fxLayout="column" fxLayoutGap="30px" class="margin">
     <h1 class="mat-display-1">Code du matériel</h1>
-    <p class="mat-subheading-1">Chaque matériel dispose d'un code alphanumérique (p.ex&nbsp;C12) collé. Veuillez saisir ce code.</p>
+    <p class="mat-subheading-1">
+        Chaque matériel dispose d'un code alphanumérique (p.ex&nbsp;C12) collé. Veuillez saisir ce code.
+    </p>
     <input [(ngModel)]="code" placeholder="Code" (keydown.enter)="goToBookable(code)" appFocus />
     <a mat-flat-button color="primary" [routerLink]="['/booking', code]">Valider</a>
 </div>

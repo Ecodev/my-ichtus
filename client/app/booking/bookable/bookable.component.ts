@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { BookableService } from '../../admin/bookables/services/bookable.service';
-import { BookingService } from '../../admin/bookings/services/booking.service';
-import { UserService } from '../../admin/users/services/user.service';
-import { NaturalAbstractController } from '@ecodev/natural';
-import { Bookings, BookingType } from '../../shared/generated-types';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {BookableService} from '../../admin/bookables/services/bookable.service';
+import {BookingService} from '../../admin/bookings/services/booking.service';
+import {UserService} from '../../admin/users/services/user.service';
+import {NaturalAbstractController} from '@ecodev/natural';
+import {Bookings, BookingType} from '../../shared/generated-types';
 
 @Component({
     selector: 'app-bookable',
@@ -12,7 +12,6 @@ import { Bookings, BookingType } from '../../shared/generated-types';
     styleUrls: ['./bookable.component.scss'],
 })
 export class BookableComponent extends NaturalAbstractController implements OnInit {
-
     /**
      * If the user has a required licence to use the bookable
      */
@@ -33,9 +32,10 @@ export class BookableComponent extends NaturalAbstractController implements OnIn
 
     public bookable;
 
-    constructor(private bookableService: BookableService,
-                private route: ActivatedRoute,
-                public bookingService: BookingService,
+    constructor(
+        private bookableService: BookableService,
+        private route: ActivatedRoute,
+        public bookingService: BookingService,
     ) {
         super();
     }
@@ -47,7 +47,6 @@ export class BookableComponent extends NaturalAbstractController implements OnIn
                 this.initForBookable();
             }
         });
-
     }
 
     private initForBookable() {

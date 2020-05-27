@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { BookableMetadataService } from './bookable-metadata.service';
-import { NaturalDataSource, NaturalQueryVariablesManager } from '@ecodev/natural';
-import { BookableMetadatas_bookableMetadatas_items, BookableMetadatasVariables } from '../../shared/generated-types';
+import {Component, Input, OnInit} from '@angular/core';
+import {BookableMetadataService} from './bookable-metadata.service';
+import {NaturalDataSource, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {BookableMetadatas_bookableMetadatas_items, BookableMetadatasVariables} from '../../shared/generated-types';
 
 @Component({
     selector: 'app-bookable-metadata',
@@ -9,7 +9,6 @@ import { BookableMetadatas_bookableMetadatas_items, BookableMetadatasVariables }
     styleUrls: ['./bookable-metadata.component.scss'],
 })
 export class BookableMetadataComponent implements OnInit {
-
     @Input() bookable;
     @Input() edit = false;
 
@@ -17,11 +16,9 @@ export class BookableMetadataComponent implements OnInit {
 
     public columns;
 
-    constructor(private bookableMetaService: BookableMetadataService) {
-    }
+    constructor(private bookableMetaService: BookableMetadataService) {}
 
     public ngOnInit(): void {
-
         if (this.edit) {
             this.columns = ['name', 'value', 'delete'];
         } else {
@@ -44,7 +41,6 @@ export class BookableMetadataComponent implements OnInit {
         } else {
             this.addLine();
         }
-
     }
 
     /**
@@ -53,26 +49,25 @@ export class BookableMetadataComponent implements OnInit {
     public addLine() {
         if (this.edit && this.dataSource.data) {
             const lastItem = this.dataSource.data.items[this.dataSource.data.items.length - 1];
-            if (!lastItem || (lastItem.name !== '' || lastItem.value !== '')) {
-                this.dataSource.push(this.bookableMetaService.getConsolidatedForClient() as BookableMetadatas_bookableMetadatas_items);
+            if (!lastItem || lastItem.name !== '' || lastItem.value !== '') {
+                this.dataSource.push(
+                    this.bookableMetaService.getConsolidatedForClient() as BookableMetadatas_bookableMetadatas_items,
+                );
             }
         }
     }
 
     public updateOrCreate(meta) {
-
         meta.bookable = this.bookable.id;
 
         if (meta.name) {
             this.bookableMetaService.createOrUpdate(meta).subscribe();
 
             this.addLine();
-
         } else if (meta.name === '' && meta.value === '' && meta.id) {
             // If has ID and empty attributes, remove it
             this.delete(meta);
         }
-
     }
 
     public delete(meta) {
@@ -80,5 +75,4 @@ export class BookableMetadataComponent implements OnInit {
             this.dataSource.remove(meta);
         });
     }
-
 }

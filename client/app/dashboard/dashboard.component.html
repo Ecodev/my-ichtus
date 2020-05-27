@@ -1,19 +1,29 @@
 <div fxFlex="1 0 auto" fxLayout="column" fxLayoutGap="50px" fxLayoutAlign="center" class="padding overlfow">
-
     <div fxLayout="row" fxLayoutAlign="center" *ngIf="viewer">
         <app-navigations [user]="viewer"></app-navigations>
     </div>
 
     <div fxLayout="column" fxLayoutAlign="start center">
-
         <h1 class="mat-display-2 margin-bottom text-center">Annoncer une sortie</h1>
         <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="center">
-            <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="/booking/by-scan" class="big-button">
+            <a
+                mat-button
+                fxLayout="column"
+                fxLayoutAlign="start center"
+                routerLink="/booking/by-scan"
+                class="big-button"
+            >
                 <natural-icon name="qr" [size]="70"></natural-icon>
                 en scannant un code QR
             </a>
 
-            <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="/booking/by-code" class="big-button">
+            <a
+                mat-button
+                fxLayout="column"
+                fxLayoutAlign="start center"
+                routerLink="/booking/by-code"
+                class="big-button"
+            >
                 <natural-icon name="code" [size]="70"></natural-icon>
                 en saisissant un code
             </a>
@@ -25,12 +35,17 @@
         </div>
     </div>
 
-    <div fxLayout="column" fxLayoutAlign="start center" class=" margin-bottom padding-bottom">
-
+    <div fxLayout="column" fxLayoutAlign="start center" class="margin-bottom padding-bottom">
         <h1 class="mat-display-2 margin-bottom text-center">Autres</h1>
         <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="center">
-
-            <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="door" *ngIf="canAccessDoor()" class="big-button">
+            <a
+                mat-button
+                fxLayout="column"
+                fxLayoutAlign="start center"
+                routerLink="door"
+                *ngIf="canAccessDoor()"
+                class="big-button"
+            >
                 <natural-icon name="doors" [size]="70"></natural-icon>
                 Accéder au local
             </a>
@@ -45,16 +60,28 @@
                 Guide
             </a>
 
-            <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="admin" *ngIf="canAccessAdmin()" class="big-button">
+            <a
+                mat-button
+                fxLayout="column"
+                fxLayoutAlign="start center"
+                routerLink="admin"
+                *ngIf="canAccessAdmin()"
+                class="big-button"
+            >
                 <natural-icon name="administrator" [size]="70"></natural-icon>
                 Administration
             </a>
 
-            <a mat-button fxLayout="column" fxLayoutAlign="start center" (click)="userService.logout()" class="big-button">
+            <a
+                mat-button
+                fxLayout="column"
+                fxLayoutAlign="start center"
+                (click)="userService.logout()"
+                class="big-button"
+            >
                 <natural-icon name="exit" [size]="70"></natural-icon>
                 Déconnexion
             </a>
         </div>
     </div>
-
 </div>

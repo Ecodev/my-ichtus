@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../admin/users/services/user.service';
-import { NaturalAbstractController, NaturalSidenavContainerComponent, NaturalSidenavService } from '@ecodev/natural';
-import { takeUntil } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ConfigurationService } from '../admin/configurations/services/configuration.service';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../admin/users/services/user.service';
+import {NaturalAbstractController, NaturalSidenavContainerComponent, NaturalSidenavService} from '@ecodev/natural';
+import {takeUntil} from 'rxjs/operators';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ConfigurationService} from '../admin/configurations/services/configuration.service';
 
 @Component({
     selector: 'app-home',
@@ -11,7 +11,6 @@ import { ConfigurationService } from '../admin/configurations/services/configura
     styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent extends NaturalAbstractController implements OnInit {
-
     public menu: NaturalSidenavContainerComponent | undefined;
 
     /**
@@ -21,17 +20,17 @@ export class HomeComponent extends NaturalAbstractController implements OnInit {
 
     public announcementActive = false;
 
-    constructor(private userService: UserService,
-                private router: Router,
-                public route: ActivatedRoute,
-                private configurationService: ConfigurationService) {
+    constructor(
+        private userService: UserService,
+        private router: Router,
+        public route: ActivatedRoute,
+        private configurationService: ConfigurationService,
+    ) {
         super();
     }
 
     public ngOnInit(): void {
-
         this.configurationService.get('announcement-active').subscribe(active => {
-
             if (!active) {
                 return;
             }
@@ -51,7 +50,9 @@ export class HomeComponent extends NaturalAbstractController implements OnInit {
 
         NaturalSidenavService.sideNavsChange.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
             setTimeout(() => {
-                this.menu = NaturalSidenavService.sideNavs.get('adminMenu') || NaturalSidenavService.sideNavs.get('profileMenu');
+                this.menu =
+                    NaturalSidenavService.sideNavs.get('adminMenu') ||
+                    NaturalSidenavService.sideNavs.get('profileMenu');
             });
         });
     }
@@ -63,5 +64,4 @@ export class HomeComponent extends NaturalAbstractController implements OnInit {
     public getAnnouncementLink(): any[] {
         return ['/', {outlets: {secondary: ['announcement']}}];
     }
-
 }

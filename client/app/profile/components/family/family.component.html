@@ -1,15 +1,21 @@
-<div style="margin-right:3px">
-    <div fxLayout="column"
-         fxLayout.gt-xs="row"
-         fxLayoutAlign.gt-xs="start center"
-         fxLayoutAlign="start start"
-         class="margin-bottom"
-         fxLayoutGap="10px"
+<div style="margin-right: 3px;">
+    <div
+        fxLayout="column"
+        fxLayout.gt-xs="row"
+        fxLayoutAlign.gt-xs="start center"
+        fxLayoutAlign="start start"
+        class="margin-bottom"
+        fxLayoutGap="10px"
     >
         <h2 class="mat-headline no-margin-bottom" fxFlex>Données personnelles du ménage</h2>
         <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="10px">
             <button mat-stroked-button routerLink="/user/request-password-reset">Changer de mot de passe</button>
-            <button mat-stroked-button color="warn" [disabled]="!userService.canLeaveFamily(viewer)" (click)="leaveFamily()">
+            <button
+                mat-stroked-button
+                color="warn"
+                [disabled]="!userService.canLeaveFamily(viewer)"
+                (click)="leaveFamily()"
+            >
                 Quitter le ménage
             </button>
         </div>
@@ -18,14 +24,24 @@
     <mat-accordion>
         <mat-expansion-panel *ngFor="let familyMember of familyMembers" [expanded]="!familyMember.id">
             <mat-expansion-panel-header>
-                <mat-panel-title> {{ familyMember?.name || 'Nouveau'}}</mat-panel-title>
+                <mat-panel-title> {{ familyMember?.name || 'Nouveau' }}</mat-panel-title>
             </mat-expansion-panel-header>
-            <app-family-member [user]="familyMember" [readonly]="!canEdit(familyMember)" [viewer]="viewer"></app-family-member>
+            <app-family-member
+                [user]="familyMember"
+                [readonly]="!canEdit(familyMember)"
+                [viewer]="viewer"
+            ></app-family-member>
         </mat-expansion-panel>
     </mat-accordion>
 </div>
 <div fxLayout="row" fxLayoutAlign="end">
-    <button mat-flat-button color="primary" (click)="add()" class="margin-top" *ngIf="permissionsService.crud?.user.create">
+    <button
+        mat-flat-button
+        color="primary"
+        (click)="add()"
+        class="margin-top"
+        *ngIf="permissionsService.crud?.user.create"
+    >
         Ajouter une personne
     </button>
 </div>

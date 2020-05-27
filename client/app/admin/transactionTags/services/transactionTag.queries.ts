@@ -1,8 +1,12 @@
 import gql from 'graphql-tag';
-import { permissionsFragment, userMetaFragment } from '../../../shared/queries/fragments';
+import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
 
 export const transactionTagsQuery = gql`
-    query TransactionTags($filter: TransactionTagFilter, $sorting: [TransactionTagSorting!], $pagination: PaginationInput) {
+    query TransactionTags(
+        $filter: TransactionTagFilter
+        $sorting: [TransactionTagSorting!]
+        $pagination: PaginationInput
+    ) {
         transactionTags(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
                 id
@@ -53,7 +57,7 @@ export const createTransactionTag = gql`
 
 export const updateTransactionTag = gql`
     mutation UpdateTransactionTag($id: TransactionTagID!, $input: TransactionTagPartialInput!) {
-        updateTransactionTag(id:$id, input:$input) {
+        updateTransactionTag(id: $id, input: $input) {
             id
             updateDate
             updater {
@@ -65,7 +69,7 @@ export const updateTransactionTag = gql`
 `;
 
 export const deleteTransactionTags = gql`
-    mutation DeleteTransactionTags ($ids: [TransactionTagID!]!){
+    mutation DeleteTransactionTags($ids: [TransactionTagID!]!) {
         deleteTransactionTags(ids: $ids)
-    }`;
-
+    }
+`;

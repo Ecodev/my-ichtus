@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Apollo } from 'apollo-angular';
+import {Injectable} from '@angular/core';
+import {Apollo} from 'apollo-angular';
 import gql from 'graphql-tag';
-import { userMetaFragment } from '../../../shared/queries/fragments';
-import { CreateImage, CreateImageVariables, ImageInput } from '../../../shared/generated-types';
-import { NaturalAbstractModelService } from '@ecodev/natural';
+import {userMetaFragment} from '../../../shared/queries/fragments';
+import {CreateImage, CreateImageVariables, ImageInput} from '../../../shared/generated-types';
+import {NaturalAbstractModelService} from '@ecodev/natural';
 
 export const createImageMutation = gql`
     mutation CreateImage($input: ImageInput!) {
@@ -20,7 +20,8 @@ export const createImageMutation = gql`
 @Injectable({
     providedIn: 'root',
 })
-export class ImageService extends NaturalAbstractModelService<any,
+export class ImageService extends NaturalAbstractModelService<
+    any,
     any,
     any,
     any,
@@ -28,16 +29,10 @@ export class ImageService extends NaturalAbstractModelService<any,
     CreateImageVariables,
     any,
     any,
-    any> {
-
+    any
+> {
     constructor(apollo: Apollo) {
-        super(apollo,
-            'image',
-            null,
-            null,
-            createImageMutation,
-            null,
-            null);
+        super(apollo, 'image', null, null, createImageMutation, null, null);
     }
 
     protected getDefaultForServer(): ImageInput {
@@ -45,5 +40,4 @@ export class ImageService extends NaturalAbstractModelService<any,
             file: '',
         };
     }
-
 }

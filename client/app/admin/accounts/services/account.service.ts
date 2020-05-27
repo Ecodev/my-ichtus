@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Apollo } from 'apollo-angular';
+import {Injectable} from '@angular/core';
+import {Apollo} from 'apollo-angular';
 import {
     accountQuery,
     accountsQuery,
@@ -23,15 +23,16 @@ import {
     UpdateAccount,
     UpdateAccountVariables,
 } from '../../../shared/generated-types';
-import { Validators } from '@angular/forms';
-import { FormAsyncValidators, FormValidators, NaturalAbstractModelService, unique } from '@ecodev/natural';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {Validators} from '@angular/forms';
+import {FormAsyncValidators, FormValidators, NaturalAbstractModelService, unique} from '@ecodev/natural';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
 })
-export class AccountService extends NaturalAbstractModelService<Account['account'],
+export class AccountService extends NaturalAbstractModelService<
+    Account['account'],
     AccountVariables,
     Accounts['accounts'],
     AccountsVariables,
@@ -39,16 +40,10 @@ export class AccountService extends NaturalAbstractModelService<Account['account
     CreateAccountVariables,
     UpdateAccount['updateAccount'],
     UpdateAccountVariables,
-    DeleteAccounts> {
-
+    DeleteAccounts
+> {
     constructor(apollo: Apollo) {
-        super(apollo,
-            'account',
-            accountQuery,
-            accountsQuery,
-            createAccount,
-            updateAccount,
-            deleteAccounts);
+        super(apollo, 'account', accountQuery, accountsQuery, createAccount, updateAccount, deleteAccounts);
     }
 
     protected getDefaultForServer(): AccountInput {
@@ -76,11 +71,14 @@ export class AccountService extends NaturalAbstractModelService<Account['account
     }
 
     public getNextCodeAvailable(): Observable<number> {
-        return this.apollo.query<NextAccountCode>({
-            query: nextCodeAvailableQuery,
-        }).pipe(map(result => {
-            return result.data.nextAccountCode;
-        }));
+        return this.apollo
+            .query<NextAccountCode>({
+                query: nextCodeAvailableQuery,
+            })
+            .pipe(
+                map(result => {
+                    return result.data.nextAccountCode;
+                }),
+            );
     }
-
 }

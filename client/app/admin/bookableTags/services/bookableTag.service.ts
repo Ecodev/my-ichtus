@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Apollo } from 'apollo-angular';
-import { FormAsyncValidators, FormValidators, NaturalAbstractModelService, unique } from '@ecodev/natural';
+import {Injectable} from '@angular/core';
+import {Apollo} from 'apollo-angular';
+import {FormAsyncValidators, FormValidators, NaturalAbstractModelService, unique} from '@ecodev/natural';
 import {
     bookableTagQuery,
     bookableTagsQuery,
@@ -20,12 +20,13 @@ import {
     UpdateBookableTag,
     UpdateBookableTagVariables,
 } from '../../../shared/generated-types';
-import { Validators } from '@angular/forms';
+import {Validators} from '@angular/forms';
 
 @Injectable({
     providedIn: 'root',
 })
-export class BookableTagService extends NaturalAbstractModelService<BookableTag['bookableTag'],
+export class BookableTagService extends NaturalAbstractModelService<
+    BookableTag['bookableTag'],
     BookableTagVariables,
     BookableTags['bookableTags'],
     BookableTagsVariables,
@@ -33,16 +34,18 @@ export class BookableTagService extends NaturalAbstractModelService<BookableTag[
     CreateBookableTagVariables,
     UpdateBookableTag['updateBookableTag'],
     UpdateBookableTagVariables,
-    any> {
-
+    any
+> {
     constructor(apollo: Apollo) {
-        super(apollo,
+        super(
+            apollo,
             'bookableTag',
             bookableTagQuery,
             bookableTagsQuery,
             createBookableTag,
             updateBookableTag,
-            deleteBookableTags);
+            deleteBookableTags,
+        );
     }
 
     public static readonly SERVICE = '6007';
@@ -66,5 +69,4 @@ export class BookableTagService extends NaturalAbstractModelService<BookableTag[
             name: [unique('name', model.id, this)],
         };
     }
-
 }

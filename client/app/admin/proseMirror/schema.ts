@@ -1,6 +1,6 @@
-import { marks, nodes } from 'prosemirror-schema-basic';
-import { addListNodes } from 'prosemirror-schema-list';
-import { Schema } from 'prosemirror-model';
+import {marks, nodes} from 'prosemirror-schema-basic';
+import {addListNodes} from 'prosemirror-schema-list';
+import {Schema} from 'prosemirror-model';
 
 // Disable a few elements
 delete nodes.image;
