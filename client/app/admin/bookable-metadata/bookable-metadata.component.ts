@@ -64,8 +64,7 @@ export class BookableMetadataComponent implements OnInit {
         meta.bookable = this.bookable.id;
 
         if (meta.name) {
-            this.bookableMetaService.createOrUpdate(meta).subscribe(() => {
-            });
+            this.bookableMetaService.createOrUpdate(meta).subscribe();
 
             this.addLine();
 

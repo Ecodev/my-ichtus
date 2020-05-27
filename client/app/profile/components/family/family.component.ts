@@ -3,7 +3,7 @@ import { UsersVariables } from '../../../shared/generated-types';
 import { UserService } from '../../../admin/users/services/user.service';
 import { PermissionsService } from '../../../shared/services/permissions.service';
 import { ActivatedRoute } from '@angular/router';
-import { NaturalAbstractModelService, NaturalAlertService, NaturalQueryVariablesManager } from '@ecodev/natural';
+import { mergeOverrideArray, NaturalAlertService, NaturalQueryVariablesManager } from '@ecodev/natural';
 import { mergeWith } from 'lodash';
 
 @Component({
@@ -52,7 +52,7 @@ export class FamilyComponent implements OnInit {
                 if (confirmed) {
                     this.userService.leaveFamily(this.viewer).subscribe(user => {
 
-                        mergeWith(this.viewer, user, NaturalAbstractModelService.mergeOverrideArray);
+                        mergeWith(this.viewer, user, mergeOverrideArray);
                         const message = 'Vous avez quitté le ménage';
                         this.alertService.info(message, 5000);
                     });

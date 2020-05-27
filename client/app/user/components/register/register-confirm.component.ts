@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { NaturalUtility } from '@ecodev/natural';
+import { relationsToIds } from '@ecodev/natural';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookableService } from '../../../admin/bookables/services/bookable.service';
 import { RegisterComponent } from './register.component';
@@ -59,7 +59,7 @@ export class RegisterConfirmComponent extends RegisterComponent implements OnIni
             'mobilePhone'
         ];
 
-        const input = pick(NaturalUtility.relationsToIds(this.form.value), fieldWhitelist);
+        const input = pick(relationsToIds(this.form.value), fieldWhitelist);
         this.apollo.mutate({
             mutation: mutation,
             variables: {

@@ -77,7 +77,7 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
     }
 
     public cancelApplication(booking) {
-        this.bookingService.delete([booking]);
+        this.bookingService.delete([booking]).subscribe();
     }
 
     public unregister(): void {

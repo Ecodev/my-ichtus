@@ -11,7 +11,7 @@ import { BookableService } from '../../../admin/bookables/services/bookable.serv
 import { AnonymousUserService } from './anonymous-user.service';
 import gql from 'graphql-tag';
 import { Apollo } from 'apollo-angular';
-import { NaturalAbstractDetail, NaturalDataSource } from '@ecodev/natural';
+import { NaturalAbstractDetail, NaturalDataSource, validateAllFormControls } from '@ecodev/natural';
 
 @Component({
     selector: 'app-register',
@@ -59,7 +59,7 @@ export class RegisterComponent extends NaturalAbstractDetail<User['user'],
     }
 
     public submit(): void {
-        NaturalAbstractDetail.validateAllFormFields(this.form);
+        validateAllFormControls(this.form);
 
         if (this.form.invalid) {
             return;

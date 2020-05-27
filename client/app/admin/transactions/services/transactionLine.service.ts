@@ -5,7 +5,7 @@ import {
     NaturalAbstractModelService,
     NaturalQueryVariablesManager,
     NaturalSearchSelections,
-    NaturalUtility,
+    makePlural,
     toUrl,
 } from '@ecodev/natural';
 import { Apollo } from 'apollo-angular';
@@ -192,7 +192,7 @@ export class TransactionLineService extends NaturalAbstractModelService<Transact
             query: transactionLinesForExportQuery,
             variables: qvm.variables.value,
         }).pipe(map(result => {
-            const plural = NaturalUtility.makePlural(this.name);
+            const plural = makePlural(this.name);
             return result.data[plural].excelExport;
         }));
 

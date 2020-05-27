@@ -6,7 +6,6 @@ import {
     FormValidators,
     Literal,
     NaturalAbstractModelService,
-    NaturalFormControl,
     NaturalQueryVariablesManager,
     unique,
 } from '@ecodev/natural';
@@ -238,7 +237,7 @@ export class UserService extends NaturalAbstractModelService<User['user'],
             value: model.account,
             disabled: true,
         };
-        config.account = new NaturalFormControl(formState);
+        config.account = new FormControl(formState);
 
         return config;
     }
