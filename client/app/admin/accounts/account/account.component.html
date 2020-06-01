@@ -58,14 +58,14 @@
                     </div>
 
                     <div fxFlex="33" fxLayout="column">
-                        <natural-select
+                        <natural-select-hierarchic
                             formControlName="parent"
                             placeholder="Compte parent"
-                            [hierarchicSelectorConfig]="accountHierarchicConfig"
+                            [config]="accountHierarchicConfig"
                             (selectionChange)="update()"
                             [showIcon]="false"
                             [navigateTo]="['../', form.get('parent')?.value?.id]"
-                        ></natural-select>
+                        ></natural-select-hierarchic>
 
                         <natural-select-enum
                             enumName="AccountType"

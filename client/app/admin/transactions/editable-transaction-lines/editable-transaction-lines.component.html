@@ -47,13 +47,13 @@
         <ng-container matColumnDef="debit">
             <th mat-header-cell *matHeaderCellDef>Compte débit</th>
             <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
-                <natural-select
-                    [hierarchicSelectorConfig]="accountHierarchicConfig"
+                <natural-select-hierarchic
+                    [config]="accountHierarchicConfig"
                     formControlName="debit"
                     placeholder="Compte débit"
                     [showIcon]="false"
                     [displayWith]="getAccountLabel"
-                ></natural-select>
+                ></natural-select-hierarchic>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
@@ -61,15 +61,15 @@
         <ng-container matColumnDef="credit">
             <th mat-header-cell *matHeaderCellDef>Compte crédit</th>
             <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
-                <natural-select
-                    [hierarchicSelectorConfig]="accountHierarchicConfig"
+                <natural-select-hierarchic
+                    [config]="accountHierarchicConfig"
                     formControlName="credit"
                     placeholder="Compte crédit"
                     [showIcon]="false"
                     [displayWith]="getAccountLabel"
                 >
                     <!--<mat-error *ngIf="formArray.at(i).hasError('atLeastOneAccountRequired')">Au moins un compte est requis</mat-error>-->
-                </natural-select>
+                </natural-select-hierarchic>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
