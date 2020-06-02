@@ -2,15 +2,6 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CountryService} from './country.service';
 import {FormGroup} from '@angular/forms';
 
-export const markFormGroupTouched = formGroup => {
-    (Object as any).values(formGroup.controls).forEach(control => {
-        control.markAsTouched();
-        if (control.controls) {
-            markFormGroupTouched(control);
-        }
-    });
-};
-
 @Component({
     selector: 'app-address',
     templateUrl: './address.component.html',
