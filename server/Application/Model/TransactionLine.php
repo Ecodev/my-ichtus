@@ -96,7 +96,7 @@ class TransactionLine extends AbstractModel
     private $isReconciled = false;
 
     /**
-     * This store the value of CAMT 054 `<AcctSvcrRef>` element that should
+     * This store the value of CAMT 054 `<EndToEndId>`, or else `<AcctSvcrRef>`, element that should
      * hopefully be a universally unique transaction identifier.
      *
      * An absence of value means the line was not imported.

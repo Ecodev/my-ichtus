@@ -117,11 +117,7 @@ class Importer
         $userAccount = $this->accountRepository->getOrCreate($user);
         $remarks = $this->getRemarks($detail, $referenceNumber);
         $amount = $detail->getAmount();
-
-        $accountServicerReference = $detail->getReference()->getAccountServicerReference();
-        if (!$accountServicerReference) {
-            throw new Exception('Cannot import a transaction without a account servicer reference to store a universal identifier.');
-        }
+        $endToEndId = $this->getEndToEndId($detail);
 
         $line = new TransactionLine();
         $line->setTransaction($transaction);
@@ -131,7 +127,7 @@ class Importer
         $line->setBalance($amount);
         $line->setCredit($userAccount);
         $line->setDebit($this->bankAccount);
-        $line->setImportedId($accountServicerReference);
+        $line->setImportedId($endToEndId);
 
         _em()->persist($line);
 
@@ -223,5 +219,24 @@ class Importer
         }
 
         return $user;
+    }
+
+    /**
+     * This must return a non-empty universally unique identifier for one detail
+     */
+    private function getEndToEndId(EntryTransactionDetail $detail): string
+    {
+        $reference = $detail->getReference();
+
+        $endToEndId = $reference->getEndToEndId();
+        if (!$endToEndId || $endToEndId === 'NOTPROVIDED') {
+            $endToEndId = $reference->getAccountServicerReference();
+        }
+
+        if (!$endToEndId) {
+            throw new Exception('Cannot import a transaction without an end-to-end ID or an account servicer reference to store a universal identifier.');
+        }
+
+        return $endToEndId;
     }
 }

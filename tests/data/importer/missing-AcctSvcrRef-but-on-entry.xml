@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.054.001.04">
+    <BkToCstmrDbtCdtNtfctn>
+        <GrpHdr>
+            <MsgId>44064796258437843</MsgId>
+            <CreDtTm>2020-05-30T02:34:37</CreDtTm>
+        </GrpHdr>
+        <Ntfctn>
+            <Id>3601514578624574</Id>
+            <CreDtTm>2020-05-30T00:54:47</CreDtTm>
+            <Acct>
+                <Id>
+                    <IBAN>CH8297387643415852735</IBAN>
+                </Id>
+            </Acct>
+            <Ntry>
+                <Amt Ccy="CHF">100</Amt>
+                <CdtDbtInd>CRDT</CdtDbtInd>
+                <Sts>BOOK</Sts>
+                <ValDt>
+                    <Dt>2020-05-29</Dt>
+                </ValDt>
+                <BkTxCd>
+                    <Domn>
+                        <Cd>PMNT</Cd>
+                        <Fmly>
+                            <Cd>RCDT</Cd>
+                            <SubFmlyCd>VCOM</SubFmlyCd>
+                        </Fmly>
+                    </Domn>
+                </BkTxCd>
+                <NtryDtls>
+                    <TxDtls>
+                        <Refs>
+                            <EndToEndId>20200528174375851988</EndToEndId>
+                        </Refs>
+                        <Amt Ccy="CHF">100</Amt>
+                        <CdtDbtInd>CRDT</CdtDbtInd>
+                        <RmtInf>
+                            <Strd>
+                                <CdtrRefInf>
+                                    <Ref>800826000000000000000010024</Ref>
+                                </CdtrRefInf>
+                            </Strd>
+                        </RmtInf>
+                    </TxDtls>
+                </NtryDtls>
+            </Ntry>
+        </Ntfctn>
+    </BkToCstmrDbtCdtNtfctn>
+</Document>
