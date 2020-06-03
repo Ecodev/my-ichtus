@@ -65,7 +65,7 @@ class ImporterTest extends TestCase
     public function testThrowMissingAcctSvcrRef(): void
     {
         $this->expectExceptionMessage('Cannot import a transaction without an end-to-end ID or an account servicer reference to store a universal identifier.');
-        $this->import('tests/data/importer/missing-AcctSvcrRef.xml');
+        $this->import('tests/data/importer/missing-EndToEndId-and-AcctSvcrRef.xml');
     }
 
     public function testThrowInvalidIban(): void
