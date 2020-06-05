@@ -18,10 +18,13 @@
                 </ng-container>
 
                 <ng-container matColumnDef="periodicPrice">
-                    <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix annuel</th>
+                    <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix</th>
                     <td mat-cell *matCellDef="let bookable" natural-align-right>
                         <span *ngIf="bookable.periodicPrice != '0.00'">
-                            {{ bookable.periodicPrice | currency: 'CHF' }}</span
+                            {{ bookable.periodicPrice | currency: 'CHF' }}&nbsp;/an</span
+                        >
+                        <span *ngIf="bookable.initialPrice != '0.00'">
+                            {{ bookable.initialPrice | currency: 'CHF' }}</span
                         >
                     </td>
                 </ng-container>
