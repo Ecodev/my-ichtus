@@ -4,6 +4,7 @@ import {Bookables, BookableSortingField, BookablesVariables} from '../../generat
 import {SelectionModel} from '@angular/cdk/collections';
 import {NaturalDataSource, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {BookableTagService} from '../../../admin/bookableTags/services/bookableTag.service';
+import {map} from 'rxjs/operators';
 
 @Component({
     selector: 'natural-select-admin-approved-modal',
@@ -12,28 +13,26 @@ import {BookableTagService} from '../../../admin/bookableTags/services/bookableT
 export class SelectAdminApprovedModalComponent implements OnInit {
     public servicesDataSource;
     public storagesDataSource;
+    public formationsDataSource;
+    public welcomeDataSource;
     public selection = new SelectionModel<Bookables['bookables']['items']>(true, []);
 
     constructor(private bookableService: BookableService) {}
 
     public ngOnInit(): void {
-        const serviceVariables = BookableService.adminApprovedByTag(BookableTagService.SERVICE);
-        const qvmServices = new NaturalQueryVariablesManager<BookablesVariables>();
-        qvmServices.set('variables', serviceVariables);
+        this.fetch(BookableTagService.STORAGE).subscribe(res => (this.storagesDataSource = res));
+        this.fetch(BookableTagService.SERVICE).subscribe(res => (this.servicesDataSource = res));
+        this.fetch(BookableTagService.FORMATION).subscribe(res => (this.formationsDataSource = res));
+        this.fetch(BookableTagService.WELCOME).subscribe(res => (this.welcomeDataSource = res));
+    }
 
-        // Get all because requirable services should not change
-        this.bookableService.getAll(qvmServices).subscribe(result => {
-            this.servicesDataSource = new NaturalDataSource(result);
-        });
-
-        const storageVariables = BookableService.adminApprovedByTag(BookableTagService.STORAGE);
-        const qvmStorage = new NaturalQueryVariablesManager<BookablesVariables>();
-        qvmStorage.set('variables', storageVariables);
-        qvmStorage.set('sorting', {sorting: [{field: BookableSortingField.name}]});
+    public fetch(tag) {
+        const variables = BookableService.adminApprovedByTag(tag);
+        const qvm = new NaturalQueryVariablesManager<BookablesVariables>();
+        qvm.set('variables', variables);
+        qvm.set('sorting', {sorting: [{field: BookableSortingField.name}]});
 
         // Get all because requirable storages should not change
-        this.bookableService.getAll(qvmStorage).subscribe(result => {
-            this.storagesDataSource = new NaturalDataSource(result);
-        });
+        return this.bookableService.getAll(qvm).pipe(map(result => new NaturalDataSource(result)));
     }
 }

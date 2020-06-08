@@ -50,6 +50,8 @@ export class BookableTagService extends NaturalAbstractModelService<
 
     public static readonly SERVICE = '6007';
     public static readonly STORAGE = '6008';
+    public static readonly FORMATION = '6017';
+    public static readonly WELCOME = '6024';
 
     protected getDefaultForServer(): BookableTagInput {
         return {

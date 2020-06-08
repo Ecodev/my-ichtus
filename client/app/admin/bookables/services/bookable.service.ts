@@ -6,6 +6,7 @@ import {
     Bookable_bookable,
     BookableInput,
     Bookables,
+    BookableSortingField,
     BookableState,
     BookablesVariables,
     BookableVariables,
@@ -75,7 +76,15 @@ export class BookableService extends NaturalAbstractModelService<
                     conditions: [
                         {
                             bookingType: {in: {values: [BookingType.admin_approved]}},
-                            bookableTags: {have: {values: [BookableTagService.STORAGE]}},
+                            bookableTags: {
+                                have: {
+                                    values: [
+                                        BookableTagService.STORAGE,
+                                        BookableTagService.FORMATION,
+                                        BookableTagService.WELCOME,
+                                    ],
+                                },
+                            },
                         },
                     ],
                 },
@@ -112,7 +121,7 @@ export class BookableService extends NaturalAbstractModelService<
         };
     }
 
-    public static adminByTag(tagId): BookablesVariables {
+    public static adminByTag(bookableTagId): BookablesVariables {
         return {
             filter: {
                 groups: [
@@ -120,7 +129,7 @@ export class BookableService extends NaturalAbstractModelService<
                         conditions: [
                             {
                                 bookingType: {in: {values: [BookingType.admin_only]}},
-                                bookableTags: {have: {values: [tagId]}},
+                                bookableTags: {have: {values: [bookableTagId]}},
                             },
                         ],
                     },

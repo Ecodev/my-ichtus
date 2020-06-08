@@ -48,6 +48,8 @@ import {ExpenseClaimParamResolver} from './expenseClaim/services/expenseClaim.pa
 import {UsageBookableService} from './bookables/services/usage-bookable.service';
 import {ImportComponent} from './import/import.component';
 import {LogsComponent} from './logs/logs/logs.component';
+import {BookableTagService} from './bookableTags/services/bookableTag.service';
+import {BookingWithOwnerService} from './bookings/services/booking-with-owner.service';
 
 const routes: Routes = [
     {
@@ -103,7 +105,26 @@ const routes: Routes = [
                         component: BookingsComponent,
                         data: {
                             title: 'Demandes de stockage en attente',
-                            contextVariables: BookingService.storageApplication,
+                            contextVariables: BookingService.applicationByTag(BookableTagService.STORAGE),
+                            contextColumns: ['edit', 'owner', 'bookable', 'startDate'],
+                        },
+                    },
+                    {
+                        path: 'formation-application',
+                        component: BookingsComponent,
+                        data: {
+                            title: 'Demandes de cours',
+                            contextService: BookingWithOwnerService,
+                            contextVariables: BookingService.applicationByTag(BookableTagService.FORMATION),
+                            contextColumns: ['owner', 'ownerBalance', 'ownerCreationDate', 'bookable', 'startDate'],
+                        },
+                    },
+                    {
+                        path: 'welcome-application',
+                        component: BookingsComponent,
+                        data: {
+                            title: "Demandes de sessions d'accueil",
+                            contextVariables: BookingService.applicationByTag(BookableTagService.WELCOME),
                             contextColumns: ['edit', 'owner', 'bookable', 'startDate'],
                         },
                     },
@@ -220,6 +241,26 @@ const routes: Routes = [
                             contextVariables: BookableService.adminByTag(6009),
                             contextService: UsageBookableService,
                             isStorage: true,
+                        },
+                    },
+                    {
+                        path: 'formation',
+                        component: BookablesComponent,
+                        data: {
+                            title: 'Cours',
+                            contextColumns: ['name', 'code', 'date', 'verificationDate', 'usage'],
+                            contextVariables: BookableService.adminByTag(BookableTagService.FORMATION),
+                            contextService: UsageBookableService,
+                        },
+                    },
+                    {
+                        path: 'welcome',
+                        component: BookablesComponent,
+                        data: {
+                            title: "Séances d'accueil",
+                            contextColumns: ['name', 'code', 'date', 'verificationDate', 'usage'],
+                            contextVariables: BookableService.adminByTag(BookableTagService.WELCOME),
+                            contextService: UsageBookableService,
                         },
                     },
                     {
@@ -570,6 +611,7 @@ const routes: Routes = [
         ],
     },
 ];
+
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],

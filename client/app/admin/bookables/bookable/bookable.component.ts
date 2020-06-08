@@ -51,7 +51,9 @@ export class BookableComponent
     public ngOnInit(): void {
         super.ngOnInit();
 
-        this.bookingsVariables = this.getBookingsVariables();
+        if (this.data.model.id) {
+            this.bookingsVariables = this.getBookingsVariables();
+        }
     }
 
     public verify() {

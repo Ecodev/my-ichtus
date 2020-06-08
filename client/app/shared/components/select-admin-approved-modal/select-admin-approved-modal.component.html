@@ -21,8 +21,8 @@
                     <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix</th>
                     <td mat-cell *matCellDef="let bookable" natural-align-right>
                         <span *ngIf="bookable.periodicPrice != '0.00'">
-                            {{ bookable.periodicPrice | currency: 'CHF' }}&nbsp;/an</span
-                        >
+                            {{ bookable.periodicPrice | currency: 'CHF' }}&nbsp;/an
+                        </span>
                         <span *ngIf="bookable.initialPrice != '0.00'">
                             {{ bookable.initialPrice | currency: 'CHF' }}</span
                         >
@@ -43,16 +43,30 @@
         </div>
     </ng-template>
 
-    <div>
+    <div *ngIf="storagesDataSource?.data?.length">
         <h2 class="mat-title">Espaces de stockage</h2>
         <ng-container
             *ngTemplateOutlet="table; context: {dataSource: storagesDataSource, showDescription: true}"
         ></ng-container>
     </div>
-    <div>
+    <div *ngIf="servicesDataSource?.data?.length">
         <h2 class="mat-title">Services et prestations</h2>
         <ng-container
             *ngTemplateOutlet="table; context: {dataSource: servicesDataSource, showDescription: false}"
+        ></ng-container>
+    </div>
+
+    <div *ngIf="formationsDataSource?.data?.length">
+        <h2 class="mat-title">Cours</h2>
+        <ng-container
+            *ngTemplateOutlet="table; context: {dataSource: formationsDataSource, showDescription: false}"
+        ></ng-container>
+    </div>
+
+    <div *ngIf="welcomeDataSource?.data?.length">
+        <h2 class="mat-title">Séance d'accueil</h2>
+        <ng-container
+            *ngTemplateOutlet="table; context: {dataSource: welcomeDataSource, showDescription: false}"
         ></ng-container>
     </div>
 </mat-dialog-content>

@@ -20,6 +20,9 @@
                 >
                     <span naturalColumnsPickerColumn="edit">Editer</span>
                     <span naturalColumnsPickerColumn="owner">Responsable</span>
+                    <span naturalColumnsPickerColumn="status">Status</span>
+                    <span naturalColumnsPickerColumn="ownerBalance">Solde</span>
+                    <span naturalColumnsPickerColumn="ownerCreationDate">Membre depuis</span>
                     <span naturalColumnsPickerColumn="bookable">Item</span>
                     <span naturalColumnsPickerColumn="destination">Destination</span>
                     <span naturalColumnsPickerColumn="startDate">Début</span>
@@ -27,7 +30,6 @@
                     <span naturalColumnsPickerColumn="estimatedEndDate">Retour prévu</span>
                     <span naturalColumnsPickerColumn="participantCount">Nb participants</span>
                     <span naturalColumnsPickerColumn="endComment">Comment. de fin</span>
-                    <span naturalColumnsPickerColumn="status">Status</span>
                     <span naturalColumnsPickerColumn="terminateBooking">Terminer</span>
                 </natural-columns-picker>
             </natural-search>
@@ -76,6 +78,7 @@
                     <td mat-cell *matCellDef="let element">
                         <div *ngIf="element.bookable" fxLayout="row">
                             <app-file
+                                *ngIf="element.bookable.image"
                                 [model]="element.bookable.image"
                                 [height]="40"
                                 [style.width.px]="40"
@@ -136,6 +139,24 @@
                 <ng-container matColumnDef="endComment">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Remarques</th>
                     <td mat-cell *matCellDef="let element">{{ element.endComment | ellipsis: 32 }}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="ownerBalance">
+                    <th mat-header-cell *matHeaderCellDef>Solde</th>
+                    <td mat-cell *matCellDef="let element">
+                        <app-money
+                            [showCurrency]="false"
+                            [showSignal]="true"
+                            [amount]="element.owner.account?.balance"
+                        ></app-money>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="ownerCreationDate">
+                    <th mat-header-cell *matHeaderCellDef>Membre depuis</th>
+                    <td mat-cell *matCellDef="let element">{{ element.owner.creationDate | date: 'dd.MM.y' }}</td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 

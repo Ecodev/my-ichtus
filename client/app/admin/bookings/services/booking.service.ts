@@ -151,6 +151,28 @@ export class BookingService extends NaturalAbstractModelService<
         },
     };
 
+    public static applicationByTag(bookableTagId): BookingsVariables {
+        return {
+            filter: {
+                groups: [
+                    {
+                        conditions: [{status: {equal: {value: BookingStatus.application}}}],
+                        joins: {
+                            bookable: {
+                                conditions: [
+                                    {
+                                        bookableTags: {have: {values: [bookableTagId]}},
+                                        bookingType: {equal: {value: BookingType.admin_approved}},
+                                    },
+                                ],
+                            },
+                        },
+                    },
+                ],
+            },
+        };
+    }
+
     constructor(apollo: Apollo, private enumService: NaturalEnumService) {
         super(apollo, 'booking', bookingQuery, bookingsQuery, createBooking, updateBooking, deleteBookings);
     }
@@ -228,5 +250,21 @@ export class BookingService extends NaturalAbstractModelService<
         booking.bookable = bookable ? bookable.id : null;
 
         return this.create(booking);
+    }
+
+    getContextForAll(): Partial<BookingsVariables> {
+        return {
+            filter: {
+                groups: [
+                    {
+                        joins: {
+                            owner: {
+                                type: JoinType.leftJoin,
+                            },
+                        },
+                    },
+                ],
+            },
+        };
     }
 }

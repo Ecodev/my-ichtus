@@ -55,6 +55,39 @@ export const bookingsQuery = gql`
     ${bookingMetaFragment}
 `;
 
+export const bookingsWithOwnerBalanceQuery = gql`
+    query BookingsWithOwnerBalance($filter: BookingFilter, $sorting: [BookingSorting!], $pagination: PaginationInput) {
+        bookings(filter: $filter, sorting: $sorting, pagination: $pagination) {
+            items {
+                ...bookingMeta
+                bookable {
+                    id
+                    name
+                    code
+                    image {
+                        id
+                    }
+                }
+                owner {
+                    id
+                    creationDate
+                    account {
+                        id
+                        balance
+                    }
+                }
+            }
+            pageSize
+            pageIndex
+            length
+            totalParticipantCount
+            totalInitialPrice
+            totalPeriodicPrice
+        }
+    }
+    ${bookingMetaFragment}
+`;
+
 export const pricedBookingsQuery = gql`
     query PricedBookings($filter: BookingFilter, $sorting: [BookingSorting!], $pagination: PaginationInput) {
         bookings(filter: $filter, sorting: $sorting, pagination: $pagination) {
