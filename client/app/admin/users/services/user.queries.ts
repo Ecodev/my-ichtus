@@ -82,6 +82,11 @@ export const usersQuery = gql`
                 updateDate
                 creationDate
                 age
+                role
+                owner {
+                    id
+                    name
+                }
                 welcomeSessionDate
                 resignDate
                 sex

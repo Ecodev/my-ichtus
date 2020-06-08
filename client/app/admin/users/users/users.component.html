@@ -39,6 +39,8 @@
                     <span naturalColumnsPickerColumn="name">Nom</span>
                     <span naturalColumnsPickerColumn="login">Login</span>
                     <span naturalColumnsPickerColumn="age">Âge</span>
+                    <span naturalColumnsPickerColumn="role">Rôle</span>
+                    <span naturalColumnsPickerColumn="owner">Chef de famille</span>
                     <span naturalColumnsPickerColumn="creationDate">Créé le</span>
                     <span naturalColumnsPickerColumn="updateDate">Modifié le</span>
                     <span naturalColumnsPickerColumn="resignDate">Date démission</span>
@@ -78,6 +80,18 @@
                 <ng-container matColumnDef="age">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Âge</th>
                     <td mat-cell *matCellDef="let element">{{ element.age }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="role">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Rôle</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element.role | enum: 'UserRole' | capitalize | async }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="owner">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Chef de famille</th>
+                    <td mat-cell *matCellDef="let element">{{ element.owner?.name }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="status">
