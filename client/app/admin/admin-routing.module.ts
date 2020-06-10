@@ -116,7 +116,14 @@ const routes: Routes = [
                             title: 'Demandes de cours',
                             contextService: BookingWithOwnerService,
                             contextVariables: BookingService.applicationByTag(BookableTagService.FORMATION),
-                            contextColumns: ['owner', 'ownerBalance', 'ownerCreationDate', 'bookable', 'startDate'],
+                            contextColumns: [
+                                'edit',
+                                'owner',
+                                'ownerBalance',
+                                'ownerCreationDate',
+                                'bookable',
+                                'startDate',
+                            ],
                         },
                     },
                     {

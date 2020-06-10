@@ -36,7 +36,7 @@ export class BookingComponent
     implements OnInit {
     public UsageBookableService = UsageBookableService;
     public BookingStatus = BookingStatus;
-    public storageVariables;
+    public suggestionVariables;
 
     /**
      * Received the created booking after having processing an application
@@ -54,7 +54,15 @@ export class BookingComponent
 
     public ngOnInit(): void {
         super.ngOnInit();
-        this.storageVariables = this.getStorageVariables();
+
+        const tags = this.form.get('bookable')?.value.bookableTags;
+        if (tags.find(t => t.id === BookableTagService.STORAGE)) {
+            this.suggestionVariables = this.getBookablesVariables([BookableTagService.STORAGE]);
+        } else if (tags.find(t => t.id === BookableTagService.FORMATION)) {
+            this.suggestionVariables = this.getBookablesVariables([BookableTagService.FORMATION]);
+        } else if (tags.find(t => t.id === BookableTagService.WELCOME)) {
+            this.suggestionVariables = this.getBookablesVariables([BookableTagService.WELCOME]);
+        }
     }
 
     public endBooking() {
@@ -88,13 +96,6 @@ export class BookingComponent
         }
     }
 
-    public isStorage() {
-        const bookable = this.form.get('bookable');
-        if (bookable) {
-            return bookable.value.bookableTags.find(t => t.id === BookableTagService.STORAGE);
-        }
-    }
-
     /**
      * Wherever bookable is a service for example NFT
      */
@@ -122,7 +123,7 @@ export class BookingComponent
         const partialBooking: BookingPartialInput = {status: BookingStatus.booked};
         this.bookingService.createWithBookable(bookable, this.data.model.owner, partialBooking).subscribe(booking => {
             this.newBooking = Object.assign(booking, {bookable: bookable});
-            this.alertService.info('Le stockage sélectionné a bien été attribué à ' + this.data.model.owner.name);
+            this.alertService.info('La réservation a été créée avec succès');
             const status = this.form.get('status');
             if (status) {
                 status.setValue(BookingStatus.processed);
@@ -131,7 +132,7 @@ export class BookingComponent
         });
     }
 
-    public getStorageVariables(): BookablesVariables {
+    public getBookablesVariables(tags): BookablesVariables {
         const variables: BookablesVariables = {
             filter: {
                 groups: [
@@ -139,7 +140,9 @@ export class BookingComponent
                         conditions: [
                             {
                                 bookingType: {in: {values: [BookingType.admin_only]}},
-                                bookableTags: {have: {values: [BookableTagService.STORAGE]}},
+                                bookableTags: {
+                                    have: {values: tags},
+                                },
                             },
                         ],
                     },
