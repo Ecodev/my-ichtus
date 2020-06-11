@@ -37,6 +37,7 @@ use GraphQL\Doctrine\Annotation as API;
  * })
  * @API\Filters({
  *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\HasBookingWithTaggedBookableOperatorType", type="id"),
+ *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\HasBookingWithBookableOperatorType", type="id"),
  *     @API\Filter(field="balance", operator="Application\Api\Input\Operator\AccountBalance\EqualOperatorType", type="Money"),
  *     @API\Filter(field="balance", operator="Application\Api\Input\Operator\AccountBalance\GreaterOperatorType", type="Money"),
  *     @API\Filter(field="balance", operator="Application\Api\Input\Operator\AccountBalance\GreaterOrEqualOperatorType", type="Money"),

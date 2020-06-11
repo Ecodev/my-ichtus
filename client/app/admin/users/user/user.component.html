@@ -5,7 +5,6 @@
         [model]="data.model"
         [listRoute]="['admin', 'user']"
     >
-        <button mat-flat-button (click)="test()">test</button>
         <app-money
             *ngIf="data.model.account"
             [amount]="data.model.account.balance"

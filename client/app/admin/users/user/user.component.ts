@@ -71,13 +71,6 @@ export class UserComponent
         });
     }
 
-    test() {
-        // this.form.get('sex')?.setValue(Sex.male);
-        this.data = merge({model: this.data.model}, {model: {sex: Sex.male}});
-
-        // this.form.patchValue();
-    }
-
     public getTransactionQueryVariables(): TransactionLinesVariables {
         const account = this.data.model.account;
         if (!account) {
