@@ -5,6 +5,7 @@
         [model]="data.model"
         [listRoute]="['admin', 'user']"
     >
+        <button mat-flat-button (click)="test()">test</button>
         <app-money
             *ngIf="data.model.account"
             [amount]="data.model.account.balance"
@@ -97,6 +98,7 @@
                             formControlName="status"
                             (selectionChange)="update()"
                             placeholder="Status"
+                            [disabled]="true"
                         ></natural-select-enum>
 
                         <natural-select-enum

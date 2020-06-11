@@ -1,6 +1,7 @@
 import {Component, Injector, OnInit} from '@angular/core';
 import {BookingService} from '../services/booking.service';
 import {
+    BookableSortingField,
     BookablesVariables,
     Booking,
     BookingPartialInput,
@@ -9,6 +10,7 @@ import {
     BookingVariables,
     CreateBooking,
     CreateBookingVariables,
+    SortingOrder,
     UpdateBooking,
     UpdateBookingVariables,
 } from '../../../shared/generated-types';
@@ -140,14 +142,14 @@ export class BookingComponent
                         conditions: [
                             {
                                 bookingType: {in: {values: [BookingType.admin_only]}},
-                                bookableTags: {
-                                    have: {values: tags},
-                                },
+                                bookableTags: {have: {values: tags}},
+                                isActive: {equal: {value: true}},
                             },
                         ],
                     },
                 ],
             },
+            sorting: [{field: BookableSortingField.creationDate, order: SortingOrder.DESC}],
         };
 
         return variables;

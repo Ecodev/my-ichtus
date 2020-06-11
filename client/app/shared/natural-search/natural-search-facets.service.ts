@@ -206,6 +206,17 @@ export class NaturalSearchFacetsService {
                 },
             } as DropdownFacet<TypeSelectNaturalConfiguration>,
             {
+                display: 'Réservation en cours',
+                field: 'custom',
+                name: 'hasBookingWithBookable',
+                transform: replaceOperatorByName,
+                component: TypeNaturalSelectComponent,
+                configuration: {
+                    service: this.bookableService,
+                    placeholder: 'Réservable',
+                },
+            } as DropdownFacet<TypeSelectNaturalConfiguration>,
+            {
                 display: 'Statut',
                 field: 'status',
                 component: TypeSelectComponent,

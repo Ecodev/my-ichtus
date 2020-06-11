@@ -19,7 +19,7 @@
                     [initialSelection]="initialColumns"
                 >
                     <span naturalColumnsPickerColumn="edit">Editer</span>
-                    <span naturalColumnsPickerColumn="owner">Responsable</span>
+                    <span naturalColumnsPickerColumn="owner">Utilisateur</span>
                     <span naturalColumnsPickerColumn="status">Status</span>
                     <span naturalColumnsPickerColumn="ownerBalance">Solde</span>
                     <span naturalColumnsPickerColumn="ownerCreationDate">Membre depuis</span>
@@ -55,7 +55,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="owner">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Responsable</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Utilisateur</th>
                     <td mat-cell *matCellDef="let element">
                         <div fxLayout="row" fxLayoutAlign="start center" *ngIf="element.owner">
                             <ngx-avatar
@@ -85,7 +85,9 @@
                                 [style.borderRadius.px]="40"
                             ></app-file>
                             <natural-table-button
-                                [label]="element.bookable.code + ' ' + element.bookable.name"
+                                [label]="
+                                    (element.bookable.code ? element.bookable.code + ' ' : '') + element.bookable.name
+                                "
                                 [navigate]="['/admin/bookable/', element.bookable.id]"
                                 matTooltip="Éditer"
                             ></natural-table-button>

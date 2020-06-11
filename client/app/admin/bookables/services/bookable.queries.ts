@@ -67,6 +67,7 @@ export const usageBookablesQuery = gql`
                 id
                 name
                 code
+                isActive
                 initialPrice
                 periodicPrice
                 purchasePrice

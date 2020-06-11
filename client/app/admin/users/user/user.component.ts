@@ -5,6 +5,7 @@ import {
     CreateUser,
     CreateUserVariables,
     LogicalOperator,
+    Sex,
     SortingOrder,
     TransactionLineSortingField,
     TransactionLinesVariables,
@@ -18,6 +19,7 @@ import {LicenseService} from '../../licenses/services/license.service';
 import {UserTagService} from '../../userTags/services/userTag.service';
 import {BookingService} from '../../bookings/services/booking.service';
 import {AccountService} from '../../accounts/services/account.service';
+import {merge} from 'lodash';
 
 @Component({
     selector: 'app-user',
@@ -67,6 +69,13 @@ export class UserComponent
                 this.transactionLinesVariables = this.getTransactionQueryVariables();
             }
         });
+    }
+
+    test() {
+        // this.form.get('sex')?.setValue(Sex.male);
+        this.data = merge({model: this.data.model}, {model: {sex: Sex.male}});
+
+        // this.form.patchValue();
     }
 
     public getTransactionQueryVariables(): TransactionLinesVariables {

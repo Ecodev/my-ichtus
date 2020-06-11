@@ -360,16 +360,17 @@ class Bookable extends AbstractModel
     {
         $isAdminOnly = $this->getBookingType() === \Application\DBAL\Types\BookingTypeType::ADMIN_ONLY;
 
-        $isStorage = false;
+        $isTagAllowed = false;
+        $allowedTagIds = [BookableTagRepository::STORAGE_ID, BookableTagRepository::FORMATION_ID, BookableTagRepository::WELCOME_ID];
         foreach ($this->getBookableTags() as $tag) {
-            if ($tag->getId() === BookableTagRepository::STORAGE_ID) {
-                $isStorage = true;
+            if (in_array($tag->getId(), $allowedTagIds, true)) {
+                $isTagAllowed = true;
 
                 break;
             }
         }
 
-        if (!$isAdminOnly || !$isStorage) {
+        if (!$isAdminOnly || !$isTagAllowed) {
             return [];
         }
 

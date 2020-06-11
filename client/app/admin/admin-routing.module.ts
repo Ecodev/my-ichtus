@@ -23,6 +23,7 @@ import {BookableTagsComponent} from './bookableTags/bookableTags/bookableTags.co
 import {BookableTagComponent} from './bookableTags/bookableTag/bookableTag.component';
 import {BookableTagResolver} from './bookableTags/services/bookableTag.resolver';
 import {
+    BookingSortingField,
     ExpenseClaimSortingField,
     ExpenseClaimsVariables,
     SortingOrder,
@@ -50,6 +51,7 @@ import {ImportComponent} from './import/import.component';
 import {LogsComponent} from './logs/logs/logs.component';
 import {BookableTagService} from './bookableTags/services/bookableTag.service';
 import {BookingWithOwnerService} from './bookings/services/booking-with-owner.service';
+import {merge} from 'lodash';
 
 const routes: Routes = [
     {
@@ -77,7 +79,19 @@ const routes: Routes = [
             {
                 path: 'booking', // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
                 component: BookingsComponent,
-                data: {title: 'Réservations'},
+                data: {
+                    title: 'Réservations',
+                    contextColumns: [
+                        'edit',
+                        'owner',
+                        'bookable',
+                        'startDate',
+                        'endDate',
+                        'participantCount',
+                        'endComment',
+                        'terminateBooking',
+                    ],
+                },
             },
             {
                 path: 'booking',
@@ -130,9 +144,9 @@ const routes: Routes = [
                         path: 'welcome-application',
                         component: BookingsComponent,
                         data: {
-                            title: "Demandes de sessions d'accueil",
+                            title: "Demandes de séances d'accueil",
                             contextVariables: BookingService.applicationByTag(BookableTagService.WELCOME),
-                            contextColumns: ['edit', 'owner', 'bookable', 'startDate'],
+                            contextColumns: ['edit', 'owner', 'startDate'],
                         },
                     },
                     {
@@ -255,8 +269,10 @@ const routes: Routes = [
                         component: BookablesComponent,
                         data: {
                             title: 'Cours',
-                            contextColumns: ['name', 'code', 'date', 'verificationDate', 'usage'],
-                            contextVariables: BookableService.adminByTag(BookableTagService.FORMATION),
+                            contextColumns: ['name', 'code', 'date', 'initialPrice', 'usage', 'verificationDate'],
+                            contextVariables: merge(BookableService.adminByTag(BookableTagService.FORMATION), {
+                                sorting: [{field: BookingSortingField.creationDate, order: SortingOrder.DESC}],
+                            }),
                             contextService: UsageBookableService,
                         },
                     },
@@ -265,7 +281,7 @@ const routes: Routes = [
                         component: BookablesComponent,
                         data: {
                             title: "Séances d'accueil",
-                            contextColumns: ['name', 'code', 'date', 'verificationDate', 'usage'],
+                            contextColumns: ['name', 'date', 'verificationDate', 'usage'],
                             contextVariables: BookableService.adminByTag(BookableTagService.WELCOME),
                             contextService: UsageBookableService,
                         },

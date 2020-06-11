@@ -56,6 +56,7 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
                     <td mat-cell *matCellDef="let element">
                         <natural-table-button
+                            [ngClass]="{inactive: !element.isActive}"
                             [label]="element.name"
                             [navigate]="['/admin/bookable', element.id]"
                             matTooltip="Éditer"

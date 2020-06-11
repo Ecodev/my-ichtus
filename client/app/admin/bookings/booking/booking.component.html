@@ -109,7 +109,7 @@
 
                 <div *ngIf="isApplication() && suggestionVariables && data.model.status === BookingStatus.application">
                     <mat-divider class="margin-bottom"></mat-divider>
-                    <div class="mat-title">Attribuer un stockage</div>
+                    <div class="mat-title">Attribuer un stockage / service</div>
                     <app-bookables
                         [contextColumns]="['usage', 'name', 'code', 'initialPrice', 'periodicPrice', 'select']"
                         [contextService]="UsageBookableService"
