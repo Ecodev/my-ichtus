@@ -269,7 +269,7 @@ const routes: Routes = [
                         component: BookablesComponent,
                         data: {
                             title: 'Cours',
-                            contextColumns: ['name', 'code', 'date', 'initialPrice', 'usage', 'verificationDate'],
+                            contextColumns: ['name', 'code', 'date', 'initialPrice', 'usageNb', 'verificationDate'],
                             contextVariables: merge(BookableService.adminByTag(BookableTagService.FORMATION), {
                                 sorting: [{field: BookingSortingField.creationDate, order: SortingOrder.DESC}],
                             }),
@@ -281,7 +281,7 @@ const routes: Routes = [
                         component: BookablesComponent,
                         data: {
                             title: "Séances d'accueil",
-                            contextColumns: ['name', 'date', 'verificationDate', 'usage'],
+                            contextColumns: ['name', 'date', 'verificationDate', 'usageNb'],
                             contextVariables: BookableService.adminByTag(BookableTagService.WELCOME),
                             contextService: UsageBookableService,
                         },

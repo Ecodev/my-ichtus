@@ -72,6 +72,7 @@ export const usageBookablesQuery = gql`
                 periodicPrice
                 purchasePrice
                 purchasePrice
+                simultaneousBookingMaximum
                 sharedBookings {
                     id
                     owner {
