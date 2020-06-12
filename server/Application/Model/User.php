@@ -51,6 +51,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     const ROLE_BOOKING_ONLY = 'booking_only';
     const ROLE_INDIVIDUAL = 'individual';
     const ROLE_MEMBER = 'member';
+    const ROLE_TRAINER = 'trainer';
     const ROLE_RESPONSIBLE = 'responsible';
     const ROLE_ADMINISTRATOR = 'administrator';
 

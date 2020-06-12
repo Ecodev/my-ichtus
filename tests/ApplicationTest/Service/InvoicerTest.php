@@ -26,7 +26,7 @@ class InvoicerTest extends TestCase
         /** @var Invoicer $invoicer */
         $invoicer = $container->get(Invoicer::class);
         $actual = $invoicer->invoicePeriodic();
-        self::assertSame(2, $actual);
+        self::assertSame(3, $actual);
 
         $this->getEntityManager()->flush();
 

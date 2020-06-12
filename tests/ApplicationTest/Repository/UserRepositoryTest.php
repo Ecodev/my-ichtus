@@ -28,13 +28,14 @@ class UserRepositoryTest extends AbstractRepositoryTest
 
     public function providerGetAccessibleSubQuery(): array
     {
-        $all = range(1000, 1011);
+        $all = range(1000, 1013);
 
         return [
             ['anonymous', []],
             ['bookingonly', $all],
             ['individual', $all],
             ['member', $all],
+            ['trainer', $all],
             ['responsible', $all],
             ['administrator', $all],
         ];
@@ -72,7 +73,7 @@ class UserRepositoryTest extends AbstractRepositoryTest
     public function testGetAllToQueueBalanceMessage(): void
     {
         $actual = $this->repository->getAllToQueueBalanceMessage();
-        self::assertCount(1, $actual);
+        self::assertCount(2, $actual);
 
         $actualBookings = [];
         foreach ($actual[0]->getBookings() as $booking) {

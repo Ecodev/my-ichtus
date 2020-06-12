@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Application\Acl;
 
 use Application\Acl\Assertion\BookableAvailable;
+use Application\Acl\Assertion\BookingIsSelfApproved;
 use Application\Acl\Assertion\ExpenseClaimStatusIsNew;
+use Application\Acl\Assertion\One;
 use Application\Acl\Assertion\StatusIsNew;
 use Application\Model\Account;
 use Application\Model\AccountingDocument;
@@ -36,7 +38,8 @@ class Acl extends \Ecodev\Felix\Acl\Acl
         $this->addRole(User::ROLE_BOOKING_ONLY, User::ROLE_ANONYMOUS);
         $this->addRole(User::ROLE_INDIVIDUAL, User::ROLE_BOOKING_ONLY);
         $this->addRole(User::ROLE_MEMBER, User::ROLE_INDIVIDUAL);
-        $this->addRole(User::ROLE_RESPONSIBLE, User::ROLE_MEMBER);
+        $this->addRole(User::ROLE_TRAINER, User::ROLE_MEMBER);
+        $this->addRole(User::ROLE_RESPONSIBLE, User::ROLE_TRAINER);
         $this->addRole(User::ROLE_ADMINISTRATOR, User::ROLE_RESPONSIBLE);
 
         $bookable = $this->createModelResource(Bookable::class);
@@ -58,7 +61,8 @@ class Acl extends \Ecodev\Felix\Acl\Acl
 
         $this->allow(User::ROLE_ANONYMOUS, [$country, $bookable, $bookableMetadata, $bookableTag, $image, $license, $transactionTag, $configuration], ['read']);
         $this->allow(User::ROLE_BOOKING_ONLY, $booking, ['create'], new BookableAvailable());
-        $this->allow(User::ROLE_BOOKING_ONLY, $booking, ['read', 'update']);
+        $this->allow(User::ROLE_BOOKING_ONLY, $booking, ['read']);
+        $this->allow(User::ROLE_BOOKING_ONLY, $booking, ['update'], new One(new BookingIsSelfApproved(), new isOwner()));
 
         $this->allow(User::ROLE_INDIVIDUAL, $user, ['read']);
         $this->allow(User::ROLE_INDIVIDUAL, $user, ['update'], new IsMyself());
@@ -80,7 +84,7 @@ class Acl extends \Ecodev\Felix\Acl\Acl
         $this->allow(User::ROLE_RESPONSIBLE, [$user], ['update']);
         $this->allow(User::ROLE_RESPONSIBLE, [$userTag], ['create', 'read', 'update', 'delete']);
         $this->allow(User::ROLE_RESPONSIBLE, [$bookable, $bookableMetadata, $bookableTag, $image, $license], ['create', 'update', 'delete']);
-        $this->allow(User::ROLE_RESPONSIBLE, [$booking], ['delete']);
+        $this->allow(User::ROLE_RESPONSIBLE, [$booking], ['update', 'delete']);
 
         $this->allow(User::ROLE_ADMINISTRATOR, [$transaction, $account, $transactionTag, $accountingDocument, $expenseClaim], ['create', 'update', 'delete']);
         $this->allow(User::ROLE_ADMINISTRATOR, [$configuration], ['create']);

@@ -17,6 +17,8 @@ class AgeTest extends AbstractSorting
         self::assertSame([
             1004,
             1002,
+            1012,
+            1013,
             1010,
             1000,
             1007,

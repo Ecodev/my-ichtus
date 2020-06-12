@@ -25,7 +25,7 @@ import {UserService} from '../../admin/users/services/user.service';
 import {LicenseService} from '../../admin/licenses/services/license.service';
 import {TransactionService} from '../../admin/transactions/services/transaction.service';
 import {TransactionTagService} from '../../admin/transactionTags/services/transactionTag.service';
-import {UserFilterGroupCondition} from '../generated-types';
+import {BookableFilter, BookingType, UserFilterGroupCondition} from '../generated-types';
 import {AccountService} from '../../admin/accounts/services/account.service';
 import {accountHierarchicConfiguration} from '../hierarchic-selector/AccountHierarchicConfiguration';
 import {BookableTagService} from '../../admin/bookableTags/services/bookableTag.service';
@@ -214,6 +214,18 @@ export class NaturalSearchFacetsService {
                 configuration: {
                     service: this.bookableService,
                     placeholder: 'Réservable',
+                    filter: {
+                        groups: [
+                            {
+                                conditions: [
+                                    {
+                                        bookingType: {equal: {value: BookingType.admin_only}},
+                                        isActive: {equal: {value: true}},
+                                    },
+                                ],
+                            },
+                        ],
+                    } as BookableFilter,
                 },
             } as DropdownFacet<TypeSelectNaturalConfiguration>,
             {

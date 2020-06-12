@@ -101,6 +101,7 @@ REPLACE INTO account (id, parent_id, owner_id, type, code, iban, name) VALUES
 (10097, 10011, 1007, 'liability', '20300004', '', 'Conjoint'),
 (10098, 10011, 1010, 'liability', '20300007', '', 'Voilier Member'),
 (10099, 10011, 1011, 'liability', '20300008', '', 'Voilier Family'),
+(10099, 10011, 1012, 'liability', '20300009', '', 'Other member'),
 (10100, 10007, NULL, 'expense', '8000', '', 'Charges hors exploitation'),
 (10101, 10007, NULL, 'revenue', '8100', '', 'Produits hors exploitation'),
 (10102, 10007, NULL, 'expense', '8500', '', 'Charges extraordinaires, exceptionnelles ou hors période'),
@@ -204,7 +205,9 @@ REPLACE INTO booking (id, owner_id, bookable_id, status, start_date, end_date, e
 (4012, 1008, 3011, 'booked', '2018-01-02 13:32:51', NULL, '29 sept 3021', 'Not middle earth', 'Soron is gone'),
 (4013, 1002, 3030, 'application', '2018-01-02 13:32:51', NULL, '', '', ''),
 (4014, 1002, 3031, 'application', '2018-01-02 13:32:51', NULL, '', '', ''),
-(4015, 1002, 3026, 'booked', '2018-01-02 13:32:51', NULL, '', '', '');
+(4015, 1002, 3026, 'booked', '2018-01-02 13:32:51', NULL, '', '', ''),
+(4016, 1012, 3001, 'booked', '2018-01-02 13:32:51', NULL, '21 oct 2015', 'Somewhere else than Twin Pines Mall', 'Where we go we don''t need boats'),
+(4017, 1012, 3003, 'booked', '2018-01-02 13:32:51', NULL, '21 oct 2015', '', '');
 
 REPLACE INTO expense_claim (id, creation_date, owner_id, amount, status, name, description, type) VALUES
 (7000, '2019-01-10', 1002, 20000, 'new', 'achats Jumbo', 'outils pour voilier', 'expenseClaim'),

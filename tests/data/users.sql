@@ -12,6 +12,8 @@ REPLACE INTO user (id, owner_id, login, first_name, last_name, email, password, 
 (1008, 1002, 'son', 'So', 'n', NULL, MD5('son'), 'individual', 'active', '2005-05-06', 'electronic', '2018-01-01 12:00:00', NULL, 'child', 0, 'CH7826637586626482007'),
 (1009, 1002, 'daughter', 'daugh', 'ter', NULL, MD5('daughter'), 'individual', 'active' , '2008-02-12', 'electronic', '2018-01-01 12:00:00', NULL, 'child', 0, NULL),
 (1010, NULL, 'voiliermember', 'Voilier', 'Member', 'voiliermember@example.com', MD5('voiliermember'), 'member', 'archived', '1989-10-05', 'electronic', '2018-01-01 12:00:00', NULL, 'householder', 0, NULL),
-(1011, 1010, 'voilierfamily', 'Voilier', 'Family', 'voilierfamily@example.com', MD5('voilierfamily'), 'individual', 'active', NULL, 'electronic', '2018-01-01 12:00:00', NULL, 'partner', 0, NULL);
+(1011, 1010, 'voilierfamily', 'Voilier', 'Family', 'voilierfamily@example.com', MD5('voilierfamily'), 'individual', 'active', NULL, 'electronic', '2018-01-01 12:00:00', NULL, 'partner', 0, NULL),
+(1012, NULL, 'othermember', 'Other', 'Member', 'othermember@example.com', MD5('member'), 'member', 'active', '1987-10-05', 'electronic', '2018-01-01 12:00:00', NULL, 'householder', 0, 'CH4200681926673315051'),
+(1013, NULL, 'trainer', 'Formator', 'trainer', 'trainer@example.com', MD5('trainer'), 'trainer', 'active', '1987-10-05', 'electronic', '2018-01-01 12:00:00', NULL, 'householder', 0, 'CH4200681926673315051');
 
 COMMIT;

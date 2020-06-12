@@ -1,6 +1,6 @@
 <div fxFlex="1 0 auto" fxLayout="column" fxLayoutGap="50px" fxLayoutAlign="center" class="padding overlfow">
-    <div fxLayout="row" fxLayoutAlign="center" *ngIf="viewer">
-        <app-navigations [user]="viewer"></app-navigations>
+    <div fxLayout="row" fxLayoutAlign="center" *ngIf="route.snapshot.data.viewer">
+        <app-navigations [user]="route.snapshot.data.viewer.model"></app-navigations>
     </div>
 
     <div fxLayout="column" fxLayoutAlign="start center">
@@ -43,7 +43,7 @@
                 fxLayout="column"
                 fxLayoutAlign="start center"
                 routerLink="door"
-                *ngIf="canAccessDoor()"
+                *ngIf="UserService.canAccessDoor(route.snapshot.data.viewer.model)"
                 class="big-button"
             >
                 <natural-icon name="doors" [size]="70"></natural-icon>
@@ -65,7 +65,7 @@
                 fxLayout="column"
                 fxLayoutAlign="start center"
                 routerLink="admin"
-                *ngIf="canAccessAdmin()"
+                *ngIf="UserService.canAccessAdmin(route.snapshot.data.viewer.model)"
                 class="big-button"
             >
                 <natural-icon name="administrator" [size]="70"></natural-icon>

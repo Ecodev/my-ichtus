@@ -11,23 +11,9 @@ import {ActivatedRoute} from '@angular/router';
 export class DashboardComponent implements OnInit {
     public title = 'my-ichtus';
 
-    public viewer;
+    public UserService = UserService;
 
-    constructor(
-        public userService: UserService,
-        public bookingService: BookingService,
-        private route: ActivatedRoute,
-    ) {}
+    constructor(public userService: UserService, public bookingService: BookingService, public route: ActivatedRoute) {}
 
-    public ngOnInit(): void {
-        this.viewer = this.route.snapshot.data.viewer.model;
-    }
-
-    public canAccessAdmin() {
-        return UserService.canAccessAdmin(this.viewer);
-    }
-
-    public canAccessDoor() {
-        return UserService.canAccessDoor(this.viewer);
-    }
+    public ngOnInit(): void {}
 }

@@ -15,6 +15,7 @@ class UserRoleType extends EnumType
             User::ROLE_BOOKING_ONLY,
             User::ROLE_INDIVIDUAL,
             User::ROLE_MEMBER,
+            User::ROLE_TRAINER,
             User::ROLE_RESPONSIBLE,
             User::ROLE_ADMINISTRATOR,
         ];

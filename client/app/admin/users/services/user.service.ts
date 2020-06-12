@@ -131,6 +131,7 @@ export class UserService extends NaturalAbstractModelService<
         if (!user) {
             return false;
         }
+
         return !user.owner;
     }
 
@@ -138,14 +139,38 @@ export class UserService extends NaturalAbstractModelService<
         if (!user) {
             return false;
         }
-        return [UserRole.responsible, UserRole.administrator].includes(user.role);
+
+        return UserService.gteTrainer(user);
     }
 
     public static canAccessDoor(user: CurrentUserForProfile['viewer']): boolean {
         if (!user) {
             return false;
         }
+
         return user.canOpenDoor;
+    }
+
+    /**
+     * Return true if user role is greater or equal to responsible
+     */
+    public static gteResponsible(user: CurrentUserForProfile['viewer']) {
+        if (!user) {
+            return false;
+        }
+
+        return [UserRole.responsible, UserRole.administrator].includes(user.role);
+    }
+
+    /**
+     * Return true if user role is greater or equal to trainer
+     */
+    public static gteTrainer(user: CurrentUserForProfile['viewer']) {
+        if (!user) {
+            return false;
+        }
+
+        return [UserRole.trainer, UserRole.responsible, UserRole.administrator].includes(user.role);
     }
 
     public static getFamilyVariables(user): UsersVariables {

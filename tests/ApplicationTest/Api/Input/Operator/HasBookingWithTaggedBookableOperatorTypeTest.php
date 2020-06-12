@@ -13,7 +13,7 @@ class HasBookingWithTaggedBookableOperatorTypeTest extends OperatorType
     public function providerGetDqlCondition(): array
     {
         return [
-            [1, [6008]],
+            [2, [6008]],
             [2, [6007]],
             [1, [6005]],
             [3, [6005, 6007]],
