@@ -113,6 +113,7 @@ export class BookableService extends NaturalAbstractModelService<
                     {
                         conditions: [
                             {
+                                isActive: {equal: {value: true}},
                                 bookingType: {in: {values: [BookingType.admin_approved]}},
                                 bookableTags: {have: {values: [tagId]}},
                             },
