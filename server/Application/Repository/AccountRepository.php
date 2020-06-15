@@ -74,6 +74,11 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
             return $user->getAccount();
         }
 
+        // If user have an owner, then create account for the owner instead
+        if ($user->getOwner()) {
+            $user = $user->getOwner();
+        }
+
         $account = $this->getAclFilter()->runWithoutAcl(function () use ($user) {
             return $this->findOneByOwner($user);
         });

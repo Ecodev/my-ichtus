@@ -50,6 +50,16 @@ foreach (_em()->getRepository(Transaction::class)->findAll() as $transaction) {
     }
 }
 
+foreach (_em()->getRepository(User::class)->getAllNonFamilyOwnersWithAccount() as $user) {
+    $errors[] = sprintf(
+        'User#%d (%s) ne devrait pas avoir son propre compte débiteur mais partager celui du User#%d (%s)',
+        $user->getId(),
+        $user->getName(),
+        $user->getOwner()->getId(),
+        $user->getOwner()->getName()
+    );
+}
+
 if (count($errors)) {
     echo PHP_EOL . implode(PHP_EOL, $errors) . PHP_EOL . PHP_EOL;
     exit(1);
