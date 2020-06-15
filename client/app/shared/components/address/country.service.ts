@@ -17,7 +17,8 @@ export class CountryService extends NaturalAbstractModelService<
     {input: {}},
     null,
     {id: string; input: {}},
-    null
+    never,
+    never
 > {
     constructor(apollo: Apollo) {
         super(apollo, 'country', countryQuery, countriesQuery, null, null, null);

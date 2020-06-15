@@ -4,6 +4,8 @@ import {ExpenseClaimService} from '../services/expenseClaim.service';
 import {
     CreateExpenseClaim,
     CreateExpenseClaimVariables,
+    DeleteExpenseClaims,
+    DeleteExpenseClaimsVariables,
     ExpenseClaim,
     ExpenseClaimType,
     ExpenseClaimVariables,
@@ -24,7 +26,8 @@ export class ExpenseClaimComponent extends NaturalAbstractDetail<
     CreateExpenseClaimVariables,
     UpdateExpenseClaim['updateExpenseClaim'],
     UpdateExpenseClaimVariables,
-    any
+    DeleteExpenseClaims,
+    DeleteExpenseClaimsVariables
 > {
     public ExpenseClaimType = ExpenseClaimType;
 

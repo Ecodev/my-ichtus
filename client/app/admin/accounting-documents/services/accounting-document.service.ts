@@ -7,6 +7,7 @@ import {
     CreateAccountingDocument,
     CreateAccountingDocumentVariables,
     DeleteAccountingDocument,
+    DeleteAccountingDocumentVariables,
 } from '../../../shared/generated-types';
 import {NaturalAbstractModelService} from '@ecodev/natural';
 
@@ -22,7 +23,8 @@ export class AccountingDocumentService extends NaturalAbstractModelService<
     CreateAccountingDocumentVariables,
     any,
     any,
-    DeleteAccountingDocument
+    DeleteAccountingDocument,
+    DeleteAccountingDocumentVariables
 > {
     constructor(apollo: Apollo) {
         super(apollo, 'image', null, null, createAccountingDocumentMutation, null, deleteAccountingDocumentMutation);

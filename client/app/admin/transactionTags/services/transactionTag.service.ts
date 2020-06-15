@@ -11,6 +11,8 @@ import {
 import {
     CreateTransactionTag,
     CreateTransactionTagVariables,
+    DeleteTransactions,
+    DeleteTransactionsVariables,
     TransactionTag,
     TransactionTagInput,
     TransactionTags,
@@ -33,6 +35,7 @@ export class TransactionTagService extends NaturalAbstractModelService<
     CreateTransactionTagVariables,
     UpdateTransactionTag['updateTransactionTag'],
     UpdateTransactionTagVariables,
+    any,
     any
 > {
     constructor(apollo: Apollo) {

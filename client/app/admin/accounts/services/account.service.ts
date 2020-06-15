@@ -19,6 +19,7 @@ import {
     CreateAccount,
     CreateAccountVariables,
     DeleteAccounts,
+    DeleteAccountsVariables,
     NextAccountCode,
     UpdateAccount,
     UpdateAccountVariables,
@@ -40,7 +41,8 @@ export class AccountService extends NaturalAbstractModelService<
     CreateAccountVariables,
     UpdateAccount['updateAccount'],
     UpdateAccountVariables,
-    DeleteAccounts
+    DeleteAccounts,
+    DeleteAccountsVariables
 > {
     constructor(apollo: Apollo) {
         super(apollo, 'account', accountQuery, accountsQuery, createAccount, updateAccount, deleteAccounts);

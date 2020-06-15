@@ -12,6 +12,7 @@ import {
     CreateExpenseClaim,
     CreateExpenseClaimVariables,
     DeleteExpenseClaims,
+    DeleteExpenseClaimsVariables,
     ExpenseClaim,
     ExpenseClaimInput,
     ExpenseClaims,
@@ -37,7 +38,8 @@ export class ExpenseClaimService extends NaturalAbstractModelService<
     CreateExpenseClaimVariables,
     UpdateExpenseClaim['updateExpenseClaim'],
     UpdateExpenseClaimVariables,
-    DeleteExpenseClaims
+    DeleteExpenseClaims,
+    DeleteExpenseClaimsVariables
 > {
     constructor(apollo: Apollo) {
         super(

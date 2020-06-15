@@ -32,6 +32,7 @@ export class BookableComponent
         CreateBookableVariables,
         UpdateBookable['updateBookable'],
         UpdateBookableVariables,
+        any,
         any
     >
     implements OnInit {

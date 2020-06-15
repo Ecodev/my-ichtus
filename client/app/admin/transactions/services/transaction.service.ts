@@ -6,6 +6,7 @@ import {
     CreateTransaction,
     CreateTransactionVariables,
     DeleteTransactions,
+    DeleteTransactionsVariables,
     Transaction,
     TransactionInput,
     TransactionLineInput,
@@ -36,7 +37,8 @@ export class TransactionService extends NaturalAbstractModelService<
     CreateTransactionVariables,
     UpdateTransaction['updateTransaction'],
     UpdateTransactionVariables,
-    DeleteTransactions
+    DeleteTransactions,
+    DeleteTransactionsVariables
 > {
     constructor(apollo: Apollo, private transactionLineService: TransactionLineService) {
         super(

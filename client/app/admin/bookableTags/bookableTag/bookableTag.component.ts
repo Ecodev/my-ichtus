@@ -6,6 +6,7 @@ import {
     CreateBookableTag,
     CreateBookableTagVariables,
     DeleteBookableTags,
+    DeleteBookableTagsVariables,
     UpdateBookableTag,
     UpdateBookableTagVariables,
 } from '../../../shared/generated-types';
@@ -23,7 +24,8 @@ export class BookableTagComponent extends NaturalAbstractDetail<
     CreateBookableTagVariables,
     UpdateBookableTag['updateBookableTag'],
     UpdateBookableTagVariables,
-    DeleteBookableTags
+    DeleteBookableTags,
+    DeleteBookableTagsVariables
 > {
     constructor(bookableTagService: BookableTagService, injector: Injector, public tagService: BookableTagService) {
         super('bookableTag', bookableTagService, injector);

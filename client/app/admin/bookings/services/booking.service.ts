@@ -21,6 +21,7 @@ import {
     BookingVariables,
     CreateBooking,
     DeleteBookings,
+    DeleteBookingsVariables,
     JoinType,
     LogicalOperator,
     SortingOrder,
@@ -48,7 +49,8 @@ export class BookingService extends NaturalAbstractModelService<
     any,
     UpdateBooking['updateBooking'],
     UpdateBookingVariables,
-    DeleteBookings
+    DeleteBookings,
+    DeleteBookingsVariables
 > {
     /**
      * Filters for bookings with endDate with self-approved bookable or no bookable linked

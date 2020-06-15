@@ -6,6 +6,8 @@ import {
     AccountVariables,
     CreateAccount,
     CreateAccountVariables,
+    DeleteAccounts,
+    DeleteAccountsVariables,
     UpdateAccount,
     UpdateAccountVariables,
 } from '../../../shared/generated-types';
@@ -25,7 +27,8 @@ export class AccountComponent
         CreateAccountVariables,
         UpdateAccount['updateAccount'],
         UpdateAccountVariables,
-        any
+        DeleteAccounts,
+        DeleteAccountsVariables
     >
     implements OnInit {
     public nextCodeAvailable: number;

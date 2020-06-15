@@ -8,6 +8,7 @@ import {
     CreateTransaction,
     CreateTransactionVariables,
     DeleteTransactions,
+    DeleteTransactionsVariables,
     ExpenseClaim,
     ExpenseClaimStatus,
     ExpenseClaimType,
@@ -36,7 +37,8 @@ export class TransactionComponent
         CreateTransactionVariables,
         UpdateTransaction['updateTransaction'],
         UpdateTransactionVariables,
-        DeleteTransactions
+        DeleteTransactions,
+        DeleteTransactionsVariables
     >
     implements OnInit {
     @ViewChild(EditableTransactionLinesComponent) transactionLinesComponent: EditableTransactionLinesComponent;

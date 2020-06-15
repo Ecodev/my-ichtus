@@ -4,6 +4,7 @@ import {
     CreateTransactionTag,
     CreateTransactionTagVariables,
     DeleteTransactionTags,
+    DeleteTransactionTagsVariables,
     TransactionTag,
     TransactionTagVariables,
     UpdateTransactionTag,
@@ -23,7 +24,8 @@ export class TransactionTagComponent extends NaturalAbstractDetail<
     CreateTransactionTagVariables,
     UpdateTransactionTag['updateTransactionTag'],
     UpdateTransactionTagVariables,
-    DeleteTransactionTags
+    DeleteTransactionTags,
+    DeleteTransactionTagsVariables
 > {
     constructor(transactionTagService: TransactionTagService, injector: Injector) {
         super('transactionTag', transactionTagService, injector);

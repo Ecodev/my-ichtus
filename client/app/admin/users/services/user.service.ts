@@ -90,7 +90,8 @@ export class UserService extends NaturalAbstractModelService<
     CreateUserVariables,
     UpdateUser['updateUser'],
     UpdateUserVariables,
-    any
+    never,
+    never
 > {
     /**
      * Should be used only by getViewer and cacheViewer

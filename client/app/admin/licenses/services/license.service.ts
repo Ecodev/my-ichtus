@@ -5,6 +5,8 @@ import {createLicense, deleteLicenses, licenseQuery, licensesQuery, updateLicens
 import {
     CreateLicense,
     CreateLicenseVariables,
+    DeleteLicenses,
+    DeleteLicensesVariables,
     License,
     License_license,
     LicenseInput,
@@ -28,7 +30,8 @@ export class LicenseService extends NaturalAbstractModelService<
     CreateLicenseVariables,
     UpdateLicense['updateLicense'],
     UpdateLicenseVariables,
-    any
+    DeleteLicenses,
+    DeleteLicensesVariables
 > {
     constructor(apollo: Apollo) {
         super(apollo, 'license', licenseQuery, licensesQuery, createLicense, updateLicense, deleteLicenses);

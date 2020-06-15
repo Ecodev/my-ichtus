@@ -4,6 +4,7 @@ import {
     CreateUserTag,
     CreateUserTagVariables,
     DeleteUserTags,
+    DeleteUserTagsVariables,
     UpdateUserTag,
     UpdateUserTagVariables,
     UserTag,
@@ -24,7 +25,8 @@ export class UserTagComponent extends NaturalAbstractDetail<
     CreateUserTagVariables,
     UpdateUserTag['updateUserTag'],
     UpdateUserTagVariables,
-    DeleteUserTags
+    DeleteUserTags,
+    DeleteUserTagsVariables
 > {
     constructor(userTagService: UserTagService, injector: Injector, public userService: UserService) {
         super('userTag', userTagService, injector);

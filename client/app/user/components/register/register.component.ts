@@ -26,7 +26,8 @@ export class RegisterComponent
         CreateUserVariables,
         UpdateUser['updateUser'],
         UpdateUserVariables,
-        any
+        never,
+        never
     >
     implements OnInit {
     public mandatoryBookables: NaturalDataSource;

@@ -14,6 +14,7 @@ import {
     BookableMetadatas,
     BookableMetadatasVariables,
     DeleteBookableMetadatas,
+    DeleteBookableMetadatasVariables,
     UpdateBookableMetadata,
     UpdateBookableMetadataVariables,
 } from '../../shared/generated-types';
@@ -30,7 +31,8 @@ export class BookableMetadataService extends NaturalAbstractModelService<
     any,
     UpdateBookableMetadata['updateBookableMetadata'],
     UpdateBookableMetadataVariables,
-    DeleteBookableMetadatas
+    DeleteBookableMetadatas,
+    DeleteBookableMetadatasVariables
 > {
     constructor(apollo: Apollo) {
         super(

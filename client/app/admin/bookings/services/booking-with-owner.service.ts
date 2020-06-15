@@ -13,6 +13,7 @@ import {
     BookingsVariables,
     BookingVariables,
     DeleteBookings,
+    DeleteBookingsVariables,
     JoinType,
     UpdateBooking,
     UpdateBookingVariables,
@@ -31,7 +32,8 @@ export class BookingWithOwnerService extends NaturalAbstractModelService<
     any,
     UpdateBooking['updateBooking'],
     UpdateBookingVariables,
-    DeleteBookings
+    DeleteBookings,
+    DeleteBookingsVariables
 > {
     constructor(apollo: Apollo) {
         super(

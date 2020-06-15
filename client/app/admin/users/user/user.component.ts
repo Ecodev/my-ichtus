@@ -34,6 +34,7 @@ export class UserComponent
         CreateUserVariables,
         UpdateUser['updateUser'],
         UpdateUserVariables,
+        any,
         any
     >
     implements OnInit {

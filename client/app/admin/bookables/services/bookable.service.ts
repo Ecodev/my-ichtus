@@ -17,6 +17,7 @@ import {
     CreateBookableVariables,
     CurrentUserForProfile,
     DeleteBookables,
+    DeleteBookablesVariables,
     LogicalOperator,
     UpdateBookable,
     UpdateBookableVariables,
@@ -58,7 +59,8 @@ export class BookableService extends NaturalAbstractModelService<
     CreateBookableVariables,
     UpdateBookable['updateBookable'],
     UpdateBookableVariables,
-    DeleteBookables
+    DeleteBookables,
+    DeleteBookablesVariables
 > {
     public static readonly membershipServices: BookablesVariables = {
         filter: {

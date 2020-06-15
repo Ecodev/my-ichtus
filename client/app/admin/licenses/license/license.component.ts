@@ -4,6 +4,7 @@ import {
     CreateLicense,
     CreateLicenseVariables,
     DeleteLicenses,
+    DeleteLicensesVariables,
     License,
     LicenseVariables,
     UpdateLicense,
@@ -25,7 +26,8 @@ export class LicenseComponent extends NaturalAbstractDetail<
     CreateLicenseVariables,
     UpdateLicense['updateLicense'],
     UpdateLicenseVariables,
-    DeleteLicenses
+    DeleteLicenses,
+    DeleteLicensesVariables
 > {
     constructor(
         licenseService: LicenseService,

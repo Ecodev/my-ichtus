@@ -17,6 +17,8 @@ import {
     BookableTagVariables,
     CreateBookableTag,
     CreateBookableTagVariables,
+    DeleteBookableTags,
+    DeleteBookableTagsVariables,
     UpdateBookableTag,
     UpdateBookableTagVariables,
 } from '../../../shared/generated-types';
@@ -34,7 +36,8 @@ export class BookableTagService extends NaturalAbstractModelService<
     CreateBookableTagVariables,
     UpdateBookableTag['updateBookableTag'],
     UpdateBookableTagVariables,
-    any
+    DeleteBookableTags,
+    DeleteBookableTagsVariables
 > {
     constructor(apollo: Apollo) {
         super(

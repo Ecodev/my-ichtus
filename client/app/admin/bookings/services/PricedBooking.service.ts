@@ -16,6 +16,7 @@ export class PricedBookingService extends NaturalAbstractModelService<
     any,
     any,
     any,
+    any,
     any
 > {
     constructor(apollo: Apollo) {

@@ -29,6 +29,7 @@ export class ImageService extends NaturalAbstractModelService<
     CreateImageVariables,
     any,
     any,
+    any,
     any
 > {
     constructor(apollo: Apollo) {

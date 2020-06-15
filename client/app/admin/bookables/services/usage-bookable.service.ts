@@ -8,6 +8,7 @@ import {
     CreateBookable,
     CreateBookableVariables,
     DeleteBookables,
+    DeleteBookablesVariables,
     UpdateBookable,
     UpdateBookableVariables,
     UsageBookablesVariables,
@@ -27,7 +28,8 @@ export class UsageBookableService extends NaturalAbstractModelService<
     CreateBookableVariables,
     UpdateBookable['updateBookable'],
     UpdateBookableVariables,
-    DeleteBookables
+    DeleteBookables,
+    DeleteBookablesVariables
 > {
     constructor(apollo: Apollo, protected bookingService: BookingService) {
         super(apollo, 'bookable', bookableQuery, usageBookablesQuery, createBookable, updateBookable, deleteBookables);

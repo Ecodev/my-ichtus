@@ -24,7 +24,8 @@ export class FamilyMemberComponent
         CreateUserVariables,
         UpdateUser['updateUser'],
         UpdateUserVariables,
-        any
+        never,
+        never
     >
     implements OnInit {
     @Input() viewer: User['user'];

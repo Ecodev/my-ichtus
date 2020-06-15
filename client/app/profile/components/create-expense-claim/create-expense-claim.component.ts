@@ -3,6 +3,8 @@ import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseC
 import {
     CreateExpenseClaim,
     CreateExpenseClaimVariables,
+    DeleteExpenseClaims,
+    DeleteExpenseClaimsVariables,
     ExpenseClaim,
     ExpenseClaimStatus,
     ExpenseClaimVariables,
@@ -26,7 +28,8 @@ export class CreateExpenseClaimComponent
         CreateExpenseClaimVariables,
         UpdateExpenseClaim['updateExpenseClaim'],
         UpdateExpenseClaimVariables,
-        any
+        DeleteExpenseClaims,
+        DeleteExpenseClaimsVariables
     >
     implements OnInit {
     @ViewChild(AccountingDocumentsComponent, {static: true}) accountingDocuments: AccountingDocumentsComponent;

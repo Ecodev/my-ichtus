@@ -10,6 +10,8 @@ import {
     BookingVariables,
     CreateBooking,
     CreateBookingVariables,
+    DeleteBookings,
+    DeleteBookingsVariables,
     SortingOrder,
     UpdateBooking,
     UpdateBookingVariables,
@@ -33,7 +35,8 @@ export class BookingComponent
         CreateBookingVariables,
         UpdateBooking['updateBooking'],
         UpdateBookingVariables,
-        any
+        DeleteBookings,
+        DeleteBookingsVariables
     >
     implements OnInit {
     public UsageBookableService = UsageBookableService;

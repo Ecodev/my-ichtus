@@ -5,6 +5,8 @@ import {createUserTag, deleteUserTags, updateUserTag, userTagQuery, userTagsQuer
 import {
     CreateUserTag,
     CreateUserTagVariables,
+    DeleteUserTags,
+    DeleteUserTagsVariables,
     UpdateUserTag,
     UpdateUserTagVariables,
     UserTag,
@@ -28,7 +30,8 @@ export class UserTagService extends NaturalAbstractModelService<
     CreateUserTagVariables,
     UpdateUserTag['updateUserTag'],
     UpdateUserTagVariables,
-    any
+    DeleteUserTags,
+    DeleteUserTagsVariables
 > {
     constructor(apollo: Apollo) {
         super(apollo, 'userTag', userTagQuery, userTagsQuery, createUserTag, updateUserTag, deleteUserTags);
