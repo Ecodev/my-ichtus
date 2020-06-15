@@ -491,7 +491,8 @@ export class UserService extends NaturalAbstractModelService<
             return false;
         }
 
-        const isMember = [UserRole.member, UserRole.responsible, UserRole.administrator].indexOf(user.role) > -1;
+        const isMember =
+            [UserRole.member, UserRole.trainer, UserRole.responsible, UserRole.administrator].indexOf(user.role) > -1;
 
         return !isMember && !this.canLeaveFamily(user);
     }
