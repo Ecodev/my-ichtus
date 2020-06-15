@@ -60,12 +60,12 @@ class Acl extends \Ecodev\Felix\Acl\Acl
         $configuration = $this->createModelResource(Configuration::class);
 
         $this->allow(User::ROLE_ANONYMOUS, [$country, $bookable, $bookableMetadata, $bookableTag, $image, $license, $transactionTag, $configuration], ['read']);
-        $this->allow(User::ROLE_BOOKING_ONLY, $booking, ['create'], new BookableAvailable());
-        $this->allow(User::ROLE_BOOKING_ONLY, $booking, ['read']);
-        $this->allow(User::ROLE_BOOKING_ONLY, $booking, ['update'], new One(new BookingIsSelfApproved(), new isOwner()));
+        $this->allow(User::ROLE_BOOKING_ONLY, [$booking], ['create'], new BookableAvailable());
+        $this->allow(User::ROLE_BOOKING_ONLY, [$booking], ['read']);
+        $this->allow(User::ROLE_BOOKING_ONLY, [$booking], ['update'], new One(new BookingIsSelfApproved(), new isOwner()));
 
-        $this->allow(User::ROLE_INDIVIDUAL, $user, ['read']);
-        $this->allow(User::ROLE_INDIVIDUAL, $user, ['update'], new IsMyself());
+        $this->allow(User::ROLE_INDIVIDUAL, [$user], ['read']);
+        $this->allow(User::ROLE_INDIVIDUAL, [$user], ['update'], new IsMyself());
         $this->allow(User::ROLE_INDIVIDUAL, [$expenseClaim], ['create']);
         $this->allow(User::ROLE_INDIVIDUAL, [$expenseClaim], ['read']);
         $this->allow(User::ROLE_INDIVIDUAL, [$expenseClaim], ['update', 'delete'], new All(new IsOwner(), new StatusIsNew()));
@@ -73,11 +73,11 @@ class Acl extends \Ecodev\Felix\Acl\Acl
         $this->allow(User::ROLE_INDIVIDUAL, [$accountingDocument], ['read']);
         $this->allow(User::ROLE_INDIVIDUAL, [$accountingDocument], ['update', 'delete'], new All(new IsOwner(), new ExpenseClaimStatusIsNew()));
         $this->allow(User::ROLE_INDIVIDUAL, [$account], ['read']);
-        $this->allow(User::ROLE_INDIVIDUAL, [$account], ['update'], new IsOwner());
-        $this->allow(User::ROLE_INDIVIDUAL, $message, ['read']);
+        $this->allow(User::ROLE_INDIVIDUAL, [$message], ['read']);
 
-        $this->allow(User::ROLE_MEMBER, $user, ['create']);
-        $this->allow(User::ROLE_MEMBER, $user, ['update'], new IsOwner());
+        $this->allow(User::ROLE_MEMBER, [$account], ['update']);
+        $this->allow(User::ROLE_MEMBER, [$user], ['create']);
+        $this->allow(User::ROLE_MEMBER, [$user], ['update'], new IsOwner());
 
         $this->allow(User::ROLE_RESPONSIBLE, [$transaction, $account, $transactionTag], ['read']);
         $this->allow(User::ROLE_RESPONSIBLE, [$expenseClaim, $accountingDocument], ['read', 'update']);
