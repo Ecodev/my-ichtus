@@ -6,7 +6,9 @@ namespace Application\Api\Field\Mutation;
 
 use Application\Api\Helper;
 use Application\DBAL\Types\RelationshipType;
+use Application\Model\Account;
 use Application\Model\User;
+use Application\Repository\AccountRepository;
 use Ecodev\Felix\Api\Field\FieldInterface;
 use GraphQL\Type\Definition\Type;
 use Mezzio\Session\SessionInterface;
@@ -32,11 +34,16 @@ abstract class LeaveFamily implements FieldInterface
                 // Set owner while pretending we are an admin to workaround normal security things
                 $previousCurrentUser = User::getCurrent();
                 User::setCurrent(new User(User::ROLE_ADMINISTRATOR));
-                $user->setOwner($user);
+                $user->setOwner(null);
                 User::setCurrent($previousCurrentUser);
 
                 $user->setFamilyRelationship(RelationshipType::HOUSEHOLDER);
                 $user->setStatus(User::STATUS_INACTIVE);
+
+                // Create account so the user can top-up money and start purchasing services
+                /** @var AccountRepository $accountRepository */
+                $accountRepository = _em()->getRepository(Account::class);
+                $accountRepository->getOrCreate($user);
 
                 _em()->flush();
 

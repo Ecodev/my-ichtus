@@ -31,6 +31,8 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
 
     /**
      * Returns pure SQL to get ID of all objects that are accessible to given user.
+     *
+     * @param null|User $user
      */
     public function getAccessibleSubQuery(?\Ecodev\Felix\Model\User $user): string
     {
@@ -42,7 +44,7 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
             return $this->getAllIdsQuery();
         }
 
-        return $this->getAllIdsForOwnerQuery($user);
+        return $this->getAllIdsForFamilyQuery($user);
     }
 
     /**

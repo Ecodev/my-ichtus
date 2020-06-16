@@ -7,9 +7,11 @@ namespace Application\Api\Field\Mutation;
 use Application\Api\Helper;
 use Application\DBAL\Types\BookingStatusType;
 use Application\DBAL\Types\BookingTypeType;
+use Application\Model\Account;
 use Application\Model\Bookable;
 use Application\Model\Booking;
 use Application\Model\User;
+use Application\Repository\AccountRepository;
 use Application\Repository\BookableRepository;
 use Application\Repository\UserRepository;
 use Cake\Chronos\Chronos;
@@ -64,6 +66,14 @@ abstract class ConfirmRegistration implements FieldInterface
 
                 // Create mandatory booking for him
                 User::setCurrent($user);
+
+                // Create account so the user can top-up money and start purchasing services
+                // but only if it's head of the family
+                if ($user->isFamilyOwner()) {
+                    /** @var AccountRepository $accountRepository */
+                    $accountRepository = _em()->getRepository(Account::class);
+                    $accountRepository->getOrCreate($user);
+                }
 
                 /** @var BookableRepository $bookableRepository */
                 $bookableRepository = _em()->getRepository(Bookable::class);

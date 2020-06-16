@@ -61,7 +61,7 @@ Miss Jane Smith Small Street 17
                 'balance' => '50000',
                 'owner' => 'So n',
                 'debit' => 'PostFinance 20-6137-5',
-                'credit' => 'So n',
+                'credit' => 'Active Member',
             ],
         ],
     ],

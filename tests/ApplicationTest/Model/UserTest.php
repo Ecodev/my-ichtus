@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ApplicationTest\Model;
 
+use Application\Model\Account;
 use Application\Model\Booking;
 use Application\Model\User;
 use PHPUnit\Framework\TestCase;
@@ -150,5 +151,39 @@ class UserTest extends TestCase
         foreach ($result as $door => $canOpen) {
             self::assertSame($canOpen, $user->getCanOpenDoor($door));
         }
+    }
+
+    public function testGetAccount(): void
+    {
+        $user1 = new User();
+        $user2 = new User();
+
+        self::assertNull($user1->getAccount());
+        self::assertNull($user2->getAccount());
+
+        $account1 = new Account();
+        $account2 = new Account();
+        $account1->setOwner($user1);
+        $account2->setOwner($user2);
+
+        self::assertSame($account1, $user1->getAccount());
+        self::assertSame($account2, $user2->getAccount());
+
+        $user2->setOwner($user1);
+
+        self::assertSame($account1, $user1->getAccount());
+        self::assertSame($account1, $user2->getAccount(), 'user2 should now use user1 account');
+
+        User::setCurrent($user1);
+        $user2->setOwner($user2);
+
+        self::assertSame($account1, $user1->getAccount());
+        self::assertSame($account2, $user2->getAccount(), 'user2 should be use his own account again');
+
+        User::setCurrent($user2);
+        $user2->setOwner(null);
+
+        self::assertSame($account1, $user1->getAccount());
+        self::assertSame($account2, $user2->getAccount(), 'user2 should be use his own account again');
     }
 }

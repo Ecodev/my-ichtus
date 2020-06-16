@@ -20,7 +20,7 @@ class DatatransActionTest extends TestCase
     /**
      * @dataProvider providerProcess
      */
-    public function testProcess(?array $data, Money $expectedAmount, array $expectedViewModel): void
+    public function testProcess(?array $data, ?int $accountId, Money $expectedAmount, array $expectedViewModel): void
     {
         $userId = $data['refno'] ?? null;
         $user = $this->getEntityManager()->getRepository(User::class)->getOneById((int) $userId);
@@ -46,8 +46,8 @@ class DatatransActionTest extends TestCase
         // Submit the same request again to make sure it is accounted only once
         $action->process($request, $handler);
 
-        if ($userId) {
-            $actualBalance = $this->getEntityManager()->getConnection()->fetchColumn('SELECT balance FROM account WHERE owner_id = ' . $userId);
+        if ($accountId) {
+            $actualBalance = $this->getEntityManager()->getConnection()->fetchColumn('SELECT balance FROM account WHERE id = ' . $accountId);
             self::assertSame($expectedAmount->getAmount(), $actualBalance);
         }
 
@@ -68,7 +68,8 @@ class DatatransActionTest extends TestCase
                     'responseMessage' => 'Payment was successful',
                     'sign' => 'e591bc45430b1a14ad7e1a3a14a8218fb9a5ae944557c96366ec98feae6b17f4',
                 ],
-                Money::CHF(10000),
+                10096,
+                Money::CHF(25000),
                 [
                     'message' => [
                         'status' => 'success',
@@ -87,7 +88,8 @@ class DatatransActionTest extends TestCase
                     'responseMessage' => 'Payment was successful',
                     'sign' => 'e591bc45430b1a14ad7e1a3a14a8218fb9a5ae944557c96366ec98feae6b17f4',
                 ],
-                Money::CHF(10000),
+                10096,
+                Money::CHF(25000),
                 [
                     'message' => [
                         'status' => 'success',
@@ -106,7 +108,8 @@ class DatatransActionTest extends TestCase
                     'responseMessage' => 'Payment was successful',
                     'sign' => 'a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0',
                 ],
-                Money::CHF(0),
+                10096,
+                Money::CHF(5000),
                 [
                     'message' => [
                         'status' => 'error',
@@ -124,7 +127,8 @@ class DatatransActionTest extends TestCase
                     'currency' => 'CHF',
                     'responseMessage' => 'Payment was successful',
                 ],
-                Money::CHF(0),
+                10096,
+                Money::CHF(5000),
                 [
                     'message' => [
                         'status' => 'error',
@@ -143,7 +147,8 @@ class DatatransActionTest extends TestCase
                     'responseMessage' => 'Payment was successful',
                     'sign' => '3005b015945fb625ee25d7d804a65cc17f9dacd4fcba72329d34c8081230c146',
                 ],
-                Money::CHF(10000),
+                10096,
+                Money::CHF(25000),
                 [
                     'message' => [
                         'status' => 'success',
@@ -160,7 +165,8 @@ class DatatransActionTest extends TestCase
                     'errorMessage' => 'Dear Sir/Madam, Fire! fire! help me! All the best, Maurice Moss.',
                     'sign' => '38151b15a4c680cccafe9dfff6edb236fa9bf1eeec65799b2720312ae9c4b233',
                 ],
-                Money::CHF(0),
+                10096,
+                Money::CHF(5000),
                 [
                     'message' => [
                         'status' => 'error',
@@ -176,7 +182,8 @@ class DatatransActionTest extends TestCase
                     'merchantId' => '123456789',
                     'sign' => '38151b15a4c680cccafe9dfff6edb236fa9bf1eeec65799b2720312ae9c4b233',
                 ],
-                Money::CHF(0),
+                10096,
+                Money::CHF(5000),
                 [
                     'message' => [
                         'status' => 'cancel',
@@ -185,6 +192,7 @@ class DatatransActionTest extends TestCase
                 ],
             ],
             'invalid body' => [
+                null,
                 null,
                 Money::CHF(0),
                 [
@@ -205,7 +213,8 @@ class DatatransActionTest extends TestCase
                     'responseMessage' => 'Payment was successful',
                     'sign' => 'e591bc45430b1a14ad7e1a3a14a8218fb9a5ae944557c96366ec98feae6b17f4',
                 ],
-                Money::CHF(0),
+                10096,
+                Money::CHF(5000),
                 [
                     'message' => [
                         'status' => 'error',
@@ -223,6 +232,7 @@ class DatatransActionTest extends TestCase
                     'responseMessage' => 'Payment was successful',
                     'sign' => 'f875347d4c66a4f82717ae88f13812289db79b4c1cab4df4fe1c7fdbaaacff05',
                 ],
+                null,
                 Money::CHF(0),
                 [
                     'message' => [
@@ -241,7 +251,8 @@ class DatatransActionTest extends TestCase
                     'responseMessage' => 'Payment was successful',
                     'sign' => 'e2ca709347d5bec5fd169cd3e1243a95d2eae0abf23a34e26e57698d30b3645d',
                 ],
-                Money::CHF(0),
+                10096,
+                Money::CHF(5000),
                 [
                     'message' => [
                         'status' => 'error',
@@ -260,7 +271,8 @@ class DatatransActionTest extends TestCase
                     'responseMessage' => 'Payment was successful',
                     'sign' => 'a591b4bb76872f8fcb01f841e4b0cf092ae7c26561e93326243d7f48a9181849',
                 ],
-                Money::CHF(0),
+                10096,
+                Money::CHF(5000),
                 [
                     'message' => [
                         'status' => 'error',
