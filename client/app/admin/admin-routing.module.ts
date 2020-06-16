@@ -145,8 +145,9 @@ const routes: Routes = [
                         component: BookingsComponent,
                         data: {
                             title: "Demandes de séances d'accueil",
+                            contextService: BookingWithOwnerService,
                             contextVariables: BookingService.applicationByTag(BookableTagService.WELCOME),
-                            contextColumns: ['edit', 'owner', 'startDate'],
+                            contextColumns: ['edit', 'owner', 'ownerBalance', 'ownerCreationDate', 'startDate'],
                         },
                     },
                     {
