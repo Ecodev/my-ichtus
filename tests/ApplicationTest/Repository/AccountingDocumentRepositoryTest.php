@@ -36,7 +36,7 @@ class AccountingDocumentRepositoryTest extends AbstractRepositoryTest
         return [
             ['anonymous', []],
             ['bookingonly', []],
-            ['individual', []],
+            ['individual', [9000]],
             ['member', [9000]],
             ['responsible', $all],
             ['administrator', $all],

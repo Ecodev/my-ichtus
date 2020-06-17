@@ -28,13 +28,15 @@ class ExpenseClaimRepositoryTest extends AbstractRepositoryTest
 
     public function providerGetAccessibleSubQuery(): array
     {
-        $all = [7000, 7001, 7002, 7003];
+        $all = [7000, 7001, 7002, 7003, 7004];
+
+        $family = [7000, 7001, 7002, 7003];
 
         return [
             ['anonymous', []],
             ['bookingonly', []],
-            ['individual', [7003]],
-            ['member', [7000, 7001, 7002]],
+            ['individual', $family],
+            ['member', $family],
             ['responsible', $all],
             ['administrator', $all],
         ];

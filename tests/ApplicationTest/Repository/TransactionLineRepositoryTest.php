@@ -30,11 +30,13 @@ class TransactionLineRepositoryTest extends AbstractRepositoryTest
     {
         $all = range(14000, 14011);
 
+        $family = [14000, 14002, 14003, 14004, 14008, 14011];
+
         return [
             ['anonymous', []],
             ['bookingonly', []],
-            ['individual', []],
-            ['member', [14000, 14002, 14003, 14004, 14008, 14011]],
+            ['individual', $family],
+            ['member', $family],
             ['responsible', $all],
             ['administrator', $all],
         ];

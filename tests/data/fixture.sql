@@ -212,7 +212,8 @@ REPLACE INTO expense_claim (id, creation_date, owner_id, amount, status, name, d
 (7000, '2019-01-10', 1002, 20000, 'new', 'achats Jumbo', 'outils pour voilier', 'expenseClaim'),
 (7001, '2019-01-14', 1002, 10000, 'processed', 'flyers', 'Cighelio', 'expenseClaim'),
 (7002, '2019-03-14', 1002, 5000, 'processing', 'remboursement bancaire', '', 'refund'),
-(7003, '2019-01-10', 1007, 7500, 'new', 'achats boissons', 'pour la fête', 'expenseClaim');
+(7003, '2019-01-10', 1007, 7500, 'new', 'achats boissons', 'pour la fête', 'expenseClaim'),
+(7004, '2019-01-06', 1010, 2100, 'new', 'remplacement des clés', '', 'expenseClaim');
 
 REPLACE INTO transaction (id, creator_id, owner_id, transaction_date, name, remarks, expense_claim_id) VALUES
 (8000, 1002, 1002, '2019-03-01', 'Inscription cours nautique Active Member', '', NULL),

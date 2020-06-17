@@ -69,7 +69,7 @@ class DatatransActionTest extends TestCase
                     'sign' => 'e591bc45430b1a14ad7e1a3a14a8218fb9a5ae944557c96366ec98feae6b17f4',
                 ],
                 10096,
-                Money::CHF(25000),
+                Money::CHF(15000),
                 [
                     'message' => [
                         'status' => 'success',
@@ -89,7 +89,7 @@ class DatatransActionTest extends TestCase
                     'sign' => 'e591bc45430b1a14ad7e1a3a14a8218fb9a5ae944557c96366ec98feae6b17f4',
                 ],
                 10096,
-                Money::CHF(25000),
+                Money::CHF(15000),
                 [
                     'message' => [
                         'status' => 'success',
@@ -148,7 +148,7 @@ class DatatransActionTest extends TestCase
                     'sign' => '3005b015945fb625ee25d7d804a65cc17f9dacd4fcba72329d34c8081230c146',
                 ],
                 10096,
-                Money::CHF(25000),
+                Money::CHF(15000),
                 [
                     'message' => [
                         'status' => 'success',

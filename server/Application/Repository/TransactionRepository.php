@@ -16,6 +16,8 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
 {
     /**
      * Returns pure SQL to get ID of all objects that are accessible to given user.
+     *
+     * @param null|User $user
      */
     public function getAccessibleSubQuery(?\Ecodev\Felix\Model\User $user): string
     {
@@ -27,10 +29,16 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
             return $this->getAllIdsQuery();
         }
 
+        if ($user->getOwner()) {
+            $id = $user->getOwner()->getId();
+        } else {
+            $id = $user->getId();
+        }
+
         return 'SELECT transaction.id FROM transaction
               JOIN transaction_line ON transaction.id = transaction_line.transaction_id
               JOIN account ON transaction_line.debit_id = account.id OR transaction_line.credit_id = account.id 
-              WHERE account.owner_id = ' . $user->getId();
+              WHERE account.owner_id = ' . $id;
     }
 
     public function hydrateLinesAndFlush(Transaction $transaction, array $lines): void

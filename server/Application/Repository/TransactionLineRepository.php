@@ -13,6 +13,8 @@ class TransactionLineRepository extends AbstractRepository implements ExportExce
 {
     /**
      * Returns pure SQL to get ID of all objects that are accessible to given user.
+     *
+     * @param null|User $user
      */
     public function getAccessibleSubQuery(?\Ecodev\Felix\Model\User $user): string
     {
@@ -24,9 +26,15 @@ class TransactionLineRepository extends AbstractRepository implements ExportExce
             return $this->getAllIdsQuery();
         }
 
+        if ($user->getOwner()) {
+            $id = $user->getOwner()->getId();
+        } else {
+            $id = $user->getId();
+        }
+
         return 'SELECT transaction_line.id FROM transaction_line
               JOIN account ON transaction_line.debit_id = account.id OR transaction_line.credit_id = account.id 
-              WHERE account.owner_id = ' . $user->getId();
+              WHERE account.owner_id = ' . $id;
     }
 
     /**

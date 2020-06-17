@@ -11,6 +11,8 @@ class ExpenseClaimRepository extends AbstractRepository implements LimitedAccess
 {
     /**
      * Returns pure SQL to get ID of all objects that are accessible to given user.
+     *
+     * @param null|User $user
      */
     public function getAccessibleSubQuery(?\Ecodev\Felix\Model\User $user): string
     {
@@ -22,6 +24,6 @@ class ExpenseClaimRepository extends AbstractRepository implements LimitedAccess
             return $this->getAllIdsQuery();
         }
 
-        return $this->getAllIdsForOwnerQuery($user);
+        return $this->getAllIdsForFamilyQuery($user);
     }
 }
