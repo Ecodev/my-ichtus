@@ -28,7 +28,12 @@
         >
             <h2 fxFlex class="mat-headline no-margin">Dépenses et remboursements en attente</h2>
             <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="10px">
-                <button mat-stroked-button (click)="createRefund()" [disabled]="!user.iban" *ngIf="!adminMode && !user.owner">
+                <button
+                    mat-stroked-button
+                    (click)="createRefund()"
+                    [disabled]="!user.iban"
+                    *ngIf="!adminMode && !user.owner"
+                >
                     Demander un remboursement
                 </button>
                 <a mat-stroked-button [routerLink]="['/profile/create-expense-claim']" *ngIf="!adminMode">

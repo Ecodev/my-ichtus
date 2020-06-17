@@ -8,6 +8,7 @@
 use Application\DBAL\Types\AccountTypeType;
 use Application\Model\Account;
 use Application\Model\Transaction;
+use Application\Model\User;
 use Ecodev\Felix\Format;
 
 require_once 'server/cli.php';
