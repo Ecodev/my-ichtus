@@ -100,7 +100,7 @@
     <div>
         <div fxLayout="row" fxLayoutAlign="start center" class="margin-bottom">
             <h2 fxFlex class="mat-headline no-margin-bottom">Cotisation / Prestations souscrites</h2>
-            <button mat-stroked-button color="warn" (click)="unregister()">Démissionner</button>
+            <button mat-stroked-button *ngIf="!user.owner" color="warn" (click)="unregister()">Démissionner</button>
         </div>
 
         <div

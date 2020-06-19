@@ -133,7 +133,7 @@ export class UserService extends NaturalAbstractModelService<
             return false;
         }
 
-        return !user.owner;
+        return [UserStatus.active, UserStatus.new].includes(user.status);
     }
 
     public static canAccessAdmin(user: CurrentUserForProfile['viewer']): boolean {
