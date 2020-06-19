@@ -20,7 +20,7 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
     public runningServicesDS: NaturalDataSource;
     public pendingApplicationsDS: NaturalDataSource;
 
-    public servicesColumns = ['name', 'periodicPrice', 'revoke'];
+    public servicesColumns = ['name', 'initialPrice', 'periodicPrice', 'revoke'];
     public applicationsColumns = ['name', 'status', 'initialPrice', 'periodicPrice', 'cancel'];
 
     constructor(
