@@ -46,7 +46,7 @@ class DatatransActionTest extends TestCase
         // Submit the same request again to make sure it is accounted only once
         $action->process($request, $handler);
 
-        if ($accountId) {
+        if (is_int($accountId)) {
             $actualBalance = $this->getEntityManager()->getConnection()->fetchColumn('SELECT balance FROM account WHERE id = ' . $accountId);
             self::assertSame($expectedAmount->getAmount(), $actualBalance);
         }

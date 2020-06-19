@@ -25,6 +25,10 @@ class IsFamily implements AssertionInterface
      */
     public function assert(Acl $acl, ?RoleInterface $role = null, ?ResourceInterface $resource = null, $privilege = null)
     {
+        if ($resource === null) {
+            return false;
+        }
+
         /** @var AbstractModel $object */
         $object = $resource->getInstance();
 
