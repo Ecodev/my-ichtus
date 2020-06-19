@@ -139,6 +139,7 @@ class ExpenseClaim extends AbstractModel
     public function transactionAdded(Transaction $transaction): void
     {
         $this->transactions->add($transaction);
+        $this->status = ExpenseClaimStatusType::PROCESSED;
     }
 
     /**
