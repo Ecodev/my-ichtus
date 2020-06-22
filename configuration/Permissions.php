@@ -32,6 +32,7 @@ return [
         'path' => 'data/session',
         'permissions' => '0770',
         'recursive' => true,
+        'owner' => 'ichtusclub-www',
     ],
     [
         'path' => 'bin/build.sh',
