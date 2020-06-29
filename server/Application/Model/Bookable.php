@@ -358,22 +358,6 @@ class Bookable extends AbstractModel
      */
     public function getSharedBookings(): array
     {
-        $isAdminOnly = $this->getBookingType() === \Application\DBAL\Types\BookingTypeType::ADMIN_ONLY;
-
-        $isTagAllowed = false;
-        $allowedTagIds = [BookableTagRepository::STORAGE_ID, BookableTagRepository::FORMATION_ID, BookableTagRepository::WELCOME_ID];
-        foreach ($this->getBookableTags() as $tag) {
-            if (in_array($tag->getId(), $allowedTagIds, true)) {
-                $isTagAllowed = true;
-
-                break;
-            }
-        }
-
-        if (!$isAdminOnly || !$isTagAllowed) {
-            return [];
-        }
-
         $bookings = $this->getBookings()->filter(function (Booking $booking): bool {
             return !$booking->getEndDate();
         })->toArray();

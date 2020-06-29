@@ -40,16 +40,7 @@ class BookableTest extends TestCase
         $booking1 = new Booking();
         $booking1->setBookable($bookable);
 
-        self::assertSame([], $bookable->getSharedBookings());
-
-        $bookable->setBookingType(BookingTypeType::ADMIN_ONLY);
-        self::assertSame([], $bookable->getSharedBookings(), 'admin_only is not enough to share');
-
-        /** @var BookableTag $tag */
-        $tag = _em()->getReference(BookableTag::class, BookableTagRepository::STORAGE_ID);
-        $tag->addBookable($bookable);
-
-        self::assertCount(1, $bookable->getSharedBookings(), 'admin_only and storage tag should show 1 booking');
+        self::assertCount(1, $bookable->getSharedBookings());
 
         $booking2 = new Booking();
         $booking2->setBookable($bookable);
