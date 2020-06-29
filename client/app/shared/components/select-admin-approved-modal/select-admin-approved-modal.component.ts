@@ -1,10 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
-import {Bookables, Bookables_bookables_items, BookableSortingField, BookablesVariables} from '../../generated-types';
+import {
+    Bookables,
+    Bookables_bookables_items,
+    BookableSortingField,
+    BookablesVariables,
+    UsageBookables_bookables_items,
+} from '../../generated-types';
 import {SelectionModel} from '@angular/cdk/collections';
 import {NaturalDataSource, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {BookableTagService} from '../../../admin/bookableTags/services/bookableTag.service';
 import {map} from 'rxjs/operators';
+import {UsageBookableService} from '../../../admin/bookables/services/usage-bookable.service';
 
 @Component({
     selector: 'natural-select-admin-approved-modal',
@@ -18,7 +25,7 @@ export class SelectAdminApprovedModalComponent implements OnInit {
     public welcomeDataSource;
     public selection = new SelectionModel<Bookables['bookables']['items']>(true, []);
 
-    constructor(private bookableService: BookableService) {}
+    constructor(private bookableService: UsageBookableService) {}
 
     public ngOnInit(): void {
         this.fetch(BookableTagService.STORAGE).subscribe(res => (this.storagesDataSource = res));
@@ -37,10 +44,10 @@ export class SelectAdminApprovedModalComponent implements OnInit {
         return this.bookableService.getAll(qvm).pipe(map(result => new NaturalDataSource(result)));
     }
 
-    public isFullyBooked(bookable: Bookables_bookables_items): boolean {
+    public isFullyBooked(bookable: UsageBookables_bookables_items): boolean {
         return (
             bookable.simultaneousBookingMaximum !== -1 &&
-            bookable.bookings.length >= bookable.simultaneousBookingMaximum
+            bookable.sharedBookings.length > bookable.simultaneousBookingMaximum
         );
     }
 }

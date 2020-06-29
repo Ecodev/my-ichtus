@@ -17,9 +17,6 @@ export const bookableMetaFragment = gql`
             id
             name
         }
-        bookings {
-            id
-        }
         initialPrice
         periodicPrice
         purchasePrice
