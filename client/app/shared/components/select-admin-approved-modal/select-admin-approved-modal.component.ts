@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
-import {Bookables, BookableSortingField, BookablesVariables} from '../../generated-types';
+import {Bookables, Bookables_bookables_items, BookableSortingField, BookablesVariables} from '../../generated-types';
 import {SelectionModel} from '@angular/cdk/collections';
 import {NaturalDataSource, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {BookableTagService} from '../../../admin/bookableTags/services/bookableTag.service';
@@ -9,6 +9,7 @@ import {map} from 'rxjs/operators';
 @Component({
     selector: 'natural-select-admin-approved-modal',
     templateUrl: './select-admin-approved-modal.component.html',
+    styleUrls: ['./select-admin-approved-modal.component.scss'],
 })
 export class SelectAdminApprovedModalComponent implements OnInit {
     public servicesDataSource;
@@ -34,5 +35,12 @@ export class SelectAdminApprovedModalComponent implements OnInit {
 
         // Get all because requirable storages should not change
         return this.bookableService.getAll(qvm).pipe(map(result => new NaturalDataSource(result)));
+    }
+
+    public isFullyBooked(bookable: Bookables_bookables_items): boolean {
+        return (
+            bookable.simultaneousBookingMaximum !== -1 &&
+            bookable.bookings.length >= bookable.simultaneousBookingMaximum
+        );
     }
 }
