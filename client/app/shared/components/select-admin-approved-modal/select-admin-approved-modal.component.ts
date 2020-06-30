@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {
     Bookables,
-    Bookables_bookables_items,
     BookableSortingField,
     BookablesVariables,
     UsageBookables_bookables_items,

@@ -40,7 +40,19 @@ class BookableTest extends TestCase
         $booking1 = new Booking();
         $booking1->setBookable($bookable);
 
-        self::assertCount(1, $bookable->getSharedBookings());
+        self::assertSame([], $bookable->getSharedBookings());
+
+        $bookable->setBookingType(BookingTypeType::SELF_APPROVED);
+        self::assertSame([], $bookable->getSharedBookings(), 'self_approved show 0 booking');
+
+        $bookable->setBookingType(BookingTypeType::MANDATORY);
+        self::assertSame([], $bookable->getSharedBookings(), 'mandatory show 0 booking');
+
+        $bookable->setBookingType(BookingTypeType::ADMIN_ONLY);
+        self::assertCount(1, $bookable->getSharedBookings(), 'admin_only show 1 booking');
+
+        $bookable->setBookingType(BookingTypeType::ADMIN_APPROVED);
+        self::assertCount(1, $bookable->getSharedBookings(), 'admin_approved show 1 booking');
 
         $booking2 = new Booking();
         $booking2->setBookable($bookable);

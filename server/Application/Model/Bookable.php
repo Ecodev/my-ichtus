@@ -350,7 +350,7 @@ class Bookable extends AbstractModel
     /**
      * Return a list of effective active bookings including sharing conditions.
      *
-     * Only "admin-only" + storage tags are sharable bookables. In this case, a list of bookings is returned.
+     * Only admin-only + admin_approved are fetchable. In this case, a list of bookings is returned.
      *
      * For other bookable types, returns null
      *
@@ -358,6 +358,13 @@ class Bookable extends AbstractModel
      */
     public function getSharedBookings(): array
     {
+        $bookableType = $this->getBookingType();
+        $bookableTypesAllowed = [BookingTypeType::ADMIN_ONLY, BookingTypeType::ADMIN_APPROVED];
+
+        if (!in_array($bookableType, $bookableTypesAllowed, true)) {
+            return [];
+        }
+
         $bookings = $this->getBookings()->filter(function (Booking $booking): bool {
             return !$booking->getEndDate();
         })->toArray();
