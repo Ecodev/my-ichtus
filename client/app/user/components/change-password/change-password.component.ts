@@ -45,7 +45,7 @@ export class ChangePasswordComponent {
             })
             .pipe(finalize(() => (this.sending = false)))
             .subscribe(result => {
-                if ((result.data as UpdatePassword).updatePassword) {
+                if (result.data!.updatePassword) {
                     this.alertService.info('Le mot de passe a été mis à jour', 5000);
                     this.router.navigate(['/login']);
                 } else {

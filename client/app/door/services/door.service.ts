@@ -45,6 +45,6 @@ export class DoorService {
                 mutation: openDoorMutation,
                 variables: openData,
             })
-            .pipe(map(result => (result.data as OpenDoor).openDoor));
+            .pipe(map(result => result.data!.openDoor));
     }
 }

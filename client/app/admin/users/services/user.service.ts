@@ -273,7 +273,7 @@ export class UserService extends NaturalAbstractModelService<
                     mutation: loginMutation,
                     variables: loginData,
                     update: (proxy: DataProxy, result) => {
-                        const login = (result.data as Login).login;
+                        const login = result.data!.login;
                         this.cacheViewer(login);
 
                         // Inject the freshly logged in user as the current user into Apollo data store
@@ -285,7 +285,7 @@ export class UserService extends NaturalAbstractModelService<
                         this.permissionsService.setUser(login);
                     },
                 })
-                .pipe(map(result => (result.data as Login).login))
+                .pipe(map(result => result.data!.login))
                 .subscribe(subject);
         });
 
@@ -311,7 +311,7 @@ export class UserService extends NaturalAbstractModelService<
                     mutation: logoutMutation,
                 })
                 .subscribe(result => {
-                    const v = (result.data as Logout).logout;
+                    const v = result.data!.logout;
                     this.cacheViewer(null);
                     (this.apollo.getClient().resetStore() as Promise<null>).then(() => {
                         subject.next(v);
@@ -458,7 +458,7 @@ export class UserService extends NaturalAbstractModelService<
                     id: user.id,
                 },
             })
-            .pipe(map(result => (result.data as Unregister).unregister));
+            .pipe(map(result => result.data!.unregister));
     }
 
     public leaveFamily(user): Observable<LeaveFamily['leaveFamily']> {
@@ -469,7 +469,7 @@ export class UserService extends NaturalAbstractModelService<
                     id: user.id,
                 },
             })
-            .pipe(map(result => (result.data as LeaveFamily).leaveFamily));
+            .pipe(map(result => result.data!.leaveFamily));
     }
 
     /**
@@ -525,6 +525,6 @@ export class UserService extends NaturalAbstractModelService<
                     login: login,
                 },
             })
-            .pipe(map(result => (result.data as RequestPasswordReset).requestPasswordReset));
+            .pipe(map(result => result.data!.requestPasswordReset));
     }
 }

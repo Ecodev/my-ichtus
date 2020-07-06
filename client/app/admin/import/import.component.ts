@@ -53,7 +53,7 @@ export class ImportComponent implements OnInit {
             })
             .subscribe(
                 result => {
-                    const importCamt = (result.data as ImportCamt).importCamt;
+                    const importCamt = result.data!.importCamt;
                     const naturalSearchSelections: NaturalSearchSelections = [
                         importCamt.map(transaction => {
                             return {
