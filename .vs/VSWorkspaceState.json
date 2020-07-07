@@ -6,11 +6,9 @@
     "\\app\\confirmation",
     "\\app\\equipment",
     "\\app\\general",
-    "\\app\\img",
-    "\\app\\infos",
     "\\app\\member",
     "\\app\\page"
   ],
-  "SelectedNode": "\\app\\cahier\\cahier.js",
+  "SelectedNode": "\\app\\general\\server-requests.js",
   "PreviewInSolutionExplorer": false
 }

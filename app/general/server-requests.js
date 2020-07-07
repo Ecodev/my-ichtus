@@ -14,15 +14,21 @@ var Requests = {
             login: 'bookingonly',
             password: pwd
         }).subscribe(result => {
-            //console.log(result);
+            console.log(result);
             closePopUp("last");
-            location.reload();
+            //location.reload(); // à désactiver si la page se recharge automatiquement !
+            setTimeout(function () { // temp
+                console.log("check login");
+                Requests.checkLogin();
+               // Requests.getActualBookingList();
+            }, 5000);
             });
     },
 
     // actualizeLoginButton
     checkLogin: function () {
         Server.userService.getViewer().subscribe(function (user) {
+            console.log("user:", user);
             if (!user) {
                 // pas connecté
                 console.error("Pas connecté");
@@ -30,7 +36,9 @@ var Requests = {
                     popLogin();
                 }
                 else {
-                    Requests.login('bookingonly'); // auto mdp
+                    setTimeout(function () {
+                        console.log("request-login"); Requests.login('bookingonly');
+                    }, 2000); // auto mdp
                 }
             } else {
                 // connecté
@@ -67,12 +75,22 @@ var Requests = {
                                         like: {
                                             value: '' + texts[0] + '%'
                                         }
+                                    },
+                                    status: { // status
+                                        equal: {
+                                            value: 'active'
+                                        }
                                     }
                                 },
                                 {
                                     lastName: {
                                         like: {
                                             value: '' + texts[0] + '%'
+                                        }
+                                    },
+                                    status: { // status
+                                        equal: {
+                                            value: 'active'
                                         }
                                     }
                                 }
@@ -122,6 +140,13 @@ var Requests = {
                                             not: true
                                         }
                                     }
+                                },
+                                {
+                                    status: { // status
+                                        equal: {
+                                            value: 'active'
+                                        }
+                                    }
                                 }
                             ]
                         },
@@ -147,6 +172,13 @@ var Requests = {
                                         equal: {
                                             value: "7083",
                                             not: true
+                                        }
+                                    }
+                                },
+                                {
+                                    status: { // status
+                                        equal: {
+                                            value: 'active'
                                         }
                                     }
                                 }
@@ -325,7 +357,7 @@ var Requests = {
             //console.log("getBookablesList(): ", result);
 
             if (result.items.length === 0) {
-                console.loG("NOTHING");
+                console.log("NOTHING");
                 loadElements([]);
             }
             else {
