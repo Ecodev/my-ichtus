@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {Validators} from '@angular/forms';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
-import {FormAsyncValidators, FormValidators, Literal, unique} from '@ecodev/natural';
+import {deliverableEmail, FormAsyncValidators, FormValidators, Literal, unique} from '@ecodev/natural';
 import {PricedBookingService} from '../../../admin/bookings/services/PricedBooking.service';
 import {AnonymousUserService} from './anonymous-user.service';
 import {loginValidator} from '../../../admin/users/services/user.service';
@@ -36,7 +36,7 @@ export class NewUserService extends AnonymousUserService {
             login: [Validators.required, loginValidator],
             firstName: [Validators.required, Validators.maxLength(100)],
             lastName: [Validators.required, Validators.maxLength(100)],
-            email: [Validators.required, Validators.email],
+            email: [Validators.required, deliverableEmail],
             familyRelationship: [Validators.required],
             birthday: [Validators.required],
             mobilePhone: [Validators.required, Validators.maxLength(25)],

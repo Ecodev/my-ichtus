@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {Validators} from '@angular/forms';
 import {PermissionsService} from '../../../shared/services/permissions.service';
-import {FormValidators, Literal} from '@ecodev/natural';
+import {deliverableEmail, FormValidators, Literal} from '@ecodev/natural';
 import {PricedBookingService} from '../../../admin/bookings/services/PricedBooking.service';
 
 @Injectable({
@@ -32,7 +32,7 @@ export class AnonymousUserService extends UserService {
 
     public getFormValidators(): FormValidators {
         return {
-            email: [Validators.required, Validators.email],
+            email: [Validators.required, deliverableEmail],
             hasInsurance: [],
             termsAgreement: [],
         };

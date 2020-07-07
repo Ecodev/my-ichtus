@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {FormControl, ValidationErrors, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {
+    deliverableEmail,
     FormAsyncValidators,
     FormValidators,
     Literal,
@@ -237,7 +238,7 @@ export class UserService extends NaturalAbstractModelService<
             login: [Validators.required, loginValidator],
             firstName: [Validators.required, Validators.maxLength(100)],
             lastName: [Validators.required, Validators.maxLength(100)],
-            email: [Validators.email],
+            email: [deliverableEmail],
             familyRelationship: [Validators.required],
             birthday: [Validators.required],
         };
