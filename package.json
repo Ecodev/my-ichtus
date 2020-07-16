@@ -48,7 +48,7 @@
         "graphql-tag": "^2.10.3",
         "graphql-tools": "^4.0.7",
         "jsqr": "^1.1.1",
-        "lodash": "^4.17.15",
+        "lodash": "^4.17.19",
         "ngx-avatar": "^3.7.0",
         "ngx-progressbar": "^6.0.2",
         "ngx-timeago": "^1.0.4",
