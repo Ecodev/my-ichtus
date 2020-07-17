@@ -348,11 +348,9 @@ class Bookable extends AbstractModel
     }
 
     /**
-     * Return a list of effective active bookings including sharing conditions.
+     * Returns list of active bookings
      *
-     * Only admin-only + admin_approved are fetchable. In this case, a list of bookings is returned.
-     *
-     * For other bookable types, returns null
+     * Limits to admin-only and admin-approved
      *
      * @return Booking[]
      */
@@ -362,6 +360,40 @@ class Bookable extends AbstractModel
         $bookableTypesAllowed = [BookingTypeType::ADMIN_ONLY, BookingTypeType::ADMIN_APPROVED];
 
         if (!in_array($bookableType, $bookableTypesAllowed, true)) {
+            return [];
+        }
+
+        $bookings = $this->getBookings()->filter(function (Booking $booking): bool {
+            return !$booking->getEndDate();
+        })->toArray();
+
+        return $bookings;
+    }
+
+    /**
+     * Return a list of effective active bookings including sharing conditions.
+     *
+     * Only "admin-only" + storage tags are sharable bookables. In this case, a list of bookings is returned.
+     *
+     * For other bookable types, returns null
+     *
+     * @return Booking[]
+     */
+    public function getPeriodicPriceDividerBookings(): array
+    {
+        $isAdminOnly = $this->getBookingType() === BookingTypeType::ADMIN_ONLY;
+
+        $isTagAllowed = false;
+        $allowedTagIds = [BookableTagRepository::STORAGE_ID, BookableTagRepository::FORMATION_ID, BookableTagRepository::WELCOME_ID];
+        foreach ($this->getBookableTags() as $tag) {
+            if (in_array($tag->getId(), $allowedTagIds, true)) {
+                $isTagAllowed = true;
+
+                break;
+            }
+        }
+
+        if (!$isAdminOnly || !$isTagAllowed) {
             return [];
         }
 

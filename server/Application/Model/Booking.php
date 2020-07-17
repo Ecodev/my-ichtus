@@ -271,7 +271,7 @@ class Booking extends AbstractModel
     public function getPeriodicPrice(): Money
     {
         $bookable = $this->getBookable();
-        $bookings = $bookable->getSharedBookings();
+        $bookings = $bookable->getPeriodicPriceDividerBookings();
 
         if (!$bookings) {
             return $bookable->getPeriodicPrice();

@@ -73,7 +73,7 @@ class BookingTest extends TestCase
 
         $bookable = $this->createMock(Bookable::class);
         $bookable->expects(self::any())
-            ->method('getSharedBookings')
+            ->method('getPeriodicPriceDividerBookings')
             ->willReturn([1, 2, 3]);
 
         $bookable->expects(self::any())

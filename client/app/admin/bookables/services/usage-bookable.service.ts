@@ -4,11 +4,13 @@ import {bookableQuery, createBookable, deleteBookables, updateBookable, usageBoo
 import {
     Bookable,
     Bookables,
+    BookablesVariables,
     BookableVariables,
     CreateBookable,
     CreateBookableVariables,
     DeleteBookables,
     DeleteBookablesVariables,
+    JoinType,
     UpdateBookable,
     UpdateBookableVariables,
     UsageBookablesVariables,
@@ -33,5 +35,19 @@ export class UsageBookableService extends NaturalAbstractModelService<
 > {
     constructor(apollo: Apollo, protected bookingService: BookingService) {
         super(apollo, 'bookable', bookableQuery, usageBookablesQuery, createBookable, updateBookable, deleteBookables);
+    }
+
+    public getContextForAll(): Partial<BookablesVariables> {
+        return {
+            filter: {
+                groups: [
+                    {
+                        joins: {
+                            bookings: {type: JoinType.leftJoin},
+                        },
+                    },
+                ],
+            },
+        };
     }
 }
