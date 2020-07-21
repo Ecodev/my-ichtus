@@ -39,21 +39,21 @@ abstract class AbstractModel implements HasOwner, Model
     private $id;
 
     /**
-     * @var Chronos
+     * @var null|Chronos
      *
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $creationDate;
 
     /**
-     * @var Chronos
+     * @var null|Chronos
      *
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updateDate;
 
     /**
-     * @var User
+     * @var null|User
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
@@ -73,7 +73,7 @@ abstract class AbstractModel implements HasOwner, Model
     private $owner;
 
     /**
-     * @var User
+     * @var null|User
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
@@ -92,10 +92,8 @@ abstract class AbstractModel implements HasOwner, Model
 
     /**
      * Set creation date
-     *
-     * @param Chronos $creationDate
      */
-    protected function setCreationDate(?Chronos $creationDate = null): void
+    private function setCreationDate(Chronos $creationDate): void
     {
         $this->creationDate = $creationDate;
     }
@@ -110,10 +108,8 @@ abstract class AbstractModel implements HasOwner, Model
 
     /**
      * Set update date
-     *
-     * @param Chronos $updateDate
      */
-    private function setUpdateDate(?Chronos $updateDate = null): void
+    private function setUpdateDate(Chronos $updateDate): void
     {
         $this->updateDate = $updateDate;
     }
@@ -128,10 +124,8 @@ abstract class AbstractModel implements HasOwner, Model
 
     /**
      * Set creator
-     *
-     * @param User $creator
      */
-    protected function setCreator(?User $creator = null): void
+    private function setCreator(?User $creator): void
     {
         $this->creator = $creator;
     }
@@ -179,7 +173,7 @@ abstract class AbstractModel implements HasOwner, Model
     /**
      * Set updater
      */
-    private function setUpdater(?User $updater = null): void
+    private function setUpdater(?User $updater): void
     {
         $this->updater = $updater;
     }
@@ -195,7 +189,7 @@ abstract class AbstractModel implements HasOwner, Model
     /**
      * Get default owner for creation
      */
-    public function getOwnerForCreation(): ?User
+    protected function getOwnerForCreation(): ?User
     {
         return User::getCurrent();
     }

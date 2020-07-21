@@ -863,15 +863,12 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Automatically called by Doctrine when the object is saved for the first time
      * Override parent to prevents users created from administration to be family of the administrator
-     * The owner must be explicitly set for all users.
      *
-     * @ORM\PrePersist
+     * The owner must be explicitly set for all users.
      */
-    public function timestampCreation(): void
+    protected function getOwnerForCreation(): ?self
     {
-        $this->setCreationDate(new Chronos());
-        $this->setCreator(self::getCurrent());
+        return null;
     }
 }
