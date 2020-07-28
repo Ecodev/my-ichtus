@@ -541,7 +541,7 @@ export class NaturalSearchFacetsService {
     /**
      * Returns the natural search configuration for given, or null if non-existent
      */
-    public get(key: string): NaturalSearchFacets | null {
-        return this.allFacets[key];
+    public get(key: string): NaturalSearchFacets {
+        return this.allFacets[key] || [];
     }
 }

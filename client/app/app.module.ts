@@ -35,10 +35,6 @@ import {strings as frenchStrings} from 'ngx-timeago/language-strings/fr-short';
 registerLocaleData(localeFRCH);
 registerLocaleData(localeDECH);
 
-export class MyIntl extends TimeagoIntl {
-    // do extra stuff here...
-}
-
 @NgModule({
     declarations: [
         AppComponent,
@@ -61,7 +57,7 @@ export class MyIntl extends TimeagoIntl {
         HttpClientModule,
         HttpBatchLinkModule,
         TimeagoModule.forRoot({
-            intl: {provide: TimeagoIntl, useClass: MyIntl},
+            intl: {provide: TimeagoIntl, useClass: TimeagoIntl},
             formatter: {provide: TimeagoFormatter, useClass: TimeagoCustomFormatter},
         }),
     ],
