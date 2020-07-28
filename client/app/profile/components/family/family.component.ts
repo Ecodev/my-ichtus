@@ -4,7 +4,7 @@ import {UserService} from '../../../admin/users/services/user.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {ActivatedRoute} from '@angular/router';
 import {mergeOverrideArray, NaturalAlertService, NaturalQueryVariablesManager} from '@ecodev/natural';
-import {mergeWith} from 'lodash';
+import {mergeWith} from 'lodash-es';
 
 @Component({
     selector: 'app-family',

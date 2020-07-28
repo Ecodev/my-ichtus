@@ -11,7 +11,7 @@ import {
     TransactionTag,
 } from '../../../shared/generated-types';
 import {PermissionsService} from '../../../shared/services/permissions.service';
-import {union} from 'lodash';
+import {union} from 'lodash-es';
 
 @Component({
     selector: 'app-transaction-lines',

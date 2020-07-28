@@ -27,7 +27,7 @@ import {FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/for
 import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {BookingService} from '../../bookings/services/booking.service';
-import {intersectionBy} from 'lodash';
+import {intersectionBy} from 'lodash-es';
 import {
     FormAsyncValidators,
     FormValidators,

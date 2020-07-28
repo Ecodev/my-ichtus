@@ -51,7 +51,7 @@ import {ImportComponent} from './import/import.component';
 import {LogsComponent} from './logs/logs/logs.component';
 import {BookableTagService} from './bookableTags/services/bookableTag.service';
 import {BookingWithOwnerService} from './bookings/services/booking-with-owner.service';
-import {merge} from 'lodash';
+import {merge} from 'lodash-es';
 
 const routes: Routes = [
     {

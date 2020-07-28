@@ -19,7 +19,7 @@ import {LicenseService} from '../../licenses/services/license.service';
 import {UserTagService} from '../../userTags/services/userTag.service';
 import {BookingService} from '../../bookings/services/booking.service';
 import {AccountService} from '../../accounts/services/account.service';
-import {merge} from 'lodash';
+import {merge} from 'lodash-es';
 
 @Component({
     selector: 'app-user',

@@ -8,7 +8,7 @@ import {
     UserVariables,
 } from '../../../shared/generated-types';
 import {NaturalAbstractDetail} from '@ecodev/natural';
-import {merge} from 'lodash';
+import {merge} from 'lodash-es';
 import {FamilyUserService} from './family-user.service';
 
 @Component({

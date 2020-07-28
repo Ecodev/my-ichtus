@@ -6,7 +6,7 @@ import {RegisterComponent} from './register.component';
 import {NewUserService} from './new-user.service';
 import {Apollo} from 'apollo-angular';
 import gql from 'graphql-tag';
-import {pick} from 'lodash';
+import {pick} from 'lodash-es';
 
 @Component({
     selector: 'app-confirm',
