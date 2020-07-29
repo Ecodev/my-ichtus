@@ -849,7 +849,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     public function getCanOpenDoor(?string $door = null): bool
     {
         $allowedStatus = [self::STATUS_ACTIVE];
-        $allowedRoles = [self::ROLE_INDIVIDUAL, self::ROLE_MEMBER, self::ROLE_RESPONSIBLE, self::ROLE_ADMINISTRATOR];
+        $allowedRoles = [self::ROLE_INDIVIDUAL, self::ROLE_MEMBER, self::ROLE_TRAINER, self::ROLE_RESPONSIBLE, self::ROLE_ADMINISTRATOR];
 
         if ($door && !$this->$door) {
             return false;
