@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "24bea012d346b411ae28b44635727ec4",
+    "content-hash": "6e5a301cf625587c50ec03a9414b3e6a",
     "packages": [
         {
             "name": "beberlei/doctrineextensions",
@@ -1425,16 +1425,16 @@
         },
         {
             "name": "ecodev/graphql-upload",
-            "version": "4.1.0",
+            "version": "5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ecodev/graphql-upload.git",
-                "reference": "3162063c756613f10581253708c3c3795c7851d3"
+                "reference": "8166505eb1c3ca1a5460e5763e09cfc322551dea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ecodev/graphql-upload/zipball/3162063c756613f10581253708c3c3795c7851d3",
-                "reference": "3162063c756613f10581253708c3c3795c7851d3",
+                "url": "https://api.github.com/repos/Ecodev/graphql-upload/zipball/8166505eb1c3ca1a5460e5763e09cfc322551dea",
+                "reference": "8166505eb1c3ca1a5460e5763e09cfc322551dea",
                 "shasum": ""
             },
             "require": {
@@ -1467,7 +1467,7 @@
                 "multipart",
                 "upload"
             ],
-            "time": "2020-01-02T14:21:15+00:00"
+            "time": "2020-05-07T08:08:25+00:00"
         },
         {
             "name": "fig/http-message-util",
