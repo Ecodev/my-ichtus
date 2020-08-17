@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-         bootstrap="htdocs/index.php"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+         bootstrap="server/index.php"
          colors="true" cacheResultFile="data/tmp/.phpunit.result.cache">
     <testsuites>
         <testsuite name="Application\\Tests">
             <directory>./tests</directory>
         </testsuite>
     </testsuites>
-
-    <filter>
-        <whitelist>
+    <coverage>
+        <include>
             <!-- Include only our own code for code coverage statistics -->
             <directory>./server</directory>
-        </whitelist>
-    </filter>
+        </include>
+    </coverage>
 </phpunit>

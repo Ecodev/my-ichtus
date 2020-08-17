@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Apollo} from 'apollo-angular';
-import {FormValidators, NaturalAbstractModelService, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {FormValidators, money, NaturalAbstractModelService, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {
     createExpenseClaim,
     deleteExpenseClaims,
@@ -69,7 +69,7 @@ export class ExpenseClaimService extends NaturalAbstractModelService<
     public getFormValidators(): FormValidators {
         return {
             name: [Validators.required, Validators.maxLength(100)],
-            amount: [Validators.min(0)],
+            amount: [Validators.required, money, Validators.min(0)],
         };
     }
 

@@ -31,7 +31,10 @@
             <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
                 <mat-form-field>
                     <mat-label>Montant</mat-label>
-                    <input matInput formControlName="balance" />
+                    <input matInput type="number" formControlName="balance" step="0.01" />
+                    <mat-error *ngIf="formArray.at(i).get('balance')?.hasError('money')"
+                        >Le montant doit être un nombre avec un maximum de deux décimales
+                    </mat-error>
                     <mat-error *ngIf="formArray.at(i).get('balance')?.hasError('min')">
                         Doit être supérieur à {{ formArray.at(i).get('balance')?.errors.min.min }}
                     </mat-error>

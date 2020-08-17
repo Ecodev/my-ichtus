@@ -1,27 +1,27 @@
 <h2 mat-dialog-title>Demande de remboursement</h2>
-<mat-dialog-content>
+<mat-dialog-content [formGroup]="form">
     <p class="mat-body">Merci d'indiquer le montant que vous souhaitez récupérer et motivez votre demande.</p>
 
     <mat-form-field style="width: 100%">
         <mat-label>Montant</mat-label>
-        <input matInput type="number" step="0.01" min="1" [(ngModel)]="expense.amount" />
+        <input matInput type="number" step="0.01" min="1" formControlName="amount" />
         <div matSuffix>CHF</div>
+        <mat-error *ngIf="form.get('amount')?.hasError('required')">Requis</mat-error>
+        <mat-error *ngIf="form.get('amount')?.hasError('min')">Le montant doit être positif </mat-error>
+        <mat-error *ngIf="form.get('amount')?.hasError('money')"
+            >Le montant doit être un nombre avec un maximum de deux décimales
+        </mat-error>
     </mat-form-field>
 
     <mat-form-field style="width: 100%">
         <mat-label>Commentaire</mat-label>
-        <textarea matInput [(ngModel)]="expense.description" matTextareaAutosize [matAutosizeMinRows]="4"></textarea>
+        <textarea matInput formControlName="description" matTextareaAutosize [matAutosizeMinRows]="4"></textarea>
     </mat-form-field>
 </mat-dialog-content>
 
 <mat-dialog-actions style="display: flex; justify-content: flex-end">
     <button mat-button mat-dialog-close>{{ data?.cancelText || 'Annuler' }}</button>
-    <button
-        mat-flat-button
-        color="primary"
-        [mat-dialog-close]="expense"
-        [disabled]="!expense.amount && expense.name === ''"
-    >
+    <button mat-flat-button color="primary" [mat-dialog-close]="form.value" [disabled]="!form.valid">
         {{ data?.confirmText || 'Valider' }}
     </button>
 </mat-dialog-actions>

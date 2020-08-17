@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {ExpenseClaimInput} from '../../../shared/generated-types';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {money} from '@ecodev/natural';
 
 @Component({
     selector: 'app-create-refund',
@@ -8,13 +9,16 @@ import {ExpenseClaimInput} from '../../../shared/generated-types';
     styleUrls: ['./create-refund.component.scss'],
 })
 export class CreateRefundComponent implements OnInit {
-    public expense: ExpenseClaimInput = {
-        amount: '',
-        name: 'Demande de remboursement',
-        description: '',
-    };
+    /**
+     * Form for ExpenseClaimInput
+     */
+    public readonly form: FormGroup = this.fb.group({
+        amount: ['', [Validators.required, Validators.min(0), money]],
+        name: ['Demande de remboursement', [Validators.required, Validators.maxLength(50)]],
+        description: ['', []],
+    });
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private readonly fb: FormBuilder) {}
 
     public ngOnInit(): void {}
 }

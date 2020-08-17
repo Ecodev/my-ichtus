@@ -12,7 +12,6 @@ parameters:
         - '~^Call to an undefined method Application\\Repository\\AbstractRepository\<Application\\Model\\User\>::(getOneByLogin|getOneById)\(\)\.$~'
         - '~^Call to an undefined method Laminas\\Permissions\\Acl\\Resource\\ResourceInterface::getInstance\(\)\.$~'
         - '~^Property .* does not accept Application\\Repository\\AbstractRepository\<Application\\Model\\.*\>\.$~'
-        - '~^Parameter \#1 \$wrappedType of static method GraphQL\\Type\\Definition\\Type\:\:nonNull\(\) expects GraphQL\\Type\\Definition\\NullableType, GraphQL\\Type\\Definition\\.* given\.$~'
         - '~^Parameter \#3 \$type of method Doctrine\\ORM\\AbstractQuery\:\:setParameter\(\) expects string\|null, int given\.$~'
         -
             message: '~^If condition is always true\.$~'
