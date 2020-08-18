@@ -136,7 +136,7 @@ class DatatransActionTest extends TestCase
                     ],
                 ],
             ],
-            'user without account yet' => [
+            'user without account yet (child can credit householder)' => [
                 [
                     'uppTransactionId' => '123456789012345678',
                     'status' => 'success',
