@@ -9,6 +9,7 @@ use Application\Model\Transaction;
 use Application\Model\TransactionLine;
 use Application\Model\User;
 use Application\Repository\AccountRepository;
+use Application\Repository\LogRepository;
 use Application\Repository\UserRepository;
 use Cake\Chronos\Chronos;
 use Doctrine\ORM\EntityManager;
@@ -55,8 +56,10 @@ class DatatransAction extends AbstractAction
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $request->getMethod();
         $body = $request->getParsedBody();
+        $extraToLog = is_array($body) ? $body : ['rawBody' => $request->getBody()->getContents()];
+
+        _log()->info(LogRepository::DATATRANS_WEBHOOK_BEGIN, $extraToLog);
 
         try {
             if (!is_array($body)) {
@@ -77,6 +80,8 @@ class DatatransAction extends AbstractAction
         $viewModel = [
             'message' => $message,
         ];
+
+        _log()->info(LogRepository::DATATRANS_WEBHOOK_END, $message);
 
         return new HtmlResponse($this->template->render('app::datatrans', $viewModel));
     }
