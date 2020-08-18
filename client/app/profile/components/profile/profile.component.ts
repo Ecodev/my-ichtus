@@ -34,7 +34,7 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
         configService: ConfigService,
     ) {
         super();
-        configService.get().subscribe(config => {
+        configService.config.subscribe(config => {
             this.config = config;
         });
     }
