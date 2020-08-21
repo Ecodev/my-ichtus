@@ -10,9 +10,8 @@ ini_set('session.cookie_httponly', '1');
 ini_set('session.save_path', dirname(__DIR__) . '/data/session');
 ini_set('session.gc_maxlifetime', (string) (365 * 86400));
 
-if (($_SERVER['HTTP_HOST'] ?? '') === 'navigations.ichtus.club') {
-    ini_set('session.cookie_samesite', 'Strict');
-}
+$policy = ($_SERVER['HTTP_HOST'] ?? '') === 'navigations.ichtus.club' ? 'Strict' : 'None';
+ini_set('session.cookie_samesite', $policy);
 
 // Load configuration
 $config = require __DIR__ . '/config.php';
