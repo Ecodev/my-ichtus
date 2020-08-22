@@ -55,7 +55,7 @@ function load() {
     ServerInitialize();
     Requests.checkLogin();
 
-
+    //LOAD
     loadBottoms();
     loadMateriel();
 }
@@ -68,7 +68,8 @@ function setTimeoutMove() {
     clearTimeout(timeout);
     timeout = setTimeout(function () {
         if (currentTabElement.id === "divTabCahier") {
-            location.reload();
+            setTimeout(function () { location.reload(); }, 1000); // $$ temp
+
         }
         else {
             Requests.getActualBookingList();
@@ -405,8 +406,17 @@ function transformBookings(_bookings) {
 
         for (var i = 1; i < _bookings.length; i++) {
 
+            if (_bookings[i - 1].owner == null) {
+                console.warn("Booking without owner :", _bookings[i - 1]);
+            }
+            else if (_bookings[i].owner == null) {
+                if (i == _bookings.length - 1) {
+                    console.warn("Booking without owner :", _bookings[i]);
+                }
+            }
+
             // add bookable
-            if (_bookings[i].startDate == _bookings[i - 1].startDate && _bookings[i].owner.id == _bookings[i - 1].owner.id) {
+            else if (_bookings[i].startDate == _bookings[i - 1].startDate && _bookings[i].owner.id == _bookings[i - 1].owner.id) {
 
                 if (_bookings[i].bookable == null) {
                     final[final.length - 1].bookables.push(Cahier.personalBookable);

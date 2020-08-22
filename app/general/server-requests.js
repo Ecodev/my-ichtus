@@ -10,40 +10,73 @@ var Requests = {
 
     // login
     login: function (pwd) {
+
+        //console.log("LOGIN");
+
         Server.userService.login({
             login: 'bookingonly',
             password: pwd
+
         }).subscribe(result => {
-            console.log(result);
+
             closePopUp("last");
-            //location.reload(); // à désactiver si la page se recharge automatiquement !
-            setTimeout(function () { // temp
-                console.log("check login");
-                Requests.checkLogin();
-               // Requests.getActualBookingList();
-            }, 5000);
-            });
+
+            //console.log("result of login :", result);
+
+            if (result != null) {
+                if (result.login == "bookingonly") {
+                    Requests.isConnected();
+                }
+                else {
+                    console.error("Mauvais utilisateur connecté... (" + user.name + ")");
+                }
+            }
+            else {
+                console.error("Problème d'authentification...");
+            }
+        });
     },
+
+
+    // have to log in
+    haveToLogin: function () {
+        if (window.location.hostname === 'navigations.ichtus.club') {
+            popLogin();
+        }
+        else {
+            setTimeout(function () {
+                Requests.login('bookingonly');
+            }, 2000); // auto mdp, timeout to avoid overloading the server
+        }
+    },
+
+
+    // is connected
+    isConnected: function () {
+        console.warn("Connecté à " + new Date().getNiceTime());
+        Requests.getActualBookingList();
+    },
+
 
     // actualizeLoginButton
     checkLogin: function () {
         Server.userService.getViewer().subscribe(function (user) {
-            console.log("user:", user);
+            //console.log("user:", user);
+
+            // pas connecté
             if (!user) {
-                // pas connecté
                 console.error("Pas connecté");
-                if (window.location.hostname === 'navigations.ichtus.club') {
-                    popLogin();
+                Requests.haveToLogin();
+            }
+            // connecté
+            else {
+                if (user.login == "bookingonly") {
+                    Requests.isConnected();
                 }
                 else {
-                    setTimeout(function () {
-                        console.log("request-login"); Requests.login('bookingonly');
-                    }, 2000); // auto mdp
+                    console.error("Mauvais utilisateur connecté... (" + user.name + ")");
+                    Requests.haveToLogin();
                 }
-            } else {
-                // connecté
-                console.warn("Connecté à " + new Date().getNiceTime());
-                Requests.getActualBookingList();
             }
         });
     },
@@ -75,22 +108,12 @@ var Requests = {
                                         like: {
                                             value: '' + texts[0] + '%'
                                         }
-                                    },
-                                    status: { // status
-                                        equal: {
-                                            value: 'active'
-                                        }
                                     }
                                 },
                                 {
                                     lastName: {
                                         like: {
                                             value: '' + texts[0] + '%'
-                                        }
-                                    },
-                                    status: { // status
-                                        equal: {
-                                            value: 'active'
                                         }
                                     }
                                 }
@@ -104,6 +127,18 @@ var Requests = {
                                         equal: {
                                             value: "7083",
                                             not: true
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            groupLogic: "AND",
+                            conditions: [
+                                {
+                                    status: { // status
+                                        equal: {
+                                            value: 'active'
                                         }
                                     }
                                 }
@@ -205,6 +240,13 @@ var Requests = {
                                     equal: {
                                         value: "7083",
                                         not: true
+                                    }
+                                }
+                            },
+                            {
+                                status: { // status
+                                    equal: {
+                                        value: 'active'
                                     }
                                 }
                             }
@@ -416,7 +458,7 @@ var Requests = {
                             }
                         }
 
-                        console.log(r.items[i].bookable.id,r.items[i].bookable.name);
+                        //console.log(r.items[i].bookable.id,r.items[i].bookable.name);
                     }
 
                  //   console.log(bookables);
@@ -809,6 +851,8 @@ var Requests = {
 
     // getActualBookingList()
     getActualBookingList: function () {
+
+        //console.log("GET ACTUAL BOOKING LIST");
 
         var filter = {
             filter: {
