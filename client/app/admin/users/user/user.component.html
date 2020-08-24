@@ -254,10 +254,9 @@
                         >
                             <ng-template let-item="item">
                                 <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-                                    <!-- TODO : link to users list filtred by tag -->
                                     <ngx-avatar [bgColor]="item.color" [name]="item.name" [size]="36"></ngx-avatar>
                                     <natural-table-button
-                                        [navigate]="['/admin/user', item.id]"
+                                        [navigate]="['/admin/user-tag', item.id]"
                                         [label]="item.name"
                                     ></natural-table-button>
                                 </div>
