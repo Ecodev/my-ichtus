@@ -48,7 +48,7 @@
                         <div>
                             <div class="mat-display-1 no-margin-bottom">{{ viewer.name }}</div>
                             <div class="mat-subheading-1 no-margin-bottom">
-                                {{ viewer.status | enum: 'UserStatus' | capitalize | async }}
+                                {{ viewer.status | enum: 'UserStatus' | async | capitalize }}
                             </div>
                         </div>
                     </div>

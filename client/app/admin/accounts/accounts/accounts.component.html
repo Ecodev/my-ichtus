@@ -85,7 +85,7 @@
                     <ng-container matColumnDef="type">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
                         <td mat-cell *matCellDef="let element">
-                            {{ element.type | enum: 'AccountType' | capitalize | async }}
+                            {{ element.type | enum: 'AccountType' | async | capitalize }}
                         </td>
                     </ng-container>
 

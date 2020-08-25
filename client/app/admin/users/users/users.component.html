@@ -85,7 +85,7 @@
                 <ng-container matColumnDef="role">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Rôle</th>
                     <td mat-cell *matCellDef="let element">
-                        {{ element.role | enum: 'UserRole' | capitalize | async }}
+                        {{ element.role | enum: 'UserRole' | async | capitalize }}
                     </td>
                 </ng-container>
 
@@ -100,7 +100,7 @@
                     </th>
                     <td mat-cell *matCellDef="let element" natural-align-center>
                         <span *ngIf="isActive(element)">{{
-                            element.status | enum: 'UserStatus' | capitalize | async
+                            element.status | enum: 'UserStatus' | async | capitalize
                         }}</span>
                         <button
                             mat-flat-button
@@ -109,7 +109,7 @@
                             *ngIf="!isActive(element)"
                             [style.width.px]="150"
                         >
-                            Activer ({{ element.status | enum: 'UserStatus' | capitalize | async }})
+                            Activer ({{ element.status | enum: 'UserStatus' | async | capitalize }})
                         </button>
                     </td>
                 </ng-container>
