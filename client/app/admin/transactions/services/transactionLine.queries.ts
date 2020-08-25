@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
 
 export const transactionLineMetaFragment = gql`
-    fragment transactionLineMeta on TransactionLine {
+    fragment TransactionLineMeta on TransactionLine {
         id
         name
         balance
@@ -51,7 +51,7 @@ export const transactionLinesQuery = gql`
     ) {
         transactionLines(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
-                ...transactionLineMeta
+                ...TransactionLineMeta
             }
             pageSize
             pageIndex
@@ -66,17 +66,17 @@ export const transactionLineQuery = gql`
     query TransactionLine($id: TransactionLineID!) {
         transactionLine(id: $id) {
             id
-            ...transactionLineMeta
+            ...TransactionLineMeta
             creationDate
             creator {
-                ...userMeta
+                ...UserMeta
             }
             updateDate
             updater {
-                ...userMeta
+                ...UserMeta
             }
             permissions {
-                ...permissions
+                ...PermissionsRUD
             }
         }
     }

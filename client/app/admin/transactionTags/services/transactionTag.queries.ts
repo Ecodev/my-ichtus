@@ -28,14 +28,14 @@ export const transactionTagQuery = gql`
             color
             creationDate
             creator {
-                ...userMeta
+                ...UserMeta
             }
             updateDate
             updater {
-                ...userMeta
+                ...UserMeta
             }
             permissions {
-                ...permissions
+                ...PermissionsRUD
             }
         }
     }
@@ -48,7 +48,7 @@ export const createTransactionTag = gql`
         createTransactionTag(input: $input) {
             id
             creator {
-                ...userMeta
+                ...UserMeta
             }
         }
     }
@@ -61,7 +61,7 @@ export const updateTransactionTag = gql`
             id
             updateDate
             updater {
-                ...userMeta
+                ...UserMeta
             }
         }
     }

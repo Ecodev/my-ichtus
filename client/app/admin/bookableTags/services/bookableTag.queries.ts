@@ -24,14 +24,14 @@ export const bookableTagQuery = gql`
             color
             creationDate
             creator {
-                ...userMeta
+                ...UserMeta
             }
             updateDate
             updater {
-                ...userMeta
+                ...UserMeta
             }
             permissions {
-                ...permissions
+                ...PermissionsRUD
             }
         }
     }
@@ -44,7 +44,7 @@ export const createBookableTag = gql`
         createBookableTag(input: $input) {
             id
             creator {
-                ...userMeta
+                ...UserMeta
             }
         }
     }
@@ -57,7 +57,7 @@ export const updateBookableTag = gql`
             id
             updateDate
             updater {
-                ...userMeta
+                ...UserMeta
             }
         }
     }

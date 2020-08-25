@@ -3,7 +3,7 @@ import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fra
 import {bookableMetaFragment} from '../../bookables/services/bookable.queries';
 
 export const bookingMetaFragment = gql`
-    fragment bookingMeta on Booking {
+    fragment BookingMeta on Booking {
         id
         destination
         startComment
@@ -19,7 +19,7 @@ export const bookingMetaFragment = gql`
         internalRemarks
         owner {
             id
-            ...userMeta
+            ...UserMeta
             sex
         }
         creator {
@@ -34,7 +34,7 @@ export const bookingsQuery = gql`
     query Bookings($filter: BookingFilter, $sorting: [BookingSorting!], $pagination: PaginationInput) {
         bookings(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
-                ...bookingMeta
+                ...BookingMeta
                 bookable {
                     id
                     name
@@ -59,7 +59,7 @@ export const bookingsWithOwnerBalanceQuery = gql`
     query BookingsWithOwnerBalance($filter: BookingFilter, $sorting: [BookingSorting!], $pagination: PaginationInput) {
         bookings(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
-                ...bookingMeta
+                ...BookingMeta
                 bookable {
                     id
                     name
@@ -92,7 +92,7 @@ export const pricedBookingsQuery = gql`
     query PricedBookings($filter: BookingFilter, $sorting: [BookingSorting!], $pagination: PaginationInput) {
         bookings(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
-                ...bookingMeta
+                ...BookingMeta
                 periodicPrice
                 bookable {
                     id
@@ -125,25 +125,25 @@ export const pricedBookingsQuery = gql`
 export const bookingQuery = gql`
     query Booking($id: BookingID!) {
         booking(id: $id) {
-            ...bookingMeta
+            ...BookingMeta
             bookable {
                 id
                 name
                 image {
                     id
                 }
-                ...bookableMeta
+                ...BookableMeta
             }
             creationDate
             creator {
-                ...userMeta
+                ...UserMeta
             }
             updateDate
             updater {
-                ...userMeta
+                ...UserMeta
             }
             permissions {
-                ...permissions
+                ...PermissionsRUD
             }
         }
     }
@@ -158,7 +158,7 @@ export const createBooking = gql`
         createBooking(input: $input) {
             id
             creator {
-                ...userMeta
+                ...UserMeta
             }
         }
     }
@@ -171,7 +171,7 @@ export const updateBooking = gql`
             id
             updateDate
             updater {
-                ...userMeta
+                ...UserMeta
             }
         }
     }

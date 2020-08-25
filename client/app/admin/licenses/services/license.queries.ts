@@ -22,14 +22,14 @@ export const licenseQuery = gql`
             name
             creationDate
             creator {
-                ...userMeta
+                ...UserMeta
             }
             updateDate
             updater {
-                ...userMeta
+                ...UserMeta
             }
             permissions {
-                ...permissions
+                ...PermissionsRUD
             }
         }
     }
@@ -42,7 +42,7 @@ export const createLicense = gql`
         createLicense(input: $input) {
             id
             creator {
-                ...userMeta
+                ...UserMeta
             }
         }
     }
@@ -55,7 +55,7 @@ export const updateLicense = gql`
             id
             updateDate
             updater {
-                ...userMeta
+                ...UserMeta
             }
         }
     }

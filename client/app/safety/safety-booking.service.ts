@@ -26,7 +26,7 @@ const safetyBookings = gql`
                     image {
                         id
                     }
-                    ...bookableMeta
+                    ...BookableMeta
                 }
             }
             pageSize

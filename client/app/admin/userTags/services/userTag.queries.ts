@@ -24,14 +24,14 @@ export const userTagQuery = gql`
             color
             creationDate
             creator {
-                ...userMeta
+                ...UserMeta
             }
             updateDate
             updater {
-                ...userMeta
+                ...UserMeta
             }
             permissions {
-                ...permissions
+                ...PermissionsRUD
             }
         }
     }
@@ -44,7 +44,7 @@ export const createUserTag = gql`
         createUserTag(input: $input) {
             id
             creator {
-                ...userMeta
+                ...UserMeta
             }
         }
     }
@@ -57,7 +57,7 @@ export const updateUserTag = gql`
             id
             updateDate
             updater {
-                ...userMeta
+                ...UserMeta
             }
         }
     }

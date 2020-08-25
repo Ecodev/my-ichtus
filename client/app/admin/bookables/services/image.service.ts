@@ -10,7 +10,7 @@ export const createImageMutation = gql`
         createImage(input: $input) {
             id
             creator {
-                ...userMeta
+                ...UserMeta
             }
         }
     }

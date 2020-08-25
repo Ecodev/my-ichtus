@@ -23,7 +23,7 @@ export const countryQuery = gql`
             code
             name
             permissions {
-                ...permissions
+                ...PermissionsRUD
             }
         }
     }

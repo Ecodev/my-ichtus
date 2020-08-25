@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
 
 export const bookableMetaFragment = gql`
-    fragment bookableMeta on Bookable {
+    fragment BookableMeta on Bookable {
         id
         name
         description
@@ -33,11 +33,11 @@ export const bookableMetaFragment = gql`
         }
         creationDate
         creator {
-            ...userMeta
+            ...UserMeta
         }
         updateDate
         updater {
-            ...userMeta
+            ...UserMeta
         }
     }
     ${userMetaFragment}
@@ -47,7 +47,7 @@ export const bookablesQuery = gql`
     query Bookables($filter: BookableFilter, $sorting: [BookableSorting!], $pagination: PaginationInput) {
         bookables(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
-                ...bookableMeta
+                ...BookableMeta
             }
             pageSize
             pageIndex
@@ -96,9 +96,9 @@ export const usageBookablesQuery = gql`
 export const bookableQuery = gql`
     query Bookable($id: BookableID!) {
         bookable(id: $id) {
-            ...bookableMeta
+            ...BookableMeta
             permissions {
-                ...permissions
+                ...PermissionsRUD
             }
         }
     }
@@ -111,7 +111,7 @@ export const createBookable = gql`
         createBookable(input: $input) {
             id
             creator {
-                ...userMeta
+                ...UserMeta
             }
         }
     }
@@ -125,7 +125,7 @@ export const updateBookable = gql`
             verificationDate
             updateDate
             updater {
-                ...userMeta
+                ...UserMeta
             }
         }
     }

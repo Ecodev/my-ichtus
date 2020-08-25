@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
 
 export const expenseClaimMetaFragment = gql`
-    fragment expenseClaimMeta on ExpenseClaim {
+    fragment ExpenseClaimMeta on ExpenseClaim {
         id
         name
         description
@@ -33,7 +33,7 @@ export const expenseClaimsQuery = gql`
     query ExpenseClaims($filter: ExpenseClaimFilter, $sorting: [ExpenseClaimSorting!], $pagination: PaginationInput) {
         expenseClaims(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
-                ...expenseClaimMeta
+                ...ExpenseClaimMeta
             }
             pageSize
             pageIndex
@@ -47,20 +47,20 @@ export const expenseClaimQuery = gql`
     query ExpenseClaim($id: ExpenseClaimID!) {
         expenseClaim(id: $id) {
             id
-            ...expenseClaimMeta
+            ...ExpenseClaimMeta
             accountingDocuments {
                 id
             }
             creationDate
             creator {
-                ...userMeta
+                ...UserMeta
             }
             updateDate
             updater {
-                ...userMeta
+                ...UserMeta
             }
             permissions {
-                ...permissions
+                ...PermissionsRUD
             }
         }
     }
@@ -74,7 +74,7 @@ export const createExpenseClaim = gql`
         createExpenseClaim(input: $input) {
             id
             creator {
-                ...userMeta
+                ...UserMeta
             }
         }
     }
@@ -87,7 +87,7 @@ export const updateExpenseClaim = gql`
             id
             updateDate
             updater {
-                ...userMeta
+                ...UserMeta
             }
         }
     }

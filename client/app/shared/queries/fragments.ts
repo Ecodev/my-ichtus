@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const userMetaFragment = gql`
-    fragment userMeta on User {
+    fragment UserMeta on User {
         id
         name
         email
@@ -9,7 +9,7 @@ export const userMetaFragment = gql`
 `;
 
 export const permissionsFragment = gql`
-    fragment permissions on Permissions {
+    fragment PermissionsRUD on Permissions {
         read
         update
         delete

@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
 
 export const accountMetaFragment = gql`
-    fragment accountMeta on Account {
+    fragment AccountMeta on Account {
         id
         code
         name
@@ -25,7 +25,7 @@ export const accountsQuery = gql`
     query Accounts($filter: AccountFilter, $sorting: [AccountSorting!], $pagination: PaginationInput) {
         accounts(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
-                ...accountMeta
+                ...AccountMeta
             }
             pageSize
             pageIndex
@@ -39,7 +39,7 @@ export const accountQuery = gql`
     query Account($id: AccountID!) {
         account(id: $id) {
             id
-            ...accountMeta
+            ...AccountMeta
             parent {
                 id
                 name
@@ -53,13 +53,13 @@ export const accountQuery = gql`
                 }
             }
             creator {
-                ...userMeta
+                ...UserMeta
             }
             updater {
-                ...userMeta
+                ...UserMeta
             }
             permissions {
-                ...permissions
+                ...PermissionsRUD
             }
         }
     }
@@ -79,7 +79,7 @@ export const createAccount = gql`
         createAccount(input: $input) {
             id
             creator {
-                ...userMeta
+                ...UserMeta
             }
         }
     }
@@ -92,7 +92,7 @@ export const updateAccount = gql`
             id
             updateDate
             updater {
-                ...userMeta
+                ...UserMeta
             }
         }
     }

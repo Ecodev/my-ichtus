@@ -6,7 +6,7 @@ export const createAccountingDocumentMutation = gql`
         createAccountingDocument(input: $input) {
             id
             creator {
-                ...userMeta
+                ...UserMeta
             }
         }
     }
