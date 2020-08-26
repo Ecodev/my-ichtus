@@ -129,8 +129,9 @@
         .divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(5) {
             color: var(--fontBlack);
             position:absolute;
-            bottom:5px;
+            bottom:0px;
             font-weight:bold;
+            font-size:15px;
         }
 
         .divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(6) {

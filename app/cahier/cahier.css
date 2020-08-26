@@ -655,6 +655,36 @@
         }
 
 
+#btnModify {
+    position: absolute;
+    width: 212px;
+    height: 39px;
+    font-size: 20px;
+    color: white;
+    padding-top: 15px;
+    padding-right: 12px;
+    background-size: 30px;
+    background-position-y: 9px;
+    -moz-transform: translate(0px,5px);
+    -ms-transform: translate(0px,5px);
+    -o-transform: translate(0px,5px);
+    -webkit-transform: translate(0px,5px);
+    transform: translate(0px,5px);
+    background-image: url(../img/icons/sail.png);
+    /*background-blend-mode: exclusion;*/
+    background-color: orange;
+    opacity: 1;
+    -moz-transition: opacity 0.3s linear 0s;
+    -o-transition: opacity 0.3s linear 0s;
+    -webkit-transition: opacity 0.3s linear 0s;
+    transition: opacity 0.3s linear 0s;
+}
+
+    #btnModify:hover {
+        background-color: darkorange;
+    }
+
+
     @keyframes InputAnimation {
         from {
         right: -200px;
@@ -728,6 +758,7 @@
     }
 }
 .BookingsTableText {
+    width:300px;
     margin-top:50px;
     margin-bottom:10px;
     font-size: 25px;

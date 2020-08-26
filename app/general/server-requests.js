@@ -1024,7 +1024,16 @@ var Requests = {
             pagination: {
                 pageSize: 500,
                 pageIndex: 0
-            }
+            },
+            sorting: [
+                {
+                    field: "startDate",
+                    order: "DESC"
+                },
+                {
+                    field: "endDate",
+                    order: "DESC" // important, last booking always has the end comment
+                }]
         };
 
         var variables = new Server.QueryVariablesManager();
@@ -1445,7 +1454,16 @@ var Requests = {
 
             Server.bookingService.create(input).subscribe(booking => {
                 Requests.counter++;
-                if (Requests.counter == Cahier.bookings[0].bookables.length) { newTab("divTabCahier"); ableToSkipAnimation(); }
+                if (Requests.counter == Cahier.bookings[0].bookables.length) {
+                    if (options.reloadWhenFinished) {
+                        // wait til the animation finishes
+                        //console.warn("La page va être rafraîchie");
+                        //setTimeout(function () { location.reload(); }, 500);
+                    }
+                    else {
+                        newTab("divTabCahier"); ableToSkipAnimation();
+                    }
+                }
             });
 
         }

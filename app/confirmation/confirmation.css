@@ -319,6 +319,22 @@
             color: gray;
         }
 
+        /* terminate one bookable button*/
+        .divTabCahierConfirmationContainerTextsContainer > .btnTerminateOneBookable {
+            position: absolute;
+            top: 66px;
+            width: 88px;
+            background-image: none;
+            font-size: 20px;
+            color: white;
+            background-color: red;
+            opacity: 0;
+            -moz-transition: opacity 0.3s linear 0s;
+            -o-transition: opacity 0.3s linear 0s;
+            -webkit-transition: opacity 0.3s linear 0s;
+            transition: opacity 0.3s linear 0s;
+        }
+
 
 .divTabCahierConfirmationEmbarcationButtonContainer {
     position:relative;

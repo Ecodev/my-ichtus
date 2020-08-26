@@ -343,7 +343,6 @@ function getStartCommentFromBooking(booking, fill = false) {
     return transformComment(txt, fill);
 }
 
-
 function getEndCommentFromBooking(booking, fill = false) {
     var txt = booking.endComment;
     return transformComment(txt, fill);

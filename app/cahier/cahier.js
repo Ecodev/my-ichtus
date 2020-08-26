@@ -16,7 +16,7 @@ function loadActualBookings(_actualBookings) {
         bookableNbr += _actualBookings[i].bookables.length;
     }
 
-    $('divTabCahierTableActualBookings').previousElementSibling.title = "bookableNbr" + bookableNbr + "participantNbr" + participantNbr;
+    $('divTabCahierTableActualBookings').previousElementSibling.title = bookableNbr + " embarcations, " + participantNbr + " personnes";
 
     var children = $('divTabCahierTables').children;
     for (var i = 0; i < children.length; i++) {
@@ -346,9 +346,9 @@ function getSortingText(elem) {
 
 
 
-function newBookingTable(date,title = "?") {
+function newBookingTable(date, title = "?") {
     if (title == "?"){title = date.getNiceDate();}
-    Requests.getFinishedBookingListForDay(date, undefined,title);
+    Requests.getFinishedBookingListForDay(date, undefined, title);
 
     $('divTabCahierButtonMoreBookingsContainer').getElementsByTagName("div")[0].id = date.getPreviousDate();
     $('divTabCahierButtonMoreBookingsContainer').getElementsByTagName("div")[0].innerHTML = "Charger les sorties du " + date.getPreviousDate().getNiceDate(true);
@@ -426,6 +426,13 @@ function actualizeFinishedBookingListForDay(bookings,table) {
             i--;
         }
     }
+
+    var participantNbr = 0, bookableNbr = 0;
+    for(var i = 0; i < bookings.length; i++) {
+        participantNbr += bookings[i].participantCount;
+        bookableNbr += bookings[i].bookables.length;
+    }
+    table.previousElementSibling.title = bookableNbr + " embarcations, " + participantNbr + " personnes";
 
     if (bookings.length === 0) {
         var ent = div(table);

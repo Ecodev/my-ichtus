@@ -92,7 +92,13 @@ function actualizePopBookable(nbr, bookable,bookings, elem) {
     if (bookings.length != 0) {
         if (currentTabElement.id != "divTabCahier" && bookings.items[0].endDate == null) {
             //console.log("embarcation déjà utilisée");
-            elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].innerHTML = "Cette embarcation semble déjà être utlisée par " + Cahier.getOwner(bookings.items[0], false);
+            //elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].innerHTML = "Cette embarcation semble déjà être utlisée par " + Cahier.getOwner(bookings.items[0], false);
+
+            var usedTxt = Cahier.getOwner(bookings.items[0], false) + " ";
+            usedTxt += " est parti " + deltaTime(new Date(bookings.items[0].startDate)).text + " avec cette embarcation !";
+            console.log(deltaTime(new Date(bookings.items[0].startDate)).text);
+
+            elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].innerHTML = usedTxt;
             elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].style.color = "red";
             elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].style.backgroundImage = "url(img/icons/alert.png)";
             elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].style.paddingLeft = "40px";
@@ -101,8 +107,10 @@ function actualizePopBookable(nbr, bookable,bookings, elem) {
         else {
             elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].innerHTML = "Dernière utilisation le " + (new Date(bookings.items[0].startDate)).getNiceDate() + "<br/> Par " + Cahier.getOwner(bookings.items[0], false);
         }
+        elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[3].innerHTML = Cahier.getSingularOrPlural(bookings.length, " sortie"); // oui ou non ?? $$ temp
 
-        elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[3].innerHTML = Cahier.getSingularOrPlural(bookings.length, " sortie");
+
+
         elem.getElementsByClassName('Buttons')[0].style.visibility = "visible";
         elem.getElementsByClassName('Buttons')[0].addEventListener("click", function () {
             popBookableHistory(this.parentElement.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[1].id);

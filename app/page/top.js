@@ -14,7 +14,9 @@ function animate() {
     running = true;
 
     cancelFunction = function () {
-        location.reload();
+        console.warn("La page va être rafraîchie");
+        setTimeout(function () { location.reload();}, 500);
+
      };
 
 
@@ -69,14 +71,26 @@ function animate() {
                     r.style.animationName = "AniCircleExit";
                     f.style.animationName = "AniFishExit,none";
 
-                    setTimeout(function () { if (running) { DeleteObjects(w, c, r, f); running = false; } }, 1000); //newTab("divTabCahier");
+                    setTimeout(function () {
+                        for (var i = 0; i < 6; i++) { // should be useless
+                            DeleteObjects(document.getElementsByClassName("svgLetters")[0]);
+                        }
+                        if (running) DeleteObjects(w, c, r, f); running = false;
+
+                        if (options.reloadWhenFinished) {
+                            console.warn("La page va être rafraîchie");
+                            setTimeout(function () { location.reload(); }, 500);
+                        }
+                    }, 1000); //newTab("divTabCahier");
 
                 setTimeout(function () {
-                    if (!running) { return; }
+
+                    if (!running) {
+                        return;
+                    }
                     else {
                         b.style.animationName = "AniBlackExit";
                         DeleteObjects(b, info);
-
                      //   location.reload();
                     }
                     document.body.removeEventListener("mousedown", cancelFunction);

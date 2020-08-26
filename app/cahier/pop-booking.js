@@ -146,6 +146,16 @@ function openBooking(which = "confirmation", elem = $('divTabConfirmationOneBook
         area2.placeholder = "Comment ça s'est passé...";
         div(d).appendChild(area2);
 
+        // 1.1
+        if (options.modifyBookablesButton) {
+            var btnModify = div(container);
+            btnModify.style.visibility = "hidden";
+            btnModify.classList.add("Buttons", "NormalButtons");
+            btnModify.id = "btnModify";
+            btnModify.innerHTML = "Modifier le matériel";
+            btnModify.title = "Choisir les embarcations à terminer";
+        }
+
         var btnFinish = div(container);
         btnFinish.classList.add("Buttons");
         btnFinish.classList.add("ValidateButtons");
@@ -245,6 +255,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
         allDivTexts[7].innerHTML = getEndCommentFromBooking(booking, false);
     }
     else if (which == "finish") {
+
         container.getElementsByClassName('divTabCahierConfirmationContainer')[0].getElementsByTagName("div")[0].innerHTML = "Terminer sortie du " + (new Date(booking.startDate)).getNiceDate(false, true);
         allDivTexts[1].innerHTML = (new Date(booking.startDate)).getNiceTime();
         allDivTexts[2].innerHTML = (new Date()).getNiceTime();
@@ -308,6 +319,37 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
 
             div(texts).innerHTML = booking.bookables[i].code;
             div(texts).innerHTML = booking.bookables[i].name.shorten(2 * 150, 20);
+
+            // 1.1
+            if (which == "finish" && options.modifyBookablesButton && booking.bookables.length > 1) {
+                var t = div(texts);
+                t.id = i;
+                t.style.visibility = "hidden";
+                t.classList.add("Buttons", "NormalButtons", "btnTerminateOneBookable");
+                t.innerHTML = "Terminer";
+                t.addEventListener("click", function () {
+                    //console.log(booking, this.id, booking.ids[parseInt(this.id)]);
+                    Requests.terminateBooking([booking.ids[parseInt(this.id)]], [""]);
+                    DeleteObjects(this.parentElement.parentElement);
+                });
+
+                $('btnModify').style.visibility = "visible";
+                $('btnModify').addEventListener("click", function () {
+                    setTimeout(function () {
+                        $('btnModify').style.visibility = "hidden";
+                        $('btnModify').nextElementSibling.style.visibility = "hidden";
+                    }, 290);
+                    this.style.opacity = "0";
+                    this.nextElementSibling.style.opacity = "0";
+                    var ts = document.getElementsByClassName("btnTerminateOneBookable");
+                    for (var i = 0; i < ts.length; i++) {
+                        ts[i].previousElementSibling.innerHTML = ts[i].previousElementSibling.innerHTML.shorten(1 * 150, 20);
+                        ts[i].style.visibility = "visible";
+                        ts[i].style.opacity = "1";
+                    }
+
+                });
+            }
 
             if (booking.bookables[i] == Cahier.personalBookable) {
                 img.classList.add("PersonalSail");

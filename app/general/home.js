@@ -1,5 +1,14 @@
 ﻿//options
-var options = { bookablesComment: false, statsButtonTextActive: false, showRemarks: true, automaticConnexion: true, seeWhichApplication:false }; //showMetadatas: false,
+var options = {
+    bookablesComment: false,
+    statsButtonTextActive: false,
+    showRemarks: true,
+    automaticConnexion: true,
+    seeWhichApplication: false,
+    reloadWhenFinished: false,
+    bookingsTogetherWithDifferentEndates: true,
+    modifyBookablesButton: true
+}; //showMetadatas: false,
 
 // shortcut
 function $(id) {
@@ -42,7 +51,7 @@ function load() {
     loadEscListener();
 
     if (window.location.hostname === 'navigations.ichtus.club') {
-        console.warn("Version de production");
+        console.warn("Version de production 1.1");
         $('divTopBarText').innerHTML = tabs[0].title;
     }
     else {
@@ -67,13 +76,8 @@ function setTimeoutMove() {
     //console.log("start timeout");
     clearTimeout(timeout);
     timeout = setTimeout(function () {
-        if (currentTabElement.id === "divTabCahier") {
-            setTimeout(function () { location.reload(); }, 1000); // $$ temp
-
-        }
-        else {
-            Requests.getActualBookingList();
-        }
+        if (currentTabElement.id === "divTabCahier") location.reload();
+        else Requests.getActualBookingList();
     }, 1 * 60 * 1000);
 }
 
@@ -134,6 +138,26 @@ Date.prototype.getPreviousDate = function () {
     yesterday.setDate(this.getDate() - 1);
     return yesterday;
 };
+
+function deltaTime(d1, d2 = new Date(), bold = true) {
+    var delta = Math.abs(d2.getTime() - d1.getTime()) / 1000 / 60; // in minutes
+    var t = "";
+
+    if (delta < 1)              t = "à l'instant";    // [0;1[
+    else if (delta < 3)         t = "il y a 2min";   // [1;3[
+    else if (delta < 7)         t = "il y a 5min";   // [3;7[
+    else if (delta < 13)        t = "il y a 10min";  // [7;13[
+    else if (delta < 22.5)      t = "il y a 15min";  // [13;22.5[
+    else if (delta < 37.5)      t = "il y a 30min";  // [22.5;37.5[
+    else if (delta < 52.5)      t = "il y a 45min";  // [37.5;52.5[
+    else if (delta * 60 < 1.25) t = "il y a 1h";     // [52.5;1.25[
+    else if (delta * 60 < 1.75) t = "il y a 1.5h";   // [1.25;1.75[
+    else if (delta * 60 < 2.5)  t = "il y a 2h";     // [1.75;2.5[
+    else if (delta * 60 < 3)    t = "il y a 3h";     // [2.5;3[
+    else t = "il y a plus de 3 h"; // [3;+inf[
+
+    return bold && delta < 13 ? { text: "<b>" + t + "</b>", time: delta } : { text: t, time: delta };
+}
 
 function DeleteObjects() {
     for (var i = 0; i < arguments.length; i++) {
@@ -397,12 +421,9 @@ function transformBookings(_bookings) {
         final.push(_bookings[0].clone());
         final[0].ids = [_bookings[0].id];
 
-        if (_bookings[0].bookable == null) {
-            final[0].bookables = [Cahier.personalBookable];
-        }
-        else {
-            final[0].bookables = [_bookings[0].bookable];
-        }
+        if (_bookings[0].bookable == null)  final[0].bookables = [Cahier.personalBookable];
+        else                                final[0].bookables = [_bookings[0].bookable];
+
 
         for (var i = 1; i < _bookings.length; i++) {
 
@@ -416,7 +437,10 @@ function transformBookings(_bookings) {
             }
 
             // add bookable
-            else if (_bookings[i].startDate == _bookings[i - 1].startDate && _bookings[i].owner.id == _bookings[i - 1].owner.id) {
+            else if (_bookings[i].startDate == _bookings[i - 1].startDate
+                && (options.bookingsTogetherWithDifferentEndates ||
+                    deltaTime(new Date(_bookings[i].endDate), new Date(_bookings[i - 1].endDate)).time < 1) // si pas terminé en même temps -> sortie a été split
+                && _bookings[i].owner.id == _bookings[i - 1].owner.id) {
 
                 if (_bookings[i].bookable == null) {
                     final[final.length - 1].bookables.push(Cahier.personalBookable);
