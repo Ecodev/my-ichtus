@@ -64,7 +64,7 @@ export class RegisterComponent
     public submit(): void {
         validateAllFormControls(this.form);
 
-        if (this.form.invalid) {
+        if (!this.form.valid) {
             return;
         }
 

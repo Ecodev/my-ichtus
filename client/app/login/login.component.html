@@ -36,13 +36,7 @@
 
             <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">
                 <a mat-button routerLink="/user/request-password-reset">Mot de passe oublié ?</a>
-                <button
-                    type="submit"
-                    mat-raised-button
-                    color="primary"
-                    (click)="login()"
-                    [disabled]="form.disabled || form.invalid"
-                >
+                <button type="submit" mat-raised-button color="primary" (click)="login()" [disabled]="!form.valid">
                     Se connecter
                 </button>
             </div>

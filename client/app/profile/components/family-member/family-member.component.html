@@ -98,7 +98,7 @@
         mat-raised-button
         *ngIf="!data.model.id"
         (click)="create(false)"
-        [color]="form.invalid ? 'warn' : 'accent'"
+        [color]="form.valid ? 'accent' : 'warn'"
         class="margin-top"
     >
         Créer

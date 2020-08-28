@@ -34,7 +34,7 @@
                 <div matSuffix>CHF</div>
             </mat-form-field>
 
-            <button mat-flat-button color="primary" [mat-dialog-close]="formCtrl.value" [disabled]="formCtrl.invalid">
+            <button mat-flat-button color="primary" [mat-dialog-close]="formCtrl.value" [disabled]="!formCtrl.valid">
                 Suivant
             </button>
         </div>

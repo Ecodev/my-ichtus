@@ -179,12 +179,7 @@
         <div></div>
 
         <div fxLayout="row" fxLayoutAlign="center">
-            <button
-                mat-raised-button
-                [color]="form.invalid ? 'warn' : 'primary'"
-                (click)="submit()"
-                [disabled]="sending"
-            >
+            <button mat-raised-button [color]="form.valid ? 'primary' : 'warn'" (click)="submit()" [disabled]="sending">
                 <natural-icon name="send"></natural-icon>
                 Envoyer
             </button>

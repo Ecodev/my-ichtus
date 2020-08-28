@@ -205,7 +205,7 @@
         color="accent"
         matTooltip="Sauvegarder"
         matTooltipPosition="left"
-        [color]="form.invalid ? 'warn' : 'accent'"
+        [color]="form.valid ? 'accent' : 'warn'"
     ></natural-fixed-button>
 
     <eco-fab-speed-dial class="detail-speed-dial" *ngIf="data.model.id">
