@@ -7,7 +7,9 @@ var options = {
     seeWhichApplication: false,
     reloadWhenFinished: false,
     bookingsTogetherWithDifferentEndates: true,
-    modifyBookablesButton: true
+    modifyBookablesButton: true,
+    finishAllBookingsWithBookable: false, // si créer une sortie qui avec une embarcation déjà utilisée, ça termine seulement la sortie avec l'embarcation utilisée de M. Uti.
+    showAlertBookablesNotAvailables: false
 }; //showMetadatas: false,
 
 // shortcut
@@ -155,6 +157,8 @@ function deltaTime(d1, d2 = new Date(), bold = true) {
     else if (delta * 60 < 2.5)  t = "il y a 2h";     // [1.75;2.5[
     else if (delta * 60 < 3)    t = "il y a 3h";     // [2.5;3[
     else t = "il y a plus de 3 h"; // [3;+inf[
+
+   // console.log("bold:", bold, "delta<13:", delta, "t:", t);
 
     return bold && delta < 13 ? { text: "<b>" + t + "</b>", time: delta } : { text: t, time: delta };
 }

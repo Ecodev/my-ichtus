@@ -62,7 +62,104 @@ function popAlertAlreadyHavingABooking(_owner) {
     btn.classList.add("Buttons", "ValidateButtons");
     btn.style.display = "inline-block";
     btn.innerHTML = "Continuer";
-    btn.addEventListener("click", function () { Cahier.setOwner(0, _owner,true); closePopUp("last"); });
+    btn.addEventListener("click", function () { closePopUp("last"); Cahier.setOwner(0, _owner,true);  });
+}
+
+function popAlertNoWelcomeSession(_owner) {
+    var elem = openPopUp();
+
+    var container;
+    container = div(elem);
+    container.classList.add("PopUpAlertContainer", "booking");
+    container.classList.add("Boxes");
+
+    var close = div(container);
+    close.className = "divPopUpClose";
+    close.onclick = function () {
+        closePopUp({ target: elem }, elem);
+    };
+
+    var d = div(container);
+    d.style.textAlign = "center";
+    d.style.fontSize = "25px";
+    d.innerHTML = "Pas suivi de séance d'accueil";
+
+    grayBar(container, 5);
+
+    var t = div(container);
+    t.innerHTML = "Il semblerait que vous n'ayiez pas encore suivi de séance d'accueil.";
+    t.style.minHeight = "60px";
+
+    var btnContainer = div(container);
+    btnContainer.style.position = "relative";
+    btnContainer.style.textAlign = "center";
+
+    var btn = div(btnContainer);
+    btn.classList.add("Buttons");
+    btn.style.display = "inline-block";
+    btn.innerHTML = "Annuler";
+    btn.addEventListener("click", function () { newTab("divTabCahier"); closePopUp("last"); });
+
+    btn = div(btnContainer);
+    btn.classList.add("Buttons", "ValidateButtons");
+    btn.style.display = "inline-block";
+    btn.innerHTML = "Continuer";
+    btn.classList.add("btnRed");
+    //_owner.welcomeSessionDate = "fake"; //(new Date()).toISOString(); // fake welcome sesion date
+    btn.addEventListener("click", function () { closePopUp("last"); Cahier.setOwner(0, { id: _owner.id, name: _owner.name, sex: _owner.sex, welcomeSessionDate: "fake" });  });
+    //btn.addEventListener("click", function () { Cahier.setOwner(0, _owner); closePopUp("last"); });
+}
+
+function popAlertLessThan13Minutes(_bookable, _booking, _choseFunction) {
+    var elem = openPopUp();
+
+    var txt = "<b>" + Cahier.getOwner(_booking, false) + "</b> est parti "
+              + "<red style='color:red'>" + deltaTime(new Date(_booking.startDate)).text
+              + " </red> avec le <b>" + _bookable.code + "</b> !";
+
+    var container;
+    container = div(elem);
+    container.style.height = "215px";
+    container.classList.add("PopUpAlertContainer", "booking");
+    container.classList.add("Boxes");
+
+    var close = div(container);
+    close.className = "divPopUpClose";
+    close.onclick = function () {
+        closePopUp({ target: elem }, elem);
+    };
+
+    var d = div(container);
+    d.style.textAlign = "center";
+    d.style.fontSize = "25px";
+    d.innerHTML = "Embarcation déjà utilisée";
+
+    grayBar(container, 5);
+
+    var t = div(container);
+    t.innerHTML = txt + "<br>Êtes-vous sûr que l'embarcation est disponible ?";
+    t.style.minHeight = "80px";
+
+    var btnContainer = div(container);
+    btnContainer.style.position = "relative";
+    btnContainer.style.textAlign = "center";
+
+    var btn = div(btnContainer);
+    btn.classList.add("Buttons");
+    btn.style.display = "inline-block";
+    btn.innerHTML = "Annuler";
+    btn.style.fontSize = "20px";
+    btn.addEventListener("click", function () { closePopUp("last"); });
+
+    btn = div(btnContainer);
+    btn.classList.add("Buttons", "ValidateButtons");
+    btn.style.display = "inline-block";
+    btn.style.backgroundImage = "url(img/icons/validated.png)";
+    btn.innerHTML = "Choisir";
+    btn.style.fontSize = "20px";
+    btn.classList.add("btnRed");
+
+    btn.addEventListener("click", function () { closePopUp("last"); _choseFunction(_bookable); });
 }
 
 
@@ -103,26 +200,29 @@ function popAlertMoreBookablesThanParticipants(bookables,participants) {
 
 
 function popAlertBookablesNotAvailable() {
-    var elem = openPopUp();
 
-    var container;
-    container = div(elem);
-    container.classList.add("PopUpAlertContainer", "available");
-    container.classList.add("Boxes");
+    if (options.showAlertBookablesNotAvailables) { // only show pop up if the option is activated, otherwise create the booking and finish the used bookings
 
-    var close = div(container);
-    close.className = "divPopUpClose";
-    close.onclick = function () {
-        closePopUp({ target: elem }, elem);
-    };
+        var elem = openPopUp();
 
-    var d = div(container);
-    d.style.textAlign = "center";
-    d.style.fontSize = "25px";
-    d.innerHTML = "<img src='img/icons/alert.png' style='display: inline-block; vertical-align: middle; width:30px;'/> Embarcations déjà utilisées";
+        var container;
+        container = div(elem);
+        container.classList.add("PopUpAlertContainer", "available");
+        container.classList.add("Boxes");
 
-    grayBar(container, 5);
+        var close = div(container);
+        close.className = "divPopUpClose";
+        close.onclick = function () {
+            closePopUp({ target: elem }, elem);
+        };
 
+        var d = div(container);
+        d.style.textAlign = "center";
+        d.style.fontSize = "25px";
+        d.innerHTML = "<img src='img/icons/alert.png' style='display: inline-block; vertical-align: middle; width:30px;'/> Embarcations déjà utilisées";
+
+        grayBar(container, 5);
+    }
 
     var bookablesNotAvailable = [];
     for (var i = 0; i < Cahier.bookings[0].bookables.length; i++) {
@@ -134,71 +234,97 @@ function popAlertBookablesNotAvailable() {
     var nU, nV;
     var bookingsToFinish = [];
 
-    for (var k = 0; k < bookablesNotAvailable.length; k++) {
+    // 1.1
+    if (options.finishAllBookingsWithBookable) {
 
-        for (var u = 0; u < Cahier.actualBookings.length; u++) {
-            for (var v = 0; v < Cahier.actualBookings[u].bookables.length; v++) {
+        for (var k = 0; k < bookablesNotAvailable.length; k++) {
 
-                if (Cahier.actualBookings[u].bookables[v].id === bookablesNotAvailable[k].id) {
-                    nU = u;   nV = v;
-                    break;
+            for (var u = 0; u < Cahier.actualBookings.length; u++) {
+                for (var v = 0; v < Cahier.actualBookings[u].bookables.length; v++) {
+
+                    if (Cahier.actualBookings[u].bookables[v].id === bookablesNotAvailable[k].id) {
+                        nU = u; nV = v;
+                        break;
+                    }
                 }
             }
+            bookingsToFinish = bookingsToFinish.concat(Cahier.actualBookings[nU].ids);
         }
-        bookingsToFinish = bookingsToFinish.concat(Cahier.actualBookings[nU].ids);
-    }
-    bookingsToFinish = bookingsToFinish.deleteMultiples();
-
-
-    var t = div(container);
-    var txt = "";
-    for (var i = 0; i < bookablesNotAvailable.length; i++) {
-        txt += "<li> Le " + bookablesNotAvailable[i].code + " est déjà utilisé par " + bookablesNotAvailable[i].lastBooking.owner.name + "</li> <br/>";
-    }
-    txt += "";
-    t.innerHTML = txt;
-
-    var names = [];
-    for (let i = 0; i < bookablesNotAvailable.length; i++) {
-        names.push(bookablesNotAvailable[i].lastBooking.owner.name);
-    }
-    names = names.deleteMultiples();
-
-    var pers = names[0];
-    if (names.length === 1) {
-        pers = "* En continuant, la sortie de " + pers + " va être automatiquement terminée !";
+        bookingsToFinish = bookingsToFinish.deleteMultiples();
     }
     else {
-        for (let i = 1; i < names.length - 1; i++) {
-            pers += ", " + names[i];
+        for (var k = 0; k < bookablesNotAvailable.length; k++) {
+
+            for (var u = 0; u < Cahier.actualBookings.length; u++) {
+                for (var v = 0; v < Cahier.actualBookings[u].bookables.length; v++) {
+
+                    if (Cahier.actualBookings[u].bookables[v].id === bookablesNotAvailable[k].id) {
+                        nU = u; nV = v;
+                        break;
+                    }
+                }
+            }
+            bookingsToFinish = bookingsToFinish.concat(Cahier.actualBookings[nU].ids[nV]); // ids[nV]
         }
-        pers += " et de " + names[bookablesNotAvailable.length - 1];
-        pers = "* En continuant, les sorties de " + pers + " vont être automatiquement terminées !";
     }
 
+    if (options.showAlertBookablesNotAvailables) {
+        var t = div(container);
+        var txt = "";
+        for (var i = 0; i < bookablesNotAvailable.length; i++) {
+            txt += "<li> Le " + bookablesNotAvailable[i].code + " est déjà utilisé par " + bookablesNotAvailable[i].lastBooking.owner.name + "</li> <br/>";
+        }
+        txt += "";
+        t.innerHTML = txt;
 
-    var btnContainer = div(container);
-    btnContainer.style.position = "relative";
-    btnContainer.style.textAlign = "center";
+        var names = [];
+        for (let i = 0; i < bookablesNotAvailable.length; i++) {
+            names.push(bookablesNotAvailable[i].lastBooking.owner.name);
+        }
+        names = names.deleteMultiples();
 
-    var btn = div(btnContainer);
-    btn.classList.add("Buttons");
-    btn.style.display = "inline-block";
-    btn.innerHTML = "Annuler";
-    btn.addEventListener("click", function () { closePopUp("last"); });
+        var pers = names[0];
+        if (names.length === 1) {
+            pers = "* En continuant, la sortie de " + pers + " va être automatiquement terminée !";
+        }
+        else {
+            for (let i = 1; i < names.length - 1; i++) {
+                pers += ", " + names[i];
+            }
+            pers += " et de " + names[bookablesNotAvailable.length - 1];
+            pers = "* En continuant, les sorties de " + pers + " vont être automatiquement terminées !";
+        }
 
-    btn = div(btnContainer);
-    btn.classList.add("Buttons", "ValidateButtons");
-    btn.style.display = "inline-block";
-    btn.innerHTML = "Continuer quand même*";
-    btn.addEventListener("click", function () {
+        var btnContainer = div(container);
+        btnContainer.style.position = "relative";
+        btnContainer.style.textAlign = "center";
+
+        var btn = div(btnContainer);
+        btn.classList.add("Buttons");
+        btn.style.display = "inline-block";
+        btn.innerHTML = "Annuler";
+        btn.addEventListener("click", function () { closePopUp("last"); });
+
+        btn = div(btnContainer);
+        btn.classList.add("Buttons", "ValidateButtons");
+        btn.style.display = "inline-block";
+        btn.innerHTML = "Continuer quand même*";
+        btn.addEventListener("click", function () {
+            var comments = [];
+            comments.fillArray(bookingsToFinish.length, "Terminée automatiquement");
+            Requests.terminateBooking(bookingsToFinish, comments, false);
+            animate();
+            closePopUp("last");
+        });
+
+        var info = div(btnContainer);
+        info.innerHTML = pers;
+    }
+    else { // create & finish bookings directly as no pop up
         var comments = [];
         comments.fillArray(bookingsToFinish.length, "Terminée automatiquement");
         Requests.terminateBooking(bookingsToFinish, comments, false);
         animate();
         closePopUp("last");
-    });
-
-    var info = div(btnContainer);
-    info.innerHTML = pers;
+    }
 }

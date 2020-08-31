@@ -37,7 +37,7 @@ function popBookable(bookableId, justPreview = true, nbr = 0, modal = openPopUp(
 
     if (!justPreview) {
         var btn = div(pop);
-        btn.classList.add("Buttons"); btn.classList.add("ValidateButtons");
+        btn.classList.add("Buttons", "ValidateButtons");
         btn.innerHTML = "Choisir";
         btn.setAttribute('tabindex', '0');
         btn.focus();
@@ -70,17 +70,12 @@ function actualizePopBookable(nbr, bookable,bookings, elem) {
     else {
         textsContainer.getElementsByTagName("div")[0].innerHTML = "";
     }
-
-
     textsContainer.getElementsByTagName("div")[1].innerHTML = bookable.name.shorten(420, 20);
 
 
-    if (options.showRemarks) {
-        div(textsContainer).innerHTML = bookable.remarks;
-    }
-    else {
-        div(textsContainer);
-    }
+    if (options.showRemarks) div(textsContainer).innerHTML = bookable.remarks;
+    else div(textsContainer);
+
 
     for (var i = 0; i < bookable.licenses.length; i++) {
         var lic = div(textsContainer);
@@ -88,21 +83,24 @@ function actualizePopBookable(nbr, bookable,bookings, elem) {
     }
 
 
-
+    var deltaT = 666; // anything higher than 13
     if (bookings.length != 0) {
-        if (currentTabElement.id != "divTabCahier" && bookings.items[0].endDate == null) {
+
+        if (currentTabElement.id != "divTabCahier" && bookings.items[0].endDate == null) { // not available - used -> so !justPreview
             //console.log("embarcation déjà utilisée");
             //elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].innerHTML = "Cette embarcation semble déjà être utlisée par " + Cahier.getOwner(bookings.items[0], false);
 
-            var usedTxt = Cahier.getOwner(bookings.items[0], false) + " ";
-            usedTxt += " est parti " + deltaTime(new Date(bookings.items[0].startDate)).text + " avec cette embarcation !";
-            console.log(deltaTime(new Date(bookings.items[0].startDate)).text);
+            var usedTxt = Cahier.getOwner(bookings.items[0], false);
+            var dT = deltaTime(new Date(bookings.items[0].startDate));
+            usedTxt += " est parti " + dT.text + " avec cette embarcation !";
+            deltaT = dT.time;
 
-            elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].innerHTML = usedTxt;
-            elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].style.color = "red";
-            elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].style.backgroundImage = "url(img/icons/alert.png)";
-            elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].style.paddingLeft = "40px";
-            elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].style.backgroundSize = "25px";
+            var div2 = elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[2];
+            div2.innerHTML = usedTxt;
+            div2.style.color = "red";
+            div2.style.backgroundImage = "url(img/icons/alert.png)";
+            div2.style.paddingLeft = "40px";
+            div2.style.backgroundSize = "25px";
         }
         else {
             elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].innerHTML = "Dernière utilisation le " + (new Date(bookings.items[0].startDate)).getNiceDate() + "<br/> Par " + Cahier.getOwner(bookings.items[0], false);
@@ -110,13 +108,12 @@ function actualizePopBookable(nbr, bookable,bookings, elem) {
         elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[3].innerHTML = Cahier.getSingularOrPlural(bookings.length, " sortie"); // oui ou non ?? $$ temp
 
 
-
         elem.getElementsByClassName('Buttons')[0].style.visibility = "visible";
         elem.getElementsByClassName('Buttons')[0].addEventListener("click", function () {
             popBookableHistory(this.parentElement.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[1].id);
         });
     }
-    else {
+    else { // jamais utilisé
         elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[3].innerHTML = "Encore aucune sortie enregistrée";
         elem.getElementsByClassName('Buttons')[0].style.visibility = "hidden";
     }
@@ -125,25 +122,25 @@ function actualizePopBookable(nbr, bookable,bookings, elem) {
     if (elem.getElementsByClassName("ValidateButtons").length == 1) { // if !justPreview
 
         var choseFunction = function () {
-
             Cahier.addBookable(nbr, bookable, bookings.items[0]);
-
             newTab('divTabCahierEquipmentChoice');
 
             $('divTabCahierEquipmentChoice').getElementsByClassName('divTabCahierEquipmentChoiceInputCodeContainer')[0].getElementsByTagName("input")[0].value = "";
             $('divTabCahierEquipmentChoice').getElementsByClassName('divTabCahierEquipmentChoiceInputCodeContainer')[0].getElementsByTagName("input")[0].nextElementSibling.nextElementSibling.children[0].classList.remove("activated");
         };
 
-        elem.getElementsByClassName("ValidateButtons")[0].addEventListener("click", choseFunction);
+        if (deltaT < 13) { // big warning
+            elem.getElementsByClassName("ValidateButtons")[0].classList.add("btnRed");
+            elem.getElementsByClassName("ValidateButtons")[0].title = "Cette embarcation est déjà utilisée";
+            elem.getElementsByClassName("ValidateButtons")[0].addEventListener("click", function () {
+                popAlertLessThan13Minutes(bookable, bookings.items[0], choseFunction);
+            });
+        }
+        else {
+            elem.getElementsByClassName("ValidateButtons")[0].addEventListener("click", choseFunction);
+        }
 
-        eventListenerFunction = function (event) {
-            if (event.keyCode == 13 && elem.id == "divModal" + lastModals) { // so the highest modal open
-              //  choseFunction();
-           }
-        };
 
-      //  setTimeout(function () { document.body.addEventListener("keyup", eventListenerFunction); //console.log("added event listener"); },4000);
-      //  ("keyup", eventListenerFunction);
     }
 
     //if (bookable.remarks != "" && options.showRemarks) {

@@ -15,17 +15,20 @@ function loadElements(bookables ,nbr = 0) {
         container = document.createElement("div");
         container.id = i;
 
+        var dT;
         if (bookables[i].used === true) {
             container.classList.add("used");
             container.title = "Cette embarcation est déjà utilisée";
+            dT = deltaTime(new Date(bookables[i].lastBooking.startDate), new Date(), false);
+            bookables[i].lessThan13Minutes = dT.time < 13 ? true : false;
         }
 
         var x = codes.findIndex(bookables[i].id);
 
-        if (x !== -1) {
+        if (x !== -1) { // found something
             container.classList.add("selected");
             container.onclick = function (event) {
-                if (!(event.target.classList.contains("infoJS"))) {
+                if (!(event.target.classList.contains("infoJS"))) { // pas cliqué sur le bouton info
                     Cahier.removeBookable(nbr, bookables[this.id]);
                     actualizeElements();
                 }
@@ -33,9 +36,19 @@ function loadElements(bookables ,nbr = 0) {
         }
         else {
             container.onclick = function (event) {
-                if (!(event.target.classList.contains("infoJS"))) {
-                    Cahier.addBookable(nbr, bookables[this.id]);
-                    actualizeElements();
+                if (!(event.target.classList.contains("infoJS"))) { // pas cliqué sur le bouton info
+
+                    if (bookables[this.id].lessThan13Minutes) { // big warning
+                        popAlertLessThan13Minutes(bookables[this.id], bookables[this.id].lastBooking, function (_bookable) {
+                            Cahier.addBookable(0, _bookable);
+                            actualizeElements();
+                        });
+                    }
+                    else {
+                        Cahier.addBookable(0, bookables[this.id]);
+                        actualizeElements();
+                    }
+
                 }
             };
         }
@@ -65,9 +78,6 @@ function loadElements(bookables ,nbr = 0) {
         var brand = div(bottom);
         brand.innerHTML = bookables[i].name.shorten(160*2,20);
 
-      //  model = div(bottom);
-      //  model.innerHTML = bookables[i].id;
-
         var background = div(secondContainer);
         background.style.backgroundImage = Cahier.getImageUrl(bookables[i]);
 
@@ -80,24 +90,18 @@ function loadElements(bookables ,nbr = 0) {
             popBookable(this.id);
         };
 
-
-
         if (bookables[i].licenses.length > 0) {
-            var license = div(secondContainer);
-            license.title = bookables[i].licenses[0].name;
+            div(secondContainer).title = bookables[i].licenses[0].name;
         }
 
-        if (bookables[i].used) {
-            var used = div(container);
-            used.innerHTML = "Déjà utilisé";
+        if (bookables[i].used === true) {
+            div(container).innerHTML = "Déjà utilisé";
+            div(container).innerHTML = dT.text;
         }
-
-
     }
     if (bookables.length == 0) {
         var d = div(document.getElementsByClassName("divTabCahierEquipmentElementsContainer")[0]);
         d.innerHTML = "Aucun résultat";
-        //console.log('Aucun résultat');
     }
 }
 
@@ -115,27 +119,59 @@ function actualizeElements() {
     var containers = document.getElementsByClassName("divTabCahierEquipmentElementsContainer")[0].children;
 
     for (var i = 0; i < containers.length; i++) {
+        containers[i].classList.remove("selected");
+    }
+
+    for (var i = 0; i < containers.length; i++) {
 
         var container = containers[i];
 
-        if (codes.findIndex(bookables[i].id) != -1) {
+        if (codes.findIndex(bookables[i].id) !== -1) { // found something
             container.classList.add("selected");
             container.onclick = function (event) {
-                if (!(event.target.classList.contains("infoJS"))) {
+                if (!(event.target.classList.contains("infoJS"))) { // pas cliqué sur le bouton info
                     Cahier.removeBookable(0, bookables[this.id]);
                     actualizeElements();
                 }
             };
         }
         else {
-            container.classList.remove("selected");
             container.onclick = function (event) {
-                if (!(event.target.classList.contains("infoJS"))) {
-                    Cahier.addBookable(0, bookables[this.id]);
-                    actualizeElements();
+                if (!(event.target.classList.contains("infoJS"))) { // pas cliqué sur le bouton info
+
+                    if (bookables[this.id].lessThan13Minutes) { // big warning
+                        popAlertLessThan13Minutes(bookables[this.id], bookables[this.id].lastBooking, function (_bookable) {
+                            Cahier.addBookable(0, _bookable);
+                            actualizeElements();
+                        });
+                    }
+                    else {
+                        Cahier.addBookable(0, bookables[this.id]);
+                        actualizeElements();
+                    }
+
                 }
             };
         }
+
+        //if (codes.findIndex(bookables[i].id) != -1) {
+        //    container.classList.add("selected");
+        //    container.onclick = function (event) {
+        //        if (!(event.target.classList.contains("infoJS"))) { // pas cliqué sur le bouton info
+        //            Cahier.removeBookable(0, bookables[this.id]);
+        //            actualizeElements();
+        //        }
+        //    };
+        //}
+        //else {
+        //    container.classList.remove("selected");
+        //    container.onclick = function (event) {
+        //        if (!(event.target.classList.contains("infoJS"))) { // pas cliqué sur le bouton info
+        //            Cahier.addBookable(0, bookables[this.id]);
+        //            actualizeElements();
+        //        }
+        //    };
+        //}
     }
 }
 

@@ -275,7 +275,13 @@ option {
     outline: 0;
 }*/
 
+.btnRed {
+    background-color:red;
+}
 
+    .btnRed:hover {
+        background-color: rgb(137, 16, 16);
+    }
 
 .ReturnButtons {
     width: 100px;

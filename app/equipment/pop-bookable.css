@@ -67,6 +67,11 @@
         background-image: url(../img/icons/validated.png);
     }
 
+    .divTabCahierEquipmentElementsPopUp > .btnRed {
+        background-position-x:110px;
+        background-image: url(../img/icons/alert.png);
+    }
+
     .divTabCahierEquipmentElementsPopUp > .ReturnButtons {
         position: absolute;
         right: 20px;

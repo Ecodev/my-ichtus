@@ -216,7 +216,7 @@ var Cahier = {
     },
 
 
-    setOwner: function (nbr = 0, _owner = { id: "", name: "", sex: "female" }, force = false) {
+    setOwner: function (nbr = 0, _owner = { id: "", name: "", sex: "female", welcomeSessionDate: "date" }, force = false) {
 
         var t = true;
         if (!force) {
@@ -228,11 +228,15 @@ var Cahier = {
             }
         }
 
-        if (_owner.id == "2085") {
-            //alert("Bonjour maître");
-        }
+        //if (_owner.id == "2085") alert("Bonjour maître");
 
-        if (t) {
+        if (_owner.welcomeSessionDate == null) {
+            popAlertNoWelcomeSession(_owner);
+        }
+        else if (!t) {
+            popAlertAlreadyHavingABooking(_owner);
+        }
+        else {
             Cahier.bookings[nbr].owner.id = _owner.id;
             Cahier.bookings[nbr].owner.name = _owner.name;
           //  Cahier.bookings[nbr].owner.name = _owner.surName + " " + _owner.firstName;
@@ -241,9 +245,7 @@ var Cahier = {
 
             newTab("divTabCahierInfos");
         }
-        else {
-            popAlertAlreadyHavingABooking(_owner);
-        }
+
 
     },
 
@@ -271,8 +273,10 @@ var Cahier = {
 
     actualizeAvailability: function (bookableId, bookings) {
 
-        for (var i = 0; i < Cahier.bookings[0].bookables.length; i++) {
-            if (Cahier.bookings[0].bookables[i].id === bookableId.toString()) {
+        var i;
+        for (var u = 0; u < Cahier.bookings[0].bookables.length; u++) {
+            if (Cahier.bookings[0].bookables[u].id === bookableId.toString()) {
+                i = u;
                 break;
             }
         }

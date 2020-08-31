@@ -455,14 +455,12 @@ var Requests = {
                         for (let k = 0; k < bookables.length; k++) {
                             if (bookables[k].id === bookings[i].bookable.id) {
                                 bookables[k].used = true;
+                                bookables[k].lastBooking = bookings[i];
                             }
                         }
 
                         //console.log(r.items[i].bookable.id,r.items[i].bookable.name);
                     }
-
-                 //   console.log(bookables);
-
                     loadElements(bookables);
                 });
 

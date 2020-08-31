@@ -70,15 +70,15 @@ function Search(e) {
             if (typeof all[i].getElementsByTagName("img")[0] != "undefined") {
             //    var _firstName = all[i].getElementsByClassName("spanTabCahierFirstName")[0].innerHTML;
             //    var _surName = all[i].getElementsByClassName("spanTabCahierSurName")[0].innerHTML;
-                var _name = all[i].getElementsByClassName("spanTabCahierSurName")[0].innerHTML;
-                var _id = lastPeople[all[i].id].id;
-                var _sex = lastPeople[all[i].id].sex; // modifier
+                //var _name = all[i].getElementsByClassName("spanTabCahierSurName")[0].innerHTML;
+                //var _id = lastPeople[all[i].id].id;
+                //var _sex = lastPeople[all[i].id].sex; // modifier
 
                 var nbr = parseInt(document.getElementsByClassName('PopUpUserContainer')[0].id); // modifier problem si plusieurs popUp ouverts...
 
-                var owner = { id: _id, name: _name, sex: _sex };
+                //var owner = { id: _id, name: _name, sex: _sex };
 
-                Cahier.setOwner(nbr, owner);
+                Cahier.setOwner(nbr, lastPeople[all[i].id]);
             }
         }
     }
@@ -162,7 +162,9 @@ function createSearchEntries(PeopleCorresponding) {
 
             divResult.id = i;
 
-            divResult.addEventListener("mousedown", function () { Cahier.setOwner(nbr, { id: PeopleCorresponding[this.id].id, name: PeopleCorresponding[this.id].name, sex: PeopleCorresponding[this.id].sex });  });
+            //divResult.addEventListener("mousedown", function () { Cahier.setOwner(nbr, { id: PeopleCorresponding[this.id].id, name: PeopleCorresponding[this.id].name, sex: PeopleCorresponding[this.id].sex });  });
+
+            divResult.addEventListener("mousedown", function () { Cahier.setOwner(nbr, PeopleCorresponding[this.id]);  });
 
             var span1 = document.createElement("span");
             span1.classList.add("spanTabCahierSurName");
