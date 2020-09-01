@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace ApplicationTest\Model;
 
+use Application\DBAL\Types\BookingStatusType;
 use Application\Model\Account;
 use Application\Model\Booking;
 use Application\Model\User;
+use Cake\Chronos\Chronos;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
@@ -185,5 +187,27 @@ class UserTest extends TestCase
 
         self::assertSame($account1, $user1->getAccount());
         self::assertSame($account2, $user2->getAccount(), 'user2 should be use his own account again');
+    }
+
+    public function testGetRunningBookings(): void
+    {
+        $user = new User();
+
+        $unapproved = new Booking();
+        $unapproved->setOwner($user);
+        $unapproved->setStatus(BookingStatusType::APPLICATION);
+
+        $completed = new Booking();
+        $completed->setOwner($user);
+        $completed->setStatus(BookingStatusType::BOOKED);
+        $completed->setEndDate(Chronos::yesterday());
+
+        $running = new Booking();
+        $running->setOwner($user);
+        $running->setStatus(BookingStatusType::BOOKED);
+
+        $runnings = $user->getRunningBookings();
+
+        self::assertCount(1, $runnings);
     }
 }

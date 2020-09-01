@@ -109,7 +109,7 @@ class MessageQueuer
     private function queueBalanceForEachUsers(array $users): int
     {
         foreach ($users as $user) {
-            $bookables = $user->getBookings()->map(function (Booking $booking) {
+            $bookables = $user->getRunningBookings()->map(function (Booking $booking) {
                 return $booking->getBookable();
             });
 

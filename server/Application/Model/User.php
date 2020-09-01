@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Application\Model;
 
 use Application\DBAL\Types\BillingTypeType;
+use Application\DBAL\Types\BookingStatusType;
 use Application\DBAL\Types\RelationshipType;
 use Application\Repository\LogRepository;
 use Application\Repository\UserRepository;
@@ -538,6 +539,18 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     public function getBookings(): Collection
     {
         return $this->bookings;
+    }
+
+    /**
+     * Get active bookings (confirmed and non-terminated)
+     *
+     * @API\Exclude
+     */
+    public function getRunningBookings(): Collection
+    {
+        return $this->bookings->filter(function (Booking $booking) {
+            return $booking->getStatus() === BookingStatusType::BOOKED && $booking->getEndDate() === null;
+        });
     }
 
     /**
