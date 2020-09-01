@@ -350,6 +350,8 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
                     }, 290);
                     this.style.opacity = "0";
                     this.nextElementSibling.style.opacity = "0";
+                    this.previousElementSibling.style.opacity = "0.4";
+                    this.parentElement.getElementsByTagName("textarea")[0].disabled = "true";
                     var ts = document.getElementsByClassName("btnTerminateOneBookable");
                     for (var i = 0; i < ts.length; i++) {
                         ts[i].previousElementSibling.innerHTML = ts[i].previousElementSibling.innerHTML.shorten(1 * 150, 20);

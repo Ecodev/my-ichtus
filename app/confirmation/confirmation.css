@@ -115,6 +115,10 @@
     width: 680px;
     border-radius: 5px;
     font-size: 25px;
+    -moz-transition: opacity 0.1s linear 0s;
+    -o-transition: opacity 0.1s linear 0s;
+    -webkit-transition: opacity 0.1s linear 0s;
+    transition: opacity 0.1s linear 0s;
 }
 .divConfirmationTexts.confirmationTab {
     width: 350px;
