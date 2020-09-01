@@ -22,6 +22,7 @@ function loadElements(bookables ,nbr = 0) {
             dT = deltaTime(new Date(bookables[i].lastBooking.startDate), new Date(), false);
             bookables[i].lessThan13Minutes = dT.time < 13 ? true : false;
         }
+        else bookables[i].lessThan13Minutes = false;
 
         var x = codes.findIndex(bookables[i].id);
 

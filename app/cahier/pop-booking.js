@@ -306,6 +306,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
     }
     else {
         embContainer.innerHTML = "";
+        var names = [];
         for (let i = 0; i < booking.bookables.length; i++) {
             var emb = div(embContainer);
             emb.className = "divTabCahierConfirmationEmbarcationBox";
@@ -313,6 +314,11 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
 
             img.style.backgroundImage = booking.bookables[i].available === false ? "url(img/icons/info.png), url(img/icons/alert.png)," + Cahier.getImageUrl(booking.bookables[i]) : "url(img/icons/info.png), none," + Cahier.getImageUrl(booking.bookables[i]);
             div(img);
+
+            if (booking.bookables[i].available === false) {
+                img.title = "Cela va terminer la sortie de " + booking.bookables[i].lastBooking.owner.name;
+                names.push(booking.bookables[i].lastBooking.owner.name);
+            }
 
             texts = div(emb);
             texts.className = "divTabCahierConfirmationContainerTextsContainer";
@@ -331,6 +337,9 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
                     //console.log(booking, this.id, booking.ids[parseInt(this.id)]);
                     Requests.terminateBooking([booking.ids[parseInt(this.id)]], [""]);
                     DeleteObjects(this.parentElement.parentElement);
+                    if (document.getElementsByClassName("divTabCahierConfirmationEmbarcationBox").length == 0) {
+                        closePopUp("last");
+                    }
                 });
 
                 $('btnModify').style.visibility = "visible";
@@ -358,12 +367,6 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
             else {
                 img.addEventListener("click", function () { popBookable(booking.bookables[i].id); });
             }
-
-            //if (which === "confirmation" && ) {
-            //    var a = div(emb);
-            //    a.innerHTML = "asdfasdf";
-            //    console.log("alert");
-            //}
 
             if (which == "finish" && options.bookablesComment) {
 
@@ -399,6 +402,23 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
                     areaContainer.appendChild(area);
                     //area.focus();
                 }
+            }
+        }
+
+        // divWarningText
+        if (names.length !== 0) {
+            names = names.deleteMultiples();
+            $('divTabCahierConfirmation').getElementsByClassName("ValidateButtons")[0].innerHTML = "Confirmer votre sortie*";
+            if (names.length === 1) {
+                $('divWarningText').innerHTML = "* En continuant, la sortie de " + names[0] + " va être automatiquement terminée ! <br>";
+            }
+            else {
+                var txt = names[0];
+                for (let i = 1; i < names.length - 1; i++) {
+                    txt += ", " + names[i];
+                }
+                txt += " et de " + names[names.length - 1];
+                $('divWarningText').innerHTML = "* En continuant, les sorties de " + txt + " vont être automatiquement terminées ! <br><br>";
             }
         }
     }

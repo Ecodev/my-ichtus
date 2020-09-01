@@ -1,6 +1,20 @@
 function loadBottoms() {
 
     var allDivTabs = document.getElementsByClassName("divTab");
+
+    // remove all
+    //var s = document.getElementsByClassName("divSpacers");
+    ////s = s + document.getElementsByClassName("divBottoms");
+    //for (var i = 0; i < s.length; i++) DeleteObjects(s[i]);
+
+    while (document.getElementsByClassName("divSpacers").length !== 0) {
+        DeleteObjects(document.getElementsByClassName("divSpacers")[0]);
+    }
+    while (document.getElementsByClassName("divBottoms").length !== 0) {
+        DeleteObjects(document.getElementsByClassName("divBottoms")[0]);
+    }
+
+    // new bars
     for (var i = 0; i < allDivTabs.length; i++) {
         var s = div(allDivTabs[i]);
         s.className = "divSpacers";
