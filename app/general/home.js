@@ -9,7 +9,8 @@ var options = {
     bookingsTogetherWithDifferentEndates: true,
     modifyBookablesButton: true,
     finishAllBookingsWithBookable: false, // si créer une sortie qui avec une embarcation déjà utilisée, ça termine seulement la sortie avec l'embarcation utilisée de M. Uti.
-    showAlertBookablesNotAvailables: false
+    showAlertBookablesNotAvailables: false,
+    showAlertNoWelcomeSession: false
 }; //showMetadatas: false,
 
 // shortcut

@@ -230,7 +230,7 @@ var Cahier = {
 
         //if (_owner.id == "2085") alert("Bonjour maître");
 
-        if (_owner.welcomeSessionDate == null) {
+        if (options.showAlertNoWelcomeSession && _owner.welcomeSessionDate == null) {
             popAlertNoWelcomeSession(_owner);
         }
         else if (!t) {
