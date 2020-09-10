@@ -2,7 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\app",
+    "\\app\\cahier",
+    "\\app\\general",
+    "\\htdocs",
+    "\\htdocs\\cahier",
     "\\htdocs\\page"
   ],
+  "SelectedNode": "\\app\\index.html",
   "PreviewInSolutionExplorer": false
 }
