@@ -23,7 +23,7 @@ export class LogsComponent extends NaturalAbstractList<Logs['logs'], LogsVariabl
         super(logService, injector);
 
         this.naturalSearchFacets = naturalSearchFacetsService.get('logs');
-        this.contextVariables = {
+        this.forcedVariables = {
             sorting: [{field: LogSortingField.creationDate, order: SortingOrder.DESC}],
         };
     }

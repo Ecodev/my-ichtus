@@ -330,13 +330,13 @@
         </mat-tab>
 
         <mat-tab label="Famille" *ngIf="data.model.id && showFamilyTab">
-            <app-users [contextVariables]="familyVariables" [persistSearch]="false" class="margin-top"></app-users>
+            <app-users [forcedVariables]="familyVariables" [persistSearch]="false" class="margin-top"></app-users>
         </mat-tab>
 
         <mat-tab label="Historique" *ngIf="data.model.account">
             <app-transaction-lines
-                [contextColumns]="['name', 'bookable', 'transactionDate', 'remark', 'account']"
-                [contextVariables]="transactionLinesVariables"
+                [initialColumns]="['name', 'bookable', 'transactionDate', 'remark', 'account']"
+                [forcedVariables]="transactionLinesVariables"
                 [relativeToAccount]="data.model.account"
                 class="margin-top"
             ></app-transaction-lines>

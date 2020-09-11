@@ -1067,10 +1067,12 @@
   resolved "https://registry.yarnpkg.com/@ecodev/fab-speed-dial/-/fab-speed-dial-5.0.3.tgz#06ce04277fade89c83569fe75a934643bd7087cb"
   integrity sha512-kt0nLSNaRM5MZCIKALvSJkTtgjjdheG98n3Ty0l6jtKYrod3VDDUBtf/ZaoUjikS34RLN4NfRx2L39T2mlqk7w==
 
-"@ecodev/natural@^19.0.0":
-  version "19.0.0"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-19.0.0.tgz#af3faec058659e4c9736675f72ac567d5339b153"
-  integrity sha512-71HhVmZoJpsVqG8sDwB2usvRYbM1pNclEhHU3mR7mr5t9aqmlhKcgIZOcwJJ9saiWbTSKSTj+b40dQigNyVFQw==
+"@ecodev/natural@^20.0.0":
+  version "20.0.0"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-20.0.0.tgz#1d0423a984857e57f9e2ebe0be979c81b1c5a305"
+  integrity sha512-L60p6FfJkOd+82Axp10LUjP65XAunMElfhvj/Lz/kk6G/2jXt3rgCuB3wjMd77pLXNgnwU5OqJqECK35QOzhPw==
+  dependencies:
+    tslib "^1.10.0"
 
 "@endemolshinegroup/cosmiconfig-typescript-loader@^1.0.0":
   version "1.0.1"

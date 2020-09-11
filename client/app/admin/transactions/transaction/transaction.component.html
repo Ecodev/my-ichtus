@@ -161,10 +161,10 @@
                 <div *ngIf="!updateTransactionLines && data.model.id">
                     <app-transaction-lines
                         [persistSearch]="false"
-                        [contextVariables]="{
+                        [forcedVariables]="{
                             filter: {groups: [{conditions: [{transaction: {equal: {value: data.model.id}}}]}]}
                         }"
-                        [contextColumns]="[
+                        [initialColumns]="[
                             'transactionDate',
                             'name',
                             'remarks',

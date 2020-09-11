@@ -11,6 +11,8 @@ import {
     Booking,
     Bookings,
     BookingsVariables,
+    BookingsWithOwnerBalance,
+    BookingsWithOwnerBalanceVariables,
     BookingVariables,
     DeleteBookings,
     DeleteBookingsVariables,
@@ -26,8 +28,8 @@ import {NaturalAbstractModelService} from '@ecodev/natural';
 export class BookingWithOwnerService extends NaturalAbstractModelService<
     Booking['booking'],
     BookingVariables,
-    Bookings['bookings'],
-    BookingsVariables,
+    BookingsWithOwnerBalance['bookings'],
+    BookingsWithOwnerBalanceVariables,
     any,
     any,
     UpdateBooking['updateBooking'],
@@ -47,7 +49,7 @@ export class BookingWithOwnerService extends NaturalAbstractModelService<
         );
     }
 
-    getContextForAll(): Partial<BookingsVariables> {
+    getPartialVariablesForAll(): Partial<BookingsVariables> {
         return {
             filter: {
                 groups: [

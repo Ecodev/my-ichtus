@@ -3,7 +3,6 @@ import {Apollo} from 'apollo-angular';
 import {bookableQuery, createBookable, deleteBookables, updateBookable, usageBookablesQuery} from './bookable.queries';
 import {
     Bookable,
-    Bookables,
     BookablesVariables,
     BookableVariables,
     CreateBookable,
@@ -13,6 +12,7 @@ import {
     JoinType,
     UpdateBookable,
     UpdateBookableVariables,
+    UsageBookables,
     UsageBookablesVariables,
 } from '../../../shared/generated-types';
 import {BookingService} from '../../bookings/services/booking.service';
@@ -24,7 +24,7 @@ import {NaturalAbstractModelService} from '@ecodev/natural';
 export class UsageBookableService extends NaturalAbstractModelService<
     Bookable['bookable'],
     BookableVariables,
-    Bookables['bookables'],
+    UsageBookables['bookables'],
     UsageBookablesVariables,
     CreateBookable['createBookable'],
     CreateBookableVariables,
@@ -37,7 +37,7 @@ export class UsageBookableService extends NaturalAbstractModelService<
         super(apollo, 'bookable', bookableQuery, usageBookablesQuery, createBookable, updateBookable, deleteBookables);
     }
 
-    public getContextForAll(): Partial<BookablesVariables> {
+    public getPartialVariablesForAll(): Partial<BookablesVariables> {
         return {
             filter: {
                 groups: [

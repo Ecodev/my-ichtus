@@ -233,15 +233,15 @@
         <mat-tab label="Écritures" *ngIf="data.model.id">
             <app-transaction-lines
                 [persistSearch]="false"
-                [contextVariables]="{filter: {groups: [{conditions: [{bookable: {equal: {value: data.model.id}}}]}]}}"
+                [forcedVariables]="{filter: {groups: [{conditions: [{bookable: {equal: {value: data.model.id}}}]}]}}"
             ></app-transaction-lines>
         </mat-tab>
 
         <mat-tab label="Utilisations" *ngIf="data.model.id">
             <app-bookings
                 [persistSearch]="false"
-                [contextVariables]="bookingsVariables"
-                [contextColumns]="['edit', 'owner', 'destination', 'startDate', 'endDate', 'estimatedEndDate']"
+                [forcedVariables]="bookingsVariables"
+                [initialColumns]="['edit', 'owner', 'destination', 'startDate', 'endDate', 'estimatedEndDate']"
             ></app-bookings>
         </mat-tab>
     </mat-tab-group>

@@ -46,12 +46,13 @@ import {TransactionTagComponent} from './transactionTags/transactionTag/transact
 import {TransactionTagResolver} from './transactionTags/services/transactionTag-resolver.service';
 import {TransactionLinesComponent} from './transactions/transactionLines/transactionLines.component';
 import {ExpenseClaimParamResolver} from './expenseClaim/services/expenseClaim.param.resolver';
-import {UsageBookableService} from './bookables/services/usage-bookable.service';
 import {ImportComponent} from './import/import.component';
 import {LogsComponent} from './logs/logs/logs.component';
 import {BookableTagService} from './bookableTags/services/bookableTag.service';
 import {BookingWithOwnerService} from './bookings/services/booking-with-owner.service';
 import {merge} from 'lodash-es';
+import {UsageBookablesComponent} from './bookables/bookables/usage-bookables.component';
+import {BookingsWithOwnerComponent} from './bookings/bookings/bookings-with-owner.component';
 
 const routes: Routes = [
     {
@@ -64,8 +65,8 @@ const routes: Routes = [
                 component: BookingsComponent,
                 data: {
                     title: 'Sorties en cours',
-                    contextVariables: BookingService.runningSelfApprovedQV,
-                    contextColumns: [
+                    forcedVariables: BookingService.runningSelfApprovedQV,
+                    initialColumns: [
                         'edit',
                         'owner',
                         'bookable',
@@ -81,7 +82,7 @@ const routes: Routes = [
                 component: BookingsComponent,
                 data: {
                     title: 'Réservations',
-                    contextColumns: [
+                    initialColumns: [
                         'edit',
                         'owner',
                         'bookable',
@@ -101,8 +102,8 @@ const routes: Routes = [
                         component: BookingsComponent,
                         data: {
                             title: 'Toutes terminées',
-                            contextVariables: BookingService.selfApprovedQV,
-                            contextColumns: [
+                            forcedVariables: BookingService.selfApprovedQV,
+                            initialColumns: [
                                 'edit',
                                 'owner',
                                 'bookable',
@@ -119,18 +120,17 @@ const routes: Routes = [
                         component: BookingsComponent,
                         data: {
                             title: 'Demandes de stockage en attente',
-                            contextVariables: BookingService.applicationByTag(BookableTagService.STORAGE),
-                            contextColumns: ['edit', 'owner', 'bookable', 'startDate'],
+                            forcedVariables: BookingService.applicationByTag(BookableTagService.STORAGE),
+                            initialColumns: ['edit', 'owner', 'bookable', 'startDate'],
                         },
                     },
                     {
                         path: 'formation-application',
-                        component: BookingsComponent,
+                        component: BookingsWithOwnerComponent,
                         data: {
                             title: 'Demandes de cours',
-                            contextService: BookingWithOwnerService,
-                            contextVariables: BookingService.applicationByTag(BookableTagService.FORMATION),
-                            contextColumns: [
+                            forcedVariables: BookingService.applicationByTag(BookableTagService.FORMATION),
+                            initialColumns: [
                                 'edit',
                                 'owner',
                                 'ownerBalance',
@@ -142,12 +142,11 @@ const routes: Routes = [
                     },
                     {
                         path: 'welcome-application',
-                        component: BookingsComponent,
+                        component: BookingsWithOwnerComponent,
                         data: {
                             title: "Demandes de séances d'accueil",
-                            contextService: BookingWithOwnerService,
-                            contextVariables: BookingService.applicationByTag(BookableTagService.WELCOME),
-                            contextColumns: ['edit', 'owner', 'ownerBalance', 'ownerCreationDate', 'startDate'],
+                            forcedVariables: BookingService.applicationByTag(BookableTagService.WELCOME),
+                            initialColumns: ['edit', 'owner', 'ownerBalance', 'ownerCreationDate', 'startDate'],
                         },
                     },
                     {
@@ -155,8 +154,8 @@ const routes: Routes = [
                         component: BookingsComponent,
                         data: {
                             title: 'Demandes de services en attente',
-                            contextVariables: BookingService.notStorageApplication,
-                            contextColumns: ['edit', 'owner', 'bookable', 'startDate'],
+                            forcedVariables: BookingService.notStorageApplication,
+                            initialColumns: ['edit', 'owner', 'bookable', 'startDate'],
                         },
                     },
                     {
@@ -188,7 +187,7 @@ const routes: Routes = [
                         component: BookablesComponent,
                         data: {
                             title: 'Cotisations',
-                            contextVariables: BookableService.membershipServices,
+                            forcedVariables: BookableService.membershipServices,
                         },
                     },
                     {
@@ -196,8 +195,8 @@ const routes: Routes = [
                         component: BookablesComponent,
                         data: {
                             title: 'Stand up paddle',
-                            contextVariables: BookableService.getFiltersByTagId(6000),
-                            contextColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
+                            forcedVariables: BookableService.getFiltersByTagId(6000),
+                            initialColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
                         },
                     },
                     {
@@ -205,8 +204,8 @@ const routes: Routes = [
                         component: BookablesComponent,
                         data: {
                             title: 'Planches',
-                            contextVariables: BookableService.getFiltersByTagId(6001),
-                            contextColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
+                            forcedVariables: BookableService.getFiltersByTagId(6001),
+                            initialColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
                         },
                     },
                     {
@@ -214,8 +213,8 @@ const routes: Routes = [
                         component: BookablesComponent,
                         data: {
                             title: 'Canoës',
-                            contextVariables: BookableService.getFiltersByTagId(6002),
-                            contextColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
+                            forcedVariables: BookableService.getFiltersByTagId(6002),
+                            initialColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
                         },
                     },
                     {
@@ -223,8 +222,8 @@ const routes: Routes = [
                         component: BookablesComponent,
                         data: {
                             title: 'Kayaks',
-                            contextVariables: BookableService.getFiltersByTagId(6003),
-                            contextColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
+                            forcedVariables: BookableService.getFiltersByTagId(6003),
+                            initialColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
                         },
                     },
                     {
@@ -232,8 +231,8 @@ const routes: Routes = [
                         component: BookablesComponent,
                         data: {
                             title: 'Aviron',
-                            contextVariables: BookableService.getFiltersByTagId(6004),
-                            contextColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
+                            forcedVariables: BookableService.getFiltersByTagId(6004),
+                            initialColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
                         },
                     },
                     {
@@ -241,8 +240,8 @@ const routes: Routes = [
                         component: BookablesComponent,
                         data: {
                             title: 'Voile légère',
-                            contextVariables: BookableService.getFiltersByTagId(6005),
-                            contextColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
+                            forcedVariables: BookableService.getFiltersByTagId(6005),
+                            initialColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
                         },
                     },
                     {
@@ -250,70 +249,64 @@ const routes: Routes = [
                         component: BookablesComponent,
                         data: {
                             title: 'Voile lestée',
-                            contextVariables: BookableService.getFiltersByTagId(6006),
-                            contextColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
+                            forcedVariables: BookableService.getFiltersByTagId(6006),
+                            initialColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
                         },
                     },
                     {
                         path: 'armoire',
-                        component: BookablesComponent,
+                        component: UsageBookablesComponent,
                         data: {
                             title: 'Armoires',
-                            contextColumns: ['image', 'name', 'code', 'date', 'verificationDate', 'usage'],
-                            contextVariables: BookableService.adminByTag(6009),
-                            contextService: UsageBookableService,
+                            initialColumns: ['image', 'name', 'code', 'date', 'verificationDate', 'usage'],
+                            forcedVariables: BookableService.adminByTag(6009),
                             isStorage: true,
                         },
                     },
                     {
                         path: 'formation',
-                        component: BookablesComponent,
+                        component: UsageBookablesComponent,
                         data: {
                             title: 'Cours',
-                            contextColumns: ['name', 'code', 'date', 'initialPrice', 'usageNb', 'verificationDate'],
-                            contextVariables: merge(BookableService.adminByTag(BookableTagService.FORMATION), {
+                            initialColumns: ['name', 'code', 'date', 'initialPrice', 'usageNb', 'verificationDate'],
+                            forcedVariables: merge(BookableService.adminByTag(BookableTagService.FORMATION), {
                                 sorting: [{field: BookingSortingField.creationDate, order: SortingOrder.DESC}],
                             }),
-                            contextService: UsageBookableService,
                         },
                     },
                     {
                         path: 'welcome',
-                        component: BookablesComponent,
+                        component: UsageBookablesComponent,
                         data: {
                             title: "Séances d'accueil",
-                            contextColumns: ['name', 'date', 'verificationDate', 'usageNb'],
-                            contextVariables: BookableService.adminByTag(BookableTagService.WELCOME),
-                            contextService: UsageBookableService,
+                            initialColumns: ['name', 'date', 'verificationDate', 'usageNb'],
+                            forcedVariables: BookableService.adminByTag(BookableTagService.WELCOME),
                         },
                     },
                     {
                         path: 'casier',
-                        component: BookablesComponent,
+                        component: UsageBookablesComponent,
                         data: {
                             title: 'Casiers',
-                            contextVariables: BookableService.adminByTag(6010),
-                            contextService: UsageBookableService,
+                            forcedVariables: BookableService.adminByTag(6010),
                             isStorage: true,
                         },
                     },
                     {
                         path: 'flotteur',
-                        component: BookablesComponent,
+                        component: UsageBookablesComponent,
                         data: {
                             title: 'Flotteurs',
-                            contextVariables: BookableService.adminByTag(6011),
-                            contextService: UsageBookableService,
+                            forcedVariables: BookableService.adminByTag(6011),
                             isStorage: true,
                         },
                     },
                     {
                         path: 'ratelier',
-                        component: BookablesComponent,
+                        component: UsageBookablesComponent,
                         data: {
                             title: 'Râteliers WBC',
-                            contextVariables: BookableService.adminByTag(6016),
-                            contextService: UsageBookableService,
+                            forcedVariables: BookableService.adminByTag(6016),
                             isStorage: true,
                         },
                     },
@@ -338,7 +331,7 @@ const routes: Routes = [
                 component: UsersComponent,
                 data: {
                     title: 'Tous les utilisateurs',
-                    contextColumns: ['balance', 'name', 'login', 'age', 'status', 'flagWelcomeSessionDate'],
+                    initialColumns: ['balance', 'name', 'login', 'age', 'status', 'flagWelcomeSessionDate'],
                 },
             },
             {
@@ -349,8 +342,8 @@ const routes: Routes = [
                         component: UsersComponent,
                         data: {
                             title: 'Membres actifs',
-                            contextVariables: UserService.getFilters([UserRole.member], [UserStatus.active]),
-                            contextColumns: ['balance', 'name', 'login', 'age', 'status', 'flagWelcomeSessionDate'],
+                            forcedVariables: UserService.getFilters([UserRole.member], [UserStatus.active]),
+                            initialColumns: ['balance', 'name', 'login', 'age', 'status', 'flagWelcomeSessionDate'],
                         },
                     },
                     {
@@ -358,8 +351,8 @@ const routes: Routes = [
                         component: UsersComponent,
                         data: {
                             title: 'Nouveaux membres',
-                            contextVariables: UserService.getFilters([UserRole.member], [UserStatus.new]),
-                            contextColumns: ['balance', 'name', 'status', 'creationDate', 'flagWelcomeSessionDate'],
+                            forcedVariables: UserService.getFilters([UserRole.member], [UserStatus.new]),
+                            initialColumns: ['balance', 'name', 'status', 'creationDate', 'flagWelcomeSessionDate'],
                         },
                     },
                     {
@@ -367,11 +360,11 @@ const routes: Routes = [
                         component: UsersComponent,
                         data: {
                             title: 'Staff',
-                            contextVariables: UserService.getFilters(
+                            forcedVariables: UserService.getFilters(
                                 [UserRole.responsible, UserRole.administrator],
                                 null,
                             ),
-                            contextColumns: ['balance', 'name', 'login', 'age', 'status', 'flagWelcomeSessionDate'],
+                            initialColumns: ['balance', 'name', 'login', 'age', 'status', 'flagWelcomeSessionDate'],
                         },
                     },
                     {
@@ -379,11 +372,11 @@ const routes: Routes = [
                         component: UsersComponent,
                         data: {
                             title: 'Membres inactifs et archivés',
-                            contextVariables: UserService.getFilters(
+                            forcedVariables: UserService.getFilters(
                                 [UserRole.member],
                                 [UserStatus.inactive, UserStatus.archived],
                             ),
-                            contextColumns: ['balance', 'name', 'status', 'creationDate', 'resignDate'],
+                            initialColumns: ['balance', 'name', 'status', 'creationDate', 'resignDate'],
                         },
                     },
 
@@ -507,7 +500,7 @@ const routes: Routes = [
                 component: TransactionLinesComponent,
                 data: {
                     title: 'Écritures',
-                    contextVariables: {
+                    forcedVariables: {
                         sorting: [
                             {
                                 field: TransactionLineSortingField.creationDate,
@@ -550,8 +543,8 @@ const routes: Routes = [
                 component: ExpenseClaimsComponent,
                 data: {
                     title: 'Notes de frais',
-                    contextColumns: ['name', 'owner', 'date', 'status', 'type', 'amount'],
-                    contextVariables: {
+                    initialColumns: ['name', 'owner', 'date', 'status', 'type', 'amount'],
+                    forcedVariables: {
                         sorting: [
                             {field: ExpenseClaimSortingField.status, order: SortingOrder.ASC},
                             {field: ExpenseClaimSortingField.creationDate, order: SortingOrder.DESC},

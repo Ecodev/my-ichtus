@@ -34,13 +34,17 @@ import {ProfileModule} from '../profile/profile.module';
 import {BookableMetadataComponent} from './bookable-metadata/bookable-metadata.component';
 import {EcoFabSpeedDialModule} from '@ecodev/fab-speed-dial';
 import {LogsComponent} from './logs/logs/logs.component';
+import {UsageBookablesComponent} from './bookables/bookables/usage-bookables.component';
+import {BookingsWithOwnerComponent} from './bookings/bookings/bookings-with-owner.component';
 
 @NgModule({
     declarations: [
+        UsageBookablesComponent,
         BookablesComponent,
         BookableComponent,
         AdminComponent,
         BookingsComponent,
+        BookingsWithOwnerComponent,
         UsersComponent,
         UserComponent,
         LicensesComponent,

@@ -110,13 +110,12 @@
                 <div *ngIf="isApplication() && suggestionVariables && data.model.status === BookingStatus.application">
                     <mat-divider class="margin-bottom"></mat-divider>
                     <div class="mat-title">Attribuer un stockage / service</div>
-                    <app-bookables
-                        [contextColumns]="['usageNb', 'name', 'code', 'initialPrice', 'periodicPrice', 'select']"
-                        [contextService]="UsageBookableService"
+                    <app-usage-bookables
+                        [initialColumns]="['usageNb', 'name', 'code', 'initialPrice', 'periodicPrice', 'select']"
                         [persistSearch]="false"
-                        [contextVariables]="suggestionVariables"
+                        [forcedVariables]="suggestionVariables"
                         (select)="assignBookable($event)"
-                    ></app-bookables>
+                    ></app-usage-bookables>
                 </div>
 
                 <div *ngIf="isSelfApproved()">
