@@ -11,7 +11,7 @@ import {BookableService} from '../../../admin/bookables/services/bookable.servic
 import {AnonymousUserService} from './anonymous-user.service';
 import gql from 'graphql-tag';
 import {Apollo} from 'apollo-angular';
-import {NaturalAbstractDetail, NaturalDataSource, validateAllFormControls} from '@ecodev/natural';
+import {ifValid, NaturalAbstractDetail, NaturalDataSource, validateAllFormControls} from '@ecodev/natural';
 
 @Component({
     selector: 'app-register',
@@ -64,11 +64,7 @@ export class RegisterComponent
     public submit(): void {
         validateAllFormControls(this.form);
 
-        if (!this.form.valid) {
-            return;
-        }
-
-        this.doSubmit();
+        ifValid(this.form).subscribe(() => this.doSubmit());
     }
 
     /**
