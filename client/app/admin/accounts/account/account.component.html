@@ -8,7 +8,7 @@
         <app-money [amount]="data.model.totalBalance" sizeClass="mat-display-1"></app-money>
     </natural-detail-header>
 
-    <mat-tab-group [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
+    <mat-tab-group naturalLinkableTab [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
         <mat-tab label="Général">
             <div fxLayout="column" fxLayoutGap="30px" class="padding-top">
                 <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">

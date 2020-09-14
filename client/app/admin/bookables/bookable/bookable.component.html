@@ -16,7 +16,7 @@
         </div>
     </natural-detail-header>
 
-    <mat-tab-group [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
+    <mat-tab-group naturalLinkableTab [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
         <mat-tab label="Général">
             <div fxLayout="column" fxLayoutGap="30px" class="padding-top">
                 <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
@@ -226,18 +226,18 @@
             </div>
         </mat-tab>
 
-        <mat-tab label="Attributs" *ngIf="data.model.id">
+        <mat-tab naturalLinkableTabName="metadata" label="Attributs" *ngIf="data.model.id">
             <app-bookable-metadata [bookable]="data.model" [edit]="true" class="margin"></app-bookable-metadata>
         </mat-tab>
 
-        <mat-tab label="Écritures" *ngIf="data.model.id">
+        <mat-tab naturalLinkableTabName="transaction-line" label="Écritures" *ngIf="data.model.id">
             <app-transaction-lines
                 [persistSearch]="false"
                 [forcedVariables]="{filter: {groups: [{conditions: [{bookable: {equal: {value: data.model.id}}}]}]}}"
             ></app-transaction-lines>
         </mat-tab>
 
-        <mat-tab label="Utilisations" *ngIf="data.model.id">
+        <mat-tab naturalLinkableTabName="booking" label="Utilisations" *ngIf="data.model.id">
             <app-bookings
                 [persistSearch]="false"
                 [forcedVariables]="bookingsVariables"
