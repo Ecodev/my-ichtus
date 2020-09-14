@@ -1067,10 +1067,10 @@
   resolved "https://registry.yarnpkg.com/@ecodev/fab-speed-dial/-/fab-speed-dial-5.0.3.tgz#06ce04277fade89c83569fe75a934643bd7087cb"
   integrity sha512-kt0nLSNaRM5MZCIKALvSJkTtgjjdheG98n3Ty0l6jtKYrod3VDDUBtf/ZaoUjikS34RLN4NfRx2L39T2mlqk7w==
 
-"@ecodev/natural@^20.0.0":
-  version "20.0.0"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-20.0.0.tgz#1d0423a984857e57f9e2ebe0be979c81b1c5a305"
-  integrity sha512-L60p6FfJkOd+82Axp10LUjP65XAunMElfhvj/Lz/kk6G/2jXt3rgCuB3wjMd77pLXNgnwU5OqJqECK35QOzhPw==
+"@ecodev/natural@^20.0.1":
+  version "20.0.1"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-20.0.1.tgz#cb823bb7091afb7fa95c2afac339513d838fcd1b"
+  integrity sha512-rrdx65SF85cCoqsHgNyZXIGoFaM5DCyAD9JeJfE3gJmnOXNX8y+YSISn1WpCTuR1l35ZQJR7WYtRleNa28vf3w==
   dependencies:
     tslib "^1.10.0"
 
