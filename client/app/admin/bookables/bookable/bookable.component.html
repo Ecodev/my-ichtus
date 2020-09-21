@@ -6,7 +6,7 @@
         [listRoute]="['admin', 'bookable']"
     >
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-            <div fxLayout="column" style="text-align: right;" *ngIf="form.get('verificationDate')?.value">
+            <div fxLayout="column" style="text-align: right" *ngIf="form.get('verificationDate')?.value">
                 <div class="mat-body-2">Dernière vérification</div>
                 <div class="mat-body-1">{{ form.get('verificationDate')?.value | date: 'dd.MM.y' }}</div>
             </div>

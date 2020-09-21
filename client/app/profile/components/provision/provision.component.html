@@ -25,7 +25,7 @@
         <p class="mat-body">Merci d'indiquer le montant que tu souhaites verser.</p>
 
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-            <mat-form-field style="width: 120px;">
+            <mat-form-field style="width: 120px">
                 <mat-label>Montant</mat-label>
                 <input matInput type="number" step="1" [formControl]="formCtrl" [errorStateMatcher]="matcher" />
                 <mat-error *ngIf="formCtrl.errors?.min"

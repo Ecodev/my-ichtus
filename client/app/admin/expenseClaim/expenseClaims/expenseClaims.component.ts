@@ -10,7 +10,8 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
     templateUrl: './expenseClaims.component.html',
     styleUrls: ['./expenseClaims.component.scss'],
 })
-export class ExpenseClaimsComponent extends NaturalAbstractList<ExpenseClaims['expenseClaims'], ExpenseClaimsVariables>
+export class ExpenseClaimsComponent
+    extends NaturalAbstractList<ExpenseClaims['expenseClaims'], ExpenseClaimsVariables>
     implements OnInit {
     constructor(
         expenseClaimService: ExpenseClaimService,

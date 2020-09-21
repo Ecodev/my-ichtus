@@ -2,7 +2,7 @@
     <span
         [class.positive]="showSignal && amount > 0"
         [class.negative]="showSignal && amount < 0"
-        style="white-space: nowrap;"
+        style="white-space: nowrap"
     >
         <span *ngIf="showCurrency">CHF </span>{{ amount | currency: 'CHF':'':'1.2-2':'de-CH' }}
     </span>
