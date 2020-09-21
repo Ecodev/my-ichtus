@@ -127,12 +127,12 @@ export class TransactionLineService extends NaturalAbstractModelService<
         };
     }
 
-    public linkToTransactionForAccount(account: Account['account']): RouterLink['routerLink'] {
+    public linkToTransactionForAccount(account: Account['account']): any[] {
         const selection = TransactionLineService.getSelectionForAccount(account);
         return ['/admin/transaction-line', {ns: JSON.stringify(toUrl(selection))}];
     }
 
-    public linkToTransactionForTag(tag: TransactionTag['transactionTag']): RouterLink['routerLink'] {
+    public linkToTransactionForTag(tag: TransactionTag['transactionTag']): any[] {
         const selection = TransactionLineService.getSelectionForTag(tag);
         return ['/admin/transaction-line', {ns: JSON.stringify(toUrl(selection))}];
     }

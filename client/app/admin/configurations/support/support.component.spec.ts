@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {waitForAsync, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {SupportComponent} from './support.component';
 import {IchtusModule} from '../../../shared/modules/ichtus.module';
@@ -9,12 +9,14 @@ describe('SupportComponent', () => {
     let component: SupportComponent;
     let fixture: ComponentFixture<SupportComponent>;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            declarations: [],
-            imports: [ApolloTestingModule, RouterTestingModule, IchtusModule],
-        }).compileComponents();
-    }));
+    beforeEach(
+        waitForAsync(() => {
+            TestBed.configureTestingModule({
+                declarations: [],
+                imports: [ApolloTestingModule, RouterTestingModule, IchtusModule],
+            }).compileComponents();
+        }),
+    );
 
     beforeEach(() => {
         fixture = TestBed.createComponent(SupportComponent);

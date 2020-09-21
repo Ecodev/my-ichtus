@@ -46,11 +46,7 @@ export class TransactionLinesComponent
     public filterByAccount(account: Account['account']): void {
         if (this.hideFab) {
             const link = this.transactionLineService.linkToTransactionForAccount(account);
-            if (typeof link === 'string') {
-                this.router.navigateByUrl(link);
-            } else {
-                this.router.navigate(link);
-            }
+            this.router.navigate(link);
         } else {
             const selection = TransactionLineService.getSelectionForAccount(account);
             this.naturalSearchSelections = selection;
@@ -71,11 +67,7 @@ export class TransactionLinesComponent
     public filterByTag(tag: TransactionTag['transactionTag']): void {
         if (this.hideFab) {
             const link = this.transactionLineService.linkToTransactionForTag(tag);
-            if (typeof link === 'string') {
-                this.router.navigateByUrl(link);
-            } else {
-                this.router.navigate(link);
-            }
+            this.router.navigate(link);
         } else {
             const selection = TransactionLineService.getSelectionForTag(tag);
             this.naturalSearchSelections = selection;

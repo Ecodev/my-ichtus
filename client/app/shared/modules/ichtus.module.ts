@@ -138,6 +138,5 @@ const imports = [
     imports: [...imports, NaturalIconModule.forRoot(iconsConfig)],
     exports: [...imports, ...declarations, TimeagoModule, NaturalIconModule],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    entryComponents: [CommentComponent],
 })
 export class IchtusModule {}

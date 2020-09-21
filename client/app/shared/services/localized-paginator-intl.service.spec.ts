@@ -17,7 +17,7 @@ describe('LocalizedPaginatorIntlService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should get the translation from ExtraLocalizationComponent', () => {
+    it('should get the translation from $localize', () => {
         expect(service.itemsPerPageLabel).toEqual('Par page');
         expect(service.nextPageLabel).toEqual('Suivant');
         expect(service.previousPageLabel).toEqual('Précédent');

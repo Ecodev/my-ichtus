@@ -34,7 +34,6 @@ import {BvrComponent} from './components/bvr/bvr.component';
         BvrComponent,
     ],
     imports: [CommonModule, ProfileRoutingModule, MaterialModule, IchtusModule],
-    entryComponents: [CreateRefundComponent, ProvisionComponent, SelectAdminApprovedModalComponent],
     exports: [ServicesComponent, FinancesComponent],
 })
 export class ProfileModule {}

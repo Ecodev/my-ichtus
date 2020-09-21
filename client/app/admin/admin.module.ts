@@ -77,6 +77,5 @@ import {BookingsWithOwnerComponent} from './bookings/bookings/bookings-with-owne
         ProfileModule,
         EcoFabSpeedDialModule,
     ],
-    entryComponents: [SelectAdminOnlyModalComponent],
 })
 export class AdminModule {}
