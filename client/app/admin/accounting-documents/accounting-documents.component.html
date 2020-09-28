@@ -1,14 +1,14 @@
 <div fxLayout="row" fxLayoutGap="10px">
     <ng-container *ngFor="let file of _files; let i = index; trackBy: trackByFn; let last = last">
         <div fxLayout="column" fxLayoutAlign="start center">
-            <app-file
+            <natural-file
                 [model]="file"
                 accept="image/bmp,image/gif,image/jpeg,image/pjpeg,image/png,image/svg+xml,image/webp,application/pdf,application/x-pdf"
                 (modelChange)="fileAdded($event, i)"
                 [height]="fileHeight"
                 [style.width.px]="fileWidth"
                 [action]="getAction(file, i, last)"
-            ></app-file>
+            ></natural-file>
             <button mat-icon-button (click)="!last ? removeFile(i) : null" *ngIf="canRemove && !_disabled && !last">
                 <natural-icon name="clear"></natural-icon>
             </button>

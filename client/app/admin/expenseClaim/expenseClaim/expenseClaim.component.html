@@ -23,7 +23,7 @@
     </natural-detail-header>
 
     <mat-tab-group naturalLinkableTab [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
-        <mat-tab label="Général">
+        <mat-tab id="general" label="Général">
             <div fxLayout="column" fxLayoutGap="30px" class="padding-top">
                 <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
                     <div fxFlex="66" fxLayout="column">
@@ -126,13 +126,13 @@
                     <div class="mat-title">Pièces justificatives</div>
 
                     <div fxLayout="row" fxLayoutGap="10px">
-                        <app-file
+                        <natural-file
                             *ngFor="let file of data?.model?.accountingDocuments"
                             [model]="file"
                             [height]="150"
                             [style.width.px]="200"
                             action="download"
-                        ></app-file>
+                        ></natural-file>
                     </div>
                 </div>
 

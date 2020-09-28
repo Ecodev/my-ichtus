@@ -17,12 +17,12 @@
     </natural-detail-header>
 
     <mat-tab-group naturalLinkableTab [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
-        <mat-tab label="Général">
+        <mat-tab id="general" label="Général">
             <div fxLayout="column" fxLayoutGap="30px" class="padding-top">
                 <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
                     <div fxFlex="66" fxLayout="column">
                         <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start start" class="margin-bottom">
-                            <app-file
+                            <natural-file
                                 fxFlex
                                 [service]="imageService"
                                 [model]="data.model.image"
@@ -31,7 +31,7 @@
                                 [style.marginLeft.px]="2"
                                 (modelChange)="newImage($event)"
                                 action="upload"
-                            ></app-file>
+                            ></natural-file>
 
                             <div fxLayout="column" fxFlex>
                                 <mat-form-field>
@@ -226,18 +226,18 @@
             </div>
         </mat-tab>
 
-        <mat-tab naturalLinkableTabName="metadata" label="Attributs" *ngIf="data.model.id">
+        <mat-tab id="metadata" label="Attributs" *ngIf="data.model.id">
             <app-bookable-metadata [bookable]="data.model" [edit]="true" class="margin"></app-bookable-metadata>
         </mat-tab>
 
-        <mat-tab naturalLinkableTabName="transaction-line" label="Écritures" *ngIf="data.model.id">
+        <mat-tab id="transaction-line" label="Écritures" *ngIf="data.model.id">
             <app-transaction-lines
                 [persistSearch]="false"
                 [forcedVariables]="{filter: {groups: [{conditions: [{bookable: {equal: {value: data.model.id}}}]}]}}"
             ></app-transaction-lines>
         </mat-tab>
 
-        <mat-tab naturalLinkableTabName="booking" label="Utilisations" *ngIf="data.model.id">
+        <mat-tab id="booking" label="Utilisations" *ngIf="data.model.id">
             <app-bookings
                 [persistSearch]="false"
                 [forcedVariables]="bookingsVariables"

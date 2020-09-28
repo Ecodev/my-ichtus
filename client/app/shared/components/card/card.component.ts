@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {FileModel} from '@ecodev/natural';
 
 @Component({
     selector: 'app-card',
@@ -7,7 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class CardComponent implements OnInit {
     @Input() illustrationHeight = 200;
-    @Input() file; // todo : type same as FileComponent.file
+    @Input() file: FileModel;
     @Input() illustrationUrl: string;
 
     constructor() {}

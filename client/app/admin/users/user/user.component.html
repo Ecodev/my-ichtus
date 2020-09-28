@@ -13,7 +13,7 @@
     </natural-detail-header>
 
     <mat-tab-group naturalLinkableTab [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
-        <mat-tab label="Général">
+        <mat-tab id="general" label="Général">
             <div fxLayout="column" fxLayoutGap="30px" class="padding-top">
                 <div fxLayout="column" fxLayout.gt-md="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
                     <div fxFlex="66" fxLayout="column">
@@ -329,11 +329,11 @@
             </div>
         </mat-tab>
 
-        <mat-tab naturalLinkableTabName="family" label="Famille" *ngIf="data.model.id && showFamilyTab">
+        <mat-tab id="family" label="Famille" *ngIf="data.model.id && showFamilyTab">
             <app-users [forcedVariables]="familyVariables" [persistSearch]="false" class="margin-top"></app-users>
         </mat-tab>
 
-        <mat-tab naturalLinkableTabName="history" label="Historique" *ngIf="data.model.account">
+        <mat-tab id="history" label="Historique" *ngIf="data.model.account">
             <app-transaction-lines
                 [initialColumns]="['name', 'bookable', 'transactionDate', 'remark', 'account']"
                 [forcedVariables]="transactionLinesVariables"
@@ -342,7 +342,7 @@
             ></app-transaction-lines>
         </mat-tab>
 
-        <mat-tab naturalLinkableTabName="finances" label="Dépenses et remboursements" *ngIf="data.model.id">
+        <mat-tab id="finances" label="Dépenses et remboursements" *ngIf="data.model.id">
             <div fxLayout="column" fxLayoutGap="30px">
                 <div fxLayout="row" fxLayoutGap="30px" class="margin-top">
                     <natural-select
@@ -359,7 +359,7 @@
             </div>
         </mat-tab>
 
-        <mat-tab naturalLinkableTabName="services" label="Prestations et services" *ngIf="data.model.id">
+        <mat-tab id="services" label="Prestations et services" *ngIf="data.model.id">
             <br class="margin-top" />
             <app-services [user]="data.model"></app-services>
         </mat-tab>

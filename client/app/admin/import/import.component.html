@@ -9,9 +9,8 @@
         <p class="mat-body">Upload un fichier XML CAMT 054 pour importer les virements qui ont été fait par BVR:</p>
         <button
             mat-raised-button
-            ngfSelect
+            naturalFileSelect
             [accept]="'text/xml'"
-            [ngfFixOrientation]="false"
             (fileChange)="uploadFile($event)"
             [disabled]="!permissionsService.crud?.transaction.create || importing"
         >

@@ -11,7 +11,6 @@
 @import 'rich-text';
 @import '../app/shared/components/money/money.theme';
 @import '../app/admin/configurations/support/support.theme';
-@import '../app/shared/components/file/file.theme';
 @import '../app/shared/components/transaction-amount/transaction-amount.theme';
 
 // Include material core (only once !)
@@ -24,7 +23,6 @@
     @include boot-loader($theme);
     @include door($theme);
     @include money($theme);
-    @include file($theme);
     @include transaction-amount($theme);
     @include rich-text($theme);
     @include support($theme);

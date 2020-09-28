@@ -7,9 +7,6 @@ import {AvatarModule} from 'ngx-avatar';
 import {MoneyComponent} from '../components/money/money.component';
 import {FocusDirective} from '../directives/focus';
 import {CardComponent} from '../components/card/card.component';
-import {ngfModule} from 'angular-file';
-import {FileComponent} from '../components/file/file.component';
-import {FileDropDirective} from '../components/file/services/file-drop.directive';
 import {NavigationsComponent} from '../components/navigations/navigations.component';
 import {CommentComponent} from '../components/navigations/comment.component';
 import {ParticleEffectButtonModule} from 'angular-particle-effect-button';
@@ -36,6 +33,7 @@ import {
     NaturalSidenavModule,
     NaturalStampModule,
     NaturalTableButtonModule,
+    NaturalFileModule,
 } from '@ecodev/natural';
 import {SupportComponent} from '../../admin/configurations/support/support.component';
 import {ProsemirrorComponent} from '../../admin/proseMirror/proseMirror.component';
@@ -96,8 +94,6 @@ const declarations = [
     MoneyComponent,
     FocusDirective,
     CardComponent,
-    FileDropDirective,
-    FileComponent,
     NavigationsComponent,
     CommentComponent,
     TransactionAmountComponent,
@@ -114,7 +110,6 @@ const imports = [
     ReactiveFormsModule,
     RouterModule,
     AvatarModule,
-    ngfModule,
     ParticleEffectButtonModule,
     NaturalSearchModule,
     NaturalCommonModule,
@@ -131,6 +126,7 @@ const imports = [
     NaturalFixedButtonDetailModule,
     NaturalDropdownComponentsModule,
     NaturalDialogTriggerModule,
+    NaturalFileModule,
 ];
 
 @NgModule({
