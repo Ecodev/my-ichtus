@@ -2077,13 +2077,6 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
-angular-file@^3.1.2:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/angular-file/-/angular-file-3.1.2.tgz#46c13c08b9fbb596ef8ce53de7ac4dcd0a1f0abf"
-  integrity sha512-L9dwi9+GtuybatkDlnYa7XlkKj/8oNggXsDWgs9HGnHmsgo/WLhMb/fRU9DHNePoViVOA+XNX9TxknqTTMEw5w==
-  dependencies:
-    tslib "^1.10.0"
-
 angular-particle-effect-button@^0.0.50:
   version "0.0.50"
   resolved "https://registry.yarnpkg.com/angular-particle-effect-button/-/angular-particle-effect-button-0.0.50.tgz#02e3bb1bb1552e831cc12cba08e3d2494f4b9912"
