@@ -12,7 +12,7 @@ export class TransactionTagResolver implements Resolve<TransactionTagResolve> {
     constructor(private transactionTagService: TransactionTagService, private errorService: ErrorService) {}
 
     /**
-     * Resolve transactionTag data for router and panels service
+     * Resolve transactionTag data for router
      */
     public resolve(route: ActivatedRouteSnapshot): Observable<TransactionTagResolve> {
         const observable = this.transactionTagService.resolve(route.params.transactionTagId);

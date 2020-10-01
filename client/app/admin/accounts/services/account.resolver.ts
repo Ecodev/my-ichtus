@@ -12,7 +12,7 @@ export class AccountResolver implements Resolve<AccountResolve> {
     constructor(private accountService: AccountService, private errorService: ErrorService) {}
 
     /**
-     * Resolve account data for router and panels service
+     * Resolve account data for router
      */
     public resolve(route: ActivatedRouteSnapshot): Observable<AccountResolve> {
         const observable = this.accountService.resolve(route.params.accountId);

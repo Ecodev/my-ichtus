@@ -12,7 +12,7 @@ export class UserTagResolver implements Resolve<UserTagResolve> {
     constructor(private userTagService: UserTagService, private errorService: ErrorService) {}
 
     /**
-     * Resolve userTag data for router and panels service
+     * Resolve userTag data for router
      */
     public resolve(route: ActivatedRouteSnapshot): Observable<UserTagResolve> {
         const observable = this.userTagService.resolve(route.params.userTagId);

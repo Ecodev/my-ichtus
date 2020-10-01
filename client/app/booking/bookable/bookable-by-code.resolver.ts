@@ -12,7 +12,7 @@ export class BookableByCodeResolver implements Resolve<BookableResolve> {
     constructor(private bookableService: BookableService, private errorService: ErrorService) {}
 
     /**
-     * Resolve bookable data for router and panels service
+     * Resolve bookable data for router
      */
     public resolve(route: ActivatedRouteSnapshot): Observable<BookableResolve> {
         const observable = this.bookableService.resolveByCode(route.params.bookableCode);

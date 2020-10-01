@@ -12,7 +12,7 @@ export class BookableTagResolver implements Resolve<BookableTagResolve> {
     constructor(private bookableTagService: BookableTagService, private errorService: ErrorService) {}
 
     /**
-     * Resolve bookableTag data for router and panels service
+     * Resolve bookableTag data for router
      */
     public resolve(route: ActivatedRouteSnapshot): Observable<BookableTagResolve> {
         const observable = this.bookableTagService.resolve(route.params.bookableTagId);

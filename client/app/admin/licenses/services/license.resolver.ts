@@ -12,7 +12,7 @@ export class LicenseResolver implements Resolve<LicenseResolve> {
     constructor(private licenseService: LicenseService, private errorService: ErrorService) {}
 
     /**
-     * Resolve license data for router and panels service
+     * Resolve license data for router
      */
     public resolve(route: ActivatedRouteSnapshot): Observable<LicenseResolve> {
         const observable = this.licenseService.resolve(route.params.licenseId);

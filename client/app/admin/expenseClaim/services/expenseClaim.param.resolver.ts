@@ -12,7 +12,7 @@ export class ExpenseClaimParamResolver implements Resolve<ExpenseClaimResolve> {
     constructor(private expenseClaimService: ExpenseClaimService, private errorService: ErrorService) {}
 
     /**
-     * Resolve expenseClaim data for router and panels service
+     * Resolve expenseClaim data for router
      */
     public resolve(route: ActivatedRouteSnapshot): Observable<ExpenseClaimResolve> {
         const observable = this.expenseClaimService.resolve(route.params.expenseClaim);

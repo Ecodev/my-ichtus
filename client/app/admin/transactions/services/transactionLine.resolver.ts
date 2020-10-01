@@ -12,7 +12,7 @@ export class TransactionLineResolver implements Resolve<TransactionLineResolve> 
     constructor(private transactionLineService: TransactionLineService, private errorService: ErrorService) {}
 
     /**
-     * Resolve transactionLine data for router and panels service
+     * Resolve transactionLine data for router
      */
     public resolve(route: ActivatedRouteSnapshot): Observable<TransactionLineResolve> {
         const observable = this.transactionLineService.resolve(route.params.transactionLineId);

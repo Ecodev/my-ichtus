@@ -12,7 +12,7 @@ export class BookingResolver implements Resolve<BookingResolve> {
     constructor(private bookingService: BookingService, private errorService: ErrorService) {}
 
     /**
-     * Resolve booking data for router and panels service
+     * Resolve booking data for router
      */
     public resolve(route: ActivatedRouteSnapshot): Observable<BookingResolve> {
         const observable = this.bookingService.resolve(route.params.bookingId);
