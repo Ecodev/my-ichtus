@@ -55,7 +55,7 @@ abstract class Login implements FieldInterface
 
                 _log()->info(LogRepository::LOGIN_FAILED);
 
-                throw new Exception("Le nom d'utilisateur ou mot de passe est incorrect !");
+                throw new Exception("Le nom d'utilisateur ou mot de passe est incorrect");
             },
         ];
     }
