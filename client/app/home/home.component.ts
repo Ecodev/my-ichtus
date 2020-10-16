@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../admin/users/services/user.service';
-import {NaturalAbstractController, NaturalSidenavContainerComponent, NaturalSidenavService} from '@ecodev/natural';
+import {NaturalAbstractController, NaturalSidenavContainerComponent, NaturalSidenavStackService} from '@ecodev/natural';
 import {takeUntil} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ConfigurationService} from '../admin/configurations/services/configuration.service';
@@ -25,6 +25,7 @@ export class HomeComponent extends NaturalAbstractController implements OnInit {
         private router: Router,
         public route: ActivatedRoute,
         private configurationService: ConfigurationService,
+        private readonly naturalSidenavStackService: NaturalSidenavStackService,
     ) {
         super();
     }
@@ -48,13 +49,9 @@ export class HomeComponent extends NaturalAbstractController implements OnInit {
             });
         });
 
-        NaturalSidenavService.sideNavsChange.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
-            setTimeout(() => {
-                this.menu =
-                    NaturalSidenavService.sideNavs.get('adminMenu') ||
-                    NaturalSidenavService.sideNavs.get('profileMenu');
-            });
-        });
+        this.naturalSidenavStackService.currentSidenav
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe(sidenav => setTimeout(() => (this.menu = sidenav)));
     }
 
     public goToCode() {
