@@ -31,6 +31,7 @@ export class FamilyMemberComponent
     @Input() viewer: User['user'];
     @Input() user: User['user'];
     @Input() readonly = false;
+    public loaded = false;
 
     constructor(private userService: FamilyUserService, injector: Injector) {
         super('user', userService, injector);
@@ -64,6 +65,8 @@ export class FamilyMemberComponent
         if (familyRelationship && this.viewer.owner) {
             familyRelationship.disable();
         }
+
+        this.loaded = true;
     }
 
     public postCreate(model) {
