@@ -9,7 +9,13 @@ import {DateAdapter, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher} from '@ang
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {MatIconRegistry} from '@angular/material/icon';
 import {NetworkActivityService} from './shared/services/network-activity.service';
-import {NaturalAlertService, NaturalSwissParsingDateAdapter} from '@ecodev/natural';
+import {
+    NaturalAlertService,
+    NaturalSeoService,
+    NaturalSwissParsingDateAdapter,
+    NATURAL_SEO_CONFIG,
+    NaturalSeoConfig,
+} from '@ecodev/natural';
 import {NgProgressModule} from 'ngx-progressbar';
 import {HttpBatchLink, HttpBatchLinkModule} from 'apollo-angular-link-http-batch';
 import {InMemoryCache} from 'apollo-cache-inmemory';
@@ -88,6 +94,12 @@ registerLocaleData(localeDECH);
             provide: MatPaginatorIntl,
             useClass: LocalizedPaginatorIntlService,
         },
+        {
+            provide: NATURAL_SEO_CONFIG,
+            useValue: {
+                applicationName: 'MyIchtus',
+            } as NaturalSeoConfig,
+        },
     ],
     bootstrap: [AppComponent],
 })
@@ -99,6 +111,7 @@ export class AppModule {
         httpBatchLink: HttpBatchLink,
         dateAdapter: DateAdapter<Date>,
         intl: TimeagoIntl,
+        naturalSeoService: NaturalSeoService, // injection required, but works as stand alone
     ) {
         dateAdapter.setLocale('fr-ch');
 

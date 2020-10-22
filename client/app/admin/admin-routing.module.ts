@@ -49,10 +49,10 @@ import {ExpenseClaimParamResolver} from './expenseClaim/services/expenseClaim.pa
 import {ImportComponent} from './import/import.component';
 import {LogsComponent} from './logs/logs/logs.component';
 import {BookableTagService} from './bookableTags/services/bookableTag.service';
-import {BookingWithOwnerService} from './bookings/services/booking-with-owner.service';
 import {merge} from 'lodash-es';
 import {UsageBookablesComponent} from './bookables/bookables/usage-bookables.component';
 import {BookingsWithOwnerComponent} from './bookings/bookings/bookings-with-owner.component';
+import {NaturalSeo} from '@ecodev/natural';
 
 const routes: Routes = [
     {
@@ -64,7 +64,9 @@ const routes: Routes = [
                 path: '',
                 component: BookingsComponent,
                 data: {
-                    title: 'Sorties en cours',
+                    seo: {
+                        title: 'Sorties en cours',
+                    } as NaturalSeo,
                     forcedVariables: BookingService.runningSelfApprovedQV,
                     initialColumns: [
                         'edit',
@@ -81,7 +83,9 @@ const routes: Routes = [
                 path: 'booking', // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
                 component: BookingsComponent,
                 data: {
-                    title: 'Réservations',
+                    seo: {
+                        title: 'Réservations',
+                    } as NaturalSeo,
                     initialColumns: [
                         'edit',
                         'owner',
@@ -101,7 +105,9 @@ const routes: Routes = [
                         path: 'self-approved',
                         component: BookingsComponent,
                         data: {
-                            title: 'Toutes terminées',
+                            seo: {
+                                title: 'Toutes terminées',
+                            } as NaturalSeo,
                             forcedVariables: BookingService.selfApprovedQV,
                             initialColumns: [
                                 'edit',
@@ -119,7 +125,9 @@ const routes: Routes = [
                         path: 'storage-application',
                         component: BookingsComponent,
                         data: {
-                            title: 'Demandes de stockage en attente',
+                            seo: {
+                                title: 'Demandes de stockage en attente',
+                            } as NaturalSeo,
                             forcedVariables: BookingService.applicationByTag(BookableTagService.STORAGE),
                             initialColumns: ['edit', 'owner', 'bookable', 'startDate'],
                         },
@@ -128,7 +136,9 @@ const routes: Routes = [
                         path: 'formation-application',
                         component: BookingsWithOwnerComponent,
                         data: {
-                            title: 'Demandes de cours',
+                            seo: {
+                                title: 'Demandes de cours',
+                            } as NaturalSeo,
                             forcedVariables: BookingService.applicationByTag(BookableTagService.FORMATION),
                             initialColumns: [
                                 'edit',
@@ -144,7 +154,9 @@ const routes: Routes = [
                         path: 'welcome-application',
                         component: BookingsWithOwnerComponent,
                         data: {
-                            title: "Demandes de séances d'accueil",
+                            seo: {
+                                title: "Demandes de séances d'accueil",
+                            } as NaturalSeo,
                             forcedVariables: BookingService.applicationByTag(BookableTagService.WELCOME),
                             initialColumns: ['edit', 'owner', 'ownerBalance', 'ownerCreationDate', 'startDate'],
                         },
@@ -153,7 +165,9 @@ const routes: Routes = [
                         path: 'other-application',
                         component: BookingsComponent,
                         data: {
-                            title: 'Demandes de services en attente',
+                            seo: {
+                                title: 'Demandes de services en attente',
+                            } as NaturalSeo,
                             forcedVariables: BookingService.notStorageApplication,
                             initialColumns: ['edit', 'owner', 'bookable', 'startDate'],
                         },
@@ -164,6 +178,11 @@ const routes: Routes = [
                         resolve: {
                             booking: BookingResolver,
                         },
+                        data: {
+                            seo: {
+                                title: 'Nouvelle réservation',
+                            } as NaturalSeo,
+                        },
                     },
                     {
                         path: ':bookingId', // last
@@ -171,13 +190,20 @@ const routes: Routes = [
                         resolve: {
                             booking: BookingResolver,
                         },
+                        data: {
+                            seo: {resolveKey: 'booking'} as NaturalSeo,
+                        },
                     },
                 ],
             },
             {
                 path: 'bookable', // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
                 component: BookablesComponent,
-                data: {title: 'Réservables'},
+                data: {
+                    seo: {
+                        title: 'Réservables',
+                    } as NaturalSeo,
+                },
             },
             {
                 path: 'bookable',
@@ -186,7 +212,9 @@ const routes: Routes = [
                         path: 'services',
                         component: BookablesComponent,
                         data: {
-                            title: 'Cotisations',
+                            seo: {
+                                title: 'Cotisations',
+                            } as NaturalSeo,
                             forcedVariables: BookableService.membershipServices,
                         },
                     },
@@ -194,7 +222,9 @@ const routes: Routes = [
                         path: 'sup',
                         component: BookablesComponent,
                         data: {
-                            title: 'Stand up paddle',
+                            seo: {
+                                title: 'Stand up paddle',
+                            } as NaturalSeo,
                             forcedVariables: BookableService.getFiltersByTagId(6000),
                             initialColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
                         },
@@ -203,7 +233,9 @@ const routes: Routes = [
                         path: 'planche',
                         component: BookablesComponent,
                         data: {
-                            title: 'Planches',
+                            seo: {
+                                title: 'Planches',
+                            } as NaturalSeo,
                             forcedVariables: BookableService.getFiltersByTagId(6001),
                             initialColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
                         },
@@ -212,7 +244,9 @@ const routes: Routes = [
                         path: 'canoe',
                         component: BookablesComponent,
                         data: {
-                            title: 'Canoës',
+                            seo: {
+                                title: 'Canoës',
+                            } as NaturalSeo,
                             forcedVariables: BookableService.getFiltersByTagId(6002),
                             initialColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
                         },
@@ -221,7 +255,9 @@ const routes: Routes = [
                         path: 'kayak',
                         component: BookablesComponent,
                         data: {
-                            title: 'Kayaks',
+                            seo: {
+                                title: 'Kayaks',
+                            } as NaturalSeo,
                             forcedVariables: BookableService.getFiltersByTagId(6003),
                             initialColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
                         },
@@ -230,7 +266,9 @@ const routes: Routes = [
                         path: 'aviron',
                         component: BookablesComponent,
                         data: {
-                            title: 'Aviron',
+                            seo: {
+                                title: 'Aviron',
+                            } as NaturalSeo,
                             forcedVariables: BookableService.getFiltersByTagId(6004),
                             initialColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
                         },
@@ -239,7 +277,9 @@ const routes: Routes = [
                         path: 'voile-legere',
                         component: BookablesComponent,
                         data: {
-                            title: 'Voile légère',
+                            seo: {
+                                title: 'Voile légère',
+                            } as NaturalSeo,
                             forcedVariables: BookableService.getFiltersByTagId(6005),
                             initialColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
                         },
@@ -248,7 +288,9 @@ const routes: Routes = [
                         path: 'voile-lestee',
                         component: BookablesComponent,
                         data: {
-                            title: 'Voile lestée',
+                            seo: {
+                                title: 'Voile lestée',
+                            } as NaturalSeo,
                             forcedVariables: BookableService.getFiltersByTagId(6006),
                             initialColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
                         },
@@ -257,7 +299,9 @@ const routes: Routes = [
                         path: 'armoire',
                         component: UsageBookablesComponent,
                         data: {
-                            title: 'Armoires',
+                            seo: {
+                                title: 'Armoires',
+                            } as NaturalSeo,
                             initialColumns: ['image', 'name', 'code', 'date', 'verificationDate', 'usage'],
                             forcedVariables: BookableService.adminByTag(6009),
                             isStorage: true,
@@ -267,7 +311,9 @@ const routes: Routes = [
                         path: 'formation',
                         component: UsageBookablesComponent,
                         data: {
-                            title: 'Cours',
+                            seo: {
+                                title: 'Cours',
+                            } as NaturalSeo,
                             initialColumns: ['name', 'code', 'date', 'initialPrice', 'usageNb', 'verificationDate'],
                             forcedVariables: merge(BookableService.adminByTag(BookableTagService.FORMATION), {
                                 sorting: [{field: BookingSortingField.creationDate, order: SortingOrder.DESC}],
@@ -278,7 +324,9 @@ const routes: Routes = [
                         path: 'welcome',
                         component: UsageBookablesComponent,
                         data: {
-                            title: "Séances d'accueil",
+                            seo: {
+                                title: "Séances d'accueil",
+                            } as NaturalSeo,
                             initialColumns: ['name', 'date', 'verificationDate', 'usageNb'],
                             forcedVariables: BookableService.adminByTag(BookableTagService.WELCOME),
                         },
@@ -287,7 +335,9 @@ const routes: Routes = [
                         path: 'casier',
                         component: UsageBookablesComponent,
                         data: {
-                            title: 'Casiers',
+                            seo: {
+                                title: 'Casiers',
+                            } as NaturalSeo,
                             forcedVariables: BookableService.adminByTag(6010),
                             isStorage: true,
                         },
@@ -296,7 +346,9 @@ const routes: Routes = [
                         path: 'flotteur',
                         component: UsageBookablesComponent,
                         data: {
-                            title: 'Flotteurs',
+                            seo: {
+                                title: 'Flotteurs',
+                            } as NaturalSeo,
                             forcedVariables: BookableService.adminByTag(6011),
                             isStorage: true,
                         },
@@ -305,7 +357,9 @@ const routes: Routes = [
                         path: 'ratelier',
                         component: UsageBookablesComponent,
                         data: {
-                            title: 'Râteliers WBC',
+                            seo: {
+                                title: 'Râteliers WBC',
+                            } as NaturalSeo,
                             forcedVariables: BookableService.adminByTag(6016),
                             isStorage: true,
                         },
@@ -316,12 +370,20 @@ const routes: Routes = [
                         resolve: {
                             bookable: BookableResolver,
                         },
+                        data: {
+                            seo: {
+                                title: 'Nouveau réservable',
+                            } as NaturalSeo,
+                        },
                     },
                     {
                         path: ':bookableId', // last
                         component: BookableComponent,
                         resolve: {
                             bookable: BookableResolver,
+                        },
+                        data: {
+                            seo: {resolveKey: 'bookable'} as NaturalSeo,
                         },
                     },
                 ],
@@ -330,7 +392,9 @@ const routes: Routes = [
                 path: 'user', // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
                 component: UsersComponent,
                 data: {
-                    title: 'Tous les utilisateurs',
+                    seo: {
+                        title: 'Tous les utilisateurs',
+                    } as NaturalSeo,
                     initialColumns: ['balance', 'name', 'login', 'age', 'status', 'flagWelcomeSessionDate'],
                 },
             },
@@ -341,7 +405,9 @@ const routes: Routes = [
                         path: 'member',
                         component: UsersComponent,
                         data: {
-                            title: 'Membres actifs',
+                            seo: {
+                                title: 'Membres actifs',
+                            } as NaturalSeo,
                             forcedVariables: UserService.getFilters([UserRole.member], [UserStatus.active]),
                             initialColumns: ['balance', 'name', 'login', 'age', 'status', 'flagWelcomeSessionDate'],
                         },
@@ -350,7 +416,9 @@ const routes: Routes = [
                         path: 'newcomer',
                         component: UsersComponent,
                         data: {
-                            title: 'Nouveaux membres',
+                            seo: {
+                                title: 'Nouveaux membres',
+                            } as NaturalSeo,
                             forcedVariables: UserService.getFilters([UserRole.member], [UserStatus.new]),
                             initialColumns: ['balance', 'name', 'status', 'creationDate', 'flagWelcomeSessionDate'],
                         },
@@ -359,7 +427,9 @@ const routes: Routes = [
                         path: 'staff',
                         component: UsersComponent,
                         data: {
-                            title: 'Staff',
+                            seo: {
+                                title: 'Staff',
+                            } as NaturalSeo,
                             forcedVariables: UserService.getFilters(
                                 [UserRole.responsible, UserRole.administrator],
                                 null,
@@ -371,7 +441,9 @@ const routes: Routes = [
                         path: 'non-active',
                         component: UsersComponent,
                         data: {
-                            title: 'Membres inactifs et archivés',
+                            seo: {
+                                title: 'Membres inactifs et archivés',
+                            } as NaturalSeo,
                             forcedVariables: UserService.getFilters(
                                 [UserRole.member],
                                 [UserStatus.inactive, UserStatus.archived],
@@ -386,12 +458,20 @@ const routes: Routes = [
                         resolve: {
                             user: UserResolver,
                         },
+                        data: {
+                            seo: {
+                                title: 'Nouvel utilisateur',
+                            } as NaturalSeo,
+                        },
                     },
                     {
                         path: ':userId', // last
                         component: UserComponent,
                         resolve: {
                             user: UserResolver,
+                        },
+                        data: {
+                            seo: {resolveKey: 'user'} as NaturalSeo,
                         },
                     },
                 ],
@@ -400,7 +480,9 @@ const routes: Routes = [
                 path: 'license', // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
                 component: LicensesComponent,
                 data: {
-                    title: 'Certifications',
+                    seo: {
+                        title: 'Certifications',
+                    } as NaturalSeo,
                 },
             },
             {
@@ -412,12 +494,20 @@ const routes: Routes = [
                         resolve: {
                             license: LicenseResolver,
                         },
+                        data: {
+                            seo: {
+                                title: 'Nouvelle certification',
+                            } as NaturalSeo,
+                        },
                     },
                     {
                         path: ':licenseId', // last
                         component: LicenseComponent,
                         resolve: {
                             license: LicenseResolver,
+                        },
+                        data: {
+                            seo: {resolveKey: 'license'} as NaturalSeo,
                         },
                     },
                 ],
@@ -426,7 +516,9 @@ const routes: Routes = [
                 path: 'user-tag', // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
                 component: UserTagsComponent,
                 data: {
-                    title: "Tags d'utilisateurs",
+                    seo: {
+                        title: "Tags d'utilisateurs",
+                    } as NaturalSeo,
                 },
             },
             {
@@ -438,12 +530,20 @@ const routes: Routes = [
                         resolve: {
                             userTag: UserTagResolver,
                         },
+                        data: {
+                            seo: {
+                                title: "Nouveau tag d'utilisateur",
+                            } as NaturalSeo,
+                        },
                     },
                     {
                         path: ':userTagId', // last
                         component: UserTagComponent,
                         resolve: {
                             userTag: UserTagResolver,
+                        },
+                        data: {
+                            seo: {resolveKey: 'userTag'} as NaturalSeo,
                         },
                     },
                 ],
@@ -452,7 +552,9 @@ const routes: Routes = [
                 path: 'bookable-tag', // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
                 component: BookableTagsComponent,
                 data: {
-                    title: 'Tags de réservables',
+                    seo: {
+                        title: 'Tags de réservables',
+                    } as NaturalSeo,
                 },
             },
             {
@@ -464,12 +566,20 @@ const routes: Routes = [
                         resolve: {
                             bookableTag: BookableTagResolver,
                         },
+                        data: {
+                            seo: {
+                                title: 'Nouveau tag de réservable',
+                            } as NaturalSeo,
+                        },
                     },
                     {
                         path: ':bookableTagId', // last
                         component: BookableTagComponent,
                         resolve: {
                             bookableTag: BookableTagResolver,
+                        },
+                        data: {
+                            seo: {resolveKey: 'bookableTag'} as NaturalSeo,
                         },
                     },
                 ],
@@ -484,12 +594,20 @@ const routes: Routes = [
                             transaction: TransactionResolver,
                             expenseClaim: ExpenseClaimParamResolver,
                         },
+                        data: {
+                            seo: {
+                                title: 'Nouvelle transaction',
+                            } as NaturalSeo,
+                        },
                     },
                     {
                         path: ':transactionId', // last
                         component: TransactionComponent,
                         resolve: {
                             transaction: TransactionResolver,
+                        },
+                        data: {
+                            seo: {resolveKey: 'transaction'} as NaturalSeo,
                         },
                     },
                 ],
@@ -499,7 +617,9 @@ const routes: Routes = [
                 // https://github.com/angular/angular/issues/27674
                 component: TransactionLinesComponent,
                 data: {
-                    title: 'Écritures',
+                    seo: {
+                        title: 'Écritures',
+                    } as NaturalSeo,
                     forcedVariables: {
                         sorting: [
                             {
@@ -517,7 +637,11 @@ const routes: Routes = [
             {
                 path: 'account', // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
                 component: AccountsComponent,
-                data: {title: 'Comptes'},
+                data: {
+                    seo: {
+                        title: 'Comptes',
+                    } as NaturalSeo,
+                },
             },
             {
                 path: 'account',
@@ -528,12 +652,20 @@ const routes: Routes = [
                         resolve: {
                             account: AccountResolver,
                         },
+                        data: {
+                            seo: {
+                                title: 'Nouveau compte',
+                            } as NaturalSeo,
+                        },
                     },
                     {
                         path: ':accountId', // last
                         component: AccountComponent,
                         resolve: {
                             account: AccountResolver,
+                        },
+                        data: {
+                            seo: {resolveKey: 'account'} as NaturalSeo,
                         },
                     },
                 ],
@@ -542,7 +674,9 @@ const routes: Routes = [
                 path: 'expense-claim', // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
                 component: ExpenseClaimsComponent,
                 data: {
-                    title: 'Notes de frais',
+                    seo: {
+                        title: 'Notes de frais',
+                    } as NaturalSeo,
                     initialColumns: ['name', 'owner', 'date', 'status', 'type', 'amount'],
                     forcedVariables: {
                         sorting: [
@@ -561,6 +695,11 @@ const routes: Routes = [
                         resolve: {
                             expenseClaim: ExpenseClaimResolver,
                         },
+                        data: {
+                            seo: {
+                                title: 'Nouvelle note de frais',
+                            } as NaturalSeo,
+                        },
                     },
                     {
                         path: ':expenseClaimId', // last
@@ -568,19 +707,30 @@ const routes: Routes = [
                         resolve: {
                             expenseClaim: ExpenseClaimResolver,
                         },
+                        data: {
+                            seo: {resolveKey: 'expenseClaim'} as NaturalSeo,
+                        },
                     },
                 ],
             },
             {
                 path: 'import',
                 component: ImportComponent,
-                data: {title: 'Import des virements BVR'},
+                data: {
+                    seo: {
+                        title: 'Import des virements BVR',
+                    } as NaturalSeo,
+                },
             },
             {
                 // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
                 path: 'transaction-tag',
                 component: TransactionTagsComponent,
-                data: {title: 'Tags'},
+                data: {
+                    seo: {
+                        title: 'Tags',
+                    } as NaturalSeo,
+                },
             },
             {
                 path: 'transaction-tag',
@@ -591,12 +741,20 @@ const routes: Routes = [
                         resolve: {
                             transactionTag: TransactionTagResolver,
                         },
+                        data: {
+                            seo: {
+                                title: 'Nouveau tag de transaction',
+                            } as NaturalSeo,
+                        },
                     },
                     {
                         path: ':transactionTagId', // last
                         component: TransactionTagComponent,
                         resolve: {
                             transactionTag: TransactionTagResolver,
+                        },
+                        data: {
+                            seo: {resolveKey: 'transactionTag'} as NaturalSeo,
                         },
                     },
                 ],
@@ -622,7 +780,9 @@ const routes: Routes = [
                 path: 'log',
                 component: LogsComponent,
                 data: {
-                    title: 'Activité',
+                    seo: {
+                        title: 'Activité',
+                    } as NaturalSeo,
                 },
             },
         ],

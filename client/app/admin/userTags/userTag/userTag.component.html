@@ -1,6 +1,6 @@
 <div [formGroup]="form" class="detail-body">
     <natural-detail-header
-        newLabel="Nouveau tag d'utilisateur"
+        [newLabel]="data.seo.title"
         label="Tag d'utilisateur"
         [model]="data.model"
         [listRoute]="['admin', 'user-tag']"

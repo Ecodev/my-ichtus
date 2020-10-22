@@ -1,6 +1,6 @@
 <div [formGroup]="form" class="detail-body">
     <natural-detail-header
-        newLabel="Nouveau compte"
+        [newLabel]="data.seo.title"
         label="Compte"
         [model]="data.model"
         [listRoute]="['admin', 'account']"

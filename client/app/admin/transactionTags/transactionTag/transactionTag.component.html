@@ -1,6 +1,6 @@
 <div [formGroup]="form" class="detail-body">
     <natural-detail-header
-        newLabel="Nouveau tag de transaction"
+        [newLabel]="data.seo.title"
         label="Tag de transaction"
         [model]="data.model"
         [listRoute]="['admin', 'transaction-tag']"

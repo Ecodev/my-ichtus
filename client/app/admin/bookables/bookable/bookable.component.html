@@ -1,6 +1,6 @@
 <div [formGroup]="form" class="detail-body">
     <natural-detail-header
-        newLabel="Nouveau réservable"
+        [newLabel]="data.seo.title"
         label="Réservable"
         [model]="data.model"
         [listRoute]="['admin', 'bookable']"

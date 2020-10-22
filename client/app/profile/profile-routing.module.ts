@@ -9,6 +9,7 @@ import {ServicesComponent} from './components/services/services.component';
 import {CreateExpenseClaimComponent} from './components/create-expense-claim/create-expense-claim.component';
 import {HistoryComponent} from './components/history/history.component';
 import {ServicesGuard} from '../shared/guards/services.guard';
+import {NaturalSeo} from '@ecodev/natural';
 
 const routes: Routes = [
     {
@@ -26,19 +27,35 @@ const routes: Routes = [
                     {
                         path: 'family',
                         component: FamilyComponent,
+                        data: {
+                            seo: {title: 'Famille'} as NaturalSeo,
+                        },
                     },
                     {
                         path: 'history',
                         component: HistoryComponent,
+                        data: {
+                            seo: {title: 'Historique des transactions'} as NaturalSeo,
+                        },
                     },
                     {
                         path: 'finances',
                         component: FinancesComponent,
+                        data: {
+                            seo: {
+                                title: 'Finances',
+                            } as NaturalSeo,
+                        },
                     },
                     {
                         path: 'services',
                         component: ServicesComponent,
                         canActivate: [ServicesGuard],
+                        data: {
+                            seo: {
+                                title: 'Cotisation et services',
+                            } as NaturalSeo,
+                        },
                     },
                 ],
             },

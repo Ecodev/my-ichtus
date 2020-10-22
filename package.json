@@ -29,7 +29,7 @@
         "@angular/platform-browser-dynamic": "~10.1.2",
         "@angular/router": "~10.1.2",
         "@ecodev/fab-speed-dial": "^6.0.0",
-        "@ecodev/natural": "^24.0.0",
+        "@ecodev/natural": "^25.0.0",
         "angular-particle-effect-button": "^0.0.50",
         "apollo": "^2.25.0",
         "apollo-angular": "^1.8.0",

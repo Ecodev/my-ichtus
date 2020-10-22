@@ -11,7 +11,7 @@ import {SafetyComponent} from './safety/safety.component';
 import {BookingService} from './admin/bookings/services/booking.service';
 import {AuthGuard} from './shared/guards/auth.guard';
 import {DoorGuard} from './shared/guards/door.guard';
-import {NaturalDialogTriggerComponent, NaturalDialogTriggerRoutingData} from '@ecodev/natural';
+import {NaturalDialogTriggerComponent, NaturalDialogTriggerRoutingData, NaturalSeo} from '@ecodev/natural';
 
 export const routes: Routes = [
     {
@@ -29,7 +29,9 @@ export const routes: Routes = [
         path: 'safety',
         component: SafetyComponent,
         data: {
-            title: 'Sorties en cours',
+            seo: {
+                title: 'Sorties en cours',
+            } as NaturalSeo,
             forcedVariables: BookingService.runningSelfApprovedQV,
             initialColumns: ['bookable', 'destination', 'startDate', 'estimatedEndDate', 'participantCount'],
         },
@@ -62,6 +64,11 @@ export const routes: Routes = [
                 component: DoorComponent,
                 canActivate: [DoorGuard],
                 resolve: {viewer: ViewerResolver},
+                data: {
+                    seo: {
+                        title: 'Accéder au local',
+                    } as NaturalSeo,
+                },
             },
             {
                 path: 'support',
@@ -69,6 +76,9 @@ export const routes: Routes = [
                 data: {
                     readonly: true,
                     configurationKey: 'support-text',
+                    seo: {
+                        title: 'Guide',
+                    } as NaturalSeo,
                 },
             },
         ],
@@ -78,19 +88,24 @@ export const routes: Routes = [
         component: NaturalDialogTriggerComponent,
         outlet: 'secondary',
         data: {
-            component: SupportComponent,
-            afterClosedRoute: [{outlets: {secondary: null}}],
-            dialogConfig: {
-                width: '600px',
-                maxWidth: '95vw',
-                maxHeight: '97vh',
-                data: {
-                    readonly: true,
-                    configurationKey: 'announcement-text',
-                    showCloseButton: true,
+            seo: {
+                title: 'Annonce',
+            } as NaturalSeo,
+            trigger: {
+                component: SupportComponent,
+                afterClosedRoute: [{outlets: {secondary: null}}],
+                dialogConfig: {
+                    width: '600px',
+                    maxWidth: '95vw',
+                    maxHeight: '97vh',
+                    data: {
+                        readonly: true,
+                        configurationKey: 'announcement-text',
+                        showCloseButton: true,
+                    },
                 },
-            },
-        } as NaturalDialogTriggerRoutingData,
+            } as NaturalDialogTriggerRoutingData,
+        },
     },
     {
         path: 'error',
