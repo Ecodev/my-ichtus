@@ -115,9 +115,7 @@ export class PermissionsService {
     private setNewContexts(newContexts: Contexts): Observable<Permissions_permissions> {
         if (isEqual(this.currentContexts.value, newContexts) && this.crud) {
             return of({
-                // This weird casting should not be necessary anymore when we will be using
-                // https://github.com/Microsoft/TypeScript/commit/607f2ea4dedae723e5fa840e64ce4a3231c05e9a
-                __typename: 'AllPermissions' as 'AllPermissions',
+                __typename: 'AllPermissions',
                 crud: this.crud,
             });
         } else {
