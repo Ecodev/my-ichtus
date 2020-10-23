@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {UsersVariables} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {ActivatedRoute} from '@angular/router';
 import {mergeOverrideArray, NaturalAlertService, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {mergeWith} from 'lodash-es';
+import {MatExpansionPanel} from '@angular/material/expansion';
+import {first} from 'rxjs/operators';
 
 @Component({
     selector: 'app-family',
@@ -15,11 +17,14 @@ export class FamilyComponent implements OnInit {
     public viewer;
     public familyMembers;
 
+    @ViewChildren(MatExpansionPanel) private readonly expansionPanels: QueryList<MatExpansionPanel>;
+
     constructor(
         public userService: UserService,
         private route: ActivatedRoute,
         private alertService: NaturalAlertService,
         public permissionsService: PermissionsService,
+        private readonly changeDetectorRef: ChangeDetectorRef,
     ) {}
 
     public ngOnInit(): void {
@@ -33,6 +38,11 @@ export class FamilyComponent implements OnInit {
     }
 
     public add() {
+        this.expansionPanels.changes.pipe(first()).subscribe(panels => {
+            panels.last.open();
+            this.changeDetectorRef.detectChanges();
+        });
+
         const emptyUser = this.userService.getConsolidatedForClient();
         this.familyMembers.push(emptyUser);
     }

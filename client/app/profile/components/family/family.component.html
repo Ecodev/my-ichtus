@@ -22,7 +22,7 @@
     </div>
 
     <mat-accordion>
-        <mat-expansion-panel *ngFor="let familyMember of familyMembers" [expanded]="!familyMember.id">
+        <mat-expansion-panel *ngFor="let familyMember of familyMembers">
             <mat-expansion-panel-header>
                 <mat-panel-title> {{ familyMember?.name || 'Nouveau' }}</mat-panel-title>
             </mat-expansion-panel-header>
