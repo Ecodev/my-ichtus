@@ -163,4 +163,21 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
 
         return (int) $qb->execute()->fetchColumn();
     }
+
+    public function deleteAccountOfNonFamilyOwnerWithoutAnyTransactions(): int
+    {
+        $sql = <<<STRING
+                DELETE account FROM account
+                INNER JOIN user ON account.owner_id = user.id
+                AND user.owner_id IS NOT NULL
+                AND user.owner_id != user.id
+                WHERE
+                account.id NOT IN (SELECT credit_id FROM transaction_line WHERE credit_id IS NOT NULL)
+                AND account.id NOT IN (SELECT debit_id FROM transaction_line WHERE debit_id IS NOT NULL) 
+            STRING;
+
+        $count = $this->getEntityManager()->getConnection()->executeUpdate($sql);
+
+        return $count;
+    }
 }

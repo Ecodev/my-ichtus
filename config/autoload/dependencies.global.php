@@ -34,6 +34,7 @@ return [
             \Ecodev\Felix\Service\Mailer::class => \Application\Service\MailerFactory::class,
             \Application\Service\MessageQueuer::class => \Application\Service\MessageQueuerFactory::class,
             \Application\Service\Invoicer::class => \Application\Service\InvoicerFactory::class,
+            \Application\Service\Accounting::class => \Application\Service\AccountingFactory::class,
             \Laminas\View\Renderer\RendererInterface::class => \Ecodev\Felix\Service\RendererFactory::class,
             \Laminas\Mail\Transport\TransportInterface::class => \Ecodev\Felix\Service\TransportFactory::class,
             \Ecodev\Felix\Log\DbWriter::class => \Application\Log\DbWriterFactory::class,

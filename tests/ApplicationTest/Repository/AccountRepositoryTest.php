@@ -132,4 +132,50 @@ class AccountRepositoryTest extends AbstractRepositoryTest
         $this->expectExceptionMessage('Account #-9999 not found');
         $this->repository->getOneById(-9999);
     }
+
+    public function testDeleteAccountOfNonFamilyOwnerWithoutAnyTransactions(): void
+    {
+        self::assertSame(0, $this->repository->deleteAccountOfNonFamilyOwnerWithoutAnyTransactions(), 'nothing should be deleted from fixture data');
+        $connection = $this->getEntityManager()->getConnection();
+
+        $connection->insert('account', [
+            'code' => '999001',
+        ]);
+        self::assertSame(0, $this->repository->deleteAccountOfNonFamilyOwnerWithoutAnyTransactions(), 'orphan account without any owner should not be deleted');
+
+        $connection->insert('account', [
+            'code' => '999003',
+            'owner_id' => '1008',
+        ]);
+        self::assertSame(1, $this->repository->deleteAccountOfNonFamilyOwnerWithoutAnyTransactions(), 'account of son (not family owner) without any transactionLine should be deleted');
+        self::assertSame(0, $this->repository->deleteAccountOfNonFamilyOwnerWithoutAnyTransactions(), 'nothing left to delete');
+
+        $connection->insert('account', [
+            'code' => '999003',
+            'owner_id' => '1008',
+        ]);
+        $accountId = $connection->lastInsertId();
+
+        $connection->insert('transaction_line', [
+            'transaction_id' => 8000,
+            'credit_id' => $accountId,
+        ]);
+        $transactionLineId = $connection->lastInsertId();
+        self::assertSame(0, $this->repository->deleteAccountOfNonFamilyOwnerWithoutAnyTransactions(), 'same as before, but with transaction to credit, should not delete');
+
+        // Delete temp records
+        $connection->delete('transaction_line', ['id' => $transactionLineId]);
+        $connection->delete('account', ['id' => $accountId]);
+
+        $connection->insert('account', [
+            'code' => '999003',
+            'owner_id' => '1008',
+        ]);
+        $id = $connection->lastInsertId();
+        $connection->insert('transaction_line', [
+            'transaction_id' => 8000,
+            'debit_id' => $id,
+        ]);
+        self::assertSame(0, $this->repository->deleteAccountOfNonFamilyOwnerWithoutAnyTransactions(), 'same as before, but with transaction to debit, should not delete');
+    }
 }
