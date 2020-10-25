@@ -7,11 +7,14 @@
  * It is up to the user to then take appropriate action based on that information.
  */
 use Application\Model\Image;
+use Application\Repository\ImageRepository;
 use Ecodev\Felix\Utility;
 
 require_once 'server/cli.php';
 
-$filesInDb = _em()->getRepository(Image::class)->getFilenames();
+/** @var ImageRepository $imageRepository */
+$imageRepository = _em()->getRepository(Image::class);
+$filesInDb = $imageRepository->getFilenames();
 $filesOnDisk = glob('data/images/*');
 
 $missingFiles = array_diff($filesInDb, $filesOnDisk);

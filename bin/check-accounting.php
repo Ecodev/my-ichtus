@@ -9,10 +9,13 @@ use Application\DBAL\Types\AccountTypeType;
 use Application\Model\Account;
 use Application\Model\Transaction;
 use Application\Model\User;
+use Application\Repository\AccountRepository;
+use Application\Repository\UserRepository;
 use Ecodev\Felix\Format;
 
 require_once 'server/cli.php';
 
+/** @var AccountRepository $repo */
 $repo = _em()->getRepository(Account::class);
 
 // Update all accounts' balance from transactions
@@ -51,7 +54,9 @@ foreach (_em()->getRepository(Transaction::class)->findAll() as $transaction) {
     }
 }
 
-foreach (_em()->getRepository(User::class)->getAllNonFamilyOwnersWithAccount() as $user) {
+/** @var UserRepository $userRepository */
+$userRepository = _em()->getRepository(User::class);
+foreach ($userRepository->getAllNonFamilyOwnersWithAccount() as $user) {
     $errors[] = sprintf(
         'User#%d (%s) ne devrait pas avoir son propre compte débiteur mais partager celui du User#%d (%s)',
         $user->getId(),

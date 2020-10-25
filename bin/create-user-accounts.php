@@ -5,12 +5,18 @@
  * Make sure users have an (transaction) account,
  * or are owned by a user who has one
  */
+
 use Application\Model\Account;
 use Application\Model\User;
+use Application\Repository\AccountRepository;
+use Application\Repository\UserRepository;
 
 require_once 'server/cli.php';
 
+/** @var UserRepository $userRepository */
 $userRepository = _em()->getRepository(User::class);
+
+/** @var AccountRepository $accountRepository */
 $accountRepository = _em()->getRepository(Account::class);
 
 foreach ($userRepository->getAllFamilyOwners() as $user) {

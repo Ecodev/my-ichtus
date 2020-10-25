@@ -2,7 +2,7 @@
 <?php
 
 use Application\Model\Message;
-use Doctrine\ORM\EntityManager;
+use Application\Repository\MessageRepository;
 use Ecodev\Felix\Service\Mailer;
 
 $id = $argv[1] ?? null;
@@ -12,9 +12,11 @@ if (!$id) {
 
 $container = require_once 'server/cli.php';
 
-/** @var EntityManager $entityManager */
-$entityManager = $container->get(EntityManager::class);
-$message = $entityManager->getRepository(Message::class)->findOneById($id);
+/** @var MessageRepository $messageRepository */
+$messageRepository = _em()->getRepository(Message::class);
+
+/** @var null|Message $message */
+$message = $messageRepository->findOneById($id);
 if (!$message) {
     throw new InvalidArgumentException('Could not find message with ID: ' . $id);
 }
