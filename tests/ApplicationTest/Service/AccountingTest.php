@@ -4,11 +4,7 @@ declare(strict_types=1);
 
 namespace ApplicationTest\Service;
 
-use Application\Model\Account;
-use Application\Model\Product;
 use Application\Model\User;
-use Application\Repository\AccountRepository;
-use Application\Repository\ProductRepository;
 use Application\Service\Accounting;
 use ApplicationTest\Traits\TestWithTransactionAndUser;
 use PHPUnit\Framework\TestCase;
