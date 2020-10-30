@@ -64,7 +64,7 @@ class BookingRepositoryTest extends AbstractRepositoryTest
     private function insertTestData(array $data): void
     {
         $connection = $this->getEntityManager()->getConnection();
-        $connection->delete('booking', [1 => 1]);
+        $connection->executeQuery('DELETE FROM booking');
 
         foreach ($data as $user) {
             $bookings = $user['bookings'] ?? [];
