@@ -5,6 +5,7 @@ import {animate, style, transition, trigger} from '@angular/animations';
 import {
     BookingPartialInput,
     Bookings,
+    Bookings_bookings_items,
     BookingSortingField,
     BookingsVariables,
     BookingType,
@@ -14,11 +15,37 @@ import {
     Users,
     UsersVariables,
 } from '../../generated-types';
-import {NaturalAbstractController, NaturalAlertService, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {
+    NaturalAbstractController,
+    NaturalAlertService,
+    NaturalQueryVariablesManager,
+    PaginatedData,
+} from '@ecodev/natural';
 import {Observable} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 import {CommentComponent} from './comment.component';
+
+type Extented = {
+    booking: Bookings_bookings_items;
+    showComments: boolean;
+    terminated: boolean;
+    explode: boolean;
+};
+
+function bookingsToExtended(bookings: Bookings['bookings']): PaginatedData<Extented> {
+    return {
+        ...bookings,
+        items: bookings.items.map(item => {
+            return {
+                booking: item,
+                showComments: false,
+                terminated: false,
+                explode: false,
+            };
+        }),
+    };
+}
 
 @Component({
     selector: 'app-navigations',
@@ -33,7 +60,7 @@ export class NavigationsComponent extends NaturalAbstractController implements O
     @Input() activeOnly = true;
     @Input() showEmptyMessage = false;
 
-    public bookings: Bookings['bookings'];
+    public bookings: PaginatedData<Extented>;
 
     private bookingsQVM = new NaturalQueryVariablesManager<BookingsVariables>();
 
@@ -61,11 +88,11 @@ export class NavigationsComponent extends NaturalAbstractController implements O
         });
         this.userService.getAll(qvm).subscribe(family => {
             this.family = [this.user, ...family.items];
-            this.getNavigations(this.family).subscribe(bookings => (this.bookings = bookings));
+            this.getNavigations(this.family).subscribe(bookings => (this.bookings = bookingsToExtended(bookings)));
         });
     }
 
-    public endBooking(booking) {
+    public endBooking(item: Extented) {
         const snackbarOptions: MatSnackBarConfig = {
             horizontalPosition: 'end',
             verticalPosition: 'top',
@@ -81,8 +108,9 @@ export class NavigationsComponent extends NaturalAbstractController implements O
             },
         };
 
+        const booking = item.booking;
         this.bookingService.terminateBooking(booking.id).subscribe(() => {
-            booking.endDate = new Date();
+            item.explode = true;
             this.snackbar
                 .open('La sortie est terminée', 'Faire un commentaire', snackbarOptions)
                 .onAction()
@@ -92,9 +120,12 @@ export class NavigationsComponent extends NaturalAbstractController implements O
                         .afterClosed()
                         .subscribe(comment => {
                             if (comment && comment !== '') {
-                                booking.endComment = comment;
-                                const partialBooking = {id: booking.id, endComment: comment} as BookingPartialInput;
-                                this.bookingService.updatePartially(partialBooking).subscribe(res => {
+                                const partialBooking: BookingPartialInput & {id: string} = {
+                                    id: booking.id,
+                                    endComment: comment,
+                                };
+
+                                this.bookingService.updatePartially(partialBooking).subscribe(() => {
                                     this.alertService.info('Merci pour votre commentaire');
                                 });
                             }
@@ -110,7 +141,7 @@ export class NavigationsComponent extends NaturalAbstractController implements O
     public nextPage() {
         this.currentPage++;
         this.getNavigations(this.family).subscribe(bookings => {
-            this.bookings.items.push(...bookings.items);
+            this.bookings.items.push(...bookingsToExtended(bookings).items);
         });
     }
 

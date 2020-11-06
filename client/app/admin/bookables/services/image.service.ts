@@ -1,6 +1,5 @@
+import {Apollo, gql} from 'apollo-angular';
 import {Injectable} from '@angular/core';
-import {Apollo} from 'apollo-angular';
-import gql from 'graphql-tag';
 import {userMetaFragment} from '../../../shared/queries/fragments';
 import {CreateImage, CreateImageVariables, ImageInput} from '../../../shared/generated-types';
 import {NaturalAbstractModelService} from '@ecodev/natural';

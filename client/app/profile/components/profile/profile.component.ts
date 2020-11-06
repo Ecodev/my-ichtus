@@ -1,3 +1,4 @@
+import {Apollo} from 'apollo-angular';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
@@ -6,7 +7,6 @@ import {UserService} from '../../../admin/users/services/user.service';
 import * as Datatrans from '../../../datatrans-2.0.0-ecodev.js';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ProvisionComponent} from '../provision/provision.component';
-import {Apollo} from 'apollo-angular';
 import {ConfigService, FrontEndConfig} from '../../../shared/services/config.service';
 import {filter, takeUntil} from 'rxjs/operators';
 
@@ -114,8 +114,8 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
                 });
 
                 // Restore store, to refetch queries that are watched
-                // this.apollo.getClient().resetStore();
-                this.apollo.getClient().reFetchObservableQueries(false);
+                // this.apollo.client.resetStore();
+                this.apollo.client.reFetchObservableQueries(false);
             },
             error: data => {
                 this.alertService.error("Le paiement n'a pas abouti: " + data.message);

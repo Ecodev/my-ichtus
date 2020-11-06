@@ -2,14 +2,14 @@
     <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="20px grid" *ngIf="bookings">
         <div *ngIf="!bookings.items.length && showEmptyMessage" class="padding mat-body-2">Aucun résultat</div>
 
-        <ng-container *ngFor="let booking of bookings.items; let i = index">
-            <div [@terminate] *ngIf="!activeOnly || (activeOnly && !booking.terminated)">
+        <ng-container *ngFor="let item of bookings.items; let i = index">
+            <div [@terminate] *ngIf="!activeOnly || (activeOnly && !item.terminated)">
                 <app-card
-                    [file]="booking.bookable?.image"
+                    [file]="item.booking.bookable?.image"
                     [style.width.px]="300"
-                    [class.showComments]="booking.showComments"
+                    [class.showComments]="item.showComments"
                 >
-                    <card-illustration *ngIf="!booking.bookable?.image" class="padding">
+                    <card-illustration *ngIf="!item.booking.bookable?.image" class="padding">
                         <ngx-avatar name="?" [size]="160"></ngx-avatar>
                     </card-illustration>
 
@@ -17,26 +17,26 @@
                     <div fxLayout="column" fxLayoutGap="10px">
                         <a
                             mat-button
-                            [routerLink]="booking.bookable ? ['/booking', booking.bookable.code] : null"
+                            [routerLink]="item.booking.bookable ? ['/booking', item.booking.bookable.code] : null"
                             class="app-button-wrap"
                         >
-                            {{ booking.bookable?.name || 'Matériel personnel' }}
+                            {{ item.booking.bookable?.name || 'Matériel personnel' }}
                         </a>
                         <div style="position: relative">
                             <mat-divider></mat-divider>
                         </div>
-                        <div class="mat-body-2">{{ booking.owner.name }}</div>
-                        <div class="mat-body-1" *ngIf="!booking.endDate && booking.destination">
-                            Destination : {{ booking.destination }}
+                        <div class="mat-body-2">{{ item.booking.owner.name }}</div>
+                        <div class="mat-body-1" *ngIf="!item.booking.endDate && item.booking.destination">
+                            Destination : {{ item.booking.destination }}
                         </div>
-                        <div class="mat-body-1" *ngIf="!booking.endDate && booking.estimatedEndDate">
-                            Retour prévu : {{ booking.estimatedEndDate }}
+                        <div class="mat-body-1" *ngIf="!item.booking.endDate && item.booking.estimatedEndDate">
+                            Retour prévu : {{ item.booking.estimatedEndDate }}
                         </div>
-                        <div>Début : {{ booking.startDate | swissDate }}</div>
-                        <div *ngIf="booking.endDate">Fin : {{ booking.endDate | swissDate }}</div>
+                        <div>Début : {{ item.booking.startDate | swissDate }}</div>
+                        <div *ngIf="item.booking.endDate">Fin : {{ item.booking.endDate | swissDate }}</div>
 
                         <div fxLayout="row" fxLayoutAlign="end center">
-                            <button mat-icon-button (click)="booking.showComments = true">
+                            <button mat-icon-button (click)="item.showComments = true">
                                 <natural-icon name="feedback"></natural-icon>
                             </button>
                             <div fxFlex></div>
@@ -44,9 +44,9 @@
                             <button
                                 mat-flat-button
                                 color="warn"
-                                (click)="endBooking(booking)"
-                                [pHidden]="!!booking.endDate"
-                                (pComplete)="booking.terminated = true"
+                                (click)="endBooking(item)"
+                                [pHidden]="!!item.explode"
+                                (pComplete)="item.terminated = true"
                                 libParticleEffectButton
                                 [pParticlesAmountCoefficient]="2"
                                 [pOscillationCoefficient]="100"
@@ -67,8 +67,8 @@
                                 <mat-label>Commentaire de départ</mat-label>
                                 <textarea
                                     matInput
-                                    [ngModel]="booking.startComment"
-                                    (change)="update({id: booking.id, startComment: $event.target.value})"
+                                    [ngModel]="item.booking.startComment"
+                                    (change)="update({id: item.booking.id, startComment: $event.target.value})"
                                     matTextareaAutosize
                                     [matAutosizeMinRows]="3"
                                 ></textarea>
@@ -78,8 +78,8 @@
                                 <mat-label>Commentaire de fin</mat-label>
                                 <textarea
                                     matInput
-                                    [ngModel]="booking.endComment"
-                                    (change)="update({id: booking.id, endComment: $event.target.value})"
+                                    [ngModel]="item.booking.endComment"
+                                    (change)="update({id: item.booking.id, endComment: $event.target.value})"
                                     matTextareaAutosize
                                     [matAutosizeMinRows]="3"
                                 ></textarea>
@@ -87,7 +87,7 @@
                         </div>
 
                         <div fxLayout="row">
-                            <button mat-icon-button color="primary" (click)="booking.showComments = false">
+                            <button mat-icon-button color="primary" (click)="item.showComments = false">
                                 <natural-icon name="clear"></natural-icon>
                             </button>
                         </div>

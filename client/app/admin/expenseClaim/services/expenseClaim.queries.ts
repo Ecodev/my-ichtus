@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import {gql} from 'apollo-angular';
 import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
 
 export const expenseClaimMetaFragment = gql`

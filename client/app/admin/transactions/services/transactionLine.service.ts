@@ -1,3 +1,4 @@
+import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {
@@ -8,7 +9,6 @@ import {
     makePlural,
     toUrl,
 } from '@ecodev/natural';
-import {Apollo} from 'apollo-angular';
 import {transactionLineQuery, transactionLinesForExportQuery, transactionLinesQuery} from './transactionLine.queries';
 import {
     Account,

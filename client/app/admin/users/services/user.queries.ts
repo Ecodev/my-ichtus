@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import {gql} from 'apollo-angular';
 import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
 
 // Fragment for single display usage. Too much data for listings, and unused fields for mutations.

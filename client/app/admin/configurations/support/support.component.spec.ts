@@ -1,5 +1,4 @@
 import {waitForAsync, ComponentFixture, TestBed} from '@angular/core/testing';
-
 import {SupportComponent} from './support.component';
 import {IchtusModule} from '../../../shared/modules/ichtus.module';
 import {ApolloTestingModule} from 'apollo-angular/testing';

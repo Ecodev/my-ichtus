@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
 import {Apollo} from 'apollo-angular';
+import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Validators} from '@angular/forms';
 import {BookingService} from '../../../admin/bookings/services/booking.service';

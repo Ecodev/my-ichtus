@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import {gql} from 'apollo-angular';
 
 export const logsQuery = gql`
     query Logs($filter: LogFilter, $sorting: [LogSorting!], $pagination: PaginationInput) {

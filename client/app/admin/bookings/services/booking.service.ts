@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
 import {Apollo} from 'apollo-angular';
+import {Injectable} from '@angular/core';
 import {
     bookingQuery,
     bookingsQuery,
@@ -212,7 +212,7 @@ export class BookingService extends NaturalAbstractModelService<
         });
 
         observable.subscribe(() => {
-            this.apollo.getClient().reFetchObservableQueries();
+            this.apollo.client.reFetchObservableQueries();
         });
 
         return observable;

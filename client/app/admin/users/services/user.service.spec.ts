@@ -1,7 +1,7 @@
+import {Apollo} from 'apollo-angular';
 import {fakeAsync, inject, TestBed, tick} from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {UserService} from './user.service';
-import {Apollo} from 'apollo-angular';
 import {Router} from '@angular/router';
 import {mockApolloProvider} from '../../../shared/testing/MockApolloProvider';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -32,7 +32,7 @@ describe('UserService', () => {
     it('should login', fakeAsync(
         inject([UserService, Apollo], (service: UserService, apollo: Apollo) => {
             // Spy on resetStore
-            const resetStore = spyOn(apollo.getClient(), 'resetStore').and.callThrough();
+            const resetStore = spyOn(apollo.client, 'resetStore').and.callThrough();
 
             let actual: any = null;
             service
@@ -51,7 +51,7 @@ describe('UserService', () => {
     it('should logout and redirect to /login', fakeAsync(
         inject([UserService, Apollo, Router], (service: UserService, apollo: Apollo, router: Router) => {
             // Spy on resetStore
-            const resetStore = spyOn(apollo.getClient(), 'resetStore').and.callThrough();
+            const resetStore = spyOn(apollo.client, 'resetStore').and.callThrough();
 
             // Mock router to do nothing when navigating
             const navigate = spyOn(router, 'navigate').and.callFake(() => Promise.resolve(true));

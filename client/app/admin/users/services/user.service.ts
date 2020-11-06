@@ -1,3 +1,5 @@
+import {Apollo, gql} from 'apollo-angular';
+import {DataProxy} from '@apollo/client/core';
 import {Injectable} from '@angular/core';
 import {FormControl, ValidationErrors, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
@@ -10,9 +12,7 @@ import {
     NaturalQueryVariablesManager,
     unique,
 } from '@ecodev/natural';
-import {Apollo} from 'apollo-angular';
 import {Observable, of, Subject} from 'rxjs';
-import {DataProxy} from 'apollo-cache';
 import {map} from 'rxjs/operators';
 import {
     createUser,
@@ -65,7 +65,6 @@ import {
 } from '../../../shared/generated-types';
 import {BookingService} from '../../bookings/services/booking.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
-import gql from 'graphql-tag';
 import {PricedBookingService} from '../../bookings/services/PricedBooking.service';
 
 export function loginValidator(control: FormControl): ValidationErrors | null {
@@ -268,7 +267,7 @@ export class UserService extends NaturalAbstractModelService<
         const subject = new Subject<Login['login']>();
 
         // Be sure to destroy all Apollo data, before changing user
-        (this.apollo.getClient().resetStore() as Promise<null>).then(() => {
+        (this.apollo.client.resetStore() as Promise<null>).then(() => {
             this.apollo
                 .mutate<Login, LoginVariables>({
                     mutation: loginMutation,
@@ -314,7 +313,7 @@ export class UserService extends NaturalAbstractModelService<
                 .subscribe(result => {
                     const v = result.data!.logout;
                     this.cacheViewer(null);
-                    (this.apollo.getClient().resetStore() as Promise<null>).then(() => {
+                    (this.apollo.client.resetStore() as Promise<null>).then(() => {
                         subject.next(v);
                     });
                 });

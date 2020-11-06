@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {BookableMetadataService} from './bookable-metadata.service';
 import {NaturalDataSource, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {BookableMetadatas_bookableMetadatas_items, BookableMetadatasVariables} from '../../shared/generated-types';
+import {cloneDeep} from 'lodash-es';
 
 @Component({
     selector: 'app-bookable-metadata',
@@ -35,7 +36,9 @@ export class BookableMetadataComponent implements OnInit {
 
             // TODO : replace by watchAll because two admins may work on same object and meta data could change between two visits
             this.bookableMetaService.getAll(qvm).subscribe(bookables => {
-                this.dataSource = new NaturalDataSource<BookableMetadatas_bookableMetadatas_items>(bookables);
+                this.dataSource = new NaturalDataSource<BookableMetadatas_bookableMetadatas_items>(
+                    cloneDeep(bookables),
+                );
                 this.addLine();
             });
         } else {

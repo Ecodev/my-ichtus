@@ -1,6 +1,6 @@
+import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {NaturalAbstractModelService} from '@ecodev/natural';
-import {Apollo} from 'apollo-angular';
 import {Logs, LogsVariables} from '../../../shared/generated-types';
 import {logsQuery} from './log.queries';
 

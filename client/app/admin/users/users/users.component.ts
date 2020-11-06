@@ -1,6 +1,6 @@
+import {Apollo} from 'apollo-angular';
 import {Component, Injector, OnInit} from '@angular/core';
 import {NaturalAbstractList, NaturalQueryVariablesManager, NaturalSearchSelections} from '@ecodev/natural';
-import {Apollo} from 'apollo-angular';
 import {
     BankingInfosVariables,
     EmailUsers,

@@ -1,6 +1,8 @@
+import {Apollo} from 'apollo-angular';
+import {HttpBatchLink} from 'apollo-angular/http';
+import {InMemoryCache} from '@apollo/client/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {LOCALE_ID, NgModule} from '@angular/core';
-import {Apollo, ApolloModule} from 'apollo-angular';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -17,8 +19,6 @@ import {
     NaturalSeoConfig,
 } from '@ecodev/natural';
 import {NgProgressModule} from 'ngx-progressbar';
-import {HttpBatchLink, HttpBatchLinkModule} from 'apollo-angular-link-http-batch';
-import {InMemoryCache} from 'apollo-cache-inmemory';
 import {apolloDefaultOptions, createApolloLink} from './shared/config/apolloDefaultOptions';
 import {LoginComponent} from './login/login.component';
 import {HomeComponent} from './home/home.component';
@@ -56,12 +56,10 @@ registerLocaleData(localeDECH);
         BrowserModule,
         BrowserAnimationsModule,
         NgProgressModule,
-        ApolloModule,
         AppRoutingModule,
         MaterialModule,
         IchtusModule,
         HttpClientModule,
-        HttpBatchLinkModule,
         TimeagoModule.forRoot({
             intl: {provide: TimeagoIntl, useClass: TimeagoIntl},
             formatter: {provide: TimeagoFormatter, useClass: TimeagoCustomFormatter},

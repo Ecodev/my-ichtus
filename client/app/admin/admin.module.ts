@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-
 import {AdminRoutingModule} from './admin-routing.module';
 import {BookablesComponent} from './bookables/bookables/bookables.component';
 import {AdminComponent} from './admin/admin.component';
@@ -18,7 +17,6 @@ import {BookingsComponent} from './bookings/bookings/bookings.component';
 import {BookingComponent} from './bookings/booking/booking.component';
 import {BookableTagsComponent} from './bookableTags/bookableTags/bookableTags.component';
 import {BookableTagComponent} from './bookableTags/bookableTag/bookableTag.component';
-
 import {ExpenseClaimComponent} from './expenseClaim/expenseClaim/expenseClaim.component';
 import {ExpenseClaimsComponent} from './expenseClaim/expenseClaims/expenseClaims.component';
 import {ImportComponent} from './import/import.component';

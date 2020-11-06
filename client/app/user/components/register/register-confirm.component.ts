@@ -1,11 +1,10 @@
+import {Apollo, gql} from 'apollo-angular';
 import {Component, Injector, OnInit} from '@angular/core';
 import {relationsToIds} from '@ecodev/natural';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {RegisterComponent} from './register.component';
 import {NewUserService} from './new-user.service';
-import {Apollo} from 'apollo-angular';
-import gql from 'graphql-tag';
 import {pick} from 'lodash-es';
 
 @Component({

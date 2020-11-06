@@ -1,7 +1,6 @@
+import {Apollo, gql} from 'apollo-angular';
 import {Injectable} from '@angular/core';
-import {Apollo} from 'apollo-angular';
 import {BookingService} from '../admin/bookings/services/booking.service';
-import gql from 'graphql-tag';
 import {bookableMetaFragment} from '../admin/bookables/services/bookable.queries';
 import {NaturalEnumService} from '@ecodev/natural';
 

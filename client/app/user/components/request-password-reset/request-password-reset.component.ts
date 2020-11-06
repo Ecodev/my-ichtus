@@ -1,6 +1,6 @@
+import {Apollo} from 'apollo-angular';
 import {Component} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
-import {Apollo} from 'apollo-angular';
 import {Relationship} from '../../../shared/generated-types';
 import {Router} from '@angular/router';
 import {UserService} from '../../../admin/users/services/user.service';

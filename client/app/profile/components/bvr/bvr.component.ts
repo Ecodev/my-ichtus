@@ -1,6 +1,5 @@
+import {gql, Apollo} from 'apollo-angular';
 import {Component, Input} from '@angular/core';
-import gql from 'graphql-tag';
-import {Apollo} from 'apollo-angular';
 import {BankingInfos, BankingInfos_bankingInfos, BankingInfosVariables} from '../../../shared/generated-types';
 
 const q = gql`

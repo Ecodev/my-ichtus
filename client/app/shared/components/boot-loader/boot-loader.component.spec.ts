@@ -1,5 +1,4 @@
 import {waitForAsync, ComponentFixture, TestBed} from '@angular/core/testing';
-
 import {BootLoaderComponent} from './boot-loader.component';
 
 describe('BootLoaderComponent', () => {

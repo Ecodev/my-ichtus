@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import {gql} from 'apollo-angular';
 import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
 import {bookableMetaFragment} from '../../bookables/services/bookable.queries';
 

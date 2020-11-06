@@ -1,5 +1,4 @@
 import {TestBed} from '@angular/core/testing';
-
 import {LocalizedPaginatorIntlService} from './localized-paginator-intl.service';
 
 describe('LocalizedPaginatorIntlService', () => {

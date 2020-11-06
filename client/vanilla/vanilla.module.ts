@@ -1,10 +1,9 @@
+import {Apollo, APOLLO_OPTIONS, gql} from 'apollo-angular';
+import {InMemoryCache} from '@apollo/client/core';
+import {HttpLink} from 'apollo-angular/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {ApplicationRef, DoBootstrap, NgModule} from '@angular/core';
-import {Apollo, APOLLO_OPTIONS, ApolloModule} from 'apollo-angular';
-import {InMemoryCache} from 'apollo-cache-inmemory';
 import {HttpClientModule} from '@angular/common/http';
-import {HttpLink, HttpLinkModule} from 'apollo-angular-link-http';
-import gql from 'graphql-tag';
 import {BookableService} from '../app/admin/bookables/services/bookable.service';
 import {VanillaRoutingModule} from './vanilla-routing.module';
 import {APP_BASE_HREF} from '@angular/common';
@@ -13,7 +12,7 @@ import {BookingService} from '../app/admin/bookings/services/booking.service';
 import {NaturalLinkMutationService, NaturalQueryVariablesManager} from '@ecodev/natural';
 
 @NgModule({
-    imports: [BrowserModule, HttpClientModule, ApolloModule, HttpLinkModule, VanillaRoutingModule],
+    imports: [BrowserModule, HttpClientModule, VanillaRoutingModule],
     providers: [
         {provide: APP_BASE_HREF, useValue: '/'},
         {

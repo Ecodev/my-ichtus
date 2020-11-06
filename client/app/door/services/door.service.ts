@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
 import {Apollo} from 'apollo-angular';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {openDoorMutation} from './door.queries';

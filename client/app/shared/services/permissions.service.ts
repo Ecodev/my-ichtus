@@ -1,9 +1,8 @@
+import {gql, Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
-import gql from 'graphql-tag';
 import {debounceTime, distinctUntilChanged, filter, skip, take} from 'rxjs/operators';
 import {isEqual} from 'lodash-es';
 import {BehaviorSubject, Observable, of, ReplaySubject} from 'rxjs';
-import {Apollo} from 'apollo-angular';
 import {Permissions, Permissions_permissions, Permissions_permissions_crud} from '../generated-types';
 import {Literal} from '@ecodev/natural';
 

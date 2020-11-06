@@ -1,3 +1,4 @@
+import {gql, Apollo} from 'apollo-angular';
 import {Component, Injector, OnInit} from '@angular/core';
 import {
     CreateUser,
@@ -9,8 +10,6 @@ import {
 } from '../../../shared/generated-types';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {AnonymousUserService} from './anonymous-user.service';
-import gql from 'graphql-tag';
-import {Apollo} from 'apollo-angular';
 import {ifValid, NaturalAbstractDetail, NaturalDataSource, validateAllFormControls} from '@ecodev/natural';
 
 @Component({

@@ -1,9 +1,8 @@
+import {Apollo, gql} from 'apollo-angular';
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Apollo} from 'apollo-angular';
 import {NaturalAlertService} from '@ecodev/natural';
 import {FormGroup} from '@angular/forms';
-import gql from 'graphql-tag';
 import {finalize} from 'rxjs/operators';
 import {UpdatePassword, UpdatePasswordVariables} from '../../../shared/generated-types';
 

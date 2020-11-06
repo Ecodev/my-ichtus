@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
 import {Apollo} from 'apollo-angular';
+import {Injectable} from '@angular/core';
 import {
     bookableMetadatasQuery,
     createBookableMetadataMutation,
@@ -7,7 +7,6 @@ import {
     updateBookableMetadataMutation,
 } from './bookable-metadata.queries';
 import {Validators} from '@angular/forms';
-
 import {FormValidators, NaturalAbstractModelService} from '@ecodev/natural';
 import {
     BookableMetadataInput,

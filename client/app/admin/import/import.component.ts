@@ -1,8 +1,7 @@
+import {Apollo, gql} from 'apollo-angular';
 import {Component, OnInit} from '@angular/core';
 import {PermissionsService} from '../../shared/services/permissions.service';
 import {ActivatedRoute, Data, Router} from '@angular/router';
-import {Apollo} from 'apollo-angular';
-import gql from 'graphql-tag';
 import {ImportCamt, ImportCamtVariables} from '../../shared/generated-types';
 import {NaturalAlertService, NaturalSearchSelections, toUrl} from '@ecodev/natural';
 

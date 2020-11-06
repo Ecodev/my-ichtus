@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import {gql} from 'apollo-angular';
 
 export const configurationQuery = gql`
     query Configuration($key: String!) {
