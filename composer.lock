@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4d931e26a3f0692a81d30d7a8e4f95f7",
+    "content-hash": "0a43ae0b8874daf11cc54a9da983420a",
     "packages": [
         {
             "name": "beberlei/doctrineextensions",
@@ -1510,16 +1510,16 @@
         },
         {
             "name": "ecodev/felix",
-            "version": "3.1.1",
+            "version": "3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ecodev/felix.git",
-                "reference": "009a851aa8eae0431433fd2304c6bbb089b1f13a"
+                "reference": "12b762e2ebccabd02cc0ec7b04c905dbfd25a55b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ecodev/felix/zipball/009a851aa8eae0431433fd2304c6bbb089b1f13a",
-                "reference": "009a851aa8eae0431433fd2304c6bbb089b1f13a",
+                "url": "https://api.github.com/repos/Ecodev/felix/zipball/12b762e2ebccabd02cc0ec7b04c905dbfd25a55b",
+                "reference": "12b762e2ebccabd02cc0ec7b04c905dbfd25a55b",
                 "shasum": ""
             },
             "require": {
@@ -1564,9 +1564,9 @@
             "description": "Various utilities tailored for our ecosystem",
             "support": {
                 "issues": "https://github.com/Ecodev/felix/issues",
-                "source": "https://github.com/Ecodev/felix/tree/3.1.1"
+                "source": "https://github.com/Ecodev/felix/tree/3.3.0"
             },
-            "time": "2020-10-29T08:00:49+00:00"
+            "time": "2020-11-09T05:23:21+00:00"
         },
         {
             "name": "ecodev/graphql-doctrine",
@@ -1772,24 +1772,24 @@
         },
         {
             "name": "imagine/imagine",
-            "version": "1.2.3",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/avalanche123/Imagine.git",
-                "reference": "cb2361e5bb4410b681462d8e4f912bc5dabf84ab"
+                "reference": "d2e18be6e930ca169e4f921ef73ebfc061bf55d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/cb2361e5bb4410b681462d8e4f912bc5dabf84ab",
-                "reference": "cb2361e5bb4410b681462d8e4f912bc5dabf84ab",
+                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/d2e18be6e930ca169e4f921ef73ebfc061bf55d8",
+                "reference": "d2e18be6e930ca169e4f921ef73ebfc061bf55d8",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "2.2.*",
-                "phpunit/phpunit": "^4.8 || ^5.7 || ^6.5 || ^7.5 || ^8.4"
+                "friendsofphp/php-cs-fixer": "^2.2",
+                "phpunit/phpunit": "^4.8 || ^5.7 || ^6.5 || ^7.5 || ^8.4 || ^9.3"
             },
             "suggest": {
                 "ext-gd": "to use the GD implementation",
@@ -1828,9 +1828,9 @@
             ],
             "support": {
                 "issues": "https://github.com/avalanche123/Imagine/issues",
-                "source": "https://github.com/avalanche123/Imagine/tree/develop"
+                "source": "https://github.com/avalanche123/Imagine/tree/1.2.4"
             },
-            "time": "2019-12-04T09:55:33+00:00"
+            "time": "2020-11-03T22:35:03+00:00"
         },
         {
             "name": "jschaedl/iban-validation",

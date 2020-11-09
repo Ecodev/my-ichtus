@@ -8,7 +8,6 @@ use Application\Acl\Assertion\BookableAvailable;
 use Application\Acl\Assertion\BookingIsSelfApproved;
 use Application\Acl\Assertion\ExpenseClaimStatusIsNew;
 use Application\Acl\Assertion\IsFamily;
-use Application\Acl\Assertion\One;
 use Application\Acl\Assertion\StatusIsNew;
 use Application\Model\Account;
 use Application\Model\AccountingDocument;
@@ -29,6 +28,7 @@ use Application\Model\UserTag;
 use Ecodev\Felix\Acl\Assertion\All;
 use Ecodev\Felix\Acl\Assertion\IsMyself;
 use Ecodev\Felix\Acl\Assertion\IsOwner;
+use Ecodev\Felix\Acl\Assertion\One;
 
 class Acl extends \Ecodev\Felix\Acl\Acl
 {
