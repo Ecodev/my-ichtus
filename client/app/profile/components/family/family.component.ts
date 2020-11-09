@@ -7,6 +7,7 @@ import {mergeOverrideArray, NaturalAlertService, NaturalQueryVariablesManager} f
 import {mergeWith} from 'lodash-es';
 import {MatExpansionPanel} from '@angular/material/expansion';
 import {first} from 'rxjs/operators';
+import {Users_users_items} from '../../../shared/generated-types';
 
 @Component({
     selector: 'app-family',
@@ -15,7 +16,7 @@ import {first} from 'rxjs/operators';
 })
 export class FamilyComponent implements OnInit {
     public viewer;
-    public familyMembers;
+    public familyMembers: Users_users_items[] = [];
 
     @ViewChildren(MatExpansionPanel) private readonly expansionPanels: QueryList<MatExpansionPanel>;
 
@@ -33,7 +34,7 @@ export class FamilyComponent implements OnInit {
         if (this.viewer) {
             const qvm = new NaturalQueryVariablesManager<UsersVariables>();
             qvm.set('variables', UserService.getFamilyVariables(this.viewer));
-            this.userService.getAll(qvm).subscribe(members => (this.familyMembers = members.items));
+            this.userService.getAll(qvm).subscribe(members => (this.familyMembers = [...members.items]));
         }
     }
 
@@ -43,7 +44,7 @@ export class FamilyComponent implements OnInit {
             this.changeDetectorRef.detectChanges();
         });
 
-        const emptyUser = this.userService.getConsolidatedForClient();
+        const emptyUser = this.userService.getConsolidatedForClient() as Users_users_items;
         this.familyMembers.push(emptyUser);
     }
 

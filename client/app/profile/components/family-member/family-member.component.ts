@@ -5,6 +5,7 @@ import {
     UpdateUser,
     UpdateUserVariables,
     User,
+    Users_users_items,
     UserVariables,
 } from '../../../shared/generated-types';
 import {NaturalAbstractDetail} from '@ecodev/natural';
@@ -29,7 +30,7 @@ export class FamilyMemberComponent
     >
     implements OnInit {
     @Input() viewer: User['user'];
-    @Input() user: User['user'];
+    @Input() user: User['user'] | Users_users_items;
     @Input() readonly = false;
     public loaded = false;
 
