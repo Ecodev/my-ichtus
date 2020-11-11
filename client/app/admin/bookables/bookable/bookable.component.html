@@ -38,7 +38,7 @@
                                     <input matInput formControlName="name" (change)="update()" />
                                     <mat-label>Nom</mat-label>
                                     <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
-                                        Maximum {{ form.get('name')?.errors.maxlength.requiredLength }} caractères
+                                        Maximum {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
                                     </mat-error>
                                     <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
                                 </mat-form-field>
@@ -47,7 +47,7 @@
                                     <input matInput formControlName="code" (change)="update()" />
                                     <mat-label>Code</mat-label>
                                     <mat-error *ngIf="form.get('code')?.hasError('maxlength')">
-                                        Maximum {{ form.get('code')?.errors.maxlength.requiredLength }} caractères
+                                        Maximum {{ form.get('code')?.errors?.maxlength?.requiredLength }} caractères
                                     </mat-error>
                                     <mat-error *ngIf="form.get('code')?.hasError('required')">Requis</mat-error>
                                     <mat-error *ngIf="form.get('code')?.hasError('duplicateValue')"
@@ -89,7 +89,7 @@
                                 matInput
                                 formControlName="description"
                                 (change)="update()"
-                                matTextareaAutosize
+                                [matTextareaAutosize]="true"
                                 [matAutosizeMinRows]="1"
                             ></textarea>
                         </mat-form-field>
@@ -100,7 +100,7 @@
                                 matInput
                                 formControlName="remarks"
                                 (change)="update()"
-                                matTextareaAutosize
+                                [matTextareaAutosize]="true"
                                 [matAutosizeMinRows]="1"
                             ></textarea>
                         </mat-form-field>

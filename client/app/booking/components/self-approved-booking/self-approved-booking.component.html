@@ -72,7 +72,7 @@
                     <textarea
                         matInput
                         [(ngModel)]="booking.startComment"
-                        matTextareaAutosize
+                        [matTextareaAutosize]="true"
                         [matAutosizeMinRows]="5"
                         [matAutosizeMaxRows]="5"
                     ></textarea>

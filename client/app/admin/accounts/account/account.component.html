@@ -27,7 +27,7 @@
                                     <mat-icon>reply</mat-icon>
                                 </button>
                                 <mat-error *ngIf="form.get('code')?.hasError('maxlength')">
-                                    Maximum {{ form.get('code')?.errors.maxlength.requiredLength }} caractères
+                                    Maximum {{ form.get('code')?.errors?.maxlength?.requiredLength }} caractères
                                 </mat-error>
                                 <mat-error *ngIf="form.get('code')?.hasError('required')">Requis</mat-error>
                                 <mat-error *ngIf="form.get('code')?.hasError('duplicateValue')"
@@ -40,7 +40,7 @@
                                 <mat-label>Nom</mat-label>
                                 <input matInput formControlName="name" (change)="update()" />
                                 <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
-                                    Maximum {{ form.get('name')?.errors.maxlength.requiredLength }} caractères
+                                    Maximum {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
                                 </mat-error>
                                 <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
                             </mat-form-field>
@@ -50,7 +50,7 @@
                             <mat-label>IBAN Ichtus</mat-label>cta
                             <input matInput formControlName="iban" (change)="update()" />
                             <mat-error *ngIf="form.get('iban')?.hasError('maxlength')">
-                                Maximum {{ form.get('iban')?.errors.maxlength.requiredLength }} caractères
+                                Maximum {{ form.get('iban')?.errors?.maxlength?.requiredLength }} caractères
                             </mat-error>
                             <mat-error *ngIf="form.get('iban')?.hasError('required')">Requis</mat-error>
                             <mat-hint>Pour les comptes bancaires ichtus uniquement</mat-hint>

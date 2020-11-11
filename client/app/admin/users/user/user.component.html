@@ -24,7 +24,7 @@
                                 <mat-label>Prénom</mat-label>
                                 <input matInput formControlName="firstName" (change)="update()" />
                                 <mat-error *ngIf="form.get('firstName')?.hasError('maxlength')">
-                                    Maximum {{ form.get('firstName')?.errors.maxlength.requiredLength }} caractères
+                                    Maximum {{ form.get('firstName')?.errors?.maxlength?.requiredLength }} caractères
                                 </mat-error>
                                 <mat-error *ngIf="form.get('firstName')?.hasError('required')">Requis</mat-error>
                             </mat-form-field>
@@ -33,7 +33,7 @@
                                 <mat-label>Nom de famille</mat-label>
                                 <input matInput formControlName="lastName" (change)="update()" />
                                 <mat-error *ngIf="form.get('lastName')?.hasError('maxlength')">
-                                    Maximum {{ form.get('lastName')?.errors.maxlength.requiredLength }} caractères
+                                    Maximum {{ form.get('lastName')?.errors?.maxlength?.requiredLength }} caractères
                                 </mat-error>
                                 <mat-error *ngIf="form.get('lastName')?.hasError('required')">Requis</mat-error>
                             </mat-form-field>
@@ -77,7 +77,7 @@
                             <mat-label>Nom d'utilisateur</mat-label>
                             <input matInput formControlName="login" (change)="update()" />
                             <mat-error *ngIf="form.get('login')?.hasError('maxlength')">
-                                Maximum {{ form.get('login')?.errors.maxlength.requiredLength }} caractères
+                                Maximum {{ form.get('login')?.errors?.maxlength?.requiredLength }} caractères
                             </mat-error>
                             <mat-error *ngIf="form.get('login')?.hasError('required')">Requis</mat-error>
                             <mat-error *ngIf="form.get('login')?.hasError('invalid')">{{
@@ -199,7 +199,7 @@
                                 matInput
                                 formControlName="remarks"
                                 (change)="update()"
-                                matTextareaAutosize
+                                [matTextareaAutosize]="true"
                                 [matAutosizeMinRows]="3"
                             ></textarea>
                         </mat-form-field>
@@ -210,7 +210,7 @@
                                 matInput
                                 formControlName="internalRemarks"
                                 (change)="update()"
-                                matTextareaAutosize
+                                [matTextareaAutosize]="true"
                                 [matAutosizeMinRows]="3"
                             ></textarea>
                         </mat-form-field>

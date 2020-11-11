@@ -17,7 +17,7 @@
                             <mat-label>Nom</mat-label>
                             <input matInput formControlName="name" />
                             <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
-                                Maximum {{ form.get('name')?.errors.maxlength.requiredLength }} caractères
+                                Maximum {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
                             </mat-error>
                             <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
                         </mat-form-field>
@@ -54,7 +54,7 @@
                             <textarea
                                 matInput
                                 formControlName="remarks"
-                                matTextareaAutosize
+                                [matTextareaAutosize]="true"
                                 [matAutosizeMinRows]="3"
                             ></textarea>
                         </mat-form-field>
@@ -65,7 +65,7 @@
                             <textarea
                                 matInput
                                 formControlName="internalRemarks"
-                                matTextareaAutosize
+                                [matTextareaAutosize]="true"
                                 [matAutosizeMinRows]="3"
                             ></textarea>
                         </mat-form-field>

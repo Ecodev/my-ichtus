@@ -26,7 +26,7 @@
                     <input matInput formControlName="login" />
                     <natural-icon matPrefix name="person"></natural-icon>
                     <mat-error *ngIf="form.get('login')?.hasError('maxlength')">
-                        Maximum {{ form.get('login')?.errors.maxlength.requiredLength }} caractères
+                        Maximum {{ form.get('login')?.errors?.maxlength?.requiredLength }} caractères
                     </mat-error>
                     <mat-error *ngIf="form.get('login')?.hasError('required')">Requis</mat-error>
                     <mat-error *ngIf="form.get('login')?.hasError('invalid')">{{
@@ -49,7 +49,7 @@
                     <mat-label>Prénom</mat-label>
                     <input matInput formControlName="firstName" />
                     <mat-error *ngIf="form.get('firstName')?.hasError('maxlength')">
-                        Maximum {{ form.get('firstName')?.errors.maxlength.requiredLength }} caractères
+                        Maximum {{ form.get('firstName')?.errors?.maxlength?.requiredLength }} caractères
                     </mat-error>
                     <mat-error *ngIf="form.get('firstName')?.hasError('required')">Requis</mat-error>
                 </mat-form-field>
@@ -58,7 +58,7 @@
                     <mat-label>Nom de famille</mat-label>
                     <input matInput formControlName="lastName" />
                     <mat-error *ngIf="form.get('lastName')?.hasError('maxlength')">
-                        Maximum {{ form.get('lastName')?.errors.maxlength.requiredLength }} caractères
+                        Maximum {{ form.get('lastName')?.errors?.maxlength?.requiredLength }} caractères
                     </mat-error>
                     <mat-error *ngIf="form.get('lastName')?.hasError('required')">Requis</mat-error>
                 </mat-form-field>
@@ -72,7 +72,7 @@
                     <natural-icon matPrefix name="smartphone"></natural-icon>
                     <input matInput formControlName="mobilePhone" />
                     <mat-error *ngIf="form.get('mobilePhone')?.hasError('maxlength')">
-                        Maximum {{ form.get('mobilePhone')?.errors.maxlength.requiredLength }} caractères
+                        Maximum {{ form.get('mobilePhone')?.errors?.maxlength?.requiredLength }} caractères
                     </mat-error>
                     <mat-error *ngIf="form.get('mobilePhone')?.hasError('required')">Requis</mat-error>
                 </mat-form-field>

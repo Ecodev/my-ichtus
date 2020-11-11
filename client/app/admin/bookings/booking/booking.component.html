@@ -89,7 +89,7 @@
                                 matInput
                                 formControlName="remarks"
                                 (change)="update()"
-                                matTextareaAutosize
+                                [matTextareaAutosize]="true"
                                 [matAutosizeMinRows]="3"
                             ></textarea>
                         </mat-form-field>
@@ -100,7 +100,7 @@
                                 matInput
                                 formControlName="internalRemarks"
                                 (change)="update()"
-                                matTextareaAutosize
+                                [matTextareaAutosize]="true"
                                 [matAutosizeMinRows]="3"
                             ></textarea>
                         </mat-form-field>
@@ -153,7 +153,7 @@
                                     matInput
                                     formControlName="startComment"
                                     (change)="update()"
-                                    matTextareaAutosize
+                                    [matTextareaAutosize]="true"
                                     [matAutosizeMinRows]="5"
                                     [matAutosizeMaxRows]="5"
                                 ></textarea>
@@ -176,7 +176,7 @@
                                     matInput
                                     formControlName="endComment"
                                     (change)="update()"
-                                    matTextareaAutosize
+                                    [matTextareaAutosize]="true"
                                     [matAutosizeMinRows]="5"
                                     [matAutosizeMaxRows]="5"
                                 ></textarea>
