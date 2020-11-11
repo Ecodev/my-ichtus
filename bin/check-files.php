@@ -6,26 +6,14 @@
  *
  * It is up to the user to then take appropriate action based on that information.
  */
-use Application\Model\Image;
-use Application\Repository\ImageRepository;
-use Ecodev\Felix\Utility;
+
+use Ecodev\Felix\Service\FileChecker;
 
 require_once 'server/cli.php';
 
-/** @var ImageRepository $imageRepository */
-$imageRepository = _em()->getRepository(Image::class);
-$filesInDb = $imageRepository->getFilenames();
-$filesOnDisk = glob('data/images/*');
+$checker = new FileChecker(_em()->getConnection());
 
-$missingFiles = array_diff($filesInDb, $filesOnDisk);
-$unneededFiles = array_diff($filesOnDisk, $filesInDb);
-
-Utility::printFiles('List of missing files on disk:', $missingFiles);
-Utility::printFiles('List of unneeded files on disk:', $unneededFiles);
-
-echo '
-Total files in DB     : ' . count($filesInDb) . '
-Total files on disk   : ' . count($filesOnDisk) . '
-Missing files on disk : ' . count($missingFiles) . '
-Unneeded files on disk: ' . count($unneededFiles) . '
-';
+$checker->check([
+    'accounting_document' => 'data/accounting/',
+    'image' => 'data/images/',
+]);
