@@ -8,9 +8,9 @@ import {FormGroup} from '@angular/forms';
     styleUrls: ['./address.component.scss'],
 })
 export class AddressComponent {
-    @Input() vertical = false;
-    @Input() form: FormGroup;
-    @Output() change: EventEmitter<boolean> = new EventEmitter();
+    @Input() public vertical = false;
+    @Input() public form: FormGroup;
+    @Output() public change: EventEmitter<boolean> = new EventEmitter();
 
     constructor(public countryService: CountryService) {}
 

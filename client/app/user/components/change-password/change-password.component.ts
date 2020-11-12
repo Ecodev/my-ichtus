@@ -26,7 +26,7 @@ export class ChangePasswordComponent {
         this.form = new FormGroup({});
     }
 
-    submit(): void {
+    public submit(): void {
         this.sending = true;
         const mutation = gql`
             mutation UpdatePassword($token: Token!, $password: Password!) {

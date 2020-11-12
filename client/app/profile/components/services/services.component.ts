@@ -12,7 +12,7 @@ import {NaturalAbstractController, NaturalAlertService, NaturalDataSource} from 
     styleUrls: ['./services.component.scss'],
 })
 export class ServicesComponent extends NaturalAbstractController implements OnInit, OnChanges, OnDestroy {
-    @Input() user;
+    @Input() public user;
 
     public adminMode = false;
 

@@ -9,18 +9,18 @@ export class MoneyComponent {
      * If user or account, display the amount
      * If transaction or expenseClaim, displays the amount
      */
-    @Input() model;
+    @Input() public model;
 
     /**
      * E.g mat-title, mat-display-2
      */
-    @Input() sizeClass;
+    @Input() public sizeClass;
 
-    @Input() amount;
+    @Input() public amount;
 
-    @Input() showSignal = true;
+    @Input() public showSignal = true;
 
-    @Input() showCurrency = true;
+    @Input() public showCurrency = true;
 
     constructor() {}
 }

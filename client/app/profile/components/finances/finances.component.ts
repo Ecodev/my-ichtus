@@ -16,7 +16,7 @@ import {of} from 'rxjs';
     styleUrls: ['./finances.component.scss'],
 })
 export class FinancesComponent extends NaturalAbstractController implements OnInit, OnChanges, OnDestroy {
-    @Input() user;
+    @Input() public user;
 
     public runningExpenseClaimsDS: NaturalDataSource;
     public expenseClaimsColumns = ['name', 'date', 'status', 'type', 'remarks', 'amount', 'cancel'];

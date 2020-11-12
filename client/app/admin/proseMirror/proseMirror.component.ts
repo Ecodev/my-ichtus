@@ -19,9 +19,9 @@ import {schema} from './schema';
 export class ProsemirrorComponent implements OnInit, OnDestroy, ControlValueAccessor {
     private view: EditorView = null;
 
-    @ViewChild('editor', {read: ElementRef, static: true}) editor: ElementRef;
+    @ViewChild('editor', {read: ElementRef, static: true}) private editor: ElementRef;
 
-    @Output() contentChange = new EventEmitter<string>();
+    @Output() public contentChange = new EventEmitter<string>();
 
     /**
      * Interface with ControlValueAccessor

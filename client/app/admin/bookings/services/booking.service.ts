@@ -254,7 +254,7 @@ export class BookingService extends NaturalAbstractModelService<
         return this.create(booking);
     }
 
-    getPartialVariablesForAll(): Partial<BookingsVariables> {
+    public getPartialVariablesForAll(): Partial<BookingsVariables> {
         return {
             filter: {
                 groups: [

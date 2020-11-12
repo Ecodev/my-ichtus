@@ -8,14 +8,14 @@ import {TransactionLineService} from '../../../admin/transactions/services/trans
     styleUrls: ['./transaction-amount.component.scss'],
 })
 export class TransactionAmountComponent implements OnInit, OnChanges {
-    @Input() transactionLine: TransactionLine['transactionLine'];
+    @Input() public transactionLine: TransactionLine['transactionLine'];
 
     /**
      * Account we want to see the amount relative to
      */
-    @Input() relativeToAccount: Account['account'];
-    @Input() displayMode: 'amount' | 'account' = 'amount';
-    @Output() accountClick: EventEmitter<Account['account']> = new EventEmitter();
+    @Input() public relativeToAccount: Account['account'];
+    @Input() public displayMode: 'amount' | 'account' = 'amount';
+    @Output() public accountClick: EventEmitter<Account['account']> = new EventEmitter();
 
     public isIncome: boolean | null = null;
 

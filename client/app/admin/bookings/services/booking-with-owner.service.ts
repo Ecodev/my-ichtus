@@ -49,7 +49,7 @@ export class BookingWithOwnerService extends NaturalAbstractModelService<
         );
     }
 
-    getPartialVariablesForAll(): Partial<BookingsVariables> {
+    public getPartialVariablesForAll(): Partial<BookingsVariables> {
         return {
             filter: {
                 groups: [

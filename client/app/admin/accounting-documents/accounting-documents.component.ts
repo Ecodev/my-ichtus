@@ -9,11 +9,11 @@ import {AccountingDocumentService} from './services/accounting-document.service'
     styleUrls: ['./accounting-documents.component.scss'],
 })
 export class AccountingDocumentsComponent implements OnInit {
-    @Input() model: Transaction['transaction'] | ExpenseClaim['expenseClaim'];
-    @Input() service;
-    @Input() fileHeight = 250;
-    @Input() fileWidth = 250;
-    @Input() canRemove = true;
+    @Input() public model: Transaction['transaction'] | ExpenseClaim['expenseClaim'];
+    @Input() public service;
+    @Input() public fileHeight = 250;
+    @Input() public fileWidth = 250;
+    @Input() public canRemove = true;
 
     /**
      * When changing disabled status, add or remove an empty item in list to allow new upload or deny it.

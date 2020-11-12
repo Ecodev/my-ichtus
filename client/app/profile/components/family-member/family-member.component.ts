@@ -29,9 +29,9 @@ export class FamilyMemberComponent
         never
     >
     implements OnInit {
-    @Input() viewer: User['user'];
-    @Input() user: User['user'] | Users_users_items;
-    @Input() readonly = false;
+    @Input() public viewer: User['user'];
+    @Input() public user: User['user'] | Users_users_items;
+    @Input() public readonly = false;
     public loaded = false;
 
     constructor(private userService: FamilyUserService, injector: Injector) {

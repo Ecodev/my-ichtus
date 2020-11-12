@@ -32,7 +32,7 @@ export class CreateExpenseClaimComponent
         DeleteExpenseClaimsVariables
     >
     implements OnInit {
-    @ViewChild(AccountingDocumentsComponent, {static: true}) accountingDocuments: AccountingDocumentsComponent;
+    @ViewChild(AccountingDocumentsComponent, {static: true}) private accountingDocuments: AccountingDocumentsComponent;
 
     constructor(expenseClaimService: ExpenseClaimService, injector: Injector, public userService: UserService) {
         super('expenseClaim', expenseClaimService, injector);

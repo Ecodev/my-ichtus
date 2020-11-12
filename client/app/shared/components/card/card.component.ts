@@ -7,9 +7,9 @@ import {FileModel} from '@ecodev/natural';
     styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
-    @Input() illustrationHeight = 200;
-    @Input() file: FileModel;
-    @Input() illustrationUrl: string;
+    @Input() public illustrationHeight = 200;
+    @Input() public file: FileModel;
+    @Input() public illustrationUrl: string;
 
     constructor() {}
 

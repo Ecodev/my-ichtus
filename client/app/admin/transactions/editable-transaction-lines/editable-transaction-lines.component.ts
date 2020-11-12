@@ -22,7 +22,7 @@ export class EditableTransactionLinesComponent
         TransactionLinesVariables
     >
     implements OnInit {
-    @Input() transaction: Transaction['transaction'];
+    @Input() public transaction: Transaction['transaction'];
 
     public accountHierarchicConfig = accountHierarchicConfiguration;
     public columns = [

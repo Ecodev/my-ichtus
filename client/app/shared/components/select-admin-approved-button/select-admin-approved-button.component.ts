@@ -9,7 +9,7 @@ import {BookingPartialInput, BookingStatus} from '../../generated-types';
     templateUrl: './select-admin-approved-button.component.html',
 })
 export class SelectAdminApprovedButtonComponent implements OnInit {
-    @Input() user;
+    @Input() public user;
 
     constructor(private dialog: MatDialog, private bookingService: BookingService) {}
 

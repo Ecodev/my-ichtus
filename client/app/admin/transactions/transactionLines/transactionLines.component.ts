@@ -21,8 +21,8 @@ import {union} from 'lodash-es';
 export class TransactionLinesComponent
     extends NaturalAbstractList<TransactionLines['transactionLines'], TransactionLinesVariables>
     implements OnInit {
-    @Input() relativeToAccount;
-    @Input() hideFab = false;
+    @Input() public relativeToAccount;
+    @Input() public hideFab = false;
 
     constructor(
         private transactionLineService: TransactionLineService,

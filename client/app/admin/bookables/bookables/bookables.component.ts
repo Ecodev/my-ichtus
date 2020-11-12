@@ -17,7 +17,7 @@ export class BookablesComponent
         BookablesVariables | UsageBookablesVariables
     >
     implements OnInit {
-    @Output() select = new EventEmitter();
+    @Output() public select = new EventEmitter();
 
     constructor(
         @Inject(BookableService) bookableService: BookableService | UsageBookableService,

@@ -56,9 +56,9 @@ function bookingsToExtended(bookings: Bookings['bookings']): PaginatedData<Exten
     ],
 })
 export class NavigationsComponent extends NaturalAbstractController implements OnInit {
-    @Input() user;
-    @Input() activeOnly = true;
-    @Input() showEmptyMessage = false;
+    @Input() public user;
+    @Input() public activeOnly = true;
+    @Input() public showEmptyMessage = false;
 
     public bookings: PaginatedData<Extented>;
 

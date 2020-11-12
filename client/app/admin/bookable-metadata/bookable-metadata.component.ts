@@ -14,8 +14,8 @@ import {cloneDeep} from 'lodash-es';
     styleUrls: ['./bookable-metadata.component.scss'],
 })
 export class BookableMetadataComponent implements OnInit {
-    @Input() bookable;
-    @Input() edit = false;
+    @Input() public bookable;
+    @Input() public edit = false;
 
     public dataSource: NaturalDataSource<BookableMetadatas_bookableMetadatas>;
 

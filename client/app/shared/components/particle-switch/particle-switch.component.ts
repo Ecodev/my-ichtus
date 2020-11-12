@@ -6,8 +6,8 @@ import {AfterViewInit, Component, ContentChild, ElementRef, Input, OnInit, Templ
     styleUrls: ['./particle-switch.component.scss'],
 })
 export class ParticleSwitchComponent implements OnInit, AfterViewInit {
-    @ContentChild(TemplateRef, {static: true}) template: TemplateRef<any>;
-    @ViewChild('wrapper', {static: true}) wrapper: ElementRef<any>;
+    @ContentChild(TemplateRef, {static: true}) public template: TemplateRef<any>;
+    @ViewChild('wrapper', {static: true}) private wrapper: ElementRef<any>;
 
     public _data1;
     public _data2;
@@ -64,7 +64,7 @@ export class ParticleSwitchComponent implements OnInit, AfterViewInit {
 
     public ngOnInit(): void {}
 
-    ngAfterViewInit() {
+    public ngAfterViewInit() {
         this.updateSize();
     }
 
