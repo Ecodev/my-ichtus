@@ -1,0 +1,11 @@
+@mixin admin($theme) {
+    $background: map-get($theme, background);
+
+    app-admin {
+        // Re-use the same hover effect for active menu item, and add the Material boldness to text
+        a.active {
+            background: mat-color($background, 'hover');
+            font-weight: 500;
+        }
+    }
+}

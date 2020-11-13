@@ -10,6 +10,7 @@
 @import '../app/door/door.theme';
 @import 'rich-text';
 @import '../app/shared/components/money/money.theme';
+@import '../app/admin/admin/admin.theme';
 @import '../app/admin/configurations/support/support.theme';
 @import '../app/shared/components/transaction-amount/transaction-amount.theme';
 
@@ -26,6 +27,7 @@
     @include transaction-amount($theme);
     @include rich-text($theme);
     @include support($theme);
+    @include admin($theme);
 }
 
 $mat-ichtus: (

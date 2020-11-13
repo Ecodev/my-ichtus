@@ -7,8 +7,8 @@
                         <mat-panel-title>Carnet de sorties</mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-nav-list>
-                        <a mat-list-item routerLink="/admin">En cours</a>
-                        <a mat-list-item routerLink="booking/self-approved">Toutes</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="/admin">En cours</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="booking/self-approved">Toutes</a>
                     </mat-nav-list>
                 </mat-expansion-panel>
 
@@ -17,33 +17,40 @@
                         <mat-panel-title>Utilisateurs</mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-nav-list>
-                        <a mat-list-item routerLink="user">Tous les utilisateurs</a>
+                        <a mat-list-item [class.active]="adminUserRouteActive" routerLink="user"
+                            >Tous les utilisateurs</a
+                        >
                         <a
                             mat-list-item
+                            routerLinkActive="active"
                             routerLink="user/newcomer"
                             *ngIf="UserService.gteResponsible(route.snapshot.data.viewer.model)"
                             >Nouveaux membres</a
                         >
                         <a
                             mat-list-item
+                            routerLinkActive="active"
                             routerLink="user/member"
                             *ngIf="UserService.gteResponsible(route.snapshot.data.viewer.model)"
                             >Membres</a
                         >
                         <a
                             mat-list-item
+                            routerLinkActive="active"
                             routerLink="user/staff"
                             *ngIf="UserService.gteResponsible(route.snapshot.data.viewer.model)"
                             >Comité</a
                         >
                         <a
                             mat-list-item
+                            routerLinkActive="active"
                             routerLink="user/non-active"
                             *ngIf="UserService.gteResponsible(route.snapshot.data.viewer.model)"
                             >Non actifs</a
                         >
                         <a
                             mat-list-item
+                            routerLinkActive="active"
                             routerLink="user-tag"
                             *ngIf="UserService.gteResponsible(route.snapshot.data.viewer.model)"
                             >Tags</a
@@ -59,13 +66,13 @@
                         <mat-panel-title>Matériel nautique</mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-nav-list>
-                        <a mat-list-item routerLink="bookable/sup">SUP</a>
-                        <a mat-list-item routerLink="bookable/planche">Planches</a>
-                        <a mat-list-item routerLink="bookable/canoe">Canoës</a>
-                        <a mat-list-item routerLink="bookable/kayak">Kayaks</a>
-                        <a mat-list-item routerLink="bookable/aviron">Aviron</a>
-                        <a mat-list-item routerLink="bookable/voile-legere">Voile légère</a>
-                        <a mat-list-item routerLink="bookable/voile-lestee">Voile lestée</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="bookable/sup">SUP</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="bookable/planche">Planches</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="bookable/canoe">Canoës</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="bookable/kayak">Kayaks</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="bookable/aviron">Aviron</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="bookable/voile-legere">Voile légère</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="bookable/voile-lestee">Voile lestée</a>
                     </mat-nav-list>
                 </mat-expansion-panel>
 
@@ -77,11 +84,13 @@
                         <mat-panel-title>Stockage</mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-nav-list>
-                        <a mat-list-item routerLink="bookable/armoire">Armoires</a>
-                        <a mat-list-item routerLink="bookable/casier">Casiers</a>
-                        <a mat-list-item routerLink="bookable/flotteur">Flotteurs</a>
-                        <a mat-list-item routerLink="bookable/ratelier">Râteliers WBC</a>
-                        <a mat-list-item routerLink="booking/storage-application">Demandes en attente</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="bookable/armoire">Armoires</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="bookable/casier">Casiers</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="bookable/flotteur">Flotteurs</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="bookable/ratelier">Râteliers WBC</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="booking/storage-application"
+                            >Demandes en attente</a
+                        >
                     </mat-nav-list>
                 </mat-expansion-panel>
 
@@ -90,16 +99,18 @@
                         <mat-panel-title>Cours et accueil</mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-nav-list>
-                        <a mat-list-item routerLink="bookable/formation">Cours</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="bookable/formation">Cours</a>
                         <a
                             mat-list-item
+                            routerLinkActive="active"
                             routerLink="booking/formation-application"
                             *ngIf="UserService.gteResponsible(route.snapshot.data.viewer.model)"
                             >Demandes de cours</a
                         >
-                        <a mat-list-item routerLink="bookable/welcome">Séances d'accueil</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="bookable/welcome">Séances d'accueil</a>
                         <a
                             mat-list-item
+                            routerLinkActive="active"
                             routerLink="booking/welcome-application"
                             *ngIf="UserService.gteResponsible(route.snapshot.data.viewer.model)"
                             >Demandes de séances d'accueil</a
@@ -115,20 +126,27 @@
                         <mat-panel-title>Administration</mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-nav-list>
-                        <a mat-list-item routerLink="bookable/services">Cotisations</a>
-                        <a mat-list-item routerLink="booking/other-application">Demandes en attente</a>
-                        <a mat-list-item routerLink="license">Certifications</a>
-                        <a mat-list-item routerLink="bookable-tag">Tags de réservables</a>
-                        <a *ngIf="permissionsService.crud?.configuration?.create" mat-list-item routerLink="support"
+                        <a mat-list-item routerLinkActive="active" routerLink="bookable/services">Cotisations</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="booking/other-application"
+                            >Demandes en attente</a
+                        >
+                        <a mat-list-item routerLinkActive="active" routerLink="license">Certifications</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="bookable-tag">Tags de réservables</a>
+                        <a
+                            *ngIf="permissionsService.crud?.configuration?.create"
+                            mat-list-item
+                            routerLinkActive="active"
+                            routerLink="support"
                             >Guide / Support</a
                         >
                         <a
                             *ngIf="permissionsService.crud?.configuration?.create"
                             mat-list-item
+                            routerLinkActive="active"
                             routerLink="announcement"
                             >Annonce</a
                         >
-                        <a mat-list-item routerLink="log">Activité</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="log">Activité</a>
                     </mat-nav-list>
                 </mat-expansion-panel>
 
@@ -140,12 +158,16 @@
                         <mat-panel-title>Comptabilité</mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-nav-list>
-                        <a mat-list-item routerLink="transaction-line">Écritures</a>
-                        <a mat-list-item routerLink="account">Comptes</a>
-                        <a mat-list-item routerLink="expense-claim">Frais et remboursements</a>
-                        <a mat-list-item routerLink="transactions/summary">Rapport comptable (todo)</a>
-                        <a mat-list-item routerLink="import">Import BVR</a>
-                        <a mat-list-item routerLink="transaction-tag">Tags</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="transaction-line">Écritures</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="account">Comptes</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="expense-claim"
+                            >Frais et remboursements</a
+                        >
+                        <a mat-list-item routerLinkActive="active" routerLink="transactions/summary"
+                            >Rapport comptable (todo)</a
+                        >
+                        <a mat-list-item routerLinkActive="active" routerLink="import">Import BVR</a>
+                        <a mat-list-item routerLinkActive="active" routerLink="transaction-tag">Tags</a>
                     </mat-nav-list>
                 </mat-expansion-panel>
 
@@ -157,8 +179,8 @@
                         <mat-panel-title>Listes</mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-nav-list>
-                        <a mat-list-item routerLink="bookable">Réservables</a>
-                        <a mat-list-item routerLink="booking">Réservations</a>
+                        <a mat-list-item [class.active]="adminBookableRouteActive" routerLink="bookable">Réservables</a>
+                        <a mat-list-item [class.active]="adminBookingRouteActive" routerLink="booking">Réservations</a>
                     </mat-nav-list>
                 </mat-expansion-panel>
             </mat-accordion>
