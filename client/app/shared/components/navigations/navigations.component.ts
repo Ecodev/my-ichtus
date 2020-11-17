@@ -92,7 +92,7 @@ export class NavigationsComponent extends NaturalAbstractController implements O
         });
     }
 
-    public endBooking(item: Extented) {
+    public endBooking(item: Extented): void {
         const snackbarOptions: MatSnackBarConfig = {
             horizontalPosition: 'end',
             verticalPosition: 'top',
@@ -134,11 +134,11 @@ export class NavigationsComponent extends NaturalAbstractController implements O
         });
     }
 
-    public update(partialBooking) {
+    public update(partialBooking): void {
         this.bookingService.updatePartially(partialBooking).subscribe(() => {});
     }
 
-    public nextPage() {
+    public nextPage(): void {
         this.currentPage++;
         this.getNavigations(this.family).subscribe(bookings => {
             this.bookings.items.push(...bookingsToExtended(bookings).items);

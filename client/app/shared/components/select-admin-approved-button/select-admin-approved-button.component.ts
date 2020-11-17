@@ -15,7 +15,7 @@ export class SelectAdminApprovedButtonComponent implements OnInit {
 
     public ngOnInit(): void {}
 
-    public openDialog() {
+    public openDialog(): void {
         const options: MatDialogConfig = {
             minHeight: '450px',
             width: '700px',

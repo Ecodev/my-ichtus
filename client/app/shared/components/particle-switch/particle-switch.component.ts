@@ -64,11 +64,11 @@ export class ParticleSwitchComponent implements OnInit, AfterViewInit {
 
     public ngOnInit(): void {}
 
-    public ngAfterViewInit() {
+    public ngAfterViewInit(): void {
         this.updateSize();
     }
 
-    private updateSize() {
+    private updateSize(): void {
         const root = this.rootElement.nativeElement;
         const child = this.wrapper.nativeElement.children[0];
         root.style.height = child.offsetHeight + 'px';

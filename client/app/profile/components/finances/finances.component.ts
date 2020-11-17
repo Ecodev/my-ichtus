@@ -54,23 +54,23 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
         }
     }
 
-    public loadData() {
+    public loadData(): void {
         this.ibanLocked = !!this.user.iban;
         const runningExpenseClaims = this.expenseClaimService.getForUser(this.user, this.ngUnsubscribe);
         this.runningExpenseClaimsDS = new NaturalDataSource(runningExpenseClaims);
     }
 
-    public cancelExpenseClaim(expenseClaim) {
+    public cancelExpenseClaim(expenseClaim): void {
         if (this.canCancelExpenseClaim(expenseClaim)) {
             this.expenseClaimService.delete([expenseClaim]).subscribe();
         }
     }
 
-    public canCancelExpenseClaim(expenseClaim) {
+    public canCancelExpenseClaim(expenseClaim): boolean {
         return expenseClaim.status === ExpenseClaimStatus.new;
     }
 
-    public createRefund() {
+    public createRefund(): void {
         const config = {
             data: {
                 confirmText: 'Envoyer la demande',
@@ -89,7 +89,7 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
             });
     }
 
-    public updateIban(iban: string) {
+    public updateIban(iban: string): void {
         this.userService
             .updatePartially({id: this.user.id, iban: iban})
             .pipe(
@@ -110,7 +110,7 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
             });
     }
 
-    public lockIbanIfDefined() {
+    public lockIbanIfDefined(): void {
         if (this.user.iban) {
             this.ibanLocked = true;
         }

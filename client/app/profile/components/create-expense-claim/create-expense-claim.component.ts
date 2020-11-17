@@ -46,7 +46,7 @@ export class CreateExpenseClaimComponent
         });
     }
 
-    public postCreate(model) {
+    public postCreate(model): void {
         this.accountingDocuments.save();
         this.router.navigateByUrl('/profile/finances');
         this.alertService.info('Votre demande a bien été enregistrée');

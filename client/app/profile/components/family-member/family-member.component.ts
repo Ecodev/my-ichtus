@@ -57,7 +57,7 @@ export class FamilyMemberComponent
         }
     }
 
-    public setForm() {
+    public setForm(): void {
         this.initForm();
         if (this.readonly) {
             this.form.disable();
@@ -70,7 +70,7 @@ export class FamilyMemberComponent
         this.loaded = true;
     }
 
-    public postCreate(model) {
+    public postCreate(model): void {
         if (model.login) {
             this.userService.requestPasswordReset(model.login).subscribe(() => {
                 this.alertService.info(

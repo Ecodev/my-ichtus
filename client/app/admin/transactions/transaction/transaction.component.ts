@@ -115,7 +115,7 @@ export class TransactionComponent
         });
     }
 
-    public save() {
+    public save(): void {
         if (!this.userService.canUpdateTransaction(this.viewer)) {
             return;
         }
@@ -144,7 +144,7 @@ export class TransactionComponent
         this.updateTransactionLines = false;
     }
 
-    public flagExpenseClaim(status: ExpenseClaimStatus) {
+    public flagExpenseClaim(status: ExpenseClaimStatus): void {
         const model = {
             id: this.data.model.expenseClaim.id,
             status: status,
@@ -184,7 +184,7 @@ export class TransactionComponent
             });
     }
 
-    private goToNew() {
+    private goToNew(): void {
         this.router.navigateByUrl('/admin/transaction/new');
     }
 }

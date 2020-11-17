@@ -40,7 +40,7 @@ export class TransactionAmountComponent implements OnInit, OnChanges {
         }
     }
 
-    public propagateAccount(account: Account['account']) {
+    public propagateAccount(account: Account['account']): void {
         this.accountClick.emit(account);
     }
 }

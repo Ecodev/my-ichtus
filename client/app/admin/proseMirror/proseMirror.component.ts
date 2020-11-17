@@ -79,7 +79,7 @@ export class ProsemirrorComponent implements OnInit, OnDestroy, ControlValueAcce
         }
     }
 
-    private createState() {
+    private createState(): EditorState {
         const template = document.createElement('_');
         template.innerHTML = '<div>' + this.content + '</div>';
 

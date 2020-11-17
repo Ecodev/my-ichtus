@@ -70,7 +70,7 @@ export class BookingComponent
         }
     }
 
-    public endBooking() {
+    public endBooking(): void {
         this.bookingService.terminateBooking(this.data.model.id).subscribe(() => {
             const endDate = this.form.get('endDate');
             if (endDate) {
@@ -79,14 +79,16 @@ export class BookingComponent
         });
     }
 
-    public isSelfApproved() {
+    public isSelfApproved(): boolean {
         const bookable = this.form.get('bookable');
         if (bookable) {
             return bookable.value ? bookable.value.bookingType === BookingType.self_approved : false;
         }
+
+        return false;
     }
 
-    public isApplication() {
+    public isApplication(): boolean {
         const status = this.form.get('status');
         if (status && status.value !== BookingStatus.booked) {
             return true;
@@ -99,19 +101,21 @@ export class BookingComponent
                 (bookable.value && bookable.value.bookingType === BookingType.admin_approved)
             );
         }
+
+        return false;
     }
 
     /**
      * Wherever bookable is a service for example NFT
      */
-    public isService() {
+    public isService(): void {
         const bookable = this.form.get('bookable');
         if (bookable) {
             return bookable.value.bookableTags.find(t => t.id === BookableTagService.SERVICE);
         }
     }
 
-    public assignBookable(bookable) {
+    public assignBookable(bookable): void {
         const message =
             'Êtes-vous sûr de vouloir attribuer cette prestation ou espace de stockage ? ' +
             'Cette action va créer une nouvelle réservation et débitera automatiquement le compte du membre. ' +
@@ -124,7 +128,7 @@ export class BookingComponent
         });
     }
 
-    public doAssignBookable(bookable) {
+    public doAssignBookable(bookable): void {
         const partialBooking: BookingPartialInput = {status: BookingStatus.booked};
         this.bookingService.createWithBookable(bookable, this.data.model.owner, partialBooking).subscribe(booking => {
             this.newBooking = Object.assign(booking, {bookable: bookable});

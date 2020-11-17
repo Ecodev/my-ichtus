@@ -53,7 +53,7 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
             });
     }
 
-    public pay() {
+    public pay(): void {
         if (!this.viewer || !this.viewer.account) {
             return;
         }
@@ -76,7 +76,7 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
             });
     }
 
-    public canAccessServices() {
+    public canAccessServices(): boolean {
         return UserService.canAccessServices(this.viewer);
     }
 

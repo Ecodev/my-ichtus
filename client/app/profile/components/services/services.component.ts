@@ -52,7 +52,7 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
         }
     }
 
-    public loadData() {
+    public loadData(): void {
         const pendingApplications = this.userService.getPendingApplications(this.user, this.ngUnsubscribe);
         this.pendingApplicationsDS = new NaturalDataSource(pendingApplications);
 
@@ -63,7 +63,7 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
     /**
      * Set end date ?
      */
-    public revokeBooking(booking) {
+    public revokeBooking(booking): void {
         this.alertService
             .confirm(
                 'Résiliation de prestation',
@@ -81,7 +81,7 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
         return booking.bookable.bookingType !== BookingType.mandatory;
     }
 
-    public cancelApplication(booking) {
+    public cancelApplication(booking): void {
         this.bookingService.delete([booking]).subscribe();
     }
 

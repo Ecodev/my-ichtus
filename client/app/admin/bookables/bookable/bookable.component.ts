@@ -57,25 +57,25 @@ export class BookableComponent
         }
     }
 
-    public verify() {
+    public verify(): void {
         const partialBookable = {id: this.data.model.id, verificationDate: new Date().toISOString()};
         this.service.updatePartially(partialBookable).subscribe(bookable => {
             this.form.patchValue(bookable);
         });
     }
 
-    public showVerified() {
+    public showVerified(): boolean {
         return this.data.model.bookingType === BookingType.self_approved;
     }
 
     /**
      * Only non-self-approved are applicable for pricing. This simplify GUI
      */
-    public isBookingPriceApplicable() {
+    public isBookingPriceApplicable(): boolean {
         return this.data.model.bookingType !== BookingType.self_approved;
     }
 
-    public newImage(image: CreateImage['createImage']) {
+    public newImage(image: CreateImage['createImage']): void {
         const imageField = this.form.get('image');
         if (imageField) {
             imageField.setValue(image);
@@ -85,7 +85,7 @@ export class BookableComponent
         }
     }
 
-    public update() {
+    public update(): void {
         // While not saved, automatically update simultaneousBookingMaximum to 1 if navigable (self-approved) or -1 if other.
         if (!this.data.model.id) {
             const bookingType = this.form.get('bookingType');
@@ -100,7 +100,7 @@ export class BookableComponent
         super.update();
     }
 
-    public isSelfApproved() {
+    public isSelfApproved(): boolean {
         return this.data.model.bookingType === BookingType.self_approved;
     }
 

@@ -49,7 +49,7 @@ export class BookableComponent extends NaturalAbstractController implements OnIn
         });
     }
 
-    private initForBookable() {
+    private initForBookable(): void {
         const viewer = this.route.snapshot.data.viewer.model;
         this.canAccessAdmin = UserService.canAccessAdmin(viewer);
         this.hasLicense = BookableService.isLicenseGranted(this.bookable, viewer);
@@ -60,7 +60,7 @@ export class BookableComponent extends NaturalAbstractController implements OnIn
         });
     }
 
-    public endBooking() {
+    public endBooking(): void {
         if (this.runningBooking) {
             this.bookingService.terminateBooking(this.runningBooking.id).subscribe(() => {
                 this.initForBookable();

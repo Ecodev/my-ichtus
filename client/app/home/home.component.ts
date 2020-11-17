@@ -54,7 +54,7 @@ export class HomeComponent extends NaturalAbstractController implements OnInit {
             .subscribe(sidenav => setTimeout(() => (this.menu = sidenav)));
     }
 
-    public goToCode() {
+    public goToCode(): void {
         this.router.navigate(['/booking', this.code]);
     }
 

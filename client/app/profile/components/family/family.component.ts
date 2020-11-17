@@ -38,7 +38,7 @@ export class FamilyComponent implements OnInit {
         }
     }
 
-    public add() {
+    public add(): void {
         this.expansionPanels.changes.pipe(first()).subscribe(panels => {
             panels.last.open();
             this.changeDetectorRef.detectChanges();
@@ -48,7 +48,7 @@ export class FamilyComponent implements OnInit {
         this.familyMembers.push(emptyUser);
     }
 
-    public canEdit(familyMember) {
+    public canEdit(familyMember): boolean {
         return !this.viewer.owner || this.viewer.id === familyMember.id;
     }
 

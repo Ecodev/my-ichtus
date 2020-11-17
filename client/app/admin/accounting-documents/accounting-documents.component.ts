@@ -42,7 +42,7 @@ export class AccountingDocumentsComponent implements OnInit {
         this.disabled = this._disabled;
     }
 
-    public fileAdded(file, index) {
+    public fileAdded(file, index): void {
         if (file) {
             this._files[index] = file;
             if (index === this._files.length - 1) {
@@ -51,15 +51,15 @@ export class AccountingDocumentsComponent implements OnInit {
         }
     }
 
-    public removeFile(index) {
+    public removeFile(index): void {
         this._removedFiles = this._removedFiles.concat(this._files.splice(index, 1));
     }
 
-    public trackByFn(index, item) {
+    public trackByFn(index, item): void {
         return item ? item.file : index;
     }
 
-    public save() {
+    public save(): void {
         const observables: Observable<any>[] = [];
 
         this._files
@@ -87,7 +87,7 @@ export class AccountingDocumentsComponent implements OnInit {
         });
     }
 
-    public getAction(file, i, last) {
+    public getAction(file, i, last): 'download' | 'upload' | null {
         if (file && file.id) {
             return 'download'; // if there is non null file, and it has ID, it's downloadable
         } else if ((!file || !file.id) && last && !this._disabled) {

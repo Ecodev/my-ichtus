@@ -52,23 +52,23 @@ export class UsersComponent extends NaturalAbstractList<Users['users'], UsersVar
         this.naturalSearchFacets = naturalSearchFacetsService.get('users');
     }
 
-    public flagWelcomeSessionDate(user) {
+    public flagWelcomeSessionDate(user): void {
         this.userService.flagWelcomeSessionDate(user.id).subscribe(u => {
             user.welcomeSessionDate = u.welcomeSessionDate;
         });
     }
 
-    public activate(user) {
+    public activate(user): void {
         this.userService.activate(user.id).subscribe(u => {
             user.status = u.status;
         });
     }
 
-    public isActive(user: Users_users_items) {
+    public isActive(user: Users_users_items): boolean {
         return user.status === UserStatus.active;
     }
 
-    public isNew(user: Users_users_items) {
+    public isNew(user: Users_users_items): boolean {
         return user.status === UserStatus.new;
     }
 
@@ -100,7 +100,7 @@ export class UsersComponent extends NaturalAbstractList<Users['users'], UsersVar
         }
     }
 
-    public copy(data) {
+    public copy(data): void {
         copy(data);
     }
 

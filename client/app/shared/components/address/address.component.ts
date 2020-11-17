@@ -14,7 +14,7 @@ export class AddressComponent {
 
     constructor(public countryService: CountryService) {}
 
-    public update() {
+    public update(): void {
         this.change.emit(true);
     }
 }

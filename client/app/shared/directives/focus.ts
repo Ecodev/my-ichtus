@@ -6,7 +6,7 @@ import {AfterViewInit, Directive, ElementRef} from '@angular/core';
 export class FocusDirective implements AfterViewInit {
     constructor(public elementRef: ElementRef) {}
 
-    public ngAfterViewInit() {
+    public ngAfterViewInit(): void {
         setTimeout(() => this.elementRef.nativeElement.focus());
     }
 }

@@ -21,7 +21,7 @@ export class DoorComponent extends NaturalAbstractController implements OnInit {
         super();
     }
 
-    public open(door: Literal) {
+    public open(door: Literal): void {
         this.doorService.open({door: door.id}).subscribe(
             res => {
                 door.opened = true;

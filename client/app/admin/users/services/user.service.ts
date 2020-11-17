@@ -49,6 +49,7 @@ import {
     Unregister,
     UnregisterVariables,
     UpdateUser,
+    UpdateUser_updateUser,
     UpdateUserVariables,
     User,
     User_user,
@@ -155,7 +156,7 @@ export class UserService extends NaturalAbstractModelService<
     /**
      * Return true if user role is greater or equal to responsible
      */
-    public static gteResponsible(user: CurrentUserForProfile['viewer']) {
+    public static gteResponsible(user: CurrentUserForProfile['viewer']): boolean {
         if (!user) {
             return false;
         }
@@ -166,7 +167,7 @@ export class UserService extends NaturalAbstractModelService<
     /**
      * Return true if user role is greater or equal to trainer
      */
-    public static gteTrainer(user: CurrentUserForProfile['viewer']) {
+    public static gteTrainer(user: CurrentUserForProfile['viewer']): boolean {
         if (!user) {
             return false;
         }
@@ -292,12 +293,12 @@ export class UserService extends NaturalAbstractModelService<
         return subject;
     }
 
-    public flagWelcomeSessionDate(id: string, value = new Date().toISOString()) {
+    public flagWelcomeSessionDate(id: string, value = new Date().toISOString()): Observable<UpdateUser_updateUser> {
         const user: UserPartialInput = {welcomeSessionDate: value};
         return this.updatePartially({id: id, ...user});
     }
 
-    public activate(id: string) {
+    public activate(id: string): Observable<UpdateUser_updateUser> {
         const user: UserPartialInput = {status: UserStatus.active};
         return this.updatePartially({id: id, ...user});
     }
@@ -417,7 +418,7 @@ export class UserService extends NaturalAbstractModelService<
      *
      * This is kind of easiest possible "debounce" like with expiration feature
      */
-    private cacheViewer(user) {
+    private cacheViewer(user): void {
         this.viewerCache = user;
         setTimeout(() => {
             this.viewerCache = null;

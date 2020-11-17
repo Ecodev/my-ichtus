@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {Relationship, UserRole, UserStatus} from '../../../shared/generated-types';
-import {FormValidators} from '@ecodev/natural';
+import {FormValidators, Literal} from '@ecodev/natural';
 import {PricedBookingService} from '../../../admin/bookings/services/PricedBooking.service';
 
 @Injectable({
@@ -22,7 +22,7 @@ export class FamilyUserService extends UserService {
         super(apollo, router, bookingService, permissionsService, pricedBookingService);
     }
 
-    protected getDefaultForClient() {
+    protected getDefaultForClient(): Literal {
         return {
             country: {id: 1, name: 'Suisse'},
             hasInsurance: false,
