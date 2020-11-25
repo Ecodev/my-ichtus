@@ -1510,16 +1510,16 @@
         },
         {
             "name": "ecodev/felix",
-            "version": "3.4.0",
+            "version": "3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ecodev/felix.git",
-                "reference": "54af000bd2a018c599b30e077e95b425fa92f99d"
+                "reference": "21080602bde5759ca8bca2b011f660867a9b7f1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ecodev/felix/zipball/54af000bd2a018c599b30e077e95b425fa92f99d",
-                "reference": "54af000bd2a018c599b30e077e95b425fa92f99d",
+                "url": "https://api.github.com/repos/Ecodev/felix/zipball/21080602bde5759ca8bca2b011f660867a9b7f1a",
+                "reference": "21080602bde5759ca8bca2b011f660867a9b7f1a",
                 "shasum": ""
             },
             "require": {
@@ -1564,22 +1564,22 @@
             "description": "Various utilities tailored for our ecosystem",
             "support": {
                 "issues": "https://github.com/Ecodev/felix/issues",
-                "source": "https://github.com/Ecodev/felix/tree/3.4.0"
+                "source": "https://github.com/Ecodev/felix/tree/3.4.1"
             },
-            "time": "2020-11-11T09:27:40+00:00"
+            "time": "2020-11-25T06:56:25+00:00"
         },
         {
             "name": "ecodev/graphql-doctrine",
-            "version": "7.0.0",
+            "version": "7.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ecodev/graphql-doctrine.git",
-                "reference": "38d4066ec0152388b79aff7fa70ceb6e931e0b12"
+                "reference": "32a4ee646dc80d6a74de44a1374a63a887146d3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ecodev/graphql-doctrine/zipball/38d4066ec0152388b79aff7fa70ceb6e931e0b12",
-                "reference": "38d4066ec0152388b79aff7fa70ceb6e931e0b12",
+                "url": "https://api.github.com/repos/Ecodev/graphql-doctrine/zipball/32a4ee646dc80d6a74de44a1374a63a887146d3c",
+                "reference": "32a4ee646dc80d6a74de44a1374a63a887146d3c",
                 "shasum": ""
             },
             "require": {
@@ -1614,9 +1614,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Ecodev/graphql-doctrine/issues",
-                "source": "https://github.com/Ecodev/graphql-doctrine/tree/7.0.0"
+                "source": "https://github.com/Ecodev/graphql-doctrine/tree/7.1.0"
             },
-            "time": "2020-10-28T07:01:37+00:00"
+            "time": "2020-11-16T08:07:29+00:00"
         },
         {
             "name": "ecodev/graphql-upload",
@@ -2589,30 +2589,30 @@
         },
         {
             "name": "laminas/laminas-log",
-            "version": "2.12.0",
+            "version": "2.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-log.git",
-                "reference": "4e92d841b48868714a070b10866e94be80fc92ff"
+                "reference": "71bb2c98e0286c447488e71290ecf0beb44e6ca5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-log/zipball/4e92d841b48868714a070b10866e94be80fc92ff",
-                "reference": "4e92d841b48868714a070b10866e94be80fc92ff",
+                "url": "https://api.github.com/repos/laminas/laminas-log/zipball/71bb2c98e0286c447488e71290ecf0beb44e6ca5",
+                "reference": "71bb2c98e0286c447488e71290ecf0beb44e6ca5",
                 "shasum": ""
             },
             "require": {
-                "laminas/laminas-servicemanager": "^2.7.5 || ^3.0.3",
-                "laminas/laminas-stdlib": "^2.7 || ^3.0",
+                "laminas/laminas-servicemanager": "^3.3.0",
+                "laminas/laminas-stdlib": "^3.0",
                 "laminas/laminas-zendframework-bridge": "^1.0",
-                "php": "^5.6 || ^7.0",
+                "php": "^7.3 || ~8.0.0",
                 "psr/log": "^1.1.2"
             },
             "provide": {
                 "psr/log-implementation": "1.0.0"
             },
             "replace": {
-                "zendframework/zend-log": "self.version"
+                "zendframework/zend-log": "^2.12.0"
             },
             "require-dev": {
                 "laminas/laminas-coding-standard": "~1.0.0",
@@ -2622,7 +2622,8 @@
                 "laminas/laminas-mail": "^2.6.1",
                 "laminas/laminas-validator": "^2.10.1",
                 "mikey179/vfsstream": "^1.6.7",
-                "phpunit/phpunit": "^5.7.27 || ^6.5.14 || ^7.5.15"
+                "phpspec/prophecy-phpunit": "^2.0",
+                "phpunit/phpunit": "^9.4.1"
             },
             "suggest": {
                 "ext-mongo": "mongo extension to use Mongo writer",
@@ -2634,10 +2635,6 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "2.12.x-dev",
-                    "dev-develop": "2.13.x-dev"
-                },
                 "laminas": {
                     "component": "Laminas\\Log",
                     "config-provider": "Laminas\\Log\\ConfigProvider"
@@ -2667,7 +2664,13 @@
                 "rss": "https://github.com/laminas/laminas-log/releases.atom",
                 "source": "https://github.com/laminas/laminas-log"
             },
-            "time": "2019-12-31T17:18:59+00:00"
+            "funding": [
+                {
+                    "url": "https://funding.communitybridge.org/projects/laminas-project",
+                    "type": "community_bridge"
+                }
+            ],
+            "time": "2020-11-19T17:09:53+00:00"
         },
         {
             "name": "laminas/laminas-mail",
