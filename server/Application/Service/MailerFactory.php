@@ -27,8 +27,8 @@ class MailerFactory
             $messageRepository,
             $transport,
             $config['phpPath'],
-            $config['emailOverride'] ?? null,
-            $config['fromEmail'],
+            $config['email']['toOverride'] ?? null,
+            $config['email']['from'],
             'Ichtus'
         );
     }

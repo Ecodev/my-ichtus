@@ -27,8 +27,10 @@ return [
         'endpoint' => 'http://localhost:8888',
         'token' => 'my-token-value',
     ],
-    'fromEmail' => 'noreply@my-ichtus.lan',
-    'emailOverride' => 'your@email.com',
+    'email' => [
+        'from' => 'noreply@my-ichtus.lan',
+        'toOverride' => 'your@email.com',
+    ],
     'smtp' => [
         'name' => 'mail.example.com',
         'host' => 'mail.example.com',

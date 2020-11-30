@@ -8,8 +8,10 @@ declare(strict_types=1);
  */
 return [
     'hostname' => 'my-ichtus.lan',
-    'fromEmail' => 'noreply@my-ichtus.lan',
-    'emailOverride' => null,
+    'email' => [
+        'from' => 'noreply@my-ichtus.lan',
+        'toOverride' => null,
+    ],
     'smtp' => null,
     'phpPath' => '/usr/bin/php7.4',
     'doorsApi' => [
