@@ -8,7 +8,7 @@ use Application\Model\Log;
 use Application\Model\User;
 use Application\Repository\LogRepository;
 use Application\Repository\UserRepository;
-use Ecodev\Felix\Api\Exception;
+use Ecodev\Felix\Api\ExceptionWithoutMailLogging;
 use Ecodev\Felix\Api\Field\FieldInterface;
 use Ecodev\Felix\Api\Scalar\LoginType;
 use GraphQL\Type\Definition\Type;
@@ -31,7 +31,7 @@ abstract class Login implements FieldInterface
                 /** @var LogRepository $logRepository */
                 $logRepository = _em()->getRepository(Log::class);
                 if ($logRepository->loginFailedOften()) {
-                    throw new Exception("Trop de tentatives d'accès ont échouées. Veuillez ressayer plus tard.");
+                    throw new ExceptionWithoutMailLogging("Trop de tentatives d'accès ont échouées. Veuillez ressayer plus tard.");
                 }
 
                 // Logout
@@ -55,7 +55,7 @@ abstract class Login implements FieldInterface
 
                 _log()->info(LogRepository::LOGIN_FAILED);
 
-                throw new Exception("Le nom d'utilisateur ou mot de passe est incorrect");
+                throw new ExceptionWithoutMailLogging("Le nom d'utilisateur ou mot de passe est incorrect");
             },
         ];
     }

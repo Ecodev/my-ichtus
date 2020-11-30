@@ -18,6 +18,7 @@ return [
         'invokables' => [
             \Doctrine\ORM\Mapping\UnderscoreNamingStrategy::class => \Doctrine\ORM\Mapping\UnderscoreNamingStrategy::class,
             \Ecodev\Felix\DBAL\Logging\ForwardSQLLogger::class,
+            \Ecodev\Felix\Log\Formatter\Extras::class,
         ],
         // Use 'factories' for services provided by callbacks/factory classes.
         'factories' => [
@@ -37,7 +38,9 @@ return [
             \Application\Service\Accounting::class => \Application\Service\AccountingFactory::class,
             \Laminas\View\Renderer\RendererInterface::class => \Ecodev\Felix\Service\RendererFactory::class,
             \Laminas\Mail\Transport\TransportInterface::class => \Ecodev\Felix\Service\TransportFactory::class,
-            \Ecodev\Felix\Log\DbWriter::class => \Application\Log\DbWriterFactory::class,
+            \Ecodev\Felix\Log\Writer\Db::class => \Application\Log\DbWriterFactory::class,
+            \Ecodev\Felix\Log\Writer\Mail::class => \Ecodev\Felix\Log\Writer\MailFactory::class,
+            \Ecodev\Felix\Log\EventCompleter::class => \Ecodev\Felix\Log\EventCompleterFactory::class,
             \Laminas\Log\LoggerInterface::class => \Ecodev\Felix\Log\LoggerFactory::class,
             \Ecodev\Felix\Service\MessageRenderer::class => \Ecodev\Felix\Service\MessageRendererFactory::class,
         ],

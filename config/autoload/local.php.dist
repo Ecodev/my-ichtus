@@ -49,4 +49,7 @@ return [
     'datatrans' => [
         'key' => '', // Used for HMAC-SHA256 request signing: https://api-reference.datatrans.ch/#request-signing
     ],
+    'log' => [
+        'emails' => [], // List of developer emails to send bugs to
+    ],
 ];

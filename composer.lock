@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4303343df39cf868a85029ec5b1ac99f",
+    "content-hash": "f85fb5d6e05134278493c58900513aef",
     "packages": [
         {
             "name": "beberlei/doctrineextensions",
@@ -1510,22 +1510,22 @@
         },
         {
             "name": "ecodev/felix",
-            "version": "3.4.1",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ecodev/felix.git",
-                "reference": "21080602bde5759ca8bca2b011f660867a9b7f1a"
+                "reference": "c44c7d26515174650ff12286cda000cf4dcd109b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ecodev/felix/zipball/21080602bde5759ca8bca2b011f660867a9b7f1a",
-                "reference": "21080602bde5759ca8bca2b011f660867a9b7f1a",
+                "url": "https://api.github.com/repos/Ecodev/felix/zipball/c44c7d26515174650ff12286cda000cf4dcd109b",
+                "reference": "c44c7d26515174650ff12286cda000cf4dcd109b",
                 "shasum": ""
             },
             "require": {
                 "cakephp/chronos": "^2.0",
                 "doctrine/migrations": "^2.2 || ^3.0",
-                "ecodev/graphql-doctrine": "^7.0",
+                "ecodev/graphql-doctrine": "^7.1",
                 "ext-bcmath": "*",
                 "ext-fileinfo": "*",
                 "ext-json": "*",
@@ -1564,9 +1564,9 @@
             "description": "Various utilities tailored for our ecosystem",
             "support": {
                 "issues": "https://github.com/Ecodev/felix/issues",
-                "source": "https://github.com/Ecodev/felix/tree/3.4.1"
+                "source": "https://github.com/Ecodev/felix/tree/4.0.0"
             },
-            "time": "2020-11-25T06:56:25+00:00"
+            "time": "2020-11-30T01:09:46+00:00"
         },
         {
             "name": "ecodev/graphql-doctrine",
