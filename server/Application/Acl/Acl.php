@@ -78,7 +78,7 @@ class Acl extends \Ecodev\Felix\Acl\Acl
 
         $this->allow(User::ROLE_MEMBER, [$account], ['update']);
         $this->allow(User::ROLE_MEMBER, [$user], ['create']);
-        $this->allow(User::ROLE_MEMBER, [$user], ['update'], new IsOwner());
+        $this->allow(User::ROLE_MEMBER, [$user], ['update'], new One(new IsOwner(), new IsMyself()));
 
         $this->allow(User::ROLE_RESPONSIBLE, [$transaction, $account, $transactionTag], ['read']);
         $this->allow(User::ROLE_RESPONSIBLE, [$expenseClaim, $accountingDocument], ['read', 'update']);
