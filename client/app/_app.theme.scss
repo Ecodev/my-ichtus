@@ -4,8 +4,12 @@
     $background: map-get($theme, background);
     $foreground: map-get($theme, foreground);
 
-    @at-root app-root#{&} > div {
-        background: mat-color($background, background);
+    // Splash logo and login page have different background than usual layout for other pages
+    // and they need to have the correct background color in dark mode (otherwise we get black text on black background)
+    @at-root #{selector-append(app-root, &)} {
+        & > div {
+            background: mat-color($background, background);
+        }
     }
 
     ng-progress {
