@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\Action;
+namespace Application\Handler;
 
 use Application\Model\AccountingDocument;
 use Doctrine\ORM\EntityManager;
@@ -14,6 +14,6 @@ class AccountingDocumentFactory
     {
         $entityManager = $container->get(EntityManager::class);
 
-        return new AccountingDocumentAction($entityManager->getRepository(AccountingDocument::class));
+        return new AccountingDocumentHandler($entityManager->getRepository(AccountingDocument::class));
     }
 }

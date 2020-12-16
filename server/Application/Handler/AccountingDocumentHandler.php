@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Application\Action;
+namespace Application\Handler;
 
 use Application\Model\AccountingDocument;
 use Application\Repository\AccountingDocumentRepository;
+use Ecodev\Felix\Handler\AbstractHandler;
 use Laminas\Diactoros\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class AccountingDocumentAction extends AbstractAction
+class AccountingDocumentHandler extends AbstractHandler
 {
     /**
      * @var AccountingDocumentRepository
@@ -26,7 +27,7 @@ class AccountingDocumentAction extends AbstractAction
     /**
      * Serve a downloaded file from disk
      */
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $id = $request->getAttribute('id');
 

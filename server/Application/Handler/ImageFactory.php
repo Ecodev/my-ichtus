@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Application\Action;
+namespace Application\Handler;
 
 use Application\Model\Image;
 use Doctrine\ORM\EntityManager;
-use Ecodev\Felix\Action\ImageAction;
+use Ecodev\Felix\Handler\ImageHandler;
 use Ecodev\Felix\Service\ImageResizer;
 use Interop\Container\ContainerInterface;
 
@@ -17,6 +17,6 @@ class ImageFactory
         $entityManager = $container->get(EntityManager::class);
         $imageService = $container->get(ImageResizer::class);
 
-        return new ImageAction($entityManager->getRepository(Image::class), $imageService);
+        return new ImageHandler($entityManager->getRepository(Image::class), $imageService);
     }
 }

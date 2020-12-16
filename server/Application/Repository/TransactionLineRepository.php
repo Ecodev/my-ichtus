@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Repository;
 
-use Application\Action\ExportTransactionLinesAction;
+use Application\Handler\ExportTransactionLinesHandler;
 use Application\Model\User;
 use Doctrine\ORM\Query;
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
@@ -46,6 +46,6 @@ class TransactionLineRepository extends AbstractRepository implements ExportExce
     {
         global $container;
 
-        return ($container->get(ExportTransactionLinesAction::class))->generate($query);
+        return ($container->get(ExportTransactionLinesHandler::class))->generate($query);
     }
 }

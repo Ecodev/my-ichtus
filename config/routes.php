@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Ecodev\Felix\Action\GraphQLAction;
+use Ecodev\Felix\Handler\GraphQLHandler;
 use GraphQL\Upload\UploadMiddleware;
 use Mezzio\Application;
 use Mezzio\Helper\BodyParams\BodyParamsMiddleware;
@@ -39,23 +39,23 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->post('/graphql', [
         BodyParamsMiddleware::class,
         UploadMiddleware::class,
-        GraphQLAction::class,
+        GraphQLHandler::class,
     ], 'graphql');
 
     $app->get('/image/{id:\d+}[/{maxHeight:\d+}]', [
-        \Ecodev\Felix\Action\ImageAction::class,
+        \Ecodev\Felix\Handler\ImageHandler::class,
     ], 'image');
 
     $app->get('/accounting-document/{id:\d+}', [
-        \Application\Action\AccountingDocumentAction::class,
+        \Application\Handler\AccountingDocumentHandler::class,
     ], 'accounting-document');
 
     $app->post('/datatrans', [
         BodyParamsMiddleware::class,
-        \Application\Action\DatatransAction::class,
+        \Application\Handler\DatatransHandler::class,
     ], 'datatrans');
 
     $app->get('/export/transactionLines/{key:[0-9a-f]+}/{name:.+\.xlsx}', [
-        \Application\Action\ExportTransactionLinesAction::class,
+        \Application\Handler\ExportTransactionLinesHandler::class,
     ], 'transactionsLines');
 };

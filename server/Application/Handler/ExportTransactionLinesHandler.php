@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\Action;
+namespace Application\Handler;
 
 use Application\Model\TransactionLine;
 use Money\Currencies\ISOCurrencies;
@@ -10,7 +10,7 @@ use Money\Formatter\DecimalMoneyFormatter;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ExportTransactionLinesAction extends AbstractExcel
+class ExportTransactionLinesHandler extends AbstractExcel
 {
     /**
      * @var DecimalMoneyFormatter

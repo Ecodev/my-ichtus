@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\Action;
+namespace Application\Handler;
 
 use Application\Model\Account;
 use Application\Model\Transaction;
@@ -13,6 +13,7 @@ use Application\Repository\LogRepository;
 use Application\Repository\UserRepository;
 use Cake\Chronos\Chronos;
 use Doctrine\ORM\EntityManager;
+use Ecodev\Felix\Handler\AbstractHandler;
 use Exception;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Mezzio\Template\TemplateRendererInterface;
@@ -22,7 +23,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Throwable;
 
-class DatatransAction extends AbstractAction
+class DatatransHandler extends AbstractHandler
 {
     /**
      * @var TemplateRendererInterface
@@ -54,7 +55,7 @@ class DatatransAction extends AbstractAction
      *
      * See documentation: https://api-reference.datatrans.ch/#failed-unsuccessful-authorization-response
      */
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $body = $request->getParsedBody();
         $extraToLog = is_array($body) ? $body : ['rawBody' => $request->getBody()->getContents()];

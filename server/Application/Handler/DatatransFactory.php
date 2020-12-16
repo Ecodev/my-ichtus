@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\Action;
+namespace Application\Handler;
 
 use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;
@@ -16,6 +16,6 @@ class DatatransFactory
         $rendered = $container->get(TemplateRendererInterface::class);
         $config = $container->get('config');
 
-        return new DatatransAction($entityManager, $rendered, $config['datatrans']);
+        return new DatatransHandler($entityManager, $rendered, $config['datatrans']);
     }
 }

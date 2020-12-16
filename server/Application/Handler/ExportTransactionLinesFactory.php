@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\Action;
+namespace Application\Handler;
 
 use Interop\Container\ContainerInterface;
 
@@ -12,6 +12,6 @@ class ExportTransactionLinesFactory
     {
         $config = $container->get('config');
 
-        return new ExportTransactionLinesAction($config['hostname']);
+        return new ExportTransactionLinesHandler($config['hostname']);
     }
 }

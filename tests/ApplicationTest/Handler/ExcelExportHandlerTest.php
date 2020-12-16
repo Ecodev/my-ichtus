@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace ApplicationTest\Action;
+namespace ApplicationTest\Handler;
 
-use Application\Action\ExportTransactionLinesAction;
+use Application\Handler\ExportTransactionLinesHandler;
 use Application\Model\TransactionLine;
 use ApplicationTest\Traits\TestWithTransactionAndUser;
 use Laminas\Diactoros\ServerRequest;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class ExcelExportActionTest extends TestCase
+class ExcelExportHandlerTest extends TestCase
 {
     use TestWithTransactionAndUser;
 
@@ -20,8 +20,8 @@ class ExcelExportActionTest extends TestCase
         // Query to generate the Excel file on disk
         $hostname = 'my-ichtus.lan';
         $qb = _em()->getRepository(TransactionLine::class)->createQueryBuilder('tl');
-        $action = new ExportTransactionLinesAction($hostname);
-        $url = $action->generate($qb->getQuery());
+        $handler = new ExportTransactionLinesHandler($hostname);
+        $url = $handler->generate($qb->getQuery());
 
         $baseUrl = 'https://' . $hostname . '/export/transactionLines/';
 
@@ -34,14 +34,12 @@ class ExcelExportActionTest extends TestCase
         self::assertFileExists($fpath);
         $size = filesize($fpath);
 
-        // Test middleware action to download the Excel file
-        $action = new ExportTransactionLinesAction('my-ichtus.lan');
+        // Test handler to download the Excel file
+        $handler = new ExportTransactionLinesHandler('my-ichtus.lan');
         // Mock route parsing: /export/transactionLines/{key:[0-9a-f]+}/{name:.+\.xlsx}
         $request = (new ServerRequest())->withAttribute('key', $m[1])->withAttribute('name', $m[2]);
 
-        $handler = $this->createMock(RequestHandlerInterface::class);
-
-        $response = $action->process($request, $handler);
+        $response = $handler->handle($request);
 
         self::assertEquals(200, $response->getStatusCode());
         self::assertStringContainsString('attachment; filename=Ichtus_compta_ecritures', $response->getHeaderLine('content-disposition'));

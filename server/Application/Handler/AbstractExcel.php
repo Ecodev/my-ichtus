@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Application\Action;
+namespace Application\Handler;
 
 use Application\Model\AbstractModel;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\ORM\Query;
+use Ecodev\Felix\Handler\AbstractHandler;
 use Laminas\Diactoros\Response;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -21,7 +22,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-abstract class AbstractExcel extends AbstractAction
+abstract class AbstractExcel extends AbstractHandler
 {
     /**
      * Column of current cell we are writing in
@@ -278,7 +279,7 @@ abstract class AbstractExcel extends AbstractAction
     /**
      * Process the GET query to download previously generated spreasheet on disk
      */
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         // Read file from disk
         $tmpFile = $this->tmpDir . '/' . $request->getAttribute('key');

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Application\Action;
+namespace Application\Handler;
 
 use Application\Api\Schema;
-use Ecodev\Felix\Action\GraphQLAction;
 use Ecodev\Felix\Api\Server;
+use Ecodev\Felix\Handler\GraphQLHandler;
 use Interop\Container\ContainerInterface;
 
 class GraphQLFactory
@@ -15,6 +15,6 @@ class GraphQLFactory
     {
         $server = new Server(new Schema(), true);
 
-        return new GraphQLAction($server);
+        return new GraphQLHandler($server);
     }
 }

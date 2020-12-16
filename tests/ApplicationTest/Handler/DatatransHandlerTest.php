@@ -2,18 +2,17 @@
 
 declare(strict_types=1);
 
-namespace ApplicationTest\Action;
+namespace ApplicationTest\Handler;
 
-use Application\Action\DatatransAction;
+use Application\Handler\DatatransHandler;
 use Application\Model\User;
 use ApplicationTest\Traits\TestWithTransactionAndUser;
 use Laminas\Diactoros\ServerRequest;
 use Mezzio\Template\TemplateRendererInterface;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Server\RequestHandlerInterface;
 
-class DatatransActionTest extends TestCase
+class DatatransHandlerTest extends TestCase
 {
     use TestWithTransactionAndUser;
 
@@ -31,8 +30,6 @@ class DatatransActionTest extends TestCase
         $renderer = $this->createMock(TemplateRendererInterface::class);
         $renderer->expects(self::atLeastOnce())->method('render')->with('app::datatrans', $expectedViewModel)->willReturn('');
 
-        $handler = $this->createMock(RequestHandlerInterface::class);
-
         $request = new ServerRequest();
         $request = $request->withParsedBody($data);
 
@@ -40,11 +37,11 @@ class DatatransActionTest extends TestCase
             'key' => '1a03b7bcf2752c8c8a1b46616b0c12658d2c7643403e655450bedb7c78bb2d2f659c2ff4e647e4ea72d37ef6745ebda6733c7b859439107069f291cda98f4844',
         ];
 
-        $action = new DatatransAction($this->getEntityManager(), $renderer, $config);
-        $action->process($request, $handler);
+        $handler = new DatatransHandler($this->getEntityManager(), $renderer, $config);
+        $handler->handle($request);
 
         // Submit the same request again to make sure it is accounted only once
-        $action->process($request, $handler);
+        $handler->handle($request);
 
         if (is_int($accountId)) {
             $actualBalance = $this->getEntityManager()->getConnection()->fetchColumn('SELECT balance FROM account WHERE id = ' . $accountId);
