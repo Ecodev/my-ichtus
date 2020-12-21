@@ -84,8 +84,6 @@ export class RegisterComponent
             })
             .subscribe(
                 () => {
-                    this.sending = false;
-
                     const message = 'Un email avec des instructions a été envoyé';
 
                     this.alertService.info(message, 5000);

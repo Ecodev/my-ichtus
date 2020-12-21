@@ -22,4 +22,30 @@ export class LogService extends NaturalAbstractModelService<
     constructor(apollo: Apollo) {
         super(apollo, 'log', null, logsQuery, null, null, null);
     }
+
+    public getPartialVariablesForAll(): Partial<LogsVariables> {
+        return {
+            filter: {
+                groups: [
+                    {
+                        conditions: [
+                            {
+                                message: {
+                                    in: {
+                                        not: true,
+                                        values: [
+                                            'login failed',
+                                            'request password reset',
+                                            'register',
+                                            'update password failed',
+                                        ],
+                                    },
+                                },
+                            },
+                        ],
+                    },
+                ],
+            },
+        };
+    }
 }

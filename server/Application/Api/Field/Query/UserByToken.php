@@ -7,6 +7,7 @@ namespace Application\Api\Field\Query;
 use Application\Model\User;
 use Application\Repository\UserRepository;
 use Ecodev\Felix\Api\Exception;
+use Ecodev\Felix\Api\ExceptionWithoutMailLogging;
 use Ecodev\Felix\Api\Field\FieldInterface;
 use GraphQL\Type\Definition\Type;
 
@@ -32,7 +33,7 @@ abstract class UserByToken implements FieldInterface
                     });
 
                     if (!$user) {
-                        throw new Exception('User not found for token `' . $args['token'] . '`.');
+                        throw new ExceptionWithoutMailLogging("Le lien que vous avez suivi n'est pas valable ou a déjà été utilisé. Veuillez effectuer une nouvelle demande de changement de mot de passe ou création de compte. Une nouvelle demande invalide les précédentes.");
                     }
 
                     if (!$user->isTokenValid()) {

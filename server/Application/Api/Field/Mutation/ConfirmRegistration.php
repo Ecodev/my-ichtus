@@ -16,6 +16,7 @@ use Application\Repository\BookableRepository;
 use Application\Repository\UserRepository;
 use Cake\Chronos\Chronos;
 use Ecodev\Felix\Api\Exception;
+use Ecodev\Felix\Api\ExceptionWithoutMailLogging;
 use Ecodev\Felix\Api\Field\FieldInterface;
 use GraphQL\Type\Definition\Type;
 use Mezzio\Session\SessionInterface;
@@ -43,11 +44,11 @@ abstract class ConfirmRegistration implements FieldInterface
                 });
 
                 if (!$user) {
-                    throw new Exception('Cannot confirm registration with an invalid token');
+                    throw new ExceptionWithoutMailLogging('La session a expiré ou le lien n\'est pas valable. Veuillez effectuer une nouvelle demande.');
                 }
 
                 if (!$user->isTokenValid()) {
-                    throw new Exception('Le lien que vous avez suivi est périmé. Veuillez effectuer une nouvelle demande.');
+                    throw new ExceptionWithoutMailLogging('Le lien que vous avez suivi est périmé. Veuillez effectuer une nouvelle demande.');
                 }
 
                 $input = $args['input'];

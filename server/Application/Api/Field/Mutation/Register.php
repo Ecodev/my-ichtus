@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Application\Api\Field\Mutation;
 
+use Application\Model\Log;
 use Application\Model\User;
+use Application\Repository\LogRepository;
 use Application\Repository\UserRepository;
 use Application\Service\MessageQueuer;
+use Ecodev\Felix\Api\ExceptionWithoutMailLogging;
 use Ecodev\Felix\Api\Field\FieldInterface;
 use Ecodev\Felix\Service\Mailer;
 use GraphQL\Type\Definition\Type;
@@ -27,6 +30,16 @@ abstract class Register implements FieldInterface
             ],
             'resolve' => function ($root, array $args, SessionInterface $session): bool {
                 global $container;
+
+                /** @var LogRepository $logRepository */
+                $logRepository = _em()->getRepository(Log::class);
+
+                // We don't want to disclose whether an user already exists, so we show
+                // the same error for both too many register and password reset attempts
+                if ($logRepository->updatePasswordFailedOften() || $logRepository->registerOften()) {
+                    throw new ExceptionWithoutMailLogging('Trop de tentatives. Veuillez réessayer plus tard.');
+                }
+
                 /** @var Mailer $mailer */
                 $mailer = $container->get(Mailer::class);
 
@@ -52,8 +65,10 @@ abstract class Register implements FieldInterface
                 $user->setTermsAgreement($args['termsAgreement']);
 
                 if ($existingUser && $user->getLogin()) {
+                    _log()->info(LogRepository::REQUEST_PASSWORD_RESET);
                     $message = $messageQueuer->queueResetPassword($user, $user->getEmail());
                 } else {
+                    _log()->info(LogRepository::REGISTER);
                     $message = $messageQueuer->queueRegister($user);
                 }
 
