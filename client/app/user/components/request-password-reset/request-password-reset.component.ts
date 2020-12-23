@@ -4,7 +4,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {Relationship} from '../../../shared/generated-types';
 import {Router} from '@angular/router';
 import {UserService} from '../../../admin/users/services/user.service';
-import {NaturalAlertService} from '@ecodev/natural';
+import {ifValid, NaturalAlertService, validateAllFormControls} from '@ecodev/natural';
 
 @Component({
     selector: 'app-request-password-reset',
@@ -25,23 +25,26 @@ export class RequestPasswordResetComponent {
     }
 
     public submit(): void {
-        this.sending = true;
+        validateAllFormControls(this.form);
+        ifValid(this.form).subscribe(() => {
+            this.sending = true;
 
-        this.userService.requestPasswordReset(this.form.value.login).subscribe(
-            relationship => {
-                this.sending = false;
+            this.userService.requestPasswordReset(this.form.value.login).subscribe(
+                relationship => {
+                    this.sending = false;
 
-                let message;
-                if (relationship === Relationship.householder) {
-                    message = 'Un email avec des instructions a été envoyé';
-                } else {
-                    message = 'Un email avec des instructions a été envoyé au chef(e) de famille';
-                }
+                    let message;
+                    if (relationship === Relationship.householder) {
+                        message = 'Un email avec des instructions a été envoyé';
+                    } else {
+                        message = 'Un email avec des instructions a été envoyé au chef(e) de famille';
+                    }
 
-                this.alertService.info(message, 5000);
-                this.router.navigate(['/login']);
-            },
-            () => (this.sending = false),
-        );
+                    this.alertService.info(message, 5000);
+                    this.router.navigate(['/login']);
+                },
+                () => (this.sending = false),
+            );
+        });
     }
 }
