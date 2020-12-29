@@ -9,6 +9,7 @@ use Application\Api\Field\Query\Configuration;
 use Application\Api\Field\Query\NextAccountCode;
 use Application\Api\Field\Query\Permissions;
 use Application\Api\Field\Query\UserByToken;
+use Application\Api\Field\Query\UserRolesAvailable;
 use Application\Api\Field\Query\Viewer;
 use Application\Api\Field\Standard;
 use Application\Model\Account;
@@ -41,6 +42,7 @@ class QueryType extends ObjectType
             BankingInfos::build(),
             NextAccountCode::build(),
             Configuration::build(),
+            UserRolesAvailable::build(),
         ];
 
         $fields = array_merge(

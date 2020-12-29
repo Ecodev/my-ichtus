@@ -9,6 +9,7 @@ use Application\DBAL\Types\BookingStatusType;
 use Application\DBAL\Types\RelationshipType;
 use Application\Repository\LogRepository;
 use Application\Repository\UserRepository;
+use Application\Service\Role;
 use Application\Traits\HasAddress;
 use Application\Traits\HasDoorAccess;
 use Application\Traits\HasIban;
@@ -361,9 +362,9 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Returns whether the user is administrator and thus have can do anything.
+     * Get the user role
      *
-     * @API\Field(type="Application\Api\Enum\UserRoleType")
+     * @API\Field(type="UserRole")
      */
     public function getRole(): string
     {
@@ -373,45 +374,13 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     /**
      * Sets the user role
      *
-     * The current user is allowed to promote another user up to the same role as himself. So
-     * a Responsible can promote a Member to Responsible. Or an Admin can promote a Individual to Admin.
-     *
-     * But the current user is **not** allowed to demote a user who has a higher role than himself.
-     * That means that a Responsible cannot demote an Admin to Individual.
+     * @API\Input(type="UserRole")
      */
     public function setRole(string $role): void
     {
-        if ($role === $this->role) {
-            return;
-        }
+        if (!Role::canUpdate(self::getCurrent(), $this->role, $role)) {
+            $currentRole = self::getCurrent() ? self::getCurrent()->getRole() : self::ROLE_ANONYMOUS;
 
-        $currentRole = self::getCurrent() ? self::getCurrent()->getRole() : self::ROLE_ANONYMOUS;
-        $orderedRoles = [
-            self::ROLE_ANONYMOUS,
-            self::ROLE_INDIVIDUAL,
-            self::ROLE_MEMBER,
-            self::ROLE_TRAINER,
-            self::ROLE_BOOKING_ONLY,
-            self::ROLE_RESPONSIBLE,
-            self::ROLE_ADMINISTRATOR,
-        ];
-
-        $newFound = false;
-        $oldFound = false;
-        foreach ($orderedRoles as $r) {
-            if ($r === $this->role) {
-                $oldFound = true;
-            }
-            if ($r === $role) {
-                $newFound = true;
-            }
-
-            if ($r === $currentRole) {
-                break;
-            }
-        }
-
-        if (!$newFound || !$oldFound) {
             throw new Exception($currentRole . ' is not allowed to change role from ' . $this->role . ' to ' . $role);
         }
 

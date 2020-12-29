@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {
     deliverableEmail,
     FormAsyncValidators,
+    FormControls,
     FormValidators,
     Literal,
     NaturalAbstractModelService,
@@ -24,6 +25,7 @@ import {
     updateUser,
     userByTokenQuery,
     userQuery,
+    userRolesAvailableQuery,
     usersQuery,
 } from './user.queries';
 import {
@@ -58,6 +60,8 @@ import {
     UserInput,
     UserPartialInput,
     UserRole,
+    UserRolesAvailables,
+    UserRolesAvailablesVariables,
     Users,
     UserSortingField,
     UserStatus,
@@ -398,6 +402,21 @@ export class UserService extends NaturalAbstractModelService<
                 map(result => {
                     this.cacheViewer(result.data.viewer);
                     return result.data.viewer;
+                }),
+            );
+    }
+
+    public getUserRolesAvailable(user: User_user | null): Observable<UserRole[]> {
+        return this.apollo
+            .query<UserRolesAvailables, UserRolesAvailablesVariables>({
+                query: userRolesAvailableQuery,
+                variables: {
+                    user: user?.id,
+                },
+            })
+            .pipe(
+                map(result => {
+                    return result.data.userRolesAvailable;
                 }),
             );
     }

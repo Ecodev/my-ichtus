@@ -104,6 +104,7 @@
                             formControlName="role"
                             (selectionChange)="update()"
                             placeholder="Rôle"
+                            [optionDisabled]="roleDisabled()"
                         ></natural-select-enum>
 
                         <natural-select-enum

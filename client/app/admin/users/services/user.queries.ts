@@ -195,6 +195,12 @@ export const currentUserForProfileQuery = gql`
     ${userMetaFragment}
 `;
 
+export const userRolesAvailableQuery = gql`
+    query UserRolesAvailables($user: UserID) {
+        userRolesAvailable(user: $user)
+    }
+`;
+
 export const unregisterMutation = gql`
     mutation Unregister($id: UserID!) {
         unregister(id: $id)

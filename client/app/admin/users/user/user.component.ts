@@ -12,6 +12,7 @@ import {
     UpdateUser,
     UpdateUserVariables,
     User,
+    UserRole,
     UsersVariables,
     UserVariables,
 } from '../../../shared/generated-types';
@@ -19,6 +20,7 @@ import {LicenseService} from '../../licenses/services/license.service';
 import {UserTagService} from '../../userTags/services/userTag.service';
 import {BookingService} from '../../bookings/services/booking.service';
 import {AccountService} from '../../accounts/services/account.service';
+import {IEnum} from '@ecodev/natural/lib/services/enum.service';
 
 @Component({
     selector: 'app-user',
@@ -42,6 +44,8 @@ export class UserComponent
 
     public transactionLinesVariables;
     public familyVariables;
+
+    private userRolesAvailable: UserRole[] = [];
 
     constructor(
         private userService: UserService,
@@ -71,6 +75,14 @@ export class UserComponent
         });
     }
 
+    protected initForm(): void {
+        super.initForm();
+
+        this.userService.getUserRolesAvailable(this.data.model).subscribe(userRoles => {
+            this.userRolesAvailable = userRoles;
+        });
+    }
+
     public getTransactionQueryVariables(): TransactionLinesVariables {
         const account = this.data.model.account;
         if (!account) {
@@ -87,6 +99,12 @@ export class UserComponent
                 ],
             },
             sorting: [{field: TransactionLineSortingField.transactionDate, order: SortingOrder.DESC}],
+        };
+    }
+
+    public roleDisabled(): (item: IEnum) => boolean {
+        return item => {
+            return !this.userRolesAvailable.includes(item.value as UserRole);
         };
     }
 }
