@@ -14,6 +14,8 @@ use Application\Repository\UserRepository;
 use Cake\Chronos\Chronos;
 use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Service\Bvr;
+use Genkgo\Camt\Camt054\MessageFormat\V02;
+use Genkgo\Camt\Camt054\MessageFormat\V04;
 use Genkgo\Camt\Config;
 use Genkgo\Camt\DTO\Address;
 use Genkgo\Camt\DTO\Entry;
@@ -21,6 +23,7 @@ use Genkgo\Camt\DTO\EntryTransactionDetail;
 use Genkgo\Camt\DTO\Message;
 use Genkgo\Camt\DTO\Record;
 use Genkgo\Camt\DTO\RelatedPartyTypeInterface;
+use Genkgo\Camt\Exception\ReaderException;
 use Genkgo\Camt\Reader;
 
 /**
@@ -73,7 +76,12 @@ class Importer
     {
         $this->transactions = [];
         $reader = new Reader(Config::getDefault());
-        $this->message = $reader->readFile($file);
+
+        try {
+            $this->message = $reader->readFile($file);
+        } catch (ReaderException $exception) {
+            throw new Exception($exception->getMessage(), 0, $exception);
+        }
 
         $this->validateFormat($reader);
 
@@ -100,8 +108,8 @@ class Importer
         }
 
         $expected = [
-            \Genkgo\Camt\Camt054\MessageFormat\V02::class,
-            \Genkgo\Camt\Camt054\MessageFormat\V04::class,
+            V02::class,
+            V04::class,
         ];
 
         if (!in_array(get_class($messageFormat), $expected, true)) {

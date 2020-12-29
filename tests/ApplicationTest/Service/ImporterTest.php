@@ -9,7 +9,6 @@ use Application\Model\Transaction;
 use Application\Model\TransactionLine;
 use Application\Model\User;
 use Application\Service\Importer;
-use Genkgo\Camt\Exception\ReaderException;
 use PHPUnit\Framework\TestCase;
 
 class ImporterTest extends TestCase
@@ -58,7 +57,7 @@ class ImporterTest extends TestCase
 
     public function testThrowWhenFileDoesNotExist(): void
     {
-        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('/this/surely/is/a/non/existing/file does not exists');
         $this->import('/this/surely/is/a/non/existing/file');
     }
 
@@ -90,6 +89,12 @@ class ImporterTest extends TestCase
     {
         $this->expectExceptionMessage('It looks like this file was already imported. A transaction line with the following `importedId` was already imported once and cannot be imported again: my-unique-imported-id');
         $this->import('tests/data/importer/duplicated-importedId.xml');
+    }
+
+    public function testThrowInvalidXml(): void
+    {
+        $this->expectExceptionMessage('Unsupported format, cannot find message format with xmlns');
+        $this->import('tests/data/importer/invalid-xml.xml');
     }
 
     /**
