@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.04">
+    <BkToCstmrStmt>
+        <GrpHdr>
+            <MsgId>20101117112252</MsgId>
+            <CreDtTm>2010-11-17T11:22:52</CreDtTm>
+        </GrpHdr>
+        <Stmt>
+            <Id>20101117112252</Id>
+            <CreDtTm>2010-11-17T11:22:52</CreDtTm>
+            <Acct>
+                <Id>
+                    <IBAN>CH8297387643415852735</IBAN>
+                </Id>
+            </Acct>
+            <Bal>
+                <Tp>
+                    <CdOrPrtry>
+                        <Cd>CLBD</Cd>
+                    </CdOrPrtry>
+                </Tp>
+                <Amt Ccy="CHF">123</Amt>
+                <CdtDbtInd>CRDT</CdtDbtInd>
+                <Dt>
+                    <Dt>2010-11-17</Dt>
+                </Dt>
+            </Bal>
+        </Stmt>
+    </BkToCstmrStmt>
+</Document>

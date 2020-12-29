@@ -80,6 +80,12 @@ class ImporterTest extends TestCase
         $this->import('tests/data/importer/invalid-user.xml');
     }
 
+    public function testThrowInvalidCamtFormat(): void
+    {
+        $this->expectExceptionMessage('The format CAMT 054 is expected, but instead we got: camt.053.001.04');
+        $this->import('tests/data/importer/invalid-camt-format.xml');
+    }
+
     /**
      * @param null|Account|User $o
      *

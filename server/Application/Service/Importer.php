@@ -71,6 +71,8 @@ class Importer
         $reader = new Reader(Config::getDefault());
         $this->message = $reader->readFile($file);
 
+        $this->validateFormat($reader);
+
         $this->userRepository->getAclFilter()->runWithoutAcl(function (): void {
             $records = $this->message->getRecords();
             foreach ($records as $record) {
@@ -83,6 +85,24 @@ class Importer
         });
 
         return $this->transactions;
+    }
+
+    private function validateFormat(Reader $reader): void
+    {
+        $messageFormat = $reader->getMessageFormat();
+        if (!$messageFormat) {
+            // This should actually never happen, because the reader would throw an exception before here
+            throw new Exception('Unknown XML format');
+        }
+
+        $expected = [
+            \Genkgo\Camt\Camt054\MessageFormat\V02::class,
+            \Genkgo\Camt\Camt054\MessageFormat\V04::class,
+        ];
+
+        if (!in_array(get_class($messageFormat), $expected, true)) {
+            throw new Exception('The format CAMT 054 is expected, but instead we got: ' . $messageFormat->getMsgId());
+        }
     }
 
     private function importTransaction(Entry $entry): void
