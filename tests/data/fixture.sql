@@ -233,19 +233,19 @@ REPLACE INTO transaction_tag (id, name) VALUES
 (15004, 'Camp France 2019'),
 (15005, 'Semaine nautique 2019');
 
-REPLACE INTO transaction_line (id, transaction_id, debit_id, credit_id, bookable_id, transaction_tag_id, balance, transaction_date, is_reconciled, name, remarks) VALUES
-(14000, 8000, 10096, 10037, NULL, 15001, 10000, '2019-03-01', 1, 'Inscription cours nautique Active Member', ''),
-(14001, 8001, 10085, 10025, NULL, NULL, 1250, '2019-03-10', 1, 'Paiement par Postcard', ''),
-(14002, 8002, 10096, 10035, NULL, NULL, 9000, '2019-03-12', 1, 'Cotisation 2019', ''),
-(14003, 8003, 10022, 10096, NULL, 15001, 10000, '2019-03-15', 1, 'Remboursement flyers', ''),
-(14004, 8004, 10096, 10036, 3003, NULL, 5000, '2019-02-05', 1, 'Loyer casier', ''),
-(14005, 8005, 10034, NULL, 3007, NULL, 1000000, '2019-02-03', 1, 'Acquisition voilier NE123456', ''),
-(14006, 8005, NULL, 10025, NULL, NULL, 700000, '2019-02-03', 1, 'Paiement voilier par PostFinance', ''),
-(14007, 8005, NULL, 10026, NULL, NULL, 300000, '2019-02-04', 0, 'Paiement voilier par Raiffeisen', ''),
-(14008, 8006, 10025, 10096, NULL, NULL, 20000, '2019-04-05', 0, 'Versement en ligne', ''),
-(14009, 8007, 10025, 10106, NULL, NULL, 1500000, '2019-01-01', 1, 'Solde à nouveau', 'Ouverture du CCP'),
-(14010, 8007, 10026, 10106, NULL, NULL, 2000000, '2019-01-01', 1, 'Solde à nouveau', 'Ouverture de Raiffeisen'),
-(14011, 8002, 10096, 10104, NULL, NULL, 1000, '2019-03-12', 1, 'Contribution au fond de réparation interne', '');
+REPLACE INTO transaction_line (id, transaction_id, debit_id, credit_id, bookable_id, transaction_tag_id, balance, transaction_date, is_reconciled, imported_id, name, remarks) VALUES
+(14000, 8000, 10096, 10037, NULL, 15001, 10000, '2019-03-01', 1, NULL, 'Inscription cours nautique Active Member', ''),
+(14001, 8001, 10085, 10025, NULL, NULL, 1250, '2019-03-10', 1, NULL, 'Paiement par Postcard', ''),
+(14002, 8002, 10096, 10035, NULL, NULL, 9000, '2019-03-12', 1, NULL, 'Cotisation 2019', ''),
+(14003, 8003, 10022, 10096, NULL, 15001, 10000, '2019-03-15', 1, NULL, 'Remboursement flyers', ''),
+(14004, 8004, 10096, 10036, 3003, NULL, 5000, '2019-02-05', 1, NULL, 'Loyer casier', ''),
+(14005, 8005, 10034, NULL, 3007, NULL, 1000000, '2019-02-03', 1, NULL, 'Acquisition voilier NE123456', ''),
+(14006, 8005, NULL, 10025, NULL, NULL, 700000, '2019-02-03', 1, NULL, 'Paiement voilier par PostFinance', ''),
+(14007, 8005, NULL, 10026, NULL, NULL, 300000, '2019-02-04', 0, NULL, 'Paiement voilier par Raiffeisen', ''),
+(14008, 8006, 10025, 10096, NULL, NULL, 20000, '2019-04-05', 0, 'my-unique-imported-id', 'Versement en ligne', ''),
+(14009, 8007, 10025, 10106, NULL, NULL, 1500000, '2019-01-01', 1, NULL, 'Solde à nouveau', 'Ouverture du CCP'),
+(14010, 8007, 10026, 10106, NULL, NULL, 2000000, '2019-01-01', 1, NULL, 'Solde à nouveau', 'Ouverture de Raiffeisen'),
+(14011, 8002, 10096, 10104, NULL, NULL, 1000, '2019-03-12', 1, NULL, 'Contribution au fond de réparation interne', '');
 
 REPLACE INTO accounting_document (id, expense_claim_id, transaction_id, owner_id, filename, mime) VALUES
 (9000, 7000, NULL, 1002, 'dw4jV3zYSPsqE2CB8BcP8ABD0.pdf', 'application/pdf'),

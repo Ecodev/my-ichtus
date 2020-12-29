@@ -9,6 +9,7 @@ use Application\Model\Transaction;
 use Application\Model\TransactionLine;
 use Application\Model\User;
 use Application\Repository\AccountRepository;
+use Application\Repository\TransactionLineRepository;
 use Application\Repository\UserRepository;
 use Cake\Chronos\Chronos;
 use Ecodev\Felix\Api\Exception;
@@ -54,10 +55,13 @@ class Importer
      */
     private $userRepository;
 
+    private TransactionLineRepository $transactionLineRepository;
+
     public function __construct()
     {
         $this->accountRepository = _em()->getRepository(Account::class);
         $this->userRepository = _em()->getRepository(User::class);
+        $this->transactionLineRepository = _em()->getRepository(TransactionLine::class);
     }
 
     /**
@@ -254,6 +258,10 @@ class Importer
 
         if (!$endToEndId) {
             throw new Exception('Cannot import a transaction without an end-to-end ID or an account servicer reference to store a universal identifier.');
+        }
+
+        if ($this->transactionLineRepository->importedIdExists($endToEndId)) {
+            throw new Exception('It looks like this file was already imported. A transaction line with the following `importedId` was already imported once and cannot be imported again: ' . $endToEndId);
         }
 
         return $endToEndId;

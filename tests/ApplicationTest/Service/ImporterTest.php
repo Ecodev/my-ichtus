@@ -86,6 +86,12 @@ class ImporterTest extends TestCase
         $this->import('tests/data/importer/invalid-camt-format.xml');
     }
 
+    public function testThrowDuplicatedImport(): void
+    {
+        $this->expectExceptionMessage('It looks like this file was already imported. A transaction line with the following `importedId` was already imported once and cannot be imported again: my-unique-imported-id');
+        $this->import('tests/data/importer/duplicated-importedId.xml');
+    }
+
     /**
      * @param null|Account|User $o
      *

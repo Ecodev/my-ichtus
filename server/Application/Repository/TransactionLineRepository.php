@@ -48,4 +48,12 @@ class TransactionLineRepository extends AbstractRepository implements ExportExce
 
         return ($container->get(ExportTransactionLinesHandler::class))->generate($query);
     }
+
+    public function importedIdExists(string $importedId): bool
+    {
+        $connection = $this->getEntityManager()->getConnection();
+        $count = $connection->fetchOne('SELECT COUNT(*) > 0 FROM transaction_line WHERE imported_id = :importedId', ['importedId' => $importedId]);
+
+        return (bool) $count;
+    }
 }
