@@ -1,5 +1,10 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import {ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
+import {
+    ExpenseClaims_expenseClaims,
+    ExpenseClaims_expenseClaims_items,
+    ExpenseClaimStatus,
+    ExpenseClaimType,
+} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
@@ -18,7 +23,7 @@ import {of} from 'rxjs';
 export class FinancesComponent extends NaturalAbstractController implements OnInit, OnChanges, OnDestroy {
     @Input() public user;
 
-    public runningExpenseClaimsDS: NaturalDataSource;
+    public runningExpenseClaimsDS: NaturalDataSource<ExpenseClaims_expenseClaims>;
     public expenseClaimsColumns = ['name', 'date', 'status', 'type', 'remarks', 'amount', 'cancel'];
 
     public ibanLocked = true;
@@ -60,14 +65,8 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
         this.runningExpenseClaimsDS = new NaturalDataSource(runningExpenseClaims);
     }
 
-    public cancelExpenseClaim(expenseClaim): void {
-        if (this.canCancelExpenseClaim(expenseClaim)) {
-            this.expenseClaimService.delete([expenseClaim]).subscribe();
-        }
-    }
-
-    public canCancelExpenseClaim(expenseClaim): boolean {
-        return expenseClaim.status === ExpenseClaimStatus.new;
+    public cancelExpenseClaim(expenseClaim: ExpenseClaims_expenseClaims_items): void {
+        this.expenseClaimService.delete([expenseClaim]).subscribe();
     }
 
     public createRefund(): void {

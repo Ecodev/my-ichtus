@@ -112,7 +112,7 @@
                             mat-icon-button
                             color="warn"
                             (click)="cancelExpenseClaim(expenseClaim)"
-                            *ngIf="canCancelExpenseClaim(expenseClaim)"
+                            *ngIf="expenseClaim.permissions.delete"
                         >
                             <natural-icon name="delete"></natural-icon>
                         </button>

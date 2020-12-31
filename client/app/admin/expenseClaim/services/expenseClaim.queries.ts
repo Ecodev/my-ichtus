@@ -24,9 +24,13 @@ export const expenseClaimMetaFragment = gql`
                 name
             }
         }
+        permissions {
+            ...PermissionsRUD
+        }
         creationDate
         updateDate
     }
+    ${permissionsFragment}
 `;
 
 export const expenseClaimsQuery = gql`
@@ -59,14 +63,10 @@ export const expenseClaimQuery = gql`
             updater {
                 ...UserMeta
             }
-            permissions {
-                ...PermissionsRUD
-            }
         }
     }
     ${expenseClaimMetaFragment}
     ${userMetaFragment}
-    ${permissionsFragment}
 `;
 
 export const createExpenseClaim = gql`
