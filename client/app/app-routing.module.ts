@@ -108,12 +108,17 @@ export const routes: Routes = [
         },
     },
     {
-        path: 'error',
+        path: '',
         component: HomeComponent,
         children: [
             {
-                path: '',
+                path: 'error',
                 component: ErrorComponent,
+            },
+            {
+                path: '**',
+                component: ErrorComponent,
+                data: {notFound: true},
             },
         ],
     },
