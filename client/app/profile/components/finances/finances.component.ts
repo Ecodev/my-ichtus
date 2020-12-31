@@ -2,7 +2,6 @@ import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@an
 import {
     ExpenseClaims_expenseClaims,
     ExpenseClaims_expenseClaims_items,
-    ExpenseClaimStatus,
     ExpenseClaimType,
 } from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
@@ -29,6 +28,7 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
     public ibanLocked = true;
 
     public adminMode = false;
+    public readonly deleting = new Set<string>();
 
     constructor(
         private userService: UserService,
@@ -66,7 +66,20 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
     }
 
     public cancelExpenseClaim(expenseClaim: ExpenseClaims_expenseClaims_items): void {
-        this.expenseClaimService.delete([expenseClaim]).subscribe();
+        this.alertService
+            .confirm(`Suppression`, `Voulez-vous supprimer définitivement cet élément ?`, `Supprimer définitivement`)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    this.deleting.add(expenseClaim.id);
+
+                    this.expenseClaimService.delete([expenseClaim]).subscribe({
+                        next: () => {
+                            this.alertService.info(`Supprimé`);
+                        },
+                        error: () => this.deleting.delete(expenseClaim.id),
+                    });
+                }
+            });
     }
 
     public createRefund(): void {

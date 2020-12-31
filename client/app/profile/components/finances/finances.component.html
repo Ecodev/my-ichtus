@@ -113,6 +113,8 @@
                             color="warn"
                             (click)="cancelExpenseClaim(expenseClaim)"
                             *ngIf="expenseClaim.permissions.delete"
+                            [disabled]="deleting.has(expenseClaim.id)"
+                            matTooltip="Supprimer définitivement"
                         >
                             <natural-icon name="delete"></natural-icon>
                         </button>
