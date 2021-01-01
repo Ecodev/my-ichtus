@@ -1620,21 +1620,21 @@
         },
         {
             "name": "ecodev/graphql-upload",
-            "version": "6.0.0",
+            "version": "6.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ecodev/graphql-upload.git",
-                "reference": "b5c5d9b88a6b14a99df4fe1dc302bb8d543c0acd"
+                "reference": "d602aa2cd421228ff5e080906f43dce32e93f4c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ecodev/graphql-upload/zipball/b5c5d9b88a6b14a99df4fe1dc302bb8d543c0acd",
-                "reference": "b5c5d9b88a6b14a99df4fe1dc302bb8d543c0acd",
+                "url": "https://api.github.com/repos/Ecodev/graphql-upload/zipball/d602aa2cd421228ff5e080906f43dce32e93f4c3",
+                "reference": "d602aa2cd421228ff5e080906f43dce32e93f4c3",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "php": "^7.2",
+                "php": "^7.2 || ^8.0",
                 "psr/http-server-middleware": "^1.0",
                 "webonyx/graphql-php": "^14.3"
             },
@@ -1664,9 +1664,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Ecodev/graphql-upload/issues",
-                "source": "https://github.com/Ecodev/graphql-upload/tree/6.0.0"
+                "source": "https://github.com/Ecodev/graphql-upload/tree/6.1.0"
             },
-            "time": "2020-10-28T06:06:47+00:00"
+            "time": "2020-12-02T23:44:18+00:00"
         },
         {
             "name": "fig/http-message-util",
@@ -6319,16 +6319,16 @@
         },
         {
             "name": "webonyx/graphql-php",
-            "version": "v14.3.0",
+            "version": "v14.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webonyx/graphql-php.git",
-                "reference": "4f3430990824ff410fe548102cb85f0c46442704"
+                "reference": "aab3d49181467db064b41429cde117a7589625fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/4f3430990824ff410fe548102cb85f0c46442704",
-                "reference": "4f3430990824ff410fe548102cb85f0c46442704",
+                "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/aab3d49181467db064b41429cde117a7589625fc",
+                "reference": "aab3d49181467db064b41429cde117a7589625fc",
                 "shasum": ""
             },
             "require": {
@@ -6373,7 +6373,7 @@
             ],
             "support": {
                 "issues": "https://github.com/webonyx/graphql-php/issues",
-                "source": "https://github.com/webonyx/graphql-php/tree/master"
+                "source": "https://github.com/webonyx/graphql-php/tree/v14.4.0"
             },
             "funding": [
                 {
@@ -6381,7 +6381,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2020-08-23T11:52:38+00:00"
+            "time": "2020-12-03T16:05:21+00:00"
         }
     ],
     "packages-dev": [
