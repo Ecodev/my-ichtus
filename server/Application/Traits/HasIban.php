@@ -24,7 +24,7 @@ trait HasIban
      */
     public function setIban(string $iban): void
     {
-        $validator = new \Laminas\Validator\Iban(['country_code' => 'CH']);
+        $validator = new \Laminas\Validator\Iban(['allow_non_sepa' => false]);
         if (empty($iban)) {
             $this->iban = '';
         } elseif ($validator->isValid($iban)) {
