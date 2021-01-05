@@ -6,7 +6,6 @@ import {
     Bookable_bookable,
     BookableInput,
     Bookables,
-    BookableSortingField,
     BookableState,
     BookablesVariables,
     BookableVariables,
@@ -23,7 +22,7 @@ import {
     UpdateBookableVariables,
     User,
 } from '../../../shared/generated-types';
-import {FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {BookingService} from '../../bookings/services/booking.service';
@@ -37,10 +36,11 @@ import {
 } from '@ecodev/natural';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 
-function creditAccountRequiredValidator(formGroup: FormGroup): ValidationErrors | null {
-    if (!formGroup || !formGroup.controls) {
+function creditAccountRequiredValidator(formGroup: AbstractControl): ValidationErrors | null {
+    if (!formGroup || !(formGroup instanceof FormGroup)) {
         return null;
     }
+
     const periodicPrice = formGroup.controls.periodicPrice.value;
     const initialPrice = formGroup.controls.initialPrice.value;
     const creditAccount = formGroup.controls.creditAccount.value;
@@ -102,11 +102,11 @@ export class BookableService extends NaturalAbstractModelService<
         super(apollo, 'bookable', bookableQuery, bookablesQuery, createBookable, updateBookable, deleteBookables);
     }
 
-    public static getFiltersByTagId(tagId): BookablesVariables {
+    public static getFiltersByTagId(tagId: string): BookablesVariables {
         return {filter: {groups: [{conditions: [{bookableTags: {have: {values: [tagId]}}}]}]}};
     }
 
-    public static adminApprovedByTag(tagId): BookablesVariables {
+    public static adminApprovedByTag(tagId: string): BookablesVariables {
         return {
             filter: {
                 groups: [
@@ -124,7 +124,7 @@ export class BookableService extends NaturalAbstractModelService<
         };
     }
 
-    public static adminByTag(bookableTagId): BookablesVariables {
+    public static adminByTag(bookableTagId: string): BookablesVariables {
         return {
             filter: {
                 groups: [

@@ -81,7 +81,7 @@
                     </td>
                     <td mat-footer-cell *matFooterCellDef natural-align-right>
                         <span *ngIf="dataSource?.data?.totalPurchasePrice > 0">
-                            {{ dataSource.data.totalPurchasePrice | currency: 'CHF' }}
+                            {{ dataSource?.data?.totalPurchasePrice | currency: 'CHF' }}
                         </span>
                     </td>
                 </ng-container>
@@ -95,7 +95,7 @@
                     </td>
                     <td mat-footer-cell *matFooterCellDef natural-align-right>
                         <span *ngIf="dataSource?.data?.totalInitialPrice > 0">
-                            {{ dataSource.data.totalInitialPrice | currency: 'CHF' }}
+                            {{ dataSource?.data?.totalInitialPrice | currency: 'CHF' }}
                         </span>
                     </td>
                 </ng-container>
@@ -111,7 +111,7 @@
                     </td>
                     <td mat-footer-cell *matFooterCellDef natural-align-right>
                         <span *ngIf="dataSource?.data?.totalPeriodicPrice > 0">
-                            {{ dataSource.data.totalPeriodicPrice | currency: 'CHF' }}
+                            {{ dataSource?.data?.totalPeriodicPrice | currency: 'CHF' }}
                         </span>
                     </td>
                 </ng-container>

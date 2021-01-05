@@ -15,7 +15,7 @@ export class ConfigurationService {
     public get(key: string): Observable<string> {
         const resultObservable = new Subject<string>();
 
-        const queryRef = this.apollo.watchQuery<Configuration['configuration']>({
+        const queryRef = this.apollo.watchQuery<Configuration>({
             query: configurationQuery,
             variables: {key},
             fetchPolicy: 'cache-and-network',

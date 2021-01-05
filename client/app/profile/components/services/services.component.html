@@ -50,7 +50,7 @@
                     </td>
                     <td mat-footer-cell *matFooterCellDef natural-align-right>
                         <span *ngIf="pendingApplicationsDS.data?.totalPeriodicPrice > 0">
-                            {{ pendingApplicationsDS.data.totalPeriodicPrice | currency: 'CHF' }}
+                            {{ pendingApplicationsDS.data?.totalPeriodicPrice | currency: 'CHF' }}
                         </span>
                     </td>
                 </ng-container>
@@ -64,7 +64,7 @@
                     </td>
                     <td mat-footer-cell *matFooterCellDef natural-align-right>
                         <span *ngIf="pendingApplicationsDS.data?.totalInitialPrice > 0">
-                            {{ pendingApplicationsDS.data.totalInitialPrice | currency: 'CHF' }}
+                            {{ pendingApplicationsDS.data?.totalInitialPrice | currency: 'CHF' }}
                         </span>
                     </td>
                 </ng-container>
@@ -132,7 +132,7 @@
                     </td>
                     <td mat-footer-cell *matFooterCellDef natural-align-right>
                         <span *ngIf="runningServicesDS.data?.totalPeriodicPrice > 0">
-                            {{ runningServicesDS.data.totalPeriodicPrice | currency: 'CHF' }}
+                            {{ runningServicesDS.data?.totalPeriodicPrice | currency: 'CHF' }}
                         </span>
                     </td>
                 </ng-container>
@@ -146,7 +146,7 @@
                     </td>
                     <td mat-footer-cell *matFooterCellDef natural-align-right>
                         <span *ngIf="runningServicesDS.data?.totalInitialPrice > 0">
-                            {{ runningServicesDS.data.totalInitialPrice | currency: 'CHF' }}
+                            {{ runningServicesDS.data?.totalInitialPrice | currency: 'CHF' }}
                         </span>
                     </td>
                 </ng-container>

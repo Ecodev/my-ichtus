@@ -18,11 +18,11 @@ import {accountHierarchicConfiguration} from '../../../shared/hierarchic-selecto
 })
 export class EditableTransactionLinesComponent
     extends NaturalAbstractEditableList<
-        TransactionLines_transactionLines_items | TransactionLineInput,
-        TransactionLinesVariables
+        TransactionLineService,
+        TransactionLines_transactionLines_items | TransactionLineInput
     >
     implements OnInit {
-    @Input() public transaction: Transaction['transaction'];
+    @Input() public transaction!: Transaction['transaction'];
 
     public accountHierarchicConfig = accountHierarchicConfiguration;
     public columns = [

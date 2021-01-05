@@ -13,16 +13,18 @@ import {map} from 'rxjs/operators';
 import {UsageBookableService} from '../../../admin/bookables/services/usage-bookable.service';
 import {Observable} from 'rxjs';
 
+export type SelectAdminApprovedModalResult = UsageBookables_bookables_items[];
+
 @Component({
     selector: 'natural-select-admin-approved-modal',
     templateUrl: './select-admin-approved-modal.component.html',
     styleUrls: ['./select-admin-approved-modal.component.scss'],
 })
 export class SelectAdminApprovedModalComponent implements OnInit {
-    public servicesDataSource: NaturalDataSource<UsageBookables['bookables']>;
-    public storagesDataSource: NaturalDataSource<UsageBookables['bookables']>;
-    public formationsDataSource: NaturalDataSource<UsageBookables['bookables']>;
-    public welcomeDataSource: NaturalDataSource<UsageBookables['bookables']>;
+    public servicesDataSource!: NaturalDataSource<UsageBookables['bookables']>;
+    public storagesDataSource!: NaturalDataSource<UsageBookables['bookables']>;
+    public formationsDataSource!: NaturalDataSource<UsageBookables['bookables']>;
+    public welcomeDataSource!: NaturalDataSource<UsageBookables['bookables']>;
     public selection = new SelectionModel<UsageBookables['bookables']['items']>(true, []);
 
     constructor(private bookableService: UsageBookableService) {}
@@ -34,7 +36,7 @@ export class SelectAdminApprovedModalComponent implements OnInit {
         this.fetch(BookableTagService.WELCOME).subscribe(res => (this.welcomeDataSource = res));
     }
 
-    public fetch(tag): Observable<NaturalDataSource<UsageBookables['bookables']>> {
+    public fetch(tag: string): Observable<NaturalDataSource<UsageBookables['bookables']>> {
         const variables = BookableService.adminApprovedByTag(tag);
         const qvm = new NaturalQueryVariablesManager<BookablesVariables>();
         qvm.set('variables', variables);

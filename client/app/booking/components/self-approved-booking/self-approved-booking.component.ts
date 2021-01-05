@@ -4,7 +4,7 @@ import {BookableService} from '../../../admin/bookables/services/bookable.servic
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {Bookable, BookingStatus} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
-import {NaturalAlertService} from '@ecodev/natural';
+import {Literal, NaturalAlertService} from '@ecodev/natural';
 
 @Component({
     selector: 'app-self-approved-booking',
@@ -12,8 +12,8 @@ import {NaturalAlertService} from '@ecodev/natural';
     styleUrls: ['./self-approved-booking.component.scss'],
 })
 export class SelfApprovedBookingComponent implements OnInit {
-    public bookable: Bookable['bookable'];
-    public booking;
+    public bookable!: Bookable['bookable'];
+    public booking: Literal = {};
 
     constructor(
         private route: ActivatedRoute,

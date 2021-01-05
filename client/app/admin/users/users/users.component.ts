@@ -5,7 +5,6 @@ import {
     BankingInfosVariables,
     EmailUsers,
     EmailUsersVariables,
-    Users,
     Users_users_items,
     UserStatus,
     UsersVariables,
@@ -24,7 +23,7 @@ import {ActivatedRoute} from '@angular/router';
     templateUrl: './users.component.html',
     styleUrls: ['./users.component.scss'],
 })
-export class UsersComponent extends NaturalAbstractList<Users['users'], UsersVariables> implements OnInit {
+export class UsersComponent extends NaturalAbstractList<UserService> implements OnInit {
     public initialColumns = [
         'balance',
         'name',
@@ -36,8 +35,8 @@ export class UsersComponent extends NaturalAbstractList<Users['users'], UsersVar
         'flagWelcomeSessionDate',
     ];
 
-    public usersEmail;
-    public usersEmailAndName;
+    public usersEmail: string | null = null;
+    public usersEmailAndName: string | null = null;
 
     constructor(
         route: ActivatedRoute,
@@ -52,13 +51,13 @@ export class UsersComponent extends NaturalAbstractList<Users['users'], UsersVar
         this.naturalSearchFacets = naturalSearchFacetsService.get('users');
     }
 
-    public flagWelcomeSessionDate(user): void {
+    public flagWelcomeSessionDate(user: Users_users_items): void {
         this.userService.flagWelcomeSessionDate(user.id).subscribe(u => {
             user.welcomeSessionDate = u.welcomeSessionDate;
         });
     }
 
-    public activate(user): void {
+    public activate(user: Users_users_items): void {
         this.userService.activate(user.id).subscribe(u => {
             user.status = u.status;
         });
@@ -100,8 +99,8 @@ export class UsersComponent extends NaturalAbstractList<Users['users'], UsersVar
         }
     }
 
-    public copyToClipboard(data): void {
-        copyToClipboard(data);
+    public copyToClipboard(text: string): void {
+        copyToClipboard(text);
     }
 
     public showProvision(user: Users_users_items): void {

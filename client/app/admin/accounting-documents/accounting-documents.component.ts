@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {AccountingDocumentInput, ExpenseClaim, Transaction} from '../../shared/generated-types';
 import {forkJoin, Observable} from 'rxjs';
 import {AccountingDocumentService} from './services/accounting-document.service';
+import {FileModel} from '@ecodev/natural';
 
 @Component({
     selector: 'app-accounting-documents',
@@ -9,8 +10,7 @@ import {AccountingDocumentService} from './services/accounting-document.service'
     styleUrls: ['./accounting-documents.component.scss'],
 })
 export class AccountingDocumentsComponent implements OnInit {
-    @Input() public model: Transaction['transaction'] | ExpenseClaim['expenseClaim'];
-    @Input() public service;
+    @Input() public model!: Transaction['transaction'] | ExpenseClaim['expenseClaim'];
     @Input() public fileHeight = 250;
     @Input() public fileWidth = 250;
     @Input() public canRemove = true;
@@ -28,7 +28,7 @@ export class AccountingDocumentsComponent implements OnInit {
         }
     }
 
-    public _files: any[] = [];
+    public _files: (FileModel | null)[] = [];
     public _removedFiles: any[] = [];
     public _disabled = false;
 
@@ -42,37 +42,37 @@ export class AccountingDocumentsComponent implements OnInit {
         this.disabled = this._disabled;
     }
 
-    public fileAdded(file, index): void {
-        if (file) {
-            this._files[index] = file;
-            if (index === this._files.length - 1) {
-                this._files.push(null);
-            }
+    public fileAdded(file: FileModel, index: number): void {
+        this._files[index] = file;
+        if (index === this._files.length - 1) {
+            this._files.push(null);
         }
     }
 
-    public removeFile(index): void {
+    public removeFile(index: number): void {
         this._removedFiles = this._removedFiles.concat(this._files.splice(index, 1));
     }
 
-    public trackByFn(index, item): void {
-        return item ? item.file : index;
+    public trackByFn(index: number, item: FileModel | null): any {
+        return index;
     }
 
     public save(): void {
         const observables: Observable<any>[] = [];
 
-        this._files
-            .filter(f => f && f.file)
-            .forEach((file: {file: File}) => {
-                const document: AccountingDocumentInput = {file: file.file};
-                if (this.model.__typename === 'Transaction') {
-                    document.transaction = this.model.id;
-                } else if (this.model.__typename === 'ExpenseClaim') {
-                    document.expenseClaim = this.model.id;
-                }
-                observables.push(this.accountingDocumentService.create(document));
-            });
+        this._files.forEach(file => {
+            if (!file?.file) {
+                return;
+            }
+
+            const document: AccountingDocumentInput = {file: file.file};
+            if (this.model.__typename === 'Transaction') {
+                document.transaction = this.model.id;
+            } else if (this.model.__typename === 'ExpenseClaim') {
+                document.expenseClaim = this.model.id;
+            }
+            observables.push(this.accountingDocumentService.create(document));
+        });
 
         this._removedFiles
             .filter(f => f && f.id)
@@ -87,14 +87,14 @@ export class AccountingDocumentsComponent implements OnInit {
         });
     }
 
-    public getAction(file, i, last): 'download' | 'upload' | null {
+    public getAction(file: FileModel | null, i: number, last: boolean): 'download' | 'upload' | null {
         if (file && file.id) {
             return 'download'; // if there is non null file, and it has ID, it's downloadable
         } else if ((!file || !file.id) && last && !this._disabled) {
             return 'upload'; // If cmp is not readonly and file is last of list (null item), allow upload
         }
 
-        // Other cases : there is uploaded file, but wihtout ID for now, it no more uploadable, and not downloadable either
+        // Other cases : there is uploaded file, but without ID for now, it no more uploadable, and not downloadable either
         return null;
     }
 }

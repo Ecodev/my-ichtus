@@ -18,13 +18,18 @@
                     <natural-icon name="email"></natural-icon>
                 </button>
 
-                <button mat-icon-button (click)="copy(usersEmail)" *ngIf="usersEmail" matTooltip="Copier les e-mails">
+                <button
+                    mat-icon-button
+                    (click)="copyToClipboard(usersEmail)"
+                    *ngIf="usersEmail"
+                    matTooltip="Copier les e-mails"
+                >
                     <natural-icon name="alternate_email"></natural-icon>
                 </button>
 
                 <button
                     mat-icon-button
-                    (click)="copy(usersEmailAndName)"
+                    (click)="copyToClipboard(usersEmailAndName)"
                     *ngIf="usersEmailAndName"
                     matTooltip="Copier les e-mails et les noms"
                 >

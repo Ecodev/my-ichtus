@@ -2,16 +2,25 @@ import {marks, nodes} from 'prosemirror-schema-basic';
 import {addListNodes} from 'prosemirror-schema-list';
 import {Schema} from 'prosemirror-model';
 
-// Disable a few elements
-delete nodes.image;
-delete nodes.code;
-delete nodes.code_block;
-delete nodes.blockquote;
-delete nodes.horizontal_rule;
+// Keep only basic elements
+type BasicNodes = Omit<typeof nodes, 'image' | 'code_block' | 'blockquote' | 'horizontal_rule' | 'heading'>;
+const myNodes: BasicNodes = {
+    doc: nodes.doc,
+    paragraph: nodes.paragraph,
+    text: nodes.text,
+    hard_break: nodes.hard_break,
+};
 
-const basicSchema = new Schema({nodes, marks});
+type BasicMarks = Omit<typeof marks, 'code'>;
+const myMarks: BasicMarks = {
+    link: marks.link,
+    em: marks.em,
+    strong: marks.strong,
+};
+
+const basicSchema = new Schema({nodes: myNodes, marks: myMarks});
 
 export const schema = new Schema({
-    nodes: addListNodes(basicSchema.spec.nodes, 'paragraph block*', 'block'),
+    nodes: addListNodes(basicSchema.spec.nodes as any, 'paragraph block*', 'block'),
     marks: basicSchema.spec.marks,
 });

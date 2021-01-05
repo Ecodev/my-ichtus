@@ -1,7 +1,7 @@
 import {Component, Injector, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NaturalAbstractList, SortingOrder} from '@ecodev/natural';
-import {CurrentUserForProfile, Logs, LogSortingField, LogsVariables, UserRole} from '../../../shared/generated-types';
+import {CurrentUserForProfile_viewer, LogSortingField, UserRole} from '../../../shared/generated-types';
 import {LogService} from '../services/log.service';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 
@@ -10,8 +10,8 @@ import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural
     templateUrl: './logs.component.html',
     styleUrls: ['./logs.component.scss'],
 })
-export class LogsComponent extends NaturalAbstractList<Logs['logs'], LogsVariables> implements OnInit {
-    public viewer: NonNullable<CurrentUserForProfile['viewer']>;
+export class LogsComponent extends NaturalAbstractList<LogService> implements OnInit {
+    public viewer!: CurrentUserForProfile_viewer;
     public UserRole = UserRole;
 
     constructor(

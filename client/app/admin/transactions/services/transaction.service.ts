@@ -97,11 +97,11 @@ export class TransactionService extends NaturalAbstractModelService<
         };
     }
 
-    protected getPartialVariablesForUpdate(object): Literal {
+    protected getPartialVariablesForUpdate(object: Literal): Literal {
         return {lines: object.transactionLines};
     }
 
-    protected getPartialVariablesForCreation(object): Literal {
+    protected getPartialVariablesForCreation(object: Literal): Literal {
         return {lines: object.transactionLines};
     }
 }

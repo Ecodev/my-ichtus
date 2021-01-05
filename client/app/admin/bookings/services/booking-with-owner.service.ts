@@ -9,7 +9,6 @@ import {
 } from './booking.queries';
 import {
     Booking,
-    Bookings,
     BookingsVariables,
     BookingsWithOwnerBalance,
     BookingsWithOwnerBalanceVariables,
@@ -21,6 +20,8 @@ import {
     UpdateBookingVariables,
 } from '../../../shared/generated-types';
 import {NaturalAbstractModelService} from '@ecodev/natural';
+import {Observable} from 'rxjs';
+import {BookingService} from './booking.service';
 
 @Injectable({
     providedIn: 'root',
@@ -37,7 +38,7 @@ export class BookingWithOwnerService extends NaturalAbstractModelService<
     DeleteBookings,
     DeleteBookingsVariables
 > {
-    constructor(apollo: Apollo) {
+    constructor(apollo: Apollo, private readonly bookingService: BookingService) {
         super(
             apollo,
             'booking',
@@ -64,5 +65,10 @@ export class BookingWithOwnerService extends NaturalAbstractModelService<
                 ],
             },
         };
+    }
+
+    public terminateBooking(id: string, comment: string = ''): Observable<unknown> {
+        // forward to standard service to avoid duplicating code or a risky refactoring of service hierarchy
+        return this.bookingService.terminateBooking(id, comment);
     }
 }

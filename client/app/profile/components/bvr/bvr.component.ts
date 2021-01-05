@@ -45,8 +45,8 @@ export class BvrComponent {
             .subscribe(result => (this.bankingInfos = result.data.bankingInfos));
     }
 
-    private variables: BankingInfosVariables;
-    public bankingInfos: BankingInfos_bankingInfos;
+    private variables!: BankingInfosVariables;
+    public bankingInfos: BankingInfos_bankingInfos | null = null;
 
     constructor(private apollo: Apollo) {}
 

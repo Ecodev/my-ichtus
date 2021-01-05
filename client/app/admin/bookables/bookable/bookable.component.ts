@@ -1,18 +1,12 @@
 import {Component, Injector, OnInit} from '@angular/core';
-import {NaturalAbstractDetail} from '@ecodev/natural';
+import {FileModel, NaturalAbstractDetail} from '@ecodev/natural';
 import {BookableService} from '../services/bookable.service';
 import {
-    Bookable,
-    BookableVariables,
     BookingSortingField,
     BookingsVariables,
     BookingType,
-    CreateBookable,
-    CreateBookableVariables,
     CreateImage,
     SortingOrder,
-    UpdateBookable,
-    UpdateBookableVariables,
 } from '../../../shared/generated-types';
 import {LicenseService} from '../../licenses/services/license.service';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
@@ -24,20 +18,9 @@ import {accountHierarchicConfiguration} from '../../../shared/hierarchic-selecto
     templateUrl: './bookable.component.html',
     styleUrls: ['./bookable.component.scss'],
 })
-export class BookableComponent
-    extends NaturalAbstractDetail<
-        Bookable['bookable'],
-        BookableVariables,
-        CreateBookable['createBookable'],
-        CreateBookableVariables,
-        UpdateBookable['updateBookable'],
-        UpdateBookableVariables,
-        any,
-        any
-    >
-    implements OnInit {
+export class BookableComponent extends NaturalAbstractDetail<BookableService> implements OnInit {
     public accountHierarchicConfig = accountHierarchicConfiguration;
-    public bookingsVariables;
+    public bookingsVariables: BookingsVariables = {};
 
     constructor(
         bookableService: BookableService,
@@ -75,7 +58,7 @@ export class BookableComponent
         return this.data.model.bookingType !== BookingType.self_approved;
     }
 
-    public newImage(image: CreateImage['createImage']): void {
+    public newImage(image: FileModel): void {
         const imageField = this.form.get('image');
         if (imageField) {
             imageField.setValue(image);

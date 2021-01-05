@@ -1,12 +1,9 @@
 import {Component, Injector, Input, OnInit} from '@angular/core';
 import {
-    CreateUser,
-    CreateUserVariables,
-    UpdateUser,
-    UpdateUserVariables,
+    CreateUser_createUser,
+    CurrentUserForProfile_viewer,
     User,
     Users_users_items,
-    UserVariables,
 } from '../../../shared/generated-types';
 import {NaturalAbstractDetail} from '@ecodev/natural';
 import {merge} from 'lodash-es';
@@ -17,20 +14,9 @@ import {FamilyUserService} from './family-user.service';
     templateUrl: './family-member.component.html',
     styleUrls: ['./family-member.component.scss'],
 })
-export class FamilyMemberComponent
-    extends NaturalAbstractDetail<
-        User['user'],
-        UserVariables,
-        CreateUser['createUser'],
-        CreateUserVariables,
-        UpdateUser['updateUser'],
-        UpdateUserVariables,
-        never,
-        never
-    >
-    implements OnInit {
-    @Input() public viewer: User['user'];
-    @Input() public user: User['user'] | Users_users_items;
+export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserService> implements OnInit {
+    @Input() public viewer!: CurrentUserForProfile_viewer;
+    @Input() public user!: User['user'] | Users_users_items;
     @Input() public readonly = false;
     public loaded = false;
 
@@ -70,11 +56,11 @@ export class FamilyMemberComponent
         this.loaded = true;
     }
 
-    public postCreate(model): void {
+    public postCreate(model: CreateUser_createUser): void {
         if (model.login) {
             this.userService.requestPasswordReset(model.login).subscribe(() => {
                 this.alertService.info(
-                    'Un mail avec les instructions a été envoyé à ' + (model.email || model.owner.email),
+                    'Un mail avec les instructions a été envoyé à ' + (model.email || model.owner?.email),
                     5000,
                 );
             });

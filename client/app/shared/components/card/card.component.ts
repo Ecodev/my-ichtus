@@ -8,8 +8,8 @@ import {FileModel} from '@ecodev/natural';
 })
 export class CardComponent implements OnInit {
     @Input() public illustrationHeight = 200;
-    @Input() public file: FileModel;
-    @Input() public illustrationUrl: string;
+    @Input() public file: FileModel | null = null;
+    @Input() public illustrationUrl = '';
 
     constructor() {}
 

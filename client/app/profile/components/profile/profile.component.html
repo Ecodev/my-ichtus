@@ -60,7 +60,7 @@
                         [matTooltip]="
                             !viewer.email
                                 ? 'Vous devez avoir saisi une adresse e-mail dans vos données personnelles'
-                                : null
+                                : ''
                         "
                         [routerLink]="['/user/new', {email: viewer.email}]"
                     >

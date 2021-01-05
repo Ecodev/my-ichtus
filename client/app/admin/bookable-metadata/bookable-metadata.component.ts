@@ -5,6 +5,7 @@ import {
     BookableMetadatas_bookableMetadatas_items,
     BookableMetadatasVariables,
     BookableMetadatas_bookableMetadatas,
+    Bookable_bookable,
 } from '../../shared/generated-types';
 import {cloneDeep} from 'lodash-es';
 
@@ -14,12 +15,12 @@ import {cloneDeep} from 'lodash-es';
     styleUrls: ['./bookable-metadata.component.scss'],
 })
 export class BookableMetadataComponent implements OnInit {
-    @Input() public bookable;
+    @Input() public bookable!: Bookable_bookable;
     @Input() public edit = false;
 
-    public dataSource: NaturalDataSource<BookableMetadatas_bookableMetadatas>;
+    public dataSource!: NaturalDataSource<BookableMetadatas_bookableMetadatas>;
 
-    public columns;
+    public columns: string[] = [];
 
     constructor(private bookableMetaService: BookableMetadataService) {}
 
@@ -62,8 +63,8 @@ export class BookableMetadataComponent implements OnInit {
         }
     }
 
-    public updateOrCreate(meta): void {
-        meta.bookable = this.bookable.id;
+    public updateOrCreate(meta: BookableMetadatas_bookableMetadatas_items): void {
+        meta.bookable = this.bookable;
 
         if (meta.name) {
             this.bookableMetaService.createOrUpdate(meta).subscribe();
@@ -75,7 +76,7 @@ export class BookableMetadataComponent implements OnInit {
         }
     }
 
-    public delete(meta): void {
+    public delete(meta: BookableMetadatas_bookableMetadatas_items): void {
         this.bookableMetaService.delete([meta]).subscribe(() => {
             this.dataSource.remove(meta);
         });

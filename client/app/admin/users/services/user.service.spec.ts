@@ -56,7 +56,7 @@ describe('UserService', () => {
             // Mock router to do nothing when navigating
             const navigate = spyOn(router, 'navigate').and.callFake(() => Promise.resolve(true));
 
-            let actual;
+            let actual: boolean | undefined;
             service.logout().subscribe(v => (actual = v));
             tick(1000);
 

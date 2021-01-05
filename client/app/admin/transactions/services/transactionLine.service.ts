@@ -1,18 +1,17 @@
 import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
-import {FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {
     FormValidators,
     NaturalAbstractModelService,
     NaturalQueryVariablesManager,
     NaturalSearchSelections,
-    makePlural,
     toUrl,
 } from '@ecodev/natural';
 import {transactionLineQuery, transactionLinesForExportQuery, transactionLinesQuery} from './transactionLine.queries';
 import {
-    Account,
     LogicalOperator,
+    MinimalAccount,
     TransactionLine,
     TransactionLineInput,
     TransactionLines,
@@ -24,10 +23,9 @@ import {
 } from '../../../shared/generated-types';
 import {Observable, Subject} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {RouterLink} from '@angular/router';
 
-function atLeastOneAccount(formGroup: FormGroup): ValidationErrors | null {
-    if (!formGroup || !formGroup.controls) {
+function atLeastOneAccount(formGroup: AbstractControl): ValidationErrors | null {
+    if (!formGroup || !(formGroup instanceof FormGroup)) {
         return null;
     }
 
@@ -73,7 +71,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
         };
     }
 
-    public static getSelectionForAccount(account: Account['account']): NaturalSearchSelections {
+    public static getSelectionForAccount(account: MinimalAccount): NaturalSearchSelections {
         return [
             [
                 {
@@ -127,7 +125,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
         };
     }
 
-    public linkToTransactionForAccount(account: Account['account']): any[] {
+    public linkToTransactionForAccount(account: MinimalAccount): any[] {
         const selection = TransactionLineService.getSelectionForAccount(account);
         return ['/admin/transaction-line', {ns: JSON.stringify(toUrl(selection))}];
     }
@@ -152,7 +150,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
     }
 
     public getForAccount(
-        account: Account['account'],
+        account: MinimalAccount,
         expire: Subject<void>,
     ): Observable<TransactionLines['transactionLines']> {
         const variables: TransactionLinesVariables = {
@@ -182,8 +180,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
             })
             .pipe(
                 map(result => {
-                    const plural = makePlural(this.name);
-                    return result.data[plural].excelExport;
+                    return result.data.transactionLines.excelExport;
                 }),
             );
     }

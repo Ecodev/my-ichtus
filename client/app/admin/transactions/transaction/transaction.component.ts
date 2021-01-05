@@ -5,17 +5,12 @@ import {TransactionService} from '../services/transaction.service';
 import {Subject} from 'rxjs';
 import {filter, takeUntil} from 'rxjs/operators';
 import {
-    CreateTransaction,
-    CreateTransactionVariables,
-    DeleteTransactions,
-    DeleteTransactionsVariables,
+    CreateTransaction_createTransaction,
+    CurrentUserForProfile_viewer,
     ExpenseClaim,
     ExpenseClaimStatus,
     ExpenseClaimType,
-    Transaction,
-    TransactionVariables,
-    UpdateTransaction,
-    UpdateTransactionVariables,
+    UpdateTransaction_updateTransaction,
 } from '../../../shared/generated-types';
 import {BookableService} from '../../bookables/services/bookable.service';
 import {EditableTransactionLinesComponent} from '../editable-transaction-lines/editable-transaction-lines.component';
@@ -29,20 +24,9 @@ import {UserService} from '../../users/services/user.service';
     templateUrl: './transaction.component.html',
     styleUrls: ['./transaction.component.scss'],
 })
-export class TransactionComponent
-    extends NaturalAbstractDetail<
-        Transaction['transaction'],
-        TransactionVariables,
-        CreateTransaction['createTransaction'],
-        CreateTransactionVariables,
-        UpdateTransaction['updateTransaction'],
-        UpdateTransactionVariables,
-        DeleteTransactions,
-        DeleteTransactionsVariables
-    >
-    implements OnInit {
-    @ViewChild(EditableTransactionLinesComponent) private transactionLinesComponent: EditableTransactionLinesComponent;
-    @ViewChild('transactionDocuments', {static: true}) private accountingDocuments: AccountingDocumentsComponent;
+export class TransactionComponent extends NaturalAbstractDetail<TransactionService> implements OnInit {
+    @ViewChild(EditableTransactionLinesComponent) public transactionLinesComponent!: EditableTransactionLinesComponent;
+    @ViewChild('transactionDocuments', {static: true}) private accountingDocuments!: AccountingDocumentsComponent;
 
     /**
      * Edition mode, allows to edit lines
@@ -52,7 +36,7 @@ export class TransactionComponent
     public ExpenseClaimType = ExpenseClaimType;
     public ExpenseClaimStatus = ExpenseClaimStatus;
 
-    public viewer;
+    public viewer!: CurrentUserForProfile_viewer;
 
     constructor(
         private transactionService: TransactionService,
@@ -154,11 +138,11 @@ export class TransactionComponent
         });
     }
 
-    public delete(redirectionRoute: any[]): void {
+    public delete(): void {
         super.delete(['/admin/transaction-line']);
     }
 
-    protected postUpdate(model): void {
+    protected postUpdate(model: UpdateTransaction_updateTransaction): void {
         this.accountingDocuments.save();
         this.goToNew();
     }
@@ -169,7 +153,7 @@ export class TransactionComponent
      * and nothing would happen.
      *
      */
-    protected postCreate(model): void {
+    protected postCreate(model: CreateTransaction_createTransaction): void {
         this.accountingDocuments.save();
         const expire = new Subject();
         this.router.events

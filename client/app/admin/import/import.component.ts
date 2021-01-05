@@ -14,7 +14,7 @@ export class ImportComponent implements OnInit {
     /**
      * Data attribute provided by activated route snapshot
      */
-    public routeData: Data;
+    public routeData!: Data;
 
     public importing = false;
     public error: Error | null = null;

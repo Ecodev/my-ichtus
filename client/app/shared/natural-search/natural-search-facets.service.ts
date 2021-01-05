@@ -44,7 +44,7 @@ function dontHave(selection: NaturalSearchSelection): NaturalSearchSelection {
     providedIn: 'root',
 })
 export class NaturalSearchFacetsService {
-    private readonly userTags: DropdownFacet<TypeSelectNaturalConfiguration> = {
+    private readonly userTags: DropdownFacet<TypeSelectNaturalConfiguration<UserTagService>> = {
         display: 'Tags',
         name: 'withTags',
         field: 'userTags',
@@ -62,7 +62,7 @@ export class NaturalSearchFacetsService {
         condition: {empty: {}} as UserFilterGroupCondition,
     };
 
-    private readonly userWithoutTags: DropdownFacet<TypeSelectNaturalConfiguration> = {
+    private readonly userWithoutTags: DropdownFacet<TypeSelectNaturalConfiguration<UserTagService>> = {
         display: 'Tags exclus',
         field: 'userTags',
         name: 'withoutTags',
@@ -74,7 +74,7 @@ export class NaturalSearchFacetsService {
         },
     };
 
-    private readonly transactionTags: DropdownFacet<TypeSelectNaturalConfiguration> = {
+    private readonly transactionTags: DropdownFacet<TypeSelectNaturalConfiguration<TransactionTagService>> = {
         display: 'Tags',
         field: 'transactionTag',
         component: TypeNaturalSelectComponent,
@@ -84,7 +84,7 @@ export class NaturalSearchFacetsService {
         },
     };
 
-    private readonly licenses: DropdownFacet<TypeSelectNaturalConfiguration> = {
+    private readonly licenses: DropdownFacet<TypeSelectNaturalConfiguration<LicenseService>> = {
         display: 'Certifications',
         field: 'licenses',
         component: TypeNaturalSelectComponent,
@@ -94,7 +94,7 @@ export class NaturalSearchFacetsService {
         },
     };
 
-    private readonly bookableTags: DropdownFacet<TypeSelectNaturalConfiguration> = {
+    private readonly bookableTags: DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>> = {
         display: 'Tags',
         field: 'bookableTags',
         component: TypeNaturalSelectComponent,
@@ -104,7 +104,7 @@ export class NaturalSearchFacetsService {
         },
     };
 
-    private readonly owner: DropdownFacet<TypeSelectNaturalConfiguration> = {
+    private readonly owner: DropdownFacet<TypeSelectNaturalConfiguration<UserService>> = {
         display: 'Utilisateur',
         field: 'owner',
         component: TypeNaturalSelectComponent,
@@ -126,7 +126,7 @@ export class NaturalSearchFacetsService {
         condition: {equal: {value: true}} as UserFilterGroupCondition,
     };
 
-    private readonly transaction: DropdownFacet<TypeSelectNaturalConfiguration> = {
+    private readonly transaction: DropdownFacet<TypeSelectNaturalConfiguration<TransactionService>> = {
         display: 'Transaction',
         field: 'transaction',
         component: TypeNaturalSelectComponent,
@@ -136,7 +136,7 @@ export class NaturalSearchFacetsService {
         },
     };
 
-    private readonly bookable: DropdownFacet<TypeSelectNaturalConfiguration> = {
+    private readonly bookable: DropdownFacet<TypeSelectNaturalConfiguration<BookableService>> = {
         display: 'Réservable',
         field: 'bookable',
         component: TypeNaturalSelectComponent,
@@ -172,7 +172,7 @@ export class NaturalSearchFacetsService {
         component: TypeDateComponent,
     };
 
-    private readonly creator: DropdownFacet<TypeSelectNaturalConfiguration> = {
+    private readonly creator: DropdownFacet<TypeSelectNaturalConfiguration<UserService>> = {
         display: 'Utilisateur',
         field: 'creator',
         component: TypeNaturalSelectComponent,
@@ -204,7 +204,7 @@ export class NaturalSearchFacetsService {
                     service: this.bookableTagService,
                     placeholder: 'Tag de réservable',
                 },
-            } as DropdownFacet<TypeSelectNaturalConfiguration>,
+            } as DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>>,
             {
                 display: 'Réservation en cours',
                 field: 'custom',
@@ -227,7 +227,7 @@ export class NaturalSearchFacetsService {
                         ],
                     } as BookableFilter,
                 },
-            } as DropdownFacet<TypeSelectNaturalConfiguration>,
+            } as DropdownFacet<TypeSelectNaturalConfiguration<BookableService>>,
             {
                 display: 'Statut',
                 field: 'status',
@@ -390,7 +390,7 @@ export class NaturalSearchFacetsService {
                     service: this.userService,
                     placeholder: 'Utilisateur',
                 },
-            } as DropdownFacet<TypeSelectNaturalConfiguration>,
+            } as DropdownFacet<TypeSelectNaturalConfiguration<UserService>>,
             this.creationDate,
             this.updateDate,
         ],

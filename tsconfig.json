@@ -5,6 +5,10 @@
         "downlevelIteration": true,
         "importHelpers": true,
         "outDir": "./dist/out-tsc",
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
         "sourceMap": true,
         "declaration": false,
         "module": "es2020",
@@ -16,5 +20,12 @@
         "typeRoots": ["node_modules/@types"],
         "lib": ["es2018", "dom"],
         "allowSyntheticDefaultImports": true
+    },
+    "angularCompilerOptions": {
+        "strictInjectionParameters": true,
+        "strictInputAccessModifiers": true,
+        "strictTemplates": true,
+        // Remove this when https://github.com/angular/angular/issues/37619 is fixed
+        "strictSafeNavigationTypes": false
     }
 }

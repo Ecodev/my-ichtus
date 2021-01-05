@@ -55,7 +55,6 @@
                     formControlName="debit"
                     placeholder="Compte débit"
                     [showIcon]="false"
-                    [displayWith]="getAccountLabel"
                 ></natural-select-hierarchic>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
@@ -69,7 +68,6 @@
                     formControlName="credit"
                     placeholder="Compte crédit"
                     [showIcon]="false"
-                    [displayWith]="getAccountLabel"
                 >
                     <!--<mat-error *ngIf="formArray.at(i).hasError('atLeastOneAccountRequired')">Au moins un compte est requis</mat-error>-->
                 </natural-select-hierarchic>

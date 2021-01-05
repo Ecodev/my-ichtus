@@ -1,15 +1,18 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {SelectAdminApprovedModalComponent} from '../select-admin-approved-modal/select-admin-approved-modal.component';
+import {
+    SelectAdminApprovedModalComponent,
+    SelectAdminApprovedModalResult,
+} from '../select-admin-approved-modal/select-admin-approved-modal.component';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
-import {BookingPartialInput, BookingStatus} from '../../generated-types';
+import {BookingPartialInput, BookingStatus, CurrentUserForProfile_viewer} from '../../generated-types';
 
 @Component({
     selector: 'natural-select-admin-approved-button',
     templateUrl: './select-admin-approved-button.component.html',
 })
 export class SelectAdminApprovedButtonComponent implements OnInit {
-    @Input() public user;
+    @Input() public user!: CurrentUserForProfile_viewer;
 
     constructor(private dialog: MatDialog, private bookingService: BookingService) {}
 
@@ -22,7 +25,10 @@ export class SelectAdminApprovedButtonComponent implements OnInit {
         };
 
         this.dialog
-            .open(SelectAdminApprovedModalComponent, options)
+            .open<SelectAdminApprovedModalComponent, void, SelectAdminApprovedModalResult>(
+                SelectAdminApprovedModalComponent,
+                options,
+            )
             .afterClosed()
             .subscribe(bookables => {
                 if (bookables) {

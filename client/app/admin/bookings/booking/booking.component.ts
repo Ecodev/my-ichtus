@@ -1,20 +1,16 @@
 import {Component, Injector, OnInit} from '@angular/core';
 import {BookingService} from '../services/booking.service';
 import {
+    Bookables_bookables_items,
     BookableSortingField,
     BookablesVariables,
-    Booking,
+    BookableTags_bookableTags_items,
     BookingPartialInput,
     BookingStatus,
     BookingType,
-    BookingVariables,
-    CreateBooking,
-    CreateBookingVariables,
-    DeleteBookings,
-    DeleteBookingsVariables,
+    CreateBooking_createBooking,
     SortingOrder,
-    UpdateBooking,
-    UpdateBookingVariables,
+    UsageBookables_bookables_items,
 } from '../../../shared/generated-types';
 import {UserService} from '../../users/services/user.service';
 import {BookableService} from '../../bookables/services/bookable.service';
@@ -27,26 +23,15 @@ import {UsageBookableService} from '../../bookables/services/usage-bookable.serv
     templateUrl: './booking.component.html',
     styleUrls: ['./booking.component.scss'],
 })
-export class BookingComponent
-    extends NaturalAbstractDetail<
-        Booking['booking'],
-        BookingVariables,
-        CreateBooking['createBooking'],
-        CreateBookingVariables,
-        UpdateBooking['updateBooking'],
-        UpdateBookingVariables,
-        DeleteBookings,
-        DeleteBookingsVariables
-    >
-    implements OnInit {
+export class BookingComponent extends NaturalAbstractDetail<BookingService> implements OnInit {
     public UsageBookableService = UsageBookableService;
     public BookingStatus = BookingStatus;
-    public suggestionVariables;
+    public suggestionVariables: BookablesVariables = {};
 
     /**
      * Received the created booking after having processing an application
      */
-    public newBooking;
+    public newBooking: CreateBooking_createBooking | null = null;
 
     constructor(
         public bookingService: BookingService,
@@ -60,7 +45,7 @@ export class BookingComponent
     public ngOnInit(): void {
         super.ngOnInit();
 
-        const tags = this.form.get('bookable')?.value.bookableTags;
+        const tags: BookableTags_bookableTags_items[] = this.form.get('bookable')?.value.bookableTags;
         if (tags.find(t => t.id === BookableTagService.STORAGE)) {
             this.suggestionVariables = this.getBookablesVariables([BookableTagService.STORAGE]);
         } else if (tags.find(t => t.id === BookableTagService.FORMATION)) {
@@ -111,11 +96,13 @@ export class BookingComponent
     public isService(): void {
         const bookable = this.form.get('bookable');
         if (bookable) {
-            return bookable.value.bookableTags.find(t => t.id === BookableTagService.SERVICE);
+            return bookable.value.bookableTags.find(
+                (t: BookableTags_bookableTags_items) => t.id === BookableTagService.SERVICE,
+            );
         }
     }
 
-    public assignBookable(bookable): void {
+    public assignBookable(bookable: UsageBookables_bookables_items): void {
         const message =
             'Êtes-vous sûr de vouloir attribuer cette prestation ou espace de stockage ? ' +
             'Cette action va créer une nouvelle réservation et débitera automatiquement le compte du membre. ' +
@@ -128,7 +115,7 @@ export class BookingComponent
         });
     }
 
-    public doAssignBookable(bookable): void {
+    public doAssignBookable(bookable: UsageBookables_bookables_items): void {
         const partialBooking: BookingPartialInput = {status: BookingStatus.booked};
         this.bookingService.createWithBookable(bookable, this.data.model.owner, partialBooking).subscribe(booking => {
             this.newBooking = Object.assign(booking, {bookable: bookable});
@@ -141,7 +128,7 @@ export class BookingComponent
         });
     }
 
-    public getBookablesVariables(tags): BookablesVariables {
+    public getBookablesVariables(tags: string[]): BookablesVariables {
         const variables: BookablesVariables = {
             filter: {
                 groups: [

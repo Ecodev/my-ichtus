@@ -1,16 +1,6 @@
 import {Component, Injector, OnInit} from '@angular/core';
 import {NaturalAbstractDetail} from '@ecodev/natural';
 import {AccountService} from '../services/account.service';
-import {
-    Account,
-    AccountVariables,
-    CreateAccount,
-    CreateAccountVariables,
-    DeleteAccounts,
-    DeleteAccountsVariables,
-    UpdateAccount,
-    UpdateAccountVariables,
-} from '../../../shared/generated-types';
 import {UserService} from '../../users/services/user.service';
 import {groupAccountHierarchicConfiguration} from '../../../shared/hierarchic-selector/GroupAccountHierarchicConfiguration';
 
@@ -19,19 +9,8 @@ import {groupAccountHierarchicConfiguration} from '../../../shared/hierarchic-se
     templateUrl: './account.component.html',
     styleUrls: ['./account.component.scss'],
 })
-export class AccountComponent
-    extends NaturalAbstractDetail<
-        Account['account'],
-        AccountVariables,
-        CreateAccount['createAccount'],
-        CreateAccountVariables,
-        UpdateAccount['updateAccount'],
-        UpdateAccountVariables,
-        DeleteAccounts,
-        DeleteAccountsVariables
-    >
-    implements OnInit {
-    public nextCodeAvailable: number;
+export class AccountComponent extends NaturalAbstractDetail<AccountService> implements OnInit {
+    public nextCodeAvailable: number | null = null;
     public accountHierarchicConfig = groupAccountHierarchicConfiguration;
 
     constructor(public accountService: AccountService, injector: Injector, public userService: UserService) {

@@ -16,7 +16,7 @@ export class HomeComponent extends NaturalAbstractController implements OnInit {
     /**
      * Model for header code search
      */
-    public code;
+    public code = '';
 
     public announcementActive = false;
 

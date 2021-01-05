@@ -1,5 +1,6 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {
+    CurrentUserForProfile_viewer,
     ExpenseClaims_expenseClaims,
     ExpenseClaims_expenseClaims_items,
     ExpenseClaimType,
@@ -20,9 +21,9 @@ import {of} from 'rxjs';
     styleUrls: ['./finances.component.scss'],
 })
 export class FinancesComponent extends NaturalAbstractController implements OnInit, OnChanges, OnDestroy {
-    @Input() public user;
+    @Input() public user!: CurrentUserForProfile_viewer;
 
-    public runningExpenseClaimsDS: NaturalDataSource<ExpenseClaims_expenseClaims>;
+    public runningExpenseClaimsDS!: NaturalDataSource<ExpenseClaims_expenseClaims>;
     public expenseClaimsColumns = ['name', 'date', 'status', 'type', 'remarks', 'amount', 'cancel'];
 
     public ibanLocked = true;
@@ -101,7 +102,8 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
             });
     }
 
-    public updateIban(iban: string): void {
+    public updateIban(): void {
+        const iban = this.user.iban;
         this.userService
             .updatePartially({id: this.user.id, iban: iban})
             .pipe(

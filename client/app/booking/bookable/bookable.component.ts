@@ -4,7 +4,7 @@ import {BookableService} from '../../admin/bookables/services/bookable.service';
 import {BookingService} from '../../admin/bookings/services/booking.service';
 import {UserService} from '../../admin/users/services/user.service';
 import {NaturalAbstractController} from '@ecodev/natural';
-import {Bookings, BookingType} from '../../shared/generated-types';
+import {Bookable_bookable, Bookings, BookingType} from '../../shared/generated-types';
 
 @Component({
     selector: 'app-bookable',
@@ -15,22 +15,22 @@ export class BookableComponent extends NaturalAbstractController implements OnIn
     /**
      * If the user has a required licence to use the bookable
      */
-    public hasLicense: boolean;
+    public hasLicense = false;
 
     /**
      * If the booking is free / available for a new navigation
      */
-    public isAvailable: boolean;
+    public isAvailable = false;
 
     /**
      * If is applicable for a navigation booking purpose
      * Basically : true only for self-approved bookables.
      */
-    public isNavigable: boolean;
-    public canAccessAdmin: boolean;
-    public runningBooking: Bookings['bookings']['items'][0] | null;
+    public isNavigable = false;
+    public canAccessAdmin = false;
+    public runningBooking: Bookings['bookings']['items'][0] | null = null;
 
-    public bookable;
+    public bookable: Bookable_bookable | null = null;
 
     constructor(
         private bookableService: BookableService,
@@ -43,13 +43,15 @@ export class BookableComponent extends NaturalAbstractController implements OnIn
     public ngOnInit(): void {
         this.route.data.subscribe(data => {
             this.bookable = data.bookable.model;
-            if (this.bookable) {
-                this.initForBookable();
-            }
+            this.initForBookable();
         });
     }
 
     private initForBookable(): void {
+        if (!this.bookable) {
+            return;
+        }
+
         const viewer = this.route.snapshot.data.viewer.model;
         this.canAccessAdmin = UserService.canAccessAdmin(viewer);
         this.hasLicense = BookableService.isLicenseGranted(this.bookable, viewer);

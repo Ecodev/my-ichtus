@@ -1,37 +1,19 @@
-import {gql, Apollo} from 'apollo-angular';
+import {Apollo, gql} from 'apollo-angular';
 import {Component, Injector, OnInit} from '@angular/core';
-import {
-    CreateUser,
-    CreateUserVariables,
-    UpdateUser,
-    UpdateUserVariables,
-    User,
-    UserVariables,
-} from '../../../shared/generated-types';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {AnonymousUserService} from './anonymous-user.service';
 import {ifValid, NaturalAbstractDetail, NaturalDataSource, validateAllFormControls} from '@ecodev/natural';
+import {Bookables_bookables} from '../../../shared/generated-types';
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent
-    extends NaturalAbstractDetail<
-        User['user'],
-        UserVariables,
-        CreateUser['createUser'],
-        CreateUserVariables,
-        UpdateUser['updateUser'],
-        UpdateUserVariables,
-        never,
-        never
-    >
-    implements OnInit {
-    public mandatoryBookables: NaturalDataSource;
+export class RegisterComponent extends NaturalAbstractDetail<AnonymousUserService> implements OnInit {
+    public mandatoryBookables: NaturalDataSource<Bookables_bookables> | null = null;
 
-    public step;
+    public step: 1 | 2 = 1;
     public sending = false;
 
     constructor(
@@ -44,7 +26,7 @@ export class RegisterComponent
     }
 
     public ngOnInit(): void {
-        this.step = +this.route.snapshot.data.step;
+        this.step = +this.route.snapshot.data.step as 1 | 2;
 
         super.ngOnInit();
 

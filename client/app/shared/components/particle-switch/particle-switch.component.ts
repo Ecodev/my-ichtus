@@ -6,14 +6,14 @@ import {AfterViewInit, Component, ContentChild, ElementRef, Input, OnInit, Templ
     styleUrls: ['./particle-switch.component.scss'],
 })
 export class ParticleSwitchComponent implements OnInit, AfterViewInit {
-    @ContentChild(TemplateRef, {static: true}) public template: TemplateRef<any>;
-    @ViewChild('wrapper', {static: true}) private wrapper: ElementRef<any>;
+    @ContentChild(TemplateRef, {static: true}) public template!: TemplateRef<any>;
+    @ViewChild('wrapper', {static: true}) private wrapper!: ElementRef<any>;
 
-    public _data1;
-    public _data2;
-    public showData1;
-    public showData2;
-    public invertAnimation;
+    public _data1: any;
+    public _data2: any;
+    public showData1 = false;
+    public showData2 = false;
+    public invertAnimation = false;
     public duration = 500;
     public firstDisplay = true;
 

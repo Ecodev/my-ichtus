@@ -9,7 +9,7 @@ import {VanillaRoutingModule} from './vanilla-routing.module';
 import {APP_BASE_HREF} from '@angular/common';
 import {UserService} from '../app/admin/users/services/user.service';
 import {BookingService} from '../app/admin/bookings/services/booking.service';
-import {NaturalLinkMutationService, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {Literal, NaturalLinkMutationService, NaturalQueryVariablesManager} from '@ecodev/natural';
 
 @NgModule({
     imports: [BrowserModule, HttpClientModule, VanillaRoutingModule],
@@ -58,10 +58,10 @@ export class VanillaModule implements DoBootstrap {
             linkMutation,
         };
 
-        window['ichtusApi'] = api;
+        (window as Literal)['ichtusApi'] = api;
     }
 
-    ngDoBootstrap(appRef: ApplicationRef): void {
+    public ngDoBootstrap(appRef: ApplicationRef): void {
         // Nothing to do at all here
     }
 }

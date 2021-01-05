@@ -3,11 +3,9 @@ import {NaturalAbstractList, NaturalQueryVariablesManager} from '@ecodev/natural
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {
-    Account,
+    MinimalAccount,
     TransactionLine,
-    TransactionLines,
     TransactionLinesForExportVariables,
-    TransactionLinesVariables,
     TransactionTag,
 } from '../../../shared/generated-types';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -18,10 +16,8 @@ import {union} from 'lodash-es';
     templateUrl: './transactionLines.component.html',
     styleUrls: ['./transactionLines.component.scss'],
 })
-export class TransactionLinesComponent
-    extends NaturalAbstractList<TransactionLines['transactionLines'], TransactionLinesVariables>
-    implements OnInit {
-    @Input() public relativeToAccount;
+export class TransactionLinesComponent extends NaturalAbstractList<TransactionLineService> implements OnInit {
+    @Input() public relativeToAccount: MinimalAccount | null = null;
     @Input() public hideFab = false;
 
     constructor(
@@ -43,7 +39,7 @@ export class TransactionLinesComponent
         });
     }
 
-    public filterByAccount(account: Account['account']): void {
+    public filterByAccount(account: MinimalAccount): void {
         if (this.hideFab) {
             const link = this.transactionLineService.linkToTransactionForAccount(account);
             this.router.navigate(link);

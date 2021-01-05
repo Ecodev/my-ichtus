@@ -1,6 +1,6 @@
 import {Component, Injector, OnInit} from '@angular/core';
 import {NaturalAbstractNavigableList} from '@ecodev/natural';
-import {Accounts, AccountsVariables} from '../../../shared/generated-types';
+import {Accounts, AccountsVariables, CurrentUserForProfile_viewer} from '../../../shared/generated-types';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {AccountService} from '../services/account.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -17,11 +17,9 @@ type AccountingDialogResult = Date;
     templateUrl: './accounts.component.html',
     styleUrls: ['./accounts.component.scss'],
 })
-export class AccountsComponent
-    extends NaturalAbstractNavigableList<Accounts['accounts'], AccountsVariables>
-    implements OnInit {
+export class AccountsComponent extends NaturalAbstractNavigableList<AccountService> implements OnInit {
     public initialColumns = ['navigation', 'code', 'name', 'totalBalance'];
-    public viewer;
+    public viewer!: CurrentUserForProfile_viewer;
     private dialogConfig: MatDialogConfig<AccountingDialogData> = {
         minWidth: '400px',
         maxWidth: '60vw',

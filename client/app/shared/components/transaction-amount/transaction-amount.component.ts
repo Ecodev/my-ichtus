@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {Account, AccountType, TransactionLine} from '../../generated-types';
+import {AccountType, MinimalAccount, TransactionLine} from '../../generated-types';
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
 
 @Component({
@@ -8,14 +8,14 @@ import {TransactionLineService} from '../../../admin/transactions/services/trans
     styleUrls: ['./transaction-amount.component.scss'],
 })
 export class TransactionAmountComponent implements OnInit, OnChanges {
-    @Input() public transactionLine: TransactionLine['transactionLine'];
+    @Input() public transactionLine: TransactionLine['transactionLine'] | null = null;
 
     /**
      * Account we want to see the amount relative to
      */
-    @Input() public relativeToAccount: Account['account'];
+    @Input() public relativeToAccount: MinimalAccount | null = null;
     @Input() public displayMode: 'amount' | 'account' = 'amount';
-    @Output() public accountClick: EventEmitter<Account['account']> = new EventEmitter();
+    @Output() public accountClick: EventEmitter<MinimalAccount> = new EventEmitter();
 
     public isIncome: boolean | null = null;
 
@@ -40,7 +40,7 @@ export class TransactionAmountComponent implements OnInit, OnChanges {
         }
     }
 
-    public propagateAccount(account: Account['account']): void {
+    public propagateAccount(account: MinimalAccount): void {
         this.accountClick.emit(account);
     }
 }

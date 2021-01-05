@@ -19,7 +19,7 @@ export class SupportComponent implements OnInit {
         extended_valid_elements: ['h1[class="mat-display-4"]'],
     };
 
-    public text;
+    public text = '';
 
     public readonly = false;
 

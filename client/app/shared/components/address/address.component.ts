@@ -9,7 +9,7 @@ import {FormGroup} from '@angular/forms';
 })
 export class AddressComponent {
     @Input() public vertical = false;
-    @Input() public form: FormGroup;
+    @Input() public form!: FormGroup;
     @Output() public change: EventEmitter<boolean> = new EventEmitter();
 
     constructor(public countryService: CountryService) {}

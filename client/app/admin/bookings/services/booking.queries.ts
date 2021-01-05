@@ -39,6 +39,7 @@ export const bookingsQuery = gql`
                     id
                     name
                     code
+                    bookingType
                     image {
                         id
                     }
@@ -157,6 +158,10 @@ export const createBooking = gql`
     mutation CreateBooking($input: BookingInput!) {
         createBooking(input: $input) {
             id
+            bookable {
+                id
+                name
+            }
             creator {
                 ...UserMeta
             }

@@ -4,11 +4,13 @@ import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {NaturalAbstractController, NaturalAlertService} from '@ecodev/natural';
 import {UserService} from '../../../admin/users/services/user.service';
+// @ts-ignore
 import * as Datatrans from '../../../datatrans-2.0.0-ecodev.js';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ProvisionComponent} from '../provision/provision.component';
 import {ConfigService, FrontEndConfig} from '../../../shared/services/config.service';
 import {filter, takeUntil} from 'rxjs/operators';
+import {CurrentUserForProfile_viewer} from '../../../shared/generated-types';
 
 @Component({
     selector: 'app-profile',
@@ -16,7 +18,7 @@ import {filter, takeUntil} from 'rxjs/operators';
     styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent extends NaturalAbstractController implements OnInit {
-    public viewer;
+    public viewer!: CurrentUserForProfile_viewer;
 
     /**
      * Install FE config
@@ -67,7 +69,7 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
         };
 
         this.dialog
-            .open(ProvisionComponent, config)
+            .open<ProvisionComponent, void, number>(ProvisionComponent, config)
             .afterClosed()
             .subscribe(amount => {
                 if (amount) {
@@ -80,7 +82,7 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
         return UserService.canAccessServices(this.viewer);
     }
 
-    private doPayment(user, amount): void {
+    private doPayment(user: CurrentUserForProfile_viewer, amount: number): void {
         if (!this.config) {
             return;
         }
@@ -117,7 +119,7 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
                 // this.apollo.client.resetStore();
                 this.apollo.client.reFetchObservableQueries(false);
             },
-            error: data => {
+            error: (data: {message: string}) => {
                 this.alertService.error("Le paiement n'a pas abouti: " + data.message);
             },
             cancel: () => {

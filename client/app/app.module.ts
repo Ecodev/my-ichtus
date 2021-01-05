@@ -12,6 +12,7 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {MatIconRegistry} from '@angular/material/icon';
 import {NetworkActivityService} from './shared/services/network-activity.service';
 import {
+    Literal,
     NaturalAlertService,
     NaturalSeoService,
     NaturalSwissParsingDateAdapter,

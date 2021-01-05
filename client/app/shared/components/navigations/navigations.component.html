@@ -25,7 +25,7 @@
                         <div style="position: relative">
                             <mat-divider></mat-divider>
                         </div>
-                        <div class="mat-body-2">{{ item.booking.owner.name }}</div>
+                        <div class="mat-body-2">{{ item.booking.owner?.name }}</div>
                         <div class="mat-body-1" *ngIf="!item.booking.endDate && item.booking.destination">
                             Destination : {{ item.booking.destination }}
                         </div>
@@ -68,7 +68,7 @@
                                 <textarea
                                     matInput
                                     [ngModel]="item.booking.startComment"
-                                    (change)="update({id: item.booking.id, startComment: $event.target.value})"
+                                    (change)="update({id: item.booking.id, startComment: item.booking.startComment})"
                                     [matTextareaAutosize]="true"
                                     [matAutosizeMinRows]="3"
                                 ></textarea>
@@ -79,7 +79,7 @@
                                 <textarea
                                     matInput
                                     [ngModel]="item.booking.endComment"
-                                    (change)="update({id: item.booking.id, endComment: $event.target.value})"
+                                    (change)="update({id: item.booking.id, endComment: item.booking.endComment})"
                                     [matTextareaAutosize]="true"
                                     [matAutosizeMinRows]="3"
                                 ></textarea>

@@ -7,11 +7,10 @@ import {distinctUntilChanged, filter} from 'rxjs/operators';
     providedIn: 'root',
 })
 export class QrService {
-    private stream: MediaStream | null;
-
-    private video: HTMLVideoElement;
-    private canvas: HTMLCanvasElement;
-    private context: CanvasRenderingContext2D;
+    private stream: MediaStream | null = null;
+    private video: HTMLVideoElement | null = null;
+    private canvas: HTMLCanvasElement | null = null;
+    private context: CanvasRenderingContext2D | null = null;
 
     private readonly scanObservable = new Subject<string>();
     private readonly streamObservable = new ReplaySubject<MediaStream>(1);
@@ -55,9 +54,13 @@ export class QrService {
                 this.starting = false;
                 this.streamObservable.next(stream);
                 this.stream = stream;
-                this.video.srcObject = stream;
-                this.video.setAttribute('playsinline', 'true'); // required to tell iOS safari we don't want fullscreen
-                this.video.play();
+
+                if (this.video) {
+                    this.video.srcObject = stream;
+                    this.video.setAttribute('playsinline', 'true'); // required to tell iOS safari we don't want fullscreen
+                    this.video.play();
+                }
+
                 this.queueDecoding();
             })
             .catch(err => {
@@ -86,6 +89,10 @@ export class QrService {
     }
 
     private decode(time: number): void {
+        if (!this.video || !this.canvas || !this.context) {
+            return;
+        }
+
         if (this.video.readyState === this.video.HAVE_ENOUGH_DATA && time - this.lastDecoding > 300) {
             this.lastDecoding = time;
             this.canvas.height = this.video.videoHeight;

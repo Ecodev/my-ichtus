@@ -3,8 +3,14 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {openDoorMutation} from './door.queries';
-import {OpenDoor, OpenDoorVariables} from '../../shared/generated-types';
-import {Literal} from '@ecodev/natural';
+import {CurrentUserForProfile_viewer, OpenDoor, OpenDoorVariables} from '../../shared/generated-types';
+
+interface DoorConfig {
+    id: keyof Pick<CurrentUserForProfile_viewer, 'door1' | 'door2' | 'door3' | 'door4'>;
+    name: string;
+    image: string;
+    opened: boolean;
+}
 
 @Injectable({
     providedIn: 'root',
@@ -12,7 +18,7 @@ import {Literal} from '@ecodev/natural';
 export class DoorService {
     constructor(private apollo: Apollo) {}
 
-    public doors: Literal = [
+    public doors: DoorConfig[] = [
         {
             id: 'door1',
             name: 'Entrée nord',

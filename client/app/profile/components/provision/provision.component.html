@@ -29,7 +29,7 @@
                 <mat-label>Montant</mat-label>
                 <input matInput type="number" step="1" [formControl]="formCtrl" [errorStateMatcher]="matcher" />
                 <mat-error *ngIf="formCtrl.errors?.min"
-                    >Minimum {{ formCtrl.errors.min.min | currency: 'CHF' }}</mat-error
+                    >Minimum {{ formCtrl.errors?.min?.min | currency: 'CHF' }}</mat-error
                 >
                 <div matSuffix>CHF</div>
             </mat-form-field>

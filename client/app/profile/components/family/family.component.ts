@@ -7,7 +7,7 @@ import {mergeOverrideArray, NaturalAlertService, NaturalQueryVariablesManager} f
 import {mergeWith} from 'lodash-es';
 import {MatExpansionPanel} from '@angular/material/expansion';
 import {first} from 'rxjs/operators';
-import {Users_users_items} from '../../../shared/generated-types';
+import {CurrentUserForProfile_viewer, Users_users_items} from '../../../shared/generated-types';
 
 @Component({
     selector: 'app-family',
@@ -15,10 +15,10 @@ import {Users_users_items} from '../../../shared/generated-types';
     styleUrls: ['./family.component.scss'],
 })
 export class FamilyComponent implements OnInit {
-    public viewer;
+    public viewer!: CurrentUserForProfile_viewer;
     public familyMembers: Users_users_items[] = [];
 
-    @ViewChildren(MatExpansionPanel) private readonly expansionPanels: QueryList<MatExpansionPanel>;
+    @ViewChildren(MatExpansionPanel) private readonly expansionPanels!: QueryList<MatExpansionPanel>;
 
     constructor(
         public userService: UserService,
@@ -48,7 +48,7 @@ export class FamilyComponent implements OnInit {
         this.familyMembers.push(emptyUser);
     }
 
-    public canEdit(familyMember): boolean {
+    public canEdit(familyMember: Users_users_items): boolean {
         return !this.viewer.owner || this.viewer.id === familyMember.id;
     }
 

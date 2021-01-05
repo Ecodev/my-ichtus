@@ -10,7 +10,7 @@ import {takeUntil} from 'rxjs/operators';
     styleUrls: ['./scan.component.scss'],
 })
 export class ScanComponent extends NaturalAbstractController implements OnInit, OnDestroy {
-    @ViewChild('video', {static: true}) private videoRef: ElementRef;
+    @ViewChild('video', {static: true}) private videoRef!: ElementRef;
 
     constructor(
         public router: Router,

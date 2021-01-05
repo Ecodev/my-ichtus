@@ -7,7 +7,7 @@
             <input
                 matInput
                 [ngModel]="user.iban"
-                (change)="updateIban($event.target.value)"
+                (change)="updateIban()"
                 [disabled]="ibanLocked"
                 (blur)="lockIbanIfDefined()"
             />

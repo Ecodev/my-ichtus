@@ -15,7 +15,7 @@ export class LoginComponent extends NaturalAbstractController implements OnInit,
     /**
      * Stores the received redirect URL until we need to use it (when login is successfull)
      */
-    public returnUrl: string;
+    public returnUrl = '/';
     public form: FormGroup;
 
     constructor(

@@ -1,6 +1,11 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
-import {BookingType} from '../../../shared/generated-types';
+import {
+    Bookings_bookings,
+    Bookings_bookings_items,
+    BookingType,
+    CurrentUserForProfile_viewer,
+} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
@@ -12,13 +17,13 @@ import {NaturalAbstractController, NaturalAlertService, NaturalDataSource} from 
     styleUrls: ['./services.component.scss'],
 })
 export class ServicesComponent extends NaturalAbstractController implements OnInit, OnChanges, OnDestroy {
-    @Input() public user;
+    @Input() public user!: CurrentUserForProfile_viewer;
 
     public adminMode = false;
 
     public BookableService = BookableService;
-    public runningServicesDS: NaturalDataSource;
-    public pendingApplicationsDS: NaturalDataSource;
+    public runningServicesDS!: NaturalDataSource<Bookings_bookings>;
+    public pendingApplicationsDS!: NaturalDataSource<Bookings_bookings>;
 
     public servicesColumns = ['name', 'initialPrice', 'periodicPrice', 'revoke'];
     public applicationsColumns = ['name', 'status', 'initialPrice', 'periodicPrice', 'cancel'];
@@ -54,16 +59,16 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
 
     public loadData(): void {
         const pendingApplications = this.userService.getPendingApplications(this.user, this.ngUnsubscribe);
-        this.pendingApplicationsDS = new NaturalDataSource(pendingApplications);
+        this.pendingApplicationsDS = new NaturalDataSource<Bookings_bookings>(pendingApplications);
 
         const runningServices = this.userService.getRunningServices(this.user, this.ngUnsubscribe);
-        this.runningServicesDS = new NaturalDataSource(runningServices);
+        this.runningServicesDS = new NaturalDataSource<Bookings_bookings>(runningServices);
     }
 
     /**
      * Set end date ?
      */
-    public revokeBooking(booking): void {
+    public revokeBooking(booking: Bookings_bookings_items): void {
         this.alertService
             .confirm(
                 'Résiliation de prestation',
@@ -77,11 +82,11 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
             });
     }
 
-    public canRevoke(booking): boolean {
-        return booking.bookable.bookingType !== BookingType.mandatory;
+    public canRevoke(booking: Bookings_bookings_items): boolean {
+        return booking.bookable?.bookingType !== BookingType.mandatory;
     }
 
-    public cancelApplication(booking): void {
+    public cancelApplication(booking: Bookings_bookings_items): void {
         this.bookingService.delete([booking]).subscribe();
     }
 

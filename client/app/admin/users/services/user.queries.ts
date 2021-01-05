@@ -1,5 +1,6 @@
 import {gql} from 'apollo-angular';
 import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
+import {minimimalAccountFragment} from '../../accounts/services/account.queries';
 
 // Fragment for single display usage. Too much data for listings, and unused fields for mutations.
 export const userFieldsFragment = gql`
@@ -41,6 +42,7 @@ export const userFieldsFragment = gql`
             name
             balance
             type
+            ...MinimalAccount
         }
         iban
         billingType
@@ -67,6 +69,7 @@ export const userFieldsFragment = gql`
             ...UserMeta
         }
     }
+    ${minimimalAccountFragment}
 `;
 
 export const usersQuery = gql`
@@ -95,12 +98,14 @@ export const usersQuery = gql`
                     balance
                     type
                 }
+                ...UserMeta
             }
             pageSize
             pageIndex
             length
         }
     }
+    ${userMetaFragment}
 `;
 
 export const emailUsersQuery = gql`
@@ -160,7 +165,13 @@ export const createUser = gql`
     mutation CreateUser($input: UserInput!) {
         createUser(input: $input) {
             id
+            login
+            email
             name
+            owner {
+                id
+                email
+            }
             creator {
                 ...UserMeta
             }

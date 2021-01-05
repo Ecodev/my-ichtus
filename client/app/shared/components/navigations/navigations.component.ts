@@ -9,13 +9,16 @@ import {
     BookingSortingField,
     BookingsVariables,
     BookingType,
+    CurrentUserForProfile_viewer,
     JoinType,
     LogicalOperator,
     SortingOrder,
     Users,
+    Users_users_items,
     UsersVariables,
 } from '../../generated-types';
 import {
+    Literal,
     NaturalAbstractController,
     NaturalAlertService,
     NaturalQueryVariablesManager,
@@ -56,16 +59,16 @@ function bookingsToExtended(bookings: Bookings['bookings']): PaginatedData<Exten
     ],
 })
 export class NavigationsComponent extends NaturalAbstractController implements OnInit {
-    @Input() public user;
+    @Input() public user!: CurrentUserForProfile_viewer;
     @Input() public activeOnly = true;
     @Input() public showEmptyMessage = false;
 
-    public bookings: PaginatedData<Extented>;
+    public bookings: PaginatedData<Extented> | null = null;
 
     private bookingsQVM = new NaturalQueryVariablesManager<BookingsVariables>();
 
     private currentPage = 0;
-    private family;
+    private family: (CurrentUserForProfile_viewer | Users_users_items)[] = [];
 
     constructor(
         public userService: UserService,
@@ -134,14 +137,14 @@ export class NavigationsComponent extends NaturalAbstractController implements O
         });
     }
 
-    public update(partialBooking): void {
+    public update(partialBooking: Literal): void {
         this.bookingService.updatePartially(partialBooking).subscribe(() => {});
     }
 
     public nextPage(): void {
         this.currentPage++;
         this.getNavigations(this.family).subscribe(bookings => {
-            this.bookings.items.push(...bookingsToExtended(bookings).items);
+            this.bookings?.items.push(...bookingsToExtended(bookings).items);
         });
     }
 

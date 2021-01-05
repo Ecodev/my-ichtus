@@ -2,19 +2,12 @@ import {Component, Injector, OnInit} from '@angular/core';
 import {NaturalAbstractDetail, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {UserService} from '../services/user.service';
 import {
-    CreateUser,
-    CreateUserVariables,
     LogicalOperator,
-    Sex,
     SortingOrder,
     TransactionLineSortingField,
     TransactionLinesVariables,
-    UpdateUser,
-    UpdateUserVariables,
-    User,
     UserRole,
     UsersVariables,
-    UserVariables,
 } from '../../../shared/generated-types';
 import {LicenseService} from '../../licenses/services/license.service';
 import {UserTagService} from '../../userTags/services/userTag.service';
@@ -27,23 +20,13 @@ import {IEnum} from '@ecodev/natural/lib/services/enum.service';
     templateUrl: './user.component.html',
     styleUrls: ['./user.component.scss'],
 })
-export class UserComponent
-    extends NaturalAbstractDetail<
-        User['user'],
-        UserVariables,
-        CreateUser['createUser'],
-        CreateUserVariables,
-        UpdateUser['updateUser'],
-        UpdateUserVariables,
-        any,
-        any
-    >
-    implements OnInit {
-    public showFamilyTab;
+export class UserComponent extends NaturalAbstractDetail<UserService> implements OnInit {
+    public showFamilyTab = false;
     public UserService = UserService;
 
-    public transactionLinesVariables;
-    public familyVariables;
+    public transactionLinesVariables: TransactionLinesVariables = {};
+
+    public familyVariables: UsersVariables = {};
 
     private userRolesAvailable: UserRole[] = [];
 

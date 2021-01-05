@@ -1,19 +1,20 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
 import {NaturalAbstractController, NaturalDataSource} from '@ecodev/natural';
+import {CurrentUserForProfile_viewer, TransactionLines_transactionLines} from '../../../shared/generated-types';
 
 @Component({
     selector: 'app-history',
     templateUrl: './history.component.html',
     styleUrls: ['./history.component.scss'],
 })
-export class HistoryComponent extends NaturalAbstractController implements OnInit, OnDestroy {
-    public viewer;
+export class HistoryComponent extends NaturalAbstractController implements OnInit {
+    @Input() public viewer!: CurrentUserForProfile_viewer;
 
-    public transactionLinesDS: NaturalDataSource;
+    public transactionLinesDS!: NaturalDataSource<TransactionLines_transactionLines>;
     public transactionsColumns = ['name', 'bookable', 'transactionDate', 'remarks', 'amount'];
 
     constructor(
@@ -33,7 +34,7 @@ export class HistoryComponent extends NaturalAbstractController implements OnIni
                 this.viewer.account,
                 this.ngUnsubscribe,
             );
-            this.transactionLinesDS = new NaturalDataSource(transactionLinesQuery);
+            this.transactionLinesDS = new NaturalDataSource<TransactionLines_transactionLines>(transactionLinesQuery);
         }
     }
 }

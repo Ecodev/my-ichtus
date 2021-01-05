@@ -3,7 +3,7 @@
     <natural-select
         [service]="bookableService"
         (selectionChange)="selection = $event"
-        [filter]="variables.filter"
+        [filter]="$any(variables.filter)"
         placeholder="Sélectionner"
     ></natural-select>
 </mat-dialog-content>

@@ -7,7 +7,7 @@ import {Router} from '@angular/router';
     styleUrls: ['./code-input.component.scss'],
 })
 export class CodeInputComponent implements OnInit {
-    public code;
+    public code = '';
 
     constructor(private router: Router) {}
 

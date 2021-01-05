@@ -1,9 +1,17 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, Validators} from '@angular/forms';
+import {
+    AbstractControl,
+    FormControl,
+    FormGroup,
+    FormGroupDirective,
+    NgForm,
+    ValidationErrors,
+    Validators,
+} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 
-function samePasswordsValidator(formGroup: FormGroup): ValidationErrors | null {
-    if (!formGroup || !formGroup.controls) {
+function samePasswordsValidator(formGroup: AbstractControl): ValidationErrors | null {
+    if (!formGroup || !(formGroup instanceof FormGroup)) {
         return null;
     }
 
@@ -29,7 +37,7 @@ class ConfirmPasswordStateMatcher implements ErrorStateMatcher {
     styleUrls: ['./password.component.scss'],
 })
 export class PasswordComponent implements OnInit {
-    @Input() public form: FormGroup;
+    @Input() public form!: FormGroup;
     public confirmPasswordStateMatcher = new ConfirmPasswordStateMatcher();
 
     constructor() {}

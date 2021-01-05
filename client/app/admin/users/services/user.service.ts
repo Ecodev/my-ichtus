@@ -6,7 +6,6 @@ import {Router} from '@angular/router';
 import {
     deliverableEmail,
     FormAsyncValidators,
-    FormControls,
     FormValidators,
     Literal,
     NaturalAbstractModelService,
@@ -37,6 +36,7 @@ import {
     CreateUser,
     CreateUserVariables,
     CurrentUserForProfile,
+    CurrentUserForProfile_viewer,
     LeaveFamily,
     LeaveFamilyVariables,
     LogicalOperator,
@@ -101,7 +101,7 @@ export class UserService extends NaturalAbstractModelService<
     /**
      * Should be used only by getViewer and cacheViewer
      */
-    private viewerCache: CurrentUserForProfile['viewer'] | null = null;
+    private viewerCache: CurrentUserForProfile_viewer | null = null;
 
     constructor(
         apollo: Apollo,
@@ -179,7 +179,7 @@ export class UserService extends NaturalAbstractModelService<
         return [UserRole.trainer, UserRole.responsible, UserRole.administrator].includes(user.role);
     }
 
-    public static getFamilyVariables(user): UsersVariables {
+    public static getFamilyVariables(user: CurrentUserForProfile_viewer): UsersVariables {
         const familyBoss = user.owner || user;
 
         return {
@@ -330,7 +330,10 @@ export class UserService extends NaturalAbstractModelService<
     /**
      * Impact members
      */
-    public getRunningServices(user, expire: Subject<void>): Observable<Bookings['bookings']> {
+    public getRunningServices(
+        user: CurrentUserForProfile_viewer,
+        expire: Subject<void>,
+    ): Observable<Bookings['bookings']> {
         const variables: BookingsVariables = {
             filter: {
                 groups: [
@@ -366,7 +369,10 @@ export class UserService extends NaturalAbstractModelService<
         return this.pricedBookingService.watchAll(qvm, expire);
     }
 
-    public getPendingApplications(user, expire: Subject<void>): Observable<Bookings['bookings']> {
+    public getPendingApplications(
+        user: CurrentUserForProfile_viewer,
+        expire: Subject<void>,
+    ): Observable<Bookings['bookings']> {
         const variables: BookingsVariables = {
             filter: {
                 groups: [
@@ -437,7 +443,7 @@ export class UserService extends NaturalAbstractModelService<
      *
      * This is kind of easiest possible "debounce" like with expiration feature
      */
-    private cacheViewer(user): void {
+    private cacheViewer(user: CurrentUserForProfile_viewer | null): void {
         this.viewerCache = user;
         setTimeout(() => {
             this.viewerCache = null;
@@ -470,7 +476,7 @@ export class UserService extends NaturalAbstractModelService<
             );
     }
 
-    public unregister(user): Observable<Unregister['unregister']> {
+    public unregister(user: CurrentUserForProfile_viewer): Observable<Unregister['unregister']> {
         return this.apollo
             .mutate<Unregister, UnregisterVariables>({
                 mutation: unregisterMutation,
@@ -481,7 +487,7 @@ export class UserService extends NaturalAbstractModelService<
             .pipe(map(result => result.data!.unregister));
     }
 
-    public leaveFamily(user): Observable<LeaveFamily['leaveFamily']> {
+    public leaveFamily(user: CurrentUserForProfile_viewer): Observable<LeaveFamily['leaveFamily']> {
         return this.apollo
             .mutate<LeaveFamily, LeaveFamilyVariables>({
                 mutation: leaveFamilyMutation,

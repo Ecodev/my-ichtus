@@ -9,9 +9,7 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
     templateUrl: './bookableTags.component.html',
     styleUrls: ['./bookableTags.component.scss'],
 })
-export class BookableTagsComponent
-    extends NaturalAbstractList<BookableTags['bookableTags'], BookableTagsVariables>
-    implements OnInit {
+export class BookableTagsComponent extends NaturalAbstractList<BookableTagService> implements OnInit {
     constructor(
         bookableTagService: BookableTagService,
         injector: Injector,

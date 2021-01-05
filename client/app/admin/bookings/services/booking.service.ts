@@ -9,7 +9,8 @@ import {
     updateBooking,
 } from './booking.queries';
 import {
-    Bookable,
+    Bookable_bookable,
+    Bookables_bookables_items,
     Booking,
     BookingInput,
     BookingPartialInput,
@@ -29,6 +30,7 @@ import {
     TerminateBookingVariables,
     UpdateBooking,
     UpdateBookingVariables,
+    UsageBookables_bookables_items,
 } from '../../../shared/generated-types';
 import {Validators} from '@angular/forms';
 import {forkJoin, Observable} from 'rxjs';
@@ -153,7 +155,7 @@ export class BookingService extends NaturalAbstractModelService<
         },
     };
 
-    public static applicationByTag(bookableTagId): BookingsVariables {
+    public static applicationByTag(bookableTagId: string): BookingsVariables {
         return {
             filter: {
                 groups: [
@@ -236,7 +238,7 @@ export class BookingService extends NaturalAbstractModelService<
      * Accepts optional third parameter with other default fields of booking
      */
     public createWithBookable(
-        bookable: Bookable['bookable'],
+        bookable: Bookable_bookable | Bookables_bookables_items | UsageBookables_bookables_items,
         owner: {id: string},
         booking: BookingPartialInput = {},
     ): Observable<CreateBooking['createBooking']> {

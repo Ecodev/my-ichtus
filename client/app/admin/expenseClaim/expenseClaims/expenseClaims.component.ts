@@ -1,7 +1,6 @@
 import {Component, Injector, OnInit} from '@angular/core';
 import {NaturalAbstractList} from '@ecodev/natural';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
-import {ExpenseClaims, ExpenseClaimsVariables} from '../../../shared/generated-types';
 import {ExpenseClaimService} from '../services/expenseClaim.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 
@@ -10,9 +9,7 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
     templateUrl: './expenseClaims.component.html',
     styleUrls: ['./expenseClaims.component.scss'],
 })
-export class ExpenseClaimsComponent
-    extends NaturalAbstractList<ExpenseClaims['expenseClaims'], ExpenseClaimsVariables>
-    implements OnInit {
+export class ExpenseClaimsComponent extends NaturalAbstractList<ExpenseClaimService> implements OnInit {
     constructor(
         expenseClaimService: ExpenseClaimService,
         injector: Injector,

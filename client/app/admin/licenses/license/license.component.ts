@@ -1,15 +1,5 @@
 import {Component, Injector} from '@angular/core';
 import {NaturalAbstractDetail} from '@ecodev/natural';
-import {
-    CreateLicense,
-    CreateLicenseVariables,
-    DeleteLicenses,
-    DeleteLicensesVariables,
-    License,
-    LicenseVariables,
-    UpdateLicense,
-    UpdateLicenseVariables,
-} from '../../../shared/generated-types';
 import {LicenseService} from '../services/license.service';
 import {BookableService} from '../../bookables/services/bookable.service';
 import {UserService} from '../../users/services/user.service';
@@ -19,16 +9,7 @@ import {UserService} from '../../users/services/user.service';
     templateUrl: './license.component.html',
     styleUrls: ['./license.component.scss'],
 })
-export class LicenseComponent extends NaturalAbstractDetail<
-    License['license'],
-    LicenseVariables,
-    CreateLicense['createLicense'],
-    CreateLicenseVariables,
-    UpdateLicense['updateLicense'],
-    UpdateLicenseVariables,
-    DeleteLicenses,
-    DeleteLicensesVariables
-> {
+export class LicenseComponent extends NaturalAbstractDetail<LicenseService> {
     constructor(
         licenseService: LicenseService,
         injector: Injector,
