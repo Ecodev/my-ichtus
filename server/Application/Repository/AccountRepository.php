@@ -14,7 +14,7 @@ use Money\Money;
 /**
  * Class AccountRepository
  *
- * @method null|Account findOneByCode(string $code)
+ * @method null|Account findOneByCode(int $code)
  */
 class AccountRepository extends AbstractRepository implements LimitedAccessSubQuery
 {
