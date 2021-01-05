@@ -11,6 +11,11 @@ use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 use Exception;
 use Money\Money;
 
+/**
+ * Class AccountRepository
+ *
+ * @method null|Account findOneByCode(string $code)
+ */
 class AccountRepository extends AbstractRepository implements LimitedAccessSubQuery
 {
     const ACCOUNT_ID_FOR_BANK = 10025;

@@ -102,21 +102,67 @@ class Accounting
         ];
 
         if (is_array($output)) {
-            $output[] = 'Bouclement au ' . $endDate;
+            $output[] = 'Bouclement au ' . $endDate->toDateString();
         }
 
         $existingClosingTransaction = $this->transactionRepository->findOneBy(['name' => 'Bouclement', 'transactionDate' => $endDateTime]);
 
         if ($existingClosingTransaction) {
-            throw new ExceptionWithoutMailLogging('Le bouclement a déjà été fait au ' . $endDateTime);
+            throw new ExceptionWithoutMailLogging('Le bouclement a déjà été fait au ' . $endDateTime->toDateTimeString());
         }
 
         $closingTransaction = new Transaction();
         $closingTransaction->setTransactionDate($endDateTime);
         $closingTransaction->setInternalRemarks('Écriture générée automatiquement');
         $closingTransaction->setName('Bouclement');
-        $closingEntries = [];
 
+        $this->generateClosingEntries($allAccountsToClose, $closingTransaction, $closingAccount, $endDate);
+
+        $profitOrLoss = $closingAccount->getBalance();
+        if ($profitOrLoss->isZero()) {
+            if (count($closingTransaction->getTransactionLines())) {
+                if (is_array($output)) {
+                    $output[] = 'Résultat équilibré, ni bénéfice, ni déficit: rien à reporter';
+                }
+                _em()->flush();
+
+                return $closingTransaction;
+            }
+            if (is_array($output)) {
+                $output[] = 'Aucun mouvement ou solde des comptes nul depuis le dernier bouclement: rien à reporter';
+            }
+
+            return null;
+        }
+        $carryForward = new TransactionLine();
+        _em()->persist($carryForward);
+        $carryForward->setTransaction($closingTransaction);
+        $carryForward->setBalance($profitOrLoss->absolute());
+        $carryForward->setTransactionDate($closingTransaction->getTransactionDate());
+        if ($profitOrLoss->isPositive()) {
+            if (is_array($output)) {
+                $output[] = 'Bénéfice : ' . Format::money($profitOrLoss);
+            }
+            $carryForward->setName('Report du bénéfice');
+            $carryForward->setDebit($closingAccount);
+            $carryForward->setCredit($carryForwardAccount);
+        } elseif ($profitOrLoss->isNegative()) {
+            if (is_array($output)) {
+                $output[] = 'Déficit : ' . Format::money($profitOrLoss->absolute());
+            }
+            $carryForward->setName('Report du déficit');
+            $carryForward->setDebit($carryForwardAccount);
+            $carryForward->setCredit($closingAccount);
+        }
+
+        _em()->flush();
+
+        return $closingTransaction;
+    }
+
+    private function generateClosingEntries(array $allAccountsToClose, Transaction $closingTransaction, Account $closingAccount, Date $endDate): void
+    {
+        $closingEntries = [];
         foreach ($allAccountsToClose as $accountType => $accountsToClose) {
             foreach ($accountsToClose as $account) {
                 /** @var Money $balance */
@@ -160,46 +206,6 @@ class Accounting
         if (count($closingEntries)) {
             $this->transactionRepository->hydrateLinesAndFlush($closingTransaction, $closingEntries);
         }
-        $profitOrLoss = $closingAccount->getBalance();
-        if ($profitOrLoss->isZero()) {
-            if (count($closingTransaction->getTransactionLines())) {
-                if (is_array($output)) {
-                    $output[] = 'Résultat équilibré, ni bénéfice, ni déficit: rien à reporter';
-                }
-                _em()->flush();
-
-                return $closingTransaction;
-            }
-            if (is_array($output)) {
-                $output[] = 'Aucun mouvement ou solde des comptes nul depuis le dernier bouclement: rien à reporter';
-            }
-
-            return null;
-        }
-        $carryForward = new TransactionLine();
-        _em()->persist($carryForward);
-        $carryForward->setTransaction($closingTransaction);
-        $carryForward->setBalance($profitOrLoss->absolute());
-        $carryForward->setTransactionDate($closingTransaction->getTransactionDate());
-        if ($profitOrLoss->isPositive()) {
-            if (is_array($output)) {
-                $output[] = 'Bénéfice : ' . Format::money($profitOrLoss);
-            }
-            $carryForward->setName('Report du bénéfice');
-            $carryForward->setDebit($closingAccount);
-            $carryForward->setCredit($carryForwardAccount);
-        } elseif ($profitOrLoss->isNegative()) {
-            if (is_array($output)) {
-                $output[] = 'Déficit : ' . Format::money($profitOrLoss->absolute());
-            }
-            $carryForward->setName('Report du déficit');
-            $carryForward->setDebit($carryForwardAccount);
-            $carryForward->setCredit($closingAccount);
-        }
-
-        _em()->flush();
-
-        return $closingTransaction;
     }
 
     /**
