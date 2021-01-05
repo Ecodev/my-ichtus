@@ -13,7 +13,6 @@ use Money\Money;
 
 class AccountRepository extends AbstractRepository implements LimitedAccessSubQuery
 {
-    private const PARENT_ACCOUNT_ID_FOR_USER = 10011;
     const ACCOUNT_ID_FOR_BANK = 10025;
 
     /**
@@ -70,6 +69,8 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
      */
     public function getOrCreate(User $user): Account
     {
+        global $container;
+
         // If an account already exists, because getOrCreate was called once before without flushing in between,
         // then can return immediately
         if ($user->getAccount()) {
@@ -92,7 +93,11 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
             $account->setType(AccountTypeType::LIABILITY);
             $account->setName($user->getName());
 
-            $parent = $this->getOneById(self::PARENT_ACCOUNT_ID_FOR_USER);
+            $config = $container->get('config');
+            $parentCode = (int) $config['accounting']['customerDepositsAccountCode'];
+            $parent = $this->getAclFilter()->runWithoutAcl(function () use ($parentCode) {
+                return $this->findOneByCode($parentCode);
+            });
 
             // Find the max account code, using the liability parent code as prefix
             if (!$this->maxCode) {

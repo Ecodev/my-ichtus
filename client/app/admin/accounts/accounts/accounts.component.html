@@ -40,6 +40,14 @@
                         <span naturalColumnsPickerColumn="creationDate">Créé le</span>
                         <span naturalColumnsPickerColumn="updateDate">Modifié le</span>
                     </natural-columns-picker>
+                    <button
+                        mat-icon-button
+                        *ngIf="userService.canCloseAccounting(viewer)"
+                        (click)="showClosing()"
+                        matTooltip="Bouclement comptable"
+                    >
+                        <natural-icon name="account_balance"></natural-icon>
+                    </button>
                 </natural-search>
             </div>
 

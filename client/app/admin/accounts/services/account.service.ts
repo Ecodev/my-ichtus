@@ -1,6 +1,7 @@
 import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {
+    accountingClosing,
     accountQuery,
     accountsQuery,
     createAccount,
@@ -11,6 +12,8 @@ import {
 import {
     Account,
     Account_account,
+    AccountingClosing,
+    AccountingClosingVariables,
     AccountInput,
     Accounts,
     AccountsVariables,
@@ -82,5 +85,18 @@ export class AccountService extends NaturalAbstractModelService<
                     return result.data.nextAccountCode;
                 }),
             );
+    }
+
+    public closing(date: Date): Observable<AccountingClosing['accountingClosing']> {
+        const variables: AccountingClosingVariables = {
+            date: date,
+        };
+
+        return this.apollo
+            .mutate<AccountingClosing>({
+                mutation: accountingClosing,
+                variables: variables,
+            })
+            .pipe(map(result => result.data!.accountingClosing));
     }
 }

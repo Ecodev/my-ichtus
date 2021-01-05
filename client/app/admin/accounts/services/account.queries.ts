@@ -104,3 +104,11 @@ export const deleteAccounts = gql`
         deleteAccounts(ids: $ids)
     }
 `;
+
+export const accountingClosing = gql`
+    mutation AccountingClosing($date: Date) {
+        accountingClosing(date: $date) {
+            id
+        }
+    }
+`;

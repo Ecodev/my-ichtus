@@ -1,28 +1,48 @@
-import {Component, Injector} from '@angular/core';
+import {Component, Injector, OnInit} from '@angular/core';
 import {NaturalAbstractNavigableList} from '@ecodev/natural';
 import {Accounts, AccountsVariables} from '../../../shared/generated-types';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {AccountService} from '../services/account.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {TransactionLineService} from '../../transactions/services/transactionLine.service';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {UserService} from '../../users/services/user.service';
+import {AccountingClosingComponent} from '../accounting-closing/accounting-closing.component';
+
+type AccountingDialogData = never;
+type AccountingDialogResult = Date;
 
 @Component({
     selector: 'app-accounts',
     templateUrl: './accounts.component.html',
     styleUrls: ['./accounts.component.scss'],
 })
-export class AccountsComponent extends NaturalAbstractNavigableList<Accounts['accounts'], AccountsVariables> {
+export class AccountsComponent
+    extends NaturalAbstractNavigableList<Accounts['accounts'], AccountsVariables>
+    implements OnInit {
     public initialColumns = ['navigation', 'code', 'name', 'totalBalance'];
+    public viewer;
+    private dialogConfig: MatDialogConfig<AccountingDialogData> = {
+        maxWidth: '45vw',
+    };
 
     constructor(
-        accountService: AccountService,
         injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,
+        private accountService: AccountService,
+        private dialog: MatDialog,
         public permissionsService: PermissionsService,
         public transactionLineService: TransactionLineService,
+        public userService: UserService,
     ) {
         super(accountService, injector);
         this.naturalSearchFacets = naturalSearchFacetsService.get('accounts');
+    }
+
+    public ngOnInit(): void {
+        super.ngOnInit();
+
+        this.viewer = this.route.snapshot.data.viewer.model;
     }
 
     public addLink(): any[] {
@@ -32,5 +52,23 @@ export class AccountsComponent extends NaturalAbstractNavigableList<Accounts['ac
             route = route.concat([{parent: parentId}]);
         }
         return route;
+    }
+
+    public showClosing(): void {
+        this.dialog
+            .open<AccountingClosingComponent, AccountingDialogData, AccountingDialogResult>(
+                AccountingClosingComponent,
+                this.dialogConfig,
+            )
+            .afterClosed()
+            .subscribe(date => {
+                if (date) {
+                    this.accountService.closing(date).subscribe(transaction => {
+                        if (transaction) {
+                            this.router.navigate(['../transaction/', transaction.id], {relativeTo: this.route});
+                        }
+                    });
+                }
+            });
     }
 }

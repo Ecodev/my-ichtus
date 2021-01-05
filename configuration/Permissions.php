@@ -87,10 +87,13 @@ return [
         'permissions' => '0750',
     ],
     [
-        'path' => 'bin/check-accounting.sh',
+        'path' => 'bin/check-accounting.php',
         'permissions' => '0750',
     ],
-
+    [
+        'path' => 'bin/close-accounting.php',
+        'permissions' => '0750',
+    ],
     [
         'path' => 'bin/queue-message-for-all-balance.php',
         'permissions' => '0750',

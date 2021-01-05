@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace ApplicationTest\Repository;
 
+use Application\Model\Account;
 use Application\Model\TransactionLine;
+use Application\Repository\AccountRepository;
 use Application\Repository\TransactionLineRepository;
 use ApplicationTest\Traits\LimitedAccessSubQuery;
+use Cake\Chronos\Date;
+use Money\Money;
 
 /**
  * @group Repository
@@ -100,5 +104,24 @@ class TransactionLineRepositoryTest extends AbstractRepositoryTest
         $this->assertAccountBalance($account2, 10000, 'balance should be restored to its original value after deletion');
         $this->assertAccountBalance($account3, 1250, 'balance should be restored to its original value after deletion');
         $this->assertAccountBalance($account4, 818750, 'balance should be restored to its original value after deletion');
+    }
+
+    public function testTotalBalance(): void
+    {
+        /** @var AccountRepository $accountRepository */
+        $accountRepository = _em()->getRepository(Account::class);
+
+        /** @var Account $poste */
+        $poste = $accountRepository->getOneById(10025);
+
+        $totalDebit = $this->repository->totalBalance($poste, null);
+        $totalCredit = $this->repository->totalBalance(null, $poste);
+        self::assertTrue(Money::CHF(1520000)->equals($totalDebit));
+        self::assertTrue(Money::CHF(701250)->equals($totalCredit));
+
+        $totalDebitFromDate = $this->repository->totalBalance($poste, null, new Date('2019-02-01'));
+        $totalDebitUntilDate = $this->repository->totalBalance($poste, null, null, new Date('2019-01-01'));
+        self::assertTrue(Money::CHF(20000)->equals($totalDebitFromDate));
+        self::assertTrue(Money::CHF(1500000)->equals($totalDebitUntilDate));
     }
 }

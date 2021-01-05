@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Bouclement comptable</h2>
+<mat-dialog-content>
+    <div fxLayout="column">
+        <mat-hint>
+            <p>
+                Le bouclement va générer les écritures soldant tous les comptes de charges et profits, calculer le
+                résultat de l'exercice et le transférer au compte "bénéfice/perte reporté".
+            </p>
+            <p>
+                Cette opération est à faire une seule fois par année, généralement en début d'année pour le 31.12 de
+                l'année précédente, lorsque que toutes les écritures (y compris transitoires) ont été saisies.
+            </p>
+        </mat-hint>
+        <mat-form-field fxLayout="row" class="margin-v">
+            <mat-label>Date du bouclement</mat-label>
+            <input matInput [formControl]="form" [matDatepicker]="picker" />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="form.hasError('required')">Requis</mat-error>
+        </mat-form-field>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">
+    <button mat-button mat-dialog-close>Annuler</button>
+    <button mat-button color="primary" [mat-dialog-close]="form.value" [disabled]="!form.valid">
+        Générer les écritures
+    </button>
+</mat-dialog-actions>

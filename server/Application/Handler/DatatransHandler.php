@@ -67,8 +67,8 @@ class DatatransHandler extends AbstractHandler
                 throw new Exception('Parsed body is expected to be an array but got: ' . gettype($body));
             }
 
-            if (isset($this->config['key'])) {
-                $this->checkSignature($body, $this->config['key']);
+            if (isset($this->config['datatrans'], $this->config['datatrans']['key'])) {
+                $this->checkSignature($body, $this->config['datatrans']['key']);
             }
 
             $status = $body['status'] ?? '';
@@ -166,7 +166,10 @@ class DatatransHandler extends AbstractHandler
         /** @var AccountRepository $accountRepository */
         $accountRepository = $this->entityManager->getRepository(Account::class);
         $userAccount = $accountRepository->getOrCreate($user);
-        $bankAccount = $accountRepository->getOneById(AccountRepository::ACCOUNT_ID_FOR_BANK);
+        if (!isset($this->config['accounting'], $this->config['accounting']['bankAccountCode'])) {
+            throw new Exception('Missing config accounting/bankAccountCode');
+        }
+        $bankAccount = $accountRepository->findOneByCode($this->config['accounting']['bankAccountCode']);
 
         if (!array_key_exists('amount', $body)) {
             // Do not support "registrations"

@@ -32,7 +32,7 @@ class AccountRepositoryTest extends AbstractRepositoryTest
 
     public function providerGetAccessibleSubQuery(): array
     {
-        $all = range(10000, 10106);
+        $all = range(10000, 10107);
 
         return [
             ['anonymous', []],

@@ -15,7 +15,8 @@ class AccountingFactory
     public function __invoke(ContainerInterface $container): Accounting
     {
         $entityManager = $container->get(EntityManager::class);
+        $config = $container->get('config');
 
-        return new Accounting($entityManager);
+        return new Accounting($entityManager, $config['accounting'], $config['hostname']);
     }
 }

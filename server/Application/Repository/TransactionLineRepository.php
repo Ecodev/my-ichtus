@@ -5,9 +5,13 @@ declare(strict_types=1);
 namespace Application\Repository;
 
 use Application\Handler\ExportTransactionLinesHandler;
+use Application\Model\Account;
 use Application\Model\User;
+use Cake\Chronos\Date;
 use Doctrine\ORM\Query;
+use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
+use Money\Money;
 
 class TransactionLineRepository extends AbstractRepository implements ExportExcelInterface, LimitedAccessSubQuery
 {
@@ -47,6 +51,51 @@ class TransactionLineRepository extends AbstractRepository implements ExportExce
         global $container;
 
         return ($container->get(ExportTransactionLinesHandler::class))->generate($query);
+    }
+
+    /**
+     * Compute the total balance by credit or debit account and date range
+     *
+     * @param null|Account $debitAccount
+     * @param null|Account $creditAccount
+     * @param null|Date $dateStart the lines from this date, included
+     * @param null|Date $dateEnd the line until this date, included
+     *
+     * @return Money
+     */
+    public function totalBalance($debitAccount, $creditAccount, $dateStart = null, $dateEnd = null)
+    {
+        if ($debitAccount === null && $creditAccount === null) {
+            throw new Exception('At least one debit or credit account is needed to compute the total balance');
+        }
+
+        $qb = $this->getEntityManager()->getConnection()->createQueryBuilder()
+            ->select('SUM(balance)')
+            ->from('transaction_line');
+
+        if ($debitAccount) {
+            $qb->andWhere('debit_id = :debit')
+                ->setParameter('debit', $debitAccount->getId());
+        }
+
+        if ($creditAccount) {
+            $qb->andWhere('credit_id = :credit')
+                ->setParameter('credit', $creditAccount->getId());
+        }
+
+        if ($dateStart) {
+            $qb->andWhere('transaction_date >= :dateStart')
+                ->setParameter('dateStart', $dateStart);
+        }
+
+        if ($dateEnd) {
+            $qb->andWhere('transaction_date <= :dateEnd')
+                ->setParameter('dateEnd', $dateEnd);
+        }
+
+        $result = $qb->execute();
+
+        return Money::CHF((int) $result->fetchColumn());
     }
 
     public function importedIdExists(string $importedId): bool

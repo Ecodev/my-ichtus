@@ -4,13 +4,19 @@ declare(strict_types=1);
 
 namespace Application\Model;
 
+use Application\DBAL\Types\AccountTypeType;
+use Application\Repository\AccountRepository;
+use Application\Repository\TransactionLineRepository;
 use Application\Traits\HasIban;
+use Cake\Chronos\Date;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Model\Traits\HasName;
 use GraphQL\Doctrine\Annotation as API;
 use Money\Money;
+use PDO;
 
 /**
  * Financial account
@@ -151,6 +157,78 @@ class Account extends AbstractModel
     public function getTotalBalance(): Money
     {
         return $this->totalBalance;
+    }
+
+    /**
+     * Historical account's balance at a date in the past
+     */
+    public function getBalanceAtDate(Date $date): Money
+    {
+        $today = Date::today();
+
+        if ($date->greaterThan($today)) {
+            throw new Exception('Cannot compute balance of account #' . $this->getId() . ' in the future on ' . $date->format('d.m.Y'));
+        }
+
+        if ($date->equals($today)) {
+            if ($this->getType() === AccountTypeType::GROUP) {
+                return $this->getTotalBalance();
+            }
+
+            return $this->getBalance();
+        }
+
+        $connection = _em()->getConnection();
+
+        if ($this->getType() === AccountTypeType::GROUP) {
+
+            // Get all child accounts that are not group account (= they have their own balance)
+            $sql = 'WITH RECURSIVE child AS
+              (SELECT id, parent_id, `type`, balance
+               FROM account WHERE id = ?
+               UNION
+               SELECT account.id, account.parent_id, account.type, account.balance
+               FROM account
+               JOIN child ON account.parent_id = child.id)
+            SELECT child.id FROM child WHERE `type` <> ?';
+
+            $result = $connection->executeQuery($sql, [$this->getId(), AccountTypeType::GROUP]);
+
+            $ids = $result->fetchAll(PDO::FETCH_COLUMN);
+
+            $totals = [];
+            $totalForChildren = Money::CHF(0);
+
+            /** @var AccountRepository $accountRepository */
+            $accountRepository = _em()->getRepository(self::class);
+            foreach ($ids as $idAccount) {
+                $child = $accountRepository->getOneById((int) $idAccount);
+                $childBalance = $child->getBalanceAtDate($date);
+                $totalForChildren = $totalForChildren->add($childBalance);
+                $totals[(int) $idAccount] = $totalForChildren;
+            }
+
+            return $totalForChildren;
+        }
+
+        /** @var TransactionLineRepository $transactionLineRepository */
+        $transactionLineRepository = _em()->getRepository(TransactionLine::class);
+
+        $totalDebit = $transactionLineRepository->totalBalance($this, null, null, $date);
+        $totalCredit = $transactionLineRepository->totalBalance(null, $this, null, $date);
+        if (in_array($this->getType(), [
+            AccountTypeType::LIABILITY,
+            AccountTypeType::EQUITY,
+            AccountTypeType::REVENUE,
+        ], true)) {
+            $balance = $totalCredit->subtract($totalDebit);
+        } elseif (in_array($this->getType(), [AccountTypeType::ASSET, AccountTypeType::EXPENSE], true)) {
+            $balance = $totalDebit->subtract($totalCredit);
+        } else {
+            throw new Exception('Do not know how to compute past balance of account #' . $this->getId() . ' of type ' . $this->getType());
+        }
+
+        return $balance;
     }
 
     /**

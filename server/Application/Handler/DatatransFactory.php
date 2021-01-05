@@ -16,6 +16,6 @@ class DatatransFactory
         $rendered = $container->get(TemplateRendererInterface::class);
         $config = $container->get('config');
 
-        return new DatatransHandler($entityManager, $rendered, $config['datatrans']);
+        return new DatatransHandler($entityManager, $rendered, $config);
     }
 }

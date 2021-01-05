@@ -34,7 +34,12 @@ class DatatransHandlerTest extends TestCase
         $request = $request->withParsedBody($data);
 
         $config = [
-            'key' => '1a03b7bcf2752c8c8a1b46616b0c12658d2c7643403e655450bedb7c78bb2d2f659c2ff4e647e4ea72d37ef6745ebda6733c7b859439107069f291cda98f4844',
+            'datatrans' => [
+                'key' => '1a03b7bcf2752c8c8a1b46616b0c12658d2c7643403e655450bedb7c78bb2d2f659c2ff4e647e4ea72d37ef6745ebda6733c7b859439107069f291cda98f4844',
+            ],
+            'accounting' => [
+                'bankAccountCode' => 1020,
+            ],
         ];
 
         $handler = new DatatransHandler($this->getEntityManager(), $renderer, $config);

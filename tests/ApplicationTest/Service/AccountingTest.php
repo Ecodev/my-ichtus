@@ -4,9 +4,15 @@ declare(strict_types=1);
 
 namespace ApplicationTest\Service;
 
+use Application\DBAL\Types\AccountTypeType;
+use Application\Model\Account;
 use Application\Model\User;
+use Application\Repository\AccountRepository;
 use Application\Service\Accounting;
 use ApplicationTest\Traits\TestWithTransactionAndUser;
+use Cake\Chronos\Chronos;
+use Cake\Chronos\Date;
+use Money\Money;
 use PHPUnit\Framework\TestCase;
 
 class AccountingTest extends TestCase
@@ -49,5 +55,33 @@ class AccountingTest extends TestCase
         );
 
         self::assertFalse($this->accounting->check(), 'fixture data should not produce any errors');
+    }
+
+    public function testClose(): void
+    {
+        /** @var AccountRepository $accountRepository */
+        $accountRepository = _em()->getRepository(Account::class);
+        $closingDate = Date::createFromDate(2019, 12, 31);
+
+        $expectedLog = [
+            'Bouclement au 2019-12-31',
+            'Bénéfice : 127.50',
+        ];
+        $output = [];
+        $closingTransaction = $this->accounting->close($closingDate, $output);
+        self::assertSame($expectedLog, $output);
+
+        $actualDate = $closingTransaction->getTransactionDate();
+        $expectedDate = (new Chronos($closingDate))->endOfDay();
+        self::assertTrue($actualDate->eq($expectedDate), 'Closing transaction was not created on ' . $closingDate);
+
+        $accounts = $accountRepository->findByType([AccountTypeType::REVENUE, AccountTypeType::EXPENSE]);
+        $openingDate = $closingDate->addDay();
+        foreach ($accounts as $account) {
+            self::assertTrue(Money::CHF(0)->equals($account->getBalanceAtDate($openingDate)));
+        }
+
+        $this->expectExceptionMessage('Le bouclement a déjà été fait au 2019-12-31 23:59:59');
+        $this->accounting->close($closingDate, $output);
     }
 }

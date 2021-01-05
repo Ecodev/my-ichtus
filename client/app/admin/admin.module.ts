@@ -34,6 +34,7 @@ import {EcoFabSpeedDialModule} from '@ecodev/fab-speed-dial';
 import {LogsComponent} from './logs/logs/logs.component';
 import {UsageBookablesComponent} from './bookables/bookables/usage-bookables.component';
 import {BookingsWithOwnerComponent} from './bookings/bookings/bookings-with-owner.component';
+import {AccountingClosingComponent} from './accounts/accounting-closing/accounting-closing.component';
 
 @NgModule({
     declarations: [
@@ -56,6 +57,7 @@ import {BookingsWithOwnerComponent} from './bookings/bookings/bookings-with-owne
         TransactionLinesComponent,
         AccountsComponent,
         AccountComponent,
+        AccountingClosingComponent,
         ExpenseClaimsComponent,
         ExpenseClaimComponent,
         TransactionTagsComponent,

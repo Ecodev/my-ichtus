@@ -531,6 +531,13 @@ export class UserService extends NaturalAbstractModelService<
         return user.role === UserRole.administrator;
     }
 
+    public canCloseAccounting(user: CurrentUserForProfile['viewer']): boolean {
+        if (!user) {
+            return false;
+        }
+        return user.role === UserRole.administrator;
+    }
+
     public requestPasswordReset(login: string): Observable<RequestPasswordReset['requestPasswordReset']> {
         const mutation = gql`
             mutation RequestPasswordReset($login: Login!) {
