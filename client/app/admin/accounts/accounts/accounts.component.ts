@@ -23,7 +23,8 @@ export class AccountsComponent
     public initialColumns = ['navigation', 'code', 'name', 'totalBalance'];
     public viewer;
     private dialogConfig: MatDialogConfig<AccountingDialogData> = {
-        maxWidth: '45vw',
+        minWidth: '400px',
+        maxWidth: '60vw',
     };
 
     constructor(
