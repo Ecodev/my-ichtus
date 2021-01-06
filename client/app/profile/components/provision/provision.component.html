@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>Faire un versement</h2>
 <mat-dialog-content>
-    <div fxLayout="column" fxLayoutGap="20px" *ngIf="!paymentMode">
+    <div fxLayout="column" fxLayoutGap="5px" *ngIf="!paymentMode">
         <div>
             <p class="mat-body-1">Nous t'encourageons à payer par e-banking (BVR) qui est sans frais pour le club.</p>
             <p class="mat-body-1">
@@ -8,7 +8,7 @@
             </p>
         </div>
 
-        <div fxLayout="column" fxLayoutGap="10px">
+        <div fxLayout="column" fxLayoutGap="5px">
             <button mat-flat-button color="primary" (click)="setPaymentMode('ebanking')">
                 E-Banking
                 <!-- : BVR--->
@@ -24,7 +24,7 @@
     <div class="padding" *ngIf="paymentMode === 'datatrans'">
         <p class="mat-body">Merci d'indiquer le montant que tu souhaites verser.</p>
 
-        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
             <mat-form-field style="width: 120px">
                 <mat-label>Montant</mat-label>
                 <input matInput type="number" step="1" [formControl]="formCtrl" [errorStateMatcher]="matcher" />
@@ -43,10 +43,7 @@
     <app-bvr [bankingData]="bvrData" *ngIf="paymentMode === 'ebanking'"></app-bvr>
 </mat-dialog-content>
 
-<mat-dialog-actions fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">
-    <button *ngIf="showExportBillButton()" mat-button (click)="exportBill()">
-        <natural-icon name="file_download"></natural-icon>
-        Télécharger le bulletin de paiement
-    </button>
+<mat-dialog-actions fxLayout="row" fxLayoutAlign="end" fxLayoutGap="0px">
+    <button *ngIf="showExportBillButton()" mat-button (click)="exportBill()">Télécharger bulletin de paiement</button>
     <button mat-button mat-dialog-close cdkFocusInitial>Fermer</button>
 </mat-dialog-actions>

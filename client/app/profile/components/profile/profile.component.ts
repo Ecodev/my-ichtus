@@ -63,7 +63,7 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
                 balance: Number(this.viewer.account.balance),
                 user: this.viewer,
             },
-            maxWidth: '600px',
+            maxWidth: '650px',
         };
 
         this.dialog
