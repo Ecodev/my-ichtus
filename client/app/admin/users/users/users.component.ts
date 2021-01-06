@@ -14,7 +14,7 @@ import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {emailUsersQuery} from '../services/user.queries';
 import {UserService} from '../services/user.service';
-import {copy} from '../../../shared/utils';
+import {copyToClipboard} from '../../../shared/utils';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ProvisionComponent} from '../../../profile/components/provision/provision.component';
 import {ActivatedRoute} from '@angular/router';
@@ -100,8 +100,8 @@ export class UsersComponent extends NaturalAbstractList<Users['users'], UsersVar
         }
     }
 
-    public copy(data): void {
-        copy(data);
+    public copyToClipboard(data): void {
+        copyToClipboard(data);
     }
 
     public showProvision(user: Users_users_items): void {

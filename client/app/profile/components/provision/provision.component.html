@@ -9,12 +9,12 @@
         </div>
 
         <div fxLayout="column" fxLayoutGap="10px">
-            <button mat-flat-button color="primary" (click)="paymentMode = 'ebanking'">
+            <button mat-flat-button color="primary" (click)="setPaymentMode('ebanking')">
                 E-Banking
                 <!-- : BVR--->
             </button>
 
-            <button mat-flat-button color="primary" (click)="paymentMode = 'datatrans'">
+            <button mat-flat-button color="primary" (click)="setPaymentMode('datatrans')">
                 En ligne
                 <!-- : Postfinance / Visa / Mastercard-->
             </button>
@@ -43,6 +43,10 @@
     <app-bvr [bankingData]="bvrData" *ngIf="paymentMode === 'ebanking'"></app-bvr>
 </mat-dialog-content>
 
-<mat-dialog-actions fxLayout="row" fxLayoutAlign="end">
-    <button mat-button mat-dialog-close>Annuler</button>
+<mat-dialog-actions fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">
+    <button *ngIf="showExportBillButton()" mat-button (click)="exportBill()">
+        <natural-icon name="file_download"></natural-icon>
+        Télécharger le bulletin de paiement
+    </button>
+    <button mat-button mat-dialog-close cdkFocusInitial>Fermer</button>
 </mat-dialog-actions>

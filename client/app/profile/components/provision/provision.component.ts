@@ -1,8 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {FormControl, Validators} from '@angular/forms';
 import {BankingInfosVariables} from '../../../shared/generated-types';
+import {BvrComponent} from '../bvr/bvr.component';
 
 @Component({
     selector: 'app-provision',
@@ -22,6 +23,9 @@ export class ProvisionComponent implements OnInit {
 
     public paymentMode;
 
+    @ViewChild(BvrComponent)
+    private bvr: BvrComponent;
+
     constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
         this.bvrData = {
             user: data.user.id,
@@ -33,4 +37,22 @@ export class ProvisionComponent implements OnInit {
     }
 
     public ngOnInit(): void {}
+
+    public setPaymentMode(paymentMode: string): void {
+        this.paymentMode = paymentMode;
+        this.showExportBillButton();
+    }
+
+    public showExportBillButton(): boolean {
+        return (
+            this.paymentMode === 'ebanking' &&
+            this.bvr !== undefined &&
+            this.bvr.bankingInfos !== undefined &&
+            this.bvr.bankingInfos.qrCode !== null
+        );
+    }
+
+    public exportBill(): void {
+        this.bvr.exportBill();
+    }
 }

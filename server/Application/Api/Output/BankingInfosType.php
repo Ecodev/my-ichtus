@@ -12,11 +12,11 @@ class BankingInfosType extends ObjectType
     {
         $config = [
             'name' => 'BankingInfos',
-            'description' => 'Describe permissions for current user',
+            'description' => 'Describe info to top-up the current user account by bank transfer',
             'fields' => [
-                'postAccount' => [
+                'iban' => [
                     'type' => self::nonNull(self::string()),
-                    'description' => 'The post account number',
+                    'description' => 'The IBAN of the final recipient',
                 ],
                 'paymentTo' => [
                     'type' => self::nonNull(self::string()),
@@ -30,9 +30,13 @@ class BankingInfosType extends ObjectType
                     'type' => self::nonNull(self::string()),
                     'description' => 'The BVR reference number',
                 ],
-                'encodingLine' => [
-                    'type' => self::nonNull(self::string()),
-                    'description' => 'The BVR encoding line that include account number and may include amount if given',
+                'qrCode' => [
+                    'type' => self::string(),
+                    'description' => 'URL of the generated QR code image',
+                ],
+                'qrBill' => [
+                    'type' => self::string(),
+                    'description' => 'URL of the generated PDF payment part',
                 ],
             ],
         ];

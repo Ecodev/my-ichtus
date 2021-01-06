@@ -1,4 +1,10 @@
 :host {
+    .qrCode {
+        max-width: 300px;
+        margin: 1em;
+        width: 100%;
+    }
+
     .bankingData {
         border: 1px solid #444;
         background: #eee;

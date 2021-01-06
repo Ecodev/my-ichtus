@@ -1,42 +1,45 @@
-<div fxLayout="column" fxLayoutGap="15px">
-    <div>
-        <div class="mat-body-2">En faveur de :</div>
-        <div class="mat-body-1" style="white-space: pre-line">{{ bankingInfos?.paymentFor }}</div>
+<div fxLayout="column" fxLayoutGap="10px">
+    <div *ngIf="!bankingInfos" class="margin" fxLayout="column" fxLayoutAlign="center center">
+        <mat-progress-spinner [diameter]="40" mode="indeterminate"></mat-progress-spinner>
     </div>
-
-    <h2 class="mat-subheading-2">Coordonnées bancaires</h2>
-
-    <div fxLayout="column" fxLayoutGap="20px" class="bankingData">
+    <div *ngIf="bankingInfos" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around center">
+        <img *ngIf="bankingInfos?.qrCode" alt="QR code" class="qrCode" [attr.src]="bankingInfos.qrCode" />
         <div fxLayout="column" fxLayoutGap="20px">
             <div>
-                <div class="mat-body-2">Versement pour :</div>
-                <div class="mat-body-1" style="white-space: pre-line">{{ bankingInfos?.paymentTo }}</div>
+                <div class="mat-body-2">Compte (IBAN)</div>
+                <div class="mat-body-1" style="white-space: pre-line">
+                    {{ bankingInfos?.iban }}
+                    <button
+                        *ngIf="bankingInfos.iban"
+                        mat-icon-button
+                        (click)="copyToClipboard(bankingInfos.iban)"
+                        matTooltip="Copier le IBAN"
+                    >
+                        <natural-icon name="content_copy"></natural-icon>
+                    </button>
+                </div>
             </div>
-
             <div>
-                <div class="mat-body-2">Numéro de référence :</div>
-                <div class="mat-body-1">{{ bankingInfos?.referenceNumber }}</div>
+                <div class="mat-body-2">Payable à</div>
+                <div class="mat-body-1" style="white-space: pre-line">{{ bankingInfos?.paymentFor }}</div>
             </div>
-
             <div>
-                <span class="mat-body-2">Compte :&nbsp;</span>
-                <span class="mat-body-1">{{ bankingInfos?.postAccount }}</span>
+                <div class="mat-body-2">Référence :</div>
+                <div class="mat-body-1">
+                    {{ bankingInfos?.referenceNumber }}
+                    <button
+                        *ngIf="bankingInfos.iban"
+                        mat-icon-button
+                        (click)="copyToClipboard(bankingInfos.referenceNumber)"
+                        matTooltip="Copier le numéro de référence"
+                    >
+                        <natural-icon name="content_copy"></natural-icon>
+                    </button>
+                </div>
             </div>
-        </div>
-
-        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-            <mat-divider fxFlex></mat-divider>
-            <div class="mat-body-1">OU</div>
-            <mat-divider fxFlex></mat-divider>
-        </div>
-
-        <div>
-            <div class="mat-body-2">Ligne de codage :</div>
-            <div class="mat-body-1">{{ bankingInfos?.encodingLine }}</div>
         </div>
     </div>
 </div>
-
-<p class="mat-body">
-    Les paiements effectués au travers d'un e-banking peuvent mettre plusieurs jours à être crédités sur ton solde.
+<p class="mat-body" *ngIf="bankingInfos">
+    Les paiements effectués au travers d'un e-banking peuvent mettre plusieurs jours à être crédités sur votre solde.
 </p>
