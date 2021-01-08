@@ -37,17 +37,17 @@ class ExportAccountingReportHandler extends AbstractExcel
 
     private static array
 
- $balanceFormat = [
-     'fill' => [
-         'fillType' => Fill::FILL_SOLID,
-         'startColor' => [
-             'argb' => 'FFDDDDDD',
-         ],
-     ],
-     'numberFormat' => [
-         'formatCode' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1, // eg. 12'345.67
-     ],
- ];
+    $balanceFormat = [
+        'fill' => [
+            'fillType' => Fill::FILL_SOLID,
+            'startColor' => [
+                'argb' => 'FFDDDDDD',
+            ],
+        ],
+        'numberFormat' => [
+            'formatCode' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1, // eg. 12'345.67
+        ],
+    ];
 
     private static array $columnWidth = [
         'accountCode' => 11,
