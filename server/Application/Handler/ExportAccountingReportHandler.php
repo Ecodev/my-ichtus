@@ -465,7 +465,6 @@ class ExportAccountingReportHandler extends AbstractExcel
         }
 
         // Increase row height since account names can wrap on multiple lines
-        $rows = $sheet->getRowIterator(4, $this->lastDataRow);
         for ($r = 4; $r <= $this->lastDataRow; ++$r) {
             $sheet->getRowDimension($r)->setRowHeight(30);
         }

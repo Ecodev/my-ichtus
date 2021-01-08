@@ -191,8 +191,6 @@ abstract class AbstractExcel extends AbstractHandler
      */
     protected function writeHeaders(Worksheet $sheet, array $items): void
     {
-        $initialColumn = $this->column;
-
         // Headers
         foreach ($this->getHeaders() as $header) {
             // Apply width
