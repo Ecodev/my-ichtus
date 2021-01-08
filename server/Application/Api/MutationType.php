@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Application\Api;
 
 use Application\Api\Field\Mutation\AccountingClosing;
+use Application\Api\Field\Mutation\AccountingReport;
 use Application\Api\Field\Mutation\ConfirmRegistration;
 use Application\Api\Field\Mutation\CreateTransaction;
 use Application\Api\Field\Mutation\ImportCamt;
@@ -56,6 +57,7 @@ class MutationType extends ObjectType
             Standard::buildMutation(Transaction::class)[2], // Only delete mutation
             UpdateConfiguration::build(),
             AccountingClosing::build(),
+            AccountingReport::build(),
         ];
 
         $fields = array_merge(

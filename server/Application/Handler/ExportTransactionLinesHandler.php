@@ -13,19 +13,11 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class ExportTransactionLinesHandler extends AbstractExcel
 {
     /**
-     * @var DecimalMoneyFormatter
-     */
-    private $moneyFormatter;
-
-    /**
      * ReportTransactionsAction constructor.
      */
     public function __construct(string $hostname)
     {
         parent::__construct($hostname, 'transactionLines');
-
-        $currencies = new ISOCurrencies();
-        $this->moneyFormatter = new DecimalMoneyFormatter($currencies);
 
         $this->outputFileName = sprintf('Ichtus_compta_ecritures_%s.xlsx', date('Y-m-d-H:i:s'));
 
@@ -131,19 +123,19 @@ class ExportTransactionLinesHandler extends AbstractExcel
     protected function getHeaders(): array
     {
         return [
-            ['label' => 'Date', 'width' => 12, 'formats' => [self::$dateFormat]],
-            ['label' => 'ID', 'width' => 7, 'formats' => [self::$headerFormat, self::$centerFormat]],
-            ['label' => 'Transaction', 'width' => 25, 'formats' => [self::$wrapFormat]],
-            ['label' => 'Remarques', 'width' => 25, 'formats' => [self::$wrapFormat]],
-            ['label' => 'Remarques internes', 'width' => 25, 'formats' => [self::$wrapFormat]],
-            ['label' => 'Écriture', 'width' => 25, 'formats' => [self::$wrapFormat]],
-            ['label' => 'Remarques', 'width' => 25, 'formats' => [self::$wrapFormat]],
-            ['label' => 'Réservable', 'width' => 30, 'formats' => [self::$wrapFormat]],
-            ['label' => 'Compte débit', 'width' => 30, 'formats' => [self::$wrapFormat]],
-            ['label' => 'Compte crédit', 'width' => 30, 'formats' => [self::$wrapFormat]],
-            ['label' => 'Montant débit', 'width' => 20, 'formats' => [self::$headerFormat]],
-            ['label' => 'Montant crédit', 'width' => 20, 'formats' => [self::$headerFormat]],
-            ['label' => 'Pointé', 'width' => 15, 'formats' => [self::$centerFormat]],
+            ['label' => 'Date', 'width' => 12, 'formats' => [self::$headerFormat, self::$dateFormat], 'autofilter' => true],
+            ['label' => 'ID', 'width' => 7, 'formats' => [self::$headerFormat, self::$centerFormat], 'autofilter' => true],
+            ['label' => 'Transaction', 'width' => 25, 'formats' => [self::$headerFormat], 'autofilter' => true],
+            ['label' => 'Remarques', 'width' => 25, 'formats' => [self::$headerFormat], 'autofilter' => true],
+            ['label' => 'Remarques internes', 'width' => 25, 'formats' => [self::$headerFormat], 'autofilter' => true],
+            ['label' => 'Écriture', 'width' => 25, 'formats' => [self::$headerFormat], 'autofilter' => true],
+            ['label' => 'Remarques', 'width' => 25, 'formats' => [self::$headerFormat], 'autofilter' => true],
+            ['label' => 'Réservable', 'width' => 30, 'formats' => [self::$headerFormat], 'autofilter' => true],
+            ['label' => 'Compte débit', 'width' => 30, 'formats' => [self::$headerFormat], 'autofilter' => true],
+            ['label' => 'Compte crédit', 'width' => 30, 'formats' => [self::$headerFormat], 'autofilter' => true],
+            ['label' => 'Montant débit', 'width' => 20, 'formats' => [self::$headerFormat], 'autofilter' => true],
+            ['label' => 'Montant crédit', 'width' => 20, 'formats' => [self::$headerFormat], 'autofilter' => true],
+            ['label' => 'Pointé', 'width' => 12, 'formats' => [self::$headerFormat, self::$centerFormat], 'autofilter' => true],
         ];
     }
 

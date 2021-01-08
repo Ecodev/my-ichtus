@@ -35,6 +35,7 @@ import {LogsComponent} from './logs/logs/logs.component';
 import {UsageBookablesComponent} from './bookables/bookables/usage-bookables.component';
 import {BookingsWithOwnerComponent} from './bookings/bookings/bookings-with-owner.component';
 import {AccountingClosingComponent} from './accounts/accounting-closing/accounting-closing.component';
+import {AccountingReportComponent} from './accounts/accounting-report/accounting-report.component';
 
 @NgModule({
     declarations: [
@@ -58,6 +59,7 @@ import {AccountingClosingComponent} from './accounts/accounting-closing/accounti
         AccountsComponent,
         AccountComponent,
         AccountingClosingComponent,
+        AccountingReportComponent,
         ExpenseClaimsComponent,
         ExpenseClaimComponent,
         TransactionTagsComponent,

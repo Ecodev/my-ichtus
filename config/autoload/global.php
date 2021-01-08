@@ -37,5 +37,9 @@ return [
         'customerDepositsAccountCode' => 2030, // Acomptes de clients
         'closingAccountCode' => 9200, // Bénéfice/perte de l'exercice
         'carryForwardAccountCode' => 2970, // Bénéfice/perte reporté
+        'report' => [
+            'showAccountsWithZeroBalance' => false,
+            'maxAccountDepth' => 2,
+        ],
     ],
 ];

@@ -40,6 +40,10 @@
                         <span naturalColumnsPickerColumn="creationDate">Créé le</span>
                         <span naturalColumnsPickerColumn="updateDate">Modifié le</span>
                     </natural-columns-picker>
+
+                    <button mat-icon-button (click)="showExport()" matTooltip="Exporter rapport comptable">
+                        <natural-icon name="file_download"></natural-icon>
+                    </button>
                     <button
                         mat-icon-button
                         *ngIf="userService.canCloseAccounting(viewer)"

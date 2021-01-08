@@ -8,6 +8,7 @@ import {TransactionLineService} from '../../transactions/services/transactionLin
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {UserService} from '../../users/services/user.service';
 import {AccountingClosingComponent} from '../accounting-closing/accounting-closing.component';
+import {AccountingReportComponent} from '../accounting-report/accounting-report.component';
 
 type AccountingDialogData = never;
 type AccountingDialogResult = Date;
@@ -51,6 +52,24 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
             route = route.concat([{parent: parentId}]);
         }
         return route;
+    }
+
+    public showExport(): void {
+        this.dialog
+            .open<AccountingReportComponent, AccountingDialogData, AccountingDialogResult>(
+                AccountingReportComponent,
+                this.dialogConfig,
+            )
+            .afterClosed()
+            .subscribe(date => {
+                if (date) {
+                    this.accountService.getReportExportLink(date).subscribe(url => {
+                        if (url) {
+                            window.location.href = url;
+                        }
+                    });
+                }
+            });
     }
 
     public showClosing(): void {

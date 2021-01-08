@@ -7,6 +7,7 @@ namespace Application\Repository;
 use Application\DBAL\Types\AccountTypeType;
 use Application\Model\Account;
 use Application\Model\User;
+use Doctrine\ORM\Query;
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 use Exception;
 use Money\Money;
@@ -172,6 +173,15 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
             ->from('account', 'a');
 
         return (int) $qb->execute()->fetchColumn();
+    }
+
+    public function getRootAccountsQuery(): Query
+    {
+        $qb = $this->createQueryBuilder('account')
+            ->andWhere('account.parent IS NULL')
+            ->orderBy('account.code');
+
+        return $qb->getQuery();
     }
 
     public function deleteAccountOfNonFamilyOwnerWithoutAnyTransactions(): int

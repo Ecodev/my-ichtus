@@ -116,6 +116,12 @@ export const deleteAccounts = gql`
     }
 `;
 
+export const accountingReport = gql`
+    mutation AccountingReport($date: Date) {
+        accountingReport(date: $date)
+    }
+`;
+
 export const accountingClosing = gql`
     mutation AccountingClosing($date: Date) {
         accountingClosing(date: $date) {

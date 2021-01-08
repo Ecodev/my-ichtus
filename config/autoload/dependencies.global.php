@@ -30,6 +30,7 @@ return [
             \Application\Handler\AccountingDocumentHandler::class => \Application\Handler\AccountingDocumentFactory::class,
             \Application\Handler\DatatransHandler::class => \Application\Handler\DatatransFactory::class,
             \Application\Handler\ExportTransactionLinesHandler::class => \Application\Handler\ExportTransactionLinesFactory::class,
+            \Application\Handler\ExportAccountingReportHandler::class => \Application\Handler\ExportAccountingReportFactory::class,
             \Ecodev\Felix\Service\ImageResizer::class => \Ecodev\Felix\Service\ImageResizerFactory::class,
             \Imagine\Image\ImagineInterface::class => \Ecodev\Felix\Service\ImagineFactory::class,
             \Ecodev\Felix\Service\Mailer::class => \Application\Service\MailerFactory::class,

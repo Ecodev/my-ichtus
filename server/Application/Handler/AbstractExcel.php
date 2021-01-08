@@ -10,6 +10,9 @@ use DateTimeInterface;
 use Doctrine\ORM\Query;
 use Ecodev\Felix\Handler\AbstractHandler;
 use Laminas\Diactoros\Response;
+use Money\Currencies\ISOCurrencies;
+use Money\Formatter\DecimalMoneyFormatter;
+use Money\Money;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
@@ -63,6 +66,8 @@ abstract class AbstractExcel extends AbstractHandler
      */
     protected $routeName;
 
+    protected DecimalMoneyFormatter $moneyFormatter;
+
     /**
      * The model class name
      *
@@ -77,6 +82,10 @@ abstract class AbstractExcel extends AbstractHandler
     protected static $defaultFormat = [
         'font' => ['size' => 11],
         'alignment' => ['vertical' => Alignment::VERTICAL_CENTER],
+    ];
+
+    protected static array $titleFormat = [
+        'font' => ['size' => 14],
     ];
 
     protected static $headerFormat = [
@@ -171,6 +180,8 @@ abstract class AbstractExcel extends AbstractHandler
     {
         $this->hostname = $hostname;
         $this->routeName = $routeName;
+        $currencies = new ISOCurrencies();
+        $this->moneyFormatter = new DecimalMoneyFormatter($currencies);
         $this->workbook = new Spreadsheet();
         $this->workbook->setActiveSheetIndex(0);
     }
@@ -193,17 +204,25 @@ abstract class AbstractExcel extends AbstractHandler
                     $colDimension->setWidth($header['width']);
                 }
             }
-            // Apply format
+            // Apply default format
             if (!isset($header['formats'])) {
-                $header['formats'] = [];
+                $header['formats'] = [self::$headerFormat];
             }
-            $header['formats'] = [-1 => self::$headerFormat] + $header['formats'];
+
+            if (isset($header['colspan']) && $header['colspan'] > 1) {
+                $sheet->mergeCellsByColumnAndRow($this->column, $this->row, $this->column + (int) $header['colspan'] - 1, $this->row);
+            }
+
+            if (isset($header['autofilter'])) {
+                $sheet->setAutoFilterByColumnAndRow($this->column, $this->row, $this->column - 1, $this->row + count($items));
+            }
 
             $this->write($sheet, $header['label'], ...$header['formats']);
-        }
 
-        // Apply AutoFilters
-        $sheet->setAutoFilterByColumnAndRow($initialColumn, $this->row, $this->column - 1, $this->row + count($items));
+            if (isset($header['colspan']) && $header['colspan'] > 1) {
+                $this->column += (int) $header['colspan'] - 1;
+            }
+        }
     }
 
     /**
@@ -242,6 +261,8 @@ abstract class AbstractExcel extends AbstractHandler
         if ($value instanceof DateTimeInterface) {
             $dateTime = new DateTimeImmutable($value->format('c'));
             $value = Date::PHPToExcel($dateTime);
+        } elseif ($value instanceof Money) {
+            $value = $this->moneyFormatter->format($value);
         }
 
         $cell->setValue($value);
