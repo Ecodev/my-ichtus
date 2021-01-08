@@ -102,8 +102,10 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
             });
     }
 
-    public updateIban(): void {
-        const iban = this.user.iban;
+    public updateIban(event: Event): void {
+        const target: HTMLInputElement = event.target as HTMLInputElement;
+        const iban = target.value;
+
         this.userService
             .updatePartially({id: this.user.id, iban: iban})
             .pipe(
