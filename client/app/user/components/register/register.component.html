@@ -1,7 +1,7 @@
 <form class="body padding" [formGroup]="form">
     <div fxLayout="column" fxLayoutGap="30px">
-        <h1 class="mat-display-1" *ngIf="step === 1">Adhésion</h1>
-        <h1 class="mat-display-1" *ngIf="step === 2">Confirmation d'adhésion</h1>
+        <div class="mat-h1" *ngIf="step === 1">Adhésion</div>
+        <div class="mat-h1" *ngIf="step === 2">Confirmation d'adhésion</div>
 
         <div fxLayout="column">
             <div fxLayout.gt-xs="row" fxLayout="column" fxLayoutGap.gt-xs="10px">
@@ -44,7 +44,7 @@
 
             <h2 class="mat-title">Coordonnées</h2>
 
-            <div fxLayout="row" fxLayoutGap="10px">
+            <div fxLayout.gt-xs="row" fxLayout="column" fxLayoutGap.gt-xs="10px">
                 <mat-form-field fxFlex>
                     <mat-label>Prénom</mat-label>
                     <input matInput formControlName="firstName" />
@@ -66,7 +66,7 @@
 
             <app-address [form]="form"></app-address>
 
-            <div fxLayout="row" fxLayoutGap="10px">
+            <div fxLayout.gt-xs="row" fxLayout="column" fxLayoutGap.gt-xs="10px">
                 <mat-form-field fxFlex>
                     <mat-label>Téléphone mobile</mat-label>
                     <natural-icon matPrefix name="smartphone"></natural-icon>
