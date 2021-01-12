@@ -34,6 +34,7 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
     public readonly deleting = new Set<string>();
     public updating = false;
     public readonly ibanCtrl = new FormControl('', ibanValidator);
+    public canCreateExpenseClaim = false;
 
     constructor(
         private userService: UserService,
@@ -66,6 +67,9 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
 
     public loadData(): void {
         this.ibanCtrl.setValue(friendlyFormatIBAN(this.user.iban), {emitEvent: false});
+        if (this.ibanCtrl.value) {
+            this.canCreateExpenseClaim = true;
+        }
         this.lockIbanIfDefined();
         this.ibanLocked = !!this.user.iban;
         const runningExpenseClaims = this.expenseClaimService.getForUser(this.user, this.ngUnsubscribe);
@@ -111,6 +115,7 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
     public updateIban(): void {
         ifValid(this.ibanCtrl).subscribe(() => {
             this.updating = true;
+            this.canCreateExpenseClaim = false;
             this.ibanCtrl.enable();
             const iban = this.ibanCtrl.value;
             this.userService
@@ -128,6 +133,8 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
                         // if we removed the IBAN keep the field unlocked
                         if (!user.iban) {
                             this.ibanCtrl.enable();
+                        } else {
+                            this.canCreateExpenseClaim = true;
                         }
                     },
                     error: () => {

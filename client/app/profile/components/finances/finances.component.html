@@ -14,8 +14,8 @@
             >
                 <natural-icon name="lock"></natural-icon>
             </button>
-            <mat-error *ngIf="ibanCtrl.hasError('iban')"> IBAN invalide </mat-error>
-            <mat-hint>Pour pouvoir faire des demandes de remboursement</mat-hint>
+            <mat-error *ngIf="ibanCtrl.hasError('iban')"> IBAN invalide</mat-error>
+            <mat-hint>Pour pouvoir demander un remboursement</mat-hint>
         </mat-form-field>
     </div>
 
@@ -30,14 +30,20 @@
         >
             <h2 fxFlex class="mat-headline no-margin">Dépenses et remboursements en attente</h2>
             <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="10px">
-                <button
-                    mat-stroked-button
-                    (click)="createRefund()"
-                    [disabled]="!user.iban"
-                    *ngIf="!adminMode && !user.owner"
+                <span
+                    [matTooltip]="
+                        canCreateExpenseClaim ? '' : 'Saisissez votre IBAN pour pouvoir demander un remboursement'
+                    "
                 >
-                    Demander un remboursement
-                </button>
+                    <button
+                        mat-stroked-button
+                        (click)="createRefund()"
+                        [disabled]="!canCreateExpenseClaim"
+                        *ngIf="!adminMode && !user.owner"
+                    >
+                        Demander un remboursement
+                    </button></span
+                >
                 <a mat-stroked-button [routerLink]="['/profile/create-expense-claim']" *ngIf="!adminMode">
                     Annoncer une dépense
                 </a>
