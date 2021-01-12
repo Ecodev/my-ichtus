@@ -37,6 +37,7 @@ import {
 } from '@ecodev/natural';
 import {SupportComponent} from '../../admin/configurations/support/support.component';
 import {ProsemirrorComponent} from '../../admin/proseMirror/proseMirror.component';
+import {IbanPipe} from '../pipes/iban.pipe';
 
 const iconsConfig: NaturalIconsConfig = {
     qr: {
@@ -101,6 +102,7 @@ const declarations = [
     ParticleSwitchComponent,
     SupportComponent,
     ProsemirrorComponent,
+    IbanPipe,
 ];
 
 const imports = [

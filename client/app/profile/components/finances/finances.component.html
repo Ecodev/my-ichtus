@@ -4,16 +4,18 @@
 
         <mat-form-field [style.width.px]="350">
             <mat-label>IBAN</mat-label>
-            <input
-                matInput
-                [ngModel]="user.iban"
-                (change)="updateIban($event)"
-                [disabled]="ibanLocked"
-                (blur)="lockIbanIfDefined()"
-            />
-            <button mat-icon-button matSuffix (click)="ibanLocked = false" *ngIf="ibanLocked">
+            <input matInput [formControl]="ibanCtrl" (change)="updateIban()" (blur)="lockIbanIfDefined()" />
+            <button
+                mat-icon-button
+                matSuffix
+                (click)="ibanCtrl.enable()"
+                [disabled]="ibanCtrl.enabled || updating"
+                matTooltip="Dévérouiller"
+            >
                 <natural-icon name="lock"></natural-icon>
             </button>
+            <mat-error *ngIf="ibanCtrl.hasError('iban')"> IBAN invalide </mat-error>
+            <mat-hint>Pour pouvoir faire des demandes de remboursement</mat-hint>
         </mat-form-field>
     </div>
 

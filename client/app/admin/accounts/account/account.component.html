@@ -49,9 +49,7 @@
                         <mat-form-field *ngIf="form.get('type')?.value === 'asset'">
                             <mat-label>IBAN Ichtus</mat-label>cta
                             <input matInput formControlName="iban" (change)="update()" />
-                            <mat-error *ngIf="form.get('iban')?.hasError('maxlength')">
-                                Maximum {{ form.get('iban')?.errors?.maxlength?.requiredLength }} caractères
-                            </mat-error>
+                            <mat-error *ngIf="form.get('iban')?.hasError('iban')"> IBAN invalide </mat-error>
                             <mat-error *ngIf="form.get('iban')?.hasError('required')">Requis</mat-error>
                             <mat-hint>Pour les comptes bancaires ichtus uniquement</mat-hint>
                         </mat-form-field>

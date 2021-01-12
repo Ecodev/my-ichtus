@@ -3,6 +3,7 @@ import {NaturalAbstractDetail} from '@ecodev/natural';
 import {AccountService} from '../services/account.service';
 import {UserService} from '../../users/services/user.service';
 import {groupAccountHierarchicConfiguration} from '../../../shared/hierarchic-selector/GroupAccountHierarchicConfiguration';
+import {friendlyFormatIBAN} from 'ibantools';
 
 @Component({
     selector: 'app-account',
@@ -42,6 +43,13 @@ export class AccountComponent extends NaturalAbstractDetail<AccountService> impl
                 }
             });
         }
+    }
+
+    protected initForm(): void {
+        super.initForm();
+
+        // Format IBAN coming from server to be user friendly
+        this.form.get('iban')?.setValue(friendlyFormatIBAN(this.form.get('iban')?.value));
     }
 
     public updateLinkedFields(): void {

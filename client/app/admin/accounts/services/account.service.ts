@@ -34,6 +34,7 @@ import {Validators} from '@angular/forms';
 import {FormAsyncValidators, FormValidators, NaturalAbstractModelService, unique} from '@ecodev/natural';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {iban} from '../../../shared/validators';
 
 @Injectable({
     providedIn: 'root',
@@ -69,6 +70,7 @@ export class AccountService extends NaturalAbstractModelService<
         return {
             name: [Validators.required, Validators.maxLength(100)],
             code: [Validators.required, Validators.maxLength(20)],
+            iban: [iban],
         };
     }
 
