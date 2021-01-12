@@ -144,7 +144,6 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
 
     protected postUpdate(model: UpdateTransaction_updateTransaction): void {
         this.accountingDocuments.save();
-        this.goToNew();
     }
 
     /**
