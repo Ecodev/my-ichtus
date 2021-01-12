@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Application\Traits;
 
-use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Doctrine\ORM\Mapping as ORM;
+use Ecodev\Felix\Api\Exception;
+use Laminas\Validator\Iban;
 
 /**
  * Trait for all objects with an IBAN (international bank account number)
@@ -13,24 +14,22 @@ use Doctrine\ORM\Mapping as ORM;
 trait HasIban
 {
     /**
-     * @var string
-     *
      * @ORM\Column(type="string", length=34, options={"default" = ""})
      */
-    private $iban = '';
+    private string $iban = '';
 
     /**
      * Set the IBAN (international bank account number)
      */
     public function setIban(string $iban): void
     {
-        $validator = new \Laminas\Validator\Iban(['allow_non_sepa' => false]);
-        if (empty($iban)) {
-            $this->iban = '';
-        } elseif ($validator->isValid($iban)) {
+        $iban = str_replace(' ', '', mb_strtoupper($iban));
+
+        $validator = new Iban(['allow_non_sepa' => false]);
+        if (empty($iban) || $validator->isValid($iban)) {
             $this->iban = $iban;
         } else {
-            throw new InvalidArgumentException('Invalid IBAN number');
+            throw new Exception('Invalid IBAN number');
         }
     }
 

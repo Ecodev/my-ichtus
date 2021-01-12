@@ -8,7 +8,7 @@ use Application\Model\Account;
 use Application\Model\User;
 use Application\Repository\AccountRepository;
 use Cake\Chronos\Date;
-use Doctrine\DBAL\Exception\InvalidArgumentException;
+use Ecodev\Felix\Api\Exception;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 
@@ -69,7 +69,7 @@ class AccountTest extends TestCase
         $account->setIban($germanIban);
         self::assertSame($germanIban, $account->getIban());
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(Exception::class);
         $invalidIban = 'CH123456789012345678';
         $account->setIban($invalidIban);
     }
