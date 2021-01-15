@@ -30,7 +30,7 @@
         "@angular/router": "~10.2.3",
         "@apollo/client": "^3.2.5",
         "@ecodev/fab-speed-dial": "^6.0.0",
-        "@ecodev/natural": "^28.0.0",
+        "@ecodev/natural": "^28.0.1",
         "@graphql-tools/mock": "^7.0.0",
         "angular-particle-effect-button": "^0.0.50",
         "apollo": "^2.31.0",
