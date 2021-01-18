@@ -34,7 +34,7 @@ export class ProsemirrorComponent implements OnInit, OnDestroy, ControlValueAcce
 
     @ViewChild('editor', {read: ElementRef, static: true}) private editor!: ElementRef;
 
-    @Output() public contentChange = new EventEmitter<string>();
+    @Output() public readonly contentChange = new EventEmitter<string>();
 
     /**
      * Interface with ControlValueAccessor

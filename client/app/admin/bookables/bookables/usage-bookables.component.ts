@@ -11,7 +11,7 @@ import {UsageBookables_bookables_items} from '../../../shared/generated-types';
     styleUrls: ['./bookables.component.scss'],
 })
 export class UsageBookablesComponent extends NaturalAbstractList<UsageBookableService> {
-    @Output() public select = new EventEmitter<UsageBookables_bookables_items>();
+    @Output() public readonly select = new EventEmitter<UsageBookables_bookables_items>();
 
     constructor(
         usageBookableService: UsageBookableService,
