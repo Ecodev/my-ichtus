@@ -1,6 +1,6 @@
 import {Apollo, gql} from 'apollo-angular';
 import {DataProxy} from '@apollo/client/core';
-import {Injectable} from '@angular/core';
+import {Inject, Injectable, OnDestroy} from '@angular/core';
 import {FormControl, ValidationErrors, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {
@@ -8,12 +8,14 @@ import {
     FormAsyncValidators,
     FormValidators,
     Literal,
+    LOCAL_STORAGE,
     NaturalAbstractModelService,
     NaturalQueryVariablesManager,
+    NaturalStorage,
     unique,
 } from '@ecodev/natural';
-import {Observable, of, Subject} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {fromEvent, Observable, of, Subject} from 'rxjs';
+import {map, takeUntil} from 'rxjs/operators';
 import {
     createUser,
     currentUserForProfileQuery,
@@ -86,22 +88,31 @@ export function loginValidator(control: FormControl): ValidationErrors | null {
 @Injectable({
     providedIn: 'root',
 })
-export class UserService extends NaturalAbstractModelService<
-    User['user'],
-    UserVariables,
-    Users['users'],
-    UsersVariables,
-    CreateUser['createUser'],
-    CreateUserVariables,
-    UpdateUser['updateUser'],
-    UpdateUserVariables,
-    never,
-    never
-> {
+export class UserService
+    extends NaturalAbstractModelService<
+        User['user'],
+        UserVariables,
+        Users['users'],
+        UsersVariables,
+        CreateUser['createUser'],
+        CreateUserVariables,
+        UpdateUser['updateUser'],
+        UpdateUserVariables,
+        never,
+        never
+    >
+    implements OnDestroy {
     /**
      * Should be used only by getViewer and cacheViewer
      */
     private viewerCache: CurrentUserForProfile_viewer | null = null;
+
+    /**
+     * This key will be used to store the viewer ID, but that value should never
+     * be trusted, and it only exist to notify changes across browser tabs.
+     */
+    private readonly storageKey = 'viewer';
+    private readonly onDestroy = new Subject<void>();
 
     constructor(
         apollo: Apollo,
@@ -109,8 +120,10 @@ export class UserService extends NaturalAbstractModelService<
         protected bookingService: BookingService,
         private permissionsService: PermissionsService,
         protected pricedBookingService: PricedBookingService,
+        @Inject(LOCAL_STORAGE) private readonly storage: NaturalStorage,
     ) {
         super(apollo, 'user', userQuery, usersQuery, createUser, updateUser, null);
+        this.keepViewerSyncedAcrossBrowserTabs();
     }
 
     /**
@@ -268,35 +281,73 @@ export class UserService extends NaturalAbstractModelService<
         return config;
     }
 
+    public ngOnDestroy(): void {
+        this.onDestroy.next();
+        this.onDestroy.complete();
+    }
+
+    private keepViewerSyncedAcrossBrowserTabs(): void {
+        fromEvent<StorageEvent>(window, 'storage')
+            .pipe(takeUntil(this.onDestroy))
+            .subscribe(event => {
+                if (event.key !== this.storageKey) {
+                    return;
+                }
+
+                this.getViewer().subscribe(viewer => {
+                    if (viewer) {
+                        this.apollo.client.resetStore().then(() => {
+                            this.postLogin(viewer);
+
+                            // Navigate away from login page
+                            this.router.navigateByUrl('/');
+                        });
+                    } else {
+                        this.logout();
+                    }
+                });
+            });
+    }
+
     public login(loginData: LoginVariables): Observable<Login['login']> {
         const subject = new Subject<Login['login']>();
 
         // Be sure to destroy all Apollo data, before changing user
-        (this.apollo.client.resetStore() as Promise<null>).then(() => {
+        this.apollo.client.resetStore().then(() => {
             this.apollo
                 .mutate<Login, LoginVariables>({
                     mutation: loginMutation,
                     variables: loginData,
-                    update: (proxy: DataProxy, result) => {
-                        const login = result.data!.login;
-                        this.cacheViewer(login);
-
-                        // Inject the freshly logged in user as the current user into Apollo data store
-                        const data = {viewer: login};
-                        proxy.writeQuery({
-                            query: currentUserForProfileQuery,
-                            data,
-                        });
-                        this.permissionsService.setUser(login);
-                    },
                 })
-                .pipe(map(result => result.data!.login))
+                .pipe(
+                    map(result => {
+                        const viewer = result.data!.login;
+                        this.postLogin(viewer);
+
+                        return viewer;
+                    }),
+                )
                 .subscribe(subject);
         });
 
         return subject;
     }
 
+    private postLogin(viewer: CurrentUserForProfile_viewer): void {
+        this.cacheViewer(viewer);
+
+        // Inject the freshly logged in user as the current user into Apollo data store
+        const data = {viewer: viewer};
+        this.apollo.client.writeQuery<CurrentUserForProfile, never>({
+            query: currentUserForProfileQuery,
+            data,
+        });
+
+        this.permissionsService.setUser(viewer);
+
+        // Broadcast viewer to other browser tabs
+        this.storage.setItem(this.storageKey, viewer.id);
+    }
     public flagWelcomeSessionDate(id: string, value = new Date().toISOString()): Observable<UpdateUser_updateUser> {
         const user: UserPartialInput = {welcomeSessionDate: value};
         return this.updatePartially({id: id, ...user});
@@ -318,7 +369,11 @@ export class UserService extends NaturalAbstractModelService<
                 .subscribe(result => {
                     const v = result.data!.logout;
                     this.cacheViewer(null);
-                    (this.apollo.client.resetStore() as Promise<null>).then(() => {
+
+                    // Broadcast logout to other browser tabs
+                    this.storage.setItem(this.storageKey, '');
+
+                    this.apollo.client.resetStore().then(() => {
                         subject.next(v);
                     });
                 });

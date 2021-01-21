@@ -1,11 +1,11 @@
 import {Apollo} from 'apollo-angular';
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {UserService} from '../../../admin/users/services/user.service';
 import {Router} from '@angular/router';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {Validators} from '@angular/forms';
 import {PermissionsService} from '../../../shared/services/permissions.service';
-import {deliverableEmail, FormValidators, Literal} from '@ecodev/natural';
+import {deliverableEmail, FormValidators, Literal, LOCAL_STORAGE, NaturalStorage} from '@ecodev/natural';
 import {PricedBookingService} from '../../../admin/bookings/services/PricedBooking.service';
 
 @Injectable({
@@ -18,8 +18,9 @@ export class AnonymousUserService extends UserService {
         bookingService: BookingService,
         permissionsService: PermissionsService,
         pricedBookingService: PricedBookingService,
+        @Inject(LOCAL_STORAGE) storage: NaturalStorage,
     ) {
-        super(apollo, router, bookingService, permissionsService, pricedBookingService);
+        super(apollo, router, bookingService, permissionsService, pricedBookingService, storage);
     }
 
     protected getDefaultForClient(): Literal {

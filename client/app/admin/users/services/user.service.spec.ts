@@ -5,12 +5,19 @@ import {UserService} from './user.service';
 import {Router} from '@angular/router';
 import {mockApolloProvider} from '../../../shared/testing/MockApolloProvider';
 import {PermissionsService} from '../../../shared/services/permissions.service';
+import {LOCAL_STORAGE, NaturalMemoryStorage} from '@ecodev/natural';
 
 describe('UserService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [RouterTestingModule],
-            providers: [mockApolloProvider],
+            providers: [
+                mockApolloProvider,
+                {
+                    provide: LOCAL_STORAGE,
+                    useClass: NaturalMemoryStorage,
+                },
+            ],
         });
 
         // Mock permissions service
