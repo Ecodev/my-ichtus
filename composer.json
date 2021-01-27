@@ -52,7 +52,7 @@
         "ext-json": "*",
         "ext-pdo": "*",
         "beberlei/doctrineextensions": "^1.3",
-        "ecodev/felix": "^5.1",
+        "ecodev/felix": "^5.2",
         "ecodev/graphql-upload": "^6.1",
         "genkgo/camt": "^1.2",
         "laminas/laminas-component-installer": "^2.4",
