@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Application\Repository;
 
-use PDO;
-
 class ImageRepository extends AbstractRepository
 {
     /**
@@ -19,7 +17,7 @@ class ImageRepository extends AbstractRepository
             ->from('image')
             ->select('DISTINCT CONCAT("data/images/", filename)')
             ->where('filename != ""')
-            ->orderBy('filename')->execute()->fetchAll(PDO::FETCH_COLUMN);
+            ->orderBy('filename')->execute()->fetchFirstColumn();
 
         return $filenames;
     }

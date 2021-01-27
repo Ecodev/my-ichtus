@@ -7,7 +7,6 @@ namespace ApplicationTest\Traits;
 use Application\Model\User;
 use Application\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
-use PDO;
 
 /**
  * Trait to test limited access sub queries
@@ -28,7 +27,7 @@ trait LimitedAccessSubQuery
         if ($subQuery === '-1') {
             $ids = [];
         } else {
-            $ids = $this->getEntityManager()->getConnection()->executeQuery($subQuery)->fetchAll(PDO::FETCH_COLUMN);
+            $ids = $this->getEntityManager()->getConnection()->executeQuery($subQuery)->fetchFirstColumn();
         }
 
         sort($ids);

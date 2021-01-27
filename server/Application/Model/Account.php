@@ -16,7 +16,6 @@ use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Model\Traits\HasName;
 use GraphQL\Doctrine\Annotation as API;
 use Money\Money;
-use PDO;
 
 /**
  * Financial account
@@ -194,7 +193,7 @@ class Account extends AbstractModel
 
             $result = $connection->executeQuery($sql, [$this->getId(), AccountTypeType::GROUP]);
 
-            $ids = $result->fetchAll(PDO::FETCH_COLUMN);
+            $ids = $result->fetchFirstColumn();
 
             $totals = [];
             $totalForChildren = Money::CHF(0);
