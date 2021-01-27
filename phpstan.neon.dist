@@ -14,6 +14,8 @@ parameters:
         - '~^Call to an undefined method Laminas\\Permissions\\Acl\\Resource\\ResourceInterface::getInstance\(\)\.$~'
         - '~^Property .* does not accept Application\\Repository\\AbstractRepository\<Application\\Model\\.*\>\.$~'
         - '~^Parameter \#3 \$type of method Doctrine\\ORM\\AbstractQuery\:\:setParameter\(\) expects string\|null, int given\.$~'
+        - '~^Cannot call method (fetchOne|fetchAssociative|fetchFirstColumn)\(\) on Doctrine\\DBAL\\Driver\\ResultStatement\|int\.$~'
+        - '~^Call to an undefined method Doctrine\\DBAL\\Driver\\ResultStatement\:\:(fetchOne|fetchAssociative|fetchFirstColumn)\(\)\.$~'
         -
             message: '~^If condition is always true\.$~'
             path: server/Application/Model/TransactionLine.php
