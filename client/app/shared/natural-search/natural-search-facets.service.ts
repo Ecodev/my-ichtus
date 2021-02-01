@@ -30,13 +30,6 @@ import {AccountService} from '../../admin/accounts/services/account.service';
 import {accountHierarchicConfiguration} from '../hierarchic-selector/AccountHierarchicConfiguration';
 import {BookableTagService} from '../../admin/bookableTags/services/bookableTag.service';
 
-function dontHave(selection: NaturalSearchSelection): NaturalSearchSelection {
-    if (selection.condition && selection.condition.have) {
-        selection.condition.have.not = true;
-    }
-    return selection;
-}
-
 /**
  * Collection of facets for natural-search accessible by the object name
  */
@@ -46,28 +39,8 @@ function dontHave(selection: NaturalSearchSelection): NaturalSearchSelection {
 export class NaturalSearchFacetsService {
     private readonly userTags: DropdownFacet<TypeSelectNaturalConfiguration<UserTagService>> = {
         display: 'Tags',
-        name: 'withTags',
         field: 'userTags',
         component: TypeNaturalSelectComponent,
-        configuration: {
-            service: this.userTagService,
-            placeholder: 'Tags',
-        },
-    };
-
-    private readonly userWithNoTags: FlagFacet = {
-        display: 'Sans tag',
-        field: 'userTags',
-        name: 'userNoTags',
-        condition: {empty: {}} as UserFilterGroupCondition,
-    };
-
-    private readonly userWithoutTags: DropdownFacet<TypeSelectNaturalConfiguration<UserTagService>> = {
-        display: 'Tags exclus',
-        field: 'userTags',
-        name: 'withoutTags',
-        component: TypeNaturalSelectComponent,
-        transform: dontHave,
         configuration: {
             service: this.userTagService,
             placeholder: 'Tags',
@@ -191,9 +164,7 @@ export class NaturalSearchFacetsService {
 
     private readonly allFacets: {[key: string]: NaturalSearchFacets} = {
         users: [
-            this.userWithNoTags,
             this.userTags,
-            this.userWithoutTags,
             {
                 display: 'Tag de réservable',
                 field: 'custom',
@@ -298,7 +269,6 @@ export class NaturalSearchFacetsService {
             {
                 display: 'Compte au débit',
                 field: 'debit',
-                name: 'debit-included',
                 component: TypeHierarchicSelectorComponent,
                 showValidateButton: true,
                 configuration: {
@@ -310,7 +280,6 @@ export class NaturalSearchFacetsService {
             {
                 display: 'Compte au crédit',
                 field: 'credit',
-                name: 'credit-included',
                 component: TypeHierarchicSelectorComponent,
                 showValidateButton: true,
                 configuration: {
@@ -318,32 +287,6 @@ export class NaturalSearchFacetsService {
                     service: this.accountService,
                     config: accountHierarchicConfiguration,
                 },
-            } as DropdownFacet<TypeHierarchicSelectorConfiguration>,
-            {
-                display: 'Compte au débit exclu',
-                field: 'debit',
-                name: 'debit-excluded',
-                component: TypeHierarchicSelectorComponent,
-                showValidateButton: true,
-                configuration: {
-                    key: 'account',
-                    service: this.accountService,
-                    config: accountHierarchicConfiguration,
-                },
-                transform: dontHave,
-            } as DropdownFacet<TypeHierarchicSelectorConfiguration>,
-            {
-                display: 'Compte au crédit exclus',
-                field: 'credit',
-                name: 'credit-excluded',
-                component: TypeHierarchicSelectorComponent,
-                showValidateButton: true,
-                configuration: {
-                    key: 'account',
-                    service: this.accountService,
-                    config: accountHierarchicConfiguration,
-                },
-                transform: dontHave,
             } as DropdownFacet<TypeHierarchicSelectorConfiguration>,
             {
                 display: 'Date de transaction',
