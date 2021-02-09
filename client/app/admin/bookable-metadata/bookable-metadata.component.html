@@ -10,7 +10,7 @@
                         <input matInput [(ngModel)]="element.name" (change)="updateOrCreate(element)" />
                     </mat-form-field>
                 </div>
-                <div *ngIf="!edit" [innerHTML]="element.name" class="mat-body-2"></div>
+                <div *ngIf="!edit" class="mat-body-2">{{ element.name }}</div>
             </td>
         </ng-container>
 
@@ -22,7 +22,7 @@
                         <input matInput [(ngModel)]="element.value" (change)="updateOrCreate(element)" />
                     </mat-form-field>
                 </div>
-                <div *ngIf="!edit" [innerHTML]="element.value"></div>
+                <div *ngIf="!edit">{{ element.value }}</div>
             </td>
         </ng-container>
 

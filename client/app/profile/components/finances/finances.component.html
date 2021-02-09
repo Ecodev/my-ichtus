@@ -109,7 +109,7 @@
                 <ng-container matColumnDef="remarks">
                     <th mat-header-cell *matHeaderCellDef>Remarques</th>
                     <td mat-cell *matCellDef="let expenseClaim">
-                        <div [innerHTML]="expenseClaim.remarks" class="line-break"></div>
+                        <div class="line-break">{{ expenseClaim.remarks }}</div>
                     </td>
                 </ng-container>
 

@@ -90,7 +90,7 @@
                         Dernière modification
                     </th>
                     <td mat-cell *matCellDef="let element">
-                        <div [innerHTML]="element.remarks" class="line-break"></div>
+                        <div class="line-break">{{ element.remarks }}</div>
                     </td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>

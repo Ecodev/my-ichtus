@@ -42,8 +42,8 @@
         >
     </div>
 
-    <div class="mat-headline" [innerHTML]="bookable.description"></div>
-    <div class="mat-subheading-2" [innerHTML]="bookable.remarks"></div>
+    <div class="mat-headline line-break">{{ bookable.description }}</div>
+    <div class="mat-subheading-2 line-break">{{ bookable.remarks }}</div>
 </div>
 
 <div *ngIf="!bookable" fxFlex fxLayout="column" fxLayoutAlign="center center" class="padding">

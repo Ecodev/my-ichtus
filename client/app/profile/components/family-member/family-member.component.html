@@ -89,7 +89,7 @@
     <div *ngIf="form.get('remarks')?.value">
         <mat-divider class="margin-v"></mat-divider>
         <div class="mat-body-2">Remarques</div>
-        <div [innerHTML]="form.get('remarks')?.value" class="line-break"></div>
+        <div class="line-break">{{ form.get('remarks')?.value }}</div>
     </div>
 
     <button
