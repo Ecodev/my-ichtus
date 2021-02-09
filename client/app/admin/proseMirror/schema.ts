@@ -3,8 +3,9 @@ import {addListNodes} from 'prosemirror-schema-list';
 import {Schema} from 'prosemirror-model';
 
 // Keep only basic elements
-type BasicNodes = Omit<typeof nodes, 'image' | 'code_block' | 'blockquote' | 'horizontal_rule' | 'heading'>;
+type BasicNodes = Omit<typeof nodes, 'image' | 'code_block' | 'blockquote' | 'horizontal_rule'>;
 const myNodes: BasicNodes = {
+    heading: nodes.heading,
     doc: nodes.doc,
     paragraph: nodes.paragraph,
     text: nodes.text,
