@@ -87,18 +87,6 @@
                         <a mat-stroked-button [routerLink]="['/admin/expense-claim', data.model.expenseClaim.id]"
                             >Voir la demande</a
                         >
-
-                        <mat-button-toggle-group
-                            name="fontStyle"
-                            [value]="data.model.expenseClaim.status"
-                            (change)="flagExpenseClaim($event.value)"
-                        >
-                            <mat-button-toggle [value]="ExpenseClaimStatus.new">Nouveau </mat-button-toggle>
-                            <mat-button-toggle [value]="ExpenseClaimStatus.processing"
-                                >En traitement
-                            </mat-button-toggle>
-                            <mat-button-toggle [value]="ExpenseClaimStatus.processed">Traité </mat-button-toggle>
-                        </mat-button-toggle-group>
                     </div>
 
                     <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="20px">

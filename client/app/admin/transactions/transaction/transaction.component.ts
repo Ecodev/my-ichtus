@@ -8,7 +8,6 @@ import {
     CreateTransaction_createTransaction,
     CurrentUserForProfile_viewer,
     ExpenseClaim,
-    ExpenseClaimStatus,
     ExpenseClaimType,
     UpdateTransaction_updateTransaction,
 } from '../../../shared/generated-types';
@@ -16,7 +15,6 @@ import {BookableService} from '../../bookables/services/bookable.service';
 import {EditableTransactionLinesComponent} from '../editable-transaction-lines/editable-transaction-lines.component';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {AccountingDocumentsComponent} from '../../accounting-documents/accounting-documents.component';
-import {ExpenseClaimService} from '../../expenseClaim/services/expenseClaim.service';
 import {UserService} from '../../users/services/user.service';
 
 @Component({
@@ -34,7 +32,6 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
     public updateTransactionLines = false;
 
     public ExpenseClaimType = ExpenseClaimType;
-    public ExpenseClaimStatus = ExpenseClaimStatus;
 
     public viewer!: CurrentUserForProfile_viewer;
 
@@ -44,7 +41,6 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
         public bookableService: BookableService,
         public transactionLineService: TransactionLineService,
         public userService: UserService,
-        private expenseClaimService: ExpenseClaimService,
     ) {
         super('transaction', transactionService, injector);
     }
@@ -126,16 +122,6 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
         }
 
         this.updateTransactionLines = false;
-    }
-
-    public flagExpenseClaim(status: ExpenseClaimStatus): void {
-        const model = {
-            id: this.data.model.expenseClaim.id,
-            status: status,
-        };
-        this.expenseClaimService.updatePartially(model).subscribe(() => {
-            this.data.model.expenseClaim.status = status;
-        });
     }
 
     public delete(): void {
