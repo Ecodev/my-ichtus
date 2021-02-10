@@ -1,7 +1,7 @@
 import {Component, Injector} from '@angular/core';
 import {NaturalAbstractDetail} from '@ecodev/natural';
 import {ExpenseClaimService} from '../services/expenseClaim.service';
-import {ExpenseClaimType} from '../../../shared/generated-types';
+import {ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../users/services/user.service';
 
 @Component({
@@ -11,6 +11,7 @@ import {UserService} from '../../users/services/user.service';
 })
 export class ExpenseClaimComponent extends NaturalAbstractDetail<ExpenseClaimService> {
     public ExpenseClaimType = ExpenseClaimType;
+    public ExpenseClaimStatus = ExpenseClaimStatus;
 
     constructor(expenseClaimService: ExpenseClaimService, injector: Injector, public userService: UserService) {
         super('expenseClaim', expenseClaimService, injector);

@@ -9,7 +9,7 @@
             <app-money [amount]="data.model.amount" sizeClass="mat-display-1" [showSignal]="false"></app-money>
 
             <a
-                *ngIf="data.model.id"
+                *ngIf="data.model.id && data.model.status === ExpenseClaimStatus.new"
                 mat-flat-button
                 color="accent"
                 [routerLink]="['/admin/transaction/new', {expenseClaim: data.model.id}]"
