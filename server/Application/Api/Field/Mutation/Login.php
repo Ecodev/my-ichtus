@@ -45,7 +45,9 @@ abstract class Login implements FieldInterface
                 // If we successfully authenticated
                 if ($user) {
                     $session->regenerate();
-                    $session->set(SessionCookiePersistenceInterface::SESSION_LIFETIME_KEY, 365 * 86400);
+                    if ($session instanceof SessionCookiePersistenceInterface) {
+                        $session->persistSessionFor(365 * 86400);
+                    }
                     $session->set('user', $user->getId());
                     User::setCurrent($user);
                     _log()->info(LogRepository::LOGIN);
