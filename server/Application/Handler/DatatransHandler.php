@@ -169,7 +169,10 @@ class DatatransHandler extends AbstractHandler
         if (!isset($this->config['accounting'], $this->config['accounting']['bankAccountCode'])) {
             throw new Exception('Missing config accounting/bankAccountCode');
         }
-        $bankAccount = $accountRepository->findOneByCode($this->config['accounting']['bankAccountCode']);
+        $bankAccountCode = $this->config['accounting']['bankAccountCode'];
+        $bankAccount = $accountRepository->getAclFilter()->runWithoutAcl(function () use ($accountRepository, $bankAccountCode) {
+            return $accountRepository->findOneByCode($bankAccountCode);
+        });
 
         if (!array_key_exists('amount', $body)) {
             // Do not support "registrations"
