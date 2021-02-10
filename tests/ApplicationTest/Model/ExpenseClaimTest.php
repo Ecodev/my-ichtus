@@ -43,10 +43,12 @@ class ExpenseClaimTest extends TestCase
         $transaction2 = new Transaction();
 
         $expense = new ExpenseClaim();
+        self::assertSame(ExpenseClaimStatusType::NEW, $expense->getStatus());
 
         $transaction->setExpenseClaim($expense);
         $transaction2->setExpenseClaim($expense);
 
+        self::assertSame(ExpenseClaimStatusType::PROCESSED, $expense->getStatus());
         self::assertCount(2, $expense->getTransactions());
 
         self::assertEquals(ExpenseClaimStatusType::PROCESSED, $expense->getStatus());

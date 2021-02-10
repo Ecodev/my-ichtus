@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Model;
 
+use Application\DBAL\Types\ExpenseClaimStatusType;
 use Application\Traits\HasAutomaticUnsignedBalance;
 use Application\Traits\HasRemarks;
 use Cake\Chronos\Chronos;
@@ -151,6 +152,7 @@ class Transaction extends AbstractModel
 
         if ($this->expenseClaim) {
             $this->expenseClaim->transactionAdded($this);
+            $this->expenseClaim->setStatus(ExpenseClaimStatusType::PROCESSED);
         }
     }
 
