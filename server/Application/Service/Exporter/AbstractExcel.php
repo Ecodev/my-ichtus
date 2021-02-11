@@ -2,84 +2,77 @@
 
 declare(strict_types=1);
 
-namespace Application\Handler;
+namespace Application\Service\Exporter;
 
-use Application\Model\AbstractModel;
 use DateTimeImmutable;
 use DateTimeInterface;
-use Doctrine\ORM\Query;
-use Ecodev\Felix\Handler\AbstractHandler;
-use Laminas\Diactoros\Response;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 
-abstract class AbstractExcel extends AbstractHandler
+abstract class AbstractExcel extends AbstractExporter
 {
     /**
-     * Column of current cell we are writing in
-     *
-     * @var int
+     * Zebra striping of data rows
      */
-    protected $column = 1;
+    protected bool $zebra = true;
+
+    /**
+     * Enable auto filter on the headers
+     */
+    protected bool $autoFilter = true;
+
+    /**
+     * Column of current cell we are writing in
+     */
+    protected int $column = 1;
 
     /**
      * Row of current cell we are writing in
-     *
-     * @var int
      */
-    protected $row = 1;
+    protected int $row = 1;
 
     /**
-     * @var Spreadsheet
+     * Index of first column containing data
      */
-    protected $workbook;
+    private int $firstDataColumn = 1;
 
     /**
-     * @var string
+     * Index of first row containing data
      */
-    protected $outputFileName = 'export.xlsx';
+    private int $firstDataRow = 1;
 
     /**
-     * @var string
+     * Index of last column containing data
      */
-    protected $tmpDir = 'data/tmp/excel';
+    protected int $lastDataColumn = 1;
 
     /**
-     * @var string
+     * Index of last row containing data
      */
-    protected $hostname;
+    protected int $lastDataRow = 1;
 
-    /**
-     * @var string
-     */
-    protected $routeName;
+    private Spreadsheet $workbook;
+
+    protected Worksheet $sheet;
 
     protected DecimalMoneyFormatter $moneyFormatter;
 
-    /**
-     * The model class name
-     *
-     * @return string
-     */
-    abstract protected function getModelClass();
-
-    protected static $dateFormat = [
+    protected static array $dateFormat = [
         'numberFormat' => ['formatCode' => NumberFormat::FORMAT_DATE_XLSX14],
     ];
 
-    protected static $defaultFormat = [
+    protected static array $defaultFormat = [
         'font' => ['size' => 11],
         'alignment' => ['vertical' => Alignment::VERTICAL_CENTER],
     ];
@@ -88,7 +81,7 @@ abstract class AbstractExcel extends AbstractHandler
         'font' => ['size' => 14],
     ];
 
-    protected static $headerFormat = [
+    protected static array $headerFormat = [
         'font' => ['bold' => true, 'color' => ['argb' => 'FFEAEAEA']],
         'alignment' => ['wrapText' => true],
         'fill' => [
@@ -99,7 +92,19 @@ abstract class AbstractExcel extends AbstractHandler
         ],
     ];
 
-    protected static $totalFormat = [
+    protected static array $zebraFormat = [
+        'fill' => [
+            'fillType' => Fill::FILL_SOLID,
+            'startColor' => [
+                'argb' => 'FFE6E6E6',
+            ],
+            'endColor' => [
+                'argb' => 'FFE6E6E6',
+            ],
+        ],
+    ];
+
+    protected static array $totalFormat = [
         'font' => ['bold' => true],
         'alignment' => ['wrapText' => true],
         'fill' => [
@@ -110,24 +115,30 @@ abstract class AbstractExcel extends AbstractHandler
         ],
     ];
 
-    protected static $centerFormat = [
+    protected static array $centerFormat = [
         'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
     ];
 
-    protected static $rightFormat = [
+    protected static array $rightFormat = [
         'alignment' => ['horizontal' => Alignment::HORIZONTAL_RIGHT],
     ];
 
-    protected static $wrapFormat = [
+    protected static array $leftFormat = [
+        'alignment' => ['horizontal' => Alignment::HORIZONTAL_LEFT],
+    ];
+
+    protected static array $wrapFormat = [
         'alignment' => ['wrapText' => true],
+    ];
+
+    protected static array $inactiveFormat = [
+        'font' => ['color' => ['argb' => 'FFC0C0C0']],
     ];
 
     /**
      * Define border cells inside list of data (very light borders)
-     *
-     * @var array
      */
-    protected static $bordersInside = [
+    protected static array $bordersInside = [
         'borders' => [
             'inside' => [
                 'borderStyle' => Border::BORDER_HAIR,
@@ -140,10 +151,8 @@ abstract class AbstractExcel extends AbstractHandler
 
     /**
      * Define border cells for total row (thick border)
-     *
-     * @var array
      */
-    protected static $bordersTotal = [
+    protected static array $bordersTotal = [
         'borders' => [
             'outline' => [
                 'borderStyle' => Border::BORDER_THICK,
@@ -151,10 +160,7 @@ abstract class AbstractExcel extends AbstractHandler
         ],
     ];
 
-    /**
-     * @var array
-     */
-    protected static $bordersBottom = [
+    protected static array $bordersBottom = [
         'borders' => [
             'bottom' => [
                 'borderStyle' => Border::BORDER_MEDIUM,
@@ -162,10 +168,7 @@ abstract class AbstractExcel extends AbstractHandler
         ],
     ];
 
-    /**
-     * @var array
-     */
-    protected static $bordersBottomLight = [
+    protected static array $bordersBottomLight = [
         'borders' => [
             'bottom' => [
                 'borderStyle' => Border::BORDER_HAIR,
@@ -176,26 +179,32 @@ abstract class AbstractExcel extends AbstractHandler
     /**
      * Constructor
      */
-    public function __construct(string $hostname, string $routeName)
+    public function __construct(string $hostname)
     {
-        $this->hostname = $hostname;
-        $this->routeName = $routeName;
+        parent::__construct($hostname);
         $currencies = new ISOCurrencies();
         $this->moneyFormatter = new DecimalMoneyFormatter($currencies);
         $this->workbook = new Spreadsheet();
-        $this->workbook->setActiveSheetIndex(0);
+        $this->sheet = $this->workbook->getActiveSheet();
+
+        $this->sheet->getDefaultRowDimension()->setRowHeight(20);
     }
 
-    /**
-     * @param AbstractModel[] $items
-     */
-    protected function writeHeaders(Worksheet $sheet, array $items): void
+    protected function writeTitle(): void
+    {
+    }
+
+    protected function writeFooter(): void
+    {
+    }
+
+    private function writeHeaders(): void
     {
         // Headers
         foreach ($this->getHeaders() as $header) {
             // Apply width
             if (isset($header['width'])) {
-                $colDimension = $sheet->getColumnDimensionByColumn($this->column);
+                $colDimension = $this->sheet->getColumnDimensionByColumn($this->column);
                 if ($header['width'] === 'auto') {
                     $colDimension->setAutoSize(true);
                 } else {
@@ -208,34 +217,16 @@ abstract class AbstractExcel extends AbstractHandler
             }
 
             if (isset($header['colspan']) && $header['colspan'] > 1) {
-                $sheet->mergeCellsByColumnAndRow($this->column, $this->row, $this->column + (int) $header['colspan'] - 1, $this->row);
+                $this->sheet->mergeCellsByColumnAndRow($this->column, $this->row, $this->column + (int) $header['colspan'] - 1, $this->row);
             }
 
-            if (isset($header['autofilter'])) {
-                $sheet->setAutoFilterByColumnAndRow($this->column, $this->row, $this->column - 1, $this->row + count($items));
-            }
-
-            $this->write($sheet, $header['label'], ...$header['formats']);
+            $this->write($header['label'], ...$header['formats']);
 
             if (isset($header['colspan']) && $header['colspan'] > 1) {
                 $this->column += (int) $header['colspan'] - 1;
             }
         }
     }
-
-    /**
-     * Write the items, one per line, in the body part of the sheet
-     *
-     * @param AbstractModel[] $items
-     */
-    abstract protected function writeData(Worksheet $sheet, array $items): void;
-
-    /**
-     * Write the footer line
-     *
-     * @param AbstractModel[] $items
-     */
-    abstract protected function writeFooter(Worksheet $sheet, array $items): void;
 
     abstract protected function getHeaders(): array;
 
@@ -245,9 +236,9 @@ abstract class AbstractExcel extends AbstractHandler
      * @param mixed $value
      * @param array[] ...$formats optional list of formats to be applied successively
      */
-    protected function write(Worksheet $sheet, $value, array ...$formats): void
+    protected function write($value, array ...$formats): void
     {
-        $cell = $sheet->getCellByColumnAndRow($this->column++, $this->row);
+        $cell = $this->sheet->getCellByColumnAndRow($this->column++, $this->row);
         if ($formats) {
             $style = $cell->getStyle();
             foreach ($formats as $format) {
@@ -266,59 +257,55 @@ abstract class AbstractExcel extends AbstractHandler
         $cell->setValue($value);
     }
 
-    /**
-     * Called by the field resolver or repository to generate a spreadsheet from the query builder
-     *
-     * @return string the generated spreadsheet file path
-     */
-    public function generate(Query $query): string
+    protected function initialize(string $path): void
     {
-        $items = $query->getResult();
-
         $this->workbook->getDefaultStyle()->applyFromArray(self::$defaultFormat);
-        $sheet = $this->workbook->getActiveSheet();
         $this->row = 1;
         $this->column = 1;
-        $this->writeHeaders($sheet, $items);
+        $this->writeTitle();
+        $this->column = 1;
+        $this->writeHeaders();
         ++$this->row;
         $this->column = 1;
-        $this->writeData($sheet, $items);
-        $this->column = 1;
-        $this->writeFooter($sheet, $items);
-
-        $writer = new Xlsx($this->workbook);
-
-        $tmpFile = bin2hex(random_bytes(16));
-        @mkdir($this->tmpDir);
-        $writer->save($this->tmpDir . '/' . $tmpFile);
-
-        return 'https://' . $this->hostname . '/export/' . $this->routeName . '/' . $tmpFile . '/' . $this->outputFileName;
+        $this->firstDataRow = $this->row;
+        $this->firstDataColumn = $this->column;
     }
 
-    /**
-     * Process the GET query to download previously generated spreasheet on disk
-     */
-    public function handle(ServerRequestInterface $request): ResponseInterface
+    protected function finalize(string $path): void
     {
-        // Read file from disk
-        $tmpFile = $this->tmpDir . '/' . $request->getAttribute('key');
+        $this->applyZebra();
+        $this->applyAutoFilter();
 
-        if (!file_exists($tmpFile)) {
-            return new Response\EmptyResponse(404);
+        $this->column = 1;
+        $this->row = $this->lastDataRow + 1;
+        $this->writeFooter();
+
+        $writer = new Xlsx($this->workbook);
+        $writer->save($path);
+    }
+
+    protected function getExtension(): string
+    {
+        return 'xlsx';
+    }
+
+    private function applyZebra(): void
+    {
+        if (!$this->zebra) {
+            return;
         }
 
-        $size = filesize($tmpFile);
-        $output = fopen($tmpFile, 'rb');
+        $zebraRange = Coordinate::stringFromColumnIndex($this->firstDataColumn) . $this->firstDataRow . ':' . Coordinate::stringFromColumnIndex($this->lastDataColumn) . $this->lastDataRow;
+        $zebraCondition = new Conditional();
+        $zebraCondition->setConditionType(Conditional::CONDITION_EXPRESSION)->setOperatorType(Conditional::OPERATOR_EQUAL)->addCondition('MOD(ROW(),2)=0');
+        $zebraCondition->getStyle()->applyFromArray(self::$zebraFormat);
+        $this->sheet->getStyle($zebraRange)->setConditionalStyles([$zebraCondition]);
+    }
 
-        $response = new Response($output, 200, [
-            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'Content-Disposition' => sprintf('attachment; filename=%s', $request->getAttribute('name')),
-            'Access-Control-Expose-Headers' => 'Content-Disposition',
-            'Expire' => 0,
-            'Pragma' => 'public',
-            'Content-Length' => $size,
-        ]);
-
-        return $response;
+    private function applyAutoFilter(): void
+    {
+        if ($this->autoFilter) {
+            $this->sheet->setAutoFilterByColumnAndRow($this->firstDataColumn, $this->firstDataRow - 1, $this->lastDataColumn, $this->lastDataRow);
+        }
     }
 }

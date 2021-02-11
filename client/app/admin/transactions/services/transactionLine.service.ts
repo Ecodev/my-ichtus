@@ -8,15 +8,15 @@ import {
     NaturalSearchSelections,
     toUrl,
 } from '@ecodev/natural';
-import {transactionLineQuery, transactionLinesForExportQuery, transactionLinesQuery} from './transactionLine.queries';
+import {transactionLineQuery, exportTransactionLines, transactionLinesQuery} from './transactionLine.queries';
 import {
     LogicalOperator,
+    ExportTransactionLines,
+    ExportTransactionLinesVariables,
     MinimalAccount,
     TransactionLine,
     TransactionLineInput,
     TransactionLines,
-    TransactionLinesForExport,
-    TransactionLinesForExportVariables,
     TransactionLinesVariables,
     TransactionLineVariables,
     TransactionTag,
@@ -170,17 +170,17 @@ export class TransactionLineService extends NaturalAbstractModelService<
         return this.watchAll(qvm, expire);
     }
 
-    public getExportLink(qvm: NaturalQueryVariablesManager<TransactionLinesForExportVariables>): Observable<string> {
+    public getExportLink(qvm: NaturalQueryVariablesManager<ExportTransactionLinesVariables>): Observable<string> {
         qvm.merge('variables', TransactionLineService.getVariablesForExport());
 
         return this.apollo
-            .query<TransactionLinesForExport, TransactionLinesForExportVariables>({
-                query: transactionLinesForExportQuery,
+            .mutate<ExportTransactionLines, ExportTransactionLinesVariables>({
+                mutation: exportTransactionLines,
                 variables: qvm.variables.value,
             })
             .pipe(
                 map(result => {
-                    return result.data.transactionLines.excelExport;
+                    return result.data!.exportTransactionLines;
                 }),
             );
     }

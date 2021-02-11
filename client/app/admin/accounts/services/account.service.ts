@@ -2,11 +2,11 @@ import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {
     accountingClosing,
-    accountingReport,
     accountQuery,
     accountsQuery,
     createAccount,
     deleteAccounts,
+    exportAccountingReport,
     nextCodeAvailableQuery,
     updateAccount,
 } from './account.queries';
@@ -15,8 +15,6 @@ import {
     Account_account,
     AccountingClosing,
     AccountingClosingVariables,
-    AccountingReport,
-    AccountingReportVariables,
     AccountInput,
     Accounts,
     AccountsVariables,
@@ -26,6 +24,8 @@ import {
     CreateAccountVariables,
     DeleteAccounts,
     DeleteAccountsVariables,
+    ExportAccountingReport,
+    ExportAccountingReportVariables,
     NextAccountCode,
     UpdateAccount,
     UpdateAccountVariables,
@@ -92,17 +92,17 @@ export class AccountService extends NaturalAbstractModelService<
             );
     }
 
-    public getReportExportLink(date: Date): Observable<AccountingReport['accountingReport']> {
-        const variables: AccountingReportVariables = {
+    public getReportExportLink(date: Date): Observable<ExportAccountingReport['exportAccountingReport']> {
+        const variables: ExportAccountingReportVariables = {
             date: date,
         };
 
         return this.apollo
-            .mutate<AccountingReport, AccountingReportVariables>({
-                mutation: accountingReport,
+            .mutate<ExportAccountingReport, ExportAccountingReportVariables>({
+                mutation: exportAccountingReport,
                 variables: variables,
             })
-            .pipe(map(result => result.data!.accountingReport));
+            .pipe(map(result => result.data!.exportAccountingReport));
     }
 
     public closing(date: Date): Observable<AccountingClosing['accountingClosing']> {

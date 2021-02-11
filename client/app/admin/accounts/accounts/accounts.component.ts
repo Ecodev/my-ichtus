@@ -64,9 +64,7 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
             .subscribe(date => {
                 if (date) {
                     this.accountService.getReportExportLink(date).subscribe(url => {
-                        if (url) {
-                            window.location.href = url;
-                        }
+                        window.location.href = url;
                     });
                 }
             });

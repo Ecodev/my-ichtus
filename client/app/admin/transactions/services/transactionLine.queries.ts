@@ -85,14 +85,8 @@ export const transactionLineQuery = gql`
     ${permissionsFragment}
 `;
 
-export const transactionLinesForExportQuery = gql`
-    query TransactionLinesForExport(
-        $filter: TransactionLineFilter
-        $sorting: [TransactionLineSorting!]
-        $pagination: PaginationInput
-    ) {
-        transactionLines(filter: $filter, sorting: $sorting, pagination: $pagination) {
-            excelExport
-        }
+export const exportTransactionLines = gql`
+    mutation ExportTransactionLines($filter: TransactionLineFilter, $sorting: [TransactionLineSorting!]) {
+        exportTransactionLines(filter: $filter, sorting: $sorting)
     }
 `;

@@ -9,7 +9,7 @@ use Application\Model\AbstractModel;
 use Application\Model\Bookable;
 use Application\Model\Booking;
 use Application\Model\TransactionLine;
-use Application\Repository\ExportExcelInterface;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Ecodev\Felix\Api\Exception;
@@ -85,25 +85,6 @@ abstract class Helper
                 ->addSelect('SUM(transactionLine1.balance) AS totalBalance');
 
             $result = $qb->getQuery()->getResult()[0];
-        }
-
-        return $result;
-    }
-
-    /**
-     * Lazy resolve the Excel export of the listing query
-     */
-    public static function excelExportField(string $class, QueryBuilder $qb): array
-    {
-        $result = [];
-
-        $repository = _em()->getRepository($class);
-
-        if ($repository instanceof ExportExcelInterface) {
-            $query = $qb->getQuery();
-            $result['excelExport'] = function () use ($query, $repository): string {
-                return $repository->exportExcel($query);
-            };
         }
 
         return $result;

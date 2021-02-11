@@ -7,7 +7,6 @@ namespace Application\Api\Output;
 use Application\Model\Bookable;
 use Application\Model\Booking;
 use Application\Model\TransactionLine;
-use Application\Repository\ExportExcelInterface;
 use GraphQL\Type\Definition\Type;
 
 /**
@@ -53,14 +52,6 @@ class PaginationTypeFactory extends \Ecodev\Felix\Api\Output\PaginationTypeFacto
             $fields['totalBalance'] = [
                 'type' => _types()->get('Money'),
                 'description' => 'The total balance',
-            ];
-        }
-
-        $repository = _em()->getRepository($class);
-        if ($repository instanceof ExportExcelInterface) {
-            $fields['excelExport'] = [
-                'type' => Type::nonNull(Type::string()),
-                'description' => 'URL to download filtered Excel listing',
             ];
         }
 

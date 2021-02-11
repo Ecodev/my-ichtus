@@ -29,6 +29,11 @@ return [
         'recursive' => true,
     ],
     [
+        'path' => 'htdocs/data/export',
+        'permissions' => '0770',
+        'recursive' => true,
+    ],
+    [
         'path' => 'data/session',
         'owner' => $webserver,
         'permissions' => '0770',
@@ -52,6 +57,10 @@ return [
     ],
     [
         'path' => 'bin/send-all-messages.php',
+        'permissions' => '0750',
+    ],
+    [
+        'path' => 'bin/delete-old-export.php',
         'permissions' => '0750',
     ],
     [

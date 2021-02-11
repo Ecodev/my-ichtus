@@ -54,12 +54,4 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
         BodyParamsMiddleware::class,
         \Application\Handler\DatatransHandler::class,
     ], 'datatrans');
-
-    $app->get('/export/accountingReport/{key:[0-9a-f]+}/{name:.+\.xlsx}', [
-        \Application\Handler\ExportAccountingReportHandler::class,
-    ], 'accountingReport');
-
-    $app->get('/export/transactionLines/{key:[0-9a-f]+}/{name:.+\.xlsx}', [
-        \Application\Handler\ExportTransactionLinesHandler::class,
-    ], 'transactionsLines');
 };

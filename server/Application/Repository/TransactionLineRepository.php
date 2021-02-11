@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Application\Repository;
 
-use Application\Handler\ExportTransactionLinesHandler;
 use Application\Model\Account;
 use Application\Model\User;
+use Application\Service\Exporter\TransactionLines;
 use Cake\Chronos\Date;
 use Doctrine\ORM\Query;
 use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 use Money\Money;
 
-class TransactionLineRepository extends AbstractRepository implements ExportExcelInterface, LimitedAccessSubQuery
+class TransactionLineRepository extends AbstractRepository implements LimitedAccessSubQuery
 {
     /**
      * Returns pure SQL to get ID of all objects that are accessible to given user.
@@ -39,18 +39,6 @@ class TransactionLineRepository extends AbstractRepository implements ExportExce
         return 'SELECT transaction_line.id FROM transaction_line
               JOIN account ON transaction_line.debit_id = account.id OR transaction_line.credit_id = account.id 
               WHERE account.owner_id = ' . $id;
-    }
-
-    /**
-     * Generates an Excel spreadsheet with the query result
-     *
-     * @return string name of the temporary file
-     */
-    public function exportExcel(Query $query): string
-    {
-        global $container;
-
-        return ($container->get(ExportTransactionLinesHandler::class))->generate($query);
     }
 
     /**

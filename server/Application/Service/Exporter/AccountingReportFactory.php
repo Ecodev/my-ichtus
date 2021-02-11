@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Application\Handler;
+namespace Application\Service\Exporter;
 
 use Interop\Container\ContainerInterface;
 
-class ExportTransactionLinesFactory
+class AccountingReportFactory
 {
     public function __invoke(ContainerInterface $container)
     {
         $config = $container->get('config');
 
-        return new ExportTransactionLinesHandler($config['hostname']);
+        return new AccountingReport($config['hostname'], $config['accounting']);
     }
 }

@@ -2,13 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Application\Handler;
+namespace Application\Service\Exporter;
 
 use Application\DBAL\Types\AccountTypeType;
 use Application\Model\Account;
-use ApplicationTest\Traits\TestWithTransactionAndUser;
 use Cake\Chronos\Date;
-use Doctrine\ORM\Query;
 use Ecodev\Felix\Format;
 use Money\Money;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
@@ -16,13 +14,9 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class ExportAccountingReportHandler extends AbstractExcel
+class AccountingReport extends AbstractExcel
 {
-    use TestWithTransactionAndUser;
-
     private array $accountingConfig;
 
     private Date $date;
@@ -35,9 +29,7 @@ class ExportAccountingReportHandler extends AbstractExcel
 
     private array $revenues = [];
 
-    private static array
-
-    $balanceFormat = [
+    private static array $balanceFormat = [
         'fill' => [
             'fillType' => Fill::FILL_SOLID,
             'startColor' => [
@@ -55,19 +47,21 @@ class ExportAccountingReportHandler extends AbstractExcel
         'balance' => 12,
     ];
 
-    private int $lastDataRow;
-
     public function __construct(string $hostname, array $accountingConfig)
     {
-        parent::__construct($hostname, 'accountingReport');
+        parent::__construct($hostname);
 
         $this->date = Date::today();
         $this->accountingConfig = $accountingConfig;
 
-        $sheet = $this->workbook->getActiveSheet();
-        $sheet->setTitle('Bilan + PP');
-        $sheet->getSheetView()->setZoomScale(70);
-        $sheet->getDefaultRowDimension()->setRowHeight(20);
+        $this->sheet->setTitle('Bilan + PP');
+        $this->zebra = false;
+        $this->autoFilter = false;
+    }
+
+    protected function getTitleForFilename(): string
+    {
+        return sprintf('compta_rapport_%s', $this->date->format('Y-m-d'));
     }
 
     public function setDate(Date $date): void
@@ -75,44 +69,31 @@ class ExportAccountingReportHandler extends AbstractExcel
         $this->date = $date;
     }
 
-    public function getDate(): Date
-    {
-        return $this->date;
-    }
-
-    /**
-     * The model class name
-     */
-    protected function getModelClass(): string
-    {
-        return Account::class;
-    }
-
-    protected function writeTitle(Worksheet $sheet): void
+    protected function writeTitle(): void
     {
         $this->column = 1;
-        $sheet->mergeCellsByColumnAndRow($this->column, $this->row, $this->column + 15, $this->row);
-        $this->write($sheet,
-            sprintf($this->hostname . ': rapport comptable au %s', $this->getDate()->format('d.m.Y')),
+        $this->sheet->mergeCellsByColumnAndRow($this->column, $this->row, $this->column + 14, $this->row);
+        $this->write(
+            sprintf($this->hostname . ': rapport comptable au %s', $this->date->format('d.m.Y')),
             self::$titleFormat, self::$centerFormat
         );
-        $sheet->getRowDimension($this->row)->setRowHeight(35);
+        $this->sheet->getRowDimension($this->row)->setRowHeight(35);
         ++$this->row;
 
         $this->column = 1;
-        $sheet->mergeCellsByColumnAndRow($this->column, $this->row, $this->column + 6, $this->row);
-        $this->write($sheet,
+        $this->sheet->mergeCellsByColumnAndRow($this->column, $this->row, $this->column + 6, $this->row);
+        $this->write(
             sprintf('Bilan'),
             self::$titleFormat, self::$centerFormat
         );
         $this->column = 9;
-        $sheet->mergeCellsByColumnAndRow($this->column, $this->row, $this->column + 6, $this->row);
-        $this->write($sheet,
+        $this->sheet->mergeCellsByColumnAndRow($this->column, $this->row, $this->column + 6, $this->row);
+        $this->write(
             sprintf('Résultat'),
             self::$titleFormat, self::$centerFormat
         );
 
-        $sheet->getRowDimension($this->row)->setRowHeight(35);
+        $this->sheet->getRowDimension($this->row)->setRowHeight(35);
         ++$this->row;
     }
 
@@ -153,11 +134,11 @@ class ExportAccountingReportHandler extends AbstractExcel
     /**
      * @param Account[] $accounts
      */
-    protected function writeData(Worksheet $sheet, array $accounts): void
+    protected function writeData(array $accounts): void
     {
         $this->processAccounts($accounts, 1);
 
-        $sheet->setShowGridlines(false);
+        $this->sheet->setShowGridlines(false);
 
         $profitOrLoss = $this->getProfitOrLoss();
 
@@ -194,31 +175,30 @@ class ExportAccountingReportHandler extends AbstractExcel
         $this->lastDataRow = $this->row;
         foreach ($this->assets as $index => $data) {
             if ($firstLine) {
-                $sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['accountCode']);
+                $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['accountCode']);
             }
             $format = ['font' => ['bold' => $data['depth'] <= 2]];
             $this->write(
-                $sheet, str_repeat('  ', $data['depth'] - 1) . $data['code'],
+                str_repeat('  ', $data['depth'] - 1) . $data['code'],
                 ['alignment' => ['horizontal' => Alignment::HORIZONTAL_LEFT, 'indent' => 1]],
                 $format
             );
             if ($firstLine) {
-                $sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['accountName']);
+                $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['accountName']);
             }
-            $this->write($sheet, $data['name'], ['alignment' => ['wrapText' => true]], $format, $data['format'] ?? []);
+            $this->write($data['name'], ['alignment' => ['wrapText' => true]], $format, $data['format'] ?? []);
             if ($firstLine) {
-                $sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['balance']);
+                $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['balance']);
             }
             // Store the coordinate of the cell to later compute totals
-            $this->assets[$index]['cell'] = $sheet->getCellByColumnAndRow($this->column, $this->row)->getCoordinate();
-            $this->write($sheet, $data['balance'], self::$balanceFormat);
+            $this->assets[$index]['cell'] = $this->sheet->getCellByColumnAndRow($this->column, $this->row)->getCoordinate();
+            $this->write($data['balance'], self::$balanceFormat);
 
             $firstLine = false;
             ++$this->row;
             $this->column = $initialColumn;
-            if ($this->row > $this->lastDataRow) {
-                $this->lastDataRow = $this->row;
-            }
+
+            $this->lastDataRow = max($this->lastDataRow, $this->row);
         }
 
         // Liabilities
@@ -227,30 +207,29 @@ class ExportAccountingReportHandler extends AbstractExcel
         $firstLine = true;
         foreach ($this->liabilities as $index => $data) {
             if ($firstLine) {
-                $sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['balance']);
+                $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['balance']);
             }
             // Store the coordinate of the cell to later compute totals
-            $this->liabilities[$index]['cell'] = $sheet->getCellByColumnAndRow($this->column, $this->row)->getCoordinate();
-            $this->write($sheet, $data['balance'], self::$balanceFormat);
+            $this->liabilities[$index]['cell'] = $this->sheet->getCellByColumnAndRow($this->column, $this->row)->getCoordinate();
+            $this->write($data['balance'], self::$balanceFormat);
             $format = ['font' => ['bold' => $data['depth'] <= 2]];
             if ($firstLine) {
-                $sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['accountCode']);
+                $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['accountCode']);
             }
             $this->write(
-                $sheet, str_repeat('  ', $data['depth'] - 1) . $data['code'],
+                str_repeat('  ', $data['depth'] - 1) . $data['code'],
                 ['alignment' => ['horizontal' => Alignment::HORIZONTAL_LEFT, 'indent' => 1]],
                 $format
             );
             if ($firstLine) {
-                $sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['accountName']);
+                $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['accountName']);
             }
-            $this->write($sheet, $data['name'], ['alignment' => ['wrapText' => true]], $format, $data['format'] ?? []);
+            $this->write($data['name'], ['alignment' => ['wrapText' => true]], $format, $data['format'] ?? []);
             $firstLine = false;
             ++$this->row;
             $this->column = $initialColumn;
-            if ($this->row > $this->lastDataRow) {
-                $this->lastDataRow = $this->row;
-            }
+
+            $this->lastDataRow = max($this->lastDataRow, $this->row);
         }
 
         // Expenses
@@ -259,30 +238,29 @@ class ExportAccountingReportHandler extends AbstractExcel
         $firstLine = true;
         foreach ($this->expenses as $index => $data) {
             if ($firstLine) {
-                $sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['accountCode']);
+                $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['accountCode']);
             }
             $format = ['font' => ['bold' => $data['depth'] === 1]];
             $this->write(
-                $sheet, str_repeat('  ', $data['depth'] - 1) . $data['code'],
+                str_repeat('  ', $data['depth'] - 1) . $data['code'],
                 ['alignment' => ['horizontal' => Alignment::HORIZONTAL_LEFT, 'indent' => 1]],
                 $format
             );
             if ($firstLine) {
-                $sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['accountName']);
+                $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['accountName']);
             }
-            $this->write($sheet, $data['name'], ['alignment' => ['wrapText' => true]], $format, $data['format'] ?? []);
+            $this->write($data['name'], ['alignment' => ['wrapText' => true]], $format, $data['format'] ?? []);
             if ($firstLine) {
-                $sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['balance']);
+                $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['balance']);
             }
             // Store the coordinate of the cell to later compute totals
-            $this->expenses[$index]['cell'] = $sheet->getCellByColumnAndRow($this->column, $this->row)->getCoordinate();
-            $this->write($sheet, $data['balance'], self::$balanceFormat);
+            $this->expenses[$index]['cell'] = $this->sheet->getCellByColumnAndRow($this->column, $this->row)->getCoordinate();
+            $this->write($data['balance'], self::$balanceFormat);
             $firstLine = false;
             ++$this->row;
             $this->column = $initialColumn;
-            if ($this->row > $this->lastDataRow) {
-                $this->lastDataRow = $this->row;
-            }
+
+            $this->lastDataRow = max($this->lastDataRow, $this->row);
         }
 
         // Revenues
@@ -291,51 +269,40 @@ class ExportAccountingReportHandler extends AbstractExcel
         $firstLine = true;
         foreach ($this->revenues as $index => $data) {
             if ($firstLine) {
-                $sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['balance']);
+                $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['balance']);
             }
             // Store the coordinate of the cell to later compute totals
-            $this->revenues[$index]['cell'] = $sheet->getCellByColumnAndRow($this->column, $this->row)->getCoordinate();
-            $this->write($sheet, $data['balance'], self::$balanceFormat);
+            $this->revenues[$index]['cell'] = $this->sheet->getCellByColumnAndRow($this->column, $this->row)->getCoordinate();
+            $this->write($data['balance'], self::$balanceFormat);
             $format = ['font' => ['bold' => $data['depth'] === 1]];
             if ($firstLine) {
-                $sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['accountCode']);
+                $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['accountCode']);
             }
             $this->write(
-                $sheet, str_repeat('  ', $data['depth'] - 1) . $data['code'],
+                str_repeat('  ', $data['depth'] - 1) . $data['code'],
                 ['alignment' => ['horizontal' => Alignment::HORIZONTAL_LEFT, 'indent' => 1]],
                 $format
             );
             if ($firstLine) {
-                $sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['accountName']);
+                $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['accountName']);
             }
-            $this->write($sheet, $data['name'], ['alignment' => ['wrapText' => true]], $format, $data['format'] ?? []);
+            $this->write($data['name'], ['alignment' => ['wrapText' => true]], $format, $data['format'] ?? []);
             $firstLine = false;
             ++$this->row;
             $this->column = $initialColumn;
-            if ($this->row > $this->lastDataRow) {
-                $this->lastDataRow = $this->row;
-            }
+
+            $this->lastDataRow = max($this->lastDataRow, $this->row);
         }
+
+        $this->applyExtraFormatting();
     }
 
-    protected function getProfitOrLoss(): Money
+    private function getProfitOrLoss(): Money
     {
         // Sum the profit and loss root accounts
-        $totalRevenues = array_reduce($this->revenues, function (Money $carry, $data) {
-            if ($data['depth'] === 1) {
-                return $carry->add($data['balance']);
-            }
+        $totalRevenues = $this->sumBalance($this->revenues);
 
-            return $carry;
-        }, Money::CHF(0));
-
-        $totalExpenses = array_reduce($this->expenses, function (Money $carry, $data) {
-            if ($data['depth'] === 1) {
-                return $carry->add($data['balance']);
-            }
-
-            return $carry;
-        }, Money::CHF(0));
+        $totalExpenses = $this->sumBalance($this->expenses);
 
         return $totalRevenues->subtract($totalExpenses);
     }
@@ -357,10 +324,7 @@ class ExportAccountingReportHandler extends AbstractExcel
         return $headers;
     }
 
-    /**
-     * @param Account[] $items
-     */
-    protected function writeFooter(Worksheet $sheet, array $items): void
+    protected function writeFooter(): void
     {
         $initialColumn = $this->column;
 
@@ -368,118 +332,94 @@ class ExportAccountingReportHandler extends AbstractExcel
 
         /** Assets */
         // Account.code
-        $this->write($sheet, '');
+        $this->write('');
         // Account.name
-        $this->write($sheet, '');
+        $this->write('');
         // Account.balance
-        $cellsToSum = array_reduce($this->assets, function (array $carry, $data) {
-            if ($data['depth'] === 1 && isset($data['cell'])) {
-                $carry[] = $data['cell'];
-            }
-
-            return $carry;
-        }, []);
-        $this->write($sheet, '=SUM(' . implode(',', $cellsToSum) . ')', self::$balanceFormat, self::$totalFormat);
+        $cellsToSum = $this->cellsToSum($this->assets);
+        $this->write('=SUM(' . implode(',', $cellsToSum) . ')', self::$balanceFormat, self::$totalFormat);
 
         // Margin
-        $this->write($sheet, '');
+        $this->write('');
 
         /** Liabilities */
         // Account.balance
-        $cellsToSum = array_reduce($this->liabilities, function (array $carry, $data) {
-            if ($data['depth'] === 1 && isset($data['cell'])) {
-                $carry[] = $data['cell'];
-            }
-
-            return $carry;
-        }, []);
-        $this->write($sheet, '=SUM(' . implode(',', $cellsToSum) . ')', self::$balanceFormat, self::$totalFormat);
+        $cellsToSum = $this->cellsToSum($this->liabilities);
+        $this->write('=SUM(' . implode(',', $cellsToSum) . ')', self::$balanceFormat, self::$totalFormat);
 
         // Account.code
-        $this->write($sheet, '');
+        $this->write('');
         // Account.name
-        $this->write($sheet, '');
+        $this->write('');
 
         // Margin
-        $this->write($sheet, '');
+        $this->write('');
 
         /** INCOME STATEMENT */
 
         /** Expenses */
         // Account.code
-        $this->write($sheet, '');
+        $this->write('');
         // Account.name
-        $this->write($sheet, '');
+        $this->write('');
         // Account.balance
-        $cellsToSum = array_reduce($this->expenses, function (array $carry, $data) {
-            if ($data['depth'] === 1 && isset($data['cell'])) {
-                $carry[] = $data['cell'];
-            }
-
-            return $carry;
-        }, []);
-        $this->write($sheet, '=SUM(' . implode(',', $cellsToSum) . ')', self::$balanceFormat, self::$totalFormat);
+        $cellsToSum = $this->cellsToSum($this->expenses);
+        $this->write('=SUM(' . implode(',', $cellsToSum) . ')', self::$balanceFormat, self::$totalFormat);
 
         // Margin
-        $this->write($sheet, '');
+        $this->write('');
 
         /** Revenues ** */
         // Account.balance
-        $cellsToSum = array_reduce($this->revenues, function (array $carry, $data) {
-            if ($data['depth'] === 1 && isset($data['cell'])) {
-                $carry[] = $data['cell'];
-            }
-
-            return $carry;
-        }, []);
-        $this->write($sheet, '=SUM(' . implode(',', $cellsToSum) . ')', self::$balanceFormat, self::$totalFormat);
+        $cellsToSum = $this->cellsToSum($this->revenues);
+        $this->write('=SUM(' . implode(',', $cellsToSum) . ')', self::$balanceFormat, self::$totalFormat);
         // Account.code
-        $this->write($sheet, '');
+        $this->write('');
         // Account.name
-        $this->write($sheet, '');
+        $this->write('');
 
         // Apply style
         $range = Coordinate::stringFromColumnIndex($initialColumn) . $this->row . ':' . Coordinate::stringFromColumnIndex($this->column - 1) . $this->row;
-        $sheet->getStyle($range)->applyFromArray(self::$totalFormat);
+        $this->sheet->getStyle($range)->applyFromArray(self::$totalFormat);
     }
 
-    public function generate(Query $query): string
+    private function applyExtraFormatting(): void
     {
-        $this->outputFileName = sprintf('%s_compta_rapport_%s.xlsx', $this->hostname, $this->date->format('Y-m-d'));
-        $accounts = $query->getResult();
-        $this->workbook->getDefaultStyle()->applyFromArray(self::$defaultFormat);
-        $sheet = $this->workbook->getActiveSheet();
-        $this->row = 1;
-        $this->column = 1;
-        $this->writeTitle($sheet);
-        $this->column = 1;
-        $this->writeHeaders($sheet, $accounts);
-        ++$this->row;
-        $this->column = 1;
-        $this->writeData($sheet, $accounts);
-
         // Format balance numbers
         foreach ([3, 5, 11, 13] as $colIndex) {
-            $range = Coordinate::stringFromColumnIndex($colIndex) . 4 . ':' . Coordinate::stringFromColumnIndex($colIndex) . ($this->lastDataRow);
-            $sheet->getStyle($range)->applyFromArray(self::$balanceFormat);
+            $range = Coordinate::stringFromColumnIndex($colIndex) . 4 . ':' . Coordinate::stringFromColumnIndex($colIndex) . $this->lastDataRow;
+            $this->sheet->getStyle($range)->applyFromArray(self::$balanceFormat);
         }
 
         // Increase row height since account names can wrap on multiple lines
         for ($r = 4; $r <= $this->lastDataRow; ++$r) {
-            $sheet->getRowDimension($r)->setRowHeight(30);
+            $this->sheet->getRowDimension($r)->setRowHeight(30);
         }
+    }
 
-        $this->column = 1;
-        $this->row = $this->lastDataRow + 1;
-        $this->column = 1;
-        $this->writeFooter($sheet, $accounts);
+    protected function cellsToSum(array $data): array
+    {
+        $cells = array_reduce($data, function (array $carry, $data) {
+            if ($data['depth'] === 1 && isset($data['cell'])) {
+                $carry[] = $data['cell'];
+            }
 
-        $writer = new Xlsx($this->workbook);
+            return $carry;
+        }, []);
 
-        $tmpFile = bin2hex(random_bytes(16));
-        !is_dir($this->tmpDir) && mkdir($this->tmpDir);
-        $writer->save($this->tmpDir . '/' . $tmpFile);
+        return $cells;
+    }
 
-        return 'https://' . $this->hostname . '/export/' . $this->routeName . '/' . $tmpFile . '/' . $this->outputFileName;
+    private function sumBalance(array $data): Money
+    {
+        $sum = array_reduce($data, function (Money $carry, $data) {
+            if ($data['depth'] === 1) {
+                return $carry->add($data['balance']);
+            }
+
+            return $carry;
+        }, Money::CHF(0));
+
+        return $sum;
     }
 }

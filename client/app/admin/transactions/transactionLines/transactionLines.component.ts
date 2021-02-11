@@ -3,9 +3,9 @@ import {NaturalAbstractList, NaturalQueryVariablesManager} from '@ecodev/natural
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {
+    ExportTransactionLinesVariables,
     MinimalAccount,
     TransactionLine,
-    TransactionLinesForExportVariables,
     TransactionTag,
 } from '../../../shared/generated-types';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -32,7 +32,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
     }
 
     public download(): void {
-        const qvm = new NaturalQueryVariablesManager<TransactionLinesForExportVariables>(this.variablesManager);
+        const qvm = new NaturalQueryVariablesManager<ExportTransactionLinesVariables>(this.variablesManager);
 
         this.transactionLineService.getExportLink(qvm).subscribe(url => {
             window.location.href = url;

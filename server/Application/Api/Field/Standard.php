@@ -8,12 +8,11 @@ use Application\Api\Helper;
 use Application\Model\AbstractModel;
 use Application\Model\Account;
 use Application\Model\TransactionLine;
-use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\QueryBuilder;
 use Ecodev\Felix\Api\Input\PaginationInputType;
 use GraphQL\Type\Definition\Type;
 use Money\Money;
 use ReflectionClass;
-use ReflectionException;
 
 /**
  * Provide easy way to build standard fields to query and mutate objects
@@ -31,7 +30,7 @@ abstract class Standard
         $shortName = $reflect->getShortName();
         $plural = self::makePlural($name);
 
-        $listArgs = self::getListArguments($metadata);
+        $listArgs = self::getListArguments($class);
         $singleArgs = self::getSingleArguments($class);
 
         return [
@@ -39,27 +38,12 @@ abstract class Standard
                 'name' => $plural,
                 'type' => Type::nonNull(_types()->get($shortName . 'Pagination')),
                 'args' => $listArgs,
-                'resolve' => function ($root, array $args) use ($class, $metadata): array {
-                    $filters = self::customTypesToScalar($args['filter'] ?? []);
-
-                    // If null or empty list is provided by client, fallback on default sorting
-                    $sorting = $args['sorting'] ?? [];
-                    if (!$sorting) {
-                        $sorting = self::getDefaultSorting($metadata);
-                    }
-
-                    // And **always** sort by ID
-                    $sorting[] = [
-                        'field' => 'id',
-                        'order' => 'ASC',
-                    ];
-
-                    $qb = _types()->createFilteredQueryBuilder($class, $filters, $sorting);
+                'resolve' => function ($root, array $args) use ($class): array {
+                    $qb = self::createFilteredQueryBuilder($class, $args);
 
                     $items = Helper::paginate($args['pagination'], $qb);
-                    $exportExcelField = Helper::excelExportField($class, $qb);
                     $aggregatedFields = Helper::aggregatedFields($class, $qb);
-                    $result = array_merge($aggregatedFields, $exportExcelField, $items);
+                    $result = array_merge($aggregatedFields, $items);
 
                     return $result;
                 },
@@ -256,21 +240,23 @@ abstract class Standard
     /**
      * Return arguments used for the list
      */
-    private static function getListArguments(ClassMetadata $class): array
+    public static function getListArguments(string $class, bool $includePagination = true): array
     {
         $listArgs = [
             [
                 'name' => 'filter',
-                'type' => _types()->getFilter($class->getName()),
+                'type' => _types()->getFilter($class),
             ],
             [
                 'name' => 'sorting',
-                'type' => _types()->getSorting($class->getName()),
+                'type' => _types()->getSorting($class),
                 'defaultValue' => self::getDefaultSorting($class),
             ],
         ];
 
-        $listArgs[] = PaginationInputType::build(_types());
+        if ($includePagination) {
+            $listArgs[] = PaginationInputType::build(_types());
+        }
 
         return $listArgs;
     }
@@ -290,11 +276,10 @@ abstract class Standard
     /**
      * Get default sorting values with some fallback for some special cases
      */
-    private static function getDefaultSorting(ClassMetadata $metadata): array
+    private static function getDefaultSorting(string $class): array
     {
         $defaultSorting = [];
 
-        $class = $metadata->getName();
         if ($class === Account::class) {
             $defaultSorting[] = [
                 'field' => 'code',
@@ -325,5 +310,26 @@ abstract class Standard
         }
 
         return $args;
+    }
+
+    public static function createFilteredQueryBuilder(string $class, array $args): QueryBuilder
+    {
+        $filters = self::customTypesToScalar($args['filter'] ?? []);
+
+        // If null or empty list is provided by client, fallback on default sorting
+        $sorting = $args['sorting'] ?? [];
+        if (!$sorting) {
+            $sorting = self::getDefaultSorting($class);
+        }
+
+        // And **always** sort by ID
+        $sorting[] = [
+            'field' => 'id',
+            'order' => 'ASC',
+        ];
+
+        $qb = _types()->createFilteredQueryBuilder($class, $filters, $sorting);
+
+        return $qb;
     }
 }
