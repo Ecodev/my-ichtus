@@ -9,10 +9,10 @@ import {VanillaRoutingModule} from './vanilla-routing.module';
 import {APP_BASE_HREF} from '@angular/common';
 import {UserService} from '../app/admin/users/services/user.service';
 import {BookingService} from '../app/admin/bookings/services/booking.service';
-import {Literal, NaturalLinkMutationService, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {Literal, NaturalCommonModule, NaturalLinkMutationService, NaturalQueryVariablesManager} from '@ecodev/natural';
 
 @NgModule({
-    imports: [BrowserModule, HttpClientModule, VanillaRoutingModule],
+    imports: [BrowserModule, HttpClientModule, VanillaRoutingModule, NaturalCommonModule],
     providers: [
         {provide: APP_BASE_HREF, useValue: '/'},
         {
