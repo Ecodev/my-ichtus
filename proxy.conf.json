@@ -2,5 +2,9 @@
     "/graphql": {
         "target": "https://my-ichtus.lan",
         "secure": false
+    },
+    "/api": {
+        "target": "https://my-ichtus.lan",
+        "secure": false
     }
 }
