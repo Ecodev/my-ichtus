@@ -10,14 +10,10 @@ use Ecodev\Felix\Handler\AbstractHandler;
 use Laminas\Diactoros\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 
 class AccountingDocumentHandler extends AbstractHandler
 {
-    /**
-     * @var AccountingDocumentRepository
-     */
-    private $accountingDocumentRepository;
+    private AccountingDocumentRepository $accountingDocumentRepository;
 
     public function __construct(AccountingDocumentRepository $accountingDocumentRepository)
     {
@@ -46,13 +42,15 @@ class AccountingDocumentHandler extends AbstractHandler
         if ($resource === false) {
             return $this->createError("Cannot open file for accounting document $id on disk");
         }
+
         $size = filesize($path);
         $type = mime_content_type($path);
         $ext = pathinfo($path, PATHINFO_EXTENSION);
+
         $response = new Response($resource, 200, [
             'content-type' => $type,
             'content-length' => $size,
-            'content-disposition' => 'attachment; filename=' . $id . '.' . $ext,
+            'content-disposition' => 'inline; filename="' . $id . '.' . $ext . '"',
         ]);
 
         return $response;
