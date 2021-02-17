@@ -6,7 +6,7 @@
         "ng": "ng",
         "prerequisite": "mkdir -p htdocs/ && cp -v server/index.php htdocs/ && yarn codegen",
         "dev": "yarn prerequisite && ng serve",
-        "prod": "yarn prerequisite && ng build --prod && find htdocs/ -type f -not -path 'htdocs/data/*' -delete && cp -rv data/tmp/build/* htdocs/",
+        "prod": "yarn prerequisite && ng build --prod && ng build --prod vanilla && find htdocs/ -type f -not -path 'htdocs/data/*' -delete && cp -rv data/tmp/build/* htdocs/ && mv -v data/tmp/build-vanilla htdocs/vanilla",
         "test": "yarn prerequisite && ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
