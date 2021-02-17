@@ -210,7 +210,11 @@
                                 <ng-template let-item="item">
                                     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
                                         <!-- TODO : link to bookables list filtred by tag -->
-                                        <ngx-avatar [bgColor]="item.color" [name]="item.name" [size]="32"></ngx-avatar>
+                                        <natural-avatar
+                                            [bgColor]="item.color"
+                                            [initials]="item.name"
+                                            [size]="32"
+                                        ></natural-avatar>
                                         <natural-table-button
                                             [navigate]="['/admin/bookable']"
                                             [label]="item.name"

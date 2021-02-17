@@ -6,7 +6,7 @@
         <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="center" fxLayoutGap="30px">
             <app-card [file]="bookable?.image">
                 <card-illustration class="padding" *ngIf="!bookable?.image">
-                    <ngx-avatar name="?" [size]="160"></ngx-avatar>
+                    <natural-avatar initials="?" [size]="160"></natural-avatar>
                 </card-illustration>
                 <h2 class="mat-title">Matériel</h2>
                 <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
@@ -18,13 +18,13 @@
 
             <app-card>
                 <card-illustration class="padding">
-                    <ngx-avatar
+                    <natural-avatar
                         *ngIf="!!booking.owner"
-                        [name]="booking.owner.name"
-                        [gravatarId]="booking.owner.email"
+                        [initials]="booking.owner.name"
+                        [gravatar]="booking.owner.email"
                         [size]="160"
-                    ></ngx-avatar>
-                    <ngx-avatar *ngIf="!booking.owner" name="Invité" [size]="160"></ngx-avatar>
+                    ></natural-avatar>
+                    <natural-avatar *ngIf="!booking.owner" initials="Invité" [size]="160"></natural-avatar>
                 </card-illustration>
 
                 <div fxLayout="column" fxLayoutGap="10px">

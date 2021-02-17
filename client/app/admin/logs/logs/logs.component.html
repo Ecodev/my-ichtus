@@ -15,7 +15,8 @@
                 fxFlex
             >
                 <natural-columns-picker
-                    (selectionChange)="selectedColumns = $event"
+                    (selectionChange)="selectColumns($event)"
+                    (availableColumnsChange)="availableColumns = $event"
                     [initialSelection]="initialColumns"
                 >
                     <span naturalColumnsPickerColumn="creationDate">Date</span>

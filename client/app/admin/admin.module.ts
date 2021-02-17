@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {AdminRoutingModule} from './admin-routing.module';
 import {BookablesComponent} from './bookables/bookables/bookables.component';
 import {AdminComponent} from './admin/admin.component';
-import {AvatarModule} from 'ngx-avatar';
 import {BookableComponent} from './bookables/bookable/bookable.component';
 import {MaterialModule} from '../shared/modules/material.module';
 import {IchtusModule} from '../shared/modules/ichtus.module';
@@ -70,14 +69,6 @@ import {AccountingReportComponent} from './accounts/accounting-report/accounting
         ImportComponent,
         LogsComponent,
     ],
-    imports: [
-        CommonModule,
-        AdminRoutingModule,
-        MaterialModule,
-        IchtusModule,
-        AvatarModule,
-        ProfileModule,
-        EcoFabSpeedDialModule,
-    ],
+    imports: [CommonModule, AdminRoutingModule, MaterialModule, IchtusModule, ProfileModule, EcoFabSpeedDialModule],
 })
 export class AdminModule {}

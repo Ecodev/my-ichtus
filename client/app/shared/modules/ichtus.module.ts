@@ -3,7 +3,6 @@ import {MaterialModule} from './material.module';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {AddressComponent} from '../components/address/address.component';
-import {AvatarModule} from 'ngx-avatar';
 import {MoneyComponent} from '../components/money/money.component';
 import {FocusDirective} from '../directives/focus';
 import {CardComponent} from '../components/card/card.component';
@@ -17,11 +16,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ParticleSwitchComponent} from '../components/particle-switch/particle-switch.component';
 import {
     NaturalAlertModule,
+    NaturalAvatarModule,
     NaturalColumnsPickerModule,
     NaturalCommonModule,
     NaturalDetailHeaderModule,
     NaturalDialogTriggerModule,
     NaturalDropdownComponentsModule,
+    NaturalFileModule,
     NaturalFixedButtonDetailModule,
     NaturalFixedButtonModule,
     NaturalHierarchicSelectorModule,
@@ -33,7 +34,6 @@ import {
     NaturalSidenavModule,
     NaturalStampModule,
     NaturalTableButtonModule,
-    NaturalFileModule,
 } from '@ecodev/natural';
 import {SupportComponent} from '../../admin/configurations/support/support.component';
 import {ProsemirrorComponent} from '../../admin/proseMirror/proseMirror.component';
@@ -111,7 +111,7 @@ const imports = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    AvatarModule,
+    NaturalAvatarModule,
     ParticleEffectButtonModule,
     NaturalSearchModule,
     NaturalCommonModule,

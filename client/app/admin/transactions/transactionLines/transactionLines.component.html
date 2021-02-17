@@ -15,7 +15,8 @@
                 [multipleGroups]="true"
             >
                 <natural-columns-picker
-                    (selectionChange)="selectedColumns = $event"
+                    (selectionChange)="selectColumns($event)"
+                    (availableColumnsChange)="availableColumns = $event"
                     [initialSelection]="initialColumns"
                 >
                     <span naturalColumnsPickerColumn="transactionDate">Date</span>
@@ -146,11 +147,11 @@
                     <th mat-header-cell *matHeaderCellDef>Tag</th>
                     <td mat-cell *matCellDef="let element">
                         <div *ngIf="element.transactionTag" fxLayout="row" fxLayoutAlign="start start">
-                            <ngx-avatar
+                            <natural-avatar
                                 [bgColor]="element.transactionTag.color"
                                 [size]="32"
-                                [name]="element.transactionTag.name"
-                            ></ngx-avatar>
+                                [initials]="element.transactionTag.name"
+                            ></natural-avatar>
                             <natural-table-button
                                 [label]="element.transactionTag.name"
                                 (click)="filterByTag(element.transactionTag)"

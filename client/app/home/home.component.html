@@ -47,11 +47,11 @@
             </a>
 
             <a mat-icon-button routerLink="/profile">
-                <ngx-avatar
-                    [name]="route.snapshot.data.viewer.model.name"
-                    [gravatarId]="route.snapshot.data.viewer.model.email"
+                <natural-avatar
+                    [initials]="route.snapshot.data.viewer.model.name"
+                    [gravatar]="route.snapshot.data.viewer.model.email"
                     [size]="50"
-                ></ngx-avatar>
+                ></natural-avatar>
             </a>
         </div>
     </mat-toolbar>

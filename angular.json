@@ -42,7 +42,7 @@
                         ],
                         "styles": ["client/styles/_themes.scss", "client/styles.scss"],
                         "scripts": [],
-                        "allowedCommonJsDependencies": ["graphql-tag", "zen-observable"]
+                        "allowedCommonJsDependencies": ["zen-observable"]
                     },
                     "configurations": {
                         "production": {
@@ -55,7 +55,6 @@
                             "optimization": true,
                             "outputHashing": "all",
                             "sourceMap": false,
-                            "extractCss": true,
                             "namedChunks": false,
                             "aot": true,
                             "extractLicenses": true,
@@ -182,7 +181,6 @@
                             "optimization": true,
                             "outputHashing": "none",
                             "sourceMap": false,
-                            "extractCss": true,
                             "namedChunks": false,
                             "aot": true,
                             "extractLicenses": true,

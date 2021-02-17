@@ -255,7 +255,11 @@
                         >
                             <ng-template let-item="item">
                                 <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-                                    <ngx-avatar [bgColor]="item.color" [name]="item.name" [size]="36"></ngx-avatar>
+                                    <natural-avatar
+                                        [bgColor]="item.color"
+                                        [initials]="item.name"
+                                        [size]="36"
+                                    ></natural-avatar>
                                     <natural-table-button
                                         [navigate]="['/admin/user-tag', item.id]"
                                         [label]="item.name"

@@ -44,7 +44,7 @@
             <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap.gt-xs="0px" fxLayoutGap="30px">
                 <div fxFlex="none" fxFlex.gt-xs fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="10px">
                     <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                        <ngx-avatar [name]="viewer.name" [gravatarId]="viewer.email" [size]="50"></ngx-avatar>
+                        <natural-avatar [initials]="viewer.name" [gravatar]="viewer.email" [size]="50"></natural-avatar>
                         <div>
                             <div class="mat-display-1 no-margin-bottom">{{ viewer.name }}</div>
                             <div class="mat-subheading-1 no-margin-bottom">

@@ -27,7 +27,8 @@
                     [multipleGroups]="true"
                 >
                     <natural-columns-picker
-                        (selectionChange)="selectedColumns = $event"
+                        (selectionChange)="selectColumns($event)"
+                        (availableColumnsChange)="availableColumns = $event"
                         [initialSelection]="initialColumns"
                     >
                         <span naturalColumnsPickerColumn="navigation">Navigation</span>
@@ -105,11 +106,11 @@
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>Membre</th>
                         <td mat-cell *matCellDef="let element">
                             <div fxLayout="row" fxLayoutAlign="start center" *ngIf="element.item.owner">
-                                <ngx-avatar
-                                    [name]="element.item.owner?.name"
-                                    [gravatarId]="element.item.owner?.email"
+                                <natural-avatar
+                                    [initials]="element.item.owner?.name"
+                                    [gravatar]="element.item.owner?.email"
                                     [size]="36"
-                                ></ngx-avatar>
+                                ></natural-avatar>
                                 <natural-table-button
                                     [label]="element.item.owner?.name"
                                     [navigate]="['/admin/user/', element.item.owner?.id]"
@@ -118,7 +119,7 @@
                             </div>
 
                             <div fxLayout="row" fxLayoutAlign="start center" *ngIf="!element.item.owner">
-                                <ngx-avatar name="ichtus" [size]="36"></ngx-avatar>
+                                <natural-avatar initials="ichtus" [size]="36"></natural-avatar>
                                 <button mat-button>Ichtus</button>
                             </div>
                         </td>
