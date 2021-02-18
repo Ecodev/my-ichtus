@@ -26,11 +26,7 @@
                     (selectionChange)="search($event)"
                     [multipleGroups]="true"
                 >
-                    <natural-columns-picker
-                        (selectionChange)="selectColumns($event)"
-                        (availableColumnsChange)="availableColumns = $event"
-                        [initialSelection]="initialColumns"
-                    >
+                    <natural-columns-picker [(selection)]="selectedColumns" [initialSelection]="initialColumns">
                         <span naturalColumnsPickerColumn="navigation">Navigation</span>
                         <span naturalColumnsPickerColumn="code">Code</span>
                         <span naturalColumnsPickerColumn="name">Nom</span>

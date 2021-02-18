@@ -14,11 +14,7 @@
                 (selectionChange)="search($event)"
                 [multipleGroups]="true"
             >
-                <natural-columns-picker
-                    (selectionChange)="selectColumns($event)"
-                    (availableColumnsChange)="availableColumns = $event"
-                    [initialSelection]="initialColumns"
-                >
+                <natural-columns-picker [(selection)]="selectedColumns" [initialSelection]="initialColumns">
                     <span naturalColumnsPickerColumn="edit">Editer</span>
                     <span naturalColumnsPickerColumn="owner">Utilisateur</span>
                     <span naturalColumnsPickerColumn="status">Status</span>
