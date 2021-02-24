@@ -25,7 +25,7 @@ var Cahier = {
             return 'url(img/icons/own-sail.png)';
         }
         else if (_bookable.image != null) {
-            return 'url(https://ichtus.club/image/' + _bookable.image.id + '/' + size + ')';
+            return 'url(https://ichtus.club/api/image/' + _bookable.image.id + '/' + size + ')';
         }
         else {
             return 'url(img/icons/no-picture.png)';
