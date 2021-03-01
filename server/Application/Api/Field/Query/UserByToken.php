@@ -6,7 +6,6 @@ namespace Application\Api\Field\Query;
 
 use Application\Model\User;
 use Application\Repository\UserRepository;
-use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Api\ExceptionWithoutMailLogging;
 use Ecodev\Felix\Api\Field\FieldInterface;
 use GraphQL\Type\Definition\Type;
@@ -37,7 +36,7 @@ abstract class UserByToken implements FieldInterface
                     }
 
                     if (!$user->isTokenValid()) {
-                        throw new Exception('Le lien que vous avez suivi est périmé. Veuillez effectuer une nouvelle demande.');
+                        throw new ExceptionWithoutMailLogging('Le lien que vous avez suivi est périmé. Veuillez effectuer une nouvelle demande.');
                     }
 
                     // Set current user for his ACL, but not in persisted session, only for the remaining execution time.
