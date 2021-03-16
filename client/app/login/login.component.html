@@ -30,7 +30,13 @@
 
             <mat-form-field>
                 <mat-label>Mot de passe</mat-label>
-                <input matInput formControlName="password" type="password" />
+                <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" />
+                <button mat-icon-button matSuffix>
+                    <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{
+                        hidePassword ? 'visibility' : 'visibility_off'
+                    }}</mat-icon>
+                </button>
+
                 <mat-error *ngIf="form.get('password')?.hasError('required')">Requis</mat-error>
             </mat-form-field>
 
