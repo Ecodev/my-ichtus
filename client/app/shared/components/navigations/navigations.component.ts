@@ -43,7 +43,7 @@ function bookingsToExtended(bookings: Bookings['bookings']): PaginatedData<Exten
             return {
                 booking: item,
                 showComments: false,
-                terminated: false,
+                terminated: item.endDate != null,
                 explode: false,
             };
         }),

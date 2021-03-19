@@ -47,6 +47,7 @@
                                 (click)="endBooking(item)"
                                 [pHidden]="!!item.explode"
                                 (pComplete)="item.terminated = true"
+                                *ngIf="!item.terminated"
                                 libParticleEffectButton
                                 [pParticlesAmountCoefficient]="2"
                                 [pOscillationCoefficient]="100"
