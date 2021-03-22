@@ -39,7 +39,7 @@ return [
         'carryForwardAccountCode' => 2970, // Bénéfice/perte reporté
         'report' => [
             'showAccountsWithZeroBalance' => false,
-            'maxAccountDepth' => 2,
+            'maxAccountDepth' => 3,
         ],
     ],
 ];

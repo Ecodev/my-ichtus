@@ -124,7 +124,7 @@ class AccountingReport extends AbstractExcel
             } elseif ($account->getType() === AccountTypeType::EXPENSE || ($account->getType() === AccountTypeType::GROUP && in_array(mb_substr((string) $account->getCode(), 0, 1), ['4', '5', '6'], true))) {
                 $this->expenses[] = $data;
             }
-            if ($account->getType() === AccountTypeType::GROUP && $depth <= $this->accountingConfig['report']['maxAccountDepth']) {
+            if ($account->getType() === AccountTypeType::GROUP && $depth <= $this->accountingConfig['report']['maxAccountDepth'] && $account->getCode() !== $this->accountingConfig['customerDepositsAccountCode']) {
                 $children = $account->getChildren()->toArray();
                 $this->processAccounts($children, $depth + 1);
             }
