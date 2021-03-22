@@ -74,7 +74,7 @@
                     <td mat-cell *matCellDef="let expenseClaim">{{ expenseClaim.description }}</td>
                 </ng-container>
 
-                <ng-container matColumnDef="date">
+                <ng-container matColumnDef="latestModification">
                     <th mat-header-cell *matHeaderCellDef>Dernière modification</th>
                     <td mat-cell *matCellDef="let expenseClaim">
                         {{ expenseClaim.updateDate || expenseClaim.creationDate | date: 'dd.MM.y' }}

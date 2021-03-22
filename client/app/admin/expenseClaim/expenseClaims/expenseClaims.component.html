@@ -17,7 +17,7 @@
                 <natural-columns-picker [(selection)]="selectedColumns" [initialSelection]="initialColumns">
                     <span naturalColumnsPickerColumn="name">Nom</span>
                     <span naturalColumnsPickerColumn="owner">Utilisateur</span>
-                    <span naturalColumnsPickerColumn="date">Dernière modification</span>
+                    <span naturalColumnsPickerColumn="latestModification">Dernière modification</span>
                     <span naturalColumnsPickerColumn="status">Status</span>
                     <span naturalColumnsPickerColumn="type">Type</span>
                     <span naturalColumnsPickerColumn="remarks">Remarques</span>
@@ -72,7 +72,7 @@
                     </td>
                 </ng-container>
 
-                <ng-container matColumnDef="date">
+                <ng-container matColumnDef="latestModification">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="app-date-column">
                         Dernière modification
                     </th>
