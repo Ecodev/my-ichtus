@@ -38,7 +38,12 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
                 this.setForm();
             });
         } else {
-            this.data = {model: Object.assign(this.service.getConsolidatedForClient(), {owner: this.viewer})};
+            this.data = {
+                model: Object.assign(this.service.getConsolidatedForClient(), {
+                    owner: this.viewer,
+                    status: this.viewer.status,
+                }),
+            };
             this.setForm();
         }
     }

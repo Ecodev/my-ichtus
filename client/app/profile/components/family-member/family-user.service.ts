@@ -30,7 +30,6 @@ export class FamilyUserService extends UserService {
             termsAgreement: false,
             familyRelationship: Relationship.partner,
             role: UserRole.individual,
-            status: UserStatus.active,
             door1: true,
             door2: true,
             door3: true,
