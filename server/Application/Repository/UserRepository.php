@@ -6,6 +6,7 @@ namespace Application\Repository;
 
 use Application\DBAL\Types\BookingTypeType;
 use Application\Model\User;
+use Cake\Chronos\Chronos;
 use Doctrine\DBAL\Connection;
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 
@@ -165,5 +166,32 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
             ->addOrderBy('user.id');
 
         return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * Delete unconfirmed registrations older than a few days (user + account)
+     *
+     * @return int number of deleted users
+     */
+    public function deleteOldRegistrations(): int
+    {
+        $qb = $this->createQueryBuilder('user')
+            ->addSelect('account')
+            ->andWhere('user.login IS NULL AND user.creationDate < :creationDate')
+            ->leftJoin('user.accounts', 'account')
+            ->setParameter('creationDate', (new Chronos())->subDay(3));
+
+        $users = $qb->getQuery()->getResult();
+
+        foreach ($users as $user) {
+            $account = $user->getAccount();
+            if ($account) {
+                _em()->remove($account);
+            }
+            _em()->remove($user);
+        }
+        _em()->flush();
+
+        return count($users);
     }
 }
