@@ -262,7 +262,7 @@ Capital   : ' . Format::money($equity) . '
     {
         // Create missing accounts for users
         foreach ($this->userRepository->getAllFamilyOwners() as $user) {
-            if (!$user->getAccount()) {
+            if (!empty($user->getLogin()) && !$user->getAccount()) {
                 $account = $this->accountRepository->getOrCreate($user);
                 echo sprintf('Création du compte %d pour l\'utilisateur %d...', $account->getCode(), $user->getId()) . PHP_EOL;
                 _em()->flush();
