@@ -54,6 +54,10 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
         return route;
     }
 
+    public formatName(name: string): string {
+        return name.trim() || '<aucun>';
+    }
+
     public showExport(): void {
         this.dialog
             .open<AccountingReportComponent, AccountingDialogData, AccountingDialogResult>(

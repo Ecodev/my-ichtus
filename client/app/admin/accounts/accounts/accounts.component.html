@@ -75,7 +75,7 @@
                             <natural-table-button
                                 [label]="element.item.code"
                                 [navigate]="transactionLineService.linkToTransactionForAccount(element.item)"
-                                matTooltip="Voir les transactions"
+                                matTooltip="Voir les écritures"
                             ></natural-table-button>
                         </td>
                     </ng-container>
@@ -84,7 +84,7 @@
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
                         <td mat-cell *matCellDef="let element">
                             <natural-table-button
-                                [label]="element.item.name"
+                                [label]="formatName(element.item.name)"
                                 [navigate]="[element.item.id]"
                                 matTooltip="Éditer"
                             ></natural-table-button>
