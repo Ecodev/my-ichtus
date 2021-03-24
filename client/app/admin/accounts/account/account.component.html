@@ -47,7 +47,7 @@
                         </div>
 
                         <mat-form-field *ngIf="form.get('type')?.value === 'asset'">
-                            <mat-label>IBAN Ichtus</mat-label>cta
+                            <mat-label>IBAN Ichtus</mat-label>
                             <input matInput formControlName="iban" (change)="update()" />
                             <mat-error *ngIf="form.get('iban')?.hasError('iban')"> IBAN invalide </mat-error>
                             <mat-error *ngIf="form.get('iban')?.hasError('required')">Requis</mat-error>

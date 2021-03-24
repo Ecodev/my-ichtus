@@ -58,9 +58,7 @@
                         *ngIf="userService.canBecomeMember(viewer)"
                         [disabled]="!viewer.email"
                         [matTooltip]="
-                            !viewer.email
-                                ? 'Vous devez avoir saisi une adresse e-mail dans vos données personnelles'
-                                : ''
+                            !viewer.email ? 'Ton adresse e-mail doit être renseignée dans les données personnelles' : ''
                         "
                         [routerLink]="['/user/new', {email: viewer.email}]"
                     >

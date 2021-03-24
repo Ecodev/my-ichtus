@@ -15,7 +15,7 @@ export class ErrorComponent {
 
         if (route.snapshot.data.notFound) {
             this.error = new Error(
-                `La page que vous cherchez n'existe pas. Elle a peut-être été déplacée ou supprimée.`,
+                `La page que tu recherches n'existe pas. Elle a peut-être été déplacée ou supprimée.`,
             );
         }
     }

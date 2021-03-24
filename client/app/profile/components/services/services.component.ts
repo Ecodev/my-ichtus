@@ -72,7 +72,7 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
         this.alertService
             .confirm(
                 'Résiliation de prestation',
-                'Voulez-vous résilier définitivement cette prestation ?',
+                'Veux-tu résilier définitivement cette prestation ?',
                 'Confirmer la résiliation',
             )
             .subscribe(confirmed => {
@@ -92,13 +92,13 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
 
     public unregister(): void {
         this.alertService
-            .confirm('Démission', 'Voulez-vous quitter le club Ichtus ?', 'Démissioner définitivement')
+            .confirm('Démission', 'Veux-tu quitter le club Ichtus ?', 'Démissioner définitivement')
             .subscribe(confirmed => {
                 if (confirmed) {
                     this.userService.unregister(this.user).subscribe(() => {
                         // If viewer is the unregistered viewer, log him out.
                         if (this.route.snapshot.data.viewer.model.id === this.user.id) {
-                            this.alertService.info('Vous avez démissioné', 5000);
+                            this.alertService.info('Tu as démissioné', 5000);
                             this.userService.logout();
                         } else {
                             // If viewer is different (e.g Admin), don't log out

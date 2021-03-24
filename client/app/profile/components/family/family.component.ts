@@ -53,13 +53,13 @@ export class FamilyComponent implements OnInit {
     }
 
     public leaveFamily(): void {
-        const explanation = `En quittant le ménage vous perdrez les privilèges associés au ménage.
-        Il vous faudra alors faire une demande d'adhésion en tant que membre indépendant pour retrouver ces privilièges.`;
+        const explanation = `En quittant le ménage tu perdras les privilèges associés au ménage.
+        Il te faudra alors faire une demande d'adhésion en tant que membre individuel pour retrouver ces privilèges.`;
         this.alertService.confirm('Quitter le ménage', explanation, 'Quitter le ménage').subscribe(confirmed => {
             if (confirmed) {
                 this.userService.leaveFamily(this.viewer).subscribe(user => {
                     mergeWith(this.viewer, user, mergeOverrideArray);
-                    const message = 'Vous avez quitté le ménage';
+                    const message = 'Tu as quitté le ménage';
                     this.alertService.info(message, 5000);
                 });
             }

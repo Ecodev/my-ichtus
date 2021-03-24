@@ -5,9 +5,7 @@
  * Delete unconfirmed registrations older than a few days
  */
 
-use Application\Model\Account;
 use Application\Model\User;
-use Application\Repository\AccountRepository;
 use Application\Repository\UserRepository;
 
 require_once 'server/cli.php';

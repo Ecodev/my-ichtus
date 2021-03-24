@@ -104,7 +104,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
 
     public assignBookable(bookable: UsageBookables_bookables_items): void {
         const message =
-            'Êtes-vous sûr de vouloir attribuer cette prestation ou espace de stockage ? ' +
+            'Es-tu certain(e) de vouloir attribuer cette prestation ou espace de stockage ? ' +
             'Cette action va créer une nouvelle réservation et débitera automatiquement le compte du membre. ' +
             'Pour annuler cette action, il sera nécessaire de supprimer la nouvelle réservation.';
 

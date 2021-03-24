@@ -69,8 +69,7 @@ export class RegisterConfirmComponent extends RegisterComponent implements OnIni
             })
             .subscribe(
                 () => {
-                    const message =
-                        'Vous pouvez maintenant vous connecter avec le login et mot de passe que vous avez choisi';
+                    const message = 'Tu peux à présent te connecter avec le login et mot de passe que tu as choisi';
 
                     this.alertService.info(message, 5000);
                     this.router.navigate(['/login']);

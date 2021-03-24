@@ -78,7 +78,7 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
 
     public cancelExpenseClaim(expenseClaim: ExpenseClaims_expenseClaims_items): void {
         this.alertService
-            .confirm(`Suppression`, `Voulez-vous supprimer définitivement cet élément ?`, `Supprimer définitivement`)
+            .confirm(`Suppression`, `Veux-tu supprimer définitivement cet élément ?`, `Supprimer définitivement`)
             .subscribe(confirmed => {
                 if (confirmed) {
                     this.deleting.add(expenseClaim.id);
@@ -106,7 +106,7 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
                 if (expense) {
                     expense.type = ExpenseClaimType.refund;
                     this.expenseClaimService.create(expense).subscribe(() => {
-                        this.alertService.info('Votre demande de remboursement a bien été enregistrée');
+                        this.alertService.info('Ta demande de remboursement a été enregistrée');
                     });
                 }
             });
@@ -127,7 +127,7 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
                 )
                 .subscribe({
                     next: user => {
-                        this.alertService.info('Votre IBAN a été modifié');
+                        this.alertService.info('Ton IBAN a été modifié');
                         this.ibanCtrl.setValue(friendlyFormatIBAN(user.iban), {emitEvent: false});
 
                         // if we removed the IBAN keep the field unlocked
