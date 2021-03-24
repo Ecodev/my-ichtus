@@ -242,11 +242,11 @@
         </mat-tab>
 
         <mat-tab id="booking" label="Utilisations" *ngIf="data.model.id">
-            <app-bookings
+            <app-bookings-with-owner
                 [persistSearch]="false"
                 [forcedVariables]="bookingsVariables"
                 [initialColumns]="['edit', 'owner', 'destination', 'startDate', 'endDate', 'estimatedEndDate']"
-            ></app-bookings>
+            ></app-bookings-with-owner>
         </mat-tab>
     </mat-tab-group>
 
