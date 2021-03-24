@@ -14,12 +14,25 @@
         </div>
     </div>
 
+    <div *ngIf="!hasLicense || !welcomeSessionTaken" fxLayout="column" fxLayoutGap="10px" class="mat-body-1">
+        <div *ngIf="!hasLicense" fxLayoutAlign="start center">
+            <mat-icon color="warn">error</mat-icon>
+            Tu ne disposes pas des licences requises pour utiliser cette embarcation
+        </div>
+        <div *ngIf="!welcomeSessionTaken" fxLayoutAlign="start center">
+            <mat-icon color="warn">warning</mat-icon>
+            <span
+                >Il te faut suivre une
+                <a href="https://ichtus.ch/le-club/seance-daccueil/" target="_blank">séance d'accueil</a> avant
+                d'utiliser le matériel du club !</span
+            >
+        </div>
+    </div>
+
     <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
         <div *ngIf="!isAvailable && runningBooking" class="mat-body-1">
             Sorti {{ runningBooking.startDate | timeago }}
         </div>
-        <div *ngIf="!hasLicense">Tu ne disposes pas des licences requises pour utiliser cette embarcation</div>
-
         <button
             mat-flat-button
             color="primary"

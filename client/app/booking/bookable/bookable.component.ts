@@ -23,6 +23,11 @@ export class BookableComponent extends NaturalAbstractController implements OnIn
     public isAvailable = false;
 
     /**
+     * If the user has taken the welcome session
+     */
+    public welcomeSessionTaken = false;
+
+    /**
      * If is applicable for a navigation booking purpose
      * Basically : true only for self-approved bookables.
      */
@@ -54,6 +59,7 @@ export class BookableComponent extends NaturalAbstractController implements OnIn
 
         const viewer = this.route.snapshot.data.viewer.model;
         this.canAccessAdmin = UserService.canAccessAdmin(viewer);
+        this.welcomeSessionTaken = viewer.welcomeSessionDate !== null;
         this.hasLicense = BookableService.isLicenseGranted(this.bookable, viewer);
         this.isNavigable = this.bookable.bookingType === BookingType.self_approved;
         this.bookableService.getAvailability(this.bookable).subscribe(availability => {
