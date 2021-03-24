@@ -44,11 +44,11 @@ abstract class ConfirmRegistration implements FieldInterface
                 });
 
                 if (!$user) {
-                    throw new ExceptionWithoutMailLogging('La session a expiré ou le lien n\'est pas valable. Veuillez effectuer une nouvelle demande.');
+                    throw new ExceptionWithoutMailLogging('La session a expiré ou le lien n\'est pas valable. Effectue une nouvelle demande.');
                 }
 
                 if (!$user->isTokenValid()) {
-                    throw new ExceptionWithoutMailLogging('Le lien que vous avez suivi est périmé. Veuillez effectuer une nouvelle demande.');
+                    throw new ExceptionWithoutMailLogging('Le lien que tu as suivi est périmé. Effectue une nouvelle demande.');
                 }
 
                 $input = $args['input'];

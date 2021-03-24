@@ -37,7 +37,7 @@ abstract class OpenDoor implements FieldInterface
 
                 $user = User::getCurrent();
                 if (!$user || !$user->getCanOpenDoor($args['door'])) {
-                    throw new Exception("Vous n'avez pas le droit d'ouvrir la porte, assurez-vous d'être connecté au Wi-Fi du local Ichtus");
+                    throw new Exception("Tu n'as pas le droit d'ouvrir cette porte");
                 }
 
                 $apiConfig = $container->get('config')['doorsApi'];
@@ -61,7 +61,7 @@ abstract class OpenDoor implements FieldInterface
                     // No answer from the websocket
                     _log()->err($e->getMessage(), $attrs);
 
-                    throw new Exception('Commande de porte temporairement inaccessible, veuillez essayez plus tard ou contacter un administrateur');
+                    throw new Exception('Commande de porte temporairement inaccessible, essaie plus tard ou contacte un administrateur');
                 }
 
                 $content = json_decode($response->getContent(), true);
@@ -73,9 +73,9 @@ abstract class OpenDoor implements FieldInterface
                 }
 
                 if (preg_match('/^5[0-9]{2}/', (string) $response->getStatusCode())) {
-                    $errorMsg = "Commande de porte inaccessible en raison d'une erreur serveur, veuillez essayez plus tard ou contacter un administrateur";
+                    $errorMsg = "Commande de porte inaccessible en raison d'une erreur serveur, essaie plus tard ou contacte un administrateur";
                 } else {
-                    $errorMsg = $content['message'] ?? 'Erreur de commande de porte, veuillez essayez plus tard ou contact un administrateur';
+                    $errorMsg = $content['message'] ?? 'Erreur de commande de porte, essaie plus tard ou contacte un administrateur';
                 }
 
                 // Log body if we have anything

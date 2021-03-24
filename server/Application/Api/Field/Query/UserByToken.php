@@ -32,11 +32,11 @@ abstract class UserByToken implements FieldInterface
                     });
 
                     if (!$user) {
-                        throw new ExceptionWithoutMailLogging("Le lien que vous avez suivi n'est pas valable ou a déjà été utilisé. Veuillez effectuer une nouvelle demande de changement de mot de passe ou création de compte. Une nouvelle demande invalide les précédentes.");
+                        throw new ExceptionWithoutMailLogging("Le lien que tu as suivi n'est pas valable ou a déjà été utilisé. Effectue une nouvelle demande de changement de mot de passe ou création de compte. Chaque nouvelle demande invalide les précédentes.");
                     }
 
                     if (!$user->isTokenValid()) {
-                        throw new ExceptionWithoutMailLogging('Le lien que vous avez suivi est périmé. Veuillez effectuer une nouvelle demande.');
+                        throw new ExceptionWithoutMailLogging('Le lien que tu as suivi est périmé. Effectue une nouvelle demande.');
                     }
 
                     // Set current user for his ACL, but not in persisted session, only for the remaining execution time.
