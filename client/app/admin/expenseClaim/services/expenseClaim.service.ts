@@ -1,6 +1,12 @@
 import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
-import {FormValidators, money, NaturalAbstractModelService, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {
+    FormValidators,
+    money,
+    NaturalAbstractModelService,
+    NaturalQueryVariablesManager,
+    SortingOrder,
+} from '@ecodev/natural';
 import {
     createExpenseClaim,
     deleteExpenseClaims,
@@ -17,6 +23,7 @@ import {
     ExpenseClaim,
     ExpenseClaimInput,
     ExpenseClaims,
+    ExpenseClaimSortingField,
     ExpenseClaimStatus,
     ExpenseClaimsVariables,
     ExpenseClaimType,
@@ -91,6 +98,7 @@ export class ExpenseClaimService extends NaturalAbstractModelService<
                     },
                 ],
             },
+            sorting: [{field: ExpenseClaimSortingField.creationDate, order: SortingOrder.DESC}],
         };
 
         const qvm = new NaturalQueryVariablesManager<ExpenseClaimsVariables>();
