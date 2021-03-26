@@ -1,7 +1,8 @@
 import {Component, Injector, OnInit} from '@angular/core';
-import {NaturalAbstractDetail, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {ifValid, NaturalAbstractDetail, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {UserService} from '../services/user.service';
 import {
+    CurrentUserForProfile_viewer,
     LogicalOperator,
     SortingOrder,
     TransactionLineSortingField,
@@ -14,6 +15,10 @@ import {UserTagService} from '../../userTags/services/userTag.service';
 import {BookingService} from '../../bookings/services/booking.service';
 import {AccountService} from '../../accounts/services/account.service';
 import {IEnum} from '@ecodev/natural/lib/services/enum.service';
+import {iban as ibanValidator} from '../../../shared/validators';
+import {friendlyFormatIBAN} from 'ibantools';
+import {FormControl} from '@angular/forms';
+import {finalize} from 'rxjs/operators';
 
 @Component({
     selector: 'app-user',
@@ -23,10 +28,15 @@ import {IEnum} from '@ecodev/natural/lib/services/enum.service';
 export class UserComponent extends NaturalAbstractDetail<UserService> implements OnInit {
     public showFamilyTab = false;
     public UserService = UserService;
+    public updating = false;
+    public ibanLocked = true;
+    public readonly ibanCtrl = new FormControl('', ibanValidator);
 
     public transactionLinesVariables: TransactionLinesVariables = {};
 
     public familyVariables: UsersVariables = {};
+
+    public viewer!: CurrentUserForProfile_viewer;
 
     private userRolesAvailable: UserRole[] = [];
 
@@ -43,6 +53,8 @@ export class UserComponent extends NaturalAbstractDetail<UserService> implements
 
     public ngOnInit(): void {
         super.ngOnInit();
+
+        this.viewer = this.route.snapshot.data.viewer.model;
 
         this.route.data.subscribe(() => {
             if (this.data.model.id) {
@@ -64,6 +76,11 @@ export class UserComponent extends NaturalAbstractDetail<UserService> implements
         this.userService.getUserRolesAvailable(this.data.model).subscribe(userRoles => {
             this.userRolesAvailable = userRoles;
         });
+        this.ibanCtrl.setValue(friendlyFormatIBAN(this.data.model.iban), {emitEvent: false});
+        this.ibanLocked = !!this.data.model.iban;
+        if (!this.canUpdateIban()) {
+            this.ibanCtrl.disable();
+        }
     }
 
     public getTransactionQueryVariables(): TransactionLinesVariables {
@@ -89,5 +106,50 @@ export class UserComponent extends NaturalAbstractDetail<UserService> implements
         return item => {
             return !this.userRolesAvailable.includes(item.value as UserRole);
         };
+    }
+
+    public canUpdateIban(): boolean {
+        return this.userService.canUpdateIban(this.viewer);
+    }
+
+    public updateIban(): void {
+        if (!this.canUpdateIban()) {
+            return;
+        }
+        ifValid(this.ibanCtrl).subscribe(() => {
+            this.updating = true;
+            this.ibanCtrl.enable();
+            const iban = this.ibanCtrl.value;
+            this.userService
+                .updatePartially({id: this.data.model.id, iban: iban})
+                .pipe(
+                    finalize(() => {
+                        this.updating = false;
+                    }),
+                )
+                .subscribe({
+                    next: user => {
+                        this.alertService.info('Le IBAN a été modifié');
+                        this.ibanCtrl.setValue(friendlyFormatIBAN(user.iban), {emitEvent: false});
+
+                        // if we removed the IBAN keep the field unlocked
+                        if (!user.iban) {
+                            this.ibanCtrl.enable();
+                        }
+                    },
+                    error: () => {
+                        // If something wrong happend, unlock the input to suggest to the user to try again
+                        this.ibanCtrl.enable();
+                    },
+                });
+        });
+    }
+
+    public lockIbanIfDefined(): void {
+        ifValid(this.ibanCtrl).subscribe(() => {
+            if (this.ibanCtrl.value) {
+                this.ibanCtrl.disable();
+            }
+        });
     }
 }

@@ -585,6 +585,13 @@ export class UserService
         return user.role === UserRole.administrator;
     }
 
+    public canUpdateIban(user: CurrentUserForProfile['viewer']): boolean {
+        if (!user) {
+            return false;
+        }
+        return user.role === UserRole.administrator;
+    }
+
     public canDeleteAccountingDocument(user: CurrentUserForProfile['viewer']): boolean {
         if (!user) {
             return false;

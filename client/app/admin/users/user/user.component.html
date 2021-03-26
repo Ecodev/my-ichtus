@@ -349,15 +349,32 @@
 
         <mat-tab id="finances" label="Dépenses et remboursements" *ngIf="data.model.id">
             <div fxLayout="column" fxLayoutGap="30px">
-                <div fxLayout="row" fxLayoutGap="30px" class="margin-top">
+                <div fxLayout="row" fxLayoutGap="10px" class="margin-top">
                     <natural-select
-                        fxFlex
+                        fxFlex="50%"
                         formControlName="account"
                         placeholder="Compte"
                         [service]="accountService"
                         [showIcon]="false"
                         [navigateTo]="['/admin/account', form.get('account')?.value?.id]"
                     ></natural-select>
+
+                    <mat-form-field fxFlex="50%">
+                        <mat-label>IBAN</mat-label>
+                        <input matInput [formControl]="ibanCtrl" (change)="updateIban()" (blur)="lockIbanIfDefined()" />
+                        <button
+                            mat-icon-button
+                            matSuffix
+                            *ngIf="canUpdateIban()"
+                            (click)="ibanCtrl.enable()"
+                            [disabled]="ibanCtrl.enabled || updating"
+                            matTooltip="Déverouiller"
+                        >
+                            <natural-icon name="lock"></natural-icon>
+                        </button>
+                        <mat-error *ngIf="ibanCtrl.hasError('iban')"> IBAN invalide</mat-error>
+                        <mat-hint>Pour les demandes de remboursement</mat-hint>
+                    </mat-form-field>
                 </div>
 
                 <app-finances [user]="data.model"></app-finances>
