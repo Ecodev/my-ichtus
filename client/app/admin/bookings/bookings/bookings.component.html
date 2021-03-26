@@ -15,19 +15,36 @@
                 [multipleGroups]="true"
             >
                 <natural-columns-picker [(selection)]="selectedColumns" [initialSelection]="initialColumns">
-                    <span naturalColumnsPickerColumn="edit">Editer</span>
-                    <span naturalColumnsPickerColumn="owner">Utilisateur</span>
-                    <span naturalColumnsPickerColumn="status">Status</span>
-                    <span naturalColumnsPickerColumn="ownerBalance">Solde</span>
-                    <span naturalColumnsPickerColumn="ownerCreationDate">Membre depuis</span>
-                    <span naturalColumnsPickerColumn="bookable">Item</span>
-                    <span naturalColumnsPickerColumn="destination">Destination</span>
-                    <span naturalColumnsPickerColumn="startDate">Début</span>
-                    <span naturalColumnsPickerColumn="endDate">Fin</span>
-                    <span naturalColumnsPickerColumn="estimatedEndDate">Retour prévu</span>
-                    <span naturalColumnsPickerColumn="participantCount">Nb participants</span>
-                    <span naturalColumnsPickerColumn="endComment">Comment. de fin</span>
-                    <span naturalColumnsPickerColumn="terminateBooking">Terminer</span>
+                    <span *ngIf="columnIsAvailable('edit')" naturalColumnsPickerColumn="edit">Editer</span>
+                    <span *ngIf="columnIsAvailable('owner')" naturalColumnsPickerColumn="owner">Utilisateur</span>
+                    <span *ngIf="columnIsAvailable('status')" naturalColumnsPickerColumn="status">Status</span>
+                    <span *ngIf="columnIsAvailable('ownerBalance')" naturalColumnsPickerColumn="ownerBalance"
+                        >Solde</span
+                    >
+                    <span *ngIf="columnIsAvailable('ownerCreationDate')" naturalColumnsPickerColumn="ownerCreationDate"
+                        >Membre depuis</span
+                    >
+                    <span *ngIf="columnIsAvailable('bookable')" naturalColumnsPickerColumn="bookable">Item</span>
+                    <span *ngIf="columnIsAvailable('destination')" naturalColumnsPickerColumn="destination"
+                        >Destination</span
+                    >
+                    <span *ngIf="columnIsAvailable('startDate')" naturalColumnsPickerColumn="startDate">Début</span>
+                    <span *ngIf="columnIsAvailable('startComment')" naturalColumnsPickerColumn="startComment"
+                        >Note de début</span
+                    >
+                    <span *ngIf="columnIsAvailable('endDate')" naturalColumnsPickerColumn="endDate">Fin</span>
+                    <span *ngIf="columnIsAvailable('estimatedEndDate')" naturalColumnsPickerColumn="estimatedEndDate"
+                        >Retour prévu</span
+                    >
+                    <span *ngIf="columnIsAvailable('participantCount')" naturalColumnsPickerColumn="participantCount"
+                        >Nb participants</span
+                    >
+                    <span *ngIf="columnIsAvailable('endComment')" naturalColumnsPickerColumn="endComment"
+                        >Note de fin</span
+                    >
+                    <span *ngIf="columnIsAvailable('terminateBooking')" naturalColumnsPickerColumn="terminateBooking"
+                        >Terminer</span
+                    >
                 </natural-columns-picker>
             </natural-search>
         </div>
@@ -107,6 +124,12 @@
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 
+                <ng-container matColumnDef="startComment">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Note de début</th>
+                    <td mat-cell *matCellDef="let element">{{ element.startComment | ellipsis: 32 }}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
                 <ng-container matColumnDef="endDate">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Fin</th>
                     <td mat-cell *matCellDef="let element">{{ element.endDate | swissDate }}</td>
@@ -136,7 +159,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="endComment">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Remarques</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Note de fin</th>
                     <td mat-cell *matCellDef="let element">{{ element.endComment | ellipsis: 32 }}</td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>

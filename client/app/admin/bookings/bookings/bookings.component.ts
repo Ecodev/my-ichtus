@@ -1,15 +1,15 @@
 import {Component, Injector} from '@angular/core';
-import {NaturalAbstractList} from '@ecodev/natural';
 import {BookingService} from '../services/booking.service';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
+import {AbstractBookings} from './abstract-bookings';
 
 @Component({
     selector: 'app-bookings',
     templateUrl: './bookings.component.html',
     styleUrls: ['./bookings.component.scss'],
 })
-export class BookingsComponent extends NaturalAbstractList<BookingService> {
+export class BookingsComponent extends AbstractBookings<BookingService> {
     constructor(
         bookingService: BookingService,
         injector: Injector,

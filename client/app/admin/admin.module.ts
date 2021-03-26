@@ -33,6 +33,7 @@ import {EcoFabSpeedDialModule} from '@ecodev/fab-speed-dial';
 import {LogsComponent} from './logs/logs/logs.component';
 import {UsageBookablesComponent} from './bookables/bookables/usage-bookables.component';
 import {BookingsWithOwnerComponent} from './bookings/bookings/bookings-with-owner.component';
+import {AbstractBookings} from './bookings/bookings/abstract-bookings';
 import {AccountingClosingComponent} from './accounts/accounting-closing/accounting-closing.component';
 import {AccountingReportComponent} from './accounts/accounting-report/accounting-report.component';
 

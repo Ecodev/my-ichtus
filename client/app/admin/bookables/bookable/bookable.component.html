@@ -245,7 +245,8 @@
             <app-bookings-with-owner
                 [persistSearch]="false"
                 [forcedVariables]="bookingsVariables"
-                [initialColumns]="['edit', 'owner', 'destination', 'startDate', 'endDate', 'estimatedEndDate']"
+                [initialColumns]="['edit', 'owner', 'startDate', 'endDate']"
+                [availableColumns]="['edit', 'owner', 'ownerBalance', 'ownerCreationDate', 'startDate', 'endDate']"
             ></app-bookings-with-owner>
         </mat-tab>
     </mat-tab-group>
