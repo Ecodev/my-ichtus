@@ -7,6 +7,7 @@ namespace Application\Api\Input\Operator;
 use Application\Model\Booking;
 use Application\Model\User;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use GraphQL\Doctrine\Definition\EntityID;
 use GraphQL\Doctrine\Definition\Operator\AbstractOperator;
@@ -22,7 +23,11 @@ class BookableUsageOperatorType extends AbstractOperator
             'fields' => [
                 [
                     'name' => 'values',
-                    'type' => self::nonNull(self::listOf(self::nonNull($this->types->getId(User::class)))),
+                    'type' => self::getNullableType(self::listOf(self::nonNull($this->types->getId(User::class)))),
+                ],
+                [
+                    'name' => 'not',
+                    'type' => self::boolean(),
                 ],
             ],
         ];
@@ -41,7 +46,17 @@ class BookableUsageOperatorType extends AbstractOperator
         $bookingAlias = $uniqueNameFactory->createAliasName(Booking::class);
         $param = $uniqueNameFactory->createParameterName();
 
+        if (array_key_exists('not', $args) && $args['not'] === false) {
+            $queryBuilder->leftJoin($alias . '.bookings', $bookingAlias, Join::WITH, $bookingAlias . '.endDate IS NULL');
+
+            return $bookingAlias . '.id IS NULL';
+        }
+
         $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias);
+
+        if (array_key_exists('not', $args) && $args['not'] === true && empty($ids)) {
+            return $bookingAlias . '.owner IS NOT NULL AND ' . $bookingAlias . '.endDate IS NULL';
+        }
 
         if (empty($ids)) {
             return $bookingAlias . '.owner IS NULL';
@@ -49,6 +64,8 @@ class BookableUsageOperatorType extends AbstractOperator
 
         $queryBuilder->setParameter($param, $ids);
 
-        return $bookingAlias . '.owner IN (:' . $param . ') AND ' . $bookingAlias . '.endDate IS NULL';
+        $not = array_key_exists('not', $args) && $args['not'] === true ? ' NOT' : '';
+
+        return $bookingAlias . '.owner' . $not . ' IN (:' . $param . ') AND ' . $bookingAlias . '.endDate IS NULL';
     }
 }
