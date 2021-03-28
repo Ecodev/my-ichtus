@@ -3,20 +3,22 @@ import {Component, Injector, OnInit} from '@angular/core';
 import {NaturalAbstractList, NaturalQueryVariablesManager, NaturalSearchSelections} from '@ecodev/natural';
 import {
     BankingInfosVariables,
-    EmailUsers,
-    EmailUsersVariables,
+    EmailAndPhoneUsers,
+    EmailAndPhoneUsersVariables,
     Users_users_items,
     UserStatus,
     UsersVariables,
 } from '../../../shared/generated-types';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
-import {emailUsersQuery} from '../services/user.queries';
+import {emailAndPhoneUsersQuery} from '../services/user.queries';
 import {UserService} from '../services/user.service';
 import {copyToClipboard} from '../../../shared/utils';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ProvisionComponent} from '../../../profile/components/provision/provision.component';
 import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
+import {ApolloQueryResult} from '@apollo/client/core';
 
 @Component({
     selector: 'app-users',
@@ -37,6 +39,7 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
 
     public usersEmail: string | null = null;
     public usersEmailAndName: string | null = null;
+    public usersPhoneAndName: string | null = null;
 
     constructor(
         route: ActivatedRoute,
@@ -77,7 +80,7 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
         super.search(naturalSearchSelections);
     }
 
-    public download(): void {
+    public downloadEmails(): void {
         if (this.apollo) {
             const qvm = new NaturalQueryVariablesManager(this.variablesManager);
             qvm.set('pagination', {pagination: {pageIndex: 0, pageSize: 9999}});
@@ -86,8 +89,8 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
             } as UsersVariables);
 
             this.apollo
-                .query<EmailUsers, EmailUsersVariables>({
-                    query: emailUsersQuery,
+                .query<EmailAndPhoneUsers, EmailAndPhoneUsersVariables>({
+                    query: emailAndPhoneUsersQuery,
                     variables: qvm.variables.value,
                 })
                 .subscribe(result => {
@@ -99,8 +102,45 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
         }
     }
 
+    public downloadPhones(): Observable<ApolloQueryResult<EmailAndPhoneUsers>> | null {
+        if (this.apollo) {
+            const qvm = new NaturalQueryVariablesManager(this.variablesManager);
+            qvm.set('pagination', {pagination: {pageIndex: 0, pageSize: 9999}});
+            qvm.set('phoneFilter', {
+                filter: {groups: [{conditions: [{mobilePhone: {equal: {value: '', not: true}}}]}]},
+            } as UsersVariables);
+
+            const obs = this.apollo.query<EmailAndPhoneUsers, EmailAndPhoneUsersVariables>({
+                query: emailAndPhoneUsersQuery,
+                variables: qvm.variables.value,
+            });
+
+            obs.subscribe(result => {
+                this.usersPhoneAndName = result.data['users'].items
+                    .map(u => [u.mobilePhone, u.firstName, u.lastName].join(';'))
+                    .join('\n');
+            });
+            return obs;
+        }
+        return null;
+    }
+
     public copyToClipboard(text: string): void {
         copyToClipboard(text);
+    }
+
+    public copyPhones(): void {
+        let obs;
+        if (!this.usersPhoneAndName) {
+            obs = this.downloadPhones();
+        }
+        if (obs) {
+            obs.subscribe(result => {
+                if (this.usersPhoneAndName) {
+                    copyToClipboard(this.usersPhoneAndName);
+                }
+            });
+        }
     }
 
     public showProvision(user: Users_users_items): void {

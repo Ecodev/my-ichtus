@@ -108,14 +108,15 @@ export const usersQuery = gql`
     ${userMetaFragment}
 `;
 
-export const emailUsersQuery = gql`
-    query EmailUsers($filter: UserFilter, $sorting: [UserSorting!], $pagination: PaginationInput) {
+export const emailAndPhoneUsersQuery = gql`
+    query EmailAndPhoneUsers($filter: UserFilter, $sorting: [UserSorting!], $pagination: PaginationInput) {
         users(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
                 id
                 firstName
                 lastName
                 email
+                mobilePhone
             }
         }
     }
