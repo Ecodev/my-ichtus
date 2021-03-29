@@ -162,6 +162,64 @@ export class NaturalSearchFacetsService {
         transform: wrapLike,
     };
 
+    private readonly isActive: DropdownFacet<TypeSelectConfiguration> = {
+        display: 'Actif',
+        field: 'isActive',
+        component: TypeSelectComponent,
+        name: 'isActive',
+        configuration: {
+            items: [
+                {value: true, name: 'Oui'},
+                {value: false, name: 'Non'},
+            ],
+        },
+    };
+
+    private readonly bookingType: DropdownFacet<TypeSelectConfiguration> = {
+        display: 'Type de réservation',
+        field: 'bookingType',
+        component: TypeSelectComponent,
+        configuration: {
+            items: this.enumService.get('BookingType'),
+        },
+    };
+
+    private readonly initialPrice: DropdownFacet<TypeNumberConfiguration> = {
+        display: 'Prix initial',
+        field: 'initialPrice',
+        component: TypeNumberComponent,
+        configuration: {
+            step: 1,
+        },
+    };
+
+    private readonly periodicPrice: DropdownFacet<TypeNumberConfiguration> = {
+        display: 'Prix périodique',
+        field: 'periodicPrice',
+        component: TypeNumberComponent,
+        configuration: {
+            step: 1,
+        },
+    };
+
+    private readonly purchasePrice: DropdownFacet<TypeNumberConfiguration> = {
+        display: "Prix d'achat",
+        field: 'purchasePrice',
+        component: TypeNumberComponent,
+        configuration: {
+            step: 1,
+        },
+    };
+
+    private readonly simultaneousBookingMaximum: DropdownFacet<TypeNumberConfiguration> = {
+        display: 'Réservations simultanées',
+        field: 'simultaneousBookingMaximum',
+        component: TypeNumberComponent,
+        configuration: {
+            step: 1,
+        },
+    };
+
     private readonly allFacets: {[key: string]: NaturalSearchFacets} = {
         users: [
             this.userTags,
@@ -341,46 +399,22 @@ export class NaturalSearchFacetsService {
             this.name,
             this.code,
             this.bookableTags,
-            {
-                display: 'Type de réservation',
-                field: 'bookingType',
-                component: TypeSelectComponent,
-                configuration: {
-                    items: this.enumService.get('BookingType'),
-                },
-            } as DropdownFacet<TypeSelectConfiguration>,
-            {
-                display: 'Prix initial',
-                field: 'initialPrice',
-                component: TypeNumberComponent,
-                configuration: {
-                    step: 1,
-                },
-            } as DropdownFacet<TypeNumberConfiguration>,
-            {
-                display: 'Prix périodique',
-                field: 'periodicPrice',
-                component: TypeNumberComponent,
-                configuration: {
-                    step: 1,
-                },
-            } as DropdownFacet<TypeNumberConfiguration>,
-            {
-                display: "Prix d'achat",
-                field: 'purchasePrice',
-                component: TypeNumberComponent,
-                configuration: {
-                    step: 1,
-                },
-            } as DropdownFacet<TypeNumberConfiguration>,
-            {
-                display: 'Réservations simultanées',
-                field: 'simultaneousBookingMaximum',
-                component: TypeNumberComponent,
-                configuration: {
-                    step: 1,
-                },
-            } as DropdownFacet<TypeNumberConfiguration>,
+            this.isActive,
+            this.bookingType,
+            this.initialPrice,
+            this.periodicPrice,
+            this.purchasePrice,
+            this.simultaneousBookingMaximum,
+            this.creationDate,
+            this.updateDate,
+        ],
+        equipment: [
+            this.name,
+            this.code,
+            this.bookableTags,
+            this.isActive,
+            this.purchasePrice,
+            this.simultaneousBookingMaximum,
             this.creationDate,
             this.updateDate,
         ],

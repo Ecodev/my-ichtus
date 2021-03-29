@@ -273,6 +273,7 @@ const routes: Routes = [
                             seo: {
                                 title: 'Stand up paddle',
                             } as NaturalSeo,
+                            isEquipment: true,
                             forcedVariables: BookableService.getFiltersByTagId('6000'),
                             initialColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
                         },
@@ -284,6 +285,7 @@ const routes: Routes = [
                             seo: {
                                 title: 'Planches',
                             } as NaturalSeo,
+                            isEquipment: true,
                             forcedVariables: BookableService.getFiltersByTagId('6001'),
                             initialColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
                         },
@@ -295,6 +297,7 @@ const routes: Routes = [
                             seo: {
                                 title: 'Canoës',
                             } as NaturalSeo,
+                            isEquipment: true,
                             forcedVariables: BookableService.getFiltersByTagId('6002'),
                             initialColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
                         },
@@ -306,6 +309,7 @@ const routes: Routes = [
                             seo: {
                                 title: 'Kayaks',
                             } as NaturalSeo,
+                            isEquipment: true,
                             forcedVariables: BookableService.getFiltersByTagId('6003'),
                             initialColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
                         },
@@ -317,6 +321,7 @@ const routes: Routes = [
                             seo: {
                                 title: 'Aviron',
                             } as NaturalSeo,
+                            isEquipment: true,
                             forcedVariables: BookableService.getFiltersByTagId('6004'),
                             initialColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
                         },
@@ -328,6 +333,7 @@ const routes: Routes = [
                             seo: {
                                 title: 'Voile légère',
                             } as NaturalSeo,
+                            isEquipment: true,
                             forcedVariables: BookableService.getFiltersByTagId('6005'),
                             initialColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
                         },
@@ -339,6 +345,7 @@ const routes: Routes = [
                             seo: {
                                 title: 'Voile lestée',
                             } as NaturalSeo,
+                            isEquipment: true,
                             forcedVariables: BookableService.getFiltersByTagId('6006'),
                             initialColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
                         },

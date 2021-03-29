@@ -20,6 +20,8 @@ export class BookablesComponent extends NaturalAbstractList<BookableService> imp
         public permissionsService: PermissionsService,
     ) {
         super(bookableService, injector);
-        this.naturalSearchFacets = naturalSearchFacetsService.get('bookables');
+        this.naturalSearchFacets = naturalSearchFacetsService.get(
+            this.route.snapshot.data.isEquipment ? 'equipment' : 'bookables',
+        );
     }
 }
