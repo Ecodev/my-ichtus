@@ -36,6 +36,7 @@ import {BookingsWithOwnerComponent} from './bookings/bookings/bookings-with-owne
 import {AbstractBookings} from './bookings/bookings/abstract-bookings';
 import {AccountingClosingComponent} from './accounts/accounting-closing/accounting-closing.component';
 import {AccountingReportComponent} from './accounts/accounting-report/accounting-report.component';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
     declarations: [
@@ -70,6 +71,14 @@ import {AccountingReportComponent} from './accounts/accounting-report/accounting
         ImportComponent,
         LogsComponent,
     ],
-    imports: [CommonModule, AdminRoutingModule, MaterialModule, IchtusModule, ProfileModule, EcoFabSpeedDialModule],
+    imports: [
+        CommonModule,
+        AdminRoutingModule,
+        MaterialModule,
+        IchtusModule,
+        ProfileModule,
+        EcoFabSpeedDialModule,
+        MatChipsModule,
+    ],
 })
 export class AdminModule {}

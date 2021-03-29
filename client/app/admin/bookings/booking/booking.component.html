@@ -36,10 +36,28 @@
                             ></natural-select>
                         </div>
 
+                        <mat-chip-list
+                            #chipList
+                            *ngIf="!data.model.id"
+                            [selectable]="true"
+                            [multiple]="true"
+                            aria-label="Type de réservable"
+                            class="margin-bottom"
+                        >
+                            <mat-chip
+                                #chip="matChip"
+                                *ngFor="let category of bookableFilterChips"
+                                [selected]="category.selected"
+                                [selectable]="true"
+                                (click)="filterBookables(category.value)"
+                                >{{ category.name }}</mat-chip
+                            >
+                        </mat-chip-list>
                         <natural-select
                             formControlName="bookable"
                             placeholder="Réservable"
                             [service]="bookableService"
+                            [filter]="bookableSelectFilter"
                             (selectionChange)="update()"
                             [showIcon]="false"
                             [navigateTo]="
