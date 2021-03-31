@@ -258,6 +258,14 @@ export class NaturalSearchFacetsService {
                 },
             } as DropdownFacet<TypeSelectNaturalConfiguration<BookableService>>,
             {
+                display: 'Nombre de sorties',
+                field: 'bookingCount',
+                component: TypeNumberComponent,
+                configuration: {
+                    step: 1,
+                },
+            } as DropdownFacet<TypeNumberConfiguration>,
+            {
                 display: 'Statut',
                 field: 'status',
                 component: TypeSelectComponent,
