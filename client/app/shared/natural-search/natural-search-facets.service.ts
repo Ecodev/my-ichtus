@@ -266,6 +266,11 @@ export class NaturalSearchFacetsService {
                 },
             } as DropdownFacet<TypeNumberConfiguration>,
             {
+                display: 'Date de sortie',
+                field: 'bookingDate',
+                component: TypeDateComponent,
+            } as DropdownFacet<TypeDateConfiguration>,
+            {
                 display: 'Statut',
                 field: 'status',
                 component: TypeSelectComponent,

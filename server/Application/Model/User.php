@@ -50,6 +50,11 @@ use GraphQL\Doctrine\Annotation as API;
  *     @API\Filter(field="balance", operator="Application\Api\Input\Operator\AccountBalance\GreaterOrEqualOperatorType", type="Money"),
  *     @API\Filter(field="balance", operator="Application\Api\Input\Operator\AccountBalance\LessOperatorType", type="Money"),
  *     @API\Filter(field="balance", operator="Application\Api\Input\Operator\AccountBalance\LessOrEqualOperatorType", type="Money"),
+ *     @API\Filter(field="bookingDate", operator="Application\Api\Input\Operator\BookingDate\EqualOperatorType", type="Date"),
+ *     @API\Filter(field="bookingDate", operator="Application\Api\Input\Operator\BookingDate\GreaterOperatorType", type="Date"),
+ *     @API\Filter(field="bookingDate", operator="Application\Api\Input\Operator\BookingDate\GreaterOrEqualOperatorType", type="Date"),
+ *     @API\Filter(field="bookingDate", operator="Application\Api\Input\Operator\BookingDate\LessOperatorType", type="Date"),
+ *     @API\Filter(field="bookingDate", operator="Application\Api\Input\Operator\BookingDate\LessOrEqualOperatorType", type="Date"),
  * })
  */
 class User extends AbstractModel implements \Ecodev\Felix\Model\User
