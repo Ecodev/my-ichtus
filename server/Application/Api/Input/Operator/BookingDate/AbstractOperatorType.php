@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Application\Api\Input\Operator\BookingDate;
 
-use Application\Model\Bookable;
-use Application\Model\Booking;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
 use GraphQL\Doctrine\Definition\Operator\AbstractOperator;
@@ -35,19 +33,27 @@ abstract class AbstractOperatorType extends AbstractOperator
             return null;
         }
 
-        $bookingAlias = $uniqueNameFactory->createAliasName(Booking::class);
-        $bookableAlias = $uniqueNameFactory->createAliasName(Bookable::class);
+        $bookingAlias = 'booking_count_date_alias';
+        $bookableAlias = 'bookable_count_date_alias';
+
+        if (!in_array($bookingAlias, $queryBuilder->getAllAliases(), true)) {
+            $queryBuilder->leftJoin($alias . '.bookings', $bookingAlias);
+        }
+
+        if (!in_array($bookableAlias, $queryBuilder->getAllAliases(), true)) {
+            $queryBuilder->leftJoin($bookingAlias . '.bookable', $bookableAlias);
+        }
 
         $param = $uniqueNameFactory->createParameterName();
 
-        $queryBuilder->leftJoin($alias . '.bookings', $bookingAlias);
-        $queryBuilder->leftJoin($bookingAlias . '.bookable', $bookableAlias);
-
-        $queryBuilder->groupBy($alias . '.id');
+        $groupBy = @$queryBuilder->getDQLPart('groupBy')[0];
+        if (!$groupBy || !$groupBy->getParts()[0] === $alias . '.id') {
+            $queryBuilder->groupBy($alias . '.id');
+        }
 
         $date = $args['value'];
         $queryBuilder->setParameter($param, $date);
 
-        return $bookableAlias . ".bookingType = 'self_approved' AND " . $bookingAlias . '.creationDate ' . $this->getDqlOperator() . ':' . $param;
+        return $bookableAlias . ".bookingType = 'self_approved' AND " . $bookingAlias . '.startDate ' . $this->getDqlOperator() . ':' . $param;
     }
 }
