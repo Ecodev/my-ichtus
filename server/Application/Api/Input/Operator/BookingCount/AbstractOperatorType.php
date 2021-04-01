@@ -23,7 +23,7 @@ abstract class AbstractOperatorType extends AbstractOperator
             'fields' => [
                 [
                     'name' => 'value',
-                    'type' => self::nonNull(_types()->get('Money')),
+                    'type' => self::nonNull(self::int()),
                 ],
             ],
         ];
@@ -47,8 +47,7 @@ abstract class AbstractOperatorType extends AbstractOperator
 
         $queryBuilder->having('COUNT(' . $bookingAlias . '.id) ' . $this->getDqlOperator() . ' :' . $param);
 
-        // Dirt hack convert Money to int @TODO replace filter input by Int
-        $count = (int) $args['value'] / 100;
+        $count = $args['value'];
         $queryBuilder->setParameter($param, $count);
 
         return $bookableAlias . ".bookingType = 'self_approved'";

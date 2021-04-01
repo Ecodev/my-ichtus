@@ -17,6 +17,7 @@ import {
     TypeSelectConfiguration,
     TypeSelectNaturalConfiguration,
     TypeTextComponent,
+    upperCaseFirstLetter,
     wrapLike,
 } from '@ecodev/natural';
 import {UserTagService} from '../../admin/userTags/services/userTag.service';
@@ -29,6 +30,29 @@ import {BookableFilter, BookingType, UserFilterGroupCondition} from '../generate
 import {AccountService} from '../../admin/accounts/services/account.service';
 import {accountHierarchicConfiguration} from '../hierarchic-selector/AccountHierarchicConfiguration';
 import {BookableTagService} from '../../admin/bookableTags/services/bookableTag.service';
+
+/**
+ * Prepend the field name to the operator.
+ *
+ * So:
+ *
+ *     {field: 'myFieldName', condition: {equal: {value: 123}}}
+ *
+ * will become
+ *
+ *     {field: 'myFieldName', condition: {myFieldNameEqual: {value: 123}}}
+ */
+function prefixOperatorWithField(selection: NaturalSearchSelection): NaturalSearchSelection {
+    const oldOperator = Object.keys(selection.condition)[0];
+    const field = selection.field;
+
+    const newOperator = field + upperCaseFirstLetter(oldOperator);
+    selection.condition[newOperator] = selection.condition[oldOperator];
+
+    delete selection.condition[oldOperator];
+
+    return selection;
+}
 
 /**
  * Collection of facets for natural-search accessible by the object name
@@ -263,7 +287,9 @@ export class NaturalSearchFacetsService {
                 component: TypeNumberComponent,
                 configuration: {
                     step: 1,
+                    min: 0,
                 },
+                transform: prefixOperatorWithField,
             } as DropdownFacet<TypeNumberConfiguration>,
             {
                 display: 'Date de sortie',

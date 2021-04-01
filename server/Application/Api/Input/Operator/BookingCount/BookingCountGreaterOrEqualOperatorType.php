@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Application\Api\Input\Operator\BookingCount;
 
-final class EqualOperatorType extends AbstractOperatorType
+final class BookingCountGreaterOrEqualOperatorType extends AbstractOperatorType
 {
     protected function getDqlOperator(): string
     {
-        return  '=';
+        return  '>=';
     }
 }
