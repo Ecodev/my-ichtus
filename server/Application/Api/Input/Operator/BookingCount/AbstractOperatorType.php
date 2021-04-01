@@ -47,7 +47,8 @@ abstract class AbstractOperatorType extends AbstractOperator
         }
 
         $groupBy = @$queryBuilder->getDQLPart('groupBy')[0];
-        if (!$groupBy || !$groupBy->getParts()[0] === $alias . '.id') {
+
+        if (!$groupBy || !($groupBy->getParts()[0] === $alias . '.id')) {
             $queryBuilder->groupBy($alias . '.id');
         }
 
