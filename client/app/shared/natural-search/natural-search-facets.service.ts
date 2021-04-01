@@ -43,13 +43,13 @@ import {BookableTagService} from '../../admin/bookableTags/services/bookableTag.
  *     {field: 'myFieldName', condition: {myFieldNameEqual: {value: 123}}}
  */
 function prefixOperatorWithField(selection: NaturalSearchSelection): NaturalSearchSelection {
-    const oldOperator = Object.keys(selection.condition)[0];
     const field = selection.field;
+    for (const oldOperator of Object.keys(selection.condition)) {
+        const newOperator = field + upperCaseFirstLetter(oldOperator);
+        selection.condition[newOperator] = selection.condition[oldOperator];
 
-    const newOperator = field + upperCaseFirstLetter(oldOperator);
-    selection.condition[newOperator] = selection.condition[oldOperator];
-
-    delete selection.condition[oldOperator];
+        delete selection.condition[oldOperator];
+    }
 
     return selection;
 }
@@ -295,6 +295,7 @@ export class NaturalSearchFacetsService {
                 display: 'Date de sortie',
                 field: 'bookingDate',
                 component: TypeDateComponent,
+                transform: prefixOperatorWithField,
             } as DropdownFacet<TypeDateConfiguration>,
             {
                 display: 'Statut',
