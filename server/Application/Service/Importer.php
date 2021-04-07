@@ -246,7 +246,7 @@ class Importer
         $user = $this->userRepository->getOneById($userId);
 
         if (!$user) {
-            throw new Exception('Could not find a matching user for reference number `' . $referenceNumber . '`.');
+            throw new Exception('Could not find a matching user for reference number `' . $referenceNumber . '` and user ID `' . $userId . '`.');
         }
 
         return $user;

@@ -75,7 +75,7 @@ class ImporterTest extends TestCase
 
     public function testThrowInvalidUser(): void
     {
-        $this->expectExceptionMessage('Could not find a matching user for reference number `800826000000000000000099994`.');
+        $this->expectExceptionMessage('Could not find a matching user for reference number `800826000000000000000099994` and user ID `9999`.');
         $this->import('tests/data/importer/invalid-user.xml');
     }
 
