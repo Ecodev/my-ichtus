@@ -53,47 +53,36 @@ class UserTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerSetOwner
-     */
-    public function testSetOwner(?User $currentUser, ?User $originalOwner, ?User $newOwner, ?string $exception = null): void
+    public function testCannotOwnMyself(): void
     {
-        User::setCurrent($currentUser);
-
-        $subject = new Booking();
-        self::assertNull($subject->getOwner());
-
-        $subject->setOwner($originalOwner);
-        self::assertSame($originalOwner, $subject->getOwner());
-
-        if ($exception) {
-            $this->expectExceptionMessage($exception);
-        }
-
-        $subject->setOwner($newOwner);
-        self::assertSame($newOwner, $subject->getOwner());
+        $user = new User();
+        $this->expectExceptionMessage('This user cannot be owned by himself');
+        $user->setOwner($user);
     }
 
-    public function providerSetOwner(): array
+    public function testCannotBeOwnedByAnotherOwned(): void
     {
-        $u1 = new User();
-        $u1->setLogin('u1');
-        $u2 = new User();
-        $u2->setLogin('u2');
-        $u3 = new User();
-        $u3->setLogin('u3');
-        $admin = new User(User::ROLE_ADMINISTRATOR);
-        $admin->setLogin('admin');
+        $user = new User();
+        $owner1 = new User();
+        $owner2 = new User();
+        $owner1->setOwner($owner2);
+        self::assertSame($owner2, $owner1->getOwner());
 
-        return [
-            'can change nothing' => [null, null, null],
-            'can set owner for first time' => [null, null, $u3],
-            'can set owner for first time to myself' => [$u1, null, $u1],
-            'can set owner for first time even if it is not myself' => [$u1, null, $u3],
-            'can donate my stuff' => [$u1, $u1, $u3],
-            'cannot donate stuff that are not mine' => [$u1, $u2, $u3, 'u1 is not allowed to change owner to u3 because it belongs to u2'],
-            'admin cannot donate stuff that are not mine' => [$admin, $u2, $u3],
-        ];
+        $this->expectExceptionMessage('This user cannot be owned by a user who is himself owned by somebody else');
+        $user->setOwner($owner1);
+    }
+
+    public function testCannotBeOwnedBecauseIsOwner(): void
+    {
+        $user = new User();
+        $owned = new User();
+        $owned->setOwner($user);
+        self::assertSame($user, $owned->getOwner());
+
+        $owner = new User();
+
+        $this->expectExceptionMessage('This user owns other users, so he cannot himself be owned by somebody else');
+        $user->setOwner($owner);
     }
 
     public function providerCanOpenDoor(): array
@@ -177,7 +166,7 @@ class UserTest extends TestCase
         self::assertSame($account1, $user2->getAccount(), 'user2 should now use user1 account');
 
         User::setCurrent($user1);
-        $user2->setOwner($user2);
+        $user2->setOwner(null);
 
         self::assertSame($account1, $user1->getAccount());
         self::assertSame($account2, $user2->getAccount(), 'user2 should be use his own account again');
@@ -209,5 +198,37 @@ class UserTest extends TestCase
         $runnings = $user->getRunningBookings();
 
         self::assertCount(1, $runnings);
+    }
+
+    public function testSetStatus(): void
+    {
+        $u1 = new User();
+        $u2 = new User();
+
+        // Initial status
+        self::assertSame(User::STATUS_NEW, $u1->getStatus());
+        self::assertSame(User::STATUS_NEW, $u2->getStatus());
+
+        $u2->setOwner($u1);
+        $u1->setStatus(User::STATUS_INACTIVE);
+
+        // Status is propagated to existing users
+        self::assertSame(User::STATUS_INACTIVE, $u1->getStatus());
+        self::assertSame(User::STATUS_INACTIVE, $u2->getStatus());
+
+        $u1->setStatus(user::STATUS_ACTIVE);
+        self::assertSame(User::STATUS_ACTIVE, $u1->getStatus());
+        self::assertSame(User::STATUS_ACTIVE, $u2->getStatus());
+
+        // Status is propagated on new users too
+        $u3 = new User();
+        self::assertSame(User::STATUS_NEW, $u3->getStatus());
+        $u3->setOwner($u1);
+        self::assertSame(User::STATUS_ACTIVE, $u3->getStatus());
+
+        // Status 'archived' sets resign date
+        Chronos::setTestNow((new Chronos()));
+        $u1->setStatus(User::STATUS_ARCHIVED);
+        self::assertTrue($u1->getResignDate() && $u1->getResignDate()->isToday());
     }
 }
