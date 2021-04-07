@@ -41,7 +41,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
 
     public filterByAccount(account: MinimalAccount): void {
         if (this.hideFab) {
-            const link = this.transactionLineService.linkToTransactionForAccount(account);
+            const link = this.transactionLineService.linkToTransactionLinesForAccount(account);
             this.router.navigate(link);
         } else {
             const selection = TransactionLineService.getSelectionForAccount(account);
@@ -62,7 +62,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
 
     public filterByTag(tag: TransactionTag['transactionTag']): void {
         if (this.hideFab) {
-            const link = this.transactionLineService.linkToTransactionForTag(tag);
+            const link = this.transactionLineService.linkToTransactionLinesForTag(tag);
             this.router.navigate(link);
         } else {
             const selection = TransactionLineService.getSelectionForTag(tag);

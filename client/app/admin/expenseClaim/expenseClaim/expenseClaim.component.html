@@ -6,8 +6,6 @@
         [listRoute]="['admin', 'expense-claim']"
     >
         <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center">
-            <app-money [amount]="data.model.amount" sizeClass="mat-display-1" [showSignal]="false"></app-money>
-
             <a
                 *ngIf="data.model.id && data.model.status === ExpenseClaimStatus.new"
                 mat-flat-button
@@ -19,6 +17,26 @@
                 <span *ngIf="data.model.type === ExpenseClaimType.expenseClaim">(créditer le solde)</span>
                 <span *ngIf="data.model.type === ExpenseClaimType.refund">(rembourser)</span>
             </a>
+
+            <a
+                *ngIf="data.model.transactions?.length === 1"
+                mat-flat-button
+                [routerLink]="['/admin/transaction', data.model.transactions[0].id]"
+            >
+                Voir l'écriture
+            </a>
+
+            <a
+                *ngIf="data.model.transactions?.length > 1"
+                mat-flat-button
+                [routerLink]="
+                    this.transactionLineService.linkToTransactionLinesForTransactions(data.model.transactions)
+                "
+            >
+                Voir les écritures
+            </a>
+
+            <app-money [amount]="data.model.amount" sizeClass="mat-display-1" [showSignal]="false"></app-money>
         </div>
     </natural-detail-header>
 

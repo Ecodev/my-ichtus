@@ -3,6 +3,7 @@ import {NaturalAbstractDetail} from '@ecodev/natural';
 import {ExpenseClaimService} from '../services/expenseClaim.service';
 import {ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../users/services/user.service';
+import {TransactionLineService} from '../../transactions/services/transactionLine.service';
 
 @Component({
     selector: 'app-expense-claim',
@@ -13,7 +14,12 @@ export class ExpenseClaimComponent extends NaturalAbstractDetail<ExpenseClaimSer
     public ExpenseClaimType = ExpenseClaimType;
     public ExpenseClaimStatus = ExpenseClaimStatus;
 
-    constructor(expenseClaimService: ExpenseClaimService, injector: Injector, public userService: UserService) {
+    constructor(
+        expenseClaimService: ExpenseClaimService,
+        injector: Injector,
+        public readonly userService: UserService,
+        public readonly transactionLineService: TransactionLineService,
+    ) {
         super('expenseClaim', expenseClaimService, injector);
     }
 }

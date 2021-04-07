@@ -54,7 +54,7 @@
                     <td mat-cell *matCellDef="let element">
                         <natural-table-button
                             label="Voir les transactions"
-                            [navigate]="transactionLineService.linkToTransactionForTag(element)"
+                            [navigate]="transactionLineService.linkToTransactionLinesForTag(element)"
                         ></natural-table-button>
                     </td>
                 </ng-container>

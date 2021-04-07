@@ -55,6 +55,9 @@ export const expenseClaimQuery = gql`
             accountingDocuments {
                 id
             }
+            transactions {
+                id
+            }
             creationDate
             creator {
                 ...UserMeta

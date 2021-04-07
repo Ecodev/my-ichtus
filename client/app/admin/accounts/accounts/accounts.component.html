@@ -74,7 +74,7 @@
                         <td mat-cell *matCellDef="let element">
                             <natural-table-button
                                 [label]="element.item.code"
-                                [navigate]="transactionLineService.linkToTransactionForAccount(element.item)"
+                                [navigate]="transactionLineService.linkToTransactionLinesForAccount(element.item)"
                                 matTooltip="Voir les écritures"
                             ></natural-table-button>
                         </td>

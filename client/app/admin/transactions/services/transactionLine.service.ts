@@ -6,10 +6,10 @@ import {
     NaturalAbstractModelService,
     NaturalQueryVariablesManager,
     NaturalSearchSelections,
-    toUrl,
 } from '@ecodev/natural';
 import {transactionLineQuery, exportTransactionLines, transactionLinesQuery} from './transactionLine.queries';
 import {
+    ExpenseClaim_expenseClaim_transactions,
     LogicalOperator,
     ExportTransactionLines,
     ExportTransactionLinesVariables,
@@ -23,6 +23,7 @@ import {
 } from '../../../shared/generated-types';
 import {Observable, Subject} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {toNavigationParameters} from '../../../shared/utils';
 
 function atLeastOneAccount(formGroup: AbstractControl): ValidationErrors | null {
     if (!formGroup || !(formGroup instanceof FormGroup)) {
@@ -125,14 +126,29 @@ export class TransactionLineService extends NaturalAbstractModelService<
         };
     }
 
-    public linkToTransactionForAccount(account: MinimalAccount): any[] {
+    public linkToTransactionLinesForAccount(account: MinimalAccount): any[] {
         const selection = TransactionLineService.getSelectionForAccount(account);
-        return ['/admin/transaction-line', {ns: JSON.stringify(toUrl(selection))}];
+        return ['/admin/transaction-line', toNavigationParameters(selection)];
     }
 
-    public linkToTransactionForTag(tag: TransactionTag['transactionTag']): any[] {
+    public linkToTransactionLinesForTag(tag: TransactionTag['transactionTag']): any[] {
         const selection = TransactionLineService.getSelectionForTag(tag);
-        return ['/admin/transaction-line', {ns: JSON.stringify(toUrl(selection))}];
+        return ['/admin/transaction-line', toNavigationParameters(selection)];
+    }
+
+    public linkToTransactionLinesForTransactions(transactions: ExpenseClaim_expenseClaim_transactions[]): any[] {
+        const selection: NaturalSearchSelections = transactions.map(transaction => [
+            {
+                field: 'transaction',
+                condition: {
+                    have: {
+                        values: [transaction.id],
+                    },
+                },
+            },
+        ]);
+
+        return ['/admin/transaction-line', toNavigationParameters(selection)];
     }
 
     public getFormValidators(): FormValidators {
