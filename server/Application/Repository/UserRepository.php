@@ -147,7 +147,7 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
     public function getAllFamilyOwners(): array
     {
         $qb = $this->createQueryBuilder('user')
-            ->andWhere('user.owner IS NULL OR user.owner = user')
+            ->andWhere('user.owner IS NULL')
             ->addOrderBy('user.id');
 
         return $qb->getQuery()->getResult();
@@ -162,7 +162,7 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
     {
         $qb = $this->createQueryBuilder('user')
             ->join('user.accounts', 'account')
-            ->andWhere('user.owner IS NOT NULL AND user.owner != user')
+            ->andWhere('user.owner IS NOT NULL')
             ->addOrderBy('user.id');
 
         return $qb->getQuery()->getResult();

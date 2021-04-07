@@ -7,6 +7,7 @@ import {
     SortingOrder,
     TransactionLineSortingField,
     TransactionLinesVariables,
+    UserFilter,
     UserRole,
     UsersVariables,
 } from '../../../shared/generated-types';
@@ -39,6 +40,8 @@ export class UserComponent extends NaturalAbstractDetail<UserService> implements
     public viewer!: CurrentUserForProfile_viewer;
 
     private userRolesAvailable: UserRole[] = [];
+
+    public ownerFilter: UserFilter = {};
 
     constructor(
         private userService: UserService,
@@ -76,10 +79,18 @@ export class UserComponent extends NaturalAbstractDetail<UserService> implements
         this.userService.getUserRolesAvailable(this.data.model).subscribe(userRoles => {
             this.userRolesAvailable = userRoles;
         });
+
         this.ibanCtrl.setValue(friendlyFormatIBAN(this.data.model.iban), {emitEvent: false});
         this.ibanLocked = !!this.data.model.iban;
         if (!this.canUpdateIban()) {
             this.ibanCtrl.disable();
+        }
+
+        // Exclude the user being updated to be selected as his own owner
+        if (this.data.model.id) {
+            this.ownerFilter = {
+                groups: [{conditions: [{id: {equal: {value: this.data.model.id, not: true}}}]}],
+            };
         }
     }
 

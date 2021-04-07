@@ -399,14 +399,16 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     public function setOwner(?self $owner = null): void
     {
-        if ($owner && $owner !== $this) {
-            if ($owner->getOwner() && $owner !== $owner->getOwner()) {
-                throw new Exception('This user cannot be owned by a user who is himself owned by somebody else');
-            }
+        if ($owner === $this) {
+            throw new Exception('This user cannot be owned by himself');
+        }
 
-            if ($this->users->count()) {
-                throw new Exception('This user owns other users, so he cannot himself be owned by somebody else');
-            }
+        if ($owner && $owner->getOwner()) {
+            throw new Exception('This user cannot be owned by a user who is himself owned by somebody else');
+        }
+
+        if ($owner && $this->users->count()) {
+            throw new Exception('This user owns other users, so he cannot himself be owned by somebody else');
         }
 
         if ($this->getOwner()) {
@@ -461,7 +463,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      */
     public function isFamilyOwner(): bool
     {
-        return !$this->getOwner() || $this->getOwner() === $this;
+        return !$this->getOwner();
     }
 
     public function initialize(): void

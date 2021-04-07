@@ -12,6 +12,11 @@ use PHPUnit\Framework\TestCase;
 
 class BookingTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        User::setCurrent(null);
+    }
+
     public function testOwnerRelation(): void
     {
         $booking = new Booking();
@@ -82,5 +87,48 @@ class BookingTest extends TestCase
 
         $booking->setBookable($bookable);
         self::assertEquals(Money::CHF(167), $booking->getPeriodicPrice(), 'price should be divided by the number of shared booking');
+    }
+
+    /**
+     * @dataProvider providerSetOwner
+     */
+    public function testSetOwner(?User $currentUser, ?User $originalOwner, ?User $newOwner, ?string $exception = null): void
+    {
+        User::setCurrent($currentUser);
+
+        $subject = new Booking();
+        self::assertNull($subject->getOwner());
+
+        $subject->setOwner($originalOwner);
+        self::assertSame($originalOwner, $subject->getOwner());
+
+        if ($exception) {
+            $this->expectExceptionMessage($exception);
+        }
+
+        $subject->setOwner($newOwner);
+        self::assertSame($newOwner, $subject->getOwner());
+    }
+
+    public function providerSetOwner(): array
+    {
+        $u1 = new User();
+        $u1->setLogin('u1');
+        $u2 = new User();
+        $u2->setLogin('u2');
+        $u3 = new User();
+        $u3->setLogin('u3');
+        $admin = new User(User::ROLE_ADMINISTRATOR);
+        $admin->setLogin('admin');
+
+        return [
+            'can change nothing to nothing' => [null, null, null],
+            'can set owner for first time' => [null, null, $u3],
+            'can set owner for first time to myself' => [$u1, null, $u1],
+            'can set owner for first time even if it is not myself' => [$u1, null, $u3],
+            'can donate my stuff' => [$u1, $u1, $u3],
+            'as a member I cannot donate stuff that are not mine' => [$u1, $u2, $u3, 'u1 is not allowed to change owner to u3 because it belongs to u2'],
+            'as an admin I can donate stuff that are not mine' => [$admin, $u2, $u3],
+        ];
     }
 }
