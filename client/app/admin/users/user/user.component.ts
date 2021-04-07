@@ -8,6 +8,7 @@ import {
     TransactionLineSortingField,
     TransactionLinesVariables,
     UserFilter,
+    UserFilterGroupCondition,
     UserRole,
     UsersVariables,
 } from '../../../shared/generated-types';
@@ -86,12 +87,17 @@ export class UserComponent extends NaturalAbstractDetail<UserService> implements
             this.ibanCtrl.disable();
         }
 
+        // Only users that can be owner (so not the users that are owned)
+        const ownerConditions: UserFilterGroupCondition[] = [{owner: {null: {not: false}}}];
+
         // Exclude the user being updated to be selected as his own owner
         if (this.data.model.id) {
-            this.ownerFilter = {
-                groups: [{conditions: [{id: {equal: {value: this.data.model.id, not: true}}}]}],
-            };
+            ownerConditions.push({id: {equal: {value: this.data.model.id, not: true}}});
         }
+
+        this.ownerFilter = {
+            groups: [{conditions: ownerConditions}],
+        };
     }
 
     public getTransactionQueryVariables(): TransactionLinesVariables {
