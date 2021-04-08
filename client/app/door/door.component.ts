@@ -14,10 +14,10 @@ export class DoorComponent extends NaturalAbstractController implements OnInit {
     public viewer!: CurrentUserForProfile_viewer;
 
     constructor(
-        public doorService: DoorService,
-        private userService: UserService,
-        private alertService: NaturalAlertService,
-        private route: ActivatedRoute,
+        public readonly doorService: DoorService,
+        private readonly userService: UserService,
+        private readonly alertService: NaturalAlertService,
+        private readonly route: ActivatedRoute,
     ) {
         super();
     }

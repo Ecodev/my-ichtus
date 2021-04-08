@@ -13,7 +13,7 @@ export class BookableTagsComponent extends NaturalAbstractList<BookableTagServic
     constructor(
         bookableTagService: BookableTagService,
         injector: Injector,
-        public permissionsService: PermissionsService,
+        public readonly permissionsService: PermissionsService,
     ) {
         super(bookableTagService, injector);
     }

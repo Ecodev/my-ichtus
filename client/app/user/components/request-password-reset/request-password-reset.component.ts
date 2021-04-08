@@ -16,10 +16,10 @@ export class RequestPasswordResetComponent {
     public sending = false;
 
     constructor(
-        private apollo: Apollo,
-        private alertService: NaturalAlertService,
-        private router: Router,
-        private userService: UserService,
+        private readonly apollo: Apollo,
+        private readonly alertService: NaturalAlertService,
+        private readonly router: Router,
+        private readonly userService: UserService,
     ) {
         this.form = new FormGroup({login: new FormControl('', userService.getFormValidators().login)});
     }

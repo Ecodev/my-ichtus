@@ -116,10 +116,10 @@ export class UserService
 
     constructor(
         apollo: Apollo,
-        protected router: Router,
-        protected bookingService: BookingService,
-        private permissionsService: PermissionsService,
-        protected pricedBookingService: PricedBookingService,
+        protected readonly router: Router,
+        protected readonly bookingService: BookingService,
+        private readonly permissionsService: PermissionsService,
+        protected readonly pricedBookingService: PricedBookingService,
         @Inject(LOCAL_STORAGE) private readonly storage: NaturalStorage,
     ) {
         super(apollo, 'user', userQuery, usersQuery, createUser, updateUser, null);

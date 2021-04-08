@@ -12,7 +12,7 @@ export class AddressComponent {
     @Input() public form!: FormGroup;
     @Output() public readonly change: EventEmitter<boolean> = new EventEmitter();
 
-    constructor(public countryService: CountryService) {}
+    constructor(public readonly countryService: CountryService) {}
 
     public update(): void {
         this.change.emit(true);

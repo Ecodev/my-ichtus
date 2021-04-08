@@ -19,8 +19,8 @@ export class RegisterComponent extends NaturalAbstractDetail<AnonymousUserServic
     constructor(
         userService: AnonymousUserService,
         injector: Injector,
-        protected bookableService: BookableService,
-        protected apollo: Apollo,
+        protected readonly bookableService: BookableService,
+        protected readonly apollo: Apollo,
     ) {
         super('user', userService, injector);
     }

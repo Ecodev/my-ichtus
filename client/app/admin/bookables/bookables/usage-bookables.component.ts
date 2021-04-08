@@ -17,7 +17,7 @@ export class UsageBookablesComponent extends NaturalAbstractList<UsageBookableSe
         usageBookableService: UsageBookableService,
         injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,
-        public permissionsService: PermissionsService,
+        public readonly permissionsService: PermissionsService,
     ) {
         super(usageBookableService, injector);
         this.naturalSearchFacets = naturalSearchFacetsService.get(

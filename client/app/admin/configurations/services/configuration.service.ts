@@ -10,7 +10,7 @@ import {configurationQuery, updateConfiguration} from './configuration.queries';
     providedIn: 'root',
 })
 export class ConfigurationService {
-    constructor(private apollo: Apollo) {}
+    constructor(private readonly apollo: Apollo) {}
 
     public get(key: string): Observable<string> {
         const resultObservable = new Subject<string>();

@@ -9,7 +9,10 @@ import {ExpenseClaimService} from './expenseClaim.service';
     providedIn: 'root',
 })
 export class ExpenseClaimResolver implements Resolve<ExpenseClaimResolve> {
-    constructor(private expenseClaimService: ExpenseClaimService, private errorService: ErrorService) {}
+    constructor(
+        private readonly expenseClaimService: ExpenseClaimService,
+        private readonly errorService: ErrorService,
+    ) {}
 
     /**
      * Resolve expenseClaim data for router

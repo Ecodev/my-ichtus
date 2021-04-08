@@ -8,7 +8,7 @@ import {UserService} from '../../admin/users/services/user.service';
     providedIn: 'root',
 })
 export class AdministrationGuard implements CanActivate {
-    constructor(private router: Router, private userService: UserService) {}
+    constructor(private readonly router: Router, private readonly userService: UserService) {}
 
     /**
      * Return if route is allowed or not considering the authenticated user.

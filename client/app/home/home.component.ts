@@ -21,10 +21,10 @@ export class HomeComponent extends NaturalAbstractController implements OnInit {
     public announcementActive = false;
 
     constructor(
-        private userService: UserService,
-        private router: Router,
-        public route: ActivatedRoute,
-        private configurationService: ConfigurationService,
+        private readonly userService: UserService,
+        private readonly router: Router,
+        public readonly route: ActivatedRoute,
+        private readonly configurationService: ConfigurationService,
         private readonly naturalSidenavStackService: NaturalSidenavStackService,
     ) {
         super();

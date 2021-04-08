@@ -11,7 +11,7 @@ export class SelectAdminOnlyModalComponent implements OnInit {
     public selection: string | Bookables_bookables_items | null = null;
     public variables = BookableService.adminByTag(BookableTagService.STORAGE);
 
-    constructor(public bookableService: BookableService) {}
+    constructor(public readonly bookableService: BookableService) {}
 
     public ngOnInit(): void {}
 }

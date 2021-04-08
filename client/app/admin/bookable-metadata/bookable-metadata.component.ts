@@ -22,7 +22,7 @@ export class BookableMetadataComponent implements OnInit {
 
     public columns: string[] = [];
 
-    constructor(private bookableMetaService: BookableMetadataService) {}
+    constructor(private readonly bookableMetaService: BookableMetadataService) {}
 
     public ngOnInit(): void {
         if (this.edit) {

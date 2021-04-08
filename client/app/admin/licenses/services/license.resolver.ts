@@ -9,7 +9,7 @@ import {LicenseResolve} from '../license';
     providedIn: 'root',
 })
 export class LicenseResolver implements Resolve<LicenseResolve> {
-    constructor(private licenseService: LicenseService, private errorService: ErrorService) {}
+    constructor(private readonly licenseService: LicenseService, private readonly errorService: ErrorService) {}
 
     /**
      * Resolve license data for router

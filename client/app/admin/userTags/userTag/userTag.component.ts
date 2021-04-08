@@ -9,7 +9,7 @@ import {UserService} from '../../users/services/user.service';
     styleUrls: ['./userTag.component.scss'],
 })
 export class UserTagComponent extends NaturalAbstractDetail<UserTagService> {
-    constructor(userTagService: UserTagService, injector: Injector, public userService: UserService) {
+    constructor(userTagService: UserTagService, injector: Injector, public readonly userService: UserService) {
         super('userTag', userTagService, injector);
     }
 }

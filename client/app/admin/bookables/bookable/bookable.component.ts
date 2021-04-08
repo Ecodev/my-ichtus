@@ -25,9 +25,9 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
     constructor(
         bookableService: BookableService,
         injector: Injector,
-        public bookableTagService: BookableTagService,
-        public licenseService: LicenseService,
-        public imageService: ImageService,
+        public readonly bookableTagService: BookableTagService,
+        public readonly licenseService: LicenseService,
+        public readonly imageService: ImageService,
     ) {
         super('bookable', bookableService, injector);
     }

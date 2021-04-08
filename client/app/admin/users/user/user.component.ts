@@ -45,12 +45,12 @@ export class UserComponent extends NaturalAbstractDetail<UserService> implements
     public ownerFilter: UserFilter = {};
 
     constructor(
-        private userService: UserService,
+        private readonly userService: UserService,
         injector: Injector,
-        public userTagService: UserTagService,
-        public licenseService: LicenseService,
-        public bookingService: BookingService,
-        public accountService: AccountService,
+        public readonly userTagService: UserTagService,
+        public readonly licenseService: LicenseService,
+        public readonly bookingService: BookingService,
+        public readonly accountService: AccountService,
     ) {
         super('user', userService, injector);
     }

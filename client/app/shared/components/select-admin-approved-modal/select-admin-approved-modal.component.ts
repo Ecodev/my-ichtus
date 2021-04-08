@@ -27,7 +27,7 @@ export class SelectAdminApprovedModalComponent implements OnInit {
     public welcomeDataSource!: NaturalDataSource<UsageBookables['bookables']>;
     public selection = new SelectionModel<UsageBookables['bookables']['items']>(true, []);
 
-    constructor(private bookableService: UsageBookableService) {}
+    constructor(private readonly bookableService: UsageBookableService) {}
 
     public ngOnInit(): void {
         this.fetch(BookableTagService.STORAGE).subscribe(res => (this.storagesDataSource = res));

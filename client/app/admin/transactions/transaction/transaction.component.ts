@@ -36,11 +36,11 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
     public viewer!: CurrentUserForProfile_viewer;
 
     constructor(
-        private transactionService: TransactionService,
+        private readonly transactionService: TransactionService,
         injector: Injector,
-        public bookableService: BookableService,
-        public transactionLineService: TransactionLineService,
-        public userService: UserService,
+        public readonly bookableService: BookableService,
+        public readonly transactionLineService: TransactionLineService,
+        public readonly userService: UserService,
     ) {
         super('transaction', transactionService, injector);
     }

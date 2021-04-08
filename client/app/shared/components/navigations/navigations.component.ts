@@ -71,11 +71,11 @@ export class NavigationsComponent extends NaturalAbstractController implements O
     private family: (CurrentUserForProfile_viewer | Users_users_items)[] = [];
 
     constructor(
-        public userService: UserService,
-        public bookingService: BookingService,
-        private alertService: NaturalAlertService,
-        private dialog: MatDialog,
-        private snackbar: MatSnackBar,
+        public readonly userService: UserService,
+        public readonly bookingService: BookingService,
+        private readonly alertService: NaturalAlertService,
+        private readonly dialog: MatDialog,
+        private readonly snackbar: MatSnackBar,
     ) {
         super();
     }

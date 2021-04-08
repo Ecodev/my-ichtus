@@ -43,12 +43,12 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
 
     constructor(
         route: ActivatedRoute,
-        private userService: UserService,
+        private readonly userService: UserService,
         injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,
-        public permissionsService: PermissionsService,
-        private apollo: Apollo,
-        private dialog: MatDialog,
+        public readonly permissionsService: PermissionsService,
+        private readonly apollo: Apollo,
+        private readonly dialog: MatDialog,
     ) {
         super(userService, injector);
         this.naturalSearchFacets = naturalSearchFacetsService.get('users');

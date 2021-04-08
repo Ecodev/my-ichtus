@@ -9,7 +9,7 @@ import {AccountService} from './account.service';
     providedIn: 'root',
 })
 export class AccountResolver implements Resolve<AccountResolve> {
-    constructor(private accountService: AccountService, private errorService: ErrorService) {}
+    constructor(private readonly accountService: AccountService, private readonly errorService: ErrorService) {}
 
     /**
      * Resolve account data for router

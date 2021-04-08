@@ -29,11 +29,11 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
     constructor(
         injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,
-        private accountService: AccountService,
-        private dialog: MatDialog,
-        public permissionsService: PermissionsService,
-        public transactionLineService: TransactionLineService,
-        public userService: UserService,
+        private readonly accountService: AccountService,
+        private readonly dialog: MatDialog,
+        public readonly permissionsService: PermissionsService,
+        public readonly transactionLineService: TransactionLineService,
+        public readonly userService: UserService,
     ) {
         super(accountService, injector);
         this.naturalSearchFacets = naturalSearchFacetsService.get('accounts');

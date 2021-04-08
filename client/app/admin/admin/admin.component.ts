@@ -17,7 +17,11 @@ export class AdminComponent extends NaturalAbstractController implements OnInit 
     public adminBookableRouteActive = false;
     public adminBookingRouteActive = false;
 
-    constructor(router: Router, public permissionsService: PermissionsService, public route: ActivatedRoute) {
+    constructor(
+        router: Router,
+        public readonly permissionsService: PermissionsService,
+        public readonly route: ActivatedRoute,
+    ) {
         super();
 
         // Update active route status

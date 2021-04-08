@@ -13,7 +13,11 @@ import {AccountingDocumentsComponent} from '../../../admin/accounting-documents/
 export class CreateExpenseClaimComponent extends NaturalAbstractDetail<ExpenseClaimService> implements OnInit {
     @ViewChild(AccountingDocumentsComponent, {static: true}) private accountingDocuments!: AccountingDocumentsComponent;
 
-    constructor(expenseClaimService: ExpenseClaimService, injector: Injector, public userService: UserService) {
+    constructor(
+        expenseClaimService: ExpenseClaimService,
+        injector: Injector,
+        public readonly userService: UserService,
+    ) {
         super('expenseClaim', expenseClaimService, injector);
     }
 

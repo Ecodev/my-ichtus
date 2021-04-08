@@ -14,7 +14,7 @@ export class ExpenseClaimsComponent extends NaturalAbstractList<ExpenseClaimServ
         expenseClaimService: ExpenseClaimService,
         injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,
-        public permissionsService: PermissionsService,
+        public readonly permissionsService: PermissionsService,
     ) {
         super(expenseClaimService, injector);
 

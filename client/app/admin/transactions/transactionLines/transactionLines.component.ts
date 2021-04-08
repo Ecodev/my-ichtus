@@ -21,10 +21,10 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
     @Input() public hideFab = false;
 
     constructor(
-        private transactionLineService: TransactionLineService,
+        private readonly transactionLineService: TransactionLineService,
         injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,
-        public permissionsService: PermissionsService,
+        public readonly permissionsService: PermissionsService,
     ) {
         super(transactionLineService, injector);
 

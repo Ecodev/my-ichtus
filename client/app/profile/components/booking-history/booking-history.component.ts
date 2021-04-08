@@ -7,7 +7,7 @@ import {ActivatedRoute} from '@angular/router';
     styleUrls: ['./booking-history.component.scss'],
 })
 export class BookingHistoryComponent implements OnInit {
-    constructor(public route: ActivatedRoute) {}
+    constructor(public readonly route: ActivatedRoute) {}
 
     public ngOnInit(): void {}
 }

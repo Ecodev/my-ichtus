@@ -9,7 +9,7 @@ import {CurrentUserForProfile} from '../../../shared/generated-types';
     providedIn: 'root',
 })
 export class ViewerResolver implements Resolve<{model: CurrentUserForProfile['viewer']}> {
-    constructor(private userService: UserService, private errorService: ErrorService) {}
+    constructor(private readonly userService: UserService, private readonly errorService: ErrorService) {}
 
     /**
      * Resolve sites for routing service only at the moment

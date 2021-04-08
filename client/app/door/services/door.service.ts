@@ -16,7 +16,7 @@ interface DoorConfig {
     providedIn: 'root',
 })
 export class DoorService {
-    constructor(private apollo: Apollo) {}
+    constructor(private readonly apollo: Apollo) {}
 
     public doors: DoorConfig[] = [
         {

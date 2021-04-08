@@ -98,7 +98,7 @@ export class BookableService extends NaturalAbstractModelService<
         filter: {groups: [{conditions: [{bookingType: {in: {values: [BookingType.admin_approved]}}}]}]},
     };
 
-    constructor(apollo: Apollo, private bookingService: BookingService) {
+    constructor(apollo: Apollo, private readonly bookingService: BookingService) {
         super(apollo, 'bookable', bookableQuery, bookablesQuery, createBookable, updateBookable, deleteBookables);
     }
 

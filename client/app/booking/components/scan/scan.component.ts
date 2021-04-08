@@ -13,10 +13,10 @@ export class ScanComponent extends NaturalAbstractController implements OnInit, 
     @ViewChild('video', {static: true}) private videoRef!: ElementRef;
 
     constructor(
-        public router: Router,
-        private route: ActivatedRoute,
-        private alertService: NaturalAlertService,
-        private qrService: QrService,
+        public readonly router: Router,
+        private readonly route: ActivatedRoute,
+        private readonly alertService: NaturalAlertService,
+        private readonly qrService: QrService,
     ) {
         super();
     }

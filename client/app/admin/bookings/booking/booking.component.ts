@@ -43,10 +43,10 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
     public newBooking: CreateBooking_createBooking | null = null;
 
     constructor(
-        public bookingService: BookingService,
+        public readonly bookingService: BookingService,
         injector: Injector,
-        public bookableService: BookableService,
-        public userService: UserService,
+        public readonly bookableService: BookableService,
+        public readonly userService: UserService,
     ) {
         super('booking', bookingService, injector);
         this.filterBookables(BookingType.admin_only);

@@ -40,7 +40,7 @@ export class TransactionService extends NaturalAbstractModelService<
     DeleteTransactions,
     DeleteTransactionsVariables
 > {
-    constructor(apollo: Apollo, private transactionLineService: TransactionLineService) {
+    constructor(apollo: Apollo, private readonly transactionLineService: TransactionLineService) {
         super(
             apollo,
             'transaction',

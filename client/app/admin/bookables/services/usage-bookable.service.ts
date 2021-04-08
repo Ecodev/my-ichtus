@@ -33,7 +33,7 @@ export class UsageBookableService extends NaturalAbstractModelService<
     DeleteBookables,
     DeleteBookablesVariables
 > {
-    constructor(apollo: Apollo, protected bookingService: BookingService) {
+    constructor(apollo: Apollo, protected readonly bookingService: BookingService) {
         super(apollo, 'bookable', bookableQuery, usageBookablesQuery, createBookable, updateBookable, deleteBookables);
     }
 

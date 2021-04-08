@@ -60,7 +60,7 @@ export class ParticleSwitchComponent implements OnInit, AfterViewInit {
         this.firstDisplay = false;
     }
 
-    constructor(private rootElement: ElementRef) {}
+    constructor(private readonly rootElement: ElementRef) {}
 
     public ngOnInit(): void {}
 

@@ -14,7 +14,7 @@ export class LicensesComponent extends NaturalAbstractList<LicenseService> imple
         licenseService: LicenseService,
         injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,
-        public permissionsService: PermissionsService,
+        public readonly permissionsService: PermissionsService,
     ) {
         super(licenseService, injector);
     }

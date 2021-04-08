@@ -18,9 +18,9 @@ export class ChangePasswordComponent {
 
     constructor(
         route: ActivatedRoute,
-        private apollo: Apollo,
-        private alertService: NaturalAlertService,
-        private router: Router,
+        private readonly apollo: Apollo,
+        private readonly alertService: NaturalAlertService,
+        private readonly router: Router,
     ) {
         this.token = route.snapshot.params.token;
         this.form = new FormGroup({});

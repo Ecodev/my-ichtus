@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 export class CodeInputComponent implements OnInit {
     public code = '';
 
-    constructor(private router: Router) {}
+    constructor(private readonly router: Router) {}
 
     public ngOnInit(): void {}
 

@@ -29,10 +29,10 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
     public applicationsColumns = ['name', 'status', 'initialPrice', 'periodicPrice', 'cancel'];
 
     constructor(
-        private userService: UserService,
-        private route: ActivatedRoute,
-        private alertService: NaturalAlertService,
-        private bookingService: BookingService,
+        private readonly userService: UserService,
+        private readonly route: ActivatedRoute,
+        private readonly alertService: NaturalAlertService,
+        private readonly bookingService: BookingService,
     ) {
         super();
     }

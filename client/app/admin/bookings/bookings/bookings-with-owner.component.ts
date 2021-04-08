@@ -14,7 +14,7 @@ export class BookingsWithOwnerComponent extends AbstractBookings<BookingWithOwne
         bookingWithOwnerService: BookingWithOwnerService,
         injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,
-        public permissionsService: PermissionsService,
+        public readonly permissionsService: PermissionsService,
     ) {
         super(bookingWithOwnerService, injector);
         this.naturalSearchFacets = naturalSearchFacetsService.get('bookings');

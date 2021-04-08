@@ -13,8 +13,8 @@ export class LicenseComponent extends NaturalAbstractDetail<LicenseService> {
     constructor(
         licenseService: LicenseService,
         injector: Injector,
-        public userService: UserService,
-        public bookableService: BookableService,
+        public readonly userService: UserService,
+        public readonly bookableService: BookableService,
     ) {
         super('license', licenseService, injector);
     }

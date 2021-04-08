@@ -13,7 +13,7 @@ export class SafetyComponent extends AbstractBookings<SafetyBookingService> {
         safetyBookingService: SafetyBookingService,
         injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,
-        public permissionsService: PermissionsService,
+        public readonly permissionsService: PermissionsService,
     ) {
         super(safetyBookingService, injector);
         this.naturalSearchFacets = naturalSearchFacetsService.get('bookings');

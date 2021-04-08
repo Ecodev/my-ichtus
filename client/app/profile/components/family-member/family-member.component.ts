@@ -20,7 +20,7 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
     @Input() public readonly = false;
     public loaded = false;
 
-    constructor(private userService: FamilyUserService, injector: Injector) {
+    constructor(private readonly userService: FamilyUserService, injector: Injector) {
         super('user', userService, injector);
     }
 

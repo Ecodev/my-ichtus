@@ -17,11 +17,11 @@ export class SelfApprovedBookingComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private router: Router,
-        private userService: UserService,
-        private bookingService: BookingService,
-        private bookableService: BookableService,
-        private alertService: NaturalAlertService,
+        private readonly router: Router,
+        private readonly userService: UserService,
+        private readonly bookingService: BookingService,
+        private readonly bookableService: BookableService,
+        private readonly alertService: NaturalAlertService,
     ) {}
 
     public ngOnInit(): void {

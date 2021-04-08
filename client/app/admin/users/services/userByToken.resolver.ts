@@ -9,7 +9,7 @@ import {UserByToken} from '../../../shared/generated-types';
     providedIn: 'root',
 })
 export class UserByTokenResolver implements Resolve<{model: UserByToken['userByToken']}> {
-    constructor(private userService: UserService, private errorService: ErrorService) {}
+    constructor(private readonly userService: UserService, private readonly errorService: ErrorService) {}
 
     /**
      * Resolve sites for routing service only at the moment

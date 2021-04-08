@@ -19,7 +19,7 @@ export class TransactionAmountComponent implements OnInit, OnChanges {
 
     public isIncome: boolean | null = null;
 
-    constructor(public transactionLineService: TransactionLineService) {}
+    constructor(public readonly transactionLineService: TransactionLineService) {}
 
     public ngOnInit(): void {}
 

@@ -21,10 +21,10 @@ export class FamilyComponent implements OnInit {
     @ViewChildren(MatExpansionPanel) private readonly expansionPanels!: QueryList<MatExpansionPanel>;
 
     constructor(
-        public userService: UserService,
-        private route: ActivatedRoute,
-        private alertService: NaturalAlertService,
-        public permissionsService: PermissionsService,
+        public readonly userService: UserService,
+        private readonly route: ActivatedRoute,
+        private readonly alertService: NaturalAlertService,
+        public readonly permissionsService: PermissionsService,
         private readonly changeDetectorRef: ChangeDetectorRef,
     ) {}
 

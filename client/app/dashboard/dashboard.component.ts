@@ -13,7 +13,11 @@ export class DashboardComponent implements OnInit {
 
     public UserService = UserService;
 
-    constructor(public userService: UserService, public bookingService: BookingService, public route: ActivatedRoute) {}
+    constructor(
+        public readonly userService: UserService,
+        public readonly bookingService: BookingService,
+        public readonly route: ActivatedRoute,
+    ) {}
 
     public ngOnInit(): void {}
 }

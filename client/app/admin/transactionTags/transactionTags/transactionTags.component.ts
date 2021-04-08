@@ -13,8 +13,8 @@ export class TransactionTagsComponent extends NaturalAbstractList<TransactionTag
     constructor(
         transactionTagService: TransactionTagService,
         injector: Injector,
-        public permissionsService: PermissionsService,
-        public transactionLineService: TransactionLineService,
+        public readonly permissionsService: PermissionsService,
+        public readonly transactionLineService: TransactionLineService,
     ) {
         super(transactionTagService, injector);
     }

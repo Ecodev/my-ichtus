@@ -38,11 +38,11 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
 
     constructor(
         private userService: UserService,
-        private route: ActivatedRoute,
-        private expenseClaimService: ExpenseClaimService,
-        private transactionLineService: TransactionLineService,
-        private alertService: NaturalAlertService,
-        private dialog: MatDialog,
+        private readonly route: ActivatedRoute,
+        private readonly expenseClaimService: ExpenseClaimService,
+        private readonly transactionLineService: TransactionLineService,
+        private readonly alertService: NaturalAlertService,
+        private readonly dialog: MatDialog,
     ) {
         super();
     }

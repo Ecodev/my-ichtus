@@ -14,7 +14,7 @@ import {BookingPartialInput, BookingStatus, CurrentUserForProfile_viewer} from '
 export class SelectAdminApprovedButtonComponent implements OnInit {
     @Input() public user!: CurrentUserForProfile_viewer;
 
-    constructor(private dialog: MatDialog, private bookingService: BookingService) {}
+    constructor(private readonly dialog: MatDialog, private readonly bookingService: BookingService) {}
 
     public ngOnInit(): void {}
 

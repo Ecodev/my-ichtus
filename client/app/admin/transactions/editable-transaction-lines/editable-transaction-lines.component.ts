@@ -38,9 +38,9 @@ export class EditableTransactionLinesComponent
     ];
 
     constructor(
-        private transactionLineService: TransactionLineService,
-        public transactionTagService: TransactionTagService,
-        public bookableService: BookableService,
+        private readonly transactionLineService: TransactionLineService,
+        public readonly transactionTagService: TransactionTagService,
+        public readonly bookableService: BookableService,
     ) {
         super(transactionLineService);
     }

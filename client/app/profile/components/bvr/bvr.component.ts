@@ -48,7 +48,7 @@ export class BvrComponent {
     private variables!: BankingInfosVariables;
     public bankingInfos: BankingInfos_bankingInfos | null = null;
 
-    constructor(private apollo: Apollo) {}
+    constructor(private readonly apollo: Apollo) {}
 
     public copyToClipboard(text: string): void {
         copyToClipboard(text);

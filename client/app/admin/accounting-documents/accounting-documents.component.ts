@@ -32,7 +32,7 @@ export class AccountingDocumentsComponent implements OnInit {
     public _removedFiles: any[] = [];
     public _disabled = false;
 
-    constructor(public accountingDocumentService: AccountingDocumentService) {}
+    constructor(public readonly accountingDocumentService: AccountingDocumentService) {}
 
     public ngOnInit(): void {
         if (this.model.accountingDocuments) {

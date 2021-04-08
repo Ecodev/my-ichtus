@@ -28,11 +28,11 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
     constructor(
         public userService: UserService,
         private alertService: NaturalAlertService,
-        private route: ActivatedRoute,
-        private router: Router,
-        public bookableService: BookableService,
-        private apollo: Apollo,
-        private dialog: MatDialog,
+        private readonly route: ActivatedRoute,
+        private readonly router: Router,
+        public readonly bookableService: BookableService,
+        private readonly apollo: Apollo,
+        private readonly dialog: MatDialog,
         configService: ConfigService,
     ) {
         super();

@@ -18,10 +18,10 @@ export class HistoryComponent extends NaturalAbstractController implements OnIni
     public transactionsColumns = ['name', 'bookable', 'transactionDate', 'remarks', 'amount'];
 
     constructor(
-        private userService: UserService,
-        private route: ActivatedRoute,
-        private expenseClaimService: ExpenseClaimService,
-        private transactionLineService: TransactionLineService,
+        private readonly userService: UserService,
+        private readonly route: ActivatedRoute,
+        private readonly expenseClaimService: ExpenseClaimService,
+        private readonly transactionLineService: TransactionLineService,
     ) {
         super();
     }

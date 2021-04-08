@@ -34,9 +34,9 @@ export class SupportComponent implements OnInit {
     public activable = false;
 
     constructor(
-        private configurationService: ConfigurationService,
-        public permissionsService: PermissionsService,
-        public route: ActivatedRoute,
+        private readonly configurationService: ConfigurationService,
+        public readonly permissionsService: PermissionsService,
+        public readonly route: ActivatedRoute,
         @Optional() @Inject(MAT_DIALOG_DATA) public data?: any,
     ) {}
 

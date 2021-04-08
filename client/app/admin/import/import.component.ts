@@ -20,11 +20,11 @@ export class ImportComponent implements OnInit {
     public error: Error | null = null;
 
     constructor(
-        private route: ActivatedRoute,
-        private router: Router,
-        public permissionsService: PermissionsService,
-        private apollo: Apollo,
-        private alertService: NaturalAlertService,
+        private readonly route: ActivatedRoute,
+        private readonly router: Router,
+        public readonly permissionsService: PermissionsService,
+        private readonly apollo: Apollo,
+        private readonly alertService: NaturalAlertService,
     ) {}
 
     public ngOnInit(): void {

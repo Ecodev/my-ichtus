@@ -9,7 +9,7 @@ import {TransactionService} from './transaction.service';
     providedIn: 'root',
 })
 export class TransactionResolver implements Resolve<TransactionResolve> {
-    constructor(private transactionService: TransactionService, private errorService: ErrorService) {}
+    constructor(private readonly transactionService: TransactionService, private readonly errorService: ErrorService) {}
 
     /**
      * Resolve transaction data for router

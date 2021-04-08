@@ -14,7 +14,7 @@ export class BookingsComponent extends AbstractBookings<BookingService> {
         bookingService: BookingService,
         injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,
-        public permissionsService: PermissionsService,
+        public readonly permissionsService: PermissionsService,
     ) {
         super(bookingService, injector);
         this.naturalSearchFacets = naturalSearchFacetsService.get('bookings');
