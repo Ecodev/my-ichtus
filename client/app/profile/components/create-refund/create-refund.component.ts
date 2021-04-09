@@ -18,7 +18,7 @@ export class CreateRefundComponent implements OnInit {
         description: ['', []],
     });
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private readonly fb: FormBuilder) {}
+    constructor(@Inject(MAT_DIALOG_DATA) public readonly data: any, private readonly fb: FormBuilder) {}
 
     public ngOnInit(): void {}
 }

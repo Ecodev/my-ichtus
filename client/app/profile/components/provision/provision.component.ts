@@ -25,7 +25,7 @@ export class ProvisionComponent {
     @ViewChild(BvrComponent)
     private bvr!: BvrComponent;
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+    constructor(@Inject(MAT_DIALOG_DATA) public readonly data: any) {
         this.bvrData = {
             user: data.user.id,
         };

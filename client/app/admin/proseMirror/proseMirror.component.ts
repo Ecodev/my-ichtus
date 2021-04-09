@@ -48,7 +48,7 @@ export class ProsemirrorComponent implements OnInit, OnDestroy, ControlValueAcce
     private content = '';
 
     constructor(
-        @Optional() @Self() public ngControl: NgControl,
+        @Optional() @Self() public readonly ngControl: NgControl,
         @Inject(DOCUMENT) private readonly document: Document,
     ) {
         if (this.ngControl !== null) {

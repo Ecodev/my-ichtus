@@ -37,7 +37,7 @@ export class SupportComponent implements OnInit {
         private readonly configurationService: ConfigurationService,
         public readonly permissionsService: PermissionsService,
         public readonly route: ActivatedRoute,
-        @Optional() @Inject(MAT_DIALOG_DATA) public data?: any,
+        @Optional() @Inject(MAT_DIALOG_DATA) public readonly data?: any,
     ) {}
 
     public ngOnInit(): void {
