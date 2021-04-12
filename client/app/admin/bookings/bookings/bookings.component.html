@@ -189,7 +189,7 @@
                             *ngIf="!element.endDate"
                             mat-flat-button
                             color="warn"
-                            (click)="service.terminateBooking(element.id)"
+                            (click)="maybeTerminateBooking(element.id)"
                         >
                             Terminer
                         </button>

@@ -1,8 +1,8 @@
 import {Apollo, gql} from 'apollo-angular';
 import {Injectable} from '@angular/core';
-import {BookingService} from '../admin/bookings/services/booking.service';
 import {bookableMetaFragment} from '../admin/bookables/services/bookable.queries';
-import {NaturalEnumService} from '@ecodev/natural';
+import {NaturalAbstractModelService} from '@ecodev/natural';
+import {SafetyBookings_bookings, SafetyBookingsVariables} from '../shared/generated-types';
 
 const safetyBookings = gql`
     query SafetyBookings($filter: BookingFilter, $sorting: [BookingSorting!], $pagination: PaginationInput) {
@@ -42,9 +42,19 @@ const safetyBookings = gql`
 @Injectable({
     providedIn: 'root',
 })
-export class SafetyBookingService extends BookingService {
-    constructor(apollo: Apollo, enumService: NaturalEnumService) {
-        super(apollo, enumService);
-        this.allQuery = safetyBookings;
+export class SafetyBookingService extends NaturalAbstractModelService<
+    never,
+    never,
+    SafetyBookings_bookings,
+    SafetyBookingsVariables,
+    never,
+    never,
+    never,
+    never,
+    never,
+    never
+> {
+    constructor(apollo: Apollo) {
+        super(apollo, 'booking', null, safetyBookings, null, null, null);
     }
 }

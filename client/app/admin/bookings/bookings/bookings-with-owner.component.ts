@@ -19,14 +19,4 @@ export class BookingsWithOwnerComponent extends AbstractBookings<BookingWithOwne
         super(bookingWithOwnerService, injector);
         this.naturalSearchFacets = naturalSearchFacetsService.get('bookings');
     }
-
-    @Input() public availableColumns?: string[];
-
-    public columnIsAvailable(column: string): boolean {
-        if (this.availableColumns === undefined) {
-            return true;
-        }
-
-        return this.availableColumns.includes(column);
-    }
 }

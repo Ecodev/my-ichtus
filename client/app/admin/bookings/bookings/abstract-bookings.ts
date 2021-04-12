@@ -1,27 +1,13 @@
-import {Directive, Injectable, Input} from '@angular/core';
-import {
-    LinkableObject,
-    Literal,
-    NaturalAbstractList,
-    NaturalAbstractModelService,
-    VariablesWithInput,
-} from '@ecodev/natural';
+import {Directive, Input} from '@angular/core';
+import {NaturalAbstractList} from '@ecodev/natural';
+import {BookingService} from '../services/booking.service';
+import {BookingWithOwnerService} from '../services/booking-with-owner.service';
+import {SafetyBookingService} from '../../../safety/safety-booking.service';
 
 @Directive()
 // tslint:disable-next-line:directive-class-suffix
 export abstract class AbstractBookings<
-    TService extends NaturalAbstractModelService<
-        any,
-        {id: string},
-        any,
-        any,
-        LinkableObject,
-        VariablesWithInput,
-        any,
-        {id: string; input: Literal},
-        any,
-        {ids: string[]}
-    >
+    TService extends BookingService | BookingWithOwnerService | SafetyBookingService
 > extends NaturalAbstractList<TService> {
     @Input() public availableColumns?: string[];
 
@@ -39,5 +25,13 @@ export abstract class AbstractBookings<
             this.availableColumns = this.route.snapshot.data.availableColumns;
         }
         super.initFromRoute();
+    }
+
+    public maybeTerminateBooking(id: string): void {
+        if (!(this.service instanceof BookingService)) {
+            throw new Error('Cannot terminate a booking with this service');
+        }
+
+        this.service.terminateBooking(id);
     }
 }
