@@ -20,7 +20,6 @@ use Mezzio\Template\TemplateRendererInterface;
 use Money\Money;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 use Throwable;
 
 class DatatransHandler extends AbstractHandler
@@ -75,6 +74,7 @@ class DatatransHandler extends AbstractHandler
 
             $message = $this->dispatch($status, $body);
         } catch (Throwable $exception) {
+            /** @phpstan-ignore-next-line */
             $message = $this->createMessage('error', $exception->getMessage(), is_array($body) ? $body : []);
         }
 
