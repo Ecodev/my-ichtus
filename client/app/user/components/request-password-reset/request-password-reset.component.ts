@@ -30,14 +30,14 @@ export class RequestPasswordResetComponent {
             this.sending = true;
 
             this.userService.requestPasswordReset(this.form.value.login).subscribe(
-                relationship => {
+                sentToFamilyOwner => {
                     this.sending = false;
 
                     let message;
-                    if (relationship === Relationship.householder) {
-                        message = 'Un email avec des instructions a été envoyé';
-                    } else {
+                    if (sentToFamilyOwner) {
                         message = 'Un email avec des instructions a été envoyé au chef(e) de famille';
+                    } else {
+                        message = 'Un email avec des instructions a été envoyé';
                     }
 
                     this.alertService.info(message, 5000);

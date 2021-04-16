@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use Application\DBAL\Types\RelationshipType;
-
 return [
     [
         'query' => 'mutation {
@@ -12,7 +10,7 @@ return [
     ],
     [
         'data' => [
-            'requestPasswordReset' => RelationshipType::CHILD,
+            'requestPasswordReset' => true,
         ],
     ],
 ];

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Application\Api\Field\Mutation;
 
-use Application\DBAL\Types\RelationshipType;
 use Application\Model\Log;
 use Application\Model\User;
 use Application\Repository\LogRepository;
@@ -23,12 +22,12 @@ abstract class RequestPasswordReset implements FieldInterface
     {
         return [
             'name' => 'requestPasswordReset',
-            'type' => Type::nonNull(_types()->get('Relationship')),
-            'description' => 'Request to send an email to reset the password for the given user. It will **always** return a successful response, even if the user is not found.',
+            'type' => Type::nonNull(Type::boolean()),
+            'description' => 'Request to send an email to reset the password for the given user. It will **always** return a successful response, even if the user is not found. Returns `true` if the email was sent to the family owner.',
             'args' => [
                 'login' => Type::nonNull(_types()->get(LoginType::class)),
             ],
-            'resolve' => function ($root, array $args, SessionInterface $session): string {
+            'resolve' => function ($root, array $args, SessionInterface $session): bool {
                 global $container;
 
                 _log()->info(LogRepository::REQUEST_PASSWORD_RESET);
@@ -50,28 +49,17 @@ abstract class RequestPasswordReset implements FieldInterface
 
                 /** @var null|User $user */
                 $user = $repository->getOneByLogin($args['login']);
-                $relationship = RelationshipType::HOUSEHOLDER;
 
                 if ($user) {
-                    $email = $user->getEmail();
-
-                    // Fallback to householder if any
-                    if (!$email && $user->getOwner()) {
-                        $email = $repository->getAclFilter()->runWithoutAcl(function () use ($user) {
-                            return $user->getOwner()->getEmail();
-                        });
-
-                        $relationship = $user->getFamilyRelationship();
-                    }
-
-                    if ($email) {
-                        $message = $messageQueuer->queueResetPassword($user, $email);
+                    $message = $messageQueuer->queueResetPassword($user);
+                    if ($message) {
                         $mailer->sendMessageAsync($message);
                     }
+
+                    return $messageQueuer->wasToFamilyOwner();
                 }
 
-                // Here we lie to client, and always say we are successful, to avoid data leak
-                return $relationship;
+                return false;
             },
         ];
     }

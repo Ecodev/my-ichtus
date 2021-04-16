@@ -17,7 +17,7 @@ use Money\Money;
 
 class MessageQueuerTest extends \PHPUnit\Framework\TestCase
 {
-    private function createMockMessageQueuer(): MessageQueuer
+    private function createMessageQueuer(): MessageQueuer
     {
         global $container;
 
@@ -36,7 +36,7 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
     public function testQueueRegister(): void
     {
         $user = $this->createMockUserMinimal();
-        $messageQueuer = $this->createMockMessageQueuer();
+        $messageQueuer = $this->createMessageQueuer();
         $message = $messageQueuer->queueRegister($user);
 
         $this->assertMessage($message, $user, 'minimal@example.com', MessageTypeType::REGISTER, 'Demande de création de compte au Club Nautique Ichtus');
@@ -46,19 +46,21 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
     {
         $unregisteredUser = $this->createMockUser();
         $admin = $this->createMockUserAdmin();
-        $messageQueuer = $this->createMockMessageQueuer();
+        $messageQueuer = $this->createMessageQueuer();
         $message = $messageQueuer->queueUnregister($admin, $unregisteredUser);
 
         $this->assertMessage($message, $admin, 'administrator@example.com', MessageTypeType::UNREGISTER, 'Démission');
     }
 
-    public function testQueueResetPassword(): void
+    /**
+     * @dataProvider userProvider
+     */
+    public function testQueueResetPassword(User $user, ?string $expectedEmail): void
     {
-        $user = $this->createMockUser();
-        $messageQueuer = $this->createMockMessageQueuer();
-        $message = $messageQueuer->queueResetPassword($user, 'householder@example.com');
+        $messageQueuer = $this->createMessageQueuer();
+        $message = $messageQueuer->queueResetPassword($user);
 
-        $this->assertMessage($message, $user, 'householder@example.com', MessageTypeType::RESET_PASSWORD, 'Demande de modification de mot de passe');
+        $this->assertMessage($message, $user, $expectedEmail, MessageTypeType::RESET_PASSWORD, 'Demande de modification de mot de passe');
     }
 
     public function testQueueBalancePositive(): void
@@ -93,7 +95,7 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
         $account->setBalance(Money::CHF($variant === 'positive' ? 2500 : -4500));
         $account->setOwner($user);
 
-        $messageQueuer = $this->createMockMessageQueuer();
+        $messageQueuer = $this->createMessageQueuer();
         $message = $messageQueuer->queueBalance($user, $bookables);
 
         $this->assertMessage($message, $user, 'john.doe@example.com', MessageTypeType::BALANCE, 'Balance de compte', $variant);
@@ -101,7 +103,7 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
 
     public function testQueueAllBalance(): void
     {
-        $messageQueuer = $this->createMockMessageQueuer();
+        $messageQueuer = $this->createMessageQueuer();
         $actual = $messageQueuer->queueAllBalance();
 
         self::assertsame(2, $actual);
@@ -109,13 +111,28 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
 
     public function testQueueNegativeBalance(): void
     {
-        $messageQueuer = $this->createMockMessageQueuer();
+        $messageQueuer = $this->createMessageQueuer();
         $actual = $messageQueuer->queueNegativeBalance();
 
         self::assertsame(0, $actual);
     }
 
-    private function createMockUser(): User
+    public function userProvider(): array
+    {
+        $userWithEmail = $this->createMockUser();
+        $userWithFamilyOwner = $this->createMockUserWithFamilyOwner(true);
+        $userWithFamilyOwnerWithoutEmail = $this->createMockUserWithFamilyOwner(false);
+        $userWithoutEmail = $this->createMockUserWithoutEmail();
+
+        return [
+            'user with email' => [$userWithEmail, 'john.doe@example.com'],
+            'user without email' => [$userWithoutEmail, null],
+            'user without email but with family owner with email' => [$userWithFamilyOwner, 'family-owner@example.com'],
+            'user without email but with family owner without email' => [$userWithFamilyOwnerWithoutEmail, null],
+        ];
+    }
+
+    private function createMockUser(?User $owner = null): User
     {
         $user = $this->createMock(User::class);
 
@@ -141,11 +158,40 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
 
         $user->expects(self::any())
             ->method('getEmail')
-            ->willReturn('john.doe@example.com');
+            ->willReturn($owner ? null : 'john.doe@example.com');
 
         $user->expects(self::any())
             ->method('createToken')
             ->willReturn(str_repeat('X', 32));
+
+        $user->expects(self::any())
+            ->method('getOwner')
+            ->willReturn($owner);
+
+        return $user;
+    }
+
+    private function createMockUserWithFamilyOwner(bool $hasEmail): User
+    {
+        $owner = $this->createMock(User::class);
+
+        $owner->expects(self::any())
+            ->method('getFirstName')
+            ->willReturn('Family');
+
+        $owner->expects(self::any())
+            ->method('getLastName')
+            ->willReturn('Owner');
+
+        $owner->expects(self::any())
+            ->method('getName')
+            ->willReturn('Family Owner');
+
+        $owner->expects(self::any())
+            ->method('getEmail')
+            ->willReturn($hasEmail ? 'family-owner@example.com' : null);
+
+        $user = $this->createMockUser($owner);
 
         return $user;
     }
@@ -186,8 +232,21 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
         return $user;
     }
 
-    private function assertMessage(Message $message, ?User $user, string $email, string $type, string $subject, ?string $variant = null): void
+    private function createMockUserWithoutEmail(): User
     {
+        $user = $this->createMock(User::class);
+
+        return $user;
+    }
+
+    private function assertMessage(?Message $message, ?User $user, ?string $email, string $type, string $subject, ?string $variant = null): void
+    {
+        if (!$email) {
+            self::assertNull($message);
+
+            return;
+        }
+
         self::assertSame($type, $message->getType());
         self::assertSame($email, $message->getEmail());
         self::assertSame($user, $message->getRecipient());

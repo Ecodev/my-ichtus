@@ -66,13 +66,15 @@ abstract class Register implements FieldInterface
 
                 if ($existingUser && $user->getLogin()) {
                     _log()->info(LogRepository::REQUEST_PASSWORD_RESET);
-                    $message = $messageQueuer->queueResetPassword($user, $user->getEmail());
+                    $message = $messageQueuer->queueResetPassword($user);
                 } else {
                     _log()->info(LogRepository::REGISTER);
                     $message = $messageQueuer->queueRegister($user);
                 }
 
-                $mailer->sendMessageAsync($message);
+                if ($message) {
+                    $mailer->sendMessageAsync($message);
+                }
 
                 return true;
             },
