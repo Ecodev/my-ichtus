@@ -6,7 +6,7 @@ return [
     'doctrine' => [
         'connection' => [
             'orm_default' => [
-                'driverClass' => Doctrine\DBAL\Driver\PDOMySql\Driver::class,
+                'driverClass' => Doctrine\DBAL\Driver\PDO\MySQL\Driver::class,
                 'params' => [
                     'host' => 'localhost',
                     'dbname' => 'ichtus',

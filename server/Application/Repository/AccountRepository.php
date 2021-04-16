@@ -108,7 +108,7 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
             // Find the max account code, using the liability parent code as prefix
             if (!$this->maxCode) {
                 $maxQuery = 'SELECT MAX(code) FROM account WHERE code LIKE ' . $this->getEntityManager()->getConnection()->quote($parent->getCode() . '%');
-                $this->maxCode = (int) $this->getEntityManager()->getConnection()->fetchColumn($maxQuery);
+                $this->maxCode = (int) $this->getEntityManager()->getConnection()->fetchOne($maxQuery);
 
                 // If there is no child account yet, reserve enough digits for many users
                 if ($this->maxCode === $parent->getCode()) {
@@ -141,7 +141,7 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
 
         $result = $qb->execute();
 
-        return Money::CHF($result->fetchColumn());
+        return Money::CHF($result->fetchOne());
     }
 
     /**
@@ -172,7 +172,7 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
             ->select('IFNULL(MAX(a.code) + 1, 1)')
             ->from('account', 'a');
 
-        return (int) $qb->execute()->fetchColumn();
+        return (int) $qb->execute()->fetchOne();
     }
 
     public function getRootAccountsQuery(): Query
@@ -196,7 +196,7 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
                 AND account.id NOT IN (SELECT debit_id FROM transaction_line WHERE debit_id IS NOT NULL) 
             STRING;
 
-        $count = $this->getEntityManager()->getConnection()->executeUpdate($sql);
+        $count = $this->getEntityManager()->getConnection()->executeStatement($sql);
 
         return $count;
     }

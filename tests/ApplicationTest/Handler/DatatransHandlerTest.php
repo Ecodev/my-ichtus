@@ -49,7 +49,7 @@ class DatatransHandlerTest extends TestCase
         $handler->handle($request);
 
         if (is_int($accountId)) {
-            $actualBalance = $this->getEntityManager()->getConnection()->fetchColumn('SELECT balance FROM account WHERE id = ' . $accountId);
+            $actualBalance = $this->getEntityManager()->getConnection()->fetchOne('SELECT balance FROM account WHERE id = ' . $accountId);
             self::assertSame($expectedAmount->getAmount(), $actualBalance);
         }
 

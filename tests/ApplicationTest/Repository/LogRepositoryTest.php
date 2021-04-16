@@ -26,7 +26,7 @@ class LogRepositoryTest extends AbstractRepositoryTest
 
     public function testLoginFailedOften(): void
     {
-        $this->getEntityManager()->getConnection()->exec('DELETE FROM log');
+        $this->getEntityManager()->getConnection()->executeStatement('DELETE FROM log');
         _log()->info(LogRepository::LOGIN_FAILED);
 
         $result = $this->repository->loginFailedOften();
@@ -42,7 +42,7 @@ class LogRepositoryTest extends AbstractRepositoryTest
 
     public function testUpdatePasswordFailedOften(): void
     {
-        $this->getEntityManager()->getConnection()->exec('DELETE FROM log');
+        $this->getEntityManager()->getConnection()->executeStatement('DELETE FROM log');
         _log()->info(LogRepository::UPDATE_PASSWORD_FAILED);
 
         $result = $this->repository->updatePasswordFailedOften();

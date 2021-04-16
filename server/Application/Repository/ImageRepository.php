@@ -36,7 +36,7 @@ class ImageRepository extends AbstractRepository
             ->addSelect('height')
             ->addSelect('CONCAT("data/images/", filename) AS filename')
             ->where('filename != ""')
-            ->orderBy('filename')->execute()->fetchAll();
+            ->orderBy('filename')->execute()->fetchAllAssociative();
 
         return $filenames;
     }

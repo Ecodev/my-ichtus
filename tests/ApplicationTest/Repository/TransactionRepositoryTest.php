@@ -20,10 +20,7 @@ class TransactionRepositoryTest extends AbstractRepositoryTest
 {
     use LimitedAccessSubQuery;
 
-    /**
-     * @var TransactionRepository
-     */
-    private $repository;
+    private TransactionRepository $repository;
 
     protected function setUp(): void
     {

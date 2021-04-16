@@ -79,7 +79,7 @@ class TransactionLineRepository extends AbstractRepository implements LimitedAcc
 
         $result = $qb->execute();
 
-        return Money::CHF((int) $result->fetchColumn());
+        return Money::CHF((int) $result->fetchOne());
     }
 
     public function importedIdExists(string $importedId): bool
