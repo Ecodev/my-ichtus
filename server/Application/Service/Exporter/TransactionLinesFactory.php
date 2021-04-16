@@ -8,7 +8,7 @@ use Interop\Container\ContainerInterface;
 
 class TransactionLinesFactory
 {
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): TransactionLines
     {
         $config = $container->get('config');
 

@@ -8,7 +8,7 @@ use Interop\Container\ContainerInterface;
 
 class AccountingReportFactory
 {
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): AccountingReport
     {
         $config = $container->get('config');
 

@@ -10,7 +10,7 @@ use Interop\Container\ContainerInterface;
 
 class AuthenticationFactory
 {
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): AuthenticationMiddleware
     {
         $entityManager = $container->get(EntityManager::class);
 

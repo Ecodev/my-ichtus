@@ -88,7 +88,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      * Set currently logged in user
      * WARNING: this method should only be called from \Application\Authentication\AuthenticationListener
      *
-     * @param \Application\Model\User $user
+     * @param User $user
      */
     public static function setCurrent(?self $user): void
     {
@@ -309,10 +309,8 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Set first name
-     *
-     * @param string $firstName
      */
-    public function setFirstName($firstName): void
+    public function setFirstName(string $firstName): void
     {
         $this->firstName = $firstName;
     }
@@ -322,15 +320,13 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      */
     public function getFirstName(): string
     {
-        return (string) $this->firstName;
+        return $this->firstName;
     }
 
     /**
      * Set last name
-     *
-     * @param string $lastName
      */
-    public function setLastName($lastName): void
+    public function setLastName(string $lastName): void
     {
         $this->lastName = $lastName;
     }
@@ -340,7 +336,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      */
     public function getLastName(): string
     {
-        return (string) $this->lastName;
+        return $this->lastName;
     }
 
     /**

@@ -83,13 +83,13 @@ class AccountingReport extends AbstractExcel
         $this->column = 1;
         $this->sheet->mergeCellsByColumnAndRow($this->column, $this->row, $this->column + 6, $this->row);
         $this->write(
-            sprintf('Bilan'),
+            'Bilan',
             self::$titleFormat, self::$centerFormat
         );
         $this->column = 9;
         $this->sheet->mergeCellsByColumnAndRow($this->column, $this->row, $this->column + 6, $this->row);
         $this->write(
-            sprintf('Résultat'),
+            'Résultat',
             self::$titleFormat, self::$centerFormat
         );
 
@@ -132,11 +132,11 @@ class AccountingReport extends AbstractExcel
     }
 
     /**
-     * @param Account[] $accounts
+     * @param Account[] $items
      */
-    protected function writeData(array $accounts): void
+    protected function writeData(array $items): void
     {
-        $this->processAccounts($accounts, 1);
+        $this->processAccounts($items, 1);
 
         $this->sheet->setShowGridlines(false);
 

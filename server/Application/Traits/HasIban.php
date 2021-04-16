@@ -38,6 +38,6 @@ trait HasIban
      */
     public function getIban(): string
     {
-        return (string) $this->iban;
+        return $this->iban;
     }
 }

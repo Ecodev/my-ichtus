@@ -12,7 +12,7 @@ use Interop\Container\ContainerInterface;
 
 class ImageFactory
 {
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): ImageHandler
     {
         $entityManager = $container->get(EntityManager::class);
         $imageService = $container->get(ImageResizer::class);

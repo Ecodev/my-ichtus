@@ -11,7 +11,7 @@ use Interop\Container\ContainerInterface;
 
 class GraphQLFactory
 {
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): GraphQLHandler
     {
         $server = new Server(new Schema(), true);
 

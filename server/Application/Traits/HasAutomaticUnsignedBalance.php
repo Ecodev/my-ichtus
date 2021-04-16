@@ -9,11 +9,9 @@ use Money\Money;
 trait HasAutomaticUnsignedBalance
 {
     /**
-     * @var Money
-     *
      * @ORM\Column(type="Money", options={"default" = 0, "unsigned" = true})
      */
-    private $balance;
+    private Money $balance;
 
     /**
      * Get total balance

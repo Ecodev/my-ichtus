@@ -10,7 +10,7 @@ use Interop\Container\ContainerInterface;
 
 class AccountingDocumentFactory
 {
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): AccountingDocumentHandler
     {
         $entityManager = $container->get(EntityManager::class);
 

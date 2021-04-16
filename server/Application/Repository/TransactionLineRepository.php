@@ -44,14 +44,10 @@ class TransactionLineRepository extends AbstractRepository implements LimitedAcc
     /**
      * Compute the total balance by credit or debit account and date range
      *
-     * @param null|Account $debitAccount
-     * @param null|Account $creditAccount
      * @param null|Date $dateStart the lines from this date, included
      * @param null|Date $dateEnd the line until this date, included
-     *
-     * @return Money
      */
-    public function totalBalance($debitAccount, $creditAccount, $dateStart = null, $dateEnd = null)
+    public function totalBalance(?Account $debitAccount, ?Account $creditAccount, ?Date $dateStart = null, ?Date $dateEnd = null): Money
     {
         if ($debitAccount === null && $creditAccount === null) {
             throw new Exception('At least one debit or credit account is needed to compute the total balance');
