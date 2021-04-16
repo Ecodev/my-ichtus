@@ -45,7 +45,7 @@ class MessageQueuer
         return $message;
     }
 
-    public function queueUnregister(User $admin, User $unregisteredUser): Message
+    public function queueUnregister(User $admin, User $unregisteredUser): ?Message
     {
         $subject = 'Démission';
         $mailParams = [
@@ -77,7 +77,7 @@ class MessageQueuer
     /**
      * @param Bookable[] $bookables
      */
-    public function queueBalance(User $user, iterable $bookables): Message
+    public function queueBalance(User $user, iterable $bookables): ?Message
     {
         $subject = 'Balance de compte';
         $mailParams = [

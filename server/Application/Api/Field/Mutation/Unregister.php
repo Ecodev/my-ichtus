@@ -58,7 +58,9 @@ abstract class Unregister implements FieldInterface
                 $admins = $repository->getAllAdministratorsToNotify();
                 foreach ($admins as $admin) {
                     $message = $messageQueuer->queueUnregister($admin, $user);
-                    $mailer->sendMessageAsync($message);
+                    if ($message) {
+                        $mailer->sendMessageAsync($message);
+                    }
                 }
 
                 return true;
