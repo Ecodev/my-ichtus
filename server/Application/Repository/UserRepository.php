@@ -170,7 +170,7 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
 
     public function exists(string $login, ?int $excludedId): bool
     {
-        if (!$excludedId) {
+        if (null === $excludedId) {
             $excludedId = -1;
         }
 
@@ -180,7 +180,7 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
             'excludedId' => $excludedId,
         ];
 
-        $result = $this->getEntityManager()->getConnection()->executeQuery($sql, $params)->fetchColumn();
+        $result = $this->getEntityManager()->getConnection()->executeQuery($sql, $params)->fetchOne();
 
         return (bool) $result;
     }
