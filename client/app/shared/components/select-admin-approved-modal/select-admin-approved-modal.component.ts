@@ -52,4 +52,8 @@ export class SelectAdminApprovedModalComponent implements OnInit {
             bookable.sharedBookings.length >= bookable.simultaneousBookingMaximum
         );
     }
+
+    public isFull(show: boolean, bookable: UsageBookables_bookables_items): boolean {
+        return show && this.isFullyBooked(bookable);
+    }
 }

@@ -15,10 +15,8 @@
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef>Nom</th>
                     <td mat-cell *matCellDef="let bookable">
-                        <span [ngClass]="{inactive: showFullyBooked && isFullyBooked(bookable)}">{{
-                            bookable.name
-                        }}</span>
-                        <span *ngIf="showFullyBooked && isFullyBooked(bookable)" style="color: red"> [COMPLET]</span>
+                        <span [ngClass]="{inactive: isFull(showFullyBooked, bookable)}">{{ bookable.name }}</span>
+                        <span *ngIf="isFull(showFullyBooked, bookable)" style="color: red"> [COMPLET]</span>
                     </td>
                 </ng-container>
 
@@ -46,6 +44,7 @@
                             (click)="$event.stopPropagation()"
                             (change)="$event ? selection.toggle(bookable) : null"
                             [checked]="selection.isSelected(bookable)"
+                            [disabled]="isFull(showFullyBooked, bookable)"
                         ></mat-checkbox>
                     </td>
                 </ng-container>
