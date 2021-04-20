@@ -98,16 +98,7 @@ const routes: Routes = [
                     seo: {
                         title: 'Réservations',
                     } as NaturalSeo,
-                    initialColumns: [
-                        'edit',
-                        'owner',
-                        'bookable',
-                        'startDate',
-                        'endDate',
-                        'participantCount',
-                        'endComment',
-                        'terminateBooking',
-                    ],
+                    initialColumns: ['edit', 'owner', 'bookable', 'startDate', 'endDate', 'endComment'],
                     availableColumns: [
                         'edit',
                         'owner',
@@ -251,6 +242,14 @@ const routes: Routes = [
                     seo: {
                         title: 'Réservables',
                     } as NaturalSeo,
+                    initialColumns: [
+                        'name',
+                        'code',
+                        'purchasePrice',
+                        'initialPrice',
+                        'periodicPrice',
+                        'latestModification',
+                    ],
                 },
             },
             {
