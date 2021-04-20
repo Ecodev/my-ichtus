@@ -60,6 +60,8 @@ import {
     UserByToken,
     UserByTokenVariables,
     UserInput,
+    UserLoginAvailable,
+    UserLoginAvailableVariables,
     UserPartialInput,
     UserRole,
     UserRolesAvailables,
@@ -348,6 +350,26 @@ export class UserService
         // Broadcast viewer to other browser tabs
         this.storage.setItem(this.storageKey, viewer.id);
     }
+
+    public loginAvailable(login: string, excludedId: string | null): Observable<boolean> {
+        const query = gql`
+            query UserLoginAvailable($login: String!, $excluded: UserID) {
+                userLoginAvailable(login: $login, excluded: $excluded)
+            }
+        `;
+
+        return this.apollo
+            .query<UserLoginAvailable, UserLoginAvailableVariables>({
+                query: query,
+                variables: {
+                    login: login,
+                    excluded: excludedId,
+                },
+                fetchPolicy: 'network-only',
+            })
+            .pipe(map(result => result.data.userLoginAvailable));
+    }
+
     public flagWelcomeSessionDate(id: string, value = new Date().toISOString()): Observable<UpdateUser_updateUser> {
         const user: UserPartialInput = {welcomeSessionDate: value};
         return this.updatePartially({id: id, ...user});

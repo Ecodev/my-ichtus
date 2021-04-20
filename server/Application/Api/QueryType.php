@@ -9,6 +9,7 @@ use Application\Api\Field\Query\Configuration;
 use Application\Api\Field\Query\NextAccountCode;
 use Application\Api\Field\Query\Permissions;
 use Application\Api\Field\Query\UserByToken;
+use Application\Api\Field\Query\UserLoginAvailable;
 use Application\Api\Field\Query\UserRolesAvailable;
 use Application\Api\Field\Query\Viewer;
 use Application\Api\Field\Standard;
@@ -40,6 +41,7 @@ class QueryType extends ObjectType
             UserByToken::build(),
             Permissions::build(),
             BankingInfos::build(),
+            UserLoginAvailable::build(),
             NextAccountCode::build(),
             Configuration::build(),
             UserRolesAvailable::build(),

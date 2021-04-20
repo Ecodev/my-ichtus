@@ -168,6 +168,23 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
         return $qb->getQuery()->getResult();
     }
 
+    public function exists(string $login, ?int $excludedId): bool
+    {
+        if (!$excludedId) {
+            $excludedId = -1;
+        }
+
+        $sql = 'SELECT 1 FROM user WHERE login = :login AND id != :excludedId LIMIT 1';
+        $params = [
+            'login' => $login,
+            'excludedId' => $excludedId,
+        ];
+
+        $result = $this->getEntityManager()->getConnection()->executeQuery($sql, $params)->fetchColumn();
+
+        return (bool) $result;
+    }
+
     /**
      * Delete unconfirmed registrations older than a few days (user + account)
      *

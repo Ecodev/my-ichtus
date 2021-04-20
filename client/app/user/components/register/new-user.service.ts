@@ -2,6 +2,7 @@ import {Apollo} from 'apollo-angular';
 import {Inject, Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Validators} from '@angular/forms';
+import {available} from '../../../shared/validators';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {
@@ -58,7 +59,7 @@ export class NewUserService extends AnonymousUserService {
 
     public getFormAsyncValidators(model: User_user): FormAsyncValidators {
         return {
-            login: [unique('login', model.id, this)],
+            login: [available(this.loginAvailable.bind(this), model.id)],
         };
     }
 }
