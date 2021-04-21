@@ -8,6 +8,7 @@
         <div fxLayout="row" fxLayoutGap="20px">
             <button
                 *ngIf="data.model.id && !form.get('endDate')?.value"
+                [disabled]="!data.model.permissions.update"
                 mat-flat-button
                 color="warn"
                 (click)="endBooking()"

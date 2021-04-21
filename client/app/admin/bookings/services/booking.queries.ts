@@ -178,6 +178,10 @@ export const updateBooking = gql`
             updater {
                 ...UserMeta
             }
+            permissions {
+                update
+                delete
+            }
         }
     }
     ${userMetaFragment}
