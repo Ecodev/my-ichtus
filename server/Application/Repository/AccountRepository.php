@@ -146,21 +146,12 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
 
     /**
      * Update accounts' balance
-     *
-     * @param null|Account $account the account to update, or null for all accounts
      */
-    public function updateAccountBalance(?Account $account = null): void
+    public function updateAccountsBalance(): void
     {
         $connection = $this->getEntityManager()->getConnection();
-        $sql = 'CALL update_account_balance(?)';
-
-        if ($account) {
-            $connection->executeQuery($sql, [$account->getId()]);
-        } else {
-            foreach ($this->findAll() as $a) {
-                $connection->executeQuery($sql, [$a->getId()]);
-            }
-        }
+        $sql = 'CALL update_accounts_balance()';
+        $connection->executeQuery($sql);
     }
 
     /**

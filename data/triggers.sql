@@ -11,28 +11,43 @@
 
 DELIMITER ~~
 
-DROP PROCEDURE IF EXISTS update_account_balance;
+DROP PROCEDURE IF EXISTS update_accounts_balance;
 
-CREATE PROCEDURE update_account_balance (IN account_id INT)
+CREATE PROCEDURE update_accounts_balance ()
 BEGIN
-    DECLARE debit INT DEFAULT 0;
-    DECLARE credit INT DEFAULT 0;
+    -- Update non-group accounts from their transactions
+    DECLARE debit INT;
+    DECLARE credit INT;
+    DECLARE done BOOLEAN DEFAULT FALSE;
+    DECLARE account_id BIGINT UNSIGNED;
+    DECLARE cur CURSOR FOR
+        SELECT id
+        FROM account
+        WHERE type != 'group';
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done := TRUE;
+    OPEN cur;
+    updateLoop: LOOP
+        FETCH cur INTO account_id;
+        IF done THEN
+            LEAVE updateLoop;
+        END IF;
 
-    SELECT IFNULL(SUM(balance), 0) INTO debit FROM transaction_line AS tl WHERE tl.debit_id = account_id;
-    SELECT IFNULL(SUM(balance), 0) INTO credit FROM transaction_line AS tl WHERE tl.credit_id = account_id;
+        SELECT IFNULL(SUM(balance), 0) INTO debit FROM transaction_line AS tl WHERE tl.debit_id = account_id;
+        SELECT IFNULL(SUM(balance), 0) INTO credit FROM transaction_line AS tl WHERE tl.credit_id = account_id;
 
-    -- Update the specific account
-    UPDATE account
-    SET balance = IF(
-            account.type IN ('liability', 'equity', 'revenue'),
-            credit - debit,
-            IF(
-                    account.type IN ('asset', 'expense'),
-                    debit - credit,
-                    account.balance
-                )
-        )
-    WHERE account.id = account_id;
+        UPDATE account
+        SET balance = IF(
+                    account.type IN ('liability', 'equity', 'revenue'),
+                    credit - debit,
+                    IF(
+                                account.type IN ('asset', 'expense'),
+                                debit - credit,
+                                account.balance
+                        )
+            )
+        WHERE account.id = account_id;
+    END LOOP;
+    CLOSE cur;
 
     -- Non group accounts always have a total balance equals to balance
     UPDATE account SET total_balance = balance WHERE type != 'group';

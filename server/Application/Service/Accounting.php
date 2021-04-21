@@ -59,7 +59,7 @@ class Accounting
     public function check(): bool
     {
         // Update all accounts' balance from transactions
-        $this->accountRepository->updateAccountBalance();
+        $this->accountRepository->updateAccountsBalance();
 
         $this->checkAccounts();
         $this->checkTransactionsAreBalanced();
@@ -249,12 +249,27 @@ Capital   : ' . Format::money($equity) . '
 
     private function checkTransactionsAreBalanced(): void
     {
-        foreach (_em()->getRepository(Transaction::class)->findAll() as $transaction) {
-            try {
-                $transaction->checkBalance();
-            } catch (Throwable $e) {
-                $this->error($e->getMessage());
-            }
+        $connection = _em()->getConnection();
+
+        $sql = <<<STRING
+             SELECT transaction_id,
+                 SUM(IF(debit_id IS NOT NULL, balance, 0))  as totalDebit,
+                 SUM(IF(credit_id IS NOT NULL, balance, 0)) as totalCredit
+             FROM transaction_line
+             GROUP BY transaction_id
+             HAVING totalDebit <> totalCredit
+            STRING;
+
+        $result = $connection->executeQuery($sql);
+
+        while ($row = $result->fetchAssociative()) {
+            $msg = sprintf(
+                'Transaction %s non-équilibrée, débits: %s, crédits: %s',
+                $row['transaction_id'] ?? 'NEW',
+                Format::money(Money::CHF($row['totalDebit'])),
+                Format::money(Money::CHF($row['totalCredit'])),
+            );
+            $this->error($msg);
         }
     }
 
