@@ -11,29 +11,31 @@
 
 DELIMITER ~~
 
-DROP PROCEDURE IF EXISTS update_accounts_balance;
 
-CREATE PROCEDURE update_accounts_balance ()
+DROP PROCEDURE IF EXISTS update_account_balance;
+
+/* Update balance from a single account (account_id > 0) or ALL accounts (account_id = 0) */
+CREATE PROCEDURE update_account_balance (IN account_id INT)
 BEGIN
     -- Update non-group accounts from their transactions
     DECLARE debit INT;
     DECLARE credit INT;
     DECLARE done BOOLEAN DEFAULT FALSE;
-    DECLARE account_id BIGINT UNSIGNED;
+    DECLARE _id BIGINT UNSIGNED;
     DECLARE cur CURSOR FOR
         SELECT id
         FROM account
-        WHERE type != 'group';
+        WHERE account_id = 0 AND type != 'group' OR id = account_id;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done := TRUE;
     OPEN cur;
     updateLoop: LOOP
-        FETCH cur INTO account_id;
+        FETCH cur INTO _id;
         IF done THEN
             LEAVE updateLoop;
         END IF;
 
-        SELECT IFNULL(SUM(balance), 0) INTO debit FROM transaction_line AS tl WHERE tl.debit_id = account_id;
-        SELECT IFNULL(SUM(balance), 0) INTO credit FROM transaction_line AS tl WHERE tl.credit_id = account_id;
+        SELECT IFNULL(SUM(balance), 0) INTO debit FROM transaction_line AS tl WHERE tl.debit_id = _id;
+        SELECT IFNULL(SUM(balance), 0) INTO credit FROM transaction_line AS tl WHERE tl.credit_id = _id;
 
         UPDATE account
         SET balance = IF(
@@ -45,7 +47,7 @@ BEGIN
                                 account.balance
                         )
             )
-        WHERE account.id = account_id;
+        WHERE account.id = _id;
     END LOOP;
     CLOSE cur;
 
