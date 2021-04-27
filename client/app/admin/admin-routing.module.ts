@@ -156,7 +156,7 @@ const routes: Routes = [
                             seo: {
                                 title: 'Demandes de stockage en attente',
                             } as NaturalSeo,
-                            forcedVariables: BookingService.applicationByTag(BookableTagService.STORAGE),
+                            forcedVariables: BookingService.applicationByTag(BookableTagService.STORAGE_REQUEST),
                             initialColumns: ['edit', 'owner', 'bookable', 'startDate'],
                             availableColumns: ['edit', 'owner', 'bookable', 'startDate', 'endDate', 'endComment'],
                         },

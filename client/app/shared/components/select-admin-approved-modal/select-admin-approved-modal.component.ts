@@ -30,7 +30,7 @@ export class SelectAdminApprovedModalComponent implements OnInit {
     constructor(private readonly bookableService: UsageBookableService) {}
 
     public ngOnInit(): void {
-        this.fetch(BookableTagService.STORAGE).subscribe(res => (this.storagesDataSource = res));
+        this.fetch(BookableTagService.STORAGE_REQUEST).subscribe(res => (this.storagesDataSource = res));
         this.fetch(BookableTagService.SERVICE).subscribe(res => (this.servicesDataSource = res));
         this.fetch(BookableTagService.FORMATION).subscribe(res => (this.formationsDataSource = res));
         this.fetch(BookableTagService.WELCOME).subscribe(res => (this.welcomeDataSource = res));

@@ -248,7 +248,7 @@ export class NaturalSearchFacetsService {
         users: [
             this.userTags,
             {
-                display: 'Tag de réservable',
+                display: 'Réservation en cours (tag)',
                 field: 'custom',
                 name: 'hasBookingWithTaggedBookable',
                 transform: replaceOperatorByName,
@@ -259,7 +259,7 @@ export class NaturalSearchFacetsService {
                 },
             } as DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>>,
             {
-                display: 'Réservation en cours',
+                display: 'Réservation en cours (bookable)',
                 field: 'custom',
                 name: 'hasBookingWithBookable',
                 transform: replaceOperatorByName,

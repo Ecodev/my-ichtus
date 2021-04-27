@@ -81,7 +81,7 @@ export class BookableService extends NaturalAbstractModelService<
                             bookableTags: {
                                 have: {
                                     values: [
-                                        BookableTagService.STORAGE,
+                                        BookableTagService.STORAGE_REQUEST,
                                         BookableTagService.FORMATION,
                                         BookableTagService.WELCOME,
                                     ],
