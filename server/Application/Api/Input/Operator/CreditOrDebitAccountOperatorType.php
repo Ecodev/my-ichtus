@@ -63,7 +63,7 @@ class CreditOrDebitAccountOperatorType extends AbstractOperator
         $queryBuilder->setParameter($parameterName, $ids);
 
         // Lines NOT affecting any of those accounts
-        if ($args['not'] === true) {
+        if (array_key_exists('not', $args) && $args['not'] === true) {
             return $alias . '.debit NOT IN (:' . $parameterName . ') AND ' . $alias . '.credit NOT IN (:' . $parameterName . ')';
         }
 
