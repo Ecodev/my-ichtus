@@ -13,21 +13,25 @@ class TransactionWithDocumentOperatorTypeTest extends OperatorType
     public function providerGetDqlCondition(): array
     {
         return [
-            [1, [true]],
-            [11, [false]],
-            [12, [true, false]],
+            'transaction IS WITH documents' => [1, [true], null],
+            'transaction IS WITHOUT document' => [11, [false], null],
+            'transaction WITH and WITHOUT documents' => [12, [true, false], null],
+            'transaction ALL documents (with+without) documents' => [12, null, true],
+            'transaction NONE documents' => [11, null, false],
+            'transaction IS NOT WITHOUT documents' => [1, [false], true],
         ];
     }
 
     /**
      * @dataProvider providerGetDqlCondition
      */
-    public function testGetDqlCondition(int $expected, array $values): void
+    public function testGetDqlCondition(int $expected, ?array $values, ?bool $not): void
     {
         $administrator = new User(User::ROLE_ADMINISTRATOR);
         User::setCurrent($administrator);
         $values = [
             'values' => $values,
+            'not' => $not,
         ];
         $actual = $this->getFilteredResult(TransactionLine::class, 'custom', 'transactionWithDocument', $values);
         self::assertCount($expected, $actual);

@@ -22,7 +22,12 @@ class TransactionWithDocumentOperatorType extends AbstractOperator
             'fields' => [
                 [
                     'name' => 'values',
-                    'type' => self::nonNull(self::listOf(self::nonNull(self::boolean()))),
+                    'type' => self::getNullableType(self::listOf(self::nonNull(self::boolean()))),
+                    'defaultValue' => [],
+                ],
+                [
+                    'name' => 'not',
+                    'type' => self::boolean(),
                 ],
             ],
         ];
@@ -34,10 +39,17 @@ class TransactionWithDocumentOperatorType extends AbstractOperator
             return null;
         }
 
-        if (in_array(true, $args['values'], true) && !in_array(false, $args['values'], true)) {
-            $condition = '> 0';
-        } elseif (in_array(false, $args['values'], true) && !in_array(true, $args['values'], true)) {
+        $not = array_key_exists('not', $args) && $args['not'] === true;
+
+        if (!array_key_exists('values', $args) || empty($args['values'])) {
+            if ($not) {
+                return null;
+            }
             $condition = '= 0';
+        } elseif (in_array(true, $args['values'], true) && !in_array(false, $args['values'], true)) {
+            $condition = $not ? '= 0' : '> 0';
+        } elseif (in_array(false, $args['values'], true) && !in_array(true, $args['values'], true)) {
+            $condition = $not ? '> 0' : '= 0';
         } else {
             return null;
         }
