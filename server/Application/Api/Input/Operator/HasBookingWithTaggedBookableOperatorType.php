@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace Application\Api\Input\Operator;
 
-use Application\DBAL\Types\BookingStatusType;
 use Application\Model\BookableTag;
-use Application\Model\Booking;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Ecodev\Felix\Utility;
@@ -49,15 +46,7 @@ class HasBookingWithTaggedBookableOperatorType extends AbstractOperator
         $tagAlias = 'hasbookingwithtaggedbookable_tag_alias';
 
         if (!in_array($bookingAlias, $queryBuilder->getAllAliases(), true)) {
-            // Only consider running bookings that are not pending applications
-            $bookingStatusParam = $uniqueNameFactory->createParameterName();
-            $queryBuilder->setParameter($bookingStatusParam, [BookingStatusType::BOOKED]);
-            $queryBuilder->innerJoin(
-                $alias . '.bookings',
-                $bookingAlias,
-                Join::WITH,
-                $bookingAlias . '.endDate IS NULL AND ' . $bookingAlias . '.status IN (:' . $bookingStatusParam . ')'
-            );
+            $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH, $bookingAlias . '.endDate IS NULL');
         }
 
         if (!in_array($bookableAlias, $queryBuilder->getAllAliases(), true)) {
