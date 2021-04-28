@@ -55,10 +55,12 @@ class BookableUsageOperatorType extends AbstractOperator
 
         $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias);
 
+        // Bookables currently rented by ANY user
         if (array_key_exists('not', $args) && $args['not'] === true && empty($ids)) {
             return $bookingAlias . '.owner IS NOT NULL AND ' . $bookingAlias . '.endDate IS NULL';
         }
 
+        // Bookables currently rented by an unknown user ?
         if (empty($ids)) {
             return $bookingAlias . '.owner IS NULL';
         }
@@ -67,6 +69,7 @@ class BookableUsageOperatorType extends AbstractOperator
 
         $not = array_key_exists('not', $args) && $args['not'] === true ? ' NOT' : '';
 
+        // Bookables (NOT) currently rented by the given user(s)
         return $bookingAlias . '.owner' . $not . ' IN (:' . $param . ') AND ' . $bookingAlias . '.endDate IS NULL';
     }
 }
