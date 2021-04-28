@@ -365,6 +365,19 @@ export class NaturalSearchFacetsService {
                 },
             } as DropdownFacet<TypeNumberConfiguration>,
             {
+                display: 'Compte',
+                field: 'custom',
+                name: 'creditOrDebitAccount',
+                component: TypeHierarchicSelectorComponent,
+                transform: replaceOperatorByName,
+                showValidateButton: true,
+                configuration: {
+                    key: 'account',
+                    service: this.accountService,
+                    config: accountHierarchicConfiguration,
+                },
+            } as DropdownFacet<TypeHierarchicSelectorConfiguration>,
+            {
                 display: 'Compte au débit',
                 field: 'debit',
                 component: TypeHierarchicSelectorComponent,

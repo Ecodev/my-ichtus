@@ -18,6 +18,7 @@ use Money\Money;
  * @API\Filters({
  *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\TransactionWithDocumentOperatorType", type="boolean"),
  *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\TransactionExportOperatorType", type="boolean"),
+ *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\CreditOrDebitAccountOperatorType", type="id"),
  * })
  */
 class TransactionLine extends AbstractModel

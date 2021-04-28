@@ -76,17 +76,8 @@ export class TransactionLineService extends NaturalAbstractModelService<
         return [
             [
                 {
-                    field: 'debit',
-                    condition: {
-                        have: {
-                            values: [account.id],
-                        },
-                    },
-                },
-            ],
-            [
-                {
-                    field: 'credit',
+                    field: 'custom',
+                    name: 'creditOrDebitAccount',
                     condition: {
                         have: {
                             values: [account.id],
@@ -173,8 +164,11 @@ export class TransactionLineService extends NaturalAbstractModelService<
             filter: {
                 groups: [
                     {
-                        conditionsLogic: LogicalOperator.OR,
-                        conditions: [{credit: {equal: {value: account.id}}}, {debit: {equal: {value: account.id}}}],
+                        conditions: [
+                            {
+                                custom: {creditOrDebitAccount: {values: [account.id]}},
+                            },
+                        ],
                     },
                 ],
             },

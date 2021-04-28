@@ -110,8 +110,11 @@ export class UserComponent extends NaturalAbstractDetail<UserService> implements
             filter: {
                 groups: [
                     {
-                        conditionsLogic: LogicalOperator.OR,
-                        conditions: [{credit: {equal: {value: account.id}}}, {debit: {equal: {value: account.id}}}],
+                        conditions: [
+                            {
+                                custom: {creditOrDebitAccount: {values: [account.id]}},
+                            },
+                        ],
                     },
                 ],
             },
