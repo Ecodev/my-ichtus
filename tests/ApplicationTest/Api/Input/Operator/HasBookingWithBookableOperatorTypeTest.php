@@ -13,23 +13,27 @@ class HasBookingWithBookableOperatorTypeTest extends OperatorType
     public function providerGetDqlCondition(): array
     {
         return [
-            [2, [3006]],
-            [0, [3000]],
-            [1, [3004]],
-            [2, [3006, 3004]], // 2 (instead of 3) because it's a user list and a user is not listed twice
-            [0, [3005]],
+            'bookable with shared bookings' => [2, [3006], null],
+            'ignore terminated booking' => [0, [3000], null],
+            'ignore bookings with application status' => [0, [3004], null],
+            'only each user only once even if multiple bookables' => [2, [3006, 3004], null],
+            'bookable with no active booking' => [0, [3005], null],
+            'booking without bookable (own equipment)' => [1, null, false],
+            'booking with any bookable' => [4, null, true],
+            'booking excluding one bookable' => [4, [3003], true],
         ];
     }
 
     /**
      * @dataProvider providerGetDqlCondition
      */
-    public function testGetDqlCondition(int $expected, array $bookables): void
+    public function testGetDqlCondition(int $expected, ?array $bookables, ?bool $not): void
     {
         $administrator = new User(User::ROLE_ADMINISTRATOR);
         User::setCurrent($administrator);
         $values = [
             'values' => $this->idsToEntityIds(Bookable::class, $bookables),
+            'not' => $not,
         ];
         $actual = $this->getFilteredResult(User::class, 'custom', 'hasBookingWithBookable', $values);
         self::assertCount($expected, $actual);

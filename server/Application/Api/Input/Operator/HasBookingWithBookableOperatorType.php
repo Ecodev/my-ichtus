@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Application\Api\Input\Operator;
 
+use Application\DBAL\Types\BookingStatusType;
 use Application\Model\Bookable;
-use Application\Model\Booking;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use GraphQL\Doctrine\Definition\EntityID;
+use Ecodev\Felix\Utility;
 use GraphQL\Doctrine\Definition\Operator\AbstractOperator;
 use GraphQL\Doctrine\Factory\UniqueNameFactory;
 use GraphQL\Type\Definition\LeafType;
@@ -18,11 +19,16 @@ class HasBookingWithBookableOperatorType extends AbstractOperator
     protected function getConfiguration(LeafType $leafType): array
     {
         return [
-            'description' => 'Filter the users by the kind of bookable they are currently renting',
+            'description' => 'Filter the users by the bookable they are currently renting',
             'fields' => [
                 [
                     'name' => 'values',
-                    'type' => self::nonNull(self::listOf(self::nonNull($this->types->getId(Bookable::class)))),
+                    'type' => self::getNullableType(self::listOf(self::nonNull($this->types->getId(Bookable::class)))),
+                    'defaultValue' => [],
+                ],
+                [
+                    'name' => 'not',
+                    'type' => self::boolean(),
                 ],
             ],
         ];
@@ -34,19 +40,44 @@ class HasBookingWithBookableOperatorType extends AbstractOperator
             return null;
         }
 
-        $ids = array_map(function (EntityID $id) {
-            return $id->getId();
-        }, $args['values']);
+        $ids = Utility::modelToId($args['values']);
 
-        $bookingAlias = $uniqueNameFactory->createAliasName(Booking::class);
-        $bookableAlias = $uniqueNameFactory->createAliasName(Bookable::class);
+        $bookingAlias = 'hasbookingwithbookable_booking_alias';
+        $bookableAlias = 'hasbookingwithbookable_bookable_alias';
+
+        if (!in_array($bookingAlias, $queryBuilder->getAllAliases(), true)) {
+            // Only consider running bookings that are not pending applications
+            $bookingStatusParam = $uniqueNameFactory->createParameterName();
+            $queryBuilder->setParameter($bookingStatusParam, [BookingStatusType::BOOKED]);
+            $queryBuilder->innerJoin(
+                $alias . '.bookings',
+                $bookingAlias,
+                Join::WITH,
+                $bookingAlias . '.endDate IS NULL AND ' . $bookingAlias . '.status IN (:' . $bookingStatusParam . ')'
+            );
+        }
+
+        // Bookings without any bookable (own equipment)
+        if (array_key_exists('not', $args) && $args['not'] === false) {
+            $queryBuilder->leftJoin($bookingAlias . '.bookable', $bookableAlias);
+
+            return $bookableAlias . '.id IS NULL';
+        }
+
+        if (!in_array($bookableAlias, $queryBuilder->getAllAliases(), true)) {
+            $queryBuilder->innerJoin($bookingAlias . '.bookable', $bookableAlias);
+        }
+
+        // Bookings for ANY bookable
+        if (array_key_exists('not', $args) && $args['not'] === true && empty($ids)) {
+            return $bookableAlias . '.id IS NOT NULL';
+        }
+
+        // Users with active bookings for the given bookable(s)
         $param = $uniqueNameFactory->createParameterName();
-
-        $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias);
-        $queryBuilder->innerJoin($bookingAlias . '.bookable', $bookableAlias);
-
         $queryBuilder->setParameter($param, $ids);
+        $not = array_key_exists('not', $args) && $args['not'] === true ? ' NOT' : '';
 
-        return $bookableAlias . '.id IN (:' . $param . ') AND ' . $bookingAlias . '.endDate IS NULL';
+        return $bookableAlias . '.id' . $not . ' IN (:' . $param . ')';
     }
 }
