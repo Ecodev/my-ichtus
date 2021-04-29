@@ -3,6 +3,7 @@ import {AccountingDocumentInput, ExpenseClaim, Transaction} from '../../shared/g
 import {forkJoin, Observable} from 'rxjs';
 import {AccountingDocumentService} from './services/accounting-document.service';
 import {FileModel} from '@ecodev/natural';
+import {tap} from 'rxjs/operators';
 
 @Component({
     selector: 'app-accounting-documents',
@@ -71,7 +72,7 @@ export class AccountingDocumentsComponent implements OnInit {
             } else if (this.model.__typename === 'ExpenseClaim') {
                 document.expenseClaim = this.model.id;
             }
-            observables.push(this.accountingDocumentService.create(document));
+            observables.push(this.accountingDocumentService.create(document).pipe(tap(() => delete file.file)));
         });
 
         this._removedFiles
