@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Application\Api\Input\Operator;
 
+use Application\Model\Bookable;
 use Application\Model\BookableTag;
+use Application\Model\Booking;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
@@ -42,17 +44,12 @@ class HasBookingWithTaggedBookableOperatorType extends AbstractOperator
 
         $ids = Utility::modelToId($args['values']);
 
-        $bookingAlias = 'hasbookingwithtaggedbookable_booking_alias';
-        $bookableAlias = 'hasbookingwithtaggedbookable_bookable_alias';
-        $tagAlias = 'hasbookingwithtaggedbookable_tag_alias';
+        $bookingAlias = $uniqueNameFactory->createAliasName(Booking::class);
+        $bookableAlias = $uniqueNameFactory->createAliasName(Bookable::class);
+        $tagAlias = $uniqueNameFactory->createAliasName(BookableTag::class);
 
-        if (!in_array($bookingAlias, $queryBuilder->getAllAliases(), true)) {
-            $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH, $bookingAlias . '.endDate IS NULL');
-        }
-
-        if (!in_array($bookableAlias, $queryBuilder->getAllAliases(), true)) {
-            $queryBuilder->innerJoin($bookingAlias . '.bookable', $bookableAlias);
-        }
+        $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH, $bookingAlias . '.endDate IS NULL');
+        $queryBuilder->innerJoin($bookingAlias . '.bookable', $bookableAlias);
 
         // Bookings for bookables WITHOUT any tag
         if (!$args['not'] && empty($ids)) {
@@ -61,9 +58,7 @@ class HasBookingWithTaggedBookableOperatorType extends AbstractOperator
             return $tagAlias . '.id IS NULL';
         }
 
-        if (!in_array($tagAlias, $queryBuilder->getAllAliases(), true)) {
-            $queryBuilder->innerJoin($bookableAlias . '.bookableTags', $tagAlias);
-        }
+        $queryBuilder->innerJoin($bookableAlias . '.bookableTags', $tagAlias);
 
         // Bookings for bookables with ANY tag
         if ($args['not'] && empty($ids)) {

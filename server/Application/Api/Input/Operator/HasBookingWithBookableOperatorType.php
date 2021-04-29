@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Application\Api\Input\Operator;
 
 use Application\Model\Bookable;
+use Application\Model\Booking;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
@@ -42,12 +43,10 @@ class HasBookingWithBookableOperatorType extends AbstractOperator
 
         $ids = Utility::modelToId($args['values']);
 
-        $bookingAlias = 'hasbookingwithbookable_booking_alias';
-        $bookableAlias = 'hasbookingwithbookable_bookable_alias';
+        $bookingAlias = $uniqueNameFactory->createAliasName(Booking::class);
+        $bookableAlias = $uniqueNameFactory->createAliasName(Bookable::class);
 
-        if (!in_array($bookingAlias, $queryBuilder->getAllAliases(), true)) {
-            $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH, $bookingAlias . '.endDate IS NULL');
-        }
+        $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH, $bookingAlias . '.endDate IS NULL');
 
         // Bookings without any bookable (own equipment)
         if (!$args['not'] && empty($ids)) {
@@ -56,9 +55,7 @@ class HasBookingWithBookableOperatorType extends AbstractOperator
             return $bookableAlias . '.id IS NULL';
         }
 
-        if (!in_array($bookableAlias, $queryBuilder->getAllAliases(), true)) {
-            $queryBuilder->innerJoin($bookingAlias . '.bookable', $bookableAlias);
-        }
+        $queryBuilder->innerJoin($bookingAlias . '.bookable', $bookableAlias);
 
         // Bookings for ANY bookable
         if ($args['not'] && empty($ids)) {
