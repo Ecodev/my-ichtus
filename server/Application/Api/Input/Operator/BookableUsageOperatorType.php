@@ -29,6 +29,7 @@ class BookableUsageOperatorType extends AbstractOperator
                 [
                     'name' => 'not',
                     'type' => self::boolean(),
+                    'defaultValue' => false,
                 ],
             ],
         ];
@@ -47,7 +48,7 @@ class BookableUsageOperatorType extends AbstractOperator
         $bookingAlias = $uniqueNameFactory->createAliasName(Booking::class);
         $param = $uniqueNameFactory->createParameterName();
 
-        if (array_key_exists('not', $args) && $args['not'] === false) {
+        if (!$args['not'] && empty($ids)) {
             $queryBuilder->leftJoin($alias . '.bookings', $bookingAlias, Join::WITH, $bookingAlias . '.endDate IS NULL');
 
             return $bookingAlias . '.id IS NULL';
@@ -56,7 +57,7 @@ class BookableUsageOperatorType extends AbstractOperator
         $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias);
 
         // Bookables currently rented by ANY user
-        if (array_key_exists('not', $args) && $args['not'] === true && empty($ids)) {
+        if ($args['not'] && empty($ids)) {
             return $bookingAlias . '.owner IS NOT NULL AND ' . $bookingAlias . '.endDate IS NULL';
         }
 
@@ -67,7 +68,7 @@ class BookableUsageOperatorType extends AbstractOperator
 
         $queryBuilder->setParameter($param, $ids);
 
-        $not = array_key_exists('not', $args) && $args['not'] === true ? ' NOT' : '';
+        $not = $args['not'] ? ' NOT' : '';
 
         // Bookables (NOT) currently rented by the given user(s)
         return $bookingAlias . '.owner' . $not . ' IN (:' . $param . ') AND ' . $bookingAlias . '.endDate IS NULL';

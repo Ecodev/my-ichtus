@@ -28,6 +28,7 @@ class TransactionWithDocumentOperatorType extends AbstractOperator
                 [
                     'name' => 'not',
                     'type' => self::boolean(),
+                    'defaultValue' => false,
                 ],
             ],
         ];
@@ -39,7 +40,7 @@ class TransactionWithDocumentOperatorType extends AbstractOperator
             return null;
         }
 
-        $not = array_key_exists('not', $args) && $args['not'] === true;
+        $not = $args['not'];
 
         if (!array_key_exists('values', $args) || empty($args['values'])) {
             if ($not) {

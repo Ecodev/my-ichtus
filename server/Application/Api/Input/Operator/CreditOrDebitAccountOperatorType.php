@@ -27,6 +27,7 @@ class CreditOrDebitAccountOperatorType extends AbstractOperator
                 [
                     'name' => 'not',
                     'type' => self::boolean(),
+                    'defaultValue' => false,
                 ],
             ],
         ];
@@ -45,12 +46,12 @@ class CreditOrDebitAccountOperatorType extends AbstractOperator
         }
 
         // Lines not affecting any account (should not exist)
-        if (array_key_exists('not', $args) && $args['not'] === false) {
+        if (!$args['not'] && empty($ids)) {
             return $alias . '.debit IS NULL AND ' . $alias . '.credit IS NULL';
         }
 
         // Lines affecting ANY account
-        if (array_key_exists('not', $args) && $args['not'] === true && empty($ids)) {
+        if ($args['not'] && empty($ids)) {
             return $alias . '.debit IS NOT NULL OR ' . $alias . '.credit IS NOT NULL';
         }
 
@@ -63,7 +64,7 @@ class CreditOrDebitAccountOperatorType extends AbstractOperator
         $queryBuilder->setParameter($parameterName, $ids);
 
         // Lines NOT affecting any of those accounts
-        if (array_key_exists('not', $args) && $args['not'] === true) {
+        if ($args['not']) {
             return $alias . '.debit NOT IN (:' . $parameterName . ') AND ' . $alias . '.credit NOT IN (:' . $parameterName . ')';
         }
 

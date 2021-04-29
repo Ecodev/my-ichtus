@@ -28,6 +28,7 @@ class HasBookingWithTaggedBookableOperatorType extends AbstractOperator
                 [
                     'name' => 'not',
                     'type' => self::boolean(),
+                    'defaultValue' => false,
                 ],
             ],
         ];
@@ -54,7 +55,7 @@ class HasBookingWithTaggedBookableOperatorType extends AbstractOperator
         }
 
         // Bookings for bookables WITHOUT any tag
-        if (array_key_exists('not', $args) && $args['not'] === false) {
+        if (!$args['not'] && empty($ids)) {
             $queryBuilder->leftJoin($bookableAlias . '.bookableTags', $tagAlias);
 
             return $tagAlias . '.id IS NULL';
@@ -65,14 +66,14 @@ class HasBookingWithTaggedBookableOperatorType extends AbstractOperator
         }
 
         // Bookings for bookables with ANY tag
-        if (array_key_exists('not', $args) && $args['not'] === true && empty($ids)) {
+        if ($args['not'] && empty($ids)) {
             return $tagAlias . '.id IS NOT NULL';
         }
 
         // Bookings for bookables with the given tag(s)
         $param = $uniqueNameFactory->createParameterName();
         $queryBuilder->setParameter($param, $ids);
-        $not = array_key_exists('not', $args) && $args['not'] === true ? ' NOT' : '';
+        $not = $args['not'] ? ' NOT' : '';
 
         return $tagAlias . '.id' . $not . ' IN (:' . $param . ')';
     }

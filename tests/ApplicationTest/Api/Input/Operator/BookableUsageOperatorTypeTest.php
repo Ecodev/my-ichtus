@@ -13,26 +13,24 @@ class BookableUsageOperatorTypeTest extends OperatorType
     public function providerGetDqlCondition(): array
     {
         return [
-            [8, [1002]],
-            [1, [1008]],
-            [0, []],
-            [8, [1008], true],
-            [9, [], false],
-            [9, [], true],
+            'bookables rented by that user' => [8, [1002], false],
+            'bookables rented by that other user' => [1, [1008], false],
+            'bookables not rented by that user' => [8, [1008], true],
+            'bookables not rented at all' => [9, [], false],
+            'bookables rented to anybody' => [9, [], true],
         ];
     }
 
     /**
      * @dataProvider providerGetDqlCondition
      */
-    public function testGetDqlCondition(int $expected, array $users, ?bool $not = null): void
+    public function testGetDqlCondition(int $expected, array $users, bool $not): void
     {
         $values = [
             'values' => $this->idsToEntityIds(User::class, $users),
+            'not' => $not,
         ];
-        if (is_bool($not)) {
-            $values['not'] = $not;
-        }
+
         $actual = $this->getFilteredResult(Bookable::class, 'custom', 'bookableUsage', $values);
         self::assertCount($expected, $actual);
     }
