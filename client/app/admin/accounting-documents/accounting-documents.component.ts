@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {AccountingDocumentInput, ExpenseClaim, Transaction} from '../../shared/generated-types';
 import {forkJoin, Observable} from 'rxjs';
 import {AccountingDocumentService} from './services/accounting-document.service';
-import {FileModel} from '@ecodev/natural';
+import {FileModel, WithId} from '@ecodev/natural';
 import {tap} from 'rxjs/operators';
 
 @Component({
@@ -19,49 +19,58 @@ export class AccountingDocumentsComponent implements OnInit {
     /**
      * When changing disabled status, add or remove an empty item in list to allow new upload or deny it.
      */
-    @Input() set disabled(disabled: boolean) {
+    @Input()
+    public set disabled(disabled: boolean) {
         this._disabled = disabled;
-        const isLastFileNull = this._files && this._files.length > 0 && this._files[this._files.length - 1] === null;
+        const isLastFileNull = this.files && this.files.length > 0 && this.files[this.files.length - 1] === null;
         if (disabled && isLastFileNull) {
-            this._files.pop();
+            this.files.pop();
         } else if (!disabled && !isLastFileNull) {
-            this._files.push(null); // init empty item to allow upload
+            this.files.push(null); // init empty item to allow upload
         }
     }
 
-    public _files: (FileModel | null)[] = [];
-    public _removedFiles: any[] = [];
-    public _disabled = false;
+    public get disabled(): boolean {
+        return this._disabled;
+    }
+
+    public files: (FileModel | null)[] = [];
+    private readonly removedFiles: WithId<FileModel>[] = [];
+    private _disabled = false;
 
     constructor(public readonly accountingDocumentService: AccountingDocumentService) {}
 
     public ngOnInit(): void {
         if (this.model.accountingDocuments) {
-            this._files = this.model.accountingDocuments;
+            this.files = this.model.accountingDocuments;
         }
 
         this.disabled = this._disabled;
     }
 
     public fileAdded(file: FileModel, index: number): void {
-        this._files[index] = file;
-        if (index === this._files.length - 1) {
-            this._files.push(null);
+        this.files[index] = file;
+        if (index === this.files.length - 1) {
+            this.files.push(null);
         }
     }
 
     public removeFile(index: number): void {
-        this._removedFiles = this._removedFiles.concat(this._files.splice(index, 1));
+        this.files.splice(index, 1).forEach(file => {
+            if (file && file.id) {
+                this.removedFiles.push(file as WithId<FileModel>);
+            }
+        });
     }
 
-    public trackByFn(index: number, item: FileModel | null): any {
+    public trackByFn(index: number, item: FileModel | null): number {
         return index;
     }
 
     public save(): void {
-        const observables: Observable<any>[] = [];
+        const observables: Observable<unknown>[] = [];
 
-        this._files.forEach(file => {
+        this.files.forEach(file => {
             if (!file?.file) {
                 return;
             }
@@ -75,17 +84,12 @@ export class AccountingDocumentsComponent implements OnInit {
             observables.push(this.accountingDocumentService.create(document).pipe(tap(() => delete file.file)));
         });
 
-        this._removedFiles
-            .filter(f => f && f.id)
-            .forEach(file => {
-                observables.push(this.accountingDocumentService.delete([file]));
-            });
-        this._removedFiles.length = 0;
+        if (this.removedFiles.length) {
+            observables.push(this.accountingDocumentService.delete(this.removedFiles));
+            this.removedFiles.length = 0;
+        }
 
-        forkJoin(observables).subscribe(result => {
-            // this.alertService.info('Votre demande a bien été enregistrée');
-            // this.router.navigateByUrl('/profile/finances');
-        });
+        forkJoin(observables).subscribe();
     }
 
     public getAction(file: FileModel | null, i: number, last: boolean): 'download' | 'upload' | null {
