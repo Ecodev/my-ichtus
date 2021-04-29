@@ -5,6 +5,7 @@ export const createAccountingDocumentMutation = gql`
     mutation CreateAccountingDocument($input: AccountingDocumentInput!) {
         createAccountingDocument(input: $input) {
             id
+            mime
             creator {
                 ...UserMeta
             }

@@ -81,7 +81,16 @@ export class AccountingDocumentsComponent implements OnInit {
             } else if (this.model.__typename === 'ExpenseClaim') {
                 document.expenseClaim = this.model.id;
             }
-            observables.push(this.accountingDocumentService.create(document).pipe(tap(() => delete file.file)));
+            observables.push(
+                this.accountingDocumentService.create(document).pipe(
+                    tap(newFile => {
+                        delete file.file;
+                        file.id = newFile.id;
+                        file.mime = newFile.mime;
+                        file.__typename = newFile.__typename;
+                    }),
+                ),
+            );
         });
 
         if (this.removedFiles.length) {

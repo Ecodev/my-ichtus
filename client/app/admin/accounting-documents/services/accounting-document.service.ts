@@ -26,7 +26,15 @@ export class AccountingDocumentService extends NaturalAbstractModelService<
     DeleteAccountingDocumentVariables
 > {
     constructor(apollo: Apollo) {
-        super(apollo, 'image', null, null, createAccountingDocumentMutation, null, deleteAccountingDocumentMutation);
+        super(
+            apollo,
+            'accountingDocument',
+            null,
+            null,
+            createAccountingDocumentMutation,
+            null,
+            deleteAccountingDocumentMutation,
+        );
     }
 
     protected getDefaultForServer(): AccountingDocumentInput {
