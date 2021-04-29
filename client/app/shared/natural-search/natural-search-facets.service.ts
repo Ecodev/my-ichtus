@@ -282,6 +282,14 @@ export class NaturalSearchFacetsService {
                 },
             } as DropdownFacet<TypeSelectNaturalConfiguration<BookableService>>,
             {
+                display: 'Réservation en cours (statut)',
+                field: 'custom',
+                name: 'hasBookingStatus',
+                transform: replaceOperatorByName,
+                component: TypeSelectComponent,
+                configuration: {items: this.enumService.get('BookingStatus')},
+            } as DropdownFacet<TypeSelectConfiguration>,
+            {
                 display: 'Nombre de sorties',
                 field: 'bookingCount',
                 component: TypeNumberComponent,

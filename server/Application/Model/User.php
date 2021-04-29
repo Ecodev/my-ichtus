@@ -40,6 +40,7 @@ use GraphQL\Doctrine\Annotation as API;
  * @API\Filters({
  *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\HasBookingWithTaggedBookableOperatorType", type="id"),
  *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\HasBookingWithBookableOperatorType", type="id"),
+ *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\HasBookingStatusOperatorType", type="id"),
  *     @API\Filter(field="bookingCount", operator="Application\Api\Input\Operator\BookingCount\BookingCountEqualOperatorType", type="int"),
  *     @API\Filter(field="bookingCount", operator="Application\Api\Input\Operator\BookingCount\BookingCountGreaterOperatorType", type="int"),
  *     @API\Filter(field="bookingCount", operator="Application\Api\Input\Operator\BookingCount\BookingCountGreaterOrEqualOperatorType", type="int"),
