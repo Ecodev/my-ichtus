@@ -18,11 +18,11 @@ import {
     UsersVariables,
 } from '../../generated-types';
 import {
-    Literal,
     NaturalAbstractController,
     NaturalAlertService,
     NaturalQueryVariablesManager,
     PaginatedData,
+    WithId,
 } from '@ecodev/natural';
 import {Observable} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
@@ -123,7 +123,7 @@ export class NavigationsComponent extends NaturalAbstractController implements O
                         .afterClosed()
                         .subscribe(comment => {
                             if (comment && comment !== '') {
-                                const partialBooking: BookingPartialInput & {id: string} = {
+                                const partialBooking: WithId<BookingPartialInput> = {
                                     id: booking.id,
                                     endComment: comment,
                                 };
@@ -137,7 +137,7 @@ export class NavigationsComponent extends NaturalAbstractController implements O
         });
     }
 
-    public update(partialBooking: Literal): void {
+    public update(partialBooking: WithId<BookingPartialInput>): void {
         this.bookingService.updatePartially(partialBooking).subscribe(() => {});
     }
 
