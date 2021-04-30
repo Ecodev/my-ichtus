@@ -47,7 +47,7 @@
         "prosemirror-keymap": "^1.1.4",
         "prosemirror-schema-basic": "^1.1.2",
         "prosemirror-state": "^1.3.4",
-        "prosemirror-view": "^1.17.6",
+        "prosemirror-view": "^1.18.4",
         "puppeteer": "^7.1.0",
         "rxjs": "~6.6.3",
         "tslib": "^2.1.0",
