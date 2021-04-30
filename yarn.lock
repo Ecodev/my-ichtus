@@ -5707,10 +5707,10 @@ hyperlinker@^1.0.0:
   resolved "https://registry.yarnpkg.com/hyperlinker/-/hyperlinker-1.0.0.tgz#23dc9e38a206b208ee49bc2d6c8ef47027df0c0e"
   integrity sha512-Ty8UblRWFEcfSuIaajM34LdPXIhbs1ajEX/BBPv24J+enSVaEVY63xQ6lTO9VRYS5LAoghIG0IDJ+p+IPzKUQQ==
 
-ibantools@^3.2.3:
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/ibantools/-/ibantools-3.2.3.tgz#f20fd85d7bb617b11629eb5589b5ff3c5dcfb791"
-  integrity sha512-4SSAK0lLmHwt3+u0AgOg3iike7lT5I7Y9gXSe6porfW+a5cUPbE9jS4rz1RIxTfMrcqpQJJ70iqS50I1+138VQ==
+ibantools@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/ibantools/-/ibantools-3.3.0.tgz#f772fe74e61c30a81c2580c9220815a386f79cbb"
+  integrity sha512-iGe4wa76r/M0l/5D1v4RyL158KX1kfxTUVbbxhehrP4DCNenM9vmOmqEq0IY6oZHvip3SUZyo0DScPNWIYsHhg==
 
 iconv-lite@0.4.24, iconv-lite@^0.4.24, iconv-lite@^0.4.4:
   version "0.4.24"
@@ -7128,7 +7128,6 @@ minipass-fetch@^1.3.0, minipass-fetch@^1.3.2:
   resolved "https://registry.yarnpkg.com/minipass-fetch/-/minipass-fetch-1.3.3.tgz#34c7cea038c817a8658461bf35174551dce17a0a"
   integrity sha512-akCrLDWfbdAWkMLBxJEeWTdNsjML+dt5YgOI4gJ53vuO0vrmYQkUPxa6j6V65s9CcePIr2SSWqjT2EcrNseryQ==
   dependencies:
-    encoding "^0.1.12"
     minipass "^3.1.0"
     minipass-sized "^1.0.3"
     minizlib "^2.0.0"
