@@ -136,14 +136,23 @@ export const userQuery = gql`
     ${permissionsFragment}
 `;
 
+// This query is executed as anonymous and thus **must not** include any
+// relations that could be protected by ACL. Typically we **cannot** ask for owner.
 export const userByTokenQuery = gql`
     query UserByToken($token: Token!) {
         userByToken(token: $token) {
-            ...UserFields
+            id
+            login
+            firstName
+            lastName
+            email
+            locality
+            street
+            postcode
+            code
+            birthday
         }
     }
-    ${userFieldsFragment}
-    ${userMetaFragment}
 `;
 
 export const updateUser = gql`

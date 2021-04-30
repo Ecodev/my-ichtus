@@ -39,10 +39,6 @@ abstract class UserByToken implements FieldInterface
                         throw new ExceptionWithoutMailLogging('Le lien que tu as suivi est périmé. Effectue une nouvelle demande.');
                     }
 
-                    // Set current user for his ACL, but not in persisted session, only for the remaining execution time.
-                    // He will have to go through a proper login to persist the session.
-                    User::setCurrent($user);
-
                     return $user;
                 },
             ];
