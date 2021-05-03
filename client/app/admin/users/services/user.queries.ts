@@ -149,8 +149,13 @@ export const userByTokenQuery = gql`
             locality
             street
             postcode
-            code
             birthday
+            mobilePhone
+            country {
+                id
+                name
+                code
+            }
         }
     }
 `;

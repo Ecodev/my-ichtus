@@ -1,11 +1,15 @@
 import {Apollo, gql} from 'apollo-angular';
-import {Component, Injector, OnInit} from '@angular/core';
-import {relationsToIds} from '@ecodev/natural';
-import {ActivatedRoute, Router} from '@angular/router';
-import {BookableService} from '../../../admin/bookables/services/bookable.service';
-import {RegisterComponent} from './register.component';
-import {NewUserService} from './new-user.service';
+import {Component, OnInit} from '@angular/core';
+import {deliverableEmail, NaturalAlertService, relationsToIds} from '@ecodev/natural';
 import {pick} from 'lodash-es';
+import {RegisterComponent} from './register.component';
+import {FormBuilder, Validators} from '@angular/forms';
+import {loginValidator, UserService} from '../../../admin/users/services/user.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {available} from '../../../shared/validators';
+import {UserByTokenResolve} from '../../../admin/users/user';
+import {UserByToken_userByToken} from '../../../shared/generated-types';
+import {BookableService} from '../../../admin/bookables/services/bookable.service';
 
 @Component({
     selector: 'app-confirm',
@@ -14,24 +18,45 @@ import {pick} from 'lodash-es';
 })
 export class RegisterConfirmComponent extends RegisterComponent implements OnInit {
     constructor(
-        userService: NewUserService,
-        injector: Injector,
-        router: Router,
-        route: ActivatedRoute,
-        bookableService: BookableService,
         apollo: Apollo,
+        route: ActivatedRoute,
+        fb: FormBuilder,
+        router: Router,
+        alertService: NaturalAlertService,
+        bookableService: BookableService,
+        private readonly userService: UserService,
     ) {
-        super(userService, injector, bookableService, apollo);
+        super(apollo, route, fb, router, alertService, bookableService);
+        this.step = 2;
     }
 
-    protected initForm(): void {
-        super.initForm();
+    public ngOnInit(): void {
+        this.fetchMandatoryBookables();
 
-        // Lock e-mail, this field must not be changed
-        const email = this.form.get('email');
-        if (email) {
-            email.disable();
-        }
+        this.route.data.subscribe(data => {
+            this.initFormFromModel((data['user'] as UserByTokenResolve)['model']);
+        });
+    }
+
+    private initFormFromModel(model: UserByToken_userByToken): void {
+        this.form = this.fb.group({
+            // Lock e-mail, this field must not be changed
+            email: [{value: model.email, disabled: true}, [Validators.required, deliverableEmail]],
+            login: [
+                model.login,
+                [Validators.required, loginValidator],
+                [available(this.userService.loginAvailable.bind(this), model.id)],
+            ],
+            password: [''],
+            firstName: [model.firstName, [Validators.required, Validators.maxLength(100)]],
+            lastName: [model.lastName, [Validators.required, Validators.maxLength(100)]],
+            street: [model.street, [Validators.required]],
+            postcode: [model.postcode, [Validators.required]],
+            locality: [model.locality, [Validators.required]],
+            birthday: [model.birthday, [Validators.required]],
+            country: [model.country, [Validators.required]],
+            mobilePhone: [model.mobilePhone, [Validators.required]],
+        });
     }
 
     /**

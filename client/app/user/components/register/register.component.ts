@@ -1,44 +1,56 @@
 import {Apollo, gql} from 'apollo-angular';
-import {Component, Injector, OnInit} from '@angular/core';
-import {BookableService} from '../../../admin/bookables/services/bookable.service';
-import {AnonymousUserService} from './anonymous-user.service';
-import {ifValid, NaturalAbstractDetail, NaturalDataSource, validateAllFormControls} from '@ecodev/natural';
+import {Component, OnInit} from '@angular/core';
+import {
+    deliverableEmail,
+    ifValid,
+    NaturalAlertService,
+    NaturalDataSource,
+    validateAllFormControls,
+} from '@ecodev/natural';
 import {Bookables_bookables} from '../../../shared/generated-types';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {BookableService} from '../../../admin/bookables/services/bookable.service';
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent extends NaturalAbstractDetail<AnonymousUserService> implements OnInit {
+export class RegisterComponent implements OnInit {
     public mandatoryBookables: NaturalDataSource<Bookables_bookables> | null = null;
 
     public step: 1 | 2 = 1;
     public sending = false;
+    public form!: FormGroup;
 
     constructor(
-        userService: AnonymousUserService,
-        injector: Injector,
-        protected readonly bookableService: BookableService,
         protected readonly apollo: Apollo,
-    ) {
-        super('user', userService, injector);
-    }
+        protected readonly route: ActivatedRoute,
+        protected readonly fb: FormBuilder,
+        protected readonly router: Router,
+        protected readonly alertService: NaturalAlertService,
+        protected readonly bookableService: BookableService,
+    ) {}
 
     public ngOnInit(): void {
-        this.step = +this.route.snapshot.data.step as 1 | 2;
+        this.fetchMandatoryBookables();
+        this.initForm();
+    }
 
-        super.ngOnInit();
-
-        const email = this.form.get('email');
-        if (email && this.step === 1) {
-            email.setValue(this.route.snapshot.params.email);
-        }
-
+    protected fetchMandatoryBookables(): void {
         this.bookableService.getMandatoryBookables().subscribe(bookables => {
             if (bookables) {
                 this.mandatoryBookables = new NaturalDataSource(bookables);
             }
+        });
+    }
+
+    private initForm(): void {
+        this.form = this.fb.group({
+            email: [this.route.snapshot.params.email, [Validators.required, deliverableEmail]],
+            termsAgreement: [false, []],
+            hasInsurance: [false, []],
         });
     }
 
