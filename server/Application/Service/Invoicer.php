@@ -43,22 +43,23 @@ class Invoicer
         $this->bookingRepository = $this->entityManager->getRepository(Booking::class);
     }
 
-    public function invoicePeriodic(?User $user = null): int
+    public function invoicePeriodic(?User $onlyUser = null): int
     {
         $this->count = 0;
 
-        $this->bookingRepository->getAclFilter()->runWithoutAcl(function () use ($user): void {
-            $bookings = $this->bookingRepository->getAllToInvoice($user);
+        $this->bookingRepository->getAclFilter()->runWithoutAcl(function () use ($onlyUser): void {
+            $bookings = $this->bookingRepository->getAllToInvoice($onlyUser);
 
             $user = null;
             $bookingPerUser = [];
 
             /** @var Booking $booking */
             foreach ($bookings as $booking) {
-                if ($user !== $booking->getOwner()) {
+                $nextUser = $booking->getOwner();
+                if ($user !== $nextUser) {
                     $this->createTransaction($user, $bookingPerUser, false);
 
-                    $user = $booking->getOwner();
+                    $user = $nextUser;
                     $bookingPerUser = [];
                 }
 
