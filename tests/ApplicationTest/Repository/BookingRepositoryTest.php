@@ -177,14 +177,14 @@ class BookingRepositoryTest extends AbstractRepositoryTest
         $newUser = $normal;
         $newUser[0]['status'] = User::STATUS_NEW;
 
-        $anonymousUser = $normal;
-        $anonymousUser[0]['role'] = User::ROLE_ANONYMOUS;
-
         $bookingOnlyUser = $normal;
         $bookingOnlyUser[0]['role'] = User::ROLE_BOOKING_ONLY;
 
         $individualUser = $normal;
         $individualUser[0]['role'] = User::ROLE_INDIVIDUAL;
+
+        $trainerUser = $normal;
+        $trainerUser[0]['role'] = User::ROLE_TRAINER;
 
         $responsibleUser = $normal;
         $responsibleUser[0]['role'] = User::ROLE_RESPONSIBLE;
@@ -251,17 +251,17 @@ class BookingRepositoryTest extends AbstractRepositoryTest
                 $newUser,
                 ['casier', 'cotisation'],
             ],
-            'anonymous user get nothing' => [
-                $anonymousUser,
-                [],
-            ],
             'bookingOnly user get nothing' => [
                 $bookingOnlyUser,
                 [],
             ],
-            'individual user get nothing' => [
+            'individual user get casier and cotisation so it can be invoiced to family owner' => [
                 $individualUser,
-                [],
+                ['casier', 'cotisation'],
+            ],
+            'trainer user get casier and cotisation' => [
+                $trainerUser,
+                ['casier', 'cotisation'],
             ],
             'responsible user get casier and cotisation' => [
                 $responsibleUser,

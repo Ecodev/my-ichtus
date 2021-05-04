@@ -18,7 +18,7 @@ class BookingRepository extends AbstractRepository
     /**
      * All non-terminated bookings
      *     for active, periodic bookable
-     *     for active member/responsible/administrator
+     *     for non-archived user
      *     but that do not already have an existing transaction_line in the user account for this year
      *
      * @param null|User $user if given will filter only for that user
@@ -37,7 +37,7 @@ class BookingRepository extends AbstractRepository
         $sql = "
             SELECT $selectClause FROM booking
             JOIN bookable ON booking.bookable_id = bookable.id
-            JOIN user ON booking.owner_id = user.id AND user.role IN (:roles)
+            JOIN user ON booking.owner_id = user.id AND user.role NOT IN (:roles)
             LEFT JOIN account ON user.id = account.owner_id
             LEFT JOIN transaction_line ON
                 account.id = transaction_line.debit_id
@@ -63,7 +63,7 @@ class BookingRepository extends AbstractRepository
             ->setParameter('userStatus', User::STATUS_ARCHIVED)
             ->setParameter('currentYear', Date::now()->firstOfYear()->toDateString())
             ->setParameter('nextYear', Date::now()->firstOfYear()->addYear()->toDateString())
-            ->setParameter('roles', [User::ROLE_MEMBER, User::ROLE_RESPONSIBLE, User::ROLE_ADMINISTRATOR], Connection::PARAM_STR_ARRAY);
+            ->setParameter('roles', [User::ROLE_BOOKING_ONLY], Connection::PARAM_STR_ARRAY);
 
         if ($user) {
             $query->setParameter('user', $user->getId());
