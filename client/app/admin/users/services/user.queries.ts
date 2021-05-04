@@ -86,6 +86,7 @@ export const usersQuery = gql`
                 creationDate
                 age
                 role
+                mobilePhone
                 owner {
                     id
                     name
