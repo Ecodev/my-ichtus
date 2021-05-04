@@ -85,10 +85,11 @@ class Acl extends \Ecodev\Felix\Acl\Acl
         $this->allow(User::ROLE_RESPONSIBLE, [$transaction, $account, $transactionTag], ['read']);
         $this->allow(User::ROLE_RESPONSIBLE, [$expenseClaim, $accountingDocument], ['read', 'update']);
         $this->allow(User::ROLE_RESPONSIBLE, [$user], ['update']);
-        $this->allow(User::ROLE_RESPONSIBLE, [$bookable, $bookableMetadata, $bookableTag, $image, $license, $userTag], ['create', 'update', 'delete']);
+        $this->allow(User::ROLE_RESPONSIBLE, [$bookableMetadata, $bookableTag, $image, $license, $userTag], ['create', 'update', 'delete']);
+        $this->allow(User::ROLE_RESPONSIBLE, [$bookable], ['create', 'update']);
         $this->allow(User::ROLE_RESPONSIBLE, [$booking], ['update', 'delete']);
 
-        $this->allow(User::ROLE_ADMINISTRATOR, [$transaction, $account, $transactionTag, $accountingDocument, $expenseClaim], ['create', 'update', 'delete']);
+        $this->allow(User::ROLE_ADMINISTRATOR, [$bookable, $transaction, $account, $transactionTag, $accountingDocument, $expenseClaim], ['create', 'update', 'delete']);
         $this->allow(User::ROLE_ADMINISTRATOR, [$configuration], ['create']);
     }
 }
