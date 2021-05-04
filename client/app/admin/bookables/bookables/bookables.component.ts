@@ -12,6 +12,7 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
 })
 export class BookablesComponent extends NaturalAbstractList<BookableService> implements OnInit {
     @Output() public readonly select = new EventEmitter<Bookables_bookables_items>();
+    public readonly hasUsage = false;
 
     constructor(
         bookableService: BookableService,

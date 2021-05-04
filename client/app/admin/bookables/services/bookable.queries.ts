@@ -60,19 +60,12 @@ export const bookablesQuery = gql`
     ${bookableMetaFragment}
 `;
 
+// This should be a strict superset of bookablesQuery, because it is used in the same component
 export const usageBookablesQuery = gql`
     query UsageBookables($filter: BookableFilter, $sorting: [BookableSorting!], $pagination: PaginationInput) {
         bookables(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
-                id
-                name
-                code
-                isActive
-                initialPrice
-                periodicPrice
-                purchasePrice
-                purchasePrice
-                simultaneousBookingMaximum
+                ...BookableMeta
                 sharedBookings {
                     id
                     owner {
@@ -80,8 +73,6 @@ export const usageBookablesQuery = gql`
                         name
                     }
                 }
-                creationDate
-                updateDate
             }
             pageSize
             pageIndex
@@ -91,6 +82,7 @@ export const usageBookablesQuery = gql`
             totalPeriodicPrice
         }
     }
+    ${bookableMetaFragment}
 `;
 
 export const bookableQuery = gql`

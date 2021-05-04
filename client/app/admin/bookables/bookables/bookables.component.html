@@ -22,8 +22,8 @@
                     <span naturalColumnsPickerColumn="initialPrice">Prix initial</span>
                     <span naturalColumnsPickerColumn="periodicPrice">Prix périodique</span>
                     <span naturalColumnsPickerColumn="latestModification">Dernière modification</span>
-                    <span naturalColumnsPickerColumn="usage">Utilisations</span>
-                    <span naturalColumnsPickerColumn="usageNb">Nombre d'utilisations</span>
+                    <span *ngIf="hasUsage" naturalColumnsPickerColumn="usage">Utilisations</span>
+                    <span *ngIf="hasUsage" naturalColumnsPickerColumn="usageNb">Nombre d'utilisations</span>
                     <span naturalColumnsPickerColumn="verificationDate">Dernière vérification</span>
                     <span naturalColumnsPickerColumn="select" [checked]="false" [hidden]="true">Sélection</span>
                 </natural-columns-picker>
