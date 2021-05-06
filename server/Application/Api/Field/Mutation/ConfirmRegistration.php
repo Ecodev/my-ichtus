@@ -28,7 +28,7 @@ abstract class ConfirmRegistration implements FieldInterface
         return [
             'name' => 'confirmRegistration',
             'type' => Type::nonNull(Type::boolean()),
-            'description' => 'First step to register as a new user.',
+            'description' => 'Second step to register as a new user.',
             'args' => [
                 'token' => Type::nonNull(_types()->get('Token')),
                 'input' => Type::nonNull(_types()->get('ConfirmRegistrationInput')),
