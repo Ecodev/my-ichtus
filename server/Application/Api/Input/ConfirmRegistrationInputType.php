@@ -12,7 +12,7 @@ class ConfirmRegistrationInputType extends InputObjectType
     public function __construct()
     {
         $config = [
-            'description' => 'Describe what page we want',
+            'description' => 'Mandatory fields to complete a user registration',
             'fields' => function (): array {
                 return [
                     'login' => [
