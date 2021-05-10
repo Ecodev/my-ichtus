@@ -176,6 +176,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
                     conditions: [
                         {
                             bookingType: {in: {values: [bookingType]}},
+                            isActive: {equal: {value: true}},
                         },
                     ],
                 },
