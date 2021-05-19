@@ -43,6 +43,9 @@ export const bookingsQuery = gql`
                     image {
                         id
                     }
+                    bookableTags {
+                        id
+                    }
                 }
             }
             pageSize

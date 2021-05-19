@@ -26,7 +26,7 @@ import {UserService} from '../../admin/users/services/user.service';
 import {LicenseService} from '../../admin/licenses/services/license.service';
 import {TransactionService} from '../../admin/transactions/services/transaction.service';
 import {TransactionTagService} from '../../admin/transactionTags/services/transactionTag.service';
-import {BookableFilter, BookingType, UserFilterGroupCondition} from '../generated-types';
+import {BookableFilter, BookingFilterGroupCondition, BookingType, UserFilterGroupCondition} from '../generated-types';
 import {AccountService} from '../../admin/accounts/services/account.service';
 import {accountHierarchicConfiguration} from '../hierarchic-selector/AccountHierarchicConfiguration';
 import {BookableTagService} from '../../admin/bookableTags/services/bookableTag.service';
@@ -167,6 +167,34 @@ export class NaturalSearchFacetsService {
         display: 'Date de modification',
         field: 'updateDate',
         component: TypeDateComponent,
+    };
+
+    private readonly startDate: DropdownFacet<TypeDateConfiguration> = {
+        display: 'Date de début',
+        field: 'startDate',
+        component: TypeDateComponent,
+    };
+
+    private readonly endDate: DropdownFacet<TypeDateConfiguration> = {
+        display: 'Date de fin',
+        field: 'endDate',
+        component: TypeDateComponent,
+    };
+
+    private readonly destination: DropdownFacet<never> = {
+        display: 'Destination',
+        field: 'destination',
+        component: TypeTextComponent,
+        transform: wrapLike,
+    };
+
+    private readonly participantCount: DropdownFacet<TypeNumberConfiguration> = {
+        display: 'Nb de participants',
+        field: 'participantCount',
+        component: TypeNumberComponent,
+        configuration: {
+            step: 1,
+        },
     };
 
     private readonly creator: DropdownFacet<TypeSelectNaturalConfiguration<UserService>> = {
@@ -482,30 +510,40 @@ export class NaturalSearchFacetsService {
         bookings: [
             this.owner,
             this.bookable,
+            this.startDate,
+            this.endDate,
+            this.destination,
+            this.participantCount,
+            this.creationDate,
+            this.updateDate,
+        ],
+        bookingsAdvanced: [
+            this.owner,
             {
-                display: 'Date de début',
-                field: 'startDate',
-                component: TypeDateComponent,
-            } as DropdownFacet<TypeDateConfiguration>,
+                display: 'Statut',
+                field: 'status',
+                component: TypeSelectComponent,
+                configuration: {items: this.enumService.get('BookingStatus')},
+            } as DropdownFacet<TypeSelectConfiguration>,
             {
-                display: 'Date de fin',
+                display: 'En cours',
                 field: 'endDate',
-                component: TypeDateComponent,
-            } as DropdownFacet<TypeDateConfiguration>,
+                condition: {null: {}} as BookingFilterGroupCondition,
+            } as FlagFacet,
             {
-                display: 'Destination',
-                field: 'destination',
-                component: TypeTextComponent,
-                transform: wrapLike,
-            } as DropdownFacet<never>,
-            {
-                display: 'Nb de participants',
-                field: 'participantCount',
-                component: TypeNumberComponent,
+                display: 'Tag de réservable',
+                field: 'bookable.bookableTags',
+                component: TypeNaturalSelectComponent,
                 configuration: {
-                    step: 1,
+                    service: this.bookableTagService,
+                    placeholder: 'Tag de réservable',
                 },
-            } as DropdownFacet<TypeNumberConfiguration>,
+            } as DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>>,
+            this.bookable,
+            this.startDate,
+            this.endDate,
+            this.destination,
+            this.participantCount,
             this.creationDate,
             this.updateDate,
         ],

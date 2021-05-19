@@ -17,7 +17,7 @@
                 <natural-columns-picker [(selection)]="selectedColumns" [initialSelection]="initialColumns">
                     <span *ngIf="columnIsAvailable('edit')" naturalColumnsPickerColumn="edit">Editer</span>
                     <span *ngIf="columnIsAvailable('owner')" naturalColumnsPickerColumn="owner">Utilisateur</span>
-                    <span *ngIf="columnIsAvailable('status')" naturalColumnsPickerColumn="status">Status</span>
+                    <span *ngIf="columnIsAvailable('status')" naturalColumnsPickerColumn="status">Statut</span>
                     <span *ngIf="columnIsAvailable('ownerBalance')" naturalColumnsPickerColumn="ownerBalance"
                         >Solde</span
                     >
@@ -143,7 +143,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="status">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Statut</th>
                     <td mat-cell *matCellDef="let element">
                         {{ element.status | enum: 'BookingStatus' | async | capitalize }}
                     </td>

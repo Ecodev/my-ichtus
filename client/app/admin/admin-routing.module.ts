@@ -112,6 +112,7 @@ const routes: Routes = [
                         'endComment',
                         'terminateBooking',
                     ],
+                    advancedFacets: true,
                 },
             },
             {
