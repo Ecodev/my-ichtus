@@ -13,7 +13,3 @@ export function copyToClipboard(text: string): void {
     document.execCommand('copy');
     document.body.removeChild(input);
 }
-
-export function toNavigationParameters(selections: NaturalSearchSelections): Params {
-    return {ns: JSON.stringify(toUrl(selections))};
-}

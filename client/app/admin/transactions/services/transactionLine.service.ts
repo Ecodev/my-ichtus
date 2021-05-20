@@ -6,6 +6,7 @@ import {
     NaturalAbstractModelService,
     NaturalQueryVariablesManager,
     NaturalSearchSelections,
+    toNavigationParameters,
 } from '@ecodev/natural';
 import {transactionLineQuery, exportTransactionLines, transactionLinesQuery} from './transactionLine.queries';
 import {
@@ -23,7 +24,6 @@ import {
 } from '../../../shared/generated-types';
 import {Observable, Subject} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {toNavigationParameters} from '../../../shared/utils';
 
 function atLeastOneAccount(formGroup: AbstractControl): ValidationErrors | null {
     if (!formGroup || !(formGroup instanceof FormGroup)) {
