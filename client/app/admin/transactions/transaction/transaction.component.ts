@@ -2,7 +2,7 @@ import {Component, Injector, OnInit, ViewChild} from '@angular/core';
 import {NavigationEnd} from '@angular/router';
 import {NaturalAbstractDetail} from '@ecodev/natural';
 import {TransactionService} from '../services/transaction.service';
-import {Subject} from 'rxjs';
+import {EMPTY, Observable, Subject} from 'rxjs';
 import {filter, takeUntil} from 'rxjs/operators';
 import {
     CreateTransaction_createTransaction,
@@ -138,7 +138,7 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
      * and nothing would happen.
      *
      */
-    protected postCreate(model: CreateTransaction_createTransaction): void {
+    protected postCreate(model: CreateTransaction_createTransaction): Observable<unknown> {
         this.accountingDocuments.save();
         const expire = new Subject();
         this.router.events
@@ -151,6 +151,8 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
                 expire.complete();
                 this.goToNew();
             });
+
+        return EMPTY;
     }
 
     private goToNew(): void {

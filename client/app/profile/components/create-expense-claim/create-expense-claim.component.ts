@@ -4,6 +4,7 @@ import {CreateExpenseClaim_createExpenseClaim, ExpenseClaimStatus} from '../../.
 import {UserService} from '../../../admin/users/services/user.service';
 import {NaturalAbstractDetail} from '@ecodev/natural';
 import {AccountingDocumentsComponent} from '../../../admin/accounting-documents/accounting-documents.component';
+import {EMPTY, Observable} from 'rxjs';
 
 @Component({
     selector: 'app-create-expense-claim',
@@ -29,9 +30,11 @@ export class CreateExpenseClaimComponent extends NaturalAbstractDetail<ExpenseCl
         });
     }
 
-    public postCreate(model: CreateExpenseClaim_createExpenseClaim): void {
+    protected postCreate(model: CreateExpenseClaim_createExpenseClaim): Observable<unknown> {
         this.accountingDocuments.save();
         this.router.navigateByUrl('/profile/finances');
         this.alertService.info('Votre demande a bien été enregistrée');
+
+        return EMPTY;
     }
 }

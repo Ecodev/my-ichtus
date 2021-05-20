@@ -8,6 +8,7 @@ import {
 import {NaturalAbstractDetail} from '@ecodev/natural';
 import {merge} from 'lodash-es';
 import {FamilyUserService} from './family-user.service';
+import {EMPTY, Observable} from 'rxjs';
 
 @Component({
     selector: 'app-family-member',
@@ -61,7 +62,7 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
         this.loaded = true;
     }
 
-    public postCreate(model: CreateUser_createUser): void {
+    protected postCreate(model: CreateUser_createUser): Observable<unknown> {
         if (model.login) {
             this.userService.requestPasswordReset(model.login).subscribe(() => {
                 this.alertService.info(
@@ -70,5 +71,7 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
                 );
             });
         }
+
+        return EMPTY;
     }
 }
