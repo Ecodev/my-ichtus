@@ -12,6 +12,7 @@ return [
         'data' => [
             'newUser' => [
                 User::ROLE_BOOKING_ONLY,
+                User::ROLE_ACCOUNTING_VERIFICATOR,
                 User::ROLE_INDIVIDUAL,
                 User::ROLE_MEMBER,
                 User::ROLE_TRAINER,
@@ -21,6 +22,7 @@ return [
             ],
             'member' => [
                 User::ROLE_BOOKING_ONLY,
+                User::ROLE_ACCOUNTING_VERIFICATOR,
                 User::ROLE_INDIVIDUAL,
                 User::ROLE_MEMBER,
                 User::ROLE_TRAINER,
@@ -29,6 +31,7 @@ return [
             ],
             'administrator' => [
                 User::ROLE_BOOKING_ONLY,
+                User::ROLE_ACCOUNTING_VERIFICATOR,
                 User::ROLE_INDIVIDUAL,
                 User::ROLE_MEMBER,
                 User::ROLE_TRAINER,

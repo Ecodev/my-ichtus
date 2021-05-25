@@ -13,6 +13,7 @@ class UserRoleType extends EnumType
     {
         $config = [
             User::ROLE_BOOKING_ONLY => 'Uniquement cahier de sortie (spécial)',
+            User::ROLE_ACCOUNTING_VERIFICATOR => 'Vérificateur des comptes',
             User::ROLE_INDIVIDUAL => 'Individu',
             User::ROLE_MEMBER => 'Membre',
             User::ROLE_TRAINER => 'Formateur',

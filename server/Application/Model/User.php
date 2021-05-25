@@ -63,6 +63,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     const ROLE_ANONYMOUS = 'anonymous';
     const ROLE_BOOKING_ONLY = 'booking_only';
     const ROLE_INDIVIDUAL = 'individual';
+    const ROLE_ACCOUNTING_VERIFICATOR = 'accounting_verificator';
     const ROLE_MEMBER = 'member';
     const ROLE_TRAINER = 'trainer';
     const ROLE_RESPONSIBLE = 'responsible';
@@ -840,7 +841,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     public function getCanOpenDoor(?string $door = null): bool
     {
         $allowedStatus = [self::STATUS_ACTIVE];
-        $allowedRoles = [self::ROLE_INDIVIDUAL, self::ROLE_MEMBER, self::ROLE_TRAINER, self::ROLE_RESPONSIBLE, self::ROLE_ADMINISTRATOR];
+        $allowedRoles = [self::ROLE_ACCOUNTING_VERIFICATOR, self::ROLE_INDIVIDUAL, self::ROLE_MEMBER, self::ROLE_TRAINER, self::ROLE_RESPONSIBLE, self::ROLE_ADMINISTRATOR];
 
         if ($door && !$this->$door) {
             return false;

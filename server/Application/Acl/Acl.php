@@ -37,6 +37,7 @@ class Acl extends \Ecodev\Felix\Acl\Acl
         // Each role is strictly "stronger" than the last one
         $this->addRole(User::ROLE_ANONYMOUS);
         $this->addRole(User::ROLE_BOOKING_ONLY, User::ROLE_ANONYMOUS);
+        $this->addRole(User::ROLE_ACCOUNTING_VERIFICATOR, User::ROLE_ANONYMOUS);
         $this->addRole(User::ROLE_INDIVIDUAL, User::ROLE_BOOKING_ONLY);
         $this->addRole(User::ROLE_MEMBER, User::ROLE_INDIVIDUAL);
         $this->addRole(User::ROLE_TRAINER, User::ROLE_MEMBER);
@@ -64,6 +65,8 @@ class Acl extends \Ecodev\Felix\Acl\Acl
         $this->allow(User::ROLE_BOOKING_ONLY, [$booking], ['create'], new BookableAvailable());
         $this->allow(User::ROLE_BOOKING_ONLY, [$booking], ['read']);
         $this->allow(User::ROLE_BOOKING_ONLY, [$booking], ['update'], new One(new BookingIsSelfApproved(), new isOwner()));
+
+        $this->allow(User::ROLE_ACCOUNTING_VERIFICATOR, [$user, $account, $transaction, $transactionTag, $accountingDocument], ['read']);
 
         $this->allow(User::ROLE_INDIVIDUAL, [$user], ['read']);
         $this->allow(User::ROLE_INDIVIDUAL, [$user], ['update'], new IsMyself());

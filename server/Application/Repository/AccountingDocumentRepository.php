@@ -20,7 +20,7 @@ class AccountingDocumentRepository extends AbstractRepository implements Limited
             return '-1';
         }
 
-        if (in_array($user->getRole(), [User::ROLE_RESPONSIBLE, User::ROLE_ADMINISTRATOR], true)) {
+        if (in_array($user->getRole(), [User::ROLE_ACCOUNTING_VERIFICATOR, User::ROLE_RESPONSIBLE, User::ROLE_ADMINISTRATOR], true)) {
             return $this->getAllIdsQuery();
         }
 

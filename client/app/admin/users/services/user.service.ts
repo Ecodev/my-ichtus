@@ -161,7 +161,12 @@ export class UserService
             return false;
         }
 
-        return UserService.gteTrainer(user);
+        return [
+            UserRole.accounting_verificator,
+            UserRole.trainer,
+            UserRole.responsible,
+            UserRole.administrator,
+        ].includes(user.role);
     }
 
     public static canAccessDoor(user: CurrentUserForProfile['viewer']): boolean {
@@ -181,17 +186,6 @@ export class UserService
         }
 
         return [UserRole.responsible, UserRole.administrator].includes(user.role);
-    }
-
-    /**
-     * Return true if user role is greater or equal to trainer
-     */
-    public static gteTrainer(user: CurrentUserForProfile['viewer']): boolean {
-        if (!user) {
-            return false;
-        }
-
-        return [UserRole.trainer, UserRole.responsible, UserRole.administrator].includes(user.role);
     }
 
     public static getFamilyVariables(user: CurrentUserForProfile_viewer): UsersVariables {

@@ -94,25 +94,20 @@
                     </mat-nav-list>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel class="mat-elevation-z0">
+                <mat-expansion-panel
+                    class="mat-elevation-z0"
+                    *ngIf="UserService.gteResponsible(route.snapshot.data.viewer.model)"
+                >
                     <mat-expansion-panel-header>
                         <mat-panel-title>Cours et accueil</mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-nav-list>
                         <a mat-list-item routerLinkActive="active" routerLink="bookable/formation">Cours</a>
-                        <a
-                            mat-list-item
-                            routerLinkActive="active"
-                            routerLink="booking/formation-application"
-                            *ngIf="UserService.gteResponsible(route.snapshot.data.viewer.model)"
+                        <a mat-list-item routerLinkActive="active" routerLink="booking/formation-application"
                             >Demandes de cours</a
                         >
                         <a mat-list-item routerLinkActive="active" routerLink="bookable/welcome">Séances d'accueil</a>
-                        <a
-                            mat-list-item
-                            routerLinkActive="active"
-                            routerLink="booking/welcome-application"
-                            *ngIf="UserService.gteResponsible(route.snapshot.data.viewer.model)"
+                        <a mat-list-item routerLinkActive="active" routerLink="booking/welcome-application"
                             >Demandes de séances d'accueil</a
                         >
                     </mat-nav-list>
@@ -152,7 +147,10 @@
 
                 <mat-expansion-panel
                     class="mat-elevation-z0"
-                    *ngIf="UserService.gteResponsible(route.snapshot.data.viewer.model)"
+                    *ngIf="
+                        UserService.gteResponsible(route.snapshot.data.viewer.model) ||
+                        route.snapshot.data.viewer.model?.role === UserRole.accounting_verificator
+                    "
                 >
                     <mat-expansion-panel-header>
                         <mat-panel-title>Comptabilité</mat-panel-title>
@@ -163,10 +161,13 @@
                         <a mat-list-item routerLinkActive="active" routerLink="expense-claim"
                             >Frais et remboursements</a
                         >
-                        <a mat-list-item routerLinkActive="active" routerLink="transactions/summary"
-                            >Rapport comptable (todo)</a
+                        <a
+                            mat-list-item
+                            routerLinkActive="active"
+                            routerLink="import"
+                            *ngIf="permissionsService.crud?.transaction?.create"
+                            >Import BVR</a
                         >
-                        <a mat-list-item routerLinkActive="active" routerLink="import">Import BVR</a>
                         <a mat-list-item routerLinkActive="active" routerLink="transaction-tag">Tags</a>
                     </mat-nav-list>
                 </mat-expansion-panel>
@@ -180,8 +181,10 @@
                     </mat-expansion-panel-header>
                     <mat-nav-list>
                         <a mat-list-item [class.active]="adminBookableRouteActive" routerLink="bookable">Réservables</a>
-                        <a mat-list-item [class.active]="adminBookingRouteActive" routerLink="booking">Réservations</a>
-                    </mat-nav-list>
+                        <a mat-list-item [class.active]="adminBookingRouteActive" routerLink="booking"
+                            >Réservations</a
+                        > </mat-nav-list
+                    >AccountingTest
                 </mat-expansion-panel>
             </mat-accordion>
         </div>

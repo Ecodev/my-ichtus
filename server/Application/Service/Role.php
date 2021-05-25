@@ -26,6 +26,7 @@ abstract class Role
         $currentRole = $currentUser ? $currentUser->getRole() : User::ROLE_ANONYMOUS;
         $orderedRoles = [
             User::ROLE_ANONYMOUS,
+            User::ROLE_ACCOUNTING_VERIFICATOR,
             User::ROLE_INDIVIDUAL,
             User::ROLE_MEMBER,
             User::ROLE_TRAINER,

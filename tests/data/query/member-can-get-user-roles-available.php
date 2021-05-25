@@ -15,10 +15,12 @@ return [
     [
         'data' => [
             'newUser' => [
+                User::ROLE_ACCOUNTING_VERIFICATOR,
                 User::ROLE_INDIVIDUAL,
                 User::ROLE_MEMBER,
             ],
             'member' => [
+                User::ROLE_ACCOUNTING_VERIFICATOR,
                 User::ROLE_INDIVIDUAL,
                 User::ROLE_MEMBER,
             ],

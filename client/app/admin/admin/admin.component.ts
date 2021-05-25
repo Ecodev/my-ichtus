@@ -4,7 +4,7 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {UserService} from '../users/services/user.service';
 import {NaturalAbstractController} from '@ecodev/natural';
 import {takeUntil} from 'rxjs/operators';
-import {CurrentUserForProfile_viewer} from '../../shared/generated-types';
+import {UserRole} from '../../shared/generated-types';
 
 @Component({
     selector: 'app-admin',
@@ -16,6 +16,7 @@ export class AdminComponent extends NaturalAbstractController implements OnInit 
     public adminUserRouteActive = false;
     public adminBookableRouteActive = false;
     public adminBookingRouteActive = false;
+    public UserRole = UserRole;
 
     constructor(
         router: Router,

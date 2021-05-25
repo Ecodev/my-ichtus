@@ -25,10 +25,11 @@ class UserRepositoryTest extends AbstractRepositoryTest
 
     public function providerGetAccessibleSubQuery(): array
     {
-        $all = range(1000, 1013);
+        $all = range(1000, 1014);
 
         return [
             ['anonymous', []],
+            ['accounting_verificator', []],
             ['bookingonly', $all],
             ['individual', $all],
             ['member', $all],
