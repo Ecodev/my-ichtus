@@ -4,7 +4,7 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {UserService} from '../users/services/user.service';
 import {NaturalAbstractController} from '@ecodev/natural';
 import {takeUntil} from 'rxjs/operators';
-import {UserRole} from '../../shared/generated-types';
+import {CurrentUserForProfile, UserRole} from '../../shared/generated-types';
 
 @Component({
     selector: 'app-admin',
@@ -17,6 +17,7 @@ export class AdminComponent extends NaturalAbstractController implements OnInit 
     public adminBookableRouteActive = false;
     public adminBookingRouteActive = false;
     public UserRole = UserRole;
+    public AdminComponent = AdminComponent;
 
     constructor(
         router: Router,
@@ -51,6 +52,50 @@ export class AdminComponent extends NaturalAbstractController implements OnInit 
                 segments[1]?.path === 'booking' &&
                 (segments[2] === undefined || segments[2].path === 'new' || !!segments[2].path.match(/^\d+$/));
         });
+    }
+
+    public static canAccessUsers(user: CurrentUserForProfile['viewer']): boolean {
+        if (!user) {
+            return false;
+        }
+
+        return [
+            UserRole.individual,
+            UserRole.member,
+            UserRole.member,
+            UserRole.responsible,
+            UserRole.administrator,
+        ].includes(user.role);
+    }
+
+    public static canAccessNavigations(user: CurrentUserForProfile['viewer']): boolean {
+        if (!user) {
+            return false;
+        }
+
+        return [
+            UserRole.individual,
+            UserRole.member,
+            UserRole.member,
+            UserRole.responsible,
+            UserRole.administrator,
+        ].includes(user.role);
+    }
+
+    public static canAccessAccounting(user: CurrentUserForProfile['viewer']): boolean {
+        if (!user) {
+            return false;
+        }
+
+        return UserService.gteResponsible(user) || user.role === UserRole.accounting_verificator;
+    }
+
+    public static canAccessExpenseClaims(user: CurrentUserForProfile['viewer']): boolean {
+        if (!user) {
+            return false;
+        }
+
+        return [UserRole.responsible, UserRole.administrator].includes(user.role);
     }
 
     public ngOnInit(): void {}
