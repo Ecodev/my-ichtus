@@ -2,7 +2,6 @@
     "datatrans": {
         "merchantId": "",
         "key": "secret-HMAC-key",
-        "sign": "",
         "production": false,
         "endpoint": "https://pay.sandbox.datatrans.com"
     }

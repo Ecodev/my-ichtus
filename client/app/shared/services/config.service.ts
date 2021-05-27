@@ -7,7 +7,6 @@ export interface FrontEndConfig {
     datatrans: {
         merchantId: string;
         key: string;
-        sign: string;
         production: boolean;
         endpoint: string;
     };
