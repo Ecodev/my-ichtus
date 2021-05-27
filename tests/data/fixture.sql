@@ -131,7 +131,10 @@ REPLACE INTO bookable_tag (id, name) VALUES
 (6008, 'Stockage'),
 (6009, 'Armoire'),
 (6010, 'Casier'),
-(6011, 'Flotteurs');
+(6011, 'Flotteurs'),
+(6017, 'Cours'),
+(6024, 'Séance accueil'),
+(6028, 'Stockage demande');
 
 REPLACE INTO image (id, filename, width, height, mime) VALUES
 (5000, 'chat1.jpg', 1000, 482, 'image/jpeg'),

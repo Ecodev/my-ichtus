@@ -17,6 +17,7 @@ class UserRoleType extends EnumType
             User::ROLE_INDIVIDUAL => 'Individu',
             User::ROLE_MEMBER => 'Membre',
             User::ROLE_TRAINER => 'Formateur',
+            User::ROLE_FORMATION_RESPONSIBLE => 'Responsable de cours',
             User::ROLE_RESPONSIBLE => 'Responsable de secteur',
             User::ROLE_ADMINISTRATOR => 'Administrateur',
         ];

@@ -15,6 +15,7 @@ REPLACE INTO user (id, owner_id, login, first_name, last_name, email, password, 
 (1011, 1010, 'voilierfamily', 'Voilier', 'Family', 'voilierfamily@example.com', MD5('voilierfamily'), 'individual', 'active', NULL, 'electronic', '2018-01-01 12:00:00', NULL, 'partner', 0, NULL),
 (1012, NULL, 'othermember', 'Other', 'Member', 'othermember@example.com', MD5('member'), 'member', 'active', '1987-10-05', 'electronic', '2018-01-01 12:00:00', NULL, 'householder', 0, 'CH4200681926673315051'),
 (1013, NULL, 'trainer', 'Formator', 'trainer', 'trainer@example.com', MD5('trainer'), 'trainer', 'active', '1987-10-05', 'electronic', '2018-01-01 12:00:00', NULL, 'householder', 0, 'CH4200681926673315051'),
-(1014, NULL, 'verificator', 'Accounting', 'Verificator', 'verificator@example.com', MD5('verificator'), 'accounting_verificator', 'active', '1987-10-05', 'electronic', '2018-01-01 12:00:01', NULL, 'householder', 0, NULL);
+(1014, NULL, 'verificator', 'Accounting', 'Verificator', 'verificator@example.com', MD5('verificator'), 'accounting_verificator', 'active', '1987-10-05', 'electronic', '2018-01-01 12:00:01', NULL, 'householder', 0, NULL),
+(1015, NULL, 'formationresponsible', 'Formation', 'Responsible', 'formationresponsible@example.com', MD5('formationresponsible'), 'formation_responsible', 'active', '1987-10-05', 'electronic', '2018-01-01 12:00:02', NULL, 'householder', 0, NULL);
 
 COMMIT;

@@ -17,6 +17,7 @@ class UserRoleType extends EnumType
             User::ROLE_ACCOUNTING_VERIFICATOR,
             User::ROLE_MEMBER,
             User::ROLE_TRAINER,
+            User::ROLE_FORMATION_RESPONSIBLE,
             User::ROLE_RESPONSIBLE,
             User::ROLE_ADMINISTRATOR,
         ];

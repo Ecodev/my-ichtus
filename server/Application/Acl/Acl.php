@@ -34,14 +34,15 @@ class Acl extends \Ecodev\Felix\Acl\Acl
 {
     public function __construct()
     {
-        // Each role is strictly "stronger" than the last one
+        // Each role is NOT strictly "stronger" than the last one
         $this->addRole(User::ROLE_ANONYMOUS);
         $this->addRole(User::ROLE_BOOKING_ONLY, User::ROLE_ANONYMOUS);
         $this->addRole(User::ROLE_ACCOUNTING_VERIFICATOR, User::ROLE_ANONYMOUS);
         $this->addRole(User::ROLE_INDIVIDUAL, User::ROLE_BOOKING_ONLY);
         $this->addRole(User::ROLE_MEMBER, User::ROLE_INDIVIDUAL);
         $this->addRole(User::ROLE_TRAINER, User::ROLE_MEMBER);
-        $this->addRole(User::ROLE_RESPONSIBLE, User::ROLE_TRAINER);
+        $this->addRole(User::ROLE_FORMATION_RESPONSIBLE, User::ROLE_TRAINER);
+        $this->addRole(User::ROLE_RESPONSIBLE, User::ROLE_FORMATION_RESPONSIBLE);
         $this->addRole(User::ROLE_ADMINISTRATOR, User::ROLE_RESPONSIBLE);
 
         $bookable = $this->createModelResource(Bookable::class);
@@ -85,9 +86,11 @@ class Acl extends \Ecodev\Felix\Acl\Acl
 
         $this->allow(User::ROLE_TRAINER, [$userTag], ['read']);
 
+        $this->allow(User::ROLE_FORMATION_RESPONSIBLE, [$user, $userTag], ['update']);
+        $this->allow(User::ROLE_FORMATION_RESPONSIBLE, [$booking], ['create', 'update']);
+
         $this->allow(User::ROLE_RESPONSIBLE, [$transaction, $account, $transactionTag], ['read']);
         $this->allow(User::ROLE_RESPONSIBLE, [$expenseClaim, $accountingDocument], ['read', 'update']);
-        $this->allow(User::ROLE_RESPONSIBLE, [$user], ['update']);
         $this->allow(User::ROLE_RESPONSIBLE, [$bookableMetadata, $bookableTag, $image, $license, $userTag], ['create', 'update', 'delete']);
         $this->allow(User::ROLE_RESPONSIBLE, [$bookable], ['create', 'update']);
         $this->allow(User::ROLE_RESPONSIBLE, [$booking], ['update', 'delete']);

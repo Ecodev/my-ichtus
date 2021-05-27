@@ -31,6 +31,7 @@ abstract class Role
             User::ROLE_MEMBER,
             User::ROLE_TRAINER,
             User::ROLE_BOOKING_ONLY,
+            User::ROLE_FORMATION_RESPONSIBLE,
             User::ROLE_RESPONSIBLE,
             User::ROLE_ADMINISTRATOR,
         ];

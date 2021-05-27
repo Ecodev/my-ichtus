@@ -16,6 +16,7 @@ return [
                 User::ROLE_INDIVIDUAL,
                 User::ROLE_MEMBER,
                 User::ROLE_TRAINER,
+                User::ROLE_FORMATION_RESPONSIBLE,
                 User::ROLE_RESPONSIBLE,
                 User::ROLE_ADMINISTRATOR,
 
@@ -26,6 +27,7 @@ return [
                 User::ROLE_INDIVIDUAL,
                 User::ROLE_MEMBER,
                 User::ROLE_TRAINER,
+                User::ROLE_FORMATION_RESPONSIBLE,
                 User::ROLE_RESPONSIBLE,
                 User::ROLE_ADMINISTRATOR,
             ],
@@ -35,6 +37,7 @@ return [
                 User::ROLE_INDIVIDUAL,
                 User::ROLE_MEMBER,
                 User::ROLE_TRAINER,
+                User::ROLE_FORMATION_RESPONSIBLE,
                 User::ROLE_RESPONSIBLE,
                 User::ROLE_ADMINISTRATOR,
             ],
