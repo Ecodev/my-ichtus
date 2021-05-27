@@ -16,7 +16,7 @@ export class SelfApprovedBookingComponent implements OnInit {
     public booking: Literal = {};
 
     constructor(
-        private route: ActivatedRoute,
+        private readonly route: ActivatedRoute,
         private readonly router: Router,
         private readonly userService: UserService,
         private readonly bookingService: BookingService,

@@ -37,7 +37,7 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
     public canCreateExpenseClaim = false;
 
     constructor(
-        private userService: UserService,
+        private readonly userService: UserService,
         private readonly route: ActivatedRoute,
         private readonly expenseClaimService: ExpenseClaimService,
         private readonly transactionLineService: TransactionLineService,

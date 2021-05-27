@@ -25,8 +25,8 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
     public config: FrontEndConfig | null = null;
 
     constructor(
-        public userService: UserService,
-        private alertService: NaturalAlertService,
+        public readonly userService: UserService,
+        private readonly alertService: NaturalAlertService,
         private readonly route: ActivatedRoute,
         private readonly router: Router,
         public readonly bookableService: BookableService,
