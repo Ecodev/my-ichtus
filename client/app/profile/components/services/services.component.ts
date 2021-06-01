@@ -1,5 +1,4 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {
     Bookings_bookings,
     Bookings_bookings_items,
@@ -21,7 +20,6 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
 
     public adminMode = false;
 
-    public BookableService = BookableService;
     public runningServicesDS!: NaturalDataSource<Bookings_bookings>;
     public pendingApplicationsDS!: NaturalDataSource<Bookings_bookings>;
 

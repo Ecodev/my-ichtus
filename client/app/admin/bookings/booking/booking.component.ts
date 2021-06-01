@@ -1,7 +1,6 @@
 import {Component, Injector, OnInit} from '@angular/core';
 import {BookingService} from '../services/booking.service';
 import {
-    Bookables_bookables_items,
     BookableSortingField,
     BookablesVariables,
     BookableTags_bookableTags_items,
@@ -16,7 +15,6 @@ import {UserService} from '../../users/services/user.service';
 import {BookableService} from '../../bookables/services/bookable.service';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 import {ExtractVall, NaturalAbstractDetail} from '@ecodev/natural';
-import {UsageBookableService} from '../../bookables/services/usage-bookable.service';
 
 @Component({
     selector: 'app-booking',
@@ -24,7 +22,6 @@ import {UsageBookableService} from '../../bookables/services/usage-bookable.serv
     styleUrls: ['./booking.component.scss'],
 })
 export class BookingComponent extends NaturalAbstractDetail<BookingService> implements OnInit {
-    public UsageBookableService = UsageBookableService;
     public BookingStatus = BookingStatus;
     public suggestionVariables: BookablesVariables = {};
 
