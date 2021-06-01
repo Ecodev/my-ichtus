@@ -102,18 +102,26 @@
 
                 <mat-expansion-panel
                     class="mat-elevation-z0"
-                    *ngIf="permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
+                    *ngIf="permissionsService.canAccessFormations(route.snapshot.data.viewer.model)"
                 >
                     <mat-expansion-panel-header>
                         <mat-panel-title>Cours et accueil</mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-nav-list>
                         <a mat-list-item routerLinkActive="active" routerLink="bookable/formation">Cours</a>
-                        <a mat-list-item routerLinkActive="active" routerLink="booking/formation-application"
+                        <a
+                            mat-list-item
+                            routerLinkActive="active"
+                            routerLink="booking/formation-application"
+                            *ngIf="this.permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
                             >Demandes de cours</a
                         >
                         <a mat-list-item routerLinkActive="active" routerLink="bookable/welcome">Séances d'accueil</a>
-                        <a mat-list-item routerLinkActive="active" routerLink="booking/welcome-application"
+                        <a
+                            mat-list-item
+                            routerLinkActive="active"
+                            routerLink="booking/welcome-application"
+                            *ngIf="this.permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
                             >Demandes de séances d'accueil</a
                         >
                     </mat-nav-list>
