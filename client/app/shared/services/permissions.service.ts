@@ -144,13 +144,7 @@ export class PermissionsService {
             return false;
         }
 
-        return [
-            UserRole.individual,
-            UserRole.member,
-            UserRole.member,
-            UserRole.responsible,
-            UserRole.administrator,
-        ].includes(user.role);
+        return [UserRole.individual, UserRole.member, UserRole.responsible, UserRole.administrator].includes(user.role);
     }
 
     public canAccessNavigations(user: CurrentUserForProfile['viewer']): boolean {
@@ -158,13 +152,7 @@ export class PermissionsService {
             return false;
         }
 
-        return [
-            UserRole.individual,
-            UserRole.member,
-            UserRole.member,
-            UserRole.responsible,
-            UserRole.administrator,
-        ].includes(user.role);
+        return [UserRole.individual, UserRole.member, UserRole.responsible, UserRole.administrator].includes(user.role);
     }
 
     public canAccessAccounting(user: CurrentUserForProfile['viewer']): boolean {
