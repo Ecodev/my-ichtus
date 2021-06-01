@@ -64,7 +64,7 @@
                 mat-button
                 fxLayout="column"
                 fxLayoutAlign="start center"
-                routerLink="admin"
+                [routerLink]="adminRoute | async"
                 *ngIf="permissionsService.canAccessAdmin(route.snapshot.data.viewer.model)"
                 class="big-button"
             >
