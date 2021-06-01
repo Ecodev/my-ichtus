@@ -1,9 +1,16 @@
-import {gql, Apollo} from 'apollo-angular';
+import {Apollo, gql} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {debounceTime, distinctUntilChanged, filter, skip, take} from 'rxjs/operators';
 import {isEqual} from 'lodash-es';
 import {BehaviorSubject, Observable, of, ReplaySubject} from 'rxjs';
-import {Permissions, Permissions_permissions, Permissions_permissions_crud} from '../generated-types';
+import {
+    CurrentUserForProfile,
+    Permissions,
+    Permissions_permissions,
+    Permissions_permissions_crud,
+    UserRole,
+    UserStatus,
+} from '../generated-types';
 import {Literal} from '@ecodev/natural';
 
 const permissions = gql`
@@ -130,5 +137,89 @@ export class PermissionsService {
         };
 
         return this.setNewContexts(newContexts);
+    }
+
+    public canAccessUsers(user: CurrentUserForProfile['viewer']): boolean {
+        if (!user) {
+            return false;
+        }
+
+        return [
+            UserRole.individual,
+            UserRole.member,
+            UserRole.member,
+            UserRole.responsible,
+            UserRole.administrator,
+        ].includes(user.role);
+    }
+
+    public canAccessNavigations(user: CurrentUserForProfile['viewer']): boolean {
+        if (!user) {
+            return false;
+        }
+
+        return [
+            UserRole.individual,
+            UserRole.member,
+            UserRole.member,
+            UserRole.responsible,
+            UserRole.administrator,
+        ].includes(user.role);
+    }
+
+    public canAccessAccounting(user: CurrentUserForProfile['viewer']): boolean {
+        if (!user) {
+            return false;
+        }
+
+        return this.gteResponsible(user) || user.role === UserRole.accounting_verificator;
+    }
+
+    public canAccessExpenseClaims(user: CurrentUserForProfile['viewer']): boolean {
+        if (!user) {
+            return false;
+        }
+
+        return [UserRole.responsible, UserRole.administrator].includes(user.role);
+    }
+
+    public canAccessServices(user: CurrentUserForProfile['viewer']): boolean {
+        if (!user) {
+            return false;
+        }
+
+        return [UserStatus.active, UserStatus.new].includes(user.status);
+    }
+
+    public canAccessAdmin(user: CurrentUserForProfile['viewer']): boolean {
+        if (!user) {
+            return false;
+        }
+
+        return [
+            UserRole.accounting_verificator,
+            UserRole.trainer,
+            UserRole.responsible,
+            UserRole.administrator,
+        ].includes(user.role);
+    }
+
+    public canAccessDoor(user: CurrentUserForProfile['viewer']): boolean {
+        if (!user) {
+            return false;
+        }
+
+        return user.canOpenDoor;
+    }
+
+    /**
+     * Return true if user role is greater or equal to responsible
+     */
+    public gteResponsible(user: CurrentUserForProfile['viewer']): boolean {
+        if (!user) {
+            return false;
+        }
+
+        return [UserRole.responsible, UserRole.administrator].includes(user.role);
     }
 }

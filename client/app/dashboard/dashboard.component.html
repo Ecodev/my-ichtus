@@ -43,7 +43,7 @@
                 fxLayout="column"
                 fxLayoutAlign="start center"
                 routerLink="door"
-                *ngIf="UserService.canAccessDoor(route.snapshot.data.viewer.model)"
+                *ngIf="permissionsService.canAccessDoor(route.snapshot.data.viewer.model)"
                 class="big-button"
             >
                 <natural-icon name="doors" [size]="70"></natural-icon>
@@ -65,7 +65,7 @@
                 fxLayout="column"
                 fxLayoutAlign="start center"
                 routerLink="admin"
-                *ngIf="UserService.canAccessAdmin(route.snapshot.data.viewer.model)"
+                *ngIf="permissionsService.canAccessAdmin(route.snapshot.data.viewer.model)"
                 class="big-button"
             >
                 <natural-icon name="administrator" [size]="70"></natural-icon>

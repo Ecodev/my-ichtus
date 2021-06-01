@@ -1,5 +1,4 @@
 import {Apollo, gql} from 'apollo-angular';
-import {DataProxy} from '@apollo/client/core';
 import {Inject, Injectable, OnDestroy} from '@angular/core';
 import {FormControl, ValidationErrors, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
@@ -147,46 +146,6 @@ export class UserService
                 ],
             },
         };
-    }
-
-    public static canAccessServices(user: CurrentUserForProfile['viewer']): boolean {
-        if (!user) {
-            return false;
-        }
-
-        return [UserStatus.active, UserStatus.new].includes(user.status);
-    }
-
-    public static canAccessAdmin(user: CurrentUserForProfile['viewer']): boolean {
-        if (!user) {
-            return false;
-        }
-
-        return [
-            UserRole.accounting_verificator,
-            UserRole.trainer,
-            UserRole.responsible,
-            UserRole.administrator,
-        ].includes(user.role);
-    }
-
-    public static canAccessDoor(user: CurrentUserForProfile['viewer']): boolean {
-        if (!user) {
-            return false;
-        }
-
-        return user.canOpenDoor;
-    }
-
-    /**
-     * Return true if user role is greater or equal to responsible
-     */
-    public static gteResponsible(user: CurrentUserForProfile['viewer']): boolean {
-        if (!user) {
-            return false;
-        }
-
-        return [UserRole.responsible, UserRole.administrator].includes(user.role);
     }
 
     public static getFamilyVariables(user: CurrentUserForProfile_viewer): UsersVariables {

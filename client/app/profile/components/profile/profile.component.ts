@@ -10,6 +10,7 @@ import {ConfigService, FrontEndConfig} from '../../../shared/services/config.ser
 import {filter, takeUntil} from 'rxjs/operators';
 import {CurrentUserForProfile_viewer} from '../../../shared/generated-types';
 import {DatatransService} from '../../../shared/services/datatrans.service';
+import {PermissionsService} from '../../../shared/services/permissions.service';
 
 @Component({
     selector: 'app-profile',
@@ -26,6 +27,7 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
 
     constructor(
         public readonly userService: UserService,
+        public readonly permissionsService: PermissionsService,
         private readonly alertService: NaturalAlertService,
         private readonly route: ActivatedRoute,
         private readonly router: Router,
@@ -79,7 +81,7 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
     }
 
     public canAccessServices(): boolean {
-        return UserService.canAccessServices(this.viewer);
+        return this.permissionsService.canAccessServices(this.viewer);
     }
 
     private doPayment(user: CurrentUserForProfile_viewer, amount: number): void {

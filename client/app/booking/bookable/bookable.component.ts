@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {BookableService} from '../../admin/bookables/services/bookable.service';
 import {BookingService} from '../../admin/bookings/services/booking.service';
-import {UserService} from '../../admin/users/services/user.service';
 import {NaturalAbstractController} from '@ecodev/natural';
 import {Bookable_bookable, Bookings, BookingType} from '../../shared/generated-types';
+import {PermissionsService} from '../../shared/services/permissions.service';
 
 @Component({
     selector: 'app-bookable',
@@ -40,6 +40,7 @@ export class BookableComponent extends NaturalAbstractController implements OnIn
     constructor(
         private readonly bookableService: BookableService,
         private readonly route: ActivatedRoute,
+        private readonly permissionsService: PermissionsService,
         public readonly bookingService: BookingService,
     ) {
         super();
@@ -58,7 +59,7 @@ export class BookableComponent extends NaturalAbstractController implements OnIn
         }
 
         const viewer = this.route.snapshot.data.viewer.model;
-        this.canAccessAdmin = UserService.canAccessAdmin(viewer);
+        this.canAccessAdmin = this.permissionsService.canAccessAdmin(viewer);
         this.welcomeSessionTaken = viewer.welcomeSessionDate !== null;
         this.hasLicense = BookableService.isLicenseGranted(this.bookable, viewer);
         this.isNavigable = this.bookable.bookingType === BookingType.self_approved;

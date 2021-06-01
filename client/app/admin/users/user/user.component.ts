@@ -29,7 +29,6 @@ import {finalize} from 'rxjs/operators';
 })
 export class UserComponent extends NaturalAbstractDetail<UserService> implements OnInit {
     public showFamilyTab = false;
-    public UserService = UserService;
     public updating = false;
     public ibanLocked = true;
     public readonly ibanCtrl = new FormControl('', ibanValidator);

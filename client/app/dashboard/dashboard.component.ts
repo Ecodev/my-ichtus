@@ -12,8 +12,6 @@ import {PermissionsService} from '../shared/services/permissions.service';
 export class DashboardComponent implements OnInit {
     public title = 'my-ichtus';
 
-    public UserService = UserService;
-
     constructor(
         public readonly userService: UserService,
         public readonly bookingService: BookingService,

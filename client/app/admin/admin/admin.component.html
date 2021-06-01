@@ -4,7 +4,7 @@
             <mat-accordion displayMode="flat">
                 <mat-expansion-panel
                     class="mat-elevation-z0"
-                    *ngIf="AdminComponent.canAccessNavigations(route.snapshot.data.viewer.model)"
+                    *ngIf="permissionsService.canAccessNavigations(route.snapshot.data.viewer.model)"
                 >
                     <mat-expansion-panel-header>
                         <mat-panel-title>Carnet de sorties</mat-panel-title>
@@ -17,7 +17,7 @@
 
                 <mat-expansion-panel
                     class="mat-elevation-z0"
-                    *ngIf="AdminComponent.canAccessUsers(route.snapshot.data.viewer.model)"
+                    *ngIf="permissionsService.canAccessUsers(route.snapshot.data.viewer.model)"
                 >
                     <mat-expansion-panel-header>
                         <mat-panel-title>Utilisateurs</mat-panel-title>
@@ -30,35 +30,35 @@
                             mat-list-item
                             routerLinkActive="active"
                             routerLink="user/newcomer"
-                            *ngIf="UserService.gteResponsible(route.snapshot.data.viewer.model)"
+                            *ngIf="permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
                             >Nouveaux membres</a
                         >
                         <a
                             mat-list-item
                             routerLinkActive="active"
                             routerLink="user/member"
-                            *ngIf="UserService.gteResponsible(route.snapshot.data.viewer.model)"
+                            *ngIf="permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
                             >Membres</a
                         >
                         <a
                             mat-list-item
                             routerLinkActive="active"
                             routerLink="user/staff"
-                            *ngIf="UserService.gteResponsible(route.snapshot.data.viewer.model)"
+                            *ngIf="permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
                             >Comité</a
                         >
                         <a
                             mat-list-item
                             routerLinkActive="active"
                             routerLink="user/non-active"
-                            *ngIf="UserService.gteResponsible(route.snapshot.data.viewer.model)"
+                            *ngIf="permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
                             >Non actifs</a
                         >
                         <a
                             mat-list-item
                             routerLinkActive="active"
                             routerLink="user-tag"
-                            *ngIf="UserService.gteResponsible(route.snapshot.data.viewer.model)"
+                            *ngIf="permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
                             >Tags</a
                         >
                     </mat-nav-list>
@@ -66,7 +66,7 @@
 
                 <mat-expansion-panel
                     class="mat-elevation-z0"
-                    *ngIf="UserService.gteResponsible(route.snapshot.data.viewer.model)"
+                    *ngIf="permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
                 >
                     <mat-expansion-panel-header>
                         <mat-panel-title>Matériel nautique</mat-panel-title>
@@ -84,7 +84,7 @@
 
                 <mat-expansion-panel
                     class="mat-elevation-z0"
-                    *ngIf="UserService.gteResponsible(route.snapshot.data.viewer.model)"
+                    *ngIf="permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
                 >
                     <mat-expansion-panel-header>
                         <mat-panel-title>Stockage</mat-panel-title>
@@ -102,7 +102,7 @@
 
                 <mat-expansion-panel
                     class="mat-elevation-z0"
-                    *ngIf="UserService.gteResponsible(route.snapshot.data.viewer.model)"
+                    *ngIf="permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
                 >
                     <mat-expansion-panel-header>
                         <mat-panel-title>Cours et accueil</mat-panel-title>
@@ -121,7 +121,7 @@
 
                 <mat-expansion-panel
                     class="mat-elevation-z0"
-                    *ngIf="UserService.gteResponsible(route.snapshot.data.viewer.model)"
+                    *ngIf="permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
                 >
                     <mat-expansion-panel-header>
                         <mat-panel-title>Administration</mat-panel-title>
@@ -153,7 +153,7 @@
 
                 <mat-expansion-panel
                     class="mat-elevation-z0"
-                    *ngIf="AdminComponent.canAccessAccounting(route.snapshot.data.viewer.model)"
+                    *ngIf="permissionsService.canAccessAccounting(route.snapshot.data.viewer.model)"
                 >
                     <mat-expansion-panel-header>
                         <mat-panel-title>Comptabilité</mat-panel-title>
@@ -165,7 +165,7 @@
                             mat-list-item
                             routerLinkActive="active"
                             routerLink="expense-claim"
-                            *ngIf="AdminComponent.canAccessExpenseClaims(route.snapshot.data.viewer.model)"
+                            *ngIf="permissionsService.canAccessExpenseClaims(route.snapshot.data.viewer.model)"
                             >Frais et remboursements</a
                         >
                         <a
@@ -181,7 +181,7 @@
 
                 <mat-expansion-panel
                     class="mat-elevation-z0"
-                    *ngIf="UserService.gteResponsible(route.snapshot.data.viewer.model)"
+                    *ngIf="permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
                 >
                     <mat-expansion-panel-header>
                         <mat-panel-title>Listes</mat-panel-title>
@@ -190,8 +190,9 @@
                         <a mat-list-item [class.active]="adminBookableRouteActive" routerLink="bookable">Réservables</a>
                         <a mat-list-item [class.active]="adminBookingRouteActive" routerLink="booking"
                             >Réservations</a
-                        > </mat-nav-list
-                    >AccountingTest
+                        ></mat-nav-list
+                    >
+                    AccountingTest
                 </mat-expansion-panel>
             </mat-accordion>
         </div>
