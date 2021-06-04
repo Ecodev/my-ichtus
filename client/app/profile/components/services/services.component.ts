@@ -9,6 +9,7 @@ import {UserService} from '../../../admin/users/services/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {NaturalAbstractController, NaturalAlertService, NaturalDataSource} from '@ecodev/natural';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
     selector: 'app-services',
@@ -56,10 +57,12 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
     }
 
     public loadData(): void {
-        const pendingApplications = this.userService.getPendingApplications(this.user, this.ngUnsubscribe);
+        const pendingApplications = this.userService
+            .getPendingApplications(this.user)
+            .pipe(takeUntil(this.ngUnsubscribe));
         this.pendingApplicationsDS = new NaturalDataSource<Bookings_bookings>(pendingApplications);
 
-        const runningServices = this.userService.getRunningServices(this.user, this.ngUnsubscribe);
+        const runningServices = this.userService.getRunningServices(this.user).pipe(takeUntil(this.ngUnsubscribe));
         this.runningServicesDS = new NaturalDataSource<Bookings_bookings>(runningServices);
     }
 

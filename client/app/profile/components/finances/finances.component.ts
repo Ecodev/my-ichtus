@@ -12,7 +12,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {CreateRefundComponent} from '../create-refund/create-refund.component';
 import {ifValid, NaturalAbstractController, NaturalAlertService, NaturalDataSource} from '@ecodev/natural';
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
-import {finalize} from 'rxjs/operators';
+import {finalize, takeUntil} from 'rxjs/operators';
 import {FormControl} from '@angular/forms';
 import {iban as ibanValidator} from '../../../shared/validators';
 import {friendlyFormatIBAN} from 'ibantools';
@@ -72,7 +72,7 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
         }
         this.lockIbanIfDefined();
         this.ibanLocked = !!this.user.iban;
-        const runningExpenseClaims = this.expenseClaimService.getForUser(this.user, this.ngUnsubscribe);
+        const runningExpenseClaims = this.expenseClaimService.getForUser(this.user).pipe(takeUntil(this.ngUnsubscribe));
         this.runningExpenseClaimsDS = new NaturalDataSource(runningExpenseClaims);
     }
 

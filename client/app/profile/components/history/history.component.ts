@@ -5,6 +5,7 @@ import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseC
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
 import {NaturalAbstractController, NaturalDataSource} from '@ecodev/natural';
 import {CurrentUserForProfile_viewer, TransactionLines_transactionLines} from '../../../shared/generated-types';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
     selector: 'app-history',
@@ -30,10 +31,9 @@ export class HistoryComponent extends NaturalAbstractController implements OnIni
         this.viewer = this.route.snapshot.data.viewer.model;
 
         if (this.viewer.account) {
-            const transactionLinesQuery = this.transactionLineService.getForAccount(
-                this.viewer.account,
-                this.ngUnsubscribe,
-            );
+            const transactionLinesQuery = this.transactionLineService
+                .getForAccount(this.viewer.account)
+                .pipe(takeUntil(this.ngUnsubscribe));
             this.transactionLinesDS = new NaturalDataSource<TransactionLines_transactionLines>(transactionLinesQuery);
         }
     }

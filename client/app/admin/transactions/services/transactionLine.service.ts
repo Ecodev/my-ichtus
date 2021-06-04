@@ -8,10 +8,9 @@ import {
     NaturalSearchSelections,
     toNavigationParameters,
 } from '@ecodev/natural';
-import {transactionLineQuery, exportTransactionLines, transactionLinesQuery} from './transactionLine.queries';
+import {exportTransactionLines, transactionLineQuery, transactionLinesQuery} from './transactionLine.queries';
 import {
     ExpenseClaim_expenseClaim_transactions,
-    LogicalOperator,
     ExportTransactionLines,
     ExportTransactionLinesVariables,
     MinimalAccount,
@@ -22,7 +21,7 @@ import {
     TransactionLineVariables,
     TransactionTag,
 } from '../../../shared/generated-types';
-import {Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 function atLeastOneAccount(formGroup: AbstractControl): ValidationErrors | null {
@@ -156,10 +155,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
         return [atLeastOneAccount];
     }
 
-    public getForAccount(
-        account: MinimalAccount,
-        expire: Subject<void>,
-    ): Observable<TransactionLines['transactionLines']> {
+    public getForAccount(account: MinimalAccount): Observable<TransactionLines['transactionLines']> {
         const variables: TransactionLinesVariables = {
             filter: {
                 groups: [
@@ -177,7 +173,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
 
         const qvm = new NaturalQueryVariablesManager<TransactionLinesVariables>();
         qvm.set('variables', variables);
-        return this.watchAll(qvm, expire);
+        return this.watchAll(qvm);
     }
 
     public getExportLink(qvm: NaturalQueryVariablesManager<ExportTransactionLinesVariables>): Observable<string> {

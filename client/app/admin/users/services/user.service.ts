@@ -361,10 +361,7 @@ export class UserService
     /**
      * Impact members
      */
-    public getRunningServices(
-        user: CurrentUserForProfile_viewer,
-        expire: Subject<void>,
-    ): Observable<Bookings['bookings']> {
+    public getRunningServices(user: CurrentUserForProfile_viewer): Observable<Bookings['bookings']> {
         const variables: BookingsVariables = {
             filter: {
                 groups: [
@@ -397,13 +394,10 @@ export class UserService
 
         const qvm = new NaturalQueryVariablesManager<BookingsVariables>();
         qvm.set('variables', variables);
-        return this.pricedBookingService.watchAll(qvm, expire);
+        return this.pricedBookingService.watchAll(qvm);
     }
 
-    public getPendingApplications(
-        user: CurrentUserForProfile_viewer,
-        expire: Subject<void>,
-    ): Observable<Bookings['bookings']> {
+    public getPendingApplications(user: CurrentUserForProfile_viewer): Observable<Bookings['bookings']> {
         const variables: BookingsVariables = {
             filter: {
                 groups: [
@@ -423,7 +417,7 @@ export class UserService
 
         const qvm = new NaturalQueryVariablesManager<BookingsVariables>();
         qvm.set('variables', variables);
-        return this.bookingService.watchAll(qvm, expire);
+        return this.bookingService.watchAll(qvm);
     }
 
     public getViewer(): Observable<CurrentUserForProfile['viewer']> {

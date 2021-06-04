@@ -32,7 +32,7 @@ import {
     UpdateExpenseClaimVariables,
 } from '../../../shared/generated-types';
 import {Validators} from '@angular/forms';
-import {Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -81,10 +81,7 @@ export class ExpenseClaimService extends NaturalAbstractModelService<
         };
     }
 
-    public getForUser(
-        user: CurrentUserForProfile_viewer,
-        expire: Subject<void>,
-    ): Observable<ExpenseClaims['expenseClaims']> {
+    public getForUser(user: CurrentUserForProfile_viewer): Observable<ExpenseClaims['expenseClaims']> {
         const variables: ExpenseClaimsVariables = {
             filter: {
                 groups: [
@@ -103,6 +100,6 @@ export class ExpenseClaimService extends NaturalAbstractModelService<
 
         const qvm = new NaturalQueryVariablesManager<ExpenseClaimsVariables>();
         qvm.set('variables', variables);
-        return this.watchAll(qvm, expire);
+        return this.watchAll(qvm);
     }
 }
