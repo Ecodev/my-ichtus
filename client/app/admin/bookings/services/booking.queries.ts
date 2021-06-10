@@ -75,6 +75,8 @@ export const bookingsWithOwnerBalanceQuery = gql`
                 owner {
                     id
                     creationDate
+                    email
+                    mobilePhone
                     account {
                         id
                         balance

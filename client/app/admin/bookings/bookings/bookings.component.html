@@ -45,6 +45,8 @@
                     <span *ngIf="columnIsAvailable('terminateBooking')" naturalColumnsPickerColumn="terminateBooking"
                         >Terminer</span
                     >
+                    <span *ngIf="columnIsAvailable('email')" naturalColumnsPickerColumn="email">Email</span>
+                    <span *ngIf="columnIsAvailable('mobilePhone')" naturalColumnsPickerColumn="mobilePhone">Tél.</span>
                 </natural-columns-picker>
             </natural-search>
         </div>
@@ -113,11 +115,24 @@
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+                    <td mat-cell *matCellDef="let element">{{ element.owner.email }}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="mobilePhone">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Tél.</th>
+                    <td mat-cell *matCellDef="let element">{{ element.owner.mobilePhone }}</td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
                 <ng-container matColumnDef="destination">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Destination</th>
                     <td mat-cell *matCellDef="let element">{{ element.destination }}</td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
+
                 <ng-container matColumnDef="startDate">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Début</th>
                     <td mat-cell *matCellDef="let element">{{ element.startDate | swissDate }}</td>

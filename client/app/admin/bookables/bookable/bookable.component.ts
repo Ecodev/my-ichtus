@@ -7,6 +7,7 @@ import {
     BookingType,
     CreateImage,
     SortingOrder,
+    UserRole,
 } from '../../../shared/generated-types';
 import {LicenseService} from '../../licenses/services/license.service';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
@@ -92,5 +93,9 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
             filter: {groups: [{conditions: [{bookable: {have: {values: [this.data.model.id]}}}]}]},
             sorting: [{field: BookingSortingField.startDate, order: SortingOrder.DESC}],
         };
+    }
+
+    public isTrainer(): boolean {
+        return this.route.snapshot.data.viewer?.model?.role === UserRole.trainer;
     }
 }

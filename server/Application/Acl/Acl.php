@@ -85,6 +85,7 @@ class Acl extends \Ecodev\Felix\Acl\Acl
         $this->allow(User::ROLE_MEMBER, [$user], ['update'], new One(new IsOwner(), new IsMyself()));
 
         $this->allow(User::ROLE_TRAINER, [$userTag], ['read']);
+        $this->allow(User::ROLE_TRAINER, [$bookable], ['update']); // too permissive. Add new BookingAdminOnly() assertion ?
 
         $this->allow(User::ROLE_FORMATION_RESPONSIBLE, [$user, $userTag], ['update']);
         $this->allow(User::ROLE_FORMATION_RESPONSIBLE, [$booking], ['create', 'update']);
