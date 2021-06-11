@@ -17,6 +17,9 @@
                 <natural-columns-picker [(selection)]="selectedColumns" [initialSelection]="initialColumns">
                     <span *ngIf="columnIsAvailable('edit')" naturalColumnsPickerColumn="edit">Editer</span>
                     <span *ngIf="columnIsAvailable('owner')" naturalColumnsPickerColumn="owner">Utilisateur</span>
+                    <span *ngIf="columnIsAvailable('ownerReadonly')" naturalColumnsPickerColumn="ownerReadonly"
+                        >Utilisateur</span
+                    >
                     <span *ngIf="columnIsAvailable('status')" naturalColumnsPickerColumn="status">Statut</span>
                     <span *ngIf="columnIsAvailable('ownerBalance')" naturalColumnsPickerColumn="ownerBalance"
                         >Solde</span
@@ -84,6 +87,21 @@
                                 [navigate]="['/admin/user/', element.owner.id]"
                                 matTooltip="Éditer"
                             ></natural-table-button>
+                        </div>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <ng-container matColumnDef="ownerReadonly">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Utilisateur</th>
+                    <td mat-cell *matCellDef="let element">
+                        <div fxLayout="row" fxLayoutAlign="start center" *ngIf="element.owner">
+                            <natural-avatar
+                                [initials]="element.owner.name"
+                                [gravatar]="element.owner?.email"
+                                [size]="36"
+                            ></natural-avatar>
+                            <span>&nbsp;{{ element.owner.name }}</span>
                         </div>
                     </td>
                     <td mat-footer-cell *matFooterCellDef></td>
@@ -236,5 +254,5 @@
 <natural-fixed-button
     [routerLink]="['/admin/booking/new']"
     icon="add"
-    *ngIf="permissionsService.crud?.booking.create"
+    *ngIf="permissionsService.crud?.booking.create && !!showFabButton"
 ></natural-fixed-button>

@@ -10,6 +10,7 @@ export abstract class AbstractBookings<
     TService extends BookingService | BookingWithOwnerService | SafetyBookingService,
 > extends NaturalAbstractList<TService> {
     @Input() public availableColumns?: string[];
+    @Input() public showFabButton = true;
 
     public columnIsAvailable(column: string): boolean {
         if (this.availableColumns === undefined) {

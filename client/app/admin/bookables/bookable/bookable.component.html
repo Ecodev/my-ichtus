@@ -1,7 +1,7 @@
 <div [formGroup]="form" class="detail-body">
     <natural-detail-header
         [newLabel]="data.seo.title"
-        label="Réservable"
+        [label]="isTrainer() ? '' : 'Réservable'"
         [model]="data.model"
         [listRoute]="['admin', 'bookable']"
     >
@@ -257,6 +257,7 @@
                 <!-- Everybody but trainers -->
                 <app-bookings-with-owner
                     *ngIf="!isTrainer()"
+                    [showFabButton]="false"
                     [persistSearch]="false"
                     [forcedVariables]="bookingsVariables"
                     [initialColumns]="['edit', 'owner', 'startDate', 'endDate']"
@@ -268,13 +269,12 @@
                     *ngIf="isTrainer()"
                     [persistSearch]="false"
                     [forcedVariables]="bookingsVariables"
-                    [initialColumns]="['edit', 'owner', 'email', 'mobilePhone']"
+                    [showFabButton]="false"
+                    [initialColumns]="['ownerReadonly', 'email', 'mobilePhone']"
                     [availableColumns]="[
-                        'edit',
-                        'owner',
+                        'ownerReadonly',
                         'email',
                         'mobilePhone',
-                        'ownerBalance',
                         'ownerCreationDate',
                         'startDate',
                         'endDate'
