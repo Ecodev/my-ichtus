@@ -81,7 +81,6 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
             }
         }
 
-        console.log('update bookable');
         super.update();
     }
 
