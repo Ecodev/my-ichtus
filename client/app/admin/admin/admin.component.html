@@ -116,7 +116,13 @@
                             *ngIf="this.permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
                             >Demandes de cours</a
                         >
-                        <a mat-list-item routerLinkActive="active" routerLink="bookable/welcome">Séances d'accueil</a>
+                        <a
+                            mat-list-item
+                            routerLinkActive="active"
+                            routerLink="bookable/welcome"
+                            *ngIf="this.permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
+                            >Séances d'accueil
+                        </a>
                         <a
                             mat-list-item
                             routerLinkActive="active"

@@ -25,6 +25,8 @@ export class DashboardComponent implements OnInit {
         this.adminRoute = this.route.data.pipe(
             map(data => {
                 switch (data.viewer.model.role) {
+                    case UserRole.trainer:
+                        return '/admin/bookable/formation';
                     case UserRole.accounting_verificator:
                         return 'admin/transaction-line';
                     default:
