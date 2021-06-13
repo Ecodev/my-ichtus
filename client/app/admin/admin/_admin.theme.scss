@@ -1,6 +1,7 @@
+@use "sass:map";
 @use '~@angular/material' as mat;
 @mixin admin($theme) {
-    $background: map-get($theme, background);
+    $background: map.get($theme, background);
 
     app-admin {
         // Re-use the same hover effect for active menu item, and add the Material boldness to text

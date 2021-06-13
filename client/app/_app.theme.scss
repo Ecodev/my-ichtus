@@ -1,9 +1,10 @@
+@use "sass:map";
 @use '~@angular/material' as mat;
 @mixin app($theme) {
-    $primary: map-get($theme, primary);
-    $accent: map-get($theme, accent);
-    $background: map-get($theme, background);
-    $foreground: map-get($theme, foreground);
+    $primary: map.get($theme, primary);
+    $accent: map.get($theme, accent);
+    $background: map.get($theme, background);
+    $foreground: map.get($theme, foreground);
 
     // Splash logo and login page have different background than usual layout for other pages
     // and they need to have the correct background color in dark mode (otherwise we get black text on black background)

@@ -4,30 +4,30 @@
  */
 // Import theming files full relative way or karma will display warning
 @use '~@angular/material' as mat;
-@import '~@ecodev/natural/theming/natural.theme';
-@import '../app/shared/components/boot-loader/boot-loader.theme';
-@import '../app/app.theme';
-@import '../app/door/door.theme';
-@import 'rich-text';
-@import '../app/shared/components/money/money.theme';
-@import '../app/admin/admin/admin.theme';
-@import '../app/admin/configurations/support/support.theme';
-@import '../app/shared/components/transaction-amount/transaction-amount.theme';
+@use '~@ecodev/natural/theming/natural.theme';
+@use '../app/shared/components/boot-loader/boot-loader.theme';
+@use '../app/app.theme';
+@use '../app/door/door.theme';
+@use 'rich-text';
+@use '../app/shared/components/money/money.theme';
+@use '../app/admin/admin/admin.theme';
+@use '../app/admin/configurations/support/support.theme';
+@use '../app/shared/components/transaction-amount/transaction-amount.theme';
 
 // Include material core (only once !)
 @include mat.core();
 
 // Include components themes
 @mixin components-theme($theme) {
-    @include app($theme);
-    @include natural($theme);
-    @include boot-loader($theme);
-    @include door($theme);
-    @include money($theme);
-    @include transaction-amount($theme);
-    @include rich-text($theme);
-    @include support($theme);
-    @include admin($theme);
+    @include app.app($theme);
+    @include natural.natural($theme);
+    @include boot-loader.boot-loader($theme);
+    @include door.door($theme);
+    @include money.money($theme);
+    @include transaction-amount.transaction-amount($theme);
+    @include rich-text.rich-text($theme);
+    @include support.support($theme);
+    @include admin.admin($theme);
 }
 
 $mat-ichtus: (
