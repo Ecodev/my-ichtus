@@ -12,12 +12,11 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {MatIconRegistry} from '@angular/material/icon';
 import {NetworkActivityService} from './shared/services/network-activity.service';
 import {
-    Literal,
+    NATURAL_SEO_CONFIG,
     NaturalAlertService,
+    NaturalSeoConfig,
     NaturalSeoService,
     NaturalSwissParsingDateAdapter,
-    NATURAL_SEO_CONFIG,
-    NaturalSeoConfig,
 } from '@ecodev/natural';
 import {NgProgressModule} from 'ngx-progressbar';
 import {apolloDefaultOptions, createApolloLink} from './shared/config/apolloDefaultOptions';

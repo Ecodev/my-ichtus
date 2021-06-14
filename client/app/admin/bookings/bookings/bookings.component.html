@@ -14,6 +14,13 @@
                 (selectionChange)="search($event)"
                 [multipleGroups]="true"
             >
+                <app-copy-contact-data
+                    *ngIf="queryForContacts && mapResultFunction"
+                    [variablesManager]="variablesManager"
+                    [query]="queryForContacts"
+                    [mapResultFunction]="mapResultFunction"
+                ></app-copy-contact-data>
+
                 <natural-columns-picker [(selection)]="selectedColumns" [initialSelection]="initialColumns">
                     <span *ngIf="columnIsAvailable('edit')" naturalColumnsPickerColumn="edit">Editer</span>
                     <span *ngIf="columnIsAvailable('owner')" naturalColumnsPickerColumn="owner">Utilisateur</span>
@@ -101,7 +108,7 @@
                                 [gravatar]="element.owner?.email"
                                 [size]="36"
                             ></natural-avatar>
-                            <span>&nbsp;{{ element.owner.name }}</span>
+                            <span [style.padding-left.px]="16">{{ element.owner.name }}</span>
                         </div>
                     </td>
                     <td mat-footer-cell *matFooterCellDef></td>

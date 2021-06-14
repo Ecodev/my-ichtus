@@ -38,6 +38,7 @@ import {
 import {SupportComponent} from '../../admin/configurations/support/support.component';
 import {ProsemirrorComponent} from '../../admin/proseMirror/proseMirror.component';
 import {IbanPipe} from '../pipes/iban.pipe';
+import {CopyContactDataComponent} from '../components/copy-contact-data/copy-contact-data.component';
 
 const iconsConfig: NaturalIconsConfig = {
     qr: {
@@ -103,6 +104,7 @@ const declarations = [
     SupportComponent,
     ProsemirrorComponent,
     IbanPipe,
+    CopyContactDataComponent,
 ];
 
 const imports = [

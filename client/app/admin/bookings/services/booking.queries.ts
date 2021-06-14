@@ -1,5 +1,5 @@
 import {gql} from 'apollo-angular';
-import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
+import {permissionsFragment, userContactDataFragment, userMetaFragment} from '../../../shared/queries/fragments';
 import {bookableMetaFragment} from '../../bookables/services/bookable.queries';
 
 export const bookingMetaFragment = gql`
@@ -92,6 +92,24 @@ export const bookingsWithOwnerBalanceQuery = gql`
         }
     }
     ${bookingMetaFragment}
+`;
+export const bookingsWithOwnerContactQuery = gql`
+    query BookingsWithOwnerContactQuery(
+        $filter: BookingFilter
+        $sorting: [BookingSorting!]
+        $pagination: PaginationInput
+    ) {
+        bookings(filter: $filter, sorting: $sorting, pagination: $pagination) {
+            items {
+                id
+                owner {
+                    id
+                    ...UserContactData
+                }
+            }
+        }
+    }
+    ${userContactDataFragment}
 `;
 
 export const pricedBookingsQuery = gql`

@@ -8,6 +8,16 @@ export const userMetaFragment = gql`
     }
 `;
 
+export const userContactDataFragment = gql`
+    fragment UserContactData on User {
+        id
+        firstName
+        lastName
+        email
+        mobilePhone
+    }
+`;
+
 export const permissionsFragment = gql`
     fragment PermissionsRUD on Permissions {
         read

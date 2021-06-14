@@ -14,31 +14,11 @@
                 (selectionChange)="search($event)"
                 [multipleGroups]="true"
             >
-                <button mat-icon-button (click)="downloadEmails()" *ngIf="!usersEmail">
-                    <natural-icon name="email"></natural-icon>
-                </button>
-
-                <button
-                    mat-icon-button
-                    (click)="copyToClipboard(usersEmail)"
-                    *ngIf="usersEmail"
-                    matTooltip="Copier les e-mails"
-                >
-                    <natural-icon name="alternate_email"></natural-icon>
-                </button>
-
-                <button
-                    mat-icon-button
-                    (click)="copyToClipboard(usersEmailAndName)"
-                    *ngIf="usersEmailAndName"
-                    matTooltip="Copier les e-mails et les noms"
-                >
-                    <natural-icon name="file_copy"></natural-icon>
-                </button>
-
-                <button mat-icon-button (click)="copyPhones()" matTooltip="Copier les n° de tél. mobile et les noms">
-                    <natural-icon name="phone"></natural-icon>
-                </button>
+                <app-copy-contact-data
+                    [variablesManager]="variablesManager"
+                    [query]="queryForContacts"
+                    [mapResultFunction]="mapResultFunction"
+                ></app-copy-contact-data>
 
                 <natural-columns-picker [(selection)]="selectedColumns" [initialSelection]="initialColumns">
                     <span naturalColumnsPickerColumn="balance">Solde</span>

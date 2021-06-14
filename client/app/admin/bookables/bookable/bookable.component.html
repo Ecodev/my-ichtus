@@ -261,7 +261,16 @@
                     [persistSearch]="false"
                     [forcedVariables]="bookingsVariables"
                     [initialColumns]="['edit', 'owner', 'startDate', 'endDate']"
-                    [availableColumns]="['edit', 'owner', 'ownerBalance', 'ownerCreationDate', 'startDate', 'endDate']"
+                    [availableColumns]="[
+                        'edit',
+                        'owner',
+                        'ownerBalance',
+                        'ownerCreationDate',
+                        'startDate',
+                        'endDate',
+                        'email',
+                        'mobilePhone'
+                    ]"
                 ></app-bookings-with-owner>
 
                 <!-- Trainers only -->

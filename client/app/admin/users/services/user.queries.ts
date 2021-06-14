@@ -1,5 +1,5 @@
 import {gql} from 'apollo-angular';
-import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
+import {permissionsFragment, userContactDataFragment, userMetaFragment} from '../../../shared/queries/fragments';
 import {minimimalAccountFragment} from '../../accounts/services/account.queries';
 
 // Fragment for single display usage. Too much data for listings, and unused fields for mutations.
@@ -114,13 +114,11 @@ export const emailAndPhoneUsersQuery = gql`
         users(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
                 id
-                firstName
-                lastName
-                email
-                mobilePhone
+                ...UserContactData
             }
         }
     }
+    ${userContactDataFragment}
 `;
 
 export const userQuery = gql`
