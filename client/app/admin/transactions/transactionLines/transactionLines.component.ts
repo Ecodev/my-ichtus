@@ -10,6 +10,7 @@ import {
 } from '../../../shared/generated-types';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {union} from 'lodash-es';
+import {MatCheckboxChange} from '@angular/material/checkbox';
 
 @Component({
     selector: 'app-transaction-lines',
@@ -69,5 +70,11 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
             this.naturalSearchSelections = selection;
             this.search(selection);
         }
+    }
+
+    public updateReconciled(e: MatCheckboxChange, transactionLine: TransactionLine['transactionLine']): void {
+        this.transactionLineService.updateIsReconciled(transactionLine.id, e.checked).subscribe(() => {
+            this.alertService.info('Pointage mis à jour');
+        });
     }
 }

@@ -107,7 +107,17 @@
 
                 <ng-container matColumnDef="isReconciled">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="app-date-column">Pointé</th>
-                    <td mat-cell *matCellDef="let element">{{ element.isReconciled ? '✔︎' : '' }}</td>
+                    <td mat-cell *matCellDef="let element">
+                        <div *ngIf="!permissionsService.crud?.transaction.create">
+                            {{ element.isReconciled ? '✔︎' : '' }}
+                        </div>
+                        <div *ngIf="permissionsService.crud?.transaction.create">
+                            <mat-checkbox
+                                [checked]="element.isReconciled"
+                                (change)="updateReconciled($event, element)"
+                            ></mat-checkbox>
+                        </div>
+                    </td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 

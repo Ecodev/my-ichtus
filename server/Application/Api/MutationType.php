@@ -14,6 +14,7 @@ use Application\Api\Field\Mutation\LeaveFamily;
 use Application\Api\Field\Mutation\Login;
 use Application\Api\Field\Mutation\Logout;
 use Application\Api\Field\Mutation\OpenDoor;
+use Application\Api\Field\Mutation\ReconcileTransactionLine;
 use Application\Api\Field\Mutation\Register;
 use Application\Api\Field\Mutation\RequestPasswordReset;
 use Application\Api\Field\Mutation\TerminateBooking;
@@ -54,6 +55,7 @@ class MutationType extends ObjectType
             LeaveFamily::build(),
             CreateTransaction::build(),
             UpdateTransaction::build(),
+            ReconcileTransactionLine::build(),
             ImportCamt::build(),
             Standard::buildMutation(Transaction::class)[2], // Only delete mutation
             UpdateConfiguration::build(),

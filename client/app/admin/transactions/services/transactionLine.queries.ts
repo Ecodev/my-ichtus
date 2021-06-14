@@ -90,3 +90,12 @@ export const exportTransactionLines = gql`
         exportTransactionLines(filter: $filter, sorting: $sorting)
     }
 `;
+
+export const reconcileTransactionLine = gql`
+    mutation ReconcileTransactionLine($id: TransactionLineID!, $isReconciled: Boolean!) {
+        reconcileTransactionLine(id: $id, isReconciled: $isReconciled) {
+            id
+            isReconciled
+        }
+    }
+`;

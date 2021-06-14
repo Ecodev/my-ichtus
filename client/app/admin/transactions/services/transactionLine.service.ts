@@ -8,7 +8,12 @@ import {
     NaturalSearchSelections,
     toNavigationParameters,
 } from '@ecodev/natural';
-import {exportTransactionLines, transactionLineQuery, transactionLinesQuery} from './transactionLine.queries';
+import {
+    exportTransactionLines,
+    transactionLineQuery,
+    transactionLinesQuery,
+    reconcileTransactionLine,
+} from './transactionLine.queries';
 import {
     ExpenseClaim_expenseClaim_transactions,
     ExportTransactionLines,
@@ -20,6 +25,8 @@ import {
     TransactionLinesVariables,
     TransactionLineVariables,
     TransactionTag,
+    ReconcileTransactionLine,
+    ReconcileTransactionLineVariables,
 } from '../../../shared/generated-types';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -187,6 +194,22 @@ export class TransactionLineService extends NaturalAbstractModelService<
             .pipe(
                 map(result => {
                     return result.data!.exportTransactionLines;
+                }),
+            );
+    }
+
+    public updateIsReconciled(
+        id: string,
+        isReconciled: boolean,
+    ): Observable<ReconcileTransactionLine['reconcileTransactionLine']> {
+        return this.apollo
+            .mutate<ReconcileTransactionLine, ReconcileTransactionLineVariables>({
+                mutation: reconcileTransactionLine,
+                variables: {id: id, isReconciled: isReconciled},
+            })
+            .pipe(
+                map(result => {
+                    return result.data!.reconcileTransactionLine;
                 }),
             );
     }
