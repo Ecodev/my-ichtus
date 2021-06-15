@@ -507,6 +507,7 @@ export class NaturalSearchFacetsService {
             this.creationDate,
             this.updateDate,
         ],
+        bookingsForBookable: [this.owner, this.creationDate, this.updateDate],
         bookings: [
             this.owner,
             this.bookable,

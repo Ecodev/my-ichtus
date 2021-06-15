@@ -20,6 +20,6 @@ export class BookingsWithOwnerComponent extends AbstractBookings<BookingWithOwne
         public readonly permissionsService: PermissionsService,
     ) {
         super(bookingWithOwnerService, injector);
-        this.naturalSearchFacets = naturalSearchFacetsService.get('bookings');
+        this.naturalSearchFacets = naturalSearchFacetsService.get('bookingsForBookable');
     }
 }
