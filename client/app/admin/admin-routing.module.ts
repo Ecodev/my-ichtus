@@ -682,7 +682,7 @@ const routes: Routes = [
                                 order: SortingOrder.DESC,
                             },
                             {
-                                field: TransactionLineSortingField.latestModification,
+                                field: TransactionLineSortingField.transactionDate,
                                 order: SortingOrder.DESC,
                             },
                         ],
