@@ -339,7 +339,11 @@
             <app-users [forcedVariables]="familyVariables" [persistSearch]="false" class="margin-top"></app-users>
         </mat-tab>
 
-        <mat-tab id="history" label="Historique" *ngIf="data.model.account">
+        <mat-tab
+            id="history"
+            label="Historique"
+            *ngIf="data.model.account && permissionsService.gteResponsible(viewer)"
+        >
             <app-transaction-lines
                 [initialColumns]="['name', 'bookable', 'transactionDate', 'remark', 'account']"
                 [forcedVariables]="transactionLinesVariables"
@@ -349,7 +353,11 @@
             ></app-transaction-lines>
         </mat-tab>
 
-        <mat-tab id="finances" label="Dépenses et remboursements" *ngIf="data.model.id">
+        <mat-tab
+            id="finances"
+            label="Dépenses et remboursements"
+            *ngIf="data.model.id && permissionsService.gteResponsible(viewer)"
+        >
             <div fxLayout="column" fxLayoutGap="30px">
                 <div fxLayout="row" fxLayoutGap="10px" class="margin-top">
                     <natural-select
@@ -383,7 +391,11 @@
             </div>
         </mat-tab>
 
-        <mat-tab id="services" label="Prestations et services" *ngIf="data.model.id">
+        <mat-tab
+            id="services"
+            label="Prestations et services"
+            *ngIf="data.model.id && permissionsService.gteResponsible(viewer)"
+        >
             <br class="margin-top" />
             <app-services [user]="data.model"></app-services>
         </mat-tab>

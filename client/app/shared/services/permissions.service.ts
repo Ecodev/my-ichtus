@@ -156,6 +156,7 @@ export class PermissionsService {
             UserRole.individual,
             UserRole.member,
             UserRole.trainer,
+            UserRole.formation_responsible,
             UserRole.responsible,
             UserRole.administrator,
         ].includes(user.role);
@@ -174,7 +175,25 @@ export class PermissionsService {
             return false;
         }
 
-        return this.gteResponsible(user) || user.role === UserRole.trainer;
+        return (
+            this.gteResponsible(user) || user.role === UserRole.trainer || user.role === UserRole.formation_responsible
+        );
+    }
+
+    public canAccessFormationApplication(user: CurrentUserForProfile['viewer']): boolean {
+        if (!user) {
+            return false;
+        }
+
+        return this.gteResponsible(user) || user.role === UserRole.formation_responsible;
+    }
+
+    public canAccessBookable(user: CurrentUserForProfile['viewer']): boolean {
+        if (!user) {
+            return false;
+        }
+
+        return this.gteResponsible(user);
     }
 
     public canAccessExpenseClaims(user: CurrentUserForProfile['viewer']): boolean {
@@ -201,6 +220,7 @@ export class PermissionsService {
         return [
             UserRole.accounting_verificator,
             UserRole.trainer,
+            UserRole.formation_responsible,
             UserRole.responsible,
             UserRole.administrator,
         ].includes(user.role);

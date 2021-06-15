@@ -6,10 +6,12 @@ import {
     BookingsVariables,
     BookingType,
     CreateImage,
+    CurrentUserForProfile_viewer,
     SortingOrder,
     UserRole,
 } from '../../../shared/generated-types';
 import {LicenseService} from '../../licenses/services/license.service';
+import {PermissionsService} from '../../../shared/services/permissions.service';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 import {ImageService} from '../services/image.service';
 import {accountHierarchicConfiguration} from '../../../shared/hierarchic-selector/AccountHierarchicConfiguration';
@@ -22,6 +24,7 @@ import {accountHierarchicConfiguration} from '../../../shared/hierarchic-selecto
 export class BookableComponent extends NaturalAbstractDetail<BookableService> implements OnInit {
     public accountHierarchicConfig = accountHierarchicConfiguration;
     public bookingsVariables: BookingsVariables = {};
+    public viewer!: CurrentUserForProfile_viewer;
 
     constructor(
         bookableService: BookableService,
@@ -29,12 +32,15 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
         public readonly bookableTagService: BookableTagService,
         public readonly licenseService: LicenseService,
         public readonly imageService: ImageService,
+        public readonly permissionsService: PermissionsService,
     ) {
         super('bookable', bookableService, injector);
     }
 
     public ngOnInit(): void {
         super.ngOnInit();
+
+        this.viewer = this.route.snapshot.data.viewer.model;
 
         if (this.data.model.id) {
             this.bookingsVariables = this.getBookingsVariables();

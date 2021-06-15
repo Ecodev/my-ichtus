@@ -113,7 +113,9 @@
                             mat-list-item
                             routerLinkActive="active"
                             routerLink="booking/formation-application"
-                            *ngIf="this.permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
+                            *ngIf="
+                                this.permissionsService.canAccessFormationApplication(route.snapshot.data.viewer.model)
+                            "
                             >Demandes de cours</a
                         >
                         <a

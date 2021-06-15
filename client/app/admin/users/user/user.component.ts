@@ -16,6 +16,7 @@ import {LicenseService} from '../../licenses/services/license.service';
 import {UserTagService} from '../../userTags/services/userTag.service';
 import {BookingService} from '../../bookings/services/booking.service';
 import {AccountService} from '../../accounts/services/account.service';
+import {PermissionsService} from '../../../shared/services/permissions.service';
 import {IEnum} from '@ecodev/natural/lib/services/enum.service';
 import {iban as ibanValidator} from '../../../shared/validators';
 import {friendlyFormatIBAN} from 'ibantools';
@@ -50,6 +51,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService> implements
         public readonly licenseService: LicenseService,
         public readonly bookingService: BookingService,
         public readonly accountService: AccountService,
+        public readonly permissionsService: PermissionsService,
     ) {
         super('user', userService, injector);
     }

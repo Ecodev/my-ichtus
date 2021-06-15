@@ -54,6 +54,10 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
             return $this->getAllIdsQuery();
         }
 
+        if ($user->getRole() === User::ROLE_FORMATION_RESPONSIBLE) {
+            return $this->getAllIdsForAnyOwner();
+        }
+
         return $this->getAllIdsForFamilyQuery($user);
     }
 

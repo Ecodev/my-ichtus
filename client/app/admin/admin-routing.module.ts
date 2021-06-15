@@ -34,6 +34,8 @@ import {
 import {TransactionResolver} from './transactions/services/transaction.resolver';
 import {TransactionComponent} from './transactions/transaction/transaction.component';
 import {AdministrationGuard} from '../shared/guards/administration.guard';
+import {AccountingGuard} from '../shared/guards/accounting.guard';
+import {BookableGuard} from '../shared/guards/bookable.guard';
 import {AccountComponent} from './accounts/account/account.component';
 import {AccountsComponent} from './accounts/accounts/accounts.component';
 import {AccountResolver} from './accounts/services/account.resolver';
@@ -239,6 +241,7 @@ const routes: Routes = [
             {
                 path: 'bookable', // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
                 component: UsageBookablesComponent,
+                canActivate: [BookableGuard],
                 data: {
                     seo: {
                         title: 'Réservables',
@@ -692,6 +695,7 @@ const routes: Routes = [
             {
                 path: 'account', // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
                 component: AccountsComponent,
+                canActivate: [AccountingGuard],
                 data: {
                     seo: {
                         title: 'Comptes',
@@ -700,6 +704,7 @@ const routes: Routes = [
             },
             {
                 path: 'account',
+                canActivate: [AccountingGuard],
                 children: [
                     {
                         path: 'new',
