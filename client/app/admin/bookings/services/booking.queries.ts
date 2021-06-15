@@ -94,11 +94,7 @@ export const bookingsWithOwnerBalanceQuery = gql`
     ${bookingMetaFragment}
 `;
 export const bookingsWithOwnerContactQuery = gql`
-    query BookingsWithOwnerContactQuery(
-        $filter: BookingFilter
-        $sorting: [BookingSorting!]
-        $pagination: PaginationInput
-    ) {
+    query BookingsWithOwnerContact($filter: BookingFilter, $sorting: [BookingSorting!], $pagination: PaginationInput) {
         bookings(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
                 id

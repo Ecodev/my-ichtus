@@ -3,8 +3,7 @@ import {NaturalAbstractList} from '@ecodev/natural';
 import {BookingService} from '../services/booking.service';
 import {BookingWithOwnerService} from '../services/booking-with-owner.service';
 import {SafetyBookingService} from '../../../safety/safety-booking.service';
-import {DocumentNode} from 'graphql';
-import {BookingsWithOwnerContactQuery, UserContactData} from '../../../shared/generated-types';
+import {ContactType} from '../../../shared/components/copy-contact-data/copy-contact-data.component';
 
 @Directive()
 // tslint:disable-next-line:directive-class-suffix
@@ -14,8 +13,7 @@ export abstract class AbstractBookings<
     @Input() public availableColumns?: string[];
     @Input() public showFabButton = true;
 
-    public queryForContacts: DocumentNode | null = null;
-    public mapResultFunction?: (result: BookingsWithOwnerContactQuery) => UserContactData[];
+    public contactType: ContactType | null = null;
 
     public columnIsAvailable(column: string): boolean {
         if (this.availableColumns === undefined) {

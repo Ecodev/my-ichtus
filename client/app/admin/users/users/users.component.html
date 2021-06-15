@@ -15,9 +15,8 @@
                 [multipleGroups]="true"
             >
                 <app-copy-contact-data
+                    type="emailAndPhoneUsers"
                     [variablesManager]="variablesManager"
-                    [query]="queryForContacts"
-                    [mapResultFunction]="mapResultFunction"
                 ></app-copy-contact-data>
 
                 <natural-columns-picker [(selection)]="selectedColumns" [initialSelection]="initialColumns">

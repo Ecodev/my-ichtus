@@ -3,8 +3,7 @@ import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {BookingWithOwnerService} from '../services/booking-with-owner.service';
 import {AbstractBookings} from './abstract-bookings';
-import {bookingsWithOwnerContactQuery} from '../services/booking.queries';
-import {BookingsWithOwnerContactQuery_bookings_items} from '../../../shared/generated-types';
+import {ContactType} from '../../../shared/components/copy-contact-data/copy-contact-data.component';
 
 @Component({
     selector: 'app-bookings-with-owner',
@@ -12,7 +11,7 @@ import {BookingsWithOwnerContactQuery_bookings_items} from '../../../shared/gene
     styleUrls: ['./bookings.component.scss'],
 })
 export class BookingsWithOwnerComponent extends AbstractBookings<BookingWithOwnerService> {
-    public queryForContacts = bookingsWithOwnerContactQuery;
+    public contactType: ContactType = 'bookingsWithOwnerContact';
 
     constructor(
         bookingWithOwnerService: BookingWithOwnerService,
@@ -23,7 +22,4 @@ export class BookingsWithOwnerComponent extends AbstractBookings<BookingWithOwne
         super(bookingWithOwnerService, injector);
         this.naturalSearchFacets = naturalSearchFacetsService.get('bookings');
     }
-
-    public mapResultFunction = (resultData: any) =>
-        resultData['bookings'].items.map((i: BookingsWithOwnerContactQuery_bookings_items) => i.owner);
 }

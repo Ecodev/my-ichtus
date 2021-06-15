@@ -1,19 +1,13 @@
 import {Apollo} from 'apollo-angular';
 import {Component, Injector, OnInit} from '@angular/core';
 import {NaturalAbstractList, NaturalSearchSelections} from '@ecodev/natural';
-import {
-    BankingInfosVariables,
-    EmailAndPhoneUsers,
-    Users_users_items,
-    UserStatus,
-} from '../../../shared/generated-types';
+import {BankingInfosVariables, Users_users_items, UserStatus} from '../../../shared/generated-types';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {UserService} from '../services/user.service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ProvisionComponent} from '../../../profile/components/provision/provision.component';
 import {ActivatedRoute} from '@angular/router';
-import {emailAndPhoneUsersQuery} from '../services/user.queries';
 
 @Component({
     selector: 'app-users',
@@ -21,7 +15,6 @@ import {emailAndPhoneUsersQuery} from '../services/user.queries';
     styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent extends NaturalAbstractList<UserService> implements OnInit {
-    public queryForContacts = emailAndPhoneUsersQuery;
     public initialColumns = [
         'balance',
         'name',
@@ -45,8 +38,6 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
         super(userService, injector);
         this.naturalSearchFacets = naturalSearchFacetsService.get('users');
     }
-
-    public mapResultFunction = (resultData: EmailAndPhoneUsers) => resultData['users'].items;
 
     public flagWelcomeSessionDate(user: Users_users_items): void {
         this.userService.flagWelcomeSessionDate(user.id).subscribe(u => {

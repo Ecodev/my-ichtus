@@ -1,34 +1,45 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NaturalQueryVariablesManager} from '@ecodev/natural';
-import {EmailAndPhoneUsersVariables, UserContactData} from '../../generated-types';
+import {NaturalAbstractController, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {
+    BookingsWithOwnerContact,
+    BookingsWithOwnerContactVariables,
+    EmailAndPhoneUsers,
+    EmailAndPhoneUsersVariables,
+    UserContactData,
+} from '../../generated-types';
 import {Apollo} from 'apollo-angular';
 import {copyToClipboard} from '../../../shared/utils';
 import {DocumentNode} from 'graphql';
+import {emailAndPhoneUsersQuery} from '../../../admin/users/services/user.queries';
+import {takeUntil} from 'rxjs/operators';
+import {bookingsWithOwnerContactQuery} from '../../../admin/bookings/services/booking.queries';
+
+export type ContactType = 'bookingsWithOwnerContact' | 'emailAndPhoneUsers';
 
 @Component({
     selector: 'app-copy-contact-data',
     templateUrl: './copy-contact-data.component.html',
     styleUrls: ['./copy-contact-data.component.scss'],
 })
-export class CopyContactDataComponent implements OnInit {
-    @Input() public variablesManager!: NaturalQueryVariablesManager;
-    @Input() public query!: DocumentNode;
-
-    /**
-     * Map function that replaces the result of the query by a list with wanted users
-     */
-    @Input() public mapResultFunction!: (resultData: any) => UserContactData[];
+export class CopyContactDataComponent<V extends EmailAndPhoneUsersVariables | BookingsWithOwnerContactVariables>
+    extends NaturalAbstractController
+    implements OnInit
+{
+    @Input() public type!: ContactType;
+    @Input() public variablesManager!: NaturalQueryVariablesManager<V>;
 
     public fetched = false;
     public usersEmail: string | null = null;
     public usersEmailAndName: string | null = null;
     public usersPhoneAndName: string | null = null;
 
-    constructor(private readonly apollo: Apollo) {}
+    constructor(private readonly apollo: Apollo) {
+        super();
+    }
 
     public ngOnInit(): void {
         // When filter on parent changes, reset loaded dataset
-        this.variablesManager?.variables?.subscribe(() => {
+        this.variablesManager?.variables?.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
             this.fetched = false;
             this.usersEmail = null;
             this.usersEmailAndName = null;
@@ -41,25 +52,50 @@ export class CopyContactDataComponent implements OnInit {
             return;
         }
 
+        switch (this.type) {
+            case 'emailAndPhoneUsers':
+                this.doDownload<EmailAndPhoneUsers>(emailAndPhoneUsersQuery, resultData => resultData['users'].items);
+                break;
+            case 'bookingsWithOwnerContact':
+                this.doDownload<BookingsWithOwnerContact>(bookingsWithOwnerContactQuery, resultData => {
+                    const result: UserContactData[] = [];
+                    resultData['bookings'].items.forEach(booking => {
+                        if (booking.owner) {
+                            result.push(booking.owner);
+                        }
+                    });
+
+                    return result;
+                });
+                break;
+            default:
+                throw new Error('Unsupported contact type: ' + this.type);
+        }
+    }
+
+    private doDownload<T>(query: DocumentNode, mapResultFunction: (result: T) => UserContactData[]): void {
         const qvm = new NaturalQueryVariablesManager(this.variablesManager);
-        qvm.set('pagination', {pagination: {pageIndex: 0, pageSize: 9999}});
+        qvm.set('pagination', {pagination: {pageIndex: 0, pageSize: 9999}} as Partial<V>);
 
         this.apollo
-            .query<UserContactData, EmailAndPhoneUsersVariables>({
-                query: this.query,
+            .query<T, V>({
+                query: query,
                 variables: qvm.variables.value,
             })
             .subscribe(result => {
                 this.fetched = true;
-                const users = this.mapResultFunction(result.data);
+                const users = mapResultFunction(result.data);
+
                 this.usersEmail = users
                     .filter(u => u.email)
                     .map(u => u.email)
                     .join(' ;,'); // all separators for different mailboxes,
+
                 this.usersEmailAndName = users
                     .filter(u => u.email)
                     .map(u => [u.email, u.firstName, u.lastName].join(';'))
                     .join('\n');
+
                 this.usersPhoneAndName = users
                     .filter(u => u.mobilePhone)
                     .map(u => [u.mobilePhone, u.firstName, u.lastName].join(';'))

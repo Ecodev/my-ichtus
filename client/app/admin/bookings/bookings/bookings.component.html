@@ -15,10 +15,9 @@
                 [multipleGroups]="true"
             >
                 <app-copy-contact-data
-                    *ngIf="queryForContacts && mapResultFunction"
+                    *ngIf="contactType"
+                    [type]="contactType"
                     [variablesManager]="variablesManager"
-                    [query]="queryForContacts"
-                    [mapResultFunction]="mapResultFunction"
                 ></app-copy-contact-data>
 
                 <natural-columns-picker [(selection)]="selectedColumns" [initialSelection]="initialColumns">
