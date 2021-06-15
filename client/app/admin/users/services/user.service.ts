@@ -250,6 +250,11 @@ export class UserService
                     return;
                 }
 
+                // Don't do anything if the event comes from the current browser tab
+                if (window.document.hasFocus()) {
+                    return;
+                }
+
                 this.getViewer().subscribe(viewer => {
                     if (viewer) {
                         this.apollo.client.resetStore().then(() => {
