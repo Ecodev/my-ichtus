@@ -251,7 +251,7 @@
             *ngIf="data.model.id"
         >
             <div fxLayout="column" class="padding-top">
-                <mat-form-field *ngIf="isTrainer()">
+                <mat-form-field *ngIf="!permissionsService.gteResponsible(viewer)">
                     <mat-label>Remarques</mat-label>
                     <textarea
                         matInput
