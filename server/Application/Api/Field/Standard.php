@@ -7,7 +7,9 @@ namespace Application\Api\Field;
 use Application\Api\Helper;
 use Application\Model\AbstractModel;
 use Application\Model\Account;
+use Application\Model\Bookable;
 use Application\Model\TransactionLine;
+use Application\Model\User;
 use Doctrine\ORM\QueryBuilder;
 use Ecodev\Felix\Api\Input\PaginationInputType;
 use GraphQL\Type\Definition\Type;
@@ -103,7 +105,7 @@ abstract class Standard
                     'id' => Type::nonNull(_types()->getId($class)),
                     'input' => Type::nonNull(_types()->getPartialInput($class)),
                 ],
-                'resolve' => function ($root, array $args): AbstractModel {
+                'resolve' => function ($root, array $args) use ($class): AbstractModel {
                     $object = $args['id']->getEntity();
 
                     // Check ACL
@@ -111,7 +113,8 @@ abstract class Standard
 
                     // Do it
                     $input = $args['input'];
-                    Helper::hydrate($object, $input);
+                    $filteredInput = self::filterInput($class, $input);
+                    Helper::hydrate($object, $filteredInput);
 
                     _em()->flush();
 
@@ -142,6 +145,17 @@ abstract class Standard
                 },
             ],
         ];
+    }
+
+    private static function filterInput(string $class, array $input): array
+    {
+        $user = User::getCurrent();
+        if ($class === Bookable::class && $user && $user->getRole() === User::ROLE_TRAINER) {
+            // whitelist
+            $input = array_intersect_key($input, array_flip(['remarks']));
+        }
+
+        return $input;
     }
 
     /**

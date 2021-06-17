@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Application\Acl\Assertion;
 
 use Application\DBAL\Types\BookingTypeType;
-use Application\Model\Booking;
+use Application\Model\Bookable;
 use Laminas\Permissions\Acl\Acl;
 use Laminas\Permissions\Acl\Assertion\AssertionInterface;
 use Laminas\Permissions\Acl\Resource\ResourceInterface;
 use Laminas\Permissions\Acl\Role\RoleInterface;
 
-class BookingIsSelfApproved implements AssertionInterface
+class BookableIsAdminOnly implements AssertionInterface
 {
     /**
-     * Assert that booking's bookable is self approved (boats) or has no bookable
+     * Assert that booking is admin only
      *
      * @param \Application\Acl\Acl $acl
      * @param RoleInterface $role
@@ -25,18 +25,14 @@ class BookingIsSelfApproved implements AssertionInterface
      */
     public function assert(Acl $acl, ?RoleInterface $role = null, ?ResourceInterface $resource = null, $privilege = null)
     {
-        /** @var Booking $booking */
-        $booking = $resource->getInstance();
+        /** @var Bookable $bookable */
+        $bookable = $resource->getInstance();
 
-        if (!$booking->getBookable()) {
+        $bookingType = $bookable->getBookingType();
+        if ($bookingType === BookingTypeType::ADMIN_ONLY) {
             return true;
         }
 
-        $bookingType = $booking->getBookable()->getBookingType();
-        if ($bookingType === BookingTypeType::SELF_APPROVED) {
-            return true;
-        }
-
-        return $acl->reject('the booking type for this booking is not self approved, but : ' . $bookingType);
+        return $acl->reject('the booking type for this bookable is not admin only, but : ' . $bookingType);
     }
 }

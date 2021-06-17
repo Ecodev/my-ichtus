@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Application\Acl;
 
 use Application\Acl\Assertion\BookableAvailable;
+use Application\Acl\Assertion\BookableIsAdminOnly;
 use Application\Acl\Assertion\BookingIsSelfApproved;
 use Application\Acl\Assertion\ExpenseClaimStatusIsNew;
 use Application\Acl\Assertion\IsFamily;
@@ -85,7 +86,7 @@ class Acl extends \Ecodev\Felix\Acl\Acl
         $this->allow(User::ROLE_MEMBER, [$user], ['update'], new One(new IsOwner(), new IsMyself()));
 
         $this->allow(User::ROLE_TRAINER, [$userTag], ['read']);
-        $this->allow(User::ROLE_TRAINER, [$bookable], ['update']); // too permissive. Add new BookingAdminOnly() assertion ?
+        $this->allow(User::ROLE_TRAINER, [$bookable], ['update'], new BookableIsAdminOnly());
 
         $this->allow(User::ROLE_FORMATION_RESPONSIBLE, [$user, $userTag], ['update']);
         $this->allow(User::ROLE_FORMATION_RESPONSIBLE, [$booking], ['create', 'update']);
