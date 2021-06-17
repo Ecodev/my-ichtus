@@ -2,15 +2,21 @@ import {Apollo} from 'apollo-angular';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
-import {NaturalAbstractController, NaturalAlertService} from '@ecodev/natural';
+import {NaturalAbstractController, NaturalAlertService, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {UserService} from '../../../admin/users/services/user.service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ProvisionComponent} from '../provision/provision.component';
 import {ConfigService, FrontEndConfig} from '../../../shared/services/config.service';
 import {filter, takeUntil} from 'rxjs/operators';
-import {CurrentUserForProfile_viewer} from '../../../shared/generated-types';
+import {
+    CurrentUserForProfile_viewer,
+    Licenses_licenses_items,
+    LicensesVariables,
+    LicenseVariables,
+} from '../../../shared/generated-types';
 import {DatatransService} from '../../../shared/services/datatrans.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
+import {LicenseService} from '../../../admin/licenses/services/license.service';
 
 @Component({
     selector: 'app-profile',
@@ -24,6 +30,7 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
      * Install FE config
      */
     public config: FrontEndConfig | null = null;
+    public licenses: Licenses_licenses_items[] = [];
 
     constructor(
         public readonly userService: UserService,
@@ -35,6 +42,7 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
         private readonly apollo: Apollo,
         private readonly dialog: MatDialog,
         private readonly datatransService: DatatransService,
+        private readonly licenseService: LicenseService,
         configService: ConfigService,
     ) {
         super();
@@ -45,6 +53,17 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
 
     public ngOnInit(): void {
         this.viewer = this.route.snapshot.data.viewer.model;
+
+        const licenseQueryVariables = new NaturalQueryVariablesManager<LicensesVariables>();
+        licenseQueryVariables.set('variables', {
+            filter: {
+                groups: [{conditions: [{users: {have: {values: [this.viewer.id]}}}]}],
+            },
+        });
+
+        this.licenseService.getAll(licenseQueryVariables).subscribe(result => {
+            this.licenses = result.items;
+        });
 
         // Clean up datatrans on any route change
         this.router.events
