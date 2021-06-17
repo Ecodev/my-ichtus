@@ -14,7 +14,7 @@ use Laminas\Permissions\Acl\Role\RoleInterface;
 class BookableIsAdminOnly implements AssertionInterface
 {
     /**
-     * Assert that booking is admin only
+     * Assert that the bookable's booking type is admin only
      *
      * @param \Application\Acl\Acl $acl
      * @param RoleInterface $role
@@ -25,6 +25,10 @@ class BookableIsAdminOnly implements AssertionInterface
      */
     public function assert(Acl $acl, ?RoleInterface $role = null, ?ResourceInterface $resource = null, $privilege = null)
     {
+        if ($resource === null) {
+            return false;
+        }
+
         /** @var Bookable $bookable */
         $bookable = $resource->getInstance();
 
