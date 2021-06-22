@@ -441,6 +441,18 @@ export class NaturalSearchFacetsService {
                 component: TypeDateComponent,
             } as DropdownFacet<TypeDateConfiguration>,
             {
+                display: 'Pointé',
+                field: 'isReconciled',
+                component: TypeSelectComponent,
+                name: 'transactionWithDocument',
+                configuration: {
+                    items: [
+                        {value: true, name: 'Oui'},
+                        {value: false, name: 'Non'},
+                    ],
+                },
+            } as DropdownFacet<TypeSelectConfiguration>,
+            {
                 display: 'Justificatif',
                 field: 'custom',
                 component: TypeSelectComponent,
