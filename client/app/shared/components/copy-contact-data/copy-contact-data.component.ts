@@ -89,7 +89,7 @@ export class CopyContactDataComponent<V extends EmailAndPhoneUsersVariables | Bo
                 this.usersEmail = users
                     .filter(u => u.email)
                     .map(u => u.email)
-                    .join(' ;,'); // all separators for different mailboxes,
+                    .join(' ;,'); // all separators for different mailboxes
 
                 this.usersEmailAndName = users
                     .filter(u => u.email)

@@ -509,7 +509,6 @@ const routes: Routes = [
                             initialColumns: ['balance', 'name', 'status', 'creationDate', 'resignDate'],
                         },
                     },
-
                     {
                         path: 'new',
                         component: UserComponent,

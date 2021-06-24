@@ -349,18 +349,14 @@ export class NaturalSearchFacetsService {
                     items: this.enumService.get('UserRole'),
                 },
             } as DropdownFacet<TypeSelectConfiguration>,
-
             this.licenses,
             this.receivesNewsletter,
-
             this.userWelcomeSession,
-
             {
                 display: "Date d'accueil",
                 field: 'welcomeSessionDate',
                 component: TypeDateComponent,
             } as DropdownFacet<TypeDateConfiguration>,
-
             {
                 display: 'Mode de paiement',
                 field: 'billingType',

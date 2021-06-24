@@ -62,7 +62,6 @@ export class ProsemirrorComponent implements OnInit, OnDestroy, ControlValueAcce
 
         this.view = new EditorView(this.editor.nativeElement, {
             state: state,
-
             dispatchTransaction: (transaction: Transaction) => {
                 if (!this.view) {
                     return;
