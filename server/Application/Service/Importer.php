@@ -13,6 +13,7 @@ use Application\Repository\TransactionLineRepository;
 use Application\Repository\UserRepository;
 use Cake\Chronos\Chronos;
 use Ecodev\Felix\Api\Exception;
+use Ecodev\Felix\Api\ExceptionWithoutMailLogging;
 use Ecodev\Felix\Service\Bvr;
 use Genkgo\Camt\Camt054\MessageFormat\V02;
 use Genkgo\Camt\Camt054\MessageFormat\V04;
@@ -269,7 +270,7 @@ class Importer
         }
 
         if ($this->transactionLineRepository->importedIdExists($endToEndId)) {
-            throw new Exception('It looks like this file was already imported. A transaction line with the following `importedId` was already imported once and cannot be imported again: ' . $endToEndId);
+            throw new ExceptionWithoutMailLogging('It looks like this file was already imported. A transaction line with the following `importedId` was already imported once and cannot be imported again: ' . $endToEndId);
         }
 
         return $endToEndId;
