@@ -41,13 +41,7 @@
                         ],
                         "styles": ["client/styles/_themes.scss", "client/styles.scss"],
                         "scripts": [],
-                        "allowedCommonJsDependencies": ["zen-observable"],
-                        "vendorChunk": true,
-                        "extractLicenses": false,
-                        "buildOptimizer": false,
-                        "sourceMap": true,
-                        "optimization": false,
-                        "namedChunks": true
+                        "allowedCommonJsDependencies": ["zen-observable"]
                     },
                     "configurations": {
                         "production": {
@@ -57,13 +51,7 @@
                                     "with": "client/environments/environment.prod.ts"
                                 }
                             ],
-                            "optimization": true,
                             "outputHashing": "all",
-                            "sourceMap": false,
-                            "namedChunks": false,
-                            "extractLicenses": true,
-                            "vendorChunk": false,
-                            "buildOptimizer": true,
                             "budgets": [
                                 {
                                     "type": "initial",
@@ -76,7 +64,14 @@
                                 }
                             ]
                         },
-                        "development": {}
+                        "development": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true
+                        }
                     },
                     "defaultConfiguration": "production"
                 },
@@ -185,23 +180,11 @@
                         "index": "client/vanilla/index.html",
                         "main": "client/vanilla/main.ts",
                         "tsConfig": "client/vanilla/tsconfig.app.json",
-                        "polyfills": "client/vanilla/polyfills.ts",
-                        "vendorChunk": true,
-                        "extractLicenses": false,
-                        "buildOptimizer": false,
-                        "sourceMap": true,
-                        "optimization": false,
-                        "namedChunks": true
+                        "polyfills": "client/vanilla/polyfills.ts"
                     },
                     "configurations": {
                         "production": {
-                            "optimization": true,
                             "outputHashing": "none",
-                            "sourceMap": false,
-                            "namedChunks": false,
-                            "extractLicenses": true,
-                            "vendorChunk": false,
-                            "buildOptimizer": true,
                             "budgets": [
                                 {
                                     "type": "initial",
@@ -214,7 +197,14 @@
                                 }
                             ]
                         },
-                        "development": {}
+                        "development": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true
+                        }
                     },
                     "defaultConfiguration": "production"
                 }
