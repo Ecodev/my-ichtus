@@ -1,6 +1,8 @@
 import {Inject, Injectable} from '@angular/core';
 import CryptoES from 'crypto-es';
 import {DOCUMENT} from '@angular/common';
+import {fromEvent, Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 export interface Config {
     params: {
@@ -35,7 +37,7 @@ export class DatatransService {
     private preservedStyles: {html: string; body: string} = {html: '', body: ''};
     private paymentFrame: HTMLDivElement | null = null;
     private paymentForm: HTMLFormElement | null = null;
-    private windowEventHandler: ((event: MessageEvent) => void) | null = null;
+    private readonly cleaningUp = new Subject<void>();
     private readonly window: Window;
     private readonly lockStyles: Record<'html' | 'body', Partial<AllowedCss>> = {
         html: {
@@ -84,13 +86,9 @@ export class DatatransService {
         // so data cannot be resubmitted when going back one more time.
         // One more back might trigger a full refresh of an Angular app though,
         // but at least the user-experience is not entirely broken
-        this.window.addEventListener(
-            'popstate',
-            () => {
-                this.cleanup();
-            },
-            {capture: false, once: true},
-        );
+        fromEvent(this.window, 'popstate', {capture: false})
+            .pipe(takeUntil(this.cleaningUp))
+            .subscribe(() => this.cleanup());
     }
 
     private applyStyle(element: HTMLElement, style: Partial<AllowedCss>): void {
@@ -131,6 +129,9 @@ export class DatatransService {
     }
 
     public cleanup(): void {
+        // Remove all event listeners
+        this.cleaningUp.next();
+
         this.toggleLockHostPage(false);
         if (this.paymentForm && this.paymentForm.parentNode) {
             this.paymentForm.parentNode.removeChild(this.paymentForm);
@@ -140,13 +141,8 @@ export class DatatransService {
             this.paymentFrame.parentNode.removeChild(this.paymentFrame);
         }
 
-        if (this.windowEventHandler) {
-            this.window.removeEventListener('message', this.windowEventHandler);
-        }
-
         this.paymentFrame = null;
         this.paymentForm = null;
-        this.windowEventHandler = null;
     }
 
     public startPayment(config: Config): void {
@@ -245,24 +241,27 @@ export class DatatransService {
         this.document.body.appendChild(this.paymentFrame);
         this.document.body.appendChild(this.paymentForm);
 
-        this.windowEventHandler = event => {
-            if (event.data === 'cancel') {
-                this.cleanup();
-            } else if (event.data === 'frameReady') {
-                this.preventResubmitWithBackButton();
-                if (this.paymentFrame) {
-                    this.paymentFrame.style.display = 'block';
+        fromEvent<MessageEvent>(this.window, 'message')
+            .pipe(takeUntil(this.cleaningUp))
+            .subscribe(event => {
+                if (event.data === 'cancel') {
+                    this.cleanup();
+                } else if (event.data === 'frameReady') {
+                    this.preventResubmitWithBackButton();
+                    if (this.paymentFrame) {
+                        this.paymentFrame.style.display = 'block';
+                    }
+                } else if (
+                    typeof event.data === 'object' &&
+                    ['success', 'error', 'cancel'].includes(event.data.status)
+                ) {
+                    const callback: any = config[event.data.status as 'success' | 'error' | 'cancel'];
+                    if (typeof callback === 'function') {
+                        callback(event.data);
+                    }
+                    this.cleanup();
                 }
-            } else if (typeof event.data === 'object' && ['success', 'error', 'cancel'].includes(event.data.status)) {
-                const callback: any = config[event.data.status as 'success' | 'error' | 'cancel'];
-                if (typeof callback === 'function') {
-                    callback(event.data);
-                }
-                this.cleanup();
-            }
-        };
-
-        this.window.addEventListener('message', this.windowEventHandler);
+            });
 
         this.paymentForm.submit();
     }
