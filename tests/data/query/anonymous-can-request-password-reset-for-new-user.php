@@ -26,9 +26,9 @@ return [
     function (Connection $connection): void {
         $count = $connection->executeQuery(
             'SELECT COUNT(*) FROM message WHERE type = :type AND email = :email',
-            ['type' => MessageTypeType::REGISTER, 'email' => 'newmember@example.com']
+            ['type' => MessageTypeType::RESET_PASSWORD, 'email' => 'newmember@example.com']
         )->fetchOne();
 
-        Assert::assertSame('1', $count, 'should have sent 1 email to confirm registration');
+        Assert::assertSame('1', $count, 'should have sent 1 email to reset password');
     },
 ];
