@@ -266,7 +266,7 @@ class Booking extends AbstractModel
     /**
      * Returns the next invoicable periodic price
      *
-     * In case it uses shared admin_only bookables, the price is divided by the number of usages
+     * In case it uses shared admin_assigned bookables, the price is divided by the number of usages
      */
     public function getPeriodicPrice(): Money
     {

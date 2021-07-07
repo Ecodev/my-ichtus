@@ -11,10 +11,10 @@ use Laminas\Permissions\Acl\Assertion\AssertionInterface;
 use Laminas\Permissions\Acl\Resource\ResourceInterface;
 use Laminas\Permissions\Acl\Role\RoleInterface;
 
-class BookableIsAdminOnly implements AssertionInterface
+class BookableIsAdminAssigned implements AssertionInterface
 {
     /**
-     * Assert that the bookable's booking type is admin only
+     * Assert that the bookable's booking type is admin assigned
      *
      * @param \Application\Acl\Acl $acl
      * @param RoleInterface $role
@@ -33,10 +33,10 @@ class BookableIsAdminOnly implements AssertionInterface
         $bookable = $resource->getInstance();
 
         $bookingType = $bookable->getBookingType();
-        if ($bookingType === BookingTypeType::ADMIN_ONLY) {
+        if ($bookingType === BookingTypeType::ADMIN_ASSIGNED) {
             return true;
         }
 
-        return $acl->reject('the booking type for this bookable is not admin only, but : ' . $bookingType);
+        return $acl->reject('the booking type for this bookable is not admin assigned, but : ' . $bookingType);
     }
 }

@@ -151,7 +151,7 @@ class BookingRepositoryTest extends AbstractRepositoryTest
                         'status' => BookingStatusType::BOOKED,
                         'bookable' => [
                             'name' => 'casier',
-                            'booking_type' => BookingTypeType::ADMIN_ONLY,
+                            'booking_type' => BookingTypeType::ADMIN_ASSIGNED,
                             'is_active' => true,
                             'periodic_price' => '25.00',
                         ],
@@ -216,8 +216,8 @@ class BookingRepositoryTest extends AbstractRepositoryTest
         $selfApprovedBookable = $normal;
         $selfApprovedBookable[0]['bookings'][0]['bookable']['booking_type'] = BookingTypeType::SELF_APPROVED;
 
-        $adminApprovedBookable = $normal;
-        $adminApprovedBookable[0]['bookings'][0]['bookable']['booking_type'] = BookingTypeType::ADMIN_APPROVED;
+        $applicationBookable = $normal;
+        $applicationBookable[0]['bookings'][0]['bookable']['booking_type'] = BookingTypeType::APPLICATION;
 
         $inactiveBookable = $normal;
         $inactiveBookable[0]['bookings'][0]['bookable']['is_active'] = false;
@@ -295,12 +295,12 @@ class BookingRepositoryTest extends AbstractRepositoryTest
                 $processedBooking,
                 ['casier'],
             ],
-            'self approvable bookable is not counted' => [
+            'self approved bookable is not counted' => [
                 $selfApprovedBookable,
                 ['casier'],
             ],
-            'admin approvable bookable is counted' => [
-                $adminApprovedBookable,
+            'application bookable is counted' => [
+                $applicationBookable,
                 ['casier', 'cotisation'],
             ],
             'inactive bookable is not counted' => [

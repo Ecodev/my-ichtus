@@ -77,7 +77,7 @@ export class BookableService extends NaturalAbstractModelService<
                     groupLogic: LogicalOperator.OR,
                     conditions: [
                         {
-                            bookingType: {in: {values: [BookingType.admin_approved]}},
+                            bookingType: {in: {values: [BookingType.application]}},
                             bookableTags: {
                                 have: {
                                     values: [
@@ -94,8 +94,8 @@ export class BookableService extends NaturalAbstractModelService<
         },
     };
 
-    public static readonly adminApproved: BookablesVariables = {
-        filter: {groups: [{conditions: [{bookingType: {in: {values: [BookingType.admin_approved]}}}]}]},
+    public static readonly application: BookablesVariables = {
+        filter: {groups: [{conditions: [{bookingType: {in: {values: [BookingType.application]}}}]}]},
     };
 
     constructor(apollo: Apollo, private readonly bookingService: BookingService) {
@@ -106,7 +106,7 @@ export class BookableService extends NaturalAbstractModelService<
         return {filter: {groups: [{conditions: [{bookableTags: {have: {values: [tagId]}}}]}]}};
     }
 
-    public static adminApprovedByTag(tagId: string): BookablesVariables {
+    public static applicationByTag(tagId: string): BookablesVariables {
         return {
             filter: {
                 groups: [
@@ -114,7 +114,7 @@ export class BookableService extends NaturalAbstractModelService<
                         conditions: [
                             {
                                 isActive: {equal: {value: true}},
-                                bookingType: {in: {values: [BookingType.admin_approved]}},
+                                bookingType: {in: {values: [BookingType.application]}},
                                 bookableTags: {have: {values: [tagId]}},
                             },
                         ],
@@ -131,7 +131,7 @@ export class BookableService extends NaturalAbstractModelService<
                     {
                         conditions: [
                             {
-                                bookingType: {in: {values: [BookingType.admin_only]}},
+                                bookingType: {in: {values: [BookingType.admin_assigned]}},
                                 bookableTags: {have: {values: [bookableTagId]}},
                             },
                         ],

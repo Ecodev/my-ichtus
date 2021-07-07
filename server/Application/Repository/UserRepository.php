@@ -123,7 +123,7 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
             ->andWhere('bookable.bookingType IN (:bookingType)')
             ->andWhere('bookable.isActive = true')
             ->andWhere('bookable.periodicPrice != 0')
-            ->setParameter('bookingType', [BookingTypeType::MANDATORY, BookingTypeType::ADMIN_ONLY], Connection::PARAM_STR_ARRAY)
+            ->setParameter('bookingType', [BookingTypeType::MANDATORY, BookingTypeType::ADMIN_ASSIGNED], Connection::PARAM_STR_ARRAY)
             ->setParameter('status', User::STATUS_ARCHIVED)
             ->addOrderBy('user.id')
             ->addOrderBy('bookable.name');

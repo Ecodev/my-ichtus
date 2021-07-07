@@ -37,7 +37,7 @@ export class SelectAdminApprovedModalComponent implements OnInit {
     }
 
     public fetch(tag: string): Observable<NaturalDataSource<UsageBookables['bookables']>> {
-        const variables = BookableService.adminApprovedByTag(tag);
+        const variables = BookableService.applicationByTag(tag);
         const qvm = new NaturalQueryVariablesManager<BookablesVariables>();
         qvm.set('variables', variables);
         qvm.set('sorting', {sorting: [{field: BookableSortingField.name}]});

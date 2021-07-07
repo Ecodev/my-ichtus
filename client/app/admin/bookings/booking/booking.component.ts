@@ -26,8 +26,8 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
     public suggestionVariables: BookablesVariables = {};
 
     public bookableFilterChips = [
-        {name: 'Stockage et services effectifs', value: 'admin_only', selected: false},
-        {name: 'Stockage et services pour demande', value: 'admin_approved', selected: false},
+        {name: 'Stockage et services effectifs', value: 'admin_assigned', selected: false},
+        {name: 'Stockage et services pour demande', value: 'application', selected: false},
         {name: 'Carnet de sortie', value: 'self_approved', selected: false},
         {name: 'Services obligatoires', value: 'mandatory', selected: false},
     ];
@@ -46,7 +46,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
         public readonly userService: UserService,
     ) {
         super('booking', bookingService, injector);
-        this.filterBookables(BookingType.admin_only);
+        this.filterBookables(BookingType.admin_assigned);
     }
 
     public ngOnInit(): void {
@@ -92,7 +92,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
         if (bookable && status) {
             return (
                 status.value !== BookingStatus.booked ||
-                (bookable.value && bookable.value.bookingType === BookingType.admin_approved)
+                (bookable.value && bookable.value.bookingType === BookingType.application)
             );
         }
 
@@ -144,7 +144,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
                     {
                         conditions: [
                             {
-                                bookingType: {in: {values: [BookingType.admin_only]}},
+                                bookingType: {in: {values: [BookingType.admin_assigned]}},
                                 bookableTags: {have: {values: tags}},
                                 isActive: {equal: {value: true}},
                             },

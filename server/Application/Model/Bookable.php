@@ -350,14 +350,14 @@ class Bookable extends AbstractModel
     /**
      * Returns list of active bookings
      *
-     * Limits to admin-only and admin-approved
+     * Limits to admin-assigned and application
      *
      * @return Booking[]
      */
     public function getSharedBookings(): array
     {
         $bookableType = $this->getBookingType();
-        $bookableTypesAllowed = [BookingTypeType::ADMIN_ONLY, BookingTypeType::ADMIN_APPROVED];
+        $bookableTypesAllowed = [BookingTypeType::ADMIN_ASSIGNED, BookingTypeType::APPLICATION];
 
         if (!in_array($bookableType, $bookableTypesAllowed, true)) {
             return [];
@@ -373,7 +373,7 @@ class Bookable extends AbstractModel
     /**
      * Return a list of effective active bookings including sharing conditions.
      *
-     * Only "admin-only" + storage tags are sharable bookables. In this case, a list of bookings is returned.
+     * Only "admin-assigned" + storage tags are sharable bookables. In this case, a list of bookings is returned.
      *
      * For other bookable types, returns null
      *
@@ -381,7 +381,7 @@ class Bookable extends AbstractModel
      */
     public function getPeriodicPriceDividerBookings(): array
     {
-        $isAdminOnly = $this->getBookingType() === BookingTypeType::ADMIN_ONLY;
+        $isAdminAssigned = $this->getBookingType() === BookingTypeType::ADMIN_ASSIGNED;
 
         $isTagAllowed = false;
         $allowedTagIds = [BookableTagRepository::STORAGE_ID, BookableTagRepository::FORMATION_ID, BookableTagRepository::WELCOME_ID];
@@ -393,7 +393,7 @@ class Bookable extends AbstractModel
             }
         }
 
-        if (!$isAdminOnly || !$isTagAllowed) {
+        if (!$isAdminAssigned || !$isTagAllowed) {
             return [];
         }
 

@@ -14,7 +14,7 @@ return [
     [
         'errors' => [
             [
-                'message' => 'User "trainer" with role trainer is not allowed on resource "Bookable#3000" with privilege "update" because the booking type for this bookable is not admin only, but : self_approved',
+                'message' => 'User "trainer" with role trainer is not allowed on resource "Bookable#3000" with privilege "update" because the booking type for this bookable is not admin assigned, but : self_approved',
                 'extensions' => [
                     'category' => 'Permissions',
                 ],
