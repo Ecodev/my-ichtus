@@ -205,10 +205,10 @@
 
         <eco-fab-speed-dial-actions>
             <button mat-mini-fab (click)="save()">
-                <mat-icon>save</mat-icon>
+                <natural-icon name="save"></natural-icon>
             </button>
             <button mat-mini-fab (click)="delete()" color="warn" *ngIf="userService.canUpdateTransaction(viewer)">
-                <mat-icon>delete_forever</mat-icon>
+                <natural-icon name="delete_forever"></natural-icon>
             </button>
         </eco-fab-speed-dial-actions>
     </eco-fab-speed-dial>

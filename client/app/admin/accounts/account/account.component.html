@@ -24,7 +24,7 @@
                                     matToolTip="Utiliser le code suggéré"
                                     (click)="form.get('code')?.setValue(this.nextCodeAvailable); update()"
                                 >
-                                    <mat-icon>reply</mat-icon>
+                                    <natural-icon name="reply"></natural-icon>
                                 </button>
                                 <mat-error *ngIf="form.get('code')?.hasError('maxlength')">
                                     Maximum {{ form.get('code')?.errors?.maxlength?.requiredLength }} caractères

@@ -20,8 +20,8 @@
                     spellcheck="false"
                 />
                 <mat-error *ngIf="form.get('login')?.hasError('maxlength')"
-                    >Maximum {{ form.get('login')?.errors?.maxlength?.requiredLength }} caractères</mat-error
-                >
+                    >Maximum {{ form.get('login')?.errors?.maxlength?.requiredLength }} caractères
+                </mat-error>
                 <mat-error *ngIf="form.get('login')?.hasError('invalid')">{{
                     form.get('login')?.getError('invalid')
                 }}</mat-error>
@@ -32,9 +32,11 @@
                 <mat-label>Mot de passe</mat-label>
                 <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" />
                 <button mat-icon-button matSuffix>
-                    <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{
-                        hidePassword ? 'visibility' : 'visibility_off'
-                    }}</mat-icon>
+                    <natural-icon
+                        matSuffix
+                        (click)="hidePassword = !hidePassword"
+                        [name]="hidePassword ? 'visibility' : 'visibility_off'"
+                    ></natural-icon>
                 </button>
 
                 <mat-error *ngIf="form.get('password')?.hasError('required')">Requis</mat-error>
