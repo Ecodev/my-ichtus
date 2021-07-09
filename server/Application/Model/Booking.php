@@ -228,8 +228,9 @@ class Booking extends AbstractModel
      */
     public function setStatus(string $status): void
     {
+        $previousStatus = $this->status;
         $this->status = $status;
-        $this->invoiceInitial();
+        $this->invoiceInitial($previousStatus);
     }
 
     /**
@@ -250,7 +251,7 @@ class Booking extends AbstractModel
     /**
      * If the booking is complete, will make initial invoicing
      */
-    private function invoiceInitial(): void
+    private function invoiceInitial(?string $previousStatus = null): void
     {
         if (!$this->getOwner() || !$this->getBookable()) {
             return;
@@ -260,7 +261,7 @@ class Booking extends AbstractModel
 
         /** @var Invoicer $invoicer */
         $invoicer = $container->get(Invoicer::class);
-        $invoicer->invoiceInitial($this->getOwner(), $this);
+        $invoicer->invoiceInitial($this->getOwner(), $this, $previousStatus);
     }
 
     /**

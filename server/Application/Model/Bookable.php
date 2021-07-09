@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Application\Model;
 
 use Application\DBAL\Types\BookableStateType;
+use Application\DBAL\Types\BookingStatusType;
 use Application\DBAL\Types\BookingTypeType;
 use Application\Repository\BookableTagRepository;
 use Application\Traits\HasCode;
@@ -350,21 +351,22 @@ class Bookable extends AbstractModel
     /**
      * Returns list of active bookings
      *
-     * Limits to admin-assigned and application
+     * Limits to admin-assigned, application and admin-approved
      *
      * @return Booking[]
      */
     public function getSharedBookings(): array
     {
         $bookableType = $this->getBookingType();
-        $bookableTypesAllowed = [BookingTypeType::ADMIN_ASSIGNED, BookingTypeType::APPLICATION];
+        $bookableTypesAllowed = [BookingTypeType::ADMIN_ASSIGNED, BookingTypeType::APPLICATION, BookingTypeType::ADMIN_APPROVED];
 
         if (!in_array($bookableType, $bookableTypesAllowed, true)) {
             return [];
         }
 
+        // Only consider approved and unterminated bookings
         $bookings = $this->getBookings()->filter(function (Booking $booking): bool {
-            return !$booking->getEndDate();
+            return !$booking->getEndDate() && $booking->getStatus() !== BookingStatusType::APPLICATION;
         })->toArray();
 
         return $bookings;

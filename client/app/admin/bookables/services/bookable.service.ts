@@ -124,17 +124,18 @@ export class BookableService extends NaturalAbstractModelService<
         };
     }
 
-    public static adminByTag(bookableTagId: string): BookablesVariables {
+    public static adminByTag(bookableTagId: string, isActive: boolean | null = null): BookablesVariables {
+        const condition = {
+            bookingType: {in: {values: [BookingType.admin_assigned, BookingType.admin_approved]}},
+            bookableTags: {have: {values: [bookableTagId]}},
+            isActive: isActive !== null ? {equal: {value: isActive}} : undefined,
+        };
+
         return {
             filter: {
                 groups: [
                     {
-                        conditions: [
-                            {
-                                bookingType: {in: {values: [BookingType.admin_assigned]}},
-                                bookableTags: {have: {values: [bookableTagId]}},
-                            },
-                        ],
+                        conditions: [condition],
                     },
                 ],
             },

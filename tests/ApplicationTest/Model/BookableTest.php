@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace ApplicationTest\Model;
 
+use Application\DBAL\Types\BookingStatusType;
 use Application\DBAL\Types\BookingTypeType;
 use Application\Model\Bookable;
-use Application\Model\BookableTag;
 use Application\Model\Booking;
-use Application\Repository\BookableTagRepository;
 use Cake\Chronos\Chronos;
 use PHPUnit\Framework\TestCase;
 
@@ -38,6 +37,7 @@ class BookableTest extends TestCase
         self::assertSame([], $bookable->getSharedBookings());
 
         $booking1 = new Booking();
+        $booking1->setStatus(BookingStatusType::BOOKED);
         $booking1->setBookable($bookable);
 
         self::assertSame([], $bookable->getSharedBookings());
@@ -55,6 +55,7 @@ class BookableTest extends TestCase
         self::assertCount(1, $bookable->getSharedBookings(), 'application show 1 booking');
 
         $booking2 = new Booking();
+        $booking2->setStatus(BookingStatusType::BOOKED);
         $booking2->setBookable($bookable);
 
         self::assertCount(2, $bookable->getSharedBookings(), 'second bookings should be returned');

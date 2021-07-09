@@ -414,7 +414,17 @@ export class UserService
                                 status: {equal: {value: BookingStatus.application}},
                             },
                         ],
-                        joins: {bookable: {conditions: [{bookingType: {in: {values: [BookingType.application]}}}]}},
+                        joins: {
+                            bookable: {
+                                conditions: [
+                                    {
+                                        bookingType: {
+                                            in: {values: [BookingType.application, BookingType.admin_approved]},
+                                        },
+                                    },
+                                ],
+                            },
+                        },
                     },
                 ],
             },

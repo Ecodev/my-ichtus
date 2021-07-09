@@ -11,6 +11,7 @@ class BookingTypeType extends EnumType
     const SELF_APPROVED = 'self_approved';
     const APPLICATION = 'application';
     const ADMIN_ASSIGNED = 'admin_assigned';
+    const ADMIN_APPROVED = 'admin_approved';
     const MANDATORY = 'mandatory';
 
     protected function getPossibleValues(): array
@@ -19,6 +20,7 @@ class BookingTypeType extends EnumType
             self::SELF_APPROVED,
             self::APPLICATION,
             self::ADMIN_ASSIGNED,
+            self::ADMIN_APPROVED,
             self::MANDATORY,
         ];
     }

@@ -14,6 +14,7 @@ class BookingTypeType extends EnumType
             \Application\DBAL\Types\BookingTypeType::SELF_APPROVED => 'Carnet de sortie',
             \Application\DBAL\Types\BookingTypeType::APPLICATION => 'Stockage et services pour demande',
             \Application\DBAL\Types\BookingTypeType::ADMIN_ASSIGNED => 'Stockage et services effectifs',
+            \Application\DBAL\Types\BookingTypeType::ADMIN_APPROVED => 'Cours nautique',
             \Application\DBAL\Types\BookingTypeType::MANDATORY => 'Services obligatoires',
         ];
 

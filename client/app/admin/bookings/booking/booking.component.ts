@@ -24,6 +24,7 @@ import {ExtractVall, NaturalAbstractDetail} from '@ecodev/natural';
 export class BookingComponent extends NaturalAbstractDetail<BookingService> implements OnInit {
     public BookingStatus = BookingStatus;
     public suggestionVariables: BookablesVariables = {};
+    public BookingType = BookingType;
 
     public bookableFilterChips = [
         {name: 'Stockage et services effectifs', value: 'admin_assigned', selected: false},
@@ -73,6 +74,15 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
         });
     }
 
+    // For admin_approved bookings (courses...)
+    public approveBooking(): void {
+        const status = this.form.get('status');
+        if (status) {
+            status.setValue(BookingStatus.processed);
+            this.update();
+        }
+    }
+
     public isSelfApproved(): boolean {
         const bookable = this.form.get('bookable');
         if (bookable) {
@@ -82,17 +92,16 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
         return false;
     }
 
-    public isApplication(): boolean {
+    // Pending application for a service, storage or course
+    public isPendingApplication(bookingType: BookingType | null = null): boolean {
         const status = this.form.get('status');
-        if (status && status.value !== BookingStatus.booked) {
-            return true;
-        }
-
         const bookable = this.form.get('bookable');
+
         if (bookable && status) {
             return (
-                status.value !== BookingStatus.booked ||
-                (bookable.value && bookable.value.bookingType === BookingType.application)
+                status.value === BookingStatus.application &&
+                bookable.value &&
+                (bookingType != null ? bookable.value.bookingType === bookingType : true)
             );
         }
 
@@ -102,13 +111,15 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
     /**
      * Wherever bookable is a service for example NFT
      */
-    public isService(): void {
+    public isService(): boolean {
         const bookable = this.form.get('bookable');
         if (bookable) {
             return bookable.value.bookableTags.find(
                 (t: BookableTags_bookableTags_items) => t.id === BookableTagService.SERVICE,
             );
         }
+
+        return false;
     }
 
     public assignBookable(bookable: UsageBookables_bookables_items): void {

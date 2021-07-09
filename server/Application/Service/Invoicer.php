@@ -71,13 +71,12 @@ class Invoicer
         return $this->count;
     }
 
-    public function invoiceInitial(User $user, Booking $booking): void
+    public function invoiceInitial(User $user, Booking $booking, ?string $previousStatus = null): void
     {
-        $this->bookingRepository->getAclFilter()->runWithoutAcl(function () use ($user, $booking): void {
-            if ($booking->getId() || $booking->getStatus() !== BookingStatusType::BOOKED) {
+        $this->bookingRepository->getAclFilter()->runWithoutAcl(function () use ($user, $booking, $previousStatus): void {
+            if ($previousStatus !== BookingStatusType::APPLICATION || !in_array($booking->getStatus(), [BookingStatusType::BOOKED, BookingStatusType::PROCESSED], true)) {
                 return;
             }
-
             $bookable = $booking->getBookable();
             if (!$bookable->getCreditAccount() || ($bookable->getInitialPrice()->isZero() && $bookable->getPeriodicPrice()->isZero())) {
                 return;
