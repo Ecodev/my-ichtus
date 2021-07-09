@@ -299,9 +299,9 @@ class BookingRepositoryTest extends AbstractRepositoryTest
                 $selfApprovedBookable,
                 ['casier'],
             ],
-            'application bookable is counted' => [
+            'application bookable is not counted' => [
                 $applicationBookable,
-                ['casier', 'cotisation'],
+                ['casier'],
             ],
             'inactive bookable is not counted' => [
                 $inactiveBookable,

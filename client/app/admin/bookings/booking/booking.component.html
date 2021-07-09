@@ -7,16 +7,13 @@
     >
         <div fxLayout="row" fxLayoutGap="20px">
             <button
-                *ngIf="data.model.id && !form.get('endDate')?.value"
+                *ngIf="data.model.id && !form.get('endDate')?.value && !isAdminApproved()"
                 [disabled]="!data.model.permissions.update"
                 mat-flat-button
                 color="warn"
                 (click)="endBooking()"
             >
-                <span *ngIf="isPendingApplication(BookingType.admin_approved); else defaultEndLabel"
-                    >Rejeter la demande</span
-                >
-                <ng-template #defaultEndLabel>Terminer</ng-template>
+                Terminer
             </button>
         </div>
     </natural-detail-header>
@@ -140,7 +137,7 @@
 
                 <div
                     *ngIf="
-                        isPendingApplication(BookingType.admin_assigned) &&
+                        isPendingApplication(BookingType.application) &&
                         suggestionVariables &&
                         data.model.status === BookingStatus.application
                     "

@@ -374,7 +374,7 @@ export class UserService
                         conditions: [
                             {
                                 owner: {equal: {value: user.id}},
-                                status: {equal: {value: BookingStatus.booked}},
+                                status: {in: {values: [BookingStatus.booked, BookingStatus.processed]}},
                                 endDate: {null: {}},
                             },
                         ],

@@ -92,6 +92,16 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
         return false;
     }
 
+    // Bookable of kind admin approved
+    public isAdminApproved(): boolean {
+        const bookable = this.form.get('bookable');
+        if (bookable) {
+            return bookable.value ? bookable.value.bookingType === BookingType.admin_approved : false;
+        }
+
+        return false;
+    }
+
     // Pending application for a service, storage or course
     public isPendingApplication(bookingType: BookingType | null = null): boolean {
         const status = this.form.get('status');

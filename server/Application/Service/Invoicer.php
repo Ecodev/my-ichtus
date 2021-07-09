@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Application\Service;
 
 use Application\DBAL\Types\BookingStatusType;
+use Application\DBAL\Types\BookingTypeType;
 use Application\Model\Account;
 use Application\Model\Bookable;
 use Application\Model\Booking;
@@ -78,6 +79,10 @@ class Invoicer
                 return;
             }
             $bookable = $booking->getBookable();
+            // Never invoice bookings of application type bookable, only used to request the admin to create the actual booking
+            if ($bookable->getBookingType() === BookingTypeType::APPLICATION) {
+                return;
+            }
             if (!$bookable->getCreditAccount() || ($bookable->getInitialPrice()->isZero() && $bookable->getPeriodicPrice()->isZero())) {
                 return;
             }
