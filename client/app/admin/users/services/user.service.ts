@@ -384,7 +384,7 @@ export class UserService
                                     {
                                         bookingType: {
                                             in: {
-                                                values: [BookingType.self_approved],
+                                                values: [BookingType.application, BookingType.self_approved],
                                                 not: true,
                                             },
                                         },
