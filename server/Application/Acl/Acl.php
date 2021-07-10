@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Application\Acl;
 
 use Application\Acl\Assertion\BookableAvailable;
-use Application\Acl\Assertion\BookableIsAdminAssigned;
+use Application\Acl\Assertion\BookableIsAdminApproved;
 use Application\Acl\Assertion\BookingIsPendingApplication;
 use Application\Acl\Assertion\BookingIsSelfApproved;
 use Application\Acl\Assertion\ExpenseClaimStatusIsNew;
@@ -88,7 +88,7 @@ class Acl extends \Ecodev\Felix\Acl\Acl
         $this->allow(User::ROLE_MEMBER, [$user], ['update'], new One(new IsOwner(), new IsMyself()));
 
         $this->allow(User::ROLE_TRAINER, [$userTag], ['read']);
-        $this->allow(User::ROLE_TRAINER, [$bookable], ['update'], new BookableIsAdminAssigned());
+        $this->allow(User::ROLE_TRAINER, [$bookable], ['update'], new BookableIsAdminApproved());
 
         $this->allow(User::ROLE_FORMATION_RESPONSIBLE, [$user, $userTag], ['update']);
         $this->allow(User::ROLE_FORMATION_RESPONSIBLE, [$booking], ['create', 'update']);
