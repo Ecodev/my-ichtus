@@ -109,11 +109,11 @@ class Invoicer
             $bookable = $booking->getBookable();
             if ($isInitial) {
                 $balance = $this->calculateInitialBalance($booking);
-                $this->createTransactionLine($transaction, $bookable, $account, $balance, 'Prestation ponctuelle');
+                $this->createTransactionLine($transaction, $bookable, $account, $balance, 'Prestation ponctuelle', $user->getName());
             }
 
             $balance = $this->calculatePeriodicBalance($booking);
-            $this->createTransactionLine($transaction, $bookable, $account, $balance, 'Prestation annuelle');
+            $this->createTransactionLine($transaction, $bookable, $account, $balance, 'Prestation annuelle', $user->getName());
         }
 
         ++$this->count;
@@ -133,7 +133,7 @@ class Invoicer
         return $booking->getPeriodicPrice();
     }
 
-    private function createTransactionLine(Transaction $transaction, Bookable $bookable, Account $account, Money $balance, string $name): void
+    private function createTransactionLine(Transaction $transaction, Bookable $bookable, Account $account, Money $balance, string $name, string $remarks = ''): void
     {
         if ($balance->isPositive()) {
             $debit = $account;
@@ -157,5 +157,6 @@ class Invoicer
         $transactionLine->setBalance($balance);
         $transactionLine->setTransaction($transaction);
         $transactionLine->setTransactionDate(Chronos::now());
+        $transactionLine->setRemarks($remarks);
     }
 }
