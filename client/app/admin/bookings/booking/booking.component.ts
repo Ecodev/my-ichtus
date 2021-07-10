@@ -29,6 +29,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
     public bookableFilterChips = [
         {name: 'Stockage et services effectifs', value: 'admin_assigned', selected: false},
         {name: 'Stockage et services pour demande', value: 'application', selected: false},
+        {name: 'Cours nautiques', value: 'admin_approved', selected: false},
         {name: 'Carnet de sortie', value: 'self_approved', selected: false},
         {name: 'Services obligatoires', value: 'mandatory', selected: false},
     ];
