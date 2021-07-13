@@ -3,6 +3,7 @@ import {FileModel, NaturalAbstractDetail} from '@ecodev/natural';
 import {BookableService} from '../services/bookable.service';
 import {
     BookingSortingField,
+    BookingStatus,
     BookingsVariables,
     BookingType,
     CreateImage,
@@ -96,7 +97,20 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
 
     public getBookingsVariables(): BookingsVariables {
         return {
-            filter: {groups: [{conditions: [{bookable: {have: {values: [this.data.model.id]}}}]}]},
+            filter: {
+                groups: [
+                    {
+                        conditions: [
+                            {
+                                bookable: {have: {values: [this.data.model.id]}},
+                            },
+                            {
+                                status: {in: {values: [BookingStatus.application], not: true}},
+                            },
+                        ],
+                    },
+                ],
+            },
             sorting: [{field: BookingSortingField.startDate, order: SortingOrder.DESC}],
         };
     }

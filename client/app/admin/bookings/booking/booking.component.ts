@@ -24,10 +24,12 @@ import {ExtractVall, NaturalAbstractDetail} from '@ecodev/natural';
 export class BookingComponent extends NaturalAbstractDetail<BookingService> implements OnInit {
     public BookingStatus = BookingStatus;
     public suggestionVariables: BookablesVariables = {};
+    public BookingType = BookingType;
 
     public bookableFilterChips = [
-        {name: 'Stockage et services effectifs', value: 'admin_only', selected: false},
-        {name: 'Stockage et services pour demande', value: 'admin_approved', selected: false},
+        {name: 'Stockage et services effectifs', value: 'admin_assigned', selected: false},
+        {name: 'Stockage et services pour demande', value: 'application', selected: false},
+        {name: 'Cours nautiques', value: 'admin_approved', selected: false},
         {name: 'Carnet de sortie', value: 'self_approved', selected: false},
         {name: 'Services obligatoires', value: 'mandatory', selected: false},
     ];
@@ -46,7 +48,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
         public readonly userService: UserService,
     ) {
         super('booking', bookingService, injector);
-        this.filterBookables(BookingType.admin_only);
+        this.filterBookables(BookingType.admin_assigned);
     }
 
     public ngOnInit(): void {
@@ -73,6 +75,15 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
         });
     }
 
+    // For admin_approved bookings (courses...)
+    public approveBooking(): void {
+        const status = this.form.get('status');
+        if (status) {
+            status.setValue(BookingStatus.processed);
+            this.update();
+        }
+    }
+
     public isSelfApproved(): boolean {
         const bookable = this.form.get('bookable');
         if (bookable) {
@@ -82,17 +93,26 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
         return false;
     }
 
-    public isApplication(): boolean {
-        const status = this.form.get('status');
-        if (status && status.value !== BookingStatus.booked) {
-            return true;
+    // Bookable of kind admin approved
+    public isAdminApproved(): boolean {
+        const bookable = this.form.get('bookable');
+        if (bookable) {
+            return bookable.value ? bookable.value.bookingType === BookingType.admin_approved : false;
         }
 
+        return false;
+    }
+
+    // Pending application for a service, storage or course
+    public isPendingApplication(bookingType: BookingType | null = null): boolean {
+        const status = this.form.get('status');
         const bookable = this.form.get('bookable');
+
         if (bookable && status) {
             return (
-                status.value !== BookingStatus.booked ||
-                (bookable.value && bookable.value.bookingType === BookingType.admin_approved)
+                status.value === BookingStatus.application &&
+                bookable.value &&
+                (bookingType != null ? bookable.value.bookingType === bookingType : true)
             );
         }
 
@@ -102,13 +122,15 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
     /**
      * Wherever bookable is a service for example NFT
      */
-    public isService(): void {
+    public isService(): boolean {
         const bookable = this.form.get('bookable');
         if (bookable) {
             return bookable.value.bookableTags.find(
                 (t: BookableTags_bookableTags_items) => t.id === BookableTagService.SERVICE,
             );
         }
+
+        return false;
     }
 
     public assignBookable(bookable: UsageBookables_bookables_items): void {
@@ -144,7 +166,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
                     {
                         conditions: [
                             {
-                                bookingType: {in: {values: [BookingType.admin_only]}},
+                                bookingType: {in: {values: [BookingType.admin_assigned]}},
                                 bookableTags: {have: {values: tags}},
                                 isActive: {equal: {value: true}},
                             },

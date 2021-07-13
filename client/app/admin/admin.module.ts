@@ -26,7 +26,7 @@ import {AccountComponent} from './accounts/account/account.component';
 import {TransactionTagsComponent} from './transactionTags/transactionTags/transactionTags.component';
 import {TransactionTagComponent} from './transactionTags/transactionTag/transactionTag.component';
 import {TransactionLinesComponent} from './transactions/transactionLines/transactionLines.component';
-import {SelectAdminOnlyModalComponent} from '../shared/components/select-admin-only-modal/select-admin-only-modal.component';
+import {SelectAdminAssignedModalComponent} from '../shared/components/select-admin-assigned-modal/select-admin-assigned-modal.component';
 import {ProfileModule} from '../profile/profile.module';
 import {BookableMetadataComponent} from './bookable-metadata/bookable-metadata.component';
 import {EcoFabSpeedDialModule} from '@ecodev/fab-speed-dial';
@@ -66,7 +66,7 @@ import {MatChipsModule} from '@angular/material/chips';
         TransactionTagsComponent,
         TransactionTagComponent,
         EditableTransactionLinesComponent,
-        SelectAdminOnlyModalComponent,
+        SelectAdminAssignedModalComponent,
         BookableMetadataComponent,
         ImportComponent,
         LogsComponent,

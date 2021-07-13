@@ -4,10 +4,10 @@ import {BookableTagService} from '../../../admin/bookableTags/services/bookableT
 import {Bookables_bookables_items} from '../../generated-types';
 
 @Component({
-    selector: 'natural-select-admin-only-modal',
-    templateUrl: './select-admin-only-modal.component.html',
+    selector: 'natural-select-admin-assigned-modal',
+    templateUrl: './select-admin-assigned-modal.component.html',
 })
-export class SelectAdminOnlyModalComponent implements OnInit {
+export class SelectAdminAssignedModalComponent implements OnInit {
     public selection: string | Bookables_bookables_items | null = null;
     public variables = BookableService.adminByTag(BookableTagService.STORAGE);
 

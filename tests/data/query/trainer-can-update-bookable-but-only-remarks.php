@@ -11,14 +11,14 @@ return [
                 }
             }',
         'variables' => [
-            'id' => 3003,
+            'id' => 3032,
         ],
     ],
     [
         'data' => [
             'updateBookable' => [
                 'remarks' => 'test remarks',
-                'name' => 'Casier 1012 (3003, inventaire / spécifique admin, periodic)',
+                'name' => 'Cours nautique (3032, admin approved, dispo)',
             ],
         ],
     ],

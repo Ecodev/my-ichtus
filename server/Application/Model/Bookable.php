@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Application\Model;
 
 use Application\DBAL\Types\BookableStateType;
+use Application\DBAL\Types\BookingStatusType;
 use Application\DBAL\Types\BookingTypeType;
 use Application\Repository\BookableTagRepository;
 use Application\Traits\HasCode;
@@ -350,21 +351,22 @@ class Bookable extends AbstractModel
     /**
      * Returns list of active bookings
      *
-     * Limits to admin-only and admin-approved
+     * Limits to admin-assigned, application and admin-approved
      *
      * @return Booking[]
      */
     public function getSharedBookings(): array
     {
         $bookableType = $this->getBookingType();
-        $bookableTypesAllowed = [BookingTypeType::ADMIN_ONLY, BookingTypeType::ADMIN_APPROVED];
+        $bookableTypesAllowed = [BookingTypeType::ADMIN_ASSIGNED, BookingTypeType::APPLICATION, BookingTypeType::ADMIN_APPROVED];
 
         if (!in_array($bookableType, $bookableTypesAllowed, true)) {
             return [];
         }
 
+        // Only consider approved and unterminated bookings
         $bookings = $this->getBookings()->filter(function (Booking $booking): bool {
-            return !$booking->getEndDate();
+            return !$booking->getEndDate() && $booking->getStatus() !== BookingStatusType::APPLICATION;
         })->toArray();
 
         return $bookings;
@@ -373,7 +375,7 @@ class Bookable extends AbstractModel
     /**
      * Return a list of effective active bookings including sharing conditions.
      *
-     * Only "admin-only" + storage tags are sharable bookables. In this case, a list of bookings is returned.
+     * Only "admin-assigned" + storage tags are sharable bookables. In this case, a list of bookings is returned.
      *
      * For other bookable types, returns null
      *
@@ -381,7 +383,7 @@ class Bookable extends AbstractModel
      */
     public function getPeriodicPriceDividerBookings(): array
     {
-        $isAdminOnly = $this->getBookingType() === BookingTypeType::ADMIN_ONLY;
+        $isAdminAssigned = $this->getBookingType() === BookingTypeType::ADMIN_ASSIGNED;
 
         $isTagAllowed = false;
         $allowedTagIds = [BookableTagRepository::STORAGE_ID, BookableTagRepository::FORMATION_ID, BookableTagRepository::WELCOME_ID];
@@ -393,7 +395,7 @@ class Bookable extends AbstractModel
             }
         }
 
-        if (!$isAdminOnly || !$isTagAllowed) {
+        if (!$isAdminAssigned || !$isTagAllowed) {
             return [];
         }
 

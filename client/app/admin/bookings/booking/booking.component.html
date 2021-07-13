@@ -7,7 +7,7 @@
     >
         <div fxLayout="row" fxLayoutGap="20px">
             <button
-                *ngIf="data.model.id && !form.get('endDate')?.value"
+                *ngIf="data.model.id && !form.get('endDate')?.value && !isAdminApproved()"
                 [disabled]="!data.model.permissions.update"
                 mat-flat-button
                 color="warn"
@@ -71,10 +71,19 @@
                         <button
                             mat-flat-button
                             color="primary"
-                            *ngIf="isApplication() && isService() && data.model.status === BookingStatus.application"
+                            *ngIf="isPendingApplication(BookingType.application) && isService()"
                             (click)="assignBookable(form.get('bookable')?.value)"
                         >
                             Valider la demande
+                        </button>
+                        <button
+                            mat-flat-button
+                            color="primary"
+                            *ngIf="data.model.id && isPendingApplication(BookingType.admin_approved)"
+                            [disabled]="!data.model.permissions.update"
+                            (click)="approveBooking()"
+                        >
+                            Valider l'inscription
                         </button>
 
                         <div *ngIf="newBooking">
@@ -126,7 +135,13 @@
                     </div>
                 </div>
 
-                <div *ngIf="isApplication() && suggestionVariables && data.model.status === BookingStatus.application">
+                <div
+                    *ngIf="
+                        isPendingApplication(BookingType.application) &&
+                        suggestionVariables &&
+                        data.model.status === BookingStatus.application
+                    "
+                >
                     <mat-divider class="margin-bottom"></mat-divider>
                     <div class="mat-title">Attribuer un stockage / service</div>
                     <app-usage-bookables

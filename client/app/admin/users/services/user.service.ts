@@ -374,7 +374,7 @@ export class UserService
                         conditions: [
                             {
                                 owner: {equal: {value: user.id}},
-                                status: {equal: {value: BookingStatus.booked}},
+                                status: {in: {values: [BookingStatus.booked, BookingStatus.processed]}},
                                 endDate: {null: {}},
                             },
                         ],
@@ -384,7 +384,7 @@ export class UserService
                                     {
                                         bookingType: {
                                             in: {
-                                                values: [BookingType.self_approved],
+                                                values: [BookingType.application, BookingType.self_approved],
                                                 not: true,
                                             },
                                         },
@@ -414,7 +414,17 @@ export class UserService
                                 status: {equal: {value: BookingStatus.application}},
                             },
                         ],
-                        joins: {bookable: {conditions: [{bookingType: {in: {values: [BookingType.admin_approved]}}}]}},
+                        joins: {
+                            bookable: {
+                                conditions: [
+                                    {
+                                        bookingType: {
+                                            in: {values: [BookingType.application, BookingType.admin_approved]},
+                                        },
+                                    },
+                                ],
+                            },
+                        },
                     },
                 ],
             },

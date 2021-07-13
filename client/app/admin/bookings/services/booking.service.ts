@@ -121,7 +121,7 @@ export class BookingService extends NaturalAbstractModelService<
                             conditions: [
                                 {
                                     bookableTags: {have: {values: [BookableTagService.STORAGE]}},
-                                    bookingType: {equal: {value: BookingType.admin_approved}},
+                                    bookingType: {equal: {value: BookingType.application}},
                                 },
                             ],
                         },
@@ -166,7 +166,9 @@ export class BookingService extends NaturalAbstractModelService<
                                 conditions: [
                                     {
                                         bookableTags: {have: {values: [bookableTagId]}},
-                                        bookingType: {equal: {value: BookingType.admin_approved}},
+                                        bookingType: {
+                                            in: {values: [BookingType.application, BookingType.admin_approved]},
+                                        },
                                     },
                                 ],
                             },

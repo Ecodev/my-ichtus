@@ -58,7 +58,7 @@ class BookingRepository extends AbstractRepository
         ";
 
         $query = $this->getEntityManager()->createNativeQuery($sql, $rsm)
-            ->setParameter('bookingType', [BookingTypeType::MANDATORY, BookingTypeType::ADMIN_ONLY, BookingTypeType::ADMIN_APPROVED], Connection::PARAM_STR_ARRAY)
+            ->setParameter('bookingType', [BookingTypeType::MANDATORY, BookingTypeType::ADMIN_ASSIGNED, BookingTypeType::ADMIN_APPROVED], Connection::PARAM_STR_ARRAY)
             ->setParameter('bookingStatus', BookingStatusType::BOOKED)
             ->setParameter('userStatus', User::STATUS_ARCHIVED)
             ->setParameter('currentYear', Date::now()->firstOfYear()->toDateString())
