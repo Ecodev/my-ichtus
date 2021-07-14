@@ -4,6 +4,7 @@ import {bookableQuery, bookablesQuery, createBookable, deleteBookables, updateBo
 import {
     Bookable,
     Bookable_bookable,
+    BookableFilterGroupCondition,
     BookableInput,
     Bookables,
     BookableState,
@@ -106,28 +107,14 @@ export class BookableService extends NaturalAbstractModelService<
         return {filter: {groups: [{conditions: [{bookableTags: {have: {values: [tagId]}}}]}]}};
     }
 
-    public static applicationByTag(tagId: string): BookablesVariables {
-        return {
-            filter: {
-                groups: [
-                    {
-                        conditions: [
-                            {
-                                isActive: {equal: {value: true}},
-                                bookingType: {in: {values: [BookingType.application]}},
-                                bookableTags: {have: {values: [tagId]}},
-                            },
-                        ],
-                    },
-                ],
-            },
-        };
-    }
-
-    public static adminByTag(bookableTagId: string, isActive: boolean | null = null): BookablesVariables {
-        const condition = {
-            bookingType: {in: {values: [BookingType.admin_assigned, BookingType.admin_approved]}},
-            bookableTags: {have: {values: [bookableTagId]}},
+    public static bookableByTag(
+        tagId: string,
+        bookingTypes: BookingType[] = [BookingType.admin_assigned, BookingType.admin_approved],
+        isActive: boolean | null = null,
+    ): BookablesVariables {
+        const condition: BookableFilterGroupCondition = {
+            bookingType: {in: {values: bookingTypes}},
+            bookableTags: {have: {values: [tagId]}},
             isActive: isActive !== null ? {equal: {value: isActive}} : undefined,
         };
 

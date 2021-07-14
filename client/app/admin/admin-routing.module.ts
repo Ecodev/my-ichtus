@@ -361,7 +361,7 @@ const routes: Routes = [
                                 title: 'Armoires',
                             } as NaturalSeo,
                             initialColumns: ['image', 'name', 'code', 'date', 'verificationDate', 'usage'],
-                            forcedVariables: BookableService.adminByTag('6009'),
+                            forcedVariables: BookableService.bookableByTag('6009'),
                             isStorage: true,
                         },
                     },
@@ -373,7 +373,7 @@ const routes: Routes = [
                                 title: 'Cours',
                             } as NaturalSeo,
                             initialColumns: ['name', 'code', 'date', 'initialPrice', 'usageNb', 'verificationDate'],
-                            forcedVariables: merge(BookableService.adminByTag(BookableTagService.FORMATION), {
+                            forcedVariables: merge(BookableService.bookableByTag(BookableTagService.FORMATION), {
                                 sorting: [{field: BookingSortingField.creationDate, order: SortingOrder.DESC}],
                             }),
                         },
@@ -386,7 +386,7 @@ const routes: Routes = [
                                 title: "Séances d'accueil",
                             } as NaturalSeo,
                             initialColumns: ['name', 'date', 'verificationDate', 'usageNb'],
-                            forcedVariables: BookableService.adminByTag(BookableTagService.WELCOME),
+                            forcedVariables: BookableService.bookableByTag(BookableTagService.WELCOME),
                         },
                     },
                     {
@@ -396,7 +396,7 @@ const routes: Routes = [
                             seo: {
                                 title: 'Casiers',
                             } as NaturalSeo,
-                            forcedVariables: BookableService.adminByTag('6010'),
+                            forcedVariables: BookableService.bookableByTag('6010'),
                             isStorage: true,
                         },
                     },
@@ -407,7 +407,7 @@ const routes: Routes = [
                             seo: {
                                 title: 'Flotteurs',
                             } as NaturalSeo,
-                            forcedVariables: BookableService.adminByTag('6011'),
+                            forcedVariables: BookableService.bookableByTag('6011'),
                             isStorage: true,
                         },
                     },
@@ -418,7 +418,7 @@ const routes: Routes = [
                             seo: {
                                 title: 'Râteliers WBC',
                             } as NaturalSeo,
-                            forcedVariables: BookableService.adminByTag('6016'),
+                            forcedVariables: BookableService.bookableByTag('6016'),
                             isStorage: true,
                         },
                     },

@@ -3,6 +3,7 @@ import {BookableService} from '../../../admin/bookables/services/bookable.servic
 import {
     BookableSortingField,
     BookablesVariables,
+    BookingType,
     UsageBookables,
     UsageBookables_bookables_items,
 } from '../../generated-types';
@@ -39,12 +40,13 @@ export class SelectAdminApprovedModalComponent implements OnInit {
     public fetch(tag: string): Observable<NaturalDataSource<UsageBookables['bookables']>> {
         let variables;
         if (tag === BookableTagService.FORMATION) {
-            // For courses, user will apply by creating a booking on the real admin_approved course bookable
+            // For new courses, user will apply by creating a booking on the real admin_approved course bookable
+            // Old courses are still using application bookable, so those have to be listed too
             // Only active courses are listed
-            variables = BookableService.adminByTag(tag, true);
+            variables = BookableService.bookableByTag(tag, [BookingType.admin_approved, BookingType.application], true);
         } else {
             // For other services/storage, user will create a booking on a application bookable
-            variables = BookableService.applicationByTag(tag);
+            variables = BookableService.bookableByTag(tag, [BookingType.application]);
         }
         const qvm = new NaturalQueryVariablesManager<BookablesVariables>();
         qvm.set('variables', variables);

@@ -9,7 +9,7 @@ import {Bookables_bookables_items} from '../../generated-types';
 })
 export class SelectAdminAssignedModalComponent implements OnInit {
     public selection: string | Bookables_bookables_items | null = null;
-    public variables = BookableService.adminByTag(BookableTagService.STORAGE);
+    public variables = BookableService.bookableByTag(BookableTagService.STORAGE);
 
     constructor(public readonly bookableService: BookableService) {}
 
