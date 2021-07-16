@@ -8,6 +8,7 @@ import {
     Bookable_bookable,
 } from '../../shared/generated-types';
 import {cloneDeep} from 'lodash-es';
+import {finalize} from 'rxjs/operators';
 
 @Component({
     selector: 'app-bookable-metadata',
@@ -17,6 +18,7 @@ import {cloneDeep} from 'lodash-es';
 export class BookableMetadataComponent implements OnInit {
     @Input() public bookable!: Bookable_bookable;
     @Input() public edit = false;
+    public readonly deleting = new Map<BookableMetadatas_bookableMetadatas_items, true>();
 
     public dataSource!: NaturalDataSource<BookableMetadatas_bookableMetadatas>;
 
@@ -77,8 +79,11 @@ export class BookableMetadataComponent implements OnInit {
     }
 
     public delete(meta: BookableMetadatas_bookableMetadatas_items): void {
-        this.bookableMetaService.delete([meta]).subscribe(() => {
-            this.dataSource.remove(meta);
-        });
+        this.deleting.set(meta, true);
+
+        this.bookableMetaService
+            .delete([meta])
+            .pipe(finalize(() => this.deleting.delete(meta)))
+            .subscribe(() => this.dataSource.remove(meta));
     }
 }
