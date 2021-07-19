@@ -62,6 +62,8 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
                 this.suggestionVariables = this.getBookablesVariables([BookableTagService.FORMATION]);
             } else if (tags.find(t => t.id === BookableTagService.WELCOME)) {
                 this.suggestionVariables = this.getBookablesVariables([BookableTagService.WELCOME]);
+            } else if (tags.find(t => t.id === BookableTagService.SERVICE)) {
+                this.suggestionVariables = this.getBookablesVariables([BookableTagService.SERVICE]);
             }
         }
     }
