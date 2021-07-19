@@ -39,8 +39,8 @@ export class SelectAdminApprovedModalComponent implements OnInit {
 
     public fetch(tag: string): Observable<NaturalDataSource<UsageBookables['bookables']>> {
         let variables;
-        if (tag === BookableTagService.FORMATION) {
-            // For new courses, user will apply by creating a booking on the real admin_approved course bookable
+        if (tag === BookableTagService.FORMATION || tag === BookableTagService.WELCOME) {
+            // For new courses and welcome sessions, user will apply by creating a booking on the real admin_approved course bookable
             // Old courses are still using application bookable, so those have to be listed too
             // Only active courses are listed
             variables = BookableService.bookableByTag(tag, [BookingType.admin_approved, BookingType.application], true);
