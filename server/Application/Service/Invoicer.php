@@ -88,8 +88,8 @@ class Invoicer
     {
         $bookable = $booking->getBookable();
 
-        // Only invoice a booking that is really booked (and not an application to be booked)
-        if ($booking->getStatus() !== BookingStatusType::BOOKED) {
+        // Only invoice a booking that is really booked or processed (and not an application)
+        if (!in_array($booking->getStatus(), [BookingStatusType::BOOKED, BookingStatusType::PROCESSED], true)) {
             return false;
         }
 
@@ -108,7 +108,7 @@ class Invoicer
             return false;
         }
 
-        // If a booking status has been changed from `APPLICATION to `BOOKED`, then it is OK to invoice
+        // If a booking status has been changed from `APPLICATION to `BOOKED` or `PROCESSED`, then it is OK to invoice
         if ($previousStatus === BookingStatusType::APPLICATION) {
             return true;
         }
