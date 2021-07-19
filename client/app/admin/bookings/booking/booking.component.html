@@ -68,24 +68,6 @@
                             "
                         ></natural-select>
 
-                        <button
-                            mat-flat-button
-                            color="primary"
-                            *ngIf="isPendingApplication(BookingType.application) && isService()"
-                            (click)="assignBookable(form.get('bookable')?.value)"
-                        >
-                            Valider la demande
-                        </button>
-                        <button
-                            mat-flat-button
-                            color="primary"
-                            *ngIf="data.model.id && isPendingApplication(BookingType.admin_approved)"
-                            [disabled]="!data.model.permissions.update"
-                            (click)="approveBooking()"
-                        >
-                            Valider l'inscription
-                        </button>
-
                         <div *ngIf="newBooking">
                             <mat-divider class="margin-bottom"></mat-divider>
                             <p class="mat-body-1">
@@ -103,12 +85,24 @@
                         </div>
                     </div>
                     <div fxFlex="50" fxLayout="column">
-                        <natural-select-enum
-                            enumName="BookingStatus"
-                            formControlName="status"
-                            (selectionChange)="update()"
-                            placeholder="Status"
-                        ></natural-select-enum>
+                        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                            <natural-select-enum
+                                enumName="BookingStatus"
+                                formControlName="status"
+                                (selectionChange)="update()"
+                                placeholder="Status"
+                                [disabled]="data.model.id && isPendingApplication(BookingType.admin_approved)"
+                            ></natural-select-enum>
+                            <button
+                                mat-flat-button
+                                color="primary"
+                                *ngIf="data.model.id && isPendingApplication(BookingType.admin_approved)"
+                                [disabled]="!data.model.permissions.update"
+                                (click)="approveBooking()"
+                            >
+                                Valider l'inscription
+                            </button>
+                        </div>
 
                         <h2 class="mat-title">Commentaires</h2>
                         <mat-form-field>
