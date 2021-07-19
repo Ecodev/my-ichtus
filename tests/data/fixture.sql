@@ -151,7 +151,7 @@ REPLACE INTO bookable (id, image_id, credit_account_id, purchase_price, periodic
 (3001, 5001, NULL, 70000, 0, 0, 1, 'Canoe C1 (3001, carnet de sortie, occupé)', 'C1', 'self_approved', 1, 'La marche des vertueux est semée d’obstacles qui sont les entreprises égoïstes que fait sans fin, surgir l’œuvre du malin. Béni soit-il l’homme de bonne volonté qui, au nom de la charité se fait le berger des faibles qu’il guide dans la vallée d’ombre de la mort et des larmes, car il est le gardien de son frère et la providence des enfants égarés. J’abattrai alors le bras d’une terrible colère, d’une vengeance furieuse et effrayante sur les hordes impies qui pourchassent et réduisent à néant les brebis de Dieu. Et tu connaîtras pourquoi mon nom est l’éternel quand sur toi, s’abattra la vengeance du Tout-Puissant !'),
 (3002, NULL, 10036, 0, 1000, 0, 1, 'Casier virtuel (3002, sur demande, periodic)', 'casier', 'application', -1, 'Pour demande de stockage.'),
 (3003, NULL, 10036, 0, 1000, 0, 1, 'Casier 1012 (3003, inventaire / spécifique admin, periodic)', 'CA1012', 'admin_assigned', 1, 'Casier physique XYZ.'),
-(3004, NULL, 10035, 0, 2000, 0, 1, 'Membre NFT (3004, inventaire / spécifique admin, periodic)', 'e', 'application', -1, 'Service supplémentaire.'),
+(3004, NULL, 10035, 0, 2000, 0, 1, 'Membre NFT (3004, inventaire / spécifique admin, periodic)', 'e', 'admin_assigned', -1, 'Service supplémentaire.'),
 (3005, NULL, 10035, 0, 0, 1000, 1, 'Frais ouverture (3005, obligatoire, initial)', 'f', 'mandatory', -1, 'Pour adhésion et cotisation.'),
 (3006, NULL, 10035, 0, 9000, 0, 1, 'Cotisation (3006, obligatoire, periodic)', 'g', 'mandatory', -1, 'Pour adhésion et cotisation. '),
 (3007, 5002, NULL, 1650000, 0, 0, 1, 'Voilier V1 (3007, carnet de sortie, avec certification, occupé)', 'V1', 'self_approved', 1, 'Pour carnet de sortie, mais avec certification, et avec une description assez courte'),
@@ -167,7 +167,9 @@ REPLACE INTO bookable (id, image_id, credit_account_id, purchase_price, periodic
 (3031, NULL, 10036, 0, 1000, 0, 1, 'Flotteur virtuel (3031, sur demande, periodic)', 'flotteur', 'application', -1, 'Pour demande de stockage.'),
 (3032, NULL, 10037, 0, 0, 12000, 1, 'Cours nautique (3032, admin approved, dispo)', 'cours1', 'admin_approved', 5, 'Cours actif incomplet.'),
 (3033, NULL, 10037, 0, 0, 12000, 1, 'Cours complet (3033, admin approved, busy)', 'cours2', 'admin_approved', 1, 'Cours actif complet.'),
-(3034, NULL, 10037, 0, 0, 12000, 0, 'Cours ancien (3034, admin approved, inactive)', 'cours3', 'admin_approved', 3, 'Cours désactivé.');
+(3034, NULL, 10037, 0, 0, 12000, 0, 'Cours ancien (3034, admin approved, inactive)', 'cours3', 'admin_approved', 3, 'Cours désactivé.'),
+(3035, NULL, 10035, 0, 8000, 0, 1, 'Licence Swiss Sailing (3035, sur demande, periodic)', 'D-COSSV', 'application', -1, 'service pour demande'),
+(3036, NULL, 10035, 0, 8000, 0, 1, 'Cotisation Swiss Sailing (3036, spécifique admin, periodic)', 'COSSV', 'admin_assigned', -1, 'service effectif');
 
 REPLACE INTO license_bookable (license_id, bookable_id) VALUES
 (2000, 3007),
@@ -203,7 +205,9 @@ REPLACE INTO bookable_tag_bookable (bookable_tag_id, bookable_id) VALUES
 (6017, 3034),
 (6028, 3002),
 (6028, 3030),
-(6028, 3031);
+(6028, 3031),
+(6007, 3035),
+(6007, 3036);
 
 REPLACE INTO booking (id, owner_id, bookable_id, status, start_date, end_date, estimated_end_date, destination, start_comment) VALUE
 (4000, 1002, 3000, 'booked', '2018-01-01 14:15:00', '2018-01-01 18:21:43', '18h', 'Zamora', 'There comes a time, thief, when the jewels cease to sparkle, when the gold loses its luster, when the throne room becomes a prison, and all that is left is a father''s love for his child.'),
@@ -211,7 +215,7 @@ REPLACE INTO booking (id, owner_id, bookable_id, status, start_date, end_date, e
 (4003, 1002, 3002, 'application', '2018-01-02 13:32:51', NULL, '', '', ''),
 (4004, 1002, 3003, 'booked', '2018-01-02 13:32:51', NULL, '', '', ''),
 (4005, 1002, 3006, 'booked', '2018-01-02 13:32:51', NULL, '', '', ''),
-(4006, 1002, 3004, 'application', '2018-01-02 13:32:51', NULL, '', '', ''),
+(4006, 1002, 3035, 'application', '2018-01-02 13:32:51', NULL, '', '', ''),
 (4007, 1005, 3006, 'booked', '2018-01-02 13:32:51', NULL, '', '', ''),
 (4009, 1002, null, 'booked', '2018-01-02 13:32:51', NULL, 'Judgment day', 'Skynet bunker', 'Nulla vitae elit libero, a pharetra augue.'),
 (4012, 1008, 3011, 'booked', '2018-01-02 13:32:51', NULL, '29 sept 3021', 'Not middle earth', 'Soron is gone'),

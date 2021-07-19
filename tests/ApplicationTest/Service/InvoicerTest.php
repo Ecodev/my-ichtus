@@ -272,7 +272,7 @@ class InvoicerTest extends TestCase
                 ],
                 0,
             ],
-            'create MANDATORY booking that is processed (not booked) should not invoice' => [
+            'create MANDATORY booking that is processed should invoice' => [
                 [
                     'id' => null,
                     'previousStatus' => null,
@@ -284,9 +284,9 @@ class InvoicerTest extends TestCase
                         'bookingType' => BookingTypeType::MANDATORY,
                     ],
                 ],
-                0,
+                1,
             ],
-            'create MANDATORY booking that is application (not booked) should not invoice' => [
+            'create MANDATORY booking that is application should not invoice' => [
                 [
                     'id' => null,
                     'previousStatus' => null,

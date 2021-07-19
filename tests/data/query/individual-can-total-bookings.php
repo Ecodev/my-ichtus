@@ -17,7 +17,7 @@ return [
             'bookings' => [
                 'totalParticipantCount' => 16,
                 'totalInitialPrice' => '240.00',
-                'totalPeriodicPrice' => '260.00',
+                'totalPeriodicPrice' => '320.00',
             ],
         ],
     ],

@@ -17,7 +17,7 @@ return [
             'bookables' => [
                 'totalPurchasePrice' => '33347.00',
                 'totalInitialPrice' => '370.00',
-                'totalPeriodicPrice' => '180.00',
+                'totalPeriodicPrice' => '340.00',
             ],
         ],
     ],

@@ -16,7 +16,7 @@ class BookableUsageOperatorTypeTest extends OperatorType
             'bookables rented by that user' => [9, [1002], false],
             'bookables rented by that other user' => [2, [1008], false],
             'bookables not rented by that user' => [9, [1008], true],
-            'bookables not rented at all' => [10, [], false],
+            'bookables not rented at all' => [12, [], false],
             'bookables rented to anybody' => [11, [], true],
         ];
     }
