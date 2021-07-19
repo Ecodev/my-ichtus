@@ -265,7 +265,7 @@ class Booking extends AbstractModel
     }
 
     /**
-     * Returns the next invoicable periodic price
+     * Returns the next invoiceable periodic price
      *
      * In case it uses shared admin_assigned bookables, the price is divided by the number of usages
      */

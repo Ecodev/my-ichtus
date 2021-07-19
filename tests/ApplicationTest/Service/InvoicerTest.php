@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ApplicationTest\Service;
 
 use Application\DBAL\Types\BookingStatusType;
+use Application\DBAL\Types\BookingTypeType;
 use Application\Model\Account;
 use Application\Model\Bookable;
 use Application\Model\Booking;
@@ -189,5 +190,257 @@ class InvoicerTest extends TestCase
         $bookingWithoutStatus->setOwner($user);
 
         self::assertNull($user->getAccount(), 'invoicer is only called when we have both an owner and a bookable');
+    }
+
+    /**
+     * @dataProvider providerShouldInvoiceInitial
+     */
+    public function testShouldInvoiceInitial(array $data, int $expected): void
+    {
+        $user = new User();
+        $bookable = $this->createMock(Bookable::class);
+        $bookable->expects(self::any())
+            ->method('getCreditAccount')
+            ->willReturn($data['bookable']['creditAccount'] ? new Account() : null);
+
+        $bookable->expects(self::any())
+            ->method('getInitialPrice')
+            ->willReturn($data['bookable']['initialPrice']);
+
+        $bookable->expects(self::any())
+            ->method('getPeriodicPrice')
+            ->willReturn($data['bookable']['periodicPrice']);
+
+        $bookable->expects(self::any())
+            ->method('getBookingType')
+            ->willReturn($data['bookable']['bookingType']);
+
+        $booking = $this->createMock(Booking::class);
+        $booking->expects(self::any())
+            ->method('getId')
+            ->willReturn($data['id']);
+
+        $booking->expects(self::any())
+            ->method('getStatus')
+            ->willReturn($data['status']);
+
+        $booking->expects(self::any())
+            ->method('getPeriodicPrice')
+            ->willReturn($data['bookable']['periodicPrice']);
+
+        $booking->expects(self::any())
+            ->method('getBookable')
+            ->willReturn($bookable);
+
+        global $container;
+
+        /** @var Invoicer $invoicer */
+        $invoicer = $container->get(Invoicer::class);
+        $actual = $invoicer->invoiceInitial($user, $booking, $data['previousStatus']);
+
+        self::assertSame($expected, $actual);
+    }
+
+    public function providerShouldInvoiceInitial(): array
+    {
+        return [
+            'create MANDATORY booking should invoice' => [
+                [
+                    'id' => null,
+                    'previousStatus' => null,
+                    'status' => BookingStatusType::BOOKED,
+                    'bookable' => [
+                        'creditAccount' => true,
+                        'initialPrice' => Money::CHF(100),
+                        'periodicPrice' => Money::CHF(100),
+                        'bookingType' => BookingTypeType::MANDATORY,
+                    ],
+                ],
+                1,
+            ],
+            'update MANDATORY booking should not invoice' => [
+                [
+                    'id' => 123,
+                    'previousStatus' => null,
+                    'status' => BookingStatusType::BOOKED,
+                    'bookable' => [
+                        'creditAccount' => true,
+                        'initialPrice' => Money::CHF(100),
+                        'periodicPrice' => Money::CHF(100),
+                        'bookingType' => BookingTypeType::MANDATORY,
+                    ],
+                ],
+                0,
+            ],
+            'create MANDATORY booking that is processed (not booked) should not invoice' => [
+                [
+                    'id' => null,
+                    'previousStatus' => null,
+                    'status' => BookingStatusType::PROCESSED,
+                    'bookable' => [
+                        'creditAccount' => true,
+                        'initialPrice' => Money::CHF(100),
+                        'periodicPrice' => Money::CHF(100),
+                        'bookingType' => BookingTypeType::MANDATORY,
+                    ],
+                ],
+                0,
+            ],
+            'create MANDATORY booking that is application (not booked) should not invoice' => [
+                [
+                    'id' => null,
+                    'previousStatus' => null,
+                    'status' => BookingStatusType::APPLICATION,
+                    'bookable' => [
+                        'creditAccount' => true,
+                        'initialPrice' => Money::CHF(100),
+                        'periodicPrice' => Money::CHF(100),
+                        'bookingType' => BookingTypeType::MANDATORY,
+                    ],
+                ],
+                0,
+            ],
+            'create MANDATORY booking without creditAccount should not invoice' => [
+                [
+                    'id' => null,
+                    'previousStatus' => null,
+                    'status' => BookingStatusType::BOOKED,
+                    'bookable' => [
+                        'creditAccount' => false,
+                        'initialPrice' => Money::CHF(100),
+                        'periodicPrice' => Money::CHF(100),
+                        'bookingType' => BookingTypeType::MANDATORY,
+                    ],
+                ],
+                0,
+            ],
+            'create MANDATORY free booking should not invoice' => [
+                [
+                    'id' => null,
+                    'previousStatus' => null,
+                    'status' => BookingStatusType::BOOKED,
+                    'bookable' => [
+                        'creditAccount' => true,
+                        'initialPrice' => Money::CHF(0),
+                        'periodicPrice' => Money::CHF(0),
+                        'bookingType' => BookingTypeType::MANDATORY,
+                    ],
+                ],
+                0,
+            ],
+            'create MANDATORY booking with free initialPrice and non-free periodicPrice should still actually invoice, because we also invoice periodicPrice' => [
+                [
+                    'id' => null,
+                    'previousStatus' => null,
+                    'status' => BookingStatusType::BOOKED,
+                    'bookable' => [
+                        'creditAccount' => true,
+                        'initialPrice' => Money::CHF(0),
+                        'periodicPrice' => Money::CHF(100),
+                        'bookingType' => BookingTypeType::MANDATORY,
+                    ],
+                ],
+                1,
+            ],
+            'create APPLICATION booking should not invoice' => [
+                [
+                    'id' => null,
+                    'previousStatus' => null,
+                    'status' => BookingStatusType::BOOKED,
+                    'bookable' => [
+                        'creditAccount' => true,
+                        'initialPrice' => Money::CHF(100),
+                        'periodicPrice' => Money::CHF(100),
+                        'bookingType' => BookingTypeType::APPLICATION,
+                    ],
+                ],
+                0,
+            ],
+            'update MANDATORY booking to change status from APPLICATION to BOOKED should invoice' => [
+                [
+                    'id' => 123,
+                    'previousStatus' => BookingStatusType::APPLICATION,
+                    'status' => BookingStatusType::BOOKED,
+                    'bookable' => [
+                        'creditAccount' => true,
+                        'initialPrice' => Money::CHF(100),
+                        'periodicPrice' => Money::CHF(100),
+                        'bookingType' => BookingTypeType::MANDATORY,
+                    ],
+                ],
+                1,
+            ],
+            'update MANDATORY booking to change status from BOOKED to BOOKED should not invoice' => [
+                [
+                    'id' => 123,
+                    'previousStatus' => BookingStatusType::BOOKED,
+                    'status' => BookingStatusType::BOOKED,
+                    'bookable' => [
+                        'creditAccount' => true,
+                        'initialPrice' => Money::CHF(100),
+                        'periodicPrice' => Money::CHF(100),
+                        'bookingType' => BookingTypeType::MANDATORY,
+                    ],
+                ],
+                0,
+            ],
+            'update MANDATORY booking to change status from PROCESSED to BOOKED should not invoice' => [
+                [
+                    'id' => 123,
+                    'previousStatus' => BookingStatusType::PROCESSED,
+                    'status' => BookingStatusType::BOOKED,
+                    'bookable' => [
+                        'creditAccount' => true,
+                        'initialPrice' => Money::CHF(100),
+                        'periodicPrice' => Money::CHF(100),
+                        'bookingType' => BookingTypeType::MANDATORY,
+                    ],
+                ],
+                0,
+            ],
+
+            'create ADMIN_APPROVED booking should invoice' => [
+                [
+                    'id' => null,
+                    'previousStatus' => null,
+                    'status' => BookingStatusType::BOOKED,
+                    'bookable' => [
+                        'creditAccount' => true,
+                        'initialPrice' => Money::CHF(100),
+                        'periodicPrice' => Money::CHF(100),
+                        'bookingType' => BookingTypeType::ADMIN_APPROVED,
+                    ],
+                ],
+                1,
+            ],
+            'update ADMIN_APPROVED booking should not invoice' => [
+                [
+                    'id' => 123,
+                    'previousStatus' => null,
+                    'status' => BookingStatusType::BOOKED,
+                    'bookable' => [
+                        'creditAccount' => true,
+                        'initialPrice' => Money::CHF(100),
+                        'periodicPrice' => Money::CHF(100),
+                        'bookingType' => BookingTypeType::ADMIN_APPROVED,
+                    ],
+                ],
+                0,
+            ],
+            'update ADMIN_APPROVED booking to change status from APPLICATION to BOOKED should invoice' => [
+                [
+                    'id' => 123,
+                    'previousStatus' => BookingStatusType::APPLICATION,
+                    'status' => BookingStatusType::BOOKED,
+                    'bookable' => [
+                        'creditAccount' => true,
+                        'initialPrice' => Money::CHF(100),
+                        'periodicPrice' => Money::CHF(100),
+                        'bookingType' => BookingTypeType::ADMIN_APPROVED,
+                    ],
+                ],
+                1,
+            ],
+        ];
     }
 }

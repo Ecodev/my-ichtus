@@ -72,23 +72,53 @@ class Invoicer
         return $this->count;
     }
 
-    public function invoiceInitial(User $user, Booking $booking, ?string $previousStatus = null): void
+    public function invoiceInitial(User $user, Booking $booking, ?string $previousStatus): int
     {
+        $this->count = 0;
         $this->bookingRepository->getAclFilter()->runWithoutAcl(function () use ($user, $booking, $previousStatus): void {
-            if ($previousStatus !== BookingStatusType::APPLICATION || !in_array($booking->getStatus(), [BookingStatusType::BOOKED, BookingStatusType::PROCESSED], true)) {
-                return;
+            if ($this->shouldInvoiceInitial($booking, $previousStatus)) {
+                $this->createTransaction($user, [$booking], true);
             }
-            $bookable = $booking->getBookable();
-            // Never invoice bookings of application type bookable, only used to request the admin to create the actual booking
-            if ($bookable->getBookingType() === BookingTypeType::APPLICATION) {
-                return;
-            }
-            if (!$bookable->getCreditAccount() || ($bookable->getInitialPrice()->isZero() && $bookable->getPeriodicPrice()->isZero())) {
-                return;
-            }
-
-            $this->createTransaction($user, [$booking], true);
         });
+
+        return $this->count;
+    }
+
+    private function shouldInvoiceInitial(Booking $booking, ?string $previousStatus): bool
+    {
+        $bookable = $booking->getBookable();
+
+        // Only invoice a booking that is really booked (and not an application to be booked)
+        if ($booking->getStatus() !== BookingStatusType::BOOKED) {
+            return false;
+        }
+
+        // Cannot invoice if we don't know where the money goes
+        if (!$bookable->getCreditAccount()) {
+            return false;
+        }
+
+        // Nothing to invoice if the bookable is free
+        if ($bookable->getInitialPrice()->isZero() && $bookable->getPeriodicPrice()->isZero()) {
+            return false;
+        }
+
+        // Never invoice bookings of application type bookable, because they are only used to request the admin to create the actual booking
+        if ($bookable->getBookingType() === BookingTypeType::APPLICATION) {
+            return false;
+        }
+
+        // If a booking status has been changed from `APPLICATION to `BOOKED`, then it is OK to invoice
+        if ($previousStatus === BookingStatusType::APPLICATION) {
+            return true;
+        }
+
+        // Otherwise, never invoice a booking that is updated, and only invoice a booking that is created right now
+        if ($booking->getId()) {
+            return false;
+        }
+
+        return true;
     }
 
     private function createTransaction(?User $user, array $bookings, bool $isInitial): void
