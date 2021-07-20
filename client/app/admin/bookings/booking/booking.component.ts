@@ -26,12 +26,12 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
     public suggestionVariables: BookablesVariables = {};
     public BookingType = BookingType;
 
-    public bookableFilterChips = [
-        {name: 'Stockage et services effectifs', value: 'admin_assigned', selected: false},
-        {name: 'Stockage et services pour demande', value: 'application', selected: false},
-        {name: 'Cours', value: 'admin_approved', selected: false},
-        {name: 'Carnet de sortie', value: 'self_approved', selected: false},
-        {name: 'Services obligatoires', value: 'mandatory', selected: false},
+    public readonly bookableFilterChips: {name: string; value: BookingType; selected: boolean}[] = [
+        {name: 'Stockage et services effectifs', value: BookingType.admin_assigned, selected: false},
+        {name: 'Stockage et services pour demande', value: BookingType.application, selected: false},
+        {name: 'Cours', value: BookingType.admin_approved, selected: false},
+        {name: 'Carnet de sortie', value: BookingType.self_approved, selected: false},
+        {name: 'Services obligatoires', value: BookingType.mandatory, selected: false},
     ];
 
     public bookableSelectFilter: ExtractVall<BookableService>['filter'];
