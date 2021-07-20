@@ -46,7 +46,7 @@ export class SelectAdminApprovedModalComponent implements OnInit {
             variables = BookableService.bookableByTag(tag, [BookingType.admin_approved, BookingType.application], true);
         } else {
             // For other services/storage, user will create a booking on a application bookable
-            variables = BookableService.bookableByTag(tag, [BookingType.application]);
+            variables = BookableService.bookableByTag(tag, [BookingType.application], true);
         }
         const qvm = new NaturalQueryVariablesManager<BookablesVariables>();
         qvm.set('variables', variables);
