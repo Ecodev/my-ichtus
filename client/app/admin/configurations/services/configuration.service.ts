@@ -2,8 +2,8 @@ import {Apollo} from 'apollo-angular';
 import {NetworkStatus} from '@apollo/client/core';
 import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import {filter} from 'rxjs/operators';
-import {Configuration} from '../../../shared/generated-types';
+import {filter, map} from 'rxjs/operators';
+import {Configuration, UpdateConfiguration, UpdateConfigurationVariables} from '../../../shared/generated-types';
 import {configurationQuery, updateConfiguration} from './configuration.queries';
 
 @Injectable({
@@ -33,12 +33,12 @@ export class ConfigurationService {
         return resultObservable.asObservable();
     }
 
-    public set(key: string, value: string): void {
-        this.apollo
-            .mutate({
+    public set(key: string, value: string): Observable<string> {
+        return this.apollo
+            .mutate<UpdateConfiguration, UpdateConfigurationVariables>({
                 mutation: updateConfiguration,
                 variables: {key, value},
             })
-            .subscribe();
+            .pipe(map(result => result.data!.updateConfiguration));
     }
 }

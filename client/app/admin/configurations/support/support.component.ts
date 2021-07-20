@@ -3,6 +3,9 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {ConfigurationService} from '../services/configuration.service';
+import {forkJoin} from 'rxjs';
+import {NaturalAlertService} from '@ecodev/natural';
+import {finalize} from 'rxjs/operators';
 
 @Component({
     selector: 'app-support',
@@ -32,11 +35,13 @@ export class SupportComponent implements OnInit {
      * Specific to announcement
      */
     public activable = false;
+    public updating = false;
 
     constructor(
         private readonly configurationService: ConfigurationService,
         public readonly permissionsService: PermissionsService,
         public readonly route: ActivatedRoute,
+        private readonly alertService: NaturalAlertService,
         @Optional() @Inject(MAT_DIALOG_DATA) public readonly data?: any,
     ) {}
 
@@ -52,10 +57,15 @@ export class SupportComponent implements OnInit {
     }
 
     public update(): void {
-        this.configurationService.set(this.getConfigKey(), this.text);
+        const observables = [this.configurationService.set(this.getConfigKey(), this.text)];
         if (this.activable) {
-            this.configurationService.set('announcement-active', this.active ? '1' : '0');
+            observables.push(this.configurationService.set('announcement-active', this.active ? '1' : '0'));
         }
+
+        this.updating = true;
+        forkJoin(observables)
+            .pipe(finalize(() => (this.updating = false)))
+            .subscribe(() => this.alertService.info('Mis à jour'));
     }
 
     private getConfigKey(): string {
