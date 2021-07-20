@@ -2,7 +2,7 @@ import {Apollo} from 'apollo-angular';
 import {NetworkStatus} from '@apollo/client/core';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {filter, map, takeWhile} from 'rxjs/operators';
+import {distinctUntilChanged, filter, map, takeWhile} from 'rxjs/operators';
 import {
     Configuration,
     ConfigurationVariables,
@@ -28,6 +28,7 @@ export class ConfigurationService {
             filter(result => !!result.data),
             takeWhile(result => result.networkStatus !== NetworkStatus.ready, true),
             map(result => result.data.configuration),
+            distinctUntilChanged(),
         );
     }
 

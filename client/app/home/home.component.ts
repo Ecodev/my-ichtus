@@ -1,7 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {UserService} from '../admin/users/services/user.service';
-import {NaturalAbstractController, NaturalSidenavContainerComponent, NaturalSidenavStackService} from '@ecodev/natural';
-import {takeUntil} from 'rxjs/operators';
+import {
+    LOCAL_STORAGE,
+    NaturalAbstractController,
+    NaturalSidenavContainerComponent,
+    NaturalSidenavStackService,
+    NaturalStorage,
+} from '@ecodev/natural';
+import {filter, switchMap, takeUntil} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ConfigurationService} from '../admin/configurations/services/configuration.service';
 
@@ -23,6 +29,7 @@ export class HomeComponent extends NaturalAbstractController implements OnInit {
     constructor(
         private readonly userService: UserService,
         private readonly router: Router,
+        @Inject(LOCAL_STORAGE) private readonly storage: NaturalStorage,
         public readonly route: ActivatedRoute,
         private readonly configurationService: ConfigurationService,
         private readonly naturalSidenavStackService: NaturalSidenavStackService,
@@ -31,23 +38,26 @@ export class HomeComponent extends NaturalAbstractController implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.configurationService.get('announcement-active').subscribe(active => {
-            if (!active) {
-                return;
-            }
+        const announcementConfigKey = 'announcement-text';
+        this.configurationService
+            .get('announcement-active')
+            .pipe(
+                takeUntil(this.ngUnsubscribe),
+                filter(active => !!active),
+                switchMap(() => {
+                    this.announcementActive = true;
 
-            this.announcementActive = true;
-
-            // Navigate/open announcement if last content is different from current one
-            const announcementConfigKey = 'announcement-text';
-            const announcementStoredValue = localStorage.getItem(announcementConfigKey);
-            this.configurationService.get(announcementConfigKey).subscribe(announcementValue => {
+                    return this.configurationService.get(announcementConfigKey);
+                }),
+            )
+            .subscribe(announcementValue => {
+                // Open announcement if last shown content is different from current one
+                const announcementStoredValue = this.storage.getItem(announcementConfigKey);
                 if (announcementValue !== announcementStoredValue) {
                     this.router.navigate(this.getAnnouncementLink());
                 }
-                localStorage.setItem(announcementConfigKey, announcementValue);
+                this.storage.setItem(announcementConfigKey, announcementValue);
             });
-        });
 
         this.naturalSidenavStackService.currentSidenav
             .pipe(takeUntil(this.ngUnsubscribe))

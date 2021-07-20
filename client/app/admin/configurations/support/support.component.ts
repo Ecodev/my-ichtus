@@ -4,15 +4,15 @@ import {ActivatedRoute} from '@angular/router';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {ConfigurationService} from '../services/configuration.service';
 import {forkJoin} from 'rxjs';
-import {NaturalAlertService} from '@ecodev/natural';
-import {finalize} from 'rxjs/operators';
+import {NaturalAbstractController, NaturalAlertService} from '@ecodev/natural';
+import {finalize, takeUntil} from 'rxjs/operators';
 
 @Component({
     selector: 'app-support',
     templateUrl: './support.component.html',
     styleUrls: ['./support.component.scss'],
 })
-export class SupportComponent implements OnInit {
+export class SupportComponent extends NaturalAbstractController implements OnInit {
     public text = '';
 
     public readonly = false;
@@ -34,16 +34,24 @@ export class SupportComponent implements OnInit {
         public readonly route: ActivatedRoute,
         private readonly alertService: NaturalAlertService,
         @Optional() @Inject(MAT_DIALOG_DATA) public readonly data?: any,
-    ) {}
+    ) {
+        super();
+    }
 
     public ngOnInit(): void {
         this.readonly = this.route.snapshot.data.readonly || (this.data && this.data.readonly);
-        this.configurationService.get(this.getConfigKey()).subscribe(value => (this.text = value));
+        this.configurationService
+            .get(this.getConfigKey())
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe(value => (this.text = value));
 
         this.activable = this.route.snapshot.data.activable; // ignore modal mode
 
         if (this.activable) {
-            this.configurationService.get('announcement-active').subscribe(value => (this.active = value === '1'));
+            this.configurationService
+                .get('announcement-active')
+                .pipe(takeUntil(this.ngUnsubscribe))
+                .subscribe(value => (this.active = value === '1'));
         }
     }
 
