@@ -53,7 +53,9 @@ export class SupportComponent implements OnInit {
 
     public update(): void {
         this.configurationService.set(this.getConfigKey(), this.text);
-        this.configurationService.set('announcement-active', this.active ? '1' : '0');
+        if (this.activable) {
+            this.configurationService.set('announcement-active', this.active ? '1' : '0');
+        }
     }
 
     private getConfigKey(): string {
