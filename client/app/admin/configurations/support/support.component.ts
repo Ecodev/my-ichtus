@@ -13,15 +13,6 @@ import {finalize} from 'rxjs/operators';
     styleUrls: ['./support.component.scss'],
 })
 export class SupportComponent implements OnInit {
-    public tinyInit = {
-        menubar: false,
-        inline: true,
-        plugins: 'link code lists',
-        toolbar:
-            'undo redo | p h1 h2 | quicklink | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link unlink | removeformat | code ',
-        extended_valid_elements: ['h1[class="mat-display-4"]'],
-    };
-
     public text = '';
 
     public readonly = false;
