@@ -131,7 +131,7 @@ export class BookingService extends NaturalAbstractModelService<
         },
     };
 
-    public static readonly notStorageApplication: BookingsVariables = {
+    public static readonly servicesApplication: BookingsVariables = {
         filter: {
             groups: [
                 {
@@ -142,8 +142,7 @@ export class BookingService extends NaturalAbstractModelService<
                                 {
                                     bookableTags: {
                                         have: {
-                                            values: [BookableTagService.STORAGE],
-                                            not: true,
+                                            values: [BookableTagService.SERVICE],
                                         },
                                     },
                                 },

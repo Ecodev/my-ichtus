@@ -203,13 +203,13 @@ const routes: Routes = [
                         },
                     },
                     {
-                        path: 'other-application',
+                        path: 'services-application',
                         component: BookingsComponent,
                         data: {
                             seo: {
                                 title: 'Demandes de services en attente',
                             } as NaturalSeo,
-                            forcedVariables: BookingService.notStorageApplication,
+                            forcedVariables: BookingService.servicesApplication,
                             initialColumns: ['edit', 'owner', 'bookable', 'startDate'],
                             availableColumns: ['edit', 'owner', 'bookable', 'startDate'],
                         },
