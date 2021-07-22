@@ -6,9 +6,8 @@ namespace Application\Repository;
 
 use Application\Model\Account;
 use Application\Model\User;
-use Application\Service\Exporter\TransactionLines;
+use Cake\Chronos\Chronos;
 use Cake\Chronos\Date;
-use Doctrine\ORM\Query;
 use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 use Money\Money;
@@ -82,10 +81,13 @@ class TransactionLineRepository extends AbstractRepository implements LimitedAcc
         return Money::CHF((int) $result->fetchOne());
     }
 
-    public function importedIdExists(string $importedId): bool
+    public function importedExists(string $importedId, Chronos $transactionDate): bool
     {
         $connection = $this->getEntityManager()->getConnection();
-        $count = $connection->fetchOne('SELECT COUNT(*) > 0 FROM transaction_line WHERE imported_id = :importedId', ['importedId' => $importedId]);
+        $count = $connection->fetchOne('SELECT COUNT(*) > 0 FROM transaction_line WHERE imported_id = :importedId AND transaction_date = :transactionDate', [
+            'importedId' => $importedId,
+            'transactionDate' => $transactionDate,
+        ]);
 
         return (bool) $count;
     }

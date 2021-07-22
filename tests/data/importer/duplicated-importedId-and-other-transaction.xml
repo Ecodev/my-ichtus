@@ -49,6 +49,41 @@
                 </NtryDtls>
                 <AddtlNtryInf>Entrée BVR</AddtlNtryInf>
             </Ntry>
+            <Ntry>
+                <Amt Ccy="CHF">100</Amt>
+                <CdtDbtInd>CRDT</CdtDbtInd>
+                <Sts>BOOK</Sts>
+                <ValDt>
+                    <Dt>2019-04-30</Dt>
+                </ValDt>
+                <BkTxCd>
+                    <Domn>
+                        <Cd>PMNT</Cd>
+                        <Fmly>
+                            <Cd>RCDT</Cd>
+                            <SubFmlyCd>VCOM</SubFmlyCd>
+                        </Fmly>
+                    </Domn>
+                </BkTxCd>
+                <NtryDtls>
+                    <TxDtls>
+                        <Refs>
+                            <AcctSvcrRef>ZV20190430/231344/1</AcctSvcrRef>
+                        </Refs>
+                        <Amt Ccy="CHF">100</Amt>
+                        <CdtDbtInd>CRDT</CdtDbtInd>
+                        <RmtInf>
+                            <Strd>
+                                <CdtrRefInf>
+                                    <Ref>800826000000000000000010024</Ref>
+                                </CdtrRefInf>
+                            </Strd>
+                        </RmtInf>
+                        <AddtlTxInf>Entrée BVR</AddtlTxInf>
+                    </TxDtls>
+                </NtryDtls>
+                <AddtlNtryInf>Entrée BVR</AddtlNtryInf>
+            </Ntry>
         </Ntfctn>
     </BkToCstmrDbtCdtNtfctn>
 </Document>

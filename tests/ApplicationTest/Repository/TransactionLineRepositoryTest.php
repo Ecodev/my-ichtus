@@ -9,6 +9,7 @@ use Application\Model\TransactionLine;
 use Application\Repository\AccountRepository;
 use Application\Repository\TransactionLineRepository;
 use ApplicationTest\Traits\LimitedAccessSubQuery;
+use Cake\Chronos\Chronos;
 use Cake\Chronos\Date;
 use Money\Money;
 
@@ -123,5 +124,22 @@ class TransactionLineRepositoryTest extends AbstractRepositoryTest
         $totalDebitUntilDate = $this->repository->totalBalance($poste, null, null, new Date('2019-01-01'));
         self::assertTrue(Money::CHF(20000)->equals($totalDebitFromDate));
         self::assertTrue(Money::CHF(1500000)->equals($totalDebitUntilDate));
+    }
+
+    /**
+     * @dataProvider providerImportedExists
+     */
+    public function testImportedExists(string $importedId, string $transactionDate, bool $expected): void
+    {
+        self::assertSame($expected, $this->repository->importedExists($importedId, new Chronos($transactionDate)));
+    }
+
+    public function providerImportedExists(): array
+    {
+        return [
+            'duplicated' => ['my-unique-imported-id', '2019-04-05', true],
+            'different date' => ['my-unique-imported-id', '2019-02-05', false],
+            'different id' => ['something-else', '2019-04-05', false],
+        ];
     }
 }

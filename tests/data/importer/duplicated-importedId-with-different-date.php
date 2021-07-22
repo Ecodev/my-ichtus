@@ -8,14 +8,14 @@ return [
         'remarks' => '',
         'internalRemarks' => 'Numéro de référence: 800826000000000000000010024',
         'datatransRef' => '',
-        'transactionDate' => '2020-05-29T00:00:00+02:00',
+        'transactionDate' => '2021-02-01T00:00:00+01:00',
         'owner' => 'Active Member',
         'transactionLines' => [
             [
-                'importedId' => '20200528174375851988',
+                'importedId' => 'my-unique-imported-id',
                 'name' => 'Versement BVR',
                 'remarks' => '',
-                'transactionDate' => '2020-05-29T00:00:00+02:00',
+                'transactionDate' => '2021-02-01T00:00:00+01:00',
                 'balance' => '10000',
                 'owner' => 'Active Member',
                 'debit' => 'PostFinance 20-6137-5',

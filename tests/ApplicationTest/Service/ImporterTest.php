@@ -13,10 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class ImporterTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $previousTimeZone;
+    private string $previousTimeZone;
 
     protected function setUp(): void
     {
@@ -27,9 +24,6 @@ class ImporterTest extends TestCase
     protected function tearDown(): void
     {
         date_default_timezone_set($this->previousTimeZone);
-
-        // Be sure to clear created object from memory
-        _em()->clear();
     }
 
     private function import(string $filename): array
@@ -39,18 +33,13 @@ class ImporterTest extends TestCase
         return $this->extract($importer->import($filename));
     }
 
-    public function testImportMinimal(): void
+    /**
+     * @dataProvider providerImport
+     */
+    public function testImport(string $xml, string $php): void
     {
-        $actual = $this->import('tests/data/importer/minimal.xml');
-        $expected = require 'tests/data/importer/minimal.php';
-
-        self::assertSame($expected, $actual);
-    }
-
-    public function testImport(): void
-    {
-        $actual = $this->import('tests/data/importer/two-transactions.xml');
-        $expected = require 'tests/data/importer/two-transactions.php';
+        $actual = $this->import($xml);
+        $expected = require $php;
 
         self::assertSame($expected, $actual);
     }
@@ -63,7 +52,7 @@ class ImporterTest extends TestCase
 
     public function testThrowMissingAcctSvcrRef(): void
     {
-        $this->expectExceptionMessage('Cannot import a transaction without an end-to-end ID or an account servicer reference to store a universal identifier.');
+        $this->expectExceptionMessage('Cannot import a transaction without unique universal identifier (<EndToEndId>, <AcctSvcrRef> or <MsgId>).');
         $this->import('tests/data/importer/missing-EndToEndId-and-AcctSvcrRef.xml');
     }
 
@@ -83,12 +72,6 @@ class ImporterTest extends TestCase
     {
         $this->expectExceptionMessage('The format CAMT 054 is expected, but instead we got: camt.053.001.04');
         $this->import('tests/data/importer/invalid-camt-format.xml');
-    }
-
-    public function testThrowDuplicatedImport(): void
-    {
-        $this->expectExceptionMessage('It looks like this file was already imported. A transaction line with the following `importedId` was already imported once and cannot be imported again: my-unique-imported-id');
-        $this->import('tests/data/importer/duplicated-importedId.xml');
     }
 
     public function testThrowInvalidXml(): void
@@ -156,5 +139,21 @@ class ImporterTest extends TestCase
         ];
 
         return $result;
+    }
+
+    public function providerImport(): array
+    {
+        // Return all couples of xml/php files
+        $files = [];
+        foreach (glob('tests/data/importer/*.xml') as $xml) {
+            $php = preg_replace('~xml$~', 'php', $xml);
+            if (file_exists($php)) {
+                $name = str_replace('-', ' ', basename($xml, '.xml'));
+
+                $files[$name] = [$xml, $php];
+            }
+        }
+
+        return $files;
     }
 }

@@ -13,7 +13,6 @@ use Application\Repository\TransactionLineRepository;
 use Application\Repository\UserRepository;
 use Cake\Chronos\Chronos;
 use Ecodev\Felix\Api\Exception;
-use Ecodev\Felix\Api\ExceptionWithoutMailLogging;
 use Ecodev\Felix\Service\Bvr;
 use Genkgo\Camt\Camt054\MessageFormat\V02;
 use Genkgo\Camt\Camt054\MessageFormat\V04;
@@ -130,14 +129,15 @@ class Importer
         $internalRemarks = [];
         foreach ($entry->getTransactionDetails() as $detail) {
             $internalRemarks[] = $this->importTransactionLine($transaction, $detail);
-
-            // Use same owner for line and transaction
-            $transaction->setOwner($transaction->getTransactionLines()->first()->getOwner());
         }
         $transaction->setInternalRemarks(implode(PHP_EOL . PHP_EOL, $internalRemarks));
 
         // Don't persist transaction that may not have any lines
-        if ($transaction->getTransactionLines()->count()) {
+        $transactionLines = $transaction->getTransactionLines();
+        if ($transactionLines->count()) {
+            // Use same owner for line and transaction
+            $transaction->setOwner($transactionLines->first()->getOwner());
+
             _em()->persist($transaction);
             $this->transactions[] = $transaction;
         }
@@ -145,22 +145,27 @@ class Importer
 
     private function importTransactionLine(Transaction $transaction, EntryTransactionDetail $detail): string
     {
+        $importedId = $this->getImportedId($detail);
+        $transactionDate = $transaction->getTransactionDate();
+        if ($this->transactionLineRepository->importedExists($importedId, $transactionDate)) {
+            return '';
+        }
+
         $referenceNumber = $detail->getRemittanceInformation()->getStructuredBlock()->getCreditorReferenceInformation()->getRef();
         $user = $this->loadUser($referenceNumber);
         $userAccount = $this->accountRepository->getOrCreate($user);
         $remarks = $this->getRemarks($detail, $referenceNumber);
         $amount = $detail->getAmount();
-        $endToEndId = $this->getEndToEndId($detail);
 
         $line = new TransactionLine();
         $line->setTransaction($transaction);
         $line->setOwner($user);
         $line->setName('Versement BVR');
-        $line->setTransactionDate($transaction->getTransactionDate());
+        $line->setTransactionDate($transactionDate);
         $line->setBalance($amount);
         $line->setCredit($userAccount);
         $line->setDebit($this->bankAccount);
-        $line->setImportedId($endToEndId);
+        $line->setImportedId($importedId);
 
         _em()->persist($line);
 
@@ -256,7 +261,7 @@ class Importer
     /**
      * This must return a non-empty universally unique identifier for one detail
      */
-    private function getEndToEndId(EntryTransactionDetail $detail): string
+    private function getImportedId(EntryTransactionDetail $detail): string
     {
         $reference = $detail->getReference();
 
@@ -266,11 +271,11 @@ class Importer
         }
 
         if (!$endToEndId) {
-            throw new Exception('Cannot import a transaction without an end-to-end ID or an account servicer reference to store a universal identifier.');
+            $endToEndId = $reference->getMessageId();
         }
 
-        if ($this->transactionLineRepository->importedIdExists($endToEndId)) {
-            throw new ExceptionWithoutMailLogging('It looks like this file was already imported. A transaction line with the following `importedId` was already imported once and cannot be imported again: ' . $endToEndId);
+        if (!$endToEndId) {
+            throw new Exception('Cannot import a transaction without unique universal identifier (<EndToEndId>, <AcctSvcrRef> or <MsgId>).');
         }
 
         return $endToEndId;

@@ -15,6 +15,9 @@ use Money\Money;
  * A single line of accounting transaction
  *
  * @ORM\Entity(repositoryClass="Application\Repository\TransactionLineRepository")
+ * @ORM\Table(uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="unique_import", columns={"transaction_date", "imported_id"})
+ * })
  * @API\Filters({
  *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\TransactionWithDocumentOperatorType", type="boolean"),
  *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\TransactionExportOperatorType", type="boolean"),
@@ -103,7 +106,7 @@ class TransactionLine extends AbstractModel
      * An absence of value means the line was not imported.
      *
      * @var null|string
-     * @ORM\Column(type="string", length=35, nullable=true, unique=true)
+     * @ORM\Column(type="string", length=35, nullable=true)
      */
     private $importedId;
 
