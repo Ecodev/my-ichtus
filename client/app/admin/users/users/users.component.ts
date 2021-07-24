@@ -48,7 +48,7 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
         this.userService
             .flagWelcomeSessionDate(user.id)
             .pipe(finalize(() => this.welcoming.delete(user)))
-            .subscribe(u => (user.welcomeSessionDate = u.welcomeSessionDate));
+            .subscribe();
     }
 
     public activate(user: Users_users_items): void {
@@ -60,7 +60,7 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
         this.userService
             .activate(user.id)
             .pipe(finalize(() => this.activating.delete(user)))
-            .subscribe(u => (user.status = u.status));
+            .subscribe();
     }
 
     public isActive(user: Users_users_items): boolean {
