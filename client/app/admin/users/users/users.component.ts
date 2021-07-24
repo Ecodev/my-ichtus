@@ -55,6 +55,10 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
         return user.status === UserStatus.active;
     }
 
+    public isActivable(user: Users_users_items): boolean {
+        return !!user.name && !!user.login;
+    }
+
     public isNew(user: Users_users_items): boolean {
         return user.status === UserStatus.new;
     }
