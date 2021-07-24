@@ -102,7 +102,7 @@
                             [color]="isNew(element) ? 'accent' : 'primary'"
                             (click)="activate(element)"
                             *ngIf="!isActive(element)"
-                            [disabled]="!isActivable(element)"
+                            [disabled]="!isActivable(element) || this.activating.has(element)"
                             [style.width.px]="150"
                         >
                             Activer ({{ element.status | enum: 'UserStatus' | async | capitalize }})
@@ -131,6 +131,7 @@
                             mat-flat-button
                             color="primary"
                             *ngIf="!element.welcomeSessionDate"
+                            [disabled]="this.welcoming.has(element)"
                             (click)="flagWelcomeSessionDate(element)"
                         >
                             A participé

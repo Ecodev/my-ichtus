@@ -8,6 +8,7 @@ import {UserService} from '../services/user.service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ProvisionComponent} from '../../../profile/components/provision/provision.component';
 import {ActivatedRoute} from '@angular/router';
+import {finalize} from 'rxjs/operators';
 
 @Component({
     selector: 'app-users',
@@ -26,6 +27,9 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
         'flagWelcomeSessionDate',
     ];
 
+    public readonly activating = new Map<Users_users_items, true>();
+    public readonly welcoming = new Map<Users_users_items, true>();
+
     constructor(
         route: ActivatedRoute,
         private readonly userService: UserService,
@@ -40,15 +44,23 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
     }
 
     public flagWelcomeSessionDate(user: Users_users_items): void {
-        this.userService.flagWelcomeSessionDate(user.id).subscribe(u => {
-            user.welcomeSessionDate = u.welcomeSessionDate;
-        });
+        this.welcoming.set(user, true);
+        this.userService
+            .flagWelcomeSessionDate(user.id)
+            .pipe(finalize(() => this.welcoming.delete(user)))
+            .subscribe(u => (user.welcomeSessionDate = u.welcomeSessionDate));
     }
 
     public activate(user: Users_users_items): void {
-        this.userService.activate(user.id).subscribe(u => {
-            user.status = u.status;
-        });
+        if (!this.isActivable(user)) {
+            return;
+        }
+
+        this.activating.set(user, true);
+        this.userService
+            .activate(user.id)
+            .pipe(finalize(() => this.activating.delete(user)))
+            .subscribe(u => (user.status = u.status));
     }
 
     public isActive(user: Users_users_items): boolean {
