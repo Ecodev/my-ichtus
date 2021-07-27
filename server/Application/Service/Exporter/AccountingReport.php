@@ -400,7 +400,7 @@ class AccountingReport extends AbstractExcel
     protected function cellsToSum(array $data): array
     {
         $cells = array_reduce($data, function (array $carry, $data) {
-            if ($data['depth'] === 1 && isset($data['cell'])) {
+            if (isset($data['cell']) && ($data['depth'] === 1 || (int) mb_substr((string) $data['code'], 0, 1) > 6)) {
                 $carry[] = $data['cell'];
             }
 
@@ -413,7 +413,7 @@ class AccountingReport extends AbstractExcel
     private function sumBalance(array $data): Money
     {
         $sum = array_reduce($data, function (Money $carry, $data) {
-            if ($data['depth'] === 1) {
+            if ($data['depth'] === 1 || (int) mb_substr((string) $data['code'], 0, 1) > 6) {
                 return $carry->add($data['balance']);
             }
 
