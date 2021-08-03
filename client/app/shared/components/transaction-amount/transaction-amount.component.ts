@@ -15,7 +15,7 @@ export class TransactionAmountComponent implements OnInit, OnChanges {
      */
     @Input() public relativeToAccount: MinimalAccount | null = null;
     @Input() public displayMode: 'amount' | 'account' = 'amount';
-    @Output() public readonly accountClick: EventEmitter<MinimalAccount> = new EventEmitter();
+    @Output() public readonly accountClick = new EventEmitter<MinimalAccount>();
 
     public isIncome: boolean | null = null;
 
