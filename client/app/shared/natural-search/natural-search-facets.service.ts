@@ -301,7 +301,6 @@ export class NaturalSearchFacetsService {
                             {
                                 conditions: [
                                     {
-                                        bookingType: {equal: {value: BookingType.admin_assigned}},
                                         isActive: {equal: {value: true}},
                                     },
                                 ],
