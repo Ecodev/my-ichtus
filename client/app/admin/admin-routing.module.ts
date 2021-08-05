@@ -396,6 +396,7 @@ const routes: Routes = [
                             seo: {
                                 title: 'Casiers',
                             } as NaturalSeo,
+                            initialColumns: ['image', 'name', 'code', 'date', 'verificationDate', 'usage'],
                             forcedVariables: BookableService.bookableByTag('6010'),
                             isStorage: true,
                         },
@@ -407,6 +408,7 @@ const routes: Routes = [
                             seo: {
                                 title: 'Flotteurs',
                             } as NaturalSeo,
+                            initialColumns: ['image', 'name', 'code', 'date', 'verificationDate', 'usage'],
                             forcedVariables: BookableService.bookableByTag('6011'),
                             isStorage: true,
                         },
@@ -416,8 +418,9 @@ const routes: Routes = [
                         component: UsageBookablesComponent,
                         data: {
                             seo: {
-                                title: 'Râteliers WBC',
+                                title: 'Râteliers WB',
                             } as NaturalSeo,
+                            initialColumns: ['image', 'name', 'code', 'date', 'verificationDate', 'usage'],
                             forcedVariables: BookableService.bookableByTag('6016'),
                             isStorage: true,
                         },
