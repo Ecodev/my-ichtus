@@ -107,6 +107,9 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
                             {
                                 status: {in: {values: [BookingStatus.application], not: true}},
                             },
+                            {
+                                endDate: {null: {}},
+                            },
                         ],
                     },
                 ],
