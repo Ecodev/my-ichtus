@@ -25,11 +25,11 @@ use Money\Money;
  * @ORM\Entity(repositoryClass="Application\Repository\BookableRepository")
  * @API\Filters({
  *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\BookableUsageOperatorType", type="id"),
- *     @API\Filter(field="bookingCount", operator="Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountEqualOperatorType", type="int"),
- *     @API\Filter(field="bookingCount", operator="Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountGreaterOperatorType", type="int"),
- *     @API\Filter(field="bookingCount", operator="Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountGreaterOrEqualOperatorType", type="int"),
- *     @API\Filter(field="bookingCount", operator="Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountLessOperatorType", type="int"),
- *     @API\Filter(field="bookingCount", operator="Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountLessOrEqualOperatorType", type="int"),
+ *     @API\Filter(field="bookableBookingCount", operator="Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountEqualOperatorType", type="int"),
+ *     @API\Filter(field="bookableBookingCount", operator="Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountGreaterOperatorType", type="int"),
+ *     @API\Filter(field="bookableBookingCount", operator="Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountGreaterOrEqualOperatorType", type="int"),
+ *     @API\Filter(field="bookableBookingCount", operator="Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountLessOperatorType", type="int"),
+ *     @API\Filter(field="bookableBookingCount", operator="Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountLessOrEqualOperatorType", type="int"),
  * })
  */
 class Bookable extends AbstractModel

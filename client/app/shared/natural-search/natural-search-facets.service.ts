@@ -263,10 +263,11 @@ export class NaturalSearchFacetsService {
         },
     };
 
-    private readonly simultaneousBookingMaximum: DropdownFacet<TypeNumberConfiguration> = {
+    private readonly bookableActiveBookingCount: DropdownFacet<TypeNumberConfiguration> = {
         display: 'Réservations simultanées',
-        field: 'simultaneousBookingMaximum',
+        field: 'bookableBookingCount',
         component: TypeNumberComponent,
+        transform: prefixOperatorWithField,
         configuration: {
             step: 1,
         },
@@ -470,14 +471,7 @@ export class NaturalSearchFacetsService {
         storage: [
             this.name,
             this.code,
-            {
-                display: 'Réservations simultanées',
-                field: 'simultaneousBookingMaximum',
-                component: TypeNumberComponent,
-                configuration: {
-                    step: 1,
-                },
-            } as DropdownFacet<TypeNumberConfiguration>,
+            this.bookableActiveBookingCount,
             {
                 display: 'Utilisateur',
                 field: 'custom',
@@ -501,7 +495,7 @@ export class NaturalSearchFacetsService {
             this.initialPrice,
             this.periodicPrice,
             this.purchasePrice,
-            this.simultaneousBookingMaximum,
+            this.bookableActiveBookingCount,
             this.creationDate,
             this.updateDate,
         ],
@@ -511,7 +505,7 @@ export class NaturalSearchFacetsService {
             this.bookableTags,
             this.isActive,
             this.purchasePrice,
-            this.simultaneousBookingMaximum,
+            this.bookableActiveBookingCount,
             this.creationDate,
             this.updateDate,
         ],

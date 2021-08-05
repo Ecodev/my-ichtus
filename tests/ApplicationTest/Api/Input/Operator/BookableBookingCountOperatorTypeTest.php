@@ -38,7 +38,7 @@ class BookableBookingCountOperatorTypeTest extends OperatorType
             'value' => $count,
         ];
 
-        $actual = $this->getFilteredResult(Bookable::class, 'bookingCount', 'bookableBookingCount' . $comparison, $values);
+        $actual = $this->getFilteredResult(Bookable::class, 'bookableBookingCount', 'bookableBookingCount' . $comparison, $values);
         self::assertCount($expected, $actual);
     }
 }
