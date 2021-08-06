@@ -199,6 +199,77 @@ function popAlertMoreBookablesThanParticipants(bookables,participants) {
 }
 
 
+function popAlertTooManyParticipants() {
+    var elem = openPopUp();
+
+    var container;
+    container = div(elem);
+    container.classList.add("PopUpAlertContainer", "bookable");
+    container.classList.add("Boxes");
+
+    var close = div(container);
+    close.className = "divPopUpClose";
+    close.onclick = function () {
+        closePopUp({ target: elem }, elem);
+    };
+
+    var d = div(container);
+    d.style.textAlign = "center";
+    d.style.fontSize = "25px";
+    d.innerHTML = "Trop de participants";
+
+    grayBar(container, 5);
+
+    var t = div(container);
+    t.innerHTML = "Vous pouvez au maximum annoncer 15 participants en une sortie !";
+
+    var btnContainer = div(container);
+    btnContainer.style.position = "relative";
+    btnContainer.style.textAlign = "center";
+
+    var btn = div(btnContainer);
+    btn.classList.add("Buttons", "ValidateButtons");
+    btn.style.display = "inline-block";
+    btn.innerHTML = "Modifier le nbr de participants";
+    btn.addEventListener("click", function () { closePopUp("last"); popCahierInfos(0); });
+}
+
+function popAlertTooManyBookables() {
+    var elem = openPopUp();
+
+    var container;
+    container = div(elem);
+    container.classList.add("PopUpAlertContainer", "bookable");
+    container.classList.add("Boxes");
+
+    var close = div(container);
+    close.className = "divPopUpClose";
+    close.onclick = function () {
+        closePopUp({ target: elem }, elem);
+    };
+
+    var d = div(container);
+    d.style.textAlign = "center";
+    d.style.fontSize = "25px";
+    d.innerHTML = "Trop d'embarcations";
+
+    grayBar(container, 5);
+
+    var t = div(container);
+    t.innerHTML = "Vous pouvez au maximum annoncer 10 embarcations en une sortie !";
+
+    var btnContainer = div(container);
+    btnContainer.style.position = "relative";
+    btnContainer.style.textAlign = "center";
+
+    var btn = div(btnContainer);
+    btn.classList.add("Buttons", "ValidateButtons");
+    btn.style.width = "250px";
+    btn.style.display = "inline-block";
+    btn.innerHTML = "Modifier les embarcations";
+    btn.addEventListener("click", function () { closePopUp("last"); newTab("divTabCahierEquipmentChoice"); });
+}
+
 function popAlertBookablesNotAvailable() {
 
     if (options.showAlertBookablesNotAvailables) { // only show pop up if the option is activated, otherwise create the booking and finish the used bookings

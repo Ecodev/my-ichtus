@@ -54,7 +54,7 @@ function load() {
     loadEscListener();
 
     if (window.location.hostname === 'navigations.ichtus.club') {
-        console.warn("Version de production 1.1");
+        console.warn("Version de production 1.2");
         $('divTopBarText').innerHTML = tabs[0].title;
     }
     else {
