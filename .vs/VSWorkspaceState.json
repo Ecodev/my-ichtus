@@ -3,11 +3,14 @@
     "",
     "\\app",
     "\\app\\cahier",
+    "\\app\\confirmation",
+    "\\app\\equipment",
     "\\app\\general",
-    "\\htdocs",
-    "\\htdocs\\cahier",
-    "\\htdocs\\page"
+    "\\app\\img",
+    "\\app\\infos",
+    "\\app\\utils",
+    "\\htdocs"
   ],
-  "SelectedNode": "\\app\\index.html",
+  "SelectedNode": "\\app\\equipment\\pop-bookable.js",
   "PreviewInSolutionExplorer": false
 }

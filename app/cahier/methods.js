@@ -138,9 +138,14 @@ var Cahier = {
     },
 
     confirm: function () {
-
-        // if more bookables than participants
-        if (Cahier.bookings[0].participantCount < Cahier.bookings[0].bookables.length) {
+  
+        if (Cahier.bookings[0].participantCount > 15) {
+            popAlertTooManyParticipants();
+        }
+        else if (Cahier.bookings[0].bookables.length > 10) {
+            popAlertTooManyBookables();
+        }
+        else if (Cahier.bookings[0].participantCount < Cahier.bookings[0].bookables.length) { // if more bookables than participants
             popAlertMoreBookablesThanParticipants(Cahier.bookings[0].bookables.length, Cahier.bookings[0].participantCount);
         }
         else {
