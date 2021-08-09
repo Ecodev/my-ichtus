@@ -153,11 +153,17 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
         this.bookingService.createWithBookable(bookable, this.data.model.owner, partialBooking).subscribe(booking => {
             this.newBooking = Object.assign(booking, {bookable: bookable});
             this.alertService.info('La réservation a été créée avec succès');
-            const status = this.form.get('status');
-            if (status) {
-                status.setValue(BookingStatus.processed);
+            this.bookingService.terminateBooking(this.data.model.id).subscribe(() => {
+                const endDate = this.form.get('endDate');
+                const status = this.form.get('status');
+                if (endDate) {
+                    endDate.setValue(new Date().toISOString());
+                }
+                if (status) {
+                    status.setValue(BookingStatus.processed);
+                }
                 this.update();
-            }
+            });
         });
     }
 
