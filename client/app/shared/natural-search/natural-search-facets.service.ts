@@ -273,6 +273,16 @@ export class NaturalSearchFacetsService {
         },
     };
 
+    private readonly bokingBookableTag: DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>> = {
+        display: 'Tag de réservable',
+        field: 'bookable.bookableTags',
+        component: TypeNaturalSelectComponent,
+        configuration: {
+            service: this.bookableTagService,
+            placeholder: 'Tag de réservable',
+        },
+    };
+
     private readonly allFacets: {[key: string]: NaturalSearchFacets} = {
         users: [
             this.userTags,
@@ -514,6 +524,7 @@ export class NaturalSearchFacetsService {
             this.bookable,
             this.startDate,
             this.endDate,
+            this.bokingBookableTag,
             this.destination,
             this.participantCount,
             this.creationDate,
@@ -532,15 +543,7 @@ export class NaturalSearchFacetsService {
                 field: 'endDate',
                 condition: {null: {}} as BookingFilterGroupCondition,
             } as FlagFacet,
-            {
-                display: 'Tag de réservable',
-                field: 'bookable.bookableTags',
-                component: TypeNaturalSelectComponent,
-                configuration: {
-                    service: this.bookableTagService,
-                    placeholder: 'Tag de réservable',
-                },
-            } as DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>>,
+            this.bokingBookableTag,
             this.bookable,
             this.startDate,
             this.endDate,

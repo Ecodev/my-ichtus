@@ -43,13 +43,6 @@
                         <a
                             mat-list-item
                             routerLinkActive="active"
-                            routerLink="user/staff"
-                            *ngIf="permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
-                            >Comité</a
-                        >
-                        <a
-                            mat-list-item
-                            routerLinkActive="active"
                             routerLink="user/non-active"
                             *ngIf="permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
                             >Non actifs</a

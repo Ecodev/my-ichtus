@@ -485,20 +485,6 @@ const routes: Routes = [
                         },
                     },
                     {
-                        path: 'staff',
-                        component: UsersComponent,
-                        data: {
-                            seo: {
-                                title: 'Staff',
-                            } as NaturalSeo,
-                            forcedVariables: UserService.getFilters(
-                                [UserRole.responsible, UserRole.administrator],
-                                null,
-                            ),
-                            initialColumns: ['balance', 'name', 'login', 'age', 'status', 'flagWelcomeSessionDate'],
-                        },
-                    },
-                    {
                         path: 'non-active',
                         component: UsersComponent,
                         data: {
