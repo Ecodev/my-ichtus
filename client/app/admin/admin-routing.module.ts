@@ -64,6 +64,10 @@ const routes: Routes = [
         children: [
             {
                 path: '',
+                redirectTo: 'live',
+            },
+            {
+                path: 'live',
                 component: BookingsComponent,
                 data: {
                     seo: {
