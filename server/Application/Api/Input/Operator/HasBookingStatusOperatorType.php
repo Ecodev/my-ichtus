@@ -40,8 +40,11 @@ class HasBookingStatusOperatorType extends AbstractOperator
             return null;
         }
 
-        $bookingAlias = $uniqueNameFactory->createAliasName(Booking::class);
-        $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH, $bookingAlias . '.endDate IS NULL');
+        $bookingAlias = 'users_bookings_alias';
+
+        if (!in_array($bookingAlias, $queryBuilder->getAllAliases(), true)) {
+            $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH, $bookingAlias . '.endDate IS NULL');
+        }
 
         if (!array_key_exists('values', $args) || empty($args['values'])) {
             $statuses = [-1];
