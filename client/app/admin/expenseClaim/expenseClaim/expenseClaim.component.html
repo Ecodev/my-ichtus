@@ -89,6 +89,16 @@
                         [matAutosizeMinRows]="1"
                     ></textarea>
                 </mat-form-field>
+
+                <mat-form-field *ngIf="form.get('type')?.value !== ExpenseClaimType.refund">
+                    <mat-label>Secteur concerné</mat-label>
+                    <mat-select formControlName="sector" (selectionChange)="update()">
+                        <mat-option></mat-option>
+                        <mat-option *ngFor="let option of expenseClaimService.getSectors()" [value]="option">
+                            {{ option }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
 
             <div fxFlex="40" fxLayout="column">

@@ -67,6 +67,7 @@ export class ExpenseClaimService extends NaturalAbstractModelService<
             owner: null,
             reviewer: null,
             amount: '0',
+            sector: '',
             description: '',
             remarks: '',
             internalRemarks: '',
@@ -102,5 +103,21 @@ export class ExpenseClaimService extends NaturalAbstractModelService<
         const qvm = new NaturalQueryVariablesManager<ExpenseClaimsVariables>();
         qvm.set('variables', variables);
         return this.watchAll(qvm);
+    }
+
+    public getSectors(): string[] {
+        return [
+            'aviron',
+            'bateau moteur',
+            'canoë & kayak',
+            'emplacements de stockage',
+            'gilet et combis',
+            'NFT',
+            'outillage',
+            'planche à voile',
+            'stand up paddle',
+            'voile légère',
+            'voiliers lestés',
+        ];
     }
 }

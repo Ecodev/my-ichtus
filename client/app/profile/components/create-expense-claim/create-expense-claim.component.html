@@ -1,8 +1,8 @@
 <div [formGroup]="form" class="padding" fxFlex fxLayout="column" fxLayoutGap="20px">
     <h1 class="mat-display-1">{{ data.seo.title }}</h1>
 
-    <div fxLayout="row" fxLayoutGap="10px">
-        <mat-form-field fxFlex>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="20px">
+        <mat-form-field fxFlex.gt-sm>
             <mat-label>Objet de la dépense</mat-label>
             <input matInput formControlName="name" (change)="update()" />
             <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
@@ -10,7 +10,18 @@
             </mat-error>
             <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
         </mat-form-field>
-        <mat-form-field>
+
+        <mat-form-field *ngIf="form.get('type')?.value !== ExpenseClaimType.refund" id="sector">
+            <mat-label>Secteur concerné</mat-label>
+            <mat-select formControlName="sector" (selectionChange)="update()">
+                <mat-option></mat-option>
+                <mat-option *ngFor="let option of expenseClaimService.getSectors()" [value]="option">
+                    {{ option }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field id="amount">
             <mat-label>Montant</mat-label>
             <input matInput type="number" step="0.01" [attr.min]="1" formControlName="amount" (change)="update()" />
             <div matSuffix>CHF</div>
@@ -23,7 +34,7 @@
     </div>
 
     <mat-form-field>
-        <mat-label>Secteur concerné et nature de la dépense</mat-label>
+        <mat-label>Description de la dépense</mat-label>
         <textarea
             matInput
             formControlName="description"

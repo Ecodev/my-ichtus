@@ -81,6 +81,13 @@ class ExpenseClaim extends AbstractModel
     private $reviewer;
 
     /**
+     * @ORM\Column(type="string", length=191, options={"default" = ""})
+     *
+     * @var string
+     */
+    private $sector = '';
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -212,5 +219,21 @@ class ExpenseClaim extends AbstractModel
     public function getReviewer(): ?User
     {
         return $this->reviewer;
+    }
+
+    /**
+     * Set sector
+     */
+    public function setSector(string $sector): void
+    {
+        $this->sector = $sector;
+    }
+
+    /**
+     * Get sector
+     */
+    public function getSector(): string
+    {
+        return (string) $this->sector;
     }
 }

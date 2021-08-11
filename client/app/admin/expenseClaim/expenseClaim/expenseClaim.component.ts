@@ -22,7 +22,7 @@ export class ExpenseClaimComponent extends NaturalAbstractDetail<ExpenseClaimSer
     public viewer!: CurrentUserForProfile_viewer;
 
     constructor(
-        expenseClaimService: ExpenseClaimService,
+        public expenseClaimService: ExpenseClaimService,
         injector: Injector,
         public readonly userService: UserService,
         public readonly transactionLineService: TransactionLineService,

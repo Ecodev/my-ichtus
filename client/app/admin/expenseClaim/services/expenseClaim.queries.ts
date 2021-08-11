@@ -11,6 +11,7 @@ export const expenseClaimMetaFragment = gql`
         status
         type
         amount
+        sector
         accountingDocuments {
             id
             mime

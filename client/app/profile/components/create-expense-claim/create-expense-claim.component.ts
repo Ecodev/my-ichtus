@@ -1,6 +1,10 @@
 import {Component, Injector, OnInit, ViewChild} from '@angular/core';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
-import {CreateExpenseClaim_createExpenseClaim, ExpenseClaimStatus} from '../../../shared/generated-types';
+import {
+    CreateExpenseClaim_createExpenseClaim,
+    ExpenseClaimStatus,
+    ExpenseClaimType,
+} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {NaturalAbstractDetail} from '@ecodev/natural';
 import {AccountingDocumentsComponent} from '../../../admin/accounting-documents/accounting-documents.component';
@@ -14,8 +18,10 @@ import {EMPTY, Observable} from 'rxjs';
 export class CreateExpenseClaimComponent extends NaturalAbstractDetail<ExpenseClaimService> implements OnInit {
     @ViewChild(AccountingDocumentsComponent, {static: true}) private accountingDocuments!: AccountingDocumentsComponent;
 
+    public ExpenseClaimType = ExpenseClaimType;
+
     constructor(
-        expenseClaimService: ExpenseClaimService,
+        public expenseClaimService: ExpenseClaimService,
         injector: Injector,
         public readonly userService: UserService,
     ) {

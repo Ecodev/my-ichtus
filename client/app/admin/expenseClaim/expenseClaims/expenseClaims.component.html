@@ -22,6 +22,7 @@
                     <span naturalColumnsPickerColumn="type">Type</span>
                     <span naturalColumnsPickerColumn="remarks">Remarques</span>
                     <span naturalColumnsPickerColumn="amount">Montant</span>
+                    <span naturalColumnsPickerColumn="sector">Secteur concerné</span>
                     <span naturalColumnsPickerColumn="reviewer">Approbateur</span>
                 </natural-columns-picker>
             </natural-search>
@@ -104,6 +105,13 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header natural-4em-column>Type</th>
                     <td mat-cell *matCellDef="let element">
                         {{ element.type | enum: 'ExpenseClaimType' | async | capitalize }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="sector">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Secteur</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element.sector }}
                     </td>
                 </ng-container>
 

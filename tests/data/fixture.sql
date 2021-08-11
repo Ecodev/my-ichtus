@@ -229,13 +229,13 @@ REPLACE INTO booking (id, owner_id, bookable_id, status, start_date, end_date, e
 (4018, 1008, 3033, 'booked', '2021-06-01 13:32:51', NULL, '', '', 'inscription du fils approuvée'),
 (4019, 1002, 3032, 'application', '2021-07-01 13:32:51', NULL, '', '', 'inscription du membre en attente d''approbation');
 
-REPLACE INTO expense_claim (id, creation_date, owner_id, reviewer_id, amount, status, name, description, type) VALUES
-(7000, '2019-01-10', 1002, NULL, 20000, 'new', 'achats Jumbo', 'outils pour voilier', 'expenseClaim'),
-(7001, '2019-01-14', 1002, NULL, 10000, 'processed', 'flyers', 'Cighelio', 'expenseClaim'),
-(7002, '2019-03-14', 1002, NULL, 5000, 'processing', 'remboursement bancaire', '', 'refund'),
-(7003, '2019-01-10', 1007, NULL, 7500, 'new', 'achats boissons', 'pour la fête', 'expenseClaim'),
-(7004, '2019-01-06', 1010, NULL, 2100, 'new', 'remplacement des clés', '', 'expenseClaim'),
-(7005, '2019-04-01', 1002, 1001, 7200, 'new', 'Achat wishbone', 'Pour remplacer celui cassé par un membre du NFT, à payer directement au fournisseur', 'invoice');
+REPLACE INTO expense_claim (id, creation_date, owner_id, reviewer_id, amount, status, name, description, type, sector) VALUES
+(7000, '2019-01-10', 1002, NULL, 20000, 'new', 'achats Jumbo', 'outils pour voilier', 'expenseClaim', 'voile légère'),
+(7001, '2019-01-14', 1002, NULL, 10000, 'processed', 'flyers', 'Cighelio', 'expenseClaim', 'NFT'),
+(7002, '2019-03-14', 1002, NULL, 5000, 'processing', 'remboursement bancaire', '', 'refund', ''),
+(7003, '2019-01-10', 1007, NULL, 7500, 'new', 'achats boissons', 'pour la fête', 'expenseClaim', ''),
+(7004, '2019-01-06', 1010, NULL, 2100, 'new', 'remplacement des clés', '', 'expenseClaim', ''),
+(7005, '2019-04-01', 1002, 1001, 7200, 'new', 'Achat wishbone', 'Pour remplacer celui cassé par un membre du NFT, à payer directement au fournisseur', 'invoice', 'NFT');
 
 REPLACE INTO transaction (id, creator_id, owner_id, transaction_date, name, remarks, expense_claim_id) VALUES
 (8000, 1002, 1002, '2019-03-01', 'Inscription cours nautique Active Member', '', NULL),

@@ -38,6 +38,7 @@ import {
 import {AccountService} from '../../admin/accounts/services/account.service';
 import {accountHierarchicConfiguration} from '../hierarchic-selector/AccountHierarchicConfiguration';
 import {BookableTagService} from '../../admin/bookableTags/services/bookableTag.service';
+import {ExpenseClaimService} from '../../admin/expenseClaim/services/expenseClaim.service';
 
 /**
  * Prepend the field name to the operator.
@@ -610,6 +611,14 @@ export class NaturalSearchFacetsService {
                 },
             } as DropdownFacet<TypeNumberConfiguration>,
             {
+                display: 'Secteur concerné',
+                field: 'sector',
+                component: TypeSelectComponent,
+                configuration: {
+                    items: this.expenseClaimService.getSectors(),
+                },
+            } as DropdownFacet<TypeSelectConfiguration>,
+            {
                 display: 'À approuver',
                 field: 'custom',
                 name: 'expenseClaimToReview',
@@ -632,6 +641,7 @@ export class NaturalSearchFacetsService {
         private readonly accountService: AccountService,
         private readonly userService: UserService,
         private readonly licenceService: LicenseService,
+        private readonly expenseClaimService: ExpenseClaimService,
     ) {}
 
     /**
