@@ -244,4 +244,15 @@ export class PermissionsService {
 
         return [UserRole.responsible, UserRole.administrator].includes(user.role);
     }
+
+    /**
+     * Return true if user role is administrator
+     */
+    public isAdministrator(user: CurrentUserForProfile['viewer']): boolean {
+        if (!user) {
+            return false;
+        }
+
+        return user.role === UserRole.administrator;
+    }
 }

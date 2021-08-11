@@ -10,16 +10,39 @@
                 *ngIf="
                     data.model.id &&
                     data.model.status === ExpenseClaimStatus.new &&
+                    data.model.reviewer === null &&
+                    permissionsService.gteResponsible(viewer)
+                "
+                mat-stroked-button
+                color="basic"
+                (click)="approve()"
+            >
+                <natural-icon name="verified"></natural-icon>
+                <span class="mat-body-2">Approuver</span>
+            </a>
+            <div
+                *ngIf="data.model.id && data.model.reviewer && !permissionsService.isAdministrator(viewer)"
+                fxLayout="row"
+                fxLayoutAlign="start center"
+            >
+                <natural-icon name="verified"></natural-icon>
+                Approuvé par {{ data.model.reviewer.name }}
+            </div>
+
+            <a
+                *ngIf="
+                    data.model.id &&
+                    data.model.transactions?.length === 0 &&
                     permissionsService.crud?.transaction.create
                 "
                 mat-flat-button
                 color="accent"
                 [routerLink]="['/admin/transaction/new', {expenseClaim: data.model.id}]"
             >
-                <natural-icon name="check"></natural-icon>
-                <span>Valider</span> &nbsp;
-                <span *ngIf="data.model.type === ExpenseClaimType.expenseClaim">(créditer le solde)</span>
-                <span *ngIf="data.model.type === ExpenseClaimType.refund">(rembourser)</span>
+                <natural-icon name="payments"></natural-icon>
+                <span *ngIf="data.model.type === ExpenseClaimType.expenseClaim">Créditer le solde</span>
+                <span *ngIf="data.model.type === ExpenseClaimType.refund">Rembourser</span>
+                <span *ngIf="data.model.type === ExpenseClaimType.invoice">Payer</span>
             </a>
 
             <a
@@ -44,126 +67,128 @@
         </div>
     </natural-detail-header>
 
-    <mat-tab-group naturalLinkableTab [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
-        <mat-tab id="general" label="Général">
-            <div fxLayout="column" fxLayoutGap="30px" class="padding-top">
-                <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
-                    <div fxFlex="66" fxLayout="column">
-                        <mat-form-field>
-                            <mat-label>Nom</mat-label>
-                            <input matInput formControlName="name" (change)="update()" />
-                            <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
-                                Maximum {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
-                            </mat-error>
-                            <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
-                        </mat-form-field>
+    <div fxLayout="column" fxLayoutGap="20px" class="padding-top">
+        <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="20px">
+            <div fxFlex="60" fxLayout="column">
+                <mat-form-field>
+                    <mat-label>Nom</mat-label>
+                    <input matInput formControlName="name" (change)="update()" />
+                    <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
+                        Maximum {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
+                    </mat-error>
+                    <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
+                </mat-form-field>
 
-                        <mat-form-field>
-                            <mat-label>Description</mat-label>
-                            <textarea
-                                matInput
-                                formControlName="description"
-                                (change)="update()"
-                                [matTextareaAutosize]="true"
-                                [matAutosizeMinRows]="1"
-                            ></textarea>
-                        </mat-form-field>
-                    </div>
-
-                    <div fxFlex="33" fxLayout="column">
-                        <natural-select-enum
-                            enumName="ExpenseClaimType"
-                            formControlName="type"
-                            (selectionChange)="update()"
-                            placeholder="Type"
-                        ></natural-select-enum>
-
-                        <div fxLayout="row" fxLayoutGap="20px">
-                            <mat-form-field fxFlex="40">
-                                <mat-label>Montant</mat-label>
-                                <input
-                                    matInput
-                                    type="number"
-                                    step="0.01"
-                                    formControlName="amount"
-                                    (change)="update()"
-                                />
-                                <div matSuffix>CHF</div>
-                                <mat-error *ngIf="form.get('amount')?.hasError('required')">Requis</mat-error>
-                            </mat-form-field>
-
-                            <natural-select-enum
-                                enumName="ExpenseClaimStatus"
-                                formControlName="status"
-                                (selectionChange)="update()"
-                                placeholder="Status"
-                                fxFlex
-                            ></natural-select-enum>
-                        </div>
-
-                        <natural-select
-                            formControlName="owner"
-                            placeholder="Membre"
-                            [service]="userService"
-                            (selectionChange)="update()"
-                        ></natural-select>
-                    </div>
-                </div>
-
-                <mat-divider></mat-divider>
-
-                <h2 class="mat-title">Commentaires</h2>
-
-                <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
-                    <div fxFlex fxLayout="column">
-                        <mat-form-field>
-                            <mat-label>Remarques</mat-label>
-                            <textarea
-                                matInput
-                                formControlName="remarks"
-                                (change)="update()"
-                                [matTextareaAutosize]="true"
-                                [matAutosizeMinRows]="3"
-                            ></textarea>
-                        </mat-form-field>
-                    </div>
-
-                    <div fxFlex fxLayout="column">
-                        <mat-form-field>
-                            <mat-label>Remarques internes</mat-label>
-                            <textarea
-                                matInput
-                                formControlName="internalRemarks"
-                                (change)="update()"
-                                [matTextareaAutosize]="true"
-                                [matAutosizeMinRows]="3"
-                            ></textarea>
-                        </mat-form-field>
-                    </div>
-                </div>
-
-                <mat-divider *ngIf="data?.model?.accountingDocuments?.length"></mat-divider>
-
-                <div *ngIf="data?.model?.accountingDocuments?.length">
-                    <div class="mat-title">Pièces justificatives</div>
-
-                    <div fxLayout="row" fxLayoutGap="10px">
-                        <natural-file
-                            *ngFor="let file of data?.model?.accountingDocuments"
-                            [model]="file"
-                            [height]="150"
-                            [style.width.px]="200"
-                            action="download"
-                        ></natural-file>
-                    </div>
-                </div>
-
-                <mat-divider></mat-divider>
-
-                <natural-stamp [item]="data.model"></natural-stamp>
+                <mat-form-field>
+                    <mat-label>Description</mat-label>
+                    <textarea
+                        matInput
+                        formControlName="description"
+                        (change)="update()"
+                        [matTextareaAutosize]="true"
+                        [matAutosizeMinRows]="1"
+                    ></textarea>
+                </mat-form-field>
             </div>
-        </mat-tab>
-    </mat-tab-group>
+
+            <div fxFlex="40" fxLayout="column">
+                <natural-select-enum
+                    enumName="ExpenseClaimType"
+                    formControlName="type"
+                    (selectionChange)="update()"
+                    placeholder="Type"
+                ></natural-select-enum>
+
+                <div fxLayout="row" fxLayoutGap="15px">
+                    <mat-form-field fxFlex="120px">
+                        <mat-label>Montant</mat-label>
+                        <input matInput type="number" step="0.01" formControlName="amount" (change)="update()" />
+                        <div matSuffix>CHF</div>
+                        <mat-error *ngIf="form.get('amount')?.hasError('required')">Requis</mat-error>
+                    </mat-form-field>
+
+                    <natural-select-enum
+                        enumName="ExpenseClaimStatus"
+                        formControlName="status"
+                        (selectionChange)="update()"
+                        placeholder="Status"
+                        fxFlex
+                    ></natural-select-enum>
+                </div>
+
+                <div fxLayout="row" fxLayout.gt-sm="column" fxLayoutGap="15px" fxLayoutGap.gt-sm="0">
+                    <natural-select
+                        fxFlex="50"
+                        formControlName="owner"
+                        placeholder="Membre"
+                        [service]="userService"
+                        (selectionChange)="update()"
+                    ></natural-select>
+
+                    <natural-select
+                        *ngIf="permissionsService.isAdministrator(viewer)"
+                        formControlName="reviewer"
+                        placeholder="Approbateur"
+                        [service]="userService"
+                        (selectionChange)="update()"
+                        fxFlex
+                    ></natural-select>
+                </div>
+            </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <h2 class="mat-title">Commentaires</h2>
+
+        <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
+            <div fxFlex fxLayout="column">
+                <mat-form-field>
+                    <mat-label>Remarques</mat-label>
+                    <textarea
+                        matInput
+                        formControlName="remarks"
+                        (change)="update()"
+                        [matTextareaAutosize]="true"
+                        [matAutosizeMinRows]="3"
+                    ></textarea>
+                </mat-form-field>
+            </div>
+
+            <div fxFlex fxLayout="column">
+                <mat-form-field>
+                    <mat-label>Remarques internes</mat-label>
+                    <textarea
+                        matInput
+                        formControlName="internalRemarks"
+                        (change)="update()"
+                        [matTextareaAutosize]="true"
+                        [matAutosizeMinRows]="3"
+                    ></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <mat-divider *ngIf="data?.model?.accountingDocuments?.length"></mat-divider>
+
+        <div *ngIf="data?.model?.accountingDocuments?.length">
+            <div class="mat-title">Pièces justificatives</div>
+
+            <div fxLayout="row" fxLayoutGap="10px">
+                <natural-file
+                    *ngFor="let file of data?.model?.accountingDocuments"
+                    [model]="file"
+                    [height]="150"
+                    [style.width.px]="200"
+                    action="download"
+                ></natural-file>
+            </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <natural-stamp [item]="data.model"></natural-stamp>
+    </div>
 
     <natural-fixed-button-detail
         *ngIf="showFabButton"

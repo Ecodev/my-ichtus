@@ -65,6 +65,7 @@ export class ExpenseClaimService extends NaturalAbstractModelService<
         return {
             name: '',
             owner: null,
+            reviewer: null,
             amount: '0',
             description: '',
             remarks: '',

@@ -16,12 +16,13 @@
             >
                 <natural-columns-picker [(selection)]="selectedColumns" [initialSelection]="initialColumns">
                     <span naturalColumnsPickerColumn="name">Nom</span>
-                    <span naturalColumnsPickerColumn="owner">Utilisateur</span>
+                    <span naturalColumnsPickerColumn="owner">Membre</span>
                     <span naturalColumnsPickerColumn="latestModification">Dernière modification</span>
                     <span naturalColumnsPickerColumn="status">Status</span>
                     <span naturalColumnsPickerColumn="type">Type</span>
                     <span naturalColumnsPickerColumn="remarks">Remarques</span>
                     <span naturalColumnsPickerColumn="amount">Montant</span>
+                    <span naturalColumnsPickerColumn="reviewer">Approbateur</span>
                 </natural-columns-picker>
             </natural-search>
         </div>
@@ -103,6 +104,16 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header natural-4em-column>Type</th>
                     <td mat-cell *matCellDef="let element">
                         {{ element.type | enum: 'ExpenseClaimType' | async | capitalize }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="reviewer">
+                    <th mat-header-cell *matHeaderCellDef>Approbateur</th>
+                    <td mat-cell *matCellDef="let element">
+                        <div fxLayout="row" fxLayoutAlign="start center" *ngIf="element.reviewer">
+                            <natural-icon name="verified"></natural-icon>
+                            <span class="mat-table">{{ element.reviewer?.name }}</span>
+                        </div>
                     </td>
                 </ng-container>
             </table>

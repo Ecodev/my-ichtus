@@ -27,6 +27,7 @@ export class CreateExpenseClaimComponent extends NaturalAbstractDetail<ExpenseCl
         this.form.patchValue({
             owner: this.route.snapshot.data.viewer.model.id,
             status: ExpenseClaimStatus.new,
+            type: this.route.snapshot.data.type,
         });
     }
 

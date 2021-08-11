@@ -26,7 +26,15 @@ import {UserService} from '../../admin/users/services/user.service';
 import {LicenseService} from '../../admin/licenses/services/license.service';
 import {TransactionService} from '../../admin/transactions/services/transaction.service';
 import {TransactionTagService} from '../../admin/transactionTags/services/transactionTag.service';
-import {BookableFilter, BookingFilterGroupCondition, BookingType, UserFilterGroupCondition} from '../generated-types';
+import {
+    BookableFilter,
+    BookingFilterGroupCondition,
+    BookingType,
+    ExpenseClaimFilterGroupCondition,
+    ExpenseClaimFilterGroupConditionCustom,
+    ExpenseClaimToReviewOperatorBoolean,
+    UserFilterGroupCondition,
+} from '../generated-types';
 import {AccountService} from '../../admin/accounts/services/account.service';
 import {accountHierarchicConfiguration} from '../hierarchic-selector/AccountHierarchicConfiguration';
 import {BookableTagService} from '../../admin/bookableTags/services/bookableTag.service';
@@ -601,6 +609,13 @@ export class NaturalSearchFacetsService {
                     step: 1,
                 },
             } as DropdownFacet<TypeNumberConfiguration>,
+            {
+                display: 'À approuver',
+                field: 'custom',
+                name: 'expenseClaimToReview',
+                condition: {in: {}},
+                transform: replaceOperatorByName,
+            } as FlagFacet,
             this.creationDate,
             this.updateDate,
         ],

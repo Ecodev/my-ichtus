@@ -1,7 +1,12 @@
-import {Component, Injector} from '@angular/core';
+import {Component, Injector, OnInit} from '@angular/core';
 import {NaturalAbstractDetail} from '@ecodev/natural';
 import {ExpenseClaimService} from '../services/expenseClaim.service';
-import {ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
+import {
+    CurrentUserForProfile_viewer,
+    ExpenseClaimStatus,
+    ExpenseClaimType,
+    UserRole,
+} from '../../../shared/generated-types';
 import {UserService} from '../../users/services/user.service';
 import {TransactionLineService} from '../../transactions/services/transactionLine.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -11,9 +16,10 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
     templateUrl: './expenseClaim.component.html',
     styleUrls: ['./expenseClaim.component.scss'],
 })
-export class ExpenseClaimComponent extends NaturalAbstractDetail<ExpenseClaimService> {
+export class ExpenseClaimComponent extends NaturalAbstractDetail<ExpenseClaimService> implements OnInit {
     public ExpenseClaimType = ExpenseClaimType;
     public ExpenseClaimStatus = ExpenseClaimStatus;
+    public viewer!: CurrentUserForProfile_viewer;
 
     constructor(
         expenseClaimService: ExpenseClaimService,
@@ -23,5 +29,27 @@ export class ExpenseClaimComponent extends NaturalAbstractDetail<ExpenseClaimSer
         public readonly permissionsService: PermissionsService,
     ) {
         super('expenseClaim', expenseClaimService, injector);
+    }
+
+    public ngOnInit(): void {
+        super.ngOnInit();
+
+        this.viewer = this.route.snapshot.data.viewer.model;
+    }
+
+    public approve(): void {
+        const reviewer = this.form.get('reviewer');
+        if (reviewer) {
+            reviewer.setValue(this.viewer);
+            reviewer.markAsTouched();
+        }
+        const status = this.form.get('status');
+        if (status) {
+            status.setValue(ExpenseClaimStatus.processing);
+            status.markAsTouched();
+        }
+        if (this.form.touched) {
+            this.update();
+        }
     }
 }

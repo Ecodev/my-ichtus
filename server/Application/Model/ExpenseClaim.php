@@ -17,7 +17,7 @@ use GraphQL\Doctrine\Annotation as API;
 use Money\Money;
 
 /**
- * An expense claim to be refunded to an user
+ * An expense claim to be refunded to a member or invoice to be paid by the company
  *
  * @ORM\Entity(repositoryClass="Application\Repository\ExpenseClaimRepository")
  * @ORM\AssociationOverrides({
@@ -25,6 +25,9 @@ use Money\Money;
  *         name="owner",
  *         joinColumns=@ORM\JoinColumn(nullable=false, onDelete="CASCADE")
  *     )
+ * })
+ * @API\Filters({
+ *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\ExpenseClaimToReviewOperatorType", type="boolean"),
  * })
  */
 class ExpenseClaim extends AbstractModel
@@ -66,6 +69,16 @@ class ExpenseClaim extends AbstractModel
      * @ORM\Column(type="ExpenseClaimType", length=10, options={"default" = ExpenseClaimTypeType::EXPENSE_CLAIM})
      */
     private $type = ExpenseClaimTypeType::EXPENSE_CLAIM;
+
+    /**
+     * @var null|User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *     @ORM\JoinColumn(onDelete="SET NULL")
+     * })
+     */
+    private $reviewer;
 
     /**
      * Constructor
@@ -183,5 +196,21 @@ class ExpenseClaim extends AbstractModel
     public function getAccountingDocuments(): Collection
     {
         return $this->accountingDocuments;
+    }
+
+    /**
+     * Set reviewer
+     */
+    public function setReviewer(?User $reviewer): void
+    {
+        $this->reviewer = $reviewer;
+    }
+
+    /**
+     * Get reviewer
+     */
+    public function getReviewer(): ?User
+    {
+        return $this->reviewer;
     }
 }

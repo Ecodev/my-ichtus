@@ -13,6 +13,7 @@ class ExpenseClaimTypeType extends EnumType
         $config = [
             \Application\DBAL\Types\ExpenseClaimTypeType::EXPENSE_CLAIM => 'Dépense',
             \Application\DBAL\Types\ExpenseClaimTypeType::REFUND => 'Remboursement',
+            \Application\DBAL\Types\ExpenseClaimTypeType::INVOICE => 'Facture à payer',
         ];
         parent::__construct($config);
     }

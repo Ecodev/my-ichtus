@@ -59,18 +59,26 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
             const expenseClaim: ExpenseClaim['expenseClaim'] = this.data.expenseClaim
                 ? this.data.expenseClaim.model
                 : null;
-            if (expenseClaim && expenseClaim.owner && expenseClaim.owner.account) {
+            if (expenseClaim) {
                 this.data.model.expenseClaim = expenseClaim;
                 this.updateTransactionLines = true;
 
                 // Set default name
+                let transactionName = '';
+                switch (expenseClaim.type) {
+                    case ExpenseClaimType.expenseClaim:
+                        transactionName = 'Traitement de la dépense "' + expenseClaim.name + '"';
+                        break;
+                    case ExpenseClaimType.refund:
+                        transactionName = 'Remboursement de "' + expenseClaim.name + '"';
+                        break;
+                    case ExpenseClaimType.invoice:
+                        transactionName = 'Paiement facture "' + expenseClaim.name + '"';
+                        break;
+                }
                 const nameControl = this.form.get('name');
                 if (nameControl) {
-                    if (expenseClaim.type === ExpenseClaimType.expenseClaim) {
-                        nameControl.setValue('Traitement de la dépense "' + expenseClaim.name + '"');
-                    } else if (expenseClaim.type === ExpenseClaimType.refund) {
-                        nameControl.setValue('Remboursement de "' + expenseClaim.name + '"');
-                    }
+                    nameControl.setValue(transactionName);
                 }
 
                 const expenseClaimControl = this.form.get('expenseClaim');
@@ -78,17 +86,23 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
                     expenseClaimControl.setValue(expenseClaim);
                 }
 
-                if (expenseClaim.type === ExpenseClaimType.expenseClaim) {
-                    const preset = this.transactionService.getExpenseClaimPreset(
-                        expenseClaim.owner.account,
-                        expenseClaim.amount,
-                    );
-                    this.transactionLinesComponent.setItems(preset);
-                } else if (expenseClaim.type === ExpenseClaimType.refund) {
-                    const preset = this.transactionService.getRefundPreset(
-                        expenseClaim.owner.account,
-                        expenseClaim.amount,
-                    );
+                if (expenseClaim.owner && expenseClaim.owner.account) {
+                    if (expenseClaim.type === ExpenseClaimType.expenseClaim) {
+                        const preset = this.transactionService.getExpenseClaimPreset(
+                            expenseClaim.owner.account,
+                            expenseClaim.amount,
+                        );
+                        this.transactionLinesComponent.setItems(preset);
+                    } else if (expenseClaim.type === ExpenseClaimType.refund) {
+                        const preset = this.transactionService.getRefundPreset(
+                            expenseClaim.owner.account,
+                            expenseClaim.amount,
+                        );
+                        this.transactionLinesComponent.setItems(preset);
+                    }
+                }
+                if (expenseClaim.type === ExpenseClaimType.invoice) {
+                    const preset = this.transactionService.getInvoicePreset(transactionName, expenseClaim.amount);
                     this.transactionLinesComponent.setItems(preset);
                 }
             }

@@ -9,14 +9,18 @@ import {
     exportAccountingReport,
     nextCodeAvailableQuery,
     updateAccount,
+    accountByCode,
 } from './account.queries';
 import {
     Account,
     Account_account,
+    AccountByCode,
+    AccountByCodeVariables,
     AccountingClosing,
     AccountingClosingVariables,
     AccountInput,
     Accounts,
+    Accounts_accounts,
     AccountsVariables,
     AccountType,
     AccountVariables,
@@ -31,7 +35,13 @@ import {
     UpdateAccountVariables,
 } from '../../../shared/generated-types';
 import {Validators} from '@angular/forms';
-import {FormAsyncValidators, FormValidators, NaturalAbstractModelService, unique} from '@ecodev/natural';
+import {
+    FormAsyncValidators,
+    FormValidators,
+    NaturalAbstractModelService,
+    NaturalQueryVariablesManager,
+    unique,
+} from '@ecodev/natural';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {iban} from '../../../shared/validators';
@@ -90,6 +100,23 @@ export class AccountService extends NaturalAbstractModelService<
                     return result.data.nextAccountCode;
                 }),
             );
+    }
+
+    public getAccountByCode(code: number): Observable<Accounts_accounts> {
+        const variables: AccountByCodeVariables = {
+            filter: {
+                groups: [
+                    {
+                        conditions: [{code: {equal: {value: code}}}],
+                    },
+                ],
+            },
+        };
+
+        const qvm = new NaturalQueryVariablesManager<AccountByCodeVariables>();
+        qvm.set('variables', variables);
+
+        return this.getAll(qvm);
     }
 
     public getReportExportLink(date: Date): Observable<ExportAccountingReport['exportAccountingReport']> {

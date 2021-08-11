@@ -5,7 +5,12 @@
         [model]="data.model"
         [listRoute]="['admin', 'transaction-line']"
     >
-        <app-money [amount]="data.model.balance" [showSignal]="false" sizeClass="mat-display-1"></app-money>
+        <app-money
+            *ngIf="data.model.balance"
+            [amount]="data.model.balance"
+            [showSignal]="false"
+            sizeClass="mat-display-1"
+        ></app-money>
     </natural-detail-header>
 
     <mat-tab-group naturalLinkableTab [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
@@ -82,6 +87,9 @@
                             <span *ngIf="data.model.expenseClaim.type === ExpenseClaimType.expenseClaim"
                                 >Annonce de dépense</span
                             >
+                            <span *ngIf="data.model.expenseClaim.type === ExpenseClaimType.invoice"
+                                >Facture à payer</span
+                            >
                         </div>
 
                         <a mat-stroked-button [routerLink]="['/admin/expense-claim', data.model.expenseClaim.id]"
@@ -100,6 +108,10 @@
                                 <span class="mat-body-2">Utilisateur :</span>
                                 {{ data.model.expenseClaim.owner.name }}
                             </div>
+                            <div *ngIf="data.model.expenseClaim.reviewer">
+                                <span class="mat-body-2">Approuvé par :</span>
+                                {{ data.model.expenseClaim.reviewer.name }}
+                            </div>
                             <div *ngIf="data.model.expenseClaim.description">
                                 <span class="mat-body-2">Description :</span>
                                 {{ data.model.expenseClaim.description }}
@@ -116,7 +128,7 @@
                     </div>
                 </div>
 
-                <!-- TODO : add selectors for ExpanseClaim -->
+                <!-- TODO : add selectors for ExpenseClaim -->
                 <mat-divider></mat-divider>
                 <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
                     <h2 class="mat-title no-margin-bottom no-margin-top">Écritures</h2>

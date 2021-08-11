@@ -727,7 +727,7 @@ const routes: Routes = [
                 component: ExpenseClaimsComponent,
                 data: {
                     seo: {
-                        title: 'Notes de frais',
+                        title: 'Notes de frais, remboursements et factures',
                     } as NaturalSeo,
                     initialColumns: ['name', 'owner', 'date', 'status', 'type', 'amount'],
                     forcedVariables: {

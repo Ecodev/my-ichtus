@@ -10,6 +10,7 @@ import {CreateExpenseClaimComponent} from './components/create-expense-claim/cre
 import {HistoryComponent} from './components/history/history.component';
 import {ServicesGuard} from '../shared/guards/services.guard';
 import {NaturalSeo} from '@ecodev/natural';
+import {ExpenseClaimType} from '../shared/generated-types';
 
 const routes: Routes = [
     {
@@ -62,6 +63,22 @@ const routes: Routes = [
             {
                 path: 'create-expense-claim',
                 component: CreateExpenseClaimComponent,
+                data: {
+                    seo: {
+                        title: 'Annoncer une dépense',
+                    } as NaturalSeo,
+                    type: ExpenseClaimType.expenseClaim,
+                },
+            },
+            {
+                path: 'create-invoice',
+                component: CreateExpenseClaimComponent,
+                data: {
+                    seo: {
+                        title: 'Annoncer une facture à payer',
+                    } as NaturalSeo,
+                    type: ExpenseClaimType.invoice,
+                },
             },
         ],
     },

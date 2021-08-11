@@ -10,12 +10,14 @@ class ExpenseClaimTypeType extends EnumType
 {
     const EXPENSE_CLAIM = 'expenseClaim';
     const REFUND = 'refund';
+    const INVOICE = 'invoice';
 
     protected function getPossibleValues(): array
     {
         return [
             self::EXPENSE_CLAIM,
             self::REFUND,
+            self::INVOICE,
         ];
     }
 }

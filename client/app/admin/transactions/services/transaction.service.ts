@@ -3,6 +3,7 @@ import {Injectable} from '@angular/core';
 import {Validators} from '@angular/forms';
 import {FormValidators, Literal, NaturalAbstractModelService} from '@ecodev/natural';
 import {
+    Accounts_accounts_items,
     CreateTransaction,
     CreateTransactionVariables,
     DeleteTransactions,
@@ -24,6 +25,8 @@ import {
     updateTransaction,
 } from './transaction.queries';
 import {TransactionLineService} from './transactionLine.service';
+import {localConfig} from '../../../shared/generated-config';
+import {AccountService} from '../../accounts/services/account.service';
 
 @Injectable({
     providedIn: 'root',
@@ -40,7 +43,13 @@ export class TransactionService extends NaturalAbstractModelService<
     DeleteTransactions,
     DeleteTransactionsVariables
 > {
-    constructor(apollo: Apollo, private readonly transactionLineService: TransactionLineService) {
+    private bankAccount: Accounts_accounts_items | null = null;
+
+    constructor(
+        apollo: Apollo,
+        private readonly transactionLineService: TransactionLineService,
+        private accountService: AccountService,
+    ) {
         super(
             apollo,
             'transaction',
@@ -50,6 +59,12 @@ export class TransactionService extends NaturalAbstractModelService<
             updateTransaction,
             deleteTransactions,
         );
+
+        accountService.getAccountByCode(localConfig.accounting.bankAccountCode).subscribe(res => {
+            if (res.length === 1) {
+                this.bankAccount = res.items[0];
+            }
+        });
     }
 
     public getRefundPreset(account: {id: string}, amount: string): TransactionLineInput[] {
@@ -58,7 +73,7 @@ export class TransactionService extends NaturalAbstractModelService<
         const line: TransactionLineInput = {
             name: 'Remboursement du membre',
             debit: account,
-            credit: {id: '10025', name: 'Postfinance'},
+            credit: this.bankAccount,
             balance: amount,
             transactionDate: new Date(),
         };
@@ -71,8 +86,22 @@ export class TransactionService extends NaturalAbstractModelService<
 
         const line: TransactionLineInput = {
             name: 'Remboursement sur le solde',
-            debit: {id: '10025', name: 'Postfinance'},
+            debit: this.bankAccount,
             credit: account,
+            balance: amount,
+            transactionDate: new Date(),
+        };
+
+        return [Object.assign(emptyLine, line)];
+    }
+
+    public getInvoicePreset(name: string, amount: string): TransactionLineInput[] {
+        const emptyLine = this.transactionLineService.getConsolidatedForClient();
+
+        const line: TransactionLineInput = {
+            name: name,
+            debit: null,
+            credit: this.bankAccount,
             balance: amount,
             transactionDate: new Date(),
         };
