@@ -42,4 +42,10 @@ return [
             'maxAccountDepth' => 3,
         ],
     ],
+    'datatrans' => [
+        'merchantId' => '',
+        'key' => 'secret-HMAC-key',
+        'production' => false,
+        'endpoint' => 'https://pay.sandbox.datatrans.com',
+    ],
 ];

@@ -6,7 +6,6 @@ import {NaturalAbstractController, NaturalAlertService, NaturalQueryVariablesMan
 import {UserService} from '../../../admin/users/services/user.service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ProvisionComponent} from '../provision/provision.component';
-import {ConfigService, FrontEndConfig} from '../../../shared/services/config.service';
 import {filter, takeUntil} from 'rxjs/operators';
 import {
     CurrentUserForProfile_viewer,
@@ -17,6 +16,7 @@ import {
 import {DatatransService} from '../../../shared/services/datatrans.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {LicenseService} from '../../../admin/licenses/services/license.service';
+import {localConfig} from '../../../shared/generated-config';
 
 @Component({
     selector: 'app-profile',
@@ -25,11 +25,7 @@ import {LicenseService} from '../../../admin/licenses/services/license.service';
 })
 export class ProfileComponent extends NaturalAbstractController implements OnInit {
     public viewer!: CurrentUserForProfile_viewer;
-
-    /**
-     * Install FE config
-     */
-    public config: FrontEndConfig | null = null;
+    public config = localConfig;
     public licenses: Licenses_licenses_items[] = [];
 
     constructor(
@@ -43,12 +39,8 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
         private readonly dialog: MatDialog,
         private readonly datatransService: DatatransService,
         private readonly licenseService: LicenseService,
-        configService: ConfigService,
     ) {
         super();
-        configService.config.subscribe(config => {
-            this.config = config;
-        });
     }
 
     public ngOnInit(): void {
@@ -104,14 +96,14 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
     }
 
     private doPayment(user: CurrentUserForProfile_viewer, amount: number): void {
-        if (!this.config) {
+        if (!localConfig || !localConfig.datatrans) {
             return;
         }
 
         const sign = this.datatransService.getHexaSHA256Signature(
             '',
-            this.config.datatrans.key,
-            this.config.datatrans.merchantId,
+            localConfig.datatrans.key,
+            localConfig.datatrans.merchantId,
             amount * 100,
             'CHF',
             user.id,
@@ -119,13 +111,13 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
 
         this.datatransService.startPayment({
             params: {
-                production: this.config.datatrans.production,
-                merchantId: this.config.datatrans.merchantId,
+                production: localConfig.datatrans.production,
+                merchantId: localConfig.datatrans.merchantId,
                 sign: sign,
                 refno: user.id,
                 amount: amount * 100,
                 currency: 'CHF',
-                endpoint: this.config.datatrans.endpoint,
+                endpoint: localConfig.datatrans.endpoint,
             },
             success: () => {
                 this.alertService.info('Paiement réussi');
