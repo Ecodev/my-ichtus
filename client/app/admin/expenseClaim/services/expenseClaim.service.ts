@@ -112,6 +112,7 @@ export class ExpenseClaimService extends NaturalAbstractModelService<
             'canoë & kayak',
             'emplacements de stockage',
             'gilet et combis',
+            'locaux',
             'NFT',
             'outillage',
             'planche à voile',

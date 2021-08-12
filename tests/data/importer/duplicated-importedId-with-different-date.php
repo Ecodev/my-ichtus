@@ -18,7 +18,7 @@ return [
                 'transactionDate' => '2021-02-01T00:00:00+01:00',
                 'balance' => '10000',
                 'owner' => 'Active Member',
-                'debit' => 'PostFinance 20-6137-5',
+                'debit' => 'PostFinance CNI',
                 'credit' => 'Active Member',
             ],
         ],

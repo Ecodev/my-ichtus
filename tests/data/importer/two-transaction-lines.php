@@ -42,7 +42,7 @@ Miss Jane Smith Small Street 17
                 'transactionDate' => '2019-04-30T00:00:00+02:00',
                 'balance' => '10000',
                 'owner' => 'Active Member',
-                'debit' => 'PostFinance 20-6137-5',
+                'debit' => 'PostFinance CNI',
                 'credit' => 'Active Member',
             ],
             [
@@ -52,7 +52,7 @@ Miss Jane Smith Small Street 17
                 'transactionDate' => '2019-04-30T00:00:00+02:00',
                 'balance' => '50000',
                 'owner' => 'So n',
-                'debit' => 'PostFinance 20-6137-5',
+                'debit' => 'PostFinance CNI',
                 'credit' => 'Active Member',
             ],
         ],

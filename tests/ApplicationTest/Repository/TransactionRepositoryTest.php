@@ -51,7 +51,7 @@ class TransactionRepositoryTest extends AbstractRepositoryTest
         User::setCurrent($user);
 
         $credit = $user->getAccount();
-        $debit = $this->getEntityManager()->getRepository(Account::class)->findOneBy(['code' => 1000]);
+        $debit = $this->getEntityManager()->getRepository(Account::class)->findOneBy(['code' => 10101]);
 
         $transaction = new Transaction();
         $transaction->setName('foo');
@@ -72,7 +72,7 @@ class TransactionRepositoryTest extends AbstractRepositoryTest
         $this->repository->hydrateLinesAndFlush($transaction, $lines);
 
         self::assertTrue(Money::CHF(500)->equals($credit->getBalance()), 'credit account balance must have been refreshed from DB');
-        self::assertTrue(Money::CHF(500)->equals($debit->getBalance()), 'debit account balance must have been refreshed from DB');
+        self::assertTrue(Money::CHF(819250)->equals($debit->getBalance()), 'debit account balance must have been refreshed from DB');
         self::assertFalse($transaction->getTransactionLines()->contains($line), 'original line must have been deleted');
         self::assertCount(1, $transaction->getTransactionLines(), 'one line');
 
@@ -103,11 +103,11 @@ class TransactionRepositoryTest extends AbstractRepositoryTest
         $user = $this->getEntityManager()->getRepository(User::class)->getOneByLogin('administrator');
         User::setCurrent($user);
 
-        $debit = $this->getEntityManager()->getRepository(Account::class)->findOneBy(['code' => 10201]);
-        $credit = $this->getEntityManager()->getRepository(Account::class)->findOneBy(['code' => 1000]);
+        $debit = $this->getEntityManager()->getRepository(Account::class)->findOneBy(['code' => 10101]);
+        $credit = $this->getEntityManager()->getRepository(Account::class)->findOneBy(['code' => 10202]);
 
         $transaction = new Transaction();
-        $transaction->setName('caisse à poste');
+        $transaction->setName('banque à poste');
         $transaction->setRemarks('montants erronés');
         $transaction->setTransactionDate(Chronos::now());
         $line = new TransactionLine();

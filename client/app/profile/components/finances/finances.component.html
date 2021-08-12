@@ -30,6 +30,14 @@
         >
             <h2 fxFlex class="mat-headline no-margin">Dépenses et remboursements en attente</h2>
             <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="10px">
+                <a
+                    mat-stroked-button
+                    [routerLink]="['/profile/create-expense-claim']"
+                    *ngIf="!adminMode"
+                    matTooltip="Pour les dépenses déjà payées par toi pour le club"
+                >
+                    Annoncer une dépense
+                </a>
                 <span
                     [matTooltip]="canCreateExpenseClaim ? '' : 'Saisir ton IBAN pour pouvoir demander un remboursement'"
                 >
@@ -43,14 +51,6 @@
                         Demander un remboursement
                     </button></span
                 >
-                <a
-                    mat-stroked-button
-                    [routerLink]="['/profile/create-expense-claim']"
-                    *ngIf="!adminMode"
-                    matTooltip="Pour les dépenses déjà payées par toi pour le club"
-                >
-                    Annoncer une dépense
-                </a>
                 <a
                     mat-stroked-button
                     [routerLink]="['/profile/create-invoice']"

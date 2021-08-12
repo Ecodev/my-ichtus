@@ -33,7 +33,7 @@ return [
     'accounting' => [
         // Codes of special accounts used for automatic transactions
         'salesAccountCode' => 3200, // Ventes de marchandises
-        'bankAccountCode' => 1020, // Banque
+        'bankAccountCode' => 10101, // PostFinance CNI
         'customerDepositsAccountCode' => 2030, // Acomptes de clients
         'closingAccountCode' => 9200, // Bénéfice/perte de l'exercice
         'carryForwardAccountCode' => 2970, // Bénéfice/perte reporté
