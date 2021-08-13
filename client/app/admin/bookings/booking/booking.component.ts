@@ -48,11 +48,18 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
         public readonly userService: UserService,
     ) {
         super('booking', bookingService, injector);
-        this.filterBookables(BookingType.admin_assigned);
     }
 
     public ngOnInit(): void {
         super.ngOnInit();
+
+        if (this.data?.model?.bookable?.bookingType) {
+            // Filter bookables select according to existing bookable type
+            this.filterBookables(this.data.model.bookable.bookingType);
+        } else {
+            // Default bookable filter on creation
+            this.filterBookables(BookingType.admin_assigned);
+        }
 
         const tags: BookableTags_bookableTags_items[] = this.form.get('bookable')?.value?.bookableTags;
         if (tags) {
