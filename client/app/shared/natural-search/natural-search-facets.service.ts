@@ -122,6 +122,7 @@ export class NaturalSearchFacetsService {
 
     private readonly userWelcomeSession: FlagFacet = {
         display: "N'a pas été accueilli",
+        name: 'userWelcomeSession',
         field: 'welcomeSessionDate',
         condition: {null: {}} as UserFilterGroupCondition,
     };
@@ -373,6 +374,7 @@ export class NaturalSearchFacetsService {
             this.userWelcomeSession,
             {
                 display: "Date d'accueil",
+                name: 'welcomeSessionDate',
                 field: 'welcomeSessionDate',
                 component: TypeDateComponent,
             } as DropdownFacet<TypeDateConfiguration>,
