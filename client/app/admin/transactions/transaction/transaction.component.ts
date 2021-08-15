@@ -59,7 +59,7 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
             const expenseClaim: ExpenseClaim['expenseClaim'] = this.data.expenseClaim
                 ? this.data.expenseClaim.model
                 : null;
-            if (expenseClaim) {
+            if (expenseClaim && expenseClaim.id) {
                 this.data.model.expenseClaim = expenseClaim;
                 this.updateTransactionLines = true;
 
