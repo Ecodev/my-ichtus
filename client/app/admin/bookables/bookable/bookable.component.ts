@@ -2,6 +2,7 @@ import {Component, Injector, OnInit} from '@angular/core';
 import {FileModel, NaturalAbstractDetail} from '@ecodev/natural';
 import {BookableService} from '../services/bookable.service';
 import {
+    BookingFilterGroupCondition,
     BookingSortingField,
     BookingStatus,
     BookingsVariables,
@@ -96,21 +97,28 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
     }
 
     public getBookingsVariables(): BookingsVariables {
+        const conditions: BookingFilterGroupCondition[] = [
+            {
+                bookable: {have: {values: [this.data.model.id]}},
+            },
+            {
+                status: {in: {values: [BookingStatus.application], not: true}},
+            },
+        ];
+
+        // Hide terminated bookings for courses/services (cancellation by the user)
+        // but still show them for equipment rental
+        if (!this.isSelfApproved()) {
+            conditions.push({
+                endDate: {null: {}},
+            });
+        }
+
         return {
             filter: {
                 groups: [
                     {
-                        conditions: [
-                            {
-                                bookable: {have: {values: [this.data.model.id]}},
-                            },
-                            {
-                                status: {in: {values: [BookingStatus.application], not: true}},
-                            },
-                            {
-                                endDate: {null: {}},
-                            },
-                        ],
+                        conditions: conditions,
                     },
                 ],
             },
