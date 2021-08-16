@@ -15,6 +15,7 @@ export class UsageBookablesComponent extends NaturalAbstractList<UsageBookableSe
     @Output() public readonly select = new EventEmitter<UsageBookables_bookables_items>();
     @Input() set selections(selections: NaturalSearchSelections) {
         this.naturalSearchSelections = selections;
+        this.search(selections);
     }
     public readonly hasUsage = true;
 
