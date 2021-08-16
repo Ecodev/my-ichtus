@@ -44,6 +44,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
         BookableTagService.CASIER,
         BookableTagService.FLOTTEUR,
         BookableTagService.RATELIER_WB,
+        BookableTagService.ARMOIRE,
         BookableTagService.STORAGE,
         BookableTagService.FORMATION,
         BookableTagService.WELCOME,
