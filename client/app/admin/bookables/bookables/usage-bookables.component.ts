@@ -14,10 +14,13 @@ import {NaturalSearchSelections} from '@ecodev/natural/lib/modules/search/types/
 export class UsageBookablesComponent extends NaturalAbstractList<UsageBookableService> {
     @Output() public readonly select = new EventEmitter<UsageBookables_bookables_items>();
     @Input() set selections(selections: NaturalSearchSelections) {
-        this.naturalSearchSelections = selections;
-        this.search(selections);
+        if (!this.searchInitialized) {
+            this.naturalSearchSelections = selections;
+            this.search(selections);
+        }
     }
     public readonly hasUsage = true;
+    private searchInitialized = false;
 
     constructor(
         usageBookableService: UsageBookableService,
