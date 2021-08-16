@@ -461,7 +461,7 @@ export class NaturalSearchFacetsService {
                 display: 'Pointé',
                 field: 'isReconciled',
                 component: TypeSelectComponent,
-                name: 'transactionWithDocument',
+                name: 'isReconciled',
                 configuration: {
                     items: [
                         {value: true, name: 'Oui'},
@@ -472,9 +472,9 @@ export class NaturalSearchFacetsService {
             {
                 display: 'Justificatif',
                 field: 'custom',
-                component: TypeSelectComponent,
                 name: 'transactionWithDocument',
                 transform: replaceOperatorByName,
+                component: TypeSelectComponent,
                 configuration: {
                     items: [
                         {value: true, name: 'Avec'},
