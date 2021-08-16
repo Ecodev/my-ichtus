@@ -142,6 +142,7 @@
                         [initialColumns]="['usageNb', 'name', 'code', 'initialPrice', 'periodicPrice', 'select']"
                         [persistSearch]="false"
                         [forcedVariables]="suggestionVariables"
+                        [selections]="suggestionSelection"
                         (select)="assignBookable($event)"
                     ></app-usage-bookables>
                 </div>

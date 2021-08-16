@@ -14,7 +14,7 @@ import {
 import {UserService} from '../../users/services/user.service';
 import {BookableService} from '../../bookables/services/bookable.service';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
-import {ExtractVall, NaturalAbstractDetail} from '@ecodev/natural';
+import {ExtractVall, NaturalAbstractDetail, NaturalSearchSelections} from '@ecodev/natural';
 
 @Component({
     selector: 'app-booking',
@@ -24,6 +24,7 @@ import {ExtractVall, NaturalAbstractDetail} from '@ecodev/natural';
 export class BookingComponent extends NaturalAbstractDetail<BookingService> implements OnInit {
     public BookingStatus = BookingStatus;
     public suggestionVariables: BookablesVariables = {};
+    public suggestionSelection: NaturalSearchSelections = [[]];
     public BookingType = BookingType;
 
     public readonly bookableFilterChips: {name: string; value: BookingType; selected: boolean}[] = [
@@ -35,6 +36,19 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
     ];
 
     public bookableSelectFilter: ExtractVall<BookableService>['filter'];
+
+    /**
+     * Special tags used to match application with actual bookables
+     */
+    private readonly suggestionTags = [
+        BookableTagService.CASIER,
+        BookableTagService.FLOTTEUR,
+        BookableTagService.RATELIER_WB,
+        BookableTagService.STORAGE,
+        BookableTagService.FORMATION,
+        BookableTagService.WELCOME,
+        BookableTagService.SERVICE,
+    ];
 
     /**
      * Received the created booking after having processing an application
@@ -62,15 +76,12 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
         }
 
         const tags: BookableTags_bookableTags_items[] = this.form.get('bookable')?.value?.bookableTags;
+
         if (tags) {
-            if (tags.find(t => t.id === BookableTagService.STORAGE)) {
-                this.suggestionVariables = this.getBookablesVariables([BookableTagService.STORAGE]);
-            } else if (tags.find(t => t.id === BookableTagService.FORMATION)) {
-                this.suggestionVariables = this.getBookablesVariables([BookableTagService.FORMATION]);
-            } else if (tags.find(t => t.id === BookableTagService.WELCOME)) {
-                this.suggestionVariables = this.getBookablesVariables([BookableTagService.WELCOME]);
-            } else if (tags.find(t => t.id === BookableTagService.SERVICE)) {
-                this.suggestionVariables = this.getBookablesVariables([BookableTagService.SERVICE]);
+            const matchingTag = tags.find(t => this.suggestionTags.includes(t.id));
+            if (matchingTag) {
+                this.suggestionVariables = this.getBookablesVariables([matchingTag.id]);
+                this.suggestionSelection = this.getBookablesSelection();
             }
         }
     }
@@ -193,6 +204,21 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
         };
 
         return variables;
+    }
+
+    public getBookablesSelection(): NaturalSearchSelections {
+        return [
+            [
+                {
+                    field: 'bookableBookingCount',
+                    condition: {
+                        equal: {
+                            value: 0,
+                        },
+                    },
+                },
+            ],
+        ];
     }
 
     /**

@@ -132,6 +132,7 @@ REPLACE INTO bookable_tag (id, name) VALUES
 (6009, 'Armoire'),
 (6010, 'Casier'),
 (6011, 'Flotteurs'),
+(6016, 'Casier râteliers WB'),
 (6017, 'Cours'),
 (6024, 'Séance accueil'),
 (6028, 'Stockage demande');

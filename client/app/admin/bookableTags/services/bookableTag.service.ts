@@ -51,8 +51,13 @@ export class BookableTagService extends NaturalAbstractModelService<
         );
     }
 
+    // Hardcoded tags from production database used to force filter lists of bookables
     public static readonly SERVICE = '6007';
     public static readonly STORAGE = '6008';
+    public static readonly ARMOIRE = '6009';
+    public static readonly CASIER = '6010';
+    public static readonly FLOTTEUR = '6011';
+    public static readonly RATELIER_WB = '6016';
     public static readonly STORAGE_REQUEST = '6028';
     public static readonly FORMATION = '6017';
     public static readonly WELCOME = '6024';
