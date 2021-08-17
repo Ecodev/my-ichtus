@@ -29,11 +29,12 @@ export class SelfApprovedBookingComponent implements OnInit {
         this.booking.status = BookingStatus.booked;
         this.booking.owner = this.route.snapshot.data.viewer.model;
 
-        const bookable = this.route.snapshot.params.bookable;
-        if (bookable) {
-            // TODO: replace by watchOne (exist in okpilot) because attributes of object may have changed since last visit
-            this.bookableService.getOne(bookable).subscribe(newBookable => {
-                this.bookable = newBookable;
+        if (this.route.snapshot.data.bookable?.model) {
+            this.bookable = this.route.snapshot.data.bookable.model;
+            this.bookableService.getAvailability(this.bookable).subscribe(availability => {
+                if (!availability.isAvailable) {
+                    this.router.navigate(['/booking/', this.bookable.code]);
+                }
             });
         }
     }

@@ -1,0 +1,24 @@
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
+import {Observable, of} from 'rxjs';
+import {BookableResolve} from '../../admin/bookables/bookable';
+import {BookableService} from '../../admin/bookables/services/bookable.service';
+
+@Injectable({
+    providedIn: 'root',
+})
+export class OptionalBookableByParamResolver implements Resolve<BookableResolve | null> {
+    constructor(private readonly bookableService: BookableService) {}
+
+    /**
+     * Resolve bookable data from route param
+     */
+    public resolve(route: ActivatedRouteSnapshot): Observable<BookableResolve | null> {
+        const bookable = route.params.bookable;
+        if (bookable) {
+            return this.bookableService.resolve(bookable);
+        }
+
+        return of(null);
+    }
+}

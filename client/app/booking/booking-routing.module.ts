@@ -6,6 +6,7 @@ import {BookableByCodeResolver} from './bookable/bookable-by-code.resolver';
 import {CodeInputComponent} from './components/code-input/code-input.component';
 import {SelfApprovedBookingComponent} from './components/self-approved-booking/self-approved-booking.component';
 import {NaturalSeo} from '@ecodev/natural';
+import {OptionalBookableByParamResolver} from './bookable/optional-bookable-by-param.resolver';
 
 const routes: Routes = [
     {
@@ -29,6 +30,9 @@ const routes: Routes = [
     {
         path: 'new',
         component: SelfApprovedBookingComponent,
+        resolve: {
+            bookable: OptionalBookableByParamResolver,
+        },
         data: {
             seo: {
                 title: 'Nouvelle sortie',
