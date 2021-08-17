@@ -90,15 +90,28 @@
                     ></textarea>
                 </mat-form-field>
 
-                <mat-form-field *ngIf="form.get('type')?.value !== ExpenseClaimType.refund">
-                    <mat-label>Secteur concerné</mat-label>
-                    <mat-select formControlName="sector" (selectionChange)="update()">
-                        <mat-option></mat-option>
-                        <mat-option *ngFor="let option of expenseClaimService.getSectors()" [value]="option">
-                            {{ option }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+                <div id="sectorSelect">
+                    <mat-form-field *ngIf="form.get('type')?.value !== ExpenseClaimType.refund">
+                        <mat-label>Secteur concerné</mat-label>
+                        <mat-select formControlName="sector" (selectionChange)="update()">
+                            <mat-option></mat-option>
+                            <mat-option *ngFor="let option of expenseClaimService.getSectors()" [value]="option">
+                                {{ option }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- Clear button -->
+                        <div class="suffix-buttons" matSuffix>
+                            <button
+                                *ngIf="form.get('sector')?.value != ''"
+                                (click)="form.get('sector')?.setValue(''); $event.stopPropagation(); update()"
+                                mat-icon-button
+                                matTooltip="Aucun"
+                            >
+                                <natural-icon name="close"></natural-icon>
+                            </button>
+                        </div>
+                    </mat-form-field>
+                </div>
             </div>
 
             <div fxFlex="40" fxLayout="column">
