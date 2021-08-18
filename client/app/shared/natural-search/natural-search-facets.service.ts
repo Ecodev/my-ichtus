@@ -297,7 +297,7 @@ export class NaturalSearchFacetsService {
         users: [
             this.userTags,
             {
-                display: 'Réservation en cours (tag)',
+                display: 'Réservation (tag de réservable)',
                 field: 'custom',
                 name: 'hasBookingWithTaggedBookable',
                 transform: replaceOperatorByName,
@@ -308,7 +308,7 @@ export class NaturalSearchFacetsService {
                 },
             } as DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>>,
             {
-                display: 'Réservation en cours (bookable)',
+                display: 'Réservation (réservable)',
                 field: 'custom',
                 name: 'hasBookingWithBookable',
                 transform: replaceOperatorByName,
@@ -330,12 +330,25 @@ export class NaturalSearchFacetsService {
                 },
             } as DropdownFacet<TypeSelectNaturalConfiguration<BookableService>>,
             {
-                display: 'Réservation en cours (statut)',
+                display: 'Réservation (statut)',
                 field: 'custom',
                 name: 'hasBookingStatus',
                 transform: replaceOperatorByName,
                 component: TypeSelectComponent,
                 configuration: {items: this.enumService.get('BookingStatus')},
+            } as DropdownFacet<TypeSelectConfiguration>,
+            {
+                display: 'Réservation (état)',
+                field: 'custom',
+                name: 'hasBookingCompleted',
+                transform: replaceOperatorByName,
+                component: TypeSelectComponent,
+                configuration: {
+                    items: [
+                        {value: true, name: 'Terminé'},
+                        {value: false, name: 'En cours'},
+                    ],
+                },
             } as DropdownFacet<TypeSelectConfiguration>,
             {
                 display: 'Nombre de sorties',
