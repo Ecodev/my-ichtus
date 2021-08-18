@@ -20,7 +20,7 @@ class HasBookingWithTaggedBookableOperatorType extends AbstractOperator
     protected function getConfiguration(LeafType $leafType): array
     {
         return [
-            'description' => 'Filter the users by the kind of bookable they are currently renting',
+            'description' => 'Filter users by the kind of bookable they are renting',
             'fields' => [
                 [
                     'name' => 'values',
@@ -50,7 +50,7 @@ class HasBookingWithTaggedBookableOperatorType extends AbstractOperator
         $tagAlias = $uniqueNameFactory->createAliasName(BookableTag::class);
 
         if (!in_array($bookingAlias, $queryBuilder->getAllAliases(), true)) {
-            $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH, $bookingAlias . '.endDate IS NULL');
+            $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH);
         }
         $queryBuilder->innerJoin($bookingAlias . '.bookable', $bookableAlias);
 

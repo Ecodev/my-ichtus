@@ -19,7 +19,7 @@ class HasBookingWithBookableOperatorType extends AbstractOperator
     protected function getConfiguration(LeafType $leafType): array
     {
         return [
-            'description' => 'Filter the users by the bookable they are currently renting',
+            'description' => 'Filter users by the bookable they are renting',
             'fields' => [
                 [
                     'name' => 'values',
@@ -48,7 +48,7 @@ class HasBookingWithBookableOperatorType extends AbstractOperator
         $bookableAlias = $uniqueNameFactory->createAliasName(Bookable::class);
 
         if (!in_array($bookingAlias, $queryBuilder->getAllAliases(), true)) {
-            $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH, $bookingAlias . '.endDate IS NULL');
+            $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH);
         }
 
         // Bookings without any bookable (own equipment)

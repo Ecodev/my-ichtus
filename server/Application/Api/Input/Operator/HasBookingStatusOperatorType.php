@@ -18,7 +18,7 @@ class HasBookingStatusOperatorType extends AbstractOperator
     protected function getConfiguration(LeafType $leafType): array
     {
         return [
-            'description' => 'Filter the users their active bookings status',
+            'description' => 'Filter users by the status of their bookings',
             'fields' => [
                 [
                     'name' => 'values',
@@ -43,7 +43,7 @@ class HasBookingStatusOperatorType extends AbstractOperator
         $bookingAlias = 'users_bookings_alias';
 
         if (!in_array($bookingAlias, $queryBuilder->getAllAliases(), true)) {
-            $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH, $bookingAlias . '.endDate IS NULL');
+            $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH);
         }
 
         if (!array_key_exists('values', $args) || empty($args['values'])) {

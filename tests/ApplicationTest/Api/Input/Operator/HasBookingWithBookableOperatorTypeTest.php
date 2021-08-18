@@ -14,7 +14,7 @@ class HasBookingWithBookableOperatorTypeTest extends OperatorType
     {
         return [
             'bookable with shared bookings' => [2, [3006], null],
-            'ignore terminated booking' => [0, [3000], null],
+            'also terminated booking' => [1, [3000], null],
             'only each user only once even if multiple bookables' => [2, [3006, 3004], null],
             'bookable with no active booking' => [0, [3005], null],
             'booking without bookable (own equipment)' => [1, null, false],
