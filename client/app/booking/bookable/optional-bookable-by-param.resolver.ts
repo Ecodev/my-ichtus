@@ -3,12 +3,13 @@ import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
 import {Observable, of} from 'rxjs';
 import {BookableResolve} from '../../admin/bookables/bookable';
 import {BookableService} from '../../admin/bookables/services/bookable.service';
+import {ErrorService} from '../../shared/components/error/error.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class OptionalBookableByParamResolver implements Resolve<BookableResolve | null> {
-    constructor(private readonly bookableService: BookableService) {}
+    constructor(private readonly bookableService: BookableService, private readonly errorService: ErrorService) {}
 
     /**
      * Resolve bookable data from route param
@@ -16,7 +17,9 @@ export class OptionalBookableByParamResolver implements Resolve<BookableResolve 
     public resolve(route: ActivatedRouteSnapshot): Observable<BookableResolve | null> {
         const bookable = route.params.bookable;
         if (bookable) {
-            return this.bookableService.resolve(bookable);
+            const observable = this.bookableService.resolve(bookable);
+
+            return this.errorService.redirectIfError(observable);
         }
 
         return of(null);
