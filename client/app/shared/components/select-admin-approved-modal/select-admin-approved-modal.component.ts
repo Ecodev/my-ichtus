@@ -26,6 +26,7 @@ export class SelectAdminApprovedModalComponent implements OnInit {
     public storagesDataSource!: NaturalDataSource<UsageBookables['bookables']>;
     public formationsDataSource!: NaturalDataSource<UsageBookables['bookables']>;
     public welcomeDataSource!: NaturalDataSource<UsageBookables['bookables']>;
+    public surveyDataSource!: NaturalDataSource<UsageBookables['bookables']>;
     public selection = new SelectionModel<UsageBookables['bookables']['items']>(true, []);
 
     constructor(private readonly bookableService: UsageBookableService) {}
@@ -35,6 +36,7 @@ export class SelectAdminApprovedModalComponent implements OnInit {
         this.fetch(BookableTagService.SERVICE).subscribe(res => (this.servicesDataSource = res));
         this.fetch(BookableTagService.FORMATION).subscribe(res => (this.formationsDataSource = res));
         this.fetch(BookableTagService.WELCOME).subscribe(res => (this.welcomeDataSource = res));
+        this.fetch(BookableTagService.SURVEY).subscribe(res => (this.surveyDataSource = res));
     }
 
     public fetch(tag: string): Observable<NaturalDataSource<UsageBookables['bookables']>> {

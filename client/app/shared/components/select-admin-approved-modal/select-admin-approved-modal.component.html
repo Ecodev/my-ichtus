@@ -1,16 +1,17 @@
 <!--<h2 mat-dialog-title>Sélection de stockage et services supplémentaires</h2>-->
-<mat-dialog-content fxLayout="column" fxLayoutGap="20px">
+<mat-dialog-content fxLayout="column" fxLayoutGap="15px">
     <!-- Table model template -->
     <ng-template
         #table
         let-dataSource="dataSource"
         let-showDescription="showDescription"
         let-showFullyBooked="showFullyBooked"
+        let-columns="columns"
     >
         <div class="responsive-table">
             <table mat-table *ngIf="dataSource" [dataSource]="dataSource">
-                <tr mat-header-row *matHeaderRowDef="['selection', 'name', 'description', 'periodicPrice']"></tr>
-                <tr mat-row *matRowDef="let row; columns: ['selection', 'name', 'description', 'periodicPrice']"></tr>
+                <tr mat-header-row *matHeaderRowDef="columns"></tr>
+                <tr mat-row *matRowDef="let row; columns: columns"></tr>
 
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef>Nom</th>
@@ -55,13 +56,42 @@
     <div *ngIf="storagesDataSource?.data?.length">
         <h2 class="mat-title">Espaces de stockage</h2>
         <ng-container
-            *ngTemplateOutlet="table; context: {dataSource: storagesDataSource, showDescription: true}"
+            *ngTemplateOutlet="
+                table;
+                context: {
+                    dataSource: storagesDataSource,
+                    showDescription: true,
+                    columns: ['selection', 'name', 'description', 'periodicPrice']
+                }
+            "
         ></ng-container>
     </div>
     <div *ngIf="servicesDataSource?.data?.length">
         <h2 class="mat-title">Services et prestations</h2>
         <ng-container
-            *ngTemplateOutlet="table; context: {dataSource: servicesDataSource, showDescription: false}"
+            *ngTemplateOutlet="
+                table;
+                context: {
+                    dataSource: servicesDataSource,
+                    showDescription: false,
+                    columns: ['selection', 'name', 'description', 'periodicPrice']
+                }
+            "
+        ></ng-container>
+    </div>
+
+    <div *ngIf="surveyDataSource?.data?.length">
+        <h2 class="mat-title">Sondage</h2>
+        <ng-container
+            *ngTemplateOutlet="
+                table;
+                context: {
+                    dataSource: surveyDataSource,
+                    showDescription: false,
+                    showFullyBooked: false,
+                    columns: ['selection', 'name', 'description']
+                }
+            "
         ></ng-container>
     </div>
 
@@ -70,7 +100,12 @@
         <ng-container
             *ngTemplateOutlet="
                 table;
-                context: {dataSource: formationsDataSource, showDescription: false, showFullyBooked: true}
+                context: {
+                    dataSource: formationsDataSource,
+                    showDescription: false,
+                    showFullyBooked: true,
+                    columns: ['selection', 'name', 'description', 'periodicPrice']
+                }
             "
         ></ng-container>
     </div>
@@ -80,7 +115,12 @@
         <ng-container
             *ngTemplateOutlet="
                 table;
-                context: {dataSource: welcomeDataSource, showDescription: false, showFullyBooked: true}
+                context: {
+                    dataSource: welcomeDataSource,
+                    showDescription: false,
+                    showFullyBooked: true,
+                    columns: ['selection', 'name', 'description', 'periodicPrice']
+                }
             "
         ></ng-container>
     </div>

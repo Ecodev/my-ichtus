@@ -20,8 +20,9 @@ export class SelectAdminApprovedButtonComponent implements OnInit {
 
     public openDialog(): void {
         const options: MatDialogConfig = {
-            minHeight: '450px',
             width: '700px',
+            minHeight: '70vh',
+            maxHeight: '90vh',
         };
 
         this.dialog
