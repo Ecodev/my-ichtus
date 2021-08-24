@@ -7,6 +7,12 @@ import {forkJoin} from 'rxjs';
 import {NaturalAbstractController, NaturalAlertService} from '@ecodev/natural';
 import {finalize, takeUntil} from 'rxjs/operators';
 
+export type SupportComponentData = {
+    configurationKey: string;
+    readonly?: boolean;
+    showCloseButton?: boolean;
+};
+
 @Component({
     selector: 'app-support',
     templateUrl: './support.component.html',
@@ -33,7 +39,7 @@ export class SupportComponent extends NaturalAbstractController implements OnIni
         public readonly permissionsService: PermissionsService,
         public readonly route: ActivatedRoute,
         private readonly alertService: NaturalAlertService,
-        @Optional() @Inject(MAT_DIALOG_DATA) public readonly data?: any,
+        @Optional() @Inject(MAT_DIALOG_DATA) public readonly data?: SupportComponentData,
     ) {
         super();
     }
