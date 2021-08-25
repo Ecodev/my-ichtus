@@ -157,9 +157,7 @@ function openBooking(which = "confirmation", elem = $('divTabConfirmationOneBook
         }
 
         var btnFinish = div(container);
-        btnFinish.classList.add("Buttons");
-        btnFinish.classList.add("ValidateButtons");
-        btnFinish.style.backgroundColor = "red";
+        btnFinish.classList.add("Buttons", "ValidateButtons","btnRed");
         btnFinish.innerHTML = "Terminer";
         // for function see - actualizeBooking...
     }
@@ -295,9 +293,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
     }
 
 
-
     var embContainer = container.getElementsByClassName('divTabCahierConfirmationEmbarcationContainer')[0];
-    var emb1 = embContainer.getElementsByClassName('divTabCahierConfirmationEmbarcationBox')[0];
 
     if (booking.bookables.length == 0) { // should happen not anymore
         //container.getElementsByClassName('divTabCahierConfirmationContainerTextsContainer')[0].getElementsByTagName('div')[0].innerHTML = "";
@@ -422,6 +418,10 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
                 txt += " et de " + names[names.length - 1];
                 $('divWarningText').innerHTML = "* En continuant, les sorties de " + txt + " vont être automatiquement terminées ! <br><br>";
             }
+        }
+        else {
+            $('divTabCahierConfirmation').getElementsByClassName("ValidateButtons")[0].innerHTML = "Confirmer votre sortie";
+            $('divWarningText').innerHTML = "";
         }
     }
 

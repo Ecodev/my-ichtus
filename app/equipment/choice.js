@@ -33,7 +33,7 @@ function loadCahierEquipmentChoice(loc = $('divTabCahierEquipmentChoice').getEle
     btn.title = "Choisir cette embarcation";
     btn.onclick = function () { Requests.getBookableByCode(this.parentElement.previousElementSibling.previousElementSibling,nbr); };
 
-    div(container).innerHTML = "Par exemple: C401";
+    div(container).innerHTML = "Par exemple: S101";
 
     div(container).innerHTML = "Ou";
 

@@ -162,6 +162,68 @@ function popAlertLessThan13Minutes(_bookable, _booking, _choseFunction) {
     btn.addEventListener("click", function () { closePopUp("last"); _choseFunction(_bookable); });
 }
 
+function popAlertBookablesHaveJustBeenBooked(_bookablesNotAvailable) {
+    var elem = openPopUp();
+
+    //console.log("_bookablesNotAvailable", _bookablesNotAvailable);
+
+    var txt = "";
+
+    for (var b of _bookablesNotAvailable) {
+        txt += "<b>" + Cahier.getOwner(b.lastBooking, false) + "</b> est parti "
+            + "<red style='color:red'>" + deltaTime(new Date(b.lastBooking.startDate)).text
+            + " </red> avec le <b>" + b.code + "</b> !<br>";
+    }
+    txt += _bookablesNotAvailable.length == 1 ? "Êtes-vous sûr que l'embarcation est disponible ?" : "Êtes-vous sûr que les embarcations sont disponibles ?";
+
+    var container;
+    container = div(elem);
+    container.style.height = "auto";
+    container.style.minHeight = "215px";
+    container.style.maxHeight = "80%";
+    container.style.width = "auto";
+    container.style.minWidth = "530px";
+    container.classList.add("PopUpAlertContainer", "booking");
+    container.classList.add("Boxes");
+
+    var close = div(container);
+    close.className = "divPopUpClose";
+    close.onclick = function () {
+        closePopUp({ target: elem }, elem);
+    };
+
+    var d = div(container);
+    d.style.textAlign = "center";
+    d.style.fontSize = "25px";    
+    d.innerHTML = _bookablesNotAvailable.length == 1 ? "Embarcation utilisée !" : "Embarcations utilisées !";
+
+    grayBar(container, 5);
+
+    var t = div(container);
+    t.innerHTML = txt;
+    t.style.minHeight = "80px";
+
+    var btnContainer = div(container);
+    btnContainer.style.position = "relative";
+    btnContainer.style.textAlign = "center";
+    btnContainer.style.marginTop = "5px";
+
+    var btn = div(btnContainer);
+    btn.classList.add("Buttons");
+    btn.style.display = "inline-block";
+    btn.innerHTML = "Annuler";
+    btn.style.fontSize = "20px";
+    btn.addEventListener("click", function () { closePopUp("last"); });
+
+    btn = div(btnContainer);
+    btn.classList.add("Buttons", "ValidateButtons");
+    btn.style.display = "inline-block";
+    btn.innerHTML = "Continuer";
+    btn.style.fontSize = "20px";
+    btn.classList.add("btnRed");
+
+    btn.addEventListener("click", function () { closePopUp("last"); Cahier.confirm();});
+}
 
 function popAlertMoreBookablesThanParticipants(bookables,participants) {
     var elem = openPopUp();
@@ -272,7 +334,7 @@ function popAlertTooManyBookables() {
 
 function popAlertBookablesNotAvailable() {
 
-    if (options.showAlertBookablesNotAvailables) { // only show pop up if the option is activated, otherwise create the booking and finish the used bookings
+    if (options.showAlertBookablesNotAvailable) { // only show pop up if the option is activated, otherwise create the booking and finish the used bookings
 
         var elem = openPopUp();
 
@@ -339,7 +401,7 @@ function popAlertBookablesNotAvailable() {
         }
     }
 
-    if (options.showAlertBookablesNotAvailables) {
+    if (options.showAlertBookablesNotAvailable) {
         var t = div(container);
         var txt = "";
         for (var i = 0; i < bookablesNotAvailable.length; i++) {

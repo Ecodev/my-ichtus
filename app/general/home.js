@@ -8,8 +8,9 @@ var options = {
     reloadWhenFinished: false,
     bookingsTogetherWithDifferentEndates: true,
     modifyBookablesButton: true,
-    finishAllBookingsWithBookable: false, // si créer une sortie qui avec une embarcation déjà utilisée, ça termine seulement la sortie avec l'embarcation utilisée de M. Uti.
-    showAlertBookablesNotAvailables: false,
+    finishAllBookingsWithBookable: false, // si créer une sortie avec une embarcation déjà utilisée, ça termine seulement le booking avec l'embarcation utilisée de M. Uti.
+    checkIfBookablesNotAvailableWhenConfirming: true,
+    showAlertBookablesNotAvailable: false,
     showAlertNoWelcomeSession: true
 }; //showMetadatas: false,
 
@@ -54,7 +55,7 @@ function load() {
     loadEscListener();
 
     if (window.location.hostname === 'navigations.ichtus.club') {
-        console.warn("Version de production 1.2");
+        console.warn("Version de production 1.3");
         $('divTopBarText').innerHTML = tabs[0].title;
     }
     else {
@@ -259,7 +260,12 @@ function loadEscListener() {
         }
     });
 }
-
+function waiting() {
+    document.body.classList.add("waiting");
+}
+function stopWaiting() {
+    document.body.classList.remove("waiting");
+}
 
 
 String.prototype.pixelLength = function (_fontSize = 20) {

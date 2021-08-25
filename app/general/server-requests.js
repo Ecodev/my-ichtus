@@ -737,7 +737,7 @@ var Requests = {
     },
 
     // getBookableInfos
-    getBookableInfos: function (nbr, bookableId,elem) {
+    getBookableInfos: function (nbr, bookableId, elem) {
 
         var filter = {
             filter: {
@@ -832,6 +832,81 @@ var Requests = {
           //  console.log("getBookableLastBooking(): ", bookings);
             Cahier.actualizeAvailability(bookableId, bookings.items);
         });
+
+    },
+
+    // 1.3
+    checksBookablesAvailabilityBeforeConfirming: function (_bookables) {
+
+        var d = new Date(Cahier.bookingStartDate.getTime() - 10 * 60 * 1000); // subtract 1 minute $$
+
+        var f = {
+            filter: {
+                groups: [                    
+                    {
+                        groupLogic: 'AND',
+                        conditionsLogic: 'OR',
+                        joins: {
+                            bookable: {
+                                conditions: [  ]
+                            }
+                        }
+                    }
+                    ,
+                    {
+                        conditionsLogic: 'OR',
+                        conditions: [
+                            {
+                                endDate: {
+                                    greater: {
+                                        value: d.toISOString()
+                                    }
+                                }
+                            },
+                            {
+                                endDate: {
+                                    null: {
+                                        not: false
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            pagination: {
+                pageSize: 20,
+                pageIndex: 0
+            }
+        };
+
+
+        for (var bookable of _bookables) {
+            if (bookable.id != 0) { // Matériel personnel
+                var condition = {
+                    id: {
+                        equal: {
+                            value: bookable.id
+                        }
+                    }
+                }
+                f.filter.groups[0].joins.bookable.conditions.push(condition);
+            }
+        }
+
+        if (f.filter.groups[0].joins.bookable.conditions.length == 0) { // means only "Matériel personnel"
+            Cahier.actualizeConfirmKnowingBookablesAvailability([]);
+            return;
+        }
+
+        var variables = new Server.QueryVariablesManager();
+        variables.set('variables', f);
+
+        Server.bookingService.getAll(variables).subscribe(result => {
+            //console.log("checksBookablesAvailabilityBeforeConfirming(): ", result);
+            Cahier.actualizeConfirmKnowingBookablesAvailability(result.items);
+        });
+ 
 
     },
 
@@ -1409,9 +1484,11 @@ var Requests = {
     // finishBooking
     terminateBooking: function (bookingIds = [], comments = [], realTerminate = true) {
         var c = 0;
+
         for (var i = 0; i < bookingIds.length; i++) {
             //console.log("terminateBooking", bookingIds[i], comments[i]);
             Server.bookingService.terminateBooking(bookingIds[i], comments[i]).subscribe(result => {
+                
                 c++;
                 if (c === bookingIds.length) {
                     if (realTerminate) {
@@ -1460,6 +1537,7 @@ var Requests = {
                     }
                     else {
                         newTab("divTabCahier"); ableToSkipAnimation();
+                        stopWaiting();
                     }
                 }
             });

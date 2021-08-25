@@ -9,6 +9,10 @@
     -ms-user-select: none; /* Internet Explorer/Edge */
     font-family: Arial;
 }
+    body.waiting * {
+        /*pointer-events: none;*/
+        cursor: wait !important;
+    }
 ::-webkit-scrollbar {
     width: 0px;
     background: transparent; /* make scrollbar transparent */
