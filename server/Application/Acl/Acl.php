@@ -83,7 +83,7 @@ class Acl extends \Ecodev\Felix\Acl\Acl
         $this->allow(User::ROLE_INDIVIDUAL, [$account], ['read']);
         $this->allow(User::ROLE_INDIVIDUAL, [$message], ['read']);
 
-        $this->allow(User::ROLE_MEMBER, [$account], ['update']);
+        $this->allow(User::ROLE_MEMBER, [$account], ['update'], new isOwner());
         $this->allow(User::ROLE_MEMBER, [$user], ['create']);
         $this->allow(User::ROLE_MEMBER, [$user], ['update'], new One(new IsOwner(), new IsMyself()));
 
@@ -99,6 +99,7 @@ class Acl extends \Ecodev\Felix\Acl\Acl
         $this->allow(User::ROLE_RESPONSIBLE, [$bookable, $bookableTag, $license, $userTag], ['create', 'update']);
         $this->allow(User::ROLE_RESPONSIBLE, [$booking], ['update', 'delete']);
 
+        $this->allow(User::ROLE_ADMINISTRATOR, [$account], ['update']);
         $this->allow(User::ROLE_ADMINISTRATOR, [$license, $userTag, $bookableTag], ['delete']);
         $this->allow(User::ROLE_ADMINISTRATOR, [$bookable, $transaction, $account, $transactionTag, $accountingDocument, $expenseClaim], ['create', 'update', 'delete']);
         $this->allow(User::ROLE_ADMINISTRATOR, [$configuration], ['create']);
