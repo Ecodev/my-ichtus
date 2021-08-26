@@ -15,8 +15,7 @@ The recommended way to get a working copy is the following:
 1. Set up a nginx virtual host to point to `htdocs/` directory and to include `configuration/nginx.conf`
 2. Create a database in MariaDB named "my-ichtus"
 3. Configure database in `config/autoload/local.php` (see example `config/autoload/local.php.dist`)
-4. Configure client in `client/assets/config/config.local.json` (see example `client/assets/config/config.dist.json`)
-5. Finally, build the app:
+4. Finally, build the app:
 
 ```sh
 ./bin/build.sh
