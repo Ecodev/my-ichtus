@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {SupportComponent} from './admin/configurations/support/support.component';
+import {SupportComponent, SupportComponentData} from './admin/configurations/support/support.component';
 import {ViewerResolver} from './admin/users/services/viewer.resolver';
 import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
@@ -113,7 +113,7 @@ export const routes: Routes = [
                         showCloseButton: true,
                     },
                 },
-            } as NaturalDialogTriggerRoutingData,
+            } as NaturalDialogTriggerRoutingData<SupportComponent, SupportComponentData>,
         },
     },
     {

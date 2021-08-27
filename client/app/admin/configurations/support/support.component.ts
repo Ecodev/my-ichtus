@@ -4,7 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {ConfigurationService} from '../services/configuration.service';
 import {forkJoin} from 'rxjs';
-import {NaturalAbstractController, NaturalAlertService} from '@ecodev/natural';
+import {NaturalAbstractController, NaturalAlertService, NaturalDialogTriggerProvidedData} from '@ecodev/natural';
 import {finalize, takeUntil} from 'rxjs/operators';
 
 export type SupportComponentData = {
@@ -39,13 +39,15 @@ export class SupportComponent extends NaturalAbstractController implements OnIni
         public readonly permissionsService: PermissionsService,
         public readonly route: ActivatedRoute,
         private readonly alertService: NaturalAlertService,
-        @Optional() @Inject(MAT_DIALOG_DATA) public readonly data?: SupportComponentData,
+        @Optional()
+        @Inject(MAT_DIALOG_DATA)
+        public readonly data?: NaturalDialogTriggerProvidedData<SupportComponentData>,
     ) {
         super();
     }
 
     public ngOnInit(): void {
-        this.readonly = this.route.snapshot.data.readonly || (this.data && this.data.readonly);
+        this.readonly = this.route.snapshot.data.readonly || (this.data?.data && this.data.data.readonly);
         this.configurationService
             .get(this.getConfigKey())
             .pipe(takeUntil(this.ngUnsubscribe))
@@ -74,6 +76,6 @@ export class SupportComponent extends NaturalAbstractController implements OnIni
     }
 
     private getConfigKey(): string {
-        return (this.data && this.data.configurationKey) || this.route.snapshot.data.configurationKey;
+        return (this.data?.data && this.data.data.configurationKey) || this.route.snapshot.data.configurationKey;
     }
 }

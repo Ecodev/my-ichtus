@@ -4,6 +4,7 @@ import {IchtusModule} from '../../../shared/modules/ichtus.module';
 import {ApolloTestingModule} from 'apollo-angular/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {NaturalDialogTriggerProvidedData} from '@ecodev/natural';
 
 describe('SupportComponent', () => {
     let component: SupportComponent;
@@ -11,8 +12,11 @@ describe('SupportComponent', () => {
 
     beforeEach(
         waitForAsync(() => {
-            const dialogData: SupportComponentData = {
-                configurationKey: 'foo',
+            const dialogData: NaturalDialogTriggerProvidedData<SupportComponentData> = {
+                data: {
+                    configurationKey: 'foo',
+                },
+                activatedRoute: null as any,
             };
 
             TestBed.configureTestingModule({
