@@ -1,9 +1,8 @@
 import {Component, Injector, OnInit} from '@angular/core';
-import {ifValid, NaturalAbstractDetail, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {IEnum, ifValid, NaturalAbstractDetail, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {UserService} from '../services/user.service';
 import {
     CurrentUserForProfile_viewer,
-    LogicalOperator,
     SortingOrder,
     TransactionLineSortingField,
     TransactionLinesVariables,
@@ -17,7 +16,6 @@ import {UserTagService} from '../../userTags/services/userTag.service';
 import {BookingService} from '../../bookings/services/booking.service';
 import {AccountService} from '../../accounts/services/account.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
-import {IEnum} from '@ecodev/natural/lib/services/enum.service';
 import {iban as ibanValidator} from '../../../shared/validators';
 import {friendlyFormatIBAN} from 'ibantools';
 import {FormControl} from '@angular/forms';
