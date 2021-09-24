@@ -1,7 +1,7 @@
 import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {Validators} from '@angular/forms';
-import {FormValidators, Literal, NaturalAbstractModelService} from '@ecodev/natural';
+import {formatIsoDateTime, FormValidators, Literal, NaturalAbstractModelService} from '@ecodev/natural';
 import {
     Accounts_accounts_items,
     CreateTransaction,
@@ -75,7 +75,7 @@ export class TransactionService extends NaturalAbstractModelService<
             debit: account,
             credit: this.bankAccount,
             balance: amount,
-            transactionDate: new Date(),
+            transactionDate: formatIsoDateTime(new Date()),
         };
 
         return [Object.assign(emptyLine, line)];
@@ -89,7 +89,7 @@ export class TransactionService extends NaturalAbstractModelService<
             debit: this.bankAccount,
             credit: account,
             balance: amount,
-            transactionDate: new Date(),
+            transactionDate: formatIsoDateTime(new Date()),
         };
 
         return [Object.assign(emptyLine, line)];
@@ -103,7 +103,7 @@ export class TransactionService extends NaturalAbstractModelService<
             debit: null,
             credit: this.bankAccount,
             balance: amount,
-            transactionDate: new Date(),
+            transactionDate: formatIsoDateTime(new Date()),
         };
 
         return [Object.assign(emptyLine, line)];
@@ -114,7 +114,7 @@ export class TransactionService extends NaturalAbstractModelService<
             name: '',
             remarks: '',
             internalRemarks: '',
-            transactionDate: new Date(),
+            transactionDate: formatIsoDateTime(new Date()),
             expenseClaim: null,
         };
     }

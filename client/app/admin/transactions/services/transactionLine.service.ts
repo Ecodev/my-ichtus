@@ -2,6 +2,7 @@ import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {
+    formatIsoDateTime,
     FormValidators,
     NaturalAbstractModelService,
     NaturalQueryVariablesManager,
@@ -118,7 +119,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
             debit: null,
             bookable: null,
             isReconciled: false,
-            transactionDate: new Date(),
+            transactionDate: formatIsoDateTime(new Date()),
             transactionTag: null,
         };
     }

@@ -37,6 +37,7 @@ import {
 import {Validators} from '@angular/forms';
 import {
     FormAsyncValidators,
+    formatIsoDateTime,
     FormValidators,
     NaturalAbstractModelService,
     NaturalQueryVariablesManager,
@@ -121,7 +122,7 @@ export class AccountService extends NaturalAbstractModelService<
 
     public getReportExportLink(date: Date): Observable<ExportAccountingReport['exportAccountingReport']> {
         const variables: ExportAccountingReportVariables = {
-            date: date,
+            date: formatIsoDateTime(date),
         };
 
         return this.apollo
@@ -134,7 +135,7 @@ export class AccountService extends NaturalAbstractModelService<
 
     public closing(date: Date): Observable<AccountingClosing['accountingClosing']> {
         const variables: AccountingClosingVariables = {
-            date: date,
+            date: formatIsoDateTime(date),
         };
 
         return this.apollo

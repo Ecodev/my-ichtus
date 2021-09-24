@@ -39,7 +39,7 @@ export class AccountingDocumentService extends NaturalAbstractModelService<
 
     protected getDefaultForServer(): AccountingDocumentInput {
         return {
-            file: '',
+            file: null as unknown as File,
             expenseClaim: null,
             transaction: null,
         };

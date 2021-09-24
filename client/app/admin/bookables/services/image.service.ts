@@ -37,7 +37,7 @@ export class ImageService extends NaturalAbstractModelService<
 
     protected getDefaultForServer(): ImageInput {
         return {
-            file: '',
+            file: null as unknown as File,
         };
     }
 }
