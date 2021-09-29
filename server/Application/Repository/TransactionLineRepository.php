@@ -67,12 +67,12 @@ class TransactionLineRepository extends AbstractRepository implements LimitedAcc
         }
 
         if ($dateStart) {
-            $qb->andWhere('transaction_date >= :dateStart')
+            $qb->andWhere('DATE(transaction_date) >= :dateStart')
                 ->setParameter('dateStart', $dateStart);
         }
 
         if ($dateEnd) {
-            $qb->andWhere('transaction_date <= :dateEnd')
+            $qb->andWhere('DATE(transaction_date) <= :dateEnd')
                 ->setParameter('dateEnd', $dateEnd);
         }
 
