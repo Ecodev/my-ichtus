@@ -76,17 +76,17 @@ export class RegisterComponent implements OnInit {
                 mutation: mutation,
                 variables: this.form.value,
             })
-            .subscribe(
-                () => {
+            .subscribe({
+                next: () => {
                     const message = 'Un email avec des instructions a été envoyé';
 
                     this.alertService.info(message, 5000);
                     this.router.navigate(['/login']);
                 },
-                error => {
+                error: error => {
                     this.sending = false;
                     this.alertService.error(error.message, 5000);
                 },
-            );
+            });
     }
 }

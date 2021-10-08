@@ -50,8 +50,8 @@ export class ImportComponent implements OnInit {
                     file: file,
                 },
             })
-            .subscribe(
-                result => {
+            .subscribe({
+                next: result => {
                     const importCamt = result.data!.importCamt;
                     const naturalSearchSelections: NaturalSearchSelections = [
                         importCamt.map(transaction => {
@@ -71,10 +71,10 @@ export class ImportComponent implements OnInit {
                     this.alertService.info(importCamt.length + ' transactions importées', 5000);
                     this.router.navigate(['/admin/transaction-line', {ns}]);
                 },
-                error => {
+                error: error => {
                     this.error = error;
                     this.importing = false;
                 },
-            );
+            });
     }
 }

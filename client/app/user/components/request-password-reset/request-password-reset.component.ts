@@ -1,7 +1,6 @@
 import {Apollo} from 'apollo-angular';
 import {Component} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
-import {Relationship} from '../../../shared/generated-types';
 import {Router} from '@angular/router';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ifValid, NaturalAlertService, validateAllFormControls} from '@ecodev/natural';
@@ -29,8 +28,8 @@ export class RequestPasswordResetComponent {
         ifValid(this.form).subscribe(() => {
             this.sending = true;
 
-            this.userService.requestPasswordReset(this.form.value.login).subscribe(
-                sentToFamilyOwner => {
+            this.userService.requestPasswordReset(this.form.value.login).subscribe({
+                next: sentToFamilyOwner => {
                     this.sending = false;
 
                     let message;
@@ -43,8 +42,8 @@ export class RequestPasswordResetComponent {
                     this.alertService.info(message, 5000);
                     this.router.navigate(['/login']);
                 },
-                () => (this.sending = false),
-            );
+                error: () => (this.sending = false),
+            });
         });
     }
 }

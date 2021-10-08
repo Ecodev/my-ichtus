@@ -92,17 +92,17 @@ export class RegisterConfirmComponent extends RegisterComponent implements OnIni
                     input: input,
                 },
             })
-            .subscribe(
-                () => {
+            .subscribe({
+                next: () => {
                     const message = 'Tu peux à présent te connecter avec le login et mot de passe que tu as choisi';
 
                     this.alertService.info(message, 5000);
                     this.router.navigate(['/login']);
                 },
-                error => {
+                error: error => {
                     this.sending = false;
                     this.alertService.error(error.message, 5000);
                 },
-            );
+            });
     }
 }

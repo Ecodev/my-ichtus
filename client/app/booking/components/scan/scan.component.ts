@@ -22,17 +22,17 @@ export class ScanComponent extends NaturalAbstractController implements OnInit, 
     }
 
     public ngOnInit(): void {
-        this.qrService.qrCode.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
-            code => {
+        this.qrService.qrCode.pipe(takeUntil(this.ngUnsubscribe)).subscribe({
+            next: code => {
                 const parsedCode = code.toLowerCase().replace('https://ichtus.club/booking/', '');
                 this.router.navigate(['..', parsedCode], {relativeTo: this.route});
             },
-            () => {
+            error: () => {
                 const message = 'La caméra est indisponible, essaye de taper le code de ton matériel';
                 this.alertService.error(message, 5000);
                 this.router.navigateByUrl('/booking/by-code');
             },
-        );
+        });
 
         this.qrService.getStream().subscribe(stream => {
             this.videoRef.nativeElement.srcObject = stream;

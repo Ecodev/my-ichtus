@@ -154,7 +154,7 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
      */
     protected postCreate(model: CreateTransaction_createTransaction): Observable<unknown> {
         this.accountingDocuments.save();
-        const expire = new Subject();
+        const expire = new Subject<void>();
         this.router.events
             .pipe(
                 takeUntil(expire),

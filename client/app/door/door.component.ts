@@ -23,16 +23,16 @@ export class DoorComponent extends NaturalAbstractController implements OnInit {
     }
 
     public open(door: Literal): void {
-        this.doorService.open({door: door.id}).subscribe(
-            res => {
+        this.doorService.open({door: door.id}).subscribe({
+            next: res => {
                 door.opened = true;
                 this.alertService.info(res.message);
                 setTimeout(() => (door.opened = false), res.timer * 1000);
             },
-            err => {
+            error: err => {
                 this.alertService.error(err.message, 5000);
             },
-        );
+        });
     }
 
     public ngOnInit(): void {
