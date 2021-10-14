@@ -22,6 +22,7 @@ class SearchOperatorType extends \Ecodev\Felix\Api\Input\Operator\SearchOperator
             'endComment',
             'code',
             'message',
+            'login',
         ];
 
         return $whitelistedFields;
