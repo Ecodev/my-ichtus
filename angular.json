@@ -40,8 +40,7 @@
                             }
                         ],
                         "styles": ["client/styles/_themes.scss", "client/styles.scss"],
-                        "scripts": [],
-                        "allowedCommonJsDependencies": ["zen-observable"]
+                        "scripts": []
                     },
                     "configurations": {
                         "production": {
