@@ -49,7 +49,7 @@ class UserRepositoryTest extends AbstractRepositoryTest
         self::assertNotNull($user);
         self::assertSame(1000, $user->getId());
 
-        $hash = $this->getEntityManager()->getConnection()->executeQuery('SELECT password FROM `user` WHERE id = 1000')->fetchColumn();
+        $hash = $this->getEntityManager()->getConnection()->executeQuery('SELECT password FROM `user` WHERE id = 1000')->fetchOne();
         self::assertStringStartsWith('$', $hash, 'password should have been re-hashed automatically');
         self::assertNotSame(md5('administrator'), $hash, 'password should have been re-hashed automatically');
     }
