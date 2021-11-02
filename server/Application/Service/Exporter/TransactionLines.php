@@ -37,6 +37,7 @@ class TransactionLines extends AbstractExcel
             ['label' => 'Montant débit', 'width' => 20, 'formats' => [self::$headerFormat], 'autofilter' => true],
             ['label' => 'Montant crédit', 'width' => 20, 'formats' => [self::$headerFormat], 'autofilter' => true],
             ['label' => 'Pointé', 'width' => 12, 'formats' => [self::$headerFormat, self::$centerFormat], 'autofilter' => true],
+            ['label' => 'Tag', 'width' => 30, 'formats' => [self::$headerFormat], 'autofilter' => true],
         ];
     }
 
@@ -96,7 +97,8 @@ class TransactionLines extends AbstractExcel
             // TransactionLine.remarks
             $this->write($line->getRemarks());
             // Bookable.name
-            $this->write($line->getBookable() ? $line->getBookable()->getName() : '');
+            $bookable = $line->getBookable();
+            $this->write($bookable ? $bookable->getName() : '');
             // Debit account
             $debit = $line->getDebit();
             $this->write($debit ? implode(' ', [$debit->getCode(), $debit->getName()]) : '');
@@ -110,6 +112,9 @@ class TransactionLines extends AbstractExcel
             // Reconciled
             $this->sheet->getStyleByColumnAndRow($this->column, $this->row)->applyFromArray(self::$centerFormat);
             $this->write($line->isReconciled() ? '✔️' : '');
+            // Tag
+            $tag = $line->getTransactionTag();
+            $this->write($tag ? $tag->getName() : '');
 
             $this->lastDataColumn = $this->column - 1;
 
