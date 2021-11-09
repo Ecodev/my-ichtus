@@ -1,29 +1,27 @@
-:host {
-    .mat-cell,
-    .mat-header-cell,
-    .mat-footer-cell {
-        padding: 3px;
-    }
+.mat-cell,
+.mat-header-cell,
+.mat-footer-cell {
+    padding: 3px;
+}
 
-    .mat-column-balance {
-        max-width: 7em;
-    }
+.mat-column-balance {
+    max-width: 7em;
+}
 
-    .mat-column-credit {
-        max-width: 10em;
-    }
+.mat-column-credit {
+    max-width: 10em;
+}
 
-    .mat-column-debit {
-        max-width: 10em;
-    }
+.mat-column-debit {
+    max-width: 10em;
+}
 
-    .mat-column-bookable,
-    .mat-column-transactionTag {
-        max-width: 10em;
-    }
+.mat-column-bookable,
+.mat-column-transactionTag {
+    max-width: 10em;
+}
 
-    mat-form-field,
-    natural-select {
-        width: 100%;
-    }
+mat-form-field,
+natural-select {
+    width: 100%;
 }

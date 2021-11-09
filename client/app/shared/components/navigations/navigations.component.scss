@@ -1,27 +1,25 @@
-:host {
-    app-card {
-        position: relative;
+app-card {
+    position: relative;
 
+    .comment {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.95);
+        transition: all 0.5s;
+        opacity: 0;
+        transform: scale(1.2, 1.2);
+        pointer-events: none;
+        border-radius: 4px;
+    }
+
+    &.showComments {
         .comment {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 255, 255, 0.95);
-            transition: all 0.5s;
-            opacity: 0;
-            transform: scale(1.2, 1.2);
-            pointer-events: none;
-            border-radius: 4px;
-        }
-
-        &.showComments {
-            .comment {
-                pointer-events: auto;
-                opacity: 1;
-                transform: scale(1, 1);
-            }
+            pointer-events: auto;
+            opacity: 1;
+            transform: scale(1, 1);
         }
     }
 }

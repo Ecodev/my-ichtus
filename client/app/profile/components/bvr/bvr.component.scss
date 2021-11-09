@@ -1,14 +1,12 @@
-:host {
-    .qrCode {
-        max-width: 250px;
-        margin: 0.5em;
-        width: 100%;
-    }
+.qrCode {
+    max-width: 250px;
+    margin: 0.5em;
+    width: 100%;
+}
 
-    .bankingData {
-        border: 1px solid #444;
-        background: #eee;
-        padding: 20px;
-        word-wrap: break-word;
-    }
+.bankingData {
+    border: 1px solid #444;
+    background: #eee;
+    padding: 20px;
+    word-wrap: break-word;
 }

@@ -1,11 +1,9 @@
-:host {
-    .wrapper {
-        position: relative;
+.wrapper {
+    position: relative;
 
-        & > div {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
+    & > div {
+        position: absolute;
+        top: 0;
+        left: 0;
     }
 }

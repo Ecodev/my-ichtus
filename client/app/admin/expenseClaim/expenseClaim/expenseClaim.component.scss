@@ -1,11 +1,9 @@
-:host {
-    #sectorSelect {
-        display: flex;
-        flex-direction: column;
+#sectorSelect {
+    display: flex;
+    flex-direction: column;
 
-        .suffix-buttons {
-            display: flex;
-            flex-direction: row;
-        }
+    .suffix-buttons {
+        display: flex;
+        flex-direction: row;
     }
 }

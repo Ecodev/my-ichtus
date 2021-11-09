@@ -1,14 +1,14 @@
 :host {
     flex: 1;
+}
 
-    .canvasWrapper {
-        overflow: hidden;
-        background: black;
+.canvasWrapper {
+    overflow: hidden;
+    background: black;
 
-        video {
-            display: block;
-            margin: auto;
-            height: 100%;
-        }
+    video {
+        display: block;
+        margin: auto;
+        height: 100%;
     }
 }

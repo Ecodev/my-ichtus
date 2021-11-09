@@ -5,15 +5,15 @@
     & > mat-card {
         flex: 1;
     }
+}
 
-    .illustration {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        background-size: cover;
-        background-position: center;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-    }
+.illustration {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
