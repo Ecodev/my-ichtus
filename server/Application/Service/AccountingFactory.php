@@ -17,6 +17,6 @@ class AccountingFactory
         $entityManager = $container->get(EntityManager::class);
         $config = $container->get('config');
 
-        return new Accounting($entityManager, $config['accounting'], $config['hostname']);
+        return new Accounting($entityManager, $config['accounting']);
     }
 }

@@ -74,7 +74,6 @@ class DatatransHandler extends AbstractHandler
 
             $message = $this->dispatch($status, $body);
         } catch (Throwable $exception) {
-            /** @phpstan-ignore-next-line */
             $message = $this->createMessage('error', $exception->getMessage(), is_array($body) ? $body : []);
         }
 

@@ -14,17 +14,6 @@ use Ecodev\Felix\Service\AbstractDatabase;
  */
 class ImageRepositoryTest extends AbstractRepositoryTest
 {
-    /**
-     * @var ImageRepository
-     */
-    private $repository;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->repository = $this->getEntityManager()->getRepository(Image::class);
-    }
-
     protected function tearDown(): void
     {
         // Restore all images that might have been deleted

@@ -19,7 +19,6 @@ use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Api\ExceptionWithoutMailLogging;
 use Ecodev\Felix\Format;
 use Money\Money;
-use Throwable;
 
 /**
  * Service to process accounting tasks
@@ -38,13 +37,10 @@ class Accounting
 
     private bool $hasError = false;
 
-    private string $hostname;
-
-    public function __construct(EntityManager $entityManager, array $accountingConfig, string $hostname)
+    public function __construct(EntityManager $entityManager, array $accountingConfig)
     {
         $this->entityManager = $entityManager;
         $this->accountingConfig = $accountingConfig;
-        $this->hostname = $hostname;
 
         $this->transactionRepository = $this->entityManager->getRepository(Transaction::class);
         $this->accountRepository = $this->entityManager->getRepository(Account::class);
@@ -253,8 +249,8 @@ Capital   : ' . Format::money($equity) . '
 
         $sql = <<<STRING
              SELECT transaction_id,
-                 SUM(IF(debit_id IS NOT NULL, balance, 0))  as totalDebit,
-                 SUM(IF(credit_id IS NOT NULL, balance, 0)) as totalCredit
+                 SUM(IF(debit_id IS NOT NULL, balance, 0))  AS totalDebit,
+                 SUM(IF(credit_id IS NOT NULL, balance, 0)) AS totalCredit
              FROM transaction_line
              GROUP BY transaction_id
              HAVING totalDebit <> totalCredit
