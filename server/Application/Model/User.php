@@ -237,25 +237,25 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     private $billingType = BillingTypeType::ELECTRONIC;
 
     /**
-     * @var Collection
+     * @var Collection<Booking>
      * @ORM\OneToMany(targetEntity="Booking", mappedBy="owner")
      */
     private $bookings;
 
     /**
-     * @var Collection
+     * @var Collection<License>
      * @ORM\ManyToMany(targetEntity="License", mappedBy="users")
      */
     private $licenses;
 
     /**
-     * @var Collection
+     * @var Collection<UserTag>
      * @ORM\ManyToMany(targetEntity="UserTag", mappedBy="users")
      */
     private $userTags;
 
     /**
-     * @var Collection
+     * @var Collection<Message>
      * @ORM\OneToMany(targetEntity="Message", mappedBy="recipient")
      */
     private $messages;
@@ -264,13 +264,13 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      * There is actually 0 to 1 account, never more. And this is
      * enforced by DB unique constraints
      *
-     * @var Collection
+     * @var Collection<Account>
      * @ORM\OneToMany(targetEntity="Account", mappedBy="owner")
      */
     private $accounts;
 
     /**
-     * @var Collection
+     * @var Collection<User>
      * @ORM\OneToMany(targetEntity="User", mappedBy="owner")
      */
     private $users;

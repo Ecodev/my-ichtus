@@ -95,20 +95,20 @@ class Bookable extends AbstractModel
     private $verificationDate;
 
     /**
-     * @var Collection
+     * @var Collection<BookableTag>
      *
      * @ORM\ManyToMany(targetEntity="BookableTag", mappedBy="bookables")
      */
     private $bookableTags;
 
     /**
-     * @var Collection
+     * @var Collection<Booking>
      * @ORM\OneToMany(targetEntity="Booking", mappedBy="bookable")
      */
     private $bookings;
 
     /**
-     * @var Collection
+     * @var Collection<License>
      * @ORM\ManyToMany(targetEntity="License", mappedBy="bookables")
      */
     private $licenses;

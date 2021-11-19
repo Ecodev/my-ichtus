@@ -24,7 +24,7 @@ class UserTag extends AbstractModel
     use HasColor;
 
     /**
-     * @var Collection
+     * @var Collection<User>
      * @ORM\ManyToMany(targetEntity="User", inversedBy="userTags")
      */
     private $users;

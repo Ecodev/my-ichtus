@@ -30,7 +30,7 @@ class BookableMetadata extends AbstractModel
      * @var Bookable
      * @ORM\ManyToOne(targetEntity="Bookable")
      * @ORM\JoinColumns({
-     *     @ORM\JoinColumn(onDelete="CASCADE")
+     *     @ORM\JoinColumn(onDelete="CASCADE", nullable=false)
      * })
      */
     private $bookable;

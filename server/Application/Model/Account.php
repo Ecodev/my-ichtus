@@ -42,7 +42,7 @@ class Account extends AbstractModel
     private $balance;
 
     /**
-     * @var Account
+     * @var null|Account
      * @ORM\ManyToOne(targetEntity="Account", inversedBy="children")
      * @ORM\JoinColumns({
      *     @ORM\JoinColumn(onDelete="CASCADE")
@@ -51,7 +51,7 @@ class Account extends AbstractModel
     private $parent;
 
     /**
-     * @var Collection
+     * @var Collection<Account>
      * @ORM\OneToMany(targetEntity="Account", mappedBy="parent")
      * @ORM\OrderBy({"code" = "ASC"})
      */
@@ -72,13 +72,13 @@ class Account extends AbstractModel
     private $code;
 
     /**
-     * @var Collection
+     * @var Collection<TransactionLine>
      * @ORM\OneToMany(targetEntity="TransactionLine", mappedBy="debit")
      */
     private $debitTransactionLines;
 
     /**
-     * @var Collection
+     * @var Collection<TransactionLine>
      * @ORM\OneToMany(targetEntity="TransactionLine", mappedBy="credit")
      */
     private $creditTransactionLines;

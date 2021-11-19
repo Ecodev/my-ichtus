@@ -26,7 +26,7 @@ class BookableTag extends AbstractModel
     use HasColor;
 
     /**
-     * @var Collection
+     * @var Collection<Bookable>
      * @ORM\ManyToMany(targetEntity="Bookable", inversedBy="bookableTags")
      */
     private $bookables;
