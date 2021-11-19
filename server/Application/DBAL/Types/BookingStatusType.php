@@ -8,9 +8,9 @@ use Ecodev\Felix\DBAL\Types\EnumType;
 
 class BookingStatusType extends EnumType
 {
-    const APPLICATION = 'application';
-    const BOOKED = 'booked';
-    const PROCESSED = 'processed';
+    public const APPLICATION = 'application';
+    public const BOOKED = 'booked';
+    public const PROCESSED = 'processed';
 
     protected function getPossibleValues(): array
     {

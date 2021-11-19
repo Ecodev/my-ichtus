@@ -66,7 +66,6 @@ class MutationType extends ObjectType
 
         $fields = array_merge(
             $specializedFields,
-
             Standard::buildMutation(Bookable::class),
             Standard::buildMutation(BookableMetadata::class),
             Standard::buildMutation(BookableTag::class),

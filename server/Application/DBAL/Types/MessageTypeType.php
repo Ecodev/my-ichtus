@@ -8,10 +8,10 @@ use Ecodev\Felix\DBAL\Types\EnumType;
 
 class MessageTypeType extends EnumType
 {
-    const REGISTER = 'register';
-    const UNREGISTER = 'unregister';
-    const RESET_PASSWORD = 'reset_password';
-    const BALANCE = 'balance';
+    public const REGISTER = 'register';
+    public const UNREGISTER = 'unregister';
+    public const RESET_PASSWORD = 'reset_password';
+    public const BALANCE = 'balance';
 
     protected function getPossibleValues(): array
     {

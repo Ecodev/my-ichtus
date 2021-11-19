@@ -75,7 +75,8 @@ class AccountingReport extends AbstractExcel
         $this->sheet->mergeCellsByColumnAndRow($this->column, $this->row, $this->column + 14, $this->row);
         $this->write(
             sprintf($this->hostname . ': rapport comptable au %s', $this->date->format('d.m.Y')),
-            self::$titleFormat, self::$centerFormat
+            self::$titleFormat,
+            self::$centerFormat
         );
         $this->sheet->getRowDimension($this->row)->setRowHeight(35);
         ++$this->row;
@@ -84,13 +85,15 @@ class AccountingReport extends AbstractExcel
         $this->sheet->mergeCellsByColumnAndRow($this->column, $this->row, $this->column + 6, $this->row);
         $this->write(
             'Bilan',
-            self::$titleFormat, self::$centerFormat
+            self::$titleFormat,
+            self::$centerFormat
         );
         $this->column = 9;
         $this->sheet->mergeCellsByColumnAndRow($this->column, $this->row, $this->column + 6, $this->row);
         $this->write(
             'Résultat',
-            self::$titleFormat, self::$centerFormat
+            self::$titleFormat,
+            self::$centerFormat
         );
 
         $this->sheet->getRowDimension($this->row)->setRowHeight(35);

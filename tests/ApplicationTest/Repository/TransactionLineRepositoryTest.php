@@ -72,7 +72,8 @@ class TransactionLineRepositoryTest extends AbstractRepositoryTest
         $this->assertAccountBalance($account1, 4500, 'balance should be reduced when line is inserted');
         $this->assertAccountBalance($account2, 10500, 'balance should be increased when line is inserted');
 
-        $count = $connection->update('transaction_line',
+        $count = $connection->update(
+            'transaction_line',
             [
                 'balance' => 4000,
             ],
@@ -84,7 +85,8 @@ class TransactionLineRepositoryTest extends AbstractRepositoryTest
         $this->assertAccountBalance($account1, 1000, 'balance should be reduced even more after update');
         $this->assertAccountBalance($account2, 14000, 'balance should be increased even more after update');
 
-        $count = $connection->update('transaction_line',
+        $count = $connection->update(
+            'transaction_line',
             [
                 'debit_id' => $account3,
                 'credit_id' => $account4,

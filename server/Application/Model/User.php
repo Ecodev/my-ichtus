@@ -61,20 +61,20 @@ use GraphQL\Doctrine\Annotation as API;
  */
 class User extends AbstractModel implements \Ecodev\Felix\Model\User
 {
-    const ROLE_ANONYMOUS = 'anonymous';
-    const ROLE_BOOKING_ONLY = 'booking_only';
-    const ROLE_INDIVIDUAL = 'individual';
-    const ROLE_ACCOUNTING_VERIFICATOR = 'accounting_verificator';
-    const ROLE_MEMBER = 'member';
-    const ROLE_TRAINER = 'trainer';
-    const ROLE_FORMATION_RESPONSIBLE = 'formation_responsible';
-    const ROLE_RESPONSIBLE = 'responsible';
-    const ROLE_ADMINISTRATOR = 'administrator';
+    public const ROLE_ANONYMOUS = 'anonymous';
+    public const ROLE_BOOKING_ONLY = 'booking_only';
+    public const ROLE_INDIVIDUAL = 'individual';
+    public const ROLE_ACCOUNTING_VERIFICATOR = 'accounting_verificator';
+    public const ROLE_MEMBER = 'member';
+    public const ROLE_TRAINER = 'trainer';
+    public const ROLE_FORMATION_RESPONSIBLE = 'formation_responsible';
+    public const ROLE_RESPONSIBLE = 'responsible';
+    public const ROLE_ADMINISTRATOR = 'administrator';
 
-    const STATUS_INACTIVE = 'inactive';
-    const STATUS_NEW = 'new';
-    const STATUS_ACTIVE = 'active';
-    const STATUS_ARCHIVED = 'archived';
+    public const STATUS_INACTIVE = 'inactive';
+    public const STATUS_NEW = 'new';
+    public const STATUS_ACTIVE = 'active';
+    public const STATUS_ARCHIVED = 'archived';
 
     use HasDoorAccess;
     use HasRemarks;

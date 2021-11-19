@@ -37,23 +37,24 @@ class AccountingTest extends TestCase
 
     public function testCheck(): void
     {
-        $this->expectOutputString(<<<STRING
+        $this->expectOutputString(
+            <<<STRING
 
-            Produits  : 240.00
-            Charges   : 112.50
-            Bénéfice  : 127.50
-            Actifs    : 35187.50
-            Passifs   : 60.00
-            Capital   : 35000.00
-            Écart     : 0.00
-            Création du compte 20300010 pour l'utilisateur 1003...
-            Création du compte 20300011 pour l'utilisateur 1004...
-            Création du compte 20300012 pour l'utilisateur 1005...
-            Création du compte 20300013 pour l'utilisateur 1006...
-            Création du compte 20300014 pour l'utilisateur 1014...
-            Création du compte 20300015 pour l'utilisateur 1015...
+                Produits  : 240.00
+                Charges   : 112.50
+                Bénéfice  : 127.50
+                Actifs    : 35187.50
+                Passifs   : 60.00
+                Capital   : 35000.00
+                Écart     : 0.00
+                Création du compte 20300010 pour l'utilisateur 1003...
+                Création du compte 20300011 pour l'utilisateur 1004...
+                Création du compte 20300012 pour l'utilisateur 1005...
+                Création du compte 20300013 pour l'utilisateur 1006...
+                Création du compte 20300014 pour l'utilisateur 1014...
+                Création du compte 20300015 pour l'utilisateur 1015...
 
-            STRING
+                STRING
         );
 
         self::assertFalse($this->accounting->check(), 'fixture data should not produce any errors');

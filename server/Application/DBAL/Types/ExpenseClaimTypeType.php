@@ -8,9 +8,9 @@ use Ecodev\Felix\DBAL\Types\EnumType;
 
 class ExpenseClaimTypeType extends EnumType
 {
-    const EXPENSE_CLAIM = 'expenseClaim';
-    const REFUND = 'refund';
-    const INVOICE = 'invoice';
+    public const EXPENSE_CLAIM = 'expenseClaim';
+    public const REFUND = 'refund';
+    public const INVOICE = 'invoice';
 
     protected function getPossibleValues(): array
     {

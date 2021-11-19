@@ -11,27 +11,27 @@ class BookingTypeType extends EnumType
     /**
      * A user assigns and approves his own booking
      */
-    const SELF_APPROVED = 'self_approved';
+    public const SELF_APPROVED = 'self_approved';
 
     /**
      * A user requests an admin to assign and approve an **equivalent** booking
      */
-    const APPLICATION = 'application';
+    public const APPLICATION = 'application';
 
     /**
      * An admin assigns and approves a booking **equivalent** to the one requested by a user
      */
-    const ADMIN_ASSIGNED = 'admin_assigned';
+    public const ADMIN_ASSIGNED = 'admin_assigned';
 
     /**
      * A user assigns, but an admin approves, the exact same booking
      */
-    const ADMIN_APPROVED = 'admin_approved';
+    public const ADMIN_APPROVED = 'admin_approved';
 
     /**
      * The system automatically assigns and approves those bookings upon user registration confirmation
      */
-    const MANDATORY = 'mandatory';
+    public const MANDATORY = 'mandatory';
 
     protected function getPossibleValues(): array
     {

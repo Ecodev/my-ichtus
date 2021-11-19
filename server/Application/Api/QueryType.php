@@ -49,7 +49,6 @@ class QueryType extends ObjectType
 
         $fields = array_merge(
             $specializedFields,
-
             Standard::buildQuery(Bookable::class),
             Standard::buildQuery(BookableMetadata::class),
             Standard::buildQuery(BookableTag::class),
