@@ -56,7 +56,7 @@ abstract class BankingInfos implements FieldInterface
     }
 
     /**
-     * Lazy resolve qrBill or qrCode fields for banking infos query
+     * Lazy resolve qrBill or qrCode fields for banking infos query.
      *
      * @param mixed $amount
      * @param mixed $iban

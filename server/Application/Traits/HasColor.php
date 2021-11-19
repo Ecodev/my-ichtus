@@ -16,7 +16,7 @@ trait HasColor
     private $color = '';
 
     /**
-     * Set color
+     * Set color.
      *
      * @API\Input(type="Color")
      */
@@ -26,7 +26,7 @@ trait HasColor
     }
 
     /**
-     * Get color
+     * Get color.
      *
      * @API\Field(type="Color")
      */

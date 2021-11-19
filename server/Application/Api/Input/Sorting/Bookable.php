@@ -11,7 +11,7 @@ use GraphQL\Doctrine\Factory\UniqueNameFactory;
 use GraphQL\Doctrine\Sorting\SortingInterface;
 
 /**
- * Sort bookings by their bookable's name
+ * Sort bookings by their bookable's name.
  */
 class Bookable implements SortingInterface
 {

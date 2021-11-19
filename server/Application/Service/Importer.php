@@ -27,7 +27,7 @@ use Genkgo\Camt\Exception\ReaderException;
 use Genkgo\Camt\Reader;
 
 /**
- * This service allows to import a CAMT file as Transaction and TransactionLine
+ * This service allows to import a CAMT file as Transaction and TransactionLine.
  *
  * @see https://www.six-group.com/interbank-clearing/dam/downloads/en/standardization/iso/swiss-recommendations/archives/implementation-guidelines-cm/standardization_isopayments_iso_20022_ch_implementation_guidelines_camt.pdf
  */
@@ -68,7 +68,7 @@ class Importer
     }
 
     /**
-     * Import all transactions from a CAMT file
+     * Import all transactions from a CAMT file.
      *
      * @return Transaction[]
      */
@@ -259,7 +259,7 @@ class Importer
     }
 
     /**
-     * This must return a non-empty universally unique identifier for one detail
+     * This must return a non-empty universally unique identifier for one detail.
      */
     private function getImportedId(EntryTransactionDetail $detail): string
     {

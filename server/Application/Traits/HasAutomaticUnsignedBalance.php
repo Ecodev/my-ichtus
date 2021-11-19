@@ -14,7 +14,7 @@ trait HasAutomaticUnsignedBalance
     private Money $balance;
 
     /**
-     * Get total balance
+     * Get total balance.
      *
      * Read only, computed by SQL triggers
      */

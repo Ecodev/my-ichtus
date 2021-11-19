@@ -22,24 +22,24 @@ abstract class AbstractExporter
     abstract protected function getExtension(): string;
 
     /**
-     * Initialize the export, possibly writing footer and closing file
+     * Initialize the export, possibly writing footer and closing file.
      */
     abstract protected function initialize(string $path): void;
 
     /**
-     * Write the items, one per line, in the body part of the sheet
+     * Write the items, one per line, in the body part of the sheet.
      *
      * @param AbstractModel[] $items
      */
     abstract protected function writeData(array $items): void;
 
     /**
-     * Finalize the export, possibly writing footer and closing file
+     * Finalize the export, possibly writing footer and closing file.
      */
     abstract protected function finalize(string $path): void;
 
     /**
-     * Called by the field resolver or repository to generate a spreadsheet from the query builder
+     * Called by the field resolver or repository to generate a spreadsheet from the query builder.
      *
      * @return string the generated spreadsheet file path
      */

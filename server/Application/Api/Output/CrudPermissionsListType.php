@@ -41,7 +41,7 @@ class CrudPermissionsListType extends ObjectType
     }
 
     /**
-     * Returns a list of all resources that are model names
+     * Returns a list of all resources that are model names.
      *
      * @return string[]
      */

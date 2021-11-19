@@ -2,7 +2,7 @@
 <?php
 
 /**
- * A script to check that accounts are balanced
+ * A script to check that accounts are balanced.
  */
 
 use Application\Service\Accounting;

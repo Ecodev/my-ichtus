@@ -9,7 +9,7 @@ use Application\Model\User;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class AbstractRepository
+ * Class AbstractRepository.
  *
  * @method null|AbstractModel findOneById(integer $id)
  */
@@ -18,7 +18,7 @@ abstract class AbstractRepository extends EntityRepository
     use \Ecodev\Felix\Repository\Traits\Repository;
 
     /**
-     * Return native SQL query to get all ID of object owned by anybody from the family
+     * Return native SQL query to get all ID of object owned by anybody from the family.
      */
     protected function getAllIdsForFamilyQuery(User $user): string
     {
@@ -38,7 +38,7 @@ abstract class AbstractRepository extends EntityRepository
     }
 
     /**
-     * Return native SQL query to get all ID of objects own by anybody
+     * Return native SQL query to get all ID of objects own by anybody.
      */
     protected function getAllIdsForAnyOwner(): string
     {

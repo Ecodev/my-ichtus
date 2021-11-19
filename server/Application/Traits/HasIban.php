@@ -9,7 +9,7 @@ use Ecodev\Felix\Api\Exception;
 use Laminas\Validator\Iban;
 
 /**
- * Trait for all objects with an IBAN (international bank account number)
+ * Trait for all objects with an IBAN (international bank account number).
  */
 trait HasIban
 {
@@ -19,7 +19,7 @@ trait HasIban
     private string $iban = '';
 
     /**
-     * Set the IBAN (international bank account number)
+     * Set the IBAN (international bank account number).
      */
     public function setIban(string $iban): void
     {
@@ -34,7 +34,7 @@ trait HasIban
     }
 
     /**
-     * Get the IBAN (international bank account number)
+     * Get the IBAN (international bank account number).
      */
     public function getIban(): string
     {

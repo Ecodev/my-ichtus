@@ -10,7 +10,7 @@ use GraphQL\Doctrine\Factory\UniqueNameFactory;
 use GraphQL\Doctrine\Sorting\SortingInterface;
 
 /**
- * Sort by user's age
+ * Sort by user's age.
  */
 class Age implements SortingInterface
 {

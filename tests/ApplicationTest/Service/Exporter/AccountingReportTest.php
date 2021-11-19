@@ -15,8 +15,8 @@ use PHPUnit\Framework\TestCase;
 
 class AccountingReportTest extends TestCase
 {
-    use TestWithTransactionAndUser;
     use TestWithSpreadsheet;
+    use TestWithTransactionAndUser;
 
     public function testExportAccountingReport(): void
     {

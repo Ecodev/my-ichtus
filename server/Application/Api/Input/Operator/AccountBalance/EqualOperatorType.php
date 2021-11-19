@@ -8,6 +8,6 @@ final class EqualOperatorType extends AbstractOperatorType
 {
     protected function getDqlOperator(): string
     {
-        return  '=';
+        return '=';
     }
 }

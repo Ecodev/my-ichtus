@@ -19,7 +19,7 @@ use Doctrine\ORM\EntityManager;
 use Money\Money;
 
 /**
- * Service to create transactions for non-free booking, if needed, for all users or one user
+ * Service to create transactions for non-free booking, if needed, for all users or one user.
  */
 class Invoicer
 {

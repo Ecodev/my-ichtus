@@ -13,7 +13,7 @@ use Exception;
 use Money\Money;
 
 /**
- * Class AccountRepository
+ * Class AccountRepository.
  *
  * @method null|Account findOneByCode(int $code)
  */
@@ -22,12 +22,12 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
     public const ACCOUNT_ID_FOR_BANK = 10025;
 
     /**
-     * In memory max code that keep being incremented if we create several account at once without flushing in DB
+     * In memory max code that keep being incremented if we create several account at once without flushing in DB.
      */
     private ?int $maxCode = null;
 
     /**
-     * Clear all caches
+     * Clear all caches.
      */
     public function clearCache(): void
     {
@@ -68,9 +68,7 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
      */
     public function getOneById(int $id): Account
     {
-        $account = $this->getAclFilter()->runWithoutAcl(function () use ($id) {
-            return $this->findOneById($id);
-        });
+        $account = $this->getAclFilter()->runWithoutAcl(fn () => $this->findOneById($id));
 
         if (!$account) {
             throw new Exception('Account #' . $id . ' not found');
@@ -80,7 +78,7 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
     }
 
     /**
-     * This will return, and potentially create, an account for the given user
+     * This will return, and potentially create, an account for the given user.
      */
     public function getOrCreate(User $user): Account
     {
@@ -97,9 +95,7 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
             $user = $user->getOwner();
         }
 
-        $account = $this->getAclFilter()->runWithoutAcl(function () use ($user) {
-            return $this->findOneByOwner($user);
-        });
+        $account = $this->getAclFilter()->runWithoutAcl(fn () => $this->findOneByOwner($user));
 
         if (!$account) {
             $account = new Account();
@@ -110,9 +106,7 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
 
             $config = $container->get('config');
             $parentCode = (int) $config['accounting']['customerDepositsAccountCode'];
-            $parent = $this->getAclFilter()->runWithoutAcl(function () use ($parentCode) {
-                return $this->findOneByCode($parentCode);
-            });
+            $parent = $this->getAclFilter()->runWithoutAcl(fn () => $this->findOneByCode($parentCode));
 
             // Find the max account code, using the liability parent code as prefix
             if (!$this->maxCode) {
@@ -135,7 +129,7 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
     }
 
     /**
-     * Sum balance by account type
+     * Sum balance by account type.
      *
      * @API\Input(type="AccountType")
      */
@@ -154,7 +148,7 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
     }
 
     /**
-     * Update all accounts' balance
+     * Update all accounts' balance.
      */
     public function updateAccountsBalance(): void
     {
@@ -164,7 +158,7 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
     }
 
     /**
-     * Return the next available Account code
+     * Return the next available Account code.
      */
     public function getNextCodeAvailable(): int
     {

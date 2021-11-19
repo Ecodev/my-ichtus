@@ -34,7 +34,7 @@ class License extends AbstractModel
     private $users;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -48,7 +48,7 @@ class License extends AbstractModel
     }
 
     /**
-     * Add bookable
+     * Add bookable.
      */
     public function addBookable(Bookable $bookable): void
     {
@@ -64,7 +64,7 @@ class License extends AbstractModel
     }
 
     /**
-     * Add user
+     * Add user.
      */
     public function addUser(User $user): void
     {
@@ -75,7 +75,7 @@ class License extends AbstractModel
     }
 
     /**
-     * Remove user
+     * Remove user.
      */
     public function removeUser(User $user): void
     {
@@ -84,7 +84,7 @@ class License extends AbstractModel
     }
 
     /**
-     * Remove bookable
+     * Remove bookable.
      */
     public function removeBookable(Bookable $bookable): void
     {

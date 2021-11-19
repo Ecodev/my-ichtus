@@ -3,7 +3,7 @@
 
 /**
  * A script that generates the closing entries at the end of an accounting period
- * DO A DATABASE BACKUP BEFORE USING THIS SCRIPT IN PRODUCTION
+ * DO A DATABASE BACKUP BEFORE USING THIS SCRIPT IN PRODUCTION.
  */
 
 use Application\Model\Transaction;

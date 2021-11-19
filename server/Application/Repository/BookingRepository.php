@@ -19,7 +19,7 @@ class BookingRepository extends AbstractRepository
      * All non-terminated bookings
      *     for active, periodic bookable
      *     for non-archived user
-     *     but that do not already have an existing transaction_line in the user account for this year
+     *     but that do not already have an existing transaction_line in the user account for this year.
      *
      * @param null|User $user if given will filter only for that user
      *

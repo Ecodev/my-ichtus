@@ -14,7 +14,7 @@ use Doctrine\ORM\EntityManager;
 use Ecodev\Felix\Service\MessageRenderer;
 
 /**
- * Service to queue new message for pre-defined purposes
+ * Service to queue new message for pre-defined purposes.
  */
 class MessageQueuer
 {
@@ -58,7 +58,7 @@ class MessageQueuer
     }
 
     /**
-     * Queue a reset password email to specified user
+     * Queue a reset password email to specified user.
      *
      * @param User $user The user for which a password reset will be done
      */
@@ -90,7 +90,7 @@ class MessageQueuer
     }
 
     /**
-     * Create a message by rendering the template
+     * Create a message by rendering the template.
      */
     private function createMessage(?User $user, string $subject, string $type, array $mailParams): ?Message
     {
@@ -118,9 +118,7 @@ class MessageQueuer
     private function queueBalanceForEachUsers(array $users): int
     {
         foreach ($users as $user) {
-            $bookables = $user->getRunningBookings()->map(function (Booking $booking) {
-                return $booking->getBookable();
-            });
+            $bookables = $user->getRunningBookings()->map(fn (Booking $booking) => $booking->getBookable());
 
             $this->queueBalance($user, $bookables);
         }
@@ -155,9 +153,7 @@ class MessageQueuer
 
         // Fallback to family owner if any
         if (!$email && $user->getOwner()) {
-            $email = $this->userRepository->getAclFilter()->runWithoutAcl(function () use ($user) {
-                return $user->getOwner()->getEmail();
-            });
+            $email = $this->userRepository->getAclFilter()->runWithoutAcl(fn () => $user->getOwner()->getEmail());
 
             $this->toFamilyOwner = true;
         }
@@ -166,7 +162,7 @@ class MessageQueuer
     }
 
     /**
-     * Whether the last sent email was sent to family owner instead of original recipient
+     * Whether the last sent email was sent to family owner instead of original recipient.
      */
     public function wasToFamilyOwner(): bool
     {

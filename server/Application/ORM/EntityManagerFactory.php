@@ -11,7 +11,7 @@ use Psr\Container\ContainerInterface;
 class EntityManagerFactory
 {
     /**
-     * Return the preferred driver available on this system
+     * Return the preferred driver available on this system.
      */
     public function __invoke(ContainerInterface $container): EntityManager
     {

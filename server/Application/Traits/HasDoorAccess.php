@@ -7,7 +7,7 @@ namespace Application\Traits;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Access to all doors
+ * Access to all doors.
  */
 trait HasDoorAccess
 {

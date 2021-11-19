@@ -17,7 +17,7 @@ use GraphQL\Doctrine\Annotation as API;
 use Money\Money;
 
 /**
- * An expense claim to be refunded to a member or invoice to be paid by the company
+ * An expense claim to be refunded to a member or invoice to be paid by the company.
  *
  * @ORM\Entity(repositoryClass="Application\Repository\ExpenseClaimRepository")
  * @ORM\AssociationOverrides({
@@ -32,10 +32,10 @@ use Money\Money;
  */
 class ExpenseClaim extends AbstractModel
 {
-    use HasName;
     use HasDescription;
-    use HasRemarks;
     use HasInternalRemarks;
+    use HasName;
+    use HasRemarks;
 
     /**
      * @var Money
@@ -88,7 +88,7 @@ class ExpenseClaim extends AbstractModel
     private $sector = '';
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -97,7 +97,7 @@ class ExpenseClaim extends AbstractModel
     }
 
     /**
-     * Set amount
+     * Set amount.
      */
     public function setAmount(Money $amount): void
     {
@@ -105,7 +105,7 @@ class ExpenseClaim extends AbstractModel
     }
 
     /**
-     * Get amount
+     * Get amount.
      */
     public function getAmount(): Money
     {
@@ -113,7 +113,7 @@ class ExpenseClaim extends AbstractModel
     }
 
     /**
-     * Set status
+     * Set status.
      *
      * @API\Input(type="ExpenseClaimStatus")
      */
@@ -123,7 +123,7 @@ class ExpenseClaim extends AbstractModel
     }
 
     /**
-     * Get status
+     * Get status.
      *
      * @API\Field(type="ExpenseClaimStatus")
      */
@@ -133,7 +133,7 @@ class ExpenseClaim extends AbstractModel
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @API\Input(type="ExpenseClaimType")
      */
@@ -143,7 +143,7 @@ class ExpenseClaim extends AbstractModel
     }
 
     /**
-     * Get type
+     * Get type.
      *
      * @API\Field(type="ExpenseClaimType")
      */
@@ -154,7 +154,7 @@ class ExpenseClaim extends AbstractModel
 
     /**
      * Notify the expense claim that a transaction was added
-     * This should only be called by Transaction::setExpenseClaim()
+     * This should only be called by Transaction::setExpenseClaim().
      */
     public function transactionAdded(Transaction $transaction): void
     {
@@ -164,7 +164,7 @@ class ExpenseClaim extends AbstractModel
 
     /**
      * Notify the expense claim that a transaction was removed
-     * This should only be called by Transaction::setExpenseClaim()
+     * This should only be called by Transaction::setExpenseClaim().
      */
     public function transactionRemoved(Transaction $transaction): void
     {
@@ -172,7 +172,7 @@ class ExpenseClaim extends AbstractModel
     }
 
     /**
-     * Get the transactions created from this expense claim
+     * Get the transactions created from this expense claim.
      */
     public function getTransactions(): Collection
     {
@@ -181,7 +181,7 @@ class ExpenseClaim extends AbstractModel
 
     /**
      * Notify the expense that an accounting document was added
-     * This should only be called by AccountingDocument::setExpenseClaim()
+     * This should only be called by AccountingDocument::setExpenseClaim().
      */
     public function accountingDocumentAdded(AccountingDocument $document): void
     {
@@ -190,7 +190,7 @@ class ExpenseClaim extends AbstractModel
 
     /**
      * Notify the expense that an accounting document was removed
-     * This should only be called by AccountingDocument::setExpenseClaim()
+     * This should only be called by AccountingDocument::setExpenseClaim().
      */
     public function accountingDocumentRemoved(AccountingDocument $document): void
     {
@@ -198,7 +198,7 @@ class ExpenseClaim extends AbstractModel
     }
 
     /**
-     * Get accounting documents
+     * Get accounting documents.
      */
     public function getAccountingDocuments(): Collection
     {
@@ -206,7 +206,7 @@ class ExpenseClaim extends AbstractModel
     }
 
     /**
-     * Set reviewer
+     * Set reviewer.
      */
     public function setReviewer(?User $reviewer): void
     {
@@ -214,7 +214,7 @@ class ExpenseClaim extends AbstractModel
     }
 
     /**
-     * Get reviewer
+     * Get reviewer.
      */
     public function getReviewer(): ?User
     {
@@ -222,7 +222,7 @@ class ExpenseClaim extends AbstractModel
     }
 
     /**
-     * Set sector
+     * Set sector.
      */
     public function setSector(string $sector): void
     {
@@ -230,7 +230,7 @@ class ExpenseClaim extends AbstractModel
     }
 
     /**
-     * Get sector
+     * Get sector.
      */
     public function getSector(): string
     {

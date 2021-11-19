@@ -9,12 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Ecodev\Felix\Model\Traits\HasName;
 
 /**
- * Analytic account
+ * Analytic account.
  *
  * @ORM\Entity(repositoryClass="Application\Repository\TransactionTagRepository")
  */
 class TransactionTag extends AbstractModel
 {
-    use HasName;
     use HasColor;
+    use HasName;
 }

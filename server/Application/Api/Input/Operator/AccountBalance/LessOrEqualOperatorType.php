@@ -8,6 +8,6 @@ final class LessOrEqualOperatorType extends AbstractOperatorType
 {
     protected function getDqlOperator(): string
     {
-        return  '<=';
+        return '<=';
     }
 }

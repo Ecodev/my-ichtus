@@ -17,17 +17,17 @@ use Ecodev\Felix\Model\Traits\HasName;
 use Money\Money;
 
 /**
- * An accounting journal entry (simple or compound)
+ * An accounting journal entry (simple or compound).
  *
  * @ORM\Entity(repositoryClass="Application\Repository\TransactionRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Transaction extends AbstractModel
 {
+    use HasAutomaticUnsignedBalance;
+    use HasInternalRemarks;
     use HasName;
     use HasRemarks;
-    use HasInternalRemarks;
-    use HasAutomaticUnsignedBalance;
 
     /**
      * @var Chronos
@@ -65,7 +65,7 @@ class Transaction extends AbstractModel
     private $datatransRef = '';
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -75,7 +75,7 @@ class Transaction extends AbstractModel
     }
 
     /**
-     * Set date of transaction
+     * Set date of transaction.
      */
     public function setTransactionDate(Chronos $transactionDate): void
     {
@@ -83,7 +83,7 @@ class Transaction extends AbstractModel
     }
 
     /**
-     * Get date of transaction
+     * Get date of transaction.
      */
     public function getTransactionDate(): Chronos
     {
@@ -92,7 +92,7 @@ class Transaction extends AbstractModel
 
     /**
      * Notify when a transaction line is added
-     * This should only be called by TransactionLine::setTransaction()
+     * This should only be called by TransactionLine::setTransaction().
      */
     public function transactionLineAdded(TransactionLine $transactionLine): void
     {
@@ -101,7 +101,7 @@ class Transaction extends AbstractModel
 
     /**
      * Notify when a transaction line is removed
-     * This should only be called by TransactionLine::setTransaction()
+     * This should only be called by TransactionLine::setTransaction().
      */
     public function transactionLineRemoved(TransactionLine $transactionLine): void
     {
@@ -115,7 +115,7 @@ class Transaction extends AbstractModel
 
     /**
      * Notify the transaction that an accounting document was added
-     * This should only be called by AccountingDocument::setTransaction()
+     * This should only be called by AccountingDocument::setTransaction().
      */
     public function accountingDocumentAdded(AccountingDocument $document): void
     {
@@ -124,7 +124,7 @@ class Transaction extends AbstractModel
 
     /**
      * Notify the transaction that an accounting document was removed
-     * This should only be called by AccountingDocument::setTransaction()
+     * This should only be called by AccountingDocument::setTransaction().
      */
     public function accountingDocumentRemoved(AccountingDocument $document): void
     {
@@ -132,7 +132,7 @@ class Transaction extends AbstractModel
     }
 
     /**
-     * Get accounting documents
+     * Get accounting documents.
      */
     public function getAccountingDocuments(): Collection
     {
@@ -140,7 +140,7 @@ class Transaction extends AbstractModel
     }
 
     /**
-     * Set expense claim
+     * Set expense claim.
      */
     public function setExpenseClaim(?ExpenseClaim $expenseClaim): void
     {
@@ -157,7 +157,7 @@ class Transaction extends AbstractModel
     }
 
     /**
-     * Get expense claim
+     * Get expense claim.
      */
     public function getExpenseClaim(): ?ExpenseClaim
     {
@@ -165,7 +165,7 @@ class Transaction extends AbstractModel
     }
 
     /**
-     * Get Datatrans payment reference number
+     * Get Datatrans payment reference number.
      */
     public function setDatatransRef(string $datatransRef): void
     {
@@ -173,7 +173,7 @@ class Transaction extends AbstractModel
     }
 
     /**
-     * Set Datatrans payment reference number
+     * Set Datatrans payment reference number.
      */
     public function getDatatransRef(): string
     {
@@ -181,7 +181,7 @@ class Transaction extends AbstractModel
     }
 
     /**
-     * Automatically called by Doctrine whenever a transaction is created or updated
+     * Automatically called by Doctrine whenever a transaction is created or updated.
      *
      * @ORM\PrePersist
      * @ORM\PreUpdate

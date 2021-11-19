@@ -10,7 +10,7 @@ use Interop\Container\ContainerInterface;
 class AccountingFactory
 {
     /**
-     * Return a configured accounting service
+     * Return a configured accounting service.
      */
     public function __invoke(ContainerInterface $container): Accounting
     {

@@ -22,8 +22,8 @@ use Ecodev\Felix\Model\Traits\HasName;
  */
 class BookableTag extends AbstractModel
 {
-    use HasName;
     use HasColor;
+    use HasName;
 
     /**
      * @var Collection<Bookable>
@@ -32,7 +32,7 @@ class BookableTag extends AbstractModel
     private $bookables;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -45,7 +45,7 @@ class BookableTag extends AbstractModel
     }
 
     /**
-     * Add bookable
+     * Add bookable.
      */
     public function addBookable(Bookable $bookable): void
     {
@@ -56,7 +56,7 @@ class BookableTag extends AbstractModel
     }
 
     /**
-     * Remove bookable
+     * Remove bookable.
      */
     public function removeBookable(Bookable $bookable): void
     {

@@ -10,15 +10,15 @@ use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 class LogRepository extends AbstractRepository implements \Ecodev\Felix\Repository\LogRepository, LimitedAccessSubQuery
 {
     /**
-     * Log message to be used when a door is opened
+     * Log message to be used when a door is opened.
      */
     public const DOOR_OPENED = 'door opened: ';
     /**
-     * Log message to be used when the datatrans webhook starts
+     * Log message to be used when the datatrans webhook starts.
      */
     public const DATATRANS_WEBHOOK_BEGIN = 'datatrans webhook begin';
     /**
-     * Log message to be used when the datatrans webhook finishes
+     * Log message to be used when the datatrans webhook finishes.
      */
     public const DATATRANS_WEBHOOK_END = 'datatrans webhook end';
 

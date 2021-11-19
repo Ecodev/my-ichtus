@@ -10,7 +10,7 @@ use Interop\Container\ContainerInterface;
 class InvoicerFactory
 {
     /**
-     * Return a configured invoicer
+     * Return a configured invoicer.
      */
     public function __invoke(ContainerInterface $container): Invoicer
     {

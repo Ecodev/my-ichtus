@@ -21,7 +21,7 @@ use Ecodev\Felix\Format;
 use Money\Money;
 
 /**
- * Service to process accounting tasks
+ * Service to process accounting tasks.
  */
 class Accounting
 {
@@ -67,7 +67,7 @@ class Accounting
     }
 
     /**
-     * Generate the closing entries at the end of an accounting period
+     * Generate the closing entries at the end of an accounting period.
      *
      * @param Date $endDate the end of fiscal period
      * @param null|array $output an optional array to output log
@@ -205,7 +205,7 @@ class Accounting
     }
 
     /**
-     * Print the error message and remember that at least one error was found
+     * Print the error message and remember that at least one error was found.
      */
     private function error(string $message): void
     {

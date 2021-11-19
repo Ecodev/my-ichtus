@@ -14,7 +14,7 @@ trait HasRemarks
     private $remarks = '';
 
     /**
-     * Set remarks
+     * Set remarks.
      */
     public function setRemarks(string $remarks): void
     {
@@ -22,7 +22,7 @@ trait HasRemarks
     }
 
     /**
-     * Get remarks
+     * Get remarks.
      */
     public function getRemarks(): string
     {

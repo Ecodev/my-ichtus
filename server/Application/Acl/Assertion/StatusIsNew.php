@@ -14,7 +14,7 @@ use Laminas\Permissions\Acl\Role\RoleInterface;
 class StatusIsNew implements AssertionInterface
 {
     /**
-     * Assert that the expense claim is new (not processed yet)
+     * Assert that the expense claim is new (not processed yet).
      *
      * @param \Application\Acl\Acl $acl
      * @param RoleInterface $role

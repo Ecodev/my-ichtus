@@ -8,6 +8,6 @@ final class BookingCountEqualOperatorType extends AbstractOperatorType
 {
     protected function getDqlOperator(): string
     {
-        return  '=';
+        return '=';
     }
 }

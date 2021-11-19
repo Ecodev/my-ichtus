@@ -14,7 +14,7 @@ use GraphQL\Doctrine\Annotation as API;
 use Money\Money;
 
 /**
- * A booking linking a user and a bookable
+ * A booking linking a user and a bookable.
  *
  * @ORM\Entity(repositoryClass="Application\Repository\BookingRepository")
  * @ORM\AssociationOverrides({
@@ -26,8 +26,8 @@ use Money\Money;
  */
 class Booking extends AbstractModel
 {
-    use HasRemarks;
     use HasInternalRemarks;
+    use HasRemarks;
 
     /**
      * @var string
@@ -95,7 +95,7 @@ class Booking extends AbstractModel
     private $bookable;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -190,7 +190,7 @@ class Booking extends AbstractModel
     }
 
     /**
-     * Get bookable, may be null for "my own material" case
+     * Get bookable, may be null for "my own material" case.
      */
     public function getBookable(): ?Bookable
     {
@@ -198,7 +198,7 @@ class Booking extends AbstractModel
     }
 
     /**
-     * Set bookable
+     * Set bookable.
      */
     public function setBookable(?Bookable $bookable): void
     {
@@ -235,7 +235,7 @@ class Booking extends AbstractModel
 
     /**
      * Mark the booking as terminated with an optional comment,
-     * but only if not already terminated
+     * but only if not already terminated.
      */
     public function terminate(?string $comment): void
     {
@@ -249,7 +249,7 @@ class Booking extends AbstractModel
     }
 
     /**
-     * If the booking is complete, will make initial invoicing
+     * If the booking is complete, will make initial invoicing.
      */
     private function invoiceInitial(?string $previousStatus = null): void
     {
@@ -265,7 +265,7 @@ class Booking extends AbstractModel
     }
 
     /**
-     * Returns the next invoiceable periodic price
+     * Returns the next invoiceable periodic price.
      *
      * In case it uses shared admin_assigned bookables, the price is divided by the number of usages
      */

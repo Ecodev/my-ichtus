@@ -15,7 +15,7 @@ use Laminas\Permissions\Acl\Role\RoleInterface;
 class BookingIsPendingApplication implements AssertionInterface
 {
     /**
-     * Assert that a booking is a pending application
+     * Assert that a booking is a pending application.
      *
      * @param \Application\Acl\Acl $acl
      * @param RoleInterface $role

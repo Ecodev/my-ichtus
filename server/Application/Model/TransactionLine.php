@@ -12,7 +12,7 @@ use GraphQL\Doctrine\Annotation as API;
 use Money\Money;
 
 /**
- * A single line of accounting transaction
+ * A single line of accounting transaction.
  *
  * @ORM\Entity(repositoryClass="Application\Repository\TransactionLineRepository")
  * @ORM\Table(uniqueConstraints={
@@ -111,7 +111,7 @@ class TransactionLine extends AbstractModel
     private $importedId;
 
     /**
-     * Set importedId
+     * Set importedId.
      *
      * @API\Exclude
      */
@@ -121,7 +121,7 @@ class TransactionLine extends AbstractModel
     }
 
     /**
-     * Get importedId
+     * Get importedId.
      */
     public function getImportedId(): ?string
     {
@@ -147,7 +147,7 @@ class TransactionLine extends AbstractModel
     }
 
     /**
-     * Set debit account
+     * Set debit account.
      */
     public function setDebit(?Account $account): void
     {
@@ -163,7 +163,7 @@ class TransactionLine extends AbstractModel
     }
 
     /**
-     * Get debit account
+     * Get debit account.
      */
     public function getDebit(): ?Account
     {
@@ -171,7 +171,7 @@ class TransactionLine extends AbstractModel
     }
 
     /**
-     * Set credit account
+     * Set credit account.
      */
     public function setCredit(?Account $account): void
     {
@@ -187,7 +187,7 @@ class TransactionLine extends AbstractModel
     }
 
     /**
-     * Get credit account
+     * Get credit account.
      */
     public function getCredit(): ?Account
     {
@@ -195,7 +195,7 @@ class TransactionLine extends AbstractModel
     }
 
     /**
-     * Get related equipment or service
+     * Get related equipment or service.
      */
     public function getBookable(): ?Bookable
     {
@@ -203,7 +203,7 @@ class TransactionLine extends AbstractModel
     }
 
     /**
-     * Set related equipment or service
+     * Set related equipment or service.
      */
     public function setBookable(?Bookable $bookable): void
     {
@@ -211,7 +211,7 @@ class TransactionLine extends AbstractModel
     }
 
     /**
-     * Set balance
+     * Set balance.
      */
     public function setBalance(Money $balance): void
     {
@@ -224,7 +224,7 @@ class TransactionLine extends AbstractModel
     }
 
     /**
-     * Set date of transaction
+     * Set date of transaction.
      */
     public function setTransactionDate(Chronos $transactionDate): void
     {
@@ -232,7 +232,7 @@ class TransactionLine extends AbstractModel
     }
 
     /**
-     * Get date of transaction
+     * Get date of transaction.
      */
     public function getTransactionDate(): Chronos
     {
@@ -240,7 +240,7 @@ class TransactionLine extends AbstractModel
     }
 
     /**
-     * Set transaction tag
+     * Set transaction tag.
      */
     public function setTransactionTag(?TransactionTag $transactionTag): void
     {
@@ -248,7 +248,7 @@ class TransactionLine extends AbstractModel
     }
 
     /**
-     * Get transaction tag
+     * Get transaction tag.
      */
     public function getTransactionTag(): ?TransactionTag
     {
@@ -256,7 +256,7 @@ class TransactionLine extends AbstractModel
     }
 
     /**
-     * Whether this line of transaction was reconciled (e.g. from a bank statement)
+     * Whether this line of transaction was reconciled (e.g. from a bank statement).
      */
     public function isReconciled(): bool
     {
@@ -264,7 +264,7 @@ class TransactionLine extends AbstractModel
     }
 
     /**
-     * Whether this line of transaction was reconciled (e.g. from a bank statement)
+     * Whether this line of transaction was reconciled (e.g. from a bank statement).
      */
     public function setIsReconciled(bool $isReconciled): void
     {

@@ -11,7 +11,7 @@ use GraphQL\Doctrine\Factory\UniqueNameFactory;
 use GraphQL\Doctrine\Sorting\SortingInterface;
 
 /**
- * Sort users by their account's balance
+ * Sort users by their account's balance.
  */
 class Balance implements SortingInterface
 {

@@ -8,6 +8,6 @@ final class BookingDateGreaterOrEqualOperatorType extends AbstractOperatorType
 {
     protected function getDqlOperator(): string
     {
-        return  '>=';
+        return '>=';
     }
 }

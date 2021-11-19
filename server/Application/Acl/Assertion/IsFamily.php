@@ -14,7 +14,7 @@ use Laminas\Permissions\Acl\Role\RoleInterface;
 class IsFamily implements AssertionInterface
 {
     /**
-     * Assert that the object belongs to someone in the current user family
+     * Assert that the object belongs to someone in the current user family.
      *
      * @param \Application\Acl\Acl $acl
      * @param RoleInterface $role

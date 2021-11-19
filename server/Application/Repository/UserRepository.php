@@ -25,7 +25,7 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
     }
 
     /**
-     * Returns the user authenticated by its email and password
+     * Returns the user authenticated by its email and password.
      */
     public function getOneByLoginPassword(string $login, string $password): ?User
     {
@@ -67,9 +67,7 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
      */
     public function getOneById(int $id): ?User
     {
-        $user = $this->getAclFilter()->runWithoutAcl(function () use ($id) {
-            return $this->findOneById($id);
-        });
+        $user = $this->getAclFilter()->runWithoutAcl(fn () => $this->findOneById($id));
 
         return $user;
     }
@@ -81,15 +79,13 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
      */
     public function getOneByLogin(?string $login): ?User
     {
-        $user = $this->getAclFilter()->runWithoutAcl(function () use ($login) {
-            return $this->findOneByLogin($login);
-        });
+        $user = $this->getAclFilter()->runWithoutAcl(fn () => $this->findOneByLogin($login));
 
         return $user;
     }
 
     /**
-     * Get all administrators to notify by email
+     * Get all administrators to notify by email.
      *
      * @return User[]
      */
@@ -102,9 +98,7 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
             ->setParameter('status', User::STATUS_ACTIVE)
             ->setParameter('role', User::ROLE_ADMINISTRATOR);
 
-        $result = $this->getAclFilter()->runWithoutAcl(function () use ($qb) {
-            return $qb->getQuery()->getResult();
-        });
+        $result = $this->getAclFilter()->runWithoutAcl(fn () => $qb->getQuery()->getResult());
 
         return $result;
     }
@@ -132,15 +126,13 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
             $qb->andWhere('account.balance < 0');
         }
 
-        $result = $this->getAclFilter()->runWithoutAcl(function () use ($qb) {
-            return $qb->getQuery()->getResult();
-        });
+        $result = $this->getAclFilter()->runWithoutAcl(fn () => $qb->getQuery()->getResult());
 
         return $result;
     }
 
     /**
-     * Return all users that are family owners (and should have Account)
+     * Return all users that are family owners (and should have Account).
      *
      * @return User[]
      */
@@ -156,7 +148,7 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
     }
 
     /**
-     * Return all users that are not family owners but still have an Account
+     * Return all users that are not family owners but still have an Account.
      *
      * @return User[]
      */
@@ -188,7 +180,7 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
     }
 
     /**
-     * Delete unconfirmed registrations older than a few days (user + account)
+     * Delete unconfirmed registrations older than a few days (user + account).
      *
      * @return int number of deleted users
      */

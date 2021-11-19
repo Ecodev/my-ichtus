@@ -39,9 +39,7 @@ abstract class ConfirmRegistration implements FieldInterface
                 $repository = _em()->getRepository(User::class);
 
                 /** @var null|User $user */
-                $user = $repository->getAclFilter()->runWithoutAcl(function () use ($repository, $args) {
-                    return $repository->findOneByToken($args['token']);
-                });
+                $user = $repository->getAclFilter()->runWithoutAcl(fn () => $repository->findOneByToken($args['token']));
 
                 if (!$user) {
                     throw new ExceptionWithoutMailLogging('La session a expiré ou le lien n\'est pas valable. Effectue une nouvelle demande.');

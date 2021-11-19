@@ -13,8 +13,8 @@ use PHPUnit\Framework\TestCase;
 
 class TransactionLinesTest extends TestCase
 {
-    use TestWithTransactionAndUser;
     use TestWithSpreadsheet;
+    use TestWithTransactionAndUser;
 
     public function testExportTransactionLines(): void
     {

@@ -20,8 +20,8 @@ use Ecodev\Felix\Model\Traits\HasName;
  */
 class UserTag extends AbstractModel
 {
-    use HasName;
     use HasColor;
+    use HasName;
 
     /**
      * @var Collection<User>
@@ -30,7 +30,7 @@ class UserTag extends AbstractModel
     private $users;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -43,7 +43,7 @@ class UserTag extends AbstractModel
     }
 
     /**
-     * Add user
+     * Add user.
      */
     public function addUser(User $user): void
     {
@@ -54,7 +54,7 @@ class UserTag extends AbstractModel
     }
 
     /**
-     * Remove user
+     * Remove user.
      */
     public function removeUser(User $user): void
     {

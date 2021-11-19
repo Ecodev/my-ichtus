@@ -41,9 +41,7 @@ class BookableUsageOperatorType extends AbstractOperator
             return null;
         }
 
-        $ids = array_map(function (EntityID $id) {
-            return $id->getId();
-        }, $args['values']);
+        $ids = array_map(fn (EntityID $id) => $id->getId(), $args['values']);
 
         $bookingAlias = $uniqueNameFactory->createAliasName(Booking::class);
         $param = $uniqueNameFactory->createParameterName();

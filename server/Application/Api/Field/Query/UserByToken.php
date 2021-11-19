@@ -27,9 +27,7 @@ abstract class UserByToken implements FieldInterface
                     $repository = _em()->getRepository(User::class);
 
                     /** @var null|User $user */
-                    $user = $repository->getAclFilter()->runWithoutAcl(function () use ($repository, $args) {
-                        return $repository->findOneByToken($args['token']);
-                    });
+                    $user = $repository->getAclFilter()->runWithoutAcl(fn () => $repository->findOneByToken($args['token']));
 
                     if (!$user) {
                         throw new ExceptionWithoutMailLogging("Le lien que tu as suivi n'est pas valable ou a déjà été utilisé. Effectue une nouvelle demande de changement de mot de passe ou création de compte. Chaque nouvelle demande invalide les précédentes.");

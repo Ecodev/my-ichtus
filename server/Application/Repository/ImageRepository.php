@@ -7,7 +7,7 @@ namespace Application\Repository;
 class ImageRepository extends AbstractRepository
 {
     /**
-     * Returns all unique filename in DB
+     * Returns all unique filename in DB.
      *
      * @return string[]
      */
@@ -23,7 +23,7 @@ class ImageRepository extends AbstractRepository
     }
 
     /**
-     * Returns all filename in DB and their id and sizes
+     * Returns all filename in DB and their id and sizes.
      *
      * @return string[]
      */

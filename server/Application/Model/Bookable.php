@@ -20,7 +20,7 @@ use GraphQL\Doctrine\Annotation as API;
 use Money\Money;
 
 /**
- * An item that can be booked by a user
+ * An item that can be booked by a user.
  *
  * @ORM\Entity(repositoryClass="Application\Repository\BookableRepository")
  * @API\Filters({
@@ -34,9 +34,9 @@ use Money\Money;
  */
 class Bookable extends AbstractModel
 {
-    use HasName;
-    use HasDescription;
     use HasCode;
+    use HasDescription;
+    use HasName;
     use HasRemarks;
 
     /**
@@ -131,7 +131,7 @@ class Bookable extends AbstractModel
     private $creditAccount;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -151,7 +151,7 @@ class Bookable extends AbstractModel
 
     /**
      * Notify the bookable that it has a new booking.
-     * This should only be called by Booking::addBookable()
+     * This should only be called by Booking::addBookable().
      */
     public function bookingAdded(Booking $booking): void
     {
@@ -160,7 +160,7 @@ class Bookable extends AbstractModel
 
     /**
      * Notify the bookable that it a booking was removed.
-     * This should only be called by Booking::removeBookable()
+     * This should only be called by Booking::removeBookable().
      */
     public function bookingRemoved(Booking $booking): void
     {
@@ -174,7 +174,7 @@ class Bookable extends AbstractModel
 
     /**
      * Notify the bookable that it has a new license.
-     * This should only be called by License::addBookable()
+     * This should only be called by License::addBookable().
      */
     public function licenseAdded(License $license): void
     {
@@ -183,7 +183,7 @@ class Bookable extends AbstractModel
 
     /**
      * Notify the bookable that it a license was removed.
-     * This should only be called by License::removeBookable()
+     * This should only be called by License::removeBookable().
      */
     public function licenseRemoved(License $license): void
     {
@@ -239,7 +239,7 @@ class Bookable extends AbstractModel
     }
 
     /**
-     * Whether this bookable can be booked
+     * Whether this bookable can be booked.
      */
     public function isActive(): bool
     {
@@ -247,7 +247,7 @@ class Bookable extends AbstractModel
     }
 
     /**
-     * Whether this bookable can be booked
+     * Whether this bookable can be booked.
      */
     public function setIsActive(bool $isActive): void
     {
@@ -263,7 +263,7 @@ class Bookable extends AbstractModel
     }
 
     /**
-     * State of the bookable
+     * State of the bookable.
      *
      * @API\Field(type="BookableState")
      */
@@ -273,7 +273,7 @@ class Bookable extends AbstractModel
     }
 
     /**
-     * State of the bookable
+     * State of the bookable.
      *
      * @API\Input(type="BookableState")
      */
@@ -283,7 +283,7 @@ class Bookable extends AbstractModel
     }
 
     /**
-     * The date then the bookable was last checked
+     * The date then the bookable was last checked.
      */
     public function getVerificationDate(): ?Date
     {
@@ -291,7 +291,7 @@ class Bookable extends AbstractModel
     }
 
     /**
-     * The date then the bookable was last checked
+     * The date then the bookable was last checked.
      */
     public function setVerificationDate(?Date $verificationDate): void
     {
@@ -305,7 +305,7 @@ class Bookable extends AbstractModel
 
     /**
      * Notify the user that it has a new bookableTag.
-     * This should only be called by BookableTag::addUser()
+     * This should only be called by BookableTag::addUser().
      */
     public function bookableTagAdded(BookableTag $bookableTag): void
     {
@@ -314,7 +314,7 @@ class Bookable extends AbstractModel
 
     /**
      * Notify the user that it a bookableTag was removed.
-     * This should only be called by BookableTag::removeUser()
+     * This should only be called by BookableTag::removeUser().
      */
     public function bookableTagRemoved(BookableTag $bookableTag): void
     {
@@ -338,7 +338,7 @@ class Bookable extends AbstractModel
     }
 
     /**
-     * The account to credit when booking this bookable
+     * The account to credit when booking this bookable.
      */
     public function getCreditAccount(): ?Account
     {
@@ -346,7 +346,7 @@ class Bookable extends AbstractModel
     }
 
     /**
-     * The account to credit when booking this bookable
+     * The account to credit when booking this bookable.
      */
     public function setCreditAccount(?Account $creditAccount): void
     {
@@ -354,7 +354,7 @@ class Bookable extends AbstractModel
     }
 
     /**
-     * Returns list of active bookings
+     * Returns list of active bookings.
      *
      * Limits to admin-assigned, application and admin-approved
      *
@@ -370,9 +370,7 @@ class Bookable extends AbstractModel
         }
 
         // Only consider approved and unterminated bookings
-        $bookings = $this->getBookings()->filter(function (Booking $booking): bool {
-            return !$booking->getEndDate() && $booking->getStatus() !== BookingStatusType::APPLICATION;
-        })->toArray();
+        $bookings = $this->getBookings()->filter(fn (Booking $booking): bool => !$booking->getEndDate() && $booking->getStatus() !== BookingStatusType::APPLICATION)->toArray();
 
         return $bookings;
     }
@@ -404,9 +402,7 @@ class Bookable extends AbstractModel
             return [];
         }
 
-        $bookings = $this->getBookings()->filter(function (Booking $booking): bool {
-            return !$booking->getEndDate();
-        })->toArray();
+        $bookings = $this->getBookings()->filter(fn (Booking $booking): bool => !$booking->getEndDate())->toArray();
 
         return $bookings;
     }

@@ -14,7 +14,7 @@ use Laminas\Permissions\Acl\Role\RoleInterface;
 class BookableAvailable implements AssertionInterface
 {
     /**
-     * Assert that the bookable of the given booking can be rented by the current user
+     * Assert that the bookable of the given booking can be rented by the current user.
      *
      * @param \Application\Acl\Acl $acl
      * @param RoleInterface $role

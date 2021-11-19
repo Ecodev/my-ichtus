@@ -8,6 +8,6 @@ final class BookableBookingCountLessOperatorType extends AbstractOperatorType
 {
     protected function getDqlOperator(): string
     {
-        return  '<';
+        return '<';
     }
 }

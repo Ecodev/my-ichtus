@@ -9,7 +9,7 @@ use Application\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 
 /**
- * Trait to test limited access sub queries
+ * Trait to test limited access sub queries.
  */
 trait LimitedAccessSubQuery
 {

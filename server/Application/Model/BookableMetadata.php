@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Ecodev\Felix\Model\Traits\HasName;
 
 /**
- * An item that can be booked by a user
+ * An item that can be booked by a user.
  *
  * @ORM\Entity(repositoryClass="Application\Repository\BookableMetadataRepository")
  * @ORM\Table(uniqueConstraints={

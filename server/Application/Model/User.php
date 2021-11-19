@@ -26,7 +26,7 @@ use Ecodev\Felix\Model\Traits\HasPassword;
 use GraphQL\Doctrine\Annotation as API;
 
 /**
- * User
+ * User.
  *
  * @ORM\Entity(repositoryClass="Application\Repository\UserRepository")
  * @ORM\HasLifecycleCallbacks
@@ -76,12 +76,12 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     public const STATUS_ACTIVE = 'active';
     public const STATUS_ARCHIVED = 'archived';
 
-    use HasDoorAccess;
-    use HasRemarks;
-    use HasInternalRemarks;
     use HasAddress;
+    use HasDoorAccess;
     use HasIban;
+    use HasInternalRemarks;
     use HasPassword;
+    use HasRemarks;
 
     /**
      * @var User
@@ -90,7 +90,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Set currently logged in user
-     * WARNING: this method should only be called from \Application\Authentication\AuthenticationListener
+     * WARNING: this method should only be called from \Application\Authentication\AuthenticationListener.
      *
      * @param User $user
      */
@@ -108,7 +108,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Returns currently logged user or null
+     * Returns currently logged user or null.
      */
     public static function getCurrent(): ?self
     {
@@ -262,7 +262,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * There is actually 0 to 1 account, never more. And this is
-     * enforced by DB unique constraints
+     * enforced by DB unique constraints.
      *
      * @var Collection<Account>
      * @ORM\OneToMany(targetEntity="Account", mappedBy="owner")
@@ -276,7 +276,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     private $users;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param string $role role for new user
      */
@@ -292,7 +292,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Set login (eg: johndoe)
+     * Set login (eg: johndoe).
      *
      * @API\Input(type="Login")
      */
@@ -302,7 +302,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Get login (eg: johndoe)
+     * Get login (eg: johndoe).
      *
      * @API\Field(type="?Login")
      */
@@ -312,7 +312,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Set first name
+     * Set first name.
      */
     public function setFirstName(string $firstName): void
     {
@@ -320,7 +320,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Get first name
+     * Get first name.
      */
     public function getFirstName(): string
     {
@@ -328,7 +328,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Set last name
+     * Set last name.
      */
     public function setLastName(string $lastName): void
     {
@@ -336,7 +336,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Get last name
+     * Get last name.
      */
     public function getLastName(): string
     {
@@ -344,7 +344,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Get full name
+     * Get full name.
      */
     public function getName(): string
     {
@@ -352,7 +352,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Set email
+     * Set email.
      *
      * @API\Input(type="?Email")
      */
@@ -362,7 +362,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Get email
+     * Get email.
      *
      * @API\Field(type="?Email")
      */
@@ -372,7 +372,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Get the user role
+     * Get the user role.
      *
      * @API\Field(type="UserRole")
      */
@@ -382,7 +382,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Sets the user role
+     * Sets the user role.
      *
      * @API\Input(type="UserRole")
      */
@@ -455,7 +455,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Whether this user is a family owner or not
+     * Whether this user is a family owner or not.
      *
      * This is used for our internal logic and should
      * NEVER be related to `familyRelationship`. That field
@@ -503,7 +503,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * return null|int
+     * return null|int.
      */
     public function getAge(): ?int
     {
@@ -515,7 +515,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Get bookings
+     * Get bookings.
      */
     public function getBookings(): Collection
     {
@@ -523,20 +523,18 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Get active bookings (confirmed and non-terminated)
+     * Get active bookings (confirmed and non-terminated).
      *
      * @API\Exclude
      */
     public function getRunningBookings(): Collection
     {
-        return $this->bookings->filter(function (Booking $booking) {
-            return $booking->getStatus() === BookingStatusType::BOOKED && $booking->getEndDate() === null;
-        });
+        return $this->bookings->filter(fn (Booking $booking) => $booking->getStatus() === BookingStatusType::BOOKED && $booking->getEndDate() === null);
     }
 
     /**
      * Notify the user that it has a new booking.
-     * This should only be called by Booking::setResponsible()
+     * This should only be called by Booking::setResponsible().
      */
     public function bookingAdded(Booking $booking): void
     {
@@ -545,7 +543,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Notify the user that it has a booking was removed.
-     * This should only be called by Booking::setResponsible()
+     * This should only be called by Booking::setResponsible().
      */
     public function bookingRemoved(Booking $booking): void
     {
@@ -564,7 +562,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Notify the user that it has a new license.
-     * This should only be called by License::addUser()
+     * This should only be called by License::addUser().
      */
     public function licenseAdded(License $license): void
     {
@@ -573,7 +571,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Notify the user that it a license was removed.
-     * This should only be called by License::removeUser()
+     * This should only be called by License::removeUser().
      */
     public function licenseRemoved(License $license): void
     {
@@ -582,7 +580,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Notify the user that it has a new userTag.
-     * This should only be called by UserTag::addUser()
+     * This should only be called by UserTag::addUser().
      */
     public function userTagAdded(UserTag $userTag): void
     {
@@ -591,7 +589,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Notify the user that a userTag was removed.
-     * This should only be called by UserTag::removeUser()
+     * This should only be called by UserTag::removeUser().
      */
     public function userTagRemoved(UserTag $userTag): void
     {
@@ -649,7 +647,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Get the sex
+     * Get the sex.
      *
      * @API\Field(type="Sex")
      */
@@ -659,7 +657,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Set the sex
+     * Set the sex.
      *
      * @API\Input(type="Sex")
      */
@@ -669,7 +667,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Get the Swiss Sailing licence number
+     * Get the Swiss Sailing licence number.
      */
     public function getSwissSailing(): string
     {
@@ -682,7 +680,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Get the Swiss Sailing licence type
+     * Get the Swiss Sailing licence type.
      *
      * @API\Field(type="?SwissSailingType")
      */
@@ -692,7 +690,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Set the Swiss Sailing licence type
+     * Set the Swiss Sailing licence type.
      *
      * @API\Input(type="?SwissSailingType")
      */
@@ -702,7 +700,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Get the Swiss Windsurf licence type
+     * Get the Swiss Windsurf licence type.
      *
      * @API\Field(type="?SwissWindsurfType")
      */
@@ -712,7 +710,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Set the Swiss Windsurf licence type
+     * Set the Swiss Windsurf licence type.
      *
      * @API\Input(type="?SwissWindsurfType")
      */
@@ -722,7 +720,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Get the first login date
+     * Get the first login date.
      */
     public function getFirstLogin(): ?Chronos
     {
@@ -733,7 +731,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Get the last login date
+     * Get the last login date.
      */
     public function getLastLogin(): ?Chronos
     {
@@ -776,7 +774,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Get the user transaction account
+     * Get the user transaction account.
      */
     public function getAccount(): ?Account
     {
@@ -789,7 +787,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Notify the user that it has a new account
-     * This should only be called by Account::setOwner()
+     * This should only be called by Account::setOwner().
      */
     public function accountAdded(Account $account): void
     {
@@ -799,7 +797,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Notify the user that a account was removed
-     * This should only be called by Account::setOwner()
+     * This should only be called by Account::setOwner().
      */
     public function accountRemoved(): void
     {
@@ -807,7 +805,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Get messages sent to the user
+     * Get messages sent to the user.
      */
     public function getMessages(): Collection
     {
@@ -816,7 +814,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Notify the user that it has a new message
-     * This should only be called by Message::setRecipient()
+     * This should only be called by Message::setRecipient().
      */
     public function messageAdded(Message $message): void
     {
@@ -825,7 +823,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Notify the user that a message was removed
-     * This should only be called by Message::setRecipient()
+     * This should only be called by Message::setRecipient().
      */
     public function messageRemoved(Message $message): void
     {
@@ -834,7 +832,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Check if the user can *really* open a door
-     * This also takes into account the user status and role
+     * This also takes into account the user status and role.
      *
      * @API\Field(args={@API\Argument(name="door", type="?Application\Api\Enum\DoorType")})
      *
@@ -865,7 +863,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * Override parent to prevents users created from administration to be family of the administrator
+     * Override parent to prevents users created from administration to be family of the administrator.
      *
      * The owner must be explicitly set for all users.
      */

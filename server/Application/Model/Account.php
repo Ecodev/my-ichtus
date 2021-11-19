@@ -18,7 +18,7 @@ use GraphQL\Doctrine\Annotation as API;
 use Money\Money;
 
 /**
- * Financial account
+ * Financial account.
  *
  * @ORM\Entity(repositoryClass="Application\Repository\AccountRepository")
  * @ORM\AssociationOverrides({
@@ -31,8 +31,8 @@ use Money\Money;
  */
 class Account extends AbstractModel
 {
-    use HasName;
     use HasIban;
+    use HasName;
 
     /**
      * @var Money
@@ -91,7 +91,7 @@ class Account extends AbstractModel
     private $totalBalance;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -103,7 +103,7 @@ class Account extends AbstractModel
     }
 
     /**
-     * Get full name including code and name
+     * Get full name including code and name.
      */
     public function getFullName(): string
     {
@@ -111,7 +111,7 @@ class Account extends AbstractModel
     }
 
     /**
-     * Assign the account to an user
+     * Assign the account to an user.
      */
     public function setOwner(?User $owner): void
     {
@@ -128,7 +128,7 @@ class Account extends AbstractModel
 
     /**
      * Only members' liability accounts must have an owner
-     * and there must be only an account per member
+     * and there must be only an account per member.
      */
     protected function getOwnerForCreation(): ?User
     {
@@ -136,7 +136,7 @@ class Account extends AbstractModel
     }
 
     /**
-     * Set balance
+     * Set balance.
      *
      * @API\Exclude
      */
@@ -151,7 +151,7 @@ class Account extends AbstractModel
     }
 
     /**
-     * Total balance, recursively including all child account if this account is a group
+     * Total balance, recursively including all child account if this account is a group.
      */
     public function getTotalBalance(): Money
     {
@@ -159,7 +159,7 @@ class Account extends AbstractModel
     }
 
     /**
-     * Historical account's balance at a date in the past
+     * Historical account's balance at a date in the past.
      */
     public function getBalanceAtDate(Date $date): Money
     {
@@ -231,7 +231,7 @@ class Account extends AbstractModel
     }
 
     /**
-     * Set parent
+     * Set parent.
      *
      * @param null|Account $parent
      */
@@ -262,7 +262,7 @@ class Account extends AbstractModel
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @API\Input(type="AccountType")
      */
@@ -272,7 +272,7 @@ class Account extends AbstractModel
     }
 
     /**
-     * Get type
+     * Get type.
      *
      * @API\Field(type="AccountType")
      */
@@ -282,7 +282,7 @@ class Account extends AbstractModel
     }
 
     /**
-     * Set code
+     * Set code.
      */
     public function setCode(int $code): void
     {
@@ -290,7 +290,7 @@ class Account extends AbstractModel
     }
 
     /**
-     * Get code
+     * Get code.
      */
     public function getCode(): int
     {
@@ -299,7 +299,7 @@ class Account extends AbstractModel
 
     /**
      * Notify when a transaction line is added
-     * This should only be called by TransactionLine::setDebit()
+     * This should only be called by TransactionLine::setDebit().
      */
     public function debitTransactionLineAdded(TransactionLine $transactionLine): void
     {
@@ -308,7 +308,7 @@ class Account extends AbstractModel
 
     /**
      * Notify when a transaction line is removed
-     * This should only be called by TransactionLine::setDebit()
+     * This should only be called by TransactionLine::setDebit().
      */
     public function debitTransactionLineRemoved(TransactionLine $transactionLine): void
     {
@@ -322,7 +322,7 @@ class Account extends AbstractModel
 
     /**
      * Notify when a transaction line is added
-     * This should only be called by TransactionLine::setCredit()
+     * This should only be called by TransactionLine::setCredit().
      */
     public function creditTransactionLineAdded(TransactionLine $transactionLine): void
     {
@@ -331,7 +331,7 @@ class Account extends AbstractModel
 
     /**
      * Notify when a transaction line is removed
-     * This should only be called by TransactionLine::setCredit()
+     * This should only be called by TransactionLine::setCredit().
      */
     public function creditTransactionLineRemoved(TransactionLine $transactionLine): void
     {

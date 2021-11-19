@@ -38,9 +38,7 @@ abstract class UpdatePassword implements FieldInterface
                 $repository = _em()->getRepository(User::class);
 
                 /** @var null|User $user */
-                $user = $repository->getAclFilter()->runWithoutAcl(function () use ($repository, $args) {
-                    return $repository->findOneByToken($args['token']);
-                });
+                $user = $repository->getAclFilter()->runWithoutAcl(fn () => $repository->findOneByToken($args['token']));
 
                 if (!$user || !$user->isTokenValid()) {
                     _log()->info(LogRepository::UPDATE_PASSWORD_FAILED);

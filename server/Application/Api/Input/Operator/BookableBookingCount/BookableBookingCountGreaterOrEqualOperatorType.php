@@ -8,6 +8,6 @@ final class BookableBookingCountGreaterOrEqualOperatorType extends AbstractOpera
 {
     protected function getDqlOperator(): string
     {
-        return  '>=';
+        return '>=';
     }
 }

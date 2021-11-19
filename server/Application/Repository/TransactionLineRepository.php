@@ -41,7 +41,7 @@ class TransactionLineRepository extends AbstractRepository implements LimitedAcc
     }
 
     /**
-     * Compute the total balance by credit or debit account and date range
+     * Compute the total balance by credit or debit account and date range.
      *
      * @param null|Date $dateStart the lines from this date, included
      * @param null|Date $dateEnd the line until this date, included

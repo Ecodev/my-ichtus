@@ -19,9 +19,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-/**
- * Setup middleware pipeline:
- */
+// Setup middleware pipeline:
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     /** @var ErrorHandler $errorHandler */
     $errorHandler = $container->get(ErrorHandler::class);

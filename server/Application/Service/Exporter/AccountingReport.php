@@ -331,9 +331,9 @@ class AccountingReport extends AbstractExcel
     {
         $initialColumn = $this->column;
 
-        /** BALANCE SHEET */
+        // BALANCE SHEET
 
-        /** Assets */
+        // Assets
         // Account.code
         $this->write('');
         // Account.name
@@ -358,9 +358,9 @@ class AccountingReport extends AbstractExcel
         // Margin
         $this->write('');
 
-        /** INCOME STATEMENT */
+        // INCOME STATEMENT
 
-        /** Expenses */
+        // Expenses
         // Account.code
         $this->write('');
         // Account.name

@@ -23,42 +23,42 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 abstract class AbstractExcel extends AbstractExporter
 {
     /**
-     * Zebra striping of data rows
+     * Zebra striping of data rows.
      */
     protected bool $zebra = true;
 
     /**
-     * Enable auto filter on the headers
+     * Enable auto filter on the headers.
      */
     protected bool $autoFilter = true;
 
     /**
-     * Column of current cell we are writing in
+     * Column of current cell we are writing in.
      */
     protected int $column = 1;
 
     /**
-     * Row of current cell we are writing in
+     * Row of current cell we are writing in.
      */
     protected int $row = 1;
 
     /**
-     * Index of first column containing data
+     * Index of first column containing data.
      */
     private int $firstDataColumn = 1;
 
     /**
-     * Index of first row containing data
+     * Index of first row containing data.
      */
     private int $firstDataRow = 1;
 
     /**
-     * Index of last column containing data
+     * Index of last column containing data.
      */
     protected int $lastDataColumn = 1;
 
     /**
-     * Index of last row containing data
+     * Index of last row containing data.
      */
     protected int $lastDataRow = 1;
 
@@ -136,7 +136,7 @@ abstract class AbstractExcel extends AbstractExporter
     ];
 
     /**
-     * Define border cells inside list of data (very light borders)
+     * Define border cells inside list of data (very light borders).
      */
     protected static array $bordersInside = [
         'borders' => [
@@ -150,7 +150,7 @@ abstract class AbstractExcel extends AbstractExporter
     ];
 
     /**
-     * Define border cells for total row (thick border)
+     * Define border cells for total row (thick border).
      */
     protected static array $bordersTotal = [
         'borders' => [
@@ -177,7 +177,7 @@ abstract class AbstractExcel extends AbstractExporter
     ];
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct(string $hostname)
     {
@@ -231,7 +231,7 @@ abstract class AbstractExcel extends AbstractExporter
     abstract protected function getHeaders(): array;
 
     /**
-     * Write the value and style in the cell selected by `column` and `row` variables and move to next column
+     * Write the value and style in the cell selected by `column` and `row` variables and move to next column.
      *
      * @param mixed $value
      * @param array[] ...$formats optional list of formats to be applied successively

@@ -14,7 +14,7 @@ use Laminas\Permissions\Acl\Role\RoleInterface;
 class BookingIsSelfApproved implements AssertionInterface
 {
     /**
-     * Assert that booking's bookable is self approved (boats) or has no bookable
+     * Assert that booking's bookable is self approved (boats) or has no bookable.
      *
      * @param \Application\Acl\Acl $acl
      * @param RoleInterface $role

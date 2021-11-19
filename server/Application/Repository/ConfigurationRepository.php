@@ -9,7 +9,7 @@ use Application\Model\Configuration;
 class ConfigurationRepository extends AbstractRepository
 {
     /**
-     * Get or create the configuration for the given key
+     * Get or create the configuration for the given key.
      */
     public function getOrCreate(string $key): Configuration
     {

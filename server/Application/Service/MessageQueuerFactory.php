@@ -11,7 +11,7 @@ use Interop\Container\ContainerInterface;
 class MessageQueuerFactory
 {
     /**
-     * Return a configured mailer
+     * Return a configured mailer.
      */
     public function __invoke(ContainerInterface $container): MessageQueuer
     {

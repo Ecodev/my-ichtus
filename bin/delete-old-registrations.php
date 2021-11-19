@@ -2,7 +2,7 @@
 <?php
 
 /**
- * Delete unconfirmed registrations older than a few days
+ * Delete unconfirmed registrations older than a few days.
  */
 
 use Application\Model\User;

@@ -10,7 +10,7 @@ use GraphQL\Doctrine\Factory\UniqueNameFactory;
 use GraphQL\Doctrine\Sorting\SortingInterface;
 
 /**
- * Sort items by their latest modification date
+ * Sort items by their latest modification date.
  */
 class LatestModification implements SortingInterface
 {

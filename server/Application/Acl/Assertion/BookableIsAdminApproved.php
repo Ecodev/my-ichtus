@@ -14,7 +14,7 @@ use Laminas\Permissions\Acl\Role\RoleInterface;
 class BookableIsAdminApproved implements AssertionInterface
 {
     /**
-     * Assert that the bookable's booking type is admin approved
+     * Assert that the bookable's booking type is admin approved.
      *
      * @param \Application\Acl\Acl $acl
      * @param RoleInterface $role

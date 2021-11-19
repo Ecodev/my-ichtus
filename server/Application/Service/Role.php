@@ -9,7 +9,7 @@ use Application\Model\User;
 abstract class Role
 {
     /**
-     * Whether the current user can update from oldRole to newRole
+     * Whether the current user can update from oldRole to newRole.
      *
      * The current user is allowed to promote another user up to the same role as himself. So
      * a Responsible can promote a Member to Responsible. Or an Admin can promote a Individual to Admin.

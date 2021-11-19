@@ -50,7 +50,7 @@ class DatatransHandler extends AbstractHandler
     }
 
     /**
-     * Webhook called by datatrans when a payment was made
+     * Webhook called by datatrans when a payment was made.
      *
      * See documentation: https://api-reference.datatrans.ch/#failed-unsuccessful-authorization-response
      */
@@ -87,7 +87,7 @@ class DatatransHandler extends AbstractHandler
     }
 
     /**
-     * Make sure the signature protecting important body fields is valid
+     * Make sure the signature protecting important body fields is valid.
      *
      * @param string $key HMAC-SHA256 signing key in hexadecimal format
      */
@@ -105,7 +105,7 @@ class DatatransHandler extends AbstractHandler
     }
 
     /**
-     * Create a message in a coherent way
+     * Create a message in a coherent way.
      */
     private function createMessage(string $status, string $message, array $detail): array
     {
@@ -117,7 +117,7 @@ class DatatransHandler extends AbstractHandler
     }
 
     /**
-     * Dispatch the data received from Datatrans to take appropriate actions
+     * Dispatch the data received from Datatrans to take appropriate actions.
      */
     private function dispatch(string $status, array $body): array
     {
@@ -169,9 +169,7 @@ class DatatransHandler extends AbstractHandler
             throw new Exception('Missing config accounting/bankAccountCode');
         }
         $bankAccountCode = $this->config['accounting']['bankAccountCode'];
-        $bankAccount = $accountRepository->getAclFilter()->runWithoutAcl(function () use ($accountRepository, $bankAccountCode) {
-            return $accountRepository->findOneByCode($bankAccountCode);
-        });
+        $bankAccount = $accountRepository->getAclFilter()->runWithoutAcl(fn () => $accountRepository->findOneByCode($bankAccountCode));
 
         if (!array_key_exists('amount', $body)) {
             // Do not support "registrations"
