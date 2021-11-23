@@ -1363,10 +1363,10 @@
   dependencies:
     tslib "^2.3.1"
 
-"@ecodev/natural@^38.0.0":
-  version "38.0.0"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-38.0.0.tgz#e7077ea0ffbec03cd685360b4de04b11a876ce34"
-  integrity sha512-zFth+rwR0vpDx6zPvxW8e4lb4R9ejTZcsGOcNN5sex5JyNVI8V3dUUf5Y6hDm8iN7u45P4MmRvjZtsOHB6NhLA==
+"@ecodev/natural@^38.0.1":
+  version "38.0.1"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-38.0.1.tgz#117cb7a6d0b3c20923e8693eafffa40c77995319"
+  integrity sha512-Pred/m7gy0ol0Vn9ycwhH3Oe14pZHrrMCnm9JEnXEa1QELXwQsqsn2+owV6+GTS8gAUbBOWXgM1XZaRzayyjsg==
   dependencies:
     ts-md5 "^1.2.9"
     tslib "^2.3.1"
