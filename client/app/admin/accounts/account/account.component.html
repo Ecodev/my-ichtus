@@ -26,9 +26,10 @@
                                 >
                                     <natural-icon name="reply"></natural-icon>
                                 </button>
-                                <mat-error *ngIf="form.get('code')?.hasError('maxlength')">
-                                    Maximum {{ form.get('code')?.errors?.maxlength?.requiredLength }} caractères
-                                </mat-error>
+                                <mat-error *ngIf="form.get('code')?.hasError('min')">Valeur positive</mat-error>
+                                <mat-error *ngIf="form.get('code')?.hasError('integer')"
+                                    >Doit être un nombre entier</mat-error
+                                >
                                 <mat-error *ngIf="form.get('code')?.hasError('required')">Requis</mat-error>
                                 <mat-error *ngIf="form.get('code')?.hasError('duplicateValue')"
                                     >Ce numéro est déjà attribué</mat-error

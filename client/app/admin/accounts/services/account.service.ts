@@ -39,6 +39,7 @@ import {
     FormAsyncValidators,
     formatIsoDateTime,
     FormValidators,
+    integer,
     NaturalAbstractModelService,
     NaturalQueryVariablesManager,
     unique,
@@ -80,7 +81,7 @@ export class AccountService extends NaturalAbstractModelService<
     public getFormValidators(): FormValidators {
         return {
             name: [Validators.required, Validators.maxLength(100)],
-            code: [Validators.required, Validators.maxLength(20)],
+            code: [Validators.required, Validators.min(0), integer],
             iban: [iban],
         };
     }
