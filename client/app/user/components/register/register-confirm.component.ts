@@ -1,12 +1,11 @@
 import {Apollo, gql} from 'apollo-angular';
 import {Component, OnInit} from '@angular/core';
-import {deliverableEmail, NaturalAlertService, relationsToIds} from '@ecodev/natural';
+import {available, deliverableEmail, NaturalAlertService, relationsToIds} from '@ecodev/natural';
 import {pick} from 'lodash-es';
 import {RegisterComponent} from './register.component';
 import {FormBuilder, Validators} from '@angular/forms';
 import {loginValidator, UserService} from '../../../admin/users/services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {available} from '../../../shared/validators';
 import {UserByTokenResolve} from '../../../admin/users/user';
 import {UserByToken_userByToken} from '../../../shared/generated-types';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';

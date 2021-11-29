@@ -32,7 +32,7 @@
                     <mat-error *ngIf="form.get('login')?.hasError('invalid')">{{
                         form.get('login')?.getError('invalid')
                     }}</mat-error>
-                    <mat-error *ngIf="form.get('login')?.hasError('duplicateValue')"
+                    <mat-error *ngIf="form.get('login')?.hasError('available')"
                         >Ce nom d'utilisateur ne peut pas être choisi</mat-error
                     >
                 </mat-form-field>
