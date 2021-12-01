@@ -5631,10 +5631,10 @@ hyperlinker@^1.0.0:
   resolved "https://registry.yarnpkg.com/hyperlinker/-/hyperlinker-1.0.0.tgz#23dc9e38a206b208ee49bc2d6c8ef47027df0c0e"
   integrity sha512-Ty8UblRWFEcfSuIaajM34LdPXIhbs1ajEX/BBPv24J+enSVaEVY63xQ6lTO9VRYS5LAoghIG0IDJ+p+IPzKUQQ==
 
-ibantools@^3.3.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/ibantools/-/ibantools-3.3.1.tgz#bd00c8eb92a60737399b4a2f38167fa69ed50a0c"
-  integrity sha512-khNflO+KBfheUGOGqVt9e+rdW6174FY+/llpLs+skQ2epF74Gdp9LG1T+Y7j/q5wcq1JPzJGvmsVHEyNtYGdfQ==
+ibantools@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/ibantools/-/ibantools-4.1.0.tgz#42b81cff4b313aa3b1dc5e9a507e21e4cefe8632"
+  integrity sha512-m/j4FUT6Fq+RJtEH3+Vhqtkf1Q9fI+KrYRv4xRv2+edvbU/OWNJMlJw5QrD60rok/mVLDg6MoEcpMdUwcDSE3w==
 
 iconv-lite@0.4.24, iconv-lite@^0.4.24, iconv-lite@^0.4.4:
   version "0.4.24"
