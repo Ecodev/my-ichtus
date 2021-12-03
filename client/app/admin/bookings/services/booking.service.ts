@@ -36,7 +36,7 @@ import {Validators} from '@angular/forms';
 import {forkJoin, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {BookingResolve} from '../booking';
-import {FormValidators, NaturalAbstractModelService, NaturalEnumService} from '@ecodev/natural';
+import {formatIsoDateTime, FormValidators, NaturalAbstractModelService, NaturalEnumService} from '@ecodev/natural';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 
 @Injectable({
@@ -192,7 +192,7 @@ export class BookingService extends NaturalAbstractModelService<
             startComment: '',
             endComment: '',
             estimatedEndDate: '',
-            startDate: new Date().toISOString(),
+            startDate: formatIsoDateTime(new Date()),
             endDate: '',
             remarks: '',
             internalRemarks: '',
@@ -245,7 +245,7 @@ export class BookingService extends NaturalAbstractModelService<
         booking: BookingPartialInput = {},
     ): Observable<CreateBooking['createBooking']> {
         if (!booking.startDate) {
-            booking.startDate = new Date().toISOString();
+            booking.startDate = formatIsoDateTime(new Date());
         }
 
         if (!booking.status) {

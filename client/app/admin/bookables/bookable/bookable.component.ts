@@ -1,5 +1,5 @@
 import {Component, Injector, OnInit} from '@angular/core';
-import {FileModel, NaturalAbstractDetail} from '@ecodev/natural';
+import {FileModel, formatIsoDateTime, NaturalAbstractDetail} from '@ecodev/natural';
 import {BookableService} from '../services/bookable.service';
 import {
     BookingFilterGroupCondition,
@@ -50,7 +50,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
     }
 
     public verify(): void {
-        const partialBookable = {id: this.data.model.id, verificationDate: new Date().toISOString()};
+        const partialBookable = {id: this.data.model.id, verificationDate: formatIsoDateTime(new Date())};
         this.service.updatePartially(partialBookable).subscribe(bookable => {
             this.form.patchValue(bookable);
         });

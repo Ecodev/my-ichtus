@@ -14,7 +14,7 @@ import {
 import {UserService} from '../../users/services/user.service';
 import {BookableService} from '../../bookables/services/bookable.service';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
-import {ExtractVall, NaturalAbstractDetail, NaturalSearchSelections} from '@ecodev/natural';
+import {ExtractVall, formatIsoDateTime, NaturalAbstractDetail, NaturalSearchSelections} from '@ecodev/natural';
 
 @Component({
     selector: 'app-booking',
@@ -91,7 +91,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
         this.bookingService.terminateBooking(this.data.model.id).subscribe(() => {
             const endDate = this.form.get('endDate');
             if (endDate) {
-                endDate.setValue(new Date().toISOString());
+                endDate.setValue(formatIsoDateTime(new Date()));
             }
         });
     }
@@ -176,7 +176,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
                 const endDate = this.form.get('endDate');
                 const status = this.form.get('status');
                 if (endDate) {
-                    endDate.setValue(new Date().toISOString());
+                    endDate.setValue(formatIsoDateTime(new Date()));
                 }
                 if (status) {
                     status.setValue(BookingStatus.processed);

@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {
     deliverableEmail,
     FormAsyncValidators,
+    formatIsoDateTime,
     FormValidators,
     Literal,
     LOCAL_STORAGE,
@@ -329,7 +330,10 @@ export class UserService
             .pipe(map(result => result.data.userLoginAvailable));
     }
 
-    public flagWelcomeSessionDate(id: string, value = new Date().toISOString()): Observable<UpdateUser_updateUser> {
+    public flagWelcomeSessionDate(
+        id: string,
+        value = formatIsoDateTime(new Date()),
+    ): Observable<UpdateUser_updateUser> {
         const user: UserPartialInput = {welcomeSessionDate: value};
         return this.updatePartially({id: id, ...user});
     }
