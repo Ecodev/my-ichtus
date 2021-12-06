@@ -9,7 +9,7 @@ use Money\Money;
 
 class MoneyType extends AbstractMoneyType
 {
-    public function getName()
+    public function getName(): string
     {
         return 'Money';
     }
