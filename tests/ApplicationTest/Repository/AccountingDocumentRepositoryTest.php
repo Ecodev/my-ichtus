@@ -11,9 +11,6 @@ use Application\Repository\AccountingDocumentRepository;
 use ApplicationTest\Traits\LimitedAccessSubQuery;
 use Money\Money;
 
-/**
- * @group Repository
- */
 class AccountingDocumentRepositoryTest extends AbstractRepositoryTest
 {
     use LimitedAccessSubQuery;

@@ -8,9 +8,6 @@ use Application\Model\User;
 use Application\Repository\UserRepository;
 use ApplicationTest\Traits\LimitedAccessSubQuery;
 
-/**
- * @group Repository
- */
 class UserRepositoryTest extends AbstractRepositoryTest
 {
     use LimitedAccessSubQuery;

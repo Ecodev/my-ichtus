@@ -12,9 +12,6 @@ use ApplicationTest\Traits\LimitedAccessSubQuery;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Money\Money;
 
-/**
- * @group Repository
- */
 class AccountRepositoryTest extends AbstractRepositoryTest
 {
     use LimitedAccessSubQuery;

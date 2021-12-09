@@ -9,9 +9,6 @@ use Application\Model\Image;
 use Application\Repository\ImageRepository;
 use Ecodev\Felix\Service\AbstractDatabase;
 
-/**
- * @group Repository
- */
 class ImageRepositoryTest extends AbstractRepositoryTest
 {
     protected function tearDown(): void

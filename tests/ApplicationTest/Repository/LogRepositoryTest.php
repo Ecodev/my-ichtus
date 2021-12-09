@@ -8,9 +8,6 @@ use Application\Model\Log;
 use Application\Model\User;
 use Application\Repository\LogRepository;
 
-/**
- * @group Repository
- */
 class LogRepositoryTest extends AbstractRepositoryTest
 {
     /**

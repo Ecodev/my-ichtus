@@ -13,9 +13,6 @@ use ApplicationTest\Traits\LimitedAccessSubQuery;
 use Cake\Chronos\Chronos;
 use Money\Money;
 
-/**
- * @group Repository
- */
 class TransactionRepositoryTest extends AbstractRepositoryTest
 {
     use LimitedAccessSubQuery;

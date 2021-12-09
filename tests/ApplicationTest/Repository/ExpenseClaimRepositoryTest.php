@@ -8,9 +8,6 @@ use Application\Model\ExpenseClaim;
 use Application\Repository\ExpenseClaimRepository;
 use ApplicationTest\Traits\LimitedAccessSubQuery;
 
-/**
- * @group Repository
- */
 class ExpenseClaimRepositoryTest extends AbstractRepositoryTest
 {
     use LimitedAccessSubQuery;

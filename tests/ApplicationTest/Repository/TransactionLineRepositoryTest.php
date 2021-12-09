@@ -13,9 +13,6 @@ use Cake\Chronos\Chronos;
 use Cake\Chronos\Date;
 use Money\Money;
 
-/**
- * @group Repository
- */
 class TransactionLineRepositoryTest extends AbstractRepositoryTest
 {
     use LimitedAccessSubQuery;
