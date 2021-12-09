@@ -20,7 +20,7 @@
                     [variablesManager]="variablesManager"
                 ></app-copy-contact-data>
 
-                <natural-columns-picker [(selection)]="selectedColumns" [initialSelection]="initialColumns">
+                <natural-columns-picker (selectionChange)="selectColumns($event)" [selections]="selectedColumns">
                     <span *ngIf="columnIsAvailable('edit')" naturalColumnsPickerColumn="edit">Editer</span>
                     <span *ngIf="columnIsAvailable('owner')" naturalColumnsPickerColumn="owner">Utilisateur</span>
                     <span *ngIf="columnIsAvailable('ownerReadonly')" naturalColumnsPickerColumn="ownerReadonly"
@@ -61,9 +61,9 @@
         </div>
         <div class="responsive-table">
             <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting([$event])">
-                <tr mat-header-row *matHeaderRowDef="selectedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: selectedColumns"></tr>
-                <tr mat-footer-row *matFooterRowDef="selectedColumns"></tr>
+                <tr mat-header-row *matHeaderRowDef="columnsForTable"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnsForTable"></tr>
+                <tr mat-footer-row *matFooterRowDef="columnsForTable"></tr>
 
                 <ng-container matColumnDef="edit">
                     <th mat-header-cell *matHeaderCellDef></th>

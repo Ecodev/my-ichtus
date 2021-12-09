@@ -16,7 +16,7 @@ import {finalize} from 'rxjs/operators';
     styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent extends NaturalAbstractList<UserService> implements OnInit {
-    public initialColumns = [
+    public selectedColumns = [
         'balance',
         'name',
         'login',

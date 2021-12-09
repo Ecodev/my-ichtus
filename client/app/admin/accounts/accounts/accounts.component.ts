@@ -19,7 +19,7 @@ type AccountingDialogResult = Date;
     styleUrls: ['./accounts.component.scss'],
 })
 export class AccountsComponent extends NaturalAbstractNavigableList<AccountService> implements OnInit {
-    public initialColumns = ['navigation', 'code', 'name', 'totalBalance'];
+    public selectedColumns = ['navigation', 'code', 'name', 'totalBalance'];
     public viewer!: CurrentUserForProfile_viewer;
     private dialogConfig: MatDialogConfig<AccountingDialogData> = {
         minWidth: '400px',

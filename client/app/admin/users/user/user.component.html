@@ -345,7 +345,7 @@
             *ngIf="data.model.account && permissionsService.gteResponsible(viewer)"
         >
             <app-transaction-lines
-                [initialColumns]="['name', 'bookable', 'transactionDate', 'remark', 'account']"
+                [selectedColumns]="['name', 'bookable', 'transactionDate', 'remark', 'account']"
                 [forcedVariables]="transactionLinesVariables"
                 [relativeToAccount]="data.model.account"
                 [persistSearch]="false"

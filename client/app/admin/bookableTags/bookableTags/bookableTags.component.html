@@ -14,7 +14,7 @@
                 (selectionChange)="search($event)"
                 [multipleGroups]="true"
             >
-                <natural-columns-picker [(selection)]="selectedColumns" [initialSelection]="initialColumns">
+                <natural-columns-picker (selectionChange)="selectColumns($event)" [selections]="selectedColumns">
                     <span naturalColumnsPickerColumn="color">Couleur</span>
                     <span naturalColumnsPickerColumn="name">Nom</span>
                 </natural-columns-picker>
@@ -23,8 +23,8 @@
 
         <div class="responsive-table">
             <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting([$event])">
-                <tr mat-header-row *matHeaderRowDef="selectedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: selectedColumns"></tr>
+                <tr mat-header-row *matHeaderRowDef="columnsForTable"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnsForTable"></tr>
 
                 <ng-container matColumnDef="color">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header natural-3em-column></th>

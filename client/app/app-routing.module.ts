@@ -33,7 +33,7 @@ export const routes: Routes = [
                 title: 'Sorties en cours',
             } as NaturalSeo,
             forcedVariables: BookingService.runningSelfApprovedQV,
-            initialColumns: ['bookable', 'destination', 'startDate', 'estimatedEndDate', 'participantCount'],
+            selectedColumns: ['bookable', 'destination', 'startDate', 'estimatedEndDate', 'participantCount'],
             availableColumns: [
                 'bookable',
                 'destination',

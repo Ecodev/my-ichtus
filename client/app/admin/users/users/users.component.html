@@ -19,7 +19,7 @@
                     [variablesManager]="variablesManager"
                 ></app-copy-contact-data>
 
-                <natural-columns-picker [(selection)]="selectedColumns" [initialSelection]="initialColumns">
+                <natural-columns-picker (selectionChange)="selectColumns($event)" [selections]="selectedColumns">
                     <span naturalColumnsPickerColumn="balance">Solde</span>
                     <span naturalColumnsPickerColumn="name">Nom</span>
                     <span naturalColumnsPickerColumn="login">Login</span>
@@ -40,8 +40,8 @@
 
         <div class="responsive-table">
             <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting([$event])">
-                <tr mat-header-row *matHeaderRowDef="selectedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: selectedColumns"></tr>
+                <tr mat-header-row *matHeaderRowDef="columnsForTable"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnsForTable"></tr>
 
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header="lastName">Nom</th>
