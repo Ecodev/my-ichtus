@@ -13,7 +13,6 @@ parameters:
         - '~^Call to an undefined method Application\\Repository\\.*Repository::find(One)?By.*\(\)\.$~'
         - '~^Call to an undefined method Laminas\\Permissions\\Acl\\Resource\\ResourceInterface::getInstance\(\)\.$~'
         - '~^Parameter \#3 \$type of method Doctrine\\ORM\\AbstractQuery\:\:setParameter\(\) expects string\|null, int given\.$~'
-        - '~^Cannot call method fetchOne\(\) on Doctrine\\DBAL\\Driver\\ResultStatement\|int\.$~'
         -
             message: '~^If condition is always true\.$~'
             path: server/Application/Model/TransactionLine.php
