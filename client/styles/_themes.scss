@@ -5,6 +5,7 @@
 // Import theming files full relative way or karma will display warning
 @use '~@angular/material' as mat;
 @use '~@ecodev/natural/theming/natural.theme';
+@use '~@ecodev/natural-editor/theming/natural-editor.theme';
 @use '../app/shared/components/boot-loader/boot-loader.theme';
 @use '../app/app.theme';
 @use '../app/door/door.theme';
@@ -21,6 +22,7 @@
 @mixin components-theme($theme) {
     @include app.app($theme);
     @include natural.natural($theme);
+    @include natural-editor.natural-editor($theme);
     @include boot-loader.boot-loader($theme);
     @include door.door($theme);
     @include money.money($theme);

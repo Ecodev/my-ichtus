@@ -35,8 +35,8 @@ import {
     NaturalStampModule,
     NaturalTableButtonModule,
 } from '@ecodev/natural';
+import {NaturalEditorModule} from '@ecodev/natural-editor';
 import {SupportComponent} from '../../admin/configurations/support/support.component';
-import {ProsemirrorComponent} from '../../admin/proseMirror/proseMirror.component';
 import {IbanPipe} from '../pipes/iban.pipe';
 import {CopyContactDataComponent} from '../components/copy-contact-data/copy-contact-data.component';
 
@@ -102,7 +102,6 @@ const declarations = [
     AccountingDocumentsComponent,
     ParticleSwitchComponent,
     SupportComponent,
-    ProsemirrorComponent,
     IbanPipe,
     CopyContactDataComponent,
 ];
@@ -131,6 +130,7 @@ const imports = [
     NaturalDropdownComponentsModule,
     NaturalDialogTriggerModule,
     NaturalFileModule,
+    NaturalEditorModule,
 ];
 
 @NgModule({
