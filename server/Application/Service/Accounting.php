@@ -79,7 +79,10 @@ class Accounting
         if ($endDate->isFuture()) {
             throw new ExceptionWithoutMailLogging('La date du bouclement ne peut pas être dans le futur');
         }
-        $endDateTime = (new Chronos($endDate))->endOfDay();
+
+        // We actually generate the closure transaction at the beggining of the next day (ie. Jan 1st)
+        // so that it is not taken into account by the accounting report for the closing day (ie. Dec 31th)
+        $endDateTime = (new Chronos($endDate))->addDay(1)->startOfDay();
 
         /** @var null|Account $closingAccount */
         $closingAccount = $this->accountRepository->findOneBy(['code' => $this->accountingConfig['closingAccountCode']]);
@@ -97,20 +100,22 @@ class Accounting
             'revenues' => $this->accountRepository->findBy(['type' => AccountTypeType::REVENUE]),
         ];
 
+        $closingTransactioName = 'Bouclement au ' . $endDate->format('d.m.Y');
+
         if (is_array($output)) {
-            $output[] = 'Bouclement au ' . $endDate->toDateString();
+            $output[] = $closingTransactioName;
         }
 
-        $existingClosingTransaction = $this->transactionRepository->findOneBy(['name' => 'Bouclement', 'transactionDate' => $endDateTime]);
+        $existingClosingTransaction = $this->transactionRepository->findOneBy(['name' => $closingTransactioName, 'transactionDate' => $endDateTime]);
 
         if ($existingClosingTransaction) {
-            throw new ExceptionWithoutMailLogging('Le bouclement a déjà été fait au ' . $endDateTime->toDateTimeString());
+            throw new ExceptionWithoutMailLogging('Le bouclement a déjà été fait au ' . $endDate);
         }
 
         $closingTransaction = new Transaction();
         $closingTransaction->setTransactionDate($endDateTime);
         $closingTransaction->setInternalRemarks('Écriture générée automatiquement');
-        $closingTransaction->setName('Bouclement');
+        $closingTransaction->setName($closingTransactioName);
 
         $this->generateClosingEntries($allAccountsToClose, $closingTransaction, $closingAccount, $endDate);
 

@@ -67,7 +67,7 @@ class AccountingTest extends TestCase
         $closingDate = Date::createFromDate(2019, 12, 31);
 
         $expectedLog = [
-            'Bouclement au 2019-12-31',
+            'Bouclement au 31.12.2019',
             'Bénéfice : 127.50',
         ];
         $output = [];
@@ -75,8 +75,8 @@ class AccountingTest extends TestCase
         self::assertSame($expectedLog, $output);
 
         $actualDate = $closingTransaction->getTransactionDate();
-        $expectedDate = (new Chronos($closingDate))->endOfDay();
-        self::assertTrue($actualDate->eq($expectedDate), 'Closing transaction was not created on ' . $closingDate);
+        $expectedDateTime = new Chronos('2020-01-01 00:00:00');
+        self::assertTrue($actualDate->eq($expectedDateTime), 'Closing transaction was not created on ' . $closingDate);
 
         $accounts = $accountRepository->findByType([AccountTypeType::REVENUE, AccountTypeType::EXPENSE]);
         $openingDate = $closingDate->addDay();
@@ -84,7 +84,7 @@ class AccountingTest extends TestCase
             self::assertTrue(Money::CHF(0)->equals($account->getBalanceAtDate($openingDate)));
         }
 
-        $this->expectExceptionMessage('Le bouclement a déjà été fait au 2019-12-31 23:59:59');
+        $this->expectExceptionMessage('Le bouclement a déjà été fait au 2019-12-31');
         $this->accounting->close($closingDate, $output);
     }
 }
