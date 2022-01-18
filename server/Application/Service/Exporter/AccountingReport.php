@@ -339,16 +339,14 @@ class AccountingReport extends AbstractExcel
         // Account.name
         $this->write('');
         // Account.balance
-        $cellsToSum = $this->cellsToSum($this->assets);
-        $this->write('=SUM(' . implode(',', $cellsToSum) . ')', self::$balanceFormat, self::$totalFormat);
+        $this->writeSum($this->assets);
 
         // Margin
         $this->write('');
 
-        /** Liabilities */
+        // Liabilities
         // Account.balance
-        $cellsToSum = $this->cellsToSum($this->liabilities);
-        $this->write('=SUM(' . implode(',', $cellsToSum) . ')', self::$balanceFormat, self::$totalFormat);
+        $this->writeSum($this->liabilities);
 
         // Account.code
         $this->write('');
@@ -366,16 +364,14 @@ class AccountingReport extends AbstractExcel
         // Account.name
         $this->write('');
         // Account.balance
-        $cellsToSum = $this->cellsToSum($this->expenses);
-        $this->write('=SUM(' . implode(',', $cellsToSum) . ')', self::$balanceFormat, self::$totalFormat);
+        $this->writeSum($this->expenses);
 
         // Margin
         $this->write('');
 
-        /** Revenues ** */
+        // Revenues
         // Account.balance
-        $cellsToSum = $this->cellsToSum($this->revenues);
-        $this->write('=SUM(' . implode(',', $cellsToSum) . ')', self::$balanceFormat, self::$totalFormat);
+        $this->writeSum($this->revenues);
         // Account.code
         $this->write('');
         // Account.name
@@ -400,7 +396,14 @@ class AccountingReport extends AbstractExcel
         }
     }
 
-    protected function cellsToSum(array $data): array
+    private function writeSum(array $data): void
+    {
+        $cellsToSum = $this->cellsToSum($data);
+        $sum = $cellsToSum ? '=SUM(' . implode(',', $cellsToSum) . ')' : '';
+        $this->write($sum, self::$balanceFormat, self::$totalFormat);
+    }
+
+    private function cellsToSum(array $data): array
     {
         $cells = array_reduce($data, function (array $carry, $data) {
             if (isset($data['cell']) && ($data['depth'] === 1 || (int) mb_substr((string) $data['code'], 0, 1) > 6)) {
