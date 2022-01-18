@@ -8,6 +8,7 @@ import {FormControl, Validators} from '@angular/forms';
 })
 export class AccountingClosingComponent {
     public readonly form = new FormControl(null, [Validators.required]);
+    public readonly today = new Date();
 
     constructor() {
         const lastYear = new Date().getFullYear() - 1;

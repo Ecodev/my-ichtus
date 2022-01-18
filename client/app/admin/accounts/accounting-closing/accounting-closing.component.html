@@ -13,10 +13,13 @@
         </mat-hint>
         <mat-form-field fxLayout="row" class="margin-v">
             <mat-label>Date du bouclement</mat-label>
-            <input matInput [formControl]="form" [matDatepicker]="picker" />
+            <input matInput [formControl]="form" [max]="today" [matDatepicker]="picker" />
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             <mat-error *ngIf="form.hasError('required')">Requis</mat-error>
+            <mat-error *ngIf="form.hasError('matDatepickerMax')"
+                >La date du bouclement ne peut pas être dans le futur</mat-error
+            >
         </mat-form-field>
     </div>
 </mat-dialog-content>
