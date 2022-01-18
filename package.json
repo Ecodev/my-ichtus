@@ -34,7 +34,7 @@
         "angular-particle-effect-button": "^0.0.50",
         "apollo": "^2.33.6",
         "apollo-angular": "^2.6.0",
-        "apollo-upload-client": "^16.0.0",
+        "apollo-upload-client": "^17.0.0",
         "big.js": "^6.1.1",
         "crypto-es": "^1.2.7",
         "graphql": "^15.6.1",
