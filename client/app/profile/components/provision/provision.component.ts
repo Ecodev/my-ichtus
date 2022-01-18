@@ -30,9 +30,10 @@ export class ProvisionComponent {
             user: data.user.id,
         };
 
-        this.formCtrl = new FormControl(data.balance < 0 ? Math.abs(data.balance) : this.min, [
-            Validators.min(this.min),
-        ]);
+        // Set the default amount to the user's negative balance, if any
+        const initialAmount = data.balance < 0 ? Math.abs(data.balance) : this.min;
+
+        this.formCtrl = new FormControl(initialAmount, [Validators.min(this.min)]);
     }
 
     public setPaymentMode(paymentMode: 'ebanking' | 'datatrans'): void {

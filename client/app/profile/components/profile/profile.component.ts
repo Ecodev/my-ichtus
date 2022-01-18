@@ -17,6 +17,7 @@ import {DatatransService} from '../../../shared/services/datatrans.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {LicenseService} from '../../../admin/licenses/services/license.service';
 import {localConfig} from '../../../shared/generated-config';
+import Big, {RoundingMode} from 'big.js';
 
 @Component({
     selector: 'app-profile',
@@ -100,11 +101,14 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
             return;
         }
 
+        // Convert the decimal amount in cents, round to the upper cent
+        const roundedAmount = Big(amount).times(100).round(0, RoundingMode.RoundUp).toNumber();
+
         const sign = this.datatransService.getHexaSHA256Signature(
             '',
             localConfig.datatrans.key,
             localConfig.datatrans.merchantId,
-            amount * 100,
+            roundedAmount,
             'CHF',
             user.id,
         );
@@ -115,7 +119,7 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
                 merchantId: localConfig.datatrans.merchantId,
                 sign: sign,
                 refno: user.id,
-                amount: amount * 100,
+                amount: roundedAmount,
                 currency: 'CHF',
                 endpoint: localConfig.datatrans.endpoint,
             },

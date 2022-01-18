@@ -1,6 +1,3 @@
-import {NaturalSearchSelections, toUrl} from '@ecodev/natural';
-import {Params} from '@angular/router';
-
 /**
  * Copy text to clipboard.
  * Accepts line breaks \n as textarea do.

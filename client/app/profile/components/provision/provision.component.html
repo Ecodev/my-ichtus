@@ -27,7 +27,7 @@
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
             <mat-form-field style="width: 120px">
                 <mat-label>Montant</mat-label>
-                <input matInput type="number" step="1" [formControl]="formCtrl" [errorStateMatcher]="matcher" />
+                <input matInput type="number" step="0.01" [formControl]="formCtrl" [errorStateMatcher]="matcher" />
                 <mat-error *ngIf="formCtrl.errors?.min"
                     >Minimum {{ formCtrl.errors?.min?.min | currency: 'CHF' }}</mat-error
                 >
