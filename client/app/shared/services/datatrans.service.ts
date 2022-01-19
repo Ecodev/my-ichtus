@@ -23,7 +23,7 @@ export interface Config {
 
 type AllowedCss = Record<'width' | 'height' | 'overflow' | 'position', string>;
 
-function stringifyReplacer(key: string, value: any): any {
+function stringifyReplacer(key: string, value: unknown): unknown {
     if (key.length > 0 && typeof value === 'object') {
         return undefined;
     }
@@ -246,6 +246,9 @@ export class DatatransService {
             .subscribe(event => {
                 if (event.data === 'cancel') {
                     this.cleanup();
+                    if (config.cancel) {
+                        config.cancel();
+                    }
                 } else if (event.data === 'frameReady') {
                     this.preventResubmitWithBackButton();
                     if (this.paymentFrame) {
@@ -255,8 +258,8 @@ export class DatatransService {
                     typeof event.data === 'object' &&
                     ['success', 'error', 'cancel'].includes(event.data.status)
                 ) {
-                    const callback: any = config[event.data.status as 'success' | 'error' | 'cancel'];
-                    if (typeof callback === 'function') {
+                    const callback = config[event.data.status as 'success' | 'error' | 'cancel'];
+                    if (callback) {
                         callback(event.data);
                     }
                     this.cleanup();
