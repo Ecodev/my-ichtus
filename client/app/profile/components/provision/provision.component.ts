@@ -4,6 +4,7 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {FormControl, Validators} from '@angular/forms';
 import {BankingInfosVariables} from '../../../shared/generated-types';
 import {BvrComponent} from '../bvr/bvr.component';
+import {money} from '@ecodev/natural';
 
 @Component({
     selector: 'app-provision',
@@ -33,7 +34,7 @@ export class ProvisionComponent {
         // Set the default amount to the user's negative balance, if any
         const initialAmount = data.balance < 0 ? Math.abs(data.balance) : this.min;
 
-        this.formCtrl = new FormControl(initialAmount, [Validators.min(this.min)]);
+        this.formCtrl = new FormControl(initialAmount, [Validators.min(this.min), money]);
     }
 
     public setPaymentMode(paymentMode: 'ebanking' | 'datatrans'): void {
