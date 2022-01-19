@@ -11,7 +11,12 @@ export interface Config {
         production: boolean;
         endpoint: string;
         refno: string;
-        amount: number;
+        /**
+         * The amount to pay in cents.
+         *
+         * If you want to pay 25.00 CHF, then the value must be `"2500"`.
+         */
+        amount: string;
         currency: 'CHF' | 'EUR';
     };
     paymentId?: string;
@@ -273,7 +278,7 @@ export class DatatransService {
         aliasCC: string,
         hexaKey: string,
         merchandId: string,
-        amount: number,
+        amount: string,
         currency: 'CHF' | 'EUR',
         refno: string,
     ): string {

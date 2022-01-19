@@ -11,13 +11,12 @@ import {
     CurrentUserForProfile_viewer,
     Licenses_licenses_items,
     LicensesVariables,
-    LicenseVariables,
 } from '../../../shared/generated-types';
 import {DatatransService} from '../../../shared/services/datatrans.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {LicenseService} from '../../../admin/licenses/services/license.service';
 import {localConfig} from '../../../shared/generated-config';
-import Big, {RoundingMode} from 'big.js';
+import {Big} from 'big.js';
 
 @Component({
     selector: 'app-profile',
@@ -101,8 +100,8 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
             return;
         }
 
-        // Convert the decimal amount in cents, round to the upper cent
-        const roundedAmount = Big(amount).times(100).round(0, RoundingMode.RoundUp).toNumber();
+        // Convert the decimal amount in cents
+        const roundedAmount = Big(amount).times(100).toFixed(0);
 
         const sign = this.datatransService.getHexaSHA256Signature(
             '',
