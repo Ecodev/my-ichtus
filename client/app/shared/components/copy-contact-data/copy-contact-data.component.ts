@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {NaturalAbstractController, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {Component, Inject, Input, OnInit} from '@angular/core';
+import {copyToClipboard, NaturalAbstractController, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {
     BookingsWithOwnerContact,
     BookingsWithOwnerContactVariables,
@@ -8,11 +8,11 @@ import {
     UserContactData,
 } from '../../generated-types';
 import {Apollo} from 'apollo-angular';
-import {copyToClipboard} from '../../../shared/utils';
 import {DocumentNode} from 'graphql';
 import {emailAndPhoneUsersQuery} from '../../../admin/users/services/user.queries';
 import {takeUntil} from 'rxjs/operators';
 import {bookingsWithOwnerContactQuery} from '../../../admin/bookings/services/booking.queries';
+import {DOCUMENT} from '@angular/common';
 
 export type ContactType = 'bookingsWithOwnerContact' | 'emailAndPhoneUsers';
 
@@ -33,7 +33,7 @@ export class CopyContactDataComponent<V extends EmailAndPhoneUsersVariables | Bo
     public usersEmailAndName: string | null = null;
     public usersPhoneAndName: string | null = null;
 
-    constructor(private readonly apollo: Apollo) {
+    constructor(private readonly apollo: Apollo, @Inject(DOCUMENT) private readonly document: Document) {
         super();
     }
 
@@ -107,6 +107,6 @@ export class CopyContactDataComponent<V extends EmailAndPhoneUsersVariables | Bo
         if (!text) {
             return;
         }
-        copyToClipboard(text);
+        copyToClipboard(this.document, text);
     }
 }

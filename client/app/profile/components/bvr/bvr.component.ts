@@ -1,12 +1,13 @@
 import {gql, Apollo} from 'apollo-angular';
-import {Component, Input} from '@angular/core';
+import {Component, Inject, Input} from '@angular/core';
 import {
     BankingInfos,
     BankingInfosForExport,
     BankingInfos_bankingInfos,
     BankingInfosVariables,
 } from '../../../shared/generated-types';
-import {copyToClipboard} from '../../../shared/utils';
+import {DOCUMENT} from '@angular/common';
+import {copyToClipboard} from '@ecodev/natural';
 
 const queryForInfos = gql`
     query BankingInfos($user: UserID!, $amount: Money) {
@@ -48,10 +49,10 @@ export class BvrComponent {
     private variables!: BankingInfosVariables;
     public bankingInfos: BankingInfos_bankingInfos | null = null;
 
-    constructor(private readonly apollo: Apollo) {}
+    constructor(private readonly apollo: Apollo, @Inject(DOCUMENT) private readonly document: Document) {}
 
     public copyToClipboard(text: string): void {
-        copyToClipboard(text);
+        copyToClipboard(this.document, text);
     }
 
     public exportBill(): void {
