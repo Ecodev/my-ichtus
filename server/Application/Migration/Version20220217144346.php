@@ -7,10 +7,10 @@ namespace Application\Migration;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-class Version20210407073316 extends AbstractMigration
+class Version20220217144346 extends AbstractMigration
 {
     public function up(Schema $schema): void
     {
-        $this->addSql('UPDATE user SET owner_id = NULL WHERE owner_id = id');
+        $this->addSql('ALTER TABLE log CHANGE extra extra LONGTEXT DEFAULT \'[]\' NOT NULL COMMENT \'(DC2Type:json)\'');
     }
 }

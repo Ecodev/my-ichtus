@@ -66,10 +66,12 @@ return [
             'SwissWindsurfType' => Application\DBAL\Types\SwissWindsurfTypeType::class,
         ],
         // migrations configuration
-        'migrations_configuration' => [
+        'migrations' => [
             'orm_default' => [
-                'directory' => 'server/Application/Migration',
-                'namespace' => 'Application\Migration',
+                'custom_template' => 'config/migration-template.txt',
+                'migrations_paths' => [
+                    'Application\Migration' => 'server/Application/Migration',
+                ],
             ],
         ],
     ],

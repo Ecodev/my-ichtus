@@ -58,7 +58,7 @@ class ImageRepositoryTest extends AbstractRepositoryTest
 
         // Image that will be orphaned must exist in DB
         $imageToBeOrphanedQuery = 'SELECT COUNT(*) FROM image WHERE id = 5000';
-        self::assertSame('1', $this->getEntityManager()->getConnection()->fetchOne($imageToBeOrphanedQuery));
+        self::assertSame(1, $this->getEntityManager()->getConnection()->fetchOne($imageToBeOrphanedQuery));
 
         // Affect existing image to an existing bookable
         $bookable = $this->getEntityManager()->find(Bookable::class, 3000);
@@ -80,6 +80,6 @@ class ImageRepositoryTest extends AbstractRepositoryTest
         }
 
         // Orphaned image was deleted from DB
-        self::assertSame('0', $this->getEntityManager()->getConnection()->fetchOne($imageToBeOrphanedQuery));
+        self::assertSame(0, $this->getEntityManager()->getConnection()->fetchOne($imageToBeOrphanedQuery));
     }
 }

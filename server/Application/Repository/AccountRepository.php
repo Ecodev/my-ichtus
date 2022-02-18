@@ -142,7 +142,7 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
 
         $qb->setParameter('type', $accountType);
 
-        $result = $qb->execute();
+        $result = $qb->executeQuery();
 
         return Money::CHF($result->fetchOne());
     }

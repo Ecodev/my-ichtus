@@ -49,12 +49,12 @@ return [
             'SELECT COUNT(*) FROM booking WHERE owner_id = 1000 AND creation_date > DATE_SUB(NOW(), INTERVAL 1 MINUTE)',
         )->fetchOne();
 
-        Assert::assertSame('3', $count, 'should have 3 automatic bookings freshly created');
+        Assert::assertSame(3, $count, 'should have 3 automatic bookings freshly created');
 
         $count = $connection->executeQuery(
             'SELECT COUNT(*) FROM transaction WHERE owner_id = 1000 AND creation_date > DATE_SUB(NOW(), INTERVAL 1 MINUTE)',
         )->fetchOne();
 
-        Assert::assertSame('3', $count, 'should have 3 automatic transactions freshly created');
+        Assert::assertSame(3, $count, 'should have 3 automatic transactions freshly created');
     },
 ];

@@ -50,7 +50,7 @@ class DatatransHandlerTest extends TestCase
 
         if (is_int($accountId)) {
             $actualBalance = $this->getEntityManager()->getConnection()->fetchOne('SELECT balance FROM account WHERE id = ' . $accountId);
-            self::assertSame($expectedAmount->getAmount(), $actualBalance);
+            self::assertSame($expectedAmount->getAmount(), (string) $actualBalance);
         }
 
         self::assertTrue(true); // Workaround when we only assert via prophesize

@@ -29,6 +29,6 @@ return [
             ['type' => MessageTypeType::RESET_PASSWORD, 'email' => 'newmember@example.com']
         )->fetchOne();
 
-        Assert::assertSame('1', $count, 'should have sent 1 email to reset password');
+        Assert::assertSame(1, $count, 'should have sent 1 email to reset password');
     },
 ];

@@ -12,7 +12,7 @@ parameters:
     ignoreErrors:
         - '~^Call to an undefined method Application\\Repository\\.*Repository::find(One)?By.*\(\)\.$~'
         - '~^Call to an undefined method Laminas\\Permissions\\Acl\\Resource\\ResourceInterface::getInstance\(\)\.$~'
-        - '~^Parameter \#3 \$type of method Doctrine\\ORM\\AbstractQuery\:\:setParameter\(\) expects string\|null, int given\.$~'
+        - '~^Parameter \#3 \$type of method Doctrine\\ORM\\AbstractQuery\<mixed\>\:\:setParameter\(\) expects string\|null, int given\.$~'
         -
             message: '~^If condition is always true\.$~'
             path: server/Application/Model/TransactionLine.php

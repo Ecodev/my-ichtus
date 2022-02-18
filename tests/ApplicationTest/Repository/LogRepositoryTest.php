@@ -55,7 +55,9 @@ class LogRepositoryTest extends AbstractRepositoryTest
 
     public function testDeleteOldLogs(): void
     {
+        _em()->rollBack();
         $result = $this->repository->deleteOldLogs();
+        _em()->beginTransaction();
         self::assertSame(0, $result);
     }
 

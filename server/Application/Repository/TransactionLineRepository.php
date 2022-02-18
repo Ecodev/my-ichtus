@@ -76,7 +76,7 @@ class TransactionLineRepository extends AbstractRepository implements LimitedAcc
                 ->setParameter('dateEnd', $dateEnd);
         }
 
-        $result = $qb->execute();
+        $result = $qb->executeQuery();
 
         return Money::CHF((int) $result->fetchOne());
     }

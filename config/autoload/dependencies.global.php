@@ -21,6 +21,8 @@ return [
         // Use 'factories' for services provided by callbacks/factory classes.
         'factories' => [
             'doctrine.entity_manager.orm_default' => \Application\ORM\EntityManagerFactory::class,
+            \Doctrine\Migrations\Configuration\Migration\ConfigurationLoader::class => \Roave\PsrContainerDoctrine\Migrations\ConfigurationLoaderFactory::class,
+            \Doctrine\Migrations\DependencyFactory::class => \Roave\PsrContainerDoctrine\Migrations\DependencyFactoryFactory::class,
             \Application\Handler\AccountingDocumentHandler::class => \Application\Handler\AccountingDocumentFactory::class,
             \Application\Handler\DatatransHandler::class => \Application\Handler\DatatransFactory::class,
             \Application\Middleware\AuthenticationMiddleware::class => \Application\Middleware\AuthenticationFactory::class,
