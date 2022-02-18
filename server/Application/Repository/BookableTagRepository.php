@@ -6,7 +6,7 @@ namespace Application\Repository;
 
 class BookableTagRepository extends AbstractRepository
 {
-    public const STORAGE_ID = 6008;
-    public const FORMATION_ID = 6017;
-    public const WELCOME_ID = 6024;
+    final public const STORAGE_ID = 6008;
+    final public const FORMATION_ID = 6017;
+    final public const WELCOME_ID = 6024;
 }

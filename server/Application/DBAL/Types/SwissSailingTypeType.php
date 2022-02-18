@@ -8,9 +8,9 @@ use Ecodev\Felix\DBAL\Types\EnumType;
 
 class SwissSailingTypeType extends EnumType
 {
-    public const ACTIVE = 'active';
-    public const PASSIVE = 'passive';
-    public const JUNIOR = 'junior';
+    final public const ACTIVE = 'active';
+    final public const PASSIVE = 'passive';
+    final public const JUNIOR = 'junior';
 
     protected function getPossibleValues(): array
     {

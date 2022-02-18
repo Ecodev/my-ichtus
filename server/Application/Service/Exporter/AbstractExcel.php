@@ -62,7 +62,7 @@ abstract class AbstractExcel extends AbstractExporter
      */
     protected int $lastDataRow = 1;
 
-    private Spreadsheet $workbook;
+    private readonly Spreadsheet $workbook;
 
     protected Worksheet $sheet;
 

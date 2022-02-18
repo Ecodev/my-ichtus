@@ -203,6 +203,6 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
         }
         _em()->flush();
 
-        return count($users);
+        return is_countable($users) ? count($users) : 0;
     }
 }

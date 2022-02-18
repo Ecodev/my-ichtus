@@ -8,12 +8,12 @@ use Ecodev\Felix\DBAL\Types\EnumType;
 
 class RelationshipType extends EnumType
 {
-    public const HOUSEHOLDER = 'householder';
-    public const PARTNER = 'partner';
-    public const CHILD = 'child';
-    public const PARENT = 'parent';
-    public const SISTER = 'sister';
-    public const BROTHER = 'brother';
+    final public const HOUSEHOLDER = 'householder';
+    final public const PARTNER = 'partner';
+    final public const CHILD = 'child';
+    final public const PARENT = 'parent';
+    final public const SISTER = 'sister';
+    final public const BROTHER = 'brother';
 
     protected function getPossibleValues(): array
     {

@@ -8,9 +8,9 @@ use Ecodev\Felix\DBAL\Types\EnumType;
 
 class BookableStateType extends EnumType
 {
-    public const GOOD = 'good';
-    public const USED = 'used';
-    public const DEGRADED = 'degraded';
+    final public const GOOD = 'good';
+    final public const USED = 'used';
+    final public const DEGRADED = 'degraded';
 
     protected function getPossibleValues(): array
     {

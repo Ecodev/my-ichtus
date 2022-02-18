@@ -61,20 +61,20 @@ use GraphQL\Doctrine\Annotation as API;
  */
 class User extends AbstractModel implements \Ecodev\Felix\Model\User
 {
-    public const ROLE_ANONYMOUS = 'anonymous';
-    public const ROLE_BOOKING_ONLY = 'booking_only';
-    public const ROLE_INDIVIDUAL = 'individual';
-    public const ROLE_ACCOUNTING_VERIFICATOR = 'accounting_verificator';
-    public const ROLE_MEMBER = 'member';
-    public const ROLE_TRAINER = 'trainer';
-    public const ROLE_FORMATION_RESPONSIBLE = 'formation_responsible';
-    public const ROLE_RESPONSIBLE = 'responsible';
-    public const ROLE_ADMINISTRATOR = 'administrator';
+    final public const ROLE_ANONYMOUS = 'anonymous';
+    final public const ROLE_BOOKING_ONLY = 'booking_only';
+    final public const ROLE_INDIVIDUAL = 'individual';
+    final public const ROLE_ACCOUNTING_VERIFICATOR = 'accounting_verificator';
+    final public const ROLE_MEMBER = 'member';
+    final public const ROLE_TRAINER = 'trainer';
+    final public const ROLE_FORMATION_RESPONSIBLE = 'formation_responsible';
+    final public const ROLE_RESPONSIBLE = 'responsible';
+    final public const ROLE_ADMINISTRATOR = 'administrator';
 
-    public const STATUS_INACTIVE = 'inactive';
-    public const STATUS_NEW = 'new';
-    public const STATUS_ACTIVE = 'active';
-    public const STATUS_ARCHIVED = 'archived';
+    final public const STATUS_INACTIVE = 'inactive';
+    final public const STATUS_NEW = 'new';
+    final public const STATUS_ACTIVE = 'active';
+    final public const STATUS_ARCHIVED = 'archived';
 
     use HasAddress;
     use HasDoorAccess;
@@ -83,10 +83,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     use HasPassword;
     use HasRemarks;
 
-    /**
-     * @var User
-     */
-    private static $currentUser;
+    private static ?\Application\Model\User $currentUser = null;
 
     /**
      * Set currently logged in user
@@ -116,149 +113,129 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
-     * @var null|string
-     *
      * @ORM\Column(type="string", length=50, nullable=true, unique=true)
      */
-    private $login;
+    private ?string $login = null;
 
     /**
-     * @var string
      * @ORM\Column(type="string", length=191)
      */
-    private $firstName = '';
+    private string $firstName = '';
 
     /**
-     * @var string
      * @ORM\Column(type="string", length=191)
      */
-    private $lastName = '';
+    private string $lastName = '';
 
     /**
-     * @var null|string
      * @ORM\Column(type="string", length=191, nullable=true, unique=true)
      */
-    private $email;
+    private ?string $email = null;
 
     /**
-     * @var string
      * @ORM\Column(type="UserRole", options={"default" = User::ROLE_INDIVIDUAL})
      */
-    private $role = self::ROLE_INDIVIDUAL;
+    private string $role = self::ROLE_INDIVIDUAL;
 
     /**
-     * @var string
      * @ORM\Column(type="UserStatus", options={"default" = User::STATUS_NEW})
      */
-    private $status = self::STATUS_NEW;
+    private string $status = self::STATUS_NEW;
 
     /**
-     * @var null|Chronos
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $welcomeSessionDate;
+    private ?\Cake\Chronos\Chronos $welcomeSessionDate = null;
 
     /**
-     * @var null|Chronos
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $resignDate;
+    private ?\Cake\Chronos\Chronos $resignDate = null;
 
     /**
      * @var int sex
      * @ORM\Column(type="smallint", options={"default" = 0}))
      */
-    private $sex = 0;
+    private int $sex = 0;
 
     /**
-     * @var string
      * @ORM\Column(type="string", length=25, options={"default" = ""})
      */
-    private $phone = '';
+    private string $phone = '';
 
     /**
-     * @var string
      * @ORM\Column(type="string", length=25, options={"default" = ""})
      */
-    private $mobilePhone = '';
+    private string $mobilePhone = '';
 
     /**
-     * @var string
      * @ORM\Column(type="string", length=25, options={"default" = ""})
      */
-    private $swissSailing = '';
+    private string $swissSailing = '';
 
     /**
-     * @var string
      * @ORM\Column(type="SwissSailingType", nullable=true)
      */
-    private $swissSailingType;
+    private ?string $swissSailingType = null;
 
     /**
-     * @var string
      * @ORM\Column(type="SwissWindsurfType", nullable=true)
      */
-    private $swissWindsurfType;
+    private ?string $swissWindsurfType = null;
 
     /**
-     * @var null|Date
      * @ORM\Column(type="date", nullable=true)
      */
-    private $birthday;
+    private ?\Cake\Chronos\Date $birthday = null;
 
     /**
-     * @var bool
      * @ORM\Column(type="boolean", options={"default" = 0})
      */
-    private $termsAgreement = false;
+    private bool $termsAgreement = false;
 
     /**
-     * @var bool
      * @ORM\Column(type="boolean", options={"default" = 0})
      */
-    private $hasInsurance = false;
+    private bool $hasInsurance = false;
 
     /**
-     * @var bool
      * @ORM\Column(type="boolean", options={"default" = 0})
      */
-    private $receivesNewsletter = false;
+    private bool $receivesNewsletter = false;
 
     /**
-     * @var string
      * @ORM\Column(type="Relationship", options={"default" = RelationshipType::HOUSEHOLDER})
      */
-    private $familyRelationship = RelationshipType::HOUSEHOLDER;
+    private string $familyRelationship = RelationshipType::HOUSEHOLDER;
 
     /**
-     * @var string
      * @ORM\Column(type="BillingType", options={"default" = BillingTypeType::ELECTRONIC})
      */
-    private $billingType = BillingTypeType::ELECTRONIC;
+    private string $billingType = BillingTypeType::ELECTRONIC;
 
     /**
      * @var Collection<Booking>
      * @ORM\OneToMany(targetEntity="Booking", mappedBy="owner")
      */
-    private $bookings;
+    private Collection $bookings;
 
     /**
      * @var Collection<License>
      * @ORM\ManyToMany(targetEntity="License", mappedBy="users")
      */
-    private $licenses;
+    private Collection $licenses;
 
     /**
      * @var Collection<UserTag>
      * @ORM\ManyToMany(targetEntity="UserTag", mappedBy="users")
      */
-    private $userTags;
+    private Collection $userTags;
 
     /**
      * @var Collection<Message>
      * @ORM\OneToMany(targetEntity="Message", mappedBy="recipient")
      */
-    private $messages;
+    private Collection $messages;
 
     /**
      * There is actually 0 to 1 account, never more. And this is
@@ -267,13 +244,13 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      * @var Collection<Account>
      * @ORM\OneToMany(targetEntity="Account", mappedBy="owner")
      */
-    private $accounts;
+    private Collection $accounts;
 
     /**
      * @var Collection<User>
      * @ORM\OneToMany(targetEntity="User", mappedBy="owner")
      */
-    private $users;
+    private Collection $users;
 
     /**
      * Constructor.

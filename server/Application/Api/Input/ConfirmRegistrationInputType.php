@@ -13,40 +13,38 @@ class ConfirmRegistrationInputType extends InputObjectType
     {
         $config = [
             'description' => 'Mandatory fields to complete a user registration',
-            'fields' => function (): array {
-                return [
-                    'login' => [
-                        'type' => self::nonNull(_types()->get('Login')),
-                    ],
-                    'password' => [
-                        'type' => self::nonNull(_types()->get('Password')),
-                    ],
-                    'firstName' => [
-                        'type' => self::nonNull(self::string()),
-                    ],
-                    'lastName' => [
-                        'type' => self::nonNull(self::string()),
-                    ],
-                    'street' => [
-                        'type' => self::nonNull(self::string()),
-                    ],
-                    'postcode' => [
-                        'type' => self::nonNull(self::string()),
-                    ],
-                    'locality' => [
-                        'type' => self::nonNull(self::string()),
-                    ],
-                    'country' => [
-                        'type' => _types()->getId(Country::class),
-                    ],
-                    'mobilePhone' => [
-                        'type' => self::nonNull(self::string()),
-                    ],
-                    'birthday' => [
-                        'type' => self::nonNull(_types()->get('Date')),
-                    ],
-                ];
-            },
+            'fields' => fn (): array => [
+                'login' => [
+                    'type' => self::nonNull(_types()->get('Login')),
+                ],
+                'password' => [
+                    'type' => self::nonNull(_types()->get('Password')),
+                ],
+                'firstName' => [
+                    'type' => self::nonNull(self::string()),
+                ],
+                'lastName' => [
+                    'type' => self::nonNull(self::string()),
+                ],
+                'street' => [
+                    'type' => self::nonNull(self::string()),
+                ],
+                'postcode' => [
+                    'type' => self::nonNull(self::string()),
+                ],
+                'locality' => [
+                    'type' => self::nonNull(self::string()),
+                ],
+                'country' => [
+                    'type' => _types()->getId(Country::class),
+                ],
+                'mobilePhone' => [
+                    'type' => self::nonNull(self::string()),
+                ],
+                'birthday' => [
+                    'type' => self::nonNull(_types()->get('Date')),
+                ],
+            ],
         ];
 
         parent::__construct($config);

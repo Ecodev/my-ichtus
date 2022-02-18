@@ -20,20 +20,17 @@ class BookableMetadata extends AbstractModel
     use HasName;
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="string", length=191, options={"default" = ""})
      */
-    private $value = '';
+    private string $value = '';
 
     /**
-     * @var Bookable
      * @ORM\ManyToOne(targetEntity="Bookable")
      * @ORM\JoinColumns({
      *     @ORM\JoinColumn(onDelete="CASCADE", nullable=false)
      * })
      */
-    private $bookable;
+    private \Application\Model\Bookable $bookable;
 
     public function getValue(): string
     {

@@ -26,24 +26,20 @@ class AccountingDocument extends AbstractModel implements \Ecodev\Felix\Model\Fi
     }
 
     /**
-     * @var null|ExpenseClaim
-     *
      * @ORM\ManyToOne(targetEntity="ExpenseClaim", inversedBy="accountingDocuments")
      * @ORM\JoinColumns({
      *     @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      * })
      */
-    private $expenseClaim;
+    private ?\Application\Model\ExpenseClaim $expenseClaim = null;
 
     /**
-     * @var null|Transaction
-     *
      * @ORM\ManyToOne(targetEntity="Transaction", inversedBy="accountingDocuments")
      * @ORM\JoinColumns({
      *     @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      * })
      */
-    private $transaction;
+    private ?\Application\Model\Transaction $transaction = null;
 
     public function setExpenseClaim(?ExpenseClaim $expenseClaim): void
     {

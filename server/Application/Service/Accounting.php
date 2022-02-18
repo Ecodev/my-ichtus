@@ -25,23 +25,16 @@ use Money\Money;
  */
 class Accounting
 {
-    private EntityManager $entityManager;
+    private readonly TransactionRepository $transactionRepository;
 
-    private array $accountingConfig;
+    private readonly AccountRepository $accountRepository;
 
-    private TransactionRepository $transactionRepository;
-
-    private AccountRepository $accountRepository;
-
-    private UserRepository $userRepository;
+    private readonly UserRepository $userRepository;
 
     private bool $hasError = false;
 
-    public function __construct(EntityManager $entityManager, array $accountingConfig)
+    public function __construct(private readonly EntityManager $entityManager, private readonly array $accountingConfig)
     {
-        $this->entityManager = $entityManager;
-        $this->accountingConfig = $accountingConfig;
-
         $this->transactionRepository = $this->entityManager->getRepository(Transaction::class);
         $this->accountRepository = $this->entityManager->getRepository(Account::class);
         $this->userRepository = $this->entityManager->getRepository(User::class);

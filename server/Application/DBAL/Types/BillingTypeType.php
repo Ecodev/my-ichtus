@@ -8,8 +8,8 @@ use Ecodev\Felix\DBAL\Types\EnumType;
 
 class BillingTypeType extends EnumType
 {
-    public const ELECTRONIC = 'electronic';
-    public const PAPER = 'paper';
+    final public const ELECTRONIC = 'electronic';
+    final public const PAPER = 'paper';
 
     protected function getPossibleValues(): array
     {

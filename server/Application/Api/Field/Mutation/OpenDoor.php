@@ -30,7 +30,7 @@ abstract class OpenDoor implements FieldInterface
             'resolve' => function ($root, array $args, SessionInterface $session): array {
                 global $container;
 
-                if (!preg_match('/door([1-4])/', $args['door'], $m)) {
+                if (!preg_match('/door([1-4])/', (string) $args['door'], $m)) {
                     throw new Exception("La porte demandée n'existe pas");
                 }
                 $doorIndex = $m[1];

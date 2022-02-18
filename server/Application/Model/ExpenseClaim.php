@@ -38,54 +38,44 @@ class ExpenseClaim extends AbstractModel
     use HasRemarks;
 
     /**
-     * @var Money
-     *
      * @ORM\Column(type="Money", options={"unsigned" = true})
      */
-    private $amount;
+    private \Money\Money $amount;
 
     /**
      * @var Collection<Transaction>
      * @ORM\OneToMany(targetEntity="Transaction", mappedBy="expenseClaim")
      */
-    private $transactions;
+    private Collection $transactions;
 
     /**
      * @var Collection<AccountingDocument>
      * @ORM\OneToMany(targetEntity="AccountingDocument", mappedBy="expenseClaim")
      */
-    private $accountingDocuments;
+    private Collection $accountingDocuments;
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="ExpenseClaimStatus", length=10, options={"default" = ExpenseClaimStatusType::NEW})
      */
-    private $status = ExpenseClaimStatusType::NEW;
+    private string $status = ExpenseClaimStatusType::NEW;
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="ExpenseClaimType", length=10, options={"default" = ExpenseClaimTypeType::EXPENSE_CLAIM})
      */
-    private $type = ExpenseClaimTypeType::EXPENSE_CLAIM;
+    private string $type = ExpenseClaimTypeType::EXPENSE_CLAIM;
 
     /**
-     * @var null|User
-     *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *     @ORM\JoinColumn(onDelete="SET NULL")
      * })
      */
-    private $reviewer;
+    private ?\Application\Model\User $reviewer = null;
 
     /**
      * @ORM\Column(type="string", length=191, options={"default" = ""})
-     *
-     * @var string
      */
-    private $sector = '';
+    private string $sector = '';
 
     /**
      * Constructor.

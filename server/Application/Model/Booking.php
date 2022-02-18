@@ -30,69 +30,52 @@ class Booking extends AbstractModel
     use HasRemarks;
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="BookingStatus", length=10, options={"default" = BookingStatusType::APPLICATION})
      */
-    private $status = BookingStatusType::APPLICATION;
+    private string $status = BookingStatusType::APPLICATION;
 
     /**
-     * @var int
      * @ORM\Column(type="integer", options={"unsigned" = true, "default" = 1})
      */
-    private $participantCount = 1;
+    private int $participantCount = 1;
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="string", length=50, options={"default" = ""})
      */
-    private $destination = '';
+    private string $destination = '';
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="text", length=65535, options={"default" = ""})
      */
-    private $startComment = '';
+    private string $startComment = '';
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="text", length=65535, options={"default" = ""})
      */
-    private $endComment = '';
+    private string $endComment = '';
 
     /**
-     * @var Chronos
-     *
      * @ORM\Column(type="datetime")
      */
-    private $startDate;
+    private \Cake\Chronos\Chronos $startDate;
 
     /**
-     * @var Chronos
-     *
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $endDate;
+    private ?\Cake\Chronos\Chronos $endDate = null;
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="string", length=50, options={"default" = ""})
      */
-    private $estimatedEndDate = '';
+    private string $estimatedEndDate = '';
 
     /**
-     * @var null|Bookable
-     *
      * @ORM\ManyToOne(targetEntity="Bookable", inversedBy="bookings")
      * @ORM\JoinColumns({
      *     @ORM\JoinColumn(onDelete="CASCADE")
      * })
      */
-    private $bookable;
+    private ?\Application\Model\Bookable $bookable = null;
 
     /**
      * Constructor.

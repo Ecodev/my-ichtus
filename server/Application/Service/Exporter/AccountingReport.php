@@ -17,8 +17,6 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 class AccountingReport extends AbstractExcel
 {
-    private array $accountingConfig;
-
     private Date $date;
 
     private array $assets = [];
@@ -47,12 +45,11 @@ class AccountingReport extends AbstractExcel
         'balance' => 12,
     ];
 
-    public function __construct(string $hostname, array $accountingConfig)
+    public function __construct(string $hostname, private readonly array $accountingConfig)
     {
         parent::__construct($hostname);
 
         $this->date = Date::today();
-        $this->accountingConfig = $accountingConfig;
 
         $this->sheet->setTitle('Bilan + PP');
         $this->zebra = false;

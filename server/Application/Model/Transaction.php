@@ -30,39 +30,34 @@ class Transaction extends AbstractModel
     use HasRemarks;
 
     /**
-     * @var Chronos
      * @ORM\Column(type="datetime")
      */
-    private $transactionDate;
+    private \Cake\Chronos\Chronos $transactionDate;
 
     /**
      * @var Collection<TransactionLine>
      * @ORM\OneToMany(targetEntity="TransactionLine", mappedBy="transaction")
      */
-    private $transactionLines;
+    private Collection $transactionLines;
 
     /**
      * @var Collection<AccountingDocument>
      * @ORM\OneToMany(targetEntity="AccountingDocument", mappedBy="transaction")
      */
-    private $accountingDocuments;
+    private Collection $accountingDocuments;
 
     /**
-     * @var null|ExpenseClaim
-     *
      * @ORM\ManyToOne(targetEntity="ExpenseClaim", inversedBy="transactions")
      * @ORM\JoinColumns({
      *     @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * })
      */
-    private $expenseClaim;
+    private ?\Application\Model\ExpenseClaim $expenseClaim = null;
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="string", length=18, options={"default" = ""})
      */
-    private $datatransRef = '';
+    private string $datatransRef = '';
 
     /**
      * Constructor.

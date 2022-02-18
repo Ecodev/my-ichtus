@@ -17,22 +17,16 @@ class Configuration extends AbstractModel
     use HasDescription;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="`key`", type="string", length=191, unique=true)
-     */
-    private $key;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(type="text")
      */
-    private $value = '';
+    private string $value = '';
 
-    public function __construct(string $key = '')
-    {
-        $this->key = $key;
+    public function __construct(
+        /**
+         * @ORM\Column(name="`key`", type="string", length=191, unique=true)
+         */
+        private string $key = ''
+    ) {
     }
 
     /**

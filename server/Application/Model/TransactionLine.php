@@ -30,74 +30,59 @@ class TransactionLine extends AbstractModel
     use HasRemarks;
 
     /**
-     * @var Transaction
-     *
      * @ORM\ManyToOne(targetEntity="Transaction", inversedBy="transactionLines")
      * @ORM\JoinColumns({
      *     @ORM\JoinColumn(nullable=false, onDelete="RESTRICT")
      * })
      */
-    private $transaction;
+    private ?Transaction $transaction = null;
 
     /**
-     * @var null|Account
-     *
      * @ORM\ManyToOne(targetEntity="Account", inversedBy="debitTransactionLines")
      * @ORM\JoinColumns({
      *     @ORM\JoinColumn(nullable=true, onDelete="RESTRICT")
      * })
      */
-    private $debit;
+    private ?\Application\Model\Account $debit = null;
 
     /**
-     * @var null|Account
-     *
      * @ORM\ManyToOne(targetEntity="Account", inversedBy="creditTransactionLines")
      * @ORM\JoinColumns({
      *     @ORM\JoinColumn(nullable=true, onDelete="RESTRICT")
      * })
      */
-    private $credit;
+    private ?\Application\Model\Account $credit = null;
 
     /**
-     * @var null|Bookable
-     *
      * @ORM\ManyToOne(targetEntity="Bookable")
      * @ORM\JoinColumns({
      *     @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * })
      */
-    private $bookable;
+    private ?\Application\Model\Bookable $bookable = null;
 
     /**
-     * @var Money
-     *
      * @ORM\Column(type="Money", options={"unsigned" = true})
      */
-    private $balance;
+    private \Money\Money $balance;
 
     /**
-     * @var Chronos
      * @ORM\Column(type="datetime")
      */
-    private $transactionDate;
+    private \Cake\Chronos\Chronos $transactionDate;
 
     /**
-     * @var null|TransactionTag
-     *
      * @ORM\ManyToOne(targetEntity="TransactionTag")
      * @ORM\JoinColumns({
      *     @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * })
      */
-    private $transactionTag;
+    private ?\Application\Model\TransactionTag $transactionTag = null;
 
     /**
-     * @var bool
-     *
      * @ORM\Column(type="boolean", options={"default" = 0})
      */
-    private $isReconciled = false;
+    private bool $isReconciled = false;
 
     /**
      * This store the value of CAMT 054 `<EndToEndId>`, or else `<AcctSvcrRef>`, element that should
@@ -105,10 +90,9 @@ class TransactionLine extends AbstractModel
      *
      * An absence of value means the line was not imported.
      *
-     * @var null|string
      * @ORM\Column(type="string", length=35, nullable=true)
      */
-    private $importedId;
+    private ?string $importedId = null;
 
     /**
      * Set importedId.

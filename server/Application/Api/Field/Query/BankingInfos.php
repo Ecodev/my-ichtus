@@ -12,6 +12,7 @@ use Laminas\Http\Client;
 use Laminas\Http\Client\Exception\RuntimeException;
 use Laminas\Http\Request;
 use Laminas\Http\Response;
+use Money\Money;
 
 abstract class BankingInfos implements FieldInterface
 {
@@ -57,12 +58,8 @@ abstract class BankingInfos implements FieldInterface
 
     /**
      * Lazy resolve qrBill or qrCode fields for banking infos query.
-     *
-     * @param mixed $amount
-     * @param mixed $iban
-     * @param mixed $paymentFor
      */
-    protected static function qrBill(User $user, $amount, $iban, $paymentFor, bool $paymentPart): array
+    protected static function qrBill(User $user, ?Money $amount, string $iban, string $paymentFor, bool $paymentPart): array
     {
         $resolve = function () use ($user, $amount, $iban, $paymentFor, $paymentPart): ?string {
             global $container;
@@ -81,7 +78,7 @@ abstract class BankingInfos implements FieldInterface
             ]);
             $request->setMethod(Request::METHOD_POST);
 
-            $creditorLines = explode("\n", $paymentFor);
+            $creditorLines = explode("\n", (string) $paymentFor);
             $creditor = [
                 'name' => $creditorLines[0],
             ];

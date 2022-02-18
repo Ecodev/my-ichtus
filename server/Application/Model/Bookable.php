@@ -40,95 +40,77 @@ class Bookable extends AbstractModel
     use HasRemarks;
 
     /**
-     * @var Money
-     *
      * @ORM\Column(type="Money", options={"default" = 0})
      */
-    private $initialPrice;
+    private \Money\Money $initialPrice;
 
     /**
-     * @var Money
-     *
      * @ORM\Column(type="Money", options={"default" = 0})
      */
-    private $periodicPrice;
+    private \Money\Money $periodicPrice;
 
     /**
-     * @var Money
-     *
      * @ORM\Column(type="Money",  options={"default" = 0, "unsigned" = true})
      */
-    private $purchasePrice;
+    private \Money\Money $purchasePrice;
 
     /**
-     * @var int
-     *
      * @ORM\Column(type="smallint", options={"default" = "-1"})
      */
-    private $simultaneousBookingMaximum = 1;
+    private int $simultaneousBookingMaximum = 1;
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="BookingType", length=10, options={"default" = BookingTypeType::SELF_APPROVED})
      */
-    private $bookingType = BookingTypeType::SELF_APPROVED;
+    private string $bookingType = BookingTypeType::SELF_APPROVED;
 
     /**
-     * @var bool
-     *
      * @ORM\Column(type="boolean", options={"default" = 1})
      */
-    private $isActive = true;
+    private bool $isActive = true;
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="BookableState", length=10, options={"default" = BookableStateType::GOOD})
      */
-    private $state = BookableStateType::GOOD;
+    private string $state = BookableStateType::GOOD;
 
     /**
-     * @var null|Date
      * @ORM\Column(type="date", nullable=true)
      */
-    private $verificationDate;
+    private ?\Cake\Chronos\Date $verificationDate = null;
 
     /**
      * @var Collection<BookableTag>
      *
      * @ORM\ManyToMany(targetEntity="BookableTag", mappedBy="bookables")
      */
-    private $bookableTags;
+    private Collection $bookableTags;
 
     /**
      * @var Collection<Booking>
      * @ORM\OneToMany(targetEntity="Booking", mappedBy="bookable")
      */
-    private $bookings;
+    private Collection $bookings;
 
     /**
      * @var Collection<License>
      * @ORM\ManyToMany(targetEntity="License", mappedBy="bookables")
      */
-    private $licenses;
+    private Collection $licenses;
 
     /**
-     * @var null|Image
      * @ORM\OneToOne(targetEntity="Image", orphanRemoval=true)
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
-    private $image;
+    private ?\Application\Model\Image $image = null;
 
     /**
-     * @var null|Account
-     *
      * @ORM\ManyToOne(targetEntity="Account")
      * @ORM\JoinColumns({
      *     @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      * })
      */
-    private $creditAccount;
+    private ?\Application\Model\Account $creditAccount = null;
 
     /**
      * Constructor.

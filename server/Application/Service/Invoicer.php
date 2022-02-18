@@ -23,24 +23,12 @@ use Money\Money;
  */
 class Invoicer
 {
-    /**
-     * @var EntityManager
-     */
-    private $entityManager;
+    private int $count = 0;
 
-    /**
-     * @var int
-     */
-    private $count = 0;
+    private readonly \Application\Repository\BookingRepository $bookingRepository;
 
-    /**
-     * @var BookingRepository
-     */
-    private $bookingRepository;
-
-    public function __construct(EntityManager $entityManager)
+    public function __construct(private readonly EntityManager $entityManager)
     {
-        $this->entityManager = $entityManager;
         $this->bookingRepository = $this->entityManager->getRepository(Booking::class);
     }
 

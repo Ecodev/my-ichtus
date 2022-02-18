@@ -18,18 +18,12 @@ use Ecodev\Felix\Service\MessageRenderer;
  */
 class MessageQueuer
 {
-    private EntityManager $entityManager;
-
-    private MessageRenderer $messageRenderer;
-
     private bool $toFamilyOwner = false;
 
-    private UserRepository $userRepository;
+    private readonly UserRepository $userRepository;
 
-    public function __construct(EntityManager $entityManager, MessageRenderer $messageRenderer)
+    public function __construct(private readonly EntityManager $entityManager, private readonly MessageRenderer $messageRenderer)
     {
-        $this->entityManager = $entityManager;
-        $this->messageRenderer = $messageRenderer;
         $this->userRepository = $this->entityManager->getRepository(User::class);
     }
 

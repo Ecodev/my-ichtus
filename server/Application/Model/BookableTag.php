@@ -29,7 +29,7 @@ class BookableTag extends AbstractModel
      * @var Collection<Bookable>
      * @ORM\ManyToMany(targetEntity="Bookable", inversedBy="bookableTags")
      */
-    private $bookables;
+    private Collection $bookables;
 
     /**
      * Constructor.

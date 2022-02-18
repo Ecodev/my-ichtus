@@ -25,28 +25,10 @@ use Throwable;
 class DatatransHandler extends AbstractHandler
 {
     /**
-     * @var TemplateRendererInterface
-     */
-    private $template;
-
-    /**
-     * @var EntityManager
-     */
-    private $entityManager;
-
-    /**
-     * @var array
-     */
-    private $config;
-
-    /**
      * DatatransAction constructor.
      */
-    public function __construct(EntityManager $entityManager, TemplateRendererInterface $template, array $config)
+    public function __construct(private readonly EntityManager $entityManager, private readonly TemplateRendererInterface $template, private readonly array $config)
     {
-        $this->entityManager = $entityManager;
-        $this->template = $template;
-        $this->config = $config;
     }
 
     /**

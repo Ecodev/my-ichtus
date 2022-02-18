@@ -8,12 +8,12 @@ use Ecodev\Felix\DBAL\Types\EnumType;
 
 class AccountTypeType extends EnumType
 {
-    public const ASSET = 'asset';
-    public const LIABILITY = 'liability';
-    public const REVENUE = 'revenue';
-    public const EXPENSE = 'expense';
-    public const EQUITY = 'equity';
-    public const GROUP = 'group';
+    final public const ASSET = 'asset';
+    final public const LIABILITY = 'liability';
+    final public const REVENUE = 'revenue';
+    final public const EXPENSE = 'expense';
+    final public const EQUITY = 'equity';
+    final public const GROUP = 'group';
 
     protected function getPossibleValues(): array
     {

@@ -8,8 +8,8 @@ use Ecodev\Felix\DBAL\Types\EnumType;
 
 class SwissWindsurfTypeType extends EnumType
 {
-    public const ACTIVE = 'active';
-    public const PASSIVE = 'passive';
+    final public const ACTIVE = 'active';
+    final public const PASSIVE = 'passive';
 
     protected function getPossibleValues(): array
     {

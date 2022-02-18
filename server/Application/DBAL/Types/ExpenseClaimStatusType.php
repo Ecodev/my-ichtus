@@ -8,10 +8,10 @@ use Ecodev\Felix\DBAL\Types\EnumType;
 
 class ExpenseClaimStatusType extends EnumType
 {
-    public const NEW = 'new';
-    public const PROCESSING = 'processing';
-    public const PROCESSED = 'processed';
-    public const REJECTED = 'rejected';
+    final public const NEW = 'new';
+    final public const PROCESSING = 'processing';
+    final public const PROCESSED = 'processed';
+    final public const REJECTED = 'rejected';
 
     protected function getPossibleValues(): array
     {

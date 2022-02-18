@@ -25,13 +25,13 @@ class License extends AbstractModel
      * @var Collection<Bookable>
      * @ORM\ManyToMany(targetEntity="Bookable", inversedBy="licenses")
      */
-    private $bookables;
+    private Collection $bookables;
 
     /**
      * @var Collection<User>
      * @ORM\ManyToMany(targetEntity="User", inversedBy="licenses")
      */
-    private $users;
+    private Collection $users;
 
     /**
      * Constructor.

@@ -35,60 +35,51 @@ class Account extends AbstractModel
     use HasName;
 
     /**
-     * @var Money
-     *
      * @ORM\Column(type="Money", options={"default" = 0})
      */
-    private $balance;
+    private \Money\Money $balance;
 
     /**
-     * @var null|Account
      * @ORM\ManyToOne(targetEntity="Account", inversedBy="children")
      * @ORM\JoinColumns({
      *     @ORM\JoinColumn(onDelete="CASCADE")
      * })
      */
-    private $parent;
+    private ?\Application\Model\Account $parent = null;
 
     /**
      * @var Collection<Account>
      * @ORM\OneToMany(targetEntity="Account", mappedBy="parent")
      * @ORM\OrderBy({"code" = "ASC"})
      */
-    private $children;
+    private Collection $children;
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="AccountType", length=10)
      */
-    private $type;
+    private string $type;
 
     /**
-     * @var int
-     *
      * @ORM\Column(type="integer", nullable=false, unique=true, options={"unsigned" = true})
      */
-    private $code;
+    private int $code;
 
     /**
      * @var Collection<TransactionLine>
      * @ORM\OneToMany(targetEntity="TransactionLine", mappedBy="debit")
      */
-    private $debitTransactionLines;
+    private Collection $debitTransactionLines;
 
     /**
      * @var Collection<TransactionLine>
      * @ORM\OneToMany(targetEntity="TransactionLine", mappedBy="credit")
      */
-    private $creditTransactionLines;
+    private Collection $creditTransactionLines;
 
     /**
-     * @var Money
-     *
      * @ORM\Column(type="Money", options={"default" = 0})
      */
-    private $totalBalance;
+    private \Money\Money $totalBalance;
 
     /**
      * Constructor.

@@ -13,11 +13,8 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class AccountingDocumentHandler extends AbstractHandler
 {
-    private AccountingDocumentRepository $accountingDocumentRepository;
-
-    public function __construct(AccountingDocumentRepository $accountingDocumentRepository)
+    public function __construct(private readonly AccountingDocumentRepository $accountingDocumentRepository)
     {
-        $this->accountingDocumentRepository = $accountingDocumentRepository;
     }
 
     /**

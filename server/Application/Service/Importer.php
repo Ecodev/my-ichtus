@@ -33,32 +33,20 @@ use Genkgo\Camt\Reader;
  */
 class Importer
 {
-    /**
-     * @var Message
-     */
-    private $message;
+    private \Genkgo\Camt\DTO\Message $message;
 
     /**
      * @var Transaction[]
      */
-    private $transactions = [];
+    private array $transactions = [];
 
-    /**
-     * @var Account
-     */
-    private $bankAccount;
+    private \Application\Model\Account $bankAccount;
 
-    /**
-     * @var AccountRepository
-     */
-    private $accountRepository;
+    private readonly \Application\Repository\AccountRepository $accountRepository;
 
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
+    private readonly \Application\Repository\UserRepository $userRepository;
 
-    private TransactionLineRepository $transactionLineRepository;
+    private readonly TransactionLineRepository $transactionLineRepository;
 
     public function __construct()
     {
@@ -112,7 +100,7 @@ class Importer
             V04::class,
         ];
 
-        if (!in_array(get_class($messageFormat), $expected, true)) {
+        if (!in_array($messageFormat::class, $expected, true)) {
             throw new Exception('The format CAMT 054 is expected, but instead we got: ' . $messageFormat->getMsgId());
         }
     }
@@ -188,21 +176,16 @@ class Importer
 
     private function partyLabel(RelatedPartyTypeInterface $party): string
     {
-        $class = get_class($party);
-        switch ($class) {
-            case \Genkgo\Camt\DTO\Recipient::class:
-                return 'Récipient';
-            case \Genkgo\Camt\DTO\Debtor::class:
-                return 'Débiteur';
-            case \Genkgo\Camt\DTO\Creditor::class:
-                return 'Créancier';
-            case \Genkgo\Camt\DTO\UltimateDebtor::class:
-                return 'Débiteur final';
-            case \Genkgo\Camt\DTO\UltimateCreditor::class:
-                return 'Créancier final';
-            default:
-                throw new Exception('Non supported related party type: ' . $class);
-        }
+        $class = $party::class;
+
+        return match ($class) {
+            \Genkgo\Camt\DTO\Recipient::class => 'Récipient',
+            \Genkgo\Camt\DTO\Debtor::class => 'Débiteur',
+            \Genkgo\Camt\DTO\Creditor::class => 'Créancier',
+            \Genkgo\Camt\DTO\UltimateDebtor::class => 'Débiteur final',
+            \Genkgo\Camt\DTO\UltimateCreditor::class => 'Créancier final',
+            default => throw new Exception('Non supported related party type: ' . $class),
+        };
     }
 
     private function addressToString(Address $a): string
