@@ -54,7 +54,7 @@ echo "Updating all PHP dependencies via composer..."
 $COMPOSER install --classmap-authoritative $NO_PROGRESS
 
 echo "Clear cache"
-$COMPOSER clear-config-cache
+$PHP ./bin/clear-config-cache.php
 
 echo "Updating database..."
 $PHP ./vendor/bin/doctrine-migrations migrations:migrate --no-interaction
