@@ -57,12 +57,12 @@ class Booking extends AbstractModel
     /**
      * @ORM\Column(type="datetime")
      */
-    private \Cake\Chronos\Chronos $startDate;
+    private Chronos $startDate;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private ?\Cake\Chronos\Chronos $endDate = null;
+    private ?Chronos $endDate = null;
 
     /**
      * @ORM\Column(type="string", length=50, options={"default" = ""})
@@ -75,7 +75,7 @@ class Booking extends AbstractModel
      *     @ORM\JoinColumn(onDelete="CASCADE")
      * })
      */
-    private ?\Application\Model\Bookable $bookable = null;
+    private ?Bookable $bookable = null;
 
     /**
      * Constructor.

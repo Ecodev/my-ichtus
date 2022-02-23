@@ -37,7 +37,7 @@ class Account extends AbstractModel
     /**
      * @ORM\Column(type="Money", options={"default" = 0})
      */
-    private \Money\Money $balance;
+    private Money $balance;
 
     /**
      * @ORM\ManyToOne(targetEntity="Account", inversedBy="children")
@@ -45,7 +45,7 @@ class Account extends AbstractModel
      *     @ORM\JoinColumn(onDelete="CASCADE")
      * })
      */
-    private ?\Application\Model\Account $parent = null;
+    private ?Account $parent = null;
 
     /**
      * @var Collection<Account>
@@ -79,7 +79,7 @@ class Account extends AbstractModel
     /**
      * @ORM\Column(type="Money", options={"default" = 0})
      */
-    private \Money\Money $totalBalance;
+    private Money $totalBalance;
 
     /**
      * Constructor.

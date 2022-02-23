@@ -83,7 +83,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     use HasPassword;
     use HasRemarks;
 
-    private static ?\Application\Model\User $currentUser = null;
+    private static ?User $currentUser = null;
 
     /**
      * Set currently logged in user
@@ -145,12 +145,12 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private ?\Cake\Chronos\Chronos $welcomeSessionDate = null;
+    private ?Chronos $welcomeSessionDate = null;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private ?\Cake\Chronos\Chronos $resignDate = null;
+    private ?Chronos $resignDate = null;
 
     /**
      * @var int sex
@@ -186,7 +186,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private ?\Cake\Chronos\Date $birthday = null;
+    private ?Date $birthday = null;
 
     /**
      * @ORM\Column(type="boolean", options={"default" = 0})

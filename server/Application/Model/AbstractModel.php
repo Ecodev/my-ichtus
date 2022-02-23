@@ -39,12 +39,12 @@ abstract class AbstractModel implements HasOwner, Model
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private ?\Cake\Chronos\Chronos $creationDate = null;
+    private ?Chronos $creationDate = null;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private ?\Cake\Chronos\Chronos $updateDate = null;
+    private ?Chronos $updateDate = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="User")
@@ -52,7 +52,7 @@ abstract class AbstractModel implements HasOwner, Model
      *     @ORM\JoinColumn(onDelete="SET NULL")
      * })
      */
-    private ?\Application\Model\User $creator = null;
+    private ?User $creator = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="User")
@@ -60,7 +60,7 @@ abstract class AbstractModel implements HasOwner, Model
      *     @ORM\JoinColumn(onDelete="SET NULL")
      * })
      */
-    private ?\Application\Model\User $owner = null;
+    private ?User $owner = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="User")
@@ -68,7 +68,7 @@ abstract class AbstractModel implements HasOwner, Model
      *     @ORM\JoinColumn(onDelete="SET NULL")
      * })
      */
-    private ?\Application\Model\User $updater = null;
+    private ?User $updater = null;
 
     /**
      * Get id.

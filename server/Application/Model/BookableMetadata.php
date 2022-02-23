@@ -30,7 +30,7 @@ class BookableMetadata extends AbstractModel
      *     @ORM\JoinColumn(onDelete="CASCADE", nullable=false)
      * })
      */
-    private \Application\Model\Bookable $bookable;
+    private Bookable $bookable;
 
     public function getValue(): string
     {

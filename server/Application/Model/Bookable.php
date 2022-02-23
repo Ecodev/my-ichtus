@@ -42,17 +42,17 @@ class Bookable extends AbstractModel
     /**
      * @ORM\Column(type="Money", options={"default" = 0})
      */
-    private \Money\Money $initialPrice;
+    private Money $initialPrice;
 
     /**
      * @ORM\Column(type="Money", options={"default" = 0})
      */
-    private \Money\Money $periodicPrice;
+    private Money $periodicPrice;
 
     /**
      * @ORM\Column(type="Money",  options={"default" = 0, "unsigned" = true})
      */
-    private \Money\Money $purchasePrice;
+    private Money $purchasePrice;
 
     /**
      * @ORM\Column(type="smallint", options={"default" = "-1"})
@@ -77,7 +77,7 @@ class Bookable extends AbstractModel
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private ?\Cake\Chronos\Date $verificationDate = null;
+    private ?Date $verificationDate = null;
 
     /**
      * @var Collection<BookableTag>
@@ -102,7 +102,7 @@ class Bookable extends AbstractModel
      * @ORM\OneToOne(targetEntity="Image", orphanRemoval=true)
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
-    private ?\Application\Model\Image $image = null;
+    private ?Image $image = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="Account")
@@ -110,7 +110,7 @@ class Bookable extends AbstractModel
      *     @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      * })
      */
-    private ?\Application\Model\Account $creditAccount = null;
+    private ?Account $creditAccount = null;
 
     /**
      * Constructor.

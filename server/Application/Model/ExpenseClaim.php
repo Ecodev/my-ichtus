@@ -40,7 +40,7 @@ class ExpenseClaim extends AbstractModel
     /**
      * @ORM\Column(type="Money", options={"unsigned" = true})
      */
-    private \Money\Money $amount;
+    private Money $amount;
 
     /**
      * @var Collection<Transaction>
@@ -70,7 +70,7 @@ class ExpenseClaim extends AbstractModel
      *     @ORM\JoinColumn(onDelete="SET NULL")
      * })
      */
-    private ?\Application\Model\User $reviewer = null;
+    private ?User $reviewer = null;
 
     /**
      * @ORM\Column(type="string", length=191, options={"default" = ""})

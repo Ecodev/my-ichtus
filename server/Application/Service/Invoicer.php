@@ -25,7 +25,7 @@ class Invoicer
 {
     private int $count = 0;
 
-    private readonly \Application\Repository\BookingRepository $bookingRepository;
+    private readonly BookingRepository $bookingRepository;
 
     public function __construct(private readonly EntityManager $entityManager)
     {

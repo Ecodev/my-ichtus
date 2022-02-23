@@ -10,7 +10,7 @@ use Application\Repository\LogRepository;
 
 class LogRepositoryTest extends AbstractRepositoryTest
 {
-    private \Application\Repository\LogRepository $repository;
+    private LogRepository $repository;
 
     protected function setUp(): void
     {

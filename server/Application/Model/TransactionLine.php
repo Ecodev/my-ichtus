@@ -43,7 +43,7 @@ class TransactionLine extends AbstractModel
      *     @ORM\JoinColumn(nullable=true, onDelete="RESTRICT")
      * })
      */
-    private ?\Application\Model\Account $debit = null;
+    private ?Account $debit = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="Account", inversedBy="creditTransactionLines")
@@ -51,7 +51,7 @@ class TransactionLine extends AbstractModel
      *     @ORM\JoinColumn(nullable=true, onDelete="RESTRICT")
      * })
      */
-    private ?\Application\Model\Account $credit = null;
+    private ?Account $credit = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="Bookable")
@@ -59,17 +59,17 @@ class TransactionLine extends AbstractModel
      *     @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * })
      */
-    private ?\Application\Model\Bookable $bookable = null;
+    private ?Bookable $bookable = null;
 
     /**
      * @ORM\Column(type="Money", options={"unsigned" = true})
      */
-    private \Money\Money $balance;
+    private Money $balance;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private \Cake\Chronos\Chronos $transactionDate;
+    private Chronos $transactionDate;
 
     /**
      * @ORM\ManyToOne(targetEntity="TransactionTag")
@@ -77,7 +77,7 @@ class TransactionLine extends AbstractModel
      *     @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * })
      */
-    private ?\Application\Model\TransactionTag $transactionTag = null;
+    private ?TransactionTag $transactionTag = null;
 
     /**
      * @ORM\Column(type="boolean", options={"default" = 0})

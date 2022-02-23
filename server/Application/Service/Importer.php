@@ -33,18 +33,18 @@ use Genkgo\Camt\Reader;
  */
 class Importer
 {
-    private \Genkgo\Camt\DTO\Message $message;
+    private Message $message;
 
     /**
      * @var Transaction[]
      */
     private array $transactions = [];
 
-    private \Application\Model\Account $bankAccount;
+    private Account $bankAccount;
 
-    private readonly \Application\Repository\AccountRepository $accountRepository;
+    private readonly AccountRepository $accountRepository;
 
-    private readonly \Application\Repository\UserRepository $userRepository;
+    private readonly UserRepository $userRepository;
 
     private readonly TransactionLineRepository $transactionLineRepository;
 

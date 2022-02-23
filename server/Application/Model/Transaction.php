@@ -32,7 +32,7 @@ class Transaction extends AbstractModel
     /**
      * @ORM\Column(type="datetime")
      */
-    private \Cake\Chronos\Chronos $transactionDate;
+    private Chronos $transactionDate;
 
     /**
      * @var Collection<TransactionLine>
@@ -52,7 +52,7 @@ class Transaction extends AbstractModel
      *     @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * })
      */
-    private ?\Application\Model\ExpenseClaim $expenseClaim = null;
+    private ?ExpenseClaim $expenseClaim = null;
 
     /**
      * @ORM\Column(type="string", length=18, options={"default" = ""})

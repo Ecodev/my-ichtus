@@ -13,7 +13,7 @@ use Cake\Chronos\Date;
 
 class BookingRepositoryTest extends AbstractRepositoryTest
 {
-    private \Application\Repository\BookingRepository $repository;
+    private BookingRepository $repository;
 
     protected function setUp(): void
     {
