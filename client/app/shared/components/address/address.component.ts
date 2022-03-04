@@ -10,9 +10,10 @@ import {FormGroup} from '@angular/forms';
 export class AddressComponent {
     @Input() public vertical = false;
     @Input() public form!: FormGroup;
+    // eslint-disable-next-line @angular-eslint/no-output-native
     @Output() public readonly change = new EventEmitter<void>();
 
-    constructor(public readonly countryService: CountryService) {}
+    public constructor(public readonly countryService: CountryService) {}
 
     public update(): void {
         this.change.emit();

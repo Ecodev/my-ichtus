@@ -33,7 +33,7 @@ export class UserTagService extends NaturalAbstractModelService<
     DeleteUserTags,
     DeleteUserTagsVariables
 > {
-    constructor(apollo: Apollo) {
+    public constructor(apollo: Apollo) {
         super(apollo, 'userTag', userTagQuery, userTagsQuery, createUserTag, updateUserTag, deleteUserTags);
     }
 

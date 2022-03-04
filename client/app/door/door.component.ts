@@ -13,7 +13,7 @@ import {CurrentUserForProfile_viewer} from '../shared/generated-types';
 export class DoorComponent extends NaturalAbstractController implements OnInit {
     public viewer!: CurrentUserForProfile_viewer;
 
-    constructor(
+    public constructor(
         public readonly doorService: DoorService,
         private readonly userService: UserService,
         private readonly alertService: NaturalAlertService,

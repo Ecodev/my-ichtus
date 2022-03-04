@@ -28,7 +28,7 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
     public config = localConfig;
     public licenses: Licenses_licenses_items[] = [];
 
-    constructor(
+    public constructor(
         public readonly userService: UserService,
         public readonly permissionsService: PermissionsService,
         private readonly alertService: NaturalAlertService,

@@ -56,7 +56,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
      */
     public newBooking: CreateBooking_createBooking | null = null;
 
-    constructor(
+    public constructor(
         public readonly bookingService: BookingService,
         injector: Injector,
         public readonly bookableService: BookableService,

@@ -45,7 +45,7 @@ export class TransactionService extends NaturalAbstractModelService<
 > {
     private bankAccount: Accounts_accounts_items | null = null;
 
-    constructor(
+    public constructor(
         apollo: Apollo,
         private readonly transactionLineService: TransactionLineService,
         private accountService: AccountService,

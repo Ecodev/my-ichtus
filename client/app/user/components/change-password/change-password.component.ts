@@ -16,7 +16,7 @@ export class ChangePasswordComponent {
     public readonly form: FormGroup;
     public sending = false;
 
-    constructor(
+    public constructor(
         route: ActivatedRoute,
         private readonly apollo: Apollo,
         private readonly alertService: NaturalAlertService,

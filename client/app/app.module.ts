@@ -102,7 +102,7 @@ registerLocaleData(localeDECH);
     bootstrap: [AppComponent],
 })
 export class AppModule {
-    constructor(
+    public constructor(
         apollo: Apollo,
         networkActivityService: NetworkActivityService,
         alertService: NaturalAlertService,

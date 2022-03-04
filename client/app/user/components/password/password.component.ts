@@ -40,7 +40,7 @@ export class PasswordComponent implements OnInit {
     @Input() public form!: FormGroup;
     public confirmPasswordStateMatcher = new ConfirmPasswordStateMatcher();
 
-    constructor() {}
+    public constructor() {}
 
     public ngOnInit(): void {
         this.form.removeControl('password');

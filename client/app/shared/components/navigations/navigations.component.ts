@@ -70,7 +70,7 @@ export class NavigationsComponent extends NaturalAbstractController implements O
     private currentPage = 0;
     private family: (CurrentUserForProfile_viewer | Users_users_items)[] = [];
 
-    constructor(
+    public constructor(
         public readonly userService: UserService,
         public readonly bookingService: BookingService,
         private readonly alertService: NaturalAlertService,

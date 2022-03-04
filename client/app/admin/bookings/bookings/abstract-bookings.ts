@@ -6,7 +6,6 @@ import {SafetyBookingService} from '../../../safety/safety-booking.service';
 import {ContactType} from '../../../shared/components/copy-contact-data/copy-contact-data.component';
 
 @Directive()
-// tslint:disable-next-line:directive-class-suffix
 export abstract class AbstractBookings<
     TService extends BookingService | BookingWithOwnerService | SafetyBookingService,
 > extends NaturalAbstractList<TService> {

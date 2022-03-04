@@ -9,7 +9,7 @@ import {ExpenseClaimService} from './expenseClaim.service';
     providedIn: 'root',
 })
 export class ExpenseClaimParamResolver implements Resolve<ExpenseClaimResolve> {
-    constructor(
+    public constructor(
         private readonly expenseClaimService: ExpenseClaimService,
         private readonly errorService: ErrorService,
     ) {}

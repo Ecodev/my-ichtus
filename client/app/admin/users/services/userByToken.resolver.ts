@@ -9,7 +9,7 @@ import {UserByTokenResolve} from '../user';
     providedIn: 'root',
 })
 export class UserByTokenResolver implements Resolve<UserByTokenResolve> {
-    constructor(private readonly userService: UserService, private readonly errorService: ErrorService) {}
+    public constructor(private readonly userService: UserService, private readonly errorService: ErrorService) {}
 
     /**
      * Resolve sites for routing service only at the moment

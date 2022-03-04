@@ -38,7 +38,7 @@ export class TransactionTagService extends NaturalAbstractModelService<
     any,
     any
 > {
-    constructor(apollo: Apollo) {
+    public constructor(apollo: Apollo) {
         super(
             apollo,
             'transactionTag',

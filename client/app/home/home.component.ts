@@ -26,7 +26,7 @@ export class HomeComponent extends NaturalAbstractController implements OnInit {
 
     public announcementActive = false;
 
-    constructor(
+    public constructor(
         private readonly userService: UserService,
         private readonly router: Router,
         @Inject(LOCAL_STORAGE) private readonly storage: NaturalStorage,

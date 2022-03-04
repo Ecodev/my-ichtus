@@ -26,7 +26,7 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
         maxWidth: '60vw',
     };
 
-    constructor(
+    public constructor(
         injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,
         private readonly accountService: AccountService,

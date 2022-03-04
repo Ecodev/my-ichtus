@@ -9,7 +9,7 @@ import {AbstractBookings} from '../admin/bookings/bookings/abstract-bookings';
     templateUrl: '../admin/bookings/bookings/bookings.component.html',
 })
 export class SafetyComponent extends AbstractBookings<SafetyBookingService> {
-    constructor(
+    public constructor(
         safetyBookingService: SafetyBookingService,
         injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,

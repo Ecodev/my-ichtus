@@ -9,7 +9,10 @@ import {ErrorService} from '../../shared/components/error/error.service';
     providedIn: 'root',
 })
 export class OptionalBookableByParamResolver implements Resolve<BookableResolve | null> {
-    constructor(private readonly bookableService: BookableService, private readonly errorService: ErrorService) {}
+    public constructor(
+        private readonly bookableService: BookableService,
+        private readonly errorService: ErrorService,
+    ) {}
 
     /**
      * Resolve bookable data from route param

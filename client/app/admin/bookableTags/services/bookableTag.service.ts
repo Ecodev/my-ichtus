@@ -39,7 +39,7 @@ export class BookableTagService extends NaturalAbstractModelService<
     DeleteBookableTags,
     DeleteBookableTagsVariables
 > {
-    constructor(apollo: Apollo) {
+    public constructor(apollo: Apollo) {
         super(
             apollo,
             'bookableTag',

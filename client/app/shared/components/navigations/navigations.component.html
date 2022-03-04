@@ -70,8 +70,8 @@
                                     matInput
                                     [ngModel]="item.booking.startComment"
                                     (change)="update({id: item.booking.id, startComment: $any($event.target).value})"
-                                    [matTextareaAutosize]="true"
-                                    [matAutosizeMinRows]="3"
+                                    [cdkTextareaAutosize]="true"
+                                    [cdkAutosizeMinRows]="3"
                                 ></textarea>
                             </mat-form-field>
 
@@ -81,8 +81,8 @@
                                     matInput
                                     [ngModel]="item.booking.endComment"
                                     (change)="update({id: item.booking.id, endComment: $any($event.target).value})"
-                                    [matTextareaAutosize]="true"
-                                    [matAutosizeMinRows]="3"
+                                    [cdkTextareaAutosize]="true"
+                                    [cdkAutosizeMinRows]="3"
                                 ></textarea>
                             </mat-form-field>
                         </div>

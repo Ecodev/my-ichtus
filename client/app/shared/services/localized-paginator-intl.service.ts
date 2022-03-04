@@ -5,7 +5,7 @@ import {MatPaginatorIntl} from '@angular/material/paginator';
     providedIn: 'root',
 })
 export class LocalizedPaginatorIntlService extends MatPaginatorIntl {
-    constructor() {
+    public constructor() {
         super();
 
         this.itemsPerPageLabel = 'Par page :';

@@ -28,7 +28,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
     public bookingsVariables: BookingsVariables = {};
     public viewer!: CurrentUserForProfile_viewer;
 
-    constructor(
+    public constructor(
         bookableService: BookableService,
         injector: Injector,
         public readonly bookableTagService: BookableTagService,

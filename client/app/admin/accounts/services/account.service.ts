@@ -63,7 +63,7 @@ export class AccountService extends NaturalAbstractModelService<
     DeleteAccounts,
     DeleteAccountsVariables
 > {
-    constructor(apollo: Apollo) {
+    public constructor(apollo: Apollo) {
         super(apollo, 'account', accountQuery, accountsQuery, createAccount, updateAccount, deleteAccounts);
     }
 

@@ -9,7 +9,10 @@ import {BookableService} from './bookable.service';
     providedIn: 'root',
 })
 export class BookableResolver implements Resolve<BookableResolve> {
-    constructor(private readonly bookableService: BookableService, private readonly errorService: ErrorService) {}
+    public constructor(
+        private readonly bookableService: BookableService,
+        private readonly errorService: ErrorService,
+    ) {}
 
     /**
      * Resolve bookable data for router

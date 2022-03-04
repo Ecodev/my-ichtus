@@ -19,7 +19,7 @@ export class PricedBookingService extends NaturalAbstractModelService<
     any,
     any
 > {
-    constructor(apollo: Apollo) {
+    public constructor(apollo: Apollo) {
         super(apollo, 'booking', null, pricedBookingsQuery, null, null, null);
     }
 }

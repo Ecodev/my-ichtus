@@ -85,8 +85,8 @@
                         matInput
                         formControlName="description"
                         (change)="update()"
-                        [matTextareaAutosize]="true"
-                        [matAutosizeMinRows]="1"
+                        [cdkTextareaAutosize]="true"
+                        [cdkAutosizeMinRows]="1"
                     ></textarea>
                 </mat-form-field>
 
@@ -102,7 +102,7 @@
                         <!-- Clear button -->
                         <div class="suffix-buttons" matSuffix>
                             <button
-                                *ngIf="form.get('sector')?.value != ''"
+                                *ngIf="form.get('sector')?.value !== ''"
                                 (click)="form.get('sector')?.setValue(''); $event.stopPropagation(); update()"
                                 mat-icon-button
                                 matTooltip="Aucun"
@@ -172,8 +172,8 @@
                         matInput
                         formControlName="remarks"
                         (change)="update()"
-                        [matTextareaAutosize]="true"
-                        [matAutosizeMinRows]="3"
+                        [cdkTextareaAutosize]="true"
+                        [cdkAutosizeMinRows]="3"
                     ></textarea>
                 </mat-form-field>
             </div>
@@ -185,8 +185,8 @@
                         matInput
                         formControlName="internalRemarks"
                         (change)="update()"
-                        [matTextareaAutosize]="true"
-                        [matAutosizeMinRows]="3"
+                        [cdkTextareaAutosize]="true"
+                        [cdkAutosizeMinRows]="3"
                     ></textarea>
                 </mat-form-field>
             </div>

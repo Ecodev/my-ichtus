@@ -49,7 +49,7 @@ export class ExpenseClaimService extends NaturalAbstractModelService<
     DeleteExpenseClaims,
     DeleteExpenseClaimsVariables
 > {
-    constructor(apollo: Apollo) {
+    public constructor(apollo: Apollo) {
         super(
             apollo,
             'expenseClaim',

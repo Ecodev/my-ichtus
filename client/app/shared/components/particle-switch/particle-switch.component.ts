@@ -1,11 +1,11 @@
-import {AfterViewInit, Component, ContentChild, ElementRef, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ContentChild, ElementRef, Input, TemplateRef, ViewChild} from '@angular/core';
 
 @Component({
     selector: 'app-particle-switch',
     templateUrl: './particle-switch.component.html',
     styleUrls: ['./particle-switch.component.scss'],
 })
-export class ParticleSwitchComponent implements OnInit, AfterViewInit {
+export class ParticleSwitchComponent implements AfterViewInit {
     @ContentChild(TemplateRef, {static: true}) public template!: TemplateRef<any>;
     @ViewChild('wrapper', {static: true}) private wrapper!: ElementRef<any>;
 
@@ -35,7 +35,7 @@ export class ParticleSwitchComponent implements OnInit, AfterViewInit {
         pSpeed: 0.5,
     };
 
-    @Input() set data(value: any) {
+    @Input() public set data(value: any) {
         if (!this.showData1) {
             this._data1 = value;
             this.showData2 = false;
@@ -60,9 +60,7 @@ export class ParticleSwitchComponent implements OnInit, AfterViewInit {
         this.firstDisplay = false;
     }
 
-    constructor(private readonly rootElement: ElementRef) {}
-
-    public ngOnInit(): void {}
+    public constructor(private readonly rootElement: ElementRef) {}
 
     public ngAfterViewInit(): void {
         this.updateSize();

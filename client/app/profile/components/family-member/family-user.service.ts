@@ -12,7 +12,7 @@ import {PricedBookingService} from '../../../admin/bookings/services/PricedBooki
     providedIn: 'root',
 })
 export class FamilyUserService extends UserService {
-    constructor(
+    public constructor(
         apollo: Apollo,
         router: Router,
         bookingService: BookingService,

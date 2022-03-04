@@ -10,7 +10,7 @@ import {UserService} from '../../users/services/user.service';
     styleUrls: ['./license.component.scss'],
 })
 export class LicenseComponent extends NaturalAbstractDetail<LicenseService> {
-    constructor(
+    public constructor(
         licenseService: LicenseService,
         injector: Injector,
         public readonly userService: UserService,

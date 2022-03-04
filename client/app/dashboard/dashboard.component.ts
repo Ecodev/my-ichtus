@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {UserService} from '../admin/users/services/user.service';
 import {BookingService} from '../admin/bookings/services/booking.service';
 import {ActivatedRoute} from '@angular/router';
@@ -12,11 +12,11 @@ import {UserRole} from '../shared/generated-types';
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
     public title = 'my-ichtus';
     public readonly adminRoute: Observable<string>;
 
-    constructor(
+    public constructor(
         public readonly userService: UserService,
         public readonly bookingService: BookingService,
         public readonly route: ActivatedRoute,
@@ -35,6 +35,4 @@ export class DashboardComponent implements OnInit {
             }),
         );
     }
-
-    public ngOnInit(): void {}
 }

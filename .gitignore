@@ -1,3 +1,4 @@
+/.angular/
 /config/autoload/*.local.php
 /config/autoload/local.php
 /config/development.config.php

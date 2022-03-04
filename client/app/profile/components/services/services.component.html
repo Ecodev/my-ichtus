@@ -8,10 +8,7 @@
             class="margin-bottom"
         >
             <h2 fxFlex class="mat-headline no-margin-bottom">Demandes en attente</h2>
-            <natural-select-admin-approved-button
-                [user]="user"
-                *ngIf="!adminMode"
-            ></natural-select-admin-approved-button>
+            <app-select-admin-approved-button [user]="user" *ngIf="!adminMode"></app-select-admin-approved-button>
         </div>
 
         <div
@@ -44,7 +41,7 @@
                 <ng-container matColumnDef="periodicPrice">
                     <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix périodique</th>
                     <td mat-cell *matCellDef="let booking" natural-align-right>
-                        <span *ngIf="booking.bookable.periodicPrice != '0.00'">
+                        <span *ngIf="booking.bookable.periodicPrice !== '0.00'">
                             {{ booking.bookable.periodicPrice | currency: 'CHF' }}
                         </span>
                     </td>
@@ -58,7 +55,7 @@
                 <ng-container matColumnDef="initialPrice">
                     <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix initial</th>
                     <td mat-cell *matCellDef="let booking" natural-align-right>
-                        <span *ngIf="booking.bookable.initialPrice != '0.00'">
+                        <span *ngIf="booking.bookable.initialPrice !== '0.00'">
                             {{ booking.bookable.initialPrice | currency: 'CHF' }}</span
                         >
                     </td>
@@ -140,7 +137,7 @@
                 <ng-container matColumnDef="initialPrice">
                     <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix initial</th>
                     <td mat-cell *matCellDef="let booking" natural-align-right>
-                        <span *ngIf="booking.bookable.initialPrice != '0.00'">
+                        <span *ngIf="booking.bookable.initialPrice !== '0.00'">
                             {{ booking.bookable.initialPrice | currency: 'CHF' }}</span
                         >
                     </td>

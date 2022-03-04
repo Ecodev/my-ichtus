@@ -201,8 +201,8 @@
                                 matInput
                                 formControlName="remarks"
                                 (change)="update()"
-                                [matTextareaAutosize]="true"
-                                [matAutosizeMinRows]="3"
+                                [cdkTextareaAutosize]="true"
+                                [cdkAutosizeMinRows]="3"
                             ></textarea>
                         </mat-form-field>
 
@@ -212,8 +212,8 @@
                                 matInput
                                 formControlName="internalRemarks"
                                 (change)="update()"
-                                [matTextareaAutosize]="true"
-                                [matAutosizeMinRows]="3"
+                                [cdkTextareaAutosize]="true"
+                                [cdkAutosizeMinRows]="3"
                             ></textarea>
                         </mat-form-field>
                     </div>
@@ -327,7 +327,7 @@
                         {{ data.model.lastLogin | swissDate }}
                     </div>
 
-                    <div *ngIf="data.model.resignDate && data.model.status == 'archived'">
+                    <div *ngIf="data.model.resignDate && data.model.status === 'archived'">
                         <span class="mat-body-2">Démission le :</span>
                         {{ data.model.resignDate | swissDate }}
                     </div>

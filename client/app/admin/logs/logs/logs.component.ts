@@ -14,7 +14,7 @@ export class LogsComponent extends NaturalAbstractList<LogService> implements On
     public viewer!: CurrentUserForProfile_viewer;
     public UserRole = UserRole;
 
-    constructor(
+    public constructor(
         route: ActivatedRoute,
         logService: LogService,
         injector: Injector,

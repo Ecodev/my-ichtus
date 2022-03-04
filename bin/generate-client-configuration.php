@@ -14,7 +14,7 @@ $clientConfig = array_intersect_key($config, array_flip($clientKeys));
 
 $json = json_encode($clientConfig, JSON_PRETTY_PRINT);
 $code = <<<STRING
-    /* tslint:disable */
+    /* eslint-disable */
     /* eslint-disable */
     export const localConfig = $json;
     STRING;

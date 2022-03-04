@@ -30,7 +30,7 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
     public readonly activating = new Map<Users_users_items, true>();
     public readonly welcoming = new Map<Users_users_items, true>();
 
-    constructor(
+    public constructor(
         route: ActivatedRoute,
         private readonly userService: UserService,
         injector: Injector,

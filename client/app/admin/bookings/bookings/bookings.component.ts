@@ -10,7 +10,7 @@ import {AbstractBookings} from './abstract-bookings';
     styleUrls: ['./bookings.component.scss'],
 })
 export class BookingsComponent extends AbstractBookings<BookingService> {
-    constructor(
+    public constructor(
         bookingService: BookingService,
         injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,

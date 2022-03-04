@@ -14,7 +14,7 @@ export class RequestPasswordResetComponent {
     public readonly form: FormGroup;
     public sending = false;
 
-    constructor(
+    public constructor(
         private readonly apollo: Apollo,
         private readonly alertService: NaturalAlertService,
         private readonly router: Router,

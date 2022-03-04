@@ -13,13 +13,13 @@ export class CountryService extends NaturalAbstractModelService<
     Countries['countries'],
     CountriesVariables,
     null,
-    {input: {}},
+    {input: Record<string, never>},
     null,
-    {id: string; input: {}},
+    {id: string; input: Record<string, never>},
     never,
     never
 > {
-    constructor(apollo: Apollo) {
+    public constructor(apollo: Apollo) {
         super(apollo, 'country', countryQuery, countriesQuery, null, null, null);
     }
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -6,8 +6,6 @@ import {ActivatedRoute} from '@angular/router';
     templateUrl: './booking-history.component.html',
     styleUrls: ['./booking-history.component.scss'],
 })
-export class BookingHistoryComponent implements OnInit {
-    constructor(public readonly route: ActivatedRoute) {}
-
-    public ngOnInit(): void {}
+export class BookingHistoryComponent {
+    public constructor(public readonly route: ActivatedRoute) {}
 }

@@ -1,4 +1,4 @@
-import {gql} from 'apollo-angular';
+import {gql} from '@apollo/client/core';
 import {permissionsFragment} from '../../queries/fragments';
 
 export const countriesQuery = gql`

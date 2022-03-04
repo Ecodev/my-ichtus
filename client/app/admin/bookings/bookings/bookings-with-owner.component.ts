@@ -13,7 +13,7 @@ import {ContactType} from '../../../shared/components/copy-contact-data/copy-con
 export class BookingsWithOwnerComponent extends AbstractBookings<BookingWithOwnerService> {
     public contactType: ContactType = 'bookingsWithOwnerContact';
 
-    constructor(
+    public constructor(
         bookingWithOwnerService: BookingWithOwnerService,
         injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,

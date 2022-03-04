@@ -646,7 +646,7 @@ export class NaturalSearchFacetsService {
         logs: [this.creationDate, this.creator, this.message],
     };
 
-    constructor(
+    public constructor(
         private readonly enumService: NaturalEnumService,
         private readonly userTagService: UserTagService,
         private readonly transactionService: TransactionService,

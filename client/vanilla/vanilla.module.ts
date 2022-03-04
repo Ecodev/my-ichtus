@@ -38,14 +38,13 @@ import {Literal, NaturalCommonModule, NaturalLinkMutationService, NaturalQueryVa
     ],
 })
 export class VanillaModule implements DoBootstrap {
-    constructor(
+    public constructor(
         apollo: Apollo,
         userService: UserService,
         bookableService: BookableService,
         bookingService: BookingService,
         linkMutation: NaturalLinkMutationService,
     ) {
-        // tslint:disable-next-line - Disables all rules for the following line
         const QueryVariablesManager = NaturalQueryVariablesManager; // for retro compatibility
 
         const api = {
@@ -61,6 +60,7 @@ export class VanillaModule implements DoBootstrap {
         (window as Literal)['ichtusApi'] = api;
     }
 
+    // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
     public ngDoBootstrap(appRef: ApplicationRef): void {
         // Nothing to do at all here
     }

@@ -16,7 +16,7 @@ import {BookableService} from '../../../admin/bookables/services/bookable.servic
     styleUrls: ['./register.component.scss'],
 })
 export class RegisterConfirmComponent extends RegisterComponent implements OnInit {
-    constructor(
+    public constructor(
         apollo: Apollo,
         route: ActivatedRoute,
         fb: FormBuilder,

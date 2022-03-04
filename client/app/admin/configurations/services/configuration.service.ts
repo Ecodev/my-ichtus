@@ -15,7 +15,7 @@ import {configurationQuery, updateConfiguration} from './configuration.queries';
     providedIn: 'root',
 })
 export class ConfigurationService {
-    constructor(private readonly apollo: Apollo) {}
+    public constructor(private readonly apollo: Apollo) {}
 
     public get(key: string): Observable<string> {
         const queryRef = this.apollo.watchQuery<Configuration, ConfigurationVariables>({

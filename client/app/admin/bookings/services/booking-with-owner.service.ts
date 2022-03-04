@@ -38,7 +38,7 @@ export class BookingWithOwnerService extends NaturalAbstractModelService<
     DeleteBookings,
     DeleteBookingsVariables
 > {
-    constructor(apollo: Apollo, private readonly bookingService: BookingService) {
+    public constructor(apollo: Apollo, private readonly bookingService: BookingService) {
         super(
             apollo,
             'booking',

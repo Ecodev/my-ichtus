@@ -10,7 +10,7 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
     styleUrls: ['./licenses.component.scss'],
 })
 export class LicensesComponent extends NaturalAbstractList<LicenseService> implements OnInit {
-    constructor(
+    public constructor(
         licenseService: LicenseService,
         injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,

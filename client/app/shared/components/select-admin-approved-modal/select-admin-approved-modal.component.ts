@@ -17,7 +17,7 @@ import {Observable} from 'rxjs';
 export type SelectAdminApprovedModalResult = UsageBookables_bookables_items[];
 
 @Component({
-    selector: 'natural-select-admin-approved-modal',
+    selector: 'app-select-admin-approved-modal',
     templateUrl: './select-admin-approved-modal.component.html',
     styleUrls: ['./select-admin-approved-modal.component.scss'],
 })
@@ -29,7 +29,7 @@ export class SelectAdminApprovedModalComponent implements OnInit {
     public surveyDataSource!: NaturalDataSource<UsageBookables['bookables']>;
     public selection = new SelectionModel<UsageBookables['bookables']['items']>(true, []);
 
-    constructor(private readonly bookableService: UsageBookableService) {}
+    public constructor(private readonly bookableService: UsageBookableService) {}
 
     public ngOnInit(): void {
         this.fetch(BookableTagService.STORAGE_REQUEST).subscribe(res => (this.storagesDataSource = res));

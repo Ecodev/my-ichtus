@@ -58,7 +58,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
     null,
     never
 > {
-    constructor(apollo: Apollo) {
+    public constructor(apollo: Apollo) {
         super(apollo, 'transactionLine', transactionLineQuery, transactionLinesQuery, null, null, null);
     }
 

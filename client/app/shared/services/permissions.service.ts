@@ -99,7 +99,7 @@ export class PermissionsService {
         user: null,
     });
 
-    constructor(apollo: Apollo) {
+    public constructor(apollo: Apollo) {
         // Query the API when our variables changed
         this.currentContexts.pipe(distinctUntilChanged(isEqual), debounceTime(5)).subscribe(contexts => {
             // Fetch global permissions

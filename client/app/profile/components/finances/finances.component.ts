@@ -36,7 +36,7 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
     public readonly ibanCtrl = new FormControl('', ibanValidator);
     public canCreateExpenseClaim = false;
 
-    constructor(
+    public constructor(
         private readonly userService: UserService,
         private readonly route: ActivatedRoute,
         private readonly expenseClaimService: ExpenseClaimService,

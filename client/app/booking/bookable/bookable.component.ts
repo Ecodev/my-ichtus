@@ -37,7 +37,7 @@ export class BookableComponent extends NaturalAbstractController implements OnIn
 
     public bookable: Bookable_bookable | null = null;
 
-    constructor(
+    public constructor(
         private readonly bookableService: BookableService,
         private readonly route: ActivatedRoute,
         private readonly permissionsService: PermissionsService,

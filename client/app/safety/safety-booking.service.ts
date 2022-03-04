@@ -54,7 +54,7 @@ export class SafetyBookingService extends NaturalAbstractModelService<
     never,
     never
 > {
-    constructor(apollo: Apollo) {
+    public constructor(apollo: Apollo) {
         super(apollo, 'booking', null, safetyBookings, null, null, null);
     }
 }

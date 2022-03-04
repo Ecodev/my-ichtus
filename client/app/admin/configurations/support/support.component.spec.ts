@@ -1,10 +1,10 @@
 import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {SupportComponent, SupportComponentData} from './support.component';
 import {IchtusModule} from '../../../shared/modules/ichtus.module';
-import {ApolloTestingModule} from 'apollo-angular/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {NaturalDialogTriggerProvidedData} from '@ecodev/natural';
+import {mockApolloProvider} from '../../../shared/testing/MockApolloProvider';
 
 describe('SupportComponent', () => {
     let component: SupportComponent;
@@ -21,8 +21,8 @@ describe('SupportComponent', () => {
 
             TestBed.configureTestingModule({
                 declarations: [],
-                imports: [ApolloTestingModule, RouterTestingModule, IchtusModule],
-                providers: [{provide: MAT_DIALOG_DATA, useValue: dialogData}],
+                imports: [RouterTestingModule, IchtusModule],
+                providers: [{provide: MAT_DIALOG_DATA, useValue: dialogData}, mockApolloProvider],
             }).compileComponents();
         }),
     );

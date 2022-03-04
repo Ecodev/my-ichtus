@@ -11,7 +11,7 @@ export class CardComponent implements OnInit {
     @Input() public file: FileModel | null = null;
     @Input() public illustrationUrl = '';
 
-    constructor() {}
+    public constructor() {}
 
     public ngOnInit(): void {
         if (!this.file && this.illustrationUrl) {

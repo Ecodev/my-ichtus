@@ -9,7 +9,7 @@ import {BookingService} from './booking.service';
     providedIn: 'root',
 })
 export class BookingResolver implements Resolve<BookingResolve> {
-    constructor(private readonly bookingService: BookingService, private readonly errorService: ErrorService) {}
+    public constructor(private readonly bookingService: BookingService, private readonly errorService: ErrorService) {}
 
     /**
      * Resolve booking data for router

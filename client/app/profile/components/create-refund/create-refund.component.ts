@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {money} from '@ecodev/natural';
@@ -8,7 +8,7 @@ import {money} from '@ecodev/natural';
     templateUrl: './create-refund.component.html',
     styleUrls: ['./create-refund.component.scss'],
 })
-export class CreateRefundComponent implements OnInit {
+export class CreateRefundComponent {
     /**
      * Form for ExpenseClaimInput
      */
@@ -18,7 +18,5 @@ export class CreateRefundComponent implements OnInit {
         description: ['', []],
     });
 
-    constructor(@Inject(MAT_DIALOG_DATA) public readonly data: any, private readonly fb: FormBuilder) {}
-
-    public ngOnInit(): void {}
+    public constructor(@Inject(MAT_DIALOG_DATA) public readonly data: any, private readonly fb: FormBuilder) {}
 }

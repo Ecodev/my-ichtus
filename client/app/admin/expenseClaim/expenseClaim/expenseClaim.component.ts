@@ -21,7 +21,7 @@ export class ExpenseClaimComponent extends NaturalAbstractDetail<ExpenseClaimSer
     public ExpenseClaimStatus = ExpenseClaimStatus;
     public viewer!: CurrentUserForProfile_viewer;
 
-    constructor(
+    public constructor(
         public expenseClaimService: ExpenseClaimService,
         injector: Injector,
         public readonly userService: UserService,

@@ -9,7 +9,7 @@ import {UserTagResolve} from '../userTag';
     providedIn: 'root',
 })
 export class UserTagResolver implements Resolve<UserTagResolve> {
-    constructor(private readonly userTagService: UserTagService, private readonly errorService: ErrorService) {}
+    public constructor(private readonly userTagService: UserTagService, private readonly errorService: ErrorService) {}
 
     /**
      * Resolve userTag data for router

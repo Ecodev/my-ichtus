@@ -19,7 +19,7 @@ export class ImportComponent implements OnInit {
     public importing = false;
     public error: Error | null = null;
 
-    constructor(
+    public constructor(
         private readonly route: ActivatedRoute,
         private readonly router: Router,
         public readonly permissionsService: PermissionsService,

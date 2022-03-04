@@ -178,7 +178,7 @@ export class BookingService extends NaturalAbstractModelService<
         };
     }
 
-    constructor(apollo: Apollo, private readonly enumService: NaturalEnumService) {
+    public constructor(apollo: Apollo, private readonly enumService: NaturalEnumService) {
         super(apollo, 'booking', bookingQuery, bookingsQuery, createBooking, updateBooking, deleteBookings);
     }
 

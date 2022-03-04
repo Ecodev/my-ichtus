@@ -9,7 +9,7 @@ import {TransactionLineService} from './transactionLine.service';
     providedIn: 'root',
 })
 export class TransactionLineResolver implements Resolve<TransactionLineResolve> {
-    constructor(
+    public constructor(
         private readonly transactionLineService: TransactionLineService,
         private readonly errorService: ErrorService,
     ) {}

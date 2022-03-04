@@ -39,6 +39,7 @@ import {NaturalEditorModule} from '@ecodev/natural-editor';
 import {SupportComponent} from '../../admin/configurations/support/support.component';
 import {IbanPipe} from '../pipes/iban.pipe';
 import {CopyContactDataComponent} from '../components/copy-contact-data/copy-contact-data.component';
+import {ApolloModule} from 'apollo-angular';
 
 const iconsConfig: NaturalIconsConfig = {
     qr: {
@@ -107,6 +108,7 @@ const declarations = [
 ];
 
 const imports = [
+    ApolloModule,
     CommonModule,
     MaterialModule,
     FormsModule,

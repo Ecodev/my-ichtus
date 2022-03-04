@@ -8,7 +8,7 @@ import {BookableTagService} from '../services/bookableTag.service';
     styleUrls: ['./bookableTag.component.scss'],
 })
 export class BookableTagComponent extends NaturalAbstractDetail<BookableTagService> {
-    constructor(
+    public constructor(
         bookableTagService: BookableTagService,
         injector: Injector,
         public readonly tagService: BookableTagService,

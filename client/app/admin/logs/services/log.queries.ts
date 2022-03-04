@@ -1,4 +1,4 @@
-import {gql} from 'apollo-angular';
+import {gql} from '@apollo/client/core';
 
 export const logsQuery = gql`
     query Logs($filter: LogFilter, $sorting: [LogSorting!], $pagination: PaginationInput) {

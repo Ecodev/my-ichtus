@@ -11,9 +11,10 @@ import {UsageBookables_bookables_items} from '../../../shared/generated-types';
     styleUrls: ['./bookables.component.scss'],
 })
 export class UsageBookablesComponent extends NaturalAbstractList<UsageBookableService> {
+    // eslint-disable-next-line @angular-eslint/no-output-native
     @Output() public readonly select = new EventEmitter<UsageBookables_bookables_items>();
 
-    @Input() set selections(selections: NaturalSearchSelections) {
+    @Input() public set selections(selections: NaturalSearchSelections) {
         if (!this.searchInitialized) {
             this.naturalSearchSelections = selections;
             this.search(selections);
@@ -23,7 +24,7 @@ export class UsageBookablesComponent extends NaturalAbstractList<UsageBookableSe
     public readonly hasUsage = true;
     private searchInitialized = false;
 
-    constructor(
+    public constructor(
         usageBookableService: UsageBookableService,
         injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,

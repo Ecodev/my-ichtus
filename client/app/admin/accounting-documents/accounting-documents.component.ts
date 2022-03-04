@@ -38,7 +38,7 @@ export class AccountingDocumentsComponent implements OnInit {
     private readonly removedFiles: WithId<FileModel>[] = [];
     private _disabled = false;
 
-    constructor(public readonly accountingDocumentService: AccountingDocumentService) {}
+    public constructor(public readonly accountingDocumentService: AccountingDocumentService) {}
 
     public ngOnInit(): void {
         if (this.model.accountingDocuments) {

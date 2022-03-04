@@ -25,7 +25,7 @@ export class AccountingDocumentService extends NaturalAbstractModelService<
     DeleteAccountingDocument,
     DeleteAccountingDocumentVariables
 > {
-    constructor(apollo: Apollo) {
+    public constructor(apollo: Apollo) {
         super(
             apollo,
             'accountingDocument',

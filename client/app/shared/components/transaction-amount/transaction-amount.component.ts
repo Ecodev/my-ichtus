@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
 import {AccountType, MinimalAccount, TransactionLine} from '../../generated-types';
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
 
@@ -7,7 +7,7 @@ import {TransactionLineService} from '../../../admin/transactions/services/trans
     templateUrl: './transaction-amount.component.html',
     styleUrls: ['./transaction-amount.component.scss'],
 })
-export class TransactionAmountComponent implements OnInit, OnChanges {
+export class TransactionAmountComponent implements OnChanges {
     @Input() public transactionLine: TransactionLine['transactionLine'] | null = null;
 
     /**
@@ -19,9 +19,7 @@ export class TransactionAmountComponent implements OnInit, OnChanges {
 
     public isIncome: boolean | null = null;
 
-    constructor(public readonly transactionLineService: TransactionLineService) {}
-
-    public ngOnInit(): void {}
+    public constructor(public readonly transactionLineService: TransactionLineService) {}
 
     public ngOnChanges(): void {
         const account = this.relativeToAccount;

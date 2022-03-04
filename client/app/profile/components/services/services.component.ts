@@ -27,7 +27,7 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
     public servicesColumns = ['name', 'initialPrice', 'periodicPrice', 'revoke'];
     public applicationsColumns = ['name', 'status', 'initialPrice', 'periodicPrice', 'cancel'];
 
-    constructor(
+    public constructor(
         private readonly userService: UserService,
         private readonly route: ActivatedRoute,
         private readonly alertService: NaturalAlertService,

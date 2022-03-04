@@ -9,7 +9,7 @@ import {TransactionTagResolve} from '../transactionTag';
     providedIn: 'root',
 })
 export class TransactionTagResolver implements Resolve<TransactionTagResolve> {
-    constructor(
+    public constructor(
         private readonly transactionTagService: TransactionTagService,
         private readonly errorService: ErrorService,
     ) {}

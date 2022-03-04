@@ -33,7 +33,7 @@ export class CopyContactDataComponent<V extends EmailAndPhoneUsersVariables | Bo
     public usersEmailAndName: string | null = null;
     public usersPhoneAndName: string | null = null;
 
-    constructor(private readonly apollo: Apollo, @Inject(DOCUMENT) private readonly document: Document) {
+    public constructor(private readonly apollo: Apollo, @Inject(DOCUMENT) private readonly document: Document) {
         super();
     }
 

@@ -10,7 +10,7 @@ export class AccountingClosingComponent {
     public readonly form = new FormControl(null, [Validators.required]);
     public readonly today = new Date();
 
-    constructor() {
+    public constructor() {
         const lastYear = new Date().getFullYear() - 1;
         const date = new Date(lastYear, 11, 31);
         this.form.setValue(date);

@@ -15,7 +15,7 @@ export class SelfApprovedBookingComponent implements OnInit {
     public bookable!: Bookable['bookable'];
     public booking: Literal = {};
 
-    constructor(
+    public constructor(
         private readonly route: ActivatedRoute,
         private readonly router: Router,
         private readonly userService: UserService,

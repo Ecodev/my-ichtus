@@ -8,7 +8,7 @@ import {TransactionTagService} from '../services/transactionTag.service';
     styleUrls: ['./transactionTag.component.scss'],
 })
 export class TransactionTagComponent extends NaturalAbstractDetail<TransactionTagService> {
-    constructor(transactionTagService: TransactionTagService, injector: Injector) {
+    public constructor(transactionTagService: TransactionTagService, injector: Injector) {
         super('transactionTag', transactionTagService, injector);
     }
 }

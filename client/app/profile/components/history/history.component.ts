@@ -18,7 +18,7 @@ export class HistoryComponent extends NaturalAbstractController implements OnIni
     public transactionLinesDS!: NaturalDataSource<TransactionLines_transactionLines>;
     public transactionsColumns = ['name', 'bookable', 'transactionDate', 'remarks', 'amount'];
 
-    constructor(
+    public constructor(
         private readonly userService: UserService,
         private readonly route: ActivatedRoute,
         private readonly expenseClaimService: ExpenseClaimService,

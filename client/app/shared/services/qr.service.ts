@@ -24,7 +24,7 @@ export class QrService {
      */
     public readonly qrCode: Observable<string>;
 
-    constructor() {
+    public constructor() {
         this.qrCode = this.scanObservable.pipe(
             distinctUntilChanged(),
             filter(v => !!v),

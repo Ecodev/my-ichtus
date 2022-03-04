@@ -9,7 +9,7 @@ import {PermissionsService} from '../services/permissions.service';
     providedIn: 'root',
 })
 export class AccountingGuard implements CanActivate {
-    constructor(
+    public constructor(
         private readonly router: Router,
         private readonly userService: UserService,
         private readonly permissionsService: PermissionsService,

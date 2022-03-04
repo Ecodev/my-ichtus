@@ -35,7 +35,7 @@ const queryForExport = gql`
     styleUrls: ['./bvr.component.scss'],
 })
 export class BvrComponent {
-    @Input() set bankingData(data: BankingInfosVariables) {
+    @Input() public set bankingData(data: BankingInfosVariables) {
         this.variables = data;
         this.apollo
             .query<BankingInfos, BankingInfosVariables>({
@@ -49,7 +49,7 @@ export class BvrComponent {
     private variables!: BankingInfosVariables;
     public bankingInfos: BankingInfos_bankingInfos | null = null;
 
-    constructor(private readonly apollo: Apollo, @Inject(DOCUMENT) private readonly document: Document) {}
+    public constructor(private readonly apollo: Apollo, @Inject(DOCUMENT) private readonly document: Document) {}
 
     public copyToClipboard(text: string): void {
         copyToClipboard(this.document, text);

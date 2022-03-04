@@ -19,7 +19,7 @@ export class LoginComponent extends NaturalAbstractController implements OnInit,
     public form: FormGroup;
     public hidePassword = true;
 
-    constructor(
+    public constructor(
         private readonly route: ActivatedRoute,
         private readonly router: Router,
         private readonly userService: UserService,

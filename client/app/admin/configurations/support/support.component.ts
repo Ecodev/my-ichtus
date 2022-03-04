@@ -34,7 +34,7 @@ export class SupportComponent extends NaturalAbstractController implements OnIni
     public activable = false;
     public updating = false;
 
-    constructor(
+    public constructor(
         private readonly configurationService: ConfigurationService,
         public readonly permissionsService: PermissionsService,
         public readonly route: ActivatedRoute,

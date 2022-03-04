@@ -31,7 +31,7 @@ export class ImageService extends NaturalAbstractModelService<
     any,
     any
 > {
-    constructor(apollo: Apollo) {
+    public constructor(apollo: Apollo) {
         super(apollo, 'image', null, null, createImageMutation, null, null);
     }
 

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {PermissionsService} from '../../shared/services/permissions.service';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {NaturalAbstractController} from '@ecodev/natural';
@@ -10,13 +10,13 @@ import {UserRole} from '../../shared/generated-types';
     templateUrl: './admin.component.html',
     styleUrls: ['./admin.component.scss'],
 })
-export class AdminComponent extends NaturalAbstractController implements OnInit {
+export class AdminComponent extends NaturalAbstractController {
     public adminUserRouteActive = false;
     public adminBookableRouteActive = false;
     public adminBookingRouteActive = false;
     public UserRole = UserRole;
 
-    constructor(
+    public constructor(
         router: Router,
         public readonly permissionsService: PermissionsService,
         public readonly route: ActivatedRoute,
@@ -50,6 +50,4 @@ export class AdminComponent extends NaturalAbstractController implements OnInit 
                 (segments[2] === undefined || segments[2].path === 'new' || !!segments[2].path.match(/^\d+$/));
         });
     }
-
-    public ngOnInit(): void {}
 }

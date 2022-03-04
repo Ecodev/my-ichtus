@@ -21,7 +21,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
     @Input() public relativeToAccount: MinimalAccount | null = null;
     @Input() public hideFab = false;
 
-    constructor(
+    public constructor(
         private readonly transactionLineService: TransactionLineService,
         injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,

@@ -19,7 +19,7 @@ export class LogService extends NaturalAbstractModelService<
     never,
     never
 > {
-    constructor(apollo: Apollo) {
+    public constructor(apollo: Apollo) {
         super(apollo, 'log', null, logsQuery, null, null, null);
     }
 

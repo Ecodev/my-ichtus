@@ -10,7 +10,7 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
     styleUrls: ['./transactionTags.component.scss'],
 })
 export class TransactionTagsComponent extends NaturalAbstractList<TransactionTagService> implements OnInit {
-    constructor(
+    public constructor(
         transactionTagService: TransactionTagService,
         injector: Injector,
         public readonly permissionsService: PermissionsService,

@@ -1,5 +1,5 @@
 <div
-    *ngIf="transactionLine && relativeToAccount && transactionLine.balance != '0.00' && isIncome !== null"
+    *ngIf="transactionLine && relativeToAccount && transactionLine.balance !== '0.00' && isIncome !== null"
     [class.positive]="isIncome === true"
     [class.negative]="isIncome === false"
     [class.background-decoration]="displayMode === 'account'"

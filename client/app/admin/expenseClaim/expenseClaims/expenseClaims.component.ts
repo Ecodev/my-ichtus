@@ -12,7 +12,7 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
 export class ExpenseClaimsComponent extends NaturalAbstractList<ExpenseClaimService> implements OnInit {
     public selectedColumns = ['name', 'owner', 'latestModification', 'status', 'type', 'remarks', 'amount'];
 
-    constructor(
+    public constructor(
         expenseClaimService: ExpenseClaimService,
         injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,

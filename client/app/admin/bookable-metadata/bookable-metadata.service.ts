@@ -33,7 +33,7 @@ export class BookableMetadataService extends NaturalAbstractModelService<
     DeleteBookableMetadatas,
     DeleteBookableMetadatasVariables
 > {
-    constructor(apollo: Apollo) {
+    public constructor(apollo: Apollo) {
         super(
             apollo,
             'bookableMetadata',

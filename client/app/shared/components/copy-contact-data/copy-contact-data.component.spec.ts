@@ -2,6 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {BookingsWithOwnerContactVariables, EmailAndPhoneUsersVariables} from '../../generated-types';
 import {CopyContactDataComponent} from './copy-contact-data.component';
 import {MaterialModule} from '../../modules/material.module';
+import {mockApolloProvider} from '../../testing/MockApolloProvider';
 
 describe('CopyContactDataComponent', () => {
     let component: CopyContactDataComponent<EmailAndPhoneUsersVariables | BookingsWithOwnerContactVariables>;
@@ -13,6 +14,7 @@ describe('CopyContactDataComponent', () => {
         await TestBed.configureTestingModule({
             declarations: [CopyContactDataComponent],
             imports: [MaterialModule],
+            providers: [mockApolloProvider],
         }).compileComponents();
     });
 

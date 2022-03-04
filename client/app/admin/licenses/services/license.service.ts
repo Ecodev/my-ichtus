@@ -33,7 +33,7 @@ export class LicenseService extends NaturalAbstractModelService<
     DeleteLicenses,
     DeleteLicensesVariables
 > {
-    constructor(apollo: Apollo) {
+    public constructor(apollo: Apollo) {
         super(apollo, 'license', licenseQuery, licensesQuery, createLicense, updateLicense, deleteLicenses);
     }
 

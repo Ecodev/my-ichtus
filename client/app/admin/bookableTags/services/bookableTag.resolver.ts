@@ -9,7 +9,10 @@ import {BookableTagResolve} from '../bookableTag';
     providedIn: 'root',
 })
 export class BookableTagResolver implements Resolve<BookableTagResolve> {
-    constructor(private readonly bookableTagService: BookableTagService, private readonly errorService: ErrorService) {}
+    public constructor(
+        private readonly bookableTagService: BookableTagService,
+        private readonly errorService: ErrorService,
+    ) {}
 
     /**
      * Resolve bookableTag data for router

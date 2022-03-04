@@ -38,7 +38,7 @@ export class EditableTransactionLinesComponent
         'remove',
     ];
 
-    constructor(
+    public constructor(
         private readonly transactionLineService: TransactionLineService,
         public readonly transactionTagService: TransactionTagService,
         public readonly bookableService: BookableService,

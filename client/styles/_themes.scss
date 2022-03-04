@@ -3,9 +3,9 @@
  * See source doc here https://github.com/angular/material2/tree/master/src/lib/core/theming
  */
 // Import theming files full relative way or karma will display warning
-@use '~@angular/material' as mat;
-@use '~@ecodev/natural/theming/natural.theme';
-@use '~@ecodev/natural-editor/theming/natural-editor.theme';
+@use '@angular/material' as mat;
+@use '@ecodev/natural';
+@use '@ecodev/natural-editor';
 @use '../app/shared/components/boot-loader/boot-loader.theme';
 @use '../app/app.theme';
 @use '../app/door/door.theme';

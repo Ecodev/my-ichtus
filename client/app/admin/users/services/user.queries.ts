@@ -1,4 +1,4 @@
-import {gql} from 'apollo-angular';
+import {gql} from '@apollo/client/core';
 import {permissionsFragment, userContactDataFragment, userMetaFragment} from '../../../shared/queries/fragments';
 import {minimimalAccountFragment} from '../../accounts/services/account.queries';
 

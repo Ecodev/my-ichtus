@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {
     SelectAdminApprovedModalComponent,
@@ -8,15 +8,13 @@ import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {BookingPartialInput, BookingStatus, CurrentUserForProfile_viewer} from '../../generated-types';
 
 @Component({
-    selector: 'natural-select-admin-approved-button',
+    selector: 'app-select-admin-approved-button',
     templateUrl: './select-admin-approved-button.component.html',
 })
-export class SelectAdminApprovedButtonComponent implements OnInit {
+export class SelectAdminApprovedButtonComponent {
     @Input() public user!: CurrentUserForProfile_viewer;
 
-    constructor(private readonly dialog: MatDialog, private readonly bookingService: BookingService) {}
-
-    public ngOnInit(): void {}
+    public constructor(private readonly dialog: MatDialog, private readonly bookingService: BookingService) {}
 
     public openDialog(): void {
         const options: MatDialogConfig = {
