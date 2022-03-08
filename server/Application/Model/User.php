@@ -95,7 +95,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     {
         self::$currentUser = $user;
 
-        // Initalize ACL filter with current user if a logged in one exists
+        // Initialize ACL filter with current user if a logged in one exists
         /** @var UserRepository $userRepository */
         $userRepository = _em()->getRepository(self::class);
         $aclFilter = $userRepository->getAclFilter();
