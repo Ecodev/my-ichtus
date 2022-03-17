@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {SupportComponent, SupportComponentData} from './support.component';
 import {IchtusModule} from '../../../shared/modules/ichtus.module';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -10,24 +10,20 @@ describe('SupportComponent', () => {
     let component: SupportComponent;
     let fixture: ComponentFixture<SupportComponent>;
 
-    beforeEach(
-        waitForAsync(() => {
-            const dialogData: NaturalDialogTriggerProvidedData<SupportComponentData> = {
-                data: {
-                    configurationKey: 'foo',
-                },
-                activatedRoute: null as any,
-            };
-
-            TestBed.configureTestingModule({
-                declarations: [],
-                imports: [RouterTestingModule, IchtusModule],
-                providers: [{provide: MAT_DIALOG_DATA, useValue: dialogData}, mockApolloProvider],
-            }).compileComponents();
-        }),
-    );
-
     beforeEach(() => {
+        const dialogData: NaturalDialogTriggerProvidedData<SupportComponentData> = {
+            data: {
+                configurationKey: 'foo',
+            },
+            activatedRoute: null as any,
+        };
+
+        TestBed.configureTestingModule({
+            declarations: [],
+            imports: [RouterTestingModule, IchtusModule],
+            providers: [{provide: MAT_DIALOG_DATA, useValue: dialogData}, mockApolloProvider],
+        }).compileComponents();
+
         fixture = TestBed.createComponent(SupportComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
