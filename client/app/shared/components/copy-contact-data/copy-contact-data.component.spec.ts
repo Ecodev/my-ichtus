@@ -16,9 +16,7 @@ describe('CopyContactDataComponent', () => {
             imports: [MaterialModule],
             providers: [mockApolloProvider],
         }).compileComponents();
-    });
 
-    beforeEach(() => {
         fixture = TestBed.createComponent(CopyContactDataComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();

@@ -10,7 +10,7 @@ describe('SupportComponent', () => {
     let component: SupportComponent;
     let fixture: ComponentFixture<SupportComponent>;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         const dialogData: NaturalDialogTriggerProvidedData<SupportComponentData> = {
             data: {
                 configurationKey: 'foo',
@@ -18,7 +18,7 @@ describe('SupportComponent', () => {
             activatedRoute: null as any,
         };
 
-        TestBed.configureTestingModule({
+        await TestBed.configureTestingModule({
             declarations: [],
             imports: [RouterTestingModule, IchtusModule],
             providers: [{provide: MAT_DIALOG_DATA, useValue: dialogData}, mockApolloProvider],

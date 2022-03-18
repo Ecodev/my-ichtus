@@ -5,8 +5,8 @@ describe('BootLoaderComponent', () => {
     let component: BootLoaderComponent;
     let fixture: ComponentFixture<BootLoaderComponent>;
 
-    beforeEach(() => {
-        TestBed.configureTestingModule({
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
             declarations: [BootLoaderComponent],
         }).compileComponents();
 
