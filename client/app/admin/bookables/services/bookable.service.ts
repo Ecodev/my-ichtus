@@ -149,7 +149,7 @@ export class BookableService extends NaturalAbstractModelService<
             description: '',
             initialPrice: '0',
             periodicPrice: '0',
-            purchasePrice: '0',
+            purchasePrice: null,
             simultaneousBookingMaximum: 1,
             bookingType: BookingType.self_approved,
             remarks: '',

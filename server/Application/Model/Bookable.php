@@ -50,9 +50,9 @@ class Bookable extends AbstractModel
     private Money $periodicPrice;
 
     /**
-     * @ORM\Column(type="Money",  options={"default" = 0, "unsigned" = true})
+     * @ORM\Column(type="Money", nullable=true, options={"unsigned" = true})
      */
-    private Money $purchasePrice;
+    private ?Money $purchasePrice = null;
 
     /**
      * @ORM\Column(type="smallint", options={"default" = "-1"})
@@ -119,7 +119,6 @@ class Bookable extends AbstractModel
     {
         $this->initialPrice = Money::CHF(0);
         $this->periodicPrice = Money::CHF(0);
-        $this->purchasePrice = Money::CHF(0);
 
         $this->bookings = new ArrayCollection();
         $this->licenses = new ArrayCollection();
@@ -192,12 +191,12 @@ class Bookable extends AbstractModel
         $this->periodicPrice = $periodicPrice;
     }
 
-    public function getPurchasePrice(): Money
+    public function getPurchasePrice(): ?Money
     {
         return $this->purchasePrice;
     }
 
-    public function setPurchasePrice(Money $purchasePrice): void
+    public function setPurchasePrice(?Money $purchasePrice): void
     {
         $this->purchasePrice = $purchasePrice;
     }
