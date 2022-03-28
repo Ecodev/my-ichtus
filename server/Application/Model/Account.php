@@ -60,7 +60,7 @@ class Account extends AbstractModel
     private string $type;
 
     /**
-     * @ORM\Column(type="integer", nullable=false, unique=true, options={"unsigned" = true})
+     * @ORM\Column(type="integer", unique=true, options={"unsigned" = true})
      */
     private int $code;
 
