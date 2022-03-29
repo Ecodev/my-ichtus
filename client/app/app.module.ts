@@ -1,4 +1,4 @@
-import {Apollo} from 'apollo-angular';
+import {Apollo, ApolloModule} from 'apollo-angular';
 import {HttpBatchLink} from 'apollo-angular/http';
 import {InMemoryCache} from '@apollo/client/core';
 import {BrowserModule} from '@angular/platform-browser';
@@ -53,6 +53,7 @@ registerLocaleData(localeDECH);
         SafetyComponent,
     ],
     imports: [
+        ApolloModule,
         BrowserModule,
         BrowserAnimationsModule,
         NgProgressModule,
