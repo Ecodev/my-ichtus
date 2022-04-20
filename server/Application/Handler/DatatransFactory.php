@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Application\Handler;
 
 use Doctrine\ORM\EntityManager;
-use Interop\Container\ContainerInterface;
 use Mezzio\Template\TemplateRendererInterface;
+use Psr\Container\ContainerInterface;
 
 class DatatransFactory
 {

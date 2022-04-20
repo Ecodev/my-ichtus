@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Application\Service;
 
 use Doctrine\ORM\EntityManager;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 class InvoicerFactory
 {

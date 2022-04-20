@@ -8,7 +8,7 @@ use Application\Model\Image;
 use Doctrine\ORM\EntityManager;
 use Ecodev\Felix\Handler\ImageHandler;
 use Ecodev\Felix\Service\ImageResizer;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 class ImageFactory
 {

@@ -63,6 +63,7 @@
         "laminas/laminas-component-installer": "^2.6",
         "laminas/laminas-config-aggregator": "^1.7",
         "laminas/laminas-http": "^2.15",
+        "laminas/laminas-servicemanager": "^3.11",
         "mezzio/mezzio": "^3.10",
         "mezzio/mezzio-fastroute": "^3.5",
         "mezzio/mezzio-helpers": "^5.8",
