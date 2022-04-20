@@ -9,9 +9,10 @@ use Application\Model\User;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class AbstractRepository.
+ * @template T of AbstractModel
+ * @extends EntityRepository<T>
  *
- * @method null|AbstractModel findOneById(integer $id)
+ * @method null|T findOneById(integer $id)
  */
 abstract class AbstractRepository extends EntityRepository
 {

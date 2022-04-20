@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace Application\Repository;
 
+use Application\Model\Log;
 use Application\Model\User;
+
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 
+/**
+ * @extends AbstractRepository<Log>
+ */
 class LogRepository extends AbstractRepository implements \Ecodev\Felix\Repository\LogRepository, LimitedAccessSubQuery
 {
     /**

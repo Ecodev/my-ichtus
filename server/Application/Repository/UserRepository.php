@@ -10,6 +10,9 @@ use Cake\Chronos\Chronos;
 use Doctrine\DBAL\Connection;
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 
+/**
+ * @extends AbstractRepository<User>
+ */
 class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
 {
     /**
@@ -203,6 +206,6 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
         }
         _em()->flush();
 
-        return is_countable($users) ? count($users) : 0;
+        return count($users);
     }
 }

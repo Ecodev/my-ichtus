@@ -5,13 +5,18 @@ declare(strict_types=1);
 namespace Application\Repository;
 
 use Application\Model\Account;
+use Application\Model\TransactionLine;
 use Application\Model\User;
 use Cake\Chronos\Chronos;
 use Cake\Chronos\Date;
 use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
+
 use Money\Money;
 
+/**
+ * @extends AbstractRepository<TransactionLine>
+ */
 class TransactionLineRepository extends AbstractRepository implements LimitedAccessSubQuery
 {
     /**

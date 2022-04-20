@@ -12,6 +12,9 @@ use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 use Ecodev\Felix\Utility;
 
+/**
+ * @extends AbstractRepository<Transaction>
+ */
 class TransactionRepository extends AbstractRepository implements LimitedAccessSubQuery
 {
     /**

@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace Application\Repository;
 
+use Application\Model\Message;
+
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 
+/**
+ * @extends AbstractRepository<Message>
+ */
 class MessageRepository extends AbstractRepository implements \Ecodev\Felix\Repository\MessageRepository, LimitedAccessSubQuery
 {
     use \Ecodev\Felix\Repository\Traits\MessageRepository;

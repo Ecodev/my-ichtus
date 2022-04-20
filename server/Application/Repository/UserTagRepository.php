@@ -5,8 +5,13 @@ declare(strict_types=1);
 namespace Application\Repository;
 
 use Application\Model\User;
+use Application\Model\UserTag;
+
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 
+/**
+ * @extends AbstractRepository<UserTag>
+ */
 class UserTagRepository extends AbstractRepository implements LimitedAccessSubQuery
 {
     /**

@@ -13,7 +13,7 @@ use Exception;
 use Money\Money;
 
 /**
- * Class AccountRepository.
+ * @extends AbstractRepository<Account>
  *
  * @method null|Account findOneByCode(int $code)
  */

@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace Application\Repository;
 
+use Application\Model\ExpenseClaim;
 use Application\Model\User;
+
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 
+/**
+ * @extends AbstractRepository<ExpenseClaim>
+ */
 class ExpenseClaimRepository extends AbstractRepository implements LimitedAccessSubQuery
 {
     /**

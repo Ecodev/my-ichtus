@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace Application\Repository;
 
+use Application\Model\AccountingDocument;
 use Application\Model\User;
+
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 
+/**
+ * @extends AbstractRepository<AccountingDocument>
+ */
 class AccountingDocumentRepository extends AbstractRepository implements LimitedAccessSubQuery
 {
     /**

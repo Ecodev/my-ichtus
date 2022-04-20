@@ -10,7 +10,6 @@ parameters:
         objectManagerLoader: tests/object-manager.php
     inferPrivatePropertyTypeFromConstructor: true
     ignoreErrors:
-        - '~^Call to an undefined method Application\\Repository\\.*Repository::find(One)?By.*\(\)\.$~'
         - '~^Call to an undefined method Laminas\\Permissions\\Acl\\Resource\\ResourceInterface::getInstance\(\)\.$~'
 
         # Tolerate a permissive model, but strict DB

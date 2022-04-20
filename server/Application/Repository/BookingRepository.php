@@ -14,6 +14,9 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 
+/**
+ * @extends AbstractRepository<Booking>
+ */
 class BookingRepository extends AbstractRepository
 {
     /**

@@ -6,6 +6,9 @@ namespace Application\Repository;
 
 use Application\Model\Configuration;
 
+/**
+ * @extends AbstractRepository<Configuration>
+ */
 class ConfigurationRepository extends AbstractRepository
 {
     /**
