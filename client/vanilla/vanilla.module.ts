@@ -1,4 +1,4 @@
-import {Apollo, APOLLO_OPTIONS, gql} from 'apollo-angular';
+import {Apollo, APOLLO_OPTIONS, gql, ApolloModule} from 'apollo-angular';
 import {InMemoryCache} from '@apollo/client/core';
 import {HttpLink} from 'apollo-angular/http';
 import {BrowserModule} from '@angular/platform-browser';
@@ -12,7 +12,7 @@ import {BookingService} from '../app/admin/bookings/services/booking.service';
 import {Literal, NaturalCommonModule, NaturalLinkMutationService, NaturalQueryVariablesManager} from '@ecodev/natural';
 
 @NgModule({
-    imports: [BrowserModule, HttpClientModule, VanillaRoutingModule, NaturalCommonModule],
+    imports: [BrowserModule, HttpClientModule, VanillaRoutingModule, NaturalCommonModule, ApolloModule],
     providers: [
         {provide: APP_BASE_HREF, useValue: '/'},
         {
