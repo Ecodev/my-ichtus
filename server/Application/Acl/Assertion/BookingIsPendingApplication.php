@@ -7,13 +7,18 @@ namespace Application\Acl\Assertion;
 use Application\DBAL\Types\BookingStatusType;
 use Application\DBAL\Types\BookingTypeType;
 use Application\Model\Booking;
+use Ecodev\Felix\Acl\Assertion\NamedAssertion;
 use Laminas\Permissions\Acl\Acl;
-use Laminas\Permissions\Acl\Assertion\AssertionInterface;
 use Laminas\Permissions\Acl\Resource\ResourceInterface;
 use Laminas\Permissions\Acl\Role\RoleInterface;
 
-class BookingIsPendingApplication implements AssertionInterface
+class BookingIsPendingApplication implements NamedAssertion
 {
+    public function getName(): string
+    {
+        return 'le réservable est pas encore confirmé';
+    }
+
     /**
      * Assert that a booking is a pending application.
      *

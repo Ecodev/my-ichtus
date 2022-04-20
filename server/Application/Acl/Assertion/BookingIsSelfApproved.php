@@ -6,13 +6,18 @@ namespace Application\Acl\Assertion;
 
 use Application\DBAL\Types\BookingTypeType;
 use Application\Model\Booking;
+use Ecodev\Felix\Acl\Assertion\NamedAssertion;
 use Laminas\Permissions\Acl\Acl;
-use Laminas\Permissions\Acl\Assertion\AssertionInterface;
 use Laminas\Permissions\Acl\Resource\ResourceInterface;
 use Laminas\Permissions\Acl\Role\RoleInterface;
 
-class BookingIsSelfApproved implements AssertionInterface
+class BookingIsSelfApproved implements NamedAssertion
 {
+    public function getName(): string
+    {
+        return 'la réséveration est un carnet de sortie';
+    }
+
     /**
      * Assert that booking's bookable is self approved (boats) or has no bookable.
      *
