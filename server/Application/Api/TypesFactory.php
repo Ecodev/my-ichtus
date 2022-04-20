@@ -6,8 +6,8 @@ namespace Application\Api;
 
 use Doctrine\ORM\EntityManager;
 use GraphQL\Doctrine\Types;
-use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\ServiceManager;
+use Psr\Container\ContainerInterface;
 
 class TypesFactory
 {

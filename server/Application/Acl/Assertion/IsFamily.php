@@ -6,13 +6,18 @@ namespace Application\Acl\Assertion;
 
 use Application\Model\AbstractModel;
 use Application\Model\User;
+use Ecodev\Felix\Acl\Assertion\NamedAssertion;
 use Laminas\Permissions\Acl\Acl;
-use Laminas\Permissions\Acl\Assertion\AssertionInterface;
 use Laminas\Permissions\Acl\Resource\ResourceInterface;
 use Laminas\Permissions\Acl\Role\RoleInterface;
 
-class IsFamily implements AssertionInterface
+class IsFamily implements NamedAssertion
 {
+    public function getName(): string
+    {
+        return "l'objet appartient à mon ménage";
+    }
+
     /**
      * Assert that the object belongs to someone in the current user family.
      *

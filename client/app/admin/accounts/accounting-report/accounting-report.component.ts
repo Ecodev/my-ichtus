@@ -8,4 +8,5 @@ import {FormControl, Validators} from '@angular/forms';
 })
 export class AccountingReportComponent {
     public readonly form = new FormControl(new Date(), [Validators.required]);
+    public readonly today = new Date();
 }

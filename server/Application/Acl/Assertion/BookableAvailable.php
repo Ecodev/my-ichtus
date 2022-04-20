@@ -6,13 +6,18 @@ namespace Application\Acl\Assertion;
 
 use Application\Model\Booking;
 use Application\Model\User;
+use Ecodev\Felix\Acl\Assertion\NamedAssertion;
 use Laminas\Permissions\Acl\Acl;
-use Laminas\Permissions\Acl\Assertion\AssertionInterface;
 use Laminas\Permissions\Acl\Resource\ResourceInterface;
 use Laminas\Permissions\Acl\Role\RoleInterface;
 
-class BookableAvailable implements AssertionInterface
+class BookableAvailable implements NamedAssertion
 {
+    public function getName(): string
+    {
+        return 'le réservable est est disponible';
+    }
+
     /**
      * Assert that the bookable of the given booking can be rented by the current user.
      *

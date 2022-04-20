@@ -7,7 +7,7 @@ namespace Application\Handler;
 use Application\Api\Schema;
 use Ecodev\Felix\Api\Server;
 use Ecodev\Felix\Handler\GraphQLHandler;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 class GraphQLFactory
 {

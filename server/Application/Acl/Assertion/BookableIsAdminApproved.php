@@ -6,13 +6,18 @@ namespace Application\Acl\Assertion;
 
 use Application\DBAL\Types\BookingTypeType;
 use Application\Model\Bookable;
+use Ecodev\Felix\Acl\Assertion\NamedAssertion;
 use Laminas\Permissions\Acl\Acl;
-use Laminas\Permissions\Acl\Assertion\AssertionInterface;
 use Laminas\Permissions\Acl\Resource\ResourceInterface;
 use Laminas\Permissions\Acl\Role\RoleInterface;
 
-class BookableIsAdminApproved implements AssertionInterface
+class BookableIsAdminApproved implements NamedAssertion
 {
+    public function getName(): string
+    {
+        return 'le réservable est un cours';
+    }
+
     /**
      * Assert that the bookable's booking type is admin approved.
      *

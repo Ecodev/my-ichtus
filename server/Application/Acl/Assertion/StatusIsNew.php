@@ -6,13 +6,18 @@ namespace Application\Acl\Assertion;
 
 use Application\DBAL\Types\ExpenseClaimStatusType;
 use Application\Model\ExpenseClaim;
+use Ecodev\Felix\Acl\Assertion\NamedAssertion;
 use Laminas\Permissions\Acl\Acl;
-use Laminas\Permissions\Acl\Assertion\AssertionInterface;
 use Laminas\Permissions\Acl\Resource\ResourceInterface;
 use Laminas\Permissions\Acl\Role\RoleInterface;
 
-class StatusIsNew implements AssertionInterface
+class StatusIsNew implements NamedAssertion
 {
+    public function getName(): string
+    {
+        return "la demande n'est pas encore traitée";
+    }
+
     /**
      * Assert that the expense claim is new (not processed yet).
      *
