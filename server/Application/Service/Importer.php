@@ -115,8 +115,10 @@ class Importer
         $transaction->setTransactionDate($date);
 
         $internalRemarks = [];
-        foreach ($entry->getTransactionDetails() as $detail) {
-            $internalRemarks[] = $this->importTransactionLine($transaction, $detail);
+        $mustUseSuffix = $this->mustUseSuffix($entry->getTransactionDetails());
+        foreach ($entry->getTransactionDetails() as $i => $detail) {
+            $suffix = $mustUseSuffix ? '-epicerio-' . ($i + 1) : '';
+            $internalRemarks[] = $this->importTransactionLine($transaction, $detail, $suffix);
         }
         $transaction->setInternalRemarks(implode(PHP_EOL . PHP_EOL, $internalRemarks));
 
@@ -131,9 +133,9 @@ class Importer
         }
     }
 
-    private function importTransactionLine(Transaction $transaction, EntryTransactionDetail $detail): string
+    private function importTransactionLine(Transaction $transaction, EntryTransactionDetail $detail, string $suffix): string
     {
-        $importedId = $this->getImportedId($detail);
+        $importedId = $this->getImportedId($detail, $suffix);
         $transactionDate = $transaction->getTransactionDate();
         if ($this->transactionLineRepository->importedExists($importedId, $transactionDate)) {
             return '';
@@ -244,17 +246,24 @@ class Importer
     /**
      * This must return a non-empty universally unique identifier for one detail.
      */
-    private function getImportedId(EntryTransactionDetail $detail): string
+    private function getImportedId(EntryTransactionDetail $detail, string $suffix): string
     {
         $reference = $detail->getReference();
 
-        $endToEndId = $reference->getEndToEndId();
-        if (!$endToEndId || $endToEndId === 'NOTPROVIDED') {
-            $endToEndId = $reference->getAccountServicerReference();
+        $endToEndId = $reference?->getEndToEndId();
+        if ($endToEndId === 'NOTPROVIDED') {
+            $endToEndId = null;
         }
 
         if (!$endToEndId) {
-            $endToEndId = $reference->getMessageId();
+            $accountServicerReference = $reference?->getAccountServicerReference();
+            if ($accountServicerReference) {
+                $endToEndId = $accountServicerReference . $suffix;
+            }
+        }
+
+        if (!$endToEndId) {
+            $endToEndId = $reference?->getMessageId();
         }
 
         if (!$endToEndId) {
@@ -262,5 +271,33 @@ class Importer
         }
 
         return $endToEndId;
+    }
+
+    /**
+     * If at least two details have the same AccountServicerReference, then we must use suffix.
+     *
+     * @param EntryTransactionDetail[] $transactionDetails
+     */
+    private function mustUseSuffix(array $transactionDetails): bool
+    {
+        if (count($transactionDetails) <= 1) {
+            return false;
+        }
+
+        $seenValues = [];
+        foreach ($transactionDetails as $transactionDetail) {
+            $value = $transactionDetail->getReference()?->getAccountServicerReference();
+            if (!$value) {
+                continue;
+            }
+
+            if (in_array($value, $seenValues, true)) {
+                return true;
+            }
+
+            $seenValues[] = $value;
+        }
+
+        return false;
     }
 }

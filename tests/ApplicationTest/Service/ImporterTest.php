@@ -83,7 +83,7 @@ class ImporterTest extends TestCase
     /**
      * @param null|Account|User $o
      *
-     * @return string
+     * @return ?string
      */
     private function nameOrNull($o): ?string
     {
