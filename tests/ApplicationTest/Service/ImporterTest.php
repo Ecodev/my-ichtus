@@ -81,16 +81,6 @@ class ImporterTest extends TestCase
     }
 
     /**
-     * @param null|Account|User $o
-     *
-     * @return ?string
-     */
-    private function nameOrNull($o): ?string
-    {
-        return $o ? $o->getName() : null;
-    }
-
-    /**
      * @param Transaction[] $transactions
      */
     private function extract(array $transactions): array
@@ -118,7 +108,7 @@ class ImporterTest extends TestCase
             'internalRemarks' => $transaction->getInternalRemarks(),
             'datatransRef' => $transaction->getDatatransRef(),
             'transactionDate' => $transaction->getTransactionDate()->toIso8601String(),
-            'owner' => $this->nameOrNull($transaction->getOwner()),
+            'owner' => $transaction->getOwner()?->getName(),
             'transactionLines' => $lines,
         ];
 
@@ -133,9 +123,9 @@ class ImporterTest extends TestCase
             'remarks' => $line->getRemarks(),
             'transactionDate' => $line->getTransactionDate()->toIso8601String(),
             'balance' => $line->getBalance()->getAmount(),
-            'owner' => $this->nameOrNull($line->getOwner()),
-            'debit' => $this->nameOrNull($line->getDebit()),
-            'credit' => $this->nameOrNull($line->getCredit()),
+            'owner' => $line->getOwner()?->getName(),
+            'debit' => $line->getDebit()?->getName(),
+            'credit' => $line->getCredit()?->getName(),
         ];
 
         return $result;
