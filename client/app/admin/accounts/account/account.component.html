@@ -87,7 +87,7 @@
                         ></natural-select>
 
                         <div *ngIf="form.get('owner')?.value">
-                            IBAN de l'utilisateur : {{ form.get('owner')?.value?.iban }}
+                            IBAN de l'utilisateur: {{ form.get('owner')?.value?.iban | iban }}
                         </div>
                     </div>
                 </div>
