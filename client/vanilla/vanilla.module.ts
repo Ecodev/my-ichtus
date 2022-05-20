@@ -10,6 +10,7 @@ import {APP_BASE_HREF} from '@angular/common';
 import {UserService} from '../app/admin/users/services/user.service';
 import {BookingService} from '../app/admin/bookings/services/booking.service';
 import {Literal, NaturalCommonModule, NaturalLinkMutationService, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {cacheConfig} from '../app/shared/config/apolloDefaultOptions';
 
 @NgModule({
     imports: [BrowserModule, HttpClientModule, VanillaRoutingModule, NaturalCommonModule, ApolloModule],
@@ -19,7 +20,7 @@ import {Literal, NaturalCommonModule, NaturalLinkMutationService, NaturalQueryVa
             provide: APOLLO_OPTIONS,
             useFactory: (httpLink: HttpLink) => {
                 return {
-                    cache: new InMemoryCache(),
+                    cache: new InMemoryCache(cacheConfig),
                     link: httpLink.create({
                         uri:
                             window.location.hostname === 'navigations.ichtus.club'

@@ -4,6 +4,7 @@ import {
     ApolloLink,
     DefaultOptions,
     InMemoryCache,
+    InMemoryCacheConfig,
     NormalizedCacheObject,
 } from '@apollo/client/core';
 import {onError} from '@apollo/client/link/error';
@@ -20,6 +21,15 @@ export const apolloDefaultOptions: DefaultOptions = {
     },
     watchQuery: {
         fetchPolicy: 'cache-and-network',
+    },
+};
+
+export const cacheConfig: InMemoryCacheConfig = {
+    typePolicies: {
+        Permissions: {
+            // Incoming permissions always overwrite whatever permission might already exist
+            merge: true,
+        },
     },
 };
 
@@ -102,7 +112,7 @@ function apolloOptionsFactory(
 
     return {
         link: link,
-        cache: new InMemoryCache(),
+        cache: new InMemoryCache(cacheConfig),
         defaultOptions: apolloDefaultOptions,
     };
 }

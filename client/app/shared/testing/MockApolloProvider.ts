@@ -5,7 +5,7 @@ import {Injectable, NgZone} from '@angular/core';
 import {buildClientSchema} from 'graphql';
 import {addMocksToSchema} from '@graphql-tools/mock';
 import {schema as introspectionResult} from './../../../../data/tmp/schema';
-import {apolloDefaultOptions} from '../config/apolloDefaultOptions';
+import {apolloDefaultOptions, cacheConfig} from '../config/apolloDefaultOptions';
 
 /**
  * A mock Apollo to be used in tests only
@@ -53,7 +53,7 @@ class MockApollo extends Apollo {
 
         const schemaWithMocks = addMocksToSchema({schema, mocks, preserveResolvers: true});
 
-        const apolloCache = new InMemoryCache();
+        const apolloCache = new InMemoryCache(cacheConfig);
 
         return new ApolloClient({
             cache: apolloCache,
