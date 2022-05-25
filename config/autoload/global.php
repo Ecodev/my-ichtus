@@ -48,4 +48,8 @@ return [
         'production' => false,
         'endpoint' => 'https://pay.sandbox.datatrans.com',
     ],
+    'log' => [
+        'url' => null, // URL to log server
+        'emails' => [], // List of developer emails to send bugs to
+    ],
 ];

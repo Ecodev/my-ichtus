@@ -1,9 +1,18 @@
 import {HttpBatchLink} from 'apollo-angular/http';
-import {ApolloLink, DefaultOptions} from '@apollo/client/core';
+import {
+    ApolloClientOptions,
+    ApolloLink,
+    DefaultOptions,
+    InMemoryCache,
+    NormalizedCacheObject,
+} from '@apollo/client/core';
 import {onError} from '@apollo/client/link/error';
 import {NetworkActivityService} from '../services/network-activity.service';
 import {createUploadLink} from 'apollo-upload-client';
 import {hasFilesAndProcessDate, NaturalAlertService} from '@ecodev/natural';
+import {ErrorService} from '../components/error/error.service';
+import {APOLLO_OPTIONS} from 'apollo-angular';
+import {Provider} from '@angular/core';
 
 export const apolloDefaultOptions: DefaultOptions = {
     query: {
@@ -48,7 +57,7 @@ function createErrorLink(
 /**
  * Create an Apollo link that support batch, file upload, and network activity
  */
-export function createApolloLink(
+function createApolloLink(
     networkActivityService: NetworkActivityService,
     alertService: NaturalAlertService,
     httpBatchLink: HttpBatchLink,
@@ -82,3 +91,24 @@ export function createApolloLink(
 
     return errorLink.concat(httpLink);
 }
+
+function apolloOptionsFactory(
+    networkActivityService: NetworkActivityService,
+    errorService: ErrorService,
+    alertService: NaturalAlertService,
+    httpBatchLink: HttpBatchLink,
+): ApolloClientOptions<NormalizedCacheObject> {
+    const link = createApolloLink(networkActivityService, alertService, httpBatchLink);
+
+    return {
+        link: link,
+        cache: new InMemoryCache(),
+        defaultOptions: apolloDefaultOptions,
+    };
+}
+
+export const apolloOptionsProvider: Provider = {
+    provide: APOLLO_OPTIONS,
+    useFactory: apolloOptionsFactory,
+    deps: [NetworkActivityService, ErrorService, NaturalAlertService, HttpBatchLink],
+};

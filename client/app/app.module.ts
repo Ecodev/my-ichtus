@@ -1,6 +1,4 @@
-import {Apollo, ApolloModule} from 'apollo-angular';
-import {HttpBatchLink} from 'apollo-angular/http';
-import {InMemoryCache} from '@apollo/client/core';
+import {ApolloModule} from 'apollo-angular';
 import {BrowserModule} from '@angular/platform-browser';
 import {LOCALE_ID, NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
@@ -10,16 +8,14 @@ import {MatPaginatorIntl} from '@angular/material/paginator';
 import {DateAdapter, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {MatIconRegistry} from '@angular/material/icon';
-import {NetworkActivityService} from './shared/services/network-activity.service';
 import {
     NATURAL_SEO_CONFIG,
-    NaturalAlertService,
+    NaturalErrorModule,
     NaturalSeoConfig,
     NaturalSeoService,
     NaturalSwissParsingDateAdapter,
 } from '@ecodev/natural';
 import {NgProgressModule} from 'ngx-progressbar';
-import {apolloDefaultOptions, createApolloLink} from './shared/config/apolloDefaultOptions';
 import {LoginComponent} from './login/login.component';
 import {HomeComponent} from './home/home.component';
 import {DoorComponent} from './door/door.component';
@@ -37,6 +33,9 @@ import {registerLocaleData} from '@angular/common';
 import {SafetyComponent} from './safety/safety.component';
 import {TimeagoCustomFormatter, TimeagoFormatter, TimeagoIntl, TimeagoModule} from 'ngx-timeago';
 import {strings as frenchStrings} from 'ngx-timeago/language-strings/fr-short';
+import {LoggerExtraService} from './shared/services/logger-extra.service';
+import {localConfig} from './shared/generated-config';
+import {apolloOptionsProvider} from './shared/config/apolloDefaultOptions';
 
 registerLocaleData(localeFRCH);
 registerLocaleData(localeDECH);
@@ -70,6 +69,7 @@ registerLocaleData(localeDECH);
             intl: {provide: TimeagoIntl, useClass: TimeagoIntl},
             formatter: {provide: TimeagoFormatter, useClass: TimeagoCustomFormatter},
         }),
+        NaturalErrorModule.forRoot(localConfig.log.url, LoggerExtraService),
     ],
     providers: [
         MatIconRegistry,
@@ -104,15 +104,12 @@ registerLocaleData(localeDECH);
                 applicationName: 'MyIchtus',
             } as NaturalSeoConfig,
         },
+        apolloOptionsProvider,
     ],
     bootstrap: [AppComponent],
 })
 export class AppModule {
     public constructor(
-        apollo: Apollo,
-        networkActivityService: NetworkActivityService,
-        alertService: NaturalAlertService,
-        httpBatchLink: HttpBatchLink,
         dateAdapter: DateAdapter<Date>,
         intl: TimeagoIntl,
         naturalSeoService: NaturalSeoService, // injection required, but works as stand alone
@@ -121,13 +118,5 @@ export class AppModule {
 
         intl.strings = frenchStrings;
         intl.changes.next();
-
-        const link = createApolloLink(networkActivityService, alertService, httpBatchLink);
-
-        apollo.create({
-            link: link,
-            cache: new InMemoryCache(),
-            defaultOptions: apolloDefaultOptions,
-        });
     }
 }
