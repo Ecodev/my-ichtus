@@ -29,6 +29,7 @@
                                 [main]="data.model"
                                 [service]="userService"
                                 [filter]="{groups: [{conditions: [{userTags: {have: {values: [data.model.id]}}}]}]}"
+                                [disabled]="!data.model.permissions?.update"
                                 placeholder="Taguer un utilisateur"
                             >
                                 <ng-template let-item="item">

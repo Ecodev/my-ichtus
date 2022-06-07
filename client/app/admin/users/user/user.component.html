@@ -252,6 +252,7 @@
                             [main]="data.model"
                             [service]="userTagService"
                             [filter]="{groups: [{conditions: [{users: {have: {values: [data.model.id]}}}]}]}"
+                            [disabled]="!permissionsService.crud?.userTag.create"
                             placeholder="Ajouter un tag"
                         >
                             <ng-template let-item="item">
