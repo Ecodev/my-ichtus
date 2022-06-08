@@ -48,8 +48,17 @@ export class FamilyComponent implements OnInit {
         this.familyMembers.push(emptyUser);
     }
 
-    public canEdit(familyMember: Users_users_items): boolean {
-        return !this.viewer.owner || this.viewer.id === familyMember.id;
+    /**
+     * This kinda duplicates server ACL. But we prefer to keep it, so even if the viewer is allowed by server to update
+     * any user, via /admin/user, we can still prevent him to do it on this page. This avoids the confusion of
+     * "why the daughter can update the entire family, but the son cannot ?", when in fact the daughter has a higher
+     * role than the son.
+     */
+    public canEdit(familyMember?: Users_users_items): boolean {
+        const iAmFamilyOwner = !this.viewer.owner;
+        const isMyself = !!familyMember && familyMember.id === this.viewer.id;
+
+        return iAmFamilyOwner || isMyself;
     }
 
     public leaveFamily(): void {

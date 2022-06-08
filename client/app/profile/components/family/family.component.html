@@ -40,7 +40,7 @@
         color="primary"
         (click)="add()"
         class="margin-top"
-        *ngIf="permissionsService.crud?.user.create"
+        *ngIf="canEdit() && permissionsService.crud?.user.create"
     >
         Ajouter une personne
     </button>
