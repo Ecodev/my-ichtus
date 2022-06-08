@@ -7,6 +7,7 @@ return [
         'query' => 'mutation ($inputTransaction: TransactionPartialInput!, $lines: [TransactionLineInput!]) {
             updateTransaction(id: 8000, input: $inputTransaction, lines: $lines) {
                 name
+                balance
                 transactionLines {
                     balance
                     credit {
@@ -37,6 +38,7 @@ return [
         'data' => [
             'updateTransaction' => [
                 'name' => 'Active Member: inscription cours nautique (corrigé)',
+                'balance' => '150.00',
                 'transactionLines' => [
                     [
                         'balance' => '150.00',

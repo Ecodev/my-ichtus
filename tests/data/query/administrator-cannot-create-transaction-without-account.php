@@ -7,6 +7,7 @@ return [
         'query' => 'mutation ($inputTransaction: TransactionInput!, $lines: [TransactionLineInput!]!) {
             createTransaction(input: $inputTransaction, lines: $lines) {
                 name
+                balance
                 transactionLines {
                     balance
                 }
