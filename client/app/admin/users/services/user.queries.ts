@@ -165,9 +165,9 @@ export const updateUser = gql`
             id
             name
             welcomeSessionDate
-            updateDate
             status
             iban
+            updateDate
             updater {
                 ...UserMeta
             }
