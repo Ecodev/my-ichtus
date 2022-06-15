@@ -60,7 +60,7 @@ export class ParticleSwitchComponent implements AfterViewInit {
         this.firstDisplay = false;
     }
 
-    public constructor(private readonly rootElement: ElementRef) {}
+    public constructor(private readonly rootElement: ElementRef<HTMLElement>) {}
 
     public ngAfterViewInit(): void {
         this.updateSize();
