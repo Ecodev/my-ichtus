@@ -17,7 +17,6 @@ return [
                     expenseClaim { create }
                     image { create }
                     license { create }
-                    message { create }
                     transaction { create }
                     transactionTag { create }
                     user { create }
@@ -60,9 +59,6 @@ return [
                         'create' => false,
                     ],
                     'license' => [
-                        'create' => false,
-                    ],
-                    'message' => [
                         'create' => false,
                     ],
                     'transaction' => [
