@@ -76,6 +76,7 @@ class ExpenseClaimTest extends TestCase
 
         // Make the current user as creator
         $user = new User();
+        $user->setStatus(User::STATUS_ACTIVE);
         User::setCurrent($user);
         $expenseClaim->timestampCreation();
 

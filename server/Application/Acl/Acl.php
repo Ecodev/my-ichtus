@@ -11,6 +11,7 @@ use Application\Acl\Assertion\BookingIsSelfApproved;
 use Application\Acl\Assertion\ExpenseClaimStatusIsNew;
 use Application\Acl\Assertion\IsFamily;
 use Application\Acl\Assertion\StatusIsNew;
+use Application\Acl\Assertion\UserIsActive;
 use Application\Model\Account;
 use Application\Model\AccountingDocument;
 use Application\Model\Bookable;
@@ -76,7 +77,7 @@ class Acl extends \Ecodev\Felix\Acl\Acl
 
         $this->allow(User::ROLE_INDIVIDUAL, [$user], ['read']);
         $this->allow(User::ROLE_INDIVIDUAL, [$user], ['update'], new IsMyself());
-        $this->allow(User::ROLE_INDIVIDUAL, [$expenseClaim], ['create']);
+        $this->allow(User::ROLE_INDIVIDUAL, [$expenseClaim], ['create'], new UserIsActive());
         $this->allow(User::ROLE_INDIVIDUAL, [$expenseClaim], ['read']);
         $this->allow(User::ROLE_INDIVIDUAL, [$expenseClaim], ['update', 'delete'], new All(new IsFamily(), new StatusIsNew()));
         $this->allow(User::ROLE_INDIVIDUAL, [$accountingDocument], ['create'], new ExpenseClaimStatusIsNew());
