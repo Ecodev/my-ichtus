@@ -49,7 +49,7 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
         }
     }
 
-    public setForm(): void {
+    private setForm(): void {
         this.initForm();
         if (this.readonly) {
             this.form.disable();
