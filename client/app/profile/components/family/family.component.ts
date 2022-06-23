@@ -30,7 +30,10 @@ export class FamilyComponent implements OnInit {
 
     public ngOnInit(): void {
         this.viewer = this.route.snapshot.data.viewer.model;
+        this.reload();
+    }
 
+    public reload(): void {
         if (this.viewer) {
             const qvm = new NaturalQueryVariablesManager<UsersVariables>();
             qvm.set('variables', UserService.getFamilyVariables(this.viewer));

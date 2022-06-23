@@ -1,4 +1,4 @@
-import {Component, Injector, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Injector, Input, OnInit, Output} from '@angular/core';
 import {
     CreateUser_createUser,
     CurrentUserForProfile_viewer,
@@ -19,6 +19,7 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
     @Input() public viewer!: CurrentUserForProfile_viewer;
     @Input() public user!: User['user'] | Users_users_items;
     @Input() public readonly = false;
+    @Output() public readonly created = new EventEmitter<void>();
     public loaded = false;
 
     public constructor(private readonly userService: FamilyUserService, injector: Injector) {
@@ -71,6 +72,7 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
                 );
             });
         }
+        this.created.next();
 
         return EMPTY;
     }
