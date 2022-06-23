@@ -9,7 +9,7 @@ use Application\Model\AbstractModel;
 use Application\Model\Bookable;
 use Application\Model\Booking;
 use Application\Model\TransactionLine;
-use Doctrine\ORM\Query;
+use Application\Model\User;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Ecodev\Felix\Api\Exception;
@@ -45,6 +45,13 @@ abstract class Helper
 
     public static function hydrate(AbstractModel $object, array $input): void
     {
+        // Be sure to set owner last, so that it might propagate user status and discount
+        if ($object instanceof User && array_key_exists('owner', $input)) {
+            $owner = $input['owner'];
+            unset($input['owner']);
+            $input['owner'] = $owner;
+        }
+
         foreach ($input as $name => $value) {
             if ($value instanceof EntityID) {
                 $value = $value->getEntity();
