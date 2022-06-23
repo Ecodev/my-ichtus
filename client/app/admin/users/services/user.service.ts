@@ -162,7 +162,10 @@ export class UserService
                     },
                 ],
             },
-            sorting: [{field: UserSortingField.birthday, order: SortingOrder.ASC}],
+            sorting: [
+                {field: UserSortingField.birthday, order: SortingOrder.ASC},
+                {field: UserSortingField.firstName, order: SortingOrder.ASC},
+            ],
         };
     }
 
