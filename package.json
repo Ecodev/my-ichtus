@@ -41,7 +41,7 @@
         "ibantools": "^4.1.4",
         "jsqr": "^1.4.0",
         "lodash-es": "^4.17.21",
-        "ngx-progressbar": "^8.0.0",
+        "ngx-progressbar": "^9.0.0",
         "ngx-timeago": "^2.0.0",
         "rxjs": "~7.5.4",
         "tslib": "^2.3.1",
