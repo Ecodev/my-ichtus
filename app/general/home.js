@@ -8,6 +8,7 @@ var options = {
     reloadWhenFinished: false,
     bookingsTogetherWithDifferentEndates: true,
     modifyBookablesButton: true,
+    editBookingButton: true,
     finishAllBookingsWithBookable: false, // si créer une sortie avec une embarcation déjà utilisée, ça termine seulement le booking avec l'embarcation utilisée de M. Uti.
     checkIfBookablesNotAvailableWhenConfirming: true,
     showAlertBookablesNotAvailable: false,
@@ -55,7 +56,7 @@ function load() {
     loadEscListener();
 
     if (window.location.hostname === 'navigations.ichtus.club') {
-        console.warn("Version de production 1.3");
+        console.warn("Version de production 1.4");
         $('divTopBarText').innerHTML = tabs[0].title;
     }
     else {

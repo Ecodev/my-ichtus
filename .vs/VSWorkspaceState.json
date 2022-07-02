@@ -2,15 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\app",
-    "\\app\\cahier",
     "\\app\\confirmation",
-    "\\app\\equipment",
     "\\app\\general",
     "\\app\\img",
     "\\app\\infos",
+    "\\app\\member",
+    "\\app\\page",
     "\\app\\utils",
     "\\htdocs"
   ],
-  "SelectedNode": "\\app\\equipment\\pop-bookable.js",
+  "SelectedNode": "\\app\\general\\server-requests.js",
   "PreviewInSolutionExplorer": false
 }

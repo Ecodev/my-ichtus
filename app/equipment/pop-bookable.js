@@ -1,6 +1,6 @@
 function popBookable(bookableId, justPreview = true, nbr = 0, modal = openPopUp()) {
 
-	Requests.getBookableInfos(nbr, bookableId, modal);
+    Requests.getBookableInfos(nbr, bookableId, modal);
 
     if (modal == $('divTabCahierEquipmentBookableContainer')) {
         modal.innerHTML = "";
@@ -23,17 +23,17 @@ function popBookable(bookableId, justPreview = true, nbr = 0, modal = openPopUp(
         newTab('divTabCahierEquipmentBookable');
     }
 
-	var imgContainer = div(pop);
+    var imgContainer = div(pop);
 
-	var descriptionTitle = div(pop);
-	descriptionTitle.innerHTML = "Description";
+    var descriptionTitle = div(pop);
+    descriptionTitle.innerHTML = "Description";
 
     var description = div(pop); // description box
 
-	var btn2 = div(pop);
+    var btn2 = div(pop);
     btn2.classList.add("Buttons"); btn2.classList.add("ReturnButtons");
     btn2.style.visibility = "hidden";
-	btn2.innerHTML = "Historique";
+    btn2.innerHTML = "Historique";
 
     if (!justPreview) {
         var btn = div(pop);
@@ -43,20 +43,20 @@ function popBookable(bookableId, justPreview = true, nbr = 0, modal = openPopUp(
         btn.focus();
     }
     else {
-      //  description.style.width = "660px";
+        //  description.style.width = "660px";
     }
 
-	var textsContainer = div(pop);
-	textsContainer.className = "divTabCahierEquipmentElementsContainerTextsContainer";
+    var textsContainer = div(pop);
+    textsContainer.className = "divTabCahierEquipmentElementsContainerTextsContainer";
 
-	div(textsContainer);
-	div(textsContainer);
+    div(textsContainer);
+    div(textsContainer);
     div(textsContainer);
     div(textsContainer);
 }
 
 var eventListenerFunction;
-function actualizePopBookable(nbr, bookable,bookings, elem) {
+function actualizePopBookable(nbr, bookable, bookings, elem) {
 
     elem.getElementsByTagName("div")[2].style.backgroundImage = Cahier.getImageUrl(bookable);
 
@@ -72,24 +72,36 @@ function actualizePopBookable(nbr, bookable,bookings, elem) {
     }
     textsContainer.getElementsByTagName("div")[1].innerHTML = bookable.name.shorten(420, 20);
 
-
     if (options.showRemarks) div(textsContainer).innerHTML = bookable.remarks;
     else div(textsContainer);
 
-
     for (var i = 0; i < bookable.licenses.length; i++) {
         var lic = div(textsContainer);
-        lic.innerHTML = "<asdf style='font-weight:bold'>License requise: </asdf >" + bookable.licenses[i].name ;
+        lic.innerHTML = "<asdf style='font-weight:bold'>License requise: </asdf >" + bookable.licenses[i].name;
     }
-
 
     var deltaT = 666; // anything higher than 13
     if (bookings.length != 0) {
 
-        if (currentTabElement.id != "divTabCahier" && bookings.items[0].endDate == null) { // not available - used -> so !justPreview
-            //console.log("embarcation déjà utilisée");
-            //elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[2].innerHTML = "Cette embarcation semble déjà être utlisée par " + Cahier.getOwner(bookings.items[0], false);
 
+        var bookableUsedWarning = false;
+
+        if (currentTabElement.id != "divTabCahier" && bookings.items[0].endDate == null) { // not available - used -> so !justPreview
+
+            bookableUsedWarning = true;
+
+            // 1.4 : don't show warning if editing the current booking
+            if (Cahier.bookings[0].currentlyEditing != undefined) {
+                for (let bookingId of Cahier.editedBooking.ids) {
+                    if (bookings.items[0].id == bookingId) {
+                        bookableUsedWarning = false;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (bookableUsedWarning) {
             var usedTxt = Cahier.getOwner(bookings.items[0], false);
             var dT = deltaTime(new Date(bookings.items[0].startDate));
             usedTxt += " est parti " + dT.text + " avec cette embarcation !";
@@ -150,6 +162,6 @@ function actualizePopBookable(nbr, bookable,bookings, elem) {
     //    bar.style.width = "100%";
     //}
 
-	elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[1].id = bookable.id;
+    elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0].getElementsByTagName("div")[1].id = bookable.id;
 
 }

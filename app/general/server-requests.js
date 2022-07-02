@@ -278,6 +278,41 @@ var Requests = {
         });
     },
 
+
+    // getUserInfos (TO DO AND CHANGE THE GETALL)
+    getUserInfos: function (ownerId) {
+       /* var filter = {
+            filter: {
+                groups: [
+                    {
+                        conditions: [
+                            {
+                                id: {
+                                    equal: {
+                                        value: ownerId
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+
+        };*/
+
+        var filter = {
+            id: ownerId
+        };
+
+        var variables = new Server.QueryVariablesManager();
+        variables.set('variables', filter);
+
+        Server.userService.getAll(variables).subscribe(result => {
+            console.log("getUserInfos(): ", result);
+        });
+
+    },
+
     // getBookablesList
     getBookablesList: function (elem = $('inputTabCahierEquipmentElementsInputSearch')) {
 
@@ -396,7 +431,7 @@ var Requests = {
         variables.set('variables', f);
 
         Server.bookableService.getAll(variables).subscribe(result => {
-            //console.log("getBookablesList(): ", result);
+//            console.log("getBookablesList(): ", result);
 
             if (result.items.length === 0) {
                 console.log("NOTHING");
@@ -465,120 +500,6 @@ var Requests = {
                 });
 
             }
-
-
-            //if (!lastUse && !nbrBookings || result.items.length == 0) {
-            //    loadElements(result.items);
-            //}
-            //else if (lastUse) {
-
-            //    var bookings = [];
-            //    bookings.fillArray(result.items.length,"1111-01-02T13:32:51+01:00");
-
-            //    for (var i = 0; i < result.items.length; i++) {
-
-            //        var filter = {
-            //            filter: {
-            //                groups: [
-            //                    { conditions: [{ bookable: { have: { values: [result.items[i].id] } } }] }
-            //                ]
-            //            },
-            //            pagination: {
-            //                pageSize: 1,
-            //                pageIndex: 0
-            //            },
-            //            sorting: [
-            //                {
-            //                    field: "startDate",
-            //                    order: "DESC" //get the latest booking
-            //                }
-            //            ]
-            //        };
-
-            //        var counter = 0;
-
-            //        var variables = new Server.QueryVariablesManager();
-            //        variables.set('variables', filter);
-
-            //        Server.bookingService.getAll(variables).subscribe(r => {
-
-            //            if (r.items.length != 0) {         // else : already a zero ? maybe change to start of the universe lol
-            //                var bookableId = r.items[0].bookable.id;
-
-            //                var c = -1;
-            //                var firstArray = result.items;
-            //                for (var i = 0; i < firstArray.length; i++) {
-            //                    if (firstArray[i].id == bookableId) {
-            //                        c = i;
-            //                        break;
-            //                    }
-            //                }
-
-            //                bookings[c] = r.items[0].startDate;
-            //            }
-
-            //            counter++;
-
-            //            if (counter == result.items.length) {
-            //                result.items.sortBy(bookings, order);
-            //                loadElements(result.items);
-            //            }
-            //        });
-            //    }
-            //}
-            //else if (nbrBookings) {
-
-            //    var bookings = [];
-            //    bookings.fillArray(result.items.length,0);
-
-            //    for (var i = 0; i < result.items.length; i++) {
-
-            //        var filter = {
-            //            filter: {
-            //                groups: [
-            //                    { conditions: [{ bookable: { have: { values: [result.items[i].id] } } }] }
-            //                ]
-            //            },
-            //            pagination: {
-            //                pageSize: 1,
-            //                pageIndex:0 // just for identifying the id
-            //            }
-            //        };
-
-            //        var counter = 0;
-
-            //        var variables = new Server.QueryVariablesManager();
-            //        variables.set('variables', filter);
-
-            //        Server.bookingService.getAll(variables).subscribe(r => {
-
-            //            if (r.items.length == 0) {
-            //                // no booking
-            //            }
-            //            else {
-            //                var bookableId = r.items[0].bookable.id;        // r.length != r.items.length      !! not the same
-            //                var c = -1;
-            //                var firstArray = result.items;
-            //                for (var i = 0; i < firstArray.length; i++) {
-            //                    if (firstArray[i].id == bookableId) {
-            //                        c = i;
-            //                        break;
-            //                    }
-            //                }
-            //                bookings[c] = r.length; // not items.length !
-            //            }
-            //            counter++;
-
-            //            if (counter == result.items.length) {
-            //                result.items.sortBy(bookings, order);
-            //                loadElements(result.items);
-            //            }
-            //        });
-            //    }
-            //}
-            //else {
-            //    // should not happen
-            //}
 
         });
     },
@@ -656,10 +577,10 @@ var Requests = {
 
 
     // getBookableByCode
-    getBookableByCode: function (elem,nbr = 0) {
+    getBookableByCode: function (elem, nbr = 0) {
         var t = true;
 
-        var code = elem.value.toUpperCase();
+        var code = elem.value.toUpperCase().trim();
 
         for (var i = 0; i < Cahier.bookings[0].bookables.length; i++) {
             if (Cahier.bookings[0].bookables[i].code.toUpperCase() == code) {
@@ -1495,6 +1416,7 @@ var Requests = {
                         Requests.getActualBookingList();
                     }
                     else {
+                        console.warn("Requests.terminateBooking() has finished, creating booking now.");
                         Requests.createBooking();
                     }
                     //console.log("this.terminateBooking done !");
@@ -1522,7 +1444,7 @@ var Requests = {
                 participantCount: i == 0 ? Cahier.bookings[0].participantCount - Cahier.bookings[0].bookables.length + 1 : 1,
                 destination: Cahier.bookings[0].destination,
                 startComment: Cahier.bookings[0].startComment,
-                bookable: Cahier.bookings[0].bookables[i] != Cahier.personalBookable ? Cahier.bookings[0].bookables[i].id : null
+                bookable: Cahier.bookings[0].bookables[i].id != 0 ? Cahier.bookings[0].bookables[i].id : null
             };
 
            // console.log(i, input.participantCount);
@@ -1544,6 +1466,41 @@ var Requests = {
 
         }
 
+
+    },
+
+    getOwnerLicenses: function (_owner) {
+
+        var filter = {
+            filter: {
+                groups: [
+                    {
+                        joins: {
+                            users: {
+                                conditions: [{
+                                    id: {
+                                        equal: {
+                                            value: _owner.id
+                                        }
+                                    }
+                                }]
+                            }
+                        }
+                    }
+                ]
+            },
+            pagination: {
+                pageSize: 20,
+                pageIndex: 0
+            }
+        };
+
+        var variables = new Server.QueryVariablesManager();
+        variables.set('variables', filter);
+
+        Server.licenseService.getAll(variables).subscribe(result => {
+            console.log("getOwnerLicenses(): ", result);
+        });
 
     }
 

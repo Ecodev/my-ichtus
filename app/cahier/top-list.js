@@ -6,11 +6,13 @@ function actualizeBookableList() {
     $('divTabCahierTopList').children[0].style.opacity = "1";
     $('divTabCahierTopList').style.visibility = "visible";
 
+    document.getElementsByClassName("divTabCahierEquipmentChoiceContainer")[0].children[3].children[0].classList.remove("buttonNonActive");
+
     for (let i = 0; i < bookables.length; i++) {
         var d = div($('divTabCahierTopList').children[0]);
         d.id = i;
 
-        if (Cahier.bookings[0].bookables[i] != Cahier.personalBookable) {
+        if (Cahier.bookings[0].bookables[i].id != 0) { // matériel personnel
             d.onclick = function (event) {
                 if (event.target == this.children[0] || event.target == this.children[2] || event.target == this.children[3]) {
                     popBookable(Cahier.bookings[0].bookables[this.id].id);
@@ -18,6 +20,7 @@ function actualizeBookableList() {
             };
         }
         else {
+            document.getElementsByClassName("divTabCahierEquipmentChoiceContainer")[0].children[3].children[0].classList.add("buttonNonActive");
             d.classList.add("PersonalSail");
         }
 

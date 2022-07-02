@@ -2,10 +2,13 @@ var Cahier = {
 
     actualBookings: [],
 
-    finishedBookings:[],
+    finishedBookings: [],
+
+    // 1.4
+    editedBooking: {},
 
     bookings: [{
-        owner: {id:0,name:"Michel pas défini",sex:"male"},
+        owner: { id: 0, name: "Michel pas défini", sex: "male" },
         bookables: [],
         participantCount: 1,
         destination: "Non défini",
@@ -15,7 +18,7 @@ var Cahier = {
     personalBookable: {
         id: 0,
         code: "Perso",
-        name:"Matériel personnel"
+        name: "Matériel personnel"
     },
 
     bookingStartDate: new Date(),
@@ -23,7 +26,7 @@ var Cahier = {
     ProgressBarTexts: ["Nom", "Informations", "Embarcations", "Confirmation"],
 
     getImageUrl: function (_bookable, size = 220) {
-        if (_bookable == Cahier.personalBookable) {
+        if (_bookable.id == 0) { // matériel personnel
             return 'url(img/icons/own-sail.png)';
         }
         else if (_bookable.image != null) {
@@ -32,7 +35,7 @@ var Cahier = {
         else {
             return 'url(img/icons/no-picture.png)';
         }
-   },
+    },
 
     getFullName: function (booking = Cahier.bookings[0]) {
         if (booking.guest) { return booking.guestName; } else { return booking.owner.name; }
@@ -131,6 +134,8 @@ var Cahier = {
             startComment: ""
         }];
 
+        Cahier.editedBooking = {};
+
         Cahier.bookingStartDate = new Date();
 
         //console.log("--> Cahier.cancel()");
@@ -142,6 +147,22 @@ var Cahier = {
     },
 
     confirm: function () {
+
+        // licences check
+        /*        for (var bookable of Cahier.bookings[0].bookables) {
+                    for (var licence of bookable.licenses) {
+                        var foundLicense = false;
+                        for (var ownerLicense of Cahier.bookings[0].owner.licenses) {
+                            if (ownerLicense.id == licence.id) {
+                                foundLicense = true;
+                            }
+                        }
+                        if (!foundLicense) {
+                            console.warn("NO LICENSE", licence.name, " FOR BOKABLE", bookable.name);
+                            return;
+                        }
+                    }
+                }*/
 
         if (Cahier.bookings[0].participantCount > 15) {
             popAlertTooManyParticipants();
@@ -171,101 +192,165 @@ var Cahier = {
                 }
             }
             // rechecking if bookings still available
-            else {             
+            else {
                 document.body.classList.add("waiting");
                 Requests.checksBookablesAvailabilityBeforeConfirming(Cahier.bookings[0].bookables);
-            }  
+            }
         }
     },
 
     // 1.3
     actualizeConfirmKnowingBookablesAvailability: function (_bookings) { // receive bookings that are still using the bookables and those who have been terminated in the last minutes
 
+        // the bookings that will have to be terminated before creating the actual booking
         var bookingsIdToFinish = [];
+
+        // find all the bookables that are now unavailable
         var bAreNotAvailable = [];
-        var bAreNowAvailable = [];
         for (var i = 0; i < _bookings.length; i++) {
-            if (_bookings[i].endDate == null) {
+            if (_bookings[i].endDate == null) { // check which bookables are being used
                 var bookableElement = _bookings[i].bookable;
                 bookableElement.lastBooking = _bookings[i].clone();
                 bAreNotAvailable.push(bookableElement);
-           
-                bookingsIdToFinish.push(_bookings[i].id);
+                //                bookingsIdToFinish.push(_bookings[i].id);
             }
         }
-
-
-        // Add $$ Remove bookables that are still used (but also were in another booking nearly ended)
-        for (var i = 0; i < _bookings.length; i++) {
-
-            check: {          
-                if (_bookings[i].endDate != null) {
-                    for (var u = 0; u < bAreNotAvailable.length; u++) {
-                        if (bAreNotAvailable[u].id === _bookings[i].bookable.id) {
-                            break check;
-                        }
-                    }
-                    var bookableElement = _bookings[i].bookable;
-                    bookableElement.lastBooking = _bookings[i].clone();
-                    bAreNowAvailable.push(bookableElement);
+        var isNowAvailable = function (_bookable) {
+            if (_bookable.id == 0) return true; // matériel personnel
+            for (let bNotAvailable of bAreNotAvailable) {
+                if (bNotAvailable.id == _bookable.id) {
+                    return false;
                 }
             }
-
-        }
-
-        // If there was many bookings which were finished nearly with the same bookable
-        bAreNowAvailable = bAreNowAvailable.deleteMultiples();
-
-        // Bookings have been terminated in the last minutes (just for info, has already actualize the bookingsIdToFinish)
-        if (bAreNowAvailable.length != 0) {
-            for (var bAv of bAreNowAvailable) {
-                for (var b of Cahier.bookings[0].bookables) {
-                    if (bAv.id === b.id) {
-                        if (b.available == false) {                           
-                            console.warn("(The " + bAv.code + " has just become available)");
-                            Cahier.actualizeAvailability(bAv.id, [bAv.lastBooking]);
-                        }
-                        break;             
-                    }
+            return true;
+        };
+        // get the owner of the last booking that isn't finished yet
+        var getLastBooking = function (_bookable) {
+            for (let bNotAvailable of bAreNotAvailable) {
+                if (bNotAvailable.id == _bookable.id) {
+                    return bNotAvailable.lastBooking;
                 }
             }
+            return false;
         }
 
-        // There are used bookables (but we may already know that)
-        if (bAreNotAvailable.length != 0) {
+        var bookablesHaveJustBeenBooked = []; // or have changed owner !
 
-            var bHaveJustBeenBooked = [];
-            for (var bNAv of bAreNotAvailable) {            
-                for (var b of Cahier.bookings[0].bookables) {
-                    if (bNAv.id === b.id) {
-                        if (b.available == true || b.lastBooking.owner.name != bNAv.lastBooking.owner.name) {                
-                            bHaveJustBeenBooked.push(bNAv);
-                            Cahier.actualizeAvailability(bNAv.id, [bNAv.lastBooking]);
-                        }
-                        break;                                         
+        // loop through all the chosen bookables
+        for (let bookable of Cahier.bookings[0].bookables) {
+
+            // the bookable is supposed to be unavailable
+            if (bookable.available == false) {
+
+                // but is now available !
+                if (isNowAvailable(bookable)) {
+                    console.warn("The " + bookable.code + " has just become available, no need to terminate the booking.");
+                    Cahier.actualizeAvailability(bookable.id, []); // has become available
+                }
+                // and is still unavailable
+                else {
+                    var itsLastBooking = getLastBooking(bookable);
+                    if (itsLastBooking.owner.id == bookable.lastBooking.owner.id) {
+     //                   console.log("owner hasn't changed");
+                        bookingsIdToFinish.push(bookable.lastBooking.id);
+                    }
+                    else {
+    //                    console.log("owner has changed !");
+                        Cahier.actualizeAvailability(bookable.id, [itsLastBooking]); // has changed owner
+                        var bookableElement = bookable.clone();
+                        bookableElement.lastBooking = itsLastBooking.clone();
+                        bookablesHaveJustBeenBooked.push(bookableElement);
                     }
                 }
             }
+            // the bookable is supposed to be available
+            else {
+                // and is still available
+                if (isNowAvailable(bookable)) {
+                    // nothing to do
+                }
+                // but isn't available anymore, so has just been booked (or is in edit mode) !
+                else {
+   //                 console.log("has just been booked !");
+                    var itsLastBooking = getLastBooking(bookable);
 
-            // Will first have to terminated other bookings and then creates the booking
-            if (bHaveJustBeenBooked.length == 0) {
-                var comments = [];
-                comments.fillArray(bookingsIdToFinish.length, "Terminée automatiquement");
-                Requests.terminateBooking(bookingsIdToFinish, comments, false);
+                    // 1.4
+                    // no in edit mode, so someone has just booked the bookable, will make an alert
+                    if (Cahier.bookings[0].currentlyEditing == undefined) {
+                        Cahier.actualizeAvailability(bookable.id, [itsLastBooking]); // has changed owner
+                        var bookableElement = bookable.clone();
+                        bookableElement.lastBooking = itsLastBooking.clone();
+                        bookablesHaveJustBeenBooked.push(bookableElement);
+                    }
+                    // was in edit mode
+                    else {
+
+                        var bookableWasInTheEditedBooking = false;
+                        for (let id of Cahier.editedBooking.ids) {
+                            if (itsLastBooking.id == id) {
+                                bookableWasInTheEditedBooking = true;
+                                break;
+                            }
+                        }
+
+                        // bookable was already in the edited booking and is still there
+                        if (bookableWasInTheEditedBooking) {
+                            // nothing to do, the edited bookings will terminate by themselves after anyways
+  //                          console.log("because it was edited, so fine :)");
+                        }
+                        // someone has indeed just booked the bookable, will make an alert
+                        else {
+                            Cahier.actualizeAvailability(bookable.id, [itsLastBooking]); // has changed owner
+                            var bookableElement = bookable.clone();
+                            bookableElement.lastBooking = itsLastBooking.clone();
+                            bookablesHaveJustBeenBooked.push(bookableElement);
+//                            console.log("indeed someone has booked it!");
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        // make alert as some bookables have just been booked
+        if (bookablesHaveJustBeenBooked.length != 0) {
+            popAlertBookablesHaveJustBeenBooked(bookablesHaveJustBeenBooked);
+            loadConfirmation();
+            stopWaiting();
+        }
+        // no alert needed
+        else {
+
+            var commentsToFinish = [];
+            var idsToFinish = [];
+
+            // 1.4 bookings to terminate because they have been edited (so overwrited, everything will be new)
+            if (Cahier.bookings[0].currentlyEditing != undefined) {
+                if (Cahier.editedBooking.ids.length != 0) { // doesn't check if the bookings aren't suddenly finished by someone else (would make almost no sense...)
+                    commentsToFinish.fillArray(Cahier.editedBooking.ids.length, "(Editée)");
+                    idsToFinish = Cahier.editedBooking.ids;
+                }
+            }
+
+            // bookings to terminate to free the bookables
+            var comments = [];
+            comments.fillArray(bookingsIdToFinish.length, "Terminée automatiquement");
+            commentsToFinish = commentsToFinish.concat(comments);
+            idsToFinish = idsToFinish.concat(bookingsIdToFinish);
+
+            // there are no bookings to terminate
+            if (idsToFinish.length == 0) {
+                Requests.createBooking();
                 animate();
             }
-            // New bookables used ! -> alert and reloadConfirmation
-            else { 
-                popAlertBookablesHaveJustBeenBooked(bHaveJustBeenBooked);
-                loadConfirmation();           
-                stopWaiting();
+            // there are some bookings to terminate first
+            else {
+                Requests.terminateBooking(idsToFinish, commentsToFinish, false);
+                animate();
             }
-
-        }
-        // Can directly create the booking
-        else {
-            Requests.createBooking();
-            animate();   
         }
     },
 
@@ -273,7 +358,7 @@ var Cahier = {
     actualizeProgressBar: function () {
         var allDivTabCahierProgressTexts = document.getElementsByClassName("divTabCahierProgressText");
         for (var i = 0; i < allDivTabCahierProgressTexts.length; i++) {
-            if (i < currentProgress-1) {
+            if (i < currentProgress - 1) {
                 switch (i) {
                     case 0:
                         allDivTabCahierProgressTexts[i].innerHTML = Cahier.bookings[0].owner.name;
@@ -292,7 +377,7 @@ var Cahier = {
                                 txt += Cahier.bookings[0].bookables[k].name + ", ";
                             }
                         }
-                        txt = txt.substring(0,txt.length - 2);
+                        txt = txt.substring(0, txt.length - 2);
                         allDivTabCahierProgressTexts[i].innerHTML = txt;
                         break;
                     default:
@@ -358,23 +443,21 @@ var Cahier = {
     addBookable: function (nbr = 0, _bookable = Cahier.personalBookable, _lastBooking) {
         Cahier.bookings[nbr].bookables.push(_bookable);
 
-
-        if (_bookable == Cahier.personalBookable) {
+        if (_bookable.id == 0) { // matériel personnel
             document.getElementsByClassName("divTabCahierEquipmentChoiceContainer")[0].children[3].children[0].classList.add("buttonNonActive");
         }
-        else if (_lastBooking != undefined) {
+        else if (_lastBooking != undefined) { // used when selecting a bookable by code
             Cahier.bookings[nbr].bookables[Cahier.bookings[nbr].bookables.length - 1].available = _lastBooking.endDate == null ? false : true;
             Cahier.bookings[nbr].bookables[Cahier.bookings[nbr].bookables.length - 1].lastBooking = _lastBooking;
         }
         else Requests.getBookableLastBooking(_bookable.id);
-            
+
         actualizeBookableList();
         Cahier.actualizeConfirmation();
     },
 
     actualizeAvailability: function (bookableId, bookings) {
 
-        //var u;
         for (var u = 0; u < Cahier.bookings[0].bookables.length; u++) {
             if (Cahier.bookings[0].bookables[u].id === bookableId.toString()) {
                 break;
@@ -382,8 +465,22 @@ var Cahier = {
         }
 
         if (bookings.length !== 0) {
+
+            var lastBooking = bookings[0];
+
             Cahier.bookings[0].bookables[u].available = bookings[0].endDate == null ? false : true;
-            Cahier.bookings[0].bookables[u].lastBooking = bookings[0];
+            Cahier.bookings[0].bookables[u].lastBooking = lastBooking;
+
+            // 1.4 : make fake availability (actually already used in the current booking that is being edited...)
+            if (Cahier.bookings[0].currentlyEditing != undefined) {
+                for (let bookingId of Cahier.editedBooking.ids) {
+                    if (lastBooking.id == bookingId) {
+                        Cahier.bookings[0].bookables[u].available = true;
+                        break;
+                    }
+                }
+            }
+
         }
         else {
             Cahier.bookings[0].bookables[u].available = true;

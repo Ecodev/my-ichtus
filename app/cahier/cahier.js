@@ -138,7 +138,7 @@ function actualizeActualBookings(_actualBookings) {
         div(container).innerHTML = getStartCommentFromBooking(_actualBookings[i]).shorten(200, 16);
 
         var c = div(container);
-        c.title = "Terminer cette sortie";
+        c.title = "Terminer ou modifier cette sortie";
         var btn = div(c);
         btn.classList.add("Buttons");
     }

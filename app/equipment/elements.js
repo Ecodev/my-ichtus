@@ -1,5 +1,5 @@
 var currentBookables;
-function loadElements(bookables ,nbr = 0) {
+function loadElements(bookables, nbr = 0) {
 
     currentBookables = bookables;
 
@@ -14,6 +14,16 @@ function loadElements(bookables ,nbr = 0) {
 
         container = document.createElement("div");
         container.id = i;
+
+        // 1.4 : make fake no used (actually already used in the current booking that is being edited...)
+        if (bookables[i].used === true && Cahier.bookings[0].currentlyEditing != undefined) {
+            for (let bookingId of Cahier.editedBooking.ids) {
+                if (bookables[i].lastBooking.id == bookingId) {
+                    bookables[i].used = false;
+                    break;
+                }
+            }
+        }
 
         var dT;
         if (bookables[i].used === true) {
@@ -77,7 +87,7 @@ function loadElements(bookables ,nbr = 0) {
         secondContainer.appendChild(bottom);
 
         var brand = div(bottom);
-        brand.innerHTML = bookables[i].name.shorten(160*2,20);
+        brand.innerHTML = bookables[i].name.shorten(160 * 2, 20);
 
         var background = div(secondContainer);
         background.style.backgroundImage = Cahier.getImageUrl(bookables[i]);
@@ -155,24 +165,6 @@ function actualizeElements() {
             };
         }
 
-        //if (codes.findIndex(bookables[i].id) != -1) {
-        //    container.classList.add("selected");
-        //    container.onclick = function (event) {
-        //        if (!(event.target.classList.contains("infoJS"))) { // pas cliqué sur le bouton info
-        //            Cahier.removeBookable(0, bookables[this.id]);
-        //            actualizeElements();
-        //        }
-        //    };
-        //}
-        //else {
-        //    container.classList.remove("selected");
-        //    container.onclick = function (event) {
-        //        if (!(event.target.classList.contains("infoJS"))) { // pas cliqué sur le bouton info
-        //            Cahier.addBookable(0, bookables[this.id]);
-        //            actualizeElements();
-        //        }
-        //    };
-        //}
     }
 }
 

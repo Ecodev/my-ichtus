@@ -152,12 +152,22 @@ function openBooking(which = "confirmation", elem = $('divTabConfirmationOneBook
             btnModify.style.visibility = "hidden";
             btnModify.classList.add("Buttons", "NormalButtons");
             btnModify.id = "btnModify";
-            btnModify.innerHTML = "Modifier le matériel";
+            btnModify.innerHTML = "Terminer une embarcation";
             btnModify.title = "Choisir les embarcations à terminer";
         }
 
+        // 1.4
+        if (options.editBookingButton) {
+            var btnEditBooking = div(container);
+            btnEditBooking.style.visibility = "hidden";
+            btnEditBooking.classList.add("Buttons", "NormalButtons");
+            btnEditBooking.id = "btnEditBooking";
+            btnEditBooking.innerHTML = "Modifier la sortie";
+            btnEditBooking.title = "Modifier la sortie entière";
+        }
+
         var btnFinish = div(container);
-        btnFinish.classList.add("Buttons", "ValidateButtons","btnRed");
+        btnFinish.classList.add("Buttons", "ValidateButtons", "btnRed");
         btnFinish.innerHTML = "Terminer";
         // for function see - actualizeBooking...
     }
@@ -210,7 +220,7 @@ function openBooking(which = "confirmation", elem = $('divTabConfirmationOneBook
 
     // FILL POP UP BOOKING
     if (which == "confirmation") {
-         actualizePopBooking(Cahier.bookings[0], which, elem);
+        actualizePopBooking(Cahier.bookings[0], which, elem);
     }
 }
 
@@ -234,7 +244,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
         allDivTexts[5].innerHTML = getStartCommentFromBooking(booking, false);
     }
     else if (which == "infos") {
-        container.getElementsByClassName('divTabCahierConfirmationContainer')[0].getElementsByTagName("div")[0].innerHTML = "Sortie du " + (new Date(booking.startDate)).getNiceDate(false, true);
+        container.getElementsByClassName('divTabCahierConfirmationContainer')[0].getElementsByTagName("div")[0].innerHTML = "Sortie du " + (new Date(booking.startDate)).getNiceDate(false, true).toLowerCase();
         allDivTexts[1].innerHTML = (new Date(booking.startDate)).getNiceTime();
         if (booking.endDate == null) {
             if (booking.owner.sex === "female") {
@@ -254,7 +264,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
     }
     else if (which == "finish") {
 
-        container.getElementsByClassName('divTabCahierConfirmationContainer')[0].getElementsByTagName("div")[0].innerHTML = "Terminer sortie du " + (new Date(booking.startDate)).getNiceDate(false, true);
+        container.getElementsByClassName('divTabCahierConfirmationContainer')[0].getElementsByTagName("div")[0].innerHTML = "Terminer la sortie du " + (new Date(booking.startDate)).getNiceDate(false, true).toLowerCase();
         allDivTexts[1].innerHTML = (new Date(booking.startDate)).getNiceTime();
         allDivTexts[2].innerHTML = (new Date()).getNiceTime();
 
@@ -290,7 +300,18 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
             closePopUp({ target: container }, container);
         });
 
+        // 1.4
+        $('btnEditBooking').style.visibility = "visible";
+        $('btnEditBooking').onclick = function () {
+            closePopUp("last");
+            Cahier.bookings[0] = booking.clone();
+            Cahier.editedBooking = booking.clone();
+            Cahier.bookings[0].currentlyEditing = true;
+            newTab("divTabCahierInfos");
+        };
+
     }
+
 
 
     var embContainer = container.getElementsByClassName('divTabCahierConfirmationEmbarcationContainer')[0];
@@ -343,9 +364,11 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
                     setTimeout(function () {
                         $('btnModify').style.visibility = "hidden";
                         $('btnModify').nextElementSibling.style.visibility = "hidden";
+                        $('btnModify').nextElementSibling.nextElementSibling.style.visibility = "hidden";
                     }, 290);
                     this.style.opacity = "0";
                     this.nextElementSibling.style.opacity = "0";
+                    this.nextElementSibling.nextElementSibling.style.opacity = "0";
                     this.previousElementSibling.style.opacity = "0.4";
                     this.parentElement.getElementsByTagName("textarea")[0].disabled = "true";
                     var ts = document.getElementsByClassName("btnTerminateOneBookable");
@@ -358,7 +381,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
                 });
             }
 
-            if (booking.bookables[i] == Cahier.personalBookable) {
+            if (booking.bookables[i].id == 0) { // matériel personnel
                 img.classList.add("PersonalSail");
                 img.innerHTML = "";
             }
@@ -370,7 +393,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
 
                 emb.style.display = "block";
 
-                if (booking.bookables[i] != Cahier.personalBookable) {
+                if (booking.bookables[i].id != 0) { // matériel personnel
 
                     var radioContainer = div(emb);
                     radioContainer.className = "radioContainer";
@@ -428,118 +451,4 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
 
 
 
-
-
-
-
 }
-
-
-
-
-//function createConfirmationBooking(booking,nbr) {
-//    var fields = [Cahier.getOwner(booking,true), Cahier.getSingularOrPlural(booking.participantCount), booking.destination, booking.startComment.shorten(295, 25), Cahier.getBookableName(booking).shorten(265,25)];
-//    var images = ["icons/responsible", "icons/participant-count", "icons/destination", "icons/start-comment", "icons/sail"];
-//    var titles = ["Reponsable", "Nbr de participants", "Destination", "Commentaire","Embarcation"];
-
-//    var container = div($('divTabConfirmationBookingsContainer'));
-//    container.style.position = "relative";
-//    container.style.minHeight = "10px";
-//    container.classList.add("divTabCahierConfirmationContainer");
-//    container.classList.add("confirmationTab");
-
-//    if (nbr == 0) {
-//        container.innerHTML += '<div style=" font-size:25px; text-align:center; color:black;">Votre sortie</div>';
-//    }
-//    else {
-//        container.innerHTML += '<div style=" font-size:25px; text-align:center; color:black;"> Sortie de ' + Cahier.getFullName(booking) + '</div>';
-//    }
-
-//    grayBar(container, 5,10);
-
-//    for (var i = 0; i < 4; i++) {
-//        var d = div(container);
-//        d.classList.add("divConfirmationTexts");
-//        d.classList.add("confirmationTab");
-//        d.title = titles[i];
-//        div(div(d)).style.backgroundImage = "url(img/" + images[i] + ".png)";
-//        div(d).innerHTML = fields[i];
-//        if (i == 0 && nbr != 0) {
-//            var a = div(d);
-//            var btn = div(a);
-//            btn.innerHTML = "Changer";
-//            btn.classList.add("Buttons");
-//            btn.classList.add("ReturnButtons");
-//            btn.style.backgroundImage = "url(img/icons/responsible.png)";
-//            btn.style.backgroundBlendMode = "exclusion";
-//            if (booking.guest) {
-//                btn.onclick = function () { popGuest(nbr); };
-//            }
-//            else {
-//                btn.onclick = function () { popUser(nbr); };
-//            }
-
-//        }
-//    }
-
-//    var embarcationContainer = div(container);
-//    embarcationContainer.classList.add("divTabCahierConfirmationEmbarcationBoxContainer");
-//    embarcationContainer.classList.add("confirmationTab");
-
-//    d = div(embarcationContainer);
-//    d.classList.add("divConfirmationTexts");
-//    d.classList.add("confirmationTab");
-//    d.title = titles[4];
-//    d.style.backgroundColor = "rgb(235,235,235)";
-//    div(div(d)).style.backgroundImage = "url(img/" + images[4] + ".png)";
-//    div(d).innerHTML = fields[4];
-
-//    // only if not MP
-//    var emb = div(embarcationContainer);
-//    emb.classList.add("divTabCahierConfirmationEmbarcationBox");
-//    emb.classList.add("confirmationTab");
-//    div(div(emb));
-//    if (booking.bookables.length != 0) {
-//        emb.getElementsByTagName("div")[0].addEventListener("click", function () { popBookable(booking.bookables[0].id); });
-//    }
-//    else {
-//        emb.getElementsByTagName("div")[0].classList.add("PersonalSail");
-//    }
-
-//    var texts = div(emb);
-//    texts.className = "divTabCahierConfirmationContainerTextsContainer";
-//    div(texts).innerHTML = Cahier.getBookableName(booking).shorten(180,25);
-//    div(texts).innerHTML = Cahier.getBookableCode(booking).shorten(180,20);
-
-//    var btn = div(container);
-//    btn.innerHTML = "Modifier";
-//    btn.classList.add("Buttons");
-//    btn.classList.add("ReturnButtons");
-//    btn.onclick = function () { popCahierInfos(nbr); };
-
-//    var btn = div(emb);
-//    btn.classList.add("Buttons");
-//    btn.classList.add("ReturnButtons");
-//    btn.onclick = function () { popCahierBookable(nbr); };
-//    if (booking.bookables.length != 0) {
-//        btn.innerHTML = "Modifier";
-//    }
-//    else {
-//        btn.classList.add("ButtonChose");
-//        btn.innerHTML = "Choisir";
-//    }
-
-
-//    if (nbr != 0) {
-//        var r = div(container);
-//        r.classList.add("divTabCahierConfirmationDeleteBooking");
-//        r.addEventListener("click", function () {
-//            this.parentElement.style.animationName = "shrink";
-//            setTimeout(function () { Cahier.deleteBooking(nbr); }, 500);
-//        });
-//    }
-//    else {
-//        container.style.border = "5px solid lightgray";
-//    }
-
-//}

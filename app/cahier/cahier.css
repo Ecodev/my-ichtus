@@ -657,14 +657,14 @@
 
 #btnModify {
     position: absolute;
-    width: 212px;
-    height: 39px;
+    width: 164px;
+    height: 50px;
     font-size: 20px;
     color: white;
-    padding-top: 15px;
+    padding-top: 4px;
     padding-right: 12px;
     background-size: 30px;
-    background-position-y: 9px;
+    background-position-y: 11px;
     -moz-transform: translate(0px,5px);
     -ms-transform: translate(0px,5px);
     -o-transform: translate(0px,5px);
@@ -684,6 +684,30 @@
         background-color: darkorange;
     }
 
+#btnEditBooking {
+    position: absolute;
+    right: 10px;
+    width: 190px;
+    height: 39px;
+    font-size: 20px;
+    padding-top: 15px;
+    padding-right: 12px;
+    background-size: 26px;
+    background-position-x: 10px;
+    background-position-y: 14px;
+    -moz-transform: translate(0px,5px);
+    -ms-transform: translate(0px,5px);
+    -o-transform: translate(0px,5px);
+    -webkit-transform: translate(0px,5px);
+    transform: translate(0px,5px);
+    background-image: url(../img/icons/edit.png);
+    /*background-blend-mode: exclusion;*/
+    opacity: 1;
+    -moz-transition: opacity 0.3s linear 0s;
+    -o-transition: opacity 0.3s linear 0s;
+    -webkit-transition: opacity 0.3s linear 0s;
+    transition: opacity 0.3s linear 0s;
+}
 
     @keyframes InputAnimation {
         from {

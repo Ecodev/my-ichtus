@@ -79,7 +79,11 @@
             transition: background-color 0.1s linear 0s;
         }
         #divTabCahierTopList > div:first-child > div:hover {
-            background-color:rgb(235,235,235);
+            background-color: rgb(235,235,235);
+        }
+
+        #divTabCahierTopList > div:first-child > div:hover > div:nth-child(3) {
+            background-color: rgb(235,235,235);
         }
 
 
@@ -91,10 +95,15 @@
                     background-color: white;
                 }
 
+                #divTabCahierTopList > div:first-child > div.PersonalSail:hover > div:nth-child(3) {
+                    background-color: white;
+                }
+
             #divTabCahierTopList > div:first-child > div > div:first-child {
                 position: absolute;
                 width: 100%;
                 height: 100%;
+                border-radius: 5px;
                 background-position: center;
                 background-repeat: no-repeat;
                 background-size: 80px;
@@ -125,7 +134,7 @@
                 transition: all 0.1s linear 0s;
                 opacity: 1;
                 z-index:2;
-                cursor:pointer;
+                cursor:pointer !important;
             }
             #divTabCahierTopList > div:first-child > div > div:nth-child(2):hover {
                 background-color: gray;
@@ -150,6 +159,10 @@
                 font-weight: bold;
                 font-size: 18px;
                 cursor: pointer;
+                -moz-transition: background-color 0.1s;
+                -o-transition: background-color 0.1s;
+                -webkit-transition: background-color 0.1s;
+                transition: background-color 0.1s;
             }
 
 
