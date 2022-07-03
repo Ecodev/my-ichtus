@@ -1416,7 +1416,7 @@ var Requests = {
                         Requests.getActualBookingList();
                     }
                     else {
-                        console.warn("Requests.terminateBooking() has finished, creating booking now.");
+                        console.log("Requests.terminateBooking() has finished, creating booking now.");
                         Requests.createBooking();
                     }
                     //console.log("this.terminateBooking done !");

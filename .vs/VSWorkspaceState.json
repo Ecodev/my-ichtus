@@ -2,8 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\app",
-    "\\app\\confirmation",
-    "\\app\\general",
+    "\\app\\cahier",
+    "\\app\\equipment",
     "\\app\\img",
     "\\app\\infos",
     "\\app\\member",
@@ -11,6 +11,6 @@
     "\\app\\utils",
     "\\htdocs"
   ],
-  "SelectedNode": "\\app\\general\\server-requests.js",
+  "SelectedNode": "\\app\\general\\screen.js",
   "PreviewInSolutionExplorer": false
 }

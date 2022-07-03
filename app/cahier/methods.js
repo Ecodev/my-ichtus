@@ -251,11 +251,11 @@ var Cahier = {
                 else {
                     var itsLastBooking = getLastBooking(bookable);
                     if (itsLastBooking.owner.id == bookable.lastBooking.owner.id) {
-     //                   console.log("owner hasn't changed");
+                        //                   console.log("owner hasn't changed");
                         bookingsIdToFinish.push(bookable.lastBooking.id);
                     }
                     else {
-    //                    console.log("owner has changed !");
+                        //                    console.log("owner has changed !");
                         Cahier.actualizeAvailability(bookable.id, [itsLastBooking]); // has changed owner
                         var bookableElement = bookable.clone();
                         bookableElement.lastBooking = itsLastBooking.clone();
@@ -271,7 +271,7 @@ var Cahier = {
                 }
                 // but isn't available anymore, so has just been booked (or is in edit mode) !
                 else {
-   //                 console.log("has just been booked !");
+                    //                 console.log("has just been booked !");
                     var itsLastBooking = getLastBooking(bookable);
 
                     // 1.4
@@ -296,7 +296,7 @@ var Cahier = {
                         // bookable was already in the edited booking and is still there
                         if (bookableWasInTheEditedBooking) {
                             // nothing to do, the edited bookings will terminate by themselves after anyways
-  //                          console.log("because it was edited, so fine :)");
+                            //                          console.log("because it was edited, so fine :)");
                         }
                         // someone has indeed just booked the bookable, will make an alert
                         else {
@@ -304,7 +304,7 @@ var Cahier = {
                             var bookableElement = bookable.clone();
                             bookableElement.lastBooking = itsLastBooking.clone();
                             bookablesHaveJustBeenBooked.push(bookableElement);
-//                            console.log("indeed someone has booked it!");
+                            //                            console.log("indeed someone has booked it!");
                         }
 
                     }
@@ -447,8 +447,20 @@ var Cahier = {
             document.getElementsByClassName("divTabCahierEquipmentChoiceContainer")[0].children[3].children[0].classList.add("buttonNonActive");
         }
         else if (_lastBooking != undefined) { // used when selecting a bookable by code
+
             Cahier.bookings[nbr].bookables[Cahier.bookings[nbr].bookables.length - 1].available = _lastBooking.endDate == null ? false : true;
             Cahier.bookings[nbr].bookables[Cahier.bookings[nbr].bookables.length - 1].lastBooking = _lastBooking;
+
+            // 1.4 : make fake availability if the actual bookable was in the edited booking
+            if (Cahier.bookings[0].currentlyEditing != undefined) {
+                for (let bookingId of Cahier.editedBooking.ids) {
+                    if (_lastBooking.id == bookingId) {
+                        Cahier.bookings[nbr].bookables[Cahier.bookings[nbr].bookables.length - 1].available = true;
+                        break;
+                    }
+                }
+            }
+
         }
         else Requests.getBookableLastBooking(_bookable.id);
 
