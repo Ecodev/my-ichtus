@@ -69,7 +69,7 @@ class Acl extends \Ecodev\Felix\Acl\Acl
 
         $this->allow(User::ROLE_ANONYMOUS, [$country, $bookable, $bookableMetadata, $bookableTag, $image, $license, $transactionTag, $configuration], ['read']);
         $this->allow(User::ROLE_BOOKING_ONLY, [$booking], ['create'], new BookableAvailable());
-        $this->allow(User::ROLE_BOOKING_ONLY, [$booking], ['read']);
+        $this->allow(User::ROLE_BOOKING_ONLY, [$booking, $user], ['read']);
         $this->allow(User::ROLE_BOOKING_ONLY, [$booking], ['update'], new One(new BookingIsSelfApproved(), new isOwner()));
         $this->allow(User::ROLE_BOOKING_ONLY, [$booking], ['delete'], new All(new isOwner(), new BookingIsPendingApplication()));
 
