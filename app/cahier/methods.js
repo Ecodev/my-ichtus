@@ -8,7 +8,7 @@ var Cahier = {
     editedBooking: {},
 
     bookings: [{
-        owner: { id: 0, name: "Michel pas défini", sex: "male" },
+        owner: { id: 0, name: "Michel pas défini", sex: "male", licenses: [] },
         bookables: [],
         participantCount: 1,
         destination: "Non défini",
@@ -18,7 +18,8 @@ var Cahier = {
     personalBookable: {
         id: 0,
         code: "Perso",
-        name: "Matériel personnel"
+        name: "Matériel personnel",
+        licenses: []
     },
 
     bookingStartDate: new Date(),
@@ -149,20 +150,22 @@ var Cahier = {
     confirm: function () {
 
         // licences check
-        /*        for (var bookable of Cahier.bookings[0].bookables) {
-                    for (var licence of bookable.licenses) {
-                        var foundLicense = false;
-                        for (var ownerLicense of Cahier.bookings[0].owner.licenses) {
-                            if (ownerLicense.id == licence.id) {
-                                foundLicense = true;
-                            }
-                        }
-                        if (!foundLicense) {
-                            console.warn("NO LICENSE", licence.name, " FOR BOKABLE", bookable.name);
-                            return;
+        for (var bookable of Cahier.bookings[0].bookables) {
+            if (bookable.licenses != undefined) {
+                for (var license of bookable.licenses) {
+                    var foundLicense = false;
+                    for (var ownerLicense of Cahier.bookings[0].owner.licenses) {
+                        if (ownerLicense.id == license.id) {
+                            foundLicense = true;
                         }
                     }
-                }*/
+                    if (!foundLicense) {
+                        popAlertMissingLicense(license, bookable);
+                        return;
+                    }
+                }
+            }
+        }
 
         if (Cahier.bookings[0].participantCount > 15) {
             popAlertTooManyParticipants();
@@ -407,7 +410,7 @@ var Cahier = {
     },
 
 
-    setOwner: function (nbr = 0, _owner = { id: "", name: "", sex: "female", welcomeSessionDate: "date" }, force = false) {
+    setOwner: function (nbr = 0, _owner = { id: "", name: "", sex: "female", welcomeSessionDate: "date", licenses: [] }, force = false) {
 
         var t = true;
         if (!force) {
@@ -432,11 +435,22 @@ var Cahier = {
             Cahier.bookings[nbr].owner.id = _owner.id;
             Cahier.bookings[nbr].owner.name = _owner.name;
             Cahier.bookings[nbr].owner.sex = _owner.sex;
+            Cahier.bookings[nbr].licenses = []; // empty licenses until the realy licenses come from the request
             Cahier.actualizeConfirmation();
+            Requests.getOwnerLicenses(_owner);
 
             newTab("divTabCahierInfos");
         }
+    },
 
+    setOwnerLicenses: function (_owner) {
+
+        if (Cahier.bookings[0].owner.id === result.id) {
+            Cahier.bookings[0].owner = result;
+        }
+        else {
+            console.warn("getOwnerLicenses(): request too late or not corresponding to the actual owner " + Cahier.bookings[0].owner.name + "(vs. " + result.name + ")");
+        }
 
     },
 

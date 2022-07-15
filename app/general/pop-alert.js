@@ -46,7 +46,7 @@ function popAlertAlreadyHavingABooking(_owner) {
     grayBar(container, 5);
 
     var t = div(container);
-    t.innerHTML = "Il semblerait que vous ayiez déjà une sortie en cours";
+    t.innerHTML = "Il semblerait que vous ayez déjà une sortie en cours";
 
     var btnContainer = div(container);
     btnContainer.style.position = "relative";
@@ -87,7 +87,7 @@ function popAlertNoWelcomeSession(_owner) {
     grayBar(container, 5);
 
     var t = div(container);
-    t.innerHTML = "Il semblerait que vous n'ayiez pas encore suivi de séance d'accueil.";
+    t.innerHTML = "Il semblerait que vous n'ayez pas encore suivi de séance d'accueil.";
     t.style.minHeight = "60px";
 
     var btnContainer = div(container);
@@ -479,12 +479,12 @@ function popAlertMissingLicense(_license, _bookable) {
     var d = div(container);
     d.style.textAlign = "center";
     d.style.fontSize = "25px";
-    d.innerHTML = "Certification manquante";
+    d.innerHTML = "Certification manquante !";
 
     grayBar(container, 5);
 
     var t = div(container);
-    t.innerHTML = "Il semblerait que vous n'ayiez pas la certification <i>" + _license.name + " </i> pour le " + _bookable.name;
+    t.innerHTML = "Il semblerait que vous n'ayez pas la certification <i style='font-weight:bold'>" + _license.name + " </i> pour le <asdf style='font-weight:bold'>" + _bookable.name + "</asdf>";
     t.style.minHeight = "60px";
 
     var btnContainer = div(container);
@@ -492,17 +492,12 @@ function popAlertMissingLicense(_license, _bookable) {
     btnContainer.style.textAlign = "center";
 
     var btn = div(btnContainer);
-    btn.classList.add("Buttons");
-    btn.style.display = "inline-block";
-    btn.innerHTML = "as";
-    btn.addEventListener("click", function () { newTab("divTabCahier"); closePopUp("last"); });
-
-    btn = div(btnContainer);
     btn.classList.add("Buttons", "ValidateButtons");
+    btn.style.width = "250px";
     btn.style.display = "inline-block";
-    btn.innerHTML = "??";
-    btn.classList.add("btnRed");
-    btn.addEventListener("click", function () { closePopUp("last"); });
+    btn.innerHTML = "Modifier les embarcations";
+    btn.style.backgroundImage = "none";
+    btn.addEventListener("click", function () { closePopUp("last"); newTab("divTabCahierEquipmentChoice"); });
 }
 
 

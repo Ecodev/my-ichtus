@@ -125,7 +125,7 @@ var Requests = {
                                 {
                                     id: {
                                         equal: {
-                                            value: "7083",
+                                            value: "7083", // booking only user
                                             not: true
                                         }
                                     }
@@ -171,7 +171,7 @@ var Requests = {
                                 {
                                     id: {
                                         equal: {
-                                            value: "7083",
+                                            value: "7083", // booking only user
                                             not: true
                                         }
                                     }
@@ -205,7 +205,7 @@ var Requests = {
                                 {
                                     id: {
                                         equal: {
-                                            value: "7083",
+                                            value: "7083", // booking only user
                                             not: true
                                         }
                                     }
@@ -1471,35 +1471,9 @@ var Requests = {
 
     getOwnerLicenses: function (_owner) {
 
-        var filter = {
-            filter: {
-                groups: [
-                    {
-                        joins: {
-                            users: {
-                                conditions: [{
-                                    id: {
-                                        equal: {
-                                            value: _owner.id
-                                        }
-                                    }
-                                }]
-                            }
-                        }
-                    }
-                ]
-            },
-            pagination: {
-                pageSize: 20,
-                pageIndex: 0
-            }
-        };
-
-        var variables = new Server.QueryVariablesManager();
-        variables.set('variables', filter);
-
-        Server.licenseService.getAll(variables).subscribe(result => {
+        Server.userService.getOne(_owner.id).subscribe(result => {
             console.log("getOwnerLicenses(): ", result);
+            Cahier.setOwnerLicenses(result);
         });
 
     }
