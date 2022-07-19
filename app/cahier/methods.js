@@ -149,24 +149,6 @@ var Cahier = {
 
     confirm: function () {
 
-        // licences check
-        for (var bookable of Cahier.bookings[0].bookables) {
-            if (bookable.licenses != undefined) {
-                for (var license of bookable.licenses) {
-                    var foundLicense = false;
-                    for (var ownerLicense of Cahier.bookings[0].owner.licenses) {
-                        if (ownerLicense.id == license.id) {
-                            foundLicense = true;
-                        }
-                    }
-                    if (!foundLicense) {
-                        popAlertMissingLicense(license, bookable);
-                        return;
-                    }
-                }
-            }
-        }
-
         if (Cahier.bookings[0].participantCount > 15) {
             popAlertTooManyParticipants();
         }
@@ -177,6 +159,25 @@ var Cahier = {
             popAlertMoreBookablesThanParticipants(Cahier.bookings[0].bookables.length, Cahier.bookings[0].participantCount);
         }
         else {
+
+            // licences check
+            for (var bookable of Cahier.bookings[0].bookables) {
+                if (bookable.licenses != undefined) {
+                    for (var license of bookable.licenses) {
+                        var foundLicense = false;
+                        for (var ownerLicense of Cahier.bookings[0].owner.licenses) {
+                            if (ownerLicense.id == license.id) {
+                                foundLicense = true;
+                            }
+                        }
+                        if (!foundLicense) {
+                            popAlertMissingLicense(license, bookable);
+                            return;
+                        }
+                    }
+                }
+            }
+
             // not rechecking if bookables still available
             if (!options.checkIfBookablesNotAvailableWhenConfirming) {
                 // if bookables already used
@@ -357,6 +358,18 @@ var Cahier = {
         }
     },
 
+    // 1.4
+    updateBookablesLicenses: function (_bookables) {
+        for (var _bookable of _bookables) {
+            for (var bookable of Cahier.bookings[0].bookables) {
+                if (bookable.id == _bookable.id) {
+                    bookable.licenses = _bookable.licenses.clone(); // bookable <-> Cahier.bookings[0].bookables[x] by reference
+                    break; // one loop
+                }
+            }
+        }
+    },
+
 
     actualizeProgressBar: function () {
         var allDivTabCahierProgressTexts = document.getElementsByClassName("divTabCahierProgressText");
@@ -445,11 +458,11 @@ var Cahier = {
 
     setOwnerLicenses: function (_owner) {
 
-        if (Cahier.bookings[0].owner.id === result.id) {
-            Cahier.bookings[0].owner = result;
+        if (Cahier.bookings[0].owner.id === _owner.id) {
+            Cahier.bookings[0].owner = _owner;
         }
         else {
-            console.warn("getOwnerLicenses(): request too late or not corresponding to the actual owner " + Cahier.bookings[0].owner.name + "(vs. " + result.name + ")");
+            console.warn("getOwnerLicenses(): request too late or not corresponding to the actual owner " + Cahier.bookings[0].owner.name + "(vs. " + _owner.name + ")");
         }
 
     },

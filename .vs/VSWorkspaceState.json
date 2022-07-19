@@ -2,7 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\app",
-    "\\app\\equipment",
+    "\\app\\confirmation",
     "\\app\\general",
     "\\app\\img",
     "\\app\\infos",
@@ -11,6 +11,6 @@
     "\\app\\utils",
     "\\htdocs"
   ],
-  "SelectedNode": "\\app\\general\\server-requests.js",
+  "SelectedNode": "\\app\\general\\pop-alert.js",
   "PreviewInSolutionExplorer": false
 }

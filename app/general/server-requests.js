@@ -273,7 +273,7 @@ var Requests = {
         variables.set('variables', filter);
 
         Server.userService.getAll(variables).subscribe(result => {
-        //    console.log("getUsersList(): ", result);
+            //    console.log("getUsersList(): ", result);
             createSearchEntries(result.items);
         });
     },
@@ -281,24 +281,24 @@ var Requests = {
 
     // getUserInfos (TO DO AND CHANGE THE GETALL)
     getUserInfos: function (ownerId) {
-       /* var filter = {
-            filter: {
-                groups: [
-                    {
-                        conditions: [
-                            {
-                                id: {
-                                    equal: {
-                                        value: ownerId
-                                    }
-                                }
-                            }
-                        ]
-                    }
-                ]
-            }
-
-        };*/
+        /* var filter = {
+             filter: {
+                 groups: [
+                     {
+                         conditions: [
+                             {
+                                 id: {
+                                     equal: {
+                                         value: ownerId
+                                     }
+                                 }
+                             }
+                         ]
+                     }
+                 ]
+             }
+ 
+         };*/
 
         var filter = {
             id: ownerId
@@ -362,10 +362,10 @@ var Requests = {
                     },
                     {   //CATEGORIES...
                         groupLogic: 'AND',
-                        conditionsLogic:'OR',
+                        conditionsLogic: 'OR',
                         joins: {
                             bookableTags: {
-                                type:"leftJoin",
+                                type: "leftJoin",
                                 conditions: [
                                     {
                                         name: {
@@ -431,7 +431,7 @@ var Requests = {
         variables.set('variables', f);
 
         Server.bookableService.getAll(variables).subscribe(result => {
-//            console.log("getBookablesList(): ", result);
+            //            console.log("getBookablesList(): ", result);
 
             if (result.items.length === 0) {
                 console.log("NOTHING");
@@ -459,19 +459,19 @@ var Requests = {
                                 }
                             ],
                             joins: {
-                                    bookable: {
-                                            type: "leftJoin",
-                                            conditions: [
-                                                {
-                                                    id: {
-                                                        in: {
-                                                            values: ids
-                                                        }
-
-                                                    }
+                                bookable: {
+                                    type: "leftJoin",
+                                    conditions: [
+                                        {
+                                            id: {
+                                                in: {
+                                                    values: ids
                                                 }
-                                            ]
-                                    }
+
+                                            }
+                                        }
+                                    ]
+                                }
                             }
 
                         }]
@@ -519,7 +519,7 @@ var Requests = {
                     joins: {
 
                         bookableTags: {
-                            type:"leftJoin",
+                            type: "leftJoin",
                             conditions: [
                                 {
                                     name: {
@@ -557,13 +557,13 @@ var Requests = {
             });
         }
         else if (bookableTag == "Voile lestée") {
-             filter.filter.groups[0].joins.bookableTags.conditions.push({
-                 name: {
-                     like: {
-                         value: "%" + "voile légère" + "%"
-                     }
-                 }
-             });
+            filter.filter.groups[0].joins.bookableTags.conditions.push({
+                name: {
+                    like: {
+                        value: "%" + "voile légère" + "%"
+                    }
+                }
+            });
         }
 
         var variables = new Server.QueryVariablesManager();
@@ -591,10 +591,10 @@ var Requests = {
         // accept NE538 although the real code is NE 538
         if (code.indexOf("NE") == 0 && code.indexOf("NE ") == -1) {
             code = "NE " + code.slice(2);
-          //  console.log(code);
+            //  console.log(code);
         }
         else {
-        //    console.log(code.indexOf("NE"), code.indexOf("NE "));
+            //    console.log(code.indexOf("NE"), code.indexOf("NE "));
         }
 
         if (!t) {
@@ -606,8 +606,8 @@ var Requests = {
                     groups: [
                         {
                             conditions: [
-                                { isActive: { equal: { value: true} } },
-                                { code: { like: { value: code} } },
+                                { isActive: { equal: { value: true } } },
+                                { code: { like: { value: code } } },
                                 {
                                     bookingType: {
                                         like: {
@@ -750,7 +750,7 @@ var Requests = {
         variables.set('variables', filter);
 
         Server.bookingService.getAll(variables).subscribe(bookings => {
-          //  console.log("getBookableLastBooking(): ", bookings);
+            //  console.log("getBookableLastBooking(): ", bookings);
             Cahier.actualizeAvailability(bookableId, bookings.items);
         });
 
@@ -763,13 +763,13 @@ var Requests = {
 
         var f = {
             filter: {
-                groups: [                    
+                groups: [
                     {
                         groupLogic: 'AND',
                         conditionsLogic: 'OR',
                         joins: {
                             bookable: {
-                                conditions: [  ]
+                                conditions: []
                             }
                         }
                     }
@@ -827,7 +827,7 @@ var Requests = {
             //console.log("checksBookablesAvailabilityBeforeConfirming(): ", result);
             Cahier.actualizeConfirmKnowingBookablesAvailability(result.items);
         });
- 
+
 
     },
 
@@ -852,30 +852,30 @@ var Requests = {
             filter: {
                 groups: [
                     {
-                        groupLogic:"AND",
+                        groupLogic: "AND",
 
                         conditions: [{
-                                status: {
-                                    equal: {
-                                        value: "booked"
-                                    }
-                                },
-                                endDate: {
-                                    null: {
-                                        not: false
-                                    }
-                                },
-                                bookable: {
-                                    empty: {
-                                        not: true
-                                    }
+                            status: {
+                                equal: {
+                                    value: "booked"
                                 }
-
+                            },
+                            endDate: {
+                                null: {
+                                    not: false
+                                }
+                            },
+                            bookable: {
+                                empty: {
+                                    not: true
+                                }
                             }
+
+                        }
                         ],
                         joins: {
                             bookable: {
-                                type:"leftJoin",
+                                type: "leftJoin",
                                 conditions: [{
                                     bookingType: {
                                         equal: {
@@ -903,7 +903,7 @@ var Requests = {
                             },
                             bookable: {
                                 empty: {
-                                    not:false
+                                    not: false
                                 }
                             }
                         }
@@ -936,7 +936,7 @@ var Requests = {
     },
 
     // getFinishedBookingListForDay()
-    getFinishedBookingListForDay: function (d = new Date(),table = "?", title) {
+    getFinishedBookingListForDay: function (d = new Date(), table = "?", title) {
 
         var start = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
         var end = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1, 0, 0, 0, 0);
@@ -1013,7 +1013,7 @@ var Requests = {
                             }
                         }]
                     }
-                    ]
+                ]
             },
             pagination: {
                 pageSize: 500,
@@ -1106,7 +1106,7 @@ var Requests = {
                     var t = div(elem.getElementsByClassName("PopUpBookableHistoryContainerScroll")[0]);
                     t.innerHTML = 'Toutes les sorties ont été chargées ! <br/>';
                     t.style.textAlign = 'center';
-                 }
+                }
             }
             else {
                 var end = new Date(bookings[bookings.length - 1].startDate);
@@ -1165,7 +1165,7 @@ var Requests = {
     },
 
     // getBookingsNbrBetween
-    getBookingsNbrBetween: function (start,end,bookableId = "%",elem=document.body,writeIfOne = true) {
+    getBookingsNbrBetween: function (start, end, bookableId = "%", elem = document.body, writeIfOne = true) {
         var filter = {
             filter: {
                 groups: [
@@ -1183,14 +1183,14 @@ var Requests = {
                         }
                     },
                     {
-                    conditions: [{
-                        startDate: {
-                            between: {
-                                from: start,
-                                to:end
+                        conditions: [{
+                            startDate: {
+                                between: {
+                                    from: start,
+                                    to: end
+                                }
                             }
-                        }
-                    }]
+                        }]
                     }
                 ]
             },
@@ -1221,7 +1221,7 @@ var Requests = {
             filter: {
                 groups: [
                     {
-                        groupLogic:"AND",
+                        groupLogic: "AND",
                         conditions: [
                             {
                                 startDate: {
@@ -1284,7 +1284,7 @@ var Requests = {
         variables.set('variables', filter);
 
         Server.bookingService.getAll(variables).subscribe(result => {
-           // console.log("getMonthlyBookingsNbr(): ", result.length + " sorties", result);
+            // console.log("getMonthlyBookingsNbr(): ", result.length + " sorties", result);
 
             var all = document.getElementsByClassName("divBottoms");
             for (var i = 0; i < all.length; i++) {
@@ -1325,7 +1325,7 @@ var Requests = {
                         ]
                     },
                     {
-                        groupLogic:"OR",
+                        groupLogic: "OR",
                         conditions: [{
                             startDate: {
                                 between: {
@@ -1357,7 +1357,7 @@ var Requests = {
             },
             sorting: [{
                 field: "startDate",
-                order:"ASC"
+                order: "ASC"
             }]
         };
 
@@ -1372,7 +1372,7 @@ var Requests = {
     },
 
     // getBookingWithBookablesInfos
-    getBookingWithBookablesInfos: function (_booking,which,elem) {
+    getBookingWithBookablesInfos: function (_booking, which, elem) {
 
         var filter = {
             filter: {
@@ -1409,7 +1409,7 @@ var Requests = {
         for (var i = 0; i < bookingIds.length; i++) {
             //console.log("terminateBooking", bookingIds[i], comments[i]);
             Server.bookingService.terminateBooking(bookingIds[i], comments[i]).subscribe(result => {
-                
+
                 c++;
                 if (c === bookingIds.length) {
                     if (realTerminate) {
@@ -1428,7 +1428,7 @@ var Requests = {
     // deleteBookings
     deleteBookings: function (ids = ["3102"]) {
 
-      //  Server.bookingService.deleteBookings(ids).subscribe(result => { console.log(result); });
+        //  Server.bookingService.deleteBookings(ids).subscribe(result => { console.log(result); });
 
     },
 
@@ -1447,7 +1447,7 @@ var Requests = {
                 bookable: Cahier.bookings[0].bookables[i].id != 0 ? Cahier.bookings[0].bookables[i].id : null
             };
 
-           // console.log(i, input.participantCount);
+            // console.log(i, input.participantCount);
 
             Server.bookingService.create(input).subscribe(booking => {
                 Requests.counter++;
@@ -1472,8 +1472,40 @@ var Requests = {
     getOwnerLicenses: function (_owner) {
 
         Server.userService.getOne(_owner.id).subscribe(result => {
-            console.log("getOwnerLicenses(): ", result);
+            //            console.log("getOwnerLicenses(): ", result);
             Cahier.setOwnerLicenses(result);
+        });
+
+    },
+
+    getBookablesLicenses: function (_bookableIds) {
+
+        var filter = {
+            filter: {
+                groups: [
+                    {
+                        conditions: [{
+                            id: {
+                                in: {
+                                    values: _bookableIds
+                                }
+                            }
+                        }]
+                    }
+                ]
+            },
+            pagination: {
+                pageSize: _bookableIds.length,
+                pageIndex: 0
+            }
+        };
+
+        var variables = new Server.QueryVariablesManager();
+        variables.set('variables', filter);
+
+        Server.bookableService.getAll(variables).subscribe(result => {
+//            console.log("getBookablesLicenses(): ", result.items);
+            Cahier.updateBookablesLicenses(result.items);
         });
 
     }
