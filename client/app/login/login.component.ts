@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {NaturalAbstractController, NaturalAlertService} from '@ecodev/natural';
+import {ifValid, NaturalAbstractController, NaturalAlertService} from '@ecodev/natural';
 import {loginValidator, UserService} from '../admin/users/services/user.service';
 import {finalize} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -46,10 +46,14 @@ export class LoginComponent extends NaturalAbstractController implements OnInit,
         }
     }
 
+    public maybeConfirm(): void {
+        ifValid(this.form).subscribe(() => this.login());
+    }
+
     /**
      * Send mutation to log the user and redirect to home.
      */
-    public login(): void {
+    private login(): void {
         this.snackBar.dismiss();
         this.form.disable();
 
