@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Laminas\Diactoros\Stream;
 use Laminas\Diactoros\UploadedFile;
 
 return [
@@ -13,7 +14,7 @@ return [
         }',
         'variables' => [
             // Fake a file uploaded with incorrect data, to check if we trust them (we should not)
-            'file' => new UploadedFile('tests/data/importer/minimal.xml', 999, UPLOAD_ERR_OK, 'image.jpg', 'text/plain'),
+            'file' => new UploadedFile(new Stream('tests/data/importer/minimal.xml'), 999, UPLOAD_ERR_OK, 'image.jpg', 'text/plain'),
         ],
     ],
     [

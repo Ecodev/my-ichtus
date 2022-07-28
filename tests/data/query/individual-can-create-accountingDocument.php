@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Laminas\Diactoros\Stream;
 use Laminas\Diactoros\UploadedFile;
 
 return [
@@ -16,7 +17,7 @@ return [
         'variables' => [
             'inputDocument' => [
                 // Fake a file uploaded with incorrect data, to check if we trust them (we should not)
-                'file' => new UploadedFile('data/accounting/dw4jV3zYSPsqE2CB8BcP8ABD0.pdf', 999, UPLOAD_ERR_OK, 'invoice.pdf', 'text/plain'),
+                'file' => new UploadedFile(new Stream('data/accounting/dw4jV3zYSPsqE2CB8BcP8ABD0.pdf'), 999, UPLOAD_ERR_OK, 'invoice.pdf', 'text/plain'),
                 'expenseClaim' => 7003,
             ],
         ],
