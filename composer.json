@@ -60,7 +60,7 @@
         "ecodev/felix": "^8.0",
         "ecodev/graphql-upload": "^6.1",
         "genkgo/camt": "^2.3",
-        "laminas/laminas-component-installer": "^2.6",
+        "laminas/laminas-component-installer": "^3.0",
         "laminas/laminas-config-aggregator": "^1.7",
         "laminas/laminas-http": "^2.15",
         "laminas/laminas-servicemanager": "^3.11",
