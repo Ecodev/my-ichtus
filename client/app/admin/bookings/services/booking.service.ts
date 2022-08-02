@@ -33,7 +33,7 @@ import {
     UsageBookables_bookables_items,
 } from '../../../shared/generated-types';
 import {Validators} from '@angular/forms';
-import {forkJoin, Observable} from 'rxjs';
+import {forkJoin, Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {BookingResolve} from '../booking';
 import {formatIsoDateTime, FormValidators, NaturalAbstractModelService, NaturalEnumService} from '@ecodev/natural';
@@ -258,8 +258,8 @@ export class BookingService extends NaturalAbstractModelService<
         return this.create(booking);
     }
 
-    public getPartialVariablesForAll(): Partial<BookingsVariables> {
-        return {
+    public getPartialVariablesForAll(): Observable<Partial<BookingsVariables>> {
+        return of({
             filter: {
                 groups: [
                     {
@@ -271,6 +271,6 @@ export class BookingService extends NaturalAbstractModelService<
                     },
                 ],
             },
-        };
+        });
     }
 }

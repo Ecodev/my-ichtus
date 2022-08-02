@@ -3,6 +3,7 @@ import {Injectable} from '@angular/core';
 import {NaturalAbstractModelService} from '@ecodev/natural';
 import {Logs, LogsVariables} from '../../../shared/generated-types';
 import {logsQuery} from './log.queries';
+import {Observable, of} from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -23,8 +24,8 @@ export class LogService extends NaturalAbstractModelService<
         super(apollo, 'log', null, logsQuery, null, null, null);
     }
 
-    public getPartialVariablesForAll(): Partial<LogsVariables> {
-        return {
+    public getPartialVariablesForAll(): Observable<Partial<LogsVariables>> {
+        return of({
             filter: {
                 groups: [
                     {
@@ -46,6 +47,6 @@ export class LogService extends NaturalAbstractModelService<
                     },
                 ],
             },
-        };
+        });
     }
 }

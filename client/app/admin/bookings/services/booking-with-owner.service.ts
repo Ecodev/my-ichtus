@@ -20,7 +20,7 @@ import {
     UpdateBookingVariables,
 } from '../../../shared/generated-types';
 import {NaturalAbstractModelService} from '@ecodev/natural';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {BookingService} from './booking.service';
 
 @Injectable({
@@ -50,8 +50,8 @@ export class BookingWithOwnerService extends NaturalAbstractModelService<
         );
     }
 
-    public getPartialVariablesForAll(): Partial<BookingsVariables> {
-        return {
+    public getPartialVariablesForAll(): Observable<Partial<BookingsVariables>> {
+        return of({
             filter: {
                 groups: [
                     {
@@ -64,7 +64,7 @@ export class BookingWithOwnerService extends NaturalAbstractModelService<
                     },
                 ],
             },
-        };
+        });
     }
 
     public terminateBooking(id: string, comment: string = ''): Observable<unknown> {

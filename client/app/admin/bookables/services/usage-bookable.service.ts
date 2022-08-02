@@ -17,6 +17,7 @@ import {
 } from '../../../shared/generated-types';
 import {BookingService} from '../../bookings/services/booking.service';
 import {NaturalAbstractModelService} from '@ecodev/natural';
+import {Observable, of} from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -37,8 +38,8 @@ export class UsageBookableService extends NaturalAbstractModelService<
         super(apollo, 'bookable', bookableQuery, usageBookablesQuery, createBookable, updateBookable, deleteBookables);
     }
 
-    public getPartialVariablesForAll(): Partial<BookablesVariables> {
-        return {
+    public getPartialVariablesForAll(): Observable<Partial<BookablesVariables>> {
+        return of({
             filter: {
                 groups: [
                     {
@@ -48,6 +49,6 @@ export class UsageBookableService extends NaturalAbstractModelService<
                     },
                 ],
             },
-        };
+        });
     }
 }
