@@ -1,6 +1,6 @@
 import {Apollo} from 'apollo-angular';
 import {Component} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ifValid, NaturalAlertService, validateAllFormControls} from '@ecodev/natural';
@@ -20,7 +20,7 @@ export class RequestPasswordResetComponent {
         private readonly router: Router,
         private readonly userService: UserService,
     ) {
-        this.form = new FormGroup({login: new FormControl('', userService.getFormValidators().login)});
+        this.form = new FormGroup({login: new FormControl('', [Validators.required])});
     }
 
     public submit(): void {

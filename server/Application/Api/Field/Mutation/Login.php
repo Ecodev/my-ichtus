@@ -10,7 +10,6 @@ use Application\Repository\LogRepository;
 use Application\Repository\UserRepository;
 use Ecodev\Felix\Api\ExceptionWithoutMailLogging;
 use Ecodev\Felix\Api\Field\FieldInterface;
-use Ecodev\Felix\Api\Scalar\LoginType;
 use GraphQL\Type\Definition\Type;
 use Mezzio\Session\SessionCookiePersistenceInterface;
 use Mezzio\Session\SessionInterface;
@@ -24,7 +23,7 @@ abstract class Login implements FieldInterface
             'type' => Type::nonNull(_types()->getOutput(User::class)),
             'description' => 'Log in a user',
             'args' => [
-                'login' => Type::nonNull(_types()->get(LoginType::class)),
+                'login' => Type::nonNull(Type::string()),
                 'password' => Type::nonNull(Type::string()),
             ],
             'resolve' => function ($root, array $args, SessionInterface $session): User {

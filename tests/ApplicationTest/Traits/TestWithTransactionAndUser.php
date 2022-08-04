@@ -41,4 +41,16 @@ trait TestWithTransactionAndUser
 
         $this->traitTearDownWithTransaction();
     }
+
+    protected function setCurrentUser(string $login): void
+    {
+        $user = null;
+        if ($login !== 'anonymous') {
+            $userRepository = $this->getEntityManager()->getRepository(User::class);
+            $user = $userRepository->getOneByLoginOrEmail($login);
+            self::assertNotNull($user, 'given login must exist in test DB: ' . $login);
+        }
+
+        User::setCurrent($user);
+    }
 }

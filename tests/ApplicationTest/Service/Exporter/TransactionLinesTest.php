@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace ApplicationTest\Service\Exporter;
 
 use Application\Model\TransactionLine;
-use Application\Model\User;
 use Application\Service\Exporter\TransactionLines;
 use ApplicationTest\Traits\TestWithSpreadsheet;
 use ApplicationTest\Traits\TestWithTransactionAndUser;
@@ -18,9 +17,7 @@ class TransactionLinesTest extends TestCase
 
     public function testExportTransactionLines(): void
     {
-        /** @var User $user */
-        $user = _em()->getRepository(User::class)->getOneByLogin('responsible');
-        User::setCurrent($user);
+        $this->setCurrentUser('responsible');
 
         // Query to generate the Excel file on disk
         $hostname = 'my-ichtus.lan';

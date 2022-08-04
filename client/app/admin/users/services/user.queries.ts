@@ -202,7 +202,7 @@ export const logoutMutation = gql`
 `;
 
 export const loginMutation = gql`
-    mutation Login($login: Login!, $password: String!) {
+    mutation Login($login: String!, $password: String!) {
         login(login: $login, password: $password) {
             ...UserFields
         }

@@ -9,7 +9,7 @@ use PHPUnit\Framework\Assert;
 return [
     [
         'query' => 'mutation {
-            requestPasswordReset(login: "administrator")
+            requestPasswordReset(login: "administrator@example.com")
         }',
     ],
     [

@@ -600,7 +600,7 @@ export class UserService
 
     public requestPasswordReset(login: string): Observable<RequestPasswordReset['requestPasswordReset']> {
         const mutation = gql`
-            mutation RequestPasswordReset($login: Login!) {
+            mutation RequestPasswordReset($login: String!) {
                 requestPasswordReset(login: $login)
             }
         `;

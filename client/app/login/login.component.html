@@ -10,7 +10,7 @@
             style="min-width: 300px"
         >
             <mat-form-field>
-                <mat-label>Nom d'utilisateur</mat-label>
+                <mat-label>Email ou nom d'utilisateur</mat-label>
                 <input
                     matInput
                     formControlName="login"
@@ -20,12 +20,6 @@
                     spellcheck="false"
                     (keydown.enter)="maybeConfirm()"
                 />
-                <mat-error *ngIf="form.get('login')?.hasError('maxlength')"
-                    >Maximum {{ form.get('login')?.errors?.maxlength?.requiredLength }} caractères
-                </mat-error>
-                <mat-error *ngIf="form.get('login')?.hasError('invalid')">{{
-                    form.get('login')?.getError('invalid')
-                }}</mat-error>
                 <mat-error *ngIf="form.get('login')?.hasError('required')">Requis</mat-error>
             </mat-form-field>
 

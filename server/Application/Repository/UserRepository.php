@@ -32,8 +32,7 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
      */
     public function getOneByLoginPassword(string $login, string $password): ?User
     {
-        /** @var null|User $user */
-        $user = $this->getOneByLogin($login);
+        $user = $this->getOneByLoginOrEmail($login);
 
         if (!$user) {
             return null;
@@ -76,13 +75,21 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
     }
 
     /**
-     * Unsecured way to get a user from its login.
+     * Unsecured way to get a user from its login or its email.
      *
      * This should only be used in tests or controlled environment.
      */
-    public function getOneByLogin(?string $login): ?User
+    public function getOneByLoginOrEmail(?string $loginOrEmail): ?User
     {
-        $user = $this->getAclFilter()->runWithoutAcl(fn () => $this->findOneByLogin($login));
+        /** @var null|User $user */
+        $user = $this->getAclFilter()->runWithoutAcl(
+            fn () => $this->createQueryBuilder('user')
+                ->orWhere('user.login IS NOT NULL AND user.login = :value')
+                ->orWhere('user.email IS NOT NULL AND user.email = :value')
+                ->setParameter('value', $loginOrEmail)
+                ->getQuery()
+                ->getOneOrNullResult()
+        );
 
         return $user;
     }

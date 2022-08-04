@@ -6,7 +6,6 @@ namespace ApplicationTest\Service;
 
 use Application\DBAL\Types\AccountTypeType;
 use Application\Model\Account;
-use Application\Model\User;
 use Application\Repository\AccountRepository;
 use Application\Service\Accounting;
 use ApplicationTest\Traits\TestWithTransactionAndUser;
@@ -27,9 +26,7 @@ class AccountingTest extends TestCase
     {
         $this->setupWithTransaction();
 
-        /** @var User $user */
-        $user = _em()->getRepository(User::class)->getOneByLogin('administrator');
-        User::setCurrent($user);
+        $this->setCurrentUser('administrator');
 
         global $container;
         $this->accounting = $container->get(Accounting::class);

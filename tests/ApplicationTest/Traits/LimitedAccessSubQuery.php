@@ -22,7 +22,7 @@ trait LimitedAccessSubQuery
     {
         /** @var UserRepository $userRepository */
         $userRepository = $this->getEntityManager()->getRepository(User::class);
-        $user = $userRepository->getOneByLogin($login);
+        $user = $userRepository->getOneByLoginOrEmail($login);
         $subQuery = $this->repository->getAccessibleSubQuery($user);
         if ($subQuery === '-1') {
             $ids = [];

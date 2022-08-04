@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ifValid, NaturalAbstractController, NaturalAlertService} from '@ecodev/natural';
-import {loginValidator, UserService} from '../admin/users/services/user.service';
+import {UserService} from '../admin/users/services/user.service';
 import {finalize} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
@@ -29,7 +29,7 @@ export class LoginComponent extends NaturalAbstractController implements OnInit,
     ) {
         super();
         this.form = this.fb.group({
-            login: ['', [Validators.required, Validators.maxLength(50), loginValidator]],
+            login: ['', [Validators.required]],
             password: ['', [Validators.required]],
         });
     }

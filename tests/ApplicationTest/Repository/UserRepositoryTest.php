@@ -85,4 +85,23 @@ class UserRepositoryTest extends AbstractRepositoryTest
         $actual = $this->repository->getAllToQueueBalanceMessage(true);
         self::assertCount(0, $actual);
     }
+
+    /**
+     * @dataProvider providerGetOneByLoginOrEmail
+     */
+    public function testGetOneByLoginOrEmail(?string $loginOrEmail, ?int $expected): void
+    {
+        $actual = $this->repository->getOneByLoginOrEmail($loginOrEmail);
+        self::assertSame($expected, $actual ? $actual->getId() : $actual);
+    }
+
+    public function providerGetOneByLoginOrEmail(): iterable
+    {
+        yield [null, null];
+        yield ['', null];
+        yield ['non-existing', null];
+        yield ['member', 1002];
+        yield ['member@example.com', 1002];
+        yield ['son', 1008];
+    }
 }

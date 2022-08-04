@@ -44,7 +44,7 @@ class TransactionRepositoryTest extends AbstractRepositoryTest
     public function testHydrateLinesAndFlush(): void
     {
         /** @var User $user */
-        $user = $this->getEntityManager()->getRepository(User::class)->getOneByLogin('administrator');
+        $user = $this->getEntityManager()->getRepository(User::class)->getOneByLoginOrEmail('administrator');
         User::setCurrent($user);
 
         $credit = $user->getAccount();
@@ -97,7 +97,7 @@ class TransactionRepositoryTest extends AbstractRepositoryTest
     public function testHydrateLinesAndFlushMustThrowWithUnbalancedLines(): void
     {
         /** @var User $user */
-        $user = $this->getEntityManager()->getRepository(User::class)->getOneByLogin('administrator');
+        $user = $this->getEntityManager()->getRepository(User::class)->getOneByLoginOrEmail('administrator');
         User::setCurrent($user);
 
         $debit = $this->getEntityManager()->getRepository(Account::class)->findOneBy(['code' => 10101]);

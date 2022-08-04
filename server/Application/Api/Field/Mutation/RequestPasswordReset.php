@@ -11,7 +11,6 @@ use Application\Repository\UserRepository;
 use Application\Service\MessageQueuer;
 use Ecodev\Felix\Api\ExceptionWithoutMailLogging;
 use Ecodev\Felix\Api\Field\FieldInterface;
-use Ecodev\Felix\Api\Scalar\LoginType;
 use Ecodev\Felix\Service\Mailer;
 use GraphQL\Type\Definition\Type;
 use Mezzio\Session\SessionInterface;
@@ -25,7 +24,7 @@ abstract class RequestPasswordReset implements FieldInterface
             'type' => Type::nonNull(Type::boolean()),
             'description' => 'Request to send an email to reset the password for the given user. It will **always** return a successful response, even if the user is not found. Returns `true` if the email was sent to the family owner.',
             'args' => [
-                'login' => Type::nonNull(_types()->get(LoginType::class)),
+                'login' => Type::nonNull(Type::string()),
             ],
             'resolve' => function ($root, array $args, SessionInterface $session): bool {
                 global $container;
@@ -48,7 +47,7 @@ abstract class RequestPasswordReset implements FieldInterface
                 $repository = _em()->getRepository(User::class);
 
                 /** @var null|User $user */
-                $user = $repository->getOneByLogin($args['login']);
+                $user = $repository->getOneByLoginOrEmail($args['login']);
 
                 if ($user) {
                     $message = $messageQueuer->queueResetPassword($user);

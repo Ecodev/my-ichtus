@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace ApplicationTest\Service\Exporter;
 
 use Application\Model\Account;
-use Application\Model\User;
 use Application\Repository\AccountRepository;
 use Application\Service\Exporter\AccountingReport;
 use ApplicationTest\Traits\TestWithSpreadsheet;
@@ -20,9 +19,7 @@ class AccountingReportTest extends TestCase
 
     public function testExportAccountingReport(): void
     {
-        /** @var User $user */
-        $user = _em()->getRepository(User::class)->getOneByLogin('responsible');
-        User::setCurrent($user);
+        $this->setCurrentUser('responsible');
 
         $hostname = 'my-ichtus.lan';
 
