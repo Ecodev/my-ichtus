@@ -43,14 +43,19 @@ export class QrService {
             return;
         }
 
+        if (!('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices)) {
+            this.scanObservable.error("L'appareil photo n'est pas disponible");
+            return;
+        }
+
         this.starting = true;
         this.video = document.createElement('video');
         this.canvas = document.createElement('canvas');
-        this.context = this.canvas.getContext('2d') as CanvasRenderingContext2D;
+        this.context = this.canvas.getContext('2d');
 
         navigator.mediaDevices
             .getUserMedia({video: {facingMode: 'environment'}})
-            .then(async (stream: MediaStream) => {
+            .then(stream => {
                 this.starting = false;
                 this.streamObservable.next(stream);
                 this.stream = stream;
@@ -58,7 +63,7 @@ export class QrService {
                 if (this.video) {
                     this.video.srcObject = stream;
                     this.video.setAttribute('playsinline', 'true'); // required to tell iOS safari we don't want fullscreen
-                    this.video.play();
+                    this.video.play().catch(err => this.scanObservable.error(err));
                 }
 
                 this.queueDecoding();

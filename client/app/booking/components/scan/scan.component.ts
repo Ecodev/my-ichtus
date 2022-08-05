@@ -34,11 +34,14 @@ export class ScanComponent extends NaturalAbstractController implements OnInit, 
             },
         });
 
-        this.qrService.getStream().subscribe(stream => {
-            this.videoRef.nativeElement.srcObject = stream;
-            this.videoRef.nativeElement.setAttribute('playsinline', 'true'); // required to tell iOS safari we don't want fullscreen
-            this.videoRef.nativeElement.play();
-        });
+        this.qrService
+            .getStream()
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe(stream => {
+                this.videoRef.nativeElement.srcObject = stream;
+                this.videoRef.nativeElement.setAttribute('playsinline', 'true'); // required to tell iOS safari we don't want fullscreen
+                this.videoRef.nativeElement.play().catch(/* noop */);
+            });
 
         // In case we arrive here by url refresh that avoids to start camera from click on home.component.ts
         // Won't cause double scanning
