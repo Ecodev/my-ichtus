@@ -15,10 +15,7 @@ class AccountingDocumentRepositoryTest extends AbstractRepositoryTest
 {
     use LimitedAccessSubQuery;
 
-    /**
-     * @var AccountingDocumentRepository
-     */
-    private $repository;
+    private AccountingDocumentRepository $repository;
 
     protected function setUp(): void
     {

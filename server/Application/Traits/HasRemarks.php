@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Application\Traits;
 
+use Doctrine\ORM\Mapping as ORM;
+
 trait HasRemarks
 {
     /**
-     * @var string
-     *
      * @ORM\Column(type="text", length=65535)
      */
-    private $remarks = '';
+    private string $remarks = '';
 
     /**
      * Set remarks.

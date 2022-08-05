@@ -12,10 +12,7 @@ class ExpenseClaimRepositoryTest extends AbstractRepositoryTest
 {
     use LimitedAccessSubQuery;
 
-    /**
-     * @var ExpenseClaimRepository
-     */
-    private $repository;
+    private ExpenseClaimRepository $repository;
 
     protected function setUp(): void
     {

@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Application\Traits;
 
+use Doctrine\ORM\Mapping as ORM;
 use GraphQL\Doctrine\Annotation as API;
 
 trait HasColor
 {
     /**
-     * @var string
-     *
      * @ORM\Column(type="string", length=7, options={"default" = ""}))
      */
-    private $color = '';
+    private string $color = '';
 
     /**
      * Set color.

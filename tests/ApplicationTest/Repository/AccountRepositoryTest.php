@@ -16,10 +16,7 @@ class AccountRepositoryTest extends AbstractRepositoryTest
 {
     use LimitedAccessSubQuery;
 
-    /**
-     * @var AccountRepository
-     */
-    private $repository;
+    private AccountRepository $repository;
 
     protected function setUp(): void
     {

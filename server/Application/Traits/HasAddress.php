@@ -13,29 +13,25 @@ use Doctrine\ORM\Mapping as ORM;
 trait HasAddress
 {
     /**
-     * @var string
      * @ORM\Column(type="string")
      */
-    private $street = '';
+    private string $street = '';
 
     /**
-     * @var string
      * @ORM\Column(type="string", length=20)
      */
-    private $postcode = '';
+    private string $postcode = '';
 
     /**
-     * @var string
      * @ORM\Column(type="string", length=255)
      */
-    private $locality = '';
+    private string $locality = '';
 
     /**
-     * @var null|Country
      * @ORM\ManyToOne(targetEntity="Country")
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
-    private $country;
+    private ?Country $country;
 
     public function getStreet(): string
     {

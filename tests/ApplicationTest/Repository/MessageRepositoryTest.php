@@ -12,10 +12,7 @@ class MessageRepositoryTest extends AbstractRepositoryTest
 {
     use LimitedAccessSubQuery;
 
-    /**
-     * @var MessageRepository
-     */
-    private $repository;
+    private MessageRepository $repository;
 
     protected function setUp(): void
     {
