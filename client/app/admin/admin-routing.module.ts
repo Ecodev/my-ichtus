@@ -23,7 +23,7 @@ import {BookableTagsComponent} from './bookableTags/bookableTags/bookableTags.co
 import {BookableTagComponent} from './bookableTags/bookableTag/bookableTag.component';
 import {BookableTagResolver} from './bookableTags/services/bookableTag.resolver';
 import {
-    BookingSortingField,
+    BookableSortingField,
     ExpenseClaimSortingField,
     ExpenseClaimsVariables,
     SortingOrder,
@@ -378,7 +378,7 @@ const routes: Routes = [
                             } as NaturalSeo,
                             selectedColumns: ['name', 'code', 'date', 'initialPrice', 'usageNb', 'verificationDate'],
                             forcedVariables: merge(BookableService.bookableByTag(BookableTagService.FORMATION), {
-                                sorting: [{field: BookingSortingField.creationDate, order: SortingOrder.DESC}],
+                                sorting: [{field: BookableSortingField.creationDate, order: SortingOrder.DESC}],
                             }),
                         },
                     },
@@ -390,7 +390,9 @@ const routes: Routes = [
                                 title: "Séances d'accueil",
                             } as NaturalSeo,
                             selectedColumns: ['name', 'date', 'verificationDate', 'usageNb'],
-                            forcedVariables: BookableService.bookableByTag(BookableTagService.WELCOME),
+                            forcedVariables: merge(BookableService.bookableByTag(BookableTagService.WELCOME), {
+                                sorting: [{field: BookableSortingField.creationDate, order: SortingOrder.DESC}],
+                            }),
                         },
                     },
                     {
