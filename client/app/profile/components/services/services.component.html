@@ -15,12 +15,12 @@
             class="mat-body-1 padding margin"
             fxLayout="column"
             fxLayoutAlign="center center"
-            *ngIf="pendingApplicationsDS?.data?.length === 0"
+            *ngIf="pendingApplicationsDS.data?.length === 0"
         >
             Aucune demande en attente
         </div>
 
-        <div class="responsive-table" [fxHide]="!pendingApplicationsDS?.data?.length">
+        <div class="responsive-table" [fxHide]="!pendingApplicationsDS.data?.length">
             <table mat-table [dataSource]="pendingApplicationsDS">
                 <tr mat-header-row *matHeaderRowDef="applicationsColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: applicationsColumns"></tr>

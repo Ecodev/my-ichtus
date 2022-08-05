@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {
     AbstractControl,
-    FormControl,
-    FormGroup,
+    UntypedFormControl,
+    UntypedFormGroup,
     FormGroupDirective,
     NgForm,
     ValidationErrors,
@@ -11,7 +11,7 @@ import {
 import {ErrorStateMatcher} from '@angular/material/core';
 
 function samePasswordsValidator(formGroup: AbstractControl): ValidationErrors | null {
-    if (!formGroup || !(formGroup instanceof FormGroup)) {
+    if (!formGroup || !(formGroup instanceof UntypedFormGroup)) {
         return null;
     }
 
@@ -22,8 +22,8 @@ function samePasswordsValidator(formGroup: AbstractControl): ValidationErrors | 
 }
 
 class ConfirmPasswordStateMatcher implements ErrorStateMatcher {
-    public isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-        if (control && control.parent && control.parent instanceof FormGroup) {
+    public isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+        if (control && control.parent && control.parent instanceof UntypedFormGroup) {
             return !!samePasswordsValidator(control.parent) && control.dirty;
         }
 
@@ -37,15 +37,15 @@ class ConfirmPasswordStateMatcher implements ErrorStateMatcher {
     styleUrls: ['./password.component.scss'],
 })
 export class PasswordComponent implements OnInit {
-    @Input() public form!: FormGroup;
+    @Input() public form!: UntypedFormGroup;
     public confirmPasswordStateMatcher = new ConfirmPasswordStateMatcher();
 
     public constructor() {}
 
     public ngOnInit(): void {
         this.form.removeControl('password');
-        this.form.addControl('password', new FormControl('', [Validators.required, Validators.minLength(12)]));
-        this.form.addControl('confirmPassword', new FormControl(''));
+        this.form.addControl('password', new UntypedFormControl('', [Validators.required, Validators.minLength(12)]));
+        this.form.addControl('confirmPassword', new UntypedFormControl(''));
         this.form.setValidators(samePasswordsValidator);
     }
 }

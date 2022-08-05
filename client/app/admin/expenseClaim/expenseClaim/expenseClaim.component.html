@@ -56,9 +56,7 @@
             <a
                 *ngIf="data.model.transactions?.length > 1"
                 mat-flat-button
-                [routerLink]="
-                    this.transactionLineService.linkToTransactionLinesForTransactions(data.model.transactions)
-                "
+                [routerLink]="transactionLineService.linkToTransactionLinesForTransactions(data.model.transactions)"
             >
                 Voir les écritures
             </a>

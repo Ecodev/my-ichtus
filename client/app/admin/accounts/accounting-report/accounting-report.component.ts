@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import {UntypedFormControl, Validators} from '@angular/forms';
 
 @Component({
     selector: 'app-accounting-report',
@@ -7,6 +7,6 @@ import {FormControl, Validators} from '@angular/forms';
     styleUrls: ['./accounting-report.component.scss'],
 })
 export class AccountingReportComponent {
-    public readonly form = new FormControl(new Date(), [Validators.required]);
+    public readonly form = new UntypedFormControl(new Date(), [Validators.required]);
     public readonly today = new Date();
 }

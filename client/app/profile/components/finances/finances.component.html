@@ -71,7 +71,7 @@
             Aucune annonce
         </div>
 
-        <div class="responsive-table" [fxHide]="!runningExpenseClaimsDS?.data?.length">
+        <div class="responsive-table" [fxHide]="!runningExpenseClaimsDS.data?.length">
             <table mat-table [dataSource]="runningExpenseClaimsDS">
                 <tr mat-header-row *matHeaderRowDef="expenseClaimsColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: expenseClaimsColumns"></tr>

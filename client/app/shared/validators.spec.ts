@@ -1,8 +1,8 @@
-import {FormControl, ValidatorFn} from '@angular/forms';
+import {UntypedFormControl, ValidatorFn} from '@angular/forms';
 import {iban} from './validators';
 
 function validate(validatorFn: ValidatorFn, expected: boolean, value: any): void {
-    const control = new FormControl();
+    const control = new UntypedFormControl();
     control.setValidators(validatorFn);
     control.setValue(value);
     expect(control.valid)

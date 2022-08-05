@@ -2,7 +2,7 @@ import {Apollo, gql} from 'apollo-angular';
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NaturalAlertService} from '@ecodev/natural';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {finalize} from 'rxjs/operators';
 import {UpdatePassword, UpdatePasswordVariables} from '../../../shared/generated-types';
 
@@ -13,7 +13,7 @@ import {UpdatePassword, UpdatePasswordVariables} from '../../../shared/generated
 })
 export class ChangePasswordComponent {
     private readonly token: string;
-    public readonly form: FormGroup;
+    public readonly form: UntypedFormGroup;
     public sending = false;
 
     public constructor(
@@ -23,7 +23,7 @@ export class ChangePasswordComponent {
         private readonly router: Router,
     ) {
         this.token = route.snapshot.params.token;
-        this.form = new FormGroup({});
+        this.form = new UntypedFormGroup({});
     }
 
     public submit(): void {

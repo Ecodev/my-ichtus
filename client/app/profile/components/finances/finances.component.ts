@@ -13,7 +13,7 @@ import {CreateRefundComponent} from '../create-refund/create-refund.component';
 import {ifValid, NaturalAbstractController, NaturalAlertService, NaturalDataSource} from '@ecodev/natural';
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
 import {finalize, takeUntil} from 'rxjs/operators';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {iban as ibanValidator} from '../../../shared/validators';
 import {friendlyFormatIBAN} from 'ibantools';
 
@@ -33,7 +33,7 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
     public adminMode = false;
     public readonly deleting = new Set<string>();
     public updating = false;
-    public readonly ibanCtrl = new FormControl('', ibanValidator);
+    public readonly ibanCtrl = new UntypedFormControl('', ibanValidator);
     public canCreateExpenseClaim = false;
 
     public constructor(

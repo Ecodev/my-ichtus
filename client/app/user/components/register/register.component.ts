@@ -9,7 +9,7 @@ import {
 } from '@ecodev/natural';
 import {Bookables_bookables} from '../../../shared/generated-types';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 
 @Component({
@@ -22,12 +22,12 @@ export class RegisterComponent implements OnInit {
 
     public step: 1 | 2 = 1;
     public sending = false;
-    public form!: FormGroup;
+    public form!: UntypedFormGroup;
 
     public constructor(
         protected readonly apollo: Apollo,
         protected readonly route: ActivatedRoute,
-        protected readonly fb: FormBuilder,
+        protected readonly fb: UntypedFormBuilder,
         protected readonly router: Router,
         protected readonly alertService: NaturalAlertService,
         protected readonly bookableService: BookableService,

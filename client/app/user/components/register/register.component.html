@@ -114,7 +114,7 @@
                         </td>
                         <td mat-footer-cell *matFooterCellDef natural-align-right>
                             <span *ngIf="mandatoryBookables?.data?.totalInitialPrice > 0">
-                                {{ mandatoryBookables?.data?.totalInitialPrice | currency: 'CHF' }}
+                                {{ mandatoryBookables.data?.totalInitialPrice | currency: 'CHF' }}
                             </span>
                         </td>
                     </ng-container>
@@ -128,7 +128,7 @@
                         </td>
                         <td mat-footer-cell *matFooterCellDef natural-align-right>
                             <span *ngIf="mandatoryBookables?.data?.totalPeriodicPrice > 0">
-                                {{ mandatoryBookables?.data?.totalPeriodicPrice | currency: 'CHF' }}
+                                {{ mandatoryBookables.data?.totalPeriodicPrice | currency: 'CHF' }}
                             </span>
                         </td>
                     </ng-container>

@@ -3,12 +3,12 @@
         <mat-progress-spinner [diameter]="40" mode="indeterminate"></mat-progress-spinner>
     </div>
     <div *ngIf="bankingInfos" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around center">
-        <img *ngIf="bankingInfos?.qrCode" alt="QR code" class="qrCode" [attr.src]="bankingInfos.qrCode" />
+        <img *ngIf="bankingInfos.qrCode" alt="QR code" class="qrCode" [attr.src]="bankingInfos.qrCode" />
         <div fxLayout="column" fxLayoutGap="5px">
             <div>
                 <div class="mat-body-2">Compte (IBAN)</div>
                 <div class="mat-body-1" style="white-space: pre-line">
-                    {{ bankingInfos?.iban | iban }}
+                    {{ bankingInfos.iban | iban }}
                     <button
                         *ngIf="bankingInfos.iban"
                         mat-icon-button
@@ -22,7 +22,7 @@
             <div>
                 <div class="mat-body-2">Référence :</div>
                 <div class="mat-body-1">
-                    {{ bankingInfos?.referenceNumber }}
+                    {{ bankingInfos.referenceNumber }}
                     <button
                         *ngIf="bankingInfos.iban"
                         mat-icon-button
@@ -35,7 +35,7 @@
             </div>
             <div>
                 <div class="mat-body-2">Payable à</div>
-                <div class="mat-body-1" style="white-space: pre-line">{{ bankingInfos?.paymentFor }}</div>
+                <div class="mat-body-1" style="white-space: pre-line">{{ bankingInfos.paymentFor }}</div>
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {money} from '@ecodev/natural';
 
 @Component({
@@ -12,11 +12,11 @@ export class CreateRefundComponent {
     /**
      * Form for ExpenseClaimInput
      */
-    public readonly form: FormGroup = this.fb.group({
+    public readonly form: UntypedFormGroup = this.fb.group({
         amount: ['', [Validators.required, Validators.min(1), money]],
         name: ['Demande de remboursement', [Validators.required, Validators.maxLength(50)]],
         description: ['', []],
     });
 
-    public constructor(@Inject(MAT_DIALOG_DATA) public readonly data: any, private readonly fb: FormBuilder) {}
+    public constructor(@Inject(MAT_DIALOG_DATA) public readonly data: any, private readonly fb: UntypedFormBuilder) {}
 }

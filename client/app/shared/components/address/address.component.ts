@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CountryService} from './country.service';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 
 @Component({
     selector: 'app-address',
@@ -9,7 +9,7 @@ import {FormGroup} from '@angular/forms';
 })
 export class AddressComponent {
     @Input() public vertical = false;
-    @Input() public form!: FormGroup;
+    @Input() public form!: UntypedFormGroup;
     // eslint-disable-next-line @angular-eslint/no-output-native
     @Output() public readonly change = new EventEmitter<void>();
 

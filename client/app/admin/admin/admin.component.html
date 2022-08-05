@@ -106,23 +106,21 @@
                             mat-list-item
                             routerLinkActive="active"
                             routerLink="booking/formation-application"
-                            *ngIf="
-                                this.permissionsService.canAccessFormationApplication(route.snapshot.data.viewer.model)
-                            "
+                            *ngIf="permissionsService.canAccessFormationApplication(route.snapshot.data.viewer.model)"
                             >Demandes de cours</a
                         >
                         <a
                             mat-list-item
                             routerLinkActive="active"
                             routerLink="bookable/welcome"
-                            *ngIf="this.permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
+                            *ngIf="permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
                             >Séances d'accueil
                         </a>
                         <a
                             mat-list-item
                             routerLinkActive="active"
                             routerLink="booking/welcome-application"
-                            *ngIf="this.permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
+                            *ngIf="permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
                             >Demandes de séances d'accueil</a
                         >
                     </mat-nav-list>

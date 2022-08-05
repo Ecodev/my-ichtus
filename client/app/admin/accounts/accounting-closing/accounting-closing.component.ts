@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import {UntypedFormControl, Validators} from '@angular/forms';
 
 @Component({
     selector: 'app-accounting-closing',
@@ -7,7 +7,7 @@ import {FormControl, Validators} from '@angular/forms';
     styleUrls: ['./accounting-closing.component.scss'],
 })
 export class AccountingClosingComponent {
-    public readonly form = new FormControl(null, [Validators.required]);
+    public readonly form = new UntypedFormControl(null, [Validators.required]);
     public readonly today = new Date();
 
     public constructor() {
