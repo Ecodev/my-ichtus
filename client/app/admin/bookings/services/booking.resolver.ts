@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
-import {Observable} from 'rxjs';
+import {last, Observable} from 'rxjs';
 import {BookingResolve} from '../booking';
 import {ErrorService} from '../../../shared/components/error/error.service';
 import {BookingService} from './booking.service';
@@ -15,7 +15,7 @@ export class BookingResolver implements Resolve<BookingResolve> {
      * Resolve booking data for router
      */
     public resolve(route: ActivatedRouteSnapshot): Observable<BookingResolve> {
-        const observable = this.bookingService.resolve(route.params.bookingId);
+        const observable = this.bookingService.resolve(route.params.bookingId).pipe(last());
 
         return this.errorService.redirectIfError(observable);
     }

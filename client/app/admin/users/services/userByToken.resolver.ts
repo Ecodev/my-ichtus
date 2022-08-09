@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
-import {Observable} from 'rxjs';
+import {last, Observable} from 'rxjs';
 import {UserService} from './user.service';
 import {ErrorService} from '../../../shared/components/error/error.service';
 import {UserByTokenResolve} from '../user';
@@ -15,7 +15,7 @@ export class UserByTokenResolver implements Resolve<UserByTokenResolve> {
      * Resolve sites for routing service only at the moment
      */
     public resolve(route: ActivatedRouteSnapshot): Observable<UserByTokenResolve> {
-        const observable = this.userService.resolveByToken(route.params.token);
+        const observable = this.userService.resolveByToken(route.params.token).pipe(last());
 
         return this.errorService.redirectIfError(observable);
     }

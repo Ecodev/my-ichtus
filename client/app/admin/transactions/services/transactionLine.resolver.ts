@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
-import {Observable} from 'rxjs';
+import {last, Observable} from 'rxjs';
 import {TransactionLineResolve} from '../transaction';
 import {ErrorService} from '../../../shared/components/error/error.service';
 import {TransactionLineService} from './transactionLine.service';
@@ -18,7 +18,7 @@ export class TransactionLineResolver implements Resolve<TransactionLineResolve> 
      * Resolve transactionLine data for router
      */
     public resolve(route: ActivatedRouteSnapshot): Observable<TransactionLineResolve> {
-        const observable = this.transactionLineService.resolve(route.params.transactionLineId);
+        const observable = this.transactionLineService.resolve(route.params.transactionLineId).pipe(last());
 
         return this.errorService.redirectIfError(observable);
     }

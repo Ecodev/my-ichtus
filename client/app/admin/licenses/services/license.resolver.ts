@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
-import {Observable} from 'rxjs';
+import {last, Observable} from 'rxjs';
 import {ErrorService} from '../../../shared/components/error/error.service';
 import {LicenseService} from './license.service';
 import {LicenseResolve} from '../license';
@@ -15,7 +15,7 @@ export class LicenseResolver implements Resolve<LicenseResolve> {
      * Resolve license data for router
      */
     public resolve(route: ActivatedRouteSnapshot): Observable<LicenseResolve> {
-        const observable = this.licenseService.resolve(route.params.licenseId);
+        const observable = this.licenseService.resolve(route.params.licenseId).pipe(last());
 
         return this.errorService.redirectIfError(observable);
     }

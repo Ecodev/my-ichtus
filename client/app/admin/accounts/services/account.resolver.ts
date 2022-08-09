@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
-import {Observable} from 'rxjs';
+import {last, Observable} from 'rxjs';
 import {AccountResolve} from '../account';
 import {ErrorService} from '../../../shared/components/error/error.service';
 import {AccountService} from './account.service';
@@ -15,7 +15,7 @@ export class AccountResolver implements Resolve<AccountResolve> {
      * Resolve account data for router
      */
     public resolve(route: ActivatedRouteSnapshot): Observable<AccountResolve> {
-        const observable = this.accountService.resolve(route.params.accountId);
+        const observable = this.accountService.resolve(route.params.accountId).pipe(last());
 
         return this.errorService.redirectIfError(observable);
     }

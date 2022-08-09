@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
-import {Observable} from 'rxjs';
+import {last, Observable} from 'rxjs';
 import {ErrorService} from '../../../shared/components/error/error.service';
 import {TransactionTagService} from './transactionTag.service';
 import {TransactionTagResolve} from '../transactionTag';
@@ -18,7 +18,7 @@ export class TransactionTagResolver implements Resolve<TransactionTagResolve> {
      * Resolve transactionTag data for router
      */
     public resolve(route: ActivatedRouteSnapshot): Observable<TransactionTagResolve> {
-        const observable = this.transactionTagService.resolve(route.params.transactionTagId);
+        const observable = this.transactionTagService.resolve(route.params.transactionTagId).pipe(last());
 
         return this.errorService.redirectIfError(observable);
     }

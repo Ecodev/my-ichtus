@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
-import {Observable} from 'rxjs';
+import {last, Observable} from 'rxjs';
 import {ErrorService} from '../../../shared/components/error/error.service';
 import {BookableTagService} from './bookableTag.service';
 import {BookableTagResolve} from '../bookableTag';
@@ -18,7 +18,7 @@ export class BookableTagResolver implements Resolve<BookableTagResolve> {
      * Resolve bookableTag data for router
      */
     public resolve(route: ActivatedRouteSnapshot): Observable<BookableTagResolve> {
-        const observable = this.bookableTagService.resolve(route.params.bookableTagId);
+        const observable = this.bookableTagService.resolve(route.params.bookableTagId).pipe(last());
 
         return this.errorService.redirectIfError(observable);
     }
