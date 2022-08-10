@@ -26,15 +26,7 @@ import {UserService} from '../../admin/users/services/user.service';
 import {LicenseService} from '../../admin/licenses/services/license.service';
 import {TransactionService} from '../../admin/transactions/services/transaction.service';
 import {TransactionTagService} from '../../admin/transactionTags/services/transactionTag.service';
-import {
-    BookableFilter,
-    BookingFilterGroupCondition,
-    BookingType,
-    ExpenseClaimFilterGroupCondition,
-    ExpenseClaimFilterGroupConditionCustom,
-    ExpenseClaimToReviewOperatorBoolean,
-    UserFilterGroupCondition,
-} from '../generated-types';
+import {BookableFilter, BookingFilterGroupCondition, BookingType, UserFilterGroupCondition} from '../generated-types';
 import {AccountService} from '../../admin/accounts/services/account.service';
 import {accountHierarchicConfiguration} from '../hierarchic-selector/AccountHierarchicConfiguration';
 import {BookableTagService} from '../../admin/bookableTags/services/bookableTag.service';
@@ -293,6 +285,13 @@ export class NaturalSearchFacetsService {
         },
     };
 
+    private readonly internalRemarks: DropdownFacet<never> = {
+        display: 'Remarques internes',
+        field: 'internalRemarks',
+        component: TypeTextComponent,
+        transform: wrapLike,
+    };
+
     private readonly allFacets: {[key: string]: NaturalSearchFacets} = {
         users: [
             this.userTags,
@@ -407,6 +406,7 @@ export class NaturalSearchFacetsService {
                     step: 0.01,
                 },
             } as DropdownFacet<TypeNumberConfiguration>,
+            this.internalRemarks,
             {
                 display: 'Date de naissance',
                 field: 'birthday',
