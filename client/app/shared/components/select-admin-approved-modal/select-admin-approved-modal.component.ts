@@ -3,16 +3,18 @@ import {BookableService} from '../../../admin/bookables/services/bookable.servic
 import {
     BookableSortingField,
     BookablesVariables,
+    Bookings_bookings_items,
     BookingType,
     UsageBookables,
     UsageBookables_bookables_items,
 } from '../../generated-types';
 import {SelectionModel} from '@angular/cdk/collections';
-import {NaturalDataSource, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {NaturalAbstractController, NaturalDataSource, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {BookableTagService} from '../../../admin/bookableTags/services/bookableTag.service';
 import {map} from 'rxjs/operators';
 import {UsageBookableService} from '../../../admin/bookables/services/usage-bookable.service';
-import {Observable} from 'rxjs';
+import {EMPTY, Observable, switchMap, takeUntil} from 'rxjs';
+import {UserService} from '../../../admin/users/services/user.service';
 
 export type SelectAdminApprovedModalResult = UsageBookables_bookables_items[];
 
@@ -21,15 +23,21 @@ export type SelectAdminApprovedModalResult = UsageBookables_bookables_items[];
     templateUrl: './select-admin-approved-modal.component.html',
     styleUrls: ['./select-admin-approved-modal.component.scss'],
 })
-export class SelectAdminApprovedModalComponent implements OnInit {
+export class SelectAdminApprovedModalComponent extends NaturalAbstractController implements OnInit {
     public servicesDataSource!: NaturalDataSource<UsageBookables['bookables']>;
     public storagesDataSource!: NaturalDataSource<UsageBookables['bookables']>;
     public formationsDataSource!: NaturalDataSource<UsageBookables['bookables']>;
     public welcomeDataSource!: NaturalDataSource<UsageBookables['bookables']>;
     public surveyDataSource!: NaturalDataSource<UsageBookables['bookables']>;
     public selection = new SelectionModel<UsageBookables['bookables']['items']>(true, []);
+    private pendingApplications: Bookings_bookings_items[] = [];
 
-    public constructor(private readonly bookableService: UsageBookableService) {}
+    public constructor(
+        private readonly bookableService: UsageBookableService,
+        private readonly userService: UserService,
+    ) {
+        super();
+    }
 
     public ngOnInit(): void {
         this.fetch(BookableTagService.STORAGE_REQUEST).subscribe(res => (this.storagesDataSource = res));
@@ -37,6 +45,14 @@ export class SelectAdminApprovedModalComponent implements OnInit {
         this.fetch(BookableTagService.FORMATION).subscribe(res => (this.formationsDataSource = res));
         this.fetch(BookableTagService.WELCOME).subscribe(res => (this.welcomeDataSource = res));
         this.fetch(BookableTagService.SURVEY).subscribe(res => (this.surveyDataSource = res));
+
+        this.userService
+            .getViewer()
+            .pipe(
+                takeUntil(this.ngUnsubscribe),
+                switchMap(viewer => (viewer ? this.userService.getPendingApplications(viewer) : EMPTY)),
+            )
+            .subscribe(pendingApplications => (this.pendingApplications = pendingApplications.items));
     }
 
     public fetch(tag: string): Observable<NaturalDataSource<UsageBookables['bookables']>> {
@@ -67,5 +83,9 @@ export class SelectAdminApprovedModalComponent implements OnInit {
 
     public isFull(show: boolean, bookable: UsageBookables_bookables_items): boolean {
         return show && this.isFullyBooked(bookable);
+    }
+
+    public isAlreadyPending(show: boolean, bookable: UsageBookables_bookables_items): boolean {
+        return show && this.pendingApplications.some(applicaton => bookable.id === applicaton.bookable?.id);
     }
 }

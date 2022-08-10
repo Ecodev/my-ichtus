@@ -6,6 +6,7 @@
         let-dataSource="dataSource"
         let-showDescription="showDescription"
         let-showFullyBooked="showFullyBooked"
+        let-showPending="showPending"
         let-columns="columns"
     >
         <div class="responsive-table">
@@ -16,8 +17,14 @@
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef>Nom</th>
                     <td mat-cell *matCellDef="let bookable">
-                        <span [ngClass]="{inactive: isFull(showFullyBooked, bookable)}">{{ bookable.name }}</span>
+                        <span
+                            [ngClass]="{
+                                inactive: isFull(showFullyBooked, bookable) || isAlreadyPending(showPending, bookable)
+                            }"
+                            >{{ bookable.name }}</span
+                        >
                         <span *ngIf="isFull(showFullyBooked, bookable)" style="color: red"> [COMPLET]</span>
+                        <span *ngIf="isAlreadyPending(showPending, bookable)" style="color: red"> [DEJA DEMANDE]</span>
                     </td>
                 </ng-container>
 
@@ -45,7 +52,7 @@
                             (click)="$event.stopPropagation()"
                             (change)="$event ? selection.toggle(bookable) : null"
                             [checked]="selection.isSelected(bookable)"
-                            [disabled]="isFull(showFullyBooked, bookable)"
+                            [disabled]="isFull(showFullyBooked, bookable) || isAlreadyPending(showPending, bookable)"
                         ></mat-checkbox>
                     </td>
                 </ng-container>
@@ -61,6 +68,8 @@
                 context: {
                     dataSource: storagesDataSource,
                     showDescription: true,
+                    showFullyBooked: false,
+                    showPending: false,
                     columns: ['selection', 'name', 'description', 'periodicPrice']
                 }
             "
@@ -74,6 +83,8 @@
                 context: {
                     dataSource: servicesDataSource,
                     showDescription: false,
+                    showFullyBooked: false,
+                    showPending: true,
                     columns: ['selection', 'name', 'description', 'periodicPrice']
                 }
             "
@@ -89,6 +100,7 @@
                     dataSource: surveyDataSource,
                     showDescription: false,
                     showFullyBooked: false,
+                    showPending: true,
                     columns: ['selection', 'name', 'description']
                 }
             "
@@ -104,6 +116,7 @@
                     dataSource: formationsDataSource,
                     showDescription: false,
                     showFullyBooked: true,
+                    showPending: true,
                     columns: ['selection', 'name', 'description', 'periodicPrice']
                 }
             "
@@ -119,6 +132,7 @@
                     dataSource: welcomeDataSource,
                     showDescription: false,
                     showFullyBooked: true,
+                    showPending: true,
                     columns: ['selection', 'name', 'description', 'periodicPrice']
                 }
             "
