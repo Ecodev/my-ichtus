@@ -180,5 +180,10 @@
                 }
             }
         }
+    },
+    "cli": {
+        "schematicCollections": ["@angular-eslint/schematics"],
+        "packageManager": "yarn",
+        "analytics": false
     }
 }
