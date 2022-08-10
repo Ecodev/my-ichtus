@@ -39,7 +39,7 @@ fi
 
 # Try to use PHP 8.1, or fallback to default version
 PHP=`which php8.1` || PHP='php'
-COMPOSER="$PHP `which composer`"
+COMPOSER="$PHP `which composer` --no-interaction --no-plugins"
 
 # Exit script on any error
 set -e
