@@ -8,6 +8,15 @@ export const userMetaFragment = gql`
     }
 `;
 
+export const userLeaveFamilyFragment = gql`
+    fragment UserLeaveFamily on User {
+        id
+        owner {
+            id
+        }
+    }
+`;
+
 export const userContactDataFragment = gql`
     fragment UserContactData on User {
         id

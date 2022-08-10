@@ -31,6 +31,7 @@
                 [readonly]="!canEdit(familyMember)"
                 [viewer]="viewer"
                 (created)="reload()"
+                (removed)="reload()"
             ></app-family-member>
         </mat-expansion-panel>
     </mat-accordion>

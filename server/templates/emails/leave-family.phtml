@@ -1,0 +1,16 @@
+<?php declare(strict_types=1);
+$url = $this->serverUrl . '/user/new';
+?>
+<p>
+    Le login "<?php echo $this->escapeHtml($this->user->getLogin()) ?>" ne fait désormais plus partie d'aucun ménage et a donc perdu les privilèges associés au ménage.
+</p>
+
+<p>
+    Pour retrouver ces privilèges, fais une demande d'adhésion en tant que membre individuel en utilisant la même adresse email :
+</p>
+
+<p style="text-align:center;margin:40px 0">
+    <a href="<?php echo $url; ?>" style="padding:10px; background:#3176a2; text-decoration:none; color:white;">
+        Adhérer en tant que membre individuel
+    </a>
+</p>

@@ -1,5 +1,10 @@
 import {gql} from '@apollo/client/core';
-import {permissionsFragment, userContactDataFragment, userMetaFragment} from '../../../shared/queries/fragments';
+import {
+    userLeaveFamilyFragment,
+    permissionsFragment,
+    userContactDataFragment,
+    userMetaFragment,
+} from '../../../shared/queries/fragments';
 import {minimimalAccountFragment} from '../../accounts/services/account.queries';
 
 // Fragment for single display usage. Too much data for listings, and unused fields for mutations.
@@ -100,6 +105,7 @@ export const usersQuery = gql`
                     type
                 }
                 ...UserMeta
+                ...UserLeaveFamily
             }
             pageSize
             pageIndex
@@ -107,6 +113,7 @@ export const usersQuery = gql`
         }
     }
     ${userMetaFragment}
+    ${userLeaveFamilyFragment}
 `;
 
 export const emailAndPhoneUsersQuery = gql`
@@ -215,10 +222,12 @@ export const currentUserForProfileQuery = gql`
     query CurrentUserForProfile {
         viewer {
             ...UserFields
+            ...UserLeaveFamily
         }
     }
     ${userFieldsFragment}
     ${userMetaFragment}
+    ${userLeaveFamilyFragment}
 `;
 
 export const userRolesAvailableQuery = gql`

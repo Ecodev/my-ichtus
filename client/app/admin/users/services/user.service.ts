@@ -40,6 +40,7 @@ import {
     CurrentUserForProfile,
     CurrentUserForProfile_viewer,
     LeaveFamily,
+    UserLeaveFamily,
     LeaveFamilyVariables,
     LogicalOperator,
     Login,
@@ -534,7 +535,7 @@ export class UserService
             .pipe(map(result => result.data!.unregister));
     }
 
-    public leaveFamily(user: CurrentUserForProfile_viewer): Observable<LeaveFamily['leaveFamily']> {
+    public leaveFamily(user: UserLeaveFamily): Observable<LeaveFamily['leaveFamily']> {
         return this.apollo
             .mutate<LeaveFamily, LeaveFamilyVariables>({
                 mutation: leaveFamilyMutation,
@@ -548,7 +549,7 @@ export class UserService
     /**
      * Can leave home if has an owner
      */
-    public canLeaveFamily(user: CurrentUserForProfile['viewer']): boolean {
+    public canLeaveFamily(user: UserLeaveFamily | null): boolean {
         if (!user) {
             return false;
         }

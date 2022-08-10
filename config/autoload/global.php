@@ -25,6 +25,11 @@ return [
             'layout' => ['server/templates/layout'],
         ],
     ],
+    'view_helpers' => [
+        'invokables' => [
+            'userInfos' => \Application\View\Helper\UserInfos::class,
+        ],
+    ],
     'banking' => [
         'iban' => 'CH2730000001200061375', // QR-IBAN without spaces (eg: CH7030123036078110002)
         'paymentTo' => 'PostFinance AG, 3030 Bern',  // Bank coordinate the payment will be made to, eg: 'Banque Alternative Suisse SA'

@@ -20,7 +20,7 @@ return [
         'data' => [
             'leaveFamily' => [
                 'id' => 1007,
-                'internalRemarks' => Date::now()->toDateString() . ': détaché du ménage par Conj Oint',
+                'internalRemarks' => Date::now()->toDateString() . ': détaché du ménage par Active Member',
             ],
         ],
     ],

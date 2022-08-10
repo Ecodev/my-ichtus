@@ -1,12 +1,22 @@
 <div *ngIf="loaded" [formGroup]="form">
     <div fxLayout="column">
-        <natural-select-enum
-            enumName="Relationship"
-            formControlName="familyRelationship"
-            (selectionChange)="update()"
-            placeholder="Rôle dans la famille"
-        ></natural-select-enum>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+            <natural-select-enum
+                enumName="Relationship"
+                formControlName="familyRelationship"
+                (selectionChange)="update()"
+                placeholder="Rôle dans la famille"
+            ></natural-select-enum>
 
+            <button
+                mat-stroked-button
+                color="warn"
+                [disabled]="!form.enabled || !userService.canLeaveFamily(user)"
+                (click)="leaveFamily()"
+            >
+                Détacher du ménage
+            </button>
+        </div>
         <mat-divider class="margin-bottom"></mat-divider>
 
         <h2 class="mat-title">Compte</h2>
@@ -83,7 +93,7 @@
         </mat-form-field>
 
         <!-- Newsletter -->
-        <mat-checkbox formControlName="receivesNewsletter" (change)="update()"> Abonné à la newsletter </mat-checkbox>
+        <mat-checkbox formControlName="receivesNewsletter" (change)="update()"> Abonné à la newsletter</mat-checkbox>
     </div>
 
     <div *ngIf="form.get('remarks')?.value">

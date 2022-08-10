@@ -117,6 +117,24 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
         self::assertsame(0, $actual);
     }
 
+    public function testQueueLeaveFamily(): void
+    {
+        $messageQueuer = $this->createMessageQueuer();
+        $user = $this->createMockUser();
+        $message = $messageQueuer->queueLeaveFamily($user);
+
+        $this->assertMessage($message, $user, 'john.doe@example.com', MessageTypeType::LEAVE_FAMILY, 'Ménage quitté');
+    }
+
+    public function testQueueAdminLeaveFamily(): void
+    {
+        $messageQueuer = $this->createMessageQueuer();
+        $user = $this->createMockUser();
+        $message = $messageQueuer->queueAdminLeaveFamily($user);
+
+        $this->assertMessage($message, null, 'caissier@ichtus.ch', MessageTypeType::ADMIN_LEAVE_FAMILY, 'Ménage quitté');
+    }
+
     public function userProvider(): array
     {
         $userWithEmail = $this->createMockUser();

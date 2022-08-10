@@ -83,12 +83,32 @@ class MessageQueuer
         return $message;
     }
 
+    public function queueLeaveFamily(User $user): ?Message
+    {
+        $subject = 'Ménage quitté';
+        $mailParams = [];
+
+        $message = $this->createMessage($user, $subject, MessageTypeType::LEAVE_FAMILY, $mailParams);
+
+        return $message;
+    }
+
+    public function queueAdminLeaveFamily(User $independentUser): ?Message
+    {
+        $subject = 'Ménage quitté';
+        $mailParams = ['independentUser' => $independentUser];
+
+        $message = $this->createMessage(null, $subject, MessageTypeType::ADMIN_LEAVE_FAMILY, $mailParams, 'caissier@ichtus.ch');
+
+        return $message;
+    }
+
     /**
      * Create a message by rendering the template.
      */
-    private function createMessage(?User $user, string $subject, string $type, array $mailParams): ?Message
+    private function createMessage(?User $user, string $subject, string $type, array $mailParams, ?string $email = null): ?Message
     {
-        $email = $this->getEmail($user);
+        $email = $this->getEmail($user, $email);
         if (!$email) {
             return null;
         }
@@ -136,17 +156,13 @@ class MessageQueuer
         return $this->queueBalanceForEachUsers($users);
     }
 
-    private function getEmail(?User $user): ?string
+    private function getEmail(?User $user, ?string $email = null): ?string
     {
         $this->toFamilyOwner = false;
-        if (!$user) {
-            return null;
-        }
-
-        $email = $user->getEmail();
+        $email ??= $user?->getEmail();
 
         // Fallback to family owner if any
-        if (!$email && $user->getOwner()) {
+        if (!$email && $user?->getOwner()) {
             $email = $this->userRepository->getAclFilter()->runWithoutAcl(fn () => $user->getOwner()->getEmail());
 
             $this->toFamilyOwner = true;
