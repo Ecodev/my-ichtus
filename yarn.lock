@@ -1497,10 +1497,10 @@
   dependencies:
     tslib "^2.3.1"
 
-"@ecodev/natural-editor@^44.0.1":
-  version "44.0.1"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural-editor/-/natural-editor-44.0.1.tgz#3d8aed57548eaa6fe0bb9d6ad2608c4880767933"
-  integrity sha512-6LjnTB9wgQCdZgZ7ovo2r3MjjIB0NvL/JVRQotz9dq+iyUMSMExX9yc7LDf1oto41TZ12FwBdwq5IXBY534NCQ==
+"@ecodev/natural-editor@^44.0.3":
+  version "44.0.3"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural-editor/-/natural-editor-44.0.3.tgz#f2373e0ae1a6082060517ba90dc3133a26905d16"
+  integrity sha512-00t5lqLufFyMUJV6miPfyB99KJa3CnDZn/uxWdBhQytkWj25mJ1ki9ovk5NtjqfJVQF3RkDAXd5ExLn1DYV9yg==
   dependencies:
     "@types/prosemirror-commands" "^1.0.4"
     "@types/prosemirror-dropcursor" "^1.0.3"
@@ -1529,12 +1529,11 @@
     prosemirror-view "^1.23.5"
     tslib "^2.3.0"
 
-"@ecodev/natural@^44.0.1":
-  version "44.0.1"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-44.0.1.tgz#ae4a5f2b7973e5f58a4b3def9c7963e8ef78e43f"
-  integrity sha512-cm+Mj8oq5alM5LfmFO4v7454qWRgqg65Hn/Vci2+DnTIen2Z640f8NgpM/DBCBhYZb0PFcxd3vhgxHc0D07g1w==
+"@ecodev/natural@^44.0.3":
+  version "44.0.3"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-44.0.3.tgz#a067faed8103039fff561662ed07a1e189be6195"
+  integrity sha512-LHaR1JH/uTnC4HLQxhbd8TZILLLndB6jro/OPcz3k7lGJTXlAnlLhqPmn3LAjz2tdsiT16mk6vp3SfcVg4F+ow==
   dependencies:
-    ts-md5 "^1.2.9"
     tslib "^2.3.1"
 
 "@endemolshinegroup/cosmiconfig-typescript-loader@^3.0.2":
@@ -9077,11 +9076,6 @@ ts-invariant@^0.4.0:
   integrity sha512-uEtWkFM/sdZvRNNDL3Ehu4WVpwaulhwQszV8mrtcdeE8nN00BV9mAmQ88RkrBhFgl9gMgvjJLAQcZbnPXI9mlA==
   dependencies:
     tslib "^1.9.3"
-
-ts-md5@^1.2.9:
-  version "1.2.11"
-  resolved "https://registry.yarnpkg.com/ts-md5/-/ts-md5-1.2.11.tgz#0bbdf884eecf7da3952fe8671a109d7e55d322c6"
-  integrity sha512-vAwy9rEuRE6a8xa1MavIVkLFyyU0ydk4CLMFA5vOVccmQKLOuGb/BHm3oEN7XHf2FoqS+z0pSvhaad/ombd1Vg==
 
 ts-node@^9:
   version "9.1.1"
