@@ -74,7 +74,9 @@ var Cahier = {
 
     // get Owner
     getOwner: function (booking, wantImg = false, shortenOptions = { length: 10000, fontSize: 20 }) {
-        if (wantImg) {
+        if(!booking.owner) {
+            return '';
+        } else if (wantImg) {
             var img = "img/icons/man.png";
             if (booking.owner.sex == "female") { img = "img/icons/woman.png"; }
             return "<div id='" + booking.owner.name + "' class='TableEntriesImg' style='background-image:url(" + img + ");  display: inline-block;vertical-align: middle;'>" + "</div>" + "<div style=' display: inline-block;vertical-align: middle;'>" + booking.owner.name.shorten(shortenOptions.length - 40, shortenOptions.fontSize) + "</div>";
