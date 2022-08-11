@@ -1,25 +1,28 @@
-function loadCahierEquipmentChoice(loc = $('divTabCahierEquipmentChoice').getElementsByClassName("MaterielChoiceContainer")[0], nbr = 0) {
-
+function loadCahierEquipmentChoice(
+    loc = $('divTabCahierEquipmentChoice').getElementsByClassName('MaterielChoiceContainer')[0],
+    nbr = 0,
+) {
     var isTab = true;
-    if (loc != $('divTabCahierEquipmentChoice').getElementsByClassName("MaterielChoiceContainer")[0]) {
+    if (loc != $('divTabCahierEquipmentChoice').getElementsByClassName('MaterielChoiceContainer')[0]) {
         isTab = false;
     }
 
     var container = div(loc);
-    container.classList.add("divTabCahierEquipmentChoiceContainer");
+    container.classList.add('divTabCahierEquipmentChoiceContainer');
 
     var c = div(container);
-    c.classList.add("divTabCahierEquipmentChoiceInputCodeContainer");
+    c.classList.add('divTabCahierEquipmentChoiceInputCodeContainer');
 
-    var i = input(c, "Taper un code...");
+    var i = input(c, 'Taper un code...');
     i.onkeyup = function (event) {
         if (event.keyCode == 13) {
             Requests.getBookableByCode(this, nbr);
         }
         if (this.value != '') {
-            this.nextElementSibling.nextElementSibling.children[0].classList.add("activated");
+            this.nextElementSibling.nextElementSibling.children[0].classList.add('activated');
+        } else {
+            this.nextElementSibling.nextElementSibling.children[0].classList.remove('activated');
         }
-        else { this.nextElementSibling.nextElementSibling.children[0].classList.remove("activated"); }
     };
 
     if (!isTab) {
@@ -29,26 +32,29 @@ function loadCahierEquipmentChoice(loc = $('divTabCahierEquipmentChoice').getEle
     div(c);
 
     var btn = div(div(c));
-    btn.classList.add("ValidateButtons", "Buttons");
-    btn.title = "Choisir cette embarcation";
-    btn.onclick = function () { Requests.getBookableByCode(this.parentElement.previousElementSibling.previousElementSibling, nbr); };
+    btn.classList.add('ValidateButtons', 'Buttons');
+    btn.title = 'Choisir cette embarcation';
+    btn.onclick = function () {
+        Requests.getBookableByCode(this.parentElement.previousElementSibling.previousElementSibling, nbr);
+    };
 
-    div(container).innerHTML = "Par exemple: S101";
+    div(container).innerHTML = 'Par exemple: S101';
 
-    div(container).innerHTML = "Ou";
+    div(container).innerHTML = 'Ou';
 
     var btnContainer = div(container);
 
     var btn1 = div(btnContainer);
-    btn1.innerHTML = "Prendre du matériel personnel";
-    btn1.title = "Prendre du matériel personnel";
-    btn1.style.fontSize = "19px";
+    btn1.innerHTML = 'Prendre du matériel personnel';
+    btn1.title = 'Prendre du matériel personnel';
+    btn1.style.fontSize = '19px';
 
     if (isTab) {
         btn1.onclick = function () {
             var t = true;
             for (let k = 0; k < Cahier.bookings[0].bookables.length; k++) {
-                if (Cahier.bookings[0].bookables[k].id == 0) { // matériel personnel
+                if (Cahier.bookings[0].bookables[k].id == 0) {
+                    // matériel personnel
                     t = false;
                     break;
                 }
@@ -57,27 +63,27 @@ function loadCahierEquipmentChoice(loc = $('divTabCahierEquipmentChoice').getEle
                 Cahier.addBookable(nbr);
             }
         };
-    }
-    else {
+    } else {
         btn1.onclick = function () {
             Cahier.addBookable(nbr);
-            closePopUp("last");
+            closePopUp('last');
         };
     }
 
-    btn1.classList.add("NormalButtons", "Buttons");
+    btn1.classList.add('NormalButtons', 'Buttons');
 
     var btn2 = div(btnContainer);
-    btn2.innerHTML = "Voir la liste du matériel";
+    btn2.innerHTML = 'Voir la liste du matériel';
     if (isTab) {
-        btn2.onclick = function () { newTab('divTabCahierEquipmentCategories'); };
-    }
-    else {
+        btn2.onclick = function () {
+            newTab('divTabCahierEquipmentCategories');
+        };
+    } else {
         // btn2.onclick = function () { alert('a'); };
-        btn2.style.backgroundColor = "lightgray";
+        btn2.style.backgroundColor = 'lightgray';
         btn2.style.opacity = 0.5;
-        btn2.style.cursor = "no-drop";
+        btn2.style.cursor = 'no-drop';
     }
-    btn2.classList.add("NormalButtons", "Buttons");
-    btn2.title = "Voir la liste du matériel";
+    btn2.classList.add('NormalButtons', 'Buttons');
+    btn2.title = 'Voir la liste du matériel';
 }

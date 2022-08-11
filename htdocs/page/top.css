@@ -25,21 +25,20 @@
     background-color: black;
     z-index: 100; /*définir*/
     transition: all 0.1s linear 0s;
-    -moz-box-shadow: 1px 1px 5px rgba(0,0,0,0.7);
-    -webkit-box-shadow: 1px 1px 5px rgba(0,0,0,0.7);
-    box-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+    -moz-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+    -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
 }
 /*#endregion*/
 
 /*#region Inside Top Bar*/
 
-
-@keyframes EnterFromRight{
-    from{
-        margin-right:-150px;
+@keyframes EnterFromRight {
+    from {
+        margin-right: -150px;
     }
     to {
-        margin-right:0px;
+        margin-right: 0px;
     }
 }
 
@@ -66,64 +65,60 @@
 #divTopBarTime {
     position: absolute;
     right: 5px;
-    bottom:5px;
+    bottom: 5px;
     width: 150px;
     color: white;
-    font-size:18px;
+    font-size: 18px;
     text-align: right;
-    font-family:Arial;
+    font-family: Arial;
     transition: all 0.1s linear 0s;
     animation: EnterFromRight 0.5s ease-out 1 normal;
 }
 #divTopBarTime::first-line {
-    font-size:30px;
+    font-size: 30px;
 }
-
 
 #divTopBarLogo {
     position: absolute;
     background-color: transparent;
     width: 60px;
     height: 60px;
-    top:2px;
-    left:2px;
+    top: 2px;
+    left: 2px;
     animation: EnterFromLeft 0.5s ease-out 1 normal;
-    z-index:3;
-    cursor:pointer;
+    z-index: 3;
+    cursor: pointer;
 }
-    #divTopBarLogo > img {
-        position:absolute;
-        width:60px;
-        transition:all 2s ease-in-out 0s;
-    }
-    #divTopBarLogo:hover > img:nth-child(3) {
-        -moz-transform: rotate(-360deg);
-        -ms-transform: rotate(-360deg);
-        -o-transform: rotate(-360deg);
-        -webkit-transform: rotate(-360deg);
-        transform: rotate(-360deg);
-    }
+#divTopBarLogo > img {
+    position: absolute;
+    width: 60px;
+    transition: all 2s ease-in-out 0s;
+}
+#divTopBarLogo:hover > img:nth-child(3) {
+    -moz-transform: rotate(-360deg);
+    -ms-transform: rotate(-360deg);
+    -o-transform: rotate(-360deg);
+    -webkit-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+}
 
-
-    #divTopBarLogo:hover > img {
-
-    }
-
+#divTopBarLogo:hover > img {
+}
 
 #divTopBarText {
     color: white;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     font-size: 35px;
     animation: EnterFromTop 0.5s ease-out 1 normal;
-    width:100%;
-    padding-left:150px;
-    padding-right:150px;
-    box-sizing:border-box;
-    text-align:center;
-    line-height:28px;
+    width: 100%;
+    padding-left: 150px;
+    padding-right: 150px;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 28px;
 }
 
 /*#endregion*/
@@ -136,7 +131,7 @@
     background-repeat: no-repeat;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
 }
 
 .svgWidth {
@@ -150,31 +145,30 @@
 
 @keyframes AniFish {
     from {
-        opacity:0.5;
-        transform: translate(5%,-100%);
+        opacity: 0.5;
+        transform: translate(5%, -100%);
     }
 
     to {
-        transform: translate(-50%,-50%);
-        opacity:1;
+        transform: translate(-50%, -50%);
+        opacity: 1;
     }
 }
 @keyframes AniFishTurn {
     from {
-        transform: rotate(0deg) translate(-50%,-50%);
+        transform: rotate(0deg) translate(-50%, -50%);
     }
 
     to {
-        transform: rotate(-360deg) translate(-50%,-50%);
+        transform: rotate(-360deg) translate(-50%, -50%);
     }
 }
 @keyframes AniFishExit {
-    from{
-        opacity:1;
+    from {
+        opacity: 1;
     }
     to {
-        width:0px;
-
+        width: 0px;
     }
 }
 #fish {
@@ -182,20 +176,20 @@
     background-image: url(../img/logo/fish.svg);
     animation-name: AniFish, AniFishTurn;
     animation-duration: 1s, 2.5s;
-    animation-timing-function: ease-in-out,ease-in-out;
-    animation-delay: 0s,1.5s;
-    z-index:9997;
+    animation-timing-function: ease-in-out, ease-in-out;
+    animation-delay: 0s, 1.5s;
+    z-index: 9997;
 }
 
 @keyframes AniWaves {
     from {
-        margin-top:100vh;
-        opacity:0.5;
+        margin-top: 100vh;
+        opacity: 0.5;
     }
 
     to {
         margin-top: 0vh;
-        opacity:1;
+        opacity: 1;
     }
 }
 @keyframes AniWavesExit {
@@ -215,17 +209,17 @@
     animation-duration: 1s;
     animation-timing-function: ease-in-out;
     margin-right: 0px;
-    opacity:1;
+    opacity: 1;
 }
 
 @keyframes AniCircleWidth {
     from {
-        opacity:0;
-        width:0vw;
+        opacity: 0;
+        width: 0vw;
     }
     to {
-        opacity:1;
-        width:100vw;
+        opacity: 1;
+        width: 100vw;
     }
 }
 @keyframes AniCircleHeight {
@@ -241,12 +235,12 @@
 }
 @keyframes AniCircleExit {
     from {
-        opacity:1;
-        margin-top:0vh;
+        opacity: 1;
+        margin-top: 0vh;
     }
     to {
-        opacity:0;
-        margin-top:-100vh;
+        opacity: 0;
+        margin-top: -100vh;
     }
 }
 #circle {
@@ -276,9 +270,6 @@
     font-size: 20px;
 }
 
-
-
-
 @keyframes AniBlack {
     from {
         margin-top: -100vh;
@@ -300,15 +291,14 @@
 #black {
     position: fixed;
     z-index: 9900;
-    background-color: rgb(20,20,20);
+    background-color: rgb(20, 20, 20);
     opacity: 0.9;
     width: 100%;
     height: 100%;
-    animation-name:AniBlack;
+    animation-name: AniBlack;
     animation-duration: 1s;
     animation-timing-function: ease;
 }
-
 
 .svgLetters {
     z-index: 9999;
@@ -317,7 +307,7 @@
     animation-delay: 0s;
     animation-timing-function: ease;
     opacity: 1;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
 }
 @keyframes AniLettersExitLeft {
     from {

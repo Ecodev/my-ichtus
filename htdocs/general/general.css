@@ -1,6 +1,6 @@
 ﻿body {
     margin: 0px;
-    background-color:rgb(234,234,234);
+    background-color: rgb(234, 234, 234);
     overflow-x: hidden;
     overflow-y: scroll;
     -webkit-touch-callout: none; /* iOS Safari */
@@ -9,10 +9,10 @@
     -ms-user-select: none; /* Internet Explorer/Edge */
     font-family: Arial;
 }
-    body.waiting * {
-        /*pointer-events: none;*/
-        cursor: wait !important;
-    }
+body.waiting * {
+    /*pointer-events: none;*/
+    cursor: wait !important;
+}
 ::-webkit-scrollbar {
     width: 0px;
     background: transparent; /* make scrollbar transparent */
@@ -35,7 +35,7 @@ table {
 
 img {
     display: block;
-    pointer-events: none
+    pointer-events: none;
 }
 input {
     outline: none; /*pour enlever le cadre bleu quand sélectionné*/
@@ -58,25 +58,25 @@ input {
     background-position-y: 4px;
     color: black;
     font-size: 20px;
-    -webkit-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
-    -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
-    box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     transition: all 0.1s linear 0s, width 0.2s linear 0s, margin-left 0.2s linear 0s;
     border-radius: 10px;
 }
-input[type= "text"] {
+input[type='text'] {
     cursor: pointer;
 }
-input[type = "text"]:focus{
-    cursor:text;
+input[type='text']:focus {
+    cursor: text;
 }
-input[type="number"] {
+input[type='number'] {
     -webkit-appearance: textfield;
     -moz-appearance: textfield;
     appearance: textfield;
     cursor: pointer;
 }
-input[type="number"]:focus {
+input[type='number']:focus {
     cursor: text;
 }
 
@@ -87,15 +87,15 @@ input:focus + div {
     cursor:text;
 }*/
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
     -webkit-appearance: none;
 }
-input[type=time]::-webkit-datetime-edit-ampm-field {
+input[type='time']::-webkit-datetime-edit-ampm-field {
     display: none;
 }
 
-input[type=time]::-webkit-clear-button {
+input[type='time']::-webkit-clear-button {
     -webkit-appearance: none;
     -moz-appearance: none;
     -o-appearance: none;
@@ -104,20 +104,20 @@ input[type=time]::-webkit-clear-button {
 }
 
 select {
-    padding-top:3px;
+    padding-top: 3px;
     height: 38px;
-    top:0px;
+    top: 0px;
     border: none;
     border-radius: 10px;
     font-size: 20px;
-    -webkit-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.75);
-    box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     cursor: pointer;
     outline: none;
 }
 option {
-    border-radius:10px;
+    border-radius: 10px;
 }
 
 .title {
@@ -129,13 +129,12 @@ option {
     text-align: center;
 }
 
-
 .checkBox {
     position: absolute;
     width: 20px;
     height: 20px;
     color: black;
-    background-color: rgb(237,237,237);
+    background-color: rgb(237, 237, 237);
     border-radius: 5px;
     border-width: 2px;
     border-style: solid;
@@ -171,10 +170,10 @@ option {
 
 #divScreen {
     position: absolute;
-    left:50%;
-    transform:translate(-50%,0%);
+    left: 50%;
+    transform: translate(-50%, 0%);
     max-width: 1500px;
-    width:100%;
+    width: 100%;
     min-height: 100%;
     top: 0px;
     background-color: yellow;
@@ -192,10 +191,8 @@ option {
     filter: blur(2px);
 }
 
-
-
-
-.divTab { /*#divScreen div[id*=Tab]    #divScreen > div  */
+.divTab {
+    /*#divScreen div[id*=Tab]    #divScreen > div  */
     position: absolute;
     left: 0px;
     margin-left: 0px;
@@ -214,16 +211,13 @@ option {
     transition: padding-right 0.3s linear 0s;
     box-sizing: border-box;
 }
-    .divTab.listBarActive {
-        padding-right: 120px;
-    }
-
-
-.resetAnimation {
-    animation:none;
+.divTab.listBarActive {
+    padding-right: 120px;
 }
 
-
+.resetAnimation {
+    animation: none;
+}
 
 /*  mettre UN <BR/> POUR EVITER QUE TOUTE LA PAGE BOUGE AVEC... */
 .Buttons {
@@ -237,9 +231,9 @@ option {
     padding-left: 10px;
     border-radius: 10px;
     font-size: 30px;
-    -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.6);
-    -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.6);
-    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.6);
+    -webkit-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.6);
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.6);
     background-size: 35px;
     background-repeat: no-repeat;
     background-position-x: 105px;
@@ -251,19 +245,19 @@ option {
     /*border:2px solid transparent;*/
 }
 
-    .Buttons:hover {
-        /*margin-top: 4px;
+.Buttons:hover {
+    /*margin-top: 4px;
         margin-bottom: 0px;*/
-        /*-webkit-box-box-shadow: 1px 0px 5px 0px rgba(0,0,0,0.6);
+    /*-webkit-box-box-shadow: 1px 0px 5px 0px rgba(0,0,0,0.6);
         -moz-box-box-shadow: 1px 0px 5px 0px rgba(0,0,0,0.6);
         box-shadow: 1px 0px 5px 0px rgba(0,0,0,0.6);*/
-        background-color: rgb(235, 235, 235);
-    }
+    background-color: rgb(235, 235, 235);
+}
 
-    .Buttons:focus {
-        /*border-color: var(--accent);*/
-        outline: 0;
-    }
+.Buttons:focus {
+    /*border-color: var(--accent);*/
+    outline: 0;
+}
 
 .ValidateButtons {
     color: white;
@@ -271,21 +265,21 @@ option {
     background-image: url(../img/icons/arrow.png);
     background-position-x: 115px;
 }
-    .ValidateButtons:hover {
-        background-color: var(--accentHover);
-    }
+.ValidateButtons:hover {
+    background-color: var(--accentHover);
+}
 /*.ValidateButtons:focus {
     border-color:black;
     outline: 0;
 }*/
 
 .btnRed {
-    background-color:red;
+    background-color: red;
 }
 
-    .btnRed:hover {
-        background-color: rgb(137, 16, 16);
-    }
+.btnRed:hover {
+    background-color: rgb(137, 16, 16);
+}
 
 .ReturnButtons {
     width: 100px;
@@ -302,19 +296,18 @@ option {
     padding-right: 10px;
     font-size: 20px;
     margin-left: 2.5%; /*changed*/
-    -webkit-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5) !important;
-    -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5) !important;
-    box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5) !important;
+    -webkit-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5) !important;
+    -moz-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5) !important;
+    box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5) !important;
 }
-.ReturnButtons::after{
-    content:"Retour";
+.ReturnButtons::after {
+    content: 'Retour';
 }
 .ReturnButtons:hover {
     /*-webkit-box-shadow: 2px 1px 5px 0px rgba(0,0,0,0.5) !important;
     -moz-box-shadow: 2px 1px 5px 0px rgba(0,0,0,0.5) !important;
     box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.5) !important;*/
 }
-
 
 .NormalButtons {
     width: 100px;
@@ -331,15 +324,10 @@ option {
     padding-right: 10px;
     font-size: 20px;
     margin-left: 0px;
-    -webkit-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5) !important;
-    -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5) !important;
-    box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5) !important;
+    -webkit-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5) !important;
+    -moz-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5) !important;
+    box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5) !important;
 }
-
-
-
-
-
 
 /* BOXES */
 .BoxesContainer {
@@ -365,17 +353,17 @@ option {
     margin: 0px;
     border-radius: 20px;
     background-color: white;
-    -webkit-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
-    -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
-    box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     transition: all 0.1s linear 0s;
 }
 
 .BoxesContainer:hover > .Boxes {
     top: 15px;
-    -webkit-box-shadow: 2px 3px 10px 0px rgba(0,0,0,0.5);
-    -moz-box-shadow: 2px 3px 10px 0px rgba(0,0,0,0.5);
-    box-shadow: 2px 3px 10px 0px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 2px 3px 10px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 2px 3px 10px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 3px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
 .BoxesTop {
@@ -387,17 +375,16 @@ option {
     z-index: 0;
     background-repeat: no-repeat, no-repeat;
     background-size: 0px, 200px;
-    background-position-x: 100px,0px;
-    background-position-y: 100px,0px;
+    background-position-x: 100px, 0px;
+    background-position-y: 100px, 0px;
     transition: all 0.2s linear 0s;
 }
 
 .Boxes:hover > .BoxesTop {
-    background-position-x: 0px,-20px;
-    background-position-y: 0px,-20px;
-    background-size: 200px,240px;
+    background-position-x: 0px, -20px;
+    background-position-y: 0px, -20px;
+    background-size: 200px, 240px;
 }
-
 
 .BoxesBottom {
     position: absolute;
@@ -414,31 +401,27 @@ option {
     z-index: 3;
 }
 
-
-
 .divPopUpClose {
     position: absolute;
-    display:table-cell;
-    vertical-align:middle;
-    text-align:center;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
     right: 10px;
     top: 10px;
     width: 30px;
     height: 30px;
     background-image: url(../img/icons/cancel-black.png);
-    background-size:25px;
+    background-size: 25px;
     background-repeat: no-repeat;
     background-position-x: right;
     opacity: 0.5;
     z-index: 4;
     transition: all 0.1s linear 0s;
-    cursor:pointer;
+    cursor: pointer;
 }
-    .divPopUpClose:hover {
-        opacity: 1;
-    }
-
-
+.divPopUpClose:hover {
+    opacity: 1;
+}
 
 .Modals {
     display: none;
@@ -446,23 +429,22 @@ option {
     z-index: 2000;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
     opacity: 0;
     transition: all 0.1s linear 0s;
-
 }
 .divCahierSpacers {
-    position:relative;
-    height:220px;
+    position: relative;
+    height: 220px;
     /*background-color:rgba(186, 29, 29, 0.04);*/
 }
 .divMaterielSpacers {
     position: relative;
     min-height: 30px;
-    margin-top:-30px; /*takes no place hehe*/
+    margin-top: -30px; /*takes no place hehe*/
     /*background-color: rgba(186, 256, 29, 0.05);*/
 }
 
-    .divMaterielSpacers .Buttons {
-        background-image: url(../img/icons/arrow-back.png);
-    }
+.divMaterielSpacers .Buttons {
+    background-image: url(../img/icons/arrow-back.png);
+}

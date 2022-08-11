@@ -1,17 +1,15 @@
 #divTabCahierEquipmentBookableContainer > div {
-    position:relative;
-    top:0px;
-    left:50%;
-    transform:translateX(-50%);
+    position: relative;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
 }
-
-
 
 .divTabCahierEquipmentElementsPopUp {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     width: 700px;
     height: 450px;
     /*font-size: 25px;*/
@@ -19,79 +17,74 @@
     border-radius: 20px;
 }
 
+.divTabCahierEquipmentElementsPopUp > div:nth-child(2) {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    width: 215px;
+    height: 220px;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    border: 2px solid lightgray;
+    -moz-box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
+}
 
-    .divTabCahierEquipmentElementsPopUp > div:nth-child(2) {
-        position: absolute;
-        left: 20px;
-        top: 20px;
-        width: 215px;
-        height: 220px;
-        background-repeat: no-repeat;
-        border-radius: 10px;
-        border: 2px solid lightgray;
-        -moz-box-shadow: 1px 1px 3px 0px rgba(0,0,0,0.5);
-        -webkit-box-shadow: 1px 1px 3px 0px rgba(0,0,0,0.5);
-        box-shadow: 1px 1px 3px 0px rgba(0,0,0,0.5);
-    }
+.divTabCahierEquipmentElementsPopUp > div:nth-child(3) {
+    position: absolute;
+    left: 20px;
+    margin-left: 10px;
+    top: 260px;
+    width: 660px;
+    height: 40px;
+    font-size: 25px;
+}
 
-    .divTabCahierEquipmentElementsPopUp > div:nth-child(3) {
-        position: absolute;
-        left: 20px;
-        margin-left: 10px;
-        top: 260px;
-        width: 660px;
-        height: 40px;
-        font-size: 25px;
-    }
+.divTabCahierEquipmentElementsPopUp > div:nth-child(4) {
+    position: absolute;
+    left: 20px;
+    top: 290px;
+    width: 495px;
+    height: 140px;
+    border-radius: 10px;
+    border: 2px solid lightgray;
+    box-sizing: border-box;
+    padding: 8px;
+    overflow-y: auto;
+    color: var(--fontBlack);
+}
 
-    .divTabCahierEquipmentElementsPopUp > div:nth-child(4) {
-        position: absolute;
-        left: 20px;
-        top: 290px;
-        width: 495px;
-        height: 140px;
-        border-radius: 10px;
-        border: 2px solid lightgray;
-        box-sizing: border-box;
-        padding: 8px;
-        overflow-y: auto;
-        color: var(--fontBlack);
-    }
+.divTabCahierEquipmentElementsPopUp > .ValidateButtons {
+    position: absolute;
+    right: 20px;
+    top: 376px;
+    width: 145px;
+    background-image: url(../img/icons/validated.png);
+}
 
+.divTabCahierEquipmentElementsPopUp > .btnRed {
+    background-position-x: 110px;
+    background-image: url(../img/icons/alert.png);
+}
 
-    .divTabCahierEquipmentElementsPopUp > .ValidateButtons {
-        position: absolute;
-        right: 20px;
-        top: 376px;
-        width: 145px;
-        background-image: url(../img/icons/validated.png);
-    }
+.divTabCahierEquipmentElementsPopUp > .ReturnButtons {
+    position: absolute;
+    right: 20px;
+    top: 290px;
+    width: 145px;
+    margin-left: 0px;
+    background-image: url(../img/icons/history.png);
+}
 
-    .divTabCahierEquipmentElementsPopUp > .btnRed {
-        background-position-x:110px;
-        background-image: url(../img/icons/alert.png);
-    }
+.divTabCahierEquipmentElementsPopUp > .ReturnButtons::after {
+    content: none;
+}
 
-    .divTabCahierEquipmentElementsPopUp > .ReturnButtons {
-        position: absolute;
-        right: 20px;
-        top: 290px;
-        width: 145px;
-        margin-left: 0px;
-        background-image: url(../img/icons/history.png);
-    }
-
-        .divTabCahierEquipmentElementsPopUp > .ReturnButtons::after {
-            content: none;
-        }
-
-
-
-    .divTabCahierEquipmentElementsPopUp > div:nth-child(2) {
-        font-size: 120px;
-        color: darkgray;
-    }
-
+.divTabCahierEquipmentElementsPopUp > div:nth-child(2) {
+    font-size: 120px;
+    color: darkgray;
+}
 
 .divTabCahierEquipmentElementsContainerTextsContainer {
     position: absolute;
@@ -104,52 +97,51 @@
     overflow-y: scroll;
 }
 
-    .divTabCahierEquipmentElementsContainerTextsContainer > div {
-        margin-bottom: 5px;
-    }
+.divTabCahierEquipmentElementsContainerTextsContainer > div {
+    margin-bottom: 5px;
+}
 
-        .divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(1) {
-            font-size: 30px;
-            margin-bottom: 0px;
-        }
+.divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(1) {
+    font-size: 30px;
+    margin-bottom: 0px;
+}
 
-        .divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(2) {
-            color: var(--fontBlack);
-            margin-bottom: 10px;
-        }
+.divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(2) {
+    color: var(--fontBlack);
+    margin-bottom: 10px;
+}
 
-        .divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(3) {
-            font-size: 15px;
-            color: darkgray;
-            background-repeat: no-repeat;
-            background-position-y: center;
-            background-position-x: 5px;
-            background-size: 20px;
-        }
+.divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(3) {
+    font-size: 15px;
+    color: darkgray;
+    background-repeat: no-repeat;
+    background-position-y: center;
+    background-position-x: 5px;
+    background-size: 20px;
+}
 
-        .divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(4) {
-            color: gray;
-        }
+.divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(4) {
+    color: gray;
+}
 
-        .divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(5) {
-            color: var(--fontBlack);
-            position:absolute;
-            bottom:0px;
-            font-weight:bold;
-            font-size:15px;
-        }
+.divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(5) {
+    color: var(--fontBlack);
+    position: absolute;
+    bottom: 0px;
+    font-weight: bold;
+    font-size: 15px;
+}
 
-        .divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(6) {
-            font-size: 16px;
-            color: black;
-            background-image:url(../img/icons/license.png);
-            background-repeat: no-repeat;
-            background-position-y: center;
-            background-position-x: 5px;
-            background-size: 30px;
-            padding-left:45px;
-            height:30px;
-            margin-top:10px;
-            line-height:30px;
-        }
-
+.divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(6) {
+    font-size: 16px;
+    color: black;
+    background-image: url(../img/icons/license.png);
+    background-repeat: no-repeat;
+    background-position-y: center;
+    background-position-x: 5px;
+    background-size: 30px;
+    padding-left: 45px;
+    height: 30px;
+    margin-top: 10px;
+    line-height: 30px;
+}

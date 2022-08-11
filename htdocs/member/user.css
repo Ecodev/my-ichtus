@@ -3,7 +3,7 @@
     top: 50%;
     left: 50%;
     margin-left: 0px;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     width: 700px;
     height: 350px;
     padding: 10px;
@@ -11,11 +11,10 @@
     text-align: center;
 }
 
-
 #inputTabCahierSearch {
     position: relative;
     left: 50%;
-    transform: translate(-50%,-0%);
+    transform: translate(-50%, -0%);
     margin-top: 0px;
     width: 100%;
     box-sizing: border-box;
@@ -34,33 +33,30 @@
     color: black;
     font-size: 20px;
     font-family: Arial;
-    -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.5);
-    -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.5);
-    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
     transition: all 0.1s linear 0s, width 0.2s linear 0s, margin-left 0.2s linear 0s;
-    outline: none; /*pour enlever le cadre bleu quand sélectionné*/
+    outline: none; /*pour enlever le cadre bleu quand sï¿½lectionnï¿½*/
     z-index: 5;
 }
 
-    #inputTabCahierSearch:focus {
-        border: 2px solid var(--accent);
-        background-color: white;
-        -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.6);
-        -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.6);
-        box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.6);
-        background-image: url(../img/icons/search-blue.png);
-    }
+#inputTabCahierSearch:focus {
+    border: 2px solid var(--accent);
+    background-color: white;
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.6);
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.6);
+    background-image: url(../img/icons/search-blue.png);
+}
 
-    #inputTabCahierSearch:hover {
-        background-color: white;
-    }
-
+#inputTabCahierSearch:hover {
+    background-color: white;
+}
 
 /*#inputTabCahierSearch:focus ~ #divTabCahierSearchResult {
 
 }*/
-
-
 
 #divTabCahierSearchResult {
     position: relative;
@@ -74,9 +70,8 @@
     transition: all 0.2s linear 0s;
 }
 
-
-
-.divTabCahierResultEntry { /*divTabCahierSearchResult > div {*/
+.divTabCahierResultEntry {
+    /*divTabCahierSearchResult > div {*/
     position: relative;
     left: -2px;
     margin-bottom: 5px;
@@ -86,7 +81,7 @@
     background-color: blue; /*useless*/
     font-size: 20px;
     padding-left: 45px;
-    text-align:left;
+    text-align: left;
     transition: all 0.1s linear 0s;
     -webkit-transition: all 0.1s linear 0s;
     -moz-transition: all 0.1s linear 0s;
@@ -102,27 +97,27 @@
     background-position-x: 8px;
     background-position-y: 5px;
     display: table;
-    -webkit-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
-    -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
-    box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.5);
-    color:var(--fontBlack);
+    -webkit-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
+    color: var(--fontBlack);
 }
 
-    .divTabCahierResultEntry:nth-child(2n) {
-        background-color: white;
-    }
+.divTabCahierResultEntry:nth-child(2n) {
+    background-color: white;
+}
 
-    .divTabCahierResultEntry:nth-child(2n+1) {
-        background-color: lightgray;
-    }
+.divTabCahierResultEntry:nth-child(2n + 1) {
+    background-color: lightgray;
+}
 
-    .divTabCahierResultEntry:hover {
-        background-color: darkgray;
-        margin-left: 10px;
-    }
+.divTabCahierResultEntry:hover {
+    background-color: darkgray;
+    margin-left: 10px;
+}
 
-
-.spanTabCahierSurName { /*#divTabCahierSearchResult > div > span:nth-child(1) {*/
+.spanTabCahierSurName {
+    /*#divTabCahierSearchResult > div > span:nth-child(1) {*/
     position: relative;
     display: table-cell;
     vertical-align: middle;
@@ -145,7 +140,6 @@
 .divTabCahierResultEntry:hover .spanTabCahierFirstName {
     text-decoration: underline;
 }*/
-
 
 #imgTabCahierSearchEnter {
     position: absolute;

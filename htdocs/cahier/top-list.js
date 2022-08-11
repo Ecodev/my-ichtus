@@ -1,27 +1,34 @@
 function actualizeBookableList() {
-
     var bookables = Cahier.bookings[0].bookables;
 
-    $('divTabCahierTopList').children[0].innerHTML = "";
-    $('divTabCahierTopList').children[0].style.opacity = "1";
-    $('divTabCahierTopList').style.visibility = "visible";
+    $('divTabCahierTopList').children[0].innerHTML = '';
+    $('divTabCahierTopList').children[0].style.opacity = '1';
+    $('divTabCahierTopList').style.visibility = 'visible';
 
-    document.getElementsByClassName("divTabCahierEquipmentChoiceContainer")[0].children[3].children[0].classList.remove("buttonNonActive");
+    document
+        .getElementsByClassName('divTabCahierEquipmentChoiceContainer')[0]
+        .children[3].children[0].classList.remove('buttonNonActive');
 
     for (let i = 0; i < bookables.length; i++) {
         var d = div($('divTabCahierTopList').children[0]);
         d.id = i;
 
-        if (Cahier.bookings[0].bookables[i].id != 0) { // matériel personnel
+        if (Cahier.bookings[0].bookables[i].id != 0) {
+            // matï¿½riel personnel
             d.onclick = function (event) {
-                if (event.target == this.children[0] || event.target == this.children[2] || event.target == this.children[3]) {
+                if (
+                    event.target == this.children[0] ||
+                    event.target == this.children[2] ||
+                    event.target == this.children[3]
+                ) {
                     popBookable(Cahier.bookings[0].bookables[this.id].id);
                 }
             };
-        }
-        else {
-            document.getElementsByClassName("divTabCahierEquipmentChoiceContainer")[0].children[3].children[0].classList.add("buttonNonActive");
-            d.classList.add("PersonalSail");
+        } else {
+            document
+                .getElementsByClassName('divTabCahierEquipmentChoiceContainer')[0]
+                .children[3].children[0].classList.add('buttonNonActive');
+            d.classList.add('PersonalSail');
         }
 
         var img = div(d);
@@ -37,39 +44,35 @@ function actualizeBookableList() {
 
         if (bookables[i].code != null) {
             if (bookables[i].code.length > 4) {
-                code.style.fontSize = "12px";
+                code.style.fontSize = '12px';
             }
             code.innerHTML = bookables[i].code;
-        }
-        else {
-            code.innerHTML = "";
+        } else {
+            code.innerHTML = '';
         }
 
         if (bookables[i].available == false) {
             var alert = div(d);
-          //  code.style.color = "red";
+            //  code.style.color = "red";
         }
     }
 
     if (bookables.length == 0) {
-
-        $('divTabCahierTopList').children[0].style.opacity = "0";
-        $('divTabCahierTopList').style.visibility = "hidden";
+        $('divTabCahierTopList').children[0].style.opacity = '0';
+        $('divTabCahierTopList').style.visibility = 'hidden';
 
         for (let i = 0; i < tabs.length; i++) {
             if (tabs[i].ListBar == true) {
-                $(tabs[i].id).classList.remove("listBarActive");
+                $(tabs[i].id).classList.remove('listBarActive');
             }
         }
-        $("btnNext").classList.remove("activated");
-    }
-    else {
+        $('btnNext').classList.remove('activated');
+    } else {
         for (let i = 0; i < tabs.length; i++) {
             if (tabs[i].ListBar == true) {
-                $(tabs[i].id).classList.add("listBarActive");
+                $(tabs[i].id).classList.add('listBarActive');
             }
         }
-        $("btnNext").classList.add("activated");
+        $('btnNext').classList.add('activated');
     }
-
 }

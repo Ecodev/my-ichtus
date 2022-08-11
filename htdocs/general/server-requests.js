@@ -5,58 +5,49 @@ function ServerInitialize() {
     //console.log('Server(API) = ', Server);
 }
 
-
 var Requests = {
-
     // login
     login: function (pwd) {
-
         //console.log("LOGIN");
 
-        Server.userService.login({
-            login: 'bookingonly',
-            password: pwd
+        Server.userService
+            .login({
+                login: 'bookingonly',
+                password: pwd,
+            })
+            .subscribe(result => {
+                closePopUp('last');
 
-        }).subscribe(result => {
+                //console.log("result of login :", result);
 
-            closePopUp("last");
-
-            //console.log("result of login :", result);
-
-            if (result != null) {
-                if (result.login == "bookingonly") {
-                    Requests.isConnected();
+                if (result != null) {
+                    if (result.login == 'bookingonly') {
+                        Requests.isConnected();
+                    } else {
+                        console.error('Mauvais utilisateur connecté... (' + user.name + ')');
+                    }
+                } else {
+                    console.error("Problème d'authentification...");
                 }
-                else {
-                    console.error("Mauvais utilisateur connecté... (" + user.name + ")");
-                }
-            }
-            else {
-                console.error("Problème d'authentification...");
-            }
-        });
+            });
     },
-
 
     // have to log in
     haveToLogin: function () {
         if (window.location.hostname === 'navigations.ichtus.club') {
             popLogin();
-        }
-        else {
+        } else {
             setTimeout(function () {
                 Requests.login('bookingonly');
             }, 2000); // auto mdp, timeout to avoid overloading the server
         }
     },
 
-
     // is connected
     isConnected: function () {
-        console.warn("Connecté à " + new Date().getNiceTime());
+        console.warn('Connecté à ' + new Date().getNiceTime());
         Requests.getActualBookingList();
     },
-
 
     // actualizeLoginButton
     checkLogin: function () {
@@ -65,90 +56,86 @@ var Requests = {
 
             // pas connecté
             if (!user) {
-                console.error("Pas connecté");
+                console.error('Pas connecté');
                 Requests.haveToLogin();
             }
             // connecté
             else {
-                if (user.login == "bookingonly") {
+                if (user.login == 'bookingonly') {
                     Requests.isConnected();
-                }
-                else {
-                    console.error("Mauvais utilisateur connecté... (" + user.name + ")");
+                } else {
+                    console.error('Mauvais utilisateur connecté... (' + user.name + ')');
                     Requests.haveToLogin();
                 }
             }
         });
     },
 
-
     // getUsersList FOR user.js
-    getUsersList: function (text = "") {
-
+    getUsersList: function (text = '') {
         var filter;
         var texts = [];
 
-        for (var i = 0; i < text.split(" ").length; i++) {
-            if (text.split(" ")[i] != "") {
-                texts.push(text.split(" ")[i]);
+        for (var i = 0; i < text.split(' ').length; i++) {
+            if (text.split(' ')[i] != '') {
+                texts.push(text.split(' ')[i]);
             }
         }
 
         var nbr = texts.length;
         if (nbr == 1) {
-
             filter = {
                 filter: {
                     groups: [
                         {
-                            conditionsLogic: "OR",
+                            conditionsLogic: 'OR',
                             conditions: [
                                 {
                                     firstName: {
                                         like: {
-                                            value: '' + texts[0] + '%'
-                                        }
-                                    }
+                                            value: '' + texts[0] + '%',
+                                        },
+                                    },
                                 },
                                 {
                                     lastName: {
                                         like: {
-                                            value: '' + texts[0] + '%'
-                                        }
-                                    }
-                                }
-                            ]
+                                            value: '' + texts[0] + '%',
+                                        },
+                                    },
+                                },
+                            ],
                         },
                         {
-                            groupLogic: "AND",
+                            groupLogic: 'AND',
                             conditions: [
                                 {
                                     id: {
                                         equal: {
-                                            value: "7083", // booking only user
-                                            not: true
-                                        }
-                                    }
-                                }
-                            ]
+                                            value: '7083', // booking only user
+                                            not: true,
+                                        },
+                                    },
+                                },
+                            ],
                         },
                         {
-                            groupLogic: "AND",
+                            groupLogic: 'AND',
                             conditions: [
                                 {
-                                    status: { // status
+                                    status: {
+                                        // status
                                         equal: {
-                                            value: 'active'
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                }
+                                            value: 'active',
+                                        },
+                                    },
+                                },
+                            ],
+                        },
+                    ],
+                },
             };
-        }
-        else if (nbr == 2) {
+        } else if (nbr == 2) {
             filter = {
                 filter: {
                     groups: [
@@ -157,117 +144,123 @@ var Requests = {
                                 {
                                     firstName: {
                                         like: {
-                                            value: '' + texts[0] + '%'
-                                        }
-                                    }
+                                            value: '' + texts[0] + '%',
+                                        },
+                                    },
                                 },
                                 {
                                     lastName: {
                                         like: {
-                                            value: '' + texts[1] + '%'
-                                        }
-                                    }
+                                            value: '' + texts[1] + '%',
+                                        },
+                                    },
                                 },
                                 {
                                     id: {
                                         equal: {
-                                            value: "7083", // booking only user
-                                            not: true
-                                        }
-                                    }
+                                            value: '7083', // booking only user
+                                            not: true,
+                                        },
+                                    },
                                 },
                                 {
-                                    status: { // status
+                                    status: {
+                                        // status
                                         equal: {
-                                            value: 'active'
-                                        }
-                                    }
-                                }
-                            ]
+                                            value: 'active',
+                                        },
+                                    },
+                                },
+                            ],
                         },
                         {
-                            groupLogic: "OR",
+                            groupLogic: 'OR',
                             conditions: [
                                 {
                                     firstName: {
                                         like: {
-                                            value: '' + texts[1] + '%'
-                                        }
-                                    }
+                                            value: '' + texts[1] + '%',
+                                        },
+                                    },
                                 },
                                 {
                                     lastName: {
                                         like: {
-                                            value: '' + texts[0] + '%'
-                                        }
-                                    }
+                                            value: '' + texts[0] + '%',
+                                        },
+                                    },
                                 },
                                 {
                                     id: {
                                         equal: {
-                                            value: "7083", // booking only user
-                                            not: true
-                                        }
-                                    }
+                                            value: '7083', // booking only user
+                                            not: true,
+                                        },
+                                    },
                                 },
                                 {
-                                    status: { // status
+                                    status: {
+                                        // status
                                         equal: {
-                                            value: 'active'
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                }
+                                            value: 'active',
+                                        },
+                                    },
+                                },
+                            ],
+                        },
+                    ],
+                },
             };
-        }
-        else {
+        } else {
             filter = {
                 filter: {
-                    groups: [{
-                        conditions: [
-                            {
-                                custom: {
-                                    search: {
-                                        value: text
-                                    }
-                                }
-                            },
-                            {
-                                id: {
-                                    equal: {
-                                        value: "7083",
-                                        not: true
-                                    }
-                                }
-                            },
-                            {
-                                status: { // status
-                                    equal: {
-                                        value: 'active'
-                                    }
-                                }
-                            }
-                        ]
-                    }]
-                }
+                    groups: [
+                        {
+                            conditions: [
+                                {
+                                    custom: {
+                                        search: {
+                                            value: text,
+                                        },
+                                    },
+                                },
+                                {
+                                    id: {
+                                        equal: {
+                                            value: '7083',
+                                            not: true,
+                                        },
+                                    },
+                                },
+                                {
+                                    status: {
+                                        // status
+                                        equal: {
+                                            value: 'active',
+                                        },
+                                    },
+                                },
+                            ],
+                        },
+                    ],
+                },
             };
         }
 
         filter.pagination = {
             pageSize: 5,
-            pageIndex: 0
+            pageIndex: 0,
         };
-        filter.sorting = [{
-            field: 'firstName',
-            order: 'ASC'
-        },
-        {
-            field: 'lastName',
-            order: 'ASC'
-        }];
+        filter.sorting = [
+            {
+                field: 'firstName',
+                order: 'ASC',
+            },
+            {
+                field: 'lastName',
+                order: 'ASC',
+            },
+        ];
 
         var variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);
@@ -277,7 +270,6 @@ var Requests = {
             createSearchEntries(result.items);
         });
     },
-
 
     // getUserInfos (TO DO AND CHANGE THE GETALL)
     getUserInfos: function (ownerId) {
@@ -301,41 +293,52 @@ var Requests = {
          };*/
 
         var filter = {
-            id: ownerId
+            id: ownerId,
         };
 
         var variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);
 
         Server.userService.getAll(variables).subscribe(result => {
-            console.log("getUserInfos(): ", result);
+            console.log('getUserInfos(): ', result);
         });
-
     },
 
     // getBookablesList
     getBookablesList: function (elem = $('inputTabCahierEquipmentElementsInputSearch')) {
-
         var order;
-        if ($('divTabCahierEquipmentElementsSelectIconSort').style.backgroundImage == 'url("img/icons/sort-desc.png")') {
-            order = "DESC";
-        }
-        else {
-            order = "ASC";
+        if (
+            $('divTabCahierEquipmentElementsSelectIconSort').style.backgroundImage == 'url("img/icons/sort-desc.png")'
+        ) {
+            order = 'DESC';
+        } else {
+            order = 'ASC';
         }
 
         var lastUse = false;
         var nbrBookings = false;
-        var whichField = $('divTabCahierEquipmentElementsSelectSort').getElementsByTagName("select")[0].value;
-        if (whichField == "lastUse") { whichField = "id"; lastUse = true; }
-        if (whichField == "nbrBookings") { whichField = "id"; nbrBookings = true; }
+        var whichField = $('divTabCahierEquipmentElementsSelectSort').getElementsByTagName('select')[0].value;
+        if (whichField == 'lastUse') {
+            whichField = 'id';
+            lastUse = true;
+        }
+        if (whichField == 'nbrBookings') {
+            whichField = 'id';
+            nbrBookings = true;
+        }
 
         var txt = elem.value;
 
-        var categorie = $('divTabCahierEquipmentElementsSelectCategorie').getElementsByTagName("select")[0].value;
-        if (categorie == "all") { categorie = ""; }
-        if (categorie == "Canoe_Kayak") { categorie = "Kayak"; }
-        if (categorie == "Voile") { categorie = "Voile lestée"; }
+        var categorie = $('divTabCahierEquipmentElementsSelectCategorie').getElementsByTagName('select')[0].value;
+        if (categorie == 'all') {
+            categorie = '';
+        }
+        if (categorie == 'Canoe_Kayak') {
+            categorie = 'Kayak';
+        }
+        if (categorie == 'Voile') {
+            categorie = 'Voile lestée';
+        }
 
         var f = {
             filter: {
@@ -345,39 +348,41 @@ var Requests = {
                         conditionsLogic: 'OR',
                         conditions: [
                             {
-                                custom: { // marche pour description
+                                custom: {
+                                    // marche pour description
                                     search: {
-                                        value: "%" + txt + "%"
-                                    }
-                                }
+                                        value: '%' + txt + '%',
+                                    },
+                                },
                             },
                             {
-                                code: { // marche pour description
+                                code: {
+                                    // marche pour description
                                     like: {
-                                        value: "%" + txt + "%"
-                                    }
-                                }
-                            }
-                        ]
+                                        value: '%' + txt + '%',
+                                    },
+                                },
+                            },
+                        ],
                     },
-                    {   //CATEGORIES...
+                    {
+                        //CATEGORIES...
                         groupLogic: 'AND',
                         conditionsLogic: 'OR',
                         joins: {
                             bookableTags: {
-                                type: "leftJoin",
+                                type: 'leftJoin',
                                 conditions: [
                                     {
                                         name: {
                                             like: {
-                                                value: "%" + categorie + "%"
-                                            }
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-
+                                                value: '%' + categorie + '%',
+                                            },
+                                        },
+                                    },
+                                ],
+                            },
+                        },
                     },
                     {
                         groupLogic: 'AND',
@@ -386,44 +391,44 @@ var Requests = {
                             {
                                 bookingType: {
                                     like: {
-                                        value: "self_approved"
-                                    }
+                                        value: 'self_approved',
+                                    },
                                 },
-                                isActive: { // embarcation active
+                                isActive: {
+                                    // embarcation active
                                     equal: {
-                                        value: true
-                                    }
-                                }
-                            }
-                        ]
-                    }
-                ]
+                                        value: true,
+                                    },
+                                },
+                            },
+                        ],
+                    },
+                ],
             },
-            sorting: [
-                { field: whichField, order: order }
-            ],
+            sorting: [{field: whichField, order: order}],
             pagination: {
-                pageSize: parseInt($('divTabCahierEquipmentElementsSelectPageSize').getElementsByTagName('select')[0].value),
-                pageIndex: 0
-            }
+                pageSize: parseInt(
+                    $('divTabCahierEquipmentElementsSelectPageSize').getElementsByTagName('select')[0].value,
+                ),
+                pageIndex: 0,
+            },
         };
 
-        if (categorie == "Kayak") {
+        if (categorie == 'Kayak') {
             f.filter.groups[1].joins.bookableTags.conditions.push({
                 name: {
                     like: {
-                        value: "%" + "Canoë" + "%"
-                    }
-                }
+                        value: '%' + 'Canoë' + '%',
+                    },
+                },
             });
-        }
-        else if (categorie == "Voile lestée") {
+        } else if (categorie == 'Voile lestée') {
             f.filter.groups[1].joins.bookableTags.conditions.push({
                 name: {
                     like: {
-                        value: "%" + "voile légère" + "%"
-                    }
-                }
+                        value: '%' + 'voile légère' + '%',
+                    },
+                },
             });
         }
 
@@ -434,11 +439,9 @@ var Requests = {
             //            console.log("getBookablesList(): ", result);
 
             if (result.items.length === 0) {
-                console.log("NOTHING");
+                console.log('NOTHING');
                 loadElements([]);
-            }
-            else {
-
+            } else {
                 var ids = [];
                 for (let i = 0; i < result.items.length; i++) {
                     result.items[i].used = false;
@@ -446,47 +449,44 @@ var Requests = {
                 }
 
                 var filter = {
-
                     filter: {
-                        groups: [{
-                            conditions: [
-                                {
-                                    endDate: {
-                                        null: {
-                                            not: false
-                                        }
-                                    }
-                                }
-                            ],
-                            joins: {
-                                bookable: {
-                                    type: "leftJoin",
-                                    conditions: [
-                                        {
-                                            id: {
-                                                in: {
-                                                    values: ids
-                                                }
-
-                                            }
-                                        }
-                                    ]
-                                }
-                            }
-
-                        }]
-                    }
+                        groups: [
+                            {
+                                conditions: [
+                                    {
+                                        endDate: {
+                                            null: {
+                                                not: false,
+                                            },
+                                        },
+                                    },
+                                ],
+                                joins: {
+                                    bookable: {
+                                        type: 'leftJoin',
+                                        conditions: [
+                                            {
+                                                id: {
+                                                    in: {
+                                                        values: ids,
+                                                    },
+                                                },
+                                            },
+                                        ],
+                                    },
+                                },
+                            },
+                        ],
+                    },
                 };
                 var variables = new Server.QueryVariablesManager();
                 variables.set('variables', filter);
 
                 Server.bookingService.getAll(variables).subscribe(r => {
-
                     var bookables = result.items;
                     var bookings = r.items;
 
                     for (let i = 0; i < bookings.length; i++) {
-
                         for (let k = 0; k < bookables.length; k++) {
                             if (bookables[k].id === bookings[i].bookable.id) {
                                 bookables[k].used = true;
@@ -498,71 +498,69 @@ var Requests = {
                     }
                     loadElements(bookables);
                 });
-
             }
-
         });
     },
 
-
     // getBookableNbrForBookableTag()
-    getBookableNbrForBookableTag: function (bookableTag, elem, before = "", after = "") {
-
-        if (bookableTag == "Canoe_Kayak") { bookableTag = "Kayak"; }
-        if (bookableTag == "Voile") { bookableTag = "Voile lestée"; }
+    getBookableNbrForBookableTag: function (bookableTag, elem, before = '', after = '') {
+        if (bookableTag == 'Canoe_Kayak') {
+            bookableTag = 'Kayak';
+        }
+        if (bookableTag == 'Voile') {
+            bookableTag = 'Voile lestée';
+        }
 
         var filter = {
             filter: {
-                groups: [{
-
-                    conditionsLogic: 'OR',
-                    joins: {
-
-                        bookableTags: {
-                            type: "leftJoin",
-                            conditions: [
-                                {
-                                    name: {
-                                        like: {
-                                            value: "%" + bookableTag + "%"
-                                        }
-                                    }
-
-                                }
-                            ]
-                        }
-                    }
-                },
-                {
-
-                    conditions: [{
-                        isActive: { equal: { value: true } }
-                    }]
-                }
-                ]
+                groups: [
+                    {
+                        conditionsLogic: 'OR',
+                        joins: {
+                            bookableTags: {
+                                type: 'leftJoin',
+                                conditions: [
+                                    {
+                                        name: {
+                                            like: {
+                                                value: '%' + bookableTag + '%',
+                                            },
+                                        },
+                                    },
+                                ],
+                            },
+                        },
+                    },
+                    {
+                        conditions: [
+                            {
+                                isActive: {equal: {value: true}},
+                            },
+                        ],
+                    },
+                ],
             },
             pagination: {
                 pageSize: 0,
-                pageIndex: 0
-            }
+                pageIndex: 0,
+            },
         };
 
-        if (bookableTag == "Kayak") {
+        if (bookableTag == 'Kayak') {
             filter.filter.groups[0].joins.bookableTags.conditions.push({
                 name: {
                     like: {
-                        value: "%" + "Canoë" + "%"
-                    }
-                }
+                        value: '%' + 'Canoë' + '%',
+                    },
+                },
             });
-        }
-        else if (bookableTag == "Voile lestée") {
+        } else if (bookableTag == 'Voile lestée') {
             filter.filter.groups[0].joins.bookableTags.conditions.push({
                 name: {
                     like: {
-                        value: "%" + "voile légère" + "%"
-                    }
-                }
+                        value: '%' + 'voile légère' + '%',
+                    },
+                },
             });
         }
 
@@ -574,7 +572,6 @@ var Requests = {
             elem.innerHTML = txt;
         });
     },
-
 
     // getBookableByCode
     getBookableByCode: function (elem, nbr = 0) {
@@ -589,40 +586,38 @@ var Requests = {
         }
 
         // accept NE538 although the real code is NE 538
-        if (code.indexOf("NE") == 0 && code.indexOf("NE ") == -1) {
-            code = "NE " + code.slice(2);
+        if (code.indexOf('NE') == 0 && code.indexOf('NE ') == -1) {
+            code = 'NE ' + code.slice(2);
             //  console.log(code);
-        }
-        else {
+        } else {
             //    console.log(code.indexOf("NE"), code.indexOf("NE "));
         }
 
         if (!t) {
-            popAlert("Vous avez déjà choisi cette embarcation");
-        }
-        else {
+            popAlert('Vous avez déjà choisi cette embarcation');
+        } else {
             var filter = {
                 filter: {
                     groups: [
                         {
                             conditions: [
-                                { isActive: { equal: { value: true } } },
-                                { code: { like: { value: code } } },
+                                {isActive: {equal: {value: true}}},
+                                {code: {like: {value: code}}},
                                 {
                                     bookingType: {
                                         like: {
-                                            value: "self_approved"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    ]
+                                            value: 'self_approved',
+                                        },
+                                    },
+                                },
+                            ],
+                        },
+                    ],
                 },
                 pagination: {
                     pageSize: 1,
-                    pageIndex: 0
-                }
+                    pageIndex: 0,
+                },
             };
 
             var variables = new Server.QueryVariablesManager();
@@ -633,25 +628,23 @@ var Requests = {
                 if (result.items.length == 1) {
                     popBookable(result.items[0].id, false, nbr, $('divTabCahierEquipmentBookableContainer'));
 
-                    elem.classList.remove("animationShake");
-                    elem.nextElementSibling.classList.remove("animationShake");
-                }
-                else {
+                    elem.classList.remove('animationShake');
+                    elem.nextElementSibling.classList.remove('animationShake');
+                } else {
                     // retrigger animation
-                    elem.classList.remove("animationShake");
-                    elem.nextElementSibling.classList.remove("animationShake");
+                    elem.classList.remove('animationShake');
+                    elem.nextElementSibling.classList.remove('animationShake');
 
-                    elem.classList.add("resetAnimation");
-                    elem.nextElementSibling.classList.add("resetAnimation");
+                    elem.classList.add('resetAnimation');
+                    elem.nextElementSibling.classList.add('resetAnimation');
 
                     setTimeout(function () {
-                        elem.classList.remove("resetAnimation");
-                        elem.nextElementSibling.classList.remove("resetAnimation");
+                        elem.classList.remove('resetAnimation');
+                        elem.nextElementSibling.classList.remove('resetAnimation');
 
-                        elem.classList.add("animationShake");
-                        elem.nextElementSibling.classList.add("animationShake");
+                        elem.classList.add('animationShake');
+                        elem.nextElementSibling.classList.add('animationShake');
                     }, 5);
-
                 }
             });
         }
@@ -659,17 +652,14 @@ var Requests = {
 
     // getBookableInfos
     getBookableInfos: function (nbr, bookableId, elem) {
-
         var filter = {
             filter: {
-                groups: [
-                    { conditions: [{ id: { like: { value: bookableId } } }] }
-                ]
+                groups: [{conditions: [{id: {like: {value: bookableId}}}]}],
             },
             pagination: {
                 pageSize: 1,
-                pageIndex: 0
-            }
+                pageIndex: 0,
+            },
         };
 
         var variables = new Server.QueryVariablesManager();
@@ -683,26 +673,30 @@ var Requests = {
                         {
                             joins: {
                                 bookable: {
-                                    conditions: [{
-                                        id: {
-                                            like: {
-                                                value: bookableId
-                                            }
-                                        }
-                                    }]
-                                }
-                            }
-                        }
-                    ]
+                                    conditions: [
+                                        {
+                                            id: {
+                                                like: {
+                                                    value: bookableId,
+                                                },
+                                            },
+                                        },
+                                    ],
+                                },
+                            },
+                        },
+                    ],
                 },
                 pagination: {
                     pageSize: 1,
-                    pageIndex: 0
+                    pageIndex: 0,
                 },
-                sorting: [{
-                    field: "startDate",
-                    order: "DESC" // important
-                }]
+                sorting: [
+                    {
+                        field: 'startDate',
+                        order: 'DESC', // important
+                    },
+                ],
             };
 
             var variables = new Server.QueryVariablesManager();
@@ -715,35 +709,37 @@ var Requests = {
         });
     },
 
-
     getBookableLastBooking: function (bookableId) {
-
         var filter = {
             filter: {
                 groups: [
                     {
                         joins: {
                             bookable: {
-                                conditions: [{
-                                    id: {
-                                        like: {
-                                            value: bookableId
-                                        }
-                                    }
-                                }]
-                            }
-                        }
-                    }
-                ]
+                                conditions: [
+                                    {
+                                        id: {
+                                            like: {
+                                                value: bookableId,
+                                            },
+                                        },
+                                    },
+                                ],
+                            },
+                        },
+                    },
+                ],
             },
             pagination: {
                 pageSize: 1,
-                pageIndex: 0
+                pageIndex: 0,
             },
-            sorting: [{
-                field: "startDate",
-                order: "DESC" // important
-            }]
+            sorting: [
+                {
+                    field: 'startDate',
+                    order: 'DESC', // important
+                },
+            ],
         };
 
         var variables = new Server.QueryVariablesManager();
@@ -753,12 +749,10 @@ var Requests = {
             //  console.log("getBookableLastBooking(): ", bookings);
             Cahier.actualizeAvailability(bookableId, bookings.items);
         });
-
     },
 
     // 1.3
     checksBookablesAvailabilityBeforeConfirming: function (_bookables) {
-
         var d = new Date(Cahier.bookingStartDate.getTime() - 10 * 60 * 1000); // subtract 1 minute $$
 
         var f = {
@@ -769,53 +763,53 @@ var Requests = {
                         conditionsLogic: 'OR',
                         joins: {
                             bookable: {
-                                conditions: []
-                            }
-                        }
-                    }
-                    ,
+                                conditions: [],
+                            },
+                        },
+                    },
                     {
                         conditionsLogic: 'OR',
                         conditions: [
                             {
                                 endDate: {
                                     greater: {
-                                        value: d.toISOString()
-                                    }
-                                }
+                                        value: d.toISOString(),
+                                    },
+                                },
                             },
                             {
                                 endDate: {
                                     null: {
-                                        not: false
-                                    }
-                                }
-                            }
-                        ]
-                    }
-                ]
+                                        not: false,
+                                    },
+                                },
+                            },
+                        ],
+                    },
+                ],
             },
             pagination: {
                 pageSize: 20,
-                pageIndex: 0
-            }
+                pageIndex: 0,
+            },
         };
 
-
         for (var bookable of _bookables) {
-            if (bookable.id != 0) { // Matériel personnel
+            if (bookable.id != 0) {
+                // Matériel personnel
                 var condition = {
                     id: {
                         equal: {
-                            value: bookable.id
-                        }
-                    }
-                }
+                            value: bookable.id,
+                        },
+                    },
+                };
                 f.filter.groups[0].joins.bookable.conditions.push(condition);
             }
         }
 
-        if (f.filter.groups[0].joins.bookable.conditions.length == 0) { // means only "Matériel personnel"
+        if (f.filter.groups[0].joins.bookable.conditions.length == 0) {
+            // means only "Matériel personnel"
             Cahier.actualizeConfirmKnowingBookablesAvailability([]);
             return;
         }
@@ -827,10 +821,7 @@ var Requests = {
             //console.log("checksBookablesAvailabilityBeforeConfirming(): ", result);
             Cahier.actualizeConfirmKnowingBookablesAvailability(result.items);
         });
-
-
     },
-
 
     //// Add an item NO MORE USED
     //addBookable: function (_name, _description) {
@@ -845,99 +836,97 @@ var Requests = {
 
     // getActualBookingList()
     getActualBookingList: function () {
-
         //console.log("GET ACTUAL BOOKING LIST");
 
         var filter = {
             filter: {
                 groups: [
                     {
-                        groupLogic: "AND",
+                        groupLogic: 'AND',
 
-                        conditions: [{
-                            status: {
-                                equal: {
-                                    value: "booked"
-                                }
+                        conditions: [
+                            {
+                                status: {
+                                    equal: {
+                                        value: 'booked',
+                                    },
+                                },
+                                endDate: {
+                                    null: {
+                                        not: false,
+                                    },
+                                },
+                                bookable: {
+                                    empty: {
+                                        not: true,
+                                    },
+                                },
                             },
-                            endDate: {
-                                null: {
-                                    not: false
-                                }
-                            },
-                            bookable: {
-                                empty: {
-                                    not: true
-                                }
-                            }
-
-                        }
                         ],
                         joins: {
                             bookable: {
-                                type: "leftJoin",
-                                conditions: [{
-                                    bookingType: {
-                                        equal: {
-                                            value: "self_approved"
-                                        }
-                                    }
-                                }]
-                            }
-                        }
-
+                                type: 'leftJoin',
+                                conditions: [
+                                    {
+                                        bookingType: {
+                                            equal: {
+                                                value: 'self_approved',
+                                            },
+                                        },
+                                    },
+                                ],
+                            },
+                        },
                     },
                     {
-                        groupLogic: "OR",
+                        groupLogic: 'OR',
 
-                        conditions: [{
-                            status: {
-                                equal: {
-                                    value: "booked"
-                                }
+                        conditions: [
+                            {
+                                status: {
+                                    equal: {
+                                        value: 'booked',
+                                    },
+                                },
+                                endDate: {
+                                    null: {
+                                        not: false,
+                                    },
+                                },
+                                bookable: {
+                                    empty: {
+                                        not: false,
+                                    },
+                                },
                             },
-                            endDate: {
-                                null: {
-                                    not: false
-                                }
-                            },
-                            bookable: {
-                                empty: {
-                                    not: false
-                                }
-                            }
-                        }
-                        ]
-                    }
-
-
-                ]
+                        ],
+                    },
+                ],
             },
             pagination: {
                 pageSize: 500,
-                pageIndex: 0
+                pageIndex: 0,
             },
             sorting: [
                 {
-                    field: "id",
-                    order: "ASC"
-                }
-            ]
+                    field: 'id',
+                    order: 'ASC',
+                },
+            ],
         };
 
         var variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);
 
-        Server.bookingService.getAll(variables, true).subscribe(result => { // force = true
+        Server.bookingService.getAll(variables, true).subscribe(result => {
+            // force = true
             loadBottoms();
             loadActualBookings(transformBookings(result.items));
         });
-
     },
 
     // getFinishedBookingListForDay()
-    getFinishedBookingListForDay: function (d = new Date(), table = "?", title) {
-
+    getFinishedBookingListForDay: function (d = new Date(), table = '?', title) {
         var start = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
         var end = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1, 0, 0, 0, 0);
 
@@ -945,113 +934,114 @@ var Requests = {
             filter: {
                 groups: [
                     {
-                        groupLogic: "AND",
+                        groupLogic: 'AND',
 
-                        conditions: [{
-                            status: {
-                                equal: {
-                                    value: "booked"
-                                }
+                        conditions: [
+                            {
+                                status: {
+                                    equal: {
+                                        value: 'booked',
+                                    },
+                                },
+                                endDate: {
+                                    null: {
+                                        not: true,
+                                    },
+                                },
+                                startDate: {
+                                    between: {
+                                        from: start.toISOString(),
+                                        to: end.toISOString(),
+                                    },
+                                },
+                                bookable: {
+                                    empty: {
+                                        not: true,
+                                    },
+                                },
                             },
-                            endDate: {
-                                null: {
-                                    not: true
-                                }
-                            },
-                            startDate: {
-                                between: {
-                                    from: start.toISOString(),
-                                    to: end.toISOString()
-                                }
-                            },
-                            bookable: {
-                                empty: {
-                                    not: true
-                                }
-                            }
-
-                        }
                         ],
                         joins: {
                             bookable: {
-                                type: "leftJoin",
-                                conditions: [{
-                                    bookingType: {
-                                        equal: {
-                                            value: "self_approved"
-                                        }
-                                    }
-                                }]
-                            }
-                        }
-
+                                type: 'leftJoin',
+                                conditions: [
+                                    {
+                                        bookingType: {
+                                            equal: {
+                                                value: 'self_approved',
+                                            },
+                                        },
+                                    },
+                                ],
+                            },
+                        },
                     },
                     {
-                        groupLogic: "OR",
+                        groupLogic: 'OR',
 
-                        conditions: [{
-                            status: {
-                                equal: {
-                                    value: "booked"
-                                }
+                        conditions: [
+                            {
+                                status: {
+                                    equal: {
+                                        value: 'booked',
+                                    },
+                                },
+                                endDate: {
+                                    null: {
+                                        not: true,
+                                    },
+                                },
+                                startDate: {
+                                    between: {
+                                        from: start.toISOString(),
+                                        to: end.toISOString(),
+                                    },
+                                },
+                                bookable: {
+                                    empty: {
+                                        not: false,
+                                    },
+                                },
                             },
-                            endDate: {
-                                null: {
-                                    not: true
-                                }
-                            },
-                            startDate: {
-                                between: {
-                                    from: start.toISOString(),
-                                    to: end.toISOString()
-                                }
-                            },
-                            bookable: {
-                                empty: {
-                                    not: false
-                                }
-                            }
-                        }]
-                    }
-                ]
+                        ],
+                    },
+                ],
             },
             pagination: {
                 pageSize: 500,
-                pageIndex: 0
+                pageIndex: 0,
             },
             sorting: [
                 {
-                    field: "startDate",
-                    order: "DESC"
+                    field: 'startDate',
+                    order: 'DESC',
                 },
                 {
-                    field: "endDate",
-                    order: "DESC" // important, last booking always has the end comment
-                }]
+                    field: 'endDate',
+                    order: 'DESC', // important, last booking always has the end comment
+                },
+            ],
         };
 
         var variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);
 
-        Server.bookingService.getAll(variables, true).subscribe(result => {// force = true);
+        Server.bookingService.getAll(variables, true).subscribe(result => {
+            // force = true);
             //console.log("getFinishedBookingListForDay(): ", result);
             var transformedBoookings = transformBookings(result.items);
             if (result.length == 0) {
                 createNoBookingMessage(d);
-            }
-            else {
-                table = createBookingsTable(d, title + " (" + transformedBoookings.length + ")");
+            } else {
+                table = createBookingsTable(d, title + ' (' + transformedBoookings.length + ')');
                 Cahier.finishedBookings.push(transformedBoookings); //important
                 actualizeFinishedBookingListForDay(transformedBoookings, table);
             }
         });
     },
 
-
-
     // getBookableHistory()
     getBookableHistory: function (bookableId, elem, lastDate, Size = 10) {
-
         //console.log("getbookableHistory", bookableId, "lastDate:", lastDate, "Size",Size);
 
         var filter = {
@@ -1060,35 +1050,41 @@ var Requests = {
                     {
                         joins: {
                             bookable: {
-                                conditions: [{
-                                    id: {
-                                        like: {
-                                            value: bookableId
-                                        }
-                                    }
-                                }]
-                            }
-                        }
+                                conditions: [
+                                    {
+                                        id: {
+                                            like: {
+                                                value: bookableId,
+                                            },
+                                        },
+                                    },
+                                ],
+                            },
+                        },
                     },
                     {
-                        conditions: [{
-                            startDate: {
-                                less: {
-                                    value: lastDate.toISOString()
-                                }
-                            }
-                        }]
-                    }
-                ]
+                        conditions: [
+                            {
+                                startDate: {
+                                    less: {
+                                        value: lastDate.toISOString(),
+                                    },
+                                },
+                            },
+                        ],
+                    },
+                ],
             },
             pagination: {
                 pageSize: Size,
-                pageIndex: 0
+                pageIndex: 0,
             },
-            sorting: [{
-                field: "startDate",
-                order: "DESC"
-            }]
+            sorting: [
+                {
+                    field: 'startDate',
+                    order: 'DESC',
+                },
+            ],
         };
 
         var variables = new Server.QueryVariablesManager();
@@ -1100,18 +1096,27 @@ var Requests = {
             var bookings = first.items;
 
             if (first.items.length == 0) {
-                if (elem.getElementsByClassName("Buttons").length == 1) {
-                    elem.getElementsByClassName("Buttons")[0].parentElement.removeChild(elem.getElementsByClassName("Buttons")[0]);
-                    elem.getElementsByTagName("br")[0].parentElement.removeChild(elem.getElementsByTagName("br")[0]);
-                    var t = div(elem.getElementsByClassName("PopUpBookableHistoryContainerScroll")[0]);
+                if (elem.getElementsByClassName('Buttons').length == 1) {
+                    elem.getElementsByClassName('Buttons')[0].parentElement.removeChild(
+                        elem.getElementsByClassName('Buttons')[0],
+                    );
+                    elem.getElementsByTagName('br')[0].parentElement.removeChild(elem.getElementsByTagName('br')[0]);
+                    var t = div(elem.getElementsByClassName('PopUpBookableHistoryContainerScroll')[0]);
                     t.innerHTML = 'Toutes les sorties ont été chargées ! <br/>';
                     t.style.textAlign = 'center';
                 }
-            }
-            else {
+            } else {
                 var end = new Date(bookings[bookings.length - 1].startDate);
                 var start = new Date(end.getFullYear(), end.getMonth(), end.getDate(), 0, 0, 0, 1);
-                end = new Date(end.getFullYear(), end.getMonth(), end.getDate(), end.getHours(), end.getMinutes(), end.getSeconds() - 1, 0);
+                end = new Date(
+                    end.getFullYear(),
+                    end.getMonth(),
+                    end.getDate(),
+                    end.getHours(),
+                    end.getMinutes(),
+                    end.getSeconds() - 1,
+                    0,
+                );
 
                 var filter = {
                     filter: {
@@ -1119,36 +1124,42 @@ var Requests = {
                             {
                                 joins: {
                                     bookable: {
-                                        conditions: [{
-                                            id: {
-                                                equal: {
-                                                    value: bookableId
-                                                }
-                                            }
-                                        }]
-                                    }
-                                }
+                                        conditions: [
+                                            {
+                                                id: {
+                                                    equal: {
+                                                        value: bookableId,
+                                                    },
+                                                },
+                                            },
+                                        ],
+                                    },
+                                },
                             },
                             {
-                                conditions: [{
-                                    startDate: {
-                                        between: {
-                                            from: start.toISOString(),
-                                            to: end.toISOString()
-                                        }
-                                    }
-                                }]
-                            }
-                        ]
+                                conditions: [
+                                    {
+                                        startDate: {
+                                            between: {
+                                                from: start.toISOString(),
+                                                to: end.toISOString(),
+                                            },
+                                        },
+                                    },
+                                ],
+                            },
+                        ],
                     },
                     pagination: {
                         pageSize: 100,
-                        pageIndex: 0
+                        pageIndex: 0,
                     },
-                    sorting: [{
-                        field: "startDate",
-                        order: "DESC"
-                    }]
+                    sorting: [
+                        {
+                            field: 'startDate',
+                            order: 'DESC',
+                        },
+                    ],
                 };
 
                 var variables = new Server.QueryVariablesManager();
@@ -1159,45 +1170,48 @@ var Requests = {
                     var total = bookings.concat(addition.items);
                     actualizePopBookableHistory(total, elem);
                 });
-
             }
         });
     },
 
     // getBookingsNbrBetween
-    getBookingsNbrBetween: function (start, end, bookableId = "%", elem = document.body, writeIfOne = true) {
+    getBookingsNbrBetween: function (start, end, bookableId = '%', elem = document.body, writeIfOne = true) {
         var filter = {
             filter: {
                 groups: [
                     {
                         joins: {
                             bookable: {
-                                conditions: [{
-                                    id: {
-                                        equal: {
-                                            value: bookableId
-                                        }
-                                    }
-                                }]
-                            }
-                        }
+                                conditions: [
+                                    {
+                                        id: {
+                                            equal: {
+                                                value: bookableId,
+                                            },
+                                        },
+                                    },
+                                ],
+                            },
+                        },
                     },
                     {
-                        conditions: [{
-                            startDate: {
-                                between: {
-                                    from: start,
-                                    to: end
-                                }
-                            }
-                        }]
-                    }
-                ]
+                        conditions: [
+                            {
+                                startDate: {
+                                    between: {
+                                        from: start,
+                                        to: end,
+                                    },
+                                },
+                            },
+                        ],
+                    },
+                ],
             },
             pagination: {
                 pageSize: 0,
-                pageIndex: 0
-            }
+                pageIndex: 0,
+            },
         };
 
         var variables = new Server.QueryVariablesManager();
@@ -1214,70 +1228,69 @@ var Requests = {
 
     // getMonthlyBookingsNbr for divBottoms
     getMonthlyBookingsNbr: function (start, end) {
-
         end = new Date(end.getFullYear(), end.getMonth(), end.getDate(), 23, 59, 59, 99);
 
         var filter = {
             filter: {
                 groups: [
                     {
-                        groupLogic: "AND",
+                        groupLogic: 'AND',
                         conditions: [
                             {
                                 startDate: {
                                     between: {
                                         from: start,
-                                        to: end
+                                        to: end,
                                     },
-                                    group: {}
-                                }
+                                    group: {},
+                                },
                             },
                             {
                                 status: {
                                     equal: {
-                                        value: "booked"
-                                    }
+                                        value: 'booked',
+                                    },
                                 },
                                 bookable: {
-                                    empty: {}
-                                }
-                            }
-                        ]
+                                    empty: {},
+                                },
+                            },
+                        ],
                     },
                     {
-                        groupLogic: "OR",
+                        groupLogic: 'OR',
                         conditions: [
                             {
                                 startDate: {
                                     between: {
                                         from: start,
-                                        to: end
+                                        to: end,
                                     },
-                                    group: {}
-                                }
-                            }
+                                    group: {},
+                                },
+                            },
                         ],
                         joins: {
                             bookable: {
-                                type: "leftJoin",
+                                type: 'leftJoin',
                                 conditions: [
                                     {
                                         bookingType: {
                                             equal: {
-                                                value: "self_approved"
-                                            }
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    }
-                ]
+                                                value: 'self_approved',
+                                            },
+                                        },
+                                    },
+                                ],
+                            },
+                        },
+                    },
+                ],
             },
             pagination: {
                 pageSize: 0,
-                pageIndex: 0
-            }
+                pageIndex: 0,
+            },
         };
 
         var variables = new Server.QueryVariablesManager();
@@ -1286,79 +1299,80 @@ var Requests = {
         Server.bookingService.getAll(variables).subscribe(result => {
             // console.log("getMonthlyBookingsNbr(): ", result.length + " sorties", result);
 
-            var all = document.getElementsByClassName("divBottoms");
+            var all = document.getElementsByClassName('divBottoms');
             for (var i = 0; i < all.length; i++) {
                 if (result.length == 0) {
-                    all[i].children[0].innerHTML = "Aucune sortie ce mois";
-                }
-                else {
-                    all[i].children[0].innerHTML = Cahier.getSingularOrPlural(result.length, " sortie") + " ce mois";
+                    all[i].children[0].innerHTML = 'Aucune sortie ce mois';
+                } else {
+                    all[i].children[0].innerHTML = Cahier.getSingularOrPlural(result.length, ' sortie') + ' ce mois';
                 }
             }
-
         });
     },
 
-
     // getStats
     getStats: function (start, end, elem) {
-
         var f = {
             filter: {
                 groups: [
                     {
-                        conditions: [{
-                            startDate: {
-                                between: {
-                                    from: start,
-                                    to: end
-                                }
-                            }
-                        },
-                        {
-                            bookable: {
-                                empty: {
-                                    not: false
-                                }
-                            }
-                        }
-                        ]
+                        conditions: [
+                            {
+                                startDate: {
+                                    between: {
+                                        from: start,
+                                        to: end,
+                                    },
+                                },
+                            },
+                            {
+                                bookable: {
+                                    empty: {
+                                        not: false,
+                                    },
+                                },
+                            },
+                        ],
                     },
                     {
-                        groupLogic: "OR",
-                        conditions: [{
-                            startDate: {
-                                between: {
-                                    from: start,
-                                    to: end
-                                }
-                            }
-                        }],
+                        groupLogic: 'OR',
+                        conditions: [
+                            {
+                                startDate: {
+                                    between: {
+                                        from: start,
+                                        to: end,
+                                    },
+                                },
+                            },
+                        ],
                         joins: {
                             bookable: {
-                                type: "leftJoin",
+                                type: 'leftJoin',
                                 conditions: [
                                     {
                                         bookingType: {
                                             equal: {
-                                                value: "self_approved"
-                                            }
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    }
-                ]
+                                                value: 'self_approved',
+                                            },
+                                        },
+                                    },
+                                ],
+                            },
+                        },
+                    },
+                ],
             },
             pagination: {
                 pageSize: 10000,
-                pageIndex: 0
+                pageIndex: 0,
             },
-            sorting: [{
-                field: "startDate",
-                order: "ASC"
-            }]
+            sorting: [
+                {
+                    field: 'startDate',
+                    order: 'ASC',
+                },
+            ],
         };
 
         var variables = new Server.QueryVariablesManager();
@@ -1373,22 +1387,21 @@ var Requests = {
 
     // getBookingWithBookablesInfos
     getBookingWithBookablesInfos: function (_booking, which, elem) {
-
         var filter = {
             filter: {
                 groups: [
                     {
                         conditions: [
-                            { owner: { equal: { value: _booking.owner.id } } },
-                            { startDate: { equal: { value: _booking.startDate } } }
-                        ]
-                    }
-                ]
+                            {owner: {equal: {value: _booking.owner.id}}},
+                            {startDate: {equal: {value: _booking.startDate}}},
+                        ],
+                    },
+                ],
             },
             pagination: {
                 pageSize: 100,
-                pageIndex: 0
-            }
+                pageIndex: 0,
+            },
         };
 
         var variables = new Server.QueryVariablesManager();
@@ -1398,9 +1411,7 @@ var Requests = {
             var send = transformBookings(result.items);
             actualizePopBooking(send[0], which, elem); // should only give one booking
         });
-
     },
-
 
     // finishBooking
     terminateBooking: function (bookingIds = [], comments = [], realTerminate = true) {
@@ -1409,14 +1420,12 @@ var Requests = {
         for (var i = 0; i < bookingIds.length; i++) {
             //console.log("terminateBooking", bookingIds[i], comments[i]);
             Server.bookingService.terminateBooking(bookingIds[i], comments[i]).subscribe(result => {
-
                 c++;
                 if (c === bookingIds.length) {
                     if (realTerminate) {
                         Requests.getActualBookingList();
-                    }
-                    else {
-                        console.log("Requests.terminateBooking() has finished, creating booking now.");
+                    } else {
+                        console.log('Requests.terminateBooking() has finished, creating booking now.');
                         Requests.createBooking();
                     }
                     //console.log("this.terminateBooking done !");
@@ -1426,25 +1435,23 @@ var Requests = {
     },
 
     // deleteBookings
-    deleteBookings: function (ids = ["3102"]) {
-
+    deleteBookings: function (ids = ['3102']) {
         //  Server.bookingService.deleteBookings(ids).subscribe(result => { console.log(result); });
-
     },
 
     // createBooking
     counter: 0,
     createBooking: function () {
-
         Requests.counter = 0;
 
         for (let i = 0; i < Cahier.bookings[0].bookables.length; i++) {
             var input = {
                 owner: Cahier.bookings[0].owner.id,
-                participantCount: i == 0 ? Cahier.bookings[0].participantCount - Cahier.bookings[0].bookables.length + 1 : 1,
+                participantCount:
+                    i == 0 ? Cahier.bookings[0].participantCount - Cahier.bookings[0].bookables.length + 1 : 1,
                 destination: Cahier.bookings[0].destination,
                 startComment: Cahier.bookings[0].startComment,
-                bookable: Cahier.bookings[0].bookables[i].id != 0 ? Cahier.bookings[0].bookables[i].id : null
+                bookable: Cahier.bookings[0].bookables[i].id != 0 ? Cahier.bookings[0].bookables[i].id : null,
             };
 
             // console.log(i, input.participantCount);
@@ -1456,59 +1463,54 @@ var Requests = {
                         // wait til the animation finishes
                         //console.warn("La page va être rafraîchie");
                         //setTimeout(function () { location.reload(); }, 500);
-                    }
-                    else {
-                        newTab("divTabCahier"); ableToSkipAnimation();
+                    } else {
+                        newTab('divTabCahier');
+                        ableToSkipAnimation();
                         stopWaiting();
                     }
                 }
             });
-
         }
-
-
     },
 
     getOwnerLicenses: function (_owner) {
-
         Server.userService.getOne(_owner.id).subscribe(result => {
             //            console.log("getOwnerLicenses(): ", result);
             Cahier.setOwnerLicenses(result);
         });
-
     },
 
     getBookablesLicenses: function (_bookableIds) {
-
         var filter = {
             filter: {
                 groups: [
                     {
-                        conditions: [{
-                            id: {
-                                in: {
-                                    values: _bookableIds
-                                }
-                            }
-                        }]
-                    }
-                ]
+                        conditions: [
+                            {
+                                id: {
+                                    in: {
+                                        values: _bookableIds,
+                                    },
+                                },
+                            },
+                        ],
+                    },
+                ],
             },
             pagination: {
                 pageSize: _bookableIds.length,
-                pageIndex: 0
-            }
+                pageIndex: 0,
+            },
         };
 
         var variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);
 
         Server.bookableService.getAll(variables).subscribe(result => {
-//            console.log("getBookablesLicenses(): ", result.items);
+            //            console.log("getBookablesLicenses(): ", result.items);
             Cahier.updateBookablesLicenses(result.items);
         });
-
-    }
+    },
 
     //// personalQuery
     //personalQuery: function () {
@@ -1555,6 +1557,4 @@ var Requests = {
     //        //console.log("Result of Requests.createQuery(): ", result);
     //    });
     //}
-
-
 };

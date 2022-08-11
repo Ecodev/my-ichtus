@@ -2,7 +2,6 @@
 
 Carnet de sortie
 
-
 # Première installation sur un poste
 
 NodeJs 8 est nécessaire, il ne faut l'installation qu'une seule fois sur un poste.
@@ -12,6 +11,7 @@ https://nodejs.org/en/download/
 ```
 
 Installer github desktop
+
 ```
 https://desktop.github.com/
 ```

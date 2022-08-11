@@ -1,8 +1,6 @@
 #divTabCahierEquipmentCategories {
 }
 
-
-
 #divTabCahierEquipmentCategoriesContainer {
     position: relative;
     left: 2.5%;
@@ -12,7 +10,6 @@
     text-align: center;
     background-color: transparent;
 }
-
 
 .BoxesBottomText1 {
     position: absolute;
@@ -30,16 +27,15 @@
     font-size: 30px;
 }*/
 
-    .BoxesBottomText2 {
-        position: absolute;
-        left: 2.5%;
-        top: -20px;
-        width: 95%;
-        height: 20px;
-        font-size: 15px;
-        text-align: right;
-        line-height: 20px;
-        color: gray;
-        transition: all 0.1s linear 0s;
-    }
-
+.BoxesBottomText2 {
+    position: absolute;
+    left: 2.5%;
+    top: -20px;
+    width: 95%;
+    height: 20px;
+    font-size: 15px;
+    text-align: right;
+    line-height: 20px;
+    color: gray;
+    transition: all 0.1s linear 0s;
+}

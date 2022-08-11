@@ -1,15 +1,17 @@
 {
-  "name": "ichtus.lan",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "dev": "node live-server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "live-server": "^1.2.0"
-  }
+    "name": "ichtus.lan",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "node live-server.js",
+        "prettier": "prettier --write .",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "live-server": "^1.2.0",
+        "prettier": "^2.7.1"
+    }
 }
