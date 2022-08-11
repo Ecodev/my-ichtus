@@ -60,9 +60,9 @@ class Bookable extends AbstractModel
     private int $simultaneousBookingMaximum = 1;
 
     /**
-     * @ORM\Column(type="BookingType", length=10, options={"default" = BookingTypeType::SELF_APPROVED})
+     * @ORM\Column(type="BookingType", length=10, options={"default" = BookingTypeType::ADMIN_APPROVED})
      */
-    private string $bookingType = BookingTypeType::SELF_APPROVED;
+    private string $bookingType = BookingTypeType::ADMIN_APPROVED;
 
     /**
      * @ORM\Column(type="boolean", options={"default" = 1})

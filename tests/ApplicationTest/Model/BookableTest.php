@@ -34,6 +34,7 @@ class BookableTest extends TestCase
     public function testGetSharedBookings(): void
     {
         $bookable = new Bookable();
+        $bookable->setBookingType(BookingTypeType::SELF_APPROVED);
         self::assertSame([], $bookable->getSharedBookings());
 
         $booking1 = new Booking();

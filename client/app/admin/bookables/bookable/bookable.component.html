@@ -1,9 +1,11 @@
 <div [formGroup]="form" class="detail-body">
     <natural-detail-header
         [newLabel]="data.seo.title"
-        [label]="permissionsService.gteResponsible(viewer) ? 'Réservable' : ''"
+        [label]="permissionsService.gteResponsible(viewer) ? 'Réservable' : 'Cours'"
         [model]="data.model"
-        [listRoute]="['admin', 'bookable']"
+        [listRoute]="
+            permissionsService.gteResponsible(viewer) ? ['admin', 'bookable'] : ['admin', 'bookable', 'formation']
+        "
     >
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
             <div fxLayout="column" style="text-align: right" *ngIf="form.get('verificationDate')?.value">
@@ -17,7 +19,7 @@
     </natural-detail-header>
 
     <mat-tab-group naturalLinkableTab [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
-        <mat-tab id="general" label="Général" *ngIf="permissionsService.gteResponsible(viewer)">
+        <mat-tab id="general" label="Général" *ngIf="permissionsService.canAccessFormationApplication(viewer)">
             <div fxLayout="column" fxLayoutGap="30px" class="padding-top">
                 <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
                     <div fxFlex="66" fxLayout="column">
@@ -116,6 +118,7 @@
                             formControlName="bookingType"
                             (selectionChange)="update()"
                             placeholder="Type de réservation"
+                            [optionDisabled]="bookingTypeDisabled()"
                         ></natural-select-enum>
 
                         <mat-form-field *ngIf="isBookingPriceApplicable()">
@@ -248,7 +251,7 @@
             *ngIf="data.model.id"
         >
             <div fxLayout="column" class="padding-top">
-                <mat-form-field *ngIf="!permissionsService.gteResponsible(viewer)">
+                <mat-form-field *ngIf="!permissionsService.canAccessFormationApplication(viewer)">
                     <mat-label>Remarques</mat-label>
                     <textarea
                         matInput

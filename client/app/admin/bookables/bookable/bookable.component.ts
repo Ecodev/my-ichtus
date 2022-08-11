@@ -1,5 +1,5 @@
 import {Component, Injector, OnInit} from '@angular/core';
-import {FileModel, formatIsoDateTime, NaturalAbstractDetail} from '@ecodev/natural';
+import {FileModel, formatIsoDateTime, IEnum, NaturalAbstractDetail} from '@ecodev/natural';
 import {BookableService} from '../services/bookable.service';
 import {
     BookingFilterGroupCondition,
@@ -7,7 +7,6 @@ import {
     BookingStatus,
     BookingsVariables,
     BookingType,
-    CreateImage,
     CurrentUserForProfile_viewer,
     SortingOrder,
     UserRole,
@@ -46,6 +45,10 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
 
         if (this.data.model.id) {
             this.bookingsVariables = this.getBookingsVariables();
+        }
+
+        if (this.viewer.role === UserRole.formation_responsible) {
+            this.form.controls.bookingType.setValue(BookingType.admin_approved);
         }
     }
 
@@ -128,5 +131,11 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
 
     public isTrainer(): boolean {
         return this.route.snapshot.data.viewer?.model?.role === UserRole.trainer;
+    }
+
+    public bookingTypeDisabled(): (item: IEnum) => boolean {
+        return item => {
+            return this.viewer.role === UserRole.formation_responsible && item.value !== BookingType.admin_approved;
+        };
     }
 }
