@@ -17,28 +17,27 @@ import {
     Users_users_items,
     UsersVariables,
 } from '../../generated-types';
-import {
-    NaturalAbstractController,
-    NaturalAlertService,
-    NaturalQueryVariablesManager,
-    PaginatedData,
-    WithId,
-} from '@ecodev/natural';
+import {NaturalAbstractController, NaturalAlertService, NaturalQueryVariablesManager, WithId} from '@ecodev/natural';
 import {Observable} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 import {CommentComponent} from './comment.component';
 
-type Extented = {
-    booking: Bookings_bookings_items;
+type Extended = {
+    booking: Readonly<Bookings_bookings_items>;
     showComments: boolean;
     terminated: boolean;
     explode: boolean;
 };
 
-function bookingsToExtended(bookings: Bookings['bookings']): PaginatedData<Extented> {
+interface PaginatedExtendedBooking {
+    items: Extended[];
+    readonly length: number;
+}
+
+function bookingsToExtended(bookings: Bookings['bookings']): PaginatedExtendedBooking {
     return {
-        ...bookings,
+        length: bookings.length,
         items: bookings.items.map(item => {
             return {
                 booking: item,
@@ -63,7 +62,7 @@ export class NavigationsComponent extends NaturalAbstractController implements O
     @Input() public activeOnly = true;
     @Input() public showEmptyMessage = false;
 
-    public bookings: PaginatedData<Extented> | null = null;
+    public bookings: PaginatedExtendedBooking | null = null;
 
     private bookingsQVM = new NaturalQueryVariablesManager<BookingsVariables>();
 
@@ -95,7 +94,7 @@ export class NavigationsComponent extends NaturalAbstractController implements O
         });
     }
 
-    public endBooking(item: Extented): void {
+    public endBooking(item: Extended): void {
         const snackbarOptions: MatSnackBarConfig = {
             horizontalPosition: 'end',
             verticalPosition: 'top',
