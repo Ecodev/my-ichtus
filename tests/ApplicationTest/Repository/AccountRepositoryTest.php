@@ -33,7 +33,7 @@ class AccountRepositoryTest extends AbstractRepositoryTest
             ['bookingonly', []],
             ['individual', [10096]],
             ['member', [10096]],
-            ['formationresponsible', [10094, 10095, 10096, 10097, 10098, 10099]],
+            ['formationresponsible', $all],
             ['responsible', $all],
             ['administrator', $all],
         ];

@@ -96,6 +96,7 @@ class Acl extends \Ecodev\Felix\Acl\Acl
         $this->allow(User::ROLE_FORMATION_RESPONSIBLE, [$user, $userTag], ['update']);
         $this->allow(User::ROLE_FORMATION_RESPONSIBLE, [$booking], ['create', 'update']);
         $this->allow(User::ROLE_FORMATION_RESPONSIBLE, [$bookable], ['create', 'update'], new BookableIsAdminApproved());
+        $this->allow(User::ROLE_FORMATION_RESPONSIBLE, [$bookableTag], ['update']);
 
         $this->allow(User::ROLE_RESPONSIBLE, [$transaction, $account, $transactionTag], ['read']);
         $this->allow(User::ROLE_RESPONSIBLE, [$expenseClaim, $accountingDocument], ['read', 'update']);
