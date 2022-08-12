@@ -16,6 +16,7 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 import {ImageService} from '../services/image.service';
 import {accountHierarchicConfiguration} from '../../../shared/hierarchic-selector/AccountHierarchicConfiguration';
+import {takeUntil} from 'rxjs';
 
 @Component({
     selector: 'app-bookable',
@@ -40,6 +41,15 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
 
     public ngOnInit(): void {
         super.ngOnInit();
+
+        // While not saved, automatically update simultaneousBookingMaximum to 1 if navigable (self-approved) or -1 if other.
+        if (!this.data.model.id) {
+            const bookingType = this.form.controls.bookingType;
+            const simultaneousBookingMaximum = this.form.controls.simultaneousBookingMaximum;
+            bookingType.valueChanges
+                .pipe(takeUntil(this.ngUnsubscribe))
+                .subscribe(value => simultaneousBookingMaximum.setValue(value === BookingType.self_approved ? 1 : -1));
+        }
 
         this.viewer = this.route.snapshot.data.viewer.model;
 
@@ -78,21 +88,6 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
                 this.update();
             }
         }
-    }
-
-    public update(): void {
-        // While not saved, automatically update simultaneousBookingMaximum to 1 if navigable (self-approved) or -1 if other.
-        if (!this.data.model.id) {
-            const bookingType = this.form.get('bookingType');
-            const simultaneousBookingMaximum = this.form.get('simultaneousBookingMaximum');
-            if (simultaneousBookingMaximum) {
-                simultaneousBookingMaximum.setValue(
-                    bookingType && bookingType.value === BookingType.self_approved ? 1 : -1,
-                );
-            }
-        }
-
-        super.update();
     }
 
     public isSelfApproved(): boolean {
