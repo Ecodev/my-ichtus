@@ -240,7 +240,7 @@ export class BookingService extends NaturalAbstractModelService<
      * Accepts optional third parameter with other default fields of booking
      */
     public createWithBookable(
-        bookable: Bookable_bookable | Bookables_bookables_items | UsageBookables_bookables_items,
+        bookable: null | Bookable_bookable | Bookables_bookables_items | UsageBookables_bookables_items,
         owner: {id: string},
         booking: BookingPartialInput = {},
     ): Observable<CreateBooking['createBooking']> {

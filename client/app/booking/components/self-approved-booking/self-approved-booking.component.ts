@@ -40,10 +40,6 @@ export class SelfApprovedBookingComponent implements OnInit {
     }
 
     public createBooking(): void {
-        if (!this.bookable) {
-            return;
-        }
-
         this.bookingService.createWithBookable(this.bookable, this.booking.owner, this.booking).subscribe(() => {
             this.alertService.info('Votre sortie a été enregistrée. Soyez prudent.', 5000);
             this.router.navigate(['/']);
