@@ -9,7 +9,7 @@ function popCahierInfos(nbr = 0) {
 
     var close = div(container);
     close.className = 'divPopUpClose';
-    close.onclick = function () {
+    close.onclick = function() {
         closePopUp({target: elem}, elem);
     };
 
@@ -33,17 +33,17 @@ function popCahierInfos(nbr = 0) {
     i.min = '1';
     i.value = Cahier.bookings[nbr].participantCount;
     i.placeholder = '1';
-    i.addEventListener('keyup', function () {
+    i.addEventListener('keyup', function() {
         writeNbrInvites(this);
     });
-    i.addEventListener('focusin', function () {
+    i.addEventListener('focusin', function() {
         if (this.value == '1') {
             this.value = '';
         }
         writeNbrInvites(this);
         focusInOrOut(this, true);
     });
-    i.addEventListener('focusout', function () {
+    i.addEventListener('focusout', function() {
         if (this.value == '') {
             this.value = '1';
             writeNbrInvites(this);
@@ -82,14 +82,14 @@ function popCahierInfos(nbr = 0) {
     var i = input(divDestination);
     i.value = Cahier.bookings[nbr].destination;
     i.placeholder = 'Destination';
-    i.addEventListener('keyup', function () {
+    i.addEventListener('keyup', function() {
         writeDestination(this);
     });
-    i.addEventListener('focusin', function () {
+    i.addEventListener('focusin', function() {
         writeDestination(this);
         focusInOrOut(this, true);
     });
-    i.addEventListener('focusout', function () {
+    i.addEventListener('focusout', function() {
         writeDestination(this);
         focusInOrOut(this, false);
     });
@@ -131,7 +131,7 @@ function popCahierInfos(nbr = 0) {
     btn.classList.add('ValidateButtons');
     btn.style.display = 'inline-block';
     btn.innerHTML = 'Valider';
-    btn.addEventListener('click', function () {
+    btn.addEventListener('click', function() {
         checkInfos(elem, nbr);
     });
 }

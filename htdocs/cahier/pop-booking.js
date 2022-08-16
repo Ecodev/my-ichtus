@@ -63,7 +63,7 @@ function openBooking(which = 'confirmation', elem = $('divTabConfirmationOneBook
 
         var close = div(container);
         close.className = 'divPopUpClose';
-        close.onclick = function () {
+        close.onclick = function() {
             closePopUp({target: elem}, elem);
         };
     }
@@ -116,7 +116,7 @@ function openBooking(which = 'confirmation', elem = $('divTabConfirmationOneBook
 
         var r1 = div(radioContainer);
         r1.classList.add('radioSelected');
-        r1.onclick = function () {
+        r1.onclick = function() {
             this.classList.add('radioSelected');
             this.nextElementSibling.classList.remove('radioSelected');
             this.parentElement.nextElementSibling.children[0].disabled = true;
@@ -126,7 +126,7 @@ function openBooking(which = 'confirmation', elem = $('divTabConfirmationOneBook
         div(div(r1));
         div(r1).innerHTML = 'En bon état';
         var r2 = div(radioContainer);
-        r2.onclick = function () {
+        r2.onclick = function() {
             this.classList.add('radioSelected');
             this.previousElementSibling.classList.remove('radioSelected');
             this.parentElement.nextElementSibling.children[0].disabled = false;
@@ -160,7 +160,7 @@ function openBooking(which = 'confirmation', elem = $('divTabConfirmationOneBook
         btn.innerHTML = 'Modifier';
         btn.classList.add('Buttons');
         btn.classList.add('ReturnButtons');
-        btn.onclick = function () {
+        btn.onclick = function() {
             newTab('divTabCahierEquipmentChoice');
         };
     }
@@ -242,7 +242,7 @@ function openBooking(which = 'confirmation', elem = $('divTabConfirmationOneBook
         btn2.innerHTML = 'Modifier';
         btn2.classList.add('Buttons');
         btn2.classList.add('ReturnButtons');
-        btn2.onclick = function () {
+        btn2.onclick = function() {
             popCahierInfos(0);
         };
     }
@@ -295,7 +295,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
         allDivTexts[2].innerHTML = new Date().getNiceTime();
 
         var btn = container.getElementsByClassName('ValidateButtons')[0];
-        btn.addEventListener('click', function () {
+        btn.addEventListener('click', function() {
             if (options.bookablesComment) {
                 var comments = [];
 
@@ -313,16 +313,14 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
                                     container.getElementsByTagName('textarea').length - 1
                                 ].value;
                         } else {
-                            comments[i] =
-                                container.getElementsByTagName('textarea')[
-                                    container.getElementsByTagName('textarea').length - 1
-                                ].value;
-                        }
-                    } else {
-                        comments[i] =
-                            container.getElementsByTagName('textarea')[
+                            comments[i] = container.getElementsByTagName('textarea')[
                                 container.getElementsByTagName('textarea').length - 1
                             ].value;
+                        }
+                    } else {
+                        comments[i] = container.getElementsByTagName('textarea')[
+                            container.getElementsByTagName('textarea').length - 1
+                        ].value;
                     }
                 }
 
@@ -341,7 +339,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
 
         // 1.4 (Edit Booking)
         $('btnEditBooking').style.visibility = 'visible';
-        $('btnEditBooking').onclick = function () {
+        $('btnEditBooking').onclick = function() {
             closePopUp('last');
             Cahier.bookings[0] = booking.clone();
             Cahier.editedBooking = booking.clone();
@@ -397,7 +395,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
                 t.style.visibility = 'hidden';
                 t.classList.add('Buttons', 'NormalButtons', 'btnTerminateOneBookable');
                 t.innerHTML = 'Terminer';
-                t.addEventListener('click', function () {
+                t.addEventListener('click', function() {
                     //console.log(booking, this.id, booking.ids[parseInt(this.id)]);
                     Requests.terminateBooking([booking.ids[parseInt(this.id)]], ['']);
                     DeleteObjects(this.parentElement.parentElement);
@@ -407,8 +405,8 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
                 });
 
                 $('btnModify').style.visibility = 'visible';
-                $('btnModify').addEventListener('click', function () {
-                    setTimeout(function () {
+                $('btnModify').addEventListener('click', function() {
+                    setTimeout(function() {
                         $('btnModify').style.visibility = 'hidden';
                         $('btnModify').nextElementSibling.style.visibility = 'hidden';
                         $('btnModify').nextElementSibling.nextElementSibling.style.visibility = 'hidden';
@@ -435,7 +433,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
                 img.classList.add('PersonalSail');
                 img.innerHTML = '';
             } else {
-                img.addEventListener('click', function () {
+                img.addEventListener('click', function() {
                     popBookable(booking.bookables[i].id);
                 });
             }
@@ -451,7 +449,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
 
                     var r1 = div(radioContainer);
                     r1.classList.add('radioSelected');
-                    r1.onclick = function () {
+                    r1.onclick = function() {
                         this.classList.add('radioSelected');
                         this.nextElementSibling.classList.remove('radioSelected');
                         this.parentElement.nextElementSibling.children[0].disabled = true;
@@ -461,7 +459,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
                     div(div(r1));
                     div(r1).innerHTML = 'En bon état';
                     var r2 = div(radioContainer);
-                    r2.onclick = function () {
+                    r2.onclick = function() {
                         this.classList.add('radioSelected');
                         this.previousElementSibling.classList.remove('radioSelected');
                         this.parentElement.nextElementSibling.children[0].disabled = false;

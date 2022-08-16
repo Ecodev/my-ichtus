@@ -8,7 +8,7 @@ function popLogin() {
 
     var close = div(container);
     close.className = 'divPopUpClose';
-    close.onclick = function () {
+    close.onclick = function() {
         closePopUp({target: elem}, elem);
     };
 
@@ -24,7 +24,7 @@ function popLogin() {
     var i = input(container);
     i.type = 'password';
     i.placeholder = 'Mot de passe';
-    i.addEventListener('keyup', function (event) {
+    i.addEventListener('keyup', function(event) {
         if (event.keyCode == 13) {
             Requests.login(this.value);
         }
@@ -34,14 +34,14 @@ function popLogin() {
     b.classList.add('Buttons');
     b.classList.add('ValidateButtons');
     b.innerHTML = 'Connexion';
-    b.addEventListener('click', function () {
+    b.addEventListener('click', function() {
         Requests.login(this.parentElement.getElementsByTagName('input')[0].value);
     });
 
-    setTimeout(function () {
+    setTimeout(function() {
         i.focus();
 
-        setTimeout(function () {
+        setTimeout(function() {
             if (i.value != '' && options.automaticConnexion) {
                 console.warn('Connexion automatique');
                 Requests.login(i.value);

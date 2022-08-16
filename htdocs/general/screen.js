@@ -17,17 +17,17 @@ function changeTab(newElement, sign) {
 
     newElement.style.top = '0px';
 
-    setTimeout(function () {
+    setTimeout(function() {
         currentTabElement.style.zIndex = '2';
         currentTabElement.style.transition = 'none';
 
         currentTabElement.style.transform = 'translate(0px)';
 
-        setTimeout(function () {
+        setTimeout(function() {
             currentTabElement.style.transition =
                 'transform ' + changeTime + 's linear 0s, padding-right 0.3s linear 0s';
         }, 30);
-        setTimeout(function () {
+        setTimeout(function() {
             stillMoving = false;
             currentTabElement.style.top = '-30000px';
             currentTabElement = newElement;
@@ -56,10 +56,10 @@ tabs.push({
     TopBar: false,
     ListBar: false,
     title: 'Cahier de sortie',
-    Enter: function () {
+    Enter: function() {
         Cahier.cancel();
     },
-    Remove: function () {},
+    Remove: function() {},
 });
 tabs.push({
     id: 'divTabCahierMember',
@@ -69,10 +69,12 @@ tabs.push({
     TopBar: true,
     ListBar: false,
     title: 'Veuillez écrire votre nom et prénom',
-    Enter: function () {
-        $('divTabCahierMember').getElementsByTagName('input')[0].focus();
+    Enter: function() {
+        $('divTabCahierMember')
+            .getElementsByTagName('input')[0]
+            .focus();
     },
-    Remove: function () {},
+    Remove: function() {},
 });
 tabs.push({
     id: 'divTabCahierInfos',
@@ -82,9 +84,12 @@ tabs.push({
     TopBar: true,
     ListBar: false,
     title: 'Complétez les champs',
-    Enter: function () {
+    Enter: function() {
         if (currentTabElement.id == 'divTabCahierMember') {
-            document.getElementsByClassName('divTabCahierInfosNbrInvites')[0].getElementsByTagName('input')[0].focus();
+            document
+                .getElementsByClassName('divTabCahierInfosNbrInvites')[0]
+                .getElementsByTagName('input')[0]
+                .focus();
             writeNbrInvites(
                 document.getElementsByClassName('divTabCahierInfosNbrInvites')[0].getElementsByTagName('input')[0],
             );
@@ -98,7 +103,8 @@ tabs.push({
                 Cahier.bookings[0].destination;
             document
                 .getElementsByClassName('divTabCahierInfosStartComment')[0]
-                .getElementsByTagName('textarea')[0].value = Cahier.bookings[0].startComment;
+                .getElementsByTagName('textarea')[0].value =
+                Cahier.bookings[0].startComment;
             writeNbrInvites(
                 document.getElementsByClassName('divTabCahierInfosNbrInvites')[0].getElementsByTagName('input')[0],
             );
@@ -107,7 +113,7 @@ tabs.push({
             );
         }
     },
-    Remove: function () {},
+    Remove: function() {},
 });
 tabs.push({
     id: 'divTabCahierEquipmentChoice',
@@ -117,16 +123,17 @@ tabs.push({
     TopBar: true,
     ListBar: true,
     title: 'Tapez les codes de vos embarcations',
-    Enter: function () {
+    Enter: function() {
         document
             .getElementsByClassName('divTabCahierEquipmentChoiceInputCodeContainer')[0]
             .getElementsByTagName('input')[0]
             .focus();
         document
             .getElementsByClassName('divTabCahierEquipmentChoiceInputCodeContainer')[0]
-            .getElementsByTagName('input')[0].value = '';
+            .getElementsByTagName('input')[0].value =
+            '';
     },
-    Remove: function () {},
+    Remove: function() {},
 });
 tabs.push({
     id: 'divTabCahierEquipmentBookable',
@@ -136,8 +143,8 @@ tabs.push({
     TopBar: true,
     ListBar: true,
     title: 'Validez cette embarcation',
-    Enter: function () {},
-    Remove: function () {},
+    Enter: function() {},
+    Remove: function() {},
 });
 tabs.push({
     id: 'divTabCahierEquipmentCategories',
@@ -147,8 +154,8 @@ tabs.push({
     TopBar: true,
     ListBar: true,
     title: "Veuillez choisir votre type d'activité",
-    Enter: function () {},
-    Remove: function () {},
+    Enter: function() {},
+    Remove: function() {},
 });
 tabs.push({
     id: 'divTabCahierEquipmentElements',
@@ -158,12 +165,12 @@ tabs.push({
     TopBar: true,
     ListBar: true,
     title: 'Sélectionnez vos embarcations',
-    Enter: function () {
+    Enter: function() {
         MaterielElementsFirstLoad = true;
         Requests.getBookablesList(); //$('inputTabCahierEquipmentElementsInputSearch').focus();
         $('divTabCahierTopList').children[1].style.opacity = 1;
     },
-    Remove: function () {
+    Remove: function() {
         $('divTabCahierTopList').children[1].style.opacity = 0;
     },
 });
@@ -175,16 +182,16 @@ tabs.push({
     TopBar: true,
     ListBar: false,
     title: 'Confirmez et créez votre sortie',
-    Enter: function () {
+    Enter: function() {
         loadConfirmation();
     },
-    Remove: function () {},
+    Remove: function() {},
 });
 
 //WINDOW LOCATION CHANGE
 var OldElement = tabs[0];
 var NewElement = tabs[0];
-window.onhashchange = function () {
+window.onhashchange = function() {
     var newLocation = window.location.toString();
     var res = newLocation.substr(newLocation.indexOf('#') + 1);
 
@@ -249,7 +256,7 @@ window.onhashchange = function () {
 //ENTER PROGRESS BAR
 function enterProgressBar() {
     $('divTabCahierTop').style.zIndex = 6;
-    setTimeout(function () {
+    setTimeout(function() {
         $('divTabCahierTop').style.zIndex = 11;
     }, changeTime * 1000);
 }
@@ -259,13 +266,13 @@ function removeProgressBar(sign) {
     $('divTabCahierTop').style.transition = 'transform ' + changeTime + 's linear 0s';
     $('divTabCahierTop').style.transform = 'translate(' + -sign + '00%)';
 
-    setTimeout(function () {
+    setTimeout(function() {
         $('divTabCahierTop').style.zIndex = '2';
         $('divTabCahierTop').style.transition = 'none';
 
         $('divTabCahierTop').style.transform = 'translate(0px)';
 
-        setTimeout(function () {
+        setTimeout(function() {
             $('divTabCahierTop').style.transition = 'transform ' + changeTime + 's linear 0s';
         }, 20);
     }, changeTime * 1000);
@@ -274,7 +281,7 @@ function removeProgressBar(sign) {
 //ENTER LIST BAR
 function enterListBar() {
     $('divTabCahierTopList').style.zIndex = 6;
-    setTimeout(function () {
+    setTimeout(function() {
         $('divTabCahierTopList').style.zIndex = 10;
     }, changeTime * 1000);
 }
@@ -284,13 +291,13 @@ function removeListBar(sign) {
     $('divTabCahierTopList').style.transition = 'transform ' + changeTime + 's linear 0s';
     $('divTabCahierTopList').style.transform = 'translate(' + -sign + '00%)';
 
-    setTimeout(function () {
+    setTimeout(function() {
         $('divTabCahierTopList').style.zIndex = '2';
         $('divTabCahierTopList').style.transition = 'none';
 
         $('divTabCahierTopList').style.transform = 'translate(0px)';
 
-        setTimeout(function () {
+        setTimeout(function() {
             $('divTabCahierTopList').style.transition = 'transform ' + changeTime + 's linear 0s';
         }, 20);
     }, changeTime * 1000);

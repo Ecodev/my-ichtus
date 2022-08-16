@@ -12,9 +12,9 @@ function ableToSkipAnimation() {
 function animate() {
     running = true;
 
-    cancelFunction = function () {
+    cancelFunction = function() {
         console.warn('La page va être rafraîchie');
-        setTimeout(function () {
+        setTimeout(function() {
             location.reload();
         }, 500);
     };
@@ -24,7 +24,7 @@ function animate() {
     b = div(document.body);
     b.id = 'black';
 
-    setTimeout(function () {
+    setTimeout(function() {
         if (!running) {
             return;
         } else {
@@ -50,7 +50,7 @@ function animate() {
             w.id = 'waves';
             addSvgClass(w);
 
-            setTimeout(function () {
+            setTimeout(function() {
                 if (!running) {
                     return;
                 } else {
@@ -60,7 +60,7 @@ function animate() {
                 }
             }, 200);
 
-            setTimeout(function () {
+            setTimeout(function() {
                 if (!running) {
                     return;
                 } else {
@@ -71,7 +71,7 @@ function animate() {
                     r.style.animationName = 'AniCircleExit';
                     f.style.animationName = 'AniFishExit,none';
 
-                    setTimeout(function () {
+                    setTimeout(function() {
                         for (var i = 0; i < 6; i++) {
                             // should be useless
                             DeleteObjects(document.getElementsByClassName('svgLetters')[0]);
@@ -81,13 +81,13 @@ function animate() {
 
                         if (options.reloadWhenFinished) {
                             console.warn('La page va être rafraîchie');
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 location.reload();
                             }, 500);
                         }
                     }, 1000); //newTab("divTabCahier");
 
-                    setTimeout(function () {
+                    setTimeout(function() {
                         if (!running) {
                             return;
                         } else {
@@ -130,10 +130,10 @@ function newLetter(i) {
         }
 
         if (i > 2) {
-            setTimeout(function () {
+            setTimeout(function() {
                 d.style.animationName = 'AniLettersExitRight';
                 setTimeout(
-                    function (elem) {
+                    function(elem) {
                         if (running) {
                             DeleteObjects(elem);
                         }
@@ -143,10 +143,10 @@ function newLetter(i) {
                 );
             }, 3000 - 100 + (3 - i) * 2 * 100);
         } else {
-            setTimeout(function () {
+            setTimeout(function() {
                 d.style.animationName = 'AniLettersExitLeft';
                 setTimeout(
-                    function (elem) {
+                    function(elem) {
                         if (running) {
                             DeleteObjects(elem);
                         }

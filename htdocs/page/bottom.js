@@ -22,7 +22,7 @@ function loadBottoms() {
         b.className = 'divBottoms';
 
         var divMonth = div(b);
-        divMonth.onclick = function () {
+        divMonth.onclick = function() {
             popStats();
         };
     }

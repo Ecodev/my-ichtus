@@ -24,7 +24,7 @@ function popBookableHistory(bookableId) {
 
     var close = div(container);
     close.className = 'divPopUpClose';
-    close.onclick = function () {
+    close.onclick = function() {
         closePopUp({target: modal}, modal);
     };
 
@@ -96,7 +96,7 @@ function actualizePopBookableHistory(bookings, elem) {
         var sortie = div(all[all.length - 1]);
         sortie.id = i;
         sortie.classList.add('PopUpSortie');
-        sortie.onclick = function () {
+        sortie.onclick = function() {
             popBooking(bookings[this.id]);
         };
         div(sortie).innerHTML = d.getNiceTime();
@@ -115,7 +115,7 @@ function actualizePopBookableHistory(bookings, elem) {
     plus.classList.add('Buttons');
     plus.classList.add('NormalButtons');
     plus.innerHTML = 'Afficher plus';
-    plus.onclick = function () {
+    plus.onclick = function() {
         Requests.getBookableHistory(bookableId, elem, lastDate);
     };
 

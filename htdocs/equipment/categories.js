@@ -32,13 +32,13 @@ function loadMateriel(container = $('divTabCahierEquipmentCategoriesContainer'))
 
         if (categoriesValues[i] == 'MP') {
             // useless
-            d.addEventListener('click', function () {
+            d.addEventListener('click', function() {
                 Cahier.bookableId = '';
                 Cahier.bookableName = 'Matériel Personel';
                 newTab('divTabCahierInfos');
             });
         } else {
-            d.addEventListener('click', function () {
+            d.addEventListener('click', function() {
                 newTab('divTabCahierEquipmentElements');
                 $('divTabCahierEquipmentElementsSelectCategorie')
                     .getElementsByTagName('select')[0]
@@ -53,11 +53,15 @@ function loadMateriel(container = $('divTabCahierEquipmentCategoriesContainer'))
         var opt = document.createElement('option');
         opt.innerHTML = categories[i];
         opt.value = categoriesValues[i];
-        $('divTabCahierEquipmentElementsSelectCategorie').getElementsByTagName('select')[0].appendChild(opt);
+        $('divTabCahierEquipmentElementsSelectCategorie')
+            .getElementsByTagName('select')[0]
+            .appendChild(opt);
     }
 
     var opt = document.createElement('option');
     opt.innerHTML = 'Toutes les catégories';
     opt.value = 'all';
-    $('divTabCahierEquipmentElementsSelectCategorie').getElementsByTagName('select')[0].appendChild(opt);
+    $('divTabCahierEquipmentElementsSelectCategorie')
+        .getElementsByTagName('select')[0]
+        .appendChild(opt);
 }

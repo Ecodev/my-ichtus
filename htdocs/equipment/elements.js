@@ -36,7 +36,7 @@ function loadElements(bookables, nbr = 0) {
         if (x !== -1) {
             // found something
             container.classList.add('selected');
-            container.onclick = function (event) {
+            container.onclick = function(event) {
                 if (!event.target.classList.contains('infoJS')) {
                     // pas cliqué sur le bouton info
                     Cahier.removeBookable(nbr, bookables[this.id]);
@@ -44,20 +44,18 @@ function loadElements(bookables, nbr = 0) {
                 }
             };
         } else {
-            container.onclick = function (event) {
+            container.onclick = function(event) {
                 if (!event.target.classList.contains('infoJS')) {
                     // pas cliqué sur le bouton info
 
                     if (bookables[this.id].lessThan13Minutes) {
                         // big warning
-                        popAlertLessThan13Minutes(
-                            bookables[this.id],
-                            bookables[this.id].lastBooking,
-                            function (_bookable) {
-                                Cahier.addBookable(0, _bookable);
-                                actualizeElements();
-                            },
-                        );
+                        popAlertLessThan13Minutes(bookables[this.id], bookables[this.id].lastBooking, function(
+                            _bookable,
+                        ) {
+                            Cahier.addBookable(0, _bookable);
+                            actualizeElements();
+                        });
                     } else {
                         Cahier.addBookable(0, bookables[this.id]);
                         actualizeElements();
@@ -98,7 +96,7 @@ function loadElements(bookables, nbr = 0) {
         var info = div(secondContainer);
         info.id = bookables[i].id;
         info.classList.add('infoJS');
-        info.onclick = function () {
+        info.onclick = function() {
             popBookable(this.id);
         };
 
@@ -137,7 +135,7 @@ function actualizeElements() {
         if (codes.findIndex(bookables[i].id) !== -1) {
             // found something
             container.classList.add('selected');
-            container.onclick = function (event) {
+            container.onclick = function(event) {
                 if (!event.target.classList.contains('infoJS')) {
                     // pas cliqué sur le bouton info
                     Cahier.removeBookable(0, bookables[this.id]);
@@ -145,20 +143,18 @@ function actualizeElements() {
                 }
             };
         } else {
-            container.onclick = function (event) {
+            container.onclick = function(event) {
                 if (!event.target.classList.contains('infoJS')) {
                     // pas cliqué sur le bouton info
 
                     if (bookables[this.id].lessThan13Minutes) {
                         // big warning
-                        popAlertLessThan13Minutes(
-                            bookables[this.id],
-                            bookables[this.id].lastBooking,
-                            function (_bookable) {
-                                Cahier.addBookable(0, _bookable);
-                                actualizeElements();
-                            },
-                        );
+                        popAlertLessThan13Minutes(bookables[this.id], bookables[this.id].lastBooking, function(
+                            _bookable,
+                        ) {
+                            Cahier.addBookable(0, _bookable);
+                            actualizeElements();
+                        });
                     } else {
                         Cahier.addBookable(0, bookables[this.id]);
                         actualizeElements();

@@ -14,7 +14,7 @@ function loadCahierEquipmentChoice(
     c.classList.add('divTabCahierEquipmentChoiceInputCodeContainer');
 
     var i = input(c, 'Taper un code...');
-    i.onkeyup = function (event) {
+    i.onkeyup = function(event) {
         if (event.keyCode == 13) {
             Requests.getBookableByCode(this, nbr);
         }
@@ -34,7 +34,7 @@ function loadCahierEquipmentChoice(
     var btn = div(div(c));
     btn.classList.add('ValidateButtons', 'Buttons');
     btn.title = 'Choisir cette embarcation';
-    btn.onclick = function () {
+    btn.onclick = function() {
         Requests.getBookableByCode(this.parentElement.previousElementSibling.previousElementSibling, nbr);
     };
 
@@ -50,7 +50,7 @@ function loadCahierEquipmentChoice(
     btn1.style.fontSize = '19px';
 
     if (isTab) {
-        btn1.onclick = function () {
+        btn1.onclick = function() {
             var t = true;
             for (let k = 0; k < Cahier.bookings[0].bookables.length; k++) {
                 if (Cahier.bookings[0].bookables[k].id == 0) {
@@ -64,7 +64,7 @@ function loadCahierEquipmentChoice(
             }
         };
     } else {
-        btn1.onclick = function () {
+        btn1.onclick = function() {
             Cahier.addBookable(nbr);
             closePopUp('last');
         };
@@ -75,7 +75,7 @@ function loadCahierEquipmentChoice(
     var btn2 = div(btnContainer);
     btn2.innerHTML = 'Voir la liste du matériel';
     if (isTab) {
-        btn2.onclick = function () {
+        btn2.onclick = function() {
             newTab('divTabCahierEquipmentCategories');
         };
     } else {

@@ -12,7 +12,7 @@ function popBookable(bookableId, justPreview = true, nbr = 0, modal = openPopUp(
     if (modal != $('divTabCahierEquipmentBookableContainer')) {
         var close = div(pop);
         close.className = 'divPopUpClose';
-        close.onclick = function () {
+        close.onclick = function() {
             closePopUp({target: modal}, modal);
         };
     } else {
@@ -124,7 +124,7 @@ function actualizePopBookable(nbr, bookable, bookings, elem) {
             .getElementsByTagName('div')[3].innerHTML = Cahier.getSingularOrPlural(bookings.length, ' sortie'); // oui ou non ?? $$ temp
 
         elem.getElementsByClassName('Buttons')[0].style.visibility = 'visible';
-        elem.getElementsByClassName('Buttons')[0].addEventListener('click', function () {
+        elem.getElementsByClassName('Buttons')[0].addEventListener('click', function() {
             popBookableHistory(
                 this.parentElement
                     .getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0]
@@ -135,20 +135,22 @@ function actualizePopBookable(nbr, bookable, bookings, elem) {
         // jamais utilisé
         elem
             .getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0]
-            .getElementsByTagName('div')[3].innerHTML = 'Encore aucune sortie enregistrée';
+            .getElementsByTagName('div')[3].innerHTML =
+            'Encore aucune sortie enregistrée';
         elem.getElementsByClassName('Buttons')[0].style.visibility = 'hidden';
     }
 
     if (elem.getElementsByClassName('ValidateButtons').length == 1) {
         // if !justPreview
 
-        var choseFunction = function () {
+        var choseFunction = function() {
             Cahier.addBookable(nbr, bookable, bookings.items[0]);
             newTab('divTabCahierEquipmentChoice');
 
             $('divTabCahierEquipmentChoice')
                 .getElementsByClassName('divTabCahierEquipmentChoiceInputCodeContainer')[0]
-                .getElementsByTagName('input')[0].value = '';
+                .getElementsByTagName('input')[0].value =
+                '';
             $('divTabCahierEquipmentChoice')
                 .getElementsByClassName('divTabCahierEquipmentChoiceInputCodeContainer')[0]
                 .getElementsByTagName('input')[0]
@@ -159,7 +161,7 @@ function actualizePopBookable(nbr, bookable, bookings, elem) {
             // big warning
             elem.getElementsByClassName('ValidateButtons')[0].classList.add('btnRed');
             elem.getElementsByClassName('ValidateButtons')[0].title = 'Cette embarcation est déjà utilisée';
-            elem.getElementsByClassName('ValidateButtons')[0].addEventListener('click', function () {
+            elem.getElementsByClassName('ValidateButtons')[0].addEventListener('click', function() {
                 popAlertLessThan13Minutes(bookable, bookings.items[0], choseFunction);
             });
         } else {
@@ -176,5 +178,6 @@ function actualizePopBookable(nbr, bookable, bookings, elem) {
 
     elem
         .getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0]
-        .getElementsByTagName('div')[1].id = bookable.id;
+        .getElementsByTagName('div')[1].id =
+        bookable.id;
 }

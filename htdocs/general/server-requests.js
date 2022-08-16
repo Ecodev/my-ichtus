@@ -7,7 +7,7 @@ function ServerInitialize() {
 
 var Requests = {
     // login
-    login: function (pwd) {
+    login: function(pwd) {
         //console.log("LOGIN");
 
         Server.userService
@@ -33,25 +33,25 @@ var Requests = {
     },
 
     // have to log in
-    haveToLogin: function () {
+    haveToLogin: function() {
         if (window.location.hostname === 'navigations.ichtus.club') {
             popLogin();
         } else {
-            setTimeout(function () {
+            setTimeout(function() {
                 Requests.login('bookingonly');
             }, 2000); // auto mdp, timeout to avoid overloading the server
         }
     },
 
     // is connected
-    isConnected: function () {
+    isConnected: function() {
         console.warn('Connecté à ' + new Date().getNiceTime());
         Requests.getActualBookingList();
     },
 
     // actualizeLoginButton
-    checkLogin: function () {
-        Server.userService.getViewer().subscribe(function (user) {
+    checkLogin: function() {
+        Server.userService.getViewer().subscribe(function(user) {
             //console.log("user:", user);
 
             // pas connecté
@@ -72,7 +72,7 @@ var Requests = {
     },
 
     // getUsersList FOR user.js
-    getUsersList: function (text = '') {
+    getUsersList: function(text = '') {
         var filter;
         var texts = [];
 
@@ -272,7 +272,7 @@ var Requests = {
     },
 
     // getUserInfos (TO DO AND CHANGE THE GETALL)
-    getUserInfos: function (ownerId) {
+    getUserInfos: function(ownerId) {
         /* var filter = {
              filter: {
                  groups: [
@@ -305,7 +305,7 @@ var Requests = {
     },
 
     // getBookablesList
-    getBookablesList: function (elem = $('inputTabCahierEquipmentElementsInputSearch')) {
+    getBookablesList: function(elem = $('inputTabCahierEquipmentElementsInputSearch')) {
         var order;
         if (
             $('divTabCahierEquipmentElementsSelectIconSort').style.backgroundImage == 'url("img/icons/sort-desc.png")'
@@ -503,7 +503,7 @@ var Requests = {
     },
 
     // getBookableNbrForBookableTag()
-    getBookableNbrForBookableTag: function (bookableTag, elem, before = '', after = '') {
+    getBookableNbrForBookableTag: function(bookableTag, elem, before = '', after = '') {
         if (bookableTag == 'Canoe_Kayak') {
             bookableTag = 'Kayak';
         }
@@ -574,7 +574,7 @@ var Requests = {
     },
 
     // getBookableByCode
-    getBookableByCode: function (elem, nbr = 0) {
+    getBookableByCode: function(elem, nbr = 0) {
         var t = true;
 
         var code = elem.value.toUpperCase().trim();
@@ -638,7 +638,7 @@ var Requests = {
                     elem.classList.add('resetAnimation');
                     elem.nextElementSibling.classList.add('resetAnimation');
 
-                    setTimeout(function () {
+                    setTimeout(function() {
                         elem.classList.remove('resetAnimation');
                         elem.nextElementSibling.classList.remove('resetAnimation');
 
@@ -651,7 +651,7 @@ var Requests = {
     },
 
     // getBookableInfos
-    getBookableInfos: function (nbr, bookableId, elem) {
+    getBookableInfos: function(nbr, bookableId, elem) {
         var filter = {
             filter: {
                 groups: [{conditions: [{id: {like: {value: bookableId}}}]}],
@@ -709,7 +709,7 @@ var Requests = {
         });
     },
 
-    getBookableLastBooking: function (bookableId) {
+    getBookableLastBooking: function(bookableId) {
         var filter = {
             filter: {
                 groups: [
@@ -752,7 +752,7 @@ var Requests = {
     },
 
     // 1.3
-    checksBookablesAvailabilityBeforeConfirming: function (_bookables) {
+    checksBookablesAvailabilityBeforeConfirming: function(_bookables) {
         var d = new Date(Cahier.bookingStartDate.getTime() - 10 * 60 * 1000); // subtract 1 minute $$
 
         var f = {
@@ -835,7 +835,7 @@ var Requests = {
     //},
 
     // getActualBookingList()
-    getActualBookingList: function () {
+    getActualBookingList: function() {
         //console.log("GET ACTUAL BOOKING LIST");
 
         var filter = {
@@ -926,7 +926,7 @@ var Requests = {
     },
 
     // getFinishedBookingListForDay()
-    getFinishedBookingListForDay: function (d = new Date(), table = '?', title) {
+    getFinishedBookingListForDay: function(d = new Date(), table = '?', title) {
         var start = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
         var end = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1, 0, 0, 0, 0);
 
@@ -1041,7 +1041,7 @@ var Requests = {
     },
 
     // getBookableHistory()
-    getBookableHistory: function (bookableId, elem, lastDate, Size = 10) {
+    getBookableHistory: function(bookableId, elem, lastDate, Size = 10) {
         //console.log("getbookableHistory", bookableId, "lastDate:", lastDate, "Size",Size);
 
         var filter = {
@@ -1097,9 +1097,9 @@ var Requests = {
 
             if (first.items.length == 0) {
                 if (elem.getElementsByClassName('Buttons').length == 1) {
-                    elem.getElementsByClassName('Buttons')[0].parentElement.removeChild(
-                        elem.getElementsByClassName('Buttons')[0],
-                    );
+                    elem
+                        .getElementsByClassName('Buttons')[0]
+                        .parentElement.removeChild(elem.getElementsByClassName('Buttons')[0]);
                     elem.getElementsByTagName('br')[0].parentElement.removeChild(elem.getElementsByTagName('br')[0]);
                     var t = div(elem.getElementsByClassName('PopUpBookableHistoryContainerScroll')[0]);
                     t.innerHTML = 'Toutes les sorties ont été chargées ! <br/>';
@@ -1175,7 +1175,7 @@ var Requests = {
     },
 
     // getBookingsNbrBetween
-    getBookingsNbrBetween: function (start, end, bookableId = '%', elem = document.body, writeIfOne = true) {
+    getBookingsNbrBetween: function(start, end, bookableId = '%', elem = document.body, writeIfOne = true) {
         var filter = {
             filter: {
                 groups: [
@@ -1227,7 +1227,7 @@ var Requests = {
     },
 
     // getMonthlyBookingsNbr for divBottoms
-    getMonthlyBookingsNbr: function (start, end) {
+    getMonthlyBookingsNbr: function(start, end) {
         end = new Date(end.getFullYear(), end.getMonth(), end.getDate(), 23, 59, 59, 99);
 
         var filter = {
@@ -1311,7 +1311,7 @@ var Requests = {
     },
 
     // getStats
-    getStats: function (start, end, elem) {
+    getStats: function(start, end, elem) {
         var f = {
             filter: {
                 groups: [
@@ -1386,7 +1386,7 @@ var Requests = {
     },
 
     // getBookingWithBookablesInfos
-    getBookingWithBookablesInfos: function (_booking, which, elem) {
+    getBookingWithBookablesInfos: function(_booking, which, elem) {
         var filter = {
             filter: {
                 groups: [
@@ -1414,7 +1414,7 @@ var Requests = {
     },
 
     // finishBooking
-    terminateBooking: function (bookingIds = [], comments = [], realTerminate = true) {
+    terminateBooking: function(bookingIds = [], comments = [], realTerminate = true) {
         var c = 0;
 
         for (var i = 0; i < bookingIds.length; i++) {
@@ -1435,13 +1435,13 @@ var Requests = {
     },
 
     // deleteBookings
-    deleteBookings: function (ids = ['3102']) {
+    deleteBookings: function(ids = ['3102']) {
         //  Server.bookingService.deleteBookings(ids).subscribe(result => { console.log(result); });
     },
 
     // createBooking
     counter: 0,
-    createBooking: function () {
+    createBooking: function() {
         Requests.counter = 0;
 
         for (let i = 0; i < Cahier.bookings[0].bookables.length; i++) {
@@ -1473,14 +1473,14 @@ var Requests = {
         }
     },
 
-    getOwnerLicenses: function (_owner) {
+    getOwnerLicenses: function(_owner) {
         Server.userService.getOne(_owner.id).subscribe(result => {
             //            console.log("getOwnerLicenses(): ", result);
             Cahier.setOwnerLicenses(result);
         });
     },
 
-    getBookablesLicenses: function (_bookableIds) {
+    getBookablesLicenses: function(_bookableIds) {
         var filter = {
             filter: {
                 groups: [
