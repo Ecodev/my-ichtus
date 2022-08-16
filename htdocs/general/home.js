@@ -79,7 +79,7 @@ var timeout;
 function setTimeoutMove() {
     //console.log("start timeout");
     clearTimeout(timeout);
-    timeout = setTimeout(function() {
+    timeout = setTimeout(function () {
         if (currentTabElement.id === 'divTabCahier') location.reload();
         else Requests.getActualBookingList();
     }, 1 * 60 * 1000);
@@ -87,7 +87,7 @@ function setTimeoutMove() {
 
 setTimeoutMove();
 
-document.onmousemove = function() {
+document.onmousemove = function () {
     setTimeoutMove();
 };
 
@@ -101,7 +101,7 @@ document.onmousemove = function() {
 
 // could be improved...
 var Time = {
-    getActualMinutes: function(m = date.getMinutes()) {
+    getActualMinutes: function (m = date.getMinutes()) {
         if (m < 10) {
             x = '0' + m;
         } else {
@@ -111,14 +111,14 @@ var Time = {
     },
 };
 
-Date.prototype.getNiceTime = function(separator = ':', addZero = false) {
+Date.prototype.getNiceTime = function (separator = ':', addZero = false) {
     if (addZero == true && this.getHours() < 10) {
         return Time.getActualMinutes(this.getHours()) + separator + Time.getActualMinutes(this.getMinutes());
     } else {
         return this.getHours() + separator + Time.getActualMinutes(this.getMinutes());
     }
 };
-Date.prototype.getNiceDate = function(substr = false, year = false) {
+Date.prototype.getNiceDate = function (substr = false, year = false) {
     var r = '';
     if (substr) {
         r = Jours[this.getDay()] + ' ' + this.getDate() + ' ' + Mois[this.getMonth()].substring(0, 3);
@@ -131,7 +131,7 @@ Date.prototype.getNiceDate = function(substr = false, year = false) {
     return r;
 };
 
-Date.prototype.getPreviousDate = function() {
+Date.prototype.getPreviousDate = function () {
     var yesterday = new Date(this);
     yesterday.setDate(this.getDate() - 1);
     return yesterday;
@@ -230,14 +230,14 @@ function loadReturnButtons() {
 var lastModals = 0;
 function openPopUp() {
     var modal = div(document.body);
-    modal.onclick = function(event) {
+    modal.onclick = function (event) {
         closePopUp(event);
     };
     lastModals++;
     modal.id = 'divModal' + lastModals;
     modal.classList.add('Modals');
     modal.style.display = 'block';
-    setTimeout(function() {
+    setTimeout(function () {
         modal.style.opacity = 1;
     }, 10);
 
@@ -258,7 +258,7 @@ function closePopUp(e) {
     if (t) {
         var modal = $('divModal' + lastModals);
         modal.style.opacity = 0;
-        setTimeout(function() {
+        setTimeout(function () {
             modal.style.display = 'none';
             modal.innerHTML = '';
             modal.parentNode.removeChild(modal);
@@ -276,7 +276,7 @@ function closePopUp(e) {
     }
 }
 function loadEscListener() {
-    document.body.addEventListener('keydown', function(event) {
+    document.body.addEventListener('keydown', function (event) {
         if (event.keyCode == 27) {
             //console.log("ESC");
             closePopUp('last');
@@ -290,7 +290,7 @@ function stopWaiting() {
     document.body.classList.remove('waiting');
 }
 
-String.prototype.pixelLength = function(_fontSize = 20) {
+String.prototype.pixelLength = function (_fontSize = 20) {
     var c = document.createElement('span');
     document.body.appendChild(c);
     c.innerHTML = this;
@@ -300,7 +300,7 @@ String.prototype.pixelLength = function(_fontSize = 20) {
     return length;
 };
 
-String.prototype.shorten = function(maxLength, _fontSize = 20) {
+String.prototype.shorten = function (maxLength, _fontSize = 20) {
     var txt = this;
     if (this == '' || txt.pixelLength(_fontSize) <= maxLength) {
         return this;
@@ -321,7 +321,7 @@ function grayBar(elem, marginTop = 10, marginBottom = 15) {
     return d;
 }
 
-String.prototype.replaceTxtByTxt = function(replace = '', by = '', caseSensitive = false) {
+String.prototype.replaceTxtByTxt = function (replace = '', by = '', caseSensitive = false) {
     var i = 0;
     var where = [];
 
@@ -347,20 +347,20 @@ String.prototype.replaceTxtByTxt = function(replace = '', by = '', caseSensitive
 };
 
 // ARRAY PROTOTYPES
-Array.prototype.switch = function(i1, i2) {
+Array.prototype.switch = function (i1, i2) {
     var content_i1 = this[i1];
     this.splice(i1, 1, this[i2]);
     this.splice(i2, 1, content_i1);
     return this;
 };
 
-Array.prototype.inverse = function(i1, i2) {
+Array.prototype.inverse = function (i1, i2) {
     for (var i = i1; i < parseInt((i1 + i2) / 2 + 0.5); i++) {
         this.switch(i, i1 + i2 - i);
     }
     return this;
 };
-Array.prototype.findIndex = function(x) {
+Array.prototype.findIndex = function (x) {
     var index = -1;
     for (var i = 0; i < this.length; i++) {
         if (this[i] == x) {
@@ -371,7 +371,7 @@ Array.prototype.findIndex = function(x) {
     return index;
 };
 
-Array.prototype.deleteMultiples = function() {
+Array.prototype.deleteMultiples = function () {
     var r = [];
     for (var i = 0; i < this.length; i++) {
         if (r.findIndex(this[i]) === -1) {
@@ -382,7 +382,7 @@ Array.prototype.deleteMultiples = function() {
 };
 
 // sortBy
-Array.prototype.sortBy = function(sortFields, order = 1) {
+Array.prototype.sortBy = function (sortFields, order = 1) {
     if (order == 'ASC') {
         order = -1;
     } else if (order == 'DESC') {
@@ -407,14 +407,14 @@ Array.prototype.sortBy = function(sortFields, order = 1) {
 };
 
 // fillArray
-Array.prototype.fillArray = function(length, what = 0) {
+Array.prototype.fillArray = function (length, what = 0) {
     for (var i = 0; i < length; i++) {
         this[i] = what;
     }
 };
 
 // merge and only takes the elements which are in every array
-Array.prototype.mergeAND = function() {
+Array.prototype.mergeAND = function () {
     var send = [];
     for (let b = 0; b < this[0].length; b++) {
         var item = this[0][b];
@@ -432,7 +432,7 @@ Array.prototype.mergeAND = function() {
 };
 
 // clone
-Object.prototype.clone = function() {
+Object.prototype.clone = function () {
     return JSON.parse(JSON.stringify(this));
 };
 

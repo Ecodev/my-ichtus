@@ -8,7 +8,7 @@ function popAlert(txt = 'haha ahah ahah ') {
 
     var close = div(container);
     close.className = 'divPopUpClose';
-    close.onclick = function() {
+    close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
@@ -33,7 +33,7 @@ function popAlertAlreadyHavingABooking(_owner) {
 
     var close = div(container);
     close.className = 'divPopUpClose';
-    close.onclick = function() {
+    close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
@@ -55,7 +55,7 @@ function popAlertAlreadyHavingABooking(_owner) {
     btn.classList.add('Buttons');
     btn.style.display = 'inline-block';
     btn.innerHTML = 'Voir les sorties';
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function () {
         newTab('divTabCahier');
         closePopUp('last');
     });
@@ -64,7 +64,7 @@ function popAlertAlreadyHavingABooking(_owner) {
     btn.classList.add('Buttons', 'ValidateButtons');
     btn.style.display = 'inline-block';
     btn.innerHTML = 'Continuer';
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function () {
         closePopUp('last');
         Cahier.setOwner(0, _owner, true);
     });
@@ -80,7 +80,7 @@ function popAlertNoWelcomeSession(_owner) {
 
     var close = div(container);
     close.className = 'divPopUpClose';
-    close.onclick = function() {
+    close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
@@ -103,7 +103,7 @@ function popAlertNoWelcomeSession(_owner) {
     btn.classList.add('Buttons');
     btn.style.display = 'inline-block';
     btn.innerHTML = 'Annuler';
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function () {
         newTab('divTabCahier');
         closePopUp('last');
     });
@@ -114,7 +114,7 @@ function popAlertNoWelcomeSession(_owner) {
     btn.innerHTML = 'Continuer';
     btn.classList.add('btnRed');
     //_owner.welcomeSessionDate = "fake"; //(new Date()).toISOString(); // fake welcome sesion date
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function () {
         closePopUp('last');
         Cahier.setOwner(0, {id: _owner.id, name: _owner.name, sex: _owner.sex, welcomeSessionDate: 'fake'});
     });
@@ -142,7 +142,7 @@ function popAlertLessThan13Minutes(_bookable, _booking, _choseFunction) {
 
     var close = div(container);
     close.className = 'divPopUpClose';
-    close.onclick = function() {
+    close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
@@ -166,7 +166,7 @@ function popAlertLessThan13Minutes(_bookable, _booking, _choseFunction) {
     btn.style.display = 'inline-block';
     btn.innerHTML = 'Annuler';
     btn.style.fontSize = '20px';
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function () {
         closePopUp('last');
     });
 
@@ -178,7 +178,7 @@ function popAlertLessThan13Minutes(_bookable, _booking, _choseFunction) {
     btn.style.fontSize = '20px';
     btn.classList.add('btnRed');
 
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function () {
         closePopUp('last');
         _choseFunction(_bookable);
     });
@@ -219,7 +219,7 @@ function popAlertBookablesHaveJustBeenBooked(_bookablesNotAvailable) {
 
     var close = div(container);
     close.className = 'divPopUpClose';
-    close.onclick = function() {
+    close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
@@ -244,7 +244,7 @@ function popAlertBookablesHaveJustBeenBooked(_bookablesNotAvailable) {
     btn.style.display = 'inline-block';
     btn.innerHTML = 'Annuler';
     btn.style.fontSize = '20px';
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function () {
         closePopUp('last');
     });
 
@@ -255,7 +255,7 @@ function popAlertBookablesHaveJustBeenBooked(_bookablesNotAvailable) {
     btn.style.fontSize = '20px';
     btn.classList.add('btnRed');
 
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function () {
         closePopUp('last');
         Cahier.confirm();
     });
@@ -271,7 +271,7 @@ function popAlertMoreBookablesThanParticipants(bookables, participants) {
 
     var close = div(container);
     close.className = 'divPopUpClose';
-    close.onclick = function() {
+    close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
@@ -298,7 +298,7 @@ function popAlertMoreBookablesThanParticipants(bookables, participants) {
     btn.classList.add('Buttons', 'ValidateButtons');
     btn.style.display = 'inline-block';
     btn.innerHTML = 'Modifier le nbr de participants';
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function () {
         closePopUp('last');
         popCahierInfos(0);
     });
@@ -314,7 +314,7 @@ function popAlertTooManyParticipants() {
 
     var close = div(container);
     close.className = 'divPopUpClose';
-    close.onclick = function() {
+    close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
@@ -336,7 +336,7 @@ function popAlertTooManyParticipants() {
     btn.classList.add('Buttons', 'ValidateButtons');
     btn.style.display = 'inline-block';
     btn.innerHTML = 'Modifier le nbr de participants';
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function () {
         closePopUp('last');
         popCahierInfos(0);
     });
@@ -352,7 +352,7 @@ function popAlertTooManyBookables() {
 
     var close = div(container);
     close.className = 'divPopUpClose';
-    close.onclick = function() {
+    close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
@@ -375,7 +375,7 @@ function popAlertTooManyBookables() {
     btn.style.width = '250px';
     btn.style.display = 'inline-block';
     btn.innerHTML = 'Modifier les embarcations';
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function () {
         closePopUp('last');
         newTab('divTabCahierEquipmentChoice');
     });
@@ -394,7 +394,7 @@ function popAlertBookablesNotAvailable() {
 
         var close = div(container);
         close.className = 'divPopUpClose';
-        close.onclick = function() {
+        close.onclick = function () {
             closePopUp({target: elem}, elem);
         };
 
@@ -486,7 +486,7 @@ function popAlertBookablesNotAvailable() {
         btn.classList.add('Buttons');
         btn.style.display = 'inline-block';
         btn.innerHTML = 'Annuler';
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
             closePopUp('last');
         });
 
@@ -494,7 +494,7 @@ function popAlertBookablesNotAvailable() {
         btn.classList.add('Buttons', 'ValidateButtons');
         btn.style.display = 'inline-block';
         btn.innerHTML = 'Continuer quand même*';
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
             var comments = [];
             comments.fillArray(bookingsToFinish.length, 'Terminée automatiquement');
             Requests.terminateBooking(bookingsToFinish, comments, false);
@@ -524,7 +524,7 @@ function popAlertMissingLicense(_license, _bookable) {
 
     var close = div(container);
     close.className = 'divPopUpClose';
-    close.onclick = function() {
+    close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
@@ -554,7 +554,7 @@ function popAlertMissingLicense(_license, _bookable) {
     btn.style.display = 'inline-block';
     btn.innerHTML = 'Modifier les embarcations';
     btn.style.backgroundImage = 'none';
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function () {
         closePopUp('last');
         newTab('divTabCahierEquipmentChoice');
     });

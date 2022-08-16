@@ -25,10 +25,9 @@ function createAllPropositions(location = $('divTabCahierInfos')) {
         .getElementsByClassName('divTabCahierInfosDestinationPropositions')[0]
         .getElementsByTagName('div');
     for (var i = 0; i < allDestinationPropositions.length; i++) {
-        allDestinationPropositions[i].addEventListener('mousedown', function() {
-            location
-                .getElementsByClassName('divTabCahierInfosDestination')[0]
-                .getElementsByTagName('input')[0].value = this.innerHTML;
+        allDestinationPropositions[i].addEventListener('mousedown', function () {
+            location.getElementsByClassName('divTabCahierInfosDestination')[0].getElementsByTagName('input')[0].value =
+                this.innerHTML;
             writeDestination(
                 location.getElementsByClassName('divTabCahierInfosDestination')[0].getElementsByTagName('input')[0],
             );
@@ -39,7 +38,7 @@ function createAllPropositions(location = $('divTabCahierInfos')) {
         .getElementsByClassName('divTabCahierInfosNbrInvitesPropositions')[0]
         .getElementsByTagName('div');
     for (var i = 0; i < allNbrInvitesPropositions.length; i++) {
-        allNbrInvitesPropositions[i].addEventListener('mousedown', function() {
+        allNbrInvitesPropositions[i].addEventListener('mousedown', function () {
             if (this.innerHTML == 'Aucun') {
                 location
                     .getElementsByClassName('divTabCahierInfosNbrInvites')[0]

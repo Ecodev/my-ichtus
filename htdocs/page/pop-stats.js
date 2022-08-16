@@ -8,7 +8,7 @@ function popStats() {
 
     var close = div(container);
     close.className = 'divPopUpClose';
-    close.onclick = function() {
+    close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
@@ -39,7 +39,7 @@ function loadStats(end = new Date()) {
     var t = document.getElementsByClassName('PopUpStatsContainerTitle')[0];
     t.innerHTML = '';
     var btn = div(t);
-    btn.onclick = function() {
+    btn.onclick = function () {
         loadStats(new Date(start.getFullYear(), start.getMonth(), 0, 23, 59, 59, 99)); // day 0
     };
 
@@ -47,7 +47,7 @@ function loadStats(end = new Date()) {
     if (new Date(end.getFullYear(), end.getMonth() + 1, 0, 0, 0, 0, 1) > new Date()) {
         btn2.style.visibility = 'hidden';
     } else {
-        btn2.onclick = function() {
+        btn2.onclick = function () {
             loadStats(new Date(start.getFullYear(), start.getMonth() + 2, 0, 23, 59, 59, 99)); // day 0
         };
     }
@@ -89,9 +89,8 @@ function actualizeStats(start, end, elem, bookings) {
         stats[daysNbr]++;
     }
 
-    div(
-        elem.parentElement.getElementsByClassName('PopUpStatsContainerTitle')[0],
-    ).innerHTML = Cahier.getSingularOrPlural(bookings.length, ' sortie');
+    div(elem.parentElement.getElementsByClassName('PopUpStatsContainerTitle')[0]).innerHTML =
+        Cahier.getSingularOrPlural(bookings.length, ' sortie');
 
     var scale = elem.children[0];
     var center = elem.children[1];
@@ -105,7 +104,7 @@ function actualizeStats(start, end, elem, bookings) {
         d.style.width = 100 / stats.length + '%';
 
         var bar = div(d);
-        bar.style.height = stats[i] / max * 90 + '%';
+        bar.style.height = (stats[i] / max) * 90 + '%';
 
         var nbr = div(d);
         nbr.innerHTML = stats[i];
@@ -122,7 +121,7 @@ function actualizeStats(start, end, elem, bookings) {
     }
 
     var step = 1;
-    var count = (max - max % step) / step;
+    var count = (max - (max % step)) / step;
 
     while (count > 8) {
         if (step.toString().indexOf('1') != -1) {
@@ -132,19 +131,19 @@ function actualizeStats(start, end, elem, bookings) {
         } else if (step.toString().indexOf('5') != -1) {
             step = step * 2;
         }
-        count = (max - max % step) / step;
+        count = (max - (max % step)) / step;
     }
 
     for (var i = 1; i < count + 1; i++) {
         var s = div(scale);
-        s.style.top = 100 - i * step / max * 90 + '%';
+        s.style.top = 100 - ((i * step) / max) * 90 + '%';
         s.innerHTML = i * step;
         div(s);
         div(s);
     }
 }
 
-Array.prototype.max = function() {
+Array.prototype.max = function () {
     var m = this[0];
     for (var i = 1; i < this.length; i++) {
         if (this[i] > m) {

@@ -13,7 +13,7 @@ function createProgressBar() {
         var divStep = document.createElement('div');
         divStep.classList.add('divTabCahierProgressStep');
         divStep.style.left = 6 + 26 * i + '%';
-        divStep.addEventListener('click', function() {
+        divStep.addEventListener('click', function () {
             var c = (parseInt(this.style.left) - 6) / 26 + 1;
             if (c <= currentProgress) {
                 newTab(progessionTabNames[c]);

@@ -8,7 +8,7 @@ function popUser(nbr = 0, elem = openPopUp()) {
         container.classList.add('Boxes');
         var close = div(container);
         close.className = 'divPopUpClose';
-        close.onclick = function() {
+        close.onclick = function () {
             closePopUp({target: elem}, elem);
         };
         var d = div(container);
@@ -26,7 +26,7 @@ function popUser(nbr = 0, elem = openPopUp()) {
     i1.spellcheck = false;
     i1.type = 'text';
     i1.placeholder = 'Entrez votre nom, prénom...';
-    i1.onkeyup = function(event) {
+    i1.onkeyup = function (event) {
         if (this.value.length > 2) {
             Search(event);
         } else {
@@ -34,7 +34,7 @@ function popUser(nbr = 0, elem = openPopUp()) {
                 "<div style='margin-top:10px; color:var(--fontBlack);'>Veuillez taper au moins trois caractères</div>";
         }
     };
-    i1.oninput = function(event) {
+    i1.oninput = function (event) {
         if (this.value.length > 2) {
             Search(event);
         } else {
@@ -43,7 +43,7 @@ function popUser(nbr = 0, elem = openPopUp()) {
         }
     };
 
-    i1.onkeydown = function(event) {
+    i1.onkeydown = function (event) {
         SearchDown(event);
     };
     container.appendChild(i1);
@@ -101,7 +101,7 @@ function SearchDown(e) {
                 if (typeof elem.getElementsByTagName('img')[0] != 'undefined') {
                     elem.removeChild(elem.getElementsByTagName('img')[0]);
                 }
-                if (i == (enterSearchPosition % lastPeople.length + lastPeople.length) % lastPeople.length) {
+                if (i == ((enterSearchPosition % lastPeople.length) + lastPeople.length) % lastPeople.length) {
                     var img = document.createElement('img');
                     img.id = 'imgTabCahierSearchEnter';
                     img.src = 'img/icons/enter.png';
@@ -151,7 +151,7 @@ function createSearchEntries(PeopleCorresponding) {
 
             //divResult.addEventListener("mousedown", function () { Cahier.setOwner(nbr, { id: PeopleCorresponding[this.id].id, name: PeopleCorresponding[this.id].name, sex: PeopleCorresponding[this.id].sex });  });
 
-            divResult.addEventListener('mousedown', function() {
+            divResult.addEventListener('mousedown', function () {
                 Cahier.setOwner(nbr, PeopleCorresponding[this.id]);
             });
 

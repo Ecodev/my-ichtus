@@ -75,7 +75,7 @@ function actualizeActualBookings(_actualBookings) {
             }
         }
 
-        container.addEventListener('click', function(event) {
+        container.addEventListener('click', function (event) {
             if (event.target.classList.contains('Buttons')) {
                 popBookingFinish(_actualBookings[this.id]);
             } else if (
@@ -97,14 +97,14 @@ function actualizeActualBookings(_actualBookings) {
         var divDate = div(container);
 
         var maxHours = 24;
-        if (Date.now() - new Date(_actualBookings[i].startDate).getTime() > maxHours / 6 * 60 * 60 * 1000) {
+        if (Date.now() - new Date(_actualBookings[i].startDate).getTime() > (maxHours / 6) * 60 * 60 * 1000) {
             var d = div(divDate);
             d.classList.add('TableEntriesAlert');
             d.style.filter = 'grayscale(1) invert(1)';
             d.title = '+ de 4 heures';
             divDate.title = '+ de 4 heures';
 
-            if (Date.now() - new Date(_actualBookings[i].startDate).getTime() > maxHours / 2 * 60 * 60 * 1000) {
+            if (Date.now() - new Date(_actualBookings[i].startDate).getTime() > (maxHours / 2) * 60 * 60 * 1000) {
                 d.style.filter = 'none';
                 d.style.filter = 'grayscale(1)';
                 d.title = '+ de 12 heures';
@@ -235,7 +235,7 @@ function createBookingBookableBox(elem, bookable = {code: 'ZZZ'}) {
         d.id = 'ZZZZ'; // // to be at the bottom of the list
         d.style.backgroundColor = 'transparent';
     } else {
-        d.onclick = function() {
+        d.onclick = function () {
             popBookable(bookable.id);
         };
         img.style.backgroundImage = Cahier.getImageUrl(bookable, 35);
@@ -264,7 +264,7 @@ function loadTableTopBars(allTables = document.getElementsByClassName('BookingsT
             if (!(all[i].parentElement.id == 'divTabCahierTableActualBookingsTopBar' && all[i].id == '6')) {
                 // not sort finish buttons
 
-                all[i].addEventListener('click', function() {
+                all[i].addEventListener('click', function () {
                     if (
                         this.getElementsByTagName('div')[0].style.backgroundImage == 'url("img/icons/sort-desc.png")' ||
                         !this.classList.contains('BookingsTopBarSorted')
@@ -295,7 +295,7 @@ function loadTableTopBars(allTables = document.getElementsByClassName('BookingsT
 
 function sortTable(table) {
     var field = parseInt(table.getElementsByClassName('BookingsTopBarSorted')[0].id);
-    var order = function() {
+    var order = function () {
         if (
             table.getElementsByClassName('BookingsTopBarSorted')[0].getElementsByTagName('div')[0].style
                 .backgroundImage == 'url("img/icons/sort-desc.png")'
@@ -347,7 +347,7 @@ function createBookingsTable(date, title) {
     input.value = '';
     input.spellcheck = false;
     input.placeholder = 'Rechercher';
-    input.onkeyup = function() {
+    input.onkeyup = function () {
         bookingTableSearch(table);
     };
     $('divTabCahierTables').appendChild(input);
@@ -447,7 +447,7 @@ function actualizeFinishedBookingListForDay(bookings, table) {
             entry.id = i;
             entry.classList.add('TableEntries');
             entry.classList.add('TableEntriesHover');
-            entry.addEventListener('click', function(event) {
+            entry.addEventListener('click', function (event) {
                 if (
                     !(
                         event.target.parentElement.classList.contains('TableEntriesBookableBox') ||

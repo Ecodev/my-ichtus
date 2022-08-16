@@ -9,7 +9,7 @@ function popGuest(nbr = 0) {
 
     var close = div(container);
     close.className = 'divPopUpClose';
-    close.onclick = function() {
+    close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
@@ -30,7 +30,7 @@ function popGuest(nbr = 0) {
     var i2 = document.createElement('input');
     i2.placeholder = 'Prénom';
     i2.spellcheck = false;
-    i2.addEventListener('keyup', function(event) {
+    i2.addEventListener('keyup', function (event) {
         if (event.keyCode == 13) {
             ValidateGuest();
         }
@@ -42,7 +42,7 @@ function popGuest(nbr = 0) {
     b.classList.add('ValidateButtons');
     b.innerHTML = 'Suivant';
     b.style.backgroundPositionX = '115px';
-    b.addEventListener('click', function() {
+    b.addEventListener('click', function () {
         ValidateGuest();
     });
 }
@@ -74,6 +74,6 @@ function ValidateGuest() {
     }
 }
 
-String.prototype.capitalize = function() {
+String.prototype.capitalize = function () {
     return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
 };

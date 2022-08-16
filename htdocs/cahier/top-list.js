@@ -15,7 +15,7 @@ function actualizeBookableList() {
 
         if (Cahier.bookings[0].bookables[i].id != 0) {
             // mat�riel personnel
-            d.onclick = function(event) {
+            d.onclick = function (event) {
                 if (
                     event.target == this.children[0] ||
                     event.target == this.children[2] ||
@@ -36,7 +36,7 @@ function actualizeBookableList() {
 
         var close = div(d);
         close.id = i;
-        close.onclick = function() {
+        close.onclick = function () {
             Cahier.removeBookable(0, Cahier.bookings[0].bookables[this.id]);
         };
 

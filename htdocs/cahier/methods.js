@@ -27,7 +27,7 @@ var Cahier = {
 
     ProgressBarTexts: ['Nom', 'Informations', 'Embarcations', 'Confirmation'],
 
-    getImageUrl: function(_bookable, size = 220) {
+    getImageUrl: function (_bookable, size = 220) {
         if (_bookable.id == 0) {
             // matériel personnel
             return 'url(img/icons/own-sail.png)';
@@ -38,7 +38,7 @@ var Cahier = {
         }
     },
 
-    getFullName: function(booking = Cahier.bookings[0]) {
+    getFullName: function (booking = Cahier.bookings[0]) {
         if (booking.guest) {
             return booking.guestName;
         } else {
@@ -46,7 +46,7 @@ var Cahier = {
         }
     },
 
-    getSingularOrPlural: function(nbr = Cahier.nbrParticipants, txt = ' Participant') {
+    getSingularOrPlural: function (nbr = Cahier.nbrParticipants, txt = ' Participant') {
         if (nbr == 0) {
             return 'Aucun';
         } else if (nbr == 1) {
@@ -56,7 +56,7 @@ var Cahier = {
         }
     },
 
-    getBookableName: function(booking) {
+    getBookableName: function (booking) {
         if (booking.bookables.length == 0) {
             return '??';
         } else {
@@ -64,7 +64,7 @@ var Cahier = {
         }
     },
 
-    getBookableCode: function(booking) {
+    getBookableCode: function (booking) {
         if (booking.bookables.length == 0) {
             return '';
         } else {
@@ -73,7 +73,7 @@ var Cahier = {
     },
 
     // get Owner
-    getOwner: function(booking, wantImg = false, shortenOptions = {length: 10000, fontSize: 20}) {
+    getOwner: function (booking, wantImg = false, shortenOptions = {length: 10000, fontSize: 20}) {
         if (!booking.owner) {
             return '';
         } else if (wantImg) {
@@ -98,17 +98,17 @@ var Cahier = {
     },
 
     // new Booking (old)
-    newUserBooking: function() {
+    newUserBooking: function () {
         popUser(Cahier.bookings.length);
     },
 
     // new Booking (old)
-    newGuestBooking: function() {
+    newGuestBooking: function () {
         popGuest(Cahier.bookings.length);
     },
 
     // cancel - clearData
-    cancel: function() {
+    cancel: function () {
         // #divCahierInfos
         var allTabCahierFields = document.getElementsByClassName('TabCahierFields');
 
@@ -130,15 +130,13 @@ var Cahier = {
 
         $('divTabCahierEquipmentElementsSelectSort')
             .getElementsByTagName('select')[0]
-            .getElementsByTagName('option')[0].selected =
-            'selected';
+            .getElementsByTagName('option')[0].selected = 'selected';
         $('divTabCahierEquipmentElementsSelectSort').getElementsByTagName('div')[0].style.backgroundImage =
             'url("img/icons/sort-asc.png")';
 
         document
             .getElementsByClassName('divTabCahierEquipmentChoiceInputCodeContainer')[0]
-            .getElementsByTagName('input')[0].value =
-            '';
+            .getElementsByTagName('input')[0].value = '';
 
         $('divTabCahierMember').getElementsByTagName('input')[0].value = '';
         $('divTabCahierSearchResult').innerHTML = '';
@@ -168,12 +166,12 @@ var Cahier = {
         //console.log("--> Cahier.cancel()");
     },
 
-    deleteBooking: function(nbr) {
+    deleteBooking: function (nbr) {
         Cahier.bookings.splice(nbr, 1);
         Cahier.actualizeConfirmation();
     },
 
-    confirm: function() {
+    confirm: function () {
         if (Cahier.bookings[0].participantCount > 15) {
             popAlertTooManyParticipants();
         } else if (Cahier.bookings[0].bookables.length > 10) {
@@ -228,7 +226,7 @@ var Cahier = {
     },
 
     // 1.3
-    actualizeConfirmKnowingBookablesAvailability: function(_bookings) {
+    actualizeConfirmKnowingBookablesAvailability: function (_bookings) {
         // receive bookings that are still using the bookables and those who have been terminated in the last minutes
 
         // the bookings that will have to be terminated before creating the actual booking
@@ -245,7 +243,7 @@ var Cahier = {
                 //                bookingsIdToFinish.push(_bookings[i].id);
             }
         }
-        var isNowAvailable = function(_bookable) {
+        var isNowAvailable = function (_bookable) {
             if (_bookable.id == 0) return true; // matériel personnel
             for (let bNotAvailable of bAreNotAvailable) {
                 if (bNotAvailable.id == _bookable.id) {
@@ -255,7 +253,7 @@ var Cahier = {
             return true;
         };
         // get the owner of the last booking that isn't finished yet
-        var getLastBooking = function(_bookable) {
+        var getLastBooking = function (_bookable) {
             for (let bNotAvailable of bAreNotAvailable) {
                 if (bNotAvailable.id == _bookable.id) {
                     return bNotAvailable.lastBooking;
@@ -379,7 +377,7 @@ var Cahier = {
     },
 
     // 1.4
-    updateBookablesLicenses: function(_bookables) {
+    updateBookablesLicenses: function (_bookables) {
         for (var _bookable of _bookables) {
             for (var bookable of Cahier.bookings[0].bookables) {
                 if (bookable.id == _bookable.id) {
@@ -390,7 +388,7 @@ var Cahier = {
         }
     },
 
-    actualizeProgressBar: function() {
+    actualizeProgressBar: function () {
         var allDivTabCahierProgressTexts = document.getElementsByClassName('divTabCahierProgressText');
         for (var i = 0; i < allDivTabCahierProgressTexts.length; i++) {
             if (i < currentProgress - 1) {
@@ -426,19 +424,19 @@ var Cahier = {
             $('divTabCahierProgressReturn').style.visibility = 'hidden';
         } else {
             $('divTabCahierProgressReturn').style.visibility = 'visible';
-            $('divTabCahierProgressReturn').onclick = function() {
+            $('divTabCahierProgressReturn').onclick = function () {
                 newTab(progessionTabNames[currentProgress - 1]);
             };
         }
     },
 
-    actualizeConfirmation: function() {
+    actualizeConfirmation: function () {
         if (currentTabElement.id == 'divTabCahierConfirmation') {
             loadConfirmation();
         }
     },
 
-    setOwner: function(
+    setOwner: function (
         nbr = 0,
         _owner = {id: '', name: '', sex: 'female', welcomeSessionDate: 'date', licenses: []},
         force = false,
@@ -472,7 +470,7 @@ var Cahier = {
         }
     },
 
-    setOwnerLicenses: function(_owner) {
+    setOwnerLicenses: function (_owner) {
         if (Cahier.bookings[0].owner.id === _owner.id) {
             Cahier.bookings[0].owner = _owner;
         } else {
@@ -486,7 +484,7 @@ var Cahier = {
         }
     },
 
-    addBookable: function(nbr = 0, _bookable = Cahier.personalBookable, _lastBooking) {
+    addBookable: function (nbr = 0, _bookable = Cahier.personalBookable, _lastBooking) {
         Cahier.bookings[nbr].bookables.push(_bookable);
 
         if (_bookable.id == 0) {
@@ -516,7 +514,7 @@ var Cahier = {
         Cahier.actualizeConfirmation();
     },
 
-    actualizeAvailability: function(bookableId, bookings) {
+    actualizeAvailability: function (bookableId, bookings) {
         for (var u = 0; u < Cahier.bookings[0].bookables.length; u++) {
             if (Cahier.bookings[0].bookables[u].id === bookableId.toString()) {
                 break;
@@ -545,7 +543,7 @@ var Cahier = {
         Cahier.actualizeConfirmation();
     },
 
-    removeBookable: function(nbr = 0, _bookable = 0) {
+    removeBookable: function (nbr = 0, _bookable = 0) {
         for (var i = 0; i < Cahier.bookings[nbr].bookables.length; i++) {
             if (Cahier.bookings[nbr].bookables[i].id == _bookable.id) {
                 break;
@@ -568,7 +566,7 @@ var Cahier = {
         }
     },
 
-    setInfos: function(nbr = 0, _participantCount = 1, _destination = 'Non choisi', _startComment = 'mmh.') {
+    setInfos: function (nbr = 0, _participantCount = 1, _destination = 'Non choisi', _startComment = 'mmh.') {
         Cahier.bookings[nbr].participantCount = _participantCount;
         Cahier.bookings[nbr].destination = _destination;
         Cahier.bookings[nbr].startComment = _startComment;

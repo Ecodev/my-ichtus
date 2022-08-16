@@ -12,6 +12,6 @@
     "license": "ISC",
     "devDependencies": {
         "live-server": "^1.2.0",
-        "prettier": "^2.7.1"
+        "prettier": "2.7.1"
     }
 }
