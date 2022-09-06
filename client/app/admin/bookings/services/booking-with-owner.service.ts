@@ -19,7 +19,7 @@ import {
     UpdateBooking,
     UpdateBookingVariables,
 } from '../../../shared/generated-types';
-import {NaturalAbstractModelService} from '@ecodev/natural';
+import {NaturalAbstractModelService, NaturalDebounceService} from '@ecodev/natural';
 import {Observable, of} from 'rxjs';
 import {BookingService} from './booking.service';
 
@@ -38,9 +38,14 @@ export class BookingWithOwnerService extends NaturalAbstractModelService<
     DeleteBookings,
     DeleteBookingsVariables
 > {
-    public constructor(apollo: Apollo, private readonly bookingService: BookingService) {
+    public constructor(
+        apollo: Apollo,
+        naturalDebounceService: NaturalDebounceService,
+        private readonly bookingService: BookingService,
+    ) {
         super(
             apollo,
+            naturalDebounceService,
             'booking',
             bookingQuery,
             bookingsWithOwnerBalanceQuery,

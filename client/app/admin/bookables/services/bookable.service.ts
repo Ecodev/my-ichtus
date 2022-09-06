@@ -34,6 +34,7 @@ import {
     NaturalAbstractModelService,
     NaturalQueryVariablesManager,
     unique,
+    NaturalDebounceService,
 } from '@ecodev/natural';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 
@@ -99,8 +100,21 @@ export class BookableService extends NaturalAbstractModelService<
         filter: {groups: [{conditions: [{bookingType: {in: {values: [BookingType.application]}}}]}]},
     };
 
-    public constructor(apollo: Apollo, private readonly bookingService: BookingService) {
-        super(apollo, 'bookable', bookableQuery, bookablesQuery, createBookable, updateBookable, deleteBookables);
+    public constructor(
+        apollo: Apollo,
+        naturalDebounceService: NaturalDebounceService,
+        private readonly bookingService: BookingService,
+    ) {
+        super(
+            apollo,
+            naturalDebounceService,
+            'bookable',
+            bookableQuery,
+            bookablesQuery,
+            createBookable,
+            updateBookable,
+            deleteBookables,
+        );
     }
 
     public static getFiltersByTagId(tagId: string): BookablesVariables {

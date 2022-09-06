@@ -8,6 +8,7 @@ import {
     NaturalQueryVariablesManager,
     NaturalSearchSelections,
     toNavigationParameters,
+    NaturalDebounceService,
 } from '@ecodev/natural';
 import {
     exportTransactionLines,
@@ -58,8 +59,17 @@ export class TransactionLineService extends NaturalAbstractModelService<
     null,
     never
 > {
-    public constructor(apollo: Apollo) {
-        super(apollo, 'transactionLine', transactionLineQuery, transactionLinesQuery, null, null, null);
+    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
+        super(
+            apollo,
+            naturalDebounceService,
+            'transactionLine',
+            transactionLineQuery,
+            transactionLinesQuery,
+            null,
+            null,
+            null,
+        );
     }
 
     public static getVariablesForExport(): TransactionLinesVariables {

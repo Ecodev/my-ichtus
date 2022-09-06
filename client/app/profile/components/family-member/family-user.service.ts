@@ -4,8 +4,8 @@ import {UserService} from '../../../admin/users/services/user.service';
 import {Router} from '@angular/router';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
-import {Relationship, UserRole, UserStatus} from '../../../shared/generated-types';
-import {FormValidators, Literal, LOCAL_STORAGE, NaturalStorage} from '@ecodev/natural';
+import {Relationship, UserRole} from '../../../shared/generated-types';
+import {FormValidators, Literal, LOCAL_STORAGE, NaturalDebounceService, NaturalStorage} from '@ecodev/natural';
 import {PricedBookingService} from '../../../admin/bookings/services/PricedBooking.service';
 
 @Injectable({
@@ -14,13 +14,22 @@ import {PricedBookingService} from '../../../admin/bookings/services/PricedBooki
 export class FamilyUserService extends UserService {
     public constructor(
         apollo: Apollo,
+        naturalDebounceService: NaturalDebounceService,
         router: Router,
         bookingService: BookingService,
         permissionsService: PermissionsService,
         pricedBookingService: PricedBookingService,
         @Inject(LOCAL_STORAGE) storage: NaturalStorage,
     ) {
-        super(apollo, router, bookingService, permissionsService, pricedBookingService, storage);
+        super(
+            apollo,
+            naturalDebounceService,
+            router,
+            bookingService,
+            permissionsService,
+            pricedBookingService,
+            storage,
+        );
     }
 
     protected getDefaultForClient(): Literal {

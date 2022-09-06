@@ -8,7 +8,7 @@ import {
     DeleteAccountingDocument,
     DeleteAccountingDocumentVariables,
 } from '../../../shared/generated-types';
-import {NaturalAbstractModelService} from '@ecodev/natural';
+import {NaturalAbstractModelService, NaturalDebounceService} from '@ecodev/natural';
 
 @Injectable({
     providedIn: 'root',
@@ -25,9 +25,10 @@ export class AccountingDocumentService extends NaturalAbstractModelService<
     DeleteAccountingDocument,
     DeleteAccountingDocumentVariables
 > {
-    public constructor(apollo: Apollo) {
+    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
         super(
             apollo,
+            naturalDebounceService,
             'accountingDocument',
             null,
             null,

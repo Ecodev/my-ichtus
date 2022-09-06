@@ -2,7 +2,7 @@ import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {pricedBookingsQuery} from './booking.queries';
 import {Bookings, BookingsVariables} from '../../../shared/generated-types';
-import {NaturalAbstractModelService} from '@ecodev/natural';
+import {NaturalAbstractModelService, NaturalDebounceService} from '@ecodev/natural';
 
 @Injectable({
     providedIn: 'root',
@@ -19,7 +19,7 @@ export class PricedBookingService extends NaturalAbstractModelService<
     any,
     any
 > {
-    public constructor(apollo: Apollo) {
-        super(apollo, 'booking', null, pricedBookingsQuery, null, null, null);
+    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
+        super(apollo, naturalDebounceService, 'booking', null, pricedBookingsQuery, null, null, null);
     }
 }

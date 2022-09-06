@@ -36,7 +36,13 @@ import {Validators} from '@angular/forms';
 import {forkJoin, Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {BookingResolve} from '../booking';
-import {formatIsoDateTime, FormValidators, NaturalAbstractModelService, NaturalEnumService} from '@ecodev/natural';
+import {
+    formatIsoDateTime,
+    FormValidators,
+    NaturalAbstractModelService,
+    NaturalEnumService,
+    NaturalDebounceService,
+} from '@ecodev/natural';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 
 @Injectable({
@@ -178,8 +184,21 @@ export class BookingService extends NaturalAbstractModelService<
         };
     }
 
-    public constructor(apollo: Apollo, private readonly enumService: NaturalEnumService) {
-        super(apollo, 'booking', bookingQuery, bookingsQuery, createBooking, updateBooking, deleteBookings);
+    public constructor(
+        apollo: Apollo,
+        naturalDebounceService: NaturalDebounceService,
+        private readonly enumService: NaturalEnumService,
+    ) {
+        super(
+            apollo,
+            naturalDebounceService,
+            'booking',
+            bookingQuery,
+            bookingsQuery,
+            createBooking,
+            updateBooking,
+            deleteBookings,
+        );
     }
 
     protected getDefaultForServer(): BookingInput {

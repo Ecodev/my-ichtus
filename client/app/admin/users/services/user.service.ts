@@ -10,12 +10,13 @@ import {
     Literal,
     LOCAL_STORAGE,
     NaturalAbstractModelService,
+    NaturalDebounceService,
     NaturalQueryVariablesManager,
     NaturalStorage,
     unique,
 } from '@ecodev/natural';
 import {fromEvent, Observable, of, Subject} from 'rxjs';
-import {map, takeUntil} from 'rxjs/operators';
+import {map, switchMap, takeUntil} from 'rxjs/operators';
 import {
     createUser,
     currentUserForProfileQuery,
@@ -40,7 +41,6 @@ import {
     CurrentUserForProfile,
     CurrentUserForProfile_viewer,
     LeaveFamily,
-    UserLeaveFamily,
     LeaveFamilyVariables,
     LogicalOperator,
     Login,
@@ -61,6 +61,7 @@ import {
     UserByToken,
     UserByTokenVariables,
     UserInput,
+    UserLeaveFamily,
     UserLoginAvailable,
     UserLoginAvailableVariables,
     UserPartialInput,
@@ -120,13 +121,14 @@ export class UserService
 
     public constructor(
         apollo: Apollo,
+        naturalDebounceService: NaturalDebounceService,
         protected readonly router: Router,
         protected readonly bookingService: BookingService,
         private readonly permissionsService: PermissionsService,
         protected readonly pricedBookingService: PricedBookingService,
         @Inject(LOCAL_STORAGE) private readonly storage: NaturalStorage,
     ) {
-        super(apollo, 'user', userQuery, usersQuery, createUser, updateUser, null);
+        super(apollo, naturalDebounceService, 'user', userQuery, usersQuery, createUser, updateUser, null);
         this.keepViewerSyncedAcrossBrowserTabs();
     }
 
@@ -350,23 +352,28 @@ export class UserService
     public logout(): Observable<Logout['logout']> {
         const subject = new Subject<Logout['logout']>();
 
-        this.router.navigate(['/login'], {queryParams: {logout: true}}).then(() => {
-            this.apollo
-                .mutate<Logout>({
-                    mutation: logoutMutation,
-                })
-                .subscribe(result => {
-                    const v = result.data!.logout;
-                    this.cacheViewer(null);
+        this.naturalDebounceService
+            .flush()
+            .pipe(
+                switchMap(() => this.router.navigate(['/login'], {queryParams: {logout: true}})),
+                switchMap(() =>
+                    this.apollo.mutate<Logout>({
+                        mutation: logoutMutation,
+                    }),
+                ),
+            )
+            .subscribe(result => {
+                const v = result.data!.logout;
+                this.cacheViewer(null);
 
-                    // Broadcast logout to other browser tabs
-                    this.storage.setItem(this.storageKey, '');
+                // Broadcast logout to other browser tabs
+                this.storage.setItem(this.storageKey, '');
 
-                    this.apollo.client.resetStore().then(() => {
-                        subject.next(v);
-                    });
+                this.apollo.client.resetStore().then(() => {
+                    subject.next(v);
+                    subject.complete();
                 });
-        });
+            });
 
         return subject;
     }

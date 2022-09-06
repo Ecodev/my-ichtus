@@ -1,6 +1,6 @@
 import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
-import {NaturalAbstractModelService} from '@ecodev/natural';
+import {NaturalAbstractModelService, NaturalDebounceService} from '@ecodev/natural';
 import {Logs, LogsVariables} from '../../../shared/generated-types';
 import {logsQuery} from './log.queries';
 import {Observable, of} from 'rxjs';
@@ -20,8 +20,8 @@ export class LogService extends NaturalAbstractModelService<
     never,
     never
 > {
-    public constructor(apollo: Apollo) {
-        super(apollo, 'log', null, logsQuery, null, null, null);
+    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
+        super(apollo, naturalDebounceService, 'log', null, logsQuery, null, null, null);
     }
 
     public getPartialVariablesForAll(): Observable<Partial<LogsVariables>> {

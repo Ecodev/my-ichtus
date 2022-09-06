@@ -43,6 +43,7 @@ import {
     NaturalAbstractModelService,
     NaturalQueryVariablesManager,
     unique,
+    NaturalDebounceService,
 } from '@ecodev/natural';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -63,8 +64,17 @@ export class AccountService extends NaturalAbstractModelService<
     DeleteAccounts,
     DeleteAccountsVariables
 > {
-    public constructor(apollo: Apollo) {
-        super(apollo, 'account', accountQuery, accountsQuery, createAccount, updateAccount, deleteAccounts);
+    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
+        super(
+            apollo,
+            naturalDebounceService,
+            'account',
+            accountQuery,
+            accountsQuery,
+            createAccount,
+            updateAccount,
+            deleteAccounts,
+        );
     }
 
     protected getDefaultForServer(): AccountInput {

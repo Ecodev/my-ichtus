@@ -7,7 +7,7 @@ import {
     updateBookableMetadataMutation,
 } from './bookable-metadata.queries';
 import {Validators} from '@angular/forms';
-import {FormValidators, NaturalAbstractModelService} from '@ecodev/natural';
+import {FormValidators, NaturalAbstractModelService, NaturalDebounceService} from '@ecodev/natural';
 import {
     BookableMetadataInput,
     BookableMetadatas,
@@ -33,9 +33,10 @@ export class BookableMetadataService extends NaturalAbstractModelService<
     DeleteBookableMetadatas,
     DeleteBookableMetadatasVariables
 > {
-    public constructor(apollo: Apollo) {
+    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
         super(
             apollo,
+            naturalDebounceService,
             'bookableMetadata',
             null,
             bookableMetadatasQuery,

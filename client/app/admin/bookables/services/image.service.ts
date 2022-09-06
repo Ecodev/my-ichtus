@@ -2,7 +2,7 @@ import {Apollo, gql} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {userMetaFragment} from '../../../shared/queries/fragments';
 import {CreateImage, CreateImageVariables, ImageInput} from '../../../shared/generated-types';
-import {NaturalAbstractModelService} from '@ecodev/natural';
+import {NaturalAbstractModelService, NaturalDebounceService} from '@ecodev/natural';
 
 export const createImageMutation = gql`
     mutation CreateImage($input: ImageInput!) {
@@ -31,8 +31,8 @@ export class ImageService extends NaturalAbstractModelService<
     any,
     any
 > {
-    public constructor(apollo: Apollo) {
-        super(apollo, 'image', null, null, createImageMutation, null, null);
+    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
+        super(apollo, naturalDebounceService, 'image', null, null, createImageMutation, null, null);
     }
 
     protected getDefaultForServer(): ImageInput {

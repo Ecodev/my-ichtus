@@ -4,6 +4,7 @@ import {
     FormValidators,
     money,
     NaturalAbstractModelService,
+    NaturalDebounceService,
     NaturalQueryVariablesManager,
     SortingOrder,
 } from '@ecodev/natural';
@@ -49,9 +50,10 @@ export class ExpenseClaimService extends NaturalAbstractModelService<
     DeleteExpenseClaims,
     DeleteExpenseClaimsVariables
 > {
-    public constructor(apollo: Apollo) {
+    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
         super(
             apollo,
+            naturalDebounceService,
             'expenseClaim',
             expenseClaimQuery,
             expenseClaimsQuery,

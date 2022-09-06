@@ -1,6 +1,12 @@
 import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
-import {FormAsyncValidators, FormValidators, NaturalAbstractModelService, unique} from '@ecodev/natural';
+import {
+    FormAsyncValidators,
+    FormValidators,
+    NaturalAbstractModelService,
+    NaturalDebounceService,
+    unique,
+} from '@ecodev/natural';
 import {
     bookableTagQuery,
     bookableTagsQuery,
@@ -39,9 +45,10 @@ export class BookableTagService extends NaturalAbstractModelService<
     DeleteBookableTags,
     DeleteBookableTagsVariables
 > {
-    public constructor(apollo: Apollo) {
+    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
         super(
             apollo,
+            naturalDebounceService,
             'bookableTag',
             bookableTagQuery,
             bookableTagsQuery,
