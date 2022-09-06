@@ -41,7 +41,6 @@ import {cacheConfig} from '../app/shared/config/apolloDefaultOptions';
 export class VanillaModule implements DoBootstrap {
     public constructor(
         apollo: Apollo,
-        naturalDebounceService: NaturalDebounceService,
         userService: UserService,
         bookableService: BookableService,
         bookingService: BookingService,
