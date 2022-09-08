@@ -13,7 +13,6 @@ import {
 import {
     Account,
     Account_account,
-    AccountByCodeVariables,
     AccountingClosing,
     AccountingClosingVariables,
     AccountInput,
@@ -113,7 +112,7 @@ export class AccountService extends NaturalAbstractModelService<
     }
 
     public getAccountByCode(code: number): Observable<Accounts_accounts> {
-        const variables: AccountByCodeVariables = {
+        const variables: AccountsVariables = {
             filter: {
                 groups: [
                     {
@@ -123,7 +122,7 @@ export class AccountService extends NaturalAbstractModelService<
             },
         };
 
-        const qvm = new NaturalQueryVariablesManager<AccountByCodeVariables>();
+        const qvm = new NaturalQueryVariablesManager<AccountsVariables>();
         qvm.set('variables', variables);
 
         return this.getAll(qvm);
