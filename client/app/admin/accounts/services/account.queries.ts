@@ -46,18 +46,6 @@ export const accountsQuery = gql`
     ${accountMetaFragment}
 `;
 
-export const accountByCode = gql`
-    query AccountByCode($filter: AccountFilter) {
-        accounts(filter: $filter) {
-            items {
-                ...MinimalAccount
-            }
-            length
-        }
-    }
-    ${minimimalAccountFragment}
-`;
-
 export const accountQuery = gql`
     query Account($id: AccountID!) {
         account(id: $id) {

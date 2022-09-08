@@ -9,7 +9,6 @@ import {
     exportAccountingReport,
     nextCodeAvailableQuery,
     updateAccount,
-    accountByCode,
 } from './account.queries';
 import {
     Account,
