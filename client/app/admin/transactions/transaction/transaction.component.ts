@@ -148,7 +148,7 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
 
     /**
      * Wait the creation redirection, to have an url like /transaction/123, then redirect to /transaction/new
-     * If we dont wait first navigation, we would try to redirect to the same route /transaction/new -> /transaction/new
+     * If we don't wait first navigation, we would try to redirect to the same route /transaction/new -> /transaction/new
      * and nothing would happen.
      *
      */
