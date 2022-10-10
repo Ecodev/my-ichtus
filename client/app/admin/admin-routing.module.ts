@@ -251,14 +251,7 @@ const routes: Routes = [
                     seo: {
                         title: 'Réservables',
                     } as NaturalSeo,
-                    selectedColumns: [
-                        'name',
-                        'code',
-                        'purchasePrice',
-                        'initialPrice',
-                        'periodicPrice',
-                        'latestModification',
-                    ],
+                    selectedColumns: ['name', 'code', 'purchasePrice', 'initialPrice', 'periodicPrice', 'updateDate'],
                 },
             },
             {

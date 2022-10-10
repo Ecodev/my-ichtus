@@ -23,7 +23,6 @@ use GraphQL\Doctrine\Annotation as API;
  *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\SearchOperatorType", type="string"),
  * })
  * @API\Sorting({
- *     "Application\Api\Input\Sorting\LatestModification",
  *     "Application\Api\Input\Sorting\Owner"
  * })
  */
@@ -189,8 +188,12 @@ abstract class AbstractModel implements HasOwner, Model
      */
     public function timestampCreation(): void
     {
-        $this->setCreationDate(new Chronos());
-        $this->setCreator(User::getCurrent());
+        $now = new Chronos();
+        $user = User::getCurrent();
+        $this->setCreationDate($now);
+        $this->setUpdateDate($now);
+        $this->setCreator($user);
+        $this->setUpdater($user);
 
         if (!$this->getOwner()) {
             $this->setOwner($this->getOwnerForCreation());

@@ -9,6 +9,11 @@ use Ecodev\Felix\Testing\Api\Input\Sorting\AbstractSorting;
 
 class AgeTest extends AbstractSorting
 {
+    protected function tearDown(): void
+    {
+        User::setCurrent(null);
+    }
+
     public function testSorting(): void
     {
         $administrator = new User(User::ROLE_ADMINISTRATOR);

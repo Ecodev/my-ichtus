@@ -26,7 +26,7 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
     @Input() public user!: CurrentUserForProfile_viewer;
 
     public runningExpenseClaimsDS!: NaturalDataSource<ExpenseClaims_expenseClaims>;
-    public expenseClaimsColumns = ['name', 'latestModification', 'status', 'type', 'remarks', 'amount', 'cancel'];
+    public expenseClaimsColumns = ['name', 'updateDate', 'status', 'type', 'remarks', 'amount', 'cancel'];
 
     public ibanLocked = true;
 

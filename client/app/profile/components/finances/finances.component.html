@@ -86,10 +86,10 @@
                     <td mat-cell *matCellDef="let expenseClaim">{{ expenseClaim.description }}</td>
                 </ng-container>
 
-                <ng-container matColumnDef="latestModification">
+                <ng-container matColumnDef="updateDate">
                     <th mat-header-cell *matHeaderCellDef>Dernière modification</th>
                     <td mat-cell *matCellDef="let expenseClaim">
-                        {{ expenseClaim.updateDate || expenseClaim.creationDate | date: 'dd.MM.y' }}
+                        {{ expenseClaim.updateDate | date: 'dd.MM.y' }}
                     </td>
                 </ng-container>
 

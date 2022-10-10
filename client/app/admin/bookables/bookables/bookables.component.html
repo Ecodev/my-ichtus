@@ -21,7 +21,7 @@
                     <span naturalColumnsPickerColumn="purchasePrice">Prix d'achat</span>
                     <span naturalColumnsPickerColumn="initialPrice">Prix initial</span>
                     <span naturalColumnsPickerColumn="periodicPrice">Prix périodique</span>
-                    <span naturalColumnsPickerColumn="latestModification">Dernière modification</span>
+                    <span naturalColumnsPickerColumn="updateDate">Dernière modification</span>
                     <span *ngIf="hasUsage" naturalColumnsPickerColumn="usage">Utilisations</span>
                     <span *ngIf="hasUsage" naturalColumnsPickerColumn="usageNb">Nombre d'utilisations</span>
                     <span naturalColumnsPickerColumn="verificationDate">Dernière vérification</span>
@@ -115,12 +115,12 @@
                     </td>
                 </ng-container>
 
-                <ng-container matColumnDef="latestModification">
+                <ng-container matColumnDef="updateDate">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="app-date-column">
                         Dernière modification
                     </th>
                     <td mat-cell *matCellDef="let element">
-                        {{ element.updateDate || element.creationDate | swissDate }}
+                        {{ element.updateDate | swissDate }}
                     </td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
