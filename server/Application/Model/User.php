@@ -214,6 +214,16 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     private string $billingType = BillingTypeType::ELECTRONIC;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?Chronos $firstLogin = null;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?Chronos $lastLogin = null;
+
+    /**
      * @var Collection<Booking>
      * @ORM\OneToMany(targetEntity="Booking", mappedBy="owner")
      */
@@ -701,10 +711,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      */
     public function getFirstLogin(): ?Chronos
     {
-        /** @var LogRepository $logRepository */
-        $logRepository = _em()->getRepository(Log::class);
-
-        return $logRepository->getLoginDate($this, true);
+        return $this->firstLogin;
     }
 
     /**
@@ -712,10 +719,19 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      */
     public function getLastLogin(): ?Chronos
     {
-        /** @var LogRepository $logRepository */
-        $logRepository = _em()->getRepository(Log::class);
+        return $this->lastLogin;
+    }
 
-        return $logRepository->getLoginDate($this, false);
+    public function recordLogin(): void
+    {
+        _log()->info(LogRepository::LOGIN);
+
+        $now = new Chronos();
+        if (!$this->firstLogin) {
+            $this->firstLogin = $now;
+        }
+
+        $this->lastLogin = $now;
     }
 
     /**

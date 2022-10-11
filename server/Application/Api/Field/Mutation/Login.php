@@ -49,7 +49,10 @@ abstract class Login implements FieldInterface
                     }
                     $session->set('user', $user->getId());
                     User::setCurrent($user);
-                    _log()->info(LogRepository::LOGIN);
+
+                    // Mark as logged in
+                    $user->recordLogin();
+                    _em()->flush();
 
                     return $user;
                 }

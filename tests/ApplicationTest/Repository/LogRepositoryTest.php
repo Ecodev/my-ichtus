@@ -57,47 +57,4 @@ class LogRepositoryTest extends AbstractRepositoryTest
         _em()->beginTransaction();
         self::assertSame(0, $result);
     }
-
-    public function testGetLoginDate(): void
-    {
-        $user = $this->getEntityManager()->getRepository(User::class)->getOneByLoginOrEmail('administrator');
-        User::setCurrent($user);
-
-        $logs = [
-            [
-                'creator_id' => $user->getId(),
-                'creation_date' => '2019-01-01',
-                'message' => LogRepository::LOGIN_FAILED,
-            ],
-            [
-                'creator_id' => 1003,
-                'creation_date' => '2019-01-02',
-                'message' => LogRepository::LOGIN,
-            ],
-            [
-                'creator_id' => $user->getId(),
-                'creation_date' => '2019-01-03',
-                'message' => LogRepository::LOGIN,
-            ],
-            [
-                'creator_id' => $user->getId(),
-                'creation_date' => '2019-01-04',
-                'message' => LogRepository::LOGIN,
-            ],
-        ];
-
-        foreach ($logs as $log) {
-            $this->getEntityManager()->getConnection()->insert('log', $log);
-        }
-
-        $firstLogin = $this->repository->getLoginDate($user, true);
-        self::assertSame('2019-01-03', $firstLogin->toDateString());
-
-        $lastLogin = $this->repository->getLoginDate($user, false);
-        self::assertSame('2019-01-04', $lastLogin->toDateString());
-
-        $otherUser = $this->getEntityManager()->getRepository(User::class)->getOneByLoginOrEmail('member');
-        $never = $this->repository->getLoginDate($otherUser, false);
-        self::assertNull($never);
-    }
 }

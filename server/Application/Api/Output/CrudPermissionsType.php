@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Application\Api\Output;
 
 use Application\Acl\Acl;
+use Application\Model\AbstractModel;
 use Application\Model\AccountingDocument;
 use Application\Model\ExpenseClaim;
 use GraphQL\Type\Definition\ObjectType;
@@ -22,6 +23,7 @@ class CrudPermissionsType extends ObjectType
                     'type' => self::nonNull(self::boolean()),
                     'description' => 'Whether the user can create',
                     'resolve' => function (array $root, array $args, $context, ResolveInfo $info): bool {
+                        /** @var class-string<AbstractModel> $type */
                         $type = $root['type'];
 
                         $instance = new $type();
