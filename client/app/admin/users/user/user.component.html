@@ -318,19 +318,19 @@
                         </mat-form-field>
                     </div>
 
-                    <div>
+                    <div *ngIf="data.model.firstLogin">
                         <span class="mat-body-2">Première connexion :</span>
-                        {{ data.model.firstLogin | swissDate }}
+                        {{ data.model.firstLogin | swissDate }} ({{ data.model.firstLogin | timeAgo }})
                     </div>
 
-                    <div>
+                    <div *ngIf="data.model.lastLogin">
                         <span class="mat-body-2">Dernière connexion :</span>
-                        {{ data.model.lastLogin | swissDate }}
+                        {{ data.model.lastLogin | swissDate }} ({{ data.model.lastLogin | timeAgo }})
                     </div>
 
                     <div *ngIf="data.model.resignDate && data.model.status === 'archived'">
                         <span class="mat-body-2">Démission le :</span>
-                        {{ data.model.resignDate | swissDate }}
+                        {{ data.model.resignDate | swissDate }} ({{ data.model.resignDate | timeAgo }})
                     </div>
                 </div>
             </div>
