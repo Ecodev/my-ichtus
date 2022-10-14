@@ -11,8 +11,7 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
     styleUrls: ['./bookables.component.scss'],
 })
 export class BookablesComponent extends NaturalAbstractList<BookableService> implements OnInit {
-    // eslint-disable-next-line @angular-eslint/no-output-native
-    @Output() public readonly select = new EventEmitter<Bookables_bookables_items>();
+    @Output() public readonly bookableClick = new EventEmitter<Bookables_bookables_items>();
     public readonly hasUsage = false;
 
     public constructor(

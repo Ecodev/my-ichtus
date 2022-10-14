@@ -10,12 +10,11 @@ import {UntypedFormGroup} from '@angular/forms';
 export class AddressComponent {
     @Input() public vertical = false;
     @Input() public form!: UntypedFormGroup;
-    // eslint-disable-next-line @angular-eslint/no-output-native
-    @Output() public readonly change = new EventEmitter<void>();
+    @Output() public readonly addressChange = new EventEmitter<void>();
 
     public constructor(public readonly countryService: CountryService) {}
 
     public update(): void {
-        this.change.emit();
+        this.addressChange.emit();
     }
 }

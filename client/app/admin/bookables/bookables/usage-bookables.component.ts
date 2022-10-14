@@ -11,8 +11,7 @@ import {UsageBookables_bookables_items} from '../../../shared/generated-types';
     styleUrls: ['./bookables.component.scss'],
 })
 export class UsageBookablesComponent extends NaturalAbstractList<UsageBookableService> {
-    // eslint-disable-next-line @angular-eslint/no-output-native
-    @Output() public readonly select = new EventEmitter<UsageBookables_bookables_items>();
+    @Output() public readonly bookableClick = new EventEmitter<UsageBookables_bookables_items>();
 
     @Input() public set selections(selections: NaturalSearchSelections) {
         if (!this.searchInitialized) {
