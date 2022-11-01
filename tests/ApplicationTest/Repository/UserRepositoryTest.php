@@ -104,4 +104,42 @@ class UserRepositoryTest extends AbstractRepositoryTest
         yield ['member@example.com', 1002];
         yield ['son', 1008];
     }
+
+    public function testRecordLogin(): void
+    {
+        $this->setCurrentUser('administrator');
+
+        /** @var User $user */
+        $user = $this->getEntityManager()->getReference(User::class, 1002);
+
+        self::assertNull($user->getFirstLogin());
+        self::assertNull($user->getLastLogin());
+        $this->assertNoStamp($user);
+
+        $user->recordLogin();
+        _em()->flush();
+
+        $firstLogin = $user->getFirstLogin();
+        $lastLogin = $user->getLastLogin();
+        self::assertNotNull($firstLogin);
+        self::assertNotNull($lastLogin);
+        $this->assertNoStamp($user);
+
+        $user->recordLogin();
+        _em()->flush();
+
+        $firstLogin2 = $user->getFirstLogin();
+        $lastLogin2 = $user->getLastLogin();
+        self::assertSame($firstLogin, $firstLogin2);
+        self::assertNotSame($lastLogin, $lastLogin2);
+        self::assertNotNull($firstLogin2);
+        self::assertNotNull($lastLogin2);
+        $this->assertNoStamp($user);
+    }
+
+    private function assertNoStamp(User $user): void
+    {
+        $count = $this->getEntityManager()->getConnection()->fetchOne('SELECT COUNT(*) FROM user WHERE id = ' . $user->getId() . ' AND creation_date IS NULL AND creator_id IS NULL AND update_date IS NULL AND updater_id IS NULL');
+        self::assertSame(1, $count);
+    }
 }

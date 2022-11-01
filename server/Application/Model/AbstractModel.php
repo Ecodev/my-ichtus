@@ -6,6 +6,7 @@ namespace Application\Model;
 
 use Application\Acl\Acl;
 use Cake\Chronos\Chronos;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Model\HasOwner;
@@ -209,8 +210,15 @@ abstract class AbstractModel implements HasOwner, Model
      *
      * @ORM\PreUpdate
      */
-    public function timestampUpdate(): void
+    public function timestampUpdate(PreUpdateEventArgs $args): void
     {
+        // Skip stamping if we only recorded a login of a user
+        $changeSet = $args->getEntityChangeSet();
+        unset($changeSet['firstLogin'], $changeSet['lastLogin']);
+        if (!$changeSet) {
+            return;
+        }
+
         $this->setUpdateDate(new Chronos());
         $this->setUpdater(User::getCurrent());
     }
