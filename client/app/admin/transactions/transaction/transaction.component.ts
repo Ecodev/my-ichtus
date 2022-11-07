@@ -2,8 +2,8 @@ import {Component, Injector, OnInit, ViewChild} from '@angular/core';
 import {NavigationEnd} from '@angular/router';
 import {NaturalAbstractDetail} from '@ecodev/natural';
 import {TransactionService} from '../services/transaction.service';
-import {EMPTY, Observable, Subject} from 'rxjs';
-import {filter, takeUntil} from 'rxjs/operators';
+import {EMPTY, Observable} from 'rxjs';
+import {filter, first} from 'rxjs/operators';
 import {
     CreateTransaction_createTransaction,
     CurrentUserForProfile_viewer,
@@ -150,19 +150,15 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
      * Wait the creation redirection, to have an url like /transaction/123, then redirect to /transaction/new
      * If we don't wait first navigation, we would try to redirect to the same route /transaction/new -> /transaction/new
      * and nothing would happen.
-     *
      */
     protected postCreate(model: CreateTransaction_createTransaction): Observable<unknown> {
         this.accountingDocuments.save();
-        const expire = new Subject<void>();
         this.router.events
             .pipe(
-                takeUntil(expire),
                 filter(ev => ev instanceof NavigationEnd),
+                first(),
             )
             .subscribe(() => {
-                expire.next();
-                expire.complete();
                 this.goToNew();
             });
 
