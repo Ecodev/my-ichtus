@@ -137,7 +137,6 @@ export const routes: Routes = [
     imports: [
         RouterModule.forRoot(routes, {
             paramsInheritanceStrategy: 'always',
-            relativeLinkResolution: 'legacy',
         }),
     ],
     exports: [RouterModule],
