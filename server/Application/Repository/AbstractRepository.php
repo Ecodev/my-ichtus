@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityRepository;
 
 /**
  * @template T of AbstractModel
+ *
  * @extends EntityRepository<T>
  *
  * @method null|T findOneById(integer $id)

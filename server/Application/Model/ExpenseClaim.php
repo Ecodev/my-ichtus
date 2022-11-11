@@ -44,12 +44,14 @@ class ExpenseClaim extends AbstractModel
 
     /**
      * @var Collection<Transaction>
+     *
      * @ORM\OneToMany(targetEntity="Transaction", mappedBy="expenseClaim")
      */
     private Collection $transactions;
 
     /**
      * @var Collection<AccountingDocument>
+     *
      * @ORM\OneToMany(targetEntity="AccountingDocument", mappedBy="expenseClaim")
      */
     private Collection $accountingDocuments;

@@ -76,6 +76,10 @@ return [
         'permissions' => '0750',
     ],
     [
+        'path' => 'bin/doctrine',
+        'permissions' => '0750',
+    ],
+    [
         'path' => 'bin/graphql.php',
         'permissions' => '0750',
     ],

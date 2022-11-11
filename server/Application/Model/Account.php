@@ -49,6 +49,7 @@ class Account extends AbstractModel
 
     /**
      * @var Collection<Account>
+     *
      * @ORM\OneToMany(targetEntity="Account", mappedBy="parent")
      * @ORM\OrderBy({"code" = "ASC"})
      */
@@ -66,12 +67,14 @@ class Account extends AbstractModel
 
     /**
      * @var Collection<TransactionLine>
+     *
      * @ORM\OneToMany(targetEntity="TransactionLine", mappedBy="debit")
      */
     private Collection $debitTransactionLines;
 
     /**
      * @var Collection<TransactionLine>
+     *
      * @ORM\OneToMany(targetEntity="TransactionLine", mappedBy="credit")
      */
     private Collection $creditTransactionLines;
@@ -171,7 +174,6 @@ class Account extends AbstractModel
         $connection = _em()->getConnection();
 
         if ($this->getType() === AccountTypeType::GROUP) {
-
             // Get all child accounts that are not group account (= they have their own balance)
             $sql = 'WITH RECURSIVE child AS
               (SELECT id, parent_id, `type`, balance
@@ -223,8 +225,6 @@ class Account extends AbstractModel
 
     /**
      * Set parent.
-     *
-     * @param null|Account $parent
      */
     public function setParent(?self $parent): void
     {
@@ -239,9 +239,6 @@ class Account extends AbstractModel
         }
     }
 
-    /**
-     * @return null|Account
-     */
     public function getParent(): ?self
     {
         return $this->parent;

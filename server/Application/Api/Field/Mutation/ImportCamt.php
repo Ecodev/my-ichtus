@@ -25,7 +25,6 @@ abstract class ImportCamt implements FieldInterface
                 'file' => Type::nonNull(_types()->get(UploadType::class)),
             ],
             'resolve' => function ($root, array $args, SessionInterface $session): array {
-
                 // Check ACL
                 $fakeTransaction = new Transaction();
                 Helper::throwIfDenied($fakeTransaction, 'create');

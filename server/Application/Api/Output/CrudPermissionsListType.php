@@ -24,7 +24,6 @@ class CrudPermissionsListType extends ObjectType
                     $fields[$key] = [
                         'type' => self::nonNull(_types()->get(CrudPermissionsType::class)),
                         'resolve' => function (array $root, array $args, $context, ResolveInfo $info) use ($class): array {
-
                             // Complete root with the model type and forward it
                             $root['type'] = $class;
 

@@ -34,7 +34,6 @@ abstract class ConfirmRegistration implements FieldInterface
                 'input' => Type::nonNull(_types()->get('ConfirmRegistrationInput')),
             ],
             'resolve' => function ($root, array $args, SessionInterface $session): bool {
-
                 /** @var UserRepository $repository */
                 $repository = _em()->getRepository(User::class);
 

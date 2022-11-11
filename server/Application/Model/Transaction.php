@@ -36,12 +36,14 @@ class Transaction extends AbstractModel
 
     /**
      * @var Collection<TransactionLine>
+     *
      * @ORM\OneToMany(targetEntity="TransactionLine", mappedBy="transaction")
      */
     private Collection $transactionLines;
 
     /**
      * @var Collection<AccountingDocument>
+     *
      * @ORM\OneToMany(targetEntity="AccountingDocument", mappedBy="transaction")
      */
     private Collection $accountingDocuments;

@@ -154,6 +154,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * @var int sex
+     *
      * @ORM\Column(type="smallint", options={"default" = 0}))
      */
     private int $sex = 0;
@@ -225,24 +226,28 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * @var Collection<Booking>
+     *
      * @ORM\OneToMany(targetEntity="Booking", mappedBy="owner")
      */
     private Collection $bookings;
 
     /**
      * @var Collection<License>
+     *
      * @ORM\ManyToMany(targetEntity="License", mappedBy="users")
      */
     private Collection $licenses;
 
     /**
      * @var Collection<UserTag>
+     *
      * @ORM\ManyToMany(targetEntity="UserTag", mappedBy="users")
      */
     private Collection $userTags;
 
     /**
      * @var Collection<Message>
+     *
      * @ORM\OneToMany(targetEntity="Message", mappedBy="recipient")
      */
     private Collection $messages;
@@ -252,12 +257,14 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      * enforced by DB unique constraints.
      *
      * @var Collection<Account>
+     *
      * @ORM\OneToMany(targetEntity="Account", mappedBy="owner")
      */
     private Collection $accounts;
 
     /**
      * @var Collection<User>
+     *
      * @ORM\OneToMany(targetEntity="User", mappedBy="owner")
      */
     private Collection $users;
