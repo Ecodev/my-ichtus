@@ -15,7 +15,7 @@ jobs:
                 options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=5
 
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
               with:
                   fetch-depth: 2
             - uses: shivammathur/setup-php@v2
@@ -25,13 +25,13 @@ jobs:
                   tools: cs2pr
                   extensions: imagick
 
-            - uses: actions/cache@v2
+            - uses: actions/cache@v3
               with:
                   path: ~/.cache/composer
                   key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
                   restore-keys: ${{ runner.os }}-composer-
 
-            - uses: actions/cache@v2
+            - uses: actions/cache@v3
               with:
                   path: ~/.cache/yarn
                   key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
