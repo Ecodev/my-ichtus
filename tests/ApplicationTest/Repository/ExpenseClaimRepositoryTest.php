@@ -20,19 +20,16 @@ class ExpenseClaimRepositoryTest extends AbstractRepositoryTest
         $this->repository = $this->getEntityManager()->getRepository(ExpenseClaim::class);
     }
 
-    public function providerGetAccessibleSubQuery(): array
+    public function providerGetAccessibleSubQuery(): iterable
     {
         $all = [7000, 7001, 7002, 7003, 7004, 7005];
 
         $family = [7000, 7001, 7002, 7003, 7005];
-
-        return [
-            ['anonymous', []],
-            ['bookingonly', []],
-            ['individual', $family],
-            ['member', $family],
-            ['responsible', $all],
-            ['administrator', $all],
-        ];
+        yield ['anonymous', []];
+        yield ['bookingonly', []];
+        yield ['individual', $family];
+        yield ['member', $family];
+        yield ['responsible', $all];
+        yield ['administrator', $all];
     }
 }

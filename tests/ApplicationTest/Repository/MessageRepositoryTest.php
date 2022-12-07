@@ -20,18 +20,15 @@ class MessageRepositoryTest extends AbstractRepositoryTest
         $this->repository = $this->getEntityManager()->getRepository(Message::class);
     }
 
-    public function providerGetAccessibleSubQuery(): array
+    public function providerGetAccessibleSubQuery(): iterable
     {
         // Nobody can see all messages for now, even administrator, because it's useless
         $all = [11001, 11002];
-
-        return [
-            ['anonymous', []],
-            ['bookingonly', []],
-            ['individual', []],
-            ['member', [11001]],
-            ['responsible', []],
-            ['administrator', []],
-        ];
+        yield ['anonymous', []];
+        yield ['bookingonly', []];
+        yield ['individual', []];
+        yield ['member', [11001]];
+        yield ['responsible', []];
+        yield ['administrator', []];
     }
 }

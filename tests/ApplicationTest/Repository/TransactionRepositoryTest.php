@@ -25,20 +25,17 @@ class TransactionRepositoryTest extends AbstractRepositoryTest
         $this->repository = $this->getEntityManager()->getRepository(Transaction::class);
     }
 
-    public function providerGetAccessibleSubQuery(): array
+    public function providerGetAccessibleSubQuery(): iterable
     {
         $all = [8000, 8001, 8002, 8003, 8004, 8005, 8006, 8007];
 
         $family = [8000, 8002, 8002, 8003, 8004, 8006];
-
-        return [
-            ['anonymous', []],
-            ['bookingonly', []],
-            ['individual', $family],
-            ['member', $family],
-            ['responsible', $all],
-            ['administrator', $all],
-        ];
+        yield ['anonymous', []];
+        yield ['bookingonly', []];
+        yield ['individual', $family];
+        yield ['member', $family];
+        yield ['responsible', $all];
+        yield ['administrator', $all];
     }
 
     public function testHydrateLinesAndFlush(): void

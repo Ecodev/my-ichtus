@@ -24,19 +24,16 @@ class AccountRepositoryTest extends AbstractRepositoryTest
         $this->repository = $this->getEntityManager()->getRepository(Account::class);
     }
 
-    public function providerGetAccessibleSubQuery(): array
+    public function providerGetAccessibleSubQuery(): iterable
     {
         $all = range(10000, 10107);
-
-        return [
-            ['anonymous', []],
-            ['bookingonly', []],
-            ['individual', [10096]],
-            ['member', [10096]],
-            ['formationresponsible', $all],
-            ['responsible', $all],
-            ['administrator', $all],
-        ];
+        yield ['anonymous', []];
+        yield ['bookingonly', []];
+        yield ['individual', [10096]];
+        yield ['member', [10096]];
+        yield ['formationresponsible', $all];
+        yield ['responsible', $all];
+        yield ['administrator', $all];
     }
 
     public function testOneUserCanHaveOnlyOneAccount(): void

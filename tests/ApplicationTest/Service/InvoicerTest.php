@@ -93,78 +93,76 @@ class InvoicerTest extends TestCase
         }
     }
 
-    public function providerInvoiceInitial(): array
+    public function providerInvoiceInitial(): iterable
     {
-        return [
-            'free booking should create nothing' => [
-                Money::CHF(0),
-                Money::CHF(0),
-                [],
-            ],
-            'only initial' => [
-                Money::CHF(1025),
-                Money::CHF(0),
+        yield 'free booking should create nothing' => [
+            Money::CHF(0),
+            Money::CHF(0),
+            [],
+        ];
+        yield 'only initial' => [
+            Money::CHF(1025),
+            Money::CHF(0),
+            [
                 [
-                    [
-                        'Prestation ponctuelle',
-                        'My bookable',
-                        'John Doe',
-                        'Bookable account',
-                        '1025',
-                    ],
+                    'Prestation ponctuelle',
+                    'My bookable',
+                    'John Doe',
+                    'Bookable account',
+                    '1025',
                 ],
             ],
-            'only periodic' => [
-                Money::CHF(0),
-                Money::CHF(9025),
+        ];
+        yield 'only periodic' => [
+            Money::CHF(0),
+            Money::CHF(9025),
+            [
                 [
-                    [
-                        'Prestation annuelle',
-                        'My bookable',
-                        'John Doe',
-                        'Bookable account',
-                        '9025',
-                    ],
+                    'Prestation annuelle',
+                    'My bookable',
+                    'John Doe',
+                    'Bookable account',
+                    '9025',
                 ],
             ],
-            'both initial and periodic should create two lines' => [
-                Money::CHF(1025),
-                Money::CHF(9025),
+        ];
+        yield 'both initial and periodic should create two lines' => [
+            Money::CHF(1025),
+            Money::CHF(9025),
+            [
                 [
-                    [
-                        'Prestation ponctuelle',
-                        'My bookable',
-                        'John Doe',
-                        'Bookable account',
-                        '1025',
-                    ],
-                    [
-                        'Prestation annuelle',
-                        'My bookable',
-                        'John Doe',
-                        'Bookable account',
-                        '9025',
-                    ],
+                    'Prestation ponctuelle',
+                    'My bookable',
+                    'John Doe',
+                    'Bookable account',
+                    '1025',
+                ],
+                [
+                    'Prestation annuelle',
+                    'My bookable',
+                    'John Doe',
+                    'Bookable account',
+                    '9025',
                 ],
             ],
-            'negative balance should swap accounts' => [
-                Money::CHF(-1025),
-                Money::CHF(-9025),
+        ];
+        yield 'negative balance should swap accounts' => [
+            Money::CHF(-1025),
+            Money::CHF(-9025),
+            [
                 [
-                    [
-                        'Prestation ponctuelle',
-                        'My bookable',
-                        'Bookable account',
-                        'John Doe',
-                        '1025',
-                    ],
-                    [
-                        'Prestation annuelle',
-                        'My bookable',
-                        'Bookable account',
-                        'John Doe',
-                        '9025',
-                    ],
+                    'Prestation ponctuelle',
+                    'My bookable',
+                    'Bookable account',
+                    'John Doe',
+                    '1025',
+                ],
+                [
+                    'Prestation annuelle',
+                    'My bookable',
+                    'Bookable account',
+                    'John Doe',
+                    '9025',
                 ],
             ],
         ];
@@ -241,206 +239,203 @@ class InvoicerTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function providerShouldInvoiceInitial(): array
+    public function providerShouldInvoiceInitial(): iterable
     {
-        return [
-            'create MANDATORY booking should invoice' => [
-                [
-                    'id' => null,
-                    'previousStatus' => null,
-                    'status' => BookingStatusType::BOOKED,
-                    'bookable' => [
-                        'creditAccount' => true,
-                        'initialPrice' => Money::CHF(100),
-                        'periodicPrice' => Money::CHF(100),
-                        'bookingType' => BookingTypeType::MANDATORY,
-                    ],
+        yield 'create MANDATORY booking should invoice' => [
+            [
+                'id' => null,
+                'previousStatus' => null,
+                'status' => BookingStatusType::BOOKED,
+                'bookable' => [
+                    'creditAccount' => true,
+                    'initialPrice' => Money::CHF(100),
+                    'periodicPrice' => Money::CHF(100),
+                    'bookingType' => BookingTypeType::MANDATORY,
                 ],
-                1,
             ],
-            'update MANDATORY booking should not invoice' => [
-                [
-                    'id' => 123,
-                    'previousStatus' => null,
-                    'status' => BookingStatusType::BOOKED,
-                    'bookable' => [
-                        'creditAccount' => true,
-                        'initialPrice' => Money::CHF(100),
-                        'periodicPrice' => Money::CHF(100),
-                        'bookingType' => BookingTypeType::MANDATORY,
-                    ],
+            1,
+        ];
+        yield 'update MANDATORY booking should not invoice' => [
+            [
+                'id' => 123,
+                'previousStatus' => null,
+                'status' => BookingStatusType::BOOKED,
+                'bookable' => [
+                    'creditAccount' => true,
+                    'initialPrice' => Money::CHF(100),
+                    'periodicPrice' => Money::CHF(100),
+                    'bookingType' => BookingTypeType::MANDATORY,
                 ],
-                0,
             ],
-            'create MANDATORY booking that is processed should invoice' => [
-                [
-                    'id' => null,
-                    'previousStatus' => null,
-                    'status' => BookingStatusType::PROCESSED,
-                    'bookable' => [
-                        'creditAccount' => true,
-                        'initialPrice' => Money::CHF(100),
-                        'periodicPrice' => Money::CHF(100),
-                        'bookingType' => BookingTypeType::MANDATORY,
-                    ],
+            0,
+        ];
+        yield 'create MANDATORY booking that is processed should invoice' => [
+            [
+                'id' => null,
+                'previousStatus' => null,
+                'status' => BookingStatusType::PROCESSED,
+                'bookable' => [
+                    'creditAccount' => true,
+                    'initialPrice' => Money::CHF(100),
+                    'periodicPrice' => Money::CHF(100),
+                    'bookingType' => BookingTypeType::MANDATORY,
                 ],
-                1,
             ],
-            'create MANDATORY booking that is application should not invoice' => [
-                [
-                    'id' => null,
-                    'previousStatus' => null,
-                    'status' => BookingStatusType::APPLICATION,
-                    'bookable' => [
-                        'creditAccount' => true,
-                        'initialPrice' => Money::CHF(100),
-                        'periodicPrice' => Money::CHF(100),
-                        'bookingType' => BookingTypeType::MANDATORY,
-                    ],
+            1,
+        ];
+        yield 'create MANDATORY booking that is application should not invoice' => [
+            [
+                'id' => null,
+                'previousStatus' => null,
+                'status' => BookingStatusType::APPLICATION,
+                'bookable' => [
+                    'creditAccount' => true,
+                    'initialPrice' => Money::CHF(100),
+                    'periodicPrice' => Money::CHF(100),
+                    'bookingType' => BookingTypeType::MANDATORY,
                 ],
-                0,
             ],
-            'create MANDATORY booking without creditAccount should not invoice' => [
-                [
-                    'id' => null,
-                    'previousStatus' => null,
-                    'status' => BookingStatusType::BOOKED,
-                    'bookable' => [
-                        'creditAccount' => false,
-                        'initialPrice' => Money::CHF(100),
-                        'periodicPrice' => Money::CHF(100),
-                        'bookingType' => BookingTypeType::MANDATORY,
-                    ],
+            0,
+        ];
+        yield 'create MANDATORY booking without creditAccount should not invoice' => [
+            [
+                'id' => null,
+                'previousStatus' => null,
+                'status' => BookingStatusType::BOOKED,
+                'bookable' => [
+                    'creditAccount' => false,
+                    'initialPrice' => Money::CHF(100),
+                    'periodicPrice' => Money::CHF(100),
+                    'bookingType' => BookingTypeType::MANDATORY,
                 ],
-                0,
             ],
-            'create MANDATORY free booking should not invoice' => [
-                [
-                    'id' => null,
-                    'previousStatus' => null,
-                    'status' => BookingStatusType::BOOKED,
-                    'bookable' => [
-                        'creditAccount' => true,
-                        'initialPrice' => Money::CHF(0),
-                        'periodicPrice' => Money::CHF(0),
-                        'bookingType' => BookingTypeType::MANDATORY,
-                    ],
+            0,
+        ];
+        yield 'create MANDATORY free booking should not invoice' => [
+            [
+                'id' => null,
+                'previousStatus' => null,
+                'status' => BookingStatusType::BOOKED,
+                'bookable' => [
+                    'creditAccount' => true,
+                    'initialPrice' => Money::CHF(0),
+                    'periodicPrice' => Money::CHF(0),
+                    'bookingType' => BookingTypeType::MANDATORY,
                 ],
-                0,
             ],
-            'create MANDATORY booking with free initialPrice and non-free periodicPrice should still actually invoice, because we also invoice periodicPrice' => [
-                [
-                    'id' => null,
-                    'previousStatus' => null,
-                    'status' => BookingStatusType::BOOKED,
-                    'bookable' => [
-                        'creditAccount' => true,
-                        'initialPrice' => Money::CHF(0),
-                        'periodicPrice' => Money::CHF(100),
-                        'bookingType' => BookingTypeType::MANDATORY,
-                    ],
+            0,
+        ];
+        yield 'create MANDATORY booking with free initialPrice and non-free periodicPrice should still actually invoice, because we also invoice periodicPrice' => [
+            [
+                'id' => null,
+                'previousStatus' => null,
+                'status' => BookingStatusType::BOOKED,
+                'bookable' => [
+                    'creditAccount' => true,
+                    'initialPrice' => Money::CHF(0),
+                    'periodicPrice' => Money::CHF(100),
+                    'bookingType' => BookingTypeType::MANDATORY,
                 ],
-                1,
             ],
-            'create APPLICATION booking should not invoice' => [
-                [
-                    'id' => null,
-                    'previousStatus' => null,
-                    'status' => BookingStatusType::BOOKED,
-                    'bookable' => [
-                        'creditAccount' => true,
-                        'initialPrice' => Money::CHF(100),
-                        'periodicPrice' => Money::CHF(100),
-                        'bookingType' => BookingTypeType::APPLICATION,
-                    ],
+            1,
+        ];
+        yield 'create APPLICATION booking should not invoice' => [
+            [
+                'id' => null,
+                'previousStatus' => null,
+                'status' => BookingStatusType::BOOKED,
+                'bookable' => [
+                    'creditAccount' => true,
+                    'initialPrice' => Money::CHF(100),
+                    'periodicPrice' => Money::CHF(100),
+                    'bookingType' => BookingTypeType::APPLICATION,
                 ],
-                0,
             ],
-            'update MANDATORY booking to change status from APPLICATION to BOOKED should invoice' => [
-                [
-                    'id' => 123,
-                    'previousStatus' => BookingStatusType::APPLICATION,
-                    'status' => BookingStatusType::BOOKED,
-                    'bookable' => [
-                        'creditAccount' => true,
-                        'initialPrice' => Money::CHF(100),
-                        'periodicPrice' => Money::CHF(100),
-                        'bookingType' => BookingTypeType::MANDATORY,
-                    ],
+            0,
+        ];
+        yield 'update MANDATORY booking to change status from APPLICATION to BOOKED should invoice' => [
+            [
+                'id' => 123,
+                'previousStatus' => BookingStatusType::APPLICATION,
+                'status' => BookingStatusType::BOOKED,
+                'bookable' => [
+                    'creditAccount' => true,
+                    'initialPrice' => Money::CHF(100),
+                    'periodicPrice' => Money::CHF(100),
+                    'bookingType' => BookingTypeType::MANDATORY,
                 ],
-                1,
             ],
-            'update MANDATORY booking to change status from BOOKED to BOOKED should not invoice' => [
-                [
-                    'id' => 123,
-                    'previousStatus' => BookingStatusType::BOOKED,
-                    'status' => BookingStatusType::BOOKED,
-                    'bookable' => [
-                        'creditAccount' => true,
-                        'initialPrice' => Money::CHF(100),
-                        'periodicPrice' => Money::CHF(100),
-                        'bookingType' => BookingTypeType::MANDATORY,
-                    ],
+            1,
+        ];
+        yield 'update MANDATORY booking to change status from BOOKED to BOOKED should not invoice' => [
+            [
+                'id' => 123,
+                'previousStatus' => BookingStatusType::BOOKED,
+                'status' => BookingStatusType::BOOKED,
+                'bookable' => [
+                    'creditAccount' => true,
+                    'initialPrice' => Money::CHF(100),
+                    'periodicPrice' => Money::CHF(100),
+                    'bookingType' => BookingTypeType::MANDATORY,
                 ],
-                0,
             ],
-            'update MANDATORY booking to change status from PROCESSED to BOOKED should not invoice' => [
-                [
-                    'id' => 123,
-                    'previousStatus' => BookingStatusType::PROCESSED,
-                    'status' => BookingStatusType::BOOKED,
-                    'bookable' => [
-                        'creditAccount' => true,
-                        'initialPrice' => Money::CHF(100),
-                        'periodicPrice' => Money::CHF(100),
-                        'bookingType' => BookingTypeType::MANDATORY,
-                    ],
+            0,
+        ];
+        yield 'update MANDATORY booking to change status from PROCESSED to BOOKED should not invoice' => [
+            [
+                'id' => 123,
+                'previousStatus' => BookingStatusType::PROCESSED,
+                'status' => BookingStatusType::BOOKED,
+                'bookable' => [
+                    'creditAccount' => true,
+                    'initialPrice' => Money::CHF(100),
+                    'periodicPrice' => Money::CHF(100),
+                    'bookingType' => BookingTypeType::MANDATORY,
                 ],
-                0,
             ],
-
-            'create ADMIN_APPROVED booking should invoice' => [
-                [
-                    'id' => null,
-                    'previousStatus' => null,
-                    'status' => BookingStatusType::BOOKED,
-                    'bookable' => [
-                        'creditAccount' => true,
-                        'initialPrice' => Money::CHF(100),
-                        'periodicPrice' => Money::CHF(100),
-                        'bookingType' => BookingTypeType::ADMIN_APPROVED,
-                    ],
+            0,
+        ];
+        yield 'create ADMIN_APPROVED booking should invoice' => [
+            [
+                'id' => null,
+                'previousStatus' => null,
+                'status' => BookingStatusType::BOOKED,
+                'bookable' => [
+                    'creditAccount' => true,
+                    'initialPrice' => Money::CHF(100),
+                    'periodicPrice' => Money::CHF(100),
+                    'bookingType' => BookingTypeType::ADMIN_APPROVED,
                 ],
-                1,
             ],
-            'update ADMIN_APPROVED booking should not invoice' => [
-                [
-                    'id' => 123,
-                    'previousStatus' => null,
-                    'status' => BookingStatusType::BOOKED,
-                    'bookable' => [
-                        'creditAccount' => true,
-                        'initialPrice' => Money::CHF(100),
-                        'periodicPrice' => Money::CHF(100),
-                        'bookingType' => BookingTypeType::ADMIN_APPROVED,
-                    ],
+            1,
+        ];
+        yield 'update ADMIN_APPROVED booking should not invoice' => [
+            [
+                'id' => 123,
+                'previousStatus' => null,
+                'status' => BookingStatusType::BOOKED,
+                'bookable' => [
+                    'creditAccount' => true,
+                    'initialPrice' => Money::CHF(100),
+                    'periodicPrice' => Money::CHF(100),
+                    'bookingType' => BookingTypeType::ADMIN_APPROVED,
                 ],
-                0,
             ],
-            'update ADMIN_APPROVED booking to change status from APPLICATION to BOOKED should invoice' => [
-                [
-                    'id' => 123,
-                    'previousStatus' => BookingStatusType::APPLICATION,
-                    'status' => BookingStatusType::BOOKED,
-                    'bookable' => [
-                        'creditAccount' => true,
-                        'initialPrice' => Money::CHF(100),
-                        'periodicPrice' => Money::CHF(100),
-                        'bookingType' => BookingTypeType::ADMIN_APPROVED,
-                    ],
+            0,
+        ];
+        yield 'update ADMIN_APPROVED booking to change status from APPLICATION to BOOKED should invoice' => [
+            [
+                'id' => 123,
+                'previousStatus' => BookingStatusType::APPLICATION,
+                'status' => BookingStatusType::BOOKED,
+                'bookable' => [
+                    'creditAccount' => true,
+                    'initialPrice' => Money::CHF(100),
+                    'periodicPrice' => Money::CHF(100),
+                    'bookingType' => BookingTypeType::ADMIN_APPROVED,
                 ],
-                1,
             ],
+            1,
         ];
     }
 }

@@ -10,14 +10,12 @@ use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
 
 class BookingCountOperatorTypeTest extends OperatorType
 {
-    public function providerGetDqlCondition(): array
+    public function providerGetDqlCondition(): iterable
     {
-        return [
-            [2, 'Equal', 1],
-            [1, 'Equal', 2],
-            [3, 'GreaterOrEqual', 1],
-            [3, 'Less', 4],
-        ];
+        yield [2, 'Equal', 1];
+        yield [1, 'Equal', 2];
+        yield [3, 'GreaterOrEqual', 1];
+        yield [3, 'Less', 4];
     }
 
     protected function setUp(): void

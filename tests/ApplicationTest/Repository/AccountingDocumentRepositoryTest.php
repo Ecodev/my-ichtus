@@ -23,18 +23,15 @@ class AccountingDocumentRepositoryTest extends AbstractRepositoryTest
         $this->repository = $this->getEntityManager()->getRepository(AccountingDocument::class);
     }
 
-    public function providerGetAccessibleSubQuery(): array
+    public function providerGetAccessibleSubQuery(): iterable
     {
         $all = [9000, 9001];
-
-        return [
-            ['anonymous', []],
-            ['bookingonly', []],
-            ['individual', [9000]],
-            ['member', [9000]],
-            ['responsible', $all],
-            ['administrator', $all],
-        ];
+        yield ['anonymous', []];
+        yield ['bookingonly', []];
+        yield ['individual', [9000]];
+        yield ['member', [9000]];
+        yield ['responsible', $all];
+        yield ['administrator', $all];
     }
 
     public function testFileOnDiskIsDeletedWhenRecordInDbIsDeleted(): void

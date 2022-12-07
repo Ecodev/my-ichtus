@@ -11,13 +11,11 @@ use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
 
 class HasBookingCompletedOperatorTypeTest extends OperatorType
 {
-    public function providerGetDqlCondition(): array
+    public function providerGetDqlCondition(): iterable
     {
-        return [
-            'users with completed bookings' => [1, [true], false],
-            'users with uncompleted bookings' => [4, [false], false],
-            'users with completed and uncompleted bookings' => [4, [true, false], false],
-        ];
+        yield 'users with completed bookings' => [1, [true], false];
+        yield 'users with uncompleted bookings' => [4, [false], false];
+        yield 'users with completed and uncompleted bookings' => [4, [true, false], false];
     }
 
     /**

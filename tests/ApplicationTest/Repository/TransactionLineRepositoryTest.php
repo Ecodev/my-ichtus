@@ -25,20 +25,17 @@ class TransactionLineRepositoryTest extends AbstractRepositoryTest
         $this->repository = $this->getEntityManager()->getRepository(TransactionLine::class);
     }
 
-    public function providerGetAccessibleSubQuery(): array
+    public function providerGetAccessibleSubQuery(): iterable
     {
         $all = range(14000, 14011);
 
         $family = [14000, 14002, 14003, 14004, 14008, 14011];
-
-        return [
-            ['anonymous', []],
-            ['bookingonly', []],
-            ['individual', $family],
-            ['member', $family],
-            ['responsible', $all],
-            ['administrator', $all],
-        ];
+        yield ['anonymous', []];
+        yield ['bookingonly', []];
+        yield ['individual', $family];
+        yield ['member', $family];
+        yield ['responsible', $all];
+        yield ['administrator', $all];
     }
 
     public function testTriggers(): void
@@ -130,12 +127,10 @@ class TransactionLineRepositoryTest extends AbstractRepositoryTest
         self::assertSame($expected, $this->repository->importedExists($importedId, new Chronos($transactionDate)));
     }
 
-    public function providerImportedExists(): array
+    public function providerImportedExists(): iterable
     {
-        return [
-            'duplicated' => ['my-unique-imported-id', '2019-04-05', true],
-            'different date' => ['my-unique-imported-id', '2019-02-05', false],
-            'different id' => ['something-else', '2019-04-05', false],
-        ];
+        yield 'duplicated' => ['my-unique-imported-id', '2019-04-05', true];
+        yield 'different date' => ['my-unique-imported-id', '2019-02-05', false];
+        yield 'different id' => ['something-else', '2019-04-05', false];
     }
 }

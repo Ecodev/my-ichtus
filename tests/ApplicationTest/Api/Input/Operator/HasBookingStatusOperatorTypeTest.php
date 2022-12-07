@@ -11,16 +11,14 @@ use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
 
 class HasBookingStatusOperatorTypeTest extends OperatorType
 {
-    public function providerGetDqlCondition(): array
+    public function providerGetDqlCondition(): iterable
     {
-        return [
-            'users with application' => [1, [BookingStatusType::APPLICATION], null],
-            'users with booked' => [4, [BookingStatusType::BOOKED], null],
-            'users with both' => [4, [BookingStatusType::BOOKED], null],
-            'users with processed' => [0, [BookingStatusType::PROCESSED], null],
-            'users without application' => [4, [BookingStatusType::APPLICATION], true],
-            'users with any booking status' => [4, null, true],
-        ];
+        yield 'users with application' => [1, [BookingStatusType::APPLICATION], null];
+        yield 'users with booked' => [4, [BookingStatusType::BOOKED], null];
+        yield 'users with both' => [4, [BookingStatusType::BOOKED], null];
+        yield 'users with processed' => [0, [BookingStatusType::PROCESSED], null];
+        yield 'users without application' => [4, [BookingStatusType::APPLICATION], true];
+        yield 'users with any booking status' => [4, null, true];
     }
 
     /**

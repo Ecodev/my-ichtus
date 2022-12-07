@@ -110,7 +110,7 @@ class BookingTest extends TestCase
         self::assertSame($newOwner, $subject->getOwner());
     }
 
-    public function providerSetOwner(): array
+    public function providerSetOwner(): iterable
     {
         $u1 = new User();
         $u1->setLogin('u1');
@@ -120,15 +120,12 @@ class BookingTest extends TestCase
         $u3->setLogin('u3');
         $admin = new User(User::ROLE_ADMINISTRATOR);
         $admin->setLogin('admin');
-
-        return [
-            'can change nothing to nothing' => [null, null, null],
-            'can set owner for first time' => [null, null, $u3],
-            'can set owner for first time to myself' => [$u1, null, $u1],
-            'can set owner for first time even if it is not myself' => [$u1, null, $u3],
-            'can donate my stuff' => [$u1, $u1, $u3],
-            'as a member I cannot donate stuff that are not mine' => [$u1, $u2, $u3, 'u1 is not allowed to change owner to u3 because it belongs to u2'],
-            'as an admin I can donate stuff that are not mine' => [$admin, $u2, $u3],
-        ];
+        yield 'can change nothing to nothing' => [null, null, null];
+        yield 'can set owner for first time' => [null, null, $u3];
+        yield 'can set owner for first time to myself' => [$u1, null, $u1];
+        yield 'can set owner for first time even if it is not myself' => [$u1, null, $u3];
+        yield 'can donate my stuff' => [$u1, $u1, $u3];
+        yield 'as a member I cannot donate stuff that are not mine' => [$u1, $u2, $u3, 'u1 is not allowed to change owner to u3 because it belongs to u2'];
+        yield 'as an admin I can donate stuff that are not mine' => [$admin, $u2, $u3];
     }
 }

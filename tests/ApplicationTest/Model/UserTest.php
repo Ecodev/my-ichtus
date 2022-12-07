@@ -39,18 +39,14 @@ class UserTest extends TestCase
         self::assertSame($newRole, $user2->getRole());
     }
 
-    public function providerSetRole(): array
+    public function providerSetRole(): iterable
     {
-        return [
-            [User::ROLE_ANONYMOUS, User::ROLE_ADMINISTRATOR, User::ROLE_MEMBER, 'anonymous is not allowed to change role from administrator to member'],
-            [User::ROLE_ANONYMOUS, User::ROLE_MEMBER, User::ROLE_ADMINISTRATOR, 'anonymous is not allowed to change role from member to administrator'],
-
-            [User::ROLE_MEMBER, User::ROLE_MEMBER, User::ROLE_MEMBER, null],
-            [User::ROLE_MEMBER, User::ROLE_MEMBER, User::ROLE_ADMINISTRATOR, 'member is not allowed to change role from member to administrator'],
-
-            [User::ROLE_ADMINISTRATOR, User::ROLE_MEMBER, User::ROLE_ADMINISTRATOR, null],
-            [User::ROLE_ADMINISTRATOR, User::ROLE_ADMINISTRATOR, User::ROLE_MEMBER, null],
-        ];
+        yield [User::ROLE_ANONYMOUS, User::ROLE_ADMINISTRATOR, User::ROLE_MEMBER, 'anonymous is not allowed to change role from administrator to member'];
+        yield [User::ROLE_ANONYMOUS, User::ROLE_MEMBER, User::ROLE_ADMINISTRATOR, 'anonymous is not allowed to change role from member to administrator'];
+        yield [User::ROLE_MEMBER, User::ROLE_MEMBER, User::ROLE_MEMBER, null];
+        yield [User::ROLE_MEMBER, User::ROLE_MEMBER, User::ROLE_ADMINISTRATOR, 'member is not allowed to change role from member to administrator'];
+        yield [User::ROLE_ADMINISTRATOR, User::ROLE_MEMBER, User::ROLE_ADMINISTRATOR, null];
+        yield [User::ROLE_ADMINISTRATOR, User::ROLE_ADMINISTRATOR, User::ROLE_MEMBER, null];
     }
 
     public function testCannotOwnMyself(): void
@@ -85,45 +81,43 @@ class UserTest extends TestCase
         $user->setOwner($owner);
     }
 
-    public function providerCanOpenDoor(): array
+    public function providerCanOpenDoor(): iterable
     {
-        return [
-            'anonymous cannot open' => [
-                User::ROLE_ANONYMOUS,
-                User::STATUS_ACTIVE,
-                ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => true],
-                ['door1' => false, 'door2' => false, 'door3' => false, 'door4' => false],
-            ],
-            'individual member can open' => [
-                User::ROLE_INDIVIDUAL,
-                User::STATUS_ACTIVE,
-                ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => false],
-                ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => false],
-            ],
-            'active member can open' => [
-                User::ROLE_MEMBER,
-                User::STATUS_ACTIVE,
-                ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => false],
-                ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => false],
-            ],
-            'inactive member cannot open' => [
-                User::ROLE_MEMBER,
-                User::STATUS_INACTIVE,
-                ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => false],
-                ['door1' => false, 'door2' => false, 'door3' => false, 'door4' => false],
-            ],
-            'responsible can open' => [
-                User::ROLE_RESPONSIBLE,
-                User::STATUS_ACTIVE,
-                ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => true],
-                ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => true],
-            ],
-            'administrator can open' => [
-                User::ROLE_ADMINISTRATOR,
-                User::STATUS_ACTIVE,
-                ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => true],
-                ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => true],
-            ],
+        yield 'anonymous cannot open' => [
+            User::ROLE_ANONYMOUS,
+            User::STATUS_ACTIVE,
+            ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => true],
+            ['door1' => false, 'door2' => false, 'door3' => false, 'door4' => false],
+        ];
+        yield 'individual member can open' => [
+            User::ROLE_INDIVIDUAL,
+            User::STATUS_ACTIVE,
+            ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => false],
+            ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => false],
+        ];
+        yield 'active member can open' => [
+            User::ROLE_MEMBER,
+            User::STATUS_ACTIVE,
+            ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => false],
+            ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => false],
+        ];
+        yield 'inactive member cannot open' => [
+            User::ROLE_MEMBER,
+            User::STATUS_INACTIVE,
+            ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => false],
+            ['door1' => false, 'door2' => false, 'door3' => false, 'door4' => false],
+        ];
+        yield 'responsible can open' => [
+            User::ROLE_RESPONSIBLE,
+            User::STATUS_ACTIVE,
+            ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => true],
+            ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => true],
+        ];
+        yield 'administrator can open' => [
+            User::ROLE_ADMINISTRATOR,
+            User::STATUS_ACTIVE,
+            ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => true],
+            ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => true],
         ];
     }
 

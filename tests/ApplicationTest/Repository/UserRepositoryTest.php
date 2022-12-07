@@ -20,21 +20,18 @@ class UserRepositoryTest extends AbstractRepositoryTest
         $this->repository = $this->getEntityManager()->getRepository(User::class);
     }
 
-    public function providerGetAccessibleSubQuery(): array
+    public function providerGetAccessibleSubQuery(): iterable
     {
         $all = range(1000, 1015);
-
-        return [
-            ['anonymous', []],
-            ['accounting_verificator', []],
-            ['bookingonly', $all],
-            ['individual', $all],
-            ['member', $all],
-            ['trainer', $all],
-            ['formationresponsible', $all],
-            ['responsible', $all],
-            ['administrator', $all],
-        ];
+        yield ['anonymous', []];
+        yield ['accounting_verificator', []];
+        yield ['bookingonly', $all];
+        yield ['individual', $all];
+        yield ['member', $all];
+        yield ['trainer', $all];
+        yield ['formationresponsible', $all];
+        yield ['responsible', $all];
+        yield ['administrator', $all];
     }
 
     public function testGetOneByLoginPassword(): void

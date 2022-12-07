@@ -10,18 +10,16 @@ use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
 
 class CreditOrDebitAccountOperatorTypeTest extends OperatorType
 {
-    public function providerGetDqlCondition(): array
+    public function providerGetDqlCondition(): iterable
     {
-        return [
-            'lines affecting that account' => [4, [10025], false],
-            'other lines affecting that account' => [0, [10015], false],
-            'lines affecting no account' => [0, [], false],
-            'lines affecting one of those accounts' => [2, [10022, 10085], false],
-            'lines NOT affecting that account, neither credit or debit' => [7, [10106], true],
-            'lines NOT affecting any of those accounts' => [1, [10106, 10096], true],
-            'lines NOT affecting any account (should not exist)' => [0, [], false],
-            'lines affecting ANY account' => [12, [], true],
-        ];
+        yield 'lines affecting that account' => [4, [10025], false];
+        yield 'other lines affecting that account' => [0, [10015], false];
+        yield 'lines affecting no account' => [0, [], false];
+        yield 'lines affecting one of those accounts' => [2, [10022, 10085], false];
+        yield 'lines NOT affecting that account, neither credit or debit' => [7, [10106], true];
+        yield 'lines NOT affecting any of those accounts' => [1, [10106, 10096], true];
+        yield 'lines NOT affecting any account (should not exist)' => [0, [], false];
+        yield 'lines affecting ANY account' => [12, [], true];
     }
 
     /**

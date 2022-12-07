@@ -10,16 +10,14 @@ use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
 
 class TransactionWithDocumentOperatorTypeTest extends OperatorType
 {
-    public function providerGetDqlCondition(): array
+    public function providerGetDqlCondition(): iterable
     {
-        return [
-            'transaction IS WITH documents' => [1, [true], null],
-            'transaction IS WITHOUT document' => [11, [false], null],
-            'transaction WITH and WITHOUT documents' => [12, [true, false], null],
-            'transaction ALL documents (with+without) documents' => [12, null, true],
-            'transaction NONE documents' => [11, null, false],
-            'transaction IS NOT WITHOUT documents' => [1, [false], true],
-        ];
+        yield 'transaction IS WITH documents' => [1, [true], null];
+        yield 'transaction IS WITHOUT document' => [11, [false], null];
+        yield 'transaction WITH and WITHOUT documents' => [12, [true, false], null];
+        yield 'transaction ALL documents (with+without) documents' => [12, null, true];
+        yield 'transaction NONE documents' => [11, null, false];
+        yield 'transaction IS NOT WITHOUT documents' => [1, [false], true];
     }
 
     /**

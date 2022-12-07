@@ -124,7 +124,7 @@ class BookingRepositoryTest extends AbstractRepositoryTest
         self::assertSame($expected, $actual);
     }
 
-    public function providerGetAllToInvoice(): array
+    public function providerGetAllToInvoice(): iterable
     {
         $normal = [
             [
@@ -230,96 +230,93 @@ class BookingRepositoryTest extends AbstractRepositoryTest
 
         $existingTransactionNextYear = $normal;
         $existingTransactionNextYear[0]['account']['transaction_lines'][0]['transaction_date'] = '2021-02-01';
-
-        return [
-            'normal user get casier and cotisation' => [
-                $normal,
-                ['casier', 'cotisation'],
-            ],
-            'inactive user get casier and cotisation' => [
-                $inactiveUser,
-                ['casier', 'cotisation'],
-            ],
-            'archived user get nothing' => [
-                $archivedUser,
-                [],
-            ],
-            'new user get casier and cotisation' => [
-                $newUser,
-                ['casier', 'cotisation'],
-            ],
-            'bookingOnly user get nothing' => [
-                $bookingOnlyUser,
-                [],
-            ],
-            'individual user get casier and cotisation so it can be invoiced to family owner' => [
-                $individualUser,
-                ['casier', 'cotisation'],
-            ],
-            'trainer user get casier and cotisation' => [
-                $trainerUser,
-                ['casier', 'cotisation'],
-            ],
-            'responsible user get casier and cotisation' => [
-                $responsibleUser,
-                ['casier', 'cotisation'],
-            ],
-            'administrator user get casier and cotisation' => [
-                $administratorUser,
-                ['casier', 'cotisation'],
-            ],
-            'future booking this year are still counted' => [
-                $futureBookingThisYear,
-                ['casier', 'cotisation'],
-            ],
-            'future booking next year are not yet counted' => [
-                $futureBookingNextYear,
-                ['casier'],
-            ],
-            'terminated booking are not counted anymore' => [
-                $terminatedBooking,
-                ['casier'],
-            ],
-            'terminated booking next year are not yet terminated so must be counted' => [
-                $terminatedBookingNextYear,
-                ['casier', 'cotisation'],
-            ],
-            'application booking is ignored' => [
-                $applicationBooking,
-                ['casier'],
-            ],
-            'processsed booking is ignored' => [
-                $processedBooking,
-                ['casier'],
-            ],
-            'self approved bookable is not counted' => [
-                $selfApprovedBookable,
-                ['casier'],
-            ],
-            'application bookable is not counted' => [
-                $applicationBookable,
-                ['casier'],
-            ],
-            'inactive bookable is not counted' => [
-                $inactiveBookable,
-                ['casier'],
-            ],
-            'free bookable is not counted' => [
-                $freeBookable,
-                ['casier'],
-            ],
-            'negative bookable is counted' => [
-                $negativeBookable,
-                ['casier', 'cotisation'],
-            ],
-            'existing transaction for this year should not be re-created' => [
-                $existingTransactionThisYear,
-                ['cotisation'],
-            ],
-            'existing transaction for next year have no impact' => [
-                $existingTransactionNextYear,
-                ['casier', 'cotisation'],
-            ],
+        yield 'normal user get casier and cotisation' => [
+            $normal,
+            ['casier', 'cotisation'],
+        ];
+        yield 'inactive user get casier and cotisation' => [
+            $inactiveUser,
+            ['casier', 'cotisation'],
+        ];
+        yield 'archived user get nothing' => [
+            $archivedUser,
+            [],
+        ];
+        yield 'new user get casier and cotisation' => [
+            $newUser,
+            ['casier', 'cotisation'],
+        ];
+        yield 'bookingOnly user get nothing' => [
+            $bookingOnlyUser,
+            [],
+        ];
+        yield 'individual user get casier and cotisation so it can be invoiced to family owner' => [
+            $individualUser,
+            ['casier', 'cotisation'],
+        ];
+        yield 'trainer user get casier and cotisation' => [
+            $trainerUser,
+            ['casier', 'cotisation'],
+        ];
+        yield 'responsible user get casier and cotisation' => [
+            $responsibleUser,
+            ['casier', 'cotisation'],
+        ];
+        yield 'administrator user get casier and cotisation' => [
+            $administratorUser,
+            ['casier', 'cotisation'],
+        ];
+        yield 'future booking this year are still counted' => [
+            $futureBookingThisYear,
+            ['casier', 'cotisation'],
+        ];
+        yield 'future booking next year are not yet counted' => [
+            $futureBookingNextYear,
+            ['casier'],
+        ];
+        yield 'terminated booking are not counted anymore' => [
+            $terminatedBooking,
+            ['casier'],
+        ];
+        yield 'terminated booking next year are not yet terminated so must be counted' => [
+            $terminatedBookingNextYear,
+            ['casier', 'cotisation'],
+        ];
+        yield 'application booking is ignored' => [
+            $applicationBooking,
+            ['casier'],
+        ];
+        yield 'processsed booking is ignored' => [
+            $processedBooking,
+            ['casier'],
+        ];
+        yield 'self approved bookable is not counted' => [
+            $selfApprovedBookable,
+            ['casier'],
+        ];
+        yield 'application bookable is not counted' => [
+            $applicationBookable,
+            ['casier'],
+        ];
+        yield 'inactive bookable is not counted' => [
+            $inactiveBookable,
+            ['casier'],
+        ];
+        yield 'free bookable is not counted' => [
+            $freeBookable,
+            ['casier'],
+        ];
+        yield 'negative bookable is counted' => [
+            $negativeBookable,
+            ['casier', 'cotisation'],
+        ];
+        yield 'existing transaction for this year should not be re-created' => [
+            $existingTransactionThisYear,
+            ['cotisation'],
+        ];
+        yield 'existing transaction for next year have no impact' => [
+            $existingTransactionNextYear,
+            ['casier', 'cotisation'],
         ];
     }
 

@@ -11,13 +11,11 @@ use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
 
 class BookingDateOperatorTypeTest extends OperatorType
 {
-    public function providerGetDqlCondition(): array
+    public function providerGetDqlCondition(): iterable
     {
-        return [
-            [1, 'Less', new Date('2018-01-02')],
-            [3, 'GreaterOrEqual', new Date('2018-01-01')],
-            [3, 'GreaterOrEqual', new Date('2018-01-02')],
-        ];
+        yield [1, 'Less', new Date('2018-01-02')];
+        yield [3, 'GreaterOrEqual', new Date('2018-01-01')];
+        yield [3, 'GreaterOrEqual', new Date('2018-01-02')];
     }
 
     protected function setUp(): void

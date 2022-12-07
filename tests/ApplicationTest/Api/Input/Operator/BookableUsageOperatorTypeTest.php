@@ -10,15 +10,13 @@ use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
 
 class BookableUsageOperatorTypeTest extends OperatorType
 {
-    public function providerGetDqlCondition(): array
+    public function providerGetDqlCondition(): iterable
     {
-        return [
-            'bookables rented by that user' => [9, [1002], false],
-            'bookables rented by that other user' => [2, [1008], false],
-            'bookables not rented by that user' => [9, [1008], true],
-            'bookables not rented at all' => [13, [], false],
-            'bookables rented to anybody' => [11, [], true],
-        ];
+        yield 'bookables rented by that user' => [9, [1002], false];
+        yield 'bookables rented by that other user' => [2, [1008], false];
+        yield 'bookables not rented by that user' => [9, [1008], true];
+        yield 'bookables not rented at all' => [13, [], false];
+        yield 'bookables rented to anybody' => [11, [], true];
     }
 
     /**
