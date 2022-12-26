@@ -156,7 +156,7 @@ class MessageQueuer
         return $this->queueBalanceForEachUsers($users);
     }
 
-    private function getEmail(?User $user, ?string $email = null): ?string
+    private function getEmail(?User $user, ?string $email): ?string
     {
         $this->toFamilyOwner = false;
         $email ??= $user?->getEmail();
