@@ -8,6 +8,7 @@ use Application\Api\Helper;
 use Application\Model\AbstractModel;
 use Application\Model\Account;
 use Application\Model\Bookable;
+use Application\Model\ExpenseClaim;
 use Application\Model\TransactionLine;
 use Application\Model\User;
 use Doctrine\ORM\QueryBuilder;
@@ -302,6 +303,11 @@ abstract class Standard
         } elseif ($class === TransactionLine::class) {
             $defaultSorting[] = [
                 'field' => 'transactionDate',
+                'order' => 'DESC',
+            ];
+        } elseif ($class === ExpenseClaim::class) {
+            $defaultSorting[] = [
+                'field' => 'creationDate',
                 'order' => 'DESC',
             ];
         }
