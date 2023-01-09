@@ -81,11 +81,6 @@
                     <td mat-cell *matCellDef="let expenseClaim">{{ expenseClaim.name }}</td>
                 </ng-container>
 
-                <ng-container matColumnDef="description">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
-                    <td mat-cell *matCellDef="let expenseClaim">{{ expenseClaim.description }}</td>
-                </ng-container>
-
                 <ng-container matColumnDef="updateDate">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Dernière modification</th>
                     <td mat-cell *matCellDef="let expenseClaim">
