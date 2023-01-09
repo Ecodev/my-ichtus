@@ -1,13 +1,6 @@
 import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
-import {
-    FormValidators,
-    money,
-    NaturalAbstractModelService,
-    NaturalDebounceService,
-    NaturalQueryVariablesManager,
-    SortingOrder,
-} from '@ecodev/natural';
+import {FormValidators, money, NaturalAbstractModelService, NaturalDebounceService} from '@ecodev/natural';
 import {
     createExpenseClaim,
     deleteExpenseClaims,
@@ -29,11 +22,11 @@ import {
     ExpenseClaimsVariables,
     ExpenseClaimType,
     ExpenseClaimVariables,
+    SortingOrder,
     UpdateExpenseClaim,
     UpdateExpenseClaimVariables,
 } from '../../../shared/generated-types';
 import {Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -85,7 +78,7 @@ export class ExpenseClaimService extends NaturalAbstractModelService<
         };
     }
 
-    public getForUser(user: CurrentUserForProfile_viewer): Observable<ExpenseClaims['expenseClaims']> {
+    public getForUserVariables(user: CurrentUserForProfile_viewer): ExpenseClaimsVariables {
         const variables: ExpenseClaimsVariables = {
             filter: {
                 groups: [
@@ -93,7 +86,6 @@ export class ExpenseClaimService extends NaturalAbstractModelService<
                         conditions: [
                             {
                                 owner: {equal: {value: user.id}},
-                                // status: {equal: {value: BookingStatus.application}}, ?? all ? or just pending ones ?
                             },
                         ],
                     },
@@ -102,9 +94,7 @@ export class ExpenseClaimService extends NaturalAbstractModelService<
             sorting: [{field: ExpenseClaimSortingField.creationDate, order: SortingOrder.DESC}],
         };
 
-        const qvm = new NaturalQueryVariablesManager<ExpenseClaimsVariables>();
-        qvm.set('variables', variables);
-        return this.watchAll(qvm);
+        return variables;
     }
 
     public getSectors(): string[] {

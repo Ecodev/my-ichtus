@@ -1,18 +1,16 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Injector, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {
     CurrentUserForProfile_viewer,
-    ExpenseClaims_expenseClaims,
     ExpenseClaims_expenseClaims_items,
     ExpenseClaimType,
 } from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
-import {ActivatedRoute} from '@angular/router';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateRefundComponent} from '../create-refund/create-refund.component';
-import {ifValid, NaturalAbstractController, NaturalAlertService, NaturalDataSource} from '@ecodev/natural';
+import {ifValid, NaturalAbstractList} from '@ecodev/natural';
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
-import {finalize, takeUntil} from 'rxjs/operators';
+import {finalize} from 'rxjs/operators';
 import {UntypedFormControl} from '@angular/forms';
 import {iban as ibanValidator} from '../../../shared/validators';
 import {friendlyFormatIBAN} from 'ibantools';
@@ -22,11 +20,13 @@ import {friendlyFormatIBAN} from 'ibantools';
     templateUrl: './finances.component.html',
     styleUrls: ['./finances.component.scss'],
 })
-export class FinancesComponent extends NaturalAbstractController implements OnInit, OnChanges, OnDestroy {
-    @Input() public user!: CurrentUserForProfile_viewer;
+export class FinancesComponent
+    extends NaturalAbstractList<ExpenseClaimService>
+    implements OnInit, OnChanges, OnDestroy
+{
+    @Input() public viewer!: CurrentUserForProfile_viewer;
 
-    public runningExpenseClaimsDS!: NaturalDataSource<ExpenseClaims_expenseClaims>;
-    public expenseClaimsColumns = ['name', 'updateDate', 'status', 'type', 'remarks', 'amount', 'cancel'];
+    public selectedColumns = ['name', 'updateDate', 'status', 'type', 'remarks', 'amount', 'cancel'];
 
     public ibanLocked = true;
 
@@ -35,45 +35,47 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
     public updating = false;
     public readonly ibanCtrl = new UntypedFormControl('', ibanValidator);
     public canCreateExpenseClaim = false;
+    public persistSearch = false;
 
     public constructor(
+        injector: Injector,
         private readonly userService: UserService,
-        private readonly route: ActivatedRoute,
         private readonly expenseClaimService: ExpenseClaimService,
         private readonly transactionLineService: TransactionLineService,
-        private readonly alertService: NaturalAlertService,
         private readonly dialog: MatDialog,
     ) {
-        super();
+        super(expenseClaimService, injector);
     }
 
     public ngOnInit(): void {
-        if (!this.user) {
-            this.user = this.route.snapshot.data.viewer.model;
+        if (!this.viewer) {
+            this.viewer = this.route.snapshot.data.viewer.model;
         } else {
             this.adminMode = true;
-            this.expenseClaimsColumns.push('admin');
+            this.selectedColumns.push('admin');
         }
+
+        super.ngOnInit();
 
         this.loadData();
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
         const previousUser = changes.user.previousValue;
-        if (previousUser && previousUser.id !== this.user.id) {
+        if (previousUser && previousUser.id !== this.viewer.id) {
             this.loadData();
         }
     }
 
-    public loadData(): void {
-        this.ibanCtrl.setValue(friendlyFormatIBAN(this.user.iban), {emitEvent: false});
+    private loadData(): void {
+        this.ibanCtrl.setValue(friendlyFormatIBAN(this.viewer.iban), {emitEvent: false});
         if (this.ibanCtrl.value) {
             this.canCreateExpenseClaim = true;
         }
         this.lockIbanIfDefined();
-        this.ibanLocked = !!this.user.iban;
-        const runningExpenseClaims = this.expenseClaimService.getForUser(this.user).pipe(takeUntil(this.ngUnsubscribe));
-        this.runningExpenseClaimsDS = new NaturalDataSource(runningExpenseClaims);
+        this.ibanLocked = !!this.viewer.iban;
+
+        this.variablesManager.set('forUser', this.expenseClaimService.getForUserVariables(this.viewer));
     }
 
     public cancelExpenseClaim(expenseClaim: ExpenseClaims_expenseClaims_items): void {
@@ -96,7 +98,7 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
     public createRefund(): void {
         const config = {
             data: {
-                confirmText: 'Envoyer la demande',
+                confirmText: $localize`Envoyer la demande`,
             },
         };
         this.dialog
@@ -119,7 +121,7 @@ export class FinancesComponent extends NaturalAbstractController implements OnIn
             this.ibanCtrl.enable();
             const iban = this.ibanCtrl.value;
             this.userService
-                .updatePartially({id: this.user.id, iban: iban})
+                .updatePartially({id: this.viewer.id, iban: iban})
                 .pipe(
                     finalize(() => {
                         this.updating = false;

@@ -1,5 +1,5 @@
-<div fxLayout="column" fxLayoutGap="50px" *ngIf="user">
-    <div *ngIf="!adminMode && !user.owner">
+<div fxLayout="column" fxLayoutGap="50px" *ngIf="viewer && dataSource">
+    <div *ngIf="!adminMode && !viewer.owner">
         <h2 class="mat-headline margin-bottom">Finances</h2>
 
         <mat-form-field [style.width.px]="350">
@@ -46,7 +46,7 @@
                         matTooltip="Pour un transfert de ton solde de membre vers ton compte bancaire"
                         (click)="createRefund()"
                         [disabled]="!canCreateExpenseClaim"
-                        *ngIf="!adminMode && !user.owner"
+                        *ngIf="!adminMode && !viewer.owner"
                     >
                         Demander un remboursement
                     </button></span
@@ -66,35 +66,35 @@
             class="mat-body-1 padding margin"
             fxLayout="column"
             fxLayoutAlign="center center"
-            *ngIf="runningExpenseClaimsDS?.data?.length === 0"
+            *ngIf="dataSource?.data?.length === 0"
         >
             Aucune annonce
         </div>
 
-        <div class="responsive-table" [fxHide]="!runningExpenseClaimsDS.data?.length">
-            <table mat-table [dataSource]="runningExpenseClaimsDS">
-                <tr mat-header-row *matHeaderRowDef="expenseClaimsColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: expenseClaimsColumns"></tr>
+        <div class="responsive-table" [fxHide]="!dataSource.data?.length">
+            <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting([$event])">
+                <tr mat-header-row *matHeaderRowDef="selectedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: selectedColumns"></tr>
 
                 <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef>Nom</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
                     <td mat-cell *matCellDef="let expenseClaim">{{ expenseClaim.name }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="description">
-                    <th mat-header-cell *matHeaderCellDef>Description</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
                     <td mat-cell *matCellDef="let expenseClaim">{{ expenseClaim.description }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="updateDate">
-                    <th mat-header-cell *matHeaderCellDef>Dernière modification</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Dernière modification</th>
                     <td mat-cell *matCellDef="let expenseClaim">
                         {{ expenseClaim.updateDate | date: 'dd.MM.y' }}
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="amount">
-                    <th mat-header-cell *matHeaderCellDef natural-align-right>Montant</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header natural-align-right>Montant</th>
                     <td mat-cell *matCellDef="let expenseClaim" natural-align-right>
                         <app-money
                             [amount]="expenseClaim.amount"
@@ -105,21 +105,21 @@
                 </ng-container>
 
                 <ng-container matColumnDef="status">
-                    <th mat-header-cell *matHeaderCellDef>Status</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
                     <td mat-cell *matCellDef="let expenseClaim">
                         {{ expenseClaim.status | enum: 'ExpenseClaimStatus' | async | capitalize }}
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="type">
-                    <th mat-header-cell *matHeaderCellDef>Type</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
                     <td mat-cell *matCellDef="let expenseClaim">
                         {{ expenseClaim.type | enum: 'ExpenseClaimType' | async | capitalize }}
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="remarks">
-                    <th mat-header-cell *matHeaderCellDef>Remarques</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Remarques</th>
                     <td mat-cell *matCellDef="let expenseClaim">
                         <div class="line-break">{{ expenseClaim.remarks }}</div>
                     </td>
@@ -157,5 +157,18 @@
                 </ng-container>
             </table>
         </div>
+
+        <div fxLayout="column" fxLayoutAlign="center center" class="margin" *ngIf="!dataSource?.data">
+            <mat-progress-spinner mode="indeterminate" [diameter]="40"></mat-progress-spinner>
+        </div>
+
+        <mat-paginator
+            *ngIf="dataSource.data?.length"
+            [length]="dataSource.data?.length"
+            [pageSize]="dataSource.data?.pageSize"
+            [pageIndex]="dataSource.data?.pageIndex"
+            [pageSizeOptions]="pageSizeOptions"
+            (page)="pagination($event)"
+        ></mat-paginator>
     </div>
 </div>
