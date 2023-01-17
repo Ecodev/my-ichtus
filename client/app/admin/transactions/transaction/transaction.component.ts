@@ -4,13 +4,7 @@ import {NaturalAbstractDetail} from '@ecodev/natural';
 import {TransactionService} from '../services/transaction.service';
 import {EMPTY, Observable} from 'rxjs';
 import {filter, first} from 'rxjs/operators';
-import {
-    CreateTransaction_createTransaction,
-    CurrentUserForProfile_viewer,
-    ExpenseClaim,
-    ExpenseClaimType,
-    UpdateTransaction_updateTransaction,
-} from '../../../shared/generated-types';
+import {CurrentUserForProfile_viewer, ExpenseClaim, ExpenseClaimType} from '../../../shared/generated-types';
 import {BookableService} from '../../bookables/services/bookable.service';
 import {EditableTransactionLinesComponent} from '../editable-transaction-lines/editable-transaction-lines.component';
 import {TransactionLineService} from '../services/transactionLine.service';
@@ -142,7 +136,7 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
         super.delete(['/admin/transaction-line']);
     }
 
-    protected postUpdate(model: UpdateTransaction_updateTransaction): void {
+    protected postUpdate(): void {
         this.accountingDocuments.save();
     }
 
@@ -151,7 +145,7 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
      * If we don't wait first navigation, we would try to redirect to the same route /transaction/new -> /transaction/new
      * and nothing would happen.
      */
-    protected postCreate(model: CreateTransaction_createTransaction): Observable<unknown> {
+    protected postCreate(): Observable<unknown> {
         this.accountingDocuments.save();
         this.router.events
             .pipe(

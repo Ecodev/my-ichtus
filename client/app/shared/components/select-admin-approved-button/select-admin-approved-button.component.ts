@@ -33,7 +33,7 @@ export class SelectAdminApprovedButtonComponent {
                 if (bookables) {
                     bookables.forEach(bookable => {
                         const booking: BookingPartialInput = {status: BookingStatus.application};
-                        this.bookingService.createWithBookable(bookable, this.user, booking).subscribe(() => {});
+                        this.bookingService.createWithBookable(bookable, this.user, booking).subscribe();
                     });
                 }
             });

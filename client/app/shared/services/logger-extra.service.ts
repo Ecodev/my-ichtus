@@ -1,8 +1,7 @@
-import {Injectable, OnDestroy} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {NaturalLoggerExtra, NaturalLoggerType} from '@ecodev/natural';
-import {Observable, of, Subject} from 'rxjs';
-import {map, takeUntil} from 'rxjs/operators';
-import {CurrentUserForProfile} from '../generated-types';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 import {UserService} from '../../admin/users/services/user.service';
 
 @Injectable({
@@ -11,7 +10,7 @@ import {UserService} from '../../admin/users/services/user.service';
 export class LoggerExtraService implements NaturalLoggerExtra {
     public constructor(private readonly userService: UserService) {}
 
-    public getExtras(error: unknown): Observable<Partial<NaturalLoggerType>> {
+    public getExtras(): Observable<Partial<NaturalLoggerType>> {
         return this.userService.getViewer().pipe(
             map(viewer => {
                 return {viewer: viewer?.login};

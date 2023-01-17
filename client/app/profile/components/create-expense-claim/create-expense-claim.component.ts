@@ -1,10 +1,6 @@
 import {Component, Injector, OnInit, ViewChild} from '@angular/core';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
-import {
-    CreateExpenseClaim_createExpenseClaim,
-    ExpenseClaimStatus,
-    ExpenseClaimType,
-} from '../../../shared/generated-types';
+import {ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {NaturalAbstractDetail} from '@ecodev/natural';
 import {AccountingDocumentsComponent} from '../../../admin/accounting-documents/accounting-documents.component';
@@ -37,7 +33,7 @@ export class CreateExpenseClaimComponent extends NaturalAbstractDetail<ExpenseCl
         });
     }
 
-    protected postCreate(model: CreateExpenseClaim_createExpenseClaim): Observable<unknown> {
+    protected postCreate(): Observable<unknown> {
         this.accountingDocuments.save();
         this.router.navigateByUrl('/profile/finances');
         this.alertService.info('Votre demande a bien été enregistrée');

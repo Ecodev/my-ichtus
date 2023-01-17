@@ -1,4 +1,4 @@
-import {Component, Injector, Input} from '@angular/core';
+import {Component, Injector} from '@angular/core';
 import {SafetyBookingService} from './safety-booking.service';
 import {NaturalSearchFacetsService} from '../shared/natural-search/natural-search-facets.service';
 import {PermissionsService} from '../shared/services/permissions.service';

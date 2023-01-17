@@ -101,7 +101,7 @@ export class PermissionsService {
 
     public constructor(apollo: Apollo) {
         // Query the API when our variables changed
-        this.currentContexts.pipe(distinctUntilChanged(isEqual), debounceTime(5)).subscribe(contexts => {
+        this.currentContexts.pipe(distinctUntilChanged(isEqual), debounceTime(5)).subscribe(() => {
             // Fetch global permissions
             apollo
                 .query<Permissions>({

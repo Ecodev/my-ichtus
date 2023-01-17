@@ -225,7 +225,7 @@ export class BookingService extends NaturalAbstractModelService<
         };
     }
 
-    public terminateBooking(id: string, comment: string = ''): Observable<unknown> {
+    public terminateBooking(id: string, comment = ''): Observable<unknown> {
         const observable = this.apollo.mutate<TerminateBooking, TerminateBookingVariables>({
             mutation: terminateBooking,
             variables: {

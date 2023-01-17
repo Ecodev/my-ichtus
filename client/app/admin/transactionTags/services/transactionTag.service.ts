@@ -11,8 +11,6 @@ import {
 import {
     CreateTransactionTag,
     CreateTransactionTagVariables,
-    DeleteTransactions,
-    DeleteTransactionsVariables,
     TransactionTag,
     TransactionTagInput,
     TransactionTags,

@@ -1,8 +1,8 @@
-import {Apollo, APOLLO_OPTIONS, gql, ApolloModule} from 'apollo-angular';
+import {Apollo, APOLLO_OPTIONS, ApolloModule, gql} from 'apollo-angular';
 import {InMemoryCache} from '@apollo/client/core';
 import {HttpLink} from 'apollo-angular/http';
 import {BrowserModule} from '@angular/platform-browser';
-import {ApplicationRef, DoBootstrap, NgModule} from '@angular/core';
+import {DoBootstrap, NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import {BookableService} from '../app/admin/bookables/services/bookable.service';
 import {VanillaRoutingModule} from './vanilla-routing.module';
@@ -62,7 +62,7 @@ export class VanillaModule implements DoBootstrap {
     }
 
     // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
-    public ngDoBootstrap(appRef: ApplicationRef): void {
+    public ngDoBootstrap(): void {
         // Nothing to do at all here
     }
 }

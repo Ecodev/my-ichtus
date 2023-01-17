@@ -63,7 +63,7 @@ export class AccountingDocumentsComponent implements OnInit {
         });
     }
 
-    public trackByFn(index: number, item: FileModel | null): number {
+    public trackByFn(index: number): number {
         return index;
     }
 

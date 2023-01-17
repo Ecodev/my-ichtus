@@ -26,7 +26,7 @@ import {UserService} from '../../admin/users/services/user.service';
 import {LicenseService} from '../../admin/licenses/services/license.service';
 import {TransactionService} from '../../admin/transactions/services/transaction.service';
 import {TransactionTagService} from '../../admin/transactionTags/services/transactionTag.service';
-import {BookableFilter, BookingFilterGroupCondition, BookingType, UserFilterGroupCondition} from '../generated-types';
+import {BookableFilter, BookingFilterGroupCondition, UserFilterGroupCondition} from '../generated-types';
 import {AccountService} from '../../admin/accounts/services/account.service';
 import {accountHierarchicConfiguration} from '../hierarchic-selector/AccountHierarchicConfiguration';
 import {BookableTagService} from '../../admin/bookableTags/services/bookableTag.service';

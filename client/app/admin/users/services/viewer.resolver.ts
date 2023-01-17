@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
+import {Resolve} from '@angular/router';
 import {last, Observable} from 'rxjs';
 import {UserService} from './user.service';
 import {ErrorService} from '../../../shared/components/error/error.service';
@@ -14,7 +14,7 @@ export class ViewerResolver implements Resolve<{model: CurrentUserForProfile['vi
     /**
      * Resolve sites for routing service only at the moment
      */
-    public resolve(route: ActivatedRouteSnapshot): Observable<{model: CurrentUserForProfile['viewer']}> {
+    public resolve(): Observable<{model: CurrentUserForProfile['viewer']}> {
         const observable = this.userService.resolveViewer().pipe(last());
 
         return this.errorService.redirectIfError(observable);

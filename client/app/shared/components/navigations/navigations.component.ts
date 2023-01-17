@@ -137,7 +137,7 @@ export class NavigationsComponent extends NaturalAbstractController implements O
     }
 
     public update(partialBooking: WithId<BookingPartialInput>): void {
-        this.bookingService.updatePartially(partialBooking).subscribe(() => {});
+        this.bookingService.updatePartially(partialBooking).subscribe();
     }
 
     public nextPage(): void {

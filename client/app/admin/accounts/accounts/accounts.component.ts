@@ -1,6 +1,6 @@
 import {Component, Injector, OnInit} from '@angular/core';
 import {NaturalAbstractNavigableList} from '@ecodev/natural';
-import {Accounts, AccountsVariables, CurrentUserForProfile_viewer} from '../../../shared/generated-types';
+import {CurrentUserForProfile_viewer} from '../../../shared/generated-types';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {AccountService} from '../services/account.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';

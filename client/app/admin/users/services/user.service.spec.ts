@@ -1,5 +1,5 @@
 import {Apollo} from 'apollo-angular';
-import {fakeAsync, inject, TestBed, tick} from '@angular/core/testing';
+import {fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {UserService} from './user.service';
 import {Router} from '@angular/router';

@@ -1,12 +1,7 @@
 import {Component, Injector, OnInit} from '@angular/core';
 import {NaturalAbstractDetail} from '@ecodev/natural';
 import {ExpenseClaimService} from '../services/expenseClaim.service';
-import {
-    CurrentUserForProfile_viewer,
-    ExpenseClaimStatus,
-    ExpenseClaimType,
-    UserRole,
-} from '../../../shared/generated-types';
+import {CurrentUserForProfile_viewer, ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../users/services/user.service';
 import {TransactionLineService} from '../../transactions/services/transactionLine.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';

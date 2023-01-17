@@ -9,6 +9,4 @@ export class AppComponent {
     public title = 'my-ichtus';
 
     public initialized = false;
-
-    public constructor() {}
 }

@@ -5,7 +5,6 @@ import {
     Transaction,
     TransactionLineInput,
     TransactionLines_transactionLines_items,
-    TransactionLinesVariables,
 } from '../../../shared/generated-types';
 import {TransactionTagService} from '../../transactionTags/services/transactionTag.service';
 import {NaturalAbstractEditableList} from '@ecodev/natural';

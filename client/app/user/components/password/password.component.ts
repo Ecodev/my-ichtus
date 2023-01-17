@@ -1,13 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {
-    AbstractControl,
-    UntypedFormControl,
-    UntypedFormGroup,
-    FormGroupDirective,
-    NgForm,
-    ValidationErrors,
-    Validators,
-} from '@angular/forms';
+import {AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 
 function samePasswordsValidator(formGroup: AbstractControl): ValidationErrors | null {
@@ -22,7 +14,7 @@ function samePasswordsValidator(formGroup: AbstractControl): ValidationErrors | 
 }
 
 class ConfirmPasswordStateMatcher implements ErrorStateMatcher {
-    public isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    public isErrorState(control: UntypedFormControl | null): boolean {
         if (control && control.parent && control.parent instanceof UntypedFormGroup) {
             return !!samePasswordsValidator(control.parent) && control.dirty;
         }
@@ -39,8 +31,6 @@ class ConfirmPasswordStateMatcher implements ErrorStateMatcher {
 export class PasswordComponent implements OnInit {
     @Input() public form!: UntypedFormGroup;
     public confirmPasswordStateMatcher = new ConfirmPasswordStateMatcher();
-
-    public constructor() {}
 
     public ngOnInit(): void {
         this.form.removeControl('password');

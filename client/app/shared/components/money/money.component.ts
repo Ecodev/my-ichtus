@@ -15,6 +15,4 @@ export class MoneyComponent {
     @Input() public showSignal = true;
 
     @Input() public showCurrency = true;
-
-    public constructor() {}
 }
