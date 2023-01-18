@@ -29,7 +29,7 @@ export class RegisterConfirmComponent extends RegisterComponent implements OnIni
         this.step = 2;
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         this.fetchMandatoryBookables();
 
         this.route.data.subscribe(data => {
@@ -61,7 +61,7 @@ export class RegisterConfirmComponent extends RegisterComponent implements OnIni
     /**
      * Confirm user registration
      */
-    protected doSubmit(): void {
+    protected override doSubmit(): void {
         this.sending = true;
         const mutation = gql`
             mutation ConfirmRegistration($token: Token!, $input: ConfirmRegistrationInput!) {

@@ -54,7 +54,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService> implements
         super('user', userService, injector);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         this.viewer = this.route.snapshot.data.viewer.model;
@@ -73,7 +73,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService> implements
         });
     }
 
-    protected initForm(): void {
+    protected override initForm(): void {
         super.initForm();
 
         this.userService.getUserRolesAvailable(this.data.model).subscribe(userRoles => {

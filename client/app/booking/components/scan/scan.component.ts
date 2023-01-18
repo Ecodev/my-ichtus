@@ -48,7 +48,7 @@ export class ScanComponent extends NaturalAbstractController implements OnInit, 
         this.qrService.start();
     }
 
-    public ngOnDestroy(): void {
+    public override ngOnDestroy(): void {
         super.ngOnDestroy();
         this.qrService.stop();
     }

@@ -117,7 +117,7 @@ export class TransactionService extends NaturalAbstractModelService<
         return [Object.assign(emptyLine, line)];
     }
 
-    protected getDefaultForServer(): TransactionInput {
+    protected override getDefaultForServer(): TransactionInput {
         return {
             name: '',
             remarks: '',
@@ -127,18 +127,18 @@ export class TransactionService extends NaturalAbstractModelService<
         };
     }
 
-    public getFormValidators(): FormValidators {
+    public override getFormValidators(): FormValidators {
         return {
             name: [Validators.required, Validators.maxLength(100)],
             datatransRef: [],
         };
     }
 
-    protected getPartialVariablesForUpdate(object: Literal): Literal {
+    protected override getPartialVariablesForUpdate(object: Literal): Literal {
         return {lines: object.transactionLines};
     }
 
-    protected getPartialVariablesForCreation(object: Literal): Literal {
+    protected override getPartialVariablesForCreation(object: Literal): Literal {
         return {lines: object.transactionLines};
     }
 }

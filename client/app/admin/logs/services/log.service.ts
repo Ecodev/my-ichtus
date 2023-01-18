@@ -24,7 +24,7 @@ export class LogService extends NaturalAbstractModelService<
         super(apollo, naturalDebounceService, 'log', null, logsQuery, null, null, null);
     }
 
-    public getPartialVariablesForAll(): Observable<Partial<LogsVariables>> {
+    public override getPartialVariablesForAll(): Observable<Partial<LogsVariables>> {
         return of({
             filter: {
                 groups: [

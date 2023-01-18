@@ -16,7 +16,7 @@ import {finalize} from 'rxjs/operators';
     styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent extends NaturalAbstractList<UserService> implements OnInit {
-    public selectedColumns = [
+    public override selectedColumns = [
         'balance',
         'name',
         'login',
@@ -75,7 +75,7 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
         return user.status === UserStatus.new;
     }
 
-    public search(naturalSearchSelections: NaturalSearchSelections): void {
+    public override search(naturalSearchSelections: NaturalSearchSelections): void {
         super.search(naturalSearchSelections);
     }
 

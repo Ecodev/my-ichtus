@@ -19,7 +19,7 @@ type AccountingDialogResult = Date;
     styleUrls: ['./accounts.component.scss'],
 })
 export class AccountsComponent extends NaturalAbstractNavigableList<AccountService> implements OnInit {
-    public selectedColumns = ['navigation', 'code', 'name', 'totalBalance'];
+    public override selectedColumns = ['navigation', 'code', 'name', 'totalBalance'];
     public viewer!: CurrentUserForProfile_viewer;
     private dialogConfig: MatDialogConfig<AccountingDialogData> = {
         minWidth: '400px',
@@ -39,7 +39,7 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
         this.naturalSearchFacets = naturalSearchFacetsService.get('accounts');
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         this.viewer = this.route.snapshot.data.viewer.model;

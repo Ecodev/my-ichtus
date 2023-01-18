@@ -201,7 +201,7 @@ export class BookingService extends NaturalAbstractModelService<
         );
     }
 
-    protected getDefaultForServer(): BookingInput {
+    protected override getDefaultForServer(): BookingInput {
         return {
             status: BookingStatus.booked,
             owner: null,
@@ -218,7 +218,7 @@ export class BookingService extends NaturalAbstractModelService<
         };
     }
 
-    public getFormValidators(): FormValidators {
+    public override getFormValidators(): FormValidators {
         return {
             owner: [Validators.required],
             participantCount: [Validators.min(1)],
@@ -241,7 +241,7 @@ export class BookingService extends NaturalAbstractModelService<
         return observable;
     }
 
-    public resolve(id: string): Observable<BookingResolve> {
+    public override resolve(id: string): Observable<BookingResolve> {
         const observables = [super.resolve(id), this.enumService.get('BookingStatus')];
 
         return forkJoin(observables).pipe(
@@ -277,7 +277,7 @@ export class BookingService extends NaturalAbstractModelService<
         return this.create(booking);
     }
 
-    public getPartialVariablesForAll(): Observable<Partial<BookingsVariables>> {
+    public override getPartialVariablesForAll(): Observable<Partial<BookingsVariables>> {
         return of({
             filter: {
                 groups: [

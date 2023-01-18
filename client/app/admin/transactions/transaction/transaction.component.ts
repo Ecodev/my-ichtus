@@ -39,7 +39,7 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
         super('transaction', transactionService, injector);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         this.viewer = this.route.snapshot.data.viewer.model;
@@ -132,11 +132,11 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
         this.updateTransactionLines = false;
     }
 
-    public delete(): void {
+    public override delete(): void {
         super.delete(['/admin/transaction-line']);
     }
 
-    protected postUpdate(): void {
+    protected override postUpdate(): void {
         this.accountingDocuments.save();
     }
 
@@ -145,7 +145,7 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
      * If we don't wait first navigation, we would try to redirect to the same route /transaction/new -> /transaction/new
      * and nothing would happen.
      */
-    protected postCreate(): Observable<unknown> {
+    protected override postCreate(): Observable<unknown> {
         this.accountingDocuments.save();
         this.router.events
             .pipe(

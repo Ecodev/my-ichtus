@@ -32,7 +32,7 @@ export class FamilyUserService extends UserService {
         );
     }
 
-    protected getDefaultForClient(): Literal {
+    protected override getDefaultForClient(): Literal {
         return {
             country: {id: 1, name: 'Suisse'},
             hasInsurance: false,
@@ -45,7 +45,7 @@ export class FamilyUserService extends UserService {
         };
     }
 
-    public getFormValidators(): FormValidators {
+    public override getFormValidators(): FormValidators {
         const validators = {
             hasInsurance: [],
             termsAgreement: [],

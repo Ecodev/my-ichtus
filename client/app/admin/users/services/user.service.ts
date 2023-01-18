@@ -172,7 +172,7 @@ export class UserService
         };
     }
 
-    protected getDefaultForServer(): UserInput {
+    protected override getDefaultForServer(): UserInput {
         return {
             login: '',
             email: null,
@@ -207,13 +207,13 @@ export class UserService
         };
     }
 
-    protected getDefaultForClient(): Literal {
+    protected override getDefaultForClient(): Literal {
         return {
             country: {id: 1, name: 'Suisse'},
         };
     }
 
-    public getFormValidators(): FormValidators {
+    public override getFormValidators(): FormValidators {
         return {
             login: [Validators.required, loginValidator],
             firstName: [Validators.required, Validators.maxLength(100)],
@@ -224,14 +224,14 @@ export class UserService
         };
     }
 
-    public getFormAsyncValidators(model: User_user): FormAsyncValidators {
+    public override getFormAsyncValidators(model: User_user): FormAsyncValidators {
         return {
             login: [unique('login', model.id, this)],
             email: [unique('email', model.id, this)],
         };
     }
 
-    public getFormConfig(model: Literal): Literal {
+    public override getFormConfig(model: Literal): Literal {
         const config = super.getFormConfig(model);
 
         // Inject extra form control for the account which is strictly read-only

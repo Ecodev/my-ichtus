@@ -24,7 +24,7 @@ export class CreateExpenseClaimComponent extends NaturalAbstractDetail<ExpenseCl
         super('expenseClaim', expenseClaimService, injector);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.form.patchValue({
             owner: this.route.snapshot.data.viewer.model.id,
@@ -33,7 +33,7 @@ export class CreateExpenseClaimComponent extends NaturalAbstractDetail<ExpenseCl
         });
     }
 
-    protected postCreate(): Observable<unknown> {
+    protected override postCreate(): Observable<unknown> {
         this.accountingDocuments.save();
         this.router.navigateByUrl('/profile/finances');
         this.alertService.info('Votre demande a bien été enregistrée');

@@ -70,20 +70,20 @@ export class BookableTagService extends NaturalAbstractModelService<
     public static readonly WELCOME = '6024';
     public static readonly SURVEY = '6036';
 
-    protected getDefaultForServer(): BookableTagInput {
+    protected override getDefaultForServer(): BookableTagInput {
         return {
             name: '',
             color: '',
         };
     }
 
-    public getFormValidators(): FormValidators {
+    public override getFormValidators(): FormValidators {
         return {
             name: [Validators.required, Validators.maxLength(100)],
         };
     }
 
-    public getFormAsyncValidators(model: BookableTag_bookableTag): FormAsyncValidators {
+    public override getFormAsyncValidators(model: BookableTag_bookableTag): FormAsyncValidators {
         return {
             name: [unique('name', model.id, this)],
         };

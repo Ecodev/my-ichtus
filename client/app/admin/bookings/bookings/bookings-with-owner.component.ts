@@ -11,7 +11,7 @@ import {ContactType} from '../../../shared/components/copy-contact-data/copy-con
     styleUrls: ['./bookings.component.scss'],
 })
 export class BookingsWithOwnerComponent extends AbstractBookings<BookingWithOwnerService> {
-    public contactType: ContactType = 'bookingsWithOwnerContact';
+    public override contactType: ContactType = 'bookingsWithOwnerContact';
 
     public constructor(
         bookingWithOwnerService: BookingWithOwnerService,

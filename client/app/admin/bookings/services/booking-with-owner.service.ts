@@ -55,7 +55,7 @@ export class BookingWithOwnerService extends NaturalAbstractModelService<
         );
     }
 
-    public getPartialVariablesForAll(): Observable<Partial<BookingsVariables>> {
+    public override getPartialVariablesForAll(): Observable<Partial<BookingsVariables>> {
         return of({
             filter: {
                 groups: [

@@ -120,7 +120,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
         ];
     }
 
-    protected getDefaultForServer(): TransactionLineInput {
+    protected override getDefaultForServer(): TransactionLineInput {
         return {
             name: '',
             remarks: '',
@@ -159,7 +159,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
         return ['/admin/transaction-line', toNavigationParameters(selection)];
     }
 
-    public getFormValidators(): FormValidators {
+    public override getFormValidators(): FormValidators {
         return {
             name: [Validators.required, Validators.maxLength(100)],
             balance: [Validators.required, Validators.min(0)],
@@ -169,7 +169,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
     /**
      * TODO : force debit or credit account as required
      */
-    public getFormGroupValidators(): ValidatorFn[] {
+    public override getFormGroupValidators(): ValidatorFn[] {
         return [atLeastOneAccount];
     }
 

@@ -26,7 +26,7 @@ export class ExpenseClaimComponent extends NaturalAbstractDetail<ExpenseClaimSer
         super('expenseClaim', expenseClaimService, injector);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         this.viewer = this.route.snapshot.data.viewer.model;

@@ -49,14 +49,14 @@ export class TransactionTagService extends NaturalAbstractModelService<
         );
     }
 
-    protected getDefaultForServer(): TransactionTagInput {
+    protected override getDefaultForServer(): TransactionTagInput {
         return {
             name: '',
             color: '',
         };
     }
 
-    public getFormValidators(): FormValidators {
+    public override getFormValidators(): FormValidators {
         return {
             name: [Validators.required, Validators.maxLength(100)],
         };

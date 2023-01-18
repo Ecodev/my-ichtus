@@ -65,7 +65,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
         super('booking', bookingService, injector);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         if (this.data?.model?.bookable?.bookingType) {

@@ -51,7 +51,7 @@ export class UsageBookableService extends NaturalAbstractModelService<
         );
     }
 
-    public getPartialVariablesForAll(): Observable<Partial<BookablesVariables>> {
+    public override getPartialVariablesForAll(): Observable<Partial<BookablesVariables>> {
         return of({
             filter: {
                 groups: [

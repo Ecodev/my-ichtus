@@ -52,19 +52,19 @@ export class LicenseService extends NaturalAbstractModelService<
         );
     }
 
-    protected getDefaultForServer(): LicenseInput {
+    protected override getDefaultForServer(): LicenseInput {
         return {
             name: '',
         };
     }
 
-    public getFormValidators(): FormValidators {
+    public override getFormValidators(): FormValidators {
         return {
             name: [Validators.required, Validators.maxLength(100)],
         };
     }
 
-    public getFormAsyncValidators(model: License_license): FormAsyncValidators {
+    public override getFormAsyncValidators(model: License_license): FormAsyncValidators {
         return {
             name: [unique('name', model.id, this)],
         };

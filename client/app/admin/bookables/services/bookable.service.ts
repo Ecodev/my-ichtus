@@ -156,7 +156,7 @@ export class BookableService extends NaturalAbstractModelService<
         return matching.length === bookable.licenses.length;
     }
 
-    protected getDefaultForServer(): BookableInput {
+    protected override getDefaultForServer(): BookableInput {
         return {
             name: '',
             code: null,
@@ -175,7 +175,7 @@ export class BookableService extends NaturalAbstractModelService<
         };
     }
 
-    public getFormValidators(): FormValidators {
+    public override getFormValidators(): FormValidators {
         return {
             name: [Validators.required, Validators.maxLength(100)],
             code: [Validators.maxLength(10)],
@@ -184,13 +184,13 @@ export class BookableService extends NaturalAbstractModelService<
         };
     }
 
-    public getFormAsyncValidators(model: Bookable_bookable): FormAsyncValidators {
+    public override getFormAsyncValidators(model: Bookable_bookable): FormAsyncValidators {
         return {
             code: [unique('code', model.id, this)],
         };
     }
 
-    public getFormGroupValidators(): ValidatorFn[] {
+    public override getFormGroupValidators(): ValidatorFn[] {
         return [creditAccountRequiredValidator];
     }
 

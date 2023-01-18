@@ -52,21 +52,21 @@ export class UserTagService extends NaturalAbstractModelService<
         );
     }
 
-    protected getDefaultForServer(): UserTagInput {
+    protected override getDefaultForServer(): UserTagInput {
         return {
             name: '',
             color: '',
         };
     }
 
-    public getFormValidators(): FormValidators {
+    public override getFormValidators(): FormValidators {
         return {
             name: [Validators.required, Validators.maxLength(100)],
             color: [],
         };
     }
 
-    public getFormAsyncValidators(model: UserTag_userTag): FormAsyncValidators {
+    public override getFormAsyncValidators(model: UserTag_userTag): FormAsyncValidators {
         return {
             name: [unique('name', model.id, this)],
         };

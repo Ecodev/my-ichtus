@@ -28,7 +28,7 @@ export class LogsComponent extends NaturalAbstractList<LogService> implements On
         };
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         this.viewer = this.route.snapshot.data.viewer.model;
     }

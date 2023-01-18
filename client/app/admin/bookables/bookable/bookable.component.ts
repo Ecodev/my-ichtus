@@ -39,7 +39,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
         super('bookable', bookableService, injector);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         // While not saved, automatically update simultaneousBookingMaximum to 1 if navigable (self-approved) or -1 if other.

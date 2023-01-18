@@ -46,7 +46,7 @@ export class BookableMetadataService extends NaturalAbstractModelService<
         );
     }
 
-    protected getDefaultForServer(): BookableMetadataInput {
+    protected override getDefaultForServer(): BookableMetadataInput {
         return {
             name: '',
             value: '',
@@ -54,7 +54,7 @@ export class BookableMetadataService extends NaturalAbstractModelService<
         };
     }
 
-    public getFormValidators(): FormValidators {
+    public override getFormValidators(): FormValidators {
         return {
             name: [Validators.required],
             value: [Validators.required],

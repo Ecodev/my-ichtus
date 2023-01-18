@@ -30,7 +30,7 @@ export abstract class AbstractBookings<
         this.service.terminateBooking(id);
     }
 
-    protected initFromRoute(): void {
+    protected override initFromRoute(): void {
         // Available columns
         if (this.route.snapshot.data.availableColumns) {
             this.availableColumns = this.route.snapshot.data.availableColumns;

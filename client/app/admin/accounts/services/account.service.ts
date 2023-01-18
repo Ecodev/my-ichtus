@@ -74,7 +74,7 @@ export class AccountService extends NaturalAbstractModelService<
         );
     }
 
-    protected getDefaultForServer(): AccountInput {
+    protected override getDefaultForServer(): AccountInput {
         return {
             owner: null,
             parent: null,
@@ -85,7 +85,7 @@ export class AccountService extends NaturalAbstractModelService<
         };
     }
 
-    public getFormValidators(): FormValidators {
+    public override getFormValidators(): FormValidators {
         return {
             name: [Validators.required, Validators.maxLength(100)],
             code: [Validators.required, Validators.min(0), integer],
@@ -93,7 +93,7 @@ export class AccountService extends NaturalAbstractModelService<
         };
     }
 
-    public getFormAsyncValidators(model: Account_account): FormAsyncValidators {
+    public override getFormAsyncValidators(model: Account_account): FormAsyncValidators {
         return {
             code: [unique('code', model.id, this)],
         };

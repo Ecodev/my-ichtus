@@ -22,7 +22,7 @@ export class AccountComponent extends NaturalAbstractDetail<AccountService> impl
         super('account', accountService, injector);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         this.accountService.getNextCodeAvailable().subscribe(code => {
@@ -49,7 +49,7 @@ export class AccountComponent extends NaturalAbstractDetail<AccountService> impl
         }
     }
 
-    protected initForm(): void {
+    protected override initForm(): void {
         super.initForm();
 
         // Format IBAN coming from server to be user friendly

@@ -26,7 +26,7 @@ export class FinancesComponent
 {
     @Input() public viewer!: CurrentUserForProfile_viewer;
 
-    public selectedColumns = ['name', 'updateDate', 'status', 'type', 'remarks', 'amount', 'cancel'];
+    public override selectedColumns = ['name', 'updateDate', 'status', 'type', 'remarks', 'amount', 'cancel'];
 
     public ibanLocked = true;
 
@@ -35,7 +35,7 @@ export class FinancesComponent
     public updating = false;
     public readonly ibanCtrl = new UntypedFormControl('', ibanValidator);
     public canCreateExpenseClaim = false;
-    public persistSearch = false;
+    public override persistSearch = false;
 
     public constructor(
         injector: Injector,
@@ -47,7 +47,7 @@ export class FinancesComponent
         super(expenseClaimService, injector);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         if (!this.viewer) {
             this.viewer = this.route.snapshot.data.viewer.model;
         } else {

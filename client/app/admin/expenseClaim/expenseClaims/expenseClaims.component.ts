@@ -10,7 +10,7 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
     styleUrls: ['./expenseClaims.component.scss'],
 })
 export class ExpenseClaimsComponent extends NaturalAbstractList<ExpenseClaimService> implements OnInit {
-    public selectedColumns = ['name', 'owner', 'updateDate', 'status', 'type', 'remarks', 'amount'];
+    public override selectedColumns = ['name', 'owner', 'updateDate', 'status', 'type', 'remarks', 'amount'];
 
     public constructor(
         expenseClaimService: ExpenseClaimService,
