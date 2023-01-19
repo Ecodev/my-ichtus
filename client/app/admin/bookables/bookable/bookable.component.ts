@@ -7,6 +7,7 @@ import {
     BookingStatus,
     BookingsVariables,
     BookingType,
+    CreateImage_createImage,
     CurrentUserForProfile_viewer,
     SortingOrder,
     UserRole,
@@ -16,7 +17,8 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 import {ImageService} from '../services/image.service';
 import {accountHierarchicConfiguration} from '../../../shared/hierarchic-selector/AccountHierarchicConfiguration';
-import {takeUntil} from 'rxjs';
+import {Observable, of, takeUntil} from 'rxjs';
+import {map, switchMap} from 'rxjs/operators';
 
 @Component({
     selector: 'app-bookable',
@@ -33,7 +35,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
         injector: Injector,
         public readonly bookableTagService: BookableTagService,
         public readonly licenseService: LicenseService,
-        public readonly imageService: ImageService,
+        private readonly imageService: ImageService,
         public readonly permissionsService: PermissionsService,
     ) {
         super('bookable', bookableService, injector);
@@ -80,14 +82,13 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
         return this.data.model.bookingType !== BookingType.self_approved;
     }
 
-    public newImage(image: FileModel): void {
-        const imageField = this.form.get('image');
-        if (imageField) {
-            imageField.setValue(image);
-            if (this.data.model.id) {
-                this.update();
-            }
-        }
+    public createImageAndLink(file: File): Observable<CreateImage_createImage> {
+        return this.imageService.create({file}).pipe(
+            switchMap(image => {
+                const id = this.data.model.id;
+                return id ? this.service.updatePartially({id, image}).pipe(map(() => image)) : of(image);
+            }),
+        );
     }
 
     public isSelfApproved(): boolean {

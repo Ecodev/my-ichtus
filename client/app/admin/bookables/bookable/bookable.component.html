@@ -25,13 +25,13 @@
                     <div fxFlex="66" fxLayout="column">
                         <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start start" class="margin-bottom">
                             <natural-file
-                                fxFlex
-                                [service]="imageService"
                                 [model]="data.model.image"
+                                [formCtrl]="form.get('image')"
+                                [uploader]="createImageAndLink.bind(this)"
+                                fxFlex
                                 class="mat-elevation-z2"
                                 [style.borderRadius.px]="4"
                                 [style.marginLeft.px]="2"
-                                (modelChange)="newImage($event)"
                                 action="upload"
                             ></natural-file>
 
