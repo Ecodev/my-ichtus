@@ -10,7 +10,7 @@
         "dev": "yarn prerequisite && ng serve",
         "prod": "yarn prerequisite && ng build && ng build vanilla && find data/tmp/build -type f -not -name '*.gz' -exec gzip --keep --best {} \\; && find htdocs/ -mindepth 1 -not -path 'htdocs/data*' -delete && cp -rv data/tmp/build/* htdocs/ && mv -v data/tmp/build-vanilla htdocs/vanilla",
         "test": "yarn prerequisite && ng test",
-        "lint": "ng lint",
+        "lint": "ng lint --max-warnings 0",
         "codegen": "./bin/dump-schema && apollo client:codegen --suppressDeprecationWarning -c apollo.config.js --passthroughCustomScalars --customScalarsPrefix=App --outputFlat --target typescript client/app/shared/generated-types.ts"
     },
     "dependencies": {
