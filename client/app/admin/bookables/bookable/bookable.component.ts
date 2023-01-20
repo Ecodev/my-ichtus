@@ -1,5 +1,5 @@
 import {Component, Injector, OnInit} from '@angular/core';
-import {FileModel, formatIsoDateTime, IEnum, NaturalAbstractDetail} from '@ecodev/natural';
+import {formatIsoDateTime, IEnum, NaturalAbstractDetail} from '@ecodev/natural';
 import {BookableService} from '../services/bookable.service';
 import {
     BookingFilterGroupCondition,
