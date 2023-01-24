@@ -1,10 +1,10 @@
 import {ChangeDetectorRef, Component, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {UsersVariables} from '../../../shared/generated-types';
+import {UpdateUser_updateUser, UsersVariables} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {ActivatedRoute} from '@angular/router';
 import {mergeOverrideArray, NaturalAlertService, NaturalQueryVariablesManager} from '@ecodev/natural';
-import {mergeWith} from 'lodash-es';
+import {cloneDeep, mergeWith} from 'lodash-es';
 import {MatExpansionPanel} from '@angular/material/expansion';
 import {first} from 'rxjs/operators';
 import {CurrentUserForProfile_viewer, Users_users_items} from '../../../shared/generated-types';
@@ -18,6 +18,10 @@ export class FamilyComponent implements OnInit {
     public viewer!: CurrentUserForProfile_viewer;
     public familyMembers: Users_users_items[] = [];
 
+    /**
+     * Member selected when opening an accordion panel
+     */
+    public activeMember: Users_users_items | null = null;
     @ViewChildren(MatExpansionPanel) private readonly expansionPanels!: QueryList<MatExpansionPanel>;
 
     public constructor(
@@ -37,8 +41,13 @@ export class FamilyComponent implements OnInit {
         if (this.viewer) {
             const qvm = new NaturalQueryVariablesManager<UsersVariables>();
             qvm.set('variables', UserService.getFamilyVariables(this.viewer));
-            this.userService.getAll(qvm).subscribe(members => (this.familyMembers = [...members.items]));
+            this.userService.getAll(qvm).subscribe(family => (this.familyMembers = cloneDeep(family.items)));
+            this.activeMember = null;
         }
+    }
+
+    public refreshMember(index: number, user: UpdateUser_updateUser): void {
+        this.familyMembers[index].name = user.name;
     }
 
     public add(): void {

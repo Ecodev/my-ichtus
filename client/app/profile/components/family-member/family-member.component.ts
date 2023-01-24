@@ -1,5 +1,10 @@
 import {Component, EventEmitter, Injector, Input, OnInit, Output} from '@angular/core';
-import {CreateUser_createUser, CurrentUserForProfile_viewer, Users_users_items} from '../../../shared/generated-types';
+import {
+    CreateUser_createUser,
+    CurrentUserForProfile_viewer,
+    UpdateUser_updateUser,
+    Users_users_items,
+} from '../../../shared/generated-types';
 import {NaturalAbstractDetail} from '@ecodev/natural';
 import {merge} from 'lodash-es';
 import {FamilyUserService} from './family-user.service';
@@ -16,6 +21,7 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
     @Input() public readonly = false;
     @Output() public readonly created = new EventEmitter<void>();
     @Output() public readonly removed = new EventEmitter<void>();
+    @Output() public readonly updated = new EventEmitter<UpdateUser_updateUser>();
     public loaded = false;
 
     public constructor(public readonly userService: FamilyUserService, injector: Injector) {
@@ -87,5 +93,9 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
                     });
                 }
             });
+    }
+
+    protected override postUpdate(model: UpdateUser_updateUser): void {
+        this.updated.next(model);
     }
 }

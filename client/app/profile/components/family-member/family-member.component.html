@@ -102,13 +102,10 @@
         <div class="line-break">{{ form.get('remarks')?.value }}</div>
     </div>
 
-    <button
-        mat-raised-button
-        *ngIf="!data.model.id"
+    <natural-fixed-button
         (click)="create(false)"
+        icon="save"
         [color]="form.valid ? 'accent' : 'warn'"
-        class="margin-top"
-    >
-        Créer
-    </button>
+        *ngIf="!data.model.id"
+    ></natural-fixed-button>
 </div>
