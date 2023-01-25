@@ -49,6 +49,7 @@ class TypesFactory
             \Ecodev\Felix\Api\Scalar\LoginType::class,
             \Ecodev\Felix\Api\Scalar\PasswordType::class,
             \Ecodev\Felix\Api\Scalar\TokenType::class,
+            \Ecodev\Felix\Api\Scalar\UrlType::class,
             \GraphQL\Upload\UploadType::class,
         ];
 
