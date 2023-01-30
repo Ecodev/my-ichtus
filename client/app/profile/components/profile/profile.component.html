@@ -48,7 +48,7 @@
                         <div fxLayout="column" fxLayoutGap="10px">
                             <div class="mat-display-1 no-margin-bottom">{{ viewer.name }}</div>
                             <div class="mat-subheading-1">
-                                {{ viewer.status | enum: 'UserStatus' | async | capitalize }}
+                                {{ viewer.status | enum : 'UserStatus' | async | capitalize }}
                             </div>
                             <div fxLayout="row wrap" fxLayoutGap="15px" class="mat-body-1">
                                 <div

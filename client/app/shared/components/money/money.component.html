@@ -4,6 +4,6 @@
         [class.negative]="showSignal && amount && amount < 0"
         style="white-space: nowrap"
     >
-        <span *ngIf="showCurrency">CHF </span>{{ amount | currency: 'CHF':'':'1.2-2':'de-CH' }}
+        <span *ngIf="showCurrency">CHF </span>{{ amount | currency : 'CHF' : '' : '1.2-2' : 'de-CH' }}
     </span>
 </div>

@@ -6,7 +6,7 @@
     [class.text-decoration]="displayMode === 'amount'"
 >
     <span *ngIf="displayMode === 'amount'"
-        >{{ isIncome ? '➚' : '➘︎' }}&nbsp;{{ transactionLine.balance | currency: 'CHF' }}</span
+        >{{ isIncome ? '➚' : '➘︎' }}&nbsp;{{ transactionLine.balance | currency : 'CHF' }}</span
     >
     <a
         *ngIf="displayMode === 'account'"

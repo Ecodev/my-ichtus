@@ -185,5 +185,13 @@
         "schematicCollections": ["@angular-eslint/schematics"],
         "packageManager": "yarn",
         "analytics": false
+    },
+    "schematics": {
+        "@angular-eslint/schematics:application": {
+            "setParserOptionsProject": true
+        },
+        "@angular-eslint/schematics:library": {
+            "setParserOptionsProject": true
+        }
     }
 }

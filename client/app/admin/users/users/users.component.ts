@@ -5,7 +5,7 @@ import {BankingInfosVariables, Users_users_items, UserStatus} from '../../../sha
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {UserService} from '../services/user.service';
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig} from '@angular/material/legacy-dialog';
 import {ProvisionComponent} from '../../../profile/components/provision/provision.component';
 import {ActivatedRoute} from '@angular/router';
 import {finalize} from 'rxjs/operators';

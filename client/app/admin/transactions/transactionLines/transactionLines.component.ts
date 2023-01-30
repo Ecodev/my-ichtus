@@ -10,7 +10,7 @@ import {
 } from '../../../shared/generated-types';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {union} from 'lodash-es';
-import {MatCheckboxChange} from '@angular/material/checkbox';
+import {MatLegacyCheckboxChange as MatCheckboxChange} from '@angular/material/legacy-checkbox';
 
 @Component({
     selector: 'app-transaction-lines',

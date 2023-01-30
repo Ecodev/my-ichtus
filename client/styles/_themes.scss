@@ -16,7 +16,8 @@
 @use '../app/shared/components/transaction-amount/transaction-amount.theme';
 
 // Include material core (only once !)
-@include mat.core();
+@include mat.all-legacy-component-typographies();
+@include mat.legacy-core();
 
 // Include components themes
 @mixin components-theme($theme) {
@@ -70,7 +71,15 @@ $mat-ichtus: (
 $ichtus-blue: mat.define-palette($mat-ichtus);
 $ichtus-orange: mat.define-palette(mat.$orange-palette);
 $ichtus-red: mat.define-palette(mat.$red-palette);
-$ichtus-theme: mat.define-light-theme($ichtus-blue, $ichtus-orange, $ichtus-red);
+$ichtus-theme: mat.define-light-theme(
+    (
+        color: (
+            primary: $ichtus-blue,
+            accent: $ichtus-orange,
+            warn: $ichtus-red,
+        ),
+    )
+);
 
-@include mat.all-component-themes($ichtus-theme);
+@include mat.all-legacy-component-themes($ichtus-theme);
 @include components-theme($ichtus-theme);

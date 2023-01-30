@@ -4,7 +4,7 @@ import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {NaturalAbstractController, NaturalAlertService, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {UserService} from '../../../admin/users/services/user.service';
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig} from '@angular/material/legacy-dialog';
 import {ProvisionComponent} from '../provision/provision.component';
 import {filter, takeUntil} from 'rxjs/operators';
 import {

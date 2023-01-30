@@ -5,7 +5,7 @@ import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural
 import {AccountService} from '../services/account.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {TransactionLineService} from '../../transactions/services/transactionLine.service';
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig} from '@angular/material/legacy-dialog';
 import {UserService} from '../../users/services/user.service';
 import {AccountingClosingComponent} from '../accounting-closing/accounting-closing.component';
 import {AccountingReportComponent} from '../accounting-report/accounting-report.component';

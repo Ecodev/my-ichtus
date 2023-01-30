@@ -6,7 +6,7 @@ import {
 } from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
-import {MatDialog} from '@angular/material/dialog';
+import {MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
 import {CreateRefundComponent} from '../create-refund/create-refund.component';
 import {ifValid, NaturalAbstractList} from '@ecodev/natural';
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';

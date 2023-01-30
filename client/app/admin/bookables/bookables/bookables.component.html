@@ -74,11 +74,11 @@
                         Prix achat
                     </th>
                     <td mat-cell *matCellDef="let element" natural-align-right>
-                        <span *ngIf="element.purchasePrice > 0">{{ element.purchasePrice | currency: 'CHF' }}</span>
+                        <span *ngIf="element.purchasePrice > 0">{{ element.purchasePrice | currency : 'CHF' }}</span>
                     </td>
                     <td mat-footer-cell *matFooterCellDef natural-align-right>
                         <span *ngIf="dataSource?.data?.totalPurchasePrice > 0">
-                            {{ dataSource.data?.totalPurchasePrice | currency: 'CHF' }}
+                            {{ dataSource.data?.totalPurchasePrice | currency : 'CHF' }}
                         </span>
                     </td>
                 </ng-container>
@@ -89,12 +89,12 @@
                     </th>
                     <td mat-cell *matCellDef="let element" natural-align-right>
                         <span *ngIf="element.initialPrice !== '0.00'">{{
-                            element.initialPrice | currency: 'CHF'
+                            element.initialPrice | currency : 'CHF'
                         }}</span>
                     </td>
                     <td mat-footer-cell *matFooterCellDef natural-align-right>
                         <span *ngIf="dataSource?.data?.totalInitialPrice > 0">
-                            {{ dataSource.data?.totalInitialPrice | currency: 'CHF' }}
+                            {{ dataSource.data?.totalInitialPrice | currency : 'CHF' }}
                         </span>
                     </td>
                 </ng-container>
@@ -105,12 +105,12 @@
                     </th>
                     <td mat-cell *matCellDef="let element" natural-align-right>
                         <span *ngIf="element.periodicPrice !== '0.00'">{{
-                            element.periodicPrice | currency: 'CHF'
+                            element.periodicPrice | currency : 'CHF'
                         }}</span>
                     </td>
                     <td mat-footer-cell *matFooterCellDef natural-align-right>
                         <span *ngIf="dataSource?.data?.totalPeriodicPrice > 0">
-                            {{ dataSource.data?.totalPeriodicPrice | currency: 'CHF' }}
+                            {{ dataSource.data?.totalPeriodicPrice | currency : 'CHF' }}
                         </span>
                     </td>
                 </ng-container>
