@@ -18,7 +18,7 @@
         <div fxLayout="column" fxLayoutGap="30px" *ngIf="step === 2">
             <mat-divider></mat-divider>
 
-            <h2 class="mat-title">Compte</h2>
+            <h2 class="mat-headline-6">Compte</h2>
 
             <div fxLayout.gt-xs="row" fxLayout="column" fxLayoutGap.gt-xs="10px">
                 <mat-form-field fxFlex>
@@ -42,7 +42,7 @@
 
             <mat-divider></mat-divider>
 
-            <h2 class="mat-title">Coordonnées</h2>
+            <h2 class="mat-headline-6">Coordonnées</h2>
 
             <div fxLayout.gt-xs="row" fxLayout="column" fxLayoutGap.gt-xs="10px">
                 <mat-form-field fxFlex>
@@ -89,7 +89,7 @@
         </div>
 
         <div>
-            <h2 class="mat-title">Cotisation</h2>
+            <h2 class="mat-headline-6">Cotisation</h2>
 
             <div class="responsive-table">
                 <table mat-table *ngIf="mandatoryBookables" [dataSource]="mandatoryBookables">
@@ -145,18 +145,18 @@
                     Mon assurance RC couvre les dégâts commis par négligence au matériel nautique du club.
                 </mat-checkbox>
                 <mat-error
-                    class="mat-body-1"
+                    class="mat-body-2"
                     *ngIf="form.get('hasInsurance')?.touched && form.get('hasInsurance')?.hasError('required')"
                 >
                     Requis
                 </mat-error>
-                <p class="mat-body-1"></p>
+                <p class="mat-body-2"></p>
             </div>
             <mat-divider [vertical]="true"></mat-divider>
             <div fxFlex>
                 <mat-checkbox formControlName="termsAgreement" required> Je m'engage à respecter : </mat-checkbox>
 
-                <p class="mat-body-1 rich-text">
+                <p class="mat-body-2 rich-text">
                     <a href="https://ichtus.ch/oni" target="_blank"
                         >l'Ordonnance suisse sur la Navigation Intérieure (ONI)</a
                     >
@@ -165,7 +165,7 @@
                     <a href="https://ichtus.ch/statuts" target="_blank">statuts du club nautique Ichtus</a>
                 </p>
                 <mat-error
-                    class="mat-body-1"
+                    class="mat-body-2"
                     *ngIf="form.get('termsAgreement')?.touched && form.get('termsAgreement')?.hasError('required')"
                 >
                     Requis

@@ -19,7 +19,7 @@
         </div>
         <mat-divider class="margin-bottom"></mat-divider>
 
-        <h2 class="mat-title">Compte</h2>
+        <h2 class="mat-headline-6">Compte</h2>
 
         <div fxLayout="column">
             <mat-form-field fxFlex>
@@ -46,7 +46,7 @@
 
         <mat-divider class="margin-bottom"></mat-divider>
 
-        <h2 class="mat-title">Coordonnées</h2>
+        <h2 class="mat-headline-6">Coordonnées</h2>
 
         <mat-form-field>
             <mat-label>Prénom</mat-label>
@@ -98,7 +98,7 @@
 
     <div *ngIf="form.get('remarks')?.value">
         <mat-divider class="margin-v"></mat-divider>
-        <div class="mat-body-2">Remarques</div>
+        <div class="mat-subtitle-2">Remarques</div>
         <div class="line-break">{{ form.get('remarks')?.value }}</div>
     </div>
 

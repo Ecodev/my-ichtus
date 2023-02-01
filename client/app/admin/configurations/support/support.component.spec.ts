@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {SupportComponent, SupportComponentData} from './support.component';
 import {IchtusModule} from '../../../shared/modules/ichtus.module';
 import {RouterTestingModule} from '@angular/router/testing';
-import {MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA} from '@angular/material/legacy-dialog';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {NaturalDialogTriggerProvidedData} from '@ecodev/natural';
 import {mockApolloProvider} from '../../../shared/testing/MockApolloProvider';
 

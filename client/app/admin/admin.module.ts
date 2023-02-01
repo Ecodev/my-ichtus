@@ -35,7 +35,7 @@ import {UsageBookablesComponent} from './bookables/bookables/usage-bookables.com
 import {BookingsWithOwnerComponent} from './bookings/bookings/bookings-with-owner.component';
 import {AccountingClosingComponent} from './accounts/accounting-closing/accounting-closing.component';
 import {AccountingReportComponent} from './accounts/accounting-report/accounting-report.component';
-import {MatLegacyChipsModule as MatChipsModule} from '@angular/material/legacy-chips';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
     declarations: [

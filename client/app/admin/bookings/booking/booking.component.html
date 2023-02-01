@@ -37,7 +37,7 @@
                             ></natural-select>
                         </div>
 
-                        <mat-chip-list
+                        <mat-chip-listbox
                             #chipList
                             *ngIf="!data.model.id"
                             [selectable]="true"
@@ -45,15 +45,15 @@
                             aria-label="Type de réservable"
                             class="margin-bottom"
                         >
-                            <mat-chip
+                            <mat-chip-option
                                 #chip="matChip"
                                 *ngFor="let category of bookableFilterChips"
                                 [selected]="category.selected"
                                 [selectable]="true"
                                 (click)="filterBookables(category.value)"
-                                >{{ category.name }}</mat-chip
+                                >{{ category.name }}</mat-chip-option
                             >
-                        </mat-chip-list>
+                        </mat-chip-listbox>
                         <natural-select
                             formControlName="bookable"
                             placeholder="Réservable"
@@ -70,9 +70,9 @@
 
                         <div *ngIf="newBooking">
                             <mat-divider class="margin-bottom"></mat-divider>
-                            <p class="mat-body-1">
+                            <p class="mat-body-2">
                                 La prestation / espace de stockage
-                                <span class="mat-body-2">{{ newBooking.bookable?.name }}</span>
+                                <span class="mat-subtitle-2">{{ newBooking.bookable?.name }}</span>
                                 a été attribué(e).
                             </p>
                             <a
@@ -104,7 +104,7 @@
                             </button>
                         </div>
 
-                        <h2 class="mat-title">Commentaires</h2>
+                        <h2 class="mat-headline-6">Commentaires</h2>
                         <mat-form-field>
                             <mat-label>Remarques</mat-label>
                             <textarea
@@ -137,7 +137,7 @@
                     "
                 >
                     <mat-divider class="margin-bottom"></mat-divider>
-                    <div class="mat-title">Attribuer un stockage / service</div>
+                    <div class="mat-headline-6">Attribuer un stockage / service</div>
                     <app-usage-bookables
                         [selectedColumns]="['usageNb', 'name', 'code', 'initialPrice', 'periodicPrice', 'select']"
                         [persistSearch]="false"
@@ -150,7 +150,7 @@
                 <div *ngIf="isSelfApproved()">
                     <mat-divider></mat-divider>
 
-                    <h1 class="mat-title">Sorties</h1>
+                    <h1 class="mat-headline-6">Sorties</h1>
 
                     <mat-form-field style="width: 100px">
                         <mat-label>Nb participants</mat-label>
@@ -167,7 +167,7 @@
                     <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
                         <div fxFlex="50" fxLayout="column">
                             <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" class="margin-bottom">
-                                <h2 class="mat-title no-margin-bottom">Début</h2>
+                                <h2 class="mat-headline-6 no-margin-bottom">Début</h2>
                                 <div>{{ data.model.startDate | swissDate }}</div>
                             </div>
 
@@ -190,7 +190,7 @@
                         </div>
                         <div fxFlex="50" fxLayout="column">
                             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" class="margin-bottom">
-                                <h2 class="mat-title no-margin-bottom">Fin</h2>
+                                <h2 class="mat-headline-6 no-margin-bottom">Fin</h2>
                                 <div fxFlex>{{ data.model.endDate | swissDate }}</div>
                             </div>
 

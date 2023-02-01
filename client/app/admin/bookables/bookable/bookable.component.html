@@ -9,8 +9,8 @@
     >
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
             <div fxLayout="column" style="text-align: right" *ngIf="form.get('verificationDate')?.value">
-                <div class="mat-body-2">Dernière vérification</div>
-                <div class="mat-body-1">{{ form.get('verificationDate')?.value | date : 'dd.MM.y' }}</div>
+                <div class="mat-subtitle-2">Dernière vérification</div>
+                <div class="mat-body-2">{{ form.get('verificationDate')?.value | date : 'dd.MM.y' }}</div>
             </div>
             <button mat-flat-button color="primary" (click)="verify()" *ngIf="data.model.id && showVerified()">
                 Marquer comme vérifié
@@ -107,7 +107,7 @@
 
                     <div fxFlex="33" fxLayout="column">
                         <div fxLayout="row" fxLayoutAlign="start center" class="margin-bottom">
-                            <h2 class="mat-title no-margin" fxFlex>Réservation</h2>
+                            <h2 class="mat-headline-6 no-margin" fxFlex>Réservation</h2>
                             <mat-slide-toggle formControlName="isActive" (change)="update()"
                                 >Disponible</mat-slide-toggle
                             >
@@ -180,7 +180,7 @@
                 <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
                     <div fxFlex="66" fxLayout="column">
                         <div *ngIf="data.model.id && isSelfApproved()">
-                            <h2 class="mat-title">Certifications</h2>
+                            <h2 class="mat-headline-6">Certifications</h2>
                             <natural-relations
                                 [main]="data.model"
                                 [service]="licenseService"
@@ -200,7 +200,7 @@
                     </div>
                     <div fxFlex="33" fxLayout="column">
                         <div *ngIf="data.model.id">
-                            <h2 class="mat-title">Tags</h2>
+                            <h2 class="mat-headline-6">Tags</h2>
                             <natural-relations
                                 [main]="data.model"
                                 [service]="bookableTagService"

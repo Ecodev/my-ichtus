@@ -1,6 +1,6 @@
 <div fxLayout="column" fxFlex>
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-        <h1 class="mat-display-1" fxFlex>Nouvelle sortie</h1>
+        <h1 class="mat-headline-4" fxFlex>Nouvelle sortie</h1>
     </div>
     <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="20px">
         <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="center" fxLayoutGap="30px">
@@ -8,11 +8,11 @@
                 <card-illustration class="padding" *ngIf="!bookable?.image">
                     <natural-avatar initials="?" [size]="160"></natural-avatar>
                 </card-illustration>
-                <h2 class="mat-title">Matériel</h2>
+                <h2 class="mat-headline-6">Matériel</h2>
                 <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
-                    <div class="mat-body-2" fxFlex>{{ bookable?.name || 'Mon propre matériel' }}</div>
+                    <div class="mat-subtitle-2" fxFlex>{{ bookable?.name || 'Mon propre matériel' }}</div>
                     <mat-divider [vertical]="true" *ngIf="bookable"></mat-divider>
-                    <div class="mat-body-2">{{ bookable?.code }}</div>
+                    <div class="mat-subtitle-2">{{ bookable?.code }}</div>
                 </div>
             </app-card>
 
@@ -29,9 +29,9 @@
 
                 <div fxLayout="column" fxLayoutGap="10px">
                     <div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px">
-                        <h2 class="mat-title">Responsable</h2>
+                        <h2 class="mat-headline-6">Responsable</h2>
                         <div>
-                            <span class="mat-body-2 no-margin">{{ booking.owner.name }}</span>
+                            <span class="mat-subtitle-2 no-margin">{{ booking.owner.name }}</span>
                         </div>
                     </div>
                 </div>

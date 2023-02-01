@@ -1,6 +1,6 @@
 <div [formGroup]="form" class="detail-body">
     <div fxLayout="column" class="pageHeader">
-        <div class="mat-headline no-margin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+        <div class="mat-headline-5 no-margin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
             <a mat-icon-button [routerLink]="['..']">
                 <natural-icon name="arrow_back"></natural-icon>
             </a>
@@ -43,7 +43,7 @@
                     *ngIf="data.model.id"
                 >
                     <div fxFlex="50" fxLayout="column">
-                        <h2 class="mat-title">Utilisateurs certifiés</h2>
+                        <h2 class="mat-headline-6">Utilisateurs certifiés</h2>
                         <natural-relations
                             [main]="data.model"
                             [service]="userService"
@@ -62,7 +62,7 @@
                     </div>
 
                     <div fxFlex="50" fxLayout="column">
-                        <h2 class="mat-title">Réservables certifiés</h2>
+                        <h2 class="mat-headline-6">Réservables certifiés</h2>
                         <natural-relations
                             [main]="data.model"
                             [service]="bookableService"

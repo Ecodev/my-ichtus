@@ -6,8 +6,8 @@
         <img *ngIf="bankingInfos.qrCode" alt="QR code" class="qrCode" [attr.src]="bankingInfos.qrCode" />
         <div fxLayout="column" fxLayoutGap="5px">
             <div>
-                <div class="mat-body-2">Compte (IBAN)</div>
-                <div class="mat-body-1" style="white-space: pre-line">
+                <div class="mat-subtitle-2">Compte (IBAN)</div>
+                <div class="mat-body-2" style="white-space: pre-line">
                     {{ bankingInfos.iban | iban }}
                     <button
                         *ngIf="bankingInfos.iban"
@@ -20,8 +20,8 @@
                 </div>
             </div>
             <div>
-                <div class="mat-body-2">Référence :</div>
-                <div class="mat-body-1">
+                <div class="mat-subtitle-2">Référence :</div>
+                <div class="mat-body-2">
                     {{ bankingInfos.referenceNumber }}
                     <button
                         *ngIf="bankingInfos.iban"
@@ -34,8 +34,8 @@
                 </div>
             </div>
             <div>
-                <div class="mat-body-2">Payable à</div>
-                <div class="mat-body-1" style="white-space: pre-line">{{ bankingInfos.paymentFor }}</div>
+                <div class="mat-subtitle-2">Payable à</div>
+                <div class="mat-body-2" style="white-space: pre-line">{{ bankingInfos.paymentFor }}</div>
             </div>
         </div>
     </div>

@@ -77,21 +77,21 @@ mat-form-field.no-bottom-spacing {
     text-align: center;
 }
 
-.mat-button {
+.mat-mdc-button {
     &.app-button-wrap {
         line-height: 16px;
         min-height: 36px;
-
+        /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
         .mat-button-wrapper {
             white-space: normal;
         }
     }
 }
 
-.mat-button.big-button {
+.mat-mdc-button.big-button {
     white-space: normal;
     line-height: 24px;
-
+    /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
     .mat-button-wrapper {
         display: flex;
         flex-direction: column;
@@ -105,7 +105,7 @@ mat-form-field.no-bottom-spacing {
     white-space: pre-wrap;
 }
 
-.mat-snack-bar-container {
+.mat-mdc-snack-bar-container {
     margin-top: 88px !important;
 }
 
@@ -118,11 +118,13 @@ mat-form-field.no-bottom-spacing {
 }
 
 // Allow mat-checkbox with long labels to wrap, see https://github.com/angular/components/issues/8416
+/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version. */
 .mat-checkbox-layout {
     white-space: normal !important;
 }
 
 // Keep the mat-checkbox's checkbox on the first line, see https://github.com/angular/components/issues/8416
+/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version. */
 .mat-checkbox-inner-container {
     margin-top: 4px !important;
 }

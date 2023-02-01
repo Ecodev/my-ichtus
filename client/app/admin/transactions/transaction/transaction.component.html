@@ -80,7 +80,7 @@
                 <mat-divider *ngIf="data.model.expenseClaim"></mat-divider>
                 <div *ngIf="data.model.expenseClaim">
                     <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="margin-bottom">
-                        <div class="mat-title no-margin-bottom">
+                        <div class="mat-headline-6 no-margin-bottom">
                             <span *ngIf="data.model.expenseClaim.type === ExpenseClaimType.refund"
                                 >Demande de remboursement</span
                             >
@@ -99,28 +99,28 @@
 
                     <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="20px">
                         <div fxLayout="column" fxLayoutGap="7px" style="max-width: 300px">
-                            <div class="mat-body-2">{{ data.model.expenseClaim.name }}</div>
+                            <div class="mat-subtitle-2">{{ data.model.expenseClaim.name }}</div>
                             <div *ngIf="data.model.expenseClaim.description">
-                                <span class="mat-body-2">Description :</span>
+                                <span class="mat-subtitle-2">Description :</span>
                                 {{ data.model.expenseClaim.description }}
                             </div>
                         </div>
 
                         <div fxLayout="column" fxLayoutGap="7px" style="max-width: 300px">
                             <div>
-                                <span class="mat-body-2">Montant :</span>
+                                <span class="mat-subtitle-2">Montant :</span>
                                 {{ data.model.expenseClaim.amount | currency : 'CHF' }}
                             </div>
                             <div>
-                                <span class="mat-body-2">Membre :</span>
+                                <span class="mat-subtitle-2">Membre :</span>
                                 {{ data.model.expenseClaim.owner.name }}
                             </div>
                             <div *ngIf="data.model.expenseClaim.sector">
-                                <span class="mat-body-2">Secteur :</span>
+                                <span class="mat-subtitle-2">Secteur :</span>
                                 {{ data.model.expenseClaim.sector }}
                             </div>
                             <div *ngIf="data.model.expenseClaim.reviewer">
-                                <span class="mat-body-2">Approuvé par :</span>
+                                <span class="mat-subtitle-2">Approuvé par :</span>
                                 {{ data.model.expenseClaim.reviewer.name }}
                             </div>
                         </div>
@@ -138,7 +138,7 @@
                 <!-- TODO : add selectors for ExpenseClaim -->
                 <mat-divider></mat-divider>
                 <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                    <h2 class="mat-title no-margin-bottom no-margin-top">Écritures</h2>
+                    <h2 class="mat-headline-6 no-margin-bottom no-margin-top">Écritures</h2>
                     <div *ngIf="userService.canUpdateTransaction(viewer)">
                         <button
                             mat-stroked-button
@@ -189,7 +189,7 @@
                 </div>
 
                 <div>
-                    <div class="mat-title">Documents justificatifs de la transaction</div>
+                    <div class="mat-headline-6">Documents justificatifs de la transaction</div>
                     <app-accounting-documents
                         #transactionDocuments
                         [canRemove]="userService.canDeleteAccountingDocument(viewer)"

@@ -6,7 +6,7 @@
         class="mat-elevation-z2"
     ></natural-file>
 
-    <div fxLayout="row" fxLayoutAlign="start stretch" class="mat-display-1">
+    <div fxLayout="row" fxLayoutAlign="start stretch" class="mat-headline-4">
         <div fxFlex>{{ bookable.name }}</div>
         <div fxLayout="row" fxLayoutGap="20px">
             <mat-divider [vertical]="true"></mat-divider>
@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <div *ngIf="!hasLicense || !welcomeSessionTaken" fxLayout="column" fxLayoutGap="10px" class="mat-body-1">
+    <div *ngIf="!hasLicense || !welcomeSessionTaken" fxLayout="column" fxLayoutGap="10px" class="mat-body-2">
         <div *ngIf="!hasLicense" fxLayoutAlign="start center">
             <mat-icon color="warn">error</mat-icon>
             Tu ne disposes pas des licences requises pour utiliser cette embarcation
@@ -30,7 +30,7 @@
     </div>
 
     <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
-        <div *ngIf="!isAvailable && runningBooking" class="mat-body-1">
+        <div *ngIf="!isAvailable && runningBooking" class="mat-body-2">
             Sorti {{ runningBooking.startDate | timeago }}
         </div>
         <button
@@ -55,11 +55,11 @@
         >
     </div>
 
-    <div class="mat-headline line-break">{{ bookable.description }}</div>
-    <div class="mat-subheading-2 line-break">{{ bookable.remarks }}</div>
+    <div class="mat-headline-5 line-break">{{ bookable.description }}</div>
+    <div class="mat-subtitle-1 line-break">{{ bookable.remarks }}</div>
 </div>
 
 <div *ngIf="!bookable" fxFlex fxLayout="column" fxLayoutAlign="center center" class="padding">
-    <div class="mat-display-1" style="text-align: center">Aucun matériel correspondant à ce code n'a été trouvé</div>
+    <div class="mat-headline-4" style="text-align: center">Aucun matériel correspondant à ce code n'a été trouvé</div>
     <button mat-flat-button color="primary" (click)="back()">Revenir à la page précédente</button>
 </div>

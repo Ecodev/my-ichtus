@@ -19,11 +19,8 @@ import {
 } from '../../generated-types';
 import {NaturalAbstractController, NaturalAlertService, NaturalQueryVariablesManager, WithId} from '@ecodev/natural';
 import {Observable} from 'rxjs';
-import {MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
-import {
-    MatLegacySnackBar as MatSnackBar,
-    MatLegacySnackBarConfig as MatSnackBarConfig,
-} from '@angular/material/legacy-snack-bar';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 import {CommentComponent} from './comment.component';
 
 type Extended = {

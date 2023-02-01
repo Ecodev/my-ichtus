@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutGap="50px" *ngIf="viewer && dataSource">
     <div *ngIf="!adminMode && !viewer.owner">
-        <h2 class="mat-headline margin-bottom">Finances</h2>
+        <h2 class="mat-headline-5 margin-bottom">Finances</h2>
 
         <mat-form-field [style.width.px]="350">
             <mat-label>IBAN</mat-label>
@@ -28,7 +28,7 @@
             class="margin-bottom"
             fxLayoutGap="10px"
         >
-            <h2 fxFlex class="mat-headline no-margin">Dépenses et remboursements en attente</h2>
+            <h2 fxFlex class="mat-headline-5 no-margin">Dépenses et remboursements en attente</h2>
             <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="10px">
                 <a
                     mat-stroked-button
@@ -63,7 +63,7 @@
         </div>
 
         <div
-            class="mat-body-1 padding margin"
+            class="mat-body-2 padding margin"
             fxLayout="column"
             fxLayoutAlign="center center"
             *ngIf="dataSource?.data?.length === 0"

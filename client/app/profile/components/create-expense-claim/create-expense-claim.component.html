@@ -1,5 +1,5 @@
 <div [formGroup]="form" class="padding" fxFlex fxLayout="column" fxLayoutGap="20px">
-    <h1 class="mat-display-1">{{ data.seo.title }}</h1>
+    <h1 class="mat-headline-4">{{ data.seo.title }}</h1>
 
     <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="20px">
         <mat-form-field fxFlex.gt-sm>
@@ -45,7 +45,7 @@
     </mat-form-field>
 
     <div>
-        <h2 class="mat-title">Documents justificatifs</h2>
+        <h2 class="mat-headline-6">Documents justificatifs</h2>
         <div fxLayout="row wrap" fxLayoutGap="10px grid">
             <app-accounting-documents [model]="data.model"></app-accounting-documents>
         </div>

@@ -1,6 +1,6 @@
 import {Component, Inject, ViewChild} from '@angular/core';
 import {ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
-import {MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA} from '@angular/material/legacy-dialog';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {UntypedFormControl, Validators} from '@angular/forms';
 import {BankingInfosVariables} from '../../../shared/generated-types';
 import {BvrComponent} from '../bvr/bvr.component';

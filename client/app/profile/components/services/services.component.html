@@ -7,12 +7,12 @@
             fxLayoutAlign="start start"
             class="margin-bottom"
         >
-            <h2 fxFlex class="mat-headline no-margin-bottom">Demandes en attente</h2>
+            <h2 fxFlex class="mat-headline-5 no-margin-bottom">Demandes en attente</h2>
             <app-select-admin-approved-button [user]="user" *ngIf="!adminMode"></app-select-admin-approved-button>
         </div>
 
         <div
-            class="mat-body-1 padding margin"
+            class="mat-body-2 padding margin"
             fxLayout="column"
             fxLayoutAlign="center center"
             *ngIf="pendingApplicationsDS.data?.length === 0"
@@ -96,12 +96,12 @@
 
     <div>
         <div fxLayout="row" fxLayoutAlign="start center" class="margin-bottom">
-            <h2 fxFlex class="mat-headline no-margin-bottom">Cotisation / Prestations souscrites</h2>
+            <h2 fxFlex class="mat-headline-5 no-margin-bottom">Cotisation / Prestations souscrites</h2>
             <button mat-stroked-button *ngIf="!user.owner" color="warn" (click)="unregister()">Démissionner</button>
         </div>
 
         <div
-            class="mat-body-1 padding margin"
+            class="mat-body-2 padding margin"
             fxLayout="column"
             fxLayoutAlign="center center"
             *ngIf="runningServicesDS?.data?.length === 0"

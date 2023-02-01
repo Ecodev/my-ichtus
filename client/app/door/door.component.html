@@ -1,6 +1,6 @@
 <div class="overflow" fxLayout="column" fxLayoutGap="50px" fxLayoutAlign="center">
     <div fxLayout="column" fxLayoutAlign="start center" class="padding margin-top">
-        <h1 class="mat-display-2 margin-bottom text-center">Sélectionnez la porte du local à ouvrir</h1>
+        <h1 class="mat-headline-3 margin-bottom text-center">Sélectionnez la porte du local à ouvrir</h1>
 
         <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="20px grid">
             <ng-container *ngFor="let door of doorService.doors; let i = index">
@@ -11,7 +11,7 @@
                     [style.min-width.px]="300"
                 >
                     <div fxLayout="column" fxLayoutGap="10px">
-                        <div class="mat-body-2">{{ door.name }}</div>
+                        <div class="mat-subtitle-2">{{ door.name }}</div>
                         <div>
                             <button mat-flat-button [ngClass]="{opened: door.opened}" [disabled]="door.opened">
                                 <natural-icon [name]="door.opened ? 'lock_open' : 'lock'"></natural-icon>

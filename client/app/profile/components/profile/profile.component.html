@@ -46,11 +46,11 @@
                     <div fxLayout="row" fxLayoutGap="10px">
                         <natural-avatar [initials]="viewer.name" [gravatar]="viewer.email" [size]="60"></natural-avatar>
                         <div fxLayout="column" fxLayoutGap="10px">
-                            <div class="mat-display-1 no-margin-bottom">{{ viewer.name }}</div>
-                            <div class="mat-subheading-1">
+                            <div class="mat-headline-4 no-margin-bottom">{{ viewer.name }}</div>
+                            <div class="mat-body-1">
                                 {{ viewer.status | enum : 'UserStatus' | async | capitalize }}
                             </div>
-                            <div fxLayout="row wrap" fxLayoutGap="15px" class="mat-body-1">
+                            <div fxLayout="row wrap" fxLayoutGap="15px" class="mat-body-2">
                                 <div
                                     *ngFor="let license of licenses"
                                     fxLayout="row"
@@ -86,7 +86,7 @@
                 <div fxFlex="none" fxLayout="row" fxLayoutAlign="center">
                     <div fxLayout="column" fxLayoutGap="20px">
                         <div fxLayout="row" fxLayoutAlign="start center">
-                            <h2 class="mat-headline no-margin" fxFlex>Solde</h2>
+                            <h2 class="mat-headline-5 no-margin" fxFlex>Solde</h2>
                             <button
                                 mat-flat-button
                                 color="primary"

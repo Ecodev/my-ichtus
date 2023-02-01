@@ -17,7 +17,7 @@
             <div fxLayout="column" fxLayoutGap="30px" class="padding-top">
                 <div fxLayout="column" fxLayout.gt-md="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
                     <div fxFlex="66" fxLayout="column">
-                        <h2 class="mat-title">Coordonnées</h2>
+                        <h2 class="mat-headline-6">Coordonnées</h2>
 
                         <div fxLayout="row" fxLayoutGap="10px">
                             <mat-form-field fxFlex>
@@ -62,7 +62,7 @@
                     </div>
 
                     <div fxFlex="33" fxLayout="column">
-                        <h2 class="mat-title">Compte</h2>
+                        <h2 class="mat-headline-6">Compte</h2>
                         <mat-form-field>
                             <mat-label>email</mat-label>
                             <input matInput formControlName="email" (change)="update()" />
@@ -90,7 +90,7 @@
 
                         <mat-divider class="margin-bottom"></mat-divider>
 
-                        <h2 class="mat-title">État</h2>
+                        <h2 class="mat-headline-6">État</h2>
 
                         <natural-select-enum
                             enumName="UserStatus"
@@ -120,7 +120,7 @@
 
                 <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
                     <div fxFlex="66" fxLayout="column">
-                        <h2 class="mat-title">Autres</h2>
+                        <h2 class="mat-headline-6">Autres</h2>
 
                         <natural-select
                             [service]="service"
@@ -174,12 +174,12 @@
                             </mat-form-field>
 
                             <div *ngIf="data.model.age">
-                                <span class="mat-body-2">Âge :</span>
+                                <span class="mat-subtitle-2">Âge :</span>
                                 <span>{{ data.model.age }}</span>
                             </div>
                         </div>
 
-                        <div class="mat-body-1" fxLayout="column" fxLayoutGap="20px">
+                        <div class="mat-body-2" fxLayout="column" fxLayoutGap="20px">
                             <!-- Has Insurance -->
                             <mat-checkbox formControlName="hasInsurance" (change)="update()">
                                 Assurance RC
@@ -193,7 +193,7 @@
                     </div>
 
                     <div fxFlex="33" fxLayout="column">
-                        <h2 class="mat-title">Commentaires</h2>
+                        <h2 class="mat-headline-6">Commentaires</h2>
 
                         <mat-form-field>
                             <mat-label>Remarques</mat-label>
@@ -230,7 +230,7 @@
                     *ngIf="data.model.id"
                 >
                     <div fxFlex="45" fxLayout="column">
-                        <h2 class="mat-title">Certifications</h2>
+                        <h2 class="mat-headline-6">Certifications</h2>
                         <natural-relations
                             [main]="data.model"
                             [service]="licenseService"
@@ -247,7 +247,7 @@
                     </div>
 
                     <div fxFlex="40" fxLayout="column">
-                        <h2 class="mat-title">Tags</h2>
+                        <h2 class="mat-headline-6">Tags</h2>
                         <natural-relations
                             [main]="data.model"
                             [service]="userTagService"
@@ -319,17 +319,17 @@
                     </div>
 
                     <div *ngIf="data.model.firstLogin">
-                        <span class="mat-body-2">Première connexion :</span>
+                        <span class="mat-subtitle-2">Première connexion :</span>
                         {{ data.model.firstLogin | swissDate }} ({{ data.model.firstLogin | timeAgo }})
                     </div>
 
                     <div *ngIf="data.model.lastLogin">
-                        <span class="mat-body-2">Dernière connexion :</span>
+                        <span class="mat-subtitle-2">Dernière connexion :</span>
                         {{ data.model.lastLogin | swissDate }} ({{ data.model.lastLogin | timeAgo }})
                     </div>
 
                     <div *ngIf="data.model.resignDate && data.model.status === 'archived'">
-                        <span class="mat-body-2">Démission le :</span>
+                        <span class="mat-subtitle-2">Démission le :</span>
                         {{ data.model.resignDate | swissDate }} ({{ data.model.resignDate | timeAgo }})
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutGap="20px">
     <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="20px grid" *ngIf="bookings">
-        <div *ngIf="!bookings.items.length && showEmptyMessage" class="padding mat-body-2">Aucun résultat</div>
+        <div *ngIf="!bookings.items.length && showEmptyMessage" class="padding mat-subtitle-2">Aucun résultat</div>
 
         <ng-container *ngFor="let item of bookings.items; let i = index">
             <div [@terminate] *ngIf="!activeOnly || (activeOnly && !item.terminated)">
@@ -25,11 +25,11 @@
                         <div style="position: relative">
                             <mat-divider></mat-divider>
                         </div>
-                        <div class="mat-body-2">{{ item.booking.owner?.name }}</div>
-                        <div class="mat-body-1" *ngIf="!item.booking.endDate && item.booking.destination">
+                        <div class="mat-subtitle-2">{{ item.booking.owner?.name }}</div>
+                        <div class="mat-body-2" *ngIf="!item.booking.endDate && item.booking.destination">
                             Destination : {{ item.booking.destination }}
                         </div>
-                        <div class="mat-body-1" *ngIf="!item.booking.endDate && item.booking.estimatedEndDate">
+                        <div class="mat-body-2" *ngIf="!item.booking.endDate && item.booking.estimatedEndDate">
                             Retour prévu : {{ item.booking.estimatedEndDate }}
                         </div>
                         <div>Début : {{ item.booking.startDate | swissDate }}</div>
@@ -63,7 +63,7 @@
 
                     <div class="comment padding" fxLayout="column" fxLayoutGap="10px">
                         <div fxFlex class="overflow" fxLayout="column">
-                            <div class="mat-title">Commentaires</div>
+                            <div class="mat-headline-6">Commentaires</div>
                             <mat-form-field>
                                 <mat-label>Commentaire de départ</mat-label>
                                 <textarea
