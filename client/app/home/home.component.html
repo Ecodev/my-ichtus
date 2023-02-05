@@ -30,19 +30,13 @@
                 </a>
             </div>
 
-            <a color="primary" mat-flat-button mat-icon-button routerLink="/booking/by-scan">
+            <a color="primary" mat-icon-button routerLink="/booking/by-scan">
                 <natural-icon [size]="24" name="simple-qr"></natural-icon>
             </a>
 
             <div fxFlex></div>
 
-            <a
-                [routerLink]="getAnnouncementLink()"
-                color="primary"
-                mat-flat-button
-                mat-icon-button
-                *ngIf="announcementActive"
-            >
+            <a [routerLink]="getAnnouncementLink()" color="primary" mat-icon-button *ngIf="announcementActive">
                 <natural-icon [size]="24" name="announcement"></natural-icon>
             </a>
 
