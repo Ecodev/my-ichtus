@@ -24,7 +24,7 @@
         <mat-form-field id="amount">
             <mat-label>Montant</mat-label>
             <input matInput type="number" step="0.01" [attr.min]="1" formControlName="amount" (change)="update()" />
-            <div matSuffix>CHF</div>
+            <div matTextSuffix>CHF</div>
             <mat-error *ngIf="form.get('amount')?.hasError('required')">Requis</mat-error>
             <mat-error *ngIf="form.get('amount')?.hasError('min')">Le montant doit être positif</mat-error>
             <mat-error *ngIf="form.get('amount')?.hasError('money')"

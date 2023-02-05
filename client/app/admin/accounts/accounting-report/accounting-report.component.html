@@ -3,7 +3,7 @@
     <mat-form-field fxFlex>
         <mat-label>Date du bilan</mat-label>
         <input matInput [formControl]="form" [matDatepicker]="picker" [max]="today" />
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         <mat-error *ngIf="form.hasError('required')">Requis</mat-error>
         <mat-error *ngIf="form.hasError('matDatepickerMax')">La date d'export ne peut pas être dans le futur</mat-error>

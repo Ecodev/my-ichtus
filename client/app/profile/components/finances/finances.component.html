@@ -7,7 +7,7 @@
             <input matInput [formControl]="ibanCtrl" (change)="updateIban()" (blur)="lockIbanIfDefined()" />
             <button
                 mat-icon-button
-                matSuffix
+                matIconSuffix
                 (click)="ibanCtrl.enable()"
                 [disabled]="ibanCtrl.enabled || updating"
                 matTooltip="Déverouiller"

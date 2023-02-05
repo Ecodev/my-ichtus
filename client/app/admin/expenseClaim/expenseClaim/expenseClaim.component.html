@@ -98,7 +98,7 @@
                             </mat-option>
                         </mat-select>
                         <!-- Clear button -->
-                        <div class="suffix-buttons" matSuffix>
+                        <div class="suffix-buttons" matIconSuffix>
                             <button
                                 *ngIf="form.get('sector')?.value !== ''"
                                 (click)="form.get('sector')?.setValue(''); $event.stopPropagation(); update()"
@@ -124,7 +124,7 @@
                     <mat-form-field fxFlex="120px">
                         <mat-label>Montant</mat-label>
                         <input matInput type="number" step="0.01" formControlName="amount" (change)="update()" />
-                        <div matSuffix>CHF</div>
+                        <div matTextSuffix>CHF</div>
                         <mat-error *ngIf="form.get('amount')?.hasError('required')">Requis</mat-error>
                     </mat-form-field>
 

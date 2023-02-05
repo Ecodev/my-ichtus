@@ -169,7 +169,7 @@
                                     [matDatepicker]="picker"
                                     (dateChange)="update()"
                                 />
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
                             </mat-form-field>
 
@@ -303,7 +303,7 @@
                                 (dateChange)="update()"
                             />
 
-                            <div matSuffix xLayout="row" fxLayoutAlign="start center">
+                            <div matIconSuffix fxLayoutAlign="start center">
                                 <mat-datepicker-toggle [for]="picker2"></mat-datepicker-toggle>
                                 <mat-datepicker #picker2></mat-datepicker>
 
@@ -375,7 +375,7 @@
                         <input matInput [formControl]="ibanCtrl" (change)="updateIban()" (blur)="lockIbanIfDefined()" />
                         <button
                             mat-icon-button
-                            matSuffix
+                            matIconSuffix
                             *ngIf="canUpdateIban()"
                             (click)="ibanCtrl.enable()"
                             [disabled]="ibanCtrl.enabled || updating"

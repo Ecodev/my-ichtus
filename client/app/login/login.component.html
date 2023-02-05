@@ -31,9 +31,9 @@
                     [type]="hidePassword ? 'password' : 'text'"
                     (keydown.enter)="maybeConfirm()"
                 />
-                <button mat-icon-button matSuffix>
+                <button mat-icon-button matIconSuffix>
                     <natural-icon
-                        matSuffix
+                        matIconSuffix
                         (click)="hidePassword = !hidePassword"
                         [name]="hidePassword ? 'visibility' : 'visibility_off'"
                     ></natural-icon>

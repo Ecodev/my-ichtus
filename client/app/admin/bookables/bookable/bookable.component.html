@@ -74,7 +74,7 @@
                                         formControlName="purchasePrice"
                                         (change)="update()"
                                     />
-                                    <div matSuffix>CHF</div>
+                                    <div matTextSuffix>CHF</div>
                                     <mat-error *ngIf="form.get('purchasePrice')?.hasError('min')"
                                         >Le montant doit être positif</mat-error
                                     >
@@ -130,7 +130,7 @@
                                 formControlName="initialPrice"
                                 (change)="update()"
                             />
-                            <div matSuffix>CHF</div>
+                            <div matTextSuffix>CHF</div>
                             <mat-error *ngIf="form.get('initialPrice')?.hasError('required')">Requis</mat-error>
                         </mat-form-field>
 
@@ -143,7 +143,7 @@
                                 formControlName="periodicPrice"
                                 (change)="update()"
                             />
-                            <div matSuffix>CHF</div>
+                            <div matTextSuffix>CHF</div>
                             <mat-error *ngIf="form.get('periodicPrice')?.hasError('required')">Requis</mat-error>
                         </mat-form-field>
 

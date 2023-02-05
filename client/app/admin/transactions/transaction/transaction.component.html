@@ -33,14 +33,11 @@
                                     <mat-form-field>
                                         <mat-label>Date</mat-label>
                                         <input matInput formControlName="transactionDate" [matDatepicker]="picker2" />
-
-                                        <div matSuffix xLayout="row" fxLayoutAlign="start center">
-                                            <mat-datepicker-toggle [for]="picker2"></mat-datepicker-toggle>
-                                            <mat-datepicker #picker2></mat-datepicker>
-                                            <mat-error *ngIf="form.get('transactionDate')?.hasError('required')"
-                                                >Requis</mat-error
-                                            >
-                                        </div>
+                                        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker2></mat-datepicker>
+                                        <mat-error *ngIf="form.get('transactionDate')?.hasError('required')"
+                                            >Requis</mat-error
+                                        >
                                     </mat-form-field>
                                 </div>
                                 <div fxFlex="50" fxLayout="column">
