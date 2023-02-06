@@ -7,7 +7,6 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatPaginatorIntl} from '@angular/material/paginator';
 import {DateAdapter, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
-import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {MatIconRegistry} from '@angular/material/icon';
 import {
     NATURAL_SEO_CONFIG,
@@ -89,12 +88,6 @@ export const matTooltipCustomConfig: MatTooltipDefaultOptions = {
             // Use OnDirty instead of default OnTouched, that allows to validate while editing. Touched is updated after blur.
             provide: ErrorStateMatcher,
             useClass: ShowOnDirtyErrorStateMatcher,
-        },
-        {
-            provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-            useValue: {
-                appearance: 'fill',
-            },
         },
         {
             provide: HTTP_INTERCEPTORS,
