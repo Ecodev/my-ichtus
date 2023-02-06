@@ -1,16 +1,19 @@
-<div class="mat-body-2 content">
-    <mat-slide-toggle (change)="update()" [(ngModel)]="active" *ngIf="!readonly && activable">Actif</mat-slide-toggle>
-    <natural-editor *ngIf="!readonly" [(ngModel)]="text"></natural-editor>
-    <div *ngIf="readonly" [innerHTML]="text" class="content"></div>
-</div>
+<mat-dialog-content>
+    <div class="mat-body-2 content">
+        <mat-slide-toggle (change)="update()" [(ngModel)]="active" *ngIf="!readonly && activable"
+            >Actif</mat-slide-toggle
+        >
+        <natural-editor *ngIf="!readonly" [(ngModel)]="text"></natural-editor>
+        <div *ngIf="readonly" [innerHTML]="text" class="content"></div>
+    </div>
 
-<natural-fixed-button
-    (click)="update()"
-    [disabled]="updating"
-    *ngIf="permissionsService.crud?.configuration.create && !readonly"
-    icon="save"
-></natural-fixed-button>
-
+    <natural-fixed-button
+        (click)="update()"
+        [disabled]="updating"
+        *ngIf="permissionsService.crud?.configuration.create && !readonly"
+        icon="save"
+    ></natural-fixed-button>
+</mat-dialog-content>
 <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px" *ngIf="data?.data?.showCloseButton">
     <button mat-button mat-dialog-close>Fermer</button>
 </mat-dialog-actions>
