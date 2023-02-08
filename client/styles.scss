@@ -117,16 +117,11 @@ mat-form-field.no-bottom-spacing {
     width: 7em;
 }
 
-// Allow mat-checkbox with long labels to wrap, see https://github.com/angular/components/issues/8416
-/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version. */
-.mat-checkbox-layout {
-    white-space: normal !important;
-}
-
-// Keep the mat-checkbox's checkbox on the first line, see https://github.com/angular/components/issues/8416
-/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version. */
-.mat-checkbox-inner-container {
-    margin-top: 4px !important;
+// Keep the mat-checkbox's checkbox near the first line, see https://github.com/angular/components/issues/8416
+// This is not perfectly aligned on the text first line, because we need space for the ripple, but at least the
+// spacing stays consistent with other one-line <mat-checkbox>, and it should be good enough for most use-cases
+.mdc-checkbox {
+    align-self: flex-start;
 }
 
 // It is possible that the server returns error message on multiple line (eg: when ACL with multiple assertions fail),
