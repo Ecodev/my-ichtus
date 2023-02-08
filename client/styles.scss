@@ -77,27 +77,21 @@ mat-form-field.no-bottom-spacing {
     text-align: center;
 }
 
-.mat-mdc-button {
-    &.app-button-wrap {
-        line-height: 16px;
-        min-height: 36px;
-        /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
-        .mat-button-wrapper {
-            white-space: normal;
-        }
-    }
+.mat-mdc-button.app-button-wrap {
+    height: auto !important; // allow button grow in height
 }
 
 .mat-mdc-button.big-button {
+    height: auto !important; // allow button grow in height
     white-space: normal;
-    line-height: 24px;
-    /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
-    .mat-button-wrapper {
+    line-height: 24px !important;
+    .mdc-button__label {
         display: flex;
         flex-direction: column;
         align-items: center;
         font-size: 1.2em;
         padding-top: 10px;
+        text-align: center;
     }
 }
 
