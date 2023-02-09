@@ -1,8 +1,8 @@
 <mat-dialog-content>
     <div class="mat-body-2 content">
-        <mat-slide-toggle (change)="update()" [(ngModel)]="active" *ngIf="!readonly && activable"
-            >Actif</mat-slide-toggle
-        >
+        <mat-slide-toggle (change)="update()" [(ngModel)]="active" *ngIf="!readonly && activable">
+            Actif
+        </mat-slide-toggle>
         <natural-editor *ngIf="!readonly" [(ngModel)]="text"></natural-editor>
         <div *ngIf="readonly" [innerHTML]="text" class="content"></div>
     </div>
