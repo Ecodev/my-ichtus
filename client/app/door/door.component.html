@@ -13,8 +13,8 @@
                     <div fxLayout="column" fxLayoutGap="10px">
                         <div class="mat-subtitle-2">{{ door.name }}</div>
                         <div>
-                            <button mat-flat-button [ngClass]="{opened: door.opened}" [disabled]="door.opened">
-                                <natural-icon [name]="door.opened ? 'lock_open' : 'lock'"></natural-icon>
+                            <button mat-raised-button [ngClass]="{opened: door.opened}" [disabled]="door.opened">
+                                <mat-icon [fontIcon]="door.opened ? 'lock_open' : 'lock'"></mat-icon>
                                 Ouvrir
                             </button>
                         </div>
