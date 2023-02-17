@@ -11,9 +11,7 @@ import {HistoryComponent} from './components/history/history.component';
 import {ServicesGuard} from '../shared/guards/services.guard';
 import {NaturalSeo} from '@ecodev/natural';
 import {BookingType, ExpenseClaimType} from '../shared/generated-types';
-import {BookingService} from '../admin/bookings/services/booking.service';
 import {BookableTagService} from '../admin/bookableTags/services/bookableTag.service';
-import {BookablesComponent} from '../admin/bookables/bookables/bookables.component';
 import {UsageBookablesComponent} from '../admin/bookables/bookables/usage-bookables.component';
 import {BookableService} from '../admin/bookables/services/bookable.service';
 
@@ -77,8 +75,8 @@ const routes: Routes = [
                                         [BookingType.application],
                                         true,
                                     ),
-                                    selectedColumns: ['select', 'name', 'usage'],
-                                    availableColumns: ['select', 'name', 'usage'],
+                                    selectedColumns: ['select', 'name', 'description', 'price', 'selection'],
+                                    availableColumns: ['select', 'name', 'description', 'price', 'selection'],
                                     seo: {title: ''} as NaturalSeo,
                                 },
                             },
@@ -91,8 +89,8 @@ const routes: Routes = [
                                         [BookingType.application],
                                         true,
                                     ),
-                                    selectedColumns: ['select', 'name', 'usage'],
-                                    availableColumns: ['select', 'name', 'usage'],
+                                    selectedColumns: ['select', 'name', 'price', 'description', 'selection'],
+                                    availableColumns: ['select', 'name', 'price', 'description', 'selection'],
                                     seo: {title: ''} as NaturalSeo,
                                 },
                             },
@@ -105,8 +103,8 @@ const routes: Routes = [
                                         [BookingType.application],
                                         true,
                                     ),
-                                    selectedColumns: ['select', 'name', 'usage'],
-                                    availableColumns: ['select', 'name', 'usage'],
+                                    selectedColumns: ['select', 'name', 'price', 'description', 'selection'],
+                                    availableColumns: ['select', 'name', 'price', 'description', 'selection'],
                                     seo: {title: ''} as NaturalSeo,
                                 },
                             },
@@ -119,8 +117,8 @@ const routes: Routes = [
                                         [BookingType.admin_approved, BookingType.application],
                                         true,
                                     ),
-                                    selectedColumns: ['select', 'name', 'usage'],
-                                    availableColumns: ['select', 'name', 'usage'],
+                                    selectedColumns: ['select', 'name', 'price', 'description', 'selection'],
+                                    availableColumns: ['select', 'name', 'price', 'description', 'selection'],
                                     seo: {title: ''} as NaturalSeo,
                                 },
                             },
@@ -133,8 +131,8 @@ const routes: Routes = [
                                         [BookingType.admin_approved, BookingType.application],
                                         true,
                                     ),
-                                    selectedColumns: ['select', 'name', 'usage'],
-                                    availableColumns: ['select', 'name', 'usage'],
+                                    selectedColumns: ['select', 'name', 'price', 'description', 'selection'],
+                                    availableColumns: ['select', 'name', 'price', 'description', 'selection'],
                                     seo: {title: ''} as NaturalSeo,
                                 },
                             },

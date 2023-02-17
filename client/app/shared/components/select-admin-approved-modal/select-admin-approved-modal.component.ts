@@ -73,7 +73,7 @@ export class SelectAdminApprovedModalComponent extends NaturalAbstractController
         }
         const qvm = new NaturalQueryVariablesManager<BookablesVariables>();
         qvm.set('variables', variables);
-        qvm.set('sorting', {sorting: [{field: BookableSortingField.name}]});
+        qvm.set('sorting', {sorting: [{field: BookableSortingField.name}]}); // TODO: IMPLEMENT if needed before deletion
 
         // Get all because requirable storages should not change
         return this.bookableService.getAll(qvm).pipe(map(result => new NaturalDataSource(result)));

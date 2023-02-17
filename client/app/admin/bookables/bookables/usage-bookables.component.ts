@@ -34,4 +34,19 @@ export class UsageBookablesComponent extends NaturalAbstractList<UsageBookableSe
             this.route.snapshot.data.isStorage ? 'storage' : 'bookables',
         );
     }
+
+    public isFullyBooked(bookable: UsageBookables_bookables_items): boolean {
+        return (
+            bookable.simultaneousBookingMaximum !== -1 &&
+            bookable.sharedBookings.length >= bookable.simultaneousBookingMaximum
+        );
+    }
+
+    public isFull(show: boolean, bookable: UsageBookables_bookables_items): boolean {
+        return show && this.isFullyBooked(bookable);
+    }
+
+    public isAlreadyPending(show: boolean, bookable: UsageBookables_bookables_items): boolean {
+        return false; // TODO : show && this.pendingApplications.some(applicaton => bookable.id === applicaton.bookable?.id);
+    }
 }
