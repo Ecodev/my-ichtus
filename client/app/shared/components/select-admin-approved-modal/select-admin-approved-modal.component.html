@@ -1,5 +1,4 @@
-<!--<h2 mat-dialog-title>Sélection de stockage et services supplémentaires</h2>-->
-<mat-dialog-content fxLayout="column" fxLayoutGap="15px">
+<div fxLayout="column" fxLayoutGap="15px">
     <!-- Table model template -->
     <ng-template
         #table
@@ -138,8 +137,4 @@
             "
         ></ng-container>
     </div>
-</mat-dialog-content>
-<mat-dialog-actions fxLayout="row" fxLayoutAlign="end">
-    <button mat-button mat-dialog-close>Annuler</button>
-    <button mat-flat-button color="primary" [mat-dialog-close]="selection.selected">Valider la demande</button>
-</mat-dialog-actions>
+</div>

@@ -10,7 +10,12 @@ import {CreateExpenseClaimComponent} from './components/create-expense-claim/cre
 import {HistoryComponent} from './components/history/history.component';
 import {ServicesGuard} from '../shared/guards/services.guard';
 import {NaturalSeo} from '@ecodev/natural';
-import {ExpenseClaimType} from '../shared/generated-types';
+import {BookingType, ExpenseClaimType} from '../shared/generated-types';
+import {BookingService} from '../admin/bookings/services/booking.service';
+import {BookableTagService} from '../admin/bookableTags/services/bookableTag.service';
+import {BookablesComponent} from '../admin/bookables/bookables/bookables.component';
+import {UsageBookablesComponent} from '../admin/bookables/bookables/usage-bookables.component';
+import {BookableService} from '../admin/bookables/services/bookable.service';
 
 const routes: Routes = [
     {
@@ -57,6 +62,83 @@ const routes: Routes = [
                                 title: 'Cotisation et services',
                             } as NaturalSeo,
                         },
+                        children: [
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: '/profile/services/bookables/storage',
+                            },
+                            {
+                                path: 'bookables/storage',
+                                component: UsageBookablesComponent,
+                                data: {
+                                    forcedVariables: BookableService.bookableByTag(
+                                        BookableTagService.STORAGE_REQUEST,
+                                        [BookingType.application],
+                                        true,
+                                    ),
+                                    selectedColumns: ['select', 'name', 'usage'],
+                                    availableColumns: ['select', 'name', 'usage'],
+                                    seo: {title: ''} as NaturalSeo,
+                                },
+                            },
+                            {
+                                path: 'bookables/services',
+                                component: UsageBookablesComponent,
+                                data: {
+                                    forcedVariables: BookableService.bookableByTag(
+                                        BookableTagService.SERVICE,
+                                        [BookingType.application],
+                                        true,
+                                    ),
+                                    selectedColumns: ['select', 'name', 'usage'],
+                                    availableColumns: ['select', 'name', 'usage'],
+                                    seo: {title: ''} as NaturalSeo,
+                                },
+                            },
+                            {
+                                path: 'bookables/survey',
+                                component: UsageBookablesComponent,
+                                data: {
+                                    forcedVariables: BookableService.bookableByTag(
+                                        BookableTagService.SURVEY,
+                                        [BookingType.application],
+                                        true,
+                                    ),
+                                    selectedColumns: ['select', 'name', 'usage'],
+                                    availableColumns: ['select', 'name', 'usage'],
+                                    seo: {title: ''} as NaturalSeo,
+                                },
+                            },
+                            {
+                                path: 'bookables/formation',
+                                component: UsageBookablesComponent,
+                                data: {
+                                    forcedVariables: BookableService.bookableByTag(
+                                        BookableTagService.FORMATION,
+                                        [BookingType.admin_approved, BookingType.application],
+                                        true,
+                                    ),
+                                    selectedColumns: ['select', 'name', 'usage'],
+                                    availableColumns: ['select', 'name', 'usage'],
+                                    seo: {title: ''} as NaturalSeo,
+                                },
+                            },
+                            {
+                                path: 'bookables/welcome',
+                                component: UsageBookablesComponent,
+                                data: {
+                                    forcedVariables: BookableService.bookableByTag(
+                                        BookableTagService.WELCOME,
+                                        [BookingType.admin_approved, BookingType.application],
+                                        true,
+                                    ),
+                                    selectedColumns: ['select', 'name', 'usage'],
+                                    availableColumns: ['select', 'name', 'usage'],
+                                    seo: {title: ''} as NaturalSeo,
+                                },
+                            },
+                        ],
                     },
                 ],
             },

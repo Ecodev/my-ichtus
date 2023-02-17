@@ -15,6 +15,7 @@ import {map} from 'rxjs/operators';
 import {UsageBookableService} from '../../../admin/bookables/services/usage-bookable.service';
 import {EMPTY, Observable, switchMap, takeUntil} from 'rxjs';
 import {UserService} from '../../../admin/users/services/user.service';
+import {ActivatedRoute} from '@angular/router';
 
 export type SelectAdminApprovedModalResult = UsageBookables_bookables_items[];
 
@@ -35,16 +36,20 @@ export class SelectAdminApprovedModalComponent extends NaturalAbstractController
     public constructor(
         private readonly bookableService: UsageBookableService,
         private readonly userService: UserService,
+        private readonly route: ActivatedRoute,
     ) {
         super();
     }
 
     public ngOnInit(): void {
+        console.log('init');
         this.fetch(BookableTagService.STORAGE_REQUEST).subscribe(res => (this.storagesDataSource = res));
         this.fetch(BookableTagService.SERVICE).subscribe(res => (this.servicesDataSource = res));
         this.fetch(BookableTagService.FORMATION).subscribe(res => (this.formationsDataSource = res));
         this.fetch(BookableTagService.WELCOME).subscribe(res => (this.welcomeDataSource = res));
         this.fetch(BookableTagService.SURVEY).subscribe(res => (this.surveyDataSource = res));
+
+        this.route.data.subscribe(data => console.log('data', data));
 
         this.userService
             .getViewer()

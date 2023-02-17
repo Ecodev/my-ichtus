@@ -196,5 +196,16 @@
                 </ng-container>
             </table>
         </div>
+
+        <div>
+            <nav mat-tab-nav-bar>
+                <a mat-tab-link [routerLink]="['bookables/storage']" label="">Stockages</a>
+                <a mat-tab-link [routerLink]="['bookables/services']" label="">Services & Prestations</a>
+                <a mat-tab-link [routerLink]="['bookables/survey']" label="">Sondage</a>
+                <a mat-tab-link [routerLink]="['bookables/formation']" label="">Cours</a>
+                <a mat-tab-link [routerLink]="['bookables/welcome']" label="">Séance d'accueil</a>
+            </nav>
+            <router-outlet></router-outlet>
+        </div>
     </div>
 </div>
