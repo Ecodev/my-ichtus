@@ -128,8 +128,6 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
         } else {
             this.create();
         }
-
-        this.updateTransactionLines = false;
     }
 
     public override delete(): void {
@@ -137,6 +135,7 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
     }
 
     protected override postUpdate(): void {
+        this.updateTransactionLines = false;
         this.accountingDocuments.save();
     }
 
@@ -146,6 +145,7 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
      * and nothing would happen.
      */
     protected override postCreate(): Observable<unknown> {
+        this.updateTransactionLines = false;
         this.accountingDocuments.save();
         this.router.events
             .pipe(
