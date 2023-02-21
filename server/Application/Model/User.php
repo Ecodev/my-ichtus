@@ -428,6 +428,14 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     }
 
     /**
+     * Whether the user is allowed to log in or stay logged in.
+     */
+    public function canLogin(): bool
+    {
+        return in_array($this->getStatus(), [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_NEW], true);
+    }
+
+    /**
      * @API\Input(type="Application\Api\Enum\UserStatusType")
      */
     public function setStatus(string $newStatus): void
