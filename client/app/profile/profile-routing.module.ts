@@ -111,7 +111,7 @@ const routes: Routes = [
                                         [BookingType.application],
                                         true,
                                     ),
-                                    selectedColumns: ['readOnlyName', 'price', 'select'],
+                                    selectedColumns: ['readOnlyName', 'select'],
                                     seo: {title: ''} as NaturalSeo,
                                     showFullyBooked: false,
                                     showPending: true,

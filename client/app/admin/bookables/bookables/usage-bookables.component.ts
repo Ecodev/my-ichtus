@@ -5,11 +5,14 @@ import {UsageBookableService} from '../services/usage-bookable.service';
 import {NaturalAbstractList, NaturalSearchSelections} from '@ecodev/natural';
 import {
     BookingPartialInput,
+    Bookings_bookings_items,
     BookingStatus,
     CurrentUserForProfile_viewer,
     UsageBookables_bookables_items,
 } from '../../../shared/generated-types';
 import {BookingService} from '../../bookings/services/booking.service';
+import {takeUntil} from 'rxjs/operators';
+import {UserService} from '../../users/services/user.service';
 
 @Component({
     selector: 'app-usage-bookables',
@@ -29,6 +32,7 @@ export class UsageBookablesComponent extends NaturalAbstractList<UsageBookableSe
 
     public readonly hasUsage = true;
     private searchInitialized = false;
+    public pendingApplications: Bookings_bookings_items[] = [];
     public UsageBookableService = UsageBookableService;
 
     public constructor(
@@ -37,11 +41,23 @@ export class UsageBookablesComponent extends NaturalAbstractList<UsageBookableSe
         naturalSearchFacetsService: NaturalSearchFacetsService,
         public readonly permissionsService: PermissionsService,
         private readonly bookingService: BookingService,
+        private readonly userService: UserService,
     ) {
         super(usageBookableService, injector);
         this.naturalSearchFacets = naturalSearchFacetsService.get(
             this.route.snapshot.data.isStorage ? 'storage' : 'bookables',
         );
+    }
+
+    public override ngOnInit(): void {
+        super.ngOnInit();
+
+        this.userService
+            .getPendingApplications(this.route.snapshot.data.viewer.model)
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe(result => {
+                this.pendingApplications = result.items;
+            });
     }
 
     /**

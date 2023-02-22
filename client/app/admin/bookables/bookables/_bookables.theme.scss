@@ -7,13 +7,17 @@
     $background: map.get($theme, background);
     $foreground: map.get($theme, foreground);
 
-    .usageNb.full {
+    .flag.usage.full {
         background: mat.get-color-from-palette($warn);
         color: mat.get-color-from-palette($warn, default-contrast);
     }
 
-    .usageNb:not(.full) {
+    .flag.usage:not(.full) {
         background: rgb(71, 199, 0);
         color: mat.get-color-from-palette($warn, default-contrast);
+    }
+    .flag.pending-application:not(.full) {
+        background: mat.get-color-from-palette($accent);
+        color: mat.get-color-from-palette($accent, default-contrast);
     }
 }

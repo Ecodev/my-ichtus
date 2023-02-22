@@ -3,6 +3,7 @@ import {NaturalAbstractList} from '@ecodev/natural';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {
     Bookables_bookables_items,
+    Bookings_bookings_items,
     CurrentUserForProfile_viewer,
     UsageBookables_bookables_items,
 } from '../../../shared/generated-types';
@@ -18,6 +19,7 @@ import {UsageBookableService} from '../services/usage-bookable.service';
 export class BookablesComponent extends NaturalAbstractList<BookableService> implements OnInit {
     @Output() public readonly bookableClick = new EventEmitter<Bookables_bookables_items>();
     public readonly hasUsage = false;
+    public pendingApplications: Bookings_bookings_items[] = [];
 
     public UsageBookableService = UsageBookableService;
 
