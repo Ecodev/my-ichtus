@@ -9,7 +9,6 @@
             class="margin-bottom"
         >
             <h2 fxFlex class="mat-headline no-margin-bottom">Demandes en attente</h2>
-            <app-select-admin-approved-button [user]="user" *ngIf="!adminMode"></app-select-admin-approved-button>
         </div>
 
         <div class="responsive-table" [fxHide]="!pendingApplicationsDS.data?.length">
