@@ -1,3 +1,19 @@
 .inactive {
     opacity: 0.4;
 }
+
+.usageNb {
+    border-radius: 999px;
+    padding: 0 16px;
+    height: 36px;
+    line-height: 36px;
+    white-space: nowrap;
+
+    &:not(.full) .fullFlag {
+        display: none;
+    }
+
+    &.full .usageCounters {
+        display: none;
+    }
+}

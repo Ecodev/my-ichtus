@@ -45,11 +45,7 @@ export class UsageBookablesComponent extends NaturalAbstractList<UsageBookableSe
         );
     }
 
-    public isFull(show: boolean, bookable: UsageBookables_bookables_items): boolean {
-        return show && this.isFullyBooked(bookable);
-    }
-
-    public isAlreadyPending(show: boolean, bookable: UsageBookables_bookables_items): boolean {
+    public isAlreadyPending(bookable: UsageBookables_bookables_items): boolean {
         return false; // TODO : show && this.pendingApplications.some(applicaton => bookable.id === applicaton.bookable?.id);
     }
 

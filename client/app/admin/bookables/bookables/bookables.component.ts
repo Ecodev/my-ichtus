@@ -35,4 +35,15 @@ export class BookablesComponent extends NaturalAbstractList<BookableService> imp
      * @param bookable
      */
     public createApplication(bookable: UsageBookables_bookables_items): void {}
+
+    public isFullyBooked(bookable: UsageBookables_bookables_items): boolean {
+        return (
+            bookable.simultaneousBookingMaximum !== -1 &&
+            bookable.sharedBookings.length >= bookable.simultaneousBookingMaximum
+        );
+    }
+
+    public isAlreadyPending(bookable: UsageBookables_bookables_items): boolean {
+        return true; //this.pendingApplications.some(applicaton => bookable.id === applicaton.bookable?.id);
+    }
 }

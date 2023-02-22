@@ -1,0 +1,19 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@mixin bookables($theme) {
+    $primary: map.get($theme, primary);
+    $accent: map.get($theme, accent);
+    $warn: map.get($theme, warn);
+    $background: map.get($theme, background);
+    $foreground: map.get($theme, foreground);
+
+    .usageNb.full {
+        background: mat.get-color-from-palette($warn);
+        color: mat.get-color-from-palette($warn, default-contrast);
+    }
+
+    .usageNb:not(.full) {
+        background: rgb(71, 199, 0);
+        color: mat.get-color-from-palette($warn, default-contrast);
+    }
+}
