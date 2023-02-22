@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Injector, OnInit, Output} from '@angular/core';
 import {NaturalAbstractList} from '@ecodev/natural';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
-import {Bookables_bookables_items} from '../../../shared/generated-types';
+import {Bookables_bookables_items, UsageBookables_bookables_items} from '../../../shared/generated-types';
 import {BookableService} from '../services/bookable.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 
@@ -25,4 +25,14 @@ export class BookablesComponent extends NaturalAbstractList<BookableService> imp
             this.route.snapshot.data.isEquipment ? 'equipment' : 'bookables',
         );
     }
+
+    public select(element: Bookables_bookables_items): void {
+        this.bookableClick.emit(element);
+    }
+
+    /**
+     * place holder todo: remove
+     * @param bookable
+     */
+    public createApplication(bookable: UsageBookables_bookables_items): void {}
 }
