@@ -3,7 +3,12 @@ import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {UsageBookableService} from '../services/usage-bookable.service';
 import {NaturalAbstractList, NaturalSearchSelections} from '@ecodev/natural';
-import {BookingPartialInput, BookingStatus, UsageBookables_bookables_items} from '../../../shared/generated-types';
+import {
+    BookingPartialInput,
+    BookingStatus,
+    CurrentUserForProfile_viewer,
+    UsageBookables_bookables_items,
+} from '../../../shared/generated-types';
 import {BookingService} from '../../bookings/services/booking.service';
 
 @Component({
@@ -24,6 +29,7 @@ export class UsageBookablesComponent extends NaturalAbstractList<UsageBookableSe
 
     public readonly hasUsage = true;
     private searchInitialized = false;
+    public UsageBookableService = UsageBookableService;
 
     public constructor(
         usageBookableService: UsageBookableService,
@@ -38,25 +44,16 @@ export class UsageBookablesComponent extends NaturalAbstractList<UsageBookableSe
         );
     }
 
-    public isFullyBooked(bookable: UsageBookables_bookables_items): boolean {
-        return (
-            bookable.simultaneousBookingMaximum !== -1 &&
-            bookable.sharedBookings.length >= bookable.simultaneousBookingMaximum
-        );
-    }
-
-    public isAlreadyPending(bookable: UsageBookables_bookables_items): boolean {
-        return false; // TODO : show && this.pendingApplications.some(applicaton => bookable.id === applicaton.bookable?.id);
-    }
-
     /**
-     *
+     * Create a bookable application attributed to the owner specified in route.data.futureOwner.
      */
-    public createApplication(bookable: UsageBookables_bookables_items): void {
-        console.log(this.route.snapshot.data);
-        if (this.route.snapshot.data.futureOwner) {
+    public createApplication(
+        futureOwner: CurrentUserForProfile_viewer,
+        bookable: UsageBookables_bookables_items,
+    ): void {
+        if (futureOwner) {
             const booking: BookingPartialInput = {status: BookingStatus.application};
-            this.bookingService.createWithBookable(bookable, this.route.snapshot.data.futureOwner, booking).subscribe();
+            this.bookingService.createWithBookable(bookable, futureOwner, booking).subscribe();
         }
     }
 }

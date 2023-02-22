@@ -139,7 +139,7 @@ const routes: Routes = [
                                     showFullyBooked: true,
                                     showPending: true,
                                     hideTableFooter: true,
-                                    actionButtonLabel: "S'inscrire",
+                                    actionButtonLabel: "Demande d'inscription",
                                 },
                             },
                             {
@@ -156,7 +156,7 @@ const routes: Routes = [
                                     showFullyBooked: true,
                                     showPending: true,
                                     hideTableFooter: true,
-                                    actionButtonLabel: "S'inscrire",
+                                    actionButtonLabel: "Demande d'inscription",
                                 },
                             },
                         ],

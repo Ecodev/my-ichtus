@@ -80,10 +80,16 @@ Warning this template is used by two components BookablesComponent and UsageBook
                 <ng-container matColumnDef="readOnlyName">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
                     <td mat-cell *matCellDef="let element">
-                        <span [ngClass]="{inactive: isFullyBooked(element) || isAlreadyPending(element)}">
+                        <span
+                            [ngClass]="{
+                                inactive:
+                                    UsageBookableService.isFullyBooked(element) ||
+                                    UsageBookableService.isAlreadyPending(element, [])
+                            }"
+                        >
                             {{ element.name }}
                         </span>
-                        <span *ngIf="isAlreadyPending(element)" style="color: red"> [DEJA DEMANDE]</span>
+                        <span *ngIf="UsageBookableService.isAlreadyPending(element, [])">Déjà demandé</span>
                     </td>
                     <td mat-footer-cell *matFooterCellDef>Totaux</td>
                 </ng-container>
@@ -202,7 +208,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                     <th mat-header-cell *matHeaderCellDef natural-3em-column natural-align-center>Nb d'utilisations</th>
                     <td mat-cell *matCellDef="let element" natural-align-center>
                         <div *ngIf="element.sharedBookings">
-                            <div [ngClass]="{usageNb: true, full: isFullyBooked(element)}">
+                            <div [ngClass]="{usageNb: true, full: UsageBookableService.isFullyBooked(element)}">
                                 <div class="usageCounters">
                                     {{ element.sharedBookings.length }} / {{ element.simultaneousBookingMaximum }}
                                 </div>
@@ -227,10 +233,14 @@ Warning this template is used by two components BookablesComponent and UsageBook
                     <th mat-header-cell *matHeaderCellDef natural-5em-column></th>
                     <td mat-cell *matCellDef="let element">
                         <button
+                            *ngIf="route.snapshot.data.futureOwner"
                             mat-flat-button
                             color="primary"
-                            (click)="createApplication(element)"
-                            [disabled]="isAlreadyPending(element) || isFullyBooked(element)"
+                            (click)="createApplication(route.snapshot.data.futureOwner, element)"
+                            [disabled]="
+                                UsageBookableService.isAlreadyPending(element, []) ||
+                                UsageBookableService.isFullyBooked(element)
+                            "
                         >
                             {{ route.snapshot.data.actionButtonLabel || 'Demander' }}
                         </button>
