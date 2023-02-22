@@ -36,7 +36,9 @@
             <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting([$event])">
                 <tr mat-header-row *matHeaderRowDef="columnsForTable"></tr>
                 <tr mat-row *matRowDef="let row; columns: columnsForTable"></tr>
-                <tr mat-footer-row *matFooterRowDef="columnsForTable"></tr>
+                <ng-container *ngIf="!relativeToAccount">
+                    <tr mat-footer-row *matFooterRowDef="columnsForTable"></tr>
+                </ng-container>
 
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
@@ -64,13 +66,12 @@
                         <app-money [amount]="element.balance" [showCurrency]="false" [showSignal]="false"></app-money>
                     </td>
                     <td mat-footer-cell *matFooterCellDef>
-                        <span *ngIf="dataSource?.data?.totalBalance > 0"
-                            ><app-money
-                                [amount]="dataSource.data?.totalBalance"
-                                [showCurrency]="false"
-                                [showSignal]="false"
-                            ></app-money
-                        ></span>
+                        <app-money
+                            *ngIf="!relativeToAccount && dataSource?.data?.totalBalance > 0"
+                            [amount]="dataSource.data?.totalBalance"
+                            [showCurrency]="false"
+                            [showSignal]="false"
+                        ></app-money>
                     </td>
                 </ng-container>
 
