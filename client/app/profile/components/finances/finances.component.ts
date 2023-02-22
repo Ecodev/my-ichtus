@@ -61,7 +61,7 @@ export class FinancesComponent
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
-        const previousUser = changes.viewer.previousValue;
+        const previousUser = changes.viewer?.previousValue;
         if (previousUser && previousUser.id !== this.viewer.id) {
             this.loadData();
         }
