@@ -30,7 +30,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                     <span naturalColumnsPickerColumn="periodicPrice">Prix périodique</span>
                     <span naturalColumnsPickerColumn="updateDate">Dernière modification</span>
                     <span *ngIf="hasUsage" naturalColumnsPickerColumn="usage">Utilisations</span>
-                    <span *ngIf="hasUsage" naturalColumnsPickerColumn="usageNb">Nombre d'utilisations</span>
+                    <span *ngIf="hasUsage" naturalColumnsPickerColumn="usageNb">Disponibilité</span>
                     <span naturalColumnsPickerColumn="verificationDate">Dernière vérification</span>
                     <span naturalColumnsPickerColumn="select" [checked]="false" [hidden]="true">Sélection</span>
 
@@ -203,16 +203,22 @@ Warning this template is used by two components BookablesComponent and UsageBook
                 </ng-container>
 
                 <ng-container matColumnDef="usageNb">
-                    <th mat-header-cell *matHeaderCellDef natural-3em-column natural-align-center>Nb d'utilisations</th>
+                    <th mat-header-cell *matHeaderCellDef natural-3em-column natural-align-center>Disponibilité</th>
                     <td mat-cell *matCellDef="let element" natural-align-center>
                         <div *ngIf="element.sharedBookings">
                             <div
+                                *ngIf="element.simultaneousBookingMaximum > 0"
                                 [ngClass]="{flag: true, usage: true, full: UsageBookableService.isFullyBooked(element)}"
                             >
                                 <div class="usage-counters">
                                     {{ element.sharedBookings.length }} / {{ element.simultaneousBookingMaximum }}
                                 </div>
                                 <div class="full-text">Complet</div>
+                            </div>
+
+                            <!-- Unlimited -->
+                            <div *ngIf="element.simultaneousBookingMaximum <= 0" [ngClass]="{flag: true, usage: true}">
+                                <div class="usage-counters">Disponible</div>
                             </div>
                         </div>
                     </td>
