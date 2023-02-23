@@ -1,6 +1,7 @@
 <div fxLayout="column" fxLayoutGap="50px">
     <div fxLayout="column" fxLayoutGap="10px">
         <div
+            *ngIf="pendingApplicationsDS.data?.length > 0"
             fxLayout="column"
             fxLayout.gt-xs="row"
             fxLayoutAlign.gt-xs="start center"
@@ -8,16 +9,6 @@
             class="margin-bottom"
         >
             <h2 fxFlex class="mat-headline no-margin-bottom">Demandes en attente</h2>
-            <app-select-admin-approved-button [user]="user" *ngIf="!adminMode"></app-select-admin-approved-button>
-        </div>
-
-        <div
-            class="mat-body-1 padding margin"
-            fxLayout="column"
-            fxLayoutAlign="center center"
-            *ngIf="pendingApplicationsDS.data?.length === 0"
-        >
-            Aucune demande en attente
         </div>
 
         <div class="responsive-table" [fxHide]="!pendingApplicationsDS.data?.length">
@@ -94,19 +85,10 @@
         </div>
     </div>
 
-    <div>
+    <div *ngIf="runningServicesDS?.data?.length > 0">
         <div fxLayout="row" fxLayoutAlign="start center" class="margin-bottom">
             <h2 fxFlex class="mat-headline no-margin-bottom">Cotisation / Prestations souscrites</h2>
             <button mat-stroked-button *ngIf="!user.owner" color="warn" (click)="unregister()">Démissionner</button>
-        </div>
-
-        <div
-            class="mat-body-1 padding margin"
-            fxLayout="column"
-            fxLayoutAlign="center center"
-            *ngIf="runningServicesDS?.data?.length === 0"
-        >
-            Aucune prestation en cours
         </div>
 
         <div class="responsive-table" *ngIf="runningServicesDS?.data?.length">
@@ -196,5 +178,21 @@
                 </ng-container>
             </table>
         </div>
+    </div>
+
+    <div>
+        <div fxLayout="row" fxLayoutAlign="start center" class="margin-bottom">
+            <h2 fxFlex class="mat-headline no-margin-bottom">Demander un espace de stockage ou un service</h2>
+        </div>
+
+        <nav mat-tab-nav-bar>
+            <a mat-tab-link [routerLink]="['bookables/storage']" label="">Stockages</a>
+            <a mat-tab-link [routerLink]="['bookables/services']" label="">Services & Prestations</a>
+            <a mat-tab-link [routerLink]="['bookables/survey']" label="">Sondage</a>
+            <a mat-tab-link [routerLink]="['bookables/formation']" label="">Cours</a>
+            <a mat-tab-link [routerLink]="['bookables/welcome']" label="">Séance d'accueil</a>
+            <a mat-tab-link [routerLink]="['bookables/nft']" label="">NFT</a>
+        </nav>
+        <router-outlet></router-outlet>
     </div>
 </div>

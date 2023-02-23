@@ -13,6 +13,7 @@
 @use '../app/shared/components/money/money.theme';
 @use '../app/admin/admin/admin.theme';
 @use '../app/admin/configurations/support/support.theme';
+@use '../app/admin/bookables/bookables/bookables.theme';
 @use '../app/shared/components/transaction-amount/transaction-amount.theme';
 
 // Include material core (only once !)
@@ -30,6 +31,7 @@
     @include transaction-amount.transaction-amount($theme);
     @include rich-text.rich-text($theme);
     @include support.support($theme);
+    @include bookables.bookables($theme);
     @include admin.admin($theme);
 }
 

@@ -128,6 +128,25 @@
 
                 <mat-expansion-panel
                     class="mat-elevation-z0"
+                    *ngIf="permissionsService.canAccessNTF(route.snapshot.data.viewer.model)"
+                >
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>NTF</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <a mat-list-item routerLinkActive="active" routerLink="bookable/ntf">NTF</a>
+                        <a
+                            mat-list-item
+                            routerLinkActive="active"
+                            routerLink="booking/ntf-application"
+                            *ngIf="permissionsService.canAccessFormationApplication(route.snapshot.data.viewer.model)"
+                            >Demandes NTF</a
+                        >
+                    </mat-nav-list>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel
+                    class="mat-elevation-z0"
                     *ngIf="permissionsService.gteResponsible(route.snapshot.data.viewer.model)"
                 >
                     <mat-expansion-panel-header>

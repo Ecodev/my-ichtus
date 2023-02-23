@@ -186,6 +186,14 @@ export class PermissionsService {
         );
     }
 
+    public canAccessNTF(user: CurrentUserForProfile['viewer']): boolean {
+        if (!user) {
+            return false;
+        }
+
+        return this.gteResponsible(user);
+    }
+
     public canAccessFormationApplication(user: CurrentUserForProfile['viewer']): boolean {
         if (!user) {
             return false;
