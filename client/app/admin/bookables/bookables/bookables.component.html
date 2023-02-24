@@ -20,8 +20,8 @@ Warning this template is used by two components BookablesComponent and UsageBook
             >
                 <natural-columns-picker (selectionChange)="selectColumns($event)" [selections]="selectedColumns">
                     <span naturalColumnsPickerColumn="image">Image</span>
-                    <span naturalColumnsPickerColumn="name">Nom</span>
-                    <span naturalColumnsPickerColumn="readOnlyName" [checked]="false" [hidden]="true">Nom</span>
+                    <span naturalColumnsPickerColumn="name" *ngIf="route.snapshot.data.isAdmin">Nom</span>
+                    <span naturalColumnsPickerColumn="readOnlyName" *ngIf="!route.snapshot.data.isAdmin">Nom</span>
                     <span naturalColumnsPickerColumn="code">Code</span>
                     <span naturalColumnsPickerColumn="description">Description</span>
                     <span naturalColumnsPickerColumn="price">Prix</span>
@@ -29,8 +29,8 @@ Warning this template is used by two components BookablesComponent and UsageBook
                     <span naturalColumnsPickerColumn="initialPrice">Prix initial</span>
                     <span naturalColumnsPickerColumn="periodicPrice">Prix périodique</span>
                     <span naturalColumnsPickerColumn="updateDate">Dernière modification</span>
-                    <span *ngIf="hasUsage" naturalColumnsPickerColumn="usage">Utilisations</span>
-                    <span *ngIf="hasUsage" naturalColumnsPickerColumn="usageNb">Disponibilité</span>
+                    <span naturalColumnsPickerColumn="usage" *ngIf="hasUsage">Utilisations</span>
+                    <span naturalColumnsPickerColumn="usageNb" *ngIf="hasUsage">Disponibilité</span>
                     <span naturalColumnsPickerColumn="verificationDate">Dernière vérification</span>
                     <span naturalColumnsPickerColumn="select" [checked]="false" [hidden]="true">Sélection</span>
 
@@ -99,7 +99,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                 </ng-container>
 
                 <ng-container matColumnDef="description">
-                    <th mat-header-cell *matHeaderCellDef></th>
+                    <th mat-header-cell *matHeaderCellDef>Description</th>
                     <td mat-cell *matCellDef="let element">{{ element.description }}</td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>

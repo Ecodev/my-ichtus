@@ -13,6 +13,7 @@ import {
 import {BookingService} from '../../bookings/services/booking.service';
 import {takeUntil} from 'rxjs/operators';
 import {UserService} from '../../users/services/user.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-usage-bookables',
@@ -44,9 +45,12 @@ export class UsageBookablesComponent extends NaturalAbstractList<UsageBookableSe
         private readonly userService: UserService,
     ) {
         super(usageBookableService, injector);
-        this.naturalSearchFacets = naturalSearchFacetsService.get(
-            this.route.snapshot.data.isStorage ? 'storage' : 'bookables',
-        );
+
+        if (this.route.snapshot.data.isAdmin) {
+            this.naturalSearchFacets = naturalSearchFacetsService.get(
+                this.route.snapshot.data.isStorage ? 'storage' : 'bookables',
+            );
+        }
     }
 
     public override ngOnInit(): void {

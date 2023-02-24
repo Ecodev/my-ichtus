@@ -61,6 +61,7 @@ const routes: Routes = [
         path: '',
         component: AdminComponent,
         canActivate: [AdministrationGuard],
+        data: {isAdmin: true},
         children: [
             {
                 path: '',
