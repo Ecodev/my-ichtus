@@ -16,11 +16,11 @@
 
     <div *ngIf="!hasLicense || !welcomeSessionTaken" fxLayout="column" fxLayoutGap="10px" class="mat-body-2">
         <div *ngIf="!hasLicense" fxLayoutAlign="start center">
-            <mat-icon color="warn">error</mat-icon>
+            <mat-icon color="warn" fontIcon="error"></mat-icon>
             Tu ne disposes pas des licences requises pour utiliser cette embarcation
         </div>
         <div *ngIf="!welcomeSessionTaken" fxLayoutAlign="start center">
-            <mat-icon color="warn">warning</mat-icon>
+            <mat-icon color="warn" fontIcon="warning"></mat-icon>
             <span
                 >Il te faut suivre une
                 <a href="https://ichtus.ch/le-club/seance-daccueil/" target="_blank">séance d'accueil</a> avant
