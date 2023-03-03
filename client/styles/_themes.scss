@@ -16,7 +16,7 @@
 @use '../app/shared/components/transaction-amount/transaction-amount.theme';
 
 // Include material core (only once !)
-@include mat.all-component-typographies();
+@include mat.all-component-typographies(natural.$typography);
 @include mat.core();
 
 // Include components themes
