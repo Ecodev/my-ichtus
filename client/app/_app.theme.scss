@@ -45,17 +45,17 @@
     }
 
     .icon-button-circle-primary {
-        color: mat.get-color-from-palette($primary, default-contrast);
-        background-color: mat.get-color-from-palette($primary);
+        color: mat.get-color-from-palette($primary, default-contrast) !important;
+        background-color: mat.get-color-from-palette($primary) !important;
     }
 
     .icon-button-circle-accent {
-        color: mat.get-color-from-palette($accent, default-contrast);
-        background-color: mat.get-color-from-palette($accent);
+        color: mat.get-color-from-palette($accent, default-contrast) !important;
+        background-color: mat.get-color-from-palette($accent) !important;
     }
 
     .icon-button-circle-warn {
-        color: mat.get-color-from-palette($warn, default-contrast);
-        background-color: mat.get-color-from-palette($warn);
+        color: mat.get-color-from-palette($warn, default-contrast) !important;
+        background-color: mat.get-color-from-palette($warn) !important;
     }
 }
