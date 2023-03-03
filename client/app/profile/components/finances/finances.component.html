@@ -12,7 +12,7 @@
                 [disabled]="ibanCtrl.enabled || updating"
                 matTooltip="Déverouiller"
             >
-                <natural-icon name="lock"></natural-icon>
+                <mat-icon naturalIcon="lock"></mat-icon>
             </button>
             <mat-error *ngIf="ibanCtrl.hasError('iban')"> IBAN invalide</mat-error>
             <mat-hint>Pour pouvoir demander un remboursement</mat-hint>
@@ -131,7 +131,7 @@
                             [disabled]="deleting.has(expenseClaim.id)"
                             matTooltip="Supprimer définitivement"
                         >
-                            <natural-icon name="delete"></natural-icon>
+                            <mat-icon naturalIcon="delete"></mat-icon>
                         </button>
                     </td>
                 </ng-container>
@@ -144,7 +144,7 @@
                             class="icon-button-circle-accent"
                             [routerLink]="['/admin/expense-claim', item.id]"
                         >
-                            <natural-icon name="chevron_right"></natural-icon>
+                            <mat-icon naturalIcon="chevron_right"></mat-icon>
                         </a>
                     </td>
                     <td mat-footer-cell *matFooterCellDef></td>

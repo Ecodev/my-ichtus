@@ -220,16 +220,16 @@
     <eco-fab-speed-dial class="detail-speed-dial" *ngIf="data.model.id">
         <eco-fab-speed-dial-trigger>
             <button mat-fab>
-                <natural-icon name="more_vert"></natural-icon>
+                <mat-icon naturalIcon="more_vert"></mat-icon>
             </button>
         </eco-fab-speed-dial-trigger>
 
         <eco-fab-speed-dial-actions>
             <button mat-mini-fab (click)="save()">
-                <natural-icon name="save"></natural-icon>
+                <mat-icon naturalIcon="save"></mat-icon>
             </button>
             <button mat-mini-fab (click)="delete()" color="warn" *ngIf="userService.canUpdateTransaction(viewer)">
-                <natural-icon name="delete_forever"></natural-icon>
+                <mat-icon naturalIcon="delete_forever"></mat-icon>
             </button>
         </eco-fab-speed-dial-actions>
     </eco-fab-speed-dial>

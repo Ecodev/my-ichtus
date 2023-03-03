@@ -191,7 +191,7 @@
 
                 <ng-container matColumnDef="participantCount">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                        <natural-icon name="group" matTooltip="Nombre de participants"></natural-icon>
+                        <mat-icon naturalIcon="group" matTooltip="Nombre de participants"></mat-icon>
                     </th>
                     <td mat-cell *matCellDef="let element">{{ element.participantCount }}</td>
                     <td mat-footer-cell *matFooterCellDef>{{ dataSource.data?.totalParticipantCount || 0 }}</td>

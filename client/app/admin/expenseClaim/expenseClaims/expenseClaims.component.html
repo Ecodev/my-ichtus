@@ -119,7 +119,7 @@
                     <th mat-header-cell *matHeaderCellDef>Approbateur</th>
                     <td mat-cell *matCellDef="let element">
                         <div fxLayout="row" fxLayoutAlign="start center" *ngIf="element.reviewer">
-                            <natural-icon name="verified"></natural-icon>
+                            <mat-icon naturalIcon="verified"></mat-icon>
                             <span>{{ element.reviewer?.name }}</span>
                         </div>
                     </td>

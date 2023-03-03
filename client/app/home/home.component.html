@@ -1,11 +1,11 @@
 <div fxFlexFill fxLayout="column">
     <mat-toolbar fxFlex="none" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
         <button (click)="menu.toggle()" *ngIf="menu" mat-icon-button>
-            <natural-icon name="menu"></natural-icon>
+            <mat-icon naturalIcon="menu"></mat-icon>
         </button>
 
         <a routerLink="/" style="width: 50px; height: 50px">
-            <natural-icon [size]="50" name="ichtus"></natural-icon>
+            <mat-icon [size]="50" naturalIcon="ichtus"></mat-icon>
         </a>
 
         <div
@@ -26,21 +26,26 @@
                     placeholder="Recherche par code"
                 />
                 <a [routerLink]="['/booking', code]" mat-icon-button>
-                    <natural-icon name="search"></natural-icon>
+                    <mat-icon naturalIcon="search"></mat-icon>
                 </a>
             </div>
 
-            <a color="primary" mat-icon-button routerLink="/booking/by-scan">
-                <natural-icon [size]="24" name="simple-qr"></natural-icon>
+            <a class="icon-button-circle-primary" mat-icon-button routerLink="/booking/by-scan">
+                <mat-icon naturalIcon="simple-qr"></mat-icon>
             </a>
 
             <div fxFlex></div>
 
-            <a [routerLink]="getAnnouncementLink()" color="primary" mat-icon-button *ngIf="announcementActive">
-                <natural-icon [size]="24" name="announcement"></natural-icon>
+            <a
+                [routerLink]="getAnnouncementLink()"
+                mat-icon-button
+                class="icon-button-circle-primary"
+                *ngIf="announcementActive"
+            >
+                <mat-icon naturalIcon="announcement"></mat-icon>
             </a>
 
-            <a mat-icon-button routerLink="/profile">
+            <a mat-button routerLink="/profile">
                 <natural-avatar
                     [initials]="route.snapshot.data.viewer.model.name"
                     [gravatar]="route.snapshot.data.viewer.model.email"

@@ -70,7 +70,7 @@
                     <th mat-header-cell *matHeaderCellDef natural-1em-column></th>
                     <td mat-cell *matCellDef="let booking">
                         <button mat-icon-button color="warn" (click)="cancelApplication(booking)">
-                            <natural-icon name="delete"></natural-icon>
+                            <mat-icon naturalIcon="delete"></mat-icon>
                         </button>
                     </td>
                     <td mat-footer-cell *matFooterCellDef></td>
@@ -84,7 +84,7 @@
                             class="icon-button-circle-accent"
                             [routerLink]="['/admin/booking', booking.id]"
                         >
-                            <natural-icon name="chevron_right"></natural-icon>
+                            <mat-icon naturalIcon="chevron_right"></mat-icon>
                         </a>
                     </td>
                     <td mat-footer-cell *matFooterCellDef></td>
@@ -156,7 +156,7 @@
                             (click)="revokeBooking(booking)"
                             *ngIf="canRevoke(booking)"
                         >
-                            <natural-icon name="delete_forever"></natural-icon>
+                            <mat-icon naturalIcon="delete_forever"></mat-icon>
                         </button>
                     </td>
                     <td mat-footer-cell *matFooterCellDef></td>
@@ -187,7 +187,7 @@
                             class="icon-button-circle-accent"
                             [routerLink]="['/admin/booking', booking.id]"
                         >
-                            <natural-icon name="chevron_right"></natural-icon>
+                            <mat-icon naturalIcon="chevron_right"></mat-icon>
                         </a>
                     </td>
                     <td mat-footer-cell *matFooterCellDef></td>

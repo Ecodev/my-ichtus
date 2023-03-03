@@ -317,7 +317,7 @@
                                     *ngIf="form.get('welcomeSessionDate')?.value"
                                     (click)="form.get('welcomeSessionDate')?.setValue(null); update()"
                                 >
-                                    <natural-icon name="close"></natural-icon>
+                                    <mat-icon naturalIcon="close"></mat-icon>
                                 </button>
                             </div>
                         </mat-form-field>
@@ -386,7 +386,7 @@
                             [disabled]="ibanCtrl.enabled || updating"
                             matTooltip="Déverouiller"
                         >
-                            <natural-icon name="lock"></natural-icon>
+                            <mat-icon naturalIcon="lock"></mat-icon>
                         </button>
                         <mat-error *ngIf="ibanCtrl.hasError('iban')"> IBAN invalide</mat-error>
                         <mat-hint>Pour les demandes de remboursement</mat-hint>

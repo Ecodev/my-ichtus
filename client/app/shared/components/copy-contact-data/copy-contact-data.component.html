@@ -1,5 +1,5 @@
 <button mat-icon-button (click)="downloadData()" [matMenuTriggerFor]="menu">
-    <natural-icon name="chat_bubble"></natural-icon>
+    <mat-icon naturalIcon="chat_bubble"></mat-icon>
 </button>
 
 <mat-menu #menu="matMenu">
@@ -8,7 +8,7 @@
         <mat-progress-spinner *ngIf="!fetched" mode="indeterminate" [diameter]="20"></mat-progress-spinner>
     </span>
     <button mat-menu-item (click)="copyToClipboard(usersEmail)" [disabled]="!fetched">
-        <natural-icon name="alternate_email"></natural-icon>
+        <mat-icon naturalIcon="alternate_email"></mat-icon>
         <span>e-mails</span>
     </button>
 
@@ -18,7 +18,7 @@
     </button>
 
     <button mat-menu-item (click)="copyToClipboard(usersPhoneAndName)" [disabled]="!fetched">
-        <natural-icon name="phone"></natural-icon>
+        <mat-icon naturalIcon="phone"></mat-icon>
         <span>n° de tél. mobile et les noms</span>
     </button>
 </mat-menu>

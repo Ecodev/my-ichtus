@@ -2,7 +2,7 @@
     <div fxLayout="column" class="pageHeader">
         <div class="mat-headline-5 no-margin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
             <a mat-icon-button [routerLink]="['..']">
-                <natural-icon name="arrow_back"></natural-icon>
+                <mat-icon naturalIcon="arrow_back"></mat-icon>
             </a>
             <span *ngIf="!form.get('name')?.value">Nouvelle certification</span>
             <span *ngIf="form.get('name')?.value" class="pageTitle">

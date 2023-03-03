@@ -13,7 +13,7 @@
                 routerLink="/booking/by-scan"
                 class="big-button"
             >
-                <natural-icon name="qr" [size]="70"></natural-icon>
+                <mat-icon naturalIcon="qr" [size]="70"></mat-icon>
                 en scannant un code QR
             </a>
 
@@ -24,12 +24,12 @@
                 routerLink="/booking/by-code"
                 class="big-button"
             >
-                <natural-icon name="code" [size]="70"></natural-icon>
+                <mat-icon naturalIcon="code" [size]="70"></mat-icon>
                 en saisissant un code
             </a>
 
             <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="/booking/new" class="big-button">
-                <natural-icon name="own_bookable" [size]="70"></natural-icon>
+                <mat-icon naturalIcon="own_bookable" [size]="70"></mat-icon>
                 avec mon propre matériel
             </a>
         </div>
@@ -46,17 +46,17 @@
                 *ngIf="permissionsService.canAccessDoor(route.snapshot.data.viewer.model)"
                 class="big-button"
             >
-                <natural-icon name="doors" [size]="70"></natural-icon>
+                <mat-icon naturalIcon="doors" [size]="70"></mat-icon>
                 Accéder au local
             </a>
 
             <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="profile" class="big-button">
-                <natural-icon name="family" [size]="70"></natural-icon>
+                <mat-icon naturalIcon="family" [size]="70"></mat-icon>
                 Mon compte
             </a>
 
             <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="/support" class="big-button">
-                <natural-icon name="support" [size]="70"></natural-icon>
+                <mat-icon naturalIcon="support" [size]="70"></mat-icon>
                 Guide
             </a>
 
@@ -68,7 +68,7 @@
                 *ngIf="permissionsService.canAccessAdmin(route.snapshot.data.viewer.model)"
                 class="big-button"
             >
-                <natural-icon name="administrator" [size]="70"></natural-icon>
+                <mat-icon naturalIcon="administrator" [size]="70"></mat-icon>
                 Administration
             </a>
 
@@ -79,7 +79,7 @@
                 (click)="userService.logout()"
                 class="big-button"
             >
-                <natural-icon name="exit" [size]="70"></natural-icon>
+                <mat-icon naturalIcon="exit" [size]="70"></mat-icon>
                 Déconnexion
             </a>
         </div>

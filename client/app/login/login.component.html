@@ -32,11 +32,11 @@
                     (keydown.enter)="maybeConfirm()"
                 />
                 <button mat-icon-button matIconSuffix>
-                    <natural-icon
+                    <mat-icon
                         matIconSuffix
                         (click)="hidePassword = !hidePassword"
-                        [name]="hidePassword ? 'visibility' : 'visibility_off'"
-                    ></natural-icon>
+                        [naturalIcon]="hidePassword ? 'visibility' : 'visibility_off'"
+                    ></mat-icon>
                 </button>
 
                 <mat-error *ngIf="form.get('password')?.hasError('required')">Requis</mat-error>

@@ -3,31 +3,31 @@
         <div fxLayout="column" fxLayoutGap="20px" [style.margin-top.px]="30">
             <div [style.max-width.px]="150">
                 <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="/profile" class="big-button">
-                    <natural-icon name="lake" [size]="50"></natural-icon>
+                    <mat-icon naturalIcon="lake" [size]="50"></mat-icon>
                     Sorties
                 </a>
             </div>
             <div [style.max-width.px]="150">
                 <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="family" class="big-button">
-                    <natural-icon name="family" [size]="50"></natural-icon>
+                    <mat-icon naturalIcon="family" [size]="50"></mat-icon>
                     Famille
                 </a>
             </div>
             <div [style.max-width.px]="150">
                 <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="history" class="big-button">
-                    <natural-icon name="transactionHistory" [size]="50"></natural-icon>
+                    <mat-icon naturalIcon="transactionHistory" [size]="50"></mat-icon>
                     Historique des transactions
                 </a>
             </div>
             <div [style.max-width.px]="150">
                 <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="finances" class="big-button">
-                    <natural-icon name="claims" [size]="50"></natural-icon>
+                    <mat-icon naturalIcon="claims" [size]="50"></mat-icon>
                     Dépenses et remboursements
                 </a>
             </div>
             <div *ngIf="canAccessServices()" [style.max-width.px]="150">
                 <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="services" class="big-button">
-                    <natural-icon name="ichtus" [size]="50"></natural-icon>
+                    <mat-icon naturalIcon="ichtus" [size]="50"></mat-icon>
                     Cotisation et services
                 </a>
             </div>

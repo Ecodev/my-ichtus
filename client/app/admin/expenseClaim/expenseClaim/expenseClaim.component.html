@@ -17,7 +17,7 @@
                 color="basic"
                 (click)="approve()"
             >
-                <natural-icon name="verified"></natural-icon>
+                <mat-icon naturalIcon="verified"></mat-icon>
                 <span class="mat-subtitle-2">Approuver</span>
             </a>
             <div
@@ -25,7 +25,7 @@
                 fxLayout="row"
                 fxLayoutAlign="start center"
             >
-                <natural-icon name="verified"></natural-icon>
+                <mat-icon naturalIcon="verified"></mat-icon>
                 <span class="mat-body">Approuvé par {{ data.model.reviewer.name }}</span>
             </div>
 
@@ -39,7 +39,7 @@
                 color="accent"
                 [routerLink]="['/admin/transaction/new', {expenseClaim: data.model.id}]"
             >
-                <natural-icon name="payments"></natural-icon>
+                <mat-icon naturalIcon="payments"></mat-icon>
                 <span *ngIf="data.model.type === ExpenseClaimType.expenseClaim">Créditer le solde</span>
                 <span *ngIf="data.model.type === ExpenseClaimType.refund">Rembourser</span>
                 <span *ngIf="data.model.type === ExpenseClaimType.invoice">Payer</span>
@@ -105,7 +105,7 @@
                                 mat-icon-button
                                 matTooltip="Aucun"
                             >
-                                <natural-icon name="close"></natural-icon>
+                                <mat-icon naturalIcon="close"></mat-icon>
                             </button>
                         </div>
                     </mat-form-field>
