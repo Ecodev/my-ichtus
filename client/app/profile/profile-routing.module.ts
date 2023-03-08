@@ -29,14 +29,14 @@ const routes: Routes = [
                         path: 'family',
                         component: FamilyComponent,
                         data: {
-                            seo: {title: 'Famille'} as NaturalSeo,
+                            seo: {title: 'Famille'} satisfies NaturalSeo,
                         },
                     },
                     {
                         path: 'history',
                         component: HistoryComponent,
                         data: {
-                            seo: {title: 'Historique des transactions'} as NaturalSeo,
+                            seo: {title: 'Historique des transactions'} satisfies NaturalSeo,
                         },
                     },
                     {
@@ -45,7 +45,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Finances',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                         },
                     },
                     {
@@ -55,7 +55,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Cotisation et services',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                         },
                     },
                 ],
@@ -66,7 +66,7 @@ const routes: Routes = [
                 data: {
                     seo: {
                         title: 'Annoncer une dépense',
-                    } as NaturalSeo,
+                    } satisfies NaturalSeo,
                     type: ExpenseClaimType.expenseClaim,
                 },
             },
@@ -76,7 +76,7 @@ const routes: Routes = [
                 data: {
                     seo: {
                         title: 'Annoncer une facture à payer',
-                    } as NaturalSeo,
+                    } satisfies NaturalSeo,
                     type: ExpenseClaimType.invoice,
                 },
             },

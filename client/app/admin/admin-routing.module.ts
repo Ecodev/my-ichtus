@@ -73,7 +73,7 @@ const routes: Routes = [
                 data: {
                     seo: {
                         title: 'Sorties en cours',
-                    } as NaturalSeo,
+                    } satisfies NaturalSeo,
                     forcedVariables: BookingService.runningSelfApprovedQV,
                     selectedColumns: [
                         'edit',
@@ -104,7 +104,7 @@ const routes: Routes = [
                 data: {
                     seo: {
                         title: 'Réservations',
-                    } as NaturalSeo,
+                    } satisfies NaturalSeo,
                     selectedColumns: ['edit', 'owner', 'bookable', 'startDate', 'endDate', 'endComment'],
                     availableColumns: [
                         'edit',
@@ -131,7 +131,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Toutes terminées',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                             forcedVariables: BookingService.selfApprovedQV,
                             selectedColumns: [
                                 'edit',
@@ -163,7 +163,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Demandes de stockage en attente',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                             forcedVariables: BookingService.applicationByTag(BookableTagService.STORAGE_REQUEST),
                             selectedColumns: ['edit', 'owner', 'bookable', 'startDate'],
                             availableColumns: ['edit', 'owner', 'bookable', 'startDate', 'endDate', 'endComment'],
@@ -175,7 +175,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Demandes de cours',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                             forcedVariables: BookingService.applicationByTag(BookableTagService.FORMATION),
                             selectedColumns: [
                                 'edit',
@@ -201,7 +201,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: "Demandes de séances d'accueil",
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                             forcedVariables: BookingService.applicationByTag(BookableTagService.WELCOME),
                             selectedColumns: ['edit', 'owner', 'ownerBalance', 'ownerCreationDate', 'startDate'],
                             availableColumns: ['edit', 'owner', 'ownerBalance', 'ownerCreationDate', 'startDate'],
@@ -213,7 +213,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Demandes de services en attente',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                             forcedVariables: BookingService.servicesApplication,
                             selectedColumns: ['edit', 'owner', 'bookable', 'startDate'],
                             availableColumns: ['edit', 'owner', 'bookable', 'startDate'],
@@ -228,7 +228,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Nouvelle réservation',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                         },
                     },
                     {
@@ -238,7 +238,7 @@ const routes: Routes = [
                             booking: BookingResolver,
                         },
                         data: {
-                            seo: {resolveKey: 'booking'} as NaturalSeo,
+                            seo: {resolveKey: 'booking'} satisfies NaturalSeo,
                         },
                     },
                 ],
@@ -250,7 +250,7 @@ const routes: Routes = [
                 data: {
                     seo: {
                         title: 'Réservables',
-                    } as NaturalSeo,
+                    } satisfies NaturalSeo,
                     selectedColumns: ['name', 'code', 'purchasePrice', 'initialPrice', 'periodicPrice', 'updateDate'],
                 },
             },
@@ -263,7 +263,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Cotisations',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                             forcedVariables: BookableService.membershipServices,
                         },
                     },
@@ -273,7 +273,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Stand up paddle',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                             isEquipment: true,
                             forcedVariables: BookableService.getFiltersByTagId('6000'),
                             selectedColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
@@ -285,7 +285,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Planches',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                             isEquipment: true,
                             forcedVariables: BookableService.getFiltersByTagId('6001'),
                             selectedColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
@@ -297,7 +297,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Canoës',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                             isEquipment: true,
                             forcedVariables: BookableService.getFiltersByTagId('6002'),
                             selectedColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
@@ -309,7 +309,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Kayaks',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                             isEquipment: true,
                             forcedVariables: BookableService.getFiltersByTagId('6003'),
                             selectedColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
@@ -321,7 +321,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Aviron',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                             isEquipment: true,
                             forcedVariables: BookableService.getFiltersByTagId('6004'),
                             selectedColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
@@ -333,7 +333,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Voile légère',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                             isEquipment: true,
                             forcedVariables: BookableService.getFiltersByTagId('6005'),
                             selectedColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
@@ -345,7 +345,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Voile lestée',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                             isEquipment: true,
                             forcedVariables: BookableService.getFiltersByTagId('6006'),
                             selectedColumns: ['image', 'name', 'code', 'date', 'verificationDate'],
@@ -357,7 +357,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Armoires',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                             selectedColumns: ['image', 'name', 'code', 'date', 'verificationDate', 'usage'],
                             forcedVariables: BookableService.bookableByTag('6009'),
                             isStorage: true,
@@ -369,7 +369,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Cours',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                             selectedColumns: ['name', 'code', 'date', 'initialPrice', 'usageNb', 'verificationDate'],
                             forcedVariables: merge(BookableService.bookableByTag(BookableTagService.FORMATION), {
                                 sorting: [{field: BookableSortingField.creationDate, order: SortingOrder.DESC}],
@@ -382,7 +382,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: "Séances d'accueil",
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                             selectedColumns: ['name', 'date', 'verificationDate', 'usageNb'],
                             forcedVariables: merge(BookableService.bookableByTag(BookableTagService.WELCOME), {
                                 sorting: [{field: BookableSortingField.creationDate, order: SortingOrder.DESC}],
@@ -395,7 +395,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Casiers',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                             selectedColumns: ['image', 'name', 'code', 'date', 'verificationDate', 'usage'],
                             forcedVariables: BookableService.bookableByTag('6010'),
                             isStorage: true,
@@ -407,7 +407,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Flotteurs',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                             selectedColumns: ['image', 'name', 'code', 'date', 'verificationDate', 'usage'],
                             forcedVariables: BookableService.bookableByTag('6011'),
                             isStorage: true,
@@ -419,7 +419,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Râteliers WB',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                             selectedColumns: ['image', 'name', 'code', 'date', 'verificationDate', 'usage'],
                             forcedVariables: BookableService.bookableByTag('6016'),
                             isStorage: true,
@@ -434,7 +434,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Nouveau réservable',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                         },
                     },
                     {
@@ -444,7 +444,7 @@ const routes: Routes = [
                             bookable: BookableResolver,
                         },
                         data: {
-                            seo: {resolveKey: 'bookable'} as NaturalSeo,
+                            seo: {resolveKey: 'bookable'} satisfies NaturalSeo,
                         },
                     },
                 ],
@@ -455,7 +455,7 @@ const routes: Routes = [
                 data: {
                     seo: {
                         title: 'Tous les utilisateurs',
-                    } as NaturalSeo,
+                    } satisfies NaturalSeo,
                     selectedColumns: ['balance', 'name', 'login', 'age', 'status', 'flagWelcomeSessionDate'],
                 },
             },
@@ -468,7 +468,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Membres actifs',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                             forcedVariables: UserService.getFilters([UserRole.member], [UserStatus.active]),
                             selectedColumns: ['balance', 'name', 'login', 'age', 'status', 'flagWelcomeSessionDate'],
                         },
@@ -479,7 +479,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Nouveaux membres',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                             forcedVariables: UserService.getFilters([UserRole.member], [UserStatus.new]),
                             selectedColumns: ['balance', 'name', 'status', 'creationDate', 'flagWelcomeSessionDate'],
                         },
@@ -490,7 +490,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Membres inactifs et archivés',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                             forcedVariables: UserService.getFilters(
                                 [UserRole.member],
                                 [UserStatus.inactive, UserStatus.archived],
@@ -507,7 +507,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Nouvel utilisateur',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                         },
                     },
                     {
@@ -517,7 +517,7 @@ const routes: Routes = [
                             user: UserResolver,
                         },
                         data: {
-                            seo: {resolveKey: 'user'} as NaturalSeo,
+                            seo: {resolveKey: 'user'} satisfies NaturalSeo,
                         },
                     },
                 ],
@@ -528,7 +528,7 @@ const routes: Routes = [
                 data: {
                     seo: {
                         title: 'Certifications',
-                    } as NaturalSeo,
+                    } satisfies NaturalSeo,
                 },
             },
             {
@@ -543,7 +543,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Nouvelle certification',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                         },
                     },
                     {
@@ -553,7 +553,7 @@ const routes: Routes = [
                             license: LicenseResolver,
                         },
                         data: {
-                            seo: {resolveKey: 'license'} as NaturalSeo,
+                            seo: {resolveKey: 'license'} satisfies NaturalSeo,
                         },
                     },
                 ],
@@ -564,7 +564,7 @@ const routes: Routes = [
                 data: {
                     seo: {
                         title: "Tags d'utilisateurs",
-                    } as NaturalSeo,
+                    } satisfies NaturalSeo,
                 },
             },
             {
@@ -579,7 +579,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: "Nouveau tag d'utilisateur",
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                         },
                     },
                     {
@@ -589,7 +589,7 @@ const routes: Routes = [
                             userTag: UserTagResolver,
                         },
                         data: {
-                            seo: {resolveKey: 'userTag'} as NaturalSeo,
+                            seo: {resolveKey: 'userTag'} satisfies NaturalSeo,
                         },
                     },
                 ],
@@ -600,7 +600,7 @@ const routes: Routes = [
                 data: {
                     seo: {
                         title: 'Tags de réservables',
-                    } as NaturalSeo,
+                    } satisfies NaturalSeo,
                 },
             },
             {
@@ -615,7 +615,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Nouveau tag de réservable',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                         },
                     },
                     {
@@ -625,7 +625,7 @@ const routes: Routes = [
                             bookableTag: BookableTagResolver,
                         },
                         data: {
-                            seo: {resolveKey: 'bookableTag'} as NaturalSeo,
+                            seo: {resolveKey: 'bookableTag'} satisfies NaturalSeo,
                         },
                     },
                 ],
@@ -643,7 +643,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Nouvelle transaction',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                         },
                     },
                     {
@@ -653,7 +653,7 @@ const routes: Routes = [
                             transaction: TransactionResolver,
                         },
                         data: {
-                            seo: {resolveKey: 'transaction'} as NaturalSeo,
+                            seo: {resolveKey: 'transaction'} satisfies NaturalSeo,
                         },
                     },
                 ],
@@ -665,7 +665,7 @@ const routes: Routes = [
                 data: {
                     seo: {
                         title: 'Écritures',
-                    } as NaturalSeo,
+                    } satisfies NaturalSeo,
                     forcedVariables: {
                         sorting: [
                             {
@@ -687,7 +687,7 @@ const routes: Routes = [
                 data: {
                     seo: {
                         title: 'Comptes',
-                    } as NaturalSeo,
+                    } satisfies NaturalSeo,
                 },
             },
             {
@@ -703,7 +703,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Nouveau compte',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                         },
                     },
                     {
@@ -713,7 +713,7 @@ const routes: Routes = [
                             account: AccountResolver,
                         },
                         data: {
-                            seo: {resolveKey: 'account'} as NaturalSeo,
+                            seo: {resolveKey: 'account'} satisfies NaturalSeo,
                         },
                     },
                 ],
@@ -724,14 +724,14 @@ const routes: Routes = [
                 data: {
                     seo: {
                         title: 'Notes de frais, remboursements et factures',
-                    } as NaturalSeo,
+                    } satisfies NaturalSeo,
                     selectedColumns: ['name', 'owner', 'date', 'status', 'type', 'amount'],
                     forcedVariables: {
                         sorting: [
                             {field: ExpenseClaimSortingField.status, order: SortingOrder.ASC},
                             {field: ExpenseClaimSortingField.creationDate, order: SortingOrder.DESC},
                         ],
-                    } as ExpenseClaimsVariables,
+                    } satisfies ExpenseClaimsVariables,
                 },
             },
             {
@@ -746,7 +746,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Nouvelle note de frais',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                         },
                     },
                     {
@@ -756,7 +756,7 @@ const routes: Routes = [
                             expenseClaim: ExpenseClaimResolver,
                         },
                         data: {
-                            seo: {resolveKey: 'expenseClaim'} as NaturalSeo,
+                            seo: {resolveKey: 'expenseClaim'} satisfies NaturalSeo,
                         },
                     },
                 ],
@@ -767,7 +767,7 @@ const routes: Routes = [
                 data: {
                     seo: {
                         title: 'Import des virements BVR',
-                    } as NaturalSeo,
+                    } satisfies NaturalSeo,
                 },
             },
             {
@@ -777,7 +777,7 @@ const routes: Routes = [
                 data: {
                     seo: {
                         title: 'Tags',
-                    } as NaturalSeo,
+                    } satisfies NaturalSeo,
                 },
             },
             {
@@ -792,7 +792,7 @@ const routes: Routes = [
                         data: {
                             seo: {
                                 title: 'Nouveau tag de transaction',
-                            } as NaturalSeo,
+                            } satisfies NaturalSeo,
                         },
                     },
                     {
@@ -802,7 +802,7 @@ const routes: Routes = [
                             transactionTag: TransactionTagResolver,
                         },
                         data: {
-                            seo: {resolveKey: 'transactionTag'} as NaturalSeo,
+                            seo: {resolveKey: 'transactionTag'} satisfies NaturalSeo,
                         },
                     },
                 ],
@@ -830,7 +830,7 @@ const routes: Routes = [
                 data: {
                     seo: {
                         title: 'Activité',
-                    } as NaturalSeo,
+                    } satisfies NaturalSeo,
                 },
             },
         ],

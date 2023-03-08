@@ -31,7 +31,7 @@ export const routes: Routes = [
         data: {
             seo: {
                 title: 'Sorties en cours',
-            } as NaturalSeo,
+            } satisfies NaturalSeo,
             forcedVariables: BookingService.runningSelfApprovedQV,
             selectedColumns: ['bookable', 'destination', 'startDate', 'estimatedEndDate', 'participantCount'],
             availableColumns: [
@@ -76,7 +76,7 @@ export const routes: Routes = [
                 data: {
                     seo: {
                         title: 'Accéder au local',
-                    } as NaturalSeo,
+                    } satisfies NaturalSeo,
                 },
             },
             {
@@ -87,7 +87,7 @@ export const routes: Routes = [
                     configurationKey: 'support-text',
                     seo: {
                         title: 'Guide',
-                    } as NaturalSeo,
+                    } satisfies NaturalSeo,
                 },
             },
         ],
@@ -99,7 +99,7 @@ export const routes: Routes = [
         data: {
             seo: {
                 title: 'Annonce',
-            } as NaturalSeo,
+            } satisfies NaturalSeo,
             trigger: {
                 component: SupportComponent,
                 afterClosedRoute: [{outlets: {secondary: null}}],
@@ -113,7 +113,7 @@ export const routes: Routes = [
                         showCloseButton: true,
                     },
                 },
-            } as NaturalDialogTriggerRoutingData<SupportComponent, SupportComponentData>,
+            } satisfies NaturalDialogTriggerRoutingData<SupportComponent, SupportComponentData>,
         },
     },
     {

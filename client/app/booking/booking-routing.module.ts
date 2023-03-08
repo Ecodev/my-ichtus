@@ -15,7 +15,7 @@ const routes: Routes = [
         data: {
             seo: {
                 title: 'Scan',
-            } as NaturalSeo,
+            } satisfies NaturalSeo,
         },
     },
     {
@@ -24,7 +24,7 @@ const routes: Routes = [
         data: {
             seo: {
                 title: 'Code du matériel',
-            } as NaturalSeo,
+            } satisfies NaturalSeo,
         },
     },
     {
@@ -36,7 +36,7 @@ const routes: Routes = [
         data: {
             seo: {
                 title: 'Nouvelle sortie',
-            } as NaturalSeo,
+            } satisfies NaturalSeo,
         },
     },
     {
@@ -46,7 +46,7 @@ const routes: Routes = [
             bookable: BookableByCodeResolver,
         },
         data: {
-            seo: {resolveKey: 'bookable'} as NaturalSeo,
+            seo: {resolveKey: 'bookable'} satisfies NaturalSeo,
         },
     },
 ];

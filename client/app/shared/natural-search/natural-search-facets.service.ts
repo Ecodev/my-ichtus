@@ -26,7 +26,12 @@ import {UserService} from '../../admin/users/services/user.service';
 import {LicenseService} from '../../admin/licenses/services/license.service';
 import {TransactionService} from '../../admin/transactions/services/transaction.service';
 import {TransactionTagService} from '../../admin/transactionTags/services/transactionTag.service';
-import {BookableFilter, BookingFilterGroupCondition, UserFilterGroupCondition} from '../generated-types';
+import {
+    BookableFilter,
+    BookingFilterGroupConditionEndDate,
+    UserFilterGroupConditionReceivesNewsletter,
+    UserFilterGroupConditionWelcomeSessionDate,
+} from '../generated-types';
 import {AccountService} from '../../admin/accounts/services/account.service';
 import {accountHierarchicConfiguration} from '../hierarchic-selector/AccountHierarchicConfiguration';
 import {BookableTagService} from '../../admin/bookableTags/services/bookableTag.service';
@@ -112,17 +117,17 @@ export class NaturalSearchFacetsService {
         },
     };
 
-    private readonly userWelcomeSession: FlagFacet = {
+    private readonly userWelcomeSession: FlagFacet<UserFilterGroupConditionWelcomeSessionDate> = {
         display: "N'a pas été accueilli",
         name: 'userWelcomeSession',
         field: 'welcomeSessionDate',
-        condition: {null: {}} as UserFilterGroupCondition,
+        condition: {null: {}},
     };
 
-    private readonly receivesNewsletter: FlagFacet = {
+    private readonly receivesNewsletter: FlagFacet<UserFilterGroupConditionReceivesNewsletter> = {
         display: 'Abonné newsletter',
         field: 'receivesNewsletter',
-        condition: {equal: {value: true}} as UserFilterGroupCondition,
+        condition: {equal: {value: true}},
     };
 
     private readonly transaction: DropdownFacet<TypeSelectNaturalConfiguration<TransactionService>> = {
@@ -305,7 +310,7 @@ export class NaturalSearchFacetsService {
                     service: this.bookableTagService,
                     placeholder: 'Tag de réservable',
                 },
-            } as DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>>,
+            } satisfies DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>>,
             {
                 display: 'Réservation (réservable)',
                 field: 'custom',
@@ -325,9 +330,9 @@ export class NaturalSearchFacetsService {
                                 ],
                             },
                         ],
-                    } as BookableFilter,
+                    } satisfies BookableFilter,
                 },
-            } as DropdownFacet<TypeSelectNaturalConfiguration<BookableService>>,
+            } satisfies DropdownFacet<TypeSelectNaturalConfiguration<BookableService>>,
             {
                 display: 'Réservation (statut)',
                 field: 'custom',
@@ -335,7 +340,7 @@ export class NaturalSearchFacetsService {
                 transform: replaceOperatorByName,
                 component: TypeSelectComponent,
                 configuration: {items: this.enumService.get('BookingStatus')},
-            } as DropdownFacet<TypeSelectConfiguration>,
+            } satisfies DropdownFacet<TypeSelectConfiguration>,
             {
                 display: 'Réservation (état)',
                 field: 'custom',
@@ -348,7 +353,7 @@ export class NaturalSearchFacetsService {
                         {value: false, name: 'En cours'},
                     ],
                 },
-            } as DropdownFacet<TypeSelectConfiguration>,
+            } satisfies DropdownFacet<TypeSelectConfiguration>,
             {
                 display: 'Nombre de sorties',
                 field: 'bookingCount',
@@ -358,13 +363,13 @@ export class NaturalSearchFacetsService {
                     min: 0,
                 },
                 transform: prefixOperatorWithField,
-            } as DropdownFacet<TypeNumberConfiguration>,
+            } satisfies DropdownFacet<TypeNumberConfiguration>,
             {
                 display: 'Date de sortie',
                 field: 'bookingDate',
                 component: TypeDateComponent,
                 transform: prefixOperatorWithField,
-            } as DropdownFacet<TypeDateConfiguration>,
+            } satisfies DropdownFacet<TypeDateConfiguration>,
             {
                 display: 'Statut',
                 field: 'status',
@@ -372,7 +377,7 @@ export class NaturalSearchFacetsService {
                 configuration: {
                     items: this.enumService.get('UserStatus'),
                 },
-            } as DropdownFacet<TypeSelectConfiguration>,
+            } satisfies DropdownFacet<TypeSelectConfiguration>,
             {
                 display: 'Rôle',
                 field: 'role',
@@ -380,7 +385,7 @@ export class NaturalSearchFacetsService {
                 configuration: {
                     items: this.enumService.get('UserRole'),
                 },
-            } as DropdownFacet<TypeSelectConfiguration>,
+            } satisfies DropdownFacet<TypeSelectConfiguration>,
             this.licenses,
             this.receivesNewsletter,
             this.userWelcomeSession,
@@ -389,7 +394,7 @@ export class NaturalSearchFacetsService {
                 name: 'welcomeSessionDate',
                 field: 'welcomeSessionDate',
                 component: TypeDateComponent,
-            } as DropdownFacet<TypeDateConfiguration>,
+            } satisfies DropdownFacet<TypeDateConfiguration>,
             {
                 display: 'Mode de paiement',
                 field: 'billingType',
@@ -397,7 +402,7 @@ export class NaturalSearchFacetsService {
                 configuration: {
                     items: this.enumService.get('BillingType'),
                 },
-            } as DropdownFacet<TypeSelectConfiguration>,
+            } satisfies DropdownFacet<TypeSelectConfiguration>,
             {
                 display: 'Solde',
                 field: 'balance',
@@ -405,20 +410,20 @@ export class NaturalSearchFacetsService {
                 configuration: {
                     step: 0.01,
                 },
-            } as DropdownFacet<TypeNumberConfiguration>,
+            } satisfies DropdownFacet<TypeNumberConfiguration>,
             this.internalRemarks,
             {
                 display: 'Date de naissance',
                 field: 'birthday',
                 component: TypeDateComponent,
-            } as DropdownFacet<TypeDateConfiguration>,
+            } satisfies DropdownFacet<TypeDateConfiguration>,
             this.creationDate,
             this.updateDate,
             {
                 display: 'Date de démission',
                 field: 'resignDate',
                 component: TypeDateComponent,
-            } as DropdownFacet<TypeDateConfiguration>,
+            } satisfies DropdownFacet<TypeDateConfiguration>,
         ],
         transactionLines: [
             this.transaction,
@@ -429,7 +434,7 @@ export class NaturalSearchFacetsService {
                 configuration: {
                     step: 0.01,
                 },
-            } as DropdownFacet<TypeNumberConfiguration>,
+            } satisfies DropdownFacet<TypeNumberConfiguration>,
             {
                 display: 'Compte',
                 field: 'custom',
@@ -442,7 +447,7 @@ export class NaturalSearchFacetsService {
                     service: this.accountService,
                     config: accountHierarchicConfiguration,
                 },
-            } as DropdownFacet<TypeHierarchicSelectorConfiguration>,
+            } satisfies DropdownFacet<TypeHierarchicSelectorConfiguration>,
             {
                 display: 'Compte au débit',
                 field: 'debit',
@@ -453,7 +458,7 @@ export class NaturalSearchFacetsService {
                     service: this.accountService,
                     config: accountHierarchicConfiguration,
                 },
-            } as DropdownFacet<TypeHierarchicSelectorConfiguration>,
+            } satisfies DropdownFacet<TypeHierarchicSelectorConfiguration>,
             {
                 display: 'Compte au crédit',
                 field: 'credit',
@@ -464,12 +469,12 @@ export class NaturalSearchFacetsService {
                     service: this.accountService,
                     config: accountHierarchicConfiguration,
                 },
-            } as DropdownFacet<TypeHierarchicSelectorConfiguration>,
+            } satisfies DropdownFacet<TypeHierarchicSelectorConfiguration>,
             {
                 display: 'Date de transaction',
                 field: 'transactionDate',
                 component: TypeDateComponent,
-            } as DropdownFacet<TypeDateConfiguration>,
+            } satisfies DropdownFacet<TypeDateConfiguration>,
             {
                 display: 'Pointé',
                 field: 'isReconciled',
@@ -481,7 +486,7 @@ export class NaturalSearchFacetsService {
                         {value: false, name: 'Non'},
                     ],
                 },
-            } as DropdownFacet<TypeSelectConfiguration>,
+            } satisfies DropdownFacet<TypeSelectConfiguration>,
             {
                 display: 'Justificatif',
                 field: 'custom',
@@ -494,7 +499,7 @@ export class NaturalSearchFacetsService {
                         {value: false, name: 'Sans'},
                     ],
                 },
-            } as DropdownFacet<TypeSelectConfiguration>,
+            } satisfies DropdownFacet<TypeSelectConfiguration>,
             this.bookable,
             this.transactionTags,
             this.owner,
@@ -515,7 +520,7 @@ export class NaturalSearchFacetsService {
                     service: this.userService,
                     placeholder: 'Utilisateur',
                 },
-            } as DropdownFacet<TypeSelectNaturalConfiguration<UserService>>,
+            } satisfies DropdownFacet<TypeSelectNaturalConfiguration<UserService>>,
             this.creationDate,
             this.updateDate,
         ],
@@ -561,12 +566,12 @@ export class NaturalSearchFacetsService {
                 field: 'status',
                 component: TypeSelectComponent,
                 configuration: {items: this.enumService.get('BookingStatus')},
-            } as DropdownFacet<TypeSelectConfiguration>,
+            } satisfies DropdownFacet<TypeSelectConfiguration>,
             {
                 display: 'En cours',
                 field: 'endDate',
-                condition: {null: {}} as BookingFilterGroupCondition,
-            } as FlagFacet,
+                condition: {null: {}},
+            } satisfies FlagFacet<BookingFilterGroupConditionEndDate>,
             this.bokingBookableTag,
             this.bookable,
             this.startDate,
@@ -586,7 +591,7 @@ export class NaturalSearchFacetsService {
                 configuration: {
                     items: this.enumService.get('AccountType'),
                 },
-            } as DropdownFacet<TypeSelectConfiguration>,
+            } satisfies DropdownFacet<TypeSelectConfiguration>,
             {
                 display: 'Solde',
                 field: 'balance',
@@ -594,7 +599,7 @@ export class NaturalSearchFacetsService {
                 configuration: {
                     step: 1,
                 },
-            } as DropdownFacet<TypeNumberConfiguration>,
+            } satisfies DropdownFacet<TypeNumberConfiguration>,
             this.creationDate,
             this.updateDate,
         ],
@@ -607,7 +612,7 @@ export class NaturalSearchFacetsService {
                 configuration: {
                     items: this.enumService.get('ExpenseClaimType'),
                 },
-            } as DropdownFacet<TypeSelectConfiguration>,
+            } satisfies DropdownFacet<TypeSelectConfiguration>,
             this.owner,
             {
                 display: 'Statut',
@@ -616,7 +621,7 @@ export class NaturalSearchFacetsService {
                 configuration: {
                     items: this.enumService.get('ExpenseClaimStatus'),
                 },
-            } as DropdownFacet<TypeSelectConfiguration>,
+            } satisfies DropdownFacet<TypeSelectConfiguration>,
             {
                 display: 'Montant',
                 field: 'amount',
@@ -624,7 +629,7 @@ export class NaturalSearchFacetsService {
                 configuration: {
                     step: 1,
                 },
-            } as DropdownFacet<TypeNumberConfiguration>,
+            } satisfies DropdownFacet<TypeNumberConfiguration>,
             {
                 display: 'Secteur concerné',
                 field: 'sector',
@@ -632,14 +637,14 @@ export class NaturalSearchFacetsService {
                 configuration: {
                     items: this.expenseClaimService.getSectors(),
                 },
-            } as DropdownFacet<TypeSelectConfiguration>,
+            } satisfies DropdownFacet<TypeSelectConfiguration>,
             {
                 display: 'À approuver',
                 field: 'custom',
                 name: 'expenseClaimToReview',
                 condition: {in: {}},
                 transform: replaceOperatorByName,
-            } as FlagFacet,
+            } satisfies FlagFacet<{in: Record<string, never>}>,
             this.creationDate,
             this.updateDate,
         ],

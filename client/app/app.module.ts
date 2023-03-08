@@ -103,7 +103,7 @@ export const matTooltipCustomConfig: MatTooltipDefaultOptions = {
             provide: NATURAL_SEO_CONFIG,
             useValue: {
                 applicationName: 'MyIchtus',
-            } as NaturalSeoConfig,
+            } satisfies NaturalSeoConfig,
         },
         apolloOptionsProvider,
         {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: matTooltipCustomConfig},
