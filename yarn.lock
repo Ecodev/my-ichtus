@@ -1402,10 +1402,10 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@ecodev/fab-speed-dial@^12.0.0":
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/@ecodev/fab-speed-dial/-/fab-speed-dial-12.0.0.tgz#84d2b38c8962317bd48db5a0eaa04300848d7c62"
-  integrity sha512-Tg83F172l8xY77K/+wnBvu7iw6ANhVlVQn9SR94t6gxa19GCUnJm8hmh757lPE/dmLYoJtKh83kC5zIL5zDXzQ==
+"@ecodev/fab-speed-dial@^13.0.0":
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/@ecodev/fab-speed-dial/-/fab-speed-dial-13.0.0.tgz#c25c6490d5ae92bc641b13209d120b7ffb1bd5cd"
+  integrity sha512-j7F7BedCXc1DLi6sSc6lKvtdbJELZbBf438eRVZkt1+Iveb9qctSscvvRrwFho+aiLh7N+vkCGq69zQTlOFhkQ==
   dependencies:
     tslib "^2.3.1"
 
