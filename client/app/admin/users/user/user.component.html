@@ -5,11 +5,7 @@
         [model]="data.model"
         [listRoute]="['admin', 'user']"
     >
-        <app-money
-            *ngIf="data.model.account"
-            [amount]="data.model.account.balance"
-            sizeClass="mat-display-1"
-        ></app-money>
+        <app-money [amount]="123" sizeClass="mat-headline-4"></app-money>
     </natural-detail-header>
 
     <mat-tab-group
