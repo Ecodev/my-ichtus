@@ -24,7 +24,7 @@
     </mat-form-field>
 </mat-dialog-content>
 
-<mat-dialog-actions style="display: flex; justify-content: flex-end">
+<mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>{{ data?.cancelText || 'Annuler' }}</button>
     <button mat-flat-button color="primary" [mat-dialog-close]="form.value" [disabled]="!form.valid">
         {{ data?.confirmText || 'Valider' }}

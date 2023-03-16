@@ -42,7 +42,7 @@
     <app-bvr [bankingData]="bvrData" *ngIf="paymentMode === 'ebanking'"></app-bvr>
 </mat-dialog-content>
 
-<mat-dialog-actions fxLayout="row" fxLayoutAlign="end" fxLayoutGap="0px">
+<mat-dialog-actions align="end">
     <button *ngIf="showExportBillButton()" mat-button (click)="exportBill()">Télécharger bulletin de paiement</button>
     <button mat-button mat-dialog-close cdkFocusInitial>Fermer</button>
     <button
