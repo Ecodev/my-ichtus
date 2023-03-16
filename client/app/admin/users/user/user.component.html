@@ -5,7 +5,7 @@
         [model]="data.model"
         [listRoute]="['admin', 'user']"
     >
-        <app-money [amount]="123" sizeClass="mat-headline-4"></app-money>
+        <app-money [amount]="data.model.account.balance" sizeClass="mat-headline-4"></app-money>
     </natural-detail-header>
 
     <mat-tab-group
