@@ -78,7 +78,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                 </ng-container>
 
                 <ng-container matColumnDef="readOnlyName">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="name">Nom</th>
                     <td mat-cell *matCellDef="let element">
                         <span [ngClass]="{inactive: UsageBookableService.isFullyBooked(element)}">
                             {{ element.name }}
