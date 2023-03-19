@@ -85,12 +85,12 @@ class TransactionLine extends AbstractModel
     private bool $isReconciled = false;
 
     /**
-     * This store the value of CAMT 054 `<EndToEndId>`, or else `<AcctSvcrRef>`, element that should
-     * hopefully be a universally unique transaction identifier.
+     * This store the value of CAMT 054 `<UETR>`, or else `<EndToEndId>`, or else `<AcctSvcrRef>`, or else `<MsgId>`,
+     * element that should hopefully be a universally unique transaction identifier.
      *
      * An absence of value means the line was not imported.
      *
-     * @ORM\Column(type="string", length=35, nullable=true)
+     * @ORM\Column(type="string", length=36, nullable=true)
      */
     private ?string $importedId = null;
 

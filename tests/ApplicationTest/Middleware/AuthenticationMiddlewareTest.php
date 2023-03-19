@@ -48,6 +48,17 @@ class AuthenticationMiddlewareTest extends TestCase
         self::assertSame($user, User::getCurrent());
     }
 
+    public function testUserArchived(): void
+    {
+        $user = new User();
+        $user->setStatus(User::STATUS_ARCHIVED);
+        $session = $this->process(true, $user);
+
+        self::assertFalse($session->has('user'));
+        self::assertFalse($session->has('other'));
+        self::assertNull(User::getCurrent());
+    }
+
     private function process(bool $userInSession, ?User $user): SessionInterface
     {
         User::setCurrent(null);

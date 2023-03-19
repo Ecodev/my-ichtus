@@ -50,7 +50,7 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
-        const previousUser = changes.user.previousValue;
+        const previousUser = changes.user?.previousValue;
         if (previousUser && previousUser.id !== this.user.id) {
             this.loadData();
         }

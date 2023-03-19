@@ -39,7 +39,7 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
         }
 
         // Check user status
-        if (!in_array($user->getStatus(), [User::STATUS_ACTIVE, User::STATUS_INACTIVE, User::STATUS_NEW], true)) {
+        if (!$user->canLogin()) {
             return null;
         }
 

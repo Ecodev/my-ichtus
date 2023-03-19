@@ -61,6 +61,7 @@ const routes: Routes = [
         path: '',
         component: AdminComponent,
         canActivate: [AdministrationGuard],
+        data: {isAdmin: true},
         children: [
             {
                 path: '',
@@ -177,6 +178,32 @@ const routes: Routes = [
                                 title: 'Demandes de cours',
                             } satisfies NaturalSeo,
                             forcedVariables: BookingService.applicationByTag(BookableTagService.FORMATION),
+                            selectedColumns: [
+                                'edit',
+                                'owner',
+                                'ownerBalance',
+                                'ownerCreationDate',
+                                'bookable',
+                                'startDate',
+                            ],
+                            availableColumns: [
+                                'edit',
+                                'owner',
+                                'ownerBalance',
+                                'ownerCreationDate',
+                                'bookable',
+                                'startDate',
+                            ],
+                        },
+                    },
+                    {
+                        path: 'ntf-application',
+                        component: BookingsWithOwnerComponent,
+                        data: {
+                            seo: {
+                                title: 'Demandes NFT',
+                            } as NaturalSeo,
+                            forcedVariables: BookingService.applicationByTag(BookableTagService.NTF),
                             selectedColumns: [
                                 'edit',
                                 'owner',
@@ -372,6 +399,19 @@ const routes: Routes = [
                             } satisfies NaturalSeo,
                             selectedColumns: ['name', 'code', 'date', 'initialPrice', 'usageNb', 'verificationDate'],
                             forcedVariables: merge(BookableService.bookableByTag(BookableTagService.FORMATION), {
+                                sorting: [{field: BookableSortingField.creationDate, order: SortingOrder.DESC}],
+                            }),
+                        },
+                    },
+                    {
+                        path: 'ntf',
+                        component: UsageBookablesComponent,
+                        data: {
+                            seo: {
+                                title: 'NTF',
+                            } as NaturalSeo,
+                            selectedColumns: ['name', 'code', 'date', 'initialPrice', 'usageNb', 'verificationDate'],
+                            forcedVariables: merge(BookableService.bookableByTag(BookableTagService.NTF), {
                                 sorting: [{field: BookableSortingField.creationDate, order: SortingOrder.DESC}],
                             }),
                         },

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b661537e8cf143bd9636e85ce6bed6bc",
+    "content-hash": "f45c349f558e4c584bc47eae23fa129f",
     "packages": [
         {
             "name": "beberlei/doctrineextensions",
@@ -1732,16 +1732,16 @@
         },
         {
             "name": "genkgo/camt",
-            "version": "2.3.0",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/genkgo/camt.git",
-                "reference": "946257f5535e49d885fcc868861bc4ffbd777179"
+                "reference": "c3432451b9a8d4cfea75ca23bb2f30efeb75b6ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/genkgo/camt/zipball/946257f5535e49d885fcc868861bc4ffbd777179",
-                "reference": "946257f5535e49d885fcc868861bc4ffbd777179",
+                "url": "https://api.github.com/repos/genkgo/camt/zipball/c3432451b9a8d4cfea75ca23bb2f30efeb75b6ee",
+                "reference": "c3432451b9a8d4cfea75ca23bb2f30efeb75b6ee",
                 "shasum": ""
             },
             "require": {
@@ -1750,20 +1750,17 @@
                 "ext-simplexml": "*",
                 "jschaedl/iban-validation": "^1.7",
                 "moneyphp/money": "^3.3 || ^4.0",
-                "php": "^7.4 || ^8.0"
+                "php": "^8.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "@stable",
-                "phpspec/prophecy-phpunit": "@stable",
                 "phpstan/phpstan": "@stable",
                 "phpunit/phpunit": "@stable"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Genkgo\\Camt\\": [
-                        "src"
-                    ]
+                    "Genkgo\\Camt\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1773,9 +1770,9 @@
             "description": "Library to read CAMT files (XML containing bank statements).",
             "support": {
                 "issues": "https://github.com/genkgo/camt/issues",
-                "source": "https://github.com/genkgo/camt/tree/2.3.0"
+                "source": "https://github.com/genkgo/camt/tree/2.4.0"
             },
-            "time": "2022-01-10T16:12:29+00:00"
+            "time": "2023-02-12T09:24:42+00:00"
         },
         {
             "name": "imagine/imagine",

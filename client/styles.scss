@@ -23,6 +23,39 @@ pre.debug {
     font-family: Courrier, monospace;
 }
 
+/**
+    Dont remove debug ! This a no impact on build.
+ */
+[bg] {
+    &,
+    & * {
+        background: rgba(255, 0, 0, 0.1);
+    }
+}
+
+[bd] {
+    &,
+    & * {
+        border: 1px solid red;
+    }
+}
+
+[debug] {
+    border: 2px solid red;
+
+    & > * {
+        border: 2px solid orange;
+    }
+}
+
+[debug][children] > * > * {
+    border: 2px solid blue;
+}
+
+[debug][children][grandchildren] > * > * > * {
+    border: 2px solid green;
+}
+
 .pac-container {
     margin-top: 15px;
     margin-left: -10px;

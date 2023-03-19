@@ -572,8 +572,9 @@ export class UserService
             return false;
         }
 
-        const isMember =
-            [UserRole.member, UserRole.trainer, UserRole.responsible, UserRole.administrator].indexOf(user.role) > -1;
+        const isMember = [UserRole.member, UserRole.trainer, UserRole.responsible, UserRole.administrator].includes(
+            user.role,
+        );
 
         return !isMember && !this.canLeaveFamily(user);
     }

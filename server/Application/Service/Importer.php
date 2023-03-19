@@ -16,6 +16,7 @@ use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Service\Bvr;
 use Genkgo\Camt\Camt054\MessageFormat\V02;
 use Genkgo\Camt\Camt054\MessageFormat\V04;
+use Genkgo\Camt\Camt054\MessageFormat\V08;
 use Genkgo\Camt\Config;
 use Genkgo\Camt\DTO\Address;
 use Genkgo\Camt\DTO\Entry;
@@ -98,6 +99,7 @@ class Importer
         $expected = [
             V02::class,
             V04::class,
+            V08::class,
         ];
 
         if (!in_array($messageFormat::class, $expected, true)) {
@@ -250,9 +252,13 @@ class Importer
     {
         $reference = $detail->getReference();
 
-        $endToEndId = $reference?->getEndToEndId();
-        if ($endToEndId === 'NOTPROVIDED') {
-            $endToEndId = null;
+        $endToEndId = $reference?->getUuidEndToEndReference();
+
+        if (!$endToEndId) {
+            $endToEndId = $reference?->getEndToEndId();
+            if ($endToEndId === 'NOTPROVIDED') {
+                $endToEndId = null;
+            }
         }
 
         if (!$endToEndId) {
@@ -267,7 +273,7 @@ class Importer
         }
 
         if (!$endToEndId) {
-            throw new Exception('Cannot import a transaction without unique universal identifier (<EndToEndId>, <AcctSvcrRef> or <MsgId>).');
+            throw new Exception('Cannot import a transaction without unique universal identifier (<UETR>, <EndToEndId>, <AcctSvcrRef> or <MsgId>).');
         }
 
         return $endToEndId;

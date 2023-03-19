@@ -52,7 +52,7 @@ class ImporterTest extends TestCase
 
     public function testThrowMissingAcctSvcrRef(): void
     {
-        $this->expectExceptionMessage('Cannot import a transaction without unique universal identifier (<EndToEndId>, <AcctSvcrRef> or <MsgId>).');
+        $this->expectExceptionMessage('Cannot import a transaction without unique universal identifier (<UETR>, <EndToEndId>, <AcctSvcrRef> or <MsgId>).');
         $this->import('tests/data/importer/missing-EndToEndId-and-AcctSvcrRef.xml');
     }
 
