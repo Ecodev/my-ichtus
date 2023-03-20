@@ -5,9 +5,12 @@
 
     app-admin {
         // Re-use the same hover effect for active menu item, and add the Material boldness to text
-        a.active {
+        a.mat-mdc-list-item.active {
             background: mat.get-color-from-palette($background, 'hover');
-            font-weight: 500;
+
+            .mdc-list-item__primary-text {
+                font-weight: 500;
+            }
         }
     }
 }
