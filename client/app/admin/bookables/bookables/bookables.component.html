@@ -239,7 +239,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                     <th mat-header-cell *matHeaderCellDef natural-5em-column></th>
                     <td mat-cell *matCellDef="let element">
                         <button
-                            *ngIf="route.snapshot.data.futureOwner"
+                            *ngIf="allowBooking(route.snapshot.data.futureOwner, element, pendingApplications)"
                             mat-flat-button
                             [color]="
                                 UsageBookableService.isAlreadyPending(element, pendingApplications)

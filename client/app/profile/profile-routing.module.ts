@@ -112,6 +112,7 @@ const routes: Routes = [
                                     showPending: true,
                                     hideTableFooter: true,
                                     actionButtonLabel: 'Voter',
+                                    denyDoubleBooking: true,
                                 },
                             },
                             {

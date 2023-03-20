@@ -35,6 +35,21 @@ export class ParentComponent<T extends UsageBookableService | BookableService> e
             this.bookingService.createWithBookable(bookable, futureOwner, booking).subscribe();
         }
     }
+
+    /**
+     * Returns true to allow booking if the resource is not already booked or is already booked but not denied for second booking by
+     * routing data denyDoubleBooking.
+     *
+     * This is just ergonomics considerations. API does not deny double booking on specific resources in this case
+     */
+    public allowBooking(
+        futureOwner: CurrentUserForProfile_viewer,
+        bookable: UsageBookables_bookables_items,
+        pendingApplications: Bookings_bookings_items[],
+    ): boolean {
+        const alreadyBooked = UsageBookableService.isAlreadyPending(bookable, pendingApplications);
+        return futureOwner && (!alreadyBooked || (alreadyBooked && !this.route.snapshot.data.denyDoubleBooking));
+    }
 }
 
 @Component({
