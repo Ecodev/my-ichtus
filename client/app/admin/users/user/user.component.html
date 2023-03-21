@@ -52,11 +52,13 @@
                         <div fxLayout="row" fxLayoutGap="10px">
                             <mat-form-field fxFlex>
                                 <mat-label>Téléphone fixe</mat-label>
+                                <mat-hint align="start">032 xxx xx xx</mat-hint>
                                 <input matInput formControlName="phone" (change)="update()" />
                             </mat-form-field>
 
                             <mat-form-field fxFlex>
                                 <mat-label>Téléphone mobile</mat-label>
+                                <mat-hint align="start">07x xxx xx xx</mat-hint>
                                 <input matInput formControlName="mobilePhone" (change)="update()" />
                             </mat-form-field>
                         </div>
