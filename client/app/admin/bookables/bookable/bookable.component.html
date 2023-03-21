@@ -78,6 +78,9 @@
                                     <mat-error *ngIf="form.get('purchasePrice')?.hasError('min')"
                                         >Le montant doit être positif</mat-error
                                     >
+                                    <mat-error *ngIf="form.get('purchasePrice')?.hasError('money')"
+                                        >Le montant doit être un nombre avec un maximum de deux décimales
+                                    </mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
@@ -132,6 +135,9 @@
                             />
                             <div matSuffix>CHF</div>
                             <mat-error *ngIf="form.get('initialPrice')?.hasError('required')">Requis</mat-error>
+                            <mat-error *ngIf="form.get('initialPrice')?.hasError('money')"
+                                >Le montant doit être un nombre avec un maximum de deux décimales
+                            </mat-error>
                         </mat-form-field>
 
                         <mat-form-field *ngIf="isBookingPriceApplicable()">
@@ -145,6 +151,9 @@
                             />
                             <div matSuffix>CHF</div>
                             <mat-error *ngIf="form.get('periodicPrice')?.hasError('required')">Requis</mat-error>
+                            <mat-error *ngIf="form.get('periodicPrice')?.hasError('money')"
+                                >Le montant doit être un nombre avec un maximum de deux décimales
+                            </mat-error>
                         </mat-form-field>
 
                         <mat-form-field>
