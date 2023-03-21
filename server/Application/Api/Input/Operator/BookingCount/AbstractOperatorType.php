@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Application\Api\Input\Operator\BookingCount;
 
+use Application\Model\Bookable;
+use Application\Model\Booking;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
 use GraphQL\Doctrine\Definition\Operator\AbstractOperator;
@@ -33,18 +35,12 @@ abstract class AbstractOperatorType extends AbstractOperator
             return null;
         }
 
-        $bookingAlias = 'booking_count_date_alias';
-        $bookableAlias = 'bookable_count_date_alias';
-
+        $bookingAlias = $uniqueNameFactory->createAliasName(Booking::class);
+        $bookableAlias = $uniqueNameFactory->createAliasName(Bookable::class);
         $param = $uniqueNameFactory->createParameterName();
 
-        if (!in_array($bookingAlias, $queryBuilder->getAllAliases(), true)) {
-            $queryBuilder->leftJoin($alias . '.bookings', $bookingAlias);
-        }
-
-        if (!in_array($bookableAlias, $queryBuilder->getAllAliases(), true)) {
-            $queryBuilder->leftJoin($bookingAlias . '.bookable', $bookableAlias);
-        }
+        $queryBuilder->leftJoin($alias . '.bookings', $bookingAlias);
+        $queryBuilder->leftJoin($bookingAlias . '.bookable', $bookableAlias);
 
         $groupBy = @$queryBuilder->getDQLPart('groupBy')[0];
 

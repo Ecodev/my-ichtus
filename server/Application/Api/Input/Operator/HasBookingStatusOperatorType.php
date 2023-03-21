@@ -40,11 +40,9 @@ class HasBookingStatusOperatorType extends AbstractOperator
             return null;
         }
 
-        $bookingAlias = 'users_bookings_alias';
+        $bookingAlias = $uniqueNameFactory->createAliasName(Booking::class);
 
-        if (!in_array($bookingAlias, $queryBuilder->getAllAliases(), true)) {
-            $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH);
-        }
+        $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH);
 
         if (!array_key_exists('values', $args) || empty($args['values'])) {
             $statuses = [-1];
