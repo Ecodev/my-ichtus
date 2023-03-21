@@ -31,10 +31,11 @@ import {intersectionBy} from 'lodash-es';
 import {
     FormAsyncValidators,
     FormValidators,
+    money,
     NaturalAbstractModelService,
+    NaturalDebounceService,
     NaturalQueryVariablesManager,
     unique,
-    NaturalDebounceService,
 } from '@ecodev/natural';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 
@@ -179,7 +180,9 @@ export class BookableService extends NaturalAbstractModelService<
         return {
             name: [Validators.required, Validators.maxLength(100)],
             code: [Validators.maxLength(10)],
-            purchasePrice: [Validators.min(0)],
+            initialPrice: [money, Validators.required],
+            periodicPrice: [money, Validators.required],
+            purchasePrice: [money, Validators.min(0)],
             simultaneousBookingMaximum: [Validators.min(-1)],
         };
     }

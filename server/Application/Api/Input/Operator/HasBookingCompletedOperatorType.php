@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Api\Input\Operator;
 
+use Application\Model\Booking;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
@@ -40,11 +41,9 @@ class HasBookingCompletedOperatorType extends AbstractOperator
 
         $not = $args['not'];
 
-        $bookingAlias = 'users_bookings_alias';
+        $bookingAlias = $uniqueNameFactory->createAliasName(Booking::class);
 
-        if (!in_array($bookingAlias, $queryBuilder->getAllAliases(), true)) {
-            $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH);
-        }
+        $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH);
 
         if (!array_key_exists('values', $args) || empty($args['values'])) {
             if ($not) {

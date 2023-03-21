@@ -107,11 +107,12 @@ const routes: Routes = [
                                         [BookingType.application],
                                         true,
                                     ),
-                                    selectedColumns: ['readOnlyName', 'select'],
+                                    selectedColumns: ['readOnlyName', 'createApplication'],
                                     showFullyBooked: false,
                                     showPending: true,
                                     hideTableFooter: true,
                                     actionButtonLabel: 'Voter',
+                                    denyDoubleBooking: true,
                                 },
                             },
                             {

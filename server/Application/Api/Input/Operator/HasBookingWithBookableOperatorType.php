@@ -43,13 +43,10 @@ class HasBookingWithBookableOperatorType extends AbstractOperator
 
         $ids = Utility::modelToId($args['values']);
 
-        $bookingAlias = 'users_bookings_alias';
-
+        $bookingAlias = $uniqueNameFactory->createAliasName(Booking::class);
         $bookableAlias = $uniqueNameFactory->createAliasName(Bookable::class);
 
-        if (!in_array($bookingAlias, $queryBuilder->getAllAliases(), true)) {
-            $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH);
-        }
+        $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH);
 
         // Bookings without any bookable (own equipment)
         if (!$args['not'] && empty($ids)) {
