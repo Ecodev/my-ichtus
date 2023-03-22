@@ -158,4 +158,6 @@ $ichtus-theme: mat.define-light-theme(
 
 @include mat.core();
 
-@include applyTheme($ichtus-theme);
+body {
+    @include applyTheme($ichtus-theme);
+}
