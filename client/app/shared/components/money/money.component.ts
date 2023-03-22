@@ -6,7 +6,7 @@ import {Component, Input} from '@angular/core';
 })
 export class MoneyComponent {
     /**
-     * E.g mat-title, mat-display-2
+     * E.g mat-headline-4
      */
     @Input() public sizeClass = '';
 
