@@ -5,7 +5,11 @@
         [model]="data.model"
         [listRoute]="['admin', 'user']"
     >
-        <app-money [amount]="data.model.account.balance" sizeClass="mat-headline-4"></app-money>
+        <app-money
+            *ngIf="data.model.account"
+            [amount]="data.model.account.balance"
+            sizeClass="mat-headline-4"
+        ></app-money>
     </natural-detail-header>
 
     <mat-tab-group
@@ -52,13 +56,13 @@
                         <div fxLayout="row" fxLayoutGap="10px">
                             <mat-form-field fxFlex>
                                 <mat-label>Téléphone fixe</mat-label>
-                                <mat-hint align="start">032 xxx xx xx</mat-hint>
+                                <mat-hint>032 xxx xx xx</mat-hint>
                                 <input matInput formControlName="phone" (change)="update()" />
                             </mat-form-field>
 
                             <mat-form-field fxFlex>
                                 <mat-label>Téléphone mobile</mat-label>
-                                <mat-hint align="start">07x xxx xx xx</mat-hint>
+                                <mat-hint>07x xxx xx xx</mat-hint>
                                 <input matInput formControlName="mobilePhone" (change)="update()" />
                             </mat-form-field>
                         </div>
