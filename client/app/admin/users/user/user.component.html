@@ -402,7 +402,11 @@
         <mat-tab
             id="services"
             label="Prestations et services"
-            *ngIf="data.model.id && permissionsService.gteResponsible(viewer)"
+            *ngIf="
+                data.model.id &&
+                permissionsService.gteResponsible(viewer) &&
+                [UserStatus.active, UserStatus.new].includes(data.model.status)
+            "
         >
             <br class="margin-top" />
             <app-services [user]="data.model"></app-services>

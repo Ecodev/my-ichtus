@@ -9,6 +9,7 @@ import {
     UserFilter,
     UserFilterGroupCondition,
     UserRole,
+    UserStatus,
     UsersVariables,
 } from '../../../shared/generated-types';
 import {LicenseService} from '../../licenses/services/license.service';
@@ -41,6 +42,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService> implements
     private userRolesAvailable: UserRole[] = [];
 
     public ownerFilter: UserFilter = {};
+    public UserStatus = UserStatus;
 
     public constructor(
         private readonly userService: UserService,
