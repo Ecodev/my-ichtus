@@ -17,13 +17,42 @@ import {BookableService} from '../services/bookable.service';
 import {ExtractTallOne} from '@ecodev/natural/lib/types/types';
 
 @Directive()
-export class ParentComponent<T extends UsageBookableService | BookableService> extends NaturalAbstractList<T> {
-    public readonly hasUsage: boolean = false;
+export class ParentComponent<T extends UsageBookableService | BookableService>
+    extends NaturalAbstractList<T>
+    implements OnInit
+{
+    protected readonly hasUsage: boolean = false;
     public readonly UsageBookableService = UsageBookableService;
     public pendingApplications: Bookings_bookings_items[] = [];
 
     public constructor(service: T, injector: Injector, private readonly bookingService: BookingService) {
         super(service, injector);
+    }
+
+    public override ngOnInit() {
+        super.ngOnInit();
+
+        this.availableColumns = [
+            {id: 'image', label: 'Image'},
+            ...(this.route.snapshot.data.isAdmin ? [{id: 'name', label: 'Nom'}] : [{id: 'readOnlyName', label: 'Nom'}]),
+            {id: 'code', label: 'Code'},
+            {id: 'description', label: 'Description'},
+            {id: 'price', label: 'Prix'},
+            {id: 'purchasePrice', label: "Prix d'achat"},
+            {id: 'initialPrice', label: 'Prix initial'},
+            {id: 'periodicPrice', label: 'Prix périodique'},
+            {id: 'updateDate', label: 'Dernière modification'},
+            ...(this.hasUsage
+                ? [
+                      {id: 'usage', label: 'Utilisations'},
+                      {id: 'usageNb', label: 'Disponibilité'},
+                  ]
+                : []),
+            {id: 'verificationDate', label: 'Dernière vérification'},
+            {id: 'select', label: 'Sélection', checked: false, hidden: true},
+            // TODO (sam) write docs (use column with caution, need routing parameters
+            {id: 'createApplication', label: 'Demander', checked: false, hidden: true},
+        ];
     }
 
     /**

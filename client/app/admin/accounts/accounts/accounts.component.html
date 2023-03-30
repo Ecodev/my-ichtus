@@ -26,16 +26,11 @@
                     (selectionChange)="search($event)"
                     [multipleGroups]="true"
                 >
-                    <natural-columns-picker (selectionChange)="selectColumns($event)" [selections]="selectedColumns">
-                        <span naturalColumnsPickerColumn="navigation">Navigation</span>
-                        <span naturalColumnsPickerColumn="code">Code</span>
-                        <span naturalColumnsPickerColumn="name">Nom</span>
-                        <span naturalColumnsPickerColumn="type">Type</span>
-                        <span naturalColumnsPickerColumn="owner">Utilisateur</span>
-                        <span naturalColumnsPickerColumn="iban">IBAN</span>
-                        <span naturalColumnsPickerColumn="totalBalance">Solde</span>
-                        <span naturalColumnsPickerColumn="creationDate">Créé le</span>
-                        <span naturalColumnsPickerColumn="updateDate">Modifié le</span>
+                    <natural-columns-picker
+                        [availableColumns]="availableColumns"
+                        [selections]="selectedColumns"
+                        (selectionChange)="selectColumns($event)"
+                    >
                     </natural-columns-picker>
 
                     <button mat-icon-button (click)="showExport()" matTooltip="Exporter rapport comptable">

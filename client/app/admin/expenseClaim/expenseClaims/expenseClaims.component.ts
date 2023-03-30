@@ -1,5 +1,5 @@
 import {Component, Injector, OnInit} from '@angular/core';
-import {NaturalAbstractList} from '@ecodev/natural';
+import {AvailableColumn, NaturalAbstractList} from '@ecodev/natural';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {ExpenseClaimService} from '../services/expenseClaim.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -10,7 +10,17 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
     styleUrls: ['./expenseClaims.component.scss'],
 })
 export class ExpenseClaimsComponent extends NaturalAbstractList<ExpenseClaimService> implements OnInit {
-    public override selectedColumns = ['name', 'owner', 'updateDate', 'status', 'type', 'remarks', 'amount'];
+    public override availableColumns: AvailableColumn[] = [
+        {id: 'name', label: 'Nom'},
+        {id: 'owner', label: 'Membre'},
+        {id: 'updateDate', label: 'Dernière modification'},
+        {id: 'status', label: 'Status'},
+        {id: 'type', label: 'Type'},
+        {id: 'remarks', label: 'Remarques'},
+        {id: 'amount', label: 'Montant'},
+        {id: 'sector', label: 'Secteur concerné', checked: false},
+        {id: 'reviewer', label: 'Approbateur', checked: false},
+    ];
 
     public constructor(
         expenseClaimService: ExpenseClaimService,

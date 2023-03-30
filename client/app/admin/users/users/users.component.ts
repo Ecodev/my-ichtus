@@ -1,6 +1,6 @@
 import {Apollo} from 'apollo-angular';
 import {Component, Injector, OnInit} from '@angular/core';
-import {NaturalAbstractList, NaturalSearchSelections} from '@ecodev/natural';
+import {AvailableColumn, NaturalAbstractList, NaturalSearchSelections} from '@ecodev/natural';
 import {BankingInfosVariables, Users_users_items, UserStatus} from '../../../shared/generated-types';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -16,15 +16,21 @@ import {finalize} from 'rxjs/operators';
     styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent extends NaturalAbstractList<UserService> implements OnInit {
-    public override selectedColumns = [
-        'balance',
-        'name',
-        'login',
-        'age',
-        'creationDate',
-        'updateDate',
-        'status',
-        'flagWelcomeSessionDate',
+    public override availableColumns: AvailableColumn[] = [
+        {id: 'balance', label: 'Solde'},
+        {id: 'name', label: 'Nom'},
+        {id: 'login', label: 'Login'},
+        {id: 'age', label: 'Âge'},
+        {id: 'role', label: 'Rôle', checked: false},
+        {id: 'owner', label: 'Chef de famille', checked: false},
+        {id: 'creationDate', label: 'Créé le'},
+        {id: 'updateDate', label: 'Modifié le'},
+        {id: 'resignDate', label: 'Date démission', checked: false},
+        {id: 'status', label: 'Status'},
+        {id: 'email', label: 'Email', checked: false},
+        {id: 'mobilePhone', label: 'Téléphone', checked: false},
+        {id: 'flagWelcomeSessionDate', label: "Séance d'accueil"},
+        {id: 'provision', label: 'Versement', checked: false},
     ];
 
     public readonly activating = new Map<Users_users_items, true>();

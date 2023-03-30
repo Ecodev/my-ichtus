@@ -1,5 +1,5 @@
 import {Component, Injector, OnInit} from '@angular/core';
-import {NaturalAbstractList} from '@ecodev/natural';
+import {AvailableColumn, NaturalAbstractList} from '@ecodev/natural';
 import {UserTagService} from '../services/userTag.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 
@@ -9,6 +9,10 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
     styleUrls: ['./userTags.component.scss'],
 })
 export class UserTagsComponent extends NaturalAbstractList<UserTagService> implements OnInit {
+    public override availableColumns: AvailableColumn[] = [
+        {id: 'color', label: 'Couleur'},
+        {id: 'name', label: 'Nom'},
+    ];
     public constructor(
         userTagService: UserTagService,
         injector: Injector,

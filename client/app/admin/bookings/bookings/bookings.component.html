@@ -20,42 +20,11 @@
                     [variablesManager]="variablesManager"
                 ></app-copy-contact-data>
 
-                <natural-columns-picker (selectionChange)="selectColumns($event)" [selections]="selectedColumns">
-                    <span *ngIf="columnIsAvailable('edit')" naturalColumnsPickerColumn="edit">Editer</span>
-                    <span *ngIf="columnIsAvailable('owner')" naturalColumnsPickerColumn="owner">Utilisateur</span>
-                    <span *ngIf="columnIsAvailable('ownerReadonly')" naturalColumnsPickerColumn="ownerReadonly"
-                        >Utilisateur</span
-                    >
-                    <span *ngIf="columnIsAvailable('status')" naturalColumnsPickerColumn="status">Statut</span>
-                    <span *ngIf="columnIsAvailable('ownerBalance')" naturalColumnsPickerColumn="ownerBalance"
-                        >Solde</span
-                    >
-                    <span *ngIf="columnIsAvailable('ownerCreationDate')" naturalColumnsPickerColumn="ownerCreationDate"
-                        >Membre depuis</span
-                    >
-                    <span *ngIf="columnIsAvailable('bookable')" naturalColumnsPickerColumn="bookable">Item</span>
-                    <span *ngIf="columnIsAvailable('destination')" naturalColumnsPickerColumn="destination"
-                        >Destination</span
-                    >
-                    <span *ngIf="columnIsAvailable('startDate')" naturalColumnsPickerColumn="startDate">Début</span>
-                    <span *ngIf="columnIsAvailable('startComment')" naturalColumnsPickerColumn="startComment"
-                        >Note de début</span
-                    >
-                    <span *ngIf="columnIsAvailable('endDate')" naturalColumnsPickerColumn="endDate">Fin</span>
-                    <span *ngIf="columnIsAvailable('estimatedEndDate')" naturalColumnsPickerColumn="estimatedEndDate"
-                        >Retour prévu</span
-                    >
-                    <span *ngIf="columnIsAvailable('participantCount')" naturalColumnsPickerColumn="participantCount"
-                        >Nb participants</span
-                    >
-                    <span *ngIf="columnIsAvailable('endComment')" naturalColumnsPickerColumn="endComment"
-                        >Note de fin</span
-                    >
-                    <span *ngIf="columnIsAvailable('terminateBooking')" naturalColumnsPickerColumn="terminateBooking"
-                        >Terminer</span
-                    >
-                    <span *ngIf="columnIsAvailable('email')" naturalColumnsPickerColumn="email">Email</span>
-                    <span *ngIf="columnIsAvailable('mobilePhone')" naturalColumnsPickerColumn="mobilePhone">Tél.</span>
+                <natural-columns-picker
+                    [availableColumns]="availableColumns"
+                    [selections]="selectedColumns"
+                    (selectionChange)="selectColumns($event)"
+                >
                 </natural-columns-picker>
             </natural-search>
         </div>

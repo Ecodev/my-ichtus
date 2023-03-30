@@ -19,6 +19,10 @@ import {ImageService} from '../services/image.service';
 import {accountHierarchicConfiguration} from '../../../shared/hierarchic-selector/AccountHierarchicConfiguration';
 import {Observable, of, takeUntil} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
+import {
+    availableColumnsForBookingsWithOwnerOnlyTrainers,
+    availableColumnsForBookingsWithOwnerWithoutTrainers,
+} from '../../bookings/bookings/abstract-bookings';
 
 @Component({
     selector: 'app-bookable',
@@ -29,7 +33,9 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
     public accountHierarchicConfig = accountHierarchicConfiguration;
     public bookingsVariables: BookingsVariables = {};
     public viewer!: CurrentUserForProfile_viewer;
-
+    public readonly availableColumnsForBookingsWithOwnerWithoutTrainers =
+        availableColumnsForBookingsWithOwnerWithoutTrainers;
+    public readonly availableColumnsForBookingsWithOwnerOnlyTrainers = availableColumnsForBookingsWithOwnerOnlyTrainers;
     public constructor(
         bookableService: BookableService,
         injector: Injector,

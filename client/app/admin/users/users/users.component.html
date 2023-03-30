@@ -19,21 +19,11 @@
                     [variablesManager]="variablesManager"
                 ></app-copy-contact-data>
 
-                <natural-columns-picker (selectionChange)="selectColumns($event)" [selections]="selectedColumns">
-                    <span naturalColumnsPickerColumn="balance">Solde</span>
-                    <span naturalColumnsPickerColumn="name">Nom</span>
-                    <span naturalColumnsPickerColumn="login">Login</span>
-                    <span naturalColumnsPickerColumn="age">Âge</span>
-                    <span naturalColumnsPickerColumn="role">Rôle</span>
-                    <span naturalColumnsPickerColumn="owner">Chef de famille</span>
-                    <span naturalColumnsPickerColumn="creationDate">Créé le</span>
-                    <span naturalColumnsPickerColumn="updateDate">Modifié le</span>
-                    <span naturalColumnsPickerColumn="resignDate">Date démission</span>
-                    <span naturalColumnsPickerColumn="status">Status</span>
-                    <span naturalColumnsPickerColumn="email">Email</span>
-                    <span naturalColumnsPickerColumn="mobilePhone">Telephone</span>
-                    <span naturalColumnsPickerColumn="flagWelcomeSessionDate">Séance d'accueil</span>
-                    <span naturalColumnsPickerColumn="provision" [checked]="false">Versement</span>
+                <natural-columns-picker
+                    [availableColumns]="availableColumns"
+                    [selections]="selectedColumns"
+                    (selectionChange)="selectColumns($event)"
+                >
                 </natural-columns-picker>
             </natural-search>
         </div>

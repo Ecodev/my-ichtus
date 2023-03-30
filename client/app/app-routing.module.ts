@@ -12,6 +12,7 @@ import {BookingService} from './admin/bookings/services/booking.service';
 import {AuthGuard} from './shared/guards/auth.guard';
 import {DoorGuard} from './shared/guards/door.guard';
 import {NaturalDialogTriggerComponent, NaturalDialogTriggerRoutingData, NaturalSeo} from '@ecodev/natural';
+import {availableColumnsForSafety} from './admin/bookings/bookings/abstract-bookings';
 
 export const routes: Routes = [
     {
@@ -34,15 +35,7 @@ export const routes: Routes = [
             } satisfies NaturalSeo,
             forcedVariables: BookingService.runningSelfApprovedQV,
             selectedColumns: ['bookable', 'destination', 'startDate', 'estimatedEndDate', 'participantCount'],
-            availableColumns: [
-                'bookable',
-                'destination',
-                'startDate',
-                'startComment',
-                'estimatedEndDate',
-                'endComment',
-                'participantCount',
-            ],
+            availableColumnsFilter: availableColumnsForSafety,
         },
     },
     // Auth required routes

@@ -14,16 +14,11 @@
                 (selectionChange)="search($event)"
                 [multipleGroups]="true"
             >
-                <natural-columns-picker (selectionChange)="selectColumns($event)" [selections]="selectedColumns">
-                    <span naturalColumnsPickerColumn="name">Nom</span>
-                    <span naturalColumnsPickerColumn="owner">Membre</span>
-                    <span naturalColumnsPickerColumn="updateDate">Dernière modification</span>
-                    <span naturalColumnsPickerColumn="status">Status</span>
-                    <span naturalColumnsPickerColumn="type">Type</span>
-                    <span naturalColumnsPickerColumn="remarks">Remarques</span>
-                    <span naturalColumnsPickerColumn="amount">Montant</span>
-                    <span naturalColumnsPickerColumn="sector">Secteur concerné</span>
-                    <span naturalColumnsPickerColumn="reviewer">Approbateur</span>
+                <natural-columns-picker
+                    [availableColumns]="availableColumns"
+                    [selections]="selectedColumns"
+                    (selectionChange)="selectColumns($event)"
+                >
                 </natural-columns-picker>
             </natural-search>
         </div>

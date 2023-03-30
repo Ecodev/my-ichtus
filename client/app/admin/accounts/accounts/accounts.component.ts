@@ -1,5 +1,5 @@
 import {Component, Injector, OnInit} from '@angular/core';
-import {NaturalAbstractNavigableList} from '@ecodev/natural';
+import {AvailableColumn, NaturalAbstractNavigableList} from '@ecodev/natural';
 import {CurrentUserForProfile_viewer} from '../../../shared/generated-types';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {AccountService} from '../services/account.service';
@@ -19,7 +19,17 @@ type AccountingDialogResult = Date;
     styleUrls: ['./accounts.component.scss'],
 })
 export class AccountsComponent extends NaturalAbstractNavigableList<AccountService> implements OnInit {
-    public override selectedColumns = ['navigation', 'code', 'name', 'totalBalance'];
+    public override availableColumns: AvailableColumn[] = [
+        {id: 'navigation', label: 'Navigation'},
+        {id: 'code', label: 'Code'},
+        {id: 'name', label: 'Nom'},
+        {id: 'type', label: 'Type', checked: false},
+        {id: 'owner', label: 'Utilisateur', checked: false},
+        {id: 'iban', label: 'IBAN', checked: false},
+        {id: 'totalBalance', label: 'Solde'},
+        {id: 'creationDate', label: 'Créé le', checked: false},
+        {id: 'updateDate', label: 'Modifié le', checked: false},
+    ];
     public viewer!: CurrentUserForProfile_viewer;
     private dialogConfig: MatDialogConfig<AccountingDialogData> = {
         minWidth: '400px',

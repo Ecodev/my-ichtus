@@ -18,26 +18,11 @@ Warning this template is used by two components BookablesComponent and UsageBook
                 (selectionChange)="search($event)"
                 [multipleGroups]="true"
             >
-                <natural-columns-picker (selectionChange)="selectColumns($event)" [selections]="selectedColumns">
-                    <span naturalColumnsPickerColumn="image">Image</span>
-                    <span naturalColumnsPickerColumn="name" *ngIf="route.snapshot.data.isAdmin">Nom</span>
-                    <span naturalColumnsPickerColumn="readOnlyName" *ngIf="!route.snapshot.data.isAdmin">Nom</span>
-                    <span naturalColumnsPickerColumn="code">Code</span>
-                    <span naturalColumnsPickerColumn="description">Description</span>
-                    <span naturalColumnsPickerColumn="price">Prix</span>
-                    <span naturalColumnsPickerColumn="purchasePrice">Prix d'achat</span>
-                    <span naturalColumnsPickerColumn="initialPrice">Prix initial</span>
-                    <span naturalColumnsPickerColumn="periodicPrice">Prix périodique</span>
-                    <span naturalColumnsPickerColumn="updateDate">Dernière modification</span>
-                    <span naturalColumnsPickerColumn="usage" *ngIf="hasUsage">Utilisations</span>
-                    <span naturalColumnsPickerColumn="usageNb" *ngIf="hasUsage">Disponibilité</span>
-                    <span naturalColumnsPickerColumn="verificationDate">Dernière vérification</span>
-                    <span naturalColumnsPickerColumn="select" [checked]="false" [hidden]="true">Sélection</span>
-
-                    <!-- todo : write docs (use column with caution, need routing parameters -->
-                    <span naturalColumnsPickerColumn="createApplication" [checked]="false" [hidden]="true"
-                        >Demander
-                    </span>
+                <natural-columns-picker
+                    [availableColumns]="availableColumns"
+                    [selections]="selectedColumns"
+                    (selectionChange)="selectColumns($event)"
+                >
                 </natural-columns-picker>
             </natural-search>
         </div>
