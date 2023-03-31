@@ -29,7 +29,7 @@ export class ParentComponent<T extends UsageBookableService | BookableService>
         super(service, injector);
     }
 
-    public override ngOnInit() {
+    public override ngOnInit(): void {
         super.ngOnInit();
 
         this.availableColumns = [
