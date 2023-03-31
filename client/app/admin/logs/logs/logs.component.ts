@@ -11,9 +11,6 @@ import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural
     styleUrls: ['./logs.component.scss'],
 })
 export class LogsComponent extends NaturalAbstractList<LogService> implements OnInit {
-    public viewer!: CurrentUserForProfile_viewer;
-    public UserRole = UserRole;
-
     public constructor(
         route: ActivatedRoute,
         logService: LogService,
@@ -30,6 +27,18 @@ export class LogsComponent extends NaturalAbstractList<LogService> implements On
 
     public override ngOnInit(): void {
         super.ngOnInit();
-        this.viewer = this.route.snapshot.data.viewer.model;
+        const viewer: CurrentUserForProfile_viewer = this.route.snapshot.data.viewer.model;
+
+        this.availableColumns = [
+            {id: 'creationDate', label: 'Date'},
+            {id: 'message', label: 'Message'},
+            {id: 'creator', label: 'Utilisateur'},
+            ...(viewer.role === UserRole.administrator
+                ? [
+                      {id: 'ip', label: 'IP'},
+                      {id: 'referer', label: 'Referer'},
+                  ]
+                : []),
+        ];
     }
 }

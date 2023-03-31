@@ -1,5 +1,5 @@
 import {Component, Injector, Input, OnInit} from '@angular/core';
-import {NaturalAbstractList, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {AvailableColumn, NaturalAbstractList, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {
@@ -18,6 +18,17 @@ import {MatCheckboxChange} from '@angular/material/checkbox';
     styleUrls: ['./transactionLines.component.scss'],
 })
 export class TransactionLinesComponent extends NaturalAbstractList<TransactionLineService> implements OnInit {
+    public override availableColumns: AvailableColumn[] = [
+        {id: 'transactionDate', label: 'Date'},
+        {id: 'name', label: 'Nom'},
+        {id: 'bookable', label: 'Réservable'},
+        {id: 'remarks', label: 'Remarques'},
+        {id: 'balance', label: 'Montant'},
+        {id: 'account', label: 'Compte'},
+        {id: 'isReconciled', label: 'Pointé'},
+        {id: 'documents', label: 'Justificatifs'},
+        {id: 'tag', label: 'Tag'},
+    ];
     @Input() public relativeToAccount: MinimalAccount | null = null;
     @Input() public hideFab = false;
 

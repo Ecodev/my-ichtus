@@ -14,8 +14,7 @@
                 (selectionChange)="search($event)"
                 [multipleGroups]="true"
             >
-                <natural-columns-picker (selectionChange)="selectColumns($event)">
-                    <span naturalColumnsPickerColumn="name">Nom</span>
+                <natural-columns-picker [availableColumns]="availableColumns" (selectionChange)="selectColumns($event)">
                 </natural-columns-picker>
             </natural-search>
         </div>

@@ -1,5 +1,5 @@
 import {Component, Injector, OnInit} from '@angular/core';
-import {NaturalAbstractList} from '@ecodev/natural';
+import {AvailableColumn, NaturalAbstractList} from '@ecodev/natural';
 import {TransactionTagService} from '../services/transactionTag.service';
 import {TransactionLineService} from '../../transactions/services/transactionLine.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -10,6 +10,11 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
     styleUrls: ['./transactionTags.component.scss'],
 })
 export class TransactionTagsComponent extends NaturalAbstractList<TransactionTagService> implements OnInit {
+    public override availableColumns: AvailableColumn[] = [
+        {id: 'color', label: 'Couleur'},
+        {id: 'name', label: 'Nom'},
+        {id: 'transactions', label: 'Transactions'},
+    ];
     public constructor(
         transactionTagService: TransactionTagService,
         injector: Injector,

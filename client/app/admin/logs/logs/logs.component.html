@@ -14,14 +14,11 @@
                 [selections]="naturalSearchSelections"
                 fxFlex
             >
-                <natural-columns-picker (selectionChange)="selectColumns($event)" [selections]="selectedColumns">
-                    <span naturalColumnsPickerColumn="creationDate">Date</span>
-                    <span naturalColumnsPickerColumn="message">Message</span>
-                    <span naturalColumnsPickerColumn="creator">Utilisateur</span>
-                    <span naturalColumnsPickerColumn="ip" *ngIf="viewer.role === UserRole.administrator">IP</span>
-                    <span naturalColumnsPickerColumn="referer" *ngIf="viewer.role === UserRole.administrator"
-                        >Referer</span
-                    >
+                <natural-columns-picker
+                    [availableColumns]="availableColumns"
+                    [selections]="selectedColumns"
+                    (selectionChange)="selectColumns($event)"
+                >
                 </natural-columns-picker>
             </natural-search>
         </div>

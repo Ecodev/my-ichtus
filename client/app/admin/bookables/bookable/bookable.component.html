@@ -283,16 +283,7 @@
                     [persistSearch]="false"
                     [forcedVariables]="bookingsVariables"
                     [selectedColumns]="['edit', 'owner', 'startDate', 'endDate']"
-                    [availableColumns]="[
-                        'edit',
-                        'owner',
-                        'ownerBalance',
-                        'ownerCreationDate',
-                        'startDate',
-                        'endDate',
-                        'email',
-                        'mobilePhone'
-                    ]"
+                    [availableColumns]="availableColumnsForBookingsWithOwnerWithoutTrainers"
                 ></app-bookings-with-owner>
 
                 <!-- Trainers only -->
@@ -302,14 +293,7 @@
                     [forcedVariables]="bookingsVariables"
                     [showFabButton]="false"
                     [selectedColumns]="['ownerReadonly', 'email', 'mobilePhone', 'endDate']"
-                    [availableColumns]="[
-                        'ownerReadonly',
-                        'email',
-                        'mobilePhone',
-                        'ownerCreationDate',
-                        'startDate',
-                        'endDate'
-                    ]"
+                    [availableColumns]="availableColumnsForBookingsWithOwnerOnlyTrainers"
                 ></app-bookings-with-owner>
             </div>
         </mat-tab>

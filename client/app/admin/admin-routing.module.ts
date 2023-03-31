@@ -55,6 +55,16 @@ import {merge} from 'lodash-es';
 import {UsageBookablesComponent} from './bookables/bookables/usage-bookables.component';
 import {BookingsWithOwnerComponent} from './bookings/bookings/bookings-with-owner.component';
 import {NaturalSeo} from '@ecodev/natural';
+import {
+    availableColumnsForBookingsBooking,
+    availableColumnsForBookingsLive,
+    availableColumnsForBookingsSelfApproved,
+    availableColumnsForBookingsServicesApplication,
+    availableColumnsForBookingsStorageApplication,
+    availableColumnsForBookingsWithOwnerFormationApplication,
+    availableColumnsForBookingsWithOwnerNftApplication,
+    availableColumnsForBookingsWithOwnerWelcomeApplication,
+} from './bookings/bookings/abstract-bookings';
 
 const routes: Routes = [
     {
@@ -86,17 +96,7 @@ const routes: Routes = [
                         'participantCount',
                         'terminateBooking',
                     ],
-                    availableColumns: [
-                        'edit',
-                        'owner',
-                        'bookable',
-                        'destination',
-                        'startDate',
-                        'startComment',
-                        'estimatedEndDate',
-                        'participantCount',
-                        'terminateBooking',
-                    ],
+                    availableColumns: availableColumnsForBookingsLive,
                 },
             },
             {
@@ -107,19 +107,7 @@ const routes: Routes = [
                         title: 'Réservations',
                     } satisfies NaturalSeo,
                     selectedColumns: ['edit', 'owner', 'bookable', 'startDate', 'endDate', 'endComment'],
-                    availableColumns: [
-                        'edit',
-                        'owner',
-                        'status',
-                        'bookable',
-                        'startDate',
-                        'startComment',
-                        'endDate',
-                        'estimatedEndDate',
-                        'participantCount',
-                        'endComment',
-                        'terminateBooking',
-                    ],
+                    availableColumns: availableColumnsForBookingsBooking,
                     advancedFacets: true,
                 },
             },
@@ -144,18 +132,7 @@ const routes: Routes = [
                                 'participantCount',
                                 'endComment',
                             ],
-                            availableColumns: [
-                                'edit',
-                                'owner',
-                                'bookable',
-                                'destination',
-                                'startDate',
-                                'startComment',
-                                'endDate',
-                                'estimatedEndDate',
-                                'participantCount',
-                                'endComment',
-                            ],
+                            availableColumns: availableColumnsForBookingsSelfApproved,
                         },
                     },
                     {
@@ -167,7 +144,7 @@ const routes: Routes = [
                             } satisfies NaturalSeo,
                             forcedVariables: BookingService.applicationByTag(BookableTagService.STORAGE_REQUEST),
                             selectedColumns: ['edit', 'owner', 'bookable', 'startDate'],
-                            availableColumns: ['edit', 'owner', 'bookable', 'startDate', 'endDate', 'endComment'],
+                            availableColumns: availableColumnsForBookingsStorageApplication,
                         },
                     },
                     {
@@ -178,22 +155,7 @@ const routes: Routes = [
                                 title: 'Demandes de cours',
                             } satisfies NaturalSeo,
                             forcedVariables: BookingService.applicationByTag(BookableTagService.FORMATION),
-                            selectedColumns: [
-                                'edit',
-                                'owner',
-                                'ownerBalance',
-                                'ownerCreationDate',
-                                'bookable',
-                                'startDate',
-                            ],
-                            availableColumns: [
-                                'edit',
-                                'owner',
-                                'ownerBalance',
-                                'ownerCreationDate',
-                                'bookable',
-                                'startDate',
-                            ],
+                            availableColumns: availableColumnsForBookingsWithOwnerFormationApplication,
                         },
                     },
                     {
@@ -204,22 +166,7 @@ const routes: Routes = [
                                 title: 'Demandes NFT',
                             } as NaturalSeo,
                             forcedVariables: BookingService.applicationByTag(BookableTagService.NTF),
-                            selectedColumns: [
-                                'edit',
-                                'owner',
-                                'ownerBalance',
-                                'ownerCreationDate',
-                                'bookable',
-                                'startDate',
-                            ],
-                            availableColumns: [
-                                'edit',
-                                'owner',
-                                'ownerBalance',
-                                'ownerCreationDate',
-                                'bookable',
-                                'startDate',
-                            ],
+                            availableColumns: availableColumnsForBookingsWithOwnerNftApplication,
                         },
                     },
                     {
@@ -230,8 +177,7 @@ const routes: Routes = [
                                 title: "Demandes de séances d'accueil",
                             } satisfies NaturalSeo,
                             forcedVariables: BookingService.applicationByTag(BookableTagService.WELCOME),
-                            selectedColumns: ['edit', 'owner', 'ownerBalance', 'ownerCreationDate', 'startDate'],
-                            availableColumns: ['edit', 'owner', 'ownerBalance', 'ownerCreationDate', 'startDate'],
+                            availableColumns: availableColumnsForBookingsWithOwnerWelcomeApplication,
                         },
                     },
                     {
@@ -242,8 +188,7 @@ const routes: Routes = [
                                 title: 'Demandes de services en attente',
                             } satisfies NaturalSeo,
                             forcedVariables: BookingService.servicesApplication,
-                            selectedColumns: ['edit', 'owner', 'bookable', 'startDate'],
-                            availableColumns: ['edit', 'owner', 'bookable', 'startDate'],
+                            availableColumns: availableColumnsForBookingsServicesApplication,
                         },
                     },
                     {
