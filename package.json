@@ -40,7 +40,7 @@
         "apollo-upload-client": "^17.0.0",
         "big.js": "^6.2.1",
         "crypto-es": "^1.2.7",
-        "graphql": "^15",
+        "graphql": "^16",
         "ibantools": "^4.2.2",
         "jsqr": "^1.4.0",
         "lodash-es": "^4.17.21",
