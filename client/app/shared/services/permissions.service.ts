@@ -186,7 +186,7 @@ export class PermissionsService {
         );
     }
 
-    public canAccessNTF(user: CurrentUserForProfile['viewer']): boolean {
+    public canAccessNFT(user: CurrentUserForProfile['viewer']): boolean {
         if (!user) {
             return false;
         }

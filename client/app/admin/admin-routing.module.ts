@@ -159,13 +159,13 @@ const routes: Routes = [
                         },
                     },
                     {
-                        path: 'ntf-application',
+                        path: 'nft-application',
                         component: BookingsWithOwnerComponent,
                         data: {
                             seo: {
                                 title: 'Demandes NFT',
                             } as NaturalSeo,
-                            forcedVariables: BookingService.applicationByTag(BookableTagService.NTF),
+                            forcedVariables: BookingService.applicationByTag(BookableTagService.NFT),
                             availableColumns: availableColumnsForBookingsWithOwnerNftApplication,
                         },
                     },
@@ -349,14 +349,14 @@ const routes: Routes = [
                         },
                     },
                     {
-                        path: 'ntf',
+                        path: 'nft',
                         component: UsageBookablesComponent,
                         data: {
                             seo: {
-                                title: 'NTF',
+                                title: 'NFT',
                             } as NaturalSeo,
                             selectedColumns: ['name', 'code', 'date', 'initialPrice', 'usageNb', 'verificationDate'],
-                            forcedVariables: merge(BookableService.bookableByTag(BookableTagService.NTF), {
+                            forcedVariables: merge(BookableService.bookableByTag(BookableTagService.NFT), {
                                 sorting: [{field: BookableSortingField.creationDate, order: SortingOrder.DESC}],
                             }),
                         },

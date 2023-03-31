@@ -158,7 +158,7 @@ const routes: Routes = [
                                 component: UsageBookablesComponent,
                                 data: {
                                     forcedVariables: BookableService.bookableByTag(
-                                        BookableTagService.NTF,
+                                        BookableTagService.NFT,
                                         [BookingType.admin_approved, BookingType.application],
                                         true,
                                     ),
