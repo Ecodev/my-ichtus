@@ -35,7 +35,7 @@ export const routes: Routes = [
             } satisfies NaturalSeo,
             forcedVariables: BookingService.runningSelfApprovedQV,
             selectedColumns: ['bookable', 'destination', 'startDate', 'estimatedEndDate', 'participantCount'],
-            availableColumnsFilter: availableColumnsForSafety,
+            availableColumns: availableColumnsForSafety,
         },
     },
     // Auth required routes

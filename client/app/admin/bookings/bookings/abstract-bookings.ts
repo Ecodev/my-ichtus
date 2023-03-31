@@ -49,8 +49,8 @@ export const availableColumnsForSafety = [
     startDate,
     startComment,
     estimatedEndDate,
-    endComment,
     participantCount,
+    endComment,
 ];
 
 export const availableColumnsForBookingsLive = [
@@ -125,11 +125,11 @@ export const availableColumnsForBookingsWithOwnerWithoutTrainers = [
 
 export const availableColumnsForBookingsWithOwnerOnlyTrainers = [
     ownerReadonly,
-    email,
-    mobilePhone,
     ownerCreationDate,
     startDate,
     endDate,
+    email,
+    mobilePhone,
 ];
 
 export const availableColumnsForBookingsWithOwnerWelcomeApplication = [
