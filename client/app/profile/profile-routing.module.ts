@@ -12,8 +12,107 @@ import {ServicesGuard} from '../shared/guards/services.guard';
 import {NaturalSeo} from '@ecodev/natural';
 import {BookingType, ExpenseClaimType} from '../shared/generated-types';
 import {BookableTagService} from '../admin/bookableTags/services/bookableTag.service';
-import {UsageBookablesComponent} from '../admin/bookables/bookables/usage-bookables.component';
+import {
+    createApplication,
+    description,
+    price,
+    readOnlyName,
+    UsageBookablesComponent,
+    usageNb,
+} from '../admin/bookables/bookables/usage-bookables.component';
 import {BookableService} from '../admin/bookables/services/bookable.service';
+
+export const servicesTabRoutes = [
+    {
+        path: 'bookables/storage',
+        component: UsageBookablesComponent,
+        data: {
+            forcedVariables: BookableService.bookableByTag(
+                BookableTagService.STORAGE_REQUEST,
+                [BookingType.application],
+                true,
+            ),
+            availableColumns: [readOnlyName, description, price, createApplication],
+            showFullyBooked: false,
+            showPending: true,
+            hideTableFooter: true,
+            actionButtonLabel: 'Demander',
+        },
+    },
+    {
+        path: 'bookables/services',
+        component: UsageBookablesComponent,
+        data: {
+            forcedVariables: BookableService.bookableByTag(BookableTagService.SERVICE, [BookingType.application], true),
+            availableColumns: [readOnlyName, price, createApplication],
+            showFullyBooked: false,
+            showPending: true,
+            hideTableFooter: true,
+            actionButtonLabel: 'Demander',
+        },
+    },
+    {
+        path: 'bookables/survey',
+        component: UsageBookablesComponent,
+        data: {
+            forcedVariables: BookableService.bookableByTag(BookableTagService.SURVEY, [BookingType.application], true),
+            availableColumns: [readOnlyName, createApplication],
+            showFullyBooked: false,
+            showPending: true,
+            hideTableFooter: true,
+            actionButtonLabel: 'Voter',
+            denyDoubleBooking: true,
+        },
+    },
+    {
+        path: 'bookables/formation',
+        component: UsageBookablesComponent,
+        data: {
+            forcedVariables: BookableService.bookableByTag(
+                BookableTagService.FORMATION,
+                [BookingType.admin_approved, BookingType.application],
+                true,
+            ),
+            availableColumns: [readOnlyName, price, description, usageNb, createApplication],
+            showFullyBooked: true,
+            showPending: true,
+            hideTableFooter: true,
+            actionButtonLabel: "Demande d'inscription",
+        },
+    },
+    {
+        path: 'bookables/welcome',
+        component: UsageBookablesComponent,
+        data: {
+            forcedVariables: BookableService.bookableByTag(
+                BookableTagService.WELCOME,
+                [BookingType.admin_approved, BookingType.application],
+                true,
+            ),
+            availableColumns: [readOnlyName, usageNb, createApplication],
+            showFullyBooked: true,
+            showPending: true,
+            hideTableFooter: true,
+            actionButtonLabel: "Demande d'inscription",
+        },
+    },
+    {
+        path: 'bookables/nft',
+        component: UsageBookablesComponent,
+        data: {
+            forcedVariables: BookableService.bookableByTag(
+                BookableTagService.NFT,
+                [BookingType.admin_approved, BookingType.application],
+                true,
+            ),
+            availableColumns: [readOnlyName, description, usageNb, price, createApplication],
+            showFullyBooked: true,
+            showPending: true,
+            hideTableFooter: true,
+            actionButtonLabel: "Demande d'inscription",
+        },
+    },
+];
 
 const routes: Routes = [
     {
@@ -66,115 +165,7 @@ const routes: Routes = [
                                 pathMatch: 'full',
                                 redirectTo: '/profile/services/bookables/storage',
                             },
-                            {
-                                path: 'bookables/storage',
-                                component: UsageBookablesComponent,
-                                data: {
-                                    forcedVariables: BookableService.bookableByTag(
-                                        BookableTagService.STORAGE_REQUEST,
-                                        [BookingType.application],
-                                        true,
-                                    ),
-                                    selectedColumns: ['readOnlyName', 'description', 'price', 'createApplication'],
-                                    showFullyBooked: false,
-                                    showPending: true,
-                                    hideTableFooter: true,
-                                    actionButtonLabel: 'Demander',
-                                },
-                            },
-                            {
-                                path: 'bookables/services',
-                                component: UsageBookablesComponent,
-                                data: {
-                                    forcedVariables: BookableService.bookableByTag(
-                                        BookableTagService.SERVICE,
-                                        [BookingType.application],
-                                        true,
-                                    ),
-                                    selectedColumns: ['readOnlyName', 'price', 'createApplication'],
-                                    showFullyBooked: false,
-                                    showPending: true,
-                                    hideTableFooter: true,
-                                    actionButtonLabel: 'Demander',
-                                },
-                            },
-                            {
-                                path: 'bookables/survey',
-                                component: UsageBookablesComponent,
-                                data: {
-                                    forcedVariables: BookableService.bookableByTag(
-                                        BookableTagService.SURVEY,
-                                        [BookingType.application],
-                                        true,
-                                    ),
-                                    selectedColumns: ['readOnlyName', 'createApplication'],
-                                    showFullyBooked: false,
-                                    showPending: true,
-                                    hideTableFooter: true,
-                                    actionButtonLabel: 'Voter',
-                                    denyDoubleBooking: true,
-                                },
-                            },
-                            {
-                                path: 'bookables/formation',
-                                component: UsageBookablesComponent,
-                                data: {
-                                    forcedVariables: BookableService.bookableByTag(
-                                        BookableTagService.FORMATION,
-                                        [BookingType.admin_approved, BookingType.application],
-                                        true,
-                                    ),
-                                    selectedColumns: [
-                                        'readOnlyName',
-                                        'price',
-                                        'description',
-                                        'usageNb',
-                                        'createApplication',
-                                    ],
-                                    showFullyBooked: true,
-                                    showPending: true,
-                                    hideTableFooter: true,
-                                    actionButtonLabel: "Demande d'inscription",
-                                },
-                            },
-                            {
-                                path: 'bookables/welcome',
-                                component: UsageBookablesComponent,
-                                data: {
-                                    forcedVariables: BookableService.bookableByTag(
-                                        BookableTagService.WELCOME,
-                                        [BookingType.admin_approved, BookingType.application],
-                                        true,
-                                    ),
-                                    selectedColumns: ['readOnlyName', 'usageNb', 'createApplication'],
-                                    showFullyBooked: true,
-                                    showPending: true,
-                                    hideTableFooter: true,
-                                    actionButtonLabel: "Demande d'inscription",
-                                },
-                            },
-                            {
-                                path: 'bookables/nft',
-                                component: UsageBookablesComponent,
-                                data: {
-                                    forcedVariables: BookableService.bookableByTag(
-                                        BookableTagService.NFT,
-                                        [BookingType.admin_approved, BookingType.application],
-                                        true,
-                                    ),
-                                    selectedColumns: [
-                                        'readOnlyName',
-                                        'description',
-                                        'usageNb',
-                                        'price',
-                                        'createApplication',
-                                    ],
-                                    showFullyBooked: true,
-                                    showPending: true,
-                                    hideTableFooter: true,
-                                    actionButtonLabel: "Demande d'inscription",
-                                },
-                            },
+                            ...servicesTabRoutes,
                         ],
                     },
                 ],

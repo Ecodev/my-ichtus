@@ -184,12 +184,14 @@
         </div>
 
         <nav mat-tab-nav-bar [tabPanel]="tabPanel">
-            <a mat-tab-link [routerLink]="['bookables/storage']" label="">Stockages</a>
-            <a mat-tab-link [routerLink]="['bookables/services']" label="">Services & Prestations</a>
-            <a mat-tab-link [routerLink]="['bookables/survey']" label="">Sondage</a>
-            <a mat-tab-link [routerLink]="['bookables/formation']" label="">Cours</a>
-            <a mat-tab-link [routerLink]="['bookables/welcome']" label="">Séance d'accueil</a>
-            <a mat-tab-link [routerLink]="['bookables/nft']" label="">NFT</a>
+            <a mat-tab-link [routerLink]="['bookables/storage']" [preserveFragment]="true" label="">Stockages</a>
+            <a mat-tab-link [routerLink]="['bookables/services']" [preserveFragment]="true" label=""
+                >Services & Prestations</a
+            >
+            <a mat-tab-link [routerLink]="['bookables/survey']" [preserveFragment]="true" label="">Sondage</a>
+            <a mat-tab-link [routerLink]="['bookables/formation']" [preserveFragment]="true" label="">Cours</a>
+            <a mat-tab-link [routerLink]="['bookables/welcome']" [preserveFragment]="true" label="">Séance d'accueil</a>
+            <a mat-tab-link [routerLink]="['bookables/nft']" [preserveFragment]="true" label="">NFT</a>
         </nav>
         <mat-tab-nav-panel #tabPanel>
             <router-outlet></router-outlet>

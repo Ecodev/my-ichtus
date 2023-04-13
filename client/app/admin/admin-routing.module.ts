@@ -65,6 +65,7 @@ import {
     availableColumnsForBookingsWithOwnerNftApplication,
     availableColumnsForBookingsWithOwnerWelcomeApplication,
 } from './bookings/bookings/abstract-bookings';
+import {servicesTabRoutes} from '../profile/profile-routing.module';
 
 const routes: Routes = [
     {
@@ -503,7 +504,16 @@ const routes: Routes = [
                         },
                         data: {
                             seo: {resolveKey: 'user'} satisfies NaturalSeo,
+                            persistSearchUsageBookable: false,
                         },
+                        children: [
+                            {
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: 'bookables/storage',
+                            },
+                            ...servicesTabRoutes,
+                        ],
                     },
                 ],
             },

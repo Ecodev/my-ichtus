@@ -2,7 +2,7 @@ import {Component, Directive, EventEmitter, Injector, Input, OnInit, Output} fro
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {UsageBookableService} from '../services/usage-bookable.service';
-import {NaturalAbstractList, NaturalSearchSelections} from '@ecodev/natural';
+import {AvailableColumn, NaturalAbstractList, NaturalSearchSelections} from '@ecodev/natural';
 import {
     BookingPartialInput,
     Bookings_bookings_items,
@@ -15,6 +15,27 @@ import {takeUntil} from 'rxjs/operators';
 import {UserService} from '../../users/services/user.service';
 import {BookableService} from '../services/bookable.service';
 import {ExtractTallOne} from '@ecodev/natural/lib/types/types';
+
+export const image: AvailableColumn = {id: 'image', label: 'Image'};
+export const name: AvailableColumn = {id: 'name', label: 'Nom'};
+export const readOnlyName: AvailableColumn = {id: 'readOnlyName', label: 'Nom'};
+export const code: AvailableColumn = {id: 'code', label: 'Code'};
+export const description: AvailableColumn = {id: 'description', label: 'Description'};
+export const price: AvailableColumn = {id: 'price', label: 'Prix'};
+export const purchasePrice: AvailableColumn = {id: 'purchasePrice', label: "Prix d'achat"};
+export const initialPrice: AvailableColumn = {id: 'initialPrice', label: 'Prix initial'};
+export const periodicPrice: AvailableColumn = {id: 'periodicPrice', label: 'Prix périodique'};
+export const updateDate: AvailableColumn = {id: 'updateDate', label: 'Dernière modification'};
+export const usage: AvailableColumn = {id: 'usage', label: 'Utilisations'};
+export const usageNb: AvailableColumn = {id: 'usageNb', label: 'Disponibilité'};
+export const verificationDate: AvailableColumn = {id: 'verificationDate', label: 'Dernière vérification'};
+export const select: AvailableColumn = {id: 'select', label: 'Sélection', checked: false, hidden: true};
+export const createApplication: AvailableColumn = {
+    id: 'createApplication',
+    label: 'Demander',
+    checked: false,
+    hidden: true,
+};
 
 @Directive()
 export class ParentComponent<T extends UsageBookableService | BookableService>
@@ -32,27 +53,23 @@ export class ParentComponent<T extends UsageBookableService | BookableService>
     public override ngOnInit(): void {
         super.ngOnInit();
 
-        this.availableColumns = [
-            {id: 'image', label: 'Image'},
-            ...(this.route.snapshot.data.isAdmin ? [{id: 'name', label: 'Nom'}] : [{id: 'readOnlyName', label: 'Nom'}]),
-            {id: 'code', label: 'Code'},
-            {id: 'description', label: 'Description'},
-            {id: 'price', label: 'Prix'},
-            {id: 'purchasePrice', label: "Prix d'achat"},
-            {id: 'initialPrice', label: 'Prix initial'},
-            {id: 'periodicPrice', label: 'Prix périodique'},
-            {id: 'updateDate', label: 'Dernière modification'},
-            ...(this.hasUsage
-                ? [
-                      {id: 'usage', label: 'Utilisations'},
-                      {id: 'usageNb', label: 'Disponibilité'},
-                  ]
-                : []),
-            {id: 'verificationDate', label: 'Dernière vérification'},
-            {id: 'select', label: 'Sélection', checked: false, hidden: true},
-            // TODO (sam) write docs (use column with caution, need routing parameters
-            {id: 'createApplication', label: 'Demander', checked: false, hidden: true},
-        ];
+        this.availableColumns = this.availableColumns.length
+            ? this.availableColumns
+            : [
+                  image,
+                  ...(this.route.snapshot.data.isAdmin ? [name] : [readOnlyName]),
+                  code,
+                  description,
+                  price,
+                  purchasePrice,
+                  initialPrice,
+                  periodicPrice,
+                  updateDate,
+                  ...(this.hasUsage ? [usage, usageNb] : []),
+                  verificationDate,
+                  select,
+                  createApplication,
+              ];
     }
 
     /**
@@ -119,6 +136,10 @@ export class UsageBookablesComponent extends ParentComponent<UsageBookableServic
 
     public override ngOnInit(): void {
         super.ngOnInit();
+
+        if (this.route.snapshot.data.persistSearchUsageBookable === false) {
+            this.persistSearch = false;
+        }
 
         this.userService
             .getPendingApplications(this.route.snapshot.data.viewer.model)
