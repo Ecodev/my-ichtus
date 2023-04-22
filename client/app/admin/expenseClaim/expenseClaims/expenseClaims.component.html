@@ -1,8 +1,13 @@
 <div *ngIf="dataSource" fxLayout="column">
-    <div fxLayout="column">
-        <div class="mat-headline-5 no-margin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+    <div fxLayout="row">
+        <div class="mat-headline-5 no-margin" fxFlex>
             {{ routeData?.seo.title }}
         </div>
+        <natural-columns-picker
+            [availableColumns]="availableColumns"
+            [selections]="selectedColumns"
+            (selectionChange)="selectColumns($event)"
+        />
     </div>
 
     <div fxLayout="column">
@@ -13,14 +18,7 @@
                 [selections]="naturalSearchSelections"
                 (selectionChange)="search($event)"
                 [multipleGroups]="true"
-            >
-                <natural-columns-picker
-                    [availableColumns]="availableColumns"
-                    [selections]="selectedColumns"
-                    (selectionChange)="selectColumns($event)"
-                >
-                </natural-columns-picker>
-            </natural-search>
+            />
         </div>
 
         <div class="responsive-table">

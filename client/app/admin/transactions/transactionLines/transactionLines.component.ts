@@ -1,5 +1,5 @@
 import {Component, Injector, Input, OnInit} from '@angular/core';
-import {AvailableColumn, NaturalAbstractList, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {AvailableColumn, Button, NaturalAbstractList, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {
@@ -29,6 +29,15 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
         {id: 'documents', label: 'Justificatifs'},
         {id: 'tag', label: 'Tag'},
     ];
+
+    public readonly buttons: Button[] = [
+        {
+            label: `Télécharger la liste au format Excel`,
+            icon: 'file_download',
+            click: (): void => this.download(),
+        },
+    ];
+
     @Input() public relativeToAccount: MinimalAccount | null = null;
     @Input() public hideFab = false;
 

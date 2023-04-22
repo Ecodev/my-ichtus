@@ -1,9 +1,8 @@
 import {Directive, Input} from '@angular/core';
-import {AvailableColumn, NaturalAbstractList} from '@ecodev/natural';
+import {AvailableColumn, Button, NaturalAbstractList} from '@ecodev/natural';
 import {BookingService} from '../services/booking.service';
 import {BookingWithOwnerService} from '../services/booking-with-owner.service';
 import {SafetyBookingService} from '../../../safety/safety-booking.service';
-import {ContactType} from '../../../shared/components/copy-contact-data/copy-contact-data.component';
 
 const edit: AvailableColumn = {id: 'edit', label: 'Editer'} as const;
 const owner: AvailableColumn = {id: 'owner', label: 'Utilisateur'};
@@ -149,7 +148,7 @@ export abstract class AbstractBookings<
     public override availableColumns = allAvailableColumns;
     @Input() public showFabButton = true;
 
-    public contactType: ContactType | null = null;
+    public readonly buttons: Button[] | null = null;
 
     public maybeTerminateBooking(id: string): void {
         if (!(this.service instanceof BookingService)) {

@@ -3,7 +3,9 @@ import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {BookingWithOwnerService} from '../services/booking-with-owner.service';
 import {AbstractBookings} from './abstract-bookings';
-import {ContactType} from '../../../shared/components/copy-contact-data/copy-contact-data.component';
+import {Button} from '@ecodev/natural';
+import {CopyContactDataButtonService} from '../../../shared/components/copy-contact-data/copy-contact-data-button.service';
+import {BookingsWithOwnerContactVariables} from '../../../shared/generated-types';
 
 @Component({
     selector: 'app-bookings-with-owner',
@@ -11,13 +13,17 @@ import {ContactType} from '../../../shared/components/copy-contact-data/copy-con
     styleUrls: ['./bookings.component.scss'],
 })
 export class BookingsWithOwnerComponent extends AbstractBookings<BookingWithOwnerService> {
-    public override contactType: ContactType = 'bookingsWithOwnerContact';
+    public override readonly buttons: Button[] = this.copyContactDataButtonService.getButtons(
+        this.variablesManager,
+        'bookingsWithOwnerContact',
+    );
 
     public constructor(
         bookingWithOwnerService: BookingWithOwnerService,
         injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,
         public readonly permissionsService: PermissionsService,
+        private readonly copyContactDataButtonService: CopyContactDataButtonService<BookingsWithOwnerContactVariables>,
     ) {
         super(bookingWithOwnerService, injector);
         this.naturalSearchFacets = naturalSearchFacetsService.get('bookingsForBookable');

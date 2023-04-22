@@ -1,5 +1,5 @@
 import {Component, Injector, OnInit} from '@angular/core';
-import {AvailableColumn, NaturalAbstractNavigableList} from '@ecodev/natural';
+import {AvailableColumn, Button, NaturalAbstractNavigableList} from '@ecodev/natural';
 import {CurrentUserForProfile_viewer} from '../../../shared/generated-types';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {AccountService} from '../services/account.service';
@@ -9,6 +9,8 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {UserService} from '../../users/services/user.service';
 import {AccountingClosingComponent} from '../accounting-closing/accounting-closing.component';
 import {AccountingReportComponent} from '../accounting-report/accounting-report.component';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 type AccountingDialogData = never;
 type AccountingDialogResult = Date;
@@ -30,6 +32,27 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
         {id: 'creationDate', label: 'Créé le', checked: false},
         {id: 'updateDate', label: 'Modifié le', checked: false},
     ];
+
+    public readonly buttons: Observable<Button[]> = this.route.data.pipe(
+        map(routeData => {
+            const viewer: CurrentUserForProfile_viewer = routeData.viewer.model;
+
+            return [
+                {
+                    label: `Exporter rapport comptable`,
+                    icon: 'file_download',
+                    click: (): void => this.showExport(),
+                },
+                {
+                    label: `Bouclement comptable`,
+                    icon: 'account_balance',
+                    show: this.userService.canCloseAccounting(viewer),
+                    click: (): void => this.showClosing(),
+                },
+            ];
+        }),
+    );
+
     public viewer!: CurrentUserForProfile_viewer;
     private dialogConfig: MatDialogConfig<AccountingDialogData> = {
         minWidth: '400px',
@@ -47,12 +70,6 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
     ) {
         super(accountService, injector);
         this.naturalSearchFacets = naturalSearchFacetsService.get('accounts');
-    }
-
-    public override ngOnInit(): void {
-        super.ngOnInit();
-
-        this.viewer = this.route.snapshot.data.viewer.model;
     }
 
     public addLink(): any[] {

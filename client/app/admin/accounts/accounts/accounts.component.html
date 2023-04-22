@@ -1,20 +1,22 @@
 <div *ngIf="dataSource" fxLayout="column">
     <div fxLayout="column">
-        <div fxLayout="row wrap" fxLayoutAlign="start center">
-            <div
-                [routerLink]="getChildLink(null)"
-                fxLayout="row"
-                fxLayoutAlign="start center"
-                fxLayoutGap="5px"
-                class="mat-headline-5 no-margin-v margin-right"
-            >
-                <mat-icon naturalIcon="taxonomy"></mat-icon>
-                <span>{{ routeData?.seo.title }}</span>
+        <div fxLayout="row">
+            <div fxLayout="row wrap" fxLayoutAlign="start center">
+                <div [routerLink]="getChildLink(null)" class="mat-headline-5 no-margin-v margin-right">
+                    {{ routeData?.seo.title }}
+                </div>
+                <div *ngFor="let element of breadcrumbs">
+                    /
+                    <a mat-button color="primary" [routerLink]="getChildLink(element)">{{ element.name }}</a>
+                </div>
             </div>
-            <div *ngFor="let element of breadcrumbs">
-                /
-                <a mat-button color="primary" [routerLink]="getChildLink(element)">{{ element.name }}</a>
-            </div>
+
+            <natural-columns-picker
+                [availableColumns]="availableColumns"
+                [selections]="selectedColumns"
+                (selectionChange)="selectColumns($event)"
+                [buttons]="buttons | async"
+            />
         </div>
 
         <div fxLayout="column">
@@ -25,26 +27,7 @@
                     [selections]="naturalSearchSelections"
                     (selectionChange)="search($event)"
                     [multipleGroups]="true"
-                >
-                    <natural-columns-picker
-                        [availableColumns]="availableColumns"
-                        [selections]="selectedColumns"
-                        (selectionChange)="selectColumns($event)"
-                    >
-                    </natural-columns-picker>
-
-                    <button mat-icon-button (click)="showExport()" matTooltip="Exporter rapport comptable">
-                        <mat-icon naturalIcon="file_download"></mat-icon>
-                    </button>
-                    <button
-                        mat-icon-button
-                        *ngIf="userService.canCloseAccounting(viewer)"
-                        (click)="showClosing()"
-                        matTooltip="Bouclement comptable"
-                    >
-                        <mat-icon naturalIcon="account_balance"></mat-icon>
-                    </button>
-                </natural-search>
+                />
             </div>
 
             <div class="responsive-table">

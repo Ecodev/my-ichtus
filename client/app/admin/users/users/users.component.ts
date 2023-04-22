@@ -1,7 +1,12 @@
 import {Apollo} from 'apollo-angular';
 import {Component, Injector, OnInit} from '@angular/core';
-import {AvailableColumn, NaturalAbstractList, NaturalSearchSelections} from '@ecodev/natural';
-import {BankingInfosVariables, Users_users_items, UserStatus} from '../../../shared/generated-types';
+import {AvailableColumn, Button, NaturalAbstractList, NaturalSearchSelections} from '@ecodev/natural';
+import {
+    BankingInfosVariables,
+    EmailAndPhoneUsersVariables,
+    Users_users_items,
+    UserStatus,
+} from '../../../shared/generated-types';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {UserService} from '../services/user.service';
@@ -9,6 +14,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ProvisionComponent} from '../../../profile/components/provision/provision.component';
 import {ActivatedRoute} from '@angular/router';
 import {finalize} from 'rxjs/operators';
+import {CopyContactDataButtonService} from '../../../shared/components/copy-contact-data/copy-contact-data-button.service';
 
 @Component({
     selector: 'app-users',
@@ -33,6 +39,11 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
         {id: 'provision', label: 'Versement', checked: false},
     ];
 
+    public readonly buttons: Button[] = this.copyContactDataButtonService.getButtons(
+        this.variablesManager,
+        'emailAndPhoneUsers',
+    );
+
     public readonly activating = new Map<Users_users_items, true>();
     public readonly welcoming = new Map<Users_users_items, true>();
 
@@ -44,6 +55,7 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
         public readonly permissionsService: PermissionsService,
         private readonly apollo: Apollo,
         private readonly dialog: MatDialog,
+        private readonly copyContactDataButtonService: CopyContactDataButtonService<EmailAndPhoneUsersVariables>,
     ) {
         super(userService, injector);
         this.naturalSearchFacets = naturalSearchFacetsService.get('users');
