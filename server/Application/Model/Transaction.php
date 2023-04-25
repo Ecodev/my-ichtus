@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Application\Model;
 
 use Application\DBAL\Types\ExpenseClaimStatusType;
+use Application\Repository\TransactionRepository;
 use Application\Traits\HasAutomaticUnsignedBalance;
 use Application\Traits\HasRemarks;
 use Cake\Chronos\Chronos;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Format;
 use Ecodev\Felix\Model\Traits\HasInternalRemarks;
 use Ecodev\Felix\Model\Traits\HasName;
@@ -18,10 +20,9 @@ use Money\Money;
 
 /**
  * An accounting journal entry (simple or compound).
- *
- * @ORM\Entity(repositoryClass="Application\Repository\TransactionRepository")
- * @ORM\HasLifecycleCallbacks
  */
+#[ORM\Entity(TransactionRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Transaction extends AbstractModel
 {
     use HasAutomaticUnsignedBalance;
@@ -29,36 +30,26 @@ class Transaction extends AbstractModel
     use HasName;
     use HasRemarks;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private Chronos $transactionDate;
 
     /**
      * @var Collection<TransactionLine>
-     *
-     * @ORM\OneToMany(targetEntity="TransactionLine", mappedBy="transaction")
      */
+    #[ORM\OneToMany(targetEntity: TransactionLine::class, mappedBy: 'transaction')]
     private Collection $transactionLines;
 
     /**
      * @var Collection<AccountingDocument>
-     *
-     * @ORM\OneToMany(targetEntity="AccountingDocument", mappedBy="transaction")
      */
+    #[ORM\OneToMany(targetEntity: AccountingDocument::class, mappedBy: 'transaction')]
     private Collection $accountingDocuments;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="ExpenseClaim", inversedBy="transactions")
-     * @ORM\JoinColumns({
-     *     @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
-     * })
-     */
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    #[ORM\ManyToOne(targetEntity: ExpenseClaim::class, inversedBy: 'transactions')]
     private ?ExpenseClaim $expenseClaim = null;
 
-    /**
-     * @ORM\Column(type="string", length=18, options={"default" = ""})
-     */
+    #[ORM\Column(type: 'string', length: 18, options: ['default' => ''])]
     private string $datatransRef = '';
 
     /**
@@ -179,10 +170,9 @@ class Transaction extends AbstractModel
 
     /**
      * Automatically called by Doctrine whenever a transaction is created or updated.
-     *
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
      */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function checkBalance(): void
     {
         $totalDebit = Money::CHF(0);
@@ -197,7 +187,7 @@ class Transaction extends AbstractModel
         }
 
         if (!$totalDebit->equals($totalCredit)) {
-            throw new \Ecodev\Felix\Api\Exception(sprintf('Transaction %s non-équilibrée, débits: %s, crédits: %s', $this->getId() ?? 'NEW', Format::money($totalDebit), Format::money($totalCredit)));
+            throw new Exception(sprintf('Transaction %s non-équilibrée, débits: %s, crédits: %s', $this->getId() ?? 'NEW', Format::money($totalDebit), Format::money($totalCredit)));
         }
     }
 }

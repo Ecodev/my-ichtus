@@ -4,18 +4,15 @@ declare(strict_types=1);
 
 namespace Application\Model;
 
+use Application\Repository\AccountingDocumentRepository;
 use Doctrine\ORM\Mapping as ORM;
-use GraphQL\Doctrine\Annotation as API;
 
 /**
  * A document attesting an expense claim.
- *
- * @ORM\HasLifecycleCallbacks
- * @ORM\Entity(repositoryClass="Application\Repository\AccountingDocumentRepository")
- * @ORM\Table(uniqueConstraints={
- *     @ORM\UniqueConstraint(name="unique_name", columns={"filename"})
- * })
  */
+#[ORM\UniqueConstraint(name: 'unique_name', columns: ['filename'])]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\Entity(AccountingDocumentRepository::class)]
 class AccountingDocument extends AbstractModel implements \Ecodev\Felix\Model\File
 {
     use \Ecodev\Felix\Model\Traits\File;
@@ -25,20 +22,12 @@ class AccountingDocument extends AbstractModel implements \Ecodev\Felix\Model\Fi
         return 'data/accounting/';
     }
 
-    /**
-     * @ORM\ManyToOne(targetEntity="ExpenseClaim", inversedBy="accountingDocuments")
-     * @ORM\JoinColumns({
-     *     @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
-     * })
-     */
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    #[ORM\ManyToOne(targetEntity: ExpenseClaim::class, inversedBy: 'accountingDocuments')]
     private ?ExpenseClaim $expenseClaim = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Transaction", inversedBy="accountingDocuments")
-     * @ORM\JoinColumns({
-     *     @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
-     * })
-     */
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    #[ORM\ManyToOne(targetEntity: Transaction::class, inversedBy: 'accountingDocuments')]
     private ?Transaction $transaction = null;
 
     public function setExpenseClaim(?ExpenseClaim $expenseClaim): void

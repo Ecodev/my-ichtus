@@ -4,84 +4,57 @@ declare(strict_types=1);
 
 namespace Application\Model;
 
+use Application\Api\Input\Operator\CreditOrDebitAccountOperatorType;
+use Application\Api\Input\Operator\TransactionExportOperatorType;
+use Application\Api\Input\Operator\TransactionWithDocumentOperatorType;
+use Application\Repository\TransactionLineRepository;
 use Application\Traits\HasRemarks;
 use Cake\Chronos\Chronos;
 use Doctrine\ORM\Mapping as ORM;
 use Ecodev\Felix\Model\Traits\HasName;
-use GraphQL\Doctrine\Annotation as API;
+use GraphQL\Doctrine\Attribute as API;
 use Money\Money;
 
 /**
  * A single line of accounting transaction.
- *
- * @ORM\Entity(repositoryClass="Application\Repository\TransactionLineRepository")
- * @ORM\Table(uniqueConstraints={
- *     @ORM\UniqueConstraint(name="unique_import", columns={"transaction_date", "imported_id"})
- * })
- * @API\Filters({
- *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\TransactionWithDocumentOperatorType", type="boolean"),
- *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\TransactionExportOperatorType", type="boolean"),
- *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\CreditOrDebitAccountOperatorType", type="id"),
- * })
  */
+#[ORM\UniqueConstraint(name: 'unique_import', columns: ['transaction_date', 'imported_id'])]
+#[API\Filter(field: 'custom', operator: TransactionWithDocumentOperatorType::class, type: 'boolean')]
+#[API\Filter(field: 'custom', operator: TransactionExportOperatorType::class, type: 'boolean')]
+#[API\Filter(field: 'custom', operator: CreditOrDebitAccountOperatorType::class, type: 'id')]
+#[ORM\Entity(TransactionLineRepository::class)]
 class TransactionLine extends AbstractModel
 {
     use HasName;
     use HasRemarks;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Transaction", inversedBy="transactionLines")
-     * @ORM\JoinColumns({
-     *     @ORM\JoinColumn(nullable=false, onDelete="RESTRICT")
-     * })
-     */
+    #[ORM\JoinColumn(nullable: false, onDelete: 'RESTRICT')]
+    #[ORM\ManyToOne(targetEntity: Transaction::class, inversedBy: 'transactionLines')]
     private ?Transaction $transaction = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Account", inversedBy="debitTransactionLines")
-     * @ORM\JoinColumns({
-     *     @ORM\JoinColumn(nullable=true, onDelete="RESTRICT")
-     * })
-     */
+    #[ORM\JoinColumn(nullable: true, onDelete: 'RESTRICT')]
+    #[ORM\ManyToOne(targetEntity: Account::class, inversedBy: 'debitTransactionLines')]
     private ?Account $debit = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Account", inversedBy="creditTransactionLines")
-     * @ORM\JoinColumns({
-     *     @ORM\JoinColumn(nullable=true, onDelete="RESTRICT")
-     * })
-     */
+    #[ORM\JoinColumn(nullable: true, onDelete: 'RESTRICT')]
+    #[ORM\ManyToOne(targetEntity: Account::class, inversedBy: 'creditTransactionLines')]
     private ?Account $credit = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Bookable")
-     * @ORM\JoinColumns({
-     *     @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
-     * })
-     */
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    #[ORM\ManyToOne(targetEntity: Bookable::class)]
     private ?Bookable $bookable = null;
 
-    /**
-     * @ORM\Column(type="Money", options={"unsigned" = true})
-     */
+    #[ORM\Column(type: 'Money', options: ['unsigned' => true])]
     private Money $balance;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private Chronos $transactionDate;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="TransactionTag")
-     * @ORM\JoinColumns({
-     *     @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
-     * })
-     */
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    #[ORM\ManyToOne(targetEntity: TransactionTag::class)]
     private ?TransactionTag $transactionTag = null;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default" = 0})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $isReconciled = false;
 
     /**
@@ -89,16 +62,14 @@ class TransactionLine extends AbstractModel
      * element that should hopefully be a universally unique transaction identifier.
      *
      * An absence of value means the line was not imported.
-     *
-     * @ORM\Column(type="string", length=36, nullable=true)
      */
+    #[ORM\Column(type: 'string', length: 36, nullable: true)]
     private ?string $importedId = null;
 
     /**
      * Set importedId.
-     *
-     * @API\Exclude
      */
+    #[API\Exclude]
     public function setImportedId(string $importedId): void
     {
         $this->importedId = $importedId;
@@ -112,9 +83,7 @@ class TransactionLine extends AbstractModel
         return $this->importedId;
     }
 
-    /**
-     * @API\Exclude
-     */
+    #[API\Exclude]
     public function setTransaction(Transaction $transaction): void
     {
         if ($this->transaction) {

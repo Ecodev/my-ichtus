@@ -4,6 +4,27 @@ declare(strict_types=1);
 
 namespace Application\Model;
 
+use Application\Api\Input\Operator\AccountBalance\EqualOperatorType;
+use Application\Api\Input\Operator\AccountBalance\GreaterOperatorType;
+use Application\Api\Input\Operator\AccountBalance\GreaterOrEqualOperatorType;
+use Application\Api\Input\Operator\AccountBalance\LessOperatorType;
+use Application\Api\Input\Operator\AccountBalance\LessOrEqualOperatorType;
+use Application\Api\Input\Operator\BookingCount\BookingCountEqualOperatorType;
+use Application\Api\Input\Operator\BookingCount\BookingCountGreaterOperatorType;
+use Application\Api\Input\Operator\BookingCount\BookingCountGreaterOrEqualOperatorType;
+use Application\Api\Input\Operator\BookingCount\BookingCountLessOperatorType;
+use Application\Api\Input\Operator\BookingCount\BookingCountLessOrEqualOperatorType;
+use Application\Api\Input\Operator\BookingDate\BookingDateEqualOperatorType;
+use Application\Api\Input\Operator\BookingDate\BookingDateGreaterOperatorType;
+use Application\Api\Input\Operator\BookingDate\BookingDateGreaterOrEqualOperatorType;
+use Application\Api\Input\Operator\BookingDate\BookingDateLessOperatorType;
+use Application\Api\Input\Operator\BookingDate\BookingDateLessOrEqualOperatorType;
+use Application\Api\Input\Operator\HasBookingCompletedOperatorType;
+use Application\Api\Input\Operator\HasBookingStatusOperatorType;
+use Application\Api\Input\Operator\HasBookingWithBookableOperatorType;
+use Application\Api\Input\Operator\HasBookingWithTaggedBookableOperatorType;
+use Application\Api\Input\Sorting\Age;
+use Application\Api\Input\Sorting\Balance;
 use Application\DBAL\Types\BillingTypeType;
 use Application\DBAL\Types\BookingStatusType;
 use Application\DBAL\Types\RelationshipType;
@@ -23,42 +44,35 @@ use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Model\CurrentUser;
 use Ecodev\Felix\Model\Traits\HasInternalRemarks;
 use Ecodev\Felix\Model\Traits\HasPassword;
-use GraphQL\Doctrine\Annotation as API;
+use GraphQL\Doctrine\Attribute as API;
 
 /**
  * User.
- *
- * @ORM\Entity(repositoryClass="Application\Repository\UserRepository")
- * @ORM\HasLifecycleCallbacks
- * @ORM\AssociationOverrides({
- *     @ORM\AssociationOverride(name="owner", inversedBy="users")
- * })
- * @API\Sorting({
- *     "Application\Api\Input\Sorting\Age",
- *     "Application\Api\Input\Sorting\Balance",
- * })
- * @API\Filters({
- *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\HasBookingWithTaggedBookableOperatorType", type="id"),
- *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\HasBookingWithBookableOperatorType", type="id"),
- *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\HasBookingStatusOperatorType", type="id"),
- *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\HasBookingCompletedOperatorType", type="boolean"),
- *     @API\Filter(field="bookingCount", operator="Application\Api\Input\Operator\BookingCount\BookingCountEqualOperatorType", type="int"),
- *     @API\Filter(field="bookingCount", operator="Application\Api\Input\Operator\BookingCount\BookingCountGreaterOperatorType", type="int"),
- *     @API\Filter(field="bookingCount", operator="Application\Api\Input\Operator\BookingCount\BookingCountGreaterOrEqualOperatorType", type="int"),
- *     @API\Filter(field="bookingCount", operator="Application\Api\Input\Operator\BookingCount\BookingCountLessOperatorType", type="int"),
- *     @API\Filter(field="bookingCount", operator="Application\Api\Input\Operator\BookingCount\BookingCountLessOrEqualOperatorType", type="int"),
- *     @API\Filter(field="balance", operator="Application\Api\Input\Operator\AccountBalance\EqualOperatorType", type="Money"),
- *     @API\Filter(field="balance", operator="Application\Api\Input\Operator\AccountBalance\GreaterOperatorType", type="Money"),
- *     @API\Filter(field="balance", operator="Application\Api\Input\Operator\AccountBalance\GreaterOrEqualOperatorType", type="Money"),
- *     @API\Filter(field="balance", operator="Application\Api\Input\Operator\AccountBalance\LessOperatorType", type="Money"),
- *     @API\Filter(field="balance", operator="Application\Api\Input\Operator\AccountBalance\LessOrEqualOperatorType", type="Money"),
- *     @API\Filter(field="bookingDate", operator="Application\Api\Input\Operator\BookingDate\BookingDateEqualOperatorType", type="Date"),
- *     @API\Filter(field="bookingDate", operator="Application\Api\Input\Operator\BookingDate\BookingDateGreaterOperatorType", type="Date"),
- *     @API\Filter(field="bookingDate", operator="Application\Api\Input\Operator\BookingDate\BookingDateGreaterOrEqualOperatorType", type="Date"),
- *     @API\Filter(field="bookingDate", operator="Application\Api\Input\Operator\BookingDate\BookingDateLessOperatorType", type="Date"),
- *     @API\Filter(field="bookingDate", operator="Application\Api\Input\Operator\BookingDate\BookingDateLessOrEqualOperatorType", type="Date"),
- * })
  */
+#[API\Sorting(Age::class)]
+#[API\Sorting(Balance::class)]
+#[API\Filter(field: 'custom', operator: HasBookingWithTaggedBookableOperatorType::class, type: 'id')]
+#[API\Filter(field: 'custom', operator: HasBookingWithBookableOperatorType::class, type: 'id')]
+#[API\Filter(field: 'custom', operator: HasBookingStatusOperatorType::class, type: 'id')]
+#[API\Filter(field: 'custom', operator: HasBookingCompletedOperatorType::class, type: 'boolean')]
+#[API\Filter(field: 'bookingCount', operator: BookingCountEqualOperatorType::class, type: 'int')]
+#[API\Filter(field: 'bookingCount', operator: BookingCountGreaterOperatorType::class, type: 'int')]
+#[API\Filter(field: 'bookingCount', operator: BookingCountGreaterOrEqualOperatorType::class, type: 'int')]
+#[API\Filter(field: 'bookingCount', operator: BookingCountLessOperatorType::class, type: 'int')]
+#[API\Filter(field: 'bookingCount', operator: BookingCountLessOrEqualOperatorType::class, type: 'int')]
+#[API\Filter(field: 'balance', operator: EqualOperatorType::class, type: 'Money')]
+#[API\Filter(field: 'balance', operator: GreaterOperatorType::class, type: 'Money')]
+#[API\Filter(field: 'balance', operator: GreaterOrEqualOperatorType::class, type: 'Money')]
+#[API\Filter(field: 'balance', operator: LessOperatorType::class, type: 'Money')]
+#[API\Filter(field: 'balance', operator: LessOrEqualOperatorType::class, type: 'Money')]
+#[API\Filter(field: 'bookingDate', operator: BookingDateEqualOperatorType::class, type: 'Date')]
+#[API\Filter(field: 'bookingDate', operator: BookingDateGreaterOperatorType::class, type: 'Date')]
+#[API\Filter(field: 'bookingDate', operator: BookingDateGreaterOrEqualOperatorType::class, type: 'Date')]
+#[API\Filter(field: 'bookingDate', operator: BookingDateLessOperatorType::class, type: 'Date')]
+#[API\Filter(field: 'bookingDate', operator: BookingDateLessOrEqualOperatorType::class, type: 'Date')]
+#[ORM\Entity(UserRepository::class)]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: 'owner', inversedBy: 'users')])]
 class User extends AbstractModel implements \Ecodev\Felix\Model\User
 {
     final public const ROLE_ANONYMOUS = 'anonymous';
@@ -112,144 +126,97 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
         return self::$currentUser;
     }
 
-    /**
-     * @ORM\Column(type="string", length=50, nullable=true, unique=true)
-     */
+    #[ORM\Column(type: 'string', length: 50, nullable: true, unique: true)]
     private ?string $login = null;
 
-    /**
-     * @ORM\Column(type="string", length=191)
-     */
+    #[ORM\Column(type: 'string', length: 191)]
     private string $firstName = '';
 
-    /**
-     * @ORM\Column(type="string", length=191)
-     */
+    #[ORM\Column(type: 'string', length: 191)]
     private string $lastName = '';
 
-    /**
-     * @ORM\Column(type="string", length=191, nullable=true, unique=true)
-     */
+    #[ORM\Column(type: 'string', length: 191, nullable: true, unique: true)]
     private ?string $email = null;
 
-    /**
-     * @ORM\Column(type="UserRole", options={"default" = User::ROLE_INDIVIDUAL})
-     */
+    #[ORM\Column(type: 'UserRole', options: ['default' => self::ROLE_INDIVIDUAL])]
     private string $role = self::ROLE_INDIVIDUAL;
 
-    /**
-     * @ORM\Column(type="UserStatus", options={"default" = User::STATUS_NEW})
-     */
+    #[ORM\Column(type: 'UserStatus', options: ['default' => self::STATUS_NEW])]
     private string $status = self::STATUS_NEW;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?Chronos $welcomeSessionDate = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?Chronos $resignDate = null;
 
     /**
      * @var int sex
-     *
-     * @ORM\Column(type="smallint", options={"default" = 0}))
      */
+    #[ORM\Column(type: 'smallint', options: ['default' => 0])]
     private int $sex = 0;
 
-    /**
-     * @ORM\Column(type="string", length=25, options={"default" = ""})
-     */
+    #[ORM\Column(type: 'string', length: 25, options: ['default' => ''])]
     private string $phone = '';
 
-    /**
-     * @ORM\Column(type="string", length=25, options={"default" = ""})
-     */
+    #[ORM\Column(type: 'string', length: 25, options: ['default' => ''])]
     private string $mobilePhone = '';
 
-    /**
-     * @ORM\Column(type="string", length=25, options={"default" = ""})
-     */
+    #[ORM\Column(type: 'string', length: 25, options: ['default' => ''])]
     private string $swissSailing = '';
 
-    /**
-     * @ORM\Column(type="SwissSailingType", nullable=true)
-     */
+    #[ORM\Column(type: 'SwissSailingType', nullable: true)]
     private ?string $swissSailingType = null;
 
-    /**
-     * @ORM\Column(type="SwissWindsurfType", nullable=true)
-     */
+    #[ORM\Column(type: 'SwissWindsurfType', nullable: true)]
     private ?string $swissWindsurfType = null;
 
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
+    #[ORM\Column(type: 'date', nullable: true)]
     private ?Date $birthday = null;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default" = 0})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $termsAgreement = false;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default" = 0})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $hasInsurance = false;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default" = 0})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $receivesNewsletter = false;
 
-    /**
-     * @ORM\Column(type="Relationship", options={"default" = RelationshipType::HOUSEHOLDER})
-     */
+    #[ORM\Column(type: 'Relationship', options: ['default' => RelationshipType::HOUSEHOLDER])]
     private string $familyRelationship = RelationshipType::HOUSEHOLDER;
 
-    /**
-     * @ORM\Column(type="BillingType", options={"default" = BillingTypeType::ELECTRONIC})
-     */
+    #[ORM\Column(type: 'BillingType', options: ['default' => BillingTypeType::ELECTRONIC])]
     private string $billingType = BillingTypeType::ELECTRONIC;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?Chronos $firstLogin = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?Chronos $lastLogin = null;
 
     /**
      * @var Collection<Booking>
-     *
-     * @ORM\OneToMany(targetEntity="Booking", mappedBy="owner")
      */
+    #[ORM\OneToMany(targetEntity: Booking::class, mappedBy: 'owner')]
     private Collection $bookings;
 
     /**
      * @var Collection<License>
-     *
-     * @ORM\ManyToMany(targetEntity="License", mappedBy="users")
      */
+    #[ORM\ManyToMany(targetEntity: License::class, mappedBy: 'users')]
     private Collection $licenses;
 
     /**
      * @var Collection<UserTag>
-     *
-     * @ORM\ManyToMany(targetEntity="UserTag", mappedBy="users")
      */
+    #[ORM\ManyToMany(targetEntity: UserTag::class, mappedBy: 'users')]
     private Collection $userTags;
 
     /**
      * @var Collection<Message>
-     *
-     * @ORM\OneToMany(targetEntity="Message", mappedBy="recipient")
      */
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'recipient')]
     private Collection $messages;
 
     /**
@@ -257,16 +224,14 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      * enforced by DB unique constraints.
      *
      * @var Collection<Account>
-     *
-     * @ORM\OneToMany(targetEntity="Account", mappedBy="owner")
      */
+    #[ORM\OneToMany(targetEntity: Account::class, mappedBy: 'owner')]
     private Collection $accounts;
 
     /**
      * @var Collection<User>
-     *
-     * @ORM\OneToMany(targetEntity="User", mappedBy="owner")
      */
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'owner')]
     private Collection $users;
 
     /**
@@ -287,9 +252,8 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Set login (eg: johndoe).
-     *
-     * @API\Input(type="Login")
      */
+    #[API\Input(type: 'Login')]
     public function setLogin(string $login): void
     {
         $this->login = $login;
@@ -297,9 +261,8 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Get login (eg: johndoe).
-     *
-     * @API\Field(type="?Login")
      */
+    #[API\Field(type: '?Login')]
     public function getLogin(): ?string
     {
         return $this->login;
@@ -347,9 +310,8 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Set email.
-     *
-     * @API\Input(type="?Email")
      */
+    #[API\Input(type: '?Email')]
     public function setEmail(?string $email): void
     {
         $this->email = $email;
@@ -357,9 +319,8 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Get email.
-     *
-     * @API\Field(type="?Email")
      */
+    #[API\Field(type: '?Email')]
     public function getEmail(): ?string
     {
         return $this->email;
@@ -367,9 +328,8 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Get the user role.
-     *
-     * @API\Field(type="UserRole")
      */
+    #[API\Field(type: 'UserRole')]
     public function getRole(): string
     {
         return $this->role;
@@ -377,9 +337,8 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Sets the user role.
-     *
-     * @API\Input(type="UserRole")
      */
+    #[API\Input(type: 'UserRole')]
     public function setRole(string $role): void
     {
         if (!Role::canUpdate(self::getCurrent(), $this->role, $role)) {
@@ -419,9 +378,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
         }
     }
 
-    /**
-     * @API\Field(type="Application\Api\Enum\UserStatusType")
-     */
+    #[API\Field(type: 'Application\Api\Enum\UserStatusType')]
     public function getStatus(): string
     {
         return $this->status;
@@ -435,9 +392,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
         return in_array($this->getStatus(), [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_NEW], true);
     }
 
-    /**
-     * @API\Input(type="Application\Api\Enum\UserStatusType")
-     */
+    #[API\Input(type: 'Application\Api\Enum\UserStatusType')]
     public function setStatus(string $newStatus): void
     {
         if ($newStatus === self::STATUS_ARCHIVED && $this->status !== self::STATUS_ARCHIVED) {
@@ -526,9 +481,8 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Get active bookings (confirmed and non-terminated).
-     *
-     * @API\Exclude
      */
+    #[API\Exclude]
     public function getRunningBookings(): Collection
     {
         return $this->bookings->filter(fn (Booking $booking) => $booking->getStatus() === BookingStatusType::BOOKED && $booking->getEndDate() === null);
@@ -650,9 +604,8 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Get the sex.
-     *
-     * @API\Field(type="Sex")
      */
+    #[API\Field(type: 'Sex')]
     public function getSex(): int
     {
         return $this->sex;
@@ -660,9 +613,8 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Set the sex.
-     *
-     * @API\Input(type="Sex")
      */
+    #[API\Input(type: 'Sex')]
     public function setSex(int $sex): void
     {
         $this->sex = $sex;
@@ -683,9 +635,8 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Get the Swiss Sailing licence type.
-     *
-     * @API\Field(type="?SwissSailingType")
      */
+    #[API\Field(type: '?SwissSailingType')]
     public function getSwissSailingType(): ?string
     {
         return $this->swissSailingType;
@@ -693,9 +644,8 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Set the Swiss Sailing licence type.
-     *
-     * @API\Input(type="?SwissSailingType")
      */
+    #[API\Input(type: '?SwissSailingType')]
     public function setSwissSailingType(?string $swissSailingType): void
     {
         $this->swissSailingType = $swissSailingType;
@@ -703,9 +653,8 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Get the Swiss Windsurf licence type.
-     *
-     * @API\Field(type="?SwissWindsurfType")
      */
+    #[API\Field(type: '?SwissWindsurfType')]
     public function getSwissWindsurfType(): ?string
     {
         return $this->swissWindsurfType;
@@ -713,9 +662,8 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
     /**
      * Set the Swiss Windsurf licence type.
-     *
-     * @API\Input(type="?SwissWindsurfType")
      */
+    #[API\Input(type: '?SwissWindsurfType')]
     public function setSwissWindsurfType(?string $swissWindsurfType): void
     {
         $this->swissWindsurfType = $swissWindsurfType;
@@ -749,33 +697,25 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
         $this->lastLogin = $now;
     }
 
-    /**
-     * @API\Field(type="Relationship")
-     */
+    #[API\Field(type: 'Relationship')]
     public function getFamilyRelationship(): string
     {
         return $this->familyRelationship;
     }
 
-    /**
-     * @API\Input(type="Relationship")
-     */
+    #[API\Input(type: 'Relationship')]
     public function setFamilyRelationship(string $familyRelationship): void
     {
         $this->familyRelationship = $familyRelationship;
     }
 
-    /**
-     * @API\Field(type="BillingType")
-     */
+    #[API\Field(type: 'BillingType')]
     public function getBillingType(): string
     {
         return $this->billingType;
     }
 
-    /**
-     * @API\Input(type="BillingType")
-     */
+    #[API\Input(type: 'BillingType')]
     public function setBillingType(string $billingType): void
     {
         $this->billingType = $billingType;
@@ -842,11 +782,9 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      * Check if the user can *really* open a door
      * This also takes into account the user status and role.
      *
-     * @API\Field(args={@API\Argument(name="door", type="?Application\Api\Enum\DoorType")})
-     *
      * @param null|string $door a particular door, or null for any
      */
-    public function getCanOpenDoor(?string $door = null): bool
+    public function getCanOpenDoor(#[API\Argument(type: '?Application\Api\Enum\DoorType')] ?string $door = null): bool
     {
         $allowedStatus = [self::STATUS_ACTIVE];
         $allowedRoles = [

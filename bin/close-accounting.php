@@ -6,7 +6,6 @@
  * DO A DATABASE BACKUP BEFORE USING THIS SCRIPT IN PRODUCTION.
  */
 
-use Application\Model\Transaction;
 use Application\Service\Accounting;
 use Cake\Chronos\Date;
 

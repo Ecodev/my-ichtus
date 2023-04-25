@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Application\Traits;
 
+use Doctrine\ORM\Mapping as ORM;
+
 use Money\Money;
 
 trait HasAutomaticUnsignedBalance
 {
-    /**
-     * @ORM\Column(type="Money", options={"default" = 0, "unsigned" = true})
-     */
+    #[ORM\Column(type: 'Money', options: ['default' => 0, 'unsigned' => true])]
     private Money $balance;
 
     /**

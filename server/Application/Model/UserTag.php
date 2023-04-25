@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Model;
 
+use Application\Repository\UserTagRepository;
 use Application\Traits\HasColor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,12 +13,9 @@ use Ecodev\Felix\Model\Traits\HasName;
 
 /**
  * A tag to be used on a user.
- *
- * @ORM\Entity(repositoryClass="Application\Repository\UserTagRepository")
- * @ORM\Table(uniqueConstraints={
- *     @ORM\UniqueConstraint(name="unique_name", columns={"name"})
- * })
  */
+#[ORM\UniqueConstraint(name: 'unique_name', columns: ['name'])]
+#[ORM\Entity(UserTagRepository::class)]
 class UserTag extends AbstractModel
 {
     use HasColor;
@@ -25,9 +23,8 @@ class UserTag extends AbstractModel
 
     /**
      * @var Collection<User>
-     *
-     * @ORM\ManyToMany(targetEntity="User", inversedBy="userTags")
      */
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'userTags')]
     private Collection $users;
 
     /**

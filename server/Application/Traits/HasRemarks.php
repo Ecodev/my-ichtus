@@ -8,9 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait HasRemarks
 {
-    /**
-     * @ORM\Column(type="text", length=65535)
-     */
+    #[ORM\Column(type: 'text', length: 65535)]
     private string $remarks = '';
 
     /**

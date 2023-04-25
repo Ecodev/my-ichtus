@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace ApplicationTest\Api\Input\Operator;
 
-use Application\DBAL\Types\BookingStatusType;
-use Application\Model\Bookable;
 use Application\Model\User;
 use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
 

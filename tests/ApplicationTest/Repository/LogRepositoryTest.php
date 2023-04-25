@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace ApplicationTest\Repository;
 
 use Application\Model\Log;
-use Application\Model\User;
 use Application\Repository\LogRepository;
 
 class LogRepositoryTest extends AbstractRepositoryTest

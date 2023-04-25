@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace ApplicationTest\Api\Input\Operator;
 
 use Application\Model\User;
-use Application\Repository\UserRepository;
 use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
 
 class BookingCountOperatorTypeTest extends OperatorType

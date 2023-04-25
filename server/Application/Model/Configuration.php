@@ -4,27 +4,23 @@ declare(strict_types=1);
 
 namespace Application\Model;
 
+use Application\Repository\ConfigurationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Ecodev\Felix\Model\Traits\HasDescription;
 
 /**
  * Configuration.
- *
- * @ORM\Entity(repositoryClass="Application\Repository\ConfigurationRepository")
  */
+#[ORM\Entity(ConfigurationRepository::class)]
 class Configuration extends AbstractModel
 {
     use HasDescription;
 
-    /**
-     * @ORM\Column(type="text")
-     */
+    #[ORM\Column(type: 'text')]
     private string $value = '';
 
     public function __construct(
-        /**
-         * @ORM\Column(name="`key`", type="string", length=191, unique=true)
-         */
+        #[ORM\Column(name: '`key`', type: 'string', length: 191, unique: true)]
         private string $key = ''
     ) {
     }

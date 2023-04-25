@@ -4,9 +4,16 @@ declare(strict_types=1);
 
 namespace Application\Model;
 
+use Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountEqualOperatorType;
+use Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountGreaterOperatorType;
+use Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountGreaterOrEqualOperatorType;
+use Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountLessOperatorType;
+use Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountLessOrEqualOperatorType;
+use Application\Api\Input\Operator\BookableUsageOperatorType;
 use Application\DBAL\Types\BookableStateType;
 use Application\DBAL\Types\BookingStatusType;
 use Application\DBAL\Types\BookingTypeType;
+use Application\Repository\BookableRepository;
 use Application\Repository\BookableTagRepository;
 use Application\Traits\HasCode;
 use Application\Traits\HasRemarks;
@@ -16,22 +23,19 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ecodev\Felix\Model\Traits\HasDescription;
 use Ecodev\Felix\Model\Traits\HasName;
-use GraphQL\Doctrine\Annotation as API;
+use GraphQL\Doctrine\Attribute as API;
 use Money\Money;
 
 /**
  * An item that can be booked by a user.
- *
- * @ORM\Entity(repositoryClass="Application\Repository\BookableRepository")
- * @API\Filters({
- *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\BookableUsageOperatorType", type="id"),
- *     @API\Filter(field="bookableBookingCount", operator="Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountEqualOperatorType", type="int"),
- *     @API\Filter(field="bookableBookingCount", operator="Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountGreaterOperatorType", type="int"),
- *     @API\Filter(field="bookableBookingCount", operator="Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountGreaterOrEqualOperatorType", type="int"),
- *     @API\Filter(field="bookableBookingCount", operator="Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountLessOperatorType", type="int"),
- *     @API\Filter(field="bookableBookingCount", operator="Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountLessOrEqualOperatorType", type="int"),
- * })
  */
+#[API\Filter(field: 'custom', operator: BookableUsageOperatorType::class, type: 'id')]
+#[API\Filter(field: 'bookableBookingCount', operator: BookableBookingCountEqualOperatorType::class, type: 'int')]
+#[API\Filter(field: 'bookableBookingCount', operator: BookableBookingCountGreaterOperatorType::class, type: 'int')]
+#[API\Filter(field: 'bookableBookingCount', operator: BookableBookingCountGreaterOrEqualOperatorType::class, type: 'int')]
+#[API\Filter(field: 'bookableBookingCount', operator: BookableBookingCountLessOperatorType::class, type: 'int')]
+#[API\Filter(field: 'bookableBookingCount', operator: BookableBookingCountLessOrEqualOperatorType::class, type: 'int')]
+#[ORM\Entity(BookableRepository::class)]
 class Bookable extends AbstractModel
 {
     use HasCode;
@@ -39,79 +43,54 @@ class Bookable extends AbstractModel
     use HasName;
     use HasRemarks;
 
-    /**
-     * @ORM\Column(type="Money", options={"default" = 0})
-     */
+    #[ORM\Column(type: 'Money', options: ['default' => 0])]
     private Money $initialPrice;
 
-    /**
-     * @ORM\Column(type="Money", options={"default" = 0})
-     */
+    #[ORM\Column(type: 'Money', options: ['default' => 0])]
     private Money $periodicPrice;
 
-    /**
-     * @ORM\Column(type="Money", nullable=true, options={"unsigned" = true})
-     */
+    #[ORM\Column(type: 'Money', nullable: true, options: ['unsigned' => true])]
     private ?Money $purchasePrice = null;
 
-    /**
-     * @ORM\Column(type="smallint", options={"default" = "-1"})
-     */
+    #[ORM\Column(type: 'smallint', options: ['default' => -1])]
     private int $simultaneousBookingMaximum = 1;
 
-    /**
-     * @ORM\Column(type="BookingType", length=10, options={"default" = BookingTypeType::ADMIN_APPROVED})
-     */
+    #[ORM\Column(type: 'BookingType', length: 10, options: ['default' => BookingTypeType::ADMIN_APPROVED])]
     private string $bookingType = BookingTypeType::ADMIN_APPROVED;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default" = 1})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => 1])]
     private bool $isActive = true;
 
-    /**
-     * @ORM\Column(type="BookableState", length=10, options={"default" = BookableStateType::GOOD})
-     */
+    #[ORM\Column(type: 'BookableState', length: 10, options: ['default' => BookableStateType::GOOD])]
     private string $state = BookableStateType::GOOD;
 
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
+    #[ORM\Column(type: 'date', nullable: true)]
     private ?Date $verificationDate = null;
 
     /**
      * @var Collection<BookableTag>
-     *
-     * @ORM\ManyToMany(targetEntity="BookableTag", mappedBy="bookables")
      */
+    #[ORM\ManyToMany(targetEntity: BookableTag::class, mappedBy: 'bookables')]
     private Collection $bookableTags;
 
     /**
      * @var Collection<Booking>
-     *
-     * @ORM\OneToMany(targetEntity="Booking", mappedBy="bookable")
      */
+    #[ORM\OneToMany(targetEntity: Booking::class, mappedBy: 'bookable')]
     private Collection $bookings;
 
     /**
      * @var Collection<License>
-     *
-     * @ORM\ManyToMany(targetEntity="License", mappedBy="bookables")
      */
+    #[ORM\ManyToMany(targetEntity: License::class, mappedBy: 'bookables')]
     private Collection $licenses;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Image", orphanRemoval=true)
-     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
-     */
+    #[ORM\OneToOne(targetEntity: Image::class, orphanRemoval: true)]
+    #[ORM\JoinColumn(name: 'image_id', referencedColumnName: 'id')]
     private ?Image $image = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Account")
-     * @ORM\JoinColumns({
-     *     @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
-     * })
-     */
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    #[ORM\ManyToOne(targetEntity: Account::class)]
     private ?Account $creditAccount = null;
 
     /**
@@ -213,9 +192,7 @@ class Bookable extends AbstractModel
         $this->simultaneousBookingMaximum = $simultaneousBookingMaximum;
     }
 
-    /**
-     * @API\Field(type="BookingType")
-     */
+    #[API\Field(type: 'BookingType')]
     public function getBookingType(): string
     {
         return $this->bookingType;
@@ -237,9 +214,7 @@ class Bookable extends AbstractModel
         $this->isActive = $isActive;
     }
 
-    /**
-     * @API\Input(type="BookingType")
-     */
+    #[API\Input(type: 'BookingType')]
     public function setBookingType(string $state): void
     {
         $this->bookingType = $state;
@@ -247,9 +222,8 @@ class Bookable extends AbstractModel
 
     /**
      * State of the bookable.
-     *
-     * @API\Field(type="BookableState")
      */
+    #[API\Field(type: 'BookableState')]
     public function getState(): string
     {
         return $this->state;
@@ -257,9 +231,8 @@ class Bookable extends AbstractModel
 
     /**
      * State of the bookable.
-     *
-     * @API\Input(type="BookableState")
      */
+    #[API\Input(type: 'BookableState')]
     public function setState(string $state): void
     {
         $this->state = $state;

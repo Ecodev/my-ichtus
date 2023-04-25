@@ -127,8 +127,6 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
 
     /**
      * Sum balance by account type.
-     *
-     * @API\Input(type="AccountType")
      */
     public function totalBalanceByType(string $accountType): Money
     {

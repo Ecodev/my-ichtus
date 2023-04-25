@@ -7,7 +7,6 @@ namespace Application\Api\Input\Operator\BookableBookingCount;
 use Application\Model\Booking;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
-use Ecodev\Felix\ORM\Query\Filter\AclFilter;
 use GraphQL\Doctrine\Definition\Operator\AbstractOperator;
 use GraphQL\Doctrine\Factory\UniqueNameFactory;
 use GraphQL\Type\Definition\LeafType;

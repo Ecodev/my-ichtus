@@ -11,7 +11,6 @@ use Application\Model\Booking;
 use Application\Model\User;
 use Cake\Chronos\Date;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 
 /**

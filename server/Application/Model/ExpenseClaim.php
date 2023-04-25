@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Application\Model;
 
+use Application\Api\Input\Operator\ExpenseClaimToReviewOperatorType;
 use Application\DBAL\Types\ExpenseClaimStatusType;
 use Application\DBAL\Types\ExpenseClaimTypeType;
+use Application\Repository\ExpenseClaimRepository;
 use Application\Traits\HasRemarks;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,23 +15,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Ecodev\Felix\Model\Traits\HasDescription;
 use Ecodev\Felix\Model\Traits\HasInternalRemarks;
 use Ecodev\Felix\Model\Traits\HasName;
-use GraphQL\Doctrine\Annotation as API;
+use GraphQL\Doctrine\Attribute as API;
 use Money\Money;
 
 /**
  * An expense claim to be refunded to a member or invoice to be paid by the company.
- *
- * @ORM\Entity(repositoryClass="Application\Repository\ExpenseClaimRepository")
- * @ORM\AssociationOverrides({
- *     @ORM\AssociationOverride(
- *         name="owner",
- *         joinColumns=@ORM\JoinColumn(nullable=false, onDelete="CASCADE")
- *     )
- * })
- * @API\Filters({
- *     @API\Filter(field="custom", operator="Application\Api\Input\Operator\ExpenseClaimToReviewOperatorType", type="boolean"),
- * })
  */
+#[API\Filter(field: 'custom', operator: ExpenseClaimToReviewOperatorType::class, type: 'boolean')]
+#[ORM\Entity(ExpenseClaimRepository::class)]
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: 'owner', joinColumns: new ORM\JoinColumn(nullable: false, onDelete: 'CASCADE'))])]
 class ExpenseClaim extends AbstractModel
 {
     use HasDescription;
@@ -37,46 +31,32 @@ class ExpenseClaim extends AbstractModel
     use HasName;
     use HasRemarks;
 
-    /**
-     * @ORM\Column(type="Money", options={"unsigned" = true})
-     */
+    #[ORM\Column(type: 'Money', options: ['unsigned' => true])]
     private Money $amount;
 
     /**
      * @var Collection<Transaction>
-     *
-     * @ORM\OneToMany(targetEntity="Transaction", mappedBy="expenseClaim")
      */
+    #[ORM\OneToMany(targetEntity: Transaction::class, mappedBy: 'expenseClaim')]
     private Collection $transactions;
 
     /**
      * @var Collection<AccountingDocument>
-     *
-     * @ORM\OneToMany(targetEntity="AccountingDocument", mappedBy="expenseClaim")
      */
+    #[ORM\OneToMany(targetEntity: AccountingDocument::class, mappedBy: 'expenseClaim')]
     private Collection $accountingDocuments;
 
-    /**
-     * @ORM\Column(type="ExpenseClaimStatus", length=10, options={"default" = ExpenseClaimStatusType::NEW})
-     */
+    #[ORM\Column(type: 'ExpenseClaimStatus', length: 10, options: ['default' => ExpenseClaimStatusType::NEW])]
     private string $status = ExpenseClaimStatusType::NEW;
 
-    /**
-     * @ORM\Column(type="ExpenseClaimType", length=10, options={"default" = ExpenseClaimTypeType::EXPENSE_CLAIM})
-     */
+    #[ORM\Column(type: 'ExpenseClaimType', length: 10, options: ['default' => ExpenseClaimTypeType::EXPENSE_CLAIM])]
     private string $type = ExpenseClaimTypeType::EXPENSE_CLAIM;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *     @ORM\JoinColumn(onDelete="SET NULL")
-     * })
-     */
+    #[ORM\JoinColumn(onDelete: 'SET NULL')]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     private ?User $reviewer = null;
 
-    /**
-     * @ORM\Column(type="string", length=191, options={"default" = ""})
-     */
+    #[ORM\Column(type: 'string', length: 191, options: ['default' => ''])]
     private string $sector = '';
 
     /**
@@ -106,9 +86,8 @@ class ExpenseClaim extends AbstractModel
 
     /**
      * Set status.
-     *
-     * @API\Input(type="ExpenseClaimStatus")
      */
+    #[API\Input(type: 'ExpenseClaimStatus')]
     public function setStatus(string $status): void
     {
         $this->status = $status;
@@ -116,9 +95,8 @@ class ExpenseClaim extends AbstractModel
 
     /**
      * Get status.
-     *
-     * @API\Field(type="ExpenseClaimStatus")
      */
+    #[API\Field(type: 'ExpenseClaimStatus')]
     public function getStatus(): string
     {
         return $this->status;
@@ -126,9 +104,8 @@ class ExpenseClaim extends AbstractModel
 
     /**
      * Set type.
-     *
-     * @API\Input(type="ExpenseClaimType")
      */
+    #[API\Input(type: 'ExpenseClaimType')]
     public function setType(string $type): void
     {
         $this->type = $type;
@@ -136,9 +113,8 @@ class ExpenseClaim extends AbstractModel
 
     /**
      * Get type.
-     *
-     * @API\Field(type="ExpenseClaimType")
      */
+    #[API\Field(type: 'ExpenseClaimType')]
     public function getType(): string
     {
         return $this->type;

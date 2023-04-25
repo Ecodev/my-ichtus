@@ -14,74 +14,52 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Model\Traits\HasName;
-use GraphQL\Doctrine\Annotation as API;
+use GraphQL\Doctrine\Attribute as API;
 use Money\Money;
 
 /**
  * Financial account.
- *
- * @ORM\Entity(repositoryClass="Application\Repository\AccountRepository")
- * @ORM\AssociationOverrides({
- *     @ORM\AssociationOverride(
- *         name="owner",
- *         inversedBy="accounts",
- *         joinColumns=@ORM\JoinColumn(unique=true, onDelete="SET NULL")
- *     )
- * })
  */
+#[ORM\Entity(AccountRepository::class)]
+#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: 'owner', inversedBy: 'accounts', joinColumns: new ORM\JoinColumn(unique: true, onDelete: 'SET NULL'))])]
 class Account extends AbstractModel
 {
     use HasIban;
     use HasName;
 
-    /**
-     * @ORM\Column(type="Money", options={"default" = 0})
-     */
+    #[ORM\Column(type: 'Money', options: ['default' => 0])]
     private Money $balance;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Account", inversedBy="children")
-     * @ORM\JoinColumns({
-     *     @ORM\JoinColumn(onDelete="CASCADE")
-     * })
-     */
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     private ?Account $parent = null;
 
     /**
      * @var Collection<Account>
-     *
-     * @ORM\OneToMany(targetEntity="Account", mappedBy="parent")
-     * @ORM\OrderBy({"code" = "ASC"})
      */
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
+    #[ORM\OrderBy(['code' => 'ASC'])]
     private Collection $children;
 
-    /**
-     * @ORM\Column(type="AccountType", length=10)
-     */
+    #[ORM\Column(type: 'AccountType', length: 10)]
     private string $type;
 
-    /**
-     * @ORM\Column(type="integer", unique=true, options={"unsigned" = true})
-     */
+    #[ORM\Column(type: 'integer', unique: true, options: ['unsigned' => true])]
     private int $code;
 
     /**
      * @var Collection<TransactionLine>
-     *
-     * @ORM\OneToMany(targetEntity="TransactionLine", mappedBy="debit")
      */
+    #[ORM\OneToMany(targetEntity: TransactionLine::class, mappedBy: 'debit')]
     private Collection $debitTransactionLines;
 
     /**
      * @var Collection<TransactionLine>
-     *
-     * @ORM\OneToMany(targetEntity="TransactionLine", mappedBy="credit")
      */
+    #[ORM\OneToMany(targetEntity: TransactionLine::class, mappedBy: 'credit')]
     private Collection $creditTransactionLines;
 
-    /**
-     * @ORM\Column(type="Money", options={"default" = 0})
-     */
+    #[ORM\Column(type: 'Money', options: ['default' => 0])]
     private Money $totalBalance;
 
     /**
@@ -131,9 +109,8 @@ class Account extends AbstractModel
 
     /**
      * Set balance.
-     *
-     * @API\Exclude
      */
+    #[API\Exclude]
     public function setBalance(Money $balance): void
     {
         $this->balance = $balance;
@@ -251,9 +228,8 @@ class Account extends AbstractModel
 
     /**
      * Set type.
-     *
-     * @API\Input(type="AccountType")
      */
+    #[API\Input(type: 'AccountType')]
     public function setType(string $type): void
     {
         $this->type = $type;
@@ -261,9 +237,8 @@ class Account extends AbstractModel
 
     /**
      * Get type.
-     *
-     * @API\Field(type="AccountType")
      */
+    #[API\Field(type: 'AccountType')]
     public function getType(): string
     {
         return $this->type;

@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace ApplicationTest\Service;
 
-use Application\Model\Account;
 use Application\Model\Transaction;
 use Application\Model\TransactionLine;
-use Application\Model\User;
 use Application\Service\Importer;
 use PHPUnit\Framework\TestCase;
 

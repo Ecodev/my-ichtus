@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Model;
 
+use Application\Repository\BookableTagRepository;
 use Application\Traits\HasColor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -14,12 +15,9 @@ use Ecodev\Felix\Model\Traits\HasName;
  * A type of bookable.
  *
  * Typical values would be: "Voilier", "SUP".
- *
- * @ORM\Entity(repositoryClass="Application\Repository\BookableTagRepository")
- * @ORM\Table(uniqueConstraints={
- *     @ORM\UniqueConstraint(name="unique_name", columns={"name"})
- * })
  */
+#[ORM\UniqueConstraint(name: 'unique_name', columns: ['name'])]
+#[ORM\Entity(BookableTagRepository::class)]
 class BookableTag extends AbstractModel
 {
     use HasColor;
@@ -27,9 +25,8 @@ class BookableTag extends AbstractModel
 
     /**
      * @var Collection<Bookable>
-     *
-     * @ORM\ManyToMany(targetEntity="Bookable", inversedBy="bookableTags")
      */
+    #[ORM\ManyToMany(targetEntity: Bookable::class, inversedBy: 'bookableTags')]
     private Collection $bookables;
 
     /**

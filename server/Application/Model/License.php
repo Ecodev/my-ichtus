@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Model;
 
+use Application\Repository\LicenseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,28 +12,23 @@ use Ecodev\Felix\Model\Traits\HasName;
 
 /**
  * A license that is required for a booking and can be owned by a user.
- *
- * @ORM\Entity(repositoryClass="Application\Repository\LicenseRepository")
- * @ORM\Table(uniqueConstraints={
- *     @ORM\UniqueConstraint(name="unique_name", columns={"name"})
- * })
  */
+#[ORM\UniqueConstraint(name: 'unique_name', columns: ['name'])]
+#[ORM\Entity(LicenseRepository::class)]
 class License extends AbstractModel
 {
     use HasName;
 
     /**
      * @var Collection<Bookable>
-     *
-     * @ORM\ManyToMany(targetEntity="Bookable", inversedBy="licenses")
      */
+    #[ORM\ManyToMany(targetEntity: Bookable::class, inversedBy: 'licenses')]
     private Collection $bookables;
 
     /**
      * @var Collection<User>
-     *
-     * @ORM\ManyToMany(targetEntity="User", inversedBy="licenses")
      */
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'licenses')]
     private Collection $users;
 
     /**

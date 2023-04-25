@@ -13,9 +13,7 @@ use Laminas\Validator\Iban;
  */
 trait HasIban
 {
-    /**
-     * @ORM\Column(type="string", length=34, options={"default" = ""})
-     */
+    #[ORM\Column(type: 'string', length: 34, options: ['default' => ''])]
     private string $iban = '';
 
     /**
