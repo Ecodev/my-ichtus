@@ -29,13 +29,8 @@ export const updateDate: AvailableColumn = {id: 'updateDate', label: 'Dernière 
 export const usage: AvailableColumn = {id: 'usage', label: 'Utilisations'};
 export const usageNb: AvailableColumn = {id: 'usageNb', label: 'Disponibilité'};
 export const verificationDate: AvailableColumn = {id: 'verificationDate', label: 'Dernière vérification'};
-export const select: AvailableColumn = {id: 'select', label: 'Sélection', checked: false, hidden: true};
-export const createApplication: AvailableColumn = {
-    id: 'createApplication',
-    label: 'Demander',
-    checked: false,
-    hidden: true,
-};
+export const select: AvailableColumn = {id: 'select', label: 'Sélection', hidden: true};
+export const createApplication: AvailableColumn = {id: 'createApplication', label: 'Demander', hidden: true};
 
 @Directive()
 export class ParentComponent<T extends UsageBookableService | BookableService>
@@ -67,8 +62,6 @@ export class ParentComponent<T extends UsageBookableService | BookableService>
                   updateDate,
                   ...(this.hasUsage ? [usage, usageNb] : []),
                   verificationDate,
-                  select,
-                  createApplication,
               ];
     }
 

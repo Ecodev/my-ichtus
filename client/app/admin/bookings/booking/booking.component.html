@@ -143,7 +143,7 @@
                     <mat-divider class="margin-bottom"></mat-divider>
                     <div class="mat-headline-6">Attribuer un stockage / service</div>
                     <app-usage-bookables
-                        [selectedColumns]="['usageNb', 'name', 'code', 'initialPrice', 'periodicPrice', 'select']"
+                        [availableColumns]="availableColumns"
                         [persistSearch]="false"
                         [forcedVariables]="suggestionVariables"
                         [selections]="suggestionSelection"

@@ -14,7 +14,21 @@ import {
 import {UserService} from '../../users/services/user.service';
 import {BookableService} from '../../bookables/services/bookable.service';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
-import {ExtractVall, formatIsoDateTime, NaturalAbstractDetail, NaturalSearchSelections} from '@ecodev/natural';
+import {
+    AvailableColumn,
+    ExtractVall,
+    formatIsoDateTime,
+    NaturalAbstractDetail,
+    NaturalSearchSelections,
+} from '@ecodev/natural';
+import {
+    code,
+    initialPrice,
+    name,
+    periodicPrice,
+    select,
+    usageNb,
+} from '../../bookables/bookables/usage-bookables.component';
 
 @Component({
     selector: 'app-booking',
@@ -25,7 +39,15 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
     public BookingStatus = BookingStatus;
     public suggestionVariables: BookablesVariables = {};
     public suggestionSelection: NaturalSearchSelections = [[]];
-    public BookingType = BookingType;
+    public readonly BookingType = BookingType;
+    public readonly availableColumns: Readonly<AvailableColumn>[] = [
+        usageNb,
+        name,
+        code,
+        initialPrice,
+        periodicPrice,
+        select,
+    ];
 
     public readonly bookableFilterChips: {name: string; value: BookingType; selected: boolean}[] = [
         {name: 'Stockage et services effectifs', value: BookingType.admin_assigned, selected: false},
