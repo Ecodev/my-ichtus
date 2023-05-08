@@ -21,14 +21,7 @@ import {
     NaturalAbstractDetail,
     NaturalSearchSelections,
 } from '@ecodev/natural';
-import {
-    code,
-    initialPrice,
-    name,
-    periodicPrice,
-    select,
-    usageNb,
-} from '../../bookables/bookables/usage-bookables.component';
+import {code, initialPrice, name, periodicPrice, select, usageNb} from '../../bookables/bookables/parent.component';
 
 @Component({
     selector: 'app-booking',

@@ -12,14 +12,14 @@ import {ServicesGuard} from '../shared/guards/services.guard';
 import {NaturalSeo} from '@ecodev/natural';
 import {BookingType, ExpenseClaimType} from '../shared/generated-types';
 import {BookableTagService} from '../admin/bookableTags/services/bookableTag.service';
+import {UsageBookablesComponent} from '../admin/bookables/bookables/usage-bookables.component';
 import {
     createApplication,
     description,
     price,
     readOnlyName,
-    UsageBookablesComponent,
     usageNb,
-} from '../admin/bookables/bookables/usage-bookables.component';
+} from '../admin/bookables/bookables/parent.component';
 import {BookableService} from '../admin/bookables/services/bookable.service';
 
 const storageRoute: Route = {

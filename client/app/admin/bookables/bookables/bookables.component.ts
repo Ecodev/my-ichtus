@@ -3,7 +3,7 @@ import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural
 import {Bookables_bookables_items} from '../../../shared/generated-types';
 import {BookableService} from '../services/bookable.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
-import {ParentComponent} from './usage-bookables.component';
+import {ParentComponent} from './parent.component';
 import {BookingService} from '../../bookings/services/booking.service';
 
 @Component({
