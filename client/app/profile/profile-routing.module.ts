@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {Route, RouterModule, Routes} from '@angular/router';
 import {ViewerResolver} from '../admin/users/services/viewer.resolver';
 import {ProfileComponent} from './components/profile/profile.component';
 import {FamilyComponent} from './components/family/family.component';
@@ -22,22 +22,30 @@ import {
 } from '../admin/bookables/bookables/usage-bookables.component';
 import {BookableService} from '../admin/bookables/services/bookable.service';
 
-export const servicesTabRoutes = [
+const storageRoute: Route = {
+    component: UsageBookablesComponent,
+    data: {
+        forcedVariables: BookableService.bookableByTag(
+            BookableTagService.STORAGE_REQUEST,
+            [BookingType.application],
+            true,
+        ),
+        availableColumns: [readOnlyName, description, price, createApplication],
+        showFullyBooked: false,
+        showPending: true,
+        hideTableFooter: true,
+        actionButtonLabel: 'Demander',
+    },
+};
+
+export const servicesTabRoutes: Routes = [
     {
-        path: 'bookables/storage',
-        component: UsageBookablesComponent,
-        data: {
-            forcedVariables: BookableService.bookableByTag(
-                BookableTagService.STORAGE_REQUEST,
-                [BookingType.application],
-                true,
-            ),
-            availableColumns: [readOnlyName, description, price, createApplication],
-            showFullyBooked: false,
-            showPending: true,
-            hideTableFooter: true,
-            actionButtonLabel: 'Demander',
-        },
+        ...storageRoute,
+        path: '', // Need this route so that we can show some content on /admin/user/123#services, without the user needing to click on a tab
+    },
+    {
+        ...storageRoute,
+        path: 'bookables/storage', // Need this (duplicated) route to be coherent with URLs of other services tabs
     },
     {
         path: 'bookables/services',
@@ -159,14 +167,7 @@ const routes: Routes = [
                             seo: {title: ''} satisfies NaturalSeo,
                             hideCreateFab: true,
                         },
-                        children: [
-                            {
-                                path: '',
-                                pathMatch: 'full',
-                                redirectTo: '/profile/services/bookables/storage',
-                            },
-                            ...servicesTabRoutes,
-                        ],
+                        children: [...servicesTabRoutes],
                     },
                 ],
             },

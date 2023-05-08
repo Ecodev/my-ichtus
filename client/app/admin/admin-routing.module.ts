@@ -520,14 +520,7 @@ const routes: Routes = [
                             seo: {resolveKey: 'user'} satisfies NaturalSeo,
                             persistSearchUsageBookable: false,
                         },
-                        children: [
-                            {
-                                path: '',
-                                pathMatch: 'full',
-                                redirectTo: 'bookables/storage',
-                            },
-                            ...servicesTabRoutes,
-                        ],
+                        children: [...servicesTabRoutes],
                     },
                 ],
             },
