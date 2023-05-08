@@ -24,7 +24,7 @@
                     <div fxFlex="66" fxLayout="column">
                         <h2 class="mat-headline-6">Coordonnées</h2>
 
-                        <div fxLayout="row" fxLayoutGap="10px">
+                        <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="10px">
                             <mat-form-field fxFlex>
                                 <mat-label>Prénom</mat-label>
                                 <input matInput formControlName="firstName" (change)="update()" />
@@ -53,7 +53,7 @@
 
                         <app-address [form]="form" (addressChange)="update()"></app-address>
 
-                        <div fxLayout="row" fxLayoutGap="10px">
+                        <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="10px">
                             <mat-form-field fxFlex>
                                 <mat-label>Téléphone fixe</mat-label>
                                 <mat-hint>032 xxx xx xx</mat-hint>
@@ -159,7 +159,7 @@
                             placeholder="License swiss windsurfing"
                         ></natural-select-enum>
 
-                        <div fxLayout="row wrap" fxLayoutGap="20px">
+                        <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="20px">
                             <natural-select-enum
                                 fxFlex
                                 enumName="BillingType"
@@ -178,12 +178,8 @@
                                 />
                                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
+                                <mat-hint *ngIf="data.model.age">Âge: {{ data.model.age }} ans</mat-hint>
                             </mat-form-field>
-
-                            <div *ngIf="data.model.age">
-                                <span class="mat-subtitle-2">Âge :</span>
-                                <span>{{ data.model.age }}</span>
-                            </div>
                         </div>
 
                         <div class="mat-body-2" fxLayout="column" fxLayoutGap="20px">
