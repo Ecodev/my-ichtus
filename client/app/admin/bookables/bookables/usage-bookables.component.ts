@@ -5,9 +5,10 @@ import {UsageBookableService} from '../services/usage-bookable.service';
 import {NaturalSearchSelections} from '@ecodev/natural';
 import {UsageBookables_bookables_items} from '../../../shared/generated-types';
 import {BookingService} from '../../bookings/services/booking.service';
-import {takeUntil} from 'rxjs/operators';
+import {switchMap, takeUntil} from 'rxjs/operators';
 import {UserService} from '../../users/services/user.service';
 import {ParentComponent} from './parent.component';
+import {of} from 'rxjs';
 
 @Component({
     selector: 'app-usage-bookables',
@@ -52,11 +53,13 @@ export class UsageBookablesComponent extends ParentComponent<UsageBookableServic
             this.persistSearch = false;
         }
 
-        this.userService
-            .getPendingApplications(this.route.snapshot.data.viewer.model)
-            .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe(result => {
-                this.pendingApplications = result.items;
-            });
+        this.futureOwner$
+            .pipe(
+                takeUntil(this.ngUnsubscribe),
+                switchMap(futureOwner =>
+                    futureOwner ? this.userService.getPendingApplications(futureOwner) : of({items: []}),
+                ),
+            )
+            .subscribe(result => (this.pendingApplications = result.items));
     }
 }

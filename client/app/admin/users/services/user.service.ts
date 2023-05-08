@@ -417,7 +417,7 @@ export class UserService
         return this.pricedBookingService.watchAll(qvm);
     }
 
-    public getPendingApplications(user: CurrentUserForProfile_viewer): Observable<Bookings['bookings']> {
+    public getPendingApplications(user: CurrentUserForProfile_viewer | User_user): Observable<Bookings['bookings']> {
         const variables: BookingsVariables = {
             filter: {
                 groups: [

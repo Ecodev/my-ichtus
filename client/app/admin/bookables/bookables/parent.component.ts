@@ -5,12 +5,14 @@ import {
     BookingPartialInput,
     Bookings_bookings_items,
     BookingStatus,
-    CurrentUserForProfile_viewer,
     UsageBookables_bookables_items,
 } from '../../../shared/generated-types';
 import {BookingService} from '../../bookings/services/booking.service';
 import {BookableService} from '../services/bookable.service';
 import {ExtractTallOne} from '@ecodev/natural/lib/types/types';
+import {UserResolve} from '../../users/user';
+import {ViewerResolve} from '../../users/services/viewer.resolver';
+import {map, Observable, takeUntil} from 'rxjs';
 
 export const image: AvailableColumn = {id: 'image', label: 'Image'};
 export const name: AvailableColumn = {id: 'name', label: 'Nom'};
@@ -28,6 +30,8 @@ export const verificationDate: AvailableColumn = {id: 'verificationDate', label:
 export const select: AvailableColumn = {id: 'select', label: 'Sélection', hidden: true};
 export const createApplication: AvailableColumn = {id: 'createApplication', label: 'Demander', hidden: true};
 
+type FutureOwner = ViewerResolve['model'] | UserResolve['model'] | null;
+
 @Directive()
 export abstract class ParentComponent<T extends UsageBookableService | BookableService>
     extends NaturalAbstractList<T>
@@ -37,8 +41,23 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
     public readonly UsageBookableService = UsageBookableService;
     public pendingApplications: Bookings_bookings_items[] = [];
 
-    public constructor(service: T, injector: Injector, private readonly bookingService: BookingService) {
+    /**
+     * The user who will be the owner of the booking when we create it via the `createApplication` button
+     */
+    public futureOwner: FutureOwner = null;
+    public readonly futureOwner$: Observable<FutureOwner> = this.route.data.pipe(
+        map(data => {
+            // The futureOwner might be specifically given via routing data (for profile page), or we fallback on the user being edited in admin pages
+            return data.futureOwner?.model ?? data.user?.model ?? null;
+        }),
+    );
+
+    protected constructor(service: T, injector: Injector, private readonly bookingService: BookingService) {
         super(service, injector);
+
+        this.futureOwner$
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe(futureOwner => (this.futureOwner = futureOwner));
     }
 
     public override ngOnInit(): void {
@@ -62,13 +81,15 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
     }
 
     /**
-     * Create a bookable application attributed to the owner specified in route.data.futureOwner.
+     * Create a bookable application attributed to `this.futureOwner`.
      */
-    public createApplication(futureOwner: CurrentUserForProfile_viewer, bookable: ExtractTallOne<T>): void {
-        if (futureOwner) {
-            const booking: BookingPartialInput = {status: BookingStatus.application};
-            this.bookingService.createWithBookable(bookable, futureOwner, booking).subscribe();
+    public createApplication(bookable: ExtractTallOne<T>): void {
+        if (!this.futureOwner) {
+            return;
         }
+
+        const booking: BookingPartialInput = {status: BookingStatus.application};
+        this.bookingService.createWithBookable(bookable, this.futureOwner, booking).subscribe();
     }
 
     /**
@@ -78,11 +99,10 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
      * This is just ergonomics considerations. API does not deny double booking on specific resources in this case
      */
     public allowBooking(
-        futureOwner: CurrentUserForProfile_viewer,
         bookable: UsageBookables_bookables_items,
         pendingApplications: Bookings_bookings_items[],
     ): boolean {
         const alreadyBooked = UsageBookableService.isAlreadyPending(bookable, pendingApplications);
-        return futureOwner && (!alreadyBooked || (alreadyBooked && !this.route.snapshot.data.denyDoubleBooking));
+        return !!this.futureOwner && (!alreadyBooked || (alreadyBooked && !this.route.snapshot.data.denyDoubleBooking));
     }
 }
