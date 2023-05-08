@@ -1409,10 +1409,10 @@
   dependencies:
     tslib "^2.3.1"
 
-"@ecodev/natural-editor@^50.0.2":
-  version "50.0.2"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural-editor/-/natural-editor-50.0.2.tgz#9ef053e94d3b060a1bea27bbc314836941ba4ce4"
-  integrity sha512-rJsx9ULhTprRO/P+QlcHEiXorvA6CgJdKO2EQPVo0InSjxF/yt8Kw38Z69gsuANdjZP33LeNdzKTC1l5xzamhQ==
+"@ecodev/natural-editor@^50.1.1":
+  version "50.1.1"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural-editor/-/natural-editor-50.1.1.tgz#5273cf1af99a35ee7d95b20ddd40704bdb5b8d2d"
+  integrity sha512-y+X5O5PIHGGJPoJb9j6DdQTvkCYFmkYK9VzMbCLByLKGZuznqi3bTosZ+2revLC/hj2YPfshm7IwE4eLaO/yrQ==
   dependencies:
     prosemirror-commands "^1.1.12"
     prosemirror-dropcursor "^1.4.0"
@@ -1429,10 +1429,10 @@
     prosemirror-view "^1.23.5"
     tslib "^2.3.0"
 
-"@ecodev/natural@^50.0.2":
-  version "50.0.2"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-50.0.2.tgz#757501d135b2a66bac56716729afc48f84e89540"
-  integrity sha512-UcQoOxFG0Xoqd4kvNXWoscyE5EjUE7cekB33VWVISk1C4jTo+ELDKDP3IlY4ElI3Eu2L/+FLnBt+KkLXwfGqgg==
+"@ecodev/natural@^50.1.1":
+  version "50.1.1"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-50.1.1.tgz#8455a215fc2cc92b06ec2e723e9977dec582cde0"
+  integrity sha512-XhWH5ZIaSbVWSBnqUYSMAHp9ih66VDwapCc/+L9/qu3/eJIK/F2HbBs7qNhaAKxIbgTwPHw33QzWAXqWvWhY9A==
   dependencies:
     tslib "^2.3.1"
 
@@ -9525,9 +9525,6 @@ unicode-match-property-ecmascript@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/unicode-match-property-ecmascript/-/unicode-match-property-ecmascript-2.0.0.tgz#54fd16e0ecb167cf04cf1f756bdcc92eba7976c3"
   integrity sha512-5kaZCrbp5mmbz5ulBkDkbY0SsPOjKqVS35VpL9ulMPfSl0J0Xsm+9Evphv9CoIZFwre7aJoa94AY6seMKGVN5Q==
-  dependencies:
-    unicode-canonical-property-names-ecmascript "^2.0.0"
-    unicode-property-aliases-ecmascript "^2.0.0"
 
 unicode-match-property-value-ecmascript@^2.1.0:
   version "2.1.0"
