@@ -15,7 +15,7 @@
             fxLayoutAlign="start center"
             fxLayoutGap="20px"
         >
-            <div fxFlex></div>
+            <div fxFlex fxHide.xs></div>
 
             <div fxFlex fxHide.xs fxLayout="row" fxLayoutAlign="start center" id="searchByCode">
                 <input
@@ -34,7 +34,7 @@
                 <mat-icon naturalIcon="simple-qr"></mat-icon>
             </a>
 
-            <div fxFlex></div>
+            <div fxFlex fxHide.xs></div>
 
             <a
                 [routerLink]="getAnnouncementLink()"
