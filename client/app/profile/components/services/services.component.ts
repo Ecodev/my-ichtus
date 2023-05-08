@@ -29,7 +29,7 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
 
     public constructor(
         private readonly userService: UserService,
-        private readonly route: ActivatedRoute,
+        public readonly route: ActivatedRoute,
         private readonly alertService: NaturalAlertService,
         private readonly bookingService: BookingService,
     ) {

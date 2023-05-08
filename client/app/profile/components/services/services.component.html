@@ -182,16 +182,67 @@
         <div fxLayout="row" fxLayoutAlign="start center" class="margin-bottom">
             <h2 fxFlex class="mat-headline no-margin-bottom">Demander un espace de stockage ou un service</h2>
         </div>
-
-        <nav mat-tab-nav-bar [tabPanel]="tabPanel">
-            <a mat-tab-link [routerLink]="['bookables/storage']" [preserveFragment]="true" label="">Stockages</a>
-            <a mat-tab-link [routerLink]="['bookables/services']" [preserveFragment]="true" label=""
+        <nav mat-tab-nav-bar mat-stretch-tabs="false" [tabPanel]="tabPanel">
+            <a
+                mat-tab-link
+                [routerLink]="['bookables/storage']"
+                [preserveFragment]="true"
+                label=""
+                routerLinkActive
+                #rla1="routerLinkActive"
+                [active]="rla1.isActive || route.snapshot.children[0].url.length === 0"
+                >Stockages</a
+            >
+            <a
+                mat-tab-link
+                [routerLink]="['bookables/services']"
+                [preserveFragment]="true"
+                label=""
+                routerLinkActive
+                #rla2="routerLinkActive"
+                [active]="rla2.isActive"
                 >Services & Prestations</a
             >
-            <a mat-tab-link [routerLink]="['bookables/survey']" [preserveFragment]="true" label="">Sondage</a>
-            <a mat-tab-link [routerLink]="['bookables/formation']" [preserveFragment]="true" label="">Cours</a>
-            <a mat-tab-link [routerLink]="['bookables/welcome']" [preserveFragment]="true" label="">Séance d'accueil</a>
-            <a mat-tab-link [routerLink]="['bookables/nft']" [preserveFragment]="true" label="">NFT</a>
+            <a
+                mat-tab-link
+                [routerLink]="['bookables/survey']"
+                [preserveFragment]="true"
+                label=""
+                routerLinkActive
+                #rla3="routerLinkActive"
+                [active]="rla3.isActive"
+                >Sondage</a
+            >
+            <a
+                mat-tab-link
+                [routerLink]="['bookables/formation']"
+                [preserveFragment]="true"
+                label=""
+                routerLinkActive
+                #rla4="routerLinkActive"
+                [active]="rla4.isActive"
+                >Cours</a
+            >
+            <a
+                mat-tab-link
+                [routerLink]="['bookables/welcome']"
+                [preserveFragment]="true"
+                label=""
+                routerLinkActive
+                #rla5="routerLinkActive"
+                [active]="rla5.isActive"
+                >Séance d'accueil</a
+            >
+            <a
+                mat-tab-link
+                [routerLink]="['bookables/nft']"
+                [preserveFragment]="true"
+                label=""
+                routerLinkActive
+                #rla6="routerLinkActive"
+                [active]="rla6.isActive"
+                >NFT</a
+            >
         </nav>
         <mat-tab-nav-panel #tabPanel>
             <router-outlet></router-outlet>
