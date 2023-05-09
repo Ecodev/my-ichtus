@@ -63,7 +63,7 @@ class BookableAvailable implements NamedAssertion
             }
         }
 
-        if ($bookable->getSimultaneousBookingMaximum() > 0) {
+        if ($bookable->getSimultaneousBookingMaximum() >= 0) {
             // Check that the bookable has no more running bookings than its maximum
             $runningBookings = _em()->getRepository(Booking::class)->findBy([
                 'bookable' => $bookable,

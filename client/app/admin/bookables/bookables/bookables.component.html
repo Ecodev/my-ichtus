@@ -191,7 +191,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                     <td mat-cell *matCellDef="let element" natural-align-center>
                         <div *ngIf="element.sharedBookings">
                             <div
-                                *ngIf="element.simultaneousBookingMaximum > 0"
+                                *ngIf="element.simultaneousBookingMaximum >= 0"
                                 [ngClass]="{flag: true, usage: true, full: UsageBookableService.isFullyBooked(element)}"
                             >
                                 <div class="usage-counters">
@@ -201,7 +201,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                             </div>
 
                             <!-- Unlimited -->
-                            <div *ngIf="element.simultaneousBookingMaximum <= 0" [ngClass]="{flag: true, usage: true}">
+                            <div *ngIf="element.simultaneousBookingMaximum < 0" [ngClass]="{flag: true, usage: true}">
                                 <div class="usage-counters">Disponible</div>
                             </div>
                         </div>
