@@ -12,7 +12,7 @@ class HasBookingStatusOperatorTypeTest extends OperatorType
 {
     public function providerGetDqlCondition(): iterable
     {
-        yield 'users with application' => [1, [BookingStatusType::APPLICATION], null];
+        yield 'users with application' => [3, [BookingStatusType::APPLICATION], null];
         yield 'users with booked' => [4, [BookingStatusType::BOOKED], null];
         yield 'users with both' => [4, [BookingStatusType::BOOKED], null];
         yield 'users with processed' => [0, [BookingStatusType::PROCESSED], null];

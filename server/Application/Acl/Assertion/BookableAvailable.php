@@ -63,14 +63,14 @@ class BookableAvailable implements NamedAssertion
             }
         }
 
+        // Check that the bookable has no more running bookings than its maximum
         if ($bookable->getSimultaneousBookingMaximum() >= 0) {
-            // Check that the bookable has no more running bookings than its maximum
-            $runningBookings = _em()->getRepository(Booking::class)->findBy([
-                'bookable' => $bookable,
-                'endDate' => null,
-            ]);
+            $runningBookings = $bookable->getSharedBookings();
 
-            $count = count($runningBookings);
+            //  Don't count the new booking that we just added to the collection but did not persist yet
+            $persistedRunningBookings = array_filter($runningBookings, fn (Booking $booking): ?int => $booking->getId());
+            $count = count($persistedRunningBookings);
+
             if ($count >= $bookable->getSimultaneousBookingMaximum()) {
                 return $acl->reject('the bookable limit of simultaneous bookings has been reached: ' . $count . '/' . $bookable->getSimultaneousBookingMaximum());
             }

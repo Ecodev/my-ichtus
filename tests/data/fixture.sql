@@ -171,7 +171,8 @@ REPLACE INTO bookable (id, image_id, credit_account_id, purchase_price, periodic
 (3034, NULL, 10037, 0, 0, 12000, 0, 'Cours ancien (3034, admin approved, inactive)', 'cours3', 'admin_approved', 3, 'Cours désactivé.'),
 (3035, NULL, 10035, 0, 8000, 0, 1, 'Licence Swiss Sailing (3035, sur demande, periodic)', 'D-COSSV', 'application', -1, 'service pour demande'),
 (3036, NULL, 10035, 0, 8000, 0, 1, 'Cotisation Swiss Sailing (3036, spécifique admin, periodic)', 'COSSV', 'admin_assigned', -1, 'service effectif'),
-(3037, NULL, NULL, 0, 0, 0, 1, 'Séance d''accueil du 31.07.2021 à 10h (3037, admin approved, dispo)', 'SA', 'admin_approved', 18, 'Séance d''accueil active incomplete');
+(3037, NULL, NULL, 0, 0, 0, 1, 'Séance d''accueil du 31.07.2021 à 10h (3037, admin approved, dispo)', 'SA', 'admin_approved', 18, 'Séance d''accueil active incomplete'),
+(3038, NULL, NULL, 0, 0, 0, 1, 'Séance d''accueil (3038, admin approved, dispo)', 'SA-QUEUE', 'admin_approved', 1, 'Séance d''accueil active avec liste d''attente');
 
 REPLACE INTO license_bookable (license_id, bookable_id) VALUES
 (2000, 3007),
@@ -228,7 +229,9 @@ REPLACE INTO booking (id, owner_id, bookable_id, status, start_date, end_date, e
 (4016, 1012, 3001, 'booked', '2018-01-02 13:32:51', NULL, '21 oct 2015', 'Somewhere else than Twin Pines Mall', 'Where we go we don''t need boats'),
 (4017, 1012, 3003, 'booked', '2018-01-02 13:32:51', NULL, '21 oct 2015', '', ''),
 (4018, 1008, 3033, 'booked', '2021-06-01 13:32:51', NULL, '', '', 'inscription du fils approuvée'),
-(4019, 1002, 3032, 'application', '2021-07-01 13:32:51', NULL, '', '', 'inscription du membre en attente d''approbation');
+(4019, 1002, 3032, 'application', '2021-07-01 13:32:51', NULL, '', '', 'inscription du membre en attente d''approbation'),
+(4020, 1008, 3038, 'application', '2021-06-01 13:32:51', NULL, '', '', 'demande pas approuvée'),
+(4021, 1012, 3038, 'application', '2021-06-01 13:32:51', NULL, '', '', 'demande pas approuvée');
 
 REPLACE INTO expense_claim (id, creation_date, owner_id, reviewer_id, amount, status, name, description, type, sector) VALUES
 (7000, '2019-01-10', 1002, NULL, 20000, 'new', 'achats Jumbo', 'outils pour voilier', 'expenseClaim', 'voile légère'),

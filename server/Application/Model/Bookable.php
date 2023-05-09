@@ -310,18 +310,14 @@ class Bookable extends AbstractModel
     }
 
     /**
-     * Returns list of active bookings.
-     *
-     * Limits to admin-assigned, application and admin-approved
+     * Returns list of active bookings, but only if the bookable has a limit of simultaneous booking. Otherwise, returns empty list.
      *
      * @return Booking[]
      */
     public function getSharedBookings(): array
     {
-        $bookableType = $this->getBookingType();
-        $bookableTypesAllowed = [BookingTypeType::ADMIN_ASSIGNED, BookingTypeType::APPLICATION, BookingTypeType::ADMIN_APPROVED];
-
-        if (!in_array($bookableType, $bookableTypesAllowed, true)) {
+        // Pretend to have no simultaneous bookings to avoid too many SQL queries when we don't really care about it
+        if ($this->getSimultaneousBookingMaximum() < 0) {
             return [];
         }
 

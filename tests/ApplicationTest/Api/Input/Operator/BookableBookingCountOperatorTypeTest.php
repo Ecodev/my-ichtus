@@ -12,9 +12,9 @@ class BookableBookingCountOperatorTypeTest extends OperatorType
 {
     public function providerGetDqlCondition(): iterable
     {
-        yield [3, 'Equal', 2];
+        yield [4, 'Equal', 2];
         yield [8, 'Equal', 1];
-        yield [11, 'GreaterOrEqual', 1];
+        yield [12, 'GreaterOrEqual', 1];
         yield [13, 'Less', 1];
     }
 

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace ApplicationTest\Model;
 
 use Application\DBAL\Types\BookingStatusType;
-use Application\DBAL\Types\BookingTypeType;
 use Application\Model\Bookable;
 use Application\Model\Booking;
 use Cake\Chronos\Chronos;
@@ -34,26 +33,19 @@ class BookableTest extends TestCase
     public function testGetSharedBookings(): void
     {
         $bookable = new Bookable();
-        $bookable->setBookingType(BookingTypeType::SELF_APPROVED);
         self::assertSame([], $bookable->getSharedBookings());
 
         $booking1 = new Booking();
         $booking1->setStatus(BookingStatusType::BOOKED);
         $booking1->setBookable($bookable);
 
-        self::assertSame([], $bookable->getSharedBookings());
+        self::assertCount(1, $bookable->getSharedBookings());
 
-        $bookable->setBookingType(BookingTypeType::SELF_APPROVED);
-        self::assertSame([], $bookable->getSharedBookings(), 'self_approved show 0 booking');
+        $bookable->setSimultaneousBookingMaximum(-1);
+        self::assertSame([], $bookable->getSharedBookings(), 'empty list because we try to save SQL queries');
 
-        $bookable->setBookingType(BookingTypeType::MANDATORY);
-        self::assertSame([], $bookable->getSharedBookings(), 'mandatory show 0 booking');
-
-        $bookable->setBookingType(BookingTypeType::ADMIN_ASSIGNED);
-        self::assertCount(1, $bookable->getSharedBookings(), 'admin_assigned show 1 booking');
-
-        $bookable->setBookingType(BookingTypeType::APPLICATION);
-        self::assertCount(1, $bookable->getSharedBookings(), 'application show 1 booking');
+        $bookable->setSimultaneousBookingMaximum(0);
+        self::assertCount(1, $bookable->getSharedBookings(), 'again normal list when there is a chance that simultaneous booking matter');
 
         $booking2 = new Booking();
         $booking2->setStatus(BookingStatusType::BOOKED);

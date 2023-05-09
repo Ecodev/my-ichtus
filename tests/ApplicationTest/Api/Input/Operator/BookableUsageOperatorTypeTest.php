@@ -13,10 +13,10 @@ class BookableUsageOperatorTypeTest extends OperatorType
     public function providerGetDqlCondition(): iterable
     {
         yield 'bookables rented by that user' => [9, [1002], false];
-        yield 'bookables rented by that other user' => [2, [1008], false];
-        yield 'bookables not rented by that user' => [9, [1008], true];
+        yield 'bookables rented by that other user' => [3, [1008], false];
+        yield 'bookables not rented by that user' => [10, [1008], true];
         yield 'bookables not rented at all' => [13, [], false];
-        yield 'bookables rented to anybody' => [11, [], true];
+        yield 'bookables rented to anybody' => [12, [], true];
     }
 
     /**
