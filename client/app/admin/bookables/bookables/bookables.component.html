@@ -231,7 +231,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                                     : 'primary'
                             "
                             (click)="createApplication(element)"
-                            [disabled]="UsageBookableService.isFullyBooked(element)"
+                            [disabled]="UsageBookableService.isFullyBooked(element) || creating.has(element.id)"
                         >
                             <ng-container *ngIf="!UsageBookableService.isAlreadyPending(element, pendingApplications)">
                                 {{ route.snapshot.data.actionButtonLabel || 'Demander' }}

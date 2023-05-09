@@ -13,6 +13,7 @@ import {ExtractTallOne} from '@ecodev/natural/lib/types/types';
 import {UserResolve} from '../../users/user';
 import {ViewerResolve} from '../../users/services/viewer.resolver';
 import {map, Observable, takeUntil} from 'rxjs';
+import {finalize} from 'rxjs/operators';
 
 export const image: AvailableColumn = {id: 'image', label: 'Image'};
 export const name: AvailableColumn = {id: 'name', label: 'Nom'};
@@ -40,6 +41,7 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
     protected readonly hasUsage: boolean = false;
     public readonly UsageBookableService = UsageBookableService;
     public pendingApplications: Bookings_bookings_items[] = [];
+    public readonly creating = new Map<ExtractTallOne<T>['id'], true>();
 
     /**
      * The user who will be the owner of the booking when we create it via the `createApplication` button
@@ -88,8 +90,12 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
             return;
         }
 
+        this.creating.set(bookable.id, true);
         const booking: BookingPartialInput = {status: BookingStatus.application};
-        this.bookingService.createWithBookable(bookable, this.futureOwner, booking).subscribe();
+        this.bookingService
+            .createWithBookable(bookable, this.futureOwner, booking)
+            .pipe(finalize(() => this.creating.delete(bookable.id)))
+            .subscribe();
     }
 
     /**

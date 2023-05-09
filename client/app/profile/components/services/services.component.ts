@@ -26,6 +26,7 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
 
     public servicesColumns = ['name', 'initialPrice', 'periodicPrice', 'revoke'];
     public applicationsColumns = ['name', 'status', 'initialPrice', 'periodicPrice', 'cancel'];
+    public readonly deleting = new Map<Bookings_bookings_items['id'], true>();
 
     public constructor(
         private readonly userService: UserService,
@@ -88,7 +89,12 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
     }
 
     public cancelApplication(booking: Bookings_bookings_items): void {
-        this.bookingService.delete([booking]).subscribe();
+        this.deleting.set(booking.id, true);
+        this.bookingService.delete([booking]).subscribe({
+            // Only remove from deleting in case of error, because in case of success the whole list will be refreshed,
+            // and we don't want our button to be active again in the short time between success and refreshed list
+            error: () => this.deleting.delete(booking.id),
+        });
     }
 
     public unregister(): void {

@@ -60,7 +60,12 @@
                 <ng-container matColumnDef="cancel">
                     <th mat-header-cell *matHeaderCellDef natural-1em-column></th>
                     <td mat-cell *matCellDef="let booking">
-                        <button mat-icon-button color="warn" (click)="cancelApplication(booking)">
+                        <button
+                            mat-icon-button
+                            color="warn"
+                            (click)="cancelApplication(booking)"
+                            [disabled]="deleting.has(booking.id)"
+                        >
                             <mat-icon naturalIcon="delete"></mat-icon>
                         </button>
                     </td>
