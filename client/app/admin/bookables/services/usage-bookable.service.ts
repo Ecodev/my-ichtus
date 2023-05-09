@@ -70,7 +70,7 @@ export class UsageBookableService extends NaturalAbstractModelService<
     public static isFullyBooked(bookable: UsageBookables_bookables_items): boolean {
         return (
             bookable.simultaneousBookingMaximum !== -1 &&
-            bookable.sharedBookings.length >= bookable.simultaneousBookingMaximum
+            bookable.simultaneousBookings.length >= bookable.simultaneousBookingMaximum
         );
     }
 

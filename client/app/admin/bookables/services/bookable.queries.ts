@@ -66,7 +66,7 @@ export const usageBookablesQuery = gql`
         bookables(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
                 ...BookableMeta
-                sharedBookings {
+                simultaneousBookings {
                     id
                     owner {
                         id

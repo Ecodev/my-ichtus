@@ -314,7 +314,7 @@ class Bookable extends AbstractModel
      *
      * @return Booking[]
      */
-    public function getSharedBookings(): array
+    public function getSimultaneousBookings(): array
     {
         // Pretend to have no simultaneous bookings to avoid too many SQL queries when we don't really care about it
         if ($this->getSimultaneousBookingMaximum() < 0) {

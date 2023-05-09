@@ -30,33 +30,33 @@ class BookableTest extends TestCase
         self::assertNull($bookable->getCode());
     }
 
-    public function testGetSharedBookings(): void
+    public function testSimultaneousBookings(): void
     {
         $bookable = new Bookable();
-        self::assertSame([], $bookable->getSharedBookings());
+        self::assertSame([], $bookable->getSimultaneousBookings());
 
         $booking1 = new Booking();
         $booking1->setStatus(BookingStatusType::BOOKED);
         $booking1->setBookable($bookable);
 
-        self::assertCount(1, $bookable->getSharedBookings());
+        self::assertCount(1, $bookable->getSimultaneousBookings());
 
         $bookable->setSimultaneousBookingMaximum(-1);
-        self::assertSame([], $bookable->getSharedBookings(), 'empty list because we try to save SQL queries');
+        self::assertSame([], $bookable->getSimultaneousBookings(), 'empty list because we try to save SQL queries');
 
         $bookable->setSimultaneousBookingMaximum(0);
-        self::assertCount(1, $bookable->getSharedBookings(), 'again normal list when there is a chance that simultaneous booking matter');
+        self::assertCount(1, $bookable->getSimultaneousBookings(), 'again normal list when there is a chance that simultaneous booking matter');
 
         $booking2 = new Booking();
         $booking2->setStatus(BookingStatusType::BOOKED);
         $booking2->setBookable($bookable);
 
-        self::assertCount(2, $bookable->getSharedBookings(), 'second bookings should be returned');
+        self::assertCount(2, $bookable->getSimultaneousBookings(), 'second bookings should be returned');
 
         $booking1->setEndDate(Chronos::now());
-        self::assertCount(1, $bookable->getSharedBookings(), 'terminated booking should be excluded');
+        self::assertCount(1, $bookable->getSimultaneousBookings(), 'terminated booking should be excluded');
 
         $booking2->setEndDate(Chronos::now());
-        self::assertSame([], $bookable->getSharedBookings(), 'nothing shared anymore');
+        self::assertSame([], $bookable->getSimultaneousBookings(), 'nothing shared anymore');
     }
 }

@@ -65,7 +65,7 @@ class BookableAvailable implements NamedAssertion
 
         // Check that the bookable has no more running bookings than its maximum
         if ($bookable->getSimultaneousBookingMaximum() >= 0) {
-            $runningBookings = $bookable->getSharedBookings();
+            $runningBookings = $bookable->getSimultaneousBookings();
 
             //  Don't count the new booking that we just added to the collection but did not persist yet
             $persistedRunningBookings = array_filter($runningBookings, fn (Booking $booking): ?int => $booking->getId());
