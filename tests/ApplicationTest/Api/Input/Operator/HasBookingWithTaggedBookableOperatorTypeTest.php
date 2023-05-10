@@ -19,7 +19,7 @@ class HasBookingWithTaggedBookableOperatorTypeTest extends OperatorType
         yield 'bookable tag without booking' => [0, [6004], null];
         yield 'users renting anything else than Stockage' => [4, [6008], true];
         yield 'users renting a bookable with any tag' => [4, null, true];
-        yield 'users renting a bookable without any tag (fond de réparation)' => [2, null, false];
+        yield 'users renting a bookable without any tag (fond de réparation)' => [1, null, false];
     }
 
     /**
