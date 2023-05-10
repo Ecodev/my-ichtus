@@ -16,6 +16,7 @@
         background: rgb(71, 199, 0);
         color: mat.get-color-from-palette($warn, default-contrast);
     }
+
     .flag.pending-application:not(.full) {
         background: mat.get-color-from-palette($accent);
         color: mat.get-color-from-palette($accent, default-contrast);

@@ -26,6 +26,7 @@ export const bookableMetaFragment = gql`
         }
         code
         simultaneousBookingMaximum
+        waitingListLength
         bookingType
         remarks
         image {
@@ -72,6 +73,9 @@ export const usageBookablesQuery = gql`
                         id
                         name
                     }
+                }
+                simultaneousApplications {
+                    id
                 }
             }
             pageSize

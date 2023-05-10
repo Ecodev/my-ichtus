@@ -10,6 +10,11 @@ use PHPUnit\Framework\TestCase;
 
 class AclTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        User::setCurrent(null);
+    }
+
     public function testIsCurrentUserAllowed(): void
     {
         $acl = new Acl();

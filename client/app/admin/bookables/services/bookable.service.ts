@@ -166,6 +166,7 @@ export class BookableService extends NaturalAbstractModelService<
             periodicPrice: '0',
             purchasePrice: null,
             simultaneousBookingMaximum: 1,
+            waitingListLength: 0,
             bookingType: BookingType.self_approved,
             remarks: '',
             isActive: true,
@@ -183,7 +184,8 @@ export class BookableService extends NaturalAbstractModelService<
             initialPrice: [money, Validators.required],
             periodicPrice: [money, Validators.required],
             purchasePrice: [money, Validators.min(0)],
-            simultaneousBookingMaximum: [Validators.min(-1)],
+            simultaneousBookingMaximum: [Validators.required, Validators.min(-1)],
+            waitingListLength: [Validators.required, Validators.min(0)],
         };
     }
 

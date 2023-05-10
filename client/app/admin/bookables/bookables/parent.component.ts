@@ -40,7 +40,6 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
     implements OnInit
 {
     protected readonly hasUsage: boolean = false;
-    public readonly UsageBookableService = UsageBookableService;
     public pendingApplications: Bookings_bookings_items[] = [];
     public readonly creating = new Map<ExtractTallOne<T>['id'], true>();
     private readonly apollo = inject(Apollo);
@@ -111,11 +110,53 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
      *
      * This is just ergonomics considerations. API does not deny double booking on specific resources in this case
      */
-    public allowBooking(
-        bookable: UsageBookables_bookables_items,
-        pendingApplications: Bookings_bookings_items[],
-    ): boolean {
-        const alreadyBooked = UsageBookableService.isAlreadyPending(bookable, pendingApplications);
+    public allowBooking(bookable: UsageBookables_bookables_items): boolean {
+        const alreadyBooked = this.isAlreadyPending(bookable);
         return !!this.futureOwner && (!alreadyBooked || (alreadyBooked && !this.route.snapshot.data.denyDoubleBooking));
+    }
+
+    public isAlreadyPending(bookable: UsageBookables_bookables_items): boolean {
+        return this.pendingApplications.some(applicaton => bookable.id === applicaton.bookable?.id);
+    }
+
+    private counterData(bookable: UsageBookables_bookables_items): {
+        used: {count: number; limit: number};
+        waitingList: {count: number; limit: number};
+    } {
+        const totalCount = bookable.simultaneousBookings.length + bookable.simultaneousApplications.length;
+
+        const countUsedForHuman = Math.min(totalCount, bookable.simultaneousBookingMaximum);
+        const countWaitingListForHuman = totalCount - countUsedForHuman;
+
+        return {
+            used: {count: countUsedForHuman, limit: bookable.simultaneousBookingMaximum},
+            waitingList: {count: countWaitingListForHuman, limit: bookable.waitingListLength},
+        };
+    }
+
+    public usageCounters(bookable: UsageBookables_bookables_items): string {
+        const data = this.counterData(bookable);
+
+        if (data.waitingList.count || data.waitingList.limit) {
+            return ` ${data.used.count} + ${data.waitingList.count} / ${data.used.limit} + ${data.waitingList.limit}`;
+        }
+
+        return `${data.used.count} / ${data.used.limit}`;
+    }
+
+    public usageTooltip(bookable: UsageBookables_bookables_items): string {
+        const data = this.counterData(bookable);
+
+        return `La disponibilité est de ${data.used.count}/${data.used.limit}. La file d'attente est de ${data.waitingList.count}/${data.waitingList.limit}`;
+    }
+
+    public isFullyBooked(bookable: UsageBookables_bookables_items): boolean {
+        if (bookable.simultaneousBookingMaximum < 0) {
+            return false;
+        }
+
+        const data = this.counterData(bookable);
+
+        return data.used.count + data.waitingList.count >= data.used.limit + data.waitingList.limit;
     }
 }

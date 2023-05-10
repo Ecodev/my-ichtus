@@ -55,6 +55,9 @@ class Bookable extends AbstractModel
     #[ORM\Column(type: 'smallint', options: ['default' => -1])]
     private int $simultaneousBookingMaximum = 1;
 
+    #[ORM\Column(type: 'smallint', options: ['default' => 0, 'unsigned' => true])]
+    private int $waitingListLength = 0;
+
     #[ORM\Column(type: 'BookingType', length: 10, options: ['default' => BookingTypeType::ADMIN_APPROVED])]
     private string $bookingType = BookingTypeType::ADMIN_APPROVED;
 
@@ -310,7 +313,7 @@ class Bookable extends AbstractModel
     }
 
     /**
-     * Returns list of active bookings, but only if the bookable has a limit of simultaneous booking. Otherwise, returns empty list.
+     * Returns list of active, non-application, bookings. But only if the bookable has a limit of simultaneous booking. Otherwise, returns empty list.
      *
      * @return Booking[]
      */
@@ -323,6 +326,24 @@ class Bookable extends AbstractModel
 
         // Only consider approved and unterminated bookings
         $bookings = $this->getBookings()->filter(fn (Booking $booking): bool => !$booking->getEndDate() && $booking->getStatus() !== BookingStatusType::APPLICATION)->toArray();
+
+        return $bookings;
+    }
+
+    /**
+     * Returns list of active, non-application, bookings. But only if the bookable has a limit of simultaneous booking. Otherwise, returns empty list.
+     *
+     * @return Booking[]
+     */
+    public function getSimultaneousApplications(): array
+    {
+        // Pretend to have no simultaneous bookings to avoid too many SQL queries when we don't really care about it
+        if ($this->getSimultaneousBookingMaximum() < 0) {
+            return [];
+        }
+
+        // Only consider approved and unterminated bookings
+        $bookings = $this->getBookings()->filter(fn (Booking $booking): bool => !$booking->getEndDate() && $booking->getStatus() === BookingStatusType::APPLICATION)->toArray();
 
         return $bookings;
     }
@@ -357,5 +378,20 @@ class Bookable extends AbstractModel
         $bookings = $this->getBookings()->filter(fn (Booking $booking): bool => !$booking->getEndDate())->toArray();
 
         return $bookings;
+    }
+
+    /**
+     * If non-zero it will allow to create more application bookings, even if the bookable reached its
+     * simultaneousBookingMaximum. So in effect it will be a sort of "waiting list" of people who would like to
+     * participate in case of someone else cancel their booking.
+     */
+    public function getWaitingListLength(): int
+    {
+        return $this->waitingListLength;
+    }
+
+    public function setWaitingListLength(int $waitingListLength): void
+    {
+        $this->waitingListLength = $waitingListLength;
     }
 }

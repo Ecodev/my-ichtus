@@ -5,7 +5,6 @@ import {
     Bookable,
     BookablesVariables,
     BookableVariables,
-    Bookings_bookings_items,
     CreateBookable,
     CreateBookableVariables,
     DeleteBookables,
@@ -14,7 +13,6 @@ import {
     UpdateBookable,
     UpdateBookableVariables,
     UsageBookables,
-    UsageBookables_bookables_items,
     UsageBookablesVariables,
 } from '../../../shared/generated-types';
 import {BookingService} from '../../bookings/services/booking.service';
@@ -65,19 +63,5 @@ export class UsageBookableService extends NaturalAbstractModelService<
                 ],
             },
         });
-    }
-
-    public static isFullyBooked(bookable: UsageBookables_bookables_items): boolean {
-        return (
-            bookable.simultaneousBookingMaximum !== -1 &&
-            bookable.simultaneousBookings.length >= bookable.simultaneousBookingMaximum
-        );
-    }
-
-    public static isAlreadyPending(
-        bookable: UsageBookables_bookables_items,
-        pendingApplications: Bookings_bookings_items[],
-    ): boolean {
-        return pendingApplications.some(applicaton => bookable.id === applicaton.bookable?.id);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Acl\Assertion;
 
+use Application\DBAL\Types\BookingStatusType;
 use Application\Model\Booking;
 use Application\Model\User;
 use Ecodev\Felix\Acl\Assertion\NamedAssertion;
@@ -33,12 +34,12 @@ class BookableAvailable implements NamedAssertion
         /** @var null|Booking $booking */
         $booking = $resource->getInstance();
 
-        if (!$booking) {
-            return $acl->reject('the booking does not exist');
-        }
-
         if (!User::getCurrent()) {
             return $acl->reject('the user is not logged in');
+        }
+
+        if (!$booking) {
+            return $acl->reject('the booking does not exist');
         }
 
         $bookable = $booking->getBookable();
@@ -65,17 +66,39 @@ class BookableAvailable implements NamedAssertion
 
         // Check that the bookable has no more running bookings than its maximum
         if ($bookable->getSimultaneousBookingMaximum() >= 0) {
-            $runningBookings = $bookable->getSimultaneousBookings();
+            $countConfirmed = $this->countBookingsExcludingTheNewOne($bookable->getSimultaneousBookings(), $booking);
+            $countApplications = $this->countBookingsExcludingTheNewOne($bookable->getSimultaneousApplications(), $booking);
+            $totalCount = $countConfirmed + $countApplications;
 
-            //  Don't count the new booking that we just added to the collection but did not persist yet
-            $persistedRunningBookings = array_filter($runningBookings, fn (Booking $booking): ?int => $booking->getId());
-            $count = count($persistedRunningBookings);
+            $maximum = $bookable->getSimultaneousBookingMaximum();
 
-            if ($count >= $bookable->getSimultaneousBookingMaximum()) {
-                return $acl->reject('the bookable limit of simultaneous bookings has been reached: ' . $count . '/' . $bookable->getSimultaneousBookingMaximum());
+            // If the booking is an application (not confirmed), then we might use the waiting list
+            if ($booking->getStatus() === BookingStatusType::APPLICATION) {
+                $maximum += $bookable->getWaitingListLength();
+            }
+
+            if ($totalCount >= $maximum) {
+                $countUsedForHuman = min($totalCount, $bookable->getSimultaneousBookingMaximum());
+                $countWaitingListForHuman = $totalCount - $countUsedForHuman;
+                $reason = 'the limit of simultaneous bookings was reached: ' . $countUsedForHuman . '/' . $bookable->getSimultaneousBookingMaximum();
+                if ($countWaitingListForHuman) {
+                    $reason .= " and the waiting list is full: $countWaitingListForHuman/" . $bookable->getWaitingListLength();
+                }
+
+                return $acl->reject($reason);
             }
         }
 
         return true;
+    }
+
+    /**
+     * Don't count the new booking that we just added to the collection.
+     */
+    private function countBookingsExcludingTheNewOne(array $bookings, Booking $booking): int
+    {
+        $filteredBookings = array_filter($bookings, fn (Booking $b): bool => $b !== $booking);
+
+        return count($filteredBookings);
     }
 }
