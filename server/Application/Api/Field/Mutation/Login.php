@@ -43,15 +43,7 @@ abstract class Login implements FieldInterface
 
                 // If we successfully authenticated
                 if ($user) {
-                    $session->regenerate();
-                    if ($session instanceof SessionCookiePersistenceInterface) {
-                        $session->persistSessionFor(365 * 86400);
-                    }
-                    $session->set('user', $user->getId());
-                    User::setCurrent($user);
-
-                    // Mark as logged in
-                    $user->recordLogin();
+                    self::doLogin($session, $user);
                     _em()->flush();
 
                     return $user;
@@ -62,5 +54,18 @@ abstract class Login implements FieldInterface
                 throw new ExceptionWithoutMailLogging("Le nom d'utilisateur ou mot de passe est incorrect");
             },
         ];
+    }
+
+    public static function doLogin(SessionInterface $session, User $user): void
+    {
+        $session->regenerate();
+        if ($session instanceof SessionCookiePersistenceInterface) {
+            $session->persistSessionFor(365 * 86400);
+        }
+        $session->set('user', $user->getId());
+        User::setCurrent($user);
+
+        // Mark as logged in
+        $user->recordLogin();
     }
 }

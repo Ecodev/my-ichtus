@@ -62,8 +62,8 @@ abstract class ConfirmRegistration implements FieldInterface
                 // Active the member
                 $user->initialize();
 
-                // Create mandatory booking for him
-                User::setCurrent($user);
+                // Login
+                Login::doLogin($session, $user);
 
                 // Create account so the user can top-up money and start purchasing services
                 // but only if it's head of the family
@@ -73,6 +73,7 @@ abstract class ConfirmRegistration implements FieldInterface
                     $accountRepository->getOrCreate($user);
                 }
 
+                // Create mandatory booking for him
                 /** @var BookableRepository $bookableRepository */
                 $bookableRepository = _em()->getRepository(Bookable::class);
                 $mandatoryBookables = $bookableRepository->findByBookingType(BookingTypeType::MANDATORY);

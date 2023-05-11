@@ -1,4 +1,4 @@
-import {Apollo, gql} from 'apollo-angular';
+import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {debounceTime, distinctUntilChanged, filter, skip, take} from 'rxjs/operators';
 import {isEqual} from 'lodash-es';
@@ -12,63 +12,7 @@ import {
     UserStatus,
 } from '../generated-types';
 import {Literal} from '@ecodev/natural';
-
-const permissions = gql`
-    query Permissions {
-        permissions {
-            crud {
-                account {
-                    create
-                }
-                accountingDocument {
-                    create
-                }
-                bookable {
-                    create
-                }
-                bookableMetadata {
-                    create
-                }
-                bookableTag {
-                    create
-                }
-                booking {
-                    create
-                }
-                country {
-                    create
-                }
-                expenseClaim {
-                    create
-                }
-                image {
-                    create
-                }
-                license {
-                    create
-                }
-                message {
-                    create
-                }
-                transaction {
-                    create
-                }
-                transactionTag {
-                    create
-                }
-                user {
-                    create
-                }
-                userTag {
-                    create
-                }
-                configuration {
-                    create
-                }
-            }
-        }
-    }
-`;
+import {permissionsQuery} from './permissions.queries';
 
 interface Contexts {
     user: string | null;
@@ -105,7 +49,7 @@ export class PermissionsService {
             // Fetch global permissions
             apollo
                 .query<Permissions>({
-                    query: permissions,
+                    query: permissionsQuery,
                 })
                 .pipe(filter(result => !result.loading))
                 .subscribe(result => {

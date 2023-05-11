@@ -45,7 +45,7 @@
                 <mat-icon naturalIcon="announcement"></mat-icon>
             </a>
 
-            <a class="admin-avatar" routerLink="/profile">
+            <a *ngIf="route.snapshot.data.viewer.model" class="admin-avatar" routerLink="/profile">
                 <natural-avatar
                     [initials]="route.snapshot.data.viewer.model.name"
                     [gravatar]="route.snapshot.data.viewer.model.email"

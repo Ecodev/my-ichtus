@@ -1,4 +1,4 @@
-import {Apollo, gql} from 'apollo-angular';
+import {Apollo} from 'apollo-angular';
 import {Component, OnInit} from '@angular/core';
 import {available, deliverableEmail, NaturalAlertService, relationsToIds} from '@ecodev/natural';
 import {pick} from 'lodash-es';
@@ -7,7 +7,7 @@ import {UntypedFormBuilder, Validators} from '@angular/forms';
 import {loginValidator, UserService} from '../../../admin/users/services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserByTokenResolve} from '../../../admin/users/user';
-import {UserByToken_userByToken} from '../../../shared/generated-types';
+import {ConfirmRegistrationVariables, UserByToken_userByToken} from '../../../shared/generated-types';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 
 @Component({
@@ -63,11 +63,6 @@ export class RegisterConfirmComponent extends RegisterComponent implements OnIni
      */
     protected override doSubmit(): void {
         this.sending = true;
-        const mutation = gql`
-            mutation ConfirmRegistration($token: Token!, $input: ConfirmRegistrationInput!) {
-                confirmRegistration(token: $token, input: $input)
-            }
-        `;
 
         const fieldWhitelist = [
             'login',
@@ -82,22 +77,14 @@ export class RegisterConfirmComponent extends RegisterComponent implements OnIni
             'mobilePhone',
         ];
 
-        const input = pick(relationsToIds(this.form.value), fieldWhitelist);
-        this.apollo
-            .mutate({
-                mutation: mutation,
-                variables: {
-                    token: this.route.snapshot.params.token,
-                    input: input,
-                },
+        const input = pick(relationsToIds(this.form.value), fieldWhitelist) as ConfirmRegistrationVariables['input'];
+        this.userService
+            .confirmRegistration({
+                token: this.route.snapshot.params.token,
+                input: input,
             })
             .subscribe({
-                next: () => {
-                    const message = 'Tu peux à présent te connecter avec le login et mot de passe que tu as choisi';
-
-                    this.alertService.info(message, 5000);
-                    this.router.navigate(['/login']);
-                },
+                next: () => this.alertService.info(`Merci d'avoir confirmé ton compte`, 5000),
                 error: error => {
                     this.sending = false;
                     this.alertService.error(error.message, 5000);
