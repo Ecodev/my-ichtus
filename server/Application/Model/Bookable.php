@@ -396,9 +396,9 @@ class Bookable extends AbstractModel
     }
 
     /**
-     * If non-zero it will allow to create more application bookings, even if the bookable reached its
-     * simultaneousBookingMaximum. So in effect it will be a sort of "waiting list" of people who would like to
-     * participate in case of someone else cancel their booking.
+     * If non-zero, it allows creating more application bookings, even if the bookable reached its
+     * simultaneousBookingMaximum. So in effect, it will be a sort of "waiting list" of people who would like to
+     * participate in case of someone else canceling their booking.
      */
     public function getWaitingListLength(): int
     {
