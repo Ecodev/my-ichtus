@@ -197,6 +197,14 @@
                     </td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
+
+                <ng-container matColumnDef="usageStatus">
+                    <th mat-header-cell *matHeaderCellDef natural-3em-column natural-align-center>Inscriptions</th>
+                    <td mat-cell *matCellDef="let element" natural-align-center>
+                        <app-flag [status]="usageStatus(element.bookable)">{{ usageText(element.bookable) }}</app-flag>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
             </table>
         </div>
 

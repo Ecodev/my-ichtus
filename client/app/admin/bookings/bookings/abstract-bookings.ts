@@ -3,6 +3,7 @@ import {AvailableColumn, Button, NaturalAbstractList} from '@ecodev/natural';
 import {BookingService} from '../services/booking.service';
 import {BookingWithOwnerService} from '../services/booking-with-owner.service';
 import {SafetyBookingService} from '../../../safety/safety-booking.service';
+import {usageStatus as usageStatusFunc, usageText} from '../../bookables/bookable';
 
 const edit: AvailableColumn = {id: 'edit', label: 'Editer'} as const;
 const owner: AvailableColumn = {id: 'owner', label: 'Utilisateur'};
@@ -21,6 +22,7 @@ const endComment: AvailableColumn = {id: 'endComment', label: 'Note de fin'};
 const terminateBooking: AvailableColumn = {id: 'terminateBooking', label: 'Terminer'};
 const email: AvailableColumn = {id: 'email', label: 'Email'};
 const mobilePhone: AvailableColumn = {id: 'mobilePhone', label: 'Tél.'};
+const usageStatus: AvailableColumn = {id: 'usageStatus', label: 'Inscriptions'};
 
 const allAvailableColumns = [
     edit,
@@ -93,22 +95,14 @@ export const availableColumnsForBookingsSelfApproved = [
 
 export const availableColumnsForBookingsStorageApplication = [edit, owner, bookable, startDate, endDate, endComment];
 
-export const availableColumnsForBookingsWithOwnerFormationApplication = [
+export const availableColumnsForBookingsWithOwnerApplications = [
     edit,
     owner,
     ownerBalance,
     ownerCreationDate,
     bookable,
     startDate,
-];
-
-export const availableColumnsForBookingsWithOwnerNftApplication = [
-    edit,
-    owner,
-    ownerBalance,
-    ownerCreationDate,
-    bookable,
-    startDate,
+    usageStatus,
 ];
 
 export const availableColumnsForBookingsWithOwnerWithoutTrainers = [
@@ -131,14 +125,6 @@ export const availableColumnsForBookingsWithOwnerOnlyTrainers = [
     mobilePhone,
 ];
 
-export const availableColumnsForBookingsWithOwnerWelcomeApplication = [
-    edit,
-    owner,
-    ownerBalance,
-    ownerCreationDate,
-    startDate,
-];
-
 export const availableColumnsForBookingsServicesApplication = [edit, owner, bookable, startDate];
 
 @Directive()
@@ -149,6 +135,8 @@ export abstract class AbstractBookings<
     @Input() public showFabButton = true;
 
     public readonly buttons: Button[] | null = null;
+    public readonly usageStatus = usageStatusFunc;
+    public readonly usageText = usageText;
 
     public maybeTerminateBooking(id: string): void {
         if (!(this.service instanceof BookingService)) {

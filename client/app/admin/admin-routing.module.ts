@@ -61,9 +61,7 @@ import {
     availableColumnsForBookingsSelfApproved,
     availableColumnsForBookingsServicesApplication,
     availableColumnsForBookingsStorageApplication,
-    availableColumnsForBookingsWithOwnerFormationApplication,
-    availableColumnsForBookingsWithOwnerNftApplication,
-    availableColumnsForBookingsWithOwnerWelcomeApplication,
+    availableColumnsForBookingsWithOwnerApplications,
 } from './bookings/bookings/abstract-bookings';
 import {servicesTabRoutes} from '../profile/profile-routing.module';
 
@@ -156,7 +154,7 @@ const routes: Routes = [
                                 title: 'Demandes de cours',
                             } satisfies NaturalSeo,
                             forcedVariables: BookingService.applicationByTag(BookableTagService.FORMATION),
-                            availableColumns: availableColumnsForBookingsWithOwnerFormationApplication,
+                            availableColumns: availableColumnsForBookingsWithOwnerApplications,
                         },
                     },
                     {
@@ -167,7 +165,7 @@ const routes: Routes = [
                                 title: 'Demandes NFT',
                             } as NaturalSeo,
                             forcedVariables: BookingService.applicationByTag(BookableTagService.NFT),
-                            availableColumns: availableColumnsForBookingsWithOwnerNftApplication,
+                            availableColumns: availableColumnsForBookingsWithOwnerApplications,
                         },
                     },
                     {
@@ -178,7 +176,7 @@ const routes: Routes = [
                                 title: "Demandes de séances d'accueil",
                             } satisfies NaturalSeo,
                             forcedVariables: BookingService.applicationByTag(BookableTagService.WELCOME),
-                            availableColumns: availableColumnsForBookingsWithOwnerWelcomeApplication,
+                            availableColumns: availableColumnsForBookingsWithOwnerApplications,
                         },
                     },
                     {
@@ -348,7 +346,7 @@ const routes: Routes = [
                                 'code',
                                 'updateDate',
                                 'initialPrice',
-                                'usageNb',
+                                'usageStatus',
                                 'verificationDate',
                             ],
                             forcedVariables: merge(BookableService.bookableByTag(BookableTagService.FORMATION), {
@@ -368,7 +366,7 @@ const routes: Routes = [
                                 'code',
                                 'updateDate',
                                 'initialPrice',
-                                'usageNb',
+                                'usageStatus',
                                 'verificationDate',
                             ],
                             forcedVariables: merge(BookableService.bookableByTag(BookableTagService.NFT), {
@@ -383,7 +381,7 @@ const routes: Routes = [
                             seo: {
                                 title: "Séances d'accueil",
                             } satisfies NaturalSeo,
-                            selectedColumns: ['name', 'updateDate', 'verificationDate', 'usageNb'],
+                            selectedColumns: ['name', 'updateDate', 'verificationDate', 'usageStatus'],
                             forcedVariables: merge(BookableService.bookableByTag(BookableTagService.WELCOME), {
                                 sorting: [{field: BookableSortingField.creationDate, order: SortingOrder.DESC}],
                             }),

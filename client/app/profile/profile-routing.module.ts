@@ -18,7 +18,7 @@ import {
     description,
     price,
     readOnlyName,
-    usageNb,
+    availability,
 } from '../admin/bookables/bookables/parent.component';
 import {BookableService} from '../admin/bookables/services/bookable.service';
 
@@ -81,7 +81,7 @@ export const servicesTabRoutes: Routes = [
                 [BookingType.admin_approved, BookingType.application],
                 true,
             ),
-            availableColumns: [readOnlyName, price, description, usageNb, createApplication],
+            availableColumns: [readOnlyName, price, description, availability, createApplication],
             showFullyBooked: true,
             showPending: true,
             hideTableFooter: true,
@@ -97,7 +97,7 @@ export const servicesTabRoutes: Routes = [
                 [BookingType.admin_approved, BookingType.application],
                 true,
             ),
-            availableColumns: [readOnlyName, usageNb, createApplication],
+            availableColumns: [readOnlyName, availability, createApplication],
             showFullyBooked: true,
             showPending: true,
             hideTableFooter: true,
@@ -113,7 +113,7 @@ export const servicesTabRoutes: Routes = [
                 [BookingType.admin_approved, BookingType.application],
                 true,
             ),
-            availableColumns: [readOnlyName, description, usageNb, price, createApplication],
+            availableColumns: [readOnlyName, description, availability, price, createApplication],
             showFullyBooked: true,
             showPending: true,
             hideTableFooter: true,

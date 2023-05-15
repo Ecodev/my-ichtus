@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ApplicationTest\Model;
 
 use Application\DBAL\Types\BookingStatusType;
+use Application\DBAL\Types\BookingTypeType;
 use Application\Model\Bookable;
 use Application\Model\Booking;
 use Cake\Chronos\Chronos;
@@ -43,11 +44,19 @@ class BookableTest extends TestCase
         self::assertCount(1, $bookable->getSimultaneousBookings());
         self::assertCount(0, $bookable->getSimultaneousApplications());
 
-        $bookable->setSimultaneousBookingMaximum(-1);
+        $bookable->setBookingType(BookingTypeType::SELF_APPROVED);
         self::assertCount(0, $bookable->getSimultaneousBookings(), 'empty list because we try to save SQL queries');
         self::assertCount(0, $bookable->getSimultaneousApplications());
 
-        $bookable->setSimultaneousBookingMaximum(0);
+        $bookable->setBookingType(BookingTypeType::MANDATORY);
+        self::assertCount(0, $bookable->getSimultaneousBookings(), 'empty list because we try to save SQL queries');
+        self::assertCount(0, $bookable->getSimultaneousApplications());
+
+        $bookable->setBookingType(BookingTypeType::ADMIN_APPROVED);
+        self::assertCount(1, $bookable->getSimultaneousBookings(), 'again normal list when there is a chance that simultaneous booking matter');
+        self::assertCount(0, $bookable->getSimultaneousApplications());
+
+        $bookable->setBookingType(BookingTypeType::ADMIN_ASSIGNED);
         self::assertCount(1, $bookable->getSimultaneousBookings(), 'again normal list when there is a chance that simultaneous booking matter');
         self::assertCount(0, $bookable->getSimultaneousApplications());
 
@@ -67,7 +76,7 @@ class BookableTest extends TestCase
         self::assertCount(1, $bookable->getSimultaneousApplications());
     }
 
-    public function testSimultaneousBookings(): void
+    public function testGetSimultaneousApplications(): void
     {
         $bookable = new Bookable();
         self::assertCount(0, $bookable->getSimultaneousApplications());
@@ -79,11 +88,11 @@ class BookableTest extends TestCase
         self::assertCount(1, $bookable->getSimultaneousApplications());
         self::assertCount(0, $bookable->getSimultaneousBookings());
 
-        $bookable->setSimultaneousBookingMaximum(-1);
+        $bookable->setBookingType(BookingTypeType::SELF_APPROVED);
         self::assertCount(0, $bookable->getSimultaneousApplications(), 'empty list because we try to save SQL queries');
         self::assertCount(0, $bookable->getSimultaneousBookings());
 
-        $bookable->setSimultaneousBookingMaximum(0);
+        $bookable->setBookingType(BookingTypeType::ADMIN_APPROVED);
         self::assertCount(1, $bookable->getSimultaneousApplications(), 'again normal list when there is a chance that simultaneous booking matter');
         self::assertCount(0, $bookable->getSimultaneousBookings());
 

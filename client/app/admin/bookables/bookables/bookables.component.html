@@ -67,7 +67,9 @@ Warning this template is used by two components BookablesComponent and UsageBook
                         <span [ngClass]="{inactive: isFullyBooked(element)}">
                             {{ element.name }}
                         </span>
-                        <span class="flag pending-application" *ngIf="isAlreadyPending(element)">Déjà demandé</span>
+                        <app-flag *ngIf="isAlreadyPending(element)" status="pending-application"
+                            >Déjà demandé
+                        </app-flag>
                     </td>
                     <td mat-footer-cell *matFooterCellDef>Totaux</td>
                 </ng-container>
@@ -182,25 +184,22 @@ Warning this template is used by two components BookablesComponent and UsageBook
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 
-                <ng-container matColumnDef="usageNb">
+                <ng-container matColumnDef="availability">
                     <th mat-header-cell *matHeaderCellDef natural-3em-column natural-align-center>Disponibilité</th>
                     <td mat-cell *matCellDef="let element" natural-align-center>
-                        <div *ngIf="element.simultaneousBookings" [matTooltip]="usageTooltip(element)">
-                            <div
-                                *ngIf="element.simultaneousBookingMaximum >= 0"
-                                [ngClass]="{flag: true, usage: true, full: isFullyBooked(element)}"
-                            >
-                                <div class="usage-counters">
-                                    {{ usageCounters(element) }}
-                                </div>
-                                <div class="full-text">Complet</div>
-                            </div>
+                        <app-flag *ngIf="element.simultaneousBookings" [status]="availabilityStatus(element)">{{
+                            availabilityText(element)
+                        }}</app-flag>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
 
-                            <!-- Unlimited -->
-                            <div *ngIf="element.simultaneousBookingMaximum < 0" [ngClass]="{flag: true, usage: true}">
-                                <div class="usage-counters">Disponible</div>
-                            </div>
-                        </div>
+                <ng-container matColumnDef="usageStatus">
+                    <th mat-header-cell *matHeaderCellDef natural-3em-column natural-align-center>Inscriptions</th>
+                    <td mat-cell *matCellDef="let element" natural-align-center>
+                        <app-flag *ngIf="element.simultaneousBookings" [status]="usageStatus(element)">{{
+                            usageText(element)
+                        }}</app-flag>
                     </td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
@@ -228,7 +227,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                             <ng-container *ngIf="!isAlreadyPending(element)">
                                 {{ route.snapshot.data.actionButtonLabel || 'Demander' }}
                             </ng-container>
-                            <ng-container *ngIf="isAlreadyPending(element)"> Nouvelle demande </ng-container>
+                            <ng-container *ngIf="isAlreadyPending(element)"> Nouvelle demande</ng-container>
                         </button>
                     </td>
                     <td mat-footer-cell *matFooterCellDef></td>

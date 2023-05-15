@@ -1,6 +1,6 @@
 import {gql} from '@apollo/client/core';
 import {permissionsFragment, userContactDataFragment, userMetaFragment} from '../../../shared/queries/fragments';
-import {bookableMetaFragment} from '../../bookables/services/bookable.queries';
+import {bookableMetaFragment, bookableUsageFragment} from '../../bookables/services/bookable.queries';
 
 export const bookingMetaFragment = gql`
     fragment BookingMeta on Booking {
@@ -65,6 +65,7 @@ export const bookingsWithOwnerBalanceQuery = gql`
             items {
                 ...BookingMeta
                 bookable {
+                    ...BookableUsage
                     id
                     name
                     code
@@ -92,6 +93,7 @@ export const bookingsWithOwnerBalanceQuery = gql`
         }
     }
     ${bookingMetaFragment}
+    ${bookableUsageFragment}
 `;
 export const bookingsWithOwnerContactQuery = gql`
     query BookingsWithOwnerContact($filter: BookingFilter, $sorting: [BookingSorting!], $pagination: PaginationInput) {

@@ -21,7 +21,14 @@ import {
     NaturalAbstractDetail,
     NaturalSearchSelections,
 } from '@ecodev/natural';
-import {code, initialPrice, name, periodicPrice, select, usageNb} from '../../bookables/bookables/parent.component';
+import {
+    code,
+    initialPrice,
+    name,
+    periodicPrice,
+    select,
+    availability,
+} from '../../bookables/bookables/parent.component';
 
 @Component({
     selector: 'app-booking',
@@ -34,7 +41,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
     public suggestionSelection: NaturalSearchSelections = [[]];
     public readonly BookingType = BookingType;
     public readonly availableColumns: Readonly<AvailableColumn>[] = [
-        usageNb,
+        availability,
         name,
         code,
         initialPrice,

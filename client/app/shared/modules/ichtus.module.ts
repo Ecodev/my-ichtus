@@ -38,6 +38,7 @@ import {
 import {NaturalEditorModule} from '@ecodev/natural-editor';
 import {SupportComponent} from '../../admin/configurations/support/support.component';
 import {IbanPipe} from '../pipes/iban.pipe';
+import {FlagComponent} from '../components/flag/flag.component';
 
 const iconsConfig: NaturalIconsConfig = {
     qr: {
@@ -129,6 +130,7 @@ const imports = [
     NaturalDialogTriggerModule,
     NaturalFileModule,
     NaturalEditorModule,
+    FlagComponent,
 ];
 
 @NgModule({

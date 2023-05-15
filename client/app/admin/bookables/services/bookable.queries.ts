@@ -1,6 +1,20 @@
 import {gql} from '@apollo/client/core';
 import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
 
+export const bookableUsageFragment = gql`
+    fragment BookableUsage on Bookable {
+        id
+        simultaneousBookingMaximum
+        waitingListLength
+        simultaneousBookings {
+            id
+        }
+        simultaneousApplications {
+            id
+        }
+    }
+`;
+
 export const bookableMetaFragment = gql`
     fragment BookableMeta on Bookable {
         id
@@ -67,15 +81,13 @@ export const usageBookablesQuery = gql`
         bookables(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
                 ...BookableMeta
+                ...BookableUsage
                 simultaneousBookings {
                     id
                     owner {
                         id
                         name
                     }
-                }
-                simultaneousApplications {
-                    id
                 }
             }
             pageSize
@@ -87,6 +99,7 @@ export const usageBookablesQuery = gql`
         }
     }
     ${bookableMetaFragment}
+    ${bookableUsageFragment}
 `;
 
 export const bookableQuery = gql`

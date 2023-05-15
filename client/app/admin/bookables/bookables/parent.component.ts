@@ -15,6 +15,7 @@ import {ViewerResolve} from '../../users/services/viewer.resolver';
 import {map, Observable, takeUntil} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 import {Apollo} from 'apollo-angular';
+import {availabilityStatus, availabilityText, usageStatus as usageStatusFunc, usageText} from '../bookable';
 
 export const image: AvailableColumn = {id: 'image', label: 'Image'};
 export const name: AvailableColumn = {id: 'name', label: 'Nom'};
@@ -27,7 +28,8 @@ export const initialPrice: AvailableColumn = {id: 'initialPrice', label: 'Prix i
 export const periodicPrice: AvailableColumn = {id: 'periodicPrice', label: 'Prix périodique'};
 export const updateDate: AvailableColumn = {id: 'updateDate', label: 'Dernière modification'};
 export const usage: AvailableColumn = {id: 'usage', label: 'Utilisations'};
-export const usageNb: AvailableColumn = {id: 'usageNb', label: 'Disponibilité'};
+export const availability: AvailableColumn = {id: 'availability', label: 'Disponibilité'};
+export const usageStatus: AvailableColumn = {id: 'usageStatus', label: 'Inscriptions'};
 export const verificationDate: AvailableColumn = {id: 'verificationDate', label: 'Dernière vérification'};
 export const select: AvailableColumn = {id: 'select', label: 'Sélection', hidden: true};
 export const createApplication: AvailableColumn = {id: 'createApplication', label: 'Demander', hidden: true};
@@ -43,6 +45,10 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
     public pendingApplications: Bookings_bookings_items[] = [];
     public readonly creating = new Map<ExtractTallOne<T>['id'], true>();
     private readonly apollo = inject(Apollo);
+    public readonly availabilityStatus = availabilityStatus;
+    public readonly availabilityText = availabilityText;
+    public readonly usageStatus = usageStatusFunc;
+    public readonly usageText = usageText;
 
     /**
      * The user who will be the owner of the booking when we create it via the `createApplication` button
@@ -78,7 +84,7 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
                   initialPrice,
                   periodicPrice,
                   updateDate,
-                  ...(this.hasUsage ? [usage, usageNb] : []),
+                  ...(this.hasUsage ? [usage, availability, usageStatus] : []),
                   verificationDate,
               ];
     }
@@ -119,44 +125,7 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
         return this.pendingApplications.some(applicaton => bookable.id === applicaton.bookable?.id);
     }
 
-    private counterData(bookable: UsageBookables_bookables_items): {
-        used: {count: number; limit: number};
-        waitingList: {count: number; limit: number};
-    } {
-        const totalCount = bookable.simultaneousBookings.length + bookable.simultaneousApplications.length;
-
-        const countUsedForHuman = Math.min(totalCount, bookable.simultaneousBookingMaximum);
-        const countWaitingListForHuman = totalCount - countUsedForHuman;
-
-        return {
-            used: {count: countUsedForHuman, limit: bookable.simultaneousBookingMaximum},
-            waitingList: {count: countWaitingListForHuman, limit: bookable.waitingListLength},
-        };
-    }
-
-    public usageCounters(bookable: UsageBookables_bookables_items): string {
-        const data = this.counterData(bookable);
-
-        if (data.waitingList.count || data.waitingList.limit) {
-            return ` ${data.used.count} + ${data.waitingList.count} / ${data.used.limit} + ${data.waitingList.limit}`;
-        }
-
-        return `${data.used.count} / ${data.used.limit}`;
-    }
-
-    public usageTooltip(bookable: UsageBookables_bookables_items): string {
-        const data = this.counterData(bookable);
-
-        return `La disponibilité est de ${data.used.count}/${data.used.limit}. La file d'attente est de ${data.waitingList.count}/${data.waitingList.limit}`;
-    }
-
     public isFullyBooked(bookable: UsageBookables_bookables_items): boolean {
-        if (bookable.simultaneousBookingMaximum < 0) {
-            return false;
-        }
-
-        const data = this.counterData(bookable);
-
-        return data.used.count + data.waitingList.count >= data.used.limit + data.waitingList.limit;
+        return this.availabilityStatus(bookable) === 'full';
     }
 }

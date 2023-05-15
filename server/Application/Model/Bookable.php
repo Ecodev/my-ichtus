@@ -320,7 +320,7 @@ class Bookable extends AbstractModel
     public function getSimultaneousBookings(): array
     {
         // Pretend to have no simultaneous bookings to avoid too many SQL queries when we don't really care about it
-        if ($this->getSimultaneousBookingMaximum() < 0) {
+        if ($this->avoidTooManySqlQueries()) {
             return [];
         }
 
@@ -338,7 +338,14 @@ class Bookable extends AbstractModel
     public function getSimultaneousApplications(): array
     {
         // Pretend to have no simultaneous bookings to avoid too many SQL queries when we don't really care about it
-        if ($this->getSimultaneousBookingMaximum() < 0) {
+        if ($this->avoidTooManySqlQueries()) {
+            return [];
+        }
+
+        $bookableType = $this->getBookingType();
+        $bookableTypesAllowed = [BookingTypeType::ADMIN_ASSIGNED, BookingTypeType::APPLICATION, BookingTypeType::ADMIN_APPROVED];
+
+        if (!in_array($bookableType, $bookableTypesAllowed, true)) {
             return [];
         }
 
@@ -346,6 +353,14 @@ class Bookable extends AbstractModel
         $bookings = $this->getBookings()->filter(fn (Booking $booking): bool => !$booking->getEndDate() && $booking->getStatus() === BookingStatusType::APPLICATION)->toArray();
 
         return $bookings;
+    }
+
+    private function avoidTooManySqlQueries(): bool
+    {
+        $bookableType = $this->getBookingType();
+        $bookableTypesAllowed = [BookingTypeType::ADMIN_ASSIGNED, BookingTypeType::APPLICATION, BookingTypeType::ADMIN_APPROVED];
+
+        return !in_array($bookableType, $bookableTypesAllowed, true);
     }
 
     /**
