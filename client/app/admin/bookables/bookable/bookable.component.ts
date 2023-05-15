@@ -36,6 +36,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
     public readonly availableColumnsForBookingsWithOwnerWithoutTrainers =
         availableColumnsForBookingsWithOwnerWithoutTrainers;
     public readonly availableColumnsForBookingsWithOwnerOnlyTrainers = availableColumnsForBookingsWithOwnerOnlyTrainers;
+
     public constructor(
         bookableService: BookableService,
         injector: Injector,
@@ -79,6 +80,10 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
 
     public showVerified(): boolean {
         return this.data.model.bookingType === BookingType.self_approved;
+    }
+
+    public showWaitingList(): boolean {
+        return this.data.model.bookingType === BookingType.admin_approved;
     }
 
     /**
