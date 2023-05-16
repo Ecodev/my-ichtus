@@ -341,14 +341,7 @@ const routes: Routes = [
                             seo: {
                                 title: 'Cours',
                             } satisfies NaturalSeo,
-                            selectedColumns: [
-                                'name',
-                                'code',
-                                'updateDate',
-                                'initialPrice',
-                                'usageStatus',
-                                'verificationDate',
-                            ],
+                            selectedColumns: ['name', 'code', 'updateDate', 'initialPrice', 'usageStatus'],
                             forcedVariables: merge(BookableService.bookableByTag(BookableTagService.FORMATION), {
                                 sorting: [{field: BookableSortingField.creationDate, order: SortingOrder.DESC}],
                             }),
@@ -361,14 +354,7 @@ const routes: Routes = [
                             seo: {
                                 title: 'NFT',
                             } as NaturalSeo,
-                            selectedColumns: [
-                                'name',
-                                'code',
-                                'updateDate',
-                                'initialPrice',
-                                'usageStatus',
-                                'verificationDate',
-                            ],
+                            selectedColumns: ['name', 'code', 'updateDate', 'initialPrice', 'usageStatus'],
                             forcedVariables: merge(BookableService.bookableByTag(BookableTagService.NFT), {
                                 sorting: [{field: BookableSortingField.creationDate, order: SortingOrder.DESC}],
                             }),
@@ -381,7 +367,7 @@ const routes: Routes = [
                             seo: {
                                 title: "Séances d'accueil",
                             } satisfies NaturalSeo,
-                            selectedColumns: ['name', 'updateDate', 'verificationDate', 'usageStatus'],
+                            selectedColumns: ['name', 'updateDate', 'usageStatus'],
                             forcedVariables: merge(BookableService.bookableByTag(BookableTagService.WELCOME), {
                                 sorting: [{field: BookableSortingField.creationDate, order: SortingOrder.DESC}],
                             }),
