@@ -510,7 +510,7 @@ const routes: Routes = [
                             seo: {resolveKey: 'user'} satisfies NaturalSeo,
                             persistSearchUsageBookable: false,
                         },
-                        children: [...servicesTabRoutes],
+                        children: servicesTabRoutes,
                     },
                 ],
             },

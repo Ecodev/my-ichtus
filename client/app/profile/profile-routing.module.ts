@@ -173,7 +173,7 @@ const routes: Routes = [
                             seo: {title: ''} satisfies NaturalSeo,
                             hideCreateFab: true,
                         },
-                        children: [...servicesTabRoutes],
+                        children: servicesTabRoutes,
                     },
                 ],
             },
