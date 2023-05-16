@@ -537,6 +537,16 @@ export class NaturalSearchFacetsService {
             this.creationDate,
             this.updateDate,
         ],
+        admin_approved: [
+            this.name,
+            this.code,
+            this.bookableTags,
+            this.isActive,
+            this.initialPrice,
+            this.bookableActiveBookingCount,
+            this.creationDate,
+            this.updateDate,
+        ],
         equipment: [
             this.name,
             this.code,

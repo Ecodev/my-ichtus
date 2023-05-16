@@ -331,7 +331,7 @@ const routes: Routes = [
                             } satisfies NaturalSeo,
                             selectedColumns: ['image', 'name', 'code', 'updateDate', 'verificationDate', 'usage'],
                             forcedVariables: BookableService.bookableByTag('6009'),
-                            isStorage: true,
+                            facetsKey: 'storage',
                         },
                     },
                     {
@@ -346,6 +346,7 @@ const routes: Routes = [
                             forcedVariables: merge(BookableService.bookableByTag(BookableTagService.FORMATION), {
                                 sorting: [{field: BookableSortingField.creationDate, order: SortingOrder.DESC}],
                             }),
+                            facetsKey: 'admin_approved',
                         },
                     },
                     {
@@ -360,6 +361,7 @@ const routes: Routes = [
                             forcedVariables: merge(BookableService.bookableByTag(BookableTagService.NFT), {
                                 sorting: [{field: BookableSortingField.creationDate, order: SortingOrder.DESC}],
                             }),
+                            facetsKey: 'admin_approved',
                         },
                     },
                     {
@@ -374,6 +376,7 @@ const routes: Routes = [
                             forcedVariables: merge(BookableService.bookableByTag(BookableTagService.WELCOME), {
                                 sorting: [{field: BookableSortingField.creationDate, order: SortingOrder.DESC}],
                             }),
+                            facetsKey: 'admin_approved',
                         },
                     },
                     {
@@ -385,7 +388,7 @@ const routes: Routes = [
                             } satisfies NaturalSeo,
                             selectedColumns: ['image', 'name', 'code', 'updateDate', 'verificationDate', 'usage'],
                             forcedVariables: BookableService.bookableByTag('6010'),
-                            isStorage: true,
+                            facetsKey: 'storage',
                         },
                     },
                     {
@@ -397,7 +400,7 @@ const routes: Routes = [
                             } satisfies NaturalSeo,
                             selectedColumns: ['image', 'name', 'code', 'updateDate', 'verificationDate', 'usage'],
                             forcedVariables: BookableService.bookableByTag('6011'),
-                            isStorage: true,
+                            facetsKey: 'storage',
                         },
                     },
                     {
@@ -409,7 +412,7 @@ const routes: Routes = [
                             } satisfies NaturalSeo,
                             selectedColumns: ['image', 'name', 'code', 'updateDate', 'verificationDate', 'usage'],
                             forcedVariables: BookableService.bookableByTag('6016'),
-                            isStorage: true,
+                            facetsKey: 'storage',
                         },
                     },
                     {

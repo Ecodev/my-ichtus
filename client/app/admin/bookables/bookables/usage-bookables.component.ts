@@ -41,7 +41,7 @@ export class UsageBookablesComponent extends ParentComponent<UsageBookableServic
 
         if (this.route.snapshot.data.isAdmin) {
             this.naturalSearchFacets = naturalSearchFacetsService.get(
-                this.route.snapshot.data.isStorage ? 'storage' : 'bookables',
+                this.route.snapshot.data.facetsKey ?? 'bookables',
             );
         }
     }

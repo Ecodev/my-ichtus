@@ -8,7 +8,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
             {{ routeData?.seo.title }}
         </div>
         <natural-columns-picker
-            [fxShow]="!route.snapshot.data.hideTableFooter"
+            [fxShow]="route.snapshot.data.showColumnPicker ?? true"
             [availableColumns]="availableColumns"
             [selections]="selectedColumns"
             (selectionChange)="selectColumns($event)"
