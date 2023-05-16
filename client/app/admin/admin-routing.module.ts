@@ -341,6 +341,7 @@ const routes: Routes = [
                             seo: {
                                 title: 'Cours',
                             } satisfies NaturalSeo,
+                            hideTableFooter: true,
                             selectedColumns: ['name', 'code', 'updateDate', 'initialPrice', 'usageStatus'],
                             forcedVariables: merge(BookableService.bookableByTag(BookableTagService.FORMATION), {
                                 sorting: [{field: BookableSortingField.creationDate, order: SortingOrder.DESC}],
@@ -354,6 +355,7 @@ const routes: Routes = [
                             seo: {
                                 title: 'NFT',
                             } as NaturalSeo,
+                            hideTableFooter: true,
                             selectedColumns: ['name', 'code', 'updateDate', 'initialPrice', 'usageStatus'],
                             forcedVariables: merge(BookableService.bookableByTag(BookableTagService.NFT), {
                                 sorting: [{field: BookableSortingField.creationDate, order: SortingOrder.DESC}],
@@ -367,6 +369,7 @@ const routes: Routes = [
                             seo: {
                                 title: "Séances d'accueil",
                             } satisfies NaturalSeo,
+                            hideTableFooter: true,
                             selectedColumns: ['name', 'updateDate', 'usageStatus'],
                             forcedVariables: merge(BookableService.bookableByTag(BookableTagService.WELCOME), {
                                 sorting: [{field: BookableSortingField.creationDate, order: SortingOrder.DESC}],
