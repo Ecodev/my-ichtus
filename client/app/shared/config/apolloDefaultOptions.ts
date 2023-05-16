@@ -10,7 +10,7 @@ import {
 import {onError} from '@apollo/client/link/error';
 import {NetworkActivityService} from '../services/network-activity.service';
 import {createUploadLink} from 'apollo-upload-client';
-import {hasFilesAndProcessDate, NaturalAlertService} from '@ecodev/natural';
+import {hasFilesAndProcessDate, NaturalAlertService, isMutation} from '@ecodev/natural';
 import {ErrorService} from '../components/error/error.service';
 import {APOLLO_OPTIONS} from 'apollo-angular';
 import {Provider} from '@angular/core';
@@ -92,7 +92,7 @@ function createApolloLink(
 
     // If query has no file, batch it, otherwise upload only that query
     const httpLink = ApolloLink.split(
-        ({variables}) => hasFilesAndProcessDate(variables),
+        operation => hasFilesAndProcessDate(operation.variables) || isMutation(operation.query),
         uploadInterceptor.concat(createUploadLink(options)),
         httpBatchLink.create(options),
     );
