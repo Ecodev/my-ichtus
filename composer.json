@@ -56,7 +56,7 @@
         "ext-pdo": "*",
         "ext-zip": "*",
         "beberlei/doctrineextensions": "^1.3",
-        "ecodev/felix": "^11.1",
+        "ecodev/felix": "^11.2",
         "ecodev/graphql-upload": "^6.1",
         "genkgo/camt": "^2.4",
         "laminas/laminas-config-aggregator": "^1.11",
