@@ -17,7 +17,7 @@ $json = json_encode($clientConfig, JSON_PRETTY_PRINT);
 $code = <<<STRING
     /* eslint-disable */
     /* eslint-disable */
-    export const localConfig = $json;
+    export const localConfig = $json as const;
     STRING;
 
 file_put_contents('client/app/shared/generated-config.ts', $code);
