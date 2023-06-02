@@ -9,7 +9,7 @@ import {UserService} from '../../../admin/users/services/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {NaturalAbstractController, NaturalAlertService, NaturalDataSource} from '@ecodev/natural';
-import {takeUntil} from 'rxjs/operators';
+import {finalize, takeUntil} from 'rxjs/operators';
 
 @Component({
     selector: 'app-services',
@@ -90,11 +90,10 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
 
     public cancelApplication(booking: Bookings_bookings_items): void {
         this.deleting.set(booking.id, true);
-        this.bookingService.delete([booking]).subscribe({
-            // Only remove from deleting in case of error, because in case of success the whole list will be refreshed,
-            // and we don't want our button to be active again in the short time between success and refreshed list
-            error: () => this.deleting.delete(booking.id),
-        });
+        this.bookingService
+            .delete([booking])
+            .pipe(finalize(() => this.deleting.delete(booking.id)))
+            .subscribe();
     }
 
     public unregister(): void {
