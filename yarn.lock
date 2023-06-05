@@ -1409,10 +1409,10 @@
   dependencies:
     tslib "^2.3.1"
 
-"@ecodev/natural-editor@^50.3.0":
-  version "50.3.0"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural-editor/-/natural-editor-50.3.0.tgz#a71aed60eba0adbaa876454e9d5cf7b3419a2bdb"
-  integrity sha512-1FMXRpMwstIvwuq4XpCE15dn1v1/P1q0iLfpSEwxNZbufGoV7Whw1cI0cid7l5UU14szOztP91+Ggd+01b3lvw==
+"@ecodev/natural-editor@^50.4.0":
+  version "50.4.0"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural-editor/-/natural-editor-50.4.0.tgz#0ff4c46a79a76cac88dc178353fc216abe8f7b58"
+  integrity sha512-0ElbBAiPO/GviS8MiowQ+fpB2AJfoCj3UJqAuy0IhMuCg+sXCcYvbvLK31W2Grwi0TFEsomystBfEXYrRD9Ezg==
   dependencies:
     prosemirror-commands "^1.1.12"
     prosemirror-dropcursor "^1.4.0"
