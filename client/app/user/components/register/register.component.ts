@@ -7,7 +7,7 @@ import {
     NaturalDataSource,
     validateAllFormControls,
 } from '@ecodev/natural';
-import {Bookables_bookables} from '../../../shared/generated-types';
+import {Bookables_bookables, Register, RegisterVariables} from '../../../shared/generated-types';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
@@ -72,7 +72,7 @@ export class RegisterComponent implements OnInit {
         `;
 
         this.apollo
-            .mutate({
+            .mutate<Register, RegisterVariables>({
                 mutation: mutation,
                 variables: this.form.value,
             })
