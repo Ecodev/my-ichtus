@@ -44,9 +44,6 @@ const iconsConfig: NaturalIconsConfig = {
     qr: {
         svg: 'assets/icons/qr.svg',
     },
-    'simple-qr': {
-        svg: 'assets/icons/simple-qr.svg',
-    },
     own_bookable: {
         svg: 'assets/icons/swimsuit.svg',
     },
@@ -67,12 +64,6 @@ const iconsConfig: NaturalIconsConfig = {
     },
     claims: {
         svg: 'assets/icons/claims.svg',
-    },
-    finances: {
-        svg: 'assets/icons/notes.svg',
-    },
-    browse_bookables: {
-        svg: 'assets/icons/search.svg',
     },
     administrator: {
         svg: 'assets/icons/boss.svg',
