@@ -1,7 +1,6 @@
 <form class="body padding" [formGroup]="form">
     <div fxLayout="column" fxLayoutGap="30px">
-        <div class="mat-h1" *ngIf="step === 1">Adhésion</div>
-        <div class="mat-h1" *ngIf="step === 2">Confirmation d'adhésion</div>
+        <div class="mat-h1">{{ route.snapshot.data.seo.title }}</div>
 
         <div fxLayout="column">
             <div fxLayout.gt-xs="row" fxLayout="column" fxLayoutGap.gt-xs="10px">
