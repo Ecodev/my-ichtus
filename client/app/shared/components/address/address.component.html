@@ -1,4 +1,4 @@
-<div [formGroup]="form" fxLayout="column" [fxLayoutGap.gt-sm]="vertical ? '0px' : '10px'">
+<div [formGroup]="form" fxLayout="column">
     <mat-form-field>
         <mat-label>Rue</mat-label>
         <input matInput formControlName="street" (change)="update()" />
@@ -9,6 +9,7 @@
         [fxLayout.gt-sm]="vertical ? 'column' : 'row'"
         [fxLayoutGap.gt-sm]="vertical ? '0px' : '10px'"
         fxLayout="column"
+        fxLayoutGap="0px"
     >
         <mat-form-field [fxFlex]="!vertical">
             <mat-label>Localité</mat-label>
@@ -24,6 +25,7 @@
             </mat-form-field>
 
             <natural-select
+                fxFlex
                 [service]="countryService"
                 formControlName="country"
                 [showIcon]="false"

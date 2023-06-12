@@ -19,7 +19,7 @@
 
             <h2 class="mat-headline-6">Compte</h2>
 
-            <div fxLayout.gt-xs="row" fxLayout="column" fxLayoutGap.gt-xs="10px">
+            <div fxLayout="column">
                 <mat-form-field fxFlex>
                     <mat-label>Nom d'utilisateur</mat-label>
                     <input matInput formControlName="login" />
@@ -42,46 +42,47 @@
             <mat-divider></mat-divider>
 
             <h2 class="mat-headline-6">Coordonnées</h2>
+            <div>
+                <div fxLayout.gt-xs="row" fxLayout="column" fxLayoutGap="0" fxLayoutGap.gt-xs="10px">
+                    <mat-form-field fxFlex>
+                        <mat-label>Prénom</mat-label>
+                        <input matInput formControlName="firstName" />
+                        <mat-error *ngIf="form.get('firstName')?.hasError('maxlength')">
+                            Maximum {{ form.get('firstName')?.errors?.maxlength?.requiredLength }} caractères
+                        </mat-error>
+                        <mat-error *ngIf="form.get('firstName')?.hasError('required')">Requis</mat-error>
+                    </mat-form-field>
 
-            <div fxLayout.gt-xs="row" fxLayout="column" fxLayoutGap.gt-xs="10px">
-                <mat-form-field fxFlex>
-                    <mat-label>Prénom</mat-label>
-                    <input matInput formControlName="firstName" />
-                    <mat-error *ngIf="form.get('firstName')?.hasError('maxlength')">
-                        Maximum {{ form.get('firstName')?.errors?.maxlength?.requiredLength }} caractères
-                    </mat-error>
-                    <mat-error *ngIf="form.get('firstName')?.hasError('required')">Requis</mat-error>
-                </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <mat-label>Nom de famille</mat-label>
+                        <input matInput formControlName="lastName" />
+                        <mat-error *ngIf="form.get('lastName')?.hasError('maxlength')">
+                            Maximum {{ form.get('lastName')?.errors?.maxlength?.requiredLength }} caractères
+                        </mat-error>
+                        <mat-error *ngIf="form.get('lastName')?.hasError('required')">Requis</mat-error>
+                    </mat-form-field>
+                </div>
 
-                <mat-form-field fxFlex>
-                    <mat-label>Nom de famille</mat-label>
-                    <input matInput formControlName="lastName" />
-                    <mat-error *ngIf="form.get('lastName')?.hasError('maxlength')">
-                        Maximum {{ form.get('lastName')?.errors?.maxlength?.requiredLength }} caractères
-                    </mat-error>
-                    <mat-error *ngIf="form.get('lastName')?.hasError('required')">Requis</mat-error>
-                </mat-form-field>
-            </div>
+                <app-address [form]="form"></app-address>
 
-            <app-address [form]="form"></app-address>
-
-            <div fxLayout.gt-xs="row" fxLayout="column" fxLayoutGap.gt-xs="10px">
-                <mat-form-field fxFlex>
-                    <mat-label>Téléphone mobile</mat-label>
-                    <mat-icon matIconPrefix naturalIcon="smartphone"></mat-icon>
-                    <input matInput formControlName="mobilePhone" />
-                    <mat-error *ngIf="form.get('mobilePhone')?.hasError('maxlength')">
-                        Maximum {{ form.get('mobilePhone')?.errors?.maxlength?.requiredLength }} caractères
-                    </mat-error>
-                    <mat-error *ngIf="form.get('mobilePhone')?.hasError('required')">Requis</mat-error>
-                </mat-form-field>
-                <mat-form-field fxFlex>
-                    <mat-label>Date de naissance</mat-label>
-                    <input matInput formControlName="birthday" [matDatepicker]="picker" />
-                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                    <mat-error *ngIf="form.get('birthday')?.hasError('required')">Requis</mat-error>
-                </mat-form-field>
+                <div fxLayout.gt-xs="row" fxLayout="column" fxLayoutGap="0" fxLayoutGap.gt-xs="10px">
+                    <mat-form-field fxFlex>
+                        <mat-label>Téléphone mobile</mat-label>
+                        <mat-icon matIconPrefix naturalIcon="smartphone"></mat-icon>
+                        <input matInput formControlName="mobilePhone" />
+                        <mat-error *ngIf="form.get('mobilePhone')?.hasError('maxlength')">
+                            Maximum {{ form.get('mobilePhone')?.errors?.maxlength?.requiredLength }} caractères
+                        </mat-error>
+                        <mat-error *ngIf="form.get('mobilePhone')?.hasError('required')">Requis</mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <mat-label>Date de naissance</mat-label>
+                        <input matInput formControlName="birthday" [matDatepicker]="picker" />
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="form.get('birthday')?.hasError('required')">Requis</mat-error>
+                    </mat-form-field>
+                </div>
             </div>
 
             <mat-divider></mat-divider>
