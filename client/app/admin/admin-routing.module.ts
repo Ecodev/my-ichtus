@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {Route, RouterModule, Routes} from '@angular/router';
 import {AdminComponent} from './admin/admin.component';
 import {BookablesComponent} from './bookables/bookables/bookables.component';
 import {BookableComponent} from './bookables/bookable/bookable.component';
@@ -64,6 +64,21 @@ import {
     availableColumnsForBookingsWithOwnerApplications,
 } from './bookings/bookings/abstract-bookings';
 import {servicesTabRoutes} from '../profile/profile-routing.module';
+
+function equipment(path: string, title: string, bookableTagId: string): Route {
+    return {
+        path: path,
+        component: BookablesComponent,
+        data: {
+            seo: {
+                title: title,
+            } satisfies NaturalSeo,
+            isEquipment: true,
+            forcedVariables: BookableService.getFiltersByTagId(bookableTagId),
+            selectedColumns: ['image', 'name', 'code', 'updateDate', 'verificationDate'],
+        },
+    };
+}
 
 const routes: Routes = [
     {
@@ -238,90 +253,14 @@ const routes: Routes = [
                             forcedVariables: BookableService.membershipServices,
                         },
                     },
-                    {
-                        path: 'sup',
-                        component: BookablesComponent,
-                        data: {
-                            seo: {
-                                title: 'Stand up paddle',
-                            } satisfies NaturalSeo,
-                            isEquipment: true,
-                            forcedVariables: BookableService.getFiltersByTagId('6000'),
-                            selectedColumns: ['image', 'name', 'code', 'updateDate', 'verificationDate'],
-                        },
-                    },
-                    {
-                        path: 'planche',
-                        component: BookablesComponent,
-                        data: {
-                            seo: {
-                                title: 'Planches',
-                            } satisfies NaturalSeo,
-                            isEquipment: true,
-                            forcedVariables: BookableService.getFiltersByTagId('6001'),
-                            selectedColumns: ['image', 'name', 'code', 'updateDate', 'verificationDate'],
-                        },
-                    },
-                    {
-                        path: 'canoe',
-                        component: BookablesComponent,
-                        data: {
-                            seo: {
-                                title: 'Canoës',
-                            } satisfies NaturalSeo,
-                            isEquipment: true,
-                            forcedVariables: BookableService.getFiltersByTagId('6002'),
-                            selectedColumns: ['image', 'name', 'code', 'updateDate', 'verificationDate'],
-                        },
-                    },
-                    {
-                        path: 'kayak',
-                        component: BookablesComponent,
-                        data: {
-                            seo: {
-                                title: 'Kayaks',
-                            } satisfies NaturalSeo,
-                            isEquipment: true,
-                            forcedVariables: BookableService.getFiltersByTagId('6003'),
-                            selectedColumns: ['image', 'name', 'code', 'updateDate', 'verificationDate'],
-                        },
-                    },
-                    {
-                        path: 'aviron',
-                        component: BookablesComponent,
-                        data: {
-                            seo: {
-                                title: 'Aviron',
-                            } satisfies NaturalSeo,
-                            isEquipment: true,
-                            forcedVariables: BookableService.getFiltersByTagId('6004'),
-                            selectedColumns: ['image', 'name', 'code', 'updateDate', 'verificationDate'],
-                        },
-                    },
-                    {
-                        path: 'voile-legere',
-                        component: BookablesComponent,
-                        data: {
-                            seo: {
-                                title: 'Voile légère',
-                            } satisfies NaturalSeo,
-                            isEquipment: true,
-                            forcedVariables: BookableService.getFiltersByTagId('6005'),
-                            selectedColumns: ['image', 'name', 'code', 'updateDate', 'verificationDate'],
-                        },
-                    },
-                    {
-                        path: 'voile-lestee',
-                        component: BookablesComponent,
-                        data: {
-                            seo: {
-                                title: 'Voile lestée',
-                            } satisfies NaturalSeo,
-                            isEquipment: true,
-                            forcedVariables: BookableService.getFiltersByTagId('6006'),
-                            selectedColumns: ['image', 'name', 'code', 'updateDate', 'verificationDate'],
-                        },
-                    },
+                    equipment('sup', 'Stand up paddle', '6000'),
+                    equipment('planche', 'Planches', '6001'),
+                    equipment('canoe', 'Canoës', '6002'),
+                    equipment('kayak', 'Kayaks', '6003'),
+                    equipment('aviron', 'Aviron', '6004'),
+                    equipment('voile-legere', 'Voile légère', '6005'),
+                    equipment('voile-lestee', 'Voile lestée', '6006'),
+                    equipment('wing-foil', 'Wing foil', '6043'),
                     {
                         path: 'armoire',
                         component: UsageBookablesComponent,
