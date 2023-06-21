@@ -16,7 +16,6 @@ import {
 } from './bookableTag.queries';
 import {
     BookableTag,
-    BookableTag_bookableTag,
     BookableTagInput,
     BookableTags,
     BookableTagsVariables,
@@ -84,7 +83,7 @@ export class BookableTagService extends NaturalAbstractModelService<
         };
     }
 
-    public override getFormAsyncValidators(model: BookableTag_bookableTag): FormAsyncValidators {
+    public override getFormAsyncValidators(model: BookableTag['bookableTag']): FormAsyncValidators {
         return {
             name: [unique('name', model.id, this)],
         };

@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {BookableService} from '../../admin/bookables/services/bookable.service';
 import {BookingService} from '../../admin/bookings/services/booking.service';
 import {NaturalAbstractController} from '@ecodev/natural';
-import {Bookable_bookable, Bookings, BookingType} from '../../shared/generated-types';
+import {Bookable, Bookings, BookingType} from '../../shared/generated-types';
 import {PermissionsService} from '../../shared/services/permissions.service';
 
 @Component({
@@ -35,7 +35,7 @@ export class BookableComponent extends NaturalAbstractController implements OnIn
     public canAccessAdmin = false;
     public runningBooking: Bookings['bookings']['items'][0] | null = null;
 
-    public bookable: Bookable_bookable | null = null;
+    public bookable: Bookable['bookable'] | null = null;
 
     public constructor(
         private readonly bookableService: BookableService,

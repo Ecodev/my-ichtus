@@ -1,11 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {BookableService} from '../../bookables/services/bookable.service';
-import {
-    Transaction,
-    TransactionLineInput,
-    TransactionLines_transactionLines_items,
-} from '../../../shared/generated-types';
+import {Transaction, TransactionLineInput, TransactionLines} from '../../../shared/generated-types';
 import {TransactionTagService} from '../../transactionTags/services/transactionTag.service';
 import {NaturalAbstractEditableList} from '@ecodev/natural';
 import {accountHierarchicConfiguration} from '../../../shared/hierarchic-selector/AccountHierarchicConfiguration';
@@ -18,7 +14,7 @@ import {accountHierarchicConfiguration} from '../../../shared/hierarchic-selecto
 export class EditableTransactionLinesComponent
     extends NaturalAbstractEditableList<
         TransactionLineService,
-        TransactionLines_transactionLines_items | TransactionLineInput
+        TransactionLines['transactionLines']['items'][0] | TransactionLineInput
     >
     implements OnInit
 {

@@ -1,10 +1,5 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import {
-    Bookings_bookings,
-    Bookings_bookings_items,
-    BookingType,
-    CurrentUserForProfile_viewer,
-} from '../../../shared/generated-types';
+import {Bookings, BookingType, CurrentUserForProfile} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
@@ -17,16 +12,16 @@ import {finalize, takeUntil} from 'rxjs/operators';
     styleUrls: ['./services.component.scss'],
 })
 export class ServicesComponent extends NaturalAbstractController implements OnInit, OnChanges, OnDestroy {
-    @Input() public user!: CurrentUserForProfile_viewer;
+    @Input() public user!: NonNullable<CurrentUserForProfile['viewer']>;
 
     public adminMode = false;
 
-    public runningServicesDS!: NaturalDataSource<Bookings_bookings>;
-    public pendingApplicationsDS!: NaturalDataSource<Bookings_bookings>;
+    public runningServicesDS!: NaturalDataSource<Bookings['bookings']>;
+    public pendingApplicationsDS!: NaturalDataSource<Bookings['bookings']>;
 
     public servicesColumns = ['name', 'initialPrice', 'periodicPrice', 'revoke'];
     public applicationsColumns = ['name', 'status', 'initialPrice', 'periodicPrice', 'cancel'];
-    public readonly deleting = new Map<Bookings_bookings_items['id'], true>();
+    public readonly deleting = new Map<Bookings['bookings']['items'][0]['id'], true>();
 
     public constructor(
         private readonly userService: UserService,
@@ -61,16 +56,16 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
         const pendingApplications = this.userService
             .getPendingApplications(this.user)
             .pipe(takeUntil(this.ngUnsubscribe));
-        this.pendingApplicationsDS = new NaturalDataSource<Bookings_bookings>(pendingApplications);
+        this.pendingApplicationsDS = new NaturalDataSource<Bookings['bookings']>(pendingApplications);
 
         const runningServices = this.userService.getRunningServices(this.user).pipe(takeUntil(this.ngUnsubscribe));
-        this.runningServicesDS = new NaturalDataSource<Bookings_bookings>(runningServices);
+        this.runningServicesDS = new NaturalDataSource<Bookings['bookings']>(runningServices);
     }
 
     /**
      * Set end date ?
      */
-    public revokeBooking(booking: Bookings_bookings_items): void {
+    public revokeBooking(booking: Bookings['bookings']['items'][0]): void {
         this.alertService
             .confirm(
                 'Résiliation de prestation',
@@ -84,11 +79,11 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
             });
     }
 
-    public canRevoke(booking: Bookings_bookings_items): boolean {
+    public canRevoke(booking: Bookings['bookings']['items'][0]): boolean {
         return booking.bookable?.bookingType !== BookingType.mandatory;
     }
 
-    public cancelApplication(booking: Bookings_bookings_items): void {
+    public cancelApplication(booking: Bookings['bookings']['items'][0]): void {
         this.deleting.set(booking.id, true);
         this.bookingService
             .delete([booking])

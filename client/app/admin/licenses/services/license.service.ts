@@ -14,7 +14,6 @@ import {
     DeleteLicenses,
     DeleteLicensesVariables,
     License,
-    License_license,
     LicenseInput,
     Licenses,
     LicensesVariables,
@@ -64,7 +63,7 @@ export class LicenseService extends NaturalAbstractModelService<
         };
     }
 
-    public override getFormAsyncValidators(model: License_license): FormAsyncValidators {
+    public override getFormAsyncValidators(model: License['license']): FormAsyncValidators {
         return {
             name: [unique('name', model.id, this)],
         };

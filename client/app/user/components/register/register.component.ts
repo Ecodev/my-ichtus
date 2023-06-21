@@ -7,7 +7,7 @@ import {
     NaturalDataSource,
     validateAllFormControls,
 } from '@ecodev/natural';
-import {Bookables_bookables, Register, RegisterVariables} from '../../../shared/generated-types';
+import {Bookables, Register, RegisterVariables} from '../../../shared/generated-types';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
@@ -18,7 +18,7 @@ import {BookableService} from '../../../admin/bookables/services/bookable.servic
     styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-    public mandatoryBookables: NaturalDataSource<Bookables_bookables> | null = null;
+    public mandatoryBookables: NaturalDataSource<Bookables['bookables']> | null = null;
 
     public step: 1 | 2 = 1;
     public sending = false;

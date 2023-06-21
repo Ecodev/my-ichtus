@@ -41,7 +41,6 @@ import {
     CreateUser,
     CreateUserVariables,
     CurrentUserForProfile,
-    CurrentUserForProfile_viewer,
     LeaveFamily,
     LeaveFamilyVariables,
     LogicalOperator,
@@ -56,10 +55,8 @@ import {
     Unregister,
     UnregisterVariables,
     UpdateUser,
-    UpdateUser_updateUser,
     UpdateUserVariables,
     User,
-    User_user,
     UserByToken,
     UserByTokenVariables,
     UserInput,
@@ -112,7 +109,7 @@ export class UserService
     /**
      * Should be used only by getViewer and cacheViewer
      */
-    private viewerCache: CurrentUserForProfile_viewer | null = null;
+    private viewerCache: CurrentUserForProfile['viewer'] = null;
 
     /**
      * This key will be used to store the viewer ID, but that value should never
@@ -154,7 +151,7 @@ export class UserService
         };
     }
 
-    public static getFamilyVariables(user: CurrentUserForProfile_viewer): UsersVariables {
+    public static getFamilyVariables(user: NonNullable<CurrentUserForProfile['viewer']>): UsersVariables {
         const familyBoss = user.owner || user;
 
         return {
@@ -226,7 +223,7 @@ export class UserService
         };
     }
 
-    public override getFormAsyncValidators(model: User_user): FormAsyncValidators {
+    public override getFormAsyncValidators(model: User['user']): FormAsyncValidators {
         return {
             login: [unique('login', model.id, this)],
             email: [unique('email', model.id, this)],
@@ -325,7 +322,7 @@ export class UserService
             .pipe(switchMap(() => this.refetchViewerAndGoToHome()));
     }
 
-    private postLogin(viewer: CurrentUserForProfile_viewer): void {
+    private postLogin(viewer: NonNullable<CurrentUserForProfile['viewer']>): void {
         this.cacheViewer(viewer);
 
         // Inject the freshly logged in user as the current user into Apollo data store
@@ -363,12 +360,12 @@ export class UserService
     public flagWelcomeSessionDate(
         id: string,
         value = formatIsoDateTime(new Date()),
-    ): Observable<UpdateUser_updateUser> {
+    ): Observable<UpdateUser['updateUser']> {
         const user: UserPartialInput = {welcomeSessionDate: value};
         return this.updatePartially({id: id, ...user});
     }
 
-    public activate(id: string): Observable<UpdateUser_updateUser> {
+    public activate(id: string): Observable<UpdateUser['updateUser']> {
         const user: UserPartialInput = {status: UserStatus.active};
         return this.updatePartially({id: id, ...user});
     }
@@ -405,7 +402,7 @@ export class UserService
     /**
      * Impact members
      */
-    public getRunningServices(user: CurrentUserForProfile_viewer): Observable<Bookings['bookings']> {
+    public getRunningServices(user: NonNullable<CurrentUserForProfile['viewer']>): Observable<Bookings['bookings']> {
         const variables: BookingsVariables = {
             filter: {
                 groups: [
@@ -441,7 +438,9 @@ export class UserService
         return this.pricedBookingService.watchAll(qvm);
     }
 
-    public getPendingApplications(user: CurrentUserForProfile_viewer | User_user): Observable<Bookings['bookings']> {
+    public getPendingApplications(
+        user: NonNullable<CurrentUserForProfile['viewer']> | User['user'],
+    ): Observable<Bookings['bookings']> {
         const variables: BookingsVariables = {
             filter: {
                 groups: [
@@ -491,7 +490,7 @@ export class UserService
             );
     }
 
-    public getUserRolesAvailable(user: User_user | null): Observable<UserRole[]> {
+    public getUserRolesAvailable(user: User['user'] | null): Observable<UserRole[]> {
         return this.apollo
             .query<UserRolesAvailables, UserRolesAvailablesVariables>({
                 query: userRolesAvailableQuery,
@@ -522,7 +521,7 @@ export class UserService
      *
      * This is kind of easiest possible "debounce" like with expiration feature
      */
-    private cacheViewer(user: CurrentUserForProfile_viewer | null): void {
+    private cacheViewer(user: CurrentUserForProfile['viewer']): void {
         this.viewerCache = user;
         setTimeout(() => {
             this.viewerCache = null;
@@ -555,7 +554,7 @@ export class UserService
             );
     }
 
-    public unregister(user: CurrentUserForProfile_viewer): Observable<Unregister['unregister']> {
+    public unregister(user: NonNullable<CurrentUserForProfile['viewer']>): Observable<Unregister['unregister']> {
         return this.apollo
             .mutate<Unregister, UnregisterVariables>({
                 mutation: unregisterMutation,
@@ -591,7 +590,7 @@ export class UserService
     /**
      * Can become a member has no owner and is not member
      */
-    public canBecomeMember(user: CurrentUserForProfile['viewer']): boolean {
+    public canBecomeMember(user: NonNullable<CurrentUserForProfile['viewer']>): boolean {
         if (!user) {
             return false;
         }
@@ -603,28 +602,28 @@ export class UserService
         return !isMember && !this.canLeaveFamily(user);
     }
 
-    public canUpdateTransaction(user: CurrentUserForProfile['viewer']): boolean {
+    public canUpdateTransaction(user: NonNullable<CurrentUserForProfile['viewer']>): boolean {
         if (!user) {
             return false;
         }
         return user.role === UserRole.administrator;
     }
 
-    public canUpdateIban(user: CurrentUserForProfile['viewer']): boolean {
+    public canUpdateIban(user: NonNullable<CurrentUserForProfile['viewer']>): boolean {
         if (!user) {
             return false;
         }
         return user.role === UserRole.administrator;
     }
 
-    public canDeleteAccountingDocument(user: CurrentUserForProfile['viewer']): boolean {
+    public canDeleteAccountingDocument(user: NonNullable<CurrentUserForProfile['viewer']>): boolean {
         if (!user) {
             return false;
         }
         return user.role === UserRole.administrator;
     }
 
-    public canCloseAccounting(user: CurrentUserForProfile['viewer']): boolean {
+    public canCloseAccounting(user: NonNullable<CurrentUserForProfile['viewer']>): boolean {
         if (!user) {
             return false;
         }

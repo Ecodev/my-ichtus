@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
-import {Bookable_bookable, BookingStatus} from '../../../shared/generated-types';
+import {Bookable, BookingStatus} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {Literal, NaturalAlertService} from '@ecodev/natural';
 
@@ -12,7 +12,7 @@ import {Literal, NaturalAlertService} from '@ecodev/natural';
     styleUrls: ['./self-approved-booking.component.scss'],
 })
 export class SelfApprovedBookingComponent implements OnInit {
-    public bookable: Bookable_bookable | null = null;
+    public bookable: Bookable['bookable'] | null = null;
     public booking: Literal = {};
 
     public constructor(
@@ -30,7 +30,7 @@ export class SelfApprovedBookingComponent implements OnInit {
         this.booking.owner = this.route.snapshot.data.viewer.model;
 
         if (this.route.snapshot.data.bookable?.model) {
-            this.bookable = this.route.snapshot.data.bookable.model as Bookable_bookable;
+            this.bookable = this.route.snapshot.data.bookable.model as Bookable['bookable'];
             this.bookableService.getAvailability(this.bookable).subscribe(availability => {
                 if (!availability.isAvailable) {
                     this.router.navigate(['/booking/', this.bookable!.code]);

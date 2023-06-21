@@ -11,7 +11,7 @@ import {
 import {
     CreateExpenseClaim,
     CreateExpenseClaimVariables,
-    CurrentUserForProfile_viewer,
+    CurrentUserForProfile,
     DeleteExpenseClaims,
     DeleteExpenseClaimsVariables,
     ExpenseClaim,
@@ -78,7 +78,7 @@ export class ExpenseClaimService extends NaturalAbstractModelService<
         };
     }
 
-    public getForUserVariables(user: CurrentUserForProfile_viewer): ExpenseClaimsVariables {
+    public getForUserVariables(user: NonNullable<CurrentUserForProfile['viewer']>): ExpenseClaimsVariables {
         const variables: ExpenseClaimsVariables = {
             filter: {
                 groups: [

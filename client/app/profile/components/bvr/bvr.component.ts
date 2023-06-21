@@ -1,11 +1,6 @@
 import {gql, Apollo} from 'apollo-angular';
 import {Component, Inject, Input} from '@angular/core';
-import {
-    BankingInfos,
-    BankingInfosForExport,
-    BankingInfos_bankingInfos,
-    BankingInfosVariables,
-} from '../../../shared/generated-types';
+import {BankingInfosForExport, BankingInfos, BankingInfosVariables} from '../../../shared/generated-types';
 import {DOCUMENT} from '@angular/common';
 import {copyToClipboard} from '@ecodev/natural';
 
@@ -47,7 +42,7 @@ export class BvrComponent {
     }
 
     private variables!: BankingInfosVariables;
-    public bankingInfos: BankingInfos_bankingInfos | null = null;
+    public bankingInfos: BankingInfos['bankingInfos'] | null = null;
 
     public constructor(private readonly apollo: Apollo, @Inject(DOCUMENT) private readonly document: Document) {}
 

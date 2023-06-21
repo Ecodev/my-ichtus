@@ -1,7 +1,7 @@
 import {Component, Injector, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NaturalAbstractList, SortingOrder} from '@ecodev/natural';
-import {CurrentUserForProfile_viewer, LogSortingField, UserRole} from '../../../shared/generated-types';
+import {CurrentUserForProfile, LogSortingField, UserRole} from '../../../shared/generated-types';
 import {LogService} from '../services/log.service';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 
@@ -27,7 +27,7 @@ export class LogsComponent extends NaturalAbstractList<LogService> implements On
 
     public override ngOnInit(): void {
         super.ngOnInit();
-        const viewer: CurrentUserForProfile_viewer = this.route.snapshot.data.viewer.model;
+        const viewer: NonNullable<CurrentUserForProfile['viewer']> = this.route.snapshot.data.viewer.model;
 
         this.availableColumns = [
             {id: 'creationDate', label: 'Date'},

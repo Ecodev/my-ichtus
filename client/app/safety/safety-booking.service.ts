@@ -2,7 +2,7 @@ import {Apollo, gql} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {bookableMetaFragment} from '../admin/bookables/services/bookable.queries';
 import {NaturalAbstractModelService, NaturalDebounceService} from '@ecodev/natural';
-import {SafetyBookings_bookings, SafetyBookingsVariables} from '../shared/generated-types';
+import {SafetyBookings, SafetyBookingsVariables} from '../shared/generated-types';
 
 const safetyBookings = gql`
     query SafetyBookings($filter: BookingFilter, $sorting: [BookingSorting!], $pagination: PaginationInput) {
@@ -45,7 +45,7 @@ const safetyBookings = gql`
 export class SafetyBookingService extends NaturalAbstractModelService<
     never,
     never,
-    SafetyBookings_bookings,
+    SafetyBookings['bookings'],
     SafetyBookingsVariables,
     never,
     never,

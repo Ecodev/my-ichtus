@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Injector, OnInit, Output} from '@angular/core';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
-import {Bookables_bookables_items} from '../../../shared/generated-types';
+import {Bookables} from '../../../shared/generated-types';
 import {BookableService} from '../services/bookable.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {ParentComponent} from './parent.component';
@@ -12,7 +12,7 @@ import {BookingService} from '../../bookings/services/booking.service';
     styleUrls: ['./bookables.component.scss'],
 })
 export class BookablesComponent extends ParentComponent<BookableService> implements OnInit {
-    @Output() public readonly bookableClick = new EventEmitter<Bookables_bookables_items>();
+    @Output() public readonly bookableClick = new EventEmitter<Bookables['bookables']['items'][0]>();
 
     public constructor(
         bookableService: BookableService,
@@ -27,7 +27,7 @@ export class BookablesComponent extends ParentComponent<BookableService> impleme
         );
     }
 
-    public select(element: Bookables_bookables_items): void {
+    public select(element: Bookables['bookables']['items'][0]): void {
         this.bookableClick.emit(element);
     }
 }

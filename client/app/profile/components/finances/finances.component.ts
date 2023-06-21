@@ -1,9 +1,5 @@
 import {Component, Injector, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import {
-    CurrentUserForProfile_viewer,
-    ExpenseClaims_expenseClaims_items,
-    ExpenseClaimType,
-} from '../../../shared/generated-types';
+import {CurrentUserForProfile, ExpenseClaims, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
 import {MatDialog} from '@angular/material/dialog';
@@ -24,7 +20,7 @@ export class FinancesComponent
     extends NaturalAbstractList<ExpenseClaimService>
     implements OnInit, OnChanges, OnDestroy
 {
-    @Input() public viewer!: CurrentUserForProfile_viewer;
+    @Input() public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
 
     public override selectedColumns = ['name', 'updateDate', 'status', 'type', 'remarks', 'amount', 'cancel'];
 
@@ -78,7 +74,7 @@ export class FinancesComponent
         this.variablesManager.set('forUser', this.expenseClaimService.getForUserVariables(this.viewer));
     }
 
-    public cancelExpenseClaim(expenseClaim: ExpenseClaims_expenseClaims_items): void {
+    public cancelExpenseClaim(expenseClaim: ExpenseClaims['expenseClaims']['items'][0]): void {
         this.alertService
             .confirm(`Suppression`, `Veux-tu supprimer définitivement cet élément ?`, `Supprimer définitivement`)
             .subscribe(confirmed => {

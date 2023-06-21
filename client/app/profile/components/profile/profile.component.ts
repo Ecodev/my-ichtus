@@ -7,11 +7,7 @@ import {UserService} from '../../../admin/users/services/user.service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ProvisionComponent} from '../provision/provision.component';
 import {filter, takeUntil} from 'rxjs/operators';
-import {
-    CurrentUserForProfile_viewer,
-    Licenses_licenses_items,
-    LicensesVariables,
-} from '../../../shared/generated-types';
+import {CurrentUserForProfile, Licenses, LicensesVariables} from '../../../shared/generated-types';
 import {DatatransService} from '../../../shared/services/datatrans.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {LicenseService} from '../../../admin/licenses/services/license.service';
@@ -24,9 +20,9 @@ import {Big} from 'big.js';
     styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent extends NaturalAbstractController implements OnInit {
-    public viewer!: CurrentUserForProfile_viewer;
+    public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
     public config = localConfig;
-    public licenses: Licenses_licenses_items[] = [];
+    public licenses: Licenses['licenses']['items'][0][] = [];
 
     public constructor(
         public readonly userService: UserService,
@@ -95,7 +91,7 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
         return this.permissionsService.canAccessServices(this.viewer);
     }
 
-    private doPayment(user: CurrentUserForProfile_viewer, amount: number): void {
+    private doPayment(user: NonNullable<CurrentUserForProfile['viewer']>, amount: number): void {
         if (!localConfig || !localConfig.datatrans) {
             return;
         }

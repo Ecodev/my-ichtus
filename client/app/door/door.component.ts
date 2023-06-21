@@ -3,7 +3,7 @@ import {DoorService} from './services/door.service';
 import {Literal, NaturalAbstractController, NaturalAlertService} from '@ecodev/natural';
 import {UserService} from '../admin/users/services/user.service';
 import {ActivatedRoute} from '@angular/router';
-import {CurrentUserForProfile_viewer} from '../shared/generated-types';
+import {CurrentUserForProfile} from '../shared/generated-types';
 
 @Component({
     selector: 'app-door',
@@ -11,7 +11,7 @@ import {CurrentUserForProfile_viewer} from '../shared/generated-types';
     styleUrls: ['./door.component.scss'],
 })
 export class DoorComponent extends NaturalAbstractController implements OnInit {
-    public viewer!: CurrentUserForProfile_viewer;
+    public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
 
     public constructor(
         public readonly doorService: DoorService,

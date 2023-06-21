@@ -9,7 +9,7 @@ import {
     NaturalDebounceService,
 } from '@ecodev/natural';
 import {
-    Accounts_accounts_items,
+    Accounts,
     CreateTransaction,
     CreateTransactionVariables,
     DeleteTransactions,
@@ -49,7 +49,7 @@ export class TransactionService extends NaturalAbstractModelService<
     DeleteTransactions,
     DeleteTransactionsVariables
 > {
-    private bankAccount: Accounts_accounts_items | null = null;
+    private bankAccount: Accounts['accounts']['items'][0] | null = null;
 
     public constructor(
         apollo: Apollo,

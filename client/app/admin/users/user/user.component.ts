@@ -2,7 +2,7 @@ import {Component, Injector, OnInit} from '@angular/core';
 import {IEnum, ifValid, NaturalAbstractDetail, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {UserService} from '../services/user.service';
 import {
-    CurrentUserForProfile_viewer,
+    CurrentUserForProfile,
     SortingOrder,
     TransactionLineSortingField,
     TransactionLinesVariables,
@@ -37,7 +37,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService> implements
 
     public familyVariables: UsersVariables = {};
 
-    public viewer!: CurrentUserForProfile_viewer;
+    public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
 
     private userRolesAvailable: UserRole[] = [];
 

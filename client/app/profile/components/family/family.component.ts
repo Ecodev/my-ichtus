@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {UpdateUser_updateUser, UsersVariables} from '../../../shared/generated-types';
+import {UpdateUser, UsersVariables} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {ActivatedRoute} from '@angular/router';
@@ -7,7 +7,7 @@ import {mergeOverrideArray, NaturalAlertService, NaturalQueryVariablesManager} f
 import {cloneDeep, mergeWith} from 'lodash-es';
 import {MatExpansionPanel} from '@angular/material/expansion';
 import {first} from 'rxjs/operators';
-import {CurrentUserForProfile_viewer, Users_users_items} from '../../../shared/generated-types';
+import {CurrentUserForProfile, Users} from '../../../shared/generated-types';
 
 @Component({
     selector: 'app-family',
@@ -15,13 +15,13 @@ import {CurrentUserForProfile_viewer, Users_users_items} from '../../../shared/g
     styleUrls: ['./family.component.scss'],
 })
 export class FamilyComponent implements OnInit {
-    public viewer!: CurrentUserForProfile_viewer;
-    public familyMembers: Users_users_items[] = [];
+    public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    public familyMembers: Users['users']['items'][0][] = [];
 
     /**
      * Member selected when opening an accordion panel
      */
-    public activeMember: Users_users_items | null = null;
+    public activeMember: Users['users']['items'][0] | null = null;
     @ViewChildren(MatExpansionPanel) private readonly expansionPanels!: QueryList<MatExpansionPanel>;
 
     public constructor(
@@ -46,7 +46,7 @@ export class FamilyComponent implements OnInit {
         }
     }
 
-    public refreshMember(index: number, user: UpdateUser_updateUser): void {
+    public refreshMember(index: number, user: UpdateUser['updateUser']): void {
         this.familyMembers[index].name = user.name;
     }
 
@@ -56,7 +56,7 @@ export class FamilyComponent implements OnInit {
             this.changeDetectorRef.detectChanges();
         });
 
-        const emptyUser = this.userService.getConsolidatedForClient() as Users_users_items;
+        const emptyUser = this.userService.getConsolidatedForClient() as Users['users']['items'][0];
         this.familyMembers.push(emptyUser);
     }
 
@@ -66,7 +66,7 @@ export class FamilyComponent implements OnInit {
      * "why the daughter can update the entire family, but the son cannot ?", when in fact the daughter has a higher
      * role than the son.
      */
-    public canEdit(familyMember?: Users_users_items): boolean {
+    public canEdit(familyMember?: Users['users']['items'][0]): boolean {
         const iAmFamilyOwner = !this.viewer.owner;
         const isMyself = !!familyMember && familyMember.id === this.viewer.id;
 

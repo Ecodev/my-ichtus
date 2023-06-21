@@ -16,7 +16,6 @@ import {
     UpdateUserTag,
     UpdateUserTagVariables,
     UserTag,
-    UserTag_userTag,
     UserTagInput,
     UserTags,
     UserTagsVariables,
@@ -66,7 +65,7 @@ export class UserTagService extends NaturalAbstractModelService<
         };
     }
 
-    public override getFormAsyncValidators(model: UserTag_userTag): FormAsyncValidators {
+    public override getFormAsyncValidators(model: UserTag['userTag']): FormAsyncValidators {
         return {
             name: [unique('name', model.id, this)],
         };

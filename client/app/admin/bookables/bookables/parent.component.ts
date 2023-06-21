@@ -1,12 +1,7 @@
 import {Directive, inject, Injector, OnInit} from '@angular/core';
 import {UsageBookableService} from '../services/usage-bookable.service';
 import {AvailableColumn, NaturalAbstractList} from '@ecodev/natural';
-import {
-    BookingPartialInput,
-    Bookings_bookings_items,
-    BookingStatus,
-    UsageBookables_bookables_items,
-} from '../../../shared/generated-types';
+import {BookingPartialInput, Bookings, BookingStatus, UsageBookables} from '../../../shared/generated-types';
 import {BookingService} from '../../bookings/services/booking.service';
 import {BookableService} from '../services/bookable.service';
 import {ExtractTallOne} from '@ecodev/natural/lib/types/types';
@@ -42,7 +37,7 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
     implements OnInit
 {
     protected readonly hasUsage: boolean = false;
-    public pendingApplications: Bookings_bookings_items[] = [];
+    public pendingApplications: Bookings['bookings']['items'][0][] = [];
     public readonly creating = new Map<ExtractTallOne<T>['id'], true>();
     private readonly apollo = inject(Apollo);
     public readonly availabilityStatus = availabilityStatus;
@@ -116,16 +111,16 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
      *
      * This is just ergonomics considerations. API does not deny double booking on specific resources in this case
      */
-    public allowBooking(bookable: UsageBookables_bookables_items): boolean {
+    public allowBooking(bookable: UsageBookables['bookables']['items'][0]): boolean {
         const alreadyBooked = this.isAlreadyPending(bookable);
         return !!this.futureOwner && (!alreadyBooked || (alreadyBooked && !this.route.snapshot.data.denyDoubleBooking));
     }
 
-    public isAlreadyPending(bookable: UsageBookables_bookables_items): boolean {
+    public isAlreadyPending(bookable: UsageBookables['bookables']['items'][0]): boolean {
         return this.pendingApplications.some(applicaton => bookable.id === applicaton.bookable?.id);
     }
 
-    public isFullyBooked(bookable: UsageBookables_bookables_items): boolean {
+    public isFullyBooked(bookable: UsageBookables['bookables']['items'][0]): boolean {
         return this.availabilityStatus(bookable) === 'full';
     }
 }

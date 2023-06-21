@@ -5,16 +5,14 @@ import {animate, style, transition, trigger} from '@angular/animations';
 import {
     BookingPartialInput,
     Bookings,
-    Bookings_bookings_items,
     BookingSortingField,
     BookingsVariables,
     BookingType,
-    CurrentUserForProfile_viewer,
+    CurrentUserForProfile,
     JoinType,
     LogicalOperator,
     SortingOrder,
     Users,
-    Users_users_items,
     UsersVariables,
 } from '../../generated-types';
 import {NaturalAbstractController, NaturalAlertService, NaturalQueryVariablesManager, WithId} from '@ecodev/natural';
@@ -24,7 +22,7 @@ import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 import {CommentComponent} from './comment.component';
 
 type Extended = {
-    booking: Readonly<Bookings_bookings_items>;
+    booking: Readonly<Bookings['bookings']['items'][0]>;
     showComments: boolean;
     terminated: boolean;
     explode: boolean;
@@ -58,7 +56,7 @@ function bookingsToExtended(bookings: Bookings['bookings']): PaginatedExtendedBo
     ],
 })
 export class NavigationsComponent extends NaturalAbstractController implements OnInit {
-    @Input() public user!: CurrentUserForProfile_viewer;
+    @Input() public user!: NonNullable<CurrentUserForProfile['viewer']>;
     @Input() public activeOnly = true;
     @Input() public showEmptyMessage = false;
 
@@ -67,7 +65,7 @@ export class NavigationsComponent extends NaturalAbstractController implements O
     private bookingsQVM = new NaturalQueryVariablesManager<BookingsVariables>();
 
     private currentPage = 0;
-    private family: (CurrentUserForProfile_viewer | Users_users_items)[] = [];
+    private family: (NonNullable<CurrentUserForProfile['viewer']> | Users['users']['items'][0])[] = [];
 
     public constructor(
         public readonly userService: UserService,

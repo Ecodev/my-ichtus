@@ -7,8 +7,8 @@ import {
     BookingStatus,
     BookingsVariables,
     BookingType,
-    CreateImage_createImage,
-    CurrentUserForProfile_viewer,
+    CreateImage,
+    CurrentUserForProfile,
     SortingOrder,
     UserRole,
 } from '../../../shared/generated-types';
@@ -32,7 +32,7 @@ import {
 export class BookableComponent extends NaturalAbstractDetail<BookableService> implements OnInit {
     public accountHierarchicConfig = accountHierarchicConfiguration;
     public bookingsVariables: BookingsVariables = {};
-    public viewer!: CurrentUserForProfile_viewer;
+    public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
     public readonly availableColumnsForBookingsWithOwnerWithoutTrainers =
         availableColumnsForBookingsWithOwnerWithoutTrainers;
     public readonly availableColumnsForBookingsWithOwnerOnlyTrainers = availableColumnsForBookingsWithOwnerOnlyTrainers;
@@ -93,7 +93,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
         return this.data.model.bookingType !== BookingType.self_approved;
     }
 
-    public createImageAndLink(file: File): Observable<CreateImage_createImage> {
+    public createImageAndLink(file: File): Observable<CreateImage['createImage']> {
         return this.imageService.create({file}).pipe(
             switchMap(image => {
                 const id = this.data.model.id;

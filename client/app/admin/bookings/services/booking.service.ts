@@ -9,8 +9,8 @@ import {
     updateBooking,
 } from './booking.queries';
 import {
-    Bookable_bookable,
-    Bookables_bookables_items,
+    Bookable,
+    Bookables,
     Booking,
     BookingInput,
     BookingPartialInput,
@@ -30,7 +30,7 @@ import {
     TerminateBookingVariables,
     UpdateBooking,
     UpdateBookingVariables,
-    UsageBookables_bookables_items,
+    UsageBookables,
 } from '../../../shared/generated-types';
 import {Validators} from '@angular/forms';
 import {forkJoin, Observable, of} from 'rxjs';
@@ -259,7 +259,11 @@ export class BookingService extends NaturalAbstractModelService<
      * Accepts optional third parameter with other default fields of booking
      */
     public createWithBookable(
-        bookable: null | Bookable_bookable | Bookables_bookables_items | UsageBookables_bookables_items,
+        bookable:
+            | null
+            | Bookable['bookable']
+            | Bookables['bookables']['items'][0]
+            | UsageBookables['bookables']['items'][0],
         owner: {id: string},
         booking: BookingPartialInput = {},
     ): Observable<CreateBooking['createBooking']> {

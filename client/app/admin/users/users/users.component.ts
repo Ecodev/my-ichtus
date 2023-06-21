@@ -1,12 +1,7 @@
 import {Apollo} from 'apollo-angular';
 import {Component, Injector, OnInit} from '@angular/core';
 import {AvailableColumn, Button, NaturalAbstractList, NaturalSearchSelections} from '@ecodev/natural';
-import {
-    BankingInfosVariables,
-    EmailAndPhoneUsersVariables,
-    Users_users_items,
-    UserStatus,
-} from '../../../shared/generated-types';
+import {BankingInfosVariables, EmailAndPhoneUsersVariables, Users, UserStatus} from '../../../shared/generated-types';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {UserService} from '../services/user.service';
@@ -44,8 +39,8 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
         'emailAndPhoneUsers',
     );
 
-    public readonly activating = new Map<Users_users_items, true>();
-    public readonly welcoming = new Map<Users_users_items, true>();
+    public readonly activating = new Map<Users['users']['items'][0], true>();
+    public readonly welcoming = new Map<Users['users']['items'][0], true>();
 
     public constructor(
         route: ActivatedRoute,
@@ -61,7 +56,7 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
         this.naturalSearchFacets = naturalSearchFacetsService.get('users');
     }
 
-    public flagWelcomeSessionDate(user: Users_users_items): void {
+    public flagWelcomeSessionDate(user: Users['users']['items'][0]): void {
         this.welcoming.set(user, true);
         this.userService
             .flagWelcomeSessionDate(user.id)
@@ -69,7 +64,7 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
             .subscribe();
     }
 
-    public activate(user: Users_users_items): void {
+    public activate(user: Users['users']['items'][0]): void {
         if (!this.isActivable(user)) {
             return;
         }
@@ -81,15 +76,15 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
             .subscribe();
     }
 
-    public isActive(user: Users_users_items): boolean {
+    public isActive(user: Users['users']['items'][0]): boolean {
         return user.status === UserStatus.active;
     }
 
-    public isActivable(user: Users_users_items): boolean {
+    public isActivable(user: Users['users']['items'][0]): boolean {
         return !!user.name && !!user.login;
     }
 
-    public isNew(user: Users_users_items): boolean {
+    public isNew(user: Users['users']['items'][0]): boolean {
         return user.status === UserStatus.new;
     }
 
@@ -97,7 +92,7 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
         super.search(naturalSearchSelections);
     }
 
-    public showProvision(user: Users_users_items): void {
+    public showProvision(user: Users['users']['items'][0]): void {
         const config: MatDialogConfig<BankingInfosVariables> = {
             data: {
                 user: user,

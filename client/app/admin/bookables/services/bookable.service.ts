@@ -3,7 +3,6 @@ import {Injectable} from '@angular/core';
 import {bookableQuery, bookablesQuery, createBookable, deleteBookables, updateBookable} from './bookable.queries';
 import {
     Bookable,
-    Bookable_bookable,
     BookableFilterGroupCondition,
     BookableInput,
     Bookables,
@@ -146,7 +145,7 @@ export class BookableService extends NaturalAbstractModelService<
 
     public static isLicenseGranted(
         bookable: Bookable['bookable'],
-        user: User['user'] | CurrentUserForProfile['viewer'],
+        user: User['user'] | NonNullable<CurrentUserForProfile['viewer']>,
     ): boolean {
         if (!bookable || !user) {
             return false;
@@ -189,7 +188,7 @@ export class BookableService extends NaturalAbstractModelService<
         };
     }
 
-    public override getFormAsyncValidators(model: Bookable_bookable): FormAsyncValidators {
+    public override getFormAsyncValidators(model: Bookable['bookable']): FormAsyncValidators {
         return {
             code: [unique('code', model.id, this)],
         };

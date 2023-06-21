@@ -1,7 +1,7 @@
 import {Component, Injector, OnInit} from '@angular/core';
 import {NaturalAbstractDetail} from '@ecodev/natural';
 import {ExpenseClaimService} from '../services/expenseClaim.service';
-import {CurrentUserForProfile_viewer, ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
+import {CurrentUserForProfile, ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../users/services/user.service';
 import {TransactionLineService} from '../../transactions/services/transactionLine.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -14,7 +14,7 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
 export class ExpenseClaimComponent extends NaturalAbstractDetail<ExpenseClaimService> implements OnInit {
     public ExpenseClaimType = ExpenseClaimType;
     public ExpenseClaimStatus = ExpenseClaimStatus;
-    public viewer!: CurrentUserForProfile_viewer;
+    public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
 
     public constructor(
         public expenseClaimService: ExpenseClaimService,

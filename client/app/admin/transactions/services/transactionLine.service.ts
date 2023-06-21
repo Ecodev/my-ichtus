@@ -17,7 +17,7 @@ import {
     reconcileTransactionLine,
 } from './transactionLine.queries';
 import {
-    ExpenseClaim_expenseClaim_transactions,
+    ExpenseClaim,
     ExportTransactionLines,
     ExportTransactionLinesVariables,
     MinimalAccount,
@@ -144,7 +144,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
         return ['/admin/transaction-line', toNavigationParameters(selection)];
     }
 
-    public linkToTransactionLinesForTransactions(transactions: ExpenseClaim_expenseClaim_transactions[]): any[] {
+    public linkToTransactionLinesForTransactions(transactions: ExpenseClaim['expenseClaim']['transactions']): any[] {
         const selection: NaturalSearchSelections = transactions.map(transaction => [
             {
                 field: 'transaction',

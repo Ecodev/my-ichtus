@@ -1,12 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {BookableMetadataService} from './bookable-metadata.service';
 import {NaturalDataSource, NaturalQueryVariablesManager} from '@ecodev/natural';
-import {
-    BookableMetadatas_bookableMetadatas_items,
-    BookableMetadatasVariables,
-    BookableMetadatas_bookableMetadatas,
-    Bookable_bookable,
-} from '../../shared/generated-types';
+import {BookableMetadatas, BookableMetadatasVariables, Bookable} from '../../shared/generated-types';
 import {cloneDeep} from 'lodash-es';
 import {finalize} from 'rxjs/operators';
 
@@ -16,11 +11,11 @@ import {finalize} from 'rxjs/operators';
     styleUrls: ['./bookable-metadata.component.scss'],
 })
 export class BookableMetadataComponent implements OnInit {
-    @Input() public bookable!: Bookable_bookable;
+    @Input() public bookable!: Bookable['bookable'];
     @Input() public edit = false;
-    public readonly deleting = new Map<BookableMetadatas_bookableMetadatas_items, true>();
+    public readonly deleting = new Map<BookableMetadatas['bookableMetadatas']['items'][0], true>();
 
-    public dataSource!: NaturalDataSource<BookableMetadatas_bookableMetadatas>;
+    public dataSource!: NaturalDataSource<BookableMetadatas['bookableMetadatas']>;
 
     public columns: string[] = [];
 
@@ -43,7 +38,7 @@ export class BookableMetadataComponent implements OnInit {
 
             // TODO : replace by watchAll because two admins may work on same object and meta data could change between two visits
             this.bookableMetaService.getAll(qvm).subscribe(bookables => {
-                this.dataSource = new NaturalDataSource<BookableMetadatas_bookableMetadatas>(cloneDeep(bookables));
+                this.dataSource = new NaturalDataSource<BookableMetadatas['bookableMetadatas']>(cloneDeep(bookables));
                 this.addLine();
             });
         } else {
@@ -59,13 +54,13 @@ export class BookableMetadataComponent implements OnInit {
             const lastItem = this.dataSource.data.items[this.dataSource.data.items.length - 1];
             if (!lastItem || lastItem.name !== '' || lastItem.value !== '') {
                 this.dataSource.push(
-                    this.bookableMetaService.getConsolidatedForClient() as BookableMetadatas_bookableMetadatas_items,
+                    this.bookableMetaService.getConsolidatedForClient() as BookableMetadatas['bookableMetadatas']['items'][0],
                 );
             }
         }
     }
 
-    public updateOrCreate(meta: BookableMetadatas_bookableMetadatas_items): void {
+    public updateOrCreate(meta: BookableMetadatas['bookableMetadatas']['items'][0]): void {
         meta.bookable = this.bookable;
 
         if (meta.name) {
@@ -78,7 +73,7 @@ export class BookableMetadataComponent implements OnInit {
         }
     }
 
-    public delete(meta: BookableMetadatas_bookableMetadatas_items): void {
+    public delete(meta: BookableMetadatas['bookableMetadatas']['items'][0]): void {
         this.deleting.set(meta, true);
 
         this.bookableMetaService

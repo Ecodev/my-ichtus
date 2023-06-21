@@ -3,10 +3,10 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {openDoorMutation} from './door.queries';
-import {CurrentUserForProfile_viewer, OpenDoor, OpenDoorVariables} from '../../shared/generated-types';
+import {CurrentUserForProfile, OpenDoor, OpenDoorVariables} from '../../shared/generated-types';
 
 interface DoorConfig {
-    id: keyof Pick<CurrentUserForProfile_viewer, 'door1' | 'door2' | 'door3' | 'door4'>;
+    id: keyof Pick<NonNullable<CurrentUserForProfile['viewer']>, 'door1' | 'door2' | 'door3' | 'door4'>;
     name: string;
     image: string;
     opened: boolean;

@@ -3,13 +3,13 @@ import {BookingService} from '../services/booking.service';
 import {
     BookableSortingField,
     BookablesVariables,
-    BookableTags_bookableTags_items,
+    BookableTags,
     BookingPartialInput,
     BookingStatus,
     BookingType,
-    CreateBooking_createBooking,
+    CreateBooking,
     SortingOrder,
-    UsageBookables_bookables_items,
+    UsageBookables,
 } from '../../../shared/generated-types';
 import {UserService} from '../../users/services/user.service';
 import {BookableService} from '../../bookables/services/bookable.service';
@@ -76,7 +76,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
     /**
      * Received the created booking after having processing an application
      */
-    public newBooking: CreateBooking_createBooking | null = null;
+    public newBooking: CreateBooking['createBooking'] | null = null;
 
     public constructor(
         public readonly bookingService: BookingService,
@@ -98,7 +98,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
             this.filterBookables(BookingType.admin_assigned);
         }
 
-        const tags: BookableTags_bookableTags_items[] = this.form.get('bookable')?.value?.bookableTags;
+        const tags: BookableTags['bookableTags']['items'][0][] = this.form.get('bookable')?.value?.bookableTags;
 
         if (tags) {
             const matchingTag = tags.find(t => this.suggestionTags.includes(t.id));
@@ -169,14 +169,14 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
         const bookable = this.form.get('bookable');
         if (bookable) {
             return bookable.value.bookableTags.find(
-                (t: BookableTags_bookableTags_items) => t.id === BookableTagService.SERVICE,
+                (t: BookableTags['bookableTags']['items'][0]) => t.id === BookableTagService.SERVICE,
             );
         }
 
         return false;
     }
 
-    public assignBookable(bookable: UsageBookables_bookables_items): void {
+    public assignBookable(bookable: UsageBookables['bookables']['items'][0]): void {
         const message =
             'Es-tu certain(e) de vouloir attribuer cette prestation ou espace de stockage ? ' +
             'Cette action va créer une nouvelle réservation et débitera automatiquement le compte du membre. ' +
@@ -189,7 +189,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
         });
     }
 
-    public doAssignBookable(bookable: UsageBookables_bookables_items): void {
+    public doAssignBookable(bookable: UsageBookables['bookables']['items'][0]): void {
         const partialBooking: BookingPartialInput = {status: BookingStatus.booked};
         this.bookingService.createWithBookable(bookable, this.data.model.owner, partialBooking).subscribe(booking => {
             this.newBooking = Object.assign(booking, {bookable: bookable});

@@ -12,12 +12,10 @@ import {
 } from './account.queries';
 import {
     Account,
-    Account_account,
     AccountingClosing,
     AccountingClosingVariables,
     AccountInput,
     Accounts,
-    Accounts_accounts,
     AccountsVariables,
     AccountType,
     AccountVariables,
@@ -93,7 +91,7 @@ export class AccountService extends NaturalAbstractModelService<
         };
     }
 
-    public override getFormAsyncValidators(model: Account_account): FormAsyncValidators {
+    public override getFormAsyncValidators(model: Account['account']): FormAsyncValidators {
         return {
             code: [unique('code', model.id, this)],
         };
@@ -111,7 +109,7 @@ export class AccountService extends NaturalAbstractModelService<
             );
     }
 
-    public getAccountByCode(code: number): Observable<Accounts_accounts> {
+    public getAccountByCode(code: number): Observable<Accounts['accounts']> {
         const variables: AccountsVariables = {
             filter: {
                 groups: [

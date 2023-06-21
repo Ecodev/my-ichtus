@@ -1,6 +1,6 @@
 import {Component, Injector, OnInit} from '@angular/core';
 import {AvailableColumn, Button, NaturalAbstractNavigableList} from '@ecodev/natural';
-import {CurrentUserForProfile_viewer} from '../../../shared/generated-types';
+import {CurrentUserForProfile} from '../../../shared/generated-types';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {AccountService} from '../services/account.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -35,7 +35,7 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
 
     public readonly buttons: Observable<Button[]> = this.route.data.pipe(
         map(routeData => {
-            const viewer: CurrentUserForProfile_viewer = routeData.viewer.model;
+            const viewer: NonNullable<CurrentUserForProfile['viewer']> = routeData.viewer.model;
 
             return [
                 {
@@ -53,7 +53,7 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
         }),
     );
 
-    public viewer!: CurrentUserForProfile_viewer;
+    public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
     private dialogConfig: MatDialogConfig<AccountingDialogData> = {
         minWidth: '400px',
         maxWidth: '60vw',

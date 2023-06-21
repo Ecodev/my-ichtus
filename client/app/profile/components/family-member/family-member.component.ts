@@ -1,10 +1,5 @@
 import {Component, EventEmitter, Injector, Input, OnInit, Output} from '@angular/core';
-import {
-    CreateUser_createUser,
-    CurrentUserForProfile_viewer,
-    UpdateUser_updateUser,
-    Users_users_items,
-} from '../../../shared/generated-types';
+import {CreateUser, CurrentUserForProfile, UpdateUser, Users} from '../../../shared/generated-types';
 import {NaturalAbstractDetail} from '@ecodev/natural';
 import {merge} from 'lodash-es';
 import {FamilyUserService} from './family-user.service';
@@ -16,12 +11,12 @@ import {EMPTY, Observable} from 'rxjs';
     styleUrls: ['./family-member.component.scss'],
 })
 export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserService> implements OnInit {
-    @Input() public viewer!: CurrentUserForProfile_viewer;
-    @Input() public user!: Users_users_items;
+    @Input() public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    @Input() public user!: Users['users']['items'][0];
     @Input() public readonly = false;
     @Output() public readonly created = new EventEmitter<void>();
     @Output() public readonly removed = new EventEmitter<void>();
-    @Output() public readonly updated = new EventEmitter<UpdateUser_updateUser>();
+    @Output() public readonly updated = new EventEmitter<UpdateUser['updateUser']>();
     public loaded = false;
 
     public constructor(public readonly userService: FamilyUserService, injector: Injector) {
@@ -65,7 +60,7 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
         this.loaded = true;
     }
 
-    protected override postCreate(model: CreateUser_createUser): Observable<unknown> {
+    protected override postCreate(model: CreateUser['createUser']): Observable<unknown> {
         if (model.login) {
             this.userService.requestPasswordReset(model.login).subscribe(() => {
                 this.alertService.info(
@@ -95,7 +90,7 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
             });
     }
 
-    protected override postUpdate(model: UpdateUser_updateUser): void {
+    protected override postUpdate(model: UpdateUser['updateUser']): void {
         this.updated.next(model);
     }
 }
