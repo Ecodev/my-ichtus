@@ -77,7 +77,11 @@ abstract class Helper
                 ->addSelect('SUM(bookable.initialPrice) AS totalInitialPrice')
                 ->leftJoin('booking1.bookable', 'bookable');
 
-            $result = $qb->getQuery()->getResult()[0];
+            $result = $qb->getQuery()->getResult()[0] ?? [
+                'totalParticipantCount' => null,
+                'totalPeriodicPrice' => null,
+                'totalInitialPrice' => null,
+            ];
         } elseif ($class === Bookable::class) {
             $qb->resetDQLPart('select')
                 ->resetDQLPart('orderBy')
@@ -85,13 +89,19 @@ abstract class Helper
                 ->addSelect('SUM(bookable1.periodicPrice) AS totalPeriodicPrice')
                 ->addSelect('SUM(bookable1.initialPrice) AS totalInitialPrice');
 
-            $result = $qb->getQuery()->getResult()[0];
+            $result = $qb->getQuery()->getResult()[0] ?? [
+                'totalPurchasePrice' => null,
+                'totalPeriodicPrice' => null,
+                'totalInitialPrice' => null,
+            ];
         } elseif ($class === TransactionLine::class) {
             $qb->resetDQLPart('select')
                 ->resetDQLPart('orderBy')
                 ->addSelect('SUM(transactionLine1.balance) AS totalBalance');
 
-            $result = $qb->getQuery()->getResult()[0];
+            $result = $qb->getQuery()->getResult()[0] ?? [
+                'totalBalance' => null,
+            ];
         }
 
         return $result;
