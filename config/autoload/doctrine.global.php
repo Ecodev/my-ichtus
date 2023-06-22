@@ -43,7 +43,9 @@ return [
                     'if' => \DoctrineExtensions\Query\Mysql\IfElse::class,
                     'ifnull' => \DoctrineExtensions\Query\Mysql\IfNull::class,
                 ],
-                'numeric_functions' => [],
+                'numeric_functions' => [
+                    'native_in' => \Ecodev\Felix\ORM\Query\NativeIn::class,
+                ],
             ],
         ],
         'types' => [

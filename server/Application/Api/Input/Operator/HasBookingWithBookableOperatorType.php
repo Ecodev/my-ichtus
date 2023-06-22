@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Application\Api\Input\Operator;
 
 use Application\Model\Bookable;
-use Application\Model\Booking;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
+use Ecodev\Felix\ORM\Query\NativeIn;
 use Ecodev\Felix\Utility;
 use GraphQL\Doctrine\Definition\Operator\AbstractOperator;
 use GraphQL\Doctrine\Factory\UniqueNameFactory;
@@ -43,30 +42,14 @@ class HasBookingWithBookableOperatorType extends AbstractOperator
 
         $ids = Utility::modelToId($args['values']);
 
-        $bookingAlias = $uniqueNameFactory->createAliasName(Booking::class);
-        $bookableAlias = $uniqueNameFactory->createAliasName(Bookable::class);
-
-        $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH);
-
-        // Bookings without any bookable (own equipment)
-        if (!$args['not'] && empty($ids)) {
-            $queryBuilder->leftJoin($bookingAlias . '.bookable', $bookableAlias);
-
-            return $bookableAlias . '.id IS NULL';
-        }
-
-        $queryBuilder->innerJoin($bookingAlias . '.bookable', $bookableAlias);
-
-        // Bookings for ANY bookable
-        if ($args['not'] && empty($ids)) {
-            return $bookableAlias . '.id IS NOT NULL';
-        }
-
-        // Users with active bookings for the given bookable(s)
-        $param = $uniqueNameFactory->createParameterName();
-        $queryBuilder->setParameter($param, $ids);
         $not = $args['not'] ? ' NOT' : '';
 
-        return $bookableAlias . '.id' . $not . ' IN (:' . $param . ')';
+        // Users with active bookings for the given bookable(s)
+        if ($ids) {
+            return NativeIn::dql($alias . '.id', 'SELECT owner_id FROM booking WHERE owner_id IS NOT NULL AND booking.bookable_id ' . $not . ' IN (' . Utility::quoteArray($ids) . ')');
+        }
+
+        // Bookings with ANY bookable, or without ANY bookable (own equipment)
+        return NativeIn::dql($alias . '.id', 'SELECT owner_id FROM booking WHERE owner_id IS NOT NULL AND booking.bookable_id IS NOT NULL', !$args['not']);
     }
 }

@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Application\Api\Input\Operator;
 
-use Application\Model\Bookable;
 use Application\Model\BookableTag;
-use Application\Model\Booking;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
+use Ecodev\Felix\ORM\Query\NativeIn;
 use Ecodev\Felix\Utility;
 use GraphQL\Doctrine\Definition\Operator\AbstractOperator;
 use GraphQL\Doctrine\Factory\UniqueNameFactory;
@@ -44,32 +42,16 @@ class HasBookingWithTaggedBookableOperatorType extends AbstractOperator
 
         $ids = Utility::modelToId($args['values']);
 
-        $bookingAlias = $uniqueNameFactory->createAliasName(Booking::class);
-        $bookableAlias = $uniqueNameFactory->createAliasName(Bookable::class);
-        $tagAlias = $uniqueNameFactory->createAliasName(BookableTag::class);
+        // Bookings for bookables with, or without, the given tag(s)
+        if ($ids) {
+            $not = $args['not'] ? ' NOT' : '';
 
-        $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH);
-        $queryBuilder->innerJoin($bookingAlias . '.bookable', $bookableAlias);
-
-        // Bookings for bookables WITHOUT any tag
-        if (!$args['not'] && empty($ids)) {
-            $queryBuilder->leftJoin($bookableAlias . '.bookableTags', $tagAlias);
-
-            return $tagAlias . '.id IS NULL';
+            return NativeIn::dql($alias . '.id', 'SELECT owner_id FROM booking WHERE owner_id IS NOT NULL AND booking.bookable_id ' . $not . ' IN (SELECT bookable_tag_bookable.bookable_id FROM bookable_tag_bookable WHERE bookable_tag_bookable.bookable_tag_id IN (' . Utility::quoteArray($ids) . '))');
         }
 
-        $queryBuilder->innerJoin($bookableAlias . '.bookableTags', $tagAlias);
+        // Bookings for bookables with ANY tags, or without ANY tags
+        $not = $args['not'] ? '' : ' NOT';
 
-        // Bookings for bookables with ANY tag
-        if ($args['not'] && empty($ids)) {
-            return $tagAlias . '.id IS NOT NULL';
-        }
-
-        // Bookings for bookables with the given tag(s)
-        $param = $uniqueNameFactory->createParameterName();
-        $queryBuilder->setParameter($param, $ids);
-        $not = $args['not'] ? ' NOT' : '';
-
-        return $tagAlias . '.id' . $not . ' IN (:' . $param . ')';
+        return NativeIn::dql($alias . '.id', 'SELECT owner_id FROM booking WHERE owner_id IS NOT NULL AND booking.bookable_id  ' . $not . '  IN (SELECT bookable_tag_bookable.bookable_id FROM bookable_tag_bookable)');
     }
 }

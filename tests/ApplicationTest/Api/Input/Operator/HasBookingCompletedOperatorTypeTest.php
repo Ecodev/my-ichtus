@@ -12,8 +12,8 @@ class HasBookingCompletedOperatorTypeTest extends OperatorType
     public function providerGetDqlCondition(): iterable
     {
         yield 'users with completed bookings' => [1, [true], false];
-        yield 'users with uncompleted bookings' => [4, [false], false];
-        yield 'users with completed and uncompleted bookings' => [4, [true, false], false];
+        yield 'users with uncompleted bookings' => [5, [false], false];
+        yield 'users with completed and uncompleted bookings' => [5, [true, false], false];
     }
 
     /**

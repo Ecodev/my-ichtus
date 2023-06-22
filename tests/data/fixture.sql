@@ -232,7 +232,8 @@ REPLACE INTO booking (id, owner_id, bookable_id, status, start_date, end_date, e
 (4018, 1008, 3033, 'booked', '2021-06-01 13:32:51', NULL, '', '', 'inscription du fils approuvée'),
 (4019, 1002, 3032, 'application', '2021-07-01 13:32:51', NULL, '', '', 'inscription du membre en attente d''approbation'),
 (4020, 1008, 3038, 'application', '2021-06-01 13:32:51', NULL, '', '', 'demande pas approuvée'),
-(4021, 1012, 3038, 'application', '2021-06-01 13:32:51', NULL, '', '', 'demande pas approuvée');
+(4021, 1012, 3038, 'application', '2021-06-01 13:32:51', NULL, '', '', 'demande pas approuvée'),
+(4021, 1011, 3002, 'application', '2021-06-01 13:32:51', NULL, '', '', 'demande pas approuvée');
 
 REPLACE INTO expense_claim (id, creation_date, owner_id, reviewer_id, amount, status, name, description, type, sector) VALUES
 (7000, '2019-01-10', 1002, NULL, 20000, 'new', 'achats Jumbo', 'outils pour voilier', 'expenseClaim', 'voile légère'),

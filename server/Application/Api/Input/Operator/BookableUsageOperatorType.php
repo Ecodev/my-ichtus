@@ -9,7 +9,7 @@ use Application\Model\User;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use GraphQL\Doctrine\Definition\EntityID;
+use Ecodev\Felix\Utility;
 use GraphQL\Doctrine\Definition\Operator\AbstractOperator;
 use GraphQL\Doctrine\Factory\UniqueNameFactory;
 use GraphQL\Type\Definition\LeafType;
@@ -41,7 +41,7 @@ class BookableUsageOperatorType extends AbstractOperator
             return null;
         }
 
-        $ids = array_map(fn (EntityID $id) => $id->getId(), $args['values']);
+        $ids = Utility::modelToId($args['values']);
 
         $bookingAlias = $uniqueNameFactory->createAliasName(Booking::class);
         $param = $uniqueNameFactory->createParameterName();
