@@ -8,7 +8,6 @@ import {FocusDirective} from '../directives/focus';
 import {CardComponent} from '../components/card/card.component';
 import {NavigationsComponent} from '../components/navigations/navigations.component';
 import {CommentComponent} from '../components/navigations/comment.component';
-import {ParticleEffectButtonModule} from 'angular-particle-effect-button';
 import {TransactionAmountComponent} from '../components/transaction-amount/transaction-amount.component';
 import {AccountingDocumentsComponent} from '../../admin/accounting-documents/accounting-documents.component';
 import {TimeagoModule} from 'ngx-timeago';
@@ -39,6 +38,7 @@ import {NaturalEditorModule} from '@ecodev/natural-editor';
 import {SupportComponent} from '../../admin/configurations/support/support.component';
 import {IbanPipe} from '../pipes/iban.pipe';
 import {FlagComponent} from '../components/flag/flag.component';
+import {ParticleEffectDirective} from '../components/particle-button/particle-effect.directive';
 
 const iconsConfig: NaturalIconsConfig = {
     qr: {
@@ -92,6 +92,7 @@ const declarations = [
     TransactionAmountComponent,
     AccountingDocumentsComponent,
     ParticleSwitchComponent,
+    ParticleEffectDirective,
     SupportComponent,
     IbanPipe,
 ];
@@ -103,7 +104,6 @@ const imports = [
     ReactiveFormsModule,
     RouterModule,
     NaturalAvatarModule,
-    ParticleEffectButtonModule,
     NaturalSearchModule,
     NaturalCommonModule,
     NaturalHierarchicSelectorModule,

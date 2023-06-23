@@ -1,4 +1,5 @@
 import {Component, Input} from '@angular/core';
+import Big from 'big.js';
 
 @Component({
     selector: 'app-money',
@@ -15,4 +16,12 @@ export class MoneyComponent {
     @Input() public showSignal = true;
 
     @Input() public showCurrency = true;
+
+    public showPositive(): boolean {
+        return this.showSignal && !!this.amount && Big(this.amount).gt(0);
+    }
+
+    public showNegative(): boolean {
+        return this.showSignal && !!this.amount && Big(this.amount).lt(0);
+    }
 }

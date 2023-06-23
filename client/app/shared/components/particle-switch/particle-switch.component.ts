@@ -1,4 +1,14 @@
 import {AfterViewInit, Component, ContentChild, ElementRef, Input, TemplateRef, ViewChild} from '@angular/core';
+import {Direction} from '../particle-button/particles';
+
+type ParticleSwitchOption = {
+    pColor: string;
+    pParticlesAmountCoefficient: number;
+    pSpeed: number;
+    pOscillationCoefficient: number;
+    pDuration: number;
+    pDirection: Direction;
+};
 
 @Component({
     selector: 'app-particle-switch',
@@ -17,7 +27,7 @@ export class ParticleSwitchComponent implements AfterViewInit {
     public duration = 500;
     public firstDisplay = true;
 
-    public settings1 = {
+    public settings1: ParticleSwitchOption = {
         pOscillationCoefficient: 80,
         pDirection: 'right',
         pColor: 'red',
@@ -26,7 +36,7 @@ export class ParticleSwitchComponent implements AfterViewInit {
         pSpeed: 0.5,
     };
 
-    public settings2 = {
+    public settings2: ParticleSwitchOption = {
         pOscillationCoefficient: 100,
         pDirection: 'left',
         pColor: 'green',
@@ -35,7 +45,8 @@ export class ParticleSwitchComponent implements AfterViewInit {
         pSpeed: 0.5,
     };
 
-    @Input() public set data(value: any) {
+    @Input()
+    public set data(value: any) {
         if (!this.showData1) {
             this._data1 = value;
             this.showData2 = false;
