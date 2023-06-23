@@ -1,25 +1,17 @@
-import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
+import {inject} from '@angular/core';
+import {ActivatedRouteSnapshot} from '@angular/router';
 import {last, Observable} from 'rxjs';
 import {ExpenseClaimResolve} from '../expenseClaim';
 import {ErrorService} from '../../../shared/components/error/error.service';
 import {ExpenseClaimService} from './expenseClaim.service';
 
-@Injectable({
-    providedIn: 'root',
-})
-export class ExpenseClaimResolver implements Resolve<ExpenseClaimResolve> {
-    public constructor(
-        private readonly expenseClaimService: ExpenseClaimService,
-        private readonly errorService: ErrorService,
-    ) {}
+/**
+ * Resolve expenseClaim data for router
+ */
+export function resolveExpenseClaim(route: ActivatedRouteSnapshot): Observable<ExpenseClaimResolve> {
+    const expenseClaimService = inject(ExpenseClaimService);
+    const errorService = inject(ErrorService);
+    const observable = expenseClaimService.resolve(route.params.expenseClaimId).pipe(last());
 
-    /**
-     * Resolve expenseClaim data for router
-     */
-    public resolve(route: ActivatedRouteSnapshot): Observable<ExpenseClaimResolve> {
-        const observable = this.expenseClaimService.resolve(route.params.expenseClaimId).pipe(last());
-
-        return this.errorService.redirectIfError(observable);
-    }
+    return errorService.redirectIfError(observable);
 }

@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Route, RouterModule, Routes} from '@angular/router';
-import {ViewerResolver} from '../admin/users/services/viewer.resolver';
+import {resolveViewer} from '../admin/users/services/viewer.resolver';
 import {ProfileComponent} from './components/profile/profile.component';
 import {FamilyComponent} from './components/family/family.component';
 import {BookingHistoryComponent} from './components/booking-history/booking-history.component';
@@ -8,7 +8,7 @@ import {FinancesComponent} from './components/finances/finances.component';
 import {ServicesComponent} from './components/services/services.component';
 import {CreateExpenseClaimComponent} from './components/create-expense-claim/create-expense-claim.component';
 import {HistoryComponent} from './components/history/history.component';
-import {ServicesGuard} from '../shared/guards/services.guard';
+import {canActivateServices} from '../shared/guards/services.guard';
 import {NaturalSeo} from '@ecodev/natural';
 import {BookingType, ExpenseClaimType} from '../shared/generated-types';
 import {BookableTagService} from '../admin/bookableTags/services/bookableTag.service';
@@ -131,7 +131,7 @@ export const servicesTabRoutes: Routes = [
 const routes: Routes = [
     {
         path: '',
-        resolve: {viewer: ViewerResolver},
+        resolve: {viewer: resolveViewer},
         children: [
             {
                 path: '',
@@ -167,8 +167,8 @@ const routes: Routes = [
                     {
                         path: 'services',
                         component: ServicesComponent,
-                        canActivate: [ServicesGuard],
-                        resolve: {futureOwner: ViewerResolver},
+                        canActivate: [canActivateServices],
+                        resolve: {futureOwner: resolveViewer},
                         data: {
                             seo: {title: ''} satisfies NaturalSeo,
                             hideCreateFab: true,

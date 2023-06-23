@@ -3,25 +3,25 @@ import {Route, RouterModule, Routes} from '@angular/router';
 import {AdminComponent} from './admin/admin.component';
 import {BookablesComponent} from './bookables/bookables/bookables.component';
 import {BookableComponent} from './bookables/bookable/bookable.component';
-import {LicenseResolver} from './licenses/services/license.resolver';
-import {BookableResolver} from './bookables/services/bookable.resolver';
+import {resolveLicense} from './licenses/services/license.resolver';
+import {resolveBookable} from './bookables/services/bookable.resolver';
 import {LicensesComponent} from './licenses/licenses/licenses.component';
 import {LicenseComponent} from './licenses/license/license.component';
 import {UserTagsComponent} from './userTags/userTags/userTags.component';
 import {UserTagComponent} from './userTags/userTag/userTag.component';
-import {UserTagResolver} from './userTags/services/userTag.resolver';
+import {resolveUserTag} from './userTags/services/userTag.resolver';
 import {BookingsComponent} from './bookings/bookings/bookings.component';
 import {UsersComponent} from './users/users/users.component';
 import {UserComponent} from './users/user/user.component';
-import {UserResolver} from './users/services/user.resolver';
+import {resolveUser} from './users/services/user.resolver';
 import {BookingComponent} from './bookings/booking/booking.component';
-import {BookingResolver} from './bookings/services/booking.resolver';
+import {resolveBooking} from './bookings/services/booking.resolver';
 import {BookingService} from './bookings/services/booking.service';
 import {UserService} from './users/services/user.service';
 import {BookableService} from './bookables/services/bookable.service';
 import {BookableTagsComponent} from './bookableTags/bookableTags/bookableTags.component';
 import {BookableTagComponent} from './bookableTags/bookableTag/bookableTag.component';
-import {BookableTagResolver} from './bookableTags/services/bookableTag.resolver';
+import {resolveBookableTag} from './bookableTags/services/bookableTag.resolver';
 import {
     BookableSortingField,
     ExpenseClaimSortingField,
@@ -31,23 +31,23 @@ import {
     UserRole,
     UserStatus,
 } from '../shared/generated-types';
-import {TransactionResolver} from './transactions/services/transaction.resolver';
+import {resolveTransaction} from './transactions/services/transaction.resolver';
 import {TransactionComponent} from './transactions/transaction/transaction.component';
-import {AdministrationGuard} from '../shared/guards/administration.guard';
-import {AccountingGuard} from '../shared/guards/accounting.guard';
-import {BookableGuard} from '../shared/guards/bookable.guard';
+import {canActivateAdministration} from '../shared/guards/administration.guard';
+import {canActivateAccounting} from '../shared/guards/accounting.guard';
+import {canActivateBookable} from '../shared/guards/bookable.guard';
 import {AccountComponent} from './accounts/account/account.component';
 import {AccountsComponent} from './accounts/accounts/accounts.component';
-import {AccountResolver} from './accounts/services/account.resolver';
+import {resolveAccount} from './accounts/services/account.resolver';
 import {SupportComponent} from './configurations/support/support.component';
 import {ExpenseClaimsComponent} from './expenseClaim/expenseClaims/expenseClaims.component';
 import {ExpenseClaimComponent} from './expenseClaim/expenseClaim/expenseClaim.component';
-import {ExpenseClaimResolver} from './expenseClaim/services/expenseClaim.resolver';
+import {resolveExpenseClaim} from './expenseClaim/services/expenseClaim.resolver';
 import {TransactionTagsComponent} from './transactionTags/transactionTags/transactionTags.component';
 import {TransactionTagComponent} from './transactionTags/transactionTag/transactionTag.component';
-import {TransactionTagResolver} from './transactionTags/services/transactionTag-resolver.service';
+import {resolveTransactionTag} from './transactionTags/services/transactionTag-resolver.service';
 import {TransactionLinesComponent} from './transactions/transactionLines/transactionLines.component';
-import {ExpenseClaimParamResolver} from './expenseClaim/services/expenseClaim.param.resolver';
+import {resolveExpenseClaimParam} from './expenseClaim/services/expenseClaim.param.resolver';
 import {ImportComponent} from './import/import.component';
 import {LogsComponent} from './logs/logs/logs.component';
 import {BookableTagService} from './bookableTags/services/bookableTag.service';
@@ -84,7 +84,7 @@ const routes: Routes = [
     {
         path: '',
         component: AdminComponent,
-        canActivate: [AdministrationGuard],
+        canActivate: [canActivateAdministration],
         data: {isAdmin: true},
         children: [
             {
@@ -209,7 +209,7 @@ const routes: Routes = [
                         path: 'new',
                         component: BookingComponent,
                         resolve: {
-                            booking: BookingResolver,
+                            booking: resolveBooking,
                         },
                         data: {
                             seo: {
@@ -221,7 +221,7 @@ const routes: Routes = [
                         path: ':bookingId', // last
                         component: BookingComponent,
                         resolve: {
-                            booking: BookingResolver,
+                            booking: resolveBooking,
                         },
                         data: {
                             seo: {resolveKey: 'booking'} satisfies NaturalSeo,
@@ -232,7 +232,7 @@ const routes: Routes = [
             {
                 path: 'bookable', // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
                 component: UsageBookablesComponent,
-                canActivate: [BookableGuard],
+                canActivate: [canActivateBookable],
                 data: {
                     seo: {
                         title: 'Réservables',
@@ -358,7 +358,7 @@ const routes: Routes = [
                         path: 'new',
                         component: BookableComponent,
                         resolve: {
-                            bookable: BookableResolver,
+                            bookable: resolveBookable,
                         },
                         data: {
                             seo: {
@@ -370,7 +370,7 @@ const routes: Routes = [
                         path: ':bookableId', // last
                         component: BookableComponent,
                         resolve: {
-                            bookable: BookableResolver,
+                            bookable: resolveBookable,
                         },
                         data: {
                             seo: {resolveKey: 'bookable'} satisfies NaturalSeo,
@@ -431,7 +431,7 @@ const routes: Routes = [
                         path: 'new',
                         component: UserComponent,
                         resolve: {
-                            user: UserResolver,
+                            user: resolveUser,
                         },
                         data: {
                             seo: {
@@ -443,7 +443,7 @@ const routes: Routes = [
                         path: ':userId', // last
                         component: UserComponent,
                         resolve: {
-                            user: UserResolver,
+                            user: resolveUser,
                         },
                         data: {
                             seo: {resolveKey: 'user'} satisfies NaturalSeo,
@@ -469,7 +469,7 @@ const routes: Routes = [
                         path: 'new',
                         component: LicenseComponent,
                         resolve: {
-                            license: LicenseResolver,
+                            license: resolveLicense,
                         },
                         data: {
                             seo: {
@@ -481,7 +481,7 @@ const routes: Routes = [
                         path: ':licenseId', // last
                         component: LicenseComponent,
                         resolve: {
-                            license: LicenseResolver,
+                            license: resolveLicense,
                         },
                         data: {
                             seo: {resolveKey: 'license'} satisfies NaturalSeo,
@@ -505,7 +505,7 @@ const routes: Routes = [
                         path: 'new',
                         component: UserTagComponent,
                         resolve: {
-                            userTag: UserTagResolver,
+                            userTag: resolveUserTag,
                         },
                         data: {
                             seo: {
@@ -517,7 +517,7 @@ const routes: Routes = [
                         path: ':userTagId', // last
                         component: UserTagComponent,
                         resolve: {
-                            userTag: UserTagResolver,
+                            userTag: resolveUserTag,
                         },
                         data: {
                             seo: {resolveKey: 'userTag'} satisfies NaturalSeo,
@@ -541,7 +541,7 @@ const routes: Routes = [
                         path: 'new',
                         component: BookableTagComponent,
                         resolve: {
-                            bookableTag: BookableTagResolver,
+                            bookableTag: resolveBookableTag,
                         },
                         data: {
                             seo: {
@@ -553,7 +553,7 @@ const routes: Routes = [
                         path: ':bookableTagId', // last
                         component: BookableTagComponent,
                         resolve: {
-                            bookableTag: BookableTagResolver,
+                            bookableTag: resolveBookableTag,
                         },
                         data: {
                             seo: {resolveKey: 'bookableTag'} satisfies NaturalSeo,
@@ -568,8 +568,8 @@ const routes: Routes = [
                         path: 'new',
                         component: TransactionComponent,
                         resolve: {
-                            transaction: TransactionResolver,
-                            expenseClaim: ExpenseClaimParamResolver,
+                            transaction: resolveTransaction,
+                            expenseClaim: resolveExpenseClaimParam,
                         },
                         data: {
                             seo: {
@@ -581,7 +581,7 @@ const routes: Routes = [
                         path: ':transactionId', // last
                         component: TransactionComponent,
                         resolve: {
-                            transaction: TransactionResolver,
+                            transaction: resolveTransaction,
                         },
                         data: {
                             seo: {resolveKey: 'transaction'} satisfies NaturalSeo,
@@ -614,7 +614,7 @@ const routes: Routes = [
             {
                 path: 'account', // Separated from other similar routes because of https://github.com/angular/angular/issues/27674
                 component: AccountsComponent,
-                canActivate: [AccountingGuard],
+                canActivate: [canActivateAccounting],
                 data: {
                     seo: {
                         title: 'Comptes',
@@ -623,13 +623,13 @@ const routes: Routes = [
             },
             {
                 path: 'account',
-                canActivate: [AccountingGuard],
+                canActivate: [canActivateAccounting],
                 children: [
                     {
                         path: 'new',
                         component: AccountComponent,
                         resolve: {
-                            account: AccountResolver,
+                            account: resolveAccount,
                         },
                         data: {
                             seo: {
@@ -641,7 +641,7 @@ const routes: Routes = [
                         path: ':accountId', // last
                         component: AccountComponent,
                         resolve: {
-                            account: AccountResolver,
+                            account: resolveAccount,
                         },
                         data: {
                             seo: {resolveKey: 'account'} satisfies NaturalSeo,
@@ -672,7 +672,7 @@ const routes: Routes = [
                         path: 'new',
                         component: ExpenseClaimComponent,
                         resolve: {
-                            expenseClaim: ExpenseClaimResolver,
+                            expenseClaim: resolveExpenseClaim,
                         },
                         data: {
                             seo: {
@@ -684,7 +684,7 @@ const routes: Routes = [
                         path: ':expenseClaimId', // last
                         component: ExpenseClaimComponent,
                         resolve: {
-                            expenseClaim: ExpenseClaimResolver,
+                            expenseClaim: resolveExpenseClaim,
                         },
                         data: {
                             seo: {resolveKey: 'expenseClaim'} satisfies NaturalSeo,
@@ -718,7 +718,7 @@ const routes: Routes = [
                         path: 'new',
                         component: TransactionTagComponent,
                         resolve: {
-                            transactionTag: TransactionTagResolver,
+                            transactionTag: resolveTransactionTag,
                         },
                         data: {
                             seo: {
@@ -730,7 +730,7 @@ const routes: Routes = [
                         path: ':transactionTagId', // last
                         component: TransactionTagComponent,
                         resolve: {
-                            transactionTag: TransactionTagResolver,
+                            transactionTag: resolveTransactionTag,
                         },
                         data: {
                             seo: {resolveKey: 'transactionTag'} satisfies NaturalSeo,

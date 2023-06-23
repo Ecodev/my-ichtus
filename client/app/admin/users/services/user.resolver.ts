@@ -1,22 +1,17 @@
-import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
+import {inject} from '@angular/core';
+import {ActivatedRouteSnapshot} from '@angular/router';
 import {last, Observable} from 'rxjs';
 import {UserService} from './user.service';
 import {ErrorService} from '../../../shared/components/error/error.service';
 import {UserResolve} from '../user';
 
-@Injectable({
-    providedIn: 'root',
-})
-export class UserResolver implements Resolve<UserResolve> {
-    public constructor(private readonly userService: UserService, private readonly errorService: ErrorService) {}
+/**
+ * Resolve sites for routing service only at the moment
+ */
+export function resolveUser(route: ActivatedRouteSnapshot): Observable<UserResolve> {
+    const userService = inject(UserService);
+    const errorService = inject(ErrorService);
+    const observable = userService.resolve(route.params.userId).pipe(last());
 
-    /**
-     * Resolve sites for routing service only at the moment
-     */
-    public resolve(route: ActivatedRouteSnapshot): Observable<UserResolve> {
-        const observable = this.userService.resolve(route.params.userId).pipe(last());
-
-        return this.errorService.redirectIfError(observable);
-    }
+    return errorService.redirectIfError(observable);
 }

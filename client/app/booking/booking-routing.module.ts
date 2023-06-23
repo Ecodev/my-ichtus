@@ -2,11 +2,11 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {ScanComponent} from './components/scan/scan.component';
 import {BookableComponent} from './bookable/bookable.component';
-import {BookableByCodeResolver} from './bookable/bookable-by-code.resolver';
+import {resolveBookableByCode} from './bookable/bookable-by-code.resolver';
 import {CodeInputComponent} from './components/code-input/code-input.component';
 import {SelfApprovedBookingComponent} from './components/self-approved-booking/self-approved-booking.component';
 import {NaturalSeo} from '@ecodev/natural';
-import {OptionalBookableByParamResolver} from './bookable/optional-bookable-by-param.resolver';
+import {resolveOptionalBookableByParam} from './bookable/optional-bookable-by-param.resolver';
 
 const routes: Routes = [
     {
@@ -31,7 +31,7 @@ const routes: Routes = [
         path: 'new',
         component: SelfApprovedBookingComponent,
         resolve: {
-            bookable: OptionalBookableByParamResolver,
+            bookable: resolveOptionalBookableByParam,
         },
         data: {
             seo: {
@@ -43,7 +43,7 @@ const routes: Routes = [
         path: ':bookableCode',
         component: BookableComponent,
         resolve: {
-            bookable: BookableByCodeResolver,
+            bookable: resolveBookableByCode,
         },
         data: {
             seo: {resolveKey: 'bookable'} satisfies NaturalSeo,
