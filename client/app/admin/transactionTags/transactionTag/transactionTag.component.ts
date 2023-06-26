@@ -1,4 +1,4 @@
-import {Component, Injector} from '@angular/core';
+import {Component} from '@angular/core';
 import {NaturalAbstractDetail} from '@ecodev/natural';
 import {TransactionTagService} from '../services/transactionTag.service';
 
@@ -8,7 +8,7 @@ import {TransactionTagService} from '../services/transactionTag.service';
     styleUrls: ['./transactionTag.component.scss'],
 })
 export class TransactionTagComponent extends NaturalAbstractDetail<TransactionTagService> {
-    public constructor(transactionTagService: TransactionTagService, injector: Injector) {
-        super('transactionTag', transactionTagService, injector);
+    public constructor(transactionTagService: TransactionTagService) {
+        super('transactionTag', transactionTagService);
     }
 }

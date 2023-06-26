@@ -1,4 +1,4 @@
-import {Component, Injector, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AvailableColumn, NaturalAbstractList} from '@ecodev/natural';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {LicenseService} from '../services/license.service';
@@ -13,10 +13,9 @@ export class LicensesComponent extends NaturalAbstractList<LicenseService> imple
     public override availableColumns: AvailableColumn[] = [{id: 'name', label: 'Nom'}];
     public constructor(
         licenseService: LicenseService,
-        injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,
         public readonly permissionsService: PermissionsService,
     ) {
-        super(licenseService, injector);
+        super(licenseService);
     }
 }

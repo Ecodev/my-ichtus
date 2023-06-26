@@ -13,7 +13,7 @@ import {takeUntil} from 'rxjs/operators';
     styleUrls: ['./history.component.scss'],
 })
 export class HistoryComponent extends NaturalAbstractController implements OnInit {
-    @Input() public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    @Input({required: true}) public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
 
     public transactionLinesDS!: NaturalDataSource<TransactionLines['transactionLines']>;
     public transactionsColumns = ['name', 'bookable', 'transactionDate', 'remarks', 'amount'];

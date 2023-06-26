@@ -56,7 +56,7 @@ function bookingsToExtended(bookings: Bookings['bookings']): PaginatedExtendedBo
     ],
 })
 export class NavigationsComponent extends NaturalAbstractController implements OnInit {
-    @Input() public user!: NonNullable<CurrentUserForProfile['viewer']>;
+    @Input({required: true}) public user!: NonNullable<CurrentUserForProfile['viewer']>;
     @Input() public activeOnly = true;
     @Input() public showEmptyMessage = false;
 

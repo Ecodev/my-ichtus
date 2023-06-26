@@ -12,7 +12,7 @@ import {finalize, takeUntil} from 'rxjs/operators';
     styleUrls: ['./services.component.scss'],
 })
 export class ServicesComponent extends NaturalAbstractController implements OnInit, OnChanges, OnDestroy {
-    @Input() public user!: NonNullable<CurrentUserForProfile['viewer']>;
+    @Input({required: true}) public user!: NonNullable<CurrentUserForProfile['viewer']>;
 
     public adminMode = false;
 

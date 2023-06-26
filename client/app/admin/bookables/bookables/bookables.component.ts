@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Injector, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {Bookables} from '../../../shared/generated-types';
 import {BookableService} from '../services/bookable.service';
@@ -16,12 +16,11 @@ export class BookablesComponent extends ParentComponent<BookableService> impleme
 
     public constructor(
         bookableService: BookableService,
-        injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,
         public readonly permissionsService: PermissionsService,
         bookingService: BookingService,
     ) {
-        super(bookableService, injector, bookingService);
+        super(bookableService, bookingService);
         this.naturalSearchFacets = naturalSearchFacetsService.get(
             this.route.snapshot.data.isEquipment ? 'equipment' : 'bookables',
         );

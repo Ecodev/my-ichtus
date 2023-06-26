@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Injector, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CreateUser, CurrentUserForProfile, UpdateUser, Users} from '../../../shared/generated-types';
 import {NaturalAbstractDetail} from '@ecodev/natural';
 import {merge} from 'lodash-es';
@@ -11,16 +11,16 @@ import {EMPTY, Observable} from 'rxjs';
     styleUrls: ['./family-member.component.scss'],
 })
 export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserService> implements OnInit {
-    @Input() public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
-    @Input() public user!: Users['users']['items'][0];
+    @Input({required: true}) public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    @Input({required: true}) public user!: Users['users']['items'][0];
     @Input() public readonly = false;
     @Output() public readonly created = new EventEmitter<void>();
     @Output() public readonly removed = new EventEmitter<void>();
     @Output() public readonly updated = new EventEmitter<UpdateUser['updateUser']>();
     public loaded = false;
 
-    public constructor(public readonly userService: FamilyUserService, injector: Injector) {
-        super('user', userService, injector);
+    public constructor(public readonly userService: FamilyUserService) {
+        super('user', userService);
     }
 
     /**

@@ -11,7 +11,7 @@ import {tap} from 'rxjs/operators';
     styleUrls: ['./accounting-documents.component.scss'],
 })
 export class AccountingDocumentsComponent implements OnInit {
-    @Input() public model!: Transaction['transaction'] | ExpenseClaim['expenseClaim'];
+    @Input({required: true}) public model!: Transaction['transaction'] | ExpenseClaim['expenseClaim'];
     @Input() public fileHeight = 250;
     @Input() public fileWidth = 250;
     @Input() public canRemove = true;

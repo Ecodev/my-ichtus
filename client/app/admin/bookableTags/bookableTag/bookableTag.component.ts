@@ -1,4 +1,4 @@
-import {Component, Injector} from '@angular/core';
+import {Component} from '@angular/core';
 import {NaturalAbstractDetail} from '@ecodev/natural';
 import {BookableTagService} from '../services/bookableTag.service';
 
@@ -8,11 +8,7 @@ import {BookableTagService} from '../services/bookableTag.service';
     styleUrls: ['./bookableTag.component.scss'],
 })
 export class BookableTagComponent extends NaturalAbstractDetail<BookableTagService> {
-    public constructor(
-        bookableTagService: BookableTagService,
-        injector: Injector,
-        public readonly tagService: BookableTagService,
-    ) {
-        super('bookableTag', bookableTagService, injector);
+    public constructor(bookableTagService: BookableTagService, public readonly tagService: BookableTagService) {
+        super('bookableTag', bookableTagService);
     }
 }

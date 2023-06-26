@@ -1,4 +1,4 @@
-import {Component, Injector, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
 import {ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
@@ -16,12 +16,8 @@ export class CreateExpenseClaimComponent extends NaturalAbstractDetail<ExpenseCl
 
     public ExpenseClaimType = ExpenseClaimType;
 
-    public constructor(
-        public expenseClaimService: ExpenseClaimService,
-        injector: Injector,
-        public readonly userService: UserService,
-    ) {
-        super('expenseClaim', expenseClaimService, injector);
+    public constructor(public expenseClaimService: ExpenseClaimService, public readonly userService: UserService) {
+        super('expenseClaim', expenseClaimService);
     }
 
     public override ngOnInit(): void {

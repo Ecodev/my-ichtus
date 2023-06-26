@@ -9,7 +9,7 @@ import {UntypedFormGroup} from '@angular/forms';
 })
 export class AddressComponent {
     @Input() public vertical = false;
-    @Input() public form!: UntypedFormGroup;
+    @Input({required: true}) public form!: UntypedFormGroup;
     @Output() public readonly addressChange = new EventEmitter<void>();
 
     public constructor(public readonly countryService: CountryService) {}

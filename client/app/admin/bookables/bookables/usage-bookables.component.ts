@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Injector, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {UsageBookableService} from '../services/usage-bookable.service';
@@ -31,13 +31,12 @@ export class UsageBookablesComponent extends ParentComponent<UsageBookableServic
 
     public constructor(
         usageBookableService: UsageBookableService,
-        injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,
         public readonly permissionsService: PermissionsService,
         private readonly userService: UserService,
         bookingService: BookingService,
     ) {
-        super(usageBookableService, injector, bookingService);
+        super(usageBookableService, bookingService);
 
         if (this.route.snapshot.data.isAdmin) {
             this.naturalSearchFacets = naturalSearchFacetsService.get(

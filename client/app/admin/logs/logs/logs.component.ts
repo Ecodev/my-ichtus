@@ -1,4 +1,4 @@
-import {Component, Injector, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NaturalAbstractList, SortingOrder} from '@ecodev/natural';
 import {CurrentUserForProfile, LogSortingField, UserRole} from '../../../shared/generated-types';
@@ -14,10 +14,9 @@ export class LogsComponent extends NaturalAbstractList<LogService> implements On
     public constructor(
         route: ActivatedRoute,
         logService: LogService,
-        injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,
     ) {
-        super(logService, injector);
+        super(logService);
 
         this.naturalSearchFacets = naturalSearchFacetsService.get('logs');
         this.forcedVariables = {

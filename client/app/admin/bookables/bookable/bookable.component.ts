@@ -1,4 +1,4 @@
-import {Component, Injector, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {formatIsoDateTime, IEnum, NaturalAbstractDetail} from '@ecodev/natural';
 import {BookableService} from '../services/bookable.service';
 import {
@@ -39,13 +39,12 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
 
     public constructor(
         bookableService: BookableService,
-        injector: Injector,
         public readonly bookableTagService: BookableTagService,
         public readonly licenseService: LicenseService,
         private readonly imageService: ImageService,
         public readonly permissionsService: PermissionsService,
     ) {
-        super('bookable', bookableService, injector);
+        super('bookable', bookableService);
     }
 
     public override ngOnInit(): void {

@@ -1,4 +1,4 @@
-import {Component, Injector, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BookingService} from '../services/booking.service';
 import {
     BookableSortingField,
@@ -80,11 +80,10 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
 
     public constructor(
         public readonly bookingService: BookingService,
-        injector: Injector,
         public readonly bookableService: BookableService,
         public readonly userService: UserService,
     ) {
-        super('booking', bookingService, injector);
+        super('booking', bookingService);
     }
 
     public override ngOnInit(): void {

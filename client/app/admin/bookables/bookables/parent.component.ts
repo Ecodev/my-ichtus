@@ -1,4 +1,4 @@
-import {Directive, inject, Injector, OnInit} from '@angular/core';
+import {Directive, inject, OnInit} from '@angular/core';
 import {UsageBookableService} from '../services/usage-bookable.service';
 import {AvailableColumn, NaturalAbstractList} from '@ecodev/natural';
 import {BookingPartialInput, Bookings, BookingStatus, UsageBookables} from '../../../shared/generated-types';
@@ -7,10 +7,11 @@ import {BookableService} from '../services/bookable.service';
 import {ExtractTallOne} from '@ecodev/natural/lib/types/types';
 import {UserResolve} from '../../users/user';
 import {ViewerResolve} from '../../users/services/viewer.resolver';
-import {map, Observable, takeUntil} from 'rxjs';
+import {map, Observable} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 import {Apollo} from 'apollo-angular';
 import {availabilityStatus, availabilityText, usageStatus as usageStatusFunc, usageText} from '../bookable';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 export const image: AvailableColumn = {id: 'image', label: 'Image'};
 export const name: AvailableColumn = {id: 'name', label: 'Nom'};
@@ -56,12 +57,10 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
         }),
     );
 
-    protected constructor(service: T, injector: Injector, private readonly bookingService: BookingService) {
-        super(service, injector);
+    protected constructor(service: T, private readonly bookingService: BookingService) {
+        super(service);
 
-        this.futureOwner$
-            .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe(futureOwner => (this.futureOwner = futureOwner));
+        this.futureOwner$.pipe(takeUntilDestroyed()).subscribe(futureOwner => (this.futureOwner = futureOwner));
     }
 
     public override ngOnInit(): void {

@@ -45,7 +45,7 @@ export class ParticleSwitchComponent implements AfterViewInit {
         pSpeed: 0.5,
     };
 
-    @Input()
+    @Input({required: true})
     public set data(value: any) {
         if (!this.showData1) {
             this._data1 = value;

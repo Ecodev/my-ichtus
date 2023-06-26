@@ -1,4 +1,4 @@
-import {Component, Injector, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AvailableColumn, Button, NaturalAbstractNavigableList} from '@ecodev/natural';
 import {CurrentUserForProfile} from '../../../shared/generated-types';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
@@ -60,7 +60,6 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
     };
 
     public constructor(
-        injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,
         private readonly accountService: AccountService,
         private readonly dialog: MatDialog,
@@ -68,7 +67,7 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
         public readonly transactionLineService: TransactionLineService,
         public readonly userService: UserService,
     ) {
-        super(accountService, injector);
+        super(accountService);
         this.naturalSearchFacets = naturalSearchFacetsService.get('accounts');
     }
 

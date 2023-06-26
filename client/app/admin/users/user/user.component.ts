@@ -1,4 +1,4 @@
-import {Component, Injector, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {IEnum, ifValid, NaturalAbstractDetail, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {UserService} from '../services/user.service';
 import {
@@ -46,14 +46,13 @@ export class UserComponent extends NaturalAbstractDetail<UserService> implements
 
     public constructor(
         private readonly userService: UserService,
-        injector: Injector,
         public readonly userTagService: UserTagService,
         public readonly licenseService: LicenseService,
         public readonly bookingService: BookingService,
         public readonly accountService: AccountService,
         public readonly permissionsService: PermissionsService,
     ) {
-        super('user', userService, injector);
+        super('user', userService);
     }
 
     public override ngOnInit(): void {

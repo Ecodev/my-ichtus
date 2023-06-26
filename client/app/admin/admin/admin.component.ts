@@ -1,16 +1,15 @@
 import {Component} from '@angular/core';
 import {PermissionsService} from '../../shared/services/permissions.service';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {NaturalAbstractController} from '@ecodev/natural';
-import {takeUntil} from 'rxjs/operators';
 import {UserRole} from '../../shared/generated-types';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-admin',
     templateUrl: './admin.component.html',
     styleUrls: ['./admin.component.scss'],
 })
-export class AdminComponent extends NaturalAbstractController {
+export class AdminComponent {
     public adminUserRouteActive = false;
     public adminBookableRouteActive = false;
     public adminBookingRouteActive = false;
@@ -21,10 +20,8 @@ export class AdminComponent extends NaturalAbstractController {
         public readonly permissionsService: PermissionsService,
         public readonly route: ActivatedRoute,
     ) {
-        super();
-
         // Update active route status
-        router.events.pipe(takeUntil(this.ngUnsubscribe)).subscribe(e => {
+        router.events.pipe(takeUntilDestroyed()).subscribe(e => {
             if (!(e instanceof NavigationEnd)) {
                 return;
             }

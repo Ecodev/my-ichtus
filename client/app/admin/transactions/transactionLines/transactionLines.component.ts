@@ -1,4 +1,4 @@
-import {Component, Injector, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AvailableColumn, Button, NaturalAbstractList, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {TransactionLineService} from '../services/transactionLine.service';
@@ -43,11 +43,10 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
 
     public constructor(
         private readonly transactionLineService: TransactionLineService,
-        injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,
         public readonly permissionsService: PermissionsService,
     ) {
-        super(transactionLineService, injector);
+        super(transactionLineService);
 
         this.naturalSearchFacets = naturalSearchFacetsService.get('transactionLines');
     }

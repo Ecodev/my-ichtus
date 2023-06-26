@@ -18,7 +18,7 @@ export class EditableTransactionLinesComponent
     >
     implements OnInit
 {
-    @Input() public transaction!: Transaction['transaction'];
+    @Input({required: true}) public transaction!: Transaction['transaction'];
 
     public accountHierarchicConfig = accountHierarchicConfiguration;
     public columns = [

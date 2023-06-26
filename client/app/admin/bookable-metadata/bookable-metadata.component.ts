@@ -11,7 +11,7 @@ import {finalize} from 'rxjs/operators';
     styleUrls: ['./bookable-metadata.component.scss'],
 })
 export class BookableMetadataComponent implements OnInit {
-    @Input() public bookable!: Bookable['bookable'];
+    @Input({required: true}) public bookable!: Bookable['bookable'];
     @Input() public edit = false;
     public readonly deleting = new Map<BookableMetadatas['bookableMetadatas']['items'][0], true>();
 

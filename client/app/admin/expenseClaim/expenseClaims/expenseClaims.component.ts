@@ -1,4 +1,4 @@
-import {Component, Injector, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AvailableColumn, NaturalAbstractList} from '@ecodev/natural';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {ExpenseClaimService} from '../services/expenseClaim.service';
@@ -24,11 +24,10 @@ export class ExpenseClaimsComponent extends NaturalAbstractList<ExpenseClaimServ
 
     public constructor(
         expenseClaimService: ExpenseClaimService,
-        injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,
         public readonly permissionsService: PermissionsService,
     ) {
-        super(expenseClaimService, injector);
+        super(expenseClaimService);
 
         this.naturalSearchFacets = naturalSearchFacetsService.get('expenseClaims');
     }

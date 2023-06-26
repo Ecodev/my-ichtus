@@ -1,4 +1,4 @@
-import {Component, Injector, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AvailableColumn, NaturalAbstractList} from '@ecodev/natural';
 import {UserTagService} from '../services/userTag.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -13,11 +13,7 @@ export class UserTagsComponent extends NaturalAbstractList<UserTagService> imple
         {id: 'color', label: 'Couleur'},
         {id: 'name', label: 'Nom'},
     ];
-    public constructor(
-        userTagService: UserTagService,
-        injector: Injector,
-        public readonly permissionsService: PermissionsService,
-    ) {
-        super(userTagService, injector);
+    public constructor(userTagService: UserTagService, public readonly permissionsService: PermissionsService) {
+        super(userTagService);
     }
 }

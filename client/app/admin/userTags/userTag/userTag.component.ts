@@ -1,4 +1,4 @@
-import {Component, Injector} from '@angular/core';
+import {Component} from '@angular/core';
 import {NaturalAbstractDetail} from '@ecodev/natural';
 import {UserTagService} from '../services/userTag.service';
 import {UserService} from '../../users/services/user.service';
@@ -9,7 +9,7 @@ import {UserService} from '../../users/services/user.service';
     styleUrls: ['./userTag.component.scss'],
 })
 export class UserTagComponent extends NaturalAbstractDetail<UserTagService> {
-    public constructor(userTagService: UserTagService, injector: Injector, public readonly userService: UserService) {
-        super('userTag', userTagService, injector);
+    public constructor(userTagService: UserTagService, public readonly userService: UserService) {
+        super('userTag', userTagService);
     }
 }

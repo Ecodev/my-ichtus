@@ -1,4 +1,4 @@
-import {Component, Injector, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NaturalAbstractDetail} from '@ecodev/natural';
 import {AccountService} from '../services/account.service';
 import {UserService} from '../../users/services/user.service';
@@ -14,12 +14,8 @@ export class AccountComponent extends NaturalAbstractDetail<AccountService> impl
     public nextCodeAvailable: number | null = null;
     public accountHierarchicConfig = groupAccountHierarchicConfiguration;
 
-    public constructor(
-        public readonly accountService: AccountService,
-        injector: Injector,
-        public readonly userService: UserService,
-    ) {
-        super('account', accountService, injector);
+    public constructor(public readonly accountService: AccountService, public readonly userService: UserService) {
+        super('account', accountService);
     }
 
     public override ngOnInit(): void {

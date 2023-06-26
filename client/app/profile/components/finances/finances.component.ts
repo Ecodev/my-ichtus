@@ -1,4 +1,4 @@
-import {Component, Injector, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {CurrentUserForProfile, ExpenseClaims, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
@@ -20,7 +20,7 @@ export class FinancesComponent
     extends NaturalAbstractList<ExpenseClaimService>
     implements OnInit, OnChanges, OnDestroy
 {
-    @Input() public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    @Input({required: true}) public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
 
     public override selectedColumns = ['name', 'updateDate', 'status', 'type', 'remarks', 'amount', 'cancel'];
 
@@ -34,13 +34,12 @@ export class FinancesComponent
     public override persistSearch = false;
 
     public constructor(
-        injector: Injector,
         private readonly userService: UserService,
         private readonly expenseClaimService: ExpenseClaimService,
         private readonly transactionLineService: TransactionLineService,
         private readonly dialog: MatDialog,
     ) {
-        super(expenseClaimService, injector);
+        super(expenseClaimService);
     }
 
     public override ngOnInit(): void {

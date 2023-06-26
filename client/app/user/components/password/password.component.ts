@@ -29,7 +29,7 @@ class ConfirmPasswordStateMatcher implements ErrorStateMatcher {
     styleUrls: ['./password.component.scss'],
 })
 export class PasswordComponent implements OnInit {
-    @Input() public form!: UntypedFormGroup;
+    @Input({required: true}) public form!: UntypedFormGroup;
     public confirmPasswordStateMatcher = new ConfirmPasswordStateMatcher();
 
     public ngOnInit(): void {

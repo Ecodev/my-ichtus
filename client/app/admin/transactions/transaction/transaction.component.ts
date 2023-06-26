@@ -1,4 +1,4 @@
-import {Component, Injector, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {NavigationEnd} from '@angular/router';
 import {NaturalAbstractDetail} from '@ecodev/natural';
 import {TransactionService} from '../services/transaction.service';
@@ -31,12 +31,11 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
 
     public constructor(
         private readonly transactionService: TransactionService,
-        injector: Injector,
         public readonly bookableService: BookableService,
         public readonly transactionLineService: TransactionLineService,
         public readonly userService: UserService,
     ) {
-        super('transaction', transactionService, injector);
+        super('transaction', transactionService);
     }
 
     public override ngOnInit(): void {

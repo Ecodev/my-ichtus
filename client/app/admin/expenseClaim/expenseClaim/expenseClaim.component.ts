@@ -1,4 +1,4 @@
-import {Component, Injector, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NaturalAbstractDetail} from '@ecodev/natural';
 import {ExpenseClaimService} from '../services/expenseClaim.service';
 import {CurrentUserForProfile, ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
@@ -18,12 +18,11 @@ export class ExpenseClaimComponent extends NaturalAbstractDetail<ExpenseClaimSer
 
     public constructor(
         public expenseClaimService: ExpenseClaimService,
-        injector: Injector,
         public readonly userService: UserService,
         public readonly transactionLineService: TransactionLineService,
         public readonly permissionsService: PermissionsService,
     ) {
-        super('expenseClaim', expenseClaimService, injector);
+        super('expenseClaim', expenseClaimService);
     }
 
     public override ngOnInit(): void {

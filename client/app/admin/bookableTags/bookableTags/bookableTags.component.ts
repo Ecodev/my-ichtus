@@ -1,4 +1,4 @@
-import {Component, Injector, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AvailableColumn, NaturalAbstractList} from '@ecodev/natural';
 import {BookableTagService} from '../services/bookableTag.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -13,11 +13,7 @@ export class BookableTagsComponent extends NaturalAbstractList<BookableTagServic
         {id: 'color', label: 'Couleur'},
         {id: 'name', label: 'Nom'},
     ];
-    public constructor(
-        bookableTagService: BookableTagService,
-        injector: Injector,
-        public readonly permissionsService: PermissionsService,
-    ) {
-        super(bookableTagService, injector);
+    public constructor(bookableTagService: BookableTagService, public readonly permissionsService: PermissionsService) {
+        super(bookableTagService);
     }
 }

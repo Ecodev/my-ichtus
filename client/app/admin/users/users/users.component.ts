@@ -1,5 +1,5 @@
 import {Apollo} from 'apollo-angular';
-import {Component, Injector, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AvailableColumn, Button, NaturalAbstractList, NaturalSearchSelections} from '@ecodev/natural';
 import {BankingInfosVariables, EmailAndPhoneUsersVariables, Users, UserStatus} from '../../../shared/generated-types';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
@@ -45,14 +45,13 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
     public constructor(
         route: ActivatedRoute,
         private readonly userService: UserService,
-        injector: Injector,
         naturalSearchFacetsService: NaturalSearchFacetsService,
         public readonly permissionsService: PermissionsService,
         private readonly apollo: Apollo,
         private readonly dialog: MatDialog,
         private readonly copyContactDataButtonService: CopyContactDataButtonService<EmailAndPhoneUsersVariables>,
     ) {
-        super(userService, injector);
+        super(userService);
         this.naturalSearchFacets = naturalSearchFacetsService.get('users');
     }
 
