@@ -3,11 +3,64 @@ import {BookingService} from '../services/booking.service';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {AbstractBookings} from './abstract-bookings';
+import {RouterLink} from '@angular/router';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {FlagComponent} from '../../../shared/components/flag/flag.component';
+import {MoneyComponent} from '../../../shared/components/money/money.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSortModule} from '@angular/material/sort';
+import {MatTableModule} from '@angular/material/table';
+import {
+    NaturalColumnsPickerComponent,
+    NaturalSearchComponent,
+    NaturalTableButtonComponent,
+    NaturalAvatarComponent,
+    NaturalFileComponent,
+    NaturalIconDirective,
+    NaturalFixedButtonComponent,
+    NaturalCapitalizePipe,
+    NaturalEnumPipe,
+    NaturalSwissDatePipe,
+    NaturalEllipsisPipe,
+} from '@ecodev/natural';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {NgIf, AsyncPipe, DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-bookings',
     templateUrl: './bookings.component.html',
     styleUrls: ['./bookings.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        FlexModule,
+        NaturalColumnsPickerComponent,
+        NaturalSearchComponent,
+        MatTableModule,
+        MatSortModule,
+        NaturalTableButtonComponent,
+        MatTooltipModule,
+        NaturalAvatarComponent,
+        NaturalFileComponent,
+        MatButtonModule,
+        MatIconModule,
+        NaturalIconDirective,
+        MoneyComponent,
+        FlagComponent,
+        MatProgressSpinnerModule,
+        MatPaginatorModule,
+        NaturalFixedButtonComponent,
+        RouterLink,
+        AsyncPipe,
+        DatePipe,
+        NaturalCapitalizePipe,
+        NaturalEnumPipe,
+        NaturalSwissDatePipe,
+        NaturalEllipsisPipe,
+    ],
 })
 export class BookingsComponent extends AbstractBookings<BookingService> {
     public constructor(

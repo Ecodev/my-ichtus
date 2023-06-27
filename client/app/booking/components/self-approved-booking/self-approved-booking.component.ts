@@ -4,12 +4,33 @@ import {BookableService} from '../../../admin/bookables/services/bookable.servic
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {Bookable, BookingStatus} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
-import {Literal, NaturalAlertService} from '@ecodev/natural';
+import {Literal, NaturalAlertService, NaturalAvatarComponent, NaturalFixedButtonComponent} from '@ecodev/natural';
+import {TextFieldModule} from '@angular/cdk/text-field';
+import {FormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDividerModule} from '@angular/material/divider';
+import {NgIf} from '@angular/common';
+import {CardComponent} from '../../../shared/components/card/card.component';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-self-approved-booking',
     templateUrl: './self-approved-booking.component.html',
     styleUrls: ['./self-approved-booking.component.scss'],
+    standalone: true,
+    imports: [
+        FlexModule,
+        CardComponent,
+        NgIf,
+        NaturalAvatarComponent,
+        MatDividerModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        TextFieldModule,
+        NaturalFixedButtonComponent,
+    ],
 })
 export class SelfApprovedBookingComponent implements OnInit {
     public bookable: Bookable['bookable'] | null = null;

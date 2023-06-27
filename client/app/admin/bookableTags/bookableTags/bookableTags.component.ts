@@ -1,12 +1,44 @@
 import {Component, OnInit} from '@angular/core';
-import {AvailableColumn, NaturalAbstractList} from '@ecodev/natural';
+import {
+    AvailableColumn,
+    NaturalAbstractList,
+    NaturalColumnsPickerComponent,
+    NaturalSearchComponent,
+    NaturalAvatarComponent,
+    NaturalTableButtonComponent,
+    NaturalFixedButtonComponent,
+} from '@ecodev/natural';
 import {BookableTagService} from '../services/bookableTag.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
+import {RouterLink} from '@angular/router';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSortModule} from '@angular/material/sort';
+import {MatTableModule} from '@angular/material/table';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {NgIf} from '@angular/common';
 
 @Component({
     selector: 'app-bookable-tags',
     templateUrl: './bookableTags.component.html',
     styleUrls: ['./bookableTags.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        FlexModule,
+        NaturalColumnsPickerComponent,
+        NaturalSearchComponent,
+        MatTableModule,
+        MatSortModule,
+        NaturalAvatarComponent,
+        NaturalTableButtonComponent,
+        MatTooltipModule,
+        MatProgressSpinnerModule,
+        MatPaginatorModule,
+        NaturalFixedButtonComponent,
+        RouterLink,
+    ],
 })
 export class BookableTagsComponent extends NaturalAbstractList<BookableTagService> implements OnInit {
     public override availableColumns: AvailableColumn[] = [

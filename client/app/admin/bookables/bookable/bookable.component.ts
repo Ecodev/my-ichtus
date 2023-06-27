@@ -1,5 +1,19 @@
 import {Component, OnInit} from '@angular/core';
-import {formatIsoDateTime, IEnum, NaturalAbstractDetail} from '@ecodev/natural';
+import {
+    formatIsoDateTime,
+    IEnum,
+    NaturalAbstractDetail,
+    NaturalDetailHeaderComponent,
+    NaturalLinkableTabDirective,
+    NaturalFileComponent,
+    NaturalSelectEnumComponent,
+    NaturalSelectHierarchicComponent,
+    NaturalRelationsComponent,
+    NaturalTableButtonComponent,
+    NaturalAvatarComponent,
+    NaturalStampComponent,
+    NaturalFixedButtonDetailComponent,
+} from '@ecodev/natural';
 import {BookableService} from '../services/bookable.service';
 import {
     BookingFilterGroupCondition,
@@ -23,11 +37,52 @@ import {
     availableColumnsForBookingsWithOwnerOnlyTrainers,
     availableColumnsForBookingsWithOwnerWithoutTrainers,
 } from '../../bookings/bookings/abstract-bookings';
+import {BookingsWithOwnerComponent} from '../../bookings/bookings/bookings-with-owner.component';
+import {TransactionLinesComponent} from '../../transactions/transactionLines/transactionLines.component';
+import {BookableMetadataComponent} from '../../bookable-metadata/bookable-metadata.component';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {TextFieldModule} from '@angular/cdk/text-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatButtonModule} from '@angular/material/button';
+import {NgIf, DatePipe} from '@angular/common';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
     selector: 'app-bookable',
     templateUrl: './bookable.component.html',
     styleUrls: ['./bookable.component.scss'],
+    standalone: true,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NaturalDetailHeaderComponent,
+        FlexModule,
+        NgIf,
+        MatButtonModule,
+        MatTabsModule,
+        NaturalLinkableTabDirective,
+        NaturalFileComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        NaturalSelectEnumComponent,
+        TextFieldModule,
+        MatSlideToggleModule,
+        NaturalSelectHierarchicComponent,
+        MatDividerModule,
+        NaturalRelationsComponent,
+        NaturalTableButtonComponent,
+        NaturalAvatarComponent,
+        NaturalStampComponent,
+        BookableMetadataComponent,
+        TransactionLinesComponent,
+        BookingsWithOwnerComponent,
+        NaturalFixedButtonDetailComponent,
+        DatePipe,
+    ],
 })
 export class BookableComponent extends NaturalAbstractDetail<BookableService> implements OnInit {
     public accountHierarchicConfig = accountHierarchicConfiguration;

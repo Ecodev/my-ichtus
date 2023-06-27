@@ -1,20 +1,65 @@
 import {Apollo} from 'apollo-angular';
 import {Component, OnInit} from '@angular/core';
-import {AvailableColumn, Button, NaturalAbstractList, NaturalSearchSelections} from '@ecodev/natural';
+import {
+    AvailableColumn,
+    Button,
+    NaturalAbstractList,
+    NaturalSearchSelections,
+    NaturalColumnsPickerComponent,
+    NaturalSearchComponent,
+    NaturalAvatarComponent,
+    NaturalTableButtonComponent,
+    NaturalFixedButtonComponent,
+    NaturalCapitalizePipe,
+    NaturalEnumPipe,
+    NaturalSwissDatePipe,
+} from '@ecodev/natural';
 import {BankingInfosVariables, EmailAndPhoneUsersVariables, Users, UserStatus} from '../../../shared/generated-types';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {UserService} from '../services/user.service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ProvisionComponent} from '../../../profile/components/provision/provision.component';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import {finalize} from 'rxjs/operators';
 import {CopyContactDataButtonService} from '../../../shared/components/copy-contact-data/copy-contact-data-button.service';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MoneyComponent} from '../../../shared/components/money/money.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSortModule} from '@angular/material/sort';
+import {MatTableModule} from '@angular/material/table';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {NgIf, AsyncPipe, DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-users',
     templateUrl: './users.component.html',
     styleUrls: ['./users.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        FlexModule,
+        NaturalColumnsPickerComponent,
+        NaturalSearchComponent,
+        MatTableModule,
+        MatSortModule,
+        NaturalAvatarComponent,
+        NaturalTableButtonComponent,
+        MatTooltipModule,
+        MatButtonModule,
+        MoneyComponent,
+        MatProgressSpinnerModule,
+        MatPaginatorModule,
+        NaturalFixedButtonComponent,
+        RouterLink,
+        AsyncPipe,
+        DatePipe,
+        NaturalCapitalizePipe,
+        NaturalEnumPipe,
+        NaturalSwissDatePipe,
+    ],
 })
 export class UsersComponent extends NaturalAbstractList<UserService> implements OnInit {
     public override availableColumns: AvailableColumn[] = [

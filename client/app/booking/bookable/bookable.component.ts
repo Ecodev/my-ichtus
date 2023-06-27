@@ -1,14 +1,32 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import {BookableService} from '../../admin/bookables/services/bookable.service';
 import {BookingService} from '../../admin/bookings/services/booking.service';
 import {Bookable, Bookings, BookingType} from '../../shared/generated-types';
 import {PermissionsService} from '../../shared/services/permissions.service';
+import {TimeagoModule} from 'ngx-timeago';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
+import {NaturalFileComponent} from '@ecodev/natural';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {NgIf} from '@angular/common';
 
 @Component({
     selector: 'app-bookable',
     templateUrl: './bookable.component.html',
     styleUrls: ['./bookable.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        FlexModule,
+        NaturalFileComponent,
+        MatDividerModule,
+        MatIconModule,
+        MatButtonModule,
+        RouterLink,
+        TimeagoModule,
+    ],
 })
 export class BookableComponent implements OnInit {
     /**

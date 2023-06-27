@@ -2,13 +2,19 @@ import {Component, Input, OnInit} from '@angular/core';
 import {AccountingDocumentInput, ExpenseClaim, Transaction} from '../../shared/generated-types';
 import {forkJoin, Observable} from 'rxjs';
 import {AccountingDocumentService} from './services/accounting-document.service';
-import {FileModel, WithId} from '@ecodev/natural';
+import {FileModel, WithId, NaturalFileComponent, NaturalIconDirective} from '@ecodev/natural';
 import {tap} from 'rxjs/operators';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {NgFor, NgIf} from '@angular/common';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-accounting-documents',
     templateUrl: './accounting-documents.component.html',
     styleUrls: ['./accounting-documents.component.scss'],
+    standalone: true,
+    imports: [FlexModule, NgFor, NaturalFileComponent, NgIf, MatButtonModule, MatIconModule, NaturalIconDirective],
 })
 export class AccountingDocumentsComponent implements OnInit {
     @Input({required: true}) public model!: Transaction['transaction'] | ExpenseClaim['expenseClaim'];

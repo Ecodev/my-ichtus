@@ -3,6 +3,7 @@ import {friendlyFormatIBAN} from 'ibantools';
 
 @Pipe({
     name: 'iban',
+    standalone: true,
 })
 export class IbanPipe implements PipeTransform {
     public transform(value: string): string | null {

@@ -1,8 +1,14 @@
 import {gql, Apollo} from 'apollo-angular';
 import {Component, Inject, Input} from '@angular/core';
 import {BankingInfosForExport, BankingInfos, BankingInfosVariables} from '../../../shared/generated-types';
-import {DOCUMENT} from '@angular/common';
-import {copyToClipboard} from '@ecodev/natural';
+import {DOCUMENT, NgIf} from '@angular/common';
+import {copyToClipboard, NaturalIconDirective} from '@ecodev/natural';
+import {IbanPipe} from '../../../shared/pipes/iban.pipe';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatButtonModule} from '@angular/material/button';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 const queryForInfos = gql`
     query BankingInfos($user: UserID!, $amount: Money) {
@@ -28,6 +34,17 @@ const queryForExport = gql`
     selector: 'app-bvr',
     templateUrl: './bvr.component.html',
     styleUrls: ['./bvr.component.scss'],
+    standalone: true,
+    imports: [
+        FlexModule,
+        NgIf,
+        MatProgressSpinnerModule,
+        MatButtonModule,
+        MatTooltipModule,
+        MatIconModule,
+        NaturalIconDirective,
+        IbanPipe,
+    ],
 })
 export class BvrComponent {
     @Input() public set bankingData(data: BankingInfosVariables) {

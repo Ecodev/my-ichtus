@@ -1,6 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {NavigationEnd} from '@angular/router';
-import {NaturalAbstractDetail} from '@ecodev/natural';
+import {NavigationEnd, RouterLink} from '@angular/router';
+import {
+    NaturalAbstractDetail,
+    NaturalDetailHeaderComponent,
+    NaturalLinkableTabDirective,
+    NaturalStampComponent,
+    NaturalFixedButtonComponent,
+    NaturalIconDirective,
+} from '@ecodev/natural';
 import {TransactionService} from '../services/transaction.service';
 import {EMPTY, Observable} from 'rxjs';
 import {filter, first} from 'rxjs/operators';
@@ -10,11 +17,60 @@ import {EditableTransactionLinesComponent} from '../editable-transaction-lines/e
 import {TransactionLineService} from '../services/transactionLine.service';
 import {AccountingDocumentsComponent} from '../../accounting-documents/accounting-documents.component';
 import {UserService} from '../../users/services/user.service';
+import {MatIconModule} from '@angular/material/icon';
+import {
+    EcoFabSpeedDialComponent,
+    EcoFabSpeedDialTriggerComponent,
+    EcoFabSpeedDialActionsComponent,
+} from '@ecodev/fab-speed-dial';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {TransactionLinesComponent} from '../transactionLines/transactionLines.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDividerModule} from '@angular/material/divider';
+import {TextFieldModule} from '@angular/cdk/text-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MoneyComponent} from '../../../shared/components/money/money.component';
+import {NgIf, CurrencyPipe} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
     selector: 'app-transaction',
     templateUrl: './transaction.component.html',
     styleUrls: ['./transaction.component.scss'],
+    standalone: true,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NaturalDetailHeaderComponent,
+        NgIf,
+        MoneyComponent,
+        MatTabsModule,
+        NaturalLinkableTabDirective,
+        FlexModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDatepickerModule,
+        TextFieldModule,
+        MatDividerModule,
+        MatButtonModule,
+        RouterLink,
+        AccountingDocumentsComponent,
+        TransactionLinesComponent,
+        EditableTransactionLinesComponent,
+        NaturalStampComponent,
+        NaturalFixedButtonComponent,
+        MatTooltipModule,
+        EcoFabSpeedDialComponent,
+        EcoFabSpeedDialTriggerComponent,
+        MatIconModule,
+        NaturalIconDirective,
+        EcoFabSpeedDialActionsComponent,
+        CurrencyPipe,
+    ],
 })
 export class TransactionComponent extends NaturalAbstractDetail<TransactionService> implements OnInit {
     @ViewChild(EditableTransactionLinesComponent) public transactionLinesComponent!: EditableTransactionLinesComponent;

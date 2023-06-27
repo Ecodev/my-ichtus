@@ -4,6 +4,7 @@ import {Direction, IOption, Particles} from './particles';
 
 @Directive({
     selector: '[appParticleEffect]',
+    standalone: true,
 })
 export class ParticleEffectDirective implements AfterContentInit {
     private _particles: Particles | undefined;

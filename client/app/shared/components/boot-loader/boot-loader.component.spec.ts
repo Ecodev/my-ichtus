@@ -7,7 +7,7 @@ describe('BootLoaderComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [BootLoaderComponent],
+            imports: [BootLoaderComponent],
         }).compileComponents();
 
         fixture = TestBed.createComponent(BootLoaderComponent);

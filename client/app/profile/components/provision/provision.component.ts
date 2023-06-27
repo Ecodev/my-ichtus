@@ -1,15 +1,33 @@
 import {Component, Inject, ViewChild} from '@angular/core';
 import {ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {UntypedFormControl, Validators} from '@angular/forms';
+import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
+import {UntypedFormControl, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BankingInfosVariables} from '../../../shared/generated-types';
 import {BvrComponent} from '../bvr/bvr.component';
 import {money} from '@ecodev/natural';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {NgIf, CurrencyPipe} from '@angular/common';
 
 @Component({
     selector: 'app-provision',
     templateUrl: './provision.component.html',
     styleUrls: ['./provision.component.scss'],
+    standalone: true,
+    imports: [
+        MatDialogModule,
+        NgIf,
+        FlexModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BvrComponent,
+        CurrencyPipe,
+    ],
 })
 export class ProvisionComponent {
     /**

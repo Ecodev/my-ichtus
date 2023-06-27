@@ -1,5 +1,4 @@
-import {NgModule} from '@angular/core';
-import {Route, RouterModule, Routes} from '@angular/router';
+import {Route, Routes} from '@angular/router';
 import {resolveViewer} from '../admin/users/services/viewer.resolver';
 import {ProfileComponent} from './components/profile/profile.component';
 import {FamilyComponent} from './components/family/family.component';
@@ -14,11 +13,11 @@ import {BookingType, ExpenseClaimType} from '../shared/generated-types';
 import {BookableTagService} from '../admin/bookableTags/services/bookableTag.service';
 import {UsageBookablesComponent} from '../admin/bookables/bookables/usage-bookables.component';
 import {
+    availability,
     createApplication,
     description,
     price,
     readOnlyName,
-    availability,
 } from '../admin/bookables/bookables/parent.component';
 import {BookableService} from '../admin/bookables/services/bookable.service';
 
@@ -128,7 +127,7 @@ export const servicesTabRoutes: Routes = [
     },
 ];
 
-const routes: Routes = [
+export const routes: Routes = [
     {
         path: '',
         resolve: {viewer: resolveViewer},
@@ -200,9 +199,3 @@ const routes: Routes = [
         ],
     },
 ];
-
-@NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule],
-})
-export class ProfileRoutingModule {}

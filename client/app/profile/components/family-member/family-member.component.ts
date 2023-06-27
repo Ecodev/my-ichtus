@@ -1,14 +1,48 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CreateUser, CurrentUserForProfile, UpdateUser, Users} from '../../../shared/generated-types';
-import {NaturalAbstractDetail} from '@ecodev/natural';
+import {
+    NaturalAbstractDetail,
+    NaturalSelectEnumComponent,
+    NaturalIconDirective,
+    NaturalFixedButtonComponent,
+} from '@ecodev/natural';
 import {merge} from 'lodash-es';
 import {FamilyUserService} from './family-user.service';
 import {EMPTY, Observable} from 'rxjs';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {AddressComponent} from '../../../shared/components/address/address.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgIf} from '@angular/common';
 
 @Component({
     selector: 'app-family-member',
     templateUrl: './family-member.component.html',
     styleUrls: ['./family-member.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        FormsModule,
+        ReactiveFormsModule,
+        FlexModule,
+        NaturalSelectEnumComponent,
+        MatButtonModule,
+        MatDividerModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        NaturalIconDirective,
+        AddressComponent,
+        MatDatepickerModule,
+        MatCheckboxModule,
+        NaturalFixedButtonComponent,
+    ],
 })
 export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserService> implements OnInit {
     @Input({required: true}) public viewer!: NonNullable<CurrentUserForProfile['viewer']>;

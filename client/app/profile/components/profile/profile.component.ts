@@ -1,8 +1,19 @@
 import {Apollo} from 'apollo-angular';
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
+import {ActivatedRoute, NavigationStart, Router, RouterLink, RouterOutlet} from '@angular/router';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
-import {NaturalAbstractController, NaturalAlertService, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {
+    NaturalAbstractController,
+    NaturalAlertService,
+    NaturalQueryVariablesManager,
+    NaturalSidenavContainerComponent,
+    NaturalSidenavComponent,
+    NaturalIconDirective,
+    NaturalSidenavContentComponent,
+    NaturalAvatarComponent,
+    NaturalCapitalizePipe,
+    NaturalEnumPipe,
+} from '@ecodev/natural';
 import {UserService} from '../../../admin/users/services/user.service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ProvisionComponent} from '../provision/provision.component';
@@ -13,11 +24,41 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
 import {LicenseService} from '../../../admin/licenses/services/license.service';
 import {localConfig} from '../../../shared/generated-config';
 import {Big} from 'big.js';
+import {MatDividerModule} from '@angular/material/divider';
+import {MoneyComponent} from '../../../shared/components/money/money.component';
+import {ParticleSwitchComponent} from '../../../shared/components/particle-switch/particle-switch.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {NgIf, NgFor, AsyncPipe} from '@angular/common';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-profile',
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.scss'],
+    standalone: true,
+    imports: [
+        NaturalSidenavContainerComponent,
+        FlexModule,
+        NaturalSidenavComponent,
+        MatButtonModule,
+        RouterLink,
+        MatIconModule,
+        NaturalIconDirective,
+        NgIf,
+        NaturalSidenavContentComponent,
+        NaturalAvatarComponent,
+        NgFor,
+        MatTooltipModule,
+        ParticleSwitchComponent,
+        MoneyComponent,
+        MatDividerModule,
+        RouterOutlet,
+        AsyncPipe,
+        NaturalCapitalizePipe,
+        NaturalEnumPipe,
+    ],
 })
 export class ProfileComponent extends NaturalAbstractController implements OnInit {
     public viewer!: NonNullable<CurrentUserForProfile['viewer']>;

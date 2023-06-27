@@ -1,5 +1,16 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AvailableColumn, Button, NaturalAbstractList, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {
+    AvailableColumn,
+    Button,
+    NaturalAbstractList,
+    NaturalQueryVariablesManager,
+    NaturalColumnsPickerComponent,
+    NaturalSearchComponent,
+    NaturalTableButtonComponent,
+    NaturalAvatarComponent,
+    NaturalFixedButtonComponent,
+    NaturalSwissDatePipe,
+} from '@ecodev/natural';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {
@@ -10,12 +21,42 @@ import {
 } from '../../../shared/generated-types';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {union} from 'lodash-es';
-import {MatCheckboxChange} from '@angular/material/checkbox';
+import {MatCheckboxChange, MatCheckboxModule} from '@angular/material/checkbox';
+import {RouterLink} from '@angular/router';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {TransactionAmountComponent} from '../../../shared/components/transaction-amount/transaction-amount.component';
+import {MoneyComponent} from '../../../shared/components/money/money.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSortModule} from '@angular/material/sort';
+import {MatTableModule} from '@angular/material/table';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {NgIf} from '@angular/common';
 
 @Component({
     selector: 'app-transaction-lines',
     templateUrl: './transactionLines.component.html',
     styleUrls: ['./transactionLines.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        FlexModule,
+        NaturalColumnsPickerComponent,
+        NaturalSearchComponent,
+        MatTableModule,
+        MatSortModule,
+        NaturalTableButtonComponent,
+        MatTooltipModule,
+        MoneyComponent,
+        TransactionAmountComponent,
+        MatCheckboxModule,
+        NaturalAvatarComponent,
+        MatProgressSpinnerModule,
+        MatPaginatorModule,
+        NaturalFixedButtonComponent,
+        RouterLink,
+        NaturalSwissDatePipe,
+    ],
 })
 export class TransactionLinesComponent extends NaturalAbstractList<TransactionLineService> implements OnInit {
     public override availableColumns: AvailableColumn[] = [

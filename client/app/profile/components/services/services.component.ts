@@ -1,15 +1,48 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {Bookings, BookingType, CurrentUserForProfile} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
-import {NaturalAbstractController, NaturalAlertService, NaturalDataSource} from '@ecodev/natural';
+import {
+    NaturalAbstractController,
+    NaturalAlertService,
+    NaturalDataSource,
+    NaturalIconDirective,
+    NaturalAvatarComponent,
+    NaturalEnumPipe,
+} from '@ecodev/natural';
 import {finalize, takeUntil} from 'rxjs/operators';
+import {ExtendedModule} from '@ngbracket/ngx-layout/extended';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTableModule} from '@angular/material/table';
+import {MatButtonModule} from '@angular/material/button';
+import {NgIf, NgFor, AsyncPipe, CurrencyPipe} from '@angular/common';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-services',
     templateUrl: './services.component.html',
     styleUrls: ['./services.component.scss'],
+    standalone: true,
+    imports: [
+        FlexModule,
+        NgIf,
+        MatButtonModule,
+        MatTableModule,
+        MatIconModule,
+        NaturalIconDirective,
+        NgFor,
+        NaturalAvatarComponent,
+        RouterLink,
+        MatTabsModule,
+        RouterLinkActive,
+        RouterOutlet,
+        ExtendedModule,
+        AsyncPipe,
+        CurrencyPipe,
+        NaturalEnumPipe,
+    ],
 })
 export class ServicesComponent extends NaturalAbstractController implements OnInit, OnChanges, OnDestroy {
     @Input({required: true}) public user!: NonNullable<CurrentUserForProfile['viewer']>;

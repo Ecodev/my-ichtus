@@ -1,15 +1,36 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {ifValid, NaturalAbstractController, NaturalAlertService} from '@ecodev/natural';
+import {ifValid, NaturalAbstractController, NaturalAlertService, NaturalIconDirective} from '@ecodev/natural';
 import {UserService} from '../admin/users/services/user.service';
 import {finalize} from 'rxjs/operators';
-import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {NgIf} from '@angular/common';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
+    standalone: true,
+    imports: [
+        FlexModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        NgIf,
+        MatButtonModule,
+        MatIconModule,
+        NaturalIconDirective,
+        RouterLink,
+        MatDividerModule,
+    ],
 })
 export class LoginComponent extends NaturalAbstractController implements OnInit, OnDestroy {
     /**

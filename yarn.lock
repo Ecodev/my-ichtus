@@ -1463,17 +1463,17 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@ecodev/fab-speed-dial@^14.0.0":
-  version "14.0.0"
-  resolved "https://registry.yarnpkg.com/@ecodev/fab-speed-dial/-/fab-speed-dial-14.0.0.tgz#52d60af3409e7f83aeb110779d56a6f5bd5e988d"
-  integrity sha512-qidOiqrSwDzay7KzL1UYIsllT2WwuMmOvDC9mN0t4HwtkTBKjVrpfI09sm/OMHRJGKYSM3uJEAZHOExgmiF61g==
+"@ecodev/fab-speed-dial@^15.0.0":
+  version "15.0.0"
+  resolved "https://registry.yarnpkg.com/@ecodev/fab-speed-dial/-/fab-speed-dial-15.0.0.tgz#88e1c0cd40a19698be8f30e51a44c4f6f8b21778"
+  integrity sha512-lbB5ydODiDPNYaKfbmOEmXYRHs8yTzDs9tc/MpEsE/zrATubgNeMvD9bnzHda+cLbqZfHwmRWaLIiQcUb7oUbw==
   dependencies:
     tslib "^2.5.3"
 
-"@ecodev/natural-editor@^52.0.0":
-  version "52.0.0"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural-editor/-/natural-editor-52.0.0.tgz#54ae31e5d5d58bc87017c69ce705b28a16f8e4e9"
-  integrity sha512-sYxJRTg00Z4zu/tTj3aag2esVNws2fJ08lQxeYYaiMMNqHUMQG4zlS6Kehk4/fmoBFQZRj9VWUg4mjumkvPpEA==
+"@ecodev/natural-editor@^53.0.0":
+  version "53.0.0"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural-editor/-/natural-editor-53.0.0.tgz#b183bd967ee5d110f38ff1bc9300a4a0876fb3b9"
+  integrity sha512-aF3lj/lfPaBD7fQhAB94dJq8M+g+JETl8afDI1TN4AR9dkZzqIc28s5hwL3uAGuJVHwFpeqX9QwufIub8aMFuw==
   dependencies:
     prosemirror-commands "^1.5.2"
     prosemirror-dropcursor "^1.8.1"
@@ -1490,10 +1490,10 @@
     prosemirror-view "^1.31.5"
     tslib "^2.5.3"
 
-"@ecodev/natural@^52.0.0":
-  version "52.0.0"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-52.0.0.tgz#c8a63f32950ae9b9c5e49d12a00958e514d18a1b"
-  integrity sha512-Inm+0nrFQESscE+tS2RoLWCYSHpEU3c3BT3v1wn6M/LJNlnGn1IcS8rcAr1gvQJXSmi2zHaE8Za5SpK8zZD7cQ==
+"@ecodev/natural@^53.0.0":
+  version "53.0.0"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-53.0.0.tgz#f518c368fbe89ca0451a9ee02bc38c0bb72c5e45"
+  integrity sha512-k+s1Whb26l8GdEmiObKJzh5xeo8jStdhsMu3GECTG4GHCsKQ/9f2AKiEm820Y6bKyS2hEtF9XVNcnuLE4oXygA==
   dependencies:
     tslib "^2.5.3"
 

@@ -6,15 +6,38 @@ import {
     NaturalSidenavContainerComponent,
     NaturalSidenavStackService,
     NaturalStorage,
+    NaturalIconDirective,
+    NaturalAvatarComponent,
 } from '@ecodev/natural';
 import {filter, switchMap, takeUntil} from 'rxjs/operators';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink, RouterOutlet} from '@angular/router';
 import {ConfigurationService} from '../admin/configurations/services/configuration.service';
+import {FormsModule} from '@angular/forms';
+import {ExtendedModule} from '@ngbracket/ngx-layout/extended';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {NgIf} from '@angular/common';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
+    standalone: true,
+    imports: [
+        FlexModule,
+        MatToolbarModule,
+        NgIf,
+        MatButtonModule,
+        MatIconModule,
+        NaturalIconDirective,
+        RouterLink,
+        ExtendedModule,
+        FormsModule,
+        NaturalAvatarComponent,
+        RouterOutlet,
+    ],
 })
 export class HomeComponent extends NaturalAbstractController implements OnInit {
     public menu: NaturalSidenavContainerComponent | undefined;

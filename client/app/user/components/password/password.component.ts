@@ -1,6 +1,20 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators} from '@angular/forms';
+import {
+    AbstractControl,
+    UntypedFormControl,
+    UntypedFormGroup,
+    ValidationErrors,
+    Validators,
+    FormsModule,
+    ReactiveFormsModule,
+} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import {NgIf} from '@angular/common';
+import {NaturalIconDirective} from '@ecodev/natural';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 function samePasswordsValidator(formGroup: AbstractControl): ValidationErrors | null {
     if (!formGroup || !(formGroup instanceof UntypedFormGroup)) {
@@ -27,6 +41,17 @@ class ConfirmPasswordStateMatcher implements ErrorStateMatcher {
     selector: 'app-password',
     templateUrl: './password.component.html',
     styleUrls: ['./password.component.scss'],
+    standalone: true,
+    imports: [
+        FlexModule,
+        MatFormFieldModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatIconModule,
+        NaturalIconDirective,
+        NgIf,
+    ],
 })
 export class PasswordComponent implements OnInit {
     @Input({required: true}) public form!: UntypedFormGroup;

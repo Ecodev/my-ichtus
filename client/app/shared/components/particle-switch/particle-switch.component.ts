@@ -1,5 +1,7 @@
 import {AfterViewInit, Component, ContentChild, ElementRef, Input, TemplateRef, ViewChild} from '@angular/core';
 import {Direction} from '../particle-button/particles';
+import {NgTemplateOutlet} from '@angular/common';
+import {ParticleEffectDirective} from '../particle-button/particle-effect.directive';
 
 type ParticleSwitchOption = {
     pColor: string;
@@ -14,6 +16,8 @@ type ParticleSwitchOption = {
     selector: 'app-particle-switch',
     templateUrl: './particle-switch.component.html',
     styleUrls: ['./particle-switch.component.scss'],
+    standalone: true,
+    imports: [ParticleEffectDirective, NgTemplateOutlet],
 })
 export class ParticleSwitchComponent implements AfterViewInit {
     @ContentChild(TemplateRef, {static: true}) public template!: TemplateRef<any>;

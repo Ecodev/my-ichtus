@@ -1,5 +1,4 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {Routes} from '@angular/router';
 import {ScanComponent} from './components/scan/scan.component';
 import {BookableComponent} from './bookable/bookable.component';
 import {resolveBookableByCode} from './bookable/bookable-by-code.resolver';
@@ -8,7 +7,7 @@ import {SelfApprovedBookingComponent} from './components/self-approved-booking/s
 import {NaturalSeo} from '@ecodev/natural';
 import {resolveOptionalBookableByParam} from './bookable/optional-bookable-by-param.resolver';
 
-const routes: Routes = [
+export const routes: Routes = [
     {
         path: 'by-scan',
         component: ScanComponent,
@@ -50,9 +49,3 @@ const routes: Routes = [
         },
     },
 ];
-
-@NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule],
-})
-export class BookingRoutingModule {}

@@ -1,11 +1,21 @@
 import {Component, Inject, OnInit, Optional} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {ConfigurationService} from '../services/configuration.service';
 import {forkJoin} from 'rxjs';
-import {NaturalAbstractController, NaturalAlertService, NaturalDialogTriggerProvidedData} from '@ecodev/natural';
+import {
+    NaturalAbstractController,
+    NaturalAlertService,
+    NaturalDialogTriggerProvidedData,
+    NaturalFixedButtonComponent,
+} from '@ecodev/natural';
 import {finalize, takeUntil} from 'rxjs/operators';
+import {MatButtonModule} from '@angular/material/button';
+import {NaturalEditorComponent} from '@ecodev/natural-editor';
+import {FormsModule} from '@angular/forms';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {NgIf} from '@angular/common';
 
 export type SupportComponentData = {
     configurationKey: string;
@@ -17,6 +27,16 @@ export type SupportComponentData = {
     selector: 'app-support',
     templateUrl: './support.component.html',
     styleUrls: ['./support.component.scss'],
+    standalone: true,
+    imports: [
+        MatDialogModule,
+        NgIf,
+        MatSlideToggleModule,
+        FormsModule,
+        NaturalEditorComponent,
+        NaturalFixedButtonComponent,
+        MatButtonModule,
+    ],
 })
 export class SupportComponent extends NaturalAbstractController implements OnInit {
     public text = '';

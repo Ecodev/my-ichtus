@@ -5,6 +5,8 @@ import {ParticleEffectDirective} from './particle-effect.directive';
 
 @Component({
     template: ` <button appParticleEffect (click)="hidden0 = !hidden0">Send</button> `,
+    standalone: true,
+    imports: [ParticleEffectDirective],
 })
 class TestParticleEffectButtonComponent {
     public hidden0 = false;
@@ -39,7 +41,7 @@ describe('AngularParticleEffectButtonComponent', () => {
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
         TestBed.configureTestingModule({
-            declarations: [ParticleEffectDirective, TestParticleEffectButtonComponent],
+            imports: [ParticleEffectDirective, TestParticleEffectButtonComponent],
         });
     }));
 

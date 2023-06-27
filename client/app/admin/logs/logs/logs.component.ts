@@ -1,14 +1,41 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {NaturalAbstractList, SortingOrder} from '@ecodev/natural';
+import {
+    NaturalAbstractList,
+    SortingOrder,
+    NaturalColumnsPickerComponent,
+    NaturalSearchComponent,
+    NaturalTableButtonComponent,
+} from '@ecodev/natural';
 import {CurrentUserForProfile, LogSortingField, UserRole} from '../../../shared/generated-types';
 import {LogService} from '../services/log.service';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSortModule} from '@angular/material/sort';
+import {MatTableModule} from '@angular/material/table';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {NgIf, DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-logs',
     templateUrl: './logs.component.html',
     styleUrls: ['./logs.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        FlexModule,
+        NaturalColumnsPickerComponent,
+        NaturalSearchComponent,
+        MatTableModule,
+        MatSortModule,
+        NaturalTableButtonComponent,
+        MatTooltipModule,
+        MatProgressSpinnerModule,
+        MatPaginatorModule,
+        DatePipe,
+    ],
 })
 export class LogsComponent extends NaturalAbstractList<LogService> implements OnInit {
     public constructor(

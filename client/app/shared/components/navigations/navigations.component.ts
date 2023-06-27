@@ -15,11 +15,31 @@ import {
     Users,
     UsersVariables,
 } from '../../generated-types';
-import {NaturalAbstractController, NaturalAlertService, NaturalQueryVariablesManager, WithId} from '@ecodev/natural';
+import {
+    NaturalAbstractController,
+    NaturalAlertService,
+    NaturalQueryVariablesManager,
+    WithId,
+    NaturalAvatarComponent,
+    NaturalIconDirective,
+    NaturalSwissDatePipe,
+} from '@ecodev/natural';
 import {Observable} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 import {CommentComponent} from './comment.component';
+import {TextFieldModule} from '@angular/cdk/text-field';
+import {FormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {ParticleEffectDirective} from '../particle-button/particle-effect.directive';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
+import {RouterLink} from '@angular/router';
+import {MatButtonModule} from '@angular/material/button';
+import {CardComponent} from '../card/card.component';
+import {NgIf, NgFor} from '@angular/common';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 type Extended = {
     booking: Readonly<Bookings['bookings']['items'][0]>;
@@ -53,6 +73,25 @@ function bookingsToExtended(bookings: Bookings['bookings']): PaginatedExtendedBo
     styleUrls: ['./navigations.component.scss'],
     animations: [
         trigger('terminate', [transition(':leave', [animate('0.2s ease-in-out', style({transform: 'scale(0, 0)'}))])]),
+    ],
+    standalone: true,
+    imports: [
+        FlexModule,
+        NgIf,
+        NgFor,
+        CardComponent,
+        NaturalAvatarComponent,
+        MatButtonModule,
+        RouterLink,
+        MatDividerModule,
+        MatIconModule,
+        NaturalIconDirective,
+        ParticleEffectDirective,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        TextFieldModule,
+        NaturalSwissDatePipe,
     ],
 })
 export class NavigationsComponent extends NaturalAbstractController implements OnInit {

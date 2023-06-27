@@ -20,6 +20,13 @@ import {
     formatIsoDateTime,
     NaturalAbstractDetail,
     NaturalSearchSelections,
+    NaturalDetailHeaderComponent,
+    NaturalLinkableTabDirective,
+    NaturalSelectComponent,
+    NaturalSelectEnumComponent,
+    NaturalStampComponent,
+    NaturalFixedButtonDetailComponent,
+    NaturalSwissDatePipe,
 } from '@ecodev/natural';
 import {
     code,
@@ -29,11 +36,47 @@ import {
     select,
     availability,
 } from '../../bookables/bookables/parent.component';
+import {UsageBookablesComponent} from '../../bookables/bookables/usage-bookables.component';
+import {TextFieldModule} from '@angular/cdk/text-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {RouterLink} from '@angular/router';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatButtonModule} from '@angular/material/button';
+import {NgIf, NgFor} from '@angular/common';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
     selector: 'app-booking',
     templateUrl: './booking.component.html',
     styleUrls: ['./booking.component.scss'],
+    standalone: true,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NaturalDetailHeaderComponent,
+        FlexModule,
+        NgIf,
+        MatButtonModule,
+        MatTabsModule,
+        NaturalLinkableTabDirective,
+        NaturalSelectComponent,
+        MatChipsModule,
+        NgFor,
+        MatDividerModule,
+        RouterLink,
+        NaturalSelectEnumComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        TextFieldModule,
+        UsageBookablesComponent,
+        NaturalStampComponent,
+        NaturalFixedButtonDetailComponent,
+        NaturalSwissDatePipe,
+    ],
 })
 export class BookingComponent extends NaturalAbstractDetail<BookingService> implements OnInit {
     public BookingStatus = BookingStatus;

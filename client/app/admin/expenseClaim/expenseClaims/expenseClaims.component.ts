@@ -1,13 +1,60 @@
 import {Component, OnInit} from '@angular/core';
-import {AvailableColumn, NaturalAbstractList} from '@ecodev/natural';
+import {
+    AvailableColumn,
+    NaturalAbstractList,
+    NaturalColumnsPickerComponent,
+    NaturalSearchComponent,
+    NaturalTableButtonComponent,
+    NaturalAvatarComponent,
+    NaturalIconDirective,
+    NaturalFixedButtonComponent,
+    NaturalCapitalizePipe,
+    NaturalEnumPipe,
+    NaturalSwissDatePipe,
+} from '@ecodev/natural';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {ExpenseClaimService} from '../services/expenseClaim.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
+import {RouterLink} from '@angular/router';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatIconModule} from '@angular/material/icon';
+import {MoneyComponent} from '../../../shared/components/money/money.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSortModule} from '@angular/material/sort';
+import {MatTableModule} from '@angular/material/table';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {NgIf, AsyncPipe} from '@angular/common';
 
 @Component({
     selector: 'app-expense-claims',
     templateUrl: './expenseClaims.component.html',
     styleUrls: ['./expenseClaims.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        FlexModule,
+        NaturalColumnsPickerComponent,
+        NaturalSearchComponent,
+        MatTableModule,
+        MatSortModule,
+        NaturalTableButtonComponent,
+        MatTooltipModule,
+        NaturalAvatarComponent,
+        MatButtonModule,
+        MoneyComponent,
+        MatIconModule,
+        NaturalIconDirective,
+        MatProgressSpinnerModule,
+        MatPaginatorModule,
+        NaturalFixedButtonComponent,
+        RouterLink,
+        AsyncPipe,
+        NaturalCapitalizePipe,
+        NaturalEnumPipe,
+        NaturalSwissDatePipe,
+    ],
 })
 export class ExpenseClaimsComponent extends NaturalAbstractList<ExpenseClaimService> implements OnInit {
     public override availableColumns: AvailableColumn[] = [

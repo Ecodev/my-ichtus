@@ -1,14 +1,58 @@
 import {Component, OnInit} from '@angular/core';
-import {NaturalAbstractDetail} from '@ecodev/natural';
+import {
+    NaturalAbstractDetail,
+    NaturalDetailHeaderComponent,
+    NaturalLinkableTabDirective,
+    NaturalIconDirective,
+    NaturalSelectHierarchicComponent,
+    NaturalSelectEnumComponent,
+    NaturalSelectComponent,
+    NaturalStampComponent,
+    NaturalFixedButtonDetailComponent,
+} from '@ecodev/natural';
 import {AccountService} from '../services/account.service';
 import {UserService} from '../../users/services/user.service';
 import {groupAccountHierarchicConfiguration} from '../../../shared/hierarchic-selector/GroupAccountHierarchicConfiguration';
 import {friendlyFormatIBAN} from 'ibantools';
+import {IbanPipe} from '../../../shared/pipes/iban.pipe';
+import {MatDividerModule} from '@angular/material/divider';
+import {NgIf} from '@angular/common';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MoneyComponent} from '../../../shared/components/money/money.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
     selector: 'app-account',
     templateUrl: './account.component.html',
     styleUrls: ['./account.component.scss'],
+    standalone: true,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NaturalDetailHeaderComponent,
+        MoneyComponent,
+        MatTabsModule,
+        NaturalLinkableTabDirective,
+        FlexModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        NaturalIconDirective,
+        NgIf,
+        NaturalSelectHierarchicComponent,
+        NaturalSelectEnumComponent,
+        NaturalSelectComponent,
+        MatDividerModule,
+        NaturalStampComponent,
+        NaturalFixedButtonDetailComponent,
+        IbanPipe,
+    ],
 })
 export class AccountComponent extends NaturalAbstractDetail<AccountService> implements OnInit {
     public nextCodeAvailable: number | null = null;

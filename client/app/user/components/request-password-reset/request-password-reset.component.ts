@@ -1,14 +1,32 @@
 import {Apollo} from 'apollo-angular';
 import {Component} from '@angular/core';
-import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from '../../../admin/users/services/user.service';
-import {ifValid, NaturalAlertService, validateAllFormControls} from '@ecodev/natural';
+import {ifValid, NaturalAlertService, validateAllFormControls, NaturalIconDirective} from '@ecodev/natural';
+import {MatButtonModule} from '@angular/material/button';
+import {NgIf} from '@angular/common';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-request-password-reset',
     templateUrl: './request-password-reset.component.html',
     styleUrls: ['./request-password-reset.component.scss'],
+    standalone: true,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        FlexModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        NaturalIconDirective,
+        NgIf,
+        MatButtonModule,
+    ],
 })
 export class RequestPasswordResetComponent {
     public readonly form: UntypedFormGroup;

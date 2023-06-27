@@ -4,11 +4,18 @@ import {Literal, NaturalAbstractController, NaturalAlertService} from '@ecodev/n
 import {UserService} from '../admin/users/services/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {CurrentUserForProfile} from '../shared/generated-types';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {CardComponent} from '../shared/components/card/card.component';
+import {NgFor, NgIf} from '@angular/common';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-door',
     templateUrl: './door.component.html',
     styleUrls: ['./door.component.scss'],
+    standalone: true,
+    imports: [FlexModule, NgFor, NgIf, CardComponent, MatButtonModule, MatIconModule],
 })
 export class DoorComponent extends NaturalAbstractController implements OnInit {
     public viewer!: NonNullable<CurrentUserForProfile['viewer']>;

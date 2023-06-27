@@ -6,7 +6,6 @@ describe('LocalizedPaginatorIntlService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [],
             imports: [],
         });
         service = TestBed.inject(LocalizedPaginatorIntlService);

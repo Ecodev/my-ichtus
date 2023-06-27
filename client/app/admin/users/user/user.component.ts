@@ -1,5 +1,22 @@
 import {Component, OnInit} from '@angular/core';
-import {IEnum, ifValid, NaturalAbstractDetail, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {
+    IEnum,
+    ifValid,
+    NaturalAbstractDetail,
+    NaturalQueryVariablesManager,
+    NaturalDetailHeaderComponent,
+    NaturalLinkableTabDirective,
+    NaturalSelectEnumComponent,
+    NaturalSelectComponent,
+    NaturalRelationsComponent,
+    NaturalTableButtonComponent,
+    NaturalAvatarComponent,
+    NaturalStampComponent,
+    NaturalIconDirective,
+    NaturalFixedButtonDetailComponent,
+    NaturalSwissDatePipe,
+    NaturalTimeAgoPipe,
+} from '@ecodev/natural';
 import {UserService} from '../services/user.service';
 import {
     CurrentUserForProfile,
@@ -19,13 +36,68 @@ import {AccountService} from '../../accounts/services/account.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {iban as ibanValidator} from '../../../shared/validators';
 import {friendlyFormatIBAN} from 'ibantools';
-import {UntypedFormControl} from '@angular/forms';
+import {UntypedFormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {finalize} from 'rxjs/operators';
+import {ServicesComponent} from '../../../profile/components/services/services.component';
+import {FinancesComponent} from '../../../profile/components/finances/finances.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {TransactionLinesComponent} from '../../transactions/transactionLines/transactionLines.component';
+import {UsersComponent} from '../users/users.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {TextFieldModule} from '@angular/cdk/text-field';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatDividerModule} from '@angular/material/divider';
+import {AddressComponent} from '../../../shared/components/address/address.component';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MoneyComponent} from '../../../shared/components/money/money.component';
+import {NgIf} from '@angular/common';
 
 @Component({
     selector: 'app-user',
     templateUrl: './user.component.html',
     styleUrls: ['./user.component.scss'],
+    standalone: true,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NaturalDetailHeaderComponent,
+        NgIf,
+        MoneyComponent,
+        MatTabsModule,
+        NaturalLinkableTabDirective,
+        FlexModule,
+        MatFormFieldModule,
+        MatInputModule,
+        NaturalSelectEnumComponent,
+        AddressComponent,
+        MatDividerModule,
+        NaturalSelectComponent,
+        MatDatepickerModule,
+        MatCheckboxModule,
+        TextFieldModule,
+        NaturalRelationsComponent,
+        NaturalTableButtonComponent,
+        NaturalAvatarComponent,
+        MatSlideToggleModule,
+        NaturalStampComponent,
+        MatButtonModule,
+        MatIconModule,
+        NaturalIconDirective,
+        UsersComponent,
+        TransactionLinesComponent,
+        MatTooltipModule,
+        FinancesComponent,
+        ServicesComponent,
+        NaturalFixedButtonDetailComponent,
+        NaturalSwissDatePipe,
+        NaturalTimeAgoPipe,
+    ],
 })
 export class UserComponent extends NaturalAbstractDetail<UserService> implements OnInit {
     public showFamilyTab = false;

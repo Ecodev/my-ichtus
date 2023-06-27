@@ -5,9 +5,9 @@
     <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="20px">
         <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="center" fxLayoutGap="30px">
             <app-card [file]="bookable?.image">
-                <card-illustration class="padding" *ngIf="!bookable?.image">
+                <div class="card-illustration padding" *ngIf="!bookable?.image">
                     <natural-avatar initials="?" [size]="160"></natural-avatar>
-                </card-illustration>
+                </div>
                 <h2 class="mat-headline-6">Matériel</h2>
                 <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
                     <div class="mat-subtitle-2" fxFlex>{{ bookable?.name || 'Mon propre matériel' }}</div>
@@ -17,7 +17,7 @@
             </app-card>
 
             <app-card>
-                <card-illustration class="padding">
+                <div class="card-illustration padding">
                     <natural-avatar
                         *ngIf="!!booking.owner"
                         [initials]="booking.owner.name"
@@ -25,7 +25,7 @@
                         [size]="160"
                     ></natural-avatar>
                     <natural-avatar *ngIf="!booking.owner" initials="Invité" [size]="160"></natural-avatar>
-                </card-illustration>
+                </div>
 
                 <div fxLayout="column" fxLayoutGap="10px">
                     <div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px">

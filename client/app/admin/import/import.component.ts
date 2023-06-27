@@ -3,12 +3,24 @@ import {Component, OnInit} from '@angular/core';
 import {PermissionsService} from '../../shared/services/permissions.service';
 import {ActivatedRoute, Data, Router} from '@angular/router';
 import {ImportCamt, ImportCamtVariables} from '../../shared/generated-types';
-import {NaturalAlertService, NaturalSearchSelections, toUrl} from '@ecodev/natural';
+import {
+    NaturalAlertService,
+    NaturalSearchSelections,
+    toUrl,
+    NaturalFileSelectDirective,
+    NaturalIconDirective,
+} from '@ecodev/natural';
+import {NgIf} from '@angular/common';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-import',
     templateUrl: './import.component.html',
     styleUrls: ['./import.component.scss'],
+    standalone: true,
+    imports: [FlexModule, MatButtonModule, NaturalFileSelectDirective, MatIconModule, NaturalIconDirective, NgIf],
 })
 export class ImportComponent implements OnInit {
     /**

@@ -1,5 +1,4 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {Routes} from '@angular/router';
 import {SupportComponent, SupportComponentData} from './admin/configurations/support/support.component';
 import {resolveViewer} from './admin/users/services/viewer.resolver';
 import {HomeComponent} from './home/home.component';
@@ -24,7 +23,7 @@ export const routes: Routes = [
         // Registration
         path: 'user',
         component: HomeComponent,
-        loadChildren: () => import('./user/user.module').then(m => m.UserModule),
+        loadChildren: () => import('./user/user-routing.module').then(m => m.routes),
     },
     {
         path: 'safety',
@@ -51,15 +50,15 @@ export const routes: Routes = [
             },
             {
                 path: 'booking',
-                loadChildren: () => import('./booking/booking.module').then(m => m.BookingModule),
+                loadChildren: () => import('./booking/booking-routing.module').then(m => m.routes),
             },
             {
                 path: 'admin',
-                loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+                loadChildren: () => import('./admin/admin-routing.module').then(m => m.routes),
             },
             {
                 path: 'profile',
-                loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
+                loadChildren: () => import('./profile/profile-routing.module').then(m => m.routes),
             },
             {
                 path: 'door',
@@ -125,13 +124,3 @@ export const routes: Routes = [
         ],
     },
 ];
-
-@NgModule({
-    imports: [
-        RouterModule.forRoot(routes, {
-            paramsInheritanceStrategy: 'always',
-        }),
-    ],
-    exports: [RouterModule],
-})
-export class AppRoutingModule {}

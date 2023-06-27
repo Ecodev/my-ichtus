@@ -1,13 +1,35 @@
 import {Component} from '@angular/core';
 import {PermissionsService} from '../../shared/services/permissions.service';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router, RouterLinkActive, RouterLink, RouterOutlet} from '@angular/router';
 import {UserRole} from '../../shared/generated-types';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {MatListModule} from '@angular/material/list';
+import {NgIf} from '@angular/common';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {
+    NaturalSidenavContainerComponent,
+    NaturalSidenavComponent,
+    NaturalSidenavContentComponent,
+} from '@ecodev/natural';
 
 @Component({
     selector: 'app-admin',
     templateUrl: './admin.component.html',
     styleUrls: ['./admin.component.scss'],
+    standalone: true,
+    imports: [
+        NaturalSidenavContainerComponent,
+        FlexModule,
+        NaturalSidenavComponent,
+        MatExpansionModule,
+        NgIf,
+        MatListModule,
+        RouterLinkActive,
+        RouterLink,
+        NaturalSidenavContentComponent,
+        RouterOutlet,
+    ],
 })
 export class AdminComponent {
     public adminUserRouteActive = false;

@@ -2,14 +2,37 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
 import {ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
-import {NaturalAbstractDetail} from '@ecodev/natural';
+import {NaturalAbstractDetail, NaturalFixedButtonComponent} from '@ecodev/natural';
 import {AccountingDocumentsComponent} from '../../../admin/accounting-documents/accounting-documents.component';
 import {EMPTY, Observable} from 'rxjs';
+import {TextFieldModule} from '@angular/cdk/text-field';
+import {MatOptionModule} from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
+import {NgIf, NgFor} from '@angular/common';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-create-expense-claim',
     templateUrl: './create-expense-claim.component.html',
     styleUrls: ['./create-expense-claim.component.scss'],
+    standalone: true,
+    imports: [
+        FlexModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        NgIf,
+        MatSelectModule,
+        MatOptionModule,
+        NgFor,
+        TextFieldModule,
+        AccountingDocumentsComponent,
+        NaturalFixedButtonComponent,
+    ],
 })
 export class CreateExpenseClaimComponent extends NaturalAbstractDetail<ExpenseClaimService> implements OnInit {
     @ViewChild(AccountingDocumentsComponent, {static: true}) private accountingDocuments!: AccountingDocumentsComponent;

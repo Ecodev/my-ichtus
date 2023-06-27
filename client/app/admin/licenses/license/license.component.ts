@@ -1,13 +1,51 @@
 import {Component} from '@angular/core';
-import {NaturalAbstractDetail} from '@ecodev/natural';
+import {
+    NaturalAbstractDetail,
+    NaturalIconDirective,
+    NaturalLinkableTabDirective,
+    NaturalRelationsComponent,
+    NaturalTableButtonComponent,
+    NaturalStampComponent,
+    NaturalFixedButtonDetailComponent,
+} from '@ecodev/natural';
 import {LicenseService} from '../services/license.service';
 import {BookableService} from '../../bookables/services/bookable.service';
 import {UserService} from '../../users/services/user.service';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatTabsModule} from '@angular/material/tabs';
+import {NgIf} from '@angular/common';
+import {MatIconModule} from '@angular/material/icon';
+import {RouterLink} from '@angular/router';
+import {MatButtonModule} from '@angular/material/button';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
     selector: 'app-license',
     templateUrl: './license.component.html',
     styleUrls: ['./license.component.scss'],
+    standalone: true,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        FlexModule,
+        MatButtonModule,
+        RouterLink,
+        MatIconModule,
+        NaturalIconDirective,
+        NgIf,
+        MatTabsModule,
+        NaturalLinkableTabDirective,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDividerModule,
+        NaturalRelationsComponent,
+        NaturalTableButtonComponent,
+        NaturalStampComponent,
+        NaturalFixedButtonDetailComponent,
+    ],
 })
 export class LicenseComponent extends NaturalAbstractDetail<LicenseService> {
     public constructor(

@@ -1,5 +1,4 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {Routes} from '@angular/router';
 import {RegisterComponent} from './components/register/register.component';
 import {RegisterConfirmComponent} from './components/register/register-confirm.component';
 import {resolveUserByToken} from '../admin/users/services/userByToken.resolver';
@@ -7,7 +6,7 @@ import {RequestPasswordResetComponent} from './components/request-password-reset
 import {ChangePasswordComponent} from './components/change-password/change-password.component';
 import {NaturalSeo} from '@ecodev/natural';
 
-const routes: Routes = [
+export const routes: Routes = [
     {
         path: 'new',
         component: RegisterComponent,
@@ -51,9 +50,3 @@ const routes: Routes = [
         },
     },
 ];
-
-@NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule],
-})
-export class UserRoutingModule {}

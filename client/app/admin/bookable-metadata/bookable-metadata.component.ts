@@ -1,14 +1,34 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {BookableMetadataService} from './bookable-metadata.service';
-import {NaturalDataSource, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {NaturalDataSource, NaturalQueryVariablesManager, NaturalIconDirective} from '@ecodev/natural';
 import {BookableMetadatas, BookableMetadatasVariables, Bookable} from '../../shared/generated-types';
 import {cloneDeep} from 'lodash-es';
 import {finalize} from 'rxjs/operators';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {FormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {MatTableModule} from '@angular/material/table';
+import {NgIf} from '@angular/common';
 
 @Component({
     selector: 'app-bookable-metadata',
     templateUrl: './bookable-metadata.component.html',
     styleUrls: ['./bookable-metadata.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        MatTableModule,
+        FlexModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        MatButtonModule,
+        MatIconModule,
+        NaturalIconDirective,
+    ],
 })
 export class BookableMetadataComponent implements OnInit {
     @Input({required: true}) public bookable!: Bookable['bookable'];

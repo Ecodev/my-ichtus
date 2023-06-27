@@ -6,11 +6,17 @@ import {TransactionLineService} from '../../../admin/transactions/services/trans
 import {NaturalAbstractController, NaturalDataSource} from '@ecodev/natural';
 import {CurrentUserForProfile, TransactionLines} from '../../../shared/generated-types';
 import {takeUntil} from 'rxjs/operators';
+import {TransactionAmountComponent} from '../../../shared/components/transaction-amount/transaction-amount.component';
+import {MatTableModule} from '@angular/material/table';
+import {NgIf, DatePipe} from '@angular/common';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-history',
     templateUrl: './history.component.html',
     styleUrls: ['./history.component.scss'],
+    standalone: true,
+    imports: [FlexModule, NgIf, MatTableModule, TransactionAmountComponent, DatePipe],
 })
 export class HistoryComponent extends NaturalAbstractController implements OnInit {
     @Input({required: true}) public viewer!: NonNullable<CurrentUserForProfile['viewer']>;

@@ -1,5 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-import {AvailableColumn, Button, NaturalAbstractNavigableList} from '@ecodev/natural';
+import {
+    AvailableColumn,
+    Button,
+    NaturalAbstractNavigableList,
+    NaturalColumnsPickerComponent,
+    NaturalSearchComponent,
+    NaturalTableButtonComponent,
+    NaturalAvatarComponent,
+    NaturalFixedButtonComponent,
+    NaturalCapitalizePipe,
+    NaturalEnumPipe,
+    NaturalSwissDatePipe,
+} from '@ecodev/natural';
 import {CurrentUserForProfile} from '../../../shared/generated-types';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {AccountService} from '../services/account.service';
@@ -11,6 +23,17 @@ import {AccountingClosingComponent} from '../accounting-closing/accounting-closi
 import {AccountingReportComponent} from '../accounting-report/accounting-report.component';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {IbanPipe} from '../../../shared/pipes/iban.pipe';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MoneyComponent} from '../../../shared/components/money/money.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSortModule} from '@angular/material/sort';
+import {MatTableModule} from '@angular/material/table';
+import {MatButtonModule} from '@angular/material/button';
+import {RouterLink} from '@angular/router';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {NgIf, NgFor, AsyncPipe} from '@angular/common';
 
 type AccountingDialogData = never;
 type AccountingDialogResult = Date;
@@ -19,6 +42,30 @@ type AccountingDialogResult = Date;
     selector: 'app-accounts',
     templateUrl: './accounts.component.html',
     styleUrls: ['./accounts.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        FlexModule,
+        RouterLink,
+        NgFor,
+        MatButtonModule,
+        NaturalColumnsPickerComponent,
+        NaturalSearchComponent,
+        MatTableModule,
+        MatSortModule,
+        NaturalTableButtonComponent,
+        MatTooltipModule,
+        NaturalAvatarComponent,
+        MoneyComponent,
+        MatProgressSpinnerModule,
+        MatPaginatorModule,
+        NaturalFixedButtonComponent,
+        AsyncPipe,
+        NaturalCapitalizePipe,
+        NaturalEnumPipe,
+        NaturalSwissDatePipe,
+        IbanPipe,
+    ],
 })
 export class AccountsComponent extends NaturalAbstractNavigableList<AccountService> implements OnInit {
     public override availableColumns: AvailableColumn[] = [

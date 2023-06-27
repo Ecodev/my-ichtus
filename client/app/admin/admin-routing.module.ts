@@ -1,5 +1,4 @@
-import {NgModule} from '@angular/core';
-import {Route, RouterModule, Routes} from '@angular/router';
+import {Route, Routes} from '@angular/router';
 import {AdminComponent} from './admin/admin.component';
 import {BookablesComponent} from './bookables/bookables/bookables.component';
 import {BookableComponent} from './bookables/bookable/bookable.component';
@@ -80,7 +79,7 @@ function equipment(path: string, title: string, bookableTagId: string): Route {
     };
 }
 
-const routes: Routes = [
+export const routes: Routes = [
     {
         path: '',
         component: AdminComponent,
@@ -767,9 +766,3 @@ const routes: Routes = [
         ],
     },
 ];
-
-@NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule],
-})
-export class AdminRoutingModule {}

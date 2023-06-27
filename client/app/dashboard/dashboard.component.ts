@@ -1,16 +1,33 @@
 import {Component} from '@angular/core';
 import {UserService} from '../admin/users/services/user.service';
 import {BookingService} from '../admin/bookings/services/booking.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import {PermissionsService} from '../shared/services/permissions.service';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {UserRole} from '../shared/generated-types';
+import {NaturalIconDirective} from '@ecodev/natural';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {NavigationsComponent} from '../shared/components/navigations/navigations.component';
+import {NgIf, AsyncPipe} from '@angular/common';
+import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
+    standalone: true,
+    imports: [
+        FlexModule,
+        NgIf,
+        NavigationsComponent,
+        MatButtonModule,
+        RouterLink,
+        MatIconModule,
+        NaturalIconDirective,
+        AsyncPipe,
+    ],
 })
 export class DashboardComponent {
     public title = 'my-ichtus';
