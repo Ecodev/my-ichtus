@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import Big from 'big.js';
-import {NgIf, CurrencyPipe} from '@angular/common';
+import {CurrencyPipe, NgIf} from '@angular/common';
 
 @Component({
     selector: 'app-money',
@@ -14,7 +14,7 @@ export class MoneyComponent {
      */
     @Input() public sizeClass = '';
 
-    @Input() public amount: string | number | null = null;
+    @Input() public amount: string | number | undefined | null = null;
 
     @Input() public showSignal = true;
 
