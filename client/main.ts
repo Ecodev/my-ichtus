@@ -9,8 +9,8 @@ import {Apollo} from 'apollo-angular';
 import {MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions} from '@angular/material/tooltip';
 import {apolloOptionsProvider} from './app/shared/config/apolloDefaultOptions';
 import {LocalizedPaginatorIntlService} from './app/shared/services/localized-paginator-intl.service';
-import {NetworkInterceptorService} from './app/shared/services/network-interceptor.service';
-import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
+import {activityInterceptor} from './app/shared/services/activity-interceptor';
+import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {MAT_PAGINATOR_DEFAULT_OPTIONS, MatPaginatorIntl} from '@angular/material/paginator';
 import {
     DateAdapter,
@@ -132,11 +132,6 @@ bootstrapApplication(AppComponent, {
                 formFieldAppearance: 'fill',
             },
         },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: NetworkInterceptorService,
-            multi: true,
-        },
         {provide: LOCALE_ID, useValue: 'fr-CH'},
         {
             provide: MatPaginatorIntl,
@@ -144,7 +139,7 @@ bootstrapApplication(AppComponent, {
         },
         apolloOptionsProvider,
         {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: matTooltipCustomConfig},
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withInterceptors([activityInterceptor])),
         provideRouter(
             routes,
             withRouterConfig({
