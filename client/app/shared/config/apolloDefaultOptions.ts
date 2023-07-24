@@ -71,10 +71,6 @@ function createApolloLink(
     httpLink: HttpLink,
     httpBatchLink: HttpBatchLink,
 ): ApolloLink {
-    const options = {
-        credentials: 'include',
-    };
-
     const errorLink = createErrorLink(networkActivityService, alertService);
 
     return errorLink.concat(
