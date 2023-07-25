@@ -3,7 +3,7 @@ import {environment} from './environments/environment';
 import {createApplication} from '@angular/platform-browser';
 import {APP_BASE_HREF} from '@angular/common';
 import {Apollo, APOLLO_OPTIONS, ApolloModule, gql} from 'apollo-angular';
-import {HttpBatchLink, HttpLink} from 'apollo-angular/http';
+import {HttpBatchLink} from 'apollo-angular/http';
 import {InMemoryCache} from '@apollo/client/core';
 import {cacheConfig} from '../app/shared/config/apolloDefaultOptions';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
