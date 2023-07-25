@@ -37,6 +37,7 @@ use Psr\Container\ContainerInterface;
  */
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     $app->post('/graphql', [
+        \Ecodev\Felix\Middleware\SignedQueryMiddleware::class,
         BodyParamsMiddleware::class,
         UploadMiddleware::class,
         GraphQLHandler::class,

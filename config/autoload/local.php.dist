@@ -23,6 +23,9 @@ return [
             ],
         ],
     ],
+    'signedQueries' => [
+        'keys' => ['CHANGE THIS TO A 32 RANDOM CHARACTERS STRING'],
+    ],
     'doorsApi' => [
         'endpoint' => 'http://localhost:8888',
         'token' => 'my-token-value',

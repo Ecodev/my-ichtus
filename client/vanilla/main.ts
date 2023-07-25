@@ -3,11 +3,12 @@ import {environment} from './environments/environment';
 import {createApplication} from '@angular/platform-browser';
 import {APP_BASE_HREF} from '@angular/common';
 import {Apollo, APOLLO_OPTIONS, ApolloModule, gql} from 'apollo-angular';
-import {HttpLink} from 'apollo-angular/http';
+import {HttpBatchLink, HttpLink} from 'apollo-angular/http';
 import {InMemoryCache} from '@apollo/client/core';
 import {cacheConfig} from '../app/shared/config/apolloDefaultOptions';
-import {HttpClientModule} from '@angular/common/http';
+import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {
+    graphqlQuerySigner,
     Literal,
     localStorageProvider,
     NaturalLinkMutationService,
@@ -17,6 +18,7 @@ import {
 import {UserService} from '../app/admin/users/services/user.service';
 import {BookableService} from '../app/admin/bookables/services/bookable.service';
 import {BookingService} from '../app/admin/bookings/services/booking.service';
+import {localConfig} from '../app/shared/generated-config';
 
 if (environment.production) {
     enableProdMode();
@@ -24,17 +26,19 @@ if (environment.production) {
 
 createApplication({
     providers: [
-        importProvidersFrom(HttpClientModule, ApolloModule),
+        importProvidersFrom(ApolloModule),
+        provideHttpClient(withInterceptors([graphqlQuerySigner(localConfig.signedQueries.keys.navigations)])),
         sessionStorageProvider,
         localStorageProvider,
         {provide: NgZone, useClass: ɵNoopNgZone},
         {provide: APP_BASE_HREF, useValue: '/'},
         {
             provide: APOLLO_OPTIONS,
-            useFactory: (httpLink: HttpLink) => {
+            useFactory: () => {
+                const httpBatchLink = inject(HttpBatchLink);
                 return {
                     cache: new InMemoryCache(cacheConfig),
-                    link: httpLink.create({
+                    link: httpBatchLink.create({
                         uri:
                             window.location.hostname === 'navigations.ichtus.club'
                                 ? 'https://ichtus.club/graphql'
@@ -48,7 +52,6 @@ createApplication({
                     },
                 };
             },
-            deps: [HttpLink],
         },
         {
             provide: APP_INITIALIZER,
