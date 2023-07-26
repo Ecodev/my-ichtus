@@ -21,7 +21,7 @@ class HasBookingCompletedOperatorType extends AbstractOperator
             'fields' => [
                 [
                     'name' => 'values',
-                    'type' => self::getNullableType(self::listOf(self::nonNull(self::boolean()))),
+                    'type' => self::listOf(self::nonNull(self::boolean())),
                     'defaultValue' => [],
                 ],
                 [

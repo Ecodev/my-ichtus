@@ -22,7 +22,7 @@ class HasBookingStatusOperatorType extends AbstractOperator
             'fields' => [
                 [
                     'name' => 'values',
-                    'type' => self::getNullableType(self::listOf(self::nonNull($this->types->get(BookingStatusType::class)))),
+                    'type' => self::listOf(self::nonNull($this->types->get(BookingStatusType::class))),
                     'defaultValue' => [],
                 ],
                 [
