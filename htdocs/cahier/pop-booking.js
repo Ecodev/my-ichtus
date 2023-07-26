@@ -339,23 +339,34 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
             closePopUp({target: container}, container);
         });
 
-        // 1.4 (Edit Booking)
+        // 1.4, 1.5 (Edit Booking)
         $('btnEditBooking').style.visibility = 'visible';
-        $('btnEditBooking').onclick = function () {
-            closePopUp('last');
-            Cahier.bookings[0] = booking.clone();
-            Cahier.editedBooking = booking.clone();
-            Cahier.bookings[0].currentlyEditing = true;
-            Requests.getOwnerLicenses(Cahier.bookings[0].owner); // get licenses back !
+        minutesAgo = (new Date() - new Date(booking.startDate))/1000/60
+        // Edit button active
+        if (minutesAgo < options.minutesToEditBooking) {
+            $('btnEditBooking').onclick = function () {
+                closePopUp('last');
+                Cahier.bookings[0] = booking.clone();
+                Cahier.editedBooking = booking.clone();
+                Cahier.bookings[0].currentlyEditing = true;
+                Requests.getOwnerLicenses(Cahier.bookings[0].owner); // get licenses back !
 
-            var bookableIds = [];
-            for (var bookable of Cahier.bookings[0].bookables) {
-                if (bookable.id != 0) bookableIds.push(bookable.id); // not taking personal equipment
-            }
-            Requests.getBookablesLicenses(bookableIds);
+                var bookableIds = [];
+                for (var bookable of Cahier.bookings[0].bookables) {
+                    if (bookable.id != 0) bookableIds.push(bookable.id); // not taking personal equipment
+                }
+                Requests.getBookablesLicenses(bookableIds);
 
-            newTab('divTabCahierInfos');
-        };
+                $('divTabCahierProgress').classList.add("editing");
+
+                newTab('divTabCahierInfos');
+            };
+        }
+        // Edit button inactive
+        else {
+            $('btnEditBooking').classList.add("buttonNonActive");
+            $('btnEditBooking').title = "Il est uniquement possible d'éditer une sortie jusqu'à " + options.minutesToEditBooking + " minutes après sa création."
+        }
     }
 
     var embContainer = container.getElementsByClassName('divTabCahierConfirmationEmbarcationContainer')[0];

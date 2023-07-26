@@ -16,7 +16,10 @@ function createProgressBar() {
         divStep.addEventListener('click', function () {
             var c = (parseInt(this.style.left) - 6) / 26 + 1;
             if (c <= currentProgress) {
-                newTab(progessionTabNames[c]);
+                if (progessionTabNames[c] != "divTabCahierMember" ||
+                 !($('divTabCahierProgress').classList.contains("editing"))) {
+                    newTab(progessionTabNames[c]);
+                }
             }
         });
 

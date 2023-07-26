@@ -84,12 +84,6 @@
     top: 0px;
     height: 100%;
     width: 10%;
-    /*background-color: orange;*/
-}
-
-.divTabCahierProgressStepCompleted {
-    /*cursor: pointer;*/
-    /*background-color:red;*/
 }
 
 .divTabCahierProgressCircle {
@@ -200,6 +194,29 @@
 
 .divTabCahierProgressStepIncompleted .divTabCahierProgressText {
     color: gray;
+}
+
+#divTabCahierProgress.editing > *:nth-child(1) > .divTabCahierProgressNumber {
+    cursor: not-allowed;
+}
+#divTabCahierProgress.editing > *:nth-child(1) > .divTabCahierProgressNumber {
+    opacity:0;
+}
+#divTabCahierProgress.editing > *:nth-child(1) > .divTabCahierProgressNumber:hover ~ .divTabCahierProgressCircle  {
+    background-color:white;
+    background-image: url(../img/icons/check-blue.png);
+}
+
+#divTabCahierProgress.editing > *:nth-child(1) > .divTabCahierProgressCircle  {
+    filter: brightness(1.9) grayscale(1) blur(1px);
+    -webkit-filter:brightness(1.9) grayscale(1) blur(1px);
+    border-color: #6a6a6a;
+}
+
+#divTabCahierProgress.editing > *:nth-child(1) > .divTabCahierProgressText  {
+    color:lightgray;
+    filter:blur(1px);
+    -webkit-filter: blur(1px);
 }
 
 #divTabCahierProgressBar {

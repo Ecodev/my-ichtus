@@ -107,6 +107,12 @@ var Cahier = {
         popGuest(Cahier.bookings.length);
     },
 
+    // when clicking on "Annoncer une sortie"
+    btnNewBookingClick: function() {
+        if ((new Date()).getHours() >= options.lateHourWarning) popAlertLate(); // 1.5
+        newTab('divTabCahierMember');
+    },
+
     // cancel - clearData
     cancel: function () {
         // #divCahierInfos
@@ -163,6 +169,8 @@ var Cahier = {
 
         Cahier.bookingStartDate = new Date();
 
+        $('divTabCahierProgress').classList.remove("editing")
+
         //console.log("--> Cahier.cancel()");
     },
 
@@ -202,7 +210,7 @@ var Cahier = {
             }
 
             // not rechecking if bookables still available
-            if (!options.checkIfBookablesNotAvailableWhenConfirming) {
+            if (false) { //!options.checkIfBookablesNotAvailableWhenConfirming) {
                 // if bookables already used
                 for (var i = 0; i < Cahier.bookings[0].bookables.length; i++) {
                     if (Cahier.bookings[0].bookables[i].available === false) {
@@ -302,7 +310,7 @@ var Cahier = {
                     var itsLastBooking = getLastBooking(bookable);
 
                     // 1.4
-                    // no in edit mode, so someone has just booked the bookable, will make an alert
+                    // not in edit mode, so someone has just booked the bookable, will make an alert
                     if (Cahier.bookings[0].currentlyEditing == undefined) {
                         Cahier.actualizeAvailability(bookable.id, [itsLastBooking]); // has changed owner
                         var bookableElement = bookable.clone();
@@ -345,34 +353,103 @@ var Cahier = {
         }
         // no alert needed
         else {
-            var commentsToFinish = [];
-            var idsToFinish = [];
+            // 1.4 bookings to terminate because they have been edited
 
-            // 1.4 bookings to terminate because they have been edited (so overwrited, everything will be new)
+            // In edit mode
             if (Cahier.bookings[0].currentlyEditing != undefined) {
-                if (Cahier.editedBooking.ids.length != 0) {
-                    // doesn't check if the bookings aren't suddenly finished by someone else (would make almost no sense...)
-                    commentsToFinish.fillArray(Cahier.editedBooking.ids.length, '(Editée)');
-                    idsToFinish = Cahier.editedBooking.ids;
+                if (Cahier.editedBooking.ids.length == 0) { 
+                    console.error("Can't edit a booking that has no bookables -> Impossible case.")
+                }
+                
+                // 1.5
+                // The (new) updated booking is given by Cahier.bookings[0]
+                // The (old) original booking is saved under Cahier.editedBooking
+                
+                // At least as many bookables as the (old) original booking
+                
+                // variables
+                var idsToFinish = []
+                var commentsToFinish = []
+                var inputsToCreate = []
+                var idsToUpdate = []
+                var inputsToUpdate = []
+
+                bookingsInputs = Requests.getServerInputsForBookingCreating(Cahier.bookings[0])
+
+                // If >0: more bookables than before --> need to create some new
+                // If <0: less bookable than before -->, need to delete some 
+                var nBookablesDifference = Cahier.bookings[0].bookables.length - Cahier.editedBooking.ids.length;
+
+                // Strictly fewer bookables as the (old) original booking --> Need to finish/delete a few bookings
+                if (nBookablesDifference < 0) {
+                    var nBookingsToFinish = -nBookablesDifference;
+                    
+                    // ToFinish
+                    idsToFinish = Cahier.editedBooking.ids.slice(-nBookingsToFinish);
+                    commentsToFinish.fillArray(nBookingsToFinish, '(Editée)')
+
+                    // ToUpdate
+                    idsToUpdate = Cahier.editedBooking.ids.slice(0, -nBookingsToFinish);
+                    inputsToUpdate = bookingsInputs;
+
+                    console.log("Editing: need to delete/terminate", -nBookablesDifference, "old booking(s).")
+                }
+                // Strictly more bookables as the (old) original booking --> Need to create additional bookings
+                else if (nBookablesDifference > 0) {
+                    
+                    // ToCreate
+                    inputsToCreate = bookingsInputs.slice(-nBookablesDifference);
+
+                    // ToUpdate
+                    idsToUpdate = Cahier.editedBooking.ids;
+                    inputsToUpdate = bookingsInputs.slice(0, -nBookablesDifference);
+
+                    console.log("Editing: need to create", nBookablesDifference, "additional booking(s).")
+                }
+                // Same number of bookables
+                else {
+
+                    // ToUpdate
+                    idsToUpdate = Cahier.editedBooking.ids;
+                    inputsToUpdate = bookingsInputs;
+
+                    console.log("Editing: no need to create nor delete any bookings.")
+                }
+
+                // Steps:
+                // - Terminate the bookings due to unavailable bookables
+                // - Delete the additional bookings if needed
+                // - Create new bookings if needed
+                // - Update the remaining ones
+
+                // First add the bookings to finish because used by someone else
+                idsToFinish = idsToFinish.concat(bookingsIdToFinish);
+                var comments = [];
+                comments.fillArray(bookingsIdToFinish.length, 'Terminée automatiquement');
+                commentsToFinish = commentsToFinish.concat(comments)
+                console.log("Need to terminate", bookingsIdToFinish.length, "booking(s) due to unavailable bookables.")
+                Requests.terminateCreateAndUpdateBookings(idsToFinish, commentsToFinish, inputsToCreate, idsToUpdate, inputsToUpdate);
+                animate();
+            }
+
+            // Not in edit mode
+            else {
+                // bookings to terminate to free the bookables
+                var commentsToFinish = []
+                commentsToFinish.fillArray(bookingsIdToFinish.length, 'Terminée automatiquement');
+
+                // there are no bookings to termiante
+                if (bookingsIdToFinish.length == 0) {
+                    Requests.createBooking();
+                    animate();
+                }
+                // there are some bookings to terminate first
+                else {
+                    Requests.terminateBooking(bookingsIdToFinish, commentsToFinish, false);
+                    animate();
                 }
             }
 
-            // bookings to terminate to free the bookables
-            var comments = [];
-            comments.fillArray(bookingsIdToFinish.length, 'Terminée automatiquement');
-            commentsToFinish = commentsToFinish.concat(comments);
-            idsToFinish = idsToFinish.concat(bookingsIdToFinish);
-
-            // there are no bookings to terminate
-            if (idsToFinish.length == 0) {
-                Requests.createBooking();
-                animate();
-            }
-            // there are some bookings to terminate first
-            else {
-                Requests.terminateBooking(idsToFinish, commentsToFinish, false);
-                animate();
-            }
         }
     },
 
@@ -420,12 +497,15 @@ var Cahier = {
             }
         }
 
-        if (currentProgress == 1) {
+        if (currentProgress == 1 || currentProgress == 2 && $('divTabCahierProgress').classList.contains("editing")) {
             $('divTabCahierProgressReturn').style.visibility = 'hidden';
         } else {
             $('divTabCahierProgressReturn').style.visibility = 'visible';
             $('divTabCahierProgressReturn').onclick = function () {
-                newTab(progessionTabNames[currentProgress - 1]);
+                var newTabName = progessionTabNames[currentProgress - 1];
+                if (newTabName != "divTabCahierMember" || !($('divTabCahierProgress').classList.contains("editing"))) {
+                    newTab(newTabName);
+                }
             };
         }
     },

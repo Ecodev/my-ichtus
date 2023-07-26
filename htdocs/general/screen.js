@@ -107,7 +107,8 @@ tabs.push({
             );
         }
     },
-    Remove: function () {},
+    Remove: function () {
+    },
 });
 tabs.push({
     id: 'divTabCahierEquipmentChoice',

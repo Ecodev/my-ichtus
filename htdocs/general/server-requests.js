@@ -1434,40 +1434,147 @@ var Requests = {
         }
     },
 
+    // terminateCreateAndUpdateBookings
+    terminateCreateAndUpdateBookings: function(idsToFinish = [], commentsToFinish, inputsToCreate = [], idsToUpdate = [], inputsToUpdate = []) {
+        console.log(idsToFinish.length + ", " + inputsToCreate.length + " and " + idsToUpdate.length + " booking(s) to terminate, create and update respectively.");
+
+        var finished = function() {
+            Requests.createAndUpdateBookings(inputsToCreate, idsToUpdate, inputsToUpdate);
+        };
+
+        if (idsToFinish.length == 0) finished();
+
+        var c = 0; // counter variable
+
+        // ToFinish
+        for (let i = 0; i < idsToFinish.length; i++) {
+  //          console.log("Terminate:", idsToFinish[i], commentsToFinish[i]);
+            Server.bookingService.terminateBooking(idsToFinish[i], commentsToFinish[i]).subscribe(result => {
+                c++;
+                if (c == idsToFinish.length) finished();
+            });
+        }
+    },
+
+    // createAndUpdateBookings
+    createAndUpdateBookings: function(inputsToCreate = [], idsToUpdate = [], inputsToUpdate = []) {
+
+        // filter the input to only keep the allowed fields,  append the id to it, and the actual startDate
+        var extendInput = function(id, input) {
+            var inputFiltered = {"id": id, "startDate": (new Date()).toISOString()};
+            keys = ["bookable", "participantCount", "destination", "startComment"]
+            for (const [key, value] of Object.entries(input)) {
+                if (keys.includes(key)) inputFiltered[key] = value;
+            }
+            return inputFiltered;
+        }
+
+        var finished = function() {
+            console.log("Successfully terminated, created and updated the bookings.")
+            newTab('divTabCahier');
+            ableToSkipAnimation();
+            stopWaiting();
+        };
+
+        var c = 0; // counter variable
+        var total = inputsToCreate.length + inputsToUpdate.length;
+
+        // ToCreate
+        for (let i = 0; i < inputsToCreate.length; i++) {
+//            console.log("Create:", inputsToCreate[i]);
+            Server.bookingService.create(inputsToCreate[i]).subscribe(booking => {
+                c++;
+                if (c == total) finished();
+            });
+        }
+        // ToUpdate
+        for (let i = 0; i < inputsToUpdate.length; i++) {
+ //           console.log("Update:", inputsToUpdate[i]);
+            Server.bookingService.updatePartially(extendInput(idsToUpdate[i], inputsToUpdate[i])).subscribe(result => {
+                c++;
+                if (c == total) finished();
+            });
+        }
+    },
+
+
+
+    // updateBooking
+    updateBooking: function (id = '4079', input = {"bookable": "3001", "owner": "1002"}) {
+
+        // e.g.
+        /*
+        Server.bookingService.updatePartially({
+            "id": id,
+            "bookable": "3001",
+            "startComment": "hello dear",
+            "participantCount": 18
+        }).subscribe(result => {
+            console.log("updateBooking():", result)
+        });
+        */
+
+        if ("owner" in input) {
+            console.error("Requests.updateBooking(): Not allowed to update the owner " +
+                          "(bookingonly doesn't have the rights to).")
+        }
+
+        extended_input = Object.assign({id: id}, input)
+        console.log(extended_input)
+        Server.bookingService.updatePartially(extended_input).subscribe(result => {
+            console.log("updateBooking():", result)
+        });
+
+    },
+
+    deleteBooking: function(id = '4079') {
+        
+        console.error("It seems that bookingonly doesn't have the rights to perform booking deletions.")
+
+        Server.bookingService.delete([{"id": id}]).subscribe(result => {
+            console.log("deleteBooking():", result)
+        })
+
+    },
+
     // deleteBookings
-    deleteBookings: function (ids = ['3102']) {
+    deleteBookings: function (id_s = ['3102']) {
+        console.error("Not implemented function.")
+        alert("Not implemented function.")
         //  Server.bookingService.deleteBookings(ids).subscribe(result => { console.log(result); });
     },
 
-    // createBooking
-    counter: 0,
-    createBooking: function () {
-        Requests.counter = 0;
-
-        for (let i = 0; i < Cahier.bookings[0].bookables.length; i++) {
+    // getServerInputsForBookingCreating
+    getServerInputsForBookingCreating: function (booking = Cahier.bookings[0]) {
+        
+        var bookingInputs = [];
+        for (let i = 0; i < booking.bookables.length; i++) {
             var input = {
-                owner: Cahier.bookings[0].owner.id,
+                owner: booking.owner.id,
                 participantCount:
-                    i == 0 ? Cahier.bookings[0].participantCount - Cahier.bookings[0].bookables.length + 1 : 1,
-                destination: Cahier.bookings[0].destination,
-                startComment: Cahier.bookings[0].startComment,
-                bookable: Cahier.bookings[0].bookables[i].id != 0 ? Cahier.bookings[0].bookables[i].id : null,
+                    i == 0 ? booking.participantCount - booking.bookables.length + 1 : 1,
+                destination: booking.destination,
+                startComment: booking.startComment,
+                bookable: booking.bookables[i].id != 0 ? booking.bookables[i].id : null,
             };
+            bookingInputs.push(input);
+        }
+        return bookingInputs
+    },
 
-            // console.log(i, input.participantCount);
-
+    // createBooking2
+    createBooking: function () {
+        var c = 0;
+        bookingInputs = Requests.getServerInputsForBookingCreating(Cahier.bookings[0])
+        for (let i = 0; i < bookingInputs.length; i++) {
+            
+            var input = bookingInputs[i]
             Server.bookingService.create(input).subscribe(booking => {
-                Requests.counter++;
-                if (Requests.counter == Cahier.bookings[0].bookables.length) {
-                    if (options.reloadWhenFinished) {
-                        // wait til the animation finishes
-                        //console.warn("La page va être rafraîchie");
-                        //setTimeout(function () { location.reload(); }, 500);
-                    } else {
-                        newTab('divTabCahier');
-                        ableToSkipAnimation();
-                        stopWaiting();
-                    }
+                c++;
+                if (c == bookingInputs.length) {
+                    newTab('divTabCahier');
+                    ableToSkipAnimation();
+                    stopWaiting();
                 }
             });
         }

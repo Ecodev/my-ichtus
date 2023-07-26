@@ -23,6 +23,46 @@ function popAlert(txt = 'haha ahah ahah ') {
     t.innerHTML = txt;
 }
 
+function popAlertLate() {
+    var elem = openPopUp();
+
+    var container;
+    container = div(elem);
+    container.classList.add('PopUpAlertContainer', 'booking');
+    container.classList.add('Boxes');
+    container.style.width = "495px";
+    container.style.height = "180px";
+
+    var close = div(container);
+    close.className = 'divPopUpClose';
+    close.onclick = function () {
+        closePopUp({target: elem}, elem);
+    };
+
+    var d = div(container);
+    d.style.textAlign = 'center';
+    d.style.fontSize = '25px';
+    d.innerHTML = 'Heures tardives'
+
+    grayBar(container, 5);
+
+    var t = div(container);
+    t.innerHTML = 'Pour ta sécurité, pense à rentrer avant le coucher du soleil.'
+
+    var btnContainer = div(container);
+    btnContainer.style.position = 'relative';
+    btnContainer.style.textAlign = 'center';
+
+    var btn = div(btnContainer);
+    btn.classList.add('Buttons');
+    btn.style.display = 'inline-block';
+    btn.innerHTML = 'Ok';
+    btn.addEventListener('click', function () {
+        closePopUp('last');
+        $('divTabCahierMember').getElementsByTagName('input')[0].focus();
+    });
+
+}
 function popAlertAlreadyHavingABooking(_owner) {
     var elem = openPopUp();
 
@@ -156,6 +196,15 @@ function popAlertLessThan13Minutes(_bookable, _booking, _choseFunction) {
     var t = div(container);
     t.innerHTML = txt + "<br>Êtes-vous sûr que l'embarcation est disponible ?";
     t.style.minHeight = '80px';
+
+    var a = div(container);
+    a.style.position = "absolute";
+    a.style.left = "12px";
+    a.style.top = "10px";
+    a.style.backgroundImage = "url(../img/icons/alert.png)";
+    a.style.backgroundSize = "30px";
+    a.style.width = "30px";
+    a.style.height = "30px";
 
     var btnContainer = div(container);
     btnContainer.style.position = 'relative';

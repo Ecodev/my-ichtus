@@ -5,14 +5,16 @@ var options = {
     showRemarks: true,
     automaticConnexion: true,
     seeWhichApplication: false,
-    reloadWhenFinished: false,
+//    reloadWhenFinished: false,
     bookingsTogetherWithDifferentEndates: true,
     modifyBookablesButton: true,
     editBookingButton: true,
     finishAllBookingsWithBookable: false, // si créer une sortie avec une embarcation déjà utilisée, ça termine seulement le booking avec l'embarcation utilisée de M. Uti.
-    checkIfBookablesNotAvailableWhenConfirming: true,
+//    checkIfBookablesNotAvailableWhenConfirming: true,
     showAlertBookablesNotAvailable: false,
     showAlertNoWelcomeSession: true,
+    minutesToEditBooking: 5,
+    lateHourWarning: 19, // starting from 19:00
 }; //showMetadatas: false,
 
 // shortcut
@@ -55,11 +57,12 @@ function load() {
     loadCahierEquipmentChoice();
     loadEscListener();
 
+    version = "1.5"
     if (window.location.hostname === 'navigations.ichtus.club') {
-        console.warn('Version de production 1.4');
+        console.warn('Version de production ' + version);
         $('divTopBarText').innerHTML = tabs[0].title;
     } else {
-        console.warn('Version de démo');
+        console.warn('Version de démo ' + version);
         tabs[0].title = 'Cahier de sortie (démo)';
         $('divTopBarText').innerHTML = tabs[0].title;
     }
@@ -121,7 +124,9 @@ Date.prototype.getNiceTime = function (separator = ':', addZero = false) {
 Date.prototype.getNiceDate = function (substr = false, year = false) {
     var r = '';
     if (substr) {
-        r = Jours[this.getDay()] + ' ' + this.getDate() + ' ' + Mois[this.getMonth()].substring(0, 3);
+        var month = Mois[this.getMonth()]
+        if (month.length > 4) month = month.substring(0,3)
+        r = Jours[this.getDay()] + ' ' + this.getDate() + ' ' + month;
     } else {
         r = Jours[this.getDay()] + ' ' + this.getDate() + ' ' + Mois[this.getMonth()];
     }
