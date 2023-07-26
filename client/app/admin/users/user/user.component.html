@@ -25,7 +25,8 @@
                         <h2 class="mat-headline-6">Coordonnées</h2>
 
                         <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="10px">
-                            <mat-form-field fxFlex>
+                            <mat-form-field fxFlex.gt-xs
+                                ><!-- row child -->
                                 <mat-label>Prénom</mat-label>
                                 <input matInput formControlName="firstName" (change)="update()" />
                                 <mat-error *ngIf="form.get('firstName')?.hasError('maxlength')">
@@ -34,7 +35,8 @@
                                 <mat-error *ngIf="form.get('firstName')?.hasError('required')">Requis</mat-error>
                             </mat-form-field>
 
-                            <mat-form-field fxFlex>
+                            <mat-form-field fxFlex.gt-xs
+                                ><!-- row child -->
                                 <mat-label>Nom de famille</mat-label>
                                 <input matInput formControlName="lastName" (change)="update()" />
                                 <mat-error *ngIf="form.get('lastName')?.hasError('maxlength')">
@@ -54,13 +56,15 @@
                         <app-address [form]="form" (addressChange)="update()"></app-address>
 
                         <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="10px">
-                            <mat-form-field fxFlex>
+                            <mat-form-field fxFlex.gt-xs
+                                ><!-- row child -->
                                 <mat-label>Téléphone fixe</mat-label>
                                 <mat-hint>032 xxx xx xx</mat-hint>
                                 <input matInput formControlName="phone" (change)="update()" />
                             </mat-form-field>
 
-                            <mat-form-field fxFlex>
+                            <mat-form-field fxFlex.gt-xs
+                                ><!-- row child -->
                                 <mat-label>Téléphone mobile</mat-label>
                                 <mat-hint>07x xxx xx xx</mat-hint>
                                 <input matInput formControlName="mobilePhone" (change)="update()" />
@@ -138,7 +142,7 @@
                             [filter]="ownerFilter"
                         ></natural-select>
 
-                        <mat-form-field fxFlex>
+                        <mat-form-field>
                             <mat-label>Swiss sailling</mat-label>
                             <input matInput formControlName="swissSailing" (change)="update()" />
                         </mat-form-field>
@@ -168,7 +172,8 @@
                                 placeholder="Méthode de paiement"
                             ></natural-select-enum>
 
-                            <mat-form-field fxFlex>
+                            <mat-form-field fxFlex.gt-xs
+                                ><!-- row child -->
                                 <mat-label>Date de naissance</mat-label>
                                 <input
                                     matInput
@@ -365,7 +370,7 @@
             <div fxLayout="column" fxLayoutGap="30px">
                 <div fxLayout="row" fxLayoutGap="10px" class="margin-top">
                     <natural-select
-                        fxFlex="50%"
+                        fxFlex="50"
                         formControlName="account"
                         placeholder="Compte"
                         [service]="accountService"
@@ -373,7 +378,8 @@
                         [navigateTo]="['/admin/account', form.get('account')?.value?.id]"
                     ></natural-select>
 
-                    <mat-form-field fxFlex="50%">
+                    <mat-form-field fxFlex="50"
+                        ><!-- row child -->
                         <mat-label>IBAN</mat-label>
                         <input matInput [formControl]="ibanCtrl" (change)="updateIban()" (blur)="lockIbanIfDefined()" />
                         <button

@@ -2,17 +2,13 @@
     <div fxLayout="column" fxLayoutGap="30px">
         <div class="mat-h1">{{ route.snapshot.data.seo.title }}</div>
 
-        <div fxLayout="column">
-            <div fxLayout.gt-xs="row" fxLayout="column" fxLayoutGap.gt-xs="10px">
-                <mat-form-field fxFlex>
-                    <mat-label>email</mat-label>
-                    <input matInput formControlName="email" />
-                    <mat-icon matIconPrefix naturalIcon="alternate_email"></mat-icon>
-                    <mat-error *ngIf="form.get('email')?.hasError('required')">Requis</mat-error>
-                    <mat-error *ngIf="form.get('email')?.hasError('email')">Adresse email invalide</mat-error>
-                </mat-form-field>
-            </div>
-        </div>
+        <mat-form-field>
+            <mat-label>email</mat-label>
+            <input matInput formControlName="email" />
+            <mat-icon matIconPrefix naturalIcon="alternate_email"></mat-icon>
+            <mat-error *ngIf="form.get('email')?.hasError('required')">Requis</mat-error>
+            <mat-error *ngIf="form.get('email')?.hasError('email')">Adresse email invalide</mat-error>
+        </mat-form-field>
 
         <div fxLayout="column" fxLayoutGap="30px" *ngIf="step === 2">
             <mat-divider></mat-divider>
@@ -20,7 +16,7 @@
             <h2 class="mat-headline-6">Compte</h2>
 
             <div fxLayout="column">
-                <mat-form-field fxFlex>
+                <mat-form-field>
                     <mat-label>Nom d'utilisateur</mat-label>
                     <input matInput formControlName="login" />
                     <mat-icon matIconPrefix naturalIcon="person"></mat-icon>
@@ -43,8 +39,9 @@
 
             <h2 class="mat-headline-6">Coordonnées</h2>
             <div>
-                <div fxLayout.gt-xs="row" fxLayout="column" fxLayoutGap="0" fxLayoutGap.gt-xs="10px">
-                    <mat-form-field fxFlex>
+                <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap.gt-xs="10px">
+                    <mat-form-field fxFlex.gt-xs
+                        ><!-- row child -->
                         <mat-label>Prénom</mat-label>
                         <input matInput formControlName="firstName" />
                         <mat-error *ngIf="form.get('firstName')?.hasError('maxlength')">
@@ -53,7 +50,8 @@
                         <mat-error *ngIf="form.get('firstName')?.hasError('required')">Requis</mat-error>
                     </mat-form-field>
 
-                    <mat-form-field fxFlex>
+                    <mat-form-field fxFlex.gt-xs
+                        ><!-- row child -->
                         <mat-label>Nom de famille</mat-label>
                         <input matInput formControlName="lastName" />
                         <mat-error *ngIf="form.get('lastName')?.hasError('maxlength')">
@@ -65,8 +63,9 @@
 
                 <app-address [form]="form"></app-address>
 
-                <div fxLayout.gt-xs="row" fxLayout="column" fxLayoutGap="0" fxLayoutGap.gt-xs="10px">
-                    <mat-form-field fxFlex>
+                <div fxLayout.gt-xs="row" fxLayout="column" fxLayoutGap.gt-xs="10px">
+                    <mat-form-field fxFlex.gt-xs
+                        ><!-- row child -->
                         <mat-label>Téléphone mobile</mat-label>
                         <mat-icon matIconPrefix naturalIcon="smartphone"></mat-icon>
                         <input matInput formControlName="mobilePhone" />
@@ -75,7 +74,8 @@
                         </mat-error>
                         <mat-error *ngIf="form.get('mobilePhone')?.hasError('required')">Requis</mat-error>
                     </mat-form-field>
-                    <mat-form-field fxFlex>
+                    <mat-form-field fxFlex.gt-xs
+                        ><!-- row child -->
                         <mat-label>Date de naissance</mat-label>
                         <input matInput formControlName="birthday" [matDatepicker]="picker" />
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -172,9 +172,6 @@
                 </mat-error>
             </div>
         </div>
-
-        <!-- Spacer-->
-        <div></div>
 
         <div fxLayout="row" fxLayoutAlign="center">
             <button mat-raised-button [color]="form.valid ? 'primary' : 'warn'" (click)="submit()" [disabled]="sending">

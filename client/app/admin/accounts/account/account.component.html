@@ -41,7 +41,8 @@
                                 <mat-hint>Prochain n° disponible: {{ nextCodeAvailable }}</mat-hint>
                             </mat-form-field>
 
-                            <mat-form-field fxFlex>
+                            <mat-form-field fxFlex
+                                ><!-- row child -->
                                 <mat-label>Nom</mat-label>
                                 <input matInput formControlName="name" (change)="update()" />
                                 <mat-error *ngIf="form.get('name')?.hasError('maxlength')">

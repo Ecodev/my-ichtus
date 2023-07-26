@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>Exporter bilan + PP</h2>
-<mat-dialog-content>
-    <mat-form-field fxFlex>
+<mat-dialog-content fxLayout="column">
+    <mat-form-field>
         <mat-label>Date du bilan</mat-label>
         <input matInput [formControl]="form" [matDatepicker]="picker" [max]="today" />
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>

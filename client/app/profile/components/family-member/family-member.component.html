@@ -21,28 +21,26 @@
 
         <h2 class="mat-headline-6">Compte</h2>
 
-        <div fxLayout="column">
-            <mat-form-field fxFlex>
-                <mat-label>email</mat-label>
-                <input matInput formControlName="email" (change)="update()" />
-                <mat-icon matIconPrefix naturalIcon="alternate_email"></mat-icon>
-                <mat-error *ngIf="form.get('email')?.hasError('required')">Requis</mat-error>
-                <mat-error *ngIf="form.get('email')?.hasError('email')">Adresse email invalide</mat-error>
-            </mat-form-field>
+        <mat-form-field>
+            <mat-label>email</mat-label>
+            <input matInput formControlName="email" (change)="update()" />
+            <mat-icon matIconPrefix naturalIcon="alternate_email"></mat-icon>
+            <mat-error *ngIf="form.get('email')?.hasError('required')">Requis</mat-error>
+            <mat-error *ngIf="form.get('email')?.hasError('email')">Adresse email invalide</mat-error>
+        </mat-form-field>
 
-            <mat-form-field fxFlex>
-                <mat-label>Nom d'utilisateur</mat-label>
-                <input matInput formControlName="login" (change)="update()" />
-                <mat-icon matIconPrefix naturalIcon="person"></mat-icon>
-                <mat-error *ngIf="form.get('login')?.hasError('maxlength')">
-                    Maximum {{ form.get('login')?.errors?.maxlength?.requiredLength }} caractères
-                </mat-error>
-                <mat-error *ngIf="form.get('login')?.hasError('required')">Requis</mat-error>
-                <mat-error *ngIf="form.get('login')?.hasError('invalid')">{{
-                    form.get('login')?.getError('invalid')
-                }}</mat-error>
-            </mat-form-field>
-        </div>
+        <mat-form-field>
+            <mat-label>Nom d'utilisateur</mat-label>
+            <input matInput formControlName="login" (change)="update()" />
+            <mat-icon matIconPrefix naturalIcon="person"></mat-icon>
+            <mat-error *ngIf="form.get('login')?.hasError('maxlength')">
+                Maximum {{ form.get('login')?.errors?.maxlength?.requiredLength }} caractères
+            </mat-error>
+            <mat-error *ngIf="form.get('login')?.hasError('required')">Requis</mat-error>
+            <mat-error *ngIf="form.get('login')?.hasError('invalid')">{{
+                form.get('login')?.getError('invalid')
+            }}</mat-error>
+        </mat-form-field>
 
         <mat-divider class="margin-bottom"></mat-divider>
 
@@ -75,17 +73,17 @@
 
         <app-address [form]="form" [vertical]="true" (addressChange)="update()"></app-address>
 
-        <mat-form-field fxFlex>
+        <mat-form-field>
             <mat-label>Téléphone fixe</mat-label>
             <input matInput formControlName="phone" (change)="update()" />
         </mat-form-field>
 
-        <mat-form-field fxFlex>
+        <mat-form-field>
             <mat-label>Téléphone mobile</mat-label>
             <input matInput formControlName="mobilePhone" (change)="update()" />
         </mat-form-field>
 
-        <mat-form-field fxFlex>
+        <mat-form-field>
             <mat-label>Date de naissance</mat-label>
             <input matInput formControlName="birthday" [matDatepicker]="picker" (dateChange)="update()" />
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
