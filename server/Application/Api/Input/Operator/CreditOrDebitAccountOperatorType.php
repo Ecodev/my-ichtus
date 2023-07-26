@@ -21,7 +21,7 @@ class CreditOrDebitAccountOperatorType extends AbstractOperator
             'fields' => [
                 [
                     'name' => 'values',
-                    'type' => self::getNullableType(self::listOf(self::nonNull($this->types->getId(Account::class)))),
+                    'type' => self::listOf(self::nonNull($this->types->getId(Account::class))),
                     'defaultValue' => [],
                 ],
                 [

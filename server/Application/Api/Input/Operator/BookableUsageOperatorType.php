@@ -23,7 +23,7 @@ class BookableUsageOperatorType extends AbstractOperator
             'fields' => [
                 [
                     'name' => 'values',
-                    'type' => self::getNullableType(self::listOf(self::nonNull($this->types->getId(User::class)))),
+                    'type' => self::listOf(self::nonNull($this->types->getId(User::class))),
                     'defaultValue' => [],
                 ],
                 [

@@ -243,6 +243,7 @@
                             [main]="data.model"
                             [service]="licenseService"
                             [filter]="{groups: [{conditions: [{users: {have: {values: [data.model.id]}}}]}]}"
+                            [disabled]="!permissionsService.crud?.license.create"
                             placeholder="Attribuer une certification"
                         >
                             <ng-template let-item="item">

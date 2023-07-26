@@ -1,4 +1,4 @@
-import {HttpBatchLink} from 'apollo-angular/http';
+import {HttpBatchLink, HttpLink} from 'apollo-angular/http';
 import {
     ApolloClientOptions,
     ApolloLink,
@@ -9,11 +9,9 @@ import {
 } from '@apollo/client/core';
 import {onError} from '@apollo/client/link/error';
 import {NetworkActivityService} from '../services/network-activity.service';
-import {createUploadLink} from 'apollo-upload-client';
-import {hasFilesAndProcessDate, NaturalAlertService, isMutation} from '@ecodev/natural';
-import {ErrorService} from '../components/error/error.service';
+import {createHttpLink, NaturalAlertService} from '@ecodev/natural';
 import {APOLLO_OPTIONS} from 'apollo-angular';
-import {Provider} from '@angular/core';
+import {inject, Provider} from '@angular/core';
 
 export const apolloDefaultOptions: DefaultOptions = {
     query: {
@@ -70,45 +68,24 @@ function createErrorLink(
 function createApolloLink(
     networkActivityService: NetworkActivityService,
     alertService: NaturalAlertService,
+    httpLink: HttpLink,
     httpBatchLink: HttpBatchLink,
 ): ApolloLink {
-    const options = {
-        uri: '/graphql',
-        credentials: 'include',
-    };
-
-    const uploadInterceptor = new ApolloLink((operation, forward) => {
-        networkActivityService.increase();
-
-        if (forward) {
-            return forward(operation).map(response => {
-                networkActivityService.decrease();
-                return response;
-            });
-        } else {
-            return null;
-        }
-    });
-
-    // If query has no file, batch it, otherwise upload only that query
-    const httpLink = ApolloLink.split(
-        operation => hasFilesAndProcessDate(operation.variables) || isMutation(operation.query),
-        uploadInterceptor.concat(createUploadLink(options)),
-        httpBatchLink.create(options),
-    );
-
     const errorLink = createErrorLink(networkActivityService, alertService);
 
-    return errorLink.concat(httpLink);
+    return errorLink.concat(
+        createHttpLink(httpLink, httpBatchLink, {
+            uri: '/graphql',
+        }),
+    );
 }
 
-function apolloOptionsFactory(
-    networkActivityService: NetworkActivityService,
-    errorService: ErrorService,
-    alertService: NaturalAlertService,
-    httpBatchLink: HttpBatchLink,
-): ApolloClientOptions<NormalizedCacheObject> {
-    const link = createApolloLink(networkActivityService, alertService, httpBatchLink);
+function apolloOptionsFactory(): ApolloClientOptions<NormalizedCacheObject> {
+    const networkActivityService = inject(NetworkActivityService);
+    const alertService = inject(NaturalAlertService);
+    const httpLink = inject(HttpLink);
+    const httpBatchLink = inject(HttpBatchLink);
+    const link = createApolloLink(networkActivityService, alertService, httpLink, httpBatchLink);
 
     return {
         link: link,
@@ -120,5 +97,4 @@ function apolloOptionsFactory(
 export const apolloOptionsProvider: Provider = {
     provide: APOLLO_OPTIONS,
     useFactory: apolloOptionsFactory,
-    deps: [NetworkActivityService, ErrorService, NaturalAlertService, HttpBatchLink],
 };

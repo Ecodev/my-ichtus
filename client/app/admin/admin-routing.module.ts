@@ -260,6 +260,7 @@ export const routes: Routes = [
                     equipment('voile-legere', 'Voile légère', '6005'),
                     equipment('voile-lestee', 'Voile lestée', '6006'),
                     equipment('wing-foil', 'Wing foil', '6043'),
+                    equipment('bateau-moteur', 'Bateau moteur', '6038'),
                     {
                         path: 'armoire',
                         component: UsageBookablesComponent,

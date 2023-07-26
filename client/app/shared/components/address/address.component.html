@@ -10,28 +10,28 @@
         [fxLayoutGap.gt-sm]="vertical ? '0px' : '10px'"
         fxLayout="column"
     >
-        <mat-form-field [fxFlex]="!vertical">
-            <mat-label>Localité</mat-label>
-            <input matInput formControlName="locality" (change)="update()" />
-            <mat-error *ngIf="form.get('locality')?.hasError('required')">Requis</mat-error>
-        </mat-form-field>
-
-        <div fxLayout="row" fxLayoutGap="10px">
-            <mat-form-field [style.width.px]="100">
-                <mat-label>NPA</mat-label>
+        <div fxLayout="row" fxLayoutGap="10px" [fxFlex]="!vertical">
+            <mat-form-field [style.width.px]="120">
+                <mat-label>Code postal</mat-label>
                 <input matInput formControlName="postcode" (change)="update()" />
                 <mat-error *ngIf="form.get('postcode')?.hasError('required')">Requis</mat-error>
             </mat-form-field>
 
-            <natural-select
-                fxFlex
-                [service]="countryService"
-                formControlName="country"
-                [showIcon]="false"
-                searchField="name"
-                placeholder="Pays"
-                (selectionChange)="update()"
-            ></natural-select>
+            <mat-form-field fxFlex>
+                <mat-label>Localité</mat-label>
+                <input matInput formControlName="locality" (change)="update()" />
+                <mat-error *ngIf="form.get('locality')?.hasError('required')">Requis</mat-error>
+            </mat-form-field>
         </div>
+
+        <natural-select
+            fxFlex
+            [service]="countryService"
+            formControlName="country"
+            [showIcon]="false"
+            searchField="name"
+            placeholder="Pays"
+            (selectionChange)="update()"
+        ></natural-select>
     </div>
 </div>

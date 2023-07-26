@@ -1,5 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
-import CryptoES from 'crypto-es';
+import {HmacSHA256} from 'crypto-es/lib/sha256';
+import {Hex} from 'crypto-es/lib/core';
 import {DOCUMENT} from '@angular/common';
 import {fromEvent, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -287,9 +288,9 @@ export class DatatransService {
         }
 
         const valueToSign = aliasCC + merchandId + amount + currency + refno;
-        const wordKey = CryptoES.enc.Hex.parse(hexaKey);
-        const wordSig = CryptoES.HmacSHA256(valueToSign, wordKey);
+        const wordKey = Hex.parse(hexaKey);
+        const wordSig = HmacSHA256(valueToSign, wordKey);
 
-        return CryptoES.enc.Hex.stringify(wordSig);
+        return Hex.stringify(wordSig);
     }
 }

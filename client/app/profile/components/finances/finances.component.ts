@@ -135,13 +135,8 @@ export class FinancesComponent
     }
 
     public createRefund(): void {
-        const config = {
-            data: {
-                confirmText: $localize`Envoyer la demande`,
-            },
-        };
         this.dialog
-            .open(CreateRefundComponent, config)
+            .open<CreateRefundComponent, never>(CreateRefundComponent)
             .afterClosed()
             .subscribe(expense => {
                 if (expense) {
