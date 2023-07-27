@@ -1,4 +1,4 @@
-import {execFileSync, execSync} from 'child_process';
+import {execFileSync, execSync} from 'node:child_process';
 import {DocumentNode} from '@apollo/client/core';
 import {Page, Response} from '@playwright/test';
 import {getOperationName} from '@apollo/client/utilities';
