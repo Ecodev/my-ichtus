@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Application\Model;
 
-use Application\Api\Input\Operator\AccountBalance\EqualOperatorType;
-use Application\Api\Input\Operator\AccountBalance\GreaterOperatorType;
-use Application\Api\Input\Operator\AccountBalance\GreaterOrEqualOperatorType;
-use Application\Api\Input\Operator\AccountBalance\LessOperatorType;
-use Application\Api\Input\Operator\AccountBalance\LessOrEqualOperatorType;
+use Application\Api\Input\Operator\AccountBalance\AccountBalanceEqualOperatorType;
+use Application\Api\Input\Operator\AccountBalance\AccountBalanceGreaterOperatorType;
+use Application\Api\Input\Operator\AccountBalance\AccountBalanceGreaterOrEqualOperatorType;
+use Application\Api\Input\Operator\AccountBalance\AccountBalanceLessOperatorType;
+use Application\Api\Input\Operator\AccountBalance\AccountBalanceLessOrEqualOperatorType;
 use Application\Api\Input\Operator\BookingCount\BookingCountEqualOperatorType;
 use Application\Api\Input\Operator\BookingCount\BookingCountGreaterOperatorType;
 use Application\Api\Input\Operator\BookingCount\BookingCountGreaterOrEqualOperatorType;
@@ -60,11 +60,11 @@ use GraphQL\Doctrine\Attribute as API;
 #[API\Filter(field: 'bookingCount', operator: BookingCountGreaterOrEqualOperatorType::class, type: 'int')]
 #[API\Filter(field: 'bookingCount', operator: BookingCountLessOperatorType::class, type: 'int')]
 #[API\Filter(field: 'bookingCount', operator: BookingCountLessOrEqualOperatorType::class, type: 'int')]
-#[API\Filter(field: 'balance', operator: EqualOperatorType::class, type: 'Money')]
-#[API\Filter(field: 'balance', operator: GreaterOperatorType::class, type: 'Money')]
-#[API\Filter(field: 'balance', operator: GreaterOrEqualOperatorType::class, type: 'Money')]
-#[API\Filter(field: 'balance', operator: LessOperatorType::class, type: 'Money')]
-#[API\Filter(field: 'balance', operator: LessOrEqualOperatorType::class, type: 'Money')]
+#[API\Filter(field: 'accountBalance', operator: AccountBalanceEqualOperatorType::class, type: 'Money')]
+#[API\Filter(field: 'accountBalance', operator: AccountBalanceGreaterOperatorType::class, type: 'Money')]
+#[API\Filter(field: 'accountBalance', operator: AccountBalanceGreaterOrEqualOperatorType::class, type: 'Money')]
+#[API\Filter(field: 'accountBalance', operator: AccountBalanceLessOperatorType::class, type: 'Money')]
+#[API\Filter(field: 'accountBalance', operator: AccountBalanceLessOrEqualOperatorType::class, type: 'Money')]
 #[API\Filter(field: 'bookingDate', operator: BookingDateEqualOperatorType::class, type: 'Date')]
 #[API\Filter(field: 'bookingDate', operator: BookingDateGreaterOperatorType::class, type: 'Date')]
 #[API\Filter(field: 'bookingDate', operator: BookingDateGreaterOrEqualOperatorType::class, type: 'Date')]

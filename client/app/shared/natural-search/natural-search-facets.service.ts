@@ -405,8 +405,9 @@ export class NaturalSearchFacetsService {
             } satisfies DropdownFacet<TypeSelectConfiguration>,
             {
                 display: 'Solde',
-                field: 'balance',
+                field: 'accountBalance',
                 component: TypeNumberComponent,
+                transform: prefixOperatorWithField,
                 configuration: {
                     step: 0.01,
                 },
