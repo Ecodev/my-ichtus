@@ -374,7 +374,8 @@ var Cahier = {
                 var idsToUpdate = []
                 var inputsToUpdate = []
 
-                bookingsInputs = Requests.getServerInputsForBookingCreating(Cahier.bookings[0])
+                var currentDate = (new Date()).toISOString()
+                bookingsInputs = Requests.getServerInputsForBookingCreating(Cahier.bookings[0], currentDate)
 
                 // If >0: more bookables than before --> need to create some new
                 // If <0: less bookable than before -->, need to delete some 
@@ -392,7 +393,18 @@ var Cahier = {
                     idsToUpdate = Cahier.editedBooking.ids.slice(0, -nBookingsToFinish);
                     inputsToUpdate = bookingsInputs;
 
-                    console.log("Editing: need to delete/terminate", -nBookablesDifference, "old booking(s).")
+                    // ToUpdate (set end date to start date)
+                    var startDate = Cahier.editedBooking.startDate;
+                    var extraIdsToUpdate = idsToFinish.clone();
+                    var extraInputsToUpdate = [];
+                    // Note: need to update startDate again since otherwise it gets automatically set to the current time
+                    var input = {startDate: currentDate, endDate: currentDate, bookable: null}; 
+                    extraInputsToUpdate.fillArray(extraIdsToUpdate.length, input);
+                    // append
+                    idsToUpdate = idsToUpdate.concat(extraIdsToUpdate);
+                    inputsToUpdate = inputsToUpdate.concat(extraInputsToUpdate);
+
+                    console.log("Editing: need to terminate and update", -nBookablesDifference, "old booking(s) (set startDate=endDate).")
                 }
                 // Strictly more bookables as the (old) original booking --> Need to create additional bookings
                 else if (nBookablesDifference > 0) {
@@ -421,6 +433,7 @@ var Cahier = {
                 // - Delete the additional bookings if needed
                 // - Create new bookings if needed
                 // - Update the remaining ones
+                // - Set end date to start date if terminated old bookings
 
                 // First add the bookings to finish because used by someone else
                 idsToFinish = idsToFinish.concat(bookingsIdToFinish);

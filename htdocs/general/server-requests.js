@@ -909,8 +909,8 @@ var Requests = {
             },
             sorting: [
                 {
-                    field: 'id',
-                    order: 'ASC',
+                    field: 'startDate',
+                    order: 'DESC',
                 },
             ],
         };
@@ -921,7 +921,7 @@ var Requests = {
         Server.bookingService.getAll(variables, true).subscribe(result => {
             // force = true
             loadBottoms();
-            loadActualBookings(transformBookings(result.items));
+            loadActualBookings(mergeBookings(result.items));
         });
     },
 
@@ -1029,7 +1029,7 @@ var Requests = {
         Server.bookingService.getAll(variables, true).subscribe(result => {
             // force = true);
             //console.log("getFinishedBookingListForDay(): ", result);
-            var transformedBoookings = transformBookings(result.items);
+            var transformedBoookings = mergeBookings(result.items);
             if (result.length == 0) {
                 createNoBookingMessage(d);
             } else {
@@ -1380,7 +1380,7 @@ var Requests = {
 
         Server.bookingService.getAll(variables).subscribe(result => {
             //console.log("getStats(): ", result);
-            var send = transformBookings(result.items);
+            var send = mergeBookings(result.items);
             actualizeStats(start, end, elem, send);
         });
     },
@@ -1408,7 +1408,7 @@ var Requests = {
         variables.set('variables', filter);
 
         Server.bookingService.getAll(variables).subscribe(result => {
-            var send = transformBookings(result.items);
+            var send = mergeBookings(result.items);
             actualizePopBooking(send[0], which, elem); // should only give one booking
         });
     },
@@ -1462,7 +1462,7 @@ var Requests = {
         // filter the input to only keep the allowed fields,  append the id to it, and the actual startDate
         var extendInput = function(id, input) {
             var inputFiltered = {"id": id, "startDate": (new Date()).toISOString()};
-            keys = ["bookable", "participantCount", "destination", "startComment"]
+            keys = ["bookable", "participantCount", "destination", "startComment", "endComment", "startDate", "endDate"]
             for (const [key, value] of Object.entries(input)) {
                 if (keys.includes(key)) inputFiltered[key] = value;
             }
@@ -1545,7 +1545,7 @@ var Requests = {
     },
 
     // getServerInputsForBookingCreating
-    getServerInputsForBookingCreating: function (booking = Cahier.bookings[0]) {
+    getServerInputsForBookingCreating: function (booking = Cahier.bookings[0], startDate = null) {
         
         var bookingInputs = [];
         for (let i = 0; i < booking.bookables.length; i++) {
@@ -1557,6 +1557,9 @@ var Requests = {
                 startComment: booking.startComment,
                 bookable: booking.bookables[i].id != 0 ? booking.bookables[i].id : null,
             };
+            if (startDate != null) {
+                input.startDate = startDate;
+            }
             bookingInputs.push(input);
         }
         return bookingInputs

@@ -30,19 +30,6 @@
 }
 
 #divTabCahierTopList > div:first-child {
-    /*position: absolute;
-        left: 2.5%;
-        width: 95%;
-        height: 102px;
-        max-height: 102px;
-        box-sizing: border-box;
-        border: 2px solid lightgray;
-        border-radius: 10px;
-        background-color: #fafafa;
-        border-radius: 10px;
-        padding: 2px;
-        line-height: 92px;
-        text-align: center;*/
     transition: opacity 0.3s linear 0s;
     opacity: 0;
     left: 2.5%;
@@ -115,16 +102,20 @@
 
 #divTabCahierTopList > div:first-child > div > div:nth-child(2) {
     position: absolute;
-    top: -12px;
+    top: -4px;
+    right: -6px;
+    width: 34px;
+    height: 34px;
+    border-radius: 17px;
+    /*top: -12px;
     right: -12px;
     width: 30px;
     height: 30px;
-    border-radius: 15px;
+    border-radius: 15px;*/
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url(../img/icons/cancel.png);
-    background-size: 20px;
-    background-blend-mode: color-dodge;
+    background-image: url(../img/icons/bin-open.png);
+    background-size: 24px;
     background-color: dimgray;
     -moz-transition: all 0.1s linear 0s;
     -o-transition: all 0.1s linear 0s;
@@ -136,6 +127,7 @@
 }
 #divTabCahierTopList > div:first-child > div > div:nth-child(2):hover {
     background-color: gray;
+    background-image: url(../img/icons/bin-closed.png);
 }
 
 #divTabCahierTopList > div:first-child > div > div:nth-child(3) {

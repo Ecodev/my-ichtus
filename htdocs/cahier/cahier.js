@@ -41,6 +41,16 @@ function loadActualBookings(_actualBookings) {
     actualizeActualBookings(Cahier.actualBookings);
 }
 
+function coloring(booking) {
+    if (booking.creator.name.toLowerCase() !== 'booking only') {
+        return "orange";
+    }
+    else if (is0second(booking)) {
+        return "gray";
+    }
+    else return "green";
+}
+
 function actualizeActualBookings(_actualBookings) {
     var all = $('divTabCahierTableActualBookings').getElementsByClassName('TableEntries');
     for (var i = 0; i < all.length; i++) {
@@ -63,16 +73,8 @@ function actualizeActualBookings(_actualBookings) {
         container.classList.add('TableEntries');
         container.classList.add('TableEntriesHover');
 
-        if (options.seeWhichApplication) {
-            if (
-                _actualBookings[i].creator.name.toLowerCase() === 'booking only' ||
-                _actualBookings[i].creator.name.toLowerCase() === 'frédéric huissoud'
-            ) {
-                // parce que Fred s'est connecté sur ichtus.club grrr...
-                container.style.backgroundColor = 'green';
-            } else {
-                container.style.backgroundColor = 'orange';
-            }
+        if (options.seeExtraInfos) {
+            container.style.backgroundColor = coloring(_actualBookings[i])
         }
 
         container.addEventListener('click', function (event) {
@@ -458,16 +460,8 @@ function actualizeFinishedBookingListForDay(bookings, table) {
                 }
             });
 
-            if (options.seeWhichApplication) {
-                if (
-                    bookings[i].creator.name.toLowerCase() === 'booking only' ||
-                    bookings[i].creator.name.toLowerCase() === 'frédéric huissoud'
-                ) {
-                    // parce que Fred s'est connecté sur ichtus.club grrr...
-                    entry.style.backgroundColor = 'green';
-                } else {
-                    entry.style.backgroundColor = 'orange';
-                }
+            if (options.seeExtraInfos) {
+                entry.style.backgroundColor = coloring(bookings[i])
             }
 
             div(entry).innerHTML = new Date(bookings[i].startDate).getNiceTime(':', true);

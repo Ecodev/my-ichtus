@@ -4,7 +4,7 @@ var options = {
     statsButtonTextActive: false,
     showRemarks: true,
     automaticConnexion: true,
-    seeWhichApplication: false,
+    seeExtraInfos: false,
 //    reloadWhenFinished: false,
     bookingsTogetherWithDifferentEndates: true,
     modifyBookablesButton: true,
@@ -15,6 +15,7 @@ var options = {
     showAlertNoWelcomeSession: true,
     minutesToEditBooking: 5,
     lateHourWarning: 19, // starting from 19:00
+    displayTerminatedEditedBookings: false, // don't show bookings that last 0 seconds
 }; //showMetadatas: false,
 
 // shortcut
@@ -441,56 +442,139 @@ Object.prototype.clone = function () {
     return JSON.parse(JSON.stringify(this));
 };
 
-// transformBookings
-function transformBookings(_bookings) {
-    if (_bookings.length > 0) {
-        var final = [];
+// check if booking is a terminated edited booking (i.e. lasting 0 seconds)
+function is0second(booking) {
+    return booking.startDate == booking.endDate;
+}
 
-        final.push(_bookings[0].clone());
-        final[0].ids = [_bookings[0].id];
+function displayBooking(booking) {
+    if (options.seeExtraInfos || options.displayTerminatedEditedBookings) return true;
+    return !is0second(booking);
+}
 
-        if (_bookings[0].bookable == null) final[0].bookables = [Cahier.personalBookable];
-        else final[0].bookables = [_bookings[0].bookable];
 
-        for (var i = 1; i < _bookings.length; i++) {
-            if (_bookings[i - 1].owner == null) {
-                console.warn('Booking without owner :', _bookings[i - 1]);
-            } else if (_bookings[i].owner == null) {
-                if (i == _bookings.length - 1) {
-                    console.warn('Booking without owner :', _bookings[i]);
-                }
-            }
+function mergeBookings(bookings) {
+   
+    bookings = bookings.clone() // clone
 
-            // add bookable
-            else if (
-                _bookings[i].startDate == _bookings[i - 1].startDate &&
-                (options.bookingsTogetherWithDifferentEndates ||
-                    deltaTime(new Date(_bookings[i].endDate), new Date(_bookings[i - 1].endDate)).time < 1) && // si pas terminé en même temps -> sortie a été split
-                _bookings[i].owner.id == _bookings[i - 1].owner.id
-            ) {
-                if (_bookings[i].bookable == null) {
-                    final[final.length - 1].bookables.push(Cahier.personalBookable);
-                } else {
-                    final[final.length - 1].bookables.push(_bookings[i].bookable);
-                }
-                final[final.length - 1].ids.push(_bookings[i].id);
-                final[final.length - 1].participantCount += _bookings[i].participantCount;
-            }
+    // assert the bookings have decreasing startDates, i.e. bookings[i-1].startDate (newer) >= bookings[i].startDate (older)
+    for (let i = 1; i < bookings.length; i++) {
+        if (!(new Date(bookings[i].startDate) - new Date(bookings[i-1].startDate) <= 0)) {
+            console.warn("[mergeBookings]: startDates:", bookings[i-1].startDate, "is not >=", bookings[i].startDate, "aren't increasing !")
+        }
+    }
 
-            // new booking
-            else {
-                final.push(_bookings[i].clone());
-                final[final.length - 1].ids = [_bookings[i].id];
+    function canBeMerged(b1, b2) {
+        if (b1.startDate != b2.startDate) return false;
+        if (b1.owner.id != b2.owner.id) return false;
+        if (b1.endDate != b2.endDate && !options.bookingsTogetherWithDifferentEndates) return false;
+        if (is0second(b1) && !is0second(b2) || !is0second(b1) && is0second(b2)) return false; // XOR
+        return true;
+    }
+    
+    function mergeComments(c1, c2) {
+        var meaninglessComments = ["", "Terminée automatiquement"]
+        if (!meaninglessComments.includes(c1)) return c1;
+        if (!meaninglessComments.includes(c2)) return c2;
+        if (c1 != "") return c1;
+        return c2;
+    }
 
-                if (_bookings[i].bookable == null) {
-                    final[final.length - 1].bookables = [Cahier.personalBookable];
-                } else {
-                    final[final.length - 1].bookables = [_bookings[i].bookable];
-                }
+    resultingBookings = [];
+
+    while (bookings.length > 0) {
+
+        booking = bookings.pop();
+        
+        // should not be kept
+        if (!displayBooking(booking)) continue;
+
+        // find potential booking to merge it with
+        // --> can only be merged with the last bookings of resultingBookings since the startDates are decreasing
+        var merged = false;
+        for (let r = resultingBookings.length - 1; r >= 0 ; r--) {
+            if (new Date(booking.startDate) - new Date(resultingBookings[r].startDate) > 0 ) break;
+
+            if (canBeMerged(booking, resultingBookings[r])) {
+                // can be merged --> merge
+                resultingBookings[r].bookables.push(booking.bookable == null ? Cahier.personalBookable : booking.bookable)
+                resultingBookings[r].ids.push(booking.id);
+                resultingBookings[r].participantCount += booking.participantCount;
+                resultingBookings[r].endComment = mergeComments(resultingBookings[r].endComment, booking.endComment)
+                merged = true;
+                break;
             }
         }
-        return final;
-    } else {
-        return [];
+
+        // Couldn't merge --> append
+        if (!merged) {
+            resultingBookings.push(booking);
+            resultingBookings[resultingBookings.length - 1].ids = [booking.id]; 
+            resultingBookings[resultingBookings.length - 1].bookables = [booking.bookable == null ? Cahier.personalBookable : booking.bookable]
+        }
+
     }
+    return resultingBookings;
+}
+
+
+// transformBookingsOld
+function transformBookingsOld(_bookings) {
+
+    if (_bookings.length == 0) return [];
+
+    if (!displayBooking(_bookings[0])) return transformBookingsOld(_bookings.slice(1))
+
+    var final = [];
+
+    final.push(_bookings[0].clone());
+    final[0].ids = [_bookings[0].id];
+
+    if (_bookings[0].bookable == null) final[0].bookables = [Cahier.personalBookable];
+    else final[0].bookables = [_bookings[0].bookable];
+
+    for (var i = 1; i < _bookings.length; i++) {
+
+        if (!displayBooking(_bookings[i])) continue;
+
+        var canBeMerged = is0second(_bookings[i]) && is0second(_bookings[i-1]) || !is0second(_bookings[i]) && !is0second(_bookings[i-1])
+
+        if (_bookings[i - 1].owner == null) {
+            console.warn('Booking without owner :', _bookings[i - 1]);
+        } else if (_bookings[i].owner == null) {
+            if (i == _bookings.length - 1) {
+                console.warn('Booking without owner :', _bookings[i]);
+            }
+        }
+
+        // add bookable (find corresponding booking)
+        else if (
+            _bookings[i].startDate == _bookings[i - 1].startDate &&
+            (options.bookingsTogetherWithDifferentEndates ||
+                deltaTime(new Date(_bookings[i].endDate), new Date(_bookings[i - 1].endDate)).time < 1) && // si pas terminé en même temps -> sortie a été split
+            _bookings[i].owner.id == _bookings[i - 1].owner.id &&
+            canBeMerged
+        ) {
+            if (_bookings[i].bookable == null) {
+                final[final.length - 1].bookables.push(Cahier.personalBookable);
+            } else {
+                final[final.length - 1].bookables.push(_bookings[i].bookable);
+            }
+            final[final.length - 1].ids.push(_bookings[i].id);
+            final[final.length - 1].participantCount += _bookings[i].participantCount;
+        }
+
+        // new booking
+        else {
+            final.push(_bookings[i].clone());
+            final[final.length - 1].ids = [_bookings[i].id];
+
+            if (_bookings[i].bookable == null) {
+                final[final.length - 1].bookables = [Cahier.personalBookable];
+            } else {
+                final[final.length - 1].bookables = [_bookings[i].bookable];
+            }
+        }
+    }
+    return final;
 }
