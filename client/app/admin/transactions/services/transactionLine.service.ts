@@ -5,30 +5,30 @@ import {
     formatIsoDateTime,
     FormValidators,
     NaturalAbstractModelService,
+    NaturalDebounceService,
     NaturalQueryVariablesManager,
     NaturalSearchSelections,
     toNavigationParameters,
-    NaturalDebounceService,
 } from '@ecodev/natural';
 import {
     exportTransactionLines,
+    reconcileTransactionLine,
     transactionLineQuery,
     transactionLinesQuery,
-    reconcileTransactionLine,
 } from './transactionLine.queries';
 import {
     ExpenseClaim,
     ExportTransactionLines,
     ExportTransactionLinesVariables,
     MinimalAccount,
+    ReconcileTransactionLine,
+    ReconcileTransactionLineVariables,
     TransactionLine,
     TransactionLineInput,
     TransactionLines,
     TransactionLinesVariables,
     TransactionLineVariables,
     TransactionTag,
-    ReconcileTransactionLine,
-    ReconcileTransactionLineVariables,
 } from '../../../shared/generated-types';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -52,11 +52,11 @@ export class TransactionLineService extends NaturalAbstractModelService<
     TransactionLineVariables,
     TransactionLines['transactionLines'],
     TransactionLinesVariables,
-    null,
-    any,
-    null,
-    any,
-    null,
+    never,
+    {input: TransactionLineInput},
+    never,
+    never,
+    never,
     never
 > {
     public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {

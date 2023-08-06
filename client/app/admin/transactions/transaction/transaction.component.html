@@ -181,9 +181,10 @@
                     ></app-transaction-lines>
                 </div>
 
-                <div *ngIf="updateTransactionLines || !data.model.id">
-                    <app-editable-transaction-lines [transaction]="data.model"></app-editable-transaction-lines>
-                </div>
+                <app-editable-transaction-lines
+                    [hidden]="!updateTransactionLines"
+                    [input]="transactionLines"
+                ></app-editable-transaction-lines>
 
                 <div>
                     <div class="mat-headline-6">Documents justificatifs de la transaction</div>
@@ -202,16 +203,16 @@
     </mat-tab-group>
 
     <natural-fixed-button
-        *ngIf="!data.model.id"
+        *ngIf="!data.model.id && userService.canUpdateTransaction(viewer)"
         class="detail-speed-dial"
         (click)="save()"
         icon="save"
-        matTooltip="Sauvegarder"
+        matTooltip="Enregistrer"
         matTooltipPosition="left"
         [color]="form.valid ? 'accent' : 'warn'"
     ></natural-fixed-button>
 
-    <eco-fab-speed-dial class="detail-speed-dial" *ngIf="data.model.id">
+    <eco-fab-speed-dial class="detail-speed-dial" *ngIf="data.model.id && userService.canUpdateTransaction(viewer)">
         <eco-fab-speed-dial-trigger>
             <button mat-fab>
                 <mat-icon naturalIcon="more_vert"></mat-icon>
@@ -219,10 +220,24 @@
         </eco-fab-speed-dial-trigger>
 
         <eco-fab-speed-dial-actions>
-            <button mat-mini-fab (click)="save()">
+            <button mat-mini-fab (click)="save()" matTooltip="Enregistrer" matTooltipPosition="left">
                 <mat-icon naturalIcon="save"></mat-icon>
             </button>
-            <button mat-mini-fab (click)="delete()" color="warn" *ngIf="userService.canUpdateTransaction(viewer)">
+            <button
+                mat-mini-fab
+                [routerLink]="['../new', {duplicate: data.model.id}]"
+                matTooltip="Dupliquer ..."
+                matTooltipPosition="left"
+            >
+                <mat-icon naturalIcon="content_copy"></mat-icon>
+            </button>
+            <button
+                mat-mini-fab
+                (click)="delete()"
+                color="warn"
+                matTooltip="Supprimer définitivement"
+                matTooltipPosition="left"
+            >
                 <mat-icon naturalIcon="delete_forever"></mat-icon>
             </button>
         </eco-fab-speed-dial-actions>

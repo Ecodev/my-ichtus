@@ -1,27 +1,31 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NavigationEnd, RouterLink} from '@angular/router';
 import {
+    cancellableTimeout,
     NaturalAbstractDetail,
     NaturalDetailHeaderComponent,
-    NaturalLinkableTabDirective,
-    NaturalStampComponent,
     NaturalFixedButtonComponent,
     NaturalIconDirective,
+    NaturalLinkableTabDirective,
+    NaturalStampComponent,
 } from '@ecodev/natural';
 import {TransactionService} from '../services/transaction.service';
 import {EMPTY, Observable} from 'rxjs';
 import {filter, first} from 'rxjs/operators';
 import {CurrentUserForProfile, ExpenseClaim, ExpenseClaimType} from '../../../shared/generated-types';
 import {BookableService} from '../../bookables/services/bookable.service';
-import {EditableTransactionLinesComponent} from '../editable-transaction-lines/editable-transaction-lines.component';
+import {
+    EditableTransactionLinesComponent,
+    EditableTransactionLinesInput,
+} from '../editable-transaction-lines/editable-transaction-lines.component';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {AccountingDocumentsComponent} from '../../accounting-documents/accounting-documents.component';
 import {UserService} from '../../users/services/user.service';
 import {MatIconModule} from '@angular/material/icon';
 import {
+    EcoFabSpeedDialActionsComponent,
     EcoFabSpeedDialComponent,
     EcoFabSpeedDialTriggerComponent,
-    EcoFabSpeedDialActionsComponent,
 } from '@ecodev/fab-speed-dial';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {TransactionLinesComponent} from '../transactionLines/transactionLines.component';
@@ -34,8 +38,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
-import {NgIf, CurrencyPipe} from '@angular/common';
+import {CurrencyPipe, NgIf} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {DuplicatedTransactionResolve} from '../transaction';
 
 @Component({
     selector: 'app-transaction',
@@ -84,6 +89,7 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
     public ExpenseClaimType = ExpenseClaimType;
 
     public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    public transactionLines: EditableTransactionLinesInput = {mode: 'empty'};
 
     public constructor(
         private readonly transactionService: TransactionService,
@@ -97,6 +103,10 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
     public override ngOnInit(): void {
         super.ngOnInit();
 
+        if (this.data.model.id) {
+            this.transactionLines = {mode: 'fetch', id: this.data.model.id};
+        }
+
         this.viewer = this.route.snapshot.data.viewer.model;
 
         // Activate edition mode on creation
@@ -104,58 +114,69 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
             this.updateTransactionLines = true;
         }
 
-        setTimeout(() => {
-            const expenseClaim: ExpenseClaim['expenseClaim'] = this.data.expenseClaim
-                ? this.data.expenseClaim.model
-                : null;
-            if (expenseClaim && expenseClaim.id) {
-                this.data.model.expenseClaim = expenseClaim;
-                this.updateTransactionLines = true;
+        cancellableTimeout(this.ngUnsubscribe).subscribe(() => {
+            const expenseClaim: ExpenseClaim['expenseClaim'] | null = this.data.expenseClaim;
+            const duplicatedTransaction: DuplicatedTransactionResolve | null = this.data.duplicatedTransaction;
 
-                // Set default name
-                let transactionName = '';
-                switch (expenseClaim.type) {
-                    case ExpenseClaimType.expenseClaim:
-                        transactionName = 'Traitement de la dépense "' + expenseClaim.name + '"';
-                        break;
-                    case ExpenseClaimType.refund:
-                        transactionName = 'Remboursement de "' + expenseClaim.name + '"';
-                        break;
-                    case ExpenseClaimType.invoice:
-                        transactionName = 'Paiement facture "' + expenseClaim.name + '"';
-                        break;
-                }
-                const nameControl = this.form.get('name');
-                if (nameControl) {
-                    nameControl.setValue(transactionName);
-                }
-
-                const expenseClaimControl = this.form.get('expenseClaim');
-                if (expenseClaimControl) {
-                    expenseClaimControl.setValue(expenseClaim);
-                }
-
-                if (expenseClaim.owner && expenseClaim.owner.account) {
-                    if (expenseClaim.type === ExpenseClaimType.expenseClaim) {
-                        const preset = this.transactionService.getExpenseClaimPreset(
-                            expenseClaim.owner.account,
-                            expenseClaim.amount,
-                        );
-                        this.transactionLinesComponent.setItems(preset);
-                    } else if (expenseClaim.type === ExpenseClaimType.refund) {
-                        const preset = this.transactionService.getRefundPreset(
-                            expenseClaim.owner.account,
-                            expenseClaim.amount,
-                        );
-                        this.transactionLinesComponent.setItems(preset);
-                    }
-                }
-                if (expenseClaim.type === ExpenseClaimType.invoice) {
-                    const preset = this.transactionService.getInvoicePreset(transactionName, expenseClaim.amount);
-                    this.transactionLinesComponent.setItems(preset);
-                }
+            if (expenseClaim) {
+                this.prefillFromExpenseClaim(expenseClaim);
+            } else if (duplicatedTransaction) {
+                this.prefillFromTransaction(duplicatedTransaction);
             }
         });
+    }
+
+    private prefillFromExpenseClaim(expenseClaim: ExpenseClaim['expenseClaim']): void {
+        this.data.model.expenseClaim = expenseClaim;
+        this.updateTransactionLines = true;
+
+        // Set default name
+        let transactionName = '';
+        switch (expenseClaim.type) {
+            case ExpenseClaimType.expenseClaim:
+                transactionName = 'Traitement de la dépense "' + expenseClaim.name + '"';
+                break;
+            case ExpenseClaimType.refund:
+                transactionName = 'Remboursement de "' + expenseClaim.name + '"';
+                break;
+            case ExpenseClaimType.invoice:
+                transactionName = 'Paiement facture "' + expenseClaim.name + '"';
+                break;
+        }
+        const nameControl = this.form.get('name');
+        if (nameControl) {
+            nameControl.setValue(transactionName);
+        }
+
+        const expenseClaimControl = this.form.get('expenseClaim');
+        if (expenseClaimControl) {
+            expenseClaimControl.setValue(expenseClaim);
+        }
+
+        if (expenseClaim.owner && expenseClaim.owner.account) {
+            if (expenseClaim.type === ExpenseClaimType.expenseClaim) {
+                const preset = this.transactionService.getExpenseClaimPreset(
+                    expenseClaim.owner.account,
+                    expenseClaim.amount,
+                );
+                this.transactionLinesComponent.setItems(preset);
+            } else if (expenseClaim.type === ExpenseClaimType.refund) {
+                const preset = this.transactionService.getRefundPreset(expenseClaim.owner.account, expenseClaim.amount);
+                this.transactionLinesComponent.setItems(preset);
+            }
+        }
+        if (expenseClaim.type === ExpenseClaimType.invoice) {
+            const preset = this.transactionService.getInvoicePreset(transactionName, expenseClaim.amount);
+            this.transactionLinesComponent.setItems(preset);
+        }
+    }
+
+    private prefillFromTransaction(duplicatedTransaction: DuplicatedTransactionResolve): void {
+        this.data.model = {...this.data.model, ...duplicatedTransaction.transaction};
+        this.form.patchValue(duplicatedTransaction.transaction);
+        this.form.controls.transactionDate.markAsDirty();
+
+        this.transactionLines = {mode: 'items', items: duplicatedTransaction.transactionLines};
     }
 
     public save(): void {

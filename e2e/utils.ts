@@ -18,6 +18,17 @@ export async function naturalSelect(page: Page, selector: string, value: string)
     return page.click(`//mat-option/span[contains(., "${value}")]`);
 }
 
+export function bigButton(label: string): string {
+    return `//a[contains(@class, "big-button")][contains(.,'${label}')]`;
+}
+
+export function menuCategory(label: string): string {
+    return `//mat-expansion-panel-header[contains(., '${label}')]`;
+}
+export function menu(label: string): string {
+    return `//natural-sidenav//a[contains(., '${label}')]`;
+}
+
 function getPhpBinary(): string {
     return execSync('which php8.1 || which php').toString().trim();
 }

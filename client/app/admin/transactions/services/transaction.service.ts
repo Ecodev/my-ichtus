@@ -130,6 +130,7 @@ export class TransactionService extends NaturalAbstractModelService<
     public override getFormValidators(): FormValidators {
         return {
             name: [Validators.required, Validators.maxLength(100)],
+            transactionDate: [Validators.required],
             datatransRef: [],
         };
     }

@@ -30,7 +30,7 @@ import {
     UserRole,
     UserStatus,
 } from '../shared/generated-types';
-import {resolveTransaction} from './transactions/services/transaction.resolver';
+import {resolveDuplicatedTransaction, resolveTransaction} from './transactions/services/transaction.resolver';
 import {TransactionComponent} from './transactions/transaction/transaction.component';
 import {canActivateAdministration} from '../shared/guards/administration.guard';
 import {canActivateAccounting} from '../shared/guards/accounting.guard';
@@ -569,6 +569,7 @@ export const routes: Routes = [
                         component: TransactionComponent,
                         resolve: {
                             transaction: resolveTransaction,
+                            duplicatedTransaction: resolveDuplicatedTransaction,
                             expenseClaim: resolveExpenseClaimParam,
                         },
                         data: {

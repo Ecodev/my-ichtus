@@ -1,15 +1,16 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {BookableService} from '../../bookables/services/bookable.service';
-import {Transaction, TransactionLineInput, TransactionLines} from '../../../shared/generated-types';
+import {TransactionLineInput, TransactionLines} from '../../../shared/generated-types';
 import {TransactionTagService} from '../../transactionTags/services/transactionTag.service';
 import {
     NaturalAbstractEditableList,
-    NaturalSelectHierarchicComponent,
-    NaturalSelectComponent,
     NaturalIconDirective,
+    NaturalSelectComponent,
+    NaturalSelectHierarchicComponent,
 } from '@ecodev/natural';
 import {accountHierarchicConfiguration} from '../../../shared/hierarchic-selector/AccountHierarchicConfiguration';
+import {map, of, Subject, switchMap} from 'rxjs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {TextFieldModule} from '@angular/cdk/text-field';
@@ -19,7 +20,15 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTableModule} from '@angular/material/table';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
-import {NgIf, CurrencyPipe} from '@angular/common';
+import {CurrencyPipe, NgIf} from '@angular/common';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+
+export type EditableTransactionLinesInput =
+    | {mode: 'fetch'; id: string}
+    | {mode: 'items'; items: (TransactionLines['transactionLines']['items'][0] | TransactionLineInput)[]}
+    | {
+          mode: 'empty';
+      };
 
 @Component({
     selector: 'app-editable-transaction-lines',
@@ -44,14 +53,16 @@ import {NgIf, CurrencyPipe} from '@angular/common';
         CurrencyPipe,
     ],
 })
-export class EditableTransactionLinesComponent
-    extends NaturalAbstractEditableList<
-        TransactionLineService,
-        TransactionLines['transactionLines']['items'][0] | TransactionLineInput
-    >
-    implements OnInit
-{
-    @Input({required: true}) public transaction!: Transaction['transaction'];
+export class EditableTransactionLinesComponent extends NaturalAbstractEditableList<
+    TransactionLineService,
+    TransactionLines['transactionLines']['items'][0] | TransactionLineInput
+> {
+    @Input({required: true})
+    public set input(value: EditableTransactionLinesInput) {
+        this.input$.next(value);
+    }
+
+    private readonly input$ = new Subject<EditableTransactionLinesInput>();
 
     public accountHierarchicConfig = accountHierarchicConfiguration;
     public columns = [
@@ -67,25 +78,33 @@ export class EditableTransactionLinesComponent
     ];
 
     public constructor(
-        private readonly transactionLineService: TransactionLineService,
+        transactionLineService: TransactionLineService,
         public readonly transactionTagService: TransactionTagService,
         public readonly bookableService: BookableService,
     ) {
         super(transactionLineService);
-    }
 
-    public ngOnInit(): void {
-        if (this.transaction && this.transaction.id) {
-            this.variablesManager.set('variables', {
-                filter: {groups: [{conditions: [{transaction: {equal: {value: this.transaction.id}}}]}]},
-            });
+        this.input$
+            .pipe(
+                takeUntilDestroyed(),
+                switchMap(input => {
+                    switch (input.mode) {
+                        case 'fetch':
+                            this.variablesManager.set('variables', {
+                                filter: {groups: [{conditions: [{transaction: {equal: {value: input.id}}}]}]},
+                            });
 
-            // TODO : Replace getAll by watchAll
-            this.service.getAll(this.variablesManager).subscribe(results => {
-                this.setItems(results.items);
-            });
-        } else {
-            this.addEmpty();
-        }
+                            return this.service.getAll(this.variablesManager).pipe(map(results => results.items));
+
+                        case 'items':
+                            return of(input.items);
+
+                        case 'empty':
+                            return of([{} as TransactionLineInput]);
+                    }
+                }),
+                map(items => this.setItems(items)),
+            )
+            .subscribe();
     }
 }
