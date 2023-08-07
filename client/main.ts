@@ -11,7 +11,7 @@ import {apolloOptionsProvider} from './app/shared/config/apolloDefaultOptions';
 import {LocalizedPaginatorIntlService} from './app/shared/services/localized-paginator-intl.service';
 import {activityInterceptor} from './app/shared/services/activity-interceptor';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
-import {MAT_PAGINATOR_DEFAULT_OPTIONS, MatPaginatorIntl} from '@angular/material/paginator';
+import {MAT_PAGINATOR_DEFAULT_OPTIONS, MatPaginatorDefaultOptions, MatPaginatorIntl} from '@angular/material/paginator';
 import {
     DateAdapter,
     ErrorStateMatcher,
@@ -131,7 +131,7 @@ bootstrapApplication(AppComponent, {
             provide: MAT_PAGINATOR_DEFAULT_OPTIONS,
             useValue: {
                 formFieldAppearance: 'fill',
-            },
+            } satisfies MatPaginatorDefaultOptions,
         },
         {provide: LOCALE_ID, useValue: 'fr-CH'},
         {
