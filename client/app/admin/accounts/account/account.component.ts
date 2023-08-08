@@ -58,7 +58,10 @@ export class AccountComponent extends NaturalAbstractDetail<AccountService> impl
     public nextCodeAvailable: number | null = null;
     public accountHierarchicConfig = groupAccountHierarchicConfiguration;
 
-    public constructor(public readonly accountService: AccountService, public readonly userService: UserService) {
+    public constructor(
+        public readonly accountService: AccountService,
+        public readonly userService: UserService,
+    ) {
         super('account', accountService);
     }
 

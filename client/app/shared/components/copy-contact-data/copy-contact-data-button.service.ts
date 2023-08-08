@@ -25,7 +25,10 @@ export class CopyContactDataButtonService<V extends EmailAndPhoneUsersVariables 
     private usersEmailAndName: string | null = null;
     private usersPhoneAndName: string | null = null;
 
-    public constructor(private readonly apollo: Apollo, @Inject(DOCUMENT) private readonly document: Document) {}
+    public constructor(
+        private readonly apollo: Apollo,
+        @Inject(DOCUMENT) private readonly document: Document,
+    ) {}
 
     public getButtons(variablesManager: NaturalQueryVariablesManager<V>, type: ContactType): Button[] {
         this.variablesManager = variablesManager;

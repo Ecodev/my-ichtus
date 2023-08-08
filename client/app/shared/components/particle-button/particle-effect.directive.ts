@@ -39,7 +39,10 @@ export class ParticleEffectDirective implements AfterContentInit {
         return this._pHidden;
     }
 
-    public constructor(private renderer: Renderer2, private el: ElementRef) {}
+    public constructor(
+        private renderer: Renderer2,
+        private el: ElementRef,
+    ) {}
 
     public ngAfterContentInit(): void {
         this._particles = new Particles(this.el.nativeElement, this.getOptions(), this.renderer);

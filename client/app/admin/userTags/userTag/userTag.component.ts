@@ -39,7 +39,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     ],
 })
 export class UserTagComponent extends NaturalAbstractDetail<UserTagService> {
-    public constructor(userTagService: UserTagService, public readonly userService: UserService) {
+    public constructor(
+        userTagService: UserTagService,
+        public readonly userService: UserService,
+    ) {
         super('userTag', userTagService);
     }
 }

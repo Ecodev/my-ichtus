@@ -45,7 +45,10 @@ export class UserTagsComponent extends NaturalAbstractList<UserTagService> imple
         {id: 'color', label: 'Couleur'},
         {id: 'name', label: 'Nom'},
     ];
-    public constructor(userTagService: UserTagService, public readonly permissionsService: PermissionsService) {
+    public constructor(
+        userTagService: UserTagService,
+        public readonly permissionsService: PermissionsService,
+    ) {
         super(userTagService);
     }
 }

@@ -34,7 +34,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     ],
 })
 export class BookableTagComponent extends NaturalAbstractDetail<BookableTagService> {
-    public constructor(bookableTagService: BookableTagService, public readonly tagService: BookableTagService) {
+    public constructor(
+        bookableTagService: BookableTagService,
+        public readonly tagService: BookableTagService,
+    ) {
         super('bookableTag', bookableTagService);
     }
 }

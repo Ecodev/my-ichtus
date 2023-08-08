@@ -58,7 +58,7 @@
                 <ng-container matColumnDef="role">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Rôle</th>
                     <td mat-cell *matCellDef="let element">
-                        {{ element.role | enum : 'UserRole' | async | capitalize }}
+                        {{ element.role | enum: 'UserRole' | async | capitalize }}
                     </td>
                 </ng-container>
 
@@ -79,7 +79,7 @@
                         matTooltip="Le nom et le login doivent être renseignés pour activer un utilisateur"
                     >
                         <span *ngIf="isActive(element)">{{
-                            element.status | enum : 'UserStatus' | async | capitalize
+                            element.status | enum: 'UserStatus' | async | capitalize
                         }}</span>
                         <button
                             mat-flat-button
@@ -89,7 +89,7 @@
                             [disabled]="!isActivable(element) || activating.has(element)"
                             [style.width.px]="150"
                         >
-                            Activer ({{ element.status | enum : 'UserStatus' | async | capitalize }})
+                            Activer ({{ element.status | enum: 'UserStatus' | async | capitalize }})
                         </button>
                     </td>
                 </ng-container>
@@ -121,14 +121,14 @@
                             A participé
                         </button>
                         <span *ngIf="element.welcomeSessionDate">{{
-                            element.welcomeSessionDate | date : 'dd.MM.y'
+                            element.welcomeSessionDate | date: 'dd.MM.y'
                         }}</span>
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="resignDate">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="app-date-column">Date démission</th>
-                    <td mat-cell *matCellDef="let element">{{ element.resignDate | date : 'dd.MM.y' }}</td>
+                    <td mat-cell *matCellDef="let element">{{ element.resignDate | date: 'dd.MM.y' }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="balance">

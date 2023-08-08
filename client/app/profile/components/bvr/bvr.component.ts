@@ -61,7 +61,10 @@ export class BvrComponent {
     private variables!: BankingInfosVariables;
     public bankingInfos: BankingInfos['bankingInfos'] | null = null;
 
-    public constructor(private readonly apollo: Apollo, @Inject(DOCUMENT) private readonly document: Document) {}
+    public constructor(
+        private readonly apollo: Apollo,
+        @Inject(DOCUMENT) private readonly document: Document,
+    ) {}
 
     public copyToClipboard(text: string): void {
         copyToClipboard(this.document, text);

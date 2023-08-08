@@ -39,7 +39,10 @@ export class CreateExpenseClaimComponent extends NaturalAbstractDetail<ExpenseCl
 
     public ExpenseClaimType = ExpenseClaimType;
 
-    public constructor(public expenseClaimService: ExpenseClaimService, public readonly userService: UserService) {
+    public constructor(
+        public expenseClaimService: ExpenseClaimService,
+        public readonly userService: UserService,
+    ) {
         super('expenseClaim', expenseClaimService);
     }
 

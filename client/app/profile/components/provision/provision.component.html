@@ -29,7 +29,7 @@
                 <mat-label>Montant</mat-label>
                 <input matInput type="number" step="0.01" [formControl]="formCtrl" [errorStateMatcher]="matcher" />
                 <mat-error *ngIf="formCtrl.errors?.min"
-                    >Minimum {{ formCtrl.errors?.min?.min | currency : 'CHF' }}</mat-error
+                    >Minimum {{ formCtrl.errors?.min?.min | currency: 'CHF' }}</mat-error
                 >
                 <mat-error *ngIf="formCtrl.hasError('money')"
                     >Le montant doit être un nombre avec un maximum de deux décimales

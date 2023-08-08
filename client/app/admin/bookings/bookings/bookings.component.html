@@ -127,7 +127,7 @@
 
                 <ng-container matColumnDef="startComment">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Note de début</th>
-                    <td mat-cell *matCellDef="let element">{{ element.startComment | ellipsis : 32 }}</td>
+                    <td mat-cell *matCellDef="let element">{{ element.startComment | ellipsis: 32 }}</td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 
@@ -146,7 +146,7 @@
                 <ng-container matColumnDef="status">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Statut</th>
                     <td mat-cell *matCellDef="let element">
-                        {{ element.status | enum : 'BookingStatus' | async | capitalize }}
+                        {{ element.status | enum: 'BookingStatus' | async | capitalize }}
                     </td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
@@ -161,7 +161,7 @@
 
                 <ng-container matColumnDef="endComment">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Note de fin</th>
-                    <td mat-cell *matCellDef="let element">{{ element.endComment | ellipsis : 32 }}</td>
+                    <td mat-cell *matCellDef="let element">{{ element.endComment | ellipsis: 32 }}</td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 
@@ -179,7 +179,7 @@
 
                 <ng-container matColumnDef="ownerCreationDate">
                     <th mat-header-cell *matHeaderCellDef>Membre depuis</th>
-                    <td mat-cell *matCellDef="let element">{{ element.owner.creationDate | date : 'dd.MM.y' }}</td>
+                    <td mat-cell *matCellDef="let element">{{ element.owner.creationDate | date: 'dd.MM.y' }}</td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 

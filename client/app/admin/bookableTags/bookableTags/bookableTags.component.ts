@@ -45,7 +45,10 @@ export class BookableTagsComponent extends NaturalAbstractList<BookableTagServic
         {id: 'color', label: 'Couleur'},
         {id: 'name', label: 'Nom'},
     ];
-    public constructor(bookableTagService: BookableTagService, public readonly permissionsService: PermissionsService) {
+    public constructor(
+        bookableTagService: BookableTagService,
+        public readonly permissionsService: PermissionsService,
+    ) {
         super(bookableTagService);
     }
 }

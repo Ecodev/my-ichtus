@@ -21,11 +21,11 @@
                 <ng-container matColumnDef="periodicPrice">
                     <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix périodique</th>
                     <td mat-cell *matCellDef="let booking" natural-align-right>
-                        <span *ngIf="booking.periodicPrice"> {{ booking.periodicPrice | currency : 'CHF' }}</span>
+                        <span *ngIf="booking.periodicPrice"> {{ booking.periodicPrice | currency: 'CHF' }}</span>
                     </td>
                     <td mat-footer-cell *matFooterCellDef natural-align-right>
                         <span *ngIf="runningServicesDS.data?.totalPeriodicPrice > 0">
-                            {{ runningServicesDS.data?.totalPeriodicPrice | currency : 'CHF' }}
+                            {{ runningServicesDS.data?.totalPeriodicPrice | currency: 'CHF' }}
                         </span>
                     </td>
                 </ng-container>
@@ -34,12 +34,12 @@
                     <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix initial</th>
                     <td mat-cell *matCellDef="let booking" natural-align-right>
                         <span *ngIf="booking.bookable.initialPrice !== '0.00'">
-                            {{ booking.bookable.initialPrice | currency : 'CHF' }}</span
+                            {{ booking.bookable.initialPrice | currency: 'CHF' }}</span
                         >
                     </td>
                     <td mat-footer-cell *matFooterCellDef natural-align-right>
                         <span *ngIf="runningServicesDS.data?.totalInitialPrice > 0">
-                            {{ runningServicesDS.data?.totalInitialPrice | currency : 'CHF' }}
+                            {{ runningServicesDS.data?.totalInitialPrice | currency: 'CHF' }}
                         </span>
                     </td>
                 </ng-container>
@@ -190,7 +190,7 @@
 
                 <ng-container matColumnDef="status">
                     <th mat-header-cell *matHeaderCellDef>Nom</th>
-                    <td mat-cell *matCellDef="let booking">{{ booking.status | enum : 'BookingStatus' | async }}</td>
+                    <td mat-cell *matCellDef="let booking">{{ booking.status | enum: 'BookingStatus' | async }}</td>
                     <td mat-footer-cell *matFooterCellDef>Totaux</td>
                 </ng-container>
 
@@ -198,12 +198,12 @@
                     <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix périodique</th>
                     <td mat-cell *matCellDef="let booking" natural-align-right>
                         <span *ngIf="booking.bookable.periodicPrice !== '0.00'">
-                            {{ booking.bookable.periodicPrice | currency : 'CHF' }}
+                            {{ booking.bookable.periodicPrice | currency: 'CHF' }}
                         </span>
                     </td>
                     <td mat-footer-cell *matFooterCellDef natural-align-right>
                         <span *ngIf="pendingApplicationsDS.data?.totalPeriodicPrice > 0">
-                            {{ pendingApplicationsDS.data?.totalPeriodicPrice | currency : 'CHF' }}
+                            {{ pendingApplicationsDS.data?.totalPeriodicPrice | currency: 'CHF' }}
                         </span>
                     </td>
                 </ng-container>
@@ -212,12 +212,12 @@
                     <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix initial</th>
                     <td mat-cell *matCellDef="let booking" natural-align-right>
                         <span *ngIf="booking.bookable.initialPrice !== '0.00'">
-                            {{ booking.bookable.initialPrice | currency : 'CHF' }}</span
+                            {{ booking.bookable.initialPrice | currency: 'CHF' }}</span
                         >
                     </td>
                     <td mat-footer-cell *matFooterCellDef natural-align-right>
                         <span *ngIf="pendingApplicationsDS.data?.totalInitialPrice > 0">
-                            {{ pendingApplicationsDS.data?.totalInitialPrice | currency : 'CHF' }}
+                            {{ pendingApplicationsDS.data?.totalInitialPrice | currency: 'CHF' }}
                         </span>
                     </td>
                 </ng-container>

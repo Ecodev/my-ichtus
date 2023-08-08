@@ -109,12 +109,12 @@
                         <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix initial</th>
                         <td mat-cell *matCellDef="let bookable" natural-align-right>
                             <span *ngIf="bookable.initialPrice !== '0.00'">
-                                {{ bookable.initialPrice | currency : 'CHF' }}</span
+                                {{ bookable.initialPrice | currency: 'CHF' }}</span
                             >
                         </td>
                         <td mat-footer-cell *matFooterCellDef natural-align-right>
                             <span *ngIf="mandatoryBookables?.data?.totalInitialPrice > 0">
-                                {{ mandatoryBookables.data?.totalInitialPrice | currency : 'CHF' }}
+                                {{ mandatoryBookables.data?.totalInitialPrice | currency: 'CHF' }}
                             </span>
                         </td>
                     </ng-container>
@@ -123,12 +123,12 @@
                         <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix annuel</th>
                         <td mat-cell *matCellDef="let bookable" natural-align-right>
                             <span *ngIf="bookable.periodicPrice !== '0.00'">
-                                {{ bookable.periodicPrice | currency : 'CHF' }}</span
+                                {{ bookable.periodicPrice | currency: 'CHF' }}</span
                             >
                         </td>
                         <td mat-footer-cell *matFooterCellDef natural-align-right>
                             <span *ngIf="mandatoryBookables?.data?.totalPeriodicPrice > 0">
-                                {{ mandatoryBookables.data?.totalPeriodicPrice | currency : 'CHF' }}
+                                {{ mandatoryBookables.data?.totalPeriodicPrice | currency: 'CHF' }}
                             </span>
                         </td>
                     </ng-container>

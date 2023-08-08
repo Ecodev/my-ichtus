@@ -57,7 +57,10 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
         }),
     );
 
-    protected constructor(service: T, private readonly bookingService: BookingService) {
+    protected constructor(
+        service: T,
+        private readonly bookingService: BookingService,
+    ) {
         super(service);
 
         this.futureOwner$.pipe(takeUntilDestroyed()).subscribe(futureOwner => (this.futureOwner = futureOwner));

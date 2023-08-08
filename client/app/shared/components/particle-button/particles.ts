@@ -52,7 +52,11 @@ export class Particles {
     private options: Required<IOption>;
     private o: Required<IOption>;
 
-    public constructor(private readonly el: any, options: Required<IOption>, private readonly renderer: Renderer2) {
+    public constructor(
+        private readonly el: any,
+        options: Required<IOption>,
+        private readonly renderer: Renderer2,
+    ) {
         this.options = {...options};
         this.o = {...options};
         this.canvas = this.renderer.createElement('canvas');
