@@ -386,25 +386,27 @@ var Cahier = {
                     var nBookingsToFinish = -nBookablesDifference;
                     
                     // ToFinish
-                    idsToFinish = Cahier.editedBooking.ids.slice(-nBookingsToFinish);
-                    commentsToFinish.fillArray(nBookingsToFinish, '(Editée)')
+                    // idsToFinish = Cahier.editedBooking.ids.slice(-nBookingsToFinish);
+                    // commentsToFinish.fillArray(nBookingsToFinish, '(Editée)')
+                    // no need to use the terminateBooking function, using the updatePartiall function is enough.
 
                     // ToUpdate
                     idsToUpdate = Cahier.editedBooking.ids.slice(0, -nBookingsToFinish);
                     inputsToUpdate = bookingsInputs;
 
                     // ToUpdate (set end date to start date)
-                    var startDate = Cahier.editedBooking.startDate;
-                    var extraIdsToUpdate = idsToFinish.clone();
+                    // var startDate = Cahier.editedBooking.startDate;
+                    var extraIdsToUpdate = Cahier.editedBooking.ids.slice(-nBookingsToFinish);
                     var extraInputsToUpdate = [];
                     // Note: need to update startDate again since otherwise it gets automatically set to the current time
-                    var input = {startDate: currentDate, endDate: currentDate, bookable: null}; 
+                    var input = {startDate: currentDate, endDate: currentDate, bookable: null, endComment: "(Editée)"}; 
                     extraInputsToUpdate.fillArray(extraIdsToUpdate.length, input);
+
                     // append
                     idsToUpdate = idsToUpdate.concat(extraIdsToUpdate);
                     inputsToUpdate = inputsToUpdate.concat(extraInputsToUpdate);
 
-                    console.log("Editing: need to terminate and update", -nBookablesDifference, "old booking(s) (set startDate=endDate).")
+                    console.log("Editing: need to update (i.e. terminating)", -nBookablesDifference, "old booking(s) (set startDate=endDate).")
                 }
                 // Strictly more bookables as the (old) original booking --> Need to create additional bookings
                 else if (nBookablesDifference > 0) {
@@ -430,7 +432,6 @@ var Cahier = {
 
                 // Steps:
                 // - Terminate the bookings due to unavailable bookables
-                // - Delete the additional bookings if needed
                 // - Create new bookings if needed
                 // - Update the remaining ones
                 // - Set end date to start date if terminated old bookings
