@@ -34,6 +34,7 @@ import {registerLocaleData} from '@angular/common';
 import localeFRCH from '@angular/common/locales/fr-CH';
 import localeDECH from '@angular/common/locales/de-CH';
 import {provideRouter, withRouterConfig} from '@angular/router';
+import {MAT_TABS_CONFIG, MatTabsConfig} from '@angular/material/tabs';
 
 if (environment.production) {
     enableProdMode();
@@ -132,6 +133,12 @@ bootstrapApplication(AppComponent, {
             useValue: {
                 formFieldAppearance: 'fill',
             } satisfies MatPaginatorDefaultOptions,
+        },
+        {
+            provide: MAT_TABS_CONFIG,
+            useValue: {
+                stretchTabs: false,
+            } satisfies MatTabsConfig,
         },
         {provide: LOCALE_ID, useValue: 'fr-CH'},
         {
