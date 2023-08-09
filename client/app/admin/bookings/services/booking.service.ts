@@ -21,6 +21,7 @@ import {
     BookingType,
     BookingVariables,
     CreateBooking,
+    CreateBookingVariables,
     DeleteBookings,
     DeleteBookingsVariables,
     JoinType,
@@ -40,8 +41,8 @@ import {
     formatIsoDateTime,
     FormValidators,
     NaturalAbstractModelService,
-    NaturalEnumService,
     NaturalDebounceService,
+    NaturalEnumService,
 } from '@ecodev/natural';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 
@@ -53,8 +54,8 @@ export class BookingService extends NaturalAbstractModelService<
     BookingVariables,
     Bookings['bookings'],
     BookingsVariables,
-    any,
-    any,
+    CreateBooking['createBooking'],
+    CreateBookingVariables,
     UpdateBooking['updateBooking'],
     UpdateBookingVariables,
     DeleteBookings,
@@ -267,18 +268,15 @@ export class BookingService extends NaturalAbstractModelService<
         owner: {id: string},
         booking: BookingPartialInput = {},
     ): Observable<CreateBooking['createBooking']> {
-        if (!booking.startDate) {
-            booking.startDate = formatIsoDateTime(new Date());
-        }
+        const finalBooking: BookingInput = {
+            ...booking,
+            startDate: booking.startDate ? booking.startDate : formatIsoDateTime(new Date()),
+            status: booking.status ? booking.status : BookingStatus.application,
+            owner: owner ? owner.id : null,
+            bookable: bookable ? bookable.id : null,
+        };
 
-        if (!booking.status) {
-            booking.status = BookingStatus.application;
-        }
-
-        booking.owner = owner ? owner.id : null;
-        booking.bookable = bookable ? bookable.id : null;
-
-        return this.create(booking);
+        return this.create(finalBooking);
     }
 
     public override getPartialVariablesForAll(): Observable<Partial<BookingsVariables>> {

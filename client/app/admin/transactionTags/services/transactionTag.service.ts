@@ -33,8 +33,8 @@ export class TransactionTagService extends NaturalAbstractModelService<
     CreateTransactionTagVariables,
     UpdateTransactionTag['updateTransactionTag'],
     UpdateTransactionTagVariables,
-    any,
-    any
+    never,
+    never
 > {
     public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
         super(

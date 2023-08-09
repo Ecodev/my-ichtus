@@ -14,14 +14,14 @@ import {NaturalAbstractModelService, NaturalDebounceService} from '@ecodev/natur
     providedIn: 'root',
 })
 export class AccountingDocumentService extends NaturalAbstractModelService<
-    any,
-    any,
-    any,
-    any,
+    never,
+    never,
+    never,
+    never,
     CreateAccountingDocument['createAccountingDocument'],
     CreateAccountingDocumentVariables,
-    any,
-    any,
+    never,
+    never,
     DeleteAccountingDocument,
     DeleteAccountingDocumentVariables
 > {

@@ -20,16 +20,16 @@ export const createImageMutation = gql`
     providedIn: 'root',
 })
 export class ImageService extends NaturalAbstractModelService<
-    any,
-    any,
-    any,
-    any,
+    never,
+    never,
+    never,
+    never,
     CreateImage['createImage'],
     CreateImageVariables,
-    any,
-    any,
-    any,
-    any
+    never,
+    never,
+    never,
+    never
 > {
     public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
         super(apollo, naturalDebounceService, 'image', null, null, createImageMutation, null, null);

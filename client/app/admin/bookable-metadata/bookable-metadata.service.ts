@@ -22,12 +22,12 @@ import {
     providedIn: 'root',
 })
 export class BookableMetadataService extends NaturalAbstractModelService<
-    any,
-    any,
+    never,
+    never,
     BookableMetadatas['bookableMetadatas'],
     BookableMetadatasVariables,
-    any,
-    any,
+    never,
+    never,
     UpdateBookableMetadata['updateBookableMetadata'],
     UpdateBookableMetadataVariables,
     DeleteBookableMetadatas,

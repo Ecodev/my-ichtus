@@ -8,16 +8,16 @@ import {NaturalAbstractModelService, NaturalDebounceService} from '@ecodev/natur
     providedIn: 'root',
 })
 export class PricedBookingService extends NaturalAbstractModelService<
-    any,
-    any,
+    never,
+    never,
     Bookings['bookings'],
     BookingsVariables,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any
+    never,
+    never,
+    never,
+    never,
+    never,
+    never
 > {
     public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
         super(apollo, naturalDebounceService, 'booking', null, pricedBookingsQuery, null, null, null);
