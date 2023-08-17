@@ -31,7 +31,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
-import {NgIf, AsyncPipe, DatePipe} from '@angular/common';
+import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-users',
@@ -39,7 +39,7 @@ import {NgIf, AsyncPipe, DatePipe} from '@angular/common';
     styleUrls: ['./users.component.scss'],
     standalone: true,
     imports: [
-        NgIf,
+        CommonModule,
         FlexModule,
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
@@ -54,8 +54,6 @@ import {NgIf, AsyncPipe, DatePipe} from '@angular/common';
         MatPaginatorModule,
         NaturalFixedButtonComponent,
         RouterLink,
-        AsyncPipe,
-        DatePipe,
         NaturalCapitalizePipe,
         NaturalEnumPipe,
         NaturalSwissDatePipe,

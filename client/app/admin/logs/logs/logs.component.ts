@@ -16,7 +16,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
-import {NgIf, DatePipe} from '@angular/common';
+import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-logs',
@@ -24,7 +24,7 @@ import {NgIf, DatePipe} from '@angular/common';
     styleUrls: ['./logs.component.scss'],
     standalone: true,
     imports: [
-        NgIf,
+        CommonModule,
         FlexModule,
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
@@ -34,7 +34,6 @@ import {NgIf, DatePipe} from '@angular/common';
         MatTooltipModule,
         MatProgressSpinnerModule,
         MatPaginatorModule,
-        DatePipe,
     ],
 })
 export class LogsComponent extends NaturalAbstractList<LogService> implements OnInit {

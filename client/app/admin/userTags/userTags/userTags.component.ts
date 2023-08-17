@@ -17,7 +17,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
-import {NgIf} from '@angular/common';
+import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-user-tags',
@@ -25,7 +25,7 @@ import {NgIf} from '@angular/common';
     styleUrls: ['./userTags.component.scss'],
     standalone: true,
     imports: [
-        NgIf,
+        CommonModule,
         FlexModule,
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,

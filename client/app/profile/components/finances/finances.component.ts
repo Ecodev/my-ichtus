@@ -29,7 +29,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
-import {NgIf, AsyncPipe, DatePipe} from '@angular/common';
+import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-finances',
@@ -37,7 +37,7 @@ import {NgIf, AsyncPipe, DatePipe} from '@angular/common';
     styleUrls: ['./finances.component.scss'],
     standalone: true,
     imports: [
-        NgIf,
+        CommonModule,
         FlexModule,
         MatFormFieldModule,
         MatInputModule,
@@ -54,8 +54,6 @@ import {NgIf, AsyncPipe, DatePipe} from '@angular/common';
         MoneyComponent,
         MatProgressSpinnerModule,
         MatPaginatorModule,
-        AsyncPipe,
-        DatePipe,
         NaturalCapitalizePipe,
         NaturalEnumPipe,
     ],

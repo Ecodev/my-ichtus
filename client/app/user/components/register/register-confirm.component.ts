@@ -16,7 +16,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {AddressComponent} from '../../../shared/components/address/address.component';
 import {PasswordComponent} from '../password/password.component';
 import {MatDividerModule} from '@angular/material/divider';
-import {NgIf, CurrencyPipe} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -35,7 +35,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
         MatInputModule,
         MatIconModule,
         NaturalIconDirective,
-        NgIf,
+        CommonModule,
         MatDividerModule,
         PasswordComponent,
         AddressComponent,
@@ -44,7 +44,6 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
         MatCheckboxModule,
         _MatCheckboxRequiredValidatorModule,
         MatButtonModule,
-        CurrencyPipe,
     ],
 })
 export class RegisterConfirmComponent extends RegisterComponent implements OnInit {

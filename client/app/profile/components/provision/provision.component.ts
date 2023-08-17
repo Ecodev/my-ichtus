@@ -9,7 +9,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
-import {NgIf, CurrencyPipe} from '@angular/common';
+import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-provision',
@@ -18,7 +18,7 @@ import {NgIf, CurrencyPipe} from '@angular/common';
     standalone: true,
     imports: [
         MatDialogModule,
-        NgIf,
+        CommonModule,
         FlexModule,
         MatButtonModule,
         MatFormFieldModule,
@@ -26,7 +26,6 @@ import {NgIf, CurrencyPipe} from '@angular/common';
         FormsModule,
         ReactiveFormsModule,
         BvrComponent,
-        CurrencyPipe,
     ],
 })
 export class ProvisionComponent {

@@ -6,7 +6,7 @@ import {FileModel, WithId, NaturalFileComponent, NaturalIconDirective} from '@ec
 import {tap} from 'rxjs/operators';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-import {NgFor, NgIf} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
@@ -14,7 +14,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
     templateUrl: './accounting-documents.component.html',
     styleUrls: ['./accounting-documents.component.scss'],
     standalone: true,
-    imports: [FlexModule, NgFor, NaturalFileComponent, NgIf, MatButtonModule, MatIconModule, NaturalIconDirective],
+    imports: [FlexModule, CommonModule, NaturalFileComponent, MatButtonModule, MatIconModule, NaturalIconDirective],
 })
 export class AccountingDocumentsComponent implements OnInit {
     @Input({required: true}) public model!: Transaction['transaction'] | ExpenseClaim['expenseClaim'];

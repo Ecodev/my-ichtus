@@ -17,7 +17,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
-import {NgIf, NgFor, AsyncPipe, CurrencyPipe} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
@@ -27,20 +27,17 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
     standalone: true,
     imports: [
         FlexModule,
-        NgIf,
+        CommonModule,
         MatButtonModule,
         MatTableModule,
         MatIconModule,
         NaturalIconDirective,
-        NgFor,
         NaturalAvatarComponent,
         RouterLink,
         MatTabsModule,
         RouterLinkActive,
         RouterOutlet,
         ExtendedModule,
-        AsyncPipe,
-        CurrencyPipe,
         NaturalEnumPipe,
     ],
 })

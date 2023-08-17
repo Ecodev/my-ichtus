@@ -20,7 +20,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTableModule} from '@angular/material/table';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
-import {CurrencyPipe, NgIf} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 export type EditableTransactionLinesInput =
@@ -36,7 +36,7 @@ export type EditableTransactionLinesInput =
     styleUrls: ['./editable-transaction-lines.component.scss'],
     standalone: true,
     imports: [
-        NgIf,
+        CommonModule,
         FlexModule,
         FormsModule,
         ReactiveFormsModule,
@@ -50,7 +50,6 @@ export type EditableTransactionLinesInput =
         MatButtonModule,
         MatIconModule,
         NaturalIconDirective,
-        CurrencyPipe,
     ],
 })
 export class EditableTransactionLinesComponent extends NaturalAbstractEditableList<

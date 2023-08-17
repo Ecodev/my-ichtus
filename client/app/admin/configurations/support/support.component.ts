@@ -15,7 +15,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {NaturalEditorComponent} from '@ecodev/natural-editor';
 import {FormsModule} from '@angular/forms';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {NgIf} from '@angular/common';
+import {CommonModule} from '@angular/common';
 
 export type SupportComponentData = {
     configurationKey: string;
@@ -30,7 +30,7 @@ export type SupportComponentData = {
     standalone: true,
     imports: [
         MatDialogModule,
-        NgIf,
+        CommonModule,
         MatSlideToggleModule,
         FormsModule,
         NaturalEditorComponent,

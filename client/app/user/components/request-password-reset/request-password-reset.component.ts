@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ifValid, NaturalAlertService, validateAllFormControls, NaturalIconDirective} from '@ecodev/natural';
 import {MatButtonModule} from '@angular/material/button';
-import {NgIf} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -24,7 +24,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
         MatInputModule,
         MatIconModule,
         NaturalIconDirective,
-        NgIf,
+        CommonModule,
         MatButtonModule,
     ],
 })

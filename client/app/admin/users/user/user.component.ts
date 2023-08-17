@@ -56,7 +56,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
-import {NgIf} from '@angular/common';
+import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-user',
@@ -67,7 +67,7 @@ import {NgIf} from '@angular/common';
         FormsModule,
         ReactiveFormsModule,
         NaturalDetailHeaderComponent,
-        NgIf,
+        CommonModule,
         MoneyComponent,
         MatTabsModule,
         NaturalLinkableTabDirective,

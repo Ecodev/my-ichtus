@@ -38,7 +38,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
-import {CurrencyPipe, NgIf} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DuplicatedTransactionResolve} from '../transaction';
 
@@ -51,7 +51,7 @@ import {DuplicatedTransactionResolve} from '../transaction';
         FormsModule,
         ReactiveFormsModule,
         NaturalDetailHeaderComponent,
-        NgIf,
+        CommonModule,
         MoneyComponent,
         MatTabsModule,
         NaturalLinkableTabDirective,
@@ -74,7 +74,6 @@ import {DuplicatedTransactionResolve} from '../transaction';
         MatIconModule,
         NaturalIconDirective,
         EcoFabSpeedDialActionsComponent,
-        CurrencyPipe,
     ],
 })
 export class TransactionComponent extends NaturalAbstractDetail<TransactionService> implements OnInit {

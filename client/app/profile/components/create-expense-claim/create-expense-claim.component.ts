@@ -8,7 +8,7 @@ import {EMPTY, Observable} from 'rxjs';
 import {TextFieldModule} from '@angular/cdk/text-field';
 import {MatOptionModule} from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
-import {NgIf, NgFor} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -25,10 +25,9 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
         ReactiveFormsModule,
         MatFormFieldModule,
         MatInputModule,
-        NgIf,
+        CommonModule,
         MatSelectModule,
         MatOptionModule,
-        NgFor,
         TextFieldModule,
         AccountingDocumentsComponent,
         NaturalFixedButtonComponent,

@@ -10,7 +10,7 @@ import {NaturalIconDirective} from '@ecodev/natural';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {NavigationsComponent} from '../shared/components/navigations/navigations.component';
-import {NgIf, AsyncPipe} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
@@ -20,13 +20,12 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
     standalone: true,
     imports: [
         FlexModule,
-        NgIf,
+        CommonModule,
         NavigationsComponent,
         MatButtonModule,
         RouterLink,
         MatIconModule,
         NaturalIconDirective,
-        AsyncPipe,
     ],
 })
 export class DashboardComponent {

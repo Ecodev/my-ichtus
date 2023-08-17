@@ -33,7 +33,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
 import {RouterLink} from '@angular/router';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
-import {NgIf, NgFor, AsyncPipe} from '@angular/common';
+import {CommonModule} from '@angular/common';
 
 type AccountingDialogData = never;
 type AccountingDialogResult = Date;
@@ -44,10 +44,9 @@ type AccountingDialogResult = Date;
     styleUrls: ['./accounts.component.scss'],
     standalone: true,
     imports: [
-        NgIf,
+        CommonModule,
         FlexModule,
         RouterLink,
-        NgFor,
         MatButtonModule,
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
@@ -60,7 +59,6 @@ type AccountingDialogResult = Date;
         MatProgressSpinnerModule,
         MatPaginatorModule,
         NaturalFixedButtonComponent,
-        AsyncPipe,
         NaturalCapitalizePipe,
         NaturalEnumPipe,
         NaturalSwissDatePipe,

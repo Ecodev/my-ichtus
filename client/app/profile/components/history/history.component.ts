@@ -8,7 +8,7 @@ import {CurrentUserForProfile, TransactionLines} from '../../../shared/generated
 import {takeUntil} from 'rxjs/operators';
 import {TransactionAmountComponent} from '../../../shared/components/transaction-amount/transaction-amount.component';
 import {MatTableModule} from '@angular/material/table';
-import {NgIf, DatePipe} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
@@ -16,7 +16,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
     templateUrl: './history.component.html',
     styleUrls: ['./history.component.scss'],
     standalone: true,
-    imports: [FlexModule, NgIf, MatTableModule, TransactionAmountComponent, DatePipe],
+    imports: [FlexModule, CommonModule, MatTableModule, TransactionAmountComponent],
 })
 export class HistoryComponent extends NaturalAbstractController implements OnInit {
     @Input({required: true}) public viewer!: NonNullable<CurrentUserForProfile['viewer']>;

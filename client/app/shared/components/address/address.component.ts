@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CountryService} from './country.service';
 import {UntypedFormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NaturalSelectComponent} from '@ecodev/natural';
-import {NgIf} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
@@ -18,7 +18,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
         ReactiveFormsModule,
         MatFormFieldModule,
         MatInputModule,
-        NgIf,
+        CommonModule,
         NaturalSelectComponent,
     ],
 })

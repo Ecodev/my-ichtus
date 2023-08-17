@@ -10,7 +10,7 @@ import {
     NaturalFileSelectDirective,
     NaturalIconDirective,
 } from '@ecodev/natural';
-import {NgIf} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
@@ -20,7 +20,14 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
     templateUrl: './import.component.html',
     styleUrls: ['./import.component.scss'],
     standalone: true,
-    imports: [FlexModule, MatButtonModule, NaturalFileSelectDirective, MatIconModule, NaturalIconDirective, NgIf],
+    imports: [
+        FlexModule,
+        MatButtonModule,
+        NaturalFileSelectDirective,
+        MatIconModule,
+        NaturalIconDirective,
+        CommonModule,
+    ],
 })
 export class ImportComponent implements OnInit {
     /**

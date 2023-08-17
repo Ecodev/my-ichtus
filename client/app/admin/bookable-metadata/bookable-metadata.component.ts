@@ -11,7 +11,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 import {MatTableModule} from '@angular/material/table';
-import {NgIf} from '@angular/common';
+import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-bookable-metadata',
@@ -19,7 +19,7 @@ import {NgIf} from '@angular/common';
     styleUrls: ['./bookable-metadata.component.scss'],
     standalone: true,
     imports: [
-        NgIf,
+        CommonModule,
         MatTableModule,
         FlexModule,
         MatFormFieldModule,

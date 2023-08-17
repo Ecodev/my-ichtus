@@ -10,7 +10,7 @@ import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDividerModule} from '@angular/material/divider';
-import {NgIf} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {CardComponent} from '../../../shared/components/card/card.component';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
@@ -22,7 +22,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
     imports: [
         FlexModule,
         CardComponent,
-        NgIf,
+        CommonModule,
         NaturalAvatarComponent,
         MatDividerModule,
         MatFormFieldModule,

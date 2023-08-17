@@ -28,7 +28,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
 import {ParticleSwitchComponent} from '../../../shared/components/particle-switch/particle-switch.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {NgIf, NgFor, AsyncPipe} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
@@ -46,16 +46,14 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
         RouterLink,
         MatIconModule,
         NaturalIconDirective,
-        NgIf,
+        CommonModule,
         NaturalSidenavContentComponent,
         NaturalAvatarComponent,
-        NgFor,
         MatTooltipModule,
         ParticleSwitchComponent,
         MoneyComponent,
         MatDividerModule,
         RouterOutlet,
-        AsyncPipe,
         NaturalCapitalizePipe,
         NaturalEnumPipe,
     ],

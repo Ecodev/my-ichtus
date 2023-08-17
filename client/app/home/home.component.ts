@@ -16,7 +16,7 @@ import {FormsModule} from '@angular/forms';
 import {ExtendedModule} from '@ngbracket/ngx-layout/extended';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-import {NgIf} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
@@ -28,7 +28,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
     imports: [
         FlexModule,
         MatToolbarModule,
-        NgIf,
+        CommonModule,
         MatButtonModule,
         MatIconModule,
         NaturalIconDirective,

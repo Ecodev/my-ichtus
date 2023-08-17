@@ -27,14 +27,14 @@ import {
     NaturalEllipsisPipe,
 } from '@ecodev/natural';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
-import {NgIf, AsyncPipe, DatePipe} from '@angular/common';
+import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-safety',
     templateUrl: '../admin/bookings/bookings/bookings.component.html',
     standalone: true,
     imports: [
-        NgIf,
+        CommonModule,
         FlexModule,
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
@@ -53,8 +53,6 @@ import {NgIf, AsyncPipe, DatePipe} from '@angular/common';
         MatPaginatorModule,
         NaturalFixedButtonComponent,
         RouterLink,
-        AsyncPipe,
-        DatePipe,
         NaturalCapitalizePipe,
         NaturalEnumPipe,
         NaturalSwissDatePipe,

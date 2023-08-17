@@ -1,12 +1,12 @@
 import {Component, Input} from '@angular/core';
 import Big from 'big.js';
-import {CurrencyPipe, NgIf} from '@angular/common';
+import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-money',
     templateUrl: './money.component.html',
     standalone: true,
-    imports: [NgIf, CurrencyPipe],
+    imports: [CommonModule],
 })
 export class MoneyComponent {
     /**

@@ -25,7 +25,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
-import {NgIf, AsyncPipe} from '@angular/common';
+import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-expense-claims',
@@ -33,7 +33,7 @@ import {NgIf, AsyncPipe} from '@angular/common';
     styleUrls: ['./expenseClaims.component.scss'],
     standalone: true,
     imports: [
-        NgIf,
+        CommonModule,
         FlexModule,
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
@@ -50,7 +50,6 @@ import {NgIf, AsyncPipe} from '@angular/common';
         MatPaginatorModule,
         NaturalFixedButtonComponent,
         RouterLink,
-        AsyncPipe,
         NaturalCapitalizePipe,
         NaturalEnumPipe,
         NaturalSwissDatePipe,

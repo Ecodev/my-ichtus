@@ -47,7 +47,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatButtonModule} from '@angular/material/button';
-import {NgIf, DatePipe} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
@@ -61,7 +61,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         ReactiveFormsModule,
         NaturalDetailHeaderComponent,
         FlexModule,
-        NgIf,
+        CommonModule,
         MatButtonModule,
         MatTabsModule,
         NaturalLinkableTabDirective,
@@ -81,7 +81,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         TransactionLinesComponent,
         BookingsWithOwnerComponent,
         NaturalFixedButtonDetailComponent,
-        DatePipe,
     ],
 })
 export class BookableComponent extends NaturalAbstractDetail<BookableService> implements OnInit {

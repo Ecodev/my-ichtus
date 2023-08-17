@@ -28,7 +28,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {ExtendedModule} from '@ngbracket/ngx-layout/extended';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
-import {NgIf, NgClass, NgFor, CurrencyPipe} from '@angular/common';
+import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-usage-bookables',
@@ -36,7 +36,7 @@ import {NgIf, NgClass, NgFor, CurrencyPipe} from '@angular/common';
     styleUrls: ['./bookables.component.scss'],
     standalone: true,
     imports: [
-        NgIf,
+        CommonModule,
         FlexModule,
         NaturalColumnsPickerComponent,
         ExtendedModule,
@@ -46,16 +46,13 @@ import {NgIf, NgClass, NgFor, CurrencyPipe} from '@angular/common';
         NaturalFileComponent,
         NaturalTableButtonComponent,
         MatTooltipModule,
-        NgClass,
         FlagComponent,
-        NgFor,
         NaturalAvatarComponent,
         MatButtonModule,
         RouterLink,
         MatProgressSpinnerModule,
         MatPaginatorModule,
         NaturalFixedButtonComponent,
-        CurrencyPipe,
         NaturalSwissDatePipe,
     ],
 })

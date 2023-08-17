@@ -7,7 +7,7 @@ import {
     NaturalFixedButtonDetailComponent,
 } from '@ecodev/natural';
 import {BookableTagService} from '../services/bookableTag.service';
-import {NgIf} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
@@ -28,7 +28,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         FlexModule,
         MatFormFieldModule,
         MatInputModule,
-        NgIf,
+        CommonModule,
         NaturalStampComponent,
         NaturalFixedButtonDetailComponent,
     ],

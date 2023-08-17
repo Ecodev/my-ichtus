@@ -3,14 +3,14 @@ import {AccountType, MinimalAccount, TransactionLine} from '../../generated-type
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
 import {RouterLink} from '@angular/router';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {NgIf, CurrencyPipe} from '@angular/common';
+import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-transaction-amount',
     templateUrl: './transaction-amount.component.html',
     styleUrls: ['./transaction-amount.component.scss'],
     standalone: true,
-    imports: [NgIf, MatTooltipModule, RouterLink, CurrencyPipe],
+    imports: [CommonModule, MatTooltipModule, RouterLink],
 })
 export class TransactionAmountComponent implements OnChanges {
     @Input() public transactionLine: TransactionLine['transactionLine'] | null = null;

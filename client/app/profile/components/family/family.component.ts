@@ -14,7 +14,7 @@ import {MatExpansionPanel, MatExpansionModule} from '@angular/material/expansion
 import {first} from 'rxjs/operators';
 import {CurrentUserForProfile, Users} from '../../../shared/generated-types';
 import {FamilyMemberComponent} from '../family-member/family-member.component';
-import {NgFor, NgIf} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
@@ -28,9 +28,8 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
         MatButtonModule,
         RouterLink,
         MatExpansionModule,
-        NgFor,
+        CommonModule,
         FamilyMemberComponent,
-        NgIf,
         NaturalFixedButtonComponent,
     ],
 })
