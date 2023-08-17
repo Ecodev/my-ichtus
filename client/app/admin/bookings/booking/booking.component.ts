@@ -19,22 +19,22 @@ import {
     ExtractVall,
     formatIsoDateTime,
     NaturalAbstractDetail,
-    NaturalSearchSelections,
     NaturalDetailHeaderComponent,
+    NaturalFixedButtonDetailComponent,
     NaturalLinkableTabDirective,
+    NaturalSearchSelections,
     NaturalSelectComponent,
     NaturalSelectEnumComponent,
     NaturalStampComponent,
-    NaturalFixedButtonDetailComponent,
     NaturalSwissDatePipe,
 } from '@ecodev/natural';
 import {
+    availability,
     code,
     initialPrice,
     name,
     periodicPrice,
     select,
-    availability,
 } from '../../bookables/bookables/parent.component';
 import {UsageBookablesComponent} from '../../bookables/bookables/usage-bookables.component';
 import {TextFieldModule} from '@angular/cdk/text-field';
@@ -150,12 +150,19 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
         }
     }
 
-    public endBooking(): void {
+    public terminateBooking(): void {
         this.bookingService.terminateBooking(this.data.model.id).subscribe(() => {
             const endDate = this.form.get('endDate');
             if (endDate) {
                 endDate.setValue(formatIsoDateTime(new Date()));
             }
+        });
+    }
+
+    public unTerminateBooking(): void {
+        this.bookingService.updatePartially({id: this.data.model.id, endDate: null}).subscribe(() => {
+            this.data.model.endDate = null;
+            this.form.controls.endDate.setValue(null);
         });
     }
 

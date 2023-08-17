@@ -11,9 +11,18 @@
                 [disabled]="!data.model.permissions.update"
                 mat-flat-button
                 color="warn"
-                (click)="endBooking()"
+                (click)="terminateBooking()"
             >
                 Terminer
+            </button>
+            <button
+                *ngIf="data.model.id && form.get('endDate')?.value && isAdminApproved()"
+                [disabled]="!data.model.permissions.update"
+                mat-flat-button
+                color="warn"
+                (click)="unTerminateBooking()"
+            >
+                Annuler la terminaison du cours
             </button>
         </div>
     </natural-detail-header>
