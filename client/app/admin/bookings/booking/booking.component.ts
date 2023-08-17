@@ -164,7 +164,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
         const status = this.form.get('status');
         if (status) {
             status.setValue(BookingStatus.processed);
-            this.update();
+            this.update(true);
         }
     }
 
@@ -244,7 +244,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService> impl
                 if (status) {
                     status.setValue(BookingStatus.processed);
                 }
-                this.update();
+                this.update(true);
             });
         });
     }
