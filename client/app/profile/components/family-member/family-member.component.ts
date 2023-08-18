@@ -53,7 +53,7 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
     @Output() public readonly updated = new EventEmitter<UpdateUser['updateUser']>();
     public loaded = false;
 
-    public constructor(public readonly userService: FamilyUserService) {
+    public constructor(userService: FamilyUserService) {
         super('user', userService);
     }
 
@@ -96,7 +96,7 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
 
     protected override postCreate(model: CreateUser['createUser']): Observable<unknown> {
         if (model.login) {
-            this.userService.requestPasswordReset(model.login).subscribe(() => {
+            this.service.requestPasswordReset(model.login).subscribe(() => {
                 this.alertService.info(
                     'Un mail avec les instructions a été envoyé à ' + (model.email || model.owner?.email),
                     5000,
@@ -115,7 +115,7 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
             .confirm(`Détacher ${this.user.name} du ménage`, explanation, 'Détacher du ménage')
             .subscribe(confirmed => {
                 if (confirmed) {
-                    this.userService.leaveFamily(this.user).subscribe(() => {
+                    this.service.leaveFamily(this.user).subscribe(() => {
                         this.removed.next();
                         const message = 'La personne a été détachée du ménage';
                         this.alertService.info(message, 5000);
