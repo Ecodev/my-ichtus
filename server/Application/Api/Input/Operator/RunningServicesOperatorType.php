@@ -48,9 +48,10 @@ class RunningServicesOperatorType extends AbstractOperator
             WHERE
                 booking.owner_id = $user
                 AND booking.status IN ($status)
-                AND 
+                AND booking.end_date IS NULL
+                AND
                 (
-                    (bookable.booking_type IN ($bookingTypes) AND booking.end_date IS NULL)
+                    bookable.booking_type IN ($bookingTypes)
                     OR
                     (bookable.booking_type IN ($courses) AND bookable.is_active)
                 )

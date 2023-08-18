@@ -235,7 +235,8 @@ REPLACE INTO booking (id, owner_id, bookable_id, status, start_date, end_date, e
 (4021, 1012, 3038, 'application', '2021-06-01 13:32:51', NULL, '', '', 'demande pas approuvée'),
 (4021, 1011, 3002, 'application', '2021-06-01 13:32:51', NULL, '', '', 'demande pas approuvée'),
 (4022, 1009, 3034, 'processed', '2015-06-01 13:32:51', NULL, '', '', 'Réservation qui a bien eu lieu durant l''ancien cours'),
-(4023, 1009, 3032, 'processed', '2021-06-01 13:32:51', NULL, '', '', 'Réservation pour un cours qui va avoir lieu');
+(4023, 1009, 3032, 'processed', '2021-06-01 13:32:51', NULL, '', '', 'Réservation pour un cours qui va avoir lieu'),
+(4024, 1009, 3032, 'processed', '2021-06-01 13:32:51', '2021-06-02 13:32:51', '', '', 'Réservation qui a été annulée par l''utilisateur');
 
 REPLACE INTO expense_claim (id, creation_date, owner_id, reviewer_id, amount, status, name, description, type, sector) VALUES
 (7000, '2019-01-10', 1002, NULL, 20000, 'new', 'achats Jumbo', 'outils pour voilier', 'expenseClaim', 'voile légère'),
