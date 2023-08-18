@@ -15,9 +15,9 @@ class HasBookingStatusOperatorTypeTest extends OperatorType
         yield 'users with application' => [3, [BookingStatusType::APPLICATION], null];
         yield 'users with booked' => [4, [BookingStatusType::BOOKED], null];
         yield 'users with both' => [4, [BookingStatusType::BOOKED], null];
-        yield 'users with processed' => [0, [BookingStatusType::PROCESSED], null];
-        yield 'users without application' => [4, [BookingStatusType::APPLICATION], true];
-        yield 'users with any booking status' => [5, null, true];
+        yield 'users with processed' => [1, [BookingStatusType::PROCESSED], null];
+        yield 'users without application' => [5, [BookingStatusType::APPLICATION], true];
+        yield 'users with any booking status' => [6, null, true];
     }
 
     /**

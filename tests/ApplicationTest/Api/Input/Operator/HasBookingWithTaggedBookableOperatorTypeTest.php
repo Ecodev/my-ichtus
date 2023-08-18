@@ -17,12 +17,12 @@ class HasBookingWithTaggedBookableOperatorTypeTest extends OperatorType
         yield 'users renting any Voile légère' => [1, [6005], null];
         yield 'users renting a bookable with at least one of those tags' => [3, [6005, 6007], null];
         yield 'bookable tag without booking' => [0, [6004], null];
-        yield 'users renting anything else than Stockage' => [4, [6008], true];
-        yield 'users renting anything else than Casier' => [4, [6010], true];
-        yield 'users renting anything else than Stockage demande' => [4, [6028], true];
-        yield 'users renting anything else than Armoire' => [5, [6009], true];
-        yield 'users renting anything else than Flotteurs' => [5, [6011], true];
-        yield 'users renting a bookable with any tag' => [5, null, true];
+        yield 'users renting anything else than Stockage' => [5, [6008], true];
+        yield 'users renting anything else than Casier' => [5, [6010], true];
+        yield 'users renting anything else than Stockage demande' => [5, [6028], true];
+        yield 'users renting anything else than Armoire' => [6, [6009], true];
+        yield 'users renting anything else than Flotteurs' => [6, [6011], true];
+        yield 'users renting a bookable with any tag' => [6, null, true];
         yield 'users renting a bookable without any tag (fond de réparation)' => [1, null, false];
     }
 

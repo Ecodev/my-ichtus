@@ -31,6 +31,8 @@ class OwnerTest extends AbstractSorting
             4019,
             4020,
             4021,
+            4022,
+            4023,
         ], $result);
     }
 }

@@ -409,24 +409,11 @@ export class UserService
                     {
                         conditions: [
                             {
-                                owner: {equal: {value: user.id}},
-                                status: {in: {values: [BookingStatus.booked, BookingStatus.processed]}},
-                                endDate: {null: {}},
+                                custom: {runningServices: {user: user.id}},
                             },
                         ],
                         joins: {
-                            bookable: {
-                                conditions: [
-                                    {
-                                        bookingType: {
-                                            in: {
-                                                values: [BookingType.application, BookingType.self_approved],
-                                                not: true,
-                                            },
-                                        },
-                                    },
-                                ],
-                            },
+                            bookable: {},
                         },
                     },
                 ],

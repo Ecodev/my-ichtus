@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Model;
 
+use Application\Api\Input\Operator\RunningServicesOperatorType;
 use Application\DBAL\Types\BookingStatusType;
 use Application\Repository\BookingRepository;
 use Application\Service\Invoicer;
@@ -20,6 +21,7 @@ use Money\Money;
 #[API\Sorting(\Application\Api\Input\Sorting\Bookable::class)]
 #[ORM\Entity(BookingRepository::class)]
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: 'owner', inversedBy: 'bookings')])]
+#[API\Filter(field: 'custom', operator: RunningServicesOperatorType::class, type: 'UserID')]
 class Booking extends AbstractModel
 {
     use HasInternalRemarks;

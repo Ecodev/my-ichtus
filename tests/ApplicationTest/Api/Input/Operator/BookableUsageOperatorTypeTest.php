@@ -14,9 +14,9 @@ class BookableUsageOperatorTypeTest extends OperatorType
     {
         yield 'bookables rented by that user' => [9, [1002], false];
         yield 'bookables rented by that other user' => [3, [1008], false];
-        yield 'bookables not rented by that user' => [9, [1008], true];
-        yield 'bookables not rented at all' => [13, [], false];
-        yield 'bookables rented to anybody' => [12, [], true];
+        yield 'bookables not rented by that user' => [10, [1008], true];
+        yield 'bookables not rented at all' => [12, [], false];
+        yield 'bookables rented to anybody' => [13, [], true];
     }
 
     /**
