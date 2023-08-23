@@ -54,6 +54,13 @@ test.describe('accounting', () => {
             runSql(`UPDATE expense_claim
                     SET status = 'new'
                     WHERE name = 'achats Jumbo'`);
+            runSql(`DELETE
+                    FROM transaction
+                    WHERE id IN (SELECT transaction.id
+                                 FROM transaction
+                                          INNER JOIN expense_claim
+                                                     ON transaction.expense_claim_id = expense_claim.id AND
+                                                        expense_claim.name = 'achats Jumbo')`);
 
             // Init processing
             await page.click(bigButton('Administration'));
