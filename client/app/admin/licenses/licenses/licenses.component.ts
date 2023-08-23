@@ -3,11 +3,10 @@ import {
     AvailableColumn,
     NaturalAbstractList,
     NaturalColumnsPickerComponent,
+    NaturalFixedButtonComponent,
     NaturalSearchComponent,
     NaturalTableButtonComponent,
-    NaturalFixedButtonComponent,
 } from '@ecodev/natural';
-import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {LicenseService} from '../services/license.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {RouterLink} from '@angular/router';
@@ -41,6 +40,7 @@ import {CommonModule} from '@angular/common';
 })
 export class LicensesComponent extends NaturalAbstractList<LicenseService> implements OnInit {
     public override availableColumns: AvailableColumn[] = [{id: 'name', label: 'Nom'}];
+
     public constructor(
         licenseService: LicenseService,
         public readonly permissionsService: PermissionsService,
