@@ -10,11 +10,7 @@
             [pDirection]="settings1.pDirection"
             [pColor]="settings1.pColor"
         >
-            <ng-template
-                #firstTemplate
-                [ngTemplateOutlet]="template"
-                [ngTemplateOutletContext]="{data: _data1}"
-            ></ng-template>
+            <ng-template [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{data: _data1}"></ng-template>
         </div>
     </div>
 

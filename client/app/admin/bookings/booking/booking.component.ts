@@ -219,20 +219,6 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
         return false;
     }
 
-    /**
-     * Wherever bookable is a service for example NFT
-     */
-    public isService(): boolean {
-        const bookable = this.form.get('bookable');
-        if (bookable) {
-            return bookable.value.bookableTags.find(
-                (t: BookableTags['bookableTags']['items'][0]) => t.id === BookableTagService.SERVICE,
-            );
-        }
-
-        return false;
-    }
-
     public assignBookable(bookable: UsageBookables['bookables']['items'][0]): void {
         const message =
             'Es-tu certain(e) de vouloir attribuer cette prestation ou espace de stockage ? ' +

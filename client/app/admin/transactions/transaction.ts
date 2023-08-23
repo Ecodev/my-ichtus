@@ -1,8 +1,4 @@
-import {Transaction, TransactionInput, TransactionLineInput} from '../../shared/generated-types';
-
-export interface TransactionResolve {
-    model: Transaction['transaction'];
-}
+import {TransactionInput, TransactionLineInput} from '../../shared/generated-types';
 
 export interface DuplicatedTransactionResolve {
     transaction: TransactionInput;

@@ -43,7 +43,6 @@ export class LicensesComponent extends NaturalAbstractList<LicenseService> imple
     public override availableColumns: AvailableColumn[] = [{id: 'name', label: 'Nom'}];
     public constructor(
         licenseService: LicenseService,
-        naturalSearchFacetsService: NaturalSearchFacetsService,
         public readonly permissionsService: PermissionsService,
     ) {
         super(licenseService);

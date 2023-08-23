@@ -118,26 +118,6 @@ export class BookingService extends NaturalAbstractModelService<
         ],
     };
 
-    public static readonly storageApplication: BookingsVariables = {
-        filter: {
-            groups: [
-                {
-                    conditions: [{status: {equal: {value: BookingStatus.application}}}],
-                    joins: {
-                        bookable: {
-                            conditions: [
-                                {
-                                    bookableTags: {have: {values: [BookableTagService.STORAGE]}},
-                                    bookingType: {equal: {value: BookingType.application}},
-                                },
-                            ],
-                        },
-                    },
-                },
-            ],
-        },
-    };
-
     public static readonly servicesApplication: BookingsVariables = {
         filter: {
             groups: [
