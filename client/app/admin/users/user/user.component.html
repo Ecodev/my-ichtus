@@ -6,7 +6,7 @@
         [listRoute]="['admin', 'user']"
     >
         <app-money
-            *ngIf="data.model.account"
+            *ngIf="isUpdatePage() && data.model.account"
             [amount]="data.model.account.balance"
             sizeClass="mat-headline-4"
         ></app-money>
@@ -178,7 +178,9 @@
                                 />
                                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
-                                <mat-hint *ngIf="data.model.age">Âge: {{ data.model.age }} ans</mat-hint>
+                                <mat-hint *ngIf="isUpdatePage() && data.model.age"
+                                    >Âge: {{ data.model.age }} ans</mat-hint
+                                >
                             </mat-form-field>
                         </div>
 
@@ -223,14 +225,14 @@
                 </div>
 
                 <!-- Bookings -->
-                <mat-divider *ngIf="data.model.id"></mat-divider>
+                <mat-divider *ngIf="isUpdatePage()"></mat-divider>
 
                 <div
                     fxLayout="column"
                     fxLayout.gt-sm="row"
                     fxLayoutGap="0"
                     fxLayoutGap.gt-sm="30px"
-                    *ngIf="data.model.id"
+                    *ngIf="isUpdatePage()"
                 >
                     <div fxFlex="45" fxLayout="column">
                         <h2 class="mat-headline-6">Certifications</h2>
@@ -294,7 +296,7 @@
                 <mat-divider></mat-divider>
 
                 <div fxLayout="column" fxLayoutGap="15px">
-                    <natural-stamp [item]="data.model"></natural-stamp>
+                    <natural-stamp *ngIf="isUpdatePage()" [item]="data.model"></natural-stamp>
 
                     <!-- Welcome session date -->
                     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
@@ -322,17 +324,17 @@
                         </mat-form-field>
                     </div>
 
-                    <div *ngIf="data.model.firstLogin">
+                    <div *ngIf="isUpdatePage() && data.model.firstLogin">
                         <span class="mat-subtitle-2">Première connexion :</span>
                         {{ data.model.firstLogin | swissDate }} ({{ data.model.firstLogin | timeAgo }})
                     </div>
 
-                    <div *ngIf="data.model.lastLogin">
+                    <div *ngIf="isUpdatePage() && data.model.lastLogin">
                         <span class="mat-subtitle-2">Dernière connexion :</span>
                         {{ data.model.lastLogin | swissDate }} ({{ data.model.lastLogin | timeAgo }})
                     </div>
 
-                    <div *ngIf="data.model.resignDate && data.model.status === 'archived'">
+                    <div *ngIf="isUpdatePage() && data.model.resignDate && data.model.status === 'archived'">
                         <span class="mat-subtitle-2">Démission le :</span>
                         {{ data.model.resignDate | swissDate }} ({{ data.model.resignDate | timeAgo }})
                     </div>
@@ -340,14 +342,14 @@
             </div>
         </mat-tab>
 
-        <mat-tab id="family" label="Famille" *ngIf="data.model.id && showFamilyTab">
+        <mat-tab id="family" label="Famille" *ngIf="isUpdatePage() && showFamilyTab">
             <app-users [forcedVariables]="familyVariables" [persistSearch]="false" class="margin-top"></app-users>
         </mat-tab>
 
         <mat-tab
             id="history"
             label="Historique"
-            *ngIf="data.model.account && permissionsService.gteResponsible(viewer)"
+            *ngIf="isUpdatePage() && data.model.account && permissionsService.gteResponsible(viewer)"
         >
             <app-transaction-lines
                 [selectedColumns]="['name', 'bookable', 'transactionDate', 'remark', 'account']"
@@ -361,7 +363,7 @@
         <mat-tab
             id="finances"
             label="Dépenses et remboursements"
-            *ngIf="data.model.id && permissionsService.gteResponsible(viewer)"
+            *ngIf="isUpdatePage() && permissionsService.gteResponsible(viewer)"
         >
             <div fxLayout="column" fxLayoutGap="30px">
                 <div fxLayout="row" fxLayoutGap="10px" class="margin-top">
@@ -401,7 +403,7 @@
             id="services"
             label="Prestations et services"
             *ngIf="
-                data.model.id &&
+                isUpdatePage() &&
                 permissionsService.gteResponsible(viewer) &&
                 [UserStatus.active, UserStatus.new].includes(data.model.status)
             "

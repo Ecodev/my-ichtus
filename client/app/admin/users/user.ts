@@ -1,8 +1,4 @@
-import {User, UserByToken} from '../../shared/generated-types';
-
-export interface UserResolve {
-    model: User['user'];
-}
+import {UserByToken} from '../../shared/generated-types';
 
 export interface UserByTokenResolve {
     model: UserByToken['userByToken'];

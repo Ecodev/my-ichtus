@@ -120,7 +120,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
         ];
     }
 
-    protected override getDefaultForServer(): TransactionLineInput {
+    public override getDefaultForServer(): TransactionLineInput {
         return {
             name: '',
             remarks: '',

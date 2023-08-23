@@ -51,7 +51,7 @@ export class UserTagService extends NaturalAbstractModelService<
         );
     }
 
-    protected override getDefaultForServer(): UserTagInput {
+    public override getDefaultForServer(): UserTagInput {
         return {
             name: '',
             color: '',

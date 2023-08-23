@@ -8,7 +8,7 @@
         <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center">
             <a
                 *ngIf="
-                    data.model.id &&
+                    isUpdatePage() &&
                     data.model.status === ExpenseClaimStatus.new &&
                     data.model.reviewer === null &&
                     permissionsService.gteResponsible(viewer)
@@ -21,7 +21,7 @@
                 <span class="mat-subtitle-2">Approuver</span>
             </a>
             <div
-                *ngIf="data.model.id && data.model.reviewer && !permissionsService.isAdministrator(viewer)"
+                *ngIf="isUpdatePage() && data.model.reviewer && !permissionsService.isAdministrator(viewer)"
                 fxLayout="row"
                 fxLayoutAlign="start center"
             >
@@ -31,7 +31,7 @@
 
             <a
                 *ngIf="
-                    data.model.id &&
+                    isUpdatePage() &&
                     data.model.transactions?.length === 0 &&
                     permissionsService.crud?.transaction.create
                 "
@@ -46,7 +46,7 @@
             </a>
 
             <a
-                *ngIf="data.model.transactions?.length === 1"
+                *ngIf="isUpdatePage() && data.model.transactions?.length === 1"
                 mat-flat-button
                 [routerLink]="['/admin/transaction', data.model.transactions[0].id]"
             >
@@ -54,7 +54,7 @@
             </a>
 
             <a
-                *ngIf="data.model.transactions?.length > 1"
+                *ngIf="isUpdatePage() && data.model.transactions?.length > 1"
                 mat-flat-button
                 [routerLink]="transactionLineService.linkToTransactionLinesForTransactions(data.model.transactions)"
             >
@@ -212,7 +212,7 @@
 
         <mat-divider></mat-divider>
 
-        <natural-stamp [item]="data.model"></natural-stamp>
+        <natural-stamp *ngIf="isUpdatePage()" [item]="data.model"></natural-stamp>
     </div>
 
     <natural-fixed-button-detail

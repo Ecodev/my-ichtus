@@ -46,7 +46,7 @@ export class SelfApprovedBookingComponent implements OnInit {
     ) {}
 
     public ngOnInit(): void {
-        this.booking = this.bookingService.getConsolidatedForClient();
+        this.booking = this.bookingService.getDefaultForServer();
         this.booking.status = BookingStatus.booked;
         this.booking.owner = this.route.snapshot.data.viewer.model;
 

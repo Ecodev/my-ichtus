@@ -74,7 +74,7 @@ export class BookableMetadataComponent implements OnInit {
             const lastItem = this.dataSource.data.items[this.dataSource.data.items.length - 1];
             if (!lastItem || lastItem.name !== '' || lastItem.value !== '') {
                 this.dataSource.push(
-                    this.bookableMetaService.getConsolidatedForClient() as BookableMetadatas['bookableMetadatas']['items'][0],
+                    this.bookableMetaService.getDefaultForServer() as BookableMetadatas['bookableMetadatas']['items'][0],
                 );
             }
         }

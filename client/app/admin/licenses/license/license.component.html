@@ -40,7 +40,7 @@
                     fxLayout.gt-sm="row"
                     fxLayoutGap="0"
                     fxLayoutGap.gt-sm="30px"
-                    *ngIf="data.model.id"
+                    *ngIf="isUpdatePage()"
                 >
                     <div fxFlex="50" fxLayout="column">
                         <h2 class="mat-headline-6">Utilisateurs certifiés</h2>
@@ -82,7 +82,7 @@
                 </div>
 
                 <mat-divider></mat-divider>
-                <natural-stamp [item]="data.model"></natural-stamp>
+                <natural-stamp *ngIf="isUpdatePage()" [item]="data.model"></natural-stamp>
             </div>
         </mat-tab>
     </mat-tab-group>

@@ -49,7 +49,7 @@ export class TransactionTagService extends NaturalAbstractModelService<
         );
     }
 
-    protected override getDefaultForServer(): TransactionTagInput {
+    public override getDefaultForServer(): TransactionTagInput {
         return {
             name: '',
             color: '',

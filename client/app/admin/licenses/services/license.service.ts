@@ -51,7 +51,7 @@ export class LicenseService extends NaturalAbstractModelService<
         );
     }
 
-    protected override getDefaultForServer(): LicenseInput {
+    public override getDefaultForServer(): LicenseInput {
         return {
             name: '',
         };

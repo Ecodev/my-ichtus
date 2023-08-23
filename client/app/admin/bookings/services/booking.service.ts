@@ -36,10 +36,10 @@ import {
 import {Validators} from '@angular/forms';
 import {forkJoin, Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {BookingResolve} from '../booking';
 import {
     formatIsoDateTime,
     FormValidators,
+    IEnum,
     NaturalAbstractModelService,
     NaturalDebounceService,
     NaturalEnumService,
@@ -202,7 +202,7 @@ export class BookingService extends NaturalAbstractModelService<
         );
     }
 
-    protected override getDefaultForServer(): BookingInput {
+    public override getDefaultForServer(): BookingInput {
         return {
             status: BookingStatus.booked,
             owner: null,
@@ -242,14 +242,18 @@ export class BookingService extends NaturalAbstractModelService<
         return observable;
     }
 
-    public override resolve(id: string): Observable<BookingResolve> {
-        const observables = [super.resolve(id), this.enumService.get('BookingStatus')];
-
-        return forkJoin(observables).pipe(
-            map((data: any) => {
+    public override resolve(id: string): Observable<{
+        model: Booking['booking'] | BookingInput;
+        status: IEnum[];
+    }> {
+        return forkJoin({
+            model: super.resolve(id),
+            status: this.enumService.get('BookingStatus'),
+        }).pipe(
+            map(data => {
                 return {
-                    model: data[0].model,
-                    status: data[1],
+                    model: data.model.model,
+                    status: data.status,
                 };
             }),
         );

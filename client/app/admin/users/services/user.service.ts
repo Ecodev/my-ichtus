@@ -171,7 +171,7 @@ export class UserService
         };
     }
 
-    protected override getDefaultForServer(): UserInput {
+    public override getDefaultForServer(): UserInput {
         return {
             login: '',
             email: null,
@@ -181,7 +181,7 @@ export class UserService
             street: '',
             postcode: '',
             locality: '',
-            country: null,
+            country: {id: 1, name: 'Suisse'},
             status: UserStatus.new,
             role: UserRole.member,
             familyRelationship: Relationship.householder,
@@ -203,12 +203,6 @@ export class UserService
             iban: '',
             hasInsurance: false,
             receivesNewsletter: true,
-        };
-    }
-
-    protected override getDefaultForClient(): Literal {
-        return {
-            country: {id: 1, name: 'Suisse'},
         };
     }
 
@@ -477,12 +471,12 @@ export class UserService
             );
     }
 
-    public getUserRolesAvailable(user: User['user'] | null): Observable<UserRole[]> {
+    public getUserRolesAvailable(user: User['user'] | UserInput | null): Observable<UserRole[]> {
         return this.apollo
             .query<UserRolesAvailables, UserRolesAvailablesVariables>({
                 query: userRolesAvailableQuery,
                 variables: {
-                    user: user?.id,
+                    user: user && 'id' in user ? user.id : undefined,
                 },
             })
             .pipe(

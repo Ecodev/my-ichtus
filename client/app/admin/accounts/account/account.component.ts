@@ -9,6 +9,7 @@ import {
     NaturalSelectComponent,
     NaturalStampComponent,
     NaturalFixedButtonDetailComponent,
+    NaturalSeoResolveData,
 } from '@ecodev/natural';
 import {AccountService} from '../services/account.service';
 import {UserService} from '../../users/services/user.service';
@@ -54,7 +55,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         IbanPipe,
     ],
 })
-export class AccountComponent extends NaturalAbstractDetail<AccountService> implements OnInit {
+export class AccountComponent extends NaturalAbstractDetail<AccountService, NaturalSeoResolveData> implements OnInit {
     public nextCodeAvailable: number | null = null;
     public accountHierarchicConfig = groupAccountHierarchicConfiguration;
 

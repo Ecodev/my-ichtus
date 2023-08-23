@@ -32,7 +32,7 @@
                     </div>
                 </div>
 
-                <natural-stamp [item]="data.model"></natural-stamp>
+                <natural-stamp *ngIf="isUpdatePage()" [item]="data.model"></natural-stamp>
             </div>
         </mat-tab>
     </mat-tab-group>

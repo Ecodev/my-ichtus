@@ -1,14 +1,13 @@
 import {inject} from '@angular/core';
 import {ActivatedRouteSnapshot} from '@angular/router';
-import {last, Observable} from 'rxjs';
+import {last} from 'rxjs';
 import {ErrorService} from '../../../shared/components/error/error.service';
 import {UserTagService} from './userTag.service';
-import {UserTagResolve} from '../userTag';
 
 /**
  * Resolve userTag data for router
  */
-export function resolveUserTag(route: ActivatedRouteSnapshot): Observable<UserTagResolve> {
+export function resolveUserTag(route: ActivatedRouteSnapshot): ReturnType<UserTagService['resolve']> {
     const userTagService = inject(UserTagService);
     const errorService = inject(ErrorService);
     const observable = userTagService.resolve(route.params.userTagId).pipe(last());

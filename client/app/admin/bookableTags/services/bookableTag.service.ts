@@ -70,7 +70,7 @@ export class BookableTagService extends NaturalAbstractModelService<
     public static readonly SURVEY = '6036';
     public static readonly NFT = '6042';
 
-    protected override getDefaultForServer(): BookableTagInput {
+    public override getDefaultForServer(): BookableTagInput {
         return {
             name: '',
             color: '',

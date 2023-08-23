@@ -35,7 +35,7 @@ export class ImageService extends NaturalAbstractModelService<
         super(apollo, naturalDebounceService, 'image', null, null, createImageMutation, null, null);
     }
 
-    protected override getDefaultForServer(): ImageInput {
+    public override getDefaultForServer(): ImageInput {
         return {
             file: null as unknown as File,
         };

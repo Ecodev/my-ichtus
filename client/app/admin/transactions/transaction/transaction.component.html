@@ -6,7 +6,7 @@
         [listRoute]="['admin', 'transaction-line']"
     >
         <app-money
-            *ngIf="data.model.balance"
+            *ngIf="isUpdatePage()"
             [amount]="data.model.balance"
             [showSignal]="false"
             sizeClass="mat-headline-4"
@@ -140,14 +140,14 @@
                         <button
                             mat-stroked-button
                             (click)="updateTransactionLines = true"
-                            *ngIf="!(updateTransactionLines || !data.model.id)"
+                            *ngIf="!(updateTransactionLines || !isUpdatePage())"
                         >
                             Éditer
                         </button>
                         <button
                             mat-stroked-button
                             (click)="updateTransactionLines = false"
-                            *ngIf="updateTransactionLines && data.model.id"
+                            *ngIf="updateTransactionLines && isUpdatePage()"
                         >
                             Annuler
                         </button>
@@ -162,7 +162,7 @@
                     </div>
                 </div>
 
-                <div *ngIf="!updateTransactionLines && data.model.id">
+                <div *ngIf="!updateTransactionLines && isUpdatePage()">
                     <app-transaction-lines
                         [persistSearch]="false"
                         [forcedVariables]="{
@@ -197,13 +197,13 @@
 
                 <mat-divider></mat-divider>
 
-                <natural-stamp [item]="data.model"></natural-stamp>
+                <natural-stamp *ngIf="isUpdatePage()" [item]="data.model"></natural-stamp>
             </div>
         </mat-tab>
     </mat-tab-group>
 
     <natural-fixed-button
-        *ngIf="!data.model.id && userService.canUpdateTransaction(viewer)"
+        *ngIf="!isUpdatePage() && userService.canUpdateTransaction(viewer)"
         class="detail-speed-dial"
         (click)="save()"
         icon="save"
@@ -212,7 +212,7 @@
         [color]="form.valid ? 'accent' : 'warn'"
     ></natural-fixed-button>
 
-    <eco-fab-speed-dial class="detail-speed-dial" *ngIf="data.model.id && userService.canUpdateTransaction(viewer)">
+    <eco-fab-speed-dial class="detail-speed-dial" *ngIf="isUpdatePage() && userService.canUpdateTransaction(viewer)">
         <eco-fab-speed-dial-trigger>
             <button mat-fab>
                 <mat-icon naturalIcon="more_vert"></mat-icon>

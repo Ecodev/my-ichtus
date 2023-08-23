@@ -23,13 +23,13 @@
                             >
                         </mat-form-field>
 
-                        <div *ngIf="data.model.id">
+                        <div *ngIf="isUpdatePage()">
                             <h2 class="mat-headline-6">Utilisateurs tagués</h2>
                             <natural-relations
                                 [main]="data.model"
                                 [service]="userService"
                                 [filter]="{groups: [{conditions: [{userTags: {have: {values: [data.model.id]}}}]}]}"
-                                [disabled]="!data.model.permissions?.update"
+                                [disabled]="!data.model.permissions.update"
                                 placeholder="Taguer un utilisateur"
                             >
                                 <ng-template let-item="item">
@@ -55,7 +55,7 @@
                     </div>
                 </div>
 
-                <natural-stamp [item]="data.model"></natural-stamp>
+                <natural-stamp *ngIf="isUpdatePage()" [item]="data.model"></natural-stamp>
             </div>
         </mat-tab>
     </mat-tab-group>

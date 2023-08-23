@@ -75,7 +75,7 @@ export class FamilyComponent implements OnInit {
             this.changeDetectorRef.detectChanges();
         });
 
-        const emptyUser = this.userService.getConsolidatedForClient() as Users['users']['items'][0];
+        const emptyUser = this.userService.getDefaultForServer() as Users['users']['items'][0];
         this.familyMembers.push(emptyUser);
     }
 

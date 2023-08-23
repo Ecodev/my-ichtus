@@ -1,14 +1,15 @@
 import {Apollo, gql} from 'apollo-angular';
 import {Component, OnInit} from '@angular/core';
 import {PermissionsService} from '../../shared/services/permissions.service';
-import {ActivatedRoute, Data, Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ImportCamt, ImportCamtVariables} from '../../shared/generated-types';
 import {
     NaturalAlertService,
-    NaturalSearchSelections,
-    toUrl,
     NaturalFileSelectDirective,
     NaturalIconDirective,
+    NaturalSearchSelections,
+    NaturalSeoResolveData,
+    toUrl,
 } from '@ecodev/natural';
 import {CommonModule} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
@@ -33,7 +34,7 @@ export class ImportComponent implements OnInit {
     /**
      * Data attribute provided by activated route snapshot
      */
-    public routeData!: Data;
+    public routeData!: NaturalSeoResolveData;
 
     public importing = false;
     public error: Error | null = null;
@@ -47,7 +48,7 @@ export class ImportComponent implements OnInit {
     ) {}
 
     public ngOnInit(): void {
-        this.routeData = this.route.snapshot.data;
+        this.routeData = this.route.snapshot.data as NaturalSeoResolveData;
     }
 
     public uploadFile(file: File): void {

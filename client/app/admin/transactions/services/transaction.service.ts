@@ -76,7 +76,7 @@ export class TransactionService extends NaturalAbstractModelService<
     }
 
     public getRefundPreset(account: {id: string}, amount: string): TransactionLineInput[] {
-        const emptyLine = this.transactionLineService.getConsolidatedForClient();
+        const emptyLine = this.transactionLineService.getDefaultForServer();
 
         const line: TransactionLineInput = {
             name: 'Remboursement du membre',
@@ -90,7 +90,7 @@ export class TransactionService extends NaturalAbstractModelService<
     }
 
     public getExpenseClaimPreset(account: {id: string}, amount: string): TransactionLineInput[] {
-        const emptyLine = this.transactionLineService.getConsolidatedForClient();
+        const emptyLine = this.transactionLineService.getDefaultForServer();
 
         const line: TransactionLineInput = {
             name: 'Remboursement sur le solde',
@@ -104,7 +104,7 @@ export class TransactionService extends NaturalAbstractModelService<
     }
 
     public getInvoicePreset(name: string, amount: string): TransactionLineInput[] {
-        const emptyLine = this.transactionLineService.getConsolidatedForClient();
+        const emptyLine = this.transactionLineService.getDefaultForServer();
 
         const line: TransactionLineInput = {
             name: name,
@@ -117,7 +117,7 @@ export class TransactionService extends NaturalAbstractModelService<
         return [Object.assign(emptyLine, line)];
     }
 
-    protected override getDefaultForServer(): TransactionInput {
+    public override getDefaultForServer(): TransactionInput {
         return {
             name: '',
             remarks: '',

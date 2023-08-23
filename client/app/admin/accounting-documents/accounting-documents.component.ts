@@ -1,5 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AccountingDocumentInput, ExpenseClaim, Transaction} from '../../shared/generated-types';
+import {
+    AccountingDocumentInput,
+    ExpenseClaim,
+    ExpenseClaimInput,
+    Transaction,
+    TransactionInput,
+} from '../../shared/generated-types';
 import {forkJoin, Observable} from 'rxjs';
 import {AccountingDocumentService} from './services/accounting-document.service';
 import {FileModel, WithId, NaturalFileComponent, NaturalIconDirective} from '@ecodev/natural';
@@ -17,7 +23,11 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
     imports: [FlexModule, CommonModule, NaturalFileComponent, MatButtonModule, MatIconModule, NaturalIconDirective],
 })
 export class AccountingDocumentsComponent implements OnInit {
-    @Input({required: true}) public model!: Transaction['transaction'] | ExpenseClaim['expenseClaim'];
+    @Input({required: true}) public model!:
+        | Transaction['transaction']
+        | ExpenseClaim['expenseClaim']
+        | TransactionInput
+        | ExpenseClaimInput;
     @Input() public fileHeight = 250;
     @Input() public fileWidth = 250;
     @Input() public canRemove = true;
@@ -47,7 +57,7 @@ export class AccountingDocumentsComponent implements OnInit {
     public constructor(public readonly accountingDocumentService: AccountingDocumentService) {}
 
     public ngOnInit(): void {
-        if (this.model.accountingDocuments) {
+        if ('accountingDocuments' in this.model) {
             this.files = this.model.accountingDocuments;
         }
 
@@ -77,7 +87,7 @@ export class AccountingDocumentsComponent implements OnInit {
         const observables: Observable<unknown>[] = [];
 
         this.files.forEach(file => {
-            if (!file?.file) {
+            if (!('id' in this.model) || !file?.file) {
                 return;
             }
 

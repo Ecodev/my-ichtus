@@ -1,7 +1,7 @@
 import {inject} from '@angular/core';
 import {ActivatedRouteSnapshot} from '@angular/router';
 import {forkJoin, last, map, Observable, of} from 'rxjs';
-import {DuplicatedTransactionResolve, TransactionResolve} from '../transaction';
+import {DuplicatedTransactionResolve} from '../transaction';
 import {ErrorService} from '../../../shared/components/error/error.service';
 import {TransactionService} from './transaction.service';
 import {NaturalQueryVariablesManager} from '@ecodev/natural';
@@ -10,7 +10,7 @@ import {TransactionLineService} from './transactionLine.service';
 /**
  * Resolve transaction data for router
  */
-export function resolveTransaction(route: ActivatedRouteSnapshot): Observable<TransactionResolve> {
+export function resolveTransaction(route: ActivatedRouteSnapshot): ReturnType<TransactionService['resolve']> {
     const transactionService = inject(TransactionService);
     const errorService = inject(ErrorService);
     const observable = transactionService.resolve(route.params.transactionId).pipe(last());
@@ -19,7 +19,7 @@ export function resolveTransaction(route: ActivatedRouteSnapshot): Observable<Tr
 }
 
 /**
- * From an existing transaction ID resolves bot the duplicated transaction and the duplicated transactionLines
+ * From an existing transaction ID resolves both the duplicated transaction and the duplicated transactionLines
  */
 export function resolveDuplicatedTransaction(
     route: ActivatedRouteSnapshot,
@@ -43,7 +43,7 @@ export function resolveDuplicatedTransaction(
         transaction: transactionService.getOne(param).pipe(
             map(source => {
                 return {
-                    ...transactionService.getConsolidatedForClient(),
+                    ...transactionService.getDefaultForServer(),
                     name: source.name,
                     transactionDate: null as unknown as string, // Force user to set date
                     remarks: source.remarks,
@@ -55,7 +55,7 @@ export function resolveDuplicatedTransaction(
             map(results =>
                 results.items.map(source => {
                     return {
-                        ...transactionLineService.getConsolidatedForClient(),
+                        ...transactionLineService.getDefaultForServer(),
                         name: source.name,
                         balance: source.balance,
                         debit: source.debit,

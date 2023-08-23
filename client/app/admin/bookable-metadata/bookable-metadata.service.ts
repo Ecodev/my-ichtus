@@ -27,7 +27,7 @@ export class BookableMetadataService extends NaturalAbstractModelService<
     BookableMetadatas['bookableMetadatas'],
     BookableMetadatasVariables,
     never,
-    never,
+    UpdateBookableMetadataVariables,
     UpdateBookableMetadata['updateBookableMetadata'],
     UpdateBookableMetadataVariables,
     DeleteBookableMetadatas,
@@ -46,7 +46,7 @@ export class BookableMetadataService extends NaturalAbstractModelService<
         );
     }
 
-    protected override getDefaultForServer(): BookableMetadataInput {
+    public override getDefaultForServer(): BookableMetadataInput {
         return {
             name: '',
             value: '',

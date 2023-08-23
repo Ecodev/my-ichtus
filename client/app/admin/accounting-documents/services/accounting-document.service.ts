@@ -38,7 +38,7 @@ export class AccountingDocumentService extends NaturalAbstractModelService<
         );
     }
 
-    protected override getDefaultForServer(): AccountingDocumentInput {
+    public override getDefaultForServer(): AccountingDocumentInput {
         return {
             file: null as unknown as File,
             expenseClaim: null,

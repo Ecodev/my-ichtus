@@ -8,6 +8,7 @@ import {
     NaturalFileComponent,
     NaturalStampComponent,
     NaturalFixedButtonDetailComponent,
+    NaturalSeoResolveData,
 } from '@ecodev/natural';
 import {ExpenseClaimService} from '../services/expenseClaim.service';
 import {CurrentUserForProfile, ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
@@ -59,13 +60,16 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         NaturalFixedButtonDetailComponent,
     ],
 })
-export class ExpenseClaimComponent extends NaturalAbstractDetail<ExpenseClaimService> implements OnInit {
+export class ExpenseClaimComponent
+    extends NaturalAbstractDetail<ExpenseClaimService, NaturalSeoResolveData>
+    implements OnInit
+{
     public ExpenseClaimType = ExpenseClaimType;
     public ExpenseClaimStatus = ExpenseClaimStatus;
     public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
 
     public constructor(
-        public expenseClaimService: ExpenseClaimService,
+        public readonly expenseClaimService: ExpenseClaimService,
         public readonly userService: UserService,
         public readonly transactionLineService: TransactionLineService,
         public readonly permissionsService: PermissionsService,

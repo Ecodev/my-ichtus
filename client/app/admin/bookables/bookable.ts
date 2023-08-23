@@ -1,7 +1,7 @@
-import {Bookable, BookableUsage} from '../../shared/generated-types';
+import {Bookable, BookableInput, BookableUsage} from '../../shared/generated-types';
 
 export interface BookableResolve {
-    model: Bookable['bookable'];
+    model: Bookable['bookable'] | BookableInput;
 }
 
 export type AvailabilityStatus = 'unlimited' | 'available' | 'waitingList' | 'full';

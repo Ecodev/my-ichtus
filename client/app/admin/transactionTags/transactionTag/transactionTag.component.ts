@@ -5,6 +5,7 @@ import {
     NaturalLinkableTabDirective,
     NaturalStampComponent,
     NaturalFixedButtonDetailComponent,
+    NaturalSeoResolveData,
 } from '@ecodev/natural';
 import {TransactionTagService} from '../services/transactionTag.service';
 import {CommonModule} from '@angular/common';
@@ -33,7 +34,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         NaturalFixedButtonDetailComponent,
     ],
 })
-export class TransactionTagComponent extends NaturalAbstractDetail<TransactionTagService> {
+export class TransactionTagComponent extends NaturalAbstractDetail<TransactionTagService, NaturalSeoResolveData> {
     public constructor(transactionTagService: TransactionTagService) {
         super('transactionTag', transactionTagService);
     }

@@ -72,7 +72,7 @@ export class AccountService extends NaturalAbstractModelService<
         );
     }
 
-    protected override getDefaultForServer(): AccountInput {
+    public override getDefaultForServer(): AccountInput {
         return {
             owner: null,
             parent: null,

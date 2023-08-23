@@ -5,6 +5,7 @@ import {
     NaturalLinkableTabDirective,
     NaturalStampComponent,
     NaturalFixedButtonDetailComponent,
+    NaturalSeoResolveData,
 } from '@ecodev/natural';
 import {BookableTagService} from '../services/bookableTag.service';
 import {CommonModule} from '@angular/common';
@@ -33,11 +34,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         NaturalFixedButtonDetailComponent,
     ],
 })
-export class BookableTagComponent extends NaturalAbstractDetail<BookableTagService> {
-    public constructor(
-        bookableTagService: BookableTagService,
-        public readonly tagService: BookableTagService,
-    ) {
+export class BookableTagComponent extends NaturalAbstractDetail<BookableTagService, NaturalSeoResolveData> {
+    public constructor(bookableTagService: BookableTagService) {
         super('bookableTag', bookableTagService);
     }
 }

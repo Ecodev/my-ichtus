@@ -7,6 +7,7 @@ import {
     NaturalTableButtonComponent,
     NaturalStampComponent,
     NaturalFixedButtonDetailComponent,
+    NaturalSeoResolveData,
 } from '@ecodev/natural';
 import {UserTagService} from '../services/userTag.service';
 import {UserService} from '../../users/services/user.service';
@@ -38,7 +39,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         NaturalFixedButtonDetailComponent,
     ],
 })
-export class UserTagComponent extends NaturalAbstractDetail<UserTagService> {
+export class UserTagComponent extends NaturalAbstractDetail<UserTagService, NaturalSeoResolveData> {
     public constructor(
         userTagService: UserTagService,
         public readonly userService: UserService,

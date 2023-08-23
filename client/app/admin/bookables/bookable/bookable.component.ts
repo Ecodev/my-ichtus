@@ -3,16 +3,17 @@ import {
     formatIsoDateTime,
     IEnum,
     NaturalAbstractDetail,
+    NaturalAvatarComponent,
     NaturalDetailHeaderComponent,
-    NaturalLinkableTabDirective,
     NaturalFileComponent,
+    NaturalFixedButtonDetailComponent,
+    NaturalLinkableTabDirective,
+    NaturalRelationsComponent,
     NaturalSelectEnumComponent,
     NaturalSelectHierarchicComponent,
-    NaturalRelationsComponent,
-    NaturalTableButtonComponent,
-    NaturalAvatarComponent,
+    NaturalSeoResolveData,
     NaturalStampComponent,
-    NaturalFixedButtonDetailComponent,
+    NaturalTableButtonComponent,
 } from '@ecodev/natural';
 import {BookableService} from '../services/bookable.service';
 import {
@@ -83,7 +84,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         NaturalFixedButtonDetailComponent,
     ],
 })
-export class BookableComponent extends NaturalAbstractDetail<BookableService> implements OnInit {
+export class BookableComponent extends NaturalAbstractDetail<BookableService, NaturalSeoResolveData> implements OnInit {
     public accountHierarchicConfig = accountHierarchicConfiguration;
     public bookingsVariables: BookingsVariables = {};
     public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
@@ -115,9 +116,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
 
         this.viewer = this.route.snapshot.data.viewer.model;
 
-        if (this.data.model.id) {
-            this.bookingsVariables = this.getBookingsVariables();
-        }
+        this.bookingsVariables = this.getBookingsVariables();
 
         if (this.viewer.role === UserRole.formation_responsible) {
             this.form.controls.bookingType.setValue(BookingType.admin_approved);
@@ -125,6 +124,10 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
     }
 
     public verify(): void {
+        if (!this.isUpdatePage()) {
+            return;
+        }
+
         const partialBookable = {id: this.data.model.id, verificationDate: formatIsoDateTime(new Date())};
         this.service.updatePartially(partialBookable).subscribe(bookable => {
             this.form.patchValue(bookable);
@@ -160,6 +163,10 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService> im
     }
 
     public getBookingsVariables(): BookingsVariables {
+        if (!this.isUpdatePage()) {
+            return {};
+        }
+
         const conditions: BookingFilterGroupCondition[] = [
             {
                 bookable: {have: {values: [this.data.model.id]}},

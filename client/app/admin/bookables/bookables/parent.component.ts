@@ -1,11 +1,10 @@
 import {Directive, inject, OnInit} from '@angular/core';
 import {UsageBookableService} from '../services/usage-bookable.service';
 import {AvailableColumn, NaturalAbstractList} from '@ecodev/natural';
-import {BookingPartialInput, Bookings, BookingStatus, UsageBookables} from '../../../shared/generated-types';
+import {BookingPartialInput, Bookings, BookingStatus, UsageBookables, User} from '../../../shared/generated-types';
 import {BookingService} from '../../bookings/services/booking.service';
 import {BookableService} from '../services/bookable.service';
 import {ExtractTallOne} from '@ecodev/natural/lib/types/types';
-import {UserResolve} from '../../users/user';
 import {ViewerResolve} from '../../users/services/viewer.resolver';
 import {map, Observable} from 'rxjs';
 import {finalize} from 'rxjs/operators';
@@ -30,7 +29,7 @@ export const verificationDate: AvailableColumn = {id: 'verificationDate', label:
 export const select: AvailableColumn = {id: 'select', label: 'Sélection', hidden: true};
 export const createApplication: AvailableColumn = {id: 'createApplication', label: 'Demander', hidden: true};
 
-type FutureOwner = ViewerResolve['model'] | UserResolve['model'] | null;
+type FutureOwner = ViewerResolve['model'] | User['user'] | null;
 
 @Directive()
 export abstract class ParentComponent<T extends UsageBookableService | BookableService>

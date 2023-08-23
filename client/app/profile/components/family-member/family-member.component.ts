@@ -63,16 +63,12 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
     public override ngOnInit(): void {
         if (this.user && this.user.id) {
             this.service.getOne(this.user.id).subscribe(user => {
-                this.data = merge(
-                    {model: this.service.getConsolidatedForClient()},
-                    {model: user},
-                    {owner: this.viewer},
-                );
+                this.data = merge({model: this.service.getDefaultForServer()}, {model: user}, {owner: this.viewer});
                 this.setForm();
             });
         } else {
             this.data = {
-                model: Object.assign(this.service.getConsolidatedForClient(), {
+                model: Object.assign(this.service.getDefaultForServer(), {
                     owner: this.viewer,
                     status: this.viewer.status,
                 }),

@@ -3,18 +3,19 @@ import {
     IEnum,
     ifValid,
     NaturalAbstractDetail,
-    NaturalQueryVariablesManager,
-    NaturalDetailHeaderComponent,
-    NaturalLinkableTabDirective,
-    NaturalSelectEnumComponent,
-    NaturalSelectComponent,
-    NaturalRelationsComponent,
-    NaturalTableButtonComponent,
     NaturalAvatarComponent,
-    NaturalStampComponent,
-    NaturalIconDirective,
+    NaturalDetailHeaderComponent,
     NaturalFixedButtonDetailComponent,
+    NaturalIconDirective,
+    NaturalLinkableTabDirective,
+    NaturalQueryVariablesManager,
+    NaturalRelationsComponent,
+    NaturalSelectComponent,
+    NaturalSelectEnumComponent,
+    NaturalSeoResolveData,
+    NaturalStampComponent,
     NaturalSwissDatePipe,
+    NaturalTableButtonComponent,
     NaturalTimeAgoPipe,
 } from '@ecodev/natural';
 import {UserService} from '../services/user.service';
@@ -36,7 +37,7 @@ import {AccountService} from '../../accounts/services/account.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {iban as ibanValidator} from '../../../shared/validators';
 import {friendlyFormatIBAN} from 'ibantools';
-import {UntypedFormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule, UntypedFormControl} from '@angular/forms';
 import {finalize} from 'rxjs/operators';
 import {ServicesComponent} from '../../../profile/components/services/services.component';
 import {FinancesComponent} from '../../../profile/components/finances/finances.component';
@@ -99,7 +100,7 @@ import {CommonModule} from '@angular/common';
         NaturalTimeAgoPipe,
     ],
 })
-export class UserComponent extends NaturalAbstractDetail<UserService> implements OnInit {
+export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeoResolveData> implements OnInit {
     public showFamilyTab = false;
     public updating = false;
     public ibanLocked = true;
@@ -133,7 +134,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService> implements
         this.viewer = this.route.snapshot.data.viewer.model;
 
         this.route.data.subscribe(() => {
-            if (this.data.model.id) {
+            if (this.isUpdatePage()) {
                 const qvm = new NaturalQueryVariablesManager<UsersVariables>();
                 qvm.set('variables', UserService.getFamilyVariables(this.data.model));
                 this.userService.getAll(qvm).subscribe(family => {
@@ -153,7 +154,8 @@ export class UserComponent extends NaturalAbstractDetail<UserService> implements
             this.userRolesAvailable = userRoles;
         });
 
-        this.ibanCtrl.setValue(friendlyFormatIBAN(this.data.model.iban), {emitEvent: false});
+        this.ibanCtrl.setValue(friendlyFormatIBAN(this.data.model.iban ?? undefined), {emitEvent: false});
+
         this.ibanLocked = !!this.data.model.iban;
         if (!this.canUpdateIban()) {
             this.ibanCtrl.disable();
@@ -163,7 +165,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService> implements
         const ownerConditions: UserFilterGroupCondition[] = [{owner: {null: {not: false}}}];
 
         // Exclude the user being updated to be selected as his own owner
-        if (this.data.model.id) {
+        if (this.isUpdatePage()) {
             ownerConditions.push({id: {equal: {value: this.data.model.id, not: true}}});
         }
 
@@ -173,7 +175,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService> implements
     }
 
     public getTransactionQueryVariables(): TransactionLinesVariables {
-        const account = this.data.model.account;
+        const account = this.isUpdatePage() ? this.data.model.account : null;
         if (!account) {
             return {};
         }
@@ -208,7 +210,12 @@ export class UserComponent extends NaturalAbstractDetail<UserService> implements
         if (!this.canUpdateIban()) {
             return;
         }
+
         ifValid(this.ibanCtrl).subscribe(() => {
+            if (!this.isUpdatePage()) {
+                return;
+            }
+
             this.updating = true;
             this.ibanCtrl.enable();
             const iban = this.ibanCtrl.value;

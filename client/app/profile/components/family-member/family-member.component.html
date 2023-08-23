@@ -104,6 +104,6 @@
         (click)="create(false)"
         icon="save"
         [color]="form.valid ? 'accent' : 'warn'"
-        *ngIf="!data.model.id"
+        *ngIf="!isUpdatePage()"
     ></natural-fixed-button>
 </div>

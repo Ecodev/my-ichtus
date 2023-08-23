@@ -56,7 +56,7 @@ export class ExpenseClaimService extends NaturalAbstractModelService<
         );
     }
 
-    protected override getDefaultForServer(): ExpenseClaimInput {
+    public override getDefaultForServer(): ExpenseClaimInput {
         return {
             name: '',
             owner: null,

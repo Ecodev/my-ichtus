@@ -4,8 +4,8 @@ import {UserService} from '../../../admin/users/services/user.service';
 import {Router} from '@angular/router';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
-import {Relationship, UserRole} from '../../../shared/generated-types';
-import {FormValidators, Literal, LOCAL_STORAGE, NaturalDebounceService, NaturalStorage} from '@ecodev/natural';
+import {Relationship, UserInput, UserRole} from '../../../shared/generated-types';
+import {FormValidators, LOCAL_STORAGE, NaturalDebounceService, NaturalStorage} from '@ecodev/natural';
 import {PricedBookingService} from '../../../admin/bookings/services/PricedBooking.service';
 
 @Injectable({
@@ -32,10 +32,9 @@ export class FamilyUserService extends UserService {
         );
     }
 
-    protected override getDefaultForClient(): Literal {
+    public override getDefaultForServer(): UserInput {
         return {
-            country: {id: 1, name: 'Suisse'},
-            hasInsurance: false,
+            ...super.getDefaultForServer(),
             termsAgreement: false,
             familyRelationship: Relationship.partner,
             role: UserRole.individual,

@@ -7,12 +7,18 @@ import {
     NaturalFixedButtonComponent,
     NaturalIconDirective,
     NaturalLinkableTabDirective,
+    NaturalSeoResolveData,
     NaturalStampComponent,
 } from '@ecodev/natural';
 import {TransactionService} from '../services/transaction.service';
 import {EMPTY, Observable} from 'rxjs';
 import {filter, first} from 'rxjs/operators';
-import {CurrentUserForProfile, ExpenseClaim, ExpenseClaimType} from '../../../shared/generated-types';
+import {
+    CurrentUserForProfile,
+    ExpenseClaim,
+    ExpenseClaimType,
+    TransactionLineInput,
+} from '../../../shared/generated-types';
 import {BookableService} from '../../bookables/services/bookable.service';
 import {
     EditableTransactionLinesComponent,
@@ -76,7 +82,17 @@ import {DuplicatedTransactionResolve} from '../transaction';
         EcoFabSpeedDialActionsComponent,
     ],
 })
-export class TransactionComponent extends NaturalAbstractDetail<TransactionService> implements OnInit {
+export class TransactionComponent
+    extends NaturalAbstractDetail<
+        TransactionService,
+        NaturalSeoResolveData & {
+            model: {transactionLines: null | TransactionLineInput[]}; // TODO This is not awesome because we inject new properties on model coming from DB. It would be best to handle the transactionLines separately
+            duplicatedTransaction?: DuplicatedTransactionResolve | null;
+            expenseClaim?: ExpenseClaim['expenseClaim'] | null;
+        }
+    >
+    implements OnInit
+{
     @ViewChild(EditableTransactionLinesComponent) public transactionLinesComponent!: EditableTransactionLinesComponent;
     @ViewChild('transactionDocuments', {static: true}) private accountingDocuments!: AccountingDocumentsComponent;
 
@@ -102,7 +118,7 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
     public override ngOnInit(): void {
         super.ngOnInit();
 
-        if (this.data.model.id) {
+        if (this.isUpdatePage()) {
             this.transactionLines = {mode: 'fetch', id: this.data.model.id};
         }
 
@@ -114,8 +130,8 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
         }
 
         cancellableTimeout(this.ngUnsubscribe).subscribe(() => {
-            const expenseClaim: ExpenseClaim['expenseClaim'] | null = this.data.expenseClaim;
-            const duplicatedTransaction: DuplicatedTransactionResolve | null = this.data.duplicatedTransaction;
+            const expenseClaim = this.data.expenseClaim;
+            const duplicatedTransaction = this.data.duplicatedTransaction;
 
             if (expenseClaim) {
                 this.prefillFromExpenseClaim(expenseClaim);
@@ -198,7 +214,7 @@ export class TransactionComponent extends NaturalAbstractDetail<TransactionServi
             this.data.model.transactionLines = null;
         }
 
-        if (this.data.model.id) {
+        if (this.isUpdatePage()) {
             this.update(true);
         } else {
             this.create();

@@ -12,7 +12,7 @@
                 <div class="mat-subtitle-2">Dernière vérification</div>
                 <div class="mat-body-2">{{ form.get('verificationDate')?.value | date: 'dd.MM.y' }}</div>
             </div>
-            <button mat-flat-button color="primary" (click)="verify()" *ngIf="data.model.id && showVerified()">
+            <button mat-flat-button color="primary" (click)="verify()" *ngIf="isUpdatePage() && showVerified()">
                 Marquer comme vérifié
             </button>
         </div>
@@ -215,7 +215,7 @@
 
                 <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
                     <div fxFlex="66" fxLayout="column">
-                        <div *ngIf="data.model.id && isSelfApproved()">
+                        <div *ngIf="isUpdatePage() && isSelfApproved()">
                             <h2 class="mat-headline-6">Certifications</h2>
                             <natural-relations
                                 [main]="data.model"
@@ -235,7 +235,7 @@
                         </div>
                     </div>
                     <div fxFlex="33" fxLayout="column">
-                        <div *ngIf="data.model.id">
+                        <div *ngIf="isUpdatePage()">
                             <h2 class="mat-headline-6">Tags</h2>
                             <natural-relations
                                 [main]="data.model"
@@ -262,18 +262,18 @@
                     </div>
                 </div>
 
-                <natural-stamp [item]="data.model"></natural-stamp>
+                <natural-stamp *ngIf="isUpdatePage()" [item]="data.model"></natural-stamp>
             </div>
         </mat-tab>
 
-        <mat-tab id="metadata" label="Attributs" *ngIf="data.model.id && permissionsService.gteResponsible(viewer)">
+        <mat-tab id="metadata" label="Attributs" *ngIf="isUpdatePage() && permissionsService.gteResponsible(viewer)">
             <app-bookable-metadata [bookable]="data.model" [edit]="true" class="margin"></app-bookable-metadata>
         </mat-tab>
 
         <mat-tab
             id="transaction-line"
             label="Écritures"
-            *ngIf="data.model.id && permissionsService.gteResponsible(viewer)"
+            *ngIf="isUpdatePage() && permissionsService.gteResponsible(viewer)"
         >
             <app-transaction-lines
                 [persistSearch]="false"
@@ -284,7 +284,7 @@
         <mat-tab
             id="booking"
             [label]="permissionsService.gteResponsible(viewer) ? 'Utilisations' : 'Participants'"
-            *ngIf="data.model.id"
+            *ngIf="isUpdatePage()"
         >
             <div fxLayout="column" class="padding-top">
                 <mat-form-field *ngIf="!permissionsService.canAccessFormationApplication(viewer)">

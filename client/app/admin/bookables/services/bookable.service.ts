@@ -156,7 +156,7 @@ export class BookableService extends NaturalAbstractModelService<
         return matching.length === bookable.licenses.length;
     }
 
-    protected override getDefaultForServer(): BookableInput {
+    public override getDefaultForServer(): BookableInput {
         return {
             name: '',
             code: null,
