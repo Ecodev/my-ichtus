@@ -4,9 +4,6 @@ import {last} from 'rxjs';
 import {UserService} from './user.service';
 import {ErrorService} from '../../../shared/components/error/error.service';
 
-/**
- * Resolve sites for routing service only at the moment
- */
 export function resolveUser(route: ActivatedRouteSnapshot): ReturnType<UserService['resolve']> {
     const userService = inject(UserService);
     const errorService = inject(ErrorService);

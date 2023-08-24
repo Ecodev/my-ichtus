@@ -5,9 +5,6 @@ import {UserService} from './user.service';
 import {ErrorService} from '../../../shared/components/error/error.service';
 import {UserByTokenResolve} from '../user';
 
-/**
- * Resolve sites for routing service only at the moment
- */
 export function resolveUserByToken(route: ActivatedRouteSnapshot): Observable<UserByTokenResolve> {
     const userService = inject(UserService);
     const errorService = inject(ErrorService);

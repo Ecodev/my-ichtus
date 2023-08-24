@@ -6,9 +6,6 @@ import {CurrentUserForProfile} from '../../../shared/generated-types';
 
 export type ViewerResolve = {model: CurrentUserForProfile['viewer']};
 
-/**
- * Resolve sites for routing service only at the moment
- */
 export function resolveViewer(): Observable<ViewerResolve> {
     const userService = inject(UserService);
     const errorService = inject(ErrorService);
