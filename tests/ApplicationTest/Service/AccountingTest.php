@@ -10,7 +10,7 @@ use Application\Repository\AccountRepository;
 use Application\Service\Accounting;
 use ApplicationTest\Traits\TestWithTransactionAndUser;
 use Cake\Chronos\Chronos;
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 
@@ -61,7 +61,7 @@ class AccountingTest extends TestCase
     {
         /** @var AccountRepository $accountRepository */
         $accountRepository = _em()->getRepository(Account::class);
-        $closingDate = Date::createFromDate(2019, 12, 31);
+        $closingDate = ChronosDate::create(2019, 12, 31);
 
         $expectedLog = [
             'Bouclement au 31.12.2019',
@@ -73,10 +73,10 @@ class AccountingTest extends TestCase
 
         $actualDate = $closingTransaction->getTransactionDate();
         $expectedDateTime = new Chronos('2020-01-01 00:00:00');
-        self::assertTrue($actualDate->eq($expectedDateTime), 'Closing transaction was not created on ' . $closingDate);
+        self::assertTrue($actualDate->equals($expectedDateTime), 'Closing transaction was not created on ' . $closingDate);
 
         $accounts = $accountRepository->findByType([AccountTypeType::REVENUE, AccountTypeType::EXPENSE]);
-        $openingDate = $closingDate->addDay();
+        $openingDate = $closingDate->addDays(1);
         foreach ($accounts as $account) {
             self::assertTrue(Money::CHF(0)->equals($account->getBalanceAtDate($openingDate)));
         }

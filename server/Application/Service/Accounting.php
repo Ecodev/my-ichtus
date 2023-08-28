@@ -13,7 +13,7 @@ use Application\Repository\AccountRepository;
 use Application\Repository\TransactionRepository;
 use Application\Repository\UserRepository;
 use Cake\Chronos\Chronos;
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 use Doctrine\ORM\EntityManager;
 use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Api\ExceptionWithoutMailLogging;
@@ -62,12 +62,12 @@ class Accounting
     /**
      * Generate the closing entries at the end of an accounting period.
      *
-     * @param Date $endDate the end of fiscal period
+     * @param ChronosDate $endDate the end of fiscal period
      * @param null|array $output an optional array to output log
      *
      * @return null|Transaction the closing transaction or null if no entry written
      */
-    public function close(Date $endDate, ?array &$output = null): ?Transaction
+    public function close(ChronosDate $endDate, ?array &$output = null): ?Transaction
     {
         if ($endDate->isFuture()) {
             throw new ExceptionWithoutMailLogging('La date du bouclement ne peut pas être dans le futur');
@@ -75,7 +75,7 @@ class Accounting
 
         // We actually generate the closure transaction at the beggining of the next day (ie. Jan 1st)
         // so that it is not taken into account by the accounting report for the closing day (ie. Dec 31th)
-        $endDateTime = (new Chronos($endDate))->addDay(1)->startOfDay();
+        $endDateTime = (new Chronos($endDate))->addDays(1)->startOfDay();
 
         /** @var null|Account $closingAccount */
         $closingAccount = $this->accountRepository->findOneBy(['code' => $this->accountingConfig['closingAccountCode']]);
@@ -154,7 +154,7 @@ class Accounting
         return $closingTransaction;
     }
 
-    private function generateClosingEntries(array $allAccountsToClose, Transaction $closingTransaction, Account $closingAccount, Date $endDate): void
+    private function generateClosingEntries(array $allAccountsToClose, Transaction $closingTransaction, Account $closingAccount, ChronosDate $endDate): void
     {
         $closingEntries = [];
         foreach ($allAccountsToClose as $accountType => $accountsToClose) {

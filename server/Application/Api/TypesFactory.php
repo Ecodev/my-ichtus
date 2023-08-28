@@ -53,9 +53,11 @@ class TypesFactory
             \GraphQL\Upload\UploadType::class,
         ];
 
+        $invokables = array_combine($invokables, $invokables);
+
         $aliases = [
             \Cake\Chronos\Chronos::class => \Ecodev\Felix\Api\Scalar\ChronosType::class,
-            \Cake\Chronos\Date::class => \Ecodev\Felix\Api\Scalar\DateType::class,
+            \Cake\Chronos\ChronosDate::class => \Ecodev\Felix\Api\Scalar\DateType::class,
             'datetime' => \Ecodev\Felix\Api\Scalar\ChronosType::class,
             'date' => \Ecodev\Felix\Api\Scalar\DateType::class,
             \Psr\Http\Message\UploadedFileInterface::class => \GraphQL\Upload\UploadType::class,

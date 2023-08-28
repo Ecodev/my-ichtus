@@ -31,13 +31,12 @@ return [
         ],
     ],
     function (Connection $connection): void {
-
         // create a valid token for right now
         $connection->update(
             'user',
             [
                 'token' => '09876543210987654321098765432109',
-                'token_creation_date' => Chronos::now()->subMinute(1)->toIso8601String(),
+                'token_creation_date' => Chronos::now()->subMinutes(1)->toIso8601String(),
             ],
             [
                 'id' => 1000,

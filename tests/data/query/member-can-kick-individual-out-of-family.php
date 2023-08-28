@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Application\DBAL\Types\MessageTypeType;
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 use Doctrine\DBAL\Connection;
 use PHPUnit\Framework\Assert;
 
@@ -20,7 +20,7 @@ return [
         'data' => [
             'leaveFamily' => [
                 'id' => 1007,
-                'internalRemarks' => Date::now()->toDateString() . ': détaché du ménage par Active Member',
+                'internalRemarks' => ChronosDate::now()->toDateString() . ': détaché du ménage par Active Member',
             ],
         ],
     ],

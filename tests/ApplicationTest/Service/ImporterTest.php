@@ -135,7 +135,7 @@ class ImporterTest extends TestCase
         $files = [];
         foreach (glob('tests/data/importer/*.xml') as $xml) {
             $php = preg_replace('~xml$~', 'php', $xml);
-            if (file_exists($php)) {
+            if ($php && file_exists($php)) {
                 $name = str_replace('-', ' ', basename($xml, '.xml'));
 
                 $files[$name] = [$xml, $php];

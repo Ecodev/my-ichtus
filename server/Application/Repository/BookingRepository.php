@@ -9,7 +9,7 @@ use Application\DBAL\Types\BookingTypeType;
 use Application\Model\Bookable;
 use Application\Model\Booking;
 use Application\Model\User;
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 
@@ -64,8 +64,8 @@ class BookingRepository extends AbstractRepository
             ->setParameter('bookingType', [BookingTypeType::MANDATORY, BookingTypeType::ADMIN_ASSIGNED, BookingTypeType::ADMIN_APPROVED], Connection::PARAM_STR_ARRAY)
             ->setParameter('bookingStatus', BookingStatusType::BOOKED)
             ->setParameter('userStatus', User::STATUS_ARCHIVED)
-            ->setParameter('currentYear', Date::now()->firstOfYear()->toDateString())
-            ->setParameter('nextYear', Date::now()->firstOfYear()->addYear()->toDateString())
+            ->setParameter('currentYear', ChronosDate::now()->firstOfYear()->toDateString())
+            ->setParameter('nextYear', ChronosDate::now()->firstOfYear()->addYears(1)->toDateString())
             ->setParameter('roles', [User::ROLE_BOOKING_ONLY], Connection::PARAM_STR_ARRAY);
 
         if ($user) {

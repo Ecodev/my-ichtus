@@ -9,7 +9,7 @@ use Application\Repository\AccountRepository;
 use Application\Service\Exporter\AccountingReport;
 use ApplicationTest\Traits\TestWithSpreadsheet;
 use ApplicationTest\Traits\TestWithTransactionAndUser;
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 use PHPUnit\Framework\TestCase;
 
 class AccountingReportTest extends TestCase
@@ -39,7 +39,7 @@ class AccountingReportTest extends TestCase
         $query = $repository->getRootAccountsQuery();
 
         $handler = new AccountingReport($hostname, $accountingConfig);
-        $handler->setDate(new Date('2019-12-31'));
+        $handler->setDate(new ChronosDate('2019-12-31'));
         $url = $handler->export($query->getResult());
 
         $spreadsheet = $this->readExport($hostname, $url);

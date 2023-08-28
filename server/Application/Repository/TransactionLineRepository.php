@@ -8,7 +8,7 @@ use Application\Model\Account;
 use Application\Model\TransactionLine;
 use Application\Model\User;
 use Cake\Chronos\Chronos;
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 
@@ -48,10 +48,10 @@ class TransactionLineRepository extends AbstractRepository implements LimitedAcc
     /**
      * Compute the total balance by credit or debit account and date range.
      *
-     * @param null|Date $dateStart the lines from this date, included
-     * @param null|Date $dateEnd the line until this date, included
+     * @param null|ChronosDate $dateStart the lines from this date, included
+     * @param null|ChronosDate $dateEnd the line until this date, included
      */
-    public function totalBalance(?Account $debitAccount, ?Account $creditAccount, ?Date $dateStart = null, ?Date $dateEnd = null): Money
+    public function totalBalance(?Account $debitAccount, ?Account $creditAccount, ?ChronosDate $dateStart = null, ?ChronosDate $dateEnd = null): Money
     {
         if ($debitAccount === null && $creditAccount === null) {
             throw new Exception('At least one debit or credit account is needed to compute the total balance');

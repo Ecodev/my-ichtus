@@ -6,7 +6,7 @@ namespace Application\Service\Exporter;
 
 use Application\DBAL\Types\AccountTypeType;
 use Application\Model\Account;
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 use Ecodev\Felix\Format;
 use Money\Money;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
@@ -17,7 +17,7 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 class AccountingReport extends AbstractExcel
 {
-    private Date $date;
+    private ChronosDate $date;
 
     private array $assets = [];
 
@@ -49,7 +49,7 @@ class AccountingReport extends AbstractExcel
     {
         parent::__construct($hostname);
 
-        $this->date = Date::today();
+        $this->date = ChronosDate::today();
 
         $this->sheet->setTitle('Bilan + PP');
         $this->zebra = false;
@@ -61,7 +61,7 @@ class AccountingReport extends AbstractExcel
         return sprintf('compta_rapport_%s', $this->date->format('Y-m-d'));
     }
 
-    public function setDate(Date $date): void
+    public function setDate(ChronosDate $date): void
     {
         $this->date = $date;
     }

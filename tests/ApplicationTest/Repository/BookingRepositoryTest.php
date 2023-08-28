@@ -9,7 +9,7 @@ use Application\DBAL\Types\BookingTypeType;
 use Application\Model\Booking;
 use Application\Model\User;
 use Application\Repository\BookingRepository;
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 
 class BookingRepositoryTest extends AbstractRepositoryTest
 {
@@ -19,12 +19,12 @@ class BookingRepositoryTest extends AbstractRepositoryTest
     {
         parent::setUp();
         $this->repository = $this->getEntityManager()->getRepository(Booking::class);
-        Date::setTestNow(new Date('2020-01-01'));
+        ChronosDate::setTestNow(new ChronosDate('2020-01-01'));
     }
 
     protected function tearDown(): void
     {
-        Date::setTestNow(null);
+        ChronosDate::setTestNow(null);
         parent::tearDown();
     }
 

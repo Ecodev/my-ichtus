@@ -17,7 +17,7 @@ use Application\Repository\BookableRepository;
 use Application\Repository\BookableTagRepository;
 use Application\Traits\HasCode;
 use Application\Traits\HasRemarks;
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -68,7 +68,7 @@ class Bookable extends AbstractModel
     private string $state = BookableStateType::GOOD;
 
     #[ORM\Column(type: 'date', nullable: true)]
-    private ?Date $verificationDate = null;
+    private ?ChronosDate $verificationDate = null;
 
     /**
      * @var Collection<BookableTag>
@@ -244,7 +244,7 @@ class Bookable extends AbstractModel
     /**
      * The date then the bookable was last checked.
      */
-    public function getVerificationDate(): ?Date
+    public function getVerificationDate(): ?ChronosDate
     {
         return $this->verificationDate;
     }
@@ -252,7 +252,7 @@ class Bookable extends AbstractModel
     /**
      * The date then the bookable was last checked.
      */
-    public function setVerificationDate(?Date $verificationDate): void
+    public function setVerificationDate(?ChronosDate $verificationDate): void
     {
         $this->verificationDate = $verificationDate;
     }

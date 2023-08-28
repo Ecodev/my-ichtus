@@ -20,7 +20,7 @@ return [
         }',
         'variables' => [
             'inputBooking' => [
-                'startDate' => Chronos::now()->subMinute(1)->toIso8601String(),
+                'startDate' => Chronos::now()->subMinutes(1)->toIso8601String(),
                 'bookable' => 3007,
                 'status' => 'booked',
             ],

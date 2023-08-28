@@ -36,7 +36,7 @@ use Application\Traits\HasDoorAccess;
 use Application\Traits\HasIban;
 use Application\Traits\HasRemarks;
 use Cake\Chronos\Chronos;
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -172,7 +172,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     private ?string $swissWindsurfType = null;
 
     #[ORM\Column(type: 'date', nullable: true)]
-    private ?Date $birthday = null;
+    private ?ChronosDate $birthday = null;
 
     #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $termsAgreement = false;
@@ -449,12 +449,12 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
         $this->mobilePhone = $mobilePhone;
     }
 
-    public function getBirthday(): ?Date
+    public function getBirthday(): ?ChronosDate
     {
         return $this->birthday;
     }
 
-    public function setBirthday(?Date $birthday): void
+    public function setBirthday(?ChronosDate $birthday): void
     {
         $this->birthday = $birthday;
     }
@@ -465,7 +465,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     public function getAge(): ?int
     {
         if ($this->birthday) {
-            return (new Date())->diffInYears($this->birthday);
+            return (new ChronosDate())->diffInYears($this->birthday);
         }
 
         return null;

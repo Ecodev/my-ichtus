@@ -10,7 +10,7 @@ use Application\Model\Account;
 use Application\Model\User;
 use Application\Repository\AccountRepository;
 use Application\Service\MessageQueuer;
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 use Ecodev\Felix\Api\Field\FieldInterface;
 use Ecodev\Felix\Service\Mailer;
 use GraphQL\Type\Definition\Type;
@@ -51,7 +51,7 @@ abstract class LeaveFamily implements FieldInterface
                 $user->setStatus(User::STATUS_INACTIVE);
 
                 // Append a line to internal remarks
-                $internalRemarks = implode(PHP_EOL . PHP_EOL, array_filter([$user->getInternalRemarks(), Date::now()->toDateString() . ': détaché du ménage par ' . User::getCurrent()->getName()]));
+                $internalRemarks = implode(PHP_EOL . PHP_EOL, array_filter([$user->getInternalRemarks(), ChronosDate::now()->toDateString() . ': détaché du ménage par ' . User::getCurrent()->getName()]));
                 $user->setInternalRemarks($internalRemarks);
 
                 // Create account so the user can top-up money and start purchasing services

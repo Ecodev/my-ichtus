@@ -8,7 +8,7 @@ use Application\DBAL\Types\AccountTypeType;
 use Application\Repository\AccountRepository;
 use Application\Repository\TransactionLineRepository;
 use Application\Traits\HasIban;
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -132,9 +132,9 @@ class Account extends AbstractModel
     /**
      * Historical account's balance at a date in the past.
      */
-    public function getBalanceAtDate(Date $date): Money
+    public function getBalanceAtDate(ChronosDate $date): Money
     {
-        $today = Date::today();
+        $today = ChronosDate::today();
 
         if ($date->greaterThan($today)) {
             throw new Exception('Cannot compute balance of account #' . $this->getId() . ' in the future on ' . $date->format('d.m.Y'));

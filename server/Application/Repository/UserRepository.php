@@ -199,7 +199,7 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
             ->addSelect('account')
             ->andWhere('user.login IS NULL AND user.creationDate < :creationDate')
             ->leftJoin('user.accounts', 'account')
-            ->setParameter('creationDate', (new Chronos())->subDay(3));
+            ->setParameter('creationDate', (new Chronos())->subDays(3));
 
         $users = $qb->getQuery()->getResult();
 

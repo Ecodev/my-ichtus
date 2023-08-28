@@ -7,7 +7,7 @@
  */
 
 use Application\Service\Accounting;
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 
 $container = require_once 'server/cli.php';
 
@@ -15,7 +15,7 @@ $endDate = $argv[1] ?? null;
 if (!$endDate) {
     throw new InvalidArgumentException('Specify the end of the accounting period (YYYY-MM-DD)');
 }
-$endDate = Date::createFromFormat('Y-m-d+', $endDate);
+$endDate = ChronosDate::createFromFormat('Y-m-d+', $endDate);
 
 /** @var Accounting $accounting */
 $accounting = $container->get(Accounting::class);

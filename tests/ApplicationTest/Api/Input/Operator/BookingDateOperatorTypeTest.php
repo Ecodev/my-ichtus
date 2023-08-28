@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace ApplicationTest\Api\Input\Operator;
 
 use Application\Model\User;
-use Cake\Chronos\Date;
+use Cake\Chronos\ChronosDate;
 use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
 
 class BookingDateOperatorTypeTest extends OperatorType
 {
     public function providerGetDqlCondition(): iterable
     {
-        yield [1, 'Less', new Date('2018-01-02')];
-        yield [3, 'GreaterOrEqual', new Date('2018-01-01')];
-        yield [3, 'GreaterOrEqual', new Date('2018-01-02')];
+        yield [1, 'Less', new ChronosDate('2018-01-02')];
+        yield [3, 'GreaterOrEqual', new ChronosDate('2018-01-01')];
+        yield [3, 'GreaterOrEqual', new ChronosDate('2018-01-02')];
     }
 
     protected function setUp(): void
@@ -29,7 +29,7 @@ class BookingDateOperatorTypeTest extends OperatorType
     /**
      * @dataProvider providerGetDqlCondition
      */
-    public function testGetDqlCondition(int $expected, string $comparison, Date $date): void
+    public function testGetDqlCondition(int $expected, string $comparison, ChronosDate $date): void
     {
         $values = [
             'value' => $date,
