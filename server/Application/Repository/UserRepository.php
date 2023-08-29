@@ -7,7 +7,7 @@ namespace Application\Repository;
 use Application\DBAL\Types\BookingTypeType;
 use Application\Model\User;
 use Cake\Chronos\Chronos;
-use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\ArrayParameterType;
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 
 /**
@@ -126,7 +126,7 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
             ->andWhere('bookable.bookingType IN (:bookingType)')
             ->andWhere('bookable.isActive = true')
             ->andWhere('bookable.periodicPrice != 0')
-            ->setParameter('bookingType', [BookingTypeType::MANDATORY, BookingTypeType::ADMIN_ASSIGNED], Connection::PARAM_STR_ARRAY)
+            ->setParameter('bookingType', [BookingTypeType::MANDATORY, BookingTypeType::ADMIN_ASSIGNED], ArrayParameterType::STRING)
             ->setParameter('status', User::STATUS_ARCHIVED)
             ->addOrderBy('user.id')
             ->addOrderBy('bookable.name');

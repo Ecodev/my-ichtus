@@ -10,7 +10,7 @@ use Application\Model\Bookable;
 use Application\Model\Booking;
 use Application\Model\User;
 use Cake\Chronos\ChronosDate;
-use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 
 /**
@@ -61,12 +61,12 @@ class BookingRepository extends AbstractRepository
         ";
 
         $query = $this->getEntityManager()->createNativeQuery($sql, $rsm)
-            ->setParameter('bookingType', [BookingTypeType::MANDATORY, BookingTypeType::ADMIN_ASSIGNED, BookingTypeType::ADMIN_APPROVED], Connection::PARAM_STR_ARRAY)
+            ->setParameter('bookingType', [BookingTypeType::MANDATORY, BookingTypeType::ADMIN_ASSIGNED, BookingTypeType::ADMIN_APPROVED], ArrayParameterType::STRING)
             ->setParameter('bookingStatus', BookingStatusType::BOOKED)
             ->setParameter('userStatus', User::STATUS_ARCHIVED)
             ->setParameter('currentYear', ChronosDate::now()->firstOfYear()->toDateString())
             ->setParameter('nextYear', ChronosDate::now()->firstOfYear()->addYears(1)->toDateString())
-            ->setParameter('roles', [User::ROLE_BOOKING_ONLY], Connection::PARAM_STR_ARRAY);
+            ->setParameter('roles', [User::ROLE_BOOKING_ONLY], ArrayParameterType::STRING);
 
         if ($user) {
             $query->setParameter('user', $user->getId());
