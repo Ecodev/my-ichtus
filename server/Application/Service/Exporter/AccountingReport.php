@@ -69,7 +69,7 @@ class AccountingReport extends AbstractExcel
     protected function writeTitle(): void
     {
         $this->column = 1;
-        $this->sheet->mergeCellsByColumnAndRow($this->column, $this->row, $this->column + 14, $this->row);
+        $this->sheet->mergeCells([$this->column, $this->row, $this->column + 14, $this->row]);
         $this->write(
             sprintf($this->hostname . ': rapport comptable au %s', $this->date->format('d.m.Y')),
             self::$titleFormat,
@@ -79,14 +79,14 @@ class AccountingReport extends AbstractExcel
         ++$this->row;
 
         $this->column = 1;
-        $this->sheet->mergeCellsByColumnAndRow($this->column, $this->row, $this->column + 6, $this->row);
+        $this->sheet->mergeCells([$this->column, $this->row, $this->column + 6, $this->row]);
         $this->write(
             'Bilan',
             self::$titleFormat,
             self::$centerFormat
         );
         $this->column = 9;
-        $this->sheet->mergeCellsByColumnAndRow($this->column, $this->row, $this->column + 6, $this->row);
+        $this->sheet->mergeCells([$this->column, $this->row, $this->column + 6, $this->row]);
         $this->write(
             'Résultat',
             self::$titleFormat,
@@ -191,7 +191,7 @@ class AccountingReport extends AbstractExcel
                 $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['balance']);
             }
             // Store the coordinate of the cell to later compute totals
-            $this->assets[$index]['cell'] = $this->sheet->getCellByColumnAndRow($this->column, $this->row)->getCoordinate();
+            $this->assets[$index]['cell'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
             $this->write($data['balance'], self::$balanceFormat);
 
             $firstLine = false;
@@ -210,7 +210,7 @@ class AccountingReport extends AbstractExcel
                 $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['balance']);
             }
             // Store the coordinate of the cell to later compute totals
-            $this->liabilities[$index]['cell'] = $this->sheet->getCellByColumnAndRow($this->column, $this->row)->getCoordinate();
+            $this->liabilities[$index]['cell'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
             $this->write($data['balance'], self::$balanceFormat);
             $format = ['font' => ['bold' => $data['depth'] <= 2]];
             if ($firstLine) {
@@ -254,7 +254,7 @@ class AccountingReport extends AbstractExcel
                 $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['balance']);
             }
             // Store the coordinate of the cell to later compute totals
-            $this->expenses[$index]['cell'] = $this->sheet->getCellByColumnAndRow($this->column, $this->row)->getCoordinate();
+            $this->expenses[$index]['cell'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
             $this->write($data['balance'], self::$balanceFormat);
             $firstLine = false;
             ++$this->row;
@@ -272,7 +272,7 @@ class AccountingReport extends AbstractExcel
                 $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['balance']);
             }
             // Store the coordinate of the cell to later compute totals
-            $this->revenues[$index]['cell'] = $this->sheet->getCellByColumnAndRow($this->column, $this->row)->getCoordinate();
+            $this->revenues[$index]['cell'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
             $this->write($data['balance'], self::$balanceFormat);
             $format = ['font' => ['bold' => $data['depth'] === 1]];
             if ($firstLine) {

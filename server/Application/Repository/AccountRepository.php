@@ -161,7 +161,7 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
             ->select('IFNULL(MAX(a.code) + 1, 1)')
             ->from('account', 'a');
 
-        return (int) $qb->execute()->fetchOne();
+        return (int) $qb->fetchOne();
     }
 
     public function getRootAccountsQuery(): Query

@@ -71,7 +71,7 @@ class TransactionLines extends AbstractExcel
                     // Multi-line transaction
                     // Merge cells that have the same value because from the same transaction
                     foreach ($mergeRowsFromColumns as $column) {
-                        $this->sheet->mergeCellsByColumnAndRow($column, $currentTransactionRowStart, $column, $this->row - 1);
+                        $this->sheet->mergeCells([$column, $currentTransactionRowStart, $column, $this->row - 1]);
                     }
                 }
                 $currentTransactionRowStart = $this->row;
@@ -84,7 +84,7 @@ class TransactionLines extends AbstractExcel
             // Transaction.ID
             $this->write($transactionId);
             $url = 'https://' . $this->hostname . '/admin/transaction/%u';
-            $this->sheet->getCellByColumnAndRow($this->column - 1, $this->row)->getHyperlink()->setUrl(sprintf($url, $transactionId));
+            $this->sheet->getCell([$this->column - 1, $this->row])->getHyperlink()->setUrl(sprintf($url, $transactionId));
             // Transaction.name
             $this->write($transaction->getName());
             // Transaction.remarks
@@ -110,7 +110,7 @@ class TransactionLines extends AbstractExcel
             // Credit amount
             $this->write($credit ? $this->moneyFormatter->format($line->getBalance()) : '');
             // Reconciled
-            $this->sheet->getStyleByColumnAndRow($this->column, $this->row)->applyFromArray(self::$centerFormat);
+            $this->sheet->getStyle([$this->column, $this->row])->applyFromArray(self::$centerFormat);
             $this->write($line->isReconciled() ? '✔️' : '');
             // Tag
             $tag = $line->getTransactionTag();

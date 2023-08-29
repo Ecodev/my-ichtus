@@ -217,7 +217,7 @@ abstract class AbstractExcel extends AbstractExporter
             }
 
             if (isset($header['colspan']) && $header['colspan'] > 1) {
-                $this->sheet->mergeCellsByColumnAndRow($this->column, $this->row, $this->column + (int) $header['colspan'] - 1, $this->row);
+                $this->sheet->mergeCells([$this->column, $this->row, $this->column + (int) $header['colspan'] - 1, $this->row]);
             }
 
             $this->write($header['label'], ...$header['formats']);
@@ -238,7 +238,7 @@ abstract class AbstractExcel extends AbstractExporter
      */
     protected function write($value, array ...$formats): void
     {
-        $cell = $this->sheet->getCellByColumnAndRow($this->column++, $this->row);
+        $cell = $this->sheet->getCell([$this->column++, $this->row]);
         if ($formats) {
             $style = $cell->getStyle();
             foreach ($formats as $format) {
@@ -305,7 +305,7 @@ abstract class AbstractExcel extends AbstractExporter
     private function applyAutoFilter(): void
     {
         if ($this->autoFilter) {
-            $this->sheet->setAutoFilterByColumnAndRow($this->firstDataColumn, $this->firstDataRow - 1, $this->lastDataColumn, $this->lastDataRow);
+            $this->sheet->setAutoFilter([$this->firstDataColumn, $this->firstDataRow - 1, $this->lastDataColumn, $this->lastDataRow]);
         }
     }
 }
