@@ -54,6 +54,26 @@
                             <mat-error *ngIf="form.get('iban')?.hasError('required')">Requis</mat-error>
                             <mat-hint>Pour les comptes bancaires ichtus uniquement</mat-hint>
                         </mat-form-field>
+
+                        <mat-form-field [style.width.px]="250">
+                            <mat-label>Budget prévu</mat-label>
+                            <input
+                                matInput
+                                type="number"
+                                step="0.01"
+                                [attr.min]="0"
+                                formControlName="budgetAllowed"
+                                (change)="update()"
+                            />
+                            <div matTextSuffix>CHF</div>
+                            <mat-error *ngIf="form.get('budgetAllowed')?.hasError('min')"
+                                >Le montant doit être positif</mat-error
+                            >
+                            <mat-error *ngIf="form.get('budgetAllowed')?.hasError('money')"
+                                >Le montant doit être un nombre avec un maximum de deux décimales</mat-error
+                            >
+                            <mat-hint *ngIf="budgetBalance()">Budget restant: {{ budgetBalance() }} CHF</mat-hint>
+                        </mat-form-field>
                     </div>
 
                     <div fxFlex="33" fxLayout="column">

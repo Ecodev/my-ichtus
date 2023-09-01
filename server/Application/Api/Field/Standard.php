@@ -119,6 +119,11 @@ abstract class Standard
 
                     _em()->flush();
 
+                    // Refresh budgetBalance that is computed by the DB
+                    if ($class === Account::class) {
+                        _em()->refresh($object);
+                    }
+
                     return $object;
                 },
             ],

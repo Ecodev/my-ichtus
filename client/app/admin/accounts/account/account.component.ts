@@ -2,14 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {
     NaturalAbstractDetail,
     NaturalDetailHeaderComponent,
-    NaturalLinkableTabDirective,
-    NaturalIconDirective,
-    NaturalSelectHierarchicComponent,
-    NaturalSelectEnumComponent,
-    NaturalSelectComponent,
-    NaturalStampComponent,
     NaturalFixedButtonDetailComponent,
+    NaturalIconDirective,
+    NaturalLinkableTabDirective,
+    NaturalSelectComponent,
+    NaturalSelectEnumComponent,
+    NaturalSelectHierarchicComponent,
     NaturalSeoResolveData,
+    NaturalStampComponent,
 } from '@ecodev/natural';
 import {AccountService} from '../services/account.service';
 import {UserService} from '../../users/services/user.service';
@@ -26,6 +26,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import Big from 'big.js';
 
 @Component({
     selector: 'app-account',
@@ -114,5 +115,14 @@ export class AccountComponent extends NaturalAbstractDetail<AccountService, Natu
                 ibanField.setValue('');
             }
         }
+    }
+
+    public budgetBalance(): string {
+        const allowed = this.form.get('budgetAllowed')?.value;
+        if (!this.isUpdatePage() || allowed === null) {
+            return '';
+        }
+
+        return Big(allowed).minus(this.data.model.totalBalance).toFixed(2);
     }
 }

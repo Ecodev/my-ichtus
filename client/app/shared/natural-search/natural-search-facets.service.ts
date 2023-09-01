@@ -611,6 +611,22 @@ export class NaturalSearchFacetsService {
                     step: 1,
                 },
             } satisfies DropdownFacet<TypeNumberConfiguration>,
+            {
+                display: 'Budget prévu',
+                field: 'budgetAllowed',
+                component: TypeNumberComponent,
+                configuration: {
+                    step: 1,
+                },
+            } satisfies DropdownFacet<TypeNumberConfiguration>,
+            {
+                display: 'Budget restant',
+                field: 'budgetBalance',
+                component: TypeNumberComponent,
+                configuration: {
+                    step: 1,
+                },
+            } satisfies DropdownFacet<TypeNumberConfiguration>,
             this.creationDate,
             this.updateDate,
         ],

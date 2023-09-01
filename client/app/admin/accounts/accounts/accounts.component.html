@@ -1,7 +1,7 @@
 <div *ngIf="dataSource" fxLayout="column">
     <div fxLayout="column">
         <div fxLayout="row">
-            <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex>
                 <div [routerLink]="getChildLink(null)" class="mat-headline-5 no-margin-v margin-right">
                     {{ routeData?.seo.title }}
                 </div>
@@ -100,9 +100,27 @@
                     </ng-container>
 
                     <ng-container matColumnDef="totalBalance">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header natural-4em-column>Solde</th>
-                        <td mat-cell *matCellDef="let element" natural-align-right="">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header natural-align-right>Solde</th>
+                        <td mat-cell *matCellDef="let element" natural-align-right>
                             <app-money [amount]="element.item.totalBalance" [showCurrency]="false"></app-money>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="budgetAllowed">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header natural-align-right>Budget prévu</th>
+                        <td mat-cell *matCellDef="let element" natural-align-right>
+                            <app-money
+                                [amount]="element.item.budgetAllowed"
+                                [showCurrency]="false"
+                                [showSignal]="false"
+                            ></app-money>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="budgetBalance">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header natural-align-right>Budget restant</th>
+                        <td mat-cell *matCellDef="let element" natural-align-right>
+                            <app-money [amount]="element.item.budgetBalance" [showCurrency]="false"></app-money>
                         </td>
                     </ng-container>
 

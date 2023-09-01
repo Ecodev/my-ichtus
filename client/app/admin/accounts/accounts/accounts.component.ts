@@ -74,6 +74,8 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
         {id: 'owner', label: 'Utilisateur', checked: false},
         {id: 'iban', label: 'IBAN', checked: false},
         {id: 'totalBalance', label: 'Solde'},
+        {id: 'budgetAllowed', label: 'Budget prévu'},
+        {id: 'budgetBalance', label: 'Budget restant'},
         {id: 'creationDate', label: 'Créé le', checked: false},
         {id: 'updateDate', label: 'Modifié le', checked: false},
     ];

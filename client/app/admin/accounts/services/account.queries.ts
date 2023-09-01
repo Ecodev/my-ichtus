@@ -18,6 +18,8 @@ export const accountMetaFragment = gql`
         fullName
         iban
         totalBalance
+        budgetAllowed
+        budgetBalance
         type
         owner {
             id
@@ -101,6 +103,7 @@ export const updateAccount = gql`
     mutation UpdateAccount($id: AccountID!, $input: AccountPartialInput!) {
         updateAccount(id: $id, input: $input) {
             id
+            budgetBalance
             updateDate
             updater {
                 ...UserMeta

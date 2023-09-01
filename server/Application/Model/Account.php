@@ -62,6 +62,12 @@ class Account extends AbstractModel
     #[ORM\Column(type: 'Money', options: ['default' => 0])]
     private Money $totalBalance;
 
+    #[ORM\Column(type: 'Money', nullable: true)]
+    private ?Money $budgetAllowed;
+
+    #[ORM\Column(type: 'Money', nullable: true)]
+    private ?Money $budgetBalance;
+
     /**
      * Constructor.
      */
@@ -96,6 +102,21 @@ class Account extends AbstractModel
         if ($this->getOwner()) {
             $owner->accountAdded($this);
         }
+    }
+
+    public function getBudgetAllowed(): ?Money
+    {
+        return $this->budgetAllowed;
+    }
+
+    public function setBudgetAllowed(?Money $budgetAllowed): void
+    {
+        $this->budgetAllowed = $budgetAllowed;
+    }
+
+    public function getBudgetBalance(): ?Money
+    {
+        return $this->budgetBalance;
     }
 
     /**

@@ -35,10 +35,11 @@ import {
     formatIsoDateTime,
     FormValidators,
     integer,
+    money,
     NaturalAbstractModelService,
+    NaturalDebounceService,
     NaturalQueryVariablesManager,
     unique,
-    NaturalDebounceService,
 } from '@ecodev/natural';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -80,6 +81,7 @@ export class AccountService extends NaturalAbstractModelService<
             code: 0,
             name: '',
             iban: '',
+            budgetAllowed: null,
         };
     }
 
@@ -88,6 +90,7 @@ export class AccountService extends NaturalAbstractModelService<
             name: [Validators.required, Validators.maxLength(100)],
             code: [Validators.required, Validators.min(0), integer],
             iban: [iban],
+            budgetAllowed: [money, Validators.min(0)],
         };
     }
 
