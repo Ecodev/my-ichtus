@@ -13,7 +13,7 @@ var options = {
 //    checkIfBookablesNotAvailableWhenConfirming: true,
     showAlertBookablesNotAvailable: false,
     showAlertNoWelcomeSession: true,
-    minutesToEditBooking: 5,
+    minutesToEditBooking: 60, // after Fred's request
     lateHourWarning: 19, // starting from 19:00
     displayTerminatedEditedBookings: false, // don't show bookings that last 0 seconds
 }; //showMetadatas: false,
