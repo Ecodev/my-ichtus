@@ -25,15 +25,13 @@ if (environment.production) {
 }
 
 function apiUrl(): string {
-    const urlParams = new URLSearchParams(window.location.search);
-    let apiServer = urlParams.get('apiServer') ?? '';
-    const allowed = ['my-ichtus.lan', 'dev.ichtus.club', 'ichtus.club'];
-
-    if (!allowed.includes(apiServer)) {
-        apiServer = allowed[0];
+    const currentScript = window.document.currentScript;
+    let origin = 'https://my-ichtus.lan';
+    if (currentScript instanceof HTMLScriptElement) {
+        origin = new URL(currentScript.src).origin;
     }
 
-    return `https://${apiServer}/graphql`;
+    return `${origin}/graphql`;
 }
 
 createApplication({
