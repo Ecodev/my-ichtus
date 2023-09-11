@@ -24,6 +24,18 @@ if (environment.production) {
     enableProdMode();
 }
 
+function apiUrl(): string {
+    const urlParams = new URLSearchParams(window.location.search);
+    let apiServer = urlParams.get('apiServer') ?? '';
+    const allowed = ['my-ichtus.lan', 'dev.ichtus.club', 'ichtus.club'];
+
+    if (!allowed.includes(apiServer)) {
+        apiServer = allowed[0];
+    }
+
+    return `https://${apiServer}/graphql`;
+}
+
 createApplication({
     providers: [
         importProvidersFrom(ApolloModule),
@@ -39,11 +51,7 @@ createApplication({
                 return {
                     cache: new InMemoryCache(cacheConfig),
                     link: httpBatchLink.create({
-                        uri:
-                            window.location.hostname === 'navigations.ichtus.club'
-                                ? 'https://ichtus.club/graphql'
-                                : // : 'https://dev.ichtus.club/graphql',
-                                  'https://my-ichtus.lan/graphql',
+                        uri: apiUrl(),
                         withCredentials: true,
                     }),
                     defaultOptions: {
