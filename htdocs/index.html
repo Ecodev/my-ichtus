@@ -62,9 +62,20 @@
             const apiServer =
                 window.location.hostname === 'navigations.ichtus.club' ? 'ichtus.club' : 'dev.ichtus.club';
 
-            loadApi(apiServer, '/vanilla/runtime.js');
-            loadApi(apiServer, '/vanilla/polyfills.js');
-            loadApi(apiServer, '/vanilla/main.js');
+            //
+            loadJs('https://' + apiServer + '/vanilla/runtime.js');
+            loadJs('https://' + apiServer + '/vanilla/polyfills.js');
+            loadJs('https://' + apiServer + '/vanilla/main.js');
+
+            // -es2015
+            //    loadJs('https://' + apiServer + '/vanilla/runtime-es2015.js');
+            //     loadJs('https://' + apiServer + '/vanilla/polyfills-es2015.js');
+            //     loadJs('https://' + apiServer + '/vanilla/main-es2015.js');
+
+            // -es5
+            //         loadJs('https://' + apiServer + '/vanilla/runtime-es5.js');
+            //        loadJs('https://' + apiServer + '/vanilla/polyfills-es5.js');
+            //       loadJs('https://' + apiServer + '/vanilla/main-es5.js');
         </script>
 
         <!-- JavaScript Linked Files For Wind -->
