@@ -39,6 +39,7 @@ use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosDate;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ReadableCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Model\CurrentUser;
@@ -102,8 +103,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     /**
      * Set currently logged in user
      * WARNING: this method should only be called from \Application\Authentication\AuthenticationListener.
-     *
-     * @param User $user
      */
     public static function setCurrent(?self $user): void
     {
@@ -483,7 +482,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      * Get active bookings (confirmed and non-terminated).
      */
     #[API\Exclude]
-    public function getRunningBookings(): Collection
+    public function getRunningBookings(): ReadableCollection
     {
         return $this->bookings->filter(fn (Booking $booking) => $booking->getStatus() === BookingStatusType::BOOKED && $booking->getEndDate() === null);
     }

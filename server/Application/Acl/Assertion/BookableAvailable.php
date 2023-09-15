@@ -23,8 +23,6 @@ class BookableAvailable implements NamedAssertion
      * Assert that the bookable of the given booking can be rented by the current user.
      *
      * @param \Application\Acl\Acl $acl
-     * @param RoleInterface $role
-     * @param ResourceInterface $resource
      * @param string $privilege
      *
      * @return bool

@@ -23,8 +23,6 @@ class BookingIsPendingApplication implements NamedAssertion
      * Assert that a booking is a pending application.
      *
      * @param \Application\Acl\Acl $acl
-     * @param RoleInterface $role
-     * @param ResourceInterface $resource
      * @param string $privilege
      *
      * @return bool

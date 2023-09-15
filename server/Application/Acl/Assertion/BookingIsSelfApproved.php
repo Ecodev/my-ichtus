@@ -22,8 +22,6 @@ class BookingIsSelfApproved implements NamedAssertion
      * Assert that booking's bookable is self approved (boats) or has no bookable.
      *
      * @param \Application\Acl\Acl $acl
-     * @param RoleInterface $role
-     * @param ResourceInterface $resource
      * @param string $privilege
      *
      * @return bool

@@ -22,8 +22,6 @@ class BookableIsAdminApproved implements NamedAssertion
      * Assert that the bookable's booking type is admin approved.
      *
      * @param \Application\Acl\Acl $acl
-     * @param RoleInterface $role
-     * @param ResourceInterface $resource
      * @param string $privilege
      *
      * @return bool

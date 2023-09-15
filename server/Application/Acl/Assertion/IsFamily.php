@@ -22,8 +22,6 @@ class IsFamily implements NamedAssertion
      * Assert that the object belongs to someone in the current user family.
      *
      * @param \Application\Acl\Acl $acl
-     * @param RoleInterface $role
-     * @param ResourceInterface $resource
      * @param string $privilege
      *
      * @return bool

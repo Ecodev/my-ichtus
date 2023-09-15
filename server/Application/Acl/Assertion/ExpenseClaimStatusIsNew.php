@@ -23,8 +23,6 @@ class ExpenseClaimStatusIsNew implements NamedAssertion
      * Assert that the accounting document's expense claim is new (not processed yet).
      *
      * @param \Application\Acl\Acl $acl
-     * @param RoleInterface $role
-     * @param ResourceInterface $resource
      * @param string $privilege
      *
      * @return bool

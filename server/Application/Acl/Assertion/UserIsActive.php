@@ -21,8 +21,6 @@ class UserIsActive implements NamedAssertion
      * Assert that the current user is active.
      *
      * @param \Application\Acl\Acl $acl
-     * @param RoleInterface $role
-     * @param ResourceInterface $resource
      * @param string $privilege
      *
      * @return bool
