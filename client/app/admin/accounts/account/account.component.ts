@@ -27,6 +27,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import Big from 'big.js';
+import {AccountType} from '../../../shared/generated-types';
 
 @Component({
     selector: 'app-account',
@@ -59,7 +60,7 @@ import Big from 'big.js';
 export class AccountComponent extends NaturalAbstractDetail<AccountService, NaturalSeoResolveData> implements OnInit {
     public nextCodeAvailable: number | null = null;
     public accountHierarchicConfig = groupAccountHierarchicConfiguration;
-
+    public readonly AccountType = AccountType;
     public constructor(
         public readonly accountService: AccountService,
         public readonly userService: UserService,

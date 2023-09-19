@@ -82,6 +82,7 @@ export class AccountService extends NaturalAbstractModelService<
             name: '',
             iban: '',
             budgetAllowed: null,
+            totalBalanceFormer: '0',
         };
     }
 

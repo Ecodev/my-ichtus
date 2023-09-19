@@ -68,6 +68,9 @@ class Account extends AbstractModel
     #[ORM\Column(type: 'Money', nullable: true)]
     private ?Money $budgetBalance;
 
+    #[ORM\Column(type: 'Money', options: ['default' => 0])]
+    private Money $totalBalanceFormer;
+
     /**
      * Constructor.
      */
@@ -75,6 +78,7 @@ class Account extends AbstractModel
     {
         $this->balance = Money::CHF(0);
         $this->totalBalance = Money::CHF(0);
+        $this->totalBalanceFormer = Money::CHF(0);
         $this->children = new ArrayCollection();
         $this->debitTransactionLines = new ArrayCollection();
         $this->creditTransactionLines = new ArrayCollection();
@@ -117,6 +121,16 @@ class Account extends AbstractModel
     public function getBudgetBalance(): ?Money
     {
         return $this->budgetBalance;
+    }
+
+    public function getTotalBalanceFormer(): Money
+    {
+        return $this->totalBalanceFormer;
+    }
+
+    public function setTotalBalanceFormer(Money $totalBalanceFormer): void
+    {
+        $this->totalBalanceFormer = $totalBalanceFormer;
     }
 
     /**

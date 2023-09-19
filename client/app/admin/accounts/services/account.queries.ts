@@ -20,6 +20,7 @@ export const accountMetaFragment = gql`
         totalBalance
         budgetAllowed
         budgetBalance
+        totalBalanceFormer
         type
         owner {
             id
