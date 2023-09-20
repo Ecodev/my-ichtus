@@ -24,7 +24,7 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
             return '-1';
         }
 
-        return $this->getAllIdsQuery();
+        return '';
     }
 
     /**

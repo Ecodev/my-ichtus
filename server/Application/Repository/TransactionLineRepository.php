@@ -31,7 +31,7 @@ class TransactionLineRepository extends AbstractRepository implements LimitedAcc
         }
 
         if (in_array($user->getRole(), [User::ROLE_ACCOUNTING_VERIFICATOR, User::ROLE_RESPONSIBLE, User::ROLE_ADMINISTRATOR], true)) {
-            return $this->getAllIdsQuery();
+            return '';
         }
 
         if ($user->getOwner()) {

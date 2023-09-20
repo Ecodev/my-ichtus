@@ -26,7 +26,7 @@ class ExpenseClaimRepository extends AbstractRepository implements LimitedAccess
         }
 
         if (in_array($user->getRole(), [User::ROLE_RESPONSIBLE, User::ROLE_ADMINISTRATOR], true)) {
-            return $this->getAllIdsQuery();
+            return '';
         }
 
         return $this->getAllIdsForFamilyQuery($user);

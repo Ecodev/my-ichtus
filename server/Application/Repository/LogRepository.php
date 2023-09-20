@@ -40,7 +40,7 @@ class LogRepository extends AbstractRepository implements \Ecodev\Felix\Reposito
 
         // Sysops and responsible can read all logs
         if (in_array($user->getRole(), [User::ROLE_RESPONSIBLE, User::ROLE_ADMINISTRATOR], true)) {
-            return $this->getAllIdsQuery();
+            return '';
         }
 
         $subquery = '

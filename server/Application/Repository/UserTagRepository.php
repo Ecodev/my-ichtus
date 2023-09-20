@@ -26,7 +26,7 @@ class UserTagRepository extends AbstractRepository implements LimitedAccessSubQu
         }
 
         if (in_array($user->getRole(), [User::ROLE_TRAINER, User::ROLE_FORMATION_RESPONSIBLE, User::ROLE_RESPONSIBLE, User::ROLE_ADMINISTRATOR], true)) {
-            return $this->getAllIdsQuery();
+            return '';
         }
 
         return '-1';
