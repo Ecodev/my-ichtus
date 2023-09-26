@@ -14,7 +14,7 @@ class UserIsActive implements NamedAssertion
 {
     public function getName(): string
     {
-        return "l'utilisateur est actif";
+        return 'je suis actif';
     }
 
     /**
