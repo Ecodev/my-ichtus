@@ -45,6 +45,16 @@ return [
         'report' => [
             'showAccountsWithZeroBalance' => false,
             'maxAccountDepth' => 3,
+            // Account code prefixes are used to determine on which side
+            // of the balance sheet or income statement, group accounts should appear
+            // Switzerland: https://www.kmu.admin.ch/kmu/en/home/concrete-know-how/finances/accounting-and-auditing/annual-financial-statements/auditor-types-audit/organize-accounting.html
+            'accountClasses' => [
+                'assets' => ['1'],
+                'liabilities' => ['2'],
+                'revenues' => ['3'],
+                'expenses' => ['4', '5', '6'],
+                'equity' => ['7', '8', '9'],
+            ],
         ],
     ],
     'datatrans' => [
