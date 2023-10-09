@@ -45,12 +45,12 @@ abstract class AbstractExcel extends AbstractExporter
     /**
      * Index of first column containing data.
      */
-    private int $firstDataColumn = 1;
+    protected int $firstDataColumn = 1;
 
     /**
      * Index of first row containing data.
      */
-    private int $firstDataRow = 1;
+    protected int $firstDataRow = 1;
 
     /**
      * Index of last column containing data.
@@ -198,10 +198,10 @@ abstract class AbstractExcel extends AbstractExporter
     {
     }
 
-    private function writeHeaders(): void
+    public function writeHeaders(array $headers): void
     {
         // Headers
-        foreach ($this->getHeaders() as $header) {
+        foreach ($headers as $header) {
             // Apply width
             if (isset($header['width'])) {
                 $colDimension = $this->sheet->getColumnDimensionByColumn($this->column);
@@ -227,8 +227,6 @@ abstract class AbstractExcel extends AbstractExporter
             }
         }
     }
-
-    abstract protected function getHeaders(): array;
 
     /**
      * Write the value and style in the cell selected by `column` and `row` variables and move to next column.
@@ -264,15 +262,14 @@ abstract class AbstractExcel extends AbstractExporter
         $this->column = 1;
         $this->writeTitle();
         $this->column = 1;
-        $this->writeHeaders();
-        ++$this->row;
-        $this->column = 1;
         $this->firstDataRow = $this->row;
         $this->firstDataColumn = $this->column;
     }
 
     protected function finalize(string $path): void
     {
+        $this->lastDataRow = $this->row - 1;
+
         $this->applyZebra();
         $this->applyAutoFilter();
 

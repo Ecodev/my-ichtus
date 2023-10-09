@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Application\Service\Exporter;
 
-use Application\Model\AbstractModel;
-
+/**
+ * @template T of \Application\Model\AbstractModel|array
+ */
 abstract class AbstractExporter
 {
     private string $exportDir = 'htdocs/data/export/';
@@ -24,11 +25,11 @@ abstract class AbstractExporter
     abstract protected function initialize(string $path): void;
 
     /**
-     * Write the items, one per line, in the body part of the sheet.
+     * Write the item, one per line, in the body part of the sheet.
      *
-     * @param AbstractModel[] $items
+     * @param T $item
      */
-    abstract protected function writeData(array $items): void;
+    abstract protected function writeItem($item): void;
 
     /**
      * Finalize the export, possibly writing footer and closing file.
@@ -38,9 +39,11 @@ abstract class AbstractExporter
     /**
      * Called by the field resolver or repository to generate a spreadsheet from the query builder.
      *
+     * @param iterable<T> $items
+     *
      * @return string the generated spreadsheet file path
      */
-    public function export(array $items): string
+    public function export(iterable $items): string
     {
         $folder = bin2hex(random_bytes(16)) . '/';
         $dir = $this->exportDir . $folder;
@@ -50,7 +53,11 @@ abstract class AbstractExporter
         $path = $dir . $filename;
 
         $this->initialize($path);
-        $this->writeData($items);
+
+        foreach ($items as $item) {
+            $this->writeItem($item);
+        }
+
         $this->finalize($path);
 
         return 'https://' . $this->hostname . '/data/export/' . $folder . $filename;

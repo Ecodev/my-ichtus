@@ -16,6 +16,10 @@ class TransactionLines extends AbstractExcel
         $this->sheet->setTitle('Compta Écritures');
     }
 
+    private ?int $currentTransactionRowStart = null;
+
+    private ?int $currentTransactionId = null;
+
     protected function getTitleForFilename(): string
     {
         return 'compta_ecritures_' . date('Y-m-d-H:i:s');
@@ -41,102 +45,97 @@ class TransactionLines extends AbstractExcel
         ];
     }
 
-    /**
-     * @param TransactionLine[] $items
-     */
-    protected function writeData(array $items): void
+    protected function initialize(string $path): void
     {
+        parent::initialize($path);
+        $this->writeHeaders($this->getHeaders());
+        $this->firstDataRow = ++$this->row;
+        $this->column = $this->firstDataColumn;
         $this->sheet->setShowGridlines(false);
-        $initialColumn = $this->column;
-        $currentTransactionRowStart = null;
-        $currentTransactionId = null;
+    }
 
+    /**
+     * @param TransactionLine $line
+     */
+    protected function writeItem($line): void
+    {
         $mergeRowsFromColumns = [
-            $initialColumn + 1, // Transaction.ID
-            $initialColumn + 2, // Transaction.name
-            $initialColumn + 3, // Transaction.remarks
-            $initialColumn + 4, // Transaction.internalRemarks
+            $this->firstDataColumn + 1, // Transaction.ID
+            $this->firstDataColumn + 2, // Transaction.name
+            $this->firstDataColumn + 3, // Transaction.remarks
+            $this->firstDataColumn + 4, // Transaction.internalRemarks
         ];
 
-        foreach ($items as $index => $line) {
-            $transaction = $line->getTransaction();
-            $transactionId = $transaction->getId();
+        $transaction = $line->getTransaction();
+        $transactionId = $transaction->getId();
 
-            if (!$currentTransactionId) {
-                $currentTransactionId = $transactionId;
-                $currentTransactionRowStart = $this->row;
-            } elseif ($transactionId !== $currentTransactionId) {
-                // Current line starts a new transaction
-                if ($currentTransactionRowStart < $this->row - 1) {
-                    // Multi-line transaction
-                    // Merge cells that have the same value because from the same transaction
-                    foreach ($mergeRowsFromColumns as $column) {
-                        $this->sheet->mergeCells([$column, $currentTransactionRowStart, $column, $this->row - 1]);
-                    }
+        if (!$this->currentTransactionId) {
+            $this->currentTransactionId = $transactionId;
+            $this->currentTransactionRowStart = $this->row;
+        } elseif ($transactionId !== $this->currentTransactionId) {
+            // Current line starts a new transaction
+            if ($this->currentTransactionRowStart < $this->row - 1) {
+                // Multi-line transaction
+                // Merge cells that have the same value because from the same transaction
+                foreach ($mergeRowsFromColumns as $column) {
+                    $this->sheet->mergeCells([$column, $this->currentTransactionRowStart, $column, $this->row - 1]);
                 }
-                $currentTransactionRowStart = $this->row;
-                $currentTransactionId = $transactionId;
             }
-
-            // Date
-            $this->write($line->getTransactionDate()->format('d.m.Y'));
-
-            // Transaction.ID
-            $this->write($transactionId);
-            $url = 'https://' . $this->hostname . '/admin/transaction/%u';
-            $this->sheet->getCell([$this->column - 1, $this->row])->getHyperlink()->setUrl(sprintf($url, $transactionId));
-            // Transaction.name
-            $this->write($transaction->getName());
-            // Transaction.remarks
-            $this->write($transaction->getRemarks());
-            // Transaction.internalRemarks
-            $this->write($transaction->getInternalRemarks());
-
-            // TransactionLine.name
-            $this->write($line->getName());
-            // TransactionLine.remarks
-            $this->write($line->getRemarks());
-            // Bookable.name
-            $bookable = $line->getBookable();
-            $this->write($bookable ? $bookable->getName() : '');
-            // Debit account
-            $debit = $line->getDebit();
-            $this->write($debit ? implode(' ', [$debit->getCode(), $debit->getName()]) : '');
-            // Credit account
-            $credit = $line->getCredit();
-            $this->write($credit ? implode(' ', [$credit->getCode(), $credit->getName()]) : '');
-            // Debit amount
-            $this->write($debit ? $this->moneyFormatter->format($line->getBalance()) : '');
-            // Credit amount
-            $this->write($credit ? $this->moneyFormatter->format($line->getBalance()) : '');
-            // Reconciled
-            $this->sheet->getStyle([$this->column, $this->row])->applyFromArray(self::$centerFormat);
-            $this->write($line->isReconciled() ? '✔️' : '');
-            // Tag
-            $tag = $line->getTransactionTag();
-            $this->write($tag ? $tag->getName() : '');
-
-            $this->lastDataColumn = $this->column - 1;
-
-            $range = Coordinate::stringFromColumnIndex($initialColumn) . $this->row . ':' . Coordinate::stringFromColumnIndex($this->lastDataColumn) . $this->row;
-            // Thicker horizontal delimiter between lines of different transactions
-            if ($index === max(array_keys($items)) || $line->getTransaction()->getId() !== $items[$index + 1]->getTransaction()->getId()) {
-                $borderBottom = self::$bordersBottom;
-            } else {
-                $borderBottom = self::$bordersBottomLight;
-            }
-            $this->sheet->getStyle($range)->applyFromArray($borderBottom);
-
-            $this->column = $initialColumn;
-            ++$this->row;
+            $this->currentTransactionRowStart = $this->row;
+            $this->currentTransactionId = $transactionId;
         }
-        $this->lastDataRow = $this->row - 1;
+
+        // Date
+        $this->write($line->getTransactionDate()->format('d.m.Y'));
+
+        // Transaction.ID
+        $this->write($transactionId);
+        $url = 'https://' . $this->hostname . '/admin/transaction/%u';
+        $this->sheet->getCell([$this->column - 1, $this->row])->getHyperlink()->setUrl(sprintf($url, $transactionId));
+        // Transaction.name
+        $this->write($transaction->getName());
+        // Transaction.remarks
+        $this->write($transaction->getRemarks());
+        // Transaction.internalRemarks
+        $this->write($transaction->getInternalRemarks());
+
+        // TransactionLine.name
+        $this->write($line->getName());
+
+        // TransactionLine.remarks
+        $this->write($line->getRemarks());
+        // Bookable.name
+        $bookable = $line->getBookable();
+        $this->write($bookable ? $bookable->getName() : '');
+        // Debit account
+        $debit = $line->getDebit();
+        $this->write($debit ? implode(' ', [$debit->getCode(), $debit->getName()]) : '');
+        // Credit account
+        $credit = $line->getCredit();
+        $this->write($credit ? implode(' ', [$credit->getCode(), $credit->getName()]) : '');
+        // Debit amount
+        $this->write($debit ? $this->moneyFormatter->format($line->getBalance()) : '');
+        // Credit amount
+        $this->write($credit ? $this->moneyFormatter->format($line->getBalance()) : '');
+        // Reconciled
+        $this->sheet->getStyle([$this->column, $this->row])->applyFromArray(self::$centerFormat);
+        $this->write($line->isReconciled() ? '✔️' : '');
+        // Tag
+        $tag = $line->getTransactionTag();
+        $this->write($tag ? $tag->getName() : '');
+
+        $this->lastDataColumn = $this->column - 1;
+
+        $range = Coordinate::stringFromColumnIndex($this->firstDataColumn) . $this->row . ':' . Coordinate::stringFromColumnIndex($this->lastDataColumn) . $this->row;
+        // Thicker horizontal delimiter between lines of different transactions
+        $this->sheet->getStyle($range)->applyFromArray(self::$bordersBottomLight);
+
+        $this->column = $this->firstDataColumn;
+        ++$this->row;
     }
 
     protected function writeFooter(): void
     {
-        $initialColumn = $this->column;
-
         // Date
         $this->write('');
         // ID
@@ -165,7 +164,7 @@ class TransactionLines extends AbstractExcel
         $this->write('');
 
         // Apply style
-        $range = Coordinate::stringFromColumnIndex($initialColumn) . $this->row . ':' . Coordinate::stringFromColumnIndex($this->column - 1) . $this->row;
+        $range = Coordinate::stringFromColumnIndex($this->firstDataColumn) . $this->row . ':' . Coordinate::stringFromColumnIndex($this->column - 1) . $this->row;
         $this->sheet->getStyle($range)->applyFromArray(self::$totalFormat);
     }
 }
