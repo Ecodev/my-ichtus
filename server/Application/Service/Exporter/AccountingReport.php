@@ -481,7 +481,7 @@ class AccountingReport extends AbstractExcel
                 $currentTotalCells = Coordinate::stringFromColumnIndex($this->column) . $this->row;
             }
             // Store the coordinate of the cell to later compute totals
-            $allData[$index]['cell'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
+            $allData[$index]['cellBalance'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
             $this->write($data['balance'], self::$balanceFormat, $maybeBold, $data['format'] ?? []);
 
             // Budget columns (optional)
@@ -496,6 +496,7 @@ class AccountingReport extends AbstractExcel
                 $allData[$index]['cellBudgetAllowed'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
                 if ($firstLine) {
                     $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['balance']);
+                    $budgetAllowedTotalCells = Coordinate::stringFromColumnIndex($this->column) . $this->row;
                 }
                 $this->write($data['budgetAllowed'] ?? '', self::$balanceFormat, $maybeBold);
 
@@ -524,6 +525,10 @@ class AccountingReport extends AbstractExcel
             $cellsToSum = $this->cellsToSum($allData, 2, 'cellBalancePrevious');
             if ($cellsToSum) {
                 $this->sheet->setCellValue($previousTotalCells, '=SUM(' . implode(',', $cellsToSum) . ')');
+            }
+            $cellsToSum = $this->cellsToSum($allData, 2, 'cellBudgetAllowed');
+            if ($cellsToSum) {
+                $this->sheet->setCellValue($budgetAllowedTotalCells, '=SUM(' . implode(',', $cellsToSum) . ')');
             }
             $cellsToSum = $this->cellsToSum($allData, 2, 'cellBudgetBalance');
             if ($cellsToSum) {
