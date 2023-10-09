@@ -20,6 +20,11 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+/**
+ * @template T of \Application\Model\AbstractModel|array
+ *
+ * @extends AbstractExporter<T>
+ */
 abstract class AbstractExcel extends AbstractExporter
 {
     /**
