@@ -1,13 +1,14 @@
 <h2 mat-dialog-title>Exporter bilan + PP</h2>
-<mat-dialog-content fxLayout="column">
+<mat-dialog-content fxLayout="column" [formGroup]="form">
     <mat-form-field>
         <mat-label>Date du bilan</mat-label>
-        <input matInput [formControl]="form" [matDatepicker]="picker" [max]="today" />
+        <input matInput formControlName="date" [matDatepicker]="picker" [max]="today" />
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         <mat-error *ngIf="form.hasError('required')">Requis</mat-error>
         <mat-error *ngIf="form.hasError('matDatepickerMax')">La date d'export ne peut pas être dans le futur</mat-error>
     </mat-form-field>
+    <mat-checkbox formControlName="showBudget" i18n>Afficher le budget</mat-checkbox>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">

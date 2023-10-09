@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {UntypedFormControl, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {Validators, FormsModule, ReactiveFormsModule, FormGroup, FormControl} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {CommonModule} from '@angular/common';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -7,6 +7,7 @@ import {MatInputModule} from '@angular/material/input';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @Component({
     selector: 'app-accounting-report',
@@ -23,9 +24,13 @@ import {MatDialogModule} from '@angular/material/dialog';
         ReactiveFormsModule,
         CommonModule,
         MatButtonModule,
+        MatCheckboxModule,
     ],
 })
 export class AccountingReportComponent {
-    public readonly form = new UntypedFormControl(new Date(), [Validators.required]);
+    public readonly form = new FormGroup({
+        date: new FormControl(new Date(), [Validators.required]),
+        showBudget: new FormControl(false),
+    });
     public readonly today = new Date();
 }

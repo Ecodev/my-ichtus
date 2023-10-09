@@ -21,6 +21,7 @@ abstract class ExportAccountingReport implements FieldInterface
             'description' => 'Prepare an accounting report and return the URL to download it',
             'args' => [
                 'date' => _types()->get('Date'),
+                'showBudget' => Type::nonNull(Type::boolean()),
             ],
             'resolve' => function ($root, array $args, SessionInterface $session): string {
                 global $container;
@@ -31,6 +32,7 @@ abstract class ExportAccountingReport implements FieldInterface
                 if ($args['date']) {
                     $exporter->setDate($args['date']);
                 }
+                $exporter->showBudget($args['showBudget']);
 
                 // Select root accounts
                 /** @var AccountRepository $accountRepository */

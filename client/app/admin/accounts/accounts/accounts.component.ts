@@ -22,7 +22,7 @@ import {UserService} from '../../users/services/user.service';
 import {AccountingClosingComponent} from '../accounting-closing/accounting-closing.component';
 import {AccountingReportComponent} from '../accounting-report/accounting-report.component';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {finalize, map} from 'rxjs/operators';
 import {IbanPipe} from '../../../shared/pipes/iban.pipe';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -36,7 +36,11 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 import {CommonModule} from '@angular/common';
 
 type AccountingDialogData = never;
-type AccountingDialogResult = Date;
+type AccountingClosingDialogResult = Date;
+type AccountingExportDialogResult = {
+    date: Date;
+    showBudget: boolean;
+};
 
 @Component({
     selector: 'app-accounts',
@@ -74,7 +78,7 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
         {id: 'owner', label: 'Utilisateur', checked: false},
         {id: 'iban', label: 'IBAN', checked: false},
         {id: 'totalBalance', label: 'Solde'},
-        {id: 'totalBalanceFormer', label: 'Solde précédant'},
+        {id: 'totalBalanceFormer', label: 'Solde précédent'},
         {id: 'budgetAllowed', label: 'Budget prévu'},
         {id: 'budgetBalance', label: 'Budget restant'},
         {id: 'creationDate', label: 'Créé le', checked: false},
@@ -89,7 +93,7 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
                 {
                     label: `Exporter rapport comptable`,
                     icon: 'file_download',
-                    click: (): void => this.showExport(),
+                    click: (button: Button): void => this.export(button),
                 },
                 {
                     label: `Bouclement comptable`,
@@ -132,25 +136,29 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
         return name.trim() || '<aucun>';
     }
 
-    public showExport(): void {
+    public export(button: Button): void {
         this.dialog
-            .open<AccountingReportComponent, AccountingDialogData, AccountingDialogResult>(
+            .open<AccountingReportComponent, AccountingDialogData, AccountingExportDialogResult>(
                 AccountingReportComponent,
                 this.dialogConfig,
             )
             .afterClosed()
-            .subscribe(date => {
-                if (date) {
-                    this.accountService.getReportExportLink(date).subscribe(url => {
-                        window.location.href = url;
-                    });
+            .subscribe(result => {
+                if (result) {
+                    button.disabled = true;
+                    this.accountService
+                        .getReportExportLink(result.date, result.showBudget)
+                        .pipe(finalize(() => (button.disabled = false)))
+                        .subscribe(url => {
+                            window.location.href = url;
+                        });
                 }
             });
     }
 
     public showClosing(): void {
         this.dialog
-            .open<AccountingClosingComponent, AccountingDialogData, AccountingDialogResult>(
+            .open<AccountingClosingComponent, AccountingDialogData, AccountingClosingDialogResult>(
                 AccountingClosingComponent,
                 this.dialogConfig,
             )

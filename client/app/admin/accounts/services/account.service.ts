@@ -130,9 +130,13 @@ export class AccountService extends NaturalAbstractModelService<
         return this.getAll(qvm);
     }
 
-    public getReportExportLink(date: Date): Observable<ExportAccountingReport['exportAccountingReport']> {
+    public getReportExportLink(
+        date: Date,
+        showBudget: boolean,
+    ): Observable<ExportAccountingReport['exportAccountingReport']> {
         const variables: ExportAccountingReportVariables = {
             date: formatIsoDateTime(date),
+            showBudget: showBudget,
         };
 
         return this.apollo
