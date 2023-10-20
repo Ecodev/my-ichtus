@@ -18,7 +18,6 @@ $clientConfig['signedQueries']['keys']['navigations'] = $config['signedQueries']
 $json = json_encode($clientConfig, JSON_PRETTY_PRINT);
 $code = <<<STRING
     /* eslint-disable */
-    /* eslint-disable */
     export const localConfig = $json as const;
     STRING;
 
