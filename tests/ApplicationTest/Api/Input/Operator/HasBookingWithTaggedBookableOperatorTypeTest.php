@@ -12,6 +12,7 @@ class HasBookingWithTaggedBookableOperatorTypeTest extends OperatorType
 {
     public function providerGetDqlCondition(): iterable
     {
+        yield 'users renting any Stockage (with shared join booking)' => [3, [6008], null, false];
         yield 'users renting any Stockage' => [3, [6008], null];
         yield 'users renting any Service' => [2, [6007], null];
         yield 'users renting any Voile légère' => [1, [6005], null];
@@ -29,15 +30,67 @@ class HasBookingWithTaggedBookableOperatorTypeTest extends OperatorType
     /**
      * @dataProvider providerGetDqlCondition
      */
-    public function testGetDqlCondition(int $expected, ?array $tags, ?bool $not): void
+    public function testGetDqlCondition(int $expected, ?array $tags, ?bool $not, bool $sameBooking = true): void
     {
         $administrator = new User(User::ROLE_ADMINISTRATOR);
         User::setCurrent($administrator);
         $values = [
             'values' => $this->idsToEntityIds(BookableTag::class, $tags),
             'not' => $not,
+            'sameBooking' => $sameBooking,
         ];
         $actual = $this->getFilteredResult(User::class, 'custom', 'hasBookingWithTaggedBookable', $values);
         self::assertCount($expected, $actual);
+    }
+
+    /**
+     * @dataProvider providerCanCombineFilters
+     */
+    public function testCanCombineFilters(int $expected, callable $conditions): void
+    {
+        $filter = [
+            'groups' => [
+                [
+                    'groupLogic' => 'AND',
+                    'conditionsLogic' => 'AND',
+                    'conditions' => [
+                        [
+                            'custom' => $conditions(),
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $actual = _types()->createFilteredQueryBuilder(User::class, $filter, [])->getQuery()->getResult();
+
+        self::assertCount($expected, $actual);
+    }
+
+    public function providerCanCombineFilters(): iterable
+    {
+        yield 'users with running bookings that are for SUP' => [0, fn () => [
+            'hasBookingCompleted' => [
+                'values' => [false],
+                'not' => false,
+            ],
+            'hasBookingWithTaggedBookable' => [
+                'values' => $this->idsToEntityIds(BookableTag::class, [6000]),
+                'not' => false,
+                'sameBooking' => true,
+            ],
+        ]];
+
+        yield 'users with running bookings, and that also have any other bookings for SUP' => [1, fn () => [
+            'hasBookingCompleted' => [
+                'values' => [false],
+                'not' => false,
+            ],
+            'hasBookingWithTaggedBookable' => [
+                'values' => $this->idsToEntityIds(BookableTag::class, [6000]),
+                'not' => false,
+                'sameBooking' => false,
+            ],
+        ]];
     }
 }

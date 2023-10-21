@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Api\Input\Operator;
 
-use Application\Model\Booking;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use GraphQL\Doctrine\Definition\Operator\AbstractOperator;
 use GraphQL\Doctrine\Factory\UniqueNameFactory;
@@ -41,16 +39,12 @@ class HasBookingCompletedOperatorType extends AbstractOperator
 
         $not = $args['not'];
 
-        $bookingAlias = $uniqueNameFactory->createAliasName(Booking::class);
-
-        $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH);
+        $bookingAlias = self::useSharedJoinBooking($alias, $queryBuilder);
 
         if (!array_key_exists('values', $args) || empty($args['values'])) {
             if ($not) {
-                // w('any');
                 return null;
             }
-            // w('none');
             $condition = '';
         } elseif (in_array(true, $args['values'], true) && !in_array(false, $args['values'], true)) {
             $condition = $not ? '' : 'NOT';
@@ -61,5 +55,16 @@ class HasBookingCompletedOperatorType extends AbstractOperator
         }
 
         return $bookingAlias . '.endDate IS ' . $condition . ' NULL';
+    }
+
+    public static function useSharedJoinBooking(string $alias, QueryBuilder $queryBuilder): string
+    {
+        $bookingAlias = 'users_bookings_alias';
+
+        if (!in_array($bookingAlias, $queryBuilder->getAllAliases(), true)) {
+            $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias);
+        }
+
+        return $bookingAlias;
     }
 }

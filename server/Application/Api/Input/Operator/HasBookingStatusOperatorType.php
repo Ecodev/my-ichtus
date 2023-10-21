@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Application\Api\Input\Operator;
 
 use Application\Api\Enum\BookingStatusType;
-use Application\Model\Booking;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use GraphQL\Doctrine\Definition\Operator\AbstractOperator;
 use GraphQL\Doctrine\Factory\UniqueNameFactory;
@@ -40,9 +38,7 @@ class HasBookingStatusOperatorType extends AbstractOperator
             return null;
         }
 
-        $bookingAlias = $uniqueNameFactory->createAliasName(Booking::class);
-
-        $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias, Join::WITH);
+        $bookingAlias = HasBookingCompletedOperatorType::useSharedJoinBooking($alias, $queryBuilder);
 
         if (!array_key_exists('values', $args) || empty($args['values'])) {
             $statuses = [-1];

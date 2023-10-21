@@ -300,17 +300,7 @@ export class NaturalSearchFacetsService {
     private readonly allFacets: {[key: string]: NaturalSearchFacets} = {
         users: [
             this.userTags,
-            {
-                display: 'Réservation (tag de réservable)',
-                field: 'custom',
-                name: 'hasBookingWithTaggedBookable',
-                transform: replaceOperatorByName,
-                component: TypeNaturalSelectComponent,
-                configuration: {
-                    service: this.bookableTagService,
-                    placeholder: 'Tag de réservable',
-                },
-            } satisfies DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>>,
+
             {
                 display: 'Réservation (réservable)',
                 field: 'custom',
@@ -354,6 +344,38 @@ export class NaturalSearchFacetsService {
                     ],
                 },
             } satisfies DropdownFacet<TypeSelectConfiguration>,
+            {
+                display: 'Réservation (tag de réservable)',
+                field: 'custom',
+                name: 'hasBookingWithTaggedBookable',
+                transform: replaceOperatorByName,
+                component: TypeNaturalSelectComponent,
+                configuration: {
+                    service: this.bookableTagService,
+                    placeholder: 'Tag de réservable',
+                },
+            } satisfies DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>>,
+            {
+                display: `N'importe quelle autre réservation (tag de réservable)`,
+                field: 'custom',
+                name: 'hasAnyBookingWithTaggedBookable',
+                transform: (selection: NaturalSearchSelection) => {
+                    selection.name = 'hasBookingWithTaggedBookable';
+                    selection = replaceOperatorByName(selection);
+
+                    const field = selection.condition.hasBookingWithTaggedBookable;
+                    if (field) {
+                        field.sameBooking = false;
+                    }
+
+                    return selection;
+                },
+                component: TypeNaturalSelectComponent,
+                configuration: {
+                    service: this.bookableTagService,
+                    placeholder: 'Tag de réservable',
+                },
+            } satisfies DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>>,
             {
                 display: 'Nombre de sorties',
                 field: 'bookingCount',

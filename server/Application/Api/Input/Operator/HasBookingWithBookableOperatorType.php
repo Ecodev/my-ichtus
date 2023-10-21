@@ -44,12 +44,14 @@ class HasBookingWithBookableOperatorType extends AbstractOperator
 
         $not = $args['not'] ? ' NOT' : '';
 
-        // Users with active bookings for the given bookable(s)
+        $bookingAlias = HasBookingCompletedOperatorType::useSharedJoinBooking($alias, $queryBuilder);
+
+        // Users with bookings with the given bookable(s)
         if ($ids) {
-            return NativeIn::dql($alias . '.id', 'SELECT owner_id FROM booking WHERE owner_id IS NOT NULL AND booking.bookable_id ' . $not . ' IN (' . Utility::quoteArray($ids) . ')');
+            return NativeIn::dql($bookingAlias . '.id', 'SELECT id FROM booking WHERE owner_id IS NOT NULL AND booking.bookable_id ' . $not . ' IN (' . Utility::quoteArray($ids) . ')');
         }
 
-        // Bookings with ANY bookable, or without ANY bookable (own equipment)
-        return NativeIn::dql($alias . '.id', 'SELECT owner_id FROM booking WHERE owner_id IS NOT NULL AND booking.bookable_id IS NOT NULL', !$args['not']);
+        // Users with bookings with ANY bookable, or without ANY bookable (own equipment)
+        return NativeIn::dql($bookingAlias . '.id', 'SELECT id FROM booking WHERE owner_id IS NOT NULL AND booking.bookable_id IS NOT NULL', !$args['not']);
     }
 }
