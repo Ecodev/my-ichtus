@@ -37,7 +37,7 @@ import {AccountService} from '../../accounts/services/account.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {iban as ibanValidator} from '../../../shared/validators';
 import {friendlyFormatIBAN} from 'ibantools';
-import {FormsModule, ReactiveFormsModule, UntypedFormControl} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule, FormControl} from '@angular/forms';
 import {finalize} from 'rxjs/operators';
 import {ServicesComponent} from '../../../profile/components/services/services.component';
 import {FinancesComponent} from '../../../profile/components/finances/finances.component';
@@ -104,7 +104,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeo
     public showFamilyTab = false;
     public updating = false;
     public ibanLocked = true;
-    public readonly ibanCtrl = new UntypedFormControl('', ibanValidator);
+    public readonly ibanCtrl = new FormControl('', ibanValidator);
 
     public transactionLinesVariables: TransactionLinesVariables = {};
 

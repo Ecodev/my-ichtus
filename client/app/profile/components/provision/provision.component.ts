@@ -1,7 +1,7 @@
 import {Component, Inject, ViewChild} from '@angular/core';
 import {ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
 import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
-import {UntypedFormControl, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormControl, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BankingInfosVariables} from '../../../shared/generated-types';
 import {BvrComponent} from '../bvr/bvr.component';
 import {money} from '@ecodev/natural';
@@ -34,7 +34,7 @@ export class ProvisionComponent {
      * Positive number at the payment is always positive
      */
     public min = 25;
-    public formCtrl: UntypedFormControl;
+    public formCtrl: FormControl;
     public matcher = new ShowOnDirtyErrorStateMatcher();
     public bvrData: BankingInfosVariables;
 
@@ -51,7 +51,7 @@ export class ProvisionComponent {
         // Set the default amount to the user's negative balance, if any
         const initialAmount = data.balance < 0 ? Math.abs(data.balance) : this.min;
 
-        this.formCtrl = new UntypedFormControl(initialAmount, [Validators.min(this.min), money]);
+        this.formCtrl = new FormControl(initialAmount, [Validators.min(this.min), money]);
     }
 
     public setPaymentMode(paymentMode: 'ebanking' | 'datatrans'): void {

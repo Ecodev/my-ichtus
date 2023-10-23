@@ -2,7 +2,7 @@ import {Apollo, gql} from 'apollo-angular';
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NaturalAlertService, NaturalIconDirective} from '@ecodev/natural';
-import {UntypedFormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {finalize} from 'rxjs/operators';
 import {UpdatePassword, UpdatePasswordVariables} from '../../../shared/generated-types';
 import {MatIconModule} from '@angular/material/icon';
@@ -27,7 +27,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 })
 export class ChangePasswordComponent {
     private readonly token: string;
-    public readonly form: UntypedFormGroup;
+    public readonly form: FormGroup;
     public sending = false;
 
     public constructor(
@@ -37,7 +37,7 @@ export class ChangePasswordComponent {
         private readonly router: Router,
     ) {
         this.token = route.snapshot.params.token;
-        this.form = new UntypedFormGroup({});
+        this.form = new FormGroup({});
     }
 
     public submit(): void {

@@ -1,6 +1,6 @@
 import {Apollo} from 'apollo-angular';
 import {Component} from '@angular/core';
-import {UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ifValid, NaturalAlertService, validateAllFormControls, NaturalIconDirective} from '@ecodev/natural';
@@ -29,7 +29,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
     ],
 })
 export class RequestPasswordResetComponent {
-    public readonly form: UntypedFormGroup;
+    public readonly form: FormGroup;
     public sending = false;
 
     public constructor(
@@ -38,7 +38,7 @@ export class RequestPasswordResetComponent {
         private readonly router: Router,
         private readonly userService: UserService,
     ) {
-        this.form = new UntypedFormGroup({login: new UntypedFormControl('', [Validators.required])});
+        this.form = new FormGroup({login: new FormControl('', [Validators.required])});
     }
 
     public submit(): void {

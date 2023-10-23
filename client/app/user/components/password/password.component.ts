@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {
     AbstractControl,
-    UntypedFormControl,
-    UntypedFormGroup,
+    FormControl,
+    FormGroup,
     ValidationErrors,
     Validators,
     FormsModule,
@@ -17,7 +17,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 function samePasswordsValidator(formGroup: AbstractControl): ValidationErrors | null {
-    if (!formGroup || !(formGroup instanceof UntypedFormGroup)) {
+    if (!formGroup || !(formGroup instanceof FormGroup)) {
         return null;
     }
 
@@ -28,8 +28,8 @@ function samePasswordsValidator(formGroup: AbstractControl): ValidationErrors | 
 }
 
 class ConfirmPasswordStateMatcher implements ErrorStateMatcher {
-    public isErrorState(control: UntypedFormControl | null): boolean {
-        if (control && control.parent && control.parent instanceof UntypedFormGroup) {
+    public isErrorState(control: FormControl | null): boolean {
+        if (control && control.parent && control.parent instanceof FormGroup) {
             return !!samePasswordsValidator(control.parent) && control.dirty;
         }
 
@@ -54,13 +54,13 @@ class ConfirmPasswordStateMatcher implements ErrorStateMatcher {
     ],
 })
 export class PasswordComponent implements OnInit {
-    @Input({required: true}) public form!: UntypedFormGroup;
+    @Input({required: true}) public form!: FormGroup;
     public confirmPasswordStateMatcher = new ConfirmPasswordStateMatcher();
 
     public ngOnInit(): void {
         this.form.removeControl('password');
-        this.form.addControl('password', new UntypedFormControl('', [Validators.required, Validators.minLength(12)]));
-        this.form.addControl('confirmPassword', new UntypedFormControl(''));
+        this.form.addControl('password', new FormControl('', [Validators.required, Validators.minLength(12)]));
+        this.form.addControl('confirmPassword', new FormControl(''));
         this.form.setValidators(samePasswordsValidator);
     }
 }

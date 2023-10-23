@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CountryService} from './country.service';
-import {UntypedFormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NaturalSelectComponent} from '@ecodev/natural';
 import {CommonModule} from '@angular/common';
 import {MatInputModule} from '@angular/material/input';
@@ -24,7 +24,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 })
 export class AddressComponent {
     @Input() public vertical = false;
-    @Input({required: true}) public form!: UntypedFormGroup;
+    @Input({required: true}) public form!: FormGroup;
     @Output() public readonly addressChange = new EventEmitter<void>();
 
     public constructor(public readonly countryService: CountryService) {}

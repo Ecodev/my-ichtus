@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {UntypedFormControl, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {CommonModule} from '@angular/common';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -26,7 +26,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     ],
 })
 export class AccountingClosingComponent {
-    public readonly form = new UntypedFormControl(null, [Validators.required]);
+    public readonly form = new FormControl<Date | null>(null, [Validators.required]);
     public readonly today = new Date();
 
     public constructor() {

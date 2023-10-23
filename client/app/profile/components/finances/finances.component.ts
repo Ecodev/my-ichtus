@@ -13,7 +13,7 @@ import {
 } from '@ecodev/natural';
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
 import {finalize} from 'rxjs/operators';
-import {UntypedFormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {iban as ibanValidator} from '../../../shared/validators';
 import {friendlyFormatIBAN} from 'ibantools';
 import {MatPaginatorModule} from '@angular/material/paginator';
@@ -71,7 +71,7 @@ export class FinancesComponent
     public adminMode = false;
     public readonly deleting = new Set<string>();
     public updating = false;
-    public readonly ibanCtrl = new UntypedFormControl('', ibanValidator);
+    public readonly ibanCtrl = new FormControl('', ibanValidator);
     public canCreateExpenseClaim = false;
     public override persistSearch = false;
 

@@ -1,6 +1,6 @@
 import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
-import {AbstractControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {
     formatIsoDateTime,
     FormValidators,
@@ -34,7 +34,7 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 function atLeastOneAccount(formGroup: AbstractControl): ValidationErrors | null {
-    if (!formGroup || !(formGroup instanceof UntypedFormGroup)) {
+    if (!formGroup || !(formGroup instanceof FormGroup)) {
         return null;
     }
 

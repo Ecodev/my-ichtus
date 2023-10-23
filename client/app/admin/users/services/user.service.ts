@@ -1,6 +1,6 @@
 import {Apollo, gql} from 'apollo-angular';
 import {Inject, Injectable, OnDestroy} from '@angular/core';
-import {UntypedFormControl, ValidationErrors, Validators} from '@angular/forms';
+import {FormControl, ValidationErrors, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {
     deliverableEmail,
@@ -77,7 +77,7 @@ import {BookingService} from '../../bookings/services/booking.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {PricedBookingService} from '../../bookings/services/PricedBooking.service';
 
-export function loginValidator(control: UntypedFormControl): ValidationErrors | null {
+export function loginValidator(control: FormControl): ValidationErrors | null {
     const value = control.value || '';
     if (value && !value.match(/^[a-zA-Z0-9\\.-]+$/)) {
         return {
@@ -232,7 +232,7 @@ export class UserService
             value: model.account,
             disabled: true,
         };
-        config.account = new UntypedFormControl(formState);
+        config.account = new FormControl(formState);
 
         return config;
     }

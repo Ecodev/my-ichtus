@@ -22,7 +22,7 @@ import {
     UpdateBookableVariables,
     User,
 } from '../../../shared/generated-types';
-import {AbstractControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {BookingService} from '../../bookings/services/booking.service';
@@ -39,7 +39,7 @@ import {
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 
 function creditAccountRequiredValidator(formGroup: AbstractControl): ValidationErrors | null {
-    if (!formGroup || !(formGroup instanceof UntypedFormGroup)) {
+    if (!formGroup || !(formGroup instanceof FormGroup)) {
         return null;
     }
 
