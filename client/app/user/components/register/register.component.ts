@@ -10,7 +10,7 @@ import {
 } from '@ecodev/natural';
 import {Bookables, Register, RegisterVariables} from '../../../shared/generated-types';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UntypedFormBuilder, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NonNullableFormBuilder, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule, _MatCheckboxRequiredValidatorModule} from '@angular/material/checkbox';
@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit {
     public constructor(
         protected readonly apollo: Apollo,
         protected readonly route: ActivatedRoute,
-        protected readonly fb: UntypedFormBuilder,
+        protected readonly fb: NonNullableFormBuilder,
         protected readonly router: Router,
         protected readonly alertService: NaturalAlertService,
         protected readonly bookableService: BookableService,
