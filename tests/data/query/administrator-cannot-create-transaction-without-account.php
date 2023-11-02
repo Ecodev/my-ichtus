@@ -32,7 +32,7 @@ return [
             [
                 'message' => 'Cannot create a TransactionLine without any account',
                 'extensions' => [
-                    'category' => 'Permissions',
+                    'showSnack' => true,
                 ],
                 'locations' => [
                     [

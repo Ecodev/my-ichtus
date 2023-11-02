@@ -16,7 +16,7 @@ return [
             [
                 'message' => 'User "trainer" with role trainer is not allowed on resource "Bookable#3000" with privilege "update" because the booking type for this bookable is not admin approved, but : self_approved',
                 'extensions' => [
-                    'category' => 'Permissions',
+                    'showSnack' => true,
                 ],
                 'locations' => [
                     [

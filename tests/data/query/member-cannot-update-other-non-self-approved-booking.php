@@ -21,7 +21,7 @@ return [
 - the booking type for this booking is not self approved, but : admin_assigned
 - the object does not belong to the user',
                 'extensions' => [
-                    'category' => 'Permissions',
+                    'showSnack' => true,
                 ],
                 'locations' => [
                     [

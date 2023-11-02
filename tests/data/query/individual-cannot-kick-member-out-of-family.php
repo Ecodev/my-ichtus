@@ -16,7 +16,7 @@ return [
             [
                 'message' => 'User "individual" with role individual is not allowed on resource "User#1002" with privilege "update" because it is not himself',
                 'extensions' => [
-                    'category' => 'Permissions',
+                    'showSnack' => true,
                 ],
                 'locations' => [
                     [

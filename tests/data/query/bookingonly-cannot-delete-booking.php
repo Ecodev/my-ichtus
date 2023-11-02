@@ -13,7 +13,7 @@ return [
             [
                 'message' => 'User "bookingonly" with role booking_only is not allowed on resource "Booking#4000" with privilege "delete" because the object does not belong to the user',
                 'extensions' => [
-                    'category' => 'Permissions',
+                    'showSnack' => true,
                 ],
                 'locations' => [
                     [
