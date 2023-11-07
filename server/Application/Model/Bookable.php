@@ -195,7 +195,7 @@ class Bookable extends AbstractModel
         $this->simultaneousBookingMaximum = $simultaneousBookingMaximum;
     }
 
-    #[API\Field(type: 'BookingType')]
+    #[API\Field(type: \Application\Api\Enum\BookingTypeType::class)]
     public function getBookingType(): string
     {
         return $this->bookingType;
@@ -217,7 +217,7 @@ class Bookable extends AbstractModel
         $this->isActive = $isActive;
     }
 
-    #[API\Input(type: 'BookingType')]
+    #[API\Input(type: \Application\Api\Enum\BookingTypeType::class)]
     public function setBookingType(string $state): void
     {
         $this->bookingType = $state;
@@ -226,7 +226,7 @@ class Bookable extends AbstractModel
     /**
      * State of the bookable.
      */
-    #[API\Field(type: 'BookableState')]
+    #[API\Field(type: \Application\Api\Enum\BookableStateType::class)]
     public function getState(): string
     {
         return $this->state;
@@ -235,7 +235,7 @@ class Bookable extends AbstractModel
     /**
      * State of the bookable.
      */
-    #[API\Input(type: 'BookableState')]
+    #[API\Input(type: \Application\Api\Enum\BookableStateType::class)]
     public function setState(string $state): void
     {
         $this->state = $state;

@@ -176,13 +176,13 @@ class Booking extends AbstractModel
         $this->invoiceInitial();
     }
 
-    #[API\Field(type: 'BookingStatus')]
+    #[API\Field(type: \Application\Api\Enum\BookingStatusType::class)]
     public function getStatus(): string
     {
         return $this->status;
     }
 
-    #[API\Input(type: 'BookingStatus')]
+    #[API\Input(type: \Application\Api\Enum\BookingStatusType::class)]
     public function setStatus(string $status): void
     {
         $previousStatus = $this->status;

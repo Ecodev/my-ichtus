@@ -264,7 +264,7 @@ class Account extends AbstractModel
     /**
      * Set type.
      */
-    #[API\Input(type: 'AccountType')]
+    #[API\Input(type: \Application\Api\Enum\AccountTypeType::class)]
     public function setType(string $type): void
     {
         $this->type = $type;
@@ -273,7 +273,7 @@ class Account extends AbstractModel
     /**
      * Get type.
      */
-    #[API\Field(type: 'AccountType')]
+    #[API\Field(type: \Application\Api\Enum\AccountTypeType::class)]
     public function getType(): string
     {
         return $this->type;

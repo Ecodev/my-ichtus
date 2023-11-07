@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Application\Model;
 
+use Application\Api\Enum\SexType;
+use Application\Api\Enum\UserRoleType;
+use Application\Api\Enum\UserStatusType;
 use Application\Api\Input\Operator\AccountBalance\AccountBalanceEqualOperatorType;
 use Application\Api\Input\Operator\AccountBalance\AccountBalanceGreaterOperatorType;
 use Application\Api\Input\Operator\AccountBalance\AccountBalanceGreaterOrEqualOperatorType;
@@ -42,6 +45,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ReadableCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Ecodev\Felix\Api\Exception;
+use Ecodev\Felix\Api\Scalar\LoginType;
 use Ecodev\Felix\Model\CurrentUser;
 use Ecodev\Felix\Model\Traits\HasInternalRemarks;
 use Ecodev\Felix\Model\Traits\HasPassword;
@@ -252,7 +256,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     /**
      * Set login (eg: johndoe).
      */
-    #[API\Input(type: 'Login')]
+    #[API\Input(type: LoginType::class)]
     public function setLogin(string $login): void
     {
         $this->login = $login;
@@ -328,7 +332,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     /**
      * Get the user role.
      */
-    #[API\Field(type: 'UserRole')]
+    #[API\Field(type: UserRoleType::class)]
     public function getRole(): string
     {
         return $this->role;
@@ -337,7 +341,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     /**
      * Sets the user role.
      */
-    #[API\Input(type: 'UserRole')]
+    #[API\Input(type: UserRoleType::class)]
     public function setRole(string $role): void
     {
         if (!Role::canUpdate(self::getCurrent(), $this->role, $role)) {
@@ -377,7 +381,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
         }
     }
 
-    #[API\Field(type: 'Application\Api\Enum\UserStatusType')]
+    #[API\Field(type: UserStatusType::class)]
     public function getStatus(): string
     {
         return $this->status;
@@ -391,7 +395,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
         return in_array($this->getStatus(), [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_NEW], true);
     }
 
-    #[API\Input(type: 'Application\Api\Enum\UserStatusType')]
+    #[API\Input(type: UserStatusType::class)]
     public function setStatus(string $newStatus): void
     {
         if ($newStatus === self::STATUS_ARCHIVED && $this->status !== self::STATUS_ARCHIVED) {
@@ -604,7 +608,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     /**
      * Get the sex.
      */
-    #[API\Field(type: 'Sex')]
+    #[API\Field(type: SexType::class)]
     public function getSex(): int
     {
         return $this->sex;
@@ -613,7 +617,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     /**
      * Set the sex.
      */
-    #[API\Input(type: 'Sex')]
+    #[API\Input(type: SexType::class)]
     public function setSex(int $sex): void
     {
         $this->sex = $sex;
@@ -696,25 +700,25 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
         $this->lastLogin = $now;
     }
 
-    #[API\Field(type: 'Relationship')]
+    #[API\Field(type: \Application\Api\Enum\RelationshipType::class)]
     public function getFamilyRelationship(): string
     {
         return $this->familyRelationship;
     }
 
-    #[API\Input(type: 'Relationship')]
+    #[API\Input(type: \Application\Api\Enum\RelationshipType::class)]
     public function setFamilyRelationship(string $familyRelationship): void
     {
         $this->familyRelationship = $familyRelationship;
     }
 
-    #[API\Field(type: 'BillingType')]
+    #[API\Field(type: \Application\Api\Enum\BillingTypeType::class)]
     public function getBillingType(): string
     {
         return $this->billingType;
     }
 
-    #[API\Input(type: 'BillingType')]
+    #[API\Input(type: \Application\Api\Enum\BillingTypeType::class)]
     public function setBillingType(string $billingType): void
     {
         $this->billingType = $billingType;

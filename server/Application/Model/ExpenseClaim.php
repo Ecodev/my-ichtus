@@ -87,7 +87,7 @@ class ExpenseClaim extends AbstractModel
     /**
      * Set status.
      */
-    #[API\Input(type: 'ExpenseClaimStatus')]
+    #[API\Input(type: \Application\Api\Enum\ExpenseClaimStatusType::class)]
     public function setStatus(string $status): void
     {
         $this->status = $status;
@@ -96,7 +96,7 @@ class ExpenseClaim extends AbstractModel
     /**
      * Get status.
      */
-    #[API\Field(type: 'ExpenseClaimStatus')]
+    #[API\Field(type: \Application\Api\Enum\ExpenseClaimStatusType::class)]
     public function getStatus(): string
     {
         return $this->status;
@@ -105,7 +105,7 @@ class ExpenseClaim extends AbstractModel
     /**
      * Set type.
      */
-    #[API\Input(type: 'ExpenseClaimType')]
+    #[API\Input(type: \Application\Api\Enum\ExpenseClaimTypeType::class)]
     public function setType(string $type): void
     {
         $this->type = $type;
@@ -114,7 +114,7 @@ class ExpenseClaim extends AbstractModel
     /**
      * Get type.
      */
-    #[API\Field(type: 'ExpenseClaimType')]
+    #[API\Field(type: \Application\Api\Enum\ExpenseClaimTypeType::class)]
     public function getType(): string
     {
         return $this->type;
