@@ -3,7 +3,7 @@ import {environment} from './environments/environment';
 import {AppComponent} from './app/app.component';
 import {TimeagoCustomFormatter, TimeagoFormatter, TimeagoIntl, TimeagoModule} from 'ngx-timeago';
 import {routes} from './app/app-routing.module';
-import {provideAnimations, provideNoopAnimations} from '@angular/platform-browser/animations';
+import {provideAnimations} from '@angular/platform-browser/animations';
 import {bootstrapApplication} from '@angular/platform-browser';
 import {Apollo} from 'apollo-angular';
 import {MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions} from '@angular/material/tooltip';
@@ -92,15 +92,6 @@ const iconsConfig: NaturalIconsConfig = {
     },
 };
 
-// Disable animations if not supported (on iPhone 6 / Safari 13, or SSR)
-const disableAnimations =
-    // eslint-disable-next-line no-restricted-globals
-    typeof document === 'undefined' ||
-    // eslint-disable-next-line no-restricted-globals
-    !('animate' in document.documentElement) ||
-    // eslint-disable-next-line no-restricted-globals
-    (navigator && /iPhone OS (8|9|10|11|12|13)_/.test(navigator.userAgent));
-
 bootstrapApplication(AppComponent, {
     providers: [
         importProvidersFrom(
@@ -111,7 +102,7 @@ bootstrapApplication(AppComponent, {
             }),
         ),
         Apollo,
-        disableAnimations ? provideNoopAnimations() : provideAnimations(),
+        provideAnimations(),
         naturalProviders,
         provideErrorHandler(localConfig.log.url, LoggerExtraService),
         provideSeo({
