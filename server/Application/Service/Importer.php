@@ -110,7 +110,7 @@ class Importer
     private function importTransaction(Entry $entry): void
     {
         $nativeDate = $entry->getValueDate();
-        $date = Chronos::instance($nativeDate);
+        $date = new Chronos($nativeDate);
 
         $transaction = new Transaction();
         $transaction->setName('Versement BVR');

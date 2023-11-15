@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Service\Exporter;
 
+use Cake\Chronos\ChronosDate;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Money\Currencies\ISOCurrencies;
@@ -250,7 +251,7 @@ abstract class AbstractExcel extends AbstractExporter
         }
 
         // Automatic conversion of date to Excel format
-        if ($value instanceof DateTimeInterface) {
+        if ($value instanceof DateTimeInterface || $value instanceof ChronosDate) {
             $dateTime = new DateTimeImmutable($value->format('c'));
             $value = Date::PHPToExcel($dateTime);
         } elseif ($value instanceof Money) {
