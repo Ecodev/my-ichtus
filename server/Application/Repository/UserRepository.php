@@ -53,7 +53,7 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
                 $user->setPassword($password);
             }
             $user->revokeToken();
-            _em()->flush();
+            $this->getEntityManager()->flush();
 
             return $user;
         }
@@ -206,11 +206,11 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
         foreach ($users as $user) {
             $account = $user->getAccount();
             if ($account) {
-                _em()->remove($account);
+                $this->getEntityManager()->remove($account);
             }
-            _em()->remove($user);
+            $this->getEntityManager()->remove($user);
         }
-        _em()->flush();
+        $this->getEntityManager()->flush();
 
         return count($users);
     }

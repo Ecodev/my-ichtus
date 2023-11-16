@@ -157,7 +157,7 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
      */
     public function getNextCodeAvailable(): int
     {
-        $qb = _em()->getConnection()->createQueryBuilder()
+        $qb = $this->getEntityManager()->getConnection()->createQueryBuilder()
             ->select('IFNULL(MAX(a.code) + 1, 1)')
             ->from('account', 'a');
 
