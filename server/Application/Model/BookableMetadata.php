@@ -22,7 +22,7 @@ class BookableMetadata extends AbstractModel
 
     #[ORM\JoinColumn(onDelete: 'CASCADE', nullable: false)]
     #[ORM\ManyToOne(targetEntity: Bookable::class)]
-    private Bookable $bookable;
+    private ?Bookable $bookable = null;
 
     public function getValue(): string
     {

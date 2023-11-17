@@ -63,10 +63,10 @@ class Account extends AbstractModel
     private Money $totalBalance;
 
     #[ORM\Column(type: 'Money', nullable: true)]
-    private ?Money $budgetAllowed;
+    private ?Money $budgetAllowed = null;
 
     #[ORM\Column(type: 'Money', nullable: true)]
-    private ?Money $budgetBalance;
+    private ?Money $budgetBalance = null;
 
     #[ORM\Column(type: 'Money', options: ['default' => 0])]
     private Money $totalBalanceFormer;
