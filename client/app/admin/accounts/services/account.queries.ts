@@ -2,7 +2,7 @@ import {gql} from '@apollo/client/core';
 import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
 
 // Minimal fields required for account selection/display, this should NOT include fields to manage a account
-export const minimimalAccountFragment = gql`
+export const minimalAccountFragment = gql`
     fragment MinimalAccount on Account {
         id
         name
@@ -32,7 +32,7 @@ export const accountMetaFragment = gql`
         updateDate
         ...MinimalAccount
     }
-    ${minimimalAccountFragment}
+    ${minimalAccountFragment}
 `;
 
 export const accountsQuery = gql`

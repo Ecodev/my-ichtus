@@ -5,7 +5,7 @@ import {
     userContactDataFragment,
     userMetaFragment,
 } from '../../../shared/queries/fragments';
-import {minimimalAccountFragment} from '../../accounts/services/account.queries';
+import {minimalAccountFragment} from '../../accounts/services/account.queries';
 
 // Fragment for single display usage. Too much data for listings, and unused fields for mutations.
 export const userFieldsFragment = gql`
@@ -74,7 +74,7 @@ export const userFieldsFragment = gql`
             ...UserMeta
         }
     }
-    ${minimimalAccountFragment}
+    ${minimalAccountFragment}
 `;
 
 export const usersQuery = gql`
