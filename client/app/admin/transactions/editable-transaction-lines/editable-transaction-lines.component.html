@@ -9,7 +9,6 @@
     <table mat-table [dataSource]="dataSource" formArrayName="rows">
         <tr mat-header-row *matHeaderRowDef="columns"></tr>
         <tr mat-row *matRowDef="let row; columns: columns"></tr>
-        <!--<tr mat-footer-row *matFooterRowDef="columns"></tr>-->
 
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>Nom</th>
@@ -23,7 +22,6 @@
                     <mat-error *ngIf="formArray.at(i).get('name')?.hasError('required')">Requis</mat-error>
                 </mat-form-field>
             </td>
-            <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
 
         <ng-container matColumnDef="balance">
@@ -41,10 +39,6 @@
                     <mat-error *ngIf="formArray.at(i).get('balance')?.hasError('required')">Requis</mat-error>
                 </mat-form-field>
             </td>
-            <td mat-footer-cell *matFooterCellDef>
-                {{ 0 | currency: 'CHF' }}
-                <!--TODO : remove when implemented-->
-            </td>
         </ng-container>
 
         <ng-container matColumnDef="debit">
@@ -57,7 +51,6 @@
                     [showIcon]="false"
                 ></natural-select-hierarchic>
             </td>
-            <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
 
         <ng-container matColumnDef="credit">
@@ -72,7 +65,6 @@
                     <!--<mat-error *ngIf="formArray.at(i).hasError('atLeastOneAccountRequired')">Au moins un compte est requis</mat-error>-->
                 </natural-select-hierarchic>
             </td>
-            <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
 
         <ng-container matColumnDef="isReconciled">
@@ -80,7 +72,6 @@
             <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
                 <mat-checkbox formControlName="isReconciled"></mat-checkbox>
             </td>
-            <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
 
         <ng-container matColumnDef="transactionTag">
@@ -93,7 +84,6 @@
                     [showIcon]="false"
                 ></natural-select>
             </td>
-            <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
 
         <ng-container matColumnDef="bookable">
@@ -106,7 +96,6 @@
                     [showIcon]="false"
                 ></natural-select>
             </td>
-            <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
 
         <ng-container matColumnDef="remarks">
@@ -122,7 +111,6 @@
                     ></textarea>
                 </mat-form-field>
             </td>
-            <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
 
         <ng-container matColumnDef="remove">
@@ -132,7 +120,6 @@
                     <mat-icon naturalIcon="delete"></mat-icon>
                 </button>
             </td>
-            <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
     </table>
 </div>

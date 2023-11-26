@@ -9,8 +9,6 @@
             <table mat-table [dataSource]="runningServicesDS">
                 <tr mat-header-row *matHeaderRowDef="servicesColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: servicesColumns"></tr>
-                <!-- TODO : compute correctly totalPeriodicPrice considering bookable shared usages -->
-                <!-- <tr mat-footer-row *matFooterRowDef="servicesColumns"></tr>-->
 
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef>Nom</th>
@@ -23,11 +21,6 @@
                     <td mat-cell *matCellDef="let booking" natural-align-right>
                         <span *ngIf="booking.periodicPrice"> {{ booking.periodicPrice | currency: 'CHF' }}</span>
                     </td>
-                    <td mat-footer-cell *matFooterCellDef natural-align-right>
-                        <span *ngIf="runningServicesDS.data?.totalPeriodicPrice > 0">
-                            {{ runningServicesDS.data?.totalPeriodicPrice | currency: 'CHF' }}
-                        </span>
-                    </td>
                 </ng-container>
 
                 <ng-container matColumnDef="initialPrice">
@@ -36,11 +29,6 @@
                         <span *ngIf="booking.bookable.initialPrice !== '0.00'">
                             {{ booking.bookable.initialPrice | currency: 'CHF' }}</span
                         >
-                    </td>
-                    <td mat-footer-cell *matFooterCellDef natural-align-right>
-                        <span *ngIf="runningServicesDS.data?.totalInitialPrice > 0">
-                            {{ runningServicesDS.data?.totalInitialPrice | currency: 'CHF' }}
-                        </span>
                     </td>
                 </ng-container>
 
@@ -56,7 +44,6 @@
                             <mat-icon naturalIcon="delete_forever"></mat-icon>
                         </button>
                     </td>
-                    <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 
                 <ng-container matColumnDef="usage">
@@ -73,7 +60,6 @@
                             </a>
                         </div>
                     </td>
-                    <td mat-footer-cell *matFooterCellDef natural-align-right></td>
                 </ng-container>
 
                 <ng-container matColumnDef="admin">
@@ -87,7 +73,6 @@
                             <mat-icon naturalIcon="chevron_right"></mat-icon>
                         </a>
                     </td>
-                    <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
             </table>
         </div>
