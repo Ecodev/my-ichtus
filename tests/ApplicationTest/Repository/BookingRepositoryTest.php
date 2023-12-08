@@ -10,6 +10,7 @@ use Application\Model\Booking;
 use Application\Model\User;
 use Application\Repository\BookingRepository;
 use Cake\Chronos\Chronos;
+use Ecodev\Felix\Utility;
 
 class BookingRepositoryTest extends AbstractRepositoryTest
 {
@@ -31,7 +32,7 @@ class BookingRepositoryTest extends AbstractRepositoryTest
     public function testGetAllToInvoice(): void
     {
         $bookings = $this->repository->getAllToInvoice();
-        $actual = $this->modelToIds($bookings);
+        $actual = Utility::modelToId($bookings);
 
         $expected = [
             4004,
@@ -49,7 +50,7 @@ class BookingRepositoryTest extends AbstractRepositoryTest
         $user = $this->getEntityManager()->getRepository(User::class)->getOneById(1005);
 
         $bookings = $this->repository->getAllToInvoice($user);
-        $actual = $this->modelToIds($bookings);
+        $actual = Utility::modelToId($bookings);
 
         $expected = [
             4007,
@@ -318,18 +319,5 @@ class BookingRepositoryTest extends AbstractRepositoryTest
             $existingTransactionNextYear,
             ['casier', 'cotisation'],
         ];
-    }
-
-    /**
-     * @param Booking[] $bookings
-     */
-    private function modelToIds(array $bookings): array
-    {
-        $ids = [];
-        foreach ($bookings as $a) {
-            $ids[] = $a->getId();
-        }
-
-        return $ids;
     }
 }
