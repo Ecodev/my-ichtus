@@ -27,7 +27,6 @@
                         "polyfills": "client/polyfills.ts",
                         "tsConfig": "client/tsconfig.app.json",
                         "assets": [
-                            "client/robots.txt",
                             "client/assets",
                             {
                                 "input": "client/favicon",
