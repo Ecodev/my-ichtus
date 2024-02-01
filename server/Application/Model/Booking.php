@@ -21,6 +21,7 @@ use Money\Money;
 #[API\Sorting(\Application\Api\Input\Sorting\Bookable::class)]
 #[ORM\Entity(BookingRepository::class)]
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: 'owner', inversedBy: 'bookings')])]
+#[ORM\Index(name: 'start_date', columns: ['start_date'])]
 #[API\Filter(field: 'custom', operator: RunningServicesOperatorType::class, type: 'UserID')]
 class Booking extends AbstractModel
 {
