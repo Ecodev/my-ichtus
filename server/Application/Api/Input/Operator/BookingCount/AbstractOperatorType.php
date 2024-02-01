@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Application\Api\Input\Operator\BookingCount;
 
 use Application\DBAL\Types\BookingTypeType;
-use Application\Model\Bookable;
-use Application\Model\Booking;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
+use Ecodev\Felix\ORM\Query\NativeIn;
+use Ecodev\Felix\Utility;
 use GraphQL\Doctrine\Definition\Operator\AbstractOperator;
 use GraphQL\Doctrine\Factory\UniqueNameFactory;
 use GraphQL\Type\Definition\LeafType;
@@ -36,26 +36,21 @@ abstract class AbstractOperatorType extends AbstractOperator
             return null;
         }
 
-        $bookingAlias = $uniqueNameFactory->createAliasName(Booking::class);
-        $bookableAlias = $uniqueNameFactory->createAliasName(Bookable::class);
-        $param = $uniqueNameFactory->createParameterName();
-        $bookingType = $uniqueNameFactory->createParameterName();
+        $connection = _em()->getConnection();
+        $count = $connection->quote($args['value']);
+        $bookingTypes = Utility::quoteArray([BookingTypeType::SELF_APPROVED]);
 
-        $queryBuilder->leftJoin($alias . '.bookings', $bookingAlias);
-        $queryBuilder->leftJoin($bookingAlias . '.bookable', $bookableAlias);
+        $operator = $this->getDqlOperator();
+        $sql = <<<SQL
+            SELECT booking.owner_id FROM booking
+            INNER JOIN bookable ON booking.bookable_id = bookable.id
+            WHERE
+                booking.owner_id IS NOT NULL
+                AND bookable.booking_type IN ($bookingTypes)
+            GROUP BY booking.owner_id
+            HAVING COUNT(bookable.id) $operator $count
+            SQL;
 
-        $groupBy = @$queryBuilder->getDQLPart('groupBy')[0];
-
-        if (!$groupBy || !($groupBy->getParts()[0] === $alias . '.id')) {
-            $queryBuilder->groupBy($alias . '.id');
-        }
-
-        $queryBuilder->having('COUNT(' . $bookingAlias . '.id) ' . $this->getDqlOperator() . ' :' . $param);
-
-        $count = $args['value'];
-        $queryBuilder->setParameter($param, $count);
-        $queryBuilder->setParameter($bookingType, BookingTypeType::SELF_APPROVED);
-
-        return $bookableAlias . ".bookingType = :$bookingType";
+        return NativeIn::dql($alias . '.id', $sql);
     }
 }
