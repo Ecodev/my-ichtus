@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Api\Input\Operator\BookingCount;
 
+use Application\DBAL\Types\BookingTypeType;
 use Application\Model\Bookable;
 use Application\Model\Booking;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -38,6 +39,7 @@ abstract class AbstractOperatorType extends AbstractOperator
         $bookingAlias = $uniqueNameFactory->createAliasName(Booking::class);
         $bookableAlias = $uniqueNameFactory->createAliasName(Bookable::class);
         $param = $uniqueNameFactory->createParameterName();
+        $bookingType = $uniqueNameFactory->createParameterName();
 
         $queryBuilder->leftJoin($alias . '.bookings', $bookingAlias);
         $queryBuilder->leftJoin($bookingAlias . '.bookable', $bookableAlias);
@@ -52,7 +54,8 @@ abstract class AbstractOperatorType extends AbstractOperator
 
         $count = $args['value'];
         $queryBuilder->setParameter($param, $count);
+        $queryBuilder->setParameter($bookingType, BookingTypeType::SELF_APPROVED);
 
-        return $bookableAlias . ".bookingType = 'self_approved'";
+        return $bookableAlias . ".bookingType = :$bookingType'";
     }
 }
