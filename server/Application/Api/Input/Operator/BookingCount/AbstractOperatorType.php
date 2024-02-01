@@ -56,6 +56,6 @@ abstract class AbstractOperatorType extends AbstractOperator
         $queryBuilder->setParameter($param, $count);
         $queryBuilder->setParameter($bookingType, BookingTypeType::SELF_APPROVED);
 
-        return $bookableAlias . ".bookingType = :$bookingType'";
+        return $bookableAlias . ".bookingType = :$bookingType";
     }
 }
