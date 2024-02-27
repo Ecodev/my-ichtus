@@ -91,8 +91,50 @@ $ichtus-theme: mat.define-light-theme(
     @include components.components-theme($theme);
 }
 
-// Include Material densities, typographies and  core (only once !)
+// Include Material bases, densities, typographies and core (only once !)
 // Only 30 modules used on a total of 37 modules
+
+// This fake theme is only use to tell Material we use Material v2, and not v3. Colors are never used.
+$fake-material-v2-theme: mat.define-light-theme(
+    (
+        color: (
+            primary: mat.define-palette(mat.$indigo-palette),
+            accent: mat.define-palette(mat.$indigo-palette),
+        ),
+    )
+);
+
+@include mat.autocomplete-base($fake-material-v2-theme);
+@include mat.button-base($fake-material-v2-theme);
+@include mat.button-toggle-base($fake-material-v2-theme);
+@include mat.card-base($fake-material-v2-theme);
+@include mat.checkbox-base($fake-material-v2-theme);
+@include mat.chips-base($fake-material-v2-theme);
+@include mat.core-base($fake-material-v2-theme);
+@include mat.datepicker-base($fake-material-v2-theme);
+@include mat.dialog-base($fake-material-v2-theme);
+@include mat.divider-base($fake-material-v2-theme);
+@include mat.expansion-base($fake-material-v2-theme);
+@include mat.fab-base($fake-material-v2-theme);
+@include mat.form-field-base($fake-material-v2-theme);
+@include mat.icon-base($fake-material-v2-theme);
+@include mat.icon-button-base($fake-material-v2-theme);
+@include mat.input-base($fake-material-v2-theme);
+@include mat.list-base($fake-material-v2-theme);
+@include mat.menu-base($fake-material-v2-theme);
+@include mat.paginator-base($fake-material-v2-theme);
+@include mat.progress-spinner-base($fake-material-v2-theme);
+@include mat.select-base($fake-material-v2-theme);
+@include mat.sidenav-base($fake-material-v2-theme);
+@include mat.slide-toggle-base($fake-material-v2-theme);
+@include mat.snack-bar-base($fake-material-v2-theme);
+@include mat.sort-base($fake-material-v2-theme);
+@include mat.table-base($fake-material-v2-theme);
+@include mat.tabs-base($fake-material-v2-theme);
+@include mat.toolbar-base($fake-material-v2-theme);
+@include mat.tooltip-base($fake-material-v2-theme);
+@include mat.tree-base($fake-material-v2-theme);
+
 @include mat.autocomplete-density(0);
 @include mat.button-density(0);
 @include mat.button-toggle-density(0);

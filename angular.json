@@ -86,10 +86,10 @@
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "my-ichtus:build:production"
+                            "buildTarget": "my-ichtus:build:production"
                         },
                         "development": {
-                            "browserTarget": "my-ichtus:build:development"
+                            "buildTarget": "my-ichtus:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -97,7 +97,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "my-ichtus:build"
+                        "buildTarget": "my-ichtus:build"
                     }
                 },
                 "test": {
