@@ -15,7 +15,7 @@
     </div>
 
     <mat-accordion>
-        @for (familyMember of familyMembers; track familyMember; let i = $index) {
+        @for (familyMember of familyMembers; track familyMember) {
             <mat-expansion-panel (afterExpand)="activeMember = familyMember" (closed)="activeMember = null">
                 <mat-expansion-panel-header>
                     <mat-panel-title> {{ familyMember?.name || 'Nouveau' }}</mat-panel-title>
@@ -26,7 +26,7 @@
                     [viewer]="viewer"
                     (created)="reload()"
                     (removed)="reload()"
-                    (updated)="refreshMember(i, $event)"
+                    (updated)="refreshMember($index, $event)"
                 ></app-family-member>
             </mat-expansion-panel>
         }

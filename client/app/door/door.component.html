@@ -3,7 +3,7 @@
         <h1 class="mat-headline-3 margin-bottom text-center">Sélectionnez la porte du local à ouvrir</h1>
 
         <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="20px grid">
-            @for (door of doorService.doors; track door; let i = $index) {
+            @for (door of doorService.doors; track door) {
                 @if (viewer[door.id]) {
                     <app-card
                         (click)="open(door)"

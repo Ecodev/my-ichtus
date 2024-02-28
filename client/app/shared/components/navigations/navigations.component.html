@@ -4,7 +4,7 @@
             @if (!bookings.items.length && showEmptyMessage) {
                 <div class="padding mat-subtitle-2">Aucun résultat</div>
             }
-            @for (item of bookings.items; track item; let i = $index) {
+            @for (item of bookings.items; track item) {
                 @if (!activeOnly || (activeOnly && !item.terminated)) {
                     <div [@terminate]>
                         <app-card
