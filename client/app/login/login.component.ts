@@ -8,7 +8,7 @@ import {FormsModule, ReactiveFormsModule, NonNullableFormBuilder, Validators} fr
 import {MatDividerModule} from '@angular/material/divider';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-import {CommonModule} from '@angular/common';
+
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
@@ -24,7 +24,6 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
         ReactiveFormsModule,
         MatFormFieldModule,
         MatInputModule,
-        CommonModule,
         MatButtonModule,
         MatIconModule,
         NaturalIconDirective,

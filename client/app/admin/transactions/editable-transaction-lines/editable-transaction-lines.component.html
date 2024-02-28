@@ -1,125 +1,118 @@
-<div
-    [formGroup]="form"
-    *ngIf="form"
-    fxLayout="column"
-    fxLayoutAlign="start start"
-    fxLayoutGap="20px"
-    class="responsive-table"
->
-    <table mat-table [dataSource]="dataSource" formArrayName="rows">
-        <tr mat-header-row *matHeaderRowDef="columns"></tr>
-        <tr mat-row *matRowDef="let row; columns: columns"></tr>
-
-        <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Nom</th>
-            <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
-                <mat-form-field>
-                    <mat-label>Nom</mat-label>
-                    <input matInput formControlName="name" />
-                    <mat-error *ngIf="formArray.at(i).get('name')?.hasError('maxlength')">
-                        Maximum {{ formArray.at(i).get('name')?.errors?.maxlength?.requiredLength }} caractères
-                    </mat-error>
-                    <mat-error *ngIf="formArray.at(i).get('name')?.hasError('required')">Requis</mat-error>
-                </mat-form-field>
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="balance">
-            <th mat-header-cell *matHeaderCellDef style="text-align: left !important">Montant</th>
-            <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
-                <mat-form-field>
-                    <mat-label>Montant</mat-label>
-                    <input matInput type="number" formControlName="balance" step="0.01" />
-                    <mat-error *ngIf="formArray.at(i).get('balance')?.hasError('money')"
-                        >Le montant doit être un nombre avec un maximum de deux décimales
-                    </mat-error>
-                    <mat-error *ngIf="formArray.at(i).get('balance')?.hasError('min')">
-                        Doit être supérieur à {{ formArray.at(i).get('balance')?.errors.min.min }}
-                    </mat-error>
-                    <mat-error *ngIf="formArray.at(i).get('balance')?.hasError('required')">Requis</mat-error>
-                </mat-form-field>
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="debit">
-            <th mat-header-cell *matHeaderCellDef>Compte débit</th>
-            <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
-                <natural-select-hierarchic
-                    [config]="accountHierarchicConfig"
-                    formControlName="debit"
-                    placeholder="Compte débit"
-                    [showIcon]="false"
-                ></natural-select-hierarchic>
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="credit">
-            <th mat-header-cell *matHeaderCellDef>Compte crédit</th>
-            <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
-                <natural-select-hierarchic
-                    [config]="accountHierarchicConfig"
-                    formControlName="credit"
-                    placeholder="Compte crédit"
-                    [showIcon]="false"
-                >
-                    <!--<mat-error *ngIf="formArray.at(i).hasError('atLeastOneAccountRequired')">Au moins un compte est requis</mat-error>-->
-                </natural-select-hierarchic>
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="isReconciled">
-            <th mat-header-cell *matHeaderCellDef style="text-align: left !important">Pointé</th>
-            <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
-                <mat-checkbox formControlName="isReconciled"></mat-checkbox>
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="transactionTag">
-            <th mat-header-cell *matHeaderCellDef>Tag</th>
-            <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
-                <natural-select
-                    [service]="transactionTagService"
-                    formControlName="transactionTag"
-                    placeholder="Tag"
-                    [showIcon]="false"
-                ></natural-select>
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="bookable">
-            <th mat-header-cell *matHeaderCellDef>Réservable</th>
-            <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
-                <natural-select
-                    formControlName="bookable"
-                    [service]="bookableService"
-                    placeholder="Réservable"
-                    [showIcon]="false"
-                ></natural-select>
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="remarks">
-            <th mat-header-cell *matHeaderCellDef>Remarque</th>
-            <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
-                <mat-form-field>
-                    <mat-label>Remarques</mat-label>
-                    <textarea
-                        matInput
-                        formControlName="remarks"
-                        [cdkTextareaAutosize]="true"
-                        [cdkAutosizeMinRows]="1"
-                    ></textarea>
-                </mat-form-field>
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="remove">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
-                <button [disabled]="dataSource.data.length < 2" mat-icon-button color="warn" (click)="removeAt(i)">
-                    <mat-icon naturalIcon="delete"></mat-icon>
-                </button>
-            </td>
-        </ng-container>
-    </table>
-</div>
+@if (form) {
+    <div [formGroup]="form" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px" class="responsive-table">
+        <table mat-table [dataSource]="dataSource" formArrayName="rows">
+            <tr mat-header-row *matHeaderRowDef="columns"></tr>
+            <tr mat-row *matRowDef="let row; columns: columns"></tr>
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Nom</th>
+                <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
+                    <mat-form-field>
+                        <mat-label>Nom</mat-label>
+                        <input matInput formControlName="name" />
+                        @if (formArray.at(i).get('name')?.hasError('maxlength')) {
+                            <mat-error>
+                                Maximum {{ formArray.at(i).get('name')?.errors?.maxlength?.requiredLength }} caractères
+                            </mat-error>
+                        }
+                        @if (formArray.at(i).get('name')?.hasError('required')) {
+                            <mat-error>Requis</mat-error>
+                        }
+                    </mat-form-field>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="balance">
+                <th mat-header-cell *matHeaderCellDef style="text-align: left !important">Montant</th>
+                <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
+                    <mat-form-field>
+                        <mat-label>Montant</mat-label>
+                        <input matInput type="number" formControlName="balance" step="0.01" />
+                        @if (formArray.at(i).get('balance')?.hasError('money')) {
+                            <mat-error>Le montant doit être un nombre avec un maximum de deux décimales </mat-error>
+                        }
+                        @if (formArray.at(i).get('balance')?.hasError('min')) {
+                            <mat-error>
+                                Doit être supérieur à {{ formArray.at(i).get('balance')?.errors.min.min }}
+                            </mat-error>
+                        }
+                        @if (formArray.at(i).get('balance')?.hasError('required')) {
+                            <mat-error>Requis</mat-error>
+                        }
+                    </mat-form-field>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="debit">
+                <th mat-header-cell *matHeaderCellDef>Compte débit</th>
+                <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
+                    <natural-select-hierarchic
+                        [config]="accountHierarchicConfig"
+                        formControlName="debit"
+                        placeholder="Compte débit"
+                        [showIcon]="false"
+                    ></natural-select-hierarchic>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="credit">
+                <th mat-header-cell *matHeaderCellDef>Compte crédit</th>
+                <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
+                    <natural-select-hierarchic
+                        [config]="accountHierarchicConfig"
+                        formControlName="credit"
+                        placeholder="Compte crédit"
+                        [showIcon]="false"
+                    >
+                    </natural-select-hierarchic>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="isReconciled">
+                <th mat-header-cell *matHeaderCellDef style="text-align: left !important">Pointé</th>
+                <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
+                    <mat-checkbox formControlName="isReconciled"></mat-checkbox>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="transactionTag">
+                <th mat-header-cell *matHeaderCellDef>Tag</th>
+                <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
+                    <natural-select
+                        [service]="transactionTagService"
+                        formControlName="transactionTag"
+                        placeholder="Tag"
+                        [showIcon]="false"
+                    ></natural-select>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="bookable">
+                <th mat-header-cell *matHeaderCellDef>Réservable</th>
+                <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
+                    <natural-select
+                        formControlName="bookable"
+                        [service]="bookableService"
+                        placeholder="Réservable"
+                        [showIcon]="false"
+                    ></natural-select>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="remarks">
+                <th mat-header-cell *matHeaderCellDef>Remarque</th>
+                <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
+                    <mat-form-field>
+                        <mat-label>Remarques</mat-label>
+                        <textarea
+                            matInput
+                            formControlName="remarks"
+                            [cdkTextareaAutosize]="true"
+                            [cdkAutosizeMinRows]="1"
+                        ></textarea>
+                    </mat-form-field>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="remove">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
+                    <button [disabled]="dataSource.data.length < 2" mat-icon-button color="warn" (click)="removeAt(i)">
+                        <mat-icon naturalIcon="delete"></mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+        </table>
+    </div>
+}

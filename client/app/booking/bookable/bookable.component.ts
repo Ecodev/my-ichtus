@@ -10,7 +10,6 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {NaturalFileComponent} from '@ecodev/natural';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
-import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-bookable',
@@ -18,7 +17,6 @@ import {CommonModule} from '@angular/common';
     styleUrls: ['./bookable.component.scss'],
     standalone: true,
     imports: [
-        CommonModule,
         FlexModule,
         NaturalFileComponent,
         MatDividerModule,

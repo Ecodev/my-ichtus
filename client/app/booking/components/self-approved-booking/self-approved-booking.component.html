@@ -5,26 +5,33 @@
     <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="20px">
         <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="center" fxLayoutGap="30px">
             <app-card [file]="bookable?.image">
-                <div class="card-illustration padding" *ngIf="!bookable?.image">
-                    <natural-avatar initials="?" [size]="160"></natural-avatar>
-                </div>
+                @if (!bookable?.image) {
+                    <div class="card-illustration padding">
+                        <natural-avatar initials="?" [size]="160"></natural-avatar>
+                    </div>
+                }
                 <h2 class="mat-headline-6">Matériel</h2>
                 <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
                     <div class="mat-subtitle-2" fxFlex>{{ bookable?.name || 'Mon propre matériel' }}</div>
-                    <mat-divider [vertical]="true" *ngIf="bookable"></mat-divider>
+                    @if (bookable) {
+                        <mat-divider [vertical]="true"></mat-divider>
+                    }
                     <div class="mat-subtitle-2">{{ bookable?.code }}</div>
                 </div>
             </app-card>
 
             <app-card>
                 <div class="card-illustration padding">
-                    <natural-avatar
-                        *ngIf="!!booking.owner"
-                        [initials]="booking.owner.name"
-                        [gravatar]="booking.owner.email"
-                        [size]="160"
-                    ></natural-avatar>
-                    <natural-avatar *ngIf="!booking.owner" initials="Invité" [size]="160"></natural-avatar>
+                    @if (!!booking.owner) {
+                        <natural-avatar
+                            [initials]="booking.owner.name"
+                            [gravatar]="booking.owner.email"
+                            [size]="160"
+                        ></natural-avatar>
+                    }
+                    @if (!booking.owner) {
+                        <natural-avatar initials="Invité" [size]="160"></natural-avatar>
+                    }
                 </div>
 
                 <div fxLayout="column" fxLayoutGap="10px">

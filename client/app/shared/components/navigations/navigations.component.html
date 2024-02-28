@@ -1,104 +1,114 @@
 <div fxLayout="column" fxLayoutGap="20px">
-    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="20px grid" *ngIf="bookings">
-        <div *ngIf="!bookings.items.length && showEmptyMessage" class="padding mat-subtitle-2">Aucun résultat</div>
-
-        <ng-container *ngFor="let item of bookings.items; let i = index">
-            <div [@terminate] *ngIf="!activeOnly || (activeOnly && !item.terminated)">
-                <app-card
-                    [file]="item.booking.bookable?.image"
-                    [style.width.px]="300"
-                    [class.showComments]="item.showComments"
-                >
-                    <div *ngIf="!item.booking.bookable?.image" class="card-illustration padding">
-                        <natural-avatar initials="?" [size]="160"></natural-avatar>
-                    </div>
-
-                    <!-- style="overflow:hidden;" -->
-                    <div fxLayout="column" fxLayoutGap="10px">
-                        <a
-                            mat-button
-                            [routerLink]="item.booking.bookable ? ['/booking', item.booking.bookable.code] : null"
-                            class="app-button-wrap"
+    @if (bookings) {
+        <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="20px grid">
+            @if (!bookings.items.length && showEmptyMessage) {
+                <div class="padding mat-subtitle-2">Aucun résultat</div>
+            }
+            @for (item of bookings.items; track item; let i = $index) {
+                @if (!activeOnly || (activeOnly && !item.terminated)) {
+                    <div [@terminate]>
+                        <app-card
+                            [file]="item.booking.bookable?.image"
+                            [style.width.px]="300"
+                            [class.showComments]="item.showComments"
                         >
-                            {{ item.booking.bookable?.name || 'Matériel personnel' }}
-                        </a>
-                        <div style="position: relative">
-                            <mat-divider></mat-divider>
-                        </div>
-                        <div class="mat-subtitle-2">{{ item.booking.owner?.name }}</div>
-                        <div class="mat-body-2" *ngIf="!item.booking.endDate && item.booking.destination">
-                            Destination : {{ item.booking.destination }}
-                        </div>
-                        <div class="mat-body-2" *ngIf="!item.booking.endDate && item.booking.estimatedEndDate">
-                            Retour prévu : {{ item.booking.estimatedEndDate }}
-                        </div>
-                        <div>Début : {{ item.booking.startDate | swissDate }}</div>
-                        <div *ngIf="item.booking.endDate">Fin : {{ item.booking.endDate | swissDate }}</div>
-
-                        <div fxLayout="row" fxLayoutAlign="end center">
-                            <button mat-icon-button (click)="item.showComments = true">
-                                <mat-icon naturalIcon="feedback"></mat-icon>
-                            </button>
-                            <div fxFlex></div>
-
-                            <button
-                                mat-flat-button
-                                color="warn"
-                                (click)="endBooking(item)"
-                                [pHidden]="!!item.explode"
-                                (pComplete)="item.terminated = true"
-                                *ngIf="!item.terminated"
-                                appParticleEffect
-                                [pParticlesAmountCoefficient]="2"
-                                [pOscillationCoefficient]="100"
-                                [pDuration]="350"
-                                pEasing="easeOutQuad"
-                                [pSpeed]="0.1"
-                                pColor="#f44336"
-                            >
-                                Annoncer retour
-                            </button>
-                        </div>
+                            @if (!item.booking.bookable?.image) {
+                                <div class="card-illustration padding">
+                                    <natural-avatar initials="?" [size]="160"></natural-avatar>
+                                </div>
+                            }
+                            <!-- style="overflow:hidden;" -->
+                            <div fxLayout="column" fxLayoutGap="10px">
+                                <a
+                                    mat-button
+                                    [routerLink]="
+                                        item.booking.bookable ? ['/booking', item.booking.bookable.code] : null
+                                    "
+                                    class="app-button-wrap"
+                                >
+                                    {{ item.booking.bookable?.name || 'Matériel personnel' }}
+                                </a>
+                                <div style="position: relative">
+                                    <mat-divider></mat-divider>
+                                </div>
+                                <div class="mat-subtitle-2">{{ item.booking.owner?.name }}</div>
+                                @if (!item.booking.endDate && item.booking.destination) {
+                                    <div class="mat-body-2">Destination : {{ item.booking.destination }}</div>
+                                }
+                                @if (!item.booking.endDate && item.booking.estimatedEndDate) {
+                                    <div class="mat-body-2">Retour prévu : {{ item.booking.estimatedEndDate }}</div>
+                                }
+                                <div>Début : {{ item.booking.startDate | swissDate }}</div>
+                                @if (item.booking.endDate) {
+                                    <div>Fin : {{ item.booking.endDate | swissDate }}</div>
+                                }
+                                <div fxLayout="row" fxLayoutAlign="end center">
+                                    <button mat-icon-button (click)="item.showComments = true">
+                                        <mat-icon naturalIcon="feedback"></mat-icon>
+                                    </button>
+                                    <div fxFlex></div>
+                                    @if (!item.terminated) {
+                                        <button
+                                            mat-flat-button
+                                            color="warn"
+                                            (click)="endBooking(item)"
+                                            [pHidden]="!!item.explode"
+                                            (pComplete)="item.terminated = true"
+                                            appParticleEffect
+                                            [pParticlesAmountCoefficient]="2"
+                                            [pOscillationCoefficient]="100"
+                                            [pDuration]="350"
+                                            pEasing="easeOutQuad"
+                                            [pSpeed]="0.1"
+                                            pColor="#f44336"
+                                        >
+                                            Annoncer retour
+                                        </button>
+                                    }
+                                </div>
+                            </div>
+                            <div class="comment padding" fxLayout="column" fxLayoutGap="10px">
+                                <div fxFlex class="overflow" fxLayout="column">
+                                    <div class="mat-headline-6">Commentaires</div>
+                                    <mat-form-field>
+                                        <mat-label>Commentaire de départ</mat-label>
+                                        <textarea
+                                            matInput
+                                            [ngModel]="item.booking.startComment"
+                                            (change)="
+                                                update({id: item.booking.id, startComment: $any($event.target).value})
+                                            "
+                                            [cdkTextareaAutosize]="true"
+                                            [cdkAutosizeMinRows]="3"
+                                        ></textarea>
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <mat-label>Commentaire de fin</mat-label>
+                                        <textarea
+                                            matInput
+                                            [ngModel]="item.booking.endComment"
+                                            (change)="
+                                                update({id: item.booking.id, endComment: $any($event.target).value})
+                                            "
+                                            [cdkTextareaAutosize]="true"
+                                            [cdkAutosizeMinRows]="3"
+                                        ></textarea>
+                                    </mat-form-field>
+                                </div>
+                                <div fxLayout="row">
+                                    <button mat-icon-button color="primary" (click)="item.showComments = false">
+                                        <mat-icon naturalIcon="clear"></mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </app-card>
                     </div>
+                }
+            }
+        </div>
+    }
 
-                    <div class="comment padding" fxLayout="column" fxLayoutGap="10px">
-                        <div fxFlex class="overflow" fxLayout="column">
-                            <div class="mat-headline-6">Commentaires</div>
-                            <mat-form-field>
-                                <mat-label>Commentaire de départ</mat-label>
-                                <textarea
-                                    matInput
-                                    [ngModel]="item.booking.startComment"
-                                    (change)="update({id: item.booking.id, startComment: $any($event.target).value})"
-                                    [cdkTextareaAutosize]="true"
-                                    [cdkAutosizeMinRows]="3"
-                                ></textarea>
-                            </mat-form-field>
-
-                            <mat-form-field>
-                                <mat-label>Commentaire de fin</mat-label>
-                                <textarea
-                                    matInput
-                                    [ngModel]="item.booking.endComment"
-                                    (change)="update({id: item.booking.id, endComment: $any($event.target).value})"
-                                    [cdkTextareaAutosize]="true"
-                                    [cdkAutosizeMinRows]="3"
-                                ></textarea>
-                            </mat-form-field>
-                        </div>
-
-                        <div fxLayout="row">
-                            <button mat-icon-button color="primary" (click)="item.showComments = false">
-                                <mat-icon naturalIcon="clear"></mat-icon>
-                            </button>
-                        </div>
-                    </div>
-                </app-card>
-            </div>
-        </ng-container>
-    </div>
-
-    <button mat-button (click)="nextPage()" *ngIf="bookings && bookings.length > bookings.items.length">
-        Voir plus
-    </button>
+    @if (bookings && bookings.length > bookings.items.length) {
+        <button mat-button (click)="nextPage()">Voir plus</button>
+    }
 </div>

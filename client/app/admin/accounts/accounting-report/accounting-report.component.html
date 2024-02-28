@@ -5,10 +5,14 @@
         <input matInput formControlName="date" [matDatepicker]="picker" [max]="today" />
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
-        <mat-error *ngIf="form.hasError('required')">Requis</mat-error>
-        <mat-error *ngIf="form.hasError('matDatepickerMax')">La date d'export ne peut pas être dans le futur</mat-error>
+        @if (form.hasError('required')) {
+            <mat-error>Requis</mat-error>
+        }
+        @if (form.hasError('matDatepickerMax')) {
+            <mat-error>La date d'export ne peut pas être dans le futur</mat-error>
+        }
     </mat-form-field>
-    <mat-checkbox formControlName="showBudget" i18n>Afficher le budget</mat-checkbox>
+    <mat-checkbox formControlName="showBudget">Afficher le budget</mat-checkbox>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">

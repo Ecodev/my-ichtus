@@ -12,7 +12,7 @@ import {FileModel, WithId, NaturalFileComponent, NaturalIconDirective} from '@ec
 import {tap} from 'rxjs/operators';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-import {CommonModule} from '@angular/common';
+
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
@@ -20,7 +20,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
     templateUrl: './accounting-documents.component.html',
     styleUrls: ['./accounting-documents.component.scss'],
     standalone: true,
-    imports: [FlexModule, CommonModule, NaturalFileComponent, MatButtonModule, MatIconModule, NaturalIconDirective],
+    imports: [FlexModule, NaturalFileComponent, MatButtonModule, MatIconModule, NaturalIconDirective],
 })
 export class AccountingDocumentsComponent implements OnInit {
     @Input({required: true}) public model!:
@@ -77,10 +77,6 @@ export class AccountingDocumentsComponent implements OnInit {
                 this.removedFiles.push(file as WithId<FileModel>);
             }
         });
-    }
-
-    public trackByFn(index: number): number {
-        return index;
     }
 
     public save(): void {

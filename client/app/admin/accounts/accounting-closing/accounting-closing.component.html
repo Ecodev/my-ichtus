@@ -16,10 +16,12 @@
             <input matInput [formControl]="form" [max]="today" [matDatepicker]="picker" />
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="form.hasError('required')">Requis</mat-error>
-            <mat-error *ngIf="form.hasError('matDatepickerMax')"
-                >La date du bouclement ne peut pas être dans le futur</mat-error
-            >
+            @if (form.hasError('required')) {
+                <mat-error>Requis</mat-error>
+            }
+            @if (form.hasError('matDatepickerMax')) {
+                <mat-error>La date du bouclement ne peut pas être dans le futur</mat-error>
+            }
         </mat-form-field>
     </div>
 </mat-dialog-content>

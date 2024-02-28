@@ -1,54 +1,57 @@
 <div fxFlex="1 0 auto" fxLayout="column" fxLayoutGap="50px" fxLayoutAlign="center" class="padding overlfow">
-    <div fxLayout="row" fxLayoutAlign="center" *ngIf="route.snapshot.data.viewer">
-        <app-navigations [user]="route.snapshot.data.viewer.model"></app-navigations>
-    </div>
-
-    <div fxLayout="column" fxLayoutAlign="start center" *ngIf="permissionsService.crud?.booking?.create">
-        <h1 class="mat-headline-3 margin-bottom text-center">Annoncer une sortie</h1>
-        <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="center">
-            <a
-                mat-button
-                fxLayout="column"
-                fxLayoutAlign="start center"
-                routerLink="/booking/by-scan"
-                class="big-button"
-            >
-                <mat-icon naturalIcon="qr" [size]="70"></mat-icon>
-                en scannant un code QR
-            </a>
-
-            <a
-                mat-button
-                fxLayout="column"
-                fxLayoutAlign="start center"
-                routerLink="/booking/by-code"
-                class="big-button"
-            >
-                <mat-icon naturalIcon="code" [size]="70"></mat-icon>
-                en saisissant un code
-            </a>
-
-            <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="/booking/new" class="big-button">
-                <mat-icon naturalIcon="own_bookable" [size]="70"></mat-icon>
-                avec mon propre matériel
-            </a>
+    @if (route.snapshot.data.viewer) {
+        <div fxLayout="row" fxLayoutAlign="center">
+            <app-navigations [user]="route.snapshot.data.viewer.model"></app-navigations>
         </div>
-    </div>
+    }
+
+    @if (permissionsService.crud?.booking?.create) {
+        <div fxLayout="column" fxLayoutAlign="start center">
+            <h1 class="mat-headline-3 margin-bottom text-center">Annoncer une sortie</h1>
+            <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="center">
+                <a
+                    mat-button
+                    fxLayout="column"
+                    fxLayoutAlign="start center"
+                    routerLink="/booking/by-scan"
+                    class="big-button"
+                >
+                    <mat-icon naturalIcon="qr" [size]="70"></mat-icon>
+                    en scannant un code QR
+                </a>
+                <a
+                    mat-button
+                    fxLayout="column"
+                    fxLayoutAlign="start center"
+                    routerLink="/booking/by-code"
+                    class="big-button"
+                >
+                    <mat-icon naturalIcon="code" [size]="70"></mat-icon>
+                    en saisissant un code
+                </a>
+                <a
+                    mat-button
+                    fxLayout="column"
+                    fxLayoutAlign="start center"
+                    routerLink="/booking/new"
+                    class="big-button"
+                >
+                    <mat-icon naturalIcon="own_bookable" [size]="70"></mat-icon>
+                    avec mon propre matériel
+                </a>
+            </div>
+        </div>
+    }
 
     <div fxLayout="column" fxLayoutAlign="start center" class="margin-bottom padding-bottom">
         <h1 class="mat-headline-3 margin-bottom text-center">Autres</h1>
         <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="center">
-            <a
-                mat-button
-                fxLayout="column"
-                fxLayoutAlign="start center"
-                routerLink="door"
-                *ngIf="permissionsService.canAccessDoor(route.snapshot.data.viewer.model)"
-                class="big-button"
-            >
-                <mat-icon naturalIcon="doors" [size]="70"></mat-icon>
-                Accéder au local
-            </a>
+            @if (permissionsService.canAccessDoor(route.snapshot.data.viewer.model)) {
+                <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="door" class="big-button">
+                    <mat-icon naturalIcon="doors" [size]="70"></mat-icon>
+                    Accéder au local
+                </a>
+            }
 
             <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="profile" class="big-button">
                 <mat-icon naturalIcon="family" [size]="70"></mat-icon>
@@ -60,17 +63,18 @@
                 Guide
             </a>
 
-            <a
-                mat-button
-                fxLayout="column"
-                fxLayoutAlign="start center"
-                [routerLink]="adminRoute | async"
-                *ngIf="permissionsService.canAccessAdmin(route.snapshot.data.viewer.model)"
-                class="big-button"
-            >
-                <mat-icon naturalIcon="administrator" [size]="70"></mat-icon>
-                Administration
-            </a>
+            @if (permissionsService.canAccessAdmin(route.snapshot.data.viewer.model)) {
+                <a
+                    mat-button
+                    fxLayout="column"
+                    fxLayoutAlign="start center"
+                    [routerLink]="adminRoute | async"
+                    class="big-button"
+                >
+                    <mat-icon naturalIcon="administrator" [size]="70"></mat-icon>
+                    Administration
+                </a>
+            }
 
             <a
                 mat-button

@@ -1,109 +1,116 @@
-<div *ngIf="loaded" [formGroup]="form">
-    <div fxLayout="column">
-        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+@if (loaded) {
+    <div [formGroup]="form">
+        <div fxLayout="column">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                <natural-select-enum
+                    enumName="Relationship"
+                    formControlName="familyRelationship"
+                    (selectionChange)="update()"
+                    placeholder="Rôle dans la famille"
+                ></natural-select-enum>
+                <button
+                    mat-stroked-button
+                    color="warn"
+                    [disabled]="!form.enabled || !service.canLeaveFamily(user)"
+                    (click)="leaveFamily()"
+                >
+                    Détacher du ménage
+                </button>
+            </div>
+            <mat-divider class="margin-bottom"></mat-divider>
+            <h2 class="mat-headline-6">Compte</h2>
+            <mat-form-field>
+                <mat-label>email</mat-label>
+                <input matInput formControlName="email" (change)="update()" />
+                <mat-icon matIconPrefix naturalIcon="alternate_email"></mat-icon>
+                @if (form.get('email')?.hasError('required')) {
+                    <mat-error>Requis</mat-error>
+                }
+                @if (form.get('email')?.hasError('email')) {
+                    <mat-error>Adresse email invalide</mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Nom d'utilisateur</mat-label>
+                <input matInput formControlName="login" (change)="update()" />
+                <mat-icon matIconPrefix naturalIcon="person"></mat-icon>
+                @if (form.get('login')?.hasError('maxlength')) {
+                    <mat-error>
+                        Maximum {{ form.get('login')?.errors?.maxlength?.requiredLength }} caractères
+                    </mat-error>
+                }
+                @if (form.get('login')?.hasError('required')) {
+                    <mat-error>Requis</mat-error>
+                }
+                @if (form.get('login')?.hasError('invalid')) {
+                    <mat-error>{{ form.get('login')?.getError('invalid') }}</mat-error>
+                }
+            </mat-form-field>
+            <mat-divider class="margin-bottom"></mat-divider>
+            <h2 class="mat-headline-6">Coordonnées</h2>
+            <mat-form-field>
+                <mat-label>Prénom</mat-label>
+                <input matInput formControlName="firstName" (change)="update()" />
+                @if (form.get('firstName')?.hasError('maxlength')) {
+                    <mat-error>
+                        Maximum {{ form.get('firstName')?.errors?.maxlength?.requiredLength }} caractères
+                    </mat-error>
+                }
+                @if (form.get('firstName')?.hasError('required')) {
+                    <mat-error>Requis</mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Nom de famille</mat-label>
+                <input matInput formControlName="lastName" (change)="update()" />
+                @if (form.get('lastName')?.hasError('maxlength')) {
+                    <mat-error>
+                        Maximum {{ form.get('lastName')?.errors?.maxlength?.requiredLength }} caractères
+                    </mat-error>
+                }
+                @if (form.get('lastName')?.hasError('required')) {
+                    <mat-error>Requis</mat-error>
+                }
+            </mat-form-field>
             <natural-select-enum
-                enumName="Relationship"
-                formControlName="familyRelationship"
+                enumName="Sex"
+                formControlName="sex"
                 (selectionChange)="update()"
-                placeholder="Rôle dans la famille"
+                placeholder="Genre"
             ></natural-select-enum>
-
-            <button
-                mat-stroked-button
-                color="warn"
-                [disabled]="!form.enabled || !service.canLeaveFamily(user)"
-                (click)="leaveFamily()"
+            <app-address [form]="form" [vertical]="true" (addressChange)="update()"></app-address>
+            <mat-form-field>
+                <mat-label>Téléphone fixe</mat-label>
+                <input matInput formControlName="phone" (change)="update()" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Téléphone mobile</mat-label>
+                <input matInput formControlName="mobilePhone" (change)="update()" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Date de naissance</mat-label>
+                <input matInput formControlName="birthday" [matDatepicker]="picker" (dateChange)="update()" />
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <!-- Newsletter -->
+            <mat-checkbox formControlName="receivesNewsletter" (change)="update()">
+                Abonné à la newsletter</mat-checkbox
             >
-                Détacher du ménage
-            </button>
         </div>
-        <mat-divider class="margin-bottom"></mat-divider>
-
-        <h2 class="mat-headline-6">Compte</h2>
-
-        <mat-form-field>
-            <mat-label>email</mat-label>
-            <input matInput formControlName="email" (change)="update()" />
-            <mat-icon matIconPrefix naturalIcon="alternate_email"></mat-icon>
-            <mat-error *ngIf="form.get('email')?.hasError('required')">Requis</mat-error>
-            <mat-error *ngIf="form.get('email')?.hasError('email')">Adresse email invalide</mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>Nom d'utilisateur</mat-label>
-            <input matInput formControlName="login" (change)="update()" />
-            <mat-icon matIconPrefix naturalIcon="person"></mat-icon>
-            <mat-error *ngIf="form.get('login')?.hasError('maxlength')">
-                Maximum {{ form.get('login')?.errors?.maxlength?.requiredLength }} caractères
-            </mat-error>
-            <mat-error *ngIf="form.get('login')?.hasError('required')">Requis</mat-error>
-            <mat-error *ngIf="form.get('login')?.hasError('invalid')">{{
-                form.get('login')?.getError('invalid')
-            }}</mat-error>
-        </mat-form-field>
-
-        <mat-divider class="margin-bottom"></mat-divider>
-
-        <h2 class="mat-headline-6">Coordonnées</h2>
-
-        <mat-form-field>
-            <mat-label>Prénom</mat-label>
-            <input matInput formControlName="firstName" (change)="update()" />
-            <mat-error *ngIf="form.get('firstName')?.hasError('maxlength')">
-                Maximum {{ form.get('firstName')?.errors?.maxlength?.requiredLength }} caractères
-            </mat-error>
-            <mat-error *ngIf="form.get('firstName')?.hasError('required')">Requis</mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>Nom de famille</mat-label>
-            <input matInput formControlName="lastName" (change)="update()" />
-            <mat-error *ngIf="form.get('lastName')?.hasError('maxlength')">
-                Maximum {{ form.get('lastName')?.errors?.maxlength?.requiredLength }} caractères
-            </mat-error>
-            <mat-error *ngIf="form.get('lastName')?.hasError('required')">Requis</mat-error>
-        </mat-form-field>
-
-        <natural-select-enum
-            enumName="Sex"
-            formControlName="sex"
-            (selectionChange)="update()"
-            placeholder="Genre"
-        ></natural-select-enum>
-
-        <app-address [form]="form" [vertical]="true" (addressChange)="update()"></app-address>
-
-        <mat-form-field>
-            <mat-label>Téléphone fixe</mat-label>
-            <input matInput formControlName="phone" (change)="update()" />
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>Téléphone mobile</mat-label>
-            <input matInput formControlName="mobilePhone" (change)="update()" />
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>Date de naissance</mat-label>
-            <input matInput formControlName="birthday" [matDatepicker]="picker" (dateChange)="update()" />
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-
-        <!-- Newsletter -->
-        <mat-checkbox formControlName="receivesNewsletter" (change)="update()"> Abonné à la newsletter</mat-checkbox>
+        @if (form.get('remarks')?.value) {
+            <div>
+                <mat-divider class="margin-v"></mat-divider>
+                <div class="mat-subtitle-2">Remarques</div>
+                <div class="line-break">{{ form.get('remarks')?.value }}</div>
+            </div>
+        }
+        @if (!isUpdatePage()) {
+            <natural-fixed-button
+                (click)="create(false)"
+                icon="save"
+                [color]="form.valid ? 'accent' : 'warn'"
+            ></natural-fixed-button>
+        }
     </div>
-
-    <div *ngIf="form.get('remarks')?.value">
-        <mat-divider class="margin-v"></mat-divider>
-        <div class="mat-subtitle-2">Remarques</div>
-        <div class="line-break">{{ form.get('remarks')?.value }}</div>
-    </div>
-
-    <natural-fixed-button
-        (click)="create(false)"
-        icon="save"
-        [color]="form.valid ? 'accent' : 'warn'"
-        *ngIf="!isUpdatePage()"
-    ></natural-fixed-button>
-</div>
+}

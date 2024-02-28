@@ -25,12 +25,20 @@
                     Dépenses et remboursements
                 </a>
             </div>
-            <div *ngIf="canAccessServices()" [style.max-width.px]="150">
-                <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="services" class="big-button">
-                    <mat-icon naturalIcon="ichtus" [size]="50"></mat-icon>
-                    Cotisation et services
-                </a>
-            </div>
+            @if (canAccessServices()) {
+                <div [style.max-width.px]="150">
+                    <a
+                        mat-button
+                        fxLayout="column"
+                        fxLayoutAlign="start center"
+                        routerLink="services"
+                        class="big-button"
+                    >
+                        <mat-icon naturalIcon="ichtus" [size]="50"></mat-icon>
+                        Cotisation et services
+                    </a>
+                </div>
+            }
         </div>
     </natural-sidenav>
 
@@ -51,34 +59,38 @@
                                 {{ viewer.status | enum: 'UserStatus' | async | capitalize }}
                             </div>
                             <div fxLayout="row wrap" fxLayoutGap="15px" class="mat-body-2">
-                                <div
-                                    *ngFor="let license of licenses"
-                                    fxLayout="row"
-                                    fxLayoutAlign="start center"
-                                    fxLayoutGap="5px"
-                                    style="padding-bottom: 10px"
-                                >
-                                    <natural-avatar
-                                        [initials]="license.name.replace('-', '')"
-                                        [size]="36"
-                                    ></natural-avatar>
-                                    <span>{{ license.name }}</span>
-                                </div>
+                                @for (license of licenses; track license) {
+                                    <div
+                                        fxLayout="row"
+                                        fxLayoutAlign="start center"
+                                        fxLayoutGap="5px"
+                                        style="padding-bottom: 10px"
+                                    >
+                                        <natural-avatar
+                                            [initials]="license.name.replace('-', '')"
+                                            [size]="36"
+                                        ></natural-avatar>
+                                        <span>{{ license.name }}</span>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
-                    <a
-                        mat-flat-button
-                        color="accent"
-                        *ngIf="userService.canBecomeMember(viewer)"
-                        [disabled]="!viewer.email"
-                        [matTooltip]="
-                            !viewer.email ? 'Ton adresse e-mail doit être renseignée dans les données personnelles' : ''
-                        "
-                        [routerLink]="['/user/new', {email: viewer.email}]"
-                    >
-                        Devenir membre
-                    </a>
+                    @if (userService.canBecomeMember(viewer)) {
+                        <a
+                            mat-flat-button
+                            color="accent"
+                            [disabled]="!viewer.email"
+                            [matTooltip]="
+                                !viewer.email
+                                    ? 'Ton adresse e-mail doit être renseignée dans les données personnelles'
+                                    : ''
+                            "
+                            [routerLink]="['/user/new', {email: viewer.email}]"
+                        >
+                            Devenir membre
+                        </a>
+                    }
                     <!-- TODO : UPDATE email when user add e-mail in family member component -->
                 </div>
 

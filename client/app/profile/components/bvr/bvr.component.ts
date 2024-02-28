@@ -1,7 +1,7 @@
 import {gql, Apollo} from 'apollo-angular';
 import {Component, Inject, Input} from '@angular/core';
 import {BankingInfosForExport, BankingInfos, BankingInfosVariables} from '../../../shared/generated-types';
-import {DOCUMENT, CommonModule} from '@angular/common';
+import {DOCUMENT} from '@angular/common';
 import {copyToClipboard, NaturalIconDirective} from '@ecodev/natural';
 import {IbanPipe} from '../../../shared/pipes/iban.pipe';
 import {MatIconModule} from '@angular/material/icon';
@@ -37,7 +37,6 @@ const queryForExport = gql`
     standalone: true,
     imports: [
         FlexModule,
-        CommonModule,
         MatProgressSpinnerModule,
         MatButtonModule,
         MatTooltipModule,

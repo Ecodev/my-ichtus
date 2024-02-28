@@ -8,94 +8,312 @@
         "
     >
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-            <div fxLayout="column" style="text-align: right" *ngIf="form.get('verificationDate')?.value">
-                <div class="mat-subtitle-2">Dernière vérification</div>
-                <div class="mat-body-2">{{ form.get('verificationDate')?.value | date: 'dd.MM.y' }}</div>
-            </div>
-            <button mat-flat-button color="primary" (click)="verify()" *ngIf="isUpdatePage() && showVerified()">
-                Marquer comme vérifié
-            </button>
+            @if (form.get('verificationDate')?.value) {
+                <div fxLayout="column" style="text-align: right">
+                    <div class="mat-subtitle-2">Dernière vérification</div>
+                    <div class="mat-body-2">{{ form.get('verificationDate')?.value | date: 'dd.MM.y' }}</div>
+                </div>
+            }
+            @if (isUpdatePage() && showVerified()) {
+                <button mat-flat-button color="primary" (click)="verify()">Marquer comme vérifié</button>
+            }
         </div>
     </natural-detail-header>
 
     <mat-tab-group naturalLinkableTab [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
-        <mat-tab id="general" label="Général" *ngIf="permissionsService.canAccessFormationApplication(viewer)">
-            <div fxLayout="column" fxLayoutGap="30px" class="padding-top">
-                <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
-                    <div fxFlex="66" fxLayout="column">
-                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start start" class="margin-bottom">
-                            <natural-file
-                                [model]="data.model.image"
-                                [formCtrl]="form.get('image')"
-                                [uploader]="createImageAndLink.bind(this)"
-                                fxFlex
-                                class="mat-elevation-z2"
-                                [style.borderRadius.px]="4"
-                                [style.marginLeft.px]="2"
-                                action="upload"
-                            ></natural-file>
-
-                            <div fxLayout="column" fxFlex>
+        @if (permissionsService.canAccessFormationApplication(viewer)) {
+            <mat-tab id="general" label="Général">
+                <div fxLayout="column" fxLayoutGap="30px" class="padding-top">
+                    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
+                        <div fxFlex="66" fxLayout="column">
+                            <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start start" class="margin-bottom">
+                                <natural-file
+                                    [model]="data.model.image"
+                                    [formCtrl]="form.get('image')"
+                                    [uploader]="createImageAndLink.bind(this)"
+                                    fxFlex
+                                    class="mat-elevation-z2"
+                                    [style.borderRadius.px]="4"
+                                    [style.marginLeft.px]="2"
+                                    action="upload"
+                                ></natural-file>
+                                <div fxLayout="column" fxFlex>
+                                    <mat-form-field>
+                                        <input matInput formControlName="name" (change)="update()" />
+                                        <mat-label>Nom</mat-label>
+                                        @if (form.get('name')?.hasError('maxlength')) {
+                                            <mat-error>
+                                                Maximum
+                                                {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
+                                            </mat-error>
+                                        }
+                                        @if (form.get('name')?.hasError('required')) {
+                                            <mat-error>Requis</mat-error>
+                                        }
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input matInput formControlName="code" (change)="update()" />
+                                        <mat-label>Code</mat-label>
+                                        @if (form.get('code')?.hasError('maxlength')) {
+                                            <mat-error>
+                                                Maximum
+                                                {{ form.get('code')?.errors?.maxlength?.requiredLength }} caractères
+                                            </mat-error>
+                                        }
+                                        @if (form.get('code')?.hasError('required')) {
+                                            <mat-error>Requis</mat-error>
+                                        }
+                                        @if (form.get('code')?.hasError('duplicateValue')) {
+                                            <mat-error>Ce code est déjà attribué</mat-error>
+                                        }
+                                    </mat-form-field>
+                                    <natural-select-enum
+                                        enumName="BookableState"
+                                        formControlName="state"
+                                        (selectionChange)="update()"
+                                        placeholder="État"
+                                    ></natural-select-enum>
+                                    <mat-form-field>
+                                        <mat-label>Prix d'achat</mat-label>
+                                        <input
+                                            matInput
+                                            type="number"
+                                            step="0.01"
+                                            [attr.min]="0"
+                                            formControlName="purchasePrice"
+                                            (change)="update()"
+                                        />
+                                        <div matTextSuffix>CHF</div>
+                                        @if (form.get('purchasePrice')?.hasError('min')) {
+                                            <mat-error>Le montant doit être positif</mat-error>
+                                        }
+                                        @if (form.get('purchasePrice')?.hasError('money')) {
+                                            <mat-error
+                                                >Le montant doit être un nombre avec un maximum de deux décimales
+                                            </mat-error>
+                                        }
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <mat-form-field>
+                                <mat-label>Description</mat-label>
+                                <textarea
+                                    matInput
+                                    formControlName="description"
+                                    (change)="update()"
+                                    [cdkTextareaAutosize]="true"
+                                    [cdkAutosizeMinRows]="1"
+                                ></textarea>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Remarques</mat-label>
+                                <textarea
+                                    matInput
+                                    formControlName="remarks"
+                                    (change)="update()"
+                                    [cdkTextareaAutosize]="true"
+                                    [cdkAutosizeMinRows]="1"
+                                ></textarea>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="33" fxLayout="column">
+                            <div fxLayout="row" fxLayoutAlign="start center" class="margin-bottom">
+                                <h2 class="mat-headline-6 no-margin" fxFlex>Réservation</h2>
+                                <mat-slide-toggle formControlName="isActive" (change)="update()"
+                                    >Disponible</mat-slide-toggle
+                                >
+                            </div>
+                            <natural-select-enum
+                                enumName="BookingType"
+                                formControlName="bookingType"
+                                (selectionChange)="update()"
+                                placeholder="Type de réservation"
+                                [optionDisabled]="bookingTypeDisabled()"
+                            ></natural-select-enum>
+                            @if (isBookingPriceApplicable()) {
                                 <mat-form-field>
-                                    <input matInput formControlName="name" (change)="update()" />
-                                    <mat-label>Nom</mat-label>
-                                    <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
-                                        Maximum {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
-                                    </mat-error>
-                                    <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
-                                </mat-form-field>
-
-                                <mat-form-field>
-                                    <input matInput formControlName="code" (change)="update()" />
-                                    <mat-label>Code</mat-label>
-                                    <mat-error *ngIf="form.get('code')?.hasError('maxlength')">
-                                        Maximum {{ form.get('code')?.errors?.maxlength?.requiredLength }} caractères
-                                    </mat-error>
-                                    <mat-error *ngIf="form.get('code')?.hasError('required')">Requis</mat-error>
-                                    <mat-error *ngIf="form.get('code')?.hasError('duplicateValue')"
-                                        >Ce code est déjà attribué</mat-error
-                                    >
-                                </mat-form-field>
-
-                                <natural-select-enum
-                                    enumName="BookableState"
-                                    formControlName="state"
-                                    (selectionChange)="update()"
-                                    placeholder="État"
-                                ></natural-select-enum>
-
-                                <mat-form-field>
-                                    <mat-label>Prix d'achat</mat-label>
+                                    <mat-label>Prix initial</mat-label>
                                     <input
                                         matInput
                                         type="number"
                                         step="0.01"
-                                        [attr.min]="0"
-                                        formControlName="purchasePrice"
+                                        formControlName="initialPrice"
                                         (change)="update()"
                                     />
                                     <div matTextSuffix>CHF</div>
-                                    <mat-error *ngIf="form.get('purchasePrice')?.hasError('min')"
-                                        >Le montant doit être positif</mat-error
-                                    >
-                                    <mat-error *ngIf="form.get('purchasePrice')?.hasError('money')"
-                                        >Le montant doit être un nombre avec un maximum de deux décimales
-                                    </mat-error>
+                                    @if (form.get('initialPrice')?.hasError('required')) {
+                                        <mat-error>Requis</mat-error>
+                                    }
+                                    @if (form.get('initialPrice')?.hasError('money')) {
+                                        <mat-error
+                                            >Le montant doit être un nombre avec un maximum de deux décimales
+                                        </mat-error>
+                                    }
                                 </mat-form-field>
-                            </div>
+                            }
+                            @if (isBookingPriceApplicable()) {
+                                <mat-form-field>
+                                    <mat-label>Prix périodique</mat-label>
+                                    <input
+                                        matInput
+                                        type="number"
+                                        step="0.01"
+                                        formControlName="periodicPrice"
+                                        (change)="update()"
+                                    />
+                                    <div matTextSuffix>CHF</div>
+                                    @if (form.get('periodicPrice')?.hasError('required')) {
+                                        <mat-error>Requis</mat-error>
+                                    }
+                                    @if (form.get('periodicPrice')?.hasError('money')) {
+                                        <mat-error
+                                            >Le montant doit être un nombre avec un maximum de deux décimales
+                                        </mat-error>
+                                    }
+                                </mat-form-field>
+                            }
+                            <mat-form-field>
+                                <mat-label>Nombre max. de réservations simultanées / participants</mat-label>
+                                <input
+                                    matInput
+                                    type="number"
+                                    step="1"
+                                    [attr.min]="-1"
+                                    formControlName="simultaneousBookingMaximum"
+                                    (change)="update()"
+                                />
+                                @if (form.get('simultaneousBookingMaximum')?.hasError('required')) {
+                                    <mat-error>Requis</mat-error>
+                                }
+                                @if (form.get('simultaneousBookingMaximum')?.hasError('min')) {
+                                    <mat-error>Doit être plus grand ou égal à -1</mat-error>
+                                }
+                                <mat-hint>Saisir -1 pour aucune limite.</mat-hint>
+                            </mat-form-field>
+                            @if (showWaitingList()) {
+                                <mat-form-field subscriptSizing="dynamic">
+                                    <mat-label>Nombre de place dans la file d'attente</mat-label>
+                                    <input
+                                        matInput
+                                        type="number"
+                                        step="1"
+                                        [attr.min]="0"
+                                        formControlName="waitingListLength"
+                                        (change)="update()"
+                                    />
+                                    @if (form.get('waitingListLength')?.hasError('required')) {
+                                        <mat-error>Requis</mat-error>
+                                    }
+                                    @if (form.get('waitingListLength')?.hasError('min')) {
+                                        <mat-error>Doit être plus grand ou égal à 0</mat-error>
+                                    }
+                                    <mat-hint
+                                        >Permet de faire des demandes de réservations au delà du nombre max. de
+                                        réservations simultanées et donc de gérer une file d'attente en cas d'annulation
+                                        d'une autre personne.</mat-hint
+                                    >
+                                </mat-form-field>
+                            }
+                            @if (!isSelfApproved()) {
+                                <natural-select-hierarchic
+                                    formControlName="creditAccount"
+                                    placeholder="Compte à créditer lors de la réservation"
+                                    [config]="accountHierarchicConfig"
+                                    (selectionChange)="update()"
+                                    [showIcon]="false"
+                                    [navigateTo]="['/admin/account', form.get('creditAccount')?.value?.id]"
+                                ></natural-select-hierarchic>
+                            }
+                            @if (form.hasError('creditAccountRequired')) {
+                                <mat-error>Compte requis pour un réservable payants</mat-error>
+                            }
                         </div>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
+                        <div fxFlex="66" fxLayout="column">
+                            @if (isUpdatePage() && isSelfApproved()) {
+                                <div>
+                                    <h2 class="mat-headline-6">Certifications</h2>
+                                    <natural-relations
+                                        [main]="data.model"
+                                        [service]="licenseService"
+                                        [filter]="{
+                                            groups: [{conditions: [{bookables: {have: {values: [data.model.id]}}}]}]
+                                        }"
+                                        placeholder="Associer à une certification"
+                                    >
+                                        <ng-template let-item="item">
+                                            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                                                <natural-table-button
+                                                    [navigate]="['/admin/license/', item.id]"
+                                                    [label]="item.name"
+                                                ></natural-table-button>
+                                            </div>
+                                        </ng-template>
+                                    </natural-relations>
+                                </div>
+                            }
+                        </div>
+                        <div fxFlex="33" fxLayout="column">
+                            @if (isUpdatePage()) {
+                                <div>
+                                    <h2 class="mat-headline-6">Tags</h2>
+                                    <natural-relations
+                                        [main]="data.model"
+                                        [service]="bookableTagService"
+                                        [filter]="{
+                                            groups: [{conditions: [{bookables: {have: {values: [data.model.id]}}}]}]
+                                        }"
+                                        placeholder="Ajouter un tag"
+                                    >
+                                        <ng-template let-item="item">
+                                            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                                                <!-- TODO : link to bookables list filtred by tag -->
+                                                <natural-avatar
+                                                    [bgColor]="item.color"
+                                                    [initials]="item.name"
+                                                    [size]="32"
+                                                ></natural-avatar>
+                                                <natural-table-button
+                                                    [navigate]="['/admin/bookable']"
+                                                    [label]="item.name"
+                                                ></natural-table-button>
+                                            </div>
+                                        </ng-template>
+                                    </natural-relations>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    @if (isUpdatePage()) {
+                        <natural-stamp [item]="data.model"></natural-stamp>
+                    }
+                </div>
+            </mat-tab>
+        }
 
-                        <mat-form-field>
-                            <mat-label>Description</mat-label>
-                            <textarea
-                                matInput
-                                formControlName="description"
-                                (change)="update()"
-                                [cdkTextareaAutosize]="true"
-                                [cdkAutosizeMinRows]="1"
-                            ></textarea>
-                        </mat-form-field>
+        @if (isUpdatePage() && permissionsService.gteResponsible(viewer)) {
+            <mat-tab id="metadata" label="Attributs">
+                <app-bookable-metadata [bookable]="data.model" [edit]="true" class="margin"></app-bookable-metadata>
+            </mat-tab>
+        }
 
+        @if (isUpdatePage() && permissionsService.gteResponsible(viewer)) {
+            <mat-tab id="transaction-line" label="Écritures">
+                <app-transaction-lines
+                    [persistSearch]="false"
+                    [forcedVariables]="{
+                        filter: {groups: [{conditions: [{bookable: {equal: {value: data.model.id}}}]}]}
+                    }"
+                ></app-transaction-lines>
+            </mat-tab>
+        }
+
+        @if (isUpdatePage()) {
+            <mat-tab id="booking" [label]="permissionsService.gteResponsible(viewer) ? 'Utilisations' : 'Participants'">
+                <div fxLayout="column" class="padding-top">
+                    @if (!permissionsService.canAccessFormationApplication(viewer)) {
                         <mat-form-field>
                             <mat-label>Remarques</mat-label>
                             <textarea
@@ -106,226 +324,38 @@
                                 [cdkAutosizeMinRows]="1"
                             ></textarea>
                         </mat-form-field>
-                    </div>
-
-                    <div fxFlex="33" fxLayout="column">
-                        <div fxLayout="row" fxLayoutAlign="start center" class="margin-bottom">
-                            <h2 class="mat-headline-6 no-margin" fxFlex>Réservation</h2>
-                            <mat-slide-toggle formControlName="isActive" (change)="update()"
-                                >Disponible</mat-slide-toggle
-                            >
-                        </div>
-
-                        <natural-select-enum
-                            enumName="BookingType"
-                            formControlName="bookingType"
-                            (selectionChange)="update()"
-                            placeholder="Type de réservation"
-                            [optionDisabled]="bookingTypeDisabled()"
-                        ></natural-select-enum>
-
-                        <mat-form-field *ngIf="isBookingPriceApplicable()">
-                            <mat-label>Prix initial</mat-label>
-                            <input
-                                matInput
-                                type="number"
-                                step="0.01"
-                                formControlName="initialPrice"
-                                (change)="update()"
-                            />
-                            <div matTextSuffix>CHF</div>
-                            <mat-error *ngIf="form.get('initialPrice')?.hasError('required')">Requis</mat-error>
-                            <mat-error *ngIf="form.get('initialPrice')?.hasError('money')"
-                                >Le montant doit être un nombre avec un maximum de deux décimales
-                            </mat-error>
-                        </mat-form-field>
-
-                        <mat-form-field *ngIf="isBookingPriceApplicable()">
-                            <mat-label>Prix périodique</mat-label>
-                            <input
-                                matInput
-                                type="number"
-                                step="0.01"
-                                formControlName="periodicPrice"
-                                (change)="update()"
-                            />
-                            <div matTextSuffix>CHF</div>
-                            <mat-error *ngIf="form.get('periodicPrice')?.hasError('required')">Requis</mat-error>
-                            <mat-error *ngIf="form.get('periodicPrice')?.hasError('money')"
-                                >Le montant doit être un nombre avec un maximum de deux décimales
-                            </mat-error>
-                        </mat-form-field>
-
-                        <mat-form-field>
-                            <mat-label>Nombre max. de réservations simultanées / participants</mat-label>
-                            <input
-                                matInput
-                                type="number"
-                                step="1"
-                                [attr.min]="-1"
-                                formControlName="simultaneousBookingMaximum"
-                                (change)="update()"
-                            />
-                            <mat-error *ngIf="form.get('simultaneousBookingMaximum')?.hasError('required')"
-                                >Requis</mat-error
-                            >
-                            <mat-error *ngIf="form.get('simultaneousBookingMaximum')?.hasError('min')"
-                                >Doit être plus grand ou égal à -1</mat-error
-                            >
-                            <mat-hint>Saisir -1 pour aucune limite.</mat-hint>
-                        </mat-form-field>
-
-                        <mat-form-field *ngIf="showWaitingList()" subscriptSizing="dynamic">
-                            <mat-label>Nombre de place dans la file d'attente</mat-label>
-                            <input
-                                matInput
-                                type="number"
-                                step="1"
-                                [attr.min]="0"
-                                formControlName="waitingListLength"
-                                (change)="update()"
-                            />
-                            <mat-error *ngIf="form.get('waitingListLength')?.hasError('required')">Requis</mat-error>
-                            <mat-error *ngIf="form.get('waitingListLength')?.hasError('min')"
-                                >Doit être plus grand ou égal à 0</mat-error
-                            >
-                            <mat-hint
-                                >Permet de faire des demandes de réservations au delà du nombre max. de réservations
-                                simultanées et donc de gérer une file d'attente en cas d'annulation d'une autre
-                                personne.</mat-hint
-                            >
-                        </mat-form-field>
-
-                        <natural-select-hierarchic
-                            *ngIf="!isSelfApproved()"
-                            formControlName="creditAccount"
-                            placeholder="Compte à créditer lors de la réservation"
-                            [config]="accountHierarchicConfig"
-                            (selectionChange)="update()"
-                            [showIcon]="false"
-                            [navigateTo]="['/admin/account', form.get('creditAccount')?.value?.id]"
-                        ></natural-select-hierarchic>
-                        <mat-error *ngIf="form?.hasError('creditAccountRequired')"
-                            >Compte requis pour un réservable payants</mat-error
-                        >
-                    </div>
+                    }
+                    <!-- Everybody but trainers -->
+                    @if (!isTrainer()) {
+                        <app-bookings-with-owner
+                            [showFabButton]="false"
+                            [persistSearch]="false"
+                            [forcedVariables]="bookingsVariables"
+                            [selectedColumns]="['edit', 'owner', 'startDate', 'endDate']"
+                            [availableColumns]="availableColumnsForBookingsWithOwnerWithoutTrainers"
+                        ></app-bookings-with-owner>
+                    }
+                    <!-- Trainers only -->
+                    @if (isTrainer()) {
+                        <app-bookings-with-owner
+                            [persistSearch]="false"
+                            [forcedVariables]="bookingsVariables"
+                            [showFabButton]="false"
+                            [selectedColumns]="['ownerReadonly', 'email', 'mobilePhone', 'endDate']"
+                            [availableColumns]="availableColumnsForBookingsWithOwnerOnlyTrainers"
+                        ></app-bookings-with-owner>
+                    }
                 </div>
-
-                <mat-divider></mat-divider>
-
-                <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
-                    <div fxFlex="66" fxLayout="column">
-                        <div *ngIf="isUpdatePage() && isSelfApproved()">
-                            <h2 class="mat-headline-6">Certifications</h2>
-                            <natural-relations
-                                [main]="data.model"
-                                [service]="licenseService"
-                                [filter]="{groups: [{conditions: [{bookables: {have: {values: [data.model.id]}}}]}]}"
-                                placeholder="Associer à une certification"
-                            >
-                                <ng-template let-item="item">
-                                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-                                        <natural-table-button
-                                            [navigate]="['/admin/license/', item.id]"
-                                            [label]="item.name"
-                                        ></natural-table-button>
-                                    </div>
-                                </ng-template>
-                            </natural-relations>
-                        </div>
-                    </div>
-                    <div fxFlex="33" fxLayout="column">
-                        <div *ngIf="isUpdatePage()">
-                            <h2 class="mat-headline-6">Tags</h2>
-                            <natural-relations
-                                [main]="data.model"
-                                [service]="bookableTagService"
-                                [filter]="{groups: [{conditions: [{bookables: {have: {values: [data.model.id]}}}]}]}"
-                                placeholder="Ajouter un tag"
-                            >
-                                <ng-template let-item="item">
-                                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-                                        <!-- TODO : link to bookables list filtred by tag -->
-                                        <natural-avatar
-                                            [bgColor]="item.color"
-                                            [initials]="item.name"
-                                            [size]="32"
-                                        ></natural-avatar>
-                                        <natural-table-button
-                                            [navigate]="['/admin/bookable']"
-                                            [label]="item.name"
-                                        ></natural-table-button>
-                                    </div>
-                                </ng-template>
-                            </natural-relations>
-                        </div>
-                    </div>
-                </div>
-
-                <natural-stamp *ngIf="isUpdatePage()" [item]="data.model"></natural-stamp>
-            </div>
-        </mat-tab>
-
-        <mat-tab id="metadata" label="Attributs" *ngIf="isUpdatePage() && permissionsService.gteResponsible(viewer)">
-            <app-bookable-metadata [bookable]="data.model" [edit]="true" class="margin"></app-bookable-metadata>
-        </mat-tab>
-
-        <mat-tab
-            id="transaction-line"
-            label="Écritures"
-            *ngIf="isUpdatePage() && permissionsService.gteResponsible(viewer)"
-        >
-            <app-transaction-lines
-                [persistSearch]="false"
-                [forcedVariables]="{filter: {groups: [{conditions: [{bookable: {equal: {value: data.model.id}}}]}]}}"
-            ></app-transaction-lines>
-        </mat-tab>
-
-        <mat-tab
-            id="booking"
-            [label]="permissionsService.gteResponsible(viewer) ? 'Utilisations' : 'Participants'"
-            *ngIf="isUpdatePage()"
-        >
-            <div fxLayout="column" class="padding-top">
-                <mat-form-field *ngIf="!permissionsService.canAccessFormationApplication(viewer)">
-                    <mat-label>Remarques</mat-label>
-                    <textarea
-                        matInput
-                        formControlName="remarks"
-                        (change)="update()"
-                        [cdkTextareaAutosize]="true"
-                        [cdkAutosizeMinRows]="1"
-                    ></textarea>
-                </mat-form-field>
-
-                <!-- Everybody but trainers -->
-                <app-bookings-with-owner
-                    *ngIf="!isTrainer()"
-                    [showFabButton]="false"
-                    [persistSearch]="false"
-                    [forcedVariables]="bookingsVariables"
-                    [selectedColumns]="['edit', 'owner', 'startDate', 'endDate']"
-                    [availableColumns]="availableColumnsForBookingsWithOwnerWithoutTrainers"
-                ></app-bookings-with-owner>
-
-                <!-- Trainers only -->
-                <app-bookings-with-owner
-                    *ngIf="isTrainer()"
-                    [persistSearch]="false"
-                    [forcedVariables]="bookingsVariables"
-                    [showFabButton]="false"
-                    [selectedColumns]="['ownerReadonly', 'email', 'mobilePhone', 'endDate']"
-                    [availableColumns]="availableColumnsForBookingsWithOwnerOnlyTrainers"
-                ></app-bookings-with-owner>
-            </div>
-        </mat-tab>
+            </mat-tab>
+        }
     </mat-tab-group>
 
-    <natural-fixed-button-detail
-        *ngIf="showFabButton"
-        [form]="form"
-        [model]="data.model"
-        (create)="create()"
-        (delete)="delete()"
-    ></natural-fixed-button-detail>
+    @if (showFabButton) {
+        <natural-fixed-button-detail
+            [form]="form"
+            [model]="data.model"
+            (create)="create()"
+            (delete)="delete()"
+        ></natural-fixed-button-detail>
+    }
 </div>

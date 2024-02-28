@@ -1,86 +1,83 @@
-<div *ngIf="dataSource" fxLayout="column">
-    <div fxLayout="row">
-        <div class="mat-headline-5 no-margin" fxFlex>
-            {{ routeData?.seo.title }}
-        </div>
-        <natural-columns-picker
-            [availableColumns]="availableColumns"
-            [selections]="selectedColumns"
-            (selectionChange)="selectColumns($event)"
-        />
-    </div>
-
+@if (dataSource) {
     <div fxLayout="column">
-        <div fxLayout="row" class="margin-v overflow">
-            <natural-search
-                fxFlex
-                [facets]="naturalSearchFacets"
-                [selections]="naturalSearchSelections"
-                (selectionChange)="search($event)"
-                [multipleGroups]="true"
+        <div fxLayout="row">
+            <div class="mat-headline-5 no-margin" fxFlex>
+                {{ routeData?.seo.title }}
+            </div>
+            <natural-columns-picker
+                [availableColumns]="availableColumns"
+                [selections]="selectedColumns"
+                (selectionChange)="selectColumns($event)"
             />
         </div>
-
-        <div class="responsive-table">
-            <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting([$event])">
-                <tr mat-header-row *matHeaderRowDef="columnsForTable"></tr>
-                <tr mat-row *matRowDef="let row; columns: columnsForTable"></tr>
-
-                <ng-container matColumnDef="color">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header natural-3em-column></th>
-                    <td mat-cell *matCellDef="let element">
-                        <natural-avatar
-                            [bgColor]="element.color"
-                            [size]="32"
-                            [initials]="element.name"
-                        ></natural-avatar>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
-                    <td mat-cell *matCellDef="let element">
-                        <natural-table-button
-                            [label]="element.name"
-                            [navigate]="[element.id]"
-                            matTooltip="Éditer"
-                        ></natural-table-button>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="transactions">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Transactions</th>
-                    <td mat-cell *matCellDef="let element">
-                        <natural-table-button
-                            label="Voir les transactions"
-                            [navigate]="transactionLineService.linkToTransactionLinesForTag(element)"
-                        ></natural-table-button>
-                    </td>
-                </ng-container>
-            </table>
+        <div fxLayout="column">
+            <div fxLayout="row" class="margin-v overflow">
+                <natural-search
+                    fxFlex
+                    [facets]="naturalSearchFacets"
+                    [selections]="naturalSearchSelections"
+                    (selectionChange)="search($event)"
+                    [multipleGroups]="true"
+                />
+            </div>
+            <div class="responsive-table">
+                <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting([$event])">
+                    <tr mat-header-row *matHeaderRowDef="columnsForTable"></tr>
+                    <tr mat-row *matRowDef="let row; columns: columnsForTable"></tr>
+                    <ng-container matColumnDef="color">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header natural-3em-column></th>
+                        <td mat-cell *matCellDef="let element">
+                            <natural-avatar
+                                [bgColor]="element.color"
+                                [size]="32"
+                                [initials]="element.name"
+                            ></natural-avatar>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
+                        <td mat-cell *matCellDef="let element">
+                            <natural-table-button
+                                [label]="element.name"
+                                [navigate]="[element.id]"
+                                matTooltip="Éditer"
+                            ></natural-table-button>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="transactions">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Transactions</th>
+                        <td mat-cell *matCellDef="let element">
+                            <natural-table-button
+                                label="Voir les transactions"
+                                [navigate]="transactionLineService.linkToTransactionLinesForTag(element)"
+                            ></natural-table-button>
+                        </td>
+                    </ng-container>
+                </table>
+            </div>
+            @if (dataSource.data?.length === 0) {
+                <div fxLayout="column" fxLayoutAlign="center center" class="margin">
+                    <div>Pas de résultats</div>
+                </div>
+            }
+            @if (!dataSource.data) {
+                <div fxLayout="column" fxLayoutAlign="center center" class="margin">
+                    <mat-progress-spinner mode="indeterminate" [diameter]="40"></mat-progress-spinner>
+                </div>
+            }
+            @if (dataSource.data?.length) {
+                <mat-paginator
+                    [length]="dataSource.data?.length"
+                    [pageSize]="dataSource.data?.pageSize"
+                    [pageIndex]="dataSource.data?.pageIndex"
+                    [pageSizeOptions]="pageSizeOptions"
+                    (page)="pagination($event)"
+                ></mat-paginator>
+            }
         </div>
-
-        <div fxLayout="column" fxLayoutAlign="center center" class="margin" *ngIf="dataSource.data?.length === 0">
-            <div>Pas de résultats</div>
-        </div>
-
-        <div fxLayout="column" fxLayoutAlign="center center" class="margin" *ngIf="!dataSource?.data">
-            <mat-progress-spinner mode="indeterminate" [diameter]="40"></mat-progress-spinner>
-        </div>
-
-        <mat-paginator
-            *ngIf="dataSource.data?.length"
-            [length]="dataSource.data?.length"
-            [pageSize]="dataSource.data?.pageSize"
-            [pageIndex]="dataSource.data?.pageIndex"
-            [pageSizeOptions]="pageSizeOptions"
-            (page)="pagination($event)"
-        ></mat-paginator>
     </div>
-</div>
+}
 
-<natural-fixed-button
-    [routerLink]="['/admin/transaction-tag/new']"
-    icon="add"
-    *ngIf="permissionsService.crud?.transactionTag.create"
-></natural-fixed-button>
+@if (permissionsService.crud?.transactionTag.create) {
+    <natural-fixed-button [routerLink]="['/admin/transaction-tag/new']" icon="add"></natural-fixed-button>
+}

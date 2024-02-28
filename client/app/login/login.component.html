@@ -20,7 +20,9 @@
                     spellcheck="false"
                     (keydown.enter)="maybeConfirm()"
                 />
-                <mat-error *ngIf="form.get('login')?.hasError('required')">Requis</mat-error>
+                @if (form.get('login')?.hasError('required')) {
+                    <mat-error>Requis</mat-error>
+                }
             </mat-form-field>
 
             <mat-form-field>
@@ -35,7 +37,9 @@
                     <mat-icon [naturalIcon]="hidePassword ? 'visibility' : 'visibility_off'"></mat-icon>
                 </button>
 
-                <mat-error *ngIf="form.get('password')?.hasError('required')">Requis</mat-error>
+                @if (form.get('password')?.hasError('required')) {
+                    <mat-error>Requis</mat-error>
+                }
             </mat-form-field>
 
             <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">

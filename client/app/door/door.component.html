@@ -3,24 +3,25 @@
         <h1 class="mat-headline-3 margin-bottom text-center">Sélectionnez la porte du local à ouvrir</h1>
 
         <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="20px grid">
-            <ng-container *ngFor="let door of doorService.doors; let i = index">
-                <app-card
-                    *ngIf="viewer[door.id]"
-                    (click)="open(door)"
-                    illustrationUrl="assets/images/{{ door.image }}"
-                    [style.min-width.px]="300"
-                >
-                    <div fxLayout="column" fxLayoutGap="10px">
-                        <div class="mat-subtitle-2">{{ door.name }}</div>
-                        <div>
-                            <button mat-raised-button [disabled]="door.opened">
-                                <mat-icon [fontIcon]="door.opened ? 'lock_open' : 'lock'"></mat-icon>
-                                Ouvrir
-                            </button>
+            @for (door of doorService.doors; track door; let i = $index) {
+                @if (viewer[door.id]) {
+                    <app-card
+                        (click)="open(door)"
+                        illustrationUrl="assets/images/{{ door.image }}"
+                        [style.min-width.px]="300"
+                    >
+                        <div fxLayout="column" fxLayoutGap="10px">
+                            <div class="mat-subtitle-2">{{ door.name }}</div>
+                            <div>
+                                <button mat-raised-button [disabled]="door.opened">
+                                    <mat-icon [fontIcon]="door.opened ? 'lock_open' : 'lock'"></mat-icon>
+                                    Ouvrir
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </app-card>
-            </ng-container>
+                    </app-card>
+                }
+            }
         </div>
     </div>
 </div>

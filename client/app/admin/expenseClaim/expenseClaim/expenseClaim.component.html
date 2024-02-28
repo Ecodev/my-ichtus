@@ -6,60 +6,59 @@
         [listRoute]="['admin', 'expense-claim']"
     >
         <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center">
-            <a
-                *ngIf="
-                    isUpdatePage() &&
-                    data.model.status === ExpenseClaimStatus.new &&
-                    data.model.reviewer === null &&
-                    permissionsService.gteResponsible(viewer)
-                "
-                mat-stroked-button
-                color="basic"
-                (click)="approve()"
-            >
-                <mat-icon naturalIcon="verified"></mat-icon>
-                <span class="mat-subtitle-2">Approuver</span>
-            </a>
-            <div
-                *ngIf="isUpdatePage() && data.model.reviewer && !permissionsService.isAdministrator(viewer)"
-                fxLayout="row"
-                fxLayoutAlign="start center"
-            >
-                <mat-icon naturalIcon="verified"></mat-icon>
-                <span class="mat-body">Approuvé par {{ data.model.reviewer.name }}</span>
-            </div>
+            @if (
+                isUpdatePage() &&
+                data.model.status === ExpenseClaimStatus.new &&
+                data.model.reviewer === null &&
+                permissionsService.gteResponsible(viewer)
+            ) {
+                <a mat-stroked-button color="basic" (click)="approve()">
+                    <mat-icon naturalIcon="verified"></mat-icon>
+                    <span class="mat-subtitle-2">Approuver</span>
+                </a>
+            }
+            @if (isUpdatePage() && data.model.reviewer && !permissionsService.isAdministrator(viewer)) {
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon naturalIcon="verified"></mat-icon>
+                    <span class="mat-body">Approuvé par {{ data.model.reviewer.name }}</span>
+                </div>
+            }
 
-            <a
-                *ngIf="
-                    isUpdatePage() &&
-                    data.model.transactions?.length === 0 &&
-                    permissionsService.crud?.transaction.create
-                "
-                mat-flat-button
-                color="accent"
-                [routerLink]="['/admin/transaction/new', {expenseClaim: data.model.id}]"
-            >
-                <mat-icon naturalIcon="payments"></mat-icon>
-                <span *ngIf="data.model.type === ExpenseClaimType.expenseClaim">Créditer le solde</span>
-                <span *ngIf="data.model.type === ExpenseClaimType.refund">Rembourser</span>
-                <span *ngIf="data.model.type === ExpenseClaimType.invoice">Payer</span>
-            </a>
+            @if (
+                isUpdatePage() && data.model.transactions.length === 0 && permissionsService.crud?.transaction.create
+            ) {
+                <a
+                    mat-flat-button
+                    color="accent"
+                    [routerLink]="['/admin/transaction/new', {expenseClaim: data.model.id}]"
+                >
+                    <mat-icon naturalIcon="payments"></mat-icon>
+                    @if (data.model.type === ExpenseClaimType.expenseClaim) {
+                        <span>Créditer le solde</span>
+                    }
+                    @if (data.model.type === ExpenseClaimType.refund) {
+                        <span>Rembourser</span>
+                    }
+                    @if (data.model.type === ExpenseClaimType.invoice) {
+                        <span>Payer</span>
+                    }
+                </a>
+            }
 
-            <a
-                *ngIf="isUpdatePage() && data.model.transactions?.length === 1"
-                mat-flat-button
-                [routerLink]="['/admin/transaction', data.model.transactions[0].id]"
-            >
-                Voir l'écriture
-            </a>
+            @if (isUpdatePage() && data.model.transactions.length === 1) {
+                <a mat-flat-button [routerLink]="['/admin/transaction', data.model.transactions[0].id]">
+                    Voir l'écriture
+                </a>
+            }
 
-            <a
-                *ngIf="isUpdatePage() && data.model.transactions?.length > 1"
-                mat-flat-button
-                [routerLink]="transactionLineService.linkToTransactionLinesForTransactions(data.model.transactions)"
-            >
-                Voir les écritures
-            </a>
+            @if (isUpdatePage() && data.model.transactions.length > 1) {
+                <a
+                    mat-flat-button
+                    [routerLink]="transactionLineService.linkToTransactionLinesForTransactions(data.model.transactions)"
+                >
+                    Voir les écritures
+                </a>
+            }
 
             <app-money [amount]="data.model.amount" sizeClass="mat-headline-4" [showSignal]="false"></app-money>
         </div>
@@ -71,10 +70,14 @@
                 <mat-form-field>
                     <mat-label>Nom</mat-label>
                     <input matInput formControlName="name" (change)="update()" />
-                    <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
-                        Maximum {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
-                    </mat-error>
-                    <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
+                    @if (form.get('name')?.hasError('maxlength')) {
+                        <mat-error>
+                            Maximum {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
+                        </mat-error>
+                    }
+                    @if (form.get('name')?.hasError('required')) {
+                        <mat-error>Requis</mat-error>
+                    }
                 </mat-form-field>
 
                 <mat-form-field>
@@ -89,26 +92,31 @@
                 </mat-form-field>
 
                 <div id="sectorSelect">
-                    <mat-form-field *ngIf="form.get('type')?.value !== ExpenseClaimType.refund">
-                        <mat-label>Secteur concerné</mat-label>
-                        <mat-select formControlName="sector" (selectionChange)="update()">
-                            <mat-option></mat-option>
-                            <mat-option *ngFor="let option of expenseClaimService.getSectors()" [value]="option">
-                                {{ option }}
-                            </mat-option>
-                        </mat-select>
-                        <!-- Clear button -->
-                        <div class="suffix-buttons" matIconSuffix>
-                            <button
-                                *ngIf="form.get('sector')?.value !== ''"
-                                (click)="form.get('sector')?.setValue(''); $event.stopPropagation(); update()"
-                                mat-icon-button
-                                matTooltip="Aucun"
-                            >
-                                <mat-icon naturalIcon="close"></mat-icon>
-                            </button>
-                        </div>
-                    </mat-form-field>
+                    @if (form.get('type')?.value !== ExpenseClaimType.refund) {
+                        <mat-form-field>
+                            <mat-label>Secteur concerné</mat-label>
+                            <mat-select formControlName="sector" (selectionChange)="update()">
+                                <mat-option></mat-option>
+                                @for (option of expenseClaimService.getSectors(); track option) {
+                                    <mat-option [value]="option">
+                                        {{ option }}
+                                    </mat-option>
+                                }
+                            </mat-select>
+                            <!-- Clear button -->
+                            <div class="suffix-buttons" matIconSuffix>
+                                @if (form.get('sector')?.value !== '') {
+                                    <button
+                                        (click)="form.get('sector')?.setValue(''); $event.stopPropagation(); update()"
+                                        mat-icon-button
+                                        matTooltip="Aucun"
+                                    >
+                                        <mat-icon naturalIcon="close"></mat-icon>
+                                    </button>
+                                }
+                            </div>
+                        </mat-form-field>
+                    }
                 </div>
             </div>
 
@@ -125,11 +133,15 @@
                         <mat-label>Montant</mat-label>
                         <input matInput type="number" step="0.01" formControlName="amount" (change)="update()" />
                         <div matTextSuffix>CHF</div>
-                        <mat-error *ngIf="form.get('amount')?.hasError('required')">Requis</mat-error>
-                        <mat-error *ngIf="form.get('amount')?.hasError('min')">Le montant doit être positif</mat-error>
-                        <mat-error *ngIf="form.get('amount')?.hasError('money')"
-                            >Le montant doit être un nombre avec un maximum de deux décimales
-                        </mat-error>
+                        @if (form.get('amount')?.hasError('required')) {
+                            <mat-error>Requis</mat-error>
+                        }
+                        @if (form.get('amount')?.hasError('min')) {
+                            <mat-error>Le montant doit être positif</mat-error>
+                        }
+                        @if (form.get('amount')?.hasError('money')) {
+                            <mat-error>Le montant doit être un nombre avec un maximum de deux décimales </mat-error>
+                        }
                     </mat-form-field>
 
                     <natural-select-enum
@@ -150,14 +162,15 @@
                         (selectionChange)="update()"
                     ></natural-select>
 
-                    <natural-select
-                        *ngIf="permissionsService.isAdministrator(viewer)"
-                        formControlName="reviewer"
-                        placeholder="Approbateur"
-                        [service]="userService"
-                        (selectionChange)="update()"
-                        fxFlex
-                    ></natural-select>
+                    @if (permissionsService.isAdministrator(viewer)) {
+                        <natural-select
+                            formControlName="reviewer"
+                            placeholder="Approbateur"
+                            [service]="userService"
+                            (selectionChange)="update()"
+                            fxFlex
+                        ></natural-select>
+                    }
                 </div>
             </div>
         </div>
@@ -194,32 +207,37 @@
             </div>
         </div>
 
-        <mat-divider *ngIf="data?.model?.accountingDocuments?.length"></mat-divider>
+        @if (isUpdatePage() && data.model.accountingDocuments.length) {
+            <mat-divider></mat-divider>
 
-        <div *ngIf="data?.model?.accountingDocuments?.length">
-            <div class="mat-headline-6">Pièces justificatives</div>
-
-            <div fxLayout="row" fxLayoutGap="10px">
-                <natural-file
-                    *ngFor="let file of data?.model?.accountingDocuments"
-                    [model]="file"
-                    [height]="150"
-                    [style.width.px]="200"
-                    action="download"
-                ></natural-file>
+            <div>
+                <div class="mat-headline-6">Pièces justificatives</div>
+                <div fxLayout="row" fxLayoutGap="10px">
+                    @for (file of data.model.accountingDocuments; track file) {
+                        <natural-file
+                            [model]="file"
+                            [height]="150"
+                            [style.width.px]="200"
+                            action="download"
+                        ></natural-file>
+                    }
+                </div>
             </div>
-        </div>
+        }
 
         <mat-divider></mat-divider>
 
-        <natural-stamp *ngIf="isUpdatePage()" [item]="data.model"></natural-stamp>
+        @if (isUpdatePage()) {
+            <natural-stamp [item]="data.model"></natural-stamp>
+        }
     </div>
 
-    <natural-fixed-button-detail
-        *ngIf="showFabButton"
-        [form]="form"
-        [model]="data.model"
-        (create)="create()"
-        (delete)="delete()"
-    ></natural-fixed-button-detail>
+    @if (showFabButton) {
+        <natural-fixed-button-detail
+            [form]="form"
+            [model]="data.model"
+            (create)="create()"
+            (delete)="delete()"
+        ></natural-fixed-button-detail>
+    }
 </div>

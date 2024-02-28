@@ -2,265 +2,287 @@
 Warning this template is used by two components BookablesComponent and UsageBookablesComponent
 -->
 
-<div *ngIf="dataSource" fxLayout="column">
-    <div fxLayout="row">
-        <div class="mat-headline-5 no-margin" fxFlex>
-            {{ routeData?.seo.title }}
-        </div>
-        <natural-columns-picker
-            [fxShow]="route.snapshot.data.showColumnPicker ?? true"
-            [availableColumns]="availableColumns"
-            [selections]="selectedColumns"
-            (selectionChange)="selectColumns($event)"
-        />
-    </div>
-
+@if (dataSource) {
     <div fxLayout="column">
-        <div fxLayout="row" class="margin-v overflow">
-            <natural-search
-                fxFlex
-                [facets]="naturalSearchFacets"
-                [selections]="naturalSearchSelections"
-                (selectionChange)="search($event)"
-                [multipleGroups]="true"
+        <div fxLayout="row">
+            <div class="mat-headline-5 no-margin" fxFlex>
+                {{ routeData?.seo.title }}
+            </div>
+            <natural-columns-picker
+                [fxShow]="route.snapshot.data.showColumnPicker ?? true"
+                [availableColumns]="availableColumns"
+                [selections]="selectedColumns"
+                (selectionChange)="selectColumns($event)"
             />
         </div>
-
-        <div class="responsive-table">
-            <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting([$event])">
-                <tr mat-header-row *matHeaderRowDef="columnsForTable"></tr>
-                <tr mat-row *matRowDef="let row; columns: columnsForTable"></tr>
-                <ng-container *ngIf="!route.snapshot.data.hideTableFooter">
-                    <tr mat-footer-row *matFooterRowDef="columnsForTable"></tr>
-                </ng-container>
-
-                <ng-container matColumnDef="image">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header natural-2em-column></th>
-                    <td mat-cell *matCellDef="let element">
-                        <natural-file
-                            *ngIf="element.image"
-                            [model]="element.image"
-                            [height]="40"
-                            [style.width.px]="40"
-                            [style.borderRadius.px]="40"
-                        ></natural-file>
-                    </td>
-                    <td mat-footer-cell *matFooterCellDef></td>
-                </ng-container>
-
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
-                    <td mat-cell *matCellDef="let element">
-                        <natural-table-button
-                            [ngClass]="{inactive: !element.isActive}"
-                            [label]="element.name"
-                            [navigate]="['/admin/bookable', element.id]"
-                            matTooltip="Éditer"
-                        ></natural-table-button>
-                    </td>
-                    <td mat-footer-cell *matFooterCellDef>Totaux</td>
-                </ng-container>
-
-                <ng-container matColumnDef="readOnlyName">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header="name">Nom</th>
-                    <td mat-cell *matCellDef="let element">
-                        <span [ngClass]="{inactive: isFullyBooked(element)}">
-                            {{ element.name }}
-                        </span>
-                        <app-flag *ngIf="isAlreadyPending(element)" status="pending-application"
-                            >Déjà demandé
-                        </app-flag>
-                    </td>
-                    <td mat-footer-cell *matFooterCellDef>Totaux</td>
-                </ng-container>
-
-                <ng-container matColumnDef="code">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Code</th>
-                    <td mat-cell *matCellDef="let element">{{ element.code }}</td>
-                    <td mat-footer-cell *matFooterCellDef></td>
-                </ng-container>
-
-                <ng-container matColumnDef="description">
-                    <th mat-header-cell *matHeaderCellDef>Description</th>
-                    <td mat-cell *matCellDef="let element">{{ element.description }}</td>
-                    <td mat-footer-cell *matFooterCellDef></td>
-                </ng-container>
-
-                <ng-container matColumnDef="purchasePrice">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header natural-align-right class="app-price-column">
-                        Prix achat
-                    </th>
-                    <td mat-cell *matCellDef="let element" natural-align-right>
-                        <span *ngIf="element.purchasePrice > 0">{{ element.purchasePrice | currency: 'CHF' }}</span>
-                    </td>
-                    <td mat-footer-cell *matFooterCellDef natural-align-right>
-                        <span *ngIf="dataSource?.data?.totalPurchasePrice > 0">
-                            {{ dataSource.data?.totalPurchasePrice | currency: 'CHF' }}
-                        </span>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="initialPrice">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header natural-align-right class="app-price-column">
-                        Prix init.
-                    </th>
-                    <td mat-cell *matCellDef="let element" natural-align-right>
-                        <span *ngIf="element.initialPrice !== '0.00'">{{
-                            element.initialPrice | currency: 'CHF'
-                        }}</span>
-                    </td>
-                    <td mat-footer-cell *matFooterCellDef natural-align-right>
-                        <span *ngIf="dataSource?.data?.totalInitialPrice > 0">
-                            {{ dataSource.data?.totalInitialPrice | currency: 'CHF' }}
-                        </span>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="periodicPrice">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header natural-align-right class="app-price-column">
-                        Prix périod.
-                    </th>
-                    <td mat-cell *matCellDef="let element" natural-align-right>
-                        <span *ngIf="element.periodicPrice !== '0.00'">{{
-                            element.periodicPrice | currency: 'CHF'
-                        }}</span>
-                    </td>
-                    <td mat-footer-cell *matFooterCellDef natural-align-right>
-                        <span *ngIf="dataSource?.data?.totalPeriodicPrice > 0">
-                            {{ dataSource.data?.totalPeriodicPrice | currency: 'CHF' }}
-                        </span>
-                    </td>
-                </ng-container>
-
-                <!-- Merge in a single column the periodic price and the initial price -->
-                <ng-container matColumnDef="price">
-                    <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix</th>
-                    <td mat-cell *matCellDef="let element" natural-align-right>
-                        <span *ngIf="element.periodicPrice !== '0.00'">
-                            {{ element.periodicPrice | currency: 'CHF' }}&nbsp;/an
-                        </span>
-                        <span *ngIf="element.periodicPrice !== '0.00' && element.initialPrice !== '0.00'"> +</span>
-                        <span *ngIf="element.initialPrice !== '0.00'">
-                            {{ element.initialPrice | currency: 'CHF' }}
-                        </span>
-                    </td>
-                    <td mat-footer-cell *matFooterCellDef></td>
-                </ng-container>
-
-                <ng-container matColumnDef="updateDate">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="app-date-column">
-                        Dernière modification
-                    </th>
-                    <td mat-cell *matCellDef="let element">
-                        {{ element.updateDate | swissDate }}
-                    </td>
-                    <td mat-footer-cell *matFooterCellDef></td>
-                </ng-container>
-
-                <ng-container matColumnDef="verificationDate">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="app-date-column">
-                        Dernière vérification
-                    </th>
-                    <td mat-cell *matCellDef="let element">
-                        {{ element.verificationDate | swissDate }}
-                    </td>
-                    <td mat-footer-cell *matFooterCellDef></td>
-                </ng-container>
-
-                <ng-container matColumnDef="usage">
-                    <th mat-header-cell *matHeaderCellDef natural-3em-column natural-align-center>Utilisations</th>
-                    <td mat-cell *matCellDef="let element" natural-align-center>
-                        <div *ngFor="let b of element.simultaneousBookings" fxLayout="row">
-                            <natural-avatar
-                                [initials]="b.owner.name"
-                                [gravatar]="element.owner?.email"
-                                [size]="36"
-                            ></natural-avatar>
-                            <a mat-button [routerLink]="['/admin/user', b.owner.id]">
-                                {{ b.owner.name }}
-                            </a>
-                        </div>
-                    </td>
-                    <td mat-footer-cell *matFooterCellDef></td>
-                </ng-container>
-
-                <ng-container matColumnDef="availability">
-                    <th mat-header-cell *matHeaderCellDef natural-3em-column natural-align-center>Disponibilité</th>
-                    <td mat-cell *matCellDef="let element" natural-align-center>
-                        <app-flag *ngIf="element.simultaneousBookings" [status]="availabilityStatus(element)">{{
-                            availabilityText(element)
-                        }}</app-flag>
-                    </td>
-                    <td mat-footer-cell *matFooterCellDef></td>
-                </ng-container>
-
-                <ng-container matColumnDef="usageStatus">
-                    <th mat-header-cell *matHeaderCellDef natural-3em-column natural-align-center>Inscriptions</th>
-                    <td mat-cell *matCellDef="let element" natural-align-center>
-                        <app-flag *ngIf="element.simultaneousBookings" [status]="usageStatus(element)">{{
-                            usageText(element)
-                        }}</app-flag>
-                    </td>
-                    <td mat-footer-cell *matFooterCellDef></td>
-                </ng-container>
-
-                <ng-container matColumnDef="select">
-                    <th mat-header-cell *matHeaderCellDef natural-5em-column></th>
-                    <td mat-cell *matCellDef="let element">
-                        <button mat-flat-button color="primary" (click)="bookableClick.emit(element)">
-                            {{ route.snapshot.data.actionButtonLabel || 'Sélectionner' }}
-                        </button>
-                    </td>
-                    <td mat-footer-cell *matFooterCellDef></td>
-                </ng-container>
-
-                <ng-container matColumnDef="createApplication">
-                    <th mat-header-cell *matHeaderCellDef natural-5em-column></th>
-                    <td mat-cell *matCellDef="let element">
-                        <button
-                            *ngIf="allowBooking(element)"
-                            mat-flat-button
-                            [color]="isAlreadyPending(element) ? 'accent' : 'primary'"
-                            (click)="createApplication(element)"
-                            [disabled]="isFullyBooked(element) || creating.has(element.id)"
+        <div fxLayout="column">
+            <div fxLayout="row" class="margin-v overflow">
+                <natural-search
+                    fxFlex
+                    [facets]="naturalSearchFacets"
+                    [selections]="naturalSearchSelections"
+                    (selectionChange)="search($event)"
+                    [multipleGroups]="true"
+                />
+            </div>
+            <div class="responsive-table">
+                <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting([$event])">
+                    <tr mat-header-row *matHeaderRowDef="columnsForTable"></tr>
+                    <tr mat-row *matRowDef="let row; columns: columnsForTable"></tr>
+                    @if (!route.snapshot.data.hideTableFooter) {
+                        <tr mat-footer-row *matFooterRowDef="columnsForTable"></tr>
+                    }
+                    <ng-container matColumnDef="image">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header natural-2em-column></th>
+                        <td mat-cell *matCellDef="let element">
+                            @if (element.image) {
+                                <natural-file
+                                    [model]="element.image"
+                                    [height]="40"
+                                    [style.width.px]="40"
+                                    [style.borderRadius.px]="40"
+                                ></natural-file>
+                            }
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
+                        <td mat-cell *matCellDef="let element">
+                            <natural-table-button
+                                [ngClass]="{inactive: !element.isActive}"
+                                [label]="element.name"
+                                [navigate]="['/admin/bookable', element.id]"
+                                matTooltip="Éditer"
+                            ></natural-table-button>
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef>Totaux</td>
+                    </ng-container>
+                    <ng-container matColumnDef="readOnlyName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="name">Nom</th>
+                        <td mat-cell *matCellDef="let element">
+                            <span [ngClass]="{inactive: isFullyBooked(element)}">
+                                {{ element.name }}
+                            </span>
+                            @if (isAlreadyPending(element)) {
+                                <app-flag status="pending-application">Déjà demandé </app-flag>
+                            }
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef>Totaux</td>
+                    </ng-container>
+                    <ng-container matColumnDef="code">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Code</th>
+                        <td mat-cell *matCellDef="let element">{{ element.code }}</td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+                    <ng-container matColumnDef="description">
+                        <th mat-header-cell *matHeaderCellDef>Description</th>
+                        <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+                    <ng-container matColumnDef="purchasePrice">
+                        <th
+                            mat-header-cell
+                            *matHeaderCellDef
+                            mat-sort-header
+                            natural-align-right
+                            class="app-price-column"
                         >
-                            <ng-container *ngIf="!isAlreadyPending(element)">
-                                {{ route.snapshot.data.actionButtonLabel || 'Demander' }}
-                            </ng-container>
-                            <ng-container *ngIf="isAlreadyPending(element)"> Nouvelle demande</ng-container>
-                        </button>
-                    </td>
-                    <td mat-footer-cell *matFooterCellDef></td>
-                </ng-container>
-            </table>
+                            Prix achat
+                        </th>
+                        <td mat-cell *matCellDef="let element" natural-align-right>
+                            @if (element.purchasePrice > 0) {
+                                <span>{{ element.purchasePrice | currency: 'CHF' }}</span>
+                            }
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef natural-align-right>
+                            @if (dataSource.data?.totalPurchasePrice > 0) {
+                                <span>
+                                    {{ dataSource.data?.totalPurchasePrice | currency: 'CHF' }}
+                                </span>
+                            }
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="initialPrice">
+                        <th
+                            mat-header-cell
+                            *matHeaderCellDef
+                            mat-sort-header
+                            natural-align-right
+                            class="app-price-column"
+                        >
+                            Prix init.
+                        </th>
+                        <td mat-cell *matCellDef="let element" natural-align-right>
+                            @if (element.initialPrice !== '0.00') {
+                                <span>{{ element.initialPrice | currency: 'CHF' }}</span>
+                            }
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef natural-align-right>
+                            @if (dataSource.data?.totalInitialPrice > 0) {
+                                <span>
+                                    {{ dataSource.data?.totalInitialPrice | currency: 'CHF' }}
+                                </span>
+                            }
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="periodicPrice">
+                        <th
+                            mat-header-cell
+                            *matHeaderCellDef
+                            mat-sort-header
+                            natural-align-right
+                            class="app-price-column"
+                        >
+                            Prix périod.
+                        </th>
+                        <td mat-cell *matCellDef="let element" natural-align-right>
+                            @if (element.periodicPrice !== '0.00') {
+                                <span>{{ element.periodicPrice | currency: 'CHF' }}</span>
+                            }
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef natural-align-right>
+                            @if (dataSource.data?.totalPeriodicPrice > 0) {
+                                <span>
+                                    {{ dataSource.data?.totalPeriodicPrice | currency: 'CHF' }}
+                                </span>
+                            }
+                        </td>
+                    </ng-container>
+                    <!-- Merge in a single column the periodic price and the initial price -->
+                    <ng-container matColumnDef="price">
+                        <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix</th>
+                        <td mat-cell *matCellDef="let element" natural-align-right>
+                            @if (element.periodicPrice !== '0.00') {
+                                <span> {{ element.periodicPrice | currency: 'CHF' }}&nbsp;/an </span>
+                            }
+                            @if (element.periodicPrice !== '0.00' && element.initialPrice !== '0.00') {
+                                <span> +</span>
+                            }
+                            @if (element.initialPrice !== '0.00') {
+                                <span>
+                                    {{ element.initialPrice | currency: 'CHF' }}
+                                </span>
+                            }
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+                    <ng-container matColumnDef="updateDate">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="app-date-column">
+                            Dernière modification
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            {{ element.updateDate | swissDate }}
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+                    <ng-container matColumnDef="verificationDate">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="app-date-column">
+                            Dernière vérification
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            {{ element.verificationDate | swissDate }}
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+                    <ng-container matColumnDef="usage">
+                        <th mat-header-cell *matHeaderCellDef natural-3em-column natural-align-center>Utilisations</th>
+                        <td mat-cell *matCellDef="let element" natural-align-center>
+                            @for (b of element.simultaneousBookings; track b) {
+                                <div fxLayout="row">
+                                    <natural-avatar
+                                        [initials]="b.owner.name"
+                                        [gravatar]="element.owner?.email"
+                                        [size]="36"
+                                    ></natural-avatar>
+                                    <a mat-button [routerLink]="['/admin/user', b.owner.id]">
+                                        {{ b.owner.name }}
+                                    </a>
+                                </div>
+                            }
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+                    <ng-container matColumnDef="availability">
+                        <th mat-header-cell *matHeaderCellDef natural-3em-column natural-align-center>Disponibilité</th>
+                        <td mat-cell *matCellDef="let element" natural-align-center>
+                            @if (element.simultaneousBookings) {
+                                <app-flag [status]="availabilityStatus(element)">{{
+                                    availabilityText(element)
+                                }}</app-flag>
+                            }
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+                    <ng-container matColumnDef="usageStatus">
+                        <th mat-header-cell *matHeaderCellDef natural-3em-column natural-align-center>Inscriptions</th>
+                        <td mat-cell *matCellDef="let element" natural-align-center>
+                            @if (element.simultaneousBookings) {
+                                <app-flag [status]="usageStatus(element)">{{ usageText(element) }}</app-flag>
+                            }
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+                    <ng-container matColumnDef="select">
+                        <th mat-header-cell *matHeaderCellDef natural-5em-column></th>
+                        <td mat-cell *matCellDef="let element">
+                            <button mat-flat-button color="primary" (click)="bookableClick.emit(element)">
+                                {{ route.snapshot.data.actionButtonLabel || 'Sélectionner' }}
+                            </button>
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+                    <ng-container matColumnDef="createApplication">
+                        <th mat-header-cell *matHeaderCellDef natural-5em-column></th>
+                        <td mat-cell *matCellDef="let element">
+                            @if (allowBooking(element)) {
+                                <button
+                                    mat-flat-button
+                                    [color]="isAlreadyPending(element) ? 'accent' : 'primary'"
+                                    (click)="createApplication(element)"
+                                    [disabled]="isFullyBooked(element) || creating.has(element.id)"
+                                >
+                                    @if (!isAlreadyPending(element)) {
+                                        {{ route.snapshot.data.actionButtonLabel || 'Demander' }}
+                                    }
+                                    @if (isAlreadyPending(element)) {
+                                        Nouvelle demande
+                                    }
+                                </button>
+                            }
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+                </table>
+            </div>
+            @if (dataSource.data?.length === 0) {
+                <div fxLayout="column" fxLayoutAlign="center center" class="margin">
+                    <div>Pas de résultats</div>
+                </div>
+            }
+            @if (!dataSource.data) {
+                <div fxLayout="column" fxLayoutAlign="center center" class="margin">
+                    <mat-progress-spinner mode="indeterminate" [diameter]="40"></mat-progress-spinner>
+                </div>
+            }
+            @if (dataSource.data?.length) {
+                <mat-paginator
+                    [length]="dataSource.data?.length"
+                    [pageSize]="dataSource.data?.pageSize"
+                    [pageIndex]="dataSource.data?.pageIndex"
+                    [pageSizeOptions]="pageSizeOptions"
+                    (page)="pagination($event)"
+                ></mat-paginator>
+            }
         </div>
-
-        <div fxLayout="column" fxLayoutAlign="center center" class="margin" *ngIf="dataSource.data?.length === 0">
-            <div>Pas de résultats</div>
-        </div>
-
-        <div fxLayout="column" fxLayoutAlign="center center" class="margin" *ngIf="!dataSource?.data">
-            <mat-progress-spinner mode="indeterminate" [diameter]="40"></mat-progress-spinner>
-        </div>
-
-        <mat-paginator
-            *ngIf="dataSource.data?.length"
-            [length]="dataSource.data?.length"
-            [pageSize]="dataSource.data?.pageSize"
-            [pageIndex]="dataSource.data?.pageIndex"
-            [pageSizeOptions]="pageSizeOptions"
-            (page)="pagination($event)"
-        ></mat-paginator>
     </div>
-</div>
+}
 
 <!--
 This view is used for profile on front office too.
 The hideCreateFab flag is there to hide the create button for admins (is hidden for other users too.
 If we want to display the FAB, we need to add padding in bottom of page to prevent overlay over paginator
 -->
-<natural-fixed-button
-    [routerLink]="['/admin/bookable/new']"
-    icon="add"
-    *ngIf="!route.snapshot.data.hideCreateFab && permissionsService.crud?.bookable.create"
-></natural-fixed-button>
+@if (!route.snapshot.data.hideCreateFab && permissionsService.crud?.bookable.create) {
+    <natural-fixed-button [routerLink]="['/admin/bookable/new']" icon="add"></natural-fixed-button>
+}

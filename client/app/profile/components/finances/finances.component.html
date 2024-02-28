@@ -1,167 +1,165 @@
-<div fxLayout="column" fxLayoutGap="50px" *ngIf="viewer && dataSource">
-    <div *ngIf="!adminMode && !viewer.owner">
-        <h2 class="mat-headline-5 margin-bottom">Finances</h2>
-
-        <mat-form-field [style.width.px]="350">
-            <mat-label>IBAN</mat-label>
-            <input matInput [formControl]="ibanCtrl" (change)="updateIban()" (blur)="lockIbanIfDefined()" />
-            <button
-                mat-icon-button
-                matIconSuffix
-                (click)="ibanCtrl.enable()"
-                [disabled]="ibanCtrl.enabled || updating"
-                matTooltip="Déverouiller"
-            >
-                <mat-icon naturalIcon="lock"></mat-icon>
-            </button>
-            <mat-error *ngIf="ibanCtrl.hasError('iban')"> IBAN invalide</mat-error>
-            <mat-hint>Pour pouvoir demander un remboursement</mat-hint>
-        </mat-form-field>
-    </div>
-
-    <div fxLayout="column">
-        <div
-            fxLayout="column"
-            fxLayout.gt-xs="row"
-            fxLayoutAlign.gt-xs="start center"
-            fxLayoutAlign="start start"
-            class="margin-bottom"
-            fxLayoutGap="10px"
-        >
-            <h2 fxFlex class="mat-headline-5 no-margin">Dépenses et remboursements en attente</h2>
-            <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="10px">
-                <a
-                    mat-stroked-button
-                    [routerLink]="['/profile/create-expense-claim']"
-                    *ngIf="!adminMode"
-                    matTooltip="Pour les dépenses déjà payées par toi pour le club"
-                >
-                    Annoncer une dépense
-                </a>
-                <span
-                    [matTooltip]="canCreateExpenseClaim ? '' : 'Saisir ton IBAN pour pouvoir demander un remboursement'"
-                >
+@if (viewer && dataSource) {
+    <div fxLayout="column" fxLayoutGap="50px">
+        @if (!adminMode && !viewer.owner) {
+            <div>
+                <h2 class="mat-headline-5 margin-bottom">Finances</h2>
+                <mat-form-field [style.width.px]="350">
+                    <mat-label>IBAN</mat-label>
+                    <input matInput [formControl]="ibanCtrl" (change)="updateIban()" (blur)="lockIbanIfDefined()" />
                     <button
-                        mat-stroked-button
-                        matTooltip="Pour un transfert de ton solde de membre vers ton compte bancaire"
-                        (click)="createRefund()"
-                        [disabled]="!canCreateExpenseClaim"
-                        *ngIf="!adminMode && !viewer.owner"
+                        mat-icon-button
+                        matIconSuffix
+                        (click)="ibanCtrl.enable()"
+                        [disabled]="ibanCtrl.enabled || updating"
+                        matTooltip="Déverouiller"
                     >
-                        Demander un remboursement
-                    </button></span
-                >
-                <a
-                    mat-stroked-button
-                    [routerLink]="['/profile/create-invoice']"
-                    *ngIf="!adminMode"
-                    matTooltip="Pour les factures à payer au prestataire par le club"
-                >
-                    Annoncer une facture
-                </a>
+                        <mat-icon naturalIcon="lock"></mat-icon>
+                    </button>
+                    @if (ibanCtrl.hasError('iban')) {
+                        <mat-error> IBAN invalide</mat-error>
+                    }
+                    <mat-hint>Pour pouvoir demander un remboursement</mat-hint>
+                </mat-form-field>
             </div>
-        </div>
-
-        <div
-            class="mat-body-2 padding margin"
-            fxLayout="column"
-            fxLayoutAlign="center center"
-            *ngIf="dataSource?.data?.length === 0"
-        >
-            Aucune annonce
-        </div>
-
-        <div class="responsive-table" [fxHide]="!dataSource.data?.length">
-            <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting([$event])">
-                <tr mat-header-row *matHeaderRowDef="selectedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: selectedColumns"></tr>
-
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
-                    <td mat-cell *matCellDef="let expenseClaim">{{ expenseClaim.name }}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="updateDate">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Dernière modification</th>
-                    <td mat-cell *matCellDef="let expenseClaim">
-                        {{ expenseClaim.updateDate | date: 'dd.MM.y' }}
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="amount">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header natural-align-right>Montant</th>
-                    <td mat-cell *matCellDef="let expenseClaim" natural-align-right>
-                        <app-money
-                            [amount]="expenseClaim.amount"
-                            [showSignal]="false"
-                            [showCurrency]="true"
-                        ></app-money>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="status">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-                    <td mat-cell *matCellDef="let expenseClaim">
-                        {{ expenseClaim.status | enum: 'ExpenseClaimStatus' | async | capitalize }}
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="type">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
-                    <td mat-cell *matCellDef="let expenseClaim">
-                        {{ expenseClaim.type | enum: 'ExpenseClaimType' | async | capitalize }}
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="remarks">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Remarques</th>
-                    <td mat-cell *matCellDef="let expenseClaim">
-                        <div class="line-break">{{ expenseClaim.remarks }}</div>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="cancel">
-                    <th mat-header-cell *matHeaderCellDef natural-1em-column></th>
-                    <td mat-cell *matCellDef="let expenseClaim">
-                        <button
-                            mat-icon-button
-                            color="warn"
-                            (click)="cancelExpenseClaim(expenseClaim)"
-                            *ngIf="expenseClaim.permissions.delete"
-                            [disabled]="deleting.has(expenseClaim.id)"
-                            matTooltip="Supprimer définitivement"
-                        >
-                            <mat-icon naturalIcon="delete"></mat-icon>
-                        </button>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="admin">
-                    <th mat-header-cell *matHeaderCellDef natural-1em-column>Traiter</th>
-                    <td mat-cell *matCellDef="let item">
+        }
+        <div fxLayout="column">
+            <div
+                fxLayout="column"
+                fxLayout.gt-xs="row"
+                fxLayoutAlign.gt-xs="start center"
+                fxLayoutAlign="start start"
+                class="margin-bottom"
+                fxLayoutGap="10px"
+            >
+                <h2 fxFlex class="mat-headline-5 no-margin">Dépenses et remboursements en attente</h2>
+                <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="10px">
+                    @if (!adminMode) {
                         <a
-                            mat-icon-button
-                            class="icon-button-circle-accent"
-                            [routerLink]="['/admin/expense-claim', item.id]"
+                            mat-stroked-button
+                            [routerLink]="['/profile/create-expense-claim']"
+                            matTooltip="Pour les dépenses déjà payées par toi pour le club"
                         >
-                            <mat-icon naturalIcon="chevron_right"></mat-icon>
+                            Annoncer une dépense
                         </a>
-                    </td>
-                </ng-container>
-            </table>
+                    }
+                    <span
+                        [matTooltip]="
+                            canCreateExpenseClaim ? '' : 'Saisir ton IBAN pour pouvoir demander un remboursement'
+                        "
+                    >
+                        @if (!adminMode && !viewer.owner) {
+                            <button
+                                mat-stroked-button
+                                matTooltip="Pour un transfert de ton solde de membre vers ton compte bancaire"
+                                (click)="createRefund()"
+                                [disabled]="!canCreateExpenseClaim"
+                            >
+                                Demander un remboursement
+                            </button>
+                        }
+                    </span>
+                    @if (!adminMode) {
+                        <a
+                            mat-stroked-button
+                            [routerLink]="['/profile/create-invoice']"
+                            matTooltip="Pour les factures à payer au prestataire par le club"
+                        >
+                            Annoncer une facture
+                        </a>
+                    }
+                </div>
+            </div>
+            @if (dataSource.data?.length === 0) {
+                <div class="mat-body-2 padding margin" fxLayout="column" fxLayoutAlign="center center">
+                    Aucune annonce
+                </div>
+            }
+            <div class="responsive-table" [fxHide]="!dataSource.data?.length">
+                <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting([$event])">
+                    <tr mat-header-row *matHeaderRowDef="selectedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: selectedColumns"></tr>
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
+                        <td mat-cell *matCellDef="let expenseClaim">{{ expenseClaim.name }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="updateDate">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Dernière modification</th>
+                        <td mat-cell *matCellDef="let expenseClaim">
+                            {{ expenseClaim.updateDate | date: 'dd.MM.y' }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="amount">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header natural-align-right>Montant</th>
+                        <td mat-cell *matCellDef="let expenseClaim" natural-align-right>
+                            <app-money
+                                [amount]="expenseClaim.amount"
+                                [showSignal]="false"
+                                [showCurrency]="true"
+                            ></app-money>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                        <td mat-cell *matCellDef="let expenseClaim">
+                            {{ expenseClaim.status | enum: 'ExpenseClaimStatus' | async | capitalize }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="type">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+                        <td mat-cell *matCellDef="let expenseClaim">
+                            {{ expenseClaim.type | enum: 'ExpenseClaimType' | async | capitalize }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="remarks">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Remarques</th>
+                        <td mat-cell *matCellDef="let expenseClaim">
+                            <div class="line-break">{{ expenseClaim.remarks }}</div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="cancel">
+                        <th mat-header-cell *matHeaderCellDef natural-1em-column></th>
+                        <td mat-cell *matCellDef="let expenseClaim">
+                            @if (expenseClaim.permissions.delete) {
+                                <button
+                                    mat-icon-button
+                                    color="warn"
+                                    (click)="cancelExpenseClaim(expenseClaim)"
+                                    [disabled]="deleting.has(expenseClaim.id)"
+                                    matTooltip="Supprimer définitivement"
+                                >
+                                    <mat-icon naturalIcon="delete"></mat-icon>
+                                </button>
+                            }
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="admin">
+                        <th mat-header-cell *matHeaderCellDef natural-1em-column>Traiter</th>
+                        <td mat-cell *matCellDef="let item">
+                            <a
+                                mat-icon-button
+                                class="icon-button-circle-accent"
+                                [routerLink]="['/admin/expense-claim', item.id]"
+                            >
+                                <mat-icon naturalIcon="chevron_right"></mat-icon>
+                            </a>
+                        </td>
+                    </ng-container>
+                </table>
+            </div>
+            @if (!dataSource.data) {
+                <div fxLayout="column" fxLayoutAlign="center center" class="margin">
+                    <mat-progress-spinner mode="indeterminate" [diameter]="40"></mat-progress-spinner>
+                </div>
+            }
+            @if (dataSource.data?.length) {
+                <mat-paginator
+                    [length]="dataSource.data?.length"
+                    [pageSize]="dataSource.data?.pageSize"
+                    [pageIndex]="dataSource.data?.pageIndex"
+                    [pageSizeOptions]="pageSizeOptions"
+                    (page)="pagination($event)"
+                ></mat-paginator>
+            }
         </div>
-
-        <div fxLayout="column" fxLayoutAlign="center center" class="margin" *ngIf="!dataSource?.data">
-            <mat-progress-spinner mode="indeterminate" [diameter]="40"></mat-progress-spinner>
-        </div>
-
-        <mat-paginator
-            *ngIf="dataSource.data?.length"
-            [length]="dataSource.data?.length"
-            [pageSize]="dataSource.data?.pageSize"
-            [pageIndex]="dataSource.data?.pageIndex"
-            [pageSizeOptions]="pageSizeOptions"
-            (page)="pagination($event)"
-        ></mat-paginator>
     </div>
-</div>
+}

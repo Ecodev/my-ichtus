@@ -1,82 +1,83 @@
 <div fxLayout="column" fxLayoutGap="50px">
-    <div *ngIf="runningServicesDS?.data?.length > 0">
-        <div fxLayout="row" fxLayoutAlign="start center" class="margin-bottom">
-            <h2 fxFlex class="mat-headline-5 no-margin-bottom">Cotisation / Prestations souscrites</h2>
-            <button mat-stroked-button *ngIf="!user.owner" color="warn" (click)="unregister()">Démissionner</button>
-        </div>
+    @if (runningServicesDS.data?.length > 0) {
+        <div>
+            <div fxLayout="row" fxLayoutAlign="start center" class="margin-bottom">
+                <h2 fxFlex class="mat-headline-5 no-margin-bottom">Cotisation / Prestations souscrites</h2>
+                @if (!user.owner) {
+                    <button mat-stroked-button color="warn" (click)="unregister()">Démissionner</button>
+                }
+            </div>
 
-        <div class="responsive-table" *ngIf="runningServicesDS?.data?.length">
-            <table mat-table [dataSource]="runningServicesDS">
-                <tr mat-header-row *matHeaderRowDef="servicesColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: servicesColumns"></tr>
-
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef>Nom</th>
-                    <td mat-cell *matCellDef="let booking">{{ booking.bookable.name }}</td>
-                    <td mat-footer-cell *matFooterCellDef>Totaux</td>
-                </ng-container>
-
-                <ng-container matColumnDef="periodicPrice">
-                    <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix périodique</th>
-                    <td mat-cell *matCellDef="let booking" natural-align-right>
-                        <span *ngIf="booking.periodicPrice"> {{ booking.periodicPrice | currency: 'CHF' }}</span>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="initialPrice">
-                    <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix initial</th>
-                    <td mat-cell *matCellDef="let booking" natural-align-right>
-                        <span *ngIf="booking.bookable.initialPrice !== '0.00'">
-                            {{ booking.bookable.initialPrice | currency: 'CHF' }}</span
-                        >
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="revoke">
-                    <th mat-header-cell *matHeaderCellDef natural-1em-column></th>
-                    <td mat-cell *matCellDef="let booking">
-                        <button
-                            mat-icon-button
-                            color="warn"
-                            (click)="revokeBooking(booking)"
-                            *ngIf="canRevoke(booking)"
-                        >
-                            <mat-icon naturalIcon="delete_forever"></mat-icon>
-                        </button>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="usage">
-                    <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Utilisations</th>
-                    <td mat-cell *matCellDef="let booking" natural-align-right>
-                        <div *ngFor="let b of booking.bookable.simultaneousBookings" fxLayout="row">
-                            <natural-avatar
-                                [initials]="b.owner.name"
-                                [gravatar]="b.owner.email"
-                                [size]="36"
-                            ></natural-avatar>
-                            <a mat-button [routerLink]="['/admin/user', b.owner.id]">
-                                {{ b.owner.name }}
+            <div class="responsive-table">
+                <table mat-table [dataSource]="runningServicesDS">
+                    <tr mat-header-row *matHeaderRowDef="servicesColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: servicesColumns"></tr>
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef>Nom</th>
+                        <td mat-cell *matCellDef="let booking">{{ booking.bookable.name }}</td>
+                        <td mat-footer-cell *matFooterCellDef>Totaux</td>
+                    </ng-container>
+                    <ng-container matColumnDef="periodicPrice">
+                        <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>
+                            Prix périodique
+                        </th>
+                        <td mat-cell *matCellDef="let booking" natural-align-right>
+                            @if (booking.periodicPrice) {
+                                <span> {{ booking.periodicPrice | currency: 'CHF' }}</span>
+                            }
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="initialPrice">
+                        <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix initial</th>
+                        <td mat-cell *matCellDef="let booking" natural-align-right>
+                            @if (booking.bookable.initialPrice !== '0.00') {
+                                <span> {{ booking.bookable.initialPrice | currency: 'CHF' }}</span>
+                            }
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="revoke">
+                        <th mat-header-cell *matHeaderCellDef natural-1em-column></th>
+                        <td mat-cell *matCellDef="let booking">
+                            @if (canRevoke(booking)) {
+                                <button mat-icon-button color="warn" (click)="revokeBooking(booking)">
+                                    <mat-icon naturalIcon="delete_forever"></mat-icon>
+                                </button>
+                            }
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="usage">
+                        <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Utilisations</th>
+                        <td mat-cell *matCellDef="let booking" natural-align-right>
+                            @for (b of booking.bookable.simultaneousBookings; track b) {
+                                <div fxLayout="row">
+                                    <natural-avatar
+                                        [initials]="b.owner.name"
+                                        [gravatar]="b.owner.email"
+                                        [size]="36"
+                                    ></natural-avatar>
+                                    <a mat-button [routerLink]="['/admin/user', b.owner.id]">
+                                        {{ b.owner.name }}
+                                    </a>
+                                </div>
+                            }
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="admin">
+                        <th mat-header-cell *matHeaderCellDef natural-1em-column>Traiter</th>
+                        <td mat-cell *matCellDef="let booking">
+                            <a
+                                mat-icon-button
+                                class="icon-button-circle-accent"
+                                [routerLink]="['/admin/booking', booking.id]"
+                            >
+                                <mat-icon naturalIcon="chevron_right"></mat-icon>
                             </a>
-                        </div>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="admin">
-                    <th mat-header-cell *matHeaderCellDef natural-1em-column>Traiter</th>
-                    <td mat-cell *matCellDef="let booking">
-                        <a
-                            mat-icon-button
-                            class="icon-button-circle-accent"
-                            [routerLink]="['/admin/booking', booking.id]"
-                        >
-                            <mat-icon naturalIcon="chevron_right"></mat-icon>
-                        </a>
-                    </td>
-                </ng-container>
-            </table>
+                        </td>
+                    </ng-container>
+                </table>
+            </div>
         </div>
-    </div>
+    }
 
     <div>
         <div fxLayout="row" fxLayoutAlign="start center" class="margin-bottom">
@@ -150,16 +151,17 @@
     </div>
 
     <div fxLayout="column" fxLayoutGap="10px">
-        <div
-            *ngIf="pendingApplicationsDS.data?.length > 0"
-            fxLayout="column"
-            fxLayout.gt-xs="row"
-            fxLayoutAlign.gt-xs="start center"
-            fxLayoutAlign="start start"
-            class="margin-bottom"
-        >
-            <h2 fxFlex class="mat-headline no-margin-bottom">Demandes en attente</h2>
-        </div>
+        @if (pendingApplicationsDS.data?.length > 0) {
+            <div
+                fxLayout="column"
+                fxLayout.gt-xs="row"
+                fxLayoutAlign.gt-xs="start center"
+                fxLayoutAlign="start start"
+                class="margin-bottom"
+            >
+                <h2 fxFlex class="mat-headline no-margin-bottom">Demandes en attente</h2>
+            </div>
+        }
 
         <div class="responsive-table" [fxHide]="!pendingApplicationsDS.data?.length">
             <table mat-table [dataSource]="pendingApplicationsDS">
@@ -182,28 +184,34 @@
                 <ng-container matColumnDef="periodicPrice">
                     <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix périodique</th>
                     <td mat-cell *matCellDef="let booking" natural-align-right>
-                        <span *ngIf="booking.bookable.periodicPrice !== '0.00'">
-                            {{ booking.bookable.periodicPrice | currency: 'CHF' }}
-                        </span>
+                        @if (booking.bookable.periodicPrice !== '0.00') {
+                            <span>
+                                {{ booking.bookable.periodicPrice | currency: 'CHF' }}
+                            </span>
+                        }
                     </td>
                     <td mat-footer-cell *matFooterCellDef natural-align-right>
-                        <span *ngIf="pendingApplicationsDS.data?.totalPeriodicPrice > 0">
-                            {{ pendingApplicationsDS.data?.totalPeriodicPrice | currency: 'CHF' }}
-                        </span>
+                        @if (pendingApplicationsDS.data?.totalPeriodicPrice > 0) {
+                            <span>
+                                {{ pendingApplicationsDS.data?.totalPeriodicPrice | currency: 'CHF' }}
+                            </span>
+                        }
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="initialPrice">
                     <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>Prix initial</th>
                     <td mat-cell *matCellDef="let booking" natural-align-right>
-                        <span *ngIf="booking.bookable.initialPrice !== '0.00'">
-                            {{ booking.bookable.initialPrice | currency: 'CHF' }}</span
-                        >
+                        @if (booking.bookable.initialPrice !== '0.00') {
+                            <span> {{ booking.bookable.initialPrice | currency: 'CHF' }}</span>
+                        }
                     </td>
                     <td mat-footer-cell *matFooterCellDef natural-align-right>
-                        <span *ngIf="pendingApplicationsDS.data?.totalInitialPrice > 0">
-                            {{ pendingApplicationsDS.data?.totalInitialPrice | currency: 'CHF' }}
-                        </span>
+                        @if (pendingApplicationsDS.data?.totalInitialPrice > 0) {
+                            <span>
+                                {{ pendingApplicationsDS.data?.totalInitialPrice | currency: 'CHF' }}
+                            </span>
+                        }
                     </td>
                 </ng-container>
 

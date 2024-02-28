@@ -1,5 +1,8 @@
 <div [attr.class]="sizeClass" [style.margin.px]="0">
     <span [class.positive]="showPositive()" [class.negative]="showNegative()" style="white-space: nowrap">
-        <span *ngIf="showCurrency">CHF </span>{{ amount | currency: 'CHF' : '' : '1.2-2' : 'de-CH' }}
+        @if (showCurrency) {
+            <span>CHF </span>
+        }
+        {{ amount | currency: 'CHF' : '' : '1.2-2' : 'de-CH' }}
     </span>
 </div>

@@ -1,82 +1,80 @@
-<div *ngIf="dataSource" fxLayout="column">
-    <div fxLayout="row">
-        <div class="mat-headline-5 no-margin" fxFlex>
-            {{ routeData?.seo.title }}
-        </div>
-        <natural-columns-picker
-            [availableColumns]="availableColumns"
-            [selections]="selectedColumns"
-            (selectionChange)="selectColumns($event)"
-        />
-    </div>
-
+@if (dataSource) {
     <div fxLayout="column">
-        <div class="margin-v overflow" fxLayout="row">
-            <natural-search
-                (selectionChange)="search($event)"
-                [facets]="naturalSearchFacets"
-                [multipleGroups]="true"
-                [selections]="naturalSearchSelections"
-                fxFlex
+        <div fxLayout="row">
+            <div class="mat-headline-5 no-margin" fxFlex>
+                {{ routeData?.seo.title }}
+            </div>
+            <natural-columns-picker
+                [availableColumns]="availableColumns"
+                [selections]="selectedColumns"
+                (selectionChange)="selectColumns($event)"
             />
         </div>
-
-        <div class="responsive-table">
-            <table (matSortChange)="sorting([$event])" [dataSource]="dataSource" mat-table matSort>
-                <tr *matHeaderRowDef="columnsForTable" mat-header-row></tr>
-                <tr *matRowDef="let row; columns: columnsForTable" mat-row></tr>
-
-                <ng-container matColumnDef="creationDate">
-                    <th *matHeaderCellDef mat-header-cell mat-sort-header>Date</th>
-                    <td *matCellDef="let element" mat-cell>
-                        {{ element.creationDate | date: 'dd.MM.y HH:mm:ss' }}
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="message">
-                    <th *matHeaderCellDef mat-header-cell mat-sort-header>Message</th>
-                    <td *matCellDef="let element" mat-cell>{{ element.message }}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="creator">
-                    <th *matHeaderCellDef mat-header-cell>Utilisateur</th>
-                    <td *matCellDef="let element" mat-cell>
-                        <natural-table-button
-                            *ngIf="element.creator"
-                            [label]="element.creator?.name"
-                            [navigate]="['/admin/user', element.creator?.id]"
-                            matTooltip="Éditer"
-                        ></natural-table-button>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="ip">
-                    <th *matHeaderCellDef mat-header-cell mat-sort-header natural-3em-column>IP</th>
-                    <td *matCellDef="let element" mat-cell>{{ element.ip }}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="referer">
-                    <th *matHeaderCellDef mat-header-cell mat-sort-header>Referer</th>
-                    <td *matCellDef="let element" mat-cell>{{ element.referer }}</td>
-                </ng-container>
-            </table>
+        <div fxLayout="column">
+            <div class="margin-v overflow" fxLayout="row">
+                <natural-search
+                    (selectionChange)="search($event)"
+                    [facets]="naturalSearchFacets"
+                    [multipleGroups]="true"
+                    [selections]="naturalSearchSelections"
+                    fxFlex
+                />
+            </div>
+            <div class="responsive-table">
+                <table (matSortChange)="sorting([$event])" [dataSource]="dataSource" mat-table matSort>
+                    <tr *matHeaderRowDef="columnsForTable" mat-header-row></tr>
+                    <tr *matRowDef="let row; columns: columnsForTable" mat-row></tr>
+                    <ng-container matColumnDef="creationDate">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Date</th>
+                        <td *matCellDef="let element" mat-cell>
+                            {{ element.creationDate | date: 'dd.MM.y HH:mm:ss' }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="message">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Message</th>
+                        <td *matCellDef="let element" mat-cell>{{ element.message }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="creator">
+                        <th *matHeaderCellDef mat-header-cell>Utilisateur</th>
+                        <td *matCellDef="let element" mat-cell>
+                            @if (element.creator) {
+                                <natural-table-button
+                                    [label]="element.creator?.name"
+                                    [navigate]="['/admin/user', element.creator?.id]"
+                                    matTooltip="Éditer"
+                                ></natural-table-button>
+                            }
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="ip">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header natural-3em-column>IP</th>
+                        <td *matCellDef="let element" mat-cell>{{ element.ip }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="referer">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Referer</th>
+                        <td *matCellDef="let element" mat-cell>{{ element.referer }}</td>
+                    </ng-container>
+                </table>
+            </div>
+            @if (dataSource.data?.length === 0) {
+                <div class="margin" fxLayout="column" fxLayoutAlign="center center">
+                    <div>Pas de résultats</div>
+                </div>
+            }
+            @if (!dataSource.data) {
+                <div class="margin" fxLayout="column" fxLayoutAlign="center center">
+                    <mat-progress-spinner [diameter]="40" mode="indeterminate"></mat-progress-spinner>
+                </div>
+            }
+            @if (dataSource.data?.length) {
+                <mat-paginator
+                    (page)="pagination($event)"
+                    [length]="dataSource.data?.length"
+                    [pageIndex]="dataSource.data?.pageIndex"
+                    [pageSizeOptions]="pageSizeOptions"
+                    [pageSize]="dataSource.data?.pageSize"
+                ></mat-paginator>
+            }
         </div>
-
-        <div *ngIf="dataSource.data?.length === 0" class="margin" fxLayout="column" fxLayoutAlign="center center">
-            <div>Pas de résultats</div>
-        </div>
-
-        <div *ngIf="!dataSource?.data" class="margin" fxLayout="column" fxLayoutAlign="center center">
-            <mat-progress-spinner [diameter]="40" mode="indeterminate"></mat-progress-spinner>
-        </div>
-
-        <mat-paginator
-            (page)="pagination($event)"
-            *ngIf="dataSource.data?.length"
-            [length]="dataSource.data?.length"
-            [pageIndex]="dataSource.data?.pageIndex"
-            [pageSizeOptions]="pageSizeOptions"
-            [pageSize]="dataSource.data?.pageSize"
-        ></mat-paginator>
     </div>
-</div>
+}

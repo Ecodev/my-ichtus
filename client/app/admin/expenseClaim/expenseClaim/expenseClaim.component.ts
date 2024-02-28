@@ -26,7 +26,7 @@ import {MoneyComponent} from '../../../shared/components/money/money.component';
 import {RouterLink} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-import {CommonModule} from '@angular/common';
+
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
@@ -40,7 +40,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         ReactiveFormsModule,
         NaturalDetailHeaderComponent,
         FlexModule,
-        CommonModule,
         MatButtonModule,
         MatIconModule,
         NaturalIconDirective,

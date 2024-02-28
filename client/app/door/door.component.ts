@@ -7,7 +7,7 @@ import {CurrentUserForProfile} from '../shared/generated-types';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {CardComponent} from '../shared/components/card/card.component';
-import {CommonModule} from '@angular/common';
+
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
@@ -15,7 +15,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
     templateUrl: './door.component.html',
     styleUrls: ['./door.component.scss'],
     standalone: true,
-    imports: [FlexModule, CommonModule, CardComponent, MatButtonModule, MatIconModule],
+    imports: [FlexModule, CardComponent, MatButtonModule, MatIconModule],
 })
 export class DoorComponent extends NaturalAbstractController implements OnInit {
     public viewer!: NonNullable<CurrentUserForProfile['viewer']>;

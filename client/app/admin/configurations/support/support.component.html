@@ -1,19 +1,22 @@
 <mat-dialog-content>
     <div class="mat-body-2 content">
-        <mat-slide-toggle (change)="update()" [(ngModel)]="active" *ngIf="!readonly && activable">
-            Actif
-        </mat-slide-toggle>
-        <natural-editor *ngIf="!readonly" [(ngModel)]="text"></natural-editor>
-        <div *ngIf="readonly" [innerHTML]="text" class="content"></div>
+        @if (!readonly && activable) {
+            <mat-slide-toggle (change)="update()" [(ngModel)]="active"> Actif </mat-slide-toggle>
+        }
+        @if (!readonly) {
+            <natural-editor [(ngModel)]="text"></natural-editor>
+        }
+        @if (readonly) {
+            <div [innerHTML]="text" class="content"></div>
+        }
     </div>
 
-    <natural-fixed-button
-        (click)="update()"
-        [disabled]="updating"
-        *ngIf="permissionsService.crud?.configuration.create && !readonly"
-        icon="save"
-    ></natural-fixed-button>
+    @if (permissionsService.crud?.configuration.create && !readonly) {
+        <natural-fixed-button (click)="update()" [disabled]="updating" icon="save"></natural-fixed-button>
+    }
 </mat-dialog-content>
-<mat-dialog-actions align="end" *ngIf="data?.data?.showCloseButton">
-    <button mat-button mat-dialog-close>Fermer</button>
-</mat-dialog-actions>
+@if (data?.data?.showCloseButton) {
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Fermer</button>
+    </mat-dialog-actions>
+}

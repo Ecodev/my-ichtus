@@ -1,20 +1,24 @@
 <div fxLayout="row wrap" fxLayoutGap="10px">
-    <ng-container *ngFor="let file of files; let i = index; trackBy: trackByFn; let last = last">
+    @for (file of files; track $index) {
         <div fxLayout="column" fxLayoutAlign="start center">
             <natural-file
                 [model]="file"
                 accept="image/bmp,image/gif,image/jpeg,image/pjpeg,image/png,image/svg+xml,image/webp,application/pdf,application/x-pdf"
-                (modelChange)="fileAdded($event, i)"
+                (modelChange)="fileAdded($event, $index)"
                 [height]="fileHeight"
                 [style.width.px]="fileWidth"
-                [action]="getAction(file, i, last)"
+                [action]="getAction(file, $index, $last)"
             ></natural-file>
-            <button mat-icon-button (click)="!last ? removeFile(i) : null" *ngIf="canRemove && !disabled && !last">
-                <mat-icon naturalIcon="clear"></mat-icon>
-            </button>
-            <p *ngIf="!disabled && last" class="mat-body" [style.maxWidth.px]="fileWidth" style="text-align: center">
-                Images (jpg, png, webp, svg, gif, bmp) ou document PDF uniquement
-            </p>
+            @if (canRemove && !disabled && !$last) {
+                <button mat-icon-button (click)="!$last ? removeFile($index) : null">
+                    <mat-icon naturalIcon="clear"></mat-icon>
+                </button>
+            }
+            @if (!disabled && $last) {
+                <p class="mat-body" [style.maxWidth.px]="fileWidth" style="text-align: center">
+                    Images (jpg, png, webp, svg, gif, bmp) ou document PDF uniquement
+                </p>
+            }
         </div>
-    </ng-container>
+    }
 </div>

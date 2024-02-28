@@ -1,58 +1,50 @@
 <div fxFlexFill fxLayout="column">
     <mat-toolbar fxFlex="none" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-        <button (click)="menu.toggle()" *ngIf="menu" mat-icon-button>
-            <mat-icon naturalIcon="menu"></mat-icon>
-        </button>
+        @if (menu) {
+            <button (click)="menu.toggle()" mat-icon-button>
+                <mat-icon naturalIcon="menu"></mat-icon>
+            </button>
+        }
 
         <a routerLink="/" style="width: 50px; height: 50px">
             <mat-icon [size]="50" naturalIcon="ichtus"></mat-icon>
         </a>
 
-        <div
-            *ngIf="route.snapshot.data.viewer?.model"
-            fxFlex
-            fxLayout="row"
-            fxLayoutAlign="start center"
-            fxLayoutGap="20px"
-        >
-            <div fxFlex fxHide.xs></div>
-
-            <div fxFlex fxHide.xs fxLayout="row" fxLayoutAlign="start center" id="searchByCode">
-                <input
-                    (keydown.enter)="goToCode()"
-                    (keydown.esc)="code = ''"
-                    [(ngModel)]="code"
-                    fxFlex
-                    placeholder="Recherche par code"
-                />
-                <a [routerLink]="['/booking', code]" mat-icon-button>
-                    <mat-icon naturalIcon="search"></mat-icon>
+        @if (route.snapshot.data.viewer?.model) {
+            <div fxFlex fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                <div fxFlex fxHide.xs></div>
+                <div fxFlex fxHide.xs fxLayout="row" fxLayoutAlign="start center" id="searchByCode">
+                    <input
+                        (keydown.enter)="goToCode()"
+                        (keydown.esc)="code = ''"
+                        [(ngModel)]="code"
+                        fxFlex
+                        placeholder="Recherche par code"
+                    />
+                    <a [routerLink]="['/booking', code]" mat-icon-button>
+                        <mat-icon naturalIcon="search"></mat-icon>
+                    </a>
+                </div>
+                <a class="icon-button-circle-primary" mat-icon-button routerLink="/booking/by-scan">
+                    <mat-icon naturalIcon="qr_code_scanner"></mat-icon>
                 </a>
+                <div fxFlex fxHide.xs></div>
+                @if (announcementActive) {
+                    <a [routerLink]="getAnnouncementLink()" mat-icon-button class="icon-button-circle-primary">
+                        <mat-icon naturalIcon="announcement"></mat-icon>
+                    </a>
+                }
+                @if (route.snapshot.data.viewer.model) {
+                    <a class="admin-avatar" routerLink="/profile">
+                        <natural-avatar
+                            [initials]="route.snapshot.data.viewer.model.name"
+                            [gravatar]="route.snapshot.data.viewer.model.email"
+                            [size]="50"
+                        ></natural-avatar>
+                    </a>
+                }
             </div>
-
-            <a class="icon-button-circle-primary" mat-icon-button routerLink="/booking/by-scan">
-                <mat-icon naturalIcon="qr_code_scanner"></mat-icon>
-            </a>
-
-            <div fxFlex fxHide.xs></div>
-
-            <a
-                [routerLink]="getAnnouncementLink()"
-                mat-icon-button
-                class="icon-button-circle-primary"
-                *ngIf="announcementActive"
-            >
-                <mat-icon naturalIcon="announcement"></mat-icon>
-            </a>
-
-            <a *ngIf="route.snapshot.data.viewer.model" class="admin-avatar" routerLink="/profile">
-                <natural-avatar
-                    [initials]="route.snapshot.data.viewer.model.name"
-                    [gravatar]="route.snapshot.data.viewer.model.email"
-                    [size]="50"
-                ></natural-avatar>
-            </a>
-        </div>
+        }
     </mat-toolbar>
 
     <div fxFlex fxLayout="column" style="overflow: auto">

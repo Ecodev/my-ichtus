@@ -5,7 +5,9 @@
         [model]="data.model"
         [listRoute]="['admin', 'account']"
     >
-        <app-money *ngIf="isUpdatePage()" [amount]="data.model.totalBalance" sizeClass="mat-headline-4"></app-money>
+        @if (isUpdatePage()) {
+            <app-money [amount]="data.model.totalBalance" sizeClass="mat-headline-4"></app-money>
+        }
     </natural-detail-header>
 
     <mat-tab-group naturalLinkableTab [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
@@ -25,14 +27,18 @@
                                 >
                                     <mat-icon naturalIcon="reply"></mat-icon>
                                 </button>
-                                <mat-error *ngIf="form.get('code')?.hasError('min')">Valeur positive</mat-error>
-                                <mat-error *ngIf="form.get('code')?.hasError('integer')"
-                                    >Doit être un nombre entier</mat-error
-                                >
-                                <mat-error *ngIf="form.get('code')?.hasError('required')">Requis</mat-error>
-                                <mat-error *ngIf="form.get('code')?.hasError('duplicateValue')"
-                                    >Ce numéro est déjà attribué</mat-error
-                                >
+                                @if (form.get('code')?.hasError('min')) {
+                                    <mat-error>Valeur positive</mat-error>
+                                }
+                                @if (form.get('code')?.hasError('integer')) {
+                                    <mat-error>Doit être un nombre entier</mat-error>
+                                }
+                                @if (form.get('code')?.hasError('required')) {
+                                    <mat-error>Requis</mat-error>
+                                }
+                                @if (form.get('code')?.hasError('duplicateValue')) {
+                                    <mat-error>Ce numéro est déjà attribué</mat-error>
+                                }
                                 <mat-hint>Prochain n° disponible: {{ nextCodeAvailable }}</mat-hint>
                             </mat-form-field>
 
@@ -40,42 +46,53 @@
                                 ><!-- row child -->
                                 <mat-label>Nom</mat-label>
                                 <input matInput formControlName="name" (change)="update()" />
-                                <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
-                                    Maximum {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
-                                </mat-error>
-                                <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
+                                @if (form.get('name')?.hasError('maxlength')) {
+                                    <mat-error>
+                                        Maximum {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
+                                    </mat-error>
+                                }
+                                @if (form.get('name')?.hasError('required')) {
+                                    <mat-error>Requis</mat-error>
+                                }
                             </mat-form-field>
                         </div>
 
-                        <mat-form-field *ngIf="[AccountType.asset].includes(form.get('type')?.value)">
-                            <mat-label>IBAN Ichtus</mat-label>
-                            <input matInput formControlName="iban" (change)="update()" />
-                            <mat-error *ngIf="form.get('iban')?.hasError('iban')"> IBAN invalide </mat-error>
-                            <mat-error *ngIf="form.get('iban')?.hasError('required')">Requis</mat-error>
-                            <mat-hint>Pour les comptes bancaires ichtus uniquement</mat-hint>
-                        </mat-form-field>
+                        @if ([AccountType.asset].includes(form.get('type')?.value)) {
+                            <mat-form-field>
+                                <mat-label>IBAN Ichtus</mat-label>
+                                <input matInput formControlName="iban" (change)="update()" />
+                                @if (form.get('iban')?.hasError('iban')) {
+                                    <mat-error> IBAN invalide </mat-error>
+                                }
+                                @if (form.get('iban')?.hasError('required')) {
+                                    <mat-error>Requis</mat-error>
+                                }
+                                <mat-hint>Pour les comptes bancaires ichtus uniquement</mat-hint>
+                            </mat-form-field>
+                        }
 
-                        <mat-form-field
-                            *ngIf="[AccountType.asset, AccountType.expense].includes(form.get('type')?.value)"
-                            [style.width.px]="250"
-                        >
-                            <mat-label>Solde précédent</mat-label>
-                            <input
-                                matInput
-                                type="number"
-                                step="0.01"
-                                [attr.min]="0"
-                                formControlName="totalBalanceFormer"
-                                (change)="update()"
-                            />
-                            <div matTextSuffix>CHF</div>
-                            <mat-error *ngIf="form.get('totalBalanceFormer')?.hasError('min')"
-                                >Le montant doit être positif</mat-error
-                            >
-                            <mat-error *ngIf="form.get('totalBalanceFormer')?.hasError('money')"
-                                >Le montant doit être un nombre avec un maximum de deux décimales</mat-error
-                            >
-                        </mat-form-field>
+                        @if ([AccountType.asset, AccountType.expense].includes(form.get('type')?.value)) {
+                            <mat-form-field [style.width.px]="250">
+                                <mat-label>Solde précédent</mat-label>
+                                <input
+                                    matInput
+                                    type="number"
+                                    step="0.01"
+                                    [attr.min]="0"
+                                    formControlName="totalBalanceFormer"
+                                    (change)="update()"
+                                />
+                                <div matTextSuffix>CHF</div>
+                                @if (form.get('totalBalanceFormer')?.hasError('min')) {
+                                    <mat-error>Le montant doit être positif</mat-error>
+                                }
+                                @if (form.get('totalBalanceFormer')?.hasError('money')) {
+                                    <mat-error
+                                        >Le montant doit être un nombre avec un maximum de deux décimales</mat-error
+                                    >
+                                }
+                            </mat-form-field>
+                        }
 
                         <mat-form-field [style.width.px]="250">
                             <mat-label>Budget prévu</mat-label>
@@ -88,13 +105,15 @@
                                 (change)="update()"
                             />
                             <div matTextSuffix>CHF</div>
-                            <mat-error *ngIf="form.get('budgetAllowed')?.hasError('min')"
-                                >Le montant doit être positif</mat-error
-                            >
-                            <mat-error *ngIf="form.get('budgetAllowed')?.hasError('money')"
-                                >Le montant doit être un nombre avec un maximum de deux décimales</mat-error
-                            >
-                            <mat-hint *ngIf="budgetBalance()">Budget restant: {{ budgetBalance() }} CHF</mat-hint>
+                            @if (form.get('budgetAllowed')?.hasError('min')) {
+                                <mat-error>Le montant doit être positif</mat-error>
+                            }
+                            @if (form.get('budgetAllowed')?.hasError('money')) {
+                                <mat-error>Le montant doit être un nombre avec un maximum de deux décimales</mat-error>
+                            }
+                            @if (budgetBalance()) {
+                                <mat-hint>Budget restant: {{ budgetBalance() }} CHF</mat-hint>
+                            }
                         </mat-form-field>
                     </div>
 
@@ -115,37 +134,41 @@
                             placeholder="Type"
                         ></natural-select-enum>
 
-                        <natural-select
-                            *ngIf="form.get('type')?.value === 'liability'"
-                            formControlName="owner"
-                            placeholder="Membre"
-                            [service]="userService"
-                            [filter]="{groups: [{conditions: [{accounts: {empty: {not: false}}}]}]}"
-                            (selectionChange)="update()"
-                            [showIcon]="false"
-                            [navigateTo]="
-                                form.get('owner')?.value?.id ? ['/admin/user', form.get('owner')?.value.id] : null
-                            "
-                        ></natural-select>
+                        @if (form.get('type')?.value === 'liability') {
+                            <natural-select
+                                formControlName="owner"
+                                placeholder="Membre"
+                                [service]="userService"
+                                [filter]="{groups: [{conditions: [{accounts: {empty: {not: false}}}]}]}"
+                                (selectionChange)="update()"
+                                [showIcon]="false"
+                                [navigateTo]="
+                                    form.get('owner')?.value?.id ? ['/admin/user', form.get('owner')?.value.id] : null
+                                "
+                            ></natural-select>
+                        }
 
-                        <div *ngIf="form.get('owner')?.value">
-                            IBAN de l'utilisateur: {{ form.get('owner')?.value?.iban | iban }}
-                        </div>
+                        @if (form.get('owner')?.value) {
+                            <div>IBAN de l'utilisateur: {{ form.get('owner')?.value?.iban | iban }}</div>
+                        }
                     </div>
                 </div>
 
                 <mat-divider></mat-divider>
 
-                <natural-stamp *ngIf="isUpdatePage()" [item]="data.model"></natural-stamp>
+                @if (isUpdatePage()) {
+                    <natural-stamp [item]="data.model"></natural-stamp>
+                }
             </div>
         </mat-tab>
     </mat-tab-group>
 
-    <natural-fixed-button-detail
-        *ngIf="showFabButton"
-        [form]="form"
-        [model]="data.model"
-        (create)="create()"
-        (delete)="delete()"
-    ></natural-fixed-button-detail>
+    @if (showFabButton) {
+        <natural-fixed-button-detail
+            [form]="form"
+            [model]="data.model"
+            (create)="create()"
+            (delete)="delete()"
+        ></natural-fixed-button-detail>
+    }
 </div>

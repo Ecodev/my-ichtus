@@ -1,18 +1,20 @@
-<div
-    *ngIf="transactionLine && relativeToAccount && transactionLine.balance !== '0.00' && isIncome !== null"
-    [class.positive]="isIncome === true"
-    [class.negative]="isIncome === false"
-    [class.background-decoration]="displayMode === 'account'"
-    [class.text-decoration]="displayMode === 'amount'"
->
-    <span *ngIf="displayMode === 'amount'"
-        >{{ isIncome ? '➚' : '➘︎' }}&nbsp;{{ transactionLine.balance | currency: 'CHF' }}</span
+@if (transactionLine && relativeToAccount && transactionLine.balance !== '0.00' && isIncome !== null) {
+    <div
+        [class.positive]="isIncome === true"
+        [class.negative]="isIncome === false"
+        [class.background-decoration]="displayMode === 'account'"
+        [class.text-decoration]="displayMode === 'amount'"
     >
-    <a
-        *ngIf="displayMode === 'account'"
-        (click)="propagateAccount(relativeToAccount)"
-        [routerLink]="transactionLineService.linkToTransactionLinesForAccount(relativeToAccount)"
-        matTooltip="Voir les transactions"
-        >{{ isIncome ? '➚' : '➘︎' }}&nbsp;{{ relativeToAccount.name }}</a
-    >
-</div>
+        @if (displayMode === 'amount') {
+            <span>{{ isIncome ? '➚' : '➘︎' }}&nbsp;{{ transactionLine.balance | currency: 'CHF' }}</span>
+        }
+        @if (displayMode === 'account') {
+            <a
+                (click)="propagateAccount(relativeToAccount)"
+                [routerLink]="transactionLineService.linkToTransactionLinesForAccount(relativeToAccount)"
+                matTooltip="Voir les transactions"
+                >{{ isIncome ? '➚' : '➘︎' }}&nbsp;{{ relativeToAccount.name }}</a
+            >
+        }
+    </div>
+}

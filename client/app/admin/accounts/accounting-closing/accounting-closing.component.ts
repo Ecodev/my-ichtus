@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
-import {CommonModule} from '@angular/common';
+
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -21,7 +21,6 @@ import {MatDialogModule} from '@angular/material/dialog';
         FormsModule,
         MatDatepickerModule,
         ReactiveFormsModule,
-        CommonModule,
         MatButtonModule,
     ],
 })

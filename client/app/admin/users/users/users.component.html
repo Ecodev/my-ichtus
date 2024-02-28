@@ -1,187 +1,183 @@
-<div *ngIf="dataSource" fxLayout="column">
-    <div fxLayout="row">
-        <div class="mat-headline-5 no-margin" fxFlex>
-            {{ routeData?.seo.title }}
-        </div>
-        <natural-columns-picker
-            [availableColumns]="availableColumns"
-            [selections]="selectedColumns"
-            (selectionChange)="selectColumns($event)"
-            [buttons]="buttons"
-        />
-    </div>
-
+@if (dataSource) {
     <div fxLayout="column">
-        <div fxLayout="row" class="margin-v overflow">
-            <natural-search
-                fxFlex
-                [facets]="naturalSearchFacets"
-                [selections]="naturalSearchSelections"
-                (selectionChange)="search($event)"
-                [multipleGroups]="true"
+        <div fxLayout="row">
+            <div class="mat-headline-5 no-margin" fxFlex>
+                {{ routeData?.seo.title }}
+            </div>
+            <natural-columns-picker
+                [availableColumns]="availableColumns"
+                [selections]="selectedColumns"
+                (selectionChange)="selectColumns($event)"
+                [buttons]="buttons"
             />
         </div>
-
-        <div class="responsive-table">
-            <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting([$event])">
-                <tr mat-header-row *matHeaderRowDef="columnsForTable"></tr>
-                <tr mat-row *matRowDef="let row; columns: columnsForTable"></tr>
-
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header="lastName">Nom</th>
-                    <td mat-cell *matCellDef="let element">
-                        <div fxLayout="row" fxLayoutAlign="start center">
-                            <natural-avatar
-                                [initials]="element.name"
-                                [gravatar]="element.email"
-                                [size]="36"
-                            ></natural-avatar>
-                            <natural-table-button
-                                [label]="element.name"
-                                [navigate]="['/admin/user', element.id]"
-                                matTooltip="Éditer"
-                            ></natural-table-button>
-                        </div>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="login">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Login</th>
-                    <td mat-cell *matCellDef="let element">{{ element.login }}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="age">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Âge</th>
-                    <td mat-cell *matCellDef="let element">{{ element.age }}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="role">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Rôle</th>
-                    <td mat-cell *matCellDef="let element">
-                        {{ element.role | enum: 'UserRole' | async | capitalize }}
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="owner">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Chef de famille</th>
-                    <td mat-cell *matCellDef="let element">{{ element.owner?.name }}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="status">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="app-date-column" natural-align-center>
-                        Status
-                    </th>
-                    <td
-                        mat-cell
-                        *matCellDef="let element"
-                        natural-align-center
-                        [matTooltipDisabled]="isActive(element) || isActivable(element)"
-                        matTooltip="Le nom et le login doivent être renseignés pour activer un utilisateur"
-                    >
-                        <span *ngIf="isActive(element)">{{
-                            element.status | enum: 'UserStatus' | async | capitalize
-                        }}</span>
-                        <button
-                            mat-flat-button
-                            [color]="isNew(element) ? 'accent' : 'primary'"
-                            (click)="activate(element)"
-                            *ngIf="!isActive(element)"
-                            [disabled]="!isActivable(element) || activating.has(element)"
-                            [style.width.px]="150"
+        <div fxLayout="column">
+            <div fxLayout="row" class="margin-v overflow">
+                <natural-search
+                    fxFlex
+                    [facets]="naturalSearchFacets"
+                    [selections]="naturalSearchSelections"
+                    (selectionChange)="search($event)"
+                    [multipleGroups]="true"
+                />
+            </div>
+            <div class="responsive-table">
+                <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting([$event])">
+                    <tr mat-header-row *matHeaderRowDef="columnsForTable"></tr>
+                    <tr mat-row *matRowDef="let row; columns: columnsForTable"></tr>
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="lastName">Nom</th>
+                        <td mat-cell *matCellDef="let element">
+                            <div fxLayout="row" fxLayoutAlign="start center">
+                                <natural-avatar
+                                    [initials]="element.name"
+                                    [gravatar]="element.email"
+                                    [size]="36"
+                                ></natural-avatar>
+                                <natural-table-button
+                                    [label]="element.name"
+                                    [navigate]="['/admin/user', element.id]"
+                                    matTooltip="Éditer"
+                                ></natural-table-button>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="login">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Login</th>
+                        <td mat-cell *matCellDef="let element">{{ element.login }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="age">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Âge</th>
+                        <td mat-cell *matCellDef="let element">{{ element.age }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="role">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Rôle</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{ element.role | enum: 'UserRole' | async | capitalize }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="owner">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Chef de famille</th>
+                        <td mat-cell *matCellDef="let element">{{ element.owner?.name }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="status">
+                        <th
+                            mat-header-cell
+                            *matHeaderCellDef
+                            mat-sort-header
+                            class="app-date-column"
+                            natural-align-center
                         >
-                            Activer ({{ element.status | enum: 'UserStatus' | async | capitalize }})
-                        </button>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="creationDate">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Créé le</th>
-                    <td mat-cell *matCellDef="let element">
-                        {{ element.creationDate | swissDate }}
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="updateDate">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Modifié le</th>
-                    <td mat-cell *matCellDef="let element">
-                        {{ element.updateDate | swissDate }}
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="flagWelcomeSessionDate">
-                    <th mat-header-cell *matHeaderCellDef natural-7em-column>Accueil</th>
-                    <td mat-cell *matCellDef="let element">
-                        <button
-                            mat-flat-button
-                            color="primary"
-                            *ngIf="!element.welcomeSessionDate"
-                            [disabled]="welcoming.has(element)"
-                            (click)="flagWelcomeSessionDate(element)"
+                            Status
+                        </th>
+                        <td
+                            mat-cell
+                            *matCellDef="let element"
+                            natural-align-center
+                            [matTooltipDisabled]="isActive(element) || isActivable(element)"
+                            matTooltip="Le nom et le login doivent être renseignés pour activer un utilisateur"
                         >
-                            A participé
-                        </button>
-                        <span *ngIf="element.welcomeSessionDate">{{
-                            element.welcomeSessionDate | date: 'dd.MM.y'
-                        }}</span>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="resignDate">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="app-date-column">Date démission</th>
-                    <td mat-cell *matCellDef="let element">{{ element.resignDate | date: 'dd.MM.y' }}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="balance">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header natural-6em-column>Solde</th>
-                    <td mat-cell *matCellDef="let element">
-                        <app-money
-                            [showCurrency]="false"
-                            [showSignal]="true"
-                            [amount]="element.account?.balance"
-                        ></app-money>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="mobilePhone">
-                    <th mat-header-cell *matHeaderCellDef>Tél.</th>
-                    <td mat-cell *matCellDef="let element">{{ element.mobilePhone }}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="email">
-                    <th mat-header-cell *matHeaderCellDef>e-mail</th>
-                    <td mat-cell *matCellDef="let element">{{ element.email }}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="provision">
-                    <th mat-header-cell *matHeaderCellDef app-date-column natural-align-center>Versement</th>
-                    <td mat-cell *matCellDef="let element" natural-align-center>
-                        <button mat-flat-button (click)="showProvision(element)">Faire un versement</button>
-                    </td>
-                </ng-container>
-            </table>
+                            @if (isActive(element)) {
+                                <span>{{ element.status | enum: 'UserStatus' | async | capitalize }}</span>
+                            }
+                            @if (!isActive(element)) {
+                                <button
+                                    mat-flat-button
+                                    [color]="isNew(element) ? 'accent' : 'primary'"
+                                    (click)="activate(element)"
+                                    [disabled]="!isActivable(element) || activating.has(element)"
+                                    [style.width.px]="150"
+                                >
+                                    Activer ({{ element.status | enum: 'UserStatus' | async | capitalize }})
+                                </button>
+                            }
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="creationDate">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Créé le</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{ element.creationDate | swissDate }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="updateDate">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Modifié le</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{ element.updateDate | swissDate }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="flagWelcomeSessionDate">
+                        <th mat-header-cell *matHeaderCellDef natural-7em-column>Accueil</th>
+                        <td mat-cell *matCellDef="let element">
+                            @if (!element.welcomeSessionDate) {
+                                <button
+                                    mat-flat-button
+                                    color="primary"
+                                    [disabled]="welcoming.has(element)"
+                                    (click)="flagWelcomeSessionDate(element)"
+                                >
+                                    A participé
+                                </button>
+                            }
+                            @if (element.welcomeSessionDate) {
+                                <span>{{ element.welcomeSessionDate | date: 'dd.MM.y' }}</span>
+                            }
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="resignDate">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="app-date-column">
+                            Date démission
+                        </th>
+                        <td mat-cell *matCellDef="let element">{{ element.resignDate | date: 'dd.MM.y' }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="balance">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header natural-6em-column>Solde</th>
+                        <td mat-cell *matCellDef="let element">
+                            <app-money
+                                [showCurrency]="false"
+                                [showSignal]="true"
+                                [amount]="element.account?.balance"
+                            ></app-money>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="mobilePhone">
+                        <th mat-header-cell *matHeaderCellDef>Tél.</th>
+                        <td mat-cell *matCellDef="let element">{{ element.mobilePhone }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="email">
+                        <th mat-header-cell *matHeaderCellDef>e-mail</th>
+                        <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="provision">
+                        <th mat-header-cell *matHeaderCellDef app-date-column natural-align-center>Versement</th>
+                        <td mat-cell *matCellDef="let element" natural-align-center>
+                            <button mat-flat-button (click)="showProvision(element)">Faire un versement</button>
+                        </td>
+                    </ng-container>
+                </table>
+            </div>
+            @if (dataSource.data?.length === 0) {
+                <div fxLayout="column" fxLayoutAlign="center center" class="margin">
+                    <div>Pas de résultats</div>
+                </div>
+            }
+            @if (!dataSource.data) {
+                <div fxLayout="column" fxLayoutAlign="center center" class="margin">
+                    <mat-progress-spinner mode="indeterminate" [diameter]="40"></mat-progress-spinner>
+                </div>
+            }
+            @if (dataSource.data?.length) {
+                <mat-paginator
+                    [length]="dataSource.data?.length"
+                    [pageSize]="dataSource.data?.pageSize"
+                    [pageIndex]="dataSource.data?.pageIndex"
+                    [pageSizeOptions]="pageSizeOptions"
+                    (page)="pagination($event)"
+                ></mat-paginator>
+            }
         </div>
-
-        <div fxLayout="column" fxLayoutAlign="center center" class="margin" *ngIf="dataSource.data?.length === 0">
-            <div>Pas de résultats</div>
-        </div>
-
-        <div fxLayout="column" fxLayoutAlign="center center" class="margin" *ngIf="!dataSource?.data">
-            <mat-progress-spinner mode="indeterminate" [diameter]="40"></mat-progress-spinner>
-        </div>
-
-        <mat-paginator
-            *ngIf="dataSource.data?.length"
-            [length]="dataSource.data?.length"
-            [pageSize]="dataSource.data?.pageSize"
-            [pageIndex]="dataSource.data?.pageIndex"
-            [pageSizeOptions]="pageSizeOptions"
-            (page)="pagination($event)"
-        ></mat-paginator>
     </div>
-</div>
+}
 
-<natural-fixed-button
-    [routerLink]="['/admin/user/new']"
-    icon="add"
-    *ngIf="permissionsService.crud?.user.create"
-></natural-fixed-button>
+@if (permissionsService.crud?.user.create) {
+    <natural-fixed-button [routerLink]="['/admin/user/new']" icon="add"></natural-fixed-button>
+}

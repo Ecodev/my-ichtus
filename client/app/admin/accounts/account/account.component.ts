@@ -17,7 +17,7 @@ import {groupAccountHierarchicConfiguration} from '../../../shared/hierarchic-se
 import {friendlyFormatIBAN} from 'ibantools';
 import {IbanPipe} from '../../../shared/pipes/iban.pipe';
 import {MatDividerModule} from '@angular/material/divider';
-import {CommonModule} from '@angular/common';
+
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
@@ -47,7 +47,6 @@ import {AccountType} from '../../../shared/generated-types';
         MatButtonModule,
         MatIconModule,
         NaturalIconDirective,
-        CommonModule,
         NaturalSelectHierarchicComponent,
         NaturalSelectEnumComponent,
         NaturalSelectComponent,

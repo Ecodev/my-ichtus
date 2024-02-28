@@ -2,7 +2,9 @@
     <mat-form-field>
         <mat-label>Rue</mat-label>
         <input matInput formControlName="street" (change)="update()" />
-        <mat-error *ngIf="form.get('street')?.hasError('required')">Requis</mat-error>
+        @if (form.get('street')?.hasError('required')) {
+            <mat-error>Requis</mat-error>
+        }
     </mat-form-field>
 
     <div
@@ -14,13 +16,17 @@
             <mat-form-field [style.width.px]="120">
                 <mat-label>Code postal</mat-label>
                 <input matInput formControlName="postcode" (change)="update()" />
-                <mat-error *ngIf="form.get('postcode')?.hasError('required')">Requis</mat-error>
+                @if (form.get('postcode')?.hasError('required')) {
+                    <mat-error>Requis</mat-error>
+                }
             </mat-form-field>
 
             <mat-form-field fxFlex>
                 <mat-label>Localité</mat-label>
                 <input matInput formControlName="locality" (change)="update()" />
-                <mat-error *ngIf="form.get('locality')?.hasError('required')">Requis</mat-error>
+                @if (form.get('locality')?.hasError('required')) {
+                    <mat-error>Requis</mat-error>
+                }
             </mat-form-field>
         </div>
 

@@ -46,7 +46,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatButtonModule} from '@angular/material/button';
-import {CommonModule} from '@angular/common';
+
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
@@ -60,7 +60,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         ReactiveFormsModule,
         NaturalDetailHeaderComponent,
         FlexModule,
-        CommonModule,
         MatButtonModule,
         MatTabsModule,
         NaturalLinkableTabDirective,

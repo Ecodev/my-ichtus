@@ -1,8 +1,8 @@
 <div style="margin-right: 3px">
     <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px" class="margin-bottom">
-        <div class="mat-headline-4" fxFlex i18n>Données personnelles du ménage</div>
+        <div class="mat-headline-4" fxFlex>Données personnelles du ménage</div>
         <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="10px">
-            <button mat-stroked-button routerLink="/user/request-password-reset" i18n>Changer de mot de passe</button>
+            <button mat-stroked-button routerLink="/user/request-password-reset">Changer de mot de passe</button>
             <button
                 mat-stroked-button
                 color="warn"
@@ -15,28 +15,24 @@
     </div>
 
     <mat-accordion>
-        <mat-expansion-panel
-            *ngFor="let familyMember of familyMembers; let i = index"
-            (afterExpand)="activeMember = familyMember"
-            (closed)="activeMember = null"
-        >
-            <mat-expansion-panel-header>
-                <mat-panel-title> {{ familyMember?.name || 'Nouveau' }}</mat-panel-title>
-            </mat-expansion-panel-header>
-            <app-family-member
-                [user]="familyMember"
-                [readonly]="!canEdit(familyMember)"
-                [viewer]="viewer"
-                (created)="reload()"
-                (removed)="reload()"
-                (updated)="refreshMember(i, $event)"
-            ></app-family-member>
-        </mat-expansion-panel>
+        @for (familyMember of familyMembers; track familyMember; let i = $index) {
+            <mat-expansion-panel (afterExpand)="activeMember = familyMember" (closed)="activeMember = null">
+                <mat-expansion-panel-header>
+                    <mat-panel-title> {{ familyMember?.name || 'Nouveau' }}</mat-panel-title>
+                </mat-expansion-panel-header>
+                <app-family-member
+                    [user]="familyMember"
+                    [readonly]="!canEdit(familyMember)"
+                    [viewer]="viewer"
+                    (created)="reload()"
+                    (removed)="reload()"
+                    (updated)="refreshMember(i, $event)"
+                ></app-family-member>
+            </mat-expansion-panel>
+        }
     </mat-accordion>
 </div>
 
-<natural-fixed-button
-    (click)="add()"
-    icon="add"
-    *ngIf="(activeMember === null || activeMember?.id) && canEdit() && permissionsService.crud?.user.create"
-></natural-fixed-button>
+@if ((activeMember === null || activeMember.id) && canEdit() && permissionsService.crud?.user.create) {
+    <natural-fixed-button (click)="add()" icon="add"></natural-fixed-button>
+}

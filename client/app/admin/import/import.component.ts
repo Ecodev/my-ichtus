@@ -11,7 +11,7 @@ import {
     NaturalSeoResolveData,
     toUrl,
 } from '@ecodev/natural';
-import {CommonModule} from '@angular/common';
+
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
@@ -21,14 +21,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
     templateUrl: './import.component.html',
     styleUrls: ['./import.component.scss'],
     standalone: true,
-    imports: [
-        FlexModule,
-        MatButtonModule,
-        NaturalFileSelectDirective,
-        MatIconModule,
-        NaturalIconDirective,
-        CommonModule,
-    ],
+    imports: [FlexModule, MatButtonModule, NaturalFileSelectDirective, MatIconModule, NaturalIconDirective],
 })
 export class ImportComponent implements OnInit {
     /**

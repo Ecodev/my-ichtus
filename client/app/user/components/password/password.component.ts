@@ -9,7 +9,7 @@ import {
     ReactiveFormsModule,
 } from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
-import {CommonModule} from '@angular/common';
+
 import {NaturalIconDirective} from '@ecodev/natural';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
@@ -50,7 +50,6 @@ class ConfirmPasswordStateMatcher implements ErrorStateMatcher {
         MatInputModule,
         MatIconModule,
         NaturalIconDirective,
-        CommonModule,
     ],
 })
 export class PasswordComponent implements OnInit {

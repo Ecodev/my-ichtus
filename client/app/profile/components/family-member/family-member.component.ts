@@ -19,7 +19,6 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-family-member',
@@ -27,7 +26,6 @@ import {CommonModule} from '@angular/common';
     styleUrls: ['./family-member.component.scss'],
     standalone: true,
     imports: [
-        CommonModule,
         FormsModule,
         ReactiveFormsModule,
         FlexModule,

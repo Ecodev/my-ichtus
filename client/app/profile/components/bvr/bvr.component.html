@@ -1,45 +1,56 @@
 <div fxLayout="column" fxLayoutGap="5px">
-    <div *ngIf="!bankingInfos" class="margin" fxLayout="column" fxLayoutAlign="center center">
-        <mat-progress-spinner [diameter]="40" mode="indeterminate"></mat-progress-spinner>
-    </div>
-    <div *ngIf="bankingInfos" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around center">
-        <img *ngIf="bankingInfos.qrCode" alt="QR code" class="qrCode" [attr.src]="bankingInfos.qrCode" />
-        <div fxLayout="column" fxLayoutGap="5px">
-            <div>
-                <div class="mat-subtitle-2">Compte (IBAN)</div>
-                <div class="mat-body-2" style="white-space: pre-line">
-                    {{ bankingInfos.iban | iban }}
-                    <button
-                        *ngIf="bankingInfos.iban"
-                        mat-icon-button
-                        (click)="copyToClipboard(bankingInfos.iban)"
-                        matTooltip="Copier le IBAN"
-                    >
-                        <mat-icon naturalIcon="content_copy"></mat-icon>
-                    </button>
+    @if (!bankingInfos) {
+        <div class="margin" fxLayout="column" fxLayoutAlign="center center">
+            <mat-progress-spinner [diameter]="40" mode="indeterminate"></mat-progress-spinner>
+        </div>
+    }
+    @if (bankingInfos) {
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around center">
+            @if (bankingInfos.qrCode) {
+                <img alt="QR code" class="qrCode" [attr.src]="bankingInfos.qrCode" />
+            }
+            <div fxLayout="column" fxLayoutGap="5px">
+                <div>
+                    <div class="mat-subtitle-2">Compte (IBAN)</div>
+                    <div class="mat-body-2" style="white-space: pre-line">
+                        {{ bankingInfos.iban | iban }}
+                        @if (bankingInfos.iban) {
+                            <button
+                                mat-icon-button
+                                (click)="copyToClipboard(bankingInfos.iban)"
+                                matTooltip="Copier le IBAN"
+                            >
+                                <mat-icon naturalIcon="content_copy"></mat-icon>
+                            </button>
+                        }
+                    </div>
                 </div>
-            </div>
-            <div>
-                <div class="mat-subtitle-2">Référence :</div>
-                <div class="mat-body-2">
-                    {{ bankingInfos.referenceNumber }}
-                    <button
-                        *ngIf="bankingInfos.iban"
-                        mat-icon-button
-                        (click)="copyToClipboard(bankingInfos.referenceNumber)"
-                        matTooltip="Copier le numéro de référence"
-                    >
-                        <mat-icon naturalIcon="content_copy"></mat-icon>
-                    </button>
+                <div>
+                    <div class="mat-subtitle-2">Référence :</div>
+                    <div class="mat-body-2">
+                        {{ bankingInfos.referenceNumber }}
+                        @if (bankingInfos.iban) {
+                            <button
+                                mat-icon-button
+                                (click)="copyToClipboard(bankingInfos.referenceNumber)"
+                                matTooltip="Copier le numéro de référence"
+                            >
+                                <mat-icon naturalIcon="content_copy"></mat-icon>
+                            </button>
+                        }
+                    </div>
                 </div>
-            </div>
-            <div>
-                <div class="mat-subtitle-2">Payable à</div>
-                <div class="mat-body-2" style="white-space: pre-line">{{ bankingInfos.paymentFor }}</div>
+                <div>
+                    <div class="mat-subtitle-2">Payable à</div>
+                    <div class="mat-body-2" style="white-space: pre-line">{{ bankingInfos.paymentFor }}</div>
+                </div>
             </div>
         </div>
-    </div>
+    }
 </div>
-<p class="mat-body" *ngIf="bankingInfos">
-    Les paiements effectués au travers d'un e-banking peuvent mettre plusieurs jours à être crédités sur votre solde.
-</p>
+@if (bankingInfos) {
+    <p class="mat-body">
+        Les paiements effectués au travers d'un e-banking peuvent mettre plusieurs jours à être crédités sur votre
+        solde.
+    </p>
+}

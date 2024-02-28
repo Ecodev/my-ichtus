@@ -14,34 +14,40 @@
                         <mat-form-field>
                             <input matInput formControlName="name" (change)="update()" />
                             <mat-label>Nom</mat-label>
-                            <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
-                                Maximum {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
-                            </mat-error>
-                            <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
-                            <mat-error *ngIf="form.get('name')?.hasError('duplicateValue')"
-                                >Ce tag existe déjà</mat-error
-                            >
+                            @if (form.get('name')?.hasError('maxlength')) {
+                                <mat-error>
+                                    Maximum {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
+                                </mat-error>
+                            }
+                            @if (form.get('name')?.hasError('required')) {
+                                <mat-error>Requis</mat-error>
+                            }
+                            @if (form.get('name')?.hasError('duplicateValue')) {
+                                <mat-error>Ce tag existe déjà</mat-error>
+                            }
                         </mat-form-field>
 
-                        <div *ngIf="isUpdatePage()">
-                            <h2 class="mat-headline-6">Utilisateurs tagués</h2>
-                            <natural-relations
-                                [main]="data.model"
-                                [service]="userService"
-                                [filter]="{groups: [{conditions: [{userTags: {have: {values: [data.model.id]}}}]}]}"
-                                [disabled]="!data.model.permissions.update"
-                                placeholder="Taguer un utilisateur"
-                            >
-                                <ng-template let-item="item">
-                                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-                                        <natural-table-button
-                                            [navigate]="['/admin/user/', item.id]"
-                                            [label]="item.name"
-                                        ></natural-table-button>
-                                    </div>
-                                </ng-template>
-                            </natural-relations>
-                        </div>
+                        @if (isUpdatePage()) {
+                            <div>
+                                <h2 class="mat-headline-6">Utilisateurs tagués</h2>
+                                <natural-relations
+                                    [main]="data.model"
+                                    [service]="userService"
+                                    [filter]="{groups: [{conditions: [{userTags: {have: {values: [data.model.id]}}}]}]}"
+                                    [disabled]="!data.model.permissions.update"
+                                    placeholder="Taguer un utilisateur"
+                                >
+                                    <ng-template let-item="item">
+                                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                                            <natural-table-button
+                                                [navigate]="['/admin/user/', item.id]"
+                                                [label]="item.name"
+                                            ></natural-table-button>
+                                        </div>
+                                    </ng-template>
+                                </natural-relations>
+                            </div>
+                        }
                     </div>
 
                     <div fxFlex="33" fxLayout="column">
@@ -55,16 +61,19 @@
                     </div>
                 </div>
 
-                <natural-stamp *ngIf="isUpdatePage()" [item]="data.model"></natural-stamp>
+                @if (isUpdatePage()) {
+                    <natural-stamp [item]="data.model"></natural-stamp>
+                }
             </div>
         </mat-tab>
     </mat-tab-group>
 
-    <natural-fixed-button-detail
-        *ngIf="showFabButton"
-        [form]="form"
-        [model]="data.model"
-        (create)="create()"
-        (delete)="delete()"
-    ></natural-fixed-button-detail>
+    @if (showFabButton) {
+        <natural-fixed-button-detail
+            [form]="form"
+            [model]="data.model"
+            (create)="create()"
+            (delete)="delete()"
+        ></natural-fixed-button-detail>
+    }
 </div>

@@ -5,12 +5,9 @@
         [model]="data.model"
         [listRoute]="['admin', 'transaction-line']"
     >
-        <app-money
-            *ngIf="isUpdatePage()"
-            [amount]="data.model.balance"
-            [showSignal]="false"
-            sizeClass="mat-headline-4"
-        ></app-money>
+        @if (isUpdatePage()) {
+            <app-money [amount]="data.model.balance" [showSignal]="false" sizeClass="mat-headline-4"></app-money>
+        }
     </natural-detail-header>
 
     <mat-tab-group naturalLinkableTab [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
@@ -21,10 +18,14 @@
                         <mat-form-field>
                             <mat-label>Nom</mat-label>
                             <input matInput formControlName="name" />
-                            <mat-error *ngIf="form.get('name')?.hasError('maxlength')">
-                                Maximum {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
-                            </mat-error>
-                            <mat-error *ngIf="form.get('name')?.hasError('required')">Requis</mat-error>
+                            @if (form.get('name')?.hasError('maxlength')) {
+                                <mat-error>
+                                    Maximum {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
+                                </mat-error>
+                            }
+                            @if (form.get('name')?.hasError('required')) {
+                                <mat-error>Requis</mat-error>
+                            }
                         </mat-form-field>
 
                         <div fxLayout="column" fxLayoutGap="10px">
@@ -35,9 +36,9 @@
                                         <input matInput formControlName="transactionDate" [matDatepicker]="picker2" />
                                         <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
                                         <mat-datepicker #picker2></mat-datepicker>
-                                        <mat-error *ngIf="form.get('transactionDate')?.hasError('required')"
-                                            >Requis</mat-error
-                                        >
+                                        @if (form.get('transactionDate')?.hasError('required')) {
+                                            <mat-error>Requis</mat-error>
+                                        }
                                     </mat-form-field>
                                 </div>
                                 <div fxFlex="50" fxLayout="column">
@@ -74,112 +75,111 @@
                     </div>
                 </div>
 
-                <mat-divider *ngIf="data.model.expenseClaim"></mat-divider>
-                <div *ngIf="data.model.expenseClaim">
-                    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="margin-bottom">
-                        <div class="mat-headline-6 no-margin-bottom">
-                            <span *ngIf="data.model.expenseClaim.type === ExpenseClaimType.refund"
-                                >Demande de remboursement</span
-                            >
-                            <span *ngIf="data.model.expenseClaim.type === ExpenseClaimType.expenseClaim"
-                                >Annonce de dépense</span
-                            >
-                            <span *ngIf="data.model.expenseClaim.type === ExpenseClaimType.invoice"
-                                >Facture à payer</span
+                @if (data.model.expenseClaim) {
+                    <mat-divider></mat-divider>
+                }
+                @if (data.model.expenseClaim) {
+                    <div>
+                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="margin-bottom">
+                            <div class="mat-headline-6 no-margin-bottom">
+                                @if (data.model.expenseClaim.type === ExpenseClaimType.refund) {
+                                    <span>Demande de remboursement</span>
+                                }
+                                @if (data.model.expenseClaim.type === ExpenseClaimType.expenseClaim) {
+                                    <span>Annonce de dépense</span>
+                                }
+                                @if (data.model.expenseClaim.type === ExpenseClaimType.invoice) {
+                                    <span>Facture à payer</span>
+                                }
+                            </div>
+                            <a mat-stroked-button [routerLink]="['/admin/expense-claim', data.model.expenseClaim.id]"
+                                >Voir la demande</a
                             >
                         </div>
-
-                        <a mat-stroked-button [routerLink]="['/admin/expense-claim', data.model.expenseClaim.id]"
-                            >Voir la demande</a
-                        >
+                        <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="20px">
+                            <div fxLayout="column" fxLayoutGap="7px" style="max-width: 300px">
+                                <div class="mat-subtitle-2">{{ data.model.expenseClaim.name }}</div>
+                                @if (data.model.expenseClaim.description) {
+                                    <div>
+                                        <span class="mat-subtitle-2">Description :</span>
+                                        {{ data.model.expenseClaim.description }}
+                                    </div>
+                                }
+                            </div>
+                            <div fxLayout="column" fxLayoutGap="7px" style="max-width: 300px">
+                                <div>
+                                    <span class="mat-subtitle-2">Montant :</span>
+                                    {{ data.model.expenseClaim.amount | currency: 'CHF' }}
+                                </div>
+                                <div>
+                                    <span class="mat-subtitle-2">Membre :</span>
+                                    {{ data.model.expenseClaim.owner.name }}
+                                </div>
+                                @if (data.model.expenseClaim.sector) {
+                                    <div>
+                                        <span class="mat-subtitle-2">Secteur :</span>
+                                        {{ data.model.expenseClaim.sector }}
+                                    </div>
+                                }
+                                @if (data.model.expenseClaim.reviewer) {
+                                    <div>
+                                        <span class="mat-subtitle-2">Approuvé par :</span>
+                                        {{ data.model.expenseClaim.reviewer.name }}
+                                    </div>
+                                }
+                            </div>
+                            <app-accounting-documents
+                                [disabled]="true"
+                                [canRemove]="userService.canDeleteAccountingDocument(viewer)"
+                                [model]="data.model.expenseClaim"
+                                [fileHeight]="150"
+                                [fileWidth]="200"
+                            ></app-accounting-documents>
+                        </div>
                     </div>
-
-                    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="20px">
-                        <div fxLayout="column" fxLayoutGap="7px" style="max-width: 300px">
-                            <div class="mat-subtitle-2">{{ data.model.expenseClaim.name }}</div>
-                            <div *ngIf="data.model.expenseClaim.description">
-                                <span class="mat-subtitle-2">Description :</span>
-                                {{ data.model.expenseClaim.description }}
-                            </div>
-                        </div>
-
-                        <div fxLayout="column" fxLayoutGap="7px" style="max-width: 300px">
-                            <div>
-                                <span class="mat-subtitle-2">Montant :</span>
-                                {{ data.model.expenseClaim.amount | currency: 'CHF' }}
-                            </div>
-                            <div>
-                                <span class="mat-subtitle-2">Membre :</span>
-                                {{ data.model.expenseClaim.owner.name }}
-                            </div>
-                            <div *ngIf="data.model.expenseClaim.sector">
-                                <span class="mat-subtitle-2">Secteur :</span>
-                                {{ data.model.expenseClaim.sector }}
-                            </div>
-                            <div *ngIf="data.model.expenseClaim.reviewer">
-                                <span class="mat-subtitle-2">Approuvé par :</span>
-                                {{ data.model.expenseClaim.reviewer.name }}
-                            </div>
-                        </div>
-
-                        <app-accounting-documents
-                            [disabled]="true"
-                            [canRemove]="userService.canDeleteAccountingDocument(viewer)"
-                            [model]="data.model.expenseClaim"
-                            [fileHeight]="150"
-                            [fileWidth]="200"
-                        ></app-accounting-documents>
-                    </div>
-                </div>
+                }
 
                 <!-- TODO : add selectors for ExpenseClaim -->
                 <mat-divider></mat-divider>
                 <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
                     <h2 class="mat-headline-6 no-margin-bottom no-margin-top">Écritures</h2>
-                    <div *ngIf="userService.canUpdateTransaction(viewer)">
-                        <button
-                            mat-stroked-button
-                            (click)="updateTransactionLines = true"
-                            *ngIf="!(updateTransactionLines || !isUpdatePage())"
-                        >
-                            Éditer
-                        </button>
-                        <button
-                            mat-stroked-button
-                            (click)="updateTransactionLines = false"
-                            *ngIf="updateTransactionLines && isUpdatePage()"
-                        >
-                            Annuler
-                        </button>
-                        <button
-                            mat-flat-button
-                            color="primary"
-                            (click)="transactionLinesComponent.addEmpty()"
-                            *ngIf="updateTransactionLines"
-                        >
-                            Ajouter une écriture
-                        </button>
-                    </div>
+                    @if (userService.canUpdateTransaction(viewer)) {
+                        <div>
+                            @if (!(updateTransactionLines || !isUpdatePage())) {
+                                <button mat-stroked-button (click)="updateTransactionLines = true">Éditer</button>
+                            }
+                            @if (updateTransactionLines && isUpdatePage()) {
+                                <button mat-stroked-button (click)="updateTransactionLines = false">Annuler</button>
+                            }
+                            @if (updateTransactionLines) {
+                                <button mat-flat-button color="primary" (click)="transactionLinesComponent.addEmpty()">
+                                    Ajouter une écriture
+                                </button>
+                            }
+                        </div>
+                    }
                 </div>
 
-                <div *ngIf="!updateTransactionLines && isUpdatePage()">
-                    <app-transaction-lines
-                        [persistSearch]="false"
-                        [forcedVariables]="{
-                            filter: {groups: [{conditions: [{transaction: {equal: {value: data.model.id}}}]}]}
-                        }"
-                        [selectedColumns]="[
-                            'transactionDate',
-                            'name',
-                            'remarks',
-                            'balance',
-                            'account',
-                            'isReconciled',
-                            'tag'
-                        ]"
-                        [hideFab]="true"
-                    ></app-transaction-lines>
-                </div>
+                @if (!updateTransactionLines && isUpdatePage()) {
+                    <div>
+                        <app-transaction-lines
+                            [persistSearch]="false"
+                            [forcedVariables]="{
+                                filter: {groups: [{conditions: [{transaction: {equal: {value: data.model.id}}}]}]}
+                            }"
+                            [selectedColumns]="[
+                                'transactionDate',
+                                'name',
+                                'remarks',
+                                'balance',
+                                'account',
+                                'isReconciled',
+                                'tag'
+                            ]"
+                            [hideFab]="true"
+                        ></app-transaction-lines>
+                    </div>
+                }
 
                 <app-editable-transaction-lines
                     [hidden]="!updateTransactionLines"
@@ -197,49 +197,53 @@
 
                 <mat-divider></mat-divider>
 
-                <natural-stamp *ngIf="isUpdatePage()" [item]="data.model"></natural-stamp>
+                @if (isUpdatePage()) {
+                    <natural-stamp [item]="data.model"></natural-stamp>
+                }
             </div>
         </mat-tab>
     </mat-tab-group>
 
-    <natural-fixed-button
-        *ngIf="!isUpdatePage() && userService.canUpdateTransaction(viewer)"
-        class="detail-speed-dial"
-        (click)="save()"
-        icon="save"
-        matTooltip="Enregistrer"
-        matTooltipPosition="left"
-        [color]="form.valid ? 'accent' : 'warn'"
-    ></natural-fixed-button>
+    @if (!isUpdatePage() && userService.canUpdateTransaction(viewer)) {
+        <natural-fixed-button
+            class="detail-speed-dial"
+            (click)="save()"
+            icon="save"
+            matTooltip="Enregistrer"
+            matTooltipPosition="left"
+            [color]="form.valid ? 'accent' : 'warn'"
+        ></natural-fixed-button>
+    }
 
-    <eco-fab-speed-dial class="detail-speed-dial" *ngIf="isUpdatePage() && userService.canUpdateTransaction(viewer)">
-        <eco-fab-speed-dial-trigger>
-            <button mat-fab>
-                <mat-icon naturalIcon="more_vert"></mat-icon>
-            </button>
-        </eco-fab-speed-dial-trigger>
-
-        <eco-fab-speed-dial-actions>
-            <button mat-mini-fab (click)="save()" matTooltip="Enregistrer" matTooltipPosition="left">
-                <mat-icon naturalIcon="save"></mat-icon>
-            </button>
-            <button
-                mat-mini-fab
-                [routerLink]="['../new', {duplicate: data.model.id}]"
-                matTooltip="Dupliquer ..."
-                matTooltipPosition="left"
-            >
-                <mat-icon naturalIcon="content_copy"></mat-icon>
-            </button>
-            <button
-                mat-mini-fab
-                (click)="delete()"
-                color="warn"
-                matTooltip="Supprimer définitivement"
-                matTooltipPosition="left"
-            >
-                <mat-icon naturalIcon="delete_forever"></mat-icon>
-            </button>
-        </eco-fab-speed-dial-actions>
-    </eco-fab-speed-dial>
+    @if (isUpdatePage() && userService.canUpdateTransaction(viewer)) {
+        <eco-fab-speed-dial class="detail-speed-dial">
+            <eco-fab-speed-dial-trigger>
+                <button mat-fab>
+                    <mat-icon naturalIcon="more_vert"></mat-icon>
+                </button>
+            </eco-fab-speed-dial-trigger>
+            <eco-fab-speed-dial-actions>
+                <button mat-mini-fab (click)="save()" matTooltip="Enregistrer" matTooltipPosition="left">
+                    <mat-icon naturalIcon="save"></mat-icon>
+                </button>
+                <button
+                    mat-mini-fab
+                    [routerLink]="['../new', {duplicate: data.model.id}]"
+                    matTooltip="Dupliquer ..."
+                    matTooltipPosition="left"
+                >
+                    <mat-icon naturalIcon="content_copy"></mat-icon>
+                </button>
+                <button
+                    mat-mini-fab
+                    (click)="delete()"
+                    color="warn"
+                    matTooltip="Supprimer définitivement"
+                    matTooltipPosition="left"
+                >
+                    <mat-icon naturalIcon="delete_forever"></mat-icon>
+                </button>
+            </eco-fab-speed-dial-actions>
+        </eco-fab-speed-dial>
+    }
 </div>
