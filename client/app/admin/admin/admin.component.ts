@@ -4,7 +4,6 @@ import {ActivatedRoute, NavigationEnd, Router, RouterLinkActive, RouterLink, Rou
 import {UserRole} from '../../shared/generated-types';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MatListModule} from '@angular/material/list';
-
 import {MatExpansionModule} from '@angular/material/expansion';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 import {

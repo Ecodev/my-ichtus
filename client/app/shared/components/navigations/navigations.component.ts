@@ -38,7 +38,6 @@ import {MatDividerModule} from '@angular/material/divider';
 import {RouterLink} from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
 import {CardComponent} from '../card/card.component';
-
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 type Extended = {

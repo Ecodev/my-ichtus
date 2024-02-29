@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {BootLoaderComponent} from './shared/components/boot-loader/boot-loader.component';
-
 import {RouterOutlet} from '@angular/router';
 import {NgProgressComponent} from 'ngx-progressbar';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';

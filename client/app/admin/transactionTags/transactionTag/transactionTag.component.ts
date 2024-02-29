@@ -8,7 +8,6 @@ import {
     NaturalSeoResolveData,
 } from '@ecodev/natural';
 import {TransactionTagService} from '../services/transactionTag.service';
-
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';

@@ -12,7 +12,6 @@ import {FileModel, WithId, NaturalFileComponent, NaturalIconDirective} from '@ec
 import {tap} from 'rxjs/operators';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({

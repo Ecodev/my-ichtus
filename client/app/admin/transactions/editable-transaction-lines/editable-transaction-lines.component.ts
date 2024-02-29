@@ -20,7 +20,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTableModule} from '@angular/material/table';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
-
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 export type EditableTransactionLinesInput =

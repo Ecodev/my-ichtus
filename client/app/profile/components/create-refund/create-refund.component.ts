@@ -4,7 +4,6 @@ import {NonNullableFormBuilder, FormsModule, ReactiveFormsModule, Validators} fr
 import {money} from '@ecodev/natural';
 import {MatButtonModule} from '@angular/material/button';
 import {TextFieldModule} from '@angular/cdk/text-field';
-
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 

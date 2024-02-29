@@ -7,7 +7,6 @@ import {CurrentUserForProfile} from '../shared/generated-types';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {CardComponent} from '../shared/components/card/card.component';
-
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({

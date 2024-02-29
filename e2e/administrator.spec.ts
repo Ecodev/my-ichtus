@@ -1,5 +1,4 @@
 import {expect, test} from '@playwright/test';
-
 import {AppPage} from './app.po';
 import {bigButton, formControlName, menu, menuCategory, runSql} from './utils';
 

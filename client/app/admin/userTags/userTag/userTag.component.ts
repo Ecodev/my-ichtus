@@ -11,7 +11,6 @@ import {
 } from '@ecodev/natural';
 import {UserTagService} from '../services/userTag.service';
 import {UserService} from '../../users/services/user.service';
-
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
