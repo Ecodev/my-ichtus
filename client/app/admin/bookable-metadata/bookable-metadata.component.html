@@ -2,6 +2,7 @@
     <div class="responsive-table">
         <table mat-table [dataSource]="dataSource">
             <tr mat-row *matRowDef="let row; columns: columns"></tr>
+
             <ng-container matColumnDef="name">
                 <td mat-cell *matCellDef="let element">
                     @if (edit) {
@@ -17,6 +18,7 @@
                     }
                 </td>
             </ng-container>
+
             <ng-container matColumnDef="value">
                 <td mat-cell *matCellDef="let element">
                     @if (edit) {
@@ -34,6 +36,7 @@
                     }
                 </td>
             </ng-container>
+
             <ng-container matColumnDef="delete">
                 <th mat-header-cell *matHeaderCellDef natural-1em-column></th>
                 <td mat-cell *matCellDef="let element">

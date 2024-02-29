@@ -19,6 +19,7 @@
             <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting([$event])">
                 <tr mat-header-row *matHeaderRowDef="columnsForTable"></tr>
                 <tr mat-row *matRowDef="let row; columns: columnsForTable"></tr>
+
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
                     <td mat-cell *matCellDef="let element">
