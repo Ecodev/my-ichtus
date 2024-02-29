@@ -73,7 +73,7 @@ export class AccountingDocumentsComponent implements OnInit {
 
     public removeFile(index: number): void {
         this.files.splice(index, 1).forEach(file => {
-            if (file && file.id) {
+            if (file?.id) {
                 this.removedFiles.push(file as WithId<FileModel>);
             }
         });
@@ -114,9 +114,9 @@ export class AccountingDocumentsComponent implements OnInit {
     }
 
     public getAction(file: FileModel | null, i: number, last: boolean): 'download' | 'upload' | null {
-        if (file && file.id) {
+        if (file?.id) {
             return 'download'; // if there is non null file, and it has ID, it's downloadable
-        } else if ((!file || !file.id) && last && !this._disabled) {
+        } else if (!file?.id && last && !this._disabled) {
             return 'upload'; // If cmp is not readonly and file is last of list (null item), allow upload
         }
 

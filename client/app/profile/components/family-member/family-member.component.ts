@@ -59,7 +59,7 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
      * Replace resolved data from router by input and server query
      */
     public override ngOnInit(): void {
-        if (this.user && this.user.id) {
+        if (this.user?.id) {
             this.service.getOne(this.user.id).subscribe(user => {
                 this.data = merge({model: this.service.getDefaultForServer()}, {model: user}, {owner: this.viewer});
                 this.setForm();

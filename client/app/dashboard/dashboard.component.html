@@ -1,7 +1,7 @@
 <div fxFlex="1 0 auto" fxLayout="column" fxLayoutGap="50px" fxLayoutAlign="center" class="padding overlfow">
     @if (route.snapshot.data.viewer) {
         <div fxLayout="row" fxLayoutAlign="center">
-            <app-navigations [user]="route.snapshot.data.viewer.model"></app-navigations>
+            <app-navigations [user]="route.snapshot.data.viewer.model" />
         </div>
     }
 
@@ -16,7 +16,7 @@
                     routerLink="/booking/by-scan"
                     class="big-button"
                 >
-                    <mat-icon naturalIcon="qr" [size]="70"></mat-icon>
+                    <mat-icon naturalIcon="qr" [size]="70" />
                     en scannant un code QR
                 </a>
                 <a
@@ -26,7 +26,7 @@
                     routerLink="/booking/by-code"
                     class="big-button"
                 >
-                    <mat-icon naturalIcon="code" [size]="70"></mat-icon>
+                    <mat-icon naturalIcon="code" [size]="70" />
                     en saisissant un code
                 </a>
                 <a
@@ -36,7 +36,7 @@
                     routerLink="/booking/new"
                     class="big-button"
                 >
-                    <mat-icon naturalIcon="own_bookable" [size]="70"></mat-icon>
+                    <mat-icon naturalIcon="own_bookable" [size]="70" />
                     avec mon propre matériel
                 </a>
             </div>
@@ -48,18 +48,18 @@
         <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="center">
             @if (permissionsService.canAccessDoor(route.snapshot.data.viewer.model)) {
                 <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="door" class="big-button">
-                    <mat-icon naturalIcon="doors" [size]="70"></mat-icon>
+                    <mat-icon naturalIcon="doors" [size]="70" />
                     Accéder au local
                 </a>
             }
 
             <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="profile" class="big-button">
-                <mat-icon naturalIcon="family" [size]="70"></mat-icon>
+                <mat-icon naturalIcon="family" [size]="70" />
                 Mon compte
             </a>
 
             <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="/support" class="big-button">
-                <mat-icon naturalIcon="support" [size]="70"></mat-icon>
+                <mat-icon naturalIcon="support" [size]="70" />
                 Guide
             </a>
 
@@ -71,7 +71,7 @@
                     [routerLink]="adminRoute | async"
                     class="big-button"
                 >
-                    <mat-icon naturalIcon="administrator" [size]="70"></mat-icon>
+                    <mat-icon naturalIcon="administrator" [size]="70" />
                     Administration
                 </a>
             }
@@ -83,7 +83,7 @@
                 (click)="userService.logout()"
                 class="big-button"
             >
-                <mat-icon naturalIcon="exit" [size]="70"></mat-icon>
+                <mat-icon naturalIcon="exit" [size]="70" />
                 Déconnexion
             </a>
         </div>

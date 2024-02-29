@@ -14,7 +14,7 @@
             (fileChange)="uploadFile($event)"
             [disabled]="!permissionsService.crud?.transaction.create || importing"
         >
-            <mat-icon naturalIcon="file_upload"></mat-icon>
+            <mat-icon naturalIcon="file_upload" />
             Uploader un CAMT 054
         </button>
 
@@ -22,7 +22,7 @@
             <div>
                 <p>L'erreur suivante s'est produite durant l'import et tout le processus a été complétement annulé:</p>
                 <p>
-                    <mat-icon color="warn" fontIcon="error"></mat-icon>
+                    <mat-icon color="warn" fontIcon="error" />
                     {{ error.message }}
                 </p>
             </div>

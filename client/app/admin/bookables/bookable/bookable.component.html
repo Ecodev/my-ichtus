@@ -36,7 +36,7 @@
                                     [style.borderRadius.px]="4"
                                     [style.marginLeft.px]="2"
                                     action="upload"
-                                ></natural-file>
+                                />
                                 <div fxLayout="column" fxFlex>
                                     <mat-form-field>
                                         <input matInput formControlName="name" (change)="update()" />
@@ -72,7 +72,7 @@
                                         formControlName="state"
                                         (selectionChange)="update()"
                                         placeholder="État"
-                                    ></natural-select-enum>
+                                    />
                                     <mat-form-field>
                                         <mat-label>Prix d'achat</mat-label>
                                         <input
@@ -129,7 +129,7 @@
                                 (selectionChange)="update()"
                                 placeholder="Type de réservation"
                                 [optionDisabled]="bookingTypeDisabled()"
-                            ></natural-select-enum>
+                            />
                             @if (isBookingPriceApplicable()) {
                                 <mat-form-field>
                                     <mat-label>Prix initial</mat-label>
@@ -222,14 +222,14 @@
                                     (selectionChange)="update()"
                                     [showIcon]="false"
                                     [navigateTo]="['/admin/account', form.get('creditAccount')?.value?.id]"
-                                ></natural-select-hierarchic>
+                                />
                             }
                             @if (form.hasError('creditAccountRequired')) {
                                 <mat-error>Compte requis pour un réservable payants</mat-error>
                             }
                         </div>
                     </div>
-                    <mat-divider></mat-divider>
+                    <mat-divider />
                     <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
                         <div fxFlex="66" fxLayout="column">
                             @if (isUpdatePage() && isSelfApproved()) {
@@ -248,7 +248,7 @@
                                                 <natural-table-button
                                                     [navigate]="['/admin/license/', item.id]"
                                                     [label]="item.name"
-                                                ></natural-table-button>
+                                                />
                                             </div>
                                         </ng-template>
                                     </natural-relations>
@@ -274,11 +274,11 @@
                                                     [bgColor]="item.color"
                                                     [initials]="item.name"
                                                     [size]="32"
-                                                ></natural-avatar>
+                                                />
                                                 <natural-table-button
                                                     [navigate]="['/admin/bookable']"
                                                     [label]="item.name"
-                                                ></natural-table-button>
+                                                />
                                             </div>
                                         </ng-template>
                                     </natural-relations>
@@ -287,7 +287,7 @@
                         </div>
                     </div>
                     @if (isUpdatePage()) {
-                        <natural-stamp [item]="data.model"></natural-stamp>
+                        <natural-stamp [item]="data.model" />
                     }
                 </div>
             </mat-tab>
@@ -295,7 +295,7 @@
 
         @if (isUpdatePage() && permissionsService.gteResponsible(viewer)) {
             <mat-tab id="metadata" label="Attributs">
-                <app-bookable-metadata [bookable]="data.model" [edit]="true" class="margin"></app-bookable-metadata>
+                <app-bookable-metadata [bookable]="data.model" [edit]="true" class="margin" />
             </mat-tab>
         }
 
@@ -306,7 +306,7 @@
                     [forcedVariables]="{
                         filter: {groups: [{conditions: [{bookable: {equal: {value: data.model.id}}}]}]}
                     }"
-                ></app-transaction-lines>
+                />
             </mat-tab>
         }
 
@@ -333,7 +333,7 @@
                             [forcedVariables]="bookingsVariables"
                             [selectedColumns]="['edit', 'owner', 'startDate', 'endDate']"
                             [availableColumns]="availableColumnsForBookingsWithOwnerWithoutTrainers"
-                        ></app-bookings-with-owner>
+                        />
                     }
                     <!-- Trainers only -->
                     @if (isTrainer()) {
@@ -343,7 +343,7 @@
                             [showFabButton]="false"
                             [selectedColumns]="['ownerReadonly', 'email', 'mobilePhone', 'endDate']"
                             [availableColumns]="availableColumnsForBookingsWithOwnerOnlyTrainers"
-                        ></app-bookings-with-owner>
+                        />
                     }
                 </div>
             </mat-tab>
@@ -351,11 +351,6 @@
     </mat-tab-group>
 
     @if (showFabButton) {
-        <natural-fixed-button-detail
-            [form]="form"
-            [model]="data.model"
-            (create)="create()"
-            (delete)="delete()"
-        ></natural-fixed-button-detail>
+        <natural-fixed-button-detail [form]="form" [model]="data.model" (create)="create()" (delete)="delete()" />
     }
 </div>

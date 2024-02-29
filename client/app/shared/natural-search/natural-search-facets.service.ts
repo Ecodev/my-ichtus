@@ -297,7 +297,7 @@ export class NaturalSearchFacetsService {
         transform: wrapLike,
     };
 
-    private readonly allFacets: {[key: string]: NaturalSearchFacets} = {
+    private readonly allFacets: Record<string, NaturalSearchFacets> = {
         users: [
             this.userTags,
 

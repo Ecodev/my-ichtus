@@ -19,7 +19,7 @@
                     ><!-- row child -->
                     <mat-label>Secteur concerné</mat-label>
                     <mat-select formControlName="sector" (selectionChange)="update()">
-                        <mat-option></mat-option>
+                        <mat-option />
                         @for (option of expenseClaimService.getSectors(); track option) {
                             <mat-option [value]="option">
                                 {{ option }}
@@ -61,9 +61,9 @@
     <div>
         <h2 class="mat-headline-6">Documents justificatifs</h2>
         <div fxLayout="row wrap" fxLayoutGap="10px grid">
-            <app-accounting-documents [model]="data.model"></app-accounting-documents>
+            <app-accounting-documents [model]="data.model" />
         </div>
     </div>
 </div>
 
-<natural-fixed-button icon="check" (click)="create(false)"></natural-fixed-button>
+<natural-fixed-button icon="check" (click)="create(false)" />

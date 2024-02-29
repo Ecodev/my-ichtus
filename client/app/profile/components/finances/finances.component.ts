@@ -84,6 +84,13 @@ export class FinancesComponent
         super(expenseClaimService);
     }
 
+    public ngOnChanges(changes: SimpleChanges): void {
+        const previousUser = changes.viewer?.previousValue;
+        if (previousUser && previousUser.id !== this.viewer.id) {
+            this.loadData();
+        }
+    }
+
     public override ngOnInit(): void {
         if (!this.viewer) {
             this.viewer = this.route.snapshot.data.viewer.model;
@@ -95,13 +102,6 @@ export class FinancesComponent
         super.ngOnInit();
 
         this.loadData();
-    }
-
-    public ngOnChanges(changes: SimpleChanges): void {
-        const previousUser = changes.viewer?.previousValue;
-        if (previousUser && previousUser.id !== this.viewer.id) {
-            this.loadData();
-        }
     }
 
     private loadData(): void {

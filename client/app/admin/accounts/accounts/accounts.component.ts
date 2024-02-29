@@ -125,7 +125,7 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
 
     public addLink(): any[] {
         let route: any[] = ['/admin/account/new'];
-        const parentId = this.route.snapshot.params['parent'];
+        const parentId = this.route.snapshot.params.parent;
         if (parentId) {
             route = route.concat([{parent: parentId}]);
         }

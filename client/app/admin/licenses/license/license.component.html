@@ -2,7 +2,7 @@
     <div fxLayout="column" class="pageHeader">
         <div class="mat-headline-5 no-margin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
             <a mat-icon-button [routerLink]="['..']">
-                <mat-icon naturalIcon="arrow_back"></mat-icon>
+                <mat-icon naturalIcon="arrow_back" />
             </a>
             @if (!form.get('name')?.value) {
                 <span>Nouvelle certification</span>
@@ -41,7 +41,7 @@
                     <div fxFlex="33" fxLayout="column"></div>
                 </div>
 
-                <mat-divider></mat-divider>
+                <mat-divider />
 
                 @if (isUpdatePage()) {
                     <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
@@ -58,7 +58,7 @@
                                         <natural-table-button
                                             [navigate]="['/admin/user/', item.id]"
                                             [label]="item.name"
-                                        ></natural-table-button>
+                                        />
                                     </div>
                                 </ng-template>
                             </natural-relations>
@@ -76,7 +76,7 @@
                                         <natural-table-button
                                             [navigate]="['/admin/bookable/', item.id]"
                                             [label]="item.name"
-                                        ></natural-table-button>
+                                        />
                                     </div>
                                 </ng-template>
                             </natural-relations>
@@ -84,20 +84,15 @@
                     </div>
                 }
 
-                <mat-divider></mat-divider>
+                <mat-divider />
                 @if (isUpdatePage()) {
-                    <natural-stamp [item]="data.model"></natural-stamp>
+                    <natural-stamp [item]="data.model" />
                 }
             </div>
         </mat-tab>
     </mat-tab-group>
 
     @if (showFabButton) {
-        <natural-fixed-button-detail
-            [form]="form"
-            [model]="data.model"
-            (create)="create()"
-            (delete)="delete()"
-        ></natural-fixed-button-detail>
+        <natural-fixed-button-detail [form]="form" [model]="data.model" (create)="create()" (delete)="delete()" />
     }
 </div>

@@ -21,7 +21,7 @@ type ParticleSwitchOption = {
 })
 export class ParticleSwitchComponent implements AfterViewInit {
     @ContentChild(TemplateRef, {static: true}) public template!: TemplateRef<any>;
-    @ViewChild('wrapper', {static: true}) private wrapper!: ElementRef<any>;
+    @ViewChild('wrapper', {static: true}) private wrapper!: ElementRef;
 
     public _data1: any;
     public _data2: any;

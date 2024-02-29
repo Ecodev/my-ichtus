@@ -27,11 +27,7 @@
                     <ng-container matColumnDef="color">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header natural-3em-column></th>
                         <td mat-cell *matCellDef="let element">
-                            <natural-avatar
-                                [bgColor]="element.color"
-                                [size]="32"
-                                [initials]="element.name"
-                            ></natural-avatar>
+                            <natural-avatar [bgColor]="element.color" [size]="32" [initials]="element.name" />
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="name">
@@ -41,7 +37,7 @@
                                 [label]="element.name"
                                 [navigate]="['/admin/bookable-tag', element.id]"
                                 matTooltip="Éditer"
-                            ></natural-table-button>
+                            />
                         </td>
                     </ng-container>
                 </table>
@@ -53,7 +49,7 @@
             }
             @if (!dataSource.data) {
                 <div fxLayout="column" fxLayoutAlign="center center" class="margin">
-                    <mat-progress-spinner mode="indeterminate" [diameter]="40"></mat-progress-spinner>
+                    <mat-progress-spinner mode="indeterminate" [diameter]="40" />
                 </div>
             }
             @if (dataSource.data?.length) {
@@ -63,12 +59,12 @@
                     [pageIndex]="dataSource.data?.pageIndex"
                     [pageSizeOptions]="pageSizeOptions"
                     (page)="pagination($event)"
-                ></mat-paginator>
+                />
             }
         </div>
     </div>
 }
 
 @if (permissionsService.crud?.bookableTag.create) {
-    <natural-fixed-button [routerLink]="['/admin/bookable-tag/new']" icon="add"></natural-fixed-button>
+    <natural-fixed-button [routerLink]="['/admin/bookable-tag/new']" icon="add" />
 }

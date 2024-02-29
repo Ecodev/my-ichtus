@@ -1,5 +1,5 @@
 import {UserByToken} from '../../shared/generated-types';
 
-export interface UserByTokenResolve {
+export type UserByTokenResolve = {
     model: UserByToken['userByToken'];
-}
+};

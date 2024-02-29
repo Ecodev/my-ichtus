@@ -6,7 +6,7 @@
         [listRoute]="['admin', 'account']"
     >
         @if (isUpdatePage()) {
-            <app-money [amount]="data.model.totalBalance" sizeClass="mat-headline-4"></app-money>
+            <app-money [amount]="data.model.totalBalance" sizeClass="mat-headline-4" />
         }
     </natural-detail-header>
 
@@ -25,7 +25,7 @@
                                     matToolTip="Utiliser le code suggéré"
                                     (click)="form.get('code')?.setValue(nextCodeAvailable); update()"
                                 >
-                                    <mat-icon naturalIcon="reply"></mat-icon>
+                                    <mat-icon naturalIcon="reply" />
                                 </button>
                                 @if (form.get('code')?.hasError('min')) {
                                     <mat-error>Valeur positive</mat-error>
@@ -125,14 +125,14 @@
                             (selectionChange)="update()"
                             [showIcon]="false"
                             [navigateTo]="['../', form.get('parent')?.value?.id]"
-                        ></natural-select-hierarchic>
+                        />
 
                         <natural-select-enum
                             enumName="AccountType"
                             formControlName="type"
                             (selectionChange)="updateLinkedFields(); update()"
                             placeholder="Type"
-                        ></natural-select-enum>
+                        />
 
                         @if (form.get('type')?.value === 'liability') {
                             <natural-select
@@ -145,7 +145,7 @@
                                 [navigateTo]="
                                     form.get('owner')?.value?.id ? ['/admin/user', form.get('owner')?.value.id] : null
                                 "
-                            ></natural-select>
+                            />
                         }
 
                         @if (form.get('owner')?.value) {
@@ -154,21 +154,16 @@
                     </div>
                 </div>
 
-                <mat-divider></mat-divider>
+                <mat-divider />
 
                 @if (isUpdatePage()) {
-                    <natural-stamp [item]="data.model"></natural-stamp>
+                    <natural-stamp [item]="data.model" />
                 }
             </div>
         </mat-tab>
     </mat-tab-group>
 
     @if (showFabButton) {
-        <natural-fixed-button-detail
-            [form]="form"
-            [model]="data.model"
-            (create)="create()"
-            (delete)="delete()"
-        ></natural-fixed-button-detail>
+        <natural-fixed-button-detail [form]="form" [model]="data.model" (create)="create()" (delete)="delete()" />
     }
 </div>

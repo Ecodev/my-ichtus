@@ -34,7 +34,7 @@
                     (keydown.enter)="maybeConfirm()"
                 />
                 <button mat-icon-button matIconSuffix (click)="hidePassword = !hidePassword">
-                    <mat-icon [naturalIcon]="hidePassword ? 'visibility' : 'visibility_off'"></mat-icon>
+                    <mat-icon [naturalIcon]="hidePassword ? 'visibility' : 'visibility_off'" />
                 </button>
 
                 @if (form.get('password')?.hasError('required')) {
@@ -55,7 +55,7 @@
                 </button>
             </div>
 
-            <mat-divider class="margin"></mat-divider>
+            <mat-divider class="margin" />
 
             <div class="mat-subtitle-1" style="text-align: center">Pas encore membre ?</div>
             <a type="submit" mat-stroked-button routerLink="/user/new">Adhérer</a>

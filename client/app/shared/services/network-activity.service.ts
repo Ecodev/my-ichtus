@@ -47,7 +47,7 @@ export class NetworkActivityService {
     }
 
     public updateErrors(errors: readonly Error[]): void {
-        if (errors && errors.length) {
+        if (errors?.length) {
             this.errors.next(errors);
         }
     }

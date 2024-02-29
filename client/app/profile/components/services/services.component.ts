@@ -62,6 +62,13 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
         super();
     }
 
+    public ngOnChanges(changes: SimpleChanges): void {
+        const previousUser = changes.user?.previousValue;
+        if (previousUser && previousUser.id !== this.user.id) {
+            this.loadData();
+        }
+    }
+
     public ngOnInit(): void {
         if (!this.user) {
             this.user = this.route.snapshot.data.viewer.model;
@@ -73,13 +80,6 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
         }
 
         this.loadData();
-    }
-
-    public ngOnChanges(changes: SimpleChanges): void {
-        const previousUser = changes.user?.previousValue;
-        if (previousUser && previousUser.id !== this.user.id) {
-            this.loadData();
-        }
     }
 
     public loadData(): void {

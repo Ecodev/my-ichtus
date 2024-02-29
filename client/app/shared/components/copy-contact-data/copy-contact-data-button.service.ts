@@ -71,13 +71,13 @@ export class CopyContactDataButtonService<V extends EmailAndPhoneUsersVariables 
                 this.doDownload<EmailAndPhoneUsers>(
                     button,
                     emailAndPhoneUsersQuery,
-                    resultData => resultData['users'].items,
+                    resultData => resultData.users.items,
                 );
                 break;
             case 'bookingsWithOwnerContact':
                 this.doDownload<BookingsWithOwnerContact>(button, bookingsWithOwnerContactQuery, resultData => {
                     const result: UserContactData[] = [];
-                    resultData['bookings'].items.forEach(booking => {
+                    resultData.bookings.items.forEach(booking => {
                         if (booking.owner) {
                             result.push(booking.owner);
                         }
@@ -87,7 +87,7 @@ export class CopyContactDataButtonService<V extends EmailAndPhoneUsersVariables 
                 });
                 break;
             default:
-                throw new Error('Unsupported contact type: ' + this.type);
+                throw new Error('Unsupported contact type: ' + (this.type as string));
         }
     }
 

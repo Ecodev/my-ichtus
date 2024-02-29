@@ -4,7 +4,7 @@
         label="Tag de réservable"
         [model]="data.model"
         [listRoute]="['admin', 'bookable-tag']"
-    ></natural-detail-header>
+    />
 
     <mat-tab-group naturalLinkableTab [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
         <mat-tab id="general" label="Général">
@@ -40,18 +40,13 @@
                 </div>
 
                 @if (isUpdatePage()) {
-                    <natural-stamp [item]="data.model"></natural-stamp>
+                    <natural-stamp [item]="data.model" />
                 }
             </div>
         </mat-tab>
     </mat-tab-group>
 
     @if (showFabButton) {
-        <natural-fixed-button-detail
-            [form]="form"
-            [model]="data.model"
-            (create)="create()"
-            (delete)="delete()"
-        ></natural-fixed-button-detail>
+        <natural-fixed-button-detail [form]="form" [model]="data.model" (create)="create()" (delete)="delete()" />
     }
 </div>

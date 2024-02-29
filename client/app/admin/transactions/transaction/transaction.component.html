@@ -6,7 +6,7 @@
         [listRoute]="['admin', 'transaction-line']"
     >
         @if (isUpdatePage()) {
-            <app-money [amount]="data.model.balance" [showSignal]="false" sizeClass="mat-headline-4"></app-money>
+            <app-money [amount]="data.model.balance" [showSignal]="false" sizeClass="mat-headline-4" />
         }
     </natural-detail-header>
 
@@ -34,8 +34,8 @@
                                     <mat-form-field>
                                         <mat-label>Date</mat-label>
                                         <input matInput formControlName="transactionDate" [matDatepicker]="picker2" />
-                                        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker2></mat-datepicker>
+                                        <mat-datepicker-toggle matIconSuffix [for]="picker2" />
+                                        <mat-datepicker #picker2 />
                                         @if (form.get('transactionDate')?.hasError('required')) {
                                             <mat-error>Requis</mat-error>
                                         }
@@ -76,7 +76,7 @@
                 </div>
 
                 @if (data.model.expenseClaim) {
-                    <mat-divider></mat-divider>
+                    <mat-divider />
                 }
                 @if (data.model.expenseClaim) {
                     <div>
@@ -134,13 +134,13 @@
                                 [model]="data.model.expenseClaim"
                                 [fileHeight]="150"
                                 [fileWidth]="200"
-                            ></app-accounting-documents>
+                            />
                         </div>
                     </div>
                 }
 
                 <!-- TODO : add selectors for ExpenseClaim -->
-                <mat-divider></mat-divider>
+                <mat-divider />
                 <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
                     <h2 class="mat-headline-6 no-margin-bottom no-margin-top">Écritures</h2>
                     @if (userService.canUpdateTransaction(viewer)) {
@@ -177,14 +177,11 @@
                                 'tag'
                             ]"
                             [hideFab]="true"
-                        ></app-transaction-lines>
+                        />
                     </div>
                 }
 
-                <app-editable-transaction-lines
-                    [hidden]="!updateTransactionLines"
-                    [input]="transactionLines"
-                ></app-editable-transaction-lines>
+                <app-editable-transaction-lines [hidden]="!updateTransactionLines" [input]="transactionLines" />
 
                 <div>
                     <div class="mat-headline-6">Documents justificatifs de la transaction</div>
@@ -192,13 +189,13 @@
                         #transactionDocuments
                         [canRemove]="userService.canDeleteAccountingDocument(viewer)"
                         [model]="data.model"
-                    ></app-accounting-documents>
+                    />
                 </div>
 
-                <mat-divider></mat-divider>
+                <mat-divider />
 
                 @if (isUpdatePage()) {
-                    <natural-stamp [item]="data.model"></natural-stamp>
+                    <natural-stamp [item]="data.model" />
                 }
             </div>
         </mat-tab>
@@ -212,19 +209,19 @@
             matTooltip="Enregistrer"
             matTooltipPosition="left"
             [color]="form.valid ? 'accent' : 'warn'"
-        ></natural-fixed-button>
+        />
     }
 
     @if (isUpdatePage() && userService.canUpdateTransaction(viewer)) {
         <eco-fab-speed-dial class="detail-speed-dial">
             <eco-fab-speed-dial-trigger>
                 <button mat-fab>
-                    <mat-icon naturalIcon="more_vert"></mat-icon>
+                    <mat-icon naturalIcon="more_vert" />
                 </button>
             </eco-fab-speed-dial-trigger>
             <eco-fab-speed-dial-actions>
                 <button mat-mini-fab (click)="save()" matTooltip="Enregistrer" matTooltipPosition="left">
-                    <mat-icon naturalIcon="save"></mat-icon>
+                    <mat-icon naturalIcon="save" />
                 </button>
                 <button
                     mat-mini-fab
@@ -232,7 +229,7 @@
                     matTooltip="Dupliquer ..."
                     matTooltipPosition="left"
                 >
-                    <mat-icon naturalIcon="content_copy"></mat-icon>
+                    <mat-icon naturalIcon="content_copy" />
                 </button>
                 <button
                     mat-mini-fab
@@ -241,7 +238,7 @@
                     matTooltip="Supprimer définitivement"
                     matTooltipPosition="left"
                 >
-                    <mat-icon naturalIcon="delete_forever"></mat-icon>
+                    <mat-icon naturalIcon="delete_forever" />
                 </button>
             </eco-fab-speed-dial-actions>
         </eco-fab-speed-dial>

@@ -42,7 +42,7 @@
                                         icon="chevron_right"
                                         [navigate]="getChildLink(element.item)"
                                         matTooltip="Afficher les sous-comptes"
-                                    ></natural-table-button>
+                                    />
                                 }
                             </td>
                         </ng-container>
@@ -53,7 +53,7 @@
                                     [label]="element.item.code"
                                     [navigate]="transactionLineService.linkToTransactionLinesForAccount(element.item)"
                                     matTooltip="Voir les écritures"
-                                ></natural-table-button>
+                                />
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="name">
@@ -63,7 +63,7 @@
                                     [label]="formatName(element.item.name)"
                                     [navigate]="[element.item.id]"
                                     matTooltip="Éditer"
-                                ></natural-table-button>
+                                />
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="type">
@@ -81,17 +81,17 @@
                                             [initials]="element.item.owner?.name"
                                             [gravatar]="element.item.owner?.email"
                                             [size]="36"
-                                        ></natural-avatar>
+                                        />
                                         <natural-table-button
                                             [label]="element.item.owner?.name"
                                             [navigate]="['/admin/user/', element.item.owner?.id]"
                                             matTooltip="Éditer"
-                                        ></natural-table-button>
+                                        />
                                     </div>
                                 }
                                 @if (!element.item.owner) {
                                     <div fxLayout="row" fxLayoutAlign="start center">
-                                        <natural-avatar initials="ichtus" [size]="36"></natural-avatar>
+                                        <natural-avatar initials="ichtus" [size]="36" />
                                         <button mat-button>Ichtus</button>
                                     </div>
                                 }
@@ -100,7 +100,7 @@
                         <ng-container matColumnDef="totalBalance">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header natural-align-right>Solde</th>
                             <td mat-cell *matCellDef="let element" natural-align-right>
-                                <app-money [amount]="element.item.totalBalance" [showCurrency]="false"></app-money>
+                                <app-money [amount]="element.item.totalBalance" [showCurrency]="false" />
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="totalBalanceFormer">
@@ -108,10 +108,7 @@
                                 Solde précédant
                             </th>
                             <td mat-cell *matCellDef="let element" natural-align-right>
-                                <app-money
-                                    [amount]="element.item.totalBalanceFormer"
-                                    [showCurrency]="false"
-                                ></app-money>
+                                <app-money [amount]="element.item.totalBalanceFormer" [showCurrency]="false" />
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="budgetAllowed">
@@ -121,7 +118,7 @@
                                     [amount]="element.item.budgetAllowed"
                                     [showCurrency]="false"
                                     [showSignal]="false"
-                                ></app-money>
+                                />
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="budgetBalance">
@@ -129,7 +126,7 @@
                                 Budget restant
                             </th>
                             <td mat-cell *matCellDef="let element" natural-align-right>
-                                <app-money [amount]="element.item.budgetBalance" [showCurrency]="false"></app-money>
+                                <app-money [amount]="element.item.budgetBalance" [showCurrency]="false" />
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="iban">
@@ -153,7 +150,7 @@
                 }
                 @if (!dataSource.data) {
                     <div fxLayout="column" fxLayoutAlign="center center" class="margin">
-                        <mat-progress-spinner mode="indeterminate" [diameter]="40"></mat-progress-spinner>
+                        <mat-progress-spinner mode="indeterminate" [diameter]="40" />
                     </div>
                 }
                 @if (dataSource.data?.length) {
@@ -163,12 +160,12 @@
                         [pageIndex]="dataSource.data?.pageIndex"
                         [pageSizeOptions]="pageSizeOptions"
                         (page)="pagination($event)"
-                    ></mat-paginator>
+                    />
                 }
             </div>
         </div>
         @if (permissionsService.crud?.account.create) {
-            <natural-fixed-button [routerLink]="addLink()" icon="add"></natural-fixed-button>
+            <natural-fixed-button [routerLink]="addLink()" icon="add" />
         }
     </div>
 }

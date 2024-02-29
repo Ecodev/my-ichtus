@@ -27,12 +27,12 @@
                     (created)="reload()"
                     (removed)="reload()"
                     (updated)="refreshMember($index, $event)"
-                ></app-family-member>
+                />
             </mat-expansion-panel>
         }
     </mat-accordion>
 </div>
 
 @if ((activeMember === null || activeMember.id) && canEdit() && permissionsService.crud?.user.create) {
-    <natural-fixed-button (click)="add()" icon="add"></natural-fixed-button>
+    <natural-fixed-button (click)="add()" icon="add" />
 }

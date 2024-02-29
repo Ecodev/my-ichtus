@@ -1,8 +1,8 @@
 import {Bookable, BookableInput, BookableUsage} from '../../shared/generated-types';
 
-export interface BookableResolve {
+export type BookableResolve = {
     model: Bookable['bookable'] | BookableInput;
-}
+};
 
 export type AvailabilityStatus = 'unlimited' | 'available' | 'waitingList' | 'full';
 

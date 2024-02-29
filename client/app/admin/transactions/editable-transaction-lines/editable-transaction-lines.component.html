@@ -48,7 +48,7 @@
                         formControlName="debit"
                         placeholder="Compte débit"
                         [showIcon]="false"
-                    ></natural-select-hierarchic>
+                    />
                 </td>
             </ng-container>
             <ng-container matColumnDef="credit">
@@ -59,14 +59,13 @@
                         formControlName="credit"
                         placeholder="Compte crédit"
                         [showIcon]="false"
-                    >
-                    </natural-select-hierarchic>
+                    />
                 </td>
             </ng-container>
             <ng-container matColumnDef="isReconciled">
                 <th mat-header-cell *matHeaderCellDef style="text-align: left !important">Pointé</th>
                 <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
-                    <mat-checkbox formControlName="isReconciled"></mat-checkbox>
+                    <mat-checkbox formControlName="isReconciled" />
                 </td>
             </ng-container>
             <ng-container matColumnDef="transactionTag">
@@ -77,7 +76,7 @@
                         formControlName="transactionTag"
                         placeholder="Tag"
                         [showIcon]="false"
-                    ></natural-select>
+                    />
                 </td>
             </ng-container>
             <ng-container matColumnDef="bookable">
@@ -88,7 +87,7 @@
                         [service]="bookableService"
                         placeholder="Réservable"
                         [showIcon]="false"
-                    ></natural-select>
+                    />
                 </td>
             </ng-container>
             <ng-container matColumnDef="remarks">
@@ -109,7 +108,7 @@
                 <th mat-header-cell *matHeaderCellDef></th>
                 <td mat-cell *matCellDef="let element; let i = index" [formGroupName]="i">
                     <button [disabled]="dataSource.data.length < 2" mat-icon-button color="warn" (click)="removeAt(i)">
-                        <mat-icon naturalIcon="delete"></mat-icon>
+                        <mat-icon naturalIcon="delete" />
                     </button>
                 </td>
             </ng-container>

@@ -48,10 +48,10 @@ type Extended = {
     explode: boolean;
 };
 
-interface PaginatedExtendedBooking {
+type PaginatedExtendedBooking = {
     items: Extended[];
     readonly length: number;
-}
+};
 
 function bookingsToExtended(bookings: Bookings['bookings']): PaginatedExtendedBooking {
     return {

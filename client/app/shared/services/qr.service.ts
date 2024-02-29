@@ -107,7 +107,7 @@ export class QrService {
             const imgData = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
             const code = jsQR(imgData.data, imgData.width, imgData.height);
 
-            if (code && code.data) {
+            if (code?.data) {
                 this.scanObservable.next(code.data);
             } else {
                 this.scanObservable.next('');

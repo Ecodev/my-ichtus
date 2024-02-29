@@ -18,7 +18,7 @@ describe('AngularParticleEffectButtonComponent', () => {
     let directiveDOM: DebugElement;
     let directiveChildWrapper: DebugElement;
     let directiveParentWrapper: DebugElement;
-    let canvas: Array<DebugElement>;
+    let canvas: DebugElement[];
     let defaultOptions: any;
     let originalTimeout: number;
 
@@ -103,7 +103,7 @@ describe('AngularParticleEffectButtonComponent', () => {
 
     it('should begin event emit when animation starts', done => {
         initializeDefaultOptions();
-        const directiveInstance = directiveDOM.injector.get(ParticleEffectDirective) as ParticleEffectDirective;
+        const directiveInstance = directiveDOM.injector.get(ParticleEffectDirective);
         directiveInstance.pBegin.subscribe(() => {
             expect(true).toBe(true);
             done();
@@ -114,7 +114,7 @@ describe('AngularParticleEffectButtonComponent', () => {
 
     it('should complete event emit when animation completes', done => {
         initializeDefaultOptions();
-        const directiveInstance = directiveDOM.injector.get(ParticleEffectDirective) as ParticleEffectDirective;
+        const directiveInstance = directiveDOM.injector.get(ParticleEffectDirective);
         directiveInstance.pComplete.subscribe(() => {
             expect(true).toBe(true);
             done();

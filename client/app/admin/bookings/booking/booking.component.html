@@ -45,7 +45,7 @@
                                 [navigateTo]="
                                     form.get('owner')?.value?.id ? ['/admin/user', form.get('owner')?.value.id] : null
                                 "
-                            ></natural-select>
+                            />
                         </div>
 
                         @if (!isUpdatePage()) {
@@ -77,11 +77,11 @@
                                     ? ['/admin/bookable', form.get('bookable')?.value.id]
                                     : null
                             "
-                        ></natural-select>
+                        />
 
                         @if (newBooking) {
                             <div>
-                                <mat-divider class="margin-bottom"></mat-divider>
+                                <mat-divider class="margin-bottom" />
                                 <p class="mat-body-2">
                                     La prestation / espace de stockage
                                     <span class="mat-subtitle-2">{{ newBooking.bookable?.name }}</span>
@@ -105,7 +105,7 @@
                                 (selectionChange)="update()"
                                 placeholder="Status"
                                 [disabled]="isUpdatePage() && isPendingApplication(BookingType.admin_approved)"
-                            ></natural-select-enum>
+                            />
                             @if (isUpdatePage() && isPendingApplication(BookingType.admin_approved)) {
                                 <button
                                     mat-flat-button
@@ -149,7 +149,7 @@
                     data.model.status === BookingStatus.application
                 ) {
                     <div>
-                        <mat-divider class="margin-bottom"></mat-divider>
+                        <mat-divider class="margin-bottom" />
                         <div class="mat-headline-6">Attribuer un stockage / service</div>
                         <app-usage-bookables
                             [availableColumns]="availableColumns"
@@ -157,13 +157,13 @@
                             [forcedVariables]="suggestionVariables"
                             [selections]="suggestionSelection"
                             (bookableClick)="assignBookable($event)"
-                        ></app-usage-bookables>
+                        />
                     </div>
                 }
 
                 @if (isSelfApproved()) {
                     <div>
-                        <mat-divider></mat-divider>
+                        <mat-divider />
                         <h1 class="mat-headline-6">Sorties</h1>
                         <mat-form-field style="width: 100px">
                             <mat-label>Nb participants</mat-label>
@@ -233,21 +233,16 @@
                     </div>
                 }
 
-                <mat-divider></mat-divider>
+                <mat-divider />
 
                 @if (isUpdatePage()) {
-                    <natural-stamp [item]="data.model"></natural-stamp>
+                    <natural-stamp [item]="data.model" />
                 }
             </div>
         </mat-tab>
     </mat-tab-group>
 
     @if (showFabButton) {
-        <natural-fixed-button-detail
-            [form]="form"
-            [model]="data.model"
-            (create)="create()"
-            (delete)="delete()"
-        ></natural-fixed-button-detail>
+        <natural-fixed-button-detail [form]="form" [model]="data.model" (create)="create()" (delete)="delete()" />
     }
 </div>

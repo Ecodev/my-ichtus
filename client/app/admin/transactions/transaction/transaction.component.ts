@@ -168,7 +168,7 @@ export class TransactionComponent
             expenseClaimControl.setValue(expenseClaim);
         }
 
-        if (expenseClaim.owner && expenseClaim.owner.account) {
+        if (expenseClaim.owner?.account) {
             if (expenseClaim.type === ExpenseClaimType.expenseClaim) {
                 const preset = this.transactionService.getExpenseClaimPreset(
                     expenseClaim.owner.account,

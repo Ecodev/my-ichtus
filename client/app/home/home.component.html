@@ -2,12 +2,12 @@
     <mat-toolbar fxFlex="none" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
         @if (menu) {
             <button (click)="menu.toggle()" mat-icon-button>
-                <mat-icon naturalIcon="menu"></mat-icon>
+                <mat-icon naturalIcon="menu" />
             </button>
         }
 
         <a routerLink="/" style="width: 50px; height: 50px">
-            <mat-icon [size]="50" naturalIcon="ichtus"></mat-icon>
+            <mat-icon [size]="50" naturalIcon="ichtus" />
         </a>
 
         @if (route.snapshot.data.viewer?.model) {
@@ -22,16 +22,16 @@
                         placeholder="Recherche par code"
                     />
                     <a [routerLink]="['/booking', code]" mat-icon-button>
-                        <mat-icon naturalIcon="search"></mat-icon>
+                        <mat-icon naturalIcon="search" />
                     </a>
                 </div>
                 <a class="icon-button-circle-primary" mat-icon-button routerLink="/booking/by-scan">
-                    <mat-icon naturalIcon="qr_code_scanner"></mat-icon>
+                    <mat-icon naturalIcon="qr_code_scanner" />
                 </a>
                 <div fxFlex fxHide.xs></div>
                 @if (announcementActive) {
                     <a [routerLink]="getAnnouncementLink()" mat-icon-button class="icon-button-circle-primary">
-                        <mat-icon naturalIcon="announcement"></mat-icon>
+                        <mat-icon naturalIcon="announcement" />
                     </a>
                 }
                 @if (route.snapshot.data.viewer.model) {
@@ -40,7 +40,7 @@
                             [initials]="route.snapshot.data.viewer.model.name"
                             [gravatar]="route.snapshot.data.viewer.model.email"
                             [size]="50"
-                        ></natural-avatar>
+                        />
                     </a>
                 }
             </div>
@@ -48,6 +48,6 @@
     </mat-toolbar>
 
     <div fxFlex fxLayout="column" style="overflow: auto">
-        <router-outlet></router-outlet>
+        <router-outlet />
     </div>
 </div>

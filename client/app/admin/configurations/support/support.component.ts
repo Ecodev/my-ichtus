@@ -94,6 +94,6 @@ export class SupportComponent extends NaturalAbstractController implements OnIni
     }
 
     private getConfigKey(): string {
-        return (this.data?.data && this.data.data.configurationKey) || this.route.snapshot.data.configurationKey;
+        return this.data?.data?.configurationKey || this.route.snapshot.data.configurationKey;
     }
 }

@@ -13,13 +13,13 @@
                 permissionsService.gteResponsible(viewer)
             ) {
                 <a mat-stroked-button color="basic" (click)="approve()">
-                    <mat-icon naturalIcon="verified"></mat-icon>
+                    <mat-icon naturalIcon="verified" />
                     <span class="mat-subtitle-2">Approuver</span>
                 </a>
             }
             @if (isUpdatePage() && data.model.reviewer && !permissionsService.isAdministrator(viewer)) {
                 <div fxLayout="row" fxLayoutAlign="start center">
-                    <mat-icon naturalIcon="verified"></mat-icon>
+                    <mat-icon naturalIcon="verified" />
                     <span class="mat-body">Approuvé par {{ data.model.reviewer.name }}</span>
                 </div>
             }
@@ -32,7 +32,7 @@
                     color="accent"
                     [routerLink]="['/admin/transaction/new', {expenseClaim: data.model.id}]"
                 >
-                    <mat-icon naturalIcon="payments"></mat-icon>
+                    <mat-icon naturalIcon="payments" />
                     @if (data.model.type === ExpenseClaimType.expenseClaim) {
                         <span>Créditer le solde</span>
                     }
@@ -60,7 +60,7 @@
                 </a>
             }
 
-            <app-money [amount]="data.model.amount" sizeClass="mat-headline-4" [showSignal]="false"></app-money>
+            <app-money [amount]="data.model.amount" sizeClass="mat-headline-4" [showSignal]="false" />
         </div>
     </natural-detail-header>
 
@@ -96,7 +96,7 @@
                         <mat-form-field>
                             <mat-label>Secteur concerné</mat-label>
                             <mat-select formControlName="sector" (selectionChange)="update()">
-                                <mat-option></mat-option>
+                                <mat-option />
                                 @for (option of expenseClaimService.getSectors(); track option) {
                                     <mat-option [value]="option">
                                         {{ option }}
@@ -111,7 +111,7 @@
                                         mat-icon-button
                                         matTooltip="Aucun"
                                     >
-                                        <mat-icon naturalIcon="close"></mat-icon>
+                                        <mat-icon naturalIcon="close" />
                                     </button>
                                 }
                             </div>
@@ -126,7 +126,7 @@
                     formControlName="type"
                     (selectionChange)="update()"
                     placeholder="Type"
-                ></natural-select-enum>
+                />
 
                 <div fxLayout="row" fxLayoutGap="15px">
                     <mat-form-field fxFlex="120px">
@@ -150,7 +150,7 @@
                         (selectionChange)="update()"
                         placeholder="Status"
                         fxFlex
-                    ></natural-select-enum>
+                    />
                 </div>
 
                 <div fxLayout="row" fxLayout.gt-sm="column" fxLayoutGap="15px" fxLayoutGap.gt-sm="0">
@@ -160,7 +160,7 @@
                         placeholder="Membre"
                         [service]="userService"
                         (selectionChange)="update()"
-                    ></natural-select>
+                    />
 
                     @if (permissionsService.isAdministrator(viewer)) {
                         <natural-select
@@ -169,13 +169,13 @@
                             [service]="userService"
                             (selectionChange)="update()"
                             fxFlex
-                        ></natural-select>
+                        />
                     }
                 </div>
             </div>
         </div>
 
-        <mat-divider></mat-divider>
+        <mat-divider />
 
         <h2 class="mat-headline-6">Commentaires</h2>
 
@@ -208,36 +208,26 @@
         </div>
 
         @if (isUpdatePage() && data.model.accountingDocuments.length) {
-            <mat-divider></mat-divider>
+            <mat-divider />
 
             <div>
                 <div class="mat-headline-6">Pièces justificatives</div>
                 <div fxLayout="row" fxLayoutGap="10px">
                     @for (file of data.model.accountingDocuments; track file) {
-                        <natural-file
-                            [model]="file"
-                            [height]="150"
-                            [style.width.px]="200"
-                            action="download"
-                        ></natural-file>
+                        <natural-file [model]="file" [height]="150" [style.width.px]="200" action="download" />
                     }
                 </div>
             </div>
         }
 
-        <mat-divider></mat-divider>
+        <mat-divider />
 
         @if (isUpdatePage()) {
-            <natural-stamp [item]="data.model"></natural-stamp>
+            <natural-stamp [item]="data.model" />
         }
     </div>
 
     @if (showFabButton) {
-        <natural-fixed-button-detail
-            [form]="form"
-            [model]="data.model"
-            (create)="create()"
-            (delete)="delete()"
-        ></natural-fixed-button-detail>
+        <natural-fixed-button-detail [form]="form" [model]="data.model" (create)="create()" (delete)="delete()" />
     }
 </div>

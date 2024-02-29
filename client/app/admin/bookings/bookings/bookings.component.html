@@ -34,7 +34,7 @@
                                     icon="edit"
                                     [navigate]="['/admin/booking/', element.id]"
                                     matTooltip="Éditer"
-                                ></natural-table-button>
+                                />
                             </div>
                         </td>
                         <td mat-footer-cell *matFooterCellDef></td>
@@ -48,12 +48,12 @@
                                         [initials]="element.owner.name"
                                         [gravatar]="element.owner?.email"
                                         [size]="36"
-                                    ></natural-avatar>
+                                    />
                                     <natural-table-button
                                         [label]="element.owner.name"
                                         [navigate]="['/admin/user/', element.owner.id]"
                                         matTooltip="Éditer"
-                                    ></natural-table-button>
+                                    />
                                 </div>
                             }
                         </td>
@@ -68,7 +68,7 @@
                                         [initials]="element.owner.name"
                                         [gravatar]="element.owner?.email"
                                         [size]="36"
-                                    ></natural-avatar>
+                                    />
                                     <span [style.padding-left.px]="16">{{ element.owner.name }}</span>
                                 </div>
                             }
@@ -86,7 +86,7 @@
                                             [height]="40"
                                             [style.width.px]="40"
                                             [style.borderRadius.px]="40"
-                                        ></natural-file>
+                                        />
                                     }
                                     <natural-table-button
                                         [label]="
@@ -95,7 +95,7 @@
                                         "
                                         [navigate]="['/admin/bookable/', element.bookable.id]"
                                         matTooltip="Éditer"
-                                    ></natural-table-button>
+                                    />
                                 </div>
                             }
                             @if (!element.bookable) {
@@ -148,7 +148,7 @@
                     </ng-container>
                     <ng-container matColumnDef="participantCount">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                            <mat-icon naturalIcon="group" matTooltip="Nombre de participants"></mat-icon>
+                            <mat-icon naturalIcon="group" matTooltip="Nombre de participants" />
                         </th>
                         <td mat-cell *matCellDef="let element">{{ element.participantCount }}</td>
                         <td mat-footer-cell *matFooterCellDef>{{ dataSource.data?.totalParticipantCount || 0 }}</td>
@@ -165,7 +165,7 @@
                                 [showCurrency]="false"
                                 [showSignal]="true"
                                 [amount]="element.owner.account?.balance"
-                            ></app-money>
+                            />
                         </td>
                         <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
@@ -203,7 +203,7 @@
             }
             @if (!dataSource.data) {
                 <div fxLayout="column" fxLayoutAlign="center center" class="margin">
-                    <mat-progress-spinner mode="indeterminate" [diameter]="40"></mat-progress-spinner>
+                    <mat-progress-spinner mode="indeterminate" [diameter]="40" />
                 </div>
             }
             @if (dataSource.data?.length) {
@@ -213,12 +213,12 @@
                     [pageIndex]="dataSource.data?.pageIndex"
                     [pageSizeOptions]="pageSizeOptions"
                     (page)="pagination($event)"
-                ></mat-paginator>
+                />
             }
         </div>
     </div>
 }
 
 @if (permissionsService.crud?.booking.create && !!showFabButton) {
-    <natural-fixed-button [routerLink]="['/admin/booking/new']" icon="add"></natural-fixed-button>
+    <natural-fixed-button [routerLink]="['/admin/booking/new']" icon="add" />
 }

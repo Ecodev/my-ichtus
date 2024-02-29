@@ -7,7 +7,7 @@
                     formControlName="familyRelationship"
                     (selectionChange)="update()"
                     placeholder="Rôle dans la famille"
-                ></natural-select-enum>
+                />
                 <button
                     mat-stroked-button
                     color="warn"
@@ -17,12 +17,12 @@
                     Détacher du ménage
                 </button>
             </div>
-            <mat-divider class="margin-bottom"></mat-divider>
+            <mat-divider class="margin-bottom" />
             <h2 class="mat-headline-6">Compte</h2>
             <mat-form-field>
                 <mat-label>email</mat-label>
                 <input matInput formControlName="email" (change)="update()" />
-                <mat-icon matIconPrefix naturalIcon="alternate_email"></mat-icon>
+                <mat-icon matIconPrefix naturalIcon="alternate_email" />
                 @if (form.get('email')?.hasError('required')) {
                     <mat-error>Requis</mat-error>
                 }
@@ -33,7 +33,7 @@
             <mat-form-field>
                 <mat-label>Nom d'utilisateur</mat-label>
                 <input matInput formControlName="login" (change)="update()" />
-                <mat-icon matIconPrefix naturalIcon="person"></mat-icon>
+                <mat-icon matIconPrefix naturalIcon="person" />
                 @if (form.get('login')?.hasError('maxlength')) {
                     <mat-error>
                         Maximum {{ form.get('login')?.errors?.maxlength?.requiredLength }} caractères
@@ -46,7 +46,7 @@
                     <mat-error>{{ form.get('login')?.getError('invalid') }}</mat-error>
                 }
             </mat-form-field>
-            <mat-divider class="margin-bottom"></mat-divider>
+            <mat-divider class="margin-bottom" />
             <h2 class="mat-headline-6">Coordonnées</h2>
             <mat-form-field>
                 <mat-label>Prénom</mat-label>
@@ -77,8 +77,8 @@
                 formControlName="sex"
                 (selectionChange)="update()"
                 placeholder="Genre"
-            ></natural-select-enum>
-            <app-address [form]="form" [vertical]="true" (addressChange)="update()"></app-address>
+            />
+            <app-address [form]="form" [vertical]="true" (addressChange)="update()" />
             <mat-form-field>
                 <mat-label>Téléphone fixe</mat-label>
                 <input matInput formControlName="phone" (change)="update()" />
@@ -90,8 +90,8 @@
             <mat-form-field>
                 <mat-label>Date de naissance</mat-label>
                 <input matInput formControlName="birthday" [matDatepicker]="picker" (dateChange)="update()" />
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
+                <mat-datepicker-toggle matIconSuffix [for]="picker" />
+                <mat-datepicker #picker />
             </mat-form-field>
             <!-- Newsletter -->
             <mat-checkbox formControlName="receivesNewsletter" (change)="update()">
@@ -100,17 +100,13 @@
         </div>
         @if (form.get('remarks')?.value) {
             <div>
-                <mat-divider class="margin-v"></mat-divider>
+                <mat-divider class="margin-v" />
                 <div class="mat-subtitle-2">Remarques</div>
                 <div class="line-break">{{ form.get('remarks')?.value }}</div>
             </div>
         }
         @if (!isUpdatePage()) {
-            <natural-fixed-button
-                (click)="create(false)"
-                icon="save"
-                [color]="form.valid ? 'accent' : 'warn'"
-            ></natural-fixed-button>
+            <natural-fixed-button (click)="create(false)" icon="save" [color]="form.valid ? 'accent' : 'warn'" />
         }
     </div>
 }

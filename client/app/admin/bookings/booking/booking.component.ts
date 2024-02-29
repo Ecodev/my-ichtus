@@ -293,7 +293,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
     /**
      * Filter the bookable select box according to the category chips
      */
-    public filterBookables(category: string): void {
+    public filterBookables(category: BookingType): void {
         // Leave only the clicked category selected
         this.bookableFilterChips.forEach((chip, index) => {
             this.bookableFilterChips[index].selected = chip.value === category;

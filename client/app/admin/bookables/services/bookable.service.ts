@@ -254,7 +254,7 @@ export class BookableService extends NaturalAbstractModelService<
 
             return this.getAll(qvm).pipe(
                 map(result => {
-                    return {model: result && result.items.length ? result.items[0] : null};
+                    return {model: result?.items.length ? result.items[0] : null};
                 }),
             );
         } else {

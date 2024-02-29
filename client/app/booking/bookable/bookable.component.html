@@ -1,15 +1,10 @@
 @if (bookable) {
     <div fxLayout="column" style="max-width: 1100px; margin: auto" fxLayoutGap="40px" class="padding">
-        <natural-file
-            [model]="bookable.image"
-            [height]="400"
-            [style.borderRadius.px]="4"
-            class="mat-elevation-z2"
-        ></natural-file>
+        <natural-file [model]="bookable.image" [height]="400" [style.borderRadius.px]="4" class="mat-elevation-z2" />
         <div fxLayout="row" fxLayoutAlign="start stretch" class="mat-headline-4">
             <div fxFlex>{{ bookable.name }}</div>
             <div fxLayout="row" fxLayoutGap="20px">
-                <mat-divider [vertical]="true"></mat-divider>
+                <mat-divider [vertical]="true" />
                 <div fxLayout="column" fxLayoutAlign="center">{{ bookable.code }}</div>
             </div>
         </div>
@@ -17,13 +12,13 @@
             <div fxLayout="column" fxLayoutGap="10px" class="mat-body-2">
                 @if (!hasLicense) {
                     <div fxLayoutAlign="start center">
-                        <mat-icon color="warn" fontIcon="error"></mat-icon>
+                        <mat-icon color="warn" fontIcon="error" />
                         Tu ne disposes pas des licences requises pour utiliser cette embarcation
                     </div>
                 }
                 @if (!welcomeSessionTaken) {
                     <div fxLayoutAlign="start center">
-                        <mat-icon color="warn" fontIcon="warning"></mat-icon>
+                        <mat-icon color="warn" fontIcon="warning" />
                         <span
                             >Il te faut suivre une
                             <a href="https://ichtus.ch/le-club/seance-daccueil/" target="_blank">séance d'accueil</a>

@@ -18,8 +18,8 @@ export class ParticleEffectDirective implements AfterContentInit {
     @Input() public pCanvasPadding = 150;
     @Input() public pOscillationCoefficient = 30;
     @Input() public pParticlesAmountCoefficient = 3;
-    @Output() public pBegin = new EventEmitter<void>();
-    @Output() public pComplete = new EventEmitter<void>();
+    @Output() public readonly pBegin = new EventEmitter<void>();
+    @Output() public readonly pComplete = new EventEmitter<void>();
     @Input() public pSize: (() => number) | number = () => Math.floor(Math.random() * 3 + 1);
     @Input() public pSpeed: (() => number) | number = () => rand(4);
 

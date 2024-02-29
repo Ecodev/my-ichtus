@@ -14,7 +14,7 @@
                         >
                             @if (!item.booking.bookable?.image) {
                                 <div class="card-illustration padding">
-                                    <natural-avatar initials="?" [size]="160"></natural-avatar>
+                                    <natural-avatar initials="?" [size]="160" />
                                 </div>
                             }
                             <!-- style="overflow:hidden;" -->
@@ -29,7 +29,7 @@
                                     {{ item.booking.bookable?.name || 'Matériel personnel' }}
                                 </a>
                                 <div style="position: relative">
-                                    <mat-divider></mat-divider>
+                                    <mat-divider />
                                 </div>
                                 <div class="mat-subtitle-2">{{ item.booking.owner?.name }}</div>
                                 @if (!item.booking.endDate && item.booking.destination) {
@@ -44,7 +44,7 @@
                                 }
                                 <div fxLayout="row" fxLayoutAlign="end center">
                                     <button mat-icon-button (click)="item.showComments = true">
-                                        <mat-icon naturalIcon="feedback"></mat-icon>
+                                        <mat-icon naturalIcon="feedback" />
                                     </button>
                                     <div fxFlex></div>
                                     @if (!item.terminated) {
@@ -97,7 +97,7 @@
                                 </div>
                                 <div fxLayout="row">
                                     <button mat-icon-button color="primary" (click)="item.showComments = false">
-                                        <mat-icon naturalIcon="clear"></mat-icon>
+                                        <mat-icon naturalIcon="clear" />
                                     </button>
                                 </div>
                             </div>

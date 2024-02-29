@@ -80,7 +80,7 @@ export class AccountComponent extends NaturalAbstractDetail<AccountService, Natu
             }
         });
 
-        const parentId = this.route.snapshot.params['parent'];
+        const parentId = this.route.snapshot.params.parent;
         if (parentId) {
             this.accountService.getOne(parentId).subscribe(parentAccount => {
                 const parentField = this.form.get('parent');

@@ -5,7 +5,7 @@ import {isFunction} from 'lodash-es';
 
 export type Direction = 'left' | 'top' | 'right';
 
-export interface IOption {
+export type IOption = {
     color?: string;
     type?: string;
     style?: string;
@@ -21,9 +21,9 @@ export interface IOption {
     height?: number | null;
     begin?: () => void;
     complete?: () => void;
-}
+};
 
-interface Particle {
+type Particle = {
     startX: number;
     startY: number;
     x: number;
@@ -35,7 +35,7 @@ interface Particle {
     death: number;
     speed: number;
     size: number;
-}
+};
 
 export class Particles {
     private particles: Particle[] = [];
@@ -160,7 +160,7 @@ export class Particles {
 
     private addParticle(x: number, y: number): void {
         const frames = (this.o.duration * 60) / 1000;
-        const speed: number = (isFunction(this.o.speed) ? this.o.speed() : this.o.speed) as number;
+        const speed: number = isFunction(this.o.speed) ? this.o.speed() : this.o.speed;
         this.particles.push({
             startX: x,
             startY: y,
@@ -179,8 +179,8 @@ export class Particles {
     private addParticles(rect: HTMLCanvasElement, progress: number): void {
         const progressDiff = this.disintegrating ? progress - this.lastProgress! : this.lastProgress! - progress;
         this.lastProgress = progress;
-        let x = this.options.canvasPadding!;
-        let y = this.options.canvasPadding!;
+        let x = this.options.canvasPadding;
+        let y = this.options.canvasPadding;
         const progressValue =
             (this.isHorizontal() ? rect.width : rect.height) * progress +
             progressDiff * (this.disintegrating ? 100 : 220);

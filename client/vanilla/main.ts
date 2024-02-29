@@ -82,7 +82,7 @@ createApplication({
                         linkMutation,
                     };
 
-                    (window as Literal)['ichtusApi'] = api;
+                    (window as Literal).ichtusApi = api;
                 };
             },
         },

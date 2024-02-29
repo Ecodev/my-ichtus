@@ -3,8 +3,8 @@
     <mat-form-field>
         <mat-label>Date du bilan</mat-label>
         <input matInput formControlName="date" [matDatepicker]="picker" [max]="today" />
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <mat-datepicker-toggle matIconSuffix [for]="picker" />
+        <mat-datepicker #picker />
         @if (form.hasError('required')) {
             <mat-error>Requis</mat-error>
         }

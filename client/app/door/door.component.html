@@ -7,14 +7,14 @@
                 @if (viewer[door.id]) {
                     <app-card
                         (click)="open(door)"
-                        illustrationUrl="assets/images/{{ door.image }}"
+                        [illustrationUrl]="'assets/images/' + door.image"
                         [style.min-width.px]="300"
                     >
                         <div fxLayout="column" fxLayoutGap="10px">
                             <div class="mat-subtitle-2">{{ door.name }}</div>
                             <div>
                                 <button mat-raised-button [disabled]="door.opened">
-                                    <mat-icon [fontIcon]="door.opened ? 'lock_open' : 'lock'"></mat-icon>
+                                    <mat-icon [fontIcon]="door.opened ? 'lock_open' : 'lock'" />
                                     Ouvrir
                                 </button>
                             </div>

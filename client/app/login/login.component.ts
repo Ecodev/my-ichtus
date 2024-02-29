@@ -54,8 +54,8 @@ export class LoginComponent extends NaturalAbstractController implements OnInit,
     }
 
     public ngOnInit(): void {
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-        const logout = this.route.snapshot.queryParams['logout'] || false;
+        this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+        const logout = this.route.snapshot.queryParams.logout || false;
 
         // Attempt to skip login if user is already logged in (but not if is trying to logout)
         if (!logout) {

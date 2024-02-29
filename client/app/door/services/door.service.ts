@@ -5,12 +5,12 @@ import {map} from 'rxjs/operators';
 import {openDoorMutation} from './door.queries';
 import {CurrentUserForProfile, OpenDoor, OpenDoorVariables} from '../../shared/generated-types';
 
-interface DoorConfig {
+type DoorConfig = {
     id: keyof Pick<NonNullable<CurrentUserForProfile['viewer']>, 'door1' | 'door2' | 'door3' | 'door4'>;
     name: string;
     image: string;
     opened: boolean;
-}
+};
 
 @Injectable({
     providedIn: 'root',

@@ -141,7 +141,7 @@ export class UserService
                     {
                         conditions: [
                             {
-                                role: roles && roles.length ? {in: {values: roles}} : null,
+                                role: roles?.length ? {in: {values: roles}} : null,
                                 status: statuses ? {in: {values: statuses}} : null,
                             },
                         ],

@@ -3,25 +3,25 @@
         <div fxLayout="column" fxLayoutGap="20px" [style.margin-top.px]="30">
             <div [style.max-width.px]="150">
                 <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="/profile" class="big-button">
-                    <mat-icon naturalIcon="lake" [size]="50"></mat-icon>
+                    <mat-icon naturalIcon="lake" [size]="50" />
                     Sorties
                 </a>
             </div>
             <div [style.max-width.px]="150">
                 <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="family" class="big-button">
-                    <mat-icon naturalIcon="family" [size]="50"></mat-icon>
+                    <mat-icon naturalIcon="family" [size]="50" />
                     Famille
                 </a>
             </div>
             <div [style.max-width.px]="150">
                 <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="history" class="big-button">
-                    <mat-icon naturalIcon="transactionHistory" [size]="50"></mat-icon>
+                    <mat-icon naturalIcon="transactionHistory" [size]="50" />
                     Historique des transactions
                 </a>
             </div>
             <div [style.max-width.px]="150">
                 <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="finances" class="big-button">
-                    <mat-icon naturalIcon="claims" [size]="50"></mat-icon>
+                    <mat-icon naturalIcon="claims" [size]="50" />
                     Dépenses et remboursements
                 </a>
             </div>
@@ -34,7 +34,7 @@
                         routerLink="services"
                         class="big-button"
                     >
-                        <mat-icon naturalIcon="ichtus" [size]="50"></mat-icon>
+                        <mat-icon naturalIcon="ichtus" [size]="50" />
                         Cotisation et services
                     </a>
                 </div>
@@ -52,7 +52,7 @@
             <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap.gt-xs="0px" fxLayoutGap="30px">
                 <div fxFlex="none" fxFlex.gt-xs fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="10px">
                     <div fxLayout="row" fxLayoutGap="10px">
-                        <natural-avatar [initials]="viewer.name" [gravatar]="viewer.email" [size]="60"></natural-avatar>
+                        <natural-avatar [initials]="viewer.name" [gravatar]="viewer.email" [size]="60" />
                         <div fxLayout="column" fxLayoutGap="10px">
                             <div class="mat-headline-4 no-margin-bottom">{{ viewer.name }}</div>
                             <div class="mat-body-1">
@@ -66,10 +66,7 @@
                                         fxLayoutGap="5px"
                                         style="padding-bottom: 10px"
                                     >
-                                        <natural-avatar
-                                            [initials]="license.name.replace('-', '')"
-                                            [size]="36"
-                                        ></natural-avatar>
+                                        <natural-avatar [initials]="license.name.replace('-', '')" [size]="36" />
                                         <span>{{ license.name }}</span>
                                     </div>
                                 }
@@ -117,16 +114,16 @@
                                     sizeClass="mat-headline-4"
                                     [showSignal]="true"
                                     [showCurrency]="true"
-                                ></app-money>
+                                />
                             </ng-template>
                         </app-particle-switch>
                     </div>
                 </div>
             </div>
 
-            <mat-divider></mat-divider>
+            <mat-divider />
             <div fxLayout="column">
-                <router-outlet></router-outlet>
+                <router-outlet />
             </div>
         </div>
     </natural-sidenav-content>

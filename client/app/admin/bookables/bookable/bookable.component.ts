@@ -202,7 +202,10 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
 
     public bookingTypeDisabled(): (item: IEnum) => boolean {
         return item => {
-            return this.viewer.role === UserRole.formation_responsible && item.value !== BookingType.admin_approved;
+            return (
+                this.viewer.role === UserRole.formation_responsible &&
+                (item.value as BookingType) !== BookingType.admin_approved
+            );
         };
     }
 }

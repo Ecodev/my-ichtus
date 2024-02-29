@@ -14,8 +14,8 @@
         <mat-form-field fxLayout="row" class="margin-v">
             <mat-label>Date du bouclement</mat-label>
             <input matInput [formControl]="form" [max]="today" [matDatepicker]="picker" />
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <mat-datepicker-toggle matIconSuffix [for]="picker" />
+            <mat-datepicker #picker />
             @if (form.hasError('required')) {
                 <mat-error>Requis</mat-error>
             }

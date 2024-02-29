@@ -41,7 +41,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                                     [height]="40"
                                     [style.width.px]="40"
                                     [style.borderRadius.px]="40"
-                                ></natural-file>
+                                />
                             }
                         </td>
                         <td mat-footer-cell *matFooterCellDef></td>
@@ -54,7 +54,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                                 [label]="element.name"
                                 [navigate]="['/admin/bookable', element.id]"
                                 matTooltip="Éditer"
-                            ></natural-table-button>
+                            />
                         </td>
                         <td mat-footer-cell *matFooterCellDef>Totaux</td>
                     </ng-container>
@@ -194,7 +194,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                                         [initials]="b.owner.name"
                                         [gravatar]="element.owner?.email"
                                         [size]="36"
-                                    ></natural-avatar>
+                                    />
                                     <a mat-button [routerLink]="['/admin/user', b.owner.id]">
                                         {{ b.owner.name }}
                                     </a>
@@ -262,7 +262,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
             }
             @if (!dataSource.data) {
                 <div fxLayout="column" fxLayoutAlign="center center" class="margin">
-                    <mat-progress-spinner mode="indeterminate" [diameter]="40"></mat-progress-spinner>
+                    <mat-progress-spinner mode="indeterminate" [diameter]="40" />
                 </div>
             }
             @if (dataSource.data?.length) {
@@ -272,7 +272,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                     [pageIndex]="dataSource.data?.pageIndex"
                     [pageSizeOptions]="pageSizeOptions"
                     (page)="pagination($event)"
-                ></mat-paginator>
+                />
             }
         </div>
     </div>
@@ -284,5 +284,5 @@ The hideCreateFab flag is there to hide the create button for admins (is hidden 
 If we want to display the FAB, we need to add padding in bottom of page to prevent overlay over paginator
 -->
 @if (!route.snapshot.data.hideCreateFab && permissionsService.crud?.bookable.create) {
-    <natural-fixed-button [routerLink]="['/admin/bookable/new']" icon="add"></natural-fixed-button>
+    <natural-fixed-button [routerLink]="['/admin/bookable/new']" icon="add" />
 }

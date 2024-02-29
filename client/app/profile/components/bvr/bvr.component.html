@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutGap="5px">
     @if (!bankingInfos) {
         <div class="margin" fxLayout="column" fxLayoutAlign="center center">
-            <mat-progress-spinner [diameter]="40" mode="indeterminate"></mat-progress-spinner>
+            <mat-progress-spinner [diameter]="40" mode="indeterminate" />
         </div>
     }
     @if (bankingInfos) {
@@ -20,7 +20,7 @@
                                 (click)="copyToClipboard(bankingInfos.iban)"
                                 matTooltip="Copier le IBAN"
                             >
-                                <mat-icon naturalIcon="content_copy"></mat-icon>
+                                <mat-icon naturalIcon="content_copy" />
                             </button>
                         }
                     </div>
@@ -35,7 +35,7 @@
                                 (click)="copyToClipboard(bankingInfos.referenceNumber)"
                                 matTooltip="Copier le numéro de référence"
                             >
-                                <mat-icon naturalIcon="content_copy"></mat-icon>
+                                <mat-icon naturalIcon="content_copy" />
                             </button>
                         }
                     </div>

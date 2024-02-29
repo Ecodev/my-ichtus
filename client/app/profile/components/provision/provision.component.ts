@@ -1,8 +1,8 @@
 import {Component, Inject, ViewChild} from '@angular/core';
 import {ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
 import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
-import {FormControl, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {BankingInfosVariables} from '../../../shared/generated-types';
+import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {BankingInfosVariables, CurrentUserForProfile} from '../../../shared/generated-types';
 import {BvrComponent} from '../bvr/bvr.component';
 import {money} from '@ecodev/natural';
 import {MatInputModule} from '@angular/material/input';
@@ -10,6 +10,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 import {CommonModule} from '@angular/common';
+
+export type ProvisionData = {
+    balance: number;
+    user: NonNullable<CurrentUserForProfile['viewer']>;
+};
 
 @Component({
     selector: 'app-provision',
@@ -43,7 +48,7 @@ export class ProvisionComponent {
     @ViewChild(BvrComponent)
     private bvr!: BvrComponent;
 
-    public constructor(@Inject(MAT_DIALOG_DATA) public readonly data: any) {
+    public constructor(@Inject(MAT_DIALOG_DATA) public readonly data: ProvisionData) {
         this.bvrData = {
             user: data.user.id,
         };

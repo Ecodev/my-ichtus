@@ -16,7 +16,7 @@ import {
 } from '@ecodev/natural';
 import {UserService} from '../../../admin/users/services/user.service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {ProvisionComponent} from '../provision/provision.component';
+import {ProvisionComponent, ProvisionData} from '../provision/provision.component';
 import {filter, takeUntil} from 'rxjs/operators';
 import {CurrentUserForProfile, Licenses, LicensesVariables} from '../../../shared/generated-types';
 import {DatatransService} from '../../../shared/services/datatrans.service';
@@ -104,11 +104,11 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
     }
 
     public pay(): void {
-        if (!this.viewer || !this.viewer.account) {
+        if (!this.viewer?.account) {
             return;
         }
 
-        const config: MatDialogConfig = {
+        const config: MatDialogConfig<ProvisionData> = {
             data: {
                 balance: Number(this.viewer.account.balance),
                 user: this.viewer,
@@ -117,7 +117,7 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
         };
 
         this.dialog
-            .open<ProvisionComponent, void, number>(ProvisionComponent, config)
+            .open<ProvisionComponent, ProvisionData, number>(ProvisionComponent, config)
             .afterClosed()
             .subscribe(amount => {
                 if (amount) {
@@ -131,7 +131,7 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
     }
 
     private doPayment(user: NonNullable<CurrentUserForProfile['viewer']>, amount: number): void {
-        if (!localConfig || !localConfig.datatrans) {
+        if (!localConfig?.datatrans) {
             return;
         }
 

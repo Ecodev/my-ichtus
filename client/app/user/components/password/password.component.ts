@@ -29,7 +29,7 @@ function samePasswordsValidator(formGroup: AbstractControl): ValidationErrors | 
 
 class ConfirmPasswordStateMatcher implements ErrorStateMatcher {
     public isErrorState(control: FormControl | null): boolean {
-        if (control && control.parent && control.parent instanceof FormGroup) {
+        if (control?.parent && control.parent instanceof FormGroup) {
             return !!samePasswordsValidator(control.parent) && control.dirty;
         }
 

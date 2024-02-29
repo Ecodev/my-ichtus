@@ -5,7 +5,7 @@ import {DOCUMENT} from '@angular/common';
 import {fromEvent, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-export interface Config {
+export type Config = {
     params: {
         merchantId: string;
         sign: string;
@@ -25,7 +25,7 @@ export interface Config {
     success?: () => void;
     error?: (data: {message: string}) => void;
     cancel?: () => void;
-}
+};
 
 type AllowedCss = Record<'width' | 'height' | 'overflow' | 'position', string>;
 
@@ -139,11 +139,11 @@ export class DatatransService {
         this.cleaningUp.next();
 
         this.toggleLockHostPage(false);
-        if (this.paymentForm && this.paymentForm.parentNode) {
+        if (this.paymentForm?.parentNode) {
             this.paymentForm.parentNode.removeChild(this.paymentForm);
         }
 
-        if (this.paymentFrame && this.paymentFrame.parentNode) {
+        if (this.paymentFrame?.parentNode) {
             this.paymentFrame.parentNode.removeChild(this.paymentFrame);
         }
 

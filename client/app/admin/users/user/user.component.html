@@ -6,7 +6,7 @@
         [listRoute]="['admin', 'user']"
     >
         @if (isUpdatePage() && data.model.account) {
-            <app-money [amount]="data.model.account.balance" sizeClass="mat-headline-4"></app-money>
+            <app-money [amount]="data.model.account.balance" sizeClass="mat-headline-4" />
         }
     </natural-detail-header>
 
@@ -52,10 +52,10 @@
                                 formControlName="sex"
                                 (selectionChange)="update()"
                                 placeholder="Genre"
-                            ></natural-select-enum>
+                            />
                         </div>
 
-                        <app-address [form]="form" (addressChange)="update()"></app-address>
+                        <app-address [form]="form" (addressChange)="update()" />
 
                         <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="10px">
                             <mat-form-field fxFlex.gt-xs
@@ -109,7 +109,7 @@
                             }
                         </mat-form-field>
 
-                        <mat-divider class="margin-bottom"></mat-divider>
+                        <mat-divider class="margin-bottom" />
 
                         <h2 class="mat-headline-6">État</h2>
 
@@ -118,7 +118,7 @@
                             formControlName="status"
                             (selectionChange)="update()"
                             placeholder="Status"
-                        ></natural-select-enum>
+                        />
 
                         <natural-select-enum
                             enumName="UserRole"
@@ -126,18 +126,18 @@
                             (selectionChange)="update()"
                             placeholder="Rôle"
                             [optionDisabled]="roleDisabled()"
-                        ></natural-select-enum>
+                        />
 
                         <natural-select-enum
                             enumName="Relationship"
                             formControlName="familyRelationship"
                             (selectionChange)="update()"
                             placeholder="Rôle dans la famille"
-                        ></natural-select-enum>
+                        />
                     </div>
                 </div>
 
-                <mat-divider></mat-divider>
+                <mat-divider />
 
                 <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
                     <div fxFlex="66" fxLayout="column">
@@ -150,7 +150,7 @@
                             (selectionChange)="update()"
                             [showIcon]="false"
                             [filter]="ownerFilter"
-                        ></natural-select>
+                        />
 
                         <mat-form-field>
                             <mat-label>Swiss sailling</mat-label>
@@ -163,7 +163,7 @@
                             (selectionChange)="update()"
                             nullLabel=" "
                             placeholder="Licence swiss sailing"
-                        ></natural-select-enum>
+                        />
 
                         <natural-select-enum
                             enumName="SwissWindsurfType"
@@ -171,7 +171,7 @@
                             (selectionChange)="update()"
                             nullLabel=" "
                             placeholder="License swiss windsurfing"
-                        ></natural-select-enum>
+                        />
 
                         <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="20px">
                             <natural-select-enum
@@ -180,7 +180,7 @@
                                 formControlName="billingType"
                                 (selectionChange)="update()"
                                 placeholder="Méthode de paiement"
-                            ></natural-select-enum>
+                            />
 
                             <mat-form-field fxFlex.gt-xs
                                 ><!-- row child -->
@@ -191,8 +191,8 @@
                                     [matDatepicker]="picker"
                                     (dateChange)="update()"
                                 />
-                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker>
+                                <mat-datepicker-toggle matIconSuffix [for]="picker" />
+                                <mat-datepicker #picker />
                                 @if (isUpdatePage() && data.model.age) {
                                     <mat-hint>Âge: {{ data.model.age }} ans</mat-hint>
                                 }
@@ -241,7 +241,7 @@
 
                 <!-- Bookings -->
                 @if (isUpdatePage()) {
-                    <mat-divider></mat-divider>
+                    <mat-divider />
                 }
 
                 @if (isUpdatePage()) {
@@ -259,7 +259,7 @@
                                     <natural-table-button
                                         [navigate]="['/admin/license/', item.id]"
                                         [label]="item.name"
-                                    ></natural-table-button>
+                                    />
                                 </ng-template>
                             </natural-relations>
                         </div>
@@ -274,15 +274,11 @@
                             >
                                 <ng-template let-item="item">
                                     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-                                        <natural-avatar
-                                            [bgColor]="item.color"
-                                            [initials]="item.name"
-                                            [size]="36"
-                                        ></natural-avatar>
+                                        <natural-avatar [bgColor]="item.color" [initials]="item.name" [size]="36" />
                                         <natural-table-button
                                             [navigate]="['/admin/user-tag', item.id]"
                                             [label]="item.name"
-                                        ></natural-table-button>
+                                        />
                                     </div>
                                 </ng-template>
                             </natural-relations>
@@ -304,11 +300,11 @@
                     </div>
                 }
 
-                <mat-divider></mat-divider>
+                <mat-divider />
 
                 <div fxLayout="column" fxLayoutGap="15px">
                     @if (isUpdatePage()) {
-                        <natural-stamp [item]="data.model"></natural-stamp>
+                        <natural-stamp [item]="data.model" />
                     }
 
                     <!-- Welcome session date -->
@@ -323,15 +319,15 @@
                             />
 
                             <div matIconSuffix fxLayoutAlign="start center">
-                                <mat-datepicker-toggle [for]="picker2"></mat-datepicker-toggle>
-                                <mat-datepicker #picker2></mat-datepicker>
+                                <mat-datepicker-toggle [for]="picker2" />
+                                <mat-datepicker #picker2 />
 
                                 @if (form.get('welcomeSessionDate')?.value) {
                                     <button
                                         mat-icon-button
                                         (click)="form.get('welcomeSessionDate')?.setValue(null); update()"
                                     >
-                                        <mat-icon naturalIcon="close"></mat-icon>
+                                        <mat-icon naturalIcon="close" />
                                     </button>
                                 }
                             </div>
@@ -364,7 +360,7 @@
 
         @if (isUpdatePage() && showFamilyTab) {
             <mat-tab id="family" label="Famille">
-                <app-users [forcedVariables]="familyVariables" [persistSearch]="false" class="margin-top"></app-users>
+                <app-users [forcedVariables]="familyVariables" [persistSearch]="false" class="margin-top" />
             </mat-tab>
         }
 
@@ -376,7 +372,7 @@
                     [relativeToAccount]="data.model.account"
                     [persistSearch]="false"
                     class="margin-top"
-                ></app-transaction-lines>
+                />
             </mat-tab>
         }
 
@@ -391,7 +387,7 @@
                             [service]="accountService"
                             [showIcon]="false"
                             [navigateTo]="['/admin/account', form.get('account')?.value?.id]"
-                        ></natural-select>
+                        />
                         <mat-form-field fxFlex="50"
                             ><!-- row child -->
                             <mat-label>IBAN</mat-label>
@@ -409,7 +405,7 @@
                                     [disabled]="ibanCtrl.enabled || updating"
                                     matTooltip="Déverouiller"
                                 >
-                                    <mat-icon naturalIcon="lock"></mat-icon>
+                                    <mat-icon naturalIcon="lock" />
                                 </button>
                             }
                             @if (ibanCtrl.hasError('iban')) {
@@ -418,7 +414,7 @@
                             <mat-hint>Pour les demandes de remboursement</mat-hint>
                         </mat-form-field>
                     </div>
-                    <app-finances [viewer]="data.model"></app-finances>
+                    <app-finances [viewer]="data.model" />
                 </div>
             </mat-tab>
         }
@@ -430,16 +426,12 @@
         ) {
             <mat-tab id="services" label="Prestations et services">
                 <br class="margin-top" />
-                <app-services [user]="data.model"></app-services>
+                <app-services [user]="data.model" />
             </mat-tab>
         }
     </mat-tab-group>
 
     @if (showFabButton) {
-        <natural-fixed-button-detail
-            [form]="form"
-            [model]="data.model"
-            (create)="create()"
-        ></natural-fixed-button-detail>
+        <natural-fixed-button-detail [form]="form" [model]="data.model" (create)="create()" />
     }
 </div>

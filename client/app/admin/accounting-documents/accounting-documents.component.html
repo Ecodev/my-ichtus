@@ -8,10 +8,10 @@
                 [height]="fileHeight"
                 [style.width.px]="fileWidth"
                 [action]="getAction(file, $index, $last)"
-            ></natural-file>
+            />
             @if (canRemove && !disabled && !$last) {
                 <button mat-icon-button (click)="!$last ? removeFile($index) : null">
-                    <mat-icon naturalIcon="clear"></mat-icon>
+                    <mat-icon naturalIcon="clear" />
                 </button>
             }
             @if (!disabled && $last) {

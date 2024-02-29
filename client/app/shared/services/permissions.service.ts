@@ -7,9 +7,9 @@ import {CurrentUserForProfile, Permissions, UserRole, UserStatus} from '../gener
 import {Literal} from '@ecodev/natural';
 import {permissionsQuery} from './permissions.queries';
 
-interface Contexts {
+type Contexts = {
     user: string | null;
-}
+};
 
 /**
  * A service to fetch permissions and use them in templates.

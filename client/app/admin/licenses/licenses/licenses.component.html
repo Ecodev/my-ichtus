@@ -26,7 +26,7 @@
                             [label]="element.name"
                             [navigate]="['/admin/license', element.id]"
                             matTooltip="Éditer"
-                        ></natural-table-button>
+                        />
                     </td>
                 </ng-container>
             </table>
@@ -37,7 +37,7 @@
             }
             @if (!dataSource.data) {
                 <div fxLayout="column" fxLayoutAlign="center center" class="margin">
-                    <mat-progress-spinner mode="indeterminate" [diameter]="40"></mat-progress-spinner>
+                    <mat-progress-spinner mode="indeterminate" [diameter]="40" />
                 </div>
             }
             @if (dataSource.data?.length) {
@@ -47,12 +47,12 @@
                     [pageIndex]="dataSource.data?.pageIndex"
                     [pageSizeOptions]="pageSizeOptions"
                     (page)="pagination($event)"
-                ></mat-paginator>
+                />
             }
         </div>
     </div>
 }
 
 @if (permissionsService.crud?.license.create) {
-    <natural-fixed-button [routerLink]="['/admin/license/new']" icon="add"></natural-fixed-button>
+    <natural-fixed-button [routerLink]="['/admin/license/new']" icon="add" />
 }

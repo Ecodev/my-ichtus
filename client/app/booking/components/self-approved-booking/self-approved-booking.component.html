@@ -7,14 +7,14 @@
             <app-card [file]="bookable?.image">
                 @if (!bookable?.image) {
                     <div class="card-illustration padding">
-                        <natural-avatar initials="?" [size]="160"></natural-avatar>
+                        <natural-avatar initials="?" [size]="160" />
                     </div>
                 }
                 <h2 class="mat-headline-6">Matériel</h2>
                 <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
                     <div class="mat-subtitle-2" fxFlex>{{ bookable?.name || 'Mon propre matériel' }}</div>
                     @if (bookable) {
-                        <mat-divider [vertical]="true"></mat-divider>
+                        <mat-divider [vertical]="true" />
                     }
                     <div class="mat-subtitle-2">{{ bookable?.code }}</div>
                 </div>
@@ -23,14 +23,10 @@
             <app-card>
                 <div class="card-illustration padding">
                     @if (!!booking.owner) {
-                        <natural-avatar
-                            [initials]="booking.owner.name"
-                            [gravatar]="booking.owner.email"
-                            [size]="160"
-                        ></natural-avatar>
+                        <natural-avatar [initials]="booking.owner.name" [gravatar]="booking.owner.email" [size]="160" />
                     }
                     @if (!booking.owner) {
-                        <natural-avatar initials="Invité" [size]="160"></natural-avatar>
+                        <natural-avatar initials="Invité" [size]="160" />
                     }
                 </div>
 
@@ -96,4 +92,4 @@
     </div>
 </div>
 
-<natural-fixed-button (click)="createBooking()" icon="check"></natural-fixed-button>
+<natural-fixed-button (click)="createBooking()" icon="check" />
