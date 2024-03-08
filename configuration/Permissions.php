@@ -131,4 +131,8 @@ return [
         'path' => 'node_modules/.bin/*',
         'permissions' => '0750',
     ],
+    [
+        'path' => 'node_modules/@esbuild/linux-x64/bin/*',
+        'permissions' => '0750',
+    ],
 ];
