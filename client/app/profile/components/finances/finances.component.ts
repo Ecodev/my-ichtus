@@ -34,7 +34,7 @@ import {CommonModule} from '@angular/common';
 @Component({
     selector: 'app-finances',
     templateUrl: './finances.component.html',
-    styleUrls: ['./finances.component.scss'],
+    styleUrl: './finances.component.scss',
     standalone: true,
     imports: [
         CommonModule,

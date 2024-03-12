@@ -9,7 +9,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 @Component({
     selector: 'app-error',
     templateUrl: './error.component.html',
-    styleUrls: ['./error.component.scss'],
+    styleUrl: './error.component.scss',
     standalone: true,
     imports: [FlexModule, MatIconModule, NaturalIconDirective, MatButtonModule, RouterLink],
 })

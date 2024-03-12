@@ -32,7 +32,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 @Component({
     selector: 'app-expense-claim',
     templateUrl: './expenseClaim.component.html',
-    styleUrls: ['./expenseClaim.component.scss'],
+    styleUrl: './expenseClaim.component.scss',
     standalone: true,
     imports: [
         FormsModule,

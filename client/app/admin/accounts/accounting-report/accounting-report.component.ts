@@ -11,7 +11,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 @Component({
     selector: 'app-accounting-report',
     templateUrl: './accounting-report.component.html',
-    styleUrls: ['./accounting-report.component.scss'],
+    styleUrl: './accounting-report.component.scss',
     standalone: true,
     imports: [
         MatDialogModule,

@@ -8,7 +8,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 @Component({
     selector: 'app-code-input',
     templateUrl: './code-input.component.html',
-    styleUrls: ['./code-input.component.scss'],
+    styleUrl: './code-input.component.scss',
     standalone: true,
     imports: [FlexModule, FormsModule, FocusDirective, MatButtonModule, RouterLink],
 })

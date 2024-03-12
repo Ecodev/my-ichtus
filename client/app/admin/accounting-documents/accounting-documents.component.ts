@@ -17,7 +17,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 @Component({
     selector: 'app-accounting-documents',
     templateUrl: './accounting-documents.component.html',
-    styleUrls: ['./accounting-documents.component.scss'],
+    styleUrl: './accounting-documents.component.scss',
     standalone: true,
     imports: [FlexModule, NaturalFileComponent, MatButtonModule, MatIconModule, NaturalIconDirective],
 })

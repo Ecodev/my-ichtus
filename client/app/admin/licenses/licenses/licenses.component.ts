@@ -20,7 +20,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 @Component({
     selector: 'app-licenses',
     templateUrl: './licenses.component.html',
-    styleUrls: ['./licenses.component.scss'],
+    styleUrl: './licenses.component.scss',
     standalone: true,
     imports: [
         FlexModule,

@@ -13,7 +13,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 @Component({
     selector: 'app-change-password',
     templateUrl: './change-password.component.html',
-    styleUrls: ['./change-password.component.scss'],
+    styleUrl: './change-password.component.scss',
     standalone: true,
     imports: [
         FlexModule,

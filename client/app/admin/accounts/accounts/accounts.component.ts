@@ -45,7 +45,7 @@ type AccountingExportDialogResult = {
 @Component({
     selector: 'app-accounts',
     templateUrl: './accounts.component.html',
-    styleUrls: ['./accounts.component.scss'],
+    styleUrl: './accounts.component.scss',
     standalone: true,
     imports: [
         CommonModule,

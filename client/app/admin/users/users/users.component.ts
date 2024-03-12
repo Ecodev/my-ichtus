@@ -36,7 +36,7 @@ import {CommonModule} from '@angular/common';
 @Component({
     selector: 'app-users',
     templateUrl: './users.component.html',
-    styleUrls: ['./users.component.scss'],
+    styleUrl: './users.component.scss',
     standalone: true,
     imports: [
         CommonModule,

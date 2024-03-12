@@ -9,7 +9,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 @Component({
     selector: 'app-address',
     templateUrl: './address.component.html',
-    styleUrls: ['./address.component.scss'],
+    styleUrl: './address.component.scss',
     standalone: true,
     imports: [FlexModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, NaturalSelectComponent],
 })

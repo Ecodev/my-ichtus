@@ -55,7 +55,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 @Component({
     selector: 'app-bookable',
     templateUrl: './bookable.component.html',
-    styleUrls: ['./bookable.component.scss'],
+    styleUrl: './bookable.component.scss',
     standalone: true,
     imports: [
         FormsModule,

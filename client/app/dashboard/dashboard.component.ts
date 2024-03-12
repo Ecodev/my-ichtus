@@ -16,7 +16,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.scss'],
+    styleUrl: './dashboard.component.scss',
     standalone: true,
     imports: [
         FlexModule,

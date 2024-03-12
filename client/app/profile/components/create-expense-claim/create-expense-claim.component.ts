@@ -16,7 +16,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 @Component({
     selector: 'app-create-expense-claim',
     templateUrl: './create-expense-claim.component.html',
-    styleUrls: ['./create-expense-claim.component.scss'],
+    styleUrl: './create-expense-claim.component.scss',
     standalone: true,
     imports: [
         FlexModule,

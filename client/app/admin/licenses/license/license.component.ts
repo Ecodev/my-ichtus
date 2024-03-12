@@ -24,7 +24,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 @Component({
     selector: 'app-license',
     templateUrl: './license.component.html',
-    styleUrls: ['./license.component.scss'],
+    styleUrl: './license.component.scss',
     standalone: true,
     imports: [
         FormsModule,

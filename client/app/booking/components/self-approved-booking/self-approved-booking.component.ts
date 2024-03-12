@@ -16,7 +16,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 @Component({
     selector: 'app-self-approved-booking',
     templateUrl: './self-approved-booking.component.html',
-    styleUrls: ['./self-approved-booking.component.scss'],
+    styleUrl: './self-approved-booking.component.scss',
     standalone: true,
     imports: [
         FlexModule,

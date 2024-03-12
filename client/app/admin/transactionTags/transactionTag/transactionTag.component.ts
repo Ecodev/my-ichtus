@@ -17,7 +17,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 @Component({
     selector: 'app-transaction-tag',
     templateUrl: './transactionTag.component.html',
-    styleUrls: ['./transactionTag.component.scss'],
+    styleUrl: './transactionTag.component.scss',
     standalone: true,
     imports: [
         FormsModule,

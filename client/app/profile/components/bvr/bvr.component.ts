@@ -33,7 +33,7 @@ const queryForExport = gql`
 @Component({
     selector: 'app-bvr',
     templateUrl: './bvr.component.html',
-    styleUrls: ['./bvr.component.scss'],
+    styleUrl: './bvr.component.scss',
     standalone: true,
     imports: [
         FlexModule,

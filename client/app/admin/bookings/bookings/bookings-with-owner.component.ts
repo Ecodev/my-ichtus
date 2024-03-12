@@ -35,7 +35,7 @@ import {CommonModule} from '@angular/common';
 @Component({
     selector: 'app-bookings-with-owner',
     templateUrl: './bookings.component.html',
-    styleUrls: ['./bookings.component.scss'],
+    styleUrl: './bookings.component.scss',
     standalone: true,
     imports: [
         CommonModule,

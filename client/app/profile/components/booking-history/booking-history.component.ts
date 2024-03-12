@@ -5,7 +5,7 @@ import {NavigationsComponent} from '../../../shared/components/navigations/navig
 @Component({
     selector: 'app-booking-history',
     templateUrl: './booking-history.component.html',
-    styleUrls: ['./booking-history.component.scss'],
+    styleUrl: './booking-history.component.scss',
     standalone: true,
     imports: [NavigationsComponent],
 })

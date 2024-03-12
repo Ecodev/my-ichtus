@@ -20,7 +20,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 @Component({
     selector: 'app-user-tag',
     templateUrl: './userTag.component.html',
-    styleUrls: ['./userTag.component.scss'],
+    styleUrl: './userTag.component.scss',
     standalone: true,
     imports: [
         FormsModule,

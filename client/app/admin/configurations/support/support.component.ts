@@ -25,7 +25,7 @@ export type SupportComponentData = {
 @Component({
     selector: 'app-support',
     templateUrl: './support.component.html',
-    styleUrls: ['./support.component.scss'],
+    styleUrl: './support.component.scss',
     standalone: true,
     imports: [
         MatDialogModule,

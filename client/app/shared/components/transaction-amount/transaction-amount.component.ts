@@ -8,7 +8,7 @@ import {CommonModule} from '@angular/common';
 @Component({
     selector: 'app-transaction-amount',
     templateUrl: './transaction-amount.component.html',
-    styleUrls: ['./transaction-amount.component.scss'],
+    styleUrl: './transaction-amount.component.scss',
     standalone: true,
     imports: [CommonModule, MatTooltipModule, RouterLink],
 })

@@ -30,7 +30,7 @@ import {CommonModule} from '@angular/common';
 @Component({
     selector: 'app-expense-claims',
     templateUrl: './expenseClaims.component.html',
-    styleUrls: ['./expenseClaims.component.scss'],
+    styleUrl: './expenseClaims.component.scss',
     standalone: true,
     imports: [
         CommonModule,

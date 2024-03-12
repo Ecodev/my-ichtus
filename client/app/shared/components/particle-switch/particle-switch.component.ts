@@ -15,7 +15,7 @@ type ParticleSwitchOption = {
 @Component({
     selector: 'app-particle-switch',
     templateUrl: './particle-switch.component.html',
-    styleUrls: ['./particle-switch.component.scss'],
+    styleUrl: './particle-switch.component.scss',
     standalone: true,
     imports: [ParticleEffectDirective, CommonModule],
 })

@@ -39,7 +39,7 @@ class ConfirmPasswordStateMatcher implements ErrorStateMatcher {
 @Component({
     selector: 'app-password',
     templateUrl: './password.component.html',
-    styleUrls: ['./password.component.scss'],
+    styleUrl: './password.component.scss',
     standalone: true,
     imports: [
         FlexModule,

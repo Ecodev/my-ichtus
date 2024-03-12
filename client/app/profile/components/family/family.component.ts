@@ -20,7 +20,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 @Component({
     selector: 'app-family',
     templateUrl: './family.component.html',
-    styleUrls: ['./family.component.scss'],
+    styleUrl: './family.component.scss',
     standalone: true,
     imports: [
         FlexModule,

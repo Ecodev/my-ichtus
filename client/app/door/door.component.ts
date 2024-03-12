@@ -12,7 +12,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 @Component({
     selector: 'app-door',
     templateUrl: './door.component.html',
-    styleUrls: ['./door.component.scss'],
+    styleUrl: './door.component.scss',
     standalone: true,
     imports: [FlexModule, CardComponent, MatButtonModule, MatIconModule],
 })

@@ -69,7 +69,7 @@ function bookingsToExtended(bookings: Bookings['bookings']): PaginatedExtendedBo
 @Component({
     selector: 'app-navigations',
     templateUrl: './navigations.component.html',
-    styleUrls: ['./navigations.component.scss'],
+    styleUrl: './navigations.component.scss',
     animations: [
         trigger('terminate', [transition(':leave', [animate('0.2s ease-in-out', style({transform: 'scale(0, 0)'}))])]),
     ],

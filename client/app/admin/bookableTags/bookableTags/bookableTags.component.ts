@@ -21,7 +21,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 @Component({
     selector: 'app-bookable-tags',
     templateUrl: './bookableTags.component.html',
-    styleUrls: ['./bookableTags.component.scss'],
+    styleUrl: './bookableTags.component.scss',
     standalone: true,
     imports: [
         FlexModule,

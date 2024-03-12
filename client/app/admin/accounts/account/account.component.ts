@@ -31,7 +31,7 @@ import {AccountType} from '../../../shared/generated-types';
 @Component({
     selector: 'app-account',
     templateUrl: './account.component.html',
-    styleUrls: ['./account.component.scss'],
+    styleUrl: './account.component.scss',
     standalone: true,
     imports: [
         FormsModule,

@@ -25,7 +25,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 @Component({
     selector: 'app-confirm',
     templateUrl: './register.component.html',
-    styleUrls: ['./register.component.scss'],
+    styleUrl: './register.component.scss',
     standalone: true,
     imports: [
         FormsModule,

@@ -36,7 +36,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 @Component({
     selector: 'app-profile',
     templateUrl: './profile.component.html',
-    styleUrls: ['./profile.component.scss'],
+    styleUrl: './profile.component.scss',
     standalone: true,
     imports: [
         NaturalSidenavContainerComponent,

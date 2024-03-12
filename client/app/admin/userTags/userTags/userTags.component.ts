@@ -21,7 +21,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 @Component({
     selector: 'app-user-tags',
     templateUrl: './userTags.component.html',
-    styleUrls: ['./userTags.component.scss'],
+    styleUrl: './userTags.component.scss',
     standalone: true,
     imports: [
         FlexModule,

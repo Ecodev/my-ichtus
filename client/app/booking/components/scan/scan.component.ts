@@ -8,7 +8,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 @Component({
     selector: 'app-scan',
     templateUrl: './scan.component.html',
-    styleUrls: ['./scan.component.scss'],
+    styleUrl: './scan.component.scss',
     standalone: true,
     imports: [FlexModule],
 })

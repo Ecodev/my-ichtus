@@ -22,7 +22,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 @Component({
     selector: 'app-transaction-tags',
     templateUrl: './transactionTags.component.html',
-    styleUrls: ['./transactionTags.component.scss'],
+    styleUrl: './transactionTags.component.scss',
     standalone: true,
     imports: [
         FlexModule,

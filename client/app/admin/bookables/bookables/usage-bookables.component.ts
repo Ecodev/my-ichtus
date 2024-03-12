@@ -33,7 +33,7 @@ import {CommonModule} from '@angular/common';
 @Component({
     selector: 'app-usage-bookables',
     templateUrl: './bookables.component.html',
-    styleUrls: ['./bookables.component.scss'],
+    styleUrl: './bookables.component.scss',
     standalone: true,
     imports: [
         CommonModule,

@@ -13,7 +13,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 @Component({
     selector: 'app-request-password-reset',
     templateUrl: './request-password-reset.component.html',
-    styleUrls: ['./request-password-reset.component.scss'],
+    styleUrl: './request-password-reset.component.scss',
     standalone: true,
     imports: [
         FormsModule,

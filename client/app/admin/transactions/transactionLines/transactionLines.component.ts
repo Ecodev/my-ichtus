@@ -35,7 +35,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 @Component({
     selector: 'app-transaction-lines',
     templateUrl: './transactionLines.component.html',
-    styleUrls: ['./transactionLines.component.scss'],
+    styleUrl: './transactionLines.component.scss',
     standalone: true,
     imports: [
         FlexModule,

@@ -15,7 +15,7 @@ import {MatTableModule} from '@angular/material/table';
 @Component({
     selector: 'app-bookable-metadata',
     templateUrl: './bookable-metadata.component.html',
-    styleUrls: ['./bookable-metadata.component.scss'],
+    styleUrl: './bookable-metadata.component.scss',
     standalone: true,
     imports: [
         MatTableModule,

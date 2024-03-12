@@ -32,7 +32,7 @@ export type EditableTransactionLinesInput =
 @Component({
     selector: 'app-editable-transaction-lines',
     templateUrl: './editable-transaction-lines.component.html',
-    styleUrls: ['./editable-transaction-lines.component.scss'],
+    styleUrl: './editable-transaction-lines.component.scss',
     standalone: true,
     imports: [
         FlexModule,

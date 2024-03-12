@@ -15,7 +15,7 @@ import {
 @Component({
     selector: 'app-admin',
     templateUrl: './admin.component.html',
-    styleUrls: ['./admin.component.scss'],
+    styleUrl: './admin.component.scss',
     standalone: true,
     imports: [
         NaturalSidenavContainerComponent,

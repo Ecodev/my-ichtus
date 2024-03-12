@@ -19,7 +19,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
 @Component({
     selector: 'app-import',
     templateUrl: './import.component.html',
-    styleUrls: ['./import.component.scss'],
+    styleUrl: './import.component.scss',
     standalone: true,
     imports: [FlexModule, MatButtonModule, NaturalFileSelectDirective, MatIconModule, NaturalIconDirective],
 })
