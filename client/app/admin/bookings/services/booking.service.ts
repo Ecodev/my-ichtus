@@ -34,16 +34,8 @@ import {
     UsageBookables,
 } from '../../../shared/generated-types';
 import {Validators} from '@angular/forms';
-import {forkJoin, Observable, of} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {
-    formatIsoDateTime,
-    FormValidators,
-    IEnum,
-    NaturalAbstractModelService,
-    NaturalDebounceService,
-    NaturalEnumService,
-} from '@ecodev/natural';
+import {Observable, of} from 'rxjs';
+import {formatIsoDateTime, FormValidators, NaturalAbstractModelService, NaturalDebounceService} from '@ecodev/natural';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 
 @Injectable({
@@ -165,11 +157,7 @@ export class BookingService extends NaturalAbstractModelService<
         };
     }
 
-    public constructor(
-        apollo: Apollo,
-        naturalDebounceService: NaturalDebounceService,
-        private readonly enumService: NaturalEnumService,
-    ) {
+    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
         super(
             apollo,
             naturalDebounceService,
@@ -220,23 +208,6 @@ export class BookingService extends NaturalAbstractModelService<
         });
 
         return observable;
-    }
-
-    public override resolve(id: string): Observable<{
-        model: Booking['booking'] | BookingInput;
-        status: IEnum[];
-    }> {
-        return forkJoin({
-            model: super.resolve(id),
-            status: this.enumService.get('BookingStatus'),
-        }).pipe(
-            map(data => {
-                return {
-                    model: data.model.model,
-                    status: data.status,
-                };
-            }),
-        );
     }
 
     /**

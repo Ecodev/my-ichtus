@@ -42,10 +42,10 @@ export const routes: Routes = [
         path: ':bookableCode',
         component: BookableComponent,
         resolve: {
-            bookable: resolveBookableByCode,
+            model: resolveBookableByCode,
         },
         data: {
-            seo: {resolveKey: 'bookable'} satisfies NaturalSeo,
+            seo: {resolve: true} satisfies NaturalSeo,
         },
     },
 ];

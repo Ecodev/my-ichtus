@@ -167,7 +167,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
             return;
         }
 
-        this.bookingService.updatePartially({id: this.data.model.id, endDate: null}).subscribe(() => {
+        this.bookingService.updateNow({id: this.data.model.id, endDate: null}).subscribe(() => {
             this.data.model.endDate = null;
             this.form.controls.endDate.setValue(null);
         });

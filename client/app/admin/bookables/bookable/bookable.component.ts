@@ -128,10 +128,14 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
             return;
         }
 
-        const partialBookable = {id: this.data.model.id, verificationDate: formatIsoDateTime(new Date())};
-        this.service.updatePartially(partialBookable).subscribe(bookable => {
-            this.form.patchValue(bookable);
-        });
+        this.service
+            .updateNow({
+                id: this.data.model.id,
+                verificationDate: formatIsoDateTime(new Date()),
+            })
+            .subscribe(bookable => {
+                this.form.patchValue(bookable);
+            });
     }
 
     public showVerified(): boolean {
@@ -153,7 +157,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
         return this.imageService.create({file}).pipe(
             switchMap(image => {
                 const id = this.data.model.id;
-                return id ? this.service.updatePartially({id, image}).pipe(map(() => image)) : of(image);
+                return id ? this.service.updateNow({id, image}).pipe(map(() => image)) : of(image);
             }),
         );
     }

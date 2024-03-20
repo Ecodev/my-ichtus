@@ -57,7 +57,7 @@ export class AccountingDocumentsComponent implements OnInit {
 
     public ngOnInit(): void {
         if ('accountingDocuments' in this.model) {
-            this.files = this.model.accountingDocuments;
+            this.files = [...this.model.accountingDocuments];
         }
 
         this.disabled = this._disabled;

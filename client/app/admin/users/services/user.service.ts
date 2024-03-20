@@ -63,7 +63,6 @@ import {
     UserLeaveFamily,
     UserLoginAvailable,
     UserLoginAvailableVariables,
-    UserPartialInput,
     UserRole,
     UserRolesAvailables,
     UserRolesAvailablesVariables,
@@ -355,13 +354,11 @@ export class UserService
         id: string,
         value = formatIsoDateTime(new Date()),
     ): Observable<UpdateUser['updateUser']> {
-        const user: UserPartialInput = {welcomeSessionDate: value};
-        return this.updatePartially({id: id, ...user});
+        return this.updateNow({id: id, welcomeSessionDate: value});
     }
 
     public activate(id: string): Observable<UpdateUser['updateUser']> {
-        const user: UserPartialInput = {status: UserStatus.active};
-        return this.updatePartially({id: id, ...user});
+        return this.updateNow({id: id, status: UserStatus.active});
     }
 
     public logout(): Observable<Logout['logout']> {

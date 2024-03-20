@@ -61,7 +61,7 @@ export class BookableComponent implements OnInit {
 
     public ngOnInit(): void {
         this.route.data.subscribe(data => {
-            this.bookable = data.bookable.model;
+            this.bookable = data.model;
             this.initForBookable();
         });
     }

@@ -218,7 +218,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeo
             this.ibanCtrl.enable();
             const iban = this.ibanCtrl.value;
             this.userService
-                .updatePartially({id: this.data.model.id, iban: iban})
+                .updateNow({id: this.data.model.id, iban: iban})
                 .pipe(
                     finalize(() => {
                         this.updating = false;

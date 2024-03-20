@@ -153,7 +153,7 @@ export class FinancesComponent
             this.ibanCtrl.enable();
             const iban = this.ibanCtrl.value;
             this.userService
-                .updatePartially({id: this.viewer.id, iban: iban})
+                .updateNow({id: this.viewer.id, iban: iban})
                 .pipe(
                     finalize(() => {
                         this.updating = false;

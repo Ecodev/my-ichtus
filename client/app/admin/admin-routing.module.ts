@@ -14,7 +14,7 @@ import {UsersComponent} from './users/users/users.component';
 import {UserComponent} from './users/user/user.component';
 import {resolveUser} from './users/services/user.resolver';
 import {BookingComponent} from './bookings/booking/booking.component';
-import {resolveBooking} from './bookings/services/booking.resolver';
+import {bookingResolvers} from './bookings/services/booking.resolver';
 import {BookingService} from './bookings/services/booking.service';
 import {UserService} from './users/services/user.service';
 import {BookableService} from './bookables/services/bookable.service';
@@ -208,7 +208,7 @@ export const routes: Routes = [
                         path: 'new',
                         component: BookingComponent,
                         resolve: {
-                            booking: resolveBooking,
+                            ...bookingResolvers,
                         },
                         data: {
                             seo: {
@@ -220,10 +220,10 @@ export const routes: Routes = [
                         path: ':bookingId', // last
                         component: BookingComponent,
                         resolve: {
-                            booking: resolveBooking,
+                            ...bookingResolvers,
                         },
                         data: {
-                            seo: {resolveKey: 'booking'} satisfies NaturalSeo,
+                            seo: {resolve: true} satisfies NaturalSeo,
                         },
                     },
                 ],
@@ -358,7 +358,7 @@ export const routes: Routes = [
                         path: 'new',
                         component: BookableComponent,
                         resolve: {
-                            bookable: resolveBookable,
+                            model: resolveBookable,
                         },
                         data: {
                             seo: {
@@ -370,10 +370,10 @@ export const routes: Routes = [
                         path: ':bookableId', // last
                         component: BookableComponent,
                         resolve: {
-                            bookable: resolveBookable,
+                            model: resolveBookable,
                         },
                         data: {
-                            seo: {resolveKey: 'bookable'} satisfies NaturalSeo,
+                            seo: {resolve: true} satisfies NaturalSeo,
                         },
                     },
                 ],
@@ -431,7 +431,7 @@ export const routes: Routes = [
                         path: 'new',
                         component: UserComponent,
                         resolve: {
-                            user: resolveUser,
+                            model: resolveUser,
                         },
                         data: {
                             seo: {
@@ -443,10 +443,10 @@ export const routes: Routes = [
                         path: ':userId', // last
                         component: UserComponent,
                         resolve: {
-                            user: resolveUser,
+                            model: resolveUser,
                         },
                         data: {
-                            seo: {resolveKey: 'user'} satisfies NaturalSeo,
+                            seo: {resolve: true} satisfies NaturalSeo,
                             persistSearchUsageBookable: false,
                         },
                         children: servicesTabRoutes,
@@ -469,7 +469,7 @@ export const routes: Routes = [
                         path: 'new',
                         component: LicenseComponent,
                         resolve: {
-                            license: resolveLicense,
+                            model: resolveLicense,
                         },
                         data: {
                             seo: {
@@ -481,10 +481,10 @@ export const routes: Routes = [
                         path: ':licenseId', // last
                         component: LicenseComponent,
                         resolve: {
-                            license: resolveLicense,
+                            model: resolveLicense,
                         },
                         data: {
-                            seo: {resolveKey: 'license'} satisfies NaturalSeo,
+                            seo: {resolve: true} satisfies NaturalSeo,
                         },
                     },
                 ],
@@ -505,7 +505,7 @@ export const routes: Routes = [
                         path: 'new',
                         component: UserTagComponent,
                         resolve: {
-                            userTag: resolveUserTag,
+                            model: resolveUserTag,
                         },
                         data: {
                             seo: {
@@ -517,10 +517,10 @@ export const routes: Routes = [
                         path: ':userTagId', // last
                         component: UserTagComponent,
                         resolve: {
-                            userTag: resolveUserTag,
+                            model: resolveUserTag,
                         },
                         data: {
-                            seo: {resolveKey: 'userTag'} satisfies NaturalSeo,
+                            seo: {resolve: true} satisfies NaturalSeo,
                         },
                     },
                 ],
@@ -541,7 +541,7 @@ export const routes: Routes = [
                         path: 'new',
                         component: BookableTagComponent,
                         resolve: {
-                            bookableTag: resolveBookableTag,
+                            model: resolveBookableTag,
                         },
                         data: {
                             seo: {
@@ -553,10 +553,10 @@ export const routes: Routes = [
                         path: ':bookableTagId', // last
                         component: BookableTagComponent,
                         resolve: {
-                            bookableTag: resolveBookableTag,
+                            model: resolveBookableTag,
                         },
                         data: {
-                            seo: {resolveKey: 'bookableTag'} satisfies NaturalSeo,
+                            seo: {resolve: true} satisfies NaturalSeo,
                         },
                     },
                 ],
@@ -568,7 +568,7 @@ export const routes: Routes = [
                         path: 'new',
                         component: TransactionComponent,
                         resolve: {
-                            transaction: resolveTransaction,
+                            model: resolveTransaction,
                             duplicatedTransaction: resolveDuplicatedTransaction,
                             expenseClaim: resolveExpenseClaimParam,
                         },
@@ -582,10 +582,10 @@ export const routes: Routes = [
                         path: ':transactionId', // last
                         component: TransactionComponent,
                         resolve: {
-                            transaction: resolveTransaction,
+                            model: resolveTransaction,
                         },
                         data: {
-                            seo: {resolveKey: 'transaction'} satisfies NaturalSeo,
+                            seo: {resolve: true} satisfies NaturalSeo,
                         },
                     },
                 ],
@@ -630,7 +630,7 @@ export const routes: Routes = [
                         path: 'new',
                         component: AccountComponent,
                         resolve: {
-                            account: resolveAccount,
+                            model: resolveAccount,
                         },
                         data: {
                             seo: {
@@ -642,10 +642,10 @@ export const routes: Routes = [
                         path: ':accountId', // last
                         component: AccountComponent,
                         resolve: {
-                            account: resolveAccount,
+                            model: resolveAccount,
                         },
                         data: {
-                            seo: {resolveKey: 'account'} satisfies NaturalSeo,
+                            seo: {resolve: true} satisfies NaturalSeo,
                         },
                     },
                 ],
@@ -673,7 +673,7 @@ export const routes: Routes = [
                         path: 'new',
                         component: ExpenseClaimComponent,
                         resolve: {
-                            expenseClaim: resolveExpenseClaim,
+                            model: resolveExpenseClaim,
                         },
                         data: {
                             seo: {
@@ -685,10 +685,10 @@ export const routes: Routes = [
                         path: ':expenseClaimId', // last
                         component: ExpenseClaimComponent,
                         resolve: {
-                            expenseClaim: resolveExpenseClaim,
+                            model: resolveExpenseClaim,
                         },
                         data: {
-                            seo: {resolveKey: 'expenseClaim'} satisfies NaturalSeo,
+                            seo: {resolve: true} satisfies NaturalSeo,
                         },
                     },
                 ],
@@ -719,7 +719,7 @@ export const routes: Routes = [
                         path: 'new',
                         component: TransactionTagComponent,
                         resolve: {
-                            transactionTag: resolveTransactionTag,
+                            model: resolveTransactionTag,
                         },
                         data: {
                             seo: {
@@ -731,10 +731,10 @@ export const routes: Routes = [
                         path: ':transactionTagId', // last
                         component: TransactionTagComponent,
                         resolve: {
-                            transactionTag: resolveTransactionTag,
+                            model: resolveTransactionTag,
                         },
                         data: {
-                            seo: {resolveKey: 'transactionTag'} satisfies NaturalSeo,
+                            seo: {resolve: true} satisfies NaturalSeo,
                         },
                     },
                 ],

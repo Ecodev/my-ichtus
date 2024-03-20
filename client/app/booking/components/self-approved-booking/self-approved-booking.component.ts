@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {Bookable, BookingStatus} from '../../../shared/generated-types';
-import {UserService} from '../../../admin/users/services/user.service';
 import {Literal, NaturalAlertService, NaturalAvatarComponent, NaturalFixedButtonComponent} from '@ecodev/natural';
 import {TextFieldModule} from '@angular/cdk/text-field';
 import {FormsModule} from '@angular/forms';
@@ -12,6 +11,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDividerModule} from '@angular/material/divider';
 import {CardComponent} from '../../../shared/components/card/card.component';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {Observable, of, switchMap} from 'rxjs';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-self-approved-booking',
@@ -37,25 +38,29 @@ export class SelfApprovedBookingComponent implements OnInit {
     public constructor(
         private readonly route: ActivatedRoute,
         private readonly router: Router,
-        private readonly userService: UserService,
         private readonly bookingService: BookingService,
         private readonly bookableService: BookableService,
         private readonly alertService: NaturalAlertService,
-    ) {}
+    ) {
+        this.route.data
+            .pipe(takeUntilDestroyed())
+            .pipe(switchMap(data => (data.bookable as Observable<Bookable['bookable'] | null>) ?? of(null)))
+            .subscribe(bookable => {
+                if (bookable) {
+                    this.bookable = bookable;
+                    this.bookableService.getAvailability(this.bookable).subscribe(availability => {
+                        if (!availability.isAvailable) {
+                            this.router.navigate(['/booking/', this.bookable!.code]);
+                        }
+                    });
+                }
+            });
+    }
 
     public ngOnInit(): void {
         this.booking = this.bookingService.getDefaultForServer();
         this.booking.status = BookingStatus.booked;
         this.booking.owner = this.route.snapshot.data.viewer.model;
-
-        if (this.route.snapshot.data.bookable?.model) {
-            this.bookable = this.route.snapshot.data.bookable.model as Bookable['bookable'];
-            this.bookableService.getAvailability(this.bookable).subscribe(availability => {
-                if (!availability.isAvailable) {
-                    this.router.navigate(['/booking/', this.bookable!.code]);
-                }
-            });
-        }
     }
 
     public createBooking(): void {

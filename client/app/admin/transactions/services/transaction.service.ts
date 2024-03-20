@@ -117,6 +117,12 @@ export class TransactionService extends NaturalAbstractModelService<
         return [Object.assign(emptyLine, line)];
     }
 
+    protected override getFormExtraFieldDefaultValues(): Literal {
+        return {
+            transactionLines: null,
+        };
+    }
+
     public override getDefaultForServer(): TransactionInput {
         return {
             name: '',

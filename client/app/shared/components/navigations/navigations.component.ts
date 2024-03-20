@@ -161,7 +161,7 @@ export class NavigationsComponent extends NaturalAbstractController implements O
                                     endComment: comment,
                                 };
 
-                                this.bookingService.updatePartially(partialBooking).subscribe(() => {
+                                this.bookingService.updateNow(partialBooking).subscribe(() => {
                                     this.alertService.info('Merci pour votre commentaire');
                                 });
                             }
@@ -171,7 +171,7 @@ export class NavigationsComponent extends NaturalAbstractController implements O
     }
 
     public update(partialBooking: WithId<BookingPartialInput>): void {
-        this.bookingService.updatePartially(partialBooking).subscribe();
+        this.bookingService.updateNow(partialBooking).subscribe();
     }
 
     public nextPage(): void {

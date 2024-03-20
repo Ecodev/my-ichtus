@@ -201,8 +201,8 @@ export class TransactionComponent
 
         if (this.transactionLinesComponent) {
             const rawTransactionLines = this.transactionLinesComponent.getItems();
-            this.data.model.transactionLines = rawTransactionLines.map(line =>
-                this.transactionLineService.getInput(line),
+            this.form.controls.transactionLines.setValue(
+                rawTransactionLines.map(line => this.transactionLineService.getInput(line, true)),
             );
 
             this.transactionLinesComponent.validateForm();
@@ -211,7 +211,7 @@ export class TransactionComponent
                 return;
             }
         } else {
-            this.data.model.transactionLines = null;
+            this.form.controls.transactionLines.setValue(null);
         }
 
         if (this.isUpdatePage()) {
@@ -240,11 +240,13 @@ export class TransactionComponent
         this.accountingDocuments.save();
         this.router.events
             .pipe(
-                filter(ev => ev instanceof NavigationEnd),
+                filter((event): event is NavigationEnd => event instanceof NavigationEnd),
                 first(),
             )
-            .subscribe(() => {
-                this.goToNew();
+            .subscribe(event => {
+                if (event.url.match(/^\/admin\/transaction\/\d+$/)) {
+                    this.goToNew();
+                }
             });
 
         return EMPTY;

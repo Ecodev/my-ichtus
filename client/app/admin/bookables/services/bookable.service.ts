@@ -244,7 +244,7 @@ export class BookableService extends NaturalAbstractModelService<
         );
     }
 
-    public resolveByCode(code: string): Observable<{model: any}> {
+    public resolveByCode(code: string): Observable<Bookables['bookables']['items'][0] | null> {
         if (code) {
             const qvm = new NaturalQueryVariablesManager<BookablesVariables>();
             const variables: BookablesVariables = {
@@ -254,11 +254,11 @@ export class BookableService extends NaturalAbstractModelService<
 
             return this.getAll(qvm).pipe(
                 map(result => {
-                    return {model: result?.items.length ? result.items[0] : null};
+                    return result?.items.length ? result.items[0] : null;
                 }),
             );
         } else {
-            return of({model: null});
+            return of(null);
         }
     }
 }
