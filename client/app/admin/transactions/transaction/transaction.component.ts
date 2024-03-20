@@ -86,7 +86,6 @@ export class TransactionComponent
     extends NaturalAbstractDetail<
         TransactionService,
         NaturalSeoResolveData & {
-            model: {transactionLines: null | TransactionLineInput[]}; // TODO This is not awesome because we inject new properties on model coming from DB. It would be best to handle the transactionLines separately
             duplicatedTransaction?: DuplicatedTransactionResolve | null;
             expenseClaim?: ExpenseClaim['expenseClaim'] | null;
         }
