@@ -168,7 +168,6 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
         }
 
         this.bookingService.updateNow({id: this.data.model.id, endDate: null}).subscribe(() => {
-            this.data.model.endDate = null;
             this.form.controls.endDate.setValue(null);
         });
     }
