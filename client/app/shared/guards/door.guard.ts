@@ -14,9 +14,9 @@ export function canActivateDoor(): Observable<boolean> {
     const userService = inject(UserService);
     const permissionsService = inject(PermissionsService);
 
-    return userService.resolveViewer().pipe(
+    return userService.getViewer().pipe(
         map(user => {
-            const granted = permissionsService.canAccessDoor(user.model);
+            const granted = permissionsService.canAccessDoor(user);
 
             if (!granted) {
                 router.navigate(['/']);

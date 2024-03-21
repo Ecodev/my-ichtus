@@ -49,7 +49,7 @@ export class CreateExpenseClaimComponent
     public override ngOnInit(): void {
         super.ngOnInit();
         this.form.patchValue({
-            owner: this.route.snapshot.data.viewer.model.id,
+            owner: this.route.snapshot.data.viewer.id,
             status: ExpenseClaimStatus.new,
             type: this.route.snapshot.data.type,
         });

@@ -2,7 +2,7 @@
     <natural-sidenav>
         <div class="margin overflow">
             <mat-accordion displayMode="flat">
-                @if (permissionsService.canAccessNavigations(route.snapshot.data.viewer.model)) {
+                @if (permissionsService.canAccessNavigations(route.snapshot.data.viewer)) {
                     <mat-expansion-panel class="mat-elevation-z0">
                         <mat-expansion-panel-header>
                             <mat-panel-title>Carnet de sorties</mat-panel-title>
@@ -14,7 +14,7 @@
                     </mat-expansion-panel>
                 }
 
-                @if (permissionsService.canAccessUsers(route.snapshot.data.viewer.model)) {
+                @if (permissionsService.canAccessUsers(route.snapshot.data.viewer)) {
                     <mat-expansion-panel class="mat-elevation-z0">
                         <mat-expansion-panel-header>
                             <mat-panel-title>Utilisateurs</mat-panel-title>
@@ -23,25 +23,25 @@
                             <a mat-list-item [class.active]="adminUserRouteActive" routerLink="user"
                                 >Tous les utilisateurs</a
                             >
-                            @if (permissionsService.gteResponsible(route.snapshot.data.viewer.model)) {
+                            @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
                                 <a mat-list-item routerLinkActive="active" routerLink="user/newcomer"
                                     >Nouveaux membres</a
                                 >
                             }
-                            @if (permissionsService.gteResponsible(route.snapshot.data.viewer.model)) {
+                            @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
                                 <a mat-list-item routerLinkActive="active" routerLink="user/member">Membres</a>
                             }
-                            @if (permissionsService.gteResponsible(route.snapshot.data.viewer.model)) {
+                            @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
                                 <a mat-list-item routerLinkActive="active" routerLink="user/non-active">Non actifs</a>
                             }
-                            @if (permissionsService.gteResponsible(route.snapshot.data.viewer.model)) {
+                            @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
                                 <a mat-list-item routerLinkActive="active" routerLink="user-tag">Tags</a>
                             }
                         </mat-nav-list>
                     </mat-expansion-panel>
                 }
 
-                @if (permissionsService.gteResponsible(route.snapshot.data.viewer.model)) {
+                @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
                     <mat-expansion-panel class="mat-elevation-z0">
                         <mat-expansion-panel-header>
                             <mat-panel-title>Matériel nautique</mat-panel-title>
@@ -66,7 +66,7 @@
                     </mat-expansion-panel>
                 }
 
-                @if (permissionsService.gteResponsible(route.snapshot.data.viewer.model)) {
+                @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
                     <mat-expansion-panel class="mat-elevation-z0">
                         <mat-expansion-panel-header>
                             <mat-panel-title>Stockage</mat-panel-title>
@@ -83,24 +83,24 @@
                     </mat-expansion-panel>
                 }
 
-                @if (permissionsService.canAccessFormations(route.snapshot.data.viewer.model)) {
+                @if (permissionsService.canAccessFormations(route.snapshot.data.viewer)) {
                     <mat-expansion-panel class="mat-elevation-z0">
                         <mat-expansion-panel-header>
                             <mat-panel-title>Cours et accueil</mat-panel-title>
                         </mat-expansion-panel-header>
                         <mat-nav-list>
                             <a mat-list-item routerLinkActive="active" routerLink="bookable/formation">Cours</a>
-                            @if (permissionsService.canAccessFormationApplication(route.snapshot.data.viewer.model)) {
+                            @if (permissionsService.canAccessFormationApplication(route.snapshot.data.viewer)) {
                                 <a mat-list-item routerLinkActive="active" routerLink="booking/formation-application"
                                     >Demandes de cours</a
                                 >
                             }
-                            @if (permissionsService.gteResponsible(route.snapshot.data.viewer.model)) {
+                            @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
                                 <a mat-list-item routerLinkActive="active" routerLink="bookable/welcome"
                                     >Séances d'accueil
                                 </a>
                             }
-                            @if (permissionsService.gteResponsible(route.snapshot.data.viewer.model)) {
+                            @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
                                 <a mat-list-item routerLinkActive="active" routerLink="booking/welcome-application"
                                     >Demandes de séances d'accueil</a
                                 >
@@ -109,14 +109,14 @@
                     </mat-expansion-panel>
                 }
 
-                @if (permissionsService.canAccessNFT(route.snapshot.data.viewer.model)) {
+                @if (permissionsService.canAccessNFT(route.snapshot.data.viewer)) {
                     <mat-expansion-panel class="mat-elevation-z0">
                         <mat-expansion-panel-header>
                             <mat-panel-title>NFT</mat-panel-title>
                         </mat-expansion-panel-header>
                         <mat-nav-list>
                             <a mat-list-item routerLinkActive="active" routerLink="bookable/nft">NFT</a>
-                            @if (permissionsService.canAccessFormationApplication(route.snapshot.data.viewer.model)) {
+                            @if (permissionsService.canAccessFormationApplication(route.snapshot.data.viewer)) {
                                 <a mat-list-item routerLinkActive="active" routerLink="booking/nft-application"
                                     >Demandes NFT</a
                                 >
@@ -125,7 +125,7 @@
                     </mat-expansion-panel>
                 }
 
-                @if (permissionsService.gteResponsible(route.snapshot.data.viewer.model)) {
+                @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
                     <mat-expansion-panel class="mat-elevation-z0">
                         <mat-expansion-panel-header>
                             <mat-panel-title>Administration</mat-panel-title>
@@ -148,7 +148,7 @@
                     </mat-expansion-panel>
                 }
 
-                @if (permissionsService.canAccessAccounting(route.snapshot.data.viewer.model)) {
+                @if (permissionsService.canAccessAccounting(route.snapshot.data.viewer)) {
                     <mat-expansion-panel class="mat-elevation-z0">
                         <mat-expansion-panel-header>
                             <mat-panel-title>Comptabilité</mat-panel-title>
@@ -156,7 +156,7 @@
                         <mat-nav-list>
                             <a mat-list-item routerLinkActive="active" routerLink="transaction-line">Écritures</a>
                             <a mat-list-item routerLinkActive="active" routerLink="account">Comptes</a>
-                            @if (permissionsService.canAccessExpenseClaims(route.snapshot.data.viewer.model)) {
+                            @if (permissionsService.canAccessExpenseClaims(route.snapshot.data.viewer)) {
                                 <a mat-list-item routerLinkActive="active" routerLink="expense-claim"
                                     >Frais, remboursements et factures</a
                                 >
@@ -169,7 +169,7 @@
                     </mat-expansion-panel>
                 }
 
-                @if (permissionsService.gteResponsible(route.snapshot.data.viewer.model)) {
+                @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
                     <mat-expansion-panel class="mat-elevation-z0">
                         <mat-expansion-panel-header>
                             <mat-panel-title>Listes</mat-panel-title>

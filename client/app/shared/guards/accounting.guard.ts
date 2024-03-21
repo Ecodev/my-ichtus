@@ -14,9 +14,9 @@ export function canActivateAccounting(): Observable<boolean> {
     const userService = inject(UserService);
     const permissionsService = inject(PermissionsService);
 
-    return userService.resolveViewer().pipe(
+    return userService.getViewer().pipe(
         map(user => {
-            const granted = permissionsService.canAccessAccounting(user.model);
+            const granted = permissionsService.canAccessAccounting(user);
 
             if (!granted) {
                 router.navigate(['/']);

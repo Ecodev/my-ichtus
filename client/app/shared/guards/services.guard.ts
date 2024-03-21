@@ -14,9 +14,9 @@ export function canActivateServices(route: ActivatedRouteSnapshot, state: Router
     const userService = inject(UserService);
     const permissionsService = inject(PermissionsService);
 
-    return userService.resolveViewer().pipe(
+    return userService.getViewer().pipe(
         map(user => {
-            const granted = permissionsService.canAccessServices(user.model);
+            const granted = permissionsService.canAccessServices(user);
 
             if (!granted) {
                 router.navigate(['/profile'], {queryParams: {returnUrl: state.url}});

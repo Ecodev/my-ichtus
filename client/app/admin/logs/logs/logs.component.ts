@@ -52,7 +52,7 @@ export class LogsComponent extends NaturalAbstractList<LogService> implements On
 
     public override ngOnInit(): void {
         super.ngOnInit();
-        const viewer: NonNullable<CurrentUserForProfile['viewer']> = this.route.snapshot.data.viewer.model;
+        const viewer: NonNullable<CurrentUserForProfile['viewer']> = this.route.snapshot.data.viewer;
 
         this.availableColumns = [
             {id: 'creationDate', label: 'Date'},

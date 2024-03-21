@@ -114,7 +114,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
                 .subscribe(value => simultaneousBookingMaximum.setValue(value === BookingType.self_approved ? 1 : -1));
         }
 
-        this.viewer = this.route.snapshot.data.viewer.model;
+        this.viewer = this.route.snapshot.data.viewer;
 
         this.bookingsVariables = this.getBookingsVariables();
 
@@ -201,7 +201,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
     }
 
     public isTrainer(): boolean {
-        return this.route.snapshot.data.viewer?.model?.role === UserRole.trainer;
+        return this.route.snapshot.data.viewer?.role === UserRole.trainer;
     }
 
     public bookingTypeDisabled(): (item: IEnum) => boolean {

@@ -79,7 +79,7 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
     }
 
     public ngOnInit(): void {
-        this.viewer = this.route.snapshot.data.viewer.model;
+        this.viewer = this.route.snapshot.data.viewer;
 
         const licenseQueryVariables = new NaturalQueryVariablesManager<LicensesVariables>();
         licenseQueryVariables.set('variables', {

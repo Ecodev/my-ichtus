@@ -506,18 +506,7 @@ export class UserService
         }, 1000);
     }
 
-    /**
-     * Resolve items related to users, and the user if the id is provided, in order to show a form
-     */
-    public resolveViewer(): Observable<{model: CurrentUserForProfile['viewer']}> {
-        return this.getViewer().pipe(
-            map(result => {
-                return {model: result};
-            }),
-        );
-    }
-
-    public resolveByToken(token: string): Observable<{model: UserByToken['userByToken']}> {
+    public resolveByToken(token: string): Observable<UserByToken['userByToken']> {
         return this.apollo
             .query<UserByToken, UserByTokenVariables>({
                 query: userByTokenQuery,
@@ -525,11 +514,7 @@ export class UserService
                     token: token,
                 },
             })
-            .pipe(
-                map(result => {
-                    return {model: result.data.userByToken};
-                }),
-            );
+            .pipe(map(result => result.data.userByToken));
     }
 
     public unregister(user: NonNullable<CurrentUserForProfile['viewer']>): Observable<Unregister['unregister']> {

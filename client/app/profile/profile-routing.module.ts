@@ -167,7 +167,7 @@ export const routes: Routes = [
                         path: 'services',
                         component: ServicesComponent,
                         canActivate: [canActivateServices],
-                        resolve: {viewer: resolveViewer},
+                        resolve: {futureOwner: resolveViewer},
                         data: {
                             seo: {title: ''} satisfies NaturalSeo,
                             hideCreateFab: true,

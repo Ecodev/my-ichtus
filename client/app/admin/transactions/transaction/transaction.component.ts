@@ -116,7 +116,7 @@ export class TransactionComponent
             this.transactionLines = {mode: 'fetch', id: this.data.model.id};
         }
 
-        this.viewer = this.route.snapshot.data.viewer.model;
+        this.viewer = this.route.snapshot.data.viewer;
 
         // Activate edition mode on creation
         if (!this.data.model.id) {

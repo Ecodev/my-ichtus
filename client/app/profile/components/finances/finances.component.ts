@@ -93,7 +93,7 @@ export class FinancesComponent
 
     public override ngOnInit(): void {
         if (!this.viewer) {
-            this.viewer = this.route.snapshot.data.viewer.model;
+            this.viewer = this.route.snapshot.data.viewer;
         } else {
             this.adminMode = true;
             this.selectedColumns.push('admin');

@@ -1,16 +1,16 @@
 import {Apollo} from 'apollo-angular';
 import {Component, OnInit} from '@angular/core';
-import {available, deliverableEmail, NaturalAlertService, relationsToIds, NaturalIconDirective} from '@ecodev/natural';
+import {available, deliverableEmail, NaturalAlertService, NaturalIconDirective, relationsToIds} from '@ecodev/natural';
 import {pick} from 'lodash-es';
 import {RegisterComponent} from './register.component';
-import {NonNullableFormBuilder, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {loginValidator, UserService} from '../../../admin/users/services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserByTokenResolve} from '../../../admin/users/user';
 import {ConfirmRegistrationVariables, UserByToken} from '../../../shared/generated-types';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {MatButtonModule} from '@angular/material/button';
-import {MatCheckboxModule, _MatCheckboxRequiredValidatorModule} from '@angular/material/checkbox';
+import {_MatCheckboxRequiredValidatorModule, MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTableModule} from '@angular/material/table';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {AddressComponent} from '../../../shared/components/address/address.component';
@@ -64,7 +64,7 @@ export class RegisterConfirmComponent extends RegisterComponent implements OnIni
         this.fetchMandatoryBookables();
 
         this.route.data.subscribe(data => {
-            this.initFormFromModel((data.user as UserByTokenResolve).model);
+            this.initFormFromModel(data.user as UserByTokenResolve);
         });
     }
 

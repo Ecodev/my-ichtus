@@ -78,7 +78,7 @@ export class ExpenseClaimComponent
     public override ngOnInit(): void {
         super.ngOnInit();
 
-        this.viewer = this.route.snapshot.data.viewer.model;
+        this.viewer = this.route.snapshot.data.viewer;
     }
 
     public approve(): void {

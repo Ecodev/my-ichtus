@@ -4,12 +4,10 @@ import {UserService} from './user.service';
 import {ErrorService} from '../../../shared/components/error/error.service';
 import {CurrentUserForProfile} from '../../../shared/generated-types';
 
-export type ViewerResolve = {model: CurrentUserForProfile['viewer']};
-
-export function resolveViewer(): Observable<ViewerResolve> {
+export function resolveViewer(): Observable<CurrentUserForProfile['viewer']> {
     const userService = inject(UserService);
     const errorService = inject(ErrorService);
-    const observable = userService.resolveViewer().pipe(last());
+    const observable = userService.getViewer().pipe(last());
 
     return errorService.redirectIfError(observable);
 }

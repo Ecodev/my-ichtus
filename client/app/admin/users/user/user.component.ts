@@ -129,7 +129,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeo
     public override ngOnInit(): void {
         super.ngOnInit();
 
-        this.viewer = this.route.snapshot.data.viewer.model;
+        this.viewer = this.route.snapshot.data.viewer;
 
         this.route.data.subscribe(() => {
             if (this.isUpdatePage()) {

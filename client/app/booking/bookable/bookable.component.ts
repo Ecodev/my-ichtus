@@ -71,7 +71,7 @@ export class BookableComponent implements OnInit {
             return;
         }
 
-        const viewer = this.route.snapshot.data.viewer.model;
+        const viewer = this.route.snapshot.data.viewer;
         this.canAccessAdmin = this.permissionsService.canAccessAdmin(viewer);
         this.welcomeSessionTaken = viewer.welcomeSessionDate !== null;
         this.hasLicense = BookableService.isLicenseGranted(this.bookable, viewer);

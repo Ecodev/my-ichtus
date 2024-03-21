@@ -50,7 +50,7 @@ export class FamilyComponent implements OnInit {
     ) {}
 
     public ngOnInit(): void {
-        this.viewer = this.route.snapshot.data.viewer.model;
+        this.viewer = this.route.snapshot.data.viewer;
         this.reload();
     }
 
