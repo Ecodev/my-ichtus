@@ -1451,10 +1451,10 @@
     prosemirror-view "^1.31.5"
     tslib "^2.5.3"
 
-"@ecodev/natural@^56.0.3":
-  version "56.0.3"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-56.0.3.tgz#46f3342876d3ad1fc287ea14bd976abc82e38a3e"
-  integrity sha512-j+dXwX+C5tAyWJUduKKKcSn2iFMDiMcfHnUIP2QMOf04ElzdtRYTsSW4GiyRiezEEAEq5WsM98uNRaVPrVjbiQ==
+"@ecodev/natural@^56.0.4":
+  version "56.0.4"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-56.0.4.tgz#afdfc5994040b1b0a8016148f4d1f0631a08aad1"
+  integrity sha512-3JEGmNeoR9DvgamvV4ZKbQcX0vK2Gpg8K0n7Coxh+uNrmyGpZhyD7gt2H0KMC5FFZdQMZyoqlHyTSFUb7hgf7Q==
   dependencies:
     crypto-es "^2.0.3"
     extract-files "^13.0.0"
