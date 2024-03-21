@@ -13,12 +13,7 @@ import {
 import {TransactionService} from '../services/transaction.service';
 import {EMPTY, Observable} from 'rxjs';
 import {filter, first} from 'rxjs/operators';
-import {
-    CurrentUserForProfile,
-    ExpenseClaim,
-    ExpenseClaimType,
-    TransactionLineInput,
-} from '../../../shared/generated-types';
+import {CurrentUserForProfile, ExpenseClaim, ExpenseClaimType} from '../../../shared/generated-types';
 import {BookableService} from '../../bookables/services/bookable.service';
 import {
     EditableTransactionLinesComponent,
