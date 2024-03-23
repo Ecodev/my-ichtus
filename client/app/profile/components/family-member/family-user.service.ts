@@ -1,11 +1,10 @@
-import {Apollo} from 'apollo-angular';
 import {Inject, Injectable} from '@angular/core';
 import {UserService} from '../../../admin/users/services/user.service';
 import {Router} from '@angular/router';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {Relationship, UserInput, UserRole} from '../../../shared/generated-types';
-import {FormValidators, LOCAL_STORAGE, NaturalDebounceService, NaturalStorage} from '@ecodev/natural';
+import {FormValidators, LOCAL_STORAGE, NaturalStorage} from '@ecodev/natural';
 import {PricedBookingService} from '../../../admin/bookings/services/PricedBooking.service';
 
 @Injectable({
@@ -13,23 +12,13 @@ import {PricedBookingService} from '../../../admin/bookings/services/PricedBooki
 })
 export class FamilyUserService extends UserService {
     public constructor(
-        apollo: Apollo,
-        naturalDebounceService: NaturalDebounceService,
         router: Router,
         bookingService: BookingService,
         permissionsService: PermissionsService,
         pricedBookingService: PricedBookingService,
         @Inject(LOCAL_STORAGE) storage: NaturalStorage,
     ) {
-        super(
-            apollo,
-            naturalDebounceService,
-            router,
-            bookingService,
-            permissionsService,
-            pricedBookingService,
-            storage,
-        );
+        super(router, bookingService, permissionsService, pricedBookingService, storage);
     }
 
     public override getDefaultForServer(): UserInput {

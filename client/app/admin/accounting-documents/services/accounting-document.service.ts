@@ -1,4 +1,3 @@
-import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {createAccountingDocumentMutation, deleteAccountingDocumentMutation} from './accounting-documents.queries';
 import {
@@ -8,7 +7,7 @@ import {
     DeleteAccountingDocument,
     DeleteAccountingDocumentVariables,
 } from '../../../shared/generated-types';
-import {NaturalAbstractModelService, NaturalDebounceService} from '@ecodev/natural';
+import {NaturalAbstractModelService} from '@ecodev/natural';
 
 @Injectable({
     providedIn: 'root',
@@ -25,10 +24,8 @@ export class AccountingDocumentService extends NaturalAbstractModelService<
     DeleteAccountingDocument,
     DeleteAccountingDocumentVariables
 > {
-    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
+    public constructor() {
         super(
-            apollo,
-            naturalDebounceService,
             'accountingDocument',
             null,
             null,

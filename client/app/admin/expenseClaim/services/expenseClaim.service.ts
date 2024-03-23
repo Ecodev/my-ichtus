@@ -1,6 +1,5 @@
-import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
-import {FormValidators, money, NaturalAbstractModelService, NaturalDebounceService} from '@ecodev/natural';
+import {FormValidators, money, NaturalAbstractModelService} from '@ecodev/natural';
 import {
     createExpenseClaim,
     deleteExpenseClaims,
@@ -43,10 +42,8 @@ export class ExpenseClaimService extends NaturalAbstractModelService<
     DeleteExpenseClaims,
     DeleteExpenseClaimsVariables
 > {
-    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
+    public constructor() {
         super(
-            apollo,
-            naturalDebounceService,
             'expenseClaim',
             expenseClaimQuery,
             expenseClaimsQuery,

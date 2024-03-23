@@ -1,13 +1,6 @@
-import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {Validators} from '@angular/forms';
-import {
-    formatIsoDateTime,
-    FormValidators,
-    Literal,
-    NaturalAbstractModelService,
-    NaturalDebounceService,
-} from '@ecodev/natural';
+import {formatIsoDateTime, FormValidators, Literal, NaturalAbstractModelService} from '@ecodev/natural';
 import {
     Accounts,
     CreateTransaction,
@@ -52,14 +45,10 @@ export class TransactionService extends NaturalAbstractModelService<
     private bankAccount: Accounts['accounts']['items'][0] | null = null;
 
     public constructor(
-        apollo: Apollo,
-        naturalDebounceService: NaturalDebounceService,
         private readonly transactionLineService: TransactionLineService,
         private accountService: AccountService,
     ) {
         super(
-            apollo,
-            naturalDebounceService,
             'transaction',
             transactionQuery,
             transactionsQuery,

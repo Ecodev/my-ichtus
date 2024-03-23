@@ -1,4 +1,3 @@
-import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {
     accountingClosing,
@@ -37,7 +36,6 @@ import {
     integer,
     money,
     NaturalAbstractModelService,
-    NaturalDebounceService,
     NaturalQueryVariablesManager,
     unique,
 } from '@ecodev/natural';
@@ -60,17 +58,8 @@ export class AccountService extends NaturalAbstractModelService<
     DeleteAccounts,
     DeleteAccountsVariables
 > {
-    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
-        super(
-            apollo,
-            naturalDebounceService,
-            'account',
-            accountQuery,
-            accountsQuery,
-            createAccount,
-            updateAccount,
-            deleteAccounts,
-        );
+    public constructor() {
+        super('account', accountQuery, accountsQuery, createAccount, updateAccount, deleteAccounts);
     }
 
     public override getDefaultForServer(): AccountInput {

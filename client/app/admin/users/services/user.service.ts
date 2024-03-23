@@ -1,4 +1,4 @@
-import {Apollo, gql} from 'apollo-angular';
+import {gql} from 'apollo-angular';
 import {Inject, Injectable, OnDestroy} from '@angular/core';
 import {FormControl, ValidationErrors, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
@@ -10,7 +10,6 @@ import {
     Literal,
     LOCAL_STORAGE,
     NaturalAbstractModelService,
-    NaturalDebounceService,
     NaturalQueryVariablesManager,
     NaturalStorage,
     unique,
@@ -118,15 +117,13 @@ export class UserService
     private readonly onDestroy = new Subject<void>();
 
     public constructor(
-        apollo: Apollo,
-        naturalDebounceService: NaturalDebounceService,
         protected readonly router: Router,
         protected readonly bookingService: BookingService,
         private readonly permissionsService: PermissionsService,
         protected readonly pricedBookingService: PricedBookingService,
         @Inject(LOCAL_STORAGE) private readonly storage: NaturalStorage,
     ) {
-        super(apollo, naturalDebounceService, 'user', userQuery, usersQuery, createUser, updateUser, null);
+        super('user', userQuery, usersQuery, createUser, updateUser, null);
         this.keepViewerSyncedAcrossBrowserTabs();
     }
 

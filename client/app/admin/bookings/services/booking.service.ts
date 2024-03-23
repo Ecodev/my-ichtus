@@ -1,4 +1,3 @@
-import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {
     bookingQuery,
@@ -35,7 +34,7 @@ import {
 } from '../../../shared/generated-types';
 import {Validators} from '@angular/forms';
 import {Observable, of} from 'rxjs';
-import {formatIsoDateTime, FormValidators, NaturalAbstractModelService, NaturalDebounceService} from '@ecodev/natural';
+import {formatIsoDateTime, FormValidators, NaturalAbstractModelService} from '@ecodev/natural';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 
 @Injectable({
@@ -157,17 +156,8 @@ export class BookingService extends NaturalAbstractModelService<
         };
     }
 
-    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
-        super(
-            apollo,
-            naturalDebounceService,
-            'booking',
-            bookingQuery,
-            bookingsQuery,
-            createBooking,
-            updateBooking,
-            deleteBookings,
-        );
+    public constructor() {
+        super('booking', bookingQuery, bookingsQuery, createBooking, updateBooking, deleteBookings);
     }
 
     public override getDefaultForServer(): BookingInput {

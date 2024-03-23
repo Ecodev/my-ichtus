@@ -1,7 +1,7 @@
-import {Apollo, gql} from 'apollo-angular';
+import {gql} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {bookableMetaFragment} from '../admin/bookables/services/bookable.queries';
-import {NaturalAbstractModelService, NaturalDebounceService} from '@ecodev/natural';
+import {NaturalAbstractModelService} from '@ecodev/natural';
 import {SafetyBookings, SafetyBookingsVariables} from '../shared/generated-types';
 
 const safetyBookings = gql`
@@ -54,7 +54,7 @@ export class SafetyBookingService extends NaturalAbstractModelService<
     never,
     never
 > {
-    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
-        super(apollo, naturalDebounceService, 'booking', null, safetyBookings, null, null, null);
+    public constructor() {
+        super('booking', null, safetyBookings, null, null, null);
     }
 }

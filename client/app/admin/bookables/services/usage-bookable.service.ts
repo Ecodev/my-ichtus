@@ -1,4 +1,3 @@
-import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {bookableQuery, createBookable, deleteBookables, updateBookable, usageBookablesQuery} from './bookable.queries';
 import {
@@ -16,7 +15,7 @@ import {
     UsageBookablesVariables,
 } from '../../../shared/generated-types';
 import {BookingService} from '../../bookings/services/booking.service';
-import {NaturalAbstractModelService, NaturalDebounceService} from '@ecodev/natural';
+import {NaturalAbstractModelService} from '@ecodev/natural';
 import {Observable, of} from 'rxjs';
 
 @Injectable({
@@ -34,21 +33,8 @@ export class UsageBookableService extends NaturalAbstractModelService<
     DeleteBookables,
     DeleteBookablesVariables
 > {
-    public constructor(
-        apollo: Apollo,
-        naturalDebounceService: NaturalDebounceService,
-        protected readonly bookingService: BookingService,
-    ) {
-        super(
-            apollo,
-            naturalDebounceService,
-            'bookable',
-            bookableQuery,
-            usageBookablesQuery,
-            createBookable,
-            updateBookable,
-            deleteBookables,
-        );
+    public constructor(protected readonly bookingService: BookingService) {
+        super('bookable', bookableQuery, usageBookablesQuery, createBookable, updateBookable, deleteBookables);
     }
 
     public override getPartialVariablesForAll(): Observable<Partial<BookablesVariables>> {
