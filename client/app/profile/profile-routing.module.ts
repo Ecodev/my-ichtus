@@ -193,6 +193,9 @@ export const routes: Routes = [
             {
                 path: 'create-invoice',
                 component: CreateExpenseClaimComponent,
+                resolve: {
+                    model: resolveExpenseClaim,
+                },
                 data: {
                     seo: {
                         title: 'Annoncer une facture à payer',
