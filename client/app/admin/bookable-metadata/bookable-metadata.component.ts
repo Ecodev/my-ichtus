@@ -1,7 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {BookableMetadataService} from './bookable-metadata.service';
-import {NaturalDataSource, NaturalQueryVariablesManager, NaturalIconDirective} from '@ecodev/natural';
-import {BookableMetadatas, BookableMetadatasVariables, Bookable} from '../../shared/generated-types';
+import {
+    NaturalAlertService,
+    NaturalDataSource,
+    NaturalIconDirective,
+    NaturalQueryVariablesManager,
+} from '@ecodev/natural';
+import {Bookable, BookableMetadatas, BookableMetadatasVariables} from '../../shared/generated-types';
 import {cloneDeep} from 'lodash-es';
 import {finalize} from 'rxjs/operators';
 import {MatIconModule} from '@angular/material/icon';
@@ -37,7 +42,10 @@ export class BookableMetadataComponent implements OnInit {
 
     public columns: string[] = [];
 
-    public constructor(private readonly bookableMetaService: BookableMetadataService) {}
+    public constructor(
+        private readonly bookableMetaService: BookableMetadataService,
+        private readonly alertService: NaturalAlertService,
+    ) {}
 
     public ngOnInit(): void {
         if (this.edit) {
@@ -82,7 +90,10 @@ export class BookableMetadataComponent implements OnInit {
         meta.bookable = this.bookable;
 
         if (meta.name) {
-            this.bookableMetaService.createOrUpdate(meta).subscribe();
+            this.bookableMetaService.createOrUpdate(meta).subscribe(created => {
+                meta.id = created.id;
+                this.alertService.info(`Mis à jour`);
+            });
 
             this.addLine();
         } else if (meta.name === '' && meta.value === '' && meta.id) {
