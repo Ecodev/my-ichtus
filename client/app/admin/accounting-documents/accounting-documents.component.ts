@@ -8,7 +8,7 @@ import {
 } from '../../shared/generated-types';
 import {forkJoin, Observable} from 'rxjs';
 import {AccountingDocumentService} from './services/accounting-document.service';
-import {FileModel, WithId, NaturalFileComponent, NaturalIconDirective} from '@ecodev/natural';
+import {FileModel, NaturalFileComponent, NaturalIconDirective, WithId} from '@ecodev/natural';
 import {tap} from 'rxjs/operators';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
@@ -78,19 +78,19 @@ export class AccountingDocumentsComponent implements OnInit {
         });
     }
 
-    public save(): void {
+    public save(model: {id: string; __typename: 'Transaction' | 'ExpenseClaim'}): void {
         const observables: Observable<unknown>[] = [];
 
         this.files.forEach(file => {
-            if (!('id' in this.model) || !file?.file) {
+            if (!file?.file) {
                 return;
             }
 
             const document: AccountingDocumentInput = {file: file.file};
-            if (this.model.__typename === 'Transaction') {
-                document.transaction = this.model.id;
-            } else if (this.model.__typename === 'ExpenseClaim') {
-                document.expenseClaim = this.model.id;
+            if (model.__typename === 'Transaction') {
+                document.transaction = model.id;
+            } else if (model.__typename === 'ExpenseClaim') {
+                document.expenseClaim = model.id;
             }
             observables.push(
                 this.accountingDocumentService.create(document).pipe(

@@ -13,7 +13,13 @@ import {
 import {TransactionService} from '../services/transaction.service';
 import {EMPTY, Observable} from 'rxjs';
 import {filter, first} from 'rxjs/operators';
-import {CurrentUserForProfile, ExpenseClaim, ExpenseClaimType} from '../../../shared/generated-types';
+import {
+    CreateTransaction,
+    CurrentUserForProfile,
+    ExpenseClaim,
+    ExpenseClaimType,
+    UpdateTransaction,
+} from '../../../shared/generated-types';
 import {BookableService} from '../../bookables/services/bookable.service';
 import {
     EditableTransactionLinesComponent,
@@ -219,9 +225,9 @@ export class TransactionComponent
         super.delete(['/admin/transaction-line']);
     }
 
-    protected override postUpdate(): void {
+    protected override postUpdate(object: UpdateTransaction['updateTransaction']): void {
         this.updateTransactionLines = false;
-        this.accountingDocuments.save();
+        this.accountingDocuments.save(object);
     }
 
     /**
@@ -229,9 +235,9 @@ export class TransactionComponent
      * If we don't wait first navigation, we would try to redirect to the same route /transaction/new -> /transaction/new
      * and nothing would happen.
      */
-    protected override postCreate(): Observable<unknown> {
+    protected override postCreate(object: CreateTransaction['createTransaction']): Observable<unknown> {
         this.updateTransactionLines = false;
-        this.accountingDocuments.save();
+        this.accountingDocuments.save(object);
         this.router.events
             .pipe(
                 filter((event): event is NavigationEnd => event instanceof NavigationEnd),

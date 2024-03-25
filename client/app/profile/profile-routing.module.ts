@@ -20,6 +20,7 @@ import {
     readOnlyName,
 } from '../admin/bookables/bookables/parent.component';
 import {BookableService} from '../admin/bookables/services/bookable.service';
+import {resolveExpenseClaim} from '../admin/expenseClaim/services/expenseClaim.resolver';
 
 const storageRoute: Route = {
     component: UsageBookablesComponent,
@@ -179,6 +180,9 @@ export const routes: Routes = [
             {
                 path: 'create-expense-claim',
                 component: CreateExpenseClaimComponent,
+                resolve: {
+                    model: resolveExpenseClaim,
+                },
                 data: {
                     seo: {
                         title: 'Annoncer une dépense',
