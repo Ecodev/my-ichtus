@@ -13,6 +13,7 @@ import {CardComponent} from '../../../shared/components/card/card.component';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
 import {Observable, of, switchMap} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {first} from 'rxjs/operators';
 
 @Component({
     selector: 'app-self-approved-booking',
@@ -43,8 +44,11 @@ export class SelfApprovedBookingComponent implements OnInit {
         private readonly alertService: NaturalAlertService,
     ) {
         this.route.data
-            .pipe(takeUntilDestroyed())
-            .pipe(switchMap(data => (data.bookable as Observable<Bookable['bookable'] | null>) ?? of(null)))
+            .pipe(
+                takeUntilDestroyed(),
+                switchMap(data => (data.bookable as Observable<Bookable['bookable'] | null>) ?? of(null)),
+                first(),
+            )
             .subscribe(bookable => {
                 if (bookable) {
                     this.bookable = bookable;
