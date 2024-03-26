@@ -86,6 +86,7 @@ export const updateTransaction = gql`
     mutation UpdateTransaction($id: TransactionID!, $input: TransactionPartialInput!, $lines: [TransactionLineInput!]) {
         updateTransaction(id: $id, input: $input, lines: $lines) {
             id
+            name
             balance
             updateDate
             updater {
