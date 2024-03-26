@@ -1,18 +1,12 @@
 import {ChangeDetectorRef, Component, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {UpdateUser, UsersVariables} from '../../../shared/generated-types';
+import {CurrentUserForProfile, UpdateUser, Users, UsersVariables} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
-import {
-    mergeOverrideArray,
-    NaturalAlertService,
-    NaturalQueryVariablesManager,
-    NaturalFixedButtonComponent,
-} from '@ecodev/natural';
-import {cloneDeep, mergeWith} from 'lodash-es';
-import {MatExpansionPanel, MatExpansionModule} from '@angular/material/expansion';
+import {NaturalAlertService, NaturalFixedButtonComponent, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {cloneDeep} from 'lodash-es';
+import {MatExpansionModule, MatExpansionPanel} from '@angular/material/expansion';
 import {first} from 'rxjs/operators';
-import {CurrentUserForProfile, Users} from '../../../shared/generated-types';
 import {FamilyMemberComponent} from '../family-member/family-member.component';
 import {MatButtonModule} from '@angular/material/button';
 import {FlexModule} from '@ngbracket/ngx-layout/flex';
@@ -96,7 +90,7 @@ export class FamilyComponent implements OnInit {
         this.alertService.confirm('Quitter le ménage', explanation, 'Quitter le ménage').subscribe(confirmed => {
             if (confirmed) {
                 this.userService.leaveFamily(this.viewer).subscribe(user => {
-                    mergeWith(this.viewer, user, mergeOverrideArray);
+                    this.viewer = user;
                     const message = 'Tu as quitté le ménage';
                     this.alertService.info(message, 5000);
                 });
