@@ -59,6 +59,7 @@ export const updateTransactionTag = gql`
     mutation UpdateTransactionTag($id: TransactionTagID!, $input: TransactionTagPartialInput!) {
         updateTransactionTag(id: $id, input: $input) {
             id
+            name
             updateDate
             updater {
                 ...UserMeta

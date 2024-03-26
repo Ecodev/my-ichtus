@@ -40,7 +40,7 @@ export class DashboardComponent {
     ) {
         this.adminRoute = this.route.data.pipe(
             map(data => {
-                switch (data.viewer.model.role) {
+                switch (data.viewer.role) {
                     case UserRole.trainer:
                         return '/admin/bookable/formation';
                     case UserRole.accounting_verificator:

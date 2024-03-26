@@ -12,9 +12,9 @@ export function canActivateAuth(route: ActivatedRouteSnapshot, state: RouterStat
     const router = inject(Router);
     const userService = inject(UserService);
 
-    return userService.resolveViewer().pipe(
+    return userService.getViewer().pipe(
         map(user => {
-            if (!user.model) {
+            if (!user) {
                 router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
                 return false;
             }

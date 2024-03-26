@@ -1,6 +1,5 @@
-import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
-import {FormValidators, NaturalAbstractModelService, NaturalDebounceService} from '@ecodev/natural';
+import {FormValidators, NaturalAbstractModelService} from '@ecodev/natural';
 import {
     createTransactionTag,
     deleteTransactionTags,
@@ -36,10 +35,8 @@ export class TransactionTagService extends NaturalAbstractModelService<
     never,
     never
 > {
-    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
+    public constructor() {
         super(
-            apollo,
-            naturalDebounceService,
             'transactionTag',
             transactionTagQuery,
             transactionTagsQuery,

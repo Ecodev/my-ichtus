@@ -93,6 +93,7 @@ export const updateExpenseClaim = gql`
     mutation UpdateExpenseClaim($id: ExpenseClaimID!, $input: ExpenseClaimPartialInput!) {
         updateExpenseClaim(id: $id, input: $input) {
             id
+            name
             updateDate
             updater {
                 ...UserMeta

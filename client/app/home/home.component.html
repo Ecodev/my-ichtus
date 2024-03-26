@@ -10,7 +10,7 @@
             <mat-icon [size]="50" naturalIcon="ichtus" />
         </a>
 
-        @if (route.snapshot.data.viewer?.model) {
+        @if (route.snapshot.data.viewer) {
             <div fxFlex fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
                 <div fxFlex fxHide.xs></div>
                 <div fxFlex fxHide.xs fxLayout="row" fxLayoutAlign="start center" id="searchByCode">
@@ -34,11 +34,11 @@
                         <mat-icon naturalIcon="announcement" />
                     </a>
                 }
-                @if (route.snapshot.data.viewer.model) {
+                @if (route.snapshot.data.viewer) {
                     <a class="admin-avatar" routerLink="/profile">
                         <natural-avatar
-                            [initials]="route.snapshot.data.viewer.model.name"
-                            [gravatar]="route.snapshot.data.viewer.model.email"
+                            [initials]="route.snapshot.data.viewer.name"
+                            [gravatar]="route.snapshot.data.viewer.email"
                             [size]="50"
                         />
                     </a>

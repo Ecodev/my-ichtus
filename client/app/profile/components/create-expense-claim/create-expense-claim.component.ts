@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
-import {ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
+import {CreateExpenseClaim, ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {NaturalAbstractDetail, NaturalFixedButtonComponent, NaturalSeoResolveData} from '@ecodev/natural';
 import {AccountingDocumentsComponent} from '../../../admin/accounting-documents/accounting-documents.component';
@@ -49,14 +49,14 @@ export class CreateExpenseClaimComponent
     public override ngOnInit(): void {
         super.ngOnInit();
         this.form.patchValue({
-            owner: this.route.snapshot.data.viewer.model.id,
+            owner: this.route.snapshot.data.viewer.id,
             status: ExpenseClaimStatus.new,
             type: this.route.snapshot.data.type,
         });
     }
 
-    protected override postCreate(): Observable<unknown> {
-        this.accountingDocuments.save();
+    protected override postCreate(object: CreateExpenseClaim['createExpenseClaim']): Observable<unknown> {
+        this.accountingDocuments.save(object);
         this.router.navigateByUrl('/profile/finances');
         this.alertService.info('Votre demande a bien été enregistrée');
 

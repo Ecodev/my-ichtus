@@ -61,7 +61,7 @@ export class BookableComponent implements OnInit {
 
     public ngOnInit(): void {
         this.route.data.subscribe(data => {
-            this.bookable = data.bookable.model;
+            this.bookable = data.model;
             this.initForBookable();
         });
     }
@@ -71,7 +71,7 @@ export class BookableComponent implements OnInit {
             return;
         }
 
-        const viewer = this.route.snapshot.data.viewer.model;
+        const viewer = this.route.snapshot.data.viewer;
         this.canAccessAdmin = this.permissionsService.canAccessAdmin(viewer);
         this.welcomeSessionTaken = viewer.welcomeSessionDate !== null;
         this.hasLicense = BookableService.isLicenseGranted(this.bookable, viewer);

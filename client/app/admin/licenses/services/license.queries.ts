@@ -53,6 +53,7 @@ export const updateLicense = gql`
     mutation UpdateLicense($id: LicenseID!, $input: LicensePartialInput!) {
         updateLicense(id: $id, input: $input) {
             id
+            name
             updateDate
             updater {
                 ...UserMeta

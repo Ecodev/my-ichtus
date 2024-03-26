@@ -114,7 +114,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
                 .subscribe(value => simultaneousBookingMaximum.setValue(value === BookingType.self_approved ? 1 : -1));
         }
 
-        this.viewer = this.route.snapshot.data.viewer.model;
+        this.viewer = this.route.snapshot.data.viewer;
 
         this.bookingsVariables = this.getBookingsVariables();
 
@@ -128,10 +128,14 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
             return;
         }
 
-        const partialBookable = {id: this.data.model.id, verificationDate: formatIsoDateTime(new Date())};
-        this.service.updatePartially(partialBookable).subscribe(bookable => {
-            this.form.patchValue(bookable);
-        });
+        this.service
+            .updateNow({
+                id: this.data.model.id,
+                verificationDate: formatIsoDateTime(new Date()),
+            })
+            .subscribe(bookable => {
+                this.form.patchValue(bookable);
+            });
     }
 
     public showVerified(): boolean {
@@ -153,7 +157,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
         return this.imageService.create({file}).pipe(
             switchMap(image => {
                 const id = this.data.model.id;
-                return id ? this.service.updatePartially({id, image}).pipe(map(() => image)) : of(image);
+                return id ? this.service.updateNow({id, image}).pipe(map(() => image)) : of(image);
             }),
         );
     }
@@ -197,7 +201,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
     }
 
     public isTrainer(): boolean {
-        return this.route.snapshot.data.viewer?.model?.role === UserRole.trainer;
+        return this.route.snapshot.data.viewer?.role === UserRole.trainer;
     }
 
     public bookingTypeDisabled(): (item: IEnum) => boolean {

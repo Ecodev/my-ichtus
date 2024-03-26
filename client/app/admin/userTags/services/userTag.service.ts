@@ -1,12 +1,5 @@
-import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
-import {
-    FormAsyncValidators,
-    FormValidators,
-    NaturalAbstractModelService,
-    unique,
-    NaturalDebounceService,
-} from '@ecodev/natural';
+import {FormAsyncValidators, FormValidators, NaturalAbstractModelService, unique} from '@ecodev/natural';
 import {createUserTag, deleteUserTags, updateUserTag, userTagQuery, userTagsQuery} from './userTag.queries';
 import {
     CreateUserTag,
@@ -38,17 +31,8 @@ export class UserTagService extends NaturalAbstractModelService<
     DeleteUserTags,
     DeleteUserTagsVariables
 > {
-    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
-        super(
-            apollo,
-            naturalDebounceService,
-            'userTag',
-            userTagQuery,
-            userTagsQuery,
-            createUserTag,
-            updateUserTag,
-            deleteUserTags,
-        );
+    public constructor() {
+        super('userTag', userTagQuery, userTagsQuery, createUserTag, updateUserTag, deleteUserTags);
     }
 
     public override getDefaultForServer(): UserTagInput {

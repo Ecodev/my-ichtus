@@ -14,10 +14,11 @@ import {TransactionService} from '../services/transaction.service';
 import {EMPTY, Observable} from 'rxjs';
 import {filter, first} from 'rxjs/operators';
 import {
+    CreateTransaction,
     CurrentUserForProfile,
     ExpenseClaim,
     ExpenseClaimType,
-    TransactionLineInput,
+    UpdateTransaction,
 } from '../../../shared/generated-types';
 import {BookableService} from '../../bookables/services/bookable.service';
 import {
@@ -86,7 +87,6 @@ export class TransactionComponent
     extends NaturalAbstractDetail<
         TransactionService,
         NaturalSeoResolveData & {
-            model: {transactionLines: null | TransactionLineInput[]}; // TODO This is not awesome because we inject new properties on model coming from DB. It would be best to handle the transactionLines separately
             duplicatedTransaction?: DuplicatedTransactionResolve | null;
             expenseClaim?: ExpenseClaim['expenseClaim'] | null;
         }
@@ -122,7 +122,7 @@ export class TransactionComponent
             this.transactionLines = {mode: 'fetch', id: this.data.model.id};
         }
 
-        this.viewer = this.route.snapshot.data.viewer.model;
+        this.viewer = this.route.snapshot.data.viewer;
 
         // Activate edition mode on creation
         if (!this.data.model.id) {
@@ -201,8 +201,8 @@ export class TransactionComponent
 
         if (this.transactionLinesComponent) {
             const rawTransactionLines = this.transactionLinesComponent.getItems();
-            this.data.model.transactionLines = rawTransactionLines.map(line =>
-                this.transactionLineService.getInput(line),
+            this.form.controls.transactionLines.setValue(
+                rawTransactionLines.map(line => this.transactionLineService.getInput(line, true)),
             );
 
             this.transactionLinesComponent.validateForm();
@@ -211,7 +211,7 @@ export class TransactionComponent
                 return;
             }
         } else {
-            this.data.model.transactionLines = null;
+            this.form.controls.transactionLines.setValue(null);
         }
 
         if (this.isUpdatePage()) {
@@ -225,9 +225,9 @@ export class TransactionComponent
         super.delete(['/admin/transaction-line']);
     }
 
-    protected override postUpdate(): void {
+    protected override postUpdate(object: UpdateTransaction['updateTransaction']): void {
         this.updateTransactionLines = false;
-        this.accountingDocuments.save();
+        this.accountingDocuments.save(object);
     }
 
     /**
@@ -235,16 +235,18 @@ export class TransactionComponent
      * If we don't wait first navigation, we would try to redirect to the same route /transaction/new -> /transaction/new
      * and nothing would happen.
      */
-    protected override postCreate(): Observable<unknown> {
+    protected override postCreate(object: CreateTransaction['createTransaction']): Observable<unknown> {
         this.updateTransactionLines = false;
-        this.accountingDocuments.save();
+        this.accountingDocuments.save(object);
         this.router.events
             .pipe(
-                filter(ev => ev instanceof NavigationEnd),
+                filter((event): event is NavigationEnd => event instanceof NavigationEnd),
                 first(),
             )
-            .subscribe(() => {
-                this.goToNew();
+            .subscribe(event => {
+                if (event.url.match(/^\/admin\/transaction\/\d+$/)) {
+                    this.goToNew();
+                }
             });
 
         return EMPTY;

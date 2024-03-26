@@ -93,7 +93,7 @@ export class FinancesComponent
 
     public override ngOnInit(): void {
         if (!this.viewer) {
-            this.viewer = this.route.snapshot.data.viewer.model;
+            this.viewer = this.route.snapshot.data.viewer;
         } else {
             this.adminMode = true;
             this.selectedColumns.push('admin');
@@ -153,7 +153,7 @@ export class FinancesComponent
             this.ibanCtrl.enable();
             const iban = this.ibanCtrl.value;
             this.userService
-                .updatePartially({id: this.viewer.id, iban: iban})
+                .updateNow({id: this.viewer.id, iban: iban})
                 .pipe(
                     finalize(() => {
                         this.updating = false;

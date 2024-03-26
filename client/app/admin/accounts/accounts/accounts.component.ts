@@ -87,7 +87,7 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
 
     public readonly buttons: Observable<Button[]> = this.route.data.pipe(
         map(routeData => {
-            const viewer: NonNullable<CurrentUserForProfile['viewer']> = routeData.viewer.model;
+            const viewer: NonNullable<CurrentUserForProfile['viewer']> = routeData.viewer;
 
             return [
                 {

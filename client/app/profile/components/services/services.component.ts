@@ -71,7 +71,7 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
 
     public ngOnInit(): void {
         if (!this.user) {
-            this.user = this.route.snapshot.data.viewer.model;
+            this.user = this.route.snapshot.data.viewer;
         } else {
             this.adminMode = true;
             this.applicationsColumns.push('admin');
@@ -128,7 +128,7 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
                 if (confirmed) {
                     this.userService.unregister(this.user).subscribe(() => {
                         // If viewer is the unregistered viewer, log him out.
-                        if (this.route.snapshot.data.viewer.model.id === this.user.id) {
+                        if (this.route.snapshot.data.viewer.id === this.user.id) {
                             this.alertService.info('Tu as démissioné', 5000);
                             this.userService.logout();
                         } else {

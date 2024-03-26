@@ -104,6 +104,8 @@ export const updateAccount = gql`
     mutation UpdateAccount($id: AccountID!, $input: AccountPartialInput!) {
         updateAccount(id: $id, input: $input) {
             id
+            name
+            fullName
             budgetBalance
             updateDate
             updater {

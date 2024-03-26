@@ -58,7 +58,7 @@ export class LoginComponent extends NaturalAbstractController implements OnInit,
 
         // Attempt to skip login if user is already logged in (but not if is trying to logout)
         if (!logout) {
-            if (this.route.snapshot.data.viewer.model) {
+            if (this.route.snapshot.data.viewer) {
                 this.redirect();
             }
         }

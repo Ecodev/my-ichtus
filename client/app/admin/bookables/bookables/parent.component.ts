@@ -1,12 +1,18 @@
 import {Directive, inject, OnInit} from '@angular/core';
 import {UsageBookableService} from '../services/usage-bookable.service';
 import {AvailableColumn, NaturalAbstractList} from '@ecodev/natural';
-import {BookingPartialInput, Bookings, BookingStatus, UsageBookables, User} from '../../../shared/generated-types';
+import {
+    BookingPartialInput,
+    Bookings,
+    BookingStatus,
+    CurrentUserForProfile,
+    UsageBookables,
+    User,
+} from '../../../shared/generated-types';
 import {BookingService} from '../../bookings/services/booking.service';
 import {BookableService} from '../services/bookable.service';
 import {ExtractTallOne} from '@ecodev/natural/lib/types/types';
-import {ViewerResolve} from '../../users/services/viewer.resolver';
-import {map, Observable} from 'rxjs';
+import {Observable, of, switchMap} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 import {Apollo} from 'apollo-angular';
 import {availabilityStatus, availabilityText, usageStatus as usageStatusFunc, usageText} from '../bookable';
@@ -29,7 +35,7 @@ export const verificationDate: AvailableColumn = {id: 'verificationDate', label:
 export const select: AvailableColumn = {id: 'select', label: 'Sélection', hidden: true};
 export const createApplication: AvailableColumn = {id: 'createApplication', label: 'Demander', hidden: true};
 
-type FutureOwner = ViewerResolve['model'] | User['user'] | null;
+type FutureOwner = CurrentUserForProfile['viewer'] | User['user'] | null;
 
 @Directive()
 export abstract class ParentComponent<T extends UsageBookableService | BookableService>
@@ -50,9 +56,15 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
      */
     public futureOwner: FutureOwner = null;
     public readonly futureOwner$: Observable<FutureOwner> = this.route.data.pipe(
-        map(data => {
+        switchMap(data => {
             // The futureOwner might be specifically given via routing data (for profile page), or we fallback on the user being edited in admin pages
-            return data.futureOwner?.model ?? data.user?.model ?? null;
+            if (data.futureOwner) {
+                return of(data.futureOwner);
+            } else if (data.model instanceof Observable) {
+                return data.model;
+            } else {
+                return of(null);
+            }
         }),
     );
 

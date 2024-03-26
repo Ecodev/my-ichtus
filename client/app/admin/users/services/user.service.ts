@@ -1,4 +1,4 @@
-import {Apollo, gql} from 'apollo-angular';
+import {gql} from 'apollo-angular';
 import {Inject, Injectable, OnDestroy} from '@angular/core';
 import {FormControl, ValidationErrors, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
@@ -10,7 +10,6 @@ import {
     Literal,
     LOCAL_STORAGE,
     NaturalAbstractModelService,
-    NaturalDebounceService,
     NaturalQueryVariablesManager,
     NaturalStorage,
     unique,
@@ -63,7 +62,6 @@ import {
     UserLeaveFamily,
     UserLoginAvailable,
     UserLoginAvailableVariables,
-    UserPartialInput,
     UserRole,
     UserRolesAvailables,
     UserRolesAvailablesVariables,
@@ -119,15 +117,13 @@ export class UserService
     private readonly onDestroy = new Subject<void>();
 
     public constructor(
-        apollo: Apollo,
-        naturalDebounceService: NaturalDebounceService,
         protected readonly router: Router,
         protected readonly bookingService: BookingService,
         private readonly permissionsService: PermissionsService,
         protected readonly pricedBookingService: PricedBookingService,
         @Inject(LOCAL_STORAGE) private readonly storage: NaturalStorage,
     ) {
-        super(apollo, naturalDebounceService, 'user', userQuery, usersQuery, createUser, updateUser, null);
+        super('user', userQuery, usersQuery, createUser, updateUser, null);
         this.keepViewerSyncedAcrossBrowserTabs();
     }
 
@@ -355,13 +351,11 @@ export class UserService
         id: string,
         value = formatIsoDateTime(new Date()),
     ): Observable<UpdateUser['updateUser']> {
-        const user: UserPartialInput = {welcomeSessionDate: value};
-        return this.updatePartially({id: id, ...user});
+        return this.updateNow({id: id, welcomeSessionDate: value});
     }
 
     public activate(id: string): Observable<UpdateUser['updateUser']> {
-        const user: UserPartialInput = {status: UserStatus.active};
-        return this.updatePartially({id: id, ...user});
+        return this.updateNow({id: id, status: UserStatus.active});
     }
 
     public logout(): Observable<Logout['logout']> {
@@ -509,18 +503,7 @@ export class UserService
         }, 1000);
     }
 
-    /**
-     * Resolve items related to users, and the user if the id is provided, in order to show a form
-     */
-    public resolveViewer(): Observable<{model: CurrentUserForProfile['viewer']}> {
-        return this.getViewer().pipe(
-            map(result => {
-                return {model: result};
-            }),
-        );
-    }
-
-    public resolveByToken(token: string): Observable<{model: UserByToken['userByToken']}> {
+    public resolveByToken(token: string): Observable<UserByToken['userByToken']> {
         return this.apollo
             .query<UserByToken, UserByTokenVariables>({
                 query: userByTokenQuery,
@@ -528,11 +511,7 @@ export class UserService
                     token: token,
                 },
             })
-            .pipe(
-                map(result => {
-                    return {model: result.data.userByToken};
-                }),
-            );
+            .pipe(map(result => result.data.userByToken));
     }
 
     public unregister(user: NonNullable<CurrentUserForProfile['viewer']>): Observable<Unregister['unregister']> {

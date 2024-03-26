@@ -1,11 +1,9 @@
-import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {
     formatIsoDateTime,
     FormValidators,
     NaturalAbstractModelService,
-    NaturalDebounceService,
     NaturalQueryVariablesManager,
     NaturalSearchSelections,
     toNavigationParameters,
@@ -59,17 +57,8 @@ export class TransactionLineService extends NaturalAbstractModelService<
     never,
     never
 > {
-    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
-        super(
-            apollo,
-            naturalDebounceService,
-            'transactionLine',
-            transactionLineQuery,
-            transactionLinesQuery,
-            null,
-            null,
-            null,
-        );
+    public constructor() {
+        super('transactionLine', transactionLineQuery, transactionLinesQuery, null, null, null);
     }
 
     public static getVariablesForExport(): TransactionLinesVariables {

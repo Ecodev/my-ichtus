@@ -1,12 +1,5 @@
-import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
-import {
-    FormAsyncValidators,
-    FormValidators,
-    NaturalAbstractModelService,
-    unique,
-    NaturalDebounceService,
-} from '@ecodev/natural';
+import {FormAsyncValidators, FormValidators, NaturalAbstractModelService, unique} from '@ecodev/natural';
 import {createLicense, deleteLicenses, licenseQuery, licensesQuery, updateLicense} from './license.queries';
 import {
     CreateLicense,
@@ -38,17 +31,8 @@ export class LicenseService extends NaturalAbstractModelService<
     DeleteLicenses,
     DeleteLicensesVariables
 > {
-    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
-        super(
-            apollo,
-            naturalDebounceService,
-            'license',
-            licenseQuery,
-            licensesQuery,
-            createLicense,
-            updateLicense,
-            deleteLicenses,
-        );
+    public constructor() {
+        super('license', licenseQuery, licensesQuery, createLicense, updateLicense, deleteLicenses);
     }
 
     public override getDefaultForServer(): LicenseInput {

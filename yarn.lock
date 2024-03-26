@@ -1424,17 +1424,17 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@ecodev/fab-speed-dial@^16.0.2":
-  version "16.0.2"
-  resolved "https://registry.yarnpkg.com/@ecodev/fab-speed-dial/-/fab-speed-dial-16.0.2.tgz#7f2c1c5dc144a6141d689e121257e49ec3b8b1f0"
-  integrity sha512-TSAFv8Q7TDLGGWOBDZzMmbNGlx2PVYvz/vvBHnX2qA1OfZqWB91emJBnkUruDUu3q6QXVEmLBG8X2MKp1gkn/w==
+"@ecodev/fab-speed-dial@^16.0.6":
+  version "16.0.6"
+  resolved "https://registry.yarnpkg.com/@ecodev/fab-speed-dial/-/fab-speed-dial-16.0.6.tgz#edbfb70c9d2f1172917e090430291d8b04b86499"
+  integrity sha512-y4QXXNySqzL/k0JAOhfNhz7OzjU0OskozSTpY72NBDhPxyFGg45NFV+rer6CbBSXKkw+X0/FxLX0Od6m7kypDg==
   dependencies:
     tslib "^2.6"
 
-"@ecodev/natural-editor@^56.0.3":
-  version "56.0.3"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural-editor/-/natural-editor-56.0.3.tgz#68f024f0190abb75df73b7201ca1478bdd181a80"
-  integrity sha512-cRf9VKpwGjwnphjH/X09nZp/wYvljDtWeETkIUxE8TTj8TYmKMW7JfipWbRa1MrKq7Dq1qSIMpMA4sTBnZdW7w==
+"@ecodev/natural-editor@^57.0.3":
+  version "57.0.3"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural-editor/-/natural-editor-57.0.3.tgz#4346ba4272088755b14ea93d257bc9925ec9dfe6"
+  integrity sha512-pwYk4gynwCv66WYuiXjZ8CicoCgyhHUKVBrazN61jyBDDulbOpWYj4ik7v0TdezjNNaLnUBr7BZ8ens+UivxLA==
   dependencies:
     prosemirror-commands "^1.5.2"
     prosemirror-dropcursor "^1.8.1"
@@ -1451,10 +1451,10 @@
     prosemirror-view "^1.31.5"
     tslib "^2.5.3"
 
-"@ecodev/natural@^56.0.4":
-  version "56.0.4"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-56.0.4.tgz#afdfc5994040b1b0a8016148f4d1f0631a08aad1"
-  integrity sha512-3JEGmNeoR9DvgamvV4ZKbQcX0vK2Gpg8K0n7Coxh+uNrmyGpZhyD7gt2H0KMC5FFZdQMZyoqlHyTSFUb7hgf7Q==
+"@ecodev/natural@^57.0.3":
+  version "57.0.3"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-57.0.3.tgz#01074c16e99b4a954d1663a7564e41623f627ae2"
+  integrity sha512-GayceIQLBk3KYjT1T2qgRjWAkDP9Qwj6RwkNep1kZkOrj+vUf2hn2QU/z/KX95t4i/GVlri6agVYmOsm4j1nMw==
   dependencies:
     crypto-es "^2.0.3"
     extract-files "^13.0.0"

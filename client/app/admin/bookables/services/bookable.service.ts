@@ -1,4 +1,3 @@
-import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {bookableQuery, bookablesQuery, createBookable, deleteBookables, updateBookable} from './bookable.queries';
 import {
@@ -32,7 +31,6 @@ import {
     FormValidators,
     money,
     NaturalAbstractModelService,
-    NaturalDebounceService,
     NaturalQueryVariablesManager,
     unique,
 } from '@ecodev/natural';
@@ -100,21 +98,8 @@ export class BookableService extends NaturalAbstractModelService<
         filter: {groups: [{conditions: [{bookingType: {in: {values: [BookingType.application]}}}]}]},
     };
 
-    public constructor(
-        apollo: Apollo,
-        naturalDebounceService: NaturalDebounceService,
-        private readonly bookingService: BookingService,
-    ) {
-        super(
-            apollo,
-            naturalDebounceService,
-            'bookable',
-            bookableQuery,
-            bookablesQuery,
-            createBookable,
-            updateBookable,
-            deleteBookables,
-        );
+    public constructor(private readonly bookingService: BookingService) {
+        super('bookable', bookableQuery, bookablesQuery, createBookable, updateBookable, deleteBookables);
     }
 
     public static getFiltersByTagId(tagId: string): BookablesVariables {
@@ -244,7 +229,7 @@ export class BookableService extends NaturalAbstractModelService<
         );
     }
 
-    public resolveByCode(code: string): Observable<{model: any}> {
+    public resolveByCode(code: string): Observable<Bookables['bookables']['items'][0] | null> {
         if (code) {
             const qvm = new NaturalQueryVariablesManager<BookablesVariables>();
             const variables: BookablesVariables = {
@@ -254,11 +239,11 @@ export class BookableService extends NaturalAbstractModelService<
 
             return this.getAll(qvm).pipe(
                 map(result => {
-                    return {model: result?.items.length ? result.items[0] : null};
+                    return result?.items.length ? result.items[0] : null;
                 }),
             );
         } else {
-            return of({model: null});
+            return of(null);
         }
     }
 }

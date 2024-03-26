@@ -1,7 +1,7 @@
 <div fxFlex="1 0 auto" fxLayout="column" fxLayoutGap="50px" fxLayoutAlign="center" class="padding overlfow">
     @if (route.snapshot.data.viewer) {
         <div fxLayout="row" fxLayoutAlign="center">
-            <app-navigations [user]="route.snapshot.data.viewer.model" />
+            <app-navigations [user]="route.snapshot.data.viewer" />
         </div>
     }
 
@@ -46,7 +46,7 @@
     <div fxLayout="column" fxLayoutAlign="start center" class="margin-bottom padding-bottom">
         <h1 class="mat-headline-3 margin-bottom text-center">Autres</h1>
         <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="center">
-            @if (permissionsService.canAccessDoor(route.snapshot.data.viewer.model)) {
+            @if (permissionsService.canAccessDoor(route.snapshot.data.viewer)) {
                 <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="door" class="big-button">
                     <mat-icon naturalIcon="doors" [size]="70" />
                     Accéder au local
@@ -63,7 +63,7 @@
                 Guide
             </a>
 
-            @if (permissionsService.canAccessAdmin(route.snapshot.data.viewer.model)) {
+            @if (permissionsService.canAccessAdmin(route.snapshot.data.viewer)) {
                 <a
                     mat-button
                     fxLayout="column"
