@@ -22,7 +22,7 @@ trait HasAddress
     private string $locality = '';
 
     #[ORM\ManyToOne(targetEntity: Country::class)]
-    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    #[ORM\JoinColumn(onDelete: 'SET NULL')]
     private ?Country $country = null;
 
     public function getStreet(): string

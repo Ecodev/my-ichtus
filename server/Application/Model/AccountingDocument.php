@@ -22,11 +22,11 @@ class AccountingDocument extends AbstractModel implements \Ecodev\Felix\Model\Fi
         return 'data/accounting/';
     }
 
-    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     #[ORM\ManyToOne(targetEntity: ExpenseClaim::class, inversedBy: 'accountingDocuments')]
     private ?ExpenseClaim $expenseClaim = null;
 
-    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     #[ORM\ManyToOne(targetEntity: Transaction::class, inversedBy: 'accountingDocuments')]
     private ?Transaction $transaction = null;
 

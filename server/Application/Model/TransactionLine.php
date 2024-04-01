@@ -32,15 +32,15 @@ class TransactionLine extends AbstractModel
     #[ORM\ManyToOne(targetEntity: Transaction::class, inversedBy: 'transactionLines')]
     private ?Transaction $transaction = null;
 
-    #[ORM\JoinColumn(nullable: true, onDelete: 'RESTRICT')]
+    #[ORM\JoinColumn(onDelete: 'RESTRICT')]
     #[ORM\ManyToOne(targetEntity: Account::class, inversedBy: 'debitTransactionLines')]
     private ?Account $debit = null;
 
-    #[ORM\JoinColumn(nullable: true, onDelete: 'RESTRICT')]
+    #[ORM\JoinColumn(onDelete: 'RESTRICT')]
     #[ORM\ManyToOne(targetEntity: Account::class, inversedBy: 'creditTransactionLines')]
     private ?Account $credit = null;
 
-    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    #[ORM\JoinColumn(onDelete: 'SET NULL')]
     #[ORM\ManyToOne(targetEntity: Bookable::class)]
     private ?Bookable $bookable = null;
 
@@ -50,7 +50,7 @@ class TransactionLine extends AbstractModel
     #[ORM\Column(type: 'datetime')]
     private Chronos $transactionDate;
 
-    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    #[ORM\JoinColumn(onDelete: 'SET NULL')]
     #[ORM\ManyToOne(targetEntity: TransactionTag::class)]
     private ?TransactionTag $transactionTag = null;
 

@@ -45,7 +45,7 @@ class Transaction extends AbstractModel
     #[ORM\OneToMany(targetEntity: AccountingDocument::class, mappedBy: 'transaction')]
     private Collection $accountingDocuments;
 
-    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    #[ORM\JoinColumn(onDelete: 'SET NULL')]
     #[ORM\ManyToOne(targetEntity: ExpenseClaim::class, inversedBy: 'transactions')]
     private ?ExpenseClaim $expenseClaim = null;
 

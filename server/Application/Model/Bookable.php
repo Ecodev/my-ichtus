@@ -92,7 +92,7 @@ class Bookable extends AbstractModel
     #[ORM\JoinColumn(name: 'image_id', referencedColumnName: 'id')]
     private ?Image $image = null;
 
-    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     #[ORM\ManyToOne(targetEntity: Account::class)]
     private ?Account $creditAccount = null;
 
