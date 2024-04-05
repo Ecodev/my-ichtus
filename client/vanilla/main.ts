@@ -5,7 +5,7 @@ import {APP_BASE_HREF} from '@angular/common';
 import {Apollo, APOLLO_OPTIONS, ApolloModule, gql} from 'apollo-angular';
 import {HttpBatchLink} from 'apollo-angular/http';
 import {InMemoryCache} from '@apollo/client/core';
-import {cacheConfig} from '../app/shared/config/apolloDefaultOptions';
+import {cacheConfig} from '../app/shared/config/apollo-options.provider';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {
     graphqlQuerySigner,

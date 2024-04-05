@@ -7,7 +7,7 @@ import {provideAnimations} from '@angular/platform-browser/animations';
 import {bootstrapApplication} from '@angular/platform-browser';
 import {Apollo} from 'apollo-angular';
 import {MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions} from '@angular/material/tooltip';
-import {apolloOptionsProvider} from './app/shared/config/apolloDefaultOptions';
+import {apolloOptionsProvider} from './app/shared/config/apollo-options.provider';
 import {LocalizedPaginatorIntlService} from './app/shared/services/localized-paginator-intl.service';
 import {activityInterceptor} from './app/shared/services/activity-interceptor';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
