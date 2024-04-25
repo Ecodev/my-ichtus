@@ -1,7 +1,6 @@
 import anime, {AnimeCallBack} from 'animejs';
 import {Renderer2} from '@angular/core';
 import {rand} from './utils';
-import {isFunction} from 'lodash-es';
 
 export type Direction = 'left' | 'top' | 'right';
 
@@ -160,7 +159,7 @@ export class Particles {
 
     private addParticle(x: number, y: number): void {
         const frames = (this.o.duration * 60) / 1000;
-        const speed: number = isFunction(this.o.speed) ? this.o.speed() : this.o.speed;
+        const speed: number = typeof this.o.speed === 'function' ? this.o.speed() : this.o.speed;
         this.particles.push({
             startX: x,
             startY: y,
@@ -172,7 +171,7 @@ export class Particles {
             life: 0,
             death: this.disintegrating ? frames - 20 + Math.random() * 40 : frames,
             speed: speed,
-            size: isFunction(this.o.size) ? this.o.size() : this.o.size,
+            size: typeof this.o.size === 'function' ? this.o.size() : this.o.size,
         });
     }
 
