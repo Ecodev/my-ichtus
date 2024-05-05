@@ -1,13 +1,13 @@
 :host {
     display: flex;
     flex: 1;
-    overflow: auto;
     padding: 20px;
     padding-bottom: 100px;
+    overflow: auto;
 
     & > div {
-        max-width: 1300px;
         margin: auto;
+        max-width: 1300px;
     }
 }
 

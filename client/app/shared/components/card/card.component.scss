@@ -10,10 +10,10 @@
 .illustration {
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: center;
-    background-size: cover;
-    background-position: center;
-    border-top-left-radius: 5px;
+    align-items: center;
     border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    background-position: center;
+    background-size: cover;
 }

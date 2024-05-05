@@ -17,17 +17,17 @@
 
     ng-progress {
         .ng-bar {
-            height: 3px !important;
-            background-color: mat.get-color-from-palette($accent) !important;
             box-shadow: mat.get-color-from-palette($accent) 0 0 5px !important;
+            background-color: mat.get-color-from-palette($accent) !important;
+            height: 3px !important;
         }
 
         .ng-meteor {
-            opacity: 1 !important;
-            transform: none !important;
-            width: 25px !important;
             top: 0 !important;
+            transform: none !important;
+            opacity: 1 !important;
             box-shadow: mat.get-color-from-palette($accent) 0 0 20px !important;
+            width: 25px !important;
         }
     }
     // Provides a way to have flat circled button icon,
@@ -45,17 +45,17 @@
     }
 
     .icon-button-circle-primary {
-        color: mat.get-color-from-palette($primary, default-contrast) !important;
         background-color: mat.get-color-from-palette($primary) !important;
+        color: mat.get-color-from-palette($primary, default-contrast) !important;
     }
 
     .icon-button-circle-accent {
-        color: mat.get-color-from-palette($accent, default-contrast) !important;
         background-color: mat.get-color-from-palette($accent) !important;
+        color: mat.get-color-from-palette($accent, default-contrast) !important;
     }
 
     .icon-button-circle-warn {
-        color: mat.get-color-from-palette($warn, default-contrast) !important;
         background-color: mat.get-color-from-palette($warn) !important;
+        color: mat.get-color-from-palette($warn, default-contrast) !important;
     }
 }

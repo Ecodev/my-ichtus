@@ -1,6 +1,6 @@
 :host {
-    flex: 1;
     display: flex;
+    flex: 1;
     flex-direction: column;
 }
 
@@ -9,8 +9,8 @@
 }
 
 .body {
+    box-sizing: border-box;
+    margin: 0 auto;
     width: 100%;
     max-width: 1300px;
-    margin: 0 auto;
-    box-sizing: border-box;
 }

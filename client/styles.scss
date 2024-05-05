@@ -15,12 +15,12 @@ body {
  * Debug
  */
 pre.debug {
-    padding: 10px;
     margin: 10px;
-    font-size: 16px;
-    line-height: 1.5em;
     border: 1px solid rgba(0, 0, 0, 0.5);
     background: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    font-size: 16px;
+    line-height: 1.5em;
     font-family: Courrier, monospace;
 }
 
@@ -84,8 +84,8 @@ app-admin router-outlet + * {
 
 .detail-speed-dial {
     position: fixed;
-    bottom: 20px;
     right: 20px;
+    bottom: 20px;
     z-index: 999; // < than 1000 that is the z-index of overlay contents
 }
 
@@ -103,8 +103,8 @@ mat-form-field.no-bottom-spacing {
 }
 
 .detail-body {
-    max-width: 1300px;
     margin: auto;
+    max-width: 1300px;
 }
 
 .text-center {
@@ -118,14 +118,14 @@ mat-form-field.no-bottom-spacing {
 
 .mat-mdc-button.big-button {
     height: auto !important; // allow button grow in height
-    white-space: normal;
     line-height: 24px !important;
+    white-space: normal;
     .mdc-button__label {
         display: flex;
         flex-direction: column;
         align-items: center;
-        font-size: 1.2em;
         padding-top: 10px;
+        font-size: 1.2em;
         text-align: center;
     }
 }
