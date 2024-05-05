@@ -4,14 +4,13 @@ import {ActivatedRoute, RouterLink} from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
 import {NaturalIconDirective} from '@ecodev/natural';
 import {MatIconModule} from '@angular/material/icon';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-error',
     templateUrl: './error.component.html',
     styleUrl: './error.component.scss',
     standalone: true,
-    imports: [FlexModule, MatIconModule, NaturalIconDirective, MatButtonModule, RouterLink],
+    imports: [MatIconModule, NaturalIconDirective, MatButtonModule, RouterLink],
 })
 export class ErrorComponent {
     public readonly error: Error | null = null;

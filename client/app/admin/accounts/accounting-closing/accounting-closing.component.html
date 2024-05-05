@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>Bouclement comptable</h2>
 <mat-dialog-content>
-    <div fxLayout="column">
+    <div class="nat-vertical">
         <mat-hint>
             <p>
                 Le bouclement va générer les écritures soldant tous les comptes de charges et profits, calculer le
@@ -11,7 +11,7 @@
                 l'année précédente, lorsque que toutes les écritures (y compris transitoires) ont été saisies.
             </p>
         </mat-hint>
-        <mat-form-field fxLayout="row" class="margin-v">
+        <mat-form-field class="nat-horizontal nat-margin-vertical">
             <mat-label>Date du bouclement</mat-label>
             <input matInput [formControl]="form" [max]="today" [matDatepicker]="picker" />
             <mat-datepicker-toggle matIconSuffix [for]="picker" />

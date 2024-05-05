@@ -12,10 +12,10 @@
 
     <mat-tab-group naturalLinkableTab [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
         <mat-tab id="general" label="Général">
-            <div fxLayout="column" fxLayoutGap="30px" class="padding-top">
-                <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
-                    <div fxFlex="66" fxLayout="column">
-                        <div fxLayout="row" fxLayoutGap="30px">
+            <div class="nat-vertical nat-padding-top nat-gap-30">
+                <div class="nat-vertical nat-sm-horizontal nat-gap-0 nat-sm-gap-30">
+                    <div class="nat-expand-66 nat-vertical">
+                        <div class="nat-horizontal nat-gap-30">
                             <mat-form-field [style.width.px]="250">
                                 <mat-label>Numéro</mat-label>
                                 <input matInput type="number" formControlName="code" (change)="update()" />
@@ -42,8 +42,7 @@
                                 <mat-hint>Prochain n° disponible: {{ nextCodeAvailable }}</mat-hint>
                             </mat-form-field>
 
-                            <mat-form-field fxFlex
-                                ><!-- row child -->
+                            <mat-form-field class="nat-expand">
                                 <mat-label>Nom</mat-label>
                                 <input matInput formControlName="name" (change)="update()" />
                                 @if (form.get('name')?.hasError('maxlength')) {
@@ -117,7 +116,7 @@
                         </mat-form-field>
                     </div>
 
-                    <div fxFlex="33" fxLayout="column">
+                    <div class="nat-expand-33 nat-vertical">
                         <natural-select-hierarchic
                             formControlName="parent"
                             placeholder="Compte parent"

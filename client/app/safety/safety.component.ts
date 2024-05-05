@@ -26,7 +26,7 @@ import {
     NaturalSwissDatePipe,
     NaturalEllipsisPipe,
 } from '@ecodev/natural';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
+
 import {CommonModule} from '@angular/common';
 
 @Component({
@@ -35,7 +35,7 @@ import {CommonModule} from '@angular/common';
     standalone: true,
     imports: [
         CommonModule,
-        FlexModule,
+
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
         MatTableModule,

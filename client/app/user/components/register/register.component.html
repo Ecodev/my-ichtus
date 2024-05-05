@@ -1,5 +1,5 @@
-<form class="body padding" [formGroup]="form">
-    <div fxLayout="column" fxLayoutGap="30px">
+<form class="body nat-padding" [formGroup]="form">
+    <div class="nat-vertical nat-gap">
         <div class="mat-h1">{{ route.snapshot.data.seo.title }}</div>
 
         <mat-form-field>
@@ -15,10 +15,10 @@
         </mat-form-field>
 
         @if (step === 2) {
-            <div fxLayout="column" fxLayoutGap="30px">
+            <div class="nat-vertical nat-gap">
                 <mat-divider />
                 <h2 class="mat-headline-6">Compte</h2>
-                <div fxLayout="column">
+                <div class="nat-vertical">
                     <mat-form-field>
                         <mat-label>Nom d'utilisateur</mat-label>
                         <input matInput formControlName="login" />
@@ -43,9 +43,8 @@
                 <mat-divider />
                 <h2 class="mat-headline-6">Coordonnées</h2>
                 <div>
-                    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap.gt-xs="10px">
-                        <mat-form-field fxFlex.gt-xs
-                            ><!-- row child -->
+                    <div class="nat-vertical nat-sm-gap-10 nat-sm-horizontal">
+                        <mat-form-field class="nat-sm-expand">
                             <mat-label>Prénom</mat-label>
                             <input matInput formControlName="firstName" />
                             @if (form.get('firstName')?.hasError('maxlength')) {
@@ -57,8 +56,7 @@
                                 <mat-error>Requis</mat-error>
                             }
                         </mat-form-field>
-                        <mat-form-field fxFlex.gt-xs
-                            ><!-- row child -->
+                        <mat-form-field class="nat-sm-expand">
                             <mat-label>Nom de famille</mat-label>
                             <input matInput formControlName="lastName" />
                             @if (form.get('lastName')?.hasError('maxlength')) {
@@ -72,9 +70,8 @@
                         </mat-form-field>
                     </div>
                     <app-address [form]="form" />
-                    <div fxLayout.gt-xs="row" fxLayout="column" fxLayoutGap.gt-xs="10px">
-                        <mat-form-field fxFlex.gt-xs
-                            ><!-- row child -->
+                    <div class="nat-sm-horizontal nat-sm-gap-10 nat-vertical">
+                        <mat-form-field class="nat-sm-expand">
                             <mat-label>Téléphone mobile</mat-label>
                             <mat-icon matIconPrefix naturalIcon="smartphone" />
                             <input matInput formControlName="mobilePhone" />
@@ -87,8 +84,7 @@
                                 <mat-error>Requis</mat-error>
                             }
                         </mat-form-field>
-                        <mat-form-field fxFlex.gt-xs
-                            ><!-- row child -->
+                        <mat-form-field class="nat-sm-expand">
                             <mat-label>Date de naissance</mat-label>
                             <input matInput formControlName="birthday" [matDatepicker]="picker" />
                             <mat-datepicker-toggle matIconSuffix [for]="picker" />
@@ -167,8 +163,8 @@
         }
 
         @if (step === 1) {
-            <div fxLayout="row" fxLayoutGap="30px">
-                <div fxFlex>
+            <div class="nat-horizontal nat-gap-20">
+                <div class="nat-expand">
                     <mat-checkbox formControlName="hasInsurance">
                         Mon assurance RC couvre les dégâts commis par négligence au matériel nautique du club.
                     </mat-checkbox>
@@ -178,7 +174,7 @@
                     <p class="mat-body-2"></p>
                 </div>
                 <mat-divider [vertical]="true" />
-                <div fxFlex>
+                <div class="nat-expand">
                     <mat-checkbox formControlName="termsAgreement" required> Je m'engage à respecter : </mat-checkbox>
                     <p class="mat-body-2 rich-text">
                         <a href="https://ichtus.ch/oni" target="_blank"
@@ -195,7 +191,7 @@
             </div>
         }
 
-        <div fxLayout="row" fxLayoutAlign="center">
+        <div class="nat-horizontal nat-center">
             <button mat-raised-button [color]="form.valid ? 'primary' : 'warn'" (click)="submit()" [disabled]="sending">
                 <mat-icon naturalIcon="send" />
                 Envoyer

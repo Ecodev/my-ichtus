@@ -1,4 +1,4 @@
-<mat-card fxLayout="column" class="no-padding">
+<mat-card class="nat-vertical nat-no-padding">
     @if (file) {
         <natural-file
             [model]="file"
@@ -12,7 +12,7 @@
         <ng-content select=".card-illustration" [style.height.px]="illustrationHeight" />
     </div>
 
-    <div class="padding" fxLayoutGap="column">
+    <div class="nat-padding">
         <ng-content />
     </div>
 </mat-card>

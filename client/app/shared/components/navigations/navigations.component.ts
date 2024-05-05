@@ -38,7 +38,6 @@ import {MatDividerModule} from '@angular/material/divider';
 import {RouterLink} from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
 import {CardComponent} from '../card/card.component';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 type Extended = {
     booking: Readonly<Bookings['bookings']['items'][0]>;
@@ -75,7 +74,6 @@ function bookingsToExtended(bookings: Bookings['bookings']): PaginatedExtendedBo
     ],
     standalone: true,
     imports: [
-        FlexModule,
         CardComponent,
         NaturalAvatarComponent,
         MatButtonModule,

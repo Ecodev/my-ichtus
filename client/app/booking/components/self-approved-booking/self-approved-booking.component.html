@@ -1,18 +1,18 @@
-<div fxLayout="column" fxFlex>
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-        <h1 class="mat-headline-4" fxFlex>Nouvelle sortie</h1>
+<div class="nat-vertical nat-expand">
+    <div class="nat-horizontal nat-left nat-center nat-gap">
+        <h1 class="mat-headline-4 nat-expand">Nouvelle sortie</h1>
     </div>
-    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="20px">
-        <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="center" fxLayoutGap="30px">
+    <div class="nat-vertical nat-gap nat-md-horizontal">
+        <div class="nat-vertical nat-gap-30 nat-sm-horizontal nat-center">
             <app-card [file]="bookable?.image">
                 @if (!bookable?.image) {
-                    <div class="card-illustration padding">
+                    <div class="card-illustration nat-padding">
                         <natural-avatar initials="?" [size]="160" />
                     </div>
                 }
                 <h2 class="mat-headline-6">Matériel</h2>
-                <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
-                    <div class="mat-subtitle-2" fxFlex>{{ bookable?.name || 'Mon propre matériel' }}</div>
+                <div class="nat-horizontal nat-center nat-gap-10">
+                    <div class="mat-subtitle-2 nat-expand">{{ bookable?.name || 'Mon propre matériel' }}</div>
                     @if (bookable) {
                         <mat-divider [vertical]="true" />
                     }
@@ -21,7 +21,7 @@
             </app-card>
 
             <app-card>
-                <div class="card-illustration padding">
+                <div class="card-illustration nat-padding">
                     @if (!!booking.owner) {
                         <natural-avatar [initials]="booking.owner.name" [gravatar]="booking.owner.email" [size]="160" />
                     }
@@ -30,27 +30,19 @@
                     }
                 </div>
 
-                <div fxLayout="column" fxLayoutGap="10px">
-                    <div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px">
+                <div class="nat-vertical nat-gap-10">
+                    <div class="nat-vertical nat-gap-10 nat-center">
                         <h2 class="mat-headline-6">Responsable</h2>
                         <div>
-                            <span class="mat-subtitle-2 no-margin">{{ booking.owner.name }}</span>
+                            <span class="mat-subtitle-2 nat-no-margin">{{ booking.owner.name }}</span>
                         </div>
                     </div>
                 </div>
             </app-card>
         </div>
 
-        <div
-            fxFlex="none"
-            fxFlex.gt-sm
-            fxLayout="column"
-            fxLayout.gt-xs="row"
-            fxLayoutGap="20px"
-            fxLayout.gt-sm="column"
-            fxLayoutGap.gt-sm="0px"
-        >
-            <div fxFlex="none" fxFlex.gt-xs fxFlex.gt-sm="none" fxLayout="column">
+        <div class="nat-md-expand nat-md-gap-0 nat-md-vertical nat-gap nat-sm-horizontal nat-vertical">
+            <div class="nat-sm-expand nat-vertical">
                 <div>
                     <mat-form-field>
                         <mat-label>Nombre de participants</mat-label>
@@ -71,7 +63,7 @@
                 </mat-form-field>
             </div>
 
-            <div fxFlex="none" fxFlex.gt-xs fxFlex.gt-sm="none" fxLayout="column">
+            <div class="nat-sm-expand nat-vertical">
                 <mat-form-field>
                     <mat-label>Heure estimée de retour</mat-label>
                     <input matInput [(ngModel)]="booking.estimatedEndDate" />

@@ -7,9 +7,9 @@
             permissionsService.gteResponsible(viewer) ? ['admin', 'bookable'] : ['admin', 'bookable', 'formation']
         "
     >
-        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+        <div class="nat-horizontal nat-gap-10 nat-left nat-center">
             @if (form.get('verificationDate')?.value) {
-                <div fxLayout="column" style="text-align: right">
+                <div class="nat-vertical" style="text-align: right">
                     <div class="mat-subtitle-2">Dernière vérification</div>
                     <div class="mat-body-2">{{ form.get('verificationDate')?.value | date: 'dd.MM.y' }}</div>
                 </div>
@@ -23,21 +23,20 @@
     <mat-tab-group naturalLinkableTab [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
         @if (permissionsService.canAccessFormationApplication(viewer)) {
             <mat-tab id="general" label="Général">
-                <div fxLayout="column" fxLayoutGap="30px" class="padding-top">
-                    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
-                        <div fxFlex="66" fxLayout="column">
-                            <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start start" class="margin-bottom">
+                <div class="nat-vertical nat-padding-top nat-gap-30">
+                    <div class="nat-vertical nat-sm-horizontal nat-gap-0 nat-sm-gap-30">
+                        <div class="nat-expand-66 nat-vertical">
+                            <div class="nat-horizontal nat-margin-bottom nat-gap nat-left nat-top">
                                 <natural-file
                                     [model]="data.model.image"
                                     [formCtrl]="form.get('image')"
                                     [uploader]="createImageAndLink.bind(this)"
-                                    fxFlex
-                                    class="mat-elevation-z2"
+                                    class="nat-expand mat-elevation-z2"
                                     [style.borderRadius.px]="4"
                                     [style.marginLeft.px]="2"
                                     action="upload"
                                 />
-                                <div fxLayout="column" fxFlex>
+                                <div class="nat-vertical nat-expand">
                                     <mat-form-field>
                                         <input matInput formControlName="name" (change)="update()" />
                                         <mat-label>Nom</mat-label>
@@ -116,9 +115,9 @@
                                 ></textarea>
                             </mat-form-field>
                         </div>
-                        <div fxFlex="33" fxLayout="column">
-                            <div fxLayout="row" fxLayoutAlign="start center" class="margin-bottom">
-                                <h2 class="mat-headline-6 no-margin" fxFlex>Réservation</h2>
+                        <div class="nat-expand-33 nat-vertical">
+                            <div class="nat-horizontal nat-left nat-center nat-margin-bottom">
+                                <h2 class="mat-headline-6 nat-no-margin nat-expand">Réservation</h2>
                                 <mat-slide-toggle formControlName="isActive" (change)="update()"
                                     >Disponible</mat-slide-toggle
                                 >
@@ -230,8 +229,8 @@
                         </div>
                     </div>
                     <mat-divider />
-                    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
-                        <div fxFlex="66" fxLayout="column">
+                    <div class="nat-vertical nat-sm-horizontal nat-gap-0 nat-sm-gap-30">
+                        <div class="nat-expand-66 nat-vertical">
                             @if (isUpdatePage() && isSelfApproved()) {
                                 <div>
                                     <h2 class="mat-headline-6">Certifications</h2>
@@ -244,7 +243,7 @@
                                         placeholder="Associer à une certification"
                                     >
                                         <ng-template let-item="item">
-                                            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                                            <div class="nat-horizontal nat-left nat-center nat-gap-10">
                                                 <natural-table-button
                                                     [navigate]="['/admin/license/', item.id]"
                                                     [label]="item.name"
@@ -255,7 +254,7 @@
                                 </div>
                             }
                         </div>
-                        <div fxFlex="33" fxLayout="column">
+                        <div class="nat-expand-33 nat-vertical">
                             @if (isUpdatePage()) {
                                 <div>
                                     <h2 class="mat-headline-6">Tags</h2>
@@ -268,7 +267,7 @@
                                         placeholder="Ajouter un tag"
                                     >
                                         <ng-template let-item="item">
-                                            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                                            <div class="nat-horizontal nat-left nat-center nat-gap-10">
                                                 <!-- TODO : link to bookables list filtred by tag -->
                                                 <natural-avatar
                                                     [bgColor]="item.color"
@@ -295,7 +294,7 @@
 
         @if (isUpdatePage() && permissionsService.gteResponsible(viewer)) {
             <mat-tab id="metadata" label="Attributs">
-                <app-bookable-metadata [bookable]="data.model" [edit]="true" class="margin" />
+                <app-bookable-metadata [bookable]="data.model" [edit]="true" class="nat-margin" />
             </mat-tab>
         }
 
@@ -312,7 +311,7 @@
 
         @if (isUpdatePage()) {
             <mat-tab id="booking" [label]="permissionsService.gteResponsible(viewer) ? 'Utilisations' : 'Participants'">
-                <div fxLayout="column" class="padding-top">
+                <div class="nat-vertical nat-padding-top">
                     @if (!permissionsService.canAccessFormationApplication(viewer)) {
                         <mat-form-field>
                             <mat-label>Remarques</mat-label>

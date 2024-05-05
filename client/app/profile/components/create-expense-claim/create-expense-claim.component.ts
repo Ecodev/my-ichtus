@@ -11,7 +11,6 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-create-expense-claim',
@@ -19,7 +18,6 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
     styleUrl: './create-expense-claim.component.scss',
     standalone: true,
     imports: [
-        FlexModule,
         FormsModule,
         ReactiveFormsModule,
         MatFormFieldModule,

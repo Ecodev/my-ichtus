@@ -1,6 +1,6 @@
 <div [formGroup]="form" class="detail-body">
-    <div fxLayout="column" class="pageHeader">
-        <div class="mat-headline-5 no-margin" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+    <div class="nat-vertical pageHeader">
+        <div class="mat-headline-5 nat-no-margin nat-gap-5 nat-horizontal nat-left nat-center">
             <a mat-icon-button [routerLink]="['..']">
                 <mat-icon naturalIcon="arrow_back" />
             </a>
@@ -18,9 +18,9 @@
 
     <mat-tab-group naturalLinkableTab [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
         <mat-tab id="general" label="Général">
-            <div fxLayout="column" fxLayoutGap="30px" class="padding-top">
-                <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
-                    <div fxFlex="66" fxLayout="column">
+            <div class="nat-vertical nat-padding-top nat-gap-30">
+                <div class="nat-vertical nat-sm-horizontal nat-gap-0 nat-sm-gap-30">
+                    <div class="nat-expand-66 nat-vertical">
                         <mat-form-field>
                             <input matInput formControlName="name" (change)="update()" />
                             <mat-label>Nom</mat-label>
@@ -38,14 +38,14 @@
                         </mat-form-field>
                     </div>
 
-                    <div fxFlex="33" fxLayout="column"></div>
+                    <div class="nat-expand-33 nat-vertical"></div>
                 </div>
 
                 <mat-divider />
 
                 @if (isUpdatePage()) {
-                    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
-                        <div fxFlex="50" fxLayout="column">
+                    <div class="nat-vertical nat-sm-horizontal nat-gap-0 nat-sm-gap-30">
+                        <div class="nat-expand-50 nat-vertical">
                             <h2 class="mat-headline-6">Utilisateurs certifiés</h2>
                             <natural-relations
                                 [main]="data.model"
@@ -54,7 +54,7 @@
                                 placeholder="Certifier un utilisateur"
                             >
                                 <ng-template let-item="item">
-                                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                                    <div class="nat-horizontal nat-left nat-center nat-gap-10">
                                         <natural-table-button
                                             [navigate]="['/admin/user/', item.id]"
                                             [label]="item.name"
@@ -63,7 +63,7 @@
                                 </ng-template>
                             </natural-relations>
                         </div>
-                        <div fxFlex="50" fxLayout="column">
+                        <div class="nat-expand-50 nat-vertical">
                             <h2 class="mat-headline-6">Réservables certifiés</h2>
                             <natural-relations
                                 [main]="data.model"
@@ -72,7 +72,7 @@
                                 placeholder="Associer à un réservable"
                             >
                                 <ng-template let-item="item">
-                                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                                    <div class="nat-horizontal nat-left nat-center nat-gap-10">
                                         <natural-table-button
                                             [navigate]="['/admin/bookable/', item.id]"
                                             [label]="item.name"

@@ -9,21 +9,13 @@ import {MatExpansionModule, MatExpansionPanel} from '@angular/material/expansion
 import {first} from 'rxjs/operators';
 import {FamilyMemberComponent} from '../family-member/family-member.component';
 import {MatButtonModule} from '@angular/material/button';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-family',
     templateUrl: './family.component.html',
     styleUrl: './family.component.scss',
     standalone: true,
-    imports: [
-        FlexModule,
-        MatButtonModule,
-        RouterLink,
-        MatExpansionModule,
-        FamilyMemberComponent,
-        NaturalFixedButtonComponent,
-    ],
+    imports: [MatButtonModule, RouterLink, MatExpansionModule, FamilyMemberComponent, NaturalFixedButtonComponent],
 })
 export class FamilyComponent implements OnInit {
     public viewer!: NonNullable<CurrentUserForProfile['viewer']>;

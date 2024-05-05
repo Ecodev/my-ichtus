@@ -13,7 +13,6 @@ import {NaturalIconDirective} from '@ecodev/natural';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 function samePasswordsValidator(formGroup: AbstractControl): ValidationErrors | null {
     if (!formGroup || !(formGroup instanceof FormGroup)) {
@@ -42,7 +41,6 @@ class ConfirmPasswordStateMatcher implements ErrorStateMatcher {
     styleUrl: './password.component.scss',
     standalone: true,
     imports: [
-        FlexModule,
         MatFormFieldModule,
         FormsModule,
         ReactiveFormsModule,

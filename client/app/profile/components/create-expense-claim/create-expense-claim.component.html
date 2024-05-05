@@ -1,7 +1,7 @@
-<div [formGroup]="form" class="padding" fxFlex fxLayout="column" fxLayoutGap="20px">
+<div [formGroup]="form" class="nat-padding nat-gap nat-vertical nat-expand">
     <h1 class="mat-headline-4">{{ data.seo.title }}</h1>
 
-    <div fxLayout="column">
+    <div class="nat-vertical">
         <mat-form-field>
             <mat-label>Objet de la dépense</mat-label>
             <input matInput formControlName="name" (change)="update()" />
@@ -13,10 +13,9 @@
             }
         </mat-form-field>
 
-        <div fxLayout="row" fxLayoutGap="20px">
+        <div class="nat-horizontal nat-gap">
             @if (form.get('type')?.value !== ExpenseClaimType.refund) {
-                <mat-form-field fxFlex="50" id="sector"
-                    ><!-- row child -->
+                <mat-form-field class="nat-expand-50" id="sector">
                     <mat-label>Secteur concerné</mat-label>
                     <mat-select formControlName="sector" (selectionChange)="update()">
                         <mat-option />
@@ -29,8 +28,7 @@
                 </mat-form-field>
             }
 
-            <mat-form-field fxFlex="50" id="amount"
-                ><!-- row child -->
+            <mat-form-field class="nat-expand-50" id="amount">
                 <mat-label>Montant</mat-label>
                 <input matInput type="number" step="0.01" [attr.min]="1" formControlName="amount" (change)="update()" />
                 <div matTextSuffix>CHF</div>
@@ -60,7 +58,7 @@
 
     <div>
         <h2 class="mat-headline-6">Documents justificatifs</h2>
-        <div fxLayout="row wrap" fxLayoutGap="10px grid">
+        <div class="nat-horizontal nat-wrap nat-gap">
             <app-accounting-documents [model]="data.model" />
         </div>
     </div>

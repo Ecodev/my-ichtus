@@ -1,7 +1,7 @@
 @if (dataSource) {
-    <div fxLayout="column">
-        <div fxLayout="row">
-            <div class="mat-headline-5 no-margin" fxFlex>
+    <div class="nat-vertical">
+        <div class="nat-horizontal">
+            <div class="mat-headline-5 nat-no-margin nat-expand">
                 {{ routeData?.seo.title }}
             </div>
             <natural-columns-picker
@@ -11,10 +11,10 @@
                 [buttons]="buttons"
             />
         </div>
-        <div fxLayout="column">
-            <div fxLayout="row" class="margin-v overflow">
+        <div class="nat-vertical">
+            <div class="nat-horizontal nat-margin-vertical overflow">
                 <natural-search
-                    fxFlex
+                    class="nat-expand"
                     [facets]="naturalSearchFacets"
                     [selections]="naturalSearchSelections"
                     (selectionChange)="search($event)"
@@ -29,7 +29,7 @@
                     <ng-container matColumnDef="name">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header="lastName">Nom</th>
                         <td mat-cell *matCellDef="let element">
-                            <div fxLayout="row" fxLayoutAlign="start center">
+                            <div class="nat-horizontal nat-left nat-center">
                                 <natural-avatar [initials]="element.name" [gravatar]="element.email" [size]="36" />
                                 <natural-table-button
                                     [label]="element.name"
@@ -162,12 +162,12 @@
                 </table>
             </div>
             @if (dataSource.data?.length === 0) {
-                <div fxLayout="column" fxLayoutAlign="center center" class="margin">
+                <div class="nat-vertical nat-center nat-margin">
                     <div>Pas de résultats</div>
                 </div>
             }
             @if (!dataSource.data) {
-                <div fxLayout="column" fxLayoutAlign="center center" class="margin">
+                <div class="nat-vertical nat-center nat-margin">
                     <mat-progress-spinner mode="indeterminate" [diameter]="40" />
                 </div>
             }

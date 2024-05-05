@@ -1,7 +1,7 @@
 @if (loaded) {
     <div [formGroup]="form">
-        <div fxLayout="column">
-            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+        <div class="nat-vertical">
+            <div class="nat-horizontal nat-left nat-center nat-gap-10">
                 <natural-select-enum
                     enumName="Relationship"
                     formControlName="familyRelationship"
@@ -17,7 +17,7 @@
                     Détacher du ménage
                 </button>
             </div>
-            <mat-divider class="margin-bottom" />
+            <mat-divider class="nat-margin-bottom" />
             <h2 class="mat-headline-6">Compte</h2>
             <mat-form-field>
                 <mat-label>email</mat-label>
@@ -46,7 +46,7 @@
                     <mat-error>{{ form.get('login')?.getError('invalid') }}</mat-error>
                 }
             </mat-form-field>
-            <mat-divider class="margin-bottom" />
+            <mat-divider class="nat-margin-bottom" />
             <h2 class="mat-headline-6">Coordonnées</h2>
             <mat-form-field>
                 <mat-label>Prénom</mat-label>
@@ -100,7 +100,7 @@
         </div>
         @if (form.get('remarks')?.value) {
             <div>
-                <mat-divider class="margin-v" />
+                <mat-divider class="nat-margin-vertical" />
                 <div class="mat-subtitle-2">Remarques</div>
                 <div class="line-break">{{ form.get('remarks')?.value }}</div>
             </div>

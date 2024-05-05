@@ -18,7 +18,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {RouterLink} from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
+
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
@@ -29,7 +29,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     imports: [
         FormsModule,
         ReactiveFormsModule,
-        FlexModule,
+
         MatButtonModule,
         RouterLink,
         MatIconModule,

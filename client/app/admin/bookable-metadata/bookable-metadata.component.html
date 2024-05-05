@@ -6,7 +6,7 @@
             <ng-container matColumnDef="name">
                 <td mat-cell *matCellDef="let element">
                     @if (edit) {
-                        <div fxLayout="column">
+                        <div class="nat-vertical">
                             <mat-form-field class="no-bottom-spacing">
                                 <mat-label>nom</mat-label>
                                 <input matInput [(ngModel)]="element.name" (change)="updateOrCreate(element)" />
@@ -22,7 +22,7 @@
             <ng-container matColumnDef="value">
                 <td mat-cell *matCellDef="let element">
                     @if (edit) {
-                        <div fxLayout="column">
+                        <div class="nat-vertical">
                             @if (edit) {
                                 <mat-form-field class="no-bottom-spacing">
                                     <mat-label>Valeur</mat-label>

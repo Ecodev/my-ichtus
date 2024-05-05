@@ -11,22 +11,13 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {NavigationsComponent} from '../shared/components/navigations/navigations.component';
 import {CommonModule} from '@angular/common';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.scss',
     standalone: true,
-    imports: [
-        FlexModule,
-        CommonModule,
-        NavigationsComponent,
-        MatButtonModule,
-        RouterLink,
-        MatIconModule,
-        NaturalIconDirective,
-    ],
+    imports: [CommonModule, NavigationsComponent, MatButtonModule, RouterLink, MatIconModule, NaturalIconDirective],
 })
 export class DashboardComponent {
     public title = 'my-ichtus';

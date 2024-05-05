@@ -1,8 +1,8 @@
-<div fxLayout="column" fxLayoutGap="20px">
+<div class="nat-vertical nat-gap">
     @if (bookings) {
-        <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="20px grid">
+        <div class="nat-horizontal nat-wrap nat-center nat-gap">
             @if (!bookings.items.length && showEmptyMessage) {
-                <div class="padding mat-subtitle-2">Aucun résultat</div>
+                <div class="nat-padding mat-subtitle-2">Aucun résultat</div>
             }
             @for (item of bookings.items; track item) {
                 @if (!activeOnly || (activeOnly && !item.terminated)) {
@@ -13,12 +13,12 @@
                             [class.showComments]="item.showComments"
                         >
                             @if (!item.booking.bookable?.image) {
-                                <div class="card-illustration padding">
+                                <div class="card-illustration nat-padding">
                                     <natural-avatar initials="?" [size]="160" />
                                 </div>
                             }
                             <!-- style="overflow:hidden;" -->
-                            <div fxLayout="column" fxLayoutGap="10px">
+                            <div class="nat-vertical nat-gap-10">
                                 <a
                                     mat-button
                                     [routerLink]="
@@ -42,11 +42,11 @@
                                 @if (item.booking.endDate) {
                                     <div>Fin : {{ item.booking.endDate | swissDate }}</div>
                                 }
-                                <div fxLayout="row" fxLayoutAlign="end center">
+                                <div class="nat-horizontal nat-right nat-center">
                                     <button mat-icon-button (click)="item.showComments = true">
                                         <mat-icon naturalIcon="feedback" />
                                     </button>
-                                    <div fxFlex></div>
+                                    <div class="nat-expand"></div>
                                     @if (!item.terminated) {
                                         <button
                                             mat-flat-button
@@ -67,8 +67,8 @@
                                     }
                                 </div>
                             </div>
-                            <div class="comment padding" fxLayout="column" fxLayoutGap="10px">
-                                <div fxFlex class="overflow" fxLayout="column">
+                            <div class="comment nat-padding nat-gap-10 nat-vertical">
+                                <div class="nat-expand nat-vertical overflow">
                                     <div class="mat-headline-6">Commentaires</div>
                                     <mat-form-field>
                                         <mat-label>Commentaire de départ</mat-label>
@@ -95,7 +95,7 @@
                                         ></textarea>
                                     </mat-form-field>
                                 </div>
-                                <div fxLayout="row">
+                                <div class="nat-horizontal">
                                     <button mat-icon-button color="primary" (click)="item.showComments = false">
                                         <mat-icon naturalIcon="clear" />
                                     </button>

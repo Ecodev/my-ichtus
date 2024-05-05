@@ -8,7 +8,7 @@ import {money} from '@ecodev/natural';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
+
 import {CommonModule} from '@angular/common';
 
 export type ProvisionData = {
@@ -24,7 +24,7 @@ export type ProvisionData = {
     imports: [
         MatDialogModule,
         CommonModule,
-        FlexModule,
+
         MatButtonModule,
         MatFormFieldModule,
         MatInputModule,

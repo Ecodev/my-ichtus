@@ -5,7 +5,7 @@
         [model]="data.model"
         [listRoute]="['admin', 'expense-claim']"
     >
-        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center">
+        <div class="nat-horizontal nat-gap nat-left nat-center">
             @if (
                 isUpdatePage() &&
                 data.model.status === ExpenseClaimStatus.new &&
@@ -18,7 +18,7 @@
                 </a>
             }
             @if (isUpdatePage() && data.model.reviewer && !permissionsService.isAdministrator(viewer)) {
-                <div fxLayout="row" fxLayoutAlign="start center">
+                <div class="nat-horizontal nat-left nat-center">
                     <mat-icon naturalIcon="verified" />
                     <span class="mat-body">Approuvé par {{ data.model.reviewer.name }}</span>
                 </div>
@@ -64,9 +64,9 @@
         </div>
     </natural-detail-header>
 
-    <div fxLayout="column" fxLayoutGap="20px" class="padding-top">
-        <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="20px">
-            <div fxFlex="60" fxLayout="column">
+    <div class="nat-vertical nat-padding-top nat-gap">
+        <div class="nat-vertical nat-md-gap-20 nat-gap-0 nat-md-horizontal">
+            <div class="app-expand-60 nat-vertical">
                 <mat-form-field>
                     <mat-label>Nom</mat-label>
                     <input matInput formControlName="name" (change)="update()" />
@@ -120,7 +120,7 @@
                 </div>
             </div>
 
-            <div fxFlex="40" fxLayout="column">
+            <div class="app-expand-40 nat-vertical">
                 <natural-select-enum
                     enumName="ExpenseClaimType"
                     formControlName="type"
@@ -128,8 +128,8 @@
                     placeholder="Type"
                 />
 
-                <div fxLayout="row" fxLayoutGap="15px">
-                    <mat-form-field fxFlex="120px">
+                <div class="nat-horizontal nat-gap-15">
+                    <mat-form-field style="width: 120px">
                         <mat-label>Montant</mat-label>
                         <input matInput type="number" step="0.01" formControlName="amount" (change)="update()" />
                         <div matTextSuffix>CHF</div>
@@ -140,7 +140,7 @@
                             <mat-error>Le montant doit être positif</mat-error>
                         }
                         @if (form.get('amount')?.hasError('money')) {
-                            <mat-error>Le montant doit être un nombre avec un maximum de deux décimales </mat-error>
+                            <mat-error>Le montant doit être un nombre avec un maximum de deux décimales</mat-error>
                         }
                     </mat-form-field>
 
@@ -149,13 +149,13 @@
                         formControlName="status"
                         (selectionChange)="update()"
                         placeholder="Status"
-                        fxFlex
+                        class="nat-expand"
                     />
                 </div>
 
-                <div fxLayout="row" fxLayout.gt-sm="column" fxLayoutGap="15px" fxLayoutGap.gt-sm="0">
+                <div class="nat-horizontal nat-md-gap-0 nat-gap-15 nat-md-vertical">
                     <natural-select
-                        fxFlex="50"
+                        class="nat-expand-50"
                         formControlName="owner"
                         placeholder="Membre"
                         [service]="userService"
@@ -168,7 +168,7 @@
                             placeholder="Approbateur"
                             [service]="userService"
                             (selectionChange)="update()"
-                            fxFlex
+                            class="nat-expand"
                         />
                     }
                 </div>
@@ -179,8 +179,8 @@
 
         <h2 class="mat-headline-6">Commentaires</h2>
 
-        <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
-            <div fxFlex fxLayout="column">
+        <div class="nat-vertical nat-sm-horizontal nat-gap-0 nat-sm-gap-30">
+            <div class="nat-expand nat-vertical">
                 <mat-form-field>
                     <mat-label>Remarques</mat-label>
                     <textarea
@@ -193,7 +193,7 @@
                 </mat-form-field>
             </div>
 
-            <div fxFlex fxLayout="column">
+            <div class="nat-expand nat-vertical">
                 <mat-form-field>
                     <mat-label>Remarques internes</mat-label>
                     <textarea
@@ -212,7 +212,7 @@
 
             <div>
                 <div class="mat-headline-6">Pièces justificatives</div>
-                <div fxLayout="row" fxLayoutGap="10px">
+                <div class="nat-horizontal nat-gap-10">
                     @for (file of data.model.accountingDocuments; track file) {
                         <natural-file [model]="file" [height]="150" [style.width.px]="200" action="download" />
                     }

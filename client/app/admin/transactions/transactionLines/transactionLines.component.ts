@@ -30,7 +30,6 @@ import {MoneyComponent} from '../../../shared/components/money/money.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-transaction-lines',
@@ -38,7 +37,6 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
     styleUrl: './transactionLines.component.scss',
     standalone: true,
     imports: [
-        FlexModule,
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
         MatTableModule,

@@ -12,14 +12,13 @@
 
     <mat-tab-group naturalLinkableTab [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
         <mat-tab id="general" label="Général">
-            <div fxLayout="column" fxLayoutGap="30px" class="padding-top">
-                <div fxLayout="column" fxLayout.gt-md="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
-                    <div fxFlex="66" fxLayout="column">
+            <div class="nat-vertical nat-padding-top nat-gap-30">
+                <div class="nat-vertical nat-md-gap-30 nat-gap-0 nat-lg-horizontal">
+                    <div class="nat-expand-66 nat-vertical">
                         <h2 class="mat-headline-6">Coordonnées</h2>
 
-                        <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="10px">
-                            <mat-form-field fxFlex.gt-xs
-                                ><!-- row child -->
+                        <div class="nat-vertical nat-gap-10 nat-sm-horizontal">
+                            <mat-form-field class="nat-sm-expand">
                                 <mat-label>Prénom</mat-label>
                                 <input matInput formControlName="firstName" (change)="update()" />
                                 @if (form.get('firstName')?.hasError('maxlength')) {
@@ -33,8 +32,7 @@
                                 }
                             </mat-form-field>
 
-                            <mat-form-field fxFlex.gt-xs
-                                ><!-- row child -->
+                            <mat-form-field class="nat-sm-expand">
                                 <mat-label>Nom de famille</mat-label>
                                 <input matInput formControlName="lastName" (change)="update()" />
                                 @if (form.get('lastName')?.hasError('maxlength')) {
@@ -57,16 +55,14 @@
 
                         <app-address [form]="form" (addressChange)="update()" />
 
-                        <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="10px">
-                            <mat-form-field fxFlex.gt-xs
-                                ><!-- row child -->
+                        <div class="nat-vertical nat-gap-10 nat-sm-horizontal">
+                            <mat-form-field class="nat-sm-expand">
                                 <mat-label>Téléphone fixe</mat-label>
                                 <mat-hint>032 xxx xx xx</mat-hint>
                                 <input matInput formControlName="phone" (change)="update()" />
                             </mat-form-field>
 
-                            <mat-form-field fxFlex.gt-xs
-                                ><!-- row child -->
+                            <mat-form-field class="nat-sm-expand">
                                 <mat-label>Téléphone mobile</mat-label>
                                 <mat-hint>07x xxx xx xx</mat-hint>
                                 <input matInput formControlName="mobilePhone" (change)="update()" />
@@ -74,7 +70,7 @@
                         </div>
                     </div>
 
-                    <div fxFlex="33" fxLayout="column">
+                    <div class="nat-expand-33 nat-vertical">
                         <h2 class="mat-headline-6">Compte</h2>
                         <mat-form-field>
                             <mat-label>email</mat-label>
@@ -109,7 +105,7 @@
                             }
                         </mat-form-field>
 
-                        <mat-divider class="margin-bottom" />
+                        <mat-divider class="nat-margin-bottom" />
 
                         <h2 class="mat-headline-6">État</h2>
 
@@ -139,8 +135,8 @@
 
                 <mat-divider />
 
-                <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
-                    <div fxFlex="66" fxLayout="column">
+                <div class="nat-vertical nat-md-horizontal nat-gap-0 nat-md-gap-30">
+                    <div class="nat-md-expand-66 nat-vertical">
                         <h2 class="mat-headline-6">Autres</h2>
 
                         <natural-select
@@ -173,17 +169,16 @@
                             placeholder="License swiss windsurfing"
                         />
 
-                        <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="20px">
+                        <div class="nat-vertical nat-gap nat-sm-horizontal">
                             <natural-select-enum
-                                fxFlex
+                                class="nat-expand"
                                 enumName="BillingType"
                                 formControlName="billingType"
                                 (selectionChange)="update()"
                                 placeholder="Méthode de paiement"
                             />
 
-                            <mat-form-field fxFlex.gt-xs
-                                ><!-- row child -->
+                            <mat-form-field class="nat-sm-expand">
                                 <mat-label>Date de naissance</mat-label>
                                 <input
                                     matInput
@@ -199,7 +194,7 @@
                             </mat-form-field>
                         </div>
 
-                        <div class="mat-body-2" fxLayout="column" fxLayoutGap="20px">
+                        <div class="mat-body-2 nat-gap nat-vertical">
                             <!-- Has Insurance -->
                             <mat-checkbox formControlName="hasInsurance" (change)="update()">
                                 Assurance RC
@@ -212,7 +207,7 @@
                         </div>
                     </div>
 
-                    <div fxFlex="33" fxLayout="column">
+                    <div class="nat-md-expand-33 nat-vertical">
                         <h2 class="mat-headline-6">Commentaires</h2>
 
                         <mat-form-field>
@@ -245,8 +240,8 @@
                 }
 
                 @if (isUpdatePage()) {
-                    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
-                        <div fxFlex="45" fxLayout="column">
+                    <div class="nat-vertical nat-md-horizontal nat-gap-0 nat-md-gap-30">
+                        <div class="nat-vertical nat-expand">
                             <h2 class="mat-headline-6">Certifications</h2>
                             <natural-relations
                                 [main]="data.model"
@@ -263,7 +258,7 @@
                                 </ng-template>
                             </natural-relations>
                         </div>
-                        <div fxFlex="40" fxLayout="column">
+                        <div class="nat-expand nat-vertical">
                             <h2 class="mat-headline-6">Tags</h2>
                             <natural-relations
                                 [main]="data.model"
@@ -273,7 +268,7 @@
                                 placeholder="Ajouter un tag"
                             >
                                 <ng-template let-item="item">
-                                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                                    <div class="nat-horizontal nat-left nat-center nat-gap-10">
                                         <natural-avatar [bgColor]="item.color" [initials]="item.name" [size]="36" />
                                         <natural-table-button
                                             [navigate]="['/admin/user-tag', item.id]"
@@ -283,18 +278,34 @@
                                 </ng-template>
                             </natural-relations>
                         </div>
-                        <div fxFlex="10" fxLayout="column">
-                            <mat-slide-toggle fxFlex formControlName="door1" (change)="update()" class="margin-bottom">
-                                Porte 1
+                        <div class="nat-vertical nat-expand-10">
+                            <mat-slide-toggle
+                                class="nat-expand nat-margin-bottom"
+                                formControlName="door1"
+                                (change)="update()"
+                            >
+                                Porte&nbsp;1
                             </mat-slide-toggle>
-                            <mat-slide-toggle fxFlex formControlName="door2" (change)="update()" class="margin-bottom">
-                                Porte 2
+                            <mat-slide-toggle
+                                class="nat-expand nat-margin-bottom"
+                                formControlName="door2"
+                                (change)="update()"
+                            >
+                                Porte&nbsp;2
                             </mat-slide-toggle>
-                            <mat-slide-toggle fxFlex formControlName="door3" (change)="update()" class="margin-bottom">
-                                Porte 3
+                            <mat-slide-toggle
+                                class="nat-expand nat-margin-bottom"
+                                formControlName="door3"
+                                (change)="update()"
+                            >
+                                Porte&nbsp;3
                             </mat-slide-toggle>
-                            <mat-slide-toggle fxFlex formControlName="door4" (change)="update()" class="margin-bottom">
-                                Porte 4
+                            <mat-slide-toggle
+                                class="nat-expand nat-margin-bottom"
+                                formControlName="door4"
+                                (change)="update()"
+                            >
+                                Porte&nbsp;4
                             </mat-slide-toggle>
                         </div>
                     </div>
@@ -302,13 +313,13 @@
 
                 <mat-divider />
 
-                <div fxLayout="column" fxLayoutGap="15px">
+                <div class="nat-vertical nat-gap-15">
                     @if (isUpdatePage()) {
                         <natural-stamp [item]="data.model" />
                     }
 
                     <!-- Welcome session date -->
-                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                    <div class="nat-horizontal nat-left nat-center nat-gap">
                         <mat-form-field>
                             <mat-label>Séance d'accueil</mat-label>
                             <input
@@ -318,7 +329,7 @@
                                 (dateChange)="update()"
                             />
 
-                            <div matIconSuffix fxLayoutAlign="start center">
+                            <div matIconSuffixclass="nat-horizontal nat-left nat-center">
                                 <mat-datepicker-toggle [for]="picker2" />
                                 <mat-datepicker #picker2 />
 
@@ -360,7 +371,7 @@
 
         @if (isUpdatePage() && showFamilyTab) {
             <mat-tab id="family" label="Famille">
-                <app-users [forcedVariables]="familyVariables" [persistSearch]="false" class="margin-top" />
+                <app-users [forcedVariables]="familyVariables" [persistSearch]="false" class="nat-margin-top" />
             </mat-tab>
         }
 
@@ -371,25 +382,24 @@
                     [forcedVariables]="transactionLinesVariables"
                     [relativeToAccount]="data.model.account"
                     [persistSearch]="false"
-                    class="margin-top"
+                    class="nat-margin-top"
                 />
             </mat-tab>
         }
 
         @if (isUpdatePage() && permissionsService.gteResponsible(viewer)) {
             <mat-tab id="finances" label="Dépenses et remboursements">
-                <div fxLayout="column" fxLayoutGap="30px">
-                    <div fxLayout="row" fxLayoutGap="10px" class="margin-top">
+                <div class="nat-vertical nat-gap-30">
+                    <div class="nat-horizontal nat-margin-top nat-gap-10">
                         <natural-select
-                            fxFlex="50"
+                            class="nat-expand-50"
                             formControlName="account"
                             placeholder="Compte"
                             [service]="accountService"
                             [showIcon]="false"
                             [navigateTo]="['/admin/account', form.get('account')?.value?.id]"
                         />
-                        <mat-form-field fxFlex="50"
-                            ><!-- row child -->
+                        <mat-form-field class="nat-expand-50">
                             <mat-label>IBAN</mat-label>
                             <input
                                 matInput
@@ -425,7 +435,7 @@
             [UserStatus.active, UserStatus.new].includes(data.model.status)
         ) {
             <mat-tab id="services" label="Prestations et services">
-                <br class="margin-top" />
+                <br class="nat-margin-top" />
                 <app-services [user]="data.model" />
             </mat-tab>
         }

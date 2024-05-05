@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FileModel, NaturalFileComponent} from '@ecodev/natural';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
+
 import {MatCardModule} from '@angular/material/card';
 
 @Component({
@@ -8,7 +8,7 @@ import {MatCardModule} from '@angular/material/card';
     templateUrl: './card.component.html',
     styleUrl: './card.component.scss',
     standalone: true,
-    imports: [MatCardModule, FlexModule, NaturalFileComponent],
+    imports: [MatCardModule, NaturalFileComponent],
 })
 export class CardComponent implements OnInit {
     @Input() public illustrationHeight = 200;

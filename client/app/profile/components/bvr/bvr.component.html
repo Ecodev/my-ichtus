@@ -1,15 +1,15 @@
-<div fxLayout="column" fxLayoutGap="5px">
+<div class="nat-vertical nat-gap-5">
     @if (!bankingInfos) {
-        <div class="margin" fxLayout="column" fxLayoutAlign="center center">
+        <div class="nat-margin nat-vertical nat-center">
             <mat-progress-spinner [diameter]="40" mode="indeterminate" />
         </div>
     }
     @if (bankingInfos) {
-        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around center">
+        <div class="nat-horizontal" style="justify-content: space-evenly">
             @if (bankingInfos.qrCode) {
                 <img alt="QR code" class="qrCode" [attr.src]="bankingInfos.qrCode" />
             }
-            <div fxLayout="column" fxLayoutGap="5px">
+            <div class="nat-vertical nat-gap-5">
                 <div>
                     <div class="mat-subtitle-2">Compte (IBAN)</div>
                     <div class="mat-body-2" style="white-space: pre-line">

@@ -1,23 +1,23 @@
 @if (bookable) {
-    <div fxLayout="column" style="max-width: 1100px; margin: auto" fxLayoutGap="40px" class="padding">
+    <div class="nat-vertical nat-padding app-gap-40" style="max-width: 1100px; margin: auto">
         <natural-file [model]="bookable.image" [height]="400" [style.borderRadius.px]="4" class="mat-elevation-z2" />
-        <div fxLayout="row" class="mat-headline-4">
-            <div fxFlex>{{ bookable.name }}</div>
-            <div fxLayout="row" fxLayoutGap="20px">
+        <div class="nat-horizontal mat-headline-4">
+            <div class="nat-expand">{{ bookable.name }}</div>
+            <div class="nat-horizontal nat-gap">
                 <mat-divider [vertical]="true" />
-                <div fxLayout="column" fxLayoutAlign="center">{{ bookable.code }}</div>
+                <div class="nat-vertical nat-center">{{ bookable.code }}</div>
             </div>
         </div>
         @if (!hasLicense || !welcomeSessionTaken) {
-            <div fxLayout="column" fxLayoutGap="10px" class="mat-body-2">
+            <div class="nat-vertical mat-body-2 nat-gap-10">
                 @if (!hasLicense) {
-                    <div fxLayoutAlign="start center">
+                    <div class="nat-horizontal nat-left nat-center">
                         <mat-icon color="warn" fontIcon="error" />
                         Tu ne disposes pas des licences requises pour utiliser cette embarcation
                     </div>
                 }
                 @if (!welcomeSessionTaken) {
-                    <div fxLayoutAlign="start center">
+                    <div class="nat-horizontal nat-left nat-center">
                         <mat-icon color="warn" fontIcon="warning" />
                         <span
                             >Il te faut suivre une
@@ -28,7 +28,7 @@
                 }
             </div>
         }
-        <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+        <div class="nat-horizontal nat-gap-10 nat-right nat-cneter">
             @if (!isAvailable && runningBooking) {
                 <div class="mat-body-2">Sorti {{ runningBooking.startDate | timeago }}</div>
             }
@@ -55,7 +55,7 @@
 }
 
 @if (!bookable) {
-    <div fxFlex fxLayout="column" fxLayoutAlign="center center" class="padding">
+    <div class="nat-expand nat-padding nat-vertical nat-center">
         <div class="mat-headline-4" style="text-align: center">
             Aucun matériel correspondant à ce code n'a été trouvé
         </div>

@@ -12,13 +12,12 @@ import {
     NaturalEnumPipe,
 } from '@ecodev/natural';
 import {finalize, takeUntil} from 'rxjs/operators';
-import {ExtendedModule} from '@ngbracket/ngx-layout/extended';
+
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
 import {CommonModule} from '@angular/common';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-services',
@@ -26,7 +25,6 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
     styleUrl: './services.component.scss',
     standalone: true,
     imports: [
-        FlexModule,
         CommonModule,
         MatButtonModule,
         MatTableModule,
@@ -37,7 +35,6 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
         MatTabsModule,
         RouterLinkActive,
         RouterOutlet,
-        ExtendedModule,
         NaturalEnumPipe,
     ],
 })

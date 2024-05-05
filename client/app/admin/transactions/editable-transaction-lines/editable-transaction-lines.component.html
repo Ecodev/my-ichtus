@@ -1,5 +1,5 @@
 @if (form) {
-    <div [formGroup]="form" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px" class="responsive-table">
+    <div [formGroup]="form" class="nat-vertical responsive-table nat-gap nat-top nat-left">
         <table mat-table [dataSource]="dataSource" formArrayName="rows">
             <tr mat-header-row *matHeaderRowDef="columns"></tr>
             <tr mat-row *matRowDef="let row; columns: columns"></tr>

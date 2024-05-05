@@ -8,9 +8,9 @@
 
     <mat-tab-group naturalLinkableTab [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
         <mat-tab id="general" label="Général">
-            <div fxLayout="column" fxLayoutGap="30px" class="padding-top">
-                <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
-                    <div fxFlex="66" fxLayout="column">
+            <div class="nat-vertical nat-padding-top nat-gap-30">
+                <div class="nat-vertical nat-sm-horizontal nat-gap-0 nat-sm-gap-30">
+                    <div class="nat-expand-66 nat-vertical">
                         <mat-form-field>
                             <input matInput formControlName="name" (change)="update()" />
                             <mat-label>Nom</mat-label>
@@ -28,7 +28,7 @@
                         </mat-form-field>
                     </div>
 
-                    <div fxFlex="33" fxLayout="column">
+                    <div class="nat-expand-33 nat-vertical">
                         <input
                             matInput
                             type="color"

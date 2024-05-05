@@ -12,9 +12,9 @@
 
     <mat-tab-group naturalLinkableTab [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
         <mat-tab id="general" label="Général">
-            <div fxLayout="column" fxLayoutGap="30px" class="padding-top">
-                <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
-                    <div fxFlex="66" fxLayout="column">
+            <div class="nat-vertical nat-padding-top nat-gap-30">
+                <div class="nat-vertical nat-sm-horizontal nat-gap-0 nat-sm-gap-30">
+                    <div class="nat-expand-66 nat-vertical">
                         <mat-form-field>
                             <mat-label>Nom</mat-label>
                             <input matInput formControlName="name" />
@@ -28,9 +28,9 @@
                             }
                         </mat-form-field>
 
-                        <div fxLayout="column" fxLayoutGap="10px">
-                            <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="0" fxLayoutGap.gt-sm="30px">
-                                <div fxFlex="50" fxLayout="column">
+                        <div class="nat-vertical nat-gap-10">
+                            <div class="nat-vertical nat-sm-horizontal nat-gap-0 nat-sm-gap-30">
+                                <div class="nat-expand-50 nat-vertical">
                                     <mat-form-field>
                                         <mat-label>Date</mat-label>
                                         <input matInput formControlName="transactionDate" [matDatepicker]="picker2" />
@@ -41,7 +41,7 @@
                                         }
                                     </mat-form-field>
                                 </div>
-                                <div fxFlex="50" fxLayout="column">
+                                <div class="nat-expand-50 nat-vertical">
                                     <mat-form-field>
                                         <mat-label>Transaction Datatrans</mat-label>
                                         <input matInput formControlName="datatransRef" />
@@ -51,7 +51,7 @@
                         </div>
                     </div>
 
-                    <div fxFlex="33" fxLayout="column">
+                    <div class="nat-expand-33 nat-vertical">
                         <mat-form-field>
                             <mat-label>Remarques</mat-label>
                             <textarea
@@ -80,8 +80,8 @@
                 }
                 @if (data.model.expenseClaim) {
                     <div>
-                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" class="margin-bottom">
-                            <div class="mat-headline-6 no-margin-bottom">
+                        <div class="nat-horizontal nat-margin-bottom nat-gap nat-left nat-center">
+                            <div class="mat-headline-6 nat-no-margin-bottom">
                                 @if (data.model.expenseClaim.type === ExpenseClaimType.refund) {
                                     <span>Demande de remboursement</span>
                                 }
@@ -96,8 +96,8 @@
                                 >Voir la demande</a
                             >
                         </div>
-                        <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="20px">
-                            <div fxLayout="column" fxLayoutGap="7px" style="max-width: 300px">
+                        <div class="nat-vertical nat-gap nat-md-horizontal">
+                            <div class="nat-vertical nat-gap-5" style="max-width: 300px">
                                 <div class="mat-subtitle-2">{{ data.model.expenseClaim.name }}</div>
                                 @if (data.model.expenseClaim.description) {
                                     <div>
@@ -106,7 +106,7 @@
                                     </div>
                                 }
                             </div>
-                            <div fxLayout="column" fxLayoutGap="7px" style="max-width: 300px">
+                            <div class="nat-vertical nat-gap-5" style="max-width: 300px">
                                 <div>
                                     <span class="mat-subtitle-2">Montant :</span>
                                     {{ data.model.expenseClaim.amount | currency: 'CHF' }}
@@ -141,8 +141,8 @@
 
                 <!-- TODO : add selectors for ExpenseClaim -->
                 <mat-divider />
-                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                    <h2 class="mat-headline-6 no-margin-bottom no-margin-top">Écritures</h2>
+                <div class="nat-horizontal nat-gap-10 nat-left nat-center">
+                    <h2 class="mat-headline-6 nat-no-margin-bottom no-margin-top">Écritures</h2>
                     @if (userService.canUpdateTransaction(viewer)) {
                         <div>
                             @if (!(updateTransactionLines || !isUpdatePage())) {

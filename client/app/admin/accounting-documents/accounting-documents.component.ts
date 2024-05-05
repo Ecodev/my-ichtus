@@ -12,14 +12,13 @@ import {FileModel, NaturalFileComponent, NaturalIconDirective, WithId} from '@ec
 import {tap} from 'rxjs/operators';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-accounting-documents',
     templateUrl: './accounting-documents.component.html',
     styleUrl: './accounting-documents.component.scss',
     standalone: true,
-    imports: [FlexModule, NaturalFileComponent, MatButtonModule, MatIconModule, NaturalIconDirective],
+    imports: [NaturalFileComponent, MatButtonModule, MatIconModule, NaturalIconDirective],
 })
 export class AccountingDocumentsComponent implements OnInit {
     @Input({required: true}) public model!:

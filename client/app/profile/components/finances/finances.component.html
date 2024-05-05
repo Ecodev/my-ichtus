@@ -1,8 +1,8 @@
 @if (viewer && dataSource) {
-    <div fxLayout="column" fxLayoutGap="50px">
+    <div class="nat-vertical" style="gap: 50px">
         @if (!adminMode && !viewer.owner) {
             <div>
-                <h2 class="mat-headline-5 margin-bottom">Finances</h2>
+                <h2 class="mat-headline-5 nat-margin-bottom">Finances</h2>
                 <mat-form-field [style.width.px]="350">
                     <mat-label>IBAN</mat-label>
                     <input matInput [formControl]="ibanCtrl" (change)="updateIban()" (blur)="lockIbanIfDefined()" />
@@ -22,17 +22,10 @@
                 </mat-form-field>
             </div>
         }
-        <div fxLayout="column">
-            <div
-                fxLayout="column"
-                fxLayout.gt-xs="row"
-                fxLayoutAlign.gt-xs="start center"
-                fxLayoutAlign="start start"
-                class="margin-bottom"
-                fxLayoutGap="10px"
-            >
-                <h2 fxFlex class="mat-headline-5 no-margin">Dépenses et remboursements en attente</h2>
-                <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="10px">
+        <div class="nat-vertical">
+            <div class="nat-vertical nat-gap-10 nat-margin-bottom nat-sm-horizontal nat-left nat-center">
+                <h2 class="nat-expand mat-headline-5 nat-no-margin">Dépenses et remboursements en attente</h2>
+                <div class="nat-vertical nat-gap-10 nat-md-horizontal">
                     @if (!adminMode) {
                         <a
                             mat-stroked-button
@@ -70,11 +63,9 @@
                 </div>
             </div>
             @if (dataSource.data?.length === 0) {
-                <div class="mat-body-2 padding margin" fxLayout="column" fxLayoutAlign="center center">
-                    Aucune annonce
-                </div>
+                <div class="mat-body-2 nat-padding margin nat-vertical nat-center">Aucune annonce</div>
             }
-            <div class="responsive-table" [fxHide]="!dataSource.data?.length">
+            <div class="responsive-table" [class.nat-hide]="!dataSource.data?.length">
                 <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting([$event])">
                     <tr mat-header-row *matHeaderRowDef="selectedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: selectedColumns"></tr>
@@ -151,7 +142,7 @@
                 </table>
             </div>
             @if (!dataSource.data) {
-                <div fxLayout="column" fxLayoutAlign="center center" class="margin">
+                <div class="nat-vertical nat-center nat-margin">
                     <mat-progress-spinner mode="indeterminate" [diameter]="40" />
                 </div>
             }

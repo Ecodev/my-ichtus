@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @use 'app/shared/components/boot-loader/boot-loader.external';
+@use '@ecodev/natural-layout' as nat;
 
 body {
     margin: 0;
@@ -156,4 +157,10 @@ mat-form-field.no-bottom-spacing {
 // so we try to preserve that formatting, while still wrapping if necessary
 .mat-mdc-snack-bar-label {
     white-space: pre-wrap;
+}
+
+@include nat.media(null, sm) {
+    .app-hide-xs {
+        display: none !important;
+    }
 }

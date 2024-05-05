@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>Faire un versement</h2>
 <mat-dialog-content>
     @if (!paymentMode) {
-        <div fxLayout="column" fxLayoutGap="5px">
+        <div class="nat-vertical nat-gap-5">
             <div>
                 <p class="mat-body-2">
                     Nous t'encourageons à payer par e-banking (BVR) qui est sans frais pour le club.
@@ -10,7 +10,7 @@
                     Tu peux aussi payer en ligne par carte de débit / crédit (une commission sera prélevée au passage).
                 </p>
             </div>
-            <div fxLayout="column" fxLayoutGap="5px">
+            <div class="nat-vertical nat-gap-5">
                 <button mat-flat-button color="primary" (click)="setPaymentMode('ebanking')">
                     E-Banking
                     <!-- : BVR--->
@@ -24,9 +24,9 @@
     }
 
     @if (paymentMode === 'datatrans') {
-        <div class="padding">
+        <div class="nat-padding">
             <p class="mat-body">Merci d'indiquer le montant que tu souhaites verser.</p>
-            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+            <div class="nat-horizontal nat-left nat-center nat-gap-5">
                 <mat-form-field>
                     <mat-label>Montant</mat-label>
                     <input matInput type="number" step="0.01" [formControl]="formCtrl" [errorStateMatcher]="matcher" />

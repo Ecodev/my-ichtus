@@ -8,7 +8,6 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 const queryForInfos = gql`
     query BankingInfos($user: UserID!, $amount: Money) {
@@ -36,7 +35,6 @@ const queryForExport = gql`
     styleUrl: './bvr.component.scss',
     standalone: true,
     imports: [
-        FlexModule,
         MatProgressSpinnerModule,
         MatButtonModule,
         MatTooltipModule,

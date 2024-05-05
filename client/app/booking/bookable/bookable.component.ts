@@ -9,22 +9,13 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {NaturalFileComponent} from '@ecodev/natural';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-bookable',
     templateUrl: './bookable.component.html',
     styleUrl: './bookable.component.scss',
     standalone: true,
-    imports: [
-        FlexModule,
-        NaturalFileComponent,
-        MatDividerModule,
-        MatIconModule,
-        MatButtonModule,
-        RouterLink,
-        TimeagoModule,
-    ],
+    imports: [NaturalFileComponent, MatDividerModule, MatIconModule, MatButtonModule, RouterLink, TimeagoModule],
 })
 export class BookableComponent implements OnInit {
     /**

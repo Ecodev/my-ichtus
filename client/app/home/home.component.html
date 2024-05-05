@@ -1,5 +1,5 @@
-<div fxFlexFill fxLayout="column">
-    <mat-toolbar fxFlex="none" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+<div class="nat-fill nat-vertical">
+    <mat-toolbar class="nat-horizontal nat-left nat-center nat-gap">
         @if (menu) {
             <button (click)="menu.toggle()" mat-icon-button>
                 <mat-icon naturalIcon="menu" />
@@ -11,14 +11,14 @@
         </a>
 
         @if (route.snapshot.data.viewer) {
-            <div fxFlex fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-                <div fxFlex fxHide.xs></div>
-                <div fxFlex fxHide.xs fxLayout="row" fxLayoutAlign="start center" id="searchByCode">
+            <div class="nat-expand nat-horizontal nat-left nat-center nat-gap">
+                <div class="nat-expand app-hide-xs"></div>
+                <div class="nat-expand nat-horizontal nat-left nat-center app-hide-xs" id="searchByCode">
                     <input
                         (keydown.enter)="goToCode()"
                         (keydown.esc)="code = ''"
                         [(ngModel)]="code"
-                        fxFlex
+                        class="nat-expand"
                         placeholder="Recherche par code"
                     />
                     <a [routerLink]="['/booking', code]" mat-icon-button>
@@ -28,7 +28,7 @@
                 <a class="icon-button-circle-primary" mat-icon-button routerLink="/booking/by-scan">
                     <mat-icon naturalIcon="qr_code_scanner" />
                 </a>
-                <div fxFlex fxHide.xs></div>
+                <div class="nat-expand app-hide-xs"></div>
                 @if (announcementActive) {
                     <a [routerLink]="getAnnouncementLink()" mat-icon-button class="icon-button-circle-primary">
                         <mat-icon naturalIcon="announcement" />
@@ -47,7 +47,7 @@
         }
     </mat-toolbar>
 
-    <div fxFlex fxLayout="column" style="overflow: auto">
+    <div class="nat-expand nat-vertical" style="overflow: auto">
         <router-outlet />
     </div>
 </div>

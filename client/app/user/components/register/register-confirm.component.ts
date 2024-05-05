@@ -20,7 +20,6 @@ import {CommonModule} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-confirm',
@@ -30,7 +29,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
     imports: [
         FormsModule,
         ReactiveFormsModule,
-        FlexModule,
+
         MatFormFieldModule,
         MatInputModule,
         MatIconModule,

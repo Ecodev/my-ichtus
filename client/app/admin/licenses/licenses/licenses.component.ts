@@ -15,7 +15,6 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-licenses',
@@ -23,7 +22,6 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
     styleUrl: './licenses.component.scss',
     standalone: true,
     imports: [
-        FlexModule,
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
         MatTableModule,

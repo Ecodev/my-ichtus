@@ -14,14 +14,13 @@ import {
 
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-import',
     templateUrl: './import.component.html',
     styleUrl: './import.component.scss',
     standalone: true,
-    imports: [FlexModule, MatButtonModule, NaturalFileSelectDirective, MatIconModule, NaturalIconDirective],
+    imports: [MatButtonModule, NaturalFileSelectDirective, MatIconModule, NaturalIconDirective],
 })
 export class ImportComponent implements OnInit {
     /**

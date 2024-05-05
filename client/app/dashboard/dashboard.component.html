@@ -1,41 +1,23 @@
-<div fxFlex="1 0 auto" fxLayout="column" fxLayoutGap="50px" fxLayoutAlign="center" class="padding overlfow">
+<div class="nat-expand-no-collapse nat-vertical nat-padding" style="gap: 50px">
     @if (route.snapshot.data.viewer) {
-        <div fxLayout="row" fxLayoutAlign="center">
+        <div class="nat-horizontal nat-center">
             <app-navigations [user]="route.snapshot.data.viewer" />
         </div>
     }
 
     @if (permissionsService.crud?.booking?.create) {
-        <div fxLayout="column" fxLayoutAlign="start center">
-            <h1 class="mat-headline-3 margin-bottom text-center">Annoncer une sortie</h1>
-            <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="center">
-                <a
-                    mat-button
-                    fxLayout="column"
-                    fxLayoutAlign="start center"
-                    routerLink="/booking/by-scan"
-                    class="big-button"
-                >
+        <div class="nat-vertical nat-top nat-center">
+            <h1 class="mat-headline-3 nat-margin-bottom text-center">Annoncer une sortie</h1>
+            <div class="nat-horizontal nat-wrap nat-gap nat-center">
+                <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="/booking/by-scan">
                     <mat-icon naturalIcon="qr" [size]="70" />
                     en scannant un code QR
                 </a>
-                <a
-                    mat-button
-                    fxLayout="column"
-                    fxLayoutAlign="start center"
-                    routerLink="/booking/by-code"
-                    class="big-button"
-                >
+                <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="/booking/by-code">
                     <mat-icon naturalIcon="code" [size]="70" />
                     en saisissant un code
                 </a>
-                <a
-                    mat-button
-                    fxLayout="column"
-                    fxLayoutAlign="start center"
-                    routerLink="/booking/new"
-                    class="big-button"
-                >
+                <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="/booking/new">
                     <mat-icon naturalIcon="own_bookable" [size]="70" />
                     avec mon propre matériel
                 </a>
@@ -43,46 +25,34 @@
         </div>
     }
 
-    <div fxLayout="column" fxLayoutAlign="start center" class="margin-bottom padding-bottom">
-        <h1 class="mat-headline-3 margin-bottom text-center">Autres</h1>
-        <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="center">
+    <div class="nat-vertical nat-margin-bottom padding-bottom nat-top nat-center">
+        <h1 class="mat-headline-3 nat-margin-bottom text-center">Autres</h1>
+        <div class="nat-horizontal nat-wrap nat-gap nat-center">
             @if (permissionsService.canAccessDoor(route.snapshot.data.viewer)) {
-                <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="door" class="big-button">
+                <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="door">
                     <mat-icon naturalIcon="doors" [size]="70" />
                     Accéder au local
                 </a>
             }
 
-            <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="profile" class="big-button">
+            <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="profile">
                 <mat-icon naturalIcon="family" [size]="70" />
                 Mon compte
             </a>
 
-            <a mat-button fxLayout="column" fxLayoutAlign="start center" routerLink="/support" class="big-button">
+            <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="/support">
                 <mat-icon naturalIcon="support" [size]="70" />
                 Guide
             </a>
 
             @if (permissionsService.canAccessAdmin(route.snapshot.data.viewer)) {
-                <a
-                    mat-button
-                    fxLayout="column"
-                    fxLayoutAlign="start center"
-                    [routerLink]="adminRoute | async"
-                    class="big-button"
-                >
+                <a mat-button class="nat-vertical big-button nat-top nat-center" [routerLink]="adminRoute | async">
                     <mat-icon naturalIcon="administrator" [size]="70" />
                     Administration
                 </a>
             }
 
-            <a
-                mat-button
-                fxLayout="column"
-                fxLayoutAlign="start center"
-                (click)="userService.logout()"
-                class="big-button"
-            >
+            <a mat-button class="nat-vertical big-button nat-left nat-center" (click)="userService.logout()">
                 <mat-icon naturalIcon="exit" [size]="70" />
                 Déconnexion
             </a>

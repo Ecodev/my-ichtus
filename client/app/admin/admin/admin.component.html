@@ -1,6 +1,6 @@
-<natural-sidenav-container [noScroll]="true" fxFlex name="adminMenu">
+<natural-sidenav-container [noScroll]="true" class="nat-expand" name="adminMenu">
     <natural-sidenav>
-        <div class="margin overflow">
+        <div class="nat-margin overflow">
             <mat-accordion displayMode="flat">
                 @if (permissionsService.canAccessNavigations(route.snapshot.data.viewer)) {
                     <mat-expansion-panel class="mat-elevation-z0">
@@ -188,7 +188,7 @@
         </div>
     </natural-sidenav>
     <natural-sidenav-content>
-        <div fxFlex fxLayout="column" id="admin-content">
+        <div class="nat-expand nat-vertical" id="admin-content">
             <router-outlet />
         </div>
     </natural-sidenav-content>

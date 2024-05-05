@@ -31,7 +31,6 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {CommonModule} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-profile',
@@ -40,7 +39,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
     standalone: true,
     imports: [
         NaturalSidenavContainerComponent,
-        FlexModule,
+
         NaturalSidenavComponent,
         MatButtonModule,
         RouterLink,

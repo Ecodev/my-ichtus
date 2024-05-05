@@ -39,7 +39,11 @@
                                 "output": "/"
                             }
                         ],
-                        "styles": ["client/styles/_themes.scss", "client/styles.scss"],
+                        "styles": [
+                            "client/styles/_themes.scss",
+                            "client/styles.scss",
+                            "node_modules/@ecodev/natural-layout/natural-layout.css"
+                        ],
                         "scripts": []
                     },
                     "configurations": {

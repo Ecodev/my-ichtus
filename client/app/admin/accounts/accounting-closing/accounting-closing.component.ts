@@ -4,7 +4,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
+
 import {MatDialogModule} from '@angular/material/dialog';
 
 @Component({
@@ -14,7 +14,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     standalone: true,
     imports: [
         MatDialogModule,
-        FlexModule,
+
         MatFormFieldModule,
         MatInputModule,
         FormsModule,

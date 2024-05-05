@@ -1,11 +1,11 @@
-<div fxLayout="column" fxLayoutGap="50px">
+<div class="nat-vertical app-gap-50">
     <div>
-        <div fxLayout="row" fxLayoutAlign="start center" class="margin-bottom">
-            <h3 fxFlex class="mat-headline-5 no-margin-bottom">Historique des transactions</h3>
+        <div class="nat-horizontal nat-left nat-center nat-margin-bottom">
+            <h3 class="nat-expand mat-headline-5 nat-no-margin-bottom">Historique des transactions</h3>
         </div>
 
         @if (transactionLinesDS.data?.length === 0) {
-            <div class="mat-body-2 padding margin" fxLayout="column" fxLayoutAlign="center center">Aucun résultat</div>
+            <div class="mat-body-2 nat-padding margin nat-vertical nat-center">Aucun résultat</div>
         }
 
         @if (transactionLinesDS.data?.length) {

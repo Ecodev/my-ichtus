@@ -10,7 +10,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDividerModule} from '@angular/material/divider';
 import {CardComponent} from '../../../shared/components/card/card.component';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
+
 import {Observable, of, switchMap} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {first} from 'rxjs/operators';
@@ -21,7 +21,6 @@ import {first} from 'rxjs/operators';
     styleUrl: './self-approved-booking.component.scss',
     standalone: true,
     imports: [
-        FlexModule,
         CardComponent,
         NaturalAvatarComponent,
         MatDividerModule,

@@ -49,7 +49,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatButtonModule} from '@angular/material/button';
 import {CommonModule} from '@angular/common';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
+
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
@@ -61,7 +61,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         FormsModule,
         ReactiveFormsModule,
         NaturalDetailHeaderComponent,
-        FlexModule,
+
         CommonModule,
         MatButtonModule,
         MatTabsModule,
