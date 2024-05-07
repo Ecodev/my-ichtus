@@ -34,5 +34,5 @@
 </div>
 
 @if ((activeMember === null || activeMember.id) && canEdit() && permissionsService.crud?.user.create) {
-    <natural-fixed-button (click)="add()" icon="add" />
+    <natural-fixed-button icon="add" (click)="add()" />
 }

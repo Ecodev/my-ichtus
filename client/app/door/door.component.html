@@ -6,9 +6,9 @@
             @for (door of doorService.doors; track door) {
                 @if (viewer[door.id]) {
                     <app-card
-                        (click)="open(door)"
                         [illustrationUrl]="'assets/images/' + door.image"
                         [style.min-width.px]="300"
+                        (click)="open(door)"
                     >
                         <div class="nat-vertical nat-gap-10">
                             <div class="mat-subtitle-2">{{ door.name }}</div>

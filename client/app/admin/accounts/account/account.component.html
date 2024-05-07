@@ -1,12 +1,12 @@
-<div [formGroup]="form" class="detail-body">
+<div class="detail-body" [formGroup]="form">
     <natural-detail-header
-        [newLabel]="data.seo.title"
         label="Compte"
+        [newLabel]="data.seo.title"
         [model]="data.model"
         [listRoute]="['admin', 'account']"
     >
         @if (isUpdatePage()) {
-            <app-money [amount]="data.model.totalBalance" sizeClass="mat-headline-4" />
+            <app-money sizeClass="mat-headline-4" [amount]="data.model.totalBalance" />
         }
     </natural-detail-header>
 
@@ -77,8 +77,8 @@
                                     matInput
                                     type="number"
                                     step="0.01"
-                                    [attr.min]="0"
                                     formControlName="totalBalanceFormer"
+                                    [attr.min]="0"
                                     (change)="update()"
                                 />
                                 <div matTextSuffix>CHF</div>
@@ -99,8 +99,8 @@
                                 matInput
                                 type="number"
                                 step="0.01"
-                                [attr.min]="0"
                                 formControlName="budgetAllowed"
+                                [attr.min]="0"
                                 (change)="update()"
                             />
                             <div matTextSuffix>CHF</div>
@@ -121,16 +121,16 @@
                             formControlName="parent"
                             placeholder="Compte parent"
                             [config]="accountHierarchicConfig"
-                            (selectionChange)="update()"
                             [showIcon]="false"
                             [navigateTo]="['../', form.get('parent')?.value?.id]"
+                            (selectionChange)="update()"
                         />
 
                         <natural-select-enum
                             enumName="AccountType"
                             formControlName="type"
-                            (selectionChange)="updateLinkedFields(); update()"
                             placeholder="Type"
+                            (selectionChange)="updateLinkedFields(); update()"
                         />
 
                         @if (form.get('type')?.value === 'liability') {
@@ -139,11 +139,11 @@
                                 placeholder="Membre"
                                 [service]="userService"
                                 [filter]="{groups: [{conditions: [{accounts: {empty: {not: false}}}]}]}"
-                                (selectionChange)="update()"
                                 [showIcon]="false"
                                 [navigateTo]="
                                     form.get('owner')?.value?.id ? ['/admin/user', form.get('owner')?.value.id] : null
                                 "
+                                (selectionChange)="update()"
                             />
                         }
 

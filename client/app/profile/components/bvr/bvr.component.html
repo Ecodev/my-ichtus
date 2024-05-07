@@ -1,7 +1,7 @@
 <div class="nat-vertical nat-gap-5">
     @if (!bankingInfos) {
         <div class="nat-margin nat-vertical nat-center">
-            <mat-progress-spinner [diameter]="40" mode="indeterminate" />
+            <mat-progress-spinner mode="indeterminate" [diameter]="40" />
         </div>
     }
     @if (bankingInfos) {
@@ -17,8 +17,8 @@
                         @if (bankingInfos.iban) {
                             <button
                                 mat-icon-button
-                                (click)="copyToClipboard(bankingInfos.iban)"
                                 matTooltip="Copier le IBAN"
+                                (click)="copyToClipboard(bankingInfos.iban)"
                             >
                                 <mat-icon naturalIcon="content_copy" />
                             </button>
@@ -32,8 +32,8 @@
                         @if (bankingInfos.iban) {
                             <button
                                 mat-icon-button
-                                (click)="copyToClipboard(bankingInfos.referenceNumber)"
                                 matTooltip="Copier le numéro de référence"
+                                (click)="copyToClipboard(bankingInfos.referenceNumber)"
                             >
                                 <mat-icon naturalIcon="content_copy" />
                             </button>

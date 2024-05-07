@@ -51,8 +51,8 @@
                             type="number"
                             step="1"
                             [attr.min]="1"
-                            [(ngModel)]="booking.participantCount"
                             [required]="true"
+                            [(ngModel)]="booking.participantCount"
                         />
                     </mat-form-field>
                 </div>
@@ -73,10 +73,10 @@
                     <mat-label>Remarques</mat-label>
                     <textarea
                         matInput
-                        [(ngModel)]="booking.startComment"
                         [cdkTextareaAutosize]="true"
                         [cdkAutosizeMinRows]="5"
                         [cdkAutosizeMaxRows]="5"
+                        [(ngModel)]="booking.startComment"
                     ></textarea>
                 </mat-form-field>
             </div>
@@ -84,4 +84,4 @@
     </div>
 </div>
 
-<natural-fixed-button (click)="createBooking()" icon="check" />
+<natural-fixed-button icon="check" (click)="createBooking()" />

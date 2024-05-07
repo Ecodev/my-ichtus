@@ -13,15 +13,15 @@
         <div class="nat-vertical">
             <div class="nat-margin-vertical overflow nat-horizontal">
                 <natural-search
-                    (selectionChange)="search($event)"
+                    class="nat-expand"
                     [facets]="naturalSearchFacets"
                     [multipleGroups]="true"
                     [selections]="naturalSearchSelections"
-                    class="nat-expand"
+                    (selectionChange)="search($event)"
                 />
             </div>
             <div class="responsive-table">
-                <table (matSortChange)="sorting([$event])" [dataSource]="dataSource" mat-table matSort>
+                <table mat-table matSort [dataSource]="dataSource" (matSortChange)="sorting([$event])">
                     <tr *matHeaderRowDef="columnsForTable" mat-header-row></tr>
                     <tr *matRowDef="let row; columns: columnsForTable" mat-row></tr>
 
@@ -42,9 +42,9 @@
                         <td *matCellDef="let element" mat-cell>
                             @if (element.creator) {
                                 <natural-table-button
+                                    matTooltip="Éditer"
                                     [label]="element.creator?.name"
                                     [navigate]="['/admin/user', element.creator?.id]"
-                                    matTooltip="Éditer"
                                 />
                             }
                         </td>
@@ -68,16 +68,16 @@
             }
             @if (!dataSource.data) {
                 <div class="nat-margin nat-vertical nat-center">
-                    <mat-progress-spinner [diameter]="40" mode="indeterminate" />
+                    <mat-progress-spinner mode="indeterminate" [diameter]="40" />
                 </div>
             }
             @if (dataSource.data?.length) {
                 <mat-paginator
-                    (page)="pagination($event)"
                     [length]="dataSource.data?.length"
                     [pageIndex]="dataSource.data?.pageIndex"
                     [pageSizeOptions]="pageSizeOptions"
                     [pageSize]="dataSource.data?.pageSize"
+                    (page)="pagination($event)"
                 />
             }
         </div>

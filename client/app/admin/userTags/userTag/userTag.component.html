@@ -1,7 +1,7 @@
-<div [formGroup]="form" class="detail-body">
+<div class="detail-body" [formGroup]="form">
     <natural-detail-header
-        [newLabel]="data.seo.title"
         label="Tag d'utilisateur"
+        [newLabel]="data.seo.title"
         [model]="data.model"
         [listRoute]="['admin', 'user-tag']"
     />
@@ -31,11 +31,11 @@
                             <div>
                                 <h2 class="mat-headline-6">Utilisateurs tagués</h2>
                                 <natural-relations
+                                    placeholder="Taguer un utilisateur"
                                     [main]="data.model"
                                     [service]="userService"
                                     [filter]="{groups: [{conditions: [{userTags: {have: {values: [data.model.id]}}}]}]}"
                                     [disabled]="!data.model.permissions.update"
-                                    placeholder="Taguer un utilisateur"
                                 >
                                     <ng-template let-item="item">
                                         <div class="nat-horizontal nat-left nat-center nat-gap-10">
@@ -55,8 +55,8 @@
                             matInput
                             type="color"
                             formControlName="color"
-                            (change)="update()"
                             style="height: 50px; width: 50px"
+                            (change)="update()"
                         />
                     </div>
                 </div>

@@ -1,16 +1,16 @@
 <div class="detail-body" [formGroup]="form">
     <natural-detail-header
-        [newLabel]="data.seo.title"
         label="Réservation"
+        [newLabel]="data.seo.title"
         [model]="data.model"
         [listRoute]="['admin', 'booking']"
     >
         <div class="nat-horizontal nat-gap">
             @if (isUpdatePage() && !form.get('endDate')?.value && !isAdminApproved()) {
                 <button
-                    [disabled]="!data.model.permissions.update"
                     mat-flat-button
                     color="warn"
+                    [disabled]="!data.model.permissions.update"
                     (click)="terminateBooking()"
                 >
                     Terminer
@@ -18,9 +18,9 @@
             }
             @if (isUpdatePage() && form.get('endDate')?.value && isAdminApproved()) {
                 <button
-                    [disabled]="!data.model.permissions.update"
                     mat-flat-button
                     color="warn"
+                    [disabled]="!data.model.permissions.update"
                     (click)="unTerminateBooking()"
                 >
                     Annuler la terminaison du cours
@@ -40,20 +40,20 @@
                                 formControlName="owner"
                                 placeholder="Responsable"
                                 [service]="userService"
-                                (selectionChange)="update()"
                                 [showIcon]="false"
                                 [navigateTo]="
                                     form.get('owner')?.value?.id ? ['/admin/user', form.get('owner')?.value.id] : null
                                 "
+                                (selectionChange)="update()"
                             />
                         </div>
 
                         @if (!isUpdatePage()) {
                             <mat-chip-listbox
-                                [selectable]="true"
-                                [multiple]="true"
                                 aria-label="Type de réservable"
                                 class="nat-margin-bottom"
+                                [selectable]="true"
+                                [multiple]="true"
                             >
                                 @for (category of bookableFilterChips; track category) {
                                     <mat-chip-option
@@ -70,13 +70,13 @@
                             placeholder="Réservable"
                             [service]="bookableService"
                             [filter]="bookableSelectFilter"
-                            (selectionChange)="update()"
                             [showIcon]="false"
                             [navigateTo]="
                                 form.get('bookable')?.value?.id
                                     ? ['/admin/bookable', form.get('bookable')?.value.id]
                                     : null
                             "
+                            (selectionChange)="update()"
                         />
 
                         @if (newBooking) {
@@ -102,9 +102,9 @@
                             <natural-select-enum
                                 enumName="BookingStatus"
                                 formControlName="status"
-                                (selectionChange)="update()"
                                 placeholder="Status"
                                 [disabled]="isUpdatePage() && isPendingApplication(BookingType.admin_approved)"
+                                (selectionChange)="update()"
                             />
                             @if (isUpdatePage() && isPendingApplication(BookingType.admin_approved)) {
                                 <button
@@ -124,9 +124,9 @@
                             <textarea
                                 matInput
                                 formControlName="remarks"
-                                (change)="update()"
                                 [cdkTextareaAutosize]="true"
                                 [cdkAutosizeMinRows]="3"
+                                (change)="update()"
                             ></textarea>
                         </mat-form-field>
 
@@ -135,9 +135,9 @@
                             <textarea
                                 matInput
                                 formControlName="internalRemarks"
-                                (change)="update()"
                                 [cdkTextareaAutosize]="true"
                                 [cdkAutosizeMinRows]="3"
+                                (change)="update()"
                             ></textarea>
                         </mat-form-field>
                     </div>
@@ -171,8 +171,8 @@
                                 matInput
                                 type="number"
                                 step="1"
-                                [attr.min]="1"
                                 formControlName="participantCount"
+                                [attr.min]="1"
                                 (change)="update()"
                             />
                         </mat-form-field>
@@ -191,10 +191,10 @@
                                     <textarea
                                         matInput
                                         formControlName="startComment"
-                                        (change)="update()"
                                         [cdkTextareaAutosize]="true"
                                         [cdkAutosizeMinRows]="5"
                                         [cdkAutosizeMaxRows]="5"
+                                        (change)="update()"
                                     ></textarea>
                                 </mat-form-field>
                             </div>
@@ -212,10 +212,10 @@
                                     <textarea
                                         matInput
                                         formControlName="endComment"
-                                        (change)="update()"
                                         [cdkTextareaAutosize]="true"
                                         [cdkAutosizeMinRows]="5"
                                         [cdkAutosizeMaxRows]="5"
+                                        (change)="update()"
                                     ></textarea>
                                 </mat-form-field>
                             </div>

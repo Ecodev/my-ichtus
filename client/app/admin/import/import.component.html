@@ -11,8 +11,8 @@
             mat-raised-button
             naturalFileSelect
             [accept]="'text/xml'"
-            (fileChange)="uploadFile($event)"
             [disabled]="!permissionsService.crud?.transaction.create || importing"
+            (fileChange)="uploadFile($event)"
         >
             <mat-icon naturalIcon="file_upload" />
             Uploader un CAMT 054

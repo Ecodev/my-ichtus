@@ -3,6 +3,6 @@
     <p class="mat-body-1">
         Chaque matériel dispose d'un code alphanumérique (p.ex&nbsp;C12) collé. Veuillez saisir ce code.
     </p>
-    <input [(ngModel)]="code" placeholder="Code" (keydown.enter)="goToBookable(code)" appFocus />
+    <input placeholder="Code" appFocus [(ngModel)]="code" (keydown.enter)="goToBookable(code)" />
     <a mat-flat-button color="primary" [routerLink]="['/booking', code]">Valider</a>
 </div>

@@ -1,10 +1,10 @@
 <h2 mat-dialog-title>Sélection d'un espace de stockage</h2>
 <mat-dialog-content class="nat-vertical nat-gap">
     <natural-select
-        [service]="bookableService"
-        (selectionChange)="selection = $event"
-        [filter]="$any(variables.filter)"
         placeholder="Sélectionner"
+        [service]="bookableService"
+        [filter]="$any(variables.filter)"
+        (selectionChange)="selection = $event"
     />
 </mat-dialog-content>
 <mat-dialog-actions align="end">

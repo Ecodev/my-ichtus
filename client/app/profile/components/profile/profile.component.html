@@ -1,4 +1,4 @@
-<natural-sidenav-container name="profileMenu" [noScroll]="true" class="nat-expand">
+<natural-sidenav-container name="profileMenu" class="nat-expand" [noScroll]="true">
     <natural-sidenav>
         <div class="profile-nav nat-vertical nat-gap" [style.margin-top.px]="30">
             <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="/profile">
@@ -77,8 +77,8 @@
                                 mat-flat-button
                                 color="primary"
                                 class="nat-margin-left"
-                                (click)="pay()"
                                 [disabled]="!config"
+                                (click)="pay()"
                             >
                                 Faire un versement
                             </button>
@@ -87,8 +87,8 @@
                         <app-particle-switch [data]="viewer.account?.balance || 0">
                             <ng-template let-data="data">
                                 <app-money
-                                    [amount]="data"
                                     sizeClass="mat-headline-4"
+                                    [amount]="data"
                                     [showSignal]="true"
                                     [showCurrency]="true"
                                 />

@@ -1,18 +1,18 @@
 <mat-dialog-content>
     <div class="mat-body-2 content">
         @if (!readonly && activable) {
-            <mat-slide-toggle (change)="update()" [(ngModel)]="active"> Actif </mat-slide-toggle>
+            <mat-slide-toggle [(ngModel)]="active" (change)="update()"> Actif </mat-slide-toggle>
         }
         @if (!readonly) {
             <natural-editor [(ngModel)]="text" />
         }
         @if (readonly) {
-            <div [innerHTML]="text" class="content"></div>
+            <div class="content" [innerHTML]="text"></div>
         }
     </div>
 
     @if (permissionsService.crud?.configuration.create && !readonly) {
-        <natural-fixed-button (click)="update()" [disabled]="updating" icon="save" />
+        <natural-fixed-button icon="save" [disabled]="updating" (click)="update()" />
     }
 </mat-dialog-content>
 @if (data?.data?.showCloseButton) {

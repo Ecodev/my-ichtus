@@ -1,7 +1,7 @@
-<div [formGroup]="form" class="detail-body">
+<div class="detail-body" [formGroup]="form">
     <natural-detail-header
-        [newLabel]="data.seo.title"
         label="Frais et remboursement"
+        [newLabel]="data.seo.title"
         [model]="data.model"
         [listRoute]="['admin', 'expense-claim']"
     >
@@ -60,7 +60,7 @@
                 </a>
             }
 
-            <app-money [amount]="data.model.amount" sizeClass="mat-headline-4" [showSignal]="false" />
+            <app-money sizeClass="mat-headline-4" [amount]="data.model.amount" [showSignal]="false" />
         </div>
     </natural-detail-header>
 
@@ -85,9 +85,9 @@
                     <textarea
                         matInput
                         formControlName="description"
-                        (change)="update()"
                         [cdkTextareaAutosize]="true"
                         [cdkAutosizeMinRows]="1"
+                        (change)="update()"
                     ></textarea>
                 </mat-form-field>
 
@@ -107,9 +107,9 @@
                             <div class="suffix-buttons" matIconSuffix>
                                 @if (form.get('sector')?.value !== '') {
                                     <button
-                                        (click)="form.get('sector')?.setValue(''); $event.stopPropagation(); update()"
                                         mat-icon-button
                                         matTooltip="Aucun"
+                                        (click)="form.get('sector')?.setValue(''); $event.stopPropagation(); update()"
                                     >
                                         <mat-icon naturalIcon="close" />
                                     </button>
@@ -124,8 +124,8 @@
                 <natural-select-enum
                     enumName="ExpenseClaimType"
                     formControlName="type"
-                    (selectionChange)="update()"
                     placeholder="Type"
+                    (selectionChange)="update()"
                 />
 
                 <div class="nat-horizontal nat-gap-15">
@@ -147,9 +147,9 @@
                     <natural-select-enum
                         enumName="ExpenseClaimStatus"
                         formControlName="status"
-                        (selectionChange)="update()"
                         placeholder="Status"
                         class="nat-expand"
+                        (selectionChange)="update()"
                     />
                 </div>
 
@@ -166,9 +166,9 @@
                         <natural-select
                             formControlName="reviewer"
                             placeholder="Approbateur"
+                            class="nat-expand"
                             [service]="userService"
                             (selectionChange)="update()"
-                            class="nat-expand"
                         />
                     }
                 </div>
@@ -186,9 +186,9 @@
                     <textarea
                         matInput
                         formControlName="remarks"
-                        (change)="update()"
                         [cdkTextareaAutosize]="true"
                         [cdkAutosizeMinRows]="3"
+                        (change)="update()"
                     ></textarea>
                 </mat-form-field>
             </div>
@@ -199,9 +199,9 @@
                     <textarea
                         matInput
                         formControlName="internalRemarks"
-                        (change)="update()"
                         [cdkTextareaAutosize]="true"
                         [cdkAutosizeMinRows]="3"
+                        (change)="update()"
                     ></textarea>
                 </mat-form-field>
             </div>
@@ -214,7 +214,7 @@
                 <div class="mat-headline-6">Pièces justificatives</div>
                 <div class="nat-horizontal nat-gap-10">
                     @for (file of data.model.accountingDocuments; track file) {
-                        <natural-file [model]="file" [height]="150" [style.width.px]="200" action="download" />
+                        <natural-file action="download" [model]="file" [height]="150" [style.width.px]="200" />
                     }
                 </div>
             </div>

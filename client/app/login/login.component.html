@@ -2,7 +2,7 @@
     <div class="nat-padding nat-gap nat-vertical nat-center nat-expand-no-collapse">
         <img src="assets/ichtus.svg" />
 
-        <form [formGroup]="form" class="nat-vertical" style="min-width: 300px">
+        <form class="nat-vertical" style="min-width: 300px" [formGroup]="form">
             <mat-form-field>
                 <mat-label>Email ou nom d'utilisateur</mat-label>
                 <input
@@ -42,8 +42,8 @@
                     type="submit"
                     mat-raised-button
                     color="primary"
-                    (click)="maybeConfirm()"
                     [disabled]="!form.valid"
+                    (click)="maybeConfirm()"
                 >
                     Se connecter
                 </button>

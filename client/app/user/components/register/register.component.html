@@ -105,28 +105,28 @@
             <div class="responsive-table">
                 @if (mandatoryBookables) {
                     <table mat-table [dataSource]="mandatoryBookables">
-                        <tr mat-header-row *matHeaderRowDef="['name', 'initialPrice', 'periodicPrice']"></tr>
-                        <tr mat-row *matRowDef="let row; columns: ['name', 'initialPrice', 'periodicPrice']"></tr>
-                        <tr mat-footer-row *matFooterRowDef="['name', 'initialPrice', 'periodicPrice']"></tr>
+                        <tr *matHeaderRowDef="['name', 'initialPrice', 'periodicPrice']" mat-header-row></tr>
+                        <tr *matRowDef="let row; columns: ['name', 'initialPrice', 'periodicPrice']" mat-row></tr>
+                        <tr *matFooterRowDef="['name', 'initialPrice', 'periodicPrice']" mat-footer-row></tr>
 
                         <ng-container matColumnDef="name">
-                            <th mat-header-cell *matHeaderCellDef>Nom</th>
-                            <td mat-cell *matCellDef="let bookable">
+                            <th *matHeaderCellDef mat-header-cell>Nom</th>
+                            <td *matCellDef="let bookable" mat-cell>
                                 {{ bookable.name }}
                             </td>
-                            <td mat-footer-cell *matFooterCellDef>Totaux</td>
+                            <td *matFooterCellDef mat-footer-cell>Totaux</td>
                         </ng-container>
 
                         <ng-container matColumnDef="initialPrice">
-                            <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>
+                            <th *matHeaderCellDef mat-header-cell natural-7em-column natural-align-right>
                                 Prix initial
                             </th>
-                            <td mat-cell *matCellDef="let bookable" natural-align-right>
+                            <td *matCellDef="let bookable" mat-cell natural-align-right>
                                 @if (bookable.initialPrice !== '0.00') {
                                     <span> {{ bookable.initialPrice | currency: 'CHF' }}</span>
                                 }
                             </td>
-                            <td mat-footer-cell *matFooterCellDef natural-align-right>
+                            <td *matFooterCellDef mat-footer-cellnatural-align-right>
                                 @if (mandatoryBookables.data?.totalInitialPrice > 0) {
                                     <span>
                                         {{ mandatoryBookables.data?.totalInitialPrice | currency: 'CHF' }}
@@ -136,15 +136,15 @@
                         </ng-container>
 
                         <ng-container matColumnDef="periodicPrice">
-                            <th mat-header-cell *matHeaderCellDef natural-7em-column natural-align-right>
+                            <th *matHeaderCellDef mat-header-cell natural-7em-column natural-align-right>
                                 Prix annuel
                             </th>
-                            <td mat-cell *matCellDef="let bookable" natural-align-right>
+                            <td *matCellDef="let bookable" mat-cell natural-align-right>
                                 @if (bookable.periodicPrice !== '0.00') {
                                     <span> {{ bookable.periodicPrice | currency: 'CHF' }}</span>
                                 }
                             </td>
-                            <td mat-footer-cell *matFooterCellDef natural-align-right>
+                            <td *matFooterCellDef mat-footer-cellnatural-align-right>
                                 @if (mandatoryBookables.data?.totalPeriodicPrice > 0) {
                                     <span>
                                         {{ mandatoryBookables.data?.totalPeriodicPrice | currency: 'CHF' }}
@@ -192,7 +192,7 @@
         }
 
         <div class="nat-horizontal nat-center">
-            <button mat-raised-button [color]="form.valid ? 'primary' : 'warn'" (click)="submit()" [disabled]="sending">
+            <button mat-raised-button [color]="form.valid ? 'primary' : 'warn'" [disabled]="sending" (click)="submit()">
                 <mat-icon naturalIcon="send" />
                 Envoyer
             </button>

@@ -2,12 +2,12 @@
     @for (file of files; track $index) {
         <div class="nat-vertical nat-top nat-center">
             <natural-file
-                [model]="file"
                 accept="image/bmp,image/gif,image/jpeg,image/pjpeg,image/png,image/svg+xml,image/webp,application/pdf,application/x-pdf"
-                (modelChange)="fileAdded($event, $index)"
+                [model]="file"
                 [height]="fileHeight"
                 [style.width.px]="fileWidth"
                 [action]="getAction(file, $index, $last)"
+                (modelChange)="fileAdded($event, $index)"
             />
             @if (canRemove && !disabled && !$last) {
                 <button mat-icon-button (click)="!$last ? removeFile($index) : null">
@@ -15,7 +15,7 @@
                 </button>
             }
             @if (!disabled && $last) {
-                <p class="mat-body" [style.maxWidth.px]="fileWidth" style="text-align: center">
+                <p class="mat-body" style="text-align: center" [style.maxWidth.px]="fileWidth">
                     Images (jpg, png, webp, svg, gif, bmp) ou document PDF uniquement
                 </p>
             }

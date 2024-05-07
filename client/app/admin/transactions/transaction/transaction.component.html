@@ -1,12 +1,12 @@
-<div [formGroup]="form" class="detail-body">
+<div class="detail-body" [formGroup]="form">
     <natural-detail-header
-        [newLabel]="data.seo.title"
         label="Transaction"
+        [newLabel]="data.seo.title"
         [model]="data.model"
         [listRoute]="['admin', 'transaction-line']"
     >
         @if (isUpdatePage()) {
-            <app-money [amount]="data.model.balance" [showSignal]="false" sizeClass="mat-headline-4" />
+            <app-money sizeClass="mat-headline-4" [amount]="data.model.balance" [showSignal]="false" />
         }
     </natural-detail-header>
 
@@ -204,11 +204,11 @@
     @if (!isUpdatePage() && userService.canUpdateTransaction(viewer)) {
         <natural-fixed-button
             class="detail-speed-dial"
-            (click)="save()"
             icon="save"
             matTooltip="Enregistrer"
             matTooltipPosition="left"
             [color]="form.valid ? 'accent' : 'warn'"
+            (click)="save()"
         />
     }
 
@@ -220,23 +220,23 @@
                 </button>
             </eco-fab-speed-dial-trigger>
             <eco-fab-speed-dial-actions>
-                <button mat-mini-fab (click)="save()" matTooltip="Enregistrer" matTooltipPosition="left">
+                <button mat-mini-fab matTooltip="Enregistrer" matTooltipPosition="left" (click)="save()">
                     <mat-icon naturalIcon="save" />
                 </button>
                 <button
                     mat-mini-fab
-                    [routerLink]="['../new', {duplicate: data.model.id}]"
                     matTooltip="Dupliquer ..."
                     matTooltipPosition="left"
+                    [routerLink]="['../new', {duplicate: data.model.id}]"
                 >
                     <mat-icon naturalIcon="content_copy" />
                 </button>
                 <button
                     mat-mini-fab
-                    (click)="delete()"
                     color="warn"
                     matTooltip="Supprimer définitivement"
                     matTooltipPosition="left"
+                    (click)="delete()"
                 >
                     <mat-icon naturalIcon="delete_forever" />
                 </button>

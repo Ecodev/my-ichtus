@@ -1,5 +1,5 @@
 <div [attr.class]="sizeClass" [style.margin.px]="0">
-    <span [class.positive]="showPositive()" [class.negative]="showNegative()" style="white-space: nowrap">
+    <span style="white-space: nowrap" [class.positive]="showPositive()" [class.negative]="showNegative()">
         @if (showCurrency) {
             <span>CHF </span>
         }

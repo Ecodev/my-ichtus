@@ -16,29 +16,29 @@
                     class="nat-expand"
                     [facets]="naturalSearchFacets"
                     [selections]="naturalSearchSelections"
-                    (selectionChange)="search($event)"
                     [multipleGroups]="true"
+                    (selectionChange)="search($event)"
                 />
             </div>
             <div class="responsive-table">
-                <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting([$event])">
-                    <tr mat-header-row *matHeaderRowDef="columnsForTable"></tr>
-                    <tr mat-row *matRowDef="let row; columns: columnsForTable"></tr>
+                <table mat-table matSort [dataSource]="dataSource" (matSortChange)="sorting([$event])">
+                    <tr *matHeaderRowDef="columnsForTable" mat-header-row></tr>
+                    <tr *matRowDef="let row; columns: columnsForTable" mat-row></tr>
 
                     <ng-container matColumnDef="name">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
-                        <td mat-cell *matCellDef="let element">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Nom</th>
+                        <td *matCellDef="let element" mat-cell>
                             <natural-table-button
+                                matTooltip="Éditer"
                                 [label]="element.name"
                                 [navigate]="[element.id]"
-                                matTooltip="Éditer"
                             />
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="owner">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Membre</th>
-                        <td mat-cell *matCellDef="let element">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Membre</th>
+                        <td *matCellDef="let element" mat-cell>
                             @if (element.owner) {
                                 <div class="nat-horizontal nat-left nat-center">
                                     <natural-avatar
@@ -47,9 +47,9 @@
                                         [size]="36"
                                     />
                                     <natural-table-button
+                                        matTooltip="Éditer"
                                         [label]="element.owner?.name"
                                         [navigate]="['/admin/user/', element.owner?.id]"
-                                        matTooltip="Éditer"
                                     />
                                 </div>
                             }
@@ -63,52 +63,52 @@
                     </ng-container>
 
                     <ng-container matColumnDef="amount">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header natural-4em-column>Montant</th>
-                        <td mat-cell *matCellDef="let element">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header natural-4em-column>Montant</th>
+                        <td *matCellDef="let element" mat-cell>
                             <app-money [amount]="element.amount" [showSignal]="false" [showCurrency]="false" />
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="updateDate">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="app-date-column">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header class="app-date-column">
                             Dernière modification
                         </th>
-                        <td mat-cell *matCellDef="let element">
+                        <td *matCellDef="let element" mat-cell>
                             {{ element.updateDate | swissDate }}
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="remarks">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Remarques</th>
-                        <td mat-cell *matCellDef="let element">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Remarques</th>
+                        <td *matCellDef="let element" mat-cell>
                             <div class="line-break">{{ element.remarks }}</div>
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="status">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-                        <td mat-cell *matCellDef="let element">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Status</th>
+                        <td *matCellDef="let element" mat-cell>
                             {{ element.status | enum: 'ExpenseClaimStatus' | async | capitalize }}
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="type">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header natural-4em-column>Type</th>
-                        <td mat-cell *matCellDef="let element">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header natural-4em-column>Type</th>
+                        <td *matCellDef="let element" mat-cell>
                             {{ element.type | enum: 'ExpenseClaimType' | async | capitalize }}
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="sector">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Secteur</th>
-                        <td mat-cell *matCellDef="let element">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Secteur</th>
+                        <td *matCellDef="let element" mat-cell>
                             {{ element.sector }}
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="reviewer">
-                        <th mat-header-cell *matHeaderCellDef>Approbateur</th>
-                        <td mat-cell *matCellDef="let element">
+                        <th *matHeaderCellDef mat-header-cell>Approbateur</th>
+                        <td *matCellDef="let element" mat-cell>
                             @if (element.reviewer) {
                                 <div class="nat-horizontal nat-left nat-center">
                                     <mat-icon naturalIcon="verified" />
@@ -143,5 +143,5 @@
 }
 
 @if (permissionsService.crud?.expenseClaim.create) {
-    <natural-fixed-button [routerLink]="['/admin/expense-claim/new']" icon="add" />
+    <natural-fixed-button icon="add" [routerLink]="['/admin/expense-claim/new']" />
 }

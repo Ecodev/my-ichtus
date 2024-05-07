@@ -1,13 +1,13 @@
 <div class="nat-fill nat-vertical">
     <mat-toolbar class="nat-horizontal nat-left nat-center nat-gap">
         @if (menu) {
-            <button (click)="menu.toggle()" mat-icon-button>
+            <button mat-icon-button (click)="menu.toggle()">
                 <mat-icon naturalIcon="menu" />
             </button>
         }
 
         <a routerLink="/" style="width: 50px; height: 50px">
-            <mat-icon [size]="50" naturalIcon="ichtus" />
+            <mat-icon naturalIcon="ichtus" [size]="50" />
         </a>
 
         @if (route.snapshot.data.viewer) {
@@ -15,13 +15,13 @@
                 <div class="nat-expand app-hide-xs"></div>
                 <div class="nat-expand nat-horizontal nat-left nat-center app-hide-xs" id="searchByCode">
                     <input
-                        (keydown.enter)="goToCode()"
-                        (keydown.esc)="code = ''"
-                        [(ngModel)]="code"
                         class="nat-expand"
                         placeholder="Recherche par code"
+                        [(ngModel)]="code"
+                        (keydown.enter)="goToCode()"
+                        (keydown.esc)="code = ''"
                     />
-                    <a [routerLink]="['/booking', code]" mat-icon-button>
+                    <a mat-icon-button [routerLink]="['/booking', code]">
                         <mat-icon naturalIcon="search" />
                     </a>
                 </div>
@@ -30,7 +30,7 @@
                 </a>
                 <div class="nat-expand app-hide-xs"></div>
                 @if (announcementActive) {
-                    <a [routerLink]="getAnnouncementLink()" mat-icon-button class="icon-button-circle-primary">
+                    <a mat-icon-button class="icon-button-circle-primary" [routerLink]="getAnnouncementLink()">
                         <mat-icon naturalIcon="announcement" />
                     </a>
                 }

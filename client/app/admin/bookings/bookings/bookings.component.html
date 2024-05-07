@@ -7,8 +7,8 @@
             <natural-columns-picker
                 [availableColumns]="availableColumns"
                 [selections]="selectedColumns"
-                (selectionChange)="selectColumns($event)"
                 [buttons]="buttons"
+                (selectionChange)="selectColumns($event)"
             />
         </div>
         <div class="nat-vertical">
@@ -17,33 +17,33 @@
                     class="nat-expand"
                     [facets]="naturalSearchFacets"
                     [selections]="naturalSearchSelections"
-                    (selectionChange)="search($event)"
                     [multipleGroups]="true"
+                    (selectionChange)="search($event)"
                 />
             </div>
             <div class="responsive-table">
-                <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting([$event])">
-                    <tr mat-header-row *matHeaderRowDef="columnsForTable"></tr>
-                    <tr mat-row *matRowDef="let row; columns: columnsForTable"></tr>
-                    <tr mat-footer-row *matFooterRowDef="columnsForTable"></tr>
+                <table mat-table matSort [dataSource]="dataSource" (matSortChange)="sorting([$event])">
+                    <tr *matHeaderRowDef="columnsForTable" mat-header-row></tr>
+                    <tr *matRowDef="let row; columns: columnsForTable" mat-row></tr>
+                    <tr *matFooterRowDef="columnsForTable" mat-footer-row></tr>
 
                     <ng-container matColumnDef="edit">
-                        <th mat-header-cell *matHeaderCellDef></th>
-                        <td mat-cell *matCellDef="let element">
+                        <th *matHeaderCellDef mat-header-cell></th>
+                        <td *matCellDef="let element" mat-cell>
                             <div class="nat-horizontal nat-left nat-center">
                                 <natural-table-button
                                     icon="edit"
-                                    [navigate]="['/admin/booking/', element.id]"
                                     matTooltip="Éditer"
+                                    [navigate]="['/admin/booking/', element.id]"
                                 />
                             </div>
                         </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
                     <ng-container matColumnDef="owner">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Utilisateur</th>
-                        <td mat-cell *matCellDef="let element">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Utilisateur</th>
+                        <td *matCellDef="let element" mat-cell>
                             @if (element.owner) {
                                 <div class="nat-horizontal nat-left nat-center">
                                     <natural-avatar
@@ -52,19 +52,19 @@
                                         [size]="36"
                                     />
                                     <natural-table-button
+                                        matTooltip="Éditer"
                                         [label]="element.owner.name"
                                         [navigate]="['/admin/user/', element.owner.id]"
-                                        matTooltip="Éditer"
                                     />
                                 </div>
                             }
                         </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
                     <ng-container matColumnDef="ownerReadonly">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header="owner">Utilisateur</th>
-                        <td mat-cell *matCellDef="let element">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header="owner">Utilisateur</th>
+                        <td *matCellDef="let element" mat-cell>
                             @if (element.owner) {
                                 <div class="nat-horizontal nat-left nat-center">
                                     <natural-avatar
@@ -76,12 +76,12 @@
                                 </div>
                             }
                         </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
                     <ng-container matColumnDef="bookable">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Réservable</th>
-                        <td mat-cell *matCellDef="let element">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Réservable</th>
+                        <td *matCellDef="let element" mat-cell>
                             @if (element.bookable) {
                                 <div class="nat-horizontal">
                                     @if (element.bookable.image) {
@@ -93,12 +93,12 @@
                                         />
                                     }
                                     <natural-table-button
+                                        matTooltip="Éditer"
                                         [label]="
                                             (element.bookable.code ? element.bookable.code + ' ' : '') +
                                             element.bookable.name
                                         "
                                         [navigate]="['/admin/bookable/', element.bookable.id]"
-                                        matTooltip="Éditer"
                                     />
                                 </div>
                             }
@@ -106,111 +106,111 @@
                                 <button mat-button [style.margin-left.px]="40">Matériel personnel</button>
                             }
                         </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
                     <ng-container matColumnDef="email">
-                        <th mat-header-cell *matHeaderCellDef>Email</th>
-                        <td mat-cell *matCellDef="let element">{{ element.owner.email }}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <th *matHeaderCellDef mat-header-cell>Email</th>
+                        <td *matCellDef="let element" mat-cell>{{ element.owner.email }}</td>
+                        <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
                     <ng-container matColumnDef="mobilePhone">
-                        <th mat-header-cell *matHeaderCellDef>Tél.</th>
-                        <td mat-cell *matCellDef="let element">{{ element.owner.mobilePhone }}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <th *matHeaderCellDef mat-header-cell>Tél.</th>
+                        <td *matCellDef="let element" mat-cell>{{ element.owner.mobilePhone }}</td>
+                        <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
                     <ng-container matColumnDef="destination">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Destination</th>
-                        <td mat-cell *matCellDef="let element">{{ element.destination }}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Destination</th>
+                        <td *matCellDef="let element" mat-cell>{{ element.destination }}</td>
+                        <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
                     <ng-container matColumnDef="startDate">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Début</th>
-                        <td mat-cell *matCellDef="let element">{{ element.startDate | swissDate }}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Début</th>
+                        <td *matCellDef="let element" mat-cell>{{ element.startDate | swissDate }}</td>
+                        <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
                     <ng-container matColumnDef="startComment">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Note de début</th>
-                        <td mat-cell *matCellDef="let element">{{ element.startComment | ellipsis: 32 }}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Note de début</th>
+                        <td *matCellDef="let element" mat-cell>{{ element.startComment | ellipsis: 32 }}</td>
+                        <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
                     <ng-container matColumnDef="endDate">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fin</th>
-                        <td mat-cell *matCellDef="let element">{{ element.endDate | swissDate }}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Fin</th>
+                        <td *matCellDef="let element" mat-cell>{{ element.endDate | swissDate }}</td>
+                        <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
                     <ng-container matColumnDef="estimatedEndDate">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Retour prévu</th>
-                        <td mat-cell *matCellDef="let element">{{ element.estimatedEndDate }}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Retour prévu</th>
+                        <td *matCellDef="let element" mat-cell>{{ element.estimatedEndDate }}</td>
+                        <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
                     <ng-container matColumnDef="status">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Statut</th>
-                        <td mat-cell *matCellDef="let element">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Statut</th>
+                        <td *matCellDef="let element" mat-cell>
                             {{ element.status | enum: 'BookingStatus' | async | capitalize }}
                         </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
                     <ng-container matColumnDef="participantCount">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>
                             <mat-icon naturalIcon="group" matTooltip="Nombre de participants" />
                         </th>
-                        <td mat-cell *matCellDef="let element">{{ element.participantCount }}</td>
-                        <td mat-footer-cell *matFooterCellDef>{{ dataSource.data?.totalParticipantCount || 0 }}</td>
+                        <td *matCellDef="let element" mat-cell>{{ element.participantCount }}</td>
+                        <td *matFooterCellDef mat-footer-cell>{{ dataSource.data?.totalParticipantCount || 0 }}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="endComment">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Note de fin</th>
-                        <td mat-cell *matCellDef="let element">{{ element.endComment | ellipsis: 32 }}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Note de fin</th>
+                        <td *matCellDef="let element" mat-cell>{{ element.endComment | ellipsis: 32 }}</td>
+                        <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
                     <ng-container matColumnDef="ownerBalance">
-                        <th mat-header-cell *matHeaderCellDef>Solde</th>
-                        <td mat-cell *matCellDef="let element">
+                        <th *matHeaderCellDef mat-header-cell>Solde</th>
+                        <td *matCellDef="let element" mat-cell>
                             <app-money
                                 [showCurrency]="false"
                                 [showSignal]="true"
                                 [amount]="element.owner.account?.balance"
                             />
                         </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
                     <ng-container matColumnDef="ownerCreationDate">
-                        <th mat-header-cell *matHeaderCellDef>Membre depuis</th>
-                        <td mat-cell *matCellDef="let element">{{ element.owner.creationDate | date: 'dd.MM.y' }}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <th *matHeaderCellDef mat-header-cell>Membre depuis</th>
+                        <td *matCellDef="let element" mat-cell>{{ element.owner.creationDate | date: 'dd.MM.y' }}</td>
+                        <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
                     <ng-container matColumnDef="terminateBooking">
-                        <th mat-header-cell *matHeaderCellDef natural-5em-column></th>
-                        <td mat-cell *matCellDef="let element">
+                        <th *matHeaderCellDef mat-header-cell natural-5em-column></th>
+                        <td *matCellDef="let element" mat-cell>
                             @if (!element.endDate) {
                                 <button mat-flat-button color="warn" (click)="maybeTerminateBooking(element.id)">
                                     Terminer
                                 </button>
                             }
                         </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
                     <ng-container matColumnDef="usageStatus">
-                        <th mat-header-cell *matHeaderCellDef natural-3em-column natural-align-center>Inscriptions</th>
-                        <td mat-cell *matCellDef="let element" natural-align-center>
+                        <th *matHeaderCellDef mat-header-cell natural-3em-column natural-align-center>Inscriptions</th>
+                        <td *matCellDef="let element" mat-cell natural-align-center>
                             <app-flag [status]="usageStatus(element.bookable)">{{
                                 usageText(element.bookable)
                             }}</app-flag>
                         </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
                 </table>
             </div>
@@ -238,5 +238,5 @@
 }
 
 @if (permissionsService.crud?.booking.create && !!showFabButton) {
-    <natural-fixed-button [routerLink]="['/admin/booking/new']" icon="add" />
+    <natural-fixed-button icon="add" [routerLink]="['/admin/booking/new']" />
 }

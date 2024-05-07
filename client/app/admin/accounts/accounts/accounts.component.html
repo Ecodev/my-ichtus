@@ -3,7 +3,7 @@
         <div class="nat-vertical">
             <div class="nat-horizontal">
                 <div class="nat-horizontal nat-wrap nat-expand nat-left nat-center">
-                    <div [routerLink]="getChildLink(null)" class="mat-headline-5 nat-no-margin-vertical margin-right">
+                    <div class="mat-headline-5 nat-no-margin-vertical margin-right" [routerLink]="getChildLink(null)">
                         {{ routeData?.seo.title }}
                     </div>
                     @for (element of breadcrumbs; track element) {
@@ -16,8 +16,8 @@
                 <natural-columns-picker
                     [availableColumns]="availableColumns"
                     [selections]="selectedColumns"
-                    (selectionChange)="selectColumns($event)"
                     [buttons]="buttons | async"
+                    (selectionChange)="selectColumns($event)"
                 />
             </div>
             <div class="nat-vertical">
@@ -26,60 +26,60 @@
                         class="nat-expand"
                         [facets]="naturalSearchFacets"
                         [selections]="naturalSearchSelections"
-                        (selectionChange)="search($event)"
                         [multipleGroups]="true"
+                        (selectionChange)="search($event)"
                     />
                 </div>
                 <div class="responsive-table">
-                    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting([$event])">
-                        <tr mat-header-row *matHeaderRowDef="columnsForTable"></tr>
-                        <tr mat-row *matRowDef="let row; columns: columnsForTable"></tr>
+                    <table mat-table matSort [dataSource]="dataSource" (matSortChange)="sorting([$event])">
+                        <tr *matHeaderRowDef="columnsForTable" mat-header-row></tr>
+                        <tr *matRowDef="let row; columns: columnsForTable" mat-row></tr>
 
                         <ng-container matColumnDef="navigation">
-                            <th mat-header-cell *matHeaderCellDef></th>
-                            <td mat-cell *matCellDef="let element" natural-2em-column>
+                            <th *matHeaderCellDef mat-header-cell></th>
+                            <td *matCellDef="let element" mat-cell natural-2em-column>
                                 @if (element.item.type === 'group') {
                                     <natural-table-button
                                         icon="chevron_right"
-                                        [navigate]="getChildLink(element.item)"
                                         matTooltip="Afficher les sous-comptes"
+                                        [navigate]="getChildLink(element.item)"
                                     />
                                 }
                             </td>
                         </ng-container>
 
                         <ng-container matColumnDef="code">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Code</th>
-                            <td mat-cell *matCellDef="let element">
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header>Code</th>
+                            <td *matCellDef="let element" mat-cell>
                                 <natural-table-button
+                                    matTooltip="Voir les écritures"
                                     [label]="element.item.code"
                                     [navigate]="transactionLineService.linkToTransactionLinesForAccount(element.item)"
-                                    matTooltip="Voir les écritures"
                                 />
                             </td>
                         </ng-container>
 
                         <ng-container matColumnDef="name">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
-                            <td mat-cell *matCellDef="let element">
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header>Nom</th>
+                            <td *matCellDef="let element" mat-cell>
                                 <natural-table-button
+                                    matTooltip="Éditer"
                                     [label]="formatName(element.item.name)"
                                     [navigate]="[element.item.id]"
-                                    matTooltip="Éditer"
                                 />
                             </td>
                         </ng-container>
 
                         <ng-container matColumnDef="type">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
-                            <td mat-cell *matCellDef="let element">
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header>Type</th>
+                            <td *matCellDef="let element" mat-cell>
                                 {{ element.item.type | enum: 'AccountType' | async | capitalize }}
                             </td>
                         </ng-container>
 
                         <ng-container matColumnDef="owner">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Membre</th>
-                            <td mat-cell *matCellDef="let element">
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header>Membre</th>
+                            <td *matCellDef="let element" mat-cell>
                                 @if (element.item.owner) {
                                     <div class="nat-horizontal nat-left nat-center">
                                         <natural-avatar
@@ -88,9 +88,9 @@
                                             [size]="36"
                                         />
                                         <natural-table-button
+                                            matTooltip="Éditer"
                                             [label]="element.item.owner?.name"
                                             [navigate]="['/admin/user/', element.item.owner?.id]"
-                                            matTooltip="Éditer"
                                         />
                                     </div>
                                 }
@@ -104,24 +104,24 @@
                         </ng-container>
 
                         <ng-container matColumnDef="totalBalance">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header natural-align-right>Solde</th>
-                            <td mat-cell *matCellDef="let element" natural-align-right>
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header natural-align-right>Solde</th>
+                            <td *matCellDef="let element" mat-cell natural-align-right>
                                 <app-money [amount]="element.item.totalBalance" [showCurrency]="false" />
                             </td>
                         </ng-container>
 
                         <ng-container matColumnDef="totalBalanceFormer">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header natural-align-right>
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header natural-align-right>
                                 Solde précédant
                             </th>
-                            <td mat-cell *matCellDef="let element" natural-align-right>
+                            <td *matCellDef="let element" mat-cell natural-align-right>
                                 <app-money [amount]="element.item.totalBalanceFormer" [showCurrency]="false" />
                             </td>
                         </ng-container>
 
                         <ng-container matColumnDef="budgetAllowed">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header natural-align-right>Budget prévu</th>
-                            <td mat-cell *matCellDef="let element" natural-align-right>
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header natural-align-right>Budget prévu</th>
+                            <td *matCellDef="let element" mat-cell natural-align-right>
                                 <app-money
                                     [amount]="element.item.budgetAllowed"
                                     [showCurrency]="false"
@@ -131,27 +131,27 @@
                         </ng-container>
 
                         <ng-container matColumnDef="budgetBalance">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header natural-align-right>
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header natural-align-right>
                                 Budget restant
                             </th>
-                            <td mat-cell *matCellDef="let element" natural-align-right>
+                            <td *matCellDef="let element" mat-cell natural-align-right>
                                 <app-money [amount]="element.item.budgetBalance" [showCurrency]="false" />
                             </td>
                         </ng-container>
 
                         <ng-container matColumnDef="iban">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>IBAN</th>
-                            <td mat-cell *matCellDef="let element">{{ element.item.iban | iban }}</td>
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header>IBAN</th>
+                            <td *matCellDef="let element" mat-cell>{{ element.item.iban | iban }}</td>
                         </ng-container>
 
                         <ng-container matColumnDef="creationDate">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Créé le</th>
-                            <td mat-cell *matCellDef="let element">{{ element.item.creationDate | swissDate }}</td>
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header>Créé le</th>
+                            <td *matCellDef="let element" mat-cell>{{ element.item.creationDate | swissDate }}</td>
                         </ng-container>
 
                         <ng-container matColumnDef="updateDate">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Modifié le</th>
-                            <td mat-cell *matCellDef="let element">{{ element.item.updateDate | swissDate }}</td>
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header>Modifié le</th>
+                            <td *matCellDef="let element" mat-cell>{{ element.item.updateDate | swissDate }}</td>
                         </ng-container>
                     </table>
                 </div>
@@ -177,7 +177,7 @@
             </div>
         </div>
         @if (permissionsService.crud?.account.create) {
-            <natural-fixed-button [routerLink]="addLink()" icon="add" />
+            <natural-fixed-button icon="add" [routerLink]="addLink()" />
         }
     </div>
 }

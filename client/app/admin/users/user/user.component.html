@@ -1,12 +1,12 @@
-<div [formGroup]="form" class="detail-body">
+<div class="detail-body" [formGroup]="form">
     <natural-detail-header
-        [newLabel]="data.seo.title"
         label="Utilisateur"
+        [newLabel]="data.seo.title"
         [model]="data.model"
         [listRoute]="['admin', 'user']"
     >
         @if (isUpdatePage() && data.model.account) {
-            <app-money [amount]="data.model.account.balance" sizeClass="mat-headline-4" />
+            <app-money sizeClass="mat-headline-4" [amount]="data.model.account.balance" />
         }
     </natural-detail-header>
 
@@ -48,8 +48,8 @@
                             <natural-select-enum
                                 enumName="Sex"
                                 formControlName="sex"
-                                (selectionChange)="update()"
                                 placeholder="Genre"
+                                (selectionChange)="update()"
                             />
                         </div>
 
@@ -112,23 +112,23 @@
                         <natural-select-enum
                             enumName="UserStatus"
                             formControlName="status"
-                            (selectionChange)="update()"
                             placeholder="Status"
+                            (selectionChange)="update()"
                         />
 
                         <natural-select-enum
                             enumName="UserRole"
                             formControlName="role"
-                            (selectionChange)="update()"
                             placeholder="Rôle"
                             [optionDisabled]="roleDisabled()"
+                            (selectionChange)="update()"
                         />
 
                         <natural-select-enum
                             enumName="Relationship"
                             formControlName="familyRelationship"
-                            (selectionChange)="update()"
                             placeholder="Rôle dans la famille"
+                            (selectionChange)="update()"
                         />
                     </div>
                 </div>
@@ -140,12 +140,12 @@
                         <h2 class="mat-headline-6">Autres</h2>
 
                         <natural-select
-                            [service]="service"
                             formControlName="owner"
                             placeholder="Chef de famille"
-                            (selectionChange)="update()"
+                            [service]="service"
                             [showIcon]="false"
                             [filter]="ownerFilter"
+                            (selectionChange)="update()"
                         />
 
                         <mat-form-field>
@@ -156,17 +156,17 @@
                         <natural-select-enum
                             enumName="SwissSailingType"
                             formControlName="swissSailingType"
-                            (selectionChange)="update()"
                             nullLabel=" "
                             placeholder="Licence swiss sailing"
+                            (selectionChange)="update()"
                         />
 
                         <natural-select-enum
                             enumName="SwissWindsurfType"
                             formControlName="swissWindsurfType"
-                            (selectionChange)="update()"
                             nullLabel=" "
                             placeholder="License swiss windsurfing"
+                            (selectionChange)="update()"
                         />
 
                         <div class="nat-vertical nat-gap nat-sm-horizontal">
@@ -174,8 +174,8 @@
                                 class="nat-expand"
                                 enumName="BillingType"
                                 formControlName="billingType"
-                                (selectionChange)="update()"
                                 placeholder="Méthode de paiement"
+                                (selectionChange)="update()"
                             />
 
                             <mat-form-field class="nat-sm-expand">
@@ -215,9 +215,9 @@
                             <textarea
                                 matInput
                                 formControlName="remarks"
-                                (change)="update()"
                                 [cdkTextareaAutosize]="true"
                                 [cdkAutosizeMinRows]="3"
+                                (change)="update()"
                             ></textarea>
                         </mat-form-field>
 
@@ -226,9 +226,9 @@
                             <textarea
                                 matInput
                                 formControlName="internalRemarks"
-                                (change)="update()"
                                 [cdkTextareaAutosize]="true"
                                 [cdkAutosizeMinRows]="3"
+                                (change)="update()"
                             ></textarea>
                         </mat-form-field>
                     </div>
@@ -244,11 +244,11 @@
                         <div class="nat-vertical nat-expand">
                             <h2 class="mat-headline-6">Certifications</h2>
                             <natural-relations
+                                placeholder="Attribuer une certification"
                                 [main]="data.model"
                                 [service]="licenseService"
                                 [filter]="{groups: [{conditions: [{users: {have: {values: [data.model.id]}}}]}]}"
                                 [disabled]="!permissionsService.crud?.license.create"
-                                placeholder="Attribuer une certification"
                             >
                                 <ng-template let-item="item">
                                     <natural-table-button
@@ -261,11 +261,11 @@
                         <div class="nat-expand nat-vertical">
                             <h2 class="mat-headline-6">Tags</h2>
                             <natural-relations
+                                placeholder="Ajouter un tag"
                                 [main]="data.model"
                                 [service]="userTagService"
                                 [filter]="{groups: [{conditions: [{users: {have: {values: [data.model.id]}}}]}]}"
                                 [disabled]="!permissionsService.crud?.userTag.create"
-                                placeholder="Ajouter un tag"
                             >
                                 <ng-template let-item="item">
                                     <div class="nat-horizontal nat-left nat-center nat-gap-10">
@@ -371,18 +371,18 @@
 
         @if (isUpdatePage() && showFamilyTab) {
             <mat-tab id="family" label="Famille">
-                <app-users [forcedVariables]="familyVariables" [persistSearch]="false" class="nat-margin-top" />
+                <app-users class="nat-margin-top" [forcedVariables]="familyVariables" [persistSearch]="false" />
             </mat-tab>
         }
 
         @if (isUpdatePage() && data.model.account && permissionsService.gteResponsible(viewer)) {
             <mat-tab id="history" label="Historique">
                 <app-transaction-lines
+                    class="nat-margin-top"
                     [selectedColumns]="['name', 'bookable', 'transactionDate', 'remark', 'account']"
                     [forcedVariables]="transactionLinesVariables"
                     [relativeToAccount]="data.model.account"
                     [persistSearch]="false"
-                    class="nat-margin-top"
                 />
             </mat-tab>
         }
@@ -411,9 +411,9 @@
                                 <button
                                     mat-icon-button
                                     matIconSuffix
-                                    (click)="ibanCtrl.enable()"
-                                    [disabled]="ibanCtrl.enabled || updating"
                                     matTooltip="Déverouiller"
+                                    [disabled]="ibanCtrl.enabled || updating"
+                                    (click)="ibanCtrl.enable()"
                                 >
                                     <mat-icon naturalIcon="lock" />
                                 </button>

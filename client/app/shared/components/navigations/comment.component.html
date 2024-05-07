@@ -3,7 +3,7 @@
     <p class="mat-body">{{ data.message }}</p>
     <mat-form-field style="width: 100%">
         <mat-label>Commentaire</mat-label>
-        <textarea matInput [(ngModel)]="comment" [cdkTextareaAutosize]="true" [cdkAutosizeMinRows]="4"></textarea>
+        <textarea matInput [cdkTextareaAutosize]="true" [cdkAutosizeMinRows]="4" [(ngModel)]="comment"></textarea>
     </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

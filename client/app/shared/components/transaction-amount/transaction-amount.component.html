@@ -10,9 +10,9 @@
         }
         @if (displayMode === 'account') {
             <a
-                (click)="propagateAccount(relativeToAccount)"
-                [routerLink]="transactionLineService.linkToTransactionLinesForAccount(relativeToAccount)"
                 matTooltip="Voir les transactions"
+                [routerLink]="transactionLineService.linkToTransactionLinesForAccount(relativeToAccount)"
+                (click)="propagateAccount(relativeToAccount)"
                 >{{ isIncome ? '➚' : '➘︎' }}&nbsp;{{ relativeToAccount.name }}</a
             >
         }

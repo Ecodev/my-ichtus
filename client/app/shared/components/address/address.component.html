@@ -1,4 +1,4 @@
-<div [formGroup]="form" class="nat-vertical">
+<div class="nat-vertical" [formGroup]="form">
     <mat-form-field>
         <mat-label>Rue</mat-label>
         <input matInput formControlName="street" (change)="update()" />
@@ -27,11 +27,11 @@
         </div>
 
         <natural-select
-            [service]="countryService"
             formControlName="country"
-            [showIcon]="false"
             searchField="name"
             placeholder="Pays"
+            [service]="countryService"
+            [showIcon]="false"
             (selectionChange)="update()"
         />
     </div>

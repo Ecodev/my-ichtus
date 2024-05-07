@@ -9,9 +9,9 @@
                     <button
                         mat-icon-button
                         matIconSuffix
-                        (click)="ibanCtrl.enable()"
-                        [disabled]="ibanCtrl.enabled || updating"
                         matTooltip="Déverouiller"
+                        [disabled]="ibanCtrl.enabled || updating"
+                        (click)="ibanCtrl.enable()"
                     >
                         <mat-icon naturalIcon="lock" />
                     </button>
@@ -29,8 +29,8 @@
                     @if (!adminMode) {
                         <a
                             mat-stroked-button
-                            [routerLink]="['/profile/create-expense-claim']"
                             matTooltip="Pour les dépenses déjà payées par toi pour le club"
+                            [routerLink]="['/profile/create-expense-claim']"
                         >
                             Annoncer une dépense
                         </a>
@@ -44,8 +44,8 @@
                             <button
                                 mat-stroked-button
                                 matTooltip="Pour un transfert de ton solde de membre vers ton compte bancaire"
-                                (click)="createRefund()"
                                 [disabled]="!canCreateExpenseClaim"
+                                (click)="createRefund()"
                             >
                                 Demander un remboursement
                             </button>
@@ -54,8 +54,8 @@
                     @if (!adminMode) {
                         <a
                             mat-stroked-button
-                            [routerLink]="['/profile/create-invoice']"
                             matTooltip="Pour les factures à payer au prestataire par le club"
+                            [routerLink]="['/profile/create-invoice']"
                         >
                             Annoncer une facture
                         </a>
@@ -66,60 +66,60 @@
                 <div class="mat-body-2 nat-padding margin nat-vertical nat-center">Aucune annonce</div>
             }
             <div class="responsive-table" [class.nat-hide]="!dataSource.data?.length">
-                <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sorting([$event])">
-                    <tr mat-header-row *matHeaderRowDef="selectedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: selectedColumns"></tr>
+                <table mat-table matSort [dataSource]="dataSource" (matSortChange)="sorting([$event])">
+                    <tr *matHeaderRowDef="selectedColumns" mat-header-row></tr>
+                    <tr *matRowDef="let row; columns: selectedColumns" mat-row></tr>
 
                     <ng-container matColumnDef="name">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
-                        <td mat-cell *matCellDef="let expenseClaim">{{ expenseClaim.name }}</td>
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Nom</th>
+                        <td *matCellDef="let expenseClaim" mat-cell>{{ expenseClaim.name }}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="updateDate">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Dernière modification</th>
-                        <td mat-cell *matCellDef="let expenseClaim">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Dernière modification</th>
+                        <td *matCellDef="let expenseClaim" mat-cell>
                             {{ expenseClaim.updateDate | date: 'dd.MM.y' }}
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="amount">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header natural-align-right>Montant</th>
-                        <td mat-cell *matCellDef="let expenseClaim" natural-align-right>
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header natural-align-right>Montant</th>
+                        <td *matCellDef="let expenseClaim" mat-cell natural-align-right>
                             <app-money [amount]="expenseClaim.amount" [showSignal]="false" [showCurrency]="true" />
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="status">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-                        <td mat-cell *matCellDef="let expenseClaim">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Status</th>
+                        <td *matCellDef="let expenseClaim" mat-cell>
                             {{ expenseClaim.status | enum: 'ExpenseClaimStatus' | async | capitalize }}
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="type">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
-                        <td mat-cell *matCellDef="let expenseClaim">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Type</th>
+                        <td *matCellDef="let expenseClaim" mat-cell>
                             {{ expenseClaim.type | enum: 'ExpenseClaimType' | async | capitalize }}
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="remarks">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Remarques</th>
-                        <td mat-cell *matCellDef="let expenseClaim">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Remarques</th>
+                        <td *matCellDef="let expenseClaim" mat-cell>
                             <div class="line-break">{{ expenseClaim.remarks }}</div>
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="cancel">
-                        <th mat-header-cell *matHeaderCellDef natural-1em-column></th>
-                        <td mat-cell *matCellDef="let expenseClaim">
+                        <th *matHeaderCellDef mat-header-cell natural-1em-column></th>
+                        <td *matCellDef="let expenseClaim" mat-cell>
                             @if (expenseClaim.permissions.delete) {
                                 <button
                                     mat-icon-button
                                     color="warn"
-                                    (click)="cancelExpenseClaim(expenseClaim)"
-                                    [disabled]="deleting.has(expenseClaim.id)"
                                     matTooltip="Supprimer définitivement"
+                                    [disabled]="deleting.has(expenseClaim.id)"
+                                    (click)="cancelExpenseClaim(expenseClaim)"
                                 >
                                     <mat-icon naturalIcon="delete" />
                                 </button>
@@ -128,8 +128,8 @@
                     </ng-container>
 
                     <ng-container matColumnDef="admin">
-                        <th mat-header-cell *matHeaderCellDef natural-1em-column>Traiter</th>
-                        <td mat-cell *matCellDef="let item">
+                        <th *matHeaderCellDef mat-header-cell natural-1em-column>Traiter</th>
+                        <td *matCellDef="let item" mat-cell>
                             <a
                                 mat-icon-button
                                 class="icon-button-circle-accent"

@@ -5,8 +5,8 @@
                 <natural-select-enum
                     enumName="Relationship"
                     formControlName="familyRelationship"
-                    (selectionChange)="update()"
                     placeholder="Rôle dans la famille"
+                    (selectionChange)="update()"
                 />
                 <button
                     mat-stroked-button
@@ -75,8 +75,8 @@
             <natural-select-enum
                 enumName="Sex"
                 formControlName="sex"
-                (selectionChange)="update()"
                 placeholder="Genre"
+                (selectionChange)="update()"
             />
             <app-address [form]="form" [vertical]="true" (addressChange)="update()" />
             <mat-form-field>
@@ -106,7 +106,7 @@
             </div>
         }
         @if (!isUpdatePage()) {
-            <natural-fixed-button (click)="create(false)" icon="save" [color]="form.valid ? 'accent' : 'warn'" />
+            <natural-fixed-button icon="save" [color]="form.valid ? 'accent' : 'warn'" (click)="create(false)" />
         }
     </div>
 }

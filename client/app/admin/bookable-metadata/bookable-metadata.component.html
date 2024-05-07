@@ -1,10 +1,10 @@
 @if (dataSource && dataSource.data?.length) {
     <div class="responsive-table">
         <table mat-table [dataSource]="dataSource">
-            <tr mat-row *matRowDef="let row; columns: columns"></tr>
+            <tr *matRowDef="let row; columns: columns" mat-row></tr>
 
             <ng-container matColumnDef="name">
-                <td mat-cell *matCellDef="let element">
+                <td *matCellDef="let element" mat-cell>
                     @if (edit) {
                         <div class="nat-vertical">
                             <mat-form-field class="no-bottom-spacing">
@@ -20,7 +20,7 @@
             </ng-container>
 
             <ng-container matColumnDef="value">
-                <td mat-cell *matCellDef="let element">
+                <td *matCellDef="let element" mat-cell>
                     @if (edit) {
                         <div class="nat-vertical">
                             @if (edit) {
@@ -38,8 +38,8 @@
             </ng-container>
 
             <ng-container matColumnDef="delete">
-                <th mat-header-cell *matHeaderCellDef natural-1em-column></th>
-                <td mat-cell *matCellDef="let element">
+                <th *matHeaderCellDef mat-header-cell natural-1em-column></th>
+                <td *matCellDef="let element" mat-cell>
                     @if (element.id) {
                         <button
                             mat-icon-button

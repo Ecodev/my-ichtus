@@ -1,4 +1,4 @@
-<div [formGroup]="form" class="nat-padding nat-gap nat-vertical nat-expand">
+<div class="nat-padding nat-gap nat-vertical nat-expand" [formGroup]="form">
     <h1 class="mat-headline-4">{{ data.seo.title }}</h1>
 
     <div class="nat-vertical">
@@ -30,7 +30,7 @@
 
             <mat-form-field class="nat-expand-50" id="amount">
                 <mat-label>Montant</mat-label>
-                <input matInput type="number" step="0.01" [attr.min]="1" formControlName="amount" (change)="update()" />
+                <input matInput type="number" step="0.01" formControlName="amount" [attr.min]="1" (change)="update()" />
                 <div matTextSuffix>CHF</div>
                 @if (form.get('amount')?.hasError('required')) {
                     <mat-error>Requis</mat-error>

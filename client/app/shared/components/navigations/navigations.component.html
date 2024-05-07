@@ -21,10 +21,10 @@
                             <div class="nat-vertical nat-gap-10">
                                 <a
                                     mat-button
+                                    class="app-button-wrap"
                                     [routerLink]="
                                         item.booking.bookable ? ['/booking', item.booking.bookable.code] : null
                                     "
-                                    class="app-button-wrap"
                                 >
                                     {{ item.booking.bookable?.name || 'Matériel personnel' }}
                                 </a>
@@ -51,16 +51,16 @@
                                         <button
                                             mat-flat-button
                                             color="warn"
-                                            (click)="endBooking(item)"
-                                            [pHidden]="!!item.explode"
-                                            (pComplete)="item.terminated = true"
                                             appParticleEffect
+                                            pEasing="easeOutQuad"
+                                            pColor="#f44336"
+                                            [pHidden]="!!item.explode"
                                             [pParticlesAmountCoefficient]="2"
                                             [pOscillationCoefficient]="100"
                                             [pDuration]="350"
-                                            pEasing="easeOutQuad"
                                             [pSpeed]="0.1"
-                                            pColor="#f44336"
+                                            (click)="endBooking(item)"
+                                            (pComplete)="item.terminated = true"
                                         >
                                             Annoncer retour
                                         </button>
@@ -75,11 +75,11 @@
                                         <textarea
                                             matInput
                                             [ngModel]="item.booking.startComment"
+                                            [cdkTextareaAutosize]="true"
+                                            [cdkAutosizeMinRows]="3"
                                             (change)="
                                                 update({id: item.booking.id, startComment: $any($event.target).value})
                                             "
-                                            [cdkTextareaAutosize]="true"
-                                            [cdkAutosizeMinRows]="3"
                                         ></textarea>
                                     </mat-form-field>
                                     <mat-form-field>
@@ -87,11 +87,11 @@
                                         <textarea
                                             matInput
                                             [ngModel]="item.booking.endComment"
+                                            [cdkTextareaAutosize]="true"
+                                            [cdkAutosizeMinRows]="3"
                                             (change)="
                                                 update({id: item.booking.id, endComment: $any($event.target).value})
                                             "
-                                            [cdkTextareaAutosize]="true"
-                                            [cdkAutosizeMinRows]="3"
                                         ></textarea>
                                     </mat-form-field>
                                 </div>

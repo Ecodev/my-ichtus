@@ -1,4 +1,4 @@
-<div [formGroup]="form" class="detail-body">
+<div class="detail-body" [formGroup]="form">
     <natural-detail-header
         [newLabel]="data.seo.title"
         [label]="permissionsService.gteResponsible(viewer) ? 'Réservable' : 'Cours'"
@@ -28,13 +28,13 @@
                         <div class="nat-expand-66 nat-vertical">
                             <div class="nat-horizontal nat-margin-bottom nat-gap nat-left nat-top">
                                 <natural-file
+                                    class="nat-expand mat-elevation-z2"
+                                    action="upload"
                                     [model]="data.model.image"
                                     [formCtrl]="form.get('image')"
                                     [uploader]="createImageAndLink.bind(this)"
-                                    class="nat-expand mat-elevation-z2"
                                     [style.borderRadius.px]="4"
                                     [style.marginLeft.px]="2"
-                                    action="upload"
                                 />
                                 <div class="nat-vertical nat-expand">
                                     <mat-form-field>
@@ -69,8 +69,8 @@
                                     <natural-select-enum
                                         enumName="BookableState"
                                         formControlName="state"
-                                        (selectionChange)="update()"
                                         placeholder="État"
+                                        (selectionChange)="update()"
                                     />
                                     <mat-form-field>
                                         <mat-label>Prix d'achat</mat-label>
@@ -78,8 +78,8 @@
                                             matInput
                                             type="number"
                                             step="0.01"
-                                            [attr.min]="0"
                                             formControlName="purchasePrice"
+                                            [attr.min]="0"
                                             (change)="update()"
                                         />
                                         <div matTextSuffix>CHF</div>
@@ -99,9 +99,9 @@
                                 <textarea
                                     matInput
                                     formControlName="description"
-                                    (change)="update()"
                                     [cdkTextareaAutosize]="true"
                                     [cdkAutosizeMinRows]="1"
+                                    (change)="update()"
                                 ></textarea>
                             </mat-form-field>
                             <mat-form-field>
@@ -109,9 +109,9 @@
                                 <textarea
                                     matInput
                                     formControlName="remarks"
-                                    (change)="update()"
                                     [cdkTextareaAutosize]="true"
                                     [cdkAutosizeMinRows]="1"
+                                    (change)="update()"
                                 ></textarea>
                             </mat-form-field>
                         </div>
@@ -125,9 +125,9 @@
                             <natural-select-enum
                                 enumName="BookingType"
                                 formControlName="bookingType"
-                                (selectionChange)="update()"
                                 placeholder="Type de réservation"
                                 [optionDisabled]="bookingTypeDisabled()"
+                                (selectionChange)="update()"
                             />
                             @if (isBookingPriceApplicable()) {
                                 <mat-form-field>
@@ -177,8 +177,8 @@
                                     matInput
                                     type="number"
                                     step="1"
-                                    [attr.min]="-1"
                                     formControlName="simultaneousBookingMaximum"
+                                    [attr.min]="-1"
                                     (change)="update()"
                                 />
                                 @if (form.get('simultaneousBookingMaximum')?.hasError('required')) {
@@ -196,8 +196,8 @@
                                         matInput
                                         type="number"
                                         step="1"
-                                        [attr.min]="0"
                                         formControlName="waitingListLength"
+                                        [attr.min]="0"
                                         (change)="update()"
                                     />
                                     @if (form.get('waitingListLength')?.hasError('required')) {
@@ -218,9 +218,9 @@
                                     formControlName="creditAccount"
                                     placeholder="Compte à créditer lors de la réservation"
                                     [config]="accountHierarchicConfig"
-                                    (selectionChange)="update()"
                                     [showIcon]="false"
                                     [navigateTo]="['/admin/account', form.get('creditAccount')?.value?.id]"
+                                    (selectionChange)="update()"
                                 />
                             }
                             @if (form.hasError('creditAccountRequired')) {
@@ -235,12 +235,12 @@
                                 <div>
                                     <h2 class="mat-headline-6">Certifications</h2>
                                     <natural-relations
+                                        placeholder="Associer à une certification"
                                         [main]="data.model"
                                         [service]="licenseService"
                                         [filter]="{
                                             groups: [{conditions: [{bookables: {have: {values: [data.model.id]}}}]}]
                                         }"
-                                        placeholder="Associer à une certification"
                                     >
                                         <ng-template let-item="item">
                                             <div class="nat-horizontal nat-left nat-center nat-gap-10">
@@ -259,12 +259,12 @@
                                 <div>
                                     <h2 class="mat-headline-6">Tags</h2>
                                     <natural-relations
+                                        placeholder="Ajouter un tag"
                                         [main]="data.model"
                                         [service]="bookableTagService"
                                         [filter]="{
                                             groups: [{conditions: [{bookables: {have: {values: [data.model.id]}}}]}]
                                         }"
-                                        placeholder="Ajouter un tag"
                                     >
                                         <ng-template let-item="item">
                                             <div class="nat-horizontal nat-left nat-center nat-gap-10">
@@ -294,7 +294,7 @@
 
         @if (isUpdatePage() && permissionsService.gteResponsible(viewer)) {
             <mat-tab id="metadata" label="Attributs">
-                <app-bookable-metadata [bookable]="data.model" [edit]="true" class="nat-margin" />
+                <app-bookable-metadata class="nat-margin" [bookable]="data.model" [edit]="true" />
             </mat-tab>
         }
 
@@ -318,9 +318,9 @@
                             <textarea
                                 matInput
                                 formControlName="remarks"
-                                (change)="update()"
                                 [cdkTextareaAutosize]="true"
                                 [cdkAutosizeMinRows]="1"
+                                (change)="update()"
                             ></textarea>
                         </mat-form-field>
                     }

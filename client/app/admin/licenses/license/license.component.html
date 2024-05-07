@@ -1,4 +1,4 @@
-<div [formGroup]="form" class="detail-body">
+<div class="detail-body" [formGroup]="form">
     <div class="nat-vertical pageHeader">
         <div class="mat-headline-5 nat-no-margin nat-gap-5 nat-horizontal nat-left nat-center">
             <a mat-icon-button [routerLink]="['..']">
@@ -48,10 +48,10 @@
                         <div class="nat-expand-50 nat-vertical">
                             <h2 class="mat-headline-6">Utilisateurs certifiés</h2>
                             <natural-relations
+                                placeholder="Certifier un utilisateur"
                                 [main]="data.model"
                                 [service]="userService"
                                 [filter]="{groups: [{conditions: [{licenses: {have: {values: [data.model.id]}}}]}]}"
-                                placeholder="Certifier un utilisateur"
                             >
                                 <ng-template let-item="item">
                                     <div class="nat-horizontal nat-left nat-center nat-gap-10">
@@ -66,10 +66,10 @@
                         <div class="nat-expand-50 nat-vertical">
                             <h2 class="mat-headline-6">Réservables certifiés</h2>
                             <natural-relations
+                                placeholder="Associer à un réservable"
                                 [main]="data.model"
                                 [service]="bookableService"
                                 [filter]="{groups: [{conditions: [{licenses: {have: {values: [data.model.id]}}}]}]}"
-                                placeholder="Associer à un réservable"
                             >
                                 <ng-template let-item="item">
                                     <div class="nat-horizontal nat-left nat-center nat-gap-10">
