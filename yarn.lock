@@ -1574,10 +1574,10 @@
     prosemirror-view "^1.31.5"
     tslib "^2.5.3"
 
-"@ecodev/natural-layout@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural-layout/-/natural-layout-1.0.0.tgz#ed748c23f70a7a28fe773a2de419d8fca46f73d4"
-  integrity sha512-CHIge/QrEjAlRejss8Xn7q/k7lCDxhVRTTzgllPzXVfqWjx3P874YOCXYGhPAOukQJ1/6aUZAXVwW8PljatV4w==
+"@ecodev/natural-layout@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural-layout/-/natural-layout-2.0.0.tgz#08516a101e4e259e6a3d89d132c2e36934152c40"
+  integrity sha512-vz2yHUjckN2Em31kUY4AB9TBFOR/8SiEHrZla4qv63bbyzIIeE2OQrQRtoizxNBIVmBi2CiAaeyMV7PtUVLEIQ==
 
 "@ecodev/natural@^58.0.0":
   version "58.0.0"

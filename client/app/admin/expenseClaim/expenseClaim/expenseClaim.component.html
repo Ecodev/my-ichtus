@@ -5,7 +5,7 @@
         [model]="data.model"
         [listRoute]="['admin', 'expense-claim']"
     >
-        <div class="nat-horizontal nat-gap nat-left nat-center">
+        <div class="nat-horizontal nat-gap nat-align">
             @if (
                 isUpdatePage() &&
                 data.model.status === ExpenseClaimStatus.new &&
@@ -18,7 +18,7 @@
                 </a>
             }
             @if (isUpdatePage() && data.model.reviewer && !permissionsService.isAdministrator(viewer)) {
-                <div class="nat-horizontal nat-left nat-center">
+                <div class="nat-horizontal nat-align">
                     <mat-icon naturalIcon="verified" />
                     <span class="mat-body">Approuvé par {{ data.model.reviewer.name }}</span>
                 </div>
@@ -179,7 +179,7 @@
 
         <h2 class="mat-headline-6">Commentaires</h2>
 
-        <div class="nat-vertical nat-sm-horizontal nat-gap-0 nat-sm-gap-30">
+        <div class="nat-vertical nat-md-horizontal nat-gap-horizontal">
             <div class="nat-expand nat-vertical">
                 <mat-form-field>
                     <mat-label>Remarques</mat-label>

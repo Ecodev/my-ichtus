@@ -8,38 +8,37 @@
 
     <mat-tab-group naturalLinkableTab [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
         <mat-tab id="general" label="Général">
-            <div class="nat-vertical nat-padding-top nat-gap-30">
-                <div class="nat-vertical nat-sm-horizontal nat-gap-0 nat-sm-gap-30">
-                    <div class="nat-expand-66 nat-vertical">
-                        <mat-form-field>
-                            <input matInput formControlName="name" (change)="update()" />
-                            <mat-label>Nom</mat-label>
-                            @if (form.get('name')?.hasError('maxlength')) {
-                                <mat-error>
-                                    Maximum {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
-                                </mat-error>
-                            }
-                            @if (form.get('name')?.hasError('required')) {
-                                <mat-error>Requis</mat-error>
-                            }
-                        </mat-form-field>
-                    </div>
-
-                    <div class="nat-expand-33 nat-vertical">
-                        <input
-                            matInput
-                            type="color"
-                            formControlName="color"
-                            style="height: 50px; width: 50px"
-                            (change)="update()"
-                        />
-                    </div>
+            <div class="nat-vertical nat-padding-top nat-gap-horizontal nat-md-horizontal">
+                <div class="nat-vertical nat-md-expand-66">
+                    <mat-form-field>
+                        <input matInput formControlName="name" (change)="update()" />
+                        <mat-label>Nom</mat-label>
+                        @if (form.get('name')?.hasError('maxlength')) {
+                            <mat-error>
+                                Maximum {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
+                            </mat-error>
+                        }
+                        @if (form.get('name')?.hasError('required')) {
+                            <mat-error>Requis</mat-error>
+                        }
+                    </mat-form-field>
                 </div>
 
-                @if (isUpdatePage()) {
-                    <natural-stamp [item]="data.model" />
-                }
+                <div class="nat-md-expand-33 nat-vertical">
+                    <input
+                        matInput
+                        type="color"
+                        formControlName="color"
+                        style="height: 50px; width: 50px"
+                        (change)="update()"
+                    />
+                </div>
             </div>
+
+            @if (isUpdatePage()) {
+                <mat-divider class="nat-margin-vertical" />
+                <natural-stamp [item]="data.model" />
+            }
         </mat-tab>
     </mat-tab-group>
 

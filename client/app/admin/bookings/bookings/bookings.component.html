@@ -30,7 +30,7 @@
                     <ng-container matColumnDef="edit">
                         <th *matHeaderCellDef mat-header-cell></th>
                         <td *matCellDef="let element" mat-cell>
-                            <div class="nat-horizontal nat-left nat-center">
+                            <div class="nat-horizontal nat-align">
                                 <natural-table-button
                                     icon="edit"
                                     matTooltip="Éditer"
@@ -45,7 +45,7 @@
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>Utilisateur</th>
                         <td *matCellDef="let element" mat-cell>
                             @if (element.owner) {
-                                <div class="nat-horizontal nat-left nat-center">
+                                <div class="nat-horizontal nat-align">
                                     <natural-avatar
                                         [initials]="element.owner.name"
                                         [gravatar]="element.owner?.email"
@@ -66,7 +66,7 @@
                         <th *matHeaderCellDef mat-header-cell mat-sort-header="owner">Utilisateur</th>
                         <td *matCellDef="let element" mat-cell>
                             @if (element.owner) {
-                                <div class="nat-horizontal nat-left nat-center">
+                                <div class="nat-horizontal nat-align">
                                     <natural-avatar
                                         [initials]="element.owner.name"
                                         [gravatar]="element.owner?.email"

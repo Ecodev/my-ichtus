@@ -1,8 +1,6 @@
 <div class="nat-expand-no-collapse nat-vertical nat-padding" style="gap: 50px">
     @if (route.snapshot.data.viewer) {
-        <div class="nat-horizontal nat-center">
-            <app-navigations [user]="route.snapshot.data.viewer" />
-        </div>
+        <app-navigations [user]="route.snapshot.data.viewer" />
     }
 
     @if (permissionsService.crud?.booking?.create) {

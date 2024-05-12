@@ -1,22 +1,22 @@
 <div class="nat-vertical nat-expand">
-    <div class="nat-horizontal nat-left nat-center nat-gap">
-        <h1 class="mat-headline-4 nat-expand">Nouvelle sortie</h1>
-    </div>
+    <h1 class="mat-headline-4 text-center">Nouvelle sortie</h1>
     <div class="nat-vertical nat-gap nat-md-horizontal">
         <div class="nat-vertical nat-gap-30 nat-sm-horizontal nat-center">
             <app-card [file]="bookable?.image">
-                @if (!bookable?.image) {
-                    <div class="card-illustration nat-padding">
-                        <natural-avatar initials="?" [size]="160" />
-                    </div>
-                }
-                <h2 class="mat-headline-6">Matériel</h2>
-                <div class="nat-horizontal nat-center nat-gap-10">
-                    <div class="mat-subtitle-2 nat-expand">{{ bookable?.name || 'Mon propre matériel' }}</div>
-                    @if (bookable) {
-                        <mat-divider [vertical]="true" />
+                <div class="nat-vertical nat-gap-10 nat-center">
+                    @if (!bookable?.image) {
+                        <div class="card-illustration nat-padding">
+                            <natural-avatar initials="?" [size]="160" />
+                        </div>
                     }
-                    <div class="mat-subtitle-2">{{ bookable?.code }}</div>
+                    <h2 class="mat-headline-6">Matériel</h2>
+                    <div class="nat-horizontal nat-center nat-gap-10">
+                        <div class="mat-subtitle-2 nat-expand">{{ bookable?.name || 'Mon propre matériel' }}</div>
+                        @if (bookable) {
+                            <mat-divider [vertical]="true" />
+                        }
+                        <div class="mat-subtitle-2">{{ bookable?.code }}</div>
+                    </div>
                 </div>
             </app-card>
 
@@ -30,12 +30,10 @@
                     }
                 </div>
 
-                <div class="nat-vertical nat-gap-10">
-                    <div class="nat-vertical nat-gap-10 nat-center">
-                        <h2 class="mat-headline-6">Responsable</h2>
-                        <div>
-                            <span class="mat-subtitle-2 nat-no-margin">{{ booking.owner.name }}</span>
-                        </div>
+                <div class="nat-vertical nat-gap-10 nat-center">
+                    <h2 class="mat-headline-6">Responsable</h2>
+                    <div>
+                        <span class="mat-subtitle-2 nat-no-margin">{{ booking.owner.name }}</span>
                     </div>
                 </div>
             </app-card>

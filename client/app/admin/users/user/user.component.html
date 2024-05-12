@@ -12,360 +12,353 @@
 
     <mat-tab-group naturalLinkableTab [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
         <mat-tab id="general" label="Général">
-            <div class="nat-vertical nat-padding-top nat-gap-30">
-                <div class="nat-vertical nat-md-gap-30 nat-gap-0 nat-lg-horizontal">
-                    <div class="nat-expand-66 nat-vertical">
-                        <h2 class="mat-headline-6">Coordonnées</h2>
+            <div class="nat-vertical nat-padding-top nat-gap-horizontal nat-md-horizontal">
+                <div class="nat-vertical nat-md-expand-66">
+                    <h2 class="mat-headline-6">Coordonnées</h2>
 
-                        <div class="nat-vertical nat-gap-10 nat-sm-horizontal">
-                            <mat-form-field class="nat-sm-expand">
-                                <mat-label>Prénom</mat-label>
-                                <input matInput formControlName="firstName" (change)="update()" />
-                                @if (form.get('firstName')?.hasError('maxlength')) {
-                                    <mat-error>
-                                        Maximum
-                                        {{ form.get('firstName')?.errors?.maxlength?.requiredLength }} caractères
-                                    </mat-error>
-                                }
-                                @if (form.get('firstName')?.hasError('required')) {
-                                    <mat-error>Requis</mat-error>
-                                }
-                            </mat-form-field>
-
-                            <mat-form-field class="nat-sm-expand">
-                                <mat-label>Nom de famille</mat-label>
-                                <input matInput formControlName="lastName" (change)="update()" />
-                                @if (form.get('lastName')?.hasError('maxlength')) {
-                                    <mat-error>
-                                        Maximum {{ form.get('lastName')?.errors?.maxlength?.requiredLength }} caractères
-                                    </mat-error>
-                                }
-                                @if (form.get('lastName')?.hasError('required')) {
-                                    <mat-error>Requis</mat-error>
-                                }
-                            </mat-form-field>
-
-                            <natural-select-enum
-                                enumName="Sex"
-                                formControlName="sex"
-                                placeholder="Genre"
-                                (selectionChange)="update()"
-                            />
-                        </div>
-
-                        <app-address [form]="form" (addressChange)="update()" />
-
-                        <div class="nat-vertical nat-gap-10 nat-sm-horizontal">
-                            <mat-form-field class="nat-sm-expand">
-                                <mat-label>Téléphone fixe</mat-label>
-                                <mat-hint>032 xxx xx xx</mat-hint>
-                                <input matInput formControlName="phone" (change)="update()" />
-                            </mat-form-field>
-
-                            <mat-form-field class="nat-sm-expand">
-                                <mat-label>Téléphone mobile</mat-label>
-                                <mat-hint>07x xxx xx xx</mat-hint>
-                                <input matInput formControlName="mobilePhone" (change)="update()" />
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                    <div class="nat-expand-33 nat-vertical">
-                        <h2 class="mat-headline-6">Compte</h2>
-                        <mat-form-field>
-                            <mat-label>email</mat-label>
-                            <input matInput formControlName="email" (change)="update()" />
-                            @if (form.get('email')?.hasError('required')) {
-                                <mat-error>Requis</mat-error>
-                            }
-                            @if (form.get('email')?.hasError('email')) {
-                                <mat-error>Adresse email invalide</mat-error>
-                            }
-                            @if (form.get('email')?.hasError('duplicateValue')) {
-                                <mat-error> Cet email est déjà attribué et doit être unique </mat-error>
-                            }
-                        </mat-form-field>
-
-                        <mat-form-field>
-                            <mat-label>Nom d'utilisateur</mat-label>
-                            <input matInput formControlName="login" (change)="update()" />
-                            @if (form.get('login')?.hasError('maxlength')) {
+                    <div class="nat-vertical nat-gap-10 nat-sm-horizontal">
+                        <mat-form-field class="nat-sm-expand">
+                            <mat-label>Prénom</mat-label>
+                            <input matInput formControlName="firstName" (change)="update()" />
+                            @if (form.get('firstName')?.hasError('maxlength')) {
                                 <mat-error>
-                                    Maximum {{ form.get('login')?.errors?.maxlength?.requiredLength }} caractères
+                                    Maximum
+                                    {{ form.get('firstName')?.errors?.maxlength?.requiredLength }} caractères
                                 </mat-error>
                             }
-                            @if (form.get('login')?.hasError('required')) {
+                            @if (form.get('firstName')?.hasError('required')) {
                                 <mat-error>Requis</mat-error>
                             }
-                            @if (form.get('login')?.hasError('invalid')) {
-                                <mat-error>{{ form.get('login')?.getError('invalid') }}</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="nat-sm-expand">
+                            <mat-label>Nom de famille</mat-label>
+                            <input matInput formControlName="lastName" (change)="update()" />
+                            @if (form.get('lastName')?.hasError('maxlength')) {
+                                <mat-error>
+                                    Maximum {{ form.get('lastName')?.errors?.maxlength?.requiredLength }} caractères
+                                </mat-error>
                             }
-                            @if (form.get('login')?.hasError('duplicateValue')) {
-                                <mat-error> Ce nom est déjà attribué à un utilisateur </mat-error>
+                            @if (form.get('lastName')?.hasError('required')) {
+                                <mat-error>Requis</mat-error>
                             }
                         </mat-form-field>
 
-                        <mat-divider class="nat-margin-bottom" />
-
-                        <h2 class="mat-headline-6">État</h2>
-
                         <natural-select-enum
-                            enumName="UserStatus"
-                            formControlName="status"
-                            placeholder="Status"
-                            (selectionChange)="update()"
-                        />
-
-                        <natural-select-enum
-                            enumName="UserRole"
-                            formControlName="role"
-                            placeholder="Rôle"
-                            [optionDisabled]="roleDisabled()"
-                            (selectionChange)="update()"
-                        />
-
-                        <natural-select-enum
-                            enumName="Relationship"
-                            formControlName="familyRelationship"
-                            placeholder="Rôle dans la famille"
+                            enumName="Sex"
+                            formControlName="sex"
+                            placeholder="Genre"
                             (selectionChange)="update()"
                         />
                     </div>
-                </div>
 
-                <mat-divider />
+                    <app-address [form]="form" (addressChange)="update()" />
 
-                <div class="nat-vertical nat-md-horizontal nat-gap-0 nat-md-gap-30">
-                    <div class="nat-md-expand-66 nat-vertical">
-                        <h2 class="mat-headline-6">Autres</h2>
-
-                        <natural-select
-                            formControlName="owner"
-                            placeholder="Chef de famille"
-                            [service]="service"
-                            [showIcon]="false"
-                            [filter]="ownerFilter"
-                            (selectionChange)="update()"
-                        />
-
-                        <mat-form-field>
-                            <mat-label>Swiss sailling</mat-label>
-                            <input matInput formControlName="swissSailing" (change)="update()" />
+                    <div class="nat-vertical nat-gap-10 nat-sm-horizontal">
+                        <mat-form-field class="nat-sm-expand">
+                            <mat-label>Téléphone fixe</mat-label>
+                            <mat-hint>032 xxx xx xx</mat-hint>
+                            <input matInput formControlName="phone" (change)="update()" />
                         </mat-form-field>
 
-                        <natural-select-enum
-                            enumName="SwissSailingType"
-                            formControlName="swissSailingType"
-                            nullLabel=" "
-                            placeholder="Licence swiss sailing"
-                            (selectionChange)="update()"
-                        />
-
-                        <natural-select-enum
-                            enumName="SwissWindsurfType"
-                            formControlName="swissWindsurfType"
-                            nullLabel=" "
-                            placeholder="License swiss windsurfing"
-                            (selectionChange)="update()"
-                        />
-
-                        <div class="nat-vertical nat-gap nat-sm-horizontal">
-                            <natural-select-enum
-                                class="nat-expand"
-                                enumName="BillingType"
-                                formControlName="billingType"
-                                placeholder="Méthode de paiement"
-                                (selectionChange)="update()"
-                            />
-
-                            <mat-form-field class="nat-sm-expand">
-                                <mat-label>Date de naissance</mat-label>
-                                <input
-                                    matInput
-                                    formControlName="birthday"
-                                    [matDatepicker]="picker"
-                                    (dateChange)="update()"
-                                />
-                                <mat-datepicker-toggle matIconSuffix [for]="picker" />
-                                <mat-datepicker #picker />
-                                @if (isUpdatePage() && data.model.age) {
-                                    <mat-hint>Âge: {{ data.model.age }} ans</mat-hint>
-                                }
-                            </mat-form-field>
-                        </div>
-
-                        <div class="mat-body-2 nat-gap nat-vertical">
-                            <!-- Has Insurance -->
-                            <mat-checkbox formControlName="hasInsurance" (change)="update()">
-                                Assurance RC
-                            </mat-checkbox>
-
-                            <!-- Newsletter -->
-                            <mat-checkbox formControlName="receivesNewsletter" (change)="update()">
-                                Abonné à la newsletter
-                            </mat-checkbox>
-                        </div>
-                    </div>
-
-                    <div class="nat-md-expand-33 nat-vertical">
-                        <h2 class="mat-headline-6">Commentaires</h2>
-
-                        <mat-form-field>
-                            <mat-label>Remarques</mat-label>
-                            <textarea
-                                matInput
-                                formControlName="remarks"
-                                [cdkTextareaAutosize]="true"
-                                [cdkAutosizeMinRows]="3"
-                                (change)="update()"
-                            ></textarea>
-                        </mat-form-field>
-
-                        <mat-form-field>
-                            <mat-label>Remarques internes</mat-label>
-                            <textarea
-                                matInput
-                                formControlName="internalRemarks"
-                                [cdkTextareaAutosize]="true"
-                                [cdkAutosizeMinRows]="3"
-                                (change)="update()"
-                            ></textarea>
+                        <mat-form-field class="nat-sm-expand">
+                            <mat-label>Téléphone mobile</mat-label>
+                            <mat-hint>07x xxx xx xx</mat-hint>
+                            <input matInput formControlName="mobilePhone" (change)="update()" />
                         </mat-form-field>
                     </div>
                 </div>
 
-                <!-- Bookings -->
-                @if (isUpdatePage()) {
-                    <mat-divider />
-                }
+                <div class="nat-md-expand-33 nat-vertical">
+                    <h2 class="mat-headline-6">Compte</h2>
+                    <mat-form-field>
+                        <mat-label>email</mat-label>
+                        <input matInput formControlName="email" (change)="update()" />
+                        @if (form.get('email')?.hasError('required')) {
+                            <mat-error>Requis</mat-error>
+                        }
+                        @if (form.get('email')?.hasError('email')) {
+                            <mat-error>Adresse email invalide</mat-error>
+                        }
+                        @if (form.get('email')?.hasError('duplicateValue')) {
+                            <mat-error> Cet email est déjà attribué et doit être unique</mat-error>
+                        }
+                    </mat-form-field>
 
-                @if (isUpdatePage()) {
-                    <div class="nat-vertical nat-md-horizontal nat-gap-0 nat-md-gap-30">
-                        <div class="nat-vertical nat-expand">
-                            <h2 class="mat-headline-6">Certifications</h2>
-                            <natural-relations
-                                placeholder="Attribuer une certification"
-                                [main]="data.model"
-                                [service]="licenseService"
-                                [filter]="{groups: [{conditions: [{users: {have: {values: [data.model.id]}}}]}]}"
-                                [disabled]="!permissionsService.crud?.license.create"
-                            >
-                                <ng-template let-item="item">
-                                    <natural-table-button
-                                        [navigate]="['/admin/license/', item.id]"
-                                        [label]="item.name"
-                                    />
-                                </ng-template>
-                            </natural-relations>
-                        </div>
-                        <div class="nat-expand nat-vertical">
-                            <h2 class="mat-headline-6">Tags</h2>
-                            <natural-relations
-                                placeholder="Ajouter un tag"
-                                [main]="data.model"
-                                [service]="userTagService"
-                                [filter]="{groups: [{conditions: [{users: {have: {values: [data.model.id]}}}]}]}"
-                                [disabled]="!permissionsService.crud?.userTag.create"
-                            >
-                                <ng-template let-item="item">
-                                    <div class="nat-horizontal nat-left nat-center nat-gap-10">
-                                        <natural-avatar [bgColor]="item.color" [initials]="item.name" [size]="36" />
-                                        <natural-table-button
-                                            [navigate]="['/admin/user-tag', item.id]"
-                                            [label]="item.name"
-                                        />
-                                    </div>
-                                </ng-template>
-                            </natural-relations>
-                        </div>
-                        <div class="nat-vertical nat-expand-10">
-                            <mat-slide-toggle
-                                class="nat-expand nat-margin-bottom"
-                                formControlName="door1"
-                                (change)="update()"
-                            >
-                                Porte&nbsp;1
-                            </mat-slide-toggle>
-                            <mat-slide-toggle
-                                class="nat-expand nat-margin-bottom"
-                                formControlName="door2"
-                                (change)="update()"
-                            >
-                                Porte&nbsp;2
-                            </mat-slide-toggle>
-                            <mat-slide-toggle
-                                class="nat-expand nat-margin-bottom"
-                                formControlName="door3"
-                                (change)="update()"
-                            >
-                                Porte&nbsp;3
-                            </mat-slide-toggle>
-                            <mat-slide-toggle
-                                class="nat-expand nat-margin-bottom"
-                                formControlName="door4"
-                                (change)="update()"
-                            >
-                                Porte&nbsp;4
-                            </mat-slide-toggle>
-                        </div>
-                    </div>
-                }
+                    <mat-form-field>
+                        <mat-label>Nom d'utilisateur</mat-label>
+                        <input matInput formControlName="login" (change)="update()" />
+                        @if (form.get('login')?.hasError('maxlength')) {
+                            <mat-error>
+                                Maximum {{ form.get('login')?.errors?.maxlength?.requiredLength }} caractères
+                            </mat-error>
+                        }
+                        @if (form.get('login')?.hasError('required')) {
+                            <mat-error>Requis</mat-error>
+                        }
+                        @if (form.get('login')?.hasError('invalid')) {
+                            <mat-error>{{ form.get('login')?.getError('invalid') }}</mat-error>
+                        }
+                        @if (form.get('login')?.hasError('duplicateValue')) {
+                            <mat-error> Ce nom est déjà attribué à un utilisateur</mat-error>
+                        }
+                    </mat-form-field>
 
-                <mat-divider />
+                    <mat-divider class="nat-margin-bottom" />
 
-                <div class="nat-vertical nat-gap-15">
-                    @if (isUpdatePage()) {
-                        <natural-stamp [item]="data.model" />
-                    }
+                    <h2 class="mat-headline-6">État</h2>
 
-                    <!-- Welcome session date -->
-                    <div class="nat-horizontal nat-left nat-center nat-gap">
-                        <mat-form-field>
-                            <mat-label>Séance d'accueil</mat-label>
+                    <natural-select-enum
+                        enumName="UserStatus"
+                        formControlName="status"
+                        placeholder="Status"
+                        (selectionChange)="update()"
+                    />
+
+                    <natural-select-enum
+                        enumName="UserRole"
+                        formControlName="role"
+                        placeholder="Rôle"
+                        [optionDisabled]="roleDisabled()"
+                        (selectionChange)="update()"
+                    />
+
+                    <natural-select-enum
+                        enumName="Relationship"
+                        formControlName="familyRelationship"
+                        placeholder="Rôle dans la famille"
+                        (selectionChange)="update()"
+                    />
+                </div>
+            </div>
+
+            <mat-divider class="nat-margin-vertical" />
+
+            <div class="nat-vertical nat-md-horizontal nat-gap-0 nat-md-gap-30">
+                <div class="nat-md-expand-66 nat-vertical">
+                    <h2 class="mat-headline-6">Autres</h2>
+
+                    <natural-select
+                        formControlName="owner"
+                        placeholder="Chef de famille"
+                        [service]="service"
+                        [showIcon]="false"
+                        [filter]="ownerFilter"
+                        (selectionChange)="update()"
+                    />
+
+                    <mat-form-field>
+                        <mat-label>Swiss sailling</mat-label>
+                        <input matInput formControlName="swissSailing" (change)="update()" />
+                    </mat-form-field>
+
+                    <natural-select-enum
+                        enumName="SwissSailingType"
+                        formControlName="swissSailingType"
+                        nullLabel=" "
+                        placeholder="Licence swiss sailing"
+                        (selectionChange)="update()"
+                    />
+
+                    <natural-select-enum
+                        enumName="SwissWindsurfType"
+                        formControlName="swissWindsurfType"
+                        nullLabel=" "
+                        placeholder="License swiss windsurfing"
+                        (selectionChange)="update()"
+                    />
+
+                    <div class="nat-vertical nat-gap nat-sm-horizontal">
+                        <natural-select-enum
+                            class="nat-expand"
+                            enumName="BillingType"
+                            formControlName="billingType"
+                            placeholder="Méthode de paiement"
+                            (selectionChange)="update()"
+                        />
+
+                        <mat-form-field class="nat-sm-expand">
+                            <mat-label>Date de naissance</mat-label>
                             <input
                                 matInput
-                                formControlName="welcomeSessionDate"
-                                [matDatepicker]="picker2"
+                                formControlName="birthday"
+                                [matDatepicker]="picker"
                                 (dateChange)="update()"
                             />
-
-                            <div matIconSuffixclass="nat-horizontal nat-left nat-center">
-                                <mat-datepicker-toggle [for]="picker2" />
-                                <mat-datepicker #picker2 />
-
-                                @if (form.get('welcomeSessionDate')?.value) {
-                                    <button
-                                        mat-icon-button
-                                        (click)="form.get('welcomeSessionDate')?.setValue(null); update()"
-                                    >
-                                        <mat-icon naturalIcon="close" />
-                                    </button>
-                                }
-                            </div>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker" />
+                            <mat-datepicker #picker />
+                            @if (isUpdatePage() && data.model.age) {
+                                <mat-hint>Âge: {{ data.model.age }} ans</mat-hint>
+                            }
                         </mat-form-field>
                     </div>
 
-                    @if (isUpdatePage() && data.model.firstLogin) {
-                        <div>
-                            <span class="mat-subtitle-2">Première connexion :</span>
-                            {{ data.model.firstLogin | swissDate }} ({{ data.model.firstLogin | timeAgo }})
-                        </div>
-                    }
+                    <div class="mat-body-2 nat-gap nat-vertical">
+                        <!-- Has Insurance -->
+                        <mat-checkbox formControlName="hasInsurance" (change)="update()"> Assurance RC </mat-checkbox>
 
-                    @if (isUpdatePage() && data.model.lastLogin) {
-                        <div>
-                            <span class="mat-subtitle-2">Dernière connexion :</span>
-                            {{ data.model.lastLogin | swissDate }} ({{ data.model.lastLogin | timeAgo }})
-                        </div>
-                    }
-
-                    @if (isUpdatePage() && data.model.resignDate && data.model.status === 'archived') {
-                        <div>
-                            <span class="mat-subtitle-2">Démission le :</span>
-                            {{ data.model.resignDate | swissDate }} ({{ data.model.resignDate | timeAgo }})
-                        </div>
-                    }
+                        <!-- Newsletter -->
+                        <mat-checkbox formControlName="receivesNewsletter" (change)="update()">
+                            Abonné à la newsletter
+                        </mat-checkbox>
+                    </div>
                 </div>
+
+                <div class="nat-md-expand-33 nat-vertical">
+                    <h2 class="mat-headline-6">Commentaires</h2>
+
+                    <mat-form-field>
+                        <mat-label>Remarques</mat-label>
+                        <textarea
+                            matInput
+                            formControlName="remarks"
+                            [cdkTextareaAutosize]="true"
+                            [cdkAutosizeMinRows]="3"
+                            (change)="update()"
+                        ></textarea>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Remarques internes</mat-label>
+                        <textarea
+                            matInput
+                            formControlName="internalRemarks"
+                            [cdkTextareaAutosize]="true"
+                            [cdkAutosizeMinRows]="3"
+                            (change)="update()"
+                        ></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- Bookings -->
+            @if (isUpdatePage()) {
+                <mat-divider class="nat-margin-vertical" />
+            }
+
+            @if (isUpdatePage()) {
+                <div class="nat-vertical nat-md-horizontal nat-gap-0 nat-md-gap-30">
+                    <div class="nat-vertical nat-expand">
+                        <h2 class="mat-headline-6">Certifications</h2>
+                        <natural-relations
+                            placeholder="Attribuer une certification"
+                            [main]="data.model"
+                            [service]="licenseService"
+                            [filter]="{groups: [{conditions: [{users: {have: {values: [data.model.id]}}}]}]}"
+                            [disabled]="!permissionsService.crud?.license.create"
+                        >
+                            <ng-template let-item="item">
+                                <natural-table-button [navigate]="['/admin/license/', item.id]" [label]="item.name" />
+                            </ng-template>
+                        </natural-relations>
+                    </div>
+                    <div class="nat-expand nat-vertical">
+                        <h2 class="mat-headline-6">Tags</h2>
+                        <natural-relations
+                            placeholder="Ajouter un tag"
+                            [main]="data.model"
+                            [service]="userTagService"
+                            [filter]="{groups: [{conditions: [{users: {have: {values: [data.model.id]}}}]}]}"
+                            [disabled]="!permissionsService.crud?.userTag.create"
+                        >
+                            <ng-template let-item="item">
+                                <div class="nat-horizontal nat-align nat-gap-10">
+                                    <natural-avatar [bgColor]="item.color" [initials]="item.name" [size]="36" />
+                                    <natural-table-button
+                                        [navigate]="['/admin/user-tag', item.id]"
+                                        [label]="item.name"
+                                    />
+                                </div>
+                            </ng-template>
+                        </natural-relations>
+                    </div>
+                    <div class="nat-vertical nat-expand-10">
+                        <mat-slide-toggle
+                            class="nat-expand nat-margin-bottom"
+                            formControlName="door1"
+                            (change)="update()"
+                        >
+                            Porte&nbsp;1
+                        </mat-slide-toggle>
+                        <mat-slide-toggle
+                            class="nat-expand nat-margin-bottom"
+                            formControlName="door2"
+                            (change)="update()"
+                        >
+                            Porte&nbsp;2
+                        </mat-slide-toggle>
+                        <mat-slide-toggle
+                            class="nat-expand nat-margin-bottom"
+                            formControlName="door3"
+                            (change)="update()"
+                        >
+                            Porte&nbsp;3
+                        </mat-slide-toggle>
+                        <mat-slide-toggle
+                            class="nat-expand nat-margin-bottom"
+                            formControlName="door4"
+                            (change)="update()"
+                        >
+                            Porte&nbsp;4
+                        </mat-slide-toggle>
+                    </div>
+                </div>
+            }
+
+            <mat-divider class="nat-margin-vertical" />
+
+            <div class="nat-vertical nat-gap-15">
+                @if (isUpdatePage()) {
+                    <natural-stamp [item]="data.model" />
+                }
+
+                <!-- Welcome session date -->
+                <div class="nat-horizontal nat-align nat-gap">
+                    <mat-form-field>
+                        <mat-label>Séance d'accueil</mat-label>
+                        <input
+                            matInput
+                            formControlName="welcomeSessionDate"
+                            [matDatepicker]="picker2"
+                            (dateChange)="update()"
+                        />
+
+                        <div matIconSuffixclass="nat-horizontal nat-align">
+                            <mat-datepicker-toggle [for]="picker2" />
+                            <mat-datepicker #picker2 />
+
+                            @if (form.get('welcomeSessionDate')?.value) {
+                                <button
+                                    mat-icon-button
+                                    (click)="form.get('welcomeSessionDate')?.setValue(null); update()"
+                                >
+                                    <mat-icon naturalIcon="close" />
+                                </button>
+                            }
+                        </div>
+                    </mat-form-field>
+                </div>
+
+                @if (isUpdatePage() && data.model.firstLogin) {
+                    <div>
+                        <span class="mat-subtitle-2">Première connexion :</span>
+                        {{ data.model.firstLogin | swissDate }} ({{ data.model.firstLogin | timeAgo }})
+                    </div>
+                }
+
+                @if (isUpdatePage() && data.model.lastLogin) {
+                    <div>
+                        <span class="mat-subtitle-2">Dernière connexion :</span>
+                        {{ data.model.lastLogin | swissDate }} ({{ data.model.lastLogin | timeAgo }})
+                    </div>
+                }
+
+                @if (isUpdatePage() && data.model.resignDate && data.model.status === 'archived') {
+                    <div>
+                        <span class="mat-subtitle-2">Démission le :</span>
+                        {{ data.model.resignDate | swissDate }} ({{ data.model.resignDate | timeAgo }})
+                    </div>
+                }
             </div>
         </mat-tab>
 

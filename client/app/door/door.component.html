@@ -1,27 +1,25 @@
-<div class="overflow app-gap-50 nat-vertical nat-center">
-    <div class="nat-vertical nat-padding margin-top nat-top nat-center">
-        <h1 class="mat-headline-3 nat-margin-bottom text-center">Sélectionnez la porte du local à ouvrir</h1>
+<div class="nat-gap-30 nat-padding-top nat-vertical nat-center">
+    <h1 class="mat-headline-4 nat-margin-bottom">Sélectionnez la porte du local à ouvrir</h1>
 
-        <div class="nat-horizontal nat-wrap nat-center">
-            @for (door of doorService.doors; track door) {
-                @if (viewer[door.id]) {
-                    <app-card
-                        [illustrationUrl]="'assets/images/' + door.image"
-                        [style.min-width.px]="300"
-                        (click)="open(door)"
-                    >
-                        <div class="nat-vertical nat-gap-10">
-                            <div class="mat-subtitle-2">{{ door.name }}</div>
-                            <div>
-                                <button mat-raised-button [disabled]="door.opened">
-                                    <mat-icon [fontIcon]="door.opened ? 'lock_open' : 'lock'" />
-                                    Ouvrir
-                                </button>
-                            </div>
+    <div class="nat-horizontal nat-wrap nat-center nat-gap">
+        @for (door of doorService.doors; track door) {
+            @if (viewer[door.id]) {
+                <app-card
+                    [illustrationUrl]="'assets/images/' + door.image"
+                    [style.min-width.px]="300"
+                    (click)="open(door)"
+                >
+                    <div class="nat-vertical nat-gap-10">
+                        <div class="mat-subtitle-2">{{ door.name }}</div>
+                        <div>
+                            <button mat-raised-button [disabled]="door.opened">
+                                <mat-icon [fontIcon]="door.opened ? 'lock_open' : 'lock'" />
+                                Ouvrir
+                            </button>
                         </div>
-                    </app-card>
-                }
+                    </div>
+                </app-card>
             }
-        </div>
+        }
     </div>
 </div>

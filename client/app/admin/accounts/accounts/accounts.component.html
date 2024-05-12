@@ -2,7 +2,7 @@
     <div class="nat-vertical">
         <div class="nat-vertical">
             <div class="nat-horizontal">
-                <div class="nat-horizontal nat-wrap nat-expand nat-left nat-center">
+                <div class="nat-horizontal nat-wrap nat-expand nat-align">
                     <div class="mat-headline-5 nat-no-margin-vertical margin-right" [routerLink]="getChildLink(null)">
                         {{ routeData?.seo.title }}
                     </div>
@@ -81,7 +81,7 @@
                             <th *matHeaderCellDef mat-header-cell mat-sort-header>Membre</th>
                             <td *matCellDef="let element" mat-cell>
                                 @if (element.item.owner) {
-                                    <div class="nat-horizontal nat-left nat-center">
+                                    <div class="nat-horizontal nat-align">
                                         <natural-avatar
                                             [initials]="element.item.owner?.name"
                                             [gravatar]="element.item.owner?.email"
@@ -95,7 +95,7 @@
                                     </div>
                                 }
                                 @if (!element.item.owner) {
-                                    <div class="nat-horizontal nat-left nat-center">
+                                    <div class="nat-horizontal nat-align">
                                         <natural-avatar initials="ichtus" [size]="36" />
                                         <button mat-button>Ichtus</button>
                                     </div>

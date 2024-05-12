@@ -31,204 +31,196 @@
 
     <mat-tab-group naturalLinkableTab [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
         <mat-tab id="general" label="Général">
-            <div class="nat-vertical nat-padding-top nat-gap-30">
-                <div class="nat-vertical nat-sm-horizontal nat-gap-0 nat-sm-gap-30">
-                    <div class="nat-expand-50 nat-vertical">
-                        <div class="nat-horizontal nat-gap-10">
-                            <natural-select
-                                class="nat-expand"
-                                formControlName="owner"
-                                placeholder="Responsable"
-                                [service]="userService"
-                                [showIcon]="false"
-                                [navigateTo]="
-                                    form.get('owner')?.value?.id ? ['/admin/user', form.get('owner')?.value.id] : null
-                                "
-                                (selectionChange)="update()"
-                            />
-                        </div>
+            <div class="nat-vertical nat-padding-top nat-gap-horizontal nat-md-horizontal">
+                <div class="nat-vertical nat-md-expand-66">
+                    <natural-select
+                        formControlName="owner"
+                        placeholder="Responsable"
+                        [service]="userService"
+                        [showIcon]="false"
+                        [navigateTo]="
+                            form.get('owner')?.value?.id ? ['/admin/user', form.get('owner')?.value.id] : null
+                        "
+                        (selectionChange)="update()"
+                    />
 
-                        @if (!isUpdatePage()) {
-                            <mat-chip-listbox
-                                aria-label="Type de réservable"
-                                class="nat-margin-bottom"
-                                [selectable]="true"
-                                [multiple]="true"
+                    @if (!isUpdatePage()) {
+                        <mat-chip-listbox
+                            aria-label="Type de réservable"
+                            class="nat-margin-bottom"
+                            [selectable]="true"
+                            [multiple]="true"
+                        >
+                            @for (category of bookableFilterChips; track category) {
+                                <mat-chip-option
+                                    [selected]="category.selected"
+                                    [selectable]="true"
+                                    (click)="filterBookables(category.value)"
+                                    >{{ category.name }}
+                                </mat-chip-option>
+                            }
+                        </mat-chip-listbox>
+                    }
+                    <natural-select
+                        formControlName="bookable"
+                        placeholder="Réservable"
+                        [service]="bookableService"
+                        [filter]="bookableSelectFilter"
+                        [showIcon]="false"
+                        [navigateTo]="
+                            form.get('bookable')?.value?.id ? ['/admin/bookable', form.get('bookable')?.value.id] : null
+                        "
+                        (selectionChange)="update()"
+                    />
+
+                    @if (newBooking) {
+                        <div>
+                            <mat-divider class="nat-margin-bottom" />
+                            <p class="mat-body-2">
+                                La prestation / espace de stockage
+                                <span class="mat-subtitle-2">{{ newBooking.bookable?.name }}</span>
+                                a été attribué(e).
+                            </p>
+                            <a
+                                mat-stroked-button
+                                [routerLink]="['/admin/booking', newBooking.id]"
+                                (click)="newBooking = null"
                             >
-                                @for (category of bookableFilterChips; track category) {
-                                    <mat-chip-option
-                                        [selected]="category.selected"
-                                        [selectable]="true"
-                                        (click)="filterBookables(category.value)"
-                                        >{{ category.name }}</mat-chip-option
-                                    >
-                                }
-                            </mat-chip-listbox>
-                        }
-                        <natural-select
-                            formControlName="bookable"
-                            placeholder="Réservable"
-                            [service]="bookableService"
-                            [filter]="bookableSelectFilter"
-                            [showIcon]="false"
-                            [navigateTo]="
-                                form.get('bookable')?.value?.id
-                                    ? ['/admin/bookable', form.get('bookable')?.value.id]
-                                    : null
-                            "
+                                Voir la réservation
+                            </a>
+                        </div>
+                    }
+                </div>
+                <div class="nat-md-expand-33 nat-vertical">
+                    <div class="nat-horizontal nat-gap-10 nat-align">
+                        <natural-select-enum
+                            enumName="BookingStatus"
+                            formControlName="status"
+                            placeholder="Status"
+                            [disabled]="isUpdatePage() && isPendingApplication(BookingType.admin_approved)"
                             (selectionChange)="update()"
                         />
-
-                        @if (newBooking) {
-                            <div>
-                                <mat-divider class="nat-margin-bottom" />
-                                <p class="mat-body-2">
-                                    La prestation / espace de stockage
-                                    <span class="mat-subtitle-2">{{ newBooking.bookable?.name }}</span>
-                                    a été attribué(e).
-                                </p>
-                                <a
-                                    mat-stroked-button
-                                    [routerLink]="['/admin/booking', newBooking.id]"
-                                    (click)="newBooking = null"
-                                >
-                                    Voir la réservation
-                                </a>
-                            </div>
+                        @if (isUpdatePage() && isPendingApplication(BookingType.admin_approved)) {
+                            <button
+                                mat-flat-button
+                                color="primary"
+                                [disabled]="!data.model.permissions.update"
+                                (click)="approveBooking()"
+                            >
+                                Valider l'inscription
+                            </button>
                         }
                     </div>
-                    <div class="nat-expand-50 nat-vertical">
-                        <div class="nat-horizontal nat-gap-10 nat-left nat-center">
-                            <natural-select-enum
-                                enumName="BookingStatus"
-                                formControlName="status"
-                                placeholder="Status"
-                                [disabled]="isUpdatePage() && isPendingApplication(BookingType.admin_approved)"
-                                (selectionChange)="update()"
-                            />
-                            @if (isUpdatePage() && isPendingApplication(BookingType.admin_approved)) {
-                                <button
-                                    mat-flat-button
-                                    color="primary"
-                                    [disabled]="!data.model.permissions.update"
-                                    (click)="approveBooking()"
-                                >
-                                    Valider l'inscription
-                                </button>
-                            }
+
+                    <h2 class="mat-headline-6">Commentaires</h2>
+                    <mat-form-field>
+                        <mat-label>Remarques</mat-label>
+                        <textarea
+                            matInput
+                            formControlName="remarks"
+                            [cdkTextareaAutosize]="true"
+                            [cdkAutosizeMinRows]="3"
+                            (change)="update()"
+                        ></textarea>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Remarques internes</mat-label>
+                        <textarea
+                            matInput
+                            formControlName="internalRemarks"
+                            [cdkTextareaAutosize]="true"
+                            [cdkAutosizeMinRows]="3"
+                            (change)="update()"
+                        ></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            @if (
+                isPendingApplication(BookingType.application) &&
+                suggestionVariables &&
+                data.model.status === BookingStatus.application
+            ) {
+                <div>
+                    <mat-divider class="nat-margin-bottom" />
+                    <div class="mat-headline-6">Attribuer un stockage / service</div>
+                    <app-usage-bookables
+                        [availableColumns]="availableColumns"
+                        [persistSearch]="false"
+                        [forcedVariables]="suggestionVariables"
+                        [selections]="suggestionSelection"
+                        (bookableClick)="assignBookable($event)"
+                    />
+                </div>
+            }
+
+            @if (isSelfApproved()) {
+                <div>
+                    <mat-divider class="nat-margin-vertical" />
+                    <h1 class="mat-headline-6">Sorties</h1>
+                    <mat-form-field style="width: 100px">
+                        <mat-label>Nb participants</mat-label>
+                        <input
+                            matInput
+                            type="number"
+                            step="1"
+                            formControlName="participantCount"
+                            [attr.min]="1"
+                            (change)="update()"
+                        />
+                    </mat-form-field>
+                    <div class="nat-vertical nat-md-horizontal nat-gap-horizontal">
+                        <div class="nat-expand nat-vertical">
+                            <div class="nat-horizontal nat-margin-bottom nat-gap-10 nat-align">
+                                <h2 class="mat-headline-6 nat-no-margin-bottom">Début</h2>
+                                <div>{{ data.model.startDate | swissDate }}</div>
+                            </div>
+                            <mat-form-field>
+                                <mat-label>Destination</mat-label>
+                                <input matInput formControlName="destination" (change)="update()" />
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Commentaire de début</mat-label>
+                                <textarea
+                                    matInput
+                                    formControlName="startComment"
+                                    [cdkTextareaAutosize]="true"
+                                    [cdkAutosizeMinRows]="5"
+                                    [cdkAutosizeMaxRows]="5"
+                                    (change)="update()"
+                                ></textarea>
+                            </mat-form-field>
                         </div>
-
-                        <h2 class="mat-headline-6">Commentaires</h2>
-                        <mat-form-field>
-                            <mat-label>Remarques</mat-label>
-                            <textarea
-                                matInput
-                                formControlName="remarks"
-                                [cdkTextareaAutosize]="true"
-                                [cdkAutosizeMinRows]="3"
-                                (change)="update()"
-                            ></textarea>
-                        </mat-form-field>
-
-                        <mat-form-field>
-                            <mat-label>Remarques internes</mat-label>
-                            <textarea
-                                matInput
-                                formControlName="internalRemarks"
-                                [cdkTextareaAutosize]="true"
-                                [cdkAutosizeMinRows]="3"
-                                (change)="update()"
-                            ></textarea>
-                        </mat-form-field>
+                        <div class="nat-expand nat-vertical">
+                            <div class="nat-horizontal nat-margin-bottom nat-gap-10 nat-align">
+                                <h2 class="mat-headline-6 nat-no-margin-bottom">Fin</h2>
+                                <div class="nat-expand">{{ data.model.endDate | swissDate }}</div>
+                            </div>
+                            <mat-form-field>
+                                <mat-label>Heure estimée de retour</mat-label>
+                                <input matInput formControlName="estimatedEndDate" (change)="update()" />
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Commentaire de fin</mat-label>
+                                <textarea
+                                    matInput
+                                    formControlName="endComment"
+                                    [cdkTextareaAutosize]="true"
+                                    [cdkAutosizeMinRows]="5"
+                                    [cdkAutosizeMaxRows]="5"
+                                    (change)="update()"
+                                ></textarea>
+                            </mat-form-field>
+                        </div>
                     </div>
                 </div>
+            }
 
-                @if (
-                    isPendingApplication(BookingType.application) &&
-                    suggestionVariables &&
-                    data.model.status === BookingStatus.application
-                ) {
-                    <div>
-                        <mat-divider class="nat-margin-bottom" />
-                        <div class="mat-headline-6">Attribuer un stockage / service</div>
-                        <app-usage-bookables
-                            [availableColumns]="availableColumns"
-                            [persistSearch]="false"
-                            [forcedVariables]="suggestionVariables"
-                            [selections]="suggestionSelection"
-                            (bookableClick)="assignBookable($event)"
-                        />
-                    </div>
-                }
-
-                @if (isSelfApproved()) {
-                    <div>
-                        <mat-divider />
-                        <h1 class="mat-headline-6">Sorties</h1>
-                        <mat-form-field style="width: 100px">
-                            <mat-label>Nb participants</mat-label>
-                            <input
-                                matInput
-                                type="number"
-                                step="1"
-                                formControlName="participantCount"
-                                [attr.min]="1"
-                                (change)="update()"
-                            />
-                        </mat-form-field>
-                        <div class="nat-vertical nat-sm-horizontal nat-gap-0 nat-sm-gap-30">
-                            <div class="nat-expand-50 nat-vertical">
-                                <div class="nat-horizontal nat-margin-bottom nat-gap-10 nat-left nat-center">
-                                    <h2 class="mat-headline-6 nat-no-margin-bottom">Début</h2>
-                                    <div>{{ data.model.startDate | swissDate }}</div>
-                                </div>
-                                <mat-form-field>
-                                    <mat-label>Destination</mat-label>
-                                    <input matInput formControlName="destination" (change)="update()" />
-                                </mat-form-field>
-                                <mat-form-field>
-                                    <mat-label>Commentaire de début</mat-label>
-                                    <textarea
-                                        matInput
-                                        formControlName="startComment"
-                                        [cdkTextareaAutosize]="true"
-                                        [cdkAutosizeMinRows]="5"
-                                        [cdkAutosizeMaxRows]="5"
-                                        (change)="update()"
-                                    ></textarea>
-                                </mat-form-field>
-                            </div>
-                            <div class="nat-expand-50 nat-vertical">
-                                <div class="nat-horizontal nat-margin-bottom nat-gap-10 nat-left nat-center">
-                                    <h2 class="mat-headline-6 nat-no-margin-bottom">Fin</h2>
-                                    <div class="nat-expand">{{ data.model.endDate | swissDate }}</div>
-                                </div>
-                                <mat-form-field>
-                                    <mat-label>Heure estimée de retour</mat-label>
-                                    <input matInput formControlName="estimatedEndDate" (change)="update()" />
-                                </mat-form-field>
-                                <mat-form-field>
-                                    <mat-label>Commentaire de fin</mat-label>
-                                    <textarea
-                                        matInput
-                                        formControlName="endComment"
-                                        [cdkTextareaAutosize]="true"
-                                        [cdkAutosizeMinRows]="5"
-                                        [cdkAutosizeMaxRows]="5"
-                                        (change)="update()"
-                                    ></textarea>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </div>
-                }
-
-                <mat-divider />
-
-                @if (isUpdatePage()) {
-                    <natural-stamp [item]="data.model" />
-                }
-            </div>
+            @if (isUpdatePage()) {
+                <mat-divider class="nat-margin-vertical" />
+                <natural-stamp [item]="data.model" />
+            }
         </mat-tab>
     </mat-tab-group>
 

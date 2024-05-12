@@ -2,11 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {
     AvailableColumn,
     NaturalAbstractList,
-    NaturalColumnsPickerComponent,
-    NaturalSearchComponent,
     NaturalAvatarComponent,
-    NaturalTableButtonComponent,
+    NaturalColumnsPickerComponent,
     NaturalFixedButtonComponent,
+    NaturalSearchComponent,
+    NaturalTableButtonComponent,
 } from '@ecodev/natural';
 import {UserTagService} from '../services/userTag.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -16,6 +16,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
+import {MatDividerModule} from '@angular/material/divider';
 
 @Component({
     selector: 'app-user-tags',
@@ -34,6 +35,7 @@ import {MatTableModule} from '@angular/material/table';
         MatPaginatorModule,
         NaturalFixedButtonComponent,
         RouterLink,
+        MatDividerModule,
     ],
 })
 export class UserTagsComponent extends NaturalAbstractList<UserTagService> implements OnInit {
@@ -41,6 +43,7 @@ export class UserTagsComponent extends NaturalAbstractList<UserTagService> imple
         {id: 'color', label: 'Couleur'},
         {id: 'name', label: 'Nom'},
     ];
+
     public constructor(
         userTagService: UserTagService,
         public readonly permissionsService: PermissionsService,

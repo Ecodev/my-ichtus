@@ -17,6 +17,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
+import {MatDividerModule} from '@angular/material/divider';
 
 @Component({
     selector: 'app-transaction-tags',
@@ -35,6 +36,7 @@ import {MatTableModule} from '@angular/material/table';
         MatPaginatorModule,
         NaturalFixedButtonComponent,
         RouterLink,
+        MatDividerModule,
     ],
 })
 export class TransactionTagsComponent extends NaturalAbstractList<TransactionTagService> implements OnInit {

@@ -40,7 +40,7 @@
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>Membre</th>
                         <td *matCellDef="let element" mat-cell>
                             @if (element.owner) {
-                                <div class="nat-horizontal nat-left nat-center">
+                                <div class="nat-horizontal nat-align">
                                     <natural-avatar
                                         [initials]="element.owner?.name"
                                         [gravatar]="element.owner?.email"
@@ -54,7 +54,7 @@
                                 </div>
                             }
                             @if (!element.owner) {
-                                <div class="nat-horizontal nat-left nat-center">
+                                <div class="nat-horizontal nat-align">
                                     <natural-avatar initials="ichtus" [size]="36" />
                                     <button mat-button>Ichtus</button>
                                 </div>
@@ -110,7 +110,7 @@
                         <th *matHeaderCellDef mat-header-cell>Approbateur</th>
                         <td *matCellDef="let element" mat-cell>
                             @if (element.reviewer) {
-                                <div class="nat-horizontal nat-left nat-center">
+                                <div class="nat-horizontal nat-align">
                                     <mat-icon naturalIcon="verified" />
                                     <span>{{ element.reviewer?.name }}</span>
                                 </div>

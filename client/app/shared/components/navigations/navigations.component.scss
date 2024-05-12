@@ -1,3 +1,12 @@
+.list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 300px);
+    grid-auto-columns: 300px;
+    grid-auto-flow: row;
+    justify-content: center;
+    gap: 30px;
+}
+
 app-card {
     position: relative;
 
@@ -22,5 +31,9 @@ app-card {
             opacity: 1;
             pointer-events: auto;
         }
+    }
+
+    *:has(+ .bottom-buttons) {
+        flex: 1;
     }
 }

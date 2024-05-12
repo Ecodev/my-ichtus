@@ -120,6 +120,7 @@ mat-form-field.no-bottom-spacing {
     height: auto !important; // allow button grow in height
     line-height: 24px !important;
     white-space: normal;
+
     .mdc-button__label {
         display: flex;
         flex-direction: column;
@@ -157,10 +158,4 @@ mat-form-field.no-bottom-spacing {
 // so we try to preserve that formatting, while still wrapping if necessary
 .mat-mdc-snack-bar-label {
     white-space: pre-wrap;
-}
-
-@include nat.media(null, sm) {
-    .app-hide-xs {
-        display: none !important;
-    }
 }

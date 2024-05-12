@@ -7,7 +7,7 @@
             permissionsService.gteResponsible(viewer) ? ['admin', 'bookable'] : ['admin', 'bookable', 'formation']
         "
     >
-        <div class="nat-horizontal nat-gap-10 nat-left nat-center">
+        <div class="nat-horizontal nat-gap-10 nat-align">
             @if (form.get('verificationDate')?.value) {
                 <div class="nat-vertical" style="text-align: right">
                     <div class="mat-subtitle-2">Dernière vérification</div>
@@ -23,272 +23,267 @@
     <mat-tab-group naturalLinkableTab [dynamicHeight]="true" (selectedIndexChange)="changeTab($event)">
         @if (permissionsService.canAccessFormationApplication(viewer)) {
             <mat-tab id="general" label="Général">
-                <div class="nat-vertical nat-padding-top nat-gap-30">
-                    <div class="nat-vertical nat-sm-horizontal nat-gap-0 nat-sm-gap-30">
-                        <div class="nat-expand-66 nat-vertical">
-                            <div class="nat-horizontal nat-margin-bottom nat-gap nat-left nat-top">
-                                <natural-file
-                                    class="nat-expand mat-elevation-z2"
-                                    action="upload"
-                                    [model]="data.model.image"
-                                    [formCtrl]="form.get('image')"
-                                    [uploader]="createImageAndLink.bind(this)"
-                                    [style.borderRadius.px]="4"
-                                    [style.marginLeft.px]="2"
-                                />
-                                <div class="nat-vertical nat-expand">
-                                    <mat-form-field>
-                                        <input matInput formControlName="name" (change)="update()" />
-                                        <mat-label>Nom</mat-label>
-                                        @if (form.get('name')?.hasError('maxlength')) {
-                                            <mat-error>
-                                                Maximum
-                                                {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
-                                            </mat-error>
-                                        }
-                                        @if (form.get('name')?.hasError('required')) {
-                                            <mat-error>Requis</mat-error>
-                                        }
-                                    </mat-form-field>
-                                    <mat-form-field>
-                                        <input matInput formControlName="code" (change)="update()" />
-                                        <mat-label>Code</mat-label>
-                                        @if (form.get('code')?.hasError('maxlength')) {
-                                            <mat-error>
-                                                Maximum
-                                                {{ form.get('code')?.errors?.maxlength?.requiredLength }} caractères
-                                            </mat-error>
-                                        }
-                                        @if (form.get('code')?.hasError('required')) {
-                                            <mat-error>Requis</mat-error>
-                                        }
-                                        @if (form.get('code')?.hasError('duplicateValue')) {
-                                            <mat-error>Ce code est déjà attribué</mat-error>
-                                        }
-                                    </mat-form-field>
-                                    <natural-select-enum
-                                        enumName="BookableState"
-                                        formControlName="state"
-                                        placeholder="État"
-                                        (selectionChange)="update()"
-                                    />
-                                    <mat-form-field>
-                                        <mat-label>Prix d'achat</mat-label>
-                                        <input
-                                            matInput
-                                            type="number"
-                                            step="0.01"
-                                            formControlName="purchasePrice"
-                                            [attr.min]="0"
-                                            (change)="update()"
-                                        />
-                                        <div matTextSuffix>CHF</div>
-                                        @if (form.get('purchasePrice')?.hasError('min')) {
-                                            <mat-error>Le montant doit être positif</mat-error>
-                                        }
-                                        @if (form.get('purchasePrice')?.hasError('money')) {
-                                            <mat-error
-                                                >Le montant doit être un nombre avec un maximum de deux décimales
-                                            </mat-error>
-                                        }
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <mat-form-field>
-                                <mat-label>Description</mat-label>
-                                <textarea
-                                    matInput
-                                    formControlName="description"
-                                    [cdkTextareaAutosize]="true"
-                                    [cdkAutosizeMinRows]="1"
-                                    (change)="update()"
-                                ></textarea>
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Remarques</mat-label>
-                                <textarea
-                                    matInput
-                                    formControlName="remarks"
-                                    [cdkTextareaAutosize]="true"
-                                    [cdkAutosizeMinRows]="1"
-                                    (change)="update()"
-                                ></textarea>
-                            </mat-form-field>
-                        </div>
-                        <div class="nat-expand-33 nat-vertical">
-                            <div class="nat-horizontal nat-left nat-center nat-margin-bottom">
-                                <h2 class="mat-headline-6 nat-no-margin nat-expand">Réservation</h2>
-                                <mat-slide-toggle formControlName="isActive" (change)="update()"
-                                    >Disponible</mat-slide-toggle
-                                >
-                            </div>
-                            <natural-select-enum
-                                enumName="BookingType"
-                                formControlName="bookingType"
-                                placeholder="Type de réservation"
-                                [optionDisabled]="bookingTypeDisabled()"
-                                (selectionChange)="update()"
+                <div class="nat-vertical nat-padding-top nat-gap-horizontal nat-md-horizontal">
+                    <div class="nat-vertical nat-md-expand-66">
+                        <div class="nat-horizontal nat-margin-bottom nat-gap nat-left nat-top">
+                            <natural-file
+                                class="nat-expand mat-elevation-z2"
+                                action="upload"
+                                [model]="data.model.image"
+                                [formCtrl]="form.get('image')"
+                                [uploader]="createImageAndLink.bind(this)"
+                                [style.borderRadius.px]="4"
+                                [style.marginLeft.px]="2"
                             />
-                            @if (isBookingPriceApplicable()) {
+                            <div class="nat-vertical nat-expand">
                                 <mat-form-field>
-                                    <mat-label>Prix initial</mat-label>
+                                    <input matInput formControlName="name" (change)="update()" />
+                                    <mat-label>Nom</mat-label>
+                                    @if (form.get('name')?.hasError('maxlength')) {
+                                        <mat-error>
+                                            Maximum
+                                            {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
+                                        </mat-error>
+                                    }
+                                    @if (form.get('name')?.hasError('required')) {
+                                        <mat-error>Requis</mat-error>
+                                    }
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <input matInput formControlName="code" (change)="update()" />
+                                    <mat-label>Code</mat-label>
+                                    @if (form.get('code')?.hasError('maxlength')) {
+                                        <mat-error>
+                                            Maximum
+                                            {{ form.get('code')?.errors?.maxlength?.requiredLength }} caractères
+                                        </mat-error>
+                                    }
+                                    @if (form.get('code')?.hasError('required')) {
+                                        <mat-error>Requis</mat-error>
+                                    }
+                                    @if (form.get('code')?.hasError('duplicateValue')) {
+                                        <mat-error>Ce code est déjà attribué</mat-error>
+                                    }
+                                </mat-form-field>
+                                <natural-select-enum
+                                    enumName="BookableState"
+                                    formControlName="state"
+                                    placeholder="État"
+                                    (selectionChange)="update()"
+                                />
+                                <mat-form-field>
+                                    <mat-label>Prix d'achat</mat-label>
                                     <input
                                         matInput
                                         type="number"
                                         step="0.01"
-                                        formControlName="initialPrice"
+                                        formControlName="purchasePrice"
+                                        [attr.min]="0"
                                         (change)="update()"
                                     />
                                     <div matTextSuffix>CHF</div>
-                                    @if (form.get('initialPrice')?.hasError('required')) {
-                                        <mat-error>Requis</mat-error>
+                                    @if (form.get('purchasePrice')?.hasError('min')) {
+                                        <mat-error>Le montant doit être positif</mat-error>
                                     }
-                                    @if (form.get('initialPrice')?.hasError('money')) {
+                                    @if (form.get('purchasePrice')?.hasError('money')) {
                                         <mat-error
                                             >Le montant doit être un nombre avec un maximum de deux décimales
                                         </mat-error>
                                     }
                                 </mat-form-field>
-                            }
-                            @if (isBookingPriceApplicable()) {
-                                <mat-form-field>
-                                    <mat-label>Prix périodique</mat-label>
-                                    <input
-                                        matInput
-                                        type="number"
-                                        step="0.01"
-                                        formControlName="periodicPrice"
-                                        (change)="update()"
-                                    />
-                                    <div matTextSuffix>CHF</div>
-                                    @if (form.get('periodicPrice')?.hasError('required')) {
-                                        <mat-error>Requis</mat-error>
-                                    }
-                                    @if (form.get('periodicPrice')?.hasError('money')) {
-                                        <mat-error
-                                            >Le montant doit être un nombre avec un maximum de deux décimales
-                                        </mat-error>
-                                    }
-                                </mat-form-field>
-                            }
+                            </div>
+                        </div>
+                        <mat-form-field>
+                            <mat-label>Description</mat-label>
+                            <textarea
+                                matInput
+                                formControlName="description"
+                                [cdkTextareaAutosize]="true"
+                                [cdkAutosizeMinRows]="1"
+                                (change)="update()"
+                            ></textarea>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Remarques</mat-label>
+                            <textarea
+                                matInput
+                                formControlName="remarks"
+                                [cdkTextareaAutosize]="true"
+                                [cdkAutosizeMinRows]="1"
+                                (change)="update()"
+                            ></textarea>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="nat-md-expand-33 nat-vertical">
+                        <div class="nat-horizontal nat-align nat-margin-bottom">
+                            <h2 class="mat-headline-6 nat-no-margin nat-expand">Réservation</h2>
+                            <mat-slide-toggle formControlName="isActive" (change)="update()"
+                                >Disponible</mat-slide-toggle
+                            >
+                        </div>
+                        <natural-select-enum
+                            enumName="BookingType"
+                            formControlName="bookingType"
+                            placeholder="Type de réservation"
+                            [optionDisabled]="bookingTypeDisabled()"
+                            (selectionChange)="update()"
+                        />
+                        @if (isBookingPriceApplicable()) {
                             <mat-form-field>
-                                <mat-label>Nombre max. de réservations simultanées / participants</mat-label>
+                                <mat-label>Prix initial</mat-label>
+                                <input
+                                    matInput
+                                    type="number"
+                                    step="0.01"
+                                    formControlName="initialPrice"
+                                    (change)="update()"
+                                />
+                                <div matTextSuffix>CHF</div>
+                                @if (form.get('initialPrice')?.hasError('required')) {
+                                    <mat-error>Requis</mat-error>
+                                }
+                                @if (form.get('initialPrice')?.hasError('money')) {
+                                    <mat-error
+                                        >Le montant doit être un nombre avec un maximum de deux décimales
+                                    </mat-error>
+                                }
+                            </mat-form-field>
+                        }
+                        @if (isBookingPriceApplicable()) {
+                            <mat-form-field>
+                                <mat-label>Prix périodique</mat-label>
+                                <input
+                                    matInput
+                                    type="number"
+                                    step="0.01"
+                                    formControlName="periodicPrice"
+                                    (change)="update()"
+                                />
+                                <div matTextSuffix>CHF</div>
+                                @if (form.get('periodicPrice')?.hasError('required')) {
+                                    <mat-error>Requis</mat-error>
+                                }
+                                @if (form.get('periodicPrice')?.hasError('money')) {
+                                    <mat-error
+                                        >Le montant doit être un nombre avec un maximum de deux décimales
+                                    </mat-error>
+                                }
+                            </mat-form-field>
+                        }
+                        <mat-form-field>
+                            <mat-label>Nombre max. de réservations simultanées / participants</mat-label>
+                            <input
+                                matInput
+                                type="number"
+                                step="1"
+                                formControlName="simultaneousBookingMaximum"
+                                [attr.min]="-1"
+                                (change)="update()"
+                            />
+                            @if (form.get('simultaneousBookingMaximum')?.hasError('required')) {
+                                <mat-error>Requis</mat-error>
+                            }
+                            @if (form.get('simultaneousBookingMaximum')?.hasError('min')) {
+                                <mat-error>Doit être plus grand ou égal à -1</mat-error>
+                            }
+                            <mat-hint>Saisir -1 pour aucune limite.</mat-hint>
+                        </mat-form-field>
+                        @if (showWaitingList()) {
+                            <mat-form-field subscriptSizing="dynamic">
+                                <mat-label>Nombre de place dans la file d'attente</mat-label>
                                 <input
                                     matInput
                                     type="number"
                                     step="1"
-                                    formControlName="simultaneousBookingMaximum"
-                                    [attr.min]="-1"
+                                    formControlName="waitingListLength"
+                                    [attr.min]="0"
                                     (change)="update()"
                                 />
-                                @if (form.get('simultaneousBookingMaximum')?.hasError('required')) {
+                                @if (form.get('waitingListLength')?.hasError('required')) {
                                     <mat-error>Requis</mat-error>
                                 }
-                                @if (form.get('simultaneousBookingMaximum')?.hasError('min')) {
-                                    <mat-error>Doit être plus grand ou égal à -1</mat-error>
+                                @if (form.get('waitingListLength')?.hasError('min')) {
+                                    <mat-error>Doit être plus grand ou égal à 0</mat-error>
                                 }
-                                <mat-hint>Saisir -1 pour aucune limite.</mat-hint>
+                                <mat-hint
+                                    >Permet de faire des demandes de réservations au delà du nombre max. de réservations
+                                    simultanées et donc de gérer une file d'attente en cas d'annulation d'une autre
+                                    personne.
+                                </mat-hint>
                             </mat-form-field>
-                            @if (showWaitingList()) {
-                                <mat-form-field subscriptSizing="dynamic">
-                                    <mat-label>Nombre de place dans la file d'attente</mat-label>
-                                    <input
-                                        matInput
-                                        type="number"
-                                        step="1"
-                                        formControlName="waitingListLength"
-                                        [attr.min]="0"
-                                        (change)="update()"
-                                    />
-                                    @if (form.get('waitingListLength')?.hasError('required')) {
-                                        <mat-error>Requis</mat-error>
-                                    }
-                                    @if (form.get('waitingListLength')?.hasError('min')) {
-                                        <mat-error>Doit être plus grand ou égal à 0</mat-error>
-                                    }
-                                    <mat-hint
-                                        >Permet de faire des demandes de réservations au delà du nombre max. de
-                                        réservations simultanées et donc de gérer une file d'attente en cas d'annulation
-                                        d'une autre personne.</mat-hint
-                                    >
-                                </mat-form-field>
-                            }
-                            @if (!isSelfApproved()) {
-                                <natural-select-hierarchic
-                                    formControlName="creditAccount"
-                                    placeholder="Compte à créditer lors de la réservation"
-                                    [config]="accountHierarchicConfig"
-                                    [showIcon]="false"
-                                    [navigateTo]="['/admin/account', form.get('creditAccount')?.value?.id]"
-                                    (selectionChange)="update()"
-                                />
-                            }
-                            @if (form.hasError('creditAccountRequired')) {
-                                <mat-error>Compte requis pour un réservable payants</mat-error>
-                            }
-                        </div>
+                        }
+                        @if (!isSelfApproved()) {
+                            <natural-select-hierarchic
+                                formControlName="creditAccount"
+                                placeholder="Compte à créditer lors de la réservation"
+                                [config]="accountHierarchicConfig"
+                                [showIcon]="false"
+                                [navigateTo]="['/admin/account', form.get('creditAccount')?.value?.id]"
+                                (selectionChange)="update()"
+                            />
+                        }
+                        @if (form.hasError('creditAccountRequired')) {
+                            <mat-error>Compte requis pour un réservable payants</mat-error>
+                        }
                     </div>
-                    <mat-divider />
-                    <div class="nat-vertical nat-sm-horizontal nat-gap-0 nat-sm-gap-30">
-                        <div class="nat-expand-66 nat-vertical">
-                            @if (isUpdatePage() && isSelfApproved()) {
-                                <div>
-                                    <h2 class="mat-headline-6">Certifications</h2>
-                                    <natural-relations
-                                        placeholder="Associer à une certification"
-                                        [main]="data.model"
-                                        [service]="licenseService"
-                                        [filter]="{
-                                            groups: [{conditions: [{bookables: {have: {values: [data.model.id]}}}]}]
-                                        }"
-                                    >
-                                        <ng-template let-item="item">
-                                            <div class="nat-horizontal nat-left nat-center nat-gap-10">
-                                                <natural-table-button
-                                                    [navigate]="['/admin/license/', item.id]"
-                                                    [label]="item.name"
-                                                />
-                                            </div>
-                                        </ng-template>
-                                    </natural-relations>
-                                </div>
-                            }
-                        </div>
-                        <div class="nat-expand-33 nat-vertical">
-                            @if (isUpdatePage()) {
-                                <div>
-                                    <h2 class="mat-headline-6">Tags</h2>
-                                    <natural-relations
-                                        placeholder="Ajouter un tag"
-                                        [main]="data.model"
-                                        [service]="bookableTagService"
-                                        [filter]="{
-                                            groups: [{conditions: [{bookables: {have: {values: [data.model.id]}}}]}]
-                                        }"
-                                    >
-                                        <ng-template let-item="item">
-                                            <div class="nat-horizontal nat-left nat-center nat-gap-10">
-                                                <!-- TODO : link to bookables list filtred by tag -->
-                                                <natural-avatar
-                                                    [bgColor]="item.color"
-                                                    [initials]="item.name"
-                                                    [size]="32"
-                                                />
-                                                <natural-table-button
-                                                    [navigate]="['/admin/bookable']"
-                                                    [label]="item.name"
-                                                />
-                                            </div>
-                                        </ng-template>
-                                    </natural-relations>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                    @if (isUpdatePage()) {
-                        <natural-stamp [item]="data.model" />
-                    }
                 </div>
+                <mat-divider class="nat-margin-vertical" />
+                <div class="nat-vertical nat-md-horizontal nat-gap-horizontal-30">
+                    <div class="nat-md-expand-66 nat-vertical">
+                        @if (isUpdatePage() && isSelfApproved()) {
+                            <div>
+                                <h2 class="mat-headline-6">Certifications</h2>
+                                <natural-relations
+                                    placeholder="Associer à une certification"
+                                    [main]="data.model"
+                                    [service]="licenseService"
+                                    [filter]="{
+                                        groups: [{conditions: [{bookables: {have: {values: [data.model.id]}}}]}]
+                                    }"
+                                >
+                                    <ng-template let-item="item">
+                                        <div class="nat-horizontal nat-align nat-gap-10">
+                                            <natural-table-button
+                                                [navigate]="['/admin/license/', item.id]"
+                                                [label]="item.name"
+                                            />
+                                        </div>
+                                    </ng-template>
+                                </natural-relations>
+                            </div>
+                        }
+                    </div>
+                    <div class="nat-md-expand-33 nat-vertical">
+                        @if (isUpdatePage()) {
+                            <div>
+                                <h2 class="mat-headline-6">Tags</h2>
+                                <natural-relations
+                                    placeholder="Ajouter un tag"
+                                    [main]="data.model"
+                                    [service]="bookableTagService"
+                                    [filter]="{
+                                        groups: [{conditions: [{bookables: {have: {values: [data.model.id]}}}]}]
+                                    }"
+                                >
+                                    <ng-template let-item="item">
+                                        <div class="nat-horizontal nat-align nat-gap-10">
+                                            <!-- TODO : link to bookables list filtred by tag -->
+                                            <natural-avatar [bgColor]="item.color" [initials]="item.name" [size]="32" />
+                                            <natural-table-button
+                                                [navigate]="['/admin/bookable']"
+                                                [label]="item.name"
+                                            />
+                                        </div>
+                                    </ng-template>
+                                </natural-relations>
+                            </div>
+                        }
+                    </div>
+                </div>
+                @if (isUpdatePage()) {
+                    <natural-stamp [item]="data.model" />
+                }
             </mat-tab>
         }
 

@@ -1,114 +1,105 @@
-<div class="nat-vertical nat-gap">
-    @if (bookings) {
-        <div class="nat-horizontal nat-wrap nat-center nat-gap">
-            @if (!bookings.items.length && showEmptyMessage) {
-                <div class="nat-padding mat-subtitle-2">Aucun résultat</div>
-            }
-            @for (item of bookings.items; track item) {
-                @if (!activeOnly || (activeOnly && !item.terminated)) {
-                    <div [@terminate]>
-                        <app-card
-                            [file]="item.booking.bookable?.image"
-                            [style.width.px]="300"
-                            [class.showComments]="item.showComments"
+@if (bookings) {
+    @if (!bookings.items.length && showEmptyMessage) {
+        <div class="nat-padding mat-subtitle-2">Aucun résultat</div>
+    }
+    <div class="list">
+        @for (item of bookings.items; track item) {
+            @if (!activeOnly || (activeOnly && !item.terminated)) {
+                <app-card
+                    [@terminate]
+                    [file]="item.booking.bookable?.image"
+                    [style.width.px]="300"
+                    [class.showComments]="item.showComments"
+                    class="nat-vertical"
+                >
+                    @if (!item.booking.bookable?.image) {
+                        <div class="card-illustration nat-padding">
+                            <natural-avatar initials="?" [size]="160" />
+                        </div>
+                    }
+                    <div class="nat-vertical nat-gap-10 nat-expand">
+                        <a
+                            mat-button
+                            class="app-button-wrap"
+                            [routerLink]="item.booking.bookable ? ['/booking', item.booking.bookable.code] : null"
                         >
-                            @if (!item.booking.bookable?.image) {
-                                <div class="card-illustration nat-padding">
-                                    <natural-avatar initials="?" [size]="160" />
-                                </div>
-                            }
-                            <!-- style="overflow:hidden;" -->
-                            <div class="nat-vertical nat-gap-10">
-                                <a
-                                    mat-button
-                                    class="app-button-wrap"
-                                    [routerLink]="
-                                        item.booking.bookable ? ['/booking', item.booking.bookable.code] : null
-                                    "
-                                >
-                                    {{ item.booking.bookable?.name || 'Matériel personnel' }}
-                                </a>
-                                <div style="position: relative">
-                                    <mat-divider />
-                                </div>
-                                <div class="mat-subtitle-2">{{ item.booking.owner?.name }}</div>
-                                @if (!item.booking.endDate && item.booking.destination) {
-                                    <div class="mat-body-2">Destination : {{ item.booking.destination }}</div>
-                                }
-                                @if (!item.booking.endDate && item.booking.estimatedEndDate) {
-                                    <div class="mat-body-2">Retour prévu : {{ item.booking.estimatedEndDate }}</div>
-                                }
-                                <div>Début : {{ item.booking.startDate | swissDate }}</div>
-                                @if (item.booking.endDate) {
-                                    <div>Fin : {{ item.booking.endDate | swissDate }}</div>
-                                }
-                                <div class="nat-horizontal nat-right nat-center">
-                                    <button mat-icon-button (click)="item.showComments = true">
-                                        <mat-icon naturalIcon="feedback" />
-                                    </button>
-                                    <div class="nat-expand"></div>
-                                    @if (!item.terminated) {
-                                        <button
-                                            mat-flat-button
-                                            color="warn"
-                                            appParticleEffect
-                                            pEasing="easeOutQuad"
-                                            pColor="#f44336"
-                                            [pHidden]="!!item.explode"
-                                            [pParticlesAmountCoefficient]="2"
-                                            [pOscillationCoefficient]="100"
-                                            [pDuration]="350"
-                                            [pSpeed]="0.1"
-                                            (click)="endBooking(item)"
-                                            (pComplete)="item.terminated = true"
-                                        >
-                                            Annoncer retour
-                                        </button>
-                                    }
-                                </div>
-                            </div>
-                            <div class="comment nat-padding nat-gap-10 nat-vertical">
-                                <div class="nat-expand nat-vertical overflow">
-                                    <div class="mat-headline-6">Commentaires</div>
-                                    <mat-form-field>
-                                        <mat-label>Commentaire de départ</mat-label>
-                                        <textarea
-                                            matInput
-                                            [ngModel]="item.booking.startComment"
-                                            [cdkTextareaAutosize]="true"
-                                            [cdkAutosizeMinRows]="3"
-                                            (change)="
-                                                update({id: item.booking.id, startComment: $any($event.target).value})
-                                            "
-                                        ></textarea>
-                                    </mat-form-field>
-                                    <mat-form-field>
-                                        <mat-label>Commentaire de fin</mat-label>
-                                        <textarea
-                                            matInput
-                                            [ngModel]="item.booking.endComment"
-                                            [cdkTextareaAutosize]="true"
-                                            [cdkAutosizeMinRows]="3"
-                                            (change)="
-                                                update({id: item.booking.id, endComment: $any($event.target).value})
-                                            "
-                                        ></textarea>
-                                    </mat-form-field>
-                                </div>
-                                <div class="nat-horizontal">
-                                    <button mat-icon-button color="primary" (click)="item.showComments = false">
-                                        <mat-icon naturalIcon="clear" />
-                                    </button>
-                                </div>
-                            </div>
-                        </app-card>
-                    </div>
-                }
-            }
-        </div>
-    }
+                            {{ item.booking.bookable?.name || 'Matériel personnel' }}
+                        </a>
 
-    @if (bookings && bookings.length > bookings.items.length) {
-        <button mat-button (click)="nextPage()">Voir plus</button>
-    }
-</div>
+                        <mat-divider />
+
+                        <div class="mat-subtitle-2">{{ item.booking.owner?.name }}</div>
+                        @if (!item.booking.endDate && item.booking.destination) {
+                            <div class="mat-body-2">Destination : {{ item.booking.destination }}</div>
+                        }
+                        @if (!item.booking.endDate && item.booking.estimatedEndDate) {
+                            <div class="mat-body-2">Retour prévu : {{ item.booking.estimatedEndDate }}</div>
+                        }
+                        <div>Début : {{ item.booking.startDate | swissDate }}</div>
+                        @if (item.booking.endDate) {
+                            <div>Fin : {{ item.booking.endDate | swissDate }}</div>
+                        }
+                        <div class="bottom-buttons nat-horizontal nat-right nat-center">
+                            <button mat-icon-button (click)="item.showComments = true">
+                                <mat-icon naturalIcon="feedback" />
+                            </button>
+                            <div class="nat-expand"></div>
+                            @if (!item.terminated) {
+                                <button
+                                    mat-flat-button
+                                    color="warn"
+                                    appParticleEffect
+                                    pEasing="easeOutQuad"
+                                    pColor="#f44336"
+                                    [pHidden]="!!item.explode"
+                                    [pParticlesAmountCoefficient]="2"
+                                    [pOscillationCoefficient]="100"
+                                    [pDuration]="350"
+                                    [pSpeed]="0.1"
+                                    (click)="endBooking(item)"
+                                    (pComplete)="item.terminated = true"
+                                >
+                                    Annoncer retour
+                                </button>
+                            }
+                        </div>
+                    </div>
+                    <div class="comment nat-padding nat-gap-10 nat-vertical">
+                        <div class="nat-expand nat-vertical overflow">
+                            <div class="mat-headline-6">Commentaires</div>
+                            <mat-form-field>
+                                <mat-label>Commentaire de départ</mat-label>
+                                <textarea
+                                    matInput
+                                    [ngModel]="item.booking.startComment"
+                                    [cdkTextareaAutosize]="true"
+                                    [cdkAutosizeMinRows]="3"
+                                    (change)="update({id: item.booking.id, startComment: $any($event.target).value})"
+                                ></textarea>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Commentaire de fin</mat-label>
+                                <textarea
+                                    matInput
+                                    [ngModel]="item.booking.endComment"
+                                    [cdkTextareaAutosize]="true"
+                                    [cdkAutosizeMinRows]="3"
+                                    (change)="update({id: item.booking.id, endComment: $any($event.target).value})"
+                                ></textarea>
+                            </mat-form-field>
+                        </div>
+                        <div class="nat-horizontal">
+                            <button mat-icon-button color="primary" (click)="item.showComments = false">
+                                <mat-icon naturalIcon="clear" />
+                            </button>
+                        </div>
+                    </div>
+                </app-card>
+            }
+        }
+    </div>
+}
+
+@if (bookings && bookings.length > bookings.items.length) {
+    <button mat-button (click)="nextPage()">Voir plus</button>
+}

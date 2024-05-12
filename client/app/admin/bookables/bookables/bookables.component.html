@@ -9,7 +9,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                 {{ routeData?.seo.title }}
             </div>
             <natural-columns-picker
-                [class.nat-show]="route.snapshot.data.showColumnPicker ?? true"
+                [class.nat-hide]="!(route.snapshot.data.showColumnPicker ?? true)"
                 [availableColumns]="availableColumns"
                 [selections]="selectedColumns"
                 (selectionChange)="selectColumns($event)"

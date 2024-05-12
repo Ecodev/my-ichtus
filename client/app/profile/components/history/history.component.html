@@ -1,54 +1,45 @@
-<div class="nat-vertical app-gap-50">
-    <div>
-        <div class="nat-horizontal nat-left nat-center nat-margin-bottom">
-            <h3 class="nat-expand mat-headline-5 nat-no-margin-bottom">Historique des transactions</h3>
-        </div>
+<h2 class="mat-headline-5">Historique des transactions</h2>
 
-        @if (transactionLinesDS.data?.length === 0) {
-            <div class="mat-body-2 nat-padding margin nat-vertical nat-center">Aucun résultat</div>
-        }
+@if (transactionLinesDS.data?.length === 0) {
+    <div class="mat-body-2 nat-padding margin nat-vertical nat-center">Aucun résultat</div>
+}
 
-        @if (transactionLinesDS.data?.length) {
-            <div class="responsive-table">
-                <table mat-table [dataSource]="transactionLinesDS">
-                    <tr *matHeaderRowDef="transactionsColumns" mat-header-row></tr>
-                    <tr *matRowDef="let row; columns: transactionsColumns" mat-row></tr>
+@if (transactionLinesDS.data?.length) {
+    <div class="responsive-table">
+        <table mat-table [dataSource]="transactionLinesDS">
+            <tr *matHeaderRowDef="transactionsColumns" mat-header-row></tr>
+            <tr *matRowDef="let row; columns: transactionsColumns" mat-row></tr>
 
-                    <ng-container matColumnDef="name">
-                        <th *matHeaderCellDef mat-header-cell>Nom</th>
-                        <td *matCellDef="let transactionLine" mat-cell>{{ transactionLine.name }}</td>
-                    </ng-container>
+            <ng-container matColumnDef="name">
+                <th *matHeaderCellDef mat-header-cell>Nom</th>
+                <td *matCellDef="let transactionLine" mat-cell>{{ transactionLine.name }}</td>
+            </ng-container>
 
-                    <ng-container matColumnDef="transactionDate">
-                        <th *matHeaderCellDef mat-header-cell>Date</th>
-                        <td *matCellDef="let transactionLine" mat-cell>
-                            {{ transactionLine.transactionDate | date: 'dd.MM.y' }}
-                        </td>
-                    </ng-container>
+            <ng-container matColumnDef="transactionDate">
+                <th *matHeaderCellDef mat-header-cell>Date</th>
+                <td *matCellDef="let transactionLine" mat-cell>
+                    {{ transactionLine.transactionDate | date: 'dd.MM.y' }}
+                </td>
+            </ng-container>
 
-                    <ng-container matColumnDef="amount">
-                        <th *matHeaderCellDef mat-header-cell>Montant</th>
-                        <td *matCellDef="let transactionLine" mat-cell>
-                            <app-transaction-amount
-                                [transactionLine]="transactionLine"
-                                [relativeToAccount]="viewer.account"
-                            />
-                        </td>
-                    </ng-container>
+            <ng-container matColumnDef="amount">
+                <th *matHeaderCellDef mat-header-cell>Montant</th>
+                <td *matCellDef="let transactionLine" mat-cell>
+                    <app-transaction-amount [transactionLine]="transactionLine" [relativeToAccount]="viewer.account" />
+                </td>
+            </ng-container>
 
-                    <ng-container matColumnDef="bookable">
-                        <th *matHeaderCellDef mat-header-cell></th>
-                        <td *matCellDef="let transactionLine" mat-cell>{{ transactionLine.bookable?.name }}</td>
-                    </ng-container>
+            <ng-container matColumnDef="bookable">
+                <th *matHeaderCellDef mat-header-cell></th>
+                <td *matCellDef="let transactionLine" mat-cell>{{ transactionLine.bookable?.name }}</td>
+            </ng-container>
 
-                    <ng-container matColumnDef="remarks">
-                        <th *matHeaderCellDef mat-header-cell>Remarques</th>
-                        <td *matCellDef="let transactionLine" mat-cell>
-                            <div class="line-break">{{ transactionLine.remarks }}</div>
-                        </td>
-                    </ng-container>
-                </table>
-            </div>
-        }
+            <ng-container matColumnDef="remarks">
+                <th *matHeaderCellDef mat-header-cell>Remarques</th>
+                <td *matCellDef="let transactionLine" mat-cell>
+                    <div class="line-break">{{ transactionLine.remarks }}</div>
+                </td>
+            </ng-container>
+        </table>
     </div>
-</div>
+}

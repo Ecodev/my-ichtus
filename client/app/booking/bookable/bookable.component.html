@@ -1,5 +1,5 @@
 @if (bookable) {
-    <div class="nat-vertical nat-padding app-gap-40" style="max-width: 1100px; margin: auto">
+    <div class="nat-vertical nat-padding nat-gap-30" style="max-width: 1100px; margin: auto">
         <natural-file class="mat-elevation-z2" [model]="bookable.image" [height]="400" [style.borderRadius.px]="4" />
         <div class="nat-horizontal mat-headline-4">
             <div class="nat-expand">{{ bookable.name }}</div>
@@ -11,13 +11,13 @@
         @if (!hasLicense || !welcomeSessionTaken) {
             <div class="nat-vertical mat-body-2 nat-gap-10">
                 @if (!hasLicense) {
-                    <div class="nat-horizontal nat-left nat-center">
+                    <div class="nat-horizontal nat-align">
                         <mat-icon color="warn" fontIcon="error" />
                         Tu ne disposes pas des licences requises pour utiliser cette embarcation
                     </div>
                 }
                 @if (!welcomeSessionTaken) {
-                    <div class="nat-horizontal nat-left nat-center">
+                    <div class="nat-horizontal nat-align">
                         <mat-icon color="warn" fontIcon="warning" />
                         <span
                             >Il te faut suivre une
@@ -28,7 +28,7 @@
                 }
             </div>
         }
-        <div class="nat-horizontal nat-gap-10 nat-right nat-cneter">
+        <div class="nat-horizontal nat-gap-10 nat-right nat-center">
             @if (!isAvailable && runningBooking) {
                 <div class="mat-body-2">Sorti {{ runningBooking.startDate | timeago }}</div>
             }

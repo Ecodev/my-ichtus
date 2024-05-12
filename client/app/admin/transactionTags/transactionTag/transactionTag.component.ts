@@ -10,9 +10,9 @@ import {
 import {TransactionTagService} from '../services/transactionTag.service';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-
 import {MatTabsModule} from '@angular/material/tabs';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatDividerModule} from '@angular/material/divider';
 
 @Component({
     selector: 'app-transaction-tag',
@@ -25,7 +25,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         NaturalDetailHeaderComponent,
         MatTabsModule,
         NaturalLinkableTabDirective,
-
+        MatDividerModule,
         MatFormFieldModule,
         MatInputModule,
         NaturalStampComponent,

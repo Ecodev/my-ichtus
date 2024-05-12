@@ -26,7 +26,7 @@
     @if (paymentMode === 'datatrans') {
         <div class="nat-padding">
             <p class="mat-body">Merci d'indiquer le montant que tu souhaites verser.</p>
-            <div class="nat-horizontal nat-left nat-center nat-gap-5">
+            <div class="nat-horizontal nat-align nat-gap-5">
                 <mat-form-field>
                     <mat-label>Montant</mat-label>
                     <input matInput type="number" step="0.01" [formControl]="formCtrl" [errorStateMatcher]="matcher" />

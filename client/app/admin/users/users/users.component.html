@@ -29,7 +29,7 @@
                     <ng-container matColumnDef="name">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header="lastName">Nom</th>
                         <td *matCellDef="let element" mat-cell>
-                            <div class="nat-horizontal nat-left nat-center">
+                            <div class="nat-horizontal nat-align">
                                 <natural-avatar [initials]="element.name" [gravatar]="element.email" [size]="36" />
                                 <natural-table-button
                                     matTooltip="Éditer"

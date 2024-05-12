@@ -2,20 +2,20 @@ import {Component} from '@angular/core';
 import {
     NaturalAbstractDetail,
     NaturalDetailHeaderComponent,
+    NaturalFixedButtonDetailComponent,
     NaturalLinkableTabDirective,
     NaturalRelationsComponent,
-    NaturalTableButtonComponent,
-    NaturalStampComponent,
-    NaturalFixedButtonDetailComponent,
     NaturalSeoResolveData,
+    NaturalStampComponent,
+    NaturalTableButtonComponent,
 } from '@ecodev/natural';
 import {UserTagService} from '../services/userTag.service';
 import {UserService} from '../../users/services/user.service';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-
 import {MatTabsModule} from '@angular/material/tabs';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatDividerModule} from '@angular/material/divider';
 
 @Component({
     selector: 'app-user-tag',
@@ -28,7 +28,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         NaturalDetailHeaderComponent,
         MatTabsModule,
         NaturalLinkableTabDirective,
-
+        MatDividerModule,
         MatFormFieldModule,
         MatInputModule,
         NaturalRelationsComponent,

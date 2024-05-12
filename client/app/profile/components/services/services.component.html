@@ -1,7 +1,7 @@
 <div class="nat-vertical" style="gap: 50px">
     @if (runningServicesDS.data?.length > 0) {
         <div>
-            <div class="nat-horizontal nat-left nat-center nat-margin-bottom">
+            <div class="nat-horizontal nat-align nat-margin-bottom">
                 <h2 class="nat-expand mat-headline-5 nat-no-margin-bottom">Cotisation / Prestations souscrites</h2>
                 @if (!user.owner) {
                     <button mat-stroked-button color="warn" (click)="unregister()">Démissionner</button>
@@ -82,9 +82,8 @@
     }
 
     <div>
-        <div class="nat-horizontal nat-left nat-center nat-margin-bottom">
-            <h2 class="nat-expand mat-headline nat-no-margin-bottom">Demander un espace de stockage ou un service</h2>
-        </div>
+        <h2 class="mat-headline-5">Demander un espace de stockage ou un service</h2>
+
         <nav mat-tab-nav-bar [tabPanel]="tabPanel">
             <a
                 #rla1="routerLinkActive"
@@ -154,9 +153,7 @@
 
     <div class="nat-vertical">
         @if (pendingApplicationsDS.data?.length > 0) {
-            <div class="nat-vertical nat-margin-bottom nat-sm-horizontal nat-top nat-left nat-center">
-                <h2 class="nat-expand mat-headline nat-no-margin-bottom">Demandes en attente</h2>
-            </div>
+            <h2 class="mat-headline-5 nat-no-margin-bottom">Demandes en attente</h2>
         }
 
         <div class="responsive-table" [class.nat-hide]="!pendingApplicationsDS.data?.length">

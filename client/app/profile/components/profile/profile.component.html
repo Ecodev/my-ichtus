@@ -33,16 +33,13 @@
                     <div class="nat-horizontal nat-gap-10">
                         <natural-avatar [initials]="viewer.name" [gravatar]="viewer.email" [size]="60" />
                         <div class="nat-vertical nat-gap-10">
-                            <div class="mat-headline-4 nat-no-margin-bottom">{{ viewer.name }}</div>
+                            <div class="mat-headline-4">{{ viewer.name }}</div>
                             <div class="mat-body-1">
                                 {{ viewer.status | enum: 'UserStatus' | async | capitalize }}
                             </div>
                             <div class="nat-horizontal nat-wrap nat-gap-15 mat-body-2">
                                 @for (license of licenses; track license) {
-                                    <div
-                                        class="nat-horizontal nat-gap-5 nat-left nat-center"
-                                        style="padding-bottom: 10px"
-                                    >
+                                    <div class="nat-horizontal nat-gap-5 nat-align" style="padding-bottom: 10px">
                                         <natural-avatar [initials]="license.name.replace('-', '')" [size]="36" />
                                         <span>{{ license.name }}</span>
                                     </div>
@@ -71,7 +68,7 @@
                 <!-- CREDIT -->
                 <div class="nat-horizontal nat-center">
                     <div class="nat-vertical nat-gap">
-                        <div class="nat-horizontal nat-left nat-center">
+                        <div class="nat-horizontal nat-align">
                             <h2 class="mat-headline-5 nat-no-margin nat-expand">Solde</h2>
                             <button
                                 mat-flat-button
