@@ -6,11 +6,11 @@
         @for (item of bookings.items; track item) {
             @if (!activeOnly || (activeOnly && !item.terminated)) {
                 <app-card
+                    class="nat-vertical"
                     [@terminate]
                     [file]="item.booking.bookable?.image"
                     [style.width.px]="300"
                     [class.showComments]="item.showComments"
-                    class="nat-vertical"
                 >
                     @if (!item.booking.bookable?.image) {
                         <div class="card-illustration nat-padding">
