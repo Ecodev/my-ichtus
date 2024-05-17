@@ -57,7 +57,7 @@ jobs:
             - run: mysql --protocol=tcp --user=root --execute='SET GLOBAL sql_mode = "";'
             - run: cp config/autoload/local.php.dist config/autoload/local.php
             - run: ./bin/build.sh
-            - run: ./bin/load-test-data.php
+            - run: ./bin/load-test-data.php --no-interaction
 
             # Lint and tests
             - run: ./vendor/bin/php-cs-fixer fix --format=checkstyle | cs2pr
