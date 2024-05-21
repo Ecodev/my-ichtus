@@ -24,6 +24,9 @@
                 <input
                     matInput
                     formControlName="password"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    spellcheck="false"
                     [type]="hidePassword ? 'password' : 'text'"
                     (keydown.enter)="maybeConfirm()"
                 />
