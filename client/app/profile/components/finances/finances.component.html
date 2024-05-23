@@ -65,7 +65,7 @@
                 </div>
             </div>
             @if (dataSource.data?.length === 0) {
-                <div class="mat-body-2 nat-padding margin nat-vertical nat-center">Aucune annonce</div>
+                <div class="nat-vertical nat-center nat-padding">Aucune annonce</div>
             } @else {
                 <div class="responsive-table">
                     <table mat-table matSort [dataSource]="dataSource" (matSortChange)="sorting([$event])">
