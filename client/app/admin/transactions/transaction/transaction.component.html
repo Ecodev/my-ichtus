@@ -136,10 +136,10 @@
 
             <!-- TODO : add selectors for ExpenseClaim -->
             <mat-divider class="nat-margin-vertical" />
-            <div class="nat-horizontal nat-gap-10 nat-align">
+            <div class="nat-horizontal nat-gap-10 nat-align nat-margin-bottom">
                 <h2 class="mat-headline-6 nat-no-margin-bottom no-margin-top">Écritures</h2>
                 @if (userService.canUpdateTransaction(viewer)) {
-                    <div>
+                    <div class="nat-horizontal nat-gap-10">
                         @if (!(updateTransactionLines || !isUpdatePage())) {
                             <button mat-stroked-button (click)="updateTransactionLines = true">Éditer</button>
                         }
