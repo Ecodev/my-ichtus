@@ -1,18 +1,20 @@
 <h2 mat-dialog-title>Exporter bilan + PP</h2>
-<mat-dialog-content class="nat-vertical" [formGroup]="form">
-    <mat-form-field>
-        <mat-label>Date du bilan</mat-label>
-        <input matInput formControlName="date" [matDatepicker]="picker" [max]="today" />
-        <mat-datepicker-toggle matIconSuffix [for]="picker" />
-        <mat-datepicker #picker />
-        @if (form.hasError('required')) {
-            <mat-error>Requis</mat-error>
-        }
-        @if (form.hasError('matDatepickerMax')) {
-            <mat-error>La date d'export ne peut pas être dans le futur</mat-error>
-        }
-    </mat-form-field>
-    <mat-checkbox formControlName="showBudget">Afficher le budget</mat-checkbox>
+<mat-dialog-content [formGroup]="form">
+    <div class="nat-vertical">
+        <mat-form-field>
+            <mat-label>Date du bilan</mat-label>
+            <input matInput formControlName="date" [matDatepicker]="picker" [max]="today" />
+            <mat-datepicker-toggle matIconSuffix [for]="picker" />
+            <mat-datepicker #picker />
+            @if (form.hasError('required')) {
+                <mat-error>Requis</mat-error>
+            }
+            @if (form.hasError('matDatepickerMax')) {
+                <mat-error>La date d'export ne peut pas être dans le futur</mat-error>
+            }
+        </mat-form-field>
+        <mat-checkbox formControlName="showBudget">Afficher le budget</mat-checkbox>
+    </div>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
