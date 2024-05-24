@@ -30,7 +30,7 @@
         "@ecodev/fab-speed-dial": "^16.0.6",
         "@ecodev/natural": "^58.0.6",
         "@ecodev/natural-editor": "^58.0.6",
-        "@ecodev/natural-layout": "^2.0.1",
+        "@ecodev/natural-layout": "^2.0.2",
         "@graphql-codegen/cli": "^5.0.2",
         "@graphql-codegen/typescript-apollo-angular": "^4.0.0",
         "@graphql-codegen/typescript-operations": "^4.2.0",
