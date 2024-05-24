@@ -91,33 +91,31 @@
                     ></textarea>
                 </mat-form-field>
 
-                <div id="sectorSelect">
-                    @if (form.get('type')?.value !== ExpenseClaimType.refund) {
-                        <mat-form-field>
-                            <mat-label>Secteur concerné</mat-label>
-                            <mat-select formControlName="sector" (selectionChange)="update()">
-                                <mat-option />
-                                @for (option of expenseClaimService.getSectors(); track option) {
-                                    <mat-option [value]="option">
-                                        {{ option }}
-                                    </mat-option>
-                                }
-                            </mat-select>
-                            <!-- Clear button -->
-                            <div class="suffix-buttons" matIconSuffix>
-                                @if (form.get('sector')?.value !== '') {
-                                    <button
-                                        mat-icon-button
-                                        matTooltip="Aucun"
-                                        (click)="form.get('sector')?.setValue(''); $event.stopPropagation(); update()"
-                                    >
-                                        <mat-icon naturalIcon="close" />
-                                    </button>
-                                }
-                            </div>
-                        </mat-form-field>
-                    }
-                </div>
+                @if (form.get('type')?.value !== ExpenseClaimType.refund) {
+                    <mat-form-field>
+                        <mat-label>Secteur concerné</mat-label>
+                        <mat-select formControlName="sector" (selectionChange)="update()">
+                            <mat-option />
+                            @for (option of expenseClaimService.getSectors(); track option) {
+                                <mat-option [value]="option">
+                                    {{ option }}
+                                </mat-option>
+                            }
+                        </mat-select>
+                        <!-- Clear button -->
+                        <div matIconSuffix>
+                            @if (form.get('sector')?.value !== '') {
+                                <button
+                                    mat-icon-button
+                                    matTooltip="Aucun"
+                                    (click)="form.get('sector')?.setValue(''); $event.stopPropagation(); update()"
+                                >
+                                    <mat-icon naturalIcon="close" />
+                                </button>
+                            }
+                        </div>
+                    </mat-form-field>
+                }
             </div>
 
             <div class="app-expand-40 nat-vertical">
