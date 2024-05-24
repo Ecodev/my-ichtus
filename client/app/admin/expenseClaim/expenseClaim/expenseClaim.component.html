@@ -126,8 +126,8 @@
                     (selectionChange)="update()"
                 />
 
-                <div class="nat-horizontal nat-gap-15">
-                    <mat-form-field style="width: 120px">
+                <div class="nat-vertical nat-sm-horizontal nat-sm-gap-15">
+                    <mat-form-field>
                         <mat-label>Montant</mat-label>
                         <input matInput type="number" step="0.01" formControlName="amount" (change)="update()" />
                         <div matTextSuffix>CHF</div>
@@ -151,7 +151,7 @@
                     />
                 </div>
 
-                <div class="nat-horizontal nat-md-gap-0 nat-gap-15 nat-md-vertical">
+                <div class="nat-vertical nat-md-horizontal nat-md-gap-15">
                     <natural-select
                         class="nat-expand-50"
                         formControlName="owner"
