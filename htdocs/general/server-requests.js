@@ -289,7 +289,7 @@ var Requests = {
                      }
                  ]
              }
- 
+
          };*/
 
         var filter = {
@@ -822,17 +822,6 @@ var Requests = {
             Cahier.actualizeConfirmKnowingBookablesAvailability(result.items);
         });
     },
-
-    //// Add an item NO MORE USED
-    //addBookable: function (_name, _description) {
-
-    //    const item = { name: "1", description: "kj", bookingType: "self_approved", type: 6004 };
-
-    //    Server.bookableService.create(item).subscribe(result => {
-    //        //console.log('Bookable created', result);
-    //    });
-
-    //},
 
     // getActualBookingList()
     getActualBookingList: function () {
@@ -1634,50 +1623,4 @@ var Requests = {
             Cahier.updateBookablesLicenses(result.items);
         });
     },
-
-    //// personalQuery
-    //personalQuery: function () {
-    //    var TheQuery = Server.gql`
-    //    {
-    //          bookables(
-    //            filter:{
-    //              groups:[{
-    //                conditionsLogic:OR
-    //                conditions:[
-    //                  {
-    //                    id:{
-    //                      like:{
-    //                        value:"%3001%"
-    //                      }
-    //                    }
-    //                    name:{
-    //                      like:{
-    //                        value:"%R15%"
-    //                      }
-    //                    }
-    //                  }
-    //                ]}
-    //              ]
-    //            },
-    //            sorting: [{
-    //	            field:id
-    //              order:DESC
-    //            }]
-    //          )
-    //          {
-    //              items {
-    //                id
-    //                name
-    //                description
-    //                tags {
-    //                  id
-    //                }
-    //              }
-    //            }
-    //        }
-    //        `;
-    //    Server.apollo.query({ query: TheQuery }).subscribe(result => {
-    //        //console.log("Result of Requests.createQuery(): ", result);
-    //    });
-    //}
 };
