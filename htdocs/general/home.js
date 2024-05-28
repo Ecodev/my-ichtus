@@ -473,7 +473,7 @@ function mergeBookings(bookings) {
 
     function canBeMerged(b1, b2) {
         if (b1.startDate != b2.startDate) return false;
-        if (b1.owner.id != b2.owner.id) return false;
+        if (b1.owner?.id != b2.owner?.id) return false;
         if (b1.endDate != b2.endDate && !options.bookingsTogetherWithDifferentEndates) return false;
         if ((is0second(b1) && !is0second(b2)) || (!is0second(b1) && is0second(b2))) return false; // XOR
         return true;
