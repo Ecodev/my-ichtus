@@ -1,8 +1,8 @@
-import {APP_INITIALIZER, enableProdMode, importProvidersFrom, inject, NgZone, ɵNoopNgZone} from '@angular/core';
+import {APP_INITIALIZER, enableProdMode, inject, NgZone, ɵNoopNgZone} from '@angular/core';
 import {environment} from './environments/environment';
 import {createApplication} from '@angular/platform-browser';
 import {APP_BASE_HREF} from '@angular/common';
-import {Apollo, APOLLO_OPTIONS, ApolloModule, gql} from 'apollo-angular';
+import {Apollo, APOLLO_OPTIONS} from 'apollo-angular';
 import {HttpBatchLink} from 'apollo-angular/http';
 import {InMemoryCache} from '@apollo/client/core';
 import {cacheConfig} from '../app/shared/config/apollo-options.provider';
@@ -11,7 +11,6 @@ import {
     graphqlQuerySigner,
     Literal,
     localStorageProvider,
-    NaturalLinkMutationService,
     NaturalQueryVariablesManager,
     sessionStorageProvider,
 } from '@ecodev/natural';
@@ -36,7 +35,7 @@ function apiUrl(): string {
 
 createApplication({
     providers: [
-        importProvidersFrom(ApolloModule),
+        Apollo,
         provideHttpClient(withInterceptors([graphqlQuerySigner(localConfig.signedQueries.keys.navigations)])),
         sessionStorageProvider,
         localStorageProvider,
@@ -63,23 +62,18 @@ createApplication({
             provide: APP_INITIALIZER,
             multi: true,
             useFactory: (): (() => void) => {
-                const apollo = inject(Apollo);
                 const userService = inject(UserService);
                 const bookableService = inject(BookableService);
                 const bookingService = inject(BookingService);
-                const linkMutation = inject(NaturalLinkMutationService);
 
                 return () => {
                     const QueryVariablesManager = NaturalQueryVariablesManager; // for retro compatibility
 
                     const api = {
-                        gql,
-                        apollo,
                         userService,
                         bookableService,
                         bookingService,
                         QueryVariablesManager,
-                        linkMutation,
                     };
 
                     (window as Literal).ichtusApi = api;
