@@ -637,8 +637,6 @@
     background-color: darkorange;
 }
 
-
-
 #btnEditBooking {
     position: absolute;
     right: 10px;
@@ -658,12 +656,20 @@
     background-image: url(../img/icons/edit-white.png);
     /*background-blend-mode: exclusion;*/
     opacity: 1;
-    -moz-transition: opacity 0.3s linear 0s, background-color 0.1s linear 0s;
-    -o-transition: opacity 0.3s linear 0s, background-color 0.1s linear 0s;
-    -webkit-transition: opacity 0.3s linear 0s, background-color 0.1s linear 0s;
-    transition: opacity 0.3s linear 0s, background-color 0.1s linear 0s;
-    background-color:gray;
-    color:white;
+    -moz-transition:
+        opacity 0.3s linear 0s,
+        background-color 0.1s linear 0s;
+    -o-transition:
+        opacity 0.3s linear 0s,
+        background-color 0.1s linear 0s;
+    -webkit-transition:
+        opacity 0.3s linear 0s,
+        background-color 0.1s linear 0s;
+    transition:
+        opacity 0.3s linear 0s,
+        background-color 0.1s linear 0s;
+    background-color: gray;
+    color: white;
 }
 
 #btnEditBooking.buttonNonActive {
@@ -673,13 +679,12 @@
 }
 
 #btnEditBooking:hover {
-    background-color:rgb(88, 88, 88);
+    background-color: rgb(88, 88, 88);
 }
 
 #btnEditBooking.buttonNonActive:hover {
     background-color: lightgray;
 }
-
 
 @keyframes InputAnimation {
     from {
@@ -713,7 +718,10 @@
     -webkit-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     -moz-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
-    transition: all 0.1s linear 0s, width 0.2s linear 0s, margin-left 0.2s linear 0s;
+    transition:
+        all 0.1s linear 0s,
+        width 0.2s linear 0s,
+        margin-left 0.2s linear 0s;
     outline: none; /*pour enlever le cadre bleu quand sélectionné*/
     border-radius: 10px;
     background-image: url(../img/icons/search-black.png);

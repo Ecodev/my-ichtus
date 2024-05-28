@@ -341,7 +341,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
 
         // 1.4, 1.5 (Edit Booking)
         $('btnEditBooking').style.visibility = 'visible';
-        minutesAgo = (new Date() - new Date(booking.startDate))/1000/60
+        minutesAgo = (new Date() - new Date(booking.startDate)) / 1000 / 60;
         // Edit button active
         if (minutesAgo < options.minutesToEditBooking) {
             $('btnEditBooking').onclick = function () {
@@ -357,15 +357,18 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
                 }
                 Requests.getBookablesLicenses(bookableIds);
 
-                $('divTabCahierProgress').classList.add("editing");
+                $('divTabCahierProgress').classList.add('editing');
 
                 newTab('divTabCahierInfos');
             };
         }
         // Edit button inactive
         else {
-            $('btnEditBooking').classList.add("buttonNonActive");
-            $('btnEditBooking').title = "Il est uniquement possible d'éditer une sortie jusqu'à " + options.minutesToEditBooking + " minutes après sa création."
+            $('btnEditBooking').classList.add('buttonNonActive');
+            $('btnEditBooking').title =
+                "Il est uniquement possible d'éditer une sortie jusqu'à " +
+                options.minutesToEditBooking +
+                ' minutes après sa création.';
         }
     }
 

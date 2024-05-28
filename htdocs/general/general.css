@@ -61,7 +61,10 @@ input {
     -webkit-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     -moz-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
-    transition: all 0.1s linear 0s, width 0.2s linear 0s, margin-left 0.2s linear 0s;
+    transition:
+        all 0.1s linear 0s,
+        width 0.2s linear 0s,
+        margin-left 0.2s linear 0s;
     border-radius: 10px;
 }
 input[type='text'] {
@@ -381,8 +384,12 @@ option {
 }
 
 .Boxes:hover > .BoxesTop {
-    background-position-x: 0px, -20px;
-    background-position-y: 0px, -20px;
+    background-position-x:
+        0px,
+        -20px;
+    background-position-y:
+        0px,
+        -20px;
     background-size: 200px, 240px;
 }
 

@@ -43,12 +43,10 @@ function loadActualBookings(_actualBookings) {
 
 function coloring(booking) {
     if (booking.creator.name.toLowerCase() !== 'booking only') {
-        return "orange";
-    }
-    else if (is0second(booking)) {
-        return "gray";
-    }
-    else return "green";
+        return 'orange';
+    } else if (is0second(booking)) {
+        return 'gray';
+    } else return 'green';
 }
 
 function actualizeActualBookings(_actualBookings) {
@@ -74,7 +72,7 @@ function actualizeActualBookings(_actualBookings) {
         container.classList.add('TableEntriesHover');
 
         if (options.seeExtraInfos) {
-            container.style.backgroundColor = coloring(_actualBookings[i])
+            container.style.backgroundColor = coloring(_actualBookings[i]);
         }
 
         container.addEventListener('click', function (event) {
@@ -461,7 +459,7 @@ function actualizeFinishedBookingListForDay(bookings, table) {
             });
 
             if (options.seeExtraInfos) {
-                entry.style.backgroundColor = coloring(bookings[i])
+                entry.style.backgroundColor = coloring(bookings[i]);
             }
 
             div(entry).innerHTML = new Date(bookings[i].startDate).getNiceTime(':', true);

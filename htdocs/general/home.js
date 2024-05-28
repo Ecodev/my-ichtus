@@ -5,12 +5,12 @@ var options = {
     showRemarks: true,
     automaticConnexion: true,
     seeExtraInfos: false,
-//    reloadWhenFinished: false,
+    //    reloadWhenFinished: false,
     bookingsTogetherWithDifferentEndates: true,
     modifyBookablesButton: true,
     editBookingButton: true,
     finishAllBookingsWithBookable: false, // si créer une sortie avec une embarcation déjà utilisée, ça termine seulement le booking avec l'embarcation utilisée de M. Uti.
-//    checkIfBookablesNotAvailableWhenConfirming: true,
+    //    checkIfBookablesNotAvailableWhenConfirming: true,
     showAlertBookablesNotAvailable: false,
     showAlertNoWelcomeSession: true,
     minutesToEditBooking: 60, // after Fred's request
@@ -58,7 +58,7 @@ function load() {
     loadCahierEquipmentChoice();
     loadEscListener();
 
-    version = "1.5"
+    version = '1.5';
     if (window.location.hostname === 'navigations.ichtus.club') {
         console.warn('Version de production ' + version);
         $('divTopBarText').innerHTML = tabs[0].title;
@@ -83,10 +83,13 @@ var timeout;
 function setTimeoutMove() {
     //console.log("start timeout");
     clearTimeout(timeout);
-    timeout = setTimeout(function () {
-        if (currentTabElement.id === 'divTabCahier') location.reload();
-        else Requests.getActualBookingList();
-    }, 1 * 60 * 1000);
+    timeout = setTimeout(
+        function () {
+            if (currentTabElement.id === 'divTabCahier') location.reload();
+            else Requests.getActualBookingList();
+        },
+        1 * 60 * 1000,
+    );
 }
 
 setTimeoutMove();
@@ -125,8 +128,8 @@ Date.prototype.getNiceTime = function (separator = ':', addZero = false) {
 Date.prototype.getNiceDate = function (substr = false, year = false) {
     var r = '';
     if (substr) {
-        var month = Mois[this.getMonth()]
-        if (month.length > 4) month = month.substring(0,3)
+        var month = Mois[this.getMonth()];
+        if (month.length > 4) month = month.substring(0, 3);
         r = Jours[this.getDay()] + ' ' + this.getDate() + ' ' + month;
     } else {
         r = Jours[this.getDay()] + ' ' + this.getDate() + ' ' + Mois[this.getMonth()];
@@ -452,15 +455,19 @@ function displayBooking(booking) {
     return !is0second(booking);
 }
 
-
 function mergeBookings(bookings) {
-   
-    bookings = bookings.clone() // clone
+    bookings = bookings.clone(); // clone
 
     // assert the bookings have decreasing startDates, i.e. bookings[i-1].startDate (newer) >= bookings[i].startDate (older)
     for (let i = 1; i < bookings.length; i++) {
-        if (!(new Date(bookings[i].startDate) - new Date(bookings[i-1].startDate) <= 0)) {
-            console.warn("[mergeBookings]: startDates:", bookings[i-1].startDate, "is not >=", bookings[i].startDate, "aren't increasing !")
+        if (!(new Date(bookings[i].startDate) - new Date(bookings[i - 1].startDate) <= 0)) {
+            console.warn(
+                '[mergeBookings]: startDates:',
+                bookings[i - 1].startDate,
+                'is not >=',
+                bookings[i].startDate,
+                "aren't increasing !",
+            );
         }
     }
 
@@ -468,39 +475,40 @@ function mergeBookings(bookings) {
         if (b1.startDate != b2.startDate) return false;
         if (b1.owner.id != b2.owner.id) return false;
         if (b1.endDate != b2.endDate && !options.bookingsTogetherWithDifferentEndates) return false;
-        if (is0second(b1) && !is0second(b2) || !is0second(b1) && is0second(b2)) return false; // XOR
+        if ((is0second(b1) && !is0second(b2)) || (!is0second(b1) && is0second(b2))) return false; // XOR
         return true;
     }
-    
+
     function mergeComments(c1, c2) {
-        var meaninglessComments = ["", "Terminée automatiquement"]
+        var meaninglessComments = ['', 'Terminée automatiquement'];
         if (!meaninglessComments.includes(c1)) return c1;
         if (!meaninglessComments.includes(c2)) return c2;
-        if (c1 != "") return c1;
+        if (c1 != '') return c1;
         return c2;
     }
 
     resultingBookings = [];
 
     while (bookings.length > 0) {
-
         booking = bookings.pop();
-        
+
         // should not be kept
         if (!displayBooking(booking)) continue;
 
         // find potential booking to merge it with
         // --> can only be merged with the last bookings of resultingBookings since the startDates are decreasing
         var merged = false;
-        for (let r = resultingBookings.length - 1; r >= 0 ; r--) {
-            if (new Date(booking.startDate) - new Date(resultingBookings[r].startDate) > 0 ) break;
+        for (let r = resultingBookings.length - 1; r >= 0; r--) {
+            if (new Date(booking.startDate) - new Date(resultingBookings[r].startDate) > 0) break;
 
             if (canBeMerged(booking, resultingBookings[r])) {
                 // can be merged --> merge
-                resultingBookings[r].bookables.push(booking.bookable == null ? Cahier.personalBookable : booking.bookable)
+                resultingBookings[r].bookables.push(
+                    booking.bookable == null ? Cahier.personalBookable : booking.bookable,
+                );
                 resultingBookings[r].ids.push(booking.id);
                 resultingBookings[r].participantCount += booking.participantCount;
-                resultingBookings[r].endComment = mergeComments(resultingBookings[r].endComment, booking.endComment)
+                resultingBookings[r].endComment = mergeComments(resultingBookings[r].endComment, booking.endComment);
                 merged = true;
                 break;
             }
@@ -509,21 +517,20 @@ function mergeBookings(bookings) {
         // Couldn't merge --> append
         if (!merged) {
             resultingBookings.push(booking);
-            resultingBookings[resultingBookings.length - 1].ids = [booking.id]; 
-            resultingBookings[resultingBookings.length - 1].bookables = [booking.bookable == null ? Cahier.personalBookable : booking.bookable]
+            resultingBookings[resultingBookings.length - 1].ids = [booking.id];
+            resultingBookings[resultingBookings.length - 1].bookables = [
+                booking.bookable == null ? Cahier.personalBookable : booking.bookable,
+            ];
         }
-
     }
     return resultingBookings;
 }
 
-
 // transformBookingsOld
 function transformBookingsOld(_bookings) {
-
     if (_bookings.length == 0) return [];
 
-    if (!displayBooking(_bookings[0])) return transformBookingsOld(_bookings.slice(1))
+    if (!displayBooking(_bookings[0])) return transformBookingsOld(_bookings.slice(1));
 
     var final = [];
 
@@ -534,10 +541,11 @@ function transformBookingsOld(_bookings) {
     else final[0].bookables = [_bookings[0].bookable];
 
     for (var i = 1; i < _bookings.length; i++) {
-
         if (!displayBooking(_bookings[i])) continue;
 
-        var canBeMerged = is0second(_bookings[i]) && is0second(_bookings[i-1]) || !is0second(_bookings[i]) && !is0second(_bookings[i-1])
+        var canBeMerged =
+            (is0second(_bookings[i]) && is0second(_bookings[i - 1])) ||
+            (!is0second(_bookings[i]) && !is0second(_bookings[i - 1]));
 
         if (_bookings[i - 1].owner == null) {
             console.warn('Booking without owner :', _bookings[i - 1]);

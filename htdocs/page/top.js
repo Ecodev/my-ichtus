@@ -130,18 +130,21 @@ function newLetter(i) {
         }
 
         if (i > 2) {
-            setTimeout(function () {
-                d.style.animationName = 'AniLettersExitRight';
-                setTimeout(
-                    function (elem) {
-                        if (running) {
-                            DeleteObjects(elem);
-                        }
-                    },
-                    550,
-                    d,
-                );
-            }, 3000 - 100 + (3 - i) * 2 * 100);
+            setTimeout(
+                function () {
+                    d.style.animationName = 'AniLettersExitRight';
+                    setTimeout(
+                        function (elem) {
+                            if (running) {
+                                DeleteObjects(elem);
+                            }
+                        },
+                        550,
+                        d,
+                    );
+                },
+                3000 - 100 + (3 - i) * 2 * 100,
+            );
         } else {
             setTimeout(function () {
                 d.style.animationName = 'AniLettersExitLeft';

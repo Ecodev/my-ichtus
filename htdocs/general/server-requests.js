@@ -1435,10 +1435,23 @@ var Requests = {
     },
 
     // terminateCreateAndUpdateBookings
-    terminateCreateAndUpdateBookings: function(idsToFinish = [], commentsToFinish, inputsToCreate = [], idsToUpdate = [], inputsToUpdate = []) {
-        console.log(idsToFinish.length + ", " + inputsToCreate.length + " and " + idsToUpdate.length + " booking(s) to terminate, create and update respectively.");
+    terminateCreateAndUpdateBookings: function (
+        idsToFinish = [],
+        commentsToFinish,
+        inputsToCreate = [],
+        idsToUpdate = [],
+        inputsToUpdate = [],
+    ) {
+        console.log(
+            idsToFinish.length +
+                ', ' +
+                inputsToCreate.length +
+                ' and ' +
+                idsToUpdate.length +
+                ' booking(s) to terminate, create and update respectively.',
+        );
 
-        var finished = function() {
+        var finished = function () {
             Requests.createAndUpdateBookings(inputsToCreate, idsToUpdate, inputsToUpdate);
         };
 
@@ -1448,7 +1461,7 @@ var Requests = {
 
         // ToFinish
         for (let i = 0; i < idsToFinish.length; i++) {
-  //          console.log("Terminate:", idsToFinish[i], commentsToFinish[i]);
+            //          console.log("Terminate:", idsToFinish[i], commentsToFinish[i]);
             Server.bookingService.terminateBooking(idsToFinish[i], commentsToFinish[i]).subscribe(result => {
                 c++;
                 if (c == idsToFinish.length) finished();
@@ -1457,20 +1470,27 @@ var Requests = {
     },
 
     // createAndUpdateBookings
-    createAndUpdateBookings: function(inputsToCreate = [], idsToUpdate = [], inputsToUpdate = []) {
-
+    createAndUpdateBookings: function (inputsToCreate = [], idsToUpdate = [], inputsToUpdate = []) {
         // filter the input to only keep the allowed fields,  append the id to it, and the actual startDate
-        var extendInput = function(id, input) {
-            var inputFiltered = {"id": id, "startDate": (new Date()).toISOString()};
-            keys = ["bookable", "participantCount", "destination", "startComment", "endComment", "startDate", "endDate"]
+        var extendInput = function (id, input) {
+            var inputFiltered = {id: id, startDate: new Date().toISOString()};
+            keys = [
+                'bookable',
+                'participantCount',
+                'destination',
+                'startComment',
+                'endComment',
+                'startDate',
+                'endDate',
+            ];
             for (const [key, value] of Object.entries(input)) {
                 if (keys.includes(key)) inputFiltered[key] = value;
             }
             return inputFiltered;
-        }
+        };
 
-        var finished = function() {
-            console.log("Successfully terminated, created and updated the bookings.")
+        var finished = function () {
+            console.log('Successfully terminated, created and updated the bookings.');
             newTab('divTabCahier');
             ableToSkipAnimation();
             stopWaiting();
@@ -1481,7 +1501,7 @@ var Requests = {
 
         // ToCreate
         for (let i = 0; i < inputsToCreate.length; i++) {
-//            console.log("Create:", inputsToCreate[i]);
+            //            console.log("Create:", inputsToCreate[i]);
             Server.bookingService.create(inputsToCreate[i]).subscribe(booking => {
                 c++;
                 if (c == total) finished();
@@ -1489,7 +1509,7 @@ var Requests = {
         }
         // ToUpdate
         for (let i = 0; i < inputsToUpdate.length; i++) {
- //           console.log("Update:", inputsToUpdate[i]);
+            //           console.log("Update:", inputsToUpdate[i]);
             Server.bookingService.updatePartially(extendInput(idsToUpdate[i], inputsToUpdate[i])).subscribe(result => {
                 c++;
                 if (c == total) finished();
@@ -1497,11 +1517,8 @@ var Requests = {
         }
     },
 
-
-
     // updateBooking
-    updateBooking: function (id = '4079', input = {"bookable": "3001", "owner": "1002"}) {
-
+    updateBooking: function (id = '4079', input = {bookable: '3001', owner: '1002'}) {
         // e.g.
         /*
         Server.bookingService.updatePartially({
@@ -1514,45 +1531,42 @@ var Requests = {
         });
         */
 
-        if ("owner" in input) {
-            console.error("Requests.updateBooking(): Not allowed to update the owner " +
-                          "(bookingonly doesn't have the rights to).")
+        if ('owner' in input) {
+            console.error(
+                'Requests.updateBooking(): Not allowed to update the owner ' +
+                    "(bookingonly doesn't have the rights to).",
+            );
         }
 
-        extended_input = Object.assign({id: id}, input)
-        console.log(extended_input)
+        extended_input = Object.assign({id: id}, input);
+        console.log(extended_input);
         Server.bookingService.updatePartially(extended_input).subscribe(result => {
-            console.log("updateBooking():", result)
+            console.log('updateBooking():', result);
         });
-
     },
 
-    deleteBooking: function(id = '4079') {
-        
-        console.error("It seems that bookingonly doesn't have the rights to perform booking deletions.")
+    deleteBooking: function (id = '4079') {
+        console.error("It seems that bookingonly doesn't have the rights to perform booking deletions.");
 
-        Server.bookingService.delete([{"id": id}]).subscribe(result => {
-            console.log("deleteBooking():", result)
-        })
-
+        Server.bookingService.delete([{id: id}]).subscribe(result => {
+            console.log('deleteBooking():', result);
+        });
     },
 
     // deleteBookings
     deleteBookings: function (id_s = ['3102']) {
-        console.error("Not implemented function.")
-        alert("Not implemented function.")
+        console.error('Not implemented function.');
+        alert('Not implemented function.');
         //  Server.bookingService.deleteBookings(ids).subscribe(result => { console.log(result); });
     },
 
     // getServerInputsForBookingCreating
     getServerInputsForBookingCreating: function (booking = Cahier.bookings[0], startDate = null) {
-        
         var bookingInputs = [];
         for (let i = 0; i < booking.bookables.length; i++) {
             var input = {
                 owner: booking.owner.id,
-                participantCount:
-                    i == 0 ? booking.participantCount - booking.bookables.length + 1 : 1,
+                participantCount: i == 0 ? booking.participantCount - booking.bookables.length + 1 : 1,
                 destination: booking.destination,
                 startComment: booking.startComment,
                 bookable: booking.bookables[i].id != 0 ? booking.bookables[i].id : null,
@@ -1562,16 +1576,15 @@ var Requests = {
             }
             bookingInputs.push(input);
         }
-        return bookingInputs
+        return bookingInputs;
     },
 
     // createBooking2
     createBooking: function () {
         var c = 0;
-        bookingInputs = Requests.getServerInputsForBookingCreating(Cahier.bookings[0])
+        bookingInputs = Requests.getServerInputsForBookingCreating(Cahier.bookings[0]);
         for (let i = 0; i < bookingInputs.length; i++) {
-            
-            var input = bookingInputs[i]
+            var input = bookingInputs[i];
             Server.bookingService.create(input).subscribe(booking => {
                 c++;
                 if (c == bookingInputs.length) {

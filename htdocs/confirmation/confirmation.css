@@ -261,7 +261,10 @@
     height: 100px;
     background-image: url(../img/icons/info.png), none, none;
     background-size: 25px, 35px, 100px;
-    background-position: top left, 62px 65px, top left;
+    background-position:
+        top left,
+        62px 65px,
+        top left;
     background-repeat: no-repeat;
     border-radius: 10px;
     border: 2px solid lightgray;
@@ -386,7 +389,10 @@
     -webkit-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     -moz-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
-    transition: all 0.1s linear 0s, width 0.2s linear 0s, margin-left 0.2s linear 0s;
+    transition:
+        all 0.1s linear 0s,
+        width 0.2s linear 0s,
+        margin-left 0.2s linear 0s;
     outline: none; /*pour enlever le cadre bleu quand sélectionné*/
 }
 

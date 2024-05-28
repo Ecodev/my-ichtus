@@ -36,7 +36,10 @@
     -webkit-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
     -moz-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
-    transition: all 0.1s linear 0s, width 0.2s linear 0s, margin-left 0.2s linear 0s;
+    transition:
+        all 0.1s linear 0s,
+        width 0.2s linear 0s,
+        margin-left 0.2s linear 0s;
     outline: none; /*pour enlever le cadre bleu quand s�lectionn�*/
     z-index: 5;
 }

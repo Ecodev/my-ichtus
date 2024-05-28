@@ -247,7 +247,9 @@
     background-repeat: no-repeat;
     background-size: 0px;
     background-position: center;
-    transition: background-color 0.5s ease 0s, background-size 0.1s linear 0s;
+    transition:
+        background-color 0.5s ease 0s,
+        background-size 0.1s linear 0s;
     border-radius: 30px;
     background-image: url(../img/icons/info.png);
 }
@@ -408,7 +410,10 @@
     -webkit-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     -moz-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
-    transition: all 0.1s linear 0s, width 0.2s linear 0s, margin-left 0.2s linear 0s;
+    transition:
+        all 0.1s linear 0s,
+        width 0.2s linear 0s,
+        margin-left 0.2s linear 0s;
     outline: none; /*pour enlever le cadre bleu quand sélectionné*/
     border-radius: 10px;
     background-image: url(../img/icons/search-black.png);

@@ -30,8 +30,8 @@ function popAlertLate() {
     container = div(elem);
     container.classList.add('PopUpAlertContainer', 'booking');
     container.classList.add('Boxes');
-    container.style.width = "495px";
-    container.style.height = "180px";
+    container.style.width = '495px';
+    container.style.height = '180px';
 
     var close = div(container);
     close.className = 'divPopUpClose';
@@ -42,12 +42,12 @@ function popAlertLate() {
     var d = div(container);
     d.style.textAlign = 'center';
     d.style.fontSize = '25px';
-    d.innerHTML = 'Heures tardives'
+    d.innerHTML = 'Heures tardives';
 
     grayBar(container, 5);
 
     var t = div(container);
-    t.innerHTML = 'Pour ta sécurité, pense à rentrer avant le coucher du soleil.'
+    t.innerHTML = 'Pour ta sécurité, pense à rentrer avant le coucher du soleil.';
 
     var btnContainer = div(container);
     btnContainer.style.position = 'relative';
@@ -61,7 +61,6 @@ function popAlertLate() {
         closePopUp('last');
         $('divTabCahierMember').getElementsByTagName('input')[0].focus();
     });
-
 }
 function popAlertAlreadyHavingABooking(_owner) {
     var elem = openPopUp();
@@ -198,13 +197,13 @@ function popAlertLessThan13Minutes(_bookable, _booking, _choseFunction) {
     t.style.minHeight = '80px';
 
     var a = div(container);
-    a.style.position = "absolute";
-    a.style.left = "12px";
-    a.style.top = "10px";
-    a.style.backgroundImage = "url(../img/icons/alert.png)";
-    a.style.backgroundSize = "30px";
-    a.style.width = "30px";
-    a.style.height = "30px";
+    a.style.position = 'absolute';
+    a.style.left = '12px';
+    a.style.top = '10px';
+    a.style.backgroundImage = 'url(../img/icons/alert.png)';
+    a.style.backgroundSize = '30px';
+    a.style.width = '30px';
+    a.style.height = '30px';
 
     var btnContainer = div(container);
     btnContainer.style.position = 'relative';

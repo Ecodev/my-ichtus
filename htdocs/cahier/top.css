@@ -200,22 +200,22 @@
     cursor: not-allowed;
 }
 #divTabCahierProgress.editing > *:nth-child(1) > .divTabCahierProgressNumber {
-    opacity:0;
+    opacity: 0;
 }
-#divTabCahierProgress.editing > *:nth-child(1) > .divTabCahierProgressNumber:hover ~ .divTabCahierProgressCircle  {
-    background-color:white;
+#divTabCahierProgress.editing > *:nth-child(1) > .divTabCahierProgressNumber:hover ~ .divTabCahierProgressCircle {
+    background-color: white;
     background-image: url(../img/icons/check-blue.png);
 }
 
-#divTabCahierProgress.editing > *:nth-child(1) > .divTabCahierProgressCircle  {
+#divTabCahierProgress.editing > *:nth-child(1) > .divTabCahierProgressCircle {
     filter: brightness(1.9) grayscale(1) blur(1px);
-    -webkit-filter:brightness(1.9) grayscale(1) blur(1px);
+    -webkit-filter: brightness(1.9) grayscale(1) blur(1px);
     border-color: #6a6a6a;
 }
 
-#divTabCahierProgress.editing > *:nth-child(1) > .divTabCahierProgressText  {
-    color:lightgray;
-    filter:blur(1px);
+#divTabCahierProgress.editing > *:nth-child(1) > .divTabCahierProgressText {
+    color: lightgray;
+    filter: blur(1px);
     -webkit-filter: blur(1px);
 }
 
