@@ -7,16 +7,10 @@ import {HttpBatchLink} from 'apollo-angular/http';
 import {InMemoryCache} from '@apollo/client/core';
 import {cacheConfig} from '../app/shared/config/apollo-options.provider';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
-import {
-    graphqlQuerySigner,
-    Literal,
-    localStorageProvider,
-    NaturalQueryVariablesManager,
-    sessionStorageProvider,
-} from '@ecodev/natural';
-import {UserService} from '../app/admin/users/services/user.service';
-import {BookableService} from '../app/admin/bookables/services/bookable.service';
-import {BookingService} from '../app/admin/bookings/services/booking.service';
+import {graphqlQuerySigner, Literal, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {UserForVanillaService} from './user-for-vanilla.service';
+import {BookableForVanillaService} from './bookable-for-vanilla.service';
+import {BookingForVanillaService} from './booking-for-vanilla.service';
 import {localConfig} from '../app/shared/generated-config';
 
 if (environment.production) {
@@ -37,8 +31,6 @@ createApplication({
     providers: [
         Apollo,
         provideHttpClient(withInterceptors([graphqlQuerySigner(localConfig.signedQueries.keys.navigations)])),
-        sessionStorageProvider,
-        localStorageProvider,
         {provide: NgZone, useClass: ɵNoopNgZone},
         {provide: APP_BASE_HREF, useValue: '/'},
         {
@@ -62,9 +54,9 @@ createApplication({
             provide: APP_INITIALIZER,
             multi: true,
             useFactory: (): (() => void) => {
-                const userService = inject(UserService);
-                const bookableService = inject(BookableService);
-                const bookingService = inject(BookingService);
+                const userService = inject(UserForVanillaService);
+                const bookableService = inject(BookableForVanillaService);
+                const bookingService = inject(BookingForVanillaService);
 
                 return () => {
                     const QueryVariablesManager = NaturalQueryVariablesManager; // for retro compatibility

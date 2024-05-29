@@ -152,7 +152,7 @@
                         "index": "client/vanilla/index.html",
                         "browser": "client/vanilla/main.ts",
                         "tsConfig": "client/vanilla/tsconfig.app.json",
-                        "polyfills": ["zone.js"]
+                        "polyfills": []
                     },
                     "configurations": {
                         "production": {
@@ -160,8 +160,10 @@
                             "budgets": [
                                 {
                                     "type": "initial",
-                                    "maximumWarning": "2mb",
-                                    "maximumError": "5mb"
+                                    "maximumWarning": "369kb",
+                                    // DO NOT MODIFY THIS, instead, if you see this error, triple-check why we included
+                                    // more code into Vanilla and if https://navigations.ichtus.club will still work with this new build
+                                    "maximumError": "370kb"
                                 },
                                 {
                                     "type": "anyComponentStyle",
