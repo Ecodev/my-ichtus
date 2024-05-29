@@ -56,35 +56,12 @@
         <script src="equipment/pop-bookable-history.js"></script>
         <script src="infos/infos.js"></script>
         <script src="infos/pop-infos.js"></script>
-        <script src="utils/utils.js"></script>
 
-        <script>
-            const apiServer =
-                window.location.hostname === 'navigations.ichtus.club' ? 'ichtus.club' : 'dev.ichtus.club';
-
-            //
-            loadJs('https://' + apiServer + '/vanilla/runtime.js');
-            loadJs('https://' + apiServer + '/vanilla/polyfills.js');
-            loadJs('https://' + apiServer + '/vanilla/main.js');
-
-            // -es2015
-            //    loadJs('https://' + apiServer + '/vanilla/runtime-es2015.js');
-            //     loadJs('https://' + apiServer + '/vanilla/polyfills-es2015.js');
-            //     loadJs('https://' + apiServer + '/vanilla/main-es2015.js');
-
-            // -es5
-            //         loadJs('https://' + apiServer + '/vanilla/runtime-es5.js');
-            //        loadJs('https://' + apiServer + '/vanilla/polyfills-es5.js');
-            //       loadJs('https://' + apiServer + '/vanilla/main-es5.js');
-        </script>
-
-        <!-- JavaScript Linked Files For Wind -->
-        <!--<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>-->
         <!--Favicon-->
         <link rel="icon" href="img/logo/favicon.ico" />
     </head>
 
-    <body onload="load();">
+    <body>
         <!-- Top Bar -->
         <div id="divTopBar">
             <div id="divTopBarLogo" onclick="newTab('divTabCahier')">
@@ -399,8 +376,6 @@
                                 <select onchange="Requests.getBookablesList();">
                                     <option value="code">Code</option>
                                     <option value="name">Nom</option>
-                                    <!--<option value="nbrBookings">Nbr de sorties</option>
-                                <option value="lastUse">Dernière utilisation</option>-->
                                 </select>
                             </div>
                         </div>
@@ -472,6 +447,14 @@
                 </div>
             </div>
         </div>
+        <script type="module">
+            const apiServer = window.location.hostname === 'navigations.ichtus.club' ? 'ichtus.club' : 'dev.ichtus.club';
+            const cacheBuster = '?time=' + new Date().getTime();
+
+            await import('https://' + apiServer + '/vanilla/main.js' + cacheBuster);
+
+            load();
+        </script>
     </body>
 </html>
 
