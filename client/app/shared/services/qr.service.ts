@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import jsQR from 'jsqr';
+import type jsQR from 'jsqr';
 import {Observable, ReplaySubject, Subject} from 'rxjs';
 import {distinctUntilChanged, filter} from 'rxjs/operators';
 
@@ -23,6 +23,7 @@ export class QrService {
      * An observable of all distinct, non-empty scanned QR code
      */
     public readonly qrCode: Observable<string>;
+    private jsQR: Promise<typeof jsQR> | undefined;
 
     public constructor() {
         this.qrCode = this.scanObservable.pipe(
@@ -105,13 +106,16 @@ export class QrService {
             this.context.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
 
             const imgData = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
-            const code = jsQR(imgData.data, imgData.width, imgData.height);
+            this.jsQR ??= import('jsqr').then(m => m.default);
+            this.jsQR.then(jsQR => {
+                const code = jsQR(imgData.data, imgData.width, imgData.height);
 
-            if (code?.data) {
-                this.scanObservable.next(code.data);
-            } else {
-                this.scanObservable.next('');
-            }
+                if (code?.data) {
+                    this.scanObservable.next(code.data);
+                } else {
+                    this.scanObservable.next('');
+                }
+            });
         }
 
         this.queueDecoding();
