@@ -4,7 +4,9 @@
             <mat-slide-toggle [(ngModel)]="active" (change)="update()"> Actif </mat-slide-toggle>
         }
         @if (!readonly) {
-            <natural-editor [(ngModel)]="text" />
+            @defer {
+                <natural-editor [(ngModel)]="text" />
+            }
         }
         @if (readonly) {
             <div class="content" [innerHTML]="text"></div>
