@@ -1,4 +1,5 @@
-import anime, {AnimeCallBack} from 'animejs';
+import type anime from 'animejs';
+import {AnimeCallBack} from 'animejs';
 import {Renderer2} from '@angular/core';
 import {rand} from './utils';
 
@@ -50,6 +51,7 @@ export class Particles {
     private rect: HTMLCanvasElement | undefined;
     private options: Required<IOption>;
     private o: Required<IOption>;
+    private anime: Promise<typeof anime> | undefined;
 
     public constructor(
         private readonly el: any,
@@ -257,18 +259,21 @@ export class Particles {
     }
 
     private animate(update: AnimeCallBack['update']): void {
-        anime({
-            targets: {value: this.disintegrating ? 0 : 100},
-            value: this.disintegrating ? 100 : 0,
-            duration: this.o.duration,
-            easing: this.o.easing,
-            begin: this.o.begin,
-            update: update,
-            complete: () => {
-                if (this.disintegrating) {
-                    this.renderer.setStyle(this.wrapper, 'visibility', 'hidden');
-                }
-            },
+        this.anime ??= import('animejs').then(m => m.default);
+        this.anime.then(anime => {
+            anime({
+                targets: {value: this.disintegrating ? 0 : 100},
+                value: this.disintegrating ? 100 : 0,
+                duration: this.o.duration,
+                easing: this.o.easing,
+                begin: this.o.begin,
+                update: update,
+                complete: () => {
+                    if (this.disintegrating) {
+                        this.renderer.setStyle(this.wrapper, 'visibility', 'hidden');
+                    }
+                },
+            });
         });
     }
 
