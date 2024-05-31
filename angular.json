@@ -44,7 +44,8 @@
                             "client/styles.scss",
                             "node_modules/@ecodev/natural-layout/natural-layout.css"
                         ],
-                        "scripts": []
+                        "scripts": [],
+                        "allowedCommonJsDependencies": ["jsqr"]
                     },
                     "configurations": {
                         "production": {
