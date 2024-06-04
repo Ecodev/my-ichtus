@@ -18,13 +18,7 @@ if (environment.production) {
 }
 
 function apiUrl(): string {
-    const currentScript = window.document.currentScript;
-    let origin = 'https://my-ichtus.lan';
-    if (currentScript instanceof HTMLScriptElement) {
-        origin = new URL(currentScript.src).origin;
-    }
-
-    return `${origin}/graphql`;
+    return new URL('/graphql', import.meta.url).toString();
 }
 
 createApplication({
