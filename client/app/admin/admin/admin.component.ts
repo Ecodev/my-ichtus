@@ -19,7 +19,6 @@ import {
     standalone: true,
     imports: [
         NaturalSidenavContainerComponent,
-
         NaturalSidenavComponent,
         MatExpansionModule,
         MatListModule,

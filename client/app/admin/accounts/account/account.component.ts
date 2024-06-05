@@ -40,7 +40,6 @@ import {AccountType} from '../../../shared/generated-types';
         MoneyComponent,
         MatTabsModule,
         NaturalLinkableTabDirective,
-
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,

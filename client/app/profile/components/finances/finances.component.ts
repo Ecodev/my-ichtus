@@ -38,7 +38,6 @@ import {CommonModule} from '@angular/common';
     standalone: true,
     imports: [
         CommonModule,
-
         MatFormFieldModule,
         MatInputModule,
         FormsModule,
@@ -48,7 +47,6 @@ import {CommonModule} from '@angular/common';
         MatIconModule,
         NaturalIconDirective,
         RouterLink,
-
         MatTableModule,
         MatSortModule,
         MoneyComponent,

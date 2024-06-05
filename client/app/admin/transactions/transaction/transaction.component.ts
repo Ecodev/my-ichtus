@@ -62,7 +62,6 @@ import {DuplicatedTransactionResolve} from '../transaction';
         MoneyComponent,
         MatTabsModule,
         NaturalLinkableTabDirective,
-
         MatFormFieldModule,
         MatInputModule,
         MatDatepickerModule,

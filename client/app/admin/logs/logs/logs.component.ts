@@ -25,7 +25,6 @@ import {CommonModule} from '@angular/common';
     standalone: true,
     imports: [
         CommonModule,
-
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
         MatTableModule,

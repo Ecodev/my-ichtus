@@ -39,7 +39,6 @@ import {MatButtonModule} from '@angular/material/button';
     standalone: true,
     imports: [
         NaturalSidenavContainerComponent,
-
         NaturalSidenavComponent,
         MatButtonModule,
         RouterLink,

@@ -29,7 +29,6 @@ import {MatToolbarModule} from '@angular/material/toolbar';
         MatIconModule,
         NaturalIconDirective,
         RouterLink,
-
         FormsModule,
         NaturalAvatarComponent,
         RouterOutlet,

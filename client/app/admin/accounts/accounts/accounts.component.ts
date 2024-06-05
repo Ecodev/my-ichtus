@@ -49,7 +49,6 @@ type AccountingExportDialogResult = {
     standalone: true,
     imports: [
         CommonModule,
-
         RouterLink,
         MatButtonModule,
         NaturalColumnsPickerComponent,
