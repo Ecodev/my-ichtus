@@ -13,7 +13,6 @@ import {filter, switchMap, takeUntil} from 'rxjs/operators';
 import {ActivatedRoute, Router, RouterLink, RouterOutlet} from '@angular/router';
 import {ConfigurationService} from '../admin/configurations/services/configuration.service';
 import {FormsModule} from '@angular/forms';
-
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';

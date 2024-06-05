@@ -54,7 +54,6 @@ import {MatDividerModule} from '@angular/material/divider';
 import {AddressComponent} from '../../../shared/components/address/address.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-
 import {MatTabsModule} from '@angular/material/tabs';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
 

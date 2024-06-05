@@ -32,7 +32,6 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
 import {RouterLink} from '@angular/router';
-
 import {CommonModule} from '@angular/common';
 
 type AccountingDialogData = never;

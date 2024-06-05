@@ -26,7 +26,6 @@ import {
     NaturalSwissDatePipe,
     NaturalEllipsisPipe,
 } from '@ecodev/natural';
-
 import {CommonModule} from '@angular/common';
 
 @Component({

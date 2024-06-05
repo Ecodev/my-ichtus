@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FileModel, NaturalFileComponent} from '@ecodev/natural';
-
 import {MatCardModule} from '@angular/material/card';
 
 @Component({

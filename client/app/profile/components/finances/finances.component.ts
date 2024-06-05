@@ -21,14 +21,12 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
-
 import {RouterLink} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-
 import {CommonModule} from '@angular/common';
 
 @Component({

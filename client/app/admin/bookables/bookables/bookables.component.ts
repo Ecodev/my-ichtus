@@ -13,7 +13,6 @@ import {FlagComponent} from '../../../shared/components/flag/flag.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
-
 import {
     NaturalColumnsPickerComponent,
     NaturalSearchComponent,
@@ -23,7 +22,6 @@ import {
     NaturalFixedButtonComponent,
     NaturalSwissDatePipe,
 } from '@ecodev/natural';
-
 import {CommonModule} from '@angular/common';
 
 @Component({

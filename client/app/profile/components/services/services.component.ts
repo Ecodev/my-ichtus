@@ -12,7 +12,6 @@ import {
     NaturalEnumPipe,
 } from '@ecodev/natural';
 import {finalize, takeUntil} from 'rxjs/operators';
-
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
