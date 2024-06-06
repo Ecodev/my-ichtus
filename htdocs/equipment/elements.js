@@ -178,6 +178,13 @@ function clickSortIcon(elem) {
 }
 
 function changeSelectCategorie(elem) {
-    $('divTabCahierEquipmentElementsSelectCategorie').getElementsByTagName('div')[0].style.backgroundImage =
-        'url(img/categorie/' + elem.value + '.png)';
+    image = 'url(img/icons/no-result.png)';
+    for (let category of categories) {
+        if (category.value == elem.value) {
+            image = 'url(img/categorie/' + category.image + ')';
+            break;
+        }
+    }
+    $('divTabCahierEquipmentElementsSelectCategorie')
+    .getElementsByTagName('div')[0].style.backgroundImage = image;
 }

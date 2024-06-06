@@ -143,7 +143,7 @@ function actualizePopBookable(nbr, bookable, bookings, elem) {
         // if !justPreview
 
         var choseFunction = function () {
-            Cahier.addBookable(nbr, bookable, bookings.items[0]);
+            Cahier.addBookable(nbr, bookable, Object.assign({}, bookings.items[0]));
             newTab('divTabCahierEquipmentChoice');
 
             $('divTabCahierEquipmentChoice')

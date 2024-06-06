@@ -455,6 +455,18 @@ function displayBooking(booking) {
     return !is0second(booking);
 }
 
+function mutableBookingList(bookings) {
+    mutableBookings = [];
+    for (let i = 0; i < bookings.length; i++) {
+        mutableBookings.push(Object.assign({}, bookings[i]));
+    }
+    return mutableBookings;
+}
+
+function mutableBookableList(bookables) {
+    return mutableBookingList(bookables);
+}
+
 function mergeBookings(bookings) {
     bookings = bookings.clone(); // clone
 

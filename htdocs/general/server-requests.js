@@ -273,25 +273,6 @@ var Requests = {
 
     // getUserInfos (TO DO AND CHANGE THE GETALL)
     getUserInfos: function (ownerId) {
-        /* var filter = {
-             filter: {
-                 groups: [
-                     {
-                         conditions: [
-                             {
-                                 id: {
-                                     equal: {
-                                         value: ownerId
-                                     }
-                                 }
-                             }
-                         ]
-                     }
-                 ]
-             }
-
-         };*/
-
         var filter = {
             id: ownerId,
         };
@@ -486,16 +467,19 @@ var Requests = {
                     var bookables = result.items;
                     var bookings = r.items;
 
+                    // Make mutable
+                    bookables = mutableBookableList(bookables);
+
                     for (let i = 0; i < bookings.length; i++) {
                         for (let k = 0; k < bookables.length; k++) {
                             if (bookables[k].id === bookings[i].bookable.id) {
                                 bookables[k].used = true;
-                                bookables[k].lastBooking = bookings[i];
+                                bookables[k].lastBooking = Object.assign({}, bookings[i]);
                             }
                         }
-
-                        //console.log(r.items[i].bookable.id,r.items[i].bookable.name);
                     }
+
+                    // Load elements on page
                     loadElements(bookables);
                 });
             }
@@ -704,7 +688,8 @@ var Requests = {
 
             Server.bookingService.getAll(variables).subscribe(bookings => {
                 //console.log("getBookableInfos()_getLastBooking: ", bookings);
-                actualizePopBookable(nbr, result.items[0], bookings, elem, []);
+                bookable = Object.assign({}, result.items[0])
+                actualizePopBookable(nbr, bookable, bookings, elem, []);
             });
         });
     },
@@ -747,7 +732,9 @@ var Requests = {
 
         Server.bookingService.getAll(variables).subscribe(bookings => {
             //  console.log("getBookableLastBooking(): ", bookings);
-            Cahier.actualizeAvailability(bookableId, bookings.items);
+            Cahier.actualizeAvailability(
+                bookableId, mutableBookingList(bookings.items)
+            );
         });
     },
 
@@ -819,7 +806,9 @@ var Requests = {
 
         Server.bookingService.getAll(variables).subscribe(result => {
             //console.log("checksBookablesAvailabilityBeforeConfirming(): ", result);
-            Cahier.actualizeConfirmKnowingBookablesAvailability(result.items);
+            Cahier.actualizeConfirmKnowingBookablesAvailability(
+                mutableBookingList(result.items)
+            );
         });
     },
 
@@ -910,7 +899,7 @@ var Requests = {
         Server.bookingService.getAll(variables, true).subscribe(result => {
             // force = true
             loadBottoms();
-            loadActualBookings(mergeBookings(result.items));
+            loadActualBookings(mergeBookings(mutableBookingList(result.items)));
         });
     },
 
@@ -1018,7 +1007,7 @@ var Requests = {
         Server.bookingService.getAll(variables, true).subscribe(result => {
             // force = true);
             //console.log("getFinishedBookingListForDay(): ", result);
-            var transformedBoookings = mergeBookings(result.items);
+            var transformedBoookings = mergeBookings(mutableBookingList(result.items));
             if (result.length == 0) {
                 createNoBookingMessage(d);
             } else {
@@ -1359,7 +1348,7 @@ var Requests = {
             sorting: [
                 {
                     field: 'startDate',
-                    order: 'ASC',
+                    order: 'DESC',
                 },
             ],
         };
@@ -1369,7 +1358,7 @@ var Requests = {
 
         Server.bookingService.getAll(variables).subscribe(result => {
             //console.log("getStats(): ", result);
-            var send = mergeBookings(result.items);
+            var send = mergeBookings(mutableBookingList(result.items));
             actualizeStats(start, end, elem, send);
         });
     },
@@ -1588,7 +1577,8 @@ var Requests = {
     getOwnerLicenses: function (_owner) {
         Server.userService.getOne(_owner.id).subscribe(result => {
             //            console.log("getOwnerLicenses(): ", result);
-            Cahier.setOwnerLicenses(result);
+            owner = Object.assign({}, result)
+            Cahier.setOwnerLicenses(owner);
         });
     },
 

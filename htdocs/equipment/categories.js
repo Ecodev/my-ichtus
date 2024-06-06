@@ -1,10 +1,24 @@
-var categories = ['Canoë & Kayak', 'SUP', 'Rame', 'Planche à voile', 'Voile'];
-var categoriesValues = ['Canoe_Kayak', 'SUP', 'Aviron', 'Planche', 'Voile'];
+var categories = [
+    { name: 'Canoë & Kayak', plural: 'canoës et kayaks',
+     value: 'Kayak', image: 'canoe.png'},
+    { name: 'SUP', plural: 'SUPs',
+     value: 'SUP', image: 'sup.png' },
+    { name: 'Rame', plural: 'avirons',
+      value: 'Aviron',  image: 'rowing.png' },
+    { name: 'Planche à voile', plural: 'planches à voile',
+     value: 'Planche', image: 'windsurf.png' },
+    { name: 'Voile', plural: 'bateaux',
+     value: 'Voile lestée', image: 'sailing.png' },
+    { name: 'Wingfoil', plural: 'wingfoils',
+     value: 'Wingfoil', image: 'wingfoil.svg' }
+]
 
-function loadMateriel(container = $('divTabCahierEquipmentCategoriesContainer')) {
+function loadMateriel(
+    container = $('divTabCahierEquipmentCategoriesContainer')
+) {
     for (var i = 0; i < categories.length; i++) {
         var d = document.createElement('div');
-        d.id = categories[i];
+        d.id = categories[i].name;
         d.classList.add('BoxesContainer');
         container.appendChild(d);
 
@@ -14,7 +28,9 @@ function loadMateriel(container = $('divTabCahierEquipmentCategoriesContainer'))
 
         var dTop = div(d1);
         dTop.classList.add('BoxesTop');
-        dTop.style.backgroundImage = 'url(img/icons/chose.png),' + 'url(img/categorie/' + categoriesValues[i] + '.png)';
+        dTop.style.backgroundImage = 'url(img/icons/chose.png),' +
+                                     'url(img/categorie/' +
+                                      categories[i].image + ')';
 
         var dBottom = document.createElement('div');
         dBottom.classList.add('BoxesBottom');
@@ -23,14 +39,15 @@ function loadMateriel(container = $('divTabCahierEquipmentCategoriesContainer'))
         var dBottomText1 = document.createElement('div');
         dBottomText1.classList.add('BoxesBottomText1');
         dBottom.appendChild(dBottomText1);
-        dBottomText1.innerHTML = categories[i];
+        dBottomText1.innerHTML = categories[i].name;
 
         var dBottomText2 = document.createElement('div');
         dBottomText2.classList.add('BoxesBottomText2');
         dBottom.appendChild(dBottomText2);
-        Requests.getBookableNbrForBookableTag(categoriesValues[i], dBottomText2, '', ' ' + categories[i] + 's');
+        Requests.getBookableNbrForBookableTag(categories[i].value,
+            dBottomText2, '', ' ' + categories[i].plural);
 
-        if (categoriesValues[i] == 'MP') {
+        if (categories[i].value == 'MP') {
             // useless
             d.addEventListener('click', function () {
                 Cahier.bookableId = '';
@@ -51,8 +68,8 @@ function loadMateriel(container = $('divTabCahierEquipmentCategoriesContainer'))
         }
 
         var opt = document.createElement('option');
-        opt.innerHTML = categories[i];
-        opt.value = categoriesValues[i];
+        opt.innerHTML = categories[i].name;
+        opt.value = categories[i].value;
         $('divTabCahierEquipmentElementsSelectCategorie').getElementsByTagName('select')[0].appendChild(opt);
     }
 

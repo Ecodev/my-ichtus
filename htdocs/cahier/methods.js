@@ -246,7 +246,7 @@ var Cahier = {
         for (var i = 0; i < _bookings.length; i++) {
             if (_bookings[i].endDate == null) {
                 // check which bookables are being used
-                var bookableElement = _bookings[i].bookable;
+                var bookableElement = Object.assign({}, _bookings[i].bookable);
                 bookableElement.lastBooking = _bookings[i].clone();
                 bAreNotAvailable.push(bookableElement);
                 //                bookingsIdToFinish.push(_bookings[i].id);
@@ -543,6 +543,7 @@ var Cahier = {
         _owner = {id: '', name: '', sex: 'female', welcomeSessionDate: 'date', licenses: []},
         force = false,
     ) {
+        _owner = Object.assign({}, _owner);
         var t = true;
         if (!force) {
             for (var i = 0; i < Cahier.actualBookings.length; i++) {
@@ -564,8 +565,10 @@ var Cahier = {
             Cahier.bookings[nbr].owner.id = _owner.id;
             Cahier.bookings[nbr].owner.name = _owner.name;
             Cahier.bookings[nbr].owner.sex = _owner.sex;
-            Cahier.bookings[nbr].licenses = []; // empty licenses until the realy licenses come from the request
+            // Empty licenses until the real licenses come from the request
+            Cahier.bookings[nbr].licenses = [];
             Cahier.actualizeConfirmation();
+            // Update owner with full information
             Requests.getOwnerLicenses(_owner);
 
             newTab('divTabCahierInfos');
@@ -624,7 +627,7 @@ var Cahier = {
         }
 
         if (bookings.length !== 0) {
-            var lastBooking = bookings[0];
+            var lastBooking = Object.assign({}, bookings[0]);
 
             Cahier.bookings[0].bookables[u].available = bookings[0].endDate == null ? false : true;
             Cahier.bookings[0].bookables[u].lastBooking = lastBooking;
