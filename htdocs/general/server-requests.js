@@ -688,7 +688,7 @@ var Requests = {
 
             Server.bookingService.getAll(variables).subscribe(bookings => {
                 //console.log("getBookableInfos()_getLastBooking: ", bookings);
-                bookable = Object.assign({}, result.items[0])
+                bookable = Object.assign({}, result.items[0]);
                 actualizePopBookable(nbr, bookable, bookings, elem, []);
             });
         });
@@ -732,9 +732,7 @@ var Requests = {
 
         Server.bookingService.getAll(variables).subscribe(bookings => {
             //  console.log("getBookableLastBooking(): ", bookings);
-            Cahier.actualizeAvailability(
-                bookableId, mutableBookingList(bookings.items)
-            );
+            Cahier.actualizeAvailability(bookableId, mutableBookingList(bookings.items));
         });
     },
 
@@ -806,9 +804,7 @@ var Requests = {
 
         Server.bookingService.getAll(variables).subscribe(result => {
             //console.log("checksBookablesAvailabilityBeforeConfirming(): ", result);
-            Cahier.actualizeConfirmKnowingBookablesAvailability(
-                mutableBookingList(result.items)
-            );
+            Cahier.actualizeConfirmKnowingBookablesAvailability(mutableBookingList(result.items));
         });
     },
 
@@ -1577,7 +1573,7 @@ var Requests = {
     getOwnerLicenses: function (_owner) {
         Server.userService.getOne(_owner.id).subscribe(result => {
             //            console.log("getOwnerLicenses(): ", result);
-            owner = Object.assign({}, result)
+            owner = Object.assign({}, result);
             Cahier.setOwnerLicenses(owner);
         });
     },

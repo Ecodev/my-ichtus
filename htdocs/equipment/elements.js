@@ -185,6 +185,5 @@ function changeSelectCategorie(elem) {
             break;
         }
     }
-    $('divTabCahierEquipmentElementsSelectCategorie')
-    .getElementsByTagName('div')[0].style.backgroundImage = image;
+    $('divTabCahierEquipmentElementsSelectCategorie').getElementsByTagName('div')[0].style.backgroundImage = image;
 }

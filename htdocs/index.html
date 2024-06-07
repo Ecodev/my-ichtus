@@ -448,7 +448,8 @@
             </div>
         </div>
         <script type="module">
-            const apiServer = window.location.hostname === 'navigations.ichtus.club' ? 'ichtus.club' : 'dev.ichtus.club';
+            const apiServer =
+                window.location.hostname === 'navigations.ichtus.club' ? 'ichtus.club' : 'dev.ichtus.club';
             const cacheBuster = '?time=' + new Date().getTime();
 
             await import('https://' + apiServer + '/vanilla/main.js' + cacheBuster);

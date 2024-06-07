@@ -1,21 +1,13 @@
 var categories = [
-    { name: 'Canoë & Kayak', plural: 'canoës et kayaks',
-     value: 'Kayak', image: 'canoe.png'},
-    { name: 'SUP', plural: 'SUPs',
-     value: 'SUP', image: 'sup.png' },
-    { name: 'Rame', plural: 'avirons',
-      value: 'Aviron',  image: 'rowing.png' },
-    { name: 'Planche à voile', plural: 'planches à voile',
-     value: 'Planche', image: 'windsurf.png' },
-    { name: 'Voile', plural: 'bateaux',
-     value: 'Voile lestée', image: 'sailing.png' },
-    { name: 'Wingfoil', plural: 'wingfoils',
-     value: 'Wingfoil', image: 'wingfoil.svg' }
-]
+    {name: 'Canoë & Kayak', plural: 'canoës et kayaks', value: 'Kayak', image: 'canoe.png'},
+    {name: 'SUP', plural: 'SUPs', value: 'SUP', image: 'sup.png'},
+    {name: 'Rame', plural: 'avirons', value: 'Aviron', image: 'rowing.png'},
+    {name: 'Planche à voile', plural: 'planches à voile', value: 'Planche', image: 'windsurf.png'},
+    {name: 'Voile', plural: 'bateaux', value: 'Voile lestée', image: 'sailing.png'},
+    {name: 'Wingfoil', plural: 'wingfoils', value: 'Wingfoil', image: 'wingfoil.svg'},
+];
 
-function loadMateriel(
-    container = $('divTabCahierEquipmentCategoriesContainer')
-) {
+function loadMateriel(container = $('divTabCahierEquipmentCategoriesContainer')) {
     for (var i = 0; i < categories.length; i++) {
         var d = document.createElement('div');
         d.id = categories[i].name;
@@ -28,9 +20,7 @@ function loadMateriel(
 
         var dTop = div(d1);
         dTop.classList.add('BoxesTop');
-        dTop.style.backgroundImage = 'url(img/icons/chose.png),' +
-                                     'url(img/categorie/' +
-                                      categories[i].image + ')';
+        dTop.style.backgroundImage = 'url(img/icons/chose.png),' + 'url(img/categorie/' + categories[i].image + ')';
 
         var dBottom = document.createElement('div');
         dBottom.classList.add('BoxesBottom');
@@ -44,8 +34,7 @@ function loadMateriel(
         var dBottomText2 = document.createElement('div');
         dBottomText2.classList.add('BoxesBottomText2');
         dBottom.appendChild(dBottomText2);
-        Requests.getBookableNbrForBookableTag(categories[i].value,
-            dBottomText2, '', ' ' + categories[i].plural);
+        Requests.getBookableNbrForBookableTag(categories[i].value, dBottomText2, '', ' ' + categories[i].plural);
 
         if (categories[i].value == 'MP') {
             // useless
