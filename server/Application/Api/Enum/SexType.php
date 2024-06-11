@@ -16,15 +16,15 @@ class SexType extends EnumType
             'values' => [
                 'not_known' => [
                     'value' => 0,
-                    'description' => 'inconnu',
+                    'description' => 'Inconnu',
                 ],
                 'male' => [
                     'value' => 1,
-                    'description' => 'masculin',
+                    'description' => 'Masculin',
                 ],
                 'female' => [
                     'value' => 2,
-                    'description' => 'féminin',
+                    'description' => 'Féminin',
                 ],
             ],
         ];

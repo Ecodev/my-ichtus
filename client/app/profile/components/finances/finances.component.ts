@@ -4,13 +4,7 @@ import {UserService} from '../../../admin/users/services/user.service';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateRefundComponent} from '../create-refund/create-refund.component';
-import {
-    ifValid,
-    NaturalAbstractList,
-    NaturalIconDirective,
-    NaturalCapitalizePipe,
-    NaturalEnumPipe,
-} from '@ecodev/natural';
+import {ifValid, NaturalAbstractList, NaturalIconDirective, NaturalEnumPipe} from '@ecodev/natural';
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
 import {finalize} from 'rxjs/operators';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -50,7 +44,6 @@ import {CommonModule} from '@angular/common';
         MoneyComponent,
         MatProgressSpinnerModule,
         MatPaginatorModule,
-        NaturalCapitalizePipe,
         NaturalEnumPipe,
     ],
 })

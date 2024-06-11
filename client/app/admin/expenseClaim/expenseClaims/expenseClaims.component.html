@@ -88,14 +88,14 @@
                     <ng-container matColumnDef="status">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>Status</th>
                         <td *matCellDef="let element" mat-cell>
-                            {{ element.status | enum: 'ExpenseClaimStatus' | async | capitalize }}
+                            {{ element.status | enum: 'ExpenseClaimStatus' | async }}
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="type">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header natural-4em-column>Type</th>
                         <td *matCellDef="let element" mat-cell>
-                            {{ element.type | enum: 'ExpenseClaimType' | async | capitalize }}
+                            {{ element.type | enum: 'ExpenseClaimType' | async }}
                         </td>
                     </ng-container>
 

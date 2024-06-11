@@ -35,7 +35,7 @@
                         <div class="nat-vertical nat-gap-10">
                             <div class="mat-headline-4">{{ viewer.name }}</div>
                             <div class="mat-body-1">
-                                {{ viewer.status | enum: 'UserStatus' | async | capitalize }}
+                                {{ viewer.status | enum: 'UserStatus' | async }}
                             </div>
                             <div class="nat-horizontal nat-wrap nat-gap-15 mat-body-2">
                                 @for (license of licenses; track license) {

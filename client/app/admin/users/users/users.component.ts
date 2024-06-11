@@ -10,7 +10,6 @@ import {
     NaturalAvatarComponent,
     NaturalTableButtonComponent,
     NaturalFixedButtonComponent,
-    NaturalCapitalizePipe,
     NaturalEnumPipe,
     NaturalSwissDatePipe,
 } from '@ecodev/natural';
@@ -52,7 +51,6 @@ import {CommonModule} from '@angular/common';
         MatPaginatorModule,
         NaturalFixedButtonComponent,
         RouterLink,
-        NaturalCapitalizePipe,
         NaturalEnumPipe,
         NaturalSwissDatePipe,
     ],

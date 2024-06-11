@@ -11,7 +11,6 @@ import {
     NaturalIconDirective,
     NaturalSidenavContentComponent,
     NaturalAvatarComponent,
-    NaturalCapitalizePipe,
     NaturalEnumPipe,
 } from '@ecodev/natural';
 import {UserService} from '../../../admin/users/services/user.service';
@@ -52,7 +51,6 @@ import {MatButtonModule} from '@angular/material/button';
         MoneyComponent,
         MatDividerModule,
         RouterOutlet,
-        NaturalCapitalizePipe,
         NaturalEnumPipe,
     ],
 })

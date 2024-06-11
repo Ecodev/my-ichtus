@@ -11,12 +11,12 @@ class RelationshipType extends EnumType
     public function __construct()
     {
         $config = [
-            \Application\DBAL\Types\RelationshipType::HOUSEHOLDER => 'chef(e) de famille',
-            \Application\DBAL\Types\RelationshipType::PARTNER => 'conjoint',
-            \Application\DBAL\Types\RelationshipType::CHILD => 'enfant',
-            \Application\DBAL\Types\RelationshipType::PARENT => 'parent',
-            \Application\DBAL\Types\RelationshipType::SISTER => 'soeur',
-            \Application\DBAL\Types\RelationshipType::BROTHER => 'frère',
+            \Application\DBAL\Types\RelationshipType::HOUSEHOLDER => 'Chef(e) de famille',
+            \Application\DBAL\Types\RelationshipType::PARTNER => 'Conjoint',
+            \Application\DBAL\Types\RelationshipType::CHILD => 'Enfant',
+            \Application\DBAL\Types\RelationshipType::PARENT => 'Parent',
+            \Application\DBAL\Types\RelationshipType::SISTER => 'Soeur',
+            \Application\DBAL\Types\RelationshipType::BROTHER => 'Frère',
         ];
 
         parent::__construct($config);

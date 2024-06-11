@@ -11,10 +11,10 @@ class ExpenseClaimStatusType extends EnumType
     public function __construct()
     {
         $config = [
-            \Application\DBAL\Types\ExpenseClaimStatusType::NEW => 'à traiter',
-            \Application\DBAL\Types\ExpenseClaimStatusType::PROCESSING => 'en traitement',
-            \Application\DBAL\Types\ExpenseClaimStatusType::PROCESSED => 'traîté',
-            \Application\DBAL\Types\ExpenseClaimStatusType::REJECTED => 'refusé',
+            \Application\DBAL\Types\ExpenseClaimStatusType::NEW => 'À traiter',
+            \Application\DBAL\Types\ExpenseClaimStatusType::PROCESSING => 'En traitement',
+            \Application\DBAL\Types\ExpenseClaimStatusType::PROCESSED => 'Traîté',
+            \Application\DBAL\Types\ExpenseClaimStatusType::REJECTED => 'Refusé',
         ];
 
         parent::__construct($config);

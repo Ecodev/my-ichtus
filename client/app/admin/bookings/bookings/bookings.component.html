@@ -154,7 +154,7 @@
                     <ng-container matColumnDef="status">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>Statut</th>
                         <td *matCellDef="let element" mat-cell>
-                            {{ element.status | enum: 'BookingStatus' | async | capitalize }}
+                            {{ element.status | enum: 'BookingStatus' | async }}
                         </td>
                         <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>

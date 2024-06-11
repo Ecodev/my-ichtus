@@ -8,7 +8,6 @@ import {
     NaturalTableButtonComponent,
     NaturalAvatarComponent,
     NaturalFixedButtonComponent,
-    NaturalCapitalizePipe,
     NaturalEnumPipe,
     NaturalSwissDatePipe,
 } from '@ecodev/natural';
@@ -61,7 +60,6 @@ type AccountingExportDialogResult = {
         MatProgressSpinnerModule,
         MatPaginatorModule,
         NaturalFixedButtonComponent,
-        NaturalCapitalizePipe,
         NaturalEnumPipe,
         NaturalSwissDatePipe,
         IbanPipe,
