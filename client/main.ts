@@ -15,7 +15,7 @@ import {MAT_PAGINATOR_DEFAULT_OPTIONS, MatPaginatorDefaultOptions, MatPaginatorI
 import {
     DateAdapter,
     ErrorStateMatcher,
-    MatNativeDateModule,
+    provideNativeDateAdapter,
     ShowOnDirtyErrorStateMatcher,
 } from '@angular/material/core';
 import {LoggerExtraService} from './app/shared/services/logger-extra.service';
@@ -95,13 +95,13 @@ const iconsConfig: NaturalIconsConfig = {
 bootstrapApplication(AppComponent, {
     providers: [
         importProvidersFrom(
-            MatNativeDateModule,
             TimeagoModule.forRoot({
                 intl: {provide: TimeagoIntl, useClass: TimeagoIntl},
                 formatter: {provide: TimeagoFormatter, useClass: TimeagoCustomFormatter},
             }),
         ),
         Apollo,
+        provideNativeDateAdapter(),
         provideAnimations(),
         naturalProviders,
         provideErrorHandler(localConfig.log.url, LoggerExtraService),

@@ -1,8 +1,7 @@
 import {Apollo} from 'apollo-angular';
 import {fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {RouterTestingModule} from '@angular/router/testing';
 import {UserService} from './user.service';
-import {Router} from '@angular/router';
+import {provideRouter, Router} from '@angular/router';
 import {mockApolloProvider} from '../../../shared/testing/MockApolloProvider';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {LOCAL_STORAGE, NaturalMemoryStorage} from '@ecodev/natural';
@@ -15,8 +14,8 @@ describe('UserService', () => {
     let router: Router;
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [RouterTestingModule],
             providers: [
+                provideRouter([]),
                 mockApolloProvider,
                 {
                     provide: LOCAL_STORAGE,

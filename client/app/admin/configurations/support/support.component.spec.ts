@@ -1,9 +1,9 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {SupportComponent, SupportComponentData} from './support.component';
-import {RouterTestingModule} from '@angular/router/testing';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {NaturalDialogTriggerProvidedData, naturalProviders} from '@ecodev/natural';
 import {mockApolloProvider} from '../../../shared/testing/MockApolloProvider';
+import {provideRouter} from '@angular/router';
 
 describe('SupportComponent', () => {
     let component: SupportComponent;
@@ -18,8 +18,15 @@ describe('SupportComponent', () => {
         };
 
         await TestBed.configureTestingModule({
-            imports: [RouterTestingModule],
-            providers: [naturalProviders, {provide: MAT_DIALOG_DATA, useValue: dialogData}, mockApolloProvider],
+            providers: [
+                provideRouter([]),
+                naturalProviders,
+                {
+                    provide: MAT_DIALOG_DATA,
+                    useValue: dialogData,
+                },
+                mockApolloProvider,
+            ],
         }).compileComponents();
 
         fixture = TestBed.createComponent(SupportComponent);

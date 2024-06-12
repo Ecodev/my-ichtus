@@ -6,9 +6,7 @@ describe('BootLoaderComponent', () => {
     let fixture: ComponentFixture<BootLoaderComponent>;
 
     beforeEach(async () => {
-        await TestBed.configureTestingModule({
-            imports: [BootLoaderComponent],
-        }).compileComponents();
+        await TestBed.configureTestingModule({}).compileComponents();
 
         fixture = TestBed.createComponent(BootLoaderComponent);
         component = fixture.componentInstance;

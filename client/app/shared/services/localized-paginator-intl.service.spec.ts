@@ -5,9 +5,7 @@ describe('LocalizedPaginatorIntlService', () => {
     let service: LocalizedPaginatorIntlService;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [],
-        });
+        TestBed.configureTestingModule({});
         service = TestBed.inject(LocalizedPaginatorIntlService);
     });
 
