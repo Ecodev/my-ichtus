@@ -3,15 +3,15 @@ import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {UsageBookableService} from '../services/usage-bookable.service';
 import {
-    NaturalSearchSelections,
-    NaturalColumnsPickerComponent,
-    NaturalSearchComponent,
-    NaturalFileComponent,
-    NaturalTableButtonComponent,
     NaturalAvatarComponent,
+    NaturalColumnsPickerComponent,
+    NaturalFileComponent,
     NaturalFixedButtonComponent,
-    NaturalSwissDatePipe,
+    NaturalSearchComponent,
+    NaturalSearchSelections,
+    NaturalTableButtonComponent,
 } from '@ecodev/natural';
+import {CommonModule, DatePipe} from '@angular/common';
 import {UsageBookables} from '../../../shared/generated-types';
 import {BookingService} from '../../bookings/services/booking.service';
 import {switchMap, takeUntil} from 'rxjs/operators';
@@ -26,7 +26,6 @@ import {FlagComponent} from '../../../shared/components/flag/flag.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
-import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-usage-bookables',
@@ -49,7 +48,7 @@ import {CommonModule} from '@angular/common';
         MatProgressSpinnerModule,
         MatPaginatorModule,
         NaturalFixedButtonComponent,
-        NaturalSwissDatePipe,
+        DatePipe,
     ],
 })
 export class UsageBookablesComponent extends ParentComponent<UsageBookableService> implements OnInit {

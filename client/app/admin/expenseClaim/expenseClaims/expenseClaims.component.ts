@@ -2,15 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {
     AvailableColumn,
     NaturalAbstractList,
+    NaturalAvatarComponent,
     NaturalColumnsPickerComponent,
+    NaturalEnumPipe,
+    NaturalFixedButtonComponent,
+    NaturalIconDirective,
     NaturalSearchComponent,
     NaturalTableButtonComponent,
-    NaturalAvatarComponent,
-    NaturalIconDirective,
-    NaturalFixedButtonComponent,
-    NaturalEnumPipe,
-    NaturalSwissDatePipe,
 } from '@ecodev/natural';
+import {CommonModule, DatePipe} from '@angular/common';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {ExpenseClaimService} from '../services/expenseClaim.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -23,7 +23,6 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
-import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-expense-claims',
@@ -48,7 +47,7 @@ import {CommonModule} from '@angular/common';
         NaturalFixedButtonComponent,
         RouterLink,
         NaturalEnumPipe,
-        NaturalSwissDatePipe,
+        DatePipe,
     ],
 })
 export class ExpenseClaimsComponent extends NaturalAbstractList<ExpenseClaimService> implements OnInit {

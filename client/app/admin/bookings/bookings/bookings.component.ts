@@ -14,18 +14,17 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {
+    NaturalAvatarComponent,
     NaturalColumnsPickerComponent,
+    NaturalEllipsisPipe,
+    NaturalEnumPipe,
+    NaturalFileComponent,
+    NaturalFixedButtonComponent,
+    NaturalIconDirective,
     NaturalSearchComponent,
     NaturalTableButtonComponent,
-    NaturalAvatarComponent,
-    NaturalFileComponent,
-    NaturalIconDirective,
-    NaturalFixedButtonComponent,
-    NaturalEnumPipe,
-    NaturalSwissDatePipe,
-    NaturalEllipsisPipe,
 } from '@ecodev/natural';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-bookings',
@@ -52,7 +51,7 @@ import {CommonModule} from '@angular/common';
         NaturalFixedButtonComponent,
         RouterLink,
         NaturalEnumPipe,
-        NaturalSwissDatePipe,
+        DatePipe,
         NaturalEllipsisPipe,
     ],
 })

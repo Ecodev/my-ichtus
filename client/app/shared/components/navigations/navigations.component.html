@@ -35,9 +35,9 @@
                         @if (!item.booking.endDate && item.booking.estimatedEndDate) {
                             <div class="mat-body-2">Retour prévu : {{ item.booking.estimatedEndDate }}</div>
                         }
-                        <div>Début : {{ item.booking.startDate | swissDate }}</div>
+                        <div>Début : {{ item.booking.startDate | date }}</div>
                         @if (item.booking.endDate) {
-                            <div>Fin : {{ item.booking.endDate | swissDate }}</div>
+                            <div>Fin : {{ item.booking.endDate | date }}</div>
                         }
                         <div class="bottom-buttons nat-horizontal nat-right nat-center">
                             <button mat-icon-button (click)="item.showComments = true">

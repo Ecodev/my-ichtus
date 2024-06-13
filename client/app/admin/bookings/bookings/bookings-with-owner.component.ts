@@ -5,17 +5,17 @@ import {BookingWithOwnerService} from '../services/booking-with-owner.service';
 import {AbstractBookings} from './abstract-bookings';
 import {
     Button,
+    NaturalAvatarComponent,
     NaturalColumnsPickerComponent,
+    NaturalEllipsisPipe,
+    NaturalEnumPipe,
+    NaturalFileComponent,
+    NaturalFixedButtonComponent,
+    NaturalIconDirective,
     NaturalSearchComponent,
     NaturalTableButtonComponent,
-    NaturalAvatarComponent,
-    NaturalFileComponent,
-    NaturalIconDirective,
-    NaturalFixedButtonComponent,
-    NaturalEnumPipe,
-    NaturalSwissDatePipe,
-    NaturalEllipsisPipe,
 } from '@ecodev/natural';
+import {CommonModule, DatePipe} from '@angular/common';
 import {CopyContactDataButtonService} from '../../../shared/components/copy-contact-data/copy-contact-data-button.service';
 import {BookingsWithOwnerContactVariables} from '../../../shared/generated-types';
 import {RouterLink} from '@angular/router';
@@ -28,7 +28,6 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
-import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-bookings-with-owner',
@@ -55,7 +54,7 @@ import {CommonModule} from '@angular/common';
         NaturalFixedButtonComponent,
         RouterLink,
         NaturalEnumPipe,
-        NaturalSwissDatePipe,
+        DatePipe,
         NaturalEllipsisPipe,
     ],
 })

@@ -14,10 +14,10 @@ import {
     NaturalSelectEnumComponent,
     NaturalSeoResolveData,
     NaturalStampComponent,
-    NaturalSwissDatePipe,
     NaturalTableButtonComponent,
     NaturalTimeAgoPipe,
 } from '@ecodev/natural';
+import {DatePipe} from '@angular/common';
 import {UserService} from '../services/user.service';
 import {
     CurrentUserForProfile,
@@ -37,7 +37,7 @@ import {AccountService} from '../../accounts/services/account.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {iban as ibanValidator} from '../../../shared/validators';
 import {friendlyFormatIBAN} from 'ibantools';
-import {FormsModule, ReactiveFormsModule, FormControl} from '@angular/forms';
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {finalize} from 'rxjs/operators';
 import {ServicesComponent} from '../../../profile/components/services/services.component';
 import {FinancesComponent} from '../../../profile/components/finances/finances.component';
@@ -92,7 +92,7 @@ import {MoneyComponent} from '../../../shared/components/money/money.component';
         FinancesComponent,
         ServicesComponent,
         NaturalFixedButtonDetailComponent,
-        NaturalSwissDatePipe,
+        DatePipe,
         NaturalTimeAgoPipe,
     ],
 })

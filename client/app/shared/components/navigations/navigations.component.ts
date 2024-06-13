@@ -18,12 +18,12 @@ import {
 import {
     NaturalAbstractController,
     NaturalAlertService,
-    NaturalQueryVariablesManager,
-    WithId,
     NaturalAvatarComponent,
     NaturalIconDirective,
-    NaturalSwissDatePipe,
+    NaturalQueryVariablesManager,
+    WithId,
 } from '@ecodev/natural';
+import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
@@ -86,7 +86,7 @@ function bookingsToExtended(bookings: Bookings['bookings']): PaginatedExtendedBo
         MatInputModule,
         FormsModule,
         TextFieldModule,
-        NaturalSwissDatePipe,
+        DatePipe,
     ],
 })
 export class NavigationsComponent extends NaturalAbstractController implements OnInit {

@@ -3,14 +3,14 @@ import {
     AvailableColumn,
     Button,
     NaturalAbstractNavigableList,
+    NaturalAvatarComponent,
     NaturalColumnsPickerComponent,
+    NaturalEnumPipe,
+    NaturalFixedButtonComponent,
     NaturalSearchComponent,
     NaturalTableButtonComponent,
-    NaturalAvatarComponent,
-    NaturalFixedButtonComponent,
-    NaturalEnumPipe,
-    NaturalSwissDatePipe,
 } from '@ecodev/natural';
+import {CommonModule, DatePipe} from '@angular/common';
 import {CurrentUserForProfile} from '../../../shared/generated-types';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {AccountService} from '../services/account.service';
@@ -31,7 +31,6 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
 import {RouterLink} from '@angular/router';
-import {CommonModule} from '@angular/common';
 
 type AccountingDialogData = never;
 type AccountingClosingDialogResult = Date;
@@ -61,7 +60,7 @@ type AccountingExportDialogResult = {
         MatPaginatorModule,
         NaturalFixedButtonComponent,
         NaturalEnumPipe,
-        NaturalSwissDatePipe,
+        DatePipe,
         IbanPipe,
     ],
 })

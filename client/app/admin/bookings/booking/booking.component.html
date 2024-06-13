@@ -174,7 +174,7 @@
                         <div class="nat-expand nat-vertical">
                             <div class="nat-horizontal nat-margin-bottom nat-gap-10 nat-align">
                                 <h2 class="mat-headline-6 nat-no-margin-bottom">Début</h2>
-                                <div>{{ data.model.startDate | swissDate }}</div>
+                                <div>{{ data.model.startDate | date }}</div>
                             </div>
                             <mat-form-field>
                                 <mat-label>Destination</mat-label>
@@ -195,7 +195,7 @@
                         <div class="nat-expand nat-vertical">
                             <div class="nat-horizontal nat-margin-bottom nat-gap-10 nat-align">
                                 <h2 class="mat-headline-6 nat-no-margin-bottom">Fin</h2>
-                                <div class="nat-expand">{{ data.model.endDate | swissDate }}</div>
+                                <div class="nat-expand">{{ data.model.endDate | date }}</div>
                             </div>
                             <mat-form-field>
                                 <mat-label>Heure estimée de retour</mat-label>

@@ -319,21 +319,21 @@
                 @if (isUpdatePage() && data.model.firstLogin) {
                     <div>
                         <span class="mat-subtitle-2">Première connexion :</span>
-                        {{ data.model.firstLogin | swissDate }} ({{ data.model.firstLogin | timeAgo }})
+                        {{ data.model.firstLogin | date }} ({{ data.model.firstLogin | timeAgo }})
                     </div>
                 }
 
                 @if (isUpdatePage() && data.model.lastLogin) {
                     <div>
                         <span class="mat-subtitle-2">Dernière connexion :</span>
-                        {{ data.model.lastLogin | swissDate }} ({{ data.model.lastLogin | timeAgo }})
+                        {{ data.model.lastLogin | date }} ({{ data.model.lastLogin | timeAgo }})
                     </div>
                 }
 
                 @if (isUpdatePage() && data.model.resignDate && data.model.status === 'archived') {
                     <div>
                         <span class="mat-subtitle-2">Démission le :</span>
-                        {{ data.model.resignDate | swissDate }} ({{ data.model.resignDate | timeAgo }})
+                        {{ data.model.resignDate | date }} ({{ data.model.resignDate | timeAgo }})
                     </div>
                 }
             </div>

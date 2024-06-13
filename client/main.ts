@@ -30,7 +30,7 @@ import {
     provideSeo,
 } from '@ecodev/natural';
 import {strings as frenchStrings} from 'ngx-timeago/language-strings/fr-short';
-import {registerLocaleData} from '@angular/common';
+import {DATE_PIPE_DEFAULT_OPTIONS, DatePipeConfig, registerLocaleData} from '@angular/common';
 import localeFRCH from '@angular/common/locales/fr-CH';
 import localeDECH from '@angular/common/locales/de-CH';
 import {provideRouter, withRouterConfig} from '@angular/router';
@@ -112,6 +112,10 @@ bootstrapApplication(AppComponent, {
         {
             provide: DateAdapter,
             useClass: NaturalSwissParsingDateAdapter,
+        },
+        {
+            provide: DATE_PIPE_DEFAULT_OPTIONS,
+            useValue: {dateFormat: 'dd.MM.y HH:mm'} satisfies DatePipeConfig,
         },
         {
             // Use OnDirty instead of default OnTouched, that allows to validate while editing. Touched is updated after blur.

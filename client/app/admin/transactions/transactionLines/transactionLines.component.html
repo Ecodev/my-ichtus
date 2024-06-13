@@ -136,7 +136,7 @@
                     <ng-container matColumnDef="transactionDate">
                         <th *matHeaderCellDef mat-header-cell class="app-date-column" mat-sort-header>Date</th>
                         <td *matCellDef="let element" mat-cell>
-                            {{ element.transactionDate | swissDate }}
+                            {{ element.transactionDate | date }}
                         </td>
                         <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>

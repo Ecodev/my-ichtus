@@ -27,8 +27,8 @@ import {
     NaturalSelectEnumComponent,
     NaturalSeoResolveData,
     NaturalStampComponent,
-    NaturalSwissDatePipe,
 } from '@ecodev/natural';
+import {DatePipe} from '@angular/common';
 import {
     availability,
     code,
@@ -71,7 +71,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         UsageBookablesComponent,
         NaturalStampComponent,
         NaturalFixedButtonDetailComponent,
-        NaturalSwissDatePipe,
+        DatePipe,
     ],
 })
 export class BookingComponent extends NaturalAbstractDetail<BookingService, NaturalSeoResolveData> implements OnInit {

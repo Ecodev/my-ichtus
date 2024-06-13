@@ -14,15 +14,14 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {
-    NaturalColumnsPickerComponent,
-    NaturalSearchComponent,
-    NaturalFileComponent,
-    NaturalTableButtonComponent,
     NaturalAvatarComponent,
+    NaturalColumnsPickerComponent,
+    NaturalFileComponent,
     NaturalFixedButtonComponent,
-    NaturalSwissDatePipe,
+    NaturalSearchComponent,
+    NaturalTableButtonComponent,
 } from '@ecodev/natural';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-bookables',
@@ -45,7 +44,7 @@ import {CommonModule} from '@angular/common';
         MatProgressSpinnerModule,
         MatPaginatorModule,
         NaturalFixedButtonComponent,
-        NaturalSwissDatePipe,
+        DatePipe,
     ],
 })
 export class BookablesComponent extends ParentComponent<BookableService> implements OnInit {

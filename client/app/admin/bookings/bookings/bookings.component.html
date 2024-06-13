@@ -129,7 +129,7 @@
 
                     <ng-container matColumnDef="startDate">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>Début</th>
-                        <td *matCellDef="let element" mat-cell>{{ element.startDate | swissDate }}</td>
+                        <td *matCellDef="let element" mat-cell>{{ element.startDate | date }}</td>
                         <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
@@ -141,7 +141,7 @@
 
                     <ng-container matColumnDef="endDate">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>Fin</th>
-                        <td *matCellDef="let element" mat-cell>{{ element.endDate | swissDate }}</td>
+                        <td *matCellDef="let element" mat-cell>{{ element.endDate | date }}</td>
                         <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 

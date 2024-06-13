@@ -99,14 +99,14 @@
                     <ng-container matColumnDef="creationDate">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>Créé le</th>
                         <td *matCellDef="let element" mat-cell>
-                            {{ element.creationDate | swissDate }}
+                            {{ element.creationDate | date }}
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="updateDate">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>Modifié le</th>
                         <td *matCellDef="let element" mat-cell>
-                            {{ element.updateDate | swissDate }}
+                            {{ element.updateDate | date }}
                         </td>
                     </ng-container>
 

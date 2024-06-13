@@ -4,15 +4,15 @@ import {
     AvailableColumn,
     Button,
     NaturalAbstractList,
-    NaturalSearchSelections,
-    NaturalColumnsPickerComponent,
-    NaturalSearchComponent,
     NaturalAvatarComponent,
-    NaturalTableButtonComponent,
-    NaturalFixedButtonComponent,
+    NaturalColumnsPickerComponent,
     NaturalEnumPipe,
-    NaturalSwissDatePipe,
+    NaturalFixedButtonComponent,
+    NaturalSearchComponent,
+    NaturalSearchSelections,
+    NaturalTableButtonComponent,
 } from '@ecodev/natural';
+import {CommonModule, DatePipe} from '@angular/common';
 import {BankingInfosVariables, EmailAndPhoneUsersVariables, Users, UserStatus} from '../../../shared/generated-types';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -29,7 +29,6 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
-import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-users',
@@ -52,7 +51,7 @@ import {CommonModule} from '@angular/common';
         NaturalFixedButtonComponent,
         RouterLink,
         NaturalEnumPipe,
-        NaturalSwissDatePipe,
+        DatePipe,
     ],
 })
 export class UsersComponent extends NaturalAbstractList<UserService> implements OnInit {

@@ -3,14 +3,14 @@ import {
     AvailableColumn,
     Button,
     NaturalAbstractList,
-    NaturalQueryVariablesManager,
+    NaturalAvatarComponent,
     NaturalColumnsPickerComponent,
+    NaturalFixedButtonComponent,
+    NaturalQueryVariablesManager,
     NaturalSearchComponent,
     NaturalTableButtonComponent,
-    NaturalAvatarComponent,
-    NaturalFixedButtonComponent,
-    NaturalSwissDatePipe,
 } from '@ecodev/natural';
+import {DatePipe} from '@angular/common';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {
@@ -51,7 +51,7 @@ import {MatTableModule} from '@angular/material/table';
         MatPaginatorModule,
         NaturalFixedButtonComponent,
         RouterLink,
-        NaturalSwissDatePipe,
+        DatePipe,
     ],
 })
 export class TransactionLinesComponent extends NaturalAbstractList<TransactionLineService> implements OnInit {

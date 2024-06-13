@@ -182,7 +182,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                             Dernière modification
                         </th>
                         <td *matCellDef="let element" mat-cell>
-                            {{ element.updateDate | swissDate }}
+                            {{ element.updateDate | date }}
                         </td>
                         <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
@@ -192,7 +192,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                             Dernière vérification
                         </th>
                         <td *matCellDef="let element" mat-cell>
-                            {{ element.verificationDate | swissDate }}
+                            {{ element.verificationDate | date }}
                         </td>
                         <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
