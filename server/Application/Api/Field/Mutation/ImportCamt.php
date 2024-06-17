@@ -15,10 +15,9 @@ use Psr\Http\Message\UploadedFileInterface;
 
 abstract class ImportCamt implements FieldInterface
 {
-    public static function build(): array
+    public static function build(): iterable
     {
-        return [
-            'name' => 'importCamt',
+        yield 'importCamt' => fn () => [
             'type' => Type::nonNull(Type::listOf(Type::nonNull(_types()->getOutput(Transaction::class)))),
             'description' => 'Import a CAMT file containing BVR transactions',
             'args' => [

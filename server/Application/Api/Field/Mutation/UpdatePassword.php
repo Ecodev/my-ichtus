@@ -17,10 +17,9 @@ use Mezzio\Session\SessionInterface;
 
 abstract class UpdatePassword implements FieldInterface
 {
-    public static function build(): array
+    public static function build(): iterable
     {
-        return [
-            'name' => 'updatePassword',
+        yield 'updatePassword' => fn () => [
             'type' => Type::nonNull(Type::boolean()),
             'description' => 'Update the password for the user identified by the token. Return false if token is invalid',
             'args' => [

@@ -17,10 +17,9 @@ use Mezzio\Session\SessionInterface;
 
 abstract class RequestPasswordReset implements FieldInterface
 {
-    public static function build(): array
+    public static function build(): iterable
     {
-        return [
-            'name' => 'requestPasswordReset',
+        yield 'requestPasswordReset' => fn () => [
             'type' => Type::nonNull(Type::boolean()),
             'description' => 'Request to send an email to reset the password for the given user. It will **always** return a successful response, even if the user is not found. Returns `true` if the email was sent to the family owner.',
             'args' => [

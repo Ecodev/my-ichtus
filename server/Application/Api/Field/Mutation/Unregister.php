@@ -15,10 +15,9 @@ use Mezzio\Session\SessionInterface;
 
 abstract class Unregister implements FieldInterface
 {
-    public static function build(): array
+    public static function build(): iterable
     {
-        return [
-            'name' => 'unregister',
+        yield 'unregister' => fn () => [
             'type' => Type::nonNull(Type::boolean()),
             'description' => 'Unregister the given user.',
             'args' => [

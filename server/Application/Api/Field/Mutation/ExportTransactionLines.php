@@ -13,10 +13,9 @@ use Mezzio\Session\SessionInterface;
 
 abstract class ExportTransactionLines implements FieldInterface
 {
-    public static function build(): array
+    public static function build(): iterable
     {
-        return [
-            'name' => 'exportTransactionLines',
+        yield 'exportTransactionLines' => fn () => [
             'type' => Type::nonNull(Type::string()),
             'description' => 'Prepare an export of transactionLines and return the URL to download it',
             'args' => Standard::getListArguments(TransactionLine::class, false),

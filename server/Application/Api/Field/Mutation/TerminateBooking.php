@@ -12,10 +12,9 @@ use Mezzio\Session\SessionInterface;
 
 abstract class TerminateBooking implements FieldInterface
 {
-    public static function build(): array
+    public static function build(): iterable
     {
-        return [
-            'name' => 'terminateBooking',
+        yield 'terminateBooking' => fn () => [
             'type' => Type::nonNull(_types()->getOutput(Booking::class)),
             'description' => 'Terminate a booking',
             'args' => [

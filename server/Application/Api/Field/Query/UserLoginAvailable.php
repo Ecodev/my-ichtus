@@ -11,31 +11,29 @@ use GraphQL\Type\Definition\Type;
 
 abstract class UserLoginAvailable implements FieldInterface
 {
-    public static function build(): array
+    public static function build(): iterable
     {
-        return
-            [
-                'name' => 'userLoginAvailable',
-                'type' => Type::nonNull(Type::boolean()),
-                'description' => 'Whether the given user login is available',
-                'args' => [
-                    [
-                        'name' => 'login',
-                        'type' => Type::nonNull(Type::string()),
-                    ],
-                    [
-                        'name' => 'excluded',
-                        'type' => _types()->getId(User::class),
-                    ],
+        yield 'userLoginAvailable' => fn () => [
+            'type' => Type::nonNull(Type::boolean()),
+            'description' => 'Whether the given user login is available',
+            'args' => [
+                [
+                    'name' => 'login',
+                    'type' => Type::nonNull(Type::string()),
                 ],
-                'resolve' => function ($root, array $args): bool {
-                    $id = @$args['excluded'] ? (int) $args['excluded']->getId() : null;
+                [
+                    'name' => 'excluded',
+                    'type' => _types()->getId(User::class),
+                ],
+            ],
+            'resolve' => function ($root, array $args): bool {
+                $id = @$args['excluded'] ? (int) $args['excluded']->getId() : null;
 
-                    /** @var UserRepository $repository */
-                    $repository = _em()->getRepository(User::class);
+                /** @var UserRepository $repository */
+                $repository = _em()->getRepository(User::class);
 
-                    return !$repository->exists($args['login'], $id);
-                },
-            ];
+                return !$repository->exists($args['login'], $id);
+            },
+        ];
     }
 }

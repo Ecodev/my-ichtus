@@ -17,10 +17,9 @@ use Mezzio\Session\SessionInterface;
 
 abstract class Register implements FieldInterface
 {
-    public static function build(): array
+    public static function build(): iterable
     {
-        return [
-            'name' => 'register',
+        yield 'register' => fn () => [
             'type' => Type::nonNull(Type::boolean()),
             'description' => 'First step to register as a new user.',
             'args' => [

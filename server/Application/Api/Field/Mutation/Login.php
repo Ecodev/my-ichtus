@@ -16,10 +16,9 @@ use Mezzio\Session\SessionInterface;
 
 abstract class Login implements FieldInterface
 {
-    public static function build(): array
+    public static function build(): iterable
     {
-        return [
-            'name' => 'login',
+        yield 'login' => fn () => [
             'type' => Type::nonNull(_types()->getOutput(User::class)),
             'description' => 'Log in a user',
             'args' => [

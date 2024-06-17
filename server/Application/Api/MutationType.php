@@ -36,13 +36,15 @@ use Application\Model\Transaction;
 use Application\Model\TransactionTag;
 use Application\Model\User;
 use Application\Model\UserTag;
+use Ecodev\Felix\Utility;
 use GraphQL\Type\Definition\ObjectType;
 
 class MutationType extends ObjectType
 {
     public function __construct()
     {
-        $specializedFields = [
+        $fields = Utility::concat(
+            // Specialized fields
             Login::build(),
             Logout::build(),
             OpenDoor::build(),
@@ -57,15 +59,13 @@ class MutationType extends ObjectType
             UpdateTransaction::build(),
             ReconcileTransactionLine::build(),
             ImportCamt::build(),
-            Standard::buildMutation(Transaction::class)[2], // Only delete mutation
+            Utility::filterByKeys(Standard::buildMutation(Transaction::class), 'deleteTransactions'),
             UpdateConfiguration::build(),
             AccountingClosing::build(),
             ExportAccountingReport::build(),
             ExportTransactionLines::build(),
-        ];
 
-        $fields = array_merge(
-            $specializedFields,
+            // Standard fields
             Standard::buildMutation(Bookable::class),
             Standard::buildMutation(BookableMetadata::class),
             Standard::buildMutation(BookableTag::class),

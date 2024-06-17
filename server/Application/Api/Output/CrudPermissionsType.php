@@ -22,7 +22,7 @@ class CrudPermissionsType extends ObjectType
                 'create' => [
                     'type' => self::nonNull(self::boolean()),
                     'description' => 'Whether the user can create',
-                    'resolve' => function (array $root, array $args, $context, ResolveInfo $info): bool {
+                    'resolve' => function ($root, array $args, $context, ResolveInfo $info): bool {
                         /** @var class-string<AbstractModel> $type */
                         $type = $root['type'];
 

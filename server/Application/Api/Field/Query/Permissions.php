@@ -11,23 +11,21 @@ use GraphQL\Type\Definition\Type;
 
 abstract class Permissions implements FieldInterface
 {
-    public static function build(): array
+    public static function build(): iterable
     {
-        return
-            [
-                'name' => 'permissions',
-                'type' => Type::nonNull(_types()->get(AllPermissionsType::class)),
-                'description' => 'All permissions for currently logged in user',
-                'args' => [
-                ],
-                'resolve' => function ($root, array $args, $context, ResolveInfo $info) {
-                    $contexts = $args;
+        yield 'permissions' => fn () => [
+            'type' => Type::nonNull(_types()->get(AllPermissionsType::class)),
+            'description' => 'All permissions for currently logged in user',
+            'args' => [
+            ],
+            'resolve' => function ($root, array $args, $context, ResolveInfo $info) {
+                $contexts = $args;
 
-                    // Return keys with some dummy data to keep the resolving process going deeper in types
-                    return [
-                        'crud' => ['contexts' => $contexts],
-                    ];
-                },
-            ];
+                // Return keys with some dummy data to keep the resolving process going deeper in types
+                return [
+                    'crud' => ['contexts' => $contexts],
+                ];
+            },
+        ];
     }
 }

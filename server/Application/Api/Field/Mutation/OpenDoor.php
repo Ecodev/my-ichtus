@@ -18,10 +18,9 @@ use Mezzio\Session\SessionInterface;
 
 abstract class OpenDoor implements FieldInterface
 {
-    public static function build(): array
+    public static function build(): iterable
     {
-        return [
-            'name' => 'openDoor',
+        yield 'openDoor' => fn () => [
             'type' => Type::nonNull(_types()->get(OpenDoorType::class)),
             'description' => 'Open a door at the premises',
             'args' => [

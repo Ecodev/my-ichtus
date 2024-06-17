@@ -18,10 +18,9 @@ use Mezzio\Session\SessionInterface;
 
 abstract class LeaveFamily implements FieldInterface
 {
-    public static function build(): array
+    public static function build(): iterable
     {
-        return [
-            'name' => 'leaveFamily',
+        yield 'leaveFamily' => fn () => [
             'type' => Type::nonNull(_types()->getOutput(User::class)),
             'description' => 'Make the given user independent from his family and inactive.',
             'args' => [

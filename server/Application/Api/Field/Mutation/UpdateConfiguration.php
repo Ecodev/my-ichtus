@@ -13,10 +13,9 @@ use Mezzio\Session\SessionInterface;
 
 abstract class UpdateConfiguration implements FieldInterface
 {
-    public static function build(): array
+    public static function build(): iterable
     {
-        return [
-            'name' => 'updateConfiguration',
+        yield 'updateConfiguration' => fn () => [
             'type' => Type::nonNull(Type::string()),
             'description' => 'Update configuration value.',
             'args' => [

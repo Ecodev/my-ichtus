@@ -10,25 +10,23 @@ use GraphQL\Type\Definition\Type;
 
 abstract class Configuration implements FieldInterface
 {
-    public static function build(): array
+    public static function build(): iterable
     {
-        return
-            [
-                'name' => 'configuration',
-                'type' => Type::nonNull(Type::string()),
-                'description' => 'Return configuration value for given key. The value might be any format (HTML, JSON, text) as defined by client',
-                'args' => [
-                    'key' => Type::nonNull(Type::string()),
-                ],
-                'resolve' => function ($root, array $args): string {
-                    $key = $args['key'];
+        yield 'configuration' => fn () => [
+            'type' => Type::nonNull(Type::string()),
+            'description' => 'Return configuration value for given key. The value might be any format (HTML, JSON, text) as defined by client',
+            'args' => [
+                'key' => Type::nonNull(Type::string()),
+            ],
+            'resolve' => function ($root, array $args): string {
+                $key = $args['key'];
 
-                    /** @var ConfigurationRepository $configurationRepository */
-                    $configurationRepository = _em()->getRepository(\Application\Model\Configuration::class);
-                    $configuration = $configurationRepository->getOrCreate($key);
+                /** @var ConfigurationRepository $configurationRepository */
+                $configurationRepository = _em()->getRepository(\Application\Model\Configuration::class);
+                $configuration = $configurationRepository->getOrCreate($key);
 
-                    return $configuration->getValue();
-                },
-            ];
+                return $configuration->getValue();
+            },
+        ];
     }
 }

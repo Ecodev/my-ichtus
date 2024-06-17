@@ -12,6 +12,7 @@ use Application\Model\ExpenseClaim;
 use Application\Model\TransactionLine;
 use Application\Model\User;
 use Doctrine\ORM\QueryBuilder;
+use Ecodev\Felix\Api\Field\FieldInterface;
 use Ecodev\Felix\Api\Input\PaginationInputType;
 use Ecodev\Felix\Api\Plural;
 use GraphQL\Type\Definition\Type;
@@ -20,13 +21,17 @@ use ReflectionClass;
 
 /**
  * Provide easy way to build standard fields to query and mutate objects.
+ *
+ * @phpstan-import-type PermissiveFieldsConfig from FieldInterface
  */
 abstract class Standard
 {
     /**
      * Returns standard fields to query the object.
+     *
+     * @return PermissiveFieldsConfig
      */
-    public static function buildQuery(string $class): array
+    public static function buildQuery(string $class): iterable
     {
         $metadata = _em()->getClassMetadata($class);
         $reflect = $metadata->getReflectionClass();
@@ -37,120 +42,116 @@ abstract class Standard
         $listArgs = self::getListArguments($class);
         $singleArgs = self::getSingleArguments($class);
 
-        return [
-            [
-                'name' => $plural,
-                'type' => Type::nonNull(_types()->get($shortName . 'Pagination')),
-                'args' => $listArgs,
-                'resolve' => function ($root, array $args) use ($class): array {
-                    $qb = self::createFilteredQueryBuilder($class, $args);
+        yield $plural => fn () => [
+            'type' => Type::nonNull(_types()->get($shortName . 'Pagination')),
+            'args' => $listArgs,
+            'resolve' => function ($root, array $args) use ($class): array {
+                $qb = self::createFilteredQueryBuilder($class, $args);
 
-                    $items = Helper::paginate($args['pagination'], $qb);
-                    $aggregatedFields = Helper::aggregatedFields($class, $qb);
-                    $result = array_merge($aggregatedFields, $items);
+                $items = Helper::paginate($args['pagination'], $qb);
+                $aggregatedFields = Helper::aggregatedFields($class, $qb);
+                $result = array_merge($aggregatedFields, $items);
 
-                    return $result;
-                },
-            ],
-            [
-                'name' => $name,
-                'type' => Type::nonNull(_types()->getOutput($class)),
-                'args' => $singleArgs,
-                'resolve' => function ($root, array $args): ?AbstractModel {
-                    $object = $args['id']->getEntity();
+                return $result;
+            },
+        ];
 
-                    Helper::throwIfDenied($object, 'read');
+        yield $name => fn () => [
+            'type' => Type::nonNull(_types()->getOutput($class)),
+            'args' => $singleArgs,
+            'resolve' => function ($root, array $args): ?AbstractModel {
+                $object = $args['id']->getEntity();
 
-                    return $object;
-                },
-            ],
+                Helper::throwIfDenied($object, 'read');
+
+                return $object;
+            },
         ];
     }
 
     /**
      * Returns standard fields to mutate the object.
+     *
+     * @return PermissiveFieldsConfig
      */
-    public static function buildMutation(string $class): array
+    public static function buildMutation(string $class): iterable
     {
         $reflect = new ReflectionClass($class);
         $name = $reflect->getShortName();
         $plural = Plural::make($name);
 
-        return [
-            [
-                'name' => 'create' . $name,
-                'type' => Type::nonNull(_types()->getOutput($class)),
-                'description' => 'Create a new ' . $name,
-                'args' => [
-                    'input' => Type::nonNull(_types()->getInput($class)),
-                ],
-                'resolve' => function ($root, array $args) use ($class): AbstractModel {
-                    // Do it
-                    $object = new $class();
-                    $input = $args['input'];
-                    Helper::hydrate($object, $input);
+        yield 'create' . $name => fn () => [
+            'type' => Type::nonNull(_types()->getOutput($class)),
+            'description' => 'Create a new ' . $name,
+            'args' => [
+                'input' => Type::nonNull(_types()->getInput($class)),
+            ],
+            'resolve' => function ($root, array $args) use ($class): AbstractModel {
+                // Do it
+                $object = new $class();
+                $input = $args['input'];
+                Helper::hydrate($object, $input);
+
+                // Check ACL
+                Helper::throwIfDenied($object, 'create');
+
+                _em()->persist($object);
+                _em()->flush();
+
+                return $object;
+            },
+        ];
+
+        yield 'update' . $name => fn () => [
+            'type' => Type::nonNull(_types()->getOutput($class)),
+            'description' => 'Update an existing ' . $name,
+            'args' => [
+                'id' => Type::nonNull(_types()->getId($class)),
+                'input' => Type::nonNull(_types()->getPartialInput($class)),
+            ],
+            'resolve' => function ($root, array $args) use ($class): AbstractModel {
+                $object = $args['id']->getEntity();
+
+                // Check ACL
+                Helper::throwIfDenied($object, 'update');
+
+                // Do it
+                $input = $args['input'];
+                $filteredInput = self::filterInput($class, $input);
+                Helper::hydrate($object, $filteredInput);
+
+                _em()->flush();
+
+                // Refresh budgetBalance that is computed by the DB
+                if ($class === Account::class) {
+                    _em()->refresh($object);
+                }
+
+                return $object;
+            },
+        ];
+
+        yield 'delete' . $plural => fn () => [
+            'type' => Type::nonNull(Type::boolean()),
+            'description' => 'Delete one or several existing ' . $name,
+            'args' => [
+                'ids' => Type::nonNull(Type::listOf(Type::nonNull(_types()->getId($class)))),
+            ],
+            'resolve' => function ($root, array $args): bool {
+                foreach ($args['ids'] as $id) {
+                    $object = $id->getEntity();
 
                     // Check ACL
-                    Helper::throwIfDenied($object, 'create');
-
-                    _em()->persist($object);
-                    _em()->flush();
-
-                    return $object;
-                },
-            ],
-            [
-                'name' => 'update' . $name,
-                'type' => Type::nonNull(_types()->getOutput($class)),
-                'description' => 'Update an existing ' . $name,
-                'args' => [
-                    'id' => Type::nonNull(_types()->getId($class)),
-                    'input' => Type::nonNull(_types()->getPartialInput($class)),
-                ],
-                'resolve' => function ($root, array $args) use ($class): AbstractModel {
-                    $object = $args['id']->getEntity();
-
-                    // Check ACL
-                    Helper::throwIfDenied($object, 'update');
+                    Helper::throwIfDenied($object, 'delete');
 
                     // Do it
-                    $input = $args['input'];
-                    $filteredInput = self::filterInput($class, $input);
-                    Helper::hydrate($object, $filteredInput);
+                    _em()->remove($object);
+                }
 
-                    _em()->flush();
+                _em()->flush();
 
-                    // Refresh budgetBalance that is computed by the DB
-                    if ($class === Account::class) {
-                        _em()->refresh($object);
-                    }
-
-                    return $object;
-                },
-            ],
-            [
-                'name' => 'delete' . $plural,
-                'type' => Type::nonNull(Type::boolean()),
-                'description' => 'Delete one or several existing ' . $name,
-                'args' => [
-                    'ids' => Type::nonNull(Type::listOf(Type::nonNull(_types()->getId($class)))),
-                ],
-                'resolve' => function ($root, array $args): bool {
-                    foreach ($args['ids'] as $id) {
-                        $object = $id->getEntity();
-
-                        // Check ACL
-                        Helper::throwIfDenied($object, 'delete');
-
-                        // Do it
-                        _em()->remove($object);
-                    }
-
-                    _em()->flush();
-
-                    return true;
-                },
-            ],
+                return true;
+            },
         ];
     }
 
@@ -171,8 +172,10 @@ abstract class Standard
      * @param string $ownerClass The class owning the relation
      * @param string $otherClass The other class, not-owning the relation
      * @param null|string $otherName a specific semantic, if needed, to be use as adder. If `$otherName = 'Parent'`, then we will call `addParent()`
+     *
+     * @return PermissiveFieldsConfig
      */
-    public static function buildRelationMutation(string $ownerClass, string $otherClass, ?string $otherName = null): array
+    public static function buildRelationMutation(string $ownerClass, string $otherClass, ?string $otherName = null): iterable
     {
         $ownerReflect = new ReflectionClass($ownerClass);
         $ownerName = $ownerReflect->getShortName();
@@ -198,51 +201,48 @@ abstract class Standard
             $lowerOtherName => Type::nonNull(_types()->getId($otherClass)),
         ];
 
-        return [
-            [
-                'name' => 'link' . $ownerName . $otherName,
-                'type' => Type::nonNull(_types()->getOutput($ownerClass)),
-                'description' => 'Create a relation between ' . $ownerName . ' and ' . $otherClassName . $semantic . '.' . PHP_EOL . PHP_EOL
-                    . 'If the relation already exists, it will have no effect.',
-                'args' => $args,
-                'resolve' => function ($root, array $args) use ($lowerOwnerName, $lowerOtherName, $otherName): AbstractModel {
-                    $owner = $args[$lowerOwnerName]->getEntity();
-                    $other = $args[$lowerOtherName]->getEntity();
+        yield 'link' . $ownerName . $otherName => fn () => [
+            'type' => Type::nonNull(_types()->getOutput($ownerClass)),
+            'description' => 'Create a relation between ' . $ownerName . ' and ' . $otherClassName . $semantic . '.' . PHP_EOL . PHP_EOL
+                . 'If the relation already exists, it will have no effect.',
+            'args' => $args,
+            'resolve' => function ($root, array $args) use ($lowerOwnerName, $lowerOtherName, $otherName): AbstractModel {
+                $owner = $args[$lowerOwnerName]->getEntity();
+                $other = $args[$lowerOtherName]->getEntity();
 
-                    // Check ACL
-                    Helper::throwIfDenied($owner, 'update');
+                // Check ACL
+                Helper::throwIfDenied($owner, 'update');
 
-                    // Do it
-                    $method = 'add' . $otherName;
+                // Do it
+                $method = 'add' . $otherName;
+                $owner->$method($other);
+                _em()->flush();
+
+                return $owner;
+            },
+        ];
+
+        yield 'unlink' . $ownerName . $otherName => fn () => [
+            'type' => Type::nonNull(_types()->getOutput($ownerClass)),
+            'description' => 'Delete a relation between ' . $ownerName . ' and ' . $otherClassName . $semantic . '.' . PHP_EOL . PHP_EOL
+                . 'If the relation does not exist, it will have no effect.',
+            'args' => $args,
+            'resolve' => function ($root, array $args) use ($lowerOwnerName, $lowerOtherName, $otherName): AbstractModel {
+                $owner = $args[$lowerOwnerName]->getEntity();
+                $other = $args[$lowerOtherName]->getEntity();
+
+                // Check ACL
+                Helper::throwIfDenied($owner, 'update');
+
+                // Do it
+                if ($other) {
+                    $method = 'remove' . $otherName;
                     $owner->$method($other);
                     _em()->flush();
+                }
 
-                    return $owner;
-                },
-            ],
-            [
-                'name' => 'unlink' . $ownerName . $otherName,
-                'type' => Type::nonNull(_types()->getOutput($ownerClass)),
-                'description' => 'Delete a relation between ' . $ownerName . ' and ' . $otherClassName . $semantic . '.' . PHP_EOL . PHP_EOL
-                    . 'If the relation does not exist, it will have no effect.',
-                'args' => $args,
-                'resolve' => function ($root, array $args) use ($lowerOwnerName, $lowerOtherName, $otherName): AbstractModel {
-                    $owner = $args[$lowerOwnerName]->getEntity();
-                    $other = $args[$lowerOtherName]->getEntity();
-
-                    // Check ACL
-                    Helper::throwIfDenied($owner, 'update');
-
-                    // Do it
-                    if ($other) {
-                        $method = 'remove' . $otherName;
-                        $owner->$method($other);
-                        _em()->flush();
-                    }
-
-                    return $owner;
-                },
-            ],
+                return $owner;
+            },
         ];
     }
 

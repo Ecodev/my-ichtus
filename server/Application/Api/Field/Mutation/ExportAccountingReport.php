@@ -13,10 +13,9 @@ use Mezzio\Session\SessionInterface;
 
 abstract class ExportAccountingReport implements FieldInterface
 {
-    public static function build(): array
+    public static function build(): iterable
     {
-        return [
-            'name' => 'exportAccountingReport',
+        yield 'exportAccountingReport' => fn () => [
             'type' => Type::nonNull(Type::string()),
             'description' => 'Prepare an accounting report and return the URL to download it',
             'args' => [

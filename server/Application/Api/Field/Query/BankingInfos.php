@@ -16,44 +16,42 @@ use Money\Money;
 
 abstract class BankingInfos implements FieldInterface
 {
-    public static function build(): array
+    public static function build(): iterable
     {
-        return
-            [
-                'name' => 'bankingInfos',
-                'type' => Type::nonNull(_types()->get('BankingInfos')),
-                'description' => 'Info to top-up the current user account by bank transfer',
-                'args' => [
-                    'user' => Type::nonNull(_types()->getId(User::class)),
-                    'amount' => _types()->get('Money'),
-                ],
-                'resolve' => function ($root, array $args): array {
-                    global $container;
-                    $config = $container->get('config');
-                    $banking = $config['banking'];
-                    $iban = $banking['iban'];
-                    $paymentTo = $banking['paymentTo'];
-                    $paymentFor = $banking['paymentFor'];
+        yield 'bankingInfos' => fn () => [
+            'type' => Type::nonNull(_types()->get('BankingInfos')),
+            'description' => 'Info to top-up the current user account by bank transfer',
+            'args' => [
+                'user' => Type::nonNull(_types()->getId(User::class)),
+                'amount' => _types()->get('Money'),
+            ],
+            'resolve' => function ($root, array $args): array {
+                global $container;
+                $config = $container->get('config');
+                $banking = $config['banking'];
+                $iban = $banking['iban'];
+                $paymentTo = $banking['paymentTo'];
+                $paymentFor = $banking['paymentFor'];
 
-                    $user = $args['user']->getEntity();
-                    $amount = $args['amount'] ?? null;
+                $user = $args['user']->getEntity();
+                $amount = $args['amount'] ?? null;
 
-                    $referenceNumber = Bvr::getReferenceNumber('000000', (string) $user->getId());
+                $referenceNumber = Bvr::getReferenceNumber('000000', (string) $user->getId());
 
-                    $result = [
-                        'iban' => $iban,
-                        'paymentTo' => $paymentTo,
-                        'paymentFor' => $paymentFor,
-                        'referenceNumber' => $referenceNumber,
-                    ];
+                $result = [
+                    'iban' => $iban,
+                    'paymentTo' => $paymentTo,
+                    'paymentFor' => $paymentFor,
+                    'referenceNumber' => $referenceNumber,
+                ];
 
-                    $qrCodeField = self::qrBill($user, $amount, $iban, $paymentFor, false);
-                    $qrBillField = self::qrBill($user, $amount, $iban, $paymentFor, true);
-                    $result = array_merge($result, $qrCodeField, $qrBillField);
+                $qrCodeField = self::qrBill($user, $amount, $iban, $paymentFor, false);
+                $qrBillField = self::qrBill($user, $amount, $iban, $paymentFor, true);
+                $result = array_merge($result, $qrCodeField, $qrBillField);
 
-                    return $result;
-                },
-            ];
+                return $result;
+            },
+        ];
     }
 
     /**

@@ -23,10 +23,9 @@ use Mezzio\Session\SessionInterface;
 
 abstract class ConfirmRegistration implements FieldInterface
 {
-    public static function build(): array
+    public static function build(): iterable
     {
-        return [
-            'name' => 'confirmRegistration',
+        yield 'confirmRegistration' => fn () => [
             'type' => Type::nonNull(Type::boolean()),
             'description' => 'Second step to register as a new user.',
             'args' => [

@@ -29,13 +29,15 @@ use Application\Model\TransactionLine;
 use Application\Model\TransactionTag;
 use Application\Model\User;
 use Application\Model\UserTag;
+use Ecodev\Felix\Utility;
 use GraphQL\Type\Definition\ObjectType;
 
 class QueryType extends ObjectType
 {
     public function __construct()
     {
-        $specializedFields = [
+        $fields = Utility::concat(
+            // Specialized fields
             Viewer::build(),
             UserByToken::build(),
             Permissions::build(),
@@ -44,10 +46,8 @@ class QueryType extends ObjectType
             NextAccountCode::build(),
             Configuration::build(),
             UserRolesAvailable::build(),
-        ];
 
-        $fields = array_merge(
-            $specializedFields,
+            // Standard fields
             Standard::buildQuery(Bookable::class),
             Standard::buildQuery(BookableMetadata::class),
             Standard::buildQuery(BookableTag::class),

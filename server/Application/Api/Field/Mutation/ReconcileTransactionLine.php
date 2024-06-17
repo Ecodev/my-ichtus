@@ -12,10 +12,9 @@ use Mezzio\Session\SessionInterface;
 
 abstract class ReconcileTransactionLine implements FieldInterface
 {
-    public static function build(): array
+    public static function build(): iterable
     {
-        return [
-            'name' => 'reconcileTransactionLine',
+        yield 'reconcileTransactionLine' => fn () => [
             'type' => Type::nonNull(_types()->getOutput(TransactionLine::class)),
             'description' => 'Update the reconcile flag of a line of transaction',
             'args' => [

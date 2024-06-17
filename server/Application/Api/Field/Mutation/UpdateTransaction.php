@@ -14,10 +14,9 @@ use Mezzio\Session\SessionInterface;
 
 abstract class UpdateTransaction implements FieldInterface
 {
-    public static function build(): array
+    public static function build(): iterable
     {
-        return [
-            'name' => 'updateTransaction',
+        yield 'updateTransaction' => fn () => [
             'type' => Type::nonNull(_types()->getOutput(Transaction::class)),
             'description' => 'Update a transaction, and optionally replace all its transaction lines if given any',
             'args' => [

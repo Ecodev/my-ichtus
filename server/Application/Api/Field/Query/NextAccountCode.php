@@ -11,20 +11,18 @@ use GraphQL\Type\Definition\Type;
 
 abstract class NextAccountCode implements FieldInterface
 {
-    public static function build(): array
+    public static function build(): iterable
     {
-        return
-            [
-                'name' => 'nextAccountCode',
-                'type' => Type::nonNull(Type::int()),
-                'description' => 'Next available account code for creation',
-                'args' => [],
-                'resolve' => function ($root, array $args): int {
-                    /** @var AccountRepository $repository */
-                    $repository = _em()->getRepository(Account::class);
+        yield 'nextAccountCode' => fn () => [
+            'type' => Type::nonNull(Type::int()),
+            'description' => 'Next available account code for creation',
+            'args' => [],
+            'resolve' => function ($root, array $args): int {
+                /** @var AccountRepository $repository */
+                $repository = _em()->getRepository(Account::class);
 
-                    return $repository->getNextCodeAvailable();
-                },
-            ];
+                return $repository->getNextCodeAvailable();
+            },
+        ];
     }
 }

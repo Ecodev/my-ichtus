@@ -14,10 +14,9 @@ use Mezzio\Session\SessionInterface;
 
 abstract class CreateTransaction implements FieldInterface
 {
-    public static function build(): array
+    public static function build(): iterable
     {
-        return [
-            'name' => 'createTransaction',
+        yield 'createTransaction' => fn () => [
             'type' => Type::nonNull(_types()->getOutput(Transaction::class)),
             'description' => 'Create a transaction with all its transaction lines',
             'args' => [

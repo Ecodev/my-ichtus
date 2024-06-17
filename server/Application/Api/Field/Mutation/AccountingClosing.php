@@ -13,10 +13,9 @@ use Mezzio\Session\SessionInterface;
 
 abstract class AccountingClosing implements FieldInterface
 {
-    public static function build(): array
+    public static function build(): iterable
     {
-        return [
-            'name' => 'accountingClosing',
+        yield 'accountingClosing' => fn () => [
             'type' => _types()->getOutput(Transaction::class),
             'description' => 'Generate the closing entries at the end of an accounting period',
             'args' => [
