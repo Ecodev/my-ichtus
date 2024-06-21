@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {ifValid, NaturalAbstractController, NaturalAlertService, NaturalIconDirective} from '@ecodev/natural';
+import {ifValid, NaturalAbstractController, NaturalIconDirective} from '@ecodev/natural';
 import {UserService} from '../admin/users/services/user.service';
 import {finalize} from 'rxjs/operators';
 import {FormsModule, ReactiveFormsModule, NonNullableFormBuilder, Validators} from '@angular/forms';
@@ -43,7 +43,6 @@ export class LoginComponent extends NaturalAbstractController implements OnInit,
         private readonly route: ActivatedRoute,
         private readonly router: Router,
         private readonly userService: UserService,
-        public readonly alertService: NaturalAlertService,
         public readonly snackBar: MatSnackBar,
         private readonly fb: NonNullableFormBuilder,
     ) {
