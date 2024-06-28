@@ -21,5 +21,6 @@ describe('LocalizedPaginatorIntlService', () => {
         expect(service.getRangeLabel(1, 5, 20)).toEqual('6-10/20');
         expect(service.getRangeLabel(2, 10, 0)).toEqual('0/0');
         expect(service.getRangeLabel(2, 0, 20)).toEqual('0/20');
+        expect(service.getRangeLabel(3, 2000, 1000000)).toEqual("6'001-8'000/1'000'000");
     });
 });
