@@ -30,14 +30,16 @@
                     <mat-form-field [style.width.px]="250">
                         <mat-label>Numéro</mat-label>
                         <input matInput type="number" formControlName="code" (change)="update()" />
-                        <button
-                            matIconSuffix
-                            mat-icon-button
-                            matToolTip="Utiliser le code suggéré"
-                            (click)="form.get('code')?.setValue(nextCodeAvailable); update()"
-                        >
-                            <mat-icon naturalIcon="reply" />
-                        </button>
+                        @if (nextCodeAvailable) {
+                            <button
+                                matIconSuffix
+                                mat-icon-button
+                                matTooltip="Utiliser le code suggéré"
+                                (click)="form.get('code')?.setValue(nextCodeAvailable); update()"
+                            >
+                                <mat-icon naturalIcon="reply" />
+                            </button>
+                        }
                         @if (form.get('code')?.hasError('min')) {
                             <mat-error>Valeur positive</mat-error>
                         }
@@ -50,7 +52,9 @@
                         @if (form.get('code')?.hasError('duplicateValue')) {
                             <mat-error>Ce numéro est déjà attribué</mat-error>
                         }
-                        <mat-hint>Prochain n° disponible: {{ nextCodeAvailable }}</mat-hint>
+                        @if (nextCodeAvailable) {
+                            <mat-hint>Prochain n° disponible: {{ nextCodeAvailable }}</mat-hint>
+                        }
                     </mat-form-field>
 
                     @if ([AccountType.asset].includes(form.get('type')?.value)) {

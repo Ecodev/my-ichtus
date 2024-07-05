@@ -155,13 +155,13 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
     /**
      * Return the next available Account code.
      */
-    public function getNextCodeAvailable(): int
+    public function getNextCodeAvailable(?Account $parent): int
     {
-        $qb = $this->getEntityManager()->getConnection()->createQueryBuilder()
-            ->select('IFNULL(MAX(a.code) + 1, 1)')
-            ->from('account', 'a');
+        $connection = $this->getEntityManager()->getConnection();
 
-        return (int) $qb->fetchOne();
+        return (int) $connection->fetchOne('SELECT IFNULL(MAX(code) + 1, 1) FROM account WHERE IF(:parent IS NULL, parent_id IS NULL, parent_id = :parent)', [
+            'parent' => $parent?->getId(),
+        ]);
     }
 
     public function getRootAccountsQuery(): Query

@@ -16,12 +16,14 @@ abstract class NextAccountCode implements FieldInterface
         yield 'nextAccountCode' => fn () => [
             'type' => Type::nonNull(Type::int()),
             'description' => 'Next available account code for creation',
-            'args' => [],
+            'args' => [
+                'parent' => _types()->getId(Account::class),
+            ],
             'resolve' => function ($root, array $args): int {
                 /** @var AccountRepository $repository */
                 $repository = _em()->getRepository(Account::class);
 
-                return $repository->getNextCodeAvailable();
+                return $repository->getNextCodeAvailable($args['parent']?->getEntity());
             },
         ];
     }

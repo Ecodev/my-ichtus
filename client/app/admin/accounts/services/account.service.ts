@@ -25,6 +25,7 @@ import {
     ExportAccountingReport,
     ExportAccountingReportVariables,
     NextAccountCode,
+    NextAccountCodeVariables,
     UpdateAccount,
     UpdateAccountVariables,
 } from '../../../shared/generated-types';
@@ -90,16 +91,15 @@ export class AccountService extends NaturalAbstractModelService<
         };
     }
 
-    public getNextCodeAvailable(): Observable<number> {
+    public getNextCodeAvailable(parentId: string | null): Observable<number> {
         return this.apollo
-            .query<NextAccountCode>({
+            .query<NextAccountCode, NextAccountCodeVariables>({
                 query: nextCodeAvailableQuery,
+                variables: {
+                    parent: parentId,
+                },
             })
-            .pipe(
-                map(result => {
-                    return result.data.nextAccountCode;
-                }),
-            );
+            .pipe(map(result => result.data.nextAccountCode));
     }
 
     public getAccountByCode(code: number): Observable<Accounts['accounts']> {

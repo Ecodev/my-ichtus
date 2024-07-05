@@ -83,8 +83,8 @@ export const accountQuery = gql`
 `;
 
 export const nextCodeAvailableQuery = gql`
-    query NextAccountCode {
-        nextAccountCode
+    query NextAccountCode($parent: AccountID) {
+        nextAccountCode(parent: $parent)
     }
 `;
 

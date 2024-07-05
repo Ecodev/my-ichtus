@@ -25,7 +25,9 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import Big from 'big.js';
+import {startWith, switchMap, takeUntil} from 'rxjs';
 import {AccountType} from '../../../shared/generated-types';
+import {MatTooltip, MatTooltipModule} from '@angular/material/tooltip';
 
 @Component({
     selector: 'app-account',
@@ -34,29 +36,32 @@ import {AccountType} from '../../../shared/generated-types';
     standalone: true,
     imports: [
         FormsModule,
-        ReactiveFormsModule,
-        NaturalDetailHeaderComponent,
-        MoneyComponent,
-        MatTabsModule,
-        NaturalLinkableTabDirective,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatIconModule,
-        NaturalIconDirective,
-        NaturalSelectHierarchicComponent,
-        NaturalSelectEnumComponent,
-        NaturalSelectComponent,
-        MatDividerModule,
-        NaturalStampComponent,
-        NaturalFixedButtonDetailComponent,
         IbanPipe,
+        MatButtonModule,
+        MatDividerModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        MatTabsModule,
+        MatTooltipModule,
+        MatTooltip,
+        MoneyComponent,
+        NaturalDetailHeaderComponent,
+        NaturalFixedButtonDetailComponent,
+        NaturalIconDirective,
+        NaturalLinkableTabDirective,
+        NaturalSelectComponent,
+        NaturalSelectEnumComponent,
+        NaturalSelectHierarchicComponent,
+        NaturalStampComponent,
+        ReactiveFormsModule,
     ],
 })
 export class AccountComponent extends NaturalAbstractDetail<AccountService, NaturalSeoResolveData> implements OnInit {
     public nextCodeAvailable: number | null = null;
     public accountHierarchicConfig = groupAccountHierarchicConfiguration;
     public readonly AccountType = AccountType;
+
     public constructor(
         public readonly accountService: AccountService,
         public readonly userService: UserService,
@@ -66,16 +71,6 @@ export class AccountComponent extends NaturalAbstractDetail<AccountService, Natu
 
     public override ngOnInit(): void {
         super.ngOnInit();
-
-        this.accountService.getNextCodeAvailable().subscribe(code => {
-            this.nextCodeAvailable = code;
-            if (!this.data.model.id) {
-                const codeField = this.form.get('code');
-                if (codeField) {
-                    codeField.setValue(code);
-                }
-            }
-        });
 
         const parentId = this.route.snapshot.params.parent;
         if (parentId) {
@@ -93,6 +88,25 @@ export class AccountComponent extends NaturalAbstractDetail<AccountService, Natu
 
     protected override initForm(): void {
         super.initForm();
+
+        // Show next available code
+        const parent = this.form.get('parent')!;
+        parent.valueChanges
+            .pipe(
+                startWith(parent.value),
+                takeUntil(this.ngUnsubscribe),
+                switchMap(value => {
+                    this.nextCodeAvailable = null; // Hide invalid code as soon as we can
+
+                    return this.accountService.getNextCodeAvailable(value ? value.id : null);
+                }),
+            )
+            .subscribe(code => {
+                this.nextCodeAvailable = code;
+                if (!this.isUpdatePage()) {
+                    this.form.get('code')!.setValue(code);
+                }
+            });
 
         // Format IBAN coming from server to be user friendly
         this.form.get('iban')?.setValue(friendlyFormatIBAN(this.form.get('iban')?.value));

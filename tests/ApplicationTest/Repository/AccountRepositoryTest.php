@@ -170,4 +170,21 @@ class AccountRepositoryTest extends AbstractRepositoryTest
         ]);
         self::assertSame(0, $this->repository->deleteAccountOfNonFamilyOwnerWithoutAnyTransactions(), 'same as before, but with transaction to debit, should not delete');
     }
+
+    /**
+     * @dataProvider providerGetNextCode
+     */
+    public function testGetNextCode(?int $parentId, int $expected): void
+    {
+        $parent = $parentId ? $this->getEntityManager()->getReference(Account::class, $parentId) : null;
+        $actual = $this->repository->getNextCodeAvailable($parent);
+        self::assertSame($expected, $actual);
+    }
+
+    public function providerGetNextCode(): iterable
+    {
+        yield [null, 12];
+        yield [10011, 20300010];
+        yield [10007, 8511];
+    }
 }
