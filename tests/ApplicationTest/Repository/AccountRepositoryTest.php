@@ -183,7 +183,7 @@ class AccountRepositoryTest extends AbstractRepositoryTest
 
     public function providerGetNextCode(): iterable
     {
-        yield [null, 12];
+        yield [null, 10];
         yield [10011, 20300010];
         yield [10007, 8511];
     }
