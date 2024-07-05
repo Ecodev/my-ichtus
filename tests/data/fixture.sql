@@ -1,5 +1,7 @@
 START TRANSACTION;
 
+SET sql_mode = 'STRICT_TRANS_TABLES';
+
 REPLACE INTO account (id, parent_id, owner_id, type, code, iban, budget_allowed, name) VALUES
 (10000, NULL, NULL, 'group', '1', '', null, 'Actifs'),
 (10001, NULL, NULL, 'group', '2', '', null, 'Passifs'),

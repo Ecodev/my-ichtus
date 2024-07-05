@@ -12,13 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait HasAddress
 {
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string', options: ['default' => ''])]
     private string $street = '';
 
-    #[ORM\Column(type: 'string', length: 20)]
+    #[ORM\Column(type: 'string', length: 20, options: ['default' => ''])]
     private string $postcode = '';
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, options: ['default' => ''])]
     private string $locality = '';
 
     #[ORM\ManyToOne(targetEntity: Country::class)]
