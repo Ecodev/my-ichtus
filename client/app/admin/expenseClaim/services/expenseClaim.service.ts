@@ -108,6 +108,7 @@ export class ExpenseClaimService extends NaturalAbstractModelService<
             'stand up paddle',
             'voile légère',
             'voiliers lestés',
+            'wingfoil',
         ];
     }
 }
