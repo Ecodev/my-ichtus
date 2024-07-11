@@ -1,6 +1,8 @@
 #! /usr/bin/env php
 <?php
 
+declare(strict_types=1);
+
 /**
  * A script to check that accounts are balanced.
  */

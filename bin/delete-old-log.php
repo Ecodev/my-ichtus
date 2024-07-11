@@ -1,6 +1,8 @@
 #! /usr/bin/env php
 <?php
 
+declare(strict_types=1);
+
 use Application\Model\Log;
 use Application\Repository\LogRepository;
 

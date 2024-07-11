@@ -1,6 +1,8 @@
 #! /usr/bin/env php
 <?php
 
+declare(strict_types=1);
+
 $container = require_once 'server/cli.php';
 
 $config = $container->get('config');

@@ -70,8 +70,8 @@ class Acl extends \Ecodev\Felix\Acl\Acl
         $this->allow(User::ROLE_ANONYMOUS, [$country, $bookable, $bookableMetadata, $bookableTag, $image, $license, $transactionTag, $configuration], ['read']);
         $this->allow(User::ROLE_BOOKING_ONLY, [$booking], ['create'], new BookableAvailable());
         $this->allow(User::ROLE_BOOKING_ONLY, [$booking, $user], ['read']);
-        $this->allow(User::ROLE_BOOKING_ONLY, [$booking], ['update'], new One(new BookingIsSelfApproved(), new isOwner()));
-        $this->allow(User::ROLE_BOOKING_ONLY, [$booking], ['delete'], new All(new isOwner(), new BookingIsPendingApplication()));
+        $this->allow(User::ROLE_BOOKING_ONLY, [$booking], ['update'], new One(new BookingIsSelfApproved(), new IsOwner()));
+        $this->allow(User::ROLE_BOOKING_ONLY, [$booking], ['delete'], new All(new IsOwner(), new BookingIsPendingApplication()));
 
         $this->allow(User::ROLE_ACCOUNTING_VERIFICATOR, [$user, $account, $transaction, $transactionTag, $accountingDocument], ['read']);
 
@@ -86,7 +86,7 @@ class Acl extends \Ecodev\Felix\Acl\Acl
         $this->allow(User::ROLE_INDIVIDUAL, [$account], ['read']);
         $this->allow(User::ROLE_INDIVIDUAL, [$message], ['read']);
 
-        $this->allow(User::ROLE_MEMBER, [$account], ['update'], new isOwner());
+        $this->allow(User::ROLE_MEMBER, [$account], ['update'], new IsOwner());
         $this->allow(User::ROLE_MEMBER, [$user], ['create']);
         $this->allow(User::ROLE_MEMBER, [$user], ['update'], new One(new IsOwner(), new IsMyself()));
 

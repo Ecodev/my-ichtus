@@ -210,7 +210,7 @@ class UserTest extends TestCase
         self::assertSame(User::STATUS_INACTIVE, $u1->getStatus());
         self::assertSame(User::STATUS_INACTIVE, $u2->getStatus());
 
-        $u1->setStatus(user::STATUS_ACTIVE);
+        $u1->setStatus(User::STATUS_ACTIVE);
         self::assertSame(User::STATUS_ACTIVE, $u1->getStatus());
         self::assertSame(User::STATUS_ACTIVE, $u2->getStatus());
 

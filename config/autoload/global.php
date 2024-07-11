@@ -27,7 +27,7 @@ return [
     ],
     'view_helpers' => [
         'invokables' => [
-            'userInfos' => \Application\View\Helper\UserInfos::class,
+            'userInfos' => Application\View\Helper\UserInfos::class,
         ],
     ],
     'banking' => [

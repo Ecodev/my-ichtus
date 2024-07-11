@@ -37,14 +37,14 @@ use Psr\Container\ContainerInterface;
  */
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     $app->post('/graphql', [
-        \Ecodev\Felix\Middleware\SignedQueryMiddleware::class,
+        Ecodev\Felix\Middleware\SignedQueryMiddleware::class,
         BodyParamsMiddleware::class,
         UploadMiddleware::class,
         GraphQLHandler::class,
     ], 'graphql');
 
     $app->get('/api/image/{id:\d+}[/{maxHeight:\d+}]', [
-        \Ecodev\Felix\Handler\ImageHandler::class,
+        Ecodev\Felix\Handler\ImageHandler::class,
     ], 'image');
 
     $app->get('/api/accounting-document/{id:\d+}', [

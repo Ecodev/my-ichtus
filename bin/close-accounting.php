@@ -1,6 +1,8 @@
 #! /usr/bin/env php
 <?php
 
+declare(strict_types=1);
+
 /**
  * A script that generates the closing entries at the end of an accounting period
  * DO A DATABASE BACKUP BEFORE USING THIS SCRIPT IN PRODUCTION.

@@ -32,19 +32,19 @@ return [
         ],
         'configuration' => [
             'orm_default' => [
-                'naming_strategy' => \Doctrine\ORM\Mapping\UnderscoreNamingStrategy::class,
+                'naming_strategy' => Doctrine\ORM\Mapping\UnderscoreNamingStrategy::class,
                 'proxy_dir' => 'data/cache/DoctrineORMModule/Proxy',
                 'generate_proxies' => false,
                 'filters' => [
-                    \Ecodev\Felix\ORM\Query\Filter\AclFilter::class => \Ecodev\Felix\ORM\Query\Filter\AclFilter::class,
+                    Ecodev\Felix\ORM\Query\Filter\AclFilter::class => Ecodev\Felix\ORM\Query\Filter\AclFilter::class,
                 ],
                 'datetime_functions' => [],
                 'string_functions' => [
-                    'if' => \DoctrineExtensions\Query\Mysql\IfElse::class,
-                    'ifnull' => \DoctrineExtensions\Query\Mysql\IfNull::class,
+                    'if' => DoctrineExtensions\Query\Mysql\IfElse::class,
+                    'ifnull' => DoctrineExtensions\Query\Mysql\IfNull::class,
                 ],
                 'numeric_functions' => [
-                    'native_in' => \Ecodev\Felix\ORM\Query\NativeIn::class,
+                    'native_in' => Ecodev\Felix\ORM\Query\NativeIn::class,
                 ],
             ],
         ],

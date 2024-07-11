@@ -56,7 +56,7 @@ abstract class OpenDoor implements FieldInterface
                 try {
                     /** @var Response $response */
                     $response = $client->dispatch($request);
-                } catch (\Laminas\Http\Client\Exception\RuntimeException $e) {
+                } catch (Client\Exception\RuntimeException $e) {
                     // No answer from the websocket
                     _log()->err($e->getMessage(), $attrs);
 
