@@ -16,7 +16,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-services',
@@ -25,6 +25,7 @@ import {CommonModule} from '@angular/common';
     standalone: true,
     imports: [
         CommonModule,
+        DatePipe,
         MatButtonModule,
         MatTableModule,
         MatIconModule,
@@ -46,7 +47,7 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
     public pendingApplicationsDS!: NaturalDataSource<Bookings['bookings']>;
 
     public servicesColumns = ['name', 'initialPrice', 'periodicPrice', 'revoke'];
-    public applicationsColumns = ['name', 'status', 'initialPrice', 'periodicPrice', 'cancel'];
+    public applicationsColumns = ['name', 'startDate', 'initialPrice', 'periodicPrice', 'cancel'];
     public readonly deleting = new Map<Bookings['bookings']['items'][0]['id'], true>();
 
     public constructor(
