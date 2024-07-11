@@ -137,7 +137,9 @@ REPLACE INTO bookable_tag (id, name) VALUES
 (6016, 'Casier râteliers WB'),
 (6017, 'Cours'),
 (6024, 'Séance accueil'),
-(6028, 'Stockage demande');
+(6028, 'Stockage demande'),
+(6036, 'Sondage'),
+(6042, 'NFT');
 
 REPLACE INTO image (id, filename, width, height, mime) VALUES
 (5000, 'chat1.jpg', 1000, 482, 'image/jpeg'),
@@ -174,7 +176,10 @@ REPLACE INTO bookable (id, image_id, credit_account_id, purchase_price, periodic
 (3035, NULL, 10035, 0, 8000, 0, 1, 'Licence Swiss Sailing (3035, sur demande, periodic)', 'D-COSSV', 'application', -1, 0, 'service pour demande'),
 (3036, NULL, 10035, 0, 8000, 0, 1, 'Cotisation Swiss Sailing (3036, spécifique admin, periodic)', 'COSSV', 'admin_assigned', -1, 0, 'service effectif'),
 (3037, NULL, NULL, 0, 0, 0, 1, 'Séance d''accueil du 31.07.2021 à 10h (3037, admin approved, dispo)', 'SA', 'admin_approved', 18, 0, 'Séance d''accueil active incomplete'),
-(3038, NULL, NULL, 0, 0, 0, 1, 'Séance d''accueil (3038, admin approved, dispo)', 'SA-QUEUE', 'admin_approved', 1, 5, 'Séance d''accueil active avec liste d''attente');
+(3038, NULL, NULL, 0, 0, 0, 1, 'Séance d''accueil (3038, admin approved, dispo)', 'SA-QUEUE', 'admin_approved', 1, 5, 'Séance d''accueil active avec liste d''attente'),
+(3039, NULL, NULL, 0, 0, 0, 1, 'Choix 1 (3039)', 'SOND1', 'application', -1, 0, 'Sondage pour savoir qui est intéressé -> permet de les contacter plus rapidement'),
+(3040, NULL, NULL, 0, 0, 0, 1, 'Choix 2 (3040)', 'SOND2', 'application', -1, 0, 'Sondage pour savoir qui est intéressé -> permet de les contacter plus rapidement'),
+(3041, NULL, NULL, 0, 0, 0, 1, 'Choix 3 (3041)', 'SOND3', 'application', -1, 0, 'Sondage pour savoir qui est intéressé -> permet de les contacter plus rapidement');
 
 REPLACE INTO license_bookable (license_id, bookable_id) VALUES
 (2000, 3007),
@@ -214,7 +219,10 @@ REPLACE INTO bookable_tag_bookable (bookable_tag_id, bookable_id) VALUES
 (6007, 3035),
 (6007, 3036),
 (6024, 3037),
-(6024, 3038);
+(6024, 3038),
+(6036, 3039),
+(6036, 3040),
+(6036, 3041);
 
 REPLACE INTO booking (id, owner_id, bookable_id, status, start_date, end_date, estimated_end_date, destination, start_comment) VALUE
 (4000, 1002, 3000, 'booked', '2018-01-01 14:15:00', '2018-01-01 18:21:43', '18h', 'Zamora', 'There comes a time, thief, when the jewels cease to sparkle, when the gold loses its luster, when the throne room becomes a prison, and all that is left is a father''s love for his child.'),

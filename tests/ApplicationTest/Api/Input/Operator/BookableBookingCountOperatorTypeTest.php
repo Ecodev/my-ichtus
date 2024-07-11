@@ -15,7 +15,7 @@ class BookableBookingCountOperatorTypeTest extends OperatorType
         yield [5, 'Equal', 2];
         yield [8, 'Equal', 1];
         yield [13, 'GreaterOrEqual', 1];
-        yield [12, 'Less', 1];
+        yield [15, 'Less', 1];
     }
 
     protected function setUp(): void
