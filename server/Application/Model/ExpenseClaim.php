@@ -46,10 +46,10 @@ class ExpenseClaim extends AbstractModel
     #[ORM\OneToMany(targetEntity: AccountingDocument::class, mappedBy: 'expenseClaim')]
     private Collection $accountingDocuments;
 
-    #[ORM\Column(type: 'ExpenseClaimStatus', length: 10, options: ['default' => ExpenseClaimStatus::New])]
+    #[ORM\Column(type: 'enum', length: 10, options: ['default' => ExpenseClaimStatus::New])]
     private ExpenseClaimStatus $status = ExpenseClaimStatus::New;
 
-    #[ORM\Column(type: 'ExpenseClaimType', length: 10, options: ['default' => ExpenseClaimType::ExpenseClaim])]
+    #[ORM\Column(type: 'enum', length: 10, options: ['default' => ExpenseClaimType::ExpenseClaim])]
     private ExpenseClaimType $type = ExpenseClaimType::ExpenseClaim;
 
     #[ORM\JoinColumn(onDelete: 'SET NULL')]

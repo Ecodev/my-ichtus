@@ -41,7 +41,7 @@ class Account extends AbstractModel
     #[ORM\OrderBy(['code' => 'ASC'])]
     private Collection $children;
 
-    #[ORM\Column(type: 'AccountType', length: 10)]
+    #[ORM\Column(type: 'enum', length: 10)]
     private AccountType $type;
 
     #[ORM\Column(type: 'integer', unique: true, options: ['unsigned' => true])]

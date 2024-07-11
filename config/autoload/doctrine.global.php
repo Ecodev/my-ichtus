@@ -57,21 +57,10 @@ return [
         ],
         'types' => [
             'UserRole' => Application\DBAL\Types\UserRoleType::class,
-            'UserStatus' => Application\DBAL\Types\UserStatusType::class,
-            'BookableState' => Application\DBAL\Types\BookableStateType::class,
-            'BookingType' => Application\DBAL\Types\BookingTypeType::class,
-            'BookingStatus' => Application\DBAL\Types\BookingStatusType::class,
-            'Relationship' => Application\DBAL\Types\RelationshipType::class,
-            'BillingType' => Application\DBAL\Types\BillingTypeType::class,
             'datetime' => Ecodev\Felix\DBAL\Types\ChronosType::class,
             'date' => Ecodev\Felix\DBAL\Types\DateType::class,
             'Money' => Application\DBAL\Types\MoneyType::class,
-            'ExpenseClaimStatus' => Application\DBAL\Types\ExpenseClaimStatusType::class,
-            'ExpenseClaimType' => Application\DBAL\Types\ExpenseClaimTypeType::class,
             'MessageType' => Application\DBAL\Types\MessageTypeType::class,
-            'AccountType' => Application\DBAL\Types\AccountTypeType::class,
-            'SwissSailingType' => Application\DBAL\Types\SwissSailingTypeType::class,
-            'SwissWindsurfType' => Application\DBAL\Types\SwissWindsurfTypeType::class,
         ],
         // migrations configuration
         'migrations' => [

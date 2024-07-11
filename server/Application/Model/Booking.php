@@ -28,7 +28,7 @@ class Booking extends AbstractModel
     use HasInternalRemarks;
     use HasRemarks;
 
-    #[ORM\Column(type: 'BookingStatus', length: 10, options: ['default' => BookingStatus::Application])]
+    #[ORM\Column(type: 'enum', length: 10, options: ['default' => BookingStatus::Application])]
     private BookingStatus $status = BookingStatus::Application;
 
     #[ORM\Column(type: 'integer', options: ['unsigned' => true, 'default' => 1])]

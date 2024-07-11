@@ -142,7 +142,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     #[ORM\Column(type: 'UserRole', options: ['default' => self::ROLE_INDIVIDUAL])]
     private string $role = self::ROLE_INDIVIDUAL;
 
-    #[ORM\Column(type: 'UserStatus', options: ['default' => UserStatus::New])]
+    #[ORM\Column(type: 'enum', options: ['default' => UserStatus::New])]
     private UserStatus $status = UserStatus::New;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
@@ -166,10 +166,10 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     #[ORM\Column(type: 'string', length: 25, options: ['default' => ''])]
     private string $swissSailing = '';
 
-    #[ORM\Column(type: 'SwissSailingType', nullable: true)]
+    #[ORM\Column(type: 'enum', nullable: true)]
     private ?SwissSailingType $swissSailingType = null;
 
-    #[ORM\Column(type: 'SwissWindsurfType', nullable: true)]
+    #[ORM\Column(type: 'enum', nullable: true)]
     private ?SwissWindsurfType $swissWindsurfType = null;
 
     #[ORM\Column(type: 'date', nullable: true)]
@@ -184,10 +184,10 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $receivesNewsletter = false;
 
-    #[ORM\Column(type: 'Relationship', options: ['default' => Relationship::Householder])]
+    #[ORM\Column(type: 'enum', options: ['default' => Relationship::Householder])]
     private Relationship $familyRelationship = Relationship::Householder;
 
-    #[ORM\Column(type: 'BillingType', options: ['default' => BillingType::Electronic])]
+    #[ORM\Column(type: 'enum', options: ['default' => BillingType::Electronic])]
     private BillingType $billingType = BillingType::Electronic;
 
     #[ORM\Column(type: 'datetime', nullable: true)]

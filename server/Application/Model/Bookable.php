@@ -58,13 +58,13 @@ class Bookable extends AbstractModel
     #[ORM\Column(type: 'smallint', options: ['default' => 0, 'unsigned' => true])]
     private int $waitingListLength = 0;
 
-    #[ORM\Column(type: 'BookingType', length: 10, options: ['default' => BookingType::AdminApproved])]
+    #[ORM\Column(type: 'enum', length: 10, options: ['default' => BookingType::AdminApproved])]
     private BookingType $bookingType = BookingType::AdminApproved;
 
     #[ORM\Column(type: 'boolean', options: ['default' => 1])]
     private bool $isActive = true;
 
-    #[ORM\Column(type: 'BookableState', length: 10, options: ['default' => BookableState::Good])]
+    #[ORM\Column(type: 'enum', length: 10, options: ['default' => BookableState::Good])]
     private BookableState $state = BookableState::Good;
 
     #[ORM\Column(type: 'date', nullable: true)]
