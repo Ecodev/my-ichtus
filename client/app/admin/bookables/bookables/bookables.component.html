@@ -98,13 +98,13 @@ Warning this template is used by two components BookablesComponent and UsageBook
                         </th>
                         <td *matCellDef="let element" mat-cell natural-align-right>
                             @if (element.purchasePrice > 0) {
-                                <span>{{ element.purchasePrice | currency: 'CHF' }}</span>
+                                <span>{{ element.purchasePrice | currency: 'CHF' : 'symbol' : '1.0-0' }}</span>
                             }
                         </td>
                         <td *matFooterCellDef mat-footer-cellnatural-align-right>
                             @if (dataSource.data?.totalPurchasePrice > 0) {
                                 <span>
-                                    {{ dataSource.data?.totalPurchasePrice | currency: 'CHF' }}
+                                    {{ dataSource.data?.totalPurchasePrice | currency: 'CHF' : 'symbol' : '1.0-0' }}
                                 </span>
                             }
                         </td>
@@ -122,13 +122,13 @@ Warning this template is used by two components BookablesComponent and UsageBook
                         </th>
                         <td *matCellDef="let element" mat-cell natural-align-right>
                             @if (element.initialPrice !== '0.00') {
-                                <span>{{ element.initialPrice | currency: 'CHF' }}</span>
+                                <span>{{ element.initialPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}</span>
                             }
                         </td>
                         <td *matFooterCellDef mat-footer-cellnatural-align-right>
                             @if (dataSource.data?.totalInitialPrice > 0) {
                                 <span>
-                                    {{ dataSource.data?.totalInitialPrice | currency: 'CHF' }}
+                                    {{ dataSource.data?.totalInitialPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}
                                 </span>
                             }
                         </td>
@@ -146,13 +146,13 @@ Warning this template is used by two components BookablesComponent and UsageBook
                         </th>
                         <td *matCellDef="let element" mat-cell natural-align-right>
                             @if (element.periodicPrice !== '0.00') {
-                                <span>{{ element.periodicPrice | currency: 'CHF' }}</span>
+                                <span>{{ element.periodicPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}</span>
                             }
                         </td>
                         <td *matFooterCellDef mat-footer-cellnatural-align-right>
                             @if (dataSource.data?.totalPeriodicPrice > 0) {
                                 <span>
-                                    {{ dataSource.data?.totalPeriodicPrice | currency: 'CHF' }}
+                                    {{ dataSource.data?.totalPeriodicPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}
                                 </span>
                             }
                         </td>
@@ -163,14 +163,16 @@ Warning this template is used by two components BookablesComponent and UsageBook
                         <th *matHeaderCellDef mat-header-cell natural-7em-column natural-align-right>Prix</th>
                         <td *matCellDef="let element" mat-cell natural-align-right>
                             @if (element.periodicPrice !== '0.00') {
-                                <span> {{ element.periodicPrice | currency: 'CHF' }}&nbsp;/an </span>
+                                <span>
+                                    {{ element.periodicPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}&nbsp;/an
+                                </span>
                             }
                             @if (element.periodicPrice !== '0.00' && element.initialPrice !== '0.00') {
                                 <span> +</span>
                             }
                             @if (element.initialPrice !== '0.00') {
                                 <span>
-                                    {{ element.initialPrice | currency: 'CHF' }}
+                                    {{ element.initialPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}
                                 </span>
                             }
                         </td>

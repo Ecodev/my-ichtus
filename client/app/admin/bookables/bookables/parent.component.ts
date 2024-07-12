@@ -11,12 +11,15 @@ import {
 } from '../../../shared/generated-types';
 import {BookingService} from '../../bookings/services/booking.service';
 import {BookableService} from '../services/bookable.service';
+import {ApplicationConfirmComponent} from '../application-confirm/application-confirm.component';
 import {ExtractTallOne} from '@ecodev/natural/lib/types/types';
 import {Observable, of, switchMap} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 import {Apollo} from 'apollo-angular';
 import {availabilityStatus, availabilityText, usageStatus as usageStatusFunc, usageText} from '../bookable';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {MatDialog} from '@angular/material/dialog';
+import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 
 export const image: AvailableColumn = {id: 'image', label: 'Image'};
 export const name: AvailableColumn = {id: 'name', label: 'Nom'};
@@ -35,6 +38,8 @@ export const verificationDate: AvailableColumn = {id: 'verificationDate', label:
 export const select: AvailableColumn = {id: 'select', label: 'Sélection', hidden: true};
 export const createApplication: AvailableColumn = {id: 'createApplication', label: 'Demander', hidden: true};
 
+export type ApplicationConfirmData = FutureOwner;
+export type ApplicationConfirmResult = string;
 type FutureOwner = CurrentUserForProfile['viewer'] | User['user'] | null;
 
 @Directive()
@@ -70,6 +75,7 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
 
     protected constructor(
         service: T,
+        private readonly dialog: MatDialog,
         private readonly bookingService: BookingService,
     ) {
         super(service);
@@ -105,15 +111,35 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
             return;
         }
 
+        if (bookable.bookableTags.some(tag => tag.id === BookableTagService.FORMATION)) {
+            // If it's a course, ask for confirmation + participant
+            const dialogRef = this.dialog.open<
+                ApplicationConfirmComponent,
+                ApplicationConfirmData,
+                ApplicationConfirmResult
+            >(ApplicationConfirmComponent, {
+                width: '450px',
+                data: this.futureOwner,
+            });
+
+            dialogRef.afterClosed().subscribe(participant => {
+                if (participant) {
+                    this.createApplicationForReal(bookable, participant);
+                }
+            });
+        } else {
+            // Otherwise, create the booking without asking for confirmation
+            this.createApplicationForReal(bookable, null);
+        }
+    }
+
+    private createApplicationForReal(bookable: ExtractTallOne<T>, participant: string | null): void {
         this.creating.set(bookable.id, true);
-        const booking: BookingPartialInput = {status: BookingStatus.Application};
+        const booking: BookingPartialInput = {status: BookingStatus.Application, remarks: participant ?? ''};
         this.bookingService
             .createWithBookable(bookable, this.futureOwner, booking)
             .pipe(finalize(() => this.creating.delete(bookable.id)))
             .subscribe({
-                // It's possible that somebody else took the last spot before we
-                // had time to click on the button, so we refresh the list of bookable
-                // to show their latest available/complete status
                 error: () => this.apollo.client.reFetchObservableQueries(),
             });
     }

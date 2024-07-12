@@ -47,7 +47,7 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
     public pendingApplicationsDS!: NaturalDataSource<Bookings['bookings']>;
 
     public servicesColumns = ['name', 'initialPrice', 'periodicPrice', 'revoke'];
-    public applicationsColumns = ['name', 'startDate', 'initialPrice', 'periodicPrice', 'cancel'];
+    public applicationsColumns = ['name', 'startDate', 'remarks', 'initialPrice', 'periodicPrice', 'cancel'];
     public readonly deleting = new Map<Bookings['bookings']['items'][0]['id'], true>();
 
     public constructor(

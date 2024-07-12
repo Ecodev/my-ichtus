@@ -22,6 +22,7 @@ import {
     NaturalTableButtonComponent,
 } from '@ecodev/natural';
 import {CommonModule, DatePipe} from '@angular/common';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
     selector: 'app-bookables',
@@ -54,9 +55,10 @@ export class BookablesComponent extends ParentComponent<BookableService> impleme
         bookableService: BookableService,
         naturalSearchFacetsService: NaturalSearchFacetsService,
         public readonly permissionsService: PermissionsService,
+        dialog: MatDialog,
         bookingService: BookingService,
     ) {
-        super(bookableService, bookingService);
+        super(bookableService, dialog, bookingService);
         this.naturalSearchFacets = naturalSearchFacetsService.get(
             this.route.snapshot.data.isEquipment ? 'equipment' : 'bookables',
         );

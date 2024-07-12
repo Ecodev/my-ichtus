@@ -137,7 +137,7 @@ export class BookingService extends BookingForVanillaService {
             | Bookable['bookable']
             | Bookables['bookables']['items'][0]
             | UsageBookables['bookables']['items'][0],
-        owner: {id: string},
+        owner: {id: string} | null,
         booking: BookingPartialInput = {},
     ): Observable<CreateBooking['createBooking']> {
         const finalBooking: BookingInput = {

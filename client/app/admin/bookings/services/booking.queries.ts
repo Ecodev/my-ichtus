@@ -46,6 +46,8 @@ export const bookingsQuery = gql`
                     bookableTags {
                         id
                     }
+                    initialPrice
+                    periodicPrice
                 }
             }
             pageSize

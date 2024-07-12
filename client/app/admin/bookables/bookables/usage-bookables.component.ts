@@ -26,6 +26,7 @@ import {FlagComponent} from '../../../shared/components/flag/flag.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
     selector: 'app-usage-bookables',
@@ -70,9 +71,10 @@ export class UsageBookablesComponent extends ParentComponent<UsageBookableServic
         naturalSearchFacetsService: NaturalSearchFacetsService,
         public readonly permissionsService: PermissionsService,
         private readonly userService: UserService,
+        dialog: MatDialog,
         bookingService: BookingService,
     ) {
-        super(usageBookableService, bookingService);
+        super(usageBookableService, dialog, bookingService);
 
         if (this.route.snapshot.data.isAdmin) {
             this.naturalSearchFacets = naturalSearchFacetsService.get(
