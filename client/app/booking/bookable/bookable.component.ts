@@ -66,7 +66,7 @@ export class BookableComponent implements OnInit {
         this.canAccessAdmin = this.permissionsService.canAccessAdmin(viewer);
         this.welcomeSessionTaken = viewer.welcomeSessionDate !== null;
         this.hasLicense = BookableService.isLicenseGranted(this.bookable, viewer);
-        this.isNavigable = this.bookable.bookingType === BookingType.self_approved;
+        this.isNavigable = this.bookable.bookingType === BookingType.SelfApproved;
         this.bookableService.getAvailability(this.bookable).subscribe(availability => {
             this.isAvailable = availability.isAvailable;
             this.runningBooking = availability.result.items[0];

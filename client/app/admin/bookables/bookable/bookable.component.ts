@@ -109,7 +109,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
             const simultaneousBookingMaximum = this.form.controls.simultaneousBookingMaximum;
             bookingType.valueChanges
                 .pipe(takeUntil(this.ngUnsubscribe))
-                .subscribe(value => simultaneousBookingMaximum.setValue(value === BookingType.self_approved ? 1 : -1));
+                .subscribe(value => simultaneousBookingMaximum.setValue(value === BookingType.SelfApproved ? 1 : -1));
         }
 
         this.viewer = this.route.snapshot.data.viewer;
@@ -117,7 +117,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
         this.bookingsVariables = this.getBookingsVariables();
 
         if (this.viewer.role === UserRole.formation_responsible) {
-            this.form.controls.bookingType.setValue(BookingType.admin_approved);
+            this.form.controls.bookingType.setValue(BookingType.AdminApproved);
         }
     }
 
@@ -137,18 +137,18 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
     }
 
     public showVerified(): boolean {
-        return this.data.model.bookingType === BookingType.self_approved;
+        return this.data.model.bookingType === BookingType.SelfApproved;
     }
 
     public showWaitingList(): boolean {
-        return this.data.model.bookingType === BookingType.admin_approved;
+        return this.data.model.bookingType === BookingType.AdminApproved;
     }
 
     /**
      * Only non-self-approved are applicable for pricing. This simplify GUI
      */
     public isBookingPriceApplicable(): boolean {
-        return this.data.model.bookingType !== BookingType.self_approved;
+        return this.data.model.bookingType !== BookingType.SelfApproved;
     }
 
     public createImageAndLink(file: File): Observable<CreateImage['createImage']> {
@@ -161,7 +161,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
     }
 
     public isSelfApproved(): boolean {
-        return this.data.model.bookingType === BookingType.self_approved;
+        return this.data.model.bookingType === BookingType.SelfApproved;
     }
 
     public getBookingsVariables(): BookingsVariables {
@@ -174,7 +174,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
                 bookable: {have: {values: [this.data.model.id]}},
             },
             {
-                status: {in: {values: [BookingStatus.application], not: true}},
+                status: {in: {values: [BookingStatus.Application], not: true}},
             },
         ];
 
@@ -206,7 +206,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
         return item => {
             return (
                 this.viewer.role === UserRole.formation_responsible &&
-                (item.value as BookingType) !== BookingType.admin_approved
+                (item.value as BookingType) !== BookingType.AdminApproved
             );
         };
     }

@@ -32,10 +32,10 @@ export class TransactionAmountComponent implements OnChanges {
         if (account && transaction) {
             if (transaction.debit?.id === account.id) {
                 // If account is at transaction debit
-                this.isIncome = [AccountType.asset, AccountType.expense].includes(account.type);
+                this.isIncome = [AccountType.Asset, AccountType.Expense].includes(account.type);
             } else if (transaction.credit?.id === account.id) {
                 // If account is at transaction credit
-                this.isIncome = [AccountType.liability, AccountType.equity, AccountType.revenue].includes(account.type);
+                this.isIncome = [AccountType.Liability, AccountType.Equity, AccountType.Revenue].includes(account.type);
             } else {
                 this.isIncome = null;
             }

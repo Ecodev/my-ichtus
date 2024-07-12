@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Service;
 
-use Application\DBAL\Types\AccountTypeType;
+use Application\Enum\AccountType;
 use Application\Model\Account;
 use Application\Model\Transaction;
 use Application\Model\TransactionLine;
@@ -89,8 +89,8 @@ class Accounting
         }
 
         $allAccountsToClose = [
-            'expenses' => $this->accountRepository->findBy(['type' => AccountTypeType::EXPENSE]),
-            'revenues' => $this->accountRepository->findBy(['type' => AccountTypeType::REVENUE]),
+            'expenses' => $this->accountRepository->findBy(['type' => AccountType::Expense]),
+            'revenues' => $this->accountRepository->findBy(['type' => AccountType::Revenue]),
         ];
 
         $closingTransactioName = 'Bouclement au ' . $endDate->format('d.m.Y');
@@ -164,10 +164,10 @@ class Accounting
                 if ($balance->isZero()) {
                     continue;
                 }
-                if ($account->getType() === AccountTypeType::EXPENSE && !in_array(mb_substr((string) $account->getCode(), 0, 1), ['4', '5', '6'], true)) {
+                if ($account->getType() === AccountType::Expense && !in_array(mb_substr((string) $account->getCode(), 0, 1), ['4', '5', '6'], true)) {
                     throw new Exception('Account ' . $account->getCode() . ' has an invalid code for an expense account');
                 }
-                if ($account->getType() === AccountTypeType::REVENUE && mb_substr((string) $account->getCode(), 0, 1) !== '3') {
+                if ($account->getType() === AccountType::Revenue && mb_substr((string) $account->getCode(), 0, 1) !== '3') {
                     throw new Exception('Account ' . $account->getCode() . ' has an invalid code for a revenue account');
                 }
                 $entry = [
@@ -175,7 +175,7 @@ class Accounting
                     'name' => 'Bouclement ' . $account->getName(),
                     'balance' => $balance->absolute(),
                 ];
-                if ($account->getType() === AccountTypeType::EXPENSE) {
+                if ($account->getType() === AccountType::Expense) {
                     if ($balance->isPositive()) {
                         $entry['credit'] = $account;
                         $entry['debit'] = $closingAccount;
@@ -183,7 +183,7 @@ class Accounting
                         $entry['credit'] = $closingAccount;
                         $entry['debit'] = $account;
                     }
-                } elseif ($account->getType() === AccountTypeType::REVENUE) {
+                } elseif ($account->getType() === AccountType::Revenue) {
                     if ($balance->isPositive()) {
                         $entry['credit'] = $closingAccount;
                         $entry['debit'] = $account;
@@ -217,11 +217,11 @@ class Accounting
 
     private function checkAccounts(): void
     {
-        $assets = $this->accountRepository->totalBalanceByType(AccountTypeType::ASSET);
-        $liabilities = $this->accountRepository->totalBalanceByType(AccountTypeType::LIABILITY);
-        $revenue = $this->accountRepository->totalBalanceByType(AccountTypeType::REVENUE);
-        $expense = $this->accountRepository->totalBalanceByType(AccountTypeType::EXPENSE);
-        $equity = $this->accountRepository->totalBalanceByType(AccountTypeType::EQUITY);
+        $assets = $this->accountRepository->totalBalanceByType(AccountType::Asset);
+        $liabilities = $this->accountRepository->totalBalanceByType(AccountType::Liability);
+        $revenue = $this->accountRepository->totalBalanceByType(AccountType::Revenue);
+        $expense = $this->accountRepository->totalBalanceByType(AccountType::Expense);
+        $equity = $this->accountRepository->totalBalanceByType(AccountType::Equity);
 
         $income = $revenue->subtract($expense);
 

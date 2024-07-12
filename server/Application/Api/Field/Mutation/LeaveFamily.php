@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Application\Api\Field\Mutation;
 
 use Application\Api\Helper;
-use Application\DBAL\Types\RelationshipType;
+use Application\Enum\Relationship;
+use Application\Enum\UserStatus;
 use Application\Model\Account;
 use Application\Model\User;
 use Application\Repository\AccountRepository;
@@ -46,8 +47,8 @@ abstract class LeaveFamily implements FieldInterface
                 $user->setOwner(null);
                 User::setCurrent($previousCurrentUser);
 
-                $user->setFamilyRelationship(RelationshipType::HOUSEHOLDER);
-                $user->setStatus(User::STATUS_INACTIVE);
+                $user->setFamilyRelationship(Relationship::Householder);
+                $user->setStatus(UserStatus::Inactive);
 
                 // Append a line to internal remarks
                 $internalRemarks = implode(PHP_EOL . PHP_EOL, array_filter([$user->getInternalRemarks(), ChronosDate::now()->toDateString() . ': détaché du ménage par ' . User::getCurrent()->getName()]));

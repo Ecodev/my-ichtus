@@ -398,7 +398,7 @@ export const routes: Routes = [
                             seo: {
                                 title: 'Membres actifs',
                             } satisfies NaturalSeo,
-                            forcedVariables: UserService.getFilters([UserRole.member], [UserStatus.active]),
+                            forcedVariables: UserService.getFilters([UserRole.member], [UserStatus.Active]),
                             selectedColumns: ['balance', 'name', 'login', 'age', 'status', 'flagWelcomeSessionDate'],
                         },
                     },
@@ -409,7 +409,7 @@ export const routes: Routes = [
                             seo: {
                                 title: 'Nouveaux membres',
                             } satisfies NaturalSeo,
-                            forcedVariables: UserService.getFilters([UserRole.member], [UserStatus.new]),
+                            forcedVariables: UserService.getFilters([UserRole.member], [UserStatus.New]),
                             selectedColumns: ['balance', 'name', 'status', 'creationDate', 'flagWelcomeSessionDate'],
                         },
                     },
@@ -422,7 +422,7 @@ export const routes: Routes = [
                             } satisfies NaturalSeo,
                             forcedVariables: UserService.getFilters(
                                 [UserRole.member],
-                                [UserStatus.inactive, UserStatus.archived],
+                                [UserStatus.Inactive, UserStatus.Archived],
                             ),
                             selectedColumns: ['balance', 'name', 'status', 'creationDate', 'resignDate'],
                         },

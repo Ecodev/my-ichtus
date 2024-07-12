@@ -48,7 +48,7 @@ export class CreateExpenseClaimComponent
         super.ngOnInit();
         this.form.patchValue({
             owner: this.route.snapshot.data.viewer.id,
-            status: ExpenseClaimStatus.new,
+            status: ExpenseClaimStatus.New,
             type: this.route.snapshot.data.type,
         });
     }

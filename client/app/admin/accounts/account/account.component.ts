@@ -114,13 +114,13 @@ export class AccountComponent extends NaturalAbstractDetail<AccountService, Natu
 
     public updateLinkedFields(): void {
         const typeField = this.form.get('type');
-        if (typeField && typeField.value !== 'liability') {
+        if (typeField && typeField.value !== AccountType.Liability) {
             const ownerField = this.form.get('owner');
             if (ownerField) {
                 ownerField.setValue(null);
             }
         }
-        if (typeField && typeField.value !== 'asset') {
+        if (typeField && typeField.value !== AccountType.Asset) {
             const ibanField = this.form.get('iban');
             if (ibanField) {
                 ibanField.setValue('');

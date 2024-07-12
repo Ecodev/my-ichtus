@@ -27,7 +27,7 @@ const storageRoute: Route = {
     data: {
         forcedVariables: BookableService.bookableByTag(
             BookableTagService.STORAGE_REQUEST,
-            [BookingType.application],
+            [BookingType.Application],
             true,
         ),
         availableColumns: [readOnlyName, description, price, createApplication],
@@ -52,7 +52,7 @@ export const servicesTabRoutes: Routes = [
         path: 'bookables/services',
         component: UsageBookablesComponent,
         data: {
-            forcedVariables: BookableService.bookableByTag(BookableTagService.SERVICE, [BookingType.application], true),
+            forcedVariables: BookableService.bookableByTag(BookableTagService.SERVICE, [BookingType.Application], true),
             availableColumns: [readOnlyName, price, createApplication],
             showFullyBooked: false,
             showPending: true,
@@ -65,7 +65,7 @@ export const servicesTabRoutes: Routes = [
         path: 'bookables/survey',
         component: UsageBookablesComponent,
         data: {
-            forcedVariables: BookableService.bookableByTag(BookableTagService.SURVEY, [BookingType.application], true),
+            forcedVariables: BookableService.bookableByTag(BookableTagService.SURVEY, [BookingType.Application], true),
             availableColumns: [readOnlyName, createApplication],
             showFullyBooked: false,
             showPending: true,
@@ -81,7 +81,7 @@ export const servicesTabRoutes: Routes = [
         data: {
             forcedVariables: BookableService.bookableByTag(
                 BookableTagService.FORMATION,
-                [BookingType.admin_approved, BookingType.application],
+                [BookingType.AdminApproved, BookingType.Application],
                 true,
             ),
             availableColumns: [readOnlyName, price, description, availability, createApplication],
@@ -98,7 +98,7 @@ export const servicesTabRoutes: Routes = [
         data: {
             forcedVariables: BookableService.bookableByTag(
                 BookableTagService.WELCOME,
-                [BookingType.admin_approved, BookingType.application],
+                [BookingType.AdminApproved, BookingType.Application],
                 true,
             ),
             availableColumns: [readOnlyName, availability, createApplication],
@@ -115,7 +115,7 @@ export const servicesTabRoutes: Routes = [
         data: {
             forcedVariables: BookableService.bookableByTag(
                 BookableTagService.NFT,
-                [BookingType.admin_approved, BookingType.application],
+                [BookingType.AdminApproved, BookingType.Application],
                 true,
             ),
             availableColumns: [readOnlyName, description, availability, price, createApplication],
@@ -187,7 +187,7 @@ export const routes: Routes = [
                     seo: {
                         title: 'Annoncer une dépense',
                     } satisfies NaturalSeo,
-                    type: ExpenseClaimType.expenseClaim,
+                    type: ExpenseClaimType.ExpenseClaim,
                 },
             },
             {
@@ -200,7 +200,7 @@ export const routes: Routes = [
                     seo: {
                         title: 'Annoncer une facture à payer',
                     } satisfies NaturalSeo,
-                    type: ExpenseClaimType.invoice,
+                    type: ExpenseClaimType.Invoice,
                 },
             },
         ],

@@ -330,7 +330,7 @@
                     </div>
                 }
 
-                @if (isUpdatePage() && data.model.resignDate && data.model.status === 'archived') {
+                @if (isUpdatePage() && data.model.resignDate && data.model.status === UserStatus.Archived) {
                     <div>
                         <span class="mat-subtitle-2">Démission le :</span>
                         {{ data.model.resignDate | date }} ({{ data.model.resignDate | timeAgo }})
@@ -402,7 +402,7 @@
         @if (
             isUpdatePage() &&
             permissionsService.gteResponsible(viewer) &&
-            [UserStatus.active, UserStatus.new].includes(data.model.status)
+            [UserStatus.Active, UserStatus.New].includes(data.model.status)
         ) {
             <mat-tab id="services" label="Prestations et services">
                 <br class="nat-margin-top" />

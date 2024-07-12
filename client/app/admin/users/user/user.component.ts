@@ -111,7 +111,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeo
     private userRolesAvailable: UserRole[] = [];
 
     public ownerFilter: UserFilter = {};
-    public UserStatus = UserStatus;
+    public readonly UserStatus = UserStatus;
 
     public constructor(
         private readonly userService: UserService,

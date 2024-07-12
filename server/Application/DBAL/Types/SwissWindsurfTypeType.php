@@ -4,18 +4,13 @@ declare(strict_types=1);
 
 namespace Application\DBAL\Types;
 
-use Ecodev\Felix\DBAL\Types\EnumType;
+use Application\Enum\SwissWindsurfType;
+use Ecodev\Felix\DBAL\Types\PhpEnumType;
 
-class SwissWindsurfTypeType extends EnumType
+class SwissWindsurfTypeType extends PhpEnumType
 {
-    final public const ACTIVE = 'active';
-    final public const PASSIVE = 'passive';
-
-    protected function getPossibleValues(): array
+    protected function getEnumType(): string
     {
-        return [
-            self::ACTIVE,
-            self::PASSIVE,
-        ];
+        return SwissWindsurfType::class;
     }
 }

@@ -20,7 +20,7 @@ return [
             'inputBooking' => [
                 'startDate' => Chronos::now()->subMinutes(1)->toIso8601String(),
                 'bookable' => 3038,
-                'status' => 'application',
+                'status' => 'Application',
             ],
         ],
     ],

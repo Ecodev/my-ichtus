@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ApplicationTest\Repository;
 
-use Application\DBAL\Types\AccountTypeType;
+use Application\Enum\AccountType;
 use Application\Model\Account;
 use Application\Model\User;
 use Application\Repository\AccountRepository;
@@ -52,7 +52,7 @@ class AccountRepositoryTest extends AbstractRepositoryTest
 
         self::assertSame($user, $account->getOwner());
         self::assertSame('Foo Bar', $account->getName());
-        self::assertSame(AccountTypeType::LIABILITY, $account->getType());
+        self::assertSame(AccountType::Liability, $account->getType());
         self::assertSame(20300010, $account->getCode());
         self::assertSame('Acomptes de clients', $account->getParent()->getName());
         self::assertSame($account, $user->getAccount());
@@ -93,11 +93,11 @@ class AccountRepositoryTest extends AbstractRepositoryTest
 
     public function testTotalBalance(): void
     {
-        $totalAssets = $this->repository->totalBalanceByType(AccountTypeType::ASSET);
-        $totalLiabilities = $this->repository->totalBalanceByType(AccountTypeType::LIABILITY);
-        $totalRevenue = $this->repository->totalBalanceByType(AccountTypeType::REVENUE);
-        $totalExpense = $this->repository->totalBalanceByType(AccountTypeType::EXPENSE);
-        $totalEquity = $this->repository->totalBalanceByType(AccountTypeType::EQUITY);
+        $totalAssets = $this->repository->totalBalanceByType(AccountType::Asset);
+        $totalLiabilities = $this->repository->totalBalanceByType(AccountType::Liability);
+        $totalRevenue = $this->repository->totalBalanceByType(AccountType::Revenue);
+        $totalExpense = $this->repository->totalBalanceByType(AccountType::Expense);
+        $totalEquity = $this->repository->totalBalanceByType(AccountType::Equity);
 
         self::assertTrue(Money::CHF(3518750)->equals($totalAssets));
         self::assertTrue(Money::CHF(6000)->equals($totalLiabilities));
@@ -106,12 +106,12 @@ class AccountRepositoryTest extends AbstractRepositoryTest
         self::assertTrue(Money::CHF(3500000)->equals($totalEquity));
 
         $groupAccount = $this->repository->getOneById(10001); // 2. Passifs
-        self::assertSame(AccountTypeType::GROUP, $groupAccount->getType(), 'is a group');
+        self::assertSame(AccountType::Group, $groupAccount->getType(), 'is a group');
         self::assertTrue(Money::CHF(0)->equals($groupAccount->getBalance()), 'balance for group account is always 0');
         self::assertTrue(Money::CHF(3506000)->equals($groupAccount->getTotalBalance()), 'total balance for group account should have been computed via DB triggers');
 
         $otherAccount = $this->repository->getOneById(10025); // 10201. PostFinance
-        self::assertNotSame(AccountTypeType::GROUP, $otherAccount->getType(), 'not a group');
+        self::assertNotSame(AccountType::Group, $otherAccount->getType(), 'not a group');
         self::assertTrue(Money::CHF(818750)->equals($otherAccount->getBalance()), 'balance for non-group should have been computed via DB triggers');
         self::assertTrue($otherAccount->getBalance()->equals($otherAccount->getTotalBalance()), 'total balance for non-group should be equal to balance');
     }

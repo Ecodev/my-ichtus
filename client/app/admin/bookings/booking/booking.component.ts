@@ -89,11 +89,11 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
     ];
 
     public readonly bookableFilterChips: {name: string; value: BookingType; selected: boolean}[] = [
-        {name: 'Stockage et services effectifs', value: BookingType.admin_assigned, selected: false},
-        {name: 'Stockage et services pour demande', value: BookingType.application, selected: false},
-        {name: 'Cours', value: BookingType.admin_approved, selected: false},
-        {name: 'Carnet de sortie', value: BookingType.self_approved, selected: false},
-        {name: 'Services obligatoires', value: BookingType.mandatory, selected: false},
+        {name: 'Stockage et services effectifs', value: BookingType.AdminAssigned, selected: false},
+        {name: 'Stockage et services pour demande', value: BookingType.Application, selected: false},
+        {name: 'Cours', value: BookingType.AdminApproved, selected: false},
+        {name: 'Carnet de sortie', value: BookingType.SelfApproved, selected: false},
+        {name: 'Services obligatoires', value: BookingType.Mandatory, selected: false},
     ];
 
     public bookableSelectFilter: ExtractVall<BookableService>['filter'];
@@ -133,7 +133,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
             this.filterBookables(this.data.model.bookable.bookingType);
         } else {
             // Default bookable filter on creation
-            this.filterBookables(BookingType.admin_assigned);
+            this.filterBookables(BookingType.AdminAssigned);
         }
 
         const tags: BookableTags['bookableTags']['items'][0][] = this.form.get('bookable')?.value?.bookableTags;
@@ -174,7 +174,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
     public approveBooking(): void {
         const status = this.form.get('status');
         if (status) {
-            status.setValue(BookingStatus.processed);
+            status.setValue(BookingStatus.Processed);
             this.update(true);
         }
     }
@@ -182,7 +182,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
     public isSelfApproved(): boolean {
         const bookable = this.form.get('bookable');
         if (bookable) {
-            return bookable.value ? bookable.value.bookingType === BookingType.self_approved : false;
+            return bookable.value ? bookable.value.bookingType === BookingType.SelfApproved : false;
         }
 
         return false;
@@ -192,7 +192,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
     public isAdminApproved(): boolean {
         const bookable = this.form.get('bookable');
         if (bookable) {
-            return bookable.value ? bookable.value.bookingType === BookingType.admin_approved : false;
+            return bookable.value ? bookable.value.bookingType === BookingType.AdminApproved : false;
         }
 
         return false;
@@ -205,7 +205,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
 
         if (bookable && status) {
             return (
-                status.value === BookingStatus.application &&
+                status.value === BookingStatus.Application &&
                 bookable.value &&
                 (bookingType != null ? bookable.value.bookingType === bookingType : true)
             );
@@ -228,7 +228,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
     }
 
     public doAssignBookable(bookable: UsageBookables['bookables']['items'][0]): void {
-        const partialBooking: BookingPartialInput = {status: BookingStatus.booked};
+        const partialBooking: BookingPartialInput = {status: BookingStatus.Booked};
         this.bookingService.createWithBookable(bookable, this.data.model.owner, partialBooking).subscribe(booking => {
             if (!this.isUpdatePage()) {
                 return;
@@ -243,7 +243,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
                     endDate.setValue(formatIsoDateTime(new Date()));
                 }
                 if (status) {
-                    status.setValue(BookingStatus.processed);
+                    status.setValue(BookingStatus.Processed);
                 }
                 this.update(true);
             });
@@ -257,7 +257,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
                     {
                         conditions: [
                             {
-                                bookingType: {in: {values: [BookingType.admin_assigned, BookingType.admin_approved]}},
+                                bookingType: {in: {values: [BookingType.AdminAssigned, BookingType.AdminApproved]}},
                                 bookableTags: {have: {values: tags}},
                                 isActive: {equal: {value: true}},
                             },

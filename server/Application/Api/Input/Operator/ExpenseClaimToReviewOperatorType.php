@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Api\Input\Operator;
 
-use Application\DBAL\Types\ExpenseClaimStatusType;
+use Application\Enum\ExpenseClaimStatus;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
 use GraphQL\Doctrine\Definition\Operator\AbstractOperator;
@@ -30,7 +30,7 @@ class ExpenseClaimToReviewOperatorType extends AbstractOperator
     public function getDqlCondition(UniqueNameFactory $uniqueNameFactory, ClassMetadata $metadata, QueryBuilder $queryBuilder, string $alias, string $field, ?array $args): ?string
     {
         $statusParam = $uniqueNameFactory->createParameterName();
-        $queryBuilder->setParameter($statusParam, ExpenseClaimStatusType::NEW);
+        $queryBuilder->setParameter($statusParam, ExpenseClaimStatus::New->value);
 
         return $alias . '.reviewer IS NULL AND ' . $alias . '.status = :' . $statusParam;
     }

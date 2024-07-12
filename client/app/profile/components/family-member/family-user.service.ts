@@ -25,7 +25,7 @@ export class FamilyUserService extends UserService {
         return {
             ...super.getDefaultForServer(),
             termsAgreement: false,
-            familyRelationship: Relationship.partner,
+            familyRelationship: Relationship.Partner,
             role: UserRole.individual,
             door1: true,
             door2: true,

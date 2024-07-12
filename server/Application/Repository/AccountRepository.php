@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Repository;
 
-use Application\DBAL\Types\AccountTypeType;
+use Application\Enum\AccountType;
 use Application\Model\Account;
 use Application\Model\User;
 use Doctrine\ORM\Query;
@@ -98,7 +98,7 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
             $account = new Account();
             $this->getEntityManager()->persist($account);
             $account->setOwner($user);
-            $account->setType(AccountTypeType::LIABILITY);
+            $account->setType(AccountType::Liability);
             $account->setName($user->getName());
 
             $config = $container->get('config');
@@ -128,14 +128,14 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
     /**
      * Sum balance by account type.
      */
-    public function totalBalanceByType(string $accountType): Money
+    public function totalBalanceByType(AccountType $accountType): Money
     {
         $qb = $this->getEntityManager()->getConnection()->createQueryBuilder()
             ->select('SUM(balance)')
             ->from($this->getClassMetadata()->getTableName())
             ->where('type = :type');
 
-        $qb->setParameter('type', $accountType);
+        $qb->setParameter('type', $accountType->value);
 
         $result = $qb->executeQuery();
 

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Application\Model;
 
 use Application\Api\Input\Operator\ExpenseClaimToReviewOperatorType;
-use Application\DBAL\Types\ExpenseClaimStatusType;
-use Application\DBAL\Types\ExpenseClaimTypeType;
+use Application\Enum\ExpenseClaimStatus;
+use Application\Enum\ExpenseClaimType;
 use Application\Repository\ExpenseClaimRepository;
 use Application\Traits\HasRemarks;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -46,11 +46,11 @@ class ExpenseClaim extends AbstractModel
     #[ORM\OneToMany(targetEntity: AccountingDocument::class, mappedBy: 'expenseClaim')]
     private Collection $accountingDocuments;
 
-    #[ORM\Column(type: 'ExpenseClaimStatus', length: 10, options: ['default' => ExpenseClaimStatusType::NEW])]
-    private string $status = ExpenseClaimStatusType::NEW;
+    #[ORM\Column(type: 'ExpenseClaimStatus', length: 10, options: ['default' => ExpenseClaimStatus::New])]
+    private ExpenseClaimStatus $status = ExpenseClaimStatus::New;
 
-    #[ORM\Column(type: 'ExpenseClaimType', length: 10, options: ['default' => ExpenseClaimTypeType::EXPENSE_CLAIM])]
-    private string $type = ExpenseClaimTypeType::EXPENSE_CLAIM;
+    #[ORM\Column(type: 'ExpenseClaimType', length: 10, options: ['default' => ExpenseClaimType::ExpenseClaim])]
+    private ExpenseClaimType $type = ExpenseClaimType::ExpenseClaim;
 
     #[ORM\JoinColumn(onDelete: 'SET NULL')]
     #[ORM\ManyToOne(targetEntity: User::class)]
@@ -87,8 +87,7 @@ class ExpenseClaim extends AbstractModel
     /**
      * Set status.
      */
-    #[API\Input(type: \Application\Api\Enum\ExpenseClaimStatusType::class)]
-    public function setStatus(string $status): void
+    public function setStatus(ExpenseClaimStatus $status): void
     {
         $this->status = $status;
     }
@@ -96,8 +95,7 @@ class ExpenseClaim extends AbstractModel
     /**
      * Get status.
      */
-    #[API\Field(type: \Application\Api\Enum\ExpenseClaimStatusType::class)]
-    public function getStatus(): string
+    public function getStatus(): ExpenseClaimStatus
     {
         return $this->status;
     }
@@ -105,8 +103,7 @@ class ExpenseClaim extends AbstractModel
     /**
      * Set type.
      */
-    #[API\Input(type: \Application\Api\Enum\ExpenseClaimTypeType::class)]
-    public function setType(string $type): void
+    public function setType(ExpenseClaimType $type): void
     {
         $this->type = $type;
     }
@@ -114,8 +111,7 @@ class ExpenseClaim extends AbstractModel
     /**
      * Get type.
      */
-    #[API\Field(type: \Application\Api\Enum\ExpenseClaimTypeType::class)]
-    public function getType(): string
+    public function getType(): ExpenseClaimType
     {
         return $this->type;
     }
@@ -127,7 +123,7 @@ class ExpenseClaim extends AbstractModel
     public function transactionAdded(Transaction $transaction): void
     {
         $this->transactions->add($transaction);
-        $this->status = ExpenseClaimStatusType::PROCESSED;
+        $this->status = ExpenseClaimStatus::Processed;
     }
 
     /**

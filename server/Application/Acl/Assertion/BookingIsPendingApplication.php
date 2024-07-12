@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Application\Acl\Assertion;
 
-use Application\DBAL\Types\BookingStatusType;
-use Application\DBAL\Types\BookingTypeType;
+use Application\Enum\BookingStatus;
+use Application\Enum\BookingType;
 use Application\Model\Booking;
 use Ecodev\Felix\Acl\Assertion\NamedAssertion;
 use Laminas\Permissions\Acl\Acl;
@@ -38,7 +38,7 @@ class BookingIsPendingApplication implements NamedAssertion
         }
 
         $bookingType = $bookable->getBookingType();
-        if ($booking->getStatus() === BookingStatusType::APPLICATION && in_array($bookingType, [BookingTypeType::APPLICATION, BookingTypeType::ADMIN_APPROVED], true)) {
+        if ($booking->getStatus() === BookingStatus::Application && in_array($bookingType, [BookingType::Application, BookingType::AdminApproved], true)) {
             return true;
         }
 

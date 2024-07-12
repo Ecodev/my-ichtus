@@ -11,7 +11,7 @@ import {
     NaturalTableButtonComponent,
 } from '@ecodev/natural';
 import {CommonModule, DatePipe} from '@angular/common';
-import {CurrentUserForProfile} from '../../../shared/generated-types';
+import {AccountType, CurrentUserForProfile} from '../../../shared/generated-types';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {AccountService} from '../services/account.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -168,4 +168,6 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
                 }
             });
     }
+
+    protected readonly AccountType = AccountType;
 }

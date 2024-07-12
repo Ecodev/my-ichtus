@@ -160,7 +160,7 @@ export class PermissionsService {
             return false;
         }
 
-        return [UserStatus.active, UserStatus.new].includes(user.status);
+        return [UserStatus.Active, UserStatus.New].includes(user.status);
     }
 
     public canAccessAdmin(user: CurrentUserForProfile['viewer']): boolean {

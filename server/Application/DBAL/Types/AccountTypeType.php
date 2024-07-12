@@ -4,26 +4,13 @@ declare(strict_types=1);
 
 namespace Application\DBAL\Types;
 
-use Ecodev\Felix\DBAL\Types\EnumType;
+use Application\Enum\AccountType;
+use Ecodev\Felix\DBAL\Types\PhpEnumType;
 
-class AccountTypeType extends EnumType
+class AccountTypeType extends PhpEnumType
 {
-    final public const ASSET = 'asset';
-    final public const LIABILITY = 'liability';
-    final public const REVENUE = 'revenue';
-    final public const EXPENSE = 'expense';
-    final public const EQUITY = 'equity';
-    final public const GROUP = 'group';
-
-    protected function getPossibleValues(): array
+    protected function getEnumType(): string
     {
-        return [
-            self::ASSET,
-            self::LIABILITY,
-            self::REVENUE,
-            self::EXPENSE,
-            self::EQUITY,
-            self::GROUP,
-        ];
+        return AccountType::class;
     }
 }

@@ -4,26 +4,13 @@ declare(strict_types=1);
 
 namespace Application\DBAL\Types;
 
-use Ecodev\Felix\DBAL\Types\EnumType;
+use Application\Enum\Relationship;
+use Ecodev\Felix\DBAL\Types\PhpEnumType;
 
-class RelationshipType extends EnumType
+class RelationshipType extends PhpEnumType
 {
-    final public const HOUSEHOLDER = 'householder';
-    final public const PARTNER = 'partner';
-    final public const CHILD = 'child';
-    final public const PARENT = 'parent';
-    final public const SISTER = 'sister';
-    final public const BROTHER = 'brother';
-
-    protected function getPossibleValues(): array
+    protected function getEnumType(): string
     {
-        return [
-            self::HOUSEHOLDER,
-            self::PARTNER,
-            self::CHILD,
-            self::PARENT,
-            self::SISTER,
-            self::BROTHER,
-        ];
+        return Relationship::class;
     }
 }

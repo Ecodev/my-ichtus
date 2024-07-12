@@ -10,9 +10,9 @@ use Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountGrea
 use Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountLessOperatorType;
 use Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountLessOrEqualOperatorType;
 use Application\Api\Input\Operator\BookableUsageOperatorType;
-use Application\DBAL\Types\BookableStateType;
-use Application\DBAL\Types\BookingStatusType;
-use Application\DBAL\Types\BookingTypeType;
+use Application\Enum\BookableState;
+use Application\Enum\BookingStatus;
+use Application\Enum\BookingType;
 use Application\Repository\BookableRepository;
 use Application\Repository\BookableTagRepository;
 use Application\Traits\HasCode;
@@ -58,14 +58,14 @@ class Bookable extends AbstractModel
     #[ORM\Column(type: 'smallint', options: ['default' => 0, 'unsigned' => true])]
     private int $waitingListLength = 0;
 
-    #[ORM\Column(type: 'BookingType', length: 10, options: ['default' => BookingTypeType::ADMIN_APPROVED])]
-    private string $bookingType = BookingTypeType::ADMIN_APPROVED;
+    #[ORM\Column(type: 'BookingType', length: 10, options: ['default' => BookingType::AdminApproved])]
+    private BookingType $bookingType = BookingType::AdminApproved;
 
     #[ORM\Column(type: 'boolean', options: ['default' => 1])]
     private bool $isActive = true;
 
-    #[ORM\Column(type: 'BookableState', length: 10, options: ['default' => BookableStateType::GOOD])]
-    private string $state = BookableStateType::GOOD;
+    #[ORM\Column(type: 'BookableState', length: 10, options: ['default' => BookableState::Good])]
+    private BookableState $state = BookableState::Good;
 
     #[ORM\Column(type: 'date', nullable: true)]
     private ?ChronosDate $verificationDate = null;
@@ -195,8 +195,7 @@ class Bookable extends AbstractModel
         $this->simultaneousBookingMaximum = $simultaneousBookingMaximum;
     }
 
-    #[API\Field(type: \Application\Api\Enum\BookingTypeType::class)]
-    public function getBookingType(): string
+    public function getBookingType(): BookingType
     {
         return $this->bookingType;
     }
@@ -217,8 +216,7 @@ class Bookable extends AbstractModel
         $this->isActive = $isActive;
     }
 
-    #[API\Input(type: \Application\Api\Enum\BookingTypeType::class)]
-    public function setBookingType(string $state): void
+    public function setBookingType(BookingType $state): void
     {
         $this->bookingType = $state;
     }
@@ -226,8 +224,7 @@ class Bookable extends AbstractModel
     /**
      * State of the bookable.
      */
-    #[API\Field(type: \Application\Api\Enum\BookableStateType::class)]
-    public function getState(): string
+    public function getState(): BookableState
     {
         return $this->state;
     }
@@ -235,8 +232,7 @@ class Bookable extends AbstractModel
     /**
      * State of the bookable.
      */
-    #[API\Input(type: \Application\Api\Enum\BookableStateType::class)]
-    public function setState(string $state): void
+    public function setState(BookableState $state): void
     {
         $this->state = $state;
     }
@@ -325,7 +321,7 @@ class Bookable extends AbstractModel
         }
 
         // Only consider approved and unterminated bookings
-        $bookings = $this->getBookings()->filter(fn (Booking $booking): bool => !$booking->getEndDate() && $booking->getStatus() !== BookingStatusType::APPLICATION)->toArray();
+        $bookings = $this->getBookings()->filter(fn (Booking $booking): bool => !$booking->getEndDate() && $booking->getStatus() !== BookingStatus::Application)->toArray();
 
         return $bookings;
     }
@@ -343,14 +339,14 @@ class Bookable extends AbstractModel
         }
 
         $bookableType = $this->getBookingType();
-        $bookableTypesAllowed = [BookingTypeType::ADMIN_ASSIGNED, BookingTypeType::APPLICATION, BookingTypeType::ADMIN_APPROVED];
+        $bookableTypesAllowed = [BookingType::AdminAssigned, BookingType::Application, BookingType::AdminApproved];
 
         if (!in_array($bookableType, $bookableTypesAllowed, true)) {
             return [];
         }
 
         // Only consider approved and unterminated bookings
-        $bookings = $this->getBookings()->filter(fn (Booking $booking): bool => !$booking->getEndDate() && $booking->getStatus() === BookingStatusType::APPLICATION)->toArray();
+        $bookings = $this->getBookings()->filter(fn (Booking $booking): bool => !$booking->getEndDate() && $booking->getStatus() === BookingStatus::Application)->toArray();
 
         return $bookings;
     }
@@ -358,7 +354,7 @@ class Bookable extends AbstractModel
     private function avoidTooManySqlQueries(): bool
     {
         $bookableType = $this->getBookingType();
-        $bookableTypesAllowed = [BookingTypeType::ADMIN_ASSIGNED, BookingTypeType::APPLICATION, BookingTypeType::ADMIN_APPROVED];
+        $bookableTypesAllowed = [BookingType::AdminAssigned, BookingType::Application, BookingType::AdminApproved];
 
         return !in_array($bookableType, $bookableTypesAllowed, true);
     }
@@ -374,7 +370,7 @@ class Bookable extends AbstractModel
      */
     public function getPeriodicPriceDividerBookings(): array
     {
-        $isAdminAssigned = $this->getBookingType() === BookingTypeType::ADMIN_ASSIGNED;
+        $isAdminAssigned = $this->getBookingType() === BookingType::AdminAssigned;
 
         $isTagAllowed = false;
         $allowedTagIds = [BookableTagRepository::STORAGE_ID, BookableTagRepository::FORMATION_ID, BookableTagRepository::WELCOME_ID];

@@ -34,7 +34,7 @@ export class BookingService extends BookingForVanillaService {
                     joins: {
                         bookable: {
                             type: JoinType.leftJoin,
-                            conditions: [{bookingType: {equal: {value: BookingType.self_approved}}}],
+                            conditions: [{bookingType: {equal: {value: BookingType.SelfApproved}}}],
                         },
                     },
                 },
@@ -62,7 +62,7 @@ export class BookingService extends BookingForVanillaService {
                     joins: {
                         bookable: {
                             type: JoinType.leftJoin,
-                            conditions: [{bookingType: {equal: {value: BookingType.self_approved}}}],
+                            conditions: [{bookingType: {equal: {value: BookingType.SelfApproved}}}],
                         },
                     },
                 },
@@ -84,7 +84,7 @@ export class BookingService extends BookingForVanillaService {
         filter: {
             groups: [
                 {
-                    conditions: [{status: {equal: {value: BookingStatus.application}}}],
+                    conditions: [{status: {equal: {value: BookingStatus.Application}}}],
                     joins: {
                         bookable: {
                             conditions: [
@@ -108,14 +108,14 @@ export class BookingService extends BookingForVanillaService {
             filter: {
                 groups: [
                     {
-                        conditions: [{status: {equal: {value: BookingStatus.application}}}],
+                        conditions: [{status: {equal: {value: BookingStatus.Application}}}],
                         joins: {
                             bookable: {
                                 conditions: [
                                     {
                                         bookableTags: {have: {values: [bookableTagId]}},
                                         bookingType: {
-                                            in: {values: [BookingType.application, BookingType.admin_approved]},
+                                            in: {values: [BookingType.Application, BookingType.AdminApproved]},
                                         },
                                     },
                                 ],
@@ -143,7 +143,7 @@ export class BookingService extends BookingForVanillaService {
         const finalBooking: BookingInput = {
             ...booking,
             startDate: booking.startDate ? booking.startDate : formatIsoDateTime(new Date()),
-            status: booking.status ? booking.status : BookingStatus.application,
+            status: booking.status ? booking.status : BookingStatus.Application,
             owner: owner ? owner.id : null,
             bookable: bookable ? bookable.id : null,
         };

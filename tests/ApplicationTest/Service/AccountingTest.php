@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ApplicationTest\Service;
 
-use Application\DBAL\Types\AccountTypeType;
+use Application\Enum\AccountType;
 use Application\Model\Account;
 use Application\Repository\AccountRepository;
 use Application\Service\Accounting;
@@ -75,7 +75,7 @@ class AccountingTest extends TestCase
         $expectedDateTime = new Chronos('2020-01-01 00:00:00');
         self::assertTrue($actualDate->equals($expectedDateTime), 'Closing transaction was not created on ' . $closingDate);
 
-        $accounts = $accountRepository->findByType([AccountTypeType::REVENUE, AccountTypeType::EXPENSE]);
+        $accounts = $accountRepository->findByType([AccountType::Revenue, AccountType::Expense]);
         $openingDate = $closingDate->addDays(1);
         foreach ($accounts as $account) {
             self::assertTrue(Money::CHF(0)->equals($account->getBalanceAtDate($openingDate)));

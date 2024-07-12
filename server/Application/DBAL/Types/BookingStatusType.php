@@ -4,20 +4,13 @@ declare(strict_types=1);
 
 namespace Application\DBAL\Types;
 
-use Ecodev\Felix\DBAL\Types\EnumType;
+use Application\Enum\BookingStatus;
+use Ecodev\Felix\DBAL\Types\PhpEnumType;
 
-class BookingStatusType extends EnumType
+class BookingStatusType extends PhpEnumType
 {
-    final public const APPLICATION = 'application';
-    final public const BOOKED = 'booked';
-    final public const PROCESSED = 'processed';
-
-    protected function getPossibleValues(): array
+    protected function getEnumType(): string
     {
-        return [
-            self::APPLICATION,
-            self::BOOKED,
-            self::PROCESSED,
-        ];
+        return BookingStatus::class;
     }
 }

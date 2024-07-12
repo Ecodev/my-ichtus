@@ -4,20 +4,13 @@ declare(strict_types=1);
 
 namespace Application\DBAL\Types;
 
-use Ecodev\Felix\DBAL\Types\EnumType;
+use Application\Enum\SwissSailingType;
+use Ecodev\Felix\DBAL\Types\PhpEnumType;
 
-class SwissSailingTypeType extends EnumType
+class SwissSailingTypeType extends PhpEnumType
 {
-    final public const ACTIVE = 'active';
-    final public const PASSIVE = 'passive';
-    final public const JUNIOR = 'junior';
-
-    protected function getPossibleValues(): array
+    protected function getEnumType(): string
     {
-        return [
-            self::ACTIVE,
-            self::PASSIVE,
-            self::JUNIOR,
-        ];
+        return SwissSailingType::class;
     }
 }

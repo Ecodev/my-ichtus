@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Acl\Assertion;
 
-use Application\DBAL\Types\ExpenseClaimStatusType;
+use Application\Enum\ExpenseClaimStatus;
 use Application\Model\ExpenseClaim;
 use Ecodev\Felix\Acl\Assertion\NamedAssertion;
 use Laminas\Permissions\Acl\Acl;
@@ -31,10 +31,10 @@ class StatusIsNew implements NamedAssertion
         /** @var ExpenseClaim $expenseClaim */
         $expenseClaim = $resource->getInstance();
 
-        if ($expenseClaim->getStatus() === ExpenseClaimStatusType::NEW) {
+        if ($expenseClaim->getStatus() === ExpenseClaimStatus::New) {
             return true;
         }
 
-        return $acl->reject('the expense claim status is not new but instead: ' . $expenseClaim->getStatus());
+        return $acl->reject('the expense claim status is not new but instead: ' . $expenseClaim->getStatus()->value);
     }
 }

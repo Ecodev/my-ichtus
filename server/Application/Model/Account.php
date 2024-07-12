@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Model;
 
-use Application\DBAL\Types\AccountTypeType;
+use Application\Enum\AccountType;
 use Application\Repository\AccountRepository;
 use Application\Repository\TransactionLineRepository;
 use Application\Traits\HasIban;
@@ -42,7 +42,7 @@ class Account extends AbstractModel
     private Collection $children;
 
     #[ORM\Column(type: 'AccountType', length: 10)]
-    private string $type;
+    private AccountType $type;
 
     #[ORM\Column(type: 'integer', unique: true, options: ['unsigned' => true])]
     private int $code;
@@ -176,7 +176,7 @@ class Account extends AbstractModel
         }
 
         if ($date->equals($today)) {
-            if ($this->getType() === AccountTypeType::GROUP) {
+            if ($this->getType() === AccountType::Group) {
                 return $this->getTotalBalance();
             }
 
@@ -185,7 +185,7 @@ class Account extends AbstractModel
 
         $connection = _em()->getConnection();
 
-        if ($this->getType() === AccountTypeType::GROUP) {
+        if ($this->getType() === AccountType::Group) {
             // Get all child accounts that are not group account (= they have their own balance)
             $sql = 'WITH RECURSIVE child AS
               (SELECT id, parent_id, `type`, balance
@@ -196,7 +196,7 @@ class Account extends AbstractModel
                JOIN child ON account.parent_id = child.id)
             SELECT child.id FROM child WHERE `type` <> ?';
 
-            $result = $connection->executeQuery($sql, [$this->getId(), AccountTypeType::GROUP]);
+            $result = $connection->executeQuery($sql, [$this->getId(), AccountType::Group->value]);
 
             $ids = $result->fetchFirstColumn();
 
@@ -221,15 +221,15 @@ class Account extends AbstractModel
         $totalDebit = $transactionLineRepository->totalBalance($this, null, null, $date);
         $totalCredit = $transactionLineRepository->totalBalance(null, $this, null, $date);
         if (in_array($this->getType(), [
-            AccountTypeType::LIABILITY,
-            AccountTypeType::EQUITY,
-            AccountTypeType::REVENUE,
+            AccountType::Liability,
+            AccountType::Equity,
+            AccountType::Revenue,
         ], true)) {
             $balance = $totalCredit->subtract($totalDebit);
-        } elseif (in_array($this->getType(), [AccountTypeType::ASSET, AccountTypeType::EXPENSE], true)) {
+        } elseif (in_array($this->getType(), [AccountType::Asset, AccountType::Expense], true)) {
             $balance = $totalDebit->subtract($totalCredit);
         } else {
-            throw new Exception('Do not know how to compute past balance of account #' . $this->getId() . ' of type ' . $this->getType());
+            throw new Exception('Do not know how to compute past balance of account #' . $this->getId() . ' of type ' . $this->getType()->value);
         }
 
         return $balance;
@@ -264,8 +264,7 @@ class Account extends AbstractModel
     /**
      * Set type.
      */
-    #[API\Input(type: \Application\Api\Enum\AccountTypeType::class)]
-    public function setType(string $type): void
+    public function setType(AccountType $type): void
     {
         $this->type = $type;
     }
@@ -273,8 +272,7 @@ class Account extends AbstractModel
     /**
      * Get type.
      */
-    #[API\Field(type: \Application\Api\Enum\AccountTypeType::class)]
-    public function getType(): string
+    public function getType(): AccountType
     {
         return $this->type;
     }

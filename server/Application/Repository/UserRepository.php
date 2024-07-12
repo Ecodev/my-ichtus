@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Application\Repository;
 
-use Application\DBAL\Types\BookingTypeType;
+use Application\Enum\BookingType;
+use Application\Enum\UserStatus;
 use Application\Model\User;
 use Cake\Chronos\Chronos;
 use Doctrine\DBAL\ArrayParameterType;
@@ -104,7 +105,7 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
             ->andWhere('user.status = :status')
             ->andWhere('user.role = :role')
             ->andWhere("user.email IS NOT NULL AND user.email != ''")
-            ->setParameter('status', User::STATUS_ACTIVE)
+            ->setParameter('status', UserStatus::Active->value)
             ->setParameter('role', User::ROLE_ADMINISTRATOR);
 
         $result = $this->getAclFilter()->runWithoutAcl(fn () => $qb->getQuery()->getResult());
@@ -126,8 +127,8 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
             ->andWhere('bookable.bookingType IN (:bookingType)')
             ->andWhere('bookable.isActive = true')
             ->andWhere('bookable.periodicPrice != 0')
-            ->setParameter('bookingType', [BookingTypeType::MANDATORY, BookingTypeType::ADMIN_ASSIGNED], ArrayParameterType::STRING)
-            ->setParameter('status', User::STATUS_ARCHIVED)
+            ->setParameter('bookingType', [BookingType::Mandatory->value, BookingType::AdminAssigned->value], ArrayParameterType::STRING)
+            ->setParameter('status', UserStatus::Archived->value)
             ->addOrderBy('user.id')
             ->addOrderBy('bookable.name');
 

@@ -4,20 +4,13 @@ declare(strict_types=1);
 
 namespace Application\DBAL\Types;
 
-use Ecodev\Felix\DBAL\Types\EnumType;
+use Application\Enum\ExpenseClaimType;
+use Ecodev\Felix\DBAL\Types\PhpEnumType;
 
-class ExpenseClaimTypeType extends EnumType
+class ExpenseClaimTypeType extends PhpEnumType
 {
-    final public const EXPENSE_CLAIM = 'expenseClaim';
-    final public const REFUND = 'refund';
-    final public const INVOICE = 'invoice';
-
-    protected function getPossibleValues(): array
+    protected function getEnumType(): string
     {
-        return [
-            self::EXPENSE_CLAIM,
-            self::REFUND,
-            self::INVOICE,
-        ];
+        return ExpenseClaimType::class;
     }
 }

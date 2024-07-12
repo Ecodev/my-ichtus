@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace ApplicationTest\Model;
 
-use Application\DBAL\Types\BookingStatusType;
+use Application\Enum\BookingStatus;
+use Application\Enum\UserStatus;
 use Application\Model\Account;
 use Application\Model\Booking;
 use Application\Model\User;
@@ -85,37 +86,37 @@ class UserTest extends TestCase
     {
         yield 'anonymous cannot open' => [
             User::ROLE_ANONYMOUS,
-            User::STATUS_ACTIVE,
+            UserStatus::Active,
             ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => true],
             ['door1' => false, 'door2' => false, 'door3' => false, 'door4' => false],
         ];
         yield 'individual member can open' => [
             User::ROLE_INDIVIDUAL,
-            User::STATUS_ACTIVE,
+            UserStatus::Active,
             ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => false],
             ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => false],
         ];
         yield 'active member can open' => [
             User::ROLE_MEMBER,
-            User::STATUS_ACTIVE,
+            UserStatus::Active,
             ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => false],
             ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => false],
         ];
         yield 'inactive member cannot open' => [
             User::ROLE_MEMBER,
-            User::STATUS_INACTIVE,
+            UserStatus::Inactive,
             ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => false],
             ['door1' => false, 'door2' => false, 'door3' => false, 'door4' => false],
         ];
         yield 'responsible can open' => [
             User::ROLE_RESPONSIBLE,
-            User::STATUS_ACTIVE,
+            UserStatus::Active,
             ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => true],
             ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => true],
         ];
         yield 'administrator can open' => [
             User::ROLE_ADMINISTRATOR,
-            User::STATUS_ACTIVE,
+            UserStatus::Active,
             ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => true],
             ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => true],
         ];
@@ -124,7 +125,7 @@ class UserTest extends TestCase
     /**
      * @dataProvider providerCanOpenDoor,
      */
-    public function testCanOpenDoor(string $role, string $status, array $doors, array $result): void
+    public function testCanOpenDoor(string $role, UserStatus $status, array $doors, array $result): void
     {
         $user = new User($role);
         $user->setStatus($status);
@@ -178,16 +179,16 @@ class UserTest extends TestCase
 
         $unapproved = new Booking();
         $unapproved->setOwner($user);
-        $unapproved->setStatus(BookingStatusType::APPLICATION);
+        $unapproved->setStatus(BookingStatus::Application);
 
         $completed = new Booking();
         $completed->setOwner($user);
-        $completed->setStatus(BookingStatusType::BOOKED);
+        $completed->setStatus(BookingStatus::Booked);
         $completed->setEndDate(Chronos::yesterday());
 
         $running = new Booking();
         $running->setOwner($user);
-        $running->setStatus(BookingStatusType::BOOKED);
+        $running->setStatus(BookingStatus::Booked);
 
         $runnings = $user->getRunningBookings();
 
@@ -200,29 +201,29 @@ class UserTest extends TestCase
         $u2 = new User();
 
         // Initial status
-        self::assertSame(User::STATUS_NEW, $u1->getStatus());
-        self::assertSame(User::STATUS_NEW, $u2->getStatus());
+        self::assertSame(UserStatus::New, $u1->getStatus());
+        self::assertSame(UserStatus::New, $u2->getStatus());
 
         $u2->setOwner($u1);
-        $u1->setStatus(User::STATUS_INACTIVE);
+        $u1->setStatus(UserStatus::Inactive);
 
         // Status is propagated to existing users
-        self::assertSame(User::STATUS_INACTIVE, $u1->getStatus());
-        self::assertSame(User::STATUS_INACTIVE, $u2->getStatus());
+        self::assertSame(UserStatus::Inactive, $u1->getStatus());
+        self::assertSame(UserStatus::Inactive, $u2->getStatus());
 
-        $u1->setStatus(User::STATUS_ACTIVE);
-        self::assertSame(User::STATUS_ACTIVE, $u1->getStatus());
-        self::assertSame(User::STATUS_ACTIVE, $u2->getStatus());
+        $u1->setStatus(UserStatus::Active);
+        self::assertSame(UserStatus::Active, $u1->getStatus());
+        self::assertSame(UserStatus::Active, $u2->getStatus());
 
         // Status is propagated on new users too
         $u3 = new User();
-        self::assertSame(User::STATUS_NEW, $u3->getStatus());
+        self::assertSame(UserStatus::New, $u3->getStatus());
         $u3->setOwner($u1);
-        self::assertSame(User::STATUS_ACTIVE, $u3->getStatus());
+        self::assertSame(UserStatus::Active, $u3->getStatus());
 
         // Status 'archived' sets resign date
         Chronos::setTestNow((new Chronos()));
-        $u1->setStatus(User::STATUS_ARCHIVED);
+        $u1->setStatus(UserStatus::Archived);
         self::assertTrue($u1->getResignDate() && $u1->getResignDate()->isToday());
     }
 }

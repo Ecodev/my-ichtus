@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Application\Repository;
 
-use Application\DBAL\Types\BookingStatusType;
-use Application\DBAL\Types\BookingTypeType;
+use Application\Enum\BookingStatus;
+use Application\Enum\BookingType;
+use Application\Enum\UserStatus;
 use Application\Model\Bookable;
 use Application\Model\Booking;
 use Application\Model\User;
@@ -61,9 +62,9 @@ class BookingRepository extends AbstractRepository
         ";
 
         $query = $this->getEntityManager()->createNativeQuery($sql, $rsm)
-            ->setParameter('bookingType', [BookingTypeType::MANDATORY, BookingTypeType::ADMIN_ASSIGNED, BookingTypeType::ADMIN_APPROVED], ArrayParameterType::STRING)
-            ->setParameter('bookingStatus', BookingStatusType::BOOKED)
-            ->setParameter('userStatus', User::STATUS_ARCHIVED)
+            ->setParameter('bookingType', [BookingType::Mandatory->value, BookingType::AdminAssigned->value, BookingType::AdminApproved->value], ArrayParameterType::STRING)
+            ->setParameter('bookingStatus', BookingStatus::Booked->value)
+            ->setParameter('userStatus', UserStatus::Archived->value)
             ->setParameter('currentYear', ChronosDate::now()->firstOfYear()->toDateString())
             ->setParameter('nextYear', ChronosDate::now()->firstOfYear()->addYears(1)->toDateString())
             ->setParameter('roles', [User::ROLE_BOOKING_ONLY], ArrayParameterType::STRING);

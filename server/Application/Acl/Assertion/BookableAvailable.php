@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Acl\Assertion;
 
-use Application\DBAL\Types\BookingStatusType;
+use Application\Enum\BookingStatus;
 use Application\Model\Booking;
 use Application\Model\User;
 use Ecodev\Felix\Acl\Assertion\NamedAssertion;
@@ -71,7 +71,7 @@ class BookableAvailable implements NamedAssertion
             $maximum = $bookable->getSimultaneousBookingMaximum();
 
             // If the booking is an application (not confirmed), then we might use the waiting list
-            if ($booking->getStatus() === BookingStatusType::APPLICATION) {
+            if ($booking->getStatus() === BookingStatus::Application) {
                 $maximum += $bookable->getWaitingListLength();
             }
 

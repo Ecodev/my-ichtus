@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace ApplicationTest\Model;
 
-use Application\DBAL\Types\ExpenseClaimStatusType;
+use Application\Enum\ExpenseClaimStatus;
+use Application\Enum\UserStatus;
 use Application\Model\AccountingDocument;
 use Application\Model\ExpenseClaim;
 use Application\Model\Transaction;
@@ -43,15 +44,15 @@ class ExpenseClaimTest extends TestCase
         $transaction2 = new Transaction();
 
         $expense = new ExpenseClaim();
-        self::assertSame(ExpenseClaimStatusType::NEW, $expense->getStatus());
+        self::assertSame(ExpenseClaimStatus::New, $expense->getStatus());
 
         $transaction->setExpenseClaim($expense);
         $transaction2->setExpenseClaim($expense);
 
-        self::assertSame(ExpenseClaimStatusType::PROCESSED, $expense->getStatus());
+        self::assertSame(ExpenseClaimStatus::Processed, $expense->getStatus());
         self::assertCount(2, $expense->getTransactions());
 
-        self::assertEquals(ExpenseClaimStatusType::PROCESSED, $expense->getStatus());
+        self::assertEquals(ExpenseClaimStatus::Processed, $expense->getStatus());
 
         $expense2 = new ExpenseClaim();
 
@@ -76,7 +77,7 @@ class ExpenseClaimTest extends TestCase
 
         // Make the current user as creator
         $user = new User();
-        $user->setStatus(User::STATUS_ACTIVE);
+        $user->setStatus(UserStatus::Active);
         User::setCurrent($user);
         $expenseClaim->timestampCreation();
 
@@ -89,7 +90,7 @@ class ExpenseClaimTest extends TestCase
         ];
         self::assertEquals($expected2, $actual2, 'should be able to get permissions as creator');
 
-        $expenseClaim->setStatus(ExpenseClaimStatusType::PROCESSED);
+        $expenseClaim->setStatus(ExpenseClaimStatus::Processed);
         $actual3 = $expenseClaim->getPermissions();
         $expected3 = [
             'create' => true,

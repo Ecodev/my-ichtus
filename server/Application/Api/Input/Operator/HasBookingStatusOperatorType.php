@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Api\Input\Operator;
 
-use Application\Api\Enum\BookingStatusType;
+use Application\Enum\BookingStatus;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
 use GraphQL\Doctrine\Definition\Operator\AbstractOperator;
@@ -20,7 +20,7 @@ class HasBookingStatusOperatorType extends AbstractOperator
             'fields' => [
                 [
                     'name' => 'values',
-                    'type' => self::listOf(self::nonNull($this->types->get(BookingStatusType::class))),
+                    'type' => self::listOf(self::nonNull($this->types->get(BookingStatus::class))),
                     'defaultValue' => [],
                 ],
                 [

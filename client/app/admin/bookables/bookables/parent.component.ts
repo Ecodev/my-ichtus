@@ -106,7 +106,7 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
         }
 
         this.creating.set(bookable.id, true);
-        const booking: BookingPartialInput = {status: BookingStatus.application};
+        const booking: BookingPartialInput = {status: BookingStatus.Application};
         this.bookingService
             .createWithBookable(bookable, this.futureOwner, booking)
             .pipe(finalize(() => this.creating.delete(bookable.id)))

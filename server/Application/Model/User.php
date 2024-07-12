@@ -6,7 +6,6 @@ namespace Application\Model;
 
 use Application\Api\Enum\SexType;
 use Application\Api\Enum\UserRoleType;
-use Application\Api\Enum\UserStatusType;
 use Application\Api\Input\Operator\AccountBalance\AccountBalanceEqualOperatorType;
 use Application\Api\Input\Operator\AccountBalance\AccountBalanceGreaterOperatorType;
 use Application\Api\Input\Operator\AccountBalance\AccountBalanceGreaterOrEqualOperatorType;
@@ -28,9 +27,12 @@ use Application\Api\Input\Operator\HasBookingWithBookableOperatorType;
 use Application\Api\Input\Operator\HasBookingWithTaggedBookableOperatorType;
 use Application\Api\Input\Sorting\Age;
 use Application\Api\Input\Sorting\Balance;
-use Application\DBAL\Types\BillingTypeType;
-use Application\DBAL\Types\BookingStatusType;
-use Application\DBAL\Types\RelationshipType;
+use Application\Enum\BillingType;
+use Application\Enum\BookingStatus;
+use Application\Enum\Relationship;
+use Application\Enum\SwissSailingType;
+use Application\Enum\SwissWindsurfType;
+use Application\Enum\UserStatus;
 use Application\Repository\LogRepository;
 use Application\Repository\UserRepository;
 use Application\Service\Role;
@@ -90,11 +92,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     final public const ROLE_RESPONSIBLE = 'responsible';
     final public const ROLE_ADMINISTRATOR = 'administrator';
 
-    final public const STATUS_INACTIVE = 'inactive';
-    final public const STATUS_NEW = 'new';
-    final public const STATUS_ACTIVE = 'active';
-    final public const STATUS_ARCHIVED = 'archived';
-
     use HasAddress;
     use HasDoorAccess;
     use HasIban;
@@ -144,8 +141,8 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     #[ORM\Column(type: 'UserRole', options: ['default' => self::ROLE_INDIVIDUAL])]
     private string $role = self::ROLE_INDIVIDUAL;
 
-    #[ORM\Column(type: 'UserStatus', options: ['default' => self::STATUS_NEW])]
-    private string $status = self::STATUS_NEW;
+    #[ORM\Column(type: 'UserStatus', options: ['default' => UserStatus::New])]
+    private UserStatus $status = UserStatus::New;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
     private ?Chronos $welcomeSessionDate = null;
@@ -169,10 +166,10 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     private string $swissSailing = '';
 
     #[ORM\Column(type: 'SwissSailingType', nullable: true)]
-    private ?string $swissSailingType = null;
+    private ?SwissSailingType $swissSailingType = null;
 
     #[ORM\Column(type: 'SwissWindsurfType', nullable: true)]
-    private ?string $swissWindsurfType = null;
+    private ?SwissWindsurfType $swissWindsurfType = null;
 
     #[ORM\Column(type: 'date', nullable: true)]
     private ?ChronosDate $birthday = null;
@@ -186,11 +183,11 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $receivesNewsletter = false;
 
-    #[ORM\Column(type: 'Relationship', options: ['default' => RelationshipType::HOUSEHOLDER])]
-    private string $familyRelationship = RelationshipType::HOUSEHOLDER;
+    #[ORM\Column(type: 'Relationship', options: ['default' => Relationship::Householder])]
+    private Relationship $familyRelationship = Relationship::Householder;
 
-    #[ORM\Column(type: 'BillingType', options: ['default' => BillingTypeType::ELECTRONIC])]
-    private string $billingType = BillingTypeType::ELECTRONIC;
+    #[ORM\Column(type: 'BillingType', options: ['default' => BillingType::Electronic])]
+    private BillingType $billingType = BillingType::Electronic;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
     private ?Chronos $firstLogin = null;
@@ -381,8 +378,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
         }
     }
 
-    #[API\Field(type: UserStatusType::class)]
-    public function getStatus(): string
+    public function getStatus(): UserStatus
     {
         return $this->status;
     }
@@ -392,15 +388,14 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      */
     public function canLogin(): bool
     {
-        return in_array($this->getStatus(), [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_NEW], true);
+        return in_array($this->getStatus(), [UserStatus::Active, UserStatus::Inactive, UserStatus::New], true);
     }
 
-    #[API\Input(type: UserStatusType::class)]
-    public function setStatus(string $newStatus): void
+    public function setStatus(UserStatus $newStatus): void
     {
-        if ($newStatus === self::STATUS_ARCHIVED && $this->status !== self::STATUS_ARCHIVED) {
+        if ($newStatus === UserStatus::Archived && $this->status !== UserStatus::Archived) {
             $this->setResignDate(Chronos::NOW());
-        } elseif ($this->status === self::STATUS_ARCHIVED && $newStatus !== self::STATUS_ARCHIVED) {
+        } elseif ($this->status === UserStatus::Archived && $newStatus !== UserStatus::Archived) {
             $this->setResignDate(null);
         }
 
@@ -429,7 +424,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     public function initialize(): void
     {
         $this->role = self::ROLE_MEMBER; // Bypass security
-        $this->setStatus(self::STATUS_NEW);
+        $this->setStatus(UserStatus::New);
     }
 
     public function getPhone(): string
@@ -488,7 +483,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     #[API\Exclude]
     public function getRunningBookings(): ReadableCollection
     {
-        return $this->bookings->filter(fn (Booking $booking) => $booking->getStatus() === BookingStatusType::BOOKED && $booking->getEndDate() === null);
+        return $this->bookings->filter(fn (Booking $booking) => $booking->getStatus() === BookingStatus::Booked && $booking->getEndDate() === null);
     }
 
     /**
@@ -639,8 +634,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     /**
      * Get the Swiss Sailing licence type.
      */
-    #[API\Field(type: '?SwissSailingType')]
-    public function getSwissSailingType(): ?string
+    public function getSwissSailingType(): ?SwissSailingType
     {
         return $this->swissSailingType;
     }
@@ -648,8 +642,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     /**
      * Set the Swiss Sailing licence type.
      */
-    #[API\Input(type: '?SwissSailingType')]
-    public function setSwissSailingType(?string $swissSailingType): void
+    public function setSwissSailingType(?SwissSailingType $swissSailingType): void
     {
         $this->swissSailingType = $swissSailingType;
     }
@@ -657,8 +650,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     /**
      * Get the Swiss Windsurf licence type.
      */
-    #[API\Field(type: '?SwissWindsurfType')]
-    public function getSwissWindsurfType(): ?string
+    public function getSwissWindsurfType(): ?SwissWindsurfType
     {
         return $this->swissWindsurfType;
     }
@@ -667,7 +659,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      * Set the Swiss Windsurf licence type.
      */
     #[API\Input(type: '?SwissWindsurfType')]
-    public function setSwissWindsurfType(?string $swissWindsurfType): void
+    public function setSwissWindsurfType(?SwissWindsurfType $swissWindsurfType): void
     {
         $this->swissWindsurfType = $swissWindsurfType;
     }
@@ -700,26 +692,22 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
         $this->lastLogin = $now;
     }
 
-    #[API\Field(type: \Application\Api\Enum\RelationshipType::class)]
-    public function getFamilyRelationship(): string
+    public function getFamilyRelationship(): Relationship
     {
         return $this->familyRelationship;
     }
 
-    #[API\Input(type: \Application\Api\Enum\RelationshipType::class)]
-    public function setFamilyRelationship(string $familyRelationship): void
+    public function setFamilyRelationship(Relationship $familyRelationship): void
     {
         $this->familyRelationship = $familyRelationship;
     }
 
-    #[API\Field(type: \Application\Api\Enum\BillingTypeType::class)]
-    public function getBillingType(): string
+    public function getBillingType(): BillingType
     {
         return $this->billingType;
     }
 
-    #[API\Input(type: \Application\Api\Enum\BillingTypeType::class)]
-    public function setBillingType(string $billingType): void
+    public function setBillingType(BillingType $billingType): void
     {
         $this->billingType = $billingType;
     }
@@ -789,7 +777,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      */
     public function getCanOpenDoor(#[API\Argument(type: '?Application\Api\Enum\DoorType')] ?string $door = null): bool
     {
-        $allowedStatus = [self::STATUS_ACTIVE];
+        $allowedStatus = [UserStatus::Active];
         $allowedRoles = [
             self::ROLE_ACCOUNTING_VERIFICATOR,
             self::ROLE_INDIVIDUAL,

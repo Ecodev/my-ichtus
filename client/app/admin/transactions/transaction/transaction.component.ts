@@ -146,13 +146,13 @@ export class TransactionComponent
         // Set default name
         let transactionName = '';
         switch (expenseClaim.type) {
-            case ExpenseClaimType.expenseClaim:
+            case ExpenseClaimType.ExpenseClaim:
                 transactionName = 'Traitement de la dépense "' + expenseClaim.name + '"';
                 break;
-            case ExpenseClaimType.refund:
+            case ExpenseClaimType.Refund:
                 transactionName = 'Remboursement de "' + expenseClaim.name + '"';
                 break;
-            case ExpenseClaimType.invoice:
+            case ExpenseClaimType.Invoice:
                 transactionName = 'Paiement facture "' + expenseClaim.name + '"';
                 break;
         }
@@ -167,18 +167,18 @@ export class TransactionComponent
         }
 
         if (expenseClaim.owner?.account) {
-            if (expenseClaim.type === ExpenseClaimType.expenseClaim) {
+            if (expenseClaim.type === ExpenseClaimType.ExpenseClaim) {
                 const preset = this.transactionService.getExpenseClaimPreset(
                     expenseClaim.owner.account,
                     expenseClaim.amount,
                 );
                 this.transactionLinesComponent.setItems(preset);
-            } else if (expenseClaim.type === ExpenseClaimType.refund) {
+            } else if (expenseClaim.type === ExpenseClaimType.Refund) {
                 const preset = this.transactionService.getRefundPreset(expenseClaim.owner.account, expenseClaim.amount);
                 this.transactionLinesComponent.setItems(preset);
             }
         }
-        if (expenseClaim.type === ExpenseClaimType.invoice) {
+        if (expenseClaim.type === ExpenseClaimType.Invoice) {
             const preset = this.transactionService.getInvoicePreset(transactionName, expenseClaim.amount);
             this.transactionLinesComponent.setItems(preset);
         }

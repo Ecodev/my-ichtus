@@ -107,7 +107,7 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
     }
 
     public canRevoke(booking: Bookings['bookings']['items'][0]): boolean {
-        return booking.bookable?.bookingType !== BookingType.mandatory;
+        return booking.bookable?.bookingType !== BookingType.Mandatory;
     }
 
     public cancelApplication(booking: Bookings['bookings']['items'][0]): void {

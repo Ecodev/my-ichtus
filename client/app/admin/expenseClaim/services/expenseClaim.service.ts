@@ -63,8 +63,8 @@ export class ExpenseClaimService extends NaturalAbstractModelService<
             description: '',
             remarks: '',
             internalRemarks: '',
-            status: ExpenseClaimStatus.new,
-            type: ExpenseClaimType.expenseClaim,
+            status: ExpenseClaimStatus.New,
+            type: ExpenseClaimType.ExpenseClaim,
         };
     }
 

@@ -57,7 +57,7 @@
                         }
                     </mat-form-field>
 
-                    @if ([AccountType.asset].includes(form.get('type')?.value)) {
+                    @if ([AccountType.Asset].includes(form.get('type')?.value)) {
                         <mat-form-field>
                             <mat-label>IBAN Ichtus</mat-label>
                             <input matInput formControlName="iban" (change)="update()" />
@@ -71,7 +71,7 @@
                         </mat-form-field>
                     }
 
-                    @if ([AccountType.asset, AccountType.expense].includes(form.get('type')?.value)) {
+                    @if ([AccountType.Asset, AccountType.Expense].includes(form.get('type')?.value)) {
                         <mat-form-field [style.width.px]="250">
                             <mat-label>Solde précédent</mat-label>
                             <input
@@ -132,7 +132,7 @@
                         (selectionChange)="updateLinkedFields(); update()"
                     />
 
-                    @if (form.get('type')?.value === 'liability') {
+                    @if (form.get('type')?.value === AccountType.Liability) {
                         <natural-select
                             formControlName="owner"
                             placeholder="Membre"

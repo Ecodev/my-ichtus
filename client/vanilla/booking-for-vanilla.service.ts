@@ -55,7 +55,7 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
 
     public override getDefaultForServer(): BookingInput {
         return {
-            status: BookingStatus.booked,
+            status: BookingStatus.Booked,
             owner: null,
             bookable: null,
             destination: '',

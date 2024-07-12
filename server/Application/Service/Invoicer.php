@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Application\Service;
 
-use Application\DBAL\Types\BookingStatusType;
-use Application\DBAL\Types\BookingTypeType;
+use Application\Enum\BookingStatus;
+use Application\Enum\BookingType;
 use Application\Model\Account;
 use Application\Model\Bookable;
 use Application\Model\Booking;
@@ -60,7 +60,7 @@ class Invoicer
         return $this->count;
     }
 
-    public function invoiceInitial(User $user, Booking $booking, ?string $previousStatus): int
+    public function invoiceInitial(User $user, Booking $booking, ?BookingStatus $previousStatus): int
     {
         $this->count = 0;
         $this->bookingRepository->getAclFilter()->runWithoutAcl(function () use ($user, $booking, $previousStatus): void {
@@ -72,12 +72,12 @@ class Invoicer
         return $this->count;
     }
 
-    private function shouldInvoiceInitial(Booking $booking, ?string $previousStatus): bool
+    private function shouldInvoiceInitial(Booking $booking, ?BookingStatus $previousStatus): bool
     {
         $bookable = $booking->getBookable();
 
         // Only invoice a booking that is really booked or processed (and not an application)
-        if (!in_array($booking->getStatus(), [BookingStatusType::BOOKED, BookingStatusType::PROCESSED], true)) {
+        if (!in_array($booking->getStatus(), [BookingStatus::Booked, BookingStatus::Processed], true)) {
             return false;
         }
 
@@ -92,12 +92,12 @@ class Invoicer
         }
 
         // Never invoice bookings of application type bookable, because they are only used to request the admin to create the actual booking
-        if ($bookable->getBookingType() === BookingTypeType::APPLICATION) {
+        if ($bookable->getBookingType() === BookingType::Application) {
             return false;
         }
 
         // If a booking status has been changed from `APPLICATION to `BOOKED` or `PROCESSED`, then it is OK to invoice
-        if ($previousStatus === BookingStatusType::APPLICATION) {
+        if ($previousStatus === BookingStatus::Application) {
             return true;
         }
 

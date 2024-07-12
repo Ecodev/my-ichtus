@@ -4,22 +4,13 @@ declare(strict_types=1);
 
 namespace Application\DBAL\Types;
 
-use Ecodev\Felix\DBAL\Types\EnumType;
+use Application\Enum\ExpenseClaimStatus;
+use Ecodev\Felix\DBAL\Types\PhpEnumType;
 
-class ExpenseClaimStatusType extends EnumType
+class ExpenseClaimStatusType extends PhpEnumType
 {
-    final public const NEW = 'new';
-    final public const PROCESSING = 'processing';
-    final public const PROCESSED = 'processed';
-    final public const REJECTED = 'rejected';
-
-    protected function getPossibleValues(): array
+    protected function getEnumType(): string
     {
-        return [
-            self::NEW,
-            self::PROCESSING,
-            self::PROCESSED,
-            self::REJECTED,
-        ];
+        return ExpenseClaimStatus::class;
     }
 }

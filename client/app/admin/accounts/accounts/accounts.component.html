@@ -41,7 +41,7 @@
                         <ng-container matColumnDef="navigation">
                             <th *matHeaderCellDef mat-header-cell></th>
                             <td *matCellDef="let element" mat-cell natural-2em-column>
-                                @if (element.item.type === 'group') {
+                                @if (element.item.type === AccountType.Group) {
                                     <natural-table-button
                                         icon="chevron_right"
                                         matTooltip="Afficher les sous-comptes"

@@ -191,7 +191,7 @@ export class NavigationsComponent extends NaturalAbstractController implements O
                         joins: {
                             bookable: {
                                 type: JoinType.leftJoin,
-                                conditions: [{bookingType: {in: {values: [BookingType.self_approved]}}}],
+                                conditions: [{bookingType: {in: {values: [BookingType.SelfApproved]}}}],
                             },
                         },
                     },

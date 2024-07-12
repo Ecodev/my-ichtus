@@ -8,7 +8,7 @@
         <div class="nat-horizontal nat-gap nat-align">
             @if (
                 isUpdatePage() &&
-                data.model.status === ExpenseClaimStatus.new &&
+                data.model.status === ExpenseClaimStatus.New &&
                 data.model.reviewer === null &&
                 permissionsService.gteResponsible(viewer)
             ) {
@@ -33,13 +33,13 @@
                     [routerLink]="['/admin/transaction/new', {expenseClaim: data.model.id}]"
                 >
                     <mat-icon naturalIcon="payments" />
-                    @if (data.model.type === ExpenseClaimType.expenseClaim) {
+                    @if (data.model.type === ExpenseClaimType.ExpenseClaim) {
                         <span>Créditer le solde</span>
                     }
-                    @if (data.model.type === ExpenseClaimType.refund) {
+                    @if (data.model.type === ExpenseClaimType.Refund) {
                         <span>Rembourser</span>
                     }
-                    @if (data.model.type === ExpenseClaimType.invoice) {
+                    @if (data.model.type === ExpenseClaimType.Invoice) {
                         <span>Payer</span>
                     }
                 </a>
@@ -91,7 +91,7 @@
                     ></textarea>
                 </mat-form-field>
 
-                @if (form.get('type')?.value !== ExpenseClaimType.refund) {
+                @if (form.get('type')?.value !== ExpenseClaimType.Refund) {
                     <mat-form-field>
                         <mat-label>Secteur concerné</mat-label>
                         <mat-select formControlName="sector" (selectionChange)="update()">

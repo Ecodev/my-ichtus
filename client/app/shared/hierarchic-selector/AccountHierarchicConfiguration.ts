@@ -8,6 +8,6 @@ export const accountHierarchicConfiguration: NaturalHierarchicConfiguration[] = 
         parentsRelationNames: ['parent'],
         childrenRelationNames: ['parent'],
         selectableAtKey: 'account',
-        isSelectableCallback: account => account.type !== AccountType.group,
+        isSelectableCallback: account => account.type !== AccountType.Group,
     },
 ];

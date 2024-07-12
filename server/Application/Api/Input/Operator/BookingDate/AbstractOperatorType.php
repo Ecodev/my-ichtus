@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Api\Input\Operator\BookingDate;
 
-use Application\DBAL\Types\BookingTypeType;
+use Application\Enum\BookingType;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
 use GraphQL\Doctrine\Definition\Operator\AbstractOperator;
@@ -55,7 +55,7 @@ abstract class AbstractOperatorType extends AbstractOperator
 
         $date = $args['value'];
         $queryBuilder->setParameter($param, $date);
-        $queryBuilder->setParameter($bookingType, BookingTypeType::SELF_APPROVED);
+        $queryBuilder->setParameter($bookingType, BookingType::SelfApproved->value);
 
         return $bookableAlias . ".bookingType = :$bookingType AND " . $bookingAlias . '.startDate ' . $this->getDqlOperator() . ':' . $param;
     }

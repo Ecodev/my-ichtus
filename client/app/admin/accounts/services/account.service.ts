@@ -67,7 +67,7 @@ export class AccountService extends NaturalAbstractModelService<
         return {
             owner: null,
             parent: null,
-            type: AccountType.expense,
+            type: AccountType.Expense,
             code: 0,
             name: '',
             iban: '',

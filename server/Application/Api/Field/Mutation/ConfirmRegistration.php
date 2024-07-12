@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Application\Api\Field\Mutation;
 
 use Application\Api\Helper;
-use Application\DBAL\Types\BookingStatusType;
-use Application\DBAL\Types\BookingTypeType;
+use Application\Enum\BookingStatus;
+use Application\Enum\BookingType;
 use Application\Model\Account;
 use Application\Model\Bookable;
 use Application\Model\Booking;
@@ -75,13 +75,13 @@ abstract class ConfirmRegistration implements FieldInterface
                 // Create mandatory booking for him
                 /** @var BookableRepository $bookableRepository */
                 $bookableRepository = _em()->getRepository(Bookable::class);
-                $mandatoryBookables = $bookableRepository->findByBookingType(BookingTypeType::MANDATORY);
+                $mandatoryBookables = $bookableRepository->findByBookingType(BookingType::Mandatory);
                 foreach ($mandatoryBookables as $bookable) {
                     $booking = new Booking();
                     _em()->persist($booking);
 
                     $booking->setOwner($user);
-                    $booking->setStatus(BookingStatusType::BOOKED);
+                    $booking->setStatus(BookingStatus::Booked);
                     $booking->setStartDate(new Chronos());
                     $booking->setBookable($bookable);
 

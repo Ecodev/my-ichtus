@@ -68,7 +68,7 @@ export class BookableService extends NaturalAbstractModelService<
                 {
                     conditions: [
                         {
-                            bookingType: {in: {values: [BookingType.self_approved], not: true}},
+                            bookingType: {in: {values: [BookingType.SelfApproved], not: true}},
                             bookableTags: {have: {values: [BookableTagService.SERVICE]}},
                         },
                     ],
@@ -77,7 +77,7 @@ export class BookableService extends NaturalAbstractModelService<
                     groupLogic: LogicalOperator.OR,
                     conditions: [
                         {
-                            bookingType: {in: {values: [BookingType.application]}},
+                            bookingType: {in: {values: [BookingType.Application]}},
                             bookableTags: {
                                 have: {
                                     values: [
@@ -95,7 +95,7 @@ export class BookableService extends NaturalAbstractModelService<
     };
 
     public static readonly application: BookablesVariables = {
-        filter: {groups: [{conditions: [{bookingType: {in: {values: [BookingType.application]}}}]}]},
+        filter: {groups: [{conditions: [{bookingType: {in: {values: [BookingType.Application]}}}]}]},
     };
 
     public constructor(private readonly bookingService: BookingService) {
@@ -108,7 +108,7 @@ export class BookableService extends NaturalAbstractModelService<
 
     public static bookableByTag(
         tagId: string,
-        bookingTypes: BookingType[] = [BookingType.admin_assigned, BookingType.admin_approved],
+        bookingTypes: BookingType[] = [BookingType.AdminAssigned, BookingType.AdminApproved],
         isActive: boolean | null = null,
     ): BookablesVariables {
         const condition: BookableFilterGroupCondition = {
@@ -151,10 +151,10 @@ export class BookableService extends NaturalAbstractModelService<
             purchasePrice: null,
             simultaneousBookingMaximum: 1,
             waitingListLength: 0,
-            bookingType: BookingType.self_approved,
+            bookingType: BookingType.SelfApproved,
             remarks: '',
             isActive: true,
-            state: BookableState.good,
+            state: BookableState.Good,
             verificationDate: null,
             image: null,
             creditAccount: null,
@@ -185,7 +185,7 @@ export class BookableService extends NaturalAbstractModelService<
 
     public getMandatoryBookables(): Observable<Bookables['bookables']> {
         const mandatoryBookablesFilter: BookablesVariables = {
-            filter: {groups: [{conditions: [{bookingType: {in: {values: [BookingType.mandatory]}}}]}]},
+            filter: {groups: [{conditions: [{bookingType: {in: {values: [BookingType.Mandatory]}}}]}]},
         };
 
         const qvm = new NaturalQueryVariablesManager<BookablesVariables>();

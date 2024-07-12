@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Application\Api\Input\Operator;
 
-use Application\DBAL\Types\BookingStatusType;
-use Application\DBAL\Types\BookingTypeType;
+use Application\Enum\BookingStatus;
+use Application\Enum\BookingType;
 use Application\Model\User;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
@@ -38,9 +38,9 @@ class RunningServicesOperatorType extends AbstractOperator
 
         $connection = _em()->getConnection();
         $user = $connection->quote($args['user']->getId());
-        $status = Utility::quoteArray([BookingStatusType::BOOKED, BookingStatusType::PROCESSED]);
-        $bookingTypes = Utility::quoteArray([BookingTypeType::ADMIN_ASSIGNED, BookingTypeType::MANDATORY]);
-        $courses = Utility::quoteArray([BookingTypeType::ADMIN_APPROVED]);
+        $status = Utility::quoteArray([BookingStatus::Booked->value, BookingStatus::Processed->value]);
+        $bookingTypes = Utility::quoteArray([BookingType::AdminAssigned->value, BookingType::Mandatory->value]);
+        $courses = Utility::quoteArray([BookingType::AdminApproved->value]);
 
         $sql = <<<SQL
             SELECT booking.id FROM booking

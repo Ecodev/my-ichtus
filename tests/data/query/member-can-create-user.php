@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use Application\Model\User;
-
 return [
     [
         'query' => 'mutation ($inputUser: UserInput!) {
@@ -31,7 +29,7 @@ return [
             'createUser' => [
                 'login' => 'jdoe',
                 'email' => 'test@example.com',
-                'status' => User::STATUS_ACTIVE,
+                'status' => 'Active',
                 'owner' => [
                     'id' => '1002',
                 ],

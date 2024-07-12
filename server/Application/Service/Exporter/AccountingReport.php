@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Service\Exporter;
 
-use Application\DBAL\Types\AccountTypeType;
+use Application\Enum\AccountType;
 use Application\Model\Account;
 use Cake\Chronos\ChronosDate;
 use Ecodev\Felix\Format;
@@ -134,7 +134,7 @@ class AccountingReport extends AbstractExcel
             return;
         }
 
-        if ($account->getType() === AccountTypeType::EQUITY) {
+        if ($account->getType() === AccountType::Equity) {
             // Don't show special accounts since it's an interim statement, their balance will be computed manually
             return;
         }
@@ -151,17 +151,17 @@ class AccountingReport extends AbstractExcel
         ];
 
         $accountClasses = $this->accountingConfig['report']['accountClasses'];
-        if ($account->getType() === AccountTypeType::ASSET || ($account->getType() === AccountTypeType::GROUP && in_array(mb_substr((string) $account->getCode(), 0, 1), $accountClasses['assets'], true))) {
+        if ($account->getType() === AccountType::Asset || ($account->getType() === AccountType::Group && in_array(mb_substr((string) $account->getCode(), 0, 1), $accountClasses['assets'], true))) {
             $this->assets[] = $data;
-        } elseif ($account->getType() === AccountTypeType::LIABILITY || ($account->getType() === AccountTypeType::GROUP && in_array(mb_substr((string) $account->getCode(), 0, 1), $accountClasses['liabilities'], true))) {
+        } elseif ($account->getType() === AccountType::Liability || ($account->getType() === AccountType::Group && in_array(mb_substr((string) $account->getCode(), 0, 1), $accountClasses['liabilities'], true))) {
             $this->liabilities[] = $data;
-        } elseif ($account->getType() === AccountTypeType::REVENUE || ($account->getType() === AccountTypeType::GROUP && in_array(mb_substr((string) $account->getCode(), 0, 1), $accountClasses['revenues'], true))) {
+        } elseif ($account->getType() === AccountType::Revenue || ($account->getType() === AccountType::Group && in_array(mb_substr((string) $account->getCode(), 0, 1), $accountClasses['revenues'], true))) {
             $this->revenues[] = $data;
-        } elseif ($account->getType() === AccountTypeType::EXPENSE || ($account->getType() === AccountTypeType::GROUP && in_array(mb_substr((string) $account->getCode(), 0, 1), $accountClasses['expenses'], true))) {
+        } elseif ($account->getType() === AccountType::Expense || ($account->getType() === AccountType::Group && in_array(mb_substr((string) $account->getCode(), 0, 1), $accountClasses['expenses'], true))) {
             $this->expenses[] = $data;
         }
 
-        if ($account->getType() === AccountTypeType::GROUP && $depth <= $this->accountingConfig['report']['maxAccountDepth']) {
+        if ($account->getType() === AccountType::Group && $depth <= $this->accountingConfig['report']['maxAccountDepth']) {
             foreach ($account->getChildren() as $child) {
                 $this->processAccount($child, $depth + 1);
             }

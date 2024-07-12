@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ApplicationTest\Model;
 
-use Application\DBAL\Types\ExpenseClaimStatusType;
+use Application\Enum\ExpenseClaimStatus;
 use Application\Model\AccountingDocument;
 use Application\Model\ExpenseClaim;
 use Application\Model\User;
@@ -57,7 +57,7 @@ class AccountingDocumentTest extends TestCase
         ];
         self::assertEquals($expected2, $actual2, 'should be able to get permissions as creator');
 
-        $expenseClaim->setStatus(ExpenseClaimStatusType::PROCESSED);
+        $expenseClaim->setStatus(ExpenseClaimStatus::Processed);
         $actual3 = $document->getPermissions();
         $expected3 = [
             'create' => false,

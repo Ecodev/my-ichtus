@@ -77,13 +77,13 @@
                 <div>
                     <div class="nat-horizontal nat-margin-bottom nat-gap nat-align">
                         <div class="mat-headline-6 nat-no-margin-bottom">
-                            @if (data.model.expenseClaim.type === ExpenseClaimType.refund) {
+                            @if (data.model.expenseClaim.type === ExpenseClaimType.Refund) {
                                 <span>Demande de remboursement</span>
                             }
-                            @if (data.model.expenseClaim.type === ExpenseClaimType.expenseClaim) {
+                            @if (data.model.expenseClaim.type === ExpenseClaimType.ExpenseClaim) {
                                 <span>Annonce de dépense</span>
                             }
-                            @if (data.model.expenseClaim.type === ExpenseClaimType.invoice) {
+                            @if (data.model.expenseClaim.type === ExpenseClaimType.Invoice) {
                                 <span>Facture à payer</span>
                             }
                         </div>

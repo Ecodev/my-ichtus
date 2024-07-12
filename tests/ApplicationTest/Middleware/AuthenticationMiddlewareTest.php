@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ApplicationTest\Middleware;
 
+use Application\Enum\UserStatus;
 use Application\Middleware\AuthenticationMiddleware;
 use Application\Model\User;
 use Application\Repository\UserRepository;
@@ -51,7 +52,7 @@ class AuthenticationMiddlewareTest extends TestCase
     public function testUserArchived(): void
     {
         $user = new User();
-        $user->setStatus(User::STATUS_ARCHIVED);
+        $user->setStatus(UserStatus::Archived);
         $session = $this->process(true, $user);
 
         self::assertFalse($session->has('user'));

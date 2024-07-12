@@ -14,7 +14,7 @@
         </mat-form-field>
 
         <div class="nat-horizontal nat-gap">
-            @if (form.get('type')?.value !== ExpenseClaimType.refund) {
+            @if (form.get('type')?.value !== ExpenseClaimType.Refund) {
                 <mat-form-field class="nat-expand-50" id="sector">
                     <mat-label>Secteur concerné</mat-label>
                     <mat-select formControlName="sector" (selectionChange)="update()">

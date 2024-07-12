@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Acl\Assertion;
 
-use Application\DBAL\Types\BookingTypeType;
+use Application\Enum\BookingType;
 use Application\Model\Bookable;
 use Ecodev\Felix\Acl\Assertion\NamedAssertion;
 use Laminas\Permissions\Acl\Acl;
@@ -36,10 +36,10 @@ class BookableIsAdminApproved implements NamedAssertion
         $bookable = $resource->getInstance();
 
         $bookingType = $bookable->getBookingType();
-        if ($bookingType === BookingTypeType::ADMIN_APPROVED) {
+        if ($bookingType === BookingType::AdminApproved) {
             return true;
         }
 
-        return $acl->reject('the booking type for this bookable is not admin approved, but : ' . $bookingType);
+        return $acl->reject('the booking type for this bookable is not admin approved, but : ' . $bookingType->value);
     }
 }

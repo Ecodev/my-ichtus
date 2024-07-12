@@ -87,7 +87,7 @@ export class ExpenseClaimComponent
         }
         const status = this.form.get('status');
         if (status) {
-            status.setValue(ExpenseClaimStatus.processing);
+            status.setValue(ExpenseClaimStatus.Processing);
             status.markAsTouched();
         }
         if (this.form.touched) {

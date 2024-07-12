@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Application\Model;
 
 use Application\Api\Input\Operator\RunningServicesOperatorType;
-use Application\DBAL\Types\BookingStatusType;
+use Application\Enum\BookingStatus;
 use Application\Repository\BookingRepository;
 use Application\Service\Invoicer;
 use Application\Traits\HasRemarks;
@@ -28,8 +28,8 @@ class Booking extends AbstractModel
     use HasInternalRemarks;
     use HasRemarks;
 
-    #[ORM\Column(type: 'BookingStatus', length: 10, options: ['default' => BookingStatusType::APPLICATION])]
-    private string $status = BookingStatusType::APPLICATION;
+    #[ORM\Column(type: 'BookingStatus', length: 10, options: ['default' => BookingStatus::Application])]
+    private BookingStatus $status = BookingStatus::Application;
 
     #[ORM\Column(type: 'integer', options: ['unsigned' => true, 'default' => 1])]
     private int $participantCount = 1;
@@ -177,14 +177,12 @@ class Booking extends AbstractModel
         $this->invoiceInitial();
     }
 
-    #[API\Field(type: \Application\Api\Enum\BookingStatusType::class)]
-    public function getStatus(): string
+    public function getStatus(): BookingStatus
     {
         return $this->status;
     }
 
-    #[API\Input(type: \Application\Api\Enum\BookingStatusType::class)]
-    public function setStatus(string $status): void
+    public function setStatus(BookingStatus $status): void
     {
         $previousStatus = $this->status;
         $this->status = $status;
@@ -209,7 +207,7 @@ class Booking extends AbstractModel
     /**
      * If the booking is complete, will make initial invoicing.
      */
-    private function invoiceInitial(?string $previousStatus = null): void
+    private function invoiceInitial(?BookingStatus $previousStatus = null): void
     {
         if (!$this->getOwner() || !$this->getBookable()) {
             return;

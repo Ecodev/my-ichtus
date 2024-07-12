@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace ApplicationTest\Service;
 
-use Application\DBAL\Types\BookingStatusType;
-use Application\DBAL\Types\BookingTypeType;
+use Application\Enum\BookingStatus;
+use Application\Enum\BookingType;
 use Application\Model\Account;
 use Application\Model\Bookable;
 use Application\Model\Booking;
@@ -57,7 +57,7 @@ class InvoicerTest extends TestCase
         $booking = new Booking();
         $booking->setOwner($user);
         $booking->setBookable($bookable);
-        $booking->setStatus(BookingStatusType::BOOKED);
+        $booking->setStatus(BookingStatus::Booked);
 
         $account = $user->getAccount();
 
@@ -177,11 +177,11 @@ class InvoicerTest extends TestCase
 
         $bookingWithoutOwner = new Booking();
         $bookingWithoutOwner->setBookable($bookable);
-        $bookingWithoutOwner->setStatus(BookingStatusType::BOOKED);
+        $bookingWithoutOwner->setStatus(BookingStatus::Booked);
 
         $bookingWithoutBookable = new Booking();
         $bookingWithoutBookable->setOwner($user);
-        $bookingWithoutBookable->setStatus(BookingStatusType::BOOKED);
+        $bookingWithoutBookable->setStatus(BookingStatus::Booked);
 
         $bookingWithoutStatus = new Booking();
         $bookingWithoutStatus->setBookable($bookable);
@@ -245,12 +245,12 @@ class InvoicerTest extends TestCase
             [
                 'id' => null,
                 'previousStatus' => null,
-                'status' => BookingStatusType::BOOKED,
+                'status' => BookingStatus::Booked,
                 'bookable' => [
                     'creditAccount' => true,
                     'initialPrice' => Money::CHF(100),
                     'periodicPrice' => Money::CHF(100),
-                    'bookingType' => BookingTypeType::MANDATORY,
+                    'bookingType' => BookingType::Mandatory,
                 ],
             ],
             1,
@@ -259,12 +259,12 @@ class InvoicerTest extends TestCase
             [
                 'id' => 123,
                 'previousStatus' => null,
-                'status' => BookingStatusType::BOOKED,
+                'status' => BookingStatus::Booked,
                 'bookable' => [
                     'creditAccount' => true,
                     'initialPrice' => Money::CHF(100),
                     'periodicPrice' => Money::CHF(100),
-                    'bookingType' => BookingTypeType::MANDATORY,
+                    'bookingType' => BookingType::Mandatory,
                 ],
             ],
             0,
@@ -273,12 +273,12 @@ class InvoicerTest extends TestCase
             [
                 'id' => null,
                 'previousStatus' => null,
-                'status' => BookingStatusType::PROCESSED,
+                'status' => BookingStatus::Processed,
                 'bookable' => [
                     'creditAccount' => true,
                     'initialPrice' => Money::CHF(100),
                     'periodicPrice' => Money::CHF(100),
-                    'bookingType' => BookingTypeType::MANDATORY,
+                    'bookingType' => BookingType::Mandatory,
                 ],
             ],
             1,
@@ -287,12 +287,12 @@ class InvoicerTest extends TestCase
             [
                 'id' => null,
                 'previousStatus' => null,
-                'status' => BookingStatusType::APPLICATION,
+                'status' => BookingStatus::Application,
                 'bookable' => [
                     'creditAccount' => true,
                     'initialPrice' => Money::CHF(100),
                     'periodicPrice' => Money::CHF(100),
-                    'bookingType' => BookingTypeType::MANDATORY,
+                    'bookingType' => BookingType::Mandatory,
                 ],
             ],
             0,
@@ -301,12 +301,12 @@ class InvoicerTest extends TestCase
             [
                 'id' => null,
                 'previousStatus' => null,
-                'status' => BookingStatusType::BOOKED,
+                'status' => BookingStatus::Booked,
                 'bookable' => [
                     'creditAccount' => false,
                     'initialPrice' => Money::CHF(100),
                     'periodicPrice' => Money::CHF(100),
-                    'bookingType' => BookingTypeType::MANDATORY,
+                    'bookingType' => BookingType::Mandatory,
                 ],
             ],
             0,
@@ -315,12 +315,12 @@ class InvoicerTest extends TestCase
             [
                 'id' => null,
                 'previousStatus' => null,
-                'status' => BookingStatusType::BOOKED,
+                'status' => BookingStatus::Booked,
                 'bookable' => [
                     'creditAccount' => true,
                     'initialPrice' => Money::CHF(0),
                     'periodicPrice' => Money::CHF(0),
-                    'bookingType' => BookingTypeType::MANDATORY,
+                    'bookingType' => BookingType::Mandatory,
                 ],
             ],
             0,
@@ -329,12 +329,12 @@ class InvoicerTest extends TestCase
             [
                 'id' => null,
                 'previousStatus' => null,
-                'status' => BookingStatusType::BOOKED,
+                'status' => BookingStatus::Booked,
                 'bookable' => [
                     'creditAccount' => true,
                     'initialPrice' => Money::CHF(0),
                     'periodicPrice' => Money::CHF(100),
-                    'bookingType' => BookingTypeType::MANDATORY,
+                    'bookingType' => BookingType::Mandatory,
                 ],
             ],
             1,
@@ -343,12 +343,12 @@ class InvoicerTest extends TestCase
             [
                 'id' => null,
                 'previousStatus' => null,
-                'status' => BookingStatusType::BOOKED,
+                'status' => BookingStatus::Booked,
                 'bookable' => [
                     'creditAccount' => true,
                     'initialPrice' => Money::CHF(100),
                     'periodicPrice' => Money::CHF(100),
-                    'bookingType' => BookingTypeType::APPLICATION,
+                    'bookingType' => BookingType::Application,
                 ],
             ],
             0,
@@ -356,13 +356,13 @@ class InvoicerTest extends TestCase
         yield 'update MANDATORY booking to change status from APPLICATION to BOOKED should invoice' => [
             [
                 'id' => 123,
-                'previousStatus' => BookingStatusType::APPLICATION,
-                'status' => BookingStatusType::BOOKED,
+                'previousStatus' => BookingStatus::Application,
+                'status' => BookingStatus::Booked,
                 'bookable' => [
                     'creditAccount' => true,
                     'initialPrice' => Money::CHF(100),
                     'periodicPrice' => Money::CHF(100),
-                    'bookingType' => BookingTypeType::MANDATORY,
+                    'bookingType' => BookingType::Mandatory,
                 ],
             ],
             1,
@@ -370,13 +370,13 @@ class InvoicerTest extends TestCase
         yield 'update MANDATORY booking to change status from BOOKED to BOOKED should not invoice' => [
             [
                 'id' => 123,
-                'previousStatus' => BookingStatusType::BOOKED,
-                'status' => BookingStatusType::BOOKED,
+                'previousStatus' => BookingStatus::Booked,
+                'status' => BookingStatus::Booked,
                 'bookable' => [
                     'creditAccount' => true,
                     'initialPrice' => Money::CHF(100),
                     'periodicPrice' => Money::CHF(100),
-                    'bookingType' => BookingTypeType::MANDATORY,
+                    'bookingType' => BookingType::Mandatory,
                 ],
             ],
             0,
@@ -384,13 +384,13 @@ class InvoicerTest extends TestCase
         yield 'update MANDATORY booking to change status from PROCESSED to BOOKED should not invoice' => [
             [
                 'id' => 123,
-                'previousStatus' => BookingStatusType::PROCESSED,
-                'status' => BookingStatusType::BOOKED,
+                'previousStatus' => BookingStatus::Processed,
+                'status' => BookingStatus::Booked,
                 'bookable' => [
                     'creditAccount' => true,
                     'initialPrice' => Money::CHF(100),
                     'periodicPrice' => Money::CHF(100),
-                    'bookingType' => BookingTypeType::MANDATORY,
+                    'bookingType' => BookingType::Mandatory,
                 ],
             ],
             0,
@@ -399,12 +399,12 @@ class InvoicerTest extends TestCase
             [
                 'id' => null,
                 'previousStatus' => null,
-                'status' => BookingStatusType::BOOKED,
+                'status' => BookingStatus::Booked,
                 'bookable' => [
                     'creditAccount' => true,
                     'initialPrice' => Money::CHF(100),
                     'periodicPrice' => Money::CHF(100),
-                    'bookingType' => BookingTypeType::ADMIN_APPROVED,
+                    'bookingType' => BookingType::AdminApproved,
                 ],
             ],
             1,
@@ -413,12 +413,12 @@ class InvoicerTest extends TestCase
             [
                 'id' => 123,
                 'previousStatus' => null,
-                'status' => BookingStatusType::BOOKED,
+                'status' => BookingStatus::Booked,
                 'bookable' => [
                     'creditAccount' => true,
                     'initialPrice' => Money::CHF(100),
                     'periodicPrice' => Money::CHF(100),
-                    'bookingType' => BookingTypeType::ADMIN_APPROVED,
+                    'bookingType' => BookingType::AdminApproved,
                 ],
             ],
             0,
@@ -426,13 +426,13 @@ class InvoicerTest extends TestCase
         yield 'update ADMIN_APPROVED booking to change status from APPLICATION to BOOKED should invoice' => [
             [
                 'id' => 123,
-                'previousStatus' => BookingStatusType::APPLICATION,
-                'status' => BookingStatusType::BOOKED,
+                'previousStatus' => BookingStatus::Application,
+                'status' => BookingStatus::Booked,
                 'bookable' => [
                     'creditAccount' => true,
                     'initialPrice' => Money::CHF(100),
                     'periodicPrice' => Money::CHF(100),
-                    'bookingType' => BookingTypeType::ADMIN_APPROVED,
+                    'bookingType' => BookingType::AdminApproved,
                 ],
             ],
             1,

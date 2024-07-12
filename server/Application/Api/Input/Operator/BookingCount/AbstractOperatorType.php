@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Api\Input\Operator\BookingCount;
 
-use Application\DBAL\Types\BookingTypeType;
+use Application\Enum\BookingType;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
 use Ecodev\Felix\ORM\Query\NativeIn;
@@ -38,7 +38,7 @@ abstract class AbstractOperatorType extends AbstractOperator
 
         $connection = _em()->getConnection();
         $count = $connection->quote($args['value']);
-        $bookingTypes = Utility::quoteArray([BookingTypeType::SELF_APPROVED]);
+        $bookingTypes = Utility::quoteArray([BookingType::SelfApproved->value]);
 
         $operator = $this->getDqlOperator();
         $sql = <<<SQL

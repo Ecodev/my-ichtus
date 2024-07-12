@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace ApplicationTest\Model;
 
-use Application\DBAL\Types\BookingStatusType;
-use Application\DBAL\Types\BookingTypeType;
+use Application\Enum\BookingStatus;
+use Application\Enum\BookingType;
 use Application\Model\Bookable;
 use Application\Model\Booking;
 use Cake\Chronos\Chronos;
@@ -38,30 +38,30 @@ class BookableTest extends TestCase
         self::assertCount(0, $bookable->getSimultaneousApplications());
 
         $booking1 = new Booking();
-        $booking1->setStatus(BookingStatusType::BOOKED);
+        $booking1->setStatus(BookingStatus::Booked);
         $booking1->setBookable($bookable);
 
         self::assertCount(1, $bookable->getSimultaneousBookings());
         self::assertCount(0, $bookable->getSimultaneousApplications());
 
-        $bookable->setBookingType(BookingTypeType::SELF_APPROVED);
+        $bookable->setBookingType(BookingType::SelfApproved);
         self::assertCount(0, $bookable->getSimultaneousBookings(), 'empty list because we try to save SQL queries');
         self::assertCount(0, $bookable->getSimultaneousApplications());
 
-        $bookable->setBookingType(BookingTypeType::MANDATORY);
+        $bookable->setBookingType(BookingType::Mandatory);
         self::assertCount(0, $bookable->getSimultaneousBookings(), 'empty list because we try to save SQL queries');
         self::assertCount(0, $bookable->getSimultaneousApplications());
 
-        $bookable->setBookingType(BookingTypeType::ADMIN_APPROVED);
+        $bookable->setBookingType(BookingType::AdminApproved);
         self::assertCount(1, $bookable->getSimultaneousBookings(), 'again normal list when there is a chance that simultaneous booking matter');
         self::assertCount(0, $bookable->getSimultaneousApplications());
 
-        $bookable->setBookingType(BookingTypeType::ADMIN_ASSIGNED);
+        $bookable->setBookingType(BookingType::AdminAssigned);
         self::assertCount(1, $bookable->getSimultaneousBookings(), 'again normal list when there is a chance that simultaneous booking matter');
         self::assertCount(0, $bookable->getSimultaneousApplications());
 
         $booking2 = new Booking();
-        $booking2->setStatus(BookingStatusType::BOOKED);
+        $booking2->setStatus(BookingStatus::Booked);
         $booking2->setBookable($bookable);
 
         self::assertCount(2, $bookable->getSimultaneousBookings(), 'second bookings should be returned');
@@ -71,7 +71,7 @@ class BookableTest extends TestCase
         self::assertCount(1, $bookable->getSimultaneousBookings(), 'terminated booking should be excluded');
         self::assertCount(0, $bookable->getSimultaneousApplications());
 
-        $booking2->setStatus(BookingStatusType::APPLICATION);
+        $booking2->setStatus(BookingStatus::Application);
         self::assertCount(0, $bookable->getSimultaneousBookings(), 'nothing shared anymore because applications are excluded');
         self::assertCount(1, $bookable->getSimultaneousApplications());
     }
@@ -88,11 +88,11 @@ class BookableTest extends TestCase
         self::assertCount(1, $bookable->getSimultaneousApplications());
         self::assertCount(0, $bookable->getSimultaneousBookings());
 
-        $bookable->setBookingType(BookingTypeType::SELF_APPROVED);
+        $bookable->setBookingType(BookingType::SelfApproved);
         self::assertCount(0, $bookable->getSimultaneousApplications(), 'empty list because we try to save SQL queries');
         self::assertCount(0, $bookable->getSimultaneousBookings());
 
-        $bookable->setBookingType(BookingTypeType::ADMIN_APPROVED);
+        $bookable->setBookingType(BookingType::AdminApproved);
         self::assertCount(1, $bookable->getSimultaneousApplications(), 'again normal list when there is a chance that simultaneous booking matter');
         self::assertCount(0, $bookable->getSimultaneousBookings());
 
@@ -106,11 +106,11 @@ class BookableTest extends TestCase
         self::assertCount(1, $bookable->getSimultaneousApplications(), 'terminated booking should be excluded');
         self::assertCount(0, $bookable->getSimultaneousBookings());
 
-        $booking2->setStatus(BookingStatusType::PROCESSED);
+        $booking2->setStatus(BookingStatus::Processed);
         self::assertCount(0, $bookable->getSimultaneousApplications(), 'nothing shared anymore because non-applications are excluded');
         self::assertCount(1, $bookable->getSimultaneousBookings());
 
-        $booking2->setStatus(BookingStatusType::BOOKED);
+        $booking2->setStatus(BookingStatus::Booked);
         self::assertCount(0, $bookable->getSimultaneousApplications(), 'nothing shared anymore because non-applications are excluded');
         self::assertCount(1, $bookable->getSimultaneousBookings());
     }

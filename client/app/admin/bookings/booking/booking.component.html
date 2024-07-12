@@ -97,10 +97,10 @@
                             enumName="BookingStatus"
                             formControlName="status"
                             placeholder="Status"
-                            [disabled]="isUpdatePage() && isPendingApplication(BookingType.admin_approved)"
+                            [disabled]="isUpdatePage() && isPendingApplication(BookingType.AdminApproved)"
                             (selectionChange)="update()"
                         />
-                        @if (isUpdatePage() && isPendingApplication(BookingType.admin_approved)) {
+                        @if (isUpdatePage() && isPendingApplication(BookingType.AdminApproved)) {
                             <button
                                 mat-flat-button
                                 color="primary"
@@ -138,9 +138,9 @@
             </div>
 
             @if (
-                isPendingApplication(BookingType.application) &&
+                isPendingApplication(BookingType.Application) &&
                 suggestionVariables &&
-                data.model.status === BookingStatus.application
+                data.model.status === BookingStatus.Application
             ) {
                 <div>
                     <mat-divider class="nat-margin-bottom" />

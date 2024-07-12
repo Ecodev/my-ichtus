@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace ApplicationTest\Repository;
 
-use Application\DBAL\Types\BookingStatusType;
-use Application\DBAL\Types\BookingTypeType;
+use Application\Enum\BookingStatus;
+use Application\Enum\BookingType;
+use Application\Enum\UserStatus;
 use Application\Model\Booking;
 use Application\Model\User;
 use Application\Repository\BookingRepository;
@@ -130,15 +131,15 @@ class BookingRepositoryTest extends AbstractRepositoryTest
         $normal = [
             [
                 'role' => User::ROLE_MEMBER,
-                'status' => User::STATUS_ACTIVE,
+                'status' => UserStatus::Active->value,
                 'bookings' => [
                     [
                         'start_date' => '2019-02-25',
                         'end_date' => null,
-                        'status' => BookingStatusType::BOOKED,
+                        'status' => BookingStatus::Booked->value,
                         'bookable' => [
                             'name' => 'cotisation',
-                            'booking_type' => BookingTypeType::MANDATORY,
+                            'booking_type' => BookingType::Mandatory->value,
                             'is_active' => true,
                             'periodic_price' => '25.00',
                         ],
@@ -146,10 +147,10 @@ class BookingRepositoryTest extends AbstractRepositoryTest
                     [
                         'start_date' => '2020-01-01',
                         'end_date' => null,
-                        'status' => BookingStatusType::BOOKED,
+                        'status' => BookingStatus::Booked->value,
                         'bookable' => [
                             'name' => 'casier',
-                            'booking_type' => BookingTypeType::ADMIN_ASSIGNED,
+                            'booking_type' => BookingType::AdminAssigned->value,
                             'is_active' => true,
                             'periodic_price' => '25.00',
                         ],
@@ -167,13 +168,13 @@ class BookingRepositoryTest extends AbstractRepositoryTest
         ];
 
         $inactiveUser = $normal;
-        $inactiveUser[0]['status'] = User::STATUS_INACTIVE;
+        $inactiveUser[0]['status'] = UserStatus::Inactive->value;
 
         $archivedUser = $normal;
-        $archivedUser[0]['status'] = User::STATUS_ARCHIVED;
+        $archivedUser[0]['status'] = UserStatus::Archived->value;
 
         $newUser = $normal;
-        $newUser[0]['status'] = User::STATUS_NEW;
+        $newUser[0]['status'] = UserStatus::New->value;
 
         $bookingOnlyUser = $normal;
         $bookingOnlyUser[0]['role'] = User::ROLE_BOOKING_ONLY;
@@ -206,16 +207,16 @@ class BookingRepositoryTest extends AbstractRepositoryTest
         $terminatedBookingNextYear[0]['bookings'][0]['end_date'] = '2021-01-01';
 
         $applicationBooking = $normal;
-        $applicationBooking[0]['bookings'][0]['status'] = BookingStatusType::APPLICATION;
+        $applicationBooking[0]['bookings'][0]['status'] = BookingStatus::Application->value;
 
         $processedBooking = $normal;
-        $processedBooking[0]['bookings'][0]['status'] = BookingStatusType::PROCESSED;
+        $processedBooking[0]['bookings'][0]['status'] = BookingStatus::Processed->value;
 
         $selfApprovedBookable = $normal;
-        $selfApprovedBookable[0]['bookings'][0]['bookable']['booking_type'] = BookingTypeType::SELF_APPROVED;
+        $selfApprovedBookable[0]['bookings'][0]['bookable']['booking_type'] = BookingType::SelfApproved->value;
 
         $applicationBookable = $normal;
-        $applicationBookable[0]['bookings'][0]['bookable']['booking_type'] = BookingTypeType::APPLICATION;
+        $applicationBookable[0]['bookings'][0]['bookable']['booking_type'] = BookingType::Application->value;
 
         $inactiveBookable = $normal;
         $inactiveBookable[0]['bookings'][0]['bookable']['is_active'] = false;

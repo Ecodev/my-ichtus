@@ -178,9 +178,9 @@ export class UserService
             postcode: '',
             locality: '',
             country: {id: 1, name: 'Suisse'},
-            status: UserStatus.new,
+            status: UserStatus.New,
             role: UserRole.member,
-            familyRelationship: Relationship.householder,
+            familyRelationship: Relationship.Householder,
             swissSailing: '',
             swissSailingType: null,
             swissWindsurfType: null,
@@ -190,7 +190,7 @@ export class UserService
             door2: false,
             door3: false,
             door4: false,
-            billingType: BillingType.electronic,
+            billingType: BillingType.Electronic,
             remarks: '',
             internalRemarks: '',
             owner: null,
@@ -355,7 +355,7 @@ export class UserService
     }
 
     public activate(id: string): Observable<UpdateUser['updateUser']> {
-        return this.updateNow({id: id, status: UserStatus.active});
+        return this.updateNow({id: id, status: UserStatus.Active});
     }
 
     public logout(): Observable<Logout['logout']> {
@@ -424,7 +424,7 @@ export class UserService
                             {
                                 endDate: {null: {}},
                                 owner: {equal: {value: user.id}},
-                                status: {equal: {value: BookingStatus.application}},
+                                status: {equal: {value: BookingStatus.Application}},
                             },
                         ],
                         joins: {
@@ -432,7 +432,7 @@ export class UserService
                                 conditions: [
                                     {
                                         bookingType: {
-                                            in: {values: [BookingType.application, BookingType.admin_approved]},
+                                            in: {values: [BookingType.Application, BookingType.AdminApproved]},
                                         },
                                     },
                                 ],

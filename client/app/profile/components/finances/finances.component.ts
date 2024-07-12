@@ -127,7 +127,7 @@ export class FinancesComponent
             .afterClosed()
             .subscribe(expense => {
                 if (expense) {
-                    expense.type = ExpenseClaimType.refund;
+                    expense.type = ExpenseClaimType.Refund;
                     this.expenseClaimService.create(expense).subscribe(() => {
                         this.alertService.info('Ta demande de remboursement a été enregistrée');
                     });

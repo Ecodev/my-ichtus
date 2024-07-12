@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Acl\Assertion;
 
+use Application\Enum\UserStatus;
 use Application\Model\User;
 use Ecodev\Felix\Acl\Assertion\NamedAssertion;
 use Laminas\Permissions\Acl\Acl;
@@ -28,7 +29,7 @@ class UserIsActive implements NamedAssertion
     public function assert(Acl $acl, ?RoleInterface $role = null, ?ResourceInterface $resource = null, $privilege = null)
     {
         $currentUser = User::getCurrent();
-        if ($currentUser && $currentUser->getStatus() === User::STATUS_ACTIVE) {
+        if ($currentUser && $currentUser->getStatus() === UserStatus::Active) {
             return true;
         }
 

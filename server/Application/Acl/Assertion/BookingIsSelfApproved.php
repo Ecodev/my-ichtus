@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Acl\Assertion;
 
-use Application\DBAL\Types\BookingTypeType;
+use Application\Enum\BookingType;
 use Application\Model\Booking;
 use Ecodev\Felix\Acl\Assertion\NamedAssertion;
 use Laminas\Permissions\Acl\Acl;
@@ -36,10 +36,10 @@ class BookingIsSelfApproved implements NamedAssertion
         }
 
         $bookingType = $booking->getBookable()->getBookingType();
-        if ($bookingType === BookingTypeType::SELF_APPROVED) {
+        if ($bookingType === BookingType::SelfApproved) {
             return true;
         }
 
-        return $acl->reject('the booking type for this booking is not self approved, but : ' . $bookingType);
+        return $acl->reject('the booking type for this booking is not self approved, but : ' . $bookingType->value);
     }
 }

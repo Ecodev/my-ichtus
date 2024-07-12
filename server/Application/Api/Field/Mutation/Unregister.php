@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Application\Api\Field\Mutation;
 
 use Application\Api\Helper;
+use Application\Enum\UserStatus;
 use Application\Model\User;
 use Application\Repository\UserRepository;
 use Application\Service\MessageQueuer;
@@ -37,7 +38,7 @@ abstract class Unregister implements FieldInterface
                 // Check ACL
                 Helper::throwIfDenied($user, 'update');
 
-                $user->setStatus(User::STATUS_ARCHIVED);
+                $user->setStatus(UserStatus::Archived);
 
                 // Terminate all bookings
                 foreach ($user->getBookings() as $booking) {

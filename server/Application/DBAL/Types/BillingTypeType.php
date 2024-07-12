@@ -4,18 +4,13 @@ declare(strict_types=1);
 
 namespace Application\DBAL\Types;
 
-use Ecodev\Felix\DBAL\Types\EnumType;
+use Application\Enum\BillingType;
+use Ecodev\Felix\DBAL\Types\PhpEnumType;
 
-class BillingTypeType extends EnumType
+class BillingTypeType extends PhpEnumType
 {
-    final public const ELECTRONIC = 'electronic';
-    final public const PAPER = 'paper';
-
-    protected function getPossibleValues(): array
+    protected function getEnumType(): string
     {
-        return [
-            self::ELECTRONIC,
-            self::PAPER,
-        ];
+        return BillingType::class;
     }
 }

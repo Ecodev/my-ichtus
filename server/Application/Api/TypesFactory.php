@@ -16,21 +16,10 @@ class TypesFactory
         $entityManager = $container->get(EntityManager::class);
 
         $invokables = [
-            Enum\UserStatusType::class,
             Enum\UserRoleType::class,
-            Enum\BookableStateType::class,
-            Enum\BookingStatusType::class,
-            Enum\BookingTypeType::class,
             Enum\SexType::class,
-            Enum\RelationshipType::class,
-            Enum\BillingTypeType::class,
             Enum\DoorType::class,
-            Enum\ExpenseClaimStatusType::class,
-            Enum\ExpenseClaimTypeType::class,
             Enum\MessageTypeType::class,
-            Enum\AccountTypeType::class,
-            Enum\SwissSailingTypeType::class,
-            Enum\SwissWindsurfTypeType::class,
             Input\ConfirmRegistrationInputType::class,
             \Ecodev\Felix\Api\Input\PaginationInputType::class,
             MutationType::class,
@@ -83,6 +72,7 @@ class TypesFactory
             ],
             'abstract_factories' => [
                 Output\PaginationTypeFactory::class,
+                \Ecodev\Felix\Api\Enum\EnumAbstractFactory::class,
             ],
         ]);
 

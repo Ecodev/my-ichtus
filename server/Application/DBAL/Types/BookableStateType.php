@@ -4,20 +4,13 @@ declare(strict_types=1);
 
 namespace Application\DBAL\Types;
 
-use Ecodev\Felix\DBAL\Types\EnumType;
+use Application\Enum\BookableState;
+use Ecodev\Felix\DBAL\Types\PhpEnumType;
 
-class BookableStateType extends EnumType
+class BookableStateType extends PhpEnumType
 {
-    final public const GOOD = 'good';
-    final public const USED = 'used';
-    final public const DEGRADED = 'degraded';
-
-    protected function getPossibleValues(): array
+    protected function getEnumType(): string
     {
-        return [
-            self::GOOD,
-            self::USED,
-            self::DEGRADED,
-        ];
+        return BookableState::class;
     }
 }

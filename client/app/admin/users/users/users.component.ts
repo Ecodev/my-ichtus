@@ -114,7 +114,7 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
     }
 
     public isActive(user: Users['users']['items'][0]): boolean {
-        return user.status === UserStatus.active;
+        return user.status === UserStatus.Active;
     }
 
     public isActivable(user: Users['users']['items'][0]): boolean {
@@ -122,7 +122,7 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
     }
 
     public isNew(user: Users['users']['items'][0]): boolean {
-        return user.status === UserStatus.new;
+        return user.status === UserStatus.New;
     }
 
     public override search(naturalSearchSelections: NaturalSearchSelections): void {
