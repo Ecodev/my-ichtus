@@ -20,6 +20,7 @@ import {availabilityStatus, availabilityText, usageStatus as usageStatusFunc, us
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MatDialog} from '@angular/material/dialog';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 export const image: AvailableColumn = {id: 'image', label: 'Image'};
 export const name: AvailableColumn = {id: 'name', label: 'Nom'};
@@ -76,6 +77,7 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
     protected constructor(
         service: T,
         private readonly dialog: MatDialog,
+        private readonly snackbar: MatSnackBar,
         private readonly bookingService: BookingService,
     ) {
         super(service);
@@ -104,7 +106,9 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
     }
 
     /**
-     * Create a bookable application attributed to `this.futureOwner`.
+     * Process the click on the Submit application button
+     * - If its a course, ask the user for confirmation
+     * - For other bookables, create the booking without confirmation
      */
     public createApplication(bookable: ExtractTallOne<T>): void {
         if (!this.futureOwner) {
@@ -133,6 +137,11 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
         }
     }
 
+    /**
+     * Create a booking for the application bookable assigned to `this.futureOwner`
+     * @param bookable the bookable for application to subscribe to
+     * @param participant name of the participant (for courses only)
+     */
     private createApplicationForReal(bookable: ExtractTallOne<T>, participant: string | null): void {
         this.creating.set(bookable.id, true);
         const booking: BookingPartialInput = {status: BookingStatus.Application, remarks: participant ?? ''};
@@ -141,6 +150,9 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
             .pipe(finalize(() => this.creating.delete(bookable.id)))
             .subscribe({
                 error: () => this.apollo.client.reFetchObservableQueries(),
+                complete: () => {
+                    this.snackbar.open('Demande enregistrée', '', {duration: 3000});
+                },
             });
     }
 
