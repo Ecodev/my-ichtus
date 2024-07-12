@@ -195,6 +195,8 @@ class AccountingReport extends AbstractExcel
             'account' => null,
             'balance' => $profitOrLoss, // can be positive of negative
             'balancePrevious' => null,
+            'budgetAllowed' => null,
+            'budgetBalance' => null,
             'format' => $this->color($profitOrLoss),
         ];
 

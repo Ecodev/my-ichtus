@@ -48,9 +48,10 @@ class CrudPermissionsListType extends ObjectType
     {
         $acl = new Acl();
         $result = [];
+        /** @var string $resource */
         foreach ($acl->getResources() as $resource) {
             if (is_a($resource, AbstractModel::class, true)) {
-                $className = (string) $resource;
+                $className = $resource;
                 $parts = explode('\\', $className);
                 $key = lcfirst(end($parts));
 

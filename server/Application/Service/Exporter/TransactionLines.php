@@ -16,7 +16,7 @@ class TransactionLines extends AbstractExcel
         $this->sheet->setTitle('Compta Écritures');
     }
 
-    private ?int $currentTransactionRowStart = null;
+    private int $currentTransactionRowStart = 0;
 
     private ?int $currentTransactionId = null;
 

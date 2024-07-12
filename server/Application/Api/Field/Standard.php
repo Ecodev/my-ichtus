@@ -29,7 +29,7 @@ abstract class Standard
     /**
      * Returns standard fields to query the object.
      *
-     * @param class-string $class
+     * @param class-string<AbstractModel> $class
      *
      * @return PermissiveFieldsConfig
      */
@@ -74,7 +74,7 @@ abstract class Standard
     /**
      * Returns standard fields to mutate the object.
      *
-     * @param class-string $class
+     * @param class-string<AbstractModel> $class
      *
      * @return PermissiveFieldsConfig
      */
@@ -160,7 +160,7 @@ abstract class Standard
     }
 
     /**
-     * @param class-string $class
+     * @param class-string<AbstractModel> $class
      */
     private static function filterInput(string $class, array $input): array
     {
@@ -176,8 +176,8 @@ abstract class Standard
     /**
      * Returns standard mutations to manage many-to-many relations between two given class.
      *
-     * @param class-string $ownerClass The class owning the relation
-     * @param class-string $otherClass The other class, not-owning the relation
+     * @param class-string<AbstractModel> $ownerClass The class owning the relation
+     * @param class-string<AbstractModel> $otherClass The other class, not-owning the relation
      * @param null|string $otherName a specific semantic, if needed, to be use as adder. If `$otherName = 'Parent'`, then we will call `addParent()`
      *
      * @return PermissiveFieldsConfig
@@ -256,7 +256,7 @@ abstract class Standard
     /**
      * Return arguments used for the list.
      *
-     * @param class-string $class
+     * @param class-string<AbstractModel> $class
      */
     public static function getListArguments(string $class, bool $includePagination = true): array
     {
@@ -282,7 +282,7 @@ abstract class Standard
     /**
      * Return arguments used for single item.
      *
-     * @param class-string $class
+     * @param class-string<AbstractModel> $class
      */
     private static function getSingleArguments(string $class): array
     {
@@ -296,7 +296,7 @@ abstract class Standard
     /**
      * Get default sorting values with some fallback for some special cases.
      *
-     * @param class-string $class
+     * @param class-string<AbstractModel> $class
      */
     private static function getDefaultSorting(string $class): array
     {
@@ -340,7 +340,7 @@ abstract class Standard
     }
 
     /**
-     * @param class-string $class
+     * @param class-string<AbstractModel> $class
      */
     public static function createFilteredQueryBuilder(string $class, array $args): QueryBuilder
     {

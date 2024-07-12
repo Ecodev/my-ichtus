@@ -185,6 +185,7 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
                 AND account.id NOT IN (SELECT debit_id FROM transaction_line WHERE debit_id IS NOT NULL) 
             STRING;
 
+        /** @var int $count */
         $count = $this->getEntityManager()->getConnection()->executeStatement($sql);
 
         return $count;

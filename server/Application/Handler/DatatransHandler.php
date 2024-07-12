@@ -173,7 +173,7 @@ class DatatransHandler extends AbstractHandler
         $transaction->setDatatransRef($datatransRef);
 
         // This could be removed later on. For now it's mostly for debugging
-        $transaction->setInternalRemarks(json_encode($body, JSON_PRETTY_PRINT));
+        $transaction->setInternalRemarks(json_encode($body, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR));
 
         $line = new TransactionLine();
         $this->entityManager->persist($line);

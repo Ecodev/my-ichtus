@@ -133,7 +133,7 @@ class ImporterTest extends TestCase
     {
         // Return all couples of xml/php files
         $files = [];
-        foreach (glob('tests/data/importer/*.xml') as $xml) {
+        foreach (glob('tests/data/importer/*.xml') ?: [] as $xml) {
             $php = preg_replace('~xml$~', 'php', $xml);
             if ($php && file_exists($php)) {
                 $name = str_replace('-', ' ', basename($xml, '.xml'));

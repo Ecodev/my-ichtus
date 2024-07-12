@@ -1,5 +1,5 @@
 parameters:
-    level: 6
+    level: 7
     paths:
         - bin/
         - config/
@@ -17,6 +17,7 @@ parameters:
         - '~^Access to an undefined property Laminas\\View\\Renderer\\RendererInterface\:\:\$serverUrl\.$~'
         - '~^Call to an undefined method Laminas\\View\\Renderer\\RendererInterface\:\:.*\(\)\.$~'
         - '~^Call to an undefined method Laminas\\Permissions\\Acl\\Resource\\ResourceInterface::getInstance\(\)\.$~'
+        - '~^Parameter \#1 \$type of static method GraphQL\\Type\\Definition\\Type\:\:nonNull\(\) expects~'
 
         # Tolerate a permissive model, but strict DB
         - '~^Property Application\\Model\\.*\:\:\$.* type mapping mismatch\: property can contain Application\\Model\\.*\|null but database expects Application\\Model\\.*\.$~'
