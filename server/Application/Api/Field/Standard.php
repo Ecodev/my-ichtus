@@ -29,6 +29,8 @@ abstract class Standard
     /**
      * Returns standard fields to query the object.
      *
+     * @param class-string $class
+     *
      * @return PermissiveFieldsConfig
      */
     public static function buildQuery(string $class): iterable
@@ -71,6 +73,8 @@ abstract class Standard
 
     /**
      * Returns standard fields to mutate the object.
+     *
+     * @param class-string $class
      *
      * @return PermissiveFieldsConfig
      */
@@ -155,6 +159,9 @@ abstract class Standard
         ];
     }
 
+    /**
+     * @param class-string $class
+     */
     private static function filterInput(string $class, array $input): array
     {
         $user = User::getCurrent();
@@ -169,8 +176,8 @@ abstract class Standard
     /**
      * Returns standard mutations to manage many-to-many relations between two given class.
      *
-     * @param string $ownerClass The class owning the relation
-     * @param string $otherClass The other class, not-owning the relation
+     * @param class-string $ownerClass The class owning the relation
+     * @param class-string $otherClass The other class, not-owning the relation
      * @param null|string $otherName a specific semantic, if needed, to be use as adder. If `$otherName = 'Parent'`, then we will call `addParent()`
      *
      * @return PermissiveFieldsConfig
@@ -248,6 +255,8 @@ abstract class Standard
 
     /**
      * Return arguments used for the list.
+     *
+     * @param class-string $class
      */
     public static function getListArguments(string $class, bool $includePagination = true): array
     {
@@ -272,6 +281,8 @@ abstract class Standard
 
     /**
      * Return arguments used for single item.
+     *
+     * @param class-string $class
      */
     private static function getSingleArguments(string $class): array
     {
@@ -284,6 +295,8 @@ abstract class Standard
 
     /**
      * Get default sorting values with some fallback for some special cases.
+     *
+     * @param class-string $class
      */
     private static function getDefaultSorting(string $class): array
     {
@@ -326,6 +339,9 @@ abstract class Standard
         return $args;
     }
 
+    /**
+     * @param class-string $class
+     */
     public static function createFilteredQueryBuilder(string $class, array $args): QueryBuilder
     {
         $filters = self::customTypesToScalar($args['filter'] ?? []);

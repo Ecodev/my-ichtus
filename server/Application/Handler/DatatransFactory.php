@@ -10,7 +10,7 @@ use Psr\Container\ContainerInterface;
 
 class DatatransFactory
 {
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): DatatransHandler
     {
         $entityManager = $container->get(EntityManager::class);
         $rendered = $container->get(TemplateRendererInterface::class);

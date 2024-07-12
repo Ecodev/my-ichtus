@@ -1,5 +1,5 @@
 parameters:
-    level: 5
+    level: 6
     paths:
         - bin/
         - config/
@@ -10,6 +10,10 @@ parameters:
         objectManagerLoader: tests/object-manager.php
     inferPrivatePropertyTypeFromConstructor: true
     ignoreErrors:
+        -
+            identifier: missingType.iterableValue
+        -
+            identifier: missingType.generics
         - '~^Access to an undefined property Laminas\\View\\Renderer\\RendererInterface\:\:\$serverUrl\.$~'
         - '~^Call to an undefined method Laminas\\View\\Renderer\\RendererInterface\:\:.*\(\)\.$~'
         - '~^Call to an undefined method Laminas\\Permissions\\Acl\\Resource\\ResourceInterface::getInstance\(\)\.$~'
