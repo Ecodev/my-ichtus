@@ -80,6 +80,7 @@ class AccountingReportTest extends TestCase
         self::assertSame('Budget prévu', $sheet->getCell('E4')->getCalculatedValue(), 'assets, headers, budget allowed');
         self::assertSame('Budget restant', $sheet->getCell('M4')->getCalculatedValue(), 'liabilities, headers, budget balance');
         self::assertSame(500.00, $sheet->getCell('E12')->getCalculatedValue(), '1500 machines budget allowed');
-        self::assertSame(500.00, $sheet->getCell('F12')->getCalculatedValue(), '1500 machines budget balance');
+        self::assertSame(500.00, $sheet->getCell('F12')->getCalculatedValue(), '1500 machines leftover balance');
+        self::assertSame(87.50, $sheet->getCell('F53')->getCalculatedValue(), '6500 admin leftover budget');
     }
 }
