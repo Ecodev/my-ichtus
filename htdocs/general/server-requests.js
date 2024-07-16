@@ -126,7 +126,7 @@ var Requests = {
                                     status: {
                                         // status
                                         equal: {
-                                            value: 'active',
+                                            value: 'Active',
                                         },
                                     },
                                 },
@@ -167,7 +167,7 @@ var Requests = {
                                     status: {
                                         // status
                                         equal: {
-                                            value: 'active',
+                                            value: 'Active',
                                         },
                                     },
                                 },
@@ -202,7 +202,7 @@ var Requests = {
                                     status: {
                                         // status
                                         equal: {
-                                            value: 'active',
+                                            value: 'Active',
                                         },
                                     },
                                 },
@@ -236,7 +236,7 @@ var Requests = {
                                     status: {
                                         // status
                                         equal: {
-                                            value: 'active',
+                                            value: 'Active',
                                         },
                                     },
                                 },
@@ -372,7 +372,7 @@ var Requests = {
                             {
                                 bookingType: {
                                     like: {
-                                        value: 'self_approved',
+                                        value: 'SelfApproved',
                                     },
                                 },
                                 isActive: {
@@ -590,7 +590,7 @@ var Requests = {
                                 {
                                     bookingType: {
                                         like: {
-                                            value: 'self_approved',
+                                            value: 'SelfApproved',
                                         },
                                     },
                                 },
@@ -822,7 +822,7 @@ var Requests = {
                             {
                                 status: {
                                     equal: {
-                                        value: 'booked',
+                                        value: 'Booked',
                                     },
                                 },
                                 endDate: {
@@ -844,7 +844,7 @@ var Requests = {
                                     {
                                         bookingType: {
                                             equal: {
-                                                value: 'self_approved',
+                                                value: 'SelfApproved',
                                             },
                                         },
                                     },
@@ -859,7 +859,7 @@ var Requests = {
                             {
                                 status: {
                                     equal: {
-                                        value: 'booked',
+                                        value: 'Booked',
                                     },
                                 },
                                 endDate: {
@@ -914,7 +914,7 @@ var Requests = {
                             {
                                 status: {
                                     equal: {
-                                        value: 'booked',
+                                        value: 'Booked',
                                     },
                                 },
                                 endDate: {
@@ -942,7 +942,7 @@ var Requests = {
                                     {
                                         bookingType: {
                                             equal: {
-                                                value: 'self_approved',
+                                                value: 'SelfApproved',
                                             },
                                         },
                                     },
@@ -957,7 +957,7 @@ var Requests = {
                             {
                                 status: {
                                     equal: {
-                                        value: 'booked',
+                                        value: 'Booked',
                                     },
                                 },
                                 endDate: {
@@ -1222,7 +1222,7 @@ var Requests = {
                             {
                                 status: {
                                     equal: {
-                                        value: 'booked',
+                                        value: 'Booked',
                                     },
                                 },
                                 bookable: {
@@ -1251,7 +1251,7 @@ var Requests = {
                                     {
                                         bookingType: {
                                             equal: {
-                                                value: 'self_approved',
+                                                value: 'SelApproved',
                                             },
                                         },
                                     },
@@ -1327,7 +1327,7 @@ var Requests = {
                                     {
                                         bookingType: {
                                             equal: {
-                                                value: 'self_approved',
+                                                value: 'SelfApproved',
                                             },
                                         },
                                     },
