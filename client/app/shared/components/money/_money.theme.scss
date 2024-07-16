@@ -13,11 +13,11 @@
         }
 
         .limited {
-            color: mat.get-color-from-palette($accent);
+            color: mat.m2-get-color-from-palette($accent);
         }
 
         .negative {
-            color: mat.get-color-from-palette($warn);
+            color: mat.m2-get-color-from-palette($warn);
         }
     }
 }

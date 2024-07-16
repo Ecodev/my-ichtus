@@ -11,14 +11,14 @@
     // and they need to have the correct background color in dark mode (otherwise we get black text on black background)
     @at-root app-root > div {
         & > div {
-            background: mat.get-color-from-palette($background, background);
+            background: mat.m2-get-color-from-palette($background, background);
         }
     }
 
     ng-progress {
         .ng-bar {
-            box-shadow: mat.get-color-from-palette($accent) 0 0 5px !important;
-            background-color: mat.get-color-from-palette($accent) !important;
+            box-shadow: mat.m2-get-color-from-palette($accent) 0 0 5px !important;
+            background-color: mat.m2-get-color-from-palette($accent) !important;
             height: 3px !important;
         }
 
@@ -26,7 +26,7 @@
             top: 0 !important;
             transform: none !important;
             opacity: 1 !important;
-            box-shadow: mat.get-color-from-palette($accent) 0 0 20px !important;
+            box-shadow: mat.m2-get-color-from-palette($accent) 0 0 20px !important;
             width: 25px !important;
         }
     }
@@ -45,17 +45,17 @@
     }
 
     .icon-button-circle-primary {
-        background-color: mat.get-color-from-palette($primary) !important;
-        color: mat.get-color-from-palette($primary, default-contrast) !important;
+        background-color: mat.m2-get-color-from-palette($primary) !important;
+        color: mat.m2-get-color-from-palette($primary, default-contrast) !important;
     }
 
     .icon-button-circle-accent {
-        background-color: mat.get-color-from-palette($accent) !important;
-        color: mat.get-color-from-palette($accent, default-contrast) !important;
+        background-color: mat.m2-get-color-from-palette($accent) !important;
+        color: mat.m2-get-color-from-palette($accent, default-contrast) !important;
     }
 
     .icon-button-circle-warn {
-        background-color: mat.get-color-from-palette($warn) !important;
-        color: mat.get-color-from-palette($warn, default-contrast) !important;
+        background-color: mat.m2-get-color-from-palette($warn) !important;
+        color: mat.m2-get-color-from-palette($warn, default-contrast) !important;
     }
 }

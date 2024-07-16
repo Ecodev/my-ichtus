@@ -14,7 +14,7 @@
             }
 
             &.negative {
-                color: mat.get-color-from-palette($warn);
+                color: mat.m2-get-color-from-palette($warn);
             }
         }
 
@@ -30,8 +30,8 @@
             }
 
             &.negative {
-                background: mat.get-color-from-palette($warn);
-                color: mat.get-color-from-palette($warn, default-contrast);
+                background: mat.m2-get-color-from-palette($warn);
+                color: mat.m2-get-color-from-palette($warn, default-contrast);
             }
         }
     }

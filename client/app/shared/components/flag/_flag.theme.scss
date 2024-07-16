@@ -9,23 +9,23 @@
     $foreground: map.get($theme, foreground);
 
     app-flag.full {
-        background: mat.get-color-from-palette($warn);
-        color: mat.get-color-from-palette($warn, default-contrast);
+        background: mat.m2-get-color-from-palette($warn);
+        color: mat.m2-get-color-from-palette($warn, default-contrast);
     }
 
     app-flag.unlimited,
     app-flag.available {
         background: rgb(71, 199, 0);
-        color: mat.get-color-from-palette($warn, default-contrast);
+        color: mat.m2-get-color-from-palette($warn, default-contrast);
     }
 
     app-flag.waitingList {
-        background: mat.get-color-from-palette($accent);
-        color: mat.get-color-from-palette($accent, default-contrast);
+        background: mat.m2-get-color-from-palette($accent);
+        color: mat.m2-get-color-from-palette($accent, default-contrast);
     }
 
     app-flag.pending-application:not(.full) {
-        background: mat.get-color-from-palette($accent);
-        color: mat.get-color-from-palette($accent, default-contrast);
+        background: mat.m2-get-color-from-palette($accent);
+        color: mat.m2-get-color-from-palette($accent, default-contrast);
     }
 }

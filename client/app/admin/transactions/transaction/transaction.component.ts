@@ -242,7 +242,7 @@ export class TransactionComponent
                 first(),
             )
             .subscribe(event => {
-                if (event.url.match(/^\/admin\/transaction\/\d+$/)) {
+                if (/^\/admin\/transaction\/\d+$/.exec(event.url)) {
                     this.goToNew();
                 }
             });

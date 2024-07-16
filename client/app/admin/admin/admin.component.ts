@@ -52,17 +52,17 @@ export class AdminComponent {
             this.adminUserRouteActive =
                 segments[0]?.path === 'admin' &&
                 segments[1]?.path === 'user' &&
-                (segments[2] === undefined || segments[2].path === 'new' || !!segments[2].path.match(/^\d+$/));
+                (segments[2] === undefined || segments[2].path === 'new' || !!/^\d+$/.exec(segments[2].path));
 
             this.adminBookableRouteActive =
                 segments[0]?.path === 'admin' &&
                 segments[1]?.path === 'bookable' &&
-                (segments[2] === undefined || segments[2].path === 'new' || !!segments[2].path.match(/^\d+$/));
+                (segments[2] === undefined || segments[2].path === 'new' || !!/^\d+$/.exec(segments[2].path));
 
             this.adminBookingRouteActive =
                 segments[0]?.path === 'admin' &&
                 segments[1]?.path === 'booking' &&
-                (segments[2] === undefined || segments[2].path === 'new' || !!segments[2].path.match(/^\d+$/));
+                (segments[2] === undefined || segments[2].path === 'new' || !!/^\d+$/.exec(segments[2].path));
         });
     }
 }

@@ -64,12 +64,12 @@ export class QrService {
                 if (this.video) {
                     this.video.srcObject = stream;
                     this.video.setAttribute('playsinline', 'true'); // required to tell iOS safari we don't want fullscreen
-                    this.video.play().catch(err => this.scanObservable.error(err));
+                    this.video.play().catch((err: unknown) => this.scanObservable.error(err));
                 }
 
                 this.queueDecoding();
             })
-            .catch(err => {
+            .catch((err: unknown) => {
                 this.scanObservable.error(err);
             });
     }

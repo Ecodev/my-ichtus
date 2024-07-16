@@ -239,7 +239,7 @@
                                     [main]="data.model"
                                     [service]="licenseService"
                                     [filter]="{
-                                        groups: [{conditions: [{bookables: {have: {values: [data.model.id]}}}]}]
+                                        groups: [{conditions: [{bookables: {have: {values: [data.model.id]}}}]}],
                                     }"
                                 >
                                     <ng-template let-item="item">
@@ -263,7 +263,7 @@
                                     [main]="data.model"
                                     [service]="bookableTagService"
                                     [filter]="{
-                                        groups: [{conditions: [{bookables: {have: {values: [data.model.id]}}}]}]
+                                        groups: [{conditions: [{bookables: {have: {values: [data.model.id]}}}]}],
                                     }"
                                 >
                                     <ng-template let-item="item">
@@ -298,7 +298,7 @@
                 <app-transaction-lines
                     [persistSearch]="false"
                     [forcedVariables]="{
-                        filter: {groups: [{conditions: [{bookable: {equal: {value: data.model.id}}}]}]}
+                        filter: {groups: [{conditions: [{bookable: {equal: {value: data.model.id}}}]}]},
                     }"
                 />
             </mat-tab>

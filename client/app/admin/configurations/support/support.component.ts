@@ -65,7 +65,7 @@ export class SupportComponent extends NaturalAbstractController implements OnIni
     }
 
     public ngOnInit(): void {
-        this.readonly = this.route.snapshot.data.readonly || (this.data?.data && this.data.data.readonly);
+        this.readonly = this.route.snapshot.data.readonly || this.data?.data?.readonly;
         this.configurationService
             .get(this.getConfigKey())
             .pipe(takeUntil(this.ngUnsubscribe))

@@ -160,7 +160,7 @@
                     <app-transaction-lines
                         [persistSearch]="false"
                         [forcedVariables]="{
-                            filter: {groups: [{conditions: [{transaction: {equal: {value: data.model.id}}}]}]}
+                            filter: {groups: [{conditions: [{transaction: {equal: {value: data.model.id}}}]}]},
                         }"
                         [selectedColumns]="[
                             'transactionDate',
@@ -169,7 +169,7 @@
                             'balance',
                             'account',
                             'isReconciled',
-                            'tag'
+                            'tag',
                         ]"
                         [hideFab]="true"
                     />

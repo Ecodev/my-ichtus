@@ -43,10 +43,10 @@ $mat-ichtus: (
 );
 
 // Configure themes
-$ichtus-blue: mat.define-palette($mat-ichtus);
-$ichtus-orange: mat.define-palette(mat.$orange-palette);
-$ichtus-red: mat.define-palette(mat.$red-palette);
-$ichtus-theme: mat.define-light-theme(
+$ichtus-blue: mat.m2-define-palette($mat-ichtus);
+$ichtus-orange: mat.m2-define-palette(mat.$m2-orange-palette);
+$ichtus-red: mat.m2-define-palette(mat.$m2-red-palette);
+$ichtus-theme: mat.m2-define-light-theme(
     (
         color: (
             primary: $ichtus-blue,
@@ -95,11 +95,11 @@ $ichtus-theme: mat.define-light-theme(
 // Only 30 modules used on a total of 37 modules
 
 // This fake theme is only use to tell Material we use Material v2, and not v3. Colors are never used.
-$fake-material-v2-theme: mat.define-light-theme(
+$fake-material-v2-theme: mat.m2-define-light-theme(
     (
         color: (
-            primary: mat.define-palette(mat.$indigo-palette),
-            accent: mat.define-palette(mat.$indigo-palette),
+            primary: mat.m2-define-palette(mat.$m2-indigo-palette),
+            accent: mat.m2-define-palette(mat.$m2-indigo-palette),
         ),
     )
 );

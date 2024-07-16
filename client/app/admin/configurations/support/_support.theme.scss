@@ -10,14 +10,14 @@
         a {
             border-bottom-width: 2px;
             border-bottom-style: solid;
-            border-color: mat.get-color-from-palette($accent);
+            border-color: mat.m2-get-color-from-palette($accent);
 
-            color: mat.get-color-from-palette($foreground, text);
+            color: mat.m2-get-color-from-palette($foreground, text);
             text-decoration: none;
 
             &:hover {
-                border-color: mat.get-color-from-palette($accent);
-                color: mat.get-color-from-palette($accent);
+                border-color: mat.m2-get-color-from-palette($accent);
+                color: mat.m2-get-color-from-palette($accent);
             }
         }
 
