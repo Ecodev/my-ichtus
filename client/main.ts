@@ -1,4 +1,11 @@
-import {APP_INITIALIZER, enableProdMode, importProvidersFrom, inject, LOCALE_ID} from '@angular/core';
+import {
+    APP_INITIALIZER,
+    enableProdMode,
+    importProvidersFrom,
+    inject,
+    LOCALE_ID,
+    provideZoneChangeDetection,
+} from '@angular/core';
 import {environment} from './environments/environment';
 import {AppComponent} from './app/app.component';
 import {TimeagoCustomFormatter, TimeagoFormatter, TimeagoIntl, TimeagoModule} from 'ngx-timeago';
@@ -94,6 +101,7 @@ const iconsConfig: NaturalIconsConfig = {
 
 bootstrapApplication(AppComponent, {
     providers: [
+        provideZoneChangeDetection({eventCoalescing: true}),
         importProvidersFrom(
             TimeagoModule.forRoot({
                 intl: {provide: TimeagoIntl, useClass: TimeagoIntl},
