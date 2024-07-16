@@ -3,7 +3,7 @@ import {environment} from './environments/environment';
 import {AppComponent} from './app/app.component';
 import {TimeagoCustomFormatter, TimeagoFormatter, TimeagoIntl, TimeagoModule} from 'ngx-timeago';
 import {routes} from './app/app-routing.module';
-import {provideAnimations} from '@angular/platform-browser/animations';
+import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 import {bootstrapApplication} from '@angular/platform-browser';
 import {Apollo} from 'apollo-angular';
 import {MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions} from '@angular/material/tooltip';
@@ -102,7 +102,7 @@ bootstrapApplication(AppComponent, {
         ),
         Apollo,
         provideNativeDateAdapter(),
-        provideAnimations(),
+        provideAnimationsAsync(),
         naturalProviders,
         provideErrorHandler(localConfig.log.url, LoggerExtraService),
         provideSeo({
