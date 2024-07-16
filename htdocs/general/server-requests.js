@@ -21,7 +21,7 @@ var Requests = {
                 //console.log("result of login :", result);
 
                 if (result != null) {
-                    if (result.login == 'bookingonly') {
+                    if (result.login === 'bookingonly') {
                         Requests.isConnected();
                     } else {
                         console.error('Mauvais utilisateur connecté... (' + user.name + ')');
@@ -61,7 +61,7 @@ var Requests = {
             }
             // connecté
             else {
-                if (user.login == 'bookingonly') {
+                if (user.login === 'bookingonly') {
                     Requests.isConnected();
                 } else {
                     console.error('Mauvais utilisateur connecté... (' + user.name + ')');
