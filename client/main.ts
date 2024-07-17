@@ -36,7 +36,6 @@ import {
     provideIcons,
     provideSeo,
 } from '@ecodev/natural';
-import {strings as frenchStrings} from 'ngx-timeago/language-strings/fr-short';
 import {DATE_PIPE_DEFAULT_OPTIONS, DatePipeConfig, registerLocaleData} from '@angular/common';
 import localeFRCH from '@angular/common/locales/fr-CH';
 import localeDECH from '@angular/common/locales/de-CH';
@@ -169,7 +168,21 @@ bootstrapApplication(AppComponent, {
                 return () => {
                     dateAdapter.setLocale('fr-ch');
 
-                    intl.strings = frenchStrings;
+                    intl.strings = {
+                        prefixAgo: 'il y a',
+                        prefixFromNow: "d'ici",
+                        seconds: "moins d'une minute",
+                        minute: 'une minute',
+                        minutes: '%d minutes',
+                        hour: 'une heure',
+                        hours: '%d heures',
+                        day: 'un jour',
+                        days: '%d jours',
+                        month: 'un mois',
+                        months: '%d mois',
+                        year: 'un an',
+                        years: '%d ans',
+                    };
                     intl.changes.next();
                 };
             },

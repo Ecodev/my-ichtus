@@ -1,6 +1,6 @@
 import {Directive, inject, OnInit} from '@angular/core';
 import {UsageBookableService} from '../services/usage-bookable.service';
-import {AvailableColumn, NaturalAbstractList} from '@ecodev/natural';
+import {AvailableColumn, ExtractTallOne, NaturalAbstractList} from '@ecodev/natural';
 import {
     BookingPartialInput,
     Bookings,
@@ -12,7 +12,6 @@ import {
 import {BookingService} from '../../bookings/services/booking.service';
 import {BookableService} from '../services/bookable.service';
 import {ApplicationConfirmComponent} from '../application-confirm/application-confirm.component';
-import {ExtractTallOne} from '@ecodev/natural/lib/types/types';
 import {Observable, of, switchMap} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 import {Apollo} from 'apollo-angular';
