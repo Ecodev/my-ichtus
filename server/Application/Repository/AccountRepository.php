@@ -19,8 +19,6 @@ use Money\Money;
  */
 class AccountRepository extends AbstractRepository implements LimitedAccessSubQuery
 {
-    final public const ACCOUNT_ID_FOR_BANK = 10025;
-
     /**
      * In memory max code that keep being incremented if we create several account at once without flushing in DB.
      */
