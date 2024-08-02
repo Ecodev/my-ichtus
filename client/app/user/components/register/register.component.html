@@ -126,7 +126,7 @@
                                     <span> {{ bookable.initialPrice | currency: 'CHF' }}</span>
                                 }
                             </td>
-                            <td *matFooterCellDef mat-footer-cellnatural-align-right>
+                            <td *matFooterCellDef mat-footer-cell natural-align-right>
                                 @if (mandatoryBookables.data?.totalInitialPrice > 0) {
                                     <span>
                                         {{ mandatoryBookables.data?.totalInitialPrice | currency: 'CHF' }}
@@ -144,7 +144,7 @@
                                     <span> {{ bookable.periodicPrice | currency: 'CHF' }}</span>
                                 }
                             </td>
-                            <td *matFooterCellDef mat-footer-cellnatural-align-right>
+                            <td *matFooterCellDef mat-footer-cell natural-align-right>
                                 @if (mandatoryBookables.data?.totalPeriodicPrice > 0) {
                                     <span>
                                         {{ mandatoryBookables.data?.totalPeriodicPrice | currency: 'CHF' }}
