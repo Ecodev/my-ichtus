@@ -4,7 +4,7 @@ import {Page, Response} from '@playwright/test';
 import {getOperationName} from '@apollo/client/utilities';
 
 export function formControlName(name: string): string {
-    return `input[formcontrolname="${name}"],mat-checkbox[formcontrolname="${name}"],natural-select[formcontrolname="${name}"]`;
+    return `input[formcontrolname="${name}"],mat-checkbox[formcontrolname="${name}"] input,natural-select[formcontrolname="${name}"]`;
 }
 
 export function buttonLabel(label: string): string {
