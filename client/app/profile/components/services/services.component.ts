@@ -111,13 +111,13 @@ export class ServicesComponent implements OnInit, OnChanges {
 
     public unregister(): void {
         this.alertService
-            .confirm('Démission', 'Veux-tu quitter le club Ichtus ?', 'Démissioner définitivement')
+            .confirm('Démission', 'Veux-tu quitter le club Ichtus ?', 'Démissionner définitivement')
             .subscribe(confirmed => {
                 if (confirmed) {
                     this.userService.unregister(this.user).subscribe(() => {
                         // If viewer is the unregistered viewer, log him out.
                         if (this.route.snapshot.data.viewer.id === this.user.id) {
-                            this.alertService.info('Tu as démissioné', 5000);
+                            this.alertService.info('Tu as démissionné', 5000);
                             this.userService.logout();
                         } else {
                             // If viewer is different (e.g Admin), don't log out
