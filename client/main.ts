@@ -1,12 +1,4 @@
-import {
-    APP_INITIALIZER,
-    enableProdMode,
-    importProvidersFrom,
-    inject,
-    LOCALE_ID,
-    provideZoneChangeDetection,
-} from '@angular/core';
-import {environment} from './environments/environment';
+import {APP_INITIALIZER, importProvidersFrom, inject, LOCALE_ID, provideZoneChangeDetection} from '@angular/core';
 import {AppComponent} from './app/app.component';
 import {TimeagoCustomFormatter, TimeagoFormatter, TimeagoIntl, TimeagoModule} from 'ngx-timeago';
 import {routes} from './app/app-routing.module';
@@ -41,10 +33,6 @@ import localeFRCH from '@angular/common/locales/fr-CH';
 import localeDECH from '@angular/common/locales/de-CH';
 import {provideRouter, withRouterConfig} from '@angular/router';
 import {MAT_TABS_CONFIG, MatTabsConfig} from '@angular/material/tabs';
-
-if (environment.production) {
-    enableProdMode();
-}
 
 registerLocaleData(localeFRCH);
 registerLocaleData(localeDECH);

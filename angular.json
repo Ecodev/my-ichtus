@@ -49,12 +49,6 @@
                     },
                     "configurations": {
                         "production": {
-                            "fileReplacements": [
-                                {
-                                    "replace": "client/environments/environment.ts",
-                                    "with": "client/environments/environment.prod.ts"
-                                }
-                            ],
                             "outputHashing": "all",
                             "budgets": [
                                 {

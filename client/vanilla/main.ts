@@ -1,5 +1,4 @@
-import {APP_INITIALIZER, enableProdMode, inject, NgZone, ɵNoopNgZone} from '@angular/core';
-import {environment} from './environments/environment';
+import {APP_INITIALIZER, inject, NgZone, ɵNoopNgZone} from '@angular/core';
 import {createApplication} from '@angular/platform-browser';
 import {APP_BASE_HREF} from '@angular/common';
 import {Apollo, APOLLO_OPTIONS} from 'apollo-angular';
@@ -12,10 +11,6 @@ import {UserForVanillaService} from './user-for-vanilla.service';
 import {BookableForVanillaService} from './bookable-for-vanilla.service';
 import {BookingForVanillaService} from './booking-for-vanilla.service';
 import {localConfig} from '../app/shared/generated-config';
-
-if (environment.production) {
-    enableProdMode();
-}
 
 function apiUrl(): string {
     return new URL('/graphql', import.meta.url).toString();
