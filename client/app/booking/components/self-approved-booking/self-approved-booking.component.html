@@ -45,6 +45,7 @@
                     <mat-form-field>
                         <mat-label>Nombre de participants</mat-label>
                         <input
+                            #participantCount="ngModel"
                             matInput
                             type="number"
                             step="1"
@@ -82,4 +83,8 @@
     </div>
 </div>
 
-<natural-fixed-button icon="check" (click)="createBooking()" />
+<natural-fixed-button
+    icon="check"
+    [disabled]="participantCount.invalid ?? true"
+    (click)="participantCount.valid && createBooking()"
+/>
