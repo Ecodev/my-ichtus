@@ -516,7 +516,6 @@ class AccountingReport extends AbstractExcel
             // Column: balance at date
             if ($firstLine) {
                 $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['balance']);
-                $currentTotalCells = Coordinate::stringFromColumnIndex($this->column) . $this->row;
             }
             // Store the coordinate of the cell to later compute totals
             $allData[$index]['cell'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
@@ -527,7 +526,6 @@ class AccountingReport extends AbstractExcel
                 $allData[$index]['cellPrevious'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
                 if ($firstLine) {
                     $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['balance']);
-                    $previousTotalCells = Coordinate::stringFromColumnIndex($this->column) . $this->row;
                 }
                 $this->write($data['balancePrevious'], $maybeBold, $data['formatPrevious'] ?? []);
             }
@@ -556,17 +554,10 @@ class AccountingReport extends AbstractExcel
             $this->lastDataRow = max($this->lastDataRow, $this->row);
         }
 
-        // Replace the total value computed from database by a formula computed from the child accounts cells
+        // Compute the sum of budgets columns using an Excel formula
+        // We don't do it for account balance, since the total of group accounts is computed in DB
         // Level 2 (= direct child accounts)
-        $cellsToSum = $this->cellsToSum($allData, 2, 'cellBalance');
-        if ($cellsToSum) {
-            $this->sheet->setCellValue($currentTotalCells, '=SUM(' . implode(',', $cellsToSum) . ')');
-        }
         if ($this->showBudget) {
-            $cellsToSum = $this->cellsToSum($allData, 2, 'cellBalancePrevious');
-            if ($cellsToSum) {
-                $this->sheet->setCellValue($previousTotalCells, '=SUM(' . implode(',', $cellsToSum) . ')');
-            }
             $cellsToSum = $this->cellsToSum($allData, 2, 'cellBudgetAllowed');
             if ($cellsToSum) {
                 $this->sheet->setCellValue($budgetAllowedTotalCells, '=SUM(' . implode(',', $cellsToSum) . ')');
