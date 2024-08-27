@@ -123,8 +123,8 @@ export const deleteAccounts = gql`
 `;
 
 export const exportAccountingReport = gql`
-    mutation ExportAccountingReport($date: Date, $showBudget: Boolean!) {
-        exportAccountingReport(date: $date, showBudget: $showBudget)
+    mutation ExportAccountingReport($date: Date!, $datePrevious: Date, $showBudget: Boolean!) {
+        exportAccountingReport(date: $date, datePrevious: $datePrevious, showBudget: $showBudget)
     }
 `;
 

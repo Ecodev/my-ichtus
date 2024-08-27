@@ -36,6 +36,7 @@ type AccountingDialogData = never;
 type AccountingClosingDialogResult = Date;
 type AccountingExportDialogResult = {
     date: Date;
+    datePrevious: null | Date;
     showBudget: boolean;
 };
 
@@ -142,7 +143,7 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
                 if (result) {
                     button.disabled = true;
                     this.accountService
-                        .getReportExportLink(result.date, result.showBudget)
+                        .getReportExportLink(result.date, result.datePrevious, result.showBudget)
                         .pipe(finalize(() => (button.disabled = false)))
                         .subscribe(url => {
                             window.location.href = url;

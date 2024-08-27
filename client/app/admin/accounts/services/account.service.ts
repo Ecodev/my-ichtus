@@ -121,10 +121,12 @@ export class AccountService extends NaturalAbstractModelService<
 
     public getReportExportLink(
         date: Date,
+        datePrevious: Date | null = null,
         showBudget: boolean,
     ): Observable<ExportAccountingReport['exportAccountingReport']> {
         const variables: ExportAccountingReportVariables = {
             date: formatIsoDateTime(date),
+            datePrevious: datePrevious ? formatIsoDateTime(datePrevious) : null,
             showBudget: showBudget,
         };
 

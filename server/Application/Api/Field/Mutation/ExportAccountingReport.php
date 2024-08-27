@@ -19,7 +19,8 @@ abstract class ExportAccountingReport implements FieldInterface
             'type' => Type::nonNull(Type::string()),
             'description' => 'Prepare an accounting report and return the URL to download it',
             'args' => [
-                'date' => _types()->get('Date'),
+                'date' => Type::nonNull(_types()->get('Date')),
+                'datePrevious' => _types()->get('Date'),
                 'showBudget' => Type::nonNull(Type::boolean()),
             ],
             'resolve' => function ($root, array $args, SessionInterface $session): string {
@@ -30,6 +31,9 @@ abstract class ExportAccountingReport implements FieldInterface
 
                 if ($args['date']) {
                     $exporter->setDate($args['date']);
+                }
+                if ($args['datePrevious']) {
+                    $exporter->setDatePrevious($args['datePrevious']);
                 }
                 $exporter->showBudget($args['showBudget']);
 
