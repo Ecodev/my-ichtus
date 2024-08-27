@@ -489,6 +489,10 @@ class AccountingReport extends AbstractExcel
      */
     private function balanceSheet(int $initialColumn, array &$allData): void
     {
+        // Store coordinates (ie. E3) of the 2nd level account budget cells to later use in formula
+        $budgetAllowedTotalCells = '';
+        $budgetBalanceTotalCells = '';
+
         $firstLine = true;
 
         foreach ($allData as $index => $data) {
