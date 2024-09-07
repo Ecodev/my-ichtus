@@ -56,7 +56,6 @@ function createProgressBar() {
 
 let currentProgress = 0;
 function changeProgress(c) {
-
     currentProgress = c;
     for (let i = 1; i < 5; i++) {
         document.getElementsByClassName('divTabCahierProgressStep')[i - 1].className = 'divTabCahierProgressStep';

@@ -479,7 +479,7 @@ const Cahier = {
                         allDivTabCahierProgressTexts[i].innerHTML =
                             Cahier.bookings[0].destination + ' & ' + Cahier.bookings[0].participantCount + ' P.';
                         break;
-                    case 2:
+                    case 2: {
                         let txt = '';
                         for (let k = 0; k < Cahier.bookings[0].bookables.length; k++) {
                             if (Cahier.bookings[0].bookables[k].code != null) {
@@ -491,6 +491,7 @@ const Cahier = {
                         txt = txt.substring(0, txt.length - 2);
                         allDivTabCahierProgressTexts[i].innerHTML = txt;
                         break;
+                    }
                     default:
                         break;
                 }

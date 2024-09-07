@@ -3,17 +3,20 @@ function loadConfirmation() {
     let elem = $('divTabConfirmationOneBookingContainer');
     openBooking('confirmation', elem);
 }
+
 function popBooking(_booking) {
     // without all bookables... so if the booking is not complete
     let elem = openPopUp();
     openBooking('infos', elem);
     Requests.getBookingWithBookablesInfos(_booking, 'infos', elem);
 }
+
 function popBookingInfos(_booking) {
     let elem = openPopUp();
     openBooking('infos', elem);
     actualizePopBooking(_booking, 'infos', elem);
 }
+
 function popBookingFinish(_booking) {
     let elem = openPopUp();
     openBooking('finish', elem);
