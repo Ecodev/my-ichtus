@@ -5,19 +5,18 @@ import {Requests} from '../general/server-requests.js';
 let lastPeople = [];
 
 export function popUser(nbr = 0, elem = openPopUp()) {
-    let container;
-    container = div(elem);
+    const container = div(elem);
     container.id = nbr;
     container.classList.add('PopUpUserContainer');
 
     if (elem != $('divTabCahierMemberContainer')) {
         container.classList.add('Boxes');
-        let close = div(container);
+        const close = div(container);
         close.className = 'divPopUpClose';
         close.onclick = function () {
             closePopUp({target: elem}, elem);
         };
-        let d = div(container);
+        const d = div(container);
         d.style.textAlign = 'center';
         d.style.fontSize = '25px';
         d.innerHTML = 'Nom et prénom du membre';
@@ -25,7 +24,7 @@ export function popUser(nbr = 0, elem = openPopUp()) {
         grayBar(container, 5);
     }
 
-    let i1 = document.createElement('input');
+    const i1 = document.createElement('input');
     i1.autocomplete = 'off';
     i1.id = 'inputTabCahierSearch';
     i1.title = 'Veuillez écrire votre nom et prénom';
@@ -58,19 +57,19 @@ export function popUser(nbr = 0, elem = openPopUp()) {
         i1.focus();
     }
 
-    let dd = div(container);
+    const dd = div(container);
     dd.id = 'divTabCahierSearchResult';
 }
 
 let enterSearchPosition = 0;
 function Search(e) {
-    let text = $('inputTabCahierSearch').value.toUpperCase();
+    const text = $('inputTabCahierSearch').value.toUpperCase();
 
     if (e.keyCode == 13) {
-        let all = document.getElementsByClassName('divTabCahierResultEntry');
+        const all = document.getElementsByClassName('divTabCahierResultEntry');
         for (let i = 0; i < all.length; i++) {
             if (typeof all[i].getElementsByTagName('img')[0] != 'undefined') {
-                let nbr = parseInt(document.getElementsByClassName('PopUpUserContainer')[0].id); // modifier problem si plusieurs popUp ouverts...
+                const nbr = parseInt(document.getElementsByClassName('PopUpUserContainer')[0].id); // modifier problem si plusieurs popUp ouverts...
 
                 Cahier.setOwner(nbr, lastPeople[all[i].id]);
             }
@@ -93,14 +92,14 @@ function SearchDown(e) {
         }
         if (lastPeople.length != 0) {
             for (let i = 0; i < lastPeople.length; i++) {
-                let elem = document.getElementsByClassName('divTabCahierResultEntry')[i];
+                const elem = document.getElementsByClassName('divTabCahierResultEntry')[i];
 
                 elem.style.backgroundColor = '';
                 if (typeof elem.getElementsByTagName('img')[0] != 'undefined') {
                     elem.removeChild(elem.getElementsByTagName('img')[0]);
                 }
                 if (i == ((enterSearchPosition % lastPeople.length) + lastPeople.length) % lastPeople.length) {
-                    let img = document.createElement('img');
+                    const img = document.createElement('img');
                     img.id = 'imgTabCahierSearchEnter';
                     img.src = 'img/icons/enter.png';
                     elem.appendChild(img);
@@ -119,11 +118,11 @@ export function createSearchEntries(PeopleCorresponding) {
     $('divTabCahierSearchResult').innerHTML = '';
 
     if (PeopleCorresponding.length == 0) {
-        let divResult = document.createElement('div');
+        const divResult = document.createElement('div');
         divResult.classList.add('divTabCahierResultEntry');
         $('divTabCahierSearchResult').appendChild(divResult);
 
-        let span1 = document.createElement('span');
+        const span1 = document.createElement('span');
         span1.classList.add('spanTabCahierSurName');
         span1.innerHTML = 'Aucun résultat'; //. Cliquez pour vous rendre sur <c style='color:blue; text-decoration:underline;'> ichtus.ch </c>";
         divResult.appendChild(span1);
@@ -133,12 +132,12 @@ export function createSearchEntries(PeopleCorresponding) {
         lastPeople = [];
     } else {
         for (let i = 0; i < PeopleCorresponding.length; i++) {
-            let divResult = document.createElement('div');
+            const divResult = document.createElement('div');
             //  divResult.id = PeopleCorresponding[i].id;
             divResult.classList.add('divTabCahierResultEntry');
             $('divTabCahierSearchResult').appendChild(divResult);
 
-            let nbr = parseInt(document.getElementsByClassName('PopUpUserContainer')[0].id); // modifier problem si plusieurs popUp ouverts...
+            const nbr = parseInt(document.getElementsByClassName('PopUpUserContainer')[0].id); // modifier problem si plusieurs popUp ouverts...
 
             divResult.id = i;
 
@@ -146,13 +145,13 @@ export function createSearchEntries(PeopleCorresponding) {
                 Cahier.setOwner(nbr, PeopleCorresponding[this.id]);
             });
 
-            let span1 = document.createElement('span');
+            const span1 = document.createElement('span');
             span1.classList.add('spanTabCahierSurName');
             span1.innerHTML = PeopleCorresponding[i].name; //.split(" ")[0]; //changed ! --> div names are false $$
             divResult.appendChild(span1);
 
             if (i == 0) {
-                let img = document.createElement('img');
+                const img = document.createElement('img');
                 img.id = 'imgTabCahierSearchEnter';
                 img.src = 'img/icons/enter.png';
                 divResult.appendChild(img);

@@ -8,7 +8,7 @@ import {Requests} from './server-requests.js';
 
 let stillMoving = false;
 export let currentTabElement; //see load for the first element = divtabcahier
-let changeTime = 0.3;
+const changeTime = 0.3;
 
 export function setCurrentTabElement(element) {
     currentTabElement = element;
@@ -197,8 +197,8 @@ tabs.push({
 let OldElement = tabs[0];
 let NewElement = tabs[0];
 window.onhashchange = function () {
-    let newLocation = window.location.toString();
-    let res = newLocation.substr(newLocation.indexOf('#') + 1);
+    const newLocation = window.location.toString();
+    const res = newLocation.substr(newLocation.indexOf('#') + 1);
 
     if (res != currentTabElement.id) {
         //onload refresh

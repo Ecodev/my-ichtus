@@ -101,7 +101,7 @@ export const Cahier = {
     // cancel - clearData
     cancel: function () {
         // #divCahierInfos
-        let allTabCahierFields = document.getElementsByClassName('TabCahierFields');
+        const allTabCahierFields = document.getElementsByClassName('TabCahierFields');
 
         for (let i = 0; i < allTabCahierFields.length - 1; i++) {
             // -1 POUR EVITER LA TEXTAREA
@@ -172,11 +172,11 @@ export const Cahier = {
             );
         } else {
             // licences check
-            for (let bookable of Cahier.bookings[0].bookables) {
+            for (const bookable of Cahier.bookings[0].bookables) {
                 if (bookable.licenses != undefined) {
-                    for (let license of bookable.licenses) {
+                    for (const license of bookable.licenses) {
                         let foundLicense = false;
-                        for (let ownerLicense of Cahier.bookings[0].owner.licenses) {
+                        for (const ownerLicense of Cahier.bookings[0].owner.licenses) {
                             if (ownerLicense.id == license.id) {
                                 foundLicense = true;
                             }
@@ -200,22 +200,22 @@ export const Cahier = {
         // receive bookings that are still using the bookables and those who have been terminated in the last minutes
 
         // the bookings that will have to be terminated before creating the actual booking
-        let bookingsIdToFinish = [];
+        const bookingsIdToFinish = [];
 
         // find all the bookables that are now unavailable
-        let bAreNotAvailable = [];
+        const bAreNotAvailable = [];
         for (let i = 0; i < _bookings.length; i++) {
             if (_bookings[i].endDate == null) {
                 // check which bookables are being used
-                let bookableElement = Object.assign({}, _bookings[i].bookable);
+                const bookableElement = Object.assign({}, _bookings[i].bookable);
                 bookableElement.lastBooking = _bookings[i].clone();
                 bAreNotAvailable.push(bookableElement);
                 //                bookingsIdToFinish.push(_bookings[i].id);
             }
         }
-        let isNowAvailable = function (_bookable) {
+        const isNowAvailable = function (_bookable) {
             if (_bookable.id == 0) return true; // matériel personnel
-            for (let bNotAvailable of bAreNotAvailable) {
+            for (const bNotAvailable of bAreNotAvailable) {
                 if (bNotAvailable.id == _bookable.id) {
                     return false;
                 }
@@ -223,8 +223,8 @@ export const Cahier = {
             return true;
         };
         // get the owner of the last booking that isn't finished yet
-        let getLastBooking = function (_bookable) {
-            for (let bNotAvailable of bAreNotAvailable) {
+        const getLastBooking = function (_bookable) {
+            for (const bNotAvailable of bAreNotAvailable) {
                 if (bNotAvailable.id == _bookable.id) {
                     return bNotAvailable.lastBooking;
                 }
@@ -232,10 +232,10 @@ export const Cahier = {
             return false;
         };
 
-        let bookablesHaveJustBeenBooked = []; // or have changed owner !
+        const bookablesHaveJustBeenBooked = []; // or have changed owner !
 
         // loop through all the chosen bookables
-        for (let bookable of Cahier.bookings[0].bookables) {
+        for (const bookable of Cahier.bookings[0].bookables) {
             // the bookable is supposed to be unavailable
             if (bookable.available == false) {
                 // but is now available !
@@ -247,14 +247,14 @@ export const Cahier = {
                 }
                 // and is still unavailable
                 else {
-                    let itsLastBooking = getLastBooking(bookable);
+                    const itsLastBooking = getLastBooking(bookable);
                     if (itsLastBooking.owner.id == bookable.lastBooking.owner.id) {
                         //                   console.log("owner hasn't changed");
                         bookingsIdToFinish.push(bookable.lastBooking.id);
                     } else {
                         //                    console.log("owner has changed !");
                         Cahier.actualizeAvailability(bookable.id, [itsLastBooking]); // has changed owner
-                        let bookableElement = bookable.clone();
+                        const bookableElement = bookable.clone();
                         bookableElement.lastBooking = itsLastBooking.clone();
                         bookablesHaveJustBeenBooked.push(bookableElement);
                     }
@@ -269,20 +269,20 @@ export const Cahier = {
                 // but isn't available anymore, so has just been booked (or is in edit mode) !
                 else {
                     //                 console.log("has just been booked !");
-                    let itsLastBooking = getLastBooking(bookable);
+                    const itsLastBooking = getLastBooking(bookable);
 
                     // 1.4
                     // not in edit mode, so someone has just booked the bookable, will make an alert
                     if (Cahier.bookings[0].currentlyEditing == undefined) {
                         Cahier.actualizeAvailability(bookable.id, [itsLastBooking]); // has changed owner
-                        let bookableElement = bookable.clone();
+                        const bookableElement = bookable.clone();
                         bookableElement.lastBooking = itsLastBooking.clone();
                         bookablesHaveJustBeenBooked.push(bookableElement);
                     }
                     // was in edit mode
                     else {
                         let bookableWasInTheEditedBooking = false;
-                        for (let id of Cahier.editedBooking.ids) {
+                        for (const id of Cahier.editedBooking.ids) {
                             if (itsLastBooking.id == id) {
                                 bookableWasInTheEditedBooking = true;
                                 break;
@@ -297,7 +297,7 @@ export const Cahier = {
                         // someone has indeed just booked the bookable, will make an alert
                         else {
                             Cahier.actualizeAvailability(bookable.id, [itsLastBooking]); // has changed owner
-                            let bookableElement = bookable.clone();
+                            const bookableElement = bookable.clone();
                             bookableElement.lastBooking = itsLastBooking.clone();
                             bookablesHaveJustBeenBooked.push(bookableElement);
                             //                            console.log("indeed someone has booked it!");
@@ -336,16 +336,16 @@ export const Cahier = {
                 let idsToUpdate = [];
                 let inputsToUpdate = [];
 
-                let currentDate = new Date().toISOString();
-                let bookingsInputs = Requests.getServerInputsForBookingCreating(Cahier.bookings[0], currentDate);
+                const currentDate = new Date().toISOString();
+                const bookingsInputs = Requests.getServerInputsForBookingCreating(Cahier.bookings[0], currentDate);
 
                 // If >0: more bookables than before --> need to create some new
                 // If <0: less bookable than before -->, need to delete some
-                let nBookablesDifference = Cahier.bookings[0].bookables.length - Cahier.editedBooking.ids.length;
+                const nBookablesDifference = Cahier.bookings[0].bookables.length - Cahier.editedBooking.ids.length;
 
                 // Strictly fewer bookables as the (old) original booking --> Need to finish/delete a few bookings
                 if (nBookablesDifference < 0) {
-                    let nBookingsToFinish = -nBookablesDifference;
+                    const nBookingsToFinish = -nBookablesDifference;
 
                     // ToFinish
                     // idsToFinish = Cahier.editedBooking.ids.slice(-nBookingsToFinish);
@@ -357,10 +357,15 @@ export const Cahier = {
                     inputsToUpdate = bookingsInputs;
 
                     // ToUpdate (set end date to start date)
-                    let extraIdsToUpdate = Cahier.editedBooking.ids.slice(-nBookingsToFinish);
-                    let extraInputsToUpdate = [];
+                    const extraIdsToUpdate = Cahier.editedBooking.ids.slice(-nBookingsToFinish);
+                    const extraInputsToUpdate = [];
                     // Note: need to update startDate again since otherwise it gets automatically set to the current time
-                    let input = {startDate: currentDate, endDate: currentDate, bookable: null, endComment: '(Editée)'};
+                    const input = {
+                        startDate: currentDate,
+                        endDate: currentDate,
+                        bookable: null,
+                        endComment: '(Editée)',
+                    };
                     extraInputsToUpdate.fillArray(extraIdsToUpdate.length, input);
 
                     // append
@@ -401,7 +406,7 @@ export const Cahier = {
 
                 // First add the bookings to finish because used by someone else
                 idsToFinish = idsToFinish.concat(bookingsIdToFinish);
-                let comments = [];
+                const comments = [];
                 comments.fillArray(bookingsIdToFinish.length, 'Terminée automatiquement');
                 commentsToFinish = commentsToFinish.concat(comments);
                 console.log('Need to terminate', bookingsIdToFinish.length, 'booking(s) due to unavailable bookables.');
@@ -418,7 +423,7 @@ export const Cahier = {
             // Not in edit mode
             else {
                 // bookings to terminate to free the bookables
-                let commentsToFinish = [];
+                const commentsToFinish = [];
                 commentsToFinish.fillArray(bookingsIdToFinish.length, 'Terminée automatiquement');
 
                 // there are no bookings to termiante
@@ -437,8 +442,8 @@ export const Cahier = {
 
     // 1.4
     updateBookablesLicenses: function (_bookables) {
-        for (let _bookable of _bookables) {
-            for (let bookable of Cahier.bookings[0].bookables) {
+        for (const _bookable of _bookables) {
+            for (const bookable of Cahier.bookings[0].bookables) {
                 if (bookable.id == _bookable.id) {
                     bookable.licenses = _bookable.licenses.clone(); // bookable <-> Cahier.bookings[0].bookables[x] by reference
                     break; // one loop
@@ -448,7 +453,7 @@ export const Cahier = {
     },
 
     actualizeProgressBar: function () {
-        let allDivTabCahierProgressTexts = document.getElementsByClassName('divTabCahierProgressText');
+        const allDivTabCahierProgressTexts = document.getElementsByClassName('divTabCahierProgressText');
         for (let i = 0; i < allDivTabCahierProgressTexts.length; i++) {
             if (i < currentProgress - 1) {
                 switch (i) {
@@ -485,7 +490,7 @@ export const Cahier = {
         } else {
             $('divTabCahierProgressReturn').style.visibility = 'visible';
             $('divTabCahierProgressReturn').onclick = function () {
-                let newTabName = progessionTabNames[currentProgress - 1];
+                const newTabName = progessionTabNames[currentProgress - 1];
                 if (newTabName != 'divTabCahierMember' || !$('divTabCahierProgress').classList.contains('editing')) {
                     newTab(newTabName);
                 }
@@ -567,7 +572,7 @@ export const Cahier = {
 
             // 1.4 : make fake availability if the actual bookable was in the edited booking
             if (Cahier.bookings[0].currentlyEditing != undefined) {
-                for (let bookingId of Cahier.editedBooking.ids) {
+                for (const bookingId of Cahier.editedBooking.ids) {
                     if (_lastBooking.id == bookingId) {
                         Cahier.bookings[nbr].bookables[Cahier.bookings[nbr].bookables.length - 1].available = true;
                         break;
@@ -589,14 +594,14 @@ export const Cahier = {
         }
 
         if (bookings.length !== 0) {
-            let lastBooking = Object.assign({}, bookings[0]);
+            const lastBooking = Object.assign({}, bookings[0]);
 
             Cahier.bookings[0].bookables[u].available = bookings[0].endDate == null ? false : true;
             Cahier.bookings[0].bookables[u].lastBooking = lastBooking;
 
             // 1.4 : make fake availability (actually already used in the current booking that is being edited...)
             if (Cahier.bookings[0].currentlyEditing != undefined) {
-                for (let bookingId of Cahier.editedBooking.ids) {
+                for (const bookingId of Cahier.editedBooking.ids) {
                     if (lastBooking.id == bookingId) {
                         Cahier.bookings[0].bookables[u].available = true;
                         break;
@@ -687,11 +692,11 @@ function transformComment(txt, fill) {
 }
 
 export function getStartCommentFromBooking(booking, fill = false) {
-    let txt = booking.startComment;
+    const txt = booking.startComment;
     return transformComment(txt, fill);
 }
 
 export function getEndCommentFromBooking(booking, fill = false) {
-    let txt = booking.endComment;
+    const txt = booking.endComment;
     return transformComment(txt, fill);
 }

@@ -10,18 +10,18 @@ export function loadElements(bookables, nbr = 0) {
 
     document.getElementsByClassName('divTabCahierEquipmentElementsContainer')[0].innerHTML = '';
 
-    let codes = [];
+    const codes = [];
     for (let i = 0; i < Cahier.bookings[nbr].bookables.length; i++) {
         codes.push(Cahier.bookings[nbr].bookables[i].id);
     }
 
     for (let j = 0; j < bookables.length; j++) {
-        let container = document.createElement('div');
+        const container = document.createElement('div');
         container.id = j;
 
         // 1.4 : make fake no used (actually already used in the current booking that is being edited...)
         if (bookables[j].used === true && Cahier.bookings[0].currentlyEditing != undefined) {
-            for (let bookingId of Cahier.editedBooking.ids) {
+            for (const bookingId of Cahier.editedBooking.ids) {
                 if (bookables[j].lastBooking.id == bookingId) {
                     bookables[j].used = false;
                     break;
@@ -37,7 +37,7 @@ export function loadElements(bookables, nbr = 0) {
             bookables[j].lessThan13Minutes = dT.time < 13 ? true : false;
         } else bookables[j].lessThan13Minutes = false;
 
-        let x = codes.findIndex(bookables[j].id);
+        const x = codes.findIndex(bookables[j].id);
 
         if (x !== -1) {
             // found something
@@ -74,10 +74,10 @@ export function loadElements(bookables, nbr = 0) {
 
         document.getElementsByClassName('divTabCahierEquipmentElementsContainer')[0].appendChild(container);
 
-        let secondContainer = document.createElement('div');
+        const secondContainer = document.createElement('div');
         container.appendChild(secondContainer);
 
-        let size = document.createElement('div');
+        const size = document.createElement('div');
 
         if (bookables[j].code != null) {
             size.innerHTML = bookables[j].code;
@@ -90,18 +90,18 @@ export function loadElements(bookables, nbr = 0) {
 
         secondContainer.appendChild(size);
 
-        let bottom = document.createElement('div');
+        const bottom = document.createElement('div');
         secondContainer.appendChild(bottom);
 
-        let brand = div(bottom);
+        const brand = div(bottom);
         brand.innerHTML = bookables[j].name.shorten(160 * 2, 20);
 
-        let background = div(secondContainer);
+        const background = div(secondContainer);
         background.style.backgroundImage = Cahier.getImageUrl(bookables[j]);
 
         div(secondContainer);
 
-        let info = div(secondContainer);
+        const info = div(secondContainer);
         info.id = bookables[j].id;
         info.classList.add('infoJS');
         info.onclick = function () {
@@ -118,27 +118,27 @@ export function loadElements(bookables, nbr = 0) {
         }
     }
     if (bookables.length == 0) {
-        let d = div(document.getElementsByClassName('divTabCahierEquipmentElementsContainer')[0]);
+        const d = div(document.getElementsByClassName('divTabCahierEquipmentElementsContainer')[0]);
         d.innerHTML = 'Aucun résultat';
     }
 }
 
 export function actualizeElements() {
-    let bookables = currentBookables;
+    const bookables = currentBookables;
 
-    let codes = [];
+    const codes = [];
     for (let i = 0; i < Cahier.bookings[0].bookables.length; i++) {
         codes.push(Cahier.bookings[0].bookables[i].id);
     }
 
-    let containers = document.getElementsByClassName('divTabCahierEquipmentElementsContainer')[0].children;
+    const containers = document.getElementsByClassName('divTabCahierEquipmentElementsContainer')[0].children;
 
     for (let j = 0; j < containers.length; j++) {
         containers[j].classList.remove('selected');
     }
 
     for (let k = 0; k < containers.length; k++) {
-        let container = containers[k];
+        const container = containers[k];
 
         if (codes.findIndex(bookables[k].id) !== -1) {
             // found something
@@ -185,7 +185,7 @@ export function clickSortIcon(elem) {
 
 export function changeSelectCategorie(elem) {
     let image = 'url(img/icons/no-result.png)';
-    for (let category of categories) {
+    for (const category of categories) {
         if (category.value == elem.value) {
             image = 'url(img/categorie/' + category.image + ')';
             break;

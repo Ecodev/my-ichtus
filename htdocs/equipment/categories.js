@@ -15,29 +15,29 @@ export const categories = [
 
 export function loadMateriel(container = $('divTabCahierEquipmentCategoriesContainer')) {
     for (let i = 0; i < categories.length; i++) {
-        let d = document.createElement('div');
+        const d = document.createElement('div');
         d.id = categories[i].name;
         d.classList.add('BoxesContainer');
         container.appendChild(d);
 
-        let d1 = div(d);
+        const d1 = div(d);
         d1.id = i;
         d1.classList.add('Boxes');
 
-        let dTop = div(d1);
+        const dTop = div(d1);
         dTop.classList.add('BoxesTop');
         dTop.style.backgroundImage = 'url(img/icons/chose.png),' + 'url(img/categorie/' + categories[i].image + ')';
 
-        let dBottom = document.createElement('div');
+        const dBottom = document.createElement('div');
         dBottom.classList.add('BoxesBottom');
         d1.appendChild(dBottom);
 
-        let dBottomText1 = document.createElement('div');
+        const dBottomText1 = document.createElement('div');
         dBottomText1.classList.add('BoxesBottomText1');
         dBottom.appendChild(dBottomText1);
         dBottomText1.innerHTML = categories[i].name;
 
-        let dBottomText2 = document.createElement('div');
+        const dBottomText2 = document.createElement('div');
         dBottomText2.classList.add('BoxesBottomText2');
         dBottom.appendChild(dBottomText2);
         Requests.getBookableNbrForBookableTag(categories[i].value, dBottomText2, '', ' ' + categories[i].plural);
@@ -62,13 +62,13 @@ export function loadMateriel(container = $('divTabCahierEquipmentCategoriesConta
             });
         }
 
-        let opt = document.createElement('option');
+        const opt = document.createElement('option');
         opt.innerHTML = categories[i].name;
         opt.value = categories[i].value;
         $('divTabCahierEquipmentElementsSelectCategorie').getElementsByTagName('select')[0].appendChild(opt);
     }
 
-    let opt = document.createElement('option');
+    const opt = document.createElement('option');
     opt.innerHTML = 'Toutes les catégories';
     opt.value = 'all';
     $('divTabCahierEquipmentElementsSelectCategorie').getElementsByTagName('select')[0].appendChild(opt);

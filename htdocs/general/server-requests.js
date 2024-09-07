@@ -94,7 +94,7 @@ export const Requests = {
     // getUsersList FOR user.js
     getUsersList: function (text = '') {
         let filter;
-        let texts = [];
+        const texts = [];
 
         for (let i = 0; i < text.split(' ').length; i++) {
             if (text.split(' ')[i] != '') {
@@ -102,7 +102,7 @@ export const Requests = {
             }
         }
 
-        let nbr = texts.length;
+        const nbr = texts.length;
         if (nbr == 1) {
             filter = {
                 filter: {
@@ -282,7 +282,7 @@ export const Requests = {
             },
         ];
 
-        let variables = new Server.QueryVariablesManager();
+        const variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);
 
         Server.userService.getAll(variables).subscribe(result => {
@@ -310,7 +310,7 @@ export const Requests = {
             whichField = 'id';
         }
 
-        let txt = elem.value;
+        const txt = elem.value;
 
         let categorie = $('divTabCahierEquipmentElementsSelectCategorie').getElementsByTagName('select')[0].value;
         if (categorie == 'all') {
@@ -323,7 +323,7 @@ export const Requests = {
             categorie = 'Voile lestée';
         }
 
-        let f = {
+        const f = {
             filter: {
                 groups: [
                     {
@@ -415,7 +415,7 @@ export const Requests = {
             });
         }
 
-        let variables = new Server.QueryVariablesManager();
+        const variables = new Server.QueryVariablesManager();
         variables.set('variables', f);
 
         Server.bookableService.getAll(variables).subscribe(result => {
@@ -425,14 +425,14 @@ export const Requests = {
                 console.log('NOTHING');
                 loadElements([]);
             } else {
-                let ids = [];
+                const ids = [];
                 result = mutable(result);
                 for (let i = 0; i < result.items.length; i++) {
                     result.items[i].used = false;
                     ids.push(result.items[i].id);
                 }
 
-                let filter = {
+                const filter = {
                     filter: {
                         groups: [
                             {
@@ -463,12 +463,12 @@ export const Requests = {
                         ],
                     },
                 };
-                let variables = new Server.QueryVariablesManager();
+                const variables = new Server.QueryVariablesManager();
                 variables.set('variables', filter);
 
                 Server.bookingService.getAll(variables).subscribe(r => {
                     let bookables = result.items;
-                    let bookings = r.items;
+                    const bookings = r.items;
 
                     // Make mutable
                     bookables = mutable(bookables);
@@ -498,7 +498,7 @@ export const Requests = {
             bookableTag = 'Voile lestée';
         }
 
-        let filter = {
+        const filter = {
             filter: {
                 groups: [
                     {
@@ -551,11 +551,11 @@ export const Requests = {
             });
         }
 
-        let variables = new Server.QueryVariablesManager();
+        const variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);
 
         Server.bookableService.getAll(variables).subscribe(result => {
-            let txt = before + result.length + after;
+            const txt = before + result.length + after;
             elem.innerHTML = txt;
         });
     },
@@ -583,7 +583,7 @@ export const Requests = {
         if (!t) {
             popAlert('Vous avez déjà choisi cette embarcation');
         } else {
-            let filter = {
+            const filter = {
                 filter: {
                     groups: [
                         {
@@ -607,7 +607,7 @@ export const Requests = {
                 },
             };
 
-            let variables = new Server.QueryVariablesManager();
+            const variables = new Server.QueryVariablesManager();
             variables.set('variables', filter);
 
             Server.bookableService.getAll(variables).subscribe(result => {
@@ -639,7 +639,7 @@ export const Requests = {
 
     // getBookableInfos
     getBookableInfos: function (nbr, bookableId, elem) {
-        let filter = {
+        const filter = {
             filter: {
                 groups: [{conditions: [{id: {like: {value: bookableId}}}]}],
             },
@@ -649,12 +649,12 @@ export const Requests = {
             },
         };
 
-        let variables = new Server.QueryVariablesManager();
+        const variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);
 
         Server.bookableService.getAll(variables).subscribe(result => {
             //console.log("getBookableInfos(): ", result);
-            let filter = {
+            const filter = {
                 filter: {
                     groups: [
                         {
@@ -686,19 +686,19 @@ export const Requests = {
                 ],
             };
 
-            let variables = new Server.QueryVariablesManager();
+            const variables = new Server.QueryVariablesManager();
             variables.set('variables', filter);
 
             Server.bookingService.getAll(variables).subscribe(bookings => {
                 //console.log("getBookableInfos()_getLastBooking: ", bookings);
-                let bookable = Object.assign({}, result.items[0]);
+                const bookable = Object.assign({}, result.items[0]);
                 actualizePopBookable(nbr, bookable, bookings, elem, []);
             });
         });
     },
 
     getBookableLastBooking: function (bookableId) {
-        let filter = {
+        const filter = {
             filter: {
                 groups: [
                     {
@@ -730,7 +730,7 @@ export const Requests = {
             ],
         };
 
-        let variables = new Server.QueryVariablesManager();
+        const variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);
 
         Server.bookingService.getAll(variables).subscribe(bookings => {
@@ -741,9 +741,9 @@ export const Requests = {
 
     // 1.3
     checksBookablesAvailabilityBeforeConfirming: function (_bookables) {
-        let d = new Date(Cahier.bookingStartDate.getTime() - 10 * 60 * 1000); // subtract 1 minute $$
+        const d = new Date(Cahier.bookingStartDate.getTime() - 10 * 60 * 1000); // subtract 1 minute $$
 
-        let f = {
+        const f = {
             filter: {
                 groups: [
                     {
@@ -782,10 +782,10 @@ export const Requests = {
             },
         };
 
-        for (let bookable of _bookables) {
+        for (const bookable of _bookables) {
             if (bookable.id != 0) {
                 // Matériel personnel
-                let condition = {
+                const condition = {
                     id: {
                         equal: {
                             value: bookable.id,
@@ -802,7 +802,7 @@ export const Requests = {
             return;
         }
 
-        let variables = new Server.QueryVariablesManager();
+        const variables = new Server.QueryVariablesManager();
         variables.set('variables', f);
 
         Server.bookingService.getAll(variables).subscribe(result => {
@@ -815,7 +815,7 @@ export const Requests = {
     getActualBookingList: function () {
         //console.log("GET ACTUAL BOOKING LIST");
 
-        let filter = {
+        const filter = {
             filter: {
                 groups: [
                     {
@@ -892,7 +892,7 @@ export const Requests = {
             ],
         };
 
-        let variables = new Server.QueryVariablesManager();
+        const variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);
 
         Server.bookingService.getAll(variables, true).subscribe(result => {
@@ -904,9 +904,9 @@ export const Requests = {
 
     // getFinishedBookingListForDay()
     getFinishedBookingListForDay: function (d = new Date(), table = '?', title) {
-        let start = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
-        let end = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1, 0, 0, 0, 0);
-        let filter = {
+        const start = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
+        const end = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1, 0, 0, 0, 0);
+        const filter = {
             filter: {
                 groups: [
                     {
@@ -999,13 +999,13 @@ export const Requests = {
             ],
         };
 
-        let variables = new Server.QueryVariablesManager();
+        const variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);
 
         Server.bookingService.getAll(variables, true).subscribe(result => {
             // force = true);
             //console.log("getFinishedBookingListForDay(): ", result);
-            let transformedBoookings = mergeBookings(mutable(result.items));
+            const transformedBoookings = mergeBookings(mutable(result.items));
             if (result.length == 0) {
                 createNoBookingMessage(d);
             } else {
@@ -1020,7 +1020,7 @@ export const Requests = {
     getBookableHistory: function (bookableId, elem, lastDate, Size = 10) {
         //console.log("getbookableHistory", bookableId, "lastDate:", lastDate, "Size",Size);
 
-        let filter = {
+        const filter = {
             filter: {
                 groups: [
                     {
@@ -1063,13 +1063,13 @@ export const Requests = {
             ],
         };
 
-        let variables = new Server.QueryVariablesManager();
+        const variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);
 
         Server.bookingService.getAll(variables).subscribe(first => {
             //console.log("getBookableHistory(): ", first);
 
-            let bookings = first.items;
+            const bookings = first.items;
 
             if (first.items.length == 0) {
                 if (elem.getElementsByClassName('Buttons').length == 1) {
@@ -1077,13 +1077,13 @@ export const Requests = {
                         elem.getElementsByClassName('Buttons')[0],
                     );
                     elem.getElementsByTagName('br')[0].parentElement.removeChild(elem.getElementsByTagName('br')[0]);
-                    let t = div(elem.getElementsByClassName('PopUpBookableHistoryContainerScroll')[0]);
+                    const t = div(elem.getElementsByClassName('PopUpBookableHistoryContainerScroll')[0]);
                     t.innerHTML = 'Toutes les sorties ont été chargées ! <br/>';
                     t.style.textAlign = 'center';
                 }
             } else {
                 let end = new Date(bookings[bookings.length - 1].startDate);
-                let start = new Date(end.getFullYear(), end.getMonth(), end.getDate(), 0, 0, 0, 1);
+                const start = new Date(end.getFullYear(), end.getMonth(), end.getDate(), 0, 0, 0, 1);
                 end = new Date(
                     end.getFullYear(),
                     end.getMonth(),
@@ -1094,7 +1094,7 @@ export const Requests = {
                     0,
                 );
 
-                let filter = {
+                const filter = {
                     filter: {
                         groups: [
                             {
@@ -1138,12 +1138,12 @@ export const Requests = {
                     ],
                 };
 
-                let variables = new Server.QueryVariablesManager();
+                const variables = new Server.QueryVariablesManager();
                 variables.set('variables', filter);
 
                 Server.bookingService.getAll(variables).subscribe(addition => {
                     //console.log("getBookableHistory()_Addition: ", addition);
-                    let total = bookings.concat(addition.items);
+                    const total = bookings.concat(addition.items);
                     actualizePopBookableHistory(total, elem);
                 });
             }
@@ -1152,7 +1152,7 @@ export const Requests = {
 
     // getBookingsNbrBetween
     getBookingsNbrBetween: function (start, end, bookableId = '%', elem = document.body, writeIfOne = true) {
-        let filter = {
+        const filter = {
             filter: {
                 groups: [
                     {
@@ -1190,7 +1190,7 @@ export const Requests = {
             },
         };
 
-        let variables = new Server.QueryVariablesManager();
+        const variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);
 
         Server.bookingService.getAll(variables).subscribe(result => {
@@ -1206,7 +1206,7 @@ export const Requests = {
     getMonthlyBookingsNbr: function (start, end) {
         end = new Date(end.getFullYear(), end.getMonth(), end.getDate(), 23, 59, 59, 99);
 
-        let filter = {
+        const filter = {
             filter: {
                 groups: [
                     {
@@ -1269,13 +1269,13 @@ export const Requests = {
             },
         };
 
-        let variables = new Server.QueryVariablesManager();
+        const variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);
 
         Server.bookingService.getAll(variables).subscribe(result => {
             // console.log("getMonthlyBookingsNbr(): ", result.length + " sorties", result);
 
-            let all = document.getElementsByClassName('divBottoms');
+            const all = document.getElementsByClassName('divBottoms');
             for (let i = 0; i < all.length; i++) {
                 if (result.length == 0) {
                     all[i].children[0].innerHTML = 'Aucune sortie ce mois';
@@ -1288,7 +1288,7 @@ export const Requests = {
 
     // getStats
     getStats: function (start, end, elem) {
-        let f = {
+        const f = {
             filter: {
                 groups: [
                     {
@@ -1351,19 +1351,19 @@ export const Requests = {
             ],
         };
 
-        let variables = new Server.QueryVariablesManager();
+        const variables = new Server.QueryVariablesManager();
         variables.set('variables', f);
 
         Server.bookingService.getAll(variables).subscribe(result => {
             //console.log("getStats(): ", result);
-            let send = mergeBookings(mutable(result.items));
+            const send = mergeBookings(mutable(result.items));
             actualizeStats(start, end, elem, send);
         });
     },
 
     // getBookingWithBookablesInfos
     getBookingWithBookablesInfos: function (_booking, which, elem) {
-        let filter = {
+        const filter = {
             filter: {
                 groups: [
                     {
@@ -1380,11 +1380,11 @@ export const Requests = {
             },
         };
 
-        let variables = new Server.QueryVariablesManager();
+        const variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);
 
         Server.bookingService.getAll(variables).subscribe(result => {
-            let send = mergeBookings(result.items);
+            const send = mergeBookings(result.items);
             actualizePopBooking(send[0], which, elem); // should only give one booking
         });
     },
@@ -1427,7 +1427,7 @@ export const Requests = {
                 ' booking(s) to terminate, create and update respectively.',
         );
 
-        let finished = function () {
+        const finished = function () {
             Requests.createAndUpdateBookings(inputsToCreate, idsToUpdate, inputsToUpdate);
         };
 
@@ -1448,8 +1448,8 @@ export const Requests = {
     // createAndUpdateBookings
     createAndUpdateBookings: function (inputsToCreate = [], idsToUpdate = [], inputsToUpdate = []) {
         // filter the input to only keep the allowed fields,  append the id to it, and the actual startDate
-        let extendInput = function (id, input) {
-            let inputFiltered = {id: id, startDate: new Date().toISOString()};
+        const extendInput = function (id, input) {
+            const inputFiltered = {id: id, startDate: new Date().toISOString()};
             const keys = [
                 'bookable',
                 'participantCount',
@@ -1465,7 +1465,7 @@ export const Requests = {
             return inputFiltered;
         };
 
-        let finished = function () {
+        const finished = function () {
             console.log('Successfully terminated, created and updated the bookings.');
             newTab('divTabCahier');
             ableToSkipAnimation();
@@ -1473,7 +1473,7 @@ export const Requests = {
         };
 
         let c = 0; // counter variable
-        let total = inputsToCreate.length + inputsToUpdate.length;
+        const total = inputsToCreate.length + inputsToUpdate.length;
 
         // ToCreate
         for (let i = 0; i < inputsToCreate.length; i++) {
@@ -1514,7 +1514,7 @@ export const Requests = {
             );
         }
 
-        let extended_input = Object.assign({id: id}, input);
+        const extended_input = Object.assign({id: id}, input);
         console.log(extended_input);
         Server.bookingService.updateNow(extended_input).subscribe(result => {
             console.log('updateBooking():', result);
@@ -1523,9 +1523,9 @@ export const Requests = {
 
     // getServerInputsForBookingCreating
     getServerInputsForBookingCreating: function (booking = Cahier.bookings[0], startDate = null) {
-        let bookingInputs = [];
+        const bookingInputs = [];
         for (let i = 0; i < booking.bookables.length; i++) {
-            let input = {
+            const input = {
                 owner: booking.owner.id,
                 participantCount: i == 0 ? booking.participantCount - booking.bookables.length + 1 : 1,
                 destination: booking.destination,
@@ -1543,9 +1543,9 @@ export const Requests = {
     // createBooking2
     createBooking: function () {
         let c = 0;
-        let bookingInputs = Requests.getServerInputsForBookingCreating(Cahier.bookings[0]);
+        const bookingInputs = Requests.getServerInputsForBookingCreating(Cahier.bookings[0]);
         for (let i = 0; i < bookingInputs.length; i++) {
-            let input = bookingInputs[i];
+            const input = bookingInputs[i];
             Server.bookingService.create(input).subscribe(() => {
                 c++;
                 if (c == bookingInputs.length) {
@@ -1560,13 +1560,13 @@ export const Requests = {
     getOwnerLicenses: function (_owner) {
         Server.userService.getOne(_owner.id).subscribe(result => {
             //            console.log("getOwnerLicenses(): ", result);
-            let owner = Object.assign({}, result);
+            const owner = Object.assign({}, result);
             Cahier.setOwnerLicenses(owner);
         });
     },
 
     getBookablesLicenses: function (_bookableIds) {
-        let filter = {
+        const filter = {
             filter: {
                 groups: [
                     {
@@ -1588,7 +1588,7 @@ export const Requests = {
             },
         };
 
-        let variables = new Server.QueryVariablesManager();
+        const variables = new Server.QueryVariablesManager();
         variables.set('variables', filter);
 
         Server.bookableService.getAll(variables).subscribe(result => {

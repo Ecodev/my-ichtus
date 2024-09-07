@@ -2,20 +2,19 @@ import {closePopUp, div, grayBar, input, openPopUp, options} from '../general/ho
 import {Requests} from '../general/server-requests.js';
 
 export function popLogin() {
-    let elem = openPopUp();
+    const elem = openPopUp();
 
-    let container;
-    container = div(elem);
+    const container = div(elem);
     container.classList.add('PopUpLoginContainer');
     container.classList.add('Boxes');
 
-    let close = div(container);
+    const close = div(container);
     close.className = 'divPopUpClose';
     close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
-    let d = div(container);
+    const d = div(container);
     d.style.textAlign = 'center';
     d.style.fontSize = '25px';
     d.innerHTML = 'Connexion';
@@ -24,7 +23,7 @@ export function popLogin() {
 
     div(container);
 
-    let i = input(container);
+    const i = input(container);
     i.type = 'password';
     i.placeholder = 'Mot de passe';
     i.addEventListener('keyup', function (event) {
@@ -33,7 +32,7 @@ export function popLogin() {
         }
     });
 
-    let b = div(container);
+    const b = div(container);
     b.classList.add('Buttons');
     b.classList.add('ValidateButtons');
     b.innerHTML = 'Connexion';

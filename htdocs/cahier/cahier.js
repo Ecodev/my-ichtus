@@ -21,7 +21,7 @@ export function loadActualBookings(_actualBookings) {
     $('divTabCahierTableActualBookings').previousElementSibling.title =
         bookableNbr + ' embarcations, ' + participantNbr + ' personnes';
 
-    let children = $('divTabCahierTables').children;
+    const children = $('divTabCahierTables').children;
     for (let j = 0; j < children.length; j++) {
         if (
             children[j].id != 'divTabCahierTableActualBookings' &&
@@ -52,7 +52,7 @@ function coloring(booking) {
 }
 
 function actualizeActualBookings(_actualBookings) {
-    let all = $('divTabCahierTableActualBookings').getElementsByClassName('TableEntries');
+    const all = $('divTabCahierTableActualBookings').getElementsByClassName('TableEntries');
     for (let i = 0; i < all.length; i++) {
         if (all[i].id != 'divTabCahierTableActualBookingsTopBar') {
             all[i].parentNode.removeChild(all[i]);
@@ -61,14 +61,14 @@ function actualizeActualBookings(_actualBookings) {
     }
 
     if (_actualBookings.length == 0) {
-        let entry = div($('divTabCahierTableActualBookings'));
+        const entry = div($('divTabCahierTableActualBookings'));
         entry.classList.add('TableEntries');
         entry.classList.add('TableEntriesHover');
         div(entry);
     }
 
     for (let j = 0; j < _actualBookings.length; j++) {
-        let container = div($('divTabCahierTableActualBookings'));
+        const container = div($('divTabCahierTableActualBookings'));
         container.id = j;
         container.classList.add('TableEntries');
         container.classList.add('TableEntriesHover');
@@ -96,11 +96,11 @@ function actualizeActualBookings(_actualBookings) {
             }
         });
 
-        let divDate = div(container);
+        const divDate = div(container);
 
-        let maxHours = 24;
+        const maxHours = 24;
         if (Date.now() - new Date(_actualBookings[j].startDate).getTime() > (maxHours / 6) * 60 * 60 * 1000) {
-            let d = div(divDate);
+            const d = div(divDate);
             d.classList.add('TableEntriesAlert');
             d.style.filter = 'grayscale(1) invert(1)';
             d.title = '+ de 4 heures';
@@ -123,7 +123,7 @@ function actualizeActualBookings(_actualBookings) {
         divDate.id = 'SORTING' + new Date(_actualBookings[j].startDate).toISOString(); // for the sorting
         divDate.innerHTML += new Date(_actualBookings[j].startDate).getNiceTime(':', true);
 
-        let participantCount = div(container);
+        const participantCount = div(container);
         participantCount.innerHTML = _actualBookings[j].participantCount;
         participantCount.title = Cahier.getSingularOrPlural(_actualBookings[j].participantCount);
 
@@ -132,7 +132,7 @@ function actualizeActualBookings(_actualBookings) {
         if (_actualBookings[j].bookables.length == 0) {
             createBookingBookableBox(div(container));
         } else {
-            let c = div(container);
+            const c = div(container);
             for (let k = 0; k < _actualBookings[j].bookables.length; k++) {
                 createBookingBookableBox(c, _actualBookings[j].bookables[k]);
             }
@@ -142,9 +142,9 @@ function actualizeActualBookings(_actualBookings) {
 
         div(container).innerHTML = getStartCommentFromBooking(_actualBookings[j]).shorten(200, 16);
 
-        let d = div(container);
+        const d = div(container);
         d.title = 'Terminer ou modifier cette sortie';
-        let btn = div(d);
+        const btn = div(d);
         btn.classList.add('Buttons');
     }
     sortTable($('divTabCahierTableActualBookings'));
@@ -153,11 +153,11 @@ function actualizeActualBookings(_actualBookings) {
 // new search system
 export function bookingTableSearch(_table) {
     let bookings;
-    let txts = _table.previousElementSibling.previousElementSibling.value.split(' ');
+    const txts = _table.previousElementSibling.previousElementSibling.value.split(' ');
     // means finishedBookings
     if (_table != $('divTabCahierTableActualBookings')) {
         let i;
-        let all = document.getElementsByClassName('BookingsTable');
+        const all = document.getElementsByClassName('BookingsTable');
         for (i = 1; i < all.length; i++) {
             if (all[i] == _table) {
                 break;
@@ -168,7 +168,7 @@ export function bookingTableSearch(_table) {
         // means actualBookings
         bookings = Cahier.actualBookings;
     }
-    let result = [];
+    const result = [];
 
     for (let t = 0; t < txts.length; t++) {
         result[t] = [];
@@ -208,7 +208,7 @@ export function bookingTableSearch(_table) {
     }
 
     // merge but only take the bookings which are in every search result !
-    let send = result.mergeAND();
+    const send = result.mergeAND();
     if (_table == $('divTabCahierTableActualBookings')) {
         actualizeActualBookings(send);
     } else {
@@ -217,15 +217,15 @@ export function bookingTableSearch(_table) {
 }
 
 function createBookingBookableBox(elem, bookable = {code: 'ZZZ'}) {
-    let d = div(elem);
+    const d = div(elem);
     if (bookable.code != null) {
         d.id = bookable.code;
     } else {
         d.id = '999';
     }
 
-    let img = div(d);
-    let code = div(d);
+    const img = div(d);
+    const code = div(d);
 
     if (bookable == Cahier.personalBookable) {
         img.style.backgroundImage = 'url(img/icons/own-sail.png)';
@@ -245,7 +245,7 @@ function createBookingBookableBox(elem, bookable = {code: 'ZZZ'}) {
 
         if (bookable.code != null) {
             code.innerHTML = bookable.code;
-            let codeLength = bookable.code.pixelLength(20);
+            const codeLength = bookable.code.pixelLength(20);
             div(d).innerHTML = bookable.name.shorten(170 - codeLength, 18);
         } else {
             code.innerHTML = '';
@@ -257,8 +257,8 @@ function createBookingBookableBox(elem, bookable = {code: 'ZZZ'}) {
 
 export function loadTableTopBars(allTables = document.getElementsByClassName('BookingsTable')) {
     for (let u = 0; u < allTables.length; u++) {
-        let table = allTables[u];
-        let top = table.getElementsByClassName('TableTopBar')[0];
+        const table = allTables[u];
+        const top = table.getElementsByClassName('TableTopBar')[0];
         const all = top.getElementsByTagName('div');
 
         for (let i = 0; i < all.length; i = i + 2) {
@@ -277,7 +277,7 @@ export function loadTableTopBars(allTables = document.getElementsByClassName('Bo
                         this.getElementsByTagName('div')[0].style.backgroundImage = 'url(img/icons/sort-desc.png)';
                     }
 
-                    let allButtons = this.parentElement.getElementsByTagName('div');
+                    const allButtons = this.parentElement.getElementsByTagName('div');
                     for (let k = 0; k < all.length; k = k + 2) {
                         if (allButtons[k] != this) {
                             allButtons[k].classList.remove('BookingsTopBarSorted');
@@ -295,8 +295,8 @@ export function loadTableTopBars(allTables = document.getElementsByClassName('Bo
 }
 
 function sortTable(table) {
-    let field = parseInt(table.getElementsByClassName('BookingsTopBarSorted')[0].id);
-    let order = function () {
+    const field = parseInt(table.getElementsByClassName('BookingsTopBarSorted')[0].id);
+    const order = function () {
         if (
             table.getElementsByClassName('BookingsTopBarSorted')[0].getElementsByTagName('div')[0].style
                 .backgroundImage == 'url("img/icons/sort-desc.png")'
@@ -307,7 +307,7 @@ function sortTable(table) {
         }
     };
 
-    let all = table.getElementsByClassName('TableEntries');
+    const all = table.getElementsByClassName('TableEntries');
     let switching = true;
     while (switching) {
         switching = false;
@@ -343,32 +343,32 @@ export function newBookingTable(date, title = '?') {
 }
 
 export function createBookingsTable(date, title) {
-    let input = document.createElement('input');
+    const input = document.createElement('input');
     input.type = 'text';
     input.value = '';
     input.spellcheck = false;
     input.placeholder = 'Rechercher';
     $('divTabCahierTables').appendChild(input);
 
-    let t = div($('divTabCahierTables'));
+    const t = div($('divTabCahierTables'));
     t.classList.add('BookingsTableText');
     if (title == '?') {
         title = date.getNiceDate();
     }
     t.innerHTML = title;
 
-    let table = div($('divTabCahierTables'));
+    const table = div($('divTabCahierTables'));
     input.onkeyup = function () {
         bookingTableSearch(table);
     };
     table.id = date.toISOString();
     table.classList.add('BookingsTable');
 
-    let topBar = div(table);
+    const topBar = div(table);
     topBar.classList.add('TableEntries');
     topBar.classList.add('TableTopBar');
 
-    let fields = [
+    const fields = [
         '',
         '',
         '',
@@ -378,7 +378,7 @@ export function createBookingsTable(date, title) {
         'Commentaire de départ',
         "Commentaire d'arrivée",
     ];
-    let images = [
+    const images = [
         'icons/start',
         'icons/end',
         'icons/participant-count',
@@ -390,10 +390,10 @@ export function createBookingsTable(date, title) {
     ];
 
     for (let i = 0; i < fields.length; i++) {
-        let d = div(topBar);
+        const d = div(topBar);
         d.id = i;
         div(d);
-        let img = document.createElement('img');
+        const img = document.createElement('img');
         img.src = 'img/' + images[i] + '.png';
         img.alt = '?';
         d.appendChild(img);
@@ -402,7 +402,7 @@ export function createBookingsTable(date, title) {
 
     topBar.getElementsByTagName('div')[0].classList.add('BookingsTopBarSorted');
 
-    let b = div(table);
+    const b = div(table);
     b.style.position = 'absolute';
     b.style.width = '100%';
     b.style.height = '2px';
@@ -415,13 +415,13 @@ export function createBookingsTable(date, title) {
 }
 
 export function createNoBookingMessage(date) {
-    let t = div($('divTabCahierTables'));
+    const t = div($('divTabCahierTables'));
     t.classList.add('BookingsTableTextNoBooking');
     t.innerHTML = 'Aucune sortie le ' + date.getNiceDate();
 }
 
 export function actualizeFinishedBookingListForDay(bookings, table) {
-    let all = table.getElementsByClassName('TableEntries');
+    const all = table.getElementsByClassName('TableEntries');
     for (let i = 0; i < all.length; i++) {
         if (all[i].classList.contains('TableTopBar') === false) {
             all[i].parentNode.removeChild(all[i]);
@@ -438,13 +438,13 @@ export function actualizeFinishedBookingListForDay(bookings, table) {
     table.previousElementSibling.title = bookableNbr + ' embarcations, ' + participantNbr + ' personnes';
 
     if (bookings.length === 0) {
-        let ent = div(table);
+        const ent = div(table);
         ent.classList.add('TableEntries');
         ent.classList.add('TableEntriesHover');
         div(ent);
     } else {
         for (let i = 0; i < bookings.length; i++) {
-            let entry = div(table);
+            const entry = div(table);
             entry.id = i;
             entry.classList.add('TableEntries');
             entry.classList.add('TableEntriesHover');
@@ -471,7 +471,7 @@ export function actualizeFinishedBookingListForDay(bookings, table) {
             if (bookings[i].bookables.length === 0) {
                 createBookingBookableBox(div(entry));
             } else {
-                let c = div(entry);
+                const c = div(entry);
                 for (let k = 0; k < bookings[i].bookables.length; k++) {
                     createBookingBookableBox(c, bookings[i].bookables[k]);
                 }

@@ -3,7 +3,7 @@ import {Requests} from '../general/server-requests.js';
 import {popStats} from './pop-stats.js';
 
 export function loadBottoms() {
-    let allDivTabs = document.getElementsByClassName('divTab');
+    const allDivTabs = document.getElementsByClassName('divTab');
 
     while (document.getElementsByClassName('divSpacers').length !== 0) {
         deleteObjects(document.getElementsByClassName('divSpacers')[0]);
@@ -14,25 +14,25 @@ export function loadBottoms() {
 
     // new bars
     for (let i = 0; i < allDivTabs.length; i++) {
-        let s = div(allDivTabs[i]);
+        const s = div(allDivTabs[i]);
         s.className = 'divSpacers';
 
-        let b = div(allDivTabs[i]);
+        const b = div(allDivTabs[i]);
         b.className = 'divBottoms';
 
-        let divMonth = div(b);
+        const divMonth = div(b);
         divMonth.onclick = function () {
             popStats();
         };
     }
 
     if (options.statsButtonTextActive) {
-        let end = new Date(Date.now());
-        let start = new Date(end.getFullYear(), end.getMonth(), 1, 0, 0, 0, 1);
+        const end = new Date(Date.now());
+        const start = new Date(end.getFullYear(), end.getMonth(), 1, 0, 0, 0, 1);
 
         Requests.getMonthlyBookingsNbr(start, end);
     } else {
-        let all = document.getElementsByClassName('divBottoms');
+        const all = document.getElementsByClassName('divBottoms');
         for (let j = 0; j < all.length; j++) {
             all[j].children[0].innerHTML = 'Voir les statistiques du mois';
         }

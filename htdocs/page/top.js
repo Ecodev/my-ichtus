@@ -11,6 +11,7 @@ export function ableToSkipAnimation() {
     info.innerHTML = "Cliquer pour passer l'animation";
     info.id = 'info';
 }
+
 export function animate() {
     running = true;
 
@@ -21,9 +22,9 @@ export function animate() {
         }, 500);
     };
 
-    let b, c, w, f, r;
+    let c, w, f, r;
 
-    b = div(document.body);
+    const b = div(document.body);
     b.id = 'black';
 
     setTimeout(function () {
@@ -116,7 +117,7 @@ function addSvgClass(elem) {
 
 function newLetter(i) {
     if (running) {
-        let d = div(document.body);
+        const d = div(document.body);
         d.classList.add('svgLetters');
         d.classList.add('svg');
         d.id = i;

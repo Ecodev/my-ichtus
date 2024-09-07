@@ -12,12 +12,11 @@ export function popBookableHistory(bookableId) {
     currentMonth = -1;
     currentDay = -1;
 
-    let modal = openPopUp();
+    const modal = openPopUp();
 
     Requests.getBookableHistory(bookableId, modal, new Date());
 
-    let container;
-    container = div(modal);
+    const container = div(modal);
     container.classList.add('Boxes');
     container.style.position = 'absolute';
     container.style.width = '700px';
@@ -31,30 +30,30 @@ export function popBookableHistory(bookableId) {
     container.innerHTML += '<div style=" font-size:25px; text-align:center; color:black;">Historique</div>';
     grayBar(container, 5);
 
-    let close = div(container);
+    const close = div(container);
     close.className = 'divPopUpClose';
     close.onclick = function () {
         closePopUp({target: modal}, modal);
     };
 
-    let scroll = div(container);
+    const scroll = div(container);
     scroll.className = 'PopUpBookableHistoryContainerScroll';
 }
 
 export function actualizePopBookableHistory(bookings, elem) {
-    let lastDate = new Date(bookings[bookings.length - 1].startDate); // avant changeDaySorting !
+    const lastDate = new Date(bookings[bookings.length - 1].startDate); // avant changeDaySorting !
 
     bookings = changeDaySorting(bookings);
 
-    let bookableId = bookings[0].bookable.id;
+    const bookableId = bookings[0].bookable.id;
 
-    let container = elem.getElementsByTagName('div')[0];
+    const container = elem.getElementsByTagName('div')[0];
     container.getElementsByTagName('div')[0].innerHTML = ('Historique de ' + bookings[0].bookable.name).shorten(
         600,
         25,
     );
 
-    let scroll = container.getElementsByClassName('PopUpBookableHistoryContainerScroll')[0];
+    const scroll = container.getElementsByClassName('PopUpBookableHistoryContainerScroll')[0];
 
     if (scroll.getElementsByClassName('Buttons').length == 1) {
         scroll.removeChild(scroll.getElementsByClassName('Buttons')[0]);
@@ -62,34 +61,34 @@ export function actualizePopBookableHistory(bookings, elem) {
     }
 
     for (let i = 0; i < bookings.length; i++) {
-        let d = new Date(bookings[i].startDate);
+        const d = new Date(bookings[i].startDate);
 
-        let newYear = d.getFullYear();
+        const newYear = d.getFullYear();
         if (newYear != currentYear) {
-            let year = popUpYear(scroll, newYear);
+            const year = popUpYear(scroll, newYear);
 
-            let start = new Date(d.getFullYear(), 0, 1, 0, 0, 1);
-            let end = new Date(d.getFullYear() + 1, 0, 1, 0, 0, 0, 1);
+            const start = new Date(d.getFullYear(), 0, 1, 0, 0, 1);
+            const end = new Date(d.getFullYear() + 1, 0, 1, 0, 0, 0, 1);
             Requests.getBookingsNbrBetween(start.toISOString(), end.toISOString(), bookableId, year);
         }
 
-        let newMonth = d.getMonth();
+        const newMonth = d.getMonth();
         if (newMonth != currentMonth || newYear != currentYear) {
-            let month = popUpMonth(scroll, Mois[newMonth]);
+            const month = popUpMonth(scroll, Mois[newMonth]);
 
-            let start = new Date(d.getFullYear(), newMonth, 1, 0, 0, 0, 1);
-            let end = new Date(d.getFullYear(), newMonth + 1, 1, 0, 0, 0, 1);
+            const start = new Date(d.getFullYear(), newMonth, 1, 0, 0, 0, 1);
+            const end = new Date(d.getFullYear(), newMonth + 1, 1, 0, 0, 0, 1);
             Requests.getBookingsNbrBetween(start.toISOString(), end.toISOString(), bookableId, month);
         }
 
-        let newDay = d.getDate();
+        const newDay = d.getDate();
         if (newDay != currentDay || newMonth != currentMonth || newYear != currentYear) {
-            let all = scroll.getElementsByClassName('PopUpMonth');
+            const all = scroll.getElementsByClassName('PopUpMonth');
 
-            let day = popUpDay(all[all.length - 1], d.getNiceDate(true));
+            const day = popUpDay(all[all.length - 1], d.getNiceDate(true));
 
-            let start = new Date(d.getFullYear(), newMonth, newDay, 0, 0, 0, 1);
-            let end = new Date(d.getFullYear(), newMonth, newDay + 1, 0, 0, 0, 1);
+            const start = new Date(d.getFullYear(), newMonth, newDay, 0, 0, 0, 1);
+            const end = new Date(d.getFullYear(), newMonth, newDay + 1, 0, 0, 0, 1);
             Requests.getBookingsNbrBetween(start.toISOString(), end.toISOString(), bookableId, day, false);
         }
 
@@ -97,16 +96,16 @@ export function actualizePopBookableHistory(bookings, elem) {
         currentMonth = newMonth;
         currentDay = newDay;
 
-        let all = scroll.getElementsByClassName('PopUpDay');
+        const all = scroll.getElementsByClassName('PopUpDay');
 
-        let sortie = div(all[all.length - 1]);
+        const sortie = div(all[all.length - 1]);
         sortie.id = i;
         sortie.classList.add('PopUpSortie');
         sortie.onclick = function () {
             popBooking(bookings[this.id]);
         };
         div(sortie).innerHTML = d.getNiceTime();
-        let c = div(sortie);
+        const c = div(sortie);
 
         div(c).innerHTML = Cahier.getOwner(bookings[i], true, {length: 240, fontSize: 20}, true);
 
@@ -114,10 +113,10 @@ export function actualizePopBookableHistory(bookings, elem) {
         div(c).innerHTML = getStartCommentFromBooking(bookings[i]).shorten(150, 15);
     }
 
-    let space = document.createElement('br');
+    const space = document.createElement('br');
     scroll.appendChild(space);
 
-    let plus = div(scroll);
+    const plus = div(scroll);
     plus.classList.add('Buttons');
     plus.classList.add('NormalButtons');
     plus.innerHTML = 'Afficher plus';
@@ -135,19 +134,19 @@ function changeDaySorting(bookings) {
     let oldDate = new Date(bookings[0].startDate).getDate();
     let oldMonth = new Date(bookings[0].startDate).getMonth();
 
-    let result = bookings;
+    const result = bookings;
 
     let c = 0;
     for (i = 1; i < result.length; i++) {
-        let newDate = new Date(result[i].startDate).getDate();
-        let newMonth = new Date(result[i].startDate).getMonth();
+        const newDate = new Date(result[i].startDate).getDate();
+        const newMonth = new Date(result[i].startDate).getMonth();
         if (oldDate == newDate && oldMonth == newMonth) {
             c++;
             //console.log("i:" + i, "c++");
         } else if (c != 0) {
             //c!=0
-            let i1 = i - 1 - c;
-            let i2 = i - 1;
+            const i1 = i - 1 - c;
+            const i2 = i - 1;
             c = 0;
             //console.log("i:" + i,"switch - " + i1 + "to" + i2);
             result.inverse(i1, i2);
@@ -157,8 +156,8 @@ function changeDaySorting(bookings) {
         oldMonth = newMonth;
     }
     if (c != 0) {
-        let i1 = i - 1 - c;
-        let i2 = i - 1;
+        const i1 = i - 1 - c;
+        const i2 = i - 1;
         result.inverse(i1, i2);
         //console.log("switch",i1, i2);
     }
@@ -166,37 +165,37 @@ function changeDaySorting(bookings) {
 }
 
 function popUpYear(container, txt) {
-    let c = div(container);
+    const c = div(container);
     c.className = 'PopUpYear';
     div(c);
-    let inner = div(c);
+    const inner = div(c);
     inner.innerHTML = txt;
-    let nbr = div(div(c));
+    const nbr = div(div(c));
 
     return nbr;
 }
 
 function popUpMonth(container, txt) {
-    let c = div(container);
+    const c = div(container);
     c.className = 'PopUpMonth';
     div(c);
-    let inner = div(c);
+    const inner = div(c);
     inner.innerHTML = txt;
-    let nbr = div(div(c));
+    const nbr = div(div(c));
 
     return nbr;
 }
 
 function popUpDay(container, txt) {
-    let c = div(container);
+    const c = div(container);
     c.className = 'PopUpDay';
 
-    let infos = div(c);
+    const infos = div(c);
 
     div(infos);
-    let inner = div(infos);
+    const inner = div(infos);
     inner.innerHTML = txt;
-    let nbr = div(div(infos));
+    const nbr = div(div(infos));
 
     return nbr;
 }

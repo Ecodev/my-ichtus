@@ -8,6 +8,7 @@ export default [
         rules: {
             'no-var': 'error',
             'no-unexpected-multiline': 'off', // Prettier disagrees
+            'prefer-const': 'error',
         },
     },
 ];

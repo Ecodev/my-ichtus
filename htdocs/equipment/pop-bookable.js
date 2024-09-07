@@ -12,12 +12,12 @@ export function popBookable(bookableId, justPreview = true, nbr = 0, modal = ope
         modal.innerHTML = '';
     }
 
-    let pop = div(modal);
+    const pop = div(modal);
     pop.classList.add('Boxes');
     pop.classList.add('divTabCahierEquipmentElementsPopUp');
 
     if (modal != $('divTabCahierEquipmentBookableContainer')) {
-        let close = div(pop);
+        const close = div(pop);
         close.className = 'divPopUpClose';
         close.onclick = function () {
             closePopUp({target: modal}, modal);
@@ -29,19 +29,19 @@ export function popBookable(bookableId, justPreview = true, nbr = 0, modal = ope
 
     div(pop); // imgContainer
 
-    let descriptionTitle = div(pop);
+    const descriptionTitle = div(pop);
     descriptionTitle.innerHTML = 'Description';
 
     div(pop); // description box
 
-    let btn2 = div(pop);
+    const btn2 = div(pop);
     btn2.classList.add('Buttons');
     btn2.classList.add('ReturnButtons');
     btn2.style.visibility = 'hidden';
     btn2.innerHTML = 'Historique';
 
     if (!justPreview) {
-        let btn = div(pop);
+        const btn = div(pop);
         btn.classList.add('Buttons', 'ValidateButtons');
         btn.innerHTML = 'Choisir';
         btn.setAttribute('tabindex', '0');
@@ -50,7 +50,7 @@ export function popBookable(bookableId, justPreview = true, nbr = 0, modal = ope
         //  description.style.width = "660px";
     }
 
-    let textsContainer = div(pop);
+    const textsContainer = div(pop);
     textsContainer.className = 'divTabCahierEquipmentElementsContainerTextsContainer';
 
     div(textsContainer);
@@ -65,7 +65,7 @@ export function actualizePopBookable(nbr, bookable, bookings, elem) {
     elem.getElementsByClassName('divTabCahierEquipmentElementsPopUp')[0].getElementsByTagName('div')[3].innerHTML =
         bookable.description;
 
-    let textsContainer = elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0];
+    const textsContainer = elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0];
 
     if (bookable.code != null) {
         textsContainer.getElementsByTagName('div')[0].innerHTML = bookable.code;
@@ -78,7 +78,7 @@ export function actualizePopBookable(nbr, bookable, bookings, elem) {
     else div(textsContainer);
 
     for (let i = 0; i < bookable.licenses.length; i++) {
-        let lic = div(textsContainer);
+        const lic = div(textsContainer);
         lic.innerHTML = "<asdf style='font-weight:bold'>License requise: </asdf >" + bookable.licenses[i].name;
     }
 
@@ -93,7 +93,7 @@ export function actualizePopBookable(nbr, bookable, bookings, elem) {
 
             // 1.4 : don't show warning if editing the current booking
             if (Cahier.bookings[0].currentlyEditing != undefined) {
-                for (let bookingId of Cahier.editedBooking.ids) {
+                for (const bookingId of Cahier.editedBooking.ids) {
                     if (bookings.items[0].id == bookingId) {
                         bookableUsedWarning = false;
                         break;
@@ -104,11 +104,11 @@ export function actualizePopBookable(nbr, bookable, bookings, elem) {
 
         if (bookableUsedWarning) {
             let usedTxt = Cahier.getOwner(bookings.items[0], false);
-            let dT = deltaTime(new Date(bookings.items[0].startDate));
+            const dT = deltaTime(new Date(bookings.items[0].startDate));
             usedTxt += ' est parti ' + dT.text + ' avec cette embarcation !';
             deltaT = dT.time;
 
-            let div2 = elem
+            const div2 = elem
                 .getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0]
                 .getElementsByTagName('div')[2];
             div2.innerHTML = usedTxt;
@@ -148,7 +148,7 @@ export function actualizePopBookable(nbr, bookable, bookings, elem) {
     if (elem.getElementsByClassName('ValidateButtons').length == 1) {
         // if !justPreview
 
-        let choseFunction = function () {
+        const choseFunction = function () {
             Cahier.addBookable(nbr, bookable, Object.assign({}, bookings.items[0]));
             newTab('divTabCahierEquipmentChoice');
 

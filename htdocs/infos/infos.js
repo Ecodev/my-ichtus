@@ -18,7 +18,7 @@ export function writeNbrInvites(elem) {
 }
 
 export function createAllPropositions(location = $('divTabCahierInfos')) {
-    let allDestinationPropositions = location
+    const allDestinationPropositions = location
         .getElementsByClassName('divTabCahierInfosDestinationPropositions')[0]
         .getElementsByTagName('div');
     for (let i = 0; i < allDestinationPropositions.length; i++) {
@@ -31,7 +31,7 @@ export function createAllPropositions(location = $('divTabCahierInfos')) {
         });
     }
 
-    let allNbrInvitesPropositions = location
+    const allNbrInvitesPropositions = location
         .getElementsByClassName('divTabCahierInfosNbrInvitesPropositions')[0]
         .getElementsByTagName('div');
     for (let i = 0; i < allNbrInvitesPropositions.length; i++) {
@@ -53,7 +53,7 @@ export function createAllPropositions(location = $('divTabCahierInfos')) {
 }
 
 export function focusInOrOut(elem, focus) {
-    let allPropositions = elem.parentElement
+    const allPropositions = elem.parentElement
         .getElementsByClassName('PropositionsContainer')[0]
         .getElementsByTagName('div');
     for (let i = 0; i < allPropositions.length; i++) {
@@ -87,7 +87,7 @@ function DenyInfos(elem) {
 }
 
 export function checkInfos(location = $('divTabCahierInfos'), nbr = 0) {
-    let allTabCahierFields = location.getElementsByClassName('TabCahierFields');
+    const allTabCahierFields = location.getElementsByClassName('TabCahierFields');
     let allInfosOkay = true;
     for (let i = 0; i < allTabCahierFields.length - 1; i++) {
         //POUR EVITER LE TEXTAREA...
@@ -101,13 +101,13 @@ export function checkInfos(location = $('divTabCahierInfos'), nbr = 0) {
         }
     }
     if (allInfosOkay == true) {
-        let _participantCount = parseInt(
+        const _participantCount = parseInt(
             location.getElementsByClassName('divTabCahierInfosNbrInvites')[0].getElementsByTagName('input')[0].value,
         );
-        let _destination = location
+        const _destination = location
             .getElementsByClassName('divTabCahierInfosDestination')[0]
             .getElementsByTagName('input')[0].value;
-        let _startComment = location
+        const _startComment = location
             .getElementsByClassName('divTabCahierInfosStartComment')[0]
             .getElementsByTagName('textarea')[0].value;
 

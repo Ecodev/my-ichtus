@@ -4,7 +4,7 @@ import {Cahier} from './methods.js';
 import {tabs} from '../general/screen.js';
 
 export function actualizeBookableList() {
-    let bookables = Cahier.bookings[0].bookables;
+    const bookables = Cahier.bookings[0].bookables;
 
     $('divTabCahierTopList').children[0].innerHTML = '';
     $('divTabCahierTopList').children[0].style.opacity = '1';
@@ -15,7 +15,7 @@ export function actualizeBookableList() {
         .children[3].children[0].classList.remove('buttonNonActive');
 
     for (let i = 0; i < bookables.length; i++) {
-        let d = div($('divTabCahierTopList').children[0]);
+        const d = div($('divTabCahierTopList').children[0]);
         d.id = i;
 
         if (Cahier.bookings[0].bookables[i].id != 0) {
@@ -36,16 +36,16 @@ export function actualizeBookableList() {
             d.classList.add('PersonalSail');
         }
 
-        let img = div(d);
+        const img = div(d);
         img.style.backgroundImage = Cahier.getImageUrl(Cahier.bookings[0].bookables[i]);
 
-        let close = div(d);
+        const close = div(d);
         close.id = i;
         close.onclick = function () {
             Cahier.removeBookable(0, Cahier.bookings[0].bookables[this.id]);
         };
 
-        let code = div(d);
+        const code = div(d);
 
         if (bookables[i].code != null) {
             if (bookables[i].code.length > 4) {

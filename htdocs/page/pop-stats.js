@@ -3,20 +3,19 @@ import {Requests} from '../general/server-requests.js';
 import {Cahier} from '../cahier/methods.js';
 
 export function popStats() {
-    let elem = openPopUp();
+    const elem = openPopUp();
 
-    let container;
-    container = div(elem);
+    const container = div(elem);
     container.classList.add('PopUpStatsContainer');
     container.classList.add('Boxes');
 
-    let close = div(container);
+    const close = div(container);
     close.className = 'divPopUpClose';
     close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
-    let d = div(container);
+    const d = div(container);
     d.style.textAlign = 'center';
     d.style.fontSize = '25px';
     d.innerHTML = 'Statistiques';
@@ -26,28 +25,28 @@ export function popStats() {
     div(container).innerHTML = 'Sorties';
     div(container).innerHTML = 'Jour';
 
-    let t = div(container);
+    const t = div(container);
     t.classList.add('PopUpStatsContainerTitle');
 
     div(t);
 
-    let c = div(container);
+    const c = div(container);
     c.classList.add('divStatsContainer');
 
     loadStats();
 }
 
 function loadStats(end = new Date()) {
-    let start = new Date(end.getFullYear(), end.getMonth(), 1, 0, 0, 0, 1);
+    const start = new Date(end.getFullYear(), end.getMonth(), 1, 0, 0, 0, 1);
 
-    let t = document.getElementsByClassName('PopUpStatsContainerTitle')[0];
+    const t = document.getElementsByClassName('PopUpStatsContainerTitle')[0];
     t.innerHTML = '';
-    let btn = div(t);
+    const btn = div(t);
     btn.onclick = function () {
         loadStats(new Date(start.getFullYear(), start.getMonth(), 0, 23, 59, 59, 99)); // day 0
     };
 
-    let btn2 = div(t);
+    const btn2 = div(t);
     if (new Date(end.getFullYear(), end.getMonth() + 1, 0, 0, 0, 0, 1) > new Date()) {
         btn2.style.visibility = 'hidden';
     } else {
@@ -58,12 +57,12 @@ function loadStats(end = new Date()) {
 
     div(t).innerHTML = Mois[start.getMonth()];
 
-    let c = document.getElementsByClassName('divStatsContainer')[0];
+    const c = document.getElementsByClassName('divStatsContainer')[0];
     c.innerHTML = '';
 
-    let scale = div(c);
+    const scale = div(c);
     div(c); // center
-    let legend = div(c);
+    const legend = div(c);
 
     div(scale);
     div(scale);
@@ -76,19 +75,19 @@ function loadStats(end = new Date()) {
 }
 
 export function actualizeStats(start, end, elem, bookings) {
-    let stats = [];
+    const stats = [];
 
-    let elapsedTime = Math.abs(end.getTime() - start.getTime());
-    let daysNbr = parseInt(elapsedTime / (1000 * 3600 * 24));
+    const elapsedTime = Math.abs(end.getTime() - start.getTime());
+    const daysNbr = parseInt(elapsedTime / (1000 * 3600 * 24));
     for (let i = 0; i < daysNbr + 1; i++) {
         stats.push(0);
     }
 
     for (let i = 0; i < bookings.length; i++) {
-        let date = new Date(bookings[i].startDate);
+        const date = new Date(bookings[i].startDate);
 
-        let elapsedTime = Math.abs(date.getTime() - start.getTime());
-        let daysNbr = parseInt(elapsedTime / (1000 * 3600 * 24));
+        const elapsedTime = Math.abs(date.getTime() - start.getTime());
+        const daysNbr = parseInt(elapsedTime / (1000 * 3600 * 24));
 
         stats[daysNbr]++;
     }
@@ -96,27 +95,27 @@ export function actualizeStats(start, end, elem, bookings) {
     div(elem.parentElement.getElementsByClassName('PopUpStatsContainerTitle')[0]).innerHTML =
         Cahier.getSingularOrPlural(bookings.length, ' sortie');
 
-    let scale = elem.children[0];
-    let center = elem.children[1];
-    let legend = elem.children[2];
+    const scale = elem.children[0];
+    const center = elem.children[1];
+    const legend = elem.children[2];
 
-    let max = maxValue(stats);
+    const max = maxValue(stats);
 
     for (let i = 0; i < stats.length; i++) {
-        let d = div(center);
+        const d = div(center);
         d.style.width = 100 / stats.length + '%';
 
-        let bar = div(d);
+        const bar = div(d);
         bar.style.height = (stats[i] / max) * 90 + '%';
 
-        let nbr = div(d);
+        const nbr = div(d);
         nbr.innerHTML = stats[i];
 
-        let l = div(legend);
+        const l = div(legend);
         l.style.width = 100 / stats.length + '%';
 
         if (i % parseInt(stats.length / 10) == 0 || stats.length / 10 < 1) {
-            let date = new Date(start);
+            const date = new Date(start);
             date.setDate(start.getDate() + i);
 
             div(l).innerHTML = date.getDate();
@@ -138,7 +137,7 @@ export function actualizeStats(start, end, elem, bookings) {
     }
 
     for (let i = 1; i < count + 1; i++) {
-        let s = div(scale);
+        const s = div(scale);
         s.style.top = 100 - ((i * step) / max) * 90 + '%';
         s.innerHTML = i * step;
         div(s);

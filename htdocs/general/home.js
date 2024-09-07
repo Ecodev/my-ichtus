@@ -35,13 +35,13 @@ export function $(id) {
 
 // createElements
 export function div(loc) {
-    let x = document.createElement('div');
+    const x = document.createElement('div');
     loc.appendChild(x);
     return x;
 }
 
 export function input(loc, _placeholder = '') {
-    let x = document.createElement('input');
+    const x = document.createElement('input');
     x.autocomplete = 'off';
     x.type = 'text';
     x.spellcheck = false;
@@ -65,7 +65,7 @@ export function load() {
     loadCahierEquipmentChoice();
     loadEscListener();
 
-    let version = '1.5';
+    const version = '1.5';
     if (window.location.hostname === 'navigations.ichtus.club') {
         console.warn('Version de production ' + version);
         $('divTopBarText').innerHTML = tabs[0].title;
@@ -106,7 +106,7 @@ document.onmousemove = function () {
 };
 
 // could be improved...
-let Time = {
+const Time = {
     getActualMinutes: function (m = date.getMinutes()) {
         let x;
         if (m < 10) {
@@ -141,13 +141,13 @@ Date.prototype.getNiceDate = function (substr = false, year = false) {
 };
 
 Date.prototype.getPreviousDate = function () {
-    let yesterday = new Date(this);
+    const yesterday = new Date(this);
     yesterday.setDate(this.getDate() - 1);
     return yesterday;
 };
 
 export function deltaTime(d1, d2 = new Date(), bold = true) {
-    let delta = Math.abs(d2.getTime() - d1.getTime()) / 1000 / 60; // in minutes
+    const delta = Math.abs(d2.getTime() - d1.getTime()) / 1000 / 60; // in minutes
     let t = '';
 
     if (delta < 1) t = "à l'instant";
@@ -230,7 +230,7 @@ function actualizeTime() {
 //}
 
 function loadReturnButtons() {
-    let allReturnButtons = document.getElementsByClassName('ReturnButtons');
+    const allReturnButtons = document.getElementsByClassName('ReturnButtons');
     for (let i = 0; i < allReturnButtons.length; i++) {
         allReturnButtons[i].title = 'Retour';
     }
@@ -240,7 +240,7 @@ function loadReturnButtons() {
 let lastModals = 0;
 
 export function openPopUp() {
-    let modal = div(document.body);
+    const modal = div(document.body);
     modal.onclick = function (event) {
         closePopUp(event);
     };
@@ -268,7 +268,7 @@ export function closePopUp(e) {
         t = true;
     }
     if (t) {
-        let modal = $('divModal' + lastModals);
+        const modal = $('divModal' + lastModals);
         modal.style.opacity = 0;
         setTimeout(function () {
             modal.style.display = 'none';
@@ -303,11 +303,11 @@ export function stopWaiting() {
 }
 
 String.prototype.pixelLength = function (_fontSize = 20) {
-    let c = document.createElement('span');
+    const c = document.createElement('span');
     document.body.appendChild(c);
     c.innerHTML = this;
     c.style.fontSize = _fontSize + 'px';
-    let length = c.offsetWidth;
+    const length = c.offsetWidth;
     document.body.removeChild(c);
     return length;
 };
@@ -324,7 +324,7 @@ String.prototype.shorten = function (maxLength, _fontSize = 20) {
 };
 
 export function grayBar(elem, marginTop = 10, marginBottom = 15) {
-    let d = div(elem);
+    const d = div(elem);
     d.style.backgroundColor = 'lightgray';
     d.style.height = '2px';
     d.style.marginBottom = marginBottom + 'px';
@@ -335,10 +335,10 @@ export function grayBar(elem, marginTop = 10, marginBottom = 15) {
 
 String.prototype.replaceTxtByTxt = function (replace = '', by = '', caseSensitive = false) {
     let i = 0;
-    let where = [];
+    const where = [];
 
-    let txt = caseSensitive ? this : this.toUpperCase();
-    let replaceTxt = caseSensitive ? replace : replace.toUpperCase();
+    const txt = caseSensitive ? this : this.toUpperCase();
+    const replaceTxt = caseSensitive ? replace : replace.toUpperCase();
 
     while (txt.indexOf(replaceTxt, i) !== -1) {
         where.push(txt.indexOf(replaceTxt, i));
@@ -347,12 +347,12 @@ String.prototype.replaceTxtByTxt = function (replace = '', by = '', caseSensitiv
 
     let r = '';
     for (let k = 0; k <= where.length; k++) {
-        let start = k === 0 ? 0 : where[k - 1];
-        let end = k === where.length ? this.length : where[k];
-        let s = this.slice(start, end);
-        let sTxt = caseSensitive ? s : s.toUpperCase();
-        let x = sTxt.indexOf(replaceTxt);
-        let t = x !== -1 ? s.slice(0, x) + by + s.slice(x + replace.length) : s;
+        const start = k === 0 ? 0 : where[k - 1];
+        const end = k === where.length ? this.length : where[k];
+        const s = this.slice(start, end);
+        const sTxt = caseSensitive ? s : s.toUpperCase();
+        const x = sTxt.indexOf(replaceTxt);
+        const t = x !== -1 ? s.slice(0, x) + by + s.slice(x + replace.length) : s;
         r += t;
     }
     return r;
@@ -360,7 +360,7 @@ String.prototype.replaceTxtByTxt = function (replace = '', by = '', caseSensitiv
 
 // ARRAY PROTOTYPES
 Array.prototype.switch = function (i1, i2) {
-    let content_i1 = this[i1];
+    const content_i1 = this[i1];
     this.splice(i1, 1, this[i2]);
     this.splice(i2, 1, content_i1);
     return this;
@@ -384,7 +384,7 @@ Array.prototype.findIndex = function (x) {
 };
 
 Array.prototype.deleteMultiples = function () {
-    let r = [];
+    const r = [];
     for (let i = 0; i < this.length; i++) {
         if (r.findIndex(this[i]) === -1) {
             r.push(this[i]);
@@ -427,9 +427,9 @@ Array.prototype.fillArray = function (length, what = 0) {
 
 // merge and only takes the elements which are in every array
 Array.prototype.mergeAND = function () {
-    let send = [];
+    const send = [];
     for (let b = 0; b < this[0].length; b++) {
-        let item = this[0][b];
+        const item = this[0][b];
         let c = 0;
         for (let r2 = 1; r2 < this.length; r2++) {
             if (this[r2].findIndex(item) != -1) {
@@ -487,17 +487,17 @@ export function mergeBookings(bookings) {
     }
 
     function mergeComments(c1, c2) {
-        let meaninglessComments = ['', 'Terminée automatiquement'];
+        const meaninglessComments = ['', 'Terminée automatiquement'];
         if (!meaninglessComments.includes(c1)) return c1;
         if (!meaninglessComments.includes(c2)) return c2;
         if (c1 != '') return c1;
         return c2;
     }
 
-    let resultingBookings = [];
+    const resultingBookings = [];
 
     while (bookings.length > 0) {
-        let booking = bookings.pop();
+        const booking = bookings.pop();
 
         // should not be kept
         if (!displayBooking(booking)) continue;

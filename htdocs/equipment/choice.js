@@ -12,13 +12,13 @@ export function loadCahierEquipmentChoice(
         isTab = false;
     }
 
-    let container = div(loc);
+    const container = div(loc);
     container.classList.add('divTabCahierEquipmentChoiceContainer');
 
-    let c = div(container);
+    const c = div(container);
     c.classList.add('divTabCahierEquipmentChoiceInputCodeContainer');
 
-    let i = input(c, 'Taper un code...');
+    const i = input(c, 'Taper un code...');
     i.onkeyup = function (event) {
         if (event.keyCode == 13) {
             Requests.getBookableByCode(this, nbr);
@@ -36,7 +36,7 @@ export function loadCahierEquipmentChoice(
 
     div(c);
 
-    let btn = div(div(c));
+    const btn = div(div(c));
     btn.classList.add('ValidateButtons', 'Buttons');
     btn.title = 'Choisir cette embarcation';
     btn.onclick = function () {
@@ -47,9 +47,9 @@ export function loadCahierEquipmentChoice(
 
     div(container).innerHTML = 'Ou';
 
-    let btnContainer = div(container);
+    const btnContainer = div(container);
 
-    let btn1 = div(btnContainer);
+    const btn1 = div(btnContainer);
     btn1.innerHTML = 'Prendre du matériel personnel';
     btn1.title = 'Prendre du matériel personnel';
     btn1.style.fontSize = '19px';
@@ -77,7 +77,7 @@ export function loadCahierEquipmentChoice(
 
     btn1.classList.add('NormalButtons', 'Buttons');
 
-    let btn2 = div(btnContainer);
+    const btn2 = div(btnContainer);
     btn2.innerHTML = 'Voir la liste du matériel';
     if (isTab) {
         btn2.onclick = function () {
