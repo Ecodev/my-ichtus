@@ -50,11 +50,6 @@ export function input(loc, _placeholder = '') {
     return x;
 }
 
-function br(loc) {
-    let x = document.createElement('br');
-    loc.appendChild(x);
-}
-
 //Load
 export function load() {
     setCurrentTabElement($('divTabCahier'));
@@ -299,7 +294,7 @@ function loadEscListener() {
     });
 }
 
-function waiting() {
+export function waiting() {
     document.body.classList.add('waiting');
 }
 
@@ -536,65 +531,4 @@ export function mergeBookings(bookings) {
         }
     }
     return resultingBookings;
-}
-
-// transformBookingsOld
-function transformBookingsOld(_bookings) {
-    if (_bookings.length == 0) return [];
-
-    if (!displayBooking(_bookings[0])) return transformBookingsOld(_bookings.slice(1));
-
-    let final = [];
-
-    final.push(_bookings[0].clone());
-    final[0].ids = [_bookings[0].id];
-
-    if (_bookings[0].bookable == null) final[0].bookables = [Cahier.personalBookable];
-    else final[0].bookables = [_bookings[0].bookable];
-
-    for (let i = 1; i < _bookings.length; i++) {
-        if (!displayBooking(_bookings[i])) continue;
-
-        let canBeMerged =
-            (is0second(_bookings[i]) && is0second(_bookings[i - 1])) ||
-            (!is0second(_bookings[i]) && !is0second(_bookings[i - 1]));
-
-        if (_bookings[i - 1].owner == null) {
-            console.warn('Booking without owner :', _bookings[i - 1]);
-        } else if (_bookings[i].owner == null) {
-            if (i == _bookings.length - 1) {
-                console.warn('Booking without owner :', _bookings[i]);
-            }
-        }
-
-        // add bookable (find corresponding booking)
-        else if (
-            _bookings[i].startDate == _bookings[i - 1].startDate &&
-            (options.bookingsTogetherWithDifferentEndates ||
-                deltaTime(new Date(_bookings[i].endDate), new Date(_bookings[i - 1].endDate)).time < 1) && // si pas terminé en même temps -> sortie a été split
-            _bookings[i].owner.id == _bookings[i - 1].owner.id &&
-            canBeMerged
-        ) {
-            if (_bookings[i].bookable == null) {
-                final[final.length - 1].bookables.push(Cahier.personalBookable);
-            } else {
-                final[final.length - 1].bookables.push(_bookings[i].bookable);
-            }
-            final[final.length - 1].ids.push(_bookings[i].id);
-            final[final.length - 1].participantCount += _bookings[i].participantCount;
-        }
-
-        // new booking
-        else {
-            final.push(_bookings[i].clone());
-            final[final.length - 1].ids = [_bookings[i].id];
-
-            if (_bookings[i].bookable == null) {
-                final[final.length - 1].bookables = [Cahier.personalBookable];
-            } else {
-                final[final.length - 1].bookables = [_bookings[i].bookable];
-            }
-        }
-    }
-    return final;
 }

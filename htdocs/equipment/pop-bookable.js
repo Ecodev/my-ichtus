@@ -27,12 +27,12 @@ export function popBookable(bookableId, justPreview = true, nbr = 0, modal = ope
         newTab('divTabCahierEquipmentBookable');
     }
 
-    let imgContainer = div(pop);
+    div(pop); // imgContainer
 
     let descriptionTitle = div(pop);
     descriptionTitle.innerHTML = 'Description';
 
-    let description = div(pop); // description box
+    div(pop); // description box
 
     let btn2 = div(pop);
     btn2.classList.add('Buttons');

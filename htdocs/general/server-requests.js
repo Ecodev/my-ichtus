@@ -291,20 +291,6 @@ export const Requests = {
         });
     },
 
-    // getUserInfos (TO DO AND CHANGE THE GETALL)
-    getUserInfos: function (ownerId) {
-        let filter = {
-            id: ownerId,
-        };
-
-        let variables = new Server.QueryVariablesManager();
-        variables.set('variables', filter);
-
-        Server.userService.getAll(variables).subscribe(result => {
-            console.log('getUserInfos(): ', result);
-        });
-    },
-
     // getBookablesList
     getBookablesList: function (elem = $('inputTabCahierEquipmentElementsInputSearch')) {
         let order;
@@ -316,16 +302,12 @@ export const Requests = {
             order = 'ASC';
         }
 
-        let lastUse = false;
-        let nbrBookings = false;
         let whichField = $('divTabCahierEquipmentElementsSelectSort').getElementsByTagName('select')[0].value;
         if (whichField == 'lastUse') {
             whichField = 'id';
-            lastUse = true;
         }
         if (whichField == 'nbrBookings') {
             whichField = 'id';
-            nbrBookings = true;
         }
 
         let txt = elem.value;
@@ -1413,7 +1395,7 @@ export const Requests = {
 
         for (let i = 0; i < bookingIds.length; i++) {
             //console.log("terminateBooking", bookingIds[i], comments[i]);
-            Server.bookingService.terminateBooking(bookingIds[i], comments[i]).subscribe(result => {
+            Server.bookingService.terminateBooking(bookingIds[i], comments[i]).subscribe(() => {
                 c++;
                 if (c === bookingIds.length) {
                     if (realTerminate) {
@@ -1456,7 +1438,7 @@ export const Requests = {
         // ToFinish
         for (let i = 0; i < idsToFinish.length; i++) {
             //          console.log("Terminate:", idsToFinish[i], commentsToFinish[i]);
-            Server.bookingService.terminateBooking(idsToFinish[i], commentsToFinish[i]).subscribe(result => {
+            Server.bookingService.terminateBooking(idsToFinish[i], commentsToFinish[i]).subscribe(() => {
                 c++;
                 if (c == idsToFinish.length) finished();
             });
@@ -1496,7 +1478,7 @@ export const Requests = {
         // ToCreate
         for (let i = 0; i < inputsToCreate.length; i++) {
             //            console.log("Create:", inputsToCreate[i]);
-            Server.bookingService.create(inputsToCreate[i]).subscribe(booking => {
+            Server.bookingService.create(inputsToCreate[i]).subscribe(() => {
                 c++;
                 if (c == total) finished();
             });
@@ -1504,7 +1486,7 @@ export const Requests = {
         // ToUpdate
         for (let i = 0; i < inputsToUpdate.length; i++) {
             //           console.log("Update:", inputsToUpdate[i]);
-            Server.bookingService.updateNow(extendInput(idsToUpdate[i], inputsToUpdate[i])).subscribe(result => {
+            Server.bookingService.updateNow(extendInput(idsToUpdate[i], inputsToUpdate[i])).subscribe(() => {
                 c++;
                 if (c == total) finished();
             });
@@ -1539,21 +1521,6 @@ export const Requests = {
         });
     },
 
-    deleteBooking: function (id = '4079') {
-        console.error("It seems that bookingonly doesn't have the rights to perform booking deletions.");
-
-        Server.bookingService.delete([{id: id}]).subscribe(result => {
-            console.log('deleteBooking():', result);
-        });
-    },
-
-    // deleteBookings
-    deleteBookings: function (id_s = ['3102']) {
-        console.error('Not implemented function.');
-        alert('Not implemented function.');
-        //  Server.bookingService.deleteBookings(ids).subscribe(result => { console.log(result); });
-    },
-
     // getServerInputsForBookingCreating
     getServerInputsForBookingCreating: function (booking = Cahier.bookings[0], startDate = null) {
         let bookingInputs = [];
@@ -1579,7 +1546,7 @@ export const Requests = {
         let bookingInputs = Requests.getServerInputsForBookingCreating(Cahier.bookings[0]);
         for (let i = 0; i < bookingInputs.length; i++) {
             let input = bookingInputs[i];
-            Server.bookingService.create(input).subscribe(booking => {
+            Server.bookingService.create(input).subscribe(() => {
                 c++;
                 if (c == bookingInputs.length) {
                     newTab('divTabCahier');

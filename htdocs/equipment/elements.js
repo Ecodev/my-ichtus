@@ -99,7 +99,7 @@ export function loadElements(bookables, nbr = 0) {
         let background = div(secondContainer);
         background.style.backgroundImage = Cahier.getImageUrl(bookables[j]);
 
-        let selection = div(secondContainer);
+        div(secondContainer);
 
         let info = div(secondContainer);
         info.id = bookables[j].id;

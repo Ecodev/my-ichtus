@@ -4,10 +4,6 @@ import {popBookingFinish, popBookingInfos} from './pop-booking.js';
 import {popBookable} from '../equipment/pop-bookable.js';
 import {Requests} from '../general/server-requests.js';
 
-let textToolTipGuest =
-    "Un non-membre doit toujours être accompagné par un membre d'Ichtus. <br/> Il n'a donc pas le droit d'aller seul.";
-let textToolTipUser = "Sortie pour les membres d'Ichtus<br/><br/>";
-
 export function loadActualBookings(_actualBookings) {
     Cahier.actualBookings = _actualBookings;
 

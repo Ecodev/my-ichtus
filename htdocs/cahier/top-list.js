@@ -57,7 +57,7 @@ export function actualizeBookableList() {
         }
 
         if (bookables[i].available == false) {
-            let alert = div(d);
+            div(d); // alert
             //  code.style.color = "red";
         }
     }

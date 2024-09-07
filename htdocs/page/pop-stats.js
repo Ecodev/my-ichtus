@@ -1,4 +1,4 @@
-import {closePopUp, div, grayBar, Jours, Mois, openPopUp} from '../general/home.js';
+import {closePopUp, div, grayBar, Mois, openPopUp} from '../general/home.js';
 import {Requests} from '../general/server-requests.js';
 import {Cahier} from '../cahier/methods.js';
 
@@ -62,7 +62,7 @@ function loadStats(end = new Date()) {
     c.innerHTML = '';
 
     let scale = div(c);
-    let center = div(c);
+    div(c); // center
     let legend = div(c);
 
     div(scale);
@@ -100,7 +100,6 @@ export function actualizeStats(start, end, elem, bookings) {
     let center = elem.children[1];
     let legend = elem.children[2];
 
-    let legends = Jours.concat(Jours).concat(Jours);
     let max = maxValue(stats);
 
     for (let i = 0; i < stats.length; i++) {

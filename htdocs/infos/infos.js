@@ -1,16 +1,9 @@
-﻿import {$, closePopUp, div} from '../general/home.js';
+﻿import {$, closePopUp} from '../general/home.js';
 import {Cahier} from '../cahier/methods.js';
 import {newTab} from '../general/screen.js';
 
 export function writeDestination(elem) {
     if (elem.value.length > 2) {
-        AcceptInfos(elem);
-    } else {
-        DenyInfos(elem);
-    }
-}
-function writeCommment(elem) {
-    if (elem.value.length > -1) {
         AcceptInfos(elem);
     } else {
         DenyInfos(elem);

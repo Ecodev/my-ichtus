@@ -1,4 +1,4 @@
-﻿import {$, div} from '../general/home.js';
+﻿import {$} from '../general/home.js';
 import {newTab} from '../general/screen.js';
 import {Cahier} from './methods.js';
 //ProgressBar

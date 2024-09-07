@@ -1,6 +1,4 @@
-import {$, div, options, stopWaiting} from '../general/home.js';
-import {popUser} from '../member/user.js';
-import {popGuest} from '../member/guest.js';
+import {$, options, stopWaiting, waiting} from '../general/home.js';
 import {
     popAlertAlreadyHavingABooking,
     popAlertBookablesHaveJustBeenBooked,
@@ -59,14 +57,6 @@ export const Cahier = {
         }
     },
 
-    getFullName: function (booking = Cahier.bookings[0]) {
-        if (booking.guest) {
-            return booking.guestName;
-        } else {
-            return booking.owner.name;
-        }
-    },
-
     getSingularOrPlural: function (nbr = Cahier.nbrParticipants, txt = ' Participant') {
         if (nbr == 0) {
             return 'Aucun';
@@ -74,22 +64,6 @@ export const Cahier = {
             return '1' + txt;
         } else {
             return nbr + txt + 's';
-        }
-    },
-
-    getBookableName: function (booking) {
-        if (booking.bookables.length == 0) {
-            return '??';
-        } else {
-            return booking.bookables[0].name;
-        }
-    },
-
-    getBookableCode: function (booking) {
-        if (booking.bookables.length == 0) {
-            return '';
-        } else {
-            return booking.bookables[0].code;
         }
     },
 
@@ -116,16 +90,6 @@ export const Cahier = {
         } else {
             return booking.owner.name;
         }
-    },
-
-    // new Booking (old)
-    newUserBooking: function () {
-        popUser(Cahier.bookings.length);
-    },
-
-    // new Booking (old)
-    newGuestBooking: function () {
-        popGuest(Cahier.bookings.length);
     },
 
     // when clicking on "Annoncer une sortie"
@@ -195,11 +159,6 @@ export const Cahier = {
         //console.log("--> Cahier.cancel()");
     },
 
-    deleteBooking: function (nbr) {
-        Cahier.bookings.splice(nbr, 1);
-        Cahier.actualizeConfirmation();
-    },
-
     confirm: function () {
         if (Cahier.bookings[0].participantCount > 15) {
             popAlertTooManyParticipants();
@@ -231,7 +190,7 @@ export const Cahier = {
             }
 
             // rechecking if bookings still available
-            document.body.classList.add('waiting');
+            waiting();
             Requests.checksBookablesAvailabilityBeforeConfirming(Cahier.bookings[0].bookables);
         }
     },

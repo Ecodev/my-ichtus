@@ -55,7 +55,7 @@ export function newTab(id) {
 }
 
 // historyBackTab
-export function historyBackTab(elem) {
+export function historyBackTab() {
     window.history.back();
 }
 
@@ -203,10 +203,8 @@ window.onhashchange = function () {
     if (res != currentTabElement.id) {
         //onload refresh
 
-        let i0;
         for (let i = 0; i < tabs.length; i++) {
             if (tabs[i].id == res) {
-                i0 = i;
                 NewElement = tabs[i];
                 break;
             }
