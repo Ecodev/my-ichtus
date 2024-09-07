@@ -1484,7 +1484,7 @@ var Requests = {
         // ToUpdate
         for (let i = 0; i < inputsToUpdate.length; i++) {
             //           console.log("Update:", inputsToUpdate[i]);
-            Server.bookingService.updatePartially(extendInput(idsToUpdate[i], inputsToUpdate[i])).subscribe(result => {
+            Server.bookingService.updateNow(extendInput(idsToUpdate[i], inputsToUpdate[i])).subscribe(result => {
                 c++;
                 if (c == total) finished();
             });
@@ -1495,7 +1495,7 @@ var Requests = {
     updateBooking: function (id = '4079', input = {bookable: '3001', owner: '1002'}) {
         // e.g.
         /*
-        Server.bookingService.updatePartially({
+        Server.bookingService.updateNow({
             "id": id,
             "bookable": "3001",
             "startComment": "hello dear",
@@ -1514,7 +1514,7 @@ var Requests = {
 
         extended_input = Object.assign({id: id}, input);
         console.log(extended_input);
-        Server.bookingService.updatePartially(extended_input).subscribe(result => {
+        Server.bookingService.updateNow(extended_input).subscribe(result => {
             console.log('updateBooking():', result);
         });
     },
