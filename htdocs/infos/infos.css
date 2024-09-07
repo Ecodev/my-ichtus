@@ -6,13 +6,11 @@
     margin-left: 2.5%;
     position: relative;
     background-color: transparent;
-    text-align: center;
     min-height: 100px;
     vertical-align: middle;
 }
 .TabCahierFields {
     position: relative;
-    display: inline-block;
     padding: 8px;
     padding-top: 12px;
     color: black;

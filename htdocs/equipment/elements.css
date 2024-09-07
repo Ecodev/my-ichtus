@@ -220,7 +220,6 @@
     top: 5px;
     width: 40px;
     height: 40px;
-    background-image: none;
     background-repeat: no-repeat;
     background-size: 0px;
     background-position: center;
@@ -371,11 +370,7 @@
     height: 34px;
     width: 120px;
     padding-bottom: 0px;
-    background-image: none;
     background-repeat: no-repeat;
-    background-size: 40px;
-    background-position-x: 65px;
-    background-position-y: 4px;
     color: black;
     font-size: 20px;
     box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
