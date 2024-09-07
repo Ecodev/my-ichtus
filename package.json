@@ -17,6 +17,6 @@
         "eslint": "^9.10.0",
         "globals": "^15.9.0",
         "live-server": "^1.2.2",
-        "prettier": "^3.2.5"
+        "prettier": "^3.3.3"
     }
 }
