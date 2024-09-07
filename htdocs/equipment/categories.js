@@ -1,4 +1,10 @@
-let categories = [
+import {$, div} from '../general/home.js';
+import {Requests} from '../general/server-requests.js';
+import {Cahier} from '../cahier/methods.js';
+import {newTab} from '../general/screen.js';
+import {changeSelectCategorie} from './elements.js';
+
+export const categories = [
     {name: 'Canoë & Kayak', plural: 'canoës et kayaks', value: 'Kayak', image: 'canoe.png'},
     {name: 'SUP', plural: 'SUPs', value: 'SUP', image: 'sup.png'},
     {name: 'Rame', plural: 'avirons', value: 'Aviron', image: 'rowing.png'},
@@ -7,7 +13,7 @@ let categories = [
     {name: 'Wingfoil', plural: 'wingfoils', value: 'Wingfoil', image: 'wingfoil.svg'},
 ];
 
-function loadMateriel(container = $('divTabCahierEquipmentCategoriesContainer')) {
+export function loadMateriel(container = $('divTabCahierEquipmentCategoriesContainer')) {
     for (let i = 0; i < categories.length; i++) {
         let d = document.createElement('div');
         d.id = categories[i].name;

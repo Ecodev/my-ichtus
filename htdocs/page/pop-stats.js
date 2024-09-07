@@ -1,4 +1,8 @@
-function popStats() {
+import {closePopUp, div, grayBar, Jours, Mois, openPopUp} from '../general/home.js';
+import {Requests} from '../general/server-requests.js';
+import {Cahier} from '../cahier/methods.js';
+
+export function popStats() {
     let elem = openPopUp();
 
     let container;
@@ -71,7 +75,7 @@ function loadStats(end = new Date()) {
     Requests.getStats(start, end, c);
 }
 
-function actualizeStats(start, end, elem, bookings) {
+export function actualizeStats(start, end, elem, bookings) {
     let stats = [];
 
     let elapsedTime = Math.abs(end.getTime() - start.getTime());
@@ -97,7 +101,7 @@ function actualizeStats(start, end, elem, bookings) {
     let legend = elem.children[2];
 
     let legends = Jours.concat(Jours).concat(Jours);
-    let max = stats.max();
+    let max = maxValue(stats);
 
     for (let i = 0; i < stats.length; i++) {
         let d = div(center);
@@ -143,12 +147,12 @@ function actualizeStats(start, end, elem, bookings) {
     }
 }
 
-Array.prototype.max = function () {
-    let m = this[0];
-    for (let i = 1; i < this.length; i++) {
-        if (this[i] > m) {
-            m = this[i];
+function maxValue(values) {
+    let m = values[0];
+    for (let i = 1; i < values.length; i++) {
+        if (values[i] > m) {
+            m = values[i];
         }
     }
     return m;
-};
+}

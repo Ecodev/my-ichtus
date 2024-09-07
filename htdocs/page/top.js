@@ -1,15 +1,17 @@
+import {deleteObjects, div, options} from '../general/home.js';
+
 let running = false;
 let cancelFunction;
 let info;
 
 // see ServerRequests for skipping animation
-function ableToSkipAnimation() {
+export function ableToSkipAnimation() {
     document.body.addEventListener('mousedown', cancelFunction);
     info = div(document.body);
     info.innerHTML = "Cliquer pour passer l'animation";
     info.id = 'info';
 }
-function animate() {
+export function animate() {
     running = true;
 
     cancelFunction = function () {
@@ -74,9 +76,9 @@ function animate() {
                     setTimeout(function () {
                         for (let i = 0; i < 6; i++) {
                             // should be useless
-                            DeleteObjects(document.getElementsByClassName('svgLetters')[0]);
+                            deleteObjects(document.getElementsByClassName('svgLetters')[0]);
                         }
-                        if (running) DeleteObjects(w, c, r, f);
+                        if (running) deleteObjects(w, c, r, f);
                         running = false;
 
                         if (options.reloadWhenFinished) {
@@ -92,7 +94,7 @@ function animate() {
                             return;
                         } else {
                             b.style.animationName = 'AniBlackExit';
-                            DeleteObjects(b, info);
+                            deleteObjects(b, info);
                             //   location.reload();
                         }
                         document.body.removeEventListener('mousedown', cancelFunction);
@@ -136,7 +138,7 @@ function newLetter(i) {
                     setTimeout(
                         function (elem) {
                             if (running) {
-                                DeleteObjects(elem);
+                                deleteObjects(elem);
                             }
                         },
                         550,
@@ -151,7 +153,7 @@ function newLetter(i) {
                 setTimeout(
                     function (elem) {
                         if (running) {
-                            DeleteObjects(elem);
+                            deleteObjects(elem);
                         }
                     },
                     550,

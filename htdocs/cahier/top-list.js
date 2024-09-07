@@ -1,4 +1,9 @@
-function actualizeBookableList() {
+import {$, div} from '../general/home.js';
+import {popBookable} from '../equipment/pop-bookable.js';
+import {Cahier} from './methods.js';
+import {tabs} from '../general/screen.js';
+
+export function actualizeBookableList() {
     let bookables = Cahier.bookings[0].bookables;
 
     $('divTabCahierTopList').children[0].innerHTML = '';

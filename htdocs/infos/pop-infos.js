@@ -1,4 +1,8 @@
-function popCahierInfos(nbr = 0) {
+import {closePopUp, div, grayBar, input, openPopUp} from '../general/home.js';
+import {Cahier} from '../cahier/methods.js';
+import {checkInfos, createAllPropositions, focusInOrOut, writeDestination, writeNbrInvites} from './infos.js';
+
+export function popCahierInfos(nbr = 0) {
     let elem = openPopUp();
 
     let container;

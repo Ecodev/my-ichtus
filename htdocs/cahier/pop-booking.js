@@ -1,23 +1,30 @@
+import {$, closePopUp, deleteObjects, div, grayBar, openPopUp, options} from '../general/home.js';
+import {Requests} from '../general/server-requests.js';
+import {newTab} from '../general/screen.js';
+import {popCahierInfos} from '../infos/pop-infos.js';
+import {Cahier, getEndCommentFromBooking, getStartCommentFromBooking} from './methods.js';
+import {popBookable} from '../equipment/pop-bookable.js';
+
 // popBookings
-function loadConfirmation() {
+export function loadConfirmation() {
     let elem = $('divTabConfirmationOneBookingContainer');
     openBooking('confirmation', elem);
 }
 
-function popBooking(_booking) {
+export function popBooking(_booking) {
     // without all bookables... so if the booking is not complete
     let elem = openPopUp();
     openBooking('infos', elem);
     Requests.getBookingWithBookablesInfos(_booking, 'infos', elem);
 }
 
-function popBookingInfos(_booking) {
+export function popBookingInfos(_booking) {
     let elem = openPopUp();
     openBooking('infos', elem);
     actualizePopBooking(_booking, 'infos', elem);
 }
 
-function popBookingFinish(_booking) {
+export function popBookingFinish(_booking) {
     let elem = openPopUp();
     openBooking('finish', elem);
     actualizePopBooking(_booking, 'finish', elem);
@@ -256,7 +263,7 @@ function openBooking(which = 'confirmation', elem = $('divTabConfirmationOneBook
     }
 }
 
-function actualizePopBooking(booking, which, container = $('divTabCahierConfirmationContainer')) {
+export function actualizePopBooking(booking, which, container = $('divTabCahierConfirmationContainer')) {
     let allDiv = container.getElementsByClassName('divConfirmationTexts');
     let allDivTexts = [];
     for (let i = 0; i < allDiv.length; i++) {
@@ -344,7 +351,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
 
         // 1.4, 1.5 (Edit Booking)
         $('btnEditBooking').style.visibility = 'visible';
-        minutesAgo = (new Date() - new Date(booking.startDate)) / 1000 / 60;
+        const minutesAgo = (new Date() - new Date(booking.startDate)) / 1000 / 60;
         // Edit button active
         if (minutesAgo < options.minutesToEditBooking) {
             $('btnEditBooking').onclick = function () {
@@ -401,7 +408,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
                 names.push(booking.bookables[i].lastBooking.owner.name);
             }
 
-            texts = div(emb);
+            const texts = div(emb);
             texts.className = 'divTabCahierConfirmationContainerTextsContainer';
 
             div(texts).innerHTML = booking.bookables[i].code;
@@ -417,7 +424,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
                 t.addEventListener('click', function () {
                     //console.log(booking, this.id, booking.ids[parseInt(this.id)]);
                     Requests.terminateBooking([booking.ids[parseInt(this.id)]], ['']);
-                    DeleteObjects(this.parentElement.parentElement);
+                    deleteObjects(this.parentElement.parentElement);
                     if (document.getElementsByClassName('divTabCahierConfirmationEmbarcationBox').length == 0) {
                         closePopUp('last');
                     }

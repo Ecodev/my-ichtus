@@ -1,4 +1,25 @@
-const Cahier = {
+import {$, div, options, stopWaiting} from '../general/home.js';
+import {popUser} from '../member/user.js';
+import {popGuest} from '../member/guest.js';
+import {
+    popAlertAlreadyHavingABooking,
+    popAlertBookablesHaveJustBeenBooked,
+    popAlertLate,
+    popAlertMissingLicense,
+    popAlertMoreBookablesThanParticipants,
+    popAlertNoWelcomeSession,
+    popAlertTooManyBookables,
+    popAlertTooManyParticipants,
+} from '../general/pop-alert.js';
+import {loadConfirmation} from './pop-booking.js';
+import {changeProgress, currentProgress, progessionTabNames} from './top.js';
+import {currentTabElement, newTab} from '../general/screen.js';
+import {actualizeBookableList} from './top-list.js';
+import {actualizeElements} from '../equipment/elements.js';
+import {Requests} from '../general/server-requests.js';
+import {animate} from '../page/top.js';
+
+export const Cahier = {
     actualBookings: [],
 
     finishedBookings: [],
@@ -357,7 +378,7 @@ const Cahier = {
                 let inputsToUpdate = [];
 
                 let currentDate = new Date().toISOString();
-                bookingsInputs = Requests.getServerInputsForBookingCreating(Cahier.bookings[0], currentDate);
+                let bookingsInputs = Requests.getServerInputsForBookingCreating(Cahier.bookings[0], currentDate);
 
                 // If >0: more bookables than before --> need to create some new
                 // If <0: less bookable than before -->, need to delete some
@@ -706,12 +727,12 @@ function transformComment(txt, fill) {
     return txt;
 }
 
-function getStartCommentFromBooking(booking, fill = false) {
+export function getStartCommentFromBooking(booking, fill = false) {
     let txt = booking.startComment;
     return transformComment(txt, fill);
 }
 
-function getEndCommentFromBooking(booking, fill = false) {
+export function getEndCommentFromBooking(booking, fill = false) {
     let txt = booking.endComment;
     return transformComment(txt, fill);
 }

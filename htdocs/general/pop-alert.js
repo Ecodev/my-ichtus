@@ -1,4 +1,9 @@
-function popAlert(txt = 'haha ahah ahah ') {
+import {$, closePopUp, deltaTime, div, grayBar, openPopUp} from './home.js';
+import {newTab} from './screen.js';
+import {Cahier} from '../cahier/methods.js';
+import {popCahierInfos} from '../infos/pop-infos.js';
+
+export function popAlert(txt = 'haha ahah ahah ') {
     let elem = openPopUp();
 
     let container;
@@ -23,7 +28,7 @@ function popAlert(txt = 'haha ahah ahah ') {
     t.innerHTML = txt;
 }
 
-function popAlertLate() {
+export function popAlertLate() {
     let elem = openPopUp();
 
     let container;
@@ -63,7 +68,7 @@ function popAlertLate() {
     });
 }
 
-function popAlertAlreadyHavingABooking(_owner) {
+export function popAlertAlreadyHavingABooking(_owner) {
     let elem = openPopUp();
 
     let container;
@@ -110,7 +115,7 @@ function popAlertAlreadyHavingABooking(_owner) {
     });
 }
 
-function popAlertNoWelcomeSession(_owner) {
+export function popAlertNoWelcomeSession(_owner) {
     let elem = openPopUp();
 
     let container;
@@ -161,7 +166,7 @@ function popAlertNoWelcomeSession(_owner) {
     //btn.addEventListener("click", function () { Cahier.setOwner(0, _owner); closePopUp("last"); });
 }
 
-function popAlertLessThan13Minutes(_bookable, _booking, _choseFunction) {
+export function popAlertLessThan13Minutes(_bookable, _booking, _choseFunction) {
     let elem = openPopUp();
 
     let txt =
@@ -233,7 +238,7 @@ function popAlertLessThan13Minutes(_bookable, _booking, _choseFunction) {
     });
 }
 
-function popAlertBookablesHaveJustBeenBooked(_bookablesNotAvailable) {
+export function popAlertBookablesHaveJustBeenBooked(_bookablesNotAvailable) {
     let elem = openPopUp();
 
     //console.log("_bookablesNotAvailable", _bookablesNotAvailable);
@@ -310,7 +315,7 @@ function popAlertBookablesHaveJustBeenBooked(_bookablesNotAvailable) {
     });
 }
 
-function popAlertMoreBookablesThanParticipants(bookables, participants) {
+export function popAlertMoreBookablesThanParticipants(bookables, participants) {
     let elem = openPopUp();
 
     let container;
@@ -353,7 +358,7 @@ function popAlertMoreBookablesThanParticipants(bookables, participants) {
     });
 }
 
-function popAlertTooManyParticipants() {
+export function popAlertTooManyParticipants() {
     let elem = openPopUp();
 
     let container;
@@ -391,7 +396,7 @@ function popAlertTooManyParticipants() {
     });
 }
 
-function popAlertTooManyBookables() {
+export function popAlertTooManyBookables() {
     let elem = openPopUp();
 
     let container;
@@ -430,7 +435,7 @@ function popAlertTooManyBookables() {
     });
 }
 
-function popAlertMissingLicense(_license, _bookable) {
+export function popAlertMissingLicense(_license, _bookable) {
     let elem = openPopUp();
 
     let container;

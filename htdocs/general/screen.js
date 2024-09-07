@@ -1,6 +1,18 @@
-﻿let stillMoving = false;
-let currentTabElement; //see load for the first element = divtabcahier
+﻿import {$} from './home.js';
+import {Cahier} from '../cahier/methods.js';
+import {writeDestination, writeNbrInvites} from '../infos/infos.js';
+import {loadConfirmation} from '../cahier/pop-booking.js';
+import {actualizeBookableList} from '../cahier/top-list.js';
+import {changeProgress} from '../cahier/top.js';
+import {Requests} from './server-requests.js';
+
+let stillMoving = false;
+export let currentTabElement; //see load for the first element = divtabcahier
 let changeTime = 0.3;
+
+export function setCurrentTabElement(element) {
+    currentTabElement = element;
+}
 
 // changeTab
 function changeTab(newElement, sign) {
@@ -30,24 +42,25 @@ function changeTab(newElement, sign) {
         setTimeout(function () {
             stillMoving = false;
             currentTabElement.style.top = '-30000px';
-            currentTabElement = newElement;
+            setCurrentTabElement(newElement);
         }, 50);
     }, changeTime * 1000);
 }
 
 // newTab
-function newTab(id) {
+export function newTab(id) {
     if (stillMoving == false) {
         window.location = '#' + id;
     }
 }
+
 // historyBackTab
-function historyBackTab(elem) {
+export function historyBackTab(elem) {
     window.history.back();
 }
 
 // tabs
-let tabs = [];
+export const tabs = [];
 tabs.push({
     id: 'divTabCahier',
     order: 0,
@@ -159,7 +172,6 @@ tabs.push({
     ListBar: true,
     title: 'Sélectionnez vos embarcations',
     Enter: function () {
-        MaterielElementsFirstLoad = true;
         Requests.getBookablesList(); //$('inputTabCahierEquipmentElementsInputSearch').focus();
         $('divTabCahierTopList').children[1].style.opacity = 1;
     },
@@ -253,6 +265,7 @@ function enterProgressBar() {
         $('divTabCahierTop').style.zIndex = 11;
     }, changeTime * 1000);
 }
+
 //REMOVE PROGRESS BAR
 function removeProgressBar(sign) {
     $('divTabCahierTop').style.zIndex = '11'; //11
@@ -278,6 +291,7 @@ function enterListBar() {
         $('divTabCahierTopList').style.zIndex = 10;
     }, changeTime * 1000);
 }
+
 //REMOVE LIST BAR
 function removeListBar(sign) {
     $('divTabCahierTopList').style.zIndex = '10'; //10

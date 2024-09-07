@@ -1,4 +1,7 @@
-function popLogin() {
+import {closePopUp, div, grayBar, input, openPopUp, options} from '../general/home.js';
+import {Requests} from '../general/server-requests.js';
+
+export function popLogin() {
     let elem = openPopUp();
 
     let container;

@@ -1,4 +1,9 @@
-function loadCahierEquipmentChoice(
+import {$, closePopUp, div, input} from '../general/home.js';
+import {Requests} from '../general/server-requests.js';
+import {Cahier} from '../cahier/methods.js';
+import {newTab} from '../general/screen.js';
+
+export function loadCahierEquipmentChoice(
     loc = $('divTabCahierEquipmentChoice').getElementsByClassName('MaterielChoiceContainer')[0],
     nbr = 0,
 ) {

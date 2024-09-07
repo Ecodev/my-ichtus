@@ -1,11 +1,15 @@
-function loadBottoms() {
+import {deleteObjects, div, options} from '../general/home.js';
+import {Requests} from '../general/server-requests.js';
+import {popStats} from './pop-stats.js';
+
+export function loadBottoms() {
     let allDivTabs = document.getElementsByClassName('divTab');
 
     while (document.getElementsByClassName('divSpacers').length !== 0) {
-        DeleteObjects(document.getElementsByClassName('divSpacers')[0]);
+        deleteObjects(document.getElementsByClassName('divSpacers')[0]);
     }
     while (document.getElementsByClassName('divBottoms').length !== 0) {
-        DeleteObjects(document.getElementsByClassName('divBottoms')[0]);
+        deleteObjects(document.getElementsByClassName('divBottoms')[0]);
     }
 
     // new bars

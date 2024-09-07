@@ -1,4 +1,11 @@
-function popBookable(bookableId, justPreview = true, nbr = 0, modal = openPopUp()) {
+import {$, closePopUp, deltaTime, div, openPopUp, options} from '../general/home.js';
+import {Requests} from '../general/server-requests.js';
+import {currentTabElement, newTab} from '../general/screen.js';
+import {Cahier} from '../cahier/methods.js';
+import {popBookableHistory} from './pop-bookable-history.js';
+import {popAlertLessThan13Minutes} from '../general/pop-alert.js';
+
+export function popBookable(bookableId, justPreview = true, nbr = 0, modal = openPopUp()) {
     Requests.getBookableInfos(nbr, bookableId, modal);
 
     if (modal == $('divTabCahierEquipmentBookableContainer')) {
@@ -52,8 +59,7 @@ function popBookable(bookableId, justPreview = true, nbr = 0, modal = openPopUp(
     div(textsContainer);
 }
 
-let eventListenerFunction;
-function actualizePopBookable(nbr, bookable, bookings, elem) {
+export function actualizePopBookable(nbr, bookable, bookings, elem) {
     elem.getElementsByTagName('div')[2].style.backgroundImage = Cahier.getImageUrl(bookable);
 
     elem.getElementsByClassName('divTabCahierEquipmentElementsPopUp')[0].getElementsByTagName('div')[3].innerHTML =

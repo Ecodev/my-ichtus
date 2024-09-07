@@ -1,4 +1,7 @@
-function popGuest(nbr = 0) {
+import {closePopUp, div, grayBar, openPopUp} from '../general/home.js';
+import {Cahier} from '../cahier/methods.js';
+
+export function popGuest(nbr = 0) {
     let elem = openPopUp();
 
     let container;
@@ -66,7 +69,7 @@ function ValidateGuest() {
     if (i[0].style.borderColor == 'black' && i[1].style.borderColor == 'black') {
         let owner = {};
         let guest = true;
-        let guestName = i[0].value.capitalize() + ' ' + i[1].value.capitalize();
+        let guestName = capitalize(i[0].value) + ' ' + capitalize(i[1].value);
         let nbr = parseInt(document.getElementsByClassName('PopUpGuestContainer')[0].id);
 
         Cahier.setOwner(nbr, owner, guest, guestName);
@@ -74,6 +77,6 @@ function ValidateGuest() {
     }
 }
 
-String.prototype.capitalize = function () {
-    return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
-};
+function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}

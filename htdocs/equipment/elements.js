@@ -1,5 +1,11 @@
+import {$, deltaTime, div} from '../general/home.js';
+import {Cahier} from '../cahier/methods.js';
+import {popAlertLessThan13Minutes} from '../general/pop-alert.js';
+import {popBookable} from './pop-bookable.js';
+import {categories} from './categories.js';
+
 let currentBookables;
-function loadElements(bookables, nbr = 0) {
+export function loadElements(bookables, nbr = 0) {
     currentBookables = bookables;
 
     document.getElementsByClassName('divTabCahierEquipmentElementsContainer')[0].innerHTML = '';
@@ -10,7 +16,7 @@ function loadElements(bookables, nbr = 0) {
     }
 
     for (let j = 0; j < bookables.length; j++) {
-        container = document.createElement('div');
+        let container = document.createElement('div');
         container.id = j;
 
         // 1.4 : make fake no used (actually already used in the current booking that is being edited...)
@@ -117,7 +123,7 @@ function loadElements(bookables, nbr = 0) {
     }
 }
 
-function actualizeElements() {
+export function actualizeElements() {
     let bookables = currentBookables;
 
     let codes = [];
@@ -169,7 +175,7 @@ function actualizeElements() {
     }
 }
 
-function clickSortIcon(elem) {
+export function clickSortIcon(elem) {
     if (elem.style.backgroundImage == 'url("img/icons/sort-desc.png")') {
         elem.style.backgroundImage = 'url("img/icons/sort-asc.png")';
     } else {
@@ -177,8 +183,8 @@ function clickSortIcon(elem) {
     }
 }
 
-function changeSelectCategorie(elem) {
-    image = 'url(img/icons/no-result.png)';
+export function changeSelectCategorie(elem) {
+    let image = 'url(img/icons/no-result.png)';
     for (let category of categories) {
         if (category.value == elem.value) {
             image = 'url(img/categorie/' + category.image + ')';

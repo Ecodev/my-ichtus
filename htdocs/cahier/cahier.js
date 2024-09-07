@@ -1,8 +1,14 @@
-﻿let textToolTipGuest =
+﻿import {Cahier, getEndCommentFromBooking, getStartCommentFromBooking} from './methods.js';
+import {$, div, is0second, options} from '../general/home.js';
+import {popBookingFinish, popBookingInfos} from './pop-booking.js';
+import {popBookable} from '../equipment/pop-bookable.js';
+import {Requests} from '../general/server-requests.js';
+
+let textToolTipGuest =
     "Un non-membre doit toujours être accompagné par un membre d'Ichtus. <br/> Il n'a donc pas le droit d'aller seul.";
 let textToolTipUser = "Sortie pour les membres d'Ichtus<br/><br/>";
 
-function loadActualBookings(_actualBookings) {
+export function loadActualBookings(_actualBookings) {
     Cahier.actualBookings = _actualBookings;
 
     $('divTabCahierTableActualBookings').previousElementSibling.innerHTML =
@@ -149,9 +155,9 @@ function actualizeActualBookings(_actualBookings) {
 }
 
 // new search system
-function bookingTableSearch(_table) {
+export function bookingTableSearch(_table) {
     let bookings;
-    txts = _table.previousElementSibling.previousElementSibling.value.split(' ');
+    let txts = _table.previousElementSibling.previousElementSibling.value.split(' ');
     // means finishedBookings
     if (_table != $('divTabCahierTableActualBookings')) {
         let i;
@@ -253,7 +259,7 @@ function createBookingBookableBox(elem, bookable = {code: 'ZZZ'}) {
     elem.classList.add('TableEntriesBookableBox');
 }
 
-function loadTableTopBars(allTables = document.getElementsByClassName('BookingsTable')) {
+export function loadTableTopBars(allTables = document.getElementsByClassName('BookingsTable')) {
     for (let u = 0; u < allTables.length; u++) {
         let table = allTables[u];
         let top = table.getElementsByClassName('TableTopBar')[0];
@@ -271,10 +277,8 @@ function loadTableTopBars(allTables = document.getElementsByClassName('BookingsT
                         !this.classList.contains('BookingsTopBarSorted')
                     ) {
                         this.getElementsByTagName('div')[0].style.backgroundImage = 'url(img/icons/sort-asc.png)';
-                        order = 1;
                     } else {
                         this.getElementsByTagName('div')[0].style.backgroundImage = 'url(img/icons/sort-desc.png)';
-                        order = -1;
                     }
 
                     let allButtons = this.parentElement.getElementsByTagName('div');
@@ -331,7 +335,7 @@ function getSortingText(elem) {
     }
 }
 
-function newBookingTable(date, title = '?') {
+export function newBookingTable(date, title = '?') {
     if (title == '?') {
         title = date.getNiceDate();
     }
@@ -342,7 +346,7 @@ function newBookingTable(date, title = '?') {
         'Charger les sorties du ' + date.getPreviousDate().getNiceDate(true);
 }
 
-function createBookingsTable(date, title) {
+export function createBookingsTable(date, title) {
     let input = document.createElement('input');
     input.type = 'text';
     input.value = '';
@@ -414,13 +418,13 @@ function createBookingsTable(date, title) {
     return table;
 }
 
-function createNoBookingMessage(date) {
+export function createNoBookingMessage(date) {
     let t = div($('divTabCahierTables'));
     t.classList.add('BookingsTableTextNoBooking');
     t.innerHTML = 'Aucune sortie le ' + date.getNiceDate();
 }
 
-function actualizeFinishedBookingListForDay(bookings, table) {
+export function actualizeFinishedBookingListForDay(bookings, table) {
     let all = table.getElementsByClassName('TableEntries');
     for (let i = 0; i < all.length; i++) {
         if (all[i].classList.contains('TableTopBar') === false) {

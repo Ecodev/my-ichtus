@@ -1,11 +1,31 @@
+import {$, closePopUp, div, mergeBookings, mutable, stopWaiting} from './home.js';
+import {loadBottoms} from '../page/bottom.js';
+import {popLogin} from '../member/login.js';
+import {createSearchEntries} from '../member/user.js';
+import {loadElements} from '../equipment/elements.js';
+import {Cahier} from '../cahier/methods.js';
+import {popAlert} from './pop-alert.js';
+import {actualizePopBookable, popBookable} from '../equipment/pop-bookable.js';
+import {
+    actualizeFinishedBookingListForDay,
+    createBookingsTable,
+    createNoBookingMessage,
+    loadActualBookings,
+} from '../cahier/cahier.js';
+import {actualizePopBookableHistory} from '../equipment/pop-bookable-history.js';
+import {actualizeStats} from '../page/pop-stats.js';
+import {actualizePopBooking} from '../cahier/pop-booking.js';
+import {newTab} from './screen.js';
+import {ableToSkipAnimation} from '../page/top.js';
+
 let Server;
-function ServerInitialize() {
+export function ServerInitialize() {
     // Get the API
     Server = window.ichtusApi;
     //console.log('Server(API) = ', Server);
 }
 
-const Requests = {
+export const Requests = {
     // login
     login: function (pwd) {
         //console.log("LOGIN");
@@ -24,7 +44,7 @@ const Requests = {
                     if (result.login === 'bookingonly') {
                         Requests.isConnected();
                     } else {
-                        console.error('Mauvais utilisateur connecté... (' + user.name + ')');
+                        console.error('Mauvais utilisateur connecté... (' + result.login + ')');
                     }
                 } else {
                     console.error("Problème d'authentification...");
@@ -424,6 +444,7 @@ const Requests = {
                 loadElements([]);
             } else {
                 let ids = [];
+                result = mutable(result);
                 for (let i = 0; i < result.items.length; i++) {
                     result.items[i].used = false;
                     ids.push(result.items[i].id);
@@ -468,7 +489,7 @@ const Requests = {
                     let bookings = r.items;
 
                     // Make mutable
-                    bookables = mutableBookableList(bookables);
+                    bookables = mutable(bookables);
 
                     for (let i = 0; i < bookings.length; i++) {
                         for (let k = 0; k < bookables.length; k++) {
@@ -688,7 +709,7 @@ const Requests = {
 
             Server.bookingService.getAll(variables).subscribe(bookings => {
                 //console.log("getBookableInfos()_getLastBooking: ", bookings);
-                bookable = Object.assign({}, result.items[0]);
+                let bookable = Object.assign({}, result.items[0]);
                 actualizePopBookable(nbr, bookable, bookings, elem, []);
             });
         });
@@ -732,7 +753,7 @@ const Requests = {
 
         Server.bookingService.getAll(variables).subscribe(bookings => {
             //  console.log("getBookableLastBooking(): ", bookings);
-            Cahier.actualizeAvailability(bookableId, mutableBookingList(bookings.items));
+            Cahier.actualizeAvailability(bookableId, mutable(bookings.items));
         });
     },
 
@@ -804,7 +825,7 @@ const Requests = {
 
         Server.bookingService.getAll(variables).subscribe(result => {
             //console.log("checksBookablesAvailabilityBeforeConfirming(): ", result);
-            Cahier.actualizeConfirmKnowingBookablesAvailability(mutableBookingList(result.items));
+            Cahier.actualizeConfirmKnowingBookablesAvailability(mutable(result.items));
         });
     },
 
@@ -895,7 +916,7 @@ const Requests = {
         Server.bookingService.getAll(variables, true).subscribe(result => {
             // force = true
             loadBottoms();
-            loadActualBookings(mergeBookings(mutableBookingList(result.items)));
+            loadActualBookings(mergeBookings(mutable(result.items)));
         });
     },
 
@@ -903,7 +924,6 @@ const Requests = {
     getFinishedBookingListForDay: function (d = new Date(), table = '?', title) {
         let start = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
         let end = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1, 0, 0, 0, 0);
-
         let filter = {
             filter: {
                 groups: [
@@ -1003,7 +1023,7 @@ const Requests = {
         Server.bookingService.getAll(variables, true).subscribe(result => {
             // force = true);
             //console.log("getFinishedBookingListForDay(): ", result);
-            let transformedBoookings = mergeBookings(mutableBookingList(result.items));
+            let transformedBoookings = mergeBookings(mutable(result.items));
             if (result.length == 0) {
                 createNoBookingMessage(d);
             } else {
@@ -1354,7 +1374,7 @@ const Requests = {
 
         Server.bookingService.getAll(variables).subscribe(result => {
             //console.log("getStats(): ", result);
-            let send = mergeBookings(mutableBookingList(result.items));
+            let send = mergeBookings(mutable(result.items));
             actualizeStats(start, end, elem, send);
         });
     },
@@ -1448,7 +1468,7 @@ const Requests = {
         // filter the input to only keep the allowed fields,  append the id to it, and the actual startDate
         let extendInput = function (id, input) {
             let inputFiltered = {id: id, startDate: new Date().toISOString()};
-            keys = [
+            const keys = [
                 'bookable',
                 'participantCount',
                 'destination',
@@ -1512,7 +1532,7 @@ const Requests = {
             );
         }
 
-        extended_input = Object.assign({id: id}, input);
+        let extended_input = Object.assign({id: id}, input);
         console.log(extended_input);
         Server.bookingService.updateNow(extended_input).subscribe(result => {
             console.log('updateBooking():', result);
@@ -1556,7 +1576,7 @@ const Requests = {
     // createBooking2
     createBooking: function () {
         let c = 0;
-        bookingInputs = Requests.getServerInputsForBookingCreating(Cahier.bookings[0]);
+        let bookingInputs = Requests.getServerInputsForBookingCreating(Cahier.bookings[0]);
         for (let i = 0; i < bookingInputs.length; i++) {
             let input = bookingInputs[i];
             Server.bookingService.create(input).subscribe(booking => {
@@ -1573,7 +1593,7 @@ const Requests = {
     getOwnerLicenses: function (_owner) {
         Server.userService.getOne(_owner.id).subscribe(result => {
             //            console.log("getOwnerLicenses(): ", result);
-            owner = Object.assign({}, result);
+            let owner = Object.assign({}, result);
             Cahier.setOwnerLicenses(owner);
         });
     },

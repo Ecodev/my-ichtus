@@ -1,4 +1,4 @@
-let liveServer = require('live-server');
+import liveServer from 'live-server';
 
 let params = {
     port: 8181, // Set the server port. Defaults to 8080.

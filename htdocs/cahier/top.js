@@ -1,6 +1,9 @@
-﻿//ProgressBar
+﻿import {$, div} from '../general/home.js';
+import {newTab} from '../general/screen.js';
+import {Cahier} from './methods.js';
+//ProgressBar
 
-let progessionTabNames = [
+export const progessionTabNames = [
     'divTabCahier',
     'divTabCahierMember',
     'divTabCahierInfos',
@@ -8,7 +11,7 @@ let progessionTabNames = [
     'divTabCahierConfirmation',
 ];
 
-function createProgressBar() {
+export function createProgressBar() {
     for (let i = 0; i < 4; i++) {
         let divStep = document.createElement('div');
         divStep.classList.add('divTabCahierProgressStep');
@@ -54,8 +57,9 @@ function createProgressBar() {
     $('divTabCahierProgress').appendChild(divBarBlue);
 }
 
-let currentProgress = 0;
-function changeProgress(c) {
+export let currentProgress = 0;
+
+export function changeProgress(c) {
     currentProgress = c;
     for (let i = 1; i < 5; i++) {
         document.getElementsByClassName('divTabCahierProgressStep')[i - 1].className = 'divTabCahierProgressStep';

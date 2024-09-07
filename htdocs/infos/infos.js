@@ -1,4 +1,8 @@
-﻿function writeDestination(elem) {
+﻿import {$, closePopUp, div} from '../general/home.js';
+import {Cahier} from '../cahier/methods.js';
+import {newTab} from '../general/screen.js';
+
+export function writeDestination(elem) {
     if (elem.value.length > 2) {
         AcceptInfos(elem);
     } else {
@@ -12,7 +16,7 @@ function writeCommment(elem) {
         DenyInfos(elem);
     }
 }
-function writeNbrInvites(elem) {
+export function writeNbrInvites(elem) {
     if (elem.value != '' && parseInt(elem.value) != 0 && parseInt(elem.value) > 0) {
         AcceptInfos(elem);
     } else {
@@ -20,7 +24,7 @@ function writeNbrInvites(elem) {
     }
 }
 
-function createAllPropositions(location = $('divTabCahierInfos')) {
+export function createAllPropositions(location = $('divTabCahierInfos')) {
     let allDestinationPropositions = location
         .getElementsByClassName('divTabCahierInfosDestinationPropositions')[0]
         .getElementsByTagName('div');
@@ -55,7 +59,7 @@ function createAllPropositions(location = $('divTabCahierInfos')) {
     }
 }
 
-function focusInOrOut(elem, focus) {
+export function focusInOrOut(elem, focus) {
     let allPropositions = elem.parentElement
         .getElementsByClassName('PropositionsContainer')[0]
         .getElementsByTagName('div');
@@ -89,7 +93,7 @@ function DenyInfos(elem) {
     elem.style.backgroundImage = 'none';
 }
 
-function checkInfos(location = $('divTabCahierInfos'), nbr = 0) {
+export function checkInfos(location = $('divTabCahierInfos'), nbr = 0) {
     let allTabCahierFields = location.getElementsByClassName('TabCahierFields');
     let allInfosOkay = true;
     for (let i = 0; i < allTabCahierFields.length - 1; i++) {

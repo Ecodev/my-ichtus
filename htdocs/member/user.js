@@ -1,6 +1,10 @@
+import {$, closePopUp, div, grayBar, openPopUp} from '../general/home.js';
+import {Cahier} from '../cahier/methods.js';
+import {Requests} from '../general/server-requests.js';
+
 let lastPeople = [];
 
-function popUser(nbr = 0, elem = openPopUp()) {
+export function popUser(nbr = 0, elem = openPopUp()) {
     let container;
     container = div(elem);
     container.id = nbr;
@@ -109,7 +113,7 @@ function SearchDown(e) {
     }
 }
 
-function createSearchEntries(PeopleCorresponding) {
+export function createSearchEntries(PeopleCorresponding) {
     lastPeople = PeopleCorresponding;
 
     $('divTabCahierSearchResult').innerHTML = '';

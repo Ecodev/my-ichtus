@@ -32,30 +32,6 @@
         <link href="infos/pop-infos.css" rel="stylesheet" />
         <link href="confirmation/confirmation.css" rel="stylesheet" />
 
-        <!-- JavaScript Files -->
-        <script src="general/home.js"></script>
-        <script src="general/server-requests.js"></script>
-        <script src="general/screen.js"></script>
-        <script src="general/pop-alert.js"></script>
-        <script src="page/top.js"></script>
-        <script src="page/bottom.js"></script>
-        <script src="page/pop-stats.js"></script>
-        <script src="cahier/cahier.js"></script>
-        <script src="cahier/methods.js"></script>
-        <script src="cahier/top.js"></script>
-        <script src="cahier/top-list.js"></script>
-        <script src="cahier/pop-booking.js"></script>
-        <script src="member/user.js"></script>
-        <script src="member/guest.js"></script>
-        <script src="member/login.js"></script>
-        <script src="equipment/choice.js"></script>
-        <script src="equipment/categories.js"></script>
-        <script src="equipment/elements.js"></script>
-        <script src="equipment/pop-bookable.js"></script>
-        <script src="equipment/pop-bookable-history.js"></script>
-        <script src="infos/infos.js"></script>
-        <script src="infos/pop-infos.js"></script>
-
         <!--Favicon-->
         <link rel="icon" href="img/logo/favicon.ico" />
     </head>
@@ -70,7 +46,7 @@
                 <img src="img/logo/background_transparent.svg" alt="?" />
             </div>
             <div id="divTopBarText"></div>
-            <div id="divTopBarTime" onclick=""></div>
+            <div id="divTopBarTime"></div>
         </div>
 
         <!-- Left Bar & Right Bar -->
@@ -447,8 +423,35 @@
             </div>
         </div>
         <script type="module">
-            const apiServer =
-                window.location.hostname === 'navigations.ichtus.club' ? 'ichtus.club' : 'dev.ichtus.club';
+            // Those import have side effects and loading order might be important
+            import {load, $} from './general/home.js';
+            import {historyBackTab, newTab} from './general/screen.js';
+
+            // Those imports have no side effects
+            import {changeSelectCategorie, clickSortIcon} from './equipment/elements.js';
+            import {Requests} from './general/server-requests.js';
+            import {Cahier} from './cahier/methods.js';
+            import {checkInfos, writeNbrInvites, focusInOrOut, writeDestination} from './infos/infos.js';
+            import {newBookingTable, bookingTableSearch} from './cahier/cahier.js';
+            import {popLogin} from './member/login.js';
+
+            // Register globals to be used in onclick callbacks
+            window.$ = $;
+            window.changeSelectCategorie = changeSelectCategorie;
+            window.Requests = Requests;
+            window.Cahier = Cahier;
+            window.checkInfos = checkInfos;
+            window.clickSortIcon = clickSortIcon;
+            window.historyBackTab = historyBackTab;
+            window.newTab = newTab;
+            window.newBookingTable = newBookingTable;
+            window.popLogin = popLogin;
+            window.writeNbrInvites = writeNbrInvites;
+            window.focusInOrOut = focusInOrOut;
+            window.writeDestination = writeDestination;
+            window.bookingTableSearch = bookingTableSearch;
+
+            const apiServer = window.location.hostname === 'navigations.ichtus.club' ? 'ichtus.club' : 'my-ichtus.lan';
             const cacheBuster = '?time=' + new Date().getTime();
 
             await import('https://' + apiServer + '/vanilla/main.js' + cacheBuster);
@@ -458,8 +461,7 @@
     </body>
 </html>
 
-<!-- SOURCES DES IMAGES-->
-<!--
+<!-- SOURCES DES IMAGES--><!--
     CATEGORIES
     https://fr.freepik.com/icones-gratuites/aviron-silhouette_729646.htmhttps://icon-icons.com/fr/icone/bateau-a-voile/38507
     https://www.iconfinder.com/icons/348072/canoe_canoeing_kayak_paddling_sea_sports_water_icon

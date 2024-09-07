@@ -1,8 +1,13 @@
+import {closePopUp, div, grayBar, Mois, openPopUp} from '../general/home.js';
+import {Requests} from '../general/server-requests.js';
+import {popBooking} from '../cahier/pop-booking.js';
+import {Cahier, getStartCommentFromBooking} from '../cahier/methods.js';
+
 let currentYear = -1;
 let currentMonth = -1;
 let currentDay = -1;
 
-function popBookableHistory(bookableId) {
+export function popBookableHistory(bookableId) {
     currentYear = -1;
     currentMonth = -1;
     currentDay = -1;
@@ -36,7 +41,7 @@ function popBookableHistory(bookableId) {
     scroll.className = 'PopUpBookableHistoryContainerScroll';
 }
 
-function actualizePopBookableHistory(bookings, elem) {
+export function actualizePopBookableHistory(bookings, elem) {
     let lastDate = new Date(bookings[bookings.length - 1].startDate); // avant changeDaySorting !
 
     bookings = changeDaySorting(bookings);

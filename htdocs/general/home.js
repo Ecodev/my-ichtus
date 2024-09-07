@@ -1,5 +1,16 @@
 ﻿//options
-let options = {
+import {createProgressBar} from '../cahier/top.js';
+import {createAllPropositions} from '../infos/infos.js';
+import {loadBottoms} from '../page/bottom.js';
+import {loadMateriel} from '../equipment/categories.js';
+import {popUser} from '../member/user.js';
+import {loadTableTopBars} from '../cahier/cahier.js';
+import {loadCahierEquipmentChoice} from '../equipment/choice.js';
+import {currentTabElement, setCurrentTabElement, tabs} from './screen.js';
+import {Requests, ServerInitialize} from './server-requests.js';
+import {Cahier} from '../cahier/methods.js';
+
+export const options = {
     bookablesComment: false,
     statsButtonTextActive: false,
     showRemarks: true,
@@ -18,17 +29,18 @@ let options = {
 }; //showMetadatas: false,
 
 // shortcut
-function $(id) {
+export function $(id) {
     return document.getElementById(id);
 }
 
 // createElements
-function div(loc) {
+export function div(loc) {
     let x = document.createElement('div');
     loc.appendChild(x);
     return x;
 }
-function input(loc, _placeholder = '') {
+
+export function input(loc, _placeholder = '') {
     let x = document.createElement('input');
     x.autocomplete = 'off';
     x.type = 'text';
@@ -37,14 +49,15 @@ function input(loc, _placeholder = '') {
     loc.appendChild(x);
     return x;
 }
+
 function br(loc) {
     let x = document.createElement('br');
     loc.appendChild(x);
 }
 
 //Load
-function load() {
-    currentTabElement = $('divTabCahier');
+export function load() {
+    setCurrentTabElement($('divTabCahier'));
     actualizeTime();
     setInterval(actualizeTime, 5000); //5 secondes
     createProgressBar();
@@ -57,7 +70,7 @@ function load() {
     loadCahierEquipmentChoice();
     loadEscListener();
 
-    version = '1.5';
+    let version = '1.5';
     if (window.location.hostname === 'navigations.ichtus.club') {
         console.warn('Version de production ' + version);
         $('divTopBarText').innerHTML = tabs[0].title;
@@ -100,6 +113,7 @@ document.onmousemove = function () {
 // could be improved...
 let Time = {
     getActualMinutes: function (m = date.getMinutes()) {
+        let x;
         if (m < 10) {
             x = '0' + m;
         } else {
@@ -137,7 +151,7 @@ Date.prototype.getPreviousDate = function () {
     return yesterday;
 };
 
-function deltaTime(d1, d2 = new Date(), bold = true) {
+export function deltaTime(d1, d2 = new Date(), bold = true) {
     let delta = Math.abs(d2.getTime() - d1.getTime()) / 1000 / 60; // in minutes
     let t = '';
 
@@ -170,7 +184,7 @@ function deltaTime(d1, d2 = new Date(), bold = true) {
     return bold && delta < 13 ? {text: '<b>' + t + '</b>', time: delta} : {text: t, time: delta};
 }
 
-function DeleteObjects() {
+export function deleteObjects() {
     for (let i = 0; i < arguments.length; i++) {
         if (
             typeof arguments[i] != 'undefined' &&
@@ -186,8 +200,8 @@ function DeleteObjects() {
 
 //Time
 let date;
-let Jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
-let Mois = [
+export const Jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+export const Mois = [
     'Janvier',
     'Février',
     'Mars',
@@ -201,6 +215,7 @@ let Mois = [
     'Novembre',
     'Décembre',
 ];
+
 function actualizeTime() {
     date = new Date();
     $('divTopBarTime').innerHTML = date.getNiceTime() + '<br/>' + date.getNiceDate(true); //.substring(0, 3)
@@ -228,7 +243,8 @@ function loadReturnButtons() {
 
 // Modals
 let lastModals = 0;
-function openPopUp() {
+
+export function openPopUp() {
     let modal = div(document.body);
     modal.onclick = function (event) {
         closePopUp(event);
@@ -246,7 +262,8 @@ function openPopUp() {
 
     return modal;
 }
-function closePopUp(e) {
+
+export function closePopUp(e) {
     let t = false;
     if (e == 'last') {
         if (lastModals != 0) {
@@ -269,12 +286,10 @@ function closePopUp(e) {
         if (lastModals == 0) {
             $('divScreen').classList.remove('Blur');
             $('divTopBar').classList.remove('Blur');
-
-            //special
-            //document.body.removeEventListener("keyup", eventListenerFunction);
         }
     }
 }
+
 function loadEscListener() {
     document.body.addEventListener('keydown', function (event) {
         if (event.keyCode == 27) {
@@ -283,10 +298,12 @@ function loadEscListener() {
         }
     });
 }
+
 function waiting() {
     document.body.classList.add('waiting');
 }
-function stopWaiting() {
+
+export function stopWaiting() {
     document.body.classList.remove('waiting');
 }
 
@@ -311,7 +328,7 @@ String.prototype.shorten = function (maxLength, _fontSize = 20) {
     return txt + '...';
 };
 
-function grayBar(elem, marginTop = 10, marginBottom = 15) {
+export function grayBar(elem, marginTop = 10, marginBottom = 15) {
     let d = div(elem);
     d.style.backgroundColor = 'lightgray';
     d.style.height = '2px';
@@ -437,7 +454,7 @@ Object.prototype.clone = function () {
 };
 
 // check if booking is a terminated edited booking (i.e. lasting 0 seconds)
-function is0second(booking) {
+export function is0second(booking) {
     return booking.startDate == booking.endDate;
 }
 
@@ -446,19 +463,11 @@ function displayBooking(booking) {
     return !is0second(booking);
 }
 
-function mutableBookingList(bookings) {
-    mutableBookings = [];
-    for (let i = 0; i < bookings.length; i++) {
-        mutableBookings.push(Object.assign({}, bookings[i]));
-    }
-    return mutableBookings;
+export function mutable(bookings) {
+    return JSON.parse(JSON.stringify(bookings));
 }
 
-function mutableBookableList(bookables) {
-    return mutableBookingList(bookables);
-}
-
-function mergeBookings(bookings) {
+export function mergeBookings(bookings) {
     bookings = bookings.clone(); // clone
 
     // assert the bookings have decreasing startDates, i.e. bookings[i-1].startDate (newer) >= bookings[i].startDate (older)
@@ -490,10 +499,10 @@ function mergeBookings(bookings) {
         return c2;
     }
 
-    resultingBookings = [];
+    let resultingBookings = [];
 
     while (bookings.length > 0) {
-        booking = bookings.pop();
+        let booking = bookings.pop();
 
         // should not be kept
         if (!displayBooking(booking)) continue;
