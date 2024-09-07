@@ -10,7 +10,6 @@ let options = {
     modifyBookablesButton: true,
     editBookingButton: true,
     finishAllBookingsWithBookable: false, // si créer une sortie avec une embarcation déjà utilisée, ça termine seulement le booking avec l'embarcation utilisée de M. Uti.
-    //    checkIfBookablesNotAvailableWhenConfirming: true,
     showAlertBookablesNotAvailable: false,
     showAlertNoWelcomeSession: true,
     minutesToEditBooking: 60, // after Fred's request

@@ -209,29 +209,9 @@ const Cahier = {
                 }
             }
 
-            // not rechecking if bookables still available
-            if (false) {
-                //!options.checkIfBookablesNotAvailableWhenConfirming) {
-                // if bookables already used
-                let i;
-                for (i = 0; i < Cahier.bookings[0].bookables.length; i++) {
-                    if (Cahier.bookings[0].bookables[i].available === false) {
-                        break;
-                    }
-                }
-
-                if (Cahier.bookings[0].bookables.length != i) {
-                    popAlertBookablesNotAvailable(); // first terminates and then creates the new booking
-                } else {
-                    Requests.createBooking();
-                    animate();
-                }
-            }
             // rechecking if bookings still available
-            else {
-                document.body.classList.add('waiting');
-                Requests.checksBookablesAvailabilityBeforeConfirming(Cahier.bookings[0].bookables);
-            }
+            document.body.classList.add('waiting');
+            Requests.checksBookablesAvailabilityBeforeConfirming(Cahier.bookings[0].bookables);
         }
     },
 

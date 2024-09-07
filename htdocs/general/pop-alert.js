@@ -62,6 +62,7 @@ function popAlertLate() {
         $('divTabCahierMember').getElementsByTagName('input')[0].focus();
     });
 }
+
 function popAlertAlreadyHavingABooking(_owner) {
     let elem = openPopUp();
 
@@ -427,138 +428,6 @@ function popAlertTooManyBookables() {
         closePopUp('last');
         newTab('divTabCahierEquipmentChoice');
     });
-}
-
-function popAlertBookablesNotAvailable() {
-    if (options.showAlertBookablesNotAvailable) {
-        // only show pop up if the option is activated, otherwise create the booking and finish the used bookings
-
-        let elem = openPopUp();
-
-        let    container = div(elem);
-        container.classList.add('PopUpAlertContainer', 'available');
-        container.classList.add('Boxes');
-
-        let close = div(container);
-        close.className = 'divPopUpClose';
-        close.onclick = function () {
-            closePopUp({target: elem}, elem);
-        };
-
-        let d = div(container);
-        d.style.textAlign = 'center';
-        d.style.fontSize = '25px';
-        d.innerHTML =
-            "<img src='img/icons/alert.png' style='display: inline-block; vertical-align: middle; width:30px;'/> Embarcations déjà utilisées";
-
-        grayBar(container, 5);
-    }
-
-    let bookablesNotAvailable = [];
-    for (let i = 0; i < Cahier.bookings[0].bookables.length; i++) {
-        if (Cahier.bookings[0].bookables[i].available === false) {
-            bookablesNotAvailable.push(Cahier.bookings[0].bookables[i]);
-        }
-    }
-
-    let nU, nV;
-    let bookingsToFinish = [];
-
-    // 1.1
-    if (options.finishAllBookingsWithBookable) {
-        for (let k = 0; k < bookablesNotAvailable.length; k++) {
-            for (let u = 0; u < Cahier.actualBookings.length; u++) {
-                for (let v = 0; v < Cahier.actualBookings[u].bookables.length; v++) {
-                    if (Cahier.actualBookings[u].bookables[v].id === bookablesNotAvailable[k].id) {
-                        nU = u;
-                        nV = v;
-                        break;
-                    }
-                }
-            }
-            bookingsToFinish = bookingsToFinish.concat(Cahier.actualBookings[nU].ids);
-        }
-        bookingsToFinish = bookingsToFinish.deleteMultiples();
-    } else {
-        for (let k = 0; k < bookablesNotAvailable.length; k++) {
-            for (let u = 0; u < Cahier.actualBookings.length; u++) {
-                for (let v = 0; v < Cahier.actualBookings[u].bookables.length; v++) {
-                    if (Cahier.actualBookings[u].bookables[v].id === bookablesNotAvailable[k].id) {
-                        nU = u;
-                        nV = v;
-                        break;
-                    }
-                }
-            }
-            bookingsToFinish = bookingsToFinish.concat(Cahier.actualBookings[nU].ids[nV]); // ids[nV]
-        }
-    }
-
-    if (options.showAlertBookablesNotAvailable) {
-        let t = div(container);
-        let txt = '';
-        for (let w = 0; w < bookablesNotAvailable.length; w++) {
-            txt +=
-                '<li> Le ' +
-                bookablesNotAvailable[w].code +
-                ' est déjà utilisé par ' +
-                bookablesNotAvailable[w].lastBooking.owner.name +
-                '</li> <br/>';
-        }
-        txt += '';
-        t.innerHTML = txt;
-
-        let names = [];
-        for (let x = 0; x < bookablesNotAvailable.length; x++) {
-            names.push(bookablesNotAvailable[x].lastBooking.owner.name);
-        }
-        names = names.deleteMultiples();
-
-        let pers = names[0];
-        if (names.length === 1) {
-            pers = '* En continuant, la sortie de ' + pers + ' va être automatiquement terminée !';
-        } else {
-            for (let y = 1; y < names.length - 1; y++) {
-                pers += ', ' + names[y];
-            }
-            pers += ' et de ' + names[bookablesNotAvailable.length - 1];
-            pers = '* En continuant, les sorties de ' + pers + ' vont être automatiquement terminées !';
-        }
-
-        let btnContainer = div(container);
-        btnContainer.style.position = 'relative';
-        btnContainer.style.textAlign = 'center';
-
-        let btn = div(btnContainer);
-        btn.classList.add('Buttons');
-        btn.style.display = 'inline-block';
-        btn.innerHTML = 'Annuler';
-        btn.addEventListener('click', function () {
-            closePopUp('last');
-        });
-
-        btn = div(btnContainer);
-        btn.classList.add('Buttons', 'ValidateButtons');
-        btn.style.display = 'inline-block';
-        btn.innerHTML = 'Continuer quand même*';
-        btn.addEventListener('click', function () {
-            let comments = [];
-            comments.fillArray(bookingsToFinish.length, 'Terminée automatiquement');
-            Requests.terminateBooking(bookingsToFinish, comments, false);
-            animate();
-            closePopUp('last');
-        });
-
-        let info = div(btnContainer);
-        info.innerHTML = pers;
-    } else {
-        // create & finish bookings directly as no pop up
-        let comments = [];
-        comments.fillArray(bookingsToFinish.length, 'Terminée automatiquement');
-        Requests.terminateBooking(bookingsToFinish, comments, false);
-        animate();
-        closePopUp('last');
-    }
 }
 
 function popAlertMissingLicense(_license, _bookable) {
