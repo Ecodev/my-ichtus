@@ -58,8 +58,6 @@ input {
     background-position-y: 4px;
     color: black;
     font-size: 20px;
-    -webkit-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     transition:
         all 0.1s linear 0s,
@@ -113,8 +111,6 @@ select {
     border: none;
     border-radius: 10px;
     font-size: 20px;
-    -webkit-box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     cursor: pointer;
     outline: none;
@@ -182,14 +178,8 @@ option {
     background-color: yellow;
     z-index: 80;
     transition: filter 0.2s linear 0s;
-    -moz-transition: -moz-filter 0.2s linear 0s;
-    -o-transition: -o-filter 0.2s linear 0s;
-    -webkit-transition: -webkit-filter 0.2s linear 0s;
 }
 .Blur {
-    -webkit-filter: blur(2px);
-    -moz-filter: blur(2px);
-    -ms-filter: blur(2px);
     -o-filter: blur(2px);
     filter: blur(2px);
 }
@@ -234,8 +224,6 @@ option {
     padding-left: 10px;
     border-radius: 10px;
     font-size: 30px;
-    -webkit-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.6);
-    -moz-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.6);
     box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.6);
     background-size: 35px;
     background-repeat: no-repeat;
@@ -249,11 +237,6 @@ option {
 }
 
 .Buttons:hover {
-    /*margin-top: 4px;
-        margin-bottom: 0px;*/
-    /*-webkit-box-box-shadow: 1px 0px 5px 0px rgba(0,0,0,0.6);
-        -moz-box-box-shadow: 1px 0px 5px 0px rgba(0,0,0,0.6);
-        box-shadow: 1px 0px 5px 0px rgba(0,0,0,0.6);*/
     background-color: rgb(235, 235, 235);
 }
 
@@ -299,8 +282,6 @@ option {
     padding-right: 10px;
     font-size: 20px;
     margin-left: 2.5%; /*changed*/
-    -webkit-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5) !important;
-    -moz-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5) !important;
     box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5) !important;
 }
 .ReturnButtons::after {
@@ -308,7 +289,6 @@ option {
 }
 .ReturnButtons:hover {
     /*-webkit-box-shadow: 2px 1px 5px 0px rgba(0,0,0,0.5) !important;
-    -moz-box-shadow: 2px 1px 5px 0px rgba(0,0,0,0.5) !important;
     box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.5) !important;*/
 }
 
@@ -327,8 +307,6 @@ option {
     padding-right: 10px;
     font-size: 20px;
     margin-left: 0px;
-    -webkit-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5) !important;
-    -moz-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5) !important;
     box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5) !important;
 }
 
@@ -356,16 +334,12 @@ option {
     margin: 0px;
     border-radius: 20px;
     background-color: white;
-    -webkit-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     transition: all 0.1s linear 0s;
 }
 
 .BoxesContainer:hover > .Boxes {
     top: 15px;
-    -webkit-box-shadow: 2px 3px 10px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 2px 3px 10px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 2px 3px 10px 0px rgba(0, 0, 0, 0.5);
 }
 

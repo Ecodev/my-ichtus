@@ -33,8 +33,6 @@
     color: black;
     font-size: 20px;
     font-family: Arial;
-    -webkit-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
     transition:
         all 0.1s linear 0s,
@@ -47,8 +45,6 @@
 #inputTabCahierSearch:focus {
     border: 2px solid var(--accent);
     background-color: white;
-    -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.6);
-    -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.6);
     box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.6);
     background-image: url(../img/icons/search-blue.png);
 }
@@ -86,8 +82,6 @@
     padding-left: 45px;
     text-align: left;
     transition: all 0.1s linear 0s;
-    -webkit-transition: all 0.1s linear 0s;
-    -moz-transition: all 0.1s linear 0s;
     border-width: 0px;
     border-color: gray;
     border-style: outset;
@@ -100,8 +94,6 @@
     background-position-x: 8px;
     background-position-y: 5px;
     display: table;
-    -webkit-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     color: var(--fontBlack);
 }

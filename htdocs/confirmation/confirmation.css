@@ -31,8 +31,6 @@
     overflow-y: auto;
     overflow-x: hidden;
     border-radius: 20px;
-    -webkit-box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.5);
 }
 .divTabCahierConfirmationEmbarcationContainer {
@@ -45,7 +43,6 @@
 }
 
 .divTabCahierConfirmationContainer::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 5px;
 }
 
@@ -116,9 +113,6 @@
     width: 680px;
     border-radius: 5px;
     font-size: 25px;
-    -moz-transition: opacity 0.1s linear 0s;
-    -o-transition: opacity 0.1s linear 0s;
-    -webkit-transition: opacity 0.1s linear 0s;
     transition: opacity 0.1s linear 0s;
 }
 .divConfirmationTexts.confirmationTab {
@@ -198,10 +192,7 @@
 }
 
 .divConfirmationTexts > div:first-child > div:first-child {
-    -moz-filter: brightness(0.5);
-    -ms-filter: brightness(0.5);
-    -webkit-filter: brightness(0.5);
-    filter: brightness(0.5) rightness(0.5);
+    filter: brightness(0.5);
 }
 
 /*.divConfirmationTexts > div:nth-child(4).Buttons {
@@ -269,8 +260,6 @@
     border-radius: 10px;
     border: 2px solid lightgray;
     background-color: white;
-    -moz-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
-    -webkit-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
     transition: all 0.1s linear 0s;
     cursor: pointer !important;
@@ -278,16 +267,12 @@
 .divTabCahierConfirmationEmbarcationBox > div:nth-child(1).PersonalSail {
     background-size: 0px, 35px, 100px;
     border-width: 0px;
-    -moz-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0);
-    -webkit-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0);
     box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0);
     cursor: unset !important;
 }
 .divTabCahierConfirmationEmbarcationBox > div:nth-child(1):not(.PersonalSail):hover {
     margin-top: 15px;
     background-size: 30px, 35px, 100px;
-    -moz-box-shadow: 1px 1px 8px 0px rgba(0, 0, 0, 0.6);
-    -webkit-box-shadow: 1px 1px 8px 0px rgba(0, 0, 0, 0.6);
     box-shadow: 1px 1px 8px 0px rgba(0, 0, 0, 0.6);
 }
 
@@ -336,9 +321,6 @@
     color: white;
     background-color: red;
     opacity: 0;
-    -moz-transition: opacity 0.3s linear 0s;
-    -o-transition: opacity 0.3s linear 0s;
-    -webkit-transition: opacity 0.3s linear 0s;
     transition: opacity 0.3s linear 0s;
 }
 
@@ -386,8 +368,6 @@
     color: black;
     font-size: 20px;
     font-family: Arial;
-    -webkit-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     transition:
         all 0.1s linear 0s,
@@ -397,8 +377,6 @@
 }
 
 .divTabCahierConfirmationContainer textarea:focus {
-    -webkit-box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.6);
-    -moz-box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.6);
     box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.6);
 }
 

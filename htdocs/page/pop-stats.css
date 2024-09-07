@@ -53,7 +53,6 @@
 .PopUpStatsContainerTitle > div:nth-child(2):before {
     content: '';
     position: absolute;
-    -webkit-transform: rotate(180deg);
     transform: rotate(180deg);
 }
 .PopUpStatsContainerTitle > div:nth-child(3) {

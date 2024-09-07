@@ -81,9 +81,6 @@
     background-color: lightgray;
     margin-top: 0px;
     margin-bottom: 0px;
-    -moz-transition: all 0.1s linear 0s;
-    -o-transition: all 0.1s linear 0s;
-    -webkit-transition: all 0.1s linear 0s;
     transition: all 0.1s linear 0s;
     background-image: url(..//img/icons/validated.png);
     background-position: center;

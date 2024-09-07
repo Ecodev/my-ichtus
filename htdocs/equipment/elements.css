@@ -31,9 +31,6 @@
 }
 
 .divTabCahierEquipmentElementsContainer > div > div:nth-child(2) {
-    -moz-transition: opacity 0.1s linear 0s;
-    -o-transition: opacity 0.1s linear 0s;
-    -webkit-transition: opacity 0.1s linear 0s;
     transition: opacity 0.1s linear 0s;
 }
 
@@ -64,14 +61,7 @@
     color: rgb(30, 30, 30);
     font-weight: bold;
     box-shadow: none;
-    -moz-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
     transform: rotate(-45deg);
-    -moz-transition: opacity 0.1s linear 0s;
-    -o-transition: opacity 0.1s linear 0s;
-    -webkit-transition: opacity 0.1s linear 0s;
     transition: opacity 0.1s linear 0s;
     opacity: 1;
 }
@@ -93,14 +83,7 @@
     color: rgb(30, 30, 30);
     font-weight: bold;
     box-shadow: none;
-    -moz-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
     transform: rotate(-45deg);
-    -moz-transition: opacity 0.1s linear 0s;
-    -o-transition: opacity 0.1s linear 0s;
-    -webkit-transition: opacity 0.1s linear 0s;
     transition: opacity 0.1s linear 0s;
     opacity: 1;
 }
@@ -119,8 +102,6 @@
     margin: 0px;
     border-radius: 24px;
     background-color: white;
-    -webkit-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     transition: all 0.1s linear 0s;
     border: 5px solid transparent;
@@ -128,8 +109,6 @@
 
 .divTabCahierEquipmentElementsContainer > div:hover > div:first-child {
     top: 5px;
-    -webkit-box-shadow: 2px 3px 8px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 2px 3px 8px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 2px 3px 8px 0px rgba(0, 0, 0, 0.5);
     /*background-color: lightgray;*/
 }
@@ -142,8 +121,6 @@
     height: 40px;
     border-top-left-radius: 20px;
     background-color: white;
-    -webkit-box-shadow: -1px -1px 3px 0px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: -1px -1px 3px 0px rgba(0, 0, 0, 0.3);
     box-shadow: -1px -1px 3px 0px rgba(0, 0, 0, 0.3);
     font-size: 25px;
     font-weight: bold;
@@ -326,8 +303,6 @@
     border-bottom-right-radius: 0px;
     border-top-right-radius: 0px;
     background-image: url(../img/icons/sort-asc.png);
-    -webkit-box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.75);
 }
 
@@ -354,8 +329,6 @@
     border-bottom-right-radius: 0px;
     border-top-right-radius: 0px;
     background-image: url(../img/icons/chose.png);
-    -webkit-box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.75);
 }
 
@@ -379,8 +352,6 @@
     border-bottom-right-radius: 0px;
     border-top-right-radius: 0px;
     background-image: url(../img/icons/eye.png);
-    -webkit-box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.75);
 }
 
@@ -407,8 +378,6 @@
     background-position-y: 4px;
     color: black;
     font-size: 20px;
-    -webkit-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     transition:
         all 0.1s linear 0s,
@@ -431,8 +400,6 @@
     border-color: var(--accent);
     background-image: url(../img/icons/search-blue.png);
     width: 200px;
-    -webkit-box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.5);
 }
 

@@ -51,16 +51,9 @@
     width: 130px;
     top: 10px;
     left: 20px;
-    -moz-transition: all 2s ease 0.5s;
-    -o-transition: all 2s ease 0.5s;
-    -webkit-transition: all 2s ease 0.5s;
     transition: all 2s ease 0.5s;
 }
 #divTabCahierNewBookingBox > div:nth-child(1):hover > div > .Boxes > img:nth-child(3) {
-    -moz-transform: rotate(-360deg);
-    -ms-transform: rotate(-360deg);
-    -o-transform: rotate(-360deg);
-    -webkit-transform: rotate(-360deg);
     transform: rotate(-360deg);
 }
 
@@ -93,8 +86,6 @@
     position: relative;
     background-color: white;
     border-radius: 10px;
-    -webkit-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     border-collapse: collapse;
 }
@@ -110,19 +101,12 @@
     background-repeat: no-repeat;
     height: 35px;
     width: 35px;
-    -moz-transition: all 1s ease 0s;
-    -o-transition: all 1s ease 0s;
-    -webkit-transition: all 1s ease 0s;
     transition: all 1s ease 0s;
     z-index: 2;
     cursor: pointer;
     border-radius: 20px;
 }
 #divTabCahierActualize:hover {
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
     background-color: lightgray;
 }
@@ -138,9 +122,6 @@
     background-repeat: no-repeat;
     height: 35px;
     width: 35px;
-    -moz-transition: all 1s ease 0s;
-    -o-transition: all 1s ease 0s;
-    -webkit-transition: all 1s ease 0s;
     transition: all 1s ease 0s;
     z-index: 2;
     cursor: pointer;
@@ -223,9 +204,6 @@
 }
 
 .TableTopBar img {
-    -moz-filter: brightness(0.5);
-    -ms-filter: brightness(0.5);
-    -webkit-filter: brightness(0.5);
     filter: brightness(0.5);
     width: 25px;
     margin-right: 5px;
@@ -534,8 +512,6 @@
     width: 100%;
     background-color: white;
     border-radius: 10px;
-    -webkit-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
 }
 
@@ -596,15 +572,9 @@
     vertical-align: middle;
 }
 #divTabCahierAlertButtonsLegend div:first-child {
-    -moz-filter: grayscale(1) invert(1);
-    -ms-filter: grayscale(1) invert(1);
-    -webkit-filter: grayscale(1) invert(1);
     filter: grayscale(1) invert(1);
 }
 #divTabCahierAlertButtonsLegend div:nth-child(2) {
-    -moz-filter: grayscale(1);
-    -ms-filter: grayscale(1);
-    -webkit-filter: grayscale(1);
     filter: grayscale(1);
 }
 
@@ -618,18 +588,11 @@
     padding-right: 12px;
     background-size: 30px;
     background-position-y: 11px;
-    -moz-transform: translate(0px, 5px);
-    -ms-transform: translate(0px, 5px);
-    -o-transform: translate(0px, 5px);
-    -webkit-transform: translate(0px, 5px);
     transform: translate(0px, 5px);
     background-image: url(../img/icons/sail.png);
     /*background-blend-mode: exclusion;*/
     background-color: orange;
     opacity: 1;
-    -moz-transition: opacity 0.3s linear 0s;
-    -o-transition: opacity 0.3s linear 0s;
-    -webkit-transition: opacity 0.3s linear 0s;
     transition: opacity 0.3s linear 0s;
 }
 
@@ -648,10 +611,6 @@
     background-size: 26px;
     background-position-x: 10px;
     background-position-y: 14px;
-    -moz-transform: translate(0px, 5px);
-    -ms-transform: translate(0px, 5px);
-    -o-transform: translate(0px, 5px);
-    -webkit-transform: translate(0px, 5px);
     transform: translate(0px, 5px);
     background-image: url(../img/icons/edit-white.png);
     /*background-blend-mode: exclusion;*/
@@ -715,8 +674,6 @@
     background-position-y: 4px;
     color: black;
     font-size: 20px;
-    -webkit-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     transition:
         all 0.1s linear 0s,
@@ -740,8 +697,6 @@
     border-color: var(--accent);
     background-image: url(../img/icons/search-blue.png);
     width: 200px;
-    -webkit-box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.5);
     background-color: white;
 }
