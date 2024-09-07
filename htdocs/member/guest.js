@@ -1,19 +1,19 @@
 function popGuest(nbr = 0) {
-    var elem = openPopUp();
+    let elem = openPopUp();
 
-    var container;
+    let container;
     container = div(elem);
     container.id = nbr;
     container.classList.add('PopUpGuestContainer');
     container.classList.add('Boxes');
 
-    var close = div(container);
+    let close = div(container);
     close.className = 'divPopUpClose';
     close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
-    var d = div(container);
+    let d = div(container);
     d.style.textAlign = 'center';
     d.style.fontSize = '25px';
     d.innerHTML = "Nom et prénom de l'invité";
@@ -22,12 +22,12 @@ function popGuest(nbr = 0) {
 
     div(container);
 
-    var i1 = document.createElement('input');
+    let i1 = document.createElement('input');
     container.appendChild(i1);
     i1.placeholder = 'Nom';
     i1.spellcheck = false;
 
-    var i2 = document.createElement('input');
+    let i2 = document.createElement('input');
     i2.placeholder = 'Prénom';
     i2.spellcheck = false;
     i2.addEventListener('keyup', function (event) {
@@ -37,7 +37,7 @@ function popGuest(nbr = 0) {
     });
     container.appendChild(i2);
 
-    var b = div(container);
+    let b = div(container);
     b.classList.add('Buttons');
     b.classList.add('ValidateButtons');
     b.innerHTML = 'Suivant';
@@ -48,8 +48,8 @@ function popGuest(nbr = 0) {
 }
 
 function ValidateGuest() {
-    var c = document.getElementsByClassName('PopUpGuestContainer')[0];
-    var i = c.getElementsByTagName('input');
+    let c = document.getElementsByClassName('PopUpGuestContainer')[0];
+    let i = c.getElementsByTagName('input');
     if (i[0].value.length < 2) {
         i[0].style.borderColor = 'red';
         i[0].previousElementSibling.style.backgroundColor = 'red';
@@ -64,10 +64,10 @@ function ValidateGuest() {
     }
 
     if (i[0].style.borderColor == 'black' && i[1].style.borderColor == 'black') {
-        var owner = {};
-        var guest = true;
-        var guestName = i[0].value.capitalize() + ' ' + i[1].value.capitalize();
-        var nbr = parseInt(document.getElementsByClassName('PopUpGuestContainer')[0].id);
+        let owner = {};
+        let guest = true;
+        let guestName = i[0].value.capitalize() + ' ' + i[1].value.capitalize();
+        let nbr = parseInt(document.getElementsByClassName('PopUpGuestContainer')[0].id);
 
         Cahier.setOwner(nbr, owner, guest, guestName);
         closePopUp({target: c.parentElement}, c.parentElement);

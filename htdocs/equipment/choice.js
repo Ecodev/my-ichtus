@@ -2,18 +2,18 @@ function loadCahierEquipmentChoice(
     loc = $('divTabCahierEquipmentChoice').getElementsByClassName('MaterielChoiceContainer')[0],
     nbr = 0,
 ) {
-    var isTab = true;
+    let isTab = true;
     if (loc != $('divTabCahierEquipmentChoice').getElementsByClassName('MaterielChoiceContainer')[0]) {
         isTab = false;
     }
 
-    var container = div(loc);
+    let container = div(loc);
     container.classList.add('divTabCahierEquipmentChoiceContainer');
 
-    var c = div(container);
+    let c = div(container);
     c.classList.add('divTabCahierEquipmentChoiceInputCodeContainer');
 
-    var i = input(c, 'Taper un code...');
+    let i = input(c, 'Taper un code...');
     i.onkeyup = function (event) {
         if (event.keyCode == 13) {
             Requests.getBookableByCode(this, nbr);
@@ -31,7 +31,7 @@ function loadCahierEquipmentChoice(
 
     div(c);
 
-    var btn = div(div(c));
+    let btn = div(div(c));
     btn.classList.add('ValidateButtons', 'Buttons');
     btn.title = 'Choisir cette embarcation';
     btn.onclick = function () {
@@ -42,16 +42,16 @@ function loadCahierEquipmentChoice(
 
     div(container).innerHTML = 'Ou';
 
-    var btnContainer = div(container);
+    let btnContainer = div(container);
 
-    var btn1 = div(btnContainer);
+    let btn1 = div(btnContainer);
     btn1.innerHTML = 'Prendre du matériel personnel';
     btn1.title = 'Prendre du matériel personnel';
     btn1.style.fontSize = '19px';
 
     if (isTab) {
         btn1.onclick = function () {
-            var t = true;
+            let t = true;
             for (let k = 0; k < Cahier.bookings[0].bookables.length; k++) {
                 if (Cahier.bookings[0].bookables[k].id == 0) {
                     // matériel personnel
@@ -72,7 +72,7 @@ function loadCahierEquipmentChoice(
 
     btn1.classList.add('NormalButtons', 'Buttons');
 
-    var btn2 = div(btnContainer);
+    let btn2 = div(btnContainer);
     btn2.innerHTML = 'Voir la liste du matériel';
     if (isTab) {
         btn2.onclick = function () {

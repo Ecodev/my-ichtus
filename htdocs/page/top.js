@@ -1,6 +1,6 @@
-var running = false;
-var cancelFunction;
-var info;
+let running = false;
+let cancelFunction;
+let info;
 
 // see ServerRequests for skipping animation
 function ableToSkipAnimation() {
@@ -19,7 +19,7 @@ function animate() {
         }, 500);
     };
 
-    var b, c, w, f, r;
+    let b, c, w, f, r;
 
     b = div(document.body);
     b.id = 'black';
@@ -72,7 +72,7 @@ function animate() {
                     f.style.animationName = 'AniFishExit,none';
 
                     setTimeout(function () {
-                        for (var i = 0; i < 6; i++) {
+                        for (let i = 0; i < 6; i++) {
                             // should be useless
                             DeleteObjects(document.getElementsByClassName('svgLetters')[0]);
                         }
@@ -114,7 +114,7 @@ function addSvgClass(elem) {
 
 function newLetter(i) {
     if (running) {
-        var d = div(document.body);
+        let d = div(document.body);
         d.classList.add('svgLetters');
         d.classList.add('svg');
         d.id = i;

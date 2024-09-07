@@ -1,18 +1,18 @@
 function popLogin() {
-    var elem = openPopUp();
+    let elem = openPopUp();
 
-    var container;
+    let container;
     container = div(elem);
     container.classList.add('PopUpLoginContainer');
     container.classList.add('Boxes');
 
-    var close = div(container);
+    let close = div(container);
     close.className = 'divPopUpClose';
     close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
-    var d = div(container);
+    let d = div(container);
     d.style.textAlign = 'center';
     d.style.fontSize = '25px';
     d.innerHTML = 'Connexion';
@@ -21,7 +21,7 @@ function popLogin() {
 
     div(container);
 
-    var i = input(container);
+    let i = input(container);
     i.type = 'password';
     i.placeholder = 'Mot de passe';
     i.addEventListener('keyup', function (event) {
@@ -30,7 +30,7 @@ function popLogin() {
         }
     });
 
-    var b = div(container);
+    let b = div(container);
     b.classList.add('Buttons');
     b.classList.add('ValidateButtons');
     b.innerHTML = 'Connexion';

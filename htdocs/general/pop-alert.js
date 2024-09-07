@@ -1,59 +1,59 @@
 function popAlert(txt = 'haha ahah ahah ') {
-    var elem = openPopUp();
+    let elem = openPopUp();
 
-    var container;
+    let container;
     container = div(elem);
     container.classList.add('PopUpAlertContainer');
     container.classList.add('Boxes');
 
-    var close = div(container);
+    let close = div(container);
     close.className = 'divPopUpClose';
     close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
-    var d = div(container);
+    let d = div(container);
     d.style.textAlign = 'center';
     d.style.fontSize = '25px';
     d.innerHTML = '!';
 
     grayBar(container, 5);
 
-    var t = div(container);
+    let t = div(container);
     t.innerHTML = txt;
 }
 
 function popAlertLate() {
-    var elem = openPopUp();
+    let elem = openPopUp();
 
-    var container;
+    let container;
     container = div(elem);
     container.classList.add('PopUpAlertContainer', 'booking');
     container.classList.add('Boxes');
     container.style.width = '495px';
     container.style.height = '180px';
 
-    var close = div(container);
+    let close = div(container);
     close.className = 'divPopUpClose';
     close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
-    var d = div(container);
+    let d = div(container);
     d.style.textAlign = 'center';
     d.style.fontSize = '25px';
     d.innerHTML = 'Heures tardives';
 
     grayBar(container, 5);
 
-    var t = div(container);
+    let t = div(container);
     t.innerHTML = 'Pour ta sécurité, pense à rentrer avant le coucher du soleil.';
 
-    var btnContainer = div(container);
+    let btnContainer = div(container);
     btnContainer.style.position = 'relative';
     btnContainer.style.textAlign = 'center';
 
-    var btn = div(btnContainer);
+    let btn = div(btnContainer);
     btn.classList.add('Buttons');
     btn.style.display = 'inline-block';
     btn.innerHTML = 'Ok';
@@ -63,34 +63,34 @@ function popAlertLate() {
     });
 }
 function popAlertAlreadyHavingABooking(_owner) {
-    var elem = openPopUp();
+    let elem = openPopUp();
 
-    var container;
+    let container;
     container = div(elem);
     container.classList.add('PopUpAlertContainer', 'booking');
     container.classList.add('Boxes');
 
-    var close = div(container);
+    let close = div(container);
     close.className = 'divPopUpClose';
     close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
-    var d = div(container);
+    let d = div(container);
     d.style.textAlign = 'center';
     d.style.fontSize = '25px';
     d.innerHTML = '!';
 
     grayBar(container, 5);
 
-    var t = div(container);
+    let t = div(container);
     t.innerHTML = 'Il semblerait que vous ayez déjà une sortie en cours';
 
-    var btnContainer = div(container);
+    let btnContainer = div(container);
     btnContainer.style.position = 'relative';
     btnContainer.style.textAlign = 'center';
 
-    var btn = div(btnContainer);
+    let btn = div(btnContainer);
     btn.classList.add('Buttons');
     btn.style.display = 'inline-block';
     btn.innerHTML = 'Voir les sorties';
@@ -110,35 +110,35 @@ function popAlertAlreadyHavingABooking(_owner) {
 }
 
 function popAlertNoWelcomeSession(_owner) {
-    var elem = openPopUp();
+    let elem = openPopUp();
 
-    var container;
+    let container;
     container = div(elem);
     container.classList.add('PopUpAlertContainer', 'booking');
     container.classList.add('Boxes');
 
-    var close = div(container);
+    let close = div(container);
     close.className = 'divPopUpClose';
     close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
-    var d = div(container);
+    let d = div(container);
     d.style.textAlign = 'center';
     d.style.fontSize = '25px';
     d.innerHTML = "Pas suivi de séance d'accueil";
 
     grayBar(container, 5);
 
-    var t = div(container);
+    let t = div(container);
     t.innerHTML = "Il semblerait que vous n'ayez pas encore suivi de séance d'accueil.";
     t.style.minHeight = '60px';
 
-    var btnContainer = div(container);
+    let btnContainer = div(container);
     btnContainer.style.position = 'relative';
     btnContainer.style.textAlign = 'center';
 
-    var btn = div(btnContainer);
+    let btn = div(btnContainer);
     btn.classList.add('Buttons');
     btn.style.display = 'inline-block';
     btn.innerHTML = 'Annuler';
@@ -161,9 +161,9 @@ function popAlertNoWelcomeSession(_owner) {
 }
 
 function popAlertLessThan13Minutes(_bookable, _booking, _choseFunction) {
-    var elem = openPopUp();
+    let elem = openPopUp();
 
-    var txt =
+    let txt =
         '<b>' +
         Cahier.getOwner(_booking, false) +
         '</b> est parti ' +
@@ -173,30 +173,30 @@ function popAlertLessThan13Minutes(_bookable, _booking, _choseFunction) {
         _bookable.code +
         '</b> !';
 
-    var container;
+    let container;
     container = div(elem);
     container.style.height = '215px';
     container.classList.add('PopUpAlertContainer', 'booking');
     container.classList.add('Boxes');
 
-    var close = div(container);
+    let close = div(container);
     close.className = 'divPopUpClose';
     close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
-    var d = div(container);
+    let d = div(container);
     d.style.textAlign = 'center';
     d.style.fontSize = '25px';
     d.innerHTML = 'Embarcation déjà utilisée';
 
     grayBar(container, 5);
 
-    var t = div(container);
+    let t = div(container);
     t.innerHTML = txt + "<br>Êtes-vous sûr que l'embarcation est disponible ?";
     t.style.minHeight = '80px';
 
-    var a = div(container);
+    let a = div(container);
     a.style.position = 'absolute';
     a.style.left = '12px';
     a.style.top = '10px';
@@ -205,11 +205,11 @@ function popAlertLessThan13Minutes(_bookable, _booking, _choseFunction) {
     a.style.width = '30px';
     a.style.height = '30px';
 
-    var btnContainer = div(container);
+    let btnContainer = div(container);
     btnContainer.style.position = 'relative';
     btnContainer.style.textAlign = 'center';
 
-    var btn = div(btnContainer);
+    let btn = div(btnContainer);
     btn.classList.add('Buttons');
     btn.style.display = 'inline-block';
     btn.innerHTML = 'Annuler';
@@ -233,13 +233,13 @@ function popAlertLessThan13Minutes(_bookable, _booking, _choseFunction) {
 }
 
 function popAlertBookablesHaveJustBeenBooked(_bookablesNotAvailable) {
-    var elem = openPopUp();
+    let elem = openPopUp();
 
     //console.log("_bookablesNotAvailable", _bookablesNotAvailable);
 
-    var txt = '';
+    let txt = '';
 
-    for (var b of _bookablesNotAvailable) {
+    for (let b of _bookablesNotAvailable) {
         txt +=
             '<b>' +
             Cahier.getOwner(b.lastBooking, false) +
@@ -255,7 +255,7 @@ function popAlertBookablesHaveJustBeenBooked(_bookablesNotAvailable) {
             ? "Êtes-vous sûr que l'embarcation est disponible ?"
             : 'Êtes-vous sûr que les embarcations sont disponibles ?';
 
-    var container;
+    let container;
     container = div(elem);
     container.style.height = 'auto';
     container.style.minHeight = '215px';
@@ -265,29 +265,29 @@ function popAlertBookablesHaveJustBeenBooked(_bookablesNotAvailable) {
     container.classList.add('PopUpAlertContainer', 'booking');
     container.classList.add('Boxes');
 
-    var close = div(container);
+    let close = div(container);
     close.className = 'divPopUpClose';
     close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
-    var d = div(container);
+    let d = div(container);
     d.style.textAlign = 'center';
     d.style.fontSize = '25px';
     d.innerHTML = _bookablesNotAvailable.length == 1 ? 'Embarcation utilisée !' : 'Embarcations utilisées !';
 
     grayBar(container, 5);
 
-    var t = div(container);
+    let t = div(container);
     t.innerHTML = txt;
     t.style.minHeight = '80px';
 
-    var btnContainer = div(container);
+    let btnContainer = div(container);
     btnContainer.style.position = 'relative';
     btnContainer.style.textAlign = 'center';
     btnContainer.style.marginTop = '5px';
 
-    var btn = div(btnContainer);
+    let btn = div(btnContainer);
     btn.classList.add('Buttons');
     btn.style.display = 'inline-block';
     btn.innerHTML = 'Annuler';
@@ -310,27 +310,27 @@ function popAlertBookablesHaveJustBeenBooked(_bookablesNotAvailable) {
 }
 
 function popAlertMoreBookablesThanParticipants(bookables, participants) {
-    var elem = openPopUp();
+    let elem = openPopUp();
 
-    var container;
+    let container;
     container = div(elem);
     container.classList.add('PopUpAlertContainer', 'bookable');
     container.classList.add('Boxes');
 
-    var close = div(container);
+    let close = div(container);
     close.className = 'divPopUpClose';
     close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
-    var d = div(container);
+    let d = div(container);
     d.style.textAlign = 'center';
     d.style.fontSize = '25px';
     d.innerHTML = "Trop d'embarcations";
 
     grayBar(container, 5);
 
-    var t = div(container);
+    let t = div(container);
     t.innerHTML =
         'Vous avez choisi ' +
         bookables +
@@ -338,11 +338,11 @@ function popAlertMoreBookablesThanParticipants(bookables, participants) {
         Cahier.getSingularOrPlural(participants, ' participant') +
         ' !';
 
-    var btnContainer = div(container);
+    let btnContainer = div(container);
     btnContainer.style.position = 'relative';
     btnContainer.style.textAlign = 'center';
 
-    var btn = div(btnContainer);
+    let btn = div(btnContainer);
     btn.classList.add('Buttons', 'ValidateButtons');
     btn.style.display = 'inline-block';
     btn.innerHTML = 'Modifier le nbr de participants';
@@ -353,34 +353,34 @@ function popAlertMoreBookablesThanParticipants(bookables, participants) {
 }
 
 function popAlertTooManyParticipants() {
-    var elem = openPopUp();
+    let elem = openPopUp();
 
-    var container;
+    let container;
     container = div(elem);
     container.classList.add('PopUpAlertContainer', 'bookable');
     container.classList.add('Boxes');
 
-    var close = div(container);
+    let close = div(container);
     close.className = 'divPopUpClose';
     close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
-    var d = div(container);
+    let d = div(container);
     d.style.textAlign = 'center';
     d.style.fontSize = '25px';
     d.innerHTML = 'Trop de participants';
 
     grayBar(container, 5);
 
-    var t = div(container);
+    let t = div(container);
     t.innerHTML = 'Vous pouvez au maximum annoncer 15 participants en une sortie !';
 
-    var btnContainer = div(container);
+    let btnContainer = div(container);
     btnContainer.style.position = 'relative';
     btnContainer.style.textAlign = 'center';
 
-    var btn = div(btnContainer);
+    let btn = div(btnContainer);
     btn.classList.add('Buttons', 'ValidateButtons');
     btn.style.display = 'inline-block';
     btn.innerHTML = 'Modifier le nbr de participants';
@@ -391,34 +391,34 @@ function popAlertTooManyParticipants() {
 }
 
 function popAlertTooManyBookables() {
-    var elem = openPopUp();
+    let elem = openPopUp();
 
-    var container;
+    let container;
     container = div(elem);
     container.classList.add('PopUpAlertContainer', 'bookable');
     container.classList.add('Boxes');
 
-    var close = div(container);
+    let close = div(container);
     close.className = 'divPopUpClose';
     close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
-    var d = div(container);
+    let d = div(container);
     d.style.textAlign = 'center';
     d.style.fontSize = '25px';
     d.innerHTML = "Trop d'embarcations";
 
     grayBar(container, 5);
 
-    var t = div(container);
+    let t = div(container);
     t.innerHTML = 'Vous pouvez au maximum annoncer 10 embarcations en une sortie !';
 
-    var btnContainer = div(container);
+    let btnContainer = div(container);
     btnContainer.style.position = 'relative';
     btnContainer.style.textAlign = 'center';
 
-    var btn = div(btnContainer);
+    let btn = div(btnContainer);
     btn.classList.add('Buttons', 'ValidateButtons');
     btn.style.width = '250px';
     btn.style.display = 'inline-block';
@@ -433,20 +433,20 @@ function popAlertBookablesNotAvailable() {
     if (options.showAlertBookablesNotAvailable) {
         // only show pop up if the option is activated, otherwise create the booking and finish the used bookings
 
-        var elem = openPopUp();
+        let elem = openPopUp();
 
         var container;
         container = div(elem);
         container.classList.add('PopUpAlertContainer', 'available');
         container.classList.add('Boxes');
 
-        var close = div(container);
+        let close = div(container);
         close.className = 'divPopUpClose';
         close.onclick = function () {
             closePopUp({target: elem}, elem);
         };
 
-        var d = div(container);
+        let d = div(container);
         d.style.textAlign = 'center';
         d.style.fontSize = '25px';
         d.innerHTML =
@@ -455,15 +455,15 @@ function popAlertBookablesNotAvailable() {
         grayBar(container, 5);
     }
 
-    var bookablesNotAvailable = [];
+    let bookablesNotAvailable = [];
     for (var i = 0; i < Cahier.bookings[0].bookables.length; i++) {
         if (Cahier.bookings[0].bookables[i].available === false) {
             bookablesNotAvailable.push(Cahier.bookings[0].bookables[i]);
         }
     }
 
-    var nU, nV;
-    var bookingsToFinish = [];
+    let nU, nV;
+    let bookingsToFinish = [];
 
     // 1.1
     if (options.finishAllBookingsWithBookable) {
@@ -496,8 +496,8 @@ function popAlertBookablesNotAvailable() {
     }
 
     if (options.showAlertBookablesNotAvailable) {
-        var t = div(container);
-        var txt = '';
+        let t = div(container);
+        let txt = '';
         for (var i = 0; i < bookablesNotAvailable.length; i++) {
             txt +=
                 '<li> Le ' +
@@ -509,13 +509,13 @@ function popAlertBookablesNotAvailable() {
         txt += '';
         t.innerHTML = txt;
 
-        var names = [];
+        let names = [];
         for (let i = 0; i < bookablesNotAvailable.length; i++) {
             names.push(bookablesNotAvailable[i].lastBooking.owner.name);
         }
         names = names.deleteMultiples();
 
-        var pers = names[0];
+        let pers = names[0];
         if (names.length === 1) {
             pers = '* En continuant, la sortie de ' + pers + ' va être automatiquement terminée !';
         } else {
@@ -526,11 +526,11 @@ function popAlertBookablesNotAvailable() {
             pers = '* En continuant, les sorties de ' + pers + ' vont être automatiquement terminées !';
         }
 
-        var btnContainer = div(container);
+        let btnContainer = div(container);
         btnContainer.style.position = 'relative';
         btnContainer.style.textAlign = 'center';
 
-        var btn = div(btnContainer);
+        let btn = div(btnContainer);
         btn.classList.add('Buttons');
         btn.style.display = 'inline-block';
         btn.innerHTML = 'Annuler';
@@ -543,18 +543,18 @@ function popAlertBookablesNotAvailable() {
         btn.style.display = 'inline-block';
         btn.innerHTML = 'Continuer quand même*';
         btn.addEventListener('click', function () {
-            var comments = [];
+            let comments = [];
             comments.fillArray(bookingsToFinish.length, 'Terminée automatiquement');
             Requests.terminateBooking(bookingsToFinish, comments, false);
             animate();
             closePopUp('last');
         });
 
-        var info = div(btnContainer);
+        let info = div(btnContainer);
         info.innerHTML = pers;
     } else {
         // create & finish bookings directly as no pop up
-        var comments = [];
+        let comments = [];
         comments.fillArray(bookingsToFinish.length, 'Terminée automatiquement');
         Requests.terminateBooking(bookingsToFinish, comments, false);
         animate();
@@ -563,27 +563,27 @@ function popAlertBookablesNotAvailable() {
 }
 
 function popAlertMissingLicense(_license, _bookable) {
-    var elem = openPopUp();
+    let elem = openPopUp();
 
-    var container;
+    let container;
     container = div(elem);
     container.classList.add('PopUpAlertContainer', 'booking');
     container.classList.add('Boxes');
 
-    var close = div(container);
+    let close = div(container);
     close.className = 'divPopUpClose';
     close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
-    var d = div(container);
+    let d = div(container);
     d.style.textAlign = 'center';
     d.style.fontSize = '25px';
     d.innerHTML = 'Certification manquante !';
 
     grayBar(container, 5);
 
-    var t = div(container);
+    let t = div(container);
     t.innerHTML =
         "Il semblerait que vous n'ayez pas la certification <i style='font-weight:bold'>" +
         _license.name +
@@ -592,11 +592,11 @@ function popAlertMissingLicense(_license, _bookable) {
         '</asdf>';
     t.style.minHeight = '60px';
 
-    var btnContainer = div(container);
+    let btnContainer = div(container);
     btnContainer.style.position = 'relative';
     btnContainer.style.textAlign = 'center';
 
-    var btn = div(btnContainer);
+    let btn = div(btnContainer);
     btn.classList.add('Buttons', 'ValidateButtons');
     btn.style.width = '250px';
     btn.style.display = 'inline-block';

@@ -1,12 +1,12 @@
 function popUser(nbr = 0, elem = openPopUp()) {
-    var container;
+    let container;
     container = div(elem);
     container.id = nbr;
     container.classList.add('PopUpUserContainer');
 
     if (elem != $('divTabCahierMemberContainer')) {
         container.classList.add('Boxes');
-        var close = div(container);
+        let close = div(container);
         close.className = 'divPopUpClose';
         close.onclick = function () {
             closePopUp({target: elem}, elem);
@@ -19,7 +19,7 @@ function popUser(nbr = 0, elem = openPopUp()) {
         grayBar(container, 5);
     }
 
-    var i1 = document.createElement('input');
+    let i1 = document.createElement('input');
     i1.autocomplete = 'off';
     i1.id = 'inputTabCahierSearch';
     i1.title = 'Veuillez écrire votre nom et prénom';
@@ -56,13 +56,13 @@ function popUser(nbr = 0, elem = openPopUp()) {
     d.id = 'divTabCahierSearchResult';
 }
 
-var enterSearchPosition = 0;
+let enterSearchPosition = 0;
 function Search(e) {
-    var text = $('inputTabCahierSearch').value.toUpperCase();
+    let text = $('inputTabCahierSearch').value.toUpperCase();
 
     if (e.keyCode == 13) {
-        var all = document.getElementsByClassName('divTabCahierResultEntry');
-        for (var i = 0; i < all.length; i++) {
+        let all = document.getElementsByClassName('divTabCahierResultEntry');
+        for (let i = 0; i < all.length; i++) {
             if (typeof all[i].getElementsByTagName('img')[0] != 'undefined') {
                 //    var _firstName = all[i].getElementsByClassName("spanTabCahierFirstName")[0].innerHTML;
                 //    var _surName = all[i].getElementsByClassName("spanTabCahierSurName")[0].innerHTML;
@@ -70,7 +70,7 @@ function Search(e) {
                 //var _id = lastPeople[all[i].id].id;
                 //var _sex = lastPeople[all[i].id].sex; // modifier
 
-                var nbr = parseInt(document.getElementsByClassName('PopUpUserContainer')[0].id); // modifier problem si plusieurs popUp ouverts...
+                let nbr = parseInt(document.getElementsByClassName('PopUpUserContainer')[0].id); // modifier problem si plusieurs popUp ouverts...
 
                 //var owner = { id: _id, name: _name, sex: _sex };
 
@@ -94,15 +94,15 @@ function SearchDown(e) {
             enterSearchPosition--;
         }
         if (lastPeople.length != 0) {
-            for (var i = 0; i < lastPeople.length; i++) {
-                var elem = document.getElementsByClassName('divTabCahierResultEntry')[i];
+            for (let i = 0; i < lastPeople.length; i++) {
+                let elem = document.getElementsByClassName('divTabCahierResultEntry')[i];
 
                 elem.style.backgroundColor = '';
                 if (typeof elem.getElementsByTagName('img')[0] != 'undefined') {
                     elem.removeChild(elem.getElementsByTagName('img')[0]);
                 }
                 if (i == ((enterSearchPosition % lastPeople.length) + lastPeople.length) % lastPeople.length) {
-                    var img = document.createElement('img');
+                    let img = document.createElement('img');
                     img.id = 'imgTabCahierSearchEnter';
                     img.src = 'img/icons/enter.png';
                     elem.appendChild(img);
@@ -139,7 +139,7 @@ function createSearchEntries(PeopleCorresponding) {
 
         lastPeople = [];
     } else {
-        for (var i = 0; i < PeopleCorresponding.length; i++) {
+        for (let i = 0; i < PeopleCorresponding.length; i++) {
             var divResult = document.createElement('div');
             //  divResult.id = PeopleCorresponding[i].id;
             divResult.classList.add('divTabCahierResultEntry');
@@ -166,7 +166,7 @@ function createSearchEntries(PeopleCorresponding) {
             //divResult.appendChild(span2);
 
             if (i == 0) {
-                var img = document.createElement('img');
+                let img = document.createElement('img');
                 img.id = 'imgTabCahierSearchEnter';
                 img.src = 'img/icons/enter.png';
                 divResult.appendChild(img);

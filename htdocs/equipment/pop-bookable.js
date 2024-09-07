@@ -5,12 +5,12 @@ function popBookable(bookableId, justPreview = true, nbr = 0, modal = openPopUp(
         modal.innerHTML = '';
     }
 
-    var pop = div(modal);
+    let pop = div(modal);
     pop.classList.add('Boxes');
     pop.classList.add('divTabCahierEquipmentElementsPopUp');
 
     if (modal != $('divTabCahierEquipmentBookableContainer')) {
-        var close = div(pop);
+        let close = div(pop);
         close.className = 'divPopUpClose';
         close.onclick = function () {
             closePopUp({target: modal}, modal);
@@ -20,21 +20,21 @@ function popBookable(bookableId, justPreview = true, nbr = 0, modal = openPopUp(
         newTab('divTabCahierEquipmentBookable');
     }
 
-    var imgContainer = div(pop);
+    let imgContainer = div(pop);
 
-    var descriptionTitle = div(pop);
+    let descriptionTitle = div(pop);
     descriptionTitle.innerHTML = 'Description';
 
-    var description = div(pop); // description box
+    let description = div(pop); // description box
 
-    var btn2 = div(pop);
+    let btn2 = div(pop);
     btn2.classList.add('Buttons');
     btn2.classList.add('ReturnButtons');
     btn2.style.visibility = 'hidden';
     btn2.innerHTML = 'Historique';
 
     if (!justPreview) {
-        var btn = div(pop);
+        let btn = div(pop);
         btn.classList.add('Buttons', 'ValidateButtons');
         btn.innerHTML = 'Choisir';
         btn.setAttribute('tabindex', '0');
@@ -43,7 +43,7 @@ function popBookable(bookableId, justPreview = true, nbr = 0, modal = openPopUp(
         //  description.style.width = "660px";
     }
 
-    var textsContainer = div(pop);
+    let textsContainer = div(pop);
     textsContainer.className = 'divTabCahierEquipmentElementsContainerTextsContainer';
 
     div(textsContainer);
@@ -52,14 +52,14 @@ function popBookable(bookableId, justPreview = true, nbr = 0, modal = openPopUp(
     div(textsContainer);
 }
 
-var eventListenerFunction;
+let eventListenerFunction;
 function actualizePopBookable(nbr, bookable, bookings, elem) {
     elem.getElementsByTagName('div')[2].style.backgroundImage = Cahier.getImageUrl(bookable);
 
     elem.getElementsByClassName('divTabCahierEquipmentElementsPopUp')[0].getElementsByTagName('div')[3].innerHTML =
         bookable.description;
 
-    var textsContainer = elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0];
+    let textsContainer = elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0];
 
     if (bookable.code != null) {
         textsContainer.getElementsByTagName('div')[0].innerHTML = bookable.code;
@@ -71,14 +71,14 @@ function actualizePopBookable(nbr, bookable, bookings, elem) {
     if (options.showRemarks) div(textsContainer).innerHTML = bookable.remarks;
     else div(textsContainer);
 
-    for (var i = 0; i < bookable.licenses.length; i++) {
-        var lic = div(textsContainer);
+    for (let i = 0; i < bookable.licenses.length; i++) {
+        let lic = div(textsContainer);
         lic.innerHTML = "<asdf style='font-weight:bold'>License requise: </asdf >" + bookable.licenses[i].name;
     }
 
-    var deltaT = 666; // anything higher than 13
+    let deltaT = 666; // anything higher than 13
     if (bookings.length != 0) {
-        var bookableUsedWarning = false;
+        let bookableUsedWarning = false;
 
         if (currentTabElement.id != 'divTabCahier' && bookings.items[0].endDate == null) {
             // not available - used -> so !justPreview
@@ -97,12 +97,12 @@ function actualizePopBookable(nbr, bookable, bookings, elem) {
         }
 
         if (bookableUsedWarning) {
-            var usedTxt = Cahier.getOwner(bookings.items[0], false);
-            var dT = deltaTime(new Date(bookings.items[0].startDate));
+            let usedTxt = Cahier.getOwner(bookings.items[0], false);
+            let dT = deltaTime(new Date(bookings.items[0].startDate));
             usedTxt += ' est parti ' + dT.text + ' avec cette embarcation !';
             deltaT = dT.time;
 
-            var div2 = elem
+            let div2 = elem
                 .getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0]
                 .getElementsByTagName('div')[2];
             div2.innerHTML = usedTxt;
@@ -142,7 +142,7 @@ function actualizePopBookable(nbr, bookable, bookings, elem) {
     if (elem.getElementsByClassName('ValidateButtons').length == 1) {
         // if !justPreview
 
-        var choseFunction = function () {
+        let choseFunction = function () {
             Cahier.addBookable(nbr, bookable, Object.assign({}, bookings.items[0]));
             newTab('divTabCahierEquipmentChoice');
 

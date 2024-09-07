@@ -21,7 +21,7 @@ function writeNbrInvites(elem) {
 }
 
 function createAllPropositions(location = $('divTabCahierInfos')) {
-    var allDestinationPropositions = location
+    let allDestinationPropositions = location
         .getElementsByClassName('divTabCahierInfosDestinationPropositions')[0]
         .getElementsByTagName('div');
     for (var i = 0; i < allDestinationPropositions.length; i++) {
@@ -34,7 +34,7 @@ function createAllPropositions(location = $('divTabCahierInfos')) {
         });
     }
 
-    var allNbrInvitesPropositions = location
+    let allNbrInvitesPropositions = location
         .getElementsByClassName('divTabCahierInfosNbrInvitesPropositions')[0]
         .getElementsByTagName('div');
     for (var i = 0; i < allNbrInvitesPropositions.length; i++) {
@@ -56,10 +56,10 @@ function createAllPropositions(location = $('divTabCahierInfos')) {
 }
 
 function focusInOrOut(elem, focus) {
-    var allPropositions = elem.parentElement
+    let allPropositions = elem.parentElement
         .getElementsByClassName('PropositionsContainer')[0]
         .getElementsByTagName('div');
-    for (var i = 0; i < allPropositions.length; i++) {
+    for (let i = 0; i < allPropositions.length; i++) {
         if (focus == true) {
             setTimeout(enterProposition, i * 60, allPropositions[i]);
         } else {
@@ -90,9 +90,9 @@ function DenyInfos(elem) {
 }
 
 function checkInfos(location = $('divTabCahierInfos'), nbr = 0) {
-    var allTabCahierFields = location.getElementsByClassName('TabCahierFields');
-    var allInfosOkay = true;
-    for (var i = 0; i < allTabCahierFields.length - 1; i++) {
+    let allTabCahierFields = location.getElementsByClassName('TabCahierFields');
+    let allInfosOkay = true;
+    for (let i = 0; i < allTabCahierFields.length - 1; i++) {
         //POUR EVITER LE TEXTAREA...
         if (
             allTabCahierFields[i].getElementsByTagName('input')[0].style.backgroundImage == '' ||
@@ -104,13 +104,13 @@ function checkInfos(location = $('divTabCahierInfos'), nbr = 0) {
         }
     }
     if (allInfosOkay == true) {
-        var _participantCount = parseInt(
+        let _participantCount = parseInt(
             location.getElementsByClassName('divTabCahierInfosNbrInvites')[0].getElementsByTagName('input')[0].value,
         );
-        var _destination = location
+        let _destination = location
             .getElementsByClassName('divTabCahierInfosDestination')[0]
             .getElementsByTagName('input')[0].value;
-        var _startComment = location
+        let _startComment = location
             .getElementsByClassName('divTabCahierInfosStartComment')[0]
             .getElementsByTagName('textarea')[0].value;
 

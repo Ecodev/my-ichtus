@@ -1,18 +1,18 @@
 function popStats() {
-    var elem = openPopUp();
+    let elem = openPopUp();
 
-    var container;
+    let container;
     container = div(elem);
     container.classList.add('PopUpStatsContainer');
     container.classList.add('Boxes');
 
-    var close = div(container);
+    let close = div(container);
     close.className = 'divPopUpClose';
     close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
-    var d = div(container);
+    let d = div(container);
     d.style.textAlign = 'center';
     d.style.fontSize = '25px';
     d.innerHTML = 'Statistiques';
@@ -22,28 +22,28 @@ function popStats() {
     div(container).innerHTML = 'Sorties';
     div(container).innerHTML = 'Jour';
 
-    var t = div(container);
+    let t = div(container);
     t.classList.add('PopUpStatsContainerTitle');
 
     div(t);
 
-    var c = div(container);
+    let c = div(container);
     c.classList.add('divStatsContainer');
 
     loadStats();
 }
 
 function loadStats(end = new Date()) {
-    var start = new Date(end.getFullYear(), end.getMonth(), 1, 0, 0, 0, 1);
+    let start = new Date(end.getFullYear(), end.getMonth(), 1, 0, 0, 0, 1);
 
-    var t = document.getElementsByClassName('PopUpStatsContainerTitle')[0];
+    let t = document.getElementsByClassName('PopUpStatsContainerTitle')[0];
     t.innerHTML = '';
-    var btn = div(t);
+    let btn = div(t);
     btn.onclick = function () {
         loadStats(new Date(start.getFullYear(), start.getMonth(), 0, 23, 59, 59, 99)); // day 0
     };
 
-    var btn2 = div(t);
+    let btn2 = div(t);
     if (new Date(end.getFullYear(), end.getMonth() + 1, 0, 0, 0, 0, 1) > new Date()) {
         btn2.style.visibility = 'hidden';
     } else {
@@ -54,12 +54,12 @@ function loadStats(end = new Date()) {
 
     div(t).innerHTML = Mois[start.getMonth()];
 
-    var c = document.getElementsByClassName('divStatsContainer')[0];
+    let c = document.getElementsByClassName('divStatsContainer')[0];
     c.innerHTML = '';
 
-    var scale = div(c);
-    var center = div(c);
-    var legend = div(c);
+    let scale = div(c);
+    let center = div(c);
+    let legend = div(c);
 
     div(scale);
     div(scale);
@@ -72,7 +72,7 @@ function loadStats(end = new Date()) {
 }
 
 function actualizeStats(start, end, elem, bookings) {
-    var stats = [];
+    let stats = [];
 
     var elapsedTime = Math.abs(end.getTime() - start.getTime());
     var daysNbr = parseInt(elapsedTime / (1000 * 3600 * 24));
@@ -92,24 +92,24 @@ function actualizeStats(start, end, elem, bookings) {
     div(elem.parentElement.getElementsByClassName('PopUpStatsContainerTitle')[0]).innerHTML =
         Cahier.getSingularOrPlural(bookings.length, ' sortie');
 
-    var scale = elem.children[0];
-    var center = elem.children[1];
-    var legend = elem.children[2];
+    let scale = elem.children[0];
+    let center = elem.children[1];
+    let legend = elem.children[2];
 
-    var legends = Jours.concat(Jours).concat(Jours);
-    var max = stats.max();
+    let legends = Jours.concat(Jours).concat(Jours);
+    let max = stats.max();
 
     for (var i = 0; i < stats.length; i++) {
-        var d = div(center);
+        let d = div(center);
         d.style.width = 100 / stats.length + '%';
 
-        var bar = div(d);
+        let bar = div(d);
         bar.style.height = (stats[i] / max) * 90 + '%';
 
-        var nbr = div(d);
+        let nbr = div(d);
         nbr.innerHTML = stats[i];
 
-        var l = div(legend);
+        let l = div(legend);
         l.style.width = 100 / stats.length + '%';
 
         if (i % parseInt(stats.length / 10) == 0 || stats.length / 10 < 1) {
@@ -120,8 +120,8 @@ function actualizeStats(start, end, elem, bookings) {
         }
     }
 
-    var step = 1;
-    var count = (max - (max % step)) / step;
+    let step = 1;
+    let count = (max - (max % step)) / step;
 
     while (count > 8) {
         if (step.toString().indexOf('1') != -1) {
@@ -135,7 +135,7 @@ function actualizeStats(start, end, elem, bookings) {
     }
 
     for (var i = 1; i < count + 1; i++) {
-        var s = div(scale);
+        let s = div(scale);
         s.style.top = 100 - ((i * step) / max) * 90 + '%';
         s.innerHTML = i * step;
         div(s);
@@ -144,8 +144,8 @@ function actualizeStats(start, end, elem, bookings) {
 }
 
 Array.prototype.max = function () {
-    var m = this[0];
-    for (var i = 1; i < this.length; i++) {
+    let m = this[0];
+    for (let i = 1; i < this.length; i++) {
         if (this[i] > m) {
             m = this[i];
         }

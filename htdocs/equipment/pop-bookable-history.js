@@ -3,11 +3,11 @@ function popBookableHistory(bookableId) {
     currentMonth = -1;
     currentDay = -1;
 
-    var modal = openPopUp();
+    let modal = openPopUp();
 
     Requests.getBookableHistory(bookableId, modal, new Date());
 
-    var container;
+    let container;
     container = div(modal);
     container.classList.add('Boxes');
     container.style.position = 'absolute';
@@ -22,13 +22,13 @@ function popBookableHistory(bookableId) {
     container.innerHTML += '<div style=" font-size:25px; text-align:center; color:black;">Historique</div>';
     grayBar(container, 5);
 
-    var close = div(container);
+    let close = div(container);
     close.className = 'divPopUpClose';
     close.onclick = function () {
         closePopUp({target: modal}, modal);
     };
 
-    var scroll = div(container);
+    let scroll = div(container);
     scroll.className = 'PopUpBookableHistoryContainerScroll';
 }
 
@@ -36,51 +36,51 @@ var currentYear = -1;
 var currentMonth = -1;
 var currentDay = -1;
 function actualizePopBookableHistory(bookings, elem) {
-    var lastDate = new Date(bookings[bookings.length - 1].startDate); // avant changeDaySorting !
+    let lastDate = new Date(bookings[bookings.length - 1].startDate); // avant changeDaySorting !
 
     bookings = changeDaySorting(bookings);
 
-    var bookableId = bookings[0].bookable.id;
+    let bookableId = bookings[0].bookable.id;
 
-    var container = elem.getElementsByTagName('div')[0];
+    let container = elem.getElementsByTagName('div')[0];
     container.getElementsByTagName('div')[0].innerHTML = ('Historique de ' + bookings[0].bookable.name).shorten(
         600,
         25,
     );
 
-    var scroll = container.getElementsByClassName('PopUpBookableHistoryContainerScroll')[0];
+    let scroll = container.getElementsByClassName('PopUpBookableHistoryContainerScroll')[0];
 
     if (scroll.getElementsByClassName('Buttons').length == 1) {
         scroll.removeChild(scroll.getElementsByClassName('Buttons')[0]);
         scroll.removeChild(scroll.getElementsByTagName('br')[0]);
     }
 
-    for (var i = 0; i < bookings.length; i++) {
-        var d = new Date(bookings[i].startDate);
+    for (let i = 0; i < bookings.length; i++) {
+        let d = new Date(bookings[i].startDate);
 
-        var newYear = d.getFullYear();
+        let newYear = d.getFullYear();
         if (newYear != currentYear) {
-            var year = popUpYear(scroll, newYear);
+            let year = popUpYear(scroll, newYear);
 
             var start = new Date(d.getFullYear(), 0, 1, 0, 0, 1);
             var end = new Date(d.getFullYear() + 1, 0, 1, 0, 0, 0, 1);
             Requests.getBookingsNbrBetween(start.toISOString(), end.toISOString(), bookableId, year);
         }
 
-        var newMonth = d.getMonth();
+        let newMonth = d.getMonth();
         if (newMonth != currentMonth || newYear != currentYear) {
-            var month = popUpMonth(scroll, Mois[newMonth]);
+            let month = popUpMonth(scroll, Mois[newMonth]);
 
             var start = new Date(d.getFullYear(), newMonth, 1, 0, 0, 0, 1);
             var end = new Date(d.getFullYear(), newMonth + 1, 1, 0, 0, 0, 1);
             Requests.getBookingsNbrBetween(start.toISOString(), end.toISOString(), bookableId, month);
         }
 
-        var newDay = d.getDate();
+        let newDay = d.getDate();
         if (newDay != currentDay || newMonth != currentMonth || newYear != currentYear) {
             var all = scroll.getElementsByClassName('PopUpMonth');
 
-            var day = popUpDay(all[all.length - 1], d.getNiceDate(true));
+            let day = popUpDay(all[all.length - 1], d.getNiceDate(true));
 
             var start = new Date(d.getFullYear(), newMonth, newDay, 0, 0, 0, 1);
             var end = new Date(d.getFullYear(), newMonth, newDay + 1, 0, 0, 0, 1);
@@ -93,14 +93,14 @@ function actualizePopBookableHistory(bookings, elem) {
 
         var all = scroll.getElementsByClassName('PopUpDay');
 
-        var sortie = div(all[all.length - 1]);
+        let sortie = div(all[all.length - 1]);
         sortie.id = i;
         sortie.classList.add('PopUpSortie');
         sortie.onclick = function () {
             popBooking(bookings[this.id]);
         };
         div(sortie).innerHTML = d.getNiceTime();
-        var c = div(sortie);
+        let c = div(sortie);
 
         div(c).innerHTML = Cahier.getOwner(bookings[i], true, {length: 240, fontSize: 20}, true);
 
@@ -108,10 +108,10 @@ function actualizePopBookableHistory(bookings, elem) {
         div(c).innerHTML = getStartCommentFromBooking(bookings[i]).shorten(150, 15);
     }
 
-    var space = document.createElement('br');
+    let space = document.createElement('br');
     scroll.appendChild(space);
 
-    var plus = div(scroll);
+    let plus = div(scroll);
     plus.classList.add('Buttons');
     plus.classList.add('NormalButtons');
     plus.innerHTML = 'Afficher plus';
@@ -125,15 +125,15 @@ function actualizePopBookableHistory(bookings, elem) {
 }
 
 function changeDaySorting(bookings) {
-    var oldDate = new Date(bookings[0].startDate).getDate();
-    var oldMonth = new Date(bookings[0].startDate).getMonth();
+    let oldDate = new Date(bookings[0].startDate).getDate();
+    let oldMonth = new Date(bookings[0].startDate).getMonth();
 
-    var result = bookings;
+    let result = bookings;
 
-    var c = 0;
+    let c = 0;
     for (var i = 1; i < result.length; i++) {
-        var newDate = new Date(result[i].startDate).getDate();
-        var newMonth = new Date(result[i].startDate).getMonth();
+        let newDate = new Date(result[i].startDate).getDate();
+        let newMonth = new Date(result[i].startDate).getMonth();
         if (oldDate == newDate && oldMonth == newMonth) {
             c++;
             //console.log("i:" + i, "c++");
@@ -159,37 +159,37 @@ function changeDaySorting(bookings) {
 }
 
 function popUpYear(container, txt) {
-    var c = div(container);
+    let c = div(container);
     c.className = 'PopUpYear';
     div(c);
-    var inner = div(c);
+    let inner = div(c);
     inner.innerHTML = txt;
-    var nbr = div(div(c));
+    let nbr = div(div(c));
 
     return nbr;
 }
 
 function popUpMonth(container, txt) {
-    var c = div(container);
+    let c = div(container);
     c.className = 'PopUpMonth';
     div(c);
-    var inner = div(c);
+    let inner = div(c);
     inner.innerHTML = txt;
-    var nbr = div(div(c));
+    let nbr = div(div(c));
 
     return nbr;
 }
 
 function popUpDay(container, txt) {
-    var c = div(container);
+    let c = div(container);
     c.className = 'PopUpDay';
 
-    var infos = div(c);
+    let infos = div(c);
 
     div(infos);
-    var inner = div(infos);
+    let inner = div(infos);
     inner.innerHTML = txt;
-    var nbr = div(div(infos));
+    let nbr = div(div(infos));
 
     return nbr;
 }

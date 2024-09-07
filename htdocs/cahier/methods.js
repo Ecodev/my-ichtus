@@ -77,7 +77,7 @@ var Cahier = {
         if (!booking.owner) {
             return '';
         } else if (wantImg) {
-            var img = 'img/icons/man.png';
+            let img = 'img/icons/man.png';
             if (booking.owner.sex == 'female') {
                 img = 'img/icons/woman.png';
             }
@@ -116,9 +116,9 @@ var Cahier = {
     // cancel - clearData
     cancel: function () {
         // #divCahierInfos
-        var allTabCahierFields = document.getElementsByClassName('TabCahierFields');
+        let allTabCahierFields = document.getElementsByClassName('TabCahierFields');
 
-        for (var i = 0; i < allTabCahierFields.length - 1; i++) {
+        for (let i = 0; i < allTabCahierFields.length - 1; i++) {
             // -1 POUR EVITER LA TEXTAREA
             allTabCahierFields[i].getElementsByTagName('input')[0].value = '';
             allTabCahierFields[i].getElementsByTagName('input')[0].style.backgroundImage = 'none';
@@ -192,11 +192,11 @@ var Cahier = {
             );
         } else {
             // licences check
-            for (var bookable of Cahier.bookings[0].bookables) {
+            for (let bookable of Cahier.bookings[0].bookables) {
                 if (bookable.licenses != undefined) {
-                    for (var license of bookable.licenses) {
-                        var foundLicense = false;
-                        for (var ownerLicense of Cahier.bookings[0].owner.licenses) {
+                    for (let license of bookable.licenses) {
+                        let foundLicense = false;
+                        for (let ownerLicense of Cahier.bookings[0].owner.licenses) {
                             if (ownerLicense.id == license.id) {
                                 foundLicense = true;
                             }
@@ -239,11 +239,11 @@ var Cahier = {
         // receive bookings that are still using the bookables and those who have been terminated in the last minutes
 
         // the bookings that will have to be terminated before creating the actual booking
-        var bookingsIdToFinish = [];
+        let bookingsIdToFinish = [];
 
         // find all the bookables that are now unavailable
-        var bAreNotAvailable = [];
-        for (var i = 0; i < _bookings.length; i++) {
+        let bAreNotAvailable = [];
+        for (let i = 0; i < _bookings.length; i++) {
             if (_bookings[i].endDate == null) {
                 // check which bookables are being used
                 var bookableElement = Object.assign({}, _bookings[i].bookable);
@@ -252,7 +252,7 @@ var Cahier = {
                 //                bookingsIdToFinish.push(_bookings[i].id);
             }
         }
-        var isNowAvailable = function (_bookable) {
+        let isNowAvailable = function (_bookable) {
             if (_bookable.id == 0) return true; // matériel personnel
             for (let bNotAvailable of bAreNotAvailable) {
                 if (bNotAvailable.id == _bookable.id) {
@@ -262,7 +262,7 @@ var Cahier = {
             return true;
         };
         // get the owner of the last booking that isn't finished yet
-        var getLastBooking = function (_bookable) {
+        let getLastBooking = function (_bookable) {
             for (let bNotAvailable of bAreNotAvailable) {
                 if (bNotAvailable.id == _bookable.id) {
                     return bNotAvailable.lastBooking;
@@ -271,7 +271,7 @@ var Cahier = {
             return false;
         };
 
-        var bookablesHaveJustBeenBooked = []; // or have changed owner !
+        let bookablesHaveJustBeenBooked = []; // or have changed owner !
 
         // loop through all the chosen bookables
         for (let bookable of Cahier.bookings[0].bookables) {
@@ -320,7 +320,7 @@ var Cahier = {
                     }
                     // was in edit mode
                     else {
-                        var bookableWasInTheEditedBooking = false;
+                        let bookableWasInTheEditedBooking = false;
                         for (let id of Cahier.editedBooking.ids) {
                             if (itsLastBooking.id == id) {
                                 bookableWasInTheEditedBooking = true;
@@ -369,22 +369,22 @@ var Cahier = {
                 // At least as many bookables as the (old) original booking
 
                 // variables
-                var idsToFinish = [];
+                let idsToFinish = [];
                 var commentsToFinish = [];
-                var inputsToCreate = [];
-                var idsToUpdate = [];
-                var inputsToUpdate = [];
+                let inputsToCreate = [];
+                let idsToUpdate = [];
+                let inputsToUpdate = [];
 
-                var currentDate = new Date().toISOString();
+                let currentDate = new Date().toISOString();
                 bookingsInputs = Requests.getServerInputsForBookingCreating(Cahier.bookings[0], currentDate);
 
                 // If >0: more bookables than before --> need to create some new
                 // If <0: less bookable than before -->, need to delete some
-                var nBookablesDifference = Cahier.bookings[0].bookables.length - Cahier.editedBooking.ids.length;
+                let nBookablesDifference = Cahier.bookings[0].bookables.length - Cahier.editedBooking.ids.length;
 
                 // Strictly fewer bookables as the (old) original booking --> Need to finish/delete a few bookings
                 if (nBookablesDifference < 0) {
-                    var nBookingsToFinish = -nBookablesDifference;
+                    let nBookingsToFinish = -nBookablesDifference;
 
                     // ToFinish
                     // idsToFinish = Cahier.editedBooking.ids.slice(-nBookingsToFinish);
@@ -397,10 +397,10 @@ var Cahier = {
 
                     // ToUpdate (set end date to start date)
                     // var startDate = Cahier.editedBooking.startDate;
-                    var extraIdsToUpdate = Cahier.editedBooking.ids.slice(-nBookingsToFinish);
-                    var extraInputsToUpdate = [];
+                    let extraIdsToUpdate = Cahier.editedBooking.ids.slice(-nBookingsToFinish);
+                    let extraInputsToUpdate = [];
                     // Note: need to update startDate again since otherwise it gets automatically set to the current time
-                    var input = {startDate: currentDate, endDate: currentDate, bookable: null, endComment: '(Editée)'};
+                    let input = {startDate: currentDate, endDate: currentDate, bookable: null, endComment: '(Editée)'};
                     extraInputsToUpdate.fillArray(extraIdsToUpdate.length, input);
 
                     // append
@@ -441,7 +441,7 @@ var Cahier = {
 
                 // First add the bookings to finish because used by someone else
                 idsToFinish = idsToFinish.concat(bookingsIdToFinish);
-                var comments = [];
+                let comments = [];
                 comments.fillArray(bookingsIdToFinish.length, 'Terminée automatiquement');
                 commentsToFinish = commentsToFinish.concat(comments);
                 console.log('Need to terminate', bookingsIdToFinish.length, 'booking(s) due to unavailable bookables.');
@@ -477,8 +477,8 @@ var Cahier = {
 
     // 1.4
     updateBookablesLicenses: function (_bookables) {
-        for (var _bookable of _bookables) {
-            for (var bookable of Cahier.bookings[0].bookables) {
+        for (let _bookable of _bookables) {
+            for (let bookable of Cahier.bookings[0].bookables) {
                 if (bookable.id == _bookable.id) {
                     bookable.licenses = _bookable.licenses.clone(); // bookable <-> Cahier.bookings[0].bookables[x] by reference
                     break; // one loop
@@ -488,8 +488,8 @@ var Cahier = {
     },
 
     actualizeProgressBar: function () {
-        var allDivTabCahierProgressTexts = document.getElementsByClassName('divTabCahierProgressText');
-        for (var i = 0; i < allDivTabCahierProgressTexts.length; i++) {
+        let allDivTabCahierProgressTexts = document.getElementsByClassName('divTabCahierProgressText');
+        for (let i = 0; i < allDivTabCahierProgressTexts.length; i++) {
             if (i < currentProgress - 1) {
                 switch (i) {
                     case 0:
@@ -524,7 +524,7 @@ var Cahier = {
         } else {
             $('divTabCahierProgressReturn').style.visibility = 'visible';
             $('divTabCahierProgressReturn').onclick = function () {
-                var newTabName = progessionTabNames[currentProgress - 1];
+                let newTabName = progessionTabNames[currentProgress - 1];
                 if (newTabName != 'divTabCahierMember' || !$('divTabCahierProgress').classList.contains('editing')) {
                     newTab(newTabName);
                 }
@@ -544,9 +544,9 @@ var Cahier = {
         force = false,
     ) {
         _owner = Object.assign({}, _owner);
-        var t = true;
+        let t = true;
         if (!force) {
-            for (var i = 0; i < Cahier.actualBookings.length; i++) {
+            for (let i = 0; i < Cahier.actualBookings.length; i++) {
                 if (Cahier.actualBookings[i].owner.id == _owner.id) {
                     t = false;
                     break;
@@ -627,7 +627,7 @@ var Cahier = {
         }
 
         if (bookings.length !== 0) {
-            var lastBooking = Object.assign({}, bookings[0]);
+            let lastBooking = Object.assign({}, bookings[0]);
 
             Cahier.bookings[0].bookables[u].available = bookings[0].endDate == null ? false : true;
             Cahier.bookings[0].bookables[u].lastBooking = lastBooking;
@@ -724,11 +724,11 @@ function transformComment(txt, fill) {
 }
 
 function getStartCommentFromBooking(booking, fill = false) {
-    var txt = booking.startComment;
+    let txt = booking.startComment;
     return transformComment(txt, fill);
 }
 
 function getEndCommentFromBooking(booking, fill = false) {
-    var txt = booking.endComment;
+    let txt = booking.endComment;
     return transformComment(txt, fill);
 }

@@ -1,29 +1,29 @@
 function popCahierInfos(nbr = 0) {
-    var elem = openPopUp();
+    let elem = openPopUp();
 
-    var container;
+    let container;
     container = div(elem);
     container.id = nbr;
     container.classList.add('PopUpCahierInfosContainer');
     container.classList.add('Boxes');
 
-    var close = div(container);
+    let close = div(container);
     close.className = 'divPopUpClose';
     close.onclick = function () {
         closePopUp({target: elem}, elem);
     };
 
-    var d = div(container);
+    let d = div(container);
     d.style.textAlign = 'center';
     d.style.fontSize = '25px';
     d.innerHTML = 'Informations';
 
     grayBar(container, 5);
 
-    var c = div(container);
+    let c = div(container);
     c.classList.add('divTabCahierFieldsContainer');
 
-    var divParticipantCount = div(c);
+    let divParticipantCount = div(c);
     divParticipantCount.classList.add('TabCahierFields');
     divParticipantCount.classList.add('divTabCahierInfosNbrInvites');
     divParticipantCount.innerHTML += 'Nbr de participants';
@@ -64,7 +64,7 @@ function popCahierInfos(nbr = 0) {
     div(p).innerHTML = '8';
     div(p).innerHTML = '10';
 
-    var info = div(divParticipantCount);
+    let info = div(divParticipantCount);
     info.innerHTML = '(Vous inclu / minimum 1)';
     info.style.position = 'absolute';
     info.style.marginTop = '110px';
@@ -74,7 +74,7 @@ function popCahierInfos(nbr = 0) {
 
     writeNbrInvites(i);
 
-    var divDestination = div(c);
+    let divDestination = div(c);
     divDestination.classList.add('TabCahierFields');
     divDestination.classList.add('divTabCahierInfosDestination');
     divDestination.innerHTML += 'Destination';
@@ -107,12 +107,12 @@ function popCahierInfos(nbr = 0) {
 
     writeDestination(i);
 
-    var divStartComment = div(c);
+    let divStartComment = div(c);
     divStartComment.classList.add('TabCahierFields');
     divStartComment.classList.add('divTabCahierInfosStartComment');
     divStartComment.innerHTML += 'Commentaire';
 
-    var area = document.createElement('textarea');
+    let area = document.createElement('textarea');
     divStartComment.appendChild(area);
     area.value = Cahier.bookings[nbr].startComment;
     area.spellcheck = false;
@@ -122,11 +122,11 @@ function popCahierInfos(nbr = 0) {
 
     createAllPropositions(c);
 
-    var btnContainer = div(container);
+    let btnContainer = div(container);
     btnContainer.style.position = 'relative';
     btnContainer.style.textAlign = 'center';
 
-    var btn = div(btnContainer);
+    let btn = div(btnContainer);
     btn.classList.add('Buttons');
     btn.classList.add('ValidateButtons');
     btn.style.display = 'inline-block';

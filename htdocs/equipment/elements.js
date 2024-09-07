@@ -1,10 +1,10 @@
-var currentBookables;
+let currentBookables;
 function loadElements(bookables, nbr = 0) {
     currentBookables = bookables;
 
     document.getElementsByClassName('divTabCahierEquipmentElementsContainer')[0].innerHTML = '';
 
-    var codes = [];
+    let codes = [];
     for (var i = 0; i < Cahier.bookings[nbr].bookables.length; i++) {
         codes.push(Cahier.bookings[nbr].bookables[i].id);
     }
@@ -31,7 +31,7 @@ function loadElements(bookables, nbr = 0) {
             bookables[i].lessThan13Minutes = dT.time < 13 ? true : false;
         } else bookables[i].lessThan13Minutes = false;
 
-        var x = codes.findIndex(bookables[i].id);
+        let x = codes.findIndex(bookables[i].id);
 
         if (x !== -1) {
             // found something
@@ -68,10 +68,10 @@ function loadElements(bookables, nbr = 0) {
 
         document.getElementsByClassName('divTabCahierEquipmentElementsContainer')[0].appendChild(container);
 
-        var secondContainer = document.createElement('div');
+        let secondContainer = document.createElement('div');
         container.appendChild(secondContainer);
 
-        var size = document.createElement('div');
+        let size = document.createElement('div');
 
         if (bookables[i].code != null) {
             size.innerHTML = bookables[i].code;
@@ -84,18 +84,18 @@ function loadElements(bookables, nbr = 0) {
 
         secondContainer.appendChild(size);
 
-        var bottom = document.createElement('div');
+        let bottom = document.createElement('div');
         secondContainer.appendChild(bottom);
 
-        var brand = div(bottom);
+        let brand = div(bottom);
         brand.innerHTML = bookables[i].name.shorten(160 * 2, 20);
 
-        var background = div(secondContainer);
+        let background = div(secondContainer);
         background.style.backgroundImage = Cahier.getImageUrl(bookables[i]);
 
-        var selection = div(secondContainer);
+        let selection = div(secondContainer);
 
-        var info = div(secondContainer);
+        let info = div(secondContainer);
         info.id = bookables[i].id;
         info.classList.add('infoJS');
         info.onclick = function () {
@@ -112,27 +112,27 @@ function loadElements(bookables, nbr = 0) {
         }
     }
     if (bookables.length == 0) {
-        var d = div(document.getElementsByClassName('divTabCahierEquipmentElementsContainer')[0]);
+        let d = div(document.getElementsByClassName('divTabCahierEquipmentElementsContainer')[0]);
         d.innerHTML = 'Aucun résultat';
     }
 }
 
 function actualizeElements() {
-    var bookables = currentBookables;
+    let bookables = currentBookables;
 
-    var codes = [];
+    let codes = [];
     for (var i = 0; i < Cahier.bookings[0].bookables.length; i++) {
         codes.push(Cahier.bookings[0].bookables[i].id);
     }
 
-    var containers = document.getElementsByClassName('divTabCahierEquipmentElementsContainer')[0].children;
+    let containers = document.getElementsByClassName('divTabCahierEquipmentElementsContainer')[0].children;
 
     for (var i = 0; i < containers.length; i++) {
         containers[i].classList.remove('selected');
     }
 
     for (var i = 0; i < containers.length; i++) {
-        var container = containers[i];
+        let container = containers[i];
 
         if (codes.findIndex(bookables[i].id) !== -1) {
             // found something

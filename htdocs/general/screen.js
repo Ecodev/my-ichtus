@@ -1,6 +1,6 @@
-﻿var stillMoving = false;
-var currentTabElement; //see load for the first element = divtabcahier
-var changeTime = 0.3;
+﻿let stillMoving = false;
+let currentTabElement; //see load for the first element = divtabcahier
+let changeTime = 0.3;
 
 // changeTab
 function changeTab(newElement, sign) {
@@ -47,7 +47,7 @@ function historyBackTab(elem) {
 }
 
 // tabs
-var tabs = [];
+let tabs = [];
 tabs.push({
     id: 'divTabCahier',
     order: 0,
@@ -182,17 +182,17 @@ tabs.push({
 });
 
 //WINDOW LOCATION CHANGE
-var OldElement = tabs[0];
-var NewElement = tabs[0];
+let OldElement = tabs[0];
+let NewElement = tabs[0];
 window.onhashchange = function () {
-    var newLocation = window.location.toString();
-    var res = newLocation.substr(newLocation.indexOf('#') + 1);
+    let newLocation = window.location.toString();
+    let res = newLocation.substr(newLocation.indexOf('#') + 1);
 
     if (res != currentTabElement.id) {
         //onload refresh
 
-        var i0;
-        for (var i = 0; i < tabs.length; i++) {
+        let i0;
+        for (let i = 0; i < tabs.length; i++) {
             if (tabs[i].id == res) {
                 i0 = i;
                 NewElement = tabs[i];
@@ -200,7 +200,7 @@ window.onhashchange = function () {
             }
         }
 
-        var sign = 1;
+        let sign = 1;
         if (NewElement.progress == 0 && OldElement.progress != 0 && NewElement.id != 'divTabCahier') {
             sign = NewElement.order;
         } else if (NewElement.order < OldElement.order) {

@@ -1,5 +1,5 @@
 ﻿//options
-var options = {
+let options = {
     bookablesComment: false,
     statsButtonTextActive: false,
     showRemarks: true,
@@ -25,12 +25,12 @@ function $(id) {
 
 // createElements
 function div(loc) {
-    var x = document.createElement('div');
+    let x = document.createElement('div');
     loc.appendChild(x);
     return x;
 }
 function input(loc, _placeholder = '') {
-    var x = document.createElement('input');
+    let x = document.createElement('input');
     x.autocomplete = 'off';
     x.type = 'text';
     x.spellcheck = false;
@@ -39,7 +39,7 @@ function input(loc, _placeholder = '') {
     return x;
 }
 function br(loc) {
-    var x = document.createElement('br');
+    let x = document.createElement('br');
     loc.appendChild(x);
 }
 
@@ -78,7 +78,7 @@ function load() {
 }
 
 // auto actualize if mouse doesn't move
-var timeout;
+let timeout;
 
 function setTimeoutMove() {
     //console.log("start timeout");
@@ -107,7 +107,7 @@ document.onmousemove = function () {
 //}
 
 // could be improved...
-var Time = {
+let Time = {
     getActualMinutes: function (m = date.getMinutes()) {
         if (m < 10) {
             x = '0' + m;
@@ -126,9 +126,9 @@ Date.prototype.getNiceTime = function (separator = ':', addZero = false) {
     }
 };
 Date.prototype.getNiceDate = function (substr = false, year = false) {
-    var r = '';
+    let r = '';
     if (substr) {
-        var month = Mois[this.getMonth()];
+        let month = Mois[this.getMonth()];
         if (month.length > 4) month = month.substring(0, 3);
         r = Jours[this.getDay()] + ' ' + this.getDate() + ' ' + month;
     } else {
@@ -141,14 +141,14 @@ Date.prototype.getNiceDate = function (substr = false, year = false) {
 };
 
 Date.prototype.getPreviousDate = function () {
-    var yesterday = new Date(this);
+    let yesterday = new Date(this);
     yesterday.setDate(this.getDate() - 1);
     return yesterday;
 };
 
 function deltaTime(d1, d2 = new Date(), bold = true) {
-    var delta = Math.abs(d2.getTime() - d1.getTime()) / 1000 / 60; // in minutes
-    var t = '';
+    let delta = Math.abs(d2.getTime() - d1.getTime()) / 1000 / 60; // in minutes
+    let t = '';
 
     if (delta < 1) t = "à l'instant";
     // [0;1[
@@ -180,7 +180,7 @@ function deltaTime(d1, d2 = new Date(), bold = true) {
 }
 
 function DeleteObjects() {
-    for (var i = 0; i < arguments.length; i++) {
+    for (let i = 0; i < arguments.length; i++) {
         if (
             typeof arguments[i] != 'undefined' &&
             typeof arguments[i].parentElement != 'undefined' &&
@@ -194,7 +194,7 @@ function DeleteObjects() {
 }
 
 //Time
-var date;
+let date;
 var Jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
 var Mois = [
     'Janvier',
@@ -229,16 +229,16 @@ function actualizeTime() {
 //}
 
 function loadReturnButtons() {
-    var allReturnButtons = document.getElementsByClassName('ReturnButtons');
-    for (var i = 0; i < allReturnButtons.length; i++) {
+    let allReturnButtons = document.getElementsByClassName('ReturnButtons');
+    for (let i = 0; i < allReturnButtons.length; i++) {
         allReturnButtons[i].title = 'Retour';
     }
 }
 
 // Modals
-var lastModals = 0;
+let lastModals = 0;
 function openPopUp() {
-    var modal = div(document.body);
+    let modal = div(document.body);
     modal.onclick = function (event) {
         closePopUp(event);
     };
@@ -256,7 +256,7 @@ function openPopUp() {
     return modal;
 }
 function closePopUp(e) {
-    var t = false;
+    let t = false;
     if (e == 'last') {
         if (lastModals != 0) {
             t = true;
@@ -265,7 +265,7 @@ function closePopUp(e) {
         t = true;
     }
     if (t) {
-        var modal = $('divModal' + lastModals);
+        let modal = $('divModal' + lastModals);
         modal.style.opacity = 0;
         setTimeout(function () {
             modal.style.display = 'none';
@@ -300,17 +300,17 @@ function stopWaiting() {
 }
 
 String.prototype.pixelLength = function (_fontSize = 20) {
-    var c = document.createElement('span');
+    let c = document.createElement('span');
     document.body.appendChild(c);
     c.innerHTML = this;
     c.style.fontSize = _fontSize + 'px';
-    var length = c.offsetWidth;
+    let length = c.offsetWidth;
     document.body.removeChild(c);
     return length;
 };
 
 String.prototype.shorten = function (maxLength, _fontSize = 20) {
-    var txt = this;
+    let txt = this;
     if (this == '' || txt.pixelLength(_fontSize) <= maxLength) {
         return this;
     }
@@ -321,7 +321,7 @@ String.prototype.shorten = function (maxLength, _fontSize = 20) {
 };
 
 function grayBar(elem, marginTop = 10, marginBottom = 15) {
-    var d = div(elem);
+    let d = div(elem);
     d.style.backgroundColor = 'lightgray';
     d.style.height = '2px';
     d.style.marginBottom = marginBottom + 'px';
@@ -331,18 +331,18 @@ function grayBar(elem, marginTop = 10, marginBottom = 15) {
 }
 
 String.prototype.replaceTxtByTxt = function (replace = '', by = '', caseSensitive = false) {
-    var i = 0;
-    var where = [];
+    let i = 0;
+    let where = [];
 
-    var txt = caseSensitive ? this : this.toUpperCase();
-    var replaceTxt = caseSensitive ? replace : replace.toUpperCase();
+    let txt = caseSensitive ? this : this.toUpperCase();
+    let replaceTxt = caseSensitive ? replace : replace.toUpperCase();
 
     while (txt.indexOf(replaceTxt, i) !== -1) {
         where.push(txt.indexOf(replaceTxt, i));
         i = where[where.length - 1] + 1;
     }
 
-    var r = '';
+    let r = '';
     for (let k = 0; k <= where.length; k++) {
         let start = k === 0 ? 0 : where[k - 1];
         let end = k === where.length ? this.length : where[k];
@@ -357,21 +357,21 @@ String.prototype.replaceTxtByTxt = function (replace = '', by = '', caseSensitiv
 
 // ARRAY PROTOTYPES
 Array.prototype.switch = function (i1, i2) {
-    var content_i1 = this[i1];
+    let content_i1 = this[i1];
     this.splice(i1, 1, this[i2]);
     this.splice(i2, 1, content_i1);
     return this;
 };
 
 Array.prototype.inverse = function (i1, i2) {
-    for (var i = i1; i < parseInt((i1 + i2) / 2 + 0.5); i++) {
+    for (let i = i1; i < parseInt((i1 + i2) / 2 + 0.5); i++) {
         this.switch(i, i1 + i2 - i);
     }
     return this;
 };
 Array.prototype.findIndex = function (x) {
-    var index = -1;
-    for (var i = 0; i < this.length; i++) {
+    let index = -1;
+    for (let i = 0; i < this.length; i++) {
         if (this[i] == x) {
             index = i;
             break;
@@ -381,8 +381,8 @@ Array.prototype.findIndex = function (x) {
 };
 
 Array.prototype.deleteMultiples = function () {
-    var r = [];
-    for (var i = 0; i < this.length; i++) {
+    let r = [];
+    for (let i = 0; i < this.length; i++) {
         if (r.findIndex(this[i]) === -1) {
             r.push(this[i]);
         }
@@ -398,10 +398,10 @@ Array.prototype.sortBy = function (sortFields, order = 1) {
         order = 1;
     }
 
-    var switching = true;
+    let switching = true;
     while (switching) {
         switching = false;
-        for (var i = 0; i < this.length - 1; i++) {
+        for (let i = 0; i < this.length - 1; i++) {
             if (
                 (sortFields[i] > sortFields[i + 1] && order == 1) ||
                 (sortFields[i] < sortFields[i + 1] && order == -1)
@@ -417,17 +417,17 @@ Array.prototype.sortBy = function (sortFields, order = 1) {
 
 // fillArray
 Array.prototype.fillArray = function (length, what = 0) {
-    for (var i = 0; i < length; i++) {
+    for (let i = 0; i < length; i++) {
         this[i] = what;
     }
 };
 
 // merge and only takes the elements which are in every array
 Array.prototype.mergeAND = function () {
-    var send = [];
+    let send = [];
     for (let b = 0; b < this[0].length; b++) {
-        var item = this[0][b];
-        var c = 0;
+        let item = this[0][b];
+        let c = 0;
         for (let r2 = 1; r2 < this.length; r2++) {
             if (this[r2].findIndex(item) != -1) {
                 c++;
@@ -492,7 +492,7 @@ function mergeBookings(bookings) {
     }
 
     function mergeComments(c1, c2) {
-        var meaninglessComments = ['', 'Terminée automatiquement'];
+        let meaninglessComments = ['', 'Terminée automatiquement'];
         if (!meaninglessComments.includes(c1)) return c1;
         if (!meaninglessComments.includes(c2)) return c2;
         if (c1 != '') return c1;
@@ -509,7 +509,7 @@ function mergeBookings(bookings) {
 
         // find potential booking to merge it with
         // --> can only be merged with the last bookings of resultingBookings since the startDates are decreasing
-        var merged = false;
+        let merged = false;
         for (let r = resultingBookings.length - 1; r >= 0; r--) {
             if (new Date(booking.startDate) - new Date(resultingBookings[r].startDate) > 0) break;
 
@@ -544,7 +544,7 @@ function transformBookingsOld(_bookings) {
 
     if (!displayBooking(_bookings[0])) return transformBookingsOld(_bookings.slice(1));
 
-    var final = [];
+    let final = [];
 
     final.push(_bookings[0].clone());
     final[0].ids = [_bookings[0].id];
@@ -552,10 +552,10 @@ function transformBookingsOld(_bookings) {
     if (_bookings[0].bookable == null) final[0].bookables = [Cahier.personalBookable];
     else final[0].bookables = [_bookings[0].bookable];
 
-    for (var i = 1; i < _bookings.length; i++) {
+    for (let i = 1; i < _bookings.length; i++) {
         if (!displayBooking(_bookings[i])) continue;
 
-        var canBeMerged =
+        let canBeMerged =
             (is0second(_bookings[i]) && is0second(_bookings[i - 1])) ||
             (!is0second(_bookings[i]) && !is0second(_bookings[i - 1]));
 

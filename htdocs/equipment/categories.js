@@ -1,4 +1,4 @@
-var categories = [
+let categories = [
     {name: 'Canoë & Kayak', plural: 'canoës et kayaks', value: 'Kayak', image: 'canoe.png'},
     {name: 'SUP', plural: 'SUPs', value: 'SUP', image: 'sup.png'},
     {name: 'Rame', plural: 'avirons', value: 'Aviron', image: 'rowing.png'},
@@ -8,30 +8,30 @@ var categories = [
 ];
 
 function loadMateriel(container = $('divTabCahierEquipmentCategoriesContainer')) {
-    for (var i = 0; i < categories.length; i++) {
-        var d = document.createElement('div');
+    for (let i = 0; i < categories.length; i++) {
+        let d = document.createElement('div');
         d.id = categories[i].name;
         d.classList.add('BoxesContainer');
         container.appendChild(d);
 
-        var d1 = div(d);
+        let d1 = div(d);
         d1.id = i;
         d1.classList.add('Boxes');
 
-        var dTop = div(d1);
+        let dTop = div(d1);
         dTop.classList.add('BoxesTop');
         dTop.style.backgroundImage = 'url(img/icons/chose.png),' + 'url(img/categorie/' + categories[i].image + ')';
 
-        var dBottom = document.createElement('div');
+        let dBottom = document.createElement('div');
         dBottom.classList.add('BoxesBottom');
         d1.appendChild(dBottom);
 
-        var dBottomText1 = document.createElement('div');
+        let dBottomText1 = document.createElement('div');
         dBottomText1.classList.add('BoxesBottomText1');
         dBottom.appendChild(dBottomText1);
         dBottomText1.innerHTML = categories[i].name;
 
-        var dBottomText2 = document.createElement('div');
+        let dBottomText2 = document.createElement('div');
         dBottomText2.classList.add('BoxesBottomText2');
         dBottom.appendChild(dBottomText2);
         Requests.getBookableNbrForBookableTag(categories[i].value, dBottomText2, '', ' ' + categories[i].plural);

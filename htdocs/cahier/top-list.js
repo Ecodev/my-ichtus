@@ -1,5 +1,5 @@
 function actualizeBookableList() {
-    var bookables = Cahier.bookings[0].bookables;
+    let bookables = Cahier.bookings[0].bookables;
 
     $('divTabCahierTopList').children[0].innerHTML = '';
     $('divTabCahierTopList').children[0].style.opacity = '1';
@@ -10,7 +10,7 @@ function actualizeBookableList() {
         .children[3].children[0].classList.remove('buttonNonActive');
 
     for (let i = 0; i < bookables.length; i++) {
-        var d = div($('divTabCahierTopList').children[0]);
+        let d = div($('divTabCahierTopList').children[0]);
         d.id = i;
 
         if (Cahier.bookings[0].bookables[i].id != 0) {
@@ -31,16 +31,16 @@ function actualizeBookableList() {
             d.classList.add('PersonalSail');
         }
 
-        var img = div(d);
+        let img = div(d);
         img.style.backgroundImage = Cahier.getImageUrl(Cahier.bookings[0].bookables[i]);
 
-        var close = div(d);
+        let close = div(d);
         close.id = i;
         close.onclick = function () {
             Cahier.removeBookable(0, Cahier.bookings[0].bookables[this.id]);
         };
 
-        var code = div(d);
+        let code = div(d);
 
         if (bookables[i].code != null) {
             if (bookables[i].code.length > 4) {
@@ -52,7 +52,7 @@ function actualizeBookableList() {
         }
 
         if (bookables[i].available == false) {
-            var alert = div(d);
+            let alert = div(d);
             //  code.style.color = "red";
         }
     }
