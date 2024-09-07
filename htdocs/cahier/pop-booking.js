@@ -78,7 +78,7 @@ function openBooking(which = 'confirmation', elem = $('divTabConfirmationOneBook
         c = 3;
     }
     for (let i = 0; i < c; i++) {
-        var d = div(container);
+        let d = div(container);
         d.classList.add('divConfirmationTexts');
         div(div(d)).style.backgroundImage = 'url(img/' + images[i] + '.png)';
         div(d).innerHTML = fields[i];
@@ -88,7 +88,7 @@ function openBooking(which = 'confirmation', elem = $('divTabConfirmationOneBook
     grayBar(container);
 
     // EMBARCATIONS
-    d = div(container);
+    let d = div(container);
     d.classList.add('divConfirmationTexts');
     d.style.backgroundColor = 'rgb(235,235,235)';
     div(div(d)).style.backgroundImage = 'url(img/' + images[3] + '.png)';
@@ -154,7 +154,7 @@ function openBooking(which = 'confirmation', elem = $('divTabConfirmationOneBook
     }
 
     if (which == 'confirmation') {
-        var u = div(container);
+        let u = div(container);
         u.classList.add('divTabCahierConfirmationEmbarcationButtonContainer');
         let btn = div(u);
         btn.innerHTML = 'Modifier';
@@ -235,7 +235,7 @@ function openBooking(which = 'confirmation', elem = $('divTabConfirmationOneBook
         bar.style.backgroundColor = 'white';
         div(bar);
         div(bar);
-        var u = div(bar);
+        let u = div(bar);
         u.style.height = '100%';
 
         let btn2 = div(u);
@@ -297,7 +297,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
         let btn = container.getElementsByClassName('ValidateButtons')[0];
         btn.addEventListener('click', function () {
             if (options.bookablesComment) {
-                var comments = [];
+                let comments = [];
 
                 for (let i = 0; i < booking.ids.length; i++) {
                     let area = container
@@ -328,7 +328,7 @@ function actualizePopBooking(booking, which, container = $('divTabCahierConfirma
 
                 Requests.terminateBooking(booking.ids, comments);
             } else {
-                var comments = [];
+                let comments = [];
                 comments.fillArray(
                     booking.ids.length,
                     container.getElementsByTagName('textarea')[container.getElementsByTagName('textarea').length - 1]

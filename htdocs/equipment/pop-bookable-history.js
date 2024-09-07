@@ -1,3 +1,7 @@
+let currentYear = -1;
+let currentMonth = -1;
+let currentDay = -1;
+
 function popBookableHistory(bookableId) {
     currentYear = -1;
     currentMonth = -1;
@@ -32,9 +36,6 @@ function popBookableHistory(bookableId) {
     scroll.className = 'PopUpBookableHistoryContainerScroll';
 }
 
-var currentYear = -1;
-var currentMonth = -1;
-var currentDay = -1;
 function actualizePopBookableHistory(bookings, elem) {
     let lastDate = new Date(bookings[bookings.length - 1].startDate); // avant changeDaySorting !
 
@@ -62,8 +63,8 @@ function actualizePopBookableHistory(bookings, elem) {
         if (newYear != currentYear) {
             let year = popUpYear(scroll, newYear);
 
-            var start = new Date(d.getFullYear(), 0, 1, 0, 0, 1);
-            var end = new Date(d.getFullYear() + 1, 0, 1, 0, 0, 0, 1);
+            let start = new Date(d.getFullYear(), 0, 1, 0, 0, 1);
+            let end = new Date(d.getFullYear() + 1, 0, 1, 0, 0, 0, 1);
             Requests.getBookingsNbrBetween(start.toISOString(), end.toISOString(), bookableId, year);
         }
 
@@ -71,19 +72,19 @@ function actualizePopBookableHistory(bookings, elem) {
         if (newMonth != currentMonth || newYear != currentYear) {
             let month = popUpMonth(scroll, Mois[newMonth]);
 
-            var start = new Date(d.getFullYear(), newMonth, 1, 0, 0, 0, 1);
-            var end = new Date(d.getFullYear(), newMonth + 1, 1, 0, 0, 0, 1);
+            let start = new Date(d.getFullYear(), newMonth, 1, 0, 0, 0, 1);
+            let end = new Date(d.getFullYear(), newMonth + 1, 1, 0, 0, 0, 1);
             Requests.getBookingsNbrBetween(start.toISOString(), end.toISOString(), bookableId, month);
         }
 
         let newDay = d.getDate();
         if (newDay != currentDay || newMonth != currentMonth || newYear != currentYear) {
-            var all = scroll.getElementsByClassName('PopUpMonth');
+            let all = scroll.getElementsByClassName('PopUpMonth');
 
             let day = popUpDay(all[all.length - 1], d.getNiceDate(true));
 
-            var start = new Date(d.getFullYear(), newMonth, newDay, 0, 0, 0, 1);
-            var end = new Date(d.getFullYear(), newMonth, newDay + 1, 0, 0, 0, 1);
+            let start = new Date(d.getFullYear(), newMonth, newDay, 0, 0, 0, 1);
+            let end = new Date(d.getFullYear(), newMonth, newDay + 1, 0, 0, 0, 1);
             Requests.getBookingsNbrBetween(start.toISOString(), end.toISOString(), bookableId, day, false);
         }
 
@@ -91,7 +92,7 @@ function actualizePopBookableHistory(bookings, elem) {
         currentMonth = newMonth;
         currentDay = newDay;
 
-        var all = scroll.getElementsByClassName('PopUpDay');
+        let all = scroll.getElementsByClassName('PopUpDay');
 
         let sortie = div(all[all.length - 1]);
         sortie.id = i;
@@ -125,13 +126,14 @@ function actualizePopBookableHistory(bookings, elem) {
 }
 
 function changeDaySorting(bookings) {
+    let i;
     let oldDate = new Date(bookings[0].startDate).getDate();
     let oldMonth = new Date(bookings[0].startDate).getMonth();
 
     let result = bookings;
 
     let c = 0;
-    for (var i = 1; i < result.length; i++) {
+    for (i = 1; i < result.length; i++) {
         let newDate = new Date(result[i].startDate).getDate();
         let newMonth = new Date(result[i].startDate).getMonth();
         if (oldDate == newDate && oldMonth == newMonth) {
@@ -139,8 +141,8 @@ function changeDaySorting(bookings) {
             //console.log("i:" + i, "c++");
         } else if (c != 0) {
             //c!=0
-            var i1 = i - 1 - c;
-            var i2 = i - 1;
+            let i1 = i - 1 - c;
+            let i2 = i - 1;
             c = 0;
             //console.log("i:" + i,"switch - " + i1 + "to" + i2);
             result.inverse(i1, i2);
@@ -150,8 +152,8 @@ function changeDaySorting(bookings) {
         oldMonth = newMonth;
     }
     if (c != 0) {
-        var i1 = i - 1 - c;
-        var i2 = i - 1;
+        let i1 = i - 1 - c;
+        let i2 = i - 1;
         result.inverse(i1, i2);
         //console.log("switch",i1, i2);
     }

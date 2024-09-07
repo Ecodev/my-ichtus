@@ -1,11 +1,6 @@
 function loadBottoms() {
     let allDivTabs = document.getElementsByClassName('divTab');
 
-    // remove all
-    //var s = document.getElementsByClassName("divSpacers");
-    ////s = s + document.getElementsByClassName("divBottoms");
-    //for (var i = 0; i < s.length; i++) DeleteObjects(s[i]);
-
     while (document.getElementsByClassName('divSpacers').length !== 0) {
         DeleteObjects(document.getElementsByClassName('divSpacers')[0]);
     }
@@ -14,7 +9,7 @@ function loadBottoms() {
     }
 
     // new bars
-    for (var i = 0; i < allDivTabs.length; i++) {
+    for (let i = 0; i < allDivTabs.length; i++) {
         let s = div(allDivTabs[i]);
         s.className = 'divSpacers';
 
@@ -34,8 +29,8 @@ function loadBottoms() {
         Requests.getMonthlyBookingsNbr(start, end);
     } else {
         let all = document.getElementsByClassName('divBottoms');
-        for (var i = 0; i < all.length; i++) {
-            all[i].children[0].innerHTML = 'Voir les statistiques du mois';
+        for (let j = 0; j < all.length; j++) {
+            all[j].children[0].innerHTML = 'Voir les statistiques du mois';
         }
     }
 }

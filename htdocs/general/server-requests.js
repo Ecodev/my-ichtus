@@ -5,7 +5,7 @@ function ServerInitialize() {
     //console.log('Server(API) = ', Server);
 }
 
-var Requests = {
+const Requests = {
     // login
     login: function (pwd) {
         //console.log("LOGIN");

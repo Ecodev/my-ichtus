@@ -56,13 +56,13 @@ function loadMateriel(container = $('divTabCahierEquipmentCategoriesContainer'))
             });
         }
 
-        var opt = document.createElement('option');
+        let opt = document.createElement('option');
         opt.innerHTML = categories[i].name;
         opt.value = categories[i].value;
         $('divTabCahierEquipmentElementsSelectCategorie').getElementsByTagName('select')[0].appendChild(opt);
     }
 
-    var opt = document.createElement('option');
+    let opt = document.createElement('option');
     opt.innerHTML = 'Toutes les catégories';
     opt.value = 'all';
     $('divTabCahierEquipmentElementsSelectCategorie').getElementsByTagName('select')[0].appendChild(opt);

@@ -54,12 +54,8 @@ function createProgressBar() {
     $('divTabCahierProgress').appendChild(divBarBlue);
 }
 
-var currentProgress = 0;
+let currentProgress = 0;
 function changeProgress(c) {
-    //var sign;
-    //if (c != currentProgress) {
-    //    sign = Math.abs(c - currentProgress) / (c - currentProgress);
-    //}
 
     currentProgress = c;
     for (let i = 1; i < 5; i++) {

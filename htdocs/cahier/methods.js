@@ -1,4 +1,4 @@
-var Cahier = {
+const Cahier = {
     actualBookings: [],
 
     finishedBookings: [],
@@ -213,7 +213,8 @@ var Cahier = {
             if (false) {
                 //!options.checkIfBookablesNotAvailableWhenConfirming) {
                 // if bookables already used
-                for (var i = 0; i < Cahier.bookings[0].bookables.length; i++) {
+                let i;
+                for (i = 0; i < Cahier.bookings[0].bookables.length; i++) {
                     if (Cahier.bookings[0].bookables[i].available === false) {
                         break;
                     }
@@ -246,7 +247,7 @@ var Cahier = {
         for (let i = 0; i < _bookings.length; i++) {
             if (_bookings[i].endDate == null) {
                 // check which bookables are being used
-                var bookableElement = Object.assign({}, _bookings[i].bookable);
+                let bookableElement = Object.assign({}, _bookings[i].bookable);
                 bookableElement.lastBooking = _bookings[i].clone();
                 bAreNotAvailable.push(bookableElement);
                 //                bookingsIdToFinish.push(_bookings[i].id);
@@ -286,14 +287,14 @@ var Cahier = {
                 }
                 // and is still unavailable
                 else {
-                    var itsLastBooking = getLastBooking(bookable);
+                    let itsLastBooking = getLastBooking(bookable);
                     if (itsLastBooking.owner.id == bookable.lastBooking.owner.id) {
                         //                   console.log("owner hasn't changed");
                         bookingsIdToFinish.push(bookable.lastBooking.id);
                     } else {
                         //                    console.log("owner has changed !");
                         Cahier.actualizeAvailability(bookable.id, [itsLastBooking]); // has changed owner
-                        var bookableElement = bookable.clone();
+                        let bookableElement = bookable.clone();
                         bookableElement.lastBooking = itsLastBooking.clone();
                         bookablesHaveJustBeenBooked.push(bookableElement);
                     }
@@ -308,13 +309,13 @@ var Cahier = {
                 // but isn't available anymore, so has just been booked (or is in edit mode) !
                 else {
                     //                 console.log("has just been booked !");
-                    var itsLastBooking = getLastBooking(bookable);
+                    let itsLastBooking = getLastBooking(bookable);
 
                     // 1.4
                     // not in edit mode, so someone has just booked the bookable, will make an alert
                     if (Cahier.bookings[0].currentlyEditing == undefined) {
                         Cahier.actualizeAvailability(bookable.id, [itsLastBooking]); // has changed owner
-                        var bookableElement = bookable.clone();
+                        let bookableElement = bookable.clone();
                         bookableElement.lastBooking = itsLastBooking.clone();
                         bookablesHaveJustBeenBooked.push(bookableElement);
                     }
@@ -336,7 +337,7 @@ var Cahier = {
                         // someone has indeed just booked the bookable, will make an alert
                         else {
                             Cahier.actualizeAvailability(bookable.id, [itsLastBooking]); // has changed owner
-                            var bookableElement = bookable.clone();
+                            let bookableElement = bookable.clone();
                             bookableElement.lastBooking = itsLastBooking.clone();
                             bookablesHaveJustBeenBooked.push(bookableElement);
                             //                            console.log("indeed someone has booked it!");
@@ -370,7 +371,7 @@ var Cahier = {
 
                 // variables
                 let idsToFinish = [];
-                var commentsToFinish = [];
+                let commentsToFinish = [];
                 let inputsToCreate = [];
                 let idsToUpdate = [];
                 let inputsToUpdate = [];
@@ -396,7 +397,6 @@ var Cahier = {
                     inputsToUpdate = bookingsInputs;
 
                     // ToUpdate (set end date to start date)
-                    // var startDate = Cahier.editedBooking.startDate;
                     let extraIdsToUpdate = Cahier.editedBooking.ids.slice(-nBookingsToFinish);
                     let extraInputsToUpdate = [];
                     // Note: need to update startDate again since otherwise it gets automatically set to the current time
@@ -458,7 +458,7 @@ var Cahier = {
             // Not in edit mode
             else {
                 // bookings to terminate to free the bookables
-                var commentsToFinish = [];
+                let commentsToFinish = [];
                 commentsToFinish.fillArray(bookingsIdToFinish.length, 'Terminée automatiquement');
 
                 // there are no bookings to termiante
@@ -500,7 +500,7 @@ var Cahier = {
                             Cahier.bookings[0].destination + ' & ' + Cahier.bookings[0].participantCount + ' P.';
                         break;
                     case 2:
-                        var txt = '';
+                        let txt = '';
                         for (let k = 0; k < Cahier.bookings[0].bookables.length; k++) {
                             if (Cahier.bookings[0].bookables[k].code != null) {
                                 txt += Cahier.bookings[0].bookables[k].code + ', ';
@@ -620,7 +620,8 @@ var Cahier = {
     },
 
     actualizeAvailability: function (bookableId, bookings) {
-        for (var u = 0; u < Cahier.bookings[0].bookables.length; u++) {
+        let u;
+        for (u = 0; u < Cahier.bookings[0].bookables.length; u++) {
             if (Cahier.bookings[0].bookables[u].id === bookableId.toString()) {
                 break;
             }
@@ -649,7 +650,8 @@ var Cahier = {
     },
 
     removeBookable: function (nbr = 0, _bookable = 0) {
-        for (var i = 0; i < Cahier.bookings[nbr].bookables.length; i++) {
+        let i;
+        for (i = 0; i < Cahier.bookings[nbr].bookables.length; i++) {
             if (Cahier.bookings[nbr].bookables[i].id == _bookable.id) {
                 break;
             }

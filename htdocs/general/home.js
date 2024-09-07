@@ -98,14 +98,6 @@ document.onmousemove = function () {
     setTimeoutMove();
 };
 
-// too complicated now...
-//function loadButtonFocus() {
-//    var btn = document.getElementsByClassName('ValidateButtons');
-//    for (var i = 0, len = btn.length; i < len; i++) {
-//        btn[i].setAttribute('tabindex', '0');
-//    }
-//}
-
 // could be improved...
 let Time = {
     getActualMinutes: function (m = date.getMinutes()) {
@@ -195,8 +187,8 @@ function DeleteObjects() {
 
 //Time
 let date;
-var Jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
-var Mois = [
+let Jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+let Mois = [
     'Janvier',
     'Février',
     'Mars',

@@ -5,33 +5,33 @@ function loadElements(bookables, nbr = 0) {
     document.getElementsByClassName('divTabCahierEquipmentElementsContainer')[0].innerHTML = '';
 
     let codes = [];
-    for (var i = 0; i < Cahier.bookings[nbr].bookables.length; i++) {
+    for (let i = 0; i < Cahier.bookings[nbr].bookables.length; i++) {
         codes.push(Cahier.bookings[nbr].bookables[i].id);
     }
 
-    for (var i = 0; i < bookables.length; i++) {
+    for (let j = 0; j < bookables.length; j++) {
         container = document.createElement('div');
-        container.id = i;
+        container.id = j;
 
         // 1.4 : make fake no used (actually already used in the current booking that is being edited...)
-        if (bookables[i].used === true && Cahier.bookings[0].currentlyEditing != undefined) {
+        if (bookables[j].used === true && Cahier.bookings[0].currentlyEditing != undefined) {
             for (let bookingId of Cahier.editedBooking.ids) {
-                if (bookables[i].lastBooking.id == bookingId) {
-                    bookables[i].used = false;
+                if (bookables[j].lastBooking.id == bookingId) {
+                    bookables[j].used = false;
                     break;
                 }
             }
         }
 
-        var dT;
-        if (bookables[i].used === true) {
+        let dT;
+        if (bookables[j].used === true) {
             container.classList.add('used');
             container.title = 'Cette embarcation est déjà utilisée';
-            dT = deltaTime(new Date(bookables[i].lastBooking.startDate), new Date(), false);
-            bookables[i].lessThan13Minutes = dT.time < 13 ? true : false;
-        } else bookables[i].lessThan13Minutes = false;
+            dT = deltaTime(new Date(bookables[j].lastBooking.startDate), new Date(), false);
+            bookables[j].lessThan13Minutes = dT.time < 13 ? true : false;
+        } else bookables[j].lessThan13Minutes = false;
 
-        let x = codes.findIndex(bookables[i].id);
+        let x = codes.findIndex(bookables[j].id);
 
         if (x !== -1) {
             // found something
@@ -73,9 +73,9 @@ function loadElements(bookables, nbr = 0) {
 
         let size = document.createElement('div');
 
-        if (bookables[i].code != null) {
-            size.innerHTML = bookables[i].code;
-            if (bookables[i].code.length > 4) {
+        if (bookables[j].code != null) {
+            size.innerHTML = bookables[j].code;
+            if (bookables[j].code.length > 4) {
                 size.style.fontSize = '17px';
             }
         } else {
@@ -88,25 +88,25 @@ function loadElements(bookables, nbr = 0) {
         secondContainer.appendChild(bottom);
 
         let brand = div(bottom);
-        brand.innerHTML = bookables[i].name.shorten(160 * 2, 20);
+        brand.innerHTML = bookables[j].name.shorten(160 * 2, 20);
 
         let background = div(secondContainer);
-        background.style.backgroundImage = Cahier.getImageUrl(bookables[i]);
+        background.style.backgroundImage = Cahier.getImageUrl(bookables[j]);
 
         let selection = div(secondContainer);
 
         let info = div(secondContainer);
-        info.id = bookables[i].id;
+        info.id = bookables[j].id;
         info.classList.add('infoJS');
         info.onclick = function () {
             popBookable(this.id);
         };
 
-        if (bookables[i].licenses.length > 0) {
-            div(secondContainer).title = bookables[i].licenses[0].name;
+        if (bookables[j].licenses.length > 0) {
+            div(secondContainer).title = bookables[j].licenses[0].name;
         }
 
-        if (bookables[i].used === true) {
+        if (bookables[j].used === true) {
             div(container).innerHTML = 'Déjà utilisé';
             div(container).innerHTML = dT.text;
         }
@@ -121,20 +121,20 @@ function actualizeElements() {
     let bookables = currentBookables;
 
     let codes = [];
-    for (var i = 0; i < Cahier.bookings[0].bookables.length; i++) {
+    for (let i = 0; i < Cahier.bookings[0].bookables.length; i++) {
         codes.push(Cahier.bookings[0].bookables[i].id);
     }
 
     let containers = document.getElementsByClassName('divTabCahierEquipmentElementsContainer')[0].children;
 
-    for (var i = 0; i < containers.length; i++) {
-        containers[i].classList.remove('selected');
+    for (let j = 0; j < containers.length; j++) {
+        containers[j].classList.remove('selected');
     }
 
-    for (var i = 0; i < containers.length; i++) {
-        let container = containers[i];
+    for (let k = 0; k < containers.length; k++) {
+        let container = containers[k];
 
-        if (codes.findIndex(bookables[i].id) !== -1) {
+        if (codes.findIndex(bookables[k].id) !== -1) {
             // found something
             container.classList.add('selected');
             container.onclick = function (event) {

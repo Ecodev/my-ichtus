@@ -28,7 +28,7 @@ function popCahierInfos(nbr = 0) {
     divParticipantCount.classList.add('divTabCahierInfosNbrInvites');
     divParticipantCount.innerHTML += 'Nbr de participants';
 
-    var i = input(divParticipantCount);
+    let i = input(divParticipantCount);
     i.type = 'number';
     i.min = '1';
     i.value = Cahier.bookings[nbr].participantCount;
@@ -53,7 +53,7 @@ function popCahierInfos(nbr = 0) {
 
     div(divParticipantCount);
 
-    var p = div(divParticipantCount);
+    let p = div(divParticipantCount);
     p.classList.add('PropositionsContainer');
     p.classList.add('divTabCahierInfosNbrInvitesPropositions');
     div(p).innerHTML = '1';
@@ -79,33 +79,33 @@ function popCahierInfos(nbr = 0) {
     divDestination.classList.add('divTabCahierInfosDestination');
     divDestination.innerHTML += 'Destination';
 
-    var i = input(divDestination);
-    i.value = Cahier.bookings[nbr].destination;
-    i.placeholder = 'Destination';
-    i.addEventListener('keyup', function () {
+    let ii = input(divDestination);
+    ii.value = Cahier.bookings[nbr].destination;
+    ii.placeholder = 'Destination';
+    ii.addEventListener('keyup', function () {
         writeDestination(this);
     });
-    i.addEventListener('focusin', function () {
+    ii.addEventListener('focusin', function () {
         writeDestination(this);
         focusInOrOut(this, true);
     });
-    i.addEventListener('focusout', function () {
+    ii.addEventListener('focusout', function () {
         writeDestination(this);
         focusInOrOut(this, false);
     });
 
     div(divDestination);
 
-    var p = div(divDestination);
-    p.classList.add('PropositionsContainer');
-    p.classList.add('divTabCahierInfosDestinationPropositions');
-    div(p).innerHTML = 'Baie';
-    div(p).innerHTML = 'La Ramée';
-    div(p).innerHTML = 'La Tène';
-    div(p).innerHTML = 'Neuchâtel';
-    div(p).innerHTML = 'Hauterive';
+    let pp = div(divDestination);
+    pp.classList.add('PropositionsContainer');
+    pp.classList.add('divTabCahierInfosDestinationPropositions');
+    div(pp).innerHTML = 'Baie';
+    div(pp).innerHTML = 'La Ramée';
+    div(pp).innerHTML = 'La Tène';
+    div(pp).innerHTML = 'Neuchâtel';
+    div(pp).innerHTML = 'Hauterive';
 
-    writeDestination(i);
+    writeDestination(ii);
 
     let divStartComment = div(c);
     divStartComment.classList.add('TabCahierFields');

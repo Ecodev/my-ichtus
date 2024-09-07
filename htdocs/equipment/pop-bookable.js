@@ -167,13 +167,6 @@ function actualizePopBookable(nbr, bookable, bookings, elem) {
         }
     }
 
-    //if (bookable.remarks != "" && options.showRemarks) {
-    //    var bar = grayBar(elem.getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0]);
-    //    bar.style.position = "absolute";
-    //    bar.style.bottom = "-13px";
-    //    bar.style.width = "100%";
-    //}
-
     elem
         .getElementsByClassName('divTabCahierEquipmentElementsContainerTextsContainer')[0]
         .getElementsByTagName('div')[1].id = bookable.id;

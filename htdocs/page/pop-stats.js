@@ -74,17 +74,17 @@ function loadStats(end = new Date()) {
 function actualizeStats(start, end, elem, bookings) {
     let stats = [];
 
-    var elapsedTime = Math.abs(end.getTime() - start.getTime());
-    var daysNbr = parseInt(elapsedTime / (1000 * 3600 * 24));
-    for (var i = 0; i < daysNbr + 1; i++) {
+    let elapsedTime = Math.abs(end.getTime() - start.getTime());
+    let daysNbr = parseInt(elapsedTime / (1000 * 3600 * 24));
+    for (let i = 0; i < daysNbr + 1; i++) {
         stats.push(0);
     }
 
-    for (var i = 0; i < bookings.length; i++) {
-        var date = new Date(bookings[i].startDate);
+    for (let i = 0; i < bookings.length; i++) {
+        let date = new Date(bookings[i].startDate);
 
-        var elapsedTime = Math.abs(date.getTime() - start.getTime());
-        var daysNbr = parseInt(elapsedTime / (1000 * 3600 * 24));
+        let elapsedTime = Math.abs(date.getTime() - start.getTime());
+        let daysNbr = parseInt(elapsedTime / (1000 * 3600 * 24));
 
         stats[daysNbr]++;
     }
@@ -99,7 +99,7 @@ function actualizeStats(start, end, elem, bookings) {
     let legends = Jours.concat(Jours).concat(Jours);
     let max = stats.max();
 
-    for (var i = 0; i < stats.length; i++) {
+    for (let i = 0; i < stats.length; i++) {
         let d = div(center);
         d.style.width = 100 / stats.length + '%';
 
@@ -113,7 +113,7 @@ function actualizeStats(start, end, elem, bookings) {
         l.style.width = 100 / stats.length + '%';
 
         if (i % parseInt(stats.length / 10) == 0 || stats.length / 10 < 1) {
-            var date = new Date(start);
+            let date = new Date(start);
             date.setDate(start.getDate() + i);
 
             div(l).innerHTML = date.getDate();
@@ -134,7 +134,7 @@ function actualizeStats(start, end, elem, bookings) {
         count = (max - (max % step)) / step;
     }
 
-    for (var i = 1; i < count + 1; i++) {
+    for (let i = 1; i < count + 1; i++) {
         let s = div(scale);
         s.style.top = 100 - ((i * step) / max) * 90 + '%';
         s.innerHTML = i * step;

@@ -1,3 +1,5 @@
+let lastPeople = [];
+
 function popUser(nbr = 0, elem = openPopUp()) {
     let container;
     container = div(elem);
@@ -11,7 +13,7 @@ function popUser(nbr = 0, elem = openPopUp()) {
         close.onclick = function () {
             closePopUp({target: elem}, elem);
         };
-        var d = div(container);
+        let d = div(container);
         d.style.textAlign = 'center';
         d.style.fontSize = '25px';
         d.innerHTML = 'Nom et prénom du membre';
@@ -52,8 +54,8 @@ function popUser(nbr = 0, elem = openPopUp()) {
         i1.focus();
     }
 
-    var d = div(container);
-    d.id = 'divTabCahierSearchResult';
+    let dd = div(container);
+    dd.id = 'divTabCahierSearchResult';
 }
 
 let enterSearchPosition = 0;
@@ -64,15 +66,7 @@ function Search(e) {
         let all = document.getElementsByClassName('divTabCahierResultEntry');
         for (let i = 0; i < all.length; i++) {
             if (typeof all[i].getElementsByTagName('img')[0] != 'undefined') {
-                //    var _firstName = all[i].getElementsByClassName("spanTabCahierFirstName")[0].innerHTML;
-                //    var _surName = all[i].getElementsByClassName("spanTabCahierSurName")[0].innerHTML;
-                //var _name = all[i].getElementsByClassName("spanTabCahierSurName")[0].innerHTML;
-                //var _id = lastPeople[all[i].id].id;
-                //var _sex = lastPeople[all[i].id].sex; // modifier
-
                 let nbr = parseInt(document.getElementsByClassName('PopUpUserContainer')[0].id); // modifier problem si plusieurs popUp ouverts...
-
-                //var owner = { id: _id, name: _name, sex: _sex };
 
                 Cahier.setOwner(nbr, lastPeople[all[i].id]);
             }
@@ -115,24 +109,19 @@ function SearchDown(e) {
     }
 }
 
-var lastPeople = [];
 function createSearchEntries(PeopleCorresponding) {
     lastPeople = PeopleCorresponding;
 
     $('divTabCahierSearchResult').innerHTML = '';
 
     if (PeopleCorresponding.length == 0) {
-        var divResult = document.createElement('div');
+        let divResult = document.createElement('div');
         divResult.classList.add('divTabCahierResultEntry');
         $('divTabCahierSearchResult').appendChild(divResult);
 
-        var span1 = document.createElement('span');
+        let span1 = document.createElement('span');
         span1.classList.add('spanTabCahierSurName');
         span1.innerHTML = 'Aucun résultat'; //. Cliquez pour vous rendre sur <c style='color:blue; text-decoration:underline;'> ichtus.ch </c>";
-        //span1.onclick = function () {
-        //    var win = window.open("https://ichtus.ch", '_blank');
-        //    win.focus();
-        //};
         divResult.appendChild(span1);
 
         divResult.style.backgroundImage = 'url(img/icons/no-result.png)';
@@ -140,30 +129,23 @@ function createSearchEntries(PeopleCorresponding) {
         lastPeople = [];
     } else {
         for (let i = 0; i < PeopleCorresponding.length; i++) {
-            var divResult = document.createElement('div');
+            let divResult = document.createElement('div');
             //  divResult.id = PeopleCorresponding[i].id;
             divResult.classList.add('divTabCahierResultEntry');
             $('divTabCahierSearchResult').appendChild(divResult);
 
-            var nbr = parseInt(document.getElementsByClassName('PopUpUserContainer')[0].id); // modifier problem si plusieurs popUp ouverts...
+            let nbr = parseInt(document.getElementsByClassName('PopUpUserContainer')[0].id); // modifier problem si plusieurs popUp ouverts...
 
             divResult.id = i;
-
-            //divResult.addEventListener("mousedown", function () { Cahier.setOwner(nbr, { id: PeopleCorresponding[this.id].id, name: PeopleCorresponding[this.id].name, sex: PeopleCorresponding[this.id].sex });  });
 
             divResult.addEventListener('mousedown', function () {
                 Cahier.setOwner(nbr, PeopleCorresponding[this.id]);
             });
 
-            var span1 = document.createElement('span');
+            let span1 = document.createElement('span');
             span1.classList.add('spanTabCahierSurName');
             span1.innerHTML = PeopleCorresponding[i].name; //.split(" ")[0]; //changed ! --> div names are false $$
             divResult.appendChild(span1);
-
-            //var span2 = document.createElement("span");
-            //span2.classList.add("spanTabCahierFirstName");
-            //span2.innerHTML = PeopleCorresponding[i].name.split(" ")[1];
-            //divResult.appendChild(span2);
 
             if (i == 0) {
                 let img = document.createElement('img');

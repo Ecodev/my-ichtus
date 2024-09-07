@@ -435,8 +435,7 @@ function popAlertBookablesNotAvailable() {
 
         let elem = openPopUp();
 
-        var container;
-        container = div(elem);
+        let    container = div(elem);
         container.classList.add('PopUpAlertContainer', 'available');
         container.classList.add('Boxes');
 
@@ -456,7 +455,7 @@ function popAlertBookablesNotAvailable() {
     }
 
     let bookablesNotAvailable = [];
-    for (var i = 0; i < Cahier.bookings[0].bookables.length; i++) {
+    for (let i = 0; i < Cahier.bookings[0].bookables.length; i++) {
         if (Cahier.bookings[0].bookables[i].available === false) {
             bookablesNotAvailable.push(Cahier.bookings[0].bookables[i]);
         }
@@ -467,9 +466,9 @@ function popAlertBookablesNotAvailable() {
 
     // 1.1
     if (options.finishAllBookingsWithBookable) {
-        for (var k = 0; k < bookablesNotAvailable.length; k++) {
-            for (var u = 0; u < Cahier.actualBookings.length; u++) {
-                for (var v = 0; v < Cahier.actualBookings[u].bookables.length; v++) {
+        for (let k = 0; k < bookablesNotAvailable.length; k++) {
+            for (let u = 0; u < Cahier.actualBookings.length; u++) {
+                for (let v = 0; v < Cahier.actualBookings[u].bookables.length; v++) {
                     if (Cahier.actualBookings[u].bookables[v].id === bookablesNotAvailable[k].id) {
                         nU = u;
                         nV = v;
@@ -481,9 +480,9 @@ function popAlertBookablesNotAvailable() {
         }
         bookingsToFinish = bookingsToFinish.deleteMultiples();
     } else {
-        for (var k = 0; k < bookablesNotAvailable.length; k++) {
-            for (var u = 0; u < Cahier.actualBookings.length; u++) {
-                for (var v = 0; v < Cahier.actualBookings[u].bookables.length; v++) {
+        for (let k = 0; k < bookablesNotAvailable.length; k++) {
+            for (let u = 0; u < Cahier.actualBookings.length; u++) {
+                for (let v = 0; v < Cahier.actualBookings[u].bookables.length; v++) {
                     if (Cahier.actualBookings[u].bookables[v].id === bookablesNotAvailable[k].id) {
                         nU = u;
                         nV = v;
@@ -498,20 +497,20 @@ function popAlertBookablesNotAvailable() {
     if (options.showAlertBookablesNotAvailable) {
         let t = div(container);
         let txt = '';
-        for (var i = 0; i < bookablesNotAvailable.length; i++) {
+        for (let w = 0; w < bookablesNotAvailable.length; w++) {
             txt +=
                 '<li> Le ' +
-                bookablesNotAvailable[i].code +
+                bookablesNotAvailable[w].code +
                 ' est déjà utilisé par ' +
-                bookablesNotAvailable[i].lastBooking.owner.name +
+                bookablesNotAvailable[w].lastBooking.owner.name +
                 '</li> <br/>';
         }
         txt += '';
         t.innerHTML = txt;
 
         let names = [];
-        for (let i = 0; i < bookablesNotAvailable.length; i++) {
-            names.push(bookablesNotAvailable[i].lastBooking.owner.name);
+        for (let x = 0; x < bookablesNotAvailable.length; x++) {
+            names.push(bookablesNotAvailable[x].lastBooking.owner.name);
         }
         names = names.deleteMultiples();
 
@@ -519,8 +518,8 @@ function popAlertBookablesNotAvailable() {
         if (names.length === 1) {
             pers = '* En continuant, la sortie de ' + pers + ' va être automatiquement terminée !';
         } else {
-            for (let i = 1; i < names.length - 1; i++) {
-                pers += ', ' + names[i];
+            for (let y = 1; y < names.length - 1; y++) {
+                pers += ', ' + names[y];
             }
             pers += ' et de ' + names[bookablesNotAvailable.length - 1];
             pers = '* En continuant, les sorties de ' + pers + ' vont être automatiquement terminées !';
