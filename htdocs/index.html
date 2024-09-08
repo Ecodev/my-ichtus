@@ -423,7 +423,7 @@
         </div>
         <script type="module">
             // Those import have side effects and loading order might be important
-            import {load, $} from './general/home.js';
+            import {load, $, options} from './general/home.js';
             import {historyBackTab, newTab} from './general/screen.js';
 
             // Those imports have no side effects
@@ -436,6 +436,7 @@
 
             // Register globals to be used in onclick callbacks
             window.$ = $;
+            window.options = options;
             window.changeSelectCategorie = changeSelectCategorie;
             window.Requests = Requests;
             window.Cahier = Cahier;

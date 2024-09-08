@@ -1413,7 +1413,7 @@ export const Requests = {
     // terminateCreateAndUpdateBookings
     terminateCreateAndUpdateBookings: function (
         idsToFinish = [],
-        commentsToFinish,
+        commentsToFinish = [],
         inputsToCreate = [],
         idsToUpdate = [],
         inputsToUpdate = [],
@@ -1447,7 +1447,7 @@ export const Requests = {
 
     // createAndUpdateBookings
     createAndUpdateBookings: function (inputsToCreate = [], idsToUpdate = [], inputsToUpdate = []) {
-        // filter the input to only keep the allowed fields,  append the id to it, and the actual startDate
+        // filter the input to only keep the allowed fields, append the id to it, and the actual startDate
         const extendInput = function (id, input) {
             const inputFiltered = {id: id, startDate: new Date().toISOString()};
             const keys = [
@@ -1475,18 +1475,18 @@ export const Requests = {
         let c = 0; // counter variable
         const total = inputsToCreate.length + inputsToUpdate.length;
 
-        // ToCreate
-        for (let i = 0; i < inputsToCreate.length; i++) {
-            //            console.log("Create:", inputsToCreate[i]);
-            Server.bookingService.create(inputsToCreate[i]).subscribe(() => {
+        // ToUpdate
+        for (let i = 0; i < inputsToUpdate.length; i++) {
+            Server.bookingService.updateNow(extendInput(idsToUpdate[i], inputsToUpdate[i])).subscribe(() => {
                 c++;
                 if (c == total) finished();
             });
         }
-        // ToUpdate
-        for (let i = 0; i < inputsToUpdate.length; i++) {
-            //           console.log("Update:", inputsToUpdate[i]);
-            Server.bookingService.updateNow(extendInput(idsToUpdate[i], inputsToUpdate[i])).subscribe(() => {
+
+        // ToCreate
+        for (let i = 0; i < inputsToCreate.length; i++) {
+            //            console.log("Create:", inputsToCreate[i]);
+            Server.bookingService.create(inputsToCreate[i]).subscribe(() => {
                 c++;
                 if (c == total) finished();
             });
