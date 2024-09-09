@@ -34,7 +34,7 @@ export function loadElements(bookables, nbr = 0) {
             container.classList.add('used');
             container.title = 'Cette embarcation est déjà utilisée';
             dT = deltaTime(new Date(bookables[j].lastBooking.startDate), new Date(), false);
-            bookables[j].lessThan13Minutes = dT.time < 13 ? true : false;
+            bookables[j].lessThan13Minutes = dT.time < 13;
         } else bookables[j].lessThan13Minutes = false;
 
         const x = codes.findIndex(bookables[j].id);

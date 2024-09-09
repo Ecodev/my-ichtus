@@ -30,79 +30,79 @@ export function animate() {
     setTimeout(function () {
         if (!running) {
             return;
+        }
+
+        r = div(document.body);
+        r.id = 'white_circle';
+        addSvgClass(r);
+
+        c = div(document.body);
+        c.id = 'circle';
+        addSvgClass(c);
+
+        if (document.documentElement.clientWidth < window.innerHeight) {
+            c.style.animationName = 'AniCircleWidth';
+            r.style.animationName = 'AniCircleWidth';
         } else {
-            r = div(document.body);
-            r.id = 'white_circle';
-            addSvgClass(r);
+            c.style.animationName = 'AniCircleHeight';
+            r.style.animationName = 'AniCircleHeight';
+        }
 
-            c = div(document.body);
-            c.id = 'circle';
-            addSvgClass(c);
+        setTimeout(newLetter, 1000, 0);
 
-            if (document.documentElement.clientWidth < window.innerHeight) {
-                c.style.animationName = 'AniCircleWidth';
-                r.style.animationName = 'AniCircleWidth';
-            } else {
-                c.style.animationName = 'AniCircleHeight';
-                r.style.animationName = 'AniCircleHeight';
+        w = div(document.body);
+        w.id = 'waves';
+        addSvgClass(w);
+
+        setTimeout(function () {
+            if (!running) {
+                return;
             }
 
-            setTimeout(newLetter, 1000, 0);
+            f = div(document.body);
+            f.id = 'fish';
+            addSvgClass(f);
+        }, 200);
 
-            w = div(document.body);
-            w.id = 'waves';
-            addSvgClass(w);
+        setTimeout(function () {
+            if (!running) {
+                return;
+            }
+
+            w.style.animationName = 'AniWavesExit';
+            c.style.animationDuration = '1s';
+            r.style.animationDuration = '1s';
+            c.style.animationName = 'AniCircleExit';
+            r.style.animationName = 'AniCircleExit';
+            f.style.animationName = 'AniFishExit,none';
 
             setTimeout(function () {
-                if (!running) {
-                    return;
-                } else {
-                    f = div(document.body);
-                    f.id = 'fish';
-                    addSvgClass(f);
+                for (let i = 0; i < 6; i++) {
+                    // should be useless
+                    deleteObjects(document.getElementsByClassName('svgLetters')[0]);
                 }
-            }, 200);
+                if (running) deleteObjects(w, c, r, f);
+                running = false;
 
-            setTimeout(function () {
-                if (!running) {
-                    return;
-                } else {
-                    w.style.animationName = 'AniWavesExit';
-                    c.style.animationDuration = '1s';
-                    r.style.animationDuration = '1s';
-                    c.style.animationName = 'AniCircleExit';
-                    r.style.animationName = 'AniCircleExit';
-                    f.style.animationName = 'AniFishExit,none';
-
+                if (options.reloadWhenFinished) {
+                    console.warn('La page va être rafraîchie');
                     setTimeout(function () {
-                        for (let i = 0; i < 6; i++) {
-                            // should be useless
-                            deleteObjects(document.getElementsByClassName('svgLetters')[0]);
-                        }
-                        if (running) deleteObjects(w, c, r, f);
-                        running = false;
-
-                        if (options.reloadWhenFinished) {
-                            console.warn('La page va être rafraîchie');
-                            setTimeout(function () {
-                                location.reload();
-                            }, 500);
-                        }
-                    }, 1000); //newTab("divTabCahier");
-
-                    setTimeout(function () {
-                        if (!running) {
-                            return;
-                        } else {
-                            b.style.animationName = 'AniBlackExit';
-                            deleteObjects(b, info);
-                            //   location.reload();
-                        }
-                        document.body.removeEventListener('mousedown', cancelFunction);
+                        location.reload();
                     }, 500);
                 }
-            }, 4500);
-        }
+            }, 1000); //newTab("divTabCahier");
+
+            setTimeout(function () {
+                if (!running) {
+                    return;
+                } else {
+                    b.style.animationName = 'AniBlackExit';
+                    deleteObjects(b, info);
+                    //   location.reload();
+                }
+                document.body.removeEventListener('mousedown', cancelFunction);
+            }, 500);
+        }, 4500);
     }, 500);
 }
 

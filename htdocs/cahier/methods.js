@@ -567,7 +567,7 @@ export const Cahier = {
             // used when selecting a bookable by code
 
             Cahier.bookings[nbr].bookables[Cahier.bookings[nbr].bookables.length - 1].available =
-                _lastBooking.endDate == null ? false : true;
+                _lastBooking.endDate != null;
             Cahier.bookings[nbr].bookables[Cahier.bookings[nbr].bookables.length - 1].lastBooking = _lastBooking;
 
             // 1.4 : make fake availability if the actual bookable was in the edited booking
@@ -596,7 +596,7 @@ export const Cahier = {
         if (bookings.length !== 0) {
             const lastBooking = Object.assign({}, bookings[0]);
 
-            Cahier.bookings[0].bookables[u].available = bookings[0].endDate == null ? false : true;
+            Cahier.bookings[0].bookables[u].available = bookings[0].endDate != null;
             Cahier.bookings[0].bookables[u].lastBooking = lastBooking;
 
             // 1.4 : make fake availability (actually already used in the current booking that is being edited...)
