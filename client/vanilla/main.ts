@@ -1,4 +1,9 @@
-import {APP_INITIALIZER, inject, NgZone, ɵNoopNgZone} from '@angular/core';
+import {
+    APP_INITIALIZER,
+    inject,
+    provideExperimentalZonelessChangeDetection,
+    provideZoneChangeDetection,
+} from '@angular/core';
 import {createApplication} from '@angular/platform-browser';
 import {APP_BASE_HREF} from '@angular/common';
 import {Apollo, APOLLO_OPTIONS} from 'apollo-angular';
@@ -20,7 +25,7 @@ createApplication({
     providers: [
         Apollo,
         provideHttpClient(withInterceptors([graphqlQuerySigner(localConfig.signedQueries.keys.navigations)])),
-        {provide: NgZone, useClass: ɵNoopNgZone},
+        provideExperimentalZonelessChangeDetection(),
         {provide: APP_BASE_HREF, useValue: '/'},
         {
             provide: APOLLO_OPTIONS,

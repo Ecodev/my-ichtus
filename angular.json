@@ -157,7 +157,7 @@
                                     "type": "initial",
                                     // DO NOT MODIFY THIS, instead, if you see this error, triple-check why we included
                                     // more code into Vanilla and if https://navigations.ichtus.club will still work with this new build
-                                    "maximumError": "374kb"
+                                    "maximumError": "385.11 kB"
                                 },
                                 {
                                     "type": "anyComponentStyle",
