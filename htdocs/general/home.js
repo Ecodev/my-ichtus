@@ -178,14 +178,14 @@ export function deltaTime(d1, d2 = new Date(), bold = true) {
     return bold && delta < 13 ? {text: '<b>' + t + '</b>', time: delta} : {text: t, time: delta};
 }
 
-export function deleteElements() {
-    for (let i = 0; i < arguments.length; i++) {
+export function deleteElements(...elements) {
+    for (let i = 0; i < elements.length; i++) {
         if (
-            typeof arguments[i] != 'undefined' &&
-            typeof arguments[i].parentElement != 'undefined' &&
-            arguments[i].parentElement != null
+            typeof elements[i] != 'undefined' &&
+            typeof elements[i].parentElement != 'undefined' &&
+            elements[i].parentElement != null
         ) {
-            arguments[i].parentElement.removeChild(arguments[i]);
+            elements[i].parentElement.removeChild(elements[i]);
         } else {
             //console.log("tried to delete a non-existent object");
         }
