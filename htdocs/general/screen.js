@@ -14,7 +14,6 @@ export function setCurrentTabElement(element) {
     currentTabElement = element;
 }
 
-// changeTab
 function changeTab(newElement, sign) {
     stillMoving = true;
 

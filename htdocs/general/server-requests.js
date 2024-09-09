@@ -26,7 +26,6 @@ export function ServerInitialize() {
 }
 
 export const Requests = {
-    // login
     login: function (pwd) {
         //console.log("LOGIN");
 
@@ -291,7 +290,6 @@ export const Requests = {
         });
     },
 
-    // getBookablesList
     getBookablesList: function (elem = $('inputTabCahierEquipmentElementsInputSearch')) {
         let order;
         if (
@@ -560,7 +558,6 @@ export const Requests = {
         });
     },
 
-    // getBookableByCode
     getBookableByCode: function (elem, nbr = 0) {
         let t = true;
 
@@ -637,7 +634,6 @@ export const Requests = {
         }
     },
 
-    // getBookableInfos
     getBookableInfos: function (nbr, bookableId, elem) {
         const filter = {
             filter: {
@@ -1150,7 +1146,6 @@ export const Requests = {
         });
     },
 
-    // getBookingsNbrBetween
     getBookingsNbrBetween: function (start, end, bookableId = '%', elem = document.body, writeIfOne = true) {
         const filter = {
             filter: {
@@ -1286,7 +1281,6 @@ export const Requests = {
         });
     },
 
-    // getStats
     getStats: function (start, end, elem) {
         const f = {
             filter: {
@@ -1361,7 +1355,6 @@ export const Requests = {
         });
     },
 
-    // getBookingWithBookablesInfos
     getBookingWithBookablesInfos: function (_booking, which, elem) {
         const filter = {
             filter: {
@@ -1410,7 +1403,6 @@ export const Requests = {
         }
     },
 
-    // terminateCreateAndUpdateBookings
     terminateCreateAndUpdateBookings: function (
         idsToFinish = [],
         commentsToFinish = [],
@@ -1445,7 +1437,6 @@ export const Requests = {
         }
     },
 
-    // createAndUpdateBookings
     createAndUpdateBookings: function (inputsToCreate = [], idsToUpdate = [], inputsToUpdate = []) {
         // filter the input to only keep the allowed fields, append the id to it, and the actual startDate
         const extendInput = function (id, input) {
@@ -1493,7 +1484,6 @@ export const Requests = {
         }
     },
 
-    // getServerInputsForBookingCreating
     getServerInputsForBookingCreating: function (booking = Cahier.bookings[0], startDate = null) {
         const bookingInputs = [];
         for (let i = 0; i < booking.bookables.length; i++) {
