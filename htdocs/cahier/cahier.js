@@ -125,7 +125,7 @@ function actualizeActualBookings(_actualBookings) {
 
         const participantCount = div(container);
         participantCount.innerHTML = _actualBookings[j].participantCount;
-        participantCount.title = Cahier.getSingularOrPlural(_actualBookings[j].participantCount);
+        participantCount.title = Cahier.getSingularOrPlural(_actualBookings[j].participantCount, ' Participant');
 
         div(container).innerHTML = Cahier.getOwner(_actualBookings[j], true);
 

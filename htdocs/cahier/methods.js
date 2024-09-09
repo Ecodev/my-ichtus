@@ -57,7 +57,7 @@ export const Cahier = {
         }
     },
 
-    getSingularOrPlural: function (nbr = Cahier.nbrParticipants, txt = ' Participant') {
+    getSingularOrPlural: function (nbr, txt) {
         if (nbr == 0) {
             return 'Aucun';
         } else if (nbr == 1) {
