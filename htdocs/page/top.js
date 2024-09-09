@@ -1,4 +1,4 @@
-import {deleteObjects, div, options} from '../general/home.js';
+import {deleteElements, div, options} from '../general/home.js';
 
 let running = false;
 let cancelFunction;
@@ -79,9 +79,9 @@ export function animate() {
             setTimeout(function () {
                 for (let i = 0; i < 6; i++) {
                     // should be useless
-                    deleteObjects(document.getElementsByClassName('svgLetters')[0]);
+                    deleteElements(document.getElementsByClassName('svgLetters')[0]);
                 }
-                if (running) deleteObjects(w, c, r, f);
+                if (running) deleteElements(w, c, r, f);
                 running = false;
             }, 1000);
 
@@ -90,7 +90,7 @@ export function animate() {
                     return;
                 } else {
                     b.style.animationName = 'AniBlackExit';
-                    deleteObjects(b, info);
+                    deleteElements(b, info);
                     //   location.reload();
                 }
                 document.body.removeEventListener('mousedown', cancelFunction);
@@ -132,7 +132,7 @@ function newLetter(i) {
                     setTimeout(
                         function (elem) {
                             if (running) {
-                                deleteObjects(elem);
+                                deleteElements(elem);
                             }
                         },
                         550,
@@ -147,7 +147,7 @@ function newLetter(i) {
                 setTimeout(
                     function (elem) {
                         if (running) {
-                            deleteObjects(elem);
+                            deleteElements(elem);
                         }
                     },
                     550,

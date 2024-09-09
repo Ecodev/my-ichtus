@@ -1,4 +1,4 @@
-import {$, closePopUp, deleteObjects, div, grayBar, openPopUp, options} from '../general/home.js';
+import {$, closePopUp, deleteElements, div, grayBar, openPopUp, options} from '../general/home.js';
 import {Requests} from '../general/server-requests.js';
 import {newTab} from '../general/screen.js';
 import {popCahierInfos} from '../infos/pop-infos.js';
@@ -424,7 +424,7 @@ export function actualizePopBooking(booking, which, container = $('divTabCahierC
                 t.addEventListener('click', function () {
                     //console.log(booking, this.id, booking.ids[parseInt(this.id)]);
                     Requests.terminateBooking([booking.ids[parseInt(this.id)]], ['']);
-                    deleteObjects(this.parentElement.parentElement);
+                    deleteElements(this.parentElement.parentElement);
                     if (document.getElementsByClassName('divTabCahierConfirmationEmbarcationBox').length == 0) {
                         closePopUp('last');
                     }

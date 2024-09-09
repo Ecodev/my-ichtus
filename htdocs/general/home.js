@@ -178,7 +178,7 @@ export function deltaTime(d1, d2 = new Date(), bold = true) {
     return bold && delta < 13 ? {text: '<b>' + t + '</b>', time: delta} : {text: t, time: delta};
 }
 
-export function deleteObjects() {
+export function deleteElements() {
     for (let i = 0; i < arguments.length; i++) {
         if (
             typeof arguments[i] != 'undefined' &&
