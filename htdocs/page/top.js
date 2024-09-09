@@ -83,14 +83,7 @@ export function animate() {
                 }
                 if (running) deleteObjects(w, c, r, f);
                 running = false;
-
-                if (options.reloadWhenFinished) {
-                    console.warn('La page va être rafraîchie');
-                    setTimeout(function () {
-                        location.reload();
-                    }, 500);
-                }
-            }, 1000); //newTab("divTabCahier");
+            }, 1000);
 
             setTimeout(function () {
                 if (!running) {

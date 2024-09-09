@@ -16,7 +16,6 @@ export const options = {
     showRemarks: true,
     automaticConnexion: true,
     seeExtraInfos: false,
-    //    reloadWhenFinished: false,
     bookingsTogetherWithDifferentEndates: true,
     modifyBookablesButton: true,
     editBookingButton: true,
