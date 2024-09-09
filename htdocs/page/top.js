@@ -1,4 +1,4 @@
-import {deleteElements, div, options} from '../general/home.js';
+import {deleteElements, div} from '../general/home.js';
 
 let running = false;
 let cancelFunction;
