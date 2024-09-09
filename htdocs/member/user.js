@@ -78,7 +78,7 @@ function Search(e) {
         //do nothing
     } else {
         //text != ""
-        Requests.getUsersList(text, 5);
+        Requests.getUsersList(text);
         enterSearchPosition = 0;
     }
 }
