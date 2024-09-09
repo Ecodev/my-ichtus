@@ -392,31 +392,6 @@ Array.prototype.deleteMultiples = function () {
     return r;
 };
 
-// sortBy
-Array.prototype.sortBy = function (sortFields, order = 1) {
-    if (order == 'ASC') {
-        order = -1;
-    } else if (order == 'DESC') {
-        order = 1;
-    }
-
-    let switching = true;
-    while (switching) {
-        switching = false;
-        for (let i = 0; i < this.length - 1; i++) {
-            if (
-                (sortFields[i] > sortFields[i + 1] && order == 1) ||
-                (sortFields[i] < sortFields[i + 1] && order == -1)
-            ) {
-                //
-                this.switch(i, i + 1);
-                sortFields.switch(i, i + 1);
-                switching = true;
-            }
-        }
-    }
-};
-
 // fillArray
 Array.prototype.fillArray = function (length, what = 0) {
     for (let i = 0; i < length; i++) {
