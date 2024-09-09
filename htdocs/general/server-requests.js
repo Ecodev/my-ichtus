@@ -1493,34 +1493,6 @@ export const Requests = {
         }
     },
 
-    // updateBooking
-    updateBooking: function (id = '4079', input = {bookable: '3001', owner: '1002'}) {
-        // e.g.
-        /*
-        Server.bookingService.updateNow({
-            "id": id,
-            "bookable": "3001",
-            "startComment": "hello dear",
-            "participantCount": 18
-        }).subscribe(result => {
-            console.log("updateBooking():", result)
-        });
-        */
-
-        if ('owner' in input) {
-            console.error(
-                'Requests.updateBooking(): Not allowed to update the owner ' +
-                    "(bookingonly doesn't have the rights to).",
-            );
-        }
-
-        const extended_input = Object.assign({id: id}, input);
-        console.log(extended_input);
-        Server.bookingService.updateNow(extended_input).subscribe(result => {
-            console.log('updateBooking():', result);
-        });
-    },
-
     // getServerInputsForBookingCreating
     getServerInputsForBookingCreating: function (booking = Cahier.bookings[0], startDate = null) {
         const bookingInputs = [];
