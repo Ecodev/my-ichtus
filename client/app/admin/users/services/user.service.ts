@@ -6,6 +6,7 @@ import {
     deliverableEmail,
     FormAsyncValidators,
     formatIsoDateTime,
+    FormControls,
     FormValidators,
     Literal,
     LOCAL_STORAGE,
@@ -220,7 +221,7 @@ export class UserService
         };
     }
 
-    public override getFormConfig(model: Literal): Literal {
+    public override getFormConfig(model: Literal): FormControls {
         const config = super.getFormConfig(model);
 
         // Inject extra form control for the account which is strictly read-only
