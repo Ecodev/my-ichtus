@@ -15,7 +15,7 @@
                     spellcheck="false"
                     (keydown.enter)="maybeConfirm()"
                 />
-                @if (form.get('login')?.hasError('required')) {
+                @if (form.controls.login.hasError('required')) {
                     <mat-error>Requis</mat-error>
                 }
             </mat-form-field>
@@ -36,7 +36,7 @@
                     <mat-icon [naturalIcon]="hidePassword ? 'visibility' : 'visibility_off'" />
                 </button>
 
-                @if (form.get('password')?.hasError('required')) {
+                @if (form.controls.password.hasError('required')) {
                     <mat-error>Requis</mat-error>
                 }
             </mat-form-field>

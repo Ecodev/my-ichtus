@@ -6,13 +6,13 @@
         <mat-label>Montant</mat-label>
         <input matInput type="number" step="0.01" formControlName="amount" [attr.min]="1" />
         <div matTextSuffix>CHF</div>
-        @if (form.get('amount')?.hasError('required')) {
+        @if (form.controls.amount.hasError('required')) {
             <mat-error>Requis</mat-error>
         }
-        @if (form.get('amount')?.hasError('min')) {
+        @if (form.controls.amount.hasError('min')) {
             <mat-error>Le montant doit être positif</mat-error>
         }
-        @if (form.get('amount')?.hasError('money')) {
+        @if (form.controls.amount.hasError('money')) {
             <mat-error>Le montant doit être un nombre avec un maximum de deux décimales </mat-error>
         }
     </mat-form-field>
