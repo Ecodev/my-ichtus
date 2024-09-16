@@ -13,7 +13,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NonNullableFormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {MatButtonModule} from '@angular/material/button';
-import {MatCheckboxModule, _MatCheckboxRequiredValidatorModule} from '@angular/material/checkbox';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTableModule} from '@angular/material/table';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {AddressComponent} from '../../../shared/components/address/address.component';
@@ -43,7 +43,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
         MatDatepickerModule,
         MatTableModule,
         MatCheckboxModule,
-        _MatCheckboxRequiredValidatorModule,
         MatButtonModule,
     ],
 })

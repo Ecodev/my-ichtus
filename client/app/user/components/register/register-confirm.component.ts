@@ -10,7 +10,7 @@ import {UserByTokenResolve} from '../../../admin/users/user';
 import {ConfirmRegistrationVariables, UserByToken} from '../../../shared/generated-types';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {MatButtonModule} from '@angular/material/button';
-import {_MatCheckboxRequiredValidatorModule, MatCheckboxModule} from '@angular/material/checkbox';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTableModule} from '@angular/material/table';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {AddressComponent} from '../../../shared/components/address/address.component';
@@ -40,7 +40,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
         MatDatepickerModule,
         MatTableModule,
         MatCheckboxModule,
-        _MatCheckboxRequiredValidatorModule,
         MatButtonModule,
     ],
 })
