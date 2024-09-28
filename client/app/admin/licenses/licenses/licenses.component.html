@@ -54,6 +54,6 @@
     </div>
 }
 
-@if (permissionsService.crud?.license.create) {
+@if ((permissionsService.crud | async)?.license.create) {
     <natural-fixed-button icon="add" [routerLink]="['/admin/license/new']" />
 }

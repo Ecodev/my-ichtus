@@ -142,6 +142,6 @@
     </div>
 }
 
-@if (permissionsService.crud?.expenseClaim.create) {
+@if ((permissionsService.crud | async)?.expenseClaim.create) {
     <natural-fixed-button icon="add" [routerLink]="['/admin/expense-claim/new']" />
 }

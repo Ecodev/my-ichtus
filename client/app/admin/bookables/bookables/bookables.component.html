@@ -301,6 +301,6 @@ This view is used for profile on front office too.
 The hideCreateFab flag is there to hide the create button for admins (is hidden for other users too.
 If we want to display the FAB, we need to add padding in bottom of page to prevent overlay over paginator
 -->
-@if (!route.snapshot.data.hideCreateFab && permissionsService.crud?.bookable.create) {
+@if (!route.snapshot.data.hideCreateFab && (permissionsService.crud | async)?.bookable.create) {
     <natural-fixed-button icon="add" [routerLink]="['/admin/bookable/new']" />
 }

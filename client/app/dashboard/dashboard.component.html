@@ -3,7 +3,7 @@
         <app-navigations style="width: 100%" [user]="route.snapshot.data.viewer" />
     }
 
-    @if (permissionsService.crud?.booking?.create) {
+    @if ((permissionsService.crud | async)?.booking?.create) {
         <div class="nat-vertical nat-top nat-center">
             <h1 class="mat-headline-3 nat-margin-bottom text-center">Annoncer une sortie</h1>
             <div class="nat-horizontal nat-wrap nat-gap nat-center">

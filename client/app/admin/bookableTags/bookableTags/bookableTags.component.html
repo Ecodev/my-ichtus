@@ -67,6 +67,6 @@
     </div>
 }
 
-@if (permissionsService.crud?.bookableTag.create) {
+@if ((permissionsService.crud | async)?.bookableTag.create) {
     <natural-fixed-button icon="add" [routerLink]="['/admin/bookable-tag/new']" />
 }

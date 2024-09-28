@@ -1,10 +1,10 @@
 import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
-import {debounceTime, distinctUntilChanged, filter, skip, take} from 'rxjs/operators';
-import {isEqual} from 'lodash-es';
-import {BehaviorSubject, Observable, of, ReplaySubject} from 'rxjs';
-import {CurrentUserForProfile, Permissions, UserRole, UserStatus} from '../generated-types';
 import {Literal} from '@ecodev/natural';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {concatMap, debounceTime, distinctUntilChanged, filter, map, shareReplay} from 'rxjs/operators';
+import {CurrentUserForProfile, Permissions, UserRole, UserStatus} from '../generated-types';
+import {isEqual} from 'lodash-es';
 import {permissionsQuery} from './permissions.queries';
 
 type Contexts = {
@@ -13,67 +13,53 @@ type Contexts = {
 
 /**
  * A service to fetch permissions and use them in templates.
- *
- * Current site and state will be automatically taken into account when they change.
- * The other contexts must be set manually, when available, to get correct permissions.
  */
 @Injectable({
     providedIn: 'root',
 })
 export class PermissionsService {
     /**
-     * CRUD permissions, usually for object creations
+     * Observable of CRUD permissions, usually for object creations
      */
-    public crud: Permissions['permissions']['crud'] | null = null;
+    public readonly crud: Observable<Permissions['permissions']['crud']>;
 
     /**
-     * Observable of changed permissions. Here we use a ReplaySubject so that new subscriber will get
-     * the most recent available permissions (useful in route guard)
+     * Observable of changed permissions
      */
-    public changes = new ReplaySubject<Permissions['permissions']>(1);
+    public readonly changes: Observable<Permissions['permissions']>;
 
     private readonly currentContexts = new BehaviorSubject<Contexts>({
         user: null,
     });
 
     public constructor(apollo: Apollo) {
-        // Query the API when our variables changed
-        this.currentContexts.pipe(distinctUntilChanged(isEqual), debounceTime(5)).subscribe(() => {
-            // Fetch global permissions
-            apollo
-                .query<Permissions>({
-                    query: permissionsQuery,
-                })
-                .pipe(filter(result => !result.loading))
-                .subscribe(result => {
-                    this.crud = result.data.permissions.crud;
-                    this.changes.next(result.data.permissions);
-                });
-        });
+        // Query the API whenever our variables change
+        const fetch = this.currentContexts.pipe(
+            distinctUntilChanged(isEqual),
+            debounceTime(5),
+            concatMap(() =>
+                apollo.query<Permissions>({query: permissionsQuery}).pipe(filter(result => !result.loading)),
+            ),
+            shareReplay(), // new subscriber will get the most recent available permissions
+        );
+
+        this.crud = fetch.pipe(map(result => result.data.permissions.crud));
+        this.changes = fetch.pipe(map(result => result.data.permissions));
     }
 
     /**
      * Return an observable that will complete as soon as the next permissions are available
      */
-    private setNewContexts(newContexts: Contexts): Observable<Permissions['permissions']> {
-        if (isEqual(this.currentContexts.value, newContexts) && this.crud) {
-            return of({
-                __typename: 'AllPermissions',
-                crud: this.crud,
-            });
-        } else {
-            this.currentContexts.next(newContexts);
-
-            return this.changes.pipe(skip(1), take(1));
-        }
+    private setNewContexts(newContexts: Contexts): void {
+        this.currentContexts.next(newContexts);
     }
 
-    public setUser(user: Literal | null): Observable<Permissions['permissions']> {
+    public setUser(user: Literal | null): void {
         const newContexts = {
             user: user ? user.id : null,
         };
 
-        return this.setNewContexts(newContexts);
+        this.setNewContexts(newContexts);
     }
 
     public canAccessUsers(user: CurrentUserForProfile['viewer']): boolean {

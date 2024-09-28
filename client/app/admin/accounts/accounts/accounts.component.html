@@ -179,7 +179,7 @@
                 }
             </div>
         </div>
-        @if (permissionsService.crud?.account.create) {
+        @if ((permissionsService.crud | async)?.account.create) {
             <natural-fixed-button icon="add" [routerLink]="addLink()" />
         }
     </div>

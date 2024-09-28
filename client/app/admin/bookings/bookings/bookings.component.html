@@ -237,6 +237,6 @@
     </div>
 }
 
-@if (permissionsService.crud?.booking.create && !!showFabButton) {
+@if ((permissionsService.crud | async)?.booking.create && !!showFabButton) {
     <natural-fixed-button icon="add" [routerLink]="['/admin/booking/new']" />
 }

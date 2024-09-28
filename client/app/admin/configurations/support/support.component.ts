@@ -15,6 +15,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {NaturalEditorComponent} from '@ecodev/natural-editor';
 import {FormsModule} from '@angular/forms';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {AsyncPipe} from '@angular/common';
 
 export type SupportComponentData = {
     configurationKey: string;
@@ -34,6 +35,7 @@ export type SupportComponentData = {
         NaturalEditorComponent,
         NaturalFixedButtonComponent,
         MatButtonModule,
+        AsyncPipe,
     ],
 })
 export class SupportComponent extends NaturalAbstractController implements OnInit {

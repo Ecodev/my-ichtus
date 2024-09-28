@@ -33,6 +33,6 @@
     </mat-accordion>
 </div>
 
-@if ((activeMember === null || activeMember.id) && canEdit() && permissionsService.crud?.user.create) {
+@if ((activeMember === null || activeMember.id) && canEdit() && (permissionsService.crud | async)?.user.create) {
     <natural-fixed-button icon="add" (click)="add()" />
 }

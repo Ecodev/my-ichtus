@@ -245,7 +245,7 @@
                             [main]="data.model"
                             [service]="licenseService"
                             [filter]="{groups: [{conditions: [{users: {have: {values: [data.model.id]}}}]}]}"
-                            [disabled]="!permissionsService.crud?.license.create"
+                            [disabled]="!(permissionsService.crud | async)?.license.create"
                         >
                             <ng-template let-item="item">
                                 <natural-table-button [navigate]="['/admin/license/', item.id]" [label]="item.name" />
@@ -259,7 +259,7 @@
                             [main]="data.model"
                             [service]="userTagService"
                             [filter]="{groups: [{conditions: [{users: {have: {values: [data.model.id]}}}]}]}"
-                            [disabled]="!permissionsService.crud?.userTag.create"
+                            [disabled]="!(permissionsService.crud | async)?.userTag.create"
                         >
                             <ng-template let-item="item">
                                 <div class="nat-horizontal nat-align nat-gap-10">

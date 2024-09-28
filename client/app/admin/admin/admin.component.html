@@ -137,10 +137,10 @@
                             >
                             <a mat-list-item routerLinkActive="active" routerLink="license">Certifications</a>
                             <a mat-list-item routerLinkActive="active" routerLink="bookable-tag">Tags de réservables</a>
-                            @if (permissionsService.crud?.configuration?.create) {
+                            @if ((permissionsService.crud | async)?.configuration?.create) {
                                 <a mat-list-item routerLinkActive="active" routerLink="support">Guide / Support</a>
                             }
-                            @if (permissionsService.crud?.configuration?.create) {
+                            @if ((permissionsService.crud | async)?.configuration?.create) {
                                 <a mat-list-item routerLinkActive="active" routerLink="announcement">Annonce</a>
                             }
                             <a mat-list-item routerLinkActive="active" routerLink="log">Activité</a>
@@ -161,7 +161,7 @@
                                     >Frais, remboursements et factures</a
                                 >
                             }
-                            @if (permissionsService.crud?.transaction?.create) {
+                            @if ((permissionsService.crud | async)?.transaction?.create) {
                                 <a mat-list-item routerLinkActive="active" routerLink="import">Import BVR</a>
                             }
                             <a mat-list-item routerLinkActive="active" routerLink="transaction-tag">Tags</a>

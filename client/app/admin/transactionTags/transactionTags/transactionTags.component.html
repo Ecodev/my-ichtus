@@ -77,6 +77,6 @@
     </div>
 }
 
-@if (permissionsService.crud?.transactionTag.create) {
+@if ((permissionsService.crud | async)?.transactionTag.create) {
     <natural-fixed-button icon="add" [routerLink]="['/admin/transaction-tag/new']" />
 }

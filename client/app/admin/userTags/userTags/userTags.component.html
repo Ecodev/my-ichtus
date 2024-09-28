@@ -67,6 +67,6 @@
     </div>
 }
 
-@if (permissionsService.crud?.userTag.create) {
+@if ((permissionsService.crud | async)?.userTag.create) {
     <natural-fixed-button icon="add" [routerLink]="['/admin/user-tag/new']" />
 }

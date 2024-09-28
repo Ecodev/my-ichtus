@@ -10,7 +10,7 @@ import {
     NaturalSearchComponent,
     NaturalTableButtonComponent,
 } from '@ecodev/natural';
-import {DatePipe} from '@angular/common';
+import {AsyncPipe, DatePipe} from '@angular/common';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {
@@ -52,6 +52,7 @@ import {MatTableModule} from '@angular/material/table';
         NaturalFixedButtonComponent,
         RouterLink,
         DatePipe,
+        AsyncPipe,
     ],
 })
 export class TransactionLinesComponent extends NaturalAbstractList<TransactionLineService> implements OnInit {
