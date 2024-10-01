@@ -38,7 +38,7 @@ class RunningServicesOperatorTypeTest extends OperatorType
         $administrator = new User(User::ROLE_ADMINISTRATOR);
         User::setCurrent($administrator);
         $values = [
-            'user' => $this->idsToEntityIds(User::class, [$userId])[0],
+            'user' => $this->idToEntityId(User::class, $userId),
         ];
         $actual = $this->getFilteredResult(Booking::class, 'custom', 'runningServices', $values);
         self::assertCount($expected, $actual);
