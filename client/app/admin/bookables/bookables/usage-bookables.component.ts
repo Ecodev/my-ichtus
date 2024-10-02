@@ -14,7 +14,7 @@ import {
 import {CommonModule, DatePipe} from '@angular/common';
 import {UsageBookables} from '../../../shared/generated-types';
 import {BookingService} from '../../bookings/services/booking.service';
-import {switchMap, takeUntil} from 'rxjs/operators';
+import {switchMap} from 'rxjs/operators';
 import {UserService} from '../../users/services/user.service';
 import {ParentComponent} from './parent.component';
 import {of} from 'rxjs';
@@ -28,6 +28,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-usage-bookables',
@@ -94,7 +95,7 @@ export class UsageBookablesComponent extends ParentComponent<UsageBookableServic
 
         this.futureOwner$
             .pipe(
-                takeUntil(this.ngUnsubscribe),
+                takeUntilDestroyed(this.destroyRef),
                 switchMap(futureOwner =>
                     futureOwner ? this.userService.getPendingApplications(futureOwner) : of({items: []}),
                 ),

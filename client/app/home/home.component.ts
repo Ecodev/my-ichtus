@@ -1,21 +1,21 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, DestroyRef, Inject, inject, OnInit} from '@angular/core';
 import {UserService} from '../admin/users/services/user.service';
 import {
     LOCAL_STORAGE,
-    NaturalAbstractController,
+    NaturalAvatarComponent,
+    NaturalIconDirective,
     NaturalSidenavContainerComponent,
     NaturalSidenavStackService,
     NaturalStorage,
-    NaturalIconDirective,
-    NaturalAvatarComponent,
 } from '@ecodev/natural';
-import {filter, switchMap, takeUntil} from 'rxjs/operators';
+import {filter, switchMap} from 'rxjs/operators';
 import {ActivatedRoute, Router, RouterLink, RouterOutlet} from '@angular/router';
 import {ConfigurationService} from '../admin/configurations/services/configuration.service';
 import {FormsModule} from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-home',
@@ -33,7 +33,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
         RouterOutlet,
     ],
 })
-export class HomeComponent extends NaturalAbstractController implements OnInit {
+export class HomeComponent implements OnInit {
+    private readonly destroyRef = inject(DestroyRef);
     public menu: NaturalSidenavContainerComponent | undefined;
 
     /**
@@ -50,16 +51,14 @@ export class HomeComponent extends NaturalAbstractController implements OnInit {
         public readonly route: ActivatedRoute,
         private readonly configurationService: ConfigurationService,
         private readonly naturalSidenavStackService: NaturalSidenavStackService,
-    ) {
-        super();
-    }
+    ) {}
 
     public ngOnInit(): void {
         const announcementConfigKey = 'announcement-text';
         this.configurationService
             .get('announcement-active')
             .pipe(
-                takeUntil(this.ngUnsubscribe),
+                takeUntilDestroyed(this.destroyRef),
                 filter(active => !!active),
                 switchMap(() => {
                     this.announcementActive = true;
@@ -77,7 +76,7 @@ export class HomeComponent extends NaturalAbstractController implements OnInit {
             });
 
         this.naturalSidenavStackService.currentSidenav
-            .pipe(takeUntil(this.ngUnsubscribe))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(sidenav => setTimeout(() => (this.menu = sidenav)));
     }
 

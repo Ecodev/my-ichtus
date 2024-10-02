@@ -127,7 +127,7 @@ export class TransactionComponent
             this.updateTransactionLines = true;
         }
 
-        cancellableTimeout(this.ngUnsubscribe).subscribe(() => {
+        cancellableTimeout(this.destroyRef).subscribe(() => {
             const expenseClaim = this.data.expenseClaim;
             const duplicatedTransaction = this.data.duplicatedTransaction;
 

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DoorService} from './services/door.service';
-import {Literal, NaturalAbstractController, NaturalAlertService} from '@ecodev/natural';
+import {Literal, NaturalAlertService} from '@ecodev/natural';
 import {UserService} from '../admin/users/services/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {CurrentUserForProfile} from '../shared/generated-types';
@@ -15,7 +15,7 @@ import {CardComponent} from '../shared/components/card/card.component';
     standalone: true,
     imports: [CardComponent, MatButtonModule, MatIconModule],
 })
-export class DoorComponent extends NaturalAbstractController implements OnInit {
+export class DoorComponent implements OnInit {
     public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
 
     public constructor(
@@ -23,9 +23,7 @@ export class DoorComponent extends NaturalAbstractController implements OnInit {
         private readonly userService: UserService,
         private readonly alertService: NaturalAlertService,
         private readonly route: ActivatedRoute,
-    ) {
-        super();
-    }
+    ) {}
 
     public open(door: Literal): void {
         this.doorService.open({door: door.id}).subscribe({

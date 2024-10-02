@@ -1,14 +1,14 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, Input, OnInit} from '@angular/core';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
-import {NaturalAbstractController, NaturalDataSource} from '@ecodev/natural';
+import {NaturalDataSource} from '@ecodev/natural';
 import {CurrentUserForProfile, TransactionLines} from '../../../shared/generated-types';
-import {takeUntil} from 'rxjs/operators';
 import {TransactionAmountComponent} from '../../../shared/components/transaction-amount/transaction-amount.component';
 import {MatTableModule} from '@angular/material/table';
 import {CommonModule} from '@angular/common';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-history',
@@ -17,7 +17,8 @@ import {CommonModule} from '@angular/common';
     standalone: true,
     imports: [CommonModule, MatTableModule, TransactionAmountComponent],
 })
-export class HistoryComponent extends NaturalAbstractController implements OnInit {
+export class HistoryComponent implements OnInit {
+    private readonly destroyRef = inject(DestroyRef);
     @Input({required: true}) public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
 
     public transactionLinesDS!: NaturalDataSource<TransactionLines['transactionLines']>;
@@ -28,9 +29,7 @@ export class HistoryComponent extends NaturalAbstractController implements OnIni
         private readonly route: ActivatedRoute,
         private readonly expenseClaimService: ExpenseClaimService,
         private readonly transactionLineService: TransactionLineService,
-    ) {
-        super();
-    }
+    ) {}
 
     public ngOnInit(): void {
         this.viewer = this.route.snapshot.data.viewer;
@@ -38,7 +37,7 @@ export class HistoryComponent extends NaturalAbstractController implements OnIni
         if (this.viewer.account) {
             const transactionLinesQuery = this.transactionLineService
                 .getForAccount(this.viewer.account)
-                .pipe(takeUntil(this.ngUnsubscribe));
+                .pipe(takeUntilDestroyed(this.destroyRef));
             this.transactionLinesDS = new NaturalDataSource<TransactionLines['transactionLines']>(
                 transactionLinesQuery,
             );

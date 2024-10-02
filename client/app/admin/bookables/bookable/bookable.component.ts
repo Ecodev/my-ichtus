@@ -32,7 +32,7 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 import {ImageService} from '../services/image.service';
 import {accountHierarchicConfiguration} from '../../../shared/hierarchic-selector/AccountHierarchicConfiguration';
-import {Observable, of, takeUntil} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
 import {
     availableColumnsForBookingsWithOwnerOnlyTrainers,
@@ -50,6 +50,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatButtonModule} from '@angular/material/button';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-bookable',
@@ -108,7 +109,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
             const bookingType = this.form.controls.bookingType;
             const simultaneousBookingMaximum = this.form.controls.simultaneousBookingMaximum;
             bookingType.valueChanges
-                .pipe(takeUntil(this.ngUnsubscribe))
+                .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe(value => simultaneousBookingMaximum.setValue(value === BookingType.SelfApproved ? 1 : -1));
         }
 

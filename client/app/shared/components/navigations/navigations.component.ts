@@ -16,7 +16,6 @@ import {
     UsersVariables,
 } from '../../generated-types';
 import {
-    NaturalAbstractController,
     NaturalAlertService,
     NaturalAvatarComponent,
     NaturalIconDirective,
@@ -89,7 +88,7 @@ function bookingsToExtended(bookings: Bookings['bookings']): PaginatedExtendedBo
         DatePipe,
     ],
 })
-export class NavigationsComponent extends NaturalAbstractController implements OnInit {
+export class NavigationsComponent implements OnInit {
     @Input({required: true}) public user!: NonNullable<CurrentUserForProfile['viewer']>;
     @Input() public activeOnly = true;
     @Input() public showEmptyMessage = false;
@@ -107,9 +106,7 @@ export class NavigationsComponent extends NaturalAbstractController implements O
         private readonly alertService: NaturalAlertService,
         private readonly dialog: MatDialog,
         private readonly snackbar: MatSnackBar,
-    ) {
-        super();
-    }
+    ) {}
 
     public ngOnInit(): void {
         const qvm = new NaturalQueryVariablesManager<UsersVariables>();
