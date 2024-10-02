@@ -1,4 +1,4 @@
-import {Component, Inject, ViewChild} from '@angular/core';
+import {Component, ViewChild, inject} from '@angular/core';
 import {ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
 import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -32,6 +32,8 @@ export type ProvisionData = {
     ],
 })
 export class ProvisionComponent {
+    public readonly data = inject<ProvisionData>(MAT_DIALOG_DATA);
+
     /**
      * Minimum payment amount
      * Positive number at the payment is always positive
@@ -46,7 +48,9 @@ export class ProvisionComponent {
     @ViewChild(BvrComponent)
     private bvr!: BvrComponent;
 
-    public constructor(@Inject(MAT_DIALOG_DATA) public readonly data: ProvisionData) {
+    public constructor() {
+        const data = this.data;
+
         this.bvrData = {
             user: data.user.id,
         };

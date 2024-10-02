@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import {NonNullableFormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {money} from '@ecodev/natural';
@@ -23,6 +23,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     ],
 })
 export class CreateRefundComponent {
+    private readonly fb = inject(NonNullableFormBuilder);
+
     /**
      * Form for ExpenseClaimInput
      */
@@ -31,6 +33,4 @@ export class CreateRefundComponent {
         name: ['Demande de remboursement', [Validators.required, Validators.maxLength(50)]],
         description: ['', []],
     });
-
-    public constructor(private readonly fb: NonNullableFormBuilder) {}
 }

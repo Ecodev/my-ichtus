@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {
     DropdownFacet,
     FlagFacet,
@@ -67,6 +67,17 @@ function prefixOperatorWithField(selection: NaturalSearchSelection): NaturalSear
     providedIn: 'root',
 })
 export class NaturalSearchFacetsService {
+    private readonly enumService = inject(NaturalEnumService);
+    private readonly userTagService = inject(UserTagService);
+    private readonly transactionService = inject(TransactionService);
+    private readonly transactionTagService = inject(TransactionTagService);
+    private readonly bookableService = inject(BookableService);
+    private readonly bookableTagService = inject(BookableTagService);
+    private readonly accountService = inject(AccountService);
+    private readonly userService = inject(UserService);
+    private readonly licenceService = inject(LicenseService);
+    private readonly expenseClaimService = inject(ExpenseClaimService);
+
     private readonly userTags: DropdownFacet<TypeSelectNaturalConfiguration<UserTagService>> = {
         display: 'Tags',
         field: 'userTags',
@@ -699,19 +710,6 @@ export class NaturalSearchFacetsService {
         ],
         logs: [this.creationDate, this.creator, this.message],
     };
-
-    public constructor(
-        private readonly enumService: NaturalEnumService,
-        private readonly userTagService: UserTagService,
-        private readonly transactionService: TransactionService,
-        private readonly transactionTagService: TransactionTagService,
-        private readonly bookableService: BookableService,
-        private readonly bookableTagService: BookableTagService,
-        private readonly accountService: AccountService,
-        private readonly userService: UserService,
-        private readonly licenceService: LicenseService,
-        private readonly expenseClaimService: ExpenseClaimService,
-    ) {}
 
     /**
      * Returns the natural search configuration for given, or null if non-existent

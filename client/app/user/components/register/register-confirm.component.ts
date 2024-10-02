@@ -1,14 +1,11 @@
-import {Apollo} from 'apollo-angular';
-import {Component, OnInit} from '@angular/core';
-import {available, deliverableEmail, NaturalAlertService, NaturalIconDirective, relationsToIds} from '@ecodev/natural';
+import {Component, inject, OnInit} from '@angular/core';
+import {available, deliverableEmail, NaturalIconDirective, relationsToIds} from '@ecodev/natural';
 import {pick} from 'lodash-es';
 import {RegisterComponent} from './register.component';
-import {FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {loginValidator, UserService} from '../../../admin/users/services/user.service';
-import {ActivatedRoute, Router} from '@angular/router';
 import {UserByTokenResolve} from '../../../admin/users/user';
 import {ConfirmRegistrationVariables, UserByToken} from '../../../shared/generated-types';
-import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTableModule} from '@angular/material/table';
@@ -44,16 +41,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     ],
 })
 export class RegisterConfirmComponent extends RegisterComponent implements OnInit {
-    public constructor(
-        apollo: Apollo,
-        route: ActivatedRoute,
-        fb: NonNullableFormBuilder,
-        router: Router,
-        alertService: NaturalAlertService,
-        bookableService: BookableService,
-        private readonly userService: UserService,
-    ) {
-        super(apollo, route, fb, router, alertService, bookableService);
+    private readonly userService = inject(UserService);
+
+    public constructor() {
+        super();
         this.step = 2;
     }
 

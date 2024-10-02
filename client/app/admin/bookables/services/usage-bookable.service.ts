@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {bookableQuery, createBookable, deleteBookables, updateBookable, usageBookablesQuery} from './bookable.queries';
 import {
     Bookable,
@@ -33,7 +33,9 @@ export class UsageBookableService extends NaturalAbstractModelService<
     DeleteBookables,
     DeleteBookablesVariables
 > {
-    public constructor(protected readonly bookingService: BookingService) {
+    protected readonly bookingService = inject(BookingService);
+
+    public constructor() {
         super('bookable', bookableQuery, usageBookablesQuery, createBookable, updateBookable, deleteBookables);
     }
 

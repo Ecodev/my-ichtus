@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {
     NaturalAbstractDetail,
     NaturalDetailHeaderComponent,
@@ -62,17 +62,20 @@ export class ExpenseClaimComponent
     extends NaturalAbstractDetail<ExpenseClaimService, NaturalSeoResolveData>
     implements OnInit
 {
+    public readonly expenseClaimService: ExpenseClaimService;
+    public readonly userService = inject(UserService);
+    public readonly transactionLineService = inject(TransactionLineService);
+    public readonly permissionsService = inject(PermissionsService);
+
     public ExpenseClaimType = ExpenseClaimType;
     public ExpenseClaimStatus = ExpenseClaimStatus;
     public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
 
-    public constructor(
-        public readonly expenseClaimService: ExpenseClaimService,
-        public readonly userService: UserService,
-        public readonly transactionLineService: TransactionLineService,
-        public readonly permissionsService: PermissionsService,
-    ) {
+    public constructor() {
+        const expenseClaimService = inject(ExpenseClaimService);
+
         super('expenseClaim', expenseClaimService);
+        this.expenseClaimService = expenseClaimService;
     }
 
     public override ngOnInit(): void {

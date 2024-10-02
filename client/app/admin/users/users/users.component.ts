@@ -1,5 +1,5 @@
 import {Apollo} from 'apollo-angular';
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {
     AvailableColumn,
     Button,
@@ -19,7 +19,7 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
 import {UserService} from '../services/user.service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ProvisionComponent} from '../../../profile/components/provision/provision.component';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {RouterLink} from '@angular/router';
 import {finalize} from 'rxjs/operators';
 import {CopyContactDataButtonService} from '../../../shared/components/copy-contact-data/copy-contact-data-button.service';
 import {MatPaginatorModule} from '@angular/material/paginator';
@@ -55,6 +55,13 @@ import {MatTableModule} from '@angular/material/table';
     ],
 })
 export class UsersComponent extends NaturalAbstractList<UserService> implements OnInit {
+    private readonly userService: UserService;
+    public readonly permissionsService = inject(PermissionsService);
+    private readonly apollo = inject(Apollo);
+    private readonly dialog = inject(MatDialog);
+    private readonly copyContactDataButtonService =
+        inject<CopyContactDataButtonService<EmailAndPhoneUsersVariables>>(CopyContactDataButtonService);
+
     public override availableColumns: AvailableColumn[] = [
         {id: 'balance', label: 'Solde'},
         {id: 'name', label: 'Nom'},
@@ -80,16 +87,13 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
     public readonly activating = new Map<Users['users']['items'][0], true>();
     public readonly welcoming = new Map<Users['users']['items'][0], true>();
 
-    public constructor(
-        route: ActivatedRoute,
-        private readonly userService: UserService,
-        naturalSearchFacetsService: NaturalSearchFacetsService,
-        public readonly permissionsService: PermissionsService,
-        private readonly apollo: Apollo,
-        private readonly dialog: MatDialog,
-        private readonly copyContactDataButtonService: CopyContactDataButtonService<EmailAndPhoneUsersVariables>,
-    ) {
+    public constructor() {
+        const userService = inject(UserService);
+        const naturalSearchFacetsService = inject(NaturalSearchFacetsService);
+
         super(userService);
+        this.userService = userService;
+
         this.naturalSearchFacets = naturalSearchFacetsService.get('users');
     }
 

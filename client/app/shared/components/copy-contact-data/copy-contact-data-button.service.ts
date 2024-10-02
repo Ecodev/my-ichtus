@@ -1,4 +1,4 @@
-import {Inject, Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {Button, copyToClipboard, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {
     BookingsWithOwnerContact,
@@ -19,16 +19,14 @@ export type ContactType = 'bookingsWithOwnerContact' | 'emailAndPhoneUsers';
     providedIn: 'root',
 })
 export class CopyContactDataButtonService<V extends EmailAndPhoneUsersVariables | BookingsWithOwnerContactVariables> {
+    private readonly apollo = inject(Apollo);
+    private readonly document = inject<Document>(DOCUMENT);
+
     private type!: ContactType;
     private variablesManager!: NaturalQueryVariablesManager<V>;
     private usersEmail: string | null = null;
     private usersEmailAndName: string | null = null;
     private usersPhoneAndName: string | null = null;
-
-    public constructor(
-        private readonly apollo: Apollo,
-        @Inject(DOCUMENT) private readonly document: Document,
-    ) {}
 
     public getButtons(variablesManager: NaturalQueryVariablesManager<V>, type: ContactType): Button[] {
         this.variablesManager = variablesManager;

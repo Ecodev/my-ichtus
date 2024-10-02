@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, inject} from '@angular/core';
 import {NavigationEnd, RouterLink} from '@angular/router';
 import {
     cancellableTimeout,
@@ -91,6 +91,11 @@ export class TransactionComponent
     >
     implements OnInit
 {
+    private readonly transactionService: TransactionService;
+    public readonly bookableService = inject(BookableService);
+    public readonly transactionLineService = inject(TransactionLineService);
+    public readonly userService = inject(UserService);
+
     @ViewChild(EditableTransactionLinesComponent) public transactionLinesComponent!: EditableTransactionLinesComponent;
     @ViewChild('transactionDocuments', {static: true}) private accountingDocuments!: AccountingDocumentsComponent;
 
@@ -104,13 +109,11 @@ export class TransactionComponent
     public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
     public transactionLines: EditableTransactionLinesInput = {mode: 'empty'};
 
-    public constructor(
-        private readonly transactionService: TransactionService,
-        public readonly bookableService: BookableService,
-        public readonly transactionLineService: TransactionLineService,
-        public readonly userService: UserService,
-    ) {
+    public constructor() {
+        const transactionService = inject(TransactionService);
+
         super('transaction', transactionService);
+        this.transactionService = transactionService;
     }
 
     public override ngOnInit(): void {

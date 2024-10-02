@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {SafetyBookingService} from './safety-booking.service';
 import {NaturalSearchFacetsService} from '../shared/natural-search/natural-search-facets.service';
 import {PermissionsService} from '../shared/services/permissions.service';
@@ -55,11 +55,12 @@ import {CommonModule, DatePipe} from '@angular/common';
     ],
 })
 export class SafetyComponent extends AbstractBookings<SafetyBookingService> {
-    public constructor(
-        safetyBookingService: SafetyBookingService,
-        naturalSearchFacetsService: NaturalSearchFacetsService,
-        public readonly permissionsService: PermissionsService,
-    ) {
+    public readonly permissionsService = inject(PermissionsService);
+
+    public constructor() {
+        const safetyBookingService = inject(SafetyBookingService);
+        const naturalSearchFacetsService = inject(NaturalSearchFacetsService);
+
         super(safetyBookingService);
         this.naturalSearchFacets = naturalSearchFacetsService.get('bookings');
     }

@@ -18,18 +18,16 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     imports: [CommonModule, MatTableModule, TransactionAmountComponent],
 })
 export class HistoryComponent implements OnInit {
+    private readonly userService = inject(UserService);
+    private readonly route = inject(ActivatedRoute);
+    private readonly expenseClaimService = inject(ExpenseClaimService);
+    private readonly transactionLineService = inject(TransactionLineService);
+
     private readonly destroyRef = inject(DestroyRef);
     @Input({required: true}) public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
 
     public transactionLinesDS!: NaturalDataSource<TransactionLines['transactionLines']>;
     public transactionsColumns = ['name', 'bookable', 'transactionDate', 'remarks', 'amount'];
-
-    public constructor(
-        private readonly userService: UserService,
-        private readonly route: ActivatedRoute,
-        private readonly expenseClaimService: ExpenseClaimService,
-        private readonly transactionLineService: TransactionLineService,
-    ) {}
 
     public ngOnInit(): void {
         this.viewer = this.route.snapshot.data.viewer;

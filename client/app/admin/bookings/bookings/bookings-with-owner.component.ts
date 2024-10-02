@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {BookingWithOwnerService} from '../services/booking-with-owner.service';
@@ -59,17 +59,19 @@ import {MatTableModule} from '@angular/material/table';
     ],
 })
 export class BookingsWithOwnerComponent extends AbstractBookings<BookingWithOwnerService> {
+    public readonly permissionsService = inject(PermissionsService);
+    private readonly copyContactDataButtonService =
+        inject<CopyContactDataButtonService<BookingsWithOwnerContactVariables>>(CopyContactDataButtonService);
+
     public override readonly buttons: Button[] = this.copyContactDataButtonService.getButtons(
         this.variablesManager,
         'bookingsWithOwnerContact',
     );
 
-    public constructor(
-        bookingWithOwnerService: BookingWithOwnerService,
-        naturalSearchFacetsService: NaturalSearchFacetsService,
-        public readonly permissionsService: PermissionsService,
-        private readonly copyContactDataButtonService: CopyContactDataButtonService<BookingsWithOwnerContactVariables>,
-    ) {
+    public constructor() {
+        const bookingWithOwnerService = inject(BookingWithOwnerService);
+        const naturalSearchFacetsService = inject(NaturalSearchFacetsService);
+
         super(bookingWithOwnerService);
         this.naturalSearchFacets = naturalSearchFacetsService.get('bookingsForBookable');
     }

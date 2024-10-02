@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {
     NaturalAbstractDetail,
     NaturalDetailHeaderComponent,
@@ -59,15 +59,18 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     ],
 })
 export class AccountComponent extends NaturalAbstractDetail<AccountService, NaturalSeoResolveData> implements OnInit {
+    public readonly accountService: AccountService;
+    public readonly userService = inject(UserService);
+
     public nextCodeAvailable: number | null = null;
     public accountHierarchicConfig = groupAccountHierarchicConfiguration;
     public readonly AccountType = AccountType;
 
-    public constructor(
-        public readonly accountService: AccountService,
-        public readonly userService: UserService,
-    ) {
+    public constructor() {
+        const accountService = inject(AccountService);
+
         super('account', accountService);
+        this.accountService = accountService;
     }
 
     public override ngOnInit(): void {

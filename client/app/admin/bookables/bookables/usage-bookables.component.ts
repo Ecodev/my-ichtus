@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, inject} from '@angular/core';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {UsageBookableService} from '../services/usage-bookable.service';
@@ -55,6 +55,9 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     ],
 })
 export class UsageBookablesComponent extends ParentComponent<UsageBookableService> implements OnInit {
+    public readonly permissionsService = inject(PermissionsService);
+    private readonly userService = inject(UserService);
+
     @Output() public readonly bookableClick = new EventEmitter<UsageBookables['bookables']['items'][0]>();
 
     @Input()
@@ -68,15 +71,13 @@ export class UsageBookablesComponent extends ParentComponent<UsageBookableServic
     public override readonly hasUsage = true;
     private searchInitialized = false;
 
-    public constructor(
-        usageBookableService: UsageBookableService,
-        naturalSearchFacetsService: NaturalSearchFacetsService,
-        public readonly permissionsService: PermissionsService,
-        private readonly userService: UserService,
-        dialog: MatDialog,
-        snackbar: MatSnackBar,
-        bookingService: BookingService,
-    ) {
+    public constructor() {
+        const usageBookableService = inject(UsageBookableService);
+        const naturalSearchFacetsService = inject(NaturalSearchFacetsService);
+        const dialog = inject(MatDialog);
+        const snackbar = inject(MatSnackBar);
+        const bookingService = inject(BookingService);
+
         super(usageBookableService, dialog, snackbar, bookingService);
 
         if (this.route.snapshot.data.isAdmin) {

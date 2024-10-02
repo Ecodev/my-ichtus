@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
 import {FocusDirective} from '../../../shared/directives/focus';
@@ -12,9 +12,9 @@ import {FormsModule} from '@angular/forms';
     imports: [FormsModule, FocusDirective, MatButtonModule, RouterLink],
 })
 export class CodeInputComponent {
-    public code = '';
+    private readonly router = inject(Router);
 
-    public constructor(private readonly router: Router) {}
+    public code = '';
 
     public goToBookable(code: string): void {
         this.router.navigate(['/booking', code]);

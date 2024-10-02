@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {
     NaturalAbstractDetail,
     NaturalDetailHeaderComponent,
@@ -38,10 +38,11 @@ import {MatDividerModule} from '@angular/material/divider';
     ],
 })
 export class UserTagComponent extends NaturalAbstractDetail<UserTagService, NaturalSeoResolveData> {
-    public constructor(
-        userTagService: UserTagService,
-        public readonly userService: UserService,
-    ) {
+    public readonly userService = inject(UserService);
+
+    public constructor() {
+        const userTagService = inject(UserTagService);
+
         super('userTag', userTagService);
     }
 }

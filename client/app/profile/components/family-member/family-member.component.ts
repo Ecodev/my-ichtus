@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, inject} from '@angular/core';
 import {CreateUser, CurrentUserForProfile, UpdateUser, Users} from '../../../shared/generated-types';
 import {
     NaturalAbstractDetail,
@@ -49,7 +49,9 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
     @Output() public readonly updated = new EventEmitter<UpdateUser['updateUser']>();
     public loaded = false;
 
-    public constructor(userService: FamilyUserService) {
+    public constructor() {
+        const userService = inject(FamilyUserService);
+
         super('user', userService);
     }
 

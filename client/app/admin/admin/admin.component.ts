@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {PermissionsService} from '../../shared/services/permissions.service';
 import {ActivatedRoute, NavigationEnd, Router, RouterLinkActive, RouterLink, RouterOutlet} from '@angular/router';
 import {UserRole} from '../../shared/generated-types';
@@ -30,16 +30,17 @@ import {AsyncPipe} from '@angular/common';
     ],
 })
 export class AdminComponent {
+    public readonly permissionsService = inject(PermissionsService);
+    public readonly route = inject(ActivatedRoute);
+
     public adminUserRouteActive = false;
     public adminBookableRouteActive = false;
     public adminBookingRouteActive = false;
     public UserRole = UserRole;
 
-    public constructor(
-        router: Router,
-        public readonly permissionsService: PermissionsService,
-        public readonly route: ActivatedRoute,
-    ) {
+    public constructor() {
+        const router = inject(Router);
+
         // Update active route status
         router.events.pipe(takeUntilDestroyed()).subscribe(e => {
             if (!(e instanceof NavigationEnd)) {

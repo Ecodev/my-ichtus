@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, QueryList, ViewChildren, inject} from '@angular/core';
 import {CurrentUserForProfile, UpdateUser, Users, UsersVariables} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -26,6 +26,12 @@ import {AsyncPipe} from '@angular/common';
     ],
 })
 export class FamilyComponent implements OnInit {
+    public readonly userService = inject(UserService);
+    private readonly route = inject(ActivatedRoute);
+    private readonly alertService = inject(NaturalAlertService);
+    public readonly permissionsService = inject(PermissionsService);
+    private readonly changeDetectorRef = inject(ChangeDetectorRef);
+
     public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
     public familyMembers: Users['users']['items'][0][] = [];
 
@@ -34,14 +40,6 @@ export class FamilyComponent implements OnInit {
      */
     public activeMember: Users['users']['items'][0] | null = null;
     @ViewChildren(MatExpansionPanel) private readonly expansionPanels!: QueryList<MatExpansionPanel>;
-
-    public constructor(
-        public readonly userService: UserService,
-        private readonly route: ActivatedRoute,
-        private readonly alertService: NaturalAlertService,
-        public readonly permissionsService: PermissionsService,
-        private readonly changeDetectorRef: ChangeDetectorRef,
-    ) {}
 
     public ngOnInit(): void {
         this.viewer = this.route.snapshot.data.viewer;

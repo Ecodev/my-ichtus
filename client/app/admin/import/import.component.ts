@@ -1,5 +1,5 @@
 import {Apollo, gql} from 'apollo-angular';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {PermissionsService} from '../../shared/services/permissions.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ImportCamt, ImportCamtVariables} from '../../shared/generated-types';
@@ -23,6 +23,12 @@ import {AsyncPipe} from '@angular/common';
     imports: [MatButtonModule, NaturalFileSelectDirective, MatIconModule, NaturalIconDirective, AsyncPipe],
 })
 export class ImportComponent implements OnInit {
+    private readonly route = inject(ActivatedRoute);
+    private readonly router = inject(Router);
+    public readonly permissionsService = inject(PermissionsService);
+    private readonly apollo = inject(Apollo);
+    private readonly alertService = inject(NaturalAlertService);
+
     /**
      * Data attribute provided by activated route snapshot
      */
@@ -30,14 +36,6 @@ export class ImportComponent implements OnInit {
 
     public importing = false;
     public error: Error | null = null;
-
-    public constructor(
-        private readonly route: ActivatedRoute,
-        private readonly router: Router,
-        public readonly permissionsService: PermissionsService,
-        private readonly apollo: Apollo,
-        private readonly alertService: NaturalAlertService,
-    ) {}
 
     public ngOnInit(): void {
         this.routeData = this.route.snapshot.data as NaturalSeoResolveData;

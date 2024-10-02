@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {
     AvailableColumn,
     Button,
@@ -66,6 +66,12 @@ type AccountingExportDialogResult = {
     ],
 })
 export class AccountsComponent extends NaturalAbstractNavigableList<AccountService> implements OnInit {
+    private readonly accountService: AccountService;
+    private readonly dialog = inject(MatDialog);
+    public readonly permissionsService = inject(PermissionsService);
+    public readonly transactionLineService = inject(TransactionLineService);
+    public readonly userService = inject(UserService);
+
     public override availableColumns: AvailableColumn[] = [
         {id: 'navigation', label: 'Navigation'},
         {id: 'code', label: 'Code'},
@@ -107,15 +113,13 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
         maxWidth: '60vw',
     };
 
-    public constructor(
-        naturalSearchFacetsService: NaturalSearchFacetsService,
-        private readonly accountService: AccountService,
-        private readonly dialog: MatDialog,
-        public readonly permissionsService: PermissionsService,
-        public readonly transactionLineService: TransactionLineService,
-        public readonly userService: UserService,
-    ) {
+    public constructor() {
+        const naturalSearchFacetsService = inject(NaturalSearchFacetsService);
+        const accountService = inject(AccountService);
+
         super(accountService);
+        this.accountService = accountService;
+
         this.naturalSearchFacets = naturalSearchFacetsService.get('accounts');
     }
 

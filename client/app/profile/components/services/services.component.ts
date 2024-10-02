@@ -39,6 +39,11 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     ],
 })
 export class ServicesComponent implements OnInit, OnChanges {
+    private readonly userService = inject(UserService);
+    public readonly route = inject(ActivatedRoute);
+    private readonly alertService = inject(NaturalAlertService);
+    private readonly bookingService = inject(BookingService);
+
     private readonly destroyRef = inject(DestroyRef);
     @Input({required: true}) public user!: NonNullable<CurrentUserForProfile['viewer']>;
 
@@ -50,13 +55,6 @@ export class ServicesComponent implements OnInit, OnChanges {
     public servicesColumns = ['name', 'initialPrice', 'periodicPrice', 'revoke'];
     public applicationsColumns = ['name', 'startDate', 'remarks', 'initialPrice', 'periodicPrice', 'cancel'];
     public readonly deleting = new Map<Bookings['bookings']['items'][0]['id'], true>();
-
-    public constructor(
-        private readonly userService: UserService,
-        public readonly route: ActivatedRoute,
-        private readonly alertService: NaturalAlertService,
-        private readonly bookingService: BookingService,
-    ) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
         const previousUser = changes.user?.previousValue;

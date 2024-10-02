@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, inject} from '@angular/core';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {BookableService} from '../../bookables/services/bookable.service';
 import {TransactionLineInput, TransactionLines} from '../../../shared/generated-types';
@@ -52,6 +52,9 @@ export class EditableTransactionLinesComponent extends NaturalAbstractEditableLi
     TransactionLineService,
     TransactionLines['transactionLines']['items'][0] | TransactionLineInput
 > {
+    public readonly transactionTagService = inject(TransactionTagService);
+    public readonly bookableService = inject(BookableService);
+
     @Input({required: true})
     public set input(value: EditableTransactionLinesInput) {
         this.input$.next(value);
@@ -72,11 +75,9 @@ export class EditableTransactionLinesComponent extends NaturalAbstractEditableLi
         'remove',
     ];
 
-    public constructor(
-        transactionLineService: TransactionLineService,
-        public readonly transactionTagService: TransactionTagService,
-        public readonly bookableService: BookableService,
-    ) {
+    public constructor() {
+        const transactionLineService = inject(TransactionLineService);
+
         super(transactionLineService);
 
         this.input$

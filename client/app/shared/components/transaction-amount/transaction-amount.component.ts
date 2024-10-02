@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, inject} from '@angular/core';
 import {AccountType, MinimalAccount, TransactionLine} from '../../generated-types';
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
 import {RouterLink} from '@angular/router';
@@ -13,6 +13,8 @@ import {CommonModule} from '@angular/common';
     imports: [CommonModule, MatTooltipModule, RouterLink],
 })
 export class TransactionAmountComponent implements OnChanges {
+    public readonly transactionLineService = inject(TransactionLineService);
+
     @Input() public transactionLine: TransactionLine['transactionLine'] | null = null;
 
     /**
@@ -23,8 +25,6 @@ export class TransactionAmountComponent implements OnChanges {
     @Output() public readonly accountClick = new EventEmitter<MinimalAccount>();
 
     public isIncome: boolean | null = null;
-
-    public constructor(public readonly transactionLineService: TransactionLineService) {}
 
     public ngOnChanges(): void {
         const account = this.relativeToAccount;

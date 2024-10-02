@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {
     AvailableColumn,
     NaturalAbstractList,
@@ -39,14 +39,15 @@ import {AsyncPipe} from '@angular/common';
     ],
 })
 export class BookableTagsComponent extends NaturalAbstractList<BookableTagService> implements OnInit {
+    public readonly permissionsService = inject(PermissionsService);
+
     public override availableColumns: AvailableColumn[] = [
         {id: 'color', label: 'Couleur'},
         {id: 'name', label: 'Nom'},
     ];
-    public constructor(
-        bookableTagService: BookableTagService,
-        public readonly permissionsService: PermissionsService,
-    ) {
+    public constructor() {
+        const bookableTagService = inject(BookableTagService);
+
         super(bookableTagService);
     }
 }

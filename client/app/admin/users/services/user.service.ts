@@ -1,5 +1,5 @@
 import {gql} from 'apollo-angular';
-import {Inject, Injectable, OnDestroy} from '@angular/core';
+import {Injectable, OnDestroy, inject} from '@angular/core';
 import {FormControl, ValidationErrors, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {
@@ -105,6 +105,12 @@ export class UserService
     >
     implements OnDestroy
 {
+    protected readonly router = inject(Router);
+    protected readonly bookingService = inject(BookingService);
+    private readonly permissionsService = inject(PermissionsService);
+    protected readonly pricedBookingService = inject(PricedBookingService);
+    private readonly storage = inject<NaturalStorage>(LOCAL_STORAGE);
+
     /**
      * Should be used only by getViewer and cacheViewer
      */
@@ -117,13 +123,7 @@ export class UserService
     private readonly storageKey = 'viewer';
     private readonly onDestroy = new Subject<void>();
 
-    public constructor(
-        protected readonly router: Router,
-        protected readonly bookingService: BookingService,
-        private readonly permissionsService: PermissionsService,
-        protected readonly pricedBookingService: PricedBookingService,
-        @Inject(LOCAL_STORAGE) private readonly storage: NaturalStorage,
-    ) {
+    public constructor() {
         super('user', userQuery, usersQuery, createUser, updateUser, null);
         this.keepViewerSyncedAcrossBrowserTabs();
     }

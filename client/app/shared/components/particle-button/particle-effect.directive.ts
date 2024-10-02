@@ -1,4 +1,4 @@
-import {AfterContentInit, Directive, ElementRef, EventEmitter, Input, Output, Renderer2} from '@angular/core';
+import {AfterContentInit, Directive, ElementRef, EventEmitter, Input, Output, Renderer2, inject} from '@angular/core';
 import {rand} from './utils';
 import {Direction, IOption, Particles} from './particles';
 
@@ -7,6 +7,9 @@ import {Direction, IOption, Particles} from './particles';
     standalone: true,
 })
 export class ParticleEffectDirective implements AfterContentInit {
+    private readonly renderer = inject(Renderer2);
+    private readonly el = inject(ElementRef);
+
     private _particles: Particles | undefined;
     private _pHidden = false;
     @Input() public pColor = '#000';
@@ -38,11 +41,6 @@ export class ParticleEffectDirective implements AfterContentInit {
     public get pHidden(): boolean {
         return this._pHidden;
     }
-
-    public constructor(
-        private renderer: Renderer2,
-        private el: ElementRef,
-    ) {}
 
     public ngAfterContentInit(): void {
         this._particles = new Particles(this.el.nativeElement, this.getOptions(), this.renderer);

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {BookingService} from '../services/booking.service';
 import {
     BookableSortingField,
@@ -75,6 +75,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     ],
 })
 export class BookingComponent extends NaturalAbstractDetail<BookingService, NaturalSeoResolveData> implements OnInit {
+    public readonly bookingService: BookingService;
+    public readonly bookableService = inject(BookableService);
+    public readonly userService = inject(UserService);
+
     public BookingStatus = BookingStatus;
     public suggestionVariables: BookablesVariables = {};
     public suggestionSelection: NaturalSearchSelections = [[]];
@@ -117,12 +121,11 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
      */
     public newBooking: CreateBooking['createBooking'] | null = null;
 
-    public constructor(
-        public readonly bookingService: BookingService,
-        public readonly bookableService: BookableService,
-        public readonly userService: UserService,
-    ) {
+    public constructor() {
+        const bookingService = inject(BookingService);
+
         super('booking', bookingService);
+        this.bookingService = bookingService;
     }
 
     public override ngOnInit(): void {

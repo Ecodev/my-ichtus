@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {
     formatIsoDateTime,
     IEnum,
@@ -84,6 +84,11 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     ],
 })
 export class BookableComponent extends NaturalAbstractDetail<BookableService, NaturalSeoResolveData> implements OnInit {
+    public readonly bookableTagService = inject(BookableTagService);
+    public readonly licenseService = inject(LicenseService);
+    private readonly imageService = inject(ImageService);
+    public readonly permissionsService = inject(PermissionsService);
+
     public accountHierarchicConfig = accountHierarchicConfiguration;
     public bookingsVariables: BookingsVariables = {};
     public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
@@ -91,13 +96,9 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
         availableColumnsForBookingsWithOwnerWithoutTrainers;
     public readonly availableColumnsForBookingsWithOwnerOnlyTrainers = availableColumnsForBookingsWithOwnerOnlyTrainers;
 
-    public constructor(
-        bookableService: BookableService,
-        public readonly bookableTagService: BookableTagService,
-        public readonly licenseService: LicenseService,
-        private readonly imageService: ImageService,
-        public readonly permissionsService: PermissionsService,
-    ) {
+    public constructor() {
+        const bookableService = inject(BookableService);
+
         super('bookable', bookableService);
     }
 

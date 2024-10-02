@@ -1,5 +1,5 @@
 import {Apollo, gql} from 'apollo-angular';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {
     deliverableEmail,
     ifValid,
@@ -47,20 +47,18 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     ],
 })
 export class RegisterComponent implements OnInit {
+    protected readonly apollo = inject(Apollo);
+    protected readonly route = inject(ActivatedRoute);
+    protected readonly fb = inject(NonNullableFormBuilder);
+    protected readonly router = inject(Router);
+    protected readonly alertService = inject(NaturalAlertService);
+    protected readonly bookableService = inject(BookableService);
+
     public mandatoryBookables: NaturalDataSource<Bookables['bookables']> | null = null;
 
     public step: 1 | 2 = 1;
     public sending = false;
     public form!: FormGroup;
-
-    public constructor(
-        protected readonly apollo: Apollo,
-        protected readonly route: ActivatedRoute,
-        protected readonly fb: NonNullableFormBuilder,
-        protected readonly router: Router,
-        protected readonly alertService: NaturalAlertService,
-        protected readonly bookableService: BookableService,
-    ) {}
 
     public ngOnInit(): void {
         this.fetchMandatoryBookables();

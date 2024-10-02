@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {NgProgress} from 'ngx-progressbar';
 
@@ -6,6 +6,8 @@ import {NgProgress} from 'ngx-progressbar';
     providedIn: 'root',
 })
 export class NetworkActivityService {
+    private readonly progressService = inject(NgProgress);
+
     /**
      * Count pending requests
      */
@@ -16,8 +18,6 @@ export class NetworkActivityService {
      */
     public readonly isPending = new BehaviorSubject<boolean>(false);
     public readonly errors = new Subject<readonly Error[]>();
-
-    public constructor(private readonly progressService: NgProgress) {}
 
     public increase(): void {
         if (this.pending === 0) {

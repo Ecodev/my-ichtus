@@ -1,4 +1,4 @@
-import {Component, DestroyRef, Inject, inject, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {UserService} from '../admin/users/services/user.service';
 import {
     LOCAL_STORAGE,
@@ -34,6 +34,13 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     ],
 })
 export class HomeComponent implements OnInit {
+    private readonly userService = inject(UserService);
+    private readonly router = inject(Router);
+    private readonly storage = inject<NaturalStorage>(LOCAL_STORAGE);
+    public readonly route = inject(ActivatedRoute);
+    private readonly configurationService = inject(ConfigurationService);
+    private readonly naturalSidenavStackService = inject(NaturalSidenavStackService);
+
     private readonly destroyRef = inject(DestroyRef);
     public menu: NaturalSidenavContainerComponent | undefined;
 
@@ -43,15 +50,6 @@ export class HomeComponent implements OnInit {
     public code = '';
 
     public announcementActive = false;
-
-    public constructor(
-        private readonly userService: UserService,
-        private readonly router: Router,
-        @Inject(LOCAL_STORAGE) private readonly storage: NaturalStorage,
-        public readonly route: ActivatedRoute,
-        private readonly configurationService: ConfigurationService,
-        private readonly naturalSidenavStackService: NaturalSidenavStackService,
-    ) {}
 
     public ngOnInit(): void {
         const announcementConfigKey = 'announcement-text';

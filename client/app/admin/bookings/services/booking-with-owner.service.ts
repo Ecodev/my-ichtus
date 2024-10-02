@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {
     bookingQuery,
     bookingsWithOwnerBalanceQuery,
@@ -37,7 +37,9 @@ export class BookingWithOwnerService extends NaturalAbstractModelService<
     DeleteBookings,
     DeleteBookingsVariables
 > {
-    public constructor(private readonly bookingService: BookingService) {
+    private readonly bookingService = inject(BookingService);
+
+    public constructor() {
         super('booking', bookingQuery, bookingsWithOwnerBalanceQuery, createBooking, updateBooking, deleteBookings);
     }
 

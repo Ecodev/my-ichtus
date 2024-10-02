@@ -1,4 +1,4 @@
-import {Inject, Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {HmacSHA256} from 'crypto-es/lib/sha256';
 import {Hex} from 'crypto-es/lib/core';
 import {DOCUMENT} from '@angular/common';
@@ -40,6 +40,8 @@ function stringifyReplacer(key: string, value: unknown): unknown {
     providedIn: 'root',
 })
 export class DatatransService {
+    private readonly document = inject<Document>(DOCUMENT);
+
     private preservedStyles: {html: string; body: string} = {html: '', body: ''};
     private paymentFrame: HTMLDivElement | null = null;
     private paymentForm: HTMLFormElement | null = null;
@@ -59,7 +61,7 @@ export class DatatransService {
         },
     };
 
-    public constructor(@Inject(DOCUMENT) private readonly document: Document) {
+    public constructor() {
         const window = this.document.defaultView;
         if (!window) {
             throw new Error('Cannot use DatatransService without window');

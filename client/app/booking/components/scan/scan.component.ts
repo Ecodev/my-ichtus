@@ -11,15 +11,13 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     standalone: true,
 })
 export class ScanComponent implements OnInit, OnDestroy {
+    public readonly router = inject(Router);
+    private readonly route = inject(ActivatedRoute);
+    private readonly alertService = inject(NaturalAlertService);
+    private readonly qrService = inject(QrService);
+
     private readonly destroyRef = inject(DestroyRef);
     @ViewChild('video', {static: true}) private videoRef!: ElementRef<HTMLVideoElement>;
-
-    public constructor(
-        public readonly router: Router,
-        private readonly route: ActivatedRoute,
-        private readonly alertService: NaturalAlertService,
-        private readonly qrService: QrService,
-    ) {}
 
     public ngOnInit(): void {
         this.qrService.qrCode.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({

@@ -1,11 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, inject, OnInit} from '@angular/core';
 import {
     NaturalAbstractList,
-    SortingOrder,
     NaturalColumnsPickerComponent,
     NaturalSearchComponent,
     NaturalTableButtonComponent,
+    SortingOrder,
 } from '@ecodev/natural';
 import {CurrentUserForProfile, LogSortingField, UserRole} from '../../../shared/generated-types';
 import {LogService} from '../services/log.service';
@@ -35,11 +34,10 @@ import {CommonModule} from '@angular/common';
     ],
 })
 export class LogsComponent extends NaturalAbstractList<LogService> implements OnInit {
-    public constructor(
-        route: ActivatedRoute,
-        logService: LogService,
-        naturalSearchFacetsService: NaturalSearchFacetsService,
-    ) {
+    public constructor() {
+        const logService = inject(LogService);
+        const naturalSearchFacetsService = inject(NaturalSearchFacetsService);
+
         super(logService);
 
         this.naturalSearchFacets = naturalSearchFacetsService.get('logs');

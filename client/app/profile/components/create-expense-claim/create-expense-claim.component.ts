@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
 import {CreateExpenseClaim, ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
@@ -33,14 +33,15 @@ export class CreateExpenseClaimComponent
     extends NaturalAbstractDetail<ExpenseClaimService, NaturalSeoResolveData>
     implements OnInit
 {
+    public readonly userService = inject(UserService);
+
     @ViewChild(AccountingDocumentsComponent, {static: true}) private accountingDocuments!: AccountingDocumentsComponent;
 
     public ExpenseClaimType = ExpenseClaimType;
 
-    public constructor(
-        public expenseClaimService: ExpenseClaimService,
-        public readonly userService: UserService,
-    ) {
+    public constructor() {
+        const expenseClaimService = inject(ExpenseClaimService);
+
         super('expenseClaim', expenseClaimService);
     }
 

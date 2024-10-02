@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {UserService} from '../admin/users/services/user.service';
 import {BookingService} from '../admin/bookings/services/booking.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
@@ -20,15 +20,15 @@ import {CommonModule} from '@angular/common';
     imports: [CommonModule, NavigationsComponent, MatButtonModule, RouterLink, MatIconModule, NaturalIconDirective],
 })
 export class DashboardComponent {
+    public readonly userService = inject(UserService);
+    public readonly bookingService = inject(BookingService);
+    public readonly route = inject(ActivatedRoute);
+    public readonly permissionsService = inject(PermissionsService);
+
     public title = 'my-ichtus';
     public readonly adminRoute: Observable<string>;
 
-    public constructor(
-        public readonly userService: UserService,
-        public readonly bookingService: BookingService,
-        public readonly route: ActivatedRoute,
-        public readonly permissionsService: PermissionsService,
-    ) {
+    public constructor() {
         this.adminRoute = this.route.data.pipe(
             map(data => {
                 switch (data.viewer.role) {

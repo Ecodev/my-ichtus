@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {BookingService} from '../services/booking.service';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -56,11 +56,12 @@ import {CommonModule, DatePipe} from '@angular/common';
     ],
 })
 export class BookingsComponent extends AbstractBookings<BookingService> {
-    public constructor(
-        bookingService: BookingService,
-        naturalSearchFacetsService: NaturalSearchFacetsService,
-        public readonly permissionsService: PermissionsService,
-    ) {
+    public readonly permissionsService = inject(PermissionsService);
+
+    public constructor() {
+        const bookingService = inject(BookingService);
+        const naturalSearchFacetsService = inject(NaturalSearchFacetsService);
+
         super(bookingService);
         this.naturalSearchFacets = naturalSearchFacetsService.get(
             this.route.snapshot.data.advancedFacets ? 'bookingsAdvanced' : 'bookings',

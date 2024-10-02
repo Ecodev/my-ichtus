@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {
     NaturalAbstractDetail,
     NaturalDetailHeaderComponent,
@@ -33,7 +33,9 @@ import {MatDividerModule} from '@angular/material/divider';
     ],
 })
 export class BookableTagComponent extends NaturalAbstractDetail<BookableTagService, NaturalSeoResolveData> {
-    public constructor(bookableTagService: BookableTagService) {
+    public constructor() {
+        const bookableTagService = inject(BookableTagService);
+
         super('bookableTag', bookableTagService);
     }
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, inject} from '@angular/core';
 import {
     AccountingDocumentInput,
     ExpenseClaim,
@@ -21,6 +21,8 @@ import {MatButtonModule} from '@angular/material/button';
     imports: [NaturalFileComponent, MatButtonModule, MatIconModule, NaturalIconDirective],
 })
 export class AccountingDocumentsComponent implements OnInit {
+    public readonly accountingDocumentService = inject(AccountingDocumentService);
+
     @Input({required: true}) public model!:
         | Transaction['transaction']
         | ExpenseClaim['expenseClaim']
@@ -51,8 +53,6 @@ export class AccountingDocumentsComponent implements OnInit {
     public files: (FileModel | null)[] = [];
     private readonly removedFiles: WithId<FileModel>[] = [];
     private _disabled = false;
-
-    public constructor(public readonly accountingDocumentService: AccountingDocumentService) {}
 
     public ngOnInit(): void {
         if ('accountingDocuments' in this.model) {

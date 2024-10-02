@@ -1,5 +1,5 @@
-import {Component, Inject} from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
+import {Component, inject} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {MatButton} from '@angular/material/button';
 import {FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from '@angular/material/form-field';
@@ -7,7 +7,6 @@ import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/m
 import {MatInput} from '@angular/material/input';
 import {ApplicationConfirmData} from '../bookables/parent.component';
 import {UsersVariables} from '../../../shared/generated-types';
-import {ActivatedRoute} from '@angular/router';
 import {UserService} from '../../users/services/user.service';
 import {NaturalQueryVariablesManager} from '@ecodev/natural';
 import {MatOption, MatSelect} from '@angular/material/select';
@@ -35,15 +34,15 @@ import {MatOption, MatSelect} from '@angular/material/select';
 })
 // This dialog is only displayed when the user submits an application for a COURSE
 export class ApplicationConfirmComponent {
+    private readonly userService = inject(UserService);
+    private readonly futureOwner = inject<ApplicationConfirmData>(MAT_DIALOG_DATA);
+
     public readonly participant = new FormControl<string | null>(null, [Validators.required]);
     public familyMembers: string[] = [];
 
-    public constructor(
-        private readonly route: ActivatedRoute,
-        private readonly userService: UserService,
-        public dialogRef: MatDialogRef<ApplicationConfirmComponent>,
-        @Inject(MAT_DIALOG_DATA) private readonly futureOwner: ApplicationConfirmData,
-    ) {
+    public constructor() {
+        const futureOwner = this.futureOwner;
+
         if (futureOwner) {
             // Populate the select menu with his/her family members
             const qvm = new NaturalQueryVariablesManager<UsersVariables>();

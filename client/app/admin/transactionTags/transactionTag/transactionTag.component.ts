@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {
     NaturalAbstractDetail,
     NaturalDetailHeaderComponent,
@@ -33,7 +33,9 @@ import {MatDividerModule} from '@angular/material/divider';
     ],
 })
 export class TransactionTagComponent extends NaturalAbstractDetail<TransactionTagService, NaturalSeoResolveData> {
-    public constructor(transactionTagService: TransactionTagService) {
+    public constructor() {
+        const transactionTagService = inject(TransactionTagService);
+
         super('transactionTag', transactionTagService);
     }
 }

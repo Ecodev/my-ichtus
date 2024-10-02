@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, inject} from '@angular/core';
 import {
     AvailableColumn,
     Button,
@@ -56,6 +56,9 @@ import {MatTableModule} from '@angular/material/table';
     ],
 })
 export class TransactionLinesComponent extends NaturalAbstractList<TransactionLineService> implements OnInit {
+    private readonly transactionLineService: TransactionLineService;
+    public readonly permissionsService = inject(PermissionsService);
+
     public override availableColumns: AvailableColumn[] = [
         {id: 'transactionDate', label: 'Date'},
         {id: 'name', label: 'Nom'},
@@ -79,12 +82,12 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
     @Input() public relativeToAccount: MinimalAccount | null = null;
     @Input() public hideFab = false;
 
-    public constructor(
-        private readonly transactionLineService: TransactionLineService,
-        naturalSearchFacetsService: NaturalSearchFacetsService,
-        public readonly permissionsService: PermissionsService,
-    ) {
+    public constructor() {
+        const transactionLineService = inject(TransactionLineService);
+        const naturalSearchFacetsService = inject(NaturalSearchFacetsService);
+
         super(transactionLineService);
+        this.transactionLineService = transactionLineService;
 
         this.naturalSearchFacets = naturalSearchFacetsService.get('transactionLines');
     }

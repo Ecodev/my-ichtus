@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {bookableQuery, bookablesQuery, createBookable, deleteBookables, updateBookable} from './bookable.queries';
 import {
     Bookable,
@@ -62,6 +62,8 @@ export class BookableService extends NaturalAbstractModelService<
     DeleteBookables,
     DeleteBookablesVariables
 > {
+    private readonly bookingService = inject(BookingService);
+
     public static readonly membershipServices: BookablesVariables = {
         filter: {
             groups: [
@@ -98,7 +100,7 @@ export class BookableService extends NaturalAbstractModelService<
         filter: {groups: [{conditions: [{bookingType: {in: {values: [BookingType.Application]}}}]}]},
     };
 
-    public constructor(private readonly bookingService: BookingService) {
+    public constructor() {
         super('bookable', bookableQuery, bookablesQuery, createBookable, updateBookable, deleteBookables);
     }
 

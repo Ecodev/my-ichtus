@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {BookableService} from '../../admin/bookables/services/bookable.service';
 import {BookingService} from '../../admin/bookings/services/booking.service';
@@ -18,6 +18,11 @@ import {NaturalFileComponent} from '@ecodev/natural';
     imports: [NaturalFileComponent, MatDividerModule, MatIconModule, MatButtonModule, RouterLink, TimeagoModule],
 })
 export class BookableComponent implements OnInit {
+    private readonly bookableService = inject(BookableService);
+    private readonly route = inject(ActivatedRoute);
+    private readonly permissionsService = inject(PermissionsService);
+    public readonly bookingService = inject(BookingService);
+
     /**
      * If the user has a required licence to use the bookable
      */
@@ -42,13 +47,6 @@ export class BookableComponent implements OnInit {
     public runningBooking: Bookings['bookings']['items'][0] | null = null;
 
     public bookable: Bookable['bookable'] | null = null;
-
-    public constructor(
-        private readonly bookableService: BookableService,
-        private readonly route: ActivatedRoute,
-        private readonly permissionsService: PermissionsService,
-        public readonly bookingService: BookingService,
-    ) {}
 
     public ngOnInit(): void {
         this.route.data.subscribe(data => {

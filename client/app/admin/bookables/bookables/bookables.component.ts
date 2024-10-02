@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, inject} from '@angular/core';
 import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
 import {Bookables} from '../../../shared/generated-types';
 import {BookableService} from '../services/bookable.service';
@@ -50,16 +50,17 @@ import {MatSnackBar} from '@angular/material/snack-bar';
     ],
 })
 export class BookablesComponent extends ParentComponent<BookableService> implements OnInit {
+    public readonly permissionsService = inject(PermissionsService);
+
     @Output() public readonly bookableClick = new EventEmitter<Bookables['bookables']['items'][0]>();
 
-    public constructor(
-        bookableService: BookableService,
-        naturalSearchFacetsService: NaturalSearchFacetsService,
-        public readonly permissionsService: PermissionsService,
-        dialog: MatDialog,
-        snackbar: MatSnackBar,
-        bookingService: BookingService,
-    ) {
+    public constructor() {
+        const bookableService = inject(BookableService);
+        const naturalSearchFacetsService = inject(NaturalSearchFacetsService);
+        const dialog = inject(MatDialog);
+        const snackbar = inject(MatSnackBar);
+        const bookingService = inject(BookingService);
+
         super(bookableService, dialog, snackbar, bookingService);
         this.naturalSearchFacets = naturalSearchFacetsService.get(
             this.route.snapshot.data.isEquipment ? 'equipment' : 'bookables',

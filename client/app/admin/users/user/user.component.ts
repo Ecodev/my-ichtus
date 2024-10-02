@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {
     IEnum,
     ifValid,
@@ -98,6 +98,13 @@ import {MoneyComponent} from '../../../shared/components/money/money.component';
     ],
 })
 export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeoResolveData> implements OnInit {
+    private readonly userService: UserService;
+    public readonly userTagService = inject(UserTagService);
+    public readonly licenseService = inject(LicenseService);
+    public readonly bookingService = inject(BookingService);
+    public readonly accountService = inject(AccountService);
+    public readonly permissionsService = inject(PermissionsService);
+
     public showFamilyTab = false;
     public updating = false;
     public ibanLocked = true;
@@ -114,15 +121,11 @@ export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeo
     public ownerFilter: UserFilter = {};
     public readonly UserStatus = UserStatus;
 
-    public constructor(
-        private readonly userService: UserService,
-        public readonly userTagService: UserTagService,
-        public readonly licenseService: LicenseService,
-        public readonly bookingService: BookingService,
-        public readonly accountService: AccountService,
-        public readonly permissionsService: PermissionsService,
-    ) {
+    public constructor() {
+        const userService = inject(UserService);
+
         super('user', userService);
+        this.userService = userService;
     }
 
     public override ngOnInit(): void {

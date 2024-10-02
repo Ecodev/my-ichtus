@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {DoorService} from './services/door.service';
 import {Literal, NaturalAlertService} from '@ecodev/natural';
 import {UserService} from '../admin/users/services/user.service';
@@ -16,14 +16,12 @@ import {CardComponent} from '../shared/components/card/card.component';
     imports: [CardComponent, MatButtonModule, MatIconModule],
 })
 export class DoorComponent implements OnInit {
-    public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    public readonly doorService = inject(DoorService);
+    private readonly userService = inject(UserService);
+    private readonly alertService = inject(NaturalAlertService);
+    private readonly route = inject(ActivatedRoute);
 
-    public constructor(
-        public readonly doorService: DoorService,
-        private readonly userService: UserService,
-        private readonly alertService: NaturalAlertService,
-        private readonly route: ActivatedRoute,
-    ) {}
+    public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
 
     public open(door: Literal): void {
         this.doorService.open({door: door.id}).subscribe({

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {
     AvailableColumn,
     NaturalAbstractList,
@@ -42,16 +42,17 @@ import {AsyncPipe} from '@angular/common';
     ],
 })
 export class TransactionTagsComponent extends NaturalAbstractList<TransactionTagService> implements OnInit {
+    public readonly permissionsService = inject(PermissionsService);
+    public readonly transactionLineService = inject(TransactionLineService);
+
     public override availableColumns: AvailableColumn[] = [
         {id: 'color', label: 'Couleur'},
         {id: 'name', label: 'Nom'},
         {id: 'transactions', label: 'Transactions'},
     ];
-    public constructor(
-        transactionTagService: TransactionTagService,
-        public readonly permissionsService: PermissionsService,
-        public readonly transactionLineService: TransactionLineService,
-    ) {
+    public constructor() {
+        const transactionTagService = inject(TransactionTagService);
+
         super(transactionTagService);
     }
 }

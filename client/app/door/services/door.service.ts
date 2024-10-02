@@ -1,5 +1,5 @@
 import {Apollo} from 'apollo-angular';
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {openDoorMutation} from './door.queries';
@@ -16,7 +16,7 @@ type DoorConfig = {
     providedIn: 'root',
 })
 export class DoorService {
-    public constructor(private readonly apollo: Apollo) {}
+    private readonly apollo = inject(Apollo);
 
     public doors: DoorConfig[] = [
         {

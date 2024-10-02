@@ -1,4 +1,4 @@
-import {Component, DestroyRef, Inject, inject, OnInit, Optional} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -35,6 +35,14 @@ export type SupportComponentData = {
     ],
 })
 export class SupportComponent implements OnInit {
+    private readonly configurationService = inject(ConfigurationService);
+    public readonly permissionsService = inject(PermissionsService);
+    public readonly route = inject(ActivatedRoute);
+    private readonly alertService = inject(NaturalAlertService);
+    public readonly data? = inject<NaturalDialogTriggerProvidedData<SupportComponentData>>(MAT_DIALOG_DATA, {
+        optional: true,
+    });
+
     private readonly destroyRef = inject(DestroyRef);
     public text = '';
 
@@ -50,16 +58,6 @@ export class SupportComponent implements OnInit {
      */
     public activable = false;
     public updating = false;
-
-    public constructor(
-        private readonly configurationService: ConfigurationService,
-        public readonly permissionsService: PermissionsService,
-        public readonly route: ActivatedRoute,
-        private readonly alertService: NaturalAlertService,
-        @Optional()
-        @Inject(MAT_DIALOG_DATA)
-        public readonly data?: NaturalDialogTriggerProvidedData<SupportComponentData>,
-    ) {}
 
     public ngOnInit(): void {
         this.readonly = this.route.snapshot.data.readonly || this.data?.data?.readonly;

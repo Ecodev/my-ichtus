@@ -1,5 +1,5 @@
 import {Apollo} from 'apollo-angular';
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from '../../../admin/users/services/user.service';
@@ -25,15 +25,15 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     ],
 })
 export class RequestPasswordResetComponent {
+    private readonly apollo = inject(Apollo);
+    private readonly alertService = inject(NaturalAlertService);
+    private readonly router = inject(Router);
+    private readonly userService = inject(UserService);
+
     public readonly form: FormGroup;
     public sending = false;
 
-    public constructor(
-        private readonly apollo: Apollo,
-        private readonly alertService: NaturalAlertService,
-        private readonly router: Router,
-        private readonly userService: UserService,
-    ) {
+    public constructor() {
         this.form = new FormGroup({login: new FormControl('', [Validators.required])});
     }
 

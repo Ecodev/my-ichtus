@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
@@ -31,16 +31,16 @@ import {first} from 'rxjs/operators';
     ],
 })
 export class SelfApprovedBookingComponent implements OnInit {
+    private readonly route = inject(ActivatedRoute);
+    private readonly router = inject(Router);
+    private readonly bookingService = inject(BookingService);
+    private readonly bookableService = inject(BookableService);
+    private readonly alertService = inject(NaturalAlertService);
+
     public bookable: Bookable['bookable'] | null = null;
     public booking: Literal = {};
 
-    public constructor(
-        private readonly route: ActivatedRoute,
-        private readonly router: Router,
-        private readonly bookingService: BookingService,
-        private readonly bookableService: BookableService,
-        private readonly alertService: NaturalAlertService,
-    ) {
+    public constructor() {
         this.route.data
             .pipe(
                 takeUntilDestroyed(),

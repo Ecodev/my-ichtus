@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, inject} from '@angular/core';
 import {UserService} from '../../../admin/users/services/user.service';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {animate, style, transition, trigger} from '@angular/animations';
@@ -89,6 +89,12 @@ function bookingsToExtended(bookings: Bookings['bookings']): PaginatedExtendedBo
     ],
 })
 export class NavigationsComponent implements OnInit {
+    public readonly userService = inject(UserService);
+    public readonly bookingService = inject(BookingService);
+    private readonly alertService = inject(NaturalAlertService);
+    private readonly dialog = inject(MatDialog);
+    private readonly snackbar = inject(MatSnackBar);
+
     @Input({required: true}) public user!: NonNullable<CurrentUserForProfile['viewer']>;
     @Input() public activeOnly = true;
     @Input() public showEmptyMessage = false;
@@ -99,14 +105,6 @@ export class NavigationsComponent implements OnInit {
 
     private currentPage = 0;
     private family: (NonNullable<CurrentUserForProfile['viewer']> | Users['users']['items'][0])[] = [];
-
-    public constructor(
-        public readonly userService: UserService,
-        public readonly bookingService: BookingService,
-        private readonly alertService: NaturalAlertService,
-        private readonly dialog: MatDialog,
-        private readonly snackbar: MatSnackBar,
-    ) {}
 
     public ngOnInit(): void {
         const qvm = new NaturalQueryVariablesManager<UsersVariables>();

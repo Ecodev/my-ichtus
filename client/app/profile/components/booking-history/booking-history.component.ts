@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NavigationsComponent} from '../../../shared/components/navigations/navigations.component';
 
@@ -10,5 +10,5 @@ import {NavigationsComponent} from '../../../shared/components/navigations/navig
     imports: [NavigationsComponent],
 })
 export class BookingHistoryComponent {
-    public constructor(public readonly route: ActivatedRoute) {}
+    public readonly route = inject(ActivatedRoute);
 }

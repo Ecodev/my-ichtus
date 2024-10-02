@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {
     AvailableColumn,
     NaturalAbstractList,
@@ -51,6 +51,8 @@ import {MatTableModule} from '@angular/material/table';
     ],
 })
 export class ExpenseClaimsComponent extends NaturalAbstractList<ExpenseClaimService> implements OnInit {
+    public readonly permissionsService = inject(PermissionsService);
+
     public override availableColumns: AvailableColumn[] = [
         {id: 'name', label: 'Nom'},
         {id: 'owner', label: 'Membre'},
@@ -63,11 +65,10 @@ export class ExpenseClaimsComponent extends NaturalAbstractList<ExpenseClaimServ
         {id: 'reviewer', label: 'Approbateur', checked: false},
     ];
 
-    public constructor(
-        expenseClaimService: ExpenseClaimService,
-        naturalSearchFacetsService: NaturalSearchFacetsService,
-        public readonly permissionsService: PermissionsService,
-    ) {
+    public constructor() {
+        const expenseClaimService = inject(ExpenseClaimService);
+        const naturalSearchFacetsService = inject(NaturalSearchFacetsService);
+
         super(expenseClaimService);
 
         this.naturalSearchFacets = naturalSearchFacetsService.get('expenseClaims');

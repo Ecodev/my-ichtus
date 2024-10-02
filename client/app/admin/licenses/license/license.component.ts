@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {
     NaturalAbstractDetail,
     NaturalIconDirective,
@@ -44,11 +44,12 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     ],
 })
 export class LicenseComponent extends NaturalAbstractDetail<LicenseService> {
-    public constructor(
-        licenseService: LicenseService,
-        public readonly userService: UserService,
-        public readonly bookableService: BookableService,
-    ) {
+    public readonly userService = inject(UserService);
+    public readonly bookableService = inject(BookableService);
+
+    public constructor() {
+        const licenseService = inject(LicenseService);
+
         super('license', licenseService);
     }
 }

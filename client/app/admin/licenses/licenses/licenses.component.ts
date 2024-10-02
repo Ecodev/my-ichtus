@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {
     AvailableColumn,
     NaturalAbstractList,
@@ -37,12 +37,13 @@ import {AsyncPipe} from '@angular/common';
     ],
 })
 export class LicensesComponent extends NaturalAbstractList<LicenseService> implements OnInit {
+    public readonly permissionsService = inject(PermissionsService);
+
     public override availableColumns: AvailableColumn[] = [{id: 'name', label: 'Nom'}];
 
-    public constructor(
-        licenseService: LicenseService,
-        public readonly permissionsService: PermissionsService,
-    ) {
+    public constructor() {
+        const licenseService = inject(LicenseService);
+
         super(licenseService);
     }
 }

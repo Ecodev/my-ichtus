@@ -1,6 +1,6 @@
 import {Apollo} from 'apollo-angular';
 import {NetworkStatus} from '@apollo/client/core';
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {Observable} from 'rxjs';
 import {distinctUntilChanged, filter, map, takeWhile} from 'rxjs/operators';
 import {
@@ -15,7 +15,7 @@ import {configurationQuery, updateConfiguration} from './configuration.queries';
     providedIn: 'root',
 })
 export class ConfigurationService {
-    public constructor(private readonly apollo: Apollo) {}
+    private readonly apollo = inject(Apollo);
 
     public get(key: string): Observable<string> {
         const queryRef = this.apollo.watchQuery<Configuration, ConfigurationVariables>({

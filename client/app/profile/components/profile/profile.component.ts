@@ -55,23 +55,21 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     ],
 })
 export class ProfileComponent implements OnInit {
+    public readonly userService = inject(UserService);
+    public readonly permissionsService = inject(PermissionsService);
+    private readonly alertService = inject(NaturalAlertService);
+    private readonly route = inject(ActivatedRoute);
+    private readonly router = inject(Router);
+    public readonly bookableService = inject(BookableService);
+    private readonly apollo = inject(Apollo);
+    private readonly dialog = inject(MatDialog);
+    private readonly datatransService = inject(DatatransService);
+    private readonly licenseService = inject(LicenseService);
+
     private readonly destroyRef = inject(DestroyRef);
     public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
     public config = localConfig;
     public licenses: Licenses['licenses']['items'][0][] = [];
-
-    public constructor(
-        public readonly userService: UserService,
-        public readonly permissionsService: PermissionsService,
-        private readonly alertService: NaturalAlertService,
-        private readonly route: ActivatedRoute,
-        private readonly router: Router,
-        public readonly bookableService: BookableService,
-        private readonly apollo: Apollo,
-        private readonly dialog: MatDialog,
-        private readonly datatransService: DatatransService,
-        private readonly licenseService: LicenseService,
-    ) {}
 
     public ngOnInit(): void {
         this.viewer = this.route.snapshot.data.viewer;

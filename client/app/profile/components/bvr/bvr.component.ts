@@ -1,5 +1,5 @@
 import {gql, Apollo} from 'apollo-angular';
-import {Component, Inject, Input} from '@angular/core';
+import {Component, Input, inject} from '@angular/core';
 import {BankingInfosForExport, BankingInfos, BankingInfosVariables} from '../../../shared/generated-types';
 import {DOCUMENT} from '@angular/common';
 import {copyToClipboard, NaturalIconDirective} from '@ecodev/natural';
@@ -44,6 +44,9 @@ const queryForExport = gql`
     ],
 })
 export class BvrComponent {
+    private readonly apollo = inject(Apollo);
+    private readonly document = inject<Document>(DOCUMENT);
+
     @Input() public set bankingData(data: BankingInfosVariables) {
         this.variables = data;
         this.apollo
@@ -57,11 +60,6 @@ export class BvrComponent {
 
     private variables!: BankingInfosVariables;
     public bankingInfos: BankingInfos['bankingInfos'] | null = null;
-
-    public constructor(
-        private readonly apollo: Apollo,
-        @Inject(DOCUMENT) private readonly document: Document,
-    ) {}
 
     public copyToClipboard(text: string): void {
         copyToClipboard(this.document, text);

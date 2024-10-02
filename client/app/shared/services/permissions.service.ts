@@ -1,5 +1,5 @@
 import {Apollo} from 'apollo-angular';
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {Literal} from '@ecodev/natural';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {concatMap, debounceTime, distinctUntilChanged, filter, map, shareReplay} from 'rxjs/operators';
@@ -32,7 +32,9 @@ export class PermissionsService {
         user: null,
     });
 
-    public constructor(apollo: Apollo) {
+    public constructor() {
+        const apollo = inject(Apollo);
+
         // Query the API whenever our variables change
         const fetch = this.currentContexts.pipe(
             distinctUntilChanged(isEqual),

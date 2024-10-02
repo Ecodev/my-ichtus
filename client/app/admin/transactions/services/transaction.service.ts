@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {Validators} from '@angular/forms';
 import {formatIsoDateTime, FormValidators, Literal, NaturalAbstractModelService} from '@ecodev/natural';
 import {
@@ -42,12 +42,12 @@ export class TransactionService extends NaturalAbstractModelService<
     DeleteTransactions,
     DeleteTransactionsVariables
 > {
+    private readonly transactionLineService = inject(TransactionLineService);
+    private readonly accountService = inject(AccountService);
+
     private bankAccount: Accounts['accounts']['items'][0] | null = null;
 
-    public constructor(
-        private readonly transactionLineService: TransactionLineService,
-        private accountService: AccountService,
-    ) {
+    public constructor() {
         super(
             'transaction',
             transactionQuery,
@@ -57,7 +57,7 @@ export class TransactionService extends NaturalAbstractModelService<
             deleteTransactions,
         );
 
-        accountService.getAccountByCode(localConfig.accounting.bankAccountCode).subscribe(res => {
+        this.accountService.getAccountByCode(localConfig.accounting.bankAccountCode).subscribe(res => {
             if (res.length === 1) {
                 this.bankAccount = res.items[0];
             }

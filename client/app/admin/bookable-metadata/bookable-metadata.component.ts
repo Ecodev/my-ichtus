@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, inject} from '@angular/core';
 import {BookableMetadataService} from './bookable-metadata.service';
 import {
     NaturalAlertService,
@@ -32,6 +32,9 @@ import {MatTableModule} from '@angular/material/table';
     ],
 })
 export class BookableMetadataComponent implements OnInit {
+    private readonly bookableMetaService = inject(BookableMetadataService);
+    private readonly alertService = inject(NaturalAlertService);
+
     @Input({required: true}) public bookable!: Bookable['bookable'];
     @Input() public edit = false;
     public readonly deleting = new Map<BookableMetadatas['bookableMetadatas']['items'][0], true>();
@@ -39,11 +42,6 @@ export class BookableMetadataComponent implements OnInit {
     public dataSource!: NaturalDataSource<BookableMetadatas['bookableMetadatas']>;
 
     public columns: string[] = [];
-
-    public constructor(
-        private readonly bookableMetaService: BookableMetadataService,
-        private readonly alertService: NaturalAlertService,
-    ) {}
 
     public ngOnInit(): void {
         if (this.edit) {
