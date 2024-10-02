@@ -103,12 +103,12 @@
                     <ng-container matColumnDef="isReconciled">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header class="app-date-column">Pointé</th>
                         <td *matCellDef="let element" mat-cell>
-                            @if (!permissionsService.crud?.transaction.create) {
+                            @if (!(permissionsService.crud | async)?.transaction.create) {
                                 <div>
                                     {{ element.isReconciled ? '✔︎' : '' }}
                                 </div>
                             }
-                            @if (permissionsService.crud?.transaction.create) {
+                            @if ((permissionsService.crud | async)?.transaction.create) {
                                 <div>
                                     <mat-checkbox
                                         [checked]="element.isReconciled"
@@ -194,6 +194,6 @@
     </div>
 }
 
-@if (!hideFab && permissionsService.crud?.transaction.create) {
+@if (!hideFab && (permissionsService.crud | async)?.transaction.create) {
     <natural-fixed-button icon="add" [routerLink]="['/admin/transaction/new']" />
 }

@@ -10,6 +10,7 @@ import {
     NaturalSidenavComponent,
     NaturalSidenavContentComponent,
 } from '@ecodev/natural';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
     selector: 'app-admin',
@@ -25,6 +26,7 @@ import {
         RouterLink,
         NaturalSidenavContentComponent,
         RouterOutlet,
+        AsyncPipe,
     ],
 })
 export class AdminComponent {

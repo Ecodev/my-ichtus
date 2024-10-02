@@ -1,22 +1,22 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Component, DestroyRef, inject, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Bookings, BookingType, CurrentUserForProfile} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {
-    NaturalAbstractController,
     NaturalAlertService,
-    NaturalDataSource,
-    NaturalIconDirective,
     NaturalAvatarComponent,
+    NaturalDataSource,
     NaturalEnumPipe,
+    NaturalIconDirective,
 } from '@ecodev/natural';
-import {finalize, takeUntil} from 'rxjs/operators';
+import {finalize} from 'rxjs/operators';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
 import {CommonModule, DatePipe} from '@angular/common';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-services',
@@ -38,7 +38,8 @@ import {CommonModule, DatePipe} from '@angular/common';
         NaturalEnumPipe,
     ],
 })
-export class ServicesComponent extends NaturalAbstractController implements OnInit, OnChanges, OnDestroy {
+export class ServicesComponent implements OnInit, OnChanges {
+    private readonly destroyRef = inject(DestroyRef);
     @Input({required: true}) public user!: NonNullable<CurrentUserForProfile['viewer']>;
 
     public adminMode = false;
@@ -55,9 +56,7 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
         public readonly route: ActivatedRoute,
         private readonly alertService: NaturalAlertService,
         private readonly bookingService: BookingService,
-    ) {
-        super();
-    }
+    ) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
         const previousUser = changes.user?.previousValue;
@@ -82,10 +81,12 @@ export class ServicesComponent extends NaturalAbstractController implements OnIn
     public loadData(): void {
         const pendingApplications = this.userService
             .getPendingApplications(this.user)
-            .pipe(takeUntil(this.ngUnsubscribe));
+            .pipe(takeUntilDestroyed(this.destroyRef));
         this.pendingApplicationsDS = new NaturalDataSource<Bookings['bookings']>(pendingApplications);
 
-        const runningServices = this.userService.getRunningServices(this.user).pipe(takeUntil(this.ngUnsubscribe));
+        const runningServices = this.userService
+            .getRunningServices(this.user)
+            .pipe(takeUntilDestroyed(this.destroyRef));
         this.runningServicesDS = new NaturalDataSource<Bookings['bookings']>(runningServices);
     }
 

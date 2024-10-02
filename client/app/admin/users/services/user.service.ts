@@ -6,6 +6,7 @@ import {
     deliverableEmail,
     FormAsyncValidators,
     formatIsoDateTime,
+    FormControls,
     FormValidators,
     Literal,
     LOCAL_STORAGE,
@@ -111,7 +112,7 @@ export class UserService
 
     /**
      * This key will be used to store the viewer ID, but that value should never
-     * be trusted, and it only exist to notify changes across browser tabs.
+     * be trusted, and it only exists to notify changes across browser tabs.
      */
     private readonly storageKey = 'viewer';
     private readonly onDestroy = new Subject<void>();
@@ -220,7 +221,7 @@ export class UserService
         };
     }
 
-    public override getFormConfig(model: Literal): Literal {
+    public override getFormConfig(model: Literal): FormControls {
         const config = super.getFormConfig(model);
 
         // Inject extra form control for the account which is strictly read-only

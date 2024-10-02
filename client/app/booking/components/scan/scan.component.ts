@@ -1,8 +1,8 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, DestroyRef, ElementRef, inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NaturalAbstractController, NaturalAlertService} from '@ecodev/natural';
+import {NaturalAlertService} from '@ecodev/natural';
 import {QrService} from '../../../shared/services/qr.service';
-import {takeUntil} from 'rxjs/operators';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-scan',
@@ -10,7 +10,8 @@ import {takeUntil} from 'rxjs/operators';
     styleUrl: './scan.component.scss',
     standalone: true,
 })
-export class ScanComponent extends NaturalAbstractController implements OnInit, OnDestroy {
+export class ScanComponent implements OnInit, OnDestroy {
+    private readonly destroyRef = inject(DestroyRef);
     @ViewChild('video', {static: true}) private videoRef!: ElementRef<HTMLVideoElement>;
 
     public constructor(
@@ -18,12 +19,10 @@ export class ScanComponent extends NaturalAbstractController implements OnInit, 
         private readonly route: ActivatedRoute,
         private readonly alertService: NaturalAlertService,
         private readonly qrService: QrService,
-    ) {
-        super();
-    }
+    ) {}
 
     public ngOnInit(): void {
-        this.qrService.qrCode.pipe(takeUntil(this.ngUnsubscribe)).subscribe({
+        this.qrService.qrCode.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
             next: code => {
                 const parsedCode = code.toLowerCase().replace('https://ichtus.club/booking/', '');
                 this.router.navigate(['..', parsedCode], {relativeTo: this.route});
@@ -37,7 +36,7 @@ export class ScanComponent extends NaturalAbstractController implements OnInit, 
 
         this.qrService
             .getStream()
-            .pipe(takeUntil(this.ngUnsubscribe))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(stream => {
                 this.videoRef.nativeElement.srcObject = stream;
                 this.videoRef.nativeElement.setAttribute('playsinline', 'true'); // required to tell iOS safari we don't want fullscreen
@@ -49,8 +48,7 @@ export class ScanComponent extends NaturalAbstractController implements OnInit, 
         this.qrService.start();
     }
 
-    public override ngOnDestroy(): void {
-        super.ngOnDestroy();
+    public ngOnDestroy(): void {
         this.qrService.stop();
     }
 }

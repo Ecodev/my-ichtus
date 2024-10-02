@@ -25,7 +25,9 @@
             }
 
             @if (
-                isUpdatePage() && data.model.transactions.length === 0 && permissionsService.crud?.transaction.create
+                isUpdatePage() &&
+                data.model.transactions.length === 0 &&
+                (permissionsService.crud | async)?.transaction.create
             ) {
                 <a
                     mat-flat-button

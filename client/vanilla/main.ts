@@ -1,5 +1,4 @@
-import {APP_INITIALIZER, enableProdMode, inject, NgZone, ɵNoopNgZone} from '@angular/core';
-import {environment} from './environments/environment';
+import {APP_INITIALIZER, inject, provideExperimentalZonelessChangeDetection} from '@angular/core';
 import {createApplication} from '@angular/platform-browser';
 import {APP_BASE_HREF} from '@angular/common';
 import {Apollo, APOLLO_OPTIONS} from 'apollo-angular';
@@ -13,10 +12,6 @@ import {BookableForVanillaService} from './bookable-for-vanilla.service';
 import {BookingForVanillaService} from './booking-for-vanilla.service';
 import {localConfig} from '../app/shared/generated-config';
 
-if (environment.production) {
-    enableProdMode();
-}
-
 function apiUrl(): string {
     return new URL('/graphql', import.meta.url).toString();
 }
@@ -25,7 +20,7 @@ createApplication({
     providers: [
         Apollo,
         provideHttpClient(withInterceptors([graphqlQuerySigner(localConfig.signedQueries.keys.navigations)])),
-        {provide: NgZone, useClass: ɵNoopNgZone},
+        provideExperimentalZonelessChangeDetection(),
         {provide: APP_BASE_HREF, useValue: '/'},
         {
             provide: APOLLO_OPTIONS,

@@ -29,6 +29,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
  *     budgetAllowed: ?Money,
  *     budgetBalance: ?Money,
  *     format?: array,
+ *     formatPrevious?: array,
  * }
  */
 class AccountingReport extends AbstractExcel
@@ -36,6 +37,8 @@ class AccountingReport extends AbstractExcel
     private ChronosDate $date;
 
     private bool $showBudget = false;
+
+    private ?ChronosDate $datePrevious = null;
 
     /**
      * @var Data[]
@@ -69,6 +72,22 @@ class AccountingReport extends AbstractExcel
         ],
     ];
 
+    protected static array $ctrlFormat = [
+        'font' => [
+            'color' => [
+                'bold' => false,
+                'argb' => 'FF606060',
+            ],
+        ],
+        'alignment' => ['wrapText' => true],
+        'fill' => [
+            'fillType' => Fill::FILL_SOLID,
+            'startColor' => [
+                'argb' => 'FFDDDDDD',
+            ],
+        ],
+    ];
+
     private static array $wrappedFormat = [
         'alignment' => [
             'wrapText' => true,
@@ -83,7 +102,7 @@ class AccountingReport extends AbstractExcel
     ];
 
     private static array $columnWidth = [
-        'accountCode' => 11,
+        'accountCode' => 14,
         'accountName' => 38,
         'balance' => 12,
     ];
@@ -109,6 +128,11 @@ class AccountingReport extends AbstractExcel
         $this->date = $date;
     }
 
+    public function setDatePrevious(?ChronosDate $datePrevious): void
+    {
+        $this->datePrevious = $datePrevious;
+    }
+
     public function showBudget(bool $showBudget): void
     {
         $this->showBudget = $showBudget;
@@ -117,7 +141,7 @@ class AccountingReport extends AbstractExcel
     protected function writeTitle(): void
     {
         $this->column = 1;
-        $this->sheet->mergeCells([$this->column, $this->row, $this->column + ($this->showBudget ? 12 : 6), $this->row]);
+        $this->sheet->mergeCells([$this->column, $this->row, $this->column + $this->getColspan(), $this->row]);
         $this->write(
             sprintf($this->hostname . ': rapport comptable au %s', $this->date->format('d.m.Y')),
             self::$titleFormat,
@@ -130,7 +154,12 @@ class AccountingReport extends AbstractExcel
     private function processAccount(Account $account, int $depth): void
     {
         $balance = $account->getBalanceAtDate($this->date);
-        if ($this->accountingConfig['report']['showAccountsWithZeroBalance'] === false && $depth > 1 && $balance->isZero()) {
+        $balancePrevious = $this->datePrevious ? $account->getBalanceAtDate($this->datePrevious) : null;
+        // Skip the account if:
+        // - accounting is configured to hide accounts with zero balance
+        // - AND account at report date has zero balance
+        // - AND account at previous date has zero balance (but only if "show previous year" mode is enabled)
+        if ($this->accountingConfig['report']['showAccountsWithZeroBalance'] === false && $depth > 1 && $balance->isZero() && (!$this->datePrevious || ($balancePrevious && $balancePrevious->isZero()))) {
             return;
         }
 
@@ -144,7 +173,7 @@ class AccountingReport extends AbstractExcel
             'name' => Format::truncate($account->getName(), 55),
             'depth' => $depth,
             'balance' => $balance,
-            'balancePrevious' => $this->showBudget ? $account->getTotalBalanceFormer() : null,
+            'balancePrevious' => $balancePrevious,
             'budgetAllowed' => $this->showBudget ? $account->getBudgetAllowed() : null,
             'budgetBalance' => $this->showBudget ? $account->getBudgetBalance() : null,
             'account' => $account,
@@ -200,6 +229,12 @@ class AccountingReport extends AbstractExcel
             'format' => $this->color($profitOrLoss),
         ];
 
+        if ($this->datePrevious) {
+            $profitOrLossPrevious = $this->getProfitOrLoss(true);
+            $data['balancePrevious'] = $profitOrLossPrevious;
+            $data['formatPrevious'] = $this->color($profitOrLossPrevious);
+        }
+
         // A profit is reported as a POSITIVE green number, and a loss is reported a NEGATIVE red number.
         // They are identical lines at the end of both LIABILITIES and EXPENSES columns
         $this->liabilities[] = $data;
@@ -223,7 +258,7 @@ class AccountingReport extends AbstractExcel
          * BALANCE SHEET (Asset vs Liabilities)
          */
 
-        $this->lastDataColumn = $this->showBudget ? 13 : 7;
+        $this->lastDataColumn = 1 + $this->getColspan();
         $this->column = $initialColumn = 1;
 
         $this->balanceSheetHeaders($initialColumn);
@@ -236,10 +271,13 @@ class AccountingReport extends AbstractExcel
 
         // Liabilities
         $this->row = $initialRow;
-        $this->column = $initialColumn = $initialColumn + ($this->showBudget ? 7 : 4);
+        $this->column = $initialColumn = $initialColumn + $this->getColspan() / 2 + 1;
         $this->balanceSheet($initialColumn, $this->liabilities);
 
-        $this->applyExtraFormatting(6);
+        $this->row = $this->lastDataRow + 1;
+        $this->writeTotals($this->assets, $this->liabilities);
+
+        $this->applyExtraFormatting(5);
         // set printing area for page 1
         $this->sheet->getPageSetup()->setPrintAreaByColumnAndRow(1, 1, $this->lastDataColumn, $this->lastDataRow, 0, 'I');
 
@@ -260,10 +298,12 @@ class AccountingReport extends AbstractExcel
 
         // Revenues
         $this->row = $initialRow;
-        $this->column = $initialColumn = $initialColumn + ($this->showBudget ? 7 : 4);
+        $this->column = $initialColumn = $initialColumn + $this->getColspan() / 2 + 1;
         $this->incomeStatement($initialColumn, $this->revenues);
 
         $this->row = $this->lastDataRow + 1;
+        $this->writeTotals($this->expenses, $this->revenues);
+
         $this->applyExtraFormatting($initialRow);
         // set printing area for page 2
         $this->sheet->getPageSetup()->setPrintAreaByColumnAndRow(1, $initialRow - 3, $this->lastDataColumn, $this->lastDataRow + 1, 1, 'I');
@@ -300,55 +340,53 @@ class AccountingReport extends AbstractExcel
         parent::finalize($path);
     }
 
-    protected function writeFooter(): void
+    // Insert a row with the control totals
+    protected function writeTotals(array $accountsColumn1, array $accountsColumn2): void
     {
-        // EXPENSES
-        // Account.code
-        $this->write('');
-        // Account.name
-        $this->write('');
-        // Account.balance
-        $cellsToSum = $this->cellsToSum($this->expenses, 1, 'cellBalance');
-        $this->write($cellsToSum ? '=SUM(' . implode(',', $cellsToSum) . ')' : '', self::$balanceFormat, self::$totalFormat);
-        // Budget columns (optional)
-        if ($this->showBudget) {
-            $cellsToSum = $this->cellsToSum($this->expenses, 1, 'cellBalancePrevious');
+        $this->column = $this->firstDataColumn;
+        foreach ([$accountsColumn1, $accountsColumn2] as $col => $accounts) {
+            // Account.code
+            $this->write(mb_strtoupper(_tr('Contrôle')), );
+            // Account.name
+            $this->write('');
+            // Account.balance
+            $cellsToSum = $this->cellsToSum($accounts, 1);
             $this->write($cellsToSum ? '=SUM(' . implode(',', $cellsToSum) . ')' : '', self::$balanceFormat, self::$totalFormat);
-            $cellsToSum = $this->cellsToSum($this->expenses, 1, 'cellBudgetAllowed');
-            $this->write($cellsToSum ? '=SUM(' . implode(',', $cellsToSum) . ')' : '', self::$balanceFormat, self::$totalFormat);
-            $cellsToSum = $this->cellsToSum($this->expenses, 1, 'cellBudgetBalance');
-            $this->write($cellsToSum ? '=SUM(' . implode(',', $cellsToSum) . ')' : '', self::$balanceFormat, self::$totalFormat);
+            // Account previous balance (optional)
+            if ($this->datePrevious) {
+                $cellsToSum = $this->cellsToSum($accounts, 1, 'cellPrevious');
+                $this->write($cellsToSum ? '=SUM(' . implode(',', $cellsToSum) . ')' : '', self::$balanceFormat, self::$totalFormat);
+            }
+            // Budget columns (optional)
+            if ($this->showBudget) {
+                $cellsToSum = $this->cellsToSum($accounts, 1, 'cellBudgetAllowed');
+                $this->write($cellsToSum ? '=SUM(' . implode(',', $cellsToSum) . ')' : '', self::$balanceFormat, self::$totalFormat);
+                $cellsToSum = $this->cellsToSum($accounts, 1, 'cellBudgetBalance');
+                $this->write($cellsToSum ? '=SUM(' . implode(',', $cellsToSum) . ')' : '', self::$balanceFormat, self::$totalFormat);
+            }
+            if ($col === 0) {
+                // Inner columns gap
+                $this->write('');
+            }
         }
-
-        // Margin
-        $this->write('');
-
-        // REVENUES
-        // Account.code
-        $this->write('');
-        // Account.name
-        $this->write('');
-        // Account.balance
-        $cellsToSum = $this->cellsToSum($this->revenues, 1, 'cellBalance');
-        $this->write($cellsToSum ? '=SUM(' . implode(',', $cellsToSum) . ')' : '', self::$balanceFormat, self::$totalFormat);
-        // Account previous balance (optional)
-        if ($this->showBudget) {
-            $cellsToSum = $this->cellsToSum($this->revenues, 1, 'cellBalancePrevious');
-            $this->write($cellsToSum ? '=SUM(' . implode(',', $cellsToSum) . ')' : '', self::$balanceFormat, self::$totalFormat);
-            $cellsToSum = $this->cellsToSum($this->revenues, 1, 'cellBudgetAllowed');
-            $this->write($cellsToSum ? '=SUM(' . implode(',', $cellsToSum) . ')' : '', self::$balanceFormat, self::$totalFormat);
-            $cellsToSum = $this->cellsToSum($this->revenues, 1, 'cellBudgetBalance');
-            $this->write($cellsToSum ? '=SUM(' . implode(',', $cellsToSum) . ')' : '', self::$balanceFormat, self::$totalFormat);
-        }
-
+        $this->lastDataRow = $this->row;
         // Apply style
         $range = Coordinate::stringFromColumnIndex($this->firstDataColumn) . $this->row . ':' . Coordinate::stringFromColumnIndex($this->column - 1) . $this->row;
-        $this->sheet->getStyle($range)->applyFromArray(self::$totalFormat);
+        $this->sheet->getStyle($range)->applyFromArray(self::$ctrlFormat);
     }
 
     private function applyExtraFormatting(int $startRow): void
     {
-        $columnsToFormat = $this->showBudget ? [3, 4, 5, 6, 10, 11, 12, 13] : [3, 7];
+        if ($this->datePrevious && !$this->showBudget) {
+            $columnsToFormat = [3, 4, 8, 9];
+        } elseif (!$this->datePrevious && $this->showBudget) {
+            $columnsToFormat = [3, 4, 5, 9, 10, 11];
+        } elseif ($this->datePrevious && $this->showBudget) {
+            $columnsToFormat = [3, 4, 5, 6, 10, 11, 12, 13];
+        } else {
+            // Only current balance cols
+            $columnsToFormat = [3, 7];
+        }
         foreach ($columnsToFormat as $colIndex) {
             // Format balance numbers
             $range = Coordinate::stringFromColumnIndex($colIndex) . $startRow . ':' . Coordinate::stringFromColumnIndex($colIndex) . $this->lastDataRow;
@@ -398,7 +436,7 @@ class AccountingReport extends AbstractExcel
 
     private function balanceSheetHeaders(int $initialColumn): void
     {
-        $this->sheet->mergeCells([$this->column, $this->row, $this->column + ($this->showBudget ? 12 : 6), $this->row]);
+        $this->sheet->mergeCells([$this->column, $this->row, $this->column + $this->getColspan(), $this->row]);
         $this->write(
             _tr('Bilan'),
             self::$titleFormat,
@@ -409,9 +447,9 @@ class AccountingReport extends AbstractExcel
 
         // Header line 1
         $headers = [
-            ['label' => _tr('Actifs'), 'formats' => [self::$headerFormat, self::$centerFormat], 'colspan' => $this->showBudget ? 6 : 3],
+            ['label' => _tr('Actifs'), 'formats' => [self::$headerFormat, self::$centerFormat], 'colspan' => $this->getColspan() / 2],
             ['label' => '', 'width' => 3, 'formats' => []], // gap
-            ['label' => _tr('Passifs'), 'formats' => [self::$headerFormat, self::$centerFormat], 'colspan' => $this->showBudget ? 6 : 3],
+            ['label' => _tr('Passifs'), 'formats' => [self::$headerFormat, self::$centerFormat], 'colspan' => $this->getColspan() / 2],
         ];
         $this->column = $initialColumn;
         $this->writeHeaders($headers);
@@ -420,26 +458,29 @@ class AccountingReport extends AbstractExcel
         // Header line 2: date(s) of balance
         $headers = [
             ['label' => '', 'colspan' => 2], // empty margin
-            ['label' => 'Solde', 'formats' => [self::$headerFormat, self::$centerFormat]],
+            ['label' => $this->date->format('d.m.Y'), 'formats' => [self::$headerFormat, self::$centerFormat]], // current date
         ];
+        if ($this->datePrevious) {
+            $headers[] = ['label' => $this->datePrevious->format('d.m.Y'), 'formats' => [self::$headerFormat, self::$centerFormat]]; // previous date
+        }
         if ($this->showBudget) {
-            $headers[] = ['label' => 'Solde précédent', 'formats' => [self::$headerFormat, self::$centerFormat]];
-            $headers[] = ['label' => 'Budget prévu', 'formats' => [self::$headerFormat, self::$centerFormat]];
-            $headers[] = ['label' => 'Budget restant', 'formats' => [self::$headerFormat, self::$centerFormat]];
+            $headers[] = ['label' => _tr('Budget prévu'), 'formats' => [self::$headerFormat, self::$centerFormat]];
+            $headers[] = ['label' => _tr('Budget restant'), 'formats' => [self::$headerFormat, self::$centerFormat]];
         }
 
         $headers[] = ['label' => '', 'formats' => []]; // gap
-
         $headers[] = ['label' => '', 'colspan' => 2]; // empty margin
-        $headers[] = ['label' => 'Solde', 'formats' => [self::$headerFormat, self::$centerFormat]];
-        if ($this->showBudget) {
-            $headers[] = ['label' => 'Solde précédent', 'formats' => [self::$headerFormat, self::$centerFormat]];
-            $headers[] = ['label' => 'Budget prévu', 'formats' => [self::$headerFormat, self::$centerFormat]];
-            $headers[] = ['label' => 'Budget restant', 'formats' => [self::$headerFormat, self::$centerFormat]];
+        $headers[] = ['label' => $this->date->format('d.m.Y'), 'formats' => [self::$headerFormat, self::$centerFormat]]; // current date
+        if ($this->datePrevious) {
+            $headers[] = ['label' => $this->datePrevious->format('d.m.Y'), 'formats' => [self::$headerFormat, self::$centerFormat]]; // previous date
         }
+        if ($this->showBudget) {
+            $headers[] = ['label' => _tr('Budget prévu'), 'formats' => [self::$headerFormat, self::$centerFormat]];
+            $headers[] = ['label' => _tr('Budget restant'), 'formats' => [self::$headerFormat, self::$centerFormat]];
+        }
+
         $this->column = $initialColumn;
         $this->writeHeaders($headers);
-        $this->sheet->getRowDimension($this->row)->setRowHeight(1.2, 'cm');
         ++$this->row;
     }
 
@@ -448,11 +489,10 @@ class AccountingReport extends AbstractExcel
      */
     private function balanceSheet(int $initialColumn, array &$allData): void
     {
-        // Coordinates (i.e. E3) of the cells with the totals
-        $currentTotalCells = '';
-        $previousTotalCells = '';
+        // Store coordinates (ie. E3) of the 2nd level account budget cells to later use in formula
         $budgetAllowedTotalCells = '';
         $budgetBalanceTotalCells = '';
+
         $firstLine = true;
 
         foreach ($allData as $index => $data) {
@@ -480,21 +520,22 @@ class AccountingReport extends AbstractExcel
             // Column: balance at date
             if ($firstLine) {
                 $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['balance']);
-                $currentTotalCells = Coordinate::stringFromColumnIndex($this->column) . $this->row;
             }
             // Store the coordinate of the cell to later compute totals
-            $allData[$index]['cellBalance'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
+            $allData[$index]['cell'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
             $this->write($data['balance'], self::$balanceFormat, $maybeBold, $data['format'] ?? []);
+
+            // Column: balance at previous date (optional)
+            if ($this->datePrevious) {
+                $allData[$index]['cellPrevious'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
+                if ($firstLine) {
+                    $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['balance']);
+                }
+                $this->write($data['balancePrevious'], $maybeBold, $data['formatPrevious'] ?? []);
+            }
 
             // Budget columns (optional)
             if ($this->showBudget) {
-                $allData[$index]['cellBalancePrevious'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
-                if ($firstLine) {
-                    $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['balance']);
-                    $previousTotalCells = Coordinate::stringFromColumnIndex($this->column) . $this->row;
-                }
-                $this->write($data['balancePrevious'] ?? '', self::$balanceFormat, $maybeBold);
-
                 $allData[$index]['cellBudgetAllowed'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
                 if ($firstLine) {
                     $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['balance']);
@@ -517,17 +558,10 @@ class AccountingReport extends AbstractExcel
             $this->lastDataRow = max($this->lastDataRow, $this->row);
         }
 
-        // Replace the total value computed from database by a formula computed from the child accounts cells
+        // Compute the sum of budgets columns using an Excel formula
+        // We don't do it for account balance, since the total of group accounts is computed in DB
         // Level 2 (= direct child accounts)
-        $cellsToSum = $this->cellsToSum($allData, 2, 'cellBalance');
-        if ($cellsToSum) {
-            $this->sheet->setCellValue($currentTotalCells, '=SUM(' . implode(',', $cellsToSum) . ')');
-        }
         if ($this->showBudget) {
-            $cellsToSum = $this->cellsToSum($allData, 2, 'cellBalancePrevious');
-            if ($cellsToSum) {
-                $this->sheet->setCellValue($previousTotalCells, '=SUM(' . implode(',', $cellsToSum) . ')');
-            }
             $cellsToSum = $this->cellsToSum($allData, 2, 'cellBudgetAllowed');
             if ($cellsToSum) {
                 $this->sheet->setCellValue($budgetAllowedTotalCells, '=SUM(' . implode(',', $cellsToSum) . ')');
@@ -539,9 +573,22 @@ class AccountingReport extends AbstractExcel
         }
     }
 
+    private function getColspan(): int
+    {
+        $colspan = 6;
+        if ($this->datePrevious) {
+            $colspan += 2;
+        }
+        if ($this->showBudget) {
+            $colspan += 4;
+        }
+
+        return $colspan;
+    }
+
     private function incomeStatementHeaders(int $initialColumn): void
     {
-        $this->sheet->mergeCells([$this->column, $this->row, $this->column + ($this->showBudget ? 12 : 6), $this->row]);
+        $this->sheet->mergeCells([$this->column, $this->row, $this->column + $this->getColspan(), $this->row]);
         $this->write(
             _tr('Compte de résultat'),
             self::$titleFormat,
@@ -552,9 +599,9 @@ class AccountingReport extends AbstractExcel
 
         // Header line 1
         $headers = [
-            ['label' => _tr('Charges'), 'formats' => [self::$headerFormat, self::$centerFormat], 'colspan' => $this->showBudget ? 6 : 3],
+            ['label' => _tr('Charges'), 'formats' => [self::$headerFormat, self::$centerFormat], 'colspan' => $this->getColspan() / 2],
             ['label' => '', 'width' => 3, 'formats' => []], // gap
-            ['label' => _tr('Profits'), 'formats' => [self::$headerFormat, self::$centerFormat], 'colspan' => $this->showBudget ? 6 : 3],
+            ['label' => _tr('Profits'), 'formats' => [self::$headerFormat, self::$centerFormat], 'colspan' => $this->getColspan() / 2],
         ];
         $this->column = $initialColumn;
         $this->writeHeaders($headers);
@@ -563,23 +610,27 @@ class AccountingReport extends AbstractExcel
         // Header line 2: date(s) of balance
         $headers = [
             ['label' => '', 'colspan' => 2], // empty margin
-            ['label' => 'Solde', 'formats' => [self::$headerFormat, self::$centerFormat]],
+            ['label' => $this->date->format('d.m.Y'), 'formats' => [self::$headerFormat, self::$centerFormat]], // current date
         ];
+        if ($this->datePrevious) {
+            $headers[] = ['label' => $this->datePrevious->format('d.m.Y'), 'formats' => [self::$headerFormat, self::$centerFormat]]; // previous date
+        }
         if ($this->showBudget) {
-            $headers[] = ['label' => 'Solde précédent', 'formats' => [self::$headerFormat, self::$centerFormat]];
-            $headers[] = ['label' => 'Budget prévu', 'formats' => [self::$headerFormat, self::$centerFormat]];
-            $headers[] = ['label' => 'Budget restant', 'formats' => [self::$headerFormat, self::$centerFormat]];
+            $headers[] = ['label' => _tr('Budget prévu'), 'formats' => [self::$headerFormat, self::$centerFormat]];
+            $headers[] = ['label' => _tr('Budget restant'), 'formats' => [self::$headerFormat, self::$centerFormat]];
         }
 
         $headers[] = ['label' => '', 'formats' => []]; // gap
-
         $headers[] = ['label' => '', 'colspan' => 2]; // empty margin
-        $headers[] = ['label' => 'Solde', 'formats' => [self::$headerFormat, self::$centerFormat]];
-        if ($this->showBudget) {
-            $headers[] = ['label' => 'Solde précédent', 'formats' => [self::$headerFormat, self::$centerFormat]];
-            $headers[] = ['label' => 'Budget prévu', 'formats' => [self::$headerFormat, self::$centerFormat]];
-            $headers[] = ['label' => 'Budget restant', 'formats' => [self::$headerFormat, self::$centerFormat]];
+        $headers[] = ['label' => $this->date->format('d.m.Y'), 'formats' => [self::$headerFormat, self::$centerFormat]]; // current date
+        if ($this->datePrevious) {
+            $headers[] = ['label' => $this->datePrevious->format('d.m.Y'), 'formats' => [self::$headerFormat, self::$centerFormat]]; // previous date
         }
+        if ($this->showBudget) {
+            $headers[] = ['label' => _tr('Budget prévu'), 'formats' => [self::$headerFormat, self::$centerFormat]];
+            $headers[] = ['label' => _tr('Budget restant'), 'formats' => [self::$headerFormat, self::$centerFormat]];
+        }
+
         $this->column = $initialColumn;
         $this->writeHeaders($headers);
         $this->sheet->getRowDimension($this->row)->setRowHeight(1.2, 'cm');
@@ -609,14 +660,17 @@ class AccountingReport extends AbstractExcel
 
             // Column: balance at date
             // Store the coordinate of the cell to later compute totals
-            $allData[$index]['cellBalance'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
+            $allData[$index]['cell'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
             $this->write($data['balance'], self::$balanceFormat, $maybeBold, $data['format'] ?? []);
+
+            // Column: balance at previous date (optional)
+            if ($this->datePrevious) {
+                $allData[$index]['cellPrevious'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
+                $this->write($data['balancePrevious'], $maybeBold, $data['formatPrevious'] ?? []);
+            }
 
             // Budget columns (optional)
             if ($this->showBudget) {
-                $allData[$index]['cellBalancePrevious'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
-                $this->write($data['balancePrevious'] ?? '', self::$balanceFormat, $maybeBold);
-
                 $allData[$index]['cellBudgetAllowed'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
                 $this->write($data['budgetAllowed'] ?? '', self::$balanceFormat, $maybeBold);
 

@@ -11,6 +11,7 @@ use Application\Model\Bookable;
 use Application\Model\ExpenseClaim;
 use Application\Model\TransactionLine;
 use Application\Model\User;
+use BackedEnum;
 use Doctrine\ORM\QueryBuilder;
 use Ecodev\Felix\Api\Field\FieldInterface;
 use Ecodev\Felix\Api\Input\PaginationInputType;
@@ -333,6 +334,8 @@ abstract class Standard
                 $p = self::customTypesToScalar($p);
             } elseif ($p instanceof Money) {
                 $p = $p->getAmount();
+            } elseif ($p instanceof BackedEnum) {
+                $p = $p->value;
             }
         }
 

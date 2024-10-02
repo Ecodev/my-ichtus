@@ -101,7 +101,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                                 <span>{{ element.purchasePrice | currency: 'CHF' : 'symbol' : '1.0-0' }}</span>
                             }
                         </td>
-                        <td *matFooterCellDef mat-footer-cellnatural-align-right>
+                        <td *matFooterCellDef mat-footer-cell natural-align-right>
                             @if (dataSource.data?.totalPurchasePrice > 0) {
                                 <span>
                                     {{ dataSource.data?.totalPurchasePrice | currency: 'CHF' : 'symbol' : '1.0-0' }}
@@ -125,7 +125,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                                 <span>{{ element.initialPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}</span>
                             }
                         </td>
-                        <td *matFooterCellDef mat-footer-cellnatural-align-right>
+                        <td *matFooterCellDef mat-footer-cell natural-align-right>
                             @if (dataSource.data?.totalInitialPrice > 0) {
                                 <span>
                                     {{ dataSource.data?.totalInitialPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}
@@ -149,7 +149,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                                 <span>{{ element.periodicPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}</span>
                             }
                         </td>
-                        <td *matFooterCellDef mat-footer-cellnatural-align-right>
+                        <td *matFooterCellDef mat-footer-cell natural-align-right>
                             @if (dataSource.data?.totalPeriodicPrice > 0) {
                                 <span>
                                     {{ dataSource.data?.totalPeriodicPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}
@@ -301,6 +301,6 @@ This view is used for profile on front office too.
 The hideCreateFab flag is there to hide the create button for admins (is hidden for other users too.
 If we want to display the FAB, we need to add padding in bottom of page to prevent overlay over paginator
 -->
-@if (!route.snapshot.data.hideCreateFab && permissionsService.crud?.bookable.create) {
+@if (!route.snapshot.data.hideCreateFab && (permissionsService.crud | async)?.bookable.create) {
     <natural-fixed-button icon="add" [routerLink]="['/admin/bookable/new']" />
 }

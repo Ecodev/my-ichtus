@@ -1,22 +1,21 @@
 import {Apollo} from 'apollo-angular';
-import {Component, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationStart, Router, RouterLink, RouterOutlet} from '@angular/router';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {
-    NaturalAbstractController,
     NaturalAlertService,
-    NaturalQueryVariablesManager,
-    NaturalSidenavContainerComponent,
-    NaturalSidenavComponent,
-    NaturalIconDirective,
-    NaturalSidenavContentComponent,
     NaturalAvatarComponent,
     NaturalEnumPipe,
+    NaturalIconDirective,
+    NaturalQueryVariablesManager,
+    NaturalSidenavComponent,
+    NaturalSidenavContainerComponent,
+    NaturalSidenavContentComponent,
 } from '@ecodev/natural';
 import {UserService} from '../../../admin/users/services/user.service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ProvisionComponent, ProvisionData} from '../provision/provision.component';
-import {filter, takeUntil} from 'rxjs/operators';
+import {filter} from 'rxjs/operators';
 import {CurrentUserForProfile, Licenses, LicensesVariables} from '../../../shared/generated-types';
 import {DatatransService} from '../../../shared/services/datatrans.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -30,6 +29,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {CommonModule} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-profile',
@@ -54,7 +54,8 @@ import {MatButtonModule} from '@angular/material/button';
         NaturalEnumPipe,
     ],
 })
-export class ProfileComponent extends NaturalAbstractController implements OnInit {
+export class ProfileComponent implements OnInit {
+    private readonly destroyRef = inject(DestroyRef);
     public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
     public config = localConfig;
     public licenses: Licenses['licenses']['items'][0][] = [];
@@ -70,9 +71,7 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
         private readonly dialog: MatDialog,
         private readonly datatransService: DatatransService,
         private readonly licenseService: LicenseService,
-    ) {
-        super();
-    }
+    ) {}
 
     public ngOnInit(): void {
         this.viewer = this.route.snapshot.data.viewer;
@@ -91,7 +90,7 @@ export class ProfileComponent extends NaturalAbstractController implements OnIni
         // Clean up datatrans on any route change
         this.router.events
             .pipe(
-                takeUntil(this.ngUnsubscribe),
+                takeUntilDestroyed(this.destroyRef),
                 filter(event => event instanceof NavigationStart),
             )
             .subscribe(() => {

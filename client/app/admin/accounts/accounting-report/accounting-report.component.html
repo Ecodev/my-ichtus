@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Exporter bilan + PP</h2>
+<h2 mat-dialog-title>Exporter bilan + résultat</h2>
 <mat-dialog-content [formGroup]="form">
     <div class="nat-vertical">
         <mat-form-field>
@@ -14,6 +14,22 @@
             }
         </mat-form-field>
         <mat-checkbox formControlName="showBudget">Afficher le budget</mat-checkbox>
+        <mat-checkbox formControlName="compareWithPrevious" (change)="compareCheck($event)"
+            >Comparer avec l'exercice précédent</mat-checkbox
+        >
+        @if (form.get('compareWithPrevious')?.value) {
+            <mat-form-field>
+                <mat-label>Date précédente</mat-label>
+                <input
+                    matInput
+                    formControlName="datePrevious"
+                    [matDatepicker]="pickerPrevious"
+                    [max]="form.get('date')?.value"
+                />
+                <mat-datepicker-toggle matIconSuffix [for]="pickerPrevious" />
+                <mat-datepicker #pickerPrevious />
+            </mat-form-field>
+        }
     </div>
 </mat-dialog-content>
 

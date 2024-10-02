@@ -18,6 +18,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {MatDividerModule} from '@angular/material/divider';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
     selector: 'app-transaction-tags',
@@ -37,6 +38,7 @@ import {MatDividerModule} from '@angular/material/divider';
         NaturalFixedButtonComponent,
         RouterLink,
         MatDividerModule,
+        AsyncPipe,
     ],
 })
 export class TransactionTagsComponent extends NaturalAbstractList<TransactionTagService> implements OnInit {

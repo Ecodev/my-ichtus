@@ -17,7 +17,7 @@ import {
     NaturalTableButtonComponent,
     NaturalTimeAgoPipe,
 } from '@ecodev/natural';
-import {DatePipe} from '@angular/common';
+import {AsyncPipe, DatePipe} from '@angular/common';
 import {UserService} from '../services/user.service';
 import {
     CurrentUserForProfile,
@@ -94,6 +94,7 @@ import {MoneyComponent} from '../../../shared/components/money/money.component';
         NaturalFixedButtonDetailComponent,
         DatePipe,
         NaturalTimeAgoPipe,
+        AsyncPipe,
     ],
 })
 export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeoResolveData> implements OnInit {

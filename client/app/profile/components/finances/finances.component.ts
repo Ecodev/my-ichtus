@@ -1,10 +1,10 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {CurrentUserForProfile, ExpenseClaims, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateRefundComponent} from '../create-refund/create-refund.component';
-import {ifValid, NaturalAbstractList, NaturalIconDirective, NaturalEnumPipe} from '@ecodev/natural';
+import {ifValid, NaturalAbstractList, NaturalEnumPipe, NaturalIconDirective} from '@ecodev/natural';
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
 import {finalize} from 'rxjs/operators';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -47,10 +47,7 @@ import {CommonModule} from '@angular/common';
         NaturalEnumPipe,
     ],
 })
-export class FinancesComponent
-    extends NaturalAbstractList<ExpenseClaimService>
-    implements OnInit, OnChanges, OnDestroy
-{
+export class FinancesComponent extends NaturalAbstractList<ExpenseClaimService> implements OnInit, OnChanges {
     @Input({required: true}) public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
 
     public override selectedColumns = ['name', 'updateDate', 'status', 'type', 'remarks', 'amount', 'cancel'];

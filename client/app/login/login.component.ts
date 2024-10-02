@@ -1,10 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {ifValid, NaturalAbstractController, NaturalIconDirective} from '@ecodev/natural';
+import {ifValid, NaturalIconDirective} from '@ecodev/natural';
 import {UserService} from '../admin/users/services/user.service';
 import {finalize} from 'rxjs/operators';
-import {FormsModule, ReactiveFormsModule, NonNullableFormBuilder, Validators} from '@angular/forms';
+import {FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
@@ -28,7 +28,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
         MatDividerModule,
     ],
 })
-export class LoginComponent extends NaturalAbstractController implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
     /**
      * Stores the received redirect URL until we need to use it (when login is successfull)
      */
@@ -45,9 +45,7 @@ export class LoginComponent extends NaturalAbstractController implements OnInit,
         private readonly userService: UserService,
         private readonly snackBar: MatSnackBar,
         private readonly fb: NonNullableFormBuilder,
-    ) {
-        super();
-    }
+    ) {}
 
     public ngOnInit(): void {
         this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';

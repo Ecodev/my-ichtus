@@ -13,7 +13,7 @@
         }
     </div>
 
-    @if (permissionsService.crud?.configuration.create && !readonly) {
+    @if ((permissionsService.crud | async)?.configuration.create && !readonly) {
         <natural-fixed-button icon="save" [disabled]="updating" (click)="update()" />
     }
 </mat-dialog-content>

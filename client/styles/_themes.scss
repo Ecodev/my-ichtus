@@ -3,6 +3,7 @@
  * See source doc here https://github.com/angular/material2/tree/master/src/lib/core/theming
  */
 // Import theming files full relative way or karma will display warning
+@use 'sass:map';
 @use '@angular/material' as mat;
 @use '@ecodev/natural';
 @use '@ecodev/natural-editor';
@@ -57,6 +58,9 @@ $ichtus-theme: mat.m2-define-light-theme(
 );
 
 @mixin applyTheme($theme) {
+    $foreground: map.get($theme, foreground);
+    color: mat.m2-get-color-from-palette($foreground, text);
+
     @include mat.autocomplete-color($theme);
     @include mat.button-color($theme);
     @include mat.button-toggle-color($theme);

@@ -25,9 +25,10 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import Big from 'big.js';
-import {startWith, switchMap, takeUntil} from 'rxjs';
+import {startWith, switchMap} from 'rxjs';
 import {AccountType} from '../../../shared/generated-types';
 import {MatTooltip, MatTooltipModule} from '@angular/material/tooltip';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-account',
@@ -94,7 +95,7 @@ export class AccountComponent extends NaturalAbstractDetail<AccountService, Natu
         parent.valueChanges
             .pipe(
                 startWith(parent.value),
-                takeUntil(this.ngUnsubscribe),
+                takeUntilDestroyed(this.destroyRef),
                 switchMap(value => {
                     this.nextCodeAvailable = null; // Hide invalid code as soon as we can
 

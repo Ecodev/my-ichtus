@@ -1,20 +1,17 @@
-import {Component, Inject, OnInit, Optional} from '@angular/core';
+import {Component, DestroyRef, Inject, inject, OnInit, Optional} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {ConfigurationService} from '../services/configuration.service';
 import {forkJoin} from 'rxjs';
-import {
-    NaturalAbstractController,
-    NaturalAlertService,
-    NaturalDialogTriggerProvidedData,
-    NaturalFixedButtonComponent,
-} from '@ecodev/natural';
-import {finalize, takeUntil} from 'rxjs/operators';
+import {NaturalAlertService, NaturalDialogTriggerProvidedData, NaturalFixedButtonComponent} from '@ecodev/natural';
+import {finalize} from 'rxjs/operators';
 import {MatButtonModule} from '@angular/material/button';
 import {NaturalEditorComponent} from '@ecodev/natural-editor';
 import {FormsModule} from '@angular/forms';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {AsyncPipe} from '@angular/common';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 export type SupportComponentData = {
     configurationKey: string;
@@ -34,9 +31,11 @@ export type SupportComponentData = {
         NaturalEditorComponent,
         NaturalFixedButtonComponent,
         MatButtonModule,
+        AsyncPipe,
     ],
 })
-export class SupportComponent extends NaturalAbstractController implements OnInit {
+export class SupportComponent implements OnInit {
+    private readonly destroyRef = inject(DestroyRef);
     public text = '';
 
     public readonly = false;
@@ -60,15 +59,13 @@ export class SupportComponent extends NaturalAbstractController implements OnIni
         @Optional()
         @Inject(MAT_DIALOG_DATA)
         public readonly data?: NaturalDialogTriggerProvidedData<SupportComponentData>,
-    ) {
-        super();
-    }
+    ) {}
 
     public ngOnInit(): void {
         this.readonly = this.route.snapshot.data.readonly || this.data?.data?.readonly;
         this.configurationService
             .get(this.getConfigKey())
-            .pipe(takeUntil(this.ngUnsubscribe))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(value => (this.text = value));
 
         this.activable = this.route.snapshot.data.activable; // ignore modal mode
@@ -76,7 +73,7 @@ export class SupportComponent extends NaturalAbstractController implements OnIni
         if (this.activable) {
             this.configurationService
                 .get('announcement-active')
-                .pipe(takeUntil(this.ngUnsubscribe))
+                .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe(value => (this.active = value === '1'));
         }
     }

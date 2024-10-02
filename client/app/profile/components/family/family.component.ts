@@ -9,13 +9,21 @@ import {MatExpansionModule, MatExpansionPanel} from '@angular/material/expansion
 import {first} from 'rxjs/operators';
 import {FamilyMemberComponent} from '../family-member/family-member.component';
 import {MatButtonModule} from '@angular/material/button';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
     selector: 'app-family',
     templateUrl: './family.component.html',
     styleUrl: './family.component.scss',
     standalone: true,
-    imports: [MatButtonModule, RouterLink, MatExpansionModule, FamilyMemberComponent, NaturalFixedButtonComponent],
+    imports: [
+        MatButtonModule,
+        RouterLink,
+        MatExpansionModule,
+        FamilyMemberComponent,
+        NaturalFixedButtonComponent,
+        AsyncPipe,
+    ],
 })
 export class FamilyComponent implements OnInit {
     public viewer!: NonNullable<CurrentUserForProfile['viewer']>;

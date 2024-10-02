@@ -13,13 +13,14 @@ import {
 } from '@ecodev/natural';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
     selector: 'app-import',
     templateUrl: './import.component.html',
     styleUrl: './import.component.scss',
     standalone: true,
-    imports: [MatButtonModule, NaturalFileSelectDirective, MatIconModule, NaturalIconDirective],
+    imports: [MatButtonModule, NaturalFileSelectDirective, MatIconModule, NaturalIconDirective, AsyncPipe],
 })
 export class ImportComponent implements OnInit {
     /**
