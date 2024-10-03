@@ -45,7 +45,7 @@ const queryForExport = gql`
 })
 export class BvrComponent {
     private readonly apollo = inject(Apollo);
-    private readonly document = inject<Document>(DOCUMENT);
+    private readonly document = inject(DOCUMENT);
 
     @Input() public set bankingData(data: BankingInfosVariables) {
         this.variables = data;

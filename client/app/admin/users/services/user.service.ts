@@ -1,5 +1,5 @@
 import {gql} from 'apollo-angular';
-import {Injectable, OnDestroy, inject} from '@angular/core';
+import {inject, Injectable, OnDestroy} from '@angular/core';
 import {FormControl, ValidationErrors, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {
@@ -12,7 +12,6 @@ import {
     LOCAL_STORAGE,
     NaturalAbstractModelService,
     NaturalQueryVariablesManager,
-    NaturalStorage,
     unique,
 } from '@ecodev/natural';
 import {fromEvent, Observable, of, Subject} from 'rxjs';
@@ -109,7 +108,7 @@ export class UserService
     protected readonly bookingService = inject(BookingService);
     private readonly permissionsService = inject(PermissionsService);
     protected readonly pricedBookingService = inject(PricedBookingService);
-    private readonly storage = inject<NaturalStorage>(LOCAL_STORAGE);
+    private readonly storage = inject(LOCAL_STORAGE);
 
     /**
      * Should be used only by getViewer and cacheViewer

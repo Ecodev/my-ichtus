@@ -20,7 +20,7 @@ export type ContactType = 'bookingsWithOwnerContact' | 'emailAndPhoneUsers';
 })
 export class CopyContactDataButtonService<V extends EmailAndPhoneUsersVariables | BookingsWithOwnerContactVariables> {
     private readonly apollo = inject(Apollo);
-    private readonly document = inject<Document>(DOCUMENT);
+    private readonly document = inject(DOCUMENT);
 
     private type!: ContactType;
     private variablesManager!: NaturalQueryVariablesManager<V>;

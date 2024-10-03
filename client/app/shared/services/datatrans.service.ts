@@ -40,7 +40,7 @@ function stringifyReplacer(key: string, value: unknown): unknown {
     providedIn: 'root',
 })
 export class DatatransService {
-    private readonly document = inject<Document>(DOCUMENT);
+    private readonly document = inject(DOCUMENT);
 
     private preservedStyles: {html: string; body: string} = {html: '', body: ''};
     private paymentFrame: HTMLDivElement | null = null;

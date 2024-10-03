@@ -6,7 +6,6 @@ import {
     NaturalIconDirective,
     NaturalSidenavContainerComponent,
     NaturalSidenavStackService,
-    NaturalStorage,
 } from '@ecodev/natural';
 import {filter, switchMap} from 'rxjs/operators';
 import {ActivatedRoute, Router, RouterLink, RouterOutlet} from '@angular/router';
@@ -36,7 +35,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 export class HomeComponent implements OnInit {
     private readonly userService = inject(UserService);
     private readonly router = inject(Router);
-    private readonly storage = inject<NaturalStorage>(LOCAL_STORAGE);
+    private readonly storage = inject(LOCAL_STORAGE);
     public readonly route = inject(ActivatedRoute);
     private readonly configurationService = inject(ConfigurationService);
     private readonly naturalSidenavStackService = inject(NaturalSidenavStackService);
