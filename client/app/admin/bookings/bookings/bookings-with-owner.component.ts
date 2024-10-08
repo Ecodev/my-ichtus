@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
+import {bookingsForBookable} from '../../../shared/natural-search/natural-search-facets.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {BookingWithOwnerService} from '../services/booking-with-owner.service';
 import {AbstractBookings} from './abstract-bookings';
@@ -70,9 +70,8 @@ export class BookingsWithOwnerComponent extends AbstractBookings<BookingWithOwne
 
     public constructor() {
         const bookingWithOwnerService = inject(BookingWithOwnerService);
-        const naturalSearchFacetsService = inject(NaturalSearchFacetsService);
 
         super(bookingWithOwnerService);
-        this.naturalSearchFacets = naturalSearchFacetsService.get('bookingsForBookable');
+        this.naturalSearchFacets = bookingsForBookable();
     }
 }

@@ -8,7 +8,7 @@ import {
 } from '@ecodev/natural';
 import {CurrentUserForProfile, LogSortingField, UserRole} from '../../../shared/generated-types';
 import {LogService} from '../services/log.service';
-import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
+import {logs} from '../../../shared/natural-search/natural-search-facets.service';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -36,11 +36,10 @@ import {CommonModule} from '@angular/common';
 export class LogsComponent extends NaturalAbstractList<LogService> implements OnInit {
     public constructor() {
         const logService = inject(LogService);
-        const naturalSearchFacetsService = inject(NaturalSearchFacetsService);
 
         super(logService);
 
-        this.naturalSearchFacets = naturalSearchFacetsService.get('logs');
+        this.naturalSearchFacets = logs();
         this.forcedVariables = {
             sorting: [{field: LogSortingField.creationDate, order: SortingOrder.DESC}],
         };

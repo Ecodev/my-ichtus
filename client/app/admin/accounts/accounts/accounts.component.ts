@@ -12,7 +12,7 @@ import {
 } from '@ecodev/natural';
 import {CommonModule, DatePipe} from '@angular/common';
 import {AccountType, CurrentUserForProfile} from '../../../shared/generated-types';
-import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
+import {accounts} from '../../../shared/natural-search/natural-search-facets.service';
 import {AccountService} from '../services/account.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {TransactionLineService} from '../../transactions/services/transactionLine.service';
@@ -114,13 +114,12 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
     };
 
     public constructor() {
-        const naturalSearchFacetsService = inject(NaturalSearchFacetsService);
         const accountService = inject(AccountService);
 
         super(accountService);
         this.accountService = accountService;
 
-        this.naturalSearchFacets = naturalSearchFacetsService.get('accounts');
+        this.naturalSearchFacets = accounts();
     }
 
     public addLink(): any[] {

@@ -14,7 +14,7 @@ import {
 } from '@ecodev/natural';
 import {CommonModule, DatePipe} from '@angular/common';
 import {BankingInfosVariables, EmailAndPhoneUsersVariables, Users, UserStatus} from '../../../shared/generated-types';
-import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
+import {users} from '../../../shared/natural-search/natural-search-facets.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {UserService} from '../services/user.service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
@@ -89,12 +89,11 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
 
     public constructor() {
         const userService = inject(UserService);
-        const naturalSearchFacetsService = inject(NaturalSearchFacetsService);
 
         super(userService);
         this.userService = userService;
 
-        this.naturalSearchFacets = naturalSearchFacetsService.get('users');
+        this.naturalSearchFacets = users();
     }
 
     public flagWelcomeSessionDate(user: Users['users']['items'][0]): void {

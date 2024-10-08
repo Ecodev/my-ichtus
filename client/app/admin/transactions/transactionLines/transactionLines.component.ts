@@ -11,7 +11,7 @@ import {
     NaturalTableButtonComponent,
 } from '@ecodev/natural';
 import {AsyncPipe, DatePipe} from '@angular/common';
-import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
+import {transactionLines} from '../../../shared/natural-search/natural-search-facets.service';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {
     ExportTransactionLinesVariables,
@@ -84,12 +84,11 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
 
     public constructor() {
         const transactionLineService = inject(TransactionLineService);
-        const naturalSearchFacetsService = inject(NaturalSearchFacetsService);
 
         super(transactionLineService);
         this.transactionLineService = transactionLineService;
 
-        this.naturalSearchFacets = naturalSearchFacetsService.get('transactionLines');
+        this.naturalSearchFacets = transactionLines();
     }
 
     public download(): void {

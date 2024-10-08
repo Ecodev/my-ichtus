@@ -1,5 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, inject} from '@angular/core';
-import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
+import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {UsageBookableService} from '../services/usage-bookable.service';
 import {
@@ -29,6 +28,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {admin_approved, bookables, storage} from '../../../shared/natural-search/natural-search-facets.service';
 
 @Component({
     selector: 'app-usage-bookables',
@@ -73,7 +73,6 @@ export class UsageBookablesComponent extends ParentComponent<UsageBookableServic
 
     public constructor() {
         const usageBookableService = inject(UsageBookableService);
-        const naturalSearchFacetsService = inject(NaturalSearchFacetsService);
         const dialog = inject(MatDialog);
         const snackbar = inject(MatSnackBar);
         const bookingService = inject(BookingService);
@@ -81,9 +80,17 @@ export class UsageBookablesComponent extends ParentComponent<UsageBookableServic
         super(usageBookableService, dialog, snackbar, bookingService);
 
         if (this.route.snapshot.data.isAdmin) {
-            this.naturalSearchFacets = naturalSearchFacetsService.get(
-                this.route.snapshot.data.facetsKey ?? 'bookables',
-            );
+            let facets = bookables();
+            switch (this.route.snapshot.data.facetsKey) {
+                case 'storage':
+                    facets = storage();
+                    break;
+                case 'admin_approved':
+                    facets = admin_approved();
+                    break;
+            }
+
+            this.naturalSearchFacets = facets;
         }
     }
 

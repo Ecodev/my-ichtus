@@ -11,7 +11,7 @@ import {
     NaturalTableButtonComponent,
 } from '@ecodev/natural';
 import {CommonModule, DatePipe} from '@angular/common';
-import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
+import {expenseClaims} from '../../../shared/natural-search/natural-search-facets.service';
 import {ExpenseClaimService} from '../services/expenseClaim.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {RouterLink} from '@angular/router';
@@ -67,10 +67,9 @@ export class ExpenseClaimsComponent extends NaturalAbstractList<ExpenseClaimServ
 
     public constructor() {
         const expenseClaimService = inject(ExpenseClaimService);
-        const naturalSearchFacetsService = inject(NaturalSearchFacetsService);
 
         super(expenseClaimService);
 
-        this.naturalSearchFacets = naturalSearchFacetsService.get('expenseClaims');
+        this.naturalSearchFacets = expenseClaims();
     }
 }

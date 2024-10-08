@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {BookingService} from '../services/booking.service';
-import {NaturalSearchFacetsService} from '../../../shared/natural-search/natural-search-facets.service';
+import {bookings, bookingsAdvanced} from '../../../shared/natural-search/natural-search-facets.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {AbstractBookings} from './abstract-bookings';
 import {RouterLink} from '@angular/router';
@@ -60,11 +60,8 @@ export class BookingsComponent extends AbstractBookings<BookingService> {
 
     public constructor() {
         const bookingService = inject(BookingService);
-        const naturalSearchFacetsService = inject(NaturalSearchFacetsService);
 
         super(bookingService);
-        this.naturalSearchFacets = naturalSearchFacetsService.get(
-            this.route.snapshot.data.advancedFacets ? 'bookingsAdvanced' : 'bookings',
-        );
+        this.naturalSearchFacets = this.route.snapshot.data.advancedFacets ? bookingsAdvanced() : bookings();
     }
 }

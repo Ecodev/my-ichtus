@@ -1,4 +1,4 @@
-import {Injectable, inject} from '@angular/core';
+import {assertInInjectionContext, inject} from '@angular/core';
 import {
     DropdownFacet,
     FlagFacet,
@@ -60,661 +60,694 @@ function prefixOperatorWithField(selection: NaturalSearchSelection): NaturalSear
     return selection;
 }
 
-/**
- * Collection of facets for natural-search accessible by the object name
- */
-@Injectable({
-    providedIn: 'root',
-})
-export class NaturalSearchFacetsService {
-    private readonly enumService = inject(NaturalEnumService);
-    private readonly userTagService = inject(UserTagService);
-    private readonly transactionService = inject(TransactionService);
-    private readonly transactionTagService = inject(TransactionTagService);
-    private readonly bookableService = inject(BookableService);
-    private readonly bookableTagService = inject(BookableTagService);
-    private readonly accountService = inject(AccountService);
-    private readonly userService = inject(UserService);
-    private readonly licenceService = inject(LicenseService);
-    private readonly expenseClaimService = inject(ExpenseClaimService);
-
-    private readonly userTags: DropdownFacet<TypeSelectNaturalConfiguration<UserTagService>> = {
+function userTags(): DropdownFacet<TypeSelectNaturalConfiguration<UserTagService>> {
+    return {
         display: 'Tags',
         field: 'userTags',
         component: TypeNaturalSelectComponent,
         configuration: {
-            service: this.userTagService,
+            service: inject(UserTagService),
             placeholder: 'Tags',
         },
     };
+}
 
-    private readonly transactionTags: DropdownFacet<TypeSelectNaturalConfiguration<TransactionTagService>> = {
+function transactionTags(): DropdownFacet<TypeSelectNaturalConfiguration<TransactionTagService>> {
+    return {
         display: 'Tags',
         field: 'transactionTag',
         component: TypeNaturalSelectComponent,
         configuration: {
-            service: this.transactionTagService,
+            service: inject(TransactionTagService),
             placeholder: 'Tags',
         },
     };
+}
 
-    private readonly licenses: DropdownFacet<TypeSelectNaturalConfiguration<LicenseService>> = {
+function licenses(): DropdownFacet<TypeSelectNaturalConfiguration<LicenseService>> {
+    return {
         display: 'Certifications',
         field: 'licenses',
         component: TypeNaturalSelectComponent,
         configuration: {
-            service: this.licenceService,
+            service: inject(LicenseService),
             placeholder: 'Certifications',
         },
     };
+}
 
-    private readonly bookableTags: DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>> = {
+function bookableTags(): DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>> {
+    return {
         display: 'Tags',
         field: 'bookableTags',
         component: TypeNaturalSelectComponent,
         configuration: {
-            service: this.bookableTagService,
+            service: inject(BookableTagService),
             placeholder: 'Tags',
         },
     };
+}
 
-    private readonly owner: DropdownFacet<TypeSelectNaturalConfiguration<UserService>> = {
+function owner(): DropdownFacet<TypeSelectNaturalConfiguration<UserService>> {
+    return {
         display: 'Utilisateur',
         field: 'owner',
         component: TypeNaturalSelectComponent,
         configuration: {
-            service: this.userService,
+            service: inject(UserService),
             placeholder: 'Utilisateur',
         },
     };
+}
 
-    private readonly userWelcomeSession: FlagFacet<UserFilterGroupConditionWelcomeSessionDate> = {
-        display: "N'a pas été accueilli",
-        name: 'userWelcomeSession',
-        field: 'welcomeSessionDate',
-        condition: {null: {}},
-    };
+const userWelcomeSession: FlagFacet<UserFilterGroupConditionWelcomeSessionDate> = {
+    display: "N'a pas été accueilli",
+    name: 'userWelcomeSession',
+    field: 'welcomeSessionDate',
+    condition: {null: {}},
+};
 
-    private readonly receivesNewsletter: FlagFacet<UserFilterGroupConditionReceivesNewsletter> = {
-        display: 'Abonné newsletter',
-        field: 'receivesNewsletter',
-        condition: {equal: {value: true}},
-    };
+const receivesNewsletter: FlagFacet<UserFilterGroupConditionReceivesNewsletter> = {
+    display: 'Abonné newsletter',
+    field: 'receivesNewsletter',
+    condition: {equal: {value: true}},
+};
 
-    private readonly transaction: DropdownFacet<TypeSelectNaturalConfiguration<TransactionService>> = {
+function transaction(): DropdownFacet<TypeSelectNaturalConfiguration<TransactionService>> {
+    return {
         display: 'Transaction',
         field: 'transaction',
         component: TypeNaturalSelectComponent,
         configuration: {
-            service: this.transactionService,
+            service: inject(TransactionService),
             placeholder: 'Transaction',
         },
     };
+}
 
-    private readonly bookable: DropdownFacet<TypeSelectNaturalConfiguration<BookableService>> = {
+function bookable(): DropdownFacet<TypeSelectNaturalConfiguration<BookableService>> {
+    return {
         display: 'Réservable',
         field: 'bookable',
         component: TypeNaturalSelectComponent,
         configuration: {
-            service: this.bookableService,
+            service: inject(BookableService),
             placeholder: 'Réservable',
         },
     };
+}
 
-    private readonly code: DropdownFacet<never> = {
-        display: 'Code',
-        field: 'code',
-        component: TypeTextComponent,
-        transform: wrapLike,
-    };
+const code: DropdownFacet<never> = {
+    display: 'Code',
+    field: 'code',
+    component: TypeTextComponent,
+    transform: wrapLike,
+};
 
-    private readonly name: DropdownFacet<never> = {
-        display: 'Nom',
-        field: 'name',
-        component: TypeTextComponent,
-        transform: wrapLike,
-    };
+const name: DropdownFacet<never> = {
+    display: 'Nom',
+    field: 'name',
+    component: TypeTextComponent,
+    transform: wrapLike,
+};
 
-    private readonly creationDate: DropdownFacet<TypeDateConfiguration> = {
-        display: 'Date de création',
-        field: 'creationDate',
-        component: TypeDateComponent,
-    };
+const creationDate: DropdownFacet<TypeDateConfiguration> = {
+    display: 'Date de création',
+    field: 'creationDate',
+    component: TypeDateComponent,
+};
 
-    private readonly updateDate: DropdownFacet<TypeDateConfiguration> = {
-        display: 'Date de modification',
-        field: 'updateDate',
-        component: TypeDateComponent,
-    };
+const updateDate: DropdownFacet<TypeDateConfiguration> = {
+    display: 'Date de modification',
+    field: 'updateDate',
+    component: TypeDateComponent,
+};
 
-    private readonly startDate: DropdownFacet<TypeDateConfiguration> = {
-        display: 'Date de début',
-        field: 'startDate',
-        component: TypeDateComponent,
-    };
+const startDate: DropdownFacet<TypeDateConfiguration> = {
+    display: 'Date de début',
+    field: 'startDate',
+    component: TypeDateComponent,
+};
 
-    private readonly endDate: DropdownFacet<TypeDateConfiguration> = {
-        display: 'Date de fin',
-        field: 'endDate',
-        component: TypeDateComponent,
-    };
+const endDate: DropdownFacet<TypeDateConfiguration> = {
+    display: 'Date de fin',
+    field: 'endDate',
+    component: TypeDateComponent,
+};
 
-    private readonly destination: DropdownFacet<never> = {
-        display: 'Destination',
-        field: 'destination',
-        component: TypeTextComponent,
-        transform: wrapLike,
-    };
+const destination: DropdownFacet<never> = {
+    display: 'Destination',
+    field: 'destination',
+    component: TypeTextComponent,
+    transform: wrapLike,
+};
 
-    private readonly participantCount: DropdownFacet<TypeNumberConfiguration> = {
-        display: 'Nb de participants',
-        field: 'participantCount',
-        component: TypeNumberComponent,
-        configuration: {
-            step: 1,
-        },
-    };
+const participantCount: DropdownFacet<TypeNumberConfiguration> = {
+    display: 'Nb de participants',
+    field: 'participantCount',
+    component: TypeNumberComponent,
+    configuration: {
+        step: 1,
+    },
+};
 
-    private readonly creator: DropdownFacet<TypeSelectNaturalConfiguration<UserService>> = {
+function creator(): DropdownFacet<TypeSelectNaturalConfiguration<UserService>> {
+    return {
         display: 'Utilisateur',
         field: 'creator',
         component: TypeNaturalSelectComponent,
         configuration: {
             placeholder: 'Utilisateur',
-            service: this.userService,
+            service: inject(UserService),
         },
     };
+}
 
-    private readonly message: DropdownFacet<never> = {
-        display: 'Message',
-        field: 'message',
-        component: TypeTextComponent,
-        transform: wrapLike,
-    };
+const message: DropdownFacet<never> = {
+    display: 'Message',
+    field: 'message',
+    component: TypeTextComponent,
+    transform: wrapLike,
+};
 
-    private readonly isActive: DropdownFacet<TypeSelectConfiguration> = {
-        display: 'Actif',
-        field: 'isActive',
-        component: TypeSelectComponent,
-        name: 'isActive',
-        configuration: {
-            items: [
-                {value: true, name: 'Oui'},
-                {value: false, name: 'Non'},
-            ],
-        },
-    };
+const isActive: DropdownFacet<TypeSelectConfiguration> = {
+    display: 'Actif',
+    field: 'isActive',
+    component: TypeSelectComponent,
+    name: 'isActive',
+    configuration: {
+        items: [
+            {value: true, name: 'Oui'},
+            {value: false, name: 'Non'},
+        ],
+    },
+};
 
-    private readonly bookingType: DropdownFacet<TypeSelectConfiguration> = {
+function bookingType(): DropdownFacet<TypeSelectConfiguration> {
+    return {
         display: 'Type de réservation',
         field: 'bookingType',
         component: TypeSelectComponent,
         configuration: {
-            items: this.enumService.get('BookingType'),
+            items: inject(NaturalEnumService).get('BookingType'),
         },
     };
+}
 
-    private readonly initialPrice: DropdownFacet<TypeNumberConfiguration> = {
-        display: 'Prix initial',
-        field: 'initialPrice',
-        component: TypeNumberComponent,
-        configuration: {
-            step: 1,
-        },
-    };
+const initialPrice: DropdownFacet<TypeNumberConfiguration> = {
+    display: 'Prix initial',
+    field: 'initialPrice',
+    component: TypeNumberComponent,
+    configuration: {
+        step: 1,
+    },
+};
 
-    private readonly periodicPrice: DropdownFacet<TypeNumberConfiguration> = {
-        display: 'Prix périodique',
-        field: 'periodicPrice',
-        component: TypeNumberComponent,
-        configuration: {
-            step: 1,
-        },
-    };
+const periodicPrice: DropdownFacet<TypeNumberConfiguration> = {
+    display: 'Prix périodique',
+    field: 'periodicPrice',
+    component: TypeNumberComponent,
+    configuration: {
+        step: 1,
+    },
+};
 
-    private readonly purchasePrice: DropdownFacet<TypeNumberConfiguration> = {
-        display: "Prix d'achat",
-        field: 'purchasePrice',
-        component: TypeNumberComponent,
-        configuration: {
-            step: 1,
-        },
-    };
+const purchasePrice: DropdownFacet<TypeNumberConfiguration> = {
+    display: "Prix d'achat",
+    field: 'purchasePrice',
+    component: TypeNumberComponent,
+    configuration: {
+        step: 1,
+    },
+};
 
-    private readonly bookableActiveBookingCount: DropdownFacet<TypeNumberConfiguration> = {
-        display: 'Réservations simultanées',
-        field: 'bookableBookingCount',
-        component: TypeNumberComponent,
-        transform: prefixOperatorWithField,
-        configuration: {
-            step: 1,
-        },
-    };
+const bookableActiveBookingCount: DropdownFacet<TypeNumberConfiguration> = {
+    display: 'Réservations simultanées',
+    field: 'bookableBookingCount',
+    component: TypeNumberComponent,
+    transform: prefixOperatorWithField,
+    configuration: {
+        step: 1,
+    },
+};
 
-    private readonly bokingBookableTag: DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>> = {
+function bokingBookableTag(): DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>> {
+    return {
         display: 'Tag de réservable',
         field: 'bookable.bookableTags',
         component: TypeNaturalSelectComponent,
         configuration: {
-            service: this.bookableTagService,
+            service: inject(BookableTagService),
             placeholder: 'Tag de réservable',
         },
     };
+}
 
-    private readonly internalRemarks: DropdownFacet<never> = {
-        display: 'Remarques internes',
-        field: 'internalRemarks',
-        component: TypeTextComponent,
-        transform: wrapLike,
-    };
+const internalRemarks: DropdownFacet<never> = {
+    display: 'Remarques internes',
+    field: 'internalRemarks',
+    component: TypeTextComponent,
+    transform: wrapLike,
+};
 
-    private readonly allFacets: Record<string, NaturalSearchFacets> = {
-        users: [
-            this.userTags,
+export function users(): NaturalSearchFacets {
+    assertInInjectionContext(users);
 
-            {
-                display: 'Réservation (réservable)',
-                field: 'custom',
-                name: 'hasBookingWithBookable',
-                transform: replaceOperatorByName,
-                component: TypeNaturalSelectComponent,
-                configuration: {
-                    service: this.bookableService,
-                    placeholder: 'Réservable',
-                    filter: {
-                        groups: [
-                            {
-                                conditions: [
-                                    {
-                                        isActive: {equal: {value: true}},
-                                    },
-                                ],
-                            },
-                        ],
-                    } satisfies BookableFilter,
-                },
-            } satisfies DropdownFacet<TypeSelectNaturalConfiguration<BookableService>>,
-            {
-                display: 'Réservation (statut)',
-                field: 'custom',
-                name: 'hasBookingStatus',
-                transform: replaceOperatorByName,
-                component: TypeSelectComponent,
-                configuration: {items: this.enumService.get('BookingStatus')},
-            } satisfies DropdownFacet<TypeSelectConfiguration>,
-            {
-                display: 'Réservation (état)',
-                field: 'custom',
-                name: 'hasBookingCompleted',
-                transform: replaceOperatorByName,
-                component: TypeSelectComponent,
-                configuration: {
-                    items: [
-                        {value: true, name: 'Terminé'},
-                        {value: false, name: 'En cours'},
+    return [
+        userTags(),
+
+        {
+            display: 'Réservation (réservable)',
+            field: 'custom',
+            name: 'hasBookingWithBookable',
+            transform: replaceOperatorByName,
+            component: TypeNaturalSelectComponent,
+            configuration: {
+                service: inject(BookableService),
+                placeholder: 'Réservable',
+                filter: {
+                    groups: [
+                        {
+                            conditions: [
+                                {
+                                    isActive: {equal: {value: true}},
+                                },
+                            ],
+                        },
                     ],
-                },
-            } satisfies DropdownFacet<TypeSelectConfiguration>,
-            {
-                display: 'Réservation (tag de réservable)',
-                field: 'custom',
-                name: 'hasBookingWithTaggedBookable',
-                transform: replaceOperatorByName,
-                component: TypeNaturalSelectComponent,
-                configuration: {
-                    service: this.bookableTagService,
-                    placeholder: 'Tag de réservable',
-                },
-            } satisfies DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>>,
-            {
-                display: `N'importe quelle autre réservation (tag de réservable)`,
-                field: 'custom',
-                name: 'hasAnyBookingWithTaggedBookable',
-                transform: (selection: NaturalSearchSelection) => {
-                    selection.name = 'hasBookingWithTaggedBookable';
-                    selection = replaceOperatorByName(selection);
+                } satisfies BookableFilter,
+            },
+        } satisfies DropdownFacet<TypeSelectNaturalConfiguration<BookableService>>,
+        {
+            display: 'Réservation (statut)',
+            field: 'custom',
+            name: 'hasBookingStatus',
+            transform: replaceOperatorByName,
+            component: TypeSelectComponent,
+            configuration: {items: inject(NaturalEnumService).get('BookingStatus')},
+        } satisfies DropdownFacet<TypeSelectConfiguration>,
+        {
+            display: 'Réservation (état)',
+            field: 'custom',
+            name: 'hasBookingCompleted',
+            transform: replaceOperatorByName,
+            component: TypeSelectComponent,
+            configuration: {
+                items: [
+                    {value: true, name: 'Terminé'},
+                    {value: false, name: 'En cours'},
+                ],
+            },
+        } satisfies DropdownFacet<TypeSelectConfiguration>,
+        {
+            display: 'Réservation (tag de réservable)',
+            field: 'custom',
+            name: 'hasBookingWithTaggedBookable',
+            transform: replaceOperatorByName,
+            component: TypeNaturalSelectComponent,
+            configuration: {
+                service: inject(BookableTagService),
+                placeholder: 'Tag de réservable',
+            },
+        } satisfies DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>>,
+        {
+            display: `N'importe quelle autre réservation (tag de réservable)`,
+            field: 'custom',
+            name: 'hasAnyBookingWithTaggedBookable',
+            transform: (selection: NaturalSearchSelection) => {
+                selection.name = 'hasBookingWithTaggedBookable';
+                selection = replaceOperatorByName(selection);
 
-                    const field = selection.condition.hasBookingWithTaggedBookable;
-                    if (field) {
-                        field.sameBooking = false;
-                    }
+                const field = selection.condition.hasBookingWithTaggedBookable;
+                if (field) {
+                    field.sameBooking = false;
+                }
 
-                    return selection;
-                },
-                component: TypeNaturalSelectComponent,
-                configuration: {
-                    service: this.bookableTagService,
-                    placeholder: 'Tag de réservable',
-                },
-            } satisfies DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>>,
-            {
-                display: 'Nombre de sorties',
-                field: 'bookingCount',
-                component: TypeNumberComponent,
-                configuration: {
-                    step: 1,
-                    min: 0,
-                },
-                transform: prefixOperatorWithField,
-            } satisfies DropdownFacet<TypeNumberConfiguration>,
-            {
-                display: 'Date de sortie',
-                field: 'bookingDate',
-                component: TypeDateComponent,
-                transform: prefixOperatorWithField,
-            } satisfies DropdownFacet<TypeDateConfiguration>,
-            {
-                display: 'Statut',
-                field: 'status',
-                component: TypeSelectComponent,
-                configuration: {
-                    items: this.enumService.get('UserStatus'),
-                },
-            } satisfies DropdownFacet<TypeSelectConfiguration>,
-            {
-                display: 'Rôle',
-                field: 'role',
-                component: TypeSelectComponent,
-                configuration: {
-                    items: this.enumService.get('UserRole'),
-                },
-            } satisfies DropdownFacet<TypeSelectConfiguration>,
-            this.licenses,
-            this.receivesNewsletter,
-            this.userWelcomeSession,
-            {
-                display: "Date d'accueil",
-                name: 'welcomeSessionDate',
-                field: 'welcomeSessionDate',
-                component: TypeDateComponent,
-            } satisfies DropdownFacet<TypeDateConfiguration>,
-            {
-                display: 'Mode de paiement',
-                field: 'billingType',
-                component: TypeSelectComponent,
-                configuration: {
-                    items: this.enumService.get('BillingType'),
-                },
-            } satisfies DropdownFacet<TypeSelectConfiguration>,
-            {
-                display: 'Solde',
-                field: 'accountBalance',
-                component: TypeNumberComponent,
-                transform: prefixOperatorWithField,
-                configuration: {
-                    step: 0.01,
-                },
-            } satisfies DropdownFacet<TypeNumberConfiguration>,
-            this.internalRemarks,
-            {
-                display: 'Date de naissance',
-                field: 'birthday',
-                component: TypeDateComponent,
-            } satisfies DropdownFacet<TypeDateConfiguration>,
-            this.creationDate,
-            this.updateDate,
-            {
-                display: 'Date de démission',
-                field: 'resignDate',
-                component: TypeDateComponent,
-            } satisfies DropdownFacet<TypeDateConfiguration>,
-        ],
-        transactionLines: [
-            this.transaction,
-            {
-                display: 'Montant',
-                field: 'balance',
-                component: TypeNumberComponent,
-                configuration: {
-                    step: 0.01,
-                },
-            } satisfies DropdownFacet<TypeNumberConfiguration>,
-            {
-                display: 'Compte',
-                field: 'custom',
-                name: 'creditOrDebitAccount',
-                component: TypeHierarchicSelectorComponent,
-                transform: replaceOperatorByName,
-                showValidateButton: true,
-                configuration: {
-                    key: 'account',
-                    service: this.accountService,
-                    config: accountHierarchicConfiguration,
-                },
-            } satisfies DropdownFacet<TypeHierarchicSelectorConfiguration>,
-            {
-                display: 'Compte au débit',
-                field: 'debit',
-                component: TypeHierarchicSelectorComponent,
-                showValidateButton: true,
-                configuration: {
-                    key: 'account',
-                    service: this.accountService,
-                    config: accountHierarchicConfiguration,
-                },
-            } satisfies DropdownFacet<TypeHierarchicSelectorConfiguration>,
-            {
-                display: 'Compte au crédit',
-                field: 'credit',
-                component: TypeHierarchicSelectorComponent,
-                showValidateButton: true,
-                configuration: {
-                    key: 'account',
-                    service: this.accountService,
-                    config: accountHierarchicConfiguration,
-                },
-            } satisfies DropdownFacet<TypeHierarchicSelectorConfiguration>,
-            {
-                display: 'Date de transaction',
-                field: 'transactionDate',
-                component: TypeDateComponent,
-            } satisfies DropdownFacet<TypeDateConfiguration>,
-            {
-                display: 'Pointé',
-                field: 'isReconciled',
-                component: TypeSelectComponent,
-                name: 'isReconciled',
-                configuration: {
-                    items: [
-                        {value: true, name: 'Oui'},
-                        {value: false, name: 'Non'},
-                    ],
-                },
-            } satisfies DropdownFacet<TypeSelectConfiguration>,
-            {
-                display: 'Justificatif',
-                field: 'custom',
-                name: 'transactionWithDocument',
-                transform: replaceOperatorByName,
-                component: TypeSelectComponent,
-                configuration: {
-                    items: [
-                        {value: true, name: 'Avec'},
-                        {value: false, name: 'Sans'},
-                    ],
-                },
-            } satisfies DropdownFacet<TypeSelectConfiguration>,
-            this.bookable,
-            this.transactionTags,
-            this.owner,
-            this.creationDate,
-            this.updateDate,
-        ],
-        storage: [
-            this.name,
-            this.code,
-            this.bookableActiveBookingCount,
-            {
-                display: 'Utilisateur',
-                field: 'custom',
-                name: 'bookableUsage',
-                transform: replaceOperatorByName,
-                component: TypeNaturalSelectComponent,
-                configuration: {
-                    service: this.userService,
-                    placeholder: 'Utilisateur',
-                },
-            } satisfies DropdownFacet<TypeSelectNaturalConfiguration<UserService>>,
-            this.creationDate,
-            this.updateDate,
-        ],
-        bookables: [
-            this.name,
-            this.code,
-            this.bookableTags,
-            this.isActive,
-            this.bookingType,
-            this.initialPrice,
-            this.periodicPrice,
-            this.purchasePrice,
-            this.bookableActiveBookingCount,
-            this.creationDate,
-            this.updateDate,
-        ],
-        admin_approved: [
-            this.name,
-            this.code,
-            this.bookableTags,
-            this.isActive,
-            this.initialPrice,
-            this.bookableActiveBookingCount,
-            this.creationDate,
-            this.updateDate,
-        ],
-        equipment: [
-            this.name,
-            this.code,
-            this.bookableTags,
-            this.isActive,
-            this.purchasePrice,
-            this.bookableActiveBookingCount,
-            this.creationDate,
-            this.updateDate,
-        ],
-        bookingsForBookable: [this.owner, this.bookable, this.creationDate, this.updateDate],
-        bookings: [
-            this.owner,
-            this.bookable,
-            this.startDate,
-            this.endDate,
-            this.bokingBookableTag,
-            this.destination,
-            this.participantCount,
-            this.creationDate,
-            this.updateDate,
-        ],
-        bookingsAdvanced: [
-            this.owner,
-            {
-                display: 'Statut',
-                field: 'status',
-                component: TypeSelectComponent,
-                configuration: {items: this.enumService.get('BookingStatus')},
-            } satisfies DropdownFacet<TypeSelectConfiguration>,
-            {
-                display: 'En cours',
-                field: 'endDate',
-                condition: {null: {}},
-            } satisfies FlagFacet<BookingFilterGroupConditionEndDate>,
-            this.bokingBookableTag,
-            this.bookable,
-            this.startDate,
-            this.endDate,
-            this.destination,
-            this.participantCount,
-            this.creationDate,
-            this.updateDate,
-        ],
-        accounts: [
-            this.name,
-            this.code,
-            {
-                display: 'Type',
-                field: 'type',
-                component: TypeSelectComponent,
-                configuration: {
-                    items: this.enumService.get('AccountType'),
-                },
-            } satisfies DropdownFacet<TypeSelectConfiguration>,
-            {
-                display: 'Solde',
-                field: 'balance',
-                component: TypeNumberComponent,
-                configuration: {
-                    step: 1,
-                },
-            } satisfies DropdownFacet<TypeNumberConfiguration>,
-            {
-                display: 'Budget prévu',
-                field: 'budgetAllowed',
-                component: TypeNumberComponent,
-                configuration: {
-                    step: 1,
-                },
-            } satisfies DropdownFacet<TypeNumberConfiguration>,
-            {
-                display: 'Budget restant',
-                field: 'budgetBalance',
-                component: TypeNumberComponent,
-                configuration: {
-                    step: 1,
-                },
-            } satisfies DropdownFacet<TypeNumberConfiguration>,
-            this.creationDate,
-            this.updateDate,
-        ],
-        expenseClaims: [
-            this.name,
-            {
-                display: 'Type',
-                field: 'type',
-                component: TypeSelectComponent,
-                configuration: {
-                    items: this.enumService.get('ExpenseClaimType'),
-                },
-            } satisfies DropdownFacet<TypeSelectConfiguration>,
-            this.owner,
-            {
-                display: 'Statut',
-                field: 'status',
-                component: TypeSelectComponent,
-                configuration: {
-                    items: this.enumService.get('ExpenseClaimStatus'),
-                },
-            } satisfies DropdownFacet<TypeSelectConfiguration>,
-            {
-                display: 'Montant',
-                field: 'amount',
-                component: TypeNumberComponent,
-                configuration: {
-                    step: 1,
-                },
-            } satisfies DropdownFacet<TypeNumberConfiguration>,
-            {
-                display: 'Secteur concerné',
-                field: 'sector',
-                component: TypeSelectComponent,
-                configuration: {
-                    items: this.expenseClaimService.getSectors(),
-                },
-            } satisfies DropdownFacet<TypeSelectConfiguration>,
-            {
-                display: 'À approuver',
-                field: 'custom',
-                name: 'expenseClaimToReview',
-                condition: {in: {}},
-                transform: replaceOperatorByName,
-            } satisfies FlagFacet<{in: Record<string, never>}>,
-            this.creationDate,
-            this.updateDate,
-        ],
-        logs: [this.creationDate, this.creator, this.message],
-    };
+                return selection;
+            },
+            component: TypeNaturalSelectComponent,
+            configuration: {
+                service: inject(BookableTagService),
+                placeholder: 'Tag de réservable',
+            },
+        } satisfies DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>>,
+        {
+            display: 'Nombre de sorties',
+            field: 'bookingCount',
+            component: TypeNumberComponent,
+            configuration: {
+                step: 1,
+                min: 0,
+            },
+            transform: prefixOperatorWithField,
+        } satisfies DropdownFacet<TypeNumberConfiguration>,
+        {
+            display: 'Date de sortie',
+            field: 'bookingDate',
+            component: TypeDateComponent,
+            transform: prefixOperatorWithField,
+        } satisfies DropdownFacet<TypeDateConfiguration>,
+        {
+            display: 'Statut',
+            field: 'status',
+            component: TypeSelectComponent,
+            configuration: {
+                items: inject(NaturalEnumService).get('UserStatus'),
+            },
+        } satisfies DropdownFacet<TypeSelectConfiguration>,
+        {
+            display: 'Rôle',
+            field: 'role',
+            component: TypeSelectComponent,
+            configuration: {
+                items: inject(NaturalEnumService).get('UserRole'),
+            },
+        } satisfies DropdownFacet<TypeSelectConfiguration>,
+        licenses(),
+        receivesNewsletter,
+        userWelcomeSession,
+        {
+            display: "Date d'accueil",
+            name: 'welcomeSessionDate',
+            field: 'welcomeSessionDate',
+            component: TypeDateComponent,
+        } satisfies DropdownFacet<TypeDateConfiguration>,
+        {
+            display: 'Mode de paiement',
+            field: 'billingType',
+            component: TypeSelectComponent,
+            configuration: {
+                items: inject(NaturalEnumService).get('BillingType'),
+            },
+        } satisfies DropdownFacet<TypeSelectConfiguration>,
+        {
+            display: 'Solde',
+            field: 'accountBalance',
+            component: TypeNumberComponent,
+            transform: prefixOperatorWithField,
+            configuration: {
+                step: 0.01,
+            },
+        } satisfies DropdownFacet<TypeNumberConfiguration>,
+        internalRemarks,
+        {
+            display: 'Date de naissance',
+            field: 'birthday',
+            component: TypeDateComponent,
+        } satisfies DropdownFacet<TypeDateConfiguration>,
+        creationDate,
+        updateDate,
+        {
+            display: 'Date de démission',
+            field: 'resignDate',
+            component: TypeDateComponent,
+        } satisfies DropdownFacet<TypeDateConfiguration>,
+    ];
+}
 
-    /**
-     * Returns the natural search configuration for given, or null if non-existent
-     */
-    public get(key: string): NaturalSearchFacets {
-        return this.allFacets[key] || [];
-    }
+export function transactionLines(): NaturalSearchFacets {
+    assertInInjectionContext(transactionLines);
+
+    return [
+        transaction(),
+        {
+            display: 'Montant',
+            field: 'balance',
+            component: TypeNumberComponent,
+            configuration: {
+                step: 0.01,
+            },
+        } satisfies DropdownFacet<TypeNumberConfiguration>,
+        {
+            display: 'Compte',
+            field: 'custom',
+            name: 'creditOrDebitAccount',
+            component: TypeHierarchicSelectorComponent,
+            transform: replaceOperatorByName,
+            showValidateButton: true,
+            configuration: {
+                key: 'account',
+                service: inject(AccountService),
+                config: accountHierarchicConfiguration,
+            },
+        } satisfies DropdownFacet<TypeHierarchicSelectorConfiguration>,
+        {
+            display: 'Compte au débit',
+            field: 'debit',
+            component: TypeHierarchicSelectorComponent,
+            showValidateButton: true,
+            configuration: {
+                key: 'account',
+                service: inject(AccountService),
+                config: accountHierarchicConfiguration,
+            },
+        } satisfies DropdownFacet<TypeHierarchicSelectorConfiguration>,
+        {
+            display: 'Compte au crédit',
+            field: 'credit',
+            component: TypeHierarchicSelectorComponent,
+            showValidateButton: true,
+            configuration: {
+                key: 'account',
+                service: inject(AccountService),
+                config: accountHierarchicConfiguration,
+            },
+        } satisfies DropdownFacet<TypeHierarchicSelectorConfiguration>,
+        {
+            display: 'Date de transaction',
+            field: 'transactionDate',
+            component: TypeDateComponent,
+        } satisfies DropdownFacet<TypeDateConfiguration>,
+        {
+            display: 'Pointé',
+            field: 'isReconciled',
+            component: TypeSelectComponent,
+            name: 'isReconciled',
+            configuration: {
+                items: [
+                    {value: true, name: 'Oui'},
+                    {value: false, name: 'Non'},
+                ],
+            },
+        } satisfies DropdownFacet<TypeSelectConfiguration>,
+        {
+            display: 'Justificatif',
+            field: 'custom',
+            name: 'transactionWithDocument',
+            transform: replaceOperatorByName,
+            component: TypeSelectComponent,
+            configuration: {
+                items: [
+                    {value: true, name: 'Avec'},
+                    {value: false, name: 'Sans'},
+                ],
+            },
+        } satisfies DropdownFacet<TypeSelectConfiguration>,
+        bookable(),
+        transactionTags(),
+        owner(),
+        creationDate,
+        updateDate,
+    ];
+}
+
+export function storage(): NaturalSearchFacets {
+    assertInInjectionContext(storage);
+
+    return [
+        name,
+        code,
+        bookableActiveBookingCount,
+        {
+            display: 'Utilisateur',
+            field: 'custom',
+            name: 'bookableUsage',
+            transform: replaceOperatorByName,
+            component: TypeNaturalSelectComponent,
+            configuration: {
+                service: inject(UserService),
+                placeholder: 'Utilisateur',
+            },
+        } satisfies DropdownFacet<TypeSelectNaturalConfiguration<UserService>>,
+        creationDate,
+        updateDate,
+    ];
+}
+
+export function bookables(): NaturalSearchFacets {
+    assertInInjectionContext(bookables);
+
+    return [
+        name,
+        code,
+        bookableTags(),
+        isActive,
+        bookingType(),
+        initialPrice,
+        periodicPrice,
+        purchasePrice,
+        bookableActiveBookingCount,
+        creationDate,
+        updateDate,
+    ];
+}
+
+export function admin_approved(): NaturalSearchFacets {
+    assertInInjectionContext(admin_approved);
+
+    return [name, code, bookableTags(), isActive, initialPrice, bookableActiveBookingCount, creationDate, updateDate];
+}
+
+export function equipment(): NaturalSearchFacets {
+    assertInInjectionContext(equipment);
+
+    return [name, code, bookableTags(), isActive, purchasePrice, bookableActiveBookingCount, creationDate, updateDate];
+}
+
+export function bookingsForBookable(): NaturalSearchFacets {
+    assertInInjectionContext(bookingsForBookable);
+
+    return [owner(), bookable(), creationDate, updateDate];
+}
+
+export function bookings(): NaturalSearchFacets {
+    assertInInjectionContext(bookings);
+
+    return [
+        owner(),
+        bookable(),
+        startDate,
+        endDate,
+        bokingBookableTag(),
+        destination,
+        participantCount,
+        creationDate,
+        updateDate,
+    ];
+}
+
+export function bookingsAdvanced(): NaturalSearchFacets {
+    assertInInjectionContext(bookingsAdvanced);
+
+    return [
+        owner(),
+        {
+            display: 'Statut',
+            field: 'status',
+            component: TypeSelectComponent,
+            configuration: {items: inject(NaturalEnumService).get('BookingStatus')},
+        } satisfies DropdownFacet<TypeSelectConfiguration>,
+        {
+            display: 'En cours',
+            field: 'endDate',
+            condition: {null: {}},
+        } satisfies FlagFacet<BookingFilterGroupConditionEndDate>,
+        bokingBookableTag(),
+        bookable(),
+        startDate,
+        endDate,
+        destination,
+        participantCount,
+        creationDate,
+        updateDate,
+    ];
+}
+
+export function accounts(): NaturalSearchFacets {
+    assertInInjectionContext(accounts);
+
+    return [
+        name,
+        code,
+        {
+            display: 'Type',
+            field: 'type',
+            component: TypeSelectComponent,
+            configuration: {
+                items: inject(NaturalEnumService).get('AccountType'),
+            },
+        } satisfies DropdownFacet<TypeSelectConfiguration>,
+        {
+            display: 'Solde',
+            field: 'balance',
+            component: TypeNumberComponent,
+            configuration: {
+                step: 1,
+            },
+        } satisfies DropdownFacet<TypeNumberConfiguration>,
+        {
+            display: 'Budget prévu',
+            field: 'budgetAllowed',
+            component: TypeNumberComponent,
+            configuration: {
+                step: 1,
+            },
+        } satisfies DropdownFacet<TypeNumberConfiguration>,
+        {
+            display: 'Budget restant',
+            field: 'budgetBalance',
+            component: TypeNumberComponent,
+            configuration: {
+                step: 1,
+            },
+        } satisfies DropdownFacet<TypeNumberConfiguration>,
+        creationDate,
+        updateDate,
+    ];
+}
+
+export function expenseClaims(): NaturalSearchFacets {
+    assertInInjectionContext(expenseClaims);
+
+    return [
+        name,
+        {
+            display: 'Type',
+            field: 'type',
+            component: TypeSelectComponent,
+            configuration: {
+                items: inject(NaturalEnumService).get('ExpenseClaimType'),
+            },
+        } satisfies DropdownFacet<TypeSelectConfiguration>,
+        owner(),
+        {
+            display: 'Statut',
+            field: 'status',
+            component: TypeSelectComponent,
+            configuration: {
+                items: inject(NaturalEnumService).get('ExpenseClaimStatus'),
+            },
+        } satisfies DropdownFacet<TypeSelectConfiguration>,
+        {
+            display: 'Montant',
+            field: 'amount',
+            component: TypeNumberComponent,
+            configuration: {
+                step: 1,
+            },
+        } satisfies DropdownFacet<TypeNumberConfiguration>,
+        {
+            display: 'Secteur concerné',
+            field: 'sector',
+            component: TypeSelectComponent,
+            configuration: {
+                items: inject(ExpenseClaimService).getSectors(),
+            },
+        } satisfies DropdownFacet<TypeSelectConfiguration>,
+        {
+            display: 'À approuver',
+            field: 'custom',
+            name: 'expenseClaimToReview',
+            condition: {in: {}},
+            transform: replaceOperatorByName,
+        } satisfies FlagFacet<{in: Record<string, never>}>,
+        creationDate,
+        updateDate,
+    ];
+}
+
+export function logs(): NaturalSearchFacets {
+    assertInInjectionContext(logs);
+
+    return [creationDate, creator(), message];
 }

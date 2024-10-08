@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {SafetyBookingService} from './safety-booking.service';
-import {NaturalSearchFacetsService} from '../shared/natural-search/natural-search-facets.service';
+import {bookings} from '../shared/natural-search/natural-search-facets.service';
 import {PermissionsService} from '../shared/services/permissions.service';
 import {AbstractBookings} from '../admin/bookings/bookings/abstract-bookings';
 import {RouterLink} from '@angular/router';
@@ -59,9 +59,8 @@ export class SafetyComponent extends AbstractBookings<SafetyBookingService> {
 
     public constructor() {
         const safetyBookingService = inject(SafetyBookingService);
-        const naturalSearchFacetsService = inject(NaturalSearchFacetsService);
 
         super(safetyBookingService);
-        this.naturalSearchFacets = naturalSearchFacetsService.get('bookings');
+        this.naturalSearchFacets = bookings();
     }
 }
