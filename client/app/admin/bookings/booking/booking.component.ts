@@ -75,7 +75,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     ],
 })
 export class BookingComponent extends NaturalAbstractDetail<BookingService, NaturalSeoResolveData> implements OnInit {
-    public readonly bookingService: BookingService;
     public readonly bookableService = inject(BookableService);
     public readonly userService = inject(UserService);
 
@@ -125,7 +124,6 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
         const bookingService = inject(BookingService);
 
         super('booking', bookingService);
-        this.bookingService = bookingService;
     }
 
     public override ngOnInit(): void {
@@ -155,7 +153,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
             return;
         }
 
-        this.bookingService.terminateBooking(this.data.model.id).subscribe(() => {
+        this.service.terminateBooking(this.data.model.id).subscribe(() => {
             const endDate = this.form.get('endDate');
             if (endDate) {
                 endDate.setValue(formatIsoDateTime(new Date()));
@@ -168,7 +166,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
             return;
         }
 
-        this.bookingService.updateNow({id: this.data.model.id, endDate: null}).subscribe(() => {
+        this.service.updateNow({id: this.data.model.id, endDate: null}).subscribe(() => {
             this.form.controls.endDate.setValue(null);
         });
     }
@@ -232,14 +230,14 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
 
     public doAssignBookable(bookable: UsageBookables['bookables']['items'][0]): void {
         const partialBooking: BookingPartialInput = {status: BookingStatus.Booked};
-        this.bookingService.createWithBookable(bookable, this.data.model.owner, partialBooking).subscribe(booking => {
+        this.service.createWithBookable(bookable, this.data.model.owner, partialBooking).subscribe(booking => {
             if (!this.isUpdatePage()) {
                 return;
             }
 
             this.newBooking = Object.assign(booking, {bookable: bookable});
             this.alertService.info('La réservation a été créée avec succès');
-            this.bookingService.terminateBooking(this.data.model.id).subscribe(() => {
+            this.service.terminateBooking(this.data.model.id).subscribe(() => {
                 const endDate = this.form.get('endDate');
                 const status = this.form.get('status');
                 if (endDate) {

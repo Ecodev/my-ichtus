@@ -62,7 +62,6 @@ export class ExpenseClaimComponent
     extends NaturalAbstractDetail<ExpenseClaimService, NaturalSeoResolveData>
     implements OnInit
 {
-    public readonly expenseClaimService: ExpenseClaimService;
     public readonly userService = inject(UserService);
     public readonly transactionLineService = inject(TransactionLineService);
     public readonly permissionsService = inject(PermissionsService);
@@ -75,7 +74,6 @@ export class ExpenseClaimComponent
         const expenseClaimService = inject(ExpenseClaimService);
 
         super('expenseClaim', expenseClaimService);
-        this.expenseClaimService = expenseClaimService;
     }
 
     public override ngOnInit(): void {

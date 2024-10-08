@@ -1,11 +1,10 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges, inject} from '@angular/core';
+import {Component, inject, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {CurrentUserForProfile, ExpenseClaims, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateRefundComponent} from '../create-refund/create-refund.component';
 import {ifValid, NaturalAbstractList, NaturalEnumPipe, NaturalIconDirective} from '@ecodev/natural';
-import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
 import {finalize} from 'rxjs/operators';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {iban as ibanValidator} from '../../../shared/validators';
@@ -49,8 +48,6 @@ import {CommonModule} from '@angular/common';
 })
 export class FinancesComponent extends NaturalAbstractList<ExpenseClaimService> implements OnInit, OnChanges {
     private readonly userService = inject(UserService);
-    private readonly expenseClaimService: ExpenseClaimService;
-    private readonly transactionLineService = inject(TransactionLineService);
     private readonly dialog = inject(MatDialog);
 
     @Input({required: true}) public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
@@ -70,7 +67,6 @@ export class FinancesComponent extends NaturalAbstractList<ExpenseClaimService> 
         const expenseClaimService = inject(ExpenseClaimService);
 
         super(expenseClaimService);
-        this.expenseClaimService = expenseClaimService;
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -101,7 +97,7 @@ export class FinancesComponent extends NaturalAbstractList<ExpenseClaimService> 
         this.lockIbanIfDefined();
         this.ibanLocked = !!this.viewer.iban;
 
-        this.variablesManager.set('forUser', this.expenseClaimService.getForUserVariables(this.viewer));
+        this.variablesManager.set('forUser', this.service.getForUserVariables(this.viewer));
     }
 
     public cancelExpenseClaim(expenseClaim: ExpenseClaims['expenseClaims']['items'][0]): void {
@@ -111,7 +107,7 @@ export class FinancesComponent extends NaturalAbstractList<ExpenseClaimService> 
                 if (confirmed) {
                     this.deleting.add(expenseClaim.id);
 
-                    this.expenseClaimService.delete([expenseClaim]).subscribe({
+                    this.service.delete([expenseClaim]).subscribe({
                         next: () => {
                             this.alertService.info(`Supprimé`);
                         },
@@ -128,7 +124,7 @@ export class FinancesComponent extends NaturalAbstractList<ExpenseClaimService> 
             .subscribe(expense => {
                 if (expense) {
                     expense.type = ExpenseClaimType.Refund;
-                    this.expenseClaimService.create(expense).subscribe(() => {
+                    this.service.create(expense).subscribe(() => {
                         this.alertService.info('Ta demande de remboursement a été enregistrée');
                     });
                 }

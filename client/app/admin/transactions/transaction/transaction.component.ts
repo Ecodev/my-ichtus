@@ -91,7 +91,6 @@ export class TransactionComponent
     >
     implements OnInit
 {
-    private readonly transactionService: TransactionService;
     public readonly bookableService = inject(BookableService);
     public readonly transactionLineService = inject(TransactionLineService);
     public readonly userService = inject(UserService);
@@ -113,7 +112,6 @@ export class TransactionComponent
         const transactionService = inject(TransactionService);
 
         super('transaction', transactionService);
-        this.transactionService = transactionService;
     }
 
     public override ngOnInit(): void {
@@ -171,18 +169,15 @@ export class TransactionComponent
 
         if (expenseClaim.owner?.account) {
             if (expenseClaim.type === ExpenseClaimType.ExpenseClaim) {
-                const preset = this.transactionService.getExpenseClaimPreset(
-                    expenseClaim.owner.account,
-                    expenseClaim.amount,
-                );
+                const preset = this.service.getExpenseClaimPreset(expenseClaim.owner.account, expenseClaim.amount);
                 this.transactionLinesComponent.setItems(preset);
             } else if (expenseClaim.type === ExpenseClaimType.Refund) {
-                const preset = this.transactionService.getRefundPreset(expenseClaim.owner.account, expenseClaim.amount);
+                const preset = this.service.getRefundPreset(expenseClaim.owner.account, expenseClaim.amount);
                 this.transactionLinesComponent.setItems(preset);
             }
         }
         if (expenseClaim.type === ExpenseClaimType.Invoice) {
-            const preset = this.transactionService.getInvoicePreset(transactionName, expenseClaim.amount);
+            const preset = this.service.getInvoicePreset(transactionName, expenseClaim.amount);
             this.transactionLinesComponent.setItems(preset);
         }
     }

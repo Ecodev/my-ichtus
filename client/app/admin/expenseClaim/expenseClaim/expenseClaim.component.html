@@ -98,7 +98,7 @@
                         <mat-label>Secteur concerné</mat-label>
                         <mat-select formControlName="sector" (selectionChange)="update()">
                             <mat-option />
-                            @for (option of expenseClaimService.getSectors(); track option) {
+                            @for (option of service.getSectors(); track option) {
                                 <mat-option [value]="option">
                                     {{ option }}
                                 </mat-option>

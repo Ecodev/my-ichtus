@@ -66,7 +66,6 @@ type AccountingExportDialogResult = {
     ],
 })
 export class AccountsComponent extends NaturalAbstractNavigableList<AccountService> implements OnInit {
-    private readonly accountService: AccountService;
     private readonly dialog = inject(MatDialog);
     public readonly permissionsService = inject(PermissionsService);
     public readonly transactionLineService = inject(TransactionLineService);
@@ -117,7 +116,6 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
         const accountService = inject(AccountService);
 
         super(accountService);
-        this.accountService = accountService;
 
         this.naturalSearchFacets = accounts();
     }
@@ -145,7 +143,7 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
             .subscribe(result => {
                 if (result) {
                     button.disabled = true;
-                    this.accountService
+                    this.service
                         .getReportExportLink(result.date, result.datePrevious, result.showBudget)
                         .pipe(finalize(() => (button.disabled = false)))
                         .subscribe(url => {
@@ -164,7 +162,7 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
             .afterClosed()
             .subscribe(date => {
                 if (date) {
-                    this.accountService.closing(date).subscribe(transaction => {
+                    this.service.closing(date).subscribe(transaction => {
                         if (transaction) {
                             this.router.navigate(['../transaction/', transaction.id], {relativeTo: this.route});
                         }

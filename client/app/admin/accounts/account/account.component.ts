@@ -59,7 +59,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     ],
 })
 export class AccountComponent extends NaturalAbstractDetail<AccountService, NaturalSeoResolveData> implements OnInit {
-    public readonly accountService: AccountService;
     public readonly userService = inject(UserService);
 
     public nextCodeAvailable: number | null = null;
@@ -70,7 +69,6 @@ export class AccountComponent extends NaturalAbstractDetail<AccountService, Natu
         const accountService = inject(AccountService);
 
         super('account', accountService);
-        this.accountService = accountService;
     }
 
     public override ngOnInit(): void {
@@ -78,7 +76,7 @@ export class AccountComponent extends NaturalAbstractDetail<AccountService, Natu
 
         const parentId = this.route.snapshot.params.parent;
         if (parentId) {
-            this.accountService.getOne(parentId).subscribe(parentAccount => {
+            this.service.getOne(parentId).subscribe(parentAccount => {
                 const parentField = this.form.get('parent');
                 if (parentAccount.id && parentField) {
                     parentField.setValue({
@@ -102,7 +100,7 @@ export class AccountComponent extends NaturalAbstractDetail<AccountService, Natu
                 switchMap(value => {
                     this.nextCodeAvailable = null; // Hide invalid code as soon as we can
 
-                    return this.accountService.getNextCodeAvailable(value ? value.id : null);
+                    return this.service.getNextCodeAvailable(value ? value.id : null);
                 }),
             )
             .subscribe(code => {

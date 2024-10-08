@@ -56,7 +56,6 @@ import {MatTableModule} from '@angular/material/table';
     ],
 })
 export class TransactionLinesComponent extends NaturalAbstractList<TransactionLineService> implements OnInit {
-    private readonly transactionLineService: TransactionLineService;
     public readonly permissionsService = inject(PermissionsService);
 
     public override availableColumns: AvailableColumn[] = [
@@ -86,7 +85,6 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
         const transactionLineService = inject(TransactionLineService);
 
         super(transactionLineService);
-        this.transactionLineService = transactionLineService;
 
         this.naturalSearchFacets = transactionLines();
     }
@@ -94,14 +92,14 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
     public download(): void {
         const qvm = new NaturalQueryVariablesManager<ExportTransactionLinesVariables>(this.variablesManager);
 
-        this.transactionLineService.getExportLink(qvm).subscribe(url => {
+        this.service.getExportLink(qvm).subscribe(url => {
             window.location.href = url;
         });
     }
 
     public filterByAccount(account: MinimalAccount): void {
         if (this.hideFab) {
-            const link = this.transactionLineService.linkToTransactionLinesForAccount(account);
+            const link = this.service.linkToTransactionLinesForAccount(account);
             this.router.navigate(link);
         } else {
             const selection = TransactionLineService.getSelectionForAccount(account);
@@ -122,7 +120,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
 
     public filterByTag(tag: TransactionTag['transactionTag']): void {
         if (this.hideFab) {
-            const link = this.transactionLineService.linkToTransactionLinesForTag(tag);
+            const link = this.service.linkToTransactionLinesForTag(tag);
             this.router.navigate(link);
         } else {
             const selection = TransactionLineService.getSelectionForTag(tag);
@@ -132,7 +130,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
     }
 
     public updateReconciled(e: MatCheckboxChange, transactionLine: TransactionLine['transactionLine']): void {
-        this.transactionLineService.updateIsReconciled(transactionLine.id, e.checked).subscribe(() => {
+        this.service.updateIsReconciled(transactionLine.id, e.checked).subscribe(() => {
             this.alertService.info('Pointage mis à jour');
         });
     }

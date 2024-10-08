@@ -98,7 +98,6 @@ import {MoneyComponent} from '../../../shared/components/money/money.component';
     ],
 })
 export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeoResolveData> implements OnInit {
-    private readonly userService: UserService;
     public readonly userTagService = inject(UserTagService);
     public readonly licenseService = inject(LicenseService);
     public readonly bookingService = inject(BookingService);
@@ -125,7 +124,6 @@ export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeo
         const userService = inject(UserService);
 
         super('user', userService);
-        this.userService = userService;
     }
 
     public override ngOnInit(): void {
@@ -137,7 +135,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeo
             if (this.isUpdatePage()) {
                 const qvm = new NaturalQueryVariablesManager<UsersVariables>();
                 qvm.set('variables', UserService.getFamilyVariables(this.data.model));
-                this.userService.getAll(qvm).subscribe(family => {
+                this.service.getAll(qvm).subscribe(family => {
                     this.showFamilyTab = family.items.length > 1;
                 });
 
@@ -150,7 +148,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeo
     protected override initForm(): void {
         super.initForm();
 
-        this.userService.getUserRolesAvailable(this.data.model).subscribe(userRoles => {
+        this.service.getUserRolesAvailable(this.data.model).subscribe(userRoles => {
             this.userRolesAvailable = userRoles;
         });
 
@@ -203,7 +201,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeo
     }
 
     public canUpdateIban(): boolean {
-        return this.userService.canUpdateIban(this.viewer);
+        return this.service.canUpdateIban(this.viewer);
     }
 
     public updateIban(): void {
@@ -219,7 +217,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeo
             this.updating = true;
             this.ibanCtrl.enable();
             const iban = this.ibanCtrl.value;
-            this.userService
+            this.service
                 .updateNow({id: this.data.model.id, iban: iban})
                 .pipe(
                     finalize(() => {

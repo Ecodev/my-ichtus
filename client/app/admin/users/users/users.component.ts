@@ -1,4 +1,3 @@
-import {Apollo} from 'apollo-angular';
 import {Component, inject, OnInit} from '@angular/core';
 import {
     AvailableColumn,
@@ -55,9 +54,7 @@ import {MatTableModule} from '@angular/material/table';
     ],
 })
 export class UsersComponent extends NaturalAbstractList<UserService> implements OnInit {
-    private readonly userService: UserService;
     public readonly permissionsService = inject(PermissionsService);
-    private readonly apollo = inject(Apollo);
     private readonly dialog = inject(MatDialog);
     private readonly copyContactDataButtonService =
         inject<CopyContactDataButtonService<EmailAndPhoneUsersVariables>>(CopyContactDataButtonService);
@@ -91,14 +88,13 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
         const userService = inject(UserService);
 
         super(userService);
-        this.userService = userService;
 
         this.naturalSearchFacets = users();
     }
 
     public flagWelcomeSessionDate(user: Users['users']['items'][0]): void {
         this.welcoming.set(user, true);
-        this.userService
+        this.service
             .flagWelcomeSessionDate(user.id)
             .pipe(finalize(() => this.welcoming.delete(user)))
             .subscribe();
@@ -110,7 +106,7 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
         }
 
         this.activating.set(user, true);
-        this.userService
+        this.service
             .activate(user.id)
             .pipe(finalize(() => this.activating.delete(user)))
             .subscribe();
