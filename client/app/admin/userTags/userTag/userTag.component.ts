@@ -41,8 +41,6 @@ export class UserTagComponent extends NaturalAbstractDetail<UserTagService, Natu
     public readonly userService = inject(UserService);
 
     public constructor() {
-        const userTagService = inject(UserTagService);
-
-        super('userTag', userTagService);
+        super('userTag', inject(UserTagService));
     }
 }

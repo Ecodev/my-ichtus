@@ -34,8 +34,6 @@ import {MatDividerModule} from '@angular/material/divider';
 })
 export class TransactionTagComponent extends NaturalAbstractDetail<TransactionTagService, NaturalSeoResolveData> {
     public constructor() {
-        const transactionTagService = inject(TransactionTagService);
-
-        super('transactionTag', transactionTagService);
+        super('transactionTag', inject(TransactionTagService));
     }
 }

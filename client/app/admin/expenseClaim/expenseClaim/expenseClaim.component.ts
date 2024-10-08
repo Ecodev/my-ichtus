@@ -71,9 +71,7 @@ export class ExpenseClaimComponent
     public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
 
     public constructor() {
-        const expenseClaimService = inject(ExpenseClaimService);
-
-        super('expenseClaim', expenseClaimService);
+        super('expenseClaim', inject(ExpenseClaimService));
     }
 
     public override ngOnInit(): void {

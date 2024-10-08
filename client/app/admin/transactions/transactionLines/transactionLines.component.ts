@@ -82,9 +82,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
     @Input() public hideFab = false;
 
     public constructor() {
-        const transactionLineService = inject(TransactionLineService);
-
-        super(transactionLineService);
+        super(inject(TransactionLineService));
 
         this.naturalSearchFacets = transactionLines();
     }

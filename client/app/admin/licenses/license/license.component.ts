@@ -48,8 +48,6 @@ export class LicenseComponent extends NaturalAbstractDetail<LicenseService> {
     public readonly bookableService = inject(BookableService);
 
     public constructor() {
-        const licenseService = inject(LicenseService);
-
-        super('license', licenseService);
+        super('license', inject(LicenseService));
     }
 }

@@ -76,9 +76,7 @@ export class EditableTransactionLinesComponent extends NaturalAbstractEditableLi
     ];
 
     public constructor() {
-        const transactionLineService = inject(TransactionLineService);
-
-        super(transactionLineService);
+        super(inject(TransactionLineService));
 
         this.input$
             .pipe(

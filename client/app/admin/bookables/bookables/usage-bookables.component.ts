@@ -12,7 +12,6 @@ import {
 } from '@ecodev/natural';
 import {CommonModule, DatePipe} from '@angular/common';
 import {UsageBookables} from '../../../shared/generated-types';
-import {BookingService} from '../../bookings/services/booking.service';
 import {switchMap} from 'rxjs/operators';
 import {UserService} from '../../users/services/user.service';
 import {ParentComponent} from './parent.component';
@@ -25,8 +24,6 @@ import {FlagComponent} from '../../../shared/components/flag/flag.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
-import {MatDialog} from '@angular/material/dialog';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {admin_approved, bookables, storage} from '../../../shared/natural-search/natural-search-facets.service';
 
@@ -72,12 +69,7 @@ export class UsageBookablesComponent extends ParentComponent<UsageBookableServic
     private searchInitialized = false;
 
     public constructor() {
-        const usageBookableService = inject(UsageBookableService);
-        const dialog = inject(MatDialog);
-        const snackbar = inject(MatSnackBar);
-        const bookingService = inject(BookingService);
-
-        super(usageBookableService, dialog, snackbar, bookingService);
+        super(inject(UsageBookableService));
 
         if (this.route.snapshot.data.isAdmin) {
             let facets = bookables();

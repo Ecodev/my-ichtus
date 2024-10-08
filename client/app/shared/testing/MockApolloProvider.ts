@@ -15,9 +15,7 @@ import {apolloDefaultOptions, cacheConfig} from '../config/apollo-options.provid
 })
 class MockApollo extends Apollo {
     public constructor() {
-        const ngZone = inject(NgZone);
-
-        super(ngZone);
+        super(inject(NgZone));
         this.client = this.createMockClient();
     }
 

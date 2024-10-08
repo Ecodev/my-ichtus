@@ -34,8 +34,6 @@ import {MatDividerModule} from '@angular/material/divider';
 })
 export class BookableTagComponent extends NaturalAbstractDetail<BookableTagService, NaturalSeoResolveData> {
     public constructor() {
-        const bookableTagService = inject(BookableTagService);
-
-        super('bookableTag', bookableTagService);
+        super('bookableTag', inject(BookableTagService));
     }
 }

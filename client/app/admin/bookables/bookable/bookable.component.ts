@@ -97,9 +97,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
     public readonly availableColumnsForBookingsWithOwnerOnlyTrainers = availableColumnsForBookingsWithOwnerOnlyTrainers;
 
     public constructor() {
-        const bookableService = inject(BookableService);
-
-        super('bookable', bookableService);
+        super('bookable', inject(BookableService));
     }
 
     public override ngOnInit(): void {

@@ -35,9 +35,7 @@ import {CommonModule} from '@angular/common';
 })
 export class LogsComponent extends NaturalAbstractList<LogService> implements OnInit {
     public constructor() {
-        const logService = inject(LogService);
-
-        super(logService);
+        super(inject(LogService));
 
         this.naturalSearchFacets = logs();
         this.forcedVariables = {

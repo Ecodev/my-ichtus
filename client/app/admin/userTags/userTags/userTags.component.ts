@@ -49,8 +49,6 @@ export class UserTagsComponent extends NaturalAbstractList<UserTagService> imple
     ];
 
     public constructor() {
-        const userTagService = inject(UserTagService);
-
-        super(userTagService);
+        super(inject(UserTagService));
     }
 }

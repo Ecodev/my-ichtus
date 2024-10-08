@@ -40,9 +40,7 @@ export class CreateExpenseClaimComponent
     public ExpenseClaimType = ExpenseClaimType;
 
     public constructor() {
-        const expenseClaimService = inject(ExpenseClaimService);
-
-        super('expenseClaim', expenseClaimService);
+        super('expenseClaim', inject(ExpenseClaimService));
     }
 
     public override ngOnInit(): void {

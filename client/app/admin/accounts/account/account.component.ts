@@ -66,9 +66,7 @@ export class AccountComponent extends NaturalAbstractDetail<AccountService, Natu
     public readonly AccountType = AccountType;
 
     public constructor() {
-        const accountService = inject(AccountService);
-
-        super('account', accountService);
+        super('account', inject(AccountService));
     }
 
     public override ngOnInit(): void {

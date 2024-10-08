@@ -64,9 +64,7 @@ export class FinancesComponent extends NaturalAbstractList<ExpenseClaimService> 
     public override persistSearch = false;
 
     public constructor() {
-        const expenseClaimService = inject(ExpenseClaimService);
-
-        super(expenseClaimService);
+        super(inject(ExpenseClaimService));
     }
 
     public ngOnChanges(changes: SimpleChanges): void {

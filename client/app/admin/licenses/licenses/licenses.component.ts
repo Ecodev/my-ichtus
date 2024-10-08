@@ -42,8 +42,6 @@ export class LicensesComponent extends NaturalAbstractList<LicenseService> imple
     public override availableColumns: AvailableColumn[] = [{id: 'name', label: 'Nom'}];
 
     public constructor() {
-        const licenseService = inject(LicenseService);
-
-        super(licenseService);
+        super(inject(LicenseService));
     }
 }

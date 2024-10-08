@@ -85,9 +85,7 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
     public readonly welcoming = new Map<Users['users']['items'][0], true>();
 
     public constructor() {
-        const userService = inject(UserService);
-
-        super(userService);
+        super(inject(UserService));
 
         this.naturalSearchFacets = users();
     }

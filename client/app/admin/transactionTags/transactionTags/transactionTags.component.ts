@@ -51,8 +51,6 @@ export class TransactionTagsComponent extends NaturalAbstractList<TransactionTag
         {id: 'transactions', label: 'Transactions'},
     ];
     public constructor() {
-        const transactionTagService = inject(TransactionTagService);
-
-        super(transactionTagService);
+        super(inject(TransactionTagService));
     }
 }

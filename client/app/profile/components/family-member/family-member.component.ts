@@ -50,9 +50,7 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
     public loaded = false;
 
     public constructor() {
-        const userService = inject(FamilyUserService);
-
-        super('user', userService);
+        super('user', inject(FamilyUserService));
     }
 
     /**

@@ -55,6 +55,9 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
     public readonly availabilityText = availabilityText;
     public readonly usageStatus = usageStatusFunc;
     public readonly usageText = usageText;
+    private readonly dialog = inject(MatDialog);
+    private readonly snackbar = inject(MatSnackBar);
+    private readonly bookingService = inject(BookingService);
 
     /**
      * The user who will be the owner of the booking when we create it via the `createApplication` button
@@ -73,12 +76,7 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
         }),
     );
 
-    protected constructor(
-        service: T,
-        private readonly dialog: MatDialog,
-        private readonly snackbar: MatSnackBar,
-        private readonly bookingService: BookingService,
-    ) {
+    protected constructor(service: T) {
         super(service);
 
         this.futureOwner$.pipe(takeUntilDestroyed()).subscribe(futureOwner => (this.futureOwner = futureOwner));

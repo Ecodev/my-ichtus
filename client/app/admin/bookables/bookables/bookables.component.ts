@@ -4,7 +4,6 @@ import {Bookables} from '../../../shared/generated-types';
 import {BookableService} from '../services/bookable.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {ParentComponent} from './parent.component';
-import {BookingService} from '../../bookings/services/booking.service';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {RouterLink} from '@angular/router';
@@ -22,8 +21,6 @@ import {
     NaturalTableButtonComponent,
 } from '@ecodev/natural';
 import {CommonModule, DatePipe} from '@angular/common';
-import {MatDialog} from '@angular/material/dialog';
-import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-bookables',
@@ -55,12 +52,7 @@ export class BookablesComponent extends ParentComponent<BookableService> impleme
     @Output() public readonly bookableClick = new EventEmitter<Bookables['bookables']['items'][0]>();
 
     public constructor() {
-        const bookableService = inject(BookableService);
-        const dialog = inject(MatDialog);
-        const snackbar = inject(MatSnackBar);
-        const bookingService = inject(BookingService);
-
-        super(bookableService, dialog, snackbar, bookingService);
+        super(inject(BookableService));
         this.naturalSearchFacets = this.route.snapshot.data.isEquipment ? equipment() : bookables();
     }
 

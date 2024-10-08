@@ -66,9 +66,7 @@ export class ExpenseClaimsComponent extends NaturalAbstractList<ExpenseClaimServ
     ];
 
     public constructor() {
-        const expenseClaimService = inject(ExpenseClaimService);
-
-        super(expenseClaimService);
+        super(inject(ExpenseClaimService));
 
         this.naturalSearchFacets = expenseClaims();
     }

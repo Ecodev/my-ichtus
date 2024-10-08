@@ -109,9 +109,7 @@ export class TransactionComponent
     public transactionLines: EditableTransactionLinesInput = {mode: 'empty'};
 
     public constructor() {
-        const transactionService = inject(TransactionService);
-
-        super('transaction', transactionService);
+        super('transaction', inject(TransactionService));
     }
 
     public override ngOnInit(): void {

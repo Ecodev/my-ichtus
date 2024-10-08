@@ -121,9 +121,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeo
     public readonly UserStatus = UserStatus;
 
     public constructor() {
-        const userService = inject(UserService);
-
-        super('user', userService);
+        super('user', inject(UserService));
     }
 
     public override ngOnInit(): void {

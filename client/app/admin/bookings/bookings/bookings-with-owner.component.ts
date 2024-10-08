@@ -69,9 +69,7 @@ export class BookingsWithOwnerComponent extends AbstractBookings<BookingWithOwne
     );
 
     public constructor() {
-        const bookingWithOwnerService = inject(BookingWithOwnerService);
-
-        super(bookingWithOwnerService);
+        super(inject(BookingWithOwnerService));
         this.naturalSearchFacets = bookingsForBookable();
     }
 }

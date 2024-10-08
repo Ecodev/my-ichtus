@@ -113,9 +113,7 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
     };
 
     public constructor() {
-        const accountService = inject(AccountService);
-
-        super(accountService);
+        super(inject(AccountService));
 
         this.naturalSearchFacets = accounts();
     }

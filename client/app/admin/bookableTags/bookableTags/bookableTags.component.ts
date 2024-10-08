@@ -46,8 +46,6 @@ export class BookableTagsComponent extends NaturalAbstractList<BookableTagServic
         {id: 'name', label: 'Nom'},
     ];
     public constructor() {
-        const bookableTagService = inject(BookableTagService);
-
-        super(bookableTagService);
+        super(inject(BookableTagService));
     }
 }

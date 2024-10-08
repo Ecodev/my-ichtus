@@ -58,9 +58,7 @@ export class SafetyComponent extends AbstractBookings<SafetyBookingService> {
     public readonly permissionsService = inject(PermissionsService);
 
     public constructor() {
-        const safetyBookingService = inject(SafetyBookingService);
-
-        super(safetyBookingService);
+        super(inject(SafetyBookingService));
         this.naturalSearchFacets = bookings();
     }
 }

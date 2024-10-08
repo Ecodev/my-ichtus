@@ -121,9 +121,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
     public newBooking: CreateBooking['createBooking'] | null = null;
 
     public constructor() {
-        const bookingService = inject(BookingService);
-
-        super('booking', bookingService);
+        super('booking', inject(BookingService));
     }
 
     public override ngOnInit(): void {
