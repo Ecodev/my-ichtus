@@ -102,7 +102,7 @@ export class AccountService extends NaturalAbstractModelService<
             .pipe(map(result => result.data.nextAccountCode));
     }
 
-    public getAccountByCode(code: number): Observable<Accounts['accounts']> {
+    public getAccountByCode(code: number): Observable<Accounts['accounts']['items'][0]> {
         const variables: AccountsVariables = {
             filter: {
                 groups: [
@@ -116,7 +116,15 @@ export class AccountService extends NaturalAbstractModelService<
         const qvm = new NaturalQueryVariablesManager<AccountsVariables>();
         qvm.set('variables', variables);
 
-        return this.getAll(qvm);
+        return this.getAll(qvm).pipe(
+            map(res => {
+                if (res.length === 1) {
+                    return res.items[0];
+                }
+
+                throw new Error(`Account not found for code ${code}`);
+            }),
+        );
     }
 
     public getReportExportLink(

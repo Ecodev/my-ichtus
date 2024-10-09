@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, inject} from '@angular/core';
+import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import {NavigationEnd, RouterLink} from '@angular/router';
 import {
     cancellableTimeout,
@@ -18,6 +18,7 @@ import {
     CurrentUserForProfile,
     ExpenseClaim,
     ExpenseClaimType,
+    TransactionLineInput,
     UpdateTransaction,
 } from '../../../shared/generated-types';
 import {BookableService} from '../../bookables/services/bookable.service';
@@ -165,18 +166,21 @@ export class TransactionComponent
             expenseClaimControl.setValue(expenseClaim);
         }
 
+        let preset: Observable<TransactionLineInput[]> | null = null;
         if (expenseClaim.owner?.account) {
             if (expenseClaim.type === ExpenseClaimType.ExpenseClaim) {
-                const preset = this.service.getExpenseClaimPreset(expenseClaim.owner.account, expenseClaim.amount);
-                this.transactionLinesComponent.setItems(preset);
+                preset = this.service.getExpenseClaimPreset(expenseClaim.owner.account, expenseClaim.amount);
             } else if (expenseClaim.type === ExpenseClaimType.Refund) {
-                const preset = this.service.getRefundPreset(expenseClaim.owner.account, expenseClaim.amount);
-                this.transactionLinesComponent.setItems(preset);
+                preset = this.service.getRefundPreset(expenseClaim.owner.account, expenseClaim.amount);
             }
         }
+
         if (expenseClaim.type === ExpenseClaimType.Invoice) {
-            const preset = this.service.getInvoicePreset(transactionName, expenseClaim.amount);
-            this.transactionLinesComponent.setItems(preset);
+            preset = this.service.getInvoicePreset(transactionName, expenseClaim.amount);
+        }
+
+        if (preset) {
+            preset.subscribe(preset => this.transactionLinesComponent.setItems(preset));
         }
     }
 

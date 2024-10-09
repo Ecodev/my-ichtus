@@ -1,4 +1,4 @@
-import {Injectable, inject} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {Validators} from '@angular/forms';
 import {formatIsoDateTime, FormValidators, Literal, NaturalAbstractModelService} from '@ecodev/natural';
 import {
@@ -26,6 +26,8 @@ import {
 import {TransactionLineService} from './transactionLine.service';
 import {localConfig} from '../../../shared/generated-config';
 import {AccountService} from '../../accounts/services/account.service';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -44,8 +46,7 @@ export class TransactionService extends NaturalAbstractModelService<
 > {
     private readonly transactionLineService = inject(TransactionLineService);
     private readonly accountService = inject(AccountService);
-
-    private bankAccount: Accounts['accounts']['items'][0] | null = null;
+    private readonly bankAccount: Observable<Accounts['accounts']['items'][0]>;
 
     public constructor() {
         super(
@@ -57,53 +58,61 @@ export class TransactionService extends NaturalAbstractModelService<
             deleteTransactions,
         );
 
-        this.accountService.getAccountByCode(localConfig.accounting.bankAccountCode).subscribe(res => {
-            if (res.length === 1) {
-                this.bankAccount = res.items[0];
-            }
-        });
+        this.bankAccount = this.accountService.getAccountByCode(localConfig.accounting.bankAccountCode);
     }
 
-    public getRefundPreset(account: {id: string}, amount: string): TransactionLineInput[] {
-        const emptyLine = this.transactionLineService.getDefaultForServer();
+    public getRefundPreset(account: {id: string}, amount: string): Observable<TransactionLineInput[]> {
+        return this.bankAccount.pipe(
+            map(bankAccount => {
+                const emptyLine = this.transactionLineService.getDefaultForServer();
 
-        const line: TransactionLineInput = {
-            name: 'Remboursement du membre',
-            debit: account,
-            credit: this.bankAccount,
-            balance: amount,
-            transactionDate: formatIsoDateTime(new Date()),
-        };
+                const line: TransactionLineInput = {
+                    name: 'Remboursement du membre',
+                    debit: account,
+                    credit: bankAccount,
+                    balance: amount,
+                    transactionDate: formatIsoDateTime(new Date()),
+                };
 
-        return [Object.assign(emptyLine, line)];
+                return [Object.assign(emptyLine, line)];
+            }),
+        );
     }
 
-    public getExpenseClaimPreset(account: {id: string}, amount: string): TransactionLineInput[] {
-        const emptyLine = this.transactionLineService.getDefaultForServer();
+    public getExpenseClaimPreset(account: {id: string}, amount: string): Observable<TransactionLineInput[]> {
+        return this.bankAccount.pipe(
+            map(bankAccount => {
+                const emptyLine = this.transactionLineService.getDefaultForServer();
 
-        const line: TransactionLineInput = {
-            name: 'Remboursement sur le solde',
-            debit: this.bankAccount,
-            credit: account,
-            balance: amount,
-            transactionDate: formatIsoDateTime(new Date()),
-        };
+                const line: TransactionLineInput = {
+                    name: 'Remboursement sur le solde',
+                    debit: bankAccount,
+                    credit: account,
+                    balance: amount,
+                    transactionDate: formatIsoDateTime(new Date()),
+                };
 
-        return [Object.assign(emptyLine, line)];
+                return [Object.assign(emptyLine, line)];
+            }),
+        );
     }
 
-    public getInvoicePreset(name: string, amount: string): TransactionLineInput[] {
-        const emptyLine = this.transactionLineService.getDefaultForServer();
+    public getInvoicePreset(name: string, amount: string): Observable<TransactionLineInput[]> {
+        return this.bankAccount.pipe(
+            map(bankAccount => {
+                const emptyLine = this.transactionLineService.getDefaultForServer();
 
-        const line: TransactionLineInput = {
-            name: name,
-            debit: null,
-            credit: this.bankAccount,
-            balance: amount,
-            transactionDate: formatIsoDateTime(new Date()),
-        };
+                const line: TransactionLineInput = {
+                    name: name,
+                    debit: null,
+                    credit: bankAccount,
+                    balance: amount,
+                    transactionDate: formatIsoDateTime(new Date()),
+                };
 
-        return [Object.assign(emptyLine, line)];
+                return [Object.assign(emptyLine, line)];
+            }),
+        );
     }
 
     protected override getFormExtraFieldDefaultValues(): Literal {
