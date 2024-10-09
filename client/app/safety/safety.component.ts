@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {SafetyBookingService} from './safety-booking.service';
-import {bookings} from '../shared/natural-search/natural-search-facets.service';
+import {bookings} from '../shared/natural-search/natural-search-facets';
 import {PermissionsService} from '../shared/services/permissions.service';
 import {AbstractBookings} from '../admin/bookings/bookings/abstract-bookings';
 import {RouterLink} from '@angular/router';

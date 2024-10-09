@@ -11,7 +11,7 @@ import {
     NaturalTableButtonComponent,
 } from '@ecodev/natural';
 import {CommonModule, DatePipe} from '@angular/common';
-import {expenseClaims} from '../../../shared/natural-search/natural-search-facets.service';
+import {expenseClaims} from '../../../shared/natural-search/natural-search-facets';
 import {ExpenseClaimService} from '../services/expenseClaim.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {RouterLink} from '@angular/router';

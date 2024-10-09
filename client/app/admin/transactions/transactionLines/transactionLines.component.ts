@@ -11,7 +11,7 @@ import {
     NaturalTableButtonComponent,
 } from '@ecodev/natural';
 import {AsyncPipe, DatePipe} from '@angular/common';
-import {transactionLines} from '../../../shared/natural-search/natural-search-facets.service';
+import {transactionLines} from '../../../shared/natural-search/natural-search-facets';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {
     ExportTransactionLinesVariables,

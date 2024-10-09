@@ -1,5 +1,5 @@
 import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
-import {bookables, equipment} from '../../../shared/natural-search/natural-search-facets.service';
+import {bookables, equipment} from '../../../shared/natural-search/natural-search-facets';
 import {Bookables} from '../../../shared/generated-types';
 import {BookableService} from '../services/bookable.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';

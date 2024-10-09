@@ -12,7 +12,7 @@ import {
 } from '@ecodev/natural';
 import {CommonModule, DatePipe} from '@angular/common';
 import {AccountType, CurrentUserForProfile} from '../../../shared/generated-types';
-import {accounts} from '../../../shared/natural-search/natural-search-facets.service';
+import {accounts} from '../../../shared/natural-search/natural-search-facets';
 import {AccountService} from '../services/account.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {TransactionLineService} from '../../transactions/services/transactionLine.service';

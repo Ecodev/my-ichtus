@@ -8,7 +8,7 @@ import {
 } from '@ecodev/natural';
 import {CurrentUserForProfile, LogSortingField, UserRole} from '../../../shared/generated-types';
 import {LogService} from '../services/log.service';
-import {logs} from '../../../shared/natural-search/natural-search-facets.service';
+import {logs} from '../../../shared/natural-search/natural-search-facets';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';

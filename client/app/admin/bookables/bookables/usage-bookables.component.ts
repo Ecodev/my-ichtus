@@ -25,7 +25,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {admin_approved, bookables, storage} from '../../../shared/natural-search/natural-search-facets.service';
+import {admin_approved, bookables, storage} from '../../../shared/natural-search/natural-search-facets';
 
 @Component({
     selector: 'app-usage-bookables',

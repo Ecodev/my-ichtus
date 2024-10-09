@@ -13,7 +13,7 @@ import {
 } from '@ecodev/natural';
 import {CommonModule, DatePipe} from '@angular/common';
 import {BankingInfosVariables, EmailAndPhoneUsersVariables, Users, UserStatus} from '../../../shared/generated-types';
-import {users} from '../../../shared/natural-search/natural-search-facets.service';
+import {users} from '../../../shared/natural-search/natural-search-facets';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {UserService} from '../services/user.service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
