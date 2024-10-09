@@ -1,7 +1,7 @@
-import {Component, OnInit, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {ifValid, NaturalIconDirective} from '@ecodev/natural';
+import {ifValid} from '@ecodev/natural';
 import {UserService} from '../admin/users/services/user.service';
 import {finalize} from 'rxjs/operators';
 import {FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -23,7 +23,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
         MatInputModule,
         MatButtonModule,
         MatIconModule,
-        NaturalIconDirective,
         RouterLink,
         MatDividerModule,
     ],
@@ -67,6 +66,7 @@ export class LoginComponent implements OnInit {
     private login(): void {
         this.snackBar.dismiss();
         this.form.disable();
+        this.hidePassword = true;
 
         this.userService
             .login(this.form.getRawValue())
