@@ -12,6 +12,7 @@ import {NetworkActivityService} from '../services/network-activity.service';
 import {createHttpLink, NaturalAlertService} from '@ecodev/natural';
 import {APOLLO_OPTIONS} from 'apollo-angular';
 import {inject, Provider} from '@angular/core';
+import {localConfig} from '../generated-config';
 
 export const apolloDefaultOptions: DefaultOptions = {
     query: {
@@ -75,7 +76,7 @@ function createApolloLink(
 
     return errorLink.concat(
         createHttpLink(httpLink, httpBatchLink, {
-            uri: '/graphql',
+            uri: '/graphql?v=' + localConfig.version,
         }),
     );
 }

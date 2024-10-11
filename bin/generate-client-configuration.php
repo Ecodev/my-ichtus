@@ -8,6 +8,7 @@ $container = require_once 'server/cli.php';
 $config = $container->get('config');
 
 $clientKeys = [
+    'version',
     'datatrans',
     'accounting',
 ];
