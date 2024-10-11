@@ -1,3 +1,5 @@
+@use '@ecodev/natural-layout' as nat;
+
 #searchByCode {
     border-radius: 5px;
     background: rgba(0, 0, 0, 0.05);
@@ -19,5 +21,10 @@
 mat-toolbar {
     .admin-avatar {
         text-decoration: none;
+    }
+
+    @include nat.media(null, sm) {
+        padding-right: 4px;
+        padding-left: 4px;
     }
 }

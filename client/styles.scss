@@ -80,6 +80,11 @@ select:-webkit-autofill {
 
 app-admin router-outlet + * {
     padding: 20px 20px 100px 20px;
+
+    @include nat.media(null, sm) {
+        padding-right: 6px;
+        padding-left: 6px;
+    }
 }
 
 .detail-speed-dial {
