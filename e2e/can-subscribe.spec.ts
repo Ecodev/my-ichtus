@@ -18,7 +18,7 @@ test.describe('as anonymous', () => {
 
         await page.type(formControlName('email'), email);
         await page.click(formControlName('termsAgreement'));
-        await page.click(buttonLabel('Envoyer'));
+        await page.click(buttonLabel('Adhérer'));
 
         expect(await app.getSnackBar()).toMatch(/Un email avec des instructions a été envoyé/);
 
@@ -45,7 +45,7 @@ test.describe('as anonymous', () => {
         await page.type(formControlName('mobilePhone'), '123 456 78');
         await page.type(formControlName('birthday'), '01.02.2003');
 
-        await page.click(buttonLabel('Envoyer'));
+        await page.click(buttonLabel("Confirmer l'adhésion"));
 
         expect(await app.getSnackBar()).toMatch(/Merci d'avoir confirmé ton compte/);
         await app.checkUserInitials('EE');

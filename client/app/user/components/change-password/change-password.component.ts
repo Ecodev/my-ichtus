@@ -5,7 +5,6 @@ import {ifValid, NaturalAlertService, NaturalIconDirective} from '@ecodev/natura
 import {FormsModule, NonNullableFormBuilder, ReactiveFormsModule} from '@angular/forms';
 import {finalize} from 'rxjs/operators';
 import {UpdatePassword, UpdatePasswordVariables} from '../../../shared/generated-types';
-import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {PasswordComponent} from '../password/password.component';
 
@@ -14,14 +13,7 @@ import {PasswordComponent} from '../password/password.component';
     templateUrl: './change-password.component.html',
     styleUrl: './change-password.component.scss',
     standalone: true,
-    imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        PasswordComponent,
-        MatButtonModule,
-        MatIconModule,
-        NaturalIconDirective,
-    ],
+    imports: [FormsModule, ReactiveFormsModule, PasswordComponent, MatButtonModule, NaturalIconDirective],
 })
 export class ChangePasswordComponent {
     private readonly apollo = inject(Apollo);

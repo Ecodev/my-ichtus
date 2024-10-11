@@ -194,7 +194,11 @@
         <div class="nat-horizontal nat-center">
             <button mat-raised-button [color]="form.valid ? 'primary' : 'warn'" [disabled]="sending" (click)="submit()">
                 <mat-icon naturalIcon="send" />
-                Envoyer
+                @if (step === 1) {
+                    Adhérer
+                } @else {
+                    Confirmer l'adhésion
+                }
             </button>
         </div>
     </div>
