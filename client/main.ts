@@ -86,6 +86,8 @@ const iconsConfig: NaturalIconsConfig = {
     },
 };
 
+const prefersReducedMotion = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion)').matches : false;
+
 bootstrapApplication(AppComponent, {
     providers: [
         provideZoneChangeDetection({eventCoalescing: true}),
@@ -97,7 +99,7 @@ bootstrapApplication(AppComponent, {
         ),
         Apollo,
         provideNativeDateAdapter(),
-        provideAnimationsAsync(),
+        provideAnimationsAsync(prefersReducedMotion ? 'noop' : 'animations'),
         naturalProviders,
         provideErrorHandler(localConfig.log.url, LoggerExtraService),
         provideSeo({
