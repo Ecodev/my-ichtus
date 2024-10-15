@@ -173,24 +173,3 @@ CREATE TRIGGER transaction_line_UPDATE
     SET t.balance=(SELECT SUM(IF(tl.debit_id IS NOT NULL, tl.balance, 0)) FROM transaction_line tl WHERE tl.transaction_id=NEW.transaction_id)
     WHERE t.id=NEW.transaction_id;
   END; ~~
-
-
-DROP PROCEDURE IF EXISTS checkTransaction;
-
-CREATE PROCEDURE checkTransaction (IN transactionId INT) COMMENT 'Check that all transaction lines have balanced debit and credit'
-  BEGIN
-    DECLARE total_debit DECIMAL(7,2);
-    DECLARE total_credit DECIMAL(7,2);
-
-    SELECT SUM(IF(debit_id IS NOT NULL, tl.balance, 0)),
-      SUM(IF(credit_id IS NOT NULL, tl.balance, 0))
-    FROM transaction_line tl where transaction_id = transactionId
-    INTO total_debit, total_credit;
-
-    IF (total_debit != total_credit) THEN
-      SELECT CONCAT('Transaction #', IFNULL(transactionId, 'new'), ' n''a pas les mêmes totaux au débit (', total_debit , ') et crédit (', total_credit ,')') into @message;
-      SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @message;
-    END IF;
-  END; ~~
-
-DELIMITER ;
