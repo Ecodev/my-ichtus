@@ -30,6 +30,13 @@ return [
                 'paths' => ['server/Application/Model'],
             ],
         ],
+        'event_manager' => [
+            'orm_default' => [
+                'subscribers' => [
+                    Application\Service\TransactionChecker::class,
+                ],
+            ],
+        ],
         'configuration' => [
             'orm_default' => [
                 'naming_strategy' => Doctrine\ORM\Mapping\UnderscoreNamingStrategy::class,

@@ -133,4 +133,16 @@ class TransactionLineRepositoryTest extends AbstractRepositoryTest
         yield 'different date' => ['my-unique-imported-id', '2019-02-05', false];
         yield 'different id' => ['something-else', '2019-04-05', false];
     }
+
+    public function testHydrateLinesAndFlushMustThrowWithUnbalancedLines(): void
+    {
+        $this->setCurrentUser('administrator');
+
+        /** @var TransactionLine $transactionLine */
+        $transactionLine = _em()->getReference(TransactionLine::class, 14006);
+        $transactionLine->setBalance(Money::CHF(99999));
+
+        $this->expectExceptionMessage('Transaction 8005 non-équilibrée, débits: 10000.00, crédits: 3999.99');
+        _em()->flush();
+    }
 }

@@ -12,8 +12,6 @@ use Cake\Chronos\Chronos;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Ecodev\Felix\Api\Exception;
-use Ecodev\Felix\Format;
 use Ecodev\Felix\Model\Traits\HasInternalRemarks;
 use Ecodev\Felix\Model\Traits\HasName;
 use Money\Money;
@@ -22,7 +20,6 @@ use Money\Money;
  * An accounting journal entry (simple or compound).
  */
 #[ORM\Entity(TransactionRepository::class)]
-#[ORM\HasLifecycleCallbacks]
 class Transaction extends AbstractModel
 {
     use HasAutomaticUnsignedBalance;
@@ -166,28 +163,5 @@ class Transaction extends AbstractModel
     public function getDatatransRef(): string
     {
         return $this->datatransRef;
-    }
-
-    /**
-     * Automatically called by Doctrine whenever a transaction is created or updated.
-     */
-    #[ORM\PrePersist]
-    #[ORM\PreUpdate]
-    public function checkBalance(): void
-    {
-        $totalDebit = Money::CHF(0);
-        $totalCredit = Money::CHF(0);
-        foreach ($this->getTransactionLines() as $i => $line) {
-            if ($line->getDebit()) {
-                $totalDebit = $totalDebit->add($line->getBalance());
-            }
-            if ($line->getCredit()) {
-                $totalCredit = $totalCredit->add($line->getBalance());
-            }
-        }
-
-        if (!$totalDebit->equals($totalCredit)) {
-            throw new Exception(sprintf('Transaction %s non-équilibrée, débits: %s, crédits: %s', $this->getId() ?? 'NEW', Format::money($totalDebit), Format::money($totalCredit)));
-        }
     }
 }
