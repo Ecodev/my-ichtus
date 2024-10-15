@@ -11,11 +11,8 @@
 
 DELIMITER ~~
 
-
-DROP PROCEDURE IF EXISTS update_account_balance;
-
 /* Update balance from a single account (account_id > 0) or ALL accounts (account_id = 0) */
-CREATE PROCEDURE update_account_balance (IN account_id INT)
+CREATE OR REPLACE PROCEDURE update_account_balance (IN account_id INT)
 BEGIN
     -- Update non-group accounts from their transactions
     DECLARE debit INT;
@@ -77,9 +74,7 @@ BEGIN
 END ~~
 
 
-DROP TRIGGER IF EXISTS transaction_DELETE;
-
-CREATE TRIGGER transaction_DELETE
+CREATE OR REPLACE TRIGGER transaction_DELETE
     BEFORE DELETE
     ON transaction
     FOR EACH ROW
@@ -91,9 +86,7 @@ BEGIN
 END; ~~
 
 
-DROP TRIGGER IF EXISTS transaction_line_INSERT;
-
-CREATE TRIGGER transaction_line_INSERT
+CREATE OR REPLACE TRIGGER transaction_line_INSERT
   AFTER INSERT
   ON transaction_line
   FOR EACH ROW
@@ -115,9 +108,7 @@ CREATE TRIGGER transaction_line_INSERT
   END; ~~
 
 
-DROP TRIGGER IF EXISTS transaction_line_DELETE;
-
-CREATE TRIGGER transaction_line_DELETE
+CREATE OR REPLACE TRIGGER transaction_line_DELETE
   AFTER DELETE
   ON transaction_line
   FOR EACH ROW
@@ -141,9 +132,7 @@ CREATE TRIGGER transaction_line_DELETE
   END; ~~
 
 
-DROP TRIGGER IF EXISTS transaction_line_UPDATE;
-
-CREATE TRIGGER transaction_line_UPDATE
+CREATE OR REPLACE TRIGGER transaction_line_UPDATE
   AFTER UPDATE
   ON transaction_line
   FOR EACH ROW
