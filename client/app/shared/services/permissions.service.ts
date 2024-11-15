@@ -1,5 +1,5 @@
 import {Apollo} from 'apollo-angular';
-import {Injectable, inject} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {Literal} from '@ecodev/natural';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {concatMap, debounceTime, distinctUntilChanged, filter, map, shareReplay} from 'rxjs/operators';

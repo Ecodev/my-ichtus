@@ -1,13 +1,13 @@
 import {Component, inject} from '@angular/core';
 import {PermissionsService} from '../../shared/services/permissions.service';
-import {ActivatedRoute, NavigationEnd, Router, RouterLinkActive, RouterLink, RouterOutlet} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {UserRole} from '../../shared/generated-types';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MatListModule} from '@angular/material/list';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {
-    NaturalSidenavContainerComponent,
     NaturalSidenavComponent,
+    NaturalSidenavContainerComponent,
     NaturalSidenavContentComponent,
 } from '@ecodev/natural';
 import {AsyncPipe} from '@angular/common';

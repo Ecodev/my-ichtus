@@ -1,5 +1,5 @@
 import {Apollo, gql} from 'apollo-angular';
-import {Component, OnInit, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {PermissionsService} from '../../shared/services/permissions.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ImportCamt, ImportCamtVariables} from '../../shared/generated-types';

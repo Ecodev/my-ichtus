@@ -3,13 +3,7 @@ import {Bookings, BookingType, CurrentUserForProfile} from '../../../shared/gene
 import {UserService} from '../../../admin/users/services/user.service';
 import {ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
-import {
-    NaturalAlertService,
-    NaturalAvatarComponent,
-    NaturalDataSource,
-    NaturalEnumPipe,
-    NaturalIconDirective,
-} from '@ecodev/natural';
+import {NaturalAlertService, NaturalAvatarComponent, NaturalDataSource, NaturalIconDirective} from '@ecodev/natural';
 import {finalize} from 'rxjs/operators';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
@@ -35,7 +29,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
         MatTabsModule,
         RouterLinkActive,
         RouterOutlet,
-        NaturalEnumPipe,
     ],
 })
 export class ServicesComponent implements OnInit, OnChanges {

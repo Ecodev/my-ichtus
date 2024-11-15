@@ -1,12 +1,12 @@
-import {Component, OnInit, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {
     AvailableColumn,
     NaturalAbstractList,
-    NaturalColumnsPickerComponent,
-    NaturalSearchComponent,
     NaturalAvatarComponent,
-    NaturalTableButtonComponent,
+    NaturalColumnsPickerComponent,
     NaturalFixedButtonComponent,
+    NaturalSearchComponent,
+    NaturalTableButtonComponent,
 } from '@ecodev/natural';
 import {TransactionTagService} from '../services/transactionTag.service';
 import {TransactionLineService} from '../../transactions/services/transactionLine.service';
@@ -50,6 +50,7 @@ export class TransactionTagsComponent extends NaturalAbstractList<TransactionTag
         {id: 'name', label: 'Nom'},
         {id: 'transactions', label: 'Transactions'},
     ];
+
     public constructor() {
         super(inject(TransactionTagService));
     }

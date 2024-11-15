@@ -1,12 +1,12 @@
-import {Component, OnInit, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {
     AvailableColumn,
     NaturalAbstractList,
-    NaturalColumnsPickerComponent,
-    NaturalSearchComponent,
     NaturalAvatarComponent,
-    NaturalTableButtonComponent,
+    NaturalColumnsPickerComponent,
     NaturalFixedButtonComponent,
+    NaturalSearchComponent,
+    NaturalTableButtonComponent,
 } from '@ecodev/natural';
 import {BookableTagService} from '../services/bookableTag.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -45,6 +45,7 @@ export class BookableTagsComponent extends NaturalAbstractList<BookableTagServic
         {id: 'color', label: 'Couleur'},
         {id: 'name', label: 'Nom'},
     ];
+
     public constructor() {
         super(inject(BookableTagService));
     }

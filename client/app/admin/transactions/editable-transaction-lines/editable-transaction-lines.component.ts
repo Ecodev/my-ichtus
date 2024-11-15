@@ -1,4 +1,4 @@
-import {Component, Input, inject} from '@angular/core';
+import {Component, inject, Input} from '@angular/core';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {BookableService} from '../../bookables/services/bookable.service';
 import {TransactionLineInput, TransactionLines} from '../../../shared/generated-types';

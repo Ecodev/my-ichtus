@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {MatDialogModule} from '@angular/material/dialog';
-import {NonNullableFormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {money} from '@ecodev/natural';
 import {MatButtonModule} from '@angular/material/button';
 import {TextFieldModule} from '@angular/cdk/text-field';

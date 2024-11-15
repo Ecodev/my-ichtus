@@ -1,12 +1,12 @@
 import {Component, inject} from '@angular/core';
 import {
     NaturalAbstractDetail,
+    NaturalFixedButtonDetailComponent,
     NaturalIconDirective,
     NaturalLinkableTabDirective,
     NaturalRelationsComponent,
-    NaturalTableButtonComponent,
     NaturalStampComponent,
-    NaturalFixedButtonDetailComponent,
+    NaturalTableButtonComponent,
 } from '@ecodev/natural';
 import {LicenseService} from '../services/license.service';
 import {BookableService} from '../../bookables/services/bookable.service';

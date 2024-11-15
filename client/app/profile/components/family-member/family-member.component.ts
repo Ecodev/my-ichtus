@@ -1,10 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output, inject} from '@angular/core';
+import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
 import {CreateUser, CurrentUserForProfile, UpdateUser, Users} from '../../../shared/generated-types';
 import {
     NaturalAbstractDetail,
-    NaturalSelectEnumComponent,
-    NaturalIconDirective,
     NaturalFixedButtonComponent,
+    NaturalIconDirective,
+    NaturalSelectEnumComponent,
 } from '@ecodev/natural';
 import {merge} from 'lodash-es';
 import {FamilyUserService} from './family-user.service';

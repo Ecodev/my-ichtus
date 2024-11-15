@@ -1,9 +1,9 @@
 import {Apollo} from 'apollo-angular';
 import {Component, inject} from '@angular/core';
-import {FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from '../../../admin/users/services/user.service';
-import {ifValid, NaturalAlertService, validateAllFormControls, NaturalIconDirective} from '@ecodev/natural';
+import {ifValid, NaturalAlertService, NaturalIconDirective, validateAllFormControls} from '@ecodev/natural';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';

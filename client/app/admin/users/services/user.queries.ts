@@ -1,8 +1,8 @@
 import {gql} from '@apollo/client/core';
 import {
-    userLeaveFamilyFragment,
     permissionsFragment,
     userContactDataFragment,
+    userLeaveFamilyFragment,
     userMetaFragment,
 } from '../../../shared/queries/fragments';
 import {minimalAccountFragment} from '../../accounts/services/account.queries';

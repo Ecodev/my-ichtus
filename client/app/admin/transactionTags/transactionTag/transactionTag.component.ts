@@ -2,10 +2,10 @@ import {Component, inject} from '@angular/core';
 import {
     NaturalAbstractDetail,
     NaturalDetailHeaderComponent,
-    NaturalLinkableTabDirective,
-    NaturalStampComponent,
     NaturalFixedButtonDetailComponent,
+    NaturalLinkableTabDirective,
     NaturalSeoResolveData,
+    NaturalStampComponent,
 } from '@ecodev/natural';
 import {TransactionTagService} from '../services/transactionTag.service';
 import {MatInputModule} from '@angular/material/input';

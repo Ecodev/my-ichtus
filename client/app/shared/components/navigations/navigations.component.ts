@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, inject} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import {UserService} from '../../../admin/users/services/user.service';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {animate, style, transition, trigger} from '@angular/animations';

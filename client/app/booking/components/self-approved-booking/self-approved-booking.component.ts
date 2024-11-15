@@ -1,4 +1,4 @@
-import {Component, OnInit, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {BookingService} from '../../../admin/bookings/services/booking.service';

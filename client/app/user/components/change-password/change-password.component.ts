@@ -1,7 +1,7 @@
 import {Apollo, gql} from 'apollo-angular';
 import {Component, inject} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ifValid, NaturalAlertService, NaturalIconDirective} from '@ecodev/natural';
+import {ifValid, NaturalAlertService} from '@ecodev/natural';
 import {FormsModule, NonNullableFormBuilder, ReactiveFormsModule} from '@angular/forms';
 import {finalize} from 'rxjs/operators';
 import {UpdatePassword, UpdatePasswordVariables} from '../../../shared/generated-types';
@@ -13,7 +13,7 @@ import {PasswordComponent} from '../password/password.component';
     templateUrl: './change-password.component.html',
     styleUrl: './change-password.component.scss',
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, PasswordComponent, MatButtonModule, NaturalIconDirective],
+    imports: [FormsModule, ReactiveFormsModule, PasswordComponent, MatButtonModule],
 })
 export class ChangePasswordComponent {
     private readonly apollo = inject(Apollo);

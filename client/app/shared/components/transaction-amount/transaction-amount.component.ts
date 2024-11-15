@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, Output, inject} from '@angular/core';
+import {Component, EventEmitter, inject, Input, OnChanges, Output} from '@angular/core';
 import {AccountType, MinimalAccount, TransactionLine} from '../../generated-types';
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
 import {RouterLink} from '@angular/router';

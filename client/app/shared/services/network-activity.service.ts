@@ -1,4 +1,4 @@
-import {Injectable, inject} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {NgProgress} from 'ngx-progressbar';
 

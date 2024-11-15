@@ -1,4 +1,4 @@
-import {Injectable, inject} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {bookableQuery, bookablesQuery, createBookable, deleteBookables, updateBookable} from './bookable.queries';
 import {
     Bookable,

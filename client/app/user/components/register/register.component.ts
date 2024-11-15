@@ -1,16 +1,16 @@
 import {Apollo, gql} from 'apollo-angular';
-import {Component, OnInit, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {
     deliverableEmail,
     ifValid,
     NaturalAlertService,
     NaturalDataSource,
-    validateAllFormControls,
     NaturalIconDirective,
+    validateAllFormControls,
 } from '@ecodev/natural';
 import {Bookables, Register, RegisterVariables} from '../../../shared/generated-types';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NonNullableFormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormGroup, FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';

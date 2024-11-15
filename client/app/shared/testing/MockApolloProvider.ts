@@ -1,7 +1,7 @@
 import {Apollo} from 'apollo-angular';
 import {ApolloClient, InMemoryCache} from '@apollo/client/core';
 import {SchemaLink} from '@apollo/client/link/schema';
-import {Injectable, NgZone, inject} from '@angular/core';
+import {inject, Injectable, NgZone} from '@angular/core';
 import {buildClientSchema} from 'graphql';
 import {addMocksToSchema} from '@graphql-tools/mock';
 import {schema as introspectionResult} from './../../../../data/tmp/schema';

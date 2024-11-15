@@ -1,4 +1,4 @@
-import {AfterContentInit, Directive, ElementRef, EventEmitter, Input, Output, Renderer2, inject} from '@angular/core';
+import {AfterContentInit, Directive, ElementRef, EventEmitter, inject, Input, Output, Renderer2} from '@angular/core';
 import {rand} from './utils';
 import {Direction, IOption, Particles} from './particles';
 

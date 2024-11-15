@@ -1,14 +1,14 @@
-import {Component, OnInit, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {
     NaturalAbstractDetail,
     NaturalDetailHeaderComponent,
-    NaturalIconDirective,
-    NaturalSelectEnumComponent,
-    NaturalSelectComponent,
     NaturalFileComponent,
-    NaturalStampComponent,
     NaturalFixedButtonDetailComponent,
+    NaturalIconDirective,
+    NaturalSelectComponent,
+    NaturalSelectEnumComponent,
     NaturalSeoResolveData,
+    NaturalStampComponent,
 } from '@ecodev/natural';
 import {ExpenseClaimService} from '../services/expenseClaim.service';
 import {CurrentUserForProfile, ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';

@@ -1,4 +1,4 @@
-import {Component, OnInit, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {DoorService} from './services/door.service';
 import {Literal, NaturalAlertService} from '@ecodev/natural';
 import {UserService} from '../admin/users/services/user.service';

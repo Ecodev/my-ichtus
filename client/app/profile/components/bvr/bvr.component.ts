@@ -1,6 +1,6 @@
-import {gql, Apollo} from 'apollo-angular';
-import {Component, Input, inject} from '@angular/core';
-import {BankingInfosForExport, BankingInfos, BankingInfosVariables} from '../../../shared/generated-types';
+import {Apollo, gql} from 'apollo-angular';
+import {Component, inject, Input} from '@angular/core';
+import {BankingInfos, BankingInfosForExport, BankingInfosVariables} from '../../../shared/generated-types';
 import {DOCUMENT} from '@angular/common';
 import {copyToClipboard, NaturalIconDirective} from '@ecodev/natural';
 import {IbanPipe} from '../../../shared/pipes/iban.pipe';

@@ -1,4 +1,4 @@
-import {Injectable, inject} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {HmacSHA256} from 'crypto-es/lib/sha256';
 import {Hex} from 'crypto-es/lib/core';
 import {DOCUMENT} from '@angular/common';

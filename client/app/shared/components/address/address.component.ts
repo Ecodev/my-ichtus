@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, inject} from '@angular/core';
+import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {CountryService} from './country.service';
 import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NaturalSelectComponent} from '@ecodev/natural';

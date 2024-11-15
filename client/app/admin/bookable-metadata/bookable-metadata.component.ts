@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, inject} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import {BookableMetadataService} from './bookable-metadata.service';
 import {
     NaturalAlertService,

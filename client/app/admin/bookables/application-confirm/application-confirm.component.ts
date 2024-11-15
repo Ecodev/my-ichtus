@@ -2,9 +2,7 @@ import {Component, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {MatButton} from '@angular/material/button';
 import {FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from '@angular/material/form-field';
-import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
-import {MatInput} from '@angular/material/input';
+import {MatFormField, MatHint, MatLabel} from '@angular/material/form-field';
 import {ApplicationConfirmData} from '../bookables/parent.component';
 import {UsersVariables} from '../../../shared/generated-types';
 import {UserService} from '../../users/services/user.service';
@@ -15,22 +13,7 @@ import {MatOption, MatSelect} from '@angular/material/select';
     selector: 'app-application-confirm',
     templateUrl: './application-confirm.component.html',
     standalone: true,
-    imports: [
-        MatDialogModule,
-        MatButton,
-        MatHint,
-        MatDatepicker,
-        MatDatepickerInput,
-        MatDatepickerToggle,
-        MatError,
-        MatFormField,
-        MatInput,
-        MatLabel,
-        MatOption,
-        MatSuffix,
-        ReactiveFormsModule,
-        MatSelect,
-    ],
+    imports: [MatDialogModule, MatButton, MatHint, MatFormField, MatLabel, MatOption, ReactiveFormsModule, MatSelect],
 })
 // This dialog is only displayed when the user submits an application for a COURSE
 export class ApplicationConfirmComponent {

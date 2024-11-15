@@ -1,4 +1,4 @@
-import {Component, ViewChild, inject} from '@angular/core';
+import {Component, inject, ViewChild} from '@angular/core';
 import {ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
 import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';

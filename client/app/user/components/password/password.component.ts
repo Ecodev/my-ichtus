@@ -3,10 +3,10 @@ import {
     AbstractControl,
     FormControl,
     FormGroup,
-    ValidationErrors,
-    Validators,
     FormsModule,
     ReactiveFormsModule,
+    ValidationErrors,
+    Validators,
 } from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {NaturalIconDirective} from '@ecodev/natural';
