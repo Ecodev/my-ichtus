@@ -57,7 +57,7 @@ export class ExpenseClaimsComponent extends NaturalAbstractList<ExpenseClaimServ
         {id: 'name', label: 'Nom'},
         {id: 'owner', label: 'Membre'},
         {id: 'updateDate', label: 'Dernière modification'},
-        {id: 'status', label: 'Status'},
+        {id: 'status', label: 'État'},
         {id: 'type', label: 'Type'},
         {id: 'remarks', label: 'Remarques'},
         {id: 'amount', label: 'Montant'},

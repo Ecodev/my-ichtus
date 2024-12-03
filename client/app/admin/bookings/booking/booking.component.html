@@ -96,7 +96,7 @@
                         <natural-select-enum
                             enumName="BookingStatus"
                             formControlName="status"
-                            placeholder="Status"
+                            placeholder="État"
                             [disabled]="isUpdatePage() && isPendingApplication(BookingType.AdminApproved)"
                             (selectionChange)="update()"
                         />

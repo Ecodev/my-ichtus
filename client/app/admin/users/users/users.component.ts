@@ -69,7 +69,7 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
         {id: 'creationDate', label: 'Créé le'},
         {id: 'updateDate', label: 'Modifié le'},
         {id: 'resignDate', label: 'Date démission', checked: false},
-        {id: 'status', label: 'Status'},
+        {id: 'status', label: 'État'},
         {id: 'email', label: 'Email', checked: false},
         {id: 'mobilePhone', label: 'Téléphone', checked: false},
         {id: 'flagWelcomeSessionDate', label: "Séance d'accueil"},

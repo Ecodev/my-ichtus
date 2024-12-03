@@ -8,7 +8,7 @@ import {usageStatus as usageStatusFunc, usageText} from '../../bookables/bookabl
 const edit: AvailableColumn = {id: 'edit', label: 'Editer'} as const;
 const owner: AvailableColumn = {id: 'owner', label: 'Utilisateur'};
 const ownerReadonly: AvailableColumn = {id: 'ownerReadonly', label: 'Utilisateur'};
-const status: AvailableColumn = {id: 'status', label: 'Statut'};
+const status: AvailableColumn = {id: 'status', label: 'État'};
 const ownerBalance: AvailableColumn = {id: 'ownerBalance', label: 'Solde'};
 const ownerCreationDate: AvailableColumn = {id: 'ownerCreationDate', label: 'Membre depuis'};
 const bookable: AvailableColumn = {id: 'bookable', label: 'Item'};

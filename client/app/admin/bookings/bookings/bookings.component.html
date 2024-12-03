@@ -152,7 +152,7 @@
                     </ng-container>
 
                     <ng-container matColumnDef="status">
-                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Statut</th>
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>État</th>
                         <td *matCellDef="let element" mat-cell>
                             {{ element.status | enum: 'BookingStatus' | async }}
                         </td>

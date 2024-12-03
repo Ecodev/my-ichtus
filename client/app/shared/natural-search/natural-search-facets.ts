@@ -339,7 +339,7 @@ export function users(): NaturalSearchFacets {
             },
         } satisfies DropdownFacet<TypeSelectNaturalConfiguration<BookableService>>,
         {
-            display: 'Réservation (statut)',
+            display: 'Réservation (état)',
             field: 'custom',
             name: 'hasBookingStatus',
             transform: replaceOperatorByName,
@@ -347,15 +347,15 @@ export function users(): NaturalSearchFacets {
             configuration: {items: inject(NaturalEnumService).get('BookingStatus')},
         } satisfies DropdownFacet<TypeSelectConfiguration>,
         {
-            display: 'Réservation (état)',
+            display: 'Réservation (en cours/terminé)',
             field: 'custom',
             name: 'hasBookingCompleted',
             transform: replaceOperatorByName,
             component: TypeSelectComponent,
             configuration: {
                 items: [
-                    {value: true, name: 'Terminé'},
                     {value: false, name: 'En cours'},
+                    {value: true, name: 'Terminé'},
                 ],
             },
         } satisfies DropdownFacet<TypeSelectConfiguration>,
@@ -408,7 +408,7 @@ export function users(): NaturalSearchFacets {
             transform: prefixOperatorWithField,
         } satisfies DropdownFacet<TypeDateConfiguration>,
         {
-            display: 'Statut',
+            display: 'État',
             field: 'status',
             component: TypeSelectComponent,
             configuration: {
@@ -632,7 +632,7 @@ export function bookingsAdvanced(): NaturalSearchFacets {
     return [
         owner(),
         {
-            display: 'Statut',
+            display: 'État',
             field: 'status',
             component: TypeSelectComponent,
             configuration: {items: inject(NaturalEnumService).get('BookingStatus')},
@@ -711,7 +711,7 @@ export function expenseClaims(): NaturalSearchFacets {
         } satisfies DropdownFacet<TypeSelectConfiguration>,
         owner(),
         {
-            display: 'Statut',
+            display: 'État',
             field: 'status',
             component: TypeSelectComponent,
             configuration: {
