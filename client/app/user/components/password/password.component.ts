@@ -54,9 +54,8 @@ export class PasswordComponent implements OnInit {
     public confirmPasswordStateMatcher = new ConfirmPasswordStateMatcher();
 
     public ngOnInit(): void {
-        this.form.removeControl('password');
-        this.form.addControl('password', new FormControl('', [Validators.required, Validators.minLength(12)]));
-        this.form.addControl('confirmPassword', new FormControl(''));
+        this.form.setControl('password', new FormControl('', [Validators.required, Validators.minLength(12)]));
+        this.form.setControl('confirmPassword', new FormControl(''));
         this.form.setValidators(samePasswordsValidator);
     }
 }
