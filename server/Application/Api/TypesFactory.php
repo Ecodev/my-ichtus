@@ -18,7 +18,6 @@ class TypesFactory
         $invokables = [
             Enum\UserRoleType::class,
             Enum\SexType::class,
-            Enum\DoorType::class,
             Enum\MessageTypeType::class,
             Input\ConfirmRegistrationInputType::class,
             \Ecodev\Felix\Api\Input\PaginationInputType::class,

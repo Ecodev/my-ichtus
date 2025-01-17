@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Application\Api\Field\Mutation;
 
-use Application\Api\Enum\DoorType;
 use Application\Api\Output\OpenDoorType;
+use Application\Enum\Door;
 use Application\Model\User;
 use Application\Repository\LogRepository;
 use Ecodev\Felix\Api\Exception;
@@ -24,18 +24,20 @@ abstract class OpenDoor implements FieldInterface
             'type' => Type::nonNull(_types()->get(OpenDoorType::class)),
             'description' => 'Open a door at the premises',
             'args' => [
-                'door' => Type::nonNull(_types()->get(DoorType::class)),
+                'door' => Type::nonNull(_types()->get(Door::class)),
             ],
             'resolve' => function ($root, array $args, SessionInterface $session): array {
                 global $container;
 
-                if (!preg_match('/door([1-4])/', (string) $args['door'], $m)) {
+                /** @var Door $door */
+                $door = $args['door'];
+                if (!preg_match('/door([1-4])/', $door->value, $m)) {
                     throw new Exception("La porte demandée n'existe pas");
                 }
                 $doorIndex = $m[1];
 
                 $user = User::getCurrent();
-                if (!$user || !$user->getCanOpenDoor($args['door'])) {
+                if (!$user || !$user->getCanOpenDoor($door)) {
                     throw new Exception("Tu n'as pas le droit d'ouvrir cette porte");
                 }
 

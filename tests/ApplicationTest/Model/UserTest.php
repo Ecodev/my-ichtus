@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ApplicationTest\Model;
 
 use Application\Enum\BookingStatus;
+use Application\Enum\Door;
 use Application\Enum\UserStatus;
 use Application\Model\Account;
 use Application\Model\Booking;
@@ -123,7 +124,7 @@ class UserTest extends TestCase
     }
 
     /**
-     * @dataProvider providerCanOpenDoor,
+     * @dataProvider providerCanOpenDoor
      */
     public function testCanOpenDoor(string $role, UserStatus $status, array $doors, array $result): void
     {
@@ -135,7 +136,7 @@ class UserTest extends TestCase
         }
 
         foreach ($result as $door => $canOpen) {
-            self::assertSame($canOpen, $user->getCanOpenDoor($door));
+            self::assertSame($canOpen, $user->getCanOpenDoor(Door::from($door)));
         }
     }
 

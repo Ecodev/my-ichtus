@@ -29,6 +29,7 @@ use Application\Api\Input\Sorting\Age;
 use Application\Api\Input\Sorting\Balance;
 use Application\Enum\BillingType;
 use Application\Enum\BookingStatus;
+use Application\Enum\Door;
 use Application\Enum\Relationship;
 use Application\Enum\SwissSailingType;
 use Application\Enum\SwissWindsurfType;
@@ -773,9 +774,9 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      * Check if the user can *really* open a door
      * This also takes into account the user status and role.
      *
-     * @param null|string $door a particular door, or null for any
+     * @param null|Door $door a particular door, or null for any
      */
-    public function getCanOpenDoor(#[API\Argument(type: '?Application\Api\Enum\DoorType')] ?string $door = null): bool
+    public function getCanOpenDoor(?Door $door = null): bool
     {
         $allowedStatus = [UserStatus::Active];
         $allowedRoles = [
@@ -788,7 +789,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
             self::ROLE_ADMINISTRATOR,
         ];
 
-        if ($door && !$this->$door) {
+        if ($door && !$this->{$door->value}) {
             return false;
         }
 
