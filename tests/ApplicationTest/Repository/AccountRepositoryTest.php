@@ -187,4 +187,26 @@ class AccountRepositoryTest extends AbstractRepositoryTest
         yield [10011, 20300010];
         yield [10007, 8511];
     }
+
+    public function testNewAccountHasNoTransaction(): void
+    {
+        self::assertFalse($this->repository->hasTransaction(new Account()));
+    }
+
+    /**
+     * @dataProvider providerHasTransaction
+     */
+    public function testHasTransaction(int $id, bool $expected): void
+    {
+        $account = $this->getEntityManager()->getReference(Account::class, $id);
+
+        self::assertSame($expected, $this->repository->hasTransaction($account));
+    }
+
+    public function providerHasTransaction(): iterable
+    {
+        yield [10000, true];
+        yield [10096, true];
+        yield [10008, false];
+    }
 }

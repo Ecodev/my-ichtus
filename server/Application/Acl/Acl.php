@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Acl;
 
+use Application\Acl\Assertion\AccountHasNoTransaction;
 use Application\Acl\Assertion\BookableAvailable;
 use Application\Acl\Assertion\BookableIsAdminApproved;
 use Application\Acl\Assertion\BookingIsPendingApplication;
@@ -104,9 +105,10 @@ class Acl extends \Ecodev\Felix\Acl\Acl
         $this->allow(User::ROLE_RESPONSIBLE, [$bookable, $bookableTag, $license, $userTag], ['create', 'update']);
         $this->allow(User::ROLE_RESPONSIBLE, [$booking], ['update', 'delete']);
 
-        $this->allow(User::ROLE_ADMINISTRATOR, [$account], ['update']);
+        $this->allow(User::ROLE_ADMINISTRATOR, [$account], ['create', 'update']);
+        $this->allow(User::ROLE_ADMINISTRATOR, [$account], ['delete'], new AccountHasNoTransaction());
         $this->allow(User::ROLE_ADMINISTRATOR, [$license, $userTag, $bookableTag], ['delete']);
-        $this->allow(User::ROLE_ADMINISTRATOR, [$bookable, $transaction, $account, $transactionTag, $accountingDocument, $expenseClaim], ['create', 'update', 'delete']);
+        $this->allow(User::ROLE_ADMINISTRATOR, [$bookable, $transaction, $transactionTag, $accountingDocument, $expenseClaim], ['create', 'update', 'delete']);
         $this->allow(User::ROLE_ADMINISTRATOR, [$configuration], ['create']);
     }
 }

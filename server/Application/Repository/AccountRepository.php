@@ -188,4 +188,53 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
 
         return $count;
     }
+
+    /**
+     * Native query to return the IDs of myself and all recursive descendants
+     * of the one passed as parameter.
+     */
+    private function getSelfAndDescendantsSubQuery(int $itemId): string
+    {
+        $table = $this->getClassMetadata()->table['name'];
+
+        $connection = $this->getEntityManager()->getConnection();
+        $table = $connection->quoteIdentifier($table);
+
+        /** @var string $id */
+        $id = $connection->quote($itemId);
+
+        $entireHierarchySql = "
+            WITH RECURSIVE parent AS (
+                    SELECT $table.id, $table.parent_id FROM $table WHERE $table.id IN ($id)
+                    UNION
+                    SELECT $table.id, $table.parent_id FROM $table JOIN parent ON $table.parent_id = parent.id
+                )
+            SELECT id FROM parent ORDER BY id";
+
+        return trim($entireHierarchySql);
+    }
+
+    /**
+     * Whether the account, or any of its subaccounts, has any transaction at all.
+     */
+    public function hasTransaction(Account $account): bool
+    {
+        $id = $account->getId();
+        if (!$id) {
+            return false;
+        }
+
+        $wholeHierarchy = $this->getSelfAndDescendantsSubQuery($id);
+
+        $hierarchyHasSomeTransactionLines = $this->getEntityManager()->getConnection()->fetchOne(
+            <<<SQL
+                SELECT EXISTS (
+                    SELECT * FROM transaction_line
+                    INNER JOIN ($wholeHierarchy) AS tmp ON transaction_line.credit_id = tmp.id OR transaction_line.debit_id = tmp.id
+                );
+                SQL
+        );
+
+        return (bool) $hierarchyHasSomeTransactionLines;
+    }
 }
