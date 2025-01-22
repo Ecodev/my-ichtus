@@ -63,8 +63,16 @@
                     </ng-container>
 
                     <ng-container matColumnDef="amount">
-                        <th *matHeaderCellDef mat-header-cell mat-sort-header natural-4em-column>Montant</th>
-                        <td *matCellDef="let element" mat-cell>
+                        <th
+                            *matHeaderCellDef
+                            mat-header-cell
+                            mat-sort-header
+                            class="natural-4em-column natural-align-right"
+                            arrowPosition="before"
+                        >
+                            Montant
+                        </th>
+                        <td *matCellDef="let element" mat-cell class="natural-align-right">
                             <app-money [amount]="element.amount" [showSignal]="false" [showCurrency]="false" />
                         </td>
                     </ng-container>
@@ -93,7 +101,7 @@
                     </ng-container>
 
                     <ng-container matColumnDef="type">
-                        <th *matHeaderCellDef mat-header-cell mat-sort-header natural-4em-column>Type</th>
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header class="natural-4em-column">Type</th>
                         <td *matCellDef="let element" mat-cell>
                             {{ element.type | enum: 'ExpenseClaimType' | async }}
                         </td>

@@ -26,7 +26,7 @@
                     <tr *matRowDef="let row; columns: columnsForTable" mat-row></tr>
 
                     <ng-container matColumnDef="color">
-                        <th *matHeaderCellDef mat-header-cell mat-sort-header natural-3em-column></th>
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header class="natural-3em-column"></th>
                         <td *matCellDef="let element" mat-cell>
                             <natural-avatar [bgColor]="element.color" [size]="32" [initials]="element.name" />
                         </td>

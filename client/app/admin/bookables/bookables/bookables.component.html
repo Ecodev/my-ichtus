@@ -34,7 +34,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                     }
 
                     <ng-container matColumnDef="image">
-                        <th *matHeaderCellDef mat-header-cell mat-sort-header natural-2em-column></th>
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header class="natural-2em-column"></th>
                         <td *matCellDef="let element" mat-cell>
                             @if (element.image) {
                                 <natural-file
@@ -91,17 +91,16 @@ Warning this template is used by two components BookablesComponent and UsageBook
                             *matHeaderCellDef
                             mat-header-cell
                             mat-sort-header
-                            natural-align-right
-                            class="app-price-column"
+                            class="natural-align-right app-price-column"
                         >
                             Prix achat
                         </th>
-                        <td *matCellDef="let element" mat-cell natural-align-right>
+                        <td *matCellDef="let element" mat-cell class="natural-align-right">
                             @if (element.purchasePrice > 0) {
                                 <span>{{ element.purchasePrice | currency: 'CHF' : 'symbol' : '1.0-0' }}</span>
                             }
                         </td>
-                        <td *matFooterCellDef mat-footer-cell natural-align-right>
+                        <td *matFooterCellDef mat-footer-cell class="natural-align-right">
                             @if (dataSource.data?.totalPurchasePrice > 0) {
                                 <span>
                                     {{ dataSource.data?.totalPurchasePrice | currency: 'CHF' : 'symbol' : '1.0-0' }}
@@ -115,17 +114,16 @@ Warning this template is used by two components BookablesComponent and UsageBook
                             *matHeaderCellDef
                             mat-header-cell
                             mat-sort-header
-                            natural-align-right
-                            class="app-price-column"
+                            class="natural-align-right app-price-column"
                         >
                             Prix init.
                         </th>
-                        <td *matCellDef="let element" mat-cell natural-align-right>
+                        <td *matCellDef="let element" mat-cell class="natural-align-right">
                             @if (element.initialPrice !== '0.00') {
                                 <span>{{ element.initialPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}</span>
                             }
                         </td>
-                        <td *matFooterCellDef mat-footer-cell natural-align-right>
+                        <td *matFooterCellDef mat-footer-cell class="natural-align-right">
                             @if (dataSource.data?.totalInitialPrice > 0) {
                                 <span>
                                     {{ dataSource.data?.totalInitialPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}
@@ -139,17 +137,16 @@ Warning this template is used by two components BookablesComponent and UsageBook
                             *matHeaderCellDef
                             mat-header-cell
                             mat-sort-header
-                            natural-align-right
-                            class="app-price-column"
+                            class="natural-align-right app-price-column"
                         >
                             Prix périod.
                         </th>
-                        <td *matCellDef="let element" mat-cell natural-align-right>
+                        <td *matCellDef="let element" mat-cell class="natural-align-right">
                             @if (element.periodicPrice !== '0.00') {
                                 <span>{{ element.periodicPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}</span>
                             }
                         </td>
-                        <td *matFooterCellDef mat-footer-cell natural-align-right>
+                        <td *matFooterCellDef mat-footer-cell class="natural-align-right">
                             @if (dataSource.data?.totalPeriodicPrice > 0) {
                                 <span>
                                     {{ dataSource.data?.totalPeriodicPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}
@@ -160,8 +157,8 @@ Warning this template is used by two components BookablesComponent and UsageBook
                     <!-- Merge in a single column the periodic price and the initial price -->
 
                     <ng-container matColumnDef="price">
-                        <th *matHeaderCellDef mat-header-cell natural-7em-column natural-align-right>Prix</th>
-                        <td *matCellDef="let element" mat-cell natural-align-right>
+                        <th *matHeaderCellDef mat-header-cell class="natural-7em-column natural-align-right">Prix</th>
+                        <td *matCellDef="let element" mat-cell class="natural-align-right">
                             @if (element.periodicPrice !== '0.00') {
                                 <span>
                                     {{ element.periodicPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}&nbsp;/an
@@ -200,8 +197,10 @@ Warning this template is used by two components BookablesComponent and UsageBook
                     </ng-container>
 
                     <ng-container matColumnDef="usage">
-                        <th *matHeaderCellDef mat-header-cell natural-3em-column natural-align-center>Utilisations</th>
-                        <td *matCellDef="let element" mat-cell natural-align-center>
+                        <th *matHeaderCellDef mat-header-cell class="natural-3em-column natural-align-center">
+                            Utilisations
+                        </th>
+                        <td *matCellDef="let element" mat-cell class="natural-align-center">
                             @for (b of element.simultaneousBookings; track b) {
                                 <div class="nat-horizontal">
                                     <natural-avatar
@@ -219,8 +218,10 @@ Warning this template is used by two components BookablesComponent and UsageBook
                     </ng-container>
 
                     <ng-container matColumnDef="availability">
-                        <th *matHeaderCellDef mat-header-cell natural-3em-column natural-align-center>Disponibilité</th>
-                        <td *matCellDef="let element" mat-cell natural-align-center>
+                        <th *matHeaderCellDef mat-header-cell class="natural-3em-column natural-align-center">
+                            Disponibilité
+                        </th>
+                        <td *matCellDef="let element" mat-cell class="natural-align-center">
                             @if (element.simultaneousBookings) {
                                 <app-flag [status]="availabilityStatus(element)">{{
                                     availabilityText(element)
@@ -231,8 +232,10 @@ Warning this template is used by two components BookablesComponent and UsageBook
                     </ng-container>
 
                     <ng-container matColumnDef="usageStatus">
-                        <th *matHeaderCellDef mat-header-cell natural-3em-column natural-align-center>Inscriptions</th>
-                        <td *matCellDef="let element" mat-cell natural-align-center>
+                        <th *matHeaderCellDef mat-header-cell class="natural-3em-column natural-align-center">
+                            Inscriptions
+                        </th>
+                        <td *matCellDef="let element" mat-cell class="natural-align-center">
                             @if (element.simultaneousBookings) {
                                 <app-flag [status]="usageStatus(element)">{{ usageText(element) }}</app-flag>
                             }
@@ -241,7 +244,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                     </ng-container>
 
                     <ng-container matColumnDef="select">
-                        <th *matHeaderCellDef mat-header-cell natural-5em-column></th>
+                        <th *matHeaderCellDef mat-header-cell class="natural-5em-column"></th>
                         <td *matCellDef="let element" mat-cell>
                             <button mat-flat-button color="primary" (click)="bookableClick.emit(element)">
                                 {{ route.snapshot.data.actionButtonLabel || 'Sélectionner' }}
@@ -251,7 +254,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                     </ng-container>
 
                     <ng-container matColumnDef="createApplication">
-                        <th *matHeaderCellDef mat-header-cell natural-5em-column></th>
+                        <th *matHeaderCellDef mat-header-cell class="natural-5em-column"></th>
                         <td *matCellDef="let element" mat-cell>
                             @if (allowBooking(element)) {
                                 <button

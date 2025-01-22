@@ -23,8 +23,8 @@
             </ng-container>
 
             <ng-container matColumnDef="amount">
-                <th *matHeaderCellDef mat-header-cell>Montant</th>
-                <td *matCellDef="let transactionLine" mat-cell>
+                <th *matHeaderCellDef mat-header-cell class="natural-align-right">Montant</th>
+                <td *matCellDef="let transactionLine" mat-cell class="natural-align-right">
                     <app-transaction-amount [transactionLine]="transactionLine" [relativeToAccount]="viewer.account" />
                 </td>
             </ng-container>

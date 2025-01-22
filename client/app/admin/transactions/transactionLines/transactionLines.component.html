@@ -50,8 +50,16 @@
                     </ng-container>
 
                     <ng-container matColumnDef="balance">
-                        <th *matHeaderCellDef mat-header-cell mat-sort-header natural-4em-column>Montant</th>
-                        <td *matCellDef="let element" mat-cell>
+                        <th
+                            *matHeaderCellDef
+                            mat-header-cell
+                            mat-sort-header
+                            class="natural-4em-column natural-align-right"
+                            arrowPosition="before"
+                        >
+                            Montant
+                        </th>
+                        <td *matCellDef="let element" mat-cell class="natural-align-right">
                             <app-money [amount]="element.balance" [showCurrency]="false" [showSignal]="false" />
                         </td>
                         <td *matFooterCellDef mat-footer-cell>

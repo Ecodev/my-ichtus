@@ -192,7 +192,7 @@
                     </ng-container>
 
                     <ng-container matColumnDef="terminateBooking">
-                        <th *matHeaderCellDef mat-header-cell natural-5em-column></th>
+                        <th *matHeaderCellDef mat-header-cell class="natural-5em-column"></th>
                         <td *matCellDef="let element" mat-cell>
                             @if (!element.endDate) {
                                 <button mat-flat-button color="warn" (click)="maybeTerminateBooking(element.id)">
@@ -204,8 +204,10 @@
                     </ng-container>
 
                     <ng-container matColumnDef="usageStatus">
-                        <th *matHeaderCellDef mat-header-cell natural-3em-column natural-align-center>Inscriptions</th>
-                        <td *matCellDef="let element" mat-cell natural-align-center>
+                        <th *matHeaderCellDef mat-header-cell class="natural-3em-column natural-align-center">
+                            Inscriptions
+                        </th>
+                        <td *matCellDef="let element" mat-cell class="natural-align-center">
                             <app-flag [status]="usageStatus(element.bookable)">{{
                                 usageText(element.bookable)
                             }}</app-flag>

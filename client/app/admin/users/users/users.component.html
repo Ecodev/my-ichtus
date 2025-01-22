@@ -67,15 +67,14 @@
                             *matHeaderCellDef
                             mat-header-cell
                             mat-sort-header
-                            class="app-date-column"
-                            natural-align-center
+                            class="natural-align-center app-date-column"
                         >
                             État
                         </th>
                         <td
                             *matCellDef="let element"
                             mat-cell
-                            natural-align-center
+                            class="natural-align-center"
                             matTooltip="Le nom et le login doivent être renseignés pour activer un utilisateur"
                             [matTooltipDisabled]="isActive(element) || isActivable(element)"
                         >
@@ -111,7 +110,7 @@
                     </ng-container>
 
                     <ng-container matColumnDef="flagWelcomeSessionDate">
-                        <th *matHeaderCellDef mat-header-cell natural-7em-column>Accueil</th>
+                        <th *matHeaderCellDef mat-header-cell class="natural-7em-column">Accueil</th>
                         <td *matCellDef="let element" mat-cell>
                             @if (!element.welcomeSessionDate) {
                                 <button
@@ -137,8 +136,16 @@
                     </ng-container>
 
                     <ng-container matColumnDef="balance">
-                        <th *matHeaderCellDef mat-header-cell mat-sort-header natural-6em-column>Solde</th>
-                        <td *matCellDef="let element" mat-cell>
+                        <th
+                            *matHeaderCellDef
+                            mat-header-cell
+                            mat-sort-header
+                            class="natural-6em-column natural-align-right"
+                            arrowPosition="before"
+                        >
+                            Solde
+                        </th>
+                        <td *matCellDef="let element" mat-cell class="natural-align-right">
                             <app-money [showCurrency]="false" [showSignal]="true" [amount]="element.account?.balance" />
                         </td>
                     </ng-container>
@@ -154,8 +161,10 @@
                     </ng-container>
 
                     <ng-container matColumnDef="provision">
-                        <th *matHeaderCellDef mat-header-cell app-date-column natural-align-center>Versement</th>
-                        <td *matCellDef="let element" mat-cell natural-align-center>
+                        <th *matHeaderCellDef mat-header-cell app-date-column class="natural-align-center">
+                            Versement
+                        </th>
+                        <td *matCellDef="let element" mat-cell class="natural-align-center">
                             <button mat-flat-button (click)="showProvision(element)">Faire un versement</button>
                         </td>
                     </ng-container>

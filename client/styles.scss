@@ -98,11 +98,6 @@ app-admin router-outlet + * {
     overflow: auto;
 }
 
-.mat-column-amount,
-.mat-column-balance {
-    text-align: right !important;
-}
-
 mat-form-field.no-bottom-spacing {
     margin-bottom: -1.34375em;
 }

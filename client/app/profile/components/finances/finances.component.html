@@ -85,8 +85,16 @@
                         </ng-container>
 
                         <ng-container matColumnDef="amount">
-                            <th *matHeaderCellDef mat-header-cell mat-sort-header natural-align-right>Montant</th>
-                            <td *matCellDef="let expenseClaim" mat-cell natural-align-right>
+                            <th
+                                *matHeaderCellDef
+                                mat-header-cell
+                                mat-sort-header
+                                class="natural-align-right"
+                                arrowPosition="before"
+                            >
+                                Montant
+                            </th>
+                            <td *matCellDef="let expenseClaim" mat-cell class="natural-align-right">
                                 <app-money [amount]="expenseClaim.amount" [showSignal]="false" [showCurrency]="true" />
                             </td>
                         </ng-container>
@@ -113,7 +121,7 @@
                         </ng-container>
 
                         <ng-container matColumnDef="cancel">
-                            <th *matHeaderCellDef mat-header-cell natural-1em-column></th>
+                            <th *matHeaderCellDef mat-header-cell class="natural-1em-column"></th>
                             <td *matCellDef="let expenseClaim" mat-cell>
                                 @if (expenseClaim.permissions.delete) {
                                     <button
@@ -130,7 +138,7 @@
                         </ng-container>
 
                         <ng-container matColumnDef="admin">
-                            <th *matHeaderCellDef mat-header-cell natural-1em-column>Traiter</th>
+                            <th *matHeaderCellDef mat-header-cell class="natural-1em-column">Traiter</th>
                             <td *matCellDef="let item" mat-cell>
                                 <a
                                     mat-icon-button
