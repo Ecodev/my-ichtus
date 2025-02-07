@@ -213,7 +213,7 @@
             <div>
                 <div class="mat-headline-6">Pièces justificatives</div>
                 <div class="nat-horizontal nat-gap-10">
-                    @for (file of data.model.accountingDocuments; track file) {
+                    @for (file of data.model.accountingDocuments; track file.id) {
                         <natural-file action="download" [model]="file" [height]="150" [style.width.px]="200" />
                     }
                 </div>
