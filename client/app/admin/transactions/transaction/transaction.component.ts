@@ -127,16 +127,20 @@ export class TransactionComponent
             this.updateTransactionLines = true;
         }
 
-        cancellableTimeout(this.destroyRef).subscribe(() => {
-            const expenseClaim = this.data.expenseClaim;
-            const duplicatedTransaction = this.data.duplicatedTransaction;
+        const expenseClaim = this.data.expenseClaim;
+        const duplicatedTransaction = this.data.duplicatedTransaction;
+        if (expenseClaim || duplicatedTransaction) {
+            cancellableTimeout(this.destroyRef).subscribe(() => {
+                // Prevent human to input something that would be overridden when prefill finishes
+                this.transactionLinesComponent.form.disable();
 
-            if (expenseClaim) {
-                this.prefillFromExpenseClaim(expenseClaim);
-            } else if (duplicatedTransaction) {
-                this.prefillFromTransaction(duplicatedTransaction);
-            }
-        });
+                if (expenseClaim) {
+                    this.prefillFromExpenseClaim(expenseClaim);
+                } else if (duplicatedTransaction) {
+                    this.prefillFromTransaction(duplicatedTransaction);
+                }
+            });
+        }
     }
 
     private prefillFromExpenseClaim(expenseClaim: ExpenseClaim['expenseClaim']): void {

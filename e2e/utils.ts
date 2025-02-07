@@ -3,8 +3,21 @@ import {DocumentNode} from '@apollo/client/core';
 import {Page, Response} from '@playwright/test';
 import {getOperationName} from '@apollo/client/utilities';
 
+export function quoteXpath(xpath: string): string {
+    const parts = xpath.split('"');
+    if (parts.length <= 1) {
+        return `"${xpath}"`;
+    }
+
+    return 'concat("' + parts.join(`", '"' ,"`) + '")';
+}
+
 export function formControlName(name: string): string {
-    return `input[formcontrolname="${name}"],mat-checkbox[formcontrolname="${name}"],natural-select[formcontrolname="${name}"]`;
+    return `input[formcontrolname="${name}"],mat-checkbox[formcontrolname="${name}"] input`;
+}
+
+export function formControlNameXpath(name: string, index = 1): string {
+    return `(//input[@formcontrolname=${quoteXpath(name)}])[${index}]`;
 }
 
 export function buttonLabel(label: string): string {
@@ -25,6 +38,7 @@ export function bigButton(label: string): string {
 export function menuCategory(label: string): string {
     return `//mat-expansion-panel-header[contains(., '${label}')]`;
 }
+
 export function menu(label: string): string {
     return `//natural-sidenav//a[contains(., '${label}')]`;
 }

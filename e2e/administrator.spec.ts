@@ -1,6 +1,6 @@
 import {expect, test} from '@playwright/test';
 import {AppPage} from './app.po';
-import {bigButton, formControlName, menu, menuCategory, runSql} from './utils';
+import {bigButton, formControlName, formControlNameXpath, menu, menuCategory, runSql} from './utils';
 
 test.describe('accounting', () => {
     let app: AppPage;
@@ -20,16 +20,21 @@ test.describe('accounting', () => {
             await page.click(bigButton('Administration'));
             await page.click(menuCategory('Comptabilité'));
             await page.click(menu('Écritures'));
-            await page.click(`//a[contains(., 'Acquisition voilier NE123456')]`);
+            await page.click(`//a[contains(., 'Paiement voilier par Raiffeisen')]`);
             await page.click(`//eco-fab-speed-dial-trigger`);
             await page.click(`[mattooltip='Dupliquer ...']`);
             await page.waitForSelector(`//natural-detail-header[contains(., 'Nouvelle transaction')]`);
+            await expect(page.locator(formControlNameXpath('name', 1))).toHaveValue("Achat d'un nouveau voilier");
+            await expect(page.locator(formControlNameXpath('name', 2))).toHaveValue('Paiement voilier par Raiffeisen');
+            await expect(page.locator(formControlNameXpath('name', 3))).toHaveValue('Acquisition voilier NE123456');
+            await expect(page.locator(formControlNameXpath('name', 4))).toHaveValue('Paiement voilier par PostFinance');
+            await expect(page.locator(formControlName('transactionDate'))).toHaveValue('');
 
             // Complete form
             const unique = 'e2e-' + Date.now();
-            await page.type(formControlName('transactionDate'), '2022-01-01');
-            await page.type(formControlName('name'), unique);
-            await page.type(`app-editable-transaction-lines tr:first-of-type input[formcontrolname="name"]`, unique);
+            await page.fill(formControlName('transactionDate'), '2022-01-01');
+            await page.fill(formControlName('name'), unique);
+            await page.fill(`app-editable-transaction-lines tr:first-of-type input[formcontrolname="name"]`, unique);
 
             // Save
             await page.click(`//natural-fixed-button`);
@@ -68,11 +73,15 @@ test.describe('accounting', () => {
             await page.click(`//a[contains(., 'achats Jumbo')]`);
             await page.click(`//a[contains(., 'Créditer le solde')]`);
             await page.waitForSelector(`//natural-detail-header[contains(., 'Nouvelle transaction')]`);
+            await expect(page.locator(formControlNameXpath('name', 1))).toHaveValue(
+                'Traitement de la dépense "achats Jumbo"',
+            );
+            await expect(page.locator(formControlNameXpath('name', 2))).toHaveValue('Remboursement sur le solde');
 
             // Complete form
             const unique = 'e2e-' + Date.now();
-            await page.type(formControlName('name'), unique);
-            await page.type(`app-editable-transaction-lines tr:first-of-type input[formcontrolname="name"]`, unique);
+            await page.fill(formControlName('name'), unique);
+            await page.fill(`app-editable-transaction-lines tr:first-of-type input[formcontrolname="name"]`, unique);
 
             // Save
             await page.click(`//natural-fixed-button`);
@@ -84,10 +93,8 @@ test.describe('accounting', () => {
             // Go back to list and check reimbursement actually exist
             await page.click(`//natural-detail-header//a[contains(., 'Transaction')]`);
             await page.click(`//a[contains(., '${unique}')]`);
-            expect(await page.innerText('natural-detail-header')).toContain(
-                unique + 'Traitement de la dépense "achats Jumbo"',
-            );
-            await page.waitForSelector(`//app-transaction-lines[contains(., '${unique}Remboursement sur le solde')]`);
+            await page.waitForSelector(`//natural-detail-header[contains(., '${unique}')]`);
+            await page.waitForSelector(`//app-transaction-lines[contains(., '${unique}')]`);
             expect(await page.innerText('//natural-detail-header//app-money')).toMatch(/CHF 200.00/);
         });
     });
