@@ -71,7 +71,7 @@
                         </mat-form-field>
                     }
 
-                    @if ([AccountType.Asset, AccountType.Expense].includes(form.get('type')?.value)) {
+                    @if ([AccountType.Asset].includes(form.get('type')?.value)) {
                         <mat-form-field subscriptSizing="dynamic" [style.width.px]="250">
                             <mat-label>Solde précédent</mat-label>
                             <input
