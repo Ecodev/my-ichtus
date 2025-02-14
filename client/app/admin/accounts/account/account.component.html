@@ -108,8 +108,8 @@
                         @if (form.get('budgetAllowed')?.hasError('money')) {
                             <mat-error>Le montant doit être un nombre avec un maximum de deux décimales</mat-error>
                         }
-                        @if (budgetBalance()) {
-                            <mat-hint>Budget restant: {{ budgetBalance() }} CHF</mat-hint>
+                        @if (isUpdatePage() && data.model.budgetBalance) {
+                            <mat-hint>Budget restant: {{ data.model.budgetBalance }} CHF</mat-hint>
                         }
                     </mat-form-field>
                 </div>

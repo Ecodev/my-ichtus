@@ -24,7 +24,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import Big from 'big.js';
 import {startWith, switchMap} from 'rxjs';
 import {AccountType} from '../../../shared/generated-types';
 import {MatTooltip, MatTooltipModule} from '@angular/material/tooltip';
@@ -126,14 +125,5 @@ export class AccountComponent extends NaturalAbstractDetail<AccountService, Natu
                 ibanField.setValue('');
             }
         }
-    }
-
-    public budgetBalance(): string {
-        const allowed = this.form.get('budgetAllowed')?.value;
-        if (!this.isUpdatePage() || allowed === null) {
-            return '';
-        }
-
-        return Big(allowed).minus(this.data.model.totalBalance).toFixed(2);
     }
 }
