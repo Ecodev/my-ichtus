@@ -81,6 +81,7 @@ export class AccountService extends NaturalAbstractModelService<
             name: [Validators.required, Validators.maxLength(100)],
             code: [Validators.required, Validators.min(0), integer],
             iban: [iban],
+            totalBalanceFormer: [Validators.required, money],
             budgetAllowed: [money, Validators.min(0)],
         };
     }

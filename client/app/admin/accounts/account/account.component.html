@@ -81,8 +81,8 @@
                                 (change)="update()"
                             />
                             <div matTextSuffix>CHF</div>
-                            @if (form.get('totalBalanceFormer')?.hasError('min')) {
-                                <mat-error>Le montant doit être positif</mat-error>
+                            @if (form.get('totalBalanceFormer')?.hasError('required')) {
+                                <mat-error>Requis</mat-error>
                             }
                             @if (form.get('totalBalanceFormer')?.hasError('money')) {
                                 <mat-error>Le montant doit être un nombre avec un maximum de deux décimales</mat-error>
