@@ -57,7 +57,7 @@
                         }
                     </mat-form-field>
 
-                    @if ([AccountType.Asset].includes(form.get('type')?.value)) {
+                    @if (form.get('type')?.value === AccountType.Asset) {
                         <mat-form-field>
                             <mat-label>IBAN Ichtus</mat-label>
                             <input matInput formControlName="iban" (change)="update()" />
@@ -69,9 +69,7 @@
                             }
                             <mat-hint>Pour les comptes bancaires ichtus uniquement</mat-hint>
                         </mat-form-field>
-                    }
 
-                    @if ([AccountType.Asset].includes(form.get('type')?.value)) {
                         <mat-form-field subscriptSizing="dynamic" [style.width.px]="250">
                             <mat-label>Solde précédent</mat-label>
                             <input
