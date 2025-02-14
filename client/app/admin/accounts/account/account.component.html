@@ -72,7 +72,7 @@
                     }
 
                     @if ([AccountType.Asset, AccountType.Expense].includes(form.get('type')?.value)) {
-                        <mat-form-field [style.width.px]="250">
+                        <mat-form-field subscriptSizing="dynamic" [style.width.px]="250">
                             <mat-label>Solde précédent</mat-label>
                             <input
                                 matInput
@@ -87,8 +87,9 @@
                                 <mat-error>Le montant doit être positif</mat-error>
                             }
                             @if (form.get('totalBalanceFormer')?.hasError('money')) {
-                                <mat-error>Le montant doit être un nombre avec un maximum de deux décimales </mat-error>
+                                <mat-error>Le montant doit être un nombre avec un maximum de deux décimales</mat-error>
                             }
+                            <mat-hint>Sera déduit du solde actuel pour calculer le budget restant</mat-hint>
                         </mat-form-field>
                     }
 
