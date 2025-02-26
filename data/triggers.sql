@@ -81,6 +81,12 @@ BEGIN
     WHERE transaction.id = transaction_id;
 END ~~
 
+-- Return true is the new id exists and is different from old id
+CREATE OR REPLACE FUNCTION was_updated (IN old_id INT, IN new_id INT) RETURNS BOOL
+BEGIN
+    RETURN new_id IS NOT NULL AND (old_id IS NULL OR new_id != old_id);
+END ~~
+
 CREATE OR REPLACE TRIGGER transaction_DELETE
     BEFORE DELETE
     ON transaction
@@ -146,7 +152,7 @@ CREATE OR REPLACE TRIGGER transaction_line_UPDATE
     END IF;
 
     /* Update new debit account balance */
-    IF NEW.debit_id IS NOT NULL THEN
+    IF was_updated(OLD.debit_id, NEW.debit_id) THEN
         CALL update_account_balance(NEW.debit_id);
     END IF;
 
@@ -156,7 +162,7 @@ CREATE OR REPLACE TRIGGER transaction_line_UPDATE
     END IF;
 
     /* Update new credit account balance */
-    IF NEW.credit_id IS NOT NULL THEN
+    IF was_updated(OLD.credit_id, NEW.credit_id) THEN
         CALL update_account_balance(NEW.credit_id);
     END IF;
 
