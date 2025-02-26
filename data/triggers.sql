@@ -73,6 +73,13 @@ BEGIN
 
 END ~~
 
+-- Update balance of a single transaction
+CREATE OR REPLACE PROCEDURE update_transaction_balance (IN transaction_id INT)
+BEGIN
+    UPDATE transaction
+    SET transaction.balance = (SELECT SUM(IF(tl.debit_id IS NOT NULL, tl.balance, 0)) FROM transaction_line tl WHERE tl.transaction_id = transaction_id)
+    WHERE transaction.id = transaction_id;
+END ~~
 
 CREATE OR REPLACE TRIGGER transaction_DELETE
     BEFORE DELETE
@@ -102,9 +109,7 @@ CREATE OR REPLACE TRIGGER transaction_line_INSERT
     END IF;
 
     /* Update transaction total */
-    UPDATE transaction t
-    SET t.balance=(SELECT SUM(IF(tl.debit_id IS NOT NULL, tl.balance, 0)) FROM transaction_line tl WHERE tl.transaction_id=NEW.transaction_id)
-    WHERE t.id=NEW.transaction_id;
+    CALL update_transaction_balance(NEW.transaction_id);
   END; ~~
 
 
@@ -125,9 +130,7 @@ CREATE OR REPLACE TRIGGER transaction_line_DELETE
 
     /* Update transaction total */
     IF @transaction_being_deleted IS NULL THEN
-        UPDATE transaction t
-        SET t.balance=(SELECT SUM(IF(tl.debit_id IS NOT NULL, tl.balance, 0)) FROM transaction_line tl WHERE tl.transaction_id=OLD.transaction_id)
-        WHERE t.id=OLD.transaction_id;
+        CALL update_transaction_balance(OLD.transaction_id);
     END IF;
   END; ~~
 
@@ -158,7 +161,5 @@ CREATE OR REPLACE TRIGGER transaction_line_UPDATE
     END IF;
 
     /* Update transaction total */
-    UPDATE transaction t
-    SET t.balance=(SELECT SUM(IF(tl.debit_id IS NOT NULL, tl.balance, 0)) FROM transaction_line tl WHERE tl.transaction_id=NEW.transaction_id)
-    WHERE t.id=NEW.transaction_id;
+    CALL update_transaction_balance(NEW.transaction_id);
   END; ~~
