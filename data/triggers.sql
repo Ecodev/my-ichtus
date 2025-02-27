@@ -113,7 +113,11 @@ CREATE OR REPLACE TRIGGER transaction_DELETE
     BEFORE DELETE
     ON transaction
     FOR EACH ROW
-BEGIN
+this_trigger:BEGIN
+    IF @disable_triggers IS NOT NULL THEN
+        LEAVE this_trigger;
+    END IF;
+
     -- Manually cascade the delete so that the transaction_line trigger is activated correctly, see https://jira.mariadb.org/browse/MDEV-19402
     SET @transaction_being_deleted = OLD.id;
     DELETE FROM transaction_line WHERE transaction_id = OLD.id;
@@ -125,7 +129,11 @@ CREATE OR REPLACE TRIGGER transaction_line_INSERT
   AFTER INSERT
   ON transaction_line
   FOR EACH ROW
-  BEGIN
+this_trigger:BEGIN
+    IF @disable_triggers IS NOT NULL OR @disable_triggers_for_mass_transaction_line IS NOT NULL THEN
+        LEAVE this_trigger;
+    END IF;
+
     /* Update debit account balance */
     CALL update_account_balance(NEW.debit_id);
 
@@ -141,7 +149,11 @@ CREATE OR REPLACE TRIGGER transaction_line_DELETE
   AFTER DELETE
   ON transaction_line
   FOR EACH ROW
-  BEGIN
+this_trigger:BEGIN
+    IF @disable_triggers IS NOT NULL OR @disable_triggers_for_mass_transaction_line IS NOT NULL THEN
+        LEAVE this_trigger;
+    END IF;
+
     /* Revert debit account balance */
     CALL update_account_balance(OLD.debit_id);
 
@@ -159,7 +171,11 @@ CREATE OR REPLACE TRIGGER transaction_line_UPDATE
   AFTER UPDATE
   ON transaction_line
   FOR EACH ROW
-  BEGIN
+this_trigger:BEGIN
+    IF @disable_triggers IS NOT NULL OR @disable_triggers_for_mass_transaction_line IS NOT NULL THEN
+        LEAVE this_trigger;
+    END IF;
+
     /* Update new credit account balance */
     CALL maybe_update_account_balance(OLD.balance, NEW.balance, OLD.debit_id, NEW.debit_id);
 

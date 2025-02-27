@@ -72,12 +72,65 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
         }
 
         $this->getEntityManager()->persist($transaction);
-        $this->getEntityManager()->flush();
+        $this->flushWithFastTransactionLineTriggers();
 
         // Be sure to refresh the new account balance that were computed by DB triggers
         $accounts = array_filter(Utility::unique($accounts));
         foreach ($accounts as $account) {
             $this->getEntityManager()->refresh($account);
         }
+    }
+
+    /**
+     * This is a replacement for `_em()->flush();` for when you are flushing a lot of transaction lines.
+     *
+     * It does the exact same thing as `_em()->flush();`, except it will disable transaction line
+     * triggers temporarily and execute the de-duplicated stocked procedures at the very end. So we
+     * avoid re-computing the same thing over and over.
+     */
+    public function flushWithFastTransactionLineTriggers(): void
+    {
+        $transactions = [];
+        $accounts = [];
+
+        $unitOfWork = $this->getEntityManager()->getUnitOfWork();
+        $unitOfWork->computeChangeSets();
+
+        $inserted = $unitOfWork->getScheduledEntityInsertions();
+        $updated = $unitOfWork->getScheduledEntityUpdates();
+        $deleted = $unitOfWork->getScheduledEntityDeletions();
+
+        // Remember the IDs before deleting them
+        foreach ($deleted as $object) {
+            if ($object instanceof TransactionLine) {
+                $transactions[] = $object->getTransaction()->getId();
+                $accounts[] = $object->getDebit()?->getId();
+                $accounts[] = $object->getCredit()?->getId();
+            }
+        }
+
+        $this->getEntityManager()->getConnection()->executeStatement('SET @disable_triggers_for_mass_transaction_line = true;');
+        $this->getEntityManager()->flush();
+
+        // Get the (possibly new) IDs possibly affected by this flush
+        foreach ([...$inserted, ...$updated] as $object) {
+            if ($object instanceof TransactionLine) {
+                $transactions[] = $object->getTransaction()->getId();
+                $accounts[] = $object->getDebit()?->getId();
+                $accounts[] = $object->getCredit()?->getId();
+            }
+        }
+
+        $transactions = array_filter(array_unique($transactions));
+        $accounts = array_filter(array_unique($accounts));
+
+        // Keep everything in a single string to save very precious time in a single DB round trip
+        $sql
+            = implode(PHP_EOL, array_map(fn (int $transaction) => "CALL update_transaction_balance($transaction);", $transactions)) . PHP_EOL
+            . implode(PHP_EOL, array_map(fn (int $account) => "CALL update_account_balance($account);", $accounts)) . PHP_EOL
+            . 'SET @disable_triggers_for_mass_transaction_line = false;';
+
+        // Compute balance for all objects that may have been affected
+        $this->getEntityManager()->getConnection()->executeStatement($sql);
     }
 }

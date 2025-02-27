@@ -40,7 +40,8 @@ abstract class ImportCamt implements FieldInterface
                 // Do the thing
                 $importer = new Importer();
                 $transactions = $importer->import($path);
-                _em()->flush();
+
+                _em()->getRepository(Transaction::class)->flushWithFastTransactionLineTriggers();
 
                 return $transactions;
             },
