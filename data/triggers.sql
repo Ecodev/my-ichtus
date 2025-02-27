@@ -82,7 +82,7 @@ BEGIN
 END ~~
 
 -- Return true is the new id exists and is different from old id
-CREATE OR REPLACE FUNCTION was_updated (IN old_id INT, IN new_id INT) RETURNS BOOL
+CREATE OR REPLACE FUNCTION was_updated (old_id INT, new_id INT) RETURNS BOOL
 BEGIN
     RETURN new_id IS NOT NULL AND (old_id IS NULL OR new_id != old_id);
 END ~~
