@@ -44,15 +44,25 @@ class TypesFactory
         $invokables = array_combine($invokables, $invokables);
 
         $aliases = [
-            \Cake\Chronos\Chronos::class => \Ecodev\Felix\Api\Scalar\ChronosType::class,
-            \Cake\Chronos\ChronosDate::class => \Ecodev\Felix\Api\Scalar\DateType::class,
             'datetime' => \Ecodev\Felix\Api\Scalar\ChronosType::class,
             'date' => \Ecodev\Felix\Api\Scalar\DateType::class,
+        ];
+
+        $aliasesWithShortVariant = [
+            \Cake\Chronos\Chronos::class => \Ecodev\Felix\Api\Scalar\ChronosType::class,
+            \Cake\Chronos\ChronosDate::class => \Ecodev\Felix\Api\Scalar\DateType::class,
             \Psr\Http\Message\UploadedFileInterface::class => \GraphQL\Upload\UploadType::class,
-            'UploadedFileInterface' => \GraphQL\Upload\UploadType::class,
-            'Money' => Scalar\MoneyType::class,
             \Money\Money::class => Scalar\MoneyType::class,
         ];
+
+        // Automatically add aliases and their short variants
+        foreach ($aliasesWithShortVariant as $alias => $type) {
+            $parts = explode('\\', $alias);
+            $shortAlias = end($parts);
+
+            $aliases[$alias] = $type;
+            $aliases[$shortAlias] = $type;
+        }
 
         // Automatically add aliases for GraphQL type name from the invokable types
         foreach ($invokables as $type) {
