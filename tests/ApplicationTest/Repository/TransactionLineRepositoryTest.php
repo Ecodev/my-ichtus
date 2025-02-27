@@ -79,6 +79,48 @@ class TransactionLineRepositoryTest extends AbstractRepositoryTest
         $count = $connection->update(
             'transaction_line',
             [
+                'debit_id' => $account2,
+                'credit_id' => $account1,
+            ],
+            [
+                'id' => $id,
+            ]
+        );
+        self::assertSame(1, $count);
+        $this->assertAccountBalance($account1, 9000, 'balance should be twice increased after swapping both accounts');
+        $this->assertAccountBalance($account2, 6000, 'balance should be reduced increased after swapping both accounts');
+
+        $count = $connection->update(
+            'transaction_line',
+            [
+                'debit_id' => $account2,
+                'credit_id' => null,
+            ],
+            [
+                'id' => $id,
+            ]
+        );
+        self::assertSame(1, $count);
+        $this->assertAccountBalance($account1, 5000, 'balance should be restored to its original value after deletion');
+        $this->assertAccountBalance($account2, 6000, 'balance should be unchanged');
+
+        $count = $connection->update(
+            'transaction_line',
+            [
+                'debit_id' => null,
+                'credit_id' => $account2,
+            ],
+            [
+                'id' => $id,
+            ]
+        );
+        self::assertSame(1, $count);
+        $this->assertAccountBalance($account1, 5000, 'balance should be unchanged');
+        $this->assertAccountBalance($account2, 14000, 'balance should be twice increased after swapping a single account');
+
+        $count = $connection->update(
+            'transaction_line',
+            [
                 'debit_id' => $account3,
                 'credit_id' => $account4,
             ],
