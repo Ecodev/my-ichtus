@@ -11,9 +11,13 @@
 
 DELIMITER ~~
 
-/* Update balance from a single account (account_id > 0) or ALL accounts (account_id = 0) */
+# Update balance of accounts and all its parents:
+#
+# - If account_id = 0, for ALL accounts
+# - If account_id > 0, for that account
+# - If account_id = NULL, do nothing at all
 CREATE OR REPLACE PROCEDURE update_account_balance (IN account_id INT)
-BEGIN
+this_procedure:BEGIN
     -- Update non-group accounts from their transactions
     DECLARE debit INT;
     DECLARE credit INT;
@@ -24,6 +28,11 @@ BEGIN
         FROM account
         WHERE account_id = 0 AND type != 'group' OR id = account_id;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done := TRUE;
+
+    IF(account_id IS NULL) THEN
+        LEAVE this_procedure;
+    END IF;
+
     OPEN cur;
     updateLoop: LOOP
         FETCH cur INTO _id;
@@ -81,10 +90,23 @@ BEGIN
     WHERE transaction.id = transaction_id;
 END ~~
 
--- Return true is the new id exists and is different from old id
-CREATE OR REPLACE FUNCTION was_updated (old_id INT, new_id INT) RETURNS BOOL
+# Update account balance but only if needed. So if the transaction_line balance was updated,
+# then update both accounts. Or if the one of the account was updated, then update the updated account
+CREATE OR REPLACE PROCEDURE maybe_update_account_balance (old_balance INT, new_balance INT, old_account INT, new_account INT)
 BEGIN
-    RETURN new_id IS NOT NULL AND (old_id IS NULL OR new_id != old_id);
+    DECLARE balance_updated BOOL;
+    DECLARE account_updated BOOL;
+
+    SELECT old_balance != new_balance INTO balance_updated;
+    SELECT IFNULL(old_account, -1) != IFNULL(new_account, -1) INTO account_updated;
+
+    IF balance_updated OR account_updated THEN
+        CALL update_account_balance(old_account);
+    END IF;
+
+    IF account_updated THEN
+        CALL update_account_balance(new_account);
+    END IF;
 END ~~
 
 CREATE OR REPLACE TRIGGER transaction_DELETE
@@ -105,14 +127,10 @@ CREATE OR REPLACE TRIGGER transaction_line_INSERT
   FOR EACH ROW
   BEGIN
     /* Update debit account balance */
-    IF NEW.debit_id IS NOT NULL THEN
-      CALL update_account_balance(NEW.debit_id);
-    END IF;
+    CALL update_account_balance(NEW.debit_id);
 
     /* Update credit account balance */
-    IF NEW.credit_id IS NOT NULL THEN
-        CALL update_account_balance(NEW.credit_id);
-    END IF;
+    CALL update_account_balance(NEW.credit_id);
 
     /* Update transaction total */
     CALL update_transaction_balance(NEW.transaction_id);
@@ -125,14 +143,10 @@ CREATE OR REPLACE TRIGGER transaction_line_DELETE
   FOR EACH ROW
   BEGIN
     /* Revert debit account balance */
-    IF OLD.debit_id IS NOT NULL THEN
-        CALL update_account_balance(OLD.debit_id);
-    END IF;
+    CALL update_account_balance(OLD.debit_id);
 
     /* Revert credit account balance */
-    IF OLD.credit_id IS NOT NULL THEN
-        CALL update_account_balance(OLD.credit_id);
-    END IF;
+    CALL update_account_balance(OLD.credit_id);
 
     /* Update transaction total */
     IF @transaction_being_deleted IS NULL THEN
@@ -146,26 +160,16 @@ CREATE OR REPLACE TRIGGER transaction_line_UPDATE
   ON transaction_line
   FOR EACH ROW
   BEGIN
-    /* Revert previous debit account balance */
-    IF OLD.debit_id IS NOT NULL THEN
-        CALL update_account_balance(OLD.debit_id);
-    END IF;
-
-    /* Update new debit account balance */
-    IF was_updated(OLD.debit_id, NEW.debit_id) THEN
-        CALL update_account_balance(NEW.debit_id);
-    END IF;
-
-    /* Revert previous credit account balance */
-    IF OLD.credit_id IS NOT NULL THEN
-        CALL update_account_balance(OLD.credit_id);
-    END IF;
-
     /* Update new credit account balance */
-    IF was_updated(OLD.credit_id, NEW.credit_id) THEN
-        CALL update_account_balance(NEW.credit_id);
+    CALL maybe_update_account_balance(OLD.balance, NEW.balance, OLD.debit_id, NEW.debit_id);
+
+    # If we only swapped the two accounts, then we don't need to re-update both of them again
+    IF NOT (NEW.debit_id = OLD.credit_id AND NEW.credit_id = OLD.debit_id) THEN
+        CALL maybe_update_account_balance(OLD.balance, NEW.balance, OLD.credit_id, NEW.credit_id);
     END IF;
 
     /* Update transaction total */
-    CALL update_transaction_balance(NEW.transaction_id);
+    IF OLD.balance != NEW.balance THEN
+        CALL update_transaction_balance(NEW.transaction_id);
+    END IF;
   END; ~~
