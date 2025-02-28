@@ -172,9 +172,9 @@
                         [hideFab]="true"
                     />
                 </div>
+            } @else {
+                <app-editable-transaction-lines [input]="transactionLines" />
             }
-
-            <app-editable-transaction-lines [hidden]="!updateTransactionLines" [input]="transactionLines" />
 
             <div>
                 <div class="mat-headline-6">Documents justificatifs de la transaction</div>
