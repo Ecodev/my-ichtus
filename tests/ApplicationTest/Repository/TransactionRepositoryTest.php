@@ -138,4 +138,62 @@ class TransactionRepositoryTest extends AbstractRepositoryTest
         $this->assertAccountBalance($account1, 15000, 'balance should be increased after deletion');
         $this->assertAccountBalance($account2, 0, 'balance should be decreased after deletion');
     }
+
+    public function testFlushWithFastTransactionLineTriggersWithTransaction(): void
+    {
+        $account1 = 10096;
+        $account2 = 10037;
+
+        $this->assertAccountBalance($account1, 5000, 'initial balance');
+        $this->assertAccountBalance($account2, 10000, 'initial balance');
+
+        // DELETE
+        $this->setCurrentUser('administrator');
+        $transaction = _em()->getReference(Transaction::class, 8000);
+        $this->getEntityManager()->remove($transaction);
+        $this->repository->flushWithFastTransactionLineTriggers();
+
+        $this->assertAccountBalance($account1, 15000, 'balance should be increased after deletion');
+        $this->assertAccountBalance($account2, 0, 'balance should be decreased after deletion');
+    }
+
+    public function testFlushWithFastTransactionLineTriggersWithTransactionLine(): void
+    {
+        $account1 = 10096;
+        $account2 = 10037;
+
+        $this->assertAccountBalance($account1, 5000, 'initial balance');
+        $this->assertAccountBalance($account2, 10000, 'initial balance');
+
+        // UPDATE
+        $this->setCurrentUser('administrator');
+        /** @var TransactionLine $transactionLine */
+        $transactionLine = _em()->getReference(TransactionLine::class, 14000);
+        $transactionLine->setBalance(Money::CHF(1));
+        $this->repository->flushWithFastTransactionLineTriggers();
+
+        $this->assertAccountBalance($account1, 14999, 'balance should be increased after update');
+        $this->assertAccountBalance($account2, 1, 'balance should be decreased after update');
+
+        // DELETE
+        $this->getEntityManager()->remove($transactionLine);
+        $this->repository->flushWithFastTransactionLineTriggers();
+
+        $this->assertAccountBalance($account1, 15000, 'balance should be increased after deletion');
+        $this->assertAccountBalance($account2, 0, 'balance should be decreased after deletion');
+
+        // INSERT
+        $transactionLine = new TransactionLine();
+        $this->getEntityManager()->persist($transactionLine);
+        $transactionLine->setBalance(Money::CHF(5));
+        $transactionLine->setTransactionDate(Chronos::now());
+        $transactionLine->setTransaction($this->getEntityManager()->getReference(Transaction::class, 8000));
+        $transactionLine->setDebit($this->getEntityManager()->getReference(Account::class, $account1));
+        $transactionLine->setCredit($this->getEntityManager()->getReference(Account::class, $account2));
+
+        $this->repository->flushWithFastTransactionLineTriggers();
+
+        $this->assertAccountBalance($account1, 14995, 'balance should be increased after insertion');
+        $this->assertAccountBalance($account2, 5, 'balance should be decreased after insertion');
+    }
 }

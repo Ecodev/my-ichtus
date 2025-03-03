@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Application\Repository;
 
 use Application\Api\Helper;
+use Application\Model\Account;
 use Application\Model\Transaction;
 use Application\Model\TransactionLine;
 use Application\Model\User;
 use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 use Ecodev\Felix\Utility;
+use LogicException;
 
 /**
  * @extends AbstractRepository<Transaction>
@@ -106,6 +108,21 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
                 $transactions[] = $object->getTransaction()->getId();
                 $accounts[] = $object->getDebit()?->getId();
                 $accounts[] = $object->getCredit()?->getId();
+            } elseif ($object instanceof Transaction) {
+                $accountIds = $this->getEntityManager()->getConnection()->fetchFirstColumn(
+                    <<<SQL
+                        SELECT debit_id FROM transaction_line WHERE transaction_id = :transaction AND debit_id IS NOT NULL 
+                        UNION
+                        SELECT credit_id FROM transaction_line WHERE transaction_id = :transaction AND credit_id IS NOT NULL
+                        SQL,
+                    [
+                        'transaction' => $object->getId(),
+                    ],
+                );
+
+                array_push($accounts, ...$accountIds);
+            } else {
+                $this->throwNotAllowed($object);
             }
         }
 
@@ -118,6 +135,8 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
                 $transactions[] = $object->getTransaction()->getId();
                 $accounts[] = $object->getDebit()?->getId();
                 $accounts[] = $object->getCredit()?->getId();
+            } elseif (!in_array(get_class($object), [Transaction::class, Account::class], true)) {
+                $this->throwNotAllowed($object);
             }
         }
 
@@ -132,5 +151,15 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
 
         // Compute balance for all objects that may have been affected
         $this->getEntityManager()->getConnection()->executeStatement($sql);
+    }
+
+    private function throwNotAllowed(object $object): never
+    {
+        // If you read this code because you saw this exception thrown in production,
+        // then you must review which object was trying to be deleted. Super-triple-check
+        // that that object does not have triggers, or other mechanisms, that would be
+        // broken/not ran by this method. If you are really-really-really sure that the DB
+        // content stays consistent, then you can allowlist the object here.
+        throw new LogicException('flushWithFastTransactionLineTriggers() must not be used with ' . get_class($object));
     }
 }

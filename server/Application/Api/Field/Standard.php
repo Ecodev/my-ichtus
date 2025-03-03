@@ -9,6 +9,7 @@ use Application\Model\AbstractModel;
 use Application\Model\Account;
 use Application\Model\Bookable;
 use Application\Model\ExpenseClaim;
+use Application\Model\Transaction;
 use Application\Model\TransactionLine;
 use Application\Model\User;
 use BackedEnum;
@@ -142,7 +143,7 @@ abstract class Standard
             'args' => [
                 'ids' => Type::nonNull(Type::listOf(Type::nonNull(_types()->getId($class)))),
             ],
-            'resolve' => function ($root, array $args): bool {
+            'resolve' => function ($root, array $args) use ($class): bool {
                 foreach ($args['ids'] as $id) {
                     $object = $id->getEntity();
 
@@ -153,7 +154,12 @@ abstract class Standard
                     _em()->remove($object);
                 }
 
-                _em()->flush();
+                // When deleting a transaction use specialized flush
+                if ($class === Transaction::class) {
+                    _em()->getRepository(Transaction::class)->flushWithFastTransactionLineTriggers();
+                } else {
+                    _em()->flush();
+                }
 
                 return true;
             },
