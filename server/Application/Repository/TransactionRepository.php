@@ -105,22 +105,9 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
         // Remember the IDs before deleting them
         foreach ($deleted as $object) {
             if ($object instanceof TransactionLine) {
-                $transactions[] = $object->getTransaction()->getId();
-                $accounts[] = $object->getDebit()?->getId();
-                $accounts[] = $object->getCredit()?->getId();
+                $this->gatherTransactionLine($transactions, $accounts, $object);
             } elseif ($object instanceof Transaction) {
-                $accountIds = $this->getEntityManager()->getConnection()->fetchFirstColumn(
-                    <<<SQL
-                        SELECT debit_id FROM transaction_line WHERE transaction_id = :transaction AND debit_id IS NOT NULL 
-                        UNION
-                        SELECT credit_id FROM transaction_line WHERE transaction_id = :transaction AND credit_id IS NOT NULL
-                        SQL,
-                    [
-                        'transaction' => $object->getId(),
-                    ],
-                );
-
-                array_push($accounts, ...$accountIds);
+                $this->gatherDeletedTransaction($accounts, $object);
             } else {
                 $this->throwNotAllowed($object);
             }
@@ -132,34 +119,79 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
         // Get the (possibly new) IDs possibly affected by this flush
         foreach ([...$inserted, ...$updated] as $object) {
             if ($object instanceof TransactionLine) {
-                $transactions[] = $object->getTransaction()->getId();
-                $accounts[] = $object->getDebit()?->getId();
-                $accounts[] = $object->getCredit()?->getId();
+                $this->gatherTransactionLine($transactions, $accounts, $object);
             } elseif (!in_array(get_class($object), [Transaction::class, Account::class], true)) {
                 $this->throwNotAllowed($object);
             }
         }
 
-        $transactions = array_filter(array_unique($transactions));
-        $accounts = array_filter(array_unique($accounts));
-
         // Keep everything in a single string to save very precious time in a single DB round trip
-        $sql
-            = implode(PHP_EOL, array_map(fn (int $transaction) => "CALL update_transaction_balance($transaction);", $transactions)) . PHP_EOL
-            . implode(PHP_EOL, array_map(fn (int $account) => "CALL update_account_balance($account);", $accounts)) . PHP_EOL
+        $sql = $this->getSqlToComputeBalance($transactions, $accounts)
             . 'SET @disable_triggers_for_mass_transaction_line = false;';
 
         // Compute balance for all objects that may have been affected
         $this->getEntityManager()->getConnection()->executeStatement($sql);
     }
 
+    /**
+     * @param list<int> $transactions
+     * @param list<int> $accounts
+     */
+    private function gatherTransactionLine(array &$transactions, array &$accounts, TransactionLine $object): void
+    {
+        $transactions[] = $object->getTransaction()->getId();
+        $accounts[] = $object->getDebit()?->getId();
+        $accounts[] = $object->getCredit()?->getId();
+    }
+
+    /**
+     * @param list<int> $accounts
+     */
+    private function gatherDeletedTransaction(array &$accounts, Transaction $object): void
+    {
+        $accountIds = $this->getEntityManager()->getConnection()->fetchFirstColumn(
+            <<<SQL
+                SELECT debit_id FROM transaction_line WHERE transaction_id = :transaction AND debit_id IS NOT NULL 
+                UNION
+                SELECT credit_id FROM transaction_line WHERE transaction_id = :transaction AND credit_id IS NOT NULL
+                SQL,
+            [
+                'transaction' => $object->getId(),
+            ],
+        );
+
+        array_push($accounts, ...$accountIds);
+    }
+
     private function throwNotAllowed(object $object): never
     {
         // If you read this code because you saw this exception thrown in production,
-        // then you must review which object was trying to be deleted. Super-triple-check
-        // that that object does not have triggers, or other mechanisms, that would be
-        // broken/not ran by this method. If you are really-really-really sure that the DB
-        // content stays consistent, then you can allowlist the object here.
+        // then you must review which object was trying to be inserted/updated/deleted.
+        // Then, super-triple-check that that object does not have triggers, or other
+        // mechanisms, that would be broken/not ran by this method. If you are
+        // really-really-really sure that the DB content stays consistent, then you can
+        // allowlist the object here.
         throw new LogicException('flushWithFastTransactionLineTriggers() must not be used with ' . get_class($object));
+    }
+
+    /**
+     * @param list<int> $transactions
+     * @param list<int> $accounts
+     */
+    private function getSqlToComputeBalance(array $transactions, array $accounts): string
+    {
+        $sql = '';
+
+        $transactions = array_filter(array_unique($transactions));
+        foreach ($transactions as $transaction) {
+            $sql .= "CALL update_transaction_balance($transaction);" . PHP_EOL;
+        }
+
+        $accounts = array_filter(array_unique($accounts));
+        foreach ($accounts as $account) {
+            $sql .= "CALL update_account_balance($account);" . PHP_EOL;
+        }
+
+        return $sql;
     }
 }
