@@ -6,6 +6,7 @@ namespace Application\Repository;
 
 use Application\Api\Helper;
 use Application\Model\Account;
+use Application\Model\ExpenseClaim;
 use Application\Model\Transaction;
 use Application\Model\TransactionLine;
 use Application\Model\User;
@@ -120,7 +121,7 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
         foreach ([...$inserted, ...$updated] as $object) {
             if ($object instanceof TransactionLine) {
                 $this->gatherTransactionLine($transactions, $accounts, $object);
-            } elseif (!in_array(get_class($object), [Transaction::class, Account::class], true)) {
+            } elseif (!in_array(get_class($object), [Transaction::class, Account::class, ExpenseClaim::class], true)) {
                 $this->throwNotAllowed($object);
             }
         }
