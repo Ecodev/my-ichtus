@@ -747,6 +747,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     /**
      * Get messages sent to the user.
      */
+    #[API\Exclude]
     public function getMessages(): Collection
     {
         return $this->messages;
