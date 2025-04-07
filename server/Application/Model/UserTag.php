@@ -22,7 +22,7 @@ class UserTag extends AbstractModel
     use HasName;
 
     /**
-     * @var Collection<User>
+     * @var Collection<int, User>
      */
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'userTags')]
     private Collection $users;

@@ -197,25 +197,25 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     private ?Chronos $lastLogin = null;
 
     /**
-     * @var Collection<Booking>
+     * @var Collection<int, Booking>
      */
     #[ORM\OneToMany(targetEntity: Booking::class, mappedBy: 'owner')]
     private Collection $bookings;
 
     /**
-     * @var Collection<License>
+     * @var Collection<int, License>
      */
     #[ORM\ManyToMany(targetEntity: License::class, mappedBy: 'users')]
     private Collection $licenses;
 
     /**
-     * @var Collection<UserTag>
+     * @var Collection<int, UserTag>
      */
     #[ORM\ManyToMany(targetEntity: UserTag::class, mappedBy: 'users')]
     private Collection $userTags;
 
     /**
-     * @var Collection<Message>
+     * @var Collection<int, Message>
      */
     #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'recipient')]
     private Collection $messages;
@@ -224,13 +224,13 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
      * There is actually 0 to 1 account, never more. And this is
      * enforced by DB unique constraints.
      *
-     * @var Collection<Account>
+     * @var Collection<int, Account>
      */
     #[ORM\OneToMany(targetEntity: Account::class, mappedBy: 'owner')]
     private Collection $accounts;
 
     /**
-     * @var Collection<User>
+     * @var Collection<int, User>
      */
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'owner')]
     private Collection $users;
@@ -722,7 +722,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
             return $this->getOwner()->getAccount();
         }
 
-        return $this->accounts->count() ? $this->accounts->first() : null;
+        return $this->accounts->first() ?: null;
     }
 
     /**

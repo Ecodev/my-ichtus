@@ -35,13 +35,13 @@ class ExpenseClaim extends AbstractModel
     private Money $amount;
 
     /**
-     * @var Collection<Transaction>
+     * @var Collection<int, Transaction>
      */
     #[ORM\OneToMany(targetEntity: Transaction::class, mappedBy: 'expenseClaim')]
     private Collection $transactions;
 
     /**
-     * @var Collection<AccountingDocument>
+     * @var Collection<int, AccountingDocument>
      */
     #[ORM\OneToMany(targetEntity: AccountingDocument::class, mappedBy: 'expenseClaim')]
     private Collection $accountingDocuments;

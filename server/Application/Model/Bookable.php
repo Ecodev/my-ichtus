@@ -71,19 +71,19 @@ class Bookable extends AbstractModel
     private ?ChronosDate $verificationDate = null;
 
     /**
-     * @var Collection<BookableTag>
+     * @var Collection<int, BookableTag>
      */
     #[ORM\ManyToMany(targetEntity: BookableTag::class, mappedBy: 'bookables')]
     private Collection $bookableTags;
 
     /**
-     * @var Collection<Booking>
+     * @var Collection<int, Booking>
      */
     #[ORM\OneToMany(targetEntity: Booking::class, mappedBy: 'bookable')]
     private Collection $bookings;
 
     /**
-     * @var Collection<License>
+     * @var Collection<int, License>
      */
     #[ORM\ManyToMany(targetEntity: License::class, mappedBy: 'bookables')]
     private Collection $licenses;

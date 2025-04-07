@@ -35,7 +35,7 @@ class Account extends AbstractModel
     private ?Account $parent = null;
 
     /**
-     * @var Collection<Account>
+     * @var Collection<int, Account>
      */
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
     #[ORM\OrderBy(['code' => 'ASC'])]
@@ -48,13 +48,13 @@ class Account extends AbstractModel
     private int $code;
 
     /**
-     * @var Collection<TransactionLine>
+     * @var Collection<int, TransactionLine>
      */
     #[ORM\OneToMany(targetEntity: TransactionLine::class, mappedBy: 'debit')]
     private Collection $debitTransactionLines;
 
     /**
-     * @var Collection<TransactionLine>
+     * @var Collection<int, TransactionLine>
      */
     #[ORM\OneToMany(targetEntity: TransactionLine::class, mappedBy: 'credit')]
     private Collection $creditTransactionLines;

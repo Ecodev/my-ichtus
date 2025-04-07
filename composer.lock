@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e4b1aab3a7920ced091efcb8bcdab383",
+    "content-hash": "8d0ba07a83fa375ddb5a63082957a4ab",
     "packages": [
         {
             "name": "beberlei/doctrineextensions",
@@ -1443,16 +1443,16 @@
         },
         {
             "name": "ecodev/graphql-doctrine",
-            "version": "10.0.0",
+            "version": "10.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ecodev/graphql-doctrine.git",
-                "reference": "087f5594434bfd02c0d24de57c57c0f1beafecab"
+                "reference": "2d1aeef33a422af66486938da66943119659a3eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ecodev/graphql-doctrine/zipball/087f5594434bfd02c0d24de57c57c0f1beafecab",
-                "reference": "087f5594434bfd02c0d24de57c57c0f1beafecab",
+                "url": "https://api.github.com/repos/Ecodev/graphql-doctrine/zipball/2d1aeef33a422af66486938da66943119659a3eb",
+                "reference": "2d1aeef33a422af66486938da66943119659a3eb",
                 "shasum": ""
             },
             "require": {
@@ -1487,9 +1487,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Ecodev/graphql-doctrine/issues",
-                "source": "https://github.com/Ecodev/graphql-doctrine/tree/10.0.0"
+                "source": "https://github.com/Ecodev/graphql-doctrine/tree/10.1.0"
             },
-            "time": "2024-06-17T11:10:56+00:00"
+            "time": "2025-04-07T12:49:54+00:00"
         },
         {
             "name": "ecodev/graphql-upload",

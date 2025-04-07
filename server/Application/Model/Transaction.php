@@ -31,13 +31,13 @@ class Transaction extends AbstractModel
     private Chronos $transactionDate;
 
     /**
-     * @var Collection<TransactionLine>
+     * @var Collection<int, TransactionLine>
      */
     #[ORM\OneToMany(targetEntity: TransactionLine::class, mappedBy: 'transaction')]
     private Collection $transactionLines;
 
     /**
-     * @var Collection<AccountingDocument>
+     * @var Collection<int, AccountingDocument>
      */
     #[ORM\OneToMany(targetEntity: AccountingDocument::class, mappedBy: 'transaction')]
     private Collection $accountingDocuments;

@@ -24,7 +24,7 @@ class BookableTag extends AbstractModel
     use HasName;
 
     /**
-     * @var Collection<Bookable>
+     * @var Collection<int, Bookable>
      */
     #[ORM\ManyToMany(targetEntity: Bookable::class, inversedBy: 'bookableTags')]
     private Collection $bookables;
