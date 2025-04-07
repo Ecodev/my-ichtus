@@ -13,10 +13,10 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "@eslint/js": "^9.10.0",
-        "eslint": "^9.10.0",
-        "globals": "^15.9.0",
-        "live-server": "^1.2.0",
-        "prettier": "^3.3.3"
+        "@eslint/js": "^9.24.0",
+        "eslint": "^9.24.0",
+        "globals": "^16.0.0",
+        "live-server": "^1.2.2",
+        "prettier": "^3.5.3"
     }
 }
