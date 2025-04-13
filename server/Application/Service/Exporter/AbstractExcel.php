@@ -182,9 +182,6 @@ abstract class AbstractExcel extends AbstractExporter
         ],
     ];
 
-    /**
-     * Constructor.
-     */
     public function __construct(string $hostname)
     {
         parent::__construct($hostname);

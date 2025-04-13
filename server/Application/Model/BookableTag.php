@@ -29,9 +29,6 @@ class BookableTag extends AbstractModel
     #[ORM\ManyToMany(targetEntity: Bookable::class, inversedBy: 'bookableTags')]
     private Collection $bookables;
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         $this->bookables = new ArrayCollection();

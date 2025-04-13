@@ -31,9 +31,6 @@ class License extends AbstractModel
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'licenses')]
     private Collection $users;
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         $this->bookables = new ArrayCollection();

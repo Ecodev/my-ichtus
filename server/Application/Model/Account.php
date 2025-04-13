@@ -71,9 +71,6 @@ class Account extends AbstractModel
     #[ORM\Column(type: 'Money', options: ['default' => 0])]
     private Money $totalBalanceFormer;
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         $this->balance = Money::CHF(0);

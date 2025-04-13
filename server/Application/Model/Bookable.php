@@ -96,9 +96,6 @@ class Bookable extends AbstractModel
     #[ORM\ManyToOne(targetEntity: Account::class)]
     private ?Account $creditAccount = null;
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         $this->initialPrice = Money::CHF(0);

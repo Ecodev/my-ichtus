@@ -27,9 +27,6 @@ class UserTag extends AbstractModel
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'userTags')]
     private Collection $users;
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         $this->users = new ArrayCollection();

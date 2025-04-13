@@ -49,9 +49,6 @@ class Transaction extends AbstractModel
     #[ORM\Column(type: 'string', length: 18, options: ['default' => ''])]
     private string $datatransRef = '';
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         $this->balance = Money::CHF(0);

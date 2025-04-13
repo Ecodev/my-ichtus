@@ -236,8 +236,6 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     private Collection $users;
 
     /**
-     * Constructor.
-     *
      * @param string $role role for new user
      */
     public function __construct(string $role = self::ROLE_INDIVIDUAL)

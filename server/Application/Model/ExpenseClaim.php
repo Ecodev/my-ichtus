@@ -59,9 +59,6 @@ class ExpenseClaim extends AbstractModel
     #[ORM\Column(type: 'string', length: 191, options: ['default' => ''])]
     private string $sector = '';
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         $this->transactions = new ArrayCollection();
