@@ -15,7 +15,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss',
-    standalone: true,
     imports: [
         FormsModule,
         ReactiveFormsModule,

@@ -21,7 +21,6 @@ import {MatDividerModule} from '@angular/material/divider';
     selector: 'app-user-tag',
     templateUrl: './userTag.component.html',
     styleUrl: './userTag.component.scss',
-    standalone: true,
     imports: [
         FormsModule,
         ReactiveFormsModule,

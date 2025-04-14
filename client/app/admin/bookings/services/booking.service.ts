@@ -2,27 +2,53 @@ import {Injectable} from '@angular/core';
 import {
     Bookable,
     Bookables,
+    Booking,
     BookingInput,
     BookingPartialInput,
+    Bookings,
     BookingSortingField,
     BookingStatus,
     BookingsVariables,
     BookingType,
+    BookingVariables,
     CreateBooking,
+    CreateBookingVariables,
+    DeleteBookings,
+    DeleteBookingsVariables,
     JoinType,
     LogicalOperator,
     SortingOrder,
+    UpdateBooking,
+    UpdateBookingVariables,
     UsageBookables,
 } from '../../../shared/generated-types';
 import {Observable} from 'rxjs';
-import {formatIsoDateTime} from '@ecodev/natural';
+import {formatIsoDateTime, NaturalAbstractModelService} from '@ecodev/natural';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
-import {BookingForVanillaService} from '../../../../vanilla/booking-for-vanilla.service';
+import {bookingQuery, bookingsQuery, createBooking, deleteBookings, updateBooking} from './booking.queries';
+import {FormValidators} from '@ecodev/natural/vanilla';
+import {
+    getDefaultForServer,
+    getFormValidators,
+    getPartialVariablesForAll,
+    terminateBooking,
+} from 'client/vanilla/booking-for-vanilla.service';
 
 @Injectable({
     providedIn: 'root',
 })
-export class BookingService extends BookingForVanillaService {
+export class BookingService extends NaturalAbstractModelService<
+    Booking['booking'],
+    BookingVariables,
+    Bookings['bookings'],
+    BookingsVariables,
+    CreateBooking['createBooking'],
+    CreateBookingVariables,
+    UpdateBooking['updateBooking'],
+    UpdateBookingVariables,
+    DeleteBookings,
+    DeleteBookingsVariables
+> {
     /**
      * Filters for bookings with endDate with self-approved bookable or no bookable linked
      */
@@ -125,6 +151,26 @@ export class BookingService extends BookingForVanillaService {
                 ],
             },
         };
+    }
+
+    public constructor() {
+        super('booking', bookingQuery, bookingsQuery, createBooking, updateBooking, deleteBookings);
+    }
+
+    public override getDefaultForServer(): BookingInput {
+        return getDefaultForServer();
+    }
+
+    public override getFormValidators(): FormValidators {
+        return getFormValidators();
+    }
+
+    public terminateBooking(id: string, comment = ''): Observable<unknown> {
+        return terminateBooking(this.apollo, id, comment);
+    }
+
+    public override getPartialVariablesForAll(): Observable<Partial<BookingsVariables>> {
+        return getPartialVariablesForAll();
     }
 
     /**

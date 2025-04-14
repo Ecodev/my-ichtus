@@ -23,7 +23,6 @@ export type SupportComponentData = {
     selector: 'app-support',
     templateUrl: './support.component.html',
     styleUrl: './support.component.scss',
-    standalone: true,
     imports: [
         MatDialogModule,
         MatSlideToggleModule,

@@ -5,7 +5,6 @@ import {ParticleEffectDirective} from './particle-effect.directive';
 
 @Component({
     template: ` <button appParticleEffect (click)="hidden0 = !hidden0">Send</button> `,
-    standalone: true,
     imports: [ParticleEffectDirective],
 })
 class TestParticleEffectButtonComponent {
@@ -26,7 +25,7 @@ describe('AngularParticleEffectButtonComponent', () => {
         defaultOptions = {
             pColor: '#000',
             pDuration: 1000,
-            pEasing: 'easeInOutCubic',
+            pEasing: 'inOutCubic',
             pType: 'circle',
             pStyle: 'fill',
             pDirection: 'left',

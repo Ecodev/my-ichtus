@@ -11,7 +11,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     selector: 'app-create-refund',
     templateUrl: './create-refund.component.html',
     styleUrl: './create-refund.component.scss',
-    standalone: true,
     imports: [
         MatDialogModule,
         FormsModule,

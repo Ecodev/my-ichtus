@@ -26,7 +26,6 @@ import {CommonModule} from '@angular/common';
     selector: 'app-finances',
     templateUrl: './finances.component.html',
     styleUrl: './finances.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         MatFormFieldModule,

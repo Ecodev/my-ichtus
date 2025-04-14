@@ -61,7 +61,6 @@ import {MoneyComponent} from '../../../shared/components/money/money.component';
     selector: 'app-user',
     templateUrl: './user.component.html',
     styleUrl: './user.component.scss',
-    standalone: true,
     imports: [
         FormsModule,
         ReactiveFormsModule,

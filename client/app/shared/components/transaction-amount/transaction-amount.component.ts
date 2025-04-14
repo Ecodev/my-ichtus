@@ -9,7 +9,6 @@ import {CommonModule} from '@angular/common';
     selector: 'app-transaction-amount',
     templateUrl: './transaction-amount.component.html',
     styleUrl: './transaction-amount.component.scss',
-    standalone: true,
     imports: [CommonModule, MatTooltipModule, RouterLink],
 })
 export class TransactionAmountComponent implements OnChanges {

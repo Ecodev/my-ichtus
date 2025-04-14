@@ -1,4 +1,4 @@
-import {APP_INITIALIZER, importProvidersFrom, inject, LOCALE_ID, provideZoneChangeDetection} from '@angular/core';
+import {importProvidersFrom, inject, LOCALE_ID, provideAppInitializer, provideZoneChangeDetection} from '@angular/core';
 import {AppComponent} from './app/app.component';
 import {TimeagoCustomFormatter, TimeagoFormatter, TimeagoIntl, TimeagoModule} from 'ngx-timeago';
 import {routes} from './app/app-routing.module';
@@ -8,7 +8,16 @@ import {Apollo} from 'apollo-angular';
 import {MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions} from '@angular/material/tooltip';
 import {apolloOptionsProvider} from './app/shared/config/apollo-options.provider';
 import {LocalizedPaginatorIntlService} from './app/shared/services/localized-paginator-intl.service';
-import {activityInterceptor} from './app/shared/services/activity-interceptor';
+import {
+    activityInterceptor,
+    graphqlQuerySigner,
+    NaturalIconsConfig,
+    naturalProviders,
+    NaturalSwissParsingDateAdapter,
+    provideErrorHandler,
+    provideIcons,
+    provideSeo,
+} from '@ecodev/natural';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {MAT_PAGINATOR_DEFAULT_OPTIONS, MatPaginatorDefaultOptions, MatPaginatorIntl} from '@angular/material/paginator';
 import {
@@ -19,15 +28,6 @@ import {
 } from '@angular/material/core';
 import {LoggerExtraService} from './app/shared/services/logger-extra.service';
 import {localConfig} from './app/shared/generated-config';
-import {
-    graphqlQuerySigner,
-    NaturalIconsConfig,
-    naturalProviders,
-    NaturalSwissParsingDateAdapter,
-    provideErrorHandler,
-    provideIcons,
-    provideSeo,
-} from '@ecodev/natural';
 import {DATE_PIPE_DEFAULT_OPTIONS, DatePipeConfig, registerLocaleData} from '@angular/common';
 import localeFRCH from '@angular/common/locales/fr-CH';
 import localeDECH from '@angular/common/locales/de-CH';
@@ -148,35 +148,29 @@ bootstrapApplication(AppComponent, {
                 paramsInheritanceStrategy: 'always',
             }),
         ),
-        {
-            provide: APP_INITIALIZER,
-            multi: true,
-            useFactory: (): (() => void) => {
-                const dateAdapter = inject(DateAdapter);
-                const intl = inject(TimeagoIntl);
+        provideAppInitializer(() => {
+            const dateAdapter = inject(DateAdapter);
+            const intl = inject(TimeagoIntl);
 
-                return () => {
-                    dateAdapter.setLocale('fr-ch');
+            dateAdapter.setLocale('fr-ch');
 
-                    intl.strings = {
-                        prefixAgo: 'il y a',
-                        prefixFromNow: "d'ici",
-                        seconds: "moins d'une minute",
-                        minute: 'une minute',
-                        minutes: '%d minutes',
-                        hour: 'une heure',
-                        hours: '%d heures',
-                        day: 'un jour',
-                        days: '%d jours',
-                        month: 'un mois',
-                        months: '%d mois',
-                        year: 'un an',
-                        years: '%d ans',
-                    };
-                    intl.changes.next();
-                };
-            },
-        },
+            intl.strings = {
+                prefixAgo: 'il y a',
+                prefixFromNow: "d'ici",
+                seconds: "moins d'une minute",
+                minute: 'une minute',
+                minutes: '%d minutes',
+                hour: 'une heure',
+                hours: '%d heures',
+                day: 'un jour',
+                days: '%d jours',
+                month: 'un mois',
+                months: '%d mois',
+                year: 'un an',
+                years: '%d ans',
+            };
+            intl.changes.next();
+        }),
     ],
 }).catch((err: unknown) => {
     console.error(err);

@@ -14,7 +14,6 @@ import {NaturalFileComponent} from '@ecodev/natural';
     selector: 'app-bookable',
     templateUrl: './bookable.component.html',
     styleUrl: './bookable.component.scss',
-    standalone: true,
     imports: [NaturalFileComponent, MatDividerModule, MatIconModule, MatButtonModule, RouterLink, TimeagoModule],
 })
 export class BookableComponent implements OnInit {

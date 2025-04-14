@@ -10,7 +10,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     selector: 'app-comment',
     templateUrl: './comment.component.html',
     styleUrl: './comment.component.scss',
-    standalone: true,
     imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, TextFieldModule, MatButtonModule],
 })
 export class CommentComponent {

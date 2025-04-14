@@ -31,7 +31,6 @@ import {admin_approved, bookables, storage} from '../../../shared/natural-search
     selector: 'app-usage-bookables',
     templateUrl: './bookables.component.html',
     styleUrl: './bookables.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         NaturalColumnsPickerComponent,

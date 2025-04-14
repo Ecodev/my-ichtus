@@ -33,7 +33,6 @@ import {MatTableModule} from '@angular/material/table';
     selector: 'app-bookings-with-owner',
     templateUrl: './bookings.component.html',
     styleUrl: './bookings.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         NaturalColumnsPickerComponent,

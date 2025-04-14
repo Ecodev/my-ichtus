@@ -33,7 +33,6 @@ const queryForExport = gql`
     selector: 'app-bvr',
     templateUrl: './bvr.component.html',
     styleUrl: './bvr.component.scss',
-    standalone: true,
     imports: [
         MatProgressSpinnerModule,
         MatButtonModule,

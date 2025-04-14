@@ -18,7 +18,6 @@ import {MatDividerModule} from '@angular/material/divider';
     selector: 'app-bookable-tag',
     templateUrl: './bookableTag.component.html',
     styleUrl: './bookableTag.component.scss',
-    standalone: true,
     imports: [
         FormsModule,
         ReactiveFormsModule,

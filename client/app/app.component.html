@@ -1,5 +1,5 @@
 <div class="nat-fill">
-    <ng-progress [spinner]="false" [trickleSpeed]="1000" />
+    <ng-progress [trickleSpeed]="1000" />
     <router-outlet (activate)="initialized = true" />
     @if (!initialized) {
         <app-boot-loader />

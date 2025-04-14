@@ -32,7 +32,6 @@ export type EditableTransactionLinesInput =
     selector: 'app-editable-transaction-lines',
     templateUrl: './editable-transaction-lines.component.html',
     styleUrl: './editable-transaction-lines.component.scss',
-    standalone: true,
     imports: [
         FormsModule,
         ReactiveFormsModule,

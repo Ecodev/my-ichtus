@@ -15,7 +15,6 @@ import {AsyncPipe} from '@angular/common';
     selector: 'app-family',
     templateUrl: './family.component.html',
     styleUrl: './family.component.scss',
-    standalone: true,
     imports: [
         MatButtonModule,
         RouterLink,

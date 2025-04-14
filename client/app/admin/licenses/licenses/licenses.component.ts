@@ -21,7 +21,6 @@ import {AsyncPipe} from '@angular/common';
     selector: 'app-licenses',
     templateUrl: './licenses.component.html',
     styleUrl: './licenses.component.scss',
-    standalone: true,
     imports: [
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,

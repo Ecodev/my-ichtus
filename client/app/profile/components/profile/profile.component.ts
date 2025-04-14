@@ -35,7 +35,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     selector: 'app-profile',
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.scss',
-    standalone: true,
     imports: [
         NaturalSidenavContainerComponent,
         NaturalSidenavComponent,

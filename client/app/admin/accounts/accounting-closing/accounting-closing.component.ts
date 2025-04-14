@@ -10,7 +10,6 @@ import {MatDialogModule} from '@angular/material/dialog';
     selector: 'app-accounting-closing',
     templateUrl: './accounting-closing.component.html',
     styleUrl: './accounting-closing.component.scss',
-    standalone: true,
     imports: [
         MatDialogModule,
         MatFormFieldModule,

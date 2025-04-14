@@ -33,7 +33,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     selector: 'app-account',
     templateUrl: './account.component.html',
     styleUrl: './account.component.scss',
-    standalone: true,
     imports: [
         FormsModule,
         IbanPipe,

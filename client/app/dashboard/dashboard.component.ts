@@ -16,7 +16,6 @@ import {CommonModule} from '@angular/common';
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.scss',
-    standalone: true,
     imports: [CommonModule, NavigationsComponent, MatButtonModule, RouterLink, MatIconModule, NaturalIconDirective],
 })
 export class DashboardComponent {

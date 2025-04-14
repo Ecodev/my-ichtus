@@ -20,7 +20,6 @@ import {CommonModule} from '@angular/common';
     selector: 'app-logs',
     templateUrl: './logs.component.html',
     styleUrl: './logs.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         NaturalColumnsPickerComponent,

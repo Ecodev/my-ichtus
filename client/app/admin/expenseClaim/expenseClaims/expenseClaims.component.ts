@@ -28,7 +28,6 @@ import {MatTableModule} from '@angular/material/table';
     selector: 'app-expense-claims',
     templateUrl: './expenseClaims.component.html',
     styleUrl: './expenseClaims.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         NaturalColumnsPickerComponent,

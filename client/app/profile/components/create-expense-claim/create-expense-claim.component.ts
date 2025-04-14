@@ -16,7 +16,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     selector: 'app-create-expense-claim',
     templateUrl: './create-expense-claim.component.html',
     styleUrl: './create-expense-claim.component.scss',
-    standalone: true,
     imports: [
         FormsModule,
         ReactiveFormsModule,

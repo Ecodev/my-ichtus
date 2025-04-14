@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Validators} from '@angular/forms';
 import {Observable, of} from 'rxjs';
-import {formatIsoDateTime, FormValidators, NaturalAbstractModelService} from '@ecodev/natural';
+import {formatIsoDateTime, FormValidators, NaturalAbstractModelService} from '@ecodev/natural/vanilla';
 import {
     Booking,
     BookingInput,
@@ -24,9 +24,66 @@ import {
     bookingsQuery,
     createBooking,
     deleteBookings,
-    terminateBooking,
+    terminateBookingMutation,
     updateBooking,
 } from '../app/admin/bookings/services/booking.queries';
+import type {Apollo} from 'apollo-angular';
+
+export function getDefaultForServer(): BookingInput {
+    return {
+        status: BookingStatus.Booked,
+        owner: null,
+        bookable: null,
+        destination: '',
+        participantCount: 1,
+        startComment: '',
+        endComment: '',
+        estimatedEndDate: '',
+        startDate: formatIsoDateTime(new Date()),
+        endDate: '',
+        remarks: '',
+        internalRemarks: '',
+    };
+}
+
+export function getFormValidators(): FormValidators {
+    return {
+        owner: [Validators.required],
+        participantCount: [Validators.min(1)],
+    };
+}
+
+export function getPartialVariablesForAll(): Observable<Partial<BookingsVariables>> {
+    return of({
+        filter: {
+            groups: [
+                {
+                    joins: {
+                        owner: {
+                            type: JoinType.leftJoin,
+                        },
+                    },
+                },
+            ],
+        },
+    });
+}
+
+export function terminateBooking(apollo: Apollo, id: string, comment: string): Observable<unknown> {
+    const observable = apollo.mutate<TerminateBooking, TerminateBookingVariables>({
+        mutation: terminateBookingMutation,
+        variables: {
+            id: id,
+            comment: comment,
+        },
+    });
+
+    observable.subscribe(() => {
+        apollo.client.reFetchObservableQueries();
+    });
+
+    return observable;
+}
 
 /**
  * **DO NOT MODIFY UNLESS STRICTLY REQUIRED FOR VANILLA**
@@ -54,58 +111,18 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
     }
 
     public override getDefaultForServer(): BookingInput {
-        return {
-            status: BookingStatus.Booked,
-            owner: null,
-            bookable: null,
-            destination: '',
-            participantCount: 1,
-            startComment: '',
-            endComment: '',
-            estimatedEndDate: '',
-            startDate: formatIsoDateTime(new Date()),
-            endDate: '',
-            remarks: '',
-            internalRemarks: '',
-        };
+        return getDefaultForServer();
     }
 
     public override getFormValidators(): FormValidators {
-        return {
-            owner: [Validators.required],
-            participantCount: [Validators.min(1)],
-        };
+        return getFormValidators();
     }
 
     public terminateBooking(id: string, comment = ''): Observable<unknown> {
-        const observable = this.apollo.mutate<TerminateBooking, TerminateBookingVariables>({
-            mutation: terminateBooking,
-            variables: {
-                id: id,
-                comment: comment,
-            },
-        });
-
-        observable.subscribe(() => {
-            this.apollo.client.reFetchObservableQueries();
-        });
-
-        return observable;
+        return terminateBooking(this.apollo, id, comment);
     }
 
     public override getPartialVariablesForAll(): Observable<Partial<BookingsVariables>> {
-        return of({
-            filter: {
-                groups: [
-                    {
-                        joins: {
-                            owner: {
-                                type: JoinType.leftJoin,
-                            },
-                        },
-                    },
-                ],
-            },
-        });
+        return getPartialVariablesForAll();
     }
 }

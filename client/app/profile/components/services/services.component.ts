@@ -16,7 +16,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     selector: 'app-services',
     templateUrl: './services.component.html',
     styleUrl: './services.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         DatePipe,

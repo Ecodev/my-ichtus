@@ -39,7 +39,6 @@ class ConfirmPasswordStateMatcher implements ErrorStateMatcher {
     selector: 'app-password',
     templateUrl: './password.component.html',
     styleUrl: './password.component.scss',
-    standalone: true,
     imports: [
         MatFormFieldModule,
         FormsModule,

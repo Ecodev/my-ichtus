@@ -19,7 +19,6 @@ import {AsyncPipe} from '@angular/common';
     selector: 'app-import',
     templateUrl: './import.component.html',
     styleUrl: './import.component.scss',
-    standalone: true,
     imports: [MatButtonModule, NaturalFileSelectDirective, MatIconModule, NaturalIconDirective, AsyncPipe],
 })
 export class ImportComponent implements OnInit {

@@ -23,7 +23,6 @@ import {AsyncPipe} from '@angular/common';
     selector: 'app-user-tags',
     templateUrl: './userTags.component.html',
     styleUrl: './userTags.component.scss',
-    standalone: true,
     imports: [
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,

@@ -26,7 +26,6 @@ import {CommonModule, DatePipe} from '@angular/common';
     selector: 'app-bookables',
     templateUrl: './bookables.component.html',
     styleUrl: './bookables.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         NaturalColumnsPickerComponent,

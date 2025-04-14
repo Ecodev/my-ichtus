@@ -9,7 +9,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     selector: 'app-address',
     templateUrl: './address.component.html',
     styleUrl: './address.component.scss',
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, NaturalSelectComponent],
 })
 export class AddressComponent {

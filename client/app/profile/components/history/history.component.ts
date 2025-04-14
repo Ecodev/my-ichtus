@@ -14,7 +14,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     selector: 'app-history',
     templateUrl: './history.component.html',
     styleUrl: './history.component.scss',
-    standalone: true,
     imports: [CommonModule, MatTableModule, TransactionAmountComponent],
 })
 export class HistoryComponent implements OnInit {

@@ -22,7 +22,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     selector: 'app-confirm',
     templateUrl: './register.component.html',
     styleUrl: './register.component.scss',
-    standalone: true,
     imports: [
         FormsModule,
         ReactiveFormsModule,

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {NaturalAbstractModelService} from '@ecodev/natural';
+import {NaturalAbstractModelService} from '@ecodev/natural/vanilla';
 import {Bookables, BookablesVariables} from '../app/shared/generated-types';
 import {bookablesQuery} from '../app/admin/bookables/services/bookable.queries';
 

@@ -33,7 +33,6 @@ import {AsyncPipe} from '@angular/common';
     selector: 'app-expense-claim',
     templateUrl: './expenseClaim.component.html',
     styleUrl: './expenseClaim.component.scss',
-    standalone: true,
     imports: [
         FormsModule,
         ReactiveFormsModule,

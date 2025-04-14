@@ -22,7 +22,6 @@ import {AsyncPipe} from '@angular/common';
     selector: 'app-bookable-tags',
     templateUrl: './bookableTags.component.html',
     styleUrl: './bookableTags.component.scss',
-    standalone: true,
     imports: [
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,

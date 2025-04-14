@@ -53,7 +53,6 @@ import {DuplicatedTransactionResolve} from '../transaction';
     selector: 'app-transaction',
     templateUrl: './transaction.component.html',
     styleUrl: './transaction.component.scss',
-    standalone: true,
     imports: [
         FormsModule,
         ReactiveFormsModule,

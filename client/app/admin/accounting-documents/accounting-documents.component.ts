@@ -17,7 +17,6 @@ import {MatButtonModule} from '@angular/material/button';
     selector: 'app-accounting-documents',
     templateUrl: './accounting-documents.component.html',
     styleUrl: './accounting-documents.component.scss',
-    standalone: true,
     imports: [NaturalFileComponent, MatButtonModule, MatIconModule, NaturalIconDirective],
 })
 export class AccountingDocumentsComponent implements OnInit {

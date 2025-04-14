@@ -8,8 +8,7 @@ import {
     NormalizedCacheObject,
 } from '@apollo/client/core';
 import {onError} from '@apollo/client/link/error';
-import {NetworkActivityService} from '../services/network-activity.service';
-import {createHttpLink, NaturalAlertService} from '@ecodev/natural';
+import {createHttpLink, NaturalAlertService, NetworkActivityService} from '@ecodev/natural';
 import {APOLLO_OPTIONS} from 'apollo-angular';
 import {inject, Provider} from '@angular/core';
 import {localConfig} from '../generated-config';
@@ -58,7 +57,7 @@ function createErrorLink(
                 }
             });
 
-            networkActivityService.updateErrors(errorResponse.graphQLErrors);
+            networkActivityService.addErrors(errorResponse.graphQLErrors);
         }
     });
 }

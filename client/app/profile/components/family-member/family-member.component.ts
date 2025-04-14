@@ -23,7 +23,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     selector: 'app-family-member',
     templateUrl: './family-member.component.html',
     styleUrl: './family-member.component.scss',
-    standalone: true,
     imports: [
         FormsModule,
         ReactiveFormsModule,

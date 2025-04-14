@@ -5,7 +5,7 @@
         <button
             mat-raised-button
             naturalFileSelect
-            [accept]="'text/xml'"
+            accept="text/xml"
             [disabled]="!(permissionsService.crud | async)?.transaction.create || importing"
             (fileChange)="uploadFile($event)"
         >

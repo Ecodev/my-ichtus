@@ -1,5 +1,4 @@
-import type anime from 'animejs';
-import {AnimeCallBack} from 'animejs';
+import type {animate, Callback, EaseStringParamNames, JSAnimation} from 'animejs';
 import {Renderer2} from '@angular/core';
 import {rand} from './utils';
 
@@ -11,7 +10,7 @@ export type IOption = {
     style?: string;
     canvasPadding?: number;
     duration?: number;
-    easing?: anime.EasingOptions;
+    easing?: EaseStringParamNames;
     direction?: Direction;
     size?: (() => number) | number;
     speed?: (() => number) | number;
@@ -51,7 +50,7 @@ export class Particles {
     private rect: HTMLCanvasElement | undefined;
     private options: Required<IOption>;
     private o: Required<IOption>;
-    private anime: Promise<typeof anime> | undefined;
+    private anime: Promise<typeof animate> | undefined;
 
     public constructor(
         private readonly el: any,
@@ -218,7 +217,7 @@ export class Particles {
             this.lastProgress = 0;
             this.setup(options);
             this.animate(anim => {
-                const value = (anim.animatables[0].target as any).value;
+                const value = (anim.targets[0] as any).value;
                 this.addTransforms(value);
                 if (this.o.duration) {
                     this.addParticles(this.rect!, value / 100);
@@ -233,7 +232,7 @@ export class Particles {
             this.lastProgress = 1;
             this.setup(options);
             this.animate(anim => {
-                const value = (anim.animatables[0].target as any).value;
+                const value = (anim.targets[0] as any).value;
                 setTimeout(() => {
                     this.addTransforms(value);
                 }, this.o.duration);
@@ -258,22 +257,24 @@ export class Particles {
         return this.disintegrating;
     }
 
-    private animate(update: AnimeCallBack['update']): void {
-        this.anime ??= import('animejs').then(m => m.default);
+    private animate(update: Callback<JSAnimation>): void {
+        this.anime ??= import('animejs').then(m => m.animate);
         this.anime.then(anime => {
-            anime({
-                targets: {value: this.disintegrating ? 0 : 100},
-                value: this.disintegrating ? 100 : 0,
-                duration: this.o.duration,
-                easing: this.o.easing,
-                begin: this.o.begin,
-                update: update,
-                complete: () => {
-                    if (this.disintegrating) {
-                        this.renderer.setStyle(this.wrapper, 'visibility', 'hidden');
-                    }
+            anime(
+                {value: this.disintegrating ? 0 : 100},
+                {
+                    value: this.disintegrating ? 100 : 0,
+                    duration: this.o.duration,
+                    ease: this.o.easing,
+                    begin: this.o.begin,
+                    onUpdate: update,
+                    onComplete: () => {
+                        if (this.disintegrating) {
+                            this.renderer.setStyle(this.wrapper, 'visibility', 'hidden');
+                        }
+                    },
                 },
-            });
+            );
         });
     }
 

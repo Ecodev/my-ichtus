@@ -1,6 +1,7 @@
 import {AfterContentInit, Directive, ElementRef, EventEmitter, inject, Input, Output, Renderer2} from '@angular/core';
 import {rand} from './utils';
 import {Direction, IOption, Particles} from './particles';
+import type {EaseStringParamNames} from 'animejs';
 
 @Directive({
     selector: '[appParticleEffect]',
@@ -14,7 +15,7 @@ export class ParticleEffectDirective implements AfterContentInit {
     private _pHidden = false;
     @Input() public pColor = '#000';
     @Input() public pDuration = 1000;
-    @Input() public pEasing: anime.EasingOptions = 'easeInOutCubic';
+    @Input() public pEasing: EaseStringParamNames = 'inOutCubic';
     @Input() public pType = 'circle';
     @Input() public pStyle = 'fill';
     @Input() public pDirection: Direction = 'left';

@@ -44,7 +44,6 @@ type AccountingExportDialogResult = {
     selector: 'app-accounts',
     templateUrl: './accounts.component.html',
     styleUrl: './accounts.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         RouterLink,

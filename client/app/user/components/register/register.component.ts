@@ -28,7 +28,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrl: './register.component.scss',
-    standalone: true,
     imports: [
         FormsModule,
         ReactiveFormsModule,

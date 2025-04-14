@@ -16,7 +16,6 @@ import {AsyncPipe} from '@angular/common';
     selector: 'app-admin',
     templateUrl: './admin.component.html',
     styleUrl: './admin.component.scss',
-    standalone: true,
     imports: [
         NaturalSidenavContainerComponent,
         NaturalSidenavComponent,

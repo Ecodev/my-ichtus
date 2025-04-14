@@ -56,7 +56,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     selector: 'app-bookable',
     templateUrl: './bookable.component.html',
     styleUrl: './bookable.component.scss',
-    standalone: true,
     imports: [
         FormsModule,
         ReactiveFormsModule,

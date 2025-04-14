@@ -71,7 +71,6 @@ function bookingsToExtended(bookings: Bookings['bookings']): PaginatedExtendedBo
     animations: [
         trigger('terminate', [transition(':leave', [animate('0.2s ease-in-out', style({transform: 'scale(0, 0)'}))])]),
     ],
-    standalone: true,
     imports: [
         CardComponent,
         NaturalAvatarComponent,

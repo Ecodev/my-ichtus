@@ -1,4 +1,4 @@
-import {APP_INITIALIZER, inject, provideExperimentalZonelessChangeDetection} from '@angular/core';
+import {inject, provideAppInitializer, provideExperimentalZonelessChangeDetection} from '@angular/core';
 import {createApplication} from '@angular/platform-browser';
 import {APP_BASE_HREF} from '@angular/common';
 import {Apollo, APOLLO_OPTIONS} from 'apollo-angular';
@@ -6,7 +6,7 @@ import {HttpBatchLink} from 'apollo-angular/http';
 import {InMemoryCache} from '@apollo/client/core';
 import {cacheConfig} from '../app/shared/config/apollo-options.provider';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
-import {graphqlQuerySigner, Literal, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {graphqlQuerySigner, Literal, NaturalQueryVariablesManager} from '@ecodev/natural/vanilla';
 import {UserForVanillaService} from './user-for-vanilla.service';
 import {BookableForVanillaService} from './bookable-for-vanilla.service';
 import {BookingForVanillaService} from './booking-for-vanilla.service';
@@ -39,28 +39,22 @@ createApplication({
                 };
             },
         },
-        {
-            provide: APP_INITIALIZER,
-            multi: true,
-            useFactory: (): (() => void) => {
-                const userService = inject(UserForVanillaService);
-                const bookableService = inject(BookableForVanillaService);
-                const bookingService = inject(BookingForVanillaService);
+        provideAppInitializer(() => {
+            const userService = inject(UserForVanillaService);
+            const bookableService = inject(BookableForVanillaService);
+            const bookingService = inject(BookingForVanillaService);
 
-                return () => {
-                    const QueryVariablesManager = NaturalQueryVariablesManager; // for retro compatibility
+            const QueryVariablesManager = NaturalQueryVariablesManager; // for retro compatibility
 
-                    const api = {
-                        userService,
-                        bookableService,
-                        bookingService,
-                        QueryVariablesManager,
-                    };
+            const api = {
+                userService,
+                bookableService,
+                bookingService,
+                QueryVariablesManager,
+            };
 
-                    (window as Literal).ichtusApi = api;
-                };
-            },
-        },
+            (window as Literal).ichtusApi = api;
+        }),
     ],
 }).catch((err: unknown) => {
     console.error(err);

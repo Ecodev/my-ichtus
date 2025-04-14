@@ -6,7 +6,6 @@ import {NavigationsComponent} from '../../../shared/components/navigations/navig
     selector: 'app-booking-history',
     templateUrl: './booking-history.component.html',
     styleUrl: './booking-history.component.scss',
-    standalone: true,
     imports: [NavigationsComponent],
 })
 export class BookingHistoryComponent {

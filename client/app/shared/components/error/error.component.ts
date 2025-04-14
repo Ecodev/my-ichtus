@@ -9,7 +9,6 @@ import {MatIconModule} from '@angular/material/icon';
     selector: 'app-error',
     templateUrl: './error.component.html',
     styleUrl: './error.component.scss',
-    standalone: true,
     imports: [MatIconModule, NaturalIconDirective, MatButtonModule, RouterLink],
 })
 export class ErrorComponent {

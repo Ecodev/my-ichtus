@@ -5,7 +5,6 @@ import {CommonModule} from '@angular/common';
 @Component({
     selector: 'app-money',
     templateUrl: './money.component.html',
-    standalone: true,
     imports: [CommonModule],
 })
 export class MoneyComponent {

@@ -16,7 +16,6 @@ type ParticleSwitchOption = {
     selector: 'app-particle-switch',
     templateUrl: './particle-switch.component.html',
     styleUrl: './particle-switch.component.scss',
-    standalone: true,
     imports: [ParticleEffectDirective, CommonModule],
 })
 export class ParticleSwitchComponent implements AfterViewInit {

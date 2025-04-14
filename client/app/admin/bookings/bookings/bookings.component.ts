@@ -30,7 +30,6 @@ import {CommonModule, DatePipe} from '@angular/common';
     selector: 'app-bookings',
     templateUrl: './bookings.component.html',
     styleUrl: './bookings.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         NaturalColumnsPickerComponent,

@@ -11,7 +11,6 @@ import {CardComponent} from '../shared/components/card/card.component';
     selector: 'app-door',
     templateUrl: './door.component.html',
     styleUrl: './door.component.scss',
-    standalone: true,
     imports: [CardComponent, MatButtonModule, MatIconModule],
 })
 export class DoorComponent implements OnInit {

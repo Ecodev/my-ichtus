@@ -13,7 +13,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     selector: 'app-request-password-reset',
     templateUrl: './request-password-reset.component.html',
     styleUrl: './request-password-reset.component.scss',
-    standalone: true,
     imports: [
         FormsModule,
         ReactiveFormsModule,

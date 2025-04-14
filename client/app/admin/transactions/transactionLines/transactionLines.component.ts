@@ -35,7 +35,6 @@ import {MatTableModule} from '@angular/material/table';
     selector: 'app-transaction-lines',
     templateUrl: './transactionLines.component.html',
     styleUrl: './transactionLines.component.scss',
-    standalone: true,
     imports: [
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,

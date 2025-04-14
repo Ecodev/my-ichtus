@@ -18,7 +18,6 @@ import {MatDividerModule} from '@angular/material/divider';
     selector: 'app-transaction-tag',
     templateUrl: './transactionTag.component.html',
     styleUrl: './transactionTag.component.scss',
-    standalone: true,
     imports: [
         FormsModule,
         ReactiveFormsModule,

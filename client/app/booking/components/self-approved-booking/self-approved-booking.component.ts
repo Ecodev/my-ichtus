@@ -18,7 +18,6 @@ import {first} from 'rxjs/operators';
     selector: 'app-self-approved-booking',
     templateUrl: './self-approved-booking.component.html',
     styleUrl: './self-approved-booking.component.scss',
-    standalone: true,
     imports: [
         CardComponent,
         NaturalAvatarComponent,

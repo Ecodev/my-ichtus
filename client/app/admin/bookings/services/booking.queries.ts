@@ -216,7 +216,7 @@ export const deleteBookings = gql`
     }
 `;
 
-export const terminateBooking = gql`
+export const terminateBookingMutation = gql`
     mutation TerminateBooking($id: BookingID!, $comment: String) {
         terminateBooking(id: $id, comment: $comment) {
             id

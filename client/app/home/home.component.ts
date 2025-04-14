@@ -20,7 +20,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss',
-    standalone: true,
     imports: [
         MatToolbarModule,
         MatButtonModule,

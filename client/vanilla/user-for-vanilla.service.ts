@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {NaturalAbstractModelService} from '@ecodev/natural';
+import {NaturalAbstractModelService} from '@ecodev/natural/vanilla';
 import {from, Observable, switchMap} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {

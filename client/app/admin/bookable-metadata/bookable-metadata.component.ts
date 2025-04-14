@@ -20,7 +20,6 @@ import {MatTableModule} from '@angular/material/table';
     selector: 'app-bookable-metadata',
     templateUrl: './bookable-metadata.component.html',
     styleUrl: './bookable-metadata.component.scss',
-    standalone: true,
     imports: [
         MatTableModule,
         MatFormFieldModule,

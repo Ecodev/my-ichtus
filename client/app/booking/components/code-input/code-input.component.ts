@@ -8,7 +8,6 @@ import {FormsModule} from '@angular/forms';
     selector: 'app-code-input',
     templateUrl: './code-input.component.html',
     styleUrl: './code-input.component.scss',
-    standalone: true,
     imports: [FormsModule, FocusDirective, MatButtonModule, RouterLink],
 })
 export class CodeInputComponent {

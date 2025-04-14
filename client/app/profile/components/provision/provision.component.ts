@@ -19,7 +19,6 @@ export type ProvisionData = {
     selector: 'app-provision',
     templateUrl: './provision.component.html',
     styleUrl: './provision.component.scss',
-    standalone: true,
     imports: [
         MatDialogModule,
         CommonModule,

@@ -29,7 +29,6 @@ import {CommonModule, DatePipe} from '@angular/common';
 @Component({
     selector: 'app-safety',
     templateUrl: '../admin/bookings/bookings/bookings.component.html',
-    standalone: true,
     imports: [
         CommonModule,
         NaturalColumnsPickerComponent,

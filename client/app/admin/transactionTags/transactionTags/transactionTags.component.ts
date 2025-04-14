@@ -24,7 +24,6 @@ import {AsyncPipe} from '@angular/common';
     selector: 'app-transaction-tags',
     templateUrl: './transactionTags.component.html',
     styleUrl: './transactionTags.component.scss',
-    standalone: true,
     imports: [
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
