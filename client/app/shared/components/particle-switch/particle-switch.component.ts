@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ContentChild, ElementRef, inject, Input, TemplateRef, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, inject, Input, TemplateRef, contentChild, viewChild} from '@angular/core';
 import {Direction} from '../particle-button/particles';
 import {CommonModule} from '@angular/common';
 import {ParticleEffectDirective} from '../particle-button/particle-effect.directive';
@@ -21,8 +21,8 @@ type ParticleSwitchOption = {
 export class ParticleSwitchComponent implements AfterViewInit {
     private readonly rootElement = inject<ElementRef<HTMLElement>>(ElementRef);
 
-    @ContentChild(TemplateRef, {static: true}) public template!: TemplateRef<any>;
-    @ViewChild('wrapper', {static: true}) private wrapper!: ElementRef;
+    public readonly template = contentChild.required(TemplateRef);
+    private readonly wrapper = viewChild.required<ElementRef>('wrapper');
 
     public _data1: any;
     public _data2: any;
@@ -82,7 +82,7 @@ export class ParticleSwitchComponent implements AfterViewInit {
 
     private updateSize(): void {
         const root = this.rootElement.nativeElement;
-        const child = this.wrapper.nativeElement.children[0];
+        const child = this.wrapper().nativeElement.children[0];
         root.style.height = child.offsetHeight + 'px';
         root.style.width = child.offsetWidth + 'px';
     }

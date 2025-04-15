@@ -1,4 +1,4 @@
-import {Component, inject, ViewChild} from '@angular/core';
+import {Component, inject, viewChild} from '@angular/core';
 import {ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
 import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -44,8 +44,7 @@ export class ProvisionComponent {
 
     public paymentMode: 'ebanking' | 'datatrans' | null = null;
 
-    @ViewChild(BvrComponent)
-    private bvr!: BvrComponent;
+    private readonly bvr = viewChild.required(BvrComponent);
 
     public constructor() {
         const data = this.data;
@@ -66,10 +65,10 @@ export class ProvisionComponent {
     }
 
     public showExportBillButton(): boolean {
-        return this.paymentMode === 'ebanking' && !!this.bvr?.bankingInfos?.qrCode;
+        return this.paymentMode === 'ebanking' && !!this.bvr()?.bankingInfos?.qrCode;
     }
 
     public exportBill(): void {
-        this.bvr.exportBill();
+        this.bvr().exportBill();
     }
 }

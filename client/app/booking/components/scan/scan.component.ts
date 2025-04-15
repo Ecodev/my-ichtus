@@ -1,4 +1,4 @@
-import {Component, DestroyRef, ElementRef, inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, DestroyRef, ElementRef, inject, OnDestroy, OnInit, viewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NaturalAlertService} from '@ecodev/natural';
 import {QrService} from '../../../shared/services/qr.service';
@@ -17,7 +17,7 @@ export class ScanComponent implements OnInit, OnDestroy {
     private readonly qrService = inject(QrService);
 
     private readonly destroyRef = inject(DestroyRef);
-    @ViewChild('video', {static: true}) private videoRef!: ElementRef<HTMLVideoElement>;
+    private readonly videoRef = viewChild.required<ElementRef<HTMLVideoElement>>('video');
 
     public ngOnInit(): void {
         this.qrService.qrCode.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
@@ -36,9 +36,9 @@ export class ScanComponent implements OnInit, OnDestroy {
             .getStream()
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(stream => {
-                this.videoRef.nativeElement.srcObject = stream;
-                this.videoRef.nativeElement.setAttribute('playsinline', 'true'); // required to tell iOS safari we don't want fullscreen
-                this.videoRef.nativeElement.play().catch(/* noop */);
+                this.videoRef().nativeElement.srcObject = stream;
+                this.videoRef().nativeElement.setAttribute('playsinline', 'true'); // required to tell iOS safari we don't want fullscreen
+                this.videoRef().nativeElement.play().catch(/* noop */);
             });
 
         // In case we arrive here by url refresh that avoids to start camera from click on home.component.ts

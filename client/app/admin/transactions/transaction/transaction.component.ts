@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewChild} from '@angular/core';
+import {Component, inject, OnInit, viewChild} from '@angular/core';
 import {NavigationEnd, RouterLink} from '@angular/router';
 import {
     cancellableTimeout,
@@ -95,8 +95,8 @@ export class TransactionComponent
     public readonly transactionLineService = inject(TransactionLineService);
     public readonly userService = inject(UserService);
 
-    @ViewChild(EditableTransactionLinesComponent) public transactionLinesComponent!: EditableTransactionLinesComponent;
-    @ViewChild('transactionDocuments', {static: true}) private accountingDocuments!: AccountingDocumentsComponent;
+    public readonly transactionLinesComponent = viewChild.required(EditableTransactionLinesComponent);
+    private readonly accountingDocuments = viewChild.required<AccountingDocumentsComponent>('transactionDocuments');
 
     /**
      * Edition mode, allows to edit lines
@@ -131,7 +131,7 @@ export class TransactionComponent
         if (expenseClaim || duplicatedTransaction) {
             cancellableTimeout(this.destroyRef).subscribe(() => {
                 // Prevent human to input something that would be overridden when prefill finishes
-                this.transactionLinesComponent.form.disable();
+                this.transactionLinesComponent().form.disable();
 
                 if (expenseClaim) {
                     this.prefillFromExpenseClaim(expenseClaim);
@@ -183,7 +183,7 @@ export class TransactionComponent
         }
 
         if (preset) {
-            preset.subscribe(preset => this.transactionLinesComponent.setItems(preset));
+            preset.subscribe(preset => this.transactionLinesComponent().setItems(preset));
         }
     }
 
@@ -200,15 +200,16 @@ export class TransactionComponent
             return;
         }
 
-        if (this.transactionLinesComponent) {
-            const rawTransactionLines = this.transactionLinesComponent.getItems();
+        const transactionLinesComponent = this.transactionLinesComponent();
+        if (transactionLinesComponent) {
+            const rawTransactionLines = transactionLinesComponent.getItems();
             this.form.controls.transactionLines.setValue(
                 rawTransactionLines.map(line => this.transactionLineService.getInput(line, true)),
             );
 
-            this.transactionLinesComponent.validateForm();
+            transactionLinesComponent.validateForm();
 
-            if (!this.transactionLinesComponent.form.valid) {
+            if (!transactionLinesComponent.form.valid) {
                 return;
             }
         } else {
@@ -228,7 +229,7 @@ export class TransactionComponent
 
     protected override postUpdate(object: UpdateTransaction['updateTransaction']): void {
         this.updateTransactionLines = false;
-        this.accountingDocuments.save(object);
+        this.accountingDocuments().save(object);
     }
 
     /**
@@ -238,7 +239,7 @@ export class TransactionComponent
      */
     protected override postCreate(object: CreateTransaction['createTransaction']): Observable<unknown> {
         this.updateTransactionLines = false;
-        this.accountingDocuments.save(object);
+        this.accountingDocuments().save(object);
         this.router.events
             .pipe(
                 filter((event): event is NavigationEnd => event instanceof NavigationEnd),

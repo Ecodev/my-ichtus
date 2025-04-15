@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewChild} from '@angular/core';
+import {Component, inject, OnInit, viewChild} from '@angular/core';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
 import {CreateExpenseClaim, ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
@@ -34,7 +34,7 @@ export class CreateExpenseClaimComponent
 {
     public readonly userService = inject(UserService);
 
-    @ViewChild(AccountingDocumentsComponent, {static: true}) private accountingDocuments!: AccountingDocumentsComponent;
+    private readonly accountingDocuments = viewChild.required(AccountingDocumentsComponent);
 
     public ExpenseClaimType = ExpenseClaimType;
 
@@ -52,7 +52,7 @@ export class CreateExpenseClaimComponent
     }
 
     protected override postCreate(object: CreateExpenseClaim['createExpenseClaim']): Observable<unknown> {
-        this.accountingDocuments.save(object);
+        this.accountingDocuments().save(object);
         this.router.navigateByUrl('/profile/finances');
         this.alertService.info('Votre demande a bien été enregistrée');
 

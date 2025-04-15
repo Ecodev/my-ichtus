@@ -145,7 +145,7 @@
                             <button mat-stroked-button (click)="updateTransactionLines = false">Annuler</button>
                         }
                         @if (updateTransactionLines) {
-                            <button mat-flat-button color="primary" (click)="transactionLinesComponent.addEmpty()">
+                            <button mat-flat-button color="primary" (click)="transactionLinesComponent().addEmpty()">
                                 Ajouter une écriture
                             </button>
                         }
