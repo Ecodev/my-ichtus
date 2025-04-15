@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
+import {Component, inject, OnInit, output} from '@angular/core';
 import {bookables, equipment} from '../../../shared/natural-search/natural-search-facets';
 import {Bookables} from '../../../shared/generated-types';
 import {BookableService} from '../services/bookable.service';
@@ -48,7 +48,7 @@ import {CommonModule, DatePipe} from '@angular/common';
 export class BookablesComponent extends ParentComponent<BookableService> implements OnInit {
     public readonly permissionsService = inject(PermissionsService);
 
-    @Output() public readonly bookableClick = new EventEmitter<Bookables['bookables']['items'][0]>();
+    public readonly bookableClick = output<Bookables['bookables']['items'][0]>();
 
     public constructor() {
         super(inject(BookableService));

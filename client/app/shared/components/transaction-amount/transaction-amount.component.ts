@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Input, OnChanges, Output} from '@angular/core';
+import {Component, inject, Input, OnChanges, output} from '@angular/core';
 import {AccountType, MinimalAccount, TransactionLine} from '../../generated-types';
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
 import {RouterLink} from '@angular/router';
@@ -21,7 +21,7 @@ export class TransactionAmountComponent implements OnChanges {
      */
     @Input() public relativeToAccount: MinimalAccount | null = null;
     @Input() public displayMode: 'amount' | 'account' = 'amount';
-    @Output() public readonly accountClick = new EventEmitter<MinimalAccount>();
+    public readonly accountClick = output<MinimalAccount>();
 
     public isIncome: boolean | null = null;
 

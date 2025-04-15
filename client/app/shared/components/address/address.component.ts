@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
+import {Component, inject, Input, output} from '@angular/core';
 import {CountryService} from './country.service';
 import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NaturalSelectComponent} from '@ecodev/natural';
@@ -16,7 +16,7 @@ export class AddressComponent {
 
     @Input() public vertical = false;
     @Input({required: true}) public form!: FormGroup;
-    @Output() public readonly addressChange = new EventEmitter<void>();
+    public readonly addressChange = output();
 
     public update(): void {
         this.addressChange.emit();

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
+import {Component, inject, Input, OnInit, output} from '@angular/core';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {UsageBookableService} from '../services/usage-bookable.service';
 import {
@@ -54,7 +54,7 @@ export class UsageBookablesComponent extends ParentComponent<UsageBookableServic
     public readonly permissionsService = inject(PermissionsService);
     private readonly userService = inject(UserService);
 
-    @Output() public readonly bookableClick = new EventEmitter<UsageBookables['bookables']['items'][0]>();
+    public readonly bookableClick = output<UsageBookables['bookables']['items'][0]>();
 
     @Input()
     public set selections(selections: NaturalSearchSelections) {

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
+import {Component, inject, Input, OnInit, output} from '@angular/core';
 import {CreateUser, CurrentUserForProfile, UpdateUser, Users} from '../../../shared/generated-types';
 import {
     NaturalAbstractDetail,
@@ -43,9 +43,9 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
     @Input({required: true}) public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
     @Input({required: true}) public user!: Users['users']['items'][0];
     @Input() public readonly = false;
-    @Output() public readonly created = new EventEmitter<void>();
-    @Output() public readonly removed = new EventEmitter<void>();
-    @Output() public readonly updated = new EventEmitter<UpdateUser['updateUser']>();
+    public readonly created = output();
+    public readonly removed = output();
+    public readonly updated = output<UpdateUser['updateUser']>();
     public loaded = false;
 
     public constructor() {
@@ -94,7 +94,7 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
                 );
             });
         }
-        this.created.next();
+        this.created.emit();
 
         return EMPTY;
     }
@@ -107,7 +107,7 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
             .subscribe(confirmed => {
                 if (confirmed) {
                     this.service.leaveFamily(this.user).subscribe(() => {
-                        this.removed.next();
+                        this.removed.emit();
                         const message = 'La personne a été détachée du ménage';
                         this.alertService.info(message, 5000);
                     });
@@ -116,6 +116,6 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
     }
 
     protected override postUpdate(model: UpdateUser['updateUser']): void {
-        this.updated.next(model);
+        this.updated.emit(model);
     }
 }
