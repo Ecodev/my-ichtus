@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, inject, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {ChangeDetectorRef, Component, inject, OnInit, viewChildren} from '@angular/core';
 import {CurrentUserForProfile, UpdateUser, Users, UsersVariables} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -10,6 +10,7 @@ import {first} from 'rxjs/operators';
 import {FamilyMemberComponent} from '../family-member/family-member.component';
 import {MatButtonModule} from '@angular/material/button';
 import {AsyncPipe} from '@angular/common';
+import {toObservable} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-family',
@@ -38,7 +39,9 @@ export class FamilyComponent implements OnInit {
      * Member selected when opening an accordion panel
      */
     public activeMember: Users['users']['items'][0] | null = null;
-    @ViewChildren(MatExpansionPanel) private readonly expansionPanels!: QueryList<MatExpansionPanel>;
+
+    private readonly expansionPanels = viewChildren(MatExpansionPanel);
+    private readonly expansionPanels$ = toObservable(this.expansionPanels);
 
     public ngOnInit(): void {
         this.viewer = this.route.snapshot.data.viewer;
@@ -59,8 +62,8 @@ export class FamilyComponent implements OnInit {
     }
 
     public add(): void {
-        this.expansionPanels.changes.pipe(first()).subscribe(panels => {
-            panels.last.open();
+        this.expansionPanels$.pipe(first()).subscribe(panels => {
+            panels[panels.length - 1].open();
             this.changeDetectorRef.detectChanges();
         });
 
