@@ -44,7 +44,7 @@ export class ProvisionComponent {
 
     public paymentMode: 'ebanking' | 'datatrans' | null = null;
 
-    private readonly bvr = viewChild.required(BvrComponent);
+    private readonly bvr = viewChild(BvrComponent);
 
     public constructor() {
         const data = this.data;
@@ -69,6 +69,6 @@ export class ProvisionComponent {
     }
 
     public exportBill(): void {
-        this.bvr().exportBill();
+        this.bvr()?.exportBill();
     }
 }

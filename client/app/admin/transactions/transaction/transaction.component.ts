@@ -95,7 +95,7 @@ export class TransactionComponent
     public readonly transactionLineService = inject(TransactionLineService);
     public readonly userService = inject(UserService);
 
-    public readonly transactionLinesComponent = viewChild.required(EditableTransactionLinesComponent);
+    public readonly transactionLinesComponent = viewChild(EditableTransactionLinesComponent);
     private readonly accountingDocuments = viewChild.required<AccountingDocumentsComponent>('transactionDocuments');
 
     /**
@@ -131,7 +131,7 @@ export class TransactionComponent
         if (expenseClaim || duplicatedTransaction) {
             cancellableTimeout(this.destroyRef).subscribe(() => {
                 // Prevent human to input something that would be overridden when prefill finishes
-                this.transactionLinesComponent().form.disable();
+                this.transactionLinesComponent()?.form.disable();
 
                 if (expenseClaim) {
                     this.prefillFromExpenseClaim(expenseClaim);
@@ -183,7 +183,7 @@ export class TransactionComponent
         }
 
         if (preset) {
-            preset.subscribe(preset => this.transactionLinesComponent().setItems(preset));
+            preset.subscribe(preset => this.transactionLinesComponent()?.setItems(preset));
         }
     }
 
