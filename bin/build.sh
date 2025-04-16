@@ -33,8 +33,14 @@ if id "$DEPLOY_USER" >/dev/null 2>&1; then
         exit
     fi
 
+    # Use /mnt/data/tmp if it exists
+    TMP_DIR="/mnt/data/tmp"
+    if [ ! -d "$TMP_DIR" ]; then
+        TMP_DIR="/tmp"
+    fi
+
     # Declare a fake HOME, so that cache and various config files can be created
-    export HOME="/tmp/$DEPLOY_USER"
+    export HOME="$TMP_DIR/home-$DEPLOY_USER"
 fi
 
 # Try to use PHP 8.2, or fallback to default version
