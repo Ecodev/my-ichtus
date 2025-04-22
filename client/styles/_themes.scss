@@ -177,7 +177,8 @@ $fake-material-v2-theme: mat.m2-define-light-theme(
 @include mat.card-typography(natural.$typography);
 @include mat.checkbox-typography(natural.$typography);
 @include mat.chips-typography(natural.$typography);
-@include mat.core-typography(natural.$typography) @include mat.datepicker-typography(natural.$typography);
+@include mat.core-typography(natural.$typography);
+@include mat.datepicker-typography(natural.$typography);
 @include mat.dialog-typography(natural.$typography);
 @include mat.divider-typography(natural.$typography);
 @include mat.expansion-typography(natural.$typography);
