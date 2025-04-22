@@ -19,7 +19,7 @@ build:
             image: default-jammy
             environment:
                 php: 8.2
-                node: 18.19
+                node: 22
             tests:
                 override:
                     - php-scrutinizer-run
