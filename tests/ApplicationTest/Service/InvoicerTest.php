@@ -75,7 +75,6 @@ class InvoicerTest extends TestCase
             foreach ($all as $t) {
                 if (!$transaction) {
                     $transaction = $t->getTransaction();
-                    self::assertNotNull($transaction, 'must belong to a transaction');
                 } else {
                     self::assertSame($transaction, $t->getTransaction(), 'all lines should belong to same transaction');
                 }

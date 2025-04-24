@@ -34,17 +34,17 @@ class TransactionWithDocumentOperatorType extends AbstractOperator
         ];
     }
 
-    public function getDqlCondition(UniqueNameFactory $uniqueNameFactory, ClassMetadata $metadata, QueryBuilder $queryBuilder, string $alias, string $field, ?array $args): ?string
+    public function getDqlCondition(UniqueNameFactory $uniqueNameFactory, ClassMetadata $metadata, QueryBuilder $queryBuilder, string $alias, string $field, ?array $args): string
     {
         if (!$args) {
-            return null;
+            return '';
         }
 
         $not = $args['not'];
 
         if (!array_key_exists('values', $args) || empty($args['values'])) {
             if ($not) {
-                return null;
+                return '';
             }
             $condition = '= 0';
         } elseif (in_array(true, $args['values'], true) && !in_array(false, $args['values'], true)) {
@@ -52,7 +52,7 @@ class TransactionWithDocumentOperatorType extends AbstractOperator
         } elseif (in_array(false, $args['values'], true) && !in_array(true, $args['values'], true)) {
             $condition = $not ? '> 0' : '= 0';
         } else {
-            return null;
+            return '';
         }
 
         $transactionAlias = $uniqueNameFactory->createAliasName(Transaction::class);
@@ -72,6 +72,6 @@ class TransactionWithDocumentOperatorType extends AbstractOperator
         $totalDocuments = 'COUNT(' . $transactionDocumentAlias . '.id)+COUNT(' . $expenseClaimDocumentAlias . '.id)';
         $queryBuilder->having($totalDocuments . $condition);
 
-        return null;
+        return '';
     }
 }

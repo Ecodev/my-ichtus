@@ -119,7 +119,6 @@ class AccountRepositoryTest extends AbstractRepositoryTest
     public function testGetOneById(): void
     {
         $account = $this->repository->getOneById(10025); // Poste
-        self::assertNotNull($account);
         self::assertSame(10025, $account->getId());
         $this->expectExceptionMessage('Account #-9999 not found');
         $this->repository->getOneById(-9999);

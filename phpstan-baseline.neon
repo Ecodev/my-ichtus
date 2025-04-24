@@ -1,36 +1,61 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Parameter \\#1 \\$result of method Ecodev\\\\Felix\\\\Api\\\\Server\\:\\:sendCli\\(\\) expects GraphQL\\\\Executor\\\\ExecutionResult, array\\<GraphQL\\\\Executor\\\\ExecutionResult\\>\\|GraphQL\\\\Executor\\\\ExecutionResult given\\.$#"
+			message: '#^Parameter \#1 \$result of method Ecodev\\Felix\\Api\\Server\:\:sendCli\(\) expects GraphQL\\Executor\\ExecutionResult, array\<GraphQL\\Executor\\ExecutionResult\>\|GraphQL\\Executor\\ExecutionResult given\.$#'
+			identifier: argument.type
 			count: 1
 			path: bin/graphql.php
 
 		-
-			message: "#^Parameter \\#1 \\$remote of static method Ecodev\\\\Felix\\\\Service\\\\AbstractDatabase\\:\\:loadRemoteData\\(\\) expects string, array\\<int, mixed\\>\\|string\\|false given\\.$#"
+			message: '#^Parameter \#1 \$remote of static method Ecodev\\Felix\\Service\\AbstractDatabase\:\:loadRemoteData\(\) expects string, list\<mixed\>\|string\|false given\.$#'
+			identifier: argument.type
 			count: 1
 			path: bin/load-remote-data.php
 
 		-
-			message: "#^Cannot call method addHeaders\\(\\) on ArrayIterator\\|bool\\|Laminas\\\\Http\\\\Header\\\\HeaderInterface\\|Laminas\\\\Http\\\\Headers\\.$#"
+			message: '#^Cannot call method addHeaders\(\) on ArrayIterator\|bool\|Laminas\\Http\\Header\\HeaderInterface\|Laminas\\Http\\Headers\.$#'
+			identifier: method.nonObject
 			count: 1
 			path: server/Application/Api/Field/Mutation/OpenDoor.php
 
 		-
-			message: "#^Cannot call method addHeaders\\(\\) on ArrayIterator\\|bool\\|Laminas\\\\Http\\\\Header\\\\HeaderInterface\\|Laminas\\\\Http\\\\Headers\\.$#"
+			message: '#^Cannot call method addHeaders\(\) on ArrayIterator\|bool\|Laminas\\Http\\Header\\HeaderInterface\|Laminas\\Http\\Headers\.$#'
+			identifier: method.nonObject
 			count: 1
 			path: server/Application/Api/Field/Query/BankingInfos.php
 
 		-
-			message: "#^Parameter \\#1 \\$config of method GraphQL\\\\Type\\\\Schema\\:\\:__construct\\(\\) expects array\\{query\\?\\: \\(callable\\(\\)\\: \\(GraphQL\\\\Type\\\\Definition\\\\ObjectType\\|null\\)\\)\\|GraphQL\\\\Type\\\\Definition\\\\ObjectType\\|null, mutation\\?\\: \\(callable\\(\\)\\: \\(GraphQL\\\\Type\\\\Definition\\\\ObjectType\\|null\\)\\)\\|GraphQL\\\\Type\\\\Definition\\\\ObjectType\\|null, subscription\\?\\: \\(callable\\(\\)\\: \\(GraphQL\\\\Type\\\\Definition\\\\ObjectType\\|null\\)\\)\\|GraphQL\\\\Type\\\\Definition\\\\ObjectType\\|null, types\\?\\: \\(callable\\(\\)\\: iterable\\<callable\\(\\)\\: GraphQL\\\\Type\\\\Definition\\\\Type&GraphQL\\\\Type\\\\Definition\\\\NamedType\\>\\)\\|\\(callable\\(\\)\\: iterable\\<GraphQL\\\\Type\\\\Definition\\\\NamedType&GraphQL\\\\Type\\\\Definition\\\\Type\\>\\)\\|iterable\\<\\(callable\\(\\)\\: GraphQL\\\\Type\\\\Definition\\\\Type&GraphQL\\\\Type\\\\Definition\\\\NamedType\\)\\|\\(GraphQL\\\\Type\\\\Definition\\\\NamedType&GraphQL\\\\Type\\\\Definition\\\\Type\\)\\>\\|null, directives\\?\\: array\\<GraphQL\\\\Type\\\\Definition\\\\Directive\\>\\|null, typeLoader\\?\\: \\(callable\\(string\\)\\: \\(\\(GraphQL\\\\Type\\\\Definition\\\\NamedType&GraphQL\\\\Type\\\\Definition\\\\Type\\)\\|null\\)\\)\\|null, assumeValid\\?\\: bool\\|null, astNode\\?\\: GraphQL\\\\Language\\\\AST\\\\SchemaDefinitionNode\\|null, \\.\\.\\.\\}\\|GraphQL\\\\Type\\\\SchemaConfig, array\\{query\\: Closure\\(\\)\\: \\(GraphQL\\\\Type\\\\Definition\\\\NamedType&GraphQL\\\\Type\\\\Definition\\\\Type\\), mutation\\: Closure\\(\\)\\: \\(GraphQL\\\\Type\\\\Definition\\\\NamedType&GraphQL\\\\Type\\\\Definition\\\\Type\\), typeLoader\\: Closure\\(string\\)\\: \\(\\(GraphQL\\\\Type\\\\Definition\\\\NamedType&GraphQL\\\\Type\\\\Definition\\\\Type\\)\\|null\\)\\} given\\.$#"
+			message: '#^Parameter \#1 \$array \(array\{non\-falsy\-string, non\-falsy\-string\}\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: server/Application/Api/Field/Query/BankingInfos.php
+
+		-
+			message: '#^Parameter \#1 \$config of method GraphQL\\Type\\Schema\:\:__construct\(\) expects array\{query\?\: \(callable\(\)\: \(GraphQL\\Type\\Definition\\ObjectType\|null\)\)\|GraphQL\\Type\\Definition\\ObjectType\|null, mutation\?\: \(callable\(\)\: \(GraphQL\\Type\\Definition\\ObjectType\|null\)\)\|GraphQL\\Type\\Definition\\ObjectType\|null, subscription\?\: \(callable\(\)\: \(GraphQL\\Type\\Definition\\ObjectType\|null\)\)\|GraphQL\\Type\\Definition\\ObjectType\|null, types\?\: \(callable\(\)\: iterable\<callable\(\)\: GraphQL\\Type\\Definition\\Type&GraphQL\\Type\\Definition\\NamedType\>\)\|\(callable\(\)\: iterable\<GraphQL\\Type\\Definition\\NamedType&GraphQL\\Type\\Definition\\Type\>\)\|iterable\<\(callable\(\)\: GraphQL\\Type\\Definition\\Type&GraphQL\\Type\\Definition\\NamedType\)\|\(GraphQL\\Type\\Definition\\NamedType&GraphQL\\Type\\Definition\\Type\)\>\|null, directives\?\: array\<GraphQL\\Type\\Definition\\Directive\>\|null, typeLoader\?\: \(callable\(string\)\: \(\(GraphQL\\Type\\Definition\\NamedType&GraphQL\\Type\\Definition\\Type\)\|null\)\)\|null, assumeValid\?\: bool\|null, astNode\?\: GraphQL\\Language\\AST\\SchemaDefinitionNode\|null, \.\.\.\}\|GraphQL\\Type\\SchemaConfig, array\{query\: Closure\(\)\: \(GraphQL\\Type\\Definition\\NamedType&GraphQL\\Type\\Definition\\Type\), mutation\: Closure\(\)\: \(GraphQL\\Type\\Definition\\NamedType&GraphQL\\Type\\Definition\\Type\), typeLoader\: Closure\(string\)\: \(\(GraphQL\\Type\\Definition\\NamedType&GraphQL\\Type\\Definition\\Type\)\|null\)\} given\.$#'
+			identifier: argument.type
 			count: 1
 			path: server/Application/Api/Schema.php
 
 		-
-			message: "#^Parameter \\#3 \\$key of function hash_hmac expects string, string\\|false given\\.$#"
+			message: '#^Parameter \#3 \$key of function hash_hmac expects string, string\|false given\.$#'
+			identifier: argument.type
 			count: 1
 			path: server/Application/Handler/DatatransHandler.php
 
 		-
-			message: "#^Parameter \\#2 \\$bookables of method Application\\\\Service\\\\MessageQueuer\\:\\:queueBalance\\(\\) expects iterable\\<Application\\\\Model\\\\Bookable\\>, Doctrine\\\\Common\\\\Collections\\\\ReadableCollection\\<\\(int\\|string\\), Application\\\\Model\\\\Bookable\\|null\\> given\\.$#"
+			message: '#^Parameter &\$accounts by\-ref type of method Application\\Repository\\TransactionRepository\:\:gatherTransactionLine\(\) expects list\<int\>, non\-empty\-list\<int\|null\> given\.$#'
+			identifier: parameterByRef.type
+			count: 2
+			path: server/Application/Repository/TransactionRepository.php
+
+		-
+			message: '#^Parameter &\$transactions by\-ref type of method Application\\Repository\\TransactionRepository\:\:gatherTransactionLine\(\) expects list\<int\>, non\-empty\-list\<int\|null\> given\.$#'
+			identifier: parameterByRef.type
 			count: 1
-			path: server/Application/Service/MessageQueuer.php
+			path: server/Application/Repository/TransactionRepository.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true and ''schema passes…'' will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: tests/ApplicationTest/Api/SchemaTest.php

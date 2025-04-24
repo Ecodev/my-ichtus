@@ -31,10 +31,10 @@ class HasBookingCompletedOperatorType extends AbstractOperator
         ];
     }
 
-    public function getDqlCondition(UniqueNameFactory $uniqueNameFactory, ClassMetadata $metadata, QueryBuilder $queryBuilder, string $alias, string $field, ?array $args): ?string
+    public function getDqlCondition(UniqueNameFactory $uniqueNameFactory, ClassMetadata $metadata, QueryBuilder $queryBuilder, string $alias, string $field, ?array $args): string
     {
         if (!$args) {
-            return null;
+            return '';
         }
 
         $not = $args['not'];
@@ -43,7 +43,7 @@ class HasBookingCompletedOperatorType extends AbstractOperator
 
         if (!array_key_exists('values', $args) || empty($args['values'])) {
             if ($not) {
-                return null;
+                return '';
             }
             $condition = '';
         } elseif (in_array(true, $args['values'], true) && !in_array(false, $args['values'], true)) {
@@ -51,7 +51,7 @@ class HasBookingCompletedOperatorType extends AbstractOperator
         } elseif (in_array(false, $args['values'], true) && !in_array(true, $args['values'], true)) {
             $condition = $not ? 'NOT' : '';
         } else {
-            return null;
+            return '';
         }
 
         return $bookingAlias . '.endDate IS ' . $condition . ' NULL';

@@ -10,6 +10,7 @@ class TransactionTagTest extends TestCase
 {
     public function testNoop(): void
     {
+        // @phpstan-ignore-next-line
         self::assertTrue(true);
     }
 }

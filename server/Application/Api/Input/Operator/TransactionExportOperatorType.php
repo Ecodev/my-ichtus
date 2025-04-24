@@ -30,7 +30,7 @@ class TransactionExportOperatorType extends AbstractOperator
         ];
     }
 
-    public function getDqlCondition(UniqueNameFactory $uniqueNameFactory, ClassMetadata $metadata, QueryBuilder $queryBuilder, string $alias, string $field, ?array $args): ?string
+    public function getDqlCondition(UniqueNameFactory $uniqueNameFactory, ClassMetadata $metadata, QueryBuilder $queryBuilder, string $alias, string $field, ?array $args): string
     {
         $transactionAlias = $uniqueNameFactory->createAliasName(Transaction::class);
         $tagAlias = $uniqueNameFactory->createAliasName(TransactionTag::class);
@@ -46,6 +46,6 @@ class TransactionExportOperatorType extends AbstractOperator
         $queryBuilder->addSelect($debitAlias);
         $queryBuilder->addSelect($creditAlias);
 
-        return null;
+        return '';
     }
 }

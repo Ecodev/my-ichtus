@@ -53,6 +53,7 @@ class DatatransHandlerTest extends TestCase
             self::assertSame($expectedAmount->getAmount(), (string) $actualBalance);
         }
 
+        // @phpstan-ignore-next-line
         self::assertTrue(true); // Workaround when we only assert via prophesize
     }
 

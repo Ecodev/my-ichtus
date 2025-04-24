@@ -7,6 +7,7 @@ namespace Application\Service\Exporter;
 use Application\Enum\AccountType;
 use Application\Model\Account;
 use Cake\Chronos\ChronosDate;
+use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Format;
 use Money\Money;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
@@ -179,14 +180,13 @@ class AccountingReport extends AbstractExcel
             'account' => $account,
         ];
 
-        $accountClasses = $this->accountingConfig['report']['accountClasses'];
-        if ($account->getType() === AccountType::Asset || ($account->getType() === AccountType::Group && in_array(mb_substr((string) $account->getCode(), 0, 1), $accountClasses['assets'], true))) {
+        if ($this->isAccountType($account, AccountType::Asset)) {
             $this->assets[] = $data;
-        } elseif ($account->getType() === AccountType::Liability || ($account->getType() === AccountType::Group && in_array(mb_substr((string) $account->getCode(), 0, 1), $accountClasses['liabilities'], true))) {
+        } elseif ($this->isAccountType($account, AccountType::Liability)) {
             $this->liabilities[] = $data;
-        } elseif ($account->getType() === AccountType::Revenue || ($account->getType() === AccountType::Group && in_array(mb_substr((string) $account->getCode(), 0, 1), $accountClasses['revenues'], true))) {
+        } elseif ($this->isAccountType($account, AccountType::Revenue)) {
             $this->revenues[] = $data;
-        } elseif ($account->getType() === AccountType::Expense || ($account->getType() === AccountType::Group && in_array(mb_substr((string) $account->getCode(), 0, 1), $accountClasses['expenses'], true))) {
+        } elseif ($this->isAccountType($account, AccountType::Expense)) {
             $this->expenses[] = $data;
         }
 
@@ -346,7 +346,7 @@ class AccountingReport extends AbstractExcel
         $this->column = $this->firstDataColumn;
         foreach ([$accountsColumn1, $accountsColumn2] as $col => $accounts) {
             // Account.code
-            $this->write(mb_strtoupper(_tr('Contrôle')), );
+            $this->write(mb_strtoupper(_tr('Contrôle')));
             // Account.name
             $this->write('');
             // Account.balance
@@ -695,5 +695,28 @@ class AccountingReport extends AbstractExcel
                 ],
             ],
         ];
+    }
+
+    private function isAccountType(Account $account, AccountType $accountType): bool
+    {
+        return $account->getType() === $accountType
+            || (
+                $account->getType() === AccountType::Group
+                && $this->isCodeAccountType($account->getCode(), $accountType)
+            );
+    }
+
+    private function isCodeAccountType(string|int $code, AccountType $accountType): bool
+    {
+        $accountClasses = $this->accountingConfig['report']['accountClasses'];
+        $class = match ($accountType) {
+            AccountType::Asset => $accountClasses['assets'],
+            AccountType::Liability => $accountClasses['liabilities'],
+            AccountType::Revenue => $accountClasses['revenues'],
+            AccountType::Expense => $accountClasses['expenses'],
+            default => throw new Exception('Non supported related account type: ' . $accountType->value),
+        };
+
+        return in_array(mb_substr((string) $code, 0, 1), $class, true);
     }
 }

@@ -129,7 +129,6 @@ class UserRepositoryTest extends AbstractRepositoryTest
         $lastLogin2 = $user->getLastLogin();
         self::assertSame($firstLogin, $firstLogin2);
         self::assertNotSame($lastLogin, $lastLogin2);
-        self::assertNotNull($firstLogin2);
         self::assertNotNull($lastLogin2);
         $this->assertNoStamp($user);
     }
