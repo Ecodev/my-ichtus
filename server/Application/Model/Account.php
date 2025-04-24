@@ -65,7 +65,7 @@ class Account extends AbstractModel
     #[ORM\Column(type: 'Money', nullable: true)]
     private ?Money $budgetAllowed = null;
 
-    #[ORM\Column(type: 'Money', nullable: true)]
+    #[ORM\Column(type: 'Money', nullable: true, columnDefinition: 'INT AS (IF(type = \'asset\', budget_allowed - (total_balance - total_balance_former), budget_allowed - total_balance)) PERSISTENT')]
     private ?Money $budgetBalance = null;
 
     #[ORM\Column(type: 'Money', options: ['default' => 0])]

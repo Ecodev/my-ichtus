@@ -36,8 +36,7 @@ abstract class AbstractOperatorType extends AbstractOperator
             return null;
         }
 
-        $connection = _em()->getConnection();
-        $count = $connection->quote($args['value']);
+        $count = $args['value'];
         $bookingTypes = Utility::quoteArray([BookingType::SelfApproved->value]);
 
         $operator = $this->getDqlOperator();
