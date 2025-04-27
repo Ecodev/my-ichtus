@@ -110,12 +110,12 @@ abstract class BankingInfos implements FieldInterface
                 /** @var Response $response */
                 $response = $client->dispatch($request);
                 if (!$response->isSuccess()) {
-                    _log()->err('Erreur de génération du QR code: ' . $response->getStatusCode() . ' ' . $response->getReasonPhrase());
+                    _log()->error('Erreur de génération du QR code: ' . $response->getStatusCode() . ' ' . $response->getReasonPhrase());
 
                     return null;
                 }
             } catch (RuntimeException $e) {
-                _log()->err($e->getMessage(), $attrs);
+                _log()->error($e->getMessage(), $attrs);
 
                 return null;
             }

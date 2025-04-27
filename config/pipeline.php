@@ -24,7 +24,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     /** @var ErrorHandler $errorHandler */
     $errorHandler = $container->get(ErrorHandler::class);
     $errorHandler->attachListener(function (Throwable $throwable, ServerRequestInterface $request, ResponseInterface $response): void {
-        _log()->err($throwable->getMessage() . "\n" . $throwable->getTraceAsString());
+        _log()->error($throwable->getMessage() . "\n" . $throwable->getTraceAsString());
     });
 
     // The error handler should be the first (most outer) middleware to catch

@@ -60,7 +60,7 @@ abstract class OpenDoor implements FieldInterface
                     $response = $client->dispatch($request);
                 } catch (Client\Exception\RuntimeException $e) {
                     // No answer from the websocket
-                    _log()->err($e->getMessage(), $attrs);
+                    _log()->error($e->getMessage(), $attrs);
 
                     throw new Exception('Commande de porte temporairement inaccessible, essaie plus tard ou contacte un administrateur');
                 }
@@ -82,7 +82,7 @@ abstract class OpenDoor implements FieldInterface
                 // Log body if we have anything
                 $body = trim($response->getBody());
                 if ($body) {
-                    _log()->err($response->getBody(), $attrs);
+                    _log()->error($response->getBody(), $attrs);
                 }
 
                 throw new Exception($errorMsg);

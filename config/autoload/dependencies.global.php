@@ -33,7 +33,6 @@ return [
             Application\Service\MessageQueuer::class => Application\Service\MessageQueuerFactory::class,
             Ecodev\Felix\Handler\GraphQLHandler::class => Application\Handler\GraphQLFactory::class,
             Ecodev\Felix\Handler\ImageHandler::class => Application\Handler\ImageFactory::class,
-            Ecodev\Felix\Log\Writer\Db::class => Application\Log\DbWriterFactory::class,
             Ecodev\Felix\Service\Mailer::class => Application\Service\MailerFactory::class,
             GraphQL\Doctrine\Types::class => Application\Api\TypesFactory::class,
         ],
