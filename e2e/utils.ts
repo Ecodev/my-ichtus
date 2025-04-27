@@ -13,7 +13,7 @@ export function quoteXpath(xpath: string): string {
 }
 
 export function formControlName(name: string): string {
-    return `input[formcontrolname="${name}"],mat-checkbox[formcontrolname="${name}"] input`;
+    return `input[formcontrolname="${name}"],mat-checkbox[formcontrolname="${name}"] input,natural-select[formcontrolname="${name}"]`;
 }
 
 export function formControlNameXpath(name: string, index = 1): string {
