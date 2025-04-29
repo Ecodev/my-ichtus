@@ -28,11 +28,10 @@ use Laminas\ConfigAggregator\ConfigAggregator;
 return [
     'debug' => true,
     ConfigAggregator::ENABLE_CACHE => false,
+    'logSql' => true, // Log all SQL queries from Doctrine (to logs/all.log)
     'doctrine' => [
         'configuration' => [
             'orm_default' => [
-                // Log all SQL queries from Doctrine (to logs/all.log)
-                'middlewares' => [Ecodev\Felix\DBAL\Logging\Middleware::class],
                 'generate_proxies' => true,
             ],
         ],
