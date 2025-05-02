@@ -1295,12 +1295,12 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.6.3.tgz#f13c7c205915eb91ae54c557f5e92bddd8be0e83"
   integrity sha512-4B4OijXeVNOPZlYA2oEwWOTkzyltLao+xbotHQeqN++Rv27Y6s818+n2Qkp8q+Fxhn0t/5lA5X1Mxktud8eayQ==
 
-"@ecodev/fab-speed-dial@^17.0.0":
-  version "17.0.0"
-  resolved "https://registry.yarnpkg.com/@ecodev/fab-speed-dial/-/fab-speed-dial-17.0.0.tgz#4957c8361da1306279e9e65746681d7742285966"
-  integrity sha512-ZvxjQfpeesaKzxrBMe/iCjnsK1M2UxfwPIZ/VR840L8qL0kFWUPOw2NoA4E5FUB9ZGS5UYiNnWN/02/NtfpOkQ==
+"@ecodev/fab-speed-dial@^18.0.0":
+  version "18.0.0"
+  resolved "https://registry.yarnpkg.com/@ecodev/fab-speed-dial/-/fab-speed-dial-18.0.0.tgz#5e63acbb0c55c7980d607266ec235d9550241612"
+  integrity sha512-Ut0TVt4uzLT8xu1lB6P9qlYrI/lXC/4GASAAyVZNw5CtNSGp4xEuOxbsvS4P31MHksd3GBjc9rIrMwwU/xhh9Q==
   dependencies:
-    tslib "^2.6"
+    tslib "^2.8.1"
 
 "@ecodev/natural-editor@^63.0.0":
   version "63.0.0"
@@ -8997,7 +8997,7 @@ ts-log@^2.2.3:
   resolved "https://registry.yarnpkg.com/ts-log/-/ts-log-2.2.7.tgz#4f4512144898b77c9984e91587076fcb8518688e"
   integrity sha512-320x5Ggei84AxzlXp91QkIGSw5wgaLT6GeAH0KsqDmRZdVWW2OiSeVvElVoatk3f7nicwXlElXsoFkARiGE2yg==
 
-tslib@2.8.1, tslib@^2.0.0, tslib@^2.0.3, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.4.0, tslib@^2.5.0, tslib@^2.6, tslib@^2.6.2, tslib@^2.6.3, tslib@^2.8.1:
+tslib@2.8.1, tslib@^2.0.0, tslib@^2.0.3, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.4.0, tslib@^2.5.0, tslib@^2.6.2, tslib@^2.6.3, tslib@^2.8.1:
   version "2.8.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.8.1.tgz#612efe4ed235d567e8aba5f2a5fab70280ade83f"
   integrity sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==
