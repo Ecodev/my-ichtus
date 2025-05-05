@@ -35,17 +35,7 @@ return [
         'from' => 'noreply@my-ichtus.lan',
         'toOverride' => 'your@email.com',
     ],
-    'smtp' => [
-        'name' => 'mail.example.com',
-        'host' => 'mail.example.com',
-        'port' => 587,
-        'connection_class' => 'login',
-        'connection_config' => [
-            'username' => 'example@example.com',
-            'password' => '',
-            'ssl' => 'tls',
-        ],
-    ],
+    'smtp' => 'smtp://example@example.com:password@mail.example.com:587',
     'datatrans' => [
         'key' => '', // Used for HMAC-SHA256 request signing: https://api-reference.datatrans.ch/#request-signing
     ],
