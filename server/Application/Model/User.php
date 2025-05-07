@@ -175,13 +175,13 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     #[ORM\Column(type: 'date', nullable: true)]
     private ?ChronosDate $birthday = null;
 
-    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $termsAgreement = false;
 
-    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $hasInsurance = false;
 
-    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $receivesNewsletter = false;
 
     #[ORM\Column(type: 'enum', options: ['default' => Relationship::Householder])]

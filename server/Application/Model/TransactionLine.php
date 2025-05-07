@@ -54,7 +54,7 @@ class TransactionLine extends AbstractModel
     #[ORM\ManyToOne(targetEntity: TransactionTag::class)]
     private ?TransactionTag $transactionTag = null;
 
-    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $isReconciled = false;
 
     /**

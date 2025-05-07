@@ -11,16 +11,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait HasDoorAccess
 {
-    #[ORM\Column(type: 'boolean', options: ['default' => 1])]
+    #[ORM\Column(type: 'boolean', options: ['default' => true])]
     private bool $door1 = true;
 
-    #[ORM\Column(type: 'boolean', options: ['default' => 1])]
+    #[ORM\Column(type: 'boolean', options: ['default' => true])]
     private bool $door2 = true;
 
-    #[ORM\Column(type: 'boolean', options: ['default' => 1])]
+    #[ORM\Column(type: 'boolean', options: ['default' => true])]
     private bool $door3 = true;
 
-    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $door4 = false;
 
     public function getDoor1(): bool

@@ -61,7 +61,7 @@ class Bookable extends AbstractModel
     #[ORM\Column(type: 'enum', length: 10, options: ['default' => BookingType::AdminApproved])]
     private BookingType $bookingType = BookingType::AdminApproved;
 
-    #[ORM\Column(type: 'boolean', options: ['default' => 1])]
+    #[ORM\Column(type: 'boolean', options: ['default' => true])]
     private bool $isActive = true;
 
     #[ORM\Column(type: 'enum', length: 10, options: ['default' => BookableState::Good])]
