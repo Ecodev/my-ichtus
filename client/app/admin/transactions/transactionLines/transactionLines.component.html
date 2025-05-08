@@ -25,7 +25,7 @@
                 <table mat-table matSort [dataSource]="dataSource" (matSortChange)="sorting([$event])">
                     <tr *matHeaderRowDef="columnsForTable" mat-header-row></tr>
                     <tr *matRowDef="let row; columns: columnsForTable" mat-row></tr>
-                    @if (!relativeToAccount) {
+                    @if (dataSource.data?.length && !relativeToAccount) {
                         <tr *matFooterRowDef="columnsForTable" mat-footer-row></tr>
                     }
 
