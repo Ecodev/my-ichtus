@@ -68,7 +68,7 @@
         "mezzio/mezzio-helpers": "^5.16",
         "mezzio/mezzio-laminasviewrenderer": "^2.15",
         "mezzio/mezzio-session-ext": "^1.19",
-        "phpoffice/phpspreadsheet": "^2.1"
+        "phpoffice/phpspreadsheet": "^4.2"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "@stable",
