@@ -15,7 +15,7 @@
     </div>
 
     <mat-accordion>
-        @for (familyMember of familyMembers; track familyMember) {
+        @for (familyMember of familyMembers; track familyMember.id) {
             <mat-expansion-panel (afterExpand)="activeMember = familyMember" (closed)="activeMember = null">
                 <mat-expansion-panel-header>
                     <mat-panel-title> {{ familyMember?.name || 'Nouveau' }}</mat-panel-title>
