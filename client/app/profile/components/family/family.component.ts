@@ -6,7 +6,7 @@ import {ActivatedRoute, RouterLink} from '@angular/router';
 import {NaturalAlertService, NaturalFixedButtonComponent, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {cloneDeep} from 'lodash-es';
 import {MatExpansionModule, MatExpansionPanel} from '@angular/material/expansion';
-import {first} from 'rxjs/operators';
+import {first, skip} from 'rxjs/operators';
 import {FamilyMemberComponent} from '../family-member/family-member.component';
 import {MatButtonModule} from '@angular/material/button';
 import {AsyncPipe} from '@angular/common';
@@ -62,7 +62,7 @@ export class FamilyComponent implements OnInit {
     }
 
     public add(): void {
-        this.expansionPanels$.pipe(first()).subscribe(panels => {
+        this.expansionPanels$.pipe(skip(1), first()).subscribe(panels => {
             panels[panels.length - 1].open();
             this.changeDetectorRef.detectChanges();
         });
