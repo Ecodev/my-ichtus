@@ -25,9 +25,11 @@
                 <table mat-table matSort [dataSource]="dataSource" (matSortChange)="sorting([$event])">
                     <tr *matHeaderRowDef="columnsForTable" mat-header-row></tr>
                     <tr *matRowDef="let row; columns: columnsForTable" mat-row></tr>
-                    @if (dataSource.data?.length && !relativeToAccount) {
-                        <tr *matFooterRowDef="columnsForTable" mat-footer-row></tr>
-                    }
+                    <tr
+                        *matFooterRowDef="columnsForTable"
+                        mat-footer-row
+                        [hidden]="!dataSource.data?.length || relativeToAccount"
+                    ></tr>
 
                     <ng-container matColumnDef="name">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>Nom</th>

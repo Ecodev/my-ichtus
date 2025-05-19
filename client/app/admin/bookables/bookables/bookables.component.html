@@ -29,9 +29,11 @@ Warning this template is used by two components BookablesComponent and UsageBook
                 <table mat-table matSort [dataSource]="dataSource" (matSortChange)="sorting([$event])">
                     <tr *matHeaderRowDef="columnsForTable" mat-header-row></tr>
                     <tr *matRowDef="let row; columns: columnsForTable" mat-row></tr>
-                    @if (!route.snapshot.data.hideTableFooter) {
-                        <tr *matFooterRowDef="columnsForTable" mat-footer-row></tr>
-                    }
+                    <tr
+                        *matFooterRowDef="columnsForTable"
+                        mat-footer-row
+                        [hidden]="!dataSource.data?.length || route.snapshot.data.hideTableFooter"
+                    ></tr>
 
                     <ng-container matColumnDef="image">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header class="natural-2em-column"></th>
