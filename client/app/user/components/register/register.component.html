@@ -107,7 +107,11 @@
                     <table mat-table [dataSource]="mandatoryBookables">
                         <tr *matHeaderRowDef="['name', 'initialPrice', 'periodicPrice']" mat-header-row></tr>
                         <tr *matRowDef="let row; columns: ['name', 'initialPrice', 'periodicPrice']" mat-row></tr>
-                        <tr *matFooterRowDef="['name', 'initialPrice', 'periodicPrice']" mat-footer-row></tr>
+                        <tr
+                            *matFooterRowDef="['name', 'initialPrice', 'periodicPrice']"
+                            mat-footer-row
+                            [hidden]="!mandatoryBookables.data?.length"
+                        ></tr>
 
                         <ng-container matColumnDef="name">
                             <th *matHeaderCellDef mat-header-cell>Nom</th>

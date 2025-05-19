@@ -94,7 +94,11 @@
             <table mat-table [dataSource]="pendingApplicationsDS">
                 <tr *matHeaderRowDef="applicationsColumns" mat-header-row></tr>
                 <tr *matRowDef="let row; columns: applicationsColumns" mat-row></tr>
-                <tr *matFooterRowDef="applicationsColumns" mat-footer-row></tr>
+                <tr
+                    *matFooterRowDef="applicationsColumns"
+                    mat-footer-row
+                    [hidden]="!pendingApplicationsDS.data?.length"
+                ></tr>
 
                 <ng-container matColumnDef="name">
                     <th *matHeaderCellDef mat-header-cell>Nom</th>
