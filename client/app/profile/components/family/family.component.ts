@@ -69,6 +69,7 @@ export class FamilyComponent implements OnInit {
 
         const emptyUser = this.userService.getDefaultForServer() as Users['users']['items'][0];
         this.familyMembers.push(emptyUser);
+        this.activeMember = emptyUser;
     }
 
     /**
