@@ -32,7 +32,7 @@ return [
     'doctrine' => [
         'configuration' => [
             'orm_default' => [
-                'generate_proxies' => true,
+                'auto_generate_proxy_classes' => Doctrine\ORM\Proxy\ProxyFactory::AUTOGENERATE_ALWAYS,
             ],
         ],
     ],
