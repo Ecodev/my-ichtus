@@ -37,7 +37,7 @@
         "@graphql-tools/mock": "^9.0.22",
         "animejs": "^4.0.1",
         "apollo-angular": "^10.0.3",
-        "big.js": "^6.2.2",
+        "big.js": "^7.0.1",
         "crypto-es": "^2.1.0",
         "graphql": "^16.10.0",
         "ibantools": "^4.5.1",
