@@ -7,10 +7,13 @@
             @if (!activeOnly || (activeOnly && !item.terminated)) {
                 <app-card
                     class="nat-vertical"
-                    [@terminate]
                     [file]="item.booking.bookable?.image"
                     [style.width.px]="300"
                     [class.showComments]="item.showComments"
+                    [class.explode]="item.explode"
+                    [class.terminated]="item.terminated"
+                    (animationend)="animationEnd($event, item)"
+                    (animationcancel)="animationEnd($event, item)"
                 >
                     @if (!item.booking.bookable?.image) {
                         <div class="card-illustration nat-padding">
@@ -54,10 +57,9 @@
                                     [pHidden]="!!item.explode"
                                     [pParticlesAmountCoefficient]="2"
                                     [pOscillationCoefficient]="100"
-                                    [pDuration]="350"
+                                    [pDuration]="500"
                                     [pSpeed]="0.1"
                                     (click)="endBooking(item)"
-                                    (pComplete)="item.terminated = true"
                                 >
                                     Annoncer retour
                                 </button>

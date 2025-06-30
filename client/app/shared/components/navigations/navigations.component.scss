@@ -1,3 +1,13 @@
+@keyframes disappear {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
 .list {
     display: grid;
     grid-template-columns: repeat(auto-fit, 300px);
@@ -31,6 +41,10 @@ app-card {
             opacity: 1;
             pointer-events: auto;
         }
+    }
+
+    &.explode {
+        animation: disappear 500ms ease-in-out;
     }
 
     *:has(+ .bottom-buttons) {

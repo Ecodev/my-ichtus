@@ -1,7 +1,6 @@
 import {Component, inject, Input, OnInit} from '@angular/core';
 import {UserService} from '../../../admin/users/services/user.service';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
-import {animate, style, transition, trigger} from '@angular/animations';
 import {
     BookingPartialInput,
     Bookings,
@@ -68,9 +67,6 @@ function bookingsToExtended(bookings: Bookings['bookings']): PaginatedExtendedBo
     selector: 'app-navigations',
     templateUrl: './navigations.component.html',
     styleUrl: './navigations.component.scss',
-    animations: [
-        trigger('terminate', [transition(':leave', [animate('0.2s ease-in-out', style({transform: 'scale(0, 0)'}))])]),
-    ],
     imports: [
         CardComponent,
         NaturalAvatarComponent,
@@ -118,6 +114,12 @@ export class NavigationsComponent implements OnInit {
             this.family = [this.user, ...family.items];
             this.getNavigations(this.family).subscribe(bookings => (this.bookings = bookingsToExtended(bookings)));
         });
+    }
+
+    protected animationEnd(event: AnimationEvent, item: Extended): void {
+        if ((event.target as any).nodeName === 'APP-CARD') {
+            item.terminated = true;
+        }
     }
 
     public endBooking(item: Extended): void {

@@ -2,7 +2,6 @@ import {importProvidersFrom, inject, LOCALE_ID, provideAppInitializer, provideZo
 import {AppComponent} from './app/app.component';
 import {TimeagoCustomFormatter, TimeagoFormatter, TimeagoIntl, TimeagoModule} from 'ngx-timeago';
 import {routes} from './app/app-routing.module';
-import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 import {bootstrapApplication} from '@angular/platform-browser';
 import {Apollo} from 'apollo-angular';
 import {MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions} from '@angular/material/tooltip';
@@ -86,8 +85,6 @@ const iconsConfig: NaturalIconsConfig = {
     },
 };
 
-const prefersReducedMotion = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion)').matches : false;
-
 bootstrapApplication(AppComponent, {
     providers: [
         provideZoneChangeDetection({eventCoalescing: true}),
@@ -99,7 +96,6 @@ bootstrapApplication(AppComponent, {
         ),
         Apollo,
         provideNativeDateAdapter(),
-        provideAnimationsAsync(prefersReducedMotion ? 'noop' : 'animations'),
         naturalProviders,
         provideErrorHandler(localConfig.log.url, LoggerExtraService),
         provideSeo({

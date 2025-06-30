@@ -202,13 +202,6 @@
   dependencies:
     "@angular-eslint/bundled-angular-compiler" "19.3.0"
 
-"@angular/animations@^19.2.13":
-  version "19.2.13"
-  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-19.2.13.tgz#8df70342e29a51b85ed1a15c716240b004e4b906"
-  integrity sha512-x9LYcSndY9BdwuRxTx0gXvlLrvJyzjnWoaIoVLrAZWZbKfQh2+HK4XkclbzNvn8RMeoBpZZatcC3ZBC1TffjtA==
-  dependencies:
-    tslib "^2.3.0"
-
 "@angular/build@19.2.13":
   version "19.2.13"
   resolved "https://registry.yarnpkg.com/@angular/build/-/build-19.2.13.tgz#0b9dc22ba303ce29ec45fadd3ff60a651c588614"
@@ -1333,10 +1326,10 @@
   dependencies:
     tslib "^2.8.1"
 
-"@ecodev/natural-editor@^63.4.0":
-  version "63.4.0"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural-editor/-/natural-editor-63.4.0.tgz#16eff30e9ac8642f4909a2c3fbd497da26867ee3"
-  integrity sha512-seJuku1CHNCf+SUE8CVCX1WuiEmzVKHgnGkNU+cDiBMhraZVFH0orOAcP7Umz8nAVt3A62FdgNPCWP6cWSynpw==
+"@ecodev/natural-editor@^63.5.1":
+  version "63.5.1"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural-editor/-/natural-editor-63.5.1.tgz#3d7817412d7aa986765903ee92371d352f8dd65c"
+  integrity sha512-i7kstOAaDRzQ3JAtvUU3oXSK/tkuGQz1w2r24k8P44ltcPXz6fFAIAa4FmkcQcpXC8yP58gJ+T9e/ft/N0jwFA==
   dependencies:
     prosemirror-commands "^1.5.2"
     prosemirror-dropcursor "^1.8.1"
@@ -1358,10 +1351,10 @@
   resolved "https://registry.yarnpkg.com/@ecodev/natural-layout/-/natural-layout-2.0.2.tgz#e2c64c2ddb3c60793a39236b52624fde323e610a"
   integrity sha512-BV75kFQmpfuSBNQ1jyKu+IdGkFTMESjPrtKrEyc3MqcmVhV5IiYU0LXTaghLZozuZgCT9HfMOnEsh05aS2j9uQ==
 
-"@ecodev/natural@^63.4.0":
-  version "63.4.0"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-63.4.0.tgz#efa100f8de9d68fa9411cb79cf5786d19adc9fc4"
-  integrity sha512-0ux68Dxi1IJD42ShzIbWSOoFD/aY49z9VunDYFBzJCUSAQ4BGawhJR1aQX+9xbJHqx8rs5zmhyAI3QFCUJjnvg==
+"@ecodev/natural@^63.5.1":
+  version "63.5.1"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-63.5.1.tgz#d7bcedbd91daad69fc03fccc8d3f7689a33ed85b"
+  integrity sha512-F3KIqRkksf4wv4M6nKqjolYwyW24hkcsthZn4C3yUyiKQVZ7zWGhXpeLfzjLDl10rbtpDnV0+vmcGJ/BL15W6Q==
   dependencies:
     extract-files "^13.0.0"
     tslib "^2.8.1"
