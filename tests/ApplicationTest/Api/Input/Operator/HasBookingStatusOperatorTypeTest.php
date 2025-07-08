@@ -10,16 +10,6 @@ use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
 
 class HasBookingStatusOperatorTypeTest extends OperatorType
 {
-    public function providerGetDqlCondition(): iterable
-    {
-        yield 'users with application' => [3, [BookingStatus::Application], null];
-        yield 'users with booked' => [4, [BookingStatus::Booked], null];
-        yield 'users with both' => [4, [BookingStatus::Booked], null];
-        yield 'users with processed' => [1, [BookingStatus::Processed], null];
-        yield 'users without application' => [5, [BookingStatus::Application], true];
-        yield 'users with any booking status' => [6, null, true];
-    }
-
     /**
      * @dataProvider providerGetDqlCondition
      */
@@ -33,5 +23,15 @@ class HasBookingStatusOperatorTypeTest extends OperatorType
         ];
         $actual = $this->getFilteredResult(User::class, 'custom', 'hasBookingStatus', $values);
         self::assertCount($expected, $actual);
+    }
+
+    public static function providerGetDqlCondition(): iterable
+    {
+        yield 'users with application' => [3, [BookingStatus::Application], null];
+        yield 'users with booked' => [4, [BookingStatus::Booked], null];
+        yield 'users with both' => [4, [BookingStatus::Booked], null];
+        yield 'users with processed' => [1, [BookingStatus::Processed], null];
+        yield 'users without application' => [5, [BookingStatus::Application], true];
+        yield 'users with any booking status' => [6, null, true];
     }
 }

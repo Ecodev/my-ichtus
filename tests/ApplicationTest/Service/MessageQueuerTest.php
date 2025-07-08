@@ -53,7 +53,7 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @dataProvider userProvider
+     * @dataProvider providerQueueResetPassword
      */
     public function testQueueResetPassword(User $user, ?string $expectedEmail): void
     {
@@ -61,6 +61,21 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
         $message = $messageQueuer->queueResetPassword($user);
 
         $this->assertMessage($message, $user, $expectedEmail, MessageTypeType::RESET_PASSWORD, 'Demande de modification de mot de passe');
+    }
+
+    public function providerQueueResetPassword(): iterable
+    {
+        $userWithEmail = $this->createMockUser();
+        $userWithFamilyOwner = $this->createMockUserWithFamilyOwner(true);
+        $userWithFamilyOwnerWithoutEmail = $this->createMockUserWithFamilyOwner(false);
+        $userWithoutEmail = $this->createMockUserWithoutEmail();
+
+        return [
+            'user with email' => [$userWithEmail, 'john.doe@example.com'],
+            'user without email' => [$userWithoutEmail, null],
+            'user without email but with family owner with email' => [$userWithFamilyOwner, 'family-owner@example.com'],
+            'user without email but with family owner without email' => [$userWithFamilyOwnerWithoutEmail, null],
+        ];
     }
 
     public function testQueueBalancePositive(): void
@@ -133,21 +148,6 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
         $message = $messageQueuer->queueAdminLeaveFamily($user);
 
         $this->assertMessage($message, null, 'caissier@ichtus.ch', MessageTypeType::ADMIN_LEAVE_FAMILY, 'Ménage quitté');
-    }
-
-    public function userProvider(): array
-    {
-        $userWithEmail = $this->createMockUser();
-        $userWithFamilyOwner = $this->createMockUserWithFamilyOwner(true);
-        $userWithFamilyOwnerWithoutEmail = $this->createMockUserWithFamilyOwner(false);
-        $userWithoutEmail = $this->createMockUserWithoutEmail();
-
-        return [
-            'user with email' => [$userWithEmail, 'john.doe@example.com'],
-            'user without email' => [$userWithoutEmail, null],
-            'user without email but with family owner with email' => [$userWithFamilyOwner, 'family-owner@example.com'],
-            'user without email but with family owner without email' => [$userWithFamilyOwnerWithoutEmail, null],
-        ];
     }
 
     private function createMockUser(?User $owner = null): User

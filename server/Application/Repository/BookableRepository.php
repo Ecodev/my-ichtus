@@ -9,6 +9,4 @@ use Application\Model\Bookable;
 /**
  * @extends AbstractRepository<Bookable>
  */
-class BookableRepository extends AbstractRepository
-{
-}
+class BookableRepository extends AbstractRepository {}

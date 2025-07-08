@@ -66,7 +66,7 @@ class InvoicerTest extends TestCase
         } else {
             $all = array_merge(
                 $account->getCreditTransactionLines()->toArray(),
-                $account->getDebitTransactionLines()->toArray()
+                $account->getDebitTransactionLines()->toArray(),
             );
             $actual = [];
 
@@ -92,7 +92,7 @@ class InvoicerTest extends TestCase
         }
     }
 
-    public function providerInvoiceInitial(): iterable
+    public static function providerInvoiceInitial(): iterable
     {
         yield 'free booking should create nothing' => [
             Money::CHF(0),
@@ -238,7 +238,7 @@ class InvoicerTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function providerShouldInvoiceInitial(): iterable
+    public static function providerShouldInvoiceInitial(): iterable
     {
         yield 'create MANDATORY booking should invoice' => [
             [

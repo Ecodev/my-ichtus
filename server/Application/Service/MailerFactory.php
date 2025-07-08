@@ -29,7 +29,7 @@ class MailerFactory
             $config['phpPath'],
             $config['email']['toOverride'] ?? null,
             $config['email']['from'],
-            'Ichtus'
+            'Ichtus',
         );
     }
 }

@@ -11,9 +11,9 @@ abstract class AbstractExporter
 {
     private string $exportDir = 'htdocs/data/export/';
 
-    public function __construct(protected string $hostname)
-    {
-    }
+    public function __construct(
+        protected string $hostname,
+    ) {}
 
     abstract protected function getTitleForFilename(): string;
 

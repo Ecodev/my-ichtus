@@ -27,8 +27,9 @@ class Invoicer
 
     private readonly BookingRepository $bookingRepository;
 
-    public function __construct(private readonly EntityManager $entityManager)
-    {
+    public function __construct(
+        private readonly EntityManager $entityManager,
+    ) {
         $this->bookingRepository = $this->entityManager->getRepository(Booking::class);
     }
 

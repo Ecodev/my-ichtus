@@ -33,8 +33,10 @@ class Accounting
 
     private bool $hasError = false;
 
-    public function __construct(private readonly EntityManager $entityManager, private readonly array $accountingConfig)
-    {
+    public function __construct(
+        private readonly EntityManager $entityManager,
+        private readonly array $accountingConfig,
+    ) {
         $this->transactionRepository = $this->entityManager->getRepository(Transaction::class);
         $this->accountRepository = $this->entityManager->getRepository(Account::class);
         $this->userRepository = $this->entityManager->getRepository(User::class);
@@ -298,8 +300,8 @@ Capital   : ' . Format::money($equity) . '
                     $user->getId(),
                     $user->getName(),
                     $user->getOwner()->getId(),
-                    $user->getOwner()->getName()
-                )
+                    $user->getOwner()->getName(),
+                ),
             );
         }
     }

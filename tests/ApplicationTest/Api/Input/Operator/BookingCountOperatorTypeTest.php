@@ -9,14 +9,6 @@ use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
 
 class BookingCountOperatorTypeTest extends OperatorType
 {
-    public function providerGetDqlCondition(): iterable
-    {
-        yield [2, 'Equal', 1];
-        yield [1, 'Equal', 2];
-        yield [3, 'GreaterOrEqual', 1];
-        yield [3, 'Less', 4];
-    }
-
     protected function setUp(): void
     {
         // Login as administrator to see all users
@@ -37,5 +29,13 @@ class BookingCountOperatorTypeTest extends OperatorType
 
         $actual = $this->getFilteredResult(User::class, 'bookingCount', 'bookingCount' . $comparison, $values);
         self::assertCount($expected, $actual);
+    }
+
+    public static function providerGetDqlCondition(): iterable
+    {
+        yield [2, 'Equal', 1];
+        yield [1, 'Equal', 2];
+        yield [3, 'GreaterOrEqual', 1];
+        yield [3, 'Less', 4];
     }
 }

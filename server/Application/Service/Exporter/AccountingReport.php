@@ -108,8 +108,10 @@ class AccountingReport extends AbstractExcel
         'balance' => 12,
     ];
 
-    public function __construct(string $hostname, private readonly array $accountingConfig)
-    {
+    public function __construct(
+        string $hostname,
+        private readonly array $accountingConfig,
+    ) {
         parent::__construct($hostname);
 
         $this->zebra = false;
@@ -146,7 +148,7 @@ class AccountingReport extends AbstractExcel
         $this->write(
             sprintf($this->hostname . ': rapport comptable au %s', $this->date->format('d.m.Y')),
             self::$titleFormat,
-            self::$centerFormat
+            self::$centerFormat,
         );
         $this->sheet->getRowDimension($this->row)->setRowHeight(35);
         ++$this->row;
@@ -440,7 +442,7 @@ class AccountingReport extends AbstractExcel
         $this->write(
             _tr('Bilan'),
             self::$titleFormat,
-            self::$centerFormat
+            self::$centerFormat,
         );
         $this->sheet->getRowDimension($this->row)->setRowHeight(40);
         ++$this->row;
@@ -508,7 +510,7 @@ class AccountingReport extends AbstractExcel
             $this->write(
                 str_repeat('  ', $data['depth'] - 1) . $data['code'],
                 self::$indentFormat,
-                $maybeBold
+                $maybeBold,
             );
 
             // Column: account name
@@ -592,7 +594,7 @@ class AccountingReport extends AbstractExcel
         $this->write(
             _tr('Compte de résultat'),
             self::$titleFormat,
-            self::$centerFormat
+            self::$centerFormat,
         );
         $this->sheet->getRowDimension($this->row)->setRowHeight(40);
         ++$this->row;
@@ -652,7 +654,7 @@ class AccountingReport extends AbstractExcel
             $this->write(
                 str_repeat('  ', $data['depth'] - 1) . $data['code'],
                 self::$indentFormat,
-                $maybeBold
+                $maybeBold,
             );
 
             // Column: account name

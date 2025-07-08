@@ -27,9 +27,11 @@ class DatatransHandler extends AbstractHandler
     /**
      * DatatransAction constructor.
      */
-    public function __construct(private readonly EntityManager $entityManager, private readonly TemplateRendererInterface $template, private readonly array $config)
-    {
-    }
+    public function __construct(
+        private readonly EntityManager $entityManager,
+        private readonly TemplateRendererInterface $template,
+        private readonly array $config,
+    ) {}
 
     /**
      * Webhook called by datatrans when a payment was made.

@@ -22,8 +22,10 @@ class MessageQueuer
 
     private readonly UserRepository $userRepository;
 
-    public function __construct(private readonly EntityManager $entityManager, private readonly MessageRenderer $messageRenderer)
-    {
+    public function __construct(
+        private readonly EntityManager $entityManager,
+        private readonly MessageRenderer $messageRenderer,
+    ) {
         $this->userRepository = $this->entityManager->getRepository(User::class);
     }
 

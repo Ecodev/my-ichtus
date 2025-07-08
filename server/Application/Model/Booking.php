@@ -56,9 +56,7 @@ class Booking extends AbstractModel
     #[ORM\ManyToOne(targetEntity: Bookable::class, inversedBy: 'bookings')]
     private ?Bookable $bookable = null;
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public function setOwner(?User $owner = null): void
     {

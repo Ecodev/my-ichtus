@@ -9,13 +9,6 @@ use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
 
 class HasBookingCompletedOperatorTypeTest extends OperatorType
 {
-    public function providerGetDqlCondition(): iterable
-    {
-        yield 'users with completed bookings' => [2, [true], false];
-        yield 'users with uncompleted bookings' => [6, [false], false];
-        yield 'users with completed and uncompleted bookings' => [6, [true, false], false];
-    }
-
     /**
      * @dataProvider providerGetDqlCondition
      */
@@ -29,5 +22,12 @@ class HasBookingCompletedOperatorTypeTest extends OperatorType
         ];
         $actual = $this->getFilteredResult(User::class, 'custom', 'hasBookingCompleted', $values);
         self::assertCount($expected, $actual);
+    }
+
+    public static function providerGetDqlCondition(): iterable
+    {
+        yield 'users with completed bookings' => [2, [true], false];
+        yield 'users with uncompleted bookings' => [6, [false], false];
+        yield 'users with completed and uncompleted bookings' => [6, [true, false], false];
     }
 }

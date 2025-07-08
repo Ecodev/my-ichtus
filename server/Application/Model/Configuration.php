@@ -21,9 +21,8 @@ class Configuration extends AbstractModel
 
     public function __construct(
         #[ORM\Column(name: '`key`', type: 'string', length: 191, unique: true)]
-        private string $key = ''
-    ) {
-    }
+        private string $key = '',
+    ) {}
 
     /**
      * Get key.

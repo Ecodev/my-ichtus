@@ -57,7 +57,7 @@ class DatatransHandlerTest extends TestCase
         self::assertTrue(true); // Workaround when we only assert via prophesize
     }
 
-    public function providerProcess(): iterable
+    public static function providerProcess(): iterable
     {
         yield 'normal' => [
             [

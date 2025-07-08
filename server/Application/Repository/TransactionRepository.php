@@ -121,7 +121,7 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
         foreach ([...$inserted, ...$updated] as $object) {
             if ($object instanceof TransactionLine) {
                 $this->gatherTransactionLine($transactions, $accounts, $object);
-            } elseif (!in_array(get_class($object), [Transaction::class, Account::class, ExpenseClaim::class], true)) {
+            } elseif (!in_array($object::class, [Transaction::class, Account::class, ExpenseClaim::class], true)) {
                 $this->throwNotAllowed($object);
             }
         }
@@ -172,7 +172,7 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
         // mechanisms, that would be broken/not ran by this method. If you are
         // really-really-really sure that the DB content stays consistent, then you can
         // allowlist the object here.
-        throw new LogicException('flushWithFastTransactionLineTriggers() must not be used with ' . get_class($object));
+        throw new LogicException('flushWithFastTransactionLineTriggers() must not be used with ' . $object::class);
     }
 
     /**

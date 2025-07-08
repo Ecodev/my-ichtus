@@ -10,13 +10,6 @@ use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
 
 class BookingDateOperatorTypeTest extends OperatorType
 {
-    public function providerGetDqlCondition(): iterable
-    {
-        yield [1, 'Less', new ChronosDate('2018-01-02')];
-        yield [3, 'GreaterOrEqual', new ChronosDate('2018-01-01')];
-        yield [3, 'GreaterOrEqual', new ChronosDate('2018-01-02')];
-    }
-
     protected function setUp(): void
     {
         // Login as administrator to see all users
@@ -37,5 +30,12 @@ class BookingDateOperatorTypeTest extends OperatorType
 
         $actual = $this->getFilteredResult(User::class, 'bookingDate', 'bookingDate' . $comparison, $values);
         self::assertCount($expected, $actual);
+    }
+
+    public static function providerGetDqlCondition(): iterable
+    {
+        yield [1, 'Less', new ChronosDate('2018-01-02')];
+        yield [3, 'GreaterOrEqual', new ChronosDate('2018-01-01')];
+        yield [3, 'GreaterOrEqual', new ChronosDate('2018-01-02')];
     }
 }

@@ -9,6 +9,4 @@ use Application\Model\TransactionTag;
 /**
  * @extends AbstractRepository<TransactionTag>
  */
-class TransactionTagRepository extends AbstractRepository
-{
-}
+class TransactionTagRepository extends AbstractRepository {}

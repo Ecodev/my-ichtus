@@ -110,7 +110,7 @@ class BookingTest extends TestCase
         self::assertSame($newOwner, $subject->getOwner());
     }
 
-    public function providerSetOwner(): iterable
+    public static function providerSetOwner(): iterable
     {
         $u1 = new User();
         $u1->setLogin('u1');

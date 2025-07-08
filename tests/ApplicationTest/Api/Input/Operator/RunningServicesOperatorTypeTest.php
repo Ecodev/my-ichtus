@@ -10,7 +10,21 @@ use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
 
 class RunningServicesOperatorTypeTest extends OperatorType
 {
-    public function providerGetDqlCondition(): iterable
+    /**
+     * @dataProvider providerGetDqlCondition
+     */
+    public function testGetDqlCondition(int $expected, int $userId): void
+    {
+        $administrator = new User(User::ROLE_ADMINISTRATOR);
+        User::setCurrent($administrator);
+        $values = [
+            'user' => $this->idToEntityId(User::class, $userId),
+        ];
+        $actual = $this->getFilteredResult(Booking::class, 'custom', 'runningServices', $values);
+        self::assertCount($expected, $actual);
+    }
+
+    public static function providerGetDqlCondition(): iterable
     {
         yield 'user 1000' => [0, 1000];
         yield 'user 1001' => [0, 1001];
@@ -28,19 +42,5 @@ class RunningServicesOperatorTypeTest extends OperatorType
         yield 'user 1013' => [0, 1013];
         yield 'user 1014' => [0, 1014];
         yield 'user 1015' => [0, 1015];
-    }
-
-    /**
-     * @dataProvider providerGetDqlCondition
-     */
-    public function testGetDqlCondition(int $expected, int $userId): void
-    {
-        $administrator = new User(User::ROLE_ADMINISTRATOR);
-        User::setCurrent($administrator);
-        $values = [
-            'user' => $this->idToEntityId(User::class, $userId),
-        ];
-        $actual = $this->getFilteredResult(Booking::class, 'custom', 'runningServices', $values);
-        self::assertCount($expected, $actual);
     }
 }

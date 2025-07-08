@@ -9,6 +9,4 @@ use Application\Model\BookableMetadata;
 /**
  * @extends AbstractRepository<BookableMetadata>
  */
-class BookableMetadataRepository extends AbstractRepository
-{
-}
+class BookableMetadataRepository extends AbstractRepository {}

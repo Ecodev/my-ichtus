@@ -92,7 +92,7 @@ class UserRepositoryTest extends AbstractRepositoryTest
         self::assertSame($expected, $actual ? $actual->getId() : $actual);
     }
 
-    public function providerGetOneByLoginOrEmail(): iterable
+    public static function providerGetOneByLoginOrEmail(): iterable
     {
         yield [null, null];
         yield ['', null];

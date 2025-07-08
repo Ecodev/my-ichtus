@@ -20,7 +20,7 @@ class MessageQueuerFactory
 
         return new MessageQueuer(
             $entityManager,
-            $renderer
+            $renderer,
         );
     }
 }

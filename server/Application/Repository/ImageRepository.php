@@ -9,6 +9,4 @@ use Application\Model\Image;
 /**
  * @extends AbstractRepository<Image>
  */
-class ImageRepository extends AbstractRepository
-{
-}
+class ImageRepository extends AbstractRepository {}

@@ -88,7 +88,7 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
                 ->orWhere('user.email IS NOT NULL AND user.email = :value')
                 ->setParameter('value', $loginOrEmail)
                 ->getQuery()
-                ->getOneOrNullResult()
+                ->getOneOrNullResult(),
         );
 
         return $user;

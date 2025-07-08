@@ -9,6 +9,4 @@ use Application\Model\Country;
 /**
  * @extends AbstractRepository<Country>
  */
-class CountryRepository extends AbstractRepository
-{
-}
+class CountryRepository extends AbstractRepository {}

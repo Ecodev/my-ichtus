@@ -70,7 +70,7 @@ class TransactionLineRepositoryTest extends AbstractRepositoryTest
             ],
             [
                 'id' => $id,
-            ]
+            ],
         );
         self::assertSame(1, $count);
         $this->assertAccountBalance($account1, 1000, 'balance should be reduced even more after update');
@@ -84,7 +84,7 @@ class TransactionLineRepositoryTest extends AbstractRepositoryTest
             ],
             [
                 'id' => $id,
-            ]
+            ],
         );
         self::assertSame(1, $count);
         $this->assertAccountBalance($account1, 9000, 'balance should be twice increased after swapping both accounts');
@@ -98,7 +98,7 @@ class TransactionLineRepositoryTest extends AbstractRepositoryTest
             ],
             [
                 'id' => $id,
-            ]
+            ],
         );
         self::assertSame(1, $count);
         $this->assertAccountBalance($account1, 5000, 'balance should be restored to its original value after deletion');
@@ -112,7 +112,7 @@ class TransactionLineRepositoryTest extends AbstractRepositoryTest
             ],
             [
                 'id' => $id,
-            ]
+            ],
         );
         self::assertSame(1, $count);
         $this->assertAccountBalance($account1, 5000, 'balance should be unchanged');
@@ -126,7 +126,7 @@ class TransactionLineRepositoryTest extends AbstractRepositoryTest
             ],
             [
                 'id' => $id,
-            ]
+            ],
         );
         self::assertSame(1, $count);
         $this->assertAccountBalance($account1, 5000, 'balance should be restored to its original value after deletion');
@@ -169,7 +169,7 @@ class TransactionLineRepositoryTest extends AbstractRepositoryTest
         self::assertSame($expected, $this->repository->importedExists($importedId, new Chronos($transactionDate)));
     }
 
-    public function providerImportedExists(): iterable
+    public static function providerImportedExists(): iterable
     {
         yield 'duplicated' => ['my-unique-imported-id', '2019-04-05', true];
         yield 'different date' => ['my-unique-imported-id', '2019-02-05', false];

@@ -42,6 +42,22 @@ class ImporterTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
+    public static function providerImport(): iterable
+    {
+        // Return all couples of xml/php files
+        $files = [];
+        foreach (glob('tests/data/importer/*.xml') ?: [] as $xml) {
+            $php = preg_replace('~xml$~', 'php', $xml);
+            if ($php && file_exists($php)) {
+                $name = str_replace('-', ' ', basename($xml, '.xml'));
+
+                $files[$name] = [$xml, $php];
+            }
+        }
+
+        return $files;
+    }
+
     public function testThrowWhenFileDoesNotExist(): void
     {
         $this->expectExceptionMessage('/this/surely/is/a/non/existing/file does not exists');
@@ -127,21 +143,5 @@ class ImporterTest extends TestCase
         ];
 
         return $result;
-    }
-
-    public function providerImport(): array
-    {
-        // Return all couples of xml/php files
-        $files = [];
-        foreach (glob('tests/data/importer/*.xml') ?: [] as $xml) {
-            $php = preg_replace('~xml$~', 'php', $xml);
-            if ($php && file_exists($php)) {
-                $name = str_replace('-', ' ', basename($xml, '.xml'));
-
-                $files[$name] = [$xml, $php];
-            }
-        }
-
-        return $files;
     }
 }

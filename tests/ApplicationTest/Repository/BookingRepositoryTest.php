@@ -111,7 +111,7 @@ class BookingRepositoryTest extends AbstractRepositoryTest
     }
 
     /**
-     * @dataProvider providerGetAllToInvoice
+     * @dataProvider providerGetAllToInvoiceAllCases
      */
     public function testGetAllToInvoiceAllCases(array $data, array $expected): void
     {
@@ -126,7 +126,7 @@ class BookingRepositoryTest extends AbstractRepositoryTest
         self::assertSame($expected, $actual);
     }
 
-    public function providerGetAllToInvoice(): iterable
+    public static function providerGetAllToInvoiceAllCases(): iterable
     {
         $normal = [
             [

@@ -193,13 +193,9 @@ abstract class AbstractExcel extends AbstractExporter
         $this->sheet->getDefaultRowDimension()->setRowHeight(20);
     }
 
-    protected function writeTitle(): void
-    {
-    }
+    protected function writeTitle(): void {}
 
-    protected function writeFooter(): void
-    {
-    }
+    protected function writeFooter(): void {}
 
     public function writeHeaders(array $headers): void
     {

@@ -15,9 +15,9 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class AuthenticationMiddleware implements MiddlewareInterface
 {
-    public function __construct(private readonly UserRepository $userRepository)
-    {
-    }
+    public function __construct(
+        private readonly UserRepository $userRepository,
+    ) {}
 
     /**
      * Load current user from session if exists and still valid.

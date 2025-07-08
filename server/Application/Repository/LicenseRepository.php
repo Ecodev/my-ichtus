@@ -9,6 +9,4 @@ use Application\Model\License;
 /**
  * @extends AbstractRepository<License>
  */
-class LicenseRepository extends AbstractRepository
-{
-}
+class LicenseRepository extends AbstractRepository {}

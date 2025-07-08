@@ -22,7 +22,7 @@ class Version20230510085600 extends AbstractMigration
             [
                 BookableTagRepository::WELCOME_ID,
                 BookableTagRepository::FORMATION_ID,
-            ]
+            ],
         );
     }
 }

@@ -180,7 +180,7 @@ class AccountRepositoryTest extends AbstractRepositoryTest
         self::assertSame($expected, $actual);
     }
 
-    public function providerGetNextCode(): iterable
+    public static function providerGetNextCode(): iterable
     {
         yield [null, 10];
         yield [10011, 20300010];
@@ -202,7 +202,7 @@ class AccountRepositoryTest extends AbstractRepositoryTest
         self::assertSame($expected, $this->repository->hasTransaction($account));
     }
 
-    public function providerHasTransaction(): iterable
+    public static function providerHasTransaction(): iterable
     {
         yield [10000, true];
         yield [10096, true];

@@ -41,7 +41,7 @@ class UserTest extends TestCase
         self::assertSame($newRole, $user2->getRole());
     }
 
-    public function providerSetRole(): iterable
+    public static function providerSetRole(): iterable
     {
         yield [User::ROLE_ANONYMOUS, User::ROLE_ADMINISTRATOR, User::ROLE_MEMBER, 'anonymous is not allowed to change role from administrator to member'];
         yield [User::ROLE_ANONYMOUS, User::ROLE_MEMBER, User::ROLE_ADMINISTRATOR, 'anonymous is not allowed to change role from member to administrator'];
@@ -83,7 +83,24 @@ class UserTest extends TestCase
         $user->setOwner($owner);
     }
 
-    public function providerCanOpenDoor(): iterable
+    /**
+     * @dataProvider providerCanOpenDoor
+     */
+    public function testCanOpenDoor(string $role, UserStatus $status, array $doors, array $result): void
+    {
+        $user = new User($role);
+        $user->setStatus($status);
+        foreach ($doors as $door => $value) {
+            $setter = 'set' . ucfirst($door);
+            $user->$setter($value);
+        }
+
+        foreach ($result as $door => $canOpen) {
+            self::assertSame($canOpen, $user->getCanOpenDoor(Door::from($door)));
+        }
+    }
+
+    public static function providerCanOpenDoor(): iterable
     {
         yield 'anonymous cannot open' => [
             User::ROLE_ANONYMOUS,
@@ -121,23 +138,6 @@ class UserTest extends TestCase
             ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => true],
             ['door1' => true, 'door2' => true, 'door3' => true, 'door4' => true],
         ];
-    }
-
-    /**
-     * @dataProvider providerCanOpenDoor
-     */
-    public function testCanOpenDoor(string $role, UserStatus $status, array $doors, array $result): void
-    {
-        $user = new User($role);
-        $user->setStatus($status);
-        foreach ($doors as $door => $value) {
-            $setter = 'set' . ucfirst($door);
-            $user->$setter($value);
-        }
-
-        foreach ($result as $door => $canOpen) {
-            self::assertSame($canOpen, $user->getCanOpenDoor(Door::from($door)));
-        }
     }
 
     public function testGetAccount(): void
