@@ -7,7 +7,7 @@ import {
     NaturalQueryVariablesManager,
 } from '@ecodev/natural';
 import {Bookable, BookableMetadatas, BookableMetadatasVariables} from '../../shared/generated-types';
-import {cloneDeep} from 'lodash-es';
+import {cloneDeep} from 'es-toolkit';
 import {finalize} from 'rxjs/operators';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';

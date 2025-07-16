@@ -25,7 +25,7 @@ import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn, Validators} f
 import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {BookingService} from '../../bookings/services/booking.service';
-import {intersectionBy} from 'lodash-es';
+import {intersectionBy} from 'es-toolkit';
 import {
     FormAsyncValidators,
     FormValidators,
@@ -138,7 +138,7 @@ export class BookableService extends NaturalAbstractModelService<
             return false;
         }
 
-        const matching = intersectionBy(bookable.licenses, user.licenses, 'id');
+        const matching = intersectionBy(bookable.licenses, user.licenses, l => l.id);
 
         return matching.length === bookable.licenses.length;
     }

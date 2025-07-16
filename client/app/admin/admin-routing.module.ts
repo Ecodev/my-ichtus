@@ -50,7 +50,7 @@ import {resolveExpenseClaimParam} from './expenseClaim/services/expenseClaim.par
 import {ImportComponent} from './import/import.component';
 import {LogsComponent} from './logs/logs/logs.component';
 import {BookableTagService} from './bookableTags/services/bookableTag.service';
-import {merge} from 'lodash-es';
+import {merge} from 'es-toolkit';
 import {UsageBookablesComponent} from './bookables/bookables/usage-bookables.component';
 import {BookingsWithOwnerComponent} from './bookings/bookings/bookings-with-owner.component';
 import {NaturalSeo} from '@ecodev/natural';

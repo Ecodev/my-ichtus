@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {available, deliverableEmail, NaturalIconDirective, relationsToIds} from '@ecodev/natural';
-import {pick} from 'lodash-es';
+import {pick} from 'es-toolkit';
 import {RegisterComponent} from './register.component';
 import {FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {loginValidator, UserService} from '../../../admin/users/services/user.service';

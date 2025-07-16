@@ -6,7 +6,7 @@ import {
     NaturalIconDirective,
     NaturalSelectEnumComponent,
 } from '@ecodev/natural';
-import {merge} from 'lodash-es';
+import {merge} from 'es-toolkit';
 import {FamilyUserService} from './family-user.service';
 import {EMPTY, Observable} from 'rxjs';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -58,7 +58,10 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
     public override ngOnInit(): void {
         if (this.user?.id) {
             this.service.getOne(this.user.id).subscribe(user => {
-                this.data = merge({model: this.service.getDefaultForServer()}, {model: user}, {owner: this.viewer});
+                this.data = merge(
+                    {model: this.service.getDefaultForServer()},
+                    merge({model: user}, {owner: this.viewer}),
+                );
                 this.setForm();
             });
         } else {

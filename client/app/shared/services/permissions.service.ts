@@ -4,7 +4,7 @@ import {Literal} from '@ecodev/natural';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {concatMap, debounceTime, distinctUntilChanged, filter, map, shareReplay} from 'rxjs/operators';
 import {CurrentUserForProfile, Permissions, UserRole, UserStatus} from '../generated-types';
-import {isEqual} from 'lodash-es';
+import {isEqual} from 'es-toolkit';
 import {permissionsQuery} from './permissions.queries';
 
 type Contexts = {

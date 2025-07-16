@@ -4,7 +4,7 @@ import {UserService} from '../../../admin/users/services/user.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {NaturalAlertService, NaturalFixedButtonComponent, NaturalQueryVariablesManager} from '@ecodev/natural';
-import {cloneDeep} from 'lodash-es';
+import {cloneDeep} from 'es-toolkit';
 import {MatExpansionModule, MatExpansionPanel} from '@angular/material/expansion';
 import {first, skip} from 'rxjs/operators';
 import {FamilyMemberComponent} from '../family-member/family-member.component';

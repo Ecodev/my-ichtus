@@ -20,7 +20,7 @@ import {
     TransactionTag,
 } from '../../../shared/generated-types';
 import {PermissionsService} from '../../../shared/services/permissions.service';
-import {union} from 'lodash-es';
+import {union} from 'es-toolkit';
 import {MatCheckboxChange, MatCheckboxModule} from '@angular/material/checkbox';
 import {RouterLink} from '@angular/router';
 import {MatPaginatorModule} from '@angular/material/paginator';
