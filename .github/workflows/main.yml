@@ -64,7 +64,7 @@ jobs:
             - run: ./vendor/bin/phpstan analyse
             - run: ./vendor/bin/phpunit --coverage-clover coverage-clover.xml
             - run: yarn lint
-            - run: ./node_modules/.bin/prettier --check .
+            - run: ./node_modules/.bin/prettier --experimental-cli --check .
             - run: ./node_modules/.bin/ng test --progress false --watch=false --browsers ChromeHeadlessCustom
 
             - name: Upload code coverage
