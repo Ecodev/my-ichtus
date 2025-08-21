@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Api\Output;
 
+use Application\Api\Scalar\MoneyType;
 use Application\Model\Bookable;
 use Application\Model\Booking;
 use Application\Model\TransactionLine;
@@ -28,29 +29,29 @@ class PaginationTypeFactory extends \Ecodev\Felix\Api\Output\PaginationTypeFacto
                 'description' => 'The total count of participant',
             ];
             $fields['totalInitialPrice'] = [
-                'type' => _types()->get('Money'),
+                'type' => _types()->get(MoneyType::class),
                 'description' => 'The total initial price',
             ];
             $fields['totalPeriodicPrice'] = [
-                'type' => _types()->get('Money'),
+                'type' => _types()->get(MoneyType::class),
                 'description' => 'The total periodic price',
             ];
         } elseif ($class === Bookable::class) {
             $fields['totalPurchasePrice'] = [
-                'type' => _types()->get('Money'),
+                'type' => _types()->get(MoneyType::class),
                 'description' => 'The total purchase price',
             ];
             $fields['totalInitialPrice'] = [
-                'type' => _types()->get('Money'),
+                'type' => _types()->get(MoneyType::class),
                 'description' => 'The total initial price',
             ];
             $fields['totalPeriodicPrice'] = [
-                'type' => _types()->get('Money'),
+                'type' => _types()->get(MoneyType::class),
                 'description' => 'The total periodic price',
             ];
         } elseif ($class === TransactionLine::class) {
             $fields['totalBalance'] = [
-                'type' => _types()->get('Money'),
+                'type' => _types()->get(MoneyType::class),
                 'description' => 'The total balance',
             ];
         }

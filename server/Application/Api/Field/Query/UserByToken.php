@@ -8,6 +8,7 @@ use Application\Model\User;
 use Application\Repository\UserRepository;
 use Ecodev\Felix\Api\ExceptionWithoutMailLogging;
 use Ecodev\Felix\Api\Field\FieldInterface;
+use Ecodev\Felix\Api\Scalar\TokenType;
 use GraphQL\Type\Definition\Type;
 
 abstract class UserByToken implements FieldInterface
@@ -18,7 +19,7 @@ abstract class UserByToken implements FieldInterface
             'type' => Type::nonNull(_types()->getOutput(User::class)),
             'description' => 'Get a user by its temporary token',
             'args' => [
-                'token' => Type::nonNull(_types()->get('Token')),
+                'token' => Type::nonNull(_types()->get(TokenType::class)),
             ],
             'resolve' => function ($root, array $args): User {
                 /** @var UserRepository $repository */

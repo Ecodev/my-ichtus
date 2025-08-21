@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Application\Api\Field\Mutation;
 
 use Application\Api\Helper;
+use Application\Api\Input\ConfirmRegistrationInputType;
 use Application\Enum\BookingStatus;
 use Application\Enum\BookingType;
 use Application\Model\Account;
@@ -18,6 +19,7 @@ use Cake\Chronos\Chronos;
 use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Api\ExceptionWithoutMailLogging;
 use Ecodev\Felix\Api\Field\FieldInterface;
+use Ecodev\Felix\Api\Scalar\TokenType;
 use GraphQL\Type\Definition\Type;
 use Mezzio\Session\SessionInterface;
 
@@ -29,8 +31,8 @@ abstract class ConfirmRegistration implements FieldInterface
             'type' => Type::nonNull(Type::boolean()),
             'description' => 'Second step to register as a new user.',
             'args' => [
-                'token' => Type::nonNull(_types()->get('Token')),
-                'input' => Type::nonNull(_types()->get('ConfirmRegistrationInput')),
+                'token' => Type::nonNull(_types()->get(TokenType::class)),
+                'input' => Type::nonNull(_types()->get(ConfirmRegistrationInputType::class)),
             ],
             'resolve' => function ($root, array $args, SessionInterface $session): bool {
                 /** @var UserRepository $repository */

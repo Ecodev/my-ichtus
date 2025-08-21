@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Api\Input\Operator\AccountBalance;
 
+use Application\Api\Scalar\MoneyType;
 use Application\Model\Account;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
@@ -22,7 +23,7 @@ abstract class AbstractOperatorType extends AbstractOperator
             'fields' => [
                 [
                     'name' => 'value',
-                    'type' => self::nonNull(_types()->get('Money')),
+                    'type' => self::nonNull(_types()->get(MoneyType::class)),
                 ],
             ],
         ];

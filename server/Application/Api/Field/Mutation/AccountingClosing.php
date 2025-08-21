@@ -9,6 +9,7 @@ use Application\Model\User;
 use Application\Service\Accounting;
 use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Api\Field\FieldInterface;
+use Ecodev\Felix\Api\Scalar\DateType;
 use Mezzio\Session\SessionInterface;
 
 abstract class AccountingClosing implements FieldInterface
@@ -19,7 +20,7 @@ abstract class AccountingClosing implements FieldInterface
             'type' => _types()->getOutput(Transaction::class),
             'description' => 'Generate the closing entries at the end of an accounting period',
             'args' => [
-                'date' => _types()->get('Date'),
+                'date' => _types()->get(DateType::class),
             ],
             'resolve' => function ($root, array $args, SessionInterface $session): ?Transaction {
                 global $container;

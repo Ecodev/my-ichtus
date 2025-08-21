@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Application\Api\Field\Query;
 
+use Application\Api\Output\BankingInfosType;
+use Application\Api\Scalar\MoneyType;
 use Application\Model\User;
 use Ecodev\Felix\Api\Field\FieldInterface;
 use Ecodev\Felix\Service\Bvr;
@@ -19,11 +21,11 @@ abstract class BankingInfos implements FieldInterface
     public static function build(): iterable
     {
         yield 'bankingInfos' => fn () => [
-            'type' => Type::nonNull(_types()->get('BankingInfos')),
+            'type' => Type::nonNull(_types()->get(BankingInfosType::class)),
             'description' => 'Info to top-up the current user account by bank transfer',
             'args' => [
                 'user' => Type::nonNull(_types()->getId(User::class)),
-                'amount' => _types()->get('Money'),
+                'amount' => _types()->get(MoneyType::class),
             ],
             'resolve' => function ($root, array $args): array {
                 global $container;

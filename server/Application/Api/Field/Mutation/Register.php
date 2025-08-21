@@ -11,6 +11,7 @@ use Application\Repository\UserRepository;
 use Application\Service\MessageQueuer;
 use Ecodev\Felix\Api\ExceptionWithoutMailLogging;
 use Ecodev\Felix\Api\Field\FieldInterface;
+use Ecodev\Felix\Api\Scalar\EmailType;
 use Ecodev\Felix\Service\Mailer;
 use GraphQL\Type\Definition\Type;
 use Mezzio\Session\SessionInterface;
@@ -23,7 +24,7 @@ abstract class Register implements FieldInterface
             'type' => Type::nonNull(Type::boolean()),
             'description' => 'First step to register as a new user.',
             'args' => [
-                'email' => Type::nonNull(_types()->get('Email')),
+                'email' => Type::nonNull(_types()->get(EmailType::class)),
                 'hasInsurance' => Type::nonNull(Type::boolean()),
                 'termsAgreement' => Type::nonNull(Type::boolean()),
             ],

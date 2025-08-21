@@ -8,6 +8,7 @@ use Application\Model\Account;
 use Application\Repository\AccountRepository;
 use Application\Service\Exporter\AccountingReport;
 use Ecodev\Felix\Api\Field\FieldInterface;
+use Ecodev\Felix\Api\Scalar\DateType;
 use GraphQL\Type\Definition\Type;
 use Mezzio\Session\SessionInterface;
 
@@ -19,8 +20,8 @@ abstract class ExportAccountingReport implements FieldInterface
             'type' => Type::nonNull(Type::string()),
             'description' => 'Prepare an accounting report and return the URL to download it',
             'args' => [
-                'date' => Type::nonNull(_types()->get('Date')),
-                'datePrevious' => _types()->get('Date'),
+                'date' => Type::nonNull(_types()->get(DateType::class)),
+                'datePrevious' => _types()->get(DateType::class),
                 'showBudget' => Type::nonNull(Type::boolean()),
             ],
             'resolve' => function ($root, array $args, SessionInterface $session): string {

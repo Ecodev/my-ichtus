@@ -7,6 +7,7 @@ namespace Application\Api\Input\Operator\BookingDate;
 use Application\Enum\BookingType;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
+use Ecodev\Felix\Api\Scalar\DateType;
 use GraphQL\Doctrine\Definition\Operator\AbstractOperator;
 use GraphQL\Doctrine\Factory\UniqueNameFactory;
 use GraphQL\Type\Definition\LeafType;
@@ -22,7 +23,7 @@ abstract class AbstractOperatorType extends AbstractOperator
             'fields' => [
                 [
                     'name' => 'value',
-                    'type' => self::nonNull(_types()->get('Date')),
+                    'type' => self::nonNull(_types()->get(DateType::class)),
                 ],
             ],
         ];
