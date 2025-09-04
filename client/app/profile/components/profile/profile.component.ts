@@ -130,20 +130,10 @@ export class ProfileComponent implements OnInit {
         // Convert the decimal amount in cents
         const roundedAmount = Big(amount).times(100).toFixed(0);
 
-        const sign = this.datatransService.getHexaSHA256Signature(
-            '',
-            localConfig.datatrans.key,
-            localConfig.datatrans.merchantId,
-            roundedAmount,
-            'CHF',
-            user.id,
-        );
-
         this.datatransService.startPayment({
             params: {
                 production: localConfig.datatrans.production,
                 merchantId: localConfig.datatrans.merchantId,
-                sign: sign,
                 refno: user.id,
                 amount: roundedAmount,
                 currency: 'CHF',

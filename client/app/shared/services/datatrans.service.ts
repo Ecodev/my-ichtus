@@ -1,14 +1,12 @@
 import {inject, Injectable} from '@angular/core';
-import {HmacSHA256} from 'crypto-es/lib/sha256';
-import {Hex} from 'crypto-es/lib/core';
 import {DOCUMENT} from '@angular/common';
 import {fromEvent, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {localConfig} from '../generated-config';
 
 export type Config = {
     params: {
         merchantId: string;
-        sign: string;
         production: boolean;
         endpoint: string;
         refno: string;
@@ -34,6 +32,40 @@ function stringifyReplacer(key: string, value: unknown): unknown {
         return undefined;
     }
     return value;
+}
+
+function bufferToHexa(hashBuffer: ArrayBuffer): string {
+    const hashArray = new Uint8Array(hashBuffer); // convert buffer to byte array
+    return hashArray.reduce((result, byte) => result + byte.toString(16).padStart(2, '0'), ''); // convert bytes to hex string
+}
+
+// TODO consider replacing this entire function with native `Uint8Array.fromHex()` when support is good enough in our customer base
+// See https://caniuse.com/mdn-javascript_builtins_uint8array_fromhex
+function hexToBytes(hex: string): Uint8Array {
+    const bytes = new Uint8Array(hex.length / 2);
+    for (let i = 0; i < hex.length; i += 2) {
+        bytes[i / 2] = parseInt(hex.substring(i, i + 2), 16);
+    }
+    return bytes;
+}
+
+/**
+ * This is different from Natural's version, because this requires `secret` to be a hexadecimal string,
+ * and the way to construct payload is custom.
+ */
+export async function hmacSha256(
+    secret: string,
+    merchandId: string,
+    params: Pick<Config['params'], 'amount' | 'currency' | 'refno'>,
+): Promise<string> {
+    const payload = merchandId + params.amount + params.currency + params.refno;
+
+    const algorithm: HmacKeyGenParams = {name: 'HMAC', hash: 'SHA-256'};
+    const keyBytes = hexToBytes(secret);
+    const key = await crypto.subtle.importKey('raw', keyBytes, algorithm, false, ['sign']);
+    const signature = await crypto.subtle.sign(algorithm.name, key, new TextEncoder().encode(payload));
+
+    return bufferToHexa(signature);
 }
 
 @Injectable({
@@ -153,15 +185,16 @@ export class DatatransService {
         this.paymentForm = null;
     }
 
-    public startPayment(config: Config): void {
+    public async startPayment(config: Config): Promise<void> {
         this.toggleLockHostPage();
 
         if (typeof config.opened === 'function') {
             config.opened();
         }
 
-        const params = {
+        const params: Record<string, string | boolean> = {
             ...config.params,
+            sign: await hmacSha256(localConfig.datatrans.key, localConfig.datatrans.merchantId, config.params),
             theme: 'DT2015',
             version: '2.0.0',
         };
@@ -275,24 +308,5 @@ export class DatatransService {
             });
 
         this.paymentForm.submit();
-    }
-
-    public getHexaSHA256Signature(
-        aliasCC: string,
-        hexaKey: string,
-        merchandId: string,
-        amount: string,
-        currency: 'CHF' | 'EUR',
-        refno: string,
-    ): string {
-        if (hexaKey === null) {
-            throw new Error('Missing HMAC key');
-        }
-
-        const valueToSign = aliasCC + merchandId + amount + currency + refno;
-        const wordKey = Hex.parse(hexaKey);
-        const wordSig = HmacSHA256(valueToSign, wordKey);
-
-        return Hex.stringify(wordSig);
     }
 }
