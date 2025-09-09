@@ -11,8 +11,8 @@ import {MatOption, MatSelect} from '@angular/material/select';
 
 @Component({
     selector: 'app-application-confirm',
-    templateUrl: './application-confirm.component.html',
     imports: [MatDialogModule, MatButton, MatHint, MatFormField, MatLabel, MatOption, ReactiveFormsModule, MatSelect],
+    templateUrl: './application-confirm.component.html',
 })
 // This dialog is only displayed when the user submits an application for a COURSE
 export class ApplicationConfirmComponent {

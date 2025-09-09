@@ -59,8 +59,6 @@ import {MoneyComponent} from '../../../shared/components/money/money.component';
 
 @Component({
     selector: 'app-user',
-    templateUrl: './user.component.html',
-    styleUrl: './user.component.scss',
     imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -95,6 +93,8 @@ import {MoneyComponent} from '../../../shared/components/money/money.component';
         NaturalTimeAgoPipe,
         AsyncPipe,
     ],
+    templateUrl: './user.component.html',
+    styleUrl: './user.component.scss',
 })
 export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeoResolveData> implements OnInit {
     public readonly userTagService = inject(UserTagService);

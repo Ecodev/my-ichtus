@@ -76,6 +76,7 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
         }),
     );
 
+    // eslint-disable-next-line @angular-eslint/prefer-inject
     protected constructor(service: T) {
         super(service);
 

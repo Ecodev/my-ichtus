@@ -9,8 +9,6 @@ import {MatCheckboxChange, MatCheckboxModule} from '@angular/material/checkbox';
 
 @Component({
     selector: 'app-accounting-report',
-    templateUrl: './accounting-report.component.html',
-    styleUrl: './accounting-report.component.scss',
     imports: [
         MatDialogModule,
         MatFormFieldModule,
@@ -21,6 +19,8 @@ import {MatCheckboxChange, MatCheckboxModule} from '@angular/material/checkbox';
         MatButtonModule,
         MatCheckboxModule,
     ],
+    templateUrl: './accounting-report.component.html',
+    styleUrl: './accounting-report.component.scss',
 })
 export class AccountingReportComponent {
     public readonly form = new FormGroup({

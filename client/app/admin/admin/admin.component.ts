@@ -14,8 +14,6 @@ import {AsyncPipe} from '@angular/common';
 
 @Component({
     selector: 'app-admin',
-    templateUrl: './admin.component.html',
-    styleUrl: './admin.component.scss',
     imports: [
         NaturalSidenavContainerComponent,
         NaturalSidenavComponent,
@@ -27,6 +25,8 @@ import {AsyncPipe} from '@angular/common';
         RouterOutlet,
         AsyncPipe,
     ],
+    templateUrl: './admin.component.html',
+    styleUrl: './admin.component.scss',
 })
 export class AdminComponent {
     public readonly permissionsService = inject(PermissionsService);

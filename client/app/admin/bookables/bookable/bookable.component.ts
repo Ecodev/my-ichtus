@@ -54,8 +54,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-bookable',
-    templateUrl: './bookable.component.html',
-    styleUrl: './bookable.component.scss',
     imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -81,6 +79,8 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
         BookingsWithOwnerComponent,
         NaturalFixedButtonDetailComponent,
     ],
+    templateUrl: './bookable.component.html',
+    styleUrl: './bookable.component.scss',
 })
 export class BookableComponent extends NaturalAbstractDetail<BookableService, NaturalSeoResolveData> implements OnInit {
     public readonly bookableTagService = inject(BookableTagService);

@@ -31,8 +31,6 @@ import {MatTableModule} from '@angular/material/table';
 
 @Component({
     selector: 'app-bookings-with-owner',
-    templateUrl: './bookings.component.html',
-    styleUrl: './bookings.component.scss',
     imports: [
         CommonModule,
         NaturalColumnsPickerComponent,
@@ -56,6 +54,8 @@ import {MatTableModule} from '@angular/material/table';
         DatePipe,
         NaturalEllipsisPipe,
     ],
+    templateUrl: './bookings.component.html',
+    styleUrl: './bookings.component.scss',
 })
 export class BookingsWithOwnerComponent extends AbstractBookings<BookingWithOwnerService> {
     public readonly permissionsService = inject(PermissionsService);

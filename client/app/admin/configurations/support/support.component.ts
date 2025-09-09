@@ -21,8 +21,6 @@ export type SupportComponentData = {
 
 @Component({
     selector: 'app-support',
-    templateUrl: './support.component.html',
-    styleUrl: './support.component.scss',
     imports: [
         MatDialogModule,
         MatSlideToggleModule,
@@ -32,6 +30,8 @@ export type SupportComponentData = {
         MatButtonModule,
         AsyncPipe,
     ],
+    templateUrl: './support.component.html',
+    styleUrl: './support.component.scss',
 })
 export class SupportComponent implements OnInit {
     private readonly configurationService = inject(ConfigurationService);

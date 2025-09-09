@@ -33,8 +33,6 @@ import {MatTableModule} from '@angular/material/table';
 
 @Component({
     selector: 'app-transaction-lines',
-    templateUrl: './transactionLines.component.html',
-    styleUrl: './transactionLines.component.scss',
     imports: [
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
@@ -53,6 +51,8 @@ import {MatTableModule} from '@angular/material/table';
         DatePipe,
         AsyncPipe,
     ],
+    templateUrl: './transactionLines.component.html',
+    styleUrl: './transactionLines.component.scss',
 })
 export class TransactionLinesComponent extends NaturalAbstractList<TransactionLineService> implements OnInit {
     public readonly permissionsService = inject(PermissionsService);

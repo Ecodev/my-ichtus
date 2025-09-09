@@ -3,9 +3,9 @@ import {AvailabilityStatus} from '../../../admin/bookables/bookable';
 
 @Component({
     selector: 'app-flag',
+    standalone: true,
     templateUrl: './flag.component.html',
     styleUrl: './flag.component.scss',
-    standalone: true,
 })
 export class FlagComponent {
     @Input()

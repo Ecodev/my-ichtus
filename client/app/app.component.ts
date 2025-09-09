@@ -6,9 +6,9 @@ import {NetworkActivityService} from '@ecodev/natural';
 
 @Component({
     selector: 'app-root',
+    imports: [NgProgressbar, RouterOutlet, BootLoaderComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
-    imports: [NgProgressbar, RouterOutlet, BootLoaderComponent],
 })
 export class AppComponent {
     private readonly networkActivityService = inject(NetworkActivityService);

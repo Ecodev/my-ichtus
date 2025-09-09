@@ -42,8 +42,6 @@ type AccountingExportDialogResult = {
 
 @Component({
     selector: 'app-accounts',
-    templateUrl: './accounts.component.html',
-    styleUrl: './accounts.component.scss',
     imports: [
         CommonModule,
         RouterLink,
@@ -63,6 +61,8 @@ type AccountingExportDialogResult = {
         DatePipe,
         IbanPipe,
     ],
+    templateUrl: './accounts.component.html',
+    styleUrl: './accounts.component.scss',
 })
 export class AccountsComponent extends NaturalAbstractNavigableList<AccountService> implements OnInit {
     private readonly dialog = inject(MatDialog);

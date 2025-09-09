@@ -26,8 +26,6 @@ import {MatTableModule} from '@angular/material/table';
 
 @Component({
     selector: 'app-expense-claims',
-    templateUrl: './expenseClaims.component.html',
-    styleUrl: './expenseClaims.component.scss',
     imports: [
         CommonModule,
         NaturalColumnsPickerComponent,
@@ -48,6 +46,8 @@ import {MatTableModule} from '@angular/material/table';
         NaturalEnumPipe,
         DatePipe,
     ],
+    templateUrl: './expenseClaims.component.html',
+    styleUrl: './expenseClaims.component.scss',
 })
 export class ExpenseClaimsComponent extends NaturalAbstractList<ExpenseClaimService> implements OnInit {
     public readonly permissionsService = inject(PermissionsService);

@@ -8,8 +8,6 @@ import {MatDialogModule} from '@angular/material/dialog';
 
 @Component({
     selector: 'app-accounting-closing',
-    templateUrl: './accounting-closing.component.html',
-    styleUrl: './accounting-closing.component.scss',
     imports: [
         MatDialogModule,
         MatFormFieldModule,
@@ -19,6 +17,8 @@ import {MatDialogModule} from '@angular/material/dialog';
         ReactiveFormsModule,
         MatButtonModule,
     ],
+    templateUrl: './accounting-closing.component.html',
+    styleUrl: './accounting-closing.component.scss',
 })
 export class AccountingClosingComponent {
     public readonly form = new FormControl<Date | null>(null, [Validators.required]);

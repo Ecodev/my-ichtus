@@ -30,8 +30,6 @@ export type EditableTransactionLinesInput =
 
 @Component({
     selector: 'app-editable-transaction-lines',
-    templateUrl: './editable-transaction-lines.component.html',
-    styleUrl: './editable-transaction-lines.component.scss',
     imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -46,6 +44,8 @@ export type EditableTransactionLinesInput =
         MatIconModule,
         NaturalIconDirective,
     ],
+    templateUrl: './editable-transaction-lines.component.html',
+    styleUrl: './editable-transaction-lines.component.scss',
 })
 export class EditableTransactionLinesComponent extends NaturalAbstractEditableList<
     TransactionLineService,

@@ -33,8 +33,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-profile',
-    templateUrl: './profile.component.html',
-    styleUrl: './profile.component.scss',
     imports: [
         NaturalSidenavContainerComponent,
         NaturalSidenavComponent,
@@ -52,6 +50,8 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
         RouterOutlet,
         NaturalEnumPipe,
     ],
+    templateUrl: './profile.component.html',
+    styleUrl: './profile.component.scss',
 })
 export class ProfileComponent implements OnInit {
     public readonly userService = inject(UserService);

@@ -18,8 +18,6 @@ import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-logs',
-    templateUrl: './logs.component.html',
-    styleUrl: './logs.component.scss',
     imports: [
         CommonModule,
         NaturalColumnsPickerComponent,
@@ -31,6 +29,8 @@ import {CommonModule} from '@angular/common';
         MatProgressSpinnerModule,
         MatPaginatorModule,
     ],
+    templateUrl: './logs.component.html',
+    styleUrl: './logs.component.scss',
 })
 export class LogsComponent extends NaturalAbstractList<LogService> implements OnInit {
     public constructor() {

@@ -19,8 +19,6 @@ import {MatDividerModule} from '@angular/material/divider';
 
 @Component({
     selector: 'app-user-tag',
-    templateUrl: './userTag.component.html',
-    styleUrl: './userTag.component.scss',
     imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -35,6 +33,8 @@ import {MatDividerModule} from '@angular/material/divider';
         NaturalStampComponent,
         NaturalFixedButtonDetailComponent,
     ],
+    templateUrl: './userTag.component.html',
+    styleUrl: './userTag.component.scss',
 })
 export class UserTagComponent extends NaturalAbstractDetail<UserTagService, NaturalSeoResolveData> {
     public readonly userService = inject(UserService);

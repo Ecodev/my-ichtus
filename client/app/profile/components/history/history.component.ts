@@ -12,9 +12,9 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-history',
+    imports: [CommonModule, MatTableModule, TransactionAmountComponent],
     templateUrl: './history.component.html',
     styleUrl: './history.component.scss',
-    imports: [CommonModule, MatTableModule, TransactionAmountComponent],
 })
 export class HistoryComponent implements OnInit {
     private readonly userService = inject(UserService);

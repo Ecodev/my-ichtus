@@ -12,9 +12,9 @@ import {NaturalFileComponent} from '@ecodev/natural';
 
 @Component({
     selector: 'app-bookable',
+    imports: [NaturalFileComponent, MatDividerModule, MatIconModule, MatButtonModule, RouterLink, TimeagoModule],
     templateUrl: './bookable.component.html',
     styleUrl: './bookable.component.scss',
-    imports: [NaturalFileComponent, MatDividerModule, MatIconModule, MatButtonModule, RouterLink, TimeagoModule],
 })
 export class BookableComponent implements OnInit {
     private readonly bookableService = inject(BookableService);

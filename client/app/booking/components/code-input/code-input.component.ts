@@ -6,9 +6,9 @@ import {FormsModule} from '@angular/forms';
 
 @Component({
     selector: 'app-code-input',
+    imports: [FormsModule, FocusDirective, MatButtonModule, RouterLink],
     templateUrl: './code-input.component.html',
     styleUrl: './code-input.component.scss',
-    imports: [FormsModule, FocusDirective, MatButtonModule, RouterLink],
 })
 export class CodeInputComponent {
     private readonly router = inject(Router);

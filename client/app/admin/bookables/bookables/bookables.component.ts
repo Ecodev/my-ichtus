@@ -24,8 +24,6 @@ import {CommonModule, DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-bookables',
-    templateUrl: './bookables.component.html',
-    styleUrl: './bookables.component.scss',
     imports: [
         CommonModule,
         NaturalColumnsPickerComponent,
@@ -44,6 +42,8 @@ import {CommonModule, DatePipe} from '@angular/common';
         NaturalFixedButtonComponent,
         DatePipe,
     ],
+    templateUrl: './bookables.component.html',
+    styleUrl: './bookables.component.scss',
 })
 export class BookablesComponent extends ParentComponent<BookableService> implements OnInit {
     public readonly permissionsService = inject(PermissionsService);

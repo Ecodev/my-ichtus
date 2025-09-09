@@ -19,8 +19,6 @@ import {AsyncPipe} from '@angular/common';
 
 @Component({
     selector: 'app-licenses',
-    templateUrl: './licenses.component.html',
-    styleUrl: './licenses.component.scss',
     imports: [
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
@@ -34,6 +32,8 @@ import {AsyncPipe} from '@angular/common';
         RouterLink,
         AsyncPipe,
     ],
+    templateUrl: './licenses.component.html',
+    styleUrl: './licenses.component.scss',
 })
 export class LicensesComponent extends NaturalAbstractList<LicenseService> implements OnInit {
     public readonly permissionsService = inject(PermissionsService);

@@ -14,8 +14,6 @@ import {toObservable} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-family',
-    templateUrl: './family.component.html',
-    styleUrl: './family.component.scss',
     imports: [
         MatButtonModule,
         RouterLink,
@@ -24,6 +22,8 @@ import {toObservable} from '@angular/core/rxjs-interop';
         NaturalFixedButtonComponent,
         AsyncPipe,
     ],
+    templateUrl: './family.component.html',
+    styleUrl: './family.component.scss',
 })
 export class FamilyComponent implements OnInit {
     public readonly userService = inject(UserService);

@@ -50,8 +50,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
     selector: 'app-booking',
-    templateUrl: './booking.component.html',
-    styleUrl: './booking.component.scss',
     imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -72,6 +70,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         NaturalFixedButtonDetailComponent,
         DatePipe,
     ],
+    templateUrl: './booking.component.html',
+    styleUrl: './booking.component.scss',
 })
 export class BookingComponent extends NaturalAbstractDetail<BookingService, NaturalSeoResolveData> implements OnInit {
     public readonly bookableService = inject(BookableService);

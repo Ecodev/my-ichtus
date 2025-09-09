@@ -22,8 +22,6 @@ import {AsyncPipe} from '@angular/common';
 
 @Component({
     selector: 'app-transaction-tags',
-    templateUrl: './transactionTags.component.html',
-    styleUrl: './transactionTags.component.scss',
     imports: [
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
@@ -39,6 +37,8 @@ import {AsyncPipe} from '@angular/common';
         MatDividerModule,
         AsyncPipe,
     ],
+    templateUrl: './transactionTags.component.html',
+    styleUrl: './transactionTags.component.scss',
 })
 export class TransactionTagsComponent extends NaturalAbstractList<TransactionTagService> implements OnInit {
     public readonly permissionsService = inject(PermissionsService);

@@ -1,3 +1,4 @@
+<!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
 @if (dataSource) {
     <div class="nat-vertical">
         <div class="nat-horizontal">
@@ -95,8 +96,7 @@
                                     <natural-table-button
                                         matTooltip="Éditer"
                                         [label]="
-                                            (element.bookable.code ? element.bookable.code + ' ' : '') +
-                                            element.bookable.name
+                                            `${element.bookable.code ? `${element.bookable.code} ` : ''}${element.bookable.name}`
                                         "
                                         [navigate]="['/admin/bookable/', element.bookable.id]"
                                     />

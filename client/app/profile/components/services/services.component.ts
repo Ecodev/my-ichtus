@@ -14,8 +14,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-services',
-    templateUrl: './services.component.html',
-    styleUrl: './services.component.scss',
     imports: [
         CommonModule,
         DatePipe,
@@ -29,6 +27,8 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
         RouterLinkActive,
         RouterOutlet,
     ],
+    templateUrl: './services.component.html',
+    styleUrl: './services.component.scss',
 })
 export class ServicesComponent implements OnInit, OnChanges {
     private readonly userService = inject(UserService);

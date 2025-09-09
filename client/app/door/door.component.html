@@ -5,7 +5,7 @@
         @for (door of doorService.doors; track door) {
             @if (viewer[door.id]) {
                 <app-card
-                    [illustrationUrl]="'assets/images/' + door.image"
+                    [illustrationUrl]="`assets/images/${door.image}`"
                     [style.min-width.px]="300"
                     (click)="open(door)"
                 >

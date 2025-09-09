@@ -31,8 +31,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-account',
-    templateUrl: './account.component.html',
-    styleUrl: './account.component.scss',
     imports: [
         FormsModule,
         IbanPipe,
@@ -55,6 +53,8 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
         NaturalStampComponent,
         ReactiveFormsModule,
     ],
+    templateUrl: './account.component.html',
+    styleUrl: './account.component.scss',
 })
 export class AccountComponent extends NaturalAbstractDetail<AccountService, NaturalSeoResolveData> implements OnInit {
     public readonly userService = inject(UserService);

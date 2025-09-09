@@ -7,9 +7,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 
 @Component({
     selector: 'app-address',
+    imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, NaturalSelectComponent],
     templateUrl: './address.component.html',
     styleUrl: './address.component.scss',
-    imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, NaturalSelectComponent],
 })
 export class AddressComponent {
     public readonly countryService = inject(CountryService);

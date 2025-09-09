@@ -29,8 +29,6 @@ import {admin_approved, bookables, storage} from '../../../shared/natural-search
 
 @Component({
     selector: 'app-usage-bookables',
-    templateUrl: './bookables.component.html',
-    styleUrl: './bookables.component.scss',
     imports: [
         CommonModule,
         NaturalColumnsPickerComponent,
@@ -49,6 +47,8 @@ import {admin_approved, bookables, storage} from '../../../shared/natural-search
         NaturalFixedButtonComponent,
         DatePipe,
     ],
+    templateUrl: './bookables.component.html',
+    styleUrl: './bookables.component.scss',
 })
 export class UsageBookablesComponent extends ParentComponent<UsageBookableService> implements OnInit {
     public readonly permissionsService = inject(PermissionsService);

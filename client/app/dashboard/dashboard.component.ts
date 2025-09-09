@@ -14,9 +14,9 @@ import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-dashboard',
+    imports: [CommonModule, NavigationsComponent, MatButtonModule, RouterLink, MatIconModule, NaturalIconDirective],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.scss',
-    imports: [CommonModule, NavigationsComponent, MatButtonModule, RouterLink, MatIconModule, NaturalIconDirective],
 })
 export class DashboardComponent {
     public readonly userService = inject(UserService);

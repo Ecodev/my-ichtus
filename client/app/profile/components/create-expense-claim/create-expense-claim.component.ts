@@ -14,8 +14,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
     selector: 'app-create-expense-claim',
-    templateUrl: './create-expense-claim.component.html',
-    styleUrl: './create-expense-claim.component.scss',
     imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -27,6 +25,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         AccountingDocumentsComponent,
         NaturalFixedButtonComponent,
     ],
+    templateUrl: './create-expense-claim.component.html',
+    styleUrl: './create-expense-claim.component.scss',
 })
 export class CreateExpenseClaimComponent
     extends NaturalAbstractDetail<ExpenseClaimService, NaturalSeoResolveData>

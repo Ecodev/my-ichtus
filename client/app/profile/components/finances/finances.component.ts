@@ -24,8 +24,6 @@ import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-finances',
-    templateUrl: './finances.component.html',
-    styleUrl: './finances.component.scss',
     imports: [
         CommonModule,
         MatFormFieldModule,
@@ -44,6 +42,8 @@ import {CommonModule} from '@angular/common';
         MatPaginatorModule,
         NaturalEnumPipe,
     ],
+    templateUrl: './finances.component.html',
+    styleUrl: './finances.component.scss',
 })
 export class FinancesComponent extends NaturalAbstractList<ExpenseClaimService> implements OnInit, OnChanges {
     private readonly userService = inject(UserService);

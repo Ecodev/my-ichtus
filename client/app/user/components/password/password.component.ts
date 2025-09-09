@@ -37,8 +37,6 @@ class ConfirmPasswordStateMatcher implements ErrorStateMatcher {
 
 @Component({
     selector: 'app-password',
-    templateUrl: './password.component.html',
-    styleUrl: './password.component.scss',
     imports: [
         MatFormFieldModule,
         FormsModule,
@@ -47,6 +45,8 @@ class ConfirmPasswordStateMatcher implements ErrorStateMatcher {
         MatIconModule,
         NaturalIconDirective,
     ],
+    templateUrl: './password.component.html',
+    styleUrl: './password.component.scss',
 })
 export class PasswordComponent implements OnInit {
     @Input({required: true}) public form!: FormGroup;

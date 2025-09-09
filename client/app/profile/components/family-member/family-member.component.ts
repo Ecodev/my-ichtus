@@ -21,8 +21,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
     selector: 'app-family-member',
-    templateUrl: './family-member.component.html',
-    styleUrl: './family-member.component.scss',
     imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -38,6 +36,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         MatCheckboxModule,
         NaturalFixedButtonComponent,
     ],
+    templateUrl: './family-member.component.html',
+    styleUrl: './family-member.component.scss',
 })
 export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserService> implements OnInit {
     @Input({required: true}) public viewer!: NonNullable<CurrentUserForProfile['viewer']>;

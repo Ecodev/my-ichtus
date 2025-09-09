@@ -16,8 +16,6 @@ import {first} from 'rxjs/operators';
 
 @Component({
     selector: 'app-self-approved-booking',
-    templateUrl: './self-approved-booking.component.html',
-    styleUrl: './self-approved-booking.component.scss',
     imports: [
         CardComponent,
         NaturalAvatarComponent,
@@ -28,6 +26,8 @@ import {first} from 'rxjs/operators';
         TextFieldModule,
         NaturalFixedButtonComponent,
     ],
+    templateUrl: './self-approved-booking.component.html',
+    styleUrl: './self-approved-booking.component.scss',
 })
 export class SelfApprovedBookingComponent implements OnInit {
     private readonly route = inject(ActivatedRoute);

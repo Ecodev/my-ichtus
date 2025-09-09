@@ -4,8 +4,8 @@ import {By} from '@angular/platform-browser';
 import {ParticleEffectDirective} from './particle-effect.directive';
 
 @Component({
-    template: ` <button appParticleEffect (click)="hidden0 = !hidden0">Send</button> `,
     imports: [ParticleEffectDirective],
+    template: ` <button appParticleEffect (click)="hidden0 = !hidden0">Send</button> `,
 })
 class TestParticleEffectButtonComponent {
     public hidden0 = false;

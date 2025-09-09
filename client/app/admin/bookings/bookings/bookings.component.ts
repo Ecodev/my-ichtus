@@ -28,8 +28,6 @@ import {CommonModule, DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-bookings',
-    templateUrl: './bookings.component.html',
-    styleUrl: './bookings.component.scss',
     imports: [
         CommonModule,
         NaturalColumnsPickerComponent,
@@ -53,6 +51,8 @@ import {CommonModule, DatePipe} from '@angular/common';
         DatePipe,
         NaturalEllipsisPipe,
     ],
+    templateUrl: './bookings.component.html',
+    styleUrl: './bookings.component.scss',
 })
 export class BookingsComponent extends AbstractBookings<BookingService> {
     public readonly permissionsService = inject(PermissionsService);

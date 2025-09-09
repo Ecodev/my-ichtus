@@ -16,8 +16,6 @@ import {MatDividerModule} from '@angular/material/divider';
 
 @Component({
     selector: 'app-transaction-tag',
-    templateUrl: './transactionTag.component.html',
-    styleUrl: './transactionTag.component.scss',
     imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -30,6 +28,8 @@ import {MatDividerModule} from '@angular/material/divider';
         NaturalStampComponent,
         NaturalFixedButtonDetailComponent,
     ],
+    templateUrl: './transactionTag.component.html',
+    styleUrl: './transactionTag.component.scss',
 })
 export class TransactionTagComponent extends NaturalAbstractDetail<TransactionTagService, NaturalSeoResolveData> {
     public constructor() {

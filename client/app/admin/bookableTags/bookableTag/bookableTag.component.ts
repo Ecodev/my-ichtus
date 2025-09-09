@@ -16,8 +16,6 @@ import {MatDividerModule} from '@angular/material/divider';
 
 @Component({
     selector: 'app-bookable-tag',
-    templateUrl: './bookableTag.component.html',
-    styleUrl: './bookableTag.component.scss',
     imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -30,6 +28,8 @@ import {MatDividerModule} from '@angular/material/divider';
         NaturalStampComponent,
         NaturalFixedButtonDetailComponent,
     ],
+    templateUrl: './bookableTag.component.html',
+    styleUrl: './bookableTag.component.scss',
 })
 export class BookableTagComponent extends NaturalAbstractDetail<BookableTagService, NaturalSeoResolveData> {
     public constructor() {

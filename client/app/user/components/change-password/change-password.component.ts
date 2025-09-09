@@ -10,9 +10,9 @@ import {PasswordComponent} from '../password/password.component';
 
 @Component({
     selector: 'app-change-password',
+    imports: [FormsModule, ReactiveFormsModule, PasswordComponent, MatButtonModule],
     templateUrl: './change-password.component.html',
     styleUrl: './change-password.component.scss',
-    imports: [FormsModule, ReactiveFormsModule, PasswordComponent, MatButtonModule],
 })
 export class ChangePasswordComponent {
     private readonly apollo = inject(Apollo);

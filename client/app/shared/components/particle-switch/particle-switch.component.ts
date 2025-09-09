@@ -14,9 +14,9 @@ type ParticleSwitchOption = {
 
 @Component({
     selector: 'app-particle-switch',
+    imports: [ParticleEffectDirective, CommonModule],
     templateUrl: './particle-switch.component.html',
     styleUrl: './particle-switch.component.scss',
-    imports: [ParticleEffectDirective, CommonModule],
 })
 export class ParticleSwitchComponent implements AfterViewInit {
     private readonly rootElement = inject<ElementRef<HTMLElement>>(ElementRef);

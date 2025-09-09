@@ -21,8 +21,6 @@ import {AsyncPipe} from '@angular/common';
 
 @Component({
     selector: 'app-user-tags',
-    templateUrl: './userTags.component.html',
-    styleUrl: './userTags.component.scss',
     imports: [
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
@@ -38,6 +36,8 @@ import {AsyncPipe} from '@angular/common';
         MatDividerModule,
         AsyncPipe,
     ],
+    templateUrl: './userTags.component.html',
+    styleUrl: './userTags.component.scss',
 })
 export class UserTagsComponent extends NaturalAbstractList<UserTagService> implements OnInit {
     public readonly permissionsService = inject(PermissionsService);

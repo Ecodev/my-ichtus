@@ -20,8 +20,6 @@ import {AsyncPipe} from '@angular/common';
 
 @Component({
     selector: 'app-bookable-tags',
-    templateUrl: './bookableTags.component.html',
-    styleUrl: './bookableTags.component.scss',
     imports: [
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
@@ -36,6 +34,8 @@ import {AsyncPipe} from '@angular/common';
         RouterLink,
         AsyncPipe,
     ],
+    templateUrl: './bookableTags.component.html',
+    styleUrl: './bookableTags.component.scss',
 })
 export class BookableTagsComponent extends NaturalAbstractList<BookableTagService> implements OnInit {
     public readonly permissionsService = inject(PermissionsService);

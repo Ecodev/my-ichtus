@@ -26,8 +26,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 
 @Component({
     selector: 'app-register',
-    templateUrl: './register.component.html',
-    styleUrl: './register.component.scss',
     imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -44,6 +42,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
         MatCheckboxModule,
         MatButtonModule,
     ],
+    templateUrl: './register.component.html',
+    styleUrl: './register.component.scss',
 })
 export class RegisterComponent implements OnInit {
     protected readonly apollo = inject(Apollo);

@@ -18,8 +18,6 @@ import {MatTableModule} from '@angular/material/table';
 
 @Component({
     selector: 'app-bookable-metadata',
-    templateUrl: './bookable-metadata.component.html',
-    styleUrl: './bookable-metadata.component.scss',
     imports: [
         MatTableModule,
         MatFormFieldModule,
@@ -29,6 +27,8 @@ import {MatTableModule} from '@angular/material/table';
         MatIconModule,
         NaturalIconDirective,
     ],
+    templateUrl: './bookable-metadata.component.html',
+    styleUrl: './bookable-metadata.component.scss',
 })
 export class BookableMetadataComponent implements OnInit {
     private readonly bookableMetaService = inject(BookableMetadataService);

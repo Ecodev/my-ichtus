@@ -31,8 +31,6 @@ import {AsyncPipe} from '@angular/common';
 
 @Component({
     selector: 'app-expense-claim',
-    templateUrl: './expenseClaim.component.html',
-    styleUrl: './expenseClaim.component.scss',
     imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -56,6 +54,8 @@ import {AsyncPipe} from '@angular/common';
         NaturalFixedButtonDetailComponent,
         AsyncPipe,
     ],
+    templateUrl: './expenseClaim.component.html',
+    styleUrl: './expenseClaim.component.scss',
 })
 export class ExpenseClaimComponent
     extends NaturalAbstractDetail<ExpenseClaimService, NaturalSeoResolveData>

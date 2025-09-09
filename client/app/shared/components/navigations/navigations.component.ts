@@ -65,8 +65,6 @@ function bookingsToExtended(bookings: Bookings['bookings']): PaginatedExtendedBo
 
 @Component({
     selector: 'app-navigations',
-    templateUrl: './navigations.component.html',
-    styleUrl: './navigations.component.scss',
     imports: [
         CardComponent,
         NaturalAvatarComponent,
@@ -82,6 +80,8 @@ function bookingsToExtended(bookings: Bookings['bookings']): PaginatedExtendedBo
         TextFieldModule,
         DatePipe,
     ],
+    templateUrl: './navigations.component.html',
+    styleUrl: './navigations.component.scss',
 })
 export class NavigationsComponent implements OnInit {
     public readonly userService = inject(UserService);

@@ -4,9 +4,9 @@ import {NavigationsComponent} from '../../../shared/components/navigations/navig
 
 @Component({
     selector: 'app-booking-history',
+    imports: [NavigationsComponent],
     templateUrl: './booking-history.component.html',
     styleUrl: './booking-history.component.scss',
-    imports: [NavigationsComponent],
 })
 export class BookingHistoryComponent {
     public readonly route = inject(ActivatedRoute);

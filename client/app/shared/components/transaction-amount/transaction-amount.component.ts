@@ -7,9 +7,9 @@ import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-transaction-amount',
+    imports: [CommonModule, MatTooltipModule, RouterLink],
     templateUrl: './transaction-amount.component.html',
     styleUrl: './transaction-amount.component.scss',
-    imports: [CommonModule, MatTooltipModule, RouterLink],
 })
 export class TransactionAmountComponent implements OnChanges {
     public readonly transactionLineService = inject(TransactionLineService);

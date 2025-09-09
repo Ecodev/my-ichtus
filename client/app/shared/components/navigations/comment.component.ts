@@ -8,9 +8,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 
 @Component({
     selector: 'app-comment',
+    imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, TextFieldModule, MatButtonModule],
     templateUrl: './comment.component.html',
     styleUrl: './comment.component.scss',
-    imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, TextFieldModule, MatButtonModule],
 })
 export class CommentComponent {
     public readonly data = inject(MAT_DIALOG_DATA);

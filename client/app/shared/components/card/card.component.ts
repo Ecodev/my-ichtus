@@ -4,9 +4,9 @@ import {MatCardModule} from '@angular/material/card';
 
 @Component({
     selector: 'app-card',
+    imports: [MatCardModule, NaturalFileComponent],
     templateUrl: './card.component.html',
     styleUrl: './card.component.scss',
-    imports: [MatCardModule, NaturalFileComponent],
 })
 export class CardComponent implements OnInit {
     @Input() public illustrationHeight = 200;

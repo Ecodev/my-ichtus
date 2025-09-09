@@ -9,9 +9,9 @@ import {CardComponent} from '../shared/components/card/card.component';
 
 @Component({
     selector: 'app-door',
+    imports: [CardComponent, MatButtonModule, MatIconModule],
     templateUrl: './door.component.html',
     styleUrl: './door.component.scss',
-    imports: [CardComponent, MatButtonModule, MatIconModule],
 })
 export class DoorComponent implements OnInit {
     public readonly doorService = inject(DoorService);

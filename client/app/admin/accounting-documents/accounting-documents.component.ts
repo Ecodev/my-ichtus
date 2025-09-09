@@ -15,9 +15,9 @@ import {MatButtonModule} from '@angular/material/button';
 
 @Component({
     selector: 'app-accounting-documents',
+    imports: [NaturalFileComponent, MatButtonModule, MatIconModule, NaturalIconDirective],
     templateUrl: './accounting-documents.component.html',
     styleUrl: './accounting-documents.component.scss',
-    imports: [NaturalFileComponent, MatButtonModule, MatIconModule, NaturalIconDirective],
 })
 export class AccountingDocumentsComponent implements OnInit {
     public readonly accountingDocumentService = inject(AccountingDocumentService);

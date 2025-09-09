@@ -28,7 +28,6 @@ import {CommonModule, DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-safety',
-    templateUrl: '../admin/bookings/bookings/bookings.component.html',
     imports: [
         CommonModule,
         NaturalColumnsPickerComponent,
@@ -52,6 +51,7 @@ import {CommonModule, DatePipe} from '@angular/common';
         DatePipe,
         NaturalEllipsisPipe,
     ],
+    templateUrl: '../admin/bookings/bookings/bookings.component.html',
 })
 export class SafetyComponent extends AbstractBookings<SafetyBookingService> {
     public readonly permissionsService = inject(PermissionsService);

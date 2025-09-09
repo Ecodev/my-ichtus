@@ -22,8 +22,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
     selector: 'app-license',
-    templateUrl: './license.component.html',
-    styleUrl: './license.component.scss',
     imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -41,6 +39,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         NaturalStampComponent,
         NaturalFixedButtonDetailComponent,
     ],
+    templateUrl: './license.component.html',
+    styleUrl: './license.component.scss',
 })
 export class LicenseComponent extends NaturalAbstractDetail<LicenseService> {
     public readonly userService = inject(UserService);

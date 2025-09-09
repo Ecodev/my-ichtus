@@ -17,8 +17,6 @@ export type ProvisionData = {
 
 @Component({
     selector: 'app-provision',
-    templateUrl: './provision.component.html',
-    styleUrl: './provision.component.scss',
     imports: [
         MatDialogModule,
         CommonModule,
@@ -29,6 +27,8 @@ export type ProvisionData = {
         ReactiveFormsModule,
         BvrComponent,
     ],
+    templateUrl: './provision.component.html',
+    styleUrl: './provision.component.scss',
 })
 export class ProvisionComponent {
     public readonly data = inject<ProvisionData>(MAT_DIALOG_DATA);

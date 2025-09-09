@@ -9,8 +9,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 
 @Component({
     selector: 'app-create-refund',
-    templateUrl: './create-refund.component.html',
-    styleUrl: './create-refund.component.scss',
     imports: [
         MatDialogModule,
         FormsModule,
@@ -20,6 +18,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
         TextFieldModule,
         MatButtonModule,
     ],
+    templateUrl: './create-refund.component.html',
+    styleUrl: './create-refund.component.scss',
 })
 export class CreateRefundComponent {
     private readonly fb = inject(NonNullableFormBuilder);

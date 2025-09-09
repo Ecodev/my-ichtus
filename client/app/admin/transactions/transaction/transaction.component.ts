@@ -51,8 +51,6 @@ import {DuplicatedTransactionResolve} from '../transaction';
 
 @Component({
     selector: 'app-transaction',
-    templateUrl: './transaction.component.html',
-    styleUrl: './transaction.component.scss',
     imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -80,6 +78,8 @@ import {DuplicatedTransactionResolve} from '../transaction';
         NaturalIconDirective,
         EcoFabSpeedDialActionsComponent,
     ],
+    templateUrl: './transaction.component.html',
+    styleUrl: './transaction.component.scss',
 })
 export class TransactionComponent
     extends NaturalAbstractDetail<

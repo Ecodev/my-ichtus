@@ -6,9 +6,9 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-scan',
+    standalone: true,
     templateUrl: './scan.component.html',
     styleUrl: './scan.component.scss',
-    standalone: true,
 })
 export class ScanComponent implements OnInit, OnDestroy {
     public readonly router = inject(Router);

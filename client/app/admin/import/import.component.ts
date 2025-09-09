@@ -17,9 +17,9 @@ import {AsyncPipe} from '@angular/common';
 
 @Component({
     selector: 'app-import',
+    imports: [MatButtonModule, NaturalFileSelectDirective, MatIconModule, NaturalIconDirective, AsyncPipe],
     templateUrl: './import.component.html',
     styleUrl: './import.component.scss',
-    imports: [MatButtonModule, NaturalFileSelectDirective, MatIconModule, NaturalIconDirective, AsyncPipe],
 })
 export class ImportComponent implements OnInit {
     private readonly route = inject(ActivatedRoute);

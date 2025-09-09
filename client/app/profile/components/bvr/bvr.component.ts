@@ -31,8 +31,6 @@ const queryForExport = gql`
 
 @Component({
     selector: 'app-bvr',
-    templateUrl: './bvr.component.html',
-    styleUrl: './bvr.component.scss',
     imports: [
         MatProgressSpinnerModule,
         MatButtonModule,
@@ -41,6 +39,8 @@ const queryForExport = gql`
         NaturalIconDirective,
         IbanPipe,
     ],
+    templateUrl: './bvr.component.html',
+    styleUrl: './bvr.component.scss',
 })
 export class BvrComponent {
     private readonly apollo = inject(Apollo);

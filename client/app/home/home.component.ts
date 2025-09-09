@@ -18,8 +18,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-home',
-    templateUrl: './home.component.html',
-    styleUrl: './home.component.scss',
     imports: [
         MatToolbarModule,
         MatButtonModule,
@@ -30,6 +28,8 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
         NaturalAvatarComponent,
         RouterOutlet,
     ],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
     private readonly userService = inject(UserService);

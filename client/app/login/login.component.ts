@@ -13,8 +13,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 
 @Component({
     selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrl: './login.component.scss',
     imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -25,6 +23,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
         RouterLink,
         MatDividerModule,
     ],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
     private readonly route = inject(ActivatedRoute);

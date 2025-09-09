@@ -4,8 +4,8 @@ import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'app-money',
-    templateUrl: './money.component.html',
     imports: [CommonModule],
+    templateUrl: './money.component.html',
 })
 export class MoneyComponent {
     /**
