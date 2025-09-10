@@ -1,4 +1,4 @@
-import {inject, provideAppInitializer, provideExperimentalZonelessChangeDetection} from '@angular/core';
+import {inject, provideAppInitializer, provideZonelessChangeDetection} from '@angular/core';
 import {createApplication} from '@angular/platform-browser';
 import {APP_BASE_HREF} from '@angular/common';
 import {Apollo, APOLLO_OPTIONS} from 'apollo-angular';
@@ -20,7 +20,7 @@ createApplication({
     providers: [
         Apollo,
         provideHttpClient(withInterceptors([graphqlQuerySigner(localConfig.signedQueries.keys.navigations)])),
-        provideExperimentalZonelessChangeDetection(),
+        provideZonelessChangeDetection(),
         {provide: APP_BASE_HREF, useValue: '/'},
         {
             provide: APOLLO_OPTIONS,

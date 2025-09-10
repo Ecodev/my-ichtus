@@ -1,5 +1,5 @@
-import {inject, Injectable} from '@angular/core';
-import {DOCUMENT} from '@angular/common';
+import {inject, Injectable, DOCUMENT} from '@angular/core';
+
 import {fromEvent, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {localConfig} from '../generated-config';
@@ -41,7 +41,7 @@ function bufferToHexa(hashBuffer: ArrayBuffer): string {
 
 // TODO consider replacing this entire function with native `Uint8Array.fromHex()` when support is good enough in our customer base
 // See https://caniuse.com/mdn-javascript_builtins_uint8array_fromhex
-function hexToBytes(hex: string): Uint8Array {
+function hexToBytes(hex: string): BufferSource {
     const bytes = new Uint8Array(hex.length / 2);
     for (let i = 0; i < hex.length; i += 2) {
         bytes[i / 2] = parseInt(hex.substring(i, i + 2), 16);

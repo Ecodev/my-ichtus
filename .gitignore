@@ -19,6 +19,7 @@
 !/data/images/chat6.jpg
 !/data/images/chat7.jpg
 !/data/images/chat8.jpg
+/dist/
 /*.backup.sql.gz
 /htdocs/
 /.idea/

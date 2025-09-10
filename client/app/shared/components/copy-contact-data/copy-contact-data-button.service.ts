@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import {inject, Injectable, DOCUMENT} from '@angular/core';
 import {Button, copyToClipboard, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {
     BookingsWithOwnerContact,
@@ -11,7 +11,6 @@ import {Apollo} from 'apollo-angular';
 import {DocumentNode} from 'graphql';
 import {emailAndPhoneUsersQuery} from '../../../admin/users/services/user.queries';
 import {bookingsWithOwnerContactQuery} from '../../../admin/bookings/services/booking.queries';
-import {DOCUMENT} from '@angular/common';
 
 export type ContactType = 'bookingsWithOwnerContact' | 'emailAndPhoneUsers';
 
