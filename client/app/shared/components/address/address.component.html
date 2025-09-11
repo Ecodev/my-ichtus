@@ -1,18 +1,18 @@
-<div class="nat-vertical" [formGroup]="form">
+<div class="nat-vertical" [formGroup]="form()">
     <mat-form-field>
         <mat-label>Rue</mat-label>
         <input matInput formControlName="street" (change)="update()" />
-        @if (form.get('street')?.hasError('required')) {
+        @if (form().get('street')?.hasError('required')) {
             <mat-error>Requis</mat-error>
         }
     </mat-form-field>
 
-    <div class="nat-vertical nat-horizontal-gap-10" [class.nat-sm-horizontal]="!vertical">
-        <div class="nat-horizontal nat-gap-10" [class.nat-expand]="!vertical">
+    <div class="nat-vertical nat-horizontal-gap-10" [class.nat-sm-horizontal]="!vertical()">
+        <div class="nat-horizontal nat-gap-10" [class.nat-expand]="!vertical()">
             <mat-form-field [style.width.px]="120">
                 <mat-label>Code postal</mat-label>
                 <input matInput formControlName="postcode" (change)="update()" />
-                @if (form.get('postcode')?.hasError('required')) {
+                @if (form().get('postcode')?.hasError('required')) {
                     <mat-error>Requis</mat-error>
                 }
             </mat-form-field>
@@ -20,7 +20,7 @@
             <mat-form-field class="nat-expand">
                 <mat-label>Localité</mat-label>
                 <input matInput formControlName="locality" (change)="update()" />
-                @if (form.get('locality')?.hasError('required')) {
+                @if (form().get('locality')?.hasError('required')) {
                     <mat-error>Requis</mat-error>
                 }
             </mat-form-field>

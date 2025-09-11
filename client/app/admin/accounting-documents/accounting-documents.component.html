@@ -4,18 +4,18 @@
             <natural-file
                 accept="image/bmp,image/gif,image/jpeg,image/pjpeg,image/png,image/svg+xml,image/webp,application/pdf,application/x-pdf"
                 [model]="file"
-                [height]="fileHeight"
-                [style.width.px]="fileWidth"
+                [height]="fileHeight()"
+                [style.width.px]="fileWidth()"
                 [action]="getAction(file, $index, $last)"
                 (modelChange)="fileAdded($event, $index)"
             />
-            @if (canRemove && !disabled && !$last) {
+            @if (canRemove() && !disabled && !$last) {
                 <button mat-icon-button (click)="!$last ? removeFile($index) : null">
                     <mat-icon naturalIcon="clear" />
                 </button>
             }
             @if (!disabled && $last) {
-                <p class="mat-body" style="text-align: center" [style.maxWidth.px]="fileWidth">
+                <p class="mat-body" style="text-align: center" [style.maxWidth.px]="fileWidth()">
                     Images (jpg, png, webp, svg, gif, bmp) ou document PDF uniquement
                 </p>
             }

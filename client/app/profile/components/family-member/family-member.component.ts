@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit, output} from '@angular/core';
+import {Component, inject, OnInit, output, input} from '@angular/core';
 import {CreateUser, CurrentUserForProfile, UpdateUser, Users} from '../../../shared/generated-types';
 import {
     NaturalAbstractDetail,
@@ -40,9 +40,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     styleUrl: './family-member.component.scss',
 })
 export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserService> implements OnInit {
-    @Input({required: true}) public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
-    @Input({required: true}) public user!: Users['users']['items'][0];
-    @Input() public readonly = false;
+    public readonly viewer = input.required<NonNullable<CurrentUserForProfile['viewer']>>();
+    public readonly user = input.required<Users['users']['items'][0]>();
+    public readonly readonly = input(false);
     public readonly created = output();
     public readonly removed = output();
     public readonly updated = output<UpdateUser['updateUser']>();
@@ -56,19 +56,20 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
      * Replace resolved data from router by input and server query
      */
     public override ngOnInit(): void {
-        if (this.user?.id) {
-            this.service.getOne(this.user.id).subscribe(user => {
+        const userValue = this.user();
+        if (userValue?.id) {
+            this.service.getOne(userValue.id).subscribe(user => {
                 this.data = merge(
                     {model: this.service.getDefaultForServer()},
-                    merge({model: user}, {owner: this.viewer}),
+                    merge({model: user}, {owner: this.viewer()}),
                 );
                 this.setForm();
             });
         } else {
             this.data = {
                 model: Object.assign(this.service.getDefaultForServer(), {
-                    owner: this.viewer,
-                    status: this.viewer.status,
+                    owner: this.viewer(),
+                    status: this.viewer().status,
                 }),
             };
             this.setForm();
@@ -77,11 +78,11 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
 
     private setForm(): void {
         this.initForm();
-        if (this.readonly) {
+        if (this.readonly()) {
             this.form.disable();
         }
         const familyRelationship = this.form.get('familyRelationship');
-        if (familyRelationship && this.viewer.owner) {
+        if (familyRelationship && this.viewer().owner) {
             familyRelationship.disable();
         }
 
@@ -106,10 +107,10 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
         const explanation = `En détachant du ménage cette personne, elle perdra les privilèges associés au ménage.
         Elle lui faudra alors faire une demande d'adhésion en tant que membre individuel pour retrouver ces privilèges.`;
         this.alertService
-            .confirm(`Détacher ${this.user.name} du ménage`, explanation, 'Détacher du ménage')
+            .confirm(`Détacher ${this.user().name} du ménage`, explanation, 'Détacher du ménage')
             .subscribe(confirmed => {
                 if (confirmed) {
-                    this.service.leaveFamily(this.user).subscribe(() => {
+                    this.service.leaveFamily(this.user()).subscribe(() => {
                         this.removed.emit();
                         const message = 'La personne a été détachée du ménage';
                         this.alertService.info(message, 5000);

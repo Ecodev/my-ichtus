@@ -1,4 +1,4 @@
-import {Component, inject, Input, output} from '@angular/core';
+import {Component, inject, output, input} from '@angular/core';
 import {CountryService} from './country.service';
 import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NaturalSelectComponent} from '@ecodev/natural';
@@ -14,8 +14,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 export class AddressComponent {
     public readonly countryService = inject(CountryService);
 
-    @Input() public vertical = false;
-    @Input({required: true}) public form!: FormGroup;
+    public readonly vertical = input(false);
+    public readonly form = input.required<FormGroup>();
     public readonly addressChange = output();
 
     public update(): void {

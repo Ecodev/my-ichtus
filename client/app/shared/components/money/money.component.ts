@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 import Big from 'big.js';
 import {CommonModule} from '@angular/common';
 
@@ -11,19 +11,21 @@ export class MoneyComponent {
     /**
      * E.g mat-headline-4
      */
-    @Input() public sizeClass = '';
+    public readonly sizeClass = input('');
 
-    @Input() public amount: string | number | undefined | null = null;
+    public readonly amount = input<string | number | undefined | null>(null);
 
-    @Input() public showSignal = true;
+    public readonly showSignal = input(true);
 
-    @Input() public showCurrency = true;
+    public readonly showCurrency = input(true);
 
     public showPositive(): boolean {
-        return this.showSignal && !!this.amount && Big(this.amount).gt(0);
+        const amount = this.amount();
+        return this.showSignal() && !!amount && Big(amount).gt(0);
     }
 
     public showNegative(): boolean {
-        return this.showSignal && !!this.amount && Big(this.amount).lt(0);
+        const amount = this.amount();
+        return this.showSignal() && !!amount && Big(amount).lt(0);
     }
 }

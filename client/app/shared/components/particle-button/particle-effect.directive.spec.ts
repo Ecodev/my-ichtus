@@ -1,7 +1,10 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {Component, DebugElement} from '@angular/core';
+import {Component, DebugElement, InputSignal} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {ParticleEffectDirective} from './particle-effect.directive';
+import {ConditionalPick} from 'type-fest';
+import type {EaseStringParamNames} from 'animejs';
+import {Direction} from './particles';
 
 @Component({
     imports: [ParticleEffectDirective],
@@ -11,6 +14,12 @@ class TestParticleEffectButtonComponent {
     public hidden0 = false;
 }
 
+type PossibleInputName = keyof ConditionalPick<
+    ParticleEffectDirective,
+    InputSignal<string> | InputSignal<number> | InputSignal<EaseStringParamNames> | InputSignal<Direction>
+>;
+type PossibleInputs = Partial<Record<PossibleInputName, string | number>>;
+
 describe('AngularParticleEffectButtonComponent', () => {
     let component: TestParticleEffectButtonComponent;
     let fixture: ComponentFixture<TestParticleEffectButtonComponent>;
@@ -18,22 +27,19 @@ describe('AngularParticleEffectButtonComponent', () => {
     let directiveChildWrapper: DebugElement;
     let directiveParentWrapper: DebugElement;
     let canvas: DebugElement[];
-    let defaultOptions: any;
     let originalTimeout: number;
 
-    function initializeDefaultOptions(): void {
-        defaultOptions = {
-            pColor: '#000',
-            pDuration: 1000,
-            pEasing: 'inOutCubic',
-            pType: 'circle',
-            pStyle: 'fill',
-            pDirection: 'left',
-            pCanvasPadding: 150,
-            pOscillationCoefficient: 30,
-            pParticlesAmountCoefficient: 3,
-        };
-    }
+    const defaultOptions: PossibleInputs = {
+        pColor: '#000',
+        pDuration: 1000,
+        pEasing: 'inOutCubic',
+        pType: 'circle',
+        pStyle: 'fill',
+        pDirection: 'left',
+        pCanvasPadding: 150,
+        pOscillationCoefficient: 30,
+        pParticlesAmountCoefficient: 3,
+    } as const;
 
     beforeEach(() => {
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -91,15 +97,13 @@ describe('AngularParticleEffectButtonComponent', () => {
     });
 
     it('should have default values already set', () => {
-        initializeDefaultOptions();
         const directiveInstance = directiveDOM.injector.get(ParticleEffectDirective);
         Object.keys(defaultOptions).forEach(key => {
-            expect(defaultOptions[key]).toEqual((directiveInstance as any)[key]);
+            expect(defaultOptions[key as PossibleInputName]).toEqual(directiveInstance[key as PossibleInputName]());
         });
     });
 
     it('should begin event emit when animation starts', done => {
-        initializeDefaultOptions();
         const directiveInstance = directiveDOM.injector.get(ParticleEffectDirective);
         directiveInstance.pBegin.subscribe(() => {
             expect(true).toBe(true);
@@ -110,7 +114,6 @@ describe('AngularParticleEffectButtonComponent', () => {
     });
 
     it('should complete event emit when animation completes', done => {
-        initializeDefaultOptions();
         const directiveInstance = directiveDOM.injector.get(ParticleEffectDirective);
         directiveInstance.pComplete.subscribe(() => {
             expect(true).toBe(true);

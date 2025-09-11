@@ -1,10 +1,10 @@
 @if (bookings) {
-    @if (!bookings.items.length && showEmptyMessage) {
+    @if (!bookings.items.length && showEmptyMessage()) {
         <div class="nat-padding mat-subtitle-2">Aucun résultat</div>
     }
     <div class="list">
         @for (item of bookings.items; track item) {
-            @if (!activeOnly || (activeOnly && !item.terminated)) {
+            @if (!activeOnly() || (activeOnly() && !item.terminated)) {
                 <app-card
                     class="nat-vertical"
                     [file]="item.booking.bookable?.image"

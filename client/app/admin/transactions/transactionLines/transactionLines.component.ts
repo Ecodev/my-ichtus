@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit, input} from '@angular/core';
 import {
     AvailableColumn,
     Button,
@@ -78,7 +78,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
     ];
 
     @Input() public relativeToAccount: MinimalAccount | null = null;
-    @Input() public hideFab = false;
+    public readonly hideFab = input(false);
 
     public constructor() {
         super(inject(TransactionLineService));
@@ -95,7 +95,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
     }
 
     public filterByAccount(account: MinimalAccount): void {
-        if (this.hideFab) {
+        if (this.hideFab()) {
             const link = this.service.linkToTransactionLinesForAccount(account);
             this.router.navigate(link);
         } else {
@@ -116,7 +116,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
     }
 
     public filterByTag(tag: TransactionTag['transactionTag']): void {
-        if (this.hideFab) {
+        if (this.hideFab()) {
             const link = this.service.linkToTransactionLinesForTag(tag);
             this.router.navigate(link);
         } else {

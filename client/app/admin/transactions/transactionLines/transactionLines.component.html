@@ -205,6 +205,6 @@
     </div>
 }
 
-@if (!hideFab && (permissionsService.crud | async)?.transaction.create) {
+@if (!hideFab() && (permissionsService.crud | async)?.transaction.create) {
     <natural-fixed-button icon="add" [routerLink]="['/admin/transaction/new']" />
 }

@@ -1,4 +1,4 @@
-import {AfterContentInit, Directive, ElementRef, inject, Input, Renderer2, output} from '@angular/core';
+import {AfterContentInit, Directive, ElementRef, inject, Input, Renderer2, output, input} from '@angular/core';
 import {rand} from './utils';
 import {Direction, IOption, Particles} from './particles';
 import type {EaseStringParamNames} from 'animejs';
@@ -13,19 +13,19 @@ export class ParticleEffectDirective implements AfterContentInit {
 
     private _particles: Particles | undefined;
     private _pHidden = false;
-    @Input() public pColor = '#000';
-    @Input() public pDuration = 1000;
-    @Input() public pEasing: EaseStringParamNames = 'inOutCubic';
-    @Input() public pType = 'circle';
-    @Input() public pStyle = 'fill';
-    @Input() public pDirection: Direction = 'left';
-    @Input() public pCanvasPadding = 150;
-    @Input() public pOscillationCoefficient = 30;
-    @Input() public pParticlesAmountCoefficient = 3;
+    public readonly pColor = input('#000');
+    public readonly pDuration = input(1000);
+    public readonly pEasing = input<EaseStringParamNames>('inOutCubic');
+    public readonly pType = input('circle');
+    public readonly pStyle = input('fill');
+    public readonly pDirection = input<Direction>('left');
+    public readonly pCanvasPadding = input(150);
+    public readonly pOscillationCoefficient = input(30);
+    public readonly pParticlesAmountCoefficient = input(3);
     public readonly pBegin = output();
     public readonly pComplete = output();
-    @Input() public pSize: (() => number) | number = () => Math.floor(Math.random() * 3 + 1);
-    @Input() public pSpeed: (() => number) | number = () => rand(4);
+    public readonly pSize = input<(() => number) | number>(() => Math.floor(Math.random() * 3 + 1));
+    public readonly pSpeed = input<(() => number) | number>(() => rand(4));
 
     @Input()
     public set pHidden(value: boolean) {
@@ -53,17 +53,17 @@ export class ParticleEffectDirective implements AfterContentInit {
 
     private getOptions(): Required<IOption> {
         return {
-            color: this.pColor,
-            type: this.pType,
-            style: this.pStyle,
-            canvasPadding: this.pCanvasPadding,
-            duration: this.pDuration,
-            easing: this.pEasing,
-            direction: this.pDirection,
-            size: this.pSize,
-            speed: this.pSpeed,
-            particlesAmountCoefficient: this.pParticlesAmountCoefficient,
-            oscillationCoefficient: this.pOscillationCoefficient,
+            color: this.pColor(),
+            type: this.pType(),
+            style: this.pStyle(),
+            canvasPadding: this.pCanvasPadding(),
+            duration: this.pDuration(),
+            easing: this.pEasing(),
+            direction: this.pDirection(),
+            size: this.pSize(),
+            speed: this.pSpeed(),
+            particlesAmountCoefficient: this.pParticlesAmountCoefficient(),
+            oscillationCoefficient: this.pOscillationCoefficient(),
             begin: () => {
                 this.pBegin.emit();
             },

@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnChanges, output} from '@angular/core';
+import {Component, inject, Input, OnChanges, output, input} from '@angular/core';
 import {AccountType, MinimalAccount, TransactionLine} from '../../generated-types';
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
 import {RouterLink} from '@angular/router';
@@ -20,7 +20,7 @@ export class TransactionAmountComponent implements OnChanges {
      * Account we want to see the amount relative to
      */
     @Input() public relativeToAccount: MinimalAccount | null = null;
-    @Input() public displayMode: 'amount' | 'account' = 'amount';
+    public readonly displayMode = input<'amount' | 'account'>('amount');
     public readonly accountClick = output<MinimalAccount>();
 
     public isIncome: boolean | null = null;

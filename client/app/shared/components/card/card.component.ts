@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, input} from '@angular/core';
 import {FileModel, NaturalFileComponent} from '@ecodev/natural';
 import {MatCardModule} from '@angular/material/card';
 
@@ -9,13 +9,14 @@ import {MatCardModule} from '@angular/material/card';
     styleUrl: './card.component.scss',
 })
 export class CardComponent implements OnInit {
-    @Input() public illustrationHeight = 200;
+    public readonly illustrationHeight = input(200);
     @Input() public file: FileModel | null = null;
-    @Input() public illustrationUrl = '';
+    public readonly illustrationUrl = input('');
 
     public ngOnInit(): void {
-        if (!this.file && this.illustrationUrl) {
-            this.file = {src: this.illustrationUrl};
+        const illustrationUrl = this.illustrationUrl();
+        if (!this.file && illustrationUrl) {
+            this.file = {src: illustrationUrl};
         }
     }
 }

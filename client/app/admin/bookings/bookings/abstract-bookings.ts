@@ -1,4 +1,4 @@
-import {Directive, Input} from '@angular/core';
+import {Directive, input} from '@angular/core';
 import {AvailableColumn, Button, NaturalAbstractList} from '@ecodev/natural';
 import {BookingService} from '../services/booking.service';
 import {BookingWithOwnerService} from '../services/booking-with-owner.service';
@@ -132,7 +132,7 @@ export abstract class AbstractBookings<
     TService extends BookingService | BookingWithOwnerService | SafetyBookingService,
 > extends NaturalAbstractList<TService> {
     public override availableColumns = allAvailableColumns;
-    @Input() public showFabButton = true;
+    public readonly showFabButton = input(true);
 
     public readonly buttons: Button[] | null = null;
     public readonly usageStatus = usageStatusFunc;

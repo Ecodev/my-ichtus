@@ -1,8 +1,8 @@
-<div [attr.class]="sizeClass" [style.margin.px]="0">
+<div [attr.class]="sizeClass()" [style.margin.px]="0">
     <span style="white-space: nowrap" [class.positive]="showPositive()" [class.negative]="showNegative()">
-        @if (showCurrency) {
+        @if (showCurrency()) {
             <span>CHF </span>
         }
-        {{ amount | currency: 'CHF' : '' : '1.2-2' : 'de-CH' }}
+        {{ amount() | currency: 'CHF' : '' : '1.2-2' : 'de-CH' }}
     </span>
 </div>

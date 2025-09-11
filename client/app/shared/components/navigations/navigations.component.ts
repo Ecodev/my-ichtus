@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, OnInit, input} from '@angular/core';
 import {UserService} from '../../../admin/users/services/user.service';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {
@@ -90,9 +90,9 @@ export class NavigationsComponent implements OnInit {
     private readonly dialog = inject(MatDialog);
     private readonly snackbar = inject(MatSnackBar);
 
-    @Input({required: true}) public user!: NonNullable<CurrentUserForProfile['viewer']>;
-    @Input() public activeOnly = true;
-    @Input() public showEmptyMessage = false;
+    public readonly user = input.required<NonNullable<CurrentUserForProfile['viewer']>>();
+    public readonly activeOnly = input(true);
+    public readonly showEmptyMessage = input(false);
 
     public bookings: PaginatedExtendedBooking | null = null;
 
@@ -103,15 +103,14 @@ export class NavigationsComponent implements OnInit {
 
     public ngOnInit(): void {
         const qvm = new NaturalQueryVariablesManager<UsersVariables>();
+        const user = this.user();
         qvm.set('variables', {
             filter: {
-                groups: [
-                    {conditions: [{owner: {equal: {value: this.user.owner ? this.user.owner.id : this.user.id}}}]},
-                ],
+                groups: [{conditions: [{owner: {equal: {value: user.owner ? user.owner.id : user.id}}}]}],
             },
         });
         this.userService.getAll(qvm).subscribe(family => {
-            this.family = [this.user, ...family.items];
+            this.family = [this.user(), ...family.items];
             this.getNavigations(this.family).subscribe(bookings => (this.bookings = bookingsToExtended(bookings)));
         });
     }
@@ -177,7 +176,7 @@ export class NavigationsComponent implements OnInit {
 
     private getNavigations(users: Users['users']['items']): Observable<Bookings['bookings']> {
         const owner = {in: {values: users.map(u => u.id)}};
-        const endDate = this.activeOnly ? {null: {}} : null;
+        const endDate = this.activeOnly() ? {null: {}} : null;
 
         const variables: BookingsVariables = {
             filter: {

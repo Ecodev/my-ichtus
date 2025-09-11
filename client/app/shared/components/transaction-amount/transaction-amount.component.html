@@ -2,13 +2,13 @@
     <div
         [class.positive]="isIncome === true"
         [class.negative]="isIncome === false"
-        [class.background-decoration]="displayMode === 'account'"
-        [class.text-decoration]="displayMode === 'amount'"
+        [class.background-decoration]="displayMode() === 'account'"
+        [class.text-decoration]="displayMode() === 'amount'"
     >
-        @if (displayMode === 'amount') {
+        @if (displayMode() === 'amount') {
             <span>{{ isIncome ? '➚' : '➘︎' }}&nbsp;{{ transactionLine.balance | currency: 'CHF' }}</span>
         }
-        @if (displayMode === 'account') {
+        @if (displayMode() === 'account') {
             <a
                 matTooltip="Voir les transactions"
                 [routerLink]="transactionLineService.linkToTransactionLinesForAccount(relativeToAccount)"

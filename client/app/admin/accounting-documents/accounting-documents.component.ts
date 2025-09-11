@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit, input} from '@angular/core';
 import {
     AccountingDocumentInput,
     ExpenseClaim,
@@ -22,14 +22,12 @@ import {MatButtonModule} from '@angular/material/button';
 export class AccountingDocumentsComponent implements OnInit {
     public readonly accountingDocumentService = inject(AccountingDocumentService);
 
-    @Input({required: true}) public model!:
-        | Transaction['transaction']
-        | ExpenseClaim['expenseClaim']
-        | TransactionInput
-        | ExpenseClaimInput;
-    @Input() public fileHeight = 250;
-    @Input() public fileWidth = 250;
-    @Input() public canRemove = true;
+    public readonly model = input.required<
+        Transaction['transaction'] | ExpenseClaim['expenseClaim'] | TransactionInput | ExpenseClaimInput
+    >();
+    public readonly fileHeight = input(250);
+    public readonly fileWidth = input(250);
+    public readonly canRemove = input(true);
 
     /**
      * When changing disabled status, add or remove an empty item in list to allow new upload or deny it.
@@ -54,8 +52,9 @@ export class AccountingDocumentsComponent implements OnInit {
     private _disabled = false;
 
     public ngOnInit(): void {
-        if ('accountingDocuments' in this.model) {
-            this.files = [...this.model.accountingDocuments];
+        const model = this.model();
+        if ('accountingDocuments' in model) {
+            this.files = [...model.accountingDocuments];
         }
 
         this.disabled = this._disabled;

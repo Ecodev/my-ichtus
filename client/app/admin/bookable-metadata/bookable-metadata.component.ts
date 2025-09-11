@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit, input} from '@angular/core';
 import {BookableMetadataService} from './bookable-metadata.service';
 import {
     NaturalAlertService,
@@ -34,7 +34,7 @@ export class BookableMetadataComponent implements OnInit {
     private readonly bookableMetaService = inject(BookableMetadataService);
     private readonly alertService = inject(NaturalAlertService);
 
-    @Input({required: true}) public bookable!: Bookable['bookable'];
+    public readonly bookable = input.required<Bookable['bookable']>();
     @Input() public edit = false;
     public readonly deleting = new Map<BookableMetadatas['bookableMetadatas']['items'][0], true>();
 
@@ -49,9 +49,10 @@ export class BookableMetadataComponent implements OnInit {
             this.columns = ['name', 'value'];
         }
 
-        if (this.bookable) {
+        const bookable = this.bookable();
+        if (bookable) {
             const variables: BookableMetadatasVariables = {
-                filter: {groups: [{conditions: [{bookable: {equal: {value: this.bookable.id}}}]}]},
+                filter: {groups: [{conditions: [{bookable: {equal: {value: bookable.id}}}]}]},
             };
 
             const qvm = new NaturalQueryVariablesManager<BookableMetadatasVariables>();
@@ -82,7 +83,7 @@ export class BookableMetadataComponent implements OnInit {
     }
 
     public updateOrCreate(meta: BookableMetadatas['bookableMetadatas']['items'][0]): void {
-        meta.bookable = this.bookable;
+        meta.bookable = this.bookable();
 
         if (meta.name) {
             this.bookableMetaService.createOrUpdate(meta).subscribe(created => {

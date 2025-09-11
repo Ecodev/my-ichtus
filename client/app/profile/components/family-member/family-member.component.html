@@ -12,7 +12,7 @@
                 <button
                     mat-stroked-button
                     color="warn"
-                    [disabled]="!form.enabled || !service.canLeaveFamily(user)"
+                    [disabled]="!form.enabled || !service.canLeaveFamily(user())"
                     (click)="leaveFamily()"
                 >
                     Détacher du ménage
