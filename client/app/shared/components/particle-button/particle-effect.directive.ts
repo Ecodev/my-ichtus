@@ -5,7 +5,6 @@ import type {EaseStringParamNames} from 'animejs';
 
 @Directive({
     selector: '[appParticleEffect]',
-    standalone: true,
 })
 export class ParticleEffectDirective implements AfterContentInit {
     private readonly renderer = inject(Renderer2);

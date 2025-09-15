@@ -127,7 +127,7 @@ export const availableColumnsForBookingsWithOwnerOnlyTrainers = [
 
 export const availableColumnsForBookingsServicesApplication = [edit, owner, bookable, startDate];
 
-@Directive({standalone: true})
+@Directive()
 export abstract class AbstractBookings<
     TService extends BookingService | BookingWithOwnerService | SafetyBookingService,
 > extends NaturalAbstractList<TService> {

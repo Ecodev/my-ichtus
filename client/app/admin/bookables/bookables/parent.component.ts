@@ -42,7 +42,7 @@ export type ApplicationConfirmData = FutureOwner;
 export type ApplicationConfirmResult = string;
 type FutureOwner = CurrentUserForProfile['viewer'] | User['user'] | null;
 
-@Directive({standalone: true})
+@Directive()
 export abstract class ParentComponent<T extends UsageBookableService | BookableService>
     extends NaturalAbstractList<T>
     implements OnInit

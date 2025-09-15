@@ -6,7 +6,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-scan',
-    standalone: true,
     templateUrl: './scan.component.html',
     styleUrl: './scan.component.scss',
 })
