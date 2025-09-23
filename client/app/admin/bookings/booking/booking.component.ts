@@ -38,14 +38,14 @@ import {
     select,
 } from '../../bookables/bookables/parent.component';
 import {UsageBookablesComponent} from '../../bookables/bookables/usage-bookables.component';
-import {TextFieldModule} from '@angular/cdk/text-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
+import {MatInput} from '@angular/material/input';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {RouterLink} from '@angular/router';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatChipsModule} from '@angular/material/chips';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatButtonModule} from '@angular/material/button';
+import {MatDivider} from '@angular/material/divider';
+import {MatChipListbox, MatChipOption} from '@angular/material/chips';
+import {MatTab, MatTabGroup} from '@angular/material/tabs';
+import {MatButton} from '@angular/material/button';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
@@ -54,17 +54,20 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         FormsModule,
         ReactiveFormsModule,
         NaturalDetailHeaderComponent,
-        MatButtonModule,
-        MatTabsModule,
+        MatButton,
+        MatTab,
+        MatTabGroup,
         NaturalLinkableTabDirective,
         NaturalSelectComponent,
-        MatChipsModule,
-        MatDividerModule,
+        MatChipListbox,
+        MatChipOption,
+        MatDivider,
         RouterLink,
         NaturalSelectEnumComponent,
-        MatFormFieldModule,
-        MatInputModule,
-        TextFieldModule,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        CdkTextareaAutosize,
         UsageBookablesComponent,
         NaturalStampComponent,
         NaturalFixedButtonDetailComponent,

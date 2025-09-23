@@ -3,13 +3,13 @@ import {DoorConfig, DoorService} from './services/door.service';
 import {NaturalAlertService} from '@ecodev/natural';
 import {ActivatedRoute} from '@angular/router';
 import {CurrentUserForProfile} from '../shared/generated-types';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
+import {MatIcon} from '@angular/material/icon';
+import {MatButton} from '@angular/material/button';
 import {CardComponent} from '../shared/components/card/card.component';
 
 @Component({
     selector: 'app-door',
-    imports: [CardComponent, MatButtonModule, MatIconModule],
+    imports: [CardComponent, MatButton, MatIcon],
     templateUrl: './door.component.html',
     styleUrl: './door.component.scss',
 })

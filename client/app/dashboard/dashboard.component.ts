@@ -7,14 +7,14 @@ import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {UserRole} from '../shared/generated-types';
 import {NaturalIconDirective} from '@ecodev/natural';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
+import {MatIcon} from '@angular/material/icon';
+import {MatButton} from '@angular/material/button';
 import {NavigationsComponent} from '../shared/components/navigations/navigations.component';
-import {CommonModule} from '@angular/common';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
     selector: 'app-dashboard',
-    imports: [CommonModule, NavigationsComponent, MatButtonModule, RouterLink, MatIconModule, NaturalIconDirective],
+    imports: [AsyncPipe, NavigationsComponent, MatButton, RouterLink, MatIcon, NaturalIconDirective],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.scss',
 })

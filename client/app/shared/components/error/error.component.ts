@@ -1,13 +1,13 @@
 import {Component, inject} from '@angular/core';
 import {ErrorService} from './error.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
-import {MatButtonModule} from '@angular/material/button';
+import {MatButton} from '@angular/material/button';
 import {NaturalIconDirective} from '@ecodev/natural';
-import {MatIconModule} from '@angular/material/icon';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
     selector: 'app-error',
-    imports: [MatIconModule, NaturalIconDirective, MatButtonModule, RouterLink],
+    imports: [MatIcon, NaturalIconDirective, MatButton, RouterLink],
     templateUrl: './error.component.html',
     styleUrl: './error.component.scss',
 })

@@ -1,5 +1,4 @@
-import {inject, Injectable, DOCUMENT} from '@angular/core';
-
+import {DOCUMENT, inject, Injectable} from '@angular/core';
 import {fromEvent, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {localConfig} from '../generated-config';

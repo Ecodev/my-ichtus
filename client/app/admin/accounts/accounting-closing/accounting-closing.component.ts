@@ -1,21 +1,27 @@
 import {Component} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButton} from '@angular/material/button';
+import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from '@angular/material/form-field';
 import {MatDialogModule} from '@angular/material/dialog';
 
 @Component({
     selector: 'app-accounting-closing',
     imports: [
         MatDialogModule,
-        MatFormFieldModule,
-        MatInputModule,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatHint,
+        MatSuffix,
+        MatInput,
         FormsModule,
-        MatDatepickerModule,
+        MatDatepicker,
+        MatDatepickerInput,
+        MatDatepickerToggle,
         ReactiveFormsModule,
-        MatButtonModule,
+        MatButton,
     ],
     templateUrl: './accounting-closing.component.html',
     styleUrl: './accounting-closing.component.scss',

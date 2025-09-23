@@ -5,25 +5,56 @@ import {ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet} from '@angul
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {NaturalAlertService, NaturalAvatarComponent, NaturalDataSource, NaturalIconDirective} from '@ecodev/natural';
 import {finalize} from 'rxjs/operators';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatIconModule} from '@angular/material/icon';
-import {MatTableModule} from '@angular/material/table';
-import {MatButtonModule} from '@angular/material/button';
-import {CommonModule, DatePipe} from '@angular/common';
+import {MatTabLink, MatTabNav, MatTabNavPanel} from '@angular/material/tabs';
+import {MatIcon} from '@angular/material/icon';
+import {
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatFooterCell,
+    MatFooterCellDef,
+    MatFooterRow,
+    MatFooterRowDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
+    MatTable,
+} from '@angular/material/table';
+import {MatButton, MatIconButton} from '@angular/material/button';
+import {CurrencyPipe, DatePipe} from '@angular/common';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-services',
     imports: [
-        CommonModule,
+        CurrencyPipe,
         DatePipe,
-        MatButtonModule,
-        MatTableModule,
-        MatIconModule,
+        MatButton,
+        MatIconButton,
+        MatTable,
+        MatHeaderCellDef,
+        MatHeaderRowDef,
+        MatColumnDef,
+        MatCellDef,
+        MatRowDef,
+        MatFooterCellDef,
+        MatFooterRowDef,
+        MatHeaderCell,
+        MatCell,
+        MatFooterCell,
+        MatHeaderRow,
+        MatRow,
+        MatFooterRow,
+        MatIcon,
         NaturalIconDirective,
         NaturalAvatarComponent,
         RouterLink,
-        MatTabsModule,
+        MatTabNav,
+        MatTabNavPanel,
+        MatTabLink,
         RouterLinkActive,
         RouterOutlet,
     ],

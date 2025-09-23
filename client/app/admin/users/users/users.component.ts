@@ -11,7 +11,7 @@ import {
     NaturalSearchSelections,
     NaturalTableButtonComponent,
 } from '@ecodev/natural';
-import {CommonModule, DatePipe} from '@angular/common';
+import {AsyncPipe, DatePipe} from '@angular/common';
 import {BankingInfosVariables, EmailAndPhoneUsersVariables, Users, UserStatus} from '../../../shared/generated-types';
 import {users} from '../../../shared/natural-search/natural-search-facets';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -21,33 +21,54 @@ import {ProvisionComponent} from '../../../profile/components/provision/provisio
 import {RouterLink} from '@angular/router';
 import {finalize} from 'rxjs/operators';
 import {CopyContactDataButtonService} from '../../../shared/components/copy-contact-data/copy-contact-data-button.service';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
-import {MatButtonModule} from '@angular/material/button';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatSortModule} from '@angular/material/sort';
-import {MatTableModule} from '@angular/material/table';
+import {MatButton} from '@angular/material/button';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MatSort, MatSortHeader} from '@angular/material/sort';
+import {
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
+    MatTable,
+} from '@angular/material/table';
 
 @Component({
     selector: 'app-users',
     imports: [
-        CommonModule,
+        AsyncPipe,
+        DatePipe,
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
-        MatTableModule,
-        MatSortModule,
+        MatTable,
+        MatHeaderCellDef,
+        MatHeaderRowDef,
+        MatColumnDef,
+        MatCellDef,
+        MatRowDef,
+        MatHeaderCell,
+        MatCell,
+        MatHeaderRow,
+        MatRow,
+        MatSort,
+        MatSortHeader,
         NaturalAvatarComponent,
         NaturalTableButtonComponent,
-        MatTooltipModule,
-        MatButtonModule,
+        MatTooltip,
+        MatButton,
         MoneyComponent,
-        MatProgressSpinnerModule,
-        MatPaginatorModule,
+        MatProgressSpinner,
+        MatPaginator,
         NaturalFixedButtonComponent,
         RouterLink,
         NaturalEnumPipe,
-        DatePipe,
     ],
     templateUrl: './users.component.html',
     styleUrl: './users.component.scss',

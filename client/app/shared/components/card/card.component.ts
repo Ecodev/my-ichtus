@@ -1,10 +1,10 @@
-import {Component, Input, OnInit, input} from '@angular/core';
+import {Component, Input, input, OnInit} from '@angular/core';
 import {FileModel, NaturalFileComponent} from '@ecodev/natural';
-import {MatCardModule} from '@angular/material/card';
+import {MatCard} from '@angular/material/card';
 
 @Component({
     selector: 'app-card',
-    imports: [MatCardModule, NaturalFileComponent],
+    imports: [MatCard, NaturalFileComponent],
     templateUrl: './card.component.html',
     styleUrl: './card.component.scss',
 })

@@ -5,19 +5,27 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {NaturalAlertService, NaturalFixedButtonComponent, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {cloneDeep} from 'es-toolkit';
-import {MatExpansionModule, MatExpansionPanel} from '@angular/material/expansion';
+import {
+    MatAccordion,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+} from '@angular/material/expansion';
 import {first, skip} from 'rxjs/operators';
 import {FamilyMemberComponent} from '../family-member/family-member.component';
-import {MatButtonModule} from '@angular/material/button';
+import {MatButton} from '@angular/material/button';
 import {AsyncPipe} from '@angular/common';
 import {toObservable} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-family',
     imports: [
-        MatButtonModule,
+        MatButton,
         RouterLink,
-        MatExpansionModule,
+        MatAccordion,
+        MatExpansionPanel,
+        MatExpansionPanelHeader,
+        MatExpansionPanelTitle,
         FamilyMemberComponent,
         NaturalFixedButtonComponent,
         AsyncPipe,

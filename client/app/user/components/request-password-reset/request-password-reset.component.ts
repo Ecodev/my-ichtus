@@ -4,21 +4,24 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {Router} from '@angular/router';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ifValid, NaturalAlertService, NaturalIconDirective, validateAllFormControls} from '@ecodev/natural';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButton} from '@angular/material/button';
+import {MatIcon} from '@angular/material/icon';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatLabel, MatPrefix} from '@angular/material/form-field';
 
 @Component({
     selector: 'app-request-password-reset',
     imports: [
         FormsModule,
         ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatIconModule,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatPrefix,
+        MatInput,
+        MatIcon,
         NaturalIconDirective,
-        MatButtonModule,
+        MatButton,
     ],
     templateUrl: './request-password-reset.component.html',
     styleUrl: './request-password-reset.component.scss',

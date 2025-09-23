@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit, input} from '@angular/core';
+import {Component, inject, Input, input, OnInit} from '@angular/core';
 import {
     AvailableColumn,
     Button,
@@ -21,31 +21,60 @@ import {
 } from '../../../shared/generated-types';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {union} from 'es-toolkit';
-import {MatCheckboxChange, MatCheckboxModule} from '@angular/material/checkbox';
+import {MatCheckbox, MatCheckboxChange} from '@angular/material/checkbox';
 import {RouterLink} from '@angular/router';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {TransactionAmountComponent} from '../../../shared/components/transaction-amount/transaction-amount.component';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatSortModule} from '@angular/material/sort';
-import {MatTableModule} from '@angular/material/table';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MatSort, MatSortHeader} from '@angular/material/sort';
+import {
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatFooterCell,
+    MatFooterCellDef,
+    MatFooterRow,
+    MatFooterRowDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
+    MatTable,
+} from '@angular/material/table';
 
 @Component({
     selector: 'app-transaction-lines',
     imports: [
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
-        MatTableModule,
-        MatSortModule,
+        MatTable,
+        MatHeaderCellDef,
+        MatHeaderRowDef,
+        MatColumnDef,
+        MatCellDef,
+        MatRowDef,
+        MatFooterCellDef,
+        MatFooterRowDef,
+        MatHeaderCell,
+        MatCell,
+        MatFooterCell,
+        MatHeaderRow,
+        MatRow,
+        MatFooterRow,
+        MatSort,
+        MatSortHeader,
         NaturalTableButtonComponent,
-        MatTooltipModule,
+        MatTooltip,
         MoneyComponent,
         TransactionAmountComponent,
-        MatCheckboxModule,
+        MatCheckbox,
         NaturalAvatarComponent,
-        MatProgressSpinnerModule,
-        MatPaginatorModule,
+        MatProgressSpinner,
+        MatPaginator,
         NaturalFixedButtonComponent,
         RouterLink,
         DatePipe,

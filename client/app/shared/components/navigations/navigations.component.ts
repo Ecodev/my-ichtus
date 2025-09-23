@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, input} from '@angular/core';
+import {Component, inject, input, OnInit} from '@angular/core';
 import {UserService} from '../../../admin/users/services/user.service';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {
@@ -26,15 +26,15 @@ import {Observable} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 import {CommentComponent} from './comment.component';
-import {TextFieldModule} from '@angular/cdk/text-field';
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {FormsModule} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {ParticleEffectDirective} from '../particle-button/particle-effect.directive';
-import {MatIconModule} from '@angular/material/icon';
-import {MatDividerModule} from '@angular/material/divider';
+import {MatIcon} from '@angular/material/icon';
+import {MatDivider} from '@angular/material/divider';
 import {RouterLink} from '@angular/router';
-import {MatButtonModule} from '@angular/material/button';
+import {MatButton, MatIconButton} from '@angular/material/button';
 import {CardComponent} from '../card/card.component';
 
 type Extended = {
@@ -68,16 +68,18 @@ function bookingsToExtended(bookings: Bookings['bookings']): PaginatedExtendedBo
     imports: [
         CardComponent,
         NaturalAvatarComponent,
-        MatButtonModule,
+        MatButton,
+        MatIconButton,
         RouterLink,
-        MatDividerModule,
-        MatIconModule,
+        MatDivider,
+        MatIcon,
         NaturalIconDirective,
         ParticleEffectDirective,
-        MatFormFieldModule,
-        MatInputModule,
+        MatFormField,
+        MatLabel,
+        MatInput,
         FormsModule,
-        TextFieldModule,
+        CdkTextareaAutosize,
         DatePipe,
     ],
     templateUrl: './navigations.component.html',

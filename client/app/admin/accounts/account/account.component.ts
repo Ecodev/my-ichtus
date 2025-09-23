@@ -16,17 +16,17 @@ import {UserService} from '../../users/services/user.service';
 import {groupAccountHierarchicConfiguration} from '../../../shared/hierarchic-selector/GroupAccountHierarchicConfiguration';
 import {friendlyFormatIBAN} from 'ibantools';
 import {IbanPipe} from '../../../shared/pipes/iban.pipe';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatTabsModule} from '@angular/material/tabs';
+import {MatDivider} from '@angular/material/divider';
+import {MatIcon} from '@angular/material/icon';
+import {MatIconButton} from '@angular/material/button';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from '@angular/material/form-field';
+import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {startWith, switchMap} from 'rxjs';
 import {AccountType} from '../../../shared/generated-types';
-import {MatTooltip, MatTooltipModule} from '@angular/material/tooltip';
+import {MatTooltip} from '@angular/material/tooltip';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
@@ -34,13 +34,17 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     imports: [
         FormsModule,
         IbanPipe,
-        MatButtonModule,
-        MatDividerModule,
-        MatFormFieldModule,
-        MatIconModule,
-        MatInputModule,
-        MatTabsModule,
-        MatTooltipModule,
+        MatIconButton,
+        MatDivider,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatHint,
+        MatSuffix,
+        MatIcon,
+        MatInput,
+        MatTab,
+        MatTabGroup,
         MatTooltip,
         MoneyComponent,
         NaturalDetailHeaderComponent,

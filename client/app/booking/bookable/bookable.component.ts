@@ -5,14 +5,14 @@ import {BookingService} from '../../admin/bookings/services/booking.service';
 import {Bookable, Bookings, BookingType} from '../../shared/generated-types';
 import {PermissionsService} from '../../shared/services/permissions.service';
 import {TimeagoModule} from 'ngx-timeago';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
-import {MatDividerModule} from '@angular/material/divider';
+import {MatButton} from '@angular/material/button';
+import {MatIcon} from '@angular/material/icon';
+import {MatDivider} from '@angular/material/divider';
 import {NaturalFileComponent} from '@ecodev/natural';
 
 @Component({
     selector: 'app-bookable',
-    imports: [NaturalFileComponent, MatDividerModule, MatIconModule, MatButtonModule, RouterLink, TimeagoModule],
+    imports: [NaturalFileComponent, MatDivider, MatIcon, MatButton, RouterLink, TimeagoModule],
     templateUrl: './bookable.component.html',
     styleUrl: './bookable.component.scss',
 })

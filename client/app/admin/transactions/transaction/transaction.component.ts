@@ -29,23 +29,23 @@ import {
 import {TransactionLineService} from '../services/transactionLine.service';
 import {AccountingDocumentsComponent} from '../../accounting-documents/accounting-documents.component';
 import {UserService} from '../../users/services/user.service';
-import {MatIconModule} from '@angular/material/icon';
+import {MatIcon} from '@angular/material/icon';
 import {
     EcoFabSpeedDialActionsComponent,
     EcoFabSpeedDialComponent,
     EcoFabSpeedDialTriggerComponent,
 } from '@ecodev/fab-speed-dial';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatTooltip} from '@angular/material/tooltip';
 import {TransactionLinesComponent} from '../transactionLines/transactionLines.component';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDividerModule} from '@angular/material/divider';
-import {TextFieldModule} from '@angular/cdk/text-field';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatTabsModule} from '@angular/material/tabs';
+import {MatButton, MatFabButton, MatMiniFabButton} from '@angular/material/button';
+import {MatDivider} from '@angular/material/divider';
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
+import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';
+import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
-import {CommonModule} from '@angular/common';
+import {CurrencyPipe} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DuplicatedTransactionResolve} from '../transaction';
 
@@ -55,26 +55,34 @@ import {DuplicatedTransactionResolve} from '../transaction';
         FormsModule,
         ReactiveFormsModule,
         NaturalDetailHeaderComponent,
-        CommonModule,
+        CurrencyPipe,
         MoneyComponent,
-        MatTabsModule,
+        MatTab,
+        MatTabGroup,
         NaturalLinkableTabDirective,
-        MatFormFieldModule,
-        MatInputModule,
-        MatDatepickerModule,
-        TextFieldModule,
-        MatDividerModule,
-        MatButtonModule,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatSuffix,
+        MatInput,
+        MatDatepicker,
+        MatDatepickerInput,
+        MatDatepickerToggle,
+        CdkTextareaAutosize,
+        MatDivider,
+        MatButton,
+        MatMiniFabButton,
+        MatFabButton,
         RouterLink,
         AccountingDocumentsComponent,
         TransactionLinesComponent,
         EditableTransactionLinesComponent,
         NaturalStampComponent,
         NaturalFixedButtonComponent,
-        MatTooltipModule,
+        MatTooltip,
         EcoFabSpeedDialComponent,
         EcoFabSpeedDialTriggerComponent,
-        MatIconModule,
+        MatIcon,
         NaturalIconDirective,
         EcoFabSpeedDialActionsComponent,
     ],

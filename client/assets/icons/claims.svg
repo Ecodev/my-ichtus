@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
 <circle style="fill:#FFA700;" cx="256" cy="256" r="256"/>
 <path style="fill:#FF6900;" d="M512,256c0-19.552-2.201-38.588-6.353-56.884L392.581,86.05H119.419v339.9l79.697,79.697
 	C217.412,509.799,236.448,512,256,512C397.385,512,512,397.385,512,256z"/>
 <polygon style="fill:#FFFFFF;" points="392.581,86.05 119.419,86.05 119.419,425.95 328.743,425.95 392.581,362.112 "/>
 <polygon style="fill:#FFF4AA;" points="392.581,86.045 392.581,362.116 328.743,425.955 256,425.955 256,86.045 "/>
 <polygon style="fill:#009CA0;" points="328.743,425.95 392.581,362.112 328.743,362.112 "/>
-<polygon style="fill:#00D4D1;" points="222.518,138.085 205.668,138.085 205.668,121.235 189.55,121.235 189.55,138.085 
+<polygon style="fill:#00D4D1;" points="222.518,138.085 205.668,138.085 205.668,121.235 189.55,121.235 189.55,138.085
 	172.7,138.085 172.7,154.203 189.55,154.203 189.55,171.053 205.668,171.053 205.668,154.203 222.518,154.203 "/>
 <rect x="289.48" y="138.09" style="fill:#E9336D;" width="49.818" height="16.12"/>
 <g>

@@ -6,10 +6,10 @@ import {ConfigurationService} from '../services/configuration.service';
 import {forkJoin} from 'rxjs';
 import {NaturalAlertService, NaturalDialogTriggerProvidedData, NaturalFixedButtonComponent} from '@ecodev/natural';
 import {finalize} from 'rxjs/operators';
-import {MatButtonModule} from '@angular/material/button';
+import {MatButton} from '@angular/material/button';
 import {NaturalEditorComponent} from '@ecodev/natural-editor';
 import {FormsModule} from '@angular/forms';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatSlideToggle} from '@angular/material/slide-toggle';
 import {AsyncPipe} from '@angular/common';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
@@ -23,11 +23,11 @@ export type SupportComponentData = {
     selector: 'app-support',
     imports: [
         MatDialogModule,
-        MatSlideToggleModule,
+        MatSlideToggle,
         FormsModule,
         NaturalEditorComponent,
         NaturalFixedButtonComponent,
-        MatButtonModule,
+        MatButton,
         AsyncPipe,
     ],
     templateUrl: './support.component.html',

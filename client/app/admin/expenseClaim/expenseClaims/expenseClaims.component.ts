@@ -10,41 +10,62 @@ import {
     NaturalSearchComponent,
     NaturalTableButtonComponent,
 } from '@ecodev/natural';
-import {CommonModule, DatePipe} from '@angular/common';
+import {AsyncPipe, DatePipe} from '@angular/common';
 import {expenseClaims} from '../../../shared/natural-search/natural-search-facets';
 import {ExpenseClaimService} from '../services/expenseClaim.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {RouterLink} from '@angular/router';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatIconModule} from '@angular/material/icon';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {MatIcon} from '@angular/material/icon';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
-import {MatButtonModule} from '@angular/material/button';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatSortModule} from '@angular/material/sort';
-import {MatTableModule} from '@angular/material/table';
+import {MatButton} from '@angular/material/button';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MatSort, MatSortHeader} from '@angular/material/sort';
+import {
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
+    MatTable,
+} from '@angular/material/table';
 
 @Component({
     selector: 'app-expense-claims',
     imports: [
-        CommonModule,
+        AsyncPipe,
+        DatePipe,
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
-        MatTableModule,
-        MatSortModule,
+        MatTable,
+        MatHeaderCellDef,
+        MatHeaderRowDef,
+        MatColumnDef,
+        MatCellDef,
+        MatRowDef,
+        MatHeaderCell,
+        MatCell,
+        MatHeaderRow,
+        MatRow,
+        MatSort,
+        MatSortHeader,
         NaturalTableButtonComponent,
-        MatTooltipModule,
+        MatTooltip,
         NaturalAvatarComponent,
-        MatButtonModule,
+        MatButton,
         MoneyComponent,
-        MatIconModule,
+        MatIcon,
         NaturalIconDirective,
-        MatProgressSpinnerModule,
-        MatPaginatorModule,
+        MatProgressSpinner,
+        MatPaginator,
         NaturalFixedButtonComponent,
         RouterLink,
         NaturalEnumPipe,
-        DatePipe,
     ],
     templateUrl: './expenseClaims.component.html',
     styleUrl: './expenseClaims.component.scss',

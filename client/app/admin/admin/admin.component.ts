@@ -3,8 +3,13 @@ import {PermissionsService} from '../../shared/services/permissions.service';
 import {ActivatedRoute, NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {UserRole} from '../../shared/generated-types';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {MatListModule} from '@angular/material/list';
-import {MatExpansionModule} from '@angular/material/expansion';
+import {MatListItem, MatNavList} from '@angular/material/list';
+import {
+    MatAccordion,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+} from '@angular/material/expansion';
 import {
     NaturalSidenavComponent,
     NaturalSidenavContainerComponent,
@@ -17,8 +22,12 @@ import {AsyncPipe} from '@angular/common';
     imports: [
         NaturalSidenavContainerComponent,
         NaturalSidenavComponent,
-        MatExpansionModule,
-        MatListModule,
+        MatAccordion,
+        MatExpansionPanel,
+        MatExpansionPanelHeader,
+        MatExpansionPanelTitle,
+        MatNavList,
+        MatListItem,
         RouterLinkActive,
         RouterLink,
         NaturalSidenavContentComponent,

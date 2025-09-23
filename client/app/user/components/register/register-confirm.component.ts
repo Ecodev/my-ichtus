@@ -6,35 +6,69 @@ import {FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {loginValidator, UserService} from '../../../admin/users/services/user.service';
 import {UserByTokenResolve} from '../../../admin/users/user';
 import {ConfirmRegistrationVariables, UserByToken} from '../../../shared/generated-types';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatTableModule} from '@angular/material/table';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatButton} from '@angular/material/button';
+import {MatCheckbox} from '@angular/material/checkbox';
+import {
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatFooterCell,
+    MatFooterCellDef,
+    MatFooterRow,
+    MatFooterRowDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
+    MatTable,
+} from '@angular/material/table';
+import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
 import {AddressComponent} from '../../../shared/components/address/address.component';
 import {PasswordComponent} from '../password/password.component';
-import {MatDividerModule} from '@angular/material/divider';
-import {CommonModule} from '@angular/common';
-import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDivider} from '@angular/material/divider';
+import {CurrencyPipe} from '@angular/common';
+import {MatIcon} from '@angular/material/icon';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatLabel, MatPrefix, MatSuffix} from '@angular/material/form-field';
 
 @Component({
     selector: 'app-confirm',
     imports: [
         FormsModule,
         ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatIconModule,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatPrefix,
+        MatSuffix,
+        MatInput,
+        MatIcon,
         NaturalIconDirective,
-        CommonModule,
-        MatDividerModule,
+        CurrencyPipe,
+        MatDivider,
         PasswordComponent,
         AddressComponent,
-        MatDatepickerModule,
-        MatTableModule,
-        MatCheckboxModule,
-        MatButtonModule,
+        MatDatepicker,
+        MatDatepickerInput,
+        MatDatepickerToggle,
+        MatTable,
+        MatHeaderCellDef,
+        MatHeaderRowDef,
+        MatColumnDef,
+        MatCellDef,
+        MatRowDef,
+        MatFooterCellDef,
+        MatFooterRowDef,
+        MatHeaderCell,
+        MatCell,
+        MatFooterCell,
+        MatHeaderRow,
+        MatRow,
+        MatFooterRow,
+        MatCheckbox,
+        MatButton,
     ],
     templateUrl: './register.component.html',
     styleUrl: './register.component.scss',

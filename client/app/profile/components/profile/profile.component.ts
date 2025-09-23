@@ -22,13 +22,13 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
 import {LicenseService} from '../../../admin/licenses/services/license.service';
 import {localConfig} from '../../../shared/generated-config';
 import {Big} from 'big.js';
-import {MatDividerModule} from '@angular/material/divider';
+import {MatDivider} from '@angular/material/divider';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
 import {ParticleSwitchComponent} from '../../../shared/components/particle-switch/particle-switch.component';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {CommonModule} from '@angular/common';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
+import {MatTooltip} from '@angular/material/tooltip';
+import {AsyncPipe} from '@angular/common';
+import {MatIcon} from '@angular/material/icon';
+import {MatButton} from '@angular/material/button';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
@@ -36,17 +36,17 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     imports: [
         NaturalSidenavContainerComponent,
         NaturalSidenavComponent,
-        MatButtonModule,
+        MatButton,
         RouterLink,
-        MatIconModule,
+        MatIcon,
         NaturalIconDirective,
-        CommonModule,
+        AsyncPipe,
         NaturalSidenavContentComponent,
         NaturalAvatarComponent,
-        MatTooltipModule,
+        MatTooltip,
         ParticleSwitchComponent,
         MoneyComponent,
-        MatDividerModule,
+        MatDivider,
         RouterOutlet,
         NaturalEnumPipe,
     ],

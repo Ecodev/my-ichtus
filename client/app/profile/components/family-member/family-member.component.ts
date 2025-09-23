@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, output, input} from '@angular/core';
+import {Component, inject, input, OnInit, output} from '@angular/core';
 import {CreateUser, CurrentUserForProfile, UpdateUser, Users} from '../../../shared/generated-types';
 import {
     NaturalAbstractDetail,
@@ -9,14 +9,14 @@ import {
 import {merge} from 'es-toolkit';
 import {FamilyUserService} from './family-user.service';
 import {EMPTY, Observable} from 'rxjs';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatCheckbox} from '@angular/material/checkbox';
+import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
 import {AddressComponent} from '../../../shared/components/address/address.component';
-import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatButtonModule} from '@angular/material/button';
+import {MatIcon} from '@angular/material/icon';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatLabel, MatPrefix, MatSuffix} from '@angular/material/form-field';
+import {MatDivider} from '@angular/material/divider';
+import {MatButton} from '@angular/material/button';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
@@ -25,15 +25,21 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         FormsModule,
         ReactiveFormsModule,
         NaturalSelectEnumComponent,
-        MatButtonModule,
-        MatDividerModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatIconModule,
+        MatButton,
+        MatDivider,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatPrefix,
+        MatSuffix,
+        MatInput,
+        MatIcon,
         NaturalIconDirective,
         AddressComponent,
-        MatDatepickerModule,
-        MatCheckboxModule,
+        MatDatepicker,
+        MatDatepickerInput,
+        MatDatepickerToggle,
+        MatCheckbox,
         NaturalFixedButtonComponent,
     ],
     templateUrl: './family-member.component.html',

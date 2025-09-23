@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit, input} from '@angular/core';
+import {Component, inject, Input, input, OnInit} from '@angular/core';
 import {
     AccountingDocumentInput,
     ExpenseClaim,
@@ -10,12 +10,12 @@ import {forkJoin, Observable} from 'rxjs';
 import {AccountingDocumentService} from './services/accounting-document.service';
 import {FileModel, NaturalFileComponent, NaturalIconDirective, WithId} from '@ecodev/natural';
 import {tap} from 'rxjs/operators';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
+import {MatIcon} from '@angular/material/icon';
+import {MatIconButton} from '@angular/material/button';
 
 @Component({
     selector: 'app-accounting-documents',
-    imports: [NaturalFileComponent, MatButtonModule, MatIconModule, NaturalIconDirective],
+    imports: [NaturalFileComponent, MatIconButton, MatIcon, NaturalIconDirective],
     templateUrl: './accounting-documents.component.html',
     styleUrl: './accounting-documents.component.scss',
 })

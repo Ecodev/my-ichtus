@@ -10,7 +10,7 @@ import {
     NaturalSearchComponent,
     NaturalTableButtonComponent,
 } from '@ecodev/natural';
-import {CommonModule, DatePipe} from '@angular/common';
+import {AsyncPipe, DatePipe} from '@angular/common';
 import {AccountType, CurrentUserForProfile} from '../../../shared/generated-types';
 import {accounts} from '../../../shared/natural-search/natural-search-facets';
 import {AccountService} from '../services/account.service';
@@ -23,13 +23,24 @@ import {AccountingReportComponent} from '../accounting-report/accounting-report.
 import {Observable} from 'rxjs';
 import {finalize, map} from 'rxjs/operators';
 import {IbanPipe} from '../../../shared/pipes/iban.pipe';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatSortModule} from '@angular/material/sort';
-import {MatTableModule} from '@angular/material/table';
-import {MatButtonModule} from '@angular/material/button';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MatSort, MatSortHeader} from '@angular/material/sort';
+import {
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
+    MatTable,
+} from '@angular/material/table';
+import {MatButton} from '@angular/material/button';
 import {RouterLink} from '@angular/router';
 
 type AccountingDialogData = never;
@@ -43,22 +54,32 @@ type AccountingExportDialogResult = {
 @Component({
     selector: 'app-accounts',
     imports: [
-        CommonModule,
+        AsyncPipe,
+        DatePipe,
         RouterLink,
-        MatButtonModule,
+        MatButton,
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
-        MatTableModule,
-        MatSortModule,
+        MatTable,
+        MatHeaderCellDef,
+        MatHeaderRowDef,
+        MatColumnDef,
+        MatCellDef,
+        MatRowDef,
+        MatHeaderCell,
+        MatCell,
+        MatHeaderRow,
+        MatRow,
+        MatSort,
+        MatSortHeader,
         NaturalTableButtonComponent,
-        MatTooltipModule,
+        MatTooltip,
         NaturalAvatarComponent,
         MoneyComponent,
-        MatProgressSpinnerModule,
-        MatPaginatorModule,
+        MatProgressSpinner,
+        MatPaginator,
         NaturalFixedButtonComponent,
         NaturalEnumPipe,
-        DatePipe,
         IbanPipe,
     ],
     templateUrl: './accounts.component.html',

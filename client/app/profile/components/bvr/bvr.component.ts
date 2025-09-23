@@ -1,13 +1,12 @@
 import {Apollo, gql} from 'apollo-angular';
-import {Component, inject, Input, DOCUMENT} from '@angular/core';
+import {Component, DOCUMENT, inject, Input} from '@angular/core';
 import {BankingInfos, BankingInfosForExport, BankingInfosVariables} from '../../../shared/generated-types';
-
 import {copyToClipboard, NaturalIconDirective} from '@ecodev/natural';
 import {IbanPipe} from '../../../shared/pipes/iban.pipe';
-import {MatIconModule} from '@angular/material/icon';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatButtonModule} from '@angular/material/button';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatIcon} from '@angular/material/icon';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MatIconButton} from '@angular/material/button';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
 
 const queryForInfos = gql`
     query BankingInfos($user: UserID!, $amount: Money) {
@@ -31,14 +30,7 @@ const queryForExport = gql`
 
 @Component({
     selector: 'app-bvr',
-    imports: [
-        MatProgressSpinnerModule,
-        MatButtonModule,
-        MatTooltipModule,
-        MatIconModule,
-        NaturalIconDirective,
-        IbanPipe,
-    ],
+    imports: [MatProgressSpinner, MatIconButton, MatTooltip, MatIcon, NaturalIconDirective, IbanPipe],
     templateUrl: './bvr.component.html',
     styleUrl: './bvr.component.scss',
 })

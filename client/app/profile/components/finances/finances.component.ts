@@ -9,37 +9,64 @@ import {finalize} from 'rxjs/operators';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {iban as ibanValidator} from '../../../shared/validators';
 import {friendlyFormatIBAN} from 'ibantools';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
-import {MatSortModule} from '@angular/material/sort';
-import {MatTableModule} from '@angular/material/table';
+import {MatSort, MatSortHeader} from '@angular/material/sort';
+import {
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
+    MatTable,
+} from '@angular/material/table';
 import {RouterLink} from '@angular/router';
-import {MatIconModule} from '@angular/material/icon';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {CommonModule} from '@angular/common';
+import {MatIcon} from '@angular/material/icon';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MatButton, MatIconButton} from '@angular/material/button';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from '@angular/material/form-field';
+import {AsyncPipe, DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-finances',
     imports: [
-        CommonModule,
-        MatFormFieldModule,
-        MatInputModule,
+        AsyncPipe,
+        DatePipe,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatHint,
+        MatSuffix,
+        MatInput,
         FormsModule,
         ReactiveFormsModule,
-        MatButtonModule,
-        MatTooltipModule,
-        MatIconModule,
+        MatButton,
+        MatIconButton,
+        MatTooltip,
+        MatIcon,
         NaturalIconDirective,
         RouterLink,
-        MatTableModule,
-        MatSortModule,
+        MatTable,
+        MatHeaderCellDef,
+        MatHeaderRowDef,
+        MatColumnDef,
+        MatCellDef,
+        MatRowDef,
+        MatHeaderCell,
+        MatCell,
+        MatHeaderRow,
+        MatRow,
+        MatSort,
+        MatSortHeader,
         MoneyComponent,
-        MatProgressSpinnerModule,
-        MatPaginatorModule,
+        MatProgressSpinner,
+        MatPaginator,
         NaturalEnumPipe,
     ],
     templateUrl: './finances.component.html',

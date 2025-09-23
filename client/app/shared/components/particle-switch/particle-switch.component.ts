@@ -1,6 +1,6 @@
-import {AfterViewInit, Component, ElementRef, inject, Input, TemplateRef, contentChild, viewChild} from '@angular/core';
+import {AfterViewInit, Component, contentChild, ElementRef, inject, Input, TemplateRef, viewChild} from '@angular/core';
 import {Direction} from '../particle-button/particles';
-import {CommonModule} from '@angular/common';
+import {NgTemplateOutlet} from '@angular/common';
 import {ParticleEffectDirective} from '../particle-button/particle-effect.directive';
 
 type ParticleSwitchOption = {
@@ -14,7 +14,7 @@ type ParticleSwitchOption = {
 
 @Component({
     selector: 'app-particle-switch',
-    imports: [ParticleEffectDirective, CommonModule],
+    imports: [ParticleEffectDirective, NgTemplateOutlet],
     templateUrl: './particle-switch.component.html',
     styleUrl: './particle-switch.component.scss',
 })

@@ -5,23 +5,27 @@ import {ifValid} from '@ecodev/natural';
 import {UserService} from '../admin/users/services/user.service';
 import {finalize} from 'rxjs/operators';
 import {FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDivider} from '@angular/material/divider';
+import {MatIcon} from '@angular/material/icon';
+import {MatButton, MatIconButton} from '@angular/material/button';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';
 
 @Component({
     selector: 'app-login',
     imports: [
         FormsModule,
         ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatIconModule,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatSuffix,
+        MatInput,
+        MatButton,
+        MatIconButton,
+        MatIcon,
         RouterLink,
-        MatDividerModule,
+        MatDivider,
     ],
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss',

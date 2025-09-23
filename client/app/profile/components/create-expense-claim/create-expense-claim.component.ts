@@ -5,11 +5,11 @@ import {UserService} from '../../../admin/users/services/user.service';
 import {NaturalAbstractDetail, NaturalFixedButtonComponent, NaturalSeoResolveData} from '@ecodev/natural';
 import {AccountingDocumentsComponent} from '../../../admin/accounting-documents/accounting-documents.component';
 import {EMPTY, Observable} from 'rxjs';
-import {TextFieldModule} from '@angular/cdk/text-field';
-import {MatOptionModule} from '@angular/material/core';
-import {MatSelectModule} from '@angular/material/select';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
+import {MatOption} from '@angular/material/core';
+import {MatSelect} from '@angular/material/select';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
@@ -17,11 +17,15 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     imports: [
         FormsModule,
         ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatOptionModule,
-        TextFieldModule,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatHint,
+        MatSuffix,
+        MatInput,
+        MatSelect,
+        MatOption,
+        CdkTextareaAutosize,
         AccountingDocumentsComponent,
         NaturalFixedButtonComponent,
     ],

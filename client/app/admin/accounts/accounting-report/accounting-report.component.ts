@@ -1,23 +1,28 @@
 import {Component} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButton} from '@angular/material/button';
+import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';
 import {MatDialogModule} from '@angular/material/dialog';
-import {MatCheckboxChange, MatCheckboxModule} from '@angular/material/checkbox';
+import {MatCheckbox, MatCheckboxChange} from '@angular/material/checkbox';
 
 @Component({
     selector: 'app-accounting-report',
     imports: [
         MatDialogModule,
-        MatFormFieldModule,
-        MatInputModule,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatSuffix,
+        MatInput,
         FormsModule,
-        MatDatepickerModule,
+        MatDatepicker,
+        MatDatepickerInput,
+        MatDatepickerToggle,
         ReactiveFormsModule,
-        MatButtonModule,
-        MatCheckboxModule,
+        MatButton,
+        MatCheckbox,
     ],
     templateUrl: './accounting-report.component.html',
     styleUrl: './accounting-report.component.scss',

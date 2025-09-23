@@ -11,13 +11,24 @@ import {
 } from '@ecodev/natural';
 import {accountHierarchicConfiguration} from '../../../shared/hierarchic-selector/AccountHierarchicConfiguration';
 import {map, of, Subject, switchMap} from 'rxjs';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {TextFieldModule} from '@angular/cdk/text-field';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatTableModule} from '@angular/material/table';
+import {MatIcon} from '@angular/material/icon';
+import {MatIconButton} from '@angular/material/button';
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
+import {MatCheckbox} from '@angular/material/checkbox';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
+import {
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
+    MatTable,
+} from '@angular/material/table';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
@@ -33,15 +44,26 @@ export type EditableTransactionLinesInput =
     imports: [
         FormsModule,
         ReactiveFormsModule,
-        MatTableModule,
-        MatFormFieldModule,
-        MatInputModule,
+        MatTable,
+        MatHeaderCellDef,
+        MatHeaderRowDef,
+        MatColumnDef,
+        MatCellDef,
+        MatRowDef,
+        MatHeaderCell,
+        MatCell,
+        MatHeaderRow,
+        MatRow,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatInput,
         NaturalSelectHierarchicComponent,
-        MatCheckboxModule,
+        MatCheckbox,
         NaturalSelectComponent,
-        TextFieldModule,
-        MatButtonModule,
-        MatIconModule,
+        CdkTextareaAutosize,
+        MatIconButton,
+        MatIcon,
         NaturalIconDirective,
     ],
     templateUrl: './editable-transaction-lines.component.html',

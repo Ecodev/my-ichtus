@@ -10,9 +10,9 @@ import {
 } from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {NaturalIconDirective} from '@ecodev/natural';
-import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIcon} from '@angular/material/icon';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatHint, MatLabel, MatPrefix} from '@angular/material/form-field';
 
 function samePasswordsValidator(formGroup: AbstractControl): ValidationErrors | null {
     if (!formGroup || !(formGroup instanceof FormGroup)) {
@@ -38,11 +38,15 @@ class ConfirmPasswordStateMatcher implements ErrorStateMatcher {
 @Component({
     selector: 'app-password',
     imports: [
-        MatFormFieldModule,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatHint,
+        MatPrefix,
         FormsModule,
         ReactiveFormsModule,
-        MatInputModule,
-        MatIconModule,
+        MatInput,
+        MatIcon,
         NaturalIconDirective,
     ],
     templateUrl: './password.component.html',

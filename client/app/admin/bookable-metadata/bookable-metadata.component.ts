@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit, input} from '@angular/core';
+import {Component, inject, Input, input, OnInit} from '@angular/core';
 import {BookableMetadataService} from './bookable-metadata.service';
 import {
     NaturalAlertService,
@@ -9,22 +9,39 @@ import {
 import {Bookable, BookableMetadatas, BookableMetadatasVariables} from '../../shared/generated-types';
 import {cloneDeep} from 'es-toolkit';
 import {finalize} from 'rxjs/operators';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
+import {MatIcon} from '@angular/material/icon';
+import {MatIconButton} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatTableModule} from '@angular/material/table';
+import {MatInput} from '@angular/material/input';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
+    MatRow,
+    MatRowDef,
+    MatTable,
+} from '@angular/material/table';
 
 @Component({
     selector: 'app-bookable-metadata',
     imports: [
-        MatTableModule,
-        MatFormFieldModule,
-        MatInputModule,
+        MatTable,
+        MatHeaderCellDef,
+        MatColumnDef,
+        MatCellDef,
+        MatRowDef,
+        MatHeaderCell,
+        MatCell,
+        MatRow,
+        MatFormField,
+        MatLabel,
+        MatInput,
         FormsModule,
-        MatButtonModule,
-        MatIconModule,
+        MatIconButton,
+        MatIcon,
         NaturalIconDirective,
     ],
     templateUrl: './bookable-metadata.component.html',

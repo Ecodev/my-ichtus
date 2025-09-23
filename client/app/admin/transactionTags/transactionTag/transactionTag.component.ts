@@ -8,11 +8,11 @@ import {
     NaturalStampComponent,
 } from '@ecodev/natural';
 import {TransactionTagService} from '../services/transactionTag.service';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatTabsModule} from '@angular/material/tabs';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatDividerModule} from '@angular/material/divider';
+import {MatDivider} from '@angular/material/divider';
 
 @Component({
     selector: 'app-transaction-tag',
@@ -20,11 +20,14 @@ import {MatDividerModule} from '@angular/material/divider';
         FormsModule,
         ReactiveFormsModule,
         NaturalDetailHeaderComponent,
-        MatTabsModule,
+        MatTab,
+        MatTabGroup,
         NaturalLinkableTabDirective,
-        MatDividerModule,
-        MatFormFieldModule,
-        MatInputModule,
+        MatDivider,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatInput,
         NaturalStampComponent,
         NaturalFixedButtonDetailComponent,
     ],

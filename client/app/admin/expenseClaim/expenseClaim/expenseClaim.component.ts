@@ -15,17 +15,17 @@ import {CurrentUserForProfile, ExpenseClaimStatus, ExpenseClaimType} from '../..
 import {UserService} from '../../users/services/user.service';
 import {TransactionLineService} from '../../transactions/services/transactionLine.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatOptionModule} from '@angular/material/core';
-import {MatSelectModule} from '@angular/material/select';
-import {TextFieldModule} from '@angular/cdk/text-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDivider} from '@angular/material/divider';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MatOption} from '@angular/material/core';
+import {MatSelect} from '@angular/material/select';
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
 import {RouterLink} from '@angular/router';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
+import {MatIcon} from '@angular/material/icon';
+import {MatButton, MatIconButton} from '@angular/material/button';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AsyncPipe} from '@angular/common';
 
@@ -35,20 +35,24 @@ import {AsyncPipe} from '@angular/common';
         FormsModule,
         ReactiveFormsModule,
         NaturalDetailHeaderComponent,
-        MatButtonModule,
-        MatIconModule,
+        MatButton,
+        MatIconButton,
+        MatIcon,
         NaturalIconDirective,
         RouterLink,
         MoneyComponent,
-        MatFormFieldModule,
-        MatInputModule,
-        TextFieldModule,
-        MatSelectModule,
-        MatOptionModule,
-        MatTooltipModule,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatSuffix,
+        MatInput,
+        CdkTextareaAutosize,
+        MatSelect,
+        MatOption,
+        MatTooltip,
         NaturalSelectEnumComponent,
         NaturalSelectComponent,
-        MatDividerModule,
+        MatDivider,
         NaturalFileComponent,
         NaturalStampComponent,
         NaturalFixedButtonDetailComponent,

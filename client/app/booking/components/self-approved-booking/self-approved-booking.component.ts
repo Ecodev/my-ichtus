@@ -4,11 +4,11 @@ import {BookableService} from '../../../admin/bookables/services/bookable.servic
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {Bookable, BookingStatus} from '../../../shared/generated-types';
 import {Literal, NaturalAlertService, NaturalAvatarComponent, NaturalFixedButtonComponent} from '@ecodev/natural';
-import {TextFieldModule} from '@angular/cdk/text-field';
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {FormsModule} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatDividerModule} from '@angular/material/divider';
+import {MatInput} from '@angular/material/input';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatDivider} from '@angular/material/divider';
 import {CardComponent} from '../../../shared/components/card/card.component';
 import {Observable, of, switchMap} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
@@ -19,11 +19,12 @@ import {first} from 'rxjs/operators';
     imports: [
         CardComponent,
         NaturalAvatarComponent,
-        MatDividerModule,
-        MatFormFieldModule,
-        MatInputModule,
+        MatDivider,
+        MatFormField,
+        MatLabel,
+        MatInput,
         FormsModule,
-        TextFieldModule,
+        CdkTextareaAutosize,
         NaturalFixedButtonComponent,
     ],
     templateUrl: './self-approved-booking.component.html',

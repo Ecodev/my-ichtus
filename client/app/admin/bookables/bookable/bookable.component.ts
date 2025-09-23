@@ -41,14 +41,14 @@ import {
 import {BookingsWithOwnerComponent} from '../../bookings/bookings/bookings-with-owner.component';
 import {TransactionLinesComponent} from '../../transactions/transactionLines/transactionLines.component';
 import {BookableMetadataComponent} from '../../bookable-metadata/bookable-metadata.component';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {TextFieldModule} from '@angular/cdk/text-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatButtonModule} from '@angular/material/button';
-import {CommonModule} from '@angular/common';
+import {MatDivider} from '@angular/material/divider';
+import {MatSlideToggle} from '@angular/material/slide-toggle';
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from '@angular/material/form-field';
+import {MatTab, MatTabGroup} from '@angular/material/tabs';
+import {MatButton} from '@angular/material/button';
+import {DatePipe} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
@@ -58,18 +58,23 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
         FormsModule,
         ReactiveFormsModule,
         NaturalDetailHeaderComponent,
-        CommonModule,
-        MatButtonModule,
-        MatTabsModule,
+        DatePipe,
+        MatButton,
+        MatTab,
+        MatTabGroup,
         NaturalLinkableTabDirective,
         NaturalFileComponent,
-        MatFormFieldModule,
-        MatInputModule,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatHint,
+        MatSuffix,
+        MatInput,
         NaturalSelectEnumComponent,
-        TextFieldModule,
-        MatSlideToggleModule,
+        CdkTextareaAutosize,
+        MatSlideToggle,
         NaturalSelectHierarchicComponent,
-        MatDividerModule,
+        MatDivider,
         NaturalRelationsComponent,
         NaturalTableButtonComponent,
         NaturalAvatarComponent,

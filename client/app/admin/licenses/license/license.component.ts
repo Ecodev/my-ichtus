@@ -11,13 +11,13 @@ import {
 import {LicenseService} from '../services/license.service';
 import {BookableService} from '../../bookables/services/bookable.service';
 import {UserService} from '../../users/services/user.service';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatIconModule} from '@angular/material/icon';
+import {MatDivider} from '@angular/material/divider';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatTab, MatTabGroup} from '@angular/material/tabs';
+import {MatIcon} from '@angular/material/icon';
 import {RouterLink} from '@angular/router';
-import {MatButtonModule} from '@angular/material/button';
+import {MatIconButton} from '@angular/material/button';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
@@ -25,15 +25,18 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     imports: [
         FormsModule,
         ReactiveFormsModule,
-        MatButtonModule,
+        MatIconButton,
         RouterLink,
-        MatIconModule,
+        MatIcon,
         NaturalIconDirective,
-        MatTabsModule,
+        MatTab,
+        MatTabGroup,
         NaturalLinkableTabDirective,
-        MatFormFieldModule,
-        MatInputModule,
-        MatDividerModule,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatInput,
+        MatDivider,
         NaturalRelationsComponent,
         NaturalTableButtonComponent,
         NaturalStampComponent,

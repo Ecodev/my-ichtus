@@ -6,13 +6,37 @@ import {TransactionLineService} from '../../../admin/transactions/services/trans
 import {NaturalDataSource} from '@ecodev/natural';
 import {CurrentUserForProfile, TransactionLines} from '../../../shared/generated-types';
 import {TransactionAmountComponent} from '../../../shared/components/transaction-amount/transaction-amount.component';
-import {MatTableModule} from '@angular/material/table';
-import {CommonModule} from '@angular/common';
+import {
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
+    MatTable,
+} from '@angular/material/table';
+import {DatePipe} from '@angular/common';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-history',
-    imports: [CommonModule, MatTableModule, TransactionAmountComponent],
+    imports: [
+        DatePipe,
+        MatTable,
+        MatHeaderCellDef,
+        MatHeaderRowDef,
+        MatColumnDef,
+        MatCellDef,
+        MatRowDef,
+        MatHeaderCell,
+        MatCell,
+        MatHeaderRow,
+        MatRow,
+        TransactionAmountComponent,
+    ],
     templateUrl: './history.component.html',
     styleUrl: './history.component.scss',
 })

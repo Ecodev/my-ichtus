@@ -11,13 +11,13 @@ import {
     NaturalSeoResolveData,
     toUrl,
 } from '@ecodev/natural';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
+import {MatIcon} from '@angular/material/icon';
+import {MatButton} from '@angular/material/button';
 import {AsyncPipe} from '@angular/common';
 
 @Component({
     selector: 'app-import',
-    imports: [MatButtonModule, NaturalFileSelectDirective, MatIconModule, NaturalIconDirective, AsyncPipe],
+    imports: [MatButton, NaturalFileSelectDirective, MatIcon, NaturalIconDirective, AsyncPipe],
     templateUrl: './import.component.html',
     styleUrl: './import.component.scss',
 })

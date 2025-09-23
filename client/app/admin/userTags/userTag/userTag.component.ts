@@ -11,11 +11,11 @@ import {
 } from '@ecodev/natural';
 import {UserTagService} from '../services/userTag.service';
 import {UserService} from '../../users/services/user.service';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatTabsModule} from '@angular/material/tabs';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatDividerModule} from '@angular/material/divider';
+import {MatDivider} from '@angular/material/divider';
 
 @Component({
     selector: 'app-user-tag',
@@ -23,11 +23,14 @@ import {MatDividerModule} from '@angular/material/divider';
         FormsModule,
         ReactiveFormsModule,
         NaturalDetailHeaderComponent,
-        MatTabsModule,
+        MatTab,
+        MatTabGroup,
         NaturalLinkableTabDirective,
-        MatDividerModule,
-        MatFormFieldModule,
-        MatInputModule,
+        MatDivider,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatInput,
         NaturalRelationsComponent,
         NaturalTableButtonComponent,
         NaturalStampComponent,

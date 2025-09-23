@@ -1,14 +1,14 @@
 import {Component, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
-import {MatButtonModule} from '@angular/material/button';
-import {TextFieldModule} from '@angular/cdk/text-field';
+import {MatButton} from '@angular/material/button';
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {FormsModule} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
 
 @Component({
     selector: 'app-comment',
-    imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, TextFieldModule, MatButtonModule],
+    imports: [MatDialogModule, MatFormField, MatLabel, MatInput, FormsModule, CdkTextareaAutosize, MatButton],
     templateUrl: './comment.component.html',
     styleUrl: './comment.component.scss',
 })

@@ -1,13 +1,13 @@
-import {Component, inject, Input, OnChanges, output, input} from '@angular/core';
+import {Component, inject, Input, input, OnChanges, output} from '@angular/core';
 import {AccountType, MinimalAccount, TransactionLine} from '../../generated-types';
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
 import {RouterLink} from '@angular/router';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {CommonModule} from '@angular/common';
+import {MatTooltip} from '@angular/material/tooltip';
+import {CurrencyPipe} from '@angular/common';
 
 @Component({
     selector: 'app-transaction-amount',
-    imports: [CommonModule, MatTooltipModule, RouterLink],
+    imports: [CurrencyPipe, MatTooltip, RouterLink],
     templateUrl: './transaction-amount.component.html',
     styleUrl: './transaction-amount.component.scss',
 })

@@ -4,15 +4,30 @@ import {bookings} from '../shared/natural-search/natural-search-facets';
 import {PermissionsService} from '../shared/services/permissions.service';
 import {AbstractBookings} from '../admin/bookings/bookings/abstract-bookings';
 import {RouterLink} from '@angular/router';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {FlagComponent} from '../shared/components/flag/flag.component';
 import {MoneyComponent} from '../shared/components/money/money.component';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatSortModule} from '@angular/material/sort';
-import {MatTableModule} from '@angular/material/table';
+import {MatIcon} from '@angular/material/icon';
+import {MatButton} from '@angular/material/button';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MatSort, MatSortHeader} from '@angular/material/sort';
+import {
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatFooterCell,
+    MatFooterCellDef,
+    MatFooterRow,
+    MatFooterRowDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
+    MatTable,
+} from '@angular/material/table';
 import {
     NaturalAvatarComponent,
     NaturalColumnsPickerComponent,
@@ -24,31 +39,45 @@ import {
     NaturalSearchComponent,
     NaturalTableButtonComponent,
 } from '@ecodev/natural';
-import {CommonModule, DatePipe} from '@angular/common';
+import {AsyncPipe, DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-safety',
     imports: [
-        CommonModule,
+        AsyncPipe,
+        DatePipe,
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
-        MatTableModule,
-        MatSortModule,
+        MatTable,
+        MatHeaderCellDef,
+        MatHeaderRowDef,
+        MatColumnDef,
+        MatCellDef,
+        MatRowDef,
+        MatFooterCellDef,
+        MatFooterRowDef,
+        MatHeaderCell,
+        MatCell,
+        MatFooterCell,
+        MatHeaderRow,
+        MatRow,
+        MatFooterRow,
+        MatSort,
+        MatSortHeader,
         NaturalTableButtonComponent,
-        MatTooltipModule,
+        MatTooltip,
         NaturalAvatarComponent,
         NaturalFileComponent,
-        MatButtonModule,
-        MatIconModule,
+        MatButton,
+        MatIcon,
         NaturalIconDirective,
         MoneyComponent,
         FlagComponent,
-        MatProgressSpinnerModule,
-        MatPaginatorModule,
+        MatProgressSpinner,
+        MatPaginator,
         NaturalFixedButtonComponent,
         RouterLink,
         NaturalEnumPipe,
-        DatePipe,
         NaturalEllipsisPipe,
     ],
     templateUrl: '../admin/bookings/bookings/bookings.component.html',

@@ -1,4 +1,4 @@
-import {AfterContentInit, Directive, ElementRef, inject, Input, Renderer2, output, input} from '@angular/core';
+import {AfterContentInit, Directive, ElementRef, inject, Input, input, output, Renderer2} from '@angular/core';
 import {rand} from './utils';
 import {Direction, IOption, Particles} from './particles';
 import type {EaseStringParamNames} from 'animejs';

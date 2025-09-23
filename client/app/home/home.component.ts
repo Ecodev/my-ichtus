@@ -11,17 +11,17 @@ import {filter, switchMap} from 'rxjs/operators';
 import {ActivatedRoute, Router, RouterLink, RouterOutlet} from '@angular/router';
 import {ConfigurationService} from '../admin/configurations/services/configuration.service';
 import {FormsModule} from '@angular/forms';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIcon} from '@angular/material/icon';
+import {MatIconButton} from '@angular/material/button';
+import {MatToolbar} from '@angular/material/toolbar';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-home',
     imports: [
-        MatToolbarModule,
-        MatButtonModule,
-        MatIconModule,
+        MatToolbar,
+        MatIconButton,
+        MatIcon,
         NaturalIconDirective,
         RouterLink,
         FormsModule,

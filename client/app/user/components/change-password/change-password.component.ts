@@ -5,12 +5,12 @@ import {ifValid, NaturalAlertService} from '@ecodev/natural';
 import {FormsModule, NonNullableFormBuilder, ReactiveFormsModule} from '@angular/forms';
 import {finalize} from 'rxjs/operators';
 import {UpdatePassword, UpdatePasswordVariables} from '../../../shared/generated-types';
-import {MatButtonModule} from '@angular/material/button';
+import {MatButton} from '@angular/material/button';
 import {PasswordComponent} from '../password/password.component';
 
 @Component({
     selector: 'app-change-password',
-    imports: [FormsModule, ReactiveFormsModule, PasswordComponent, MatButtonModule],
+    imports: [FormsModule, ReactiveFormsModule, PasswordComponent, MatButton],
     templateUrl: './change-password.component.html',
     styleUrl: './change-password.component.scss',
 })

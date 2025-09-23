@@ -5,10 +5,10 @@ import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angula
 import {BankingInfosVariables, CurrentUserForProfile} from '../../../shared/generated-types';
 import {BvrComponent} from '../bvr/bvr.component';
 import {money} from '@ecodev/natural';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatButtonModule} from '@angular/material/button';
-import {CommonModule} from '@angular/common';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';
+import {MatButton} from '@angular/material/button';
+import {CurrencyPipe} from '@angular/common';
 
 export type ProvisionData = {
     balance: number;
@@ -19,10 +19,13 @@ export type ProvisionData = {
     selector: 'app-provision',
     imports: [
         MatDialogModule,
-        CommonModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatInputModule,
+        CurrencyPipe,
+        MatButton,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatSuffix,
+        MatInput,
         FormsModule,
         ReactiveFormsModule,
         BvrComponent,
