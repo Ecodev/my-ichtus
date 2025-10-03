@@ -30,6 +30,6 @@ export class AppPage {
     }
 
     public getSnackBar(): Promise<string> {
-        return this.page.innerText('simple-snack-bar');
+        return this.page.innerText('[matsnackbarlabel]');
     }
 }
