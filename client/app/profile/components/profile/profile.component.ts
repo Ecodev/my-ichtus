@@ -57,7 +57,7 @@ export class ProfileComponent implements OnInit {
     public readonly userService = inject(UserService);
     public readonly permissionsService = inject(PermissionsService);
     private readonly alertService = inject(NaturalAlertService);
-    private readonly route = inject(ActivatedRoute);
+    protected readonly route = inject(ActivatedRoute);
     private readonly router = inject(Router);
     public readonly bookableService = inject(BookableService);
     private readonly apollo = inject(Apollo);

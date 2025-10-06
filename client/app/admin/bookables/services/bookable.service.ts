@@ -130,6 +130,33 @@ export class BookableService extends NaturalAbstractModelService<
         };
     }
 
+    public static formationBookable(tagId?: string): BookablesVariables {
+        const conditions: BookableFilterGroupCondition[] = [
+            {
+                bookingType: {in: {values: [BookingType.AdminApproved]}},
+                bookableTags: {have: {values: [BookableTagService.FORMATION]}},
+                isActive: {equal: {value: true}},
+            },
+        ];
+
+        // And !
+        if (tagId) {
+            conditions.push({
+                bookableTags: {have: {values: [tagId]}},
+            });
+        }
+
+        return {
+            filter: {
+                groups: [
+                    {
+                        conditions: conditions,
+                    },
+                ],
+            },
+        };
+    }
+
     public static isLicenseGranted(
         bookable: Bookable['bookable'],
         user: User['user'] | NonNullable<CurrentUserForProfile['viewer']>,
@@ -160,6 +187,7 @@ export class BookableService extends NaturalAbstractModelService<
             verificationDate: null,
             image: null,
             creditAccount: null,
+            owner: null,
         };
     }
 

@@ -26,6 +26,12 @@ class RunningServicesOperatorType extends AbstractOperator
                     'name' => 'user',
                     'type' => self::nonNull($this->types->getId(User::class)),
                 ],
+                [
+                    'name' => 'coursesOnly',
+                    'type' => self::boolean(),
+                    'defaultValue' => false,
+                    'description' => 'Filter only courses',
+                ],
             ],
         ];
     }
@@ -39,7 +45,7 @@ class RunningServicesOperatorType extends AbstractOperator
         $connection = _em()->getConnection();
         $user = $connection->quote($args['user']->getId());
         $status = Utility::quoteArray([BookingStatus::Booked->value, BookingStatus::Processed->value]);
-        $bookingTypes = Utility::quoteArray([BookingType::AdminAssigned->value, BookingType::Mandatory->value]);
+        $bookingTypes = $args['coursesOnly'] ? '-1' : Utility::quoteArray([BookingType::AdminAssigned->value, BookingType::Mandatory->value]);
         $courses = Utility::quoteArray([BookingType::AdminApproved->value]);
 
         $sql = <<<SQL

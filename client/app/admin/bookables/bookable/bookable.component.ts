@@ -9,6 +9,7 @@ import {
     NaturalFixedButtonDetailComponent,
     NaturalLinkableTabDirective,
     NaturalRelationsComponent,
+    NaturalSelectComponent,
     NaturalSelectEnumComponent,
     NaturalSelectHierarchicComponent,
     NaturalSeoResolveData,
@@ -51,6 +52,7 @@ import {MatButton} from '@angular/material/button';
 import {DatePipe} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {UserService} from '../../users/services/user.service';
 
 @Component({
     selector: 'app-bookable',
@@ -83,6 +85,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
         TransactionLinesComponent,
         BookingsWithOwnerComponent,
         NaturalFixedButtonDetailComponent,
+        NaturalSelectComponent,
     ],
     templateUrl: './bookable.component.html',
     styleUrl: './bookable.component.scss',
@@ -92,6 +95,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
     public readonly licenseService = inject(LicenseService);
     private readonly imageService = inject(ImageService);
     public readonly permissionsService = inject(PermissionsService);
+    public readonly userService = inject(UserService);
 
     public accountHierarchicConfig = accountHierarchicConfiguration;
     public bookingsVariables: BookingsVariables = {};

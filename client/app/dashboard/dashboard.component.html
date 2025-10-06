@@ -1,7 +1,29 @@
 <div class="nat-expand-no-collapse nat-vertical nat-center nat-padding" style="gap: 50px">
-    @if (route.snapshot.data.viewer) {
-        <app-navigations style="width: 100%" [user]="route.snapshot.data.viewer" />
-    }
+    <div class="nat-horizontal nat-wrap nat-gap-30">
+        @if (route.snapshot.data.viewer) {
+            <app-navigations [user]="route.snapshot.data.viewer" />
+        }
+
+        @for (formation of formations; track formation) {
+            @if (formation.bookable) {
+                <mat-card>
+                    <mat-icon naturalIcon="certification" [size]="160" />
+                    <div class="nat-vertical nat-gap-10">
+                        <div class="mat-subtitle-2 text-center">{{ formation.bookable.name }}</div>
+                        @if (formation.bookable.owner) {
+                            <mat-divider />
+                            <app-user-contact-data class="nat-expand" [user]="formation.bookable.owner" />
+                        }
+                        <div>
+                            <a mat-flat-button color="primary" routerLink="/profile/services/bookables/formation/all">
+                                Cours et certifications
+                            </a>
+                        </div>
+                    </div>
+                </mat-card>
+            }
+        }
+    </div>
 
     @if ((permissionsService.crud | async)?.booking?.create) {
         <div class="nat-vertical nat-top nat-center">
@@ -36,6 +58,15 @@
             <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="profile">
                 <mat-icon naturalIcon="family" [size]="70" />
                 Mon compte
+            </a>
+
+            <a
+                mat-button
+                class="nat-vertical big-button nat-top nat-center"
+                routerLink="/profile/services/bookables/formation/all"
+            >
+                <mat-icon naturalIcon="certification" [size]="70" />
+                Cours et certifications
             </a>
 
             <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="/support">

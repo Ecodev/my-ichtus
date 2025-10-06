@@ -19,6 +19,7 @@ class RunningServicesOperatorTypeTest extends OperatorType
         User::setCurrent($administrator);
         $values = [
             'user' => $this->idToEntityId(User::class, $userId),
+            'coursesOnly' => false,
         ];
         $actual = $this->getFilteredResult(Booking::class, 'custom', 'runningServices', $values);
         self::assertCount($expected, $actual);

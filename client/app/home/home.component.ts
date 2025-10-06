@@ -1,5 +1,4 @@
 import {Component, DestroyRef, inject, OnInit} from '@angular/core';
-import {UserService} from '../admin/users/services/user.service';
 import {
     LOCAL_STORAGE,
     NaturalAvatarComponent,
@@ -32,7 +31,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
-    private readonly userService = inject(UserService);
     private readonly router = inject(Router);
     private readonly storage = inject(LOCAL_STORAGE);
     public readonly route = inject(ActivatedRoute);

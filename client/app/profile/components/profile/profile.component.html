@@ -5,20 +5,28 @@
                 <mat-icon naturalIcon="lake" [size]="50" />
                 Sorties
             </a>
-            <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="family">
+            <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="/profile/family">
                 <mat-icon naturalIcon="family" [size]="50" />
                 Famille
             </a>
-            <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="history">
+            <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="/profile/history">
                 <mat-icon naturalIcon="transactionHistory" [size]="50" />
                 Historique des transactions
             </a>
-            <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="finances">
+            <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="/profile/finances">
                 <mat-icon naturalIcon="claims" [size]="50" />
                 Dépenses et remboursements
             </a>
             @if (canAccessServices()) {
-                <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="services">
+                <a
+                    mat-button
+                    class="nat-vertical big-button nat-top nat-center"
+                    routerLink="/profile/services/bookables/formation"
+                >
+                    <mat-icon naturalIcon="certification" [size]="50" />
+                    Cours et certifications
+                </a>
+                <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="/profile/services">
                     <mat-icon naturalIcon="ichtus" [size]="50" />
                     Cotisation et services
                 </a>
@@ -28,74 +36,77 @@
 
     <natural-sidenav-content>
         <div class="nat-vertical nat-gap-30 body">
-            <div class="nat-vertical nat-gap-30 nat-sm-gap-0 nat-sm-horizontal">
-                <div class="nat-sm-expand nat-horizontal nat-wrap nat-gap-10 nat-left nat-top">
-                    <div class="nat-horizontal nat-gap-10">
-                        <natural-avatar [initials]="viewer.name" [gravatar]="viewer.email" [size]="60" />
-                        <div class="nat-vertical nat-gap-10">
-                            <div class="mat-headline-4">{{ viewer.name }}</div>
-                            <div class="mat-body-1">
-                                {{ viewer.status | enum: 'UserStatus' | async }}
-                            </div>
-                            <div class="nat-horizontal nat-wrap nat-gap-15 mat-body-2">
-                                @for (license of licenses; track license) {
-                                    <div class="nat-horizontal nat-gap-5 nat-align" style="padding-bottom: 10px">
-                                        <natural-avatar [initials]="license.name.replace('-', '')" [size]="36" />
-                                        <span>{{ license.name }}</span>
-                                    </div>
-                                }
+            @if (route.snapshot.data['hideHeader'] === undefined) {
+                <div class="nat-vertical nat-gap-30 nat-sm-gap-0 nat-sm-horizontal">
+                    <div class="nat-sm-expand nat-horizontal nat-wrap nat-gap-10 nat-left nat-top">
+                        <div class="nat-horizontal nat-gap-10">
+                            <natural-avatar [initials]="viewer.name" [gravatar]="viewer.email" [size]="60" />
+                            <div class="nat-vertical nat-gap-10">
+                                <div class="mat-headline-4">{{ viewer.name }}</div>
+                                <div class="mat-body-1">
+                                    {{ viewer.status | enum: 'UserStatus' | async }}
+                                </div>
+                                <div class="nat-horizontal nat-wrap nat-gap-15 mat-body-2">
+                                    @for (license of licenses; track license) {
+                                        <div class="nat-horizontal nat-gap-5 nat-align" style="padding-bottom: 10px">
+                                            <natural-avatar [initials]="license.name.replace('-', '')" [size]="36" />
+                                            <span>{{ license.name }}</span>
+                                        </div>
+                                    }
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    @if (userService.canBecomeMember(viewer)) {
-                        <a
-                            mat-flat-button
-                            color="accent"
-                            [disabled]="!viewer.email"
-                            [matTooltip]="
-                                !viewer.email
-                                    ? 'Ton adresse e-mail doit être renseignée dans les données personnelles'
-                                    : ''
-                            "
-                            [routerLink]="['/user/new', {email: viewer.email}]"
-                        >
-                            Devenir membre
-                        </a>
-                    }
-                    <!-- TODO : UPDATE email when user add e-mail in family member component -->
-                </div>
-
-                <!-- CREDIT -->
-                <div class="nat-horizontal nat-center">
-                    <div class="nat-vertical nat-gap">
-                        <div class="nat-horizontal nat-align">
-                            <h2 class="mat-headline-5 nat-no-margin nat-expand">Solde</h2>
-                            <button
+                        @if (userService.canBecomeMember(viewer)) {
+                            <a
                                 mat-flat-button
-                                color="primary"
-                                class="nat-margin-left"
-                                [disabled]="!config"
-                                (click)="pay()"
+                                color="accent"
+                                [disabled]="!viewer.email"
+                                [matTooltip]="
+                                    !viewer.email
+                                        ? 'Ton adresse e-mail doit être renseignée dans les données personnelles'
+                                        : ''
+                                "
+                                [routerLink]="['/user/new', {email: viewer.email}]"
                             >
-                                Faire un versement
-                            </button>
-                        </div>
+                                Devenir membre
+                            </a>
+                        }
+                        <!-- TODO : UPDATE email when user add e-mail in family member component -->
+                    </div>
 
-                        <app-particle-switch [data]="viewer.account?.balance || 0">
-                            <ng-template let-data="data">
-                                <app-money
-                                    sizeClass="mat-headline-4"
-                                    [amount]="data"
-                                    [showSignal]="true"
-                                    [showCurrency]="true"
-                                />
-                            </ng-template>
-                        </app-particle-switch>
+                    <!-- CREDIT -->
+                    <div class="nat-horizontal nat-center">
+                        <div class="nat-vertical nat-gap">
+                            <div class="nat-horizontal nat-align">
+                                <h2 class="mat-headline-5 nat-no-margin nat-expand">Solde</h2>
+                                <button
+                                    mat-flat-button
+                                    color="primary"
+                                    class="nat-margin-left"
+                                    [disabled]="!config"
+                                    (click)="pay()"
+                                >
+                                    Faire un versement
+                                </button>
+                            </div>
+
+                            <app-particle-switch [data]="viewer.account?.balance || 0">
+                                <ng-template let-data="data">
+                                    <app-money
+                                        sizeClass="mat-headline-4"
+                                        [amount]="data"
+                                        [showSignal]="true"
+                                        [showCurrency]="true"
+                                    />
+                                </ng-template>
+                            </app-particle-switch>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <mat-divider />
+                <mat-divider />
+            }
+
             <div class="nat-vertical">
                 <router-outlet />
             </div>

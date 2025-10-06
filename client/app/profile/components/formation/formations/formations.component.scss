@@ -1,0 +1,16 @@
+.formations {
+    gap: 50px;
+}
+
+app-bookable-price {
+    height: 36px;
+    line-height: 36px;
+
+    &:empty {
+        display: none;
+    }
+}
+
+.inactive {
+    opacity: 0.5;
+}

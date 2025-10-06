@@ -1,5 +1,5 @@
 import {gql} from '@apollo/client/core';
-import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
+import {permissionsFragment, userContactDataFragment, userMetaFragment} from '../../../shared/queries/fragments';
 
 export const bookableUsageFragment = gql`
     fragment BookableUsage on Bookable {
@@ -54,6 +54,9 @@ export const bookableMetaFragment = gql`
         updater {
             ...UserMeta
         }
+        owner {
+            ...UserMeta
+        }
     }
     ${userMetaFragment}
 `;
@@ -82,6 +85,9 @@ export const usageBookablesQuery = gql`
             items {
                 ...BookableMeta
                 ...BookableUsage
+                owner {
+                    ...UserContactData
+                }
                 simultaneousBookings {
                     id
                     owner {
@@ -100,6 +106,7 @@ export const usageBookablesQuery = gql`
     }
     ${bookableMetaFragment}
     ${bookableUsageFragment}
+    ${userContactDataFragment}
 `;
 
 export const bookableQuery = gql`

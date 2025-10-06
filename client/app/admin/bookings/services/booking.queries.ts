@@ -61,6 +61,42 @@ export const bookingsQuery = gql`
     ${bookingMetaFragment}
 `;
 
+export const bookingsForProfileQuery = gql`
+    query BookingsForProfile($filter: BookingFilter, $sorting: [BookingSorting!], $pagination: PaginationInput) {
+        bookings(filter: $filter, sorting: $sorting, pagination: $pagination) {
+            items {
+                ...BookingMeta
+                bookable {
+                    id
+                    name
+                    code
+                    bookingType
+                    description
+                    image {
+                        id
+                    }
+                    bookableTags {
+                        id
+                    }
+                    initialPrice
+                    periodicPrice
+                    owner {
+                        ...UserContactData
+                    }
+                }
+            }
+            pageSize
+            pageIndex
+            length
+            totalParticipantCount
+            totalInitialPrice
+            totalPeriodicPrice
+        }
+    }
+    ${bookingMetaFragment}
+    ${userContactDataFragment}
+`;
+
 export const bookingsWithOwnerBalanceQuery = gql`
     query BookingsWithOwnerBalance($filter: BookingFilter, $sorting: [BookingSorting!], $pagination: PaginationInput) {
         bookings(filter: $filter, sorting: $sorting, pagination: $pagination) {
@@ -121,8 +157,10 @@ export const pricedBookingsQuery = gql`
                 bookable {
                     id
                     name
+                    description
                     bookingType
                     initialPrice
+                    periodicPrice
                     simultaneousBookings {
                         id
                         owner {
@@ -132,6 +170,9 @@ export const pricedBookingsQuery = gql`
                     }
                     bookableTags {
                         id
+                    }
+                    owner {
+                        ...UserContactData
                     }
                 }
             }
@@ -144,6 +185,7 @@ export const pricedBookingsQuery = gql`
         }
     }
     ${bookingMetaFragment}
+    ${userContactDataFragment}
 `;
 
 export const bookingQuery = gql`

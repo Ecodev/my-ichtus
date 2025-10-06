@@ -8,8 +8,16 @@
 
     .rich-text {
         line-height: 1.6em;
+    }
 
-        a {
+    .rich-text a,
+    a.app-link {
+        cursor: pointer;
+        border-bottom: 2px solid mat.m2-get-color-from-palette($primary);
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
             color: mat.m2-get-color-from-palette($primary);
         }
     }

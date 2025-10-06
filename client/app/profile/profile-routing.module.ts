@@ -21,6 +21,18 @@ import {
 } from '../admin/bookables/bookables/parent.component';
 import {BookableService} from '../admin/bookables/services/bookable.service';
 import {resolveExpenseClaim} from '../admin/expenseClaim/services/expenseClaim.resolver';
+import {FormationsComponent} from './components/formation/formations/formations.component';
+import {FormationComponent} from './components/formation/formation/formation.component';
+
+function formation(path: string, bookableTagId?: string): Route {
+    return {
+        path: path,
+        component: FormationsComponent,
+        data: {
+            forcedVariables: BookableService.formationBookable(bookableTagId),
+        },
+    };
+}
 
 const storageRoute: Route = {
     component: UsageBookablesComponent,
@@ -31,8 +43,6 @@ const storageRoute: Route = {
             true,
         ),
         availableColumns: [readOnlyName, description, price, createApplication],
-        showFullyBooked: false,
-        showPending: true,
         hideTableFooter: true,
         showColumnPicker: false,
         actionButtonLabel: 'Demander',
@@ -54,8 +64,6 @@ export const servicesTabRoutes: Routes = [
         data: {
             forcedVariables: BookableService.bookableByTag(BookableTagService.SERVICE, [BookingType.Application], true),
             availableColumns: [readOnlyName, price, createApplication],
-            showFullyBooked: false,
-            showPending: true,
             hideTableFooter: true,
             showColumnPicker: false,
             actionButtonLabel: 'Demander',
@@ -67,29 +75,10 @@ export const servicesTabRoutes: Routes = [
         data: {
             forcedVariables: BookableService.bookableByTag(BookableTagService.SURVEY, [BookingType.Application], true),
             availableColumns: [readOnlyName, createApplication],
-            showFullyBooked: false,
-            showPending: true,
             hideTableFooter: true,
             showColumnPicker: false,
             actionButtonLabel: 'Voter',
             denyDoubleBooking: true,
-        },
-    },
-    {
-        path: 'bookables/formation',
-        component: UsageBookablesComponent,
-        data: {
-            forcedVariables: BookableService.bookableByTag(
-                BookableTagService.FORMATION,
-                [BookingType.AdminApproved, BookingType.Application],
-                true,
-            ),
-            availableColumns: [readOnlyName, price, description, availability, createApplication],
-            showFullyBooked: true,
-            showPending: true,
-            hideTableFooter: true,
-            showColumnPicker: false,
-            actionButtonLabel: "Demande d'inscription",
         },
     },
     {
@@ -102,8 +91,6 @@ export const servicesTabRoutes: Routes = [
                 true,
             ),
             availableColumns: [readOnlyName, availability, createApplication],
-            showFullyBooked: true,
-            showPending: true,
             hideTableFooter: true,
             showColumnPicker: false,
             actionButtonLabel: "Demande d'inscription",
@@ -119,8 +106,6 @@ export const servicesTabRoutes: Routes = [
                 true,
             ),
             availableColumns: [readOnlyName, description, availability, price, createApplication],
-            showFullyBooked: true,
-            showPending: true,
             hideTableFooter: true,
             showColumnPicker: false,
             actionButtonLabel: "Demande d'inscription",
@@ -129,6 +114,36 @@ export const servicesTabRoutes: Routes = [
 ];
 
 export const routes: Routes = [
+    {
+        path: 'services/bookables/formation',
+        component: ProfileComponent,
+        data: {
+            hideHeader: true,
+        },
+        children: [
+            {
+                path: '',
+                component: FormationComponent,
+                canActivate: [canActivateServices],
+                resolve: {futureOwner: resolveViewer},
+                children: [
+                    {
+                        path: '',
+                        pathMatch: 'full',
+                        redirectTo: 'all',
+                    },
+                    formation('all'),
+                    formation('sup', '6040'),
+                    formation('planche', '6034'),
+                    formation('aviron', '6023'),
+                    formation('laser', '6032'),
+                    formation('catamaran', '6033'),
+                    formation('wing-foil', '6045'),
+                    formation('surprise', '6039'),
+                ],
+            },
+        ],
+    },
     {
         path: '',
         resolve: {viewer: resolveViewer},

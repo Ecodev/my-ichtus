@@ -1,0 +1,62 @@
+@use '@ecodev/natural-layout' as nat;
+
+.root {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 5px;
+
+    h1 {
+        margin: 1.5em 0 0.5em 0 !important;
+    }
+
+    .formation-list .formation-items {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    @include nat.media(null, md) {
+        .available {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 300px;
+            .list-title {
+                order: 1;
+            }
+            .list {
+                order: 3;
+            }
+            mat-nav-list {
+                order: 2;
+
+                .mat-mdc-list-item {
+                    display: inline-block;
+                    width: auto;
+                    height: 36px;
+                    line-height: 36px;
+                }
+            }
+        }
+    }
+
+    @include nat.media(md) {
+        .available {
+            margin-top: 1.5em;
+            mat-nav-list {
+                float: left;
+                margin-top: 50px;
+                width: 180px;
+            }
+            h1 {
+                margin-top: 0 !important;
+            }
+        }
+
+        .available h1,
+        .available .list,
+        .pending-or-running {
+            padding-left: 200px;
+        }
+    }
+}

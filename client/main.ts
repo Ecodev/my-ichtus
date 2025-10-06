@@ -83,6 +83,9 @@ const iconsConfig: NaturalIconsConfig = {
     announcement: {
         svg: 'assets/icons/megaphone.svg',
     },
+    certification: {
+        svg: 'assets/icons/certification.svg',
+    },
 };
 
 bootstrapApplication(AppComponent, {

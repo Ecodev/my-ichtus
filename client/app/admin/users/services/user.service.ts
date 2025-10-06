@@ -71,7 +71,6 @@ import {
     UsersVariables,
     UserVariables,
 } from '../../../shared/generated-types';
-import {BookingService} from '../../bookings/services/booking.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {PricedBookingService} from '../../bookings/services/PricedBooking.service';
 
@@ -105,10 +104,9 @@ export class UserService
     implements OnDestroy
 {
     protected readonly router = inject(Router);
-    protected readonly bookingService = inject(BookingService);
     private readonly permissionsService = inject(PermissionsService);
-    protected readonly pricedBookingService = inject(PricedBookingService);
     private readonly storage = inject(LOCAL_STORAGE);
+    protected readonly pricedBookingService = inject(PricedBookingService);
 
     /**
      * Should be used only by getViewer and cacheViewer
@@ -390,14 +388,17 @@ export class UserService
     /**
      * Impact members
      */
-    public getRunningServices(user: NonNullable<CurrentUserForProfile['viewer']>): Observable<Bookings['bookings']> {
+    public getRunningServices(
+        user: NonNullable<CurrentUserForProfile['viewer']>,
+        coursesOnly = false,
+    ): Observable<Bookings['bookings']> {
         const variables: BookingsVariables = {
             filter: {
                 groups: [
                     {
                         conditions: [
                             {
-                                custom: {runningServices: {user: user.id}},
+                                custom: {runningServices: {user: user.id, coursesOnly}},
                             },
                         ],
                         joins: {
@@ -415,6 +416,7 @@ export class UserService
 
     public getPendingApplications(
         user: NonNullable<CurrentUserForProfile['viewer']> | User['user'],
+        bookingTypes: BookingType[] = [BookingType.Application, BookingType.AdminApproved],
     ): Observable<Bookings['bookings']> {
         const variables: BookingsVariables = {
             filter: {
@@ -432,7 +434,7 @@ export class UserService
                                 conditions: [
                                     {
                                         bookingType: {
-                                            in: {values: [BookingType.Application, BookingType.AdminApproved]},
+                                            in: {values: bookingTypes},
                                         },
                                     },
                                 ],
@@ -445,7 +447,7 @@ export class UserService
 
         const qvm = new NaturalQueryVariablesManager<BookingsVariables>();
         qvm.set('variables', variables);
-        return this.bookingService.watchAll(qvm);
+        return this.pricedBookingService.watchAll(qvm);
     }
 
     public getViewer(): Observable<CurrentUserForProfile['viewer']> {
@@ -489,7 +491,8 @@ export class UserService
      *     - Doors : in case permissions have changed
      *     - Admin : in cache permissions have changed
      *
-     *   - Serve from cache to prevent duplicate query calls when multiple services initialization queue (preventing batching):
+     *   - Serve from cache to prevent duplicate query calls when multiple services initialization queue (preventing
+     * batching):
      *     - Route Guards, then
      *     - Resolvers, then
      *     - Components initialization

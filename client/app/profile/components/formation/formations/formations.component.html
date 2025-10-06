@@ -1,0 +1,62 @@
+<ng-template #displayTemplate let-element>
+    <div class="nat-vertical nat-gap-10" [class.inactive]="isFullyBooked(element)">
+        <h2 class="mat-headline-5 nat-expand nat-no-margin-bottom">{{ element.name }}</h2>
+        <div class="nat-horizontal nat-top nat-gap-10 nat-wrap">
+            @if (element.simultaneousBookings) {
+                <app-flag [status]="availabilityStatus(element)">{{ availabilityText(element) }}</app-flag>
+            }
+            @if (isAlreadyPending(element)) {
+                <app-flag status="pending-application">Déjà demandé </app-flag>
+            }
+            <div class="spacer nat-expand"></div>
+            <app-bookable-price [bookable]="element" />
+            @if (allowBooking(element)) {
+                <button
+                    mat-flat-button
+                    [color]="isAlreadyPending(element) ? 'accent' : 'primary'"
+                    [disabled]="isFullyBooked(element) || creating.has(element.id)"
+                    (click)="createApplication(element)"
+                >
+                    @if (!isAlreadyPending(element)) {
+                        Demande d'inscription
+                    }
+                    @if (isAlreadyPending(element)) {
+                        Nouvelle demande
+                    }
+                </button>
+            }
+        </div>
+        <div class="mat-body-1">{{ element.description }}</div>
+        @if (element.owner) {
+            <app-user-contact-data class="nat-expand" [user]="element.owner" />
+        }
+    </div>
+</ng-template>
+
+<natural-search
+    class="nat-expand"
+    [facets]="naturalSearchFacets"
+    [selections]="naturalSearchSelections"
+    [multipleGroups]="true"
+    (selectionChange)="search($event)"
+/>
+<br />
+
+<div class="nat-vertical formations">
+    @for (element of dataSource?.data?.items; track element) {
+        <ng-template *ngTemplateOutlet="displayTemplate; context: {$implicit: element}" />
+    }
+</div>
+
+@if (dataSource?.data?.length) {
+    <br />
+    <mat-paginator
+        [length]="dataSource?.data?.length"
+        [pageSize]="dataSource?.data?.pageSize"
+        [pageIndex]="dataSource?.data?.pageIndex"
+        [pageSizeOptions]="pageSizeOptions"
+        (page)="pagination($event)"
+    />
+} @else {
+    <p>Aucun résultat.</p>
+}

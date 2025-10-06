@@ -1,0 +1,85 @@
+<ng-template #displayTemplate let-element let-canCancel="canCancel" let-canRevoque="canRevoque">
+    <div class="nat-vertical nat-gap-10">
+        <h2 class="mat-headline-5 nat-expand nat-no-margin-bottom">{{ element.bookable.name }}</h2>
+
+        <div class="mat-body-1">{{ element.bookable.description }}</div>
+        <div class="nat-horizontal nat-align nat-gap-20 nat-wrap">
+            @if (element.bookable.owner) {
+                <app-user-contact-data class="nat-expand" [user]="element.bookable.owner" />
+            }
+
+            <div class="spacer nat-expand"></div>
+            <app-bookable-price [bookable]="element.bookable" />
+            @if (canRevoque && canRevoke(element)) {
+                <button mat-flat-button color="warn" (click)="revokeBooking(element)">
+                    <mat-icon naturalIcon="delete_forever" />
+                    Se désinscrire
+                </button>
+            } @else if (canCancel) {
+                <button
+                    mat-flat-button
+                    color="warn"
+                    [disabled]="deleting.has(element.id)"
+                    (click)="cancelApplication(element)"
+                >
+                    <mat-icon naturalIcon="delete" />
+                    Annuler la demande
+                </button>
+            }
+        </div>
+    </div>
+</ng-template>
+
+<div class="root">
+    <div class="pending-or-running nat-vertical">
+        @if (runningServicesDS.data?.items.length) {
+            <div class="running formation-list">
+                <h1 class="mat-headline-4">Inscriptions validées</h1>
+                <div class="nat-vertical formation-items">
+                    @for (element of runningServicesDS.data?.items; track element) {
+                        <ng-template
+                            *ngTemplateOutlet="
+                                displayTemplate;
+                                context: {$implicit: element, canCancel: false, canRevoque: true}
+                            "
+                        />
+                    }
+                </div>
+            </div>
+        }
+
+        @if (pendingApplicationsDS.data?.items.length) {
+            <div class="pending formation-list">
+                <h1 class="mat-headline-4">Demandes en attente</h1>
+                <div class="nat-vertical formation-items">
+                    @for (element of pendingApplicationsDS.data?.items; track element) {
+                        <ng-template
+                            *ngTemplateOutlet="
+                                displayTemplate;
+                                context: {$implicit: element, canCancel: true, canRevoque: false}
+                            "
+                        />
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="available">
+        <mat-nav-list>
+            <a mat-list-item routerLinkActive="active" routerLink="all">Tous</a>
+            <a mat-list-item routerLinkActive="active" routerLink="aviron">Aviron</a>
+            <a mat-list-item routerLinkActive="active" routerLink="laser">Laser</a>
+            <a mat-list-item routerLinkActive="active" routerLink="catamaran">Catamaran</a>
+            <a mat-list-item routerLinkActive="active" routerLink="planche">Planches</a>
+            <a mat-list-item routerLinkActive="active" routerLink="sup">SUP</a>
+            <a mat-list-item routerLinkActive="active" routerLink="wing-foil">Wing foil</a>
+            <a mat-list-item routerLinkActive="active" routerLink="surprise">Surprise</a>
+        </mat-nav-list>
+
+        <h1 class="list-title mat-headline-4">Nos cours</h1>
+        <div class="list">
+            <router-outlet />
+        </div>
+    </div>
+</div>

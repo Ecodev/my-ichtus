@@ -62,12 +62,12 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     styleUrl: './services.component.scss',
 })
 export class ServicesComponent implements OnInit, OnChanges {
-    private readonly userService = inject(UserService);
+    protected readonly userService = inject(UserService);
     public readonly route = inject(ActivatedRoute);
     private readonly alertService = inject(NaturalAlertService);
     private readonly bookingService = inject(BookingService);
+    protected readonly destroyRef = inject(DestroyRef);
 
-    private readonly destroyRef = inject(DestroyRef);
     @Input({required: true}) public user!: NonNullable<CurrentUserForProfile['viewer']>;
 
     public adminMode = false;

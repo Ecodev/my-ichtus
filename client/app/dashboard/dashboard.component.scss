@@ -8,3 +8,14 @@
     margin-bottom: 20px;
     max-width: 120px;
 }
+
+mat-card {
+    gap: 30px;
+    padding: 20px;
+    width: 300px;
+
+    .mat-icon {
+        margin-inline: auto;
+        margin-bottom: 20px;
+    }
+}

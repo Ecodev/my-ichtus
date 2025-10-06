@@ -190,6 +190,8 @@
                             }
                             <mat-hint>Saisir -1 pour aucune limite.</mat-hint>
                         </mat-form-field>
+                        <br />
+
                         @if (showWaitingList()) {
                             <mat-form-field subscriptSizing="dynamic">
                                 <mat-label>Nombre de place dans la file d'attente</mat-label>
@@ -213,7 +215,17 @@
                                     personne.
                                 </mat-hint>
                             </mat-form-field>
+                            <br />
                         }
+
+                        <natural-select
+                            formControlName="owner"
+                            placeholder="Responsable"
+                            [service]="userService"
+                            [showIcon]="false"
+                            (selectionChange)="update()"
+                        />
+
                         @if (!isSelfApproved()) {
                             <natural-select-hierarchic
                                 formControlName="creditAccount"
