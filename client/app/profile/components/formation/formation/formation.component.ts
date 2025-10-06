@@ -40,7 +40,5 @@ export class FormationComponent extends ServicesComponent {
             .getPendingApplications(this.user, [BookingType.AdminApproved])
             .pipe(takeUntilDestroyed(this.destroyRef));
         this.pendingApplicationsDS = new NaturalDataSource<Bookings['bookings']>(pendingFormationApplications);
-
-        this.route.params.subscribe(params => console.log('params', params));
     }
 }

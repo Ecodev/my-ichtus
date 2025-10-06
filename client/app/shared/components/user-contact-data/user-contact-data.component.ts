@@ -1,9 +1,10 @@
 import {Component, input} from '@angular/core';
 import {UserContactData} from '../../generated-types';
+import {NonBreakingSpacePipe} from '../../pipes/non-breaking-space.pipe';
 
 @Component({
     selector: 'app-user-contact-data',
-    imports: [],
+    imports: [NonBreakingSpacePipe],
     templateUrl: './user-contact-data.component.html',
     styleUrl: './user-contact-data.component.scss',
 })

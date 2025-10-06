@@ -11,6 +11,6 @@
         ,
     }
     @if (user().mobilePhone) {
-        <a class="app-link" [href]="`tel:${user().mobilePhone}`">{{ user().mobilePhone }} </a>
+        <a class="app-link" [href]="`tel:${user().mobilePhone}`">{{ user().mobilePhone | nbsp }} </a>
     }
 </div>

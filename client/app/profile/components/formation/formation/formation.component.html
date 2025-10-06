@@ -7,8 +7,6 @@
             @if (element.bookable.owner) {
                 <app-user-contact-data class="nat-expand" [user]="element.bookable.owner" />
             }
-
-            <div class="spacer nat-expand"></div>
             <app-bookable-price [bookable]="element.bookable" />
             @if (canRevoque && canRevoke(element)) {
                 <button mat-flat-button color="warn" (click)="revokeBooking(element)">
