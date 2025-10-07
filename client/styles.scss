@@ -65,6 +65,10 @@ mat-form-field.no-bottom-spacing {
     text-align: center;
 }
 
+.text-right {
+    text-align: right;
+}
+
 .mat-mdc-button.app-button-wrap {
     height: auto !important; // allow button grow in height
     min-height: 36px;
@@ -112,4 +116,8 @@ mat-form-field.no-bottom-spacing {
 // so we try to preserve that formatting, while still wrapping if necessary
 .mat-mdc-snack-bar-label {
     white-space: pre-wrap;
+}
+
+app-user-contact-data:empty {
+    display: none;
 }

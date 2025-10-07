@@ -1,16 +1,19 @@
-<div class="nat-expand">
-    <div class="mat-subtitle-2 nat-no-margin-bottom">Personne de contact:</div>
-    <a>{{ user().firstName }} {{ user().lastName }}</a>
-    @if (user().email || user().mobilePhone) {
-        ,
-    }
-    @if (user().email) {
-        <a class="app-link" [href]="`mailto:${user().email}?subject=${emailSubject()}`">{{ user().email }} </a>
-    }
-    @if (user().email && user().mobilePhone) {
-        ,
-    }
-    @if (user().mobilePhone) {
-        <a class="app-link" [href]="`tel:${user().mobilePhone}`">{{ user().mobilePhone | nbsp }} </a>
-    }
-</div>
+@let person = user();
+@if (person) {
+    <div class="nat-expand">
+        <div class="mat-subtitle-2 nat-no-margin-bottom">{{ title() }}:</div>
+        <a>{{ person.name }}</a>
+        @if (person.email || person.mobilePhone) {
+            ,
+        }
+        @if (person.email) {
+            <a class="app-link" [href]="`mailto:${person.email}?subject=${emailSubject()}`">{{ person.email }} </a>
+        }
+        @if (person.email && person.mobilePhone) {
+            ,
+        }
+        @if (person.mobilePhone) {
+            <a class="app-link" [href]="`tel:${person.mobilePhone}`">{{ person.mobilePhone | nbsp }} </a>
+        }
+    </div>
+}

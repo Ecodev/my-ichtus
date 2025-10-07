@@ -112,12 +112,12 @@ export class CopyContactDataButtonService<V extends EmailAndPhoneUsersVariables 
 
                 this.usersEmailAndName = users
                     .filter(u => u.email)
-                    .map(u => [u.email, u.firstName, u.lastName].join(';'))
+                    .map(u => [u.email, u.name].join(';'))
                     .join('\n');
 
                 this.usersPhoneAndName = users
                     .filter(u => u.mobilePhone)
-                    .map(u => [u.mobilePhone, u.firstName, u.lastName].join(';'))
+                    .map(u => [u.mobilePhone, u.name].join(';'))
                     .join('\n');
             });
     }

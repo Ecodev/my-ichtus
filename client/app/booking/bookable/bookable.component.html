@@ -51,6 +51,7 @@
         </div>
         <div class="mat-headline-5 line-break">{{ bookable.description }}</div>
         <div class="mat-subtitle-1 line-break">{{ bookable.remarks }}</div>
+        <app-user-contact-data title="Responsable" [user]="bookable.owner" />
     </div>
 }
 
