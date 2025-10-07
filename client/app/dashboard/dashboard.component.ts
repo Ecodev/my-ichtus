@@ -57,7 +57,7 @@ export class DashboardComponent {
         );
 
         this.userService.getRunningServices(this.route.snapshot.data.viewer, true).subscribe(formations => {
-            this.formations = formations.items as PricedBookings['bookings']['items'];
+            this.formations = formations.items;
         });
     }
 }

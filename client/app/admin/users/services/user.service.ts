@@ -31,9 +31,7 @@ import {
 } from './user.queries';
 import {
     BillingType,
-    Bookings,
     BookingStatus,
-    BookingsVariables,
     BookingType,
     ConfirmRegistration,
     ConfirmRegistrationVariables,
@@ -46,6 +44,8 @@ import {
     Login,
     LoginVariables,
     Logout,
+    PricedBookings,
+    PricedBookingsVariables,
     Relationship,
     RequestPasswordReset,
     RequestPasswordResetVariables,
@@ -391,8 +391,8 @@ export class UserService
     public getRunningServices(
         user: NonNullable<CurrentUserForProfile['viewer']>,
         coursesOnly = false,
-    ): Observable<Bookings['bookings']> {
-        const variables: BookingsVariables = {
+    ): Observable<PricedBookings['bookings']> {
+        const variables: PricedBookingsVariables = {
             filter: {
                 groups: [
                     {
@@ -409,7 +409,7 @@ export class UserService
             },
         };
 
-        const qvm = new NaturalQueryVariablesManager<BookingsVariables>();
+        const qvm = new NaturalQueryVariablesManager<PricedBookingsVariables>();
         qvm.set('variables', variables);
         return this.pricedBookingService.watchAll(qvm);
     }
@@ -417,8 +417,8 @@ export class UserService
     public getPendingApplications(
         user: NonNullable<CurrentUserForProfile['viewer']> | User['user'],
         bookingTypes: BookingType[] = [BookingType.Application, BookingType.AdminApproved],
-    ): Observable<Bookings['bookings']> {
-        const variables: BookingsVariables = {
+    ): Observable<PricedBookings['bookings']> {
+        const variables: PricedBookingsVariables = {
             filter: {
                 groups: [
                     {
@@ -445,7 +445,7 @@ export class UserService
             },
         };
 
-        const qvm = new NaturalQueryVariablesManager<BookingsVariables>();
+        const qvm = new NaturalQueryVariablesManager<PricedBookingsVariables>();
         qvm.set('variables', variables);
         return this.pricedBookingService.watchAll(qvm);
     }

@@ -3,9 +3,9 @@ import {UsageBookableService} from '../services/usage-bookable.service';
 import {AvailableColumn, ExtractTallOne, NaturalAbstractList} from '@ecodev/natural';
 import {
     BookingPartialInput,
-    Bookings,
     BookingStatus,
     CurrentUserForProfile,
+    PricedBookings,
     UsageBookables,
     User,
 } from '../../../shared/generated-types';
@@ -48,7 +48,7 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
     implements OnInit
 {
     protected readonly hasUsage: boolean = false;
-    public pendingApplications: Bookings['bookings']['items'][0][] = [];
+    public pendingApplications: PricedBookings['bookings']['items'] = [];
     public readonly creating = new Map<ExtractTallOne<T>['id'], true>();
     private readonly apollo = inject(Apollo);
     public readonly availabilityStatus = availabilityStatus;

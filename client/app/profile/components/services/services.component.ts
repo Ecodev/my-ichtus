@@ -1,5 +1,5 @@
 import {Component, DestroyRef, inject, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {Bookings, BookingType, CurrentUserForProfile} from '../../../shared/generated-types';
+import {Bookings, BookingType, CurrentUserForProfile, PricedBookings} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
@@ -72,8 +72,8 @@ export class ServicesComponent implements OnInit, OnChanges {
 
     public adminMode = false;
 
-    public runningServicesDS!: NaturalDataSource<Bookings['bookings']>;
-    public pendingApplicationsDS!: NaturalDataSource<Bookings['bookings']>;
+    public runningServicesDS!: NaturalDataSource<PricedBookings['bookings']>;
+    public pendingApplicationsDS!: NaturalDataSource<PricedBookings['bookings']>;
 
     public servicesColumns = ['name', 'initialPrice', 'periodicPrice', 'revoke'];
     public applicationsColumns = ['name', 'startDate', 'remarks', 'initialPrice', 'periodicPrice', 'cancel'];
@@ -103,12 +103,12 @@ export class ServicesComponent implements OnInit, OnChanges {
         const pendingApplications = this.userService
             .getPendingApplications(this.user)
             .pipe(takeUntilDestroyed(this.destroyRef));
-        this.pendingApplicationsDS = new NaturalDataSource<Bookings['bookings']>(pendingApplications);
+        this.pendingApplicationsDS = new NaturalDataSource<PricedBookings['bookings']>(pendingApplications);
 
         const runningServices = this.userService
             .getRunningServices(this.user)
             .pipe(takeUntilDestroyed(this.destroyRef));
-        this.runningServicesDS = new NaturalDataSource<Bookings['bookings']>(runningServices);
+        this.runningServicesDS = new NaturalDataSource<PricedBookings['bookings']>(runningServices);
     }
 
     /**
