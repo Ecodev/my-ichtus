@@ -55,10 +55,11 @@ export const bookableMetaFragment = gql`
             ...UserMeta
         }
         owner {
-            ...UserMeta
+            ...UserContactData
         }
     }
     ${userMetaFragment}
+    ${userContactDataFragment}
 `;
 
 export const bookablesQuery = gql`

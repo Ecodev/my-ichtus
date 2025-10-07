@@ -9,10 +9,19 @@ import {MatButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MatDivider} from '@angular/material/divider';
 import {NaturalFileComponent} from '@ecodev/natural';
+import {UserContactDataComponent} from '../../shared/components/user-contact-data/user-contact-data.component';
 
 @Component({
     selector: 'app-bookable',
-    imports: [NaturalFileComponent, MatDivider, MatIcon, MatButton, RouterLink, TimeagoModule],
+    imports: [
+        NaturalFileComponent,
+        MatDivider,
+        MatIcon,
+        MatButton,
+        RouterLink,
+        TimeagoModule,
+        UserContactDataComponent,
+    ],
     templateUrl: './bookable.component.html',
     styleUrl: './bookable.component.scss',
 })

@@ -10,6 +10,10 @@
         margin: 1.5em 0 0.5em 0 !important;
     }
 
+    .description {
+        word-break: break-word;
+    }
+
     .formation-list .formation-items {
         display: flex;
         flex-direction: column;

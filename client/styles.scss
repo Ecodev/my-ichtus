@@ -65,6 +65,10 @@ mat-form-field.no-bottom-spacing {
     text-align: center;
 }
 
+.text-right {
+    text-align: right;
+}
+
 .mat-mdc-button.app-button-wrap {
     height: auto !important; // allow button grow in height
     min-height: 36px;

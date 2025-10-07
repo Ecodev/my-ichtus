@@ -41,4 +41,18 @@ export class FormationComponent extends ServicesComponent {
             .pipe(takeUntilDestroyed(this.destroyRef));
         this.pendingApplicationsDS = new NaturalDataSource<Bookings['bookings']>(pendingFormationApplications);
     }
+
+    public override revokeBooking(booking: Bookings['bookings']['items'][0]): void {
+        this.alertService
+            .confirm(
+                'Se désinscrire',
+                "Veux-tu te désinscrire définitivement de ce cours ? Le montant ne sera remboursé qu'en cas de force majeure (maladie, accident) ou d'annulation au plus tard 10 jours avant le cours.",
+                'Confirmer la désinscription',
+            )
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    this.bookingService.terminateBooking(booking.id);
+                }
+            });
+    }
 }

@@ -9,6 +9,7 @@ import {NonBreakingSpacePipe} from '../../pipes/non-breaking-space.pipe';
     styleUrl: './user-contact-data.component.scss',
 })
 export class UserContactDataComponent {
-    public readonly user = input.required<UserContactData>();
+    public readonly user = input.required<UserContactData | null>();
+    public readonly title = input('Personne de contact');
     public readonly emailSubject = input('');
 }
