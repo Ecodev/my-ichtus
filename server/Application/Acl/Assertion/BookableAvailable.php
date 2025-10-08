@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Acl\Assertion;
 
+use Application\Enum\BookableStatus;
 use Application\Enum\BookingStatus;
 use Application\Model\Booking;
 use Application\Model\User;
@@ -47,7 +48,7 @@ class BookableAvailable implements NamedAssertion
             return true;
         }
 
-        if (!$bookable->isActive()) {
+        if ($bookable->getStatus() !== BookableStatus::Active) {
             return $acl->reject('the bookable is not active');
         }
 

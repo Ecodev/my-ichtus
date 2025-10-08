@@ -6,6 +6,7 @@ import {
     BookableInput,
     Bookables,
     BookableState,
+    BookableStatus,
     BookablesVariables,
     BookableVariables,
     Bookings,
@@ -116,7 +117,7 @@ export class BookableService extends NaturalAbstractModelService<
         const condition: BookableFilterGroupCondition = {
             bookingType: {in: {values: bookingTypes}},
             bookableTags: {have: {values: [tagId]}},
-            isActive: isActive !== null ? {equal: {value: isActive}} : undefined,
+            status: isActive !== null ? {equal: {value: BookableStatus.Active}} : undefined,
         };
 
         return {
@@ -135,7 +136,7 @@ export class BookableService extends NaturalAbstractModelService<
             {
                 bookingType: {in: {values: [BookingType.AdminApproved]}},
                 bookableTags: {have: {values: [BookableTagService.FORMATION]}},
-                isActive: {equal: {value: true}},
+                status: {equal: {value: BookableStatus.Active}},
             },
         ];
 
@@ -182,7 +183,7 @@ export class BookableService extends NaturalAbstractModelService<
             waitingListLength: 0,
             bookingType: BookingType.SelfApproved,
             remarks: '',
-            isActive: true,
+            status: BookableStatus.New,
             state: BookableState.Good,
             verificationDate: null,
             image: null,
@@ -248,7 +249,7 @@ export class BookableService extends NaturalAbstractModelService<
         return this.bookingService.getAll(qvm).pipe(
             map(result => {
                 const isAvailable =
-                    bookable.isActive &&
+                    bookable.status === BookableStatus.Active &&
                     (bookable.simultaneousBookingMaximum < 0 || bookable.simultaneousBookingMaximum > result.length);
 
                 return {

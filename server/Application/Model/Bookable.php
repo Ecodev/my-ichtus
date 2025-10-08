@@ -11,6 +11,7 @@ use Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountLess
 use Application\Api\Input\Operator\BookableBookingCount\BookableBookingCountLessOrEqualOperatorType;
 use Application\Api\Input\Operator\BookableUsageOperatorType;
 use Application\Enum\BookableState;
+use Application\Enum\BookableStatus;
 use Application\Enum\BookingStatus;
 use Application\Enum\BookingType;
 use Application\Repository\BookableRepository;
@@ -61,8 +62,8 @@ class Bookable extends AbstractModel
     #[ORM\Column(type: 'enum', length: 10, options: ['default' => BookingType::AdminApproved])]
     private BookingType $bookingType = BookingType::AdminApproved;
 
-    #[ORM\Column(type: 'boolean', options: ['default' => true])]
-    private bool $isActive = true;
+    #[ORM\Column(type: 'enum', options: ['default' => BookableStatus::New])]
+    private BookableStatus $status = BookableStatus::New;
 
     #[ORM\Column(type: 'enum', length: 10, options: ['default' => BookableState::Good])]
     private BookableState $state = BookableState::Good;
@@ -198,19 +199,19 @@ class Bookable extends AbstractModel
     }
 
     /**
-     * Whether this bookable can be booked.
+     * Whether this bookable can be bought.
      */
-    public function isActive(): bool
+    public function getStatus(): BookableStatus
     {
-        return $this->isActive;
+        return $this->status;
     }
 
     /**
-     * Whether this bookable can be booked.
+     * Whether this bookable can be bought.
      */
-    public function setIsActive(bool $isActive): void
+    public function setStatus(BookableStatus $status): void
     {
-        $this->isActive = $isActive;
+        $this->status = $status;
     }
 
     public function setBookingType(BookingType $state): void

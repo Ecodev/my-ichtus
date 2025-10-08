@@ -28,6 +28,7 @@ import {TransactionService} from '../../admin/transactions/services/transaction.
 import {TransactionTagService} from '../../admin/transactionTags/services/transactionTag.service';
 import {
     BookableFilter,
+    BookableStatus,
     BookingFilterGroupConditionEndDate,
     UserFilterGroupConditionReceivesNewsletter,
     UserFilterGroupConditionWelcomeSessionDate,
@@ -230,18 +231,16 @@ const message: DropdownFacet<never> = {
     transform: wrapLike,
 };
 
-const isActive: DropdownFacet<TypeSelectConfiguration> = {
-    display: 'Actif',
-    field: 'isActive',
-    component: TypeSelectComponent,
-    name: 'isActive',
-    configuration: {
-        items: [
-            {value: true, name: 'Oui'},
-            {value: false, name: 'Non'},
-        ],
-    },
-};
+function bookableStatus(): DropdownFacet<TypeSelectConfiguration> {
+    return {
+        display: `État`,
+        field: 'status',
+        component: TypeSelectComponent,
+        configuration: {
+            items: inject(NaturalEnumService).get('BookableStatus'),
+        },
+    };
+}
 
 function bookingType(): DropdownFacet<TypeSelectConfiguration> {
     return {
@@ -330,7 +329,7 @@ export function users(): NaturalSearchFacets {
                         {
                             conditions: [
                                 {
-                                    isActive: {equal: {value: true}},
+                                    status: {equal: {value: BookableStatus.Active}},
                                 },
                             ],
                         },
@@ -581,7 +580,7 @@ export function bookables(): NaturalSearchFacets {
         name,
         code,
         bookableTags(),
-        isActive,
+        bookableStatus(),
         bookingType(),
         initialPrice,
         periodicPrice,
@@ -595,13 +594,31 @@ export function bookables(): NaturalSearchFacets {
 export function admin_approved(): NaturalSearchFacets {
     assertInInjectionContext(admin_approved);
 
-    return [name, code, bookableTags(), isActive, initialPrice, bookableActiveBookingCount, creationDate, updateDate];
+    return [
+        name,
+        code,
+        bookableTags(),
+        bookableStatus(),
+        initialPrice,
+        bookableActiveBookingCount,
+        creationDate,
+        updateDate,
+    ];
 }
 
 export function equipment(): NaturalSearchFacets {
     assertInInjectionContext(equipment);
 
-    return [name, code, bookableTags(), isActive, purchasePrice, bookableActiveBookingCount, creationDate, updateDate];
+    return [
+        name,
+        code,
+        bookableTags(),
+        bookableStatus(),
+        purchasePrice,
+        bookableActiveBookingCount,
+        creationDate,
+        updateDate,
+    ];
 }
 
 export function bookingsForBookable(): NaturalSearchFacets {

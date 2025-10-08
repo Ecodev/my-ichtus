@@ -6,6 +6,7 @@ namespace ApplicationTest\Acl\Assertion;
 
 use Application\Acl\Acl;
 use Application\Acl\Assertion\BookableAvailable;
+use Application\Enum\BookableStatus;
 use Application\Enum\BookingStatus;
 use Application\Model\Bookable;
 use Application\Model\Booking;
@@ -48,7 +49,7 @@ class BookableAvailableTest extends TestCase
             if ($withBookable) {
                 $bookable = new Bookable();
                 $booking->setBookable($bookable);
-                $bookable->setIsActive($bookableIsActive);
+                $bookable->setStatus($bookableIsActive ? BookableStatus::Active : BookableStatus::Inactive);
                 $bookable->setSimultaneousBookingMaximum($simultaneousBookingMaximum);
                 $bookable->setWaitingListLength($waitingListLength);
 

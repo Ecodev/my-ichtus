@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Repository;
 
+use Application\Enum\BookableStatus;
 use Application\Enum\BookingType;
 use Application\Enum\UserStatus;
 use Application\Model\User;
@@ -125,10 +126,11 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
             ->andWhere('user.status != :status')
             ->andWhere("user.email IS NOT NULL AND user.email != ''")
             ->andWhere('bookable.bookingType IN (:bookingType)')
-            ->andWhere('bookable.isActive = true')
+            ->andWhere('bookable.status = :bookableStatus')
             ->andWhere('bookable.periodicPrice != 0')
             ->setParameter('bookingType', [BookingType::Mandatory->value, BookingType::AdminAssigned->value], ArrayParameterType::STRING)
             ->setParameter('status', UserStatus::Archived->value)
+            ->setParameter('bookableStatus', BookableStatus::Active->value)
             ->addOrderBy('user.id')
             ->addOrderBy('bookable.name');
 

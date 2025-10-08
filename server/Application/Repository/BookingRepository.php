@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Repository;
 
+use Application\Enum\BookableStatus;
 use Application\Enum\BookingStatus;
 use Application\Enum\BookingType;
 use Application\Enum\UserStatus;
@@ -55,7 +56,7 @@ class BookingRepository extends AbstractRepository
             AND booking.status = :bookingStatus
             AND booking.start_date < :nextYear
             AND (booking.end_date IS NULL OR booking.end_date >= :nextYear)
-            AND bookable.is_active
+            AND bookable.status = :bookableStatus
             AND bookable.periodic_price != 0
             AND transaction_line.id IS NULL
             ORDER BY booking.owner_id ASC, bookable.name ASC
@@ -64,6 +65,7 @@ class BookingRepository extends AbstractRepository
         $query = $this->getEntityManager()->createNativeQuery($sql, $rsm)
             ->setParameter('bookingType', [BookingType::Mandatory->value, BookingType::AdminAssigned->value, BookingType::AdminApproved->value], ArrayParameterType::STRING)
             ->setParameter('bookingStatus', BookingStatus::Booked->value)
+            ->setParameter('bookableStatus', BookableStatus::Active->value)
             ->setParameter('userStatus', UserStatus::Archived->value)
             ->setParameter('currentYear', ChronosDate::now()->firstOfYear()->toDateString())
             ->setParameter('nextYear', ChronosDate::now()->firstOfYear()->addYears(1)->toDateString())

@@ -59,7 +59,7 @@ class RunningServicesOperatorType extends AbstractOperator
                 (
                     bookable.booking_type IN ($bookingTypes)
                     OR
-                    (bookable.booking_type IN ($courses) AND bookable.is_active)
+                    (bookable.booking_type IN ($courses) AND bookable.status = 'active')
                 )
             SQL;
 

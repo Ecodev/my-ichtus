@@ -1,6 +1,6 @@
 import {Component, inject, OnInit, output} from '@angular/core';
 import {bookables, equipment} from '../../../shared/natural-search/natural-search-facets';
-import {Bookables} from '../../../shared/generated-types';
+import {Bookables, BookableStatus} from '../../../shared/generated-types';
 import {BookableService} from '../services/bookable.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {ParentComponent} from './parent.component';
@@ -80,6 +80,7 @@ export class BookablesComponent extends ParentComponent<BookableService> impleme
     public readonly permissionsService = inject(PermissionsService);
 
     public readonly bookableClick = output<Bookables['bookables']['items'][0]>();
+    protected BookableStatus = BookableStatus;
 
     public constructor() {
         super(inject(BookableService));

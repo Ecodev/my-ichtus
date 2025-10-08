@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ApplicationTest\Repository;
 
+use Application\Enum\BookableStatus;
 use Application\Enum\BookingStatus;
 use Application\Enum\BookingType;
 use Application\Enum\UserStatus;
@@ -140,7 +141,7 @@ class BookingRepositoryTest extends AbstractRepositoryTest
                         'bookable' => [
                             'name' => 'cotisation',
                             'booking_type' => BookingType::Mandatory->value,
-                            'is_active' => true,
+                            'status' => BookableStatus::Active->value,
                             'periodic_price' => '25.00',
                         ],
                     ],
@@ -151,7 +152,7 @@ class BookingRepositoryTest extends AbstractRepositoryTest
                         'bookable' => [
                             'name' => 'casier',
                             'booking_type' => BookingType::AdminAssigned->value,
-                            'is_active' => true,
+                            'status' => BookableStatus::Active->value,
                             'periodic_price' => '25.00',
                         ],
                     ],
@@ -219,7 +220,7 @@ class BookingRepositoryTest extends AbstractRepositoryTest
         $applicationBookable[0]['bookings'][0]['bookable']['booking_type'] = BookingType::Application->value;
 
         $inactiveBookable = $normal;
-        $inactiveBookable[0]['bookings'][0]['bookable']['is_active'] = false;
+        $inactiveBookable[0]['bookings'][0]['bookable']['status'] = BookableStatus::Inactive->value;
 
         $freeBookable = $normal;
         $freeBookable[0]['bookings'][0]['bookable']['periodic_price'] = 0;

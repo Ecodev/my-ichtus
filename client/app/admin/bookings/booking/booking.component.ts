@@ -2,6 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {BookingService} from '../services/booking.service';
 import {
     BookableSortingField,
+    BookableStatus,
     BookablesVariables,
     BookableTags,
     BookingPartialInput,
@@ -260,7 +261,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
                             {
                                 bookingType: {in: {values: [BookingType.AdminAssigned, BookingType.AdminApproved]}},
                                 bookableTags: {have: {values: tags}},
-                                isActive: {equal: {value: true}},
+                                status: {equal: {value: BookableStatus.Active}},
                             },
                         ],
                     },
@@ -302,7 +303,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
                     conditions: [
                         {
                             bookingType: {in: {values: [bookingType]}},
-                            isActive: {equal: {value: true}},
+                            status: {equal: {value: BookableStatus.Active}},
                         },
                     ],
                 },

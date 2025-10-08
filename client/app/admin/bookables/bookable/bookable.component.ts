@@ -43,7 +43,6 @@ import {BookingsWithOwnerComponent} from '../../bookings/bookings/bookings-with-
 import {TransactionLinesComponent} from '../../transactions/transactionLines/transactionLines.component';
 import {BookableMetadataComponent} from '../../bookable-metadata/bookable-metadata.component';
 import {MatDivider} from '@angular/material/divider';
-import {MatSlideToggle} from '@angular/material/slide-toggle';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {MatInput} from '@angular/material/input';
 import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from '@angular/material/form-field';
@@ -74,7 +73,6 @@ import {UserService} from '../../users/services/user.service';
         MatInput,
         NaturalSelectEnumComponent,
         CdkTextareaAutosize,
-        MatSlideToggle,
         NaturalSelectHierarchicComponent,
         MatDivider,
         NaturalRelationsComponent,

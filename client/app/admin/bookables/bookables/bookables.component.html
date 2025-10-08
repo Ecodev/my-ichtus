@@ -56,7 +56,11 @@ Warning this template is used by two components BookablesComponent and UsageBook
                         <td *matCellDef="let element" mat-cell>
                             <natural-table-button
                                 matTooltip="Éditer"
-                                [ngClass]="{inactive: !element.isActive}"
+                                [ngClass]="{
+                                    inactive: [BookableStatus.Inactive, BookableStatus.Archived].includes(
+                                        element.status
+                                    ),
+                                }"
                                 [label]="element.name"
                                 [navigate]="['/admin/bookable', element.id]"
                             />

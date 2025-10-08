@@ -117,12 +117,13 @@
                     </div>
 
                     <div class="nat-md-expand-33 nat-vertical">
-                        <div class="nat-horizontal nat-align nat-margin-bottom">
-                            <h2 class="mat-headline-6 nat-no-margin nat-expand">Réservation</h2>
-                            <mat-slide-toggle formControlName="isActive" (change)="update()"
-                                >Disponible</mat-slide-toggle
-                            >
-                        </div>
+                        <h2 class="mat-headline-6 nat-no-margin">Réservation</h2>
+                        <natural-select-enum
+                            enumName="BookableStatus"
+                            formControlName="status"
+                            placeholder="État"
+                            (selectionChange)="update()"
+                        />
                         <natural-select-enum
                             enumName="BookingType"
                             formControlName="bookingType"
