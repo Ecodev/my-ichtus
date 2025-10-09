@@ -371,14 +371,14 @@ export const Requests = {
                         conditions: [
                             {
                                 bookingType: {
-                                    like: {
+                                    equal: {
                                         value: 'SelfApproved',
                                     },
                                 },
-                                isActive: {
+                                status: {
                                     // embarcation active
                                     equal: {
-                                        value: true,
+                                        value: 'Active',
                                     },
                                 },
                             },
@@ -519,7 +519,7 @@ export const Requests = {
                     {
                         conditions: [
                             {
-                                isActive: {equal: {value: true}},
+                                status: {equal: {value: 'Active'}},
                             },
                         ],
                     },
@@ -585,7 +585,7 @@ export const Requests = {
                     groups: [
                         {
                             conditions: [
-                                {isActive: {equal: {value: true}}},
+                                {status: {equal: {value: 'Active'}}},
                                 {code: {like: {value: code}}},
                                 {
                                     bookingType: {
