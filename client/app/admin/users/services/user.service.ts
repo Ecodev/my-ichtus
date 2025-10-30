@@ -391,6 +391,7 @@ export class UserService
     public getRunningServices(
         user: NonNullable<CurrentUserForProfile['viewer']>,
         coursesOnly = false,
+        excludeNFT = false,
     ): Observable<PricedBookings['bookings']> {
         const variables: PricedBookingsVariables = {
             filter: {
@@ -398,7 +399,7 @@ export class UserService
                     {
                         conditions: [
                             {
-                                custom: {runningServices: {user: user.id, coursesOnly}},
+                                custom: {runningServices: {user: user.id, coursesOnly, excludeNFT}},
                             },
                         ],
                         joins: {

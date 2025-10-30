@@ -56,7 +56,7 @@ export class DashboardComponent {
             }),
         );
 
-        this.userService.getRunningServices(this.route.snapshot.data.viewer, true).subscribe(formations => {
+        this.userService.getRunningServices(this.route.snapshot.data.viewer, true, true).subscribe(formations => {
             this.formations = formations.items;
         });
     }
