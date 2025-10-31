@@ -1,0 +1,75 @@
+.PopUpLoginContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: 0px;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    height: 200px;
+    padding: 10px;
+    background-color: white;
+    text-align: center;
+}
+.PopUpLoginContainer input {
+    position: relative;
+    display: inline-block;
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 10px;
+    background-color: white; /*rgb(237,237,237);*/
+    padding-top: 0px;
+    height: 50px;
+    width: 250px;
+    padding-bottom: 0px;
+    padding-left: 60px;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-size: 40px;
+    background-position-x: 65px;
+    background-position-y: 4px;
+    color: black;
+    font-size: 20px;
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
+    transition:
+        all 0.1s linear 0s,
+        width 0.2s linear 0s,
+        margin-left 0.2s linear 0s;
+    outline: none; /*pour enlever le cadre bleu quand sélectionné */
+}
+
+.PopUpLoginContainer input::placeholder {
+    color: gray;
+}
+
+.PopUpLoginContainer input:focus {
+    /*border-color: var(--accent);*/
+    /*background-image: url(../img/icons/search-blue.png);*/
+    box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.5);
+}
+
+.PopUpLoginContainer > div:nth-child(4) {
+    position: absolute;
+    left: 16px;
+    top: 63px;
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    z-index: 2;
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    -moz-border-radius-topleft: 8px;
+    -moz-border-radius-bottomleft: 8px;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    background-repeat: no-repeat;
+    transition: all 0.1s linear 0s;
+    background-size: 50px;
+    background-image: url(../img/icons/password.png);
+}
+
+.PopUpLoginContainer .Buttons {
+    background-image: none;
+    display: inline-block;
+    top: 10px;
+}

@@ -1,0 +1,487 @@
+﻿<!doctype html>
+<html lang="fr">
+    <head>
+        <!-- !! -->
+        <!-- Title -->
+        <title>Cahier de sortie</title>
+
+        <!-- Metas -->
+        <meta charset="utf-8" />
+        <meta name="author" content="Alain Schöbi" />
+        <meta name="description" content="Cahier de sortie du club nautique Ichtus" />
+
+        <!-- Style Sheets -->
+        <link href="general/general.css" rel="stylesheet" />
+        <link href="general/pop-alert.css" rel="stylesheet" />
+        <link href="page/top.css" rel="stylesheet" />
+        <link href="page/bottom.css" rel="stylesheet" />
+        <link href="page/pop-stats.css" rel="stylesheet" />
+        <link href="cahier/cahier.css" rel="stylesheet" />
+        <link href="cahier/top.css" rel="stylesheet" />
+        <link href="cahier/top-list.css" rel="stylesheet" />
+        <link href="member/user.css" rel="stylesheet" />
+        <link href="member/member.css" rel="stylesheet" />
+        <link href="member/login.css" rel="stylesheet" />
+        <link href="equipment/choice.css" rel="stylesheet" />
+        <link href="equipment/categories.css" rel="stylesheet" />
+        <link href="equipment/elements.css" rel="stylesheet" />
+        <link href="equipment/pop-bookable.css" rel="stylesheet" />
+        <link href="equipment/pop-bookable-history.css" rel="stylesheet" />
+        <link href="infos/infos.css" rel="stylesheet" />
+        <link href="infos/pop-infos.css" rel="stylesheet" />
+        <link href="confirmation/confirmation.css" rel="stylesheet" />
+
+        <!--Favicon-->
+        <link rel="icon" href="img/logo/favicon.ico" />
+    </head>
+
+    <body>
+        <!-- Top Bar -->
+        <div id="divTopBar">
+            <div id="divTopBarLogo" onclick="newTab('divTabCahier')">
+                <img src="img/logo/white_circle.svg" alt="?" />
+                <img src="img/logo/circle.svg" alt="?" />
+                <img src="img/logo/fish.svg" alt="?" />
+                <img src="img/logo/background_transparent.svg" alt="?" />
+            </div>
+            <div id="divTopBarText"></div>
+            <div id="divTopBarTime"></div>
+        </div>
+
+        <!-- Left Bar & Right Bar -->
+        <div id="divLeftBar"></div>
+        <div id="divRightBar"></div>
+
+        <!-- Div Screen -->
+        <div id="divScreen">
+            <!-- Div Tab Cahier -->
+            <div id="divTabCahier" class="divTab">
+                <div style="margin-top: 120px; position: relative"></div>
+                <div style="font-size: 25px; margin-bottom: 5px; text-align: center">Nouvelle sortie</div>
+
+                <div
+                    id="divTabCahierActualize"
+                    title="Actualiser les sorties"
+                    onclick="Requests.getActualBookingList();"
+                ></div>
+                <div id="divTabCahierLogin" title="Connexion" onclick="popLogin();"></div>
+
+                <div style="text-align: center; width: 100%">
+                    <div
+                        title="Annoncer une nouvelle sortie"
+                        class="Buttons ValidateButtons"
+                        style="
+                            display: inline-block;
+                            width: 350px;
+                            height: 70px;
+                            border-radius: 25px;
+                            line-height: 70px;
+                            padding-top: 0px;
+                            text-align: center;
+                            background-image: none;
+                        "
+                        onclick="Cahier.btnNewBookingClick()"
+                    >
+                        Annoncer une sortie
+                    </div>
+                </div>
+
+                <div
+                    id="divTabCahierToolTip"
+                    style="text-align: center; font-size: 15px; margin-top: 5px; margin-bottom: 5px; color: gray"
+                >
+                    <br /><br />
+                </div>
+
+                <div id="divTabCahierTables">
+                    <input
+                        autocomplete="off"
+                        id="inputTabCahierActualBookingsSearch"
+                        type="text"
+                        value=""
+                        spellcheck="false"
+                        placeholder="Rechercher"
+                        onkeyup="bookingTableSearch($('divTabCahierTableActualBookings'));"
+                        style="margin-top: -10px"
+                    />
+                    <div id="divTabCahierActualBookingsSearchTitle" class="BookingsTableText" style="margin-top: 0px">
+                        Sorties en cours
+                    </div>
+
+                    <div id="divTabCahierTableActualBookings" class="BookingsTable">
+                        <div id="divTabCahierTableActualBookingsTopBar" class="TableEntries TableTopBar">
+                            <div class="BookingsTopBarSorted" id="0" title="Heure de départ">
+                                <div></div>
+                                <img src="img/icons/start.png" alt="rip" />
+                            </div>
+                            <div id="1" title="Nombre de participants">
+                                <div></div>
+                                <img src="img/icons/participant-count.png" alt="rip" />
+                            </div>
+                            <div id="2" title="Responsable">
+                                <div></div>
+                                <img src="img/icons/responsible.png" alt="rip" />Responsable
+                            </div>
+                            <div id="3" title="Embarcations">
+                                <div></div>
+                                <img src="img/icons/sail.png" alt="rip" />Embarcations
+                            </div>
+                            <div id="4" title="Destination">
+                                <div></div>
+                                <img src="img/icons/destination.png" alt="rip" />Destination
+                            </div>
+                            <div id="5" title="Commentaire de départ">
+                                <div></div>
+                                <img src="img/icons/start-comment.png" alt="rip" />Commentaire
+                            </div>
+                            <div id="6">
+                                <div></div>
+                            </div>
+                        </div>
+                        <div
+                            style="position: absolute; width: 100%; background-color: gray; height: 2px; z-index: 2"
+                        ></div>
+                    </div>
+
+                    <div id="divTabCahierAlertButtonsLegend">
+                        <div></div>
+                        + de 4 heures
+                        <div></div>
+                        + de 12 heures
+                        <div></div>
+                        + de 24 heures
+                    </div>
+                    <img />
+                </div>
+
+                <div style="text-align: center" id="divTabCahierButtonMoreBookingsContainer">
+                    <div
+                        id=""
+                        class="Buttons NormalButtons"
+                        style="
+                            width: 370px;
+                            display: inline-block;
+                            background-image: none;
+                            padding-right: 0px;
+                            text-align: center;
+                        "
+                        onclick="newBookingTable(new Date(this.id));"
+                    >
+                        Charger plus de sorties
+                    </div>
+                </div>
+                <br />
+            </div>
+
+            <!-- Div Tab Cahier Top -->
+            <div id="divTabCahierTop">
+                <div id="divTabCahierProgressContainer">
+                    <div id="divTabCahierProgressReturn" title="Etape précédente"></div>
+                    <div
+                        id="divTabCahierProgressCancel"
+                        title="Annuler la sortie"
+                        onclick="newTab('divTabCahier')"
+                    ></div>
+                    <div id="divTabCahierProgress"></div>
+                </div>
+            </div>
+
+            <!--Div Tab Cahier Top List-->
+            <div id="divTabCahierTopList">
+                <div></div>
+                <div class="Buttons ValidateButtons" onclick="newTab('divTabCahierConfirmation');" title="Suivant">
+                    Suivant
+                </div>
+            </div>
+
+            <!--Div Tab Cahier Member-->
+            <div id="divTabCahierMember" class="divTab">
+                <div class="divCahierSpacers"></div>
+                <div id="divTabCahierMemberContainer"></div>
+                <br />
+            </div>
+
+            <!--Div Tab CahierInfos-->
+            <div id="divTabCahierInfos" class="divTab">
+                <div class="divCahierSpacers"></div>
+
+                <div class="divTabCahierFieldsContainer">
+                    <div class="divTabCahierInfosNbrInvites TabCahierFields">
+                        Nbr de participants
+                        <input
+                            autocomplete="off"
+                            type="number"
+                            min="1"
+                            max="20"
+                            spellcheck="false"
+                            placeholder="1"
+                            value="1"
+                            onkeyup="writeNbrInvites(this);"
+                            onfocusin="if (this.value == '1') { this.value = '';}; writeNbrInvites(this); focusInOrOut(this,true);"
+                            onfocusout="if (this.value == '') { this.value = '1'; writeNbrInvites(this);}focusInOrOut(this,false);"
+                        />
+                        <div></div>
+                        <div class="divTabCahierInfosNbrInvitesPropositions PropositionsContainer">
+                            <div>1</div>
+                            <div>2</div>
+                            <div>3</div>
+                            <div>4</div>
+                            <div>5</div>
+                            <div>8</div>
+                            <div>10</div>
+                        </div>
+                        <div
+                            style="
+                                margin-top: 110px;
+                                position: absolute;
+                                text-align: center;
+                                width: 100%;
+                                font-size: 15px;
+                            "
+                        >
+                            (Vous inclu / minimum 1)
+                        </div>
+                    </div>
+                    <div class="divTabCahierInfosDestination TabCahierFields">
+                        Destination
+                        <input
+                            autocomplete="off"
+                            value="Baie"
+                            type="text"
+                            spellcheck="false"
+                            placeholder="Destination"
+                            onkeyup="writeDestination(this);"
+                            onfocusin="if (this.value == 'Baie') { this.value = '';}; focusInOrOut(this,true); writeDestination(this);"
+                            onfocusout="focusInOrOut(this,false); writeDestination(this);"
+                        />
+                        <!--/> mmmmh ??-->
+                        <div></div>
+                        <div class="divTabCahierInfosDestinationPropositions PropositionsContainer">
+                            <div>Baie</div>
+                            <div>La Ramée</div>
+                            <div>La Tène</div>
+                            <div>Neuchâtel</div>
+                            <div>Hauterive</div>
+                        </div>
+                    </div>
+                    <div class="divTabCahierInfosStartComment TabCahierFields">
+                        Commentaire de départ
+                        <textarea
+                            spellcheck="false"
+                            placeholder="Informations, numéro de téléphone, heure estimée de retour..."
+                        ></textarea>
+                        <div style="height: 100px"></div>
+                    </div>
+                </div>
+                <br />
+                <div style="text-align: center">
+                    <div
+                        class="Buttons ValidateButtons"
+                        style="display: inline-block"
+                        onclick="checkInfos();"
+                        title="Suivant"
+                    >
+                        Suivant
+                    </div>
+                </div>
+            </div>
+
+            <!-- Div Tab CahierEquipmentChoice -->
+            <div id="divTabCahierEquipmentChoice" class="divTab">
+                <div class="divCahierSpacers"></div>
+                <div class="divMaterielSpacers"></div>
+
+                <div class="MaterielChoiceContainer"></div>
+
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+                <div style="text-align: center">
+                    <div
+                        id="btnNext"
+                        class="Buttons ValidateButtons"
+                        style="display: inline-block"
+                        onclick="if (this.classList.contains('activated')) {newTab('divTabCahierConfirmation'); }"
+                        title="Suivant"
+                    >
+                        Suivant
+                    </div>
+                </div>
+            </div>
+
+            <!--Div Tab CahierEquipmentBookable-->
+            <div id="divTabCahierEquipmentBookable" class="divTab">
+                <div class="divCahierSpacers"></div>
+                <div class="divMaterielSpacers">
+                    <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierEquipmentChoice')"></div>
+                </div>
+
+                <div id="divTabCahierEquipmentBookableContainer"></div>
+            </div>
+
+            <!-- Div Tab CahierEquipmentCategories -->
+            <div id="divTabCahierEquipmentCategories" class="divTab">
+                <div class="divCahierSpacers"></div>
+                <div class="divMaterielSpacers">
+                    <div class="Buttons ReturnButtons" onclick="newTab('divTabCahierEquipmentChoice')"></div>
+                </div>
+                <div id="divTabCahierEquipmentCategoriesContainer"></div>
+            </div>
+
+            <!-- Div Tab CahierEquipmentElements-->
+            <div id="divTabCahierEquipmentElements" class="divTab">
+                <div class="divCahierSpacers"></div>
+                <div class="divMaterielSpacers">
+                    <div class="Buttons ReturnButtons" onclick="historyBackTab();" style="position: absolute"></div>
+                    <div id="divTabCahierEquipmentElementsButtonsContainer">
+                        <div style="min-width: 271px">
+                            <div id="divTabCahierEquipmentElementsSelectCategorie" title="Catégorie">
+                                <div class="Buttons NormalButtons"></div>
+                                <select onchange="changeSelectCategorie(this); Requests.getBookablesList();"></select>
+                            </div>
+                        </div>
+                        <div style="width: 130px">
+                            <div id="divTabCahierEquipmentElementsSelectSort" title="Trier par">
+                                <div
+                                    class="Buttons NormalButtons"
+                                    id="divTabCahierEquipmentElementsSelectIconSort"
+                                    onclick="clickSortIcon(this); Requests.getBookablesList();"
+                                ></div>
+                                <select onchange="Requests.getBookablesList();">
+                                    <option value="code">Code</option>
+                                    <option value="name">Nom</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="width: 116px">
+                            <div
+                                id="divTabCahierEquipmentElementsSelectPageSize"
+                                title="Nombre d'éléments affichés par page"
+                            >
+                                <div class="Buttons NormalButtons"></div>
+                                <select onchange="Requests.getBookablesList();">
+                                    <option>25</option>
+                                    <option>50</option>
+                                    <option selected="selected">100</option>
+                                    <option>200</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="min-width: 100px" title="Rechercher">
+                            <input
+                                autocomplete="off"
+                                spellcheck="false"
+                                id="inputTabCahierEquipmentElementsInputSearch"
+                                type="text"
+                                value=""
+                                placeholder="Rechercher"
+                                onkeyup="Requests.getBookablesList(this);"
+                            />
+                        </div>
+                    </div>
+                    <div
+                        id="divTabCahierInfosBar"
+                        style="position: relative; top: 0px; margin-top: 5px; margin-bottom: 5px"
+                    ></div>
+                </div>
+                <div class="divTabCahierEquipmentElementsContainer"></div>
+            </div>
+
+            <!--Div Tab CahierConfirmation-->
+            <div id="divTabCahierConfirmation" class="divTab">
+                <div class="divCahierSpacers"></div>
+
+                <div id="divTabConfirmationBookingsContainer"></div>
+
+                <div id="divTabConfirmationOneBookingContainer"></div>
+
+                <br />
+                <div style="text-align: center; margin-top: 15px">
+                    <div
+                        title="Confirmer votre sortie"
+                        class="Buttons ValidateButtons"
+                        style="
+                            display: inline-block;
+                            width: 350px;
+                            height: 70px;
+                            border-radius: 25px;
+                            line-height: 70px;
+                            padding-top: 0px;
+                            text-align: center;
+                            background-image: none;
+                        "
+                        onclick="Cahier.confirm()"
+                    >
+                        Confirmer votre sortie
+                    </div>
+                </div>
+                <br />
+                <div style="text-align: center; height: 45px">
+                    <div style="display: inline-block" id="divWarningText"></div>
+                </div>
+            </div>
+        </div>
+        <script type="module">
+            // Those import have side effects and loading order might be important
+            import {load, $, options} from './general/home.js';
+            import {historyBackTab, newTab} from './general/screen.js';
+
+            // Those imports have no side effects
+            import {changeSelectCategorie, clickSortIcon} from './equipment/elements.js';
+            import {Requests} from './general/server-requests.js';
+            import {Cahier} from './cahier/methods.js';
+            import {checkInfos, writeNbrInvites, focusInOrOut, writeDestination} from './infos/infos.js';
+            import {newBookingTable, bookingTableSearch} from './cahier/cahier.js';
+            import {popLogin} from './member/login.js';
+
+            // Register globals to be used in onclick callbacks
+            window.$ = $;
+            window.options = options;
+            window.changeSelectCategorie = changeSelectCategorie;
+            window.Requests = Requests;
+            window.Cahier = Cahier;
+            window.checkInfos = checkInfos;
+            window.clickSortIcon = clickSortIcon;
+            window.historyBackTab = historyBackTab;
+            window.newTab = newTab;
+            window.newBookingTable = newBookingTable;
+            window.popLogin = popLogin;
+            window.writeNbrInvites = writeNbrInvites;
+            window.focusInOrOut = focusInOrOut;
+            window.writeDestination = writeDestination;
+            window.bookingTableSearch = bookingTableSearch;
+
+            const apiServer =
+                window.location.hostname === 'navigations.ichtus.club' ? 'ichtus.club' : 'dev.ichtus.club';
+            const cacheBuster = '?time=' + new Date().getTime();
+
+            await import(/* @vite-ignore */ 'https://' + apiServer + '/vanilla/main.js' + cacheBuster);
+
+            load();
+        </script>
+    </body>
+</html>
+
+<!-- SOURCES DES IMAGES--><!--
+    CATEGORIES
+    https://fr.freepik.com/icones-gratuites/aviron-silhouette_729646.htmhttps://icon-icons.com/fr/icone/bateau-a-voile/38507
+    https://www.iconfinder.com/icons/348072/canoe_canoeing_kayak_paddling_sea_sports_water_icon
+    https://www.iconfinder.com/icons/492121/ocean_sea_sport_wind_windsurf_icon
+    https://iconscout.com/icon/sup
+    https://www.outdoormixfestival.com/
+
+
+    ICONES
+    https://fr.wikipedia.org/wiki/Fichier:OOjs_UI_icon_info_big.svg
+    https://www.onlinewebfonts.com/icon/506377
+    https://www.vectorstock.com/royalty-free-vector/user-icon-man-human-profile-avatar-vector-10552354
+    https://pngtree.com/free-icon/inviting-friends_694531
+    https://www.iconfinder.com/icons/118461/alert_warning_icon
+    https://de.kisspng.com/png-jb08c9/
+    http://chittagongit.com/icon/destination-icon-2.html
+    https://www.google.ch/search?q=actualize+icon&safe=strict&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjFiqTlv5vhAhXCMewKHc91DbcQ_AUIDigB&biw=1600&bih=1057#imgrc=vQ1izvNsA50uMM:
+    https://www.freeiconspng.com/images/no-image-icon
+    https://www.flaticon.com/free-icon/big-license_79528
+
+    CAHIER
+    http://atelier-broichot.fr/toutes-nos-realisations/icon-cahier/
+-->
