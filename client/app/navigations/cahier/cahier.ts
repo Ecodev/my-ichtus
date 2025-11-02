@@ -13,7 +13,7 @@ import {
 } from '../general/home';
 import {popBookingFinish, popBookingInfos} from './pop-booking';
 import {popBookable} from '../equipment/pop-bookable';
-import {Requests} from '../general/server-requests';
+import {server} from '../general/server';
 import type {Bookable, Booking, MergedBooking} from '../types';
 
 export function loadActualBookings(_actualBookings: MergedBooking[]): void {
@@ -356,7 +356,7 @@ export function newBookingTable(date: Date, title = '?'): void {
     if (title == '?') {
         title = getNiceDate(date);
     }
-    Requests.getFinishedBookingListForDay(date, title);
+    server.bookingService.getFinishedBookingListForDay(date, title);
 
     const loadMoreButton = $('divTabCahierButtonMoreBookingsContainer').getElementsByTagName('div')[0];
     loadMoreButton.id = getPreviousDate(date).toString();

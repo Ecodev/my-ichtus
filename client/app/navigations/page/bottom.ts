@@ -1,5 +1,5 @@
 import {deleteElements, div, options} from '../general/home';
-import {Requests} from '../general/server-requests';
+import {server} from '../general/server';
 import {popStats} from './pop-stats';
 
 export function loadBottoms(): void {
@@ -30,7 +30,7 @@ export function loadBottoms(): void {
         const end = new Date(Date.now());
         const start = new Date(end.getFullYear(), end.getMonth(), 1, 0, 0, 0, 1);
 
-        Requests.getMonthlyBookingsNbr(start, end);
+        server.bookingService.getMonthlyBookingsNbr(start, end);
     } else {
         const all = document.getElementsByClassName('divBottoms');
         for (const elem of all) {

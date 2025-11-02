@@ -5,7 +5,7 @@ import {historyBackTab, newTab} from './general/screen';
 
 // Those imports have no side effects
 import {changeSelectCategorie, clickSortIcon} from './equipment/elements';
-import {Requests, serverInitialize} from './general/server-requests';
+import {server, serverInitialize} from './general/server';
 import {Cahier} from './cahier/methods';
 import {checkInfos, focusInOrOut, writeDestination, writeNbrInvites} from './infos/infos';
 import {bookingTableSearch, newBookingTable} from './cahier/cahier';
@@ -49,11 +49,17 @@ export class ExternalNavigationsComponent implements AfterViewInit {
     private readonly bookingService = inject(BookingForVanillaService);
 
     public ngAfterViewInit(): void {
+        serverInitialize({
+            userService: this.userService,
+            bookableService: this.bookableService,
+            bookingService: this.bookingService,
+        });
+
         // To be able to access those in native event binding
         const myWindow = window as Literal;
         myWindow.$ = $;
         myWindow.changeSelectCategorie = changeSelectCategorie;
-        myWindow.Requests = Requests;
+        myWindow.server = server;
         myWindow.Cahier = Cahier;
         myWindow.checkInfos = checkInfos;
         myWindow.clickSortIcon = clickSortIcon;
@@ -65,12 +71,6 @@ export class ExternalNavigationsComponent implements AfterViewInit {
         myWindow.focusInOrOut = focusInOrOut;
         myWindow.writeDestination = writeDestination;
         myWindow.bookingTableSearch = bookingTableSearch;
-
-        serverInitialize({
-            userService: this.userService,
-            bookableService: this.bookableService,
-            bookingService: this.bookingService,
-        });
 
         load();
     }

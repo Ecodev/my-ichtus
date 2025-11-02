@@ -4,7 +4,7 @@ import {writeDestination, writeNbrInvites} from '../infos/infos';
 import {loadConfirmation} from '../cahier/pop-booking';
 import {actualizeBookableList} from '../cahier/top-list';
 import {changeProgress} from '../cahier/top';
-import {Requests} from './server-requests';
+import {server} from './server';
 
 let stillMoving = false;
 export let currentTabElement: HTMLElement; //see load for the first element = divtabcahier
@@ -182,7 +182,7 @@ tabs.push({
     ListBar: true,
     title: 'Sélectionnez vos embarcations',
     Enter: function () {
-        Requests.getBookablesList(); //$('inputTabCahierEquipmentElementsInputSearch').focus();
+        server.bookableService.getBookablesList(); //$('inputTabCahierEquipmentElementsInputSearch').focus();
         ($('divTabCahierTopList').children[1] as HTMLElement).style.opacity = '1';
     },
     Remove: function () {

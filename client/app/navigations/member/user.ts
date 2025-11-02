@@ -1,6 +1,6 @@
 import {$, closePopUp, div, grayBar, openPopUp} from '../general/home';
 import {Cahier} from '../cahier/methods';
-import {Requests} from '../general/server-requests';
+import {server} from '../general/server';
 import {Sex} from '../../shared/generated-types';
 import type {User} from '../types';
 
@@ -82,7 +82,7 @@ function search(e: KeyboardEvent | Event): void {
         //do nothing
     } else {
         //text != ""
-        Requests.getUsersList(text);
+        server.userService.getUsersList(text);
         enterSearchPosition = 0;
     }
 }

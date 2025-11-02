@@ -1,5 +1,5 @@
 import {closePopUp, div, grayBar, input, openPopUp, options} from '../general/home';
-import {Requests} from '../general/server-requests';
+import {server} from '../general/server';
 
 export function popLogin(): void {
     const elem = openPopUp();
@@ -29,7 +29,7 @@ export function popLogin(): void {
     i.addEventListener('keyup', function (event) {
         // eslint-disable-next-line @typescript-eslint/no-deprecated
         if (event.keyCode == 13) {
-            Requests.login(this.value);
+            server.userService.login(this.value);
         }
     });
 
@@ -38,7 +38,7 @@ export function popLogin(): void {
     b.classList.add('ValidateButtons');
     b.innerHTML = 'Connexion';
     b.addEventListener('click', function () {
-        Requests.login(this.parentElement!.getElementsByTagName('input')[0].value);
+        server.userService.login(this.parentElement!.getElementsByTagName('input')[0].value);
     });
 
     setTimeout(function () {
@@ -47,7 +47,7 @@ export function popLogin(): void {
         setTimeout(function () {
             if (i.value != '' && options.automaticConnexion) {
                 console.warn('Connexion automatique');
-                Requests.login(i.value);
+                server.userService.login(i.value);
             } else {
                 console.warn('Pas de connexion automatique');
             }

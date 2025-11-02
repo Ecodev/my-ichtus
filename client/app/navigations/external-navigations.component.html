@@ -21,7 +21,11 @@
         <div style="margin-top: 120px; position: relative"></div>
         <div style="font-size: 25px; margin-bottom: 5px; text-align: center">Nouvelle sortie</div>
 
-        <div id="divTabCahierActualize" title="Actualiser les sorties" onclick="Requests.getActualBookingList();"></div>
+        <div
+            id="divTabCahierActualize"
+            title="Actualiser les sorties"
+            onclick="server.bookingService.getActualBookingList();"
+        ></div>
         <div id="divTabCahierLogin" title="Connexion" onclick="popLogin();"></div>
 
         <div style="text-align: center; width: 100%">
@@ -273,7 +277,9 @@
                 <div style="min-width: 271px">
                     <div id="divTabCahierEquipmentElementsSelectCategorie" title="Catégorie">
                         <div class="Buttons NormalButtons"></div>
-                        <select onchange="changeSelectCategorie(this); Requests.getBookablesList();"></select>
+                        <select
+                            onchange="changeSelectCategorie(this); server.bookableService.getBookablesList();"
+                        ></select>
                     </div>
                 </div>
                 <div style="width: 130px">
@@ -281,9 +287,9 @@
                         <div
                             class="Buttons NormalButtons"
                             id="divTabCahierEquipmentElementsSelectIconSort"
-                            onclick="clickSortIcon(this); Requests.getBookablesList();"
+                            onclick="clickSortIcon(this); server.bookableService.getBookablesList();"
                         ></div>
-                        <select onchange="Requests.getBookablesList();">
+                        <select onchange="server.bookableService.getBookablesList();">
                             <option value="code">Code</option>
                             <option value="name">Nom</option>
                         </select>
@@ -292,7 +298,7 @@
                 <div style="width: 116px">
                     <div id="divTabCahierEquipmentElementsSelectPageSize" title="Nombre d'éléments affichés par page">
                         <div class="Buttons NormalButtons"></div>
-                        <select onchange="Requests.getBookablesList();">
+                        <select onchange="server.bookableService.getBookablesList();">
                             <option>25</option>
                             <option>50</option>
                             <option selected="selected">100</option>
@@ -308,7 +314,7 @@
                         type="text"
                         value=""
                         placeholder="Rechercher"
-                        onkeyup="Requests.getBookablesList(this);"
+                        onkeyup="server.bookableService.getBookablesList(this);"
                     />
                 </div>
             </div>

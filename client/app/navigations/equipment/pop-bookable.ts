@@ -1,5 +1,5 @@
 import {$, clone, closePopUp, deltaTime, div, getNiceDate, openPopUp, options, shorten} from '../general/home';
-import {Requests} from '../general/server-requests';
+import {server} from '../general/server';
 import {currentTabElement, newTab} from '../general/screen';
 import {Cahier} from '../cahier/methods';
 import {popBookableHistory} from './pop-bookable-history';
@@ -8,7 +8,7 @@ import type {Bookings} from '../../shared/generated-types';
 import type {Bookable} from '../types';
 
 export function popBookable(bookableId: string, justPreview = true, nbr = 0, modal: HTMLElement = openPopUp()): void {
-    Requests.getBookableInfos(nbr, bookableId, modal);
+    server.bookableService.getBookableInfos(nbr, bookableId, modal);
 
     if (modal == $('divTabCahierEquipmentBookableContainer')) {
         modal.innerHTML = '';

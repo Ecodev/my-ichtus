@@ -7,7 +7,7 @@ import {popUser} from '../member/user';
 import {loadTableTopBars} from '../cahier/cahier';
 import {loadCahierEquipmentChoice} from '../equipment/choice';
 import {currentTabElement, setCurrentTabElement, tabs} from './screen';
-import {Requests} from './server-requests';
+import {server} from './server';
 import {Cahier} from '../cahier/methods';
 import type {Booking, MergedBooking} from '../types';
 
@@ -78,7 +78,7 @@ export function load(): void {
     }
 
     //SERVER
-    Requests.checkLogin();
+    server.userService.checkLogin();
 
     //LOAD
     loadBottoms();
@@ -94,7 +94,7 @@ function setTimeoutMove(): void {
     timeout = setTimeout(
         function () {
             if (currentTabElement.id === 'divTabCahier') location.reload();
-            else Requests.getActualBookingList();
+            else server.bookingService.getActualBookingList();
         },
         1 * 60 * 1000,
     );

@@ -1,5 +1,5 @@
 import {$, div} from '../general/home';
-import {Requests} from '../general/server-requests';
+import {server} from '../general/server';
 import {newTab} from '../general/screen';
 import {changeSelectCategorie} from './elements';
 
@@ -43,7 +43,12 @@ export function loadMateriel(container = $('divTabCahierEquipmentCategoriesConta
         const dBottomText2 = document.createElement('div');
         dBottomText2.classList.add('BoxesBottomText2');
         dBottom.appendChild(dBottomText2);
-        Requests.getBookableNbrForBookableTag(categories[i].value, dBottomText2, '', ' ' + categories[i].plural);
+        server.bookableService.getBookableNbrForBookableTag(
+            categories[i].value,
+            dBottomText2,
+            '',
+            ' ' + categories[i].plural,
+        );
 
         d.addEventListener('click', function () {
             newTab('divTabCahierEquipmentElements');

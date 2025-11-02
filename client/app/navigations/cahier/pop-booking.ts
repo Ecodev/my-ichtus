@@ -13,7 +13,7 @@ import {
     shorten,
     unique,
 } from '../general/home';
-import {Requests} from '../general/server-requests';
+import {server} from '../general/server';
 import {newTab} from '../general/screen';
 import {popCahierInfos} from '../infos/pop-infos';
 import {Cahier, getEndCommentFromBooking, getStartCommentFromBooking} from './methods';
@@ -31,7 +31,7 @@ export function popBooking(_booking: Booking): void {
     // without all bookables... so if the booking is not complete
     const elem = openPopUp();
     openBooking('infos', elem);
-    Requests.getBookingWithBookablesInfos(_booking, 'infos', elem);
+    server.bookingService.getBookingWithBookablesInfos(_booking, 'infos', elem);
 }
 
 export function popBookingInfos(_booking: ActualizePopBooking | MergedBooking): void {
@@ -358,14 +358,14 @@ export function actualizePopBooking(
                     }
                 }
 
-                Requests.terminateBooking(booking.ids, comments);
+                server.bookingService.terminateBooking(booking.ids, comments);
             } else {
                 const comments = fillArray(
                     booking.ids.length,
                     container.getElementsByTagName('textarea')[container.getElementsByTagName('textarea').length - 1]
                         .value,
                 );
-                Requests.terminateBooking(booking.ids, comments);
+                server.bookingService.terminateBooking(booking.ids, comments);
             }
             closePopUp({target: container});
         });
@@ -379,13 +379,13 @@ export function actualizePopBooking(
                 closePopUp('last');
                 Cahier.bookings[0] = {...clone(booking), currentlyEditing: true};
                 Cahier.editedBooking = {ids: [booking.id]};
-                Requests.getOwnerLicenses(Cahier.bookings[0].owner); // get licenses back !
+                server.userService.getOwnerLicenses(Cahier.bookings[0].owner); // get licenses back !
 
                 const bookableIds = [];
                 for (const bookable of Cahier.bookings[0].bookables) {
                     if (bookable.id != 0) bookableIds.push(bookable.id); // not taking personal equipment
                 }
-                Requests.getBookablesLicenses(bookableIds);
+                server.bookableService.getBookablesLicenses(bookableIds);
 
                 $('divTabCahierProgress').classList.add('editing');
 
@@ -445,7 +445,7 @@ export function actualizePopBooking(
                 t.innerHTML = 'Terminer';
                 t.addEventListener('click', function () {
                     //console.log(booking, this.id, booking.ids[parseInt(this.id)]);
-                    Requests.terminateBooking([booking.ids[parseInt(this.id)]], ['']);
+                    server.bookingService.terminateBooking([booking.ids[parseInt(this.id)]], ['']);
                     deleteElements(this.parentElement!.parentElement!);
                     if (document.getElementsByClassName('divTabCahierConfirmationEmbarcationBox').length == 0) {
                         closePopUp('last');

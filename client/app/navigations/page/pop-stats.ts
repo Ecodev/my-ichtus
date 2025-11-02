@@ -1,5 +1,5 @@
 import {closePopUp, div, grayBar, Mois, openPopUp} from '../general/home';
-import {Requests} from '../general/server-requests';
+import {server} from '../general/server';
 import {Cahier} from '../cahier/methods';
 import type {Booking} from '../types';
 
@@ -72,7 +72,7 @@ function loadStats(end = new Date()): void {
     div(legend);
     div(legend);
 
-    Requests.getStats(start, end, c);
+    server.bookingService.getStats(start, end, c);
 }
 
 export function actualizeStats(start: Date, end: Date, elem: Element, bookings: Booking[]): void {

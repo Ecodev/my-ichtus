@@ -1,5 +1,5 @@
 import {$, div, input} from '../general/home';
-import {Requests} from '../general/server-requests';
+import {server} from '../general/server';
 import {Cahier} from '../cahier/methods';
 import {newTab} from '../general/screen';
 
@@ -18,7 +18,7 @@ export function loadCahierEquipmentChoice(): void {
         const elem = this as HTMLInputElement;
         // eslint-disable-next-line @typescript-eslint/no-deprecated
         if (event.keyCode == 13) {
-            Requests.getBookableByCode(elem, nbr);
+            server.bookableService.getBookableByCode(elem, nbr);
         }
         if (elem.value != '') {
             elem.nextElementSibling!.nextElementSibling!.children[0].classList.add('activated');
@@ -33,7 +33,7 @@ export function loadCahierEquipmentChoice(): void {
     btn.classList.add('ValidateButtons', 'Buttons');
     btn.title = 'Choisir cette embarcation';
     btn.onclick = function () {
-        Requests.getBookableByCode(
+        server.bookableService.getBookableByCode(
             (this as HTMLDivElement).parentElement!.previousElementSibling!.previousElementSibling as HTMLInputElement,
             nbr,
         );

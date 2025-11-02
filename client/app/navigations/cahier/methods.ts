@@ -14,7 +14,7 @@ import {changeProgress, currentProgress, progessionTabNames} from './top';
 import {currentTabElement, newTab} from '../general/screen';
 import {actualizeBookableList} from './top-list';
 import {actualizeElements} from '../equipment/elements';
-import {Requests} from '../general/server-requests';
+import {server} from '../general/server';
 import {animate} from '../page/top';
 import {type BookingInput, type BookingPartialInput, Sex} from '../../shared/generated-types';
 import type {Bookable, BookableWithLastBooking, Booking, MergedBooking, User} from '../types';
@@ -141,7 +141,7 @@ export const Cahier = {
             .getElementsByClassName('divTabCahierEquipmentChoiceContainer')[0]
             .children[3].children[0].classList.remove('buttonNonActive');
 
-        Requests.getActualBookingList();
+        server.bookingService.getActualBookingList();
 
         Cahier.bookings = [
             {
@@ -194,7 +194,7 @@ export const Cahier = {
 
             // rechecking if bookings still available
             waiting();
-            Requests.checksBookablesAvailabilityBeforeConfirming(Cahier.bookings[0].bookables);
+            server.bookingService.checksBookablesAvailabilityBeforeConfirming(Cahier.bookings[0].bookables);
         }
     },
 
@@ -342,7 +342,10 @@ export const Cahier = {
                 let inputsToUpdate: BookingPartialInput[] = [];
 
                 const currentDate = new Date().toISOString();
-                const bookingsInputs = Requests.getServerInputsForBookingCreating(Cahier.bookings[0], currentDate);
+                const bookingsInputs = server.bookingService.getServerInputsForBookingCreating(
+                    Cahier.bookings[0],
+                    currentDate,
+                );
 
                 // If >0: more bookables than before --> need to create some new
                 // If <0: less bookable than before -->, need to delete some
@@ -408,7 +411,7 @@ export const Cahier = {
                 const comments = fillArray(bookingsIdToFinish.length, 'Terminée automatiquement');
                 commentsToFinish = commentsToFinish.concat(comments);
                 console.log('Need to terminate', bookingsIdToFinish.length, 'booking(s) due to unavailable bookables.');
-                Requests.terminateCreateAndUpdateBookings(
+                server.bookingService.terminateCreateAndUpdateBookings(
                     idsToFinish,
                     commentsToFinish,
                     inputsToCreate,
@@ -425,12 +428,12 @@ export const Cahier = {
 
                 // there are no bookings to termiante
                 if (bookingsIdToFinish.length == 0) {
-                    Requests.createBooking();
+                    server.bookingService.createBooking();
                     animate();
                 }
                 // there are some bookings to terminate first
                 else {
-                    Requests.terminateBooking(bookingsIdToFinish, commentsToFinish, false);
+                    server.bookingService.terminateBooking(bookingsIdToFinish, commentsToFinish, false);
                     animate();
                 }
             }
@@ -528,7 +531,7 @@ export const Cahier = {
             Cahier.bookings[nbr].licenses = [];
             Cahier.actualizeConfirmation();
             // Update owner with full information
-            Requests.getOwnerLicenses(_owner);
+            server.userService.getOwnerLicenses(_owner);
 
             newTab('divTabCahierInfos');
         }
@@ -572,7 +575,7 @@ export const Cahier = {
                     }
                 }
             }
-        } else Requests.getBookableLastBooking(_bookable.id);
+        } else server.bookingService.getBookableLastBooking(_bookable.id);
 
         actualizeBookableList();
         Cahier.actualizeConfirmation();

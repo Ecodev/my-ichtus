@@ -1,5 +1,5 @@
 import {closePopUp, div, getNiceDate, getNiceTime, grayBar, inverse, Mois, openPopUp, shorten} from '../general/home';
-import {Requests} from '../general/server-requests';
+import {server} from '../general/server';
 import {popBooking} from '../cahier/pop-booking';
 import {Cahier, getStartCommentFromBooking} from '../cahier/methods';
 import type {Booking} from '../types';
@@ -15,7 +15,7 @@ export function popBookableHistory(bookableId: string): void {
 
     const modal = openPopUp();
 
-    Requests.getBookableHistory(bookableId, modal, new Date());
+    server.bookingService.getBookableHistory(bookableId, modal, new Date());
 
     const container = div(modal);
     container.classList.add('Boxes');
@@ -71,7 +71,7 @@ export function actualizePopBookableHistory(bookings: Booking[], elem: HTMLEleme
 
             const start = new Date(d.getFullYear(), 0, 1, 0, 0, 1);
             const end = new Date(d.getFullYear() + 1, 0, 1, 0, 0, 0, 1);
-            Requests.getBookingsNbrBetween(start, end, bookableId, year);
+            server.bookingService.getBookingsNbrBetween(start, end, bookableId, year);
         }
 
         const newMonth = d.getMonth();
@@ -80,7 +80,7 @@ export function actualizePopBookableHistory(bookings: Booking[], elem: HTMLEleme
 
             const start = new Date(d.getFullYear(), newMonth, 1, 0, 0, 0, 1);
             const end = new Date(d.getFullYear(), newMonth + 1, 1, 0, 0, 0, 1);
-            Requests.getBookingsNbrBetween(start, end, bookableId, month);
+            server.bookingService.getBookingsNbrBetween(start, end, bookableId, month);
         }
 
         const newDay = d.getDate();
@@ -91,7 +91,7 @@ export function actualizePopBookableHistory(bookings: Booking[], elem: HTMLEleme
 
             const start = new Date(d.getFullYear(), newMonth, newDay, 0, 0, 0, 1);
             const end = new Date(d.getFullYear(), newMonth, newDay + 1, 0, 0, 0, 1);
-            Requests.getBookingsNbrBetween(start, end, bookableId, day, false);
+            server.bookingService.getBookingsNbrBetween(start, end, bookableId, day, false);
         }
 
         currentYear = newYear;
@@ -123,7 +123,7 @@ export function actualizePopBookableHistory(bookings: Booking[], elem: HTMLEleme
     plus.classList.add('NormalButtons');
     plus.innerHTML = 'Afficher plus';
     plus.onclick = function () {
-        Requests.getBookableHistory(bookableId, elem, lastDate);
+        server.bookingService.getBookableHistory(bookableId, elem, lastDate);
     };
 
     if (currentMonth != -1) {
