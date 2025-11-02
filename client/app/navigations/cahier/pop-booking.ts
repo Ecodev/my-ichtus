@@ -286,7 +286,7 @@ export type PopBookingWhich = 'confirmation' | 'infos' | 'finish';
 
 export type ActualizePopBooking = Booking & {
     ids: string[];
-    bookables: (Bookable & {available?: boolean | undefined; lastBooking: any})[];
+    bookables: (Bookable & {available?: boolean | undefined; lastBooking: Booking})[];
 };
 
 export function actualizePopBooking(
@@ -432,8 +432,9 @@ export function actualizePopBooking(
             div(img);
 
             if (booking.bookables[i].available === false) {
-                img.title = 'Cela va terminer la sortie de ' + booking.bookables[i].lastBooking.owner.name;
-                names.push(booking.bookables[i].lastBooking.owner.name);
+                const name = booking.bookables[i].lastBooking.owner?.name ?? '';
+                img.title = 'Cela va terminer la sortie de ' + name;
+                names.push(name);
             }
 
             const texts = div(emb);

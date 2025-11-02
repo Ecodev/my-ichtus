@@ -13,6 +13,7 @@ import {popLogin} from './member/login';
 import {UserForVanillaService} from './user-for-vanilla.service';
 import {BookableForVanillaService} from './bookable-for-vanilla.service';
 import {BookingForVanillaService} from './booking-for-vanilla.service';
+import type {Literal} from '@ecodev/natural';
 
 @Component({
     selector: 'app-external-navigations',
@@ -49,7 +50,7 @@ export class ExternalNavigationsComponent implements AfterViewInit {
 
     public ngAfterViewInit(): void {
         // To be able to access those in native event binding
-        const myWindow = window as any;
+        const myWindow = window as Literal;
         myWindow.$ = $;
         myWindow.changeSelectCategorie = changeSelectCategorie;
         myWindow.Requests = Requests;

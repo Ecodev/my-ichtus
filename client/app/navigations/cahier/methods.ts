@@ -137,9 +137,9 @@ export const Cahier = {
 
         $('inputTabCahierEquipmentElementsInputSearch').value = '';
 
-        ($('divTabCahierEquipmentElementsSelectSort') as any)
+        $('divTabCahierEquipmentElementsSelectSort')
             .getElementsByTagName('select')[0]
-            .getElementsByTagName('option')[0].selected = 'selected';
+            .getElementsByTagName('option')[0].selected = true;
         $('divTabCahierEquipmentElementsSelectSort').getElementsByTagName('div')[0].style.backgroundImage =
             'url("assets/navigations/icons/sort-asc.png")';
 
