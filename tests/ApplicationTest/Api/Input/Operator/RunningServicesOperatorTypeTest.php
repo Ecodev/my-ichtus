@@ -20,6 +20,7 @@ class RunningServicesOperatorTypeTest extends OperatorType
         $values = [
             'user' => $this->idToEntityId(User::class, $userId),
             'coursesOnly' => false,
+            'excludeNFT' => false,
         ];
         $actual = $this->getFilteredResult(Booking::class, 'custom', 'runningServices', $values);
         self::assertCount($expected, $actual);
