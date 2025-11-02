@@ -1,6 +1,6 @@
 import {type AfterViewInit, ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
 // Those import have side effects and loading order might be important
-import {$, load, options} from './general/home';
+import {$, load} from './general/home';
 import {historyBackTab, newTab} from './general/screen';
 
 // Those imports have no side effects
@@ -48,10 +48,9 @@ export class ExternalNavigationsComponent implements AfterViewInit {
     private readonly bookingService = inject(BookingForVanillaService);
 
     public ngAfterViewInit(): void {
+        // To be able to access those in native event binding
         const myWindow = window as any;
-
         myWindow.$ = $;
-        myWindow.options = options;
         myWindow.changeSelectCategorie = changeSelectCategorie;
         myWindow.Requests = Requests;
         myWindow.Cahier = Cahier;
