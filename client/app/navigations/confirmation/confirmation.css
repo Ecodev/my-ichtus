@@ -24,22 +24,22 @@
     position: relative;
     left: 50%;
     margin-left: -350px;
+    box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
     background-color: white;
     padding: 10px;
     width: 680px;
     max-height: 90%;
-    overflow-y: auto;
     overflow-x: hidden;
-    border-radius: 20px;
-    box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
 }
 .divTabCahierConfirmationEmbarcationContainer {
     width: 680px;
 }
 
 .divTabCahierConfirmationContainer::-webkit-scrollbar {
-    width: 5px;
     border-radius: 5px;
+    width: 5px;
 }
 
 .divTabCahierConfirmationContainer::-webkit-scrollbar-track {
@@ -47,19 +47,19 @@
 }
 
 .divTabCahierConfirmationContainer::-webkit-scrollbar-thumb {
-    background-color: darkgrey;
     outline: 1px solid black;
     border-radius: 5px;
+    background-color: darkgrey;
 }
 
 .divTabCahierConfirmationContainer.confirmationTab {
     position: relative;
+    animation-duration: 0.5s;
+    animation-timing-function: ease;
+    animation-iteration-count: 1;
+    margin-top: 50px;
     width: 680px;
     height: 265px;
-    margin-top: 50px;
-    animation-duration: 0.5s;
-    animation-iteration-count: 1;
-    animation-timing-function: ease;
 }
 @keyframes shrink {
     from {
@@ -77,12 +77,12 @@
     position: absolute;
     right: 10px;
     bottom: 0px;
-    width: 110px;
     margin-left: 0px;
     background-image: url(../../../assets/navigations/icons/edit.png);
     background-size: 25px;
-    background-position-y: 6px;
     background-position-x: 6px;
+    background-position-y: 6px;
+    width: 110px;
 }
 .divTabCahierConfirmationContainer .ReturnButtons::after {
     content: none;
@@ -92,9 +92,9 @@
 }
 .divTabCahierConfirmationContainer.confirmationTab .ReturnButtons:nth-child(8) {
     position: relative;
+    top: 5px;
     left: 350px;
     transform: translateX(-100%);
-    top: 5px;
 }
 
 .divTabCahierConfirmationContainer .ValidateButtons {
@@ -108,19 +108,19 @@
 
 .divConfirmationTexts {
     position: relative;
-    min-height: 10px;
+    transition: opacity 0.1s linear 0s;
+    border-radius: 5px;
     background-color: white;
     width: 680px;
-    border-radius: 5px;
+    min-height: 10px;
     font-size: 25px;
-    transition: opacity 0.1s linear 0s;
 }
 .divConfirmationTexts.confirmationTab {
     width: 350px;
 }
 .divConfirmationTexts.confirmationTab:nth-child(3) {
-    width: 680px;
     margin-bottom: 10px;
+    width: 680px;
 }
 
 .divConfirmationTexts:nth-child(3) {
@@ -130,37 +130,37 @@
     background-color: rgb(235, 235, 235);
 }
 .divConfirmationTexts:nth-child(1) > div {
-    width: 100px;
     display: inline-block;
     vertical-align: middle;
+    width: 100px;
 }
 
 .divConfirmationTexts > div {
-    position: relative;
     display: inline-block;
+    position: relative;
     vertical-align: middle;
     min-height: 30px;
 }
 
 .divConfirmationTexts > div:nth-child(1) {
+    box-sizing: border-box;
+    padding: 2px;
     width: 50px;
     height: 40px;
-    padding: 2px;
-    box-sizing: border-box;
 }
 
 .divConfirmationTexts > div:nth-child(1) > div {
-    height: 100%;
-    width: 36px;
     margin-left: 5px;
+    border-radius: 10px;
     background-size: 36px;
     background-repeat: no-repeat;
-    border-radius: 10px;
+    width: 36px;
+    height: 100%;
 }
 
 .divConfirmationTexts > div:nth-child(2) {
-    width: 240px;
     box-sizing: border-box;
+    width: 240px;
     color: gray;
     text-align: left;
 }
@@ -168,8 +168,8 @@
     color: var(--fontBlack);
 }
 .divConfirmationTexts.confirmationTab:not(:nth-child(3)) > div:nth-child(2) {
-    color: var(--fontBlack);
     width: 295px;
+    color: var(--fontBlack);
 }
 .divTabCahierConfirmationEmbarcationBoxContainer
     .divConfirmationTexts.confirmationTab:not(:nth-child(3))
@@ -202,15 +202,15 @@
 .divTabCahierConfirmationEmbarcationBoxContainer {
     position: absolute;
     top: 57px;
-    margin-top: 53px;
     left: 370px;
+    margin-top: 53px;
+    background-color: yellow;
     width: 320px;
     min-height: 300px;
-    background-color: yellow;
 }
 .divTabCahierConfirmationEmbarcationBox {
-    position: relative;
     display: inline-block;
+    position: relative;
     margin-left: 40px;
     width: 300px;
     height: 124px;
@@ -218,9 +218,9 @@
 }
 .divTabCahierConfirmationEmbarcationBox.confirmationTab {
     position: absolute;
-    width: 320px;
     top: 50px;
     margin-left: 0px;
+    width: 320px;
     /*background-color:rgba(156, 118, 39, 0.35);*/
 }
 .divTabCahierConfirmationEmbarcationBoxContainer .divConfirmationTexts {
@@ -231,15 +231,15 @@
 }
 .divTabCahierConfirmationEmbarcationBoxContainer .ReturnButtons {
     top: 75px;
-    background-blend-mode: exclusion;
     background-image: url(../../../assets/navigations/icons/sail.png);
+    background-blend-mode: exclusion;
 }
 .divTabCahierConfirmationEmbarcationBoxContainer .ReturnButtons.ButtonChose {
     background-size: 30px;
     background-color: var(--accent);
-    color: white;
     background-blend-mode: unset;
     background-position-y: 3px;
+    color: white;
 }
 .divTabCahierConfirmationEmbarcationBoxContainer .ReturnButtons.ButtonChose:hover {
     background-color: var(--accentHover);
@@ -247,33 +247,33 @@
 
 .divTabCahierConfirmationEmbarcationBox > div:nth-child(1) {
     position: absolute;
+    transition: all 0.1s linear 0s;
+    cursor: pointer !important;
     margin: 10px;
-    width: 100px;
-    height: 100px;
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
+    border: 2px solid lightgray;
+    border-radius: 10px;
     background-image: url(../../../assets/navigations/icons/info.png), none, none;
-    background-size: 25px, 35px, 100px;
     background-position:
         top left,
         62px 65px,
         top left;
+    background-size: 25px, 35px, 100px;
     background-repeat: no-repeat;
-    border-radius: 10px;
-    border: 2px solid lightgray;
     background-color: white;
-    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
-    transition: all 0.1s linear 0s;
-    cursor: pointer !important;
+    width: 100px;
+    height: 100px;
 }
 .divTabCahierConfirmationEmbarcationBox > div:nth-child(1).PersonalSail {
-    background-size: 0px, 35px, 100px;
-    border-width: 0px;
-    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0);
     cursor: unset !important;
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0);
+    border-width: 0px;
+    background-size: 0px, 35px, 100px;
 }
 .divTabCahierConfirmationEmbarcationBox > div:nth-child(1):not(.PersonalSail):hover {
     margin-top: 15px;
-    background-size: 30px, 35px, 100px;
     box-shadow: 1px 1px 8px 0px rgba(0, 0, 0, 0.6);
+    background-size: 30px, 35px, 100px;
 }
 
 /*.divTabCahierConfirmationEmbarcationBox > div:nth-child(3) {
@@ -300,34 +300,34 @@
 
 .divTabCahierConfirmationContainerTextsContainer > div {
     position: relative;
-    min-height: 20px;
     margin-bottom: 5px;
+    min-height: 20px;
     color: var(--fontBlack);
     font-size: 30px;
 }
 
 .divTabCahierConfirmationContainerTextsContainer > div:nth-child(2) {
-    font-size: 20px;
     color: gray;
+    font-size: 20px;
 }
 
 /* terminate one bookable button*/
 .divTabCahierConfirmationContainerTextsContainer > .btnTerminateOneBookable {
     position: absolute;
     top: 66px;
-    width: 88px;
-    background-image: none;
-    font-size: 20px;
-    color: white;
-    background-color: red;
     opacity: 0;
     transition: opacity 0.3s linear 0s;
+    background-image: none;
+    background-color: red;
+    width: 88px;
+    color: white;
+    font-size: 20px;
 }
 
 .divTabCahierConfirmationEmbarcationButtonContainer {
     position: relative;
-    height: 30px;
     width: 100%;
+    height: 30px;
 }
 .divTabCahierConfirmationEmbarcationButtonContainer > .Buttons {
     background-image: url(../../../assets/navigations/icons/sail.png);
@@ -337,43 +337,43 @@
 #divTabCahierConfirmationInfosBox {
     position: relative;
     margin-left: 40px;
+    background-color: azure;
     width: 640px;
     height: 50px;
-    background-color: azure;
 }
 
 .divTabCahierConfirmationContainer textarea {
     position: relative;
-    resize: none;
-    left: 0px;
     top: 5px;
-    margin-bottom: 5px;
-    width: 385px;
-    height: 95px;
-    box-sizing: border-box;
-    border-width: 2px;
-    border-style: solid;
-    border-color: black;
-    border-radius: 10px;
-    background-color: white; /*rgb(237,237,237);*/
-    padding-left: 10px;
-    padding-top: 5px;
-    padding-right: 10px;
-    padding-bottom: 0px;
-    background-image: url(../../../assets/navigations/icons/check-black.png);
-    background-repeat: no-repeat;
-    background-size: 40px;
-    background-position-x: 340px;
-    background-position-y: 50px;
-    color: black;
-    font-size: 20px;
-    font-family: Arial;
-    box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
+    left: 0px;
     transition:
         all 0.1s linear 0s,
         width 0.2s linear 0s,
         margin-left 0.2s linear 0s;
+    box-sizing: border-box;
+    margin-bottom: 5px;
     outline: none; /*pour enlever le cadre bleu quand sélectionné*/
+    box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 10px;
+    background-image: url(../../../assets/navigations/icons/check-black.png);
+    background-size: 40px;
+    background-repeat: no-repeat;
+    background-color: white; /*rgb(237,237,237);*/
+    background-position-x: 340px;
+    background-position-y: 50px;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 0px;
+    padding-left: 10px;
+    width: 385px;
+    height: 95px;
+    resize: none;
+    color: black;
+    font-size: 20px;
+    font-family: Arial;
 }
 
 .divTabCahierConfirmationContainer textarea:focus {
@@ -384,21 +384,21 @@
     position: absolute;
     top: -10px;
     right: -10px;
-    width: 30px;
-    height: 30px;
+    transition: all 0.1s linear 0s;
     border-radius: 50px;
-    background-color: dimgray;
     background-image: url(../../../assets/navigations/icons/cancel.png);
-    background-blend-mode: color-dodge;
+    background-position: center;
     background-size: 24px;
     background-repeat: no-repeat;
-    background-position: center;
-    transition: all 0.1s linear 0s;
+    background-color: dimgray;
+    background-blend-mode: color-dodge;
+    width: 30px;
+    height: 30px;
 }
 .divTabCahierConfirmationDeleteBooking:hover {
+    top: -15px;
+    right: -15px;
     background-size: 30px;
     width: 40px;
     height: 40px;
-    top: -15px;
-    right: -15px;
 }

@@ -3,36 +3,36 @@
 
 #divTabCahierEquipmentCategoriesContainer {
     position: relative;
-    left: 2.5%;
     top: 0px;
+    left: 2.5%;
+    background-color: transparent;
     width: 95%;
     min-height: 100px;
     text-align: center;
-    background-color: transparent;
 }
 
 .BoxesBottomText1 {
     position: absolute;
-    left: 2.5%;
     top: 20px;
+    left: 2.5%;
+    transition: all 0.1s linear 0s;
+    background-color: white;
     width: 95%;
     height: 25px;
+    color: black;
     font-size: 25px;
     text-align: center;
-    background-color: white;
-    color: black;
-    transition: all 0.1s linear 0s;
 }
 
 .BoxesBottomText2 {
     position: absolute;
-    left: 2.5%;
     top: -20px;
+    left: 2.5%;
+    transition: all 0.1s linear 0s;
     width: 95%;
     height: 20px;
-    font-size: 15px;
-    text-align: right;
-    line-height: 20px;
     color: gray;
-    transition: all 0.1s linear 0s;
+    font-size: 15px;
+    line-height: 20px;
+    text-align: right;
 }

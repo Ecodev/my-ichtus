@@ -4,23 +4,23 @@
 
 .divTabCahierEquipmentElementsContainer {
     position: relative;
-    width: 95%;
     left: 2.5%;
     margin-top: 30px;
-    min-height: 100px;
     background-color: transparent;
+    width: 95%;
+    min-height: 100px;
     text-align: center;
 }
 
 .divTabCahierEquipmentElementsContainer > div {
-    position: relative;
     display: inline-block;
-    box-sizing: border-box;
+    position: relative;
     top: 0px;
+    cursor: pointer;
+    box-sizing: border-box;
+    margin: 10px;
     width: 215px;
     height: 300px;
-    margin: 10px;
-    cursor: pointer;
 }
 
 .divTabCahierEquipmentElementsContainer > div.selected > div:first-child {
@@ -52,18 +52,18 @@
     position: absolute;
     top: 90px;
     left: 10px;
+    transform: rotate(-45deg);
+    opacity: 1;
+    transition: opacity 0.1s linear 0s;
+    box-shadow: none;
+    border: 0px !important;
+    border-radius: 0px;
+    background-color: transparent;
     width: 200px;
     height: 50px;
-    font-size: 25px;
-    background-color: transparent;
-    border-radius: 0px;
-    border: 0px !important;
     color: rgb(30, 30, 30);
     font-weight: bold;
-    box-shadow: none;
-    transform: rotate(-45deg);
-    transition: opacity 0.1s linear 0s;
-    opacity: 1;
+    font-size: 25px;
 }
 
 .divTabCahierEquipmentElementsContainer > div.selected.used > div:nth-child(2) {
@@ -74,18 +74,18 @@
     position: absolute;
     top: 115px;
     left: 35px;
+    transform: rotate(-45deg);
+    opacity: 1;
+    transition: opacity 0.1s linear 0s;
+    box-shadow: none;
+    border: 0px !important;
+    border-radius: 0px;
+    background-color: transparent;
     width: 200px;
     height: 50px;
-    font-size: 15px;
-    background-color: transparent;
-    border-radius: 0px;
-    border: 0px !important;
     color: rgb(30, 30, 30);
     font-weight: bold;
-    box-shadow: none;
-    transform: rotate(-45deg);
-    transition: opacity 0.1s linear 0s;
-    opacity: 1;
+    font-size: 15px;
 }
 
 .divTabCahierEquipmentElementsContainer > div.selected.used > div:nth-child(3) {
@@ -94,17 +94,17 @@
 
 .divTabCahierEquipmentElementsContainer > div > div:first-child {
     position: absolute;
-    box-sizing: border-box;
     /*border: 2px solid black;*/
     top: 0px;
-    width: 100%;
-    height: 100%;
+    transition: all 0.1s linear 0s;
+    box-sizing: border-box;
     margin: 0px;
+    box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
+    border: 5px solid transparent;
     border-radius: 24px;
     background-color: white;
-    box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
-    transition: all 0.1s linear 0s;
-    border: 5px solid transparent;
+    width: 100%;
+    height: 100%;
 }
 
 .divTabCahierEquipmentElementsContainer > div:hover > div:first-child {
@@ -117,61 +117,61 @@
     position: absolute;
     right: 0px;
     bottom: 70px;
-    width: 80px;
-    height: 40px;
+    z-index: 2;
+    box-sizing: border-box;
+    box-shadow: -1px -1px 3px 0px rgba(0, 0, 0, 0.3);
     border-top-left-radius: 20px;
     background-color: white;
-    box-shadow: -1px -1px 3px 0px rgba(0, 0, 0, 0.3);
-    font-size: 25px;
-    font-weight: bold;
-    text-align: center;
-    box-sizing: border-box;
     padding-top: 8px;
-    z-index: 2;
+    width: 80px;
+    height: 40px;
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
 }
 
 .divTabCahierEquipmentElementsContainer > div > div > div:nth-child(2) {
-    position: absolute;
     display: table;
-    left: 0px;
+    position: absolute;
     top: 220px;
-    width: 100%;
-    height: 70px;
+    left: 0px;
+    opacity: 1;
+    z-index: 3;
+    transition: background-color 0.1s linear 0s;
     box-sizing: border-box;
     border-top: 2px solid gray;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
-    opacity: 1;
-    z-index: 3;
-    transition: background-color 0.1s linear 0s;
+    width: 100%;
+    height: 70px;
     text-align: right;
 }
 
 .divTabCahierEquipmentElementsContainer > div > div > div:nth-child(2) > div:nth-child(1) {
-    position: relative;
     display: table-cell;
+    position: relative;
     vertical-align: middle;
+    transition: all 0.1s linear 0s;
     margin-top: 20px;
+    padding: 5px 10px 5px 10px;
     width: 200px;
     height: 25px;
-    font-size: 20px;
     color: black;
-    transition: all 0.1s linear 0s;
+    font-size: 20px;
     text-align: center;
-    padding: 5px 10px 5px 10px;
 }
 
 .divTabCahierEquipmentElementsContainer > div > div > div:nth-child(3) {
     position: absolute;
+    z-index: 0;
+    transition: all 0.2s linear 0s;
+    border-top-right-radius: 18px;
+    border-top-left-radius: 18px;
+    background-position: center;
+    background-size: 220px;
+    background-repeat: no-repeat;
     width: 100%;
     height: 220px;
-    z-index: 0;
-    background-repeat: no-repeat;
-    background-size: 220px;
-    background-position: center;
-    transition: all 0.2s linear 0s;
-    border-top-left-radius: 18px;
-    border-top-right-radius: 18px;
 }
 
 .divTabCahierEquipmentElementsContainer > div:hover > div > div:nth-child(3) {
@@ -180,16 +180,16 @@
 
 .divTabCahierEquipmentElementsContainer > div > div > div:nth-child(4) {
     position: absolute;
-    left: 0px;
     top: 0px;
+    left: 0px;
+    z-index: 0;
+    transition: all 0.2s linear 0s;
+    background-image: url(../../../assets/navigations/icons/chose.png);
+    background-position: center;
+    background-size: 0px;
+    background-repeat: no-repeat;
     width: 100%;
     height: 220px;
-    z-index: 0;
-    background-image: url(../../../assets/navigations/icons/chose.png);
-    background-repeat: no-repeat;
-    background-size: 0px;
-    background-position: center;
-    transition: all 0.2s linear 0s;
 }
 
 .divTabCahierEquipmentElementsContainer > div:hover > div:first-child > div:nth-child(4) {
@@ -197,37 +197,37 @@
 }
 
 .divTabCahierEquipmentElementsContainer > div.selected:hover > div > div:nth-child(4) {
-    background-size: 100px;
     background-image: url(../../../assets/navigations/icons/chose-blue.png);
+    background-size: 100px;
 }
 .divTabCahierEquipmentElementsContainer > div.selected > div > div:nth-child(4) {
-    background-size: 200px;
     background-image: url(../../../assets/navigations/icons/chose-blue.png);
+    background-size: 200px;
 }
 
 .divTabCahierEquipmentElementsContainer > div.selected.used:hover > div > div:nth-child(4) {
-    background-size: 100px;
     background-image: url(../../../assets/navigations/icons/chose-red.png);
+    background-size: 100px;
 }
 .divTabCahierEquipmentElementsContainer > div.used.selected > div > div:nth-child(4) {
-    background-size: 200px;
     background-image: url(../../../assets/navigations/icons/chose-red.png);
+    background-size: 200px;
 }
 
 .divTabCahierEquipmentElementsContainer > div > div > div:nth-child(5) {
     position: absolute;
-    left: 5px;
     top: 5px;
-    width: 40px;
-    height: 40px;
-    background-repeat: no-repeat;
-    background-size: 0px;
-    background-position: center;
+    left: 5px;
     transition:
         background-color 0.5s ease 0s,
         background-size 0.1s linear 0s;
     border-radius: 30px;
     background-image: url(../../../assets/navigations/icons/info.png);
+    background-position: center;
+    background-size: 0px;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
 }
 
 .divTabCahierEquipmentElementsContainer > div:hover > div > div:nth-child(5) {
@@ -242,35 +242,35 @@
     position: absolute;
     top: 5px;
     right: 5px;
+    z-index: 3;
     background-image: url(../../../assets/navigations/icons/license.png);
-    background-repeat: no-repeat;
     background-size: 30px;
+    background-repeat: no-repeat;
     width: 30px;
     height: 30px;
-    z-index: 3;
 }
 
 #divTabCahierEquipmentElementsButtonsContainer {
     position: relative;
-    width: 95%;
+    left: 2.5%;
+    box-sizing: border-box;
     border-left-width: 130px;
     border-left-style: solid;
     border-color: transparent;
+    background-color: transparent;
+    width: 95%;
     min-height: 10px;
     text-align: right;
-    background-color: transparent;
-    left: 2.5%;
-    box-sizing: border-box;
 }
 
 #divTabCahierEquipmentElementsButtonsContainer > div {
     display: inline-block;
     position: relative;
-    background-color: transparent;
     top: 0px;
-    height: 40px; /*important ?*/
     vertical-align: top;
     margin-bottom: 5px;
+    background-color: transparent;
+    height: 40px; /*important ?*/
 }
 
 #divTabCahierEquipmentElementsButtonsContainer > div > div {
@@ -279,16 +279,16 @@
 
 #divTabCahierEquipmentElementsButtonsContainer > div select {
     position: absolute;
-    padding-left: 10px;
     margin-left: 40px;
-    border-bottom-left-radius: 0px;
     border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
     background-color: white;
+    padding-left: 10px;
 }
 
 #divTabCahierEquipmentElementsSelectSort {
-    transition: all 0.1s linear 0s;
     z-index: 2;
+    transition: all 0.1s linear 0s;
 }
 
 #divTabCahierEquipmentElementsSelectSort:hover {
@@ -297,24 +297,24 @@
 
 #divTabCahierEquipmentElementsSelectSort > div {
     position: absolute;
-    width: 30px;
-    background-color: white;
-    border-bottom-right-radius: 0px;
-    border-top-right-radius: 0px;
-    background-image: url(../../../assets/navigations/icons/sort-asc.png);
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.75);
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background-image: url(../../../assets/navigations/icons/sort-asc.png);
+    background-color: white;
+    width: 30px;
 }
 
 #divTabCahierEquipmentElementsSelectSort > div:hover {
     margin-top: 0px;
+    background-size: 40px;
     background-position-x: 0px;
     background-position-y: -1px;
-    background-size: 40px;
 }
 
 #divTabCahierEquipmentElementsSelectCategorie {
-    transition: all 0.1s linear 0s;
     z-index: 2;
+    transition: all 0.1s linear 0s;
 }
 
 #divTabCahierEquipmentElementsSelectCategorie:hover {
@@ -323,12 +323,12 @@
 
 #divTabCahierEquipmentElementsSelectCategorie > div {
     position: absolute;
-    width: 30px;
-    background-color: white;
-    border-bottom-right-radius: 0px;
-    border-top-right-radius: 0px;
-    background-image: url(../../../assets/navigations/icons/chose.png);
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.75);
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background-image: url(../../../assets/navigations/icons/chose.png);
+    background-color: white;
+    width: 30px;
 }
 
 #divTabCahierEquipmentElementsSelectCategorie > div:hover {
@@ -336,8 +336,8 @@
 }
 
 #divTabCahierEquipmentElementsSelectPageSize {
-    transition: all 0.1s linear 0s;
     z-index: 2;
+    transition: all 0.1s linear 0s;
 }
 
 #divTabCahierEquipmentElementsSelectPageSize:hover {
@@ -346,12 +346,12 @@
 
 #divTabCahierEquipmentElementsSelectPageSize > div {
     position: absolute;
-    width: 30px;
-    background-color: white;
-    border-bottom-right-radius: 0px;
-    border-top-right-radius: 0px;
-    background-image: url(../../../assets/navigations/icons/eye.png);
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.75);
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background-image: url(../../../assets/navigations/icons/eye.png);
+    background-color: white;
+    width: 30px;
 }
 
 #divTabCahierEquipmentElementsSelectPageSize > div:hover {
@@ -360,30 +360,30 @@
 
 #inputTabCahierEquipmentElementsInputSearch {
     position: relative;
-    border-width: 2px;
-    border-style: solid;
-    border-color: black;
-    background-color: white; /*rgb(237,237,237);*/
-    padding-left: 40px;
-    padding-right: 5px;
-    padding-top: 0px;
-    height: 34px;
-    width: 120px;
-    padding-bottom: 0px;
-    background-repeat: no-repeat;
-    color: black;
-    font-size: 20px;
-    box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
     transition:
         all 0.1s linear 0s,
         width 0.2s linear 0s,
         margin-left 0.2s linear 0s;
     outline: none; /*pour enlever le cadre bleu quand sélectionné*/
+    box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
     border-radius: 10px;
     background-image: url(../../../assets/navigations/icons/search-black.png);
+    background-size: 34px;
+    background-repeat: no-repeat;
+    background-color: white; /*rgb(237,237,237);*/
     background-position-x: 0px;
     background-position-y: 0px;
-    background-size: 34px;
+    padding-top: 0px;
+    padding-right: 5px;
+    padding-bottom: 0px;
+    padding-left: 40px;
+    width: 120px;
+    height: 34px;
+    color: black;
+    font-size: 20px;
     /*text-align: center;*/
 }
 
@@ -392,10 +392,10 @@
 }
 
 #inputTabCahierEquipmentElementsInputSearch:focus {
+    box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.5);
     border-color: var(--accent);
     background-image: url(../../../assets/navigations/icons/search-blue.png);
     width: 200px;
-    box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.5);
 }
 
 #inputTabCahierEquipmentElementsInputSearch:hover {

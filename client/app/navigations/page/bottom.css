@@ -11,24 +11,24 @@
 .divBottoms {
     position: absolute;
     bottom: 0px;
+    box-sizing: border-box;
+    background-color: #444;
+    padding: 5px;
     width: 100%;
     height: 40px;
-    background-color: #444;
     color: white;
     font-size: 30px;
     text-align: center;
-    padding: 5px;
-    box-sizing: border-box;
 }
 .divBottoms > div:first-child {
-    color: white;
-    font-size: 16px;
-    text-align: left;
+    cursor: pointer;
+    padding-left: 5px;
     min-width: 10px;
     height: 30px;
+    color: white;
+    font-size: 16px;
     line-height: 30px;
-    padding-left: 5px;
-    cursor: pointer;
+    text-align: left;
 }
 .divBottoms > div:first-child:hover {
     text-decoration: underline;
@@ -37,11 +37,11 @@
 .divSpacers {
     position: relative;
     bottom: 0px;
-    width: 10%;
-    margin-left: 90%;
-    height: 40px;
-    background-color: yellowgreen;
     opacity: 0;
     z-index: 20;
+    margin-left: 90%;
+    background-color: yellowgreen;
     background-color: rgba(154, 32, 32, 0.86);
+    width: 10%;
+    height: 40px;
 }

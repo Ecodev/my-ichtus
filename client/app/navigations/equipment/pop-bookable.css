@@ -10,30 +10,30 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 700px;
-    height: 450px;
+    border-radius: 20px;
     /*font-size: 25px;*/
     background-color: white;
-    border-radius: 20px;
+    width: 700px;
+    height: 450px;
 }
 
 .divTabCahierEquipmentElementsPopUp > div:nth-child(2) {
     position: absolute;
-    left: 20px;
     top: 20px;
+    left: 20px;
+    box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
+    border: 2px solid lightgray;
+    border-radius: 10px;
+    background-repeat: no-repeat;
     width: 215px;
     height: 220px;
-    background-repeat: no-repeat;
-    border-radius: 10px;
-    border: 2px solid lightgray;
-    box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
 }
 
 .divTabCahierEquipmentElementsPopUp > div:nth-child(3) {
     position: absolute;
+    top: 260px;
     left: 20px;
     margin-left: 10px;
-    top: 260px;
     width: 660px;
     height: 40px;
     font-size: 25px;
@@ -41,38 +41,38 @@
 
 .divTabCahierEquipmentElementsPopUp > div:nth-child(4) {
     position: absolute;
-    left: 20px;
     top: 290px;
+    left: 20px;
+    box-sizing: border-box;
+    border: 2px solid lightgray;
+    border-radius: 10px;
+    padding: 8px;
     width: 495px;
     height: 140px;
-    border-radius: 10px;
-    border: 2px solid lightgray;
-    box-sizing: border-box;
-    padding: 8px;
     overflow-y: auto;
     color: var(--fontBlack);
 }
 
 .divTabCahierEquipmentElementsPopUp > .ValidateButtons {
     position: absolute;
-    right: 20px;
     top: 376px;
-    width: 145px;
+    right: 20px;
     background-image: url(../../../assets/navigations/icons/validated.png);
+    width: 145px;
 }
 
 .divTabCahierEquipmentElementsPopUp > .btnRed {
-    background-position-x: 110px;
     background-image: url(../../../assets/navigations/icons/alert.png);
+    background-position-x: 110px;
 }
 
 .divTabCahierEquipmentElementsPopUp > .ReturnButtons {
     position: absolute;
-    right: 20px;
     top: 290px;
-    width: 145px;
+    right: 20px;
     margin-left: 0px;
     background-image: url(../../../assets/navigations/icons/history.png);
+    width: 145px;
 }
 
 .divTabCahierEquipmentElementsPopUp > .ReturnButtons::after {
@@ -80,19 +80,19 @@
 }
 
 .divTabCahierEquipmentElementsPopUp > div:nth-child(2) {
-    font-size: 120px;
     color: darkgray;
+    font-size: 120px;
 }
 
 .divTabCahierEquipmentElementsContainerTextsContainer {
     position: absolute;
+    top: 20px;
     left: 260px;
     width: 420px;
     height: 225px;
-    top: 20px;
-    font-size: 20px;
-    color: var(--fontBlack);
     overflow-y: scroll;
+    color: var(--fontBlack);
+    font-size: 20px;
 }
 
 .divTabCahierEquipmentElementsContainerTextsContainer > div {
@@ -100,22 +100,22 @@
 }
 
 .divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(1) {
-    font-size: 30px;
     margin-bottom: 0px;
+    font-size: 30px;
 }
 
 .divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(2) {
-    color: var(--fontBlack);
     margin-bottom: 10px;
+    color: var(--fontBlack);
 }
 
 .divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(3) {
-    font-size: 15px;
-    color: darkgray;
-    background-repeat: no-repeat;
-    background-position-y: center;
-    background-position-x: 5px;
     background-size: 20px;
+    background-repeat: no-repeat;
+    background-position-x: 5px;
+    background-position-y: center;
+    color: darkgray;
+    font-size: 15px;
 }
 
 .divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(4) {
@@ -123,23 +123,23 @@
 }
 
 .divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(5) {
-    color: var(--fontBlack);
     position: absolute;
     bottom: 0px;
+    color: var(--fontBlack);
     font-weight: bold;
     font-size: 15px;
 }
 
 .divTabCahierEquipmentElementsContainerTextsContainer > div:nth-child(6) {
-    font-size: 16px;
-    color: black;
+    margin-top: 10px;
     background-image: url(../../../assets/navigations/icons/license.png);
-    background-repeat: no-repeat;
-    background-position-y: center;
-    background-position-x: 5px;
     background-size: 30px;
+    background-repeat: no-repeat;
+    background-position-x: 5px;
+    background-position-y: center;
     padding-left: 45px;
     height: 30px;
-    margin-top: 10px;
+    color: black;
+    font-size: 16px;
     line-height: 30px;
 }

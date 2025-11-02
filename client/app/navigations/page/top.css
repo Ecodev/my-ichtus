@@ -1,31 +1,31 @@
 ﻿/*#region div Bars & Screen */
 #divLeftBar {
     position: absolute;
-    height: 100%;
-    background-color: lightgray;
     /*background-image:linear-gradient(lightgray,rgb(164, 164, 164));*/
     left: 0px;
-    z-index: 90;
     opacity: 1;
+    z-index: 90;
+    background-color: lightgray;
+    height: 100%;
 }
 
 #divRightBar {
     position: absolute;
-    height: 100%;
-    background-color: lightgray;
     right: 0px;
-    z-index: 90;
     opacity: 1;
+    z-index: 90;
+    background-color: lightgray;
+    height: 100%;
 }
 
 #divTopBar {
     position: fixed;
-    width: 100%;
-    height: 65px;
-    background-color: black;
     z-index: 100; /*définir*/
     transition: all 0.1s linear 0s;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+    background-color: black;
+    width: 100%;
+    height: 65px;
 }
 /*#endregion*/
 
@@ -64,13 +64,13 @@
     position: absolute;
     right: 5px;
     bottom: 5px;
+    animation: EnterFromRight 0.5s ease-out 1 normal;
+    transition: all 0.1s linear 0s;
     width: 150px;
     color: white;
     font-size: 18px;
-    text-align: right;
     font-family: Arial;
-    transition: all 0.1s linear 0s;
-    animation: EnterFromRight 0.5s ease-out 1 normal;
+    text-align: right;
 }
 #divTopBarTime::first-line {
     font-size: 30px;
@@ -78,19 +78,19 @@
 
 #divTopBarLogo {
     position: absolute;
+    top: 2px;
+    left: 2px;
+    z-index: 3;
+    animation: EnterFromLeft 0.5s ease-out 1 normal;
+    cursor: pointer;
     background-color: transparent;
     width: 60px;
     height: 60px;
-    top: 2px;
-    left: 2px;
-    animation: EnterFromLeft 0.5s ease-out 1 normal;
-    z-index: 3;
-    cursor: pointer;
 }
 #divTopBarLogo > img {
     position: absolute;
-    width: 60px;
     transition: all 2s ease-in-out 0s;
+    width: 60px;
 }
 #divTopBarLogo:hover > img:nth-child(3) {
     transform: rotate(-360deg);
@@ -100,32 +100,32 @@
 }
 
 #divTopBarText {
-    color: white;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 35px;
     animation: EnterFromTop 0.5s ease-out 1 normal;
-    width: 100%;
-    padding-left: 150px;
-    padding-right: 150px;
     box-sizing: border-box;
-    text-align: center;
+    padding-right: 150px;
+    padding-left: 150px;
+    width: 100%;
+    color: white;
+    font-size: 35px;
     line-height: 28px;
+    text-align: center;
 }
 
 /*#endregion*/
 
 .svg {
     position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 9999;
 
     background-size: 100%;
     background-repeat: no-repeat;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 .svgWidth {
@@ -139,8 +139,8 @@
 
 @keyframes AniFish {
     from {
-        opacity: 0.5;
         transform: translate(5%, -100%);
+        opacity: 0.5;
     }
 
     to {
@@ -167,43 +167,43 @@
 }
 #fish {
     transform-origin: 0% 0%;
-    background-image: url(../../../assets/navigations/logo/fish.svg);
-    animation-name: AniFish, AniFishTurn;
+    z-index: 9997;
     animation-duration: 1s, 2.5s;
     animation-timing-function: ease-in-out, ease-in-out;
     animation-delay: 0s, 1.5s;
-    z-index: 9997;
+    animation-name: AniFish, AniFishTurn;
+    background-image: url(../../../assets/navigations/logo/fish.svg);
 }
 
 @keyframes AniWaves {
     from {
-        margin-top: 100vh;
         opacity: 0.5;
+        margin-top: 100vh;
     }
 
     to {
-        margin-top: 0vh;
         opacity: 1;
+        margin-top: 0vh;
     }
 }
 @keyframes AniWavesExit {
     from {
-        margin-top: 0vh;
         opacity: 1;
+        margin-top: 0vh;
     }
 
     to {
-        margin-top: 110vh;
         opacity: 0;
+        margin-top: 110vh;
     }
 }
 #waves {
-    background-image: url(../../../assets/navigations/logo/waves.svg);
-    animation-name: AniWaves;
+    opacity: 1;
     animation-duration: 1s;
     animation-timing-function: ease-in-out;
+    animation-name: AniWaves;
     margin-right: 0px;
-    opacity: 1;
+    background-image: url(../../../assets/navigations/logo/waves.svg);
 }
 
 @keyframes AniCircleWidth {
@@ -238,23 +238,23 @@
     }
 }
 #circle {
-    z-index: 9995;
-    background-image: url(../../../assets/navigations/logo/circle.svg);
-    animation-duration: 2s;
-    animation-delay: 0s;
-    animation-timing-function: ease;
-    margin-right: 0px;
     opacity: 1;
+    z-index: 9995;
+    animation-duration: 2s;
+    animation-timing-function: ease;
+    animation-delay: 0s;
+    margin-right: 0px;
+    background-image: url(../../../assets/navigations/logo/circle.svg);
 }
 
 #white_circle {
-    z-index: 9993;
-    background-image: url(../../../assets/navigations/logo/white_circle.svg);
-    animation-duration: 2s;
-    animation-delay: 0s;
-    animation-timing-function: ease;
-    margin-right: 0px;
     opacity: 1;
+    z-index: 9993;
+    animation-duration: 2s;
+    animation-timing-function: ease;
+    animation-delay: 0s;
+    margin-right: 0px;
+    background-image: url(../../../assets/navigations/logo/white_circle.svg);
 }
 
 #info {
@@ -284,24 +284,24 @@
 }
 #black {
     position: fixed;
-    z-index: 9900;
-    background-color: rgb(20, 20, 20);
     opacity: 0.9;
-    width: 100%;
-    height: 100%;
-    animation-name: AniBlack;
+    z-index: 9900;
     animation-duration: 1s;
     animation-timing-function: ease;
+    animation-name: AniBlack;
+    background-color: rgb(20, 20, 20);
+    width: 100%;
+    height: 100%;
 }
 
 .svgLetters {
-    z-index: 9999;
-    animation-name: AniWaves;
-    animation-duration: 0.6s;
-    animation-delay: 0s;
-    animation-timing-function: ease;
-    opacity: 1;
     transform: translate(-50%, -50%);
+    opacity: 1;
+    z-index: 9999;
+    animation-duration: 0.6s;
+    animation-timing-function: ease;
+    animation-delay: 0s;
+    animation-name: AniWaves;
 }
 @keyframes AniLettersExitLeft {
     from {

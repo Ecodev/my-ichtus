@@ -356,7 +356,7 @@ export const Requests = {
             whichField = whichFieldSource;
         }
 
-        const txt = (elem).value;
+        const txt = elem.value;
 
         let categorie = $('divTabCahierEquipmentElementsSelectCategorie').getElementsByTagName('select')[0].value;
         if (categorie == 'all') {
