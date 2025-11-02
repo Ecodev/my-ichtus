@@ -1,0 +1,285 @@
+﻿#divTabCahierTop {
+    top: 50px;
+    max-height: 0px;
+    min-height: 0px;
+    background-color: transparent;
+    position: absolute;
+    left: 0px;
+    margin-left: 0px;
+    margin-top: 0px;
+    width: 100%;
+    /*float: left; //*/
+    /*min-height: 100%;*/
+    transform: translate(0px);
+    transition: transform 0.3s linear 0s;
+    z-index: 3;
+    opacity: 1;
+    background-color: red;
+}
+
+#divTabCahierProgressContainer {
+    position: absolute;
+    left: 2.5%;
+    top: 30px;
+    width: 95%;
+    height: 82px;
+    /*background-color: red;*/
+}
+
+#divTabCahierProgressReturn {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    /*background-color: yellow;*/
+    background-image: url(../../../assets/navigations/icons/back.png);
+    background-repeat: no-repeat;
+    background-size: 40px;
+    cursor: pointer;
+    transition: all 0.1s linear 0s;
+    z-index: 3;
+}
+#divTabCahierProgressReturn:hover {
+    background-color: rgb(235, 235, 235);
+}
+
+#divTabCahierProgressCancel {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 35px;
+    height: 35px;
+    border-radius: 10px;
+    background-image: url(../../../assets/navigations/icons/cancel-black.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 25px;
+    cursor: pointer;
+    transition: all 0.1s linear 0s;
+    z-index: 3;
+    border: 2px solid black;
+}
+
+#divTabCahierProgressCancel:hover {
+    background-color: rgb(235, 235, 235);
+    background-image: url(../../../assets/navigations/icons/cancel-black.png);
+}
+
+#divTabCahierProgress {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.5);
+}
+
+.divTabCahierProgressStep {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 10%;
+}
+
+.divTabCahierProgressCircle {
+    position: absolute;
+    left: 50%;
+    margin-left: -27px;
+    top: 5px;
+    /*margin-top: -27px;*/
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background-color: white;
+    border-width: 2px;
+    border-color: var(--accent);
+    border-style: solid;
+    color: black;
+    font-size: 50px;
+    text-align: center;
+    transition: all 0.1s linear 0s;
+    z-index: 7;
+}
+
+.divTabCahierProgressStepCompleted .divTabCahierProgressCircle {
+    border-color: var(--accent);
+    background-image: url(../../../assets/navigations/icons/check-blue.png);
+    background-repeat: no-repeat;
+    background-color: white;
+}
+
+.divTabCahierProgressStepCompleted .divTabCahierProgressNumber:hover ~ .divTabCahierProgressCircle {
+    border-color: var(--accent);
+    background-image: none;
+    background-color: var(--accent);
+}
+
+.divTabCahierProgressStepCurrent .divTabCahierProgressCircle {
+    border-color: var(--accent);
+    background-image: none;
+    background-color: var(--accent);
+}
+
+.divTabCahierProgressStepIncompleted .divTabCahierProgressCircle {
+    border-color: lightgray;
+    background-image: none;
+    background-color: white;
+}
+
+.divTabCahierProgressNumber {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    line-height: 65px;
+    width: 100%;
+    height: 65px;
+    color: black;
+    font-size: 40px;
+    text-align: center;
+    transition: all 0.3s linear 0s;
+    z-index: 8;
+    /*background-color:rgba(255, 242, 6, 0.29);*/
+}
+
+.divTabCahierProgressStepCompleted .divTabCahierProgressNumber {
+    opacity: 0;
+    color: gray;
+    cursor: pointer;
+}
+
+.divTabCahierProgressNumber:hover {
+    opacity: 1;
+    color: white;
+}
+
+.divTabCahierProgressStepCurrent .divTabCahierProgressNumber {
+    opacity: 1;
+    color: white;
+    cursor: pointer;
+}
+
+.divTabCahierProgressStepIncompleted .divTabCahierProgressNumber {
+    opacity: 1;
+    color: gray;
+}
+
+.divTabCahierProgressText {
+    position: absolute;
+    /*display:inline-block;*/
+    left: -100%;
+    /*transform:translateX(-50%);*/
+    top: 60px;
+    width: 300%;
+    /*max-width:3004px;*/
+    height: 20px;
+    color: var(--accent);
+    font-size: 15px;
+    text-align: center;
+    transition: all 0.3s linear 0s;
+    background-color: transparent;
+}
+
+.divTabCahierProgressStepCompleted .divTabCahierProgressText {
+    color: var(--accent);
+}
+
+.divTabCahierProgressStepCurrent .divTabCahierProgressText {
+    color: var(--accent);
+}
+
+.divTabCahierProgressStepIncompleted .divTabCahierProgressText {
+    color: gray;
+}
+
+#divTabCahierProgress.editing > *:nth-child(1) > .divTabCahierProgressNumber {
+    cursor: not-allowed;
+}
+#divTabCahierProgress.editing > *:nth-child(1) > .divTabCahierProgressNumber {
+    opacity: 0;
+}
+#divTabCahierProgress.editing > *:nth-child(1) > .divTabCahierProgressNumber:hover ~ .divTabCahierProgressCircle {
+    background-color: white;
+    background-image: url(../../../assets/navigations/icons/check-blue.png);
+}
+
+#divTabCahierProgress.editing > *:nth-child(1) > .divTabCahierProgressCircle {
+    filter: brightness(1.9) grayscale(1) blur(1px);
+    border-color: #6a6a6a;
+}
+
+#divTabCahierProgress.editing > *:nth-child(1) > .divTabCahierProgressText {
+    color: lightgray;
+    filter: blur(1px);
+}
+
+#divTabCahierProgressBar {
+    position: absolute;
+    top: 32px;
+    margin-top: -1px;
+    width: 78%;
+    margin-right: -50px;
+    height: 2px;
+    background-color: lightgray;
+    z-index: 5;
+}
+
+#divTabCahierProgressBarBlue {
+    position: absolute;
+    left: 12%;
+    top: 32px;
+    margin-top: -2px;
+    width: 0%;
+    height: 4px;
+    background-color: var(--accent);
+    z-index: 6;
+    transition: all 1s linear 0s;
+}
+
+#divTabCahierInfosBar {
+    position: absolute;
+    left: 2.5%;
+    top: 130px;
+    width: 95%;
+    height: 2px;
+    background-color: lightgray;
+}
+
+#divTabCahierInfosName {
+    position: absolute;
+    left: 2.5%;
+    top: 130px;
+    height: 45px;
+    color: gray;
+    font-size: 25px;
+}
+
+#divTabCahierCancelButton {
+    position: absolute;
+    right: 2.5%;
+    top: 145px; /*     DEFINIR DANS SCREEN.JS !!       */
+    width: 180px;
+    height: 25px;
+    border-radius: 5px;
+    border: 2px solid gray;
+    padding-top: 3px;
+    padding-left: 10px;
+    color: gray;
+    font-size: 20px;
+    background-color: white;
+    background-image: url(../../../assets/navigations/icons/cancel.png);
+    background-size: 25px;
+    background-repeat: no-repeat;
+    background-position-x: 160px;
+    background-position-y: 2px;
+    cursor: pointer;
+    transition: all 0.1s linear 0s;
+}
+
+#divTabCahierCancelButton:hover {
+    background-color: lightgray;
+    color: black;
+    background-image: url(../../../assets/navigations/icons/cancel-black.png);
+}

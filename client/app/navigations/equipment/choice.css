@@ -1,0 +1,171 @@
+#divTabCahierEquipmentChoice {
+}
+#divTabCahierEquipmentChoice.listBarActive {
+    padding-right: 0px;
+}
+
+.divTabCahierEquipmentChoiceContainer {
+}
+
+.divTabCahierEquipmentChoiceInputCodeContainer {
+    text-align: center;
+    /*margin-top:15px;*/
+    margin-bottom: 5px;
+    height: 55px;
+}
+
+.divTabCahierEquipmentChoiceInputCodeContainer > div:nth-child(2) {
+    position: absolute;
+    display: inline-block;
+    margin-top: 0px;
+    margin-left: -269px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    width: 54px;
+    height: 54px;
+    background-color: black;
+    z-index: 9;
+    background-position: left;
+    background-size: 50px;
+    background-image: url(../../../assets/navigations/icons/hashtag.png);
+    transition: all 0.1s linear 0s;
+}
+
+.divTabCahierEquipmentChoiceContainer input {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    height: 50px;
+    width: 200px;
+    padding-left: 60px;
+    font-size: 25px;
+    background-color: rgb(245, 245, 245);
+    text-transform: uppercase;
+}
+.divTabCahierEquipmentChoiceContainer input.animationShake {
+    border-color: red !important;
+}
+.divTabCahierEquipmentChoiceContainer input + div.animationShake {
+    background-color: red !important;
+}
+.animationShake {
+    animation-name: shake;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+}
+.divTabCahierEquipmentChoiceContainer input::placeholder {
+    text-transform: initial;
+}
+.divTabCahierEquipmentChoiceContainer input:focus {
+    border-color: var(--accent);
+    background-color: white;
+}
+
+.divTabCahierEquipmentChoiceContainer input:hover {
+    background-color: white;
+}
+
+.divTabCahierEquipmentChoiceContainer input:focus ~ div:nth-child(2) {
+    background-color: var(--accent);
+}
+
+.divTabCahierEquipmentChoiceInputCodeContainer > div:nth-child(3) {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    width: 100px;
+}
+.divTabCahierEquipmentChoiceInputCodeContainer > div:nth-child(3) .Buttons {
+    width: 100px;
+    padding-left: 0px;
+    background-color: lightgray;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    transition: all 0.1s linear 0s;
+    background-image: url(../../../assets/navigations/icons/validated.png);
+    background-position: center;
+    background-position-x: 30px;
+}
+.divTabCahierEquipmentChoiceInputCodeContainer > div:nth-child(3) .Buttons:not(.activated) {
+    cursor: initial;
+}
+.divTabCahierEquipmentChoiceInputCodeContainer > div:nth-child(3) .Buttons.activated {
+    background-color: var(--accent);
+}
+.divTabCahierEquipmentChoiceInputCodeContainer > div:nth-child(3) .Buttons.activated:hover {
+    background-color: var(--accentHover);
+}
+
+#btnNext {
+    transition: all 0.1s linear 0s;
+}
+#btnNext:not(.activated) {
+    cursor: initial;
+    background-color: lightgray;
+}
+
+.divTabCahierEquipmentChoiceInputCodeContainer + div {
+    text-align: center;
+    color: gray;
+    font-size: 15px;
+    margin-bottom: 20px;
+    margin-left: -90px;
+}
+.divTabCahierEquipmentChoiceInputCodeContainer + div + div {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 25px;
+}
+
+.divTabCahierEquipmentChoiceContainer .NormalButtons {
+    width: 165px;
+    padding-left: 50px;
+    height: 50px;
+    display: inline-block;
+    vertical-align: middle;
+    background-image: url(../../../assets/navigations/icons/own-sail.png);
+    background-position: center;
+    background-position-x: 5px;
+    background-size: 40px;
+    line-height: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.divTabCahierEquipmentChoiceContainer .NormalButtons:nth-child(2) {
+    background-image: url(../../../assets/navigations/icons/sail.png);
+    background-blend-mode: exclusion;
+}
+
+.divTabCahierEquipmentChoiceContainer > div:nth-child(4) {
+    text-align: center;
+}
+
+.divTabCahierEquipmentChoiceContainer > div:nth-child(4) .Buttons.buttonNonActive {
+    background-color: lightgray;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* IDEA IS FROM  https://css-tricks.com/snippets/css/shake-css-keyframe-animation/ */
+@keyframes shake {
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}

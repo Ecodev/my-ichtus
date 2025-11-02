@@ -32,7 +32,7 @@ import {
     getFormValidators,
     getPartialVariablesForAll,
     terminateBooking,
-} from 'client/vanilla/booking-for-vanilla.service';
+} from '../../../navigations/booking-for-vanilla.service';
 
 @Injectable({
     providedIn: 'root',

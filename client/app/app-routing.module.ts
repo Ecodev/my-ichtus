@@ -15,6 +15,16 @@ import {availableColumnsForSafety} from './admin/bookings/bookings/abstract-book
 
 export const routes: Routes = [
     {
+        path: 'navigations',
+        loadComponent: () =>
+            import('./navigations/external-navigations.component').then(m => m.ExternalNavigationsComponent),
+        data: {
+            seo: {
+                title: 'Cahier de sortie',
+            } satisfies NaturalSeo,
+        },
+    },
+    {
         path: 'login',
         component: LoginComponent,
         resolve: {viewer: resolveViewer},

@@ -17,7 +17,7 @@
         "strictNullChecks": true,
         "target": "ES2022",
         "module": "preserve",
-        "lib": ["ES2022", "dom"],
+        "lib": ["ES2022", "dom", "DOM.Iterable"],
         "noImplicitOverride": true
     },
     "angularCompilerOptions": {
@@ -43,9 +43,6 @@
         },
         {
             "path": "./client/tsconfig.spec.json"
-        },
-        {
-            "path": "./client/vanilla/tsconfig.app.json"
         }
     ]
 }

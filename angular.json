@@ -135,52 +135,6 @@
                     }
                 }
             }
-        },
-        "vanilla": {
-            "root": "client/vanilla/",
-            "sourceRoot": "client/vanilla",
-            "projectType": "application",
-            "prefix": "app",
-            "schematics": {},
-            "architect": {
-                "build": {
-                    "builder": "@angular/build:application",
-                    "options": {
-                        "outputPath": "data/tmp/build-vanilla",
-                        "index": "client/vanilla/index.html",
-                        "browser": "client/vanilla/main.ts",
-                        "tsConfig": "client/vanilla/tsconfig.app.json",
-                        "polyfills": []
-                    },
-                    "configurations": {
-                        "production": {
-                            "define": {
-                                "globalThis.__DEV__": "false"
-                            },
-                            "outputHashing": "none",
-                            "budgets": [
-                                {
-                                    "type": "initial",
-                                    // DO NOT MODIFY THIS, instead, if you see this error, triple-check why we included
-                                    // more code into Vanilla and if https://navigations.ichtus.club will still work with this new build
-                                    "maximumError": "385.11 kB"
-                                },
-                                {
-                                    "type": "anyComponentStyle",
-                                    "maximumWarning": "6kb"
-                                }
-                            ]
-                        },
-                        "development": {
-                            "optimization": false,
-                            "extractLicenses": false,
-                            "sourceMap": true,
-                            "namedChunks": true
-                        }
-                    },
-                    "defaultConfiguration": "production"
-                }
-            }
         }
     },
     "cli": {
