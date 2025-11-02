@@ -10,6 +10,7 @@ import {currentTabElement, setCurrentTabElement, tabs} from './screen';
 import {server} from './server';
 import {Cahier} from '../cahier/methods';
 import type {Booking, MergedBooking} from '../types';
+import {localConfig} from '../../shared/generated-config';
 
 export const options = {
     bookablesComment: false,
@@ -67,7 +68,7 @@ export function load(): void {
     loadCahierEquipmentChoice();
     loadEscListener();
 
-    const version = '1.5';
+    const version = localConfig.version;
     if (window.location.hostname === 'ichtus.club') {
         console.warn('Version de production ' + version);
         $('divTopBarText').innerHTML = tabs[0].title;
