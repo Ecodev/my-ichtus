@@ -1,6 +1,7 @@
 import {closePopUp, div, grayBar, Mois, openPopUp} from '../general/home';
-import {type Booking, Requests} from '../general/server-requests';
+import {Requests} from '../general/server-requests';
 import {Cahier} from '../cahier/methods';
+import type {Booking} from '../types';
 
 export function popStats(): void {
     const elem = openPopUp();

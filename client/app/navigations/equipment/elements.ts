@@ -3,7 +3,7 @@ import {Cahier} from '../cahier/methods';
 import {popAlertLessThan13Minutes} from '../general/pop-alert';
 import {popBookable} from './pop-bookable';
 import {categories} from './categories';
-import type {BookableWithExtra} from '../general/server-requests';
+import type {BookableWithExtra} from '../types';
 
 let currentBookables: BookableWithExtra[];
 export function loadElements(bookables: BookableWithExtra[], nbr = 0): void {

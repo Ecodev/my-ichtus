@@ -14,22 +14,17 @@ import {
 } from '../cahier/cahier';
 import {actualizePopBookableHistory} from '../equipment/pop-bookable-history';
 import {actualizeStats} from '../page/pop-stats';
-import {type ActualizePopBooking, actualizePopBooking, type PopBookingWhich} from '../cahier/pop-booking';
+import {actualizePopBooking} from '../cahier/pop-booking';
 import {newTab} from './screen';
 import {ableToSkipAnimation} from '../page/top';
 import {NaturalQueryVariablesManager, type WithId} from '@ecodev/natural';
-import {BookableForVanillaService} from '../bookable-for-vanilla.service';
-import {BookingForVanillaService} from '../booking-for-vanilla.service';
-import {UserForVanillaService} from '../user-for-vanilla.service';
 import {
     type BookableFilterGroupCondition,
-    type Bookables,
     BookableSortingField,
     BookableStatus,
     type BookablesVariables,
     type BookingInput,
     type BookingPartialInput,
-    type Bookings,
     BookingSortingField,
     BookingStatus,
     type BookingsVariables,
@@ -37,30 +32,11 @@ import {
     JoinType,
     LogicalOperator,
     SortingOrder,
-    type Users,
     UserSortingField,
     UserStatus,
     UsersVariables,
 } from '../../shared/generated-types';
-
-// Type alias for convenience
-export type User = Users['users']['items'][0];
-export type Bookable = Bookables['bookables']['items'][0];
-export type Booking = Bookings['bookings']['items'][0];
-export type BookableWithExtra = Bookable & {
-    used: boolean;
-    lastBooking: null | Booking;
-    lessThan13Minutes?: boolean;
-};
-export type BookableWithLastBooking = Bookable & {
-    lastBooking: null | Booking;
-};
-
-type ServerType = {
-    userService: UserForVanillaService;
-    bookableService: BookableForVanillaService;
-    bookingService: BookingForVanillaService;
-};
+import type {ActualizePopBooking, BookableWithExtra, Booking, PopBookingWhich, ServerType} from '../types';
 
 let server: ServerType;
 

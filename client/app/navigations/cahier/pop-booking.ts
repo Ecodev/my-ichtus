@@ -8,18 +8,18 @@ import {
     getNiceDate,
     getNiceTime,
     grayBar,
-    type MergedBooking,
     openPopUp,
     options,
     shorten,
     unique,
 } from '../general/home';
-import {type Bookable, type Booking, Requests} from '../general/server-requests';
+import {Requests} from '../general/server-requests';
 import {newTab} from '../general/screen';
 import {popCahierInfos} from '../infos/pop-infos';
 import {Cahier, getEndCommentFromBooking, getStartCommentFromBooking} from './methods';
 import {popBookable} from '../equipment/pop-bookable';
 import {Sex} from '../../shared/generated-types';
+import type {ActualizePopBooking, Booking, MergedBooking, PopBookingWhich} from '../types';
 
 // popBookings
 export function loadConfirmation(): void {
@@ -281,13 +281,6 @@ function openBooking(which = 'confirmation', elem = $('divTabConfirmationOneBook
         actualizePopBooking(Cahier.bookings[0], which, elem);
     }
 }
-
-export type PopBookingWhich = 'confirmation' | 'infos' | 'finish';
-
-export type ActualizePopBooking = Booking & {
-    ids: string[];
-    bookables: (Bookable & {available?: boolean | undefined; lastBooking: Booking})[];
-};
 
 export function actualizePopBooking(
     booking: ActualizePopBooking,

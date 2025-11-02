@@ -1,14 +1,4 @@
-import {
-    $,
-    clone,
-    fillArray,
-    type MergedBooking,
-    options,
-    replaceTxtByTxt,
-    shorten,
-    stopWaiting,
-    waiting,
-} from '../general/home';
+import {$, clone, fillArray, options, replaceTxtByTxt, shorten, stopWaiting, waiting} from '../general/home';
 import {
     popAlertAlreadyHavingABooking,
     popAlertBookablesHaveJustBeenBooked,
@@ -24,15 +14,10 @@ import {changeProgress, currentProgress, progessionTabNames} from './top';
 import {currentTabElement, newTab} from '../general/screen';
 import {actualizeBookableList} from './top-list';
 import {actualizeElements} from '../equipment/elements';
-import {
-    type Bookable,
-    type BookableWithLastBooking,
-    type Booking,
-    Requests,
-    type User,
-} from '../general/server-requests';
+import {Requests} from '../general/server-requests';
 import {animate} from '../page/top';
 import {type BookingInput, type BookingPartialInput, Sex} from '../../shared/generated-types';
+import type {Bookable, BookableWithLastBooking, Booking, MergedBooking, User} from '../types';
 
 export const Cahier = {
     actualBookings: [] as MergedBooking[],

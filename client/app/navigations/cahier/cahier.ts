@@ -7,14 +7,14 @@ import {
     getPreviousDate,
     is0second,
     mergeAND,
-    type MergedBooking,
     options,
     pixelLength,
     shorten,
 } from '../general/home';
 import {popBookingFinish, popBookingInfos} from './pop-booking';
 import {popBookable} from '../equipment/pop-bookable';
-import {type Bookable, type Booking, Requests} from '../general/server-requests';
+import {Requests} from '../general/server-requests';
+import type {Bookable, Booking, MergedBooking} from '../types';
 
 export function loadActualBookings(_actualBookings: MergedBooking[]): void {
     Cahier.actualBookings = _actualBookings;

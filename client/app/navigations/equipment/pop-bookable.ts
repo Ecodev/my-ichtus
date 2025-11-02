@@ -1,10 +1,11 @@
 import {$, clone, closePopUp, deltaTime, div, getNiceDate, openPopUp, options, shorten} from '../general/home';
-import {type Bookable, Requests} from '../general/server-requests';
+import {Requests} from '../general/server-requests';
 import {currentTabElement, newTab} from '../general/screen';
 import {Cahier} from '../cahier/methods';
 import {popBookableHistory} from './pop-bookable-history';
 import {popAlertLessThan13Minutes} from '../general/pop-alert';
 import type {Bookings} from '../../shared/generated-types';
+import type {Bookable} from '../types';
 
 export function popBookable(bookableId: string, justPreview = true, nbr = 0, modal: HTMLElement = openPopUp()): void {
     Requests.getBookableInfos(nbr, bookableId, modal);

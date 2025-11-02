@@ -7,8 +7,9 @@ import {popUser} from '../member/user';
 import {loadTableTopBars} from '../cahier/cahier';
 import {loadCahierEquipmentChoice} from '../equipment/choice';
 import {currentTabElement, setCurrentTabElement, tabs} from './screen';
-import {type Booking, Requests} from './server-requests';
+import {Requests} from './server-requests';
 import {Cahier} from '../cahier/methods';
+import type {Booking, MergedBooking} from '../types';
 
 export const options = {
     bookablesComment: false,
@@ -396,11 +397,6 @@ function displayBooking(booking: Booking): boolean {
     if (options.seeExtraInfos || options.displayTerminatedEditedBookings) return true;
     return !is0second(booking);
 }
-
-export type MergedBooking = Booking & {
-    bookables?: Booking['bookable'][];
-    ids?: string[];
-};
 
 export function mergeBookings(bookings: Booking[]): MergedBooking[] {
     bookings = clone(bookings); // clone

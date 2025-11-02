@@ -1,7 +1,8 @@
 import {$, closePopUp, div, grayBar, openPopUp} from '../general/home';
 import {Cahier} from '../cahier/methods';
-import {Requests, type User} from '../general/server-requests';
+import {Requests} from '../general/server-requests';
 import {Sex} from '../../shared/generated-types';
+import type {User} from '../types';
 
 let lastPeople: User[] = [];
 

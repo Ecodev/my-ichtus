@@ -2,7 +2,7 @@ import {$, closePopUp, deltaTime, div, grayBar, openPopUp} from './home';
 import {newTab} from './screen';
 import {Cahier} from '../cahier/methods';
 import {popCahierInfos} from '../infos/pop-infos';
-import type {Bookable, BookableWithLastBooking, Booking, User} from './server-requests';
+import type {Bookable, BookableWithLastBooking, Booking, User} from '../types';
 
 export function popAlert(txt = 'haha ahah ahah '): void {
     const elem = openPopUp();

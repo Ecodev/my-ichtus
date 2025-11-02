@@ -1,7 +1,8 @@
 import {closePopUp, div, getNiceDate, getNiceTime, grayBar, inverse, Mois, openPopUp, shorten} from '../general/home';
-import {type Booking, Requests} from '../general/server-requests';
+import {Requests} from '../general/server-requests';
 import {popBooking} from '../cahier/pop-booking';
 import {Cahier, getStartCommentFromBooking} from '../cahier/methods';
+import type {Booking} from '../types';
 
 let currentYear = -1;
 let currentMonth = -1;
