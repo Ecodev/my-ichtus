@@ -96,7 +96,7 @@ export const Requests = {
 
     // have to log in
     haveToLogin: function (): void {
-        if (window.location.hostname === 'navigations.ichtus.club') {
+        if (window.location.hostname === 'ichtus.club') {
             popLogin();
         } else {
             setTimeout(function () {

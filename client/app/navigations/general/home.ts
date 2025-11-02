@@ -67,7 +67,7 @@ export function load(): void {
     loadEscListener();
 
     const version = '1.5';
-    if (window.location.hostname === 'navigations.ichtus.club') {
+    if (window.location.hostname === 'ichtus.club') {
         console.warn('Version de production ' + version);
         $('divTopBarText').innerHTML = tabs[0].title;
     } else {
