@@ -109,14 +109,14 @@ function bookableTags(): DropdownFacet<TypeSelectNaturalConfiguration<BookableTa
     };
 }
 
-function owner(): DropdownFacet<TypeSelectNaturalConfiguration<UserService>> {
+function owner(label = 'Utilisateur'): DropdownFacet<TypeSelectNaturalConfiguration<UserService>> {
     return {
-        display: 'Utilisateur',
+        display: label,
         field: 'owner',
         component: TypeNaturalSelectComponent,
         configuration: {
             service: inject(UserService),
-            placeholder: 'Utilisateur',
+            placeholder: label,
         },
     };
 }
@@ -597,6 +597,7 @@ export function admin_approved(): NaturalSearchFacets {
     return [
         name,
         code,
+        owner('Responsable'),
         bookableTags(),
         bookableStatus(),
         initialPrice,
@@ -612,6 +613,7 @@ export function equipment(): NaturalSearchFacets {
     return [
         name,
         code,
+        owner('Responsable'),
         bookableTags(),
         bookableStatus(),
         purchasePrice,

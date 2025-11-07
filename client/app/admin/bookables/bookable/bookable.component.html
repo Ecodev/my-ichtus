@@ -224,6 +224,9 @@
                             placeholder="Responsable"
                             [service]="userService"
                             [showIcon]="false"
+                            [navigateTo]="
+                                form.get('owner')?.value?.id ? ['/admin/user', form.get('owner')?.value.id] : null
+                            "
                             (selectionChange)="update()"
                         />
 
