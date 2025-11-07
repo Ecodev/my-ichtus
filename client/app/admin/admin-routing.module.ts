@@ -281,7 +281,7 @@ export const routes: Routes = [
                                 title: 'Cours',
                             } satisfies NaturalSeo,
                             hideTableFooter: true,
-                            selectedColumns: ['name', 'code', 'initialPrice', 'usageStatus'],
+                            selectedColumns: ['name', 'code', 'initialPrice', 'owner', 'usageStatus'],
                             forcedVariables: merge(BookableService.bookableByTag(BookableTagService.FORMATION), {
                                 sorting: [{field: BookableSortingField.creationDate, order: SortingOrder.DESC}],
                             }),
@@ -311,7 +311,7 @@ export const routes: Routes = [
                                 title: "Séances d'accueil",
                             } satisfies NaturalSeo,
                             hideTableFooter: true,
-                            selectedColumns: ['name', 'updateDate', 'usageStatus'],
+                            selectedColumns: ['name', 'updateDate', 'owner', 'usageStatus'],
                             forcedVariables: merge(BookableService.bookableByTag(BookableTagService.WELCOME), {
                                 sorting: [{field: BookableSortingField.creationDate, order: SortingOrder.DESC}],
                             }),
