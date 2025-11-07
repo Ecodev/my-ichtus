@@ -37,6 +37,7 @@ export const usageStatus: AvailableColumn = {id: 'usageStatus', label: 'Inscript
 export const verificationDate: AvailableColumn = {id: 'verificationDate', label: 'Dernière vérification'};
 export const select: AvailableColumn = {id: 'select', label: 'Sélection', hidden: true};
 export const createApplication: AvailableColumn = {id: 'createApplication', label: 'Demander', hidden: true};
+export const owner: AvailableColumn = {id: 'owner', label: 'Responsable'};
 
 export type ApplicationConfirmData = FutureOwner;
 export type ApplicationConfirmResult = string;
@@ -97,6 +98,7 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
                   purchasePrice,
                   initialPrice,
                   periodicPrice,
+                  owner,
                   updateDate,
                   ...(this.hasUsage ? [usage, availability, usageStatus] : []),
                   verificationDate,

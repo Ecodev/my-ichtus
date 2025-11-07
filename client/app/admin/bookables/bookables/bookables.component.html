@@ -224,6 +224,14 @@ Warning this template is used by two components BookablesComponent and UsageBook
                         <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
+                    <ng-container matColumnDef="owner">
+                        <th *matHeaderCellDef mat-header-cell>Responsable</th>
+                        <td *matCellDef="let element" mat-cell>
+                            {{ element.owner.name }}
+                        </td>
+                        <td *matFooterCellDef mat-footer-cell></td>
+                    </ng-container>
+
                     <ng-container matColumnDef="availability">
                         <th *matHeaderCellDef mat-header-cell class="natural-3em-column natural-align-center">
                             Disponibilité

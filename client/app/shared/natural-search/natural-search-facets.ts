@@ -582,6 +582,7 @@ export function bookables(): NaturalSearchFacets {
         bookableTags(),
         bookableStatus(),
         bookingType(),
+        owner('Responsable'),
         initialPrice,
         periodicPrice,
         purchasePrice,
