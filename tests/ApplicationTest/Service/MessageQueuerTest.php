@@ -150,7 +150,18 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
         $this->assertMessage($message, null, 'caissier@ichtus.ch', MessageTypeType::ADMIN_LEAVE_FAMILY, 'Ménage quitté');
     }
 
-    private function createMockUser(?User $owner = null): User
+    public function testQueueRequestUserDeletion(): void
+    {
+        $userToDelete = $this->createMockUserWithFamilyOwner(true, true);
+        $requestingUser = $userToDelete->getOwner();
+        $messageQueuer = $this->createMessageQueuer();
+
+        $message = $messageQueuer->queueRequestUserDeletion($requestingUser, $userToDelete);
+
+        $this->assertMessage($message, null, 'caissier@ichtus.ch', MessageTypeType::REQUEST_USER_DELETION, 'Demande de suppression de compte');
+    }
+
+    private function createMockUser(?User $owner = null, bool $withEmail = true): User
     {
         $user = $this->createMock(User::class);
 
@@ -176,7 +187,7 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
 
         $user->expects(self::any())
             ->method('getEmail')
-            ->willReturn($owner ? null : 'john.doe@example.com');
+            ->willReturn($withEmail ? 'john.doe@example.com' : null);
 
         $user->expects(self::any())
             ->method('createToken')
@@ -189,7 +200,7 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
         return $user;
     }
 
-    private function createMockUserWithFamilyOwner(bool $hasEmail): User
+    private function createMockUserWithFamilyOwner(bool $hasEmail, bool $ownerHasEmail = false): User
     {
         $owner = $this->createMock(User::class);
 
@@ -209,7 +220,7 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
             ->method('getEmail')
             ->willReturn($hasEmail ? 'family-owner@example.com' : null);
 
-        $user = $this->createMockUser($owner);
+        $user = $this->createMockUser($owner, $ownerHasEmail);
 
         return $user;
     }

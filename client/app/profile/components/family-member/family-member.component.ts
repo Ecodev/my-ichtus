@@ -18,29 +18,38 @@ import {MatError, MatFormField, MatLabel, MatPrefix, MatSuffix} from '@angular/m
 import {MatDivider} from '@angular/material/divider';
 import {MatButton} from '@angular/material/button';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatTooltip} from '@angular/material/tooltip';
+
+/**
+ * All users that were requested to be deleted during this session.
+ * We specifically never clear the map, unless in case of XHR error,
+ * because we want to prevent email spamming.
+ */
+const userDeletionRequested = new Map<string, void>();
 
 @Component({
     selector: 'app-family-member',
     imports: [
         FormsModule,
         ReactiveFormsModule,
-        NaturalSelectEnumComponent,
-        MatButton,
-        MatDivider,
-        MatFormField,
-        MatLabel,
-        MatError,
-        MatPrefix,
-        MatSuffix,
-        MatInput,
-        MatIcon,
-        NaturalIconDirective,
         AddressComponent,
+        MatButton,
+        MatCheckbox,
         MatDatepicker,
         MatDatepickerInput,
         MatDatepickerToggle,
-        MatCheckbox,
+        MatDivider,
+        MatError,
+        MatFormField,
+        MatIcon,
+        MatInput,
+        MatLabel,
+        MatPrefix,
+        MatSuffix,
+        MatTooltip,
         NaturalFixedButtonComponent,
+        NaturalIconDirective,
+        NaturalSelectEnumComponent,
     ],
     templateUrl: './family-member.component.html',
     styleUrl: './family-member.component.scss',
@@ -53,6 +62,7 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
     public readonly removed = output();
     public readonly updated = output<UpdateUser['updateUser']>();
     public loaded = false;
+    public readonly userDeletionRequested = userDeletionRequested;
 
     public constructor() {
         super('user', inject(FamilyUserService));
@@ -127,5 +137,32 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
 
     protected override postUpdate(model: UpdateUser['updateUser']): void {
         this.updated.emit(model);
+    }
+
+    public requestUserDeletion(): void {
+        if (!this.isUpdatePage()) {
+            return;
+        }
+
+        const explanation = `Une personne du club prendra contact avec toi pour coordonner la suppression définitive du compte "${this.data.model.name}", et le remboursement du solde le cas échéant. Après quoi, tu perderas tout accès au club et tes données personnelles seront supprimée définitivement.`;
+        this.alertService
+            .confirm(
+                `Suppression définitive du compte "${this.data.model.name}"`,
+                explanation,
+                `Demander la suppression définitive`,
+            )
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    const user = this.user();
+                    this.userDeletionRequested.set(user.id);
+                    this.service.requestUserDeletion(user.id).subscribe({
+                        next: () => {
+                            const message = `Demande envoyée`;
+                            this.alertService.info(message, 5000);
+                        },
+                        error: () => this.userDeletionRequested.delete(this.user().id),
+                    });
+                }
+            });
     }
 }

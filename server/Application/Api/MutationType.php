@@ -18,6 +18,7 @@ use Application\Api\Field\Mutation\OpenDoor;
 use Application\Api\Field\Mutation\ReconcileTransactionLine;
 use Application\Api\Field\Mutation\Register;
 use Application\Api\Field\Mutation\RequestPasswordReset;
+use Application\Api\Field\Mutation\RequestUserDeletion;
 use Application\Api\Field\Mutation\TerminateBooking;
 use Application\Api\Field\Mutation\Unregister;
 use Application\Api\Field\Mutation\UpdateConfiguration;
@@ -67,6 +68,7 @@ class MutationType extends ObjectType
             ExportTransactionLines::build(),
             Utility::filterByKeys(Standard::buildMutation(User::class), 'createUser', 'updateUser'),
             DeleteUsers::build(),
+            RequestUserDeletion::build(),
 
             // Standard fields
             Standard::buildMutation(Bookable::class),

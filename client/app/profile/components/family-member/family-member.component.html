@@ -106,6 +106,19 @@
                 <div class="line-break">{{ form.get('remarks')?.value }}</div>
             </div>
         }
+        @if (isUpdatePage() && data.model.permissions.update) {
+            <span matTooltip="Demande déjà envoyée" [matTooltipDisabled]="!userDeletionRequested.has(data.model.id)">
+                <button
+                    mat-stroked-button
+                    color="warn"
+                    i18n
+                    [disabled]="userDeletionRequested.has(data.model.id)"
+                    (click)="requestUserDeletion()"
+                >
+                    Supprimer
+                </button>
+            </span>
+        }
         @if (!isUpdatePage()) {
             <natural-fixed-button icon="save" [color]="form.valid ? 'accent' : 'warn'" (click)="create(false)" />
         }

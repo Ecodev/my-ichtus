@@ -257,3 +257,9 @@ export const leaveFamilyMutation = gql`
     ${userFieldsFragment}
     ${userMetaFragment}
 `;
+
+export const requestUserDeletion = gql`
+    mutation RequestUserDeletion($id: UserID!) {
+        requestUserDeletion(id: $id)
+    }
+`;

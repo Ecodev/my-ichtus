@@ -14,6 +14,7 @@ class MessageTypeType extends EnumType
     final public const BALANCE = 'balance';
     final public const LEAVE_FAMILY = 'leave_family';
     final public const ADMIN_LEAVE_FAMILY = 'admin_leave_family';
+    final public const REQUEST_USER_DELETION = 'request_user_deletion';
 
     protected function getPossibleValues(): array
     {
@@ -24,6 +25,7 @@ class MessageTypeType extends EnumType
             self::BALANCE,
             self::LEAVE_FAMILY,
             self::ADMIN_LEAVE_FAMILY,
+            self::REQUEST_USER_DELETION,
         ];
     }
 }

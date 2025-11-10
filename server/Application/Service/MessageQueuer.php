@@ -105,6 +105,19 @@ class MessageQueuer
         return $message;
     }
 
+    public function queueRequestUserDeletion(User $requestingUser, User $userToDelete): ?Message
+    {
+        $subject = _tr('Demande de suppression de compte');
+        $mailParams = [
+            'requestingUser' => $requestingUser,
+            'userToDelete' => $userToDelete,
+        ];
+
+        $message = $this->createMessage(null, $subject, MessageTypeType::REQUEST_USER_DELETION, $mailParams, 'caissier@ichtus.ch');
+
+        return $message;
+    }
+
     /**
      * Create a message by rendering the template.
      */

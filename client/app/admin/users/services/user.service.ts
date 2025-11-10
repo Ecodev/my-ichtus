@@ -23,6 +23,7 @@ import {
     leaveFamilyMutation,
     loginMutation,
     logoutMutation,
+    requestUserDeletion,
     unregisterMutation,
     updateUser,
     userByTokenQuery,
@@ -52,6 +53,8 @@ import {
     Relationship,
     RequestPasswordReset,
     RequestPasswordResetVariables,
+    type RequestUserDeletion,
+    type RequestUserDeletionVariables,
     Sex,
     SortingOrder,
     Unregister,
@@ -541,6 +544,17 @@ export class UserService
                 },
             })
             .pipe(map(result => result.data!.leaveFamily));
+    }
+
+    public requestUserDeletion(userId: string): Observable<RequestUserDeletion['requestUserDeletion']> {
+        return this.apollo
+            .mutate<RequestUserDeletion, RequestUserDeletionVariables>({
+                mutation: requestUserDeletion,
+                variables: {
+                    id: userId,
+                },
+            })
+            .pipe(map(result => result.data!.requestUserDeletion));
     }
 
     /**

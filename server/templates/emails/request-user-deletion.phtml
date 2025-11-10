@@ -1,0 +1,6 @@
+<?php declare(strict_types=1); ?>
+<p><?php echo _tr("%requestingUser% a demandé de supprimer définitivement l'utilisateur suivant:", ['requestingUser' => $this->escapeHtml($this->requestingUser->getName())]) ?></p>
+
+<?php echo $this->userInfos($this->userToDelete) ?>
+
+<p><?php echo _tr("Assurez-vous de contacter l'utilisateur en question pour coordonner l'éventuel remboursement du solde et la suppression définitive du compte.") ?></p>
