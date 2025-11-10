@@ -38,6 +38,7 @@ import {CurrencyPipe} from '@angular/common';
 import {MatIcon} from '@angular/material/icon';
 import {MatInput} from '@angular/material/input';
 import {MatError, MatFormField, MatLabel, MatPrefix, MatSuffix} from '@angular/material/form-field';
+import {privacyPolicyUrl} from '../../../login/login.component';
 
 @Component({
     selector: 'app-register',
@@ -86,6 +87,7 @@ export class RegisterComponent implements OnInit {
     protected readonly router = inject(Router);
     protected readonly alertService = inject(NaturalAlertService);
     protected readonly bookableService = inject(BookableService);
+    protected readonly privacyPolicyUrl = privacyPolicyUrl;
 
     public mandatoryBookables: NaturalDataSource<Bookables['bookables']> | null = null;
 
@@ -111,6 +113,7 @@ export class RegisterComponent implements OnInit {
             email: [this.route.snapshot.params.email, [Validators.required, deliverableEmail]],
             termsAgreement: [false, []],
             hasInsurance: [false, []],
+            privacyPolicyAgreement: [false, []],
         });
     }
 

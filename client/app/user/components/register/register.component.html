@@ -174,7 +174,19 @@
                     @if (form.get('hasInsurance')?.touched && form.get('hasInsurance')?.hasError('required')) {
                         <mat-error class="mat-body-2"> Requis </mat-error>
                     }
-                    <p class="mat-body-2"></p>
+
+                    <mat-checkbox formControlName="privacyPolicyAgreement" required>
+                        <span class="rich-text" i18n
+                            >J'ai pris connaissance et approuve
+                            <a target="_blank" [href]="privacyPolicyUrl">la politique de confidentialité</a>
+                        </span>
+                    </mat-checkbox>
+                    @if (
+                        form.controls.privacyPolicyAgreement.touched &&
+                        form.controls.privacyPolicyAgreement.hasError('required')
+                    ) {
+                        <mat-error class="mat-body-2" i18n>Requis</mat-error>
+                    }
                 </div>
                 <mat-divider [vertical]="true" />
                 <div class="nat-expand">

@@ -10,7 +10,7 @@ import {MatIcon} from '@angular/material/icon';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
 import {MatError, MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';
-
+export const privacyPolicyUrl = 'https://ichtus.ch/contact/politique-de-confidentialite/';
 @Component({
     selector: 'app-login',
     imports: [
@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
     private readonly userService = inject(UserService);
     private readonly snackBar = inject(MatSnackBar);
     private readonly fb = inject(NonNullableFormBuilder);
+    protected readonly privacyPolicyUrl = privacyPolicyUrl;
 
     /**
      * Stores the received redirect URL until we need to use it (when login is successfull)

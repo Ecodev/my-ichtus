@@ -18,6 +18,7 @@ test.describe('as anonymous', () => {
 
         await page.type(formControlName('email'), email);
         await page.click(formControlName('termsAgreement'));
+        await page.click(formControlName('privacyPolicyAgreement'));
         await page.click(buttonLabel('Adhérer'));
 
         expect(await app.getSnackBar()).toMatch(/Un email avec des instructions a été envoyé/);
