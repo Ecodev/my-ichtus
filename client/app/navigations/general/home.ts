@@ -84,6 +84,8 @@ export function load(): void {
     //LOAD
     loadBottoms();
     loadMateriel();
+
+    reloadAppWhenIdle();
 }
 
 // auto actualize if mouse doesn't move
@@ -101,11 +103,13 @@ function setTimeoutMove(): void {
     );
 }
 
-setTimeoutMove();
-
-document.onmousemove = function () {
+function reloadAppWhenIdle(): void {
     setTimeoutMove();
-};
+
+    document.onmousemove = function () {
+        setTimeoutMove();
+    };
+}
 
 // could be improved...
 const Time = {
