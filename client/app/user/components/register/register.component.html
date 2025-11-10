@@ -176,7 +176,7 @@
                     }
 
                     <mat-checkbox formControlName="privacyPolicyAgreement" required>
-                        <span class="rich-text" i18n
+                        <span class="rich-text"
                             >J'ai pris connaissance et approuve
                             <a target="_blank" [href]="privacyPolicyUrl">la politique de confidentialité</a>
                         </span>
@@ -185,7 +185,7 @@
                         form.controls.privacyPolicyAgreement.touched &&
                         form.controls.privacyPolicyAgreement.hasError('required')
                     ) {
-                        <mat-error class="mat-body-2" i18n>Requis</mat-error>
+                        <mat-error class="mat-body-2">Requis</mat-error>
                     }
                 </div>
                 <mat-divider [vertical]="true" />

@@ -56,6 +56,11 @@ import {MatInput} from '@angular/material/input';
 import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from '@angular/material/form-field';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
+import {MatDialog} from '@angular/material/dialog';
+import {
+    DeleteUserConfirmComponent,
+    type DeleteUserConfirmData,
+} from '../delete-user-confirm/delete-user-confirm.component';
 
 @Component({
     selector: 'app-user',
@@ -109,6 +114,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeo
     public readonly bookingService = inject(BookingService);
     public readonly accountService = inject(AccountService);
     public readonly permissionsService = inject(PermissionsService);
+    private readonly dialog = inject(MatDialog);
 
     public showFamilyTab = false;
     public updating = false;
@@ -252,5 +258,24 @@ export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeo
                 this.ibanCtrl.disable();
             }
         });
+    }
+
+    /**
+     * Override to use custom deletion confirmation
+     */
+    public override delete(redirectionRoute?: unknown[]): void {
+        if (!this.isUpdatePage()) {
+            return;
+        }
+
+        const dialog = this.dialog
+            .open<DeleteUserConfirmComponent, DeleteUserConfirmData, boolean>(DeleteUserConfirmComponent, {
+                data: {
+                    user: this.data.model.id,
+                },
+            })
+            .afterClosed();
+
+        super.delete(redirectionRoute, dialog);
     }
 }

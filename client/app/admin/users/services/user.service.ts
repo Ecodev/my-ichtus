@@ -19,6 +19,7 @@ import {map, switchMap, takeUntil, tap} from 'rxjs/operators';
 import {
     createUser,
     currentUserForProfileQuery,
+    deleteUsers,
     leaveFamilyMutation,
     loginMutation,
     logoutMutation,
@@ -38,6 +39,8 @@ import {
     CreateUser,
     CreateUserVariables,
     CurrentUserForProfile,
+    type DeleteUsers,
+    type DeleteUsersVariables,
     LeaveFamily,
     LeaveFamilyVariables,
     LogicalOperator,
@@ -98,8 +101,8 @@ export class UserService
         CreateUserVariables,
         UpdateUser['updateUser'],
         UpdateUserVariables,
-        never,
-        never
+        DeleteUsers,
+        DeleteUsersVariables
     >
     implements OnDestroy
 {
@@ -121,7 +124,7 @@ export class UserService
     private readonly onDestroy = new Subject<void>();
 
     public constructor() {
-        super('user', userQuery, usersQuery, createUser, updateUser, null);
+        super('user', userQuery, usersQuery, createUser, updateUser, deleteUsers);
         this.keepViewerSyncedAcrossBrowserTabs();
     }
 

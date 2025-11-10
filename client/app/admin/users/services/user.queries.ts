@@ -202,6 +202,12 @@ export const createUser = gql`
     ${userMetaFragment}
 `;
 
+export const deleteUsers = gql`
+    mutation DeleteUsers($ids: [UserID!]!) {
+        deleteUsers(ids: $ids)
+    }
+`;
+
 export const logoutMutation = gql`
     mutation Logout {
         logout

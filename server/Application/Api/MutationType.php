@@ -7,6 +7,7 @@ namespace Application\Api;
 use Application\Api\Field\Mutation\AccountingClosing;
 use Application\Api\Field\Mutation\ConfirmRegistration;
 use Application\Api\Field\Mutation\CreateTransaction;
+use Application\Api\Field\Mutation\DeleteUsers;
 use Application\Api\Field\Mutation\ExportAccountingReport;
 use Application\Api\Field\Mutation\ExportTransactionLines;
 use Application\Api\Field\Mutation\ImportCamt;
@@ -64,6 +65,8 @@ class MutationType extends ObjectType
             AccountingClosing::build(),
             ExportAccountingReport::build(),
             ExportTransactionLines::build(),
+            Utility::filterByKeys(Standard::buildMutation(User::class), 'createUser', 'updateUser'),
+            DeleteUsers::build(),
 
             // Standard fields
             Standard::buildMutation(Bookable::class),
@@ -72,7 +75,6 @@ class MutationType extends ObjectType
             Standard::buildMutation(Booking::class),
             Standard::buildMutation(Image::class),
             Standard::buildMutation(License::class),
-            Standard::buildMutation(User::class),
             Standard::buildMutation(UserTag::class),
             Standard::buildMutation(Account::class),
             Standard::buildMutation(TransactionTag::class),

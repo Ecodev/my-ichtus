@@ -107,7 +107,7 @@ class Acl extends \Ecodev\Felix\Acl\Acl
 
         $this->allow(User::ROLE_ADMINISTRATOR, [$account], ['create', 'update']);
         $this->allow(User::ROLE_ADMINISTRATOR, [$account], ['delete'], new AccountHasNoTransaction());
-        $this->allow(User::ROLE_ADMINISTRATOR, [$license, $userTag, $bookableTag], ['delete']);
+        $this->allow(User::ROLE_ADMINISTRATOR, [$license, $user, $userTag, $bookableTag], ['delete']);
         $this->allow(User::ROLE_ADMINISTRATOR, [$bookable, $transaction, $transactionTag, $accountingDocument, $expenseClaim], ['create', 'update', 'delete']);
         $this->allow(User::ROLE_ADMINISTRATOR, [$configuration], ['create']);
     }

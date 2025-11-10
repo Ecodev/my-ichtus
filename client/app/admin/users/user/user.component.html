@@ -413,6 +413,6 @@
     </mat-tab-group>
 
     @if (showFabButton) {
-        <natural-fixed-button-detail [form]="form" [model]="data.model" (create)="create()" />
+        <natural-fixed-button-detail [form]="form" [model]="data.model" (create)="create()" (delete)="delete()" />
     }
 </div>

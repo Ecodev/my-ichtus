@@ -321,7 +321,6 @@ export function users(): NaturalSearchFacets {
 
     return [
         userTags(),
-
         {
             display: 'Réservation (réservable)',
             field: 'custom',
@@ -456,6 +455,7 @@ export function users(): NaturalSearchFacets {
             },
         } satisfies DropdownFacet<TypeNumberConfiguration>,
         internalRemarks,
+        owner(),
         {
             display: 'Date de naissance',
             field: 'birthday',
@@ -719,6 +719,7 @@ export function accounts(): NaturalSearchFacets {
                 step: 1,
             },
         } satisfies DropdownFacet<TypeNumberConfiguration>,
+        owner(),
         creationDate,
         updateDate,
     ];
