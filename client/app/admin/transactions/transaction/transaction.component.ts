@@ -177,7 +177,7 @@ export class TransactionComponent
             expenseClaimControl.setValue(expenseClaim);
         }
 
-        let preset: Observable<TransactionLineInput[]> | null = null;
+        let preset: Observable<TransactionLineInput> | null = null;
         if (expenseClaim.owner?.account) {
             if (expenseClaim.type === ExpenseClaimType.ExpenseClaim) {
                 preset = this.service.getExpenseClaimPreset(expenseClaim.owner.account, expenseClaim.amount);
@@ -191,7 +191,14 @@ export class TransactionComponent
         }
 
         if (preset) {
-            preset.subscribe(preset => this.transactionLinesComponent()?.setItems(preset));
+            preset.subscribe(preset =>
+                this.transactionLinesComponent()?.setItems([
+                    {
+                        ...preset,
+                        remarks: expenseClaim.description,
+                    },
+                ]),
+            );
         }
     }
 

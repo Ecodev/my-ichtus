@@ -61,7 +61,7 @@ export class TransactionService extends NaturalAbstractModelService<
         this.bankAccount = this.accountService.getAccountByCode(localConfig.accounting.bankAccountCode);
     }
 
-    public getRefundPreset(account: {id: string}, amount: string): Observable<TransactionLineInput[]> {
+    public getRefundPreset(account: {id: string}, amount: string): Observable<TransactionLineInput> {
         return this.bankAccount.pipe(
             map(bankAccount => {
                 const emptyLine = this.transactionLineService.getDefaultForServer();
@@ -74,12 +74,12 @@ export class TransactionService extends NaturalAbstractModelService<
                     transactionDate: formatIsoDateTime(new Date()),
                 };
 
-                return [Object.assign(emptyLine, line)];
+                return Object.assign(emptyLine, line);
             }),
         );
     }
 
-    public getExpenseClaimPreset(account: {id: string}, amount: string): Observable<TransactionLineInput[]> {
+    public getExpenseClaimPreset(account: {id: string}, amount: string): Observable<TransactionLineInput> {
         return this.bankAccount.pipe(
             map(bankAccount => {
                 const emptyLine = this.transactionLineService.getDefaultForServer();
@@ -92,12 +92,12 @@ export class TransactionService extends NaturalAbstractModelService<
                     transactionDate: formatIsoDateTime(new Date()),
                 };
 
-                return [Object.assign(emptyLine, line)];
+                return Object.assign(emptyLine, line);
             }),
         );
     }
 
-    public getInvoicePreset(name: string, amount: string): Observable<TransactionLineInput[]> {
+    public getInvoicePreset(name: string, amount: string): Observable<TransactionLineInput> {
         return this.bankAccount.pipe(
             map(bankAccount => {
                 const emptyLine = this.transactionLineService.getDefaultForServer();
@@ -110,7 +110,7 @@ export class TransactionService extends NaturalAbstractModelService<
                     transactionDate: formatIsoDateTime(new Date()),
                 };
 
-                return [Object.assign(emptyLine, line)];
+                return Object.assign(emptyLine, line);
             }),
         );
     }

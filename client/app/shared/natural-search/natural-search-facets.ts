@@ -309,6 +309,13 @@ const internalRemarks: DropdownFacet<never> = {
     transform: wrapLike,
 };
 
+const remarks: DropdownFacet<never> = {
+    display: 'Remarques',
+    field: 'remarks',
+    component: TypeTextComponent,
+    transform: wrapLike,
+};
+
 export function users(): NaturalSearchFacets {
     assertInInjectionContext(users);
 
@@ -542,6 +549,7 @@ export function transactionLines(): NaturalSearchFacets {
                 ],
             },
         } satisfies DropdownFacet<TypeSelectConfiguration>,
+        remarks,
         bookable(),
         transactionTags(),
         owner(),
