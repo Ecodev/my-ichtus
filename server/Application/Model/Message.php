@@ -11,6 +11,10 @@ use Doctrine\ORM\Mapping as ORM;
  * A message sent to a user.
  */
 #[ORM\Entity(MessageRepository::class)]
+#[ORM\AssociationOverrides([
+    new ORM\AssociationOverride(name: 'owner', joinColumns: new ORM\JoinColumn(onDelete: 'CASCADE')),
+    new ORM\AssociationOverride(name: 'recipient', joinColumns: new ORM\JoinColumn(onDelete: 'CASCADE')),
+])]
 class Message extends AbstractModel implements \Ecodev\Felix\Model\Message
 {
     use \Ecodev\Felix\Model\Traits\Message;

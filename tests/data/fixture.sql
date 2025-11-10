@@ -308,4 +308,10 @@ REPLACE INTO bookable_metadata (id, bookable_id, name, value) VALUES
 (13000, 3000, 'Largeur', '1405 mm'),
 (13001, 3000, 'Hauteur', '1605 mm');
 
+REPLACE INTO license_user (license_id, user_id) VALUES
+(2000, 1003);
+
+REPLACE INTO configuration (`key`, value) VALUES
+('test-key', 'test-value');
+
 COMMIT;

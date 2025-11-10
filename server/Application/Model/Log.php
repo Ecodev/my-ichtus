@@ -13,6 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Index(name: 'level', columns: ['level'])]
 #[ORM\Index(name: 'message', columns: ['message'], options: ['lengths' => [191]])]
 #[ORM\Entity(LogRepository::class)]
+#[ORM\AssociationOverrides([
+    new ORM\AssociationOverride(name: 'owner', joinColumns: new ORM\JoinColumn(onDelete: 'CASCADE')),
+    new ORM\AssociationOverride(name: 'creator', joinColumns: new ORM\JoinColumn(onDelete: 'CASCADE')),
+])]
 class Log extends AbstractModel
 {
     use \Ecodev\Felix\Model\Traits\Log;

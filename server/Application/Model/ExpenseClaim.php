@@ -23,7 +23,6 @@ use Money\Money;
  */
 #[API\Filter(field: 'custom', operator: ExpenseClaimToReviewOperatorType::class, type: 'boolean')]
 #[ORM\Entity(ExpenseClaimRepository::class)]
-#[ORM\AssociationOverrides([new ORM\AssociationOverride(name: 'owner', joinColumns: new ORM\JoinColumn(nullable: false, onDelete: 'CASCADE'))])]
 class ExpenseClaim extends AbstractModel
 {
     use HasDescription;
