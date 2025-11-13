@@ -10,14 +10,7 @@
                     <mat-form-field>
                         <mat-label>Nom</mat-label>
                         <input matInput formControlName="name" />
-                        @if (formArray.at(i).get('name')?.hasError('maxlength')) {
-                            <mat-error>
-                                Maximum {{ formArray.at(i).get('name')?.errors?.maxlength?.requiredLength }} caractères
-                            </mat-error>
-                        }
-                        @if (formArray.at(i).get('name')?.hasError('required')) {
-                            <mat-error>Requis</mat-error>
-                        }
+                        <mat-error>{{ formArray.at(i).get('name')?.errors | errorMessage }}</mat-error>
                     </mat-form-field>
                 </td>
             </ng-container>
@@ -28,17 +21,7 @@
                     <mat-form-field>
                         <mat-label>Montant</mat-label>
                         <input matInput type="number" formControlName="balance" step="0.01" />
-                        @if (formArray.at(i).get('balance')?.hasError('money')) {
-                            <mat-error>Le montant doit être un nombre avec un maximum de deux décimales </mat-error>
-                        }
-                        @if (formArray.at(i).get('balance')?.hasError('min')) {
-                            <mat-error>
-                                Doit être supérieur à {{ formArray.at(i).get('balance')?.errors.min.min }}
-                            </mat-error>
-                        }
-                        @if (formArray.at(i).get('balance')?.hasError('required')) {
-                            <mat-error>Requis</mat-error>
-                        }
+                        <mat-error>{{ formArray.at(i).get('balance')?.errors | errorMessage }}</mat-error>
                     </mat-form-field>
                 </td>
             </ng-container>

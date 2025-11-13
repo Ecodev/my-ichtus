@@ -1,3 +1,4 @@
+import {NaturalErrorMessagePipe} from '@ecodev/natural';
 import {Component, inject, OnInit} from '@angular/core';
 import {
     formatIsoDateTime,
@@ -68,6 +69,7 @@ import {UserService} from '../../users/services/user.service';
         MatFormField,
         MatLabel,
         MatError,
+        NaturalErrorMessagePipe,
         MatHint,
         MatSuffix,
         MatInput,

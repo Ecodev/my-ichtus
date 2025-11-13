@@ -1,4 +1,3 @@
-<!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
 <div class="detail-body" [formGroup]="form">
     <natural-detail-header
         label="Compte"
@@ -18,14 +17,7 @@
                     <mat-form-field class="nat-expand">
                         <mat-label>Nom</mat-label>
                         <input matInput formControlName="name" (change)="update()" />
-                        @if (form.get('name')?.hasError('maxlength')) {
-                            <mat-error>
-                                Maximum {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
-                            </mat-error>
-                        }
-                        @if (form.get('name')?.hasError('required')) {
-                            <mat-error>Requis</mat-error>
-                        }
+                        <mat-error>{{ form.get('name')?.errors | errorMessage }}</mat-error>
                     </mat-form-field>
 
                     <mat-form-field [style.width.px]="250">
@@ -41,17 +33,10 @@
                                 <mat-icon naturalIcon="reply" />
                             </button>
                         }
-                        @if (form.get('code')?.hasError('min')) {
-                            <mat-error>Valeur positive</mat-error>
-                        }
-                        @if (form.get('code')?.hasError('integer')) {
-                            <mat-error>Doit être un nombre entier</mat-error>
-                        }
-                        @if (form.get('code')?.hasError('required')) {
-                            <mat-error>Requis</mat-error>
-                        }
                         @if (form.get('code')?.hasError('duplicateValue')) {
                             <mat-error>Ce numéro est déjà attribué</mat-error>
+                        } @else {
+                            <mat-error>{{ form.get('code')?.errors | errorMessage }}</mat-error>
                         }
                         @if (nextCodeAvailable) {
                             <mat-hint>Prochain n° disponible: {{ nextCodeAvailable }}</mat-hint>
@@ -62,12 +47,7 @@
                         <mat-form-field>
                             <mat-label>IBAN Ichtus</mat-label>
                             <input matInput formControlName="iban" (change)="update()" />
-                            @if (form.get('iban')?.hasError('iban')) {
-                                <mat-error> IBAN invalide</mat-error>
-                            }
-                            @if (form.get('iban')?.hasError('required')) {
-                                <mat-error>Requis</mat-error>
-                            }
+                            <mat-error>{{ form.get('iban')?.errors | errorMessage }}</mat-error>
                             <mat-hint>Pour les comptes bancaires ichtus uniquement</mat-hint>
                         </mat-form-field>
 
@@ -82,12 +62,7 @@
                                 (change)="update()"
                             />
                             <div matTextSuffix>CHF</div>
-                            @if (form.get('totalBalanceFormer')?.hasError('required')) {
-                                <mat-error>Requis</mat-error>
-                            }
-                            @if (form.get('totalBalanceFormer')?.hasError('money')) {
-                                <mat-error>Le montant doit être un nombre avec un maximum de deux décimales</mat-error>
-                            }
+                            <mat-error>{{ form.get('totalBalanceFormer')?.errors | errorMessage }}</mat-error>
                             <mat-hint>Sera déduit du solde actuel pour calculer le budget restant</mat-hint>
                         </mat-form-field>
                     }
@@ -103,12 +78,7 @@
                             (change)="update()"
                         />
                         <div matTextSuffix>CHF</div>
-                        @if (form.get('budgetAllowed')?.hasError('min')) {
-                            <mat-error>Le montant doit être positif</mat-error>
-                        }
-                        @if (form.get('budgetAllowed')?.hasError('money')) {
-                            <mat-error>Le montant doit être un nombre avec un maximum de deux décimales</mat-error>
-                        }
+                        <mat-error>{{ form.get('budgetAllowed')?.errors | errorMessage }}</mat-error>
                         @if (isUpdatePage() && data.model.budgetBalance) {
                             <mat-hint>Budget restant: {{ data.model.budgetBalance }} CHF</mat-hint>
                         }

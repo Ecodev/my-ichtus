@@ -1,3 +1,4 @@
+import {NaturalErrorMessagePipe} from '@ecodev/natural';
 import {Component, inject, OnInit} from '@angular/core';
 import {available, deliverableEmail, NaturalIconDirective, relationsToIds} from '@ecodev/natural';
 import {pick} from 'es-toolkit';
@@ -41,6 +42,7 @@ import {MatError, MatFormField, MatLabel, MatPrefix, MatSuffix} from '@angular/m
         MatFormField,
         MatLabel,
         MatError,
+        NaturalErrorMessagePipe,
         MatPrefix,
         MatSuffix,
         MatInput,

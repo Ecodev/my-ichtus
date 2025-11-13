@@ -1,3 +1,4 @@
+import {NaturalErrorMessagePipe} from '@ecodev/natural';
 import {Component, inject, OnInit} from '@angular/core';
 import {
     IEnum,
@@ -75,6 +76,7 @@ import {
         MatFormField,
         MatLabel,
         MatError,
+        NaturalErrorMessagePipe,
         MatHint,
         MatSuffix,
         MatInput,

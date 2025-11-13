@@ -13,14 +13,7 @@
                     <mat-form-field>
                         <input matInput formControlName="name" (change)="update()" />
                         <mat-label>Nom</mat-label>
-                        @if (form.get('name')?.hasError('maxlength')) {
-                            <mat-error>
-                                Maximum {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
-                            </mat-error>
-                        }
-                        @if (form.get('name')?.hasError('required')) {
-                            <mat-error>Requis</mat-error>
-                        }
+                        <mat-error>{{ form.get('name')?.errors | errorMessage }}</mat-error>
                     </mat-form-field>
                 </div>
 

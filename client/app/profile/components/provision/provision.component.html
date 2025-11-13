@@ -33,9 +33,7 @@
                     @if (formCtrl.errors?.min) {
                         <mat-error>Minimum {{ formCtrl.errors?.min?.min | currency: 'CHF' }}</mat-error>
                     }
-                    @if (formCtrl.hasError('money')) {
-                        <mat-error>Le montant doit être un nombre avec un maximum de deux décimales </mat-error>
-                    }
+                    <mat-error>{{ formCtrl.errors | errorMessage }}</mat-error>
                     <div matTextSuffix>CHF</div>
                 </mat-form-field>
             </div>

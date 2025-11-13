@@ -1,3 +1,4 @@
+import {NaturalErrorMessagePipe} from '@ecodev/natural';
 import {Component} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
@@ -14,6 +15,7 @@ import {MatCheckbox, MatCheckboxChange} from '@angular/material/checkbox';
         MatFormField,
         MatLabel,
         MatError,
+        NaturalErrorMessagePipe,
         MatSuffix,
         MatInput,
         FormsModule,

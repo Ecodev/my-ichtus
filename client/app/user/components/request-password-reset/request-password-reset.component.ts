@@ -1,3 +1,4 @@
+import {NaturalErrorMessagePipe} from '@ecodev/natural';
 import {Apollo} from 'apollo-angular';
 import {Component, inject} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -17,6 +18,7 @@ import {MatError, MatFormField, MatLabel, MatPrefix} from '@angular/material/for
         MatFormField,
         MatLabel,
         MatError,
+        NaturalErrorMessagePipe,
         MatPrefix,
         MatInput,
         MatIcon,

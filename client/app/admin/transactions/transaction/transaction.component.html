@@ -18,14 +18,7 @@
                     <mat-form-field>
                         <mat-label>Nom</mat-label>
                         <input matInput formControlName="name" />
-                        @if (form.get('name')?.hasError('maxlength')) {
-                            <mat-error>
-                                Maximum {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
-                            </mat-error>
-                        }
-                        @if (form.get('name')?.hasError('required')) {
-                            <mat-error>Requis</mat-error>
-                        }
+                        <mat-error>{{ form.get('name')?.errors | errorMessage }}</mat-error>
                     </mat-form-field>
 
                     <div class="nat-expand-50 nat-vertical">
@@ -34,9 +27,7 @@
                             <input matInput formControlName="transactionDate" [matDatepicker]="picker2" />
                             <mat-datepicker-toggle matIconSuffix [for]="picker2" />
                             <mat-datepicker #picker2 />
-                            @if (form.get('transactionDate')?.hasError('required')) {
-                                <mat-error>Requis</mat-error>
-                            }
+                            <mat-error>{{ form.get('transactionDate')?.errors | errorMessage }}</mat-error>
                         </mat-form-field>
 
                         <mat-form-field>

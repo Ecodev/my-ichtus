@@ -15,9 +15,7 @@
                     >
                         <mat-icon naturalIcon="lock" />
                     </button>
-                    @if (ibanCtrl.hasError('iban')) {
-                        <mat-error> IBAN invalide</mat-error>
-                    }
+                    <mat-error>{{ ibanCtrl.errors | errorMessage }}</mat-error>
                     <mat-hint>Pour pouvoir demander un remboursement</mat-hint>
                 </mat-form-field>
             </div>

@@ -6,11 +6,11 @@
             <input matInput formControlName="date" [matDatepicker]="picker" [max]="today" />
             <mat-datepicker-toggle matIconSuffix [for]="picker" />
             <mat-datepicker #picker />
-            @if (form.hasError('required')) {
-                <mat-error>Requis</mat-error>
-            }
+
             @if (form.hasError('matDatepickerMax')) {
                 <mat-error>La date d'export ne peut pas être dans le futur</mat-error>
+            } @else {
+                <mat-error>{{ form.errors | errorMessage }}</mat-error>
             }
         </mat-form-field>
         <mat-checkbox formControlName="showBudget">Afficher le budget</mat-checkbox>

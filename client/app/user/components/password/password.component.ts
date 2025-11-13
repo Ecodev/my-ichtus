@@ -1,3 +1,4 @@
+import {NaturalErrorMessagePipe} from '@ecodev/natural';
 import {Component, Input, OnInit} from '@angular/core';
 import {
     AbstractControl,
@@ -41,6 +42,7 @@ class ConfirmPasswordStateMatcher implements ErrorStateMatcher {
         MatFormField,
         MatLabel,
         MatError,
+        NaturalErrorMessagePipe,
         MatHint,
         MatPrefix,
         FormsModule,

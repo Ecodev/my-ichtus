@@ -1,3 +1,4 @@
+import {NaturalErrorMessagePipe} from '@ecodev/natural';
 import {Component, inject, Input} from '@angular/core';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {BookableService} from '../../bookables/services/bookable.service';
@@ -57,6 +58,7 @@ export type EditableTransactionLinesInput =
         MatFormField,
         MatLabel,
         MatError,
+        NaturalErrorMessagePipe,
         MatInput,
         NaturalSelectHierarchicComponent,
         MatCheckbox,

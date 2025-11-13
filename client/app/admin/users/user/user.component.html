@@ -21,28 +21,13 @@
                         <mat-form-field class="nat-sm-expand">
                             <mat-label>Prénom</mat-label>
                             <input matInput formControlName="firstName" (change)="update()" />
-                            @if (form.get('firstName')?.hasError('maxlength')) {
-                                <mat-error>
-                                    Maximum
-                                    {{ form.get('firstName')?.errors?.maxlength?.requiredLength }} caractères
-                                </mat-error>
-                            }
-                            @if (form.get('firstName')?.hasError('required')) {
-                                <mat-error>Requis</mat-error>
-                            }
+                            <mat-error>{{ form.get('firstName')?.errors | errorMessage }}</mat-error>
                         </mat-form-field>
 
                         <mat-form-field class="nat-sm-expand">
                             <mat-label>Nom de famille</mat-label>
                             <input matInput formControlName="lastName" (change)="update()" />
-                            @if (form.get('lastName')?.hasError('maxlength')) {
-                                <mat-error>
-                                    Maximum {{ form.get('lastName')?.errors?.maxlength?.requiredLength }} caractères
-                                </mat-error>
-                            }
-                            @if (form.get('lastName')?.hasError('required')) {
-                                <mat-error>Requis</mat-error>
-                            }
+                            <mat-error>{{ form.get('lastName')?.errors | errorMessage }}</mat-error>
                         </mat-form-field>
 
                         <natural-select-enum
@@ -75,33 +60,22 @@
                     <mat-form-field>
                         <mat-label>email</mat-label>
                         <input matInput formControlName="email" (change)="update()" />
-                        @if (form.get('email')?.hasError('required')) {
-                            <mat-error>Requis</mat-error>
-                        }
-                        @if (form.get('email')?.hasError('email')) {
-                            <mat-error>Adresse email invalide</mat-error>
-                        }
                         @if (form.get('email')?.hasError('duplicateValue')) {
-                            <mat-error> Cet email est déjà attribué et doit être unique</mat-error>
+                            <mat-error> Cet email est déjà attribué</mat-error>
+                        } @else {
+                            <mat-error>{{ form.get('email')?.errors | errorMessage }}</mat-error>
                         }
                     </mat-form-field>
 
                     <mat-form-field>
                         <mat-label>Nom d'utilisateur</mat-label>
                         <input matInput formControlName="login" (change)="update()" />
-                        @if (form.get('login')?.hasError('maxlength')) {
-                            <mat-error>
-                                Maximum {{ form.get('login')?.errors?.maxlength?.requiredLength }} caractères
-                            </mat-error>
-                        }
-                        @if (form.get('login')?.hasError('required')) {
-                            <mat-error>Requis</mat-error>
-                        }
                         @if (form.get('login')?.hasError('invalid')) {
                             <mat-error>{{ form.get('login')?.getError('invalid') }}</mat-error>
-                        }
-                        @if (form.get('login')?.hasError('duplicateValue')) {
+                        } @else if (form.get('login')?.hasError('duplicateValue')) {
                             <mat-error> Ce nom est déjà attribué à un utilisateur</mat-error>
+                        } @else {
+                            <mat-error>{{ form.get('login')?.errors | errorMessage }}</mat-error>
                         }
                     </mat-form-field>
 
@@ -389,9 +363,7 @@
                                     <mat-icon naturalIcon="lock" />
                                 </button>
                             }
-                            @if (ibanCtrl.hasError('iban')) {
-                                <mat-error> IBAN invalide</mat-error>
-                            }
+                            <mat-error>{{ ibanCtrl.errors | errorMessage }}</mat-error>
                             <mat-hint>Pour les demandes de remboursement</mat-hint>
                         </mat-form-field>
                     </div>

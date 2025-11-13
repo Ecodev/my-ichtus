@@ -1,3 +1,4 @@
+import {NaturalErrorMessagePipe} from '@ecodev/natural';
 import {Component, inject, OnInit, viewChild} from '@angular/core';
 import {NavigationEnd, RouterLink} from '@angular/router';
 import {
@@ -63,6 +64,7 @@ import {DuplicatedTransactionResolve} from '../transaction';
         MatFormField,
         MatLabel,
         MatError,
+        NaturalErrorMessagePipe,
         MatSuffix,
         MatInput,
         MatDatepicker,

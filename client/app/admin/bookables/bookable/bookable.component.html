@@ -40,30 +40,15 @@
                                 <mat-form-field>
                                     <input matInput formControlName="name" (change)="update()" />
                                     <mat-label>Nom</mat-label>
-                                    @if (form.get('name')?.hasError('maxlength')) {
-                                        <mat-error>
-                                            Maximum
-                                            {{ form.get('name')?.errors?.maxlength?.requiredLength }} caractères
-                                        </mat-error>
-                                    }
-                                    @if (form.get('name')?.hasError('required')) {
-                                        <mat-error>Requis</mat-error>
-                                    }
+                                    <mat-error>{{ form.get('name')?.errors | errorMessage }}</mat-error>
                                 </mat-form-field>
                                 <mat-form-field>
                                     <input matInput formControlName="code" (change)="update()" />
                                     <mat-label>Code</mat-label>
-                                    @if (form.get('code')?.hasError('maxlength')) {
-                                        <mat-error>
-                                            Maximum
-                                            {{ form.get('code')?.errors?.maxlength?.requiredLength }} caractères
-                                        </mat-error>
-                                    }
-                                    @if (form.get('code')?.hasError('required')) {
-                                        <mat-error>Requis</mat-error>
-                                    }
                                     @if (form.get('code')?.hasError('duplicateValue')) {
                                         <mat-error>Ce code est déjà attribué</mat-error>
+                                    } @else {
+                                        <mat-error>{{ form.get('code')?.errors | errorMessage }}</mat-error>
                                     }
                                 </mat-form-field>
                                 <natural-select-enum
@@ -83,14 +68,7 @@
                                         (change)="update()"
                                     />
                                     <div matTextSuffix>CHF</div>
-                                    @if (form.get('purchasePrice')?.hasError('min')) {
-                                        <mat-error>Le montant doit être positif</mat-error>
-                                    }
-                                    @if (form.get('purchasePrice')?.hasError('money')) {
-                                        <mat-error
-                                            >Le montant doit être un nombre avec un maximum de deux décimales
-                                        </mat-error>
-                                    }
+                                    <mat-error>{{ form.get('purchasePrice')?.errors | errorMessage }}</mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
@@ -142,14 +120,7 @@
                                     (change)="update()"
                                 />
                                 <div matTextSuffix>CHF</div>
-                                @if (form.get('initialPrice')?.hasError('required')) {
-                                    <mat-error>Requis</mat-error>
-                                }
-                                @if (form.get('initialPrice')?.hasError('money')) {
-                                    <mat-error
-                                        >Le montant doit être un nombre avec un maximum de deux décimales
-                                    </mat-error>
-                                }
+                                <mat-error>{{ form.get('initialPrice')?.errors | errorMessage }}</mat-error>
                             </mat-form-field>
                         }
                         @if (isBookingPriceApplicable()) {
@@ -163,14 +134,7 @@
                                     (change)="update()"
                                 />
                                 <div matTextSuffix>CHF</div>
-                                @if (form.get('periodicPrice')?.hasError('required')) {
-                                    <mat-error>Requis</mat-error>
-                                }
-                                @if (form.get('periodicPrice')?.hasError('money')) {
-                                    <mat-error
-                                        >Le montant doit être un nombre avec un maximum de deux décimales
-                                    </mat-error>
-                                }
+                                <mat-error>{{ form.get('periodicPrice')?.errors | errorMessage }}</mat-error>
                             </mat-form-field>
                         }
                         <mat-form-field>
@@ -183,12 +147,7 @@
                                 [attr.min]="-1"
                                 (change)="update()"
                             />
-                            @if (form.get('simultaneousBookingMaximum')?.hasError('required')) {
-                                <mat-error>Requis</mat-error>
-                            }
-                            @if (form.get('simultaneousBookingMaximum')?.hasError('min')) {
-                                <mat-error>Doit être plus grand ou égal à -1</mat-error>
-                            }
+                            <mat-error>{{ form.get('simultaneousBookingMaximum')?.errors | errorMessage }}</mat-error>
                             <mat-hint>Saisir -1 pour aucune limite.</mat-hint>
                         </mat-form-field>
                         <br />
@@ -204,12 +163,7 @@
                                     [attr.min]="0"
                                     (change)="update()"
                                 />
-                                @if (form.get('waitingListLength')?.hasError('required')) {
-                                    <mat-error>Requis</mat-error>
-                                }
-                                @if (form.get('waitingListLength')?.hasError('min')) {
-                                    <mat-error>Doit être plus grand ou égal à 0</mat-error>
-                                }
+                                <mat-error>{{ form.get('waitingListLength')?.errors | errorMessage }}</mat-error>
                                 <mat-hint
                                     >Permet de faire des demandes de réservations au delà du nombre max. de réservations
                                     simultanées et donc de gérer une file d'attente en cas d'annulation d'une autre

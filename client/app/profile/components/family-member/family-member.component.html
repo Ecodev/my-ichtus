@@ -1,4 +1,3 @@
-<!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
 @if (loaded) {
     <div [formGroup]="form">
         <div class="nat-vertical">
@@ -24,27 +23,16 @@
                 <mat-label>email</mat-label>
                 <input matInput formControlName="email" (change)="update()" />
                 <mat-icon matIconPrefix naturalIcon="alternate_email" />
-                @if (form.get('email')?.hasError('required')) {
-                    <mat-error>Requis</mat-error>
-                }
-                @if (form.get('email')?.hasError('email')) {
-                    <mat-error>Adresse email invalide</mat-error>
-                }
+                <mat-error>{{ form.get('email')?.errors | errorMessage }}</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Nom d'utilisateur</mat-label>
                 <input matInput formControlName="login" (change)="update()" />
                 <mat-icon matIconPrefix naturalIcon="person" />
-                @if (form.get('login')?.hasError('maxlength')) {
-                    <mat-error>
-                        Maximum {{ form.get('login')?.errors?.maxlength?.requiredLength }} caractères
-                    </mat-error>
-                }
-                @if (form.get('login')?.hasError('required')) {
-                    <mat-error>Requis</mat-error>
-                }
                 @if (form.get('login')?.hasError('invalid')) {
                     <mat-error>{{ form.get('login')?.getError('invalid') }}</mat-error>
+                } @else {
+                    <mat-error>{{ form.get('login')?.errors | errorMessage }}</mat-error>
                 }
             </mat-form-field>
             <mat-divider class="nat-margin-bottom" />
@@ -52,26 +40,12 @@
             <mat-form-field>
                 <mat-label>Prénom</mat-label>
                 <input matInput formControlName="firstName" (change)="update()" />
-                @if (form.get('firstName')?.hasError('maxlength')) {
-                    <mat-error>
-                        Maximum {{ form.get('firstName')?.errors?.maxlength?.requiredLength }} caractères
-                    </mat-error>
-                }
-                @if (form.get('firstName')?.hasError('required')) {
-                    <mat-error>Requis</mat-error>
-                }
+                <mat-error>{{ form.get('firstName')?.errors | errorMessage }}</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Nom de famille</mat-label>
                 <input matInput formControlName="lastName" (change)="update()" />
-                @if (form.get('lastName')?.hasError('maxlength')) {
-                    <mat-error>
-                        Maximum {{ form.get('lastName')?.errors?.maxlength?.requiredLength }} caractères
-                    </mat-error>
-                }
-                @if (form.get('lastName')?.hasError('required')) {
-                    <mat-error>Requis</mat-error>
-                }
+                <mat-error>{{ form.get('lastName')?.errors | errorMessage }}</mat-error>
             </mat-form-field>
             <natural-select-enum
                 enumName="Sex"

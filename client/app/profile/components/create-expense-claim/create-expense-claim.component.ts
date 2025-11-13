@@ -1,3 +1,4 @@
+import {NaturalErrorMessagePipe} from '@ecodev/natural';
 import {Component, inject, OnInit, viewChild} from '@angular/core';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
 import {CreateExpenseClaim, ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
@@ -20,6 +21,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         MatFormField,
         MatLabel,
         MatError,
+        NaturalErrorMessagePipe,
         MatHint,
         MatSuffix,
         MatInput,

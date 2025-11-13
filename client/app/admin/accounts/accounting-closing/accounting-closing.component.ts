@@ -1,3 +1,4 @@
+import {NaturalErrorMessagePipe} from '@ecodev/natural';
 import {Component} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
@@ -13,6 +14,7 @@ import {MatDialogModule} from '@angular/material/dialog';
         MatFormField,
         MatLabel,
         MatError,
+        NaturalErrorMessagePipe,
         MatHint,
         MatSuffix,
         MatInput,

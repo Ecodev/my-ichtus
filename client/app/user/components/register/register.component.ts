@@ -1,3 +1,4 @@
+import {NaturalErrorMessagePipe} from '@ecodev/natural';
 import {Apollo, gql} from 'apollo-angular';
 import {Component, inject, OnInit} from '@angular/core';
 import {
@@ -48,6 +49,7 @@ import {privacyPolicyUrl} from '../../../login/login.component';
         MatFormField,
         MatLabel,
         MatError,
+        NaturalErrorMessagePipe,
         MatPrefix,
         MatSuffix,
         MatInput,

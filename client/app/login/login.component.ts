@@ -1,3 +1,4 @@
+import {NaturalErrorMessagePipe} from '@ecodev/natural';
 import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -19,6 +20,7 @@ export const privacyPolicyUrl = 'https://ichtus.ch/contact/politique-de-confiden
         MatFormField,
         MatLabel,
         MatError,
+        NaturalErrorMessagePipe,
         MatSuffix,
         MatInput,
         MatButton,

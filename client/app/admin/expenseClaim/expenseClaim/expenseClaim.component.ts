@@ -1,3 +1,4 @@
+import {NaturalErrorMessagePipe} from '@ecodev/natural';
 import {Component, inject, OnInit} from '@angular/core';
 import {
     NaturalAbstractDetail,
@@ -44,6 +45,7 @@ import {AsyncPipe} from '@angular/common';
         MatFormField,
         MatLabel,
         MatError,
+        NaturalErrorMessagePipe,
         MatSuffix,
         MatInput,
         CdkTextareaAutosize,

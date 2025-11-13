@@ -1,3 +1,4 @@
+import {NaturalErrorMessagePipe} from '@ecodev/natural';
 import {Component, inject, viewChild} from '@angular/core';
 import {ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
 import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
@@ -24,6 +25,7 @@ export type ProvisionData = {
         MatFormField,
         MatLabel,
         MatError,
+        NaturalErrorMessagePipe,
         MatSuffix,
         MatInput,
         FormsModule,

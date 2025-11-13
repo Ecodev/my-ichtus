@@ -23,10 +23,9 @@ import {
     UsageBookables,
 } from '../../../shared/generated-types';
 import {Observable} from 'rxjs';
-import {formatIsoDateTime, NaturalAbstractModelService} from '@ecodev/natural';
+import {formatIsoDateTime, FormValidators, NaturalAbstractModelService} from '@ecodev/natural';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 import {bookingQuery, bookingsQuery, createBooking, deleteBookings, updateBooking} from './booking.queries';
-import {FormValidators} from '@ecodev/natural/vanilla';
 import {
     getDefaultForServer,
     getFormValidators,

@@ -1,3 +1,4 @@
+import {NaturalErrorMessagePipe} from '@ecodev/natural';
 import {Component, inject, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {CurrentUserForProfile, ExpenseClaims, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
@@ -41,6 +42,7 @@ import {AsyncPipe, DatePipe} from '@angular/common';
         MatFormField,
         MatLabel,
         MatError,
+        NaturalErrorMessagePipe,
         MatHint,
         MatSuffix,
         MatInput,

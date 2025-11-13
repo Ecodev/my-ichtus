@@ -52,11 +52,10 @@
     <mat-form-field style="width: 100%">
         <mat-label>Confirmation</mat-label>
         <input matInput cdkFocusInitial [formControl]="form" />
-        @if (form.hasError('required')) {
-            <mat-error>Requis</mat-error>
-        }
         @if (form.hasError('pattern')) {
             <mat-error>Doit être le nom exact</mat-error>
+        } @else {
+            <mat-error>{{ form.errors | errorMessage }}</mat-error>
         }
     </mat-form-field>
 </mat-dialog-content>

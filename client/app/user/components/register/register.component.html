@@ -7,12 +7,7 @@
             <mat-label>email</mat-label>
             <input matInput formControlName="email" />
             <mat-icon matIconPrefix naturalIcon="alternate_email" />
-            @if (form.get('email')?.hasError('required')) {
-                <mat-error>Requis</mat-error>
-            }
-            @if (form.get('email')?.hasError('email')) {
-                <mat-error>Adresse email invalide</mat-error>
-            }
+            <mat-error>{{ form.get('email')?.errors | errorMessage }}</mat-error>
         </mat-form-field>
 
         @if (step === 2) {
@@ -24,19 +19,12 @@
                         <mat-label>Nom d'utilisateur</mat-label>
                         <input matInput formControlName="login" />
                         <mat-icon matIconPrefix naturalIcon="person" />
-                        @if (form.get('login')?.hasError('maxlength')) {
-                            <mat-error>
-                                Maximum {{ form.get('login')?.errors?.maxlength?.requiredLength }} caractères
-                            </mat-error>
-                        }
-                        @if (form.get('login')?.hasError('required')) {
-                            <mat-error>Requis</mat-error>
-                        }
                         @if (form.get('login')?.hasError('invalid')) {
                             <mat-error>{{ form.get('login')?.getError('invalid') }}</mat-error>
-                        }
-                        @if (form.get('login')?.hasError('available')) {
+                        } @else if (form.get('login')?.hasError('available')) {
                             <mat-error>Ce nom d'utilisateur ne peut pas être choisi</mat-error>
+                        } @else {
+                            <mat-error>{{ form.get('login')?.errors | errorMessage }}</mat-error>
                         }
                     </mat-form-field>
                     <app-password [form]="form" />
@@ -48,26 +36,12 @@
                         <mat-form-field class="nat-sm-expand">
                             <mat-label>Prénom</mat-label>
                             <input matInput formControlName="firstName" />
-                            @if (form.get('firstName')?.hasError('maxlength')) {
-                                <mat-error>
-                                    Maximum {{ form.get('firstName')?.errors?.maxlength?.requiredLength }} caractères
-                                </mat-error>
-                            }
-                            @if (form.get('firstName')?.hasError('required')) {
-                                <mat-error>Requis</mat-error>
-                            }
+                            <mat-error>{{ form.get('firstName')?.errors | errorMessage }}</mat-error>
                         </mat-form-field>
                         <mat-form-field class="nat-sm-expand">
                             <mat-label>Nom de famille</mat-label>
                             <input matInput formControlName="lastName" />
-                            @if (form.get('lastName')?.hasError('maxlength')) {
-                                <mat-error>
-                                    Maximum {{ form.get('lastName')?.errors?.maxlength?.requiredLength }} caractères
-                                </mat-error>
-                            }
-                            @if (form.get('lastName')?.hasError('required')) {
-                                <mat-error>Requis</mat-error>
-                            }
+                            <mat-error>{{ form.get('lastName')?.errors | errorMessage }}</mat-error>
                         </mat-form-field>
                     </div>
                     <app-address [form]="form" />
@@ -76,23 +50,14 @@
                             <mat-label>Téléphone mobile</mat-label>
                             <mat-icon matIconPrefix naturalIcon="smartphone" />
                             <input matInput formControlName="mobilePhone" />
-                            @if (form.get('mobilePhone')?.hasError('maxlength')) {
-                                <mat-error>
-                                    Maximum {{ form.get('mobilePhone')?.errors?.maxlength?.requiredLength }} caractères
-                                </mat-error>
-                            }
-                            @if (form.get('mobilePhone')?.hasError('required')) {
-                                <mat-error>Requis</mat-error>
-                            }
+                            <mat-error>{{ form.get('mobilePhone')?.errors | errorMessage }}</mat-error>
                         </mat-form-field>
                         <mat-form-field class="nat-sm-expand">
                             <mat-label>Date de naissance</mat-label>
                             <input matInput formControlName="birthday" [matDatepicker]="picker" />
                             <mat-datepicker-toggle matIconSuffix [for]="picker" />
                             <mat-datepicker #picker />
-                            @if (form.get('birthday')?.hasError('required')) {
-                                <mat-error>Requis</mat-error>
-                            }
+                            <mat-error>{{ form.get('birthday')?.errors | errorMessage }}</mat-error>
                         </mat-form-field>
                     </div>
                 </div>

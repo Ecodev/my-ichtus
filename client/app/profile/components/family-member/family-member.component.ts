@@ -1,3 +1,4 @@
+import {NaturalErrorMessagePipe} from '@ecodev/natural';
 import {Component, inject, input, OnInit, output} from '@angular/core';
 import {CreateUser, CurrentUserForProfile, UpdateUser, Users} from '../../../shared/generated-types';
 import {
@@ -40,6 +41,7 @@ const userDeletionRequested = new Map<string, void>();
         MatDatepickerToggle,
         MatDivider,
         MatError,
+        NaturalErrorMessagePipe,
         MatFormField,
         MatIcon,
         MatInput,
