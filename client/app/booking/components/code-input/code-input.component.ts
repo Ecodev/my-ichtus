@@ -15,7 +15,7 @@ export class CodeInputComponent {
 
     public code = '';
 
-    public goToBookable(code: string): void {
+    protected goToBookable(code: string): void {
         this.router.navigate(['/booking', code]);
     }
 }

@@ -110,7 +110,7 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
         this.naturalSearchFacets = users();
     }
 
-    public flagWelcomeSessionDate(user: Users['users']['items'][0]): void {
+    protected flagWelcomeSessionDate(user: Users['users']['items'][0]): void {
         this.welcoming.set(user, true);
         this.service
             .flagWelcomeSessionDate(user.id)
@@ -118,7 +118,7 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
             .subscribe();
     }
 
-    public activate(user: Users['users']['items'][0]): void {
+    protected activate(user: Users['users']['items'][0]): void {
         if (!this.isActivable(user)) {
             return;
         }
@@ -130,15 +130,15 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
             .subscribe();
     }
 
-    public isActive(user: Users['users']['items'][0]): boolean {
+    protected isActive(user: Users['users']['items'][0]): boolean {
         return user.status === UserStatus.Active;
     }
 
-    public isActivable(user: Users['users']['items'][0]): boolean {
+    protected isActivable(user: Users['users']['items'][0]): boolean {
         return !!user.name && !!user.login;
     }
 
-    public isNew(user: Users['users']['items'][0]): boolean {
+    protected isNew(user: Users['users']['items'][0]): boolean {
         return user.status === UserStatus.New;
     }
 
@@ -146,7 +146,7 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
         super.search(naturalSearchSelections);
     }
 
-    public showProvision(user: Users['users']['items'][0]): void {
+    protected showProvision(user: Users['users']['items'][0]): void {
         const config: MatDialogConfig<BankingInfosVariables> = {
             data: {
                 user: user,

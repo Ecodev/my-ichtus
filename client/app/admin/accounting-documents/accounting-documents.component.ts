@@ -60,14 +60,14 @@ export class AccountingDocumentsComponent implements OnInit {
         this.disabled = this._disabled;
     }
 
-    public fileAdded(file: FileModel, index: number): void {
+    protected fileAdded(file: FileModel, index: number): void {
         this.files[index] = file;
         if (index === this.files.length - 1) {
             this.files.push(null);
         }
     }
 
-    public removeFile(index: number): void {
+    protected removeFile(index: number): void {
         this.files.splice(index, 1).forEach(file => {
             if (file?.id) {
                 this.removedFiles.push(file as WithId<FileModel>);
@@ -109,7 +109,7 @@ export class AccountingDocumentsComponent implements OnInit {
         forkJoin(observables).subscribe();
     }
 
-    public getAction(file: FileModel | null, i: number, last: boolean): 'download' | 'upload' | null {
+    protected getAction(file: FileModel | null, i: number, last: boolean): 'download' | 'upload' | null {
         if (file?.id) {
             return 'download'; // if there is non null file, and it has ID, it's downloadable
         } else if (!file?.id && last && !this._disabled) {

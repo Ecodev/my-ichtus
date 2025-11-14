@@ -75,7 +75,7 @@ export class SupportComponent implements OnInit {
         }
     }
 
-    public update(): void {
+    protected update(): void {
         const observables = [this.configurationService.set(this.getConfigKey(), this.text)];
         if (this.activable) {
             observables.push(this.configurationService.set('announcement-active', this.active ? '1' : '0'));

@@ -115,7 +115,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
         this.naturalSearchFacets = transactionLines();
     }
 
-    public download(): void {
+    protected download(): void {
         const qvm = new NaturalQueryVariablesManager<ExportTransactionLinesVariables>(this.variablesManager);
 
         this.service.getExportLink(qvm).subscribe(url => {
@@ -123,7 +123,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
         });
     }
 
-    public filterByAccount(account: MinimalAccount): void {
+    protected filterByAccount(account: MinimalAccount): void {
         if (this.hideFab()) {
             const link = this.service.linkToTransactionLinesForAccount(account);
             this.router.navigate(link);
@@ -134,7 +134,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
         }
     }
 
-    public documentCount(tl: TransactionLine['transactionLine']): number {
+    protected documentCount(tl: TransactionLine['transactionLine']): number {
         const transaction = tl.transaction;
         const expenseClaim = transaction.expenseClaim;
 
@@ -144,7 +144,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
         ).length;
     }
 
-    public filterByTag(tag: TransactionTag['transactionTag']): void {
+    protected filterByTag(tag: TransactionTag['transactionTag']): void {
         if (this.hideFab()) {
             const link = this.service.linkToTransactionLinesForTag(tag);
             this.router.navigate(link);
@@ -155,7 +155,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
         }
     }
 
-    public updateReconciled(e: MatCheckboxChange, transactionLine: TransactionLine['transactionLine']): void {
+    protected updateReconciled(e: MatCheckboxChange, transactionLine: TransactionLine['transactionLine']): void {
         this.service.updateIsReconciled(transactionLine.id, e.checked).subscribe(() => {
             this.alertService.info('Pointage mis à jour');
         });

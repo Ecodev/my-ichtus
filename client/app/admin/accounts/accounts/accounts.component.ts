@@ -138,7 +138,7 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
         this.naturalSearchFacets = accounts();
     }
 
-    public addLink(): any[] {
+    protected addLink(): any[] {
         let route: any[] = ['/admin/account/new'];
         const parentId = this.route.snapshot.params.parent;
         if (parentId) {
@@ -147,11 +147,11 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
         return route;
     }
 
-    public formatName(name: string): string {
+    protected formatName(name: string): string {
         return name.trim() || '<aucun>';
     }
 
-    public export(button: Button): void {
+    protected export(button: Button): void {
         this.dialog
             .open<AccountingReportComponent, AccountingDialogData, AccountingExportDialogResult>(
                 AccountingReportComponent,
@@ -171,7 +171,7 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
             });
     }
 
-    public showClosing(): void {
+    protected showClosing(): void {
         this.dialog
             .open<AccountingClosingComponent, AccountingDialogData, AccountingClosingDialogResult>(
                 AccountingClosingComponent,

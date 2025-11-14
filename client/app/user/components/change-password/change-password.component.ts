@@ -29,7 +29,7 @@ export class ChangePasswordComponent {
         this.token = route.snapshot.params.token;
     }
 
-    public maybeConfirm(): void {
+    protected maybeConfirm(): void {
         ifValid(this.form).subscribe(() => this.submit());
     }
 

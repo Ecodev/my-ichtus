@@ -19,12 +19,12 @@ export class MoneyComponent {
 
     public readonly showCurrency = input(true);
 
-    public showPositive(): boolean {
+    protected showPositive(): boolean {
         const amount = this.amount();
         return this.showSignal() && !!amount && Big(amount).gt(0);
     }
 
-    public showNegative(): boolean {
+    protected showNegative(): boolean {
         const amount = this.amount();
         return this.showSignal() && !!amount && Big(amount).lt(0);
     }

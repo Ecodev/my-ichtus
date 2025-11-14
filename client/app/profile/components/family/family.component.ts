@@ -56,7 +56,7 @@ export class FamilyComponent implements OnInit {
         this.reload();
     }
 
-    public reload(): void {
+    protected reload(): void {
         if (this.viewer) {
             const qvm = new NaturalQueryVariablesManager<UsersVariables>();
             qvm.set('variables', UserService.getFamilyVariables(this.viewer));
@@ -65,11 +65,11 @@ export class FamilyComponent implements OnInit {
         }
     }
 
-    public refreshMember(index: number, user: UpdateUser['updateUser']): void {
+    protected refreshMember(index: number, user: UpdateUser['updateUser']): void {
         this.familyMembers[index].name = user.name;
     }
 
-    public add(): void {
+    protected add(): void {
         this.expansionPanels$.pipe(skip(1), first()).subscribe(panels => {
             panels[panels.length - 1].open();
             this.changeDetectorRef.detectChanges();
@@ -86,14 +86,14 @@ export class FamilyComponent implements OnInit {
      * "why the daughter can update the entire family, but the son cannot ?", when in fact the daughter has a higher
      * role than the son.
      */
-    public canEdit(familyMember?: Users['users']['items'][0]): boolean {
+    protected canEdit(familyMember?: Users['users']['items'][0]): boolean {
         const iAmFamilyOwner = !this.viewer.owner;
         const isMyself = !!familyMember && familyMember.id === this.viewer.id;
 
         return iAmFamilyOwner || isMyself;
     }
 
-    public leaveFamily(): void {
+    protected leaveFamily(): void {
         const explanation = `En quittant le ménage tu perdras les privilèges associés au ménage.
         Il te faudra alors faire une demande d'adhésion en tant que membre individuel pour retrouver ces privilèges.`;
         this.alertService.confirm('Quitter le ménage', explanation, 'Quitter le ménage').subscribe(confirmed => {

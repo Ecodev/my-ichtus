@@ -28,7 +28,7 @@ export class AddressComponent {
     public readonly form = input.required<FormGroup>();
     public readonly addressChange = output();
 
-    public update(): void {
+    protected update(): void {
         this.addressChange.emit();
     }
 }

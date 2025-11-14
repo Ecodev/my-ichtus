@@ -116,7 +116,7 @@ export class AccountComponent extends NaturalAbstractDetail<AccountService, Natu
         this.form.get('iban')?.setValue(friendlyFormatIBAN(this.form.get('iban')?.value));
     }
 
-    public updateLinkedFields(): void {
+    protected updateLinkedFields(): void {
         const typeField = this.form.get('type');
         if (typeField && typeField.value !== AccountType.Liability) {
             const ownerField = this.form.get('owner');

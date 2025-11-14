@@ -129,7 +129,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
         }
     }
 
-    public verify(): void {
+    protected verify(): void {
         if (!this.isUpdatePage()) {
             return;
         }
@@ -144,22 +144,22 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
             });
     }
 
-    public showVerified(): boolean {
+    protected showVerified(): boolean {
         return this.data.model.bookingType === BookingType.SelfApproved;
     }
 
-    public showWaitingList(): boolean {
+    protected showWaitingList(): boolean {
         return this.data.model.bookingType === BookingType.AdminApproved;
     }
 
     /**
      * Only non-self-approved are applicable for pricing. This simplify GUI
      */
-    public isBookingPriceApplicable(): boolean {
+    protected isBookingPriceApplicable(): boolean {
         return this.data.model.bookingType !== BookingType.SelfApproved;
     }
 
-    public createImageAndLink(file: File): Observable<CreateImage['createImage']> {
+    protected createImageAndLink(file: File): Observable<CreateImage['createImage']> {
         return this.imageService.create({file}).pipe(
             switchMap(image => {
                 const id = this.data.model.id;
@@ -168,11 +168,11 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
         );
     }
 
-    public isSelfApproved(): boolean {
+    protected isSelfApproved(): boolean {
         return this.data.model.bookingType === BookingType.SelfApproved;
     }
 
-    public getBookingsVariables(): BookingsVariables {
+    protected getBookingsVariables(): BookingsVariables {
         if (!this.isUpdatePage()) {
             return {};
         }
@@ -206,11 +206,11 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
         };
     }
 
-    public isTrainer(): boolean {
+    protected isTrainer(): boolean {
         return this.route.snapshot.data.viewer?.role === UserRole.trainer;
     }
 
-    public bookingTypeDisabled(): (item: IEnum) => boolean {
+    protected bookingTypeDisabled(): (item: IEnum) => boolean {
         return item => {
             return (
                 this.viewer.role === UserRole.formation_responsible &&

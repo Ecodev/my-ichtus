@@ -87,7 +87,7 @@ export class BookablesComponent extends ParentComponent<BookableService> impleme
         this.naturalSearchFacets = this.route.snapshot.data.isEquipment ? equipment() : bookables();
     }
 
-    public select(element: Bookables['bookables']['items'][0]): void {
+    protected select(element: Bookables['bookables']['items'][0]): void {
         this.bookableClick.emit(element);
     }
 }

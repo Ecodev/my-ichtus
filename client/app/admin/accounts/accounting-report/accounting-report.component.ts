@@ -38,7 +38,7 @@ export class AccountingReportComponent {
     });
     public readonly today = new Date();
 
-    public compareCheck(e: MatCheckboxChange): void {
+    protected compareCheck(e: MatCheckboxChange): void {
         if (!e.checked) {
             this.form.get('datePrevious')?.setValue(null);
         }

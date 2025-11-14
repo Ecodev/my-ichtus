@@ -126,7 +126,7 @@ export class FinancesComponent extends NaturalAbstractList<ExpenseClaimService> 
         this.variablesManager.set('forUser', this.service.getForUserVariables(this.viewer));
     }
 
-    public cancelExpenseClaim(expenseClaim: ExpenseClaims['expenseClaims']['items'][0]): void {
+    protected cancelExpenseClaim(expenseClaim: ExpenseClaims['expenseClaims']['items'][0]): void {
         this.alertService
             .confirm(`Suppression`, `Veux-tu supprimer définitivement cet élément ?`, `Supprimer définitivement`)
             .subscribe(confirmed => {
@@ -143,7 +143,7 @@ export class FinancesComponent extends NaturalAbstractList<ExpenseClaimService> 
             });
     }
 
-    public createRefund(): void {
+    protected createRefund(): void {
         this.dialog
             .open<CreateRefundComponent, never>(CreateRefundComponent)
             .afterClosed()
@@ -157,7 +157,7 @@ export class FinancesComponent extends NaturalAbstractList<ExpenseClaimService> 
             });
     }
 
-    public updateIban(): void {
+    protected updateIban(): void {
         ifValid(this.ibanCtrl).subscribe(() => {
             this.updating = true;
             this.canCreateExpenseClaim = false;
@@ -190,7 +190,7 @@ export class FinancesComponent extends NaturalAbstractList<ExpenseClaimService> 
         });
     }
 
-    public lockIbanIfDefined(): void {
+    protected lockIbanIfDefined(): void {
         ifValid(this.ibanCtrl).subscribe(() => {
             if (this.ibanCtrl.value) {
                 this.ibanCtrl.disable();

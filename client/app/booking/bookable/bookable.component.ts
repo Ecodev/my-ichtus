@@ -79,7 +79,7 @@ export class BookableComponent implements OnInit {
         });
     }
 
-    public endBooking(): void {
+    protected endBooking(): void {
         if (this.runningBooking) {
             this.bookingService.terminateBooking(this.runningBooking.id).subscribe(() => {
                 this.initForBookable();
@@ -87,7 +87,7 @@ export class BookableComponent implements OnInit {
         }
     }
 
-    public back(): void {
+    protected back(): void {
         window.history.back();
     }
 }

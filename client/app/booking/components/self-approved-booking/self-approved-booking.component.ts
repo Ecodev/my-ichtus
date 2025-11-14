@@ -65,7 +65,7 @@ export class SelfApprovedBookingComponent implements OnInit {
         this.booking.owner = this.route.snapshot.data.viewer;
     }
 
-    public createBooking(): void {
+    protected createBooking(): void {
         this.bookingService.createWithBookable(this.bookable, this.booking.owner, this.booking).subscribe(() => {
             this.alertService.info('Votre sortie a été enregistrée. Soyez prudent.', 5000);
             this.router.navigate(['/']);

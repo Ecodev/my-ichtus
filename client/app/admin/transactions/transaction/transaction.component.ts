@@ -212,7 +212,7 @@ export class TransactionComponent
         this.transactionLines = {mode: 'items', items: duplicatedTransaction.transactionLines};
     }
 
-    public save(): void {
+    protected save(): void {
         if (!this.userService.canUpdateTransaction(this.viewer)) {
             return;
         }

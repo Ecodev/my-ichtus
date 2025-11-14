@@ -20,7 +20,7 @@ export class DoorComponent implements OnInit {
 
     public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
 
-    public open(door: DoorConfig): void {
+    protected open(door: DoorConfig): void {
         this.doorService.open({door: door.enum}).subscribe({
             next: res => {
                 door.opened = true;

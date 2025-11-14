@@ -41,7 +41,7 @@ export class TransactionAmountComponent implements OnChanges {
         }
     }
 
-    public propagateAccount(account: MinimalAccount): void {
+    protected propagateAccount(account: MinimalAccount): void {
         this.accountClick.emit(account);
     }
 }

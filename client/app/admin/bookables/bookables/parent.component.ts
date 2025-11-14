@@ -110,7 +110,7 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
      * - If its a course, ask the user for confirmation
      * - For other bookables, create the booking without confirmation
      */
-    public createApplication(bookable: ExtractTallOne<T>): void {
+    protected createApplication(bookable: ExtractTallOne<T>): void {
         if (!this.futureOwner) {
             return;
         }
@@ -162,16 +162,16 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
      *
      * This is just ergonomics considerations. API does not deny double booking on specific resources in this case
      */
-    public allowBooking(bookable: UsageBookables['bookables']['items'][0]): boolean {
+    protected allowBooking(bookable: UsageBookables['bookables']['items'][0]): boolean {
         const alreadyBooked = this.isAlreadyPending(bookable);
         return !!this.futureOwner && (!alreadyBooked || (alreadyBooked && !this.route.snapshot.data.denyDoubleBooking));
     }
 
-    public isAlreadyPending(bookable: UsageBookables['bookables']['items'][0]): boolean {
+    protected isAlreadyPending(bookable: UsageBookables['bookables']['items'][0]): boolean {
         return this.pendingApplications.some(applicaton => bookable.id === applicaton.bookable?.id);
     }
 
-    public isFullyBooked(bookable: UsageBookables['bookables']['items'][0]): boolean {
+    protected isFullyBooked(bookable: UsageBookables['bookables']['items'][0]): boolean {
         return this.availabilityStatus(bookable) === 'full';
     }
 }

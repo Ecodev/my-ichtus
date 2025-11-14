@@ -99,7 +99,7 @@ export class ServicesComponent implements OnInit, OnChanges {
         this.loadData();
     }
 
-    public loadData(): void {
+    protected loadData(): void {
         const pendingApplications = this.userService
             .getPendingApplications(this.user)
             .pipe(takeUntilDestroyed(this.destroyRef));
@@ -114,7 +114,7 @@ export class ServicesComponent implements OnInit, OnChanges {
     /**
      * Set end date ?
      */
-    public revokeBooking(booking: Bookings['bookings']['items'][0]): void {
+    protected revokeBooking(booking: Bookings['bookings']['items'][0]): void {
         this.alertService
             .confirm(
                 'Résiliation de prestation',
@@ -128,11 +128,11 @@ export class ServicesComponent implements OnInit, OnChanges {
             });
     }
 
-    public canRevoke(booking: Bookings['bookings']['items'][0]): boolean {
+    protected canRevoke(booking: Bookings['bookings']['items'][0]): boolean {
         return booking.bookable?.bookingType !== BookingType.Mandatory;
     }
 
-    public cancelApplication(booking: Bookings['bookings']['items'][0]): void {
+    protected cancelApplication(booking: Bookings['bookings']['items'][0]): void {
         this.deleting.set(booking.id, true);
         this.bookingService
             .delete([booking])
@@ -140,7 +140,7 @@ export class ServicesComponent implements OnInit, OnChanges {
             .subscribe();
     }
 
-    public unregister(): void {
+    protected unregister(): void {
         this.alertService
             .confirm('Démission', 'Veux-tu quitter le club Ichtus ?', 'Démissionner définitivement')
             .subscribe(confirmed => {

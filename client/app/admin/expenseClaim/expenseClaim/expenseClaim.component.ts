@@ -85,7 +85,7 @@ export class ExpenseClaimComponent
         this.viewer = this.route.snapshot.data.viewer;
     }
 
-    public approve(): void {
+    protected approve(): void {
         const reviewer = this.form.get('reviewer');
         if (reviewer) {
             reviewer.setValue(this.viewer);

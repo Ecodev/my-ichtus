@@ -52,7 +52,7 @@ export class BvrComponent {
     private variables!: BankingInfosVariables;
     public bankingInfos: BankingInfos['bankingInfos'] | null = null;
 
-    public copyToClipboard(text: string): void {
+    protected copyToClipboard(text: string): void {
         copyToClipboard(this.document, text);
     }
 

@@ -74,11 +74,11 @@ export class HomeComponent implements OnInit {
             .subscribe(sidenav => setTimeout(() => (this.menu = sidenav)));
     }
 
-    public goToCode(): void {
+    protected goToCode(): void {
         this.router.navigate(['/booking', this.code]);
     }
 
-    public getAnnouncementLink(): any[] {
+    protected getAnnouncementLink(): any[] {
         return ['/', {outlets: {secondary: ['announcement']}}];
     }
 }

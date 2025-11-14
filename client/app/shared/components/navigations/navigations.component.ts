@@ -123,7 +123,7 @@ export class NavigationsComponent implements OnInit {
         }
     }
 
-    public endBooking(item: Extended): void {
+    protected endBooking(item: Extended): void {
         const snackbarOptions: MatSnackBarConfig = {
             horizontalPosition: 'end',
             verticalPosition: 'top',
@@ -165,11 +165,11 @@ export class NavigationsComponent implements OnInit {
         });
     }
 
-    public update(partialBooking: WithId<BookingPartialInput>): void {
+    protected update(partialBooking: WithId<BookingPartialInput>): void {
         this.bookingService.updateNow(partialBooking).subscribe();
     }
 
-    public nextPage(): void {
+    protected nextPage(): void {
         this.currentPage++;
         this.getNavigations(this.family).subscribe(bookings => {
             this.bookings?.items.push(...bookingsToExtended(bookings).items);

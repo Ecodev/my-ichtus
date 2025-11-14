@@ -140,7 +140,7 @@ export class DeleteUserConfirmComponent {
             });
     }
 
-    public close(): void {
+    protected close(): void {
         this.dialog.close(false);
     }
 }

@@ -88,7 +88,7 @@ export class BookableMetadataComponent implements OnInit {
     /**
      * Add line if edit mode is true and last item is not already empty
      */
-    public addLine(): void {
+    protected addLine(): void {
         if (this.edit && this.dataSource.data) {
             const lastItem = this.dataSource.data.items[this.dataSource.data.items.length - 1];
             if (!lastItem || lastItem.name !== '' || lastItem.value !== '') {
@@ -99,7 +99,7 @@ export class BookableMetadataComponent implements OnInit {
         }
     }
 
-    public updateOrCreate(meta: BookableMetadatas['bookableMetadatas']['items'][0]): void {
+    protected updateOrCreate(meta: BookableMetadatas['bookableMetadatas']['items'][0]): void {
         meta.bookable = this.bookable();
 
         if (meta.name) {
@@ -115,7 +115,7 @@ export class BookableMetadataComponent implements OnInit {
         }
     }
 
-    public delete(meta: BookableMetadatas['bookableMetadatas']['items'][0]): void {
+    protected delete(meta: BookableMetadatas['bookableMetadatas']['items'][0]): void {
         this.deleting.set(meta, true);
 
         this.bookableMetaService

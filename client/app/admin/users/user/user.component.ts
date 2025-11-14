@@ -184,7 +184,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeo
         };
     }
 
-    public getTransactionQueryVariables(): TransactionLinesVariables {
+    protected getTransactionQueryVariables(): TransactionLinesVariables {
         const account = this.isUpdatePage() ? this.data.model.account : null;
         if (!account) {
             return {};
@@ -206,17 +206,17 @@ export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeo
         };
     }
 
-    public roleDisabled(): (item: IEnum) => boolean {
+    protected roleDisabled(): (item: IEnum) => boolean {
         return item => {
             return !this.userRolesAvailable.includes(item.value as UserRole);
         };
     }
 
-    public canUpdateIban(): boolean {
+    protected canUpdateIban(): boolean {
         return this.service.canUpdateIban(this.viewer);
     }
 
-    public updateIban(): void {
+    protected updateIban(): void {
         if (!this.canUpdateIban()) {
             return;
         }
@@ -254,7 +254,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeo
         });
     }
 
-    public lockIbanIfDefined(): void {
+    protected lockIbanIfDefined(): void {
         ifValid(this.ibanCtrl).subscribe(() => {
             if (this.ibanCtrl.value) {
                 this.ibanCtrl.disable();

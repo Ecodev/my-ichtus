@@ -64,16 +64,16 @@ export class ProvisionComponent {
         this.formCtrl = new FormControl(initialAmount, [Validators.min(this.min), money]);
     }
 
-    public setPaymentMode(paymentMode: 'ebanking' | 'datatrans'): void {
+    protected setPaymentMode(paymentMode: 'ebanking' | 'datatrans'): void {
         this.paymentMode = paymentMode;
         this.showExportBillButton();
     }
 
-    public showExportBillButton(): boolean {
+    protected showExportBillButton(): boolean {
         return this.paymentMode === 'ebanking' && !!this.bvr()?.bankingInfos?.qrCode;
     }
 
-    public exportBill(): void {
+    protected exportBill(): void {
         this.bvr()?.exportBill();
     }
 }

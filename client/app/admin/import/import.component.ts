@@ -40,7 +40,7 @@ export class ImportComponent implements OnInit {
         this.routeData = this.route.snapshot.data as NaturalSeoResolveData;
     }
 
-    public uploadFile(file: File): void {
+    protected uploadFile(file: File): void {
         this.importing = true;
         this.error = null;
 

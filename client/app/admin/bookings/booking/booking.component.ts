@@ -149,7 +149,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
         }
     }
 
-    public terminateBooking(): void {
+    protected terminateBooking(): void {
         if (!this.isUpdatePage()) {
             return;
         }
@@ -162,7 +162,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
         });
     }
 
-    public unTerminateBooking(): void {
+    protected unTerminateBooking(): void {
         if (!this.isUpdatePage()) {
             return;
         }
@@ -173,7 +173,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
     }
 
     // For admin_approved bookings (courses...)
-    public approveBooking(): void {
+    protected approveBooking(): void {
         const status = this.form.get('status');
         if (status) {
             status.setValue(BookingStatus.Processed);
@@ -181,7 +181,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
         }
     }
 
-    public isSelfApproved(): boolean {
+    protected isSelfApproved(): boolean {
         const bookable = this.form.get('bookable');
         if (bookable) {
             return bookable.value ? bookable.value.bookingType === BookingType.SelfApproved : false;
@@ -191,7 +191,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
     }
 
     // Bookable of kind admin approved
-    public isAdminApproved(): boolean {
+    protected isAdminApproved(): boolean {
         const bookable = this.form.get('bookable');
         if (bookable) {
             return bookable.value ? bookable.value.bookingType === BookingType.AdminApproved : false;
@@ -201,7 +201,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
     }
 
     // Pending application for a service, storage or course
-    public isPendingApplication(bookingType: BookingType | null = null): boolean {
+    protected isPendingApplication(bookingType: BookingType | null = null): boolean {
         const status = this.form.get('status');
         const bookable = this.form.get('bookable');
 
@@ -216,7 +216,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
         return false;
     }
 
-    public assignBookable(bookable: UsageBookables['bookables']['items'][0]): void {
+    protected assignBookable(bookable: UsageBookables['bookables']['items'][0]): void {
         const message =
             'Es-tu certain(e) de vouloir attribuer cette prestation ou espace de stockage ? ' +
             'Cette action va créer une nouvelle réservation et débitera automatiquement le compte du membre. ' +
@@ -229,7 +229,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
         });
     }
 
-    public doAssignBookable(bookable: UsageBookables['bookables']['items'][0]): void {
+    protected doAssignBookable(bookable: UsageBookables['bookables']['items'][0]): void {
         const partialBooking: BookingPartialInput = {status: BookingStatus.Booked};
         this.service.createWithBookable(bookable, this.data.model.owner, partialBooking).subscribe(booking => {
             if (!this.isUpdatePage()) {
@@ -252,7 +252,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
         });
     }
 
-    public getBookablesVariables(tags: string[]): BookablesVariables {
+    protected getBookablesVariables(tags: string[]): BookablesVariables {
         const variables: BookablesVariables = {
             filter: {
                 groups: [
@@ -273,7 +273,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
         return variables;
     }
 
-    public getBookablesSelection(): NaturalSearchSelections {
+    protected getBookablesSelection(): NaturalSearchSelections {
         return [
             [
                 {
@@ -291,7 +291,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
     /**
      * Filter the bookable select box according to the category chips
      */
-    public filterBookables(category: BookingType): void {
+    protected filterBookables(category: BookingType): void {
         // Leave only the clicked category selected
         this.bookableFilterChips.forEach((chip, index) => {
             this.bookableFilterChips[index].selected = chip.value === category;

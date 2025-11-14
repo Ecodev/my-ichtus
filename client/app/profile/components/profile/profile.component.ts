@@ -95,7 +95,7 @@ export class ProfileComponent implements OnInit {
             });
     }
 
-    public pay(): void {
+    protected pay(): void {
         if (!this.viewer?.account) {
             return;
         }
@@ -118,7 +118,7 @@ export class ProfileComponent implements OnInit {
             });
     }
 
-    public canAccessServices(): boolean {
+    protected canAccessServices(): boolean {
         return this.permissionsService.canAccessServices(this.viewer);
     }
 

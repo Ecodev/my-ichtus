@@ -121,7 +121,7 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
         return EMPTY;
     }
 
-    public leaveFamily(): void {
+    protected leaveFamily(): void {
         const explanation = `En détachant du ménage cette personne, elle perdra les privilèges associés au ménage.
         Elle lui faudra alors faire une demande d'adhésion en tant que membre individuel pour retrouver ces privilèges.`;
         this.alertService
@@ -141,7 +141,7 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
         this.updated.emit(model);
     }
 
-    public requestUserDeletion(): void {
+    protected requestUserDeletion(): void {
         if (!this.isUpdatePage()) {
             return;
         }
