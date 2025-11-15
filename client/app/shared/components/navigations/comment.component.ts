@@ -13,7 +13,7 @@ import {MatFormField, MatLabel} from '@angular/material/form-field';
     styleUrl: './comment.component.scss',
 })
 export class CommentComponent {
-    public readonly data = inject(MAT_DIALOG_DATA);
+    protected readonly data = inject(MAT_DIALOG_DATA);
 
-    public comment = '';
+    protected comment = '';
 }

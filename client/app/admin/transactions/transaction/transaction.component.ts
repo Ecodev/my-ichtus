@@ -101,22 +101,22 @@ export class TransactionComponent
     >
     implements OnInit
 {
-    public readonly bookableService = inject(BookableService);
-    public readonly transactionLineService = inject(TransactionLineService);
-    public readonly userService = inject(UserService);
+    protected readonly bookableService = inject(BookableService);
+    protected readonly transactionLineService = inject(TransactionLineService);
+    protected readonly userService = inject(UserService);
 
-    public readonly transactionLinesComponent = viewChild(EditableTransactionLinesComponent);
+    protected readonly transactionLinesComponent = viewChild(EditableTransactionLinesComponent);
     private readonly accountingDocuments = viewChild.required<AccountingDocumentsComponent>('transactionDocuments');
 
     /**
      * Edition mode, allows to edit lines
      */
-    public updateTransactionLines = false;
+    protected updateTransactionLines = false;
 
-    public ExpenseClaimType = ExpenseClaimType;
+    protected ExpenseClaimType = ExpenseClaimType;
 
-    public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
-    public transactionLines: EditableTransactionLinesInput = {mode: 'empty'};
+    protected viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    protected transactionLines: EditableTransactionLinesInput = {mode: 'empty'};
 
     public constructor() {
         super('transaction', inject(TransactionService));

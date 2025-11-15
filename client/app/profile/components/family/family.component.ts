@@ -34,19 +34,19 @@ import {toObservable} from '@angular/core/rxjs-interop';
     styleUrl: './family.component.scss',
 })
 export class FamilyComponent implements OnInit {
-    public readonly userService = inject(UserService);
+    protected readonly userService = inject(UserService);
     private readonly route = inject(ActivatedRoute);
     private readonly alertService = inject(NaturalAlertService);
-    public readonly permissionsService = inject(PermissionsService);
+    protected readonly permissionsService = inject(PermissionsService);
     private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
-    public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
-    public familyMembers: Users['users']['items'][0][] = [];
+    protected viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    protected familyMembers: Users['users']['items'][0][] = [];
 
     /**
      * Member selected when opening an accordion panel
      */
-    public activeMember: Users['users']['items'][0] | null = null;
+    protected activeMember: Users['users']['items'][0] | null = null;
 
     private readonly expansionPanels = viewChildren(MatExpansionPanel);
     private readonly expansionPanels$ = toObservable(this.expansionPanels);

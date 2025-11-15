@@ -57,7 +57,7 @@ import {AsyncPipe} from '@angular/common';
     styleUrl: './licenses.component.scss',
 })
 export class LicensesComponent extends NaturalAbstractList<LicenseService> implements OnInit {
-    public readonly permissionsService = inject(PermissionsService);
+    protected readonly permissionsService = inject(PermissionsService);
 
     public override availableColumns: AvailableColumn[] = [{id: 'name', label: 'Nom'}];
 

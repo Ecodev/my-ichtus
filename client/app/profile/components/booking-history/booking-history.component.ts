@@ -9,5 +9,5 @@ import {NavigationsComponent} from '../../../shared/components/navigations/navig
     styleUrl: './booking-history.component.scss',
 })
 export class BookingHistoryComponent {
-    public readonly route = inject(ActivatedRoute);
+    protected readonly route = inject(ActivatedRoute);
 }

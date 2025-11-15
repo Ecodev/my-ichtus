@@ -60,11 +60,11 @@ export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserServi
     public readonly viewer = input.required<NonNullable<CurrentUserForProfile['viewer']>>();
     public readonly user = input.required<Users['users']['items'][0]>();
     public readonly readonly = input(false);
-    public readonly created = output();
-    public readonly removed = output();
-    public readonly updated = output<UpdateUser['updateUser']>();
-    public loaded = false;
-    public readonly userDeletionRequested = userDeletionRequested;
+    protected readonly created = output();
+    protected readonly removed = output();
+    protected readonly updated = output<UpdateUser['updateUser']>();
+    protected loaded = false;
+    protected readonly userDeletionRequested = userDeletionRequested;
 
     public constructor() {
         super('user', inject(FamilyUserService));

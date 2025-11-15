@@ -49,13 +49,13 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
     implements OnInit
 {
     protected readonly hasUsage: boolean = false;
-    public pendingApplications: PricedBookings['bookings']['items'] = [];
-    public readonly creating = new Map<ExtractTallOne<T>['id'], true>();
+    protected pendingApplications: PricedBookings['bookings']['items'] = [];
+    protected readonly creating = new Map<ExtractTallOne<T>['id'], true>();
     private readonly apollo = inject(Apollo);
-    public readonly availabilityStatus = availabilityStatus;
-    public readonly availabilityText = availabilityText;
-    public readonly usageStatus = usageStatusFunc;
-    public readonly usageText = usageText;
+    protected readonly availabilityStatus = availabilityStatus;
+    protected readonly availabilityText = availabilityText;
+    protected readonly usageStatus = usageStatusFunc;
+    protected readonly usageText = usageText;
     private readonly dialog = inject(MatDialog);
     private readonly snackbar = inject(MatSnackBar);
     private readonly bookingService = inject(BookingService);
@@ -63,7 +63,7 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
     /**
      * The user who will be the owner of the booking when we create it via the `createApplication` button
      */
-    public futureOwner: FutureOwner = null;
+    protected futureOwner: FutureOwner = null;
     public readonly futureOwner$: Observable<FutureOwner> = this.route.data.pipe(
         switchMap(data => {
             // The futureOwner might be specifically given via routing data (for profile page), or we fallback on the user being edited in admin pages

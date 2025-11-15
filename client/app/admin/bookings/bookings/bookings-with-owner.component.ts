@@ -87,7 +87,7 @@ import {
     styleUrl: './bookings.component.scss',
 })
 export class BookingsWithOwnerComponent extends AbstractBookings<BookingWithOwnerService> {
-    public readonly permissionsService = inject(PermissionsService);
+    protected readonly permissionsService = inject(PermissionsService);
     private readonly copyContactDataButtonService =
         inject<CopyContactDataButtonService<BookingsWithOwnerContactVariables>>(CopyContactDataButtonService);
 

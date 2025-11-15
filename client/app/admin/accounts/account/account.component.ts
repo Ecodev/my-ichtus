@@ -63,11 +63,11 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     styleUrl: './account.component.scss',
 })
 export class AccountComponent extends NaturalAbstractDetail<AccountService, NaturalSeoResolveData> implements OnInit {
-    public readonly userService = inject(UserService);
+    protected readonly userService = inject(UserService);
 
-    public nextCodeAvailable: number | null = null;
-    public accountHierarchicConfig = groupAccountHierarchicConfiguration;
-    public readonly AccountType = AccountType;
+    protected nextCodeAvailable: number | null = null;
+    protected accountHierarchicConfig = groupAccountHierarchicConfiguration;
+    protected readonly AccountType = AccountType;
 
     public constructor() {
         super('account', inject(AccountService));

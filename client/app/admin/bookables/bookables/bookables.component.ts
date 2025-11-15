@@ -77,9 +77,9 @@ import {AsyncPipe, CurrencyPipe, DatePipe, NgClass} from '@angular/common';
     styleUrl: './bookables.component.scss',
 })
 export class BookablesComponent extends ParentComponent<BookableService> implements OnInit {
-    public readonly permissionsService = inject(PermissionsService);
+    protected readonly permissionsService = inject(PermissionsService);
 
-    public readonly bookableClick = output<Bookables['bookables']['items'][0]>();
+    protected readonly bookableClick = output<Bookables['bookables']['items'][0]>();
     protected BookableStatus = BookableStatus;
 
     public constructor() {

@@ -24,17 +24,17 @@ import {AsyncPipe} from '@angular/common';
 export class ImportComponent implements OnInit {
     private readonly route = inject(ActivatedRoute);
     private readonly router = inject(Router);
-    public readonly permissionsService = inject(PermissionsService);
+    protected readonly permissionsService = inject(PermissionsService);
     private readonly apollo = inject(Apollo);
     private readonly alertService = inject(NaturalAlertService);
 
     /**
      * Data attribute provided by activated route snapshot
      */
-    public routeData!: NaturalSeoResolveData;
+    protected routeData!: NaturalSeoResolveData;
 
-    public importing = false;
-    public error: Error | null = null;
+    protected importing = false;
+    protected error: Error | null = null;
 
     public ngOnInit(): void {
         this.routeData = this.route.snapshot.data as NaturalSeoResolveData;

@@ -84,7 +84,7 @@ import {AsyncPipe, DatePipe} from '@angular/common';
     styleUrl: './bookings.component.scss',
 })
 export class BookingsComponent extends AbstractBookings<BookingService> {
-    public readonly permissionsService = inject(PermissionsService);
+    protected readonly permissionsService = inject(PermissionsService);
 
     public constructor() {
         super(inject(BookingService));

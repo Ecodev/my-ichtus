@@ -83,7 +83,7 @@ import {AsyncPipe, DatePipe} from '@angular/common';
     templateUrl: '../admin/bookings/bookings/bookings.component.html',
 })
 export class SafetyComponent extends AbstractBookings<SafetyBookingService> {
-    public readonly permissionsService = inject(PermissionsService);
+    protected readonly permissionsService = inject(PermissionsService);
 
     public constructor() {
         super(inject(SafetyBookingService));

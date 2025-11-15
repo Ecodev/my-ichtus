@@ -74,7 +74,7 @@ import {
     styleUrl: './users.component.scss',
 })
 export class UsersComponent extends NaturalAbstractList<UserService> implements OnInit {
-    public readonly permissionsService = inject(PermissionsService);
+    protected readonly permissionsService = inject(PermissionsService);
     private readonly dialog = inject(MatDialog);
     private readonly copyContactDataButtonService =
         inject<CopyContactDataButtonService<EmailAndPhoneUsersVariables>>(CopyContactDataButtonService);
@@ -96,13 +96,13 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
         {id: 'provision', label: 'Versement', checked: false},
     ];
 
-    public readonly buttons: Button[] = this.copyContactDataButtonService.getButtons(
+    protected readonly buttons: Button[] = this.copyContactDataButtonService.getButtons(
         this.variablesManager,
         'emailAndPhoneUsers',
     );
 
-    public readonly activating = new Map<Users['users']['items'][0], true>();
-    public readonly welcoming = new Map<Users['users']['items'][0], true>();
+    protected readonly activating = new Map<Users['users']['items'][0], true>();
+    protected readonly welcoming = new Map<Users['users']['items'][0], true>();
 
     public constructor() {
         super(inject(UserService));

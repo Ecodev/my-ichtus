@@ -59,7 +59,7 @@ import {AsyncPipe} from '@angular/common';
     styleUrl: './userTags.component.scss',
 })
 export class UserTagsComponent extends NaturalAbstractList<UserTagService> implements OnInit {
-    public readonly permissionsService = inject(PermissionsService);
+    protected readonly permissionsService = inject(PermissionsService);
 
     public override availableColumns: AvailableColumn[] = [
         {id: 'color', label: 'Couleur'},

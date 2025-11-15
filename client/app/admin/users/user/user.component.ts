@@ -111,28 +111,28 @@ import {
     styleUrl: './user.component.scss',
 })
 export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeoResolveData> implements OnInit {
-    public readonly userTagService = inject(UserTagService);
-    public readonly licenseService = inject(LicenseService);
-    public readonly bookingService = inject(BookingService);
-    public readonly accountService = inject(AccountService);
-    public readonly permissionsService = inject(PermissionsService);
+    protected readonly userTagService = inject(UserTagService);
+    protected readonly licenseService = inject(LicenseService);
+    protected readonly bookingService = inject(BookingService);
+    protected readonly accountService = inject(AccountService);
+    protected readonly permissionsService = inject(PermissionsService);
     private readonly dialog = inject(MatDialog);
 
-    public showFamilyTab = false;
-    public updating = false;
-    public ibanLocked = true;
-    public readonly ibanCtrl = new FormControl('', ibanValidator);
+    protected showFamilyTab = false;
+    protected updating = false;
+    protected ibanLocked = true;
+    protected readonly ibanCtrl = new FormControl('', ibanValidator);
 
-    public transactionLinesVariables: TransactionLinesVariables = {};
+    protected transactionLinesVariables: TransactionLinesVariables = {};
 
-    public familyVariables: UsersVariables = {};
+    protected familyVariables: UsersVariables = {};
 
-    public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    protected viewer!: NonNullable<CurrentUserForProfile['viewer']>;
 
     private userRolesAvailable: UserRole[] = [];
 
-    public ownerFilter: UserFilter = {};
-    public readonly UserStatus = UserStatus;
+    protected ownerFilter: UserFilter = {};
+    protected readonly UserStatus = UserStatus;
 
     public constructor() {
         super('user', inject(UserService));

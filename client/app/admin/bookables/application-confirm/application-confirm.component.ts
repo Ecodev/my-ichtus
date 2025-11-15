@@ -19,8 +19,8 @@ export class ApplicationConfirmComponent {
     private readonly userService = inject(UserService);
     private readonly futureOwner = inject<ApplicationConfirmData>(MAT_DIALOG_DATA);
 
-    public readonly participant = new FormControl<string | null>(null, [Validators.required]);
-    public familyMembers: string[] = [];
+    protected readonly participant = new FormControl<string | null>(null, [Validators.required]);
+    protected familyMembers: string[] = [];
 
     public constructor() {
         const futureOwner = this.futureOwner;

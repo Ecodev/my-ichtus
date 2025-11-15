@@ -91,11 +91,11 @@ export class RegisterComponent implements OnInit {
     protected readonly bookableService = inject(BookableService);
     protected readonly privacyPolicyUrl = privacyPolicyUrl;
 
-    public mandatoryBookables: NaturalDataSource<Bookables['bookables']> | null = null;
+    protected mandatoryBookables: NaturalDataSource<Bookables['bookables']> | null = null;
 
-    public step: 1 | 2 = 1;
-    public sending = false;
-    public form!: FormGroup;
+    protected step: 1 | 2 = 1;
+    protected sending = false;
+    protected form!: FormGroup;
 
     public ngOnInit(): void {
         this.fetchMandatoryBookables();

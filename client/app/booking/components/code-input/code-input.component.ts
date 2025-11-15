@@ -13,7 +13,7 @@ import {FormsModule} from '@angular/forms';
 export class CodeInputComponent {
     private readonly router = inject(Router);
 
-    public code = '';
+    protected code = '';
 
     protected goToBookable(code: string): void {
         this.router.navigate(['/booking', code]);

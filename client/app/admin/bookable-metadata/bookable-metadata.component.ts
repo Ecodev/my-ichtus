@@ -53,11 +53,11 @@ export class BookableMetadataComponent implements OnInit {
 
     public readonly bookable = input.required<Bookable['bookable']>();
     @Input() public edit = false;
-    public readonly deleting = new Map<BookableMetadatas['bookableMetadatas']['items'][0], true>();
+    protected readonly deleting = new Map<BookableMetadatas['bookableMetadatas']['items'][0], true>();
 
-    public dataSource!: NaturalDataSource<BookableMetadatas['bookableMetadatas']>;
+    protected dataSource!: NaturalDataSource<BookableMetadatas['bookableMetadatas']>;
 
-    public columns: string[] = [];
+    protected columns: string[] = [];
 
     public ngOnInit(): void {
         if (this.edit) {

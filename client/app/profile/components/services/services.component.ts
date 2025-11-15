@@ -63,21 +63,21 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 })
 export class ServicesComponent implements OnInit, OnChanges {
     protected readonly userService = inject(UserService);
-    public readonly route = inject(ActivatedRoute);
+    protected readonly route = inject(ActivatedRoute);
     protected readonly alertService = inject(NaturalAlertService);
     protected readonly bookingService = inject(BookingService);
     protected readonly destroyRef = inject(DestroyRef);
 
     @Input({required: true}) public user!: NonNullable<CurrentUserForProfile['viewer']>;
 
-    public adminMode = false;
+    protected adminMode = false;
 
-    public runningServicesDS!: NaturalDataSource<PricedBookings['bookings']>;
-    public pendingApplicationsDS!: NaturalDataSource<PricedBookings['bookings']>;
+    protected runningServicesDS!: NaturalDataSource<PricedBookings['bookings']>;
+    protected pendingApplicationsDS!: NaturalDataSource<PricedBookings['bookings']>;
 
-    public servicesColumns = ['name', 'initialPrice', 'periodicPrice', 'revoke'];
-    public applicationsColumns = ['name', 'startDate', 'remarks', 'initialPrice', 'periodicPrice', 'cancel'];
-    public readonly deleting = new Map<Bookings['bookings']['items'][0]['id'], true>();
+    protected servicesColumns = ['name', 'initialPrice', 'periodicPrice', 'revoke'];
+    protected applicationsColumns = ['name', 'startDate', 'remarks', 'initialPrice', 'periodicPrice', 'cancel'];
+    protected readonly deleting = new Map<Bookings['bookings']['items'][0]['id'], true>();
 
     public ngOnChanges(changes: SimpleChanges): void {
         const previousUser = changes.user?.previousValue;

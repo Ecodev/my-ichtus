@@ -20,7 +20,7 @@ import {MatIconButton} from '@angular/material/button';
     styleUrl: './accounting-documents.component.scss',
 })
 export class AccountingDocumentsComponent implements OnInit {
-    public readonly accountingDocumentService = inject(AccountingDocumentService);
+    protected readonly accountingDocumentService = inject(AccountingDocumentService);
 
     public readonly model = input.required<
         Transaction['transaction'] | ExpenseClaim['expenseClaim'] | TransactionInput | ExpenseClaimInput
@@ -47,7 +47,7 @@ export class AccountingDocumentsComponent implements OnInit {
         return this._disabled;
     }
 
-    public files: (FileModel | null)[] = [];
+    protected files: (FileModel | null)[] = [];
     private readonly removedFiles: WithId<FileModel>[] = [];
     private _disabled = false;
 

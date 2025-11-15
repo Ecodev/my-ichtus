@@ -42,7 +42,7 @@ import {MatDivider} from '@angular/material/divider';
     styleUrl: './userTag.component.scss',
 })
 export class UserTagComponent extends NaturalAbstractDetail<UserTagService, NaturalSeoResolveData> {
-    public readonly userService = inject(UserService);
+    protected readonly userService = inject(UserService);
 
     public constructor() {
         super('userTag', inject(UserTagService));

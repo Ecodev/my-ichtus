@@ -49,8 +49,8 @@ export class HistoryComponent implements OnInit {
     private readonly destroyRef = inject(DestroyRef);
     @Input({required: true}) public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
 
-    public transactionLinesDS!: NaturalDataSource<TransactionLines['transactionLines']>;
-    public transactionsColumns = ['name', 'bookable', 'transactionDate', 'remarks', 'amount'];
+    protected transactionLinesDS!: NaturalDataSource<TransactionLines['transactionLines']>;
+    protected transactionsColumns = ['name', 'bookable', 'transactionDate', 'remarks', 'amount'];
 
     public ngOnInit(): void {
         this.viewer = this.route.snapshot.data.viewer;

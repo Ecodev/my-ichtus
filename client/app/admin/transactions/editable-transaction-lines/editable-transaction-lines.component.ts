@@ -75,8 +75,8 @@ export class EditableTransactionLinesComponent extends NaturalAbstractEditableLi
     TransactionLineService,
     TransactionLines['transactionLines']['items'][0] | TransactionLineInput
 > {
-    public readonly transactionTagService = inject(TransactionTagService);
-    public readonly bookableService = inject(BookableService);
+    protected readonly transactionTagService = inject(TransactionTagService);
+    protected readonly bookableService = inject(BookableService);
 
     @Input({required: true})
     public set input(value: EditableTransactionLinesInput) {
@@ -85,8 +85,8 @@ export class EditableTransactionLinesComponent extends NaturalAbstractEditableLi
 
     private readonly input$ = new Subject<EditableTransactionLinesInput>();
 
-    public accountHierarchicConfig = accountHierarchicConfiguration;
-    public columns = [
+    protected accountHierarchicConfig = accountHierarchicConfiguration;
+    protected columns = [
         'name',
         'balance',
         'debit',

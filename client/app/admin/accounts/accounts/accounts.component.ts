@@ -87,9 +87,9 @@ type AccountingExportDialogResult = {
 })
 export class AccountsComponent extends NaturalAbstractNavigableList<AccountService> implements OnInit {
     private readonly dialog = inject(MatDialog);
-    public readonly permissionsService = inject(PermissionsService);
-    public readonly transactionLineService = inject(TransactionLineService);
-    public readonly userService = inject(UserService);
+    protected readonly permissionsService = inject(PermissionsService);
+    protected readonly transactionLineService = inject(TransactionLineService);
+    protected readonly userService = inject(UserService);
 
     public override availableColumns: AvailableColumn[] = [
         {id: 'navigation', label: 'Navigation'},
@@ -106,7 +106,7 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
         {id: 'updateDate', label: 'Modifié le', checked: false},
     ];
 
-    public readonly buttons: Observable<Button[]> = this.route.data.pipe(
+    protected readonly buttons: Observable<Button[]> = this.route.data.pipe(
         map(routeData => {
             const viewer: NonNullable<CurrentUserForProfile['viewer']> = routeData.viewer;
 
@@ -126,7 +126,7 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
         }),
     );
 
-    public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    protected viewer!: NonNullable<CurrentUserForProfile['viewer']>;
     private dialogConfig: MatDialogConfig<AccountingDialogData> = {
         minWidth: '400px',
         maxWidth: '60vw',

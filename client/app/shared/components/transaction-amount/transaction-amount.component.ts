@@ -12,7 +12,7 @@ import {CurrencyPipe} from '@angular/common';
     styleUrl: './transaction-amount.component.scss',
 })
 export class TransactionAmountComponent implements OnChanges {
-    public readonly transactionLineService = inject(TransactionLineService);
+    protected readonly transactionLineService = inject(TransactionLineService);
 
     @Input() public transactionLine: TransactionLine['transactionLine'] | null = null;
 
@@ -21,9 +21,9 @@ export class TransactionAmountComponent implements OnChanges {
      */
     @Input() public relativeToAccount: MinimalAccount | null = null;
     public readonly displayMode = input<'amount' | 'account'>('amount');
-    public readonly accountClick = output<MinimalAccount>();
+    protected readonly accountClick = output<MinimalAccount>();
 
-    public isIncome: boolean | null = null;
+    protected isIncome: boolean | null = null;
 
     public ngOnChanges(): void {
         const account = this.relativeToAccount;

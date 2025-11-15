@@ -33,19 +33,19 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 export class HomeComponent implements OnInit {
     private readonly router = inject(Router);
     private readonly storage = inject(LOCAL_STORAGE);
-    public readonly route = inject(ActivatedRoute);
+    protected readonly route = inject(ActivatedRoute);
     private readonly configurationService = inject(ConfigurationService);
     private readonly naturalSidenavStackService = inject(NaturalSidenavStackService);
 
     private readonly destroyRef = inject(DestroyRef);
-    public menu: NaturalSidenavContainerComponent | undefined;
+    protected menu: NaturalSidenavContainerComponent | undefined;
 
     /**
      * Model for header code search
      */
-    public code = '';
+    protected code = '';
 
-    public announcementActive = false;
+    protected announcementActive = false;
 
     public ngOnInit(): void {
         const announcementConfigKey = 'announcement-text';

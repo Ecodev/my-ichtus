@@ -71,7 +71,7 @@ import {
     styleUrl: './expenseClaims.component.scss',
 })
 export class ExpenseClaimsComponent extends NaturalAbstractList<ExpenseClaimService> implements OnInit {
-    public readonly permissionsService = inject(PermissionsService);
+    protected readonly permissionsService = inject(PermissionsService);
 
     public override availableColumns: AvailableColumn[] = [
         {id: 'name', label: 'Nom'},

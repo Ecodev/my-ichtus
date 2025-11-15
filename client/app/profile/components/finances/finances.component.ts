@@ -82,13 +82,13 @@ export class FinancesComponent extends NaturalAbstractList<ExpenseClaimService> 
 
     public override selectedColumns = ['name', 'updateDate', 'status', 'type', 'remarks', 'amount', 'cancel'];
 
-    public ibanLocked = true;
+    protected ibanLocked = true;
 
-    public adminMode = false;
-    public readonly deleting = new Set<string>();
-    public updating = false;
-    public readonly ibanCtrl = new FormControl('', ibanValidator);
-    public canCreateExpenseClaim = false;
+    protected adminMode = false;
+    protected readonly deleting = new Set<string>();
+    protected updating = false;
+    protected readonly ibanCtrl = new FormControl('', ibanValidator);
+    protected canCreateExpenseClaim = false;
     public override persistSearch = false;
 
     public constructor() {

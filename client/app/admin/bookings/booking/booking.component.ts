@@ -78,14 +78,14 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     styleUrl: './booking.component.scss',
 })
 export class BookingComponent extends NaturalAbstractDetail<BookingService, NaturalSeoResolveData> implements OnInit {
-    public readonly bookableService = inject(BookableService);
-    public readonly userService = inject(UserService);
+    protected readonly bookableService = inject(BookableService);
+    protected readonly userService = inject(UserService);
 
-    public BookingStatus = BookingStatus;
-    public suggestionVariables: BookablesVariables = {};
-    public suggestionSelection: NaturalSearchSelections = [[]];
-    public readonly BookingType = BookingType;
-    public readonly availableColumns: Readonly<AvailableColumn>[] = [
+    protected BookingStatus = BookingStatus;
+    protected suggestionVariables: BookablesVariables = {};
+    protected suggestionSelection: NaturalSearchSelections = [[]];
+    protected readonly BookingType = BookingType;
+    protected readonly availableColumns: Readonly<AvailableColumn>[] = [
         availability,
         name,
         code,
@@ -94,7 +94,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
         select,
     ];
 
-    public readonly bookableFilterChips: {name: string; value: BookingType; selected: boolean}[] = [
+    protected readonly bookableFilterChips: {name: string; value: BookingType; selected: boolean}[] = [
         {name: 'Stockage et services effectifs', value: BookingType.AdminAssigned, selected: false},
         {name: 'Stockage et services pour demande', value: BookingType.Application, selected: false},
         {name: 'Cours', value: BookingType.AdminApproved, selected: false},
@@ -102,7 +102,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
         {name: 'Services obligatoires', value: BookingType.Mandatory, selected: false},
     ];
 
-    public bookableSelectFilter: ExtractVall<BookableService>['filter'];
+    protected bookableSelectFilter: ExtractVall<BookableService>['filter'];
 
     /**
      * Special tags used to match application with actual bookables
@@ -121,7 +121,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
     /**
      * Received the created booking after having processing an application
      */
-    public newBooking: CreateBooking['createBooking'] | null = null;
+    protected newBooking: CreateBooking['createBooking'] | null = null;
 
     public constructor() {
         super('booking', inject(BookingService));

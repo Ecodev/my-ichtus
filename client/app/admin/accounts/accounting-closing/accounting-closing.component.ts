@@ -29,8 +29,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     styleUrl: './accounting-closing.component.scss',
 })
 export class AccountingClosingComponent {
-    public readonly form = new FormControl<Date | null>(null, [Validators.required]);
-    public readonly today = new Date();
+    protected readonly form = new FormControl<Date | null>(null, [Validators.required]);
+    protected readonly today = new Date();
 
     public constructor() {
         const lastYear = new Date().getFullYear() - 1;

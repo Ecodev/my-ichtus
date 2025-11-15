@@ -14,7 +14,7 @@ export class AppComponent {
     private readonly networkActivityService = inject(NetworkActivityService);
     private readonly ngProgressRef = viewChild.required(NgProgressRef);
 
-    public initialized = false;
+    protected initialized = false;
 
     public constructor() {
         effect(() => this.networkActivityService.setProgressRef(this.ngProgressRef()));

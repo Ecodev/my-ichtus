@@ -34,8 +34,8 @@ export class RequestPasswordResetComponent {
     private readonly router = inject(Router);
     private readonly userService = inject(UserService);
 
-    public readonly form: FormGroup;
-    public sending = false;
+    protected readonly form: FormGroup;
+    protected sending = false;
 
     public constructor() {
         this.form = new FormGroup({login: new FormControl('', [Validators.required])});

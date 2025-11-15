@@ -32,7 +32,7 @@ export class CreateRefundComponent {
     /**
      * Form for ExpenseClaimInput
      */
-    public readonly form = this.fb.group({
+    protected readonly form = this.fb.group({
         amount: ['', [Validators.required, Validators.min(1), money]],
         name: ['Demande de remboursement', [Validators.required, Validators.maxLength(50)]],
         description: ['', []],

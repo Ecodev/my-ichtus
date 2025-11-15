@@ -10,7 +10,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     styleUrl: './scan.component.scss',
 })
 export class ScanComponent implements OnInit, OnDestroy {
-    public readonly router = inject(Router);
+    protected readonly router = inject(Router);
     private readonly route = inject(ActivatedRoute);
     private readonly alertService = inject(NaturalAlertService);
     private readonly qrService = inject(QrService);

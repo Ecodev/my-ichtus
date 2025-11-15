@@ -56,7 +56,7 @@ class ConfirmPasswordStateMatcher implements ErrorStateMatcher {
 })
 export class PasswordComponent implements OnInit {
     @Input({required: true}) public form!: FormGroup;
-    public confirmPasswordStateMatcher = new ConfirmPasswordStateMatcher();
+    protected confirmPasswordStateMatcher = new ConfirmPasswordStateMatcher();
 
     public ngOnInit(): void {
         this.form.setControl('password', new FormControl('', [Validators.required, Validators.minLength(12)]));

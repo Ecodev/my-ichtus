@@ -84,7 +84,7 @@ import {
     styleUrl: './transactionLines.component.scss',
 })
 export class TransactionLinesComponent extends NaturalAbstractList<TransactionLineService> implements OnInit {
-    public readonly permissionsService = inject(PermissionsService);
+    protected readonly permissionsService = inject(PermissionsService);
 
     public override availableColumns: AvailableColumn[] = [
         {id: 'transactionDate', label: 'Date'},
@@ -98,7 +98,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
         {id: 'tag', label: 'Tag'},
     ];
 
-    public readonly buttons: Button[] = [
+    protected readonly buttons: Button[] = [
         {
             label: `Télécharger la liste au format Excel`,
             icon: 'file_download',

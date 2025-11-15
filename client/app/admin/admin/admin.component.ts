@@ -38,13 +38,13 @@ import {AsyncPipe} from '@angular/common';
     styleUrl: './admin.component.scss',
 })
 export class AdminComponent {
-    public readonly permissionsService = inject(PermissionsService);
-    public readonly route = inject(ActivatedRoute);
+    protected readonly permissionsService = inject(PermissionsService);
+    protected readonly route = inject(ActivatedRoute);
 
-    public adminUserRouteActive = false;
-    public adminBookableRouteActive = false;
-    public adminBookingRouteActive = false;
-    public UserRole = UserRole;
+    protected adminUserRouteActive = false;
+    protected adminBookableRouteActive = false;
+    protected adminBookingRouteActive = false;
+    protected UserRole = UserRole;
 
     public constructor() {
         const router = inject(Router);

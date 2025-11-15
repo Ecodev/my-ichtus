@@ -60,8 +60,8 @@ import {AsyncPipe} from '@angular/common';
     styleUrl: './transactionTags.component.scss',
 })
 export class TransactionTagsComponent extends NaturalAbstractList<TransactionTagService> implements OnInit {
-    public readonly permissionsService = inject(PermissionsService);
-    public readonly transactionLineService = inject(TransactionLineService);
+    protected readonly permissionsService = inject(PermissionsService);
+    protected readonly transactionLineService = inject(TransactionLineService);
 
     public override availableColumns: AvailableColumn[] = [
         {id: 'color', label: 'Couleur'},

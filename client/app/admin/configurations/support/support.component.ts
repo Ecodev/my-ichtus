@@ -35,28 +35,28 @@ export type SupportComponentData = {
 })
 export class SupportComponent implements OnInit {
     private readonly configurationService = inject(ConfigurationService);
-    public readonly permissionsService = inject(PermissionsService);
-    public readonly route = inject(ActivatedRoute);
+    protected readonly permissionsService = inject(PermissionsService);
+    protected readonly route = inject(ActivatedRoute);
     private readonly alertService = inject(NaturalAlertService);
     public readonly data? = inject<NaturalDialogTriggerProvidedData<SupportComponentData>>(MAT_DIALOG_DATA, {
         optional: true,
     });
 
     private readonly destroyRef = inject(DestroyRef);
-    public text = '';
+    protected text = '';
 
-    public readonly = false;
-
-    /**
-     * Specific to announcement
-     */
-    public active = false;
+    protected readonly = false;
 
     /**
      * Specific to announcement
      */
-    public activable = false;
-    public updating = false;
+    protected active = false;
+
+    /**
+     * Specific to announcement
+     */
+    protected activable = false;
+    protected updating = false;
 
     public ngOnInit(): void {
         this.readonly = this.route.snapshot.data.readonly || this.data?.data?.readonly;

@@ -30,13 +30,13 @@ import {MatCheckbox, MatCheckboxChange} from '@angular/material/checkbox';
     styleUrl: './accounting-report.component.scss',
 })
 export class AccountingReportComponent {
-    public readonly form = new FormGroup({
+    protected readonly form = new FormGroup({
         date: new FormControl(new Date(), [Validators.required]),
         showBudget: new FormControl(false),
         compareWithPrevious: new FormControl(false),
         datePrevious: new FormControl(null),
     });
-    public readonly today = new Date();
+    protected readonly today = new Date();
 
     protected compareCheck(e: MatCheckboxChange): void {
         if (!e.checked) {

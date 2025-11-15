@@ -59,7 +59,7 @@ import {AsyncPipe} from '@angular/common';
     styleUrl: './bookableTags.component.scss',
 })
 export class BookableTagsComponent extends NaturalAbstractList<BookableTagService> implements OnInit {
-    public readonly permissionsService = inject(PermissionsService);
+    protected readonly permissionsService = inject(PermissionsService);
 
     public override availableColumns: AvailableColumn[] = [
         {id: 'color', label: 'Couleur'},

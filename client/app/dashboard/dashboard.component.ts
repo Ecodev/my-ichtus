@@ -32,13 +32,13 @@ import {MatDivider} from '@angular/material/divider';
     styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
-    public readonly userService = inject(UserService);
-    public readonly bookingService = inject(BookingService);
-    public readonly route = inject(ActivatedRoute);
-    public readonly permissionsService = inject(PermissionsService);
+    protected readonly userService = inject(UserService);
+    protected readonly bookingService = inject(BookingService);
+    protected readonly route = inject(ActivatedRoute);
+    protected readonly permissionsService = inject(PermissionsService);
 
-    public title = 'my-ichtus';
-    public readonly adminRoute: Observable<string>;
+    protected title = 'my-ichtus';
+    protected readonly adminRoute: Observable<string>;
 
     protected formations: PricedBookings['bookings']['items'] = [];
 

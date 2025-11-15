@@ -14,11 +14,11 @@ import {CardComponent} from '../shared/components/card/card.component';
     styleUrl: './door.component.scss',
 })
 export class DoorComponent implements OnInit {
-    public readonly doorService = inject(DoorService);
+    protected readonly doorService = inject(DoorService);
     private readonly alertService = inject(NaturalAlertService);
     private readonly route = inject(ActivatedRoute);
 
-    public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    protected viewer!: NonNullable<CurrentUserForProfile['viewer']>;
 
     protected open(door: DoorConfig): void {
         this.doorService.open({door: door.enum}).subscribe({

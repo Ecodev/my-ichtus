@@ -48,8 +48,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     styleUrl: './license.component.scss',
 })
 export class LicenseComponent extends NaturalAbstractDetail<LicenseService> {
-    public readonly userService = inject(UserService);
-    public readonly bookableService = inject(BookableService);
+    protected readonly userService = inject(UserService);
+    protected readonly bookableService = inject(BookableService);
 
     public constructor() {
         super('license', inject(LicenseService));

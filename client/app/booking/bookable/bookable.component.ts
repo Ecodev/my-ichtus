@@ -29,32 +29,32 @@ export class BookableComponent implements OnInit {
     private readonly bookableService = inject(BookableService);
     private readonly route = inject(ActivatedRoute);
     private readonly permissionsService = inject(PermissionsService);
-    public readonly bookingService = inject(BookingService);
+    protected readonly bookingService = inject(BookingService);
 
     /**
      * If the user has a required licence to use the bookable
      */
-    public hasLicense = false;
+    protected hasLicense = false;
 
     /**
      * If the booking is free / available for a new navigation
      */
-    public isAvailable = false;
+    protected isAvailable = false;
 
     /**
      * If the user has taken the welcome session
      */
-    public welcomeSessionTaken = false;
+    protected welcomeSessionTaken = false;
 
     /**
      * If is applicable for a navigation booking purpose
      * Basically : true only for self-approved bookables.
      */
-    public isNavigable = false;
-    public canAccessAdmin = false;
-    public runningBooking: Bookings['bookings']['items'][0] | null = null;
+    protected isNavigable = false;
+    protected canAccessAdmin = false;
+    protected runningBooking: Bookings['bookings']['items'][0] | null = null;
 
-    public bookable: Bookable['bookable'] | null = null;
+    protected bookable: Bookable['bookable'] | null = null;
 
     public ngOnInit(): void {
         this.route.data.subscribe(data => {

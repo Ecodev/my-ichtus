@@ -67,13 +67,13 @@ export class ExpenseClaimComponent
     extends NaturalAbstractDetail<ExpenseClaimService, NaturalSeoResolveData>
     implements OnInit
 {
-    public readonly userService = inject(UserService);
-    public readonly transactionLineService = inject(TransactionLineService);
-    public readonly permissionsService = inject(PermissionsService);
+    protected readonly userService = inject(UserService);
+    protected readonly transactionLineService = inject(TransactionLineService);
+    protected readonly permissionsService = inject(PermissionsService);
 
-    public ExpenseClaimType = ExpenseClaimType;
-    public ExpenseClaimStatus = ExpenseClaimStatus;
-    public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    protected ExpenseClaimType = ExpenseClaimType;
+    protected ExpenseClaimStatus = ExpenseClaimStatus;
+    protected viewer!: NonNullable<CurrentUserForProfile['viewer']>;
 
     public constructor() {
         super('expenseClaim', inject(ExpenseClaimService));

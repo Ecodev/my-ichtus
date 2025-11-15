@@ -86,8 +86,8 @@ function bookingsToExtended(bookings: Bookings['bookings']): PaginatedExtendedBo
     styleUrl: './navigations.component.scss',
 })
 export class NavigationsComponent implements OnInit {
-    public readonly userService = inject(UserService);
-    public readonly bookingService = inject(BookingService);
+    protected readonly userService = inject(UserService);
+    protected readonly bookingService = inject(BookingService);
     private readonly alertService = inject(NaturalAlertService);
     private readonly dialog = inject(MatDialog);
     private readonly snackbar = inject(MatSnackBar);
@@ -96,7 +96,7 @@ export class NavigationsComponent implements OnInit {
     public readonly activeOnly = input(true);
     public readonly showEmptyMessage = input(false);
 
-    public bookings: PaginatedExtendedBooking | null = null;
+    protected bookings: PaginatedExtendedBooking | null = null;
 
     private bookingsQVM = new NaturalQueryVariablesManager<BookingsVariables>();
 

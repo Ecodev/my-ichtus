@@ -38,11 +38,11 @@ export class CreateExpenseClaimComponent
     extends NaturalAbstractDetail<ExpenseClaimService, NaturalSeoResolveData>
     implements OnInit
 {
-    public readonly userService = inject(UserService);
+    protected readonly userService = inject(UserService);
 
     private readonly accountingDocuments = viewChild.required(AccountingDocumentsComponent);
 
-    public ExpenseClaimType = ExpenseClaimType;
+    protected ExpenseClaimType = ExpenseClaimType;
 
     public constructor() {
         super('expenseClaim', inject(ExpenseClaimService));

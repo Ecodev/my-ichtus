@@ -37,8 +37,8 @@ export class SelfApprovedBookingComponent implements OnInit {
     private readonly bookableService = inject(BookableService);
     private readonly alertService = inject(NaturalAlertService);
 
-    public bookable: Bookable['bookable'] | null = null;
-    public booking: Literal = {};
+    protected bookable: Bookable['bookable'] | null = null;
+    protected booking: Literal = {};
 
     public constructor() {
         this.route.data

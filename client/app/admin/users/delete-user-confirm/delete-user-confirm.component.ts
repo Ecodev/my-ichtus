@@ -44,11 +44,11 @@ export type DeleteUserConfirmData = {
 export class DeleteUserConfirmComponent {
     private readonly dialog = inject<MatDialogRef<boolean>>(MatDialogRef);
 
-    public result: ApolloQueryResult<DeleteUserConfirmation> | null = null;
-    public readonly form = new FormControl('', {nonNullable: true});
-    public readonly accountBalanceNotZeroParams: Params;
-    public readonly nonTreatedExpenseClaimParams: Params;
-    public readonly familyParams: Params;
+    protected result: ApolloQueryResult<DeleteUserConfirmation> | null = null;
+    protected readonly form = new FormControl('', {nonNullable: true});
+    protected readonly accountBalanceNotZeroParams: Params;
+    protected readonly nonTreatedExpenseClaimParams: Params;
+    protected readonly familyParams: Params;
 
     public constructor() {
         const data = inject<DeleteUserConfirmData>(MAT_DIALOG_DATA);

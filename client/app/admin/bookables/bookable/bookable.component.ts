@@ -91,18 +91,19 @@ import {UserService} from '../../users/services/user.service';
     styleUrl: './bookable.component.scss',
 })
 export class BookableComponent extends NaturalAbstractDetail<BookableService, NaturalSeoResolveData> implements OnInit {
-    public readonly bookableTagService = inject(BookableTagService);
-    public readonly licenseService = inject(LicenseService);
+    protected readonly bookableTagService = inject(BookableTagService);
+    protected readonly licenseService = inject(LicenseService);
     private readonly imageService = inject(ImageService);
-    public readonly permissionsService = inject(PermissionsService);
-    public readonly userService = inject(UserService);
+    protected readonly permissionsService = inject(PermissionsService);
+    protected readonly userService = inject(UserService);
 
-    public accountHierarchicConfig = accountHierarchicConfiguration;
-    public bookingsVariables: BookingsVariables = {};
-    public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    protected accountHierarchicConfig = accountHierarchicConfiguration;
+    protected bookingsVariables: BookingsVariables = {};
+    protected viewer!: NonNullable<CurrentUserForProfile['viewer']>;
     public readonly availableColumnsForBookingsWithOwnerWithoutTrainers =
         availableColumnsForBookingsWithOwnerWithoutTrainers;
-    public readonly availableColumnsForBookingsWithOwnerOnlyTrainers = availableColumnsForBookingsWithOwnerOnlyTrainers;
+    protected readonly availableColumnsForBookingsWithOwnerOnlyTrainers =
+        availableColumnsForBookingsWithOwnerOnlyTrainers;
 
     public constructor() {
         super('bookable', inject(BookableService));

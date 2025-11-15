@@ -36,18 +36,18 @@ export type ProvisionData = {
     styleUrl: './provision.component.scss',
 })
 export class ProvisionComponent {
-    public readonly data = inject<ProvisionData>(MAT_DIALOG_DATA);
+    protected readonly data = inject<ProvisionData>(MAT_DIALOG_DATA);
 
     /**
      * Minimum payment amount
      * Positive number at the payment is always positive
      */
-    public min = 25;
-    public formCtrl: FormControl;
-    public matcher = new ShowOnDirtyErrorStateMatcher();
-    public bvrData: BankingInfosVariables;
+    protected min = 25;
+    protected formCtrl: FormControl;
+    protected matcher = new ShowOnDirtyErrorStateMatcher();
+    protected bvrData: BankingInfosVariables;
 
-    public paymentMode: 'ebanking' | 'datatrans' | null = null;
+    protected paymentMode: 'ebanking' | 'datatrans' | null = null;
 
     private readonly bvr = viewChild(BvrComponent);
 

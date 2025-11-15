@@ -21,18 +21,18 @@ type ParticleSwitchOption = {
 export class ParticleSwitchComponent implements AfterViewInit {
     private readonly rootElement = inject<ElementRef<HTMLElement>>(ElementRef);
 
-    public readonly template = contentChild.required(TemplateRef);
+    protected readonly template = contentChild.required(TemplateRef);
     private readonly wrapper = viewChild.required<ElementRef>('wrapper');
 
-    public _data1: any;
-    public _data2: any;
-    public showData1 = false;
-    public showData2 = false;
-    public invertAnimation = false;
-    public duration = 500;
-    public firstDisplay = true;
+    protected _data1: any;
+    protected _data2: any;
+    protected showData1 = false;
+    protected showData2 = false;
+    protected invertAnimation = false;
+    protected duration = 500;
+    protected firstDisplay = true;
 
-    public settings1: ParticleSwitchOption = {
+    protected settings1: ParticleSwitchOption = {
         pOscillationCoefficient: 80,
         pDirection: 'right',
         pColor: 'red',
@@ -41,7 +41,7 @@ export class ParticleSwitchComponent implements AfterViewInit {
         pSpeed: 0.5,
     };
 
-    public settings2: ParticleSwitchOption = {
+    protected settings2: ParticleSwitchOption = {
         pOscillationCoefficient: 100,
         pDirection: 'left',
         pColor: 'green',
