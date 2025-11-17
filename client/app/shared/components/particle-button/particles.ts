@@ -81,10 +81,6 @@ export class Particles {
         this.renderer.appendChild(this.parentWrapper, this.canvas);
     }
 
-    private setOptions(options: IOption): void {
-        this.options = {...this.options, ...options};
-    }
-
     private loop(): void {
         this.updateParticles();
         this.renderParticles();

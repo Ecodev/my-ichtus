@@ -1,7 +1,5 @@
 import {Component, DestroyRef, inject, Input, OnInit} from '@angular/core';
-import {UserService} from '../../../admin/users/services/user.service';
 import {ActivatedRoute} from '@angular/router';
-import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
 import {NaturalDataSource} from '@ecodev/natural';
 import {CurrentUserForProfile, TransactionLines} from '../../../shared/generated-types';
@@ -41,9 +39,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     styleUrl: './history.component.scss',
 })
 export class HistoryComponent implements OnInit {
-    private readonly userService = inject(UserService);
     private readonly route = inject(ActivatedRoute);
-    private readonly expenseClaimService = inject(ExpenseClaimService);
     private readonly transactionLineService = inject(TransactionLineService);
 
     private readonly destroyRef = inject(DestroyRef);

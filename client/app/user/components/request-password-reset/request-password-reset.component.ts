@@ -1,10 +1,14 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
-import {Apollo} from 'apollo-angular';
+import {
+    ifValid,
+    NaturalAlertService,
+    NaturalErrorMessagePipe,
+    NaturalIconDirective,
+    validateAllFormControls,
+} from '@ecodev/natural';
 import {Component, inject} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from '../../../admin/users/services/user.service';
-import {ifValid, NaturalAlertService, NaturalIconDirective, validateAllFormControls} from '@ecodev/natural';
 import {MatButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MatInput} from '@angular/material/input';
@@ -29,7 +33,6 @@ import {MatError, MatFormField, MatLabel, MatPrefix} from '@angular/material/for
     styleUrl: './request-password-reset.component.scss',
 })
 export class RequestPasswordResetComponent {
-    private readonly apollo = inject(Apollo);
     private readonly alertService = inject(NaturalAlertService);
     private readonly router = inject(Router);
     private readonly userService = inject(UserService);
