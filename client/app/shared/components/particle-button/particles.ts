@@ -18,8 +18,6 @@ export type IOption = {
     oscillationCoefficient?: number;
     width?: number | null;
     height?: number | null;
-    begin?: () => void;
-    complete?: () => void;
 };
 
 type Particle = {
@@ -105,7 +103,6 @@ export class Particles {
         if (!this.particles.length) {
             this.pause();
             this.renderer.setStyle(this.canvas, 'display', 'none');
-            this.o.complete();
         }
     }
 
@@ -262,7 +259,6 @@ export class Particles {
                     value: this.disintegrating ? 100 : 0,
                     duration: this.o.duration,
                     ease: this.o.easing,
-                    begin: this.o.begin,
                     onUpdate: update,
                     onComplete: () => {
                         if (this.disintegrating) {

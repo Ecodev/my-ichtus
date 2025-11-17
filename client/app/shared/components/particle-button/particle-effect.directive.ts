@@ -1,4 +1,4 @@
-import {AfterContentInit, Directive, ElementRef, inject, Input, input, output, Renderer2} from '@angular/core';
+import {AfterContentInit, Directive, ElementRef, inject, Input, input, Renderer2} from '@angular/core';
 import {rand} from './utils';
 import {Direction, IOption, Particles} from './particles';
 import type {EaseStringParamNames} from 'animejs';
@@ -21,8 +21,6 @@ export class ParticleEffectDirective implements AfterContentInit {
     public readonly pCanvasPadding = input(150);
     public readonly pOscillationCoefficient = input(30);
     public readonly pParticlesAmountCoefficient = input(3);
-    public readonly pBegin = output();
-    public readonly pComplete = output();
     public readonly pSize = input<(() => number) | number>(() => Math.floor(Math.random() * 3 + 1));
     public readonly pSpeed = input<(() => number) | number>(() => rand(4));
 
@@ -63,12 +61,6 @@ export class ParticleEffectDirective implements AfterContentInit {
             speed: this.pSpeed(),
             particlesAmountCoefficient: this.pParticlesAmountCoefficient(),
             oscillationCoefficient: this.pOscillationCoefficient(),
-            begin: () => {
-                this.pBegin.emit();
-            },
-            complete: () => {
-                this.pComplete.emit();
-            },
             width: null,
             height: null,
         };

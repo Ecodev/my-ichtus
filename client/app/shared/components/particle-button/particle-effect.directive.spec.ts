@@ -102,24 +102,4 @@ describe('AngularParticleEffectButtonComponent', () => {
             expect(defaultOptions[key as PossibleInputName]).toEqual(directiveInstance[key as PossibleInputName]());
         });
     });
-
-    it('should begin event emit when animation starts', done => {
-        const directiveInstance = directiveDOM.injector.get(ParticleEffectDirective);
-        directiveInstance.pBegin.subscribe(() => {
-            expect(true).toBe(true);
-            done();
-        });
-        directiveInstance.pHidden = true;
-        fixture.detectChanges();
-    });
-
-    it('should complete event emit when animation completes', done => {
-        const directiveInstance = directiveDOM.injector.get(ParticleEffectDirective);
-        directiveInstance.pComplete.subscribe(() => {
-            expect(true).toBe(true);
-            done();
-        });
-        directiveInstance.pHidden = true;
-        fixture.detectChanges();
-    });
 });
