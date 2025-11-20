@@ -1,196 +1,245 @@
 <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
 <natural-sidenav-container class="nat-expand" name="adminMenu" [noScroll]="true">
-    <natural-sidenav>
-        <div class="nat-margin overflow">
-            <mat-accordion displayMode="flat">
-                @if (permissionsService.canAccessNavigations(route.snapshot.data.viewer)) {
-                    <mat-expansion-panel class="mat-elevation-z0">
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>Carnet de sorties</mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <mat-nav-list>
-                            <a mat-list-item routerLinkActive="active" routerLink="/admin">En cours</a>
-                            <a mat-list-item routerLinkActive="active" routerLink="booking/self-approved">Toutes</a>
-                        </mat-nav-list>
-                    </mat-expansion-panel>
-                }
-
-                @if (permissionsService.canAccessUsers(route.snapshot.data.viewer)) {
-                    <mat-expansion-panel class="mat-elevation-z0">
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>Utilisateurs</mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <mat-nav-list>
-                            <a mat-list-item routerLink="user" [class.active]="adminUserRouteActive"
-                                >Tous les utilisateurs</a
-                            >
-                            @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
-                                <a mat-list-item routerLinkActive="active" routerLink="user/newcomer"
-                                    >Nouveaux membres</a
-                                >
-                            }
-                            @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
-                                <a mat-list-item routerLinkActive="active" routerLink="user/member">Membres</a>
-                            }
-                            @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
-                                <a mat-list-item routerLinkActive="active" routerLink="user/non-active">Non actifs</a>
-                            }
-                            @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
-                                <a mat-list-item routerLinkActive="active" routerLink="user-tag">Tags</a>
-                            }
-                        </mat-nav-list>
-                    </mat-expansion-panel>
-                }
-
-                @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
-                    <mat-expansion-panel class="mat-elevation-z0">
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>Matériel nautique</mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <mat-nav-list>
-                            <a mat-list-item routerLinkActive="active" routerLink="bookable/sup">SUP</a>
-                            <a mat-list-item routerLinkActive="active" routerLink="bookable/planche">Planches</a>
-                            <a mat-list-item routerLinkActive="active" routerLink="bookable/wing-foil">Wing foil</a>
-                            <a mat-list-item routerLinkActive="active" routerLink="bookable/canoe">Canoës</a>
-                            <a mat-list-item routerLinkActive="active" routerLink="bookable/kayak">Kayaks</a>
-                            <a mat-list-item routerLinkActive="active" routerLink="bookable/aviron">Aviron</a>
-                            <a mat-list-item routerLinkActive="active" routerLink="bookable/voile-legere"
-                                >Voile légère</a
-                            >
-                            <a mat-list-item routerLinkActive="active" routerLink="bookable/voile-lestee"
-                                >Voile lestée</a
-                            >
-                            <a mat-list-item routerLinkActive="active" routerLink="bookable/bateau-moteur"
-                                >Bateau moteur</a
-                            >
-                        </mat-nav-list>
-                    </mat-expansion-panel>
-                }
-
-                @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
-                    <mat-expansion-panel class="mat-elevation-z0">
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>Stockage</mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <mat-nav-list>
-                            <a mat-list-item routerLinkActive="active" routerLink="bookable/armoire">Armoires</a>
-                            <a mat-list-item routerLinkActive="active" routerLink="bookable/casier">Casiers</a>
-                            <a mat-list-item routerLinkActive="active" routerLink="bookable/flotteur">Flotteurs</a>
-                            <a mat-list-item routerLinkActive="active" routerLink="bookable/ratelier">Râteliers WB</a>
-                            <a mat-list-item routerLinkActive="active" routerLink="booking/storage-application"
-                                >Demandes en attente</a
-                            >
-                        </mat-nav-list>
-                    </mat-expansion-panel>
-                }
-
-                @if (permissionsService.canAccessFormations(route.snapshot.data.viewer)) {
-                    <mat-expansion-panel class="mat-elevation-z0">
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>Cours et accueil</mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <mat-nav-list>
-                            <a mat-list-item routerLinkActive="active" routerLink="bookable/formation">Cours</a>
-                            @if (permissionsService.canAccessFormationApplication(route.snapshot.data.viewer)) {
-                                <a mat-list-item routerLinkActive="active" routerLink="booking/formation-application"
-                                    >Demandes de cours</a
-                                >
-                            }
-                            @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
-                                <a mat-list-item routerLinkActive="active" routerLink="bookable/welcome"
-                                    >Séances d'accueil
-                                </a>
-                            }
-                            @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
-                                <a mat-list-item routerLinkActive="active" routerLink="booking/welcome-application"
-                                    >Demandes de séances d'accueil</a
-                                >
-                            }
-                        </mat-nav-list>
-                    </mat-expansion-panel>
-                }
-
-                @if (permissionsService.canAccessNFT(route.snapshot.data.viewer)) {
-                    <mat-expansion-panel class="mat-elevation-z0">
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>NFT</mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <mat-nav-list>
-                            <a mat-list-item routerLinkActive="active" routerLink="bookable/nft">NFT</a>
-                            @if (permissionsService.canAccessFormationApplication(route.snapshot.data.viewer)) {
-                                <a mat-list-item routerLinkActive="active" routerLink="booking/nft-application"
-                                    >Demandes NFT</a
-                                >
-                            }
-                        </mat-nav-list>
-                    </mat-expansion-panel>
-                }
-
-                @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
-                    <mat-expansion-panel class="mat-elevation-z0">
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>Administration</mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <mat-nav-list>
-                            <a mat-list-item routerLinkActive="active" routerLink="bookable/services">Cotisations</a>
-                            <a mat-list-item routerLinkActive="active" routerLink="booking/services-application"
-                                >Demandes en attente</a
-                            >
-                            <a mat-list-item routerLinkActive="active" routerLink="license">Certifications</a>
-                            <a mat-list-item routerLinkActive="active" routerLink="bookable-tag">Tags de réservables</a>
-                            @if ((permissionsService.crud | async)?.configuration?.create) {
-                                <a mat-list-item routerLinkActive="active" routerLink="support">Guide / Support</a>
-                            }
-                            @if ((permissionsService.crud | async)?.configuration?.create) {
-                                <a mat-list-item routerLinkActive="active" routerLink="announcement">Annonce</a>
-                            }
-                            <a mat-list-item routerLinkActive="active" routerLink="log">Activité</a>
-                        </mat-nav-list>
-                    </mat-expansion-panel>
-                }
-
-                @if (permissionsService.canAccessAccounting(route.snapshot.data.viewer)) {
-                    <mat-expansion-panel class="mat-elevation-z0">
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>Comptabilité</mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <mat-nav-list>
-                            <a mat-list-item routerLinkActive="active" routerLink="transaction-line">Écritures</a>
-                            <a mat-list-item routerLinkActive="active" routerLink="account">Comptes</a>
-                            @if (permissionsService.canAccessExpenseClaims(route.snapshot.data.viewer)) {
-                                <a mat-list-item routerLinkActive="active" routerLink="expense-claim"
-                                    >Frais, remboursements et factures</a
-                                >
-                            }
-                            @if ((permissionsService.crud | async)?.transaction?.create) {
-                                <a mat-list-item routerLinkActive="active" routerLink="import">Import BVR</a>
-                            }
-                            <a mat-list-item routerLinkActive="active" routerLink="transaction-tag">Tags</a>
-                        </mat-nav-list>
-                    </mat-expansion-panel>
-                }
-
-                @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
-                    <mat-expansion-panel class="mat-elevation-z0">
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>Listes</mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <mat-nav-list>
-                            <a mat-list-item routerLink="bookable" [class.active]="adminBookableRouteActive"
-                                >Réservables</a
-                            >
-                            <a mat-list-item routerLink="booking" [class.active]="adminBookingRouteActive"
-                                >Réservations</a
-                            ></mat-nav-list
+    <natural-sidenav id="menu">
+        <mat-accordion displayMode="flat">
+            @if (permissionsService.canAccessNavigations(route.snapshot.data.viewer)) {
+                <mat-expansion-panel class="mat-elevation-z0">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Carnet de sorties</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="/admin">En cours</a>
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="booking/self-approved"
+                            >Toutes</a
                         >
-                    </mat-expansion-panel>
-                }
-            </mat-accordion>
-        </div>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+            }
+
+            @if (permissionsService.canAccessUsers(route.snapshot.data.viewer)) {
+                <mat-expansion-panel class="mat-elevation-z0">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Utilisateurs</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <a mat-list-item routerLink="user" [class.active]="adminUserRouteActive"
+                            >Tous les utilisateurs</a
+                        >
+                        @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
+                            <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="user/newcomer"
+                                >Nouveaux membres</a
+                            >
+                        }
+                        @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
+                            <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="user/member"
+                                >Membres</a
+                            >
+                        }
+                        @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
+                            <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="user/non-active"
+                                >Non actifs</a
+                            >
+                        }
+                        @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
+                            <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="user-tag">Tags</a>
+                        }
+                    </mat-nav-list>
+                </mat-expansion-panel>
+            }
+
+            @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
+                <mat-expansion-panel class="mat-elevation-z0">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Matériel nautique</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/sup">SUP</a>
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/planche"
+                            >Planches</a
+                        >
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/wing-foil"
+                            >Wing foil</a
+                        >
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/canoe"
+                            >Canoës</a
+                        >
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/kayak"
+                            >Kayaks</a
+                        >
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/aviron"
+                            >Aviron</a
+                        >
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/voile-legere"
+                            >Voile légère</a
+                        >
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/voile-lestee"
+                            >Voile lestée</a
+                        >
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/bateau-moteur"
+                            >Bateau moteur</a
+                        >
+                    </mat-nav-list>
+                </mat-expansion-panel>
+            }
+
+            @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
+                <mat-expansion-panel class="mat-elevation-z0">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Stockage</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/armoire"
+                            >Armoires</a
+                        >
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/casier"
+                            >Casiers</a
+                        >
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/flotteur"
+                            >Flotteurs</a
+                        >
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/ratelier"
+                            >Râteliers WB</a
+                        >
+                        <a
+                            mat-list-item
+                            routerLinkActive="nat-gradient-secondary"
+                            routerLink="booking/storage-application"
+                            >Demandes en attente</a
+                        >
+                    </mat-nav-list>
+                </mat-expansion-panel>
+            }
+
+            @if (permissionsService.canAccessFormations(route.snapshot.data.viewer)) {
+                <mat-expansion-panel class="mat-elevation-z0">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Cours et accueil</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/formation"
+                            >Cours</a
+                        >
+                        @if (permissionsService.canAccessFormationApplication(route.snapshot.data.viewer)) {
+                            <a
+                                mat-list-item
+                                routerLinkActive="nat-gradient-secondary"
+                                routerLink="booking/formation-application"
+                                >Demandes de cours</a
+                            >
+                        }
+                        @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
+                            <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/welcome"
+                                >Séances d'accueil
+                            </a>
+                        }
+                        @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
+                            <a
+                                mat-list-item
+                                routerLinkActive="nat-gradient-secondary"
+                                routerLink="booking/welcome-application"
+                                >Demandes de séances d'accueil</a
+                            >
+                        }
+                    </mat-nav-list>
+                </mat-expansion-panel>
+            }
+
+            @if (permissionsService.canAccessNFT(route.snapshot.data.viewer)) {
+                <mat-expansion-panel class="mat-elevation-z0">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>NFT</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/nft">NFT</a>
+                        @if (permissionsService.canAccessFormationApplication(route.snapshot.data.viewer)) {
+                            <a
+                                mat-list-item
+                                routerLinkActive="nat-gradient-secondary"
+                                routerLink="booking/nft-application"
+                                >Demandes NFT</a
+                            >
+                        }
+                    </mat-nav-list>
+                </mat-expansion-panel>
+            }
+
+            @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
+                <mat-expansion-panel class="mat-elevation-z0">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Administration</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/services"
+                            >Cotisations</a
+                        >
+                        <a
+                            mat-list-item
+                            routerLinkActive="nat-gradient-secondary"
+                            routerLink="booking/services-application"
+                            >Demandes en attente</a
+                        >
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="license"
+                            >Certifications</a
+                        >
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable-tag"
+                            >Tags de réservables</a
+                        >
+                        @if ((permissionsService.crud | async)?.configuration?.create) {
+                            <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="support"
+                                >Guide / Support</a
+                            >
+                        }
+                        @if ((permissionsService.crud | async)?.configuration?.create) {
+                            <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="announcement"
+                                >Annonce</a
+                            >
+                        }
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="log">Activité</a>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+            }
+
+            @if (permissionsService.canAccessAccounting(route.snapshot.data.viewer)) {
+                <mat-expansion-panel class="mat-elevation-z0">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Comptabilité</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="transaction-line"
+                            >Écritures</a
+                        >
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="account">Comptes</a>
+                        @if (permissionsService.canAccessExpenseClaims(route.snapshot.data.viewer)) {
+                            <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="expense-claim"
+                                >Frais, remboursements et factures</a
+                            >
+                        }
+                        @if ((permissionsService.crud | async)?.transaction?.create) {
+                            <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="import"
+                                >Import BVR</a
+                            >
+                        }
+                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="transaction-tag">Tags</a>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+            }
+
+            @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
+                <mat-expansion-panel class="mat-elevation-z0">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Listes</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <a mat-list-item routerLink="bookable" [class.active]="adminBookableRouteActive">Réservables</a>
+                        <a mat-list-item routerLink="booking" [class.active]="adminBookingRouteActive"
+                            >Réservations</a
+                        ></mat-nav-list
+                    >
+                </mat-expansion-panel>
+            }
+        </mat-accordion>
     </natural-sidenav>
     <natural-sidenav-content>
-        <div class="nat-expand nat-vertical" id="admin-content">
-            <router-outlet />
-        </div>
+        <router-outlet />
     </natural-sidenav-content>
 </natural-sidenav-container>

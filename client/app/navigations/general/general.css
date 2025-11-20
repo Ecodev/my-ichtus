@@ -10,14 +10,6 @@
     -ms-user-select: none; /* Internet Explorer/Edge */
 }
 
-/* Cancel Material typography */
-.mat-typography {
-    font: initial;
-    line-height: initial;
-    font-family: Arial;
-    letter-spacing: initial;
-}
-
 body.waiting * {
     /*pointer-events: none;*/
     cursor: wait !important;

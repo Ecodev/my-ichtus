@@ -1,19 +1,81 @@
 /* You can add global styles to this file, and also import other style files */
-@use 'app/shared/components/boot-loader/boot-loader.external';
+@use '@ecodev/natural';
 @use '@ecodev/natural-layout' as nat;
+@use '@angular/material' as mat;
 
-body {
-    margin: 0;
+html {
+    @include mat.theme(
+        (
+            color: (),
+            typography: Roboto,
+            density: 0,
+        )
+    );
 }
 
 html,
-body {
+body,
+app-root {
+    margin: 0;
     height: 100%;
+    min-height: 100%;
 }
 
-.pac-container {
-    margin-top: 15px;
-    margin-left: -10px;
+app-root {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    background-color: var(--mat-sys-surface-container);
+    color: var(--mat-sys-on-surface);
+    font: var(--mat-sys-body-medium);
+
+    @include mat.table-overrides(
+        (
+            row-item-outline-color: var(--mat-sys-outline-variant),
+        )
+    );
+
+    @include mat.sidenav-overrides(
+        (
+            container-background-color: var(--mat-sys-surface-container),
+            content-background-color: var(--mat-sys-surface-container),
+        )
+    );
+}
+
+natural-sidenav-container {
+    margin: 0; //6px 0 0;
+}
+
+natural-sidenav-content {
+    border-top-left-radius: var(--mat-sys-corner-large);
+    background-color: var(--mat-sys-surface-bright);
+    padding: 20px clamp(5px, 2vw, 20px);
+    min-height: calc(100vh - 160px);
+    overflow: auto;
+    @media (max-width: 400px) {
+        padding: 6px;
+    }
+}
+
+.header-toolbar {
+    @include mat.toolbar-overrides(
+        (
+            container-background-color: --mat-sys-surface-container,
+            container-text-color: --mat-sys-on-surface,
+        )
+    );
+}
+
+@media screen and (max-width: 480px) {
+    mat-toolbar {
+        padding-right: 0;
+        padding-left: 0;
+    }
 }
 
 .tox-statusbar,
@@ -33,12 +95,7 @@ select:-webkit-autofill {
 }
 
 app-admin router-outlet + * {
-    padding: 20px 20px 100px 20px;
-
-    @include nat.media(null, sm) {
-        padding-right: 6px;
-        padding-left: 6px;
-    }
+    padding-bottom: 100px;
 }
 
 .detail-speed-dial {
@@ -120,4 +177,35 @@ mat-form-field.no-bottom-spacing {
 
 app-user-contact-data:empty {
     display: none;
+}
+
+ng-progress {
+    .ng-bar {
+        box-shadow: var(--mat-sys-tertiary-container) 0 0 5px !important;
+        background-color: var(--mat-sys-tertiary-container) !important;
+        height: 3px !important;
+    }
+
+    .ng-meteor {
+        top: 0 !important;
+        transform: none !important;
+        opacity: 1 !important;
+        box-shadow: var(--mat-sys-tertiary-container) 0 0 20px !important;
+        width: 25px !important;
+    }
+}
+
+.icon-button-circle-primary {
+    background-color: var(--mat-sys-primary-container);
+    color: var(--mat-sys-on-primary-container);
+}
+
+.icon-button-circle-accent {
+    background-color: var(--mat-sys-tertiary-container);
+    color: var(--mat-sys-on-tertiary-container);
+}
+
+.icon-button-circle-warn {
+    background-color: var(--mat-sys-error-container);
+    color: var(--mat-sys-on-error-container);
 }

@@ -12,7 +12,7 @@
                     <div class="nat-vertical nat-gap-10">
                         <div class="mat-subtitle-2">{{ door.name }}</div>
                         <div>
-                            <button mat-raised-button [disabled]="door.opened">
+                            <button matButton="filled" [disabled]="door.opened">
                                 <mat-icon [fontIcon]="door.opened ? 'lock_open' : 'lock'" />
                                 Ouvrir
                             </button>

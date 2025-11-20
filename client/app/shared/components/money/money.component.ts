@@ -6,6 +6,7 @@ import {CurrencyPipe} from '@angular/common';
     selector: 'app-money',
     imports: [CurrencyPipe],
     templateUrl: './money.component.html',
+    styleUrl: './money.component.scss',
 })
 export class MoneyComponent {
     /**

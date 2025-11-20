@@ -1,53 +1,51 @@
-<div class="nat-fill nat-vertical">
-    <mat-toolbar class="nat-horizontal nat-align nat-gap">
-        @if (menu) {
-            <button mat-icon-button (click)="menu.toggle()">
-                <mat-icon naturalIcon="menu" />
-            </button>
-        }
+<mat-toolbar class="header-toolbar nat-horizontal nat-align nat-gap">
+    @if (menu) {
+        <button mat-icon-button (click)="menu.toggle()">
+            <mat-icon naturalIcon="menu" />
+        </button>
+    }
 
-        <a routerLink="/" style="width: 50px; height: 50px">
-            <mat-icon naturalIcon="ichtus" [size]="50" />
-        </a>
+    <a routerLink="/" style="width: 50px; height: 50px">
+        <mat-icon naturalIcon="ichtus" [size]="50" />
+    </a>
 
-        @if (route.snapshot.data.viewer) {
-            <div class="nat-expand nat-horizontal nat-align nat-gap">
-                <div class="nat-expand nat-sm-show"></div>
-                <div class="nat-expand nat-horizontal nat-align nat-sm-show" id="searchByCode">
-                    <input
-                        class="nat-expand"
-                        placeholder="Recherche par code"
-                        [(ngModel)]="code"
-                        (keydown.enter)="goToCode()"
-                        (keydown.esc)="code = ''"
-                    />
-                    <a mat-icon-button [routerLink]="['/booking', code]">
-                        <mat-icon naturalIcon="search" />
-                    </a>
-                </div>
-                <a class="icon-button-circle-primary" mat-icon-button routerLink="/booking/by-scan">
-                    <mat-icon naturalIcon="qr_code_scanner" />
+    @if (route.snapshot.data.viewer) {
+        <div class="nat-expand nat-horizontal nat-align nat-gap">
+            <div class="nat-expand nat-sm-show"></div>
+            <div class="nat-expand nat-horizontal nat-align nat-sm-show" id="searchByCode">
+                <input
+                    class="nat-expand"
+                    placeholder="Recherche par code"
+                    [(ngModel)]="code"
+                    (keydown.enter)="goToCode()"
+                    (keydown.esc)="code = ''"
+                />
+                <a mat-icon-button [routerLink]="['/booking', code]">
+                    <mat-icon naturalIcon="search" />
                 </a>
-                <div class="nat-expand nat-sm-show"></div>
-                @if (announcementActive) {
-                    <a mat-icon-button class="icon-button-circle-primary" [routerLink]="getAnnouncementLink()">
-                        <mat-icon naturalIcon="announcement" />
-                    </a>
-                }
-                @if (route.snapshot.data.viewer) {
-                    <a class="admin-avatar" routerLink="/profile">
-                        <natural-avatar
-                            [initials]="route.snapshot.data.viewer.name"
-                            [gravatar]="route.snapshot.data.viewer.email"
-                            [size]="50"
-                        />
-                    </a>
-                }
             </div>
-        }
-    </mat-toolbar>
+            <a class="icon-button-circle-primary" mat-icon-button routerLink="/booking/by-scan">
+                <mat-icon naturalIcon="qr_code_scanner" />
+            </a>
+            <div class="nat-expand nat-sm-show"></div>
+            @if (announcementActive) {
+                <a mat-icon-button class="icon-button-circle-primary" [routerLink]="getAnnouncementLink()">
+                    <mat-icon naturalIcon="announcement" />
+                </a>
+            }
+            @if (route.snapshot.data.viewer) {
+                <a class="admin-avatar" routerLink="/profile">
+                    <natural-avatar
+                        [initials]="route.snapshot.data.viewer.name"
+                        [gravatar]="route.snapshot.data.viewer.email"
+                        [size]="50"
+                    />
+                </a>
+            }
+        </div>
+    }
+</mat-toolbar>
 
-    <div class="nat-expand nat-vertical" style="overflow: auto">
-        <router-outlet />
-    </div>
+<div class="nat-expand nat-vertical">
+    <router-outlet />
 </div>

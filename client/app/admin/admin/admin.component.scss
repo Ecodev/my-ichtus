@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 :host {
     display: flex;
     flex: 1;
@@ -7,4 +9,20 @@
 #admin-content {
     padding: 0;
     overflow: auto;
+}
+
+natural-sidenav-container {
+    @include mat.sidenav-overrides(
+        (
+            container-width: 240px,
+        )
+    );
+}
+
+mat-accordion {
+    @include mat.expansion-overrides(
+        (
+            container-background-color: transparent,
+        )
+    );
 }
