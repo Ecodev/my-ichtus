@@ -1,52 +1,46 @@
-.content {
-    margin: auto;
-    padding: 10px;
-    max-width: 1000px;
-}
+::ng-deep {
+    app-support {
+        .content {
+            padding: 20px 10px 10px 10px;
+            max-width: 1000px;
+        }
 
-mat-slide-toggle {
-    margin-bottom: 30px;
-}
+        mat-slide-toggle {
+            margin-bottom: 30px;
+        }
 
-.content {
-    padding: 20px 10px 10px 10px;
-    max-width: 1000px;
-}
+        a {
+            border-bottom-width: 2px;
+            border-bottom-style: solid;
+            border-color: var(--mat-sys-primary);
 
-mat-slide-toggle {
-    margin-bottom: 30px;
-}
+            color: var(--mat-sys-primary);
+            text-decoration: none;
 
-a {
-    border-bottom-width: 2px;
-    border-bottom-style: solid;
-    border-color: var(--mat-sys-primary-container);
+            &:hover {
+                border-color: var(--mat-sys-tertiary-container);
+                color: var(--mat-sys-tertiary-container);
+            }
+        }
 
-    color: var(--mat-sys-primary-container);
-    text-decoration: none;
+        // Copied from .mat-headline
+        h1 {
+            // todo : official typo variable
+            margin: 0 0 16px;
+            font:
+                400 24px/32px Roboto,
+                'Helvetica Neue',
+                sans-serif;
+        }
 
-    &:hover {
-        border-color: var(--mat-sys-tertiary-container);
-        color: var(--mat-sys-tertiary-container);
+        // Copied from .mat-title
+        h2 {
+            // todo : official typo from variable
+            margin: 0 0 16px;
+            font:
+                500 20px/32px Roboto,
+                'Helvetica Neue',
+                sans-serif;
+        }
     }
-}
-
-// Copied from .mat-headline
-h1 {
-    // todo : official typo variable
-    margin: 0 0 16px;
-    font:
-        400 24px/32px Roboto,
-        'Helvetica Neue',
-        sans-serif;
-}
-
-// Copied from .mat-title
-h2 {
-    // todo : official typo from variable
-    margin: 0 0 16px;
-    font:
-        500 20px/32px Roboto,
-        'Helvetica Neue',
-        sans-serif;
 }

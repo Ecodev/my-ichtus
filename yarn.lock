@@ -908,10 +908,10 @@
   dependencies:
     tslib "^2.8.1"
 
-"@ecodev/natural-editor@^65.0.2":
-  version "65.0.2"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural-editor/-/natural-editor-65.0.2.tgz#4787d691749f434747b030e8ce54dc1234d690c9"
-  integrity sha512-0feg+8n5eflNv8SC1ITPz1cTjJFUGpBTlAvXQ5LgZ13F7P+Fme47qXiu7D+c+mOZKWOIfmSrO+3vwWLVm3hZeA==
+"@ecodev/natural-editor@^66.0.2":
+  version "66.0.2"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural-editor/-/natural-editor-66.0.2.tgz#9569461149fe3e778ecaeb96f9b838c0780ae4ae"
+  integrity sha512-aEb4AoNh4VPh+Rlt4Z2epXaKX8vKNFdkUSxVg3NVpFTlrdw/uH0tqUc/AIiNulpQUJCRdpe5l2BPGjb6U9ox8g==
   dependencies:
     prosemirror-commands "^1.5.2"
     prosemirror-dropcursor "^1.8.1"

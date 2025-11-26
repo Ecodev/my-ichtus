@@ -209,3 +209,17 @@ ng-progress {
     background-color: var(--mat-sys-error-container);
     color: var(--mat-sys-on-error-container);
 }
+
+.rich-text a,
+a.app-link {
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-color: var(--mat-sys-primary);
+    color: var(--mat-sys-primary);
+    text-decoration: none;
+
+    &:hover {
+        border-color: var(--mat-sys-tertiary-container);
+        color: var(--mat-sys-tertiary-container);
+    }
+}
