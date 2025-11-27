@@ -3,7 +3,9 @@
     @if (runningServicesDS.data?.length > 0) {
         <div>
             <div class="nat-horizontal nat-align nat-margin-bottom">
-                <h2 class="nat-expand mat-headline-5 nat-no-margin-bottom">Cotisation / Prestations souscrites</h2>
+                <h2 class="nat-expand mat-font-headline-sm nat-no-margin-bottom">
+                    Cotisation / Prestations souscrites
+                </h2>
                 @if (!user.owner) {
                     <button mat-stroked-button color="warn" (click)="unregister()">Démissionner</button>
                 }
@@ -88,7 +90,7 @@
 
     <div class="nat-vertical">
         @if (pendingApplicationsDS.data?.length > 0) {
-            <h2 class="mat-headline-5 nat-no-margin-bottom">Demandes en attente</h2>
+            <h2 class="mat-font-headline-sm nat-no-margin-bottom">Demandes en attente</h2>
         }
 
         <div class="responsive-table" [class.nat-hide]="!pendingApplicationsDS.data?.length">
@@ -195,7 +197,7 @@
     </div>
 
     <div>
-        <h2 class="mat-headline-5">Demander un espace de stockage ou un service</h2>
+        <h2 class="mat-font-headline-sm">Demander un espace de stockage ou un service</h2>
 
         <nav mat-tab-nav-bar [tabPanel]="tabPanel">
             <a

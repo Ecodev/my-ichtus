@@ -6,7 +6,7 @@
         [listRoute]="['admin', 'account']"
     >
         @if (isUpdatePage()) {
-            <app-money sizeClass="mat-headline-4" [amount]="data.model.totalBalance" />
+            <app-money sizeClass="mat-font-headline-lg" [amount]="data.model.totalBalance" />
         }
     </natural-detail-header>
 

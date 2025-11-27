@@ -5,7 +5,7 @@ import {MatIcon} from '@angular/material/icon';
     selector: 'app-warning',
     imports: [MatIcon],
     template: ` <mat-icon [fontIcon]="type()" [color]="color()" />
-        <p class="mat-body">
+        <p>
             <ng-content />
         </p>`,
     styles: `

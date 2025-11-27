@@ -10,7 +10,7 @@ import {CurrencyPipe} from '@angular/common';
 })
 export class MoneyComponent {
     /**
-     * E.g mat-headline-4
+     * E.g mat-font-headline-lg
      */
     public readonly sizeClass = input('');
 

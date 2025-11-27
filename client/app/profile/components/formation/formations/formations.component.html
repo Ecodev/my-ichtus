@@ -1,6 +1,6 @@
 <ng-template #displayTemplate let-element>
     <div class="nat-vertical nat-gap-10" [class.inactive]="isFullyBooked(element)">
-        <h2 class="mat-headline-5 nat-expand nat-no-margin-bottom">{{ element.name }}</h2>
+        <h2 class="mat-font-headline-sm nat-expand nat-no-margin-bottom">{{ element.name }}</h2>
         <div class="nat-horizontal nat-top nat-gap-10 nat-wrap">
             @if (element.simultaneousBookings) {
                 <app-flag [status]="availabilityStatus(element)">{{ availabilityText(element) }}</app-flag>
@@ -26,7 +26,7 @@
                 </button>
             }
         </div>
-        <div class="mat-body-1 description">{{ element.description }}</div>
+        <div class="-1 description">{{ element.description }}</div>
         @if (element.owner) {
             <app-user-contact-data class="nat-expand" [user]="element.owner" />
         }

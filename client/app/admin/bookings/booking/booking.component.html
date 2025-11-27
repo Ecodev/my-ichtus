@@ -76,9 +76,9 @@
                     @if (newBooking) {
                         <div>
                             <mat-divider class="nat-margin-bottom" />
-                            <p class="mat-body-2">
+                            <p class="nat-bold">
                                 La prestation / espace de stockage
-                                <span class="mat-subtitle-2">{{ newBooking.bookable?.name }}</span>
+                                <span class="mat-font-title-sm nat-bold">{{ newBooking.bookable?.name }}</span>
                                 a été attribué(e).
                             </p>
                             <a
@@ -112,7 +112,7 @@
                         }
                     </div>
 
-                    <h2 class="mat-headline-6">Commentaires</h2>
+                    <h2 class="mat-font-title-lg">Commentaires</h2>
                     <mat-form-field>
                         <mat-label>Remarques</mat-label>
                         <textarea
@@ -144,7 +144,7 @@
             ) {
                 <div>
                     <mat-divider class="nat-margin-bottom" />
-                    <div class="mat-headline-6">Attribuer un stockage / service</div>
+                    <div class="mat-font-title-lg">Attribuer un stockage / service</div>
                     <app-usage-bookables
                         [availableColumns]="availableColumns"
                         [persistSearch]="false"
@@ -158,7 +158,7 @@
             @if (isSelfApproved()) {
                 <div>
                     <mat-divider class="nat-margin-vertical" />
-                    <h1 class="mat-headline-6">Sorties</h1>
+                    <h1 class="mat-font-title-lg">Sorties</h1>
                     <mat-form-field style="width: 100px">
                         <mat-label>Nb participants</mat-label>
                         <input
@@ -173,7 +173,7 @@
                     <div class="nat-vertical nat-md-horizontal nat-gap-horizontal">
                         <div class="nat-expand nat-vertical">
                             <div class="nat-horizontal nat-margin-bottom nat-gap-10 nat-align">
-                                <h2 class="mat-headline-6 nat-no-margin-bottom">Début</h2>
+                                <h2 class="mat-font-title-lg nat-no-margin-bottom">Début</h2>
                                 <div>{{ data.model.startDate | date }}</div>
                             </div>
                             <mat-form-field>
@@ -194,7 +194,7 @@
                         </div>
                         <div class="nat-expand nat-vertical">
                             <div class="nat-horizontal nat-margin-bottom nat-gap-10 nat-align">
-                                <h2 class="mat-headline-6 nat-no-margin-bottom">Fin</h2>
+                                <h2 class="mat-font-title-lg nat-no-margin-bottom">Fin</h2>
                                 <div class="nat-expand">{{ data.model.endDate | date }}</div>
                             </div>
                             <mat-form-field>

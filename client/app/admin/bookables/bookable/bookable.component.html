@@ -11,8 +11,8 @@
         <div class="nat-horizontal nat-gap-10 nat-align">
             @if (form.get('verificationDate')?.value) {
                 <div class="nat-vertical" style="text-align: right">
-                    <div class="mat-subtitle-2">Dernière vérification</div>
-                    <div class="mat-body-2">{{ form.get('verificationDate')?.value | date: 'dd.MM.y' }}</div>
+                    <div class="mat-font-title-sm nat-bold">Dernière vérification</div>
+                    <div class="nat-bold">{{ form.get('verificationDate')?.value | date: 'dd.MM.y' }}</div>
                 </div>
             }
             @if (isUpdatePage() && showVerified()) {
@@ -95,7 +95,7 @@
                     </div>
 
                     <div class="nat-md-expand-33 nat-vertical">
-                        <h2 class="mat-headline-6 nat-no-margin">Réservation</h2>
+                        <h2 class="mat-font-title-lg nat-no-margin">Réservation</h2>
                         <natural-select-enum
                             enumName="BookableStatus"
                             formControlName="status"
@@ -204,7 +204,7 @@
                     <div class="nat-md-expand-66 nat-vertical">
                         @if (isUpdatePage() && isSelfApproved()) {
                             <div>
-                                <h2 class="mat-headline-6">Certifications</h2>
+                                <h2 class="mat-font-title-lg">Certifications</h2>
                                 <natural-relations
                                     placeholder="Associer à une certification"
                                     [main]="data.model"
@@ -228,7 +228,7 @@
                     <div class="nat-md-expand-33 nat-vertical">
                         @if (isUpdatePage()) {
                             <div>
-                                <h2 class="mat-headline-6">Tags</h2>
+                                <h2 class="mat-font-title-lg">Tags</h2>
                                 <natural-relations
                                     placeholder="Ajouter un tag"
                                     [main]="data.model"

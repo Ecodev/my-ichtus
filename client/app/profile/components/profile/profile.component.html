@@ -41,11 +41,11 @@
                     <div class="nat-horizontal nat-gap-10">
                         <natural-avatar [initials]="viewer.name" [gravatar]="viewer.email" [size]="60" />
                         <div class="nat-vertical nat-gap-10">
-                            <div class="mat-headline-4">{{ viewer.name }}</div>
-                            <div class="mat-body-1">
+                            <div class="mat-font-headline-lg">{{ viewer.name }}</div>
+                            <div class="-1">
                                 {{ viewer.status | enum: 'UserStatus' | async }}
                             </div>
-                            <div class="nat-horizontal nat-wrap nat-gap-15 mat-body-2">
+                            <div class="nat-horizontal nat-wrap nat-gap-15 nat-bold">
                                 @for (license of licenses; track license) {
                                     <div class="nat-horizontal nat-gap-5 nat-align" style="padding-bottom: 10px">
                                         <natural-avatar [initials]="license.name.replace('-', '')" [size]="36" />
@@ -77,7 +77,7 @@
                 <div class="nat-horizontal nat-center">
                     <div class="nat-vertical nat-gap">
                         <div class="nat-horizontal nat-align">
-                            <h2 class="mat-headline-5 nat-no-margin nat-expand">Solde</h2>
+                            <h2 class="mat-font-headline-sm nat-no-margin nat-expand">Solde</h2>
                             <button
                                 mat-flat-button
                                 color="primary"
@@ -92,7 +92,7 @@
                         <app-particle-switch [data]="viewer.account?.balance || 0">
                             <ng-template let-data="data">
                                 <app-money
-                                    sizeClass="mat-headline-4"
+                                    sizeClass="mat-font-headline-lg"
                                     [amount]="data"
                                     [showSignal]="true"
                                     [showCurrency]="true"

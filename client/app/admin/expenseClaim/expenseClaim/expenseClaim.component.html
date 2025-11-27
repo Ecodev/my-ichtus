@@ -15,13 +15,13 @@
             ) {
                 <a mat-stroked-button color="basic" (click)="approve()">
                     <mat-icon naturalIcon="verified" />
-                    <span class="mat-subtitle-2">Approuver</span>
+                    <span class="mat-font-title-sm nat-bold">Approuver</span>
                 </a>
             }
             @if (isUpdatePage() && data.model.reviewer && !permissionsService.isAdministrator(viewer)) {
                 <div class="nat-horizontal nat-align">
                     <mat-icon naturalIcon="verified" />
-                    <span class="mat-body">Approuvé par {{ data.model.reviewer.name }}</span>
+                    <span>Approuvé par {{ data.model.reviewer.name }}</span>
                 </div>
             }
 
@@ -63,7 +63,7 @@
                 </a>
             }
 
-            <app-money sizeClass="mat-headline-4" [amount]="data.model.amount" [showSignal]="false" />
+            <app-money sizeClass="mat-font-headline-lg" [amount]="data.model.amount" [showSignal]="false" />
         </div>
     </natural-detail-header>
 
@@ -163,7 +163,7 @@
 
         <mat-divider />
 
-        <h2 class="mat-headline-6">Commentaires</h2>
+        <h2 class="mat-font-title-lg">Commentaires</h2>
 
         <div class="nat-vertical nat-md-horizontal nat-gap-horizontal">
             <div class="nat-expand nat-vertical">
@@ -197,7 +197,7 @@
             <mat-divider />
 
             <div>
-                <div class="mat-headline-6">Pièces justificatives</div>
+                <div class="mat-font-title-lg">Pièces justificatives</div>
                 <div class="nat-horizontal nat-gap-10">
                     @for (file of data.model.accountingDocuments; track file.id) {
                         <natural-file action="download" [model]="file" [height]="150" [style.width.px]="200" />

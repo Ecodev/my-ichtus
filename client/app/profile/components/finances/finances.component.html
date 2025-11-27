@@ -2,7 +2,7 @@
     <div class="nat-vertical" style="gap: 50px">
         @if (!adminMode && !viewer.owner) {
             <div>
-                <h2 class="mat-headline-5 nat-margin-bottom">Finances</h2>
+                <h2 class="mat-font-headline-sm nat-margin-bottom">Finances</h2>
                 <mat-form-field [style.width.px]="350">
                     <mat-label>IBAN</mat-label>
                     <input matInput [formControl]="ibanCtrl" (change)="updateIban()" (blur)="lockIbanIfDefined()" />
@@ -22,7 +22,7 @@
         }
         <div class="nat-vertical nat-gap">
             <div class="nat-gap-10 nat-horizontal nat-align nat-wrap">
-                <h2 class="nat-expand mat-headline-5 nat-no-margin nat-no-collapse">
+                <h2 class="nat-expand mat-font-headline-sm nat-no-margin nat-no-collapse">
                     Dépenses et remboursements en attente
                 </h2>
                 <div class="nat-gap-10 nat-horizontal nat-wrap">

@@ -11,8 +11,8 @@
             }
             <div class="nat-vertical nat-gap-5">
                 <div>
-                    <div class="mat-subtitle-2">Compte (IBAN)</div>
-                    <div class="mat-body-2" style="white-space: pre-line">
+                    <div class="mat-font-title-sm nat-bold">Compte (IBAN)</div>
+                    <div class="nat-bold" style="white-space: pre-line">
                         {{ bankingInfos.iban | iban }}
                         @if (bankingInfos.iban) {
                             <button
@@ -26,8 +26,8 @@
                     </div>
                 </div>
                 <div>
-                    <div class="mat-subtitle-2">Référence :</div>
-                    <div class="mat-body-2">
+                    <div class="mat-font-title-sm nat-bold">Référence :</div>
+                    <div class="nat-bold">
                         {{ bankingInfos.referenceNumber }}
                         @if (bankingInfos.iban) {
                             <button
@@ -41,15 +41,15 @@
                     </div>
                 </div>
                 <div>
-                    <div class="mat-subtitle-2">Payable à</div>
-                    <div class="mat-body-2" style="white-space: pre-line">{{ bankingInfos.paymentFor }}</div>
+                    <div class="mat-font-title-sm nat-bold">Payable à</div>
+                    <div class="nat-bold" style="white-space: pre-line">{{ bankingInfos.paymentFor }}</div>
                 </div>
             </div>
         </div>
     }
 </div>
 @if (bankingInfos) {
-    <p class="mat-body">
+    <p>
         Les paiements effectués au travers d'un e-banking peuvent mettre plusieurs jours à être crédités sur votre
         solde.
     </p>

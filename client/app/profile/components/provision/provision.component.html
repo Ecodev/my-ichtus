@@ -3,10 +3,8 @@
     @if (!paymentMode) {
         <div class="nat-vertical nat-gap-5">
             <div>
-                <p class="mat-body-2">
-                    Nous t'encourageons à payer par e-banking (BVR) qui est sans frais pour le club.
-                </p>
-                <p class="mat-body-2">
+                <p class="nat-bold">Nous t'encourageons à payer par e-banking (BVR) qui est sans frais pour le club.</p>
+                <p class="nat-bold">
                     Tu peux aussi payer en ligne par carte de débit / crédit (une commission sera prélevée au passage).
                 </p>
             </div>
@@ -25,7 +23,7 @@
 
     @if (paymentMode === 'datatrans') {
         <div class="nat-padding">
-            <p class="mat-body">Merci d'indiquer le montant que tu souhaites verser.</p>
+            <p>Merci d'indiquer le montant que tu souhaites verser.</p>
             <div class="nat-horizontal nat-align nat-gap-5">
                 <mat-form-field>
                     <mat-label>Montant</mat-label>

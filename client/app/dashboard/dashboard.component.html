@@ -9,7 +9,7 @@
                 <mat-card>
                     <mat-icon naturalIcon="certification" [size]="160" />
                     <div class="nat-vertical nat-gap-10">
-                        <div class="mat-subtitle-2 text-center">{{ formation.bookable.name }}</div>
+                        <div class="mat-font-title-sm nat-bold text-center">{{ formation.bookable.name }}</div>
                         @if (formation.bookable.owner) {
                             <mat-divider />
                             <app-user-contact-data class="nat-expand" [user]="formation.bookable.owner" />
@@ -27,7 +27,7 @@
 
     @if ((permissionsService.crud | async)?.booking?.create) {
         <div class="nat-vertical nat-top nat-center">
-            <h1 class="mat-headline-3 nat-margin-bottom text-center">Annoncer une sortie</h1>
+            <h1 class="mat-font-display-md nat-margin-bottom text-center">Annoncer une sortie</h1>
             <div class="nat-horizontal nat-wrap nat-gap nat-center">
                 <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="/booking/by-scan">
                     <mat-icon naturalIcon="qr" [size]="70" />
@@ -46,7 +46,7 @@
     }
 
     <div class="nat-vertical nat-margin-bottom nat-top nat-center">
-        <h1 class="mat-headline-3 nat-margin-bottom text-center">Autres</h1>
+        <h1 class="mat-font-display-md nat-margin-bottom text-center">Autres</h1>
         <div class="nat-horizontal nat-wrap nat-gap nat-center">
             @if (permissionsService.canAccessDoor(route.snapshot.data.viewer)) {
                 <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="door">

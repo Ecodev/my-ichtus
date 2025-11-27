@@ -1,6 +1,6 @@
 @if (bookings) {
     @if (!bookings.items.length && showEmptyMessage()) {
-        <div class="nat-padding mat-subtitle-2">Aucun résultat</div>
+        <div class="nat-padding mat-font-title-sm nat-bold">Aucun résultat</div>
     }
     <div class="list">
         @for (item of bookings.items; track item) {
@@ -31,12 +31,12 @@
 
                         <mat-divider />
 
-                        <div class="mat-subtitle-2">{{ item.booking.owner?.name }}</div>
+                        <div class="mat-font-title-sm nat-bold">{{ item.booking.owner?.name }}</div>
                         @if (!item.booking.endDate && item.booking.destination) {
-                            <div class="mat-body-2">Destination : {{ item.booking.destination }}</div>
+                            <div class="nat-bold">Destination : {{ item.booking.destination }}</div>
                         }
                         @if (!item.booking.endDate && item.booking.estimatedEndDate) {
-                            <div class="mat-body-2">Retour prévu : {{ item.booking.estimatedEndDate }}</div>
+                            <div class="nat-bold">Retour prévu : {{ item.booking.estimatedEndDate }}</div>
                         }
                         <div>Début : {{ item.booking.startDate | date }}</div>
                         @if (item.booking.endDate) {
@@ -68,7 +68,7 @@
                     </div>
                     <div class="comment nat-padding nat-gap-10 nat-vertical">
                         <div class="nat-expand nat-vertical overflow">
-                            <div class="mat-headline-6">Commentaires</div>
+                            <div class="mat-font-title-lg">Commentaires</div>
                             <mat-form-field>
                                 <mat-label>Commentaire de départ</mat-label>
                                 <textarea
