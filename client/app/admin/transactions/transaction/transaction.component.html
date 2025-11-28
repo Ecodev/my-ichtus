@@ -66,7 +66,7 @@
                 <mat-divider class="nat-margin-vertical" />
                 <div>
                     <div class="nat-horizontal nat-margin-bottom nat-gap nat-align">
-                        <div class="mat-font-title-lg nat-no-margin-bottom">
+                        <div class="mat-font-title-lg">
                             @if (data.model.expenseClaim.type === ExpenseClaimType.Refund) {
                                 <span>Demande de remboursement</span>
                             }
@@ -127,7 +127,7 @@
             <!-- TODO : add selectors for ExpenseClaim -->
             <mat-divider class="nat-margin-vertical" />
             <div class="nat-horizontal nat-gap-10 nat-align nat-margin-bottom">
-                <h2 class="mat-font-title-lg nat-no-margin-bottom nat-no-margin-top">Écritures</h2>
+                <h2 class="mat-font-title-lg">Écritures</h2>
                 @if (userService.canUpdateTransaction(viewer)) {
                     <div class="nat-horizontal nat-gap-10">
                         @if (!(updateTransactionLines || !isUpdatePage())) {

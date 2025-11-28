@@ -1,6 +1,6 @@
 <ng-template #displayTemplate let-element>
     <div class="nat-vertical nat-gap-10" [class.inactive]="isFullyBooked(element)">
-        <h2 class="mat-font-headline-sm nat-expand nat-no-margin-bottom">{{ element.name }}</h2>
+        <h2 class="mat-font-headline-sm nat-expand">{{ element.name }}</h2>
         <div class="nat-horizontal nat-top nat-gap-10 nat-wrap">
             @if (element.simultaneousBookings) {
                 <app-flag [status]="availabilityStatus(element)">{{ availabilityText(element) }}</app-flag>

@@ -26,3 +26,7 @@ mat-accordion {
         )
     );
 }
+
+::ng-deep app-admin .mat-font-title-lg {
+    margin-bottom: 0.3em;
+}
