@@ -449,6 +449,13 @@ export function users(): NaturalSearchFacets {
             },
         } satisfies DropdownFacet<TypeSelectConfiguration>,
         {
+            display: 'Date de crédit',
+            field: 'hasCreditOnDate',
+            component: TypeDateComponent,
+            configuration: {nullable: true},
+            transform: prefixOperatorWithField,
+        } satisfies DropdownFacet<TypeDateConfiguration>,
+        {
             display: 'Solde',
             field: 'accountBalance',
             component: TypeNumberComponent,

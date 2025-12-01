@@ -25,6 +25,12 @@ use Application\Api\Input\Operator\HasBookingCompletedOperatorType;
 use Application\Api\Input\Operator\HasBookingStatusOperatorType;
 use Application\Api\Input\Operator\HasBookingWithBookableOperatorType;
 use Application\Api\Input\Operator\HasBookingWithTaggedBookableOperatorType;
+use Application\Api\Input\Operator\HasCreditOnDate\HasCreditOnDateEqualOperatorType;
+use Application\Api\Input\Operator\HasCreditOnDate\HasCreditOnDateGreaterOperatorType;
+use Application\Api\Input\Operator\HasCreditOnDate\HasCreditOnDateGreaterOrEqualOperatorType;
+use Application\Api\Input\Operator\HasCreditOnDate\HasCreditOnDateLessOperatorType;
+use Application\Api\Input\Operator\HasCreditOnDate\HasCreditOnDateLessOrEqualOperatorType;
+use Application\Api\Input\Operator\HasCreditOnDate\HasCreditOnDateNullOperatorType;
 use Application\Api\Input\Sorting\Age;
 use Application\Api\Input\Sorting\Balance;
 use Application\Enum\BillingType;
@@ -78,6 +84,12 @@ use GraphQL\Doctrine\Attribute as API;
 #[API\Filter(field: 'bookingDate', operator: BookingDateGreaterOrEqualOperatorType::class, type: 'Date')]
 #[API\Filter(field: 'bookingDate', operator: BookingDateLessOperatorType::class, type: 'Date')]
 #[API\Filter(field: 'bookingDate', operator: BookingDateLessOrEqualOperatorType::class, type: 'Date')]
+#[API\Filter(field: 'hasCreditOnDate', operator: HasCreditOnDateEqualOperatorType::class, type: 'Money')]
+#[API\Filter(field: 'hasCreditOnDate', operator: HasCreditOnDateGreaterOperatorType::class, type: 'Money')]
+#[API\Filter(field: 'hasCreditOnDate', operator: HasCreditOnDateGreaterOrEqualOperatorType::class, type: 'Money')]
+#[API\Filter(field: 'hasCreditOnDate', operator: HasCreditOnDateLessOperatorType::class, type: 'Money')]
+#[API\Filter(field: 'hasCreditOnDate', operator: HasCreditOnDateLessOrEqualOperatorType::class, type: 'Money')]
+#[API\Filter(field: 'hasCreditOnDate', operator: HasCreditOnDateNullOperatorType::class, type: 'Money')]
 #[ORM\Entity(UserRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: 'owner', inversedBy: 'users')])]
