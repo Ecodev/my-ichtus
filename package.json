@@ -55,7 +55,7 @@
         "@types/big.js": "^6.2.2",
         "@types/jasmine": "~5.1.9",
         "@types/node": "^22.14.1",
-        "angular-eslint": "^20.2.0",
+        "angular-eslint": "^21.0.1",
         "eslint": "^9.24.0",
         "jasmine-core": "~5.10.0",
         "karma": "~6.4.4",
