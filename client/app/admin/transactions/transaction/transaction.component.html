@@ -77,7 +77,7 @@
                                 <span>Facture à payer</span>
                             }
                         </div>
-                        <a mat-stroked-button [routerLink]="['/admin/expense-claim', data.model.expenseClaim.id]"
+                        <a matButton="outlined" [routerLink]="['/admin/expense-claim', data.model.expenseClaim.id]"
                             >Voir la demande</a
                         >
                     </div>
@@ -131,13 +131,13 @@
                 @if (userService.canUpdateTransaction(viewer)) {
                     <div class="nat-horizontal nat-gap-10">
                         @if (!(updateTransactionLines || !isUpdatePage())) {
-                            <button mat-stroked-button (click)="updateTransactionLines = true">Éditer</button>
+                            <button matButton="outlined" (click)="updateTransactionLines = true">Éditer</button>
                         }
                         @if (updateTransactionLines && isUpdatePage()) {
-                            <button mat-stroked-button (click)="updateTransactionLines = false">Annuler</button>
+                            <button matButton="outlined" (click)="updateTransactionLines = false">Annuler</button>
                         }
                         @if (updateTransactionLines) {
-                            <button mat-flat-button color="primary" (click)="transactionLinesComponent()?.addEmpty()">
+                            <button matButton="filled" (click)="transactionLinesComponent()?.addEmpty()">
                                 Ajouter une écriture
                             </button>
                         }
@@ -216,7 +216,7 @@
                 </button>
                 <button
                     mat-mini-fab
-                    color="warn"
+                    color="error"
                     matTooltip="Supprimer définitivement"
                     matTooltipPosition="left"
                     (click)="delete()"

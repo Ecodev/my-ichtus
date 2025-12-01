@@ -9,11 +9,11 @@
                 </p>
             </div>
             <div class="nat-vertical nat-gap-5">
-                <button mat-flat-button color="primary" (click)="setPaymentMode('ebanking')">
+                <button matButton="filled" (click)="setPaymentMode('ebanking')">
                     E-Banking
                     <!-- : BVR--->
                 </button>
-                <button mat-flat-button color="primary" (click)="setPaymentMode('datatrans')">
+                <button matButton="filled" (click)="setPaymentMode('datatrans')">
                     En ligne
                     <!-- : Postfinance / Visa / Mastercard-->
                 </button>
@@ -45,12 +45,10 @@
 
 <mat-dialog-actions align="end">
     @if (showExportBillButton()) {
-        <button mat-button (click)="exportBill()">Télécharger bulletin de paiement</button>
+        <button matButton (click)="exportBill()">Télécharger bulletin de paiement</button>
     }
-    <button mat-button mat-dialog-close cdkFocusInitial>Fermer</button>
+    <button matButton mat-dialog-close cdkFocusInitial>Fermer</button>
     @if (paymentMode === 'datatrans') {
-        <button mat-flat-button color="primary" [mat-dialog-close]="formCtrl.value" [disabled]="!formCtrl.valid">
-            Suivant
-        </button>
+        <button matButton="filled" [mat-dialog-close]="formCtrl.value" [disabled]="!formCtrl.valid">Suivant</button>
     }
 </mat-dialog-actions>

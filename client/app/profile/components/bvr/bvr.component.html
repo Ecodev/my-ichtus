@@ -16,7 +16,7 @@
                         {{ bankingInfos.iban | iban }}
                         @if (bankingInfos.iban) {
                             <button
-                                mat-icon-button
+                                matIconButton
                                 matTooltip="Copier le IBAN"
                                 (click)="copyToClipboard(bankingInfos.iban)"
                             >
@@ -31,7 +31,7 @@
                         {{ bankingInfos.referenceNumber }}
                         @if (bankingInfos.iban) {
                             <button
-                                mat-icon-button
+                                matIconButton
                                 matTooltip="Copier le numéro de référence"
                                 (click)="copyToClipboard(bankingInfos.referenceNumber)"
                             >

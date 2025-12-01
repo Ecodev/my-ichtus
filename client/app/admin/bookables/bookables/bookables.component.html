@@ -75,7 +75,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                                 {{ element.name }}
                             </span>
                             @if (isAlreadyPending(element)) {
-                                <app-flag status="pending-application">Déjà demandé </app-flag>
+                                <app-flag status="pending-application">Déjà demandé</app-flag>
                             }
                         </td>
                         <td *matFooterCellDef mat-footer-cell>Totaux</td>
@@ -167,12 +167,10 @@ Warning this template is used by two components BookablesComponent and UsageBook
                         <th *matHeaderCellDef mat-header-cell class="natural-7em-column natural-align-right">Prix</th>
                         <td *matCellDef="let element" mat-cell class="natural-align-right">
                             @if (element.periodicPrice !== '0.00') {
-                                <span>
-                                    {{ element.periodicPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}&nbsp;/an
-                                </span>
+                                <span>{{ element.periodicPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}&nbsp;/an</span>
                             }
                             @if (element.periodicPrice !== '0.00' && element.initialPrice !== '0.00') {
-                                <span> +</span>
+                                <span>+</span>
                             }
                             @if (element.initialPrice !== '0.00') {
                                 <span>
@@ -215,7 +213,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                                         [gravatar]="element.owner?.email"
                                         [size]="36"
                                     />
-                                    <a mat-button [routerLink]="['/admin/user', b.owner.id]">
+                                    <a matButton [routerLink]="['/admin/user', b.owner.id]">
                                         {{ b.owner.name }}
                                     </a>
                                 </div>
@@ -261,7 +259,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                     <ng-container matColumnDef="select">
                         <th *matHeaderCellDef mat-header-cell class="natural-5em-column"></th>
                         <td *matCellDef="let element" mat-cell>
-                            <button mat-flat-button color="primary" (click)="bookableClick.emit(element)">
+                            <button matButton="filled" (click)="bookableClick.emit(element)">
                                 {{ route.snapshot.data.actionButtonLabel || 'Sélectionner' }}
                             </button>
                         </td>

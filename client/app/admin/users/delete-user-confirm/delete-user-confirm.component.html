@@ -5,40 +5,43 @@
             @if (!result.data.accountBalanceNotZero.length) {
                 <app-warning type="check">Le solde est de {{ 0 | currency: 'CHF' }}.</app-warning>
             } @else {
-                <app-warning
-                    >Le solde est de
+                <app-warning>
+                    Le solde est de
                     <a
                         class="app-link"
                         [routerLink]="['/admin/account', accountBalanceNotZeroParams]"
                         (click)="close()"
                         >{{ result.data.accountBalanceNotZero.items[0].balance | currency: 'CHF' }}</a
-                    >. Vous devriez mettre le solde à zéro en remboursant l'utilisateur.</app-warning
-                >
+                    >
+                    . Vous devriez mettre le solde à zéro en remboursant l'utilisateur.
+                </app-warning>
                 <div></div>
             }
             @if (!result.data.nonTreatedExpenseClaim.length) {
                 <app-warning type="check">Aucune demande de remboursement non-traitées.</app-warning>
             } @else {
-                <app-warning
-                    >L'utilisateur a
+                <app-warning>
+                    L'utilisateur a
                     <a
                         class="app-link"
                         [routerLink]="['/admin/expense-claim', nonTreatedExpenseClaimParams]"
                         (click)="close()"
                         >{{ result.data.nonTreatedExpenseClaim.length }} demandes de remboursement non-traitées</a
-                    >. Vous devriez traiter ces demandes, ou sinon elles deviendront anonymes.</app-warning
-                >
+                    >
+                    . Vous devriez traiter ces demandes, ou sinon elles deviendront anonymes.
+                </app-warning>
             }
             @if (!result.data.family.length) {
                 <app-warning type="check">N'est pas responsable de ménage.</app-warning>
             } @else {
-                <app-warning
-                    >L'utilisateur est responsable d'un ménage qui inclut
+                <app-warning>
+                    L'utilisateur est responsable d'un ménage qui inclut
                     <a class="app-link" [routerLink]="['/admin/user', familyParams]" (click)="close()"
                         >{{ result.data.family.length }} autres personnes</a
-                    >. Vous devriez supprimer ces autres personnes manuellement, ou sinon elles deviendront
-                    indépendantes avec un solde de {{ 0 | currency: 'CHF' }}.</app-warning
-                >
+                    >
+                    . Vous devriez supprimer ces autres personnes manuellement, ou sinon elles deviendront indépendantes
+                    avec un solde de {{ 0 | currency: 'CHF' }}.
+                </app-warning>
             }
         </div>
     }
@@ -60,10 +63,10 @@
     </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="false">Annuler</button>
+    <button matButton [mat-dialog-close]="false">Annuler</button>
     <button
-        mat-stroked-button
-        color="warn"
+        matButton="outlined"
+        color="error"
         [mat-dialog-close]="true"
         [disabled]="!result || result.loading || !form.valid"
     >

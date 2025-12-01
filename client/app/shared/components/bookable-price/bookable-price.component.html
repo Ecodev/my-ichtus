@@ -9,8 +9,8 @@
     bookable().periodicPrice !== '0.00' &&
     bookable().initialPrice !== '0.00'
 ) {
-    <span class="-1 nat-no-margin-bottom"> +</span>
+    <span class="-1 nat-no-margin-bottom">+</span>
 }
 @if (bookable().initialPrice && bookable().initialPrice !== '0.00') {
-    <span class="-1 nat-no-margin-bottom">{{ bookable().initialPrice | currency: 'CHF' : 'symbol' : '1.2' }} </span>
+    <span class="-1 nat-no-margin-bottom">{{ bookable().initialPrice | currency: 'CHF' : 'symbol' : '1.2' }}</span>
 }

@@ -2,10 +2,10 @@
     <div class="nat-vertical nat-margin-bottom nat-gap nat-top nat-left">
         <div class="mat-font-headline-sm">Données personnelles du ménage</div>
         <div class="nat-vertical nat-gap-10 nat-md-horizontal">
-            <button mat-stroked-button routerLink="/user/request-password-reset">Changer de mot de passe</button>
+            <button matButton="outlined" routerLink="/user/request-password-reset">Changer de mot de passe</button>
             <button
-                mat-stroked-button
-                color="warn"
+                matButton="outlined"
+                color="error"
                 [disabled]="!userService.canLeaveFamily(viewer)"
                 (click)="leaveFamily()"
             >
@@ -18,7 +18,7 @@
         @for (familyMember of familyMembers; track familyMember.id) {
             <mat-expansion-panel (afterExpand)="activeMember = familyMember" (closed)="activeMember = null">
                 <mat-expansion-panel-header>
-                    <mat-panel-title> {{ familyMember?.name || 'Nouveau' }}</mat-panel-title>
+                    <mat-panel-title>{{ familyMember?.name || 'Nouveau' }}</mat-panel-title>
                 </mat-expansion-panel-header>
                 <app-family-member
                     [user]="familyMember"

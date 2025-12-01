@@ -3,7 +3,7 @@
     <div>
         <p>Upload un fichier XML CAMT 054 pour importer les virements qui ont été fait par BVR:</p>
         <button
-            mat-raised-button
+            matButton="tonal"
             naturalFileSelect
             accept="text/xml"
             [disabled]="!(permissionsService.crud | async)?.transaction.create || importing"
@@ -17,7 +17,7 @@
             <div>
                 <p>L'erreur suivante s'est produite durant l'import et tout le processus a été complétement annulé:</p>
                 <p>
-                    <mat-icon color="warn" fontIcon="error" />
+                    <mat-icon color="error" fontIcon="error" />
                     {{ error.message }}
                 </p>
             </div>

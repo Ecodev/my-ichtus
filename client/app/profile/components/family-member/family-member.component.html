@@ -9,8 +9,8 @@
                     (selectionChange)="update()"
                 />
                 <button
-                    mat-stroked-button
-                    color="warn"
+                    matButton="outlined"
+                    color="error"
                     [disabled]="!form.enabled || !service.canLeaveFamily(user())"
                     (click)="leaveFamily()"
                 >
@@ -69,9 +69,7 @@
                 <mat-datepicker #picker />
             </mat-form-field>
             <!-- Newsletter -->
-            <mat-checkbox formControlName="receivesNewsletter" (change)="update()">
-                Abonné à la newsletter</mat-checkbox
-            >
+            <mat-checkbox formControlName="receivesNewsletter" (change)="update()">Abonné à la newsletter</mat-checkbox>
         </div>
         @if (form.get('remarks')?.value) {
             <div>
@@ -83,8 +81,8 @@
         @if (isUpdatePage() && data.model.permissions.update) {
             <span matTooltip="Demande déjà envoyée" [matTooltipDisabled]="!userDeletionRequested.has(data.model.id)">
                 <button
-                    mat-stroked-button
-                    color="warn"
+                    matButton="outlined"
+                    color="error"
                     i18n
                     [disabled]="userDeletionRequested.has(data.model.id)"
                     (click)="requestUserDeletion()"

@@ -9,7 +9,7 @@
             @if (isUpdatePage() && !form.get('endDate')?.value && !isAdminApproved()) {
                 <button
                     mat-flat-button
-                    color="warn"
+                    color="error"
                     [disabled]="!data.model.permissions.update"
                     (click)="terminateBooking()"
                 >
@@ -19,7 +19,7 @@
             @if (isUpdatePage() && form.get('endDate')?.value && isAdminApproved()) {
                 <button
                     mat-flat-button
-                    color="warn"
+                    color="error"
                     [disabled]="!data.model.permissions.update"
                     (click)="unTerminateBooking()"
                 >
@@ -56,8 +56,8 @@
                                     [selected]="category.selected"
                                     [selectable]="true"
                                     (click)="filterBookables(category.value)"
-                                    >{{ category.name }}
-                                </mat-chip-option>
+                                    >{{ category.name }}</mat-chip-option
+                                >
                             }
                         </mat-chip-listbox>
                     }
@@ -82,12 +82,11 @@
                                 a été attribué(e).
                             </p>
                             <a
-                                mat-stroked-button
+                                matButton="outlined"
                                 [routerLink]="['/admin/booking', newBooking.id]"
                                 (click)="newBooking = null"
+                                >Voir la réservation</a
                             >
-                                Voir la réservation
-                            </a>
                         </div>
                     }
                 </div>
@@ -102,8 +101,7 @@
                         />
                         @if (isUpdatePage() && isPendingApplication(BookingType.AdminApproved)) {
                             <button
-                                mat-flat-button
-                                color="primary"
+                                matButton="filled"
                                 [disabled]="!data.model.permissions.update"
                                 (click)="approveBooking()"
                             >

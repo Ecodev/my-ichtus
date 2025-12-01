@@ -129,8 +129,8 @@
                         }
                         @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
                             <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/welcome"
-                                >Séances d'accueil
-                            </a>
+                                >Séances d'accueil</a
+                            >
                         }
                         @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
                             <a
@@ -231,10 +231,8 @@
                     </mat-expansion-panel-header>
                     <mat-nav-list>
                         <a mat-list-item routerLink="bookable" [class.active]="adminBookableRouteActive">Réservables</a>
-                        <a mat-list-item routerLink="booking" [class.active]="adminBookingRouteActive"
-                            >Réservations</a
-                        ></mat-nav-list
-                    >
+                        <a mat-list-item routerLink="booking" [class.active]="adminBookingRouteActive">Réservations</a>
+                    </mat-nav-list>
                 </mat-expansion-panel>
             }
         </mat-accordion>

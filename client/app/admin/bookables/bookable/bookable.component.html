@@ -16,7 +16,7 @@
                 </div>
             }
             @if (isUpdatePage() && showVerified()) {
-                <button mat-flat-button color="primary" (click)="verify()">Marquer comme vérifié</button>
+                <button matButton="filled" (click)="verify()">Marquer comme vérifié</button>
             }
         </div>
     </natural-detail-header>
@@ -167,8 +167,8 @@
                                 <mat-hint
                                     >Permet de faire des demandes de réservations au delà du nombre max. de réservations
                                     simultanées et donc de gérer une file d'attente en cas d'annulation d'une autre
-                                    personne.
-                                </mat-hint>
+                                    personne.</mat-hint
+                                >
                             </mat-form-field>
                             <br />
                         }

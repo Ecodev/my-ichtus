@@ -42,8 +42,8 @@
                 <td *matCellDef="let element" mat-cell>
                     @if (element.id) {
                         <button
-                            mat-icon-button
-                            color="warn"
+                            matIconButton
+                            color="error"
                             [disabled]="deleting.has(element)"
                             (click)="delete(element)"
                         >

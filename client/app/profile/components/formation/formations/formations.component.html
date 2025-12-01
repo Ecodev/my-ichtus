@@ -6,7 +6,7 @@
                 <app-flag [status]="availabilityStatus(element)">{{ availabilityText(element) }}</app-flag>
             }
             @if (isAlreadyPending(element)) {
-                <app-flag status="pending-application">Déjà demandé </app-flag>
+                <app-flag status="pending-application">Déjà demandé</app-flag>
             }
             <div class="spacer nat-expand"></div>
             <app-bookable-price [bookable]="element" />

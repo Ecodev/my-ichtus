@@ -26,7 +26,7 @@
                         @if (nextCodeAvailable) {
                             <button
                                 matIconSuffix
-                                mat-icon-button
+                                matIconButton
                                 matTooltip="Utiliser le code suggéré"
                                 (click)="form.get('code')?.setValue(nextCodeAvailable); update()"
                             >

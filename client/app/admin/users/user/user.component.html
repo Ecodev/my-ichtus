@@ -61,7 +61,7 @@
                         <mat-label>email</mat-label>
                         <input matInput formControlName="email" (change)="update()" />
                         @if (form.get('email')?.hasError('duplicateValue')) {
-                            <mat-error> Cet email est déjà attribué</mat-error>
+                            <mat-error>Cet email est déjà attribué</mat-error>
                         } @else {
                             <mat-error>{{ form.get('email')?.errors | errorMessage }}</mat-error>
                         }
@@ -73,7 +73,7 @@
                         @if (form.get('login')?.hasError('invalid')) {
                             <mat-error>{{ form.get('login')?.getError('invalid') }}</mat-error>
                         } @else if (form.get('login')?.hasError('duplicateValue')) {
-                            <mat-error> Ce nom est déjà attribué à un utilisateur</mat-error>
+                            <mat-error>Ce nom est déjà attribué à un utilisateur</mat-error>
                         } @else {
                             <mat-error>{{ form.get('login')?.errors | errorMessage }}</mat-error>
                         }
@@ -170,12 +170,12 @@
 
                     <div class="nat-bold nat-gap nat-vertical">
                         <!-- Has Insurance -->
-                        <mat-checkbox formControlName="hasInsurance" (change)="update()"> Assurance RC </mat-checkbox>
+                        <mat-checkbox formControlName="hasInsurance" (change)="update()">Assurance RC</mat-checkbox>
 
                         <!-- Newsletter -->
-                        <mat-checkbox formControlName="receivesNewsletter" (change)="update()">
-                            Abonné à la newsletter
-                        </mat-checkbox>
+                        <mat-checkbox formControlName="receivesNewsletter" (change)="update()"
+                            >Abonné à la newsletter</mat-checkbox
+                        >
                     </div>
                 </div>
 
@@ -249,10 +249,10 @@
                     </div>
                     <div class="nat-vertical nat-gap-10">
                         <h2 class="mat-font-title-lg">Portes</h2>
-                        <mat-slide-toggle formControlName="door1" (change)="update()"> Porte&nbsp;1 </mat-slide-toggle>
-                        <mat-slide-toggle formControlName="door2" (change)="update()"> Porte&nbsp;2 </mat-slide-toggle>
-                        <mat-slide-toggle formControlName="door3" (change)="update()"> Porte&nbsp;3 </mat-slide-toggle>
-                        <mat-slide-toggle formControlName="door4" (change)="update()"> Porte&nbsp;4 </mat-slide-toggle>
+                        <mat-slide-toggle formControlName="door1" (change)="update()">Porte&nbsp;1</mat-slide-toggle>
+                        <mat-slide-toggle formControlName="door2" (change)="update()">Porte&nbsp;2</mat-slide-toggle>
+                        <mat-slide-toggle formControlName="door3" (change)="update()">Porte&nbsp;3</mat-slide-toggle>
+                        <mat-slide-toggle formControlName="door4" (change)="update()">Porte&nbsp;4</mat-slide-toggle>
                     </div>
                 </div>
             }
@@ -281,7 +281,7 @@
 
                             @if (form.get('welcomeSessionDate')?.value) {
                                 <button
-                                    mat-icon-button
+                                    matIconButton
                                     (click)="form.get('welcomeSessionDate')?.setValue(null); update()"
                                 >
                                     <mat-icon naturalIcon="close" />
@@ -354,7 +354,7 @@
                             />
                             @if (canUpdateIban()) {
                                 <button
-                                    mat-icon-button
+                                    matIconButton
                                     matIconSuffix
                                     matTooltip="Déverouiller"
                                     [disabled]="ibanCtrl.enabled || updating"

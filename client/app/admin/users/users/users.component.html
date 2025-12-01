@@ -114,8 +114,7 @@
                         <td *matCellDef="let element" mat-cell>
                             @if (!element.welcomeSessionDate) {
                                 <button
-                                    mat-flat-button
-                                    color="primary"
+                                    matButton="filled"
                                     [disabled]="welcoming.has(element)"
                                     (click)="flagWelcomeSessionDate(element)"
                                 >

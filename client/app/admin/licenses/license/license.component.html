@@ -1,7 +1,7 @@
 <div class="detail-body" [formGroup]="form">
     <div class="nat-vertical pageHeader">
         <div class="mat-font-headline-sm nat-gap-5 nat-horizontal nat-align">
-            <a mat-icon-button [routerLink]="['..']">
+            <a matIconButton [routerLink]="['..']">
                 <mat-icon naturalIcon="arrow_back" />
             </a>
             @if (!form.get('name')?.value) {
@@ -24,7 +24,7 @@
                         <input matInput formControlName="name" (change)="update()" />
                         <mat-label>Nom</mat-label>
                         @if (form.get('name')?.hasError('duplicateValue')) {
-                            <mat-error> Ce nom est déjà attribué à une certification</mat-error>
+                            <mat-error>Ce nom est déjà attribué à une certification</mat-error>
                         } @else {
                             <mat-error>{{ form.get('name')?.errors | errorMessage }}</mat-error>
                         }

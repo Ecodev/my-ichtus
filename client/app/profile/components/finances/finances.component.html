@@ -7,7 +7,7 @@
                     <mat-label>IBAN</mat-label>
                     <input matInput [formControl]="ibanCtrl" (change)="updateIban()" (blur)="lockIbanIfDefined()" />
                     <button
-                        mat-icon-button
+                        matIconButton
                         matIconSuffix
                         matTooltip="Déverouiller"
                         [disabled]="ibanCtrl.enabled || updating"
@@ -26,12 +26,11 @@
                 <div class="nat-gap-10 nat-horizontal nat-wrap">
                     @if (!adminMode) {
                         <a
-                            mat-stroked-button
+                            matButton="outlined"
                             matTooltip="Pour les dépenses déjà payées par toi pour le club"
                             [routerLink]="['/profile/create-expense-claim']"
+                            >Annoncer une dépense</a
                         >
-                            Annoncer une dépense
-                        </a>
                     }
                     <span
                         [matTooltip]="
@@ -40,7 +39,7 @@
                     >
                         @if (!adminMode && !viewer.owner) {
                             <button
-                                mat-stroked-button
+                                matButton="outlined"
                                 matTooltip="Pour un transfert de ton solde de membre vers ton compte bancaire"
                                 [disabled]="!canCreateExpenseClaim"
                                 (click)="createRefund()"
@@ -51,12 +50,11 @@
                     </span>
                     @if (!adminMode) {
                         <a
-                            mat-stroked-button
+                            matButton="outlined"
                             matTooltip="Pour les factures à payer au prestataire par le club"
                             [routerLink]="['/profile/create-invoice']"
+                            >Annoncer une facture</a
                         >
-                            Annoncer une facture
-                        </a>
                     }
                 </div>
             </div>
@@ -121,8 +119,8 @@
                             <td *matCellDef="let expenseClaim" mat-cell>
                                 @if (expenseClaim.permissions.delete) {
                                     <button
-                                        mat-icon-button
-                                        color="warn"
+                                        matIconButton
+                                        color="error"
                                         matTooltip="Supprimer définitivement"
                                         [disabled]="deleting.has(expenseClaim.id)"
                                         (click)="cancelExpenseClaim(expenseClaim)"
@@ -137,7 +135,7 @@
                             <th *matHeaderCellDef mat-header-cell class="natural-1em-column">Traiter</th>
                             <td *matCellDef="let item" mat-cell>
                                 <a
-                                    mat-icon-button
+                                    matIconButton
                                     class="icon-button-circle-accent"
                                     [routerLink]="['/admin/expense-claim', item.id]"
                                 >

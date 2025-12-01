@@ -103,7 +103,7 @@
                                 </div>
                             }
                             @if (!element.bookable) {
-                                <button mat-button [style.margin-left.px]="40">Matériel personnel</button>
+                                <button matButton [style.margin-left.px]="40">Matériel personnel</button>
                             }
                         </td>
                         <td *matFooterCellDef mat-footer-cell></td>
@@ -195,7 +195,7 @@
                         <th *matHeaderCellDef mat-header-cell class="natural-5em-column"></th>
                         <td *matCellDef="let element" mat-cell>
                             @if (!element.endDate) {
-                                <button mat-flat-button color="warn" (click)="maybeTerminateBooking(element.id)">
+                                <button mat-flat-button color="error" (click)="maybeTerminateBooking(element.id)">
                                     Terminer
                                 </button>
                             }

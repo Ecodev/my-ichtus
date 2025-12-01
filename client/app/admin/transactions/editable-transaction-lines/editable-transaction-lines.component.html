@@ -99,7 +99,7 @@
             <ng-container matColumnDef="remove">
                 <th *matHeaderCellDef mat-header-cell></th>
                 <td *matCellDef="let element; let i = index" mat-cell [formGroupName]="i">
-                    <button mat-icon-button color="warn" [disabled]="dataSource.data.length < 2" (click)="removeAt(i)">
+                    <button matIconButton color="error" [disabled]="dataSource.data.length < 2" (click)="removeAt(i)">
                         <mat-icon naturalIcon="delete" />
                     </button>
                 </td>

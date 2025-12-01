@@ -1,6 +1,6 @@
 <mat-dialog-content>
     @if (!readonly && activable) {
-        <mat-slide-toggle [(ngModel)]="active" (change)="update()"> Actif </mat-slide-toggle>
+        <mat-slide-toggle [(ngModel)]="active" (change)="update()">Actif</mat-slide-toggle>
     }
     @if (!readonly) {
         @defer {
@@ -17,6 +17,6 @@
 </mat-dialog-content>
 @if (data?.data?.showCloseButton) {
     <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close>Fermer</button>
+        <button matButton mat-dialog-close>Fermer</button>
     </mat-dialog-actions>
 }

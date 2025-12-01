@@ -13,7 +13,7 @@
                 data.model.reviewer === null &&
                 permissionsService.gteResponsible(viewer)
             ) {
-                <a mat-stroked-button color="basic" (click)="approve()">
+                <a matButton="outlined" color="basic" (click)="approve()">
                     <mat-icon naturalIcon="verified" />
                     <span class="mat-font-title-sm nat-bold">Approuver</span>
                 </a>
@@ -31,8 +31,8 @@
                 (permissionsService.crud | async)?.transaction.create
             ) {
                 <a
-                    mat-flat-button
-                    color="accent"
+                    matButton="filled"
+                    color="tertiary"
                     [routerLink]="['/admin/transaction/new', {expenseClaim: data.model.id}]"
                 >
                     <mat-icon naturalIcon="payments" />
@@ -49,18 +49,17 @@
             }
 
             @if (isUpdatePage() && data.model.transactions.length === 1) {
-                <a mat-flat-button [routerLink]="['/admin/transaction', data.model.transactions[0].id]">
-                    Voir l'écriture
-                </a>
+                <a mat-flat-button [routerLink]="['/admin/transaction', data.model.transactions[0].id]"
+                    >Voir l'écriture</a
+                >
             }
 
             @if (isUpdatePage() && data.model.transactions.length > 1) {
                 <a
                     mat-flat-button
                     [routerLink]="transactionLineService.linkToTransactionLinesForTransactions(data.model.transactions)"
+                    >Voir les écritures</a
                 >
-                    Voir les écritures
-                </a>
             }
 
             <app-money sizeClass="mat-font-headline-lg" [amount]="data.model.amount" [showSignal]="false" />
@@ -102,7 +101,7 @@
                         <div matIconSuffix>
                             @if (form.get('sector')?.value !== '') {
                                 <button
-                                    mat-icon-button
+                                    matIconButton
                                     matTooltip="Aucun"
                                     (click)="form.get('sector')?.setValue(''); $event.stopPropagation(); update()"
                                 >

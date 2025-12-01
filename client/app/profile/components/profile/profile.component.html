@@ -1,32 +1,32 @@
 <natural-sidenav-container name="profileMenu" class="nat-expand" [noScroll]="true">
     <natural-sidenav>
         <div class="profile-nav nat-vertical nat-gap" [style.margin-top.px]="30">
-            <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="/profile">
+            <a matButton class="nat-vertical big-button nat-top nat-center" routerLink="/profile">
                 <mat-icon naturalIcon="lake" [size]="50" />
                 Sorties
             </a>
-            <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="/profile/family">
+            <a matButton class="nat-vertical big-button nat-top nat-center" routerLink="/profile/family">
                 <mat-icon naturalIcon="family" [size]="50" />
                 Famille
             </a>
-            <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="/profile/history">
+            <a matButton class="nat-vertical big-button nat-top nat-center" routerLink="/profile/history">
                 <mat-icon naturalIcon="transactionHistory" [size]="50" />
                 Historique des transactions
             </a>
-            <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="/profile/finances">
+            <a matButton class="nat-vertical big-button nat-top nat-center" routerLink="/profile/finances">
                 <mat-icon naturalIcon="claims" [size]="50" />
                 Dépenses et remboursements
             </a>
             @if (canAccessServices()) {
                 <a
-                    mat-button
+                    matButton
                     class="nat-vertical big-button nat-top nat-center"
                     routerLink="/profile/services/bookables/formation"
                 >
                     <mat-icon naturalIcon="certification" [size]="50" />
                     Cours et certifications
                 </a>
-                <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="/profile/services">
+                <a matButton class="nat-vertical big-button nat-top nat-center" routerLink="/profile/services">
                     <mat-icon naturalIcon="ichtus" [size]="50" />
                     Cotisation et services
                 </a>
@@ -57,8 +57,8 @@
                     </div>
                     @if (userService.canBecomeMember(viewer)) {
                         <a
-                            mat-flat-button
-                            color="accent"
+                            matButton="filled"
+                            color="tertiary"
                             [disabled]="!viewer.email"
                             [matTooltip]="
                                 !viewer.email
@@ -66,9 +66,8 @@
                                     : ''
                             "
                             [routerLink]="['/user/new', {email: viewer.email}]"
+                            >Devenir membre</a
                         >
-                            Devenir membre
-                        </a>
                     }
                     <!-- TODO : UPDATE email when user add e-mail in family member component -->
                 </div>
@@ -78,13 +77,7 @@
                     <div class="nat-vertical nat-gap">
                         <div class="nat-horizontal nat-align">
                             <h2 class="mat-font-headline-sm nat-expand">Solde</h2>
-                            <button
-                                mat-flat-button
-                                color="primary"
-                                class="nat-margin-left"
-                                [disabled]="!config"
-                                (click)="pay()"
-                            >
+                            <button matButton="filled" class="nat-margin-left" [disabled]="!config" (click)="pay()">
                                 Faire un versement
                             </button>
                         </div>

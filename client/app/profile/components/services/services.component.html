@@ -5,7 +5,7 @@
             <div class="nat-horizontal nat-align nat-margin-bottom">
                 <h2 class="nat-expand mat-font-headline-sm">Cotisation / Prestations souscrites</h2>
                 @if (!user.owner) {
-                    <button mat-stroked-button color="warn" (click)="unregister()">Démissionner</button>
+                    <button matButton="outlined" color="error" (click)="unregister()">Démissionner</button>
                 }
             </div>
 
@@ -26,7 +26,7 @@
                         </th>
                         <td *matCellDef="let booking" mat-cell class="natural-align-right">
                             @if (booking.periodicPrice) {
-                                <span> {{ booking.periodicPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}</span>
+                                <span>{{ booking.periodicPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}</span>
                             }
                         </td>
                     </ng-container>
@@ -37,7 +37,7 @@
                         </th>
                         <td *matCellDef="let booking" mat-cell class="natural-align-right">
                             @if (booking.bookable.initialPrice !== '0.00') {
-                                <span> {{ booking.bookable.initialPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}</span>
+                                <span>{{ booking.bookable.initialPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}</span>
                             }
                         </td>
                     </ng-container>
@@ -46,7 +46,7 @@
                         <th *matHeaderCellDef mat-header-cell class="natural-1em-column"></th>
                         <td *matCellDef="let booking" mat-cell>
                             @if (canRevoke(booking)) {
-                                <button mat-icon-button color="warn" (click)="revokeBooking(booking)">
+                                <button matIconButton color="error" (click)="revokeBooking(booking)">
                                     <mat-icon naturalIcon="delete_forever" />
                                 </button>
                             }
@@ -61,7 +61,7 @@
                             @for (b of booking.bookable.simultaneousBookings; track b) {
                                 <div class="nat-horizontal">
                                     <natural-avatar [initials]="b.owner.name" [gravatar]="b.owner.email" [size]="36" />
-                                    <a mat-button [routerLink]="['/admin/user', b.owner.id]">
+                                    <a matButton [routerLink]="['/admin/user', b.owner.id]">
                                         {{ b.owner.name }}
                                     </a>
                                 </div>
@@ -73,7 +73,7 @@
                         <th *matHeaderCellDef mat-header-cell class="natural-1em-column">Traiter</th>
                         <td *matCellDef="let booking" mat-cell>
                             <a
-                                mat-icon-button
+                                matIconButton
                                 class="icon-button-circle-accent"
                                 [routerLink]="['/admin/booking', booking.id]"
                             >
@@ -148,7 +148,7 @@
                     </th>
                     <td *matCellDef="let booking" mat-cell class="natural-align-right">
                         @if (booking.bookable.initialPrice !== '0.00') {
-                            <span> {{ booking.bookable.initialPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}</span>
+                            <span>{{ booking.bookable.initialPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}</span>
                         }
                     </td>
                     <td *matFooterCellDef mat-footer-cell class="natural-align-right">
@@ -166,8 +166,8 @@
                     <th *matHeaderCellDef mat-header-cell class="natural-1em-column"></th>
                     <td *matCellDef="let booking" mat-cell>
                         <button
-                            mat-icon-button
-                            color="warn"
+                            matIconButton
+                            color="error"
                             [disabled]="deleting.has(booking.id)"
                             (click)="cancelApplication(booking)"
                         >
@@ -181,7 +181,7 @@
                     <th *matHeaderCellDef mat-header-cell class="natural-1em-column">Traiter</th>
                     <td *matCellDef="let booking" mat-cell>
                         <a
-                            mat-icon-button
+                            matIconButton
                             class="icon-button-circle-accent"
                             [routerLink]="['/admin/booking', booking.id]"
                         >

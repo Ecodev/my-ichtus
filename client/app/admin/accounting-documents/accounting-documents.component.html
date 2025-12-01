@@ -10,7 +10,7 @@
                 (modelChange)="fileAdded($event, $index)"
             />
             @if (canRemove() && !disabled && !$last) {
-                <button mat-icon-button (click)="!$last ? removeFile($index) : null">
+                <button matIconButton (click)="!$last ? removeFile($index) : null">
                     <mat-icon naturalIcon="clear" />
                 </button>
             }

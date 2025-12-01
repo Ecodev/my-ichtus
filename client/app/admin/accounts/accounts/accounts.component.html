@@ -9,7 +9,7 @@
                     @for (element of breadcrumbs; track element) {
                         <div>
                             /
-                            <a mat-button color="primary" [routerLink]="getChildLink(element)">{{ element.name }}</a>
+                            <a matButton="filled" [routerLink]="getChildLink(element)">{{ element.name }}</a>
                         </div>
                     }
                 </div>

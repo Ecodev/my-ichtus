@@ -22,7 +22,7 @@
                     }
                     <div class="nat-vertical nat-gap-10 nat-expand">
                         <a
-                            mat-button
+                            matButton
                             class="app-button-wrap"
                             [routerLink]="item.booking.bookable ? ['/booking', item.booking.bookable.code] : null"
                         >
@@ -43,14 +43,14 @@
                             <div>Fin : {{ item.booking.endDate | date }}</div>
                         }
                         <div class="bottom-buttons nat-horizontal nat-right nat-center">
-                            <button mat-icon-button (click)="item.showComments = true">
+                            <button matIconButton (click)="item.showComments = true">
                                 <mat-icon naturalIcon="feedback" />
                             </button>
                             <div class="nat-expand"></div>
                             @if (!item.terminated) {
                                 <button
                                     mat-flat-button
-                                    color="warn"
+                                    color="error"
                                     appParticleEffect
                                     pEasing="outQuad"
                                     pColor="#f44336"
@@ -91,7 +91,7 @@
                             </mat-form-field>
                         </div>
                         <div class="nat-horizontal">
-                            <button mat-icon-button color="primary" (click)="item.showComments = false">
+                            <button matIconButton color="primary" (click)="item.showComments = false">
                                 <mat-icon naturalIcon="clear" />
                             </button>
                         </div>
@@ -103,5 +103,5 @@
 }
 
 @if (bookings && bookings.length > bookings.items.length) {
-    <button mat-button (click)="nextPage()">Voir plus</button>
+    <button matButton (click)="nextPage()">Voir plus</button>
 }

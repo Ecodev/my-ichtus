@@ -12,18 +12,18 @@
             <div class="nat-vertical nat-bold nat-gap-10">
                 @if (!hasLicense) {
                     <div class="nat-horizontal nat-align">
-                        <mat-icon color="warn" fontIcon="error" />
+                        <mat-icon color="error" fontIcon="error" />
                         Tu ne disposes pas des licences requises pour utiliser cette embarcation
                     </div>
                 }
                 @if (!welcomeSessionTaken) {
                     <div class="nat-horizontal nat-align">
-                        <mat-icon color="warn" fontIcon="warning" />
-                        <span
-                            >Il te faut suivre une
+                        <mat-icon color="error" fontIcon="warning" />
+                        <span>
+                            Il te faut suivre une
                             <a href="https://ichtus.ch/le-club/seance-daccueil/" target="_blank">séance d'accueil</a>
-                            avant d'utiliser le matériel du club !</span
-                        >
+                            avant d'utiliser le matériel du club !
+                        </span>
                     </div>
                 }
             </div>
@@ -33,20 +33,15 @@
                 <div class="nat-bold">Sorti {{ runningBooking.startDate | timeago }}</div>
             }
             @if (isNavigable && isAvailable) {
-                <button
-                    mat-flat-button
-                    color="primary"
-                    [disabled]="!hasLicense"
-                    [routerLink]="['../new', {bookable: bookable.id}]"
-                >
+                <button matButton="filled" [disabled]="!hasLicense" [routerLink]="['../new', {bookable: bookable.id}]">
                     Annoncer une sortie
                 </button>
             }
             @if (isNavigable && !isAvailable && runningBooking) {
-                <button mat-flat-button color="warn" (click)="endBooking()">Terminer</button>
+                <button mat-flat-button color="error" (click)="endBooking()">Terminer</button>
             }
             @if (canAccessAdmin) {
-                <a mat-stroked-button color="primary" [routerLink]="['/admin/bookable', bookable.id]">Administration</a>
+                <a matButton="outlined" [routerLink]="['/admin/bookable', bookable.id]">Administration</a>
             }
         </div>
         <div class="mat-font-headline-sm line-break">{{ bookable.description }}</div>
@@ -60,6 +55,6 @@
         <div class="mat-font-headline-lg" style="text-align: center">
             Aucun matériel correspondant à ce code n'a été trouvé
         </div>
-        <button mat-flat-button color="primary" (click)="back()">Revenir à la page précédente</button>
+        <button matButton="filled" (click)="back()">Revenir à la page précédente</button>
     </div>
 }

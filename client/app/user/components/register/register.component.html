@@ -93,7 +93,7 @@
                             </th>
                             <td *matCellDef="let bookable" mat-cell class="natural-align-right">
                                 @if (bookable.initialPrice !== '0.00') {
-                                    <span> {{ bookable.initialPrice | currency: 'CHF' }}</span>
+                                    <span>{{ bookable.initialPrice | currency: 'CHF' }}</span>
                                 }
                             </td>
                             <td *matFooterCellDef mat-footer-cell class="natural-align-right">
@@ -111,7 +111,7 @@
                             </th>
                             <td *matCellDef="let bookable" mat-cell class="natural-align-right">
                                 @if (bookable.periodicPrice !== '0.00') {
-                                    <span> {{ bookable.periodicPrice | currency: 'CHF' }}</span>
+                                    <span>{{ bookable.periodicPrice | currency: 'CHF' }}</span>
                                 }
                             </td>
                             <td *matFooterCellDef mat-footer-cell class="natural-align-right">
@@ -133,16 +133,17 @@
 
             <div class="nat-horizontal nat-gap-20">
                 <div class="nat-expand">
-                    <mat-checkbox formControlName="hasInsurance">
-                        Mon assurance RC couvre les dégâts commis par négligence au matériel nautique du club.
-                    </mat-checkbox>
+                    <mat-checkbox formControlName="hasInsurance"
+                        >Mon assurance RC couvre les dégâts commis par négligence au matériel nautique du
+                        club.</mat-checkbox
+                    >
                     @if (form.get('hasInsurance')?.touched && form.get('hasInsurance')?.hasError('required')) {
-                        <mat-error class="nat-bold"> Requis </mat-error>
+                        <mat-error class="nat-bold">Requis</mat-error>
                     }
 
                     <mat-checkbox formControlName="privacyPolicyAgreement" required>
-                        <span class="rich-text"
-                            >J'ai pris connaissance et approuve
+                        <span class="rich-text">
+                            J'ai pris connaissance et approuve
                             <a target="_blank" [href]="privacyPolicyUrl">la politique de confidentialité</a>
                         </span>
                     </mat-checkbox>
@@ -155,24 +156,26 @@
                 </div>
                 <mat-divider [vertical]="true" />
                 <div class="nat-expand">
-                    <mat-checkbox formControlName="termsAgreement" required> Je m'engage à respecter : </mat-checkbox>
+                    <mat-checkbox formControlName="termsAgreement" required>Je m'engage à respecter :</mat-checkbox>
                     <p class="nat-bold rich-text">
                         <a href="https://ichtus.ch/oni" target="_blank"
                             >l'Ordonnance suisse sur la Navigation Intérieure (ONI)</a
                         >
                         <br />
-                        ainsi que les <a href="https://ichtus.ch/reglements" target="_blank">règlements</a> et
+                        ainsi que les
+                        <a href="https://ichtus.ch/reglements" target="_blank">règlements</a>
+                        et
                         <a href="https://ichtus.ch/statuts" target="_blank">statuts du club nautique Ichtus</a>
                     </p>
                     @if (form.get('termsAgreement')?.touched && form.get('termsAgreement')?.hasError('required')) {
-                        <mat-error class="nat-bold"> Requis </mat-error>
+                        <mat-error class="nat-bold">Requis</mat-error>
                     }
                 </div>
             </div>
         }
 
         <div class="nat-horizontal nat-center">
-            <button mat-raised-button [color]="form.valid ? 'primary' : 'warn'" [disabled]="sending" (click)="submit()">
+            <button matButton="tonal" [color]="form.valid ? 'primary' : 'warn'" [disabled]="sending" (click)="submit()">
                 <mat-icon naturalIcon="send" />
                 @if (step === 1) {
                     Adhérer
