@@ -198,16 +198,16 @@
     @if (isUpdatePage() && userService.canUpdateTransaction(viewer)) {
         <eco-fab-speed-dial class="detail-speed-dial">
             <eco-fab-speed-dial-trigger>
-                <button mat-fab>
+                <button matFab>
                     <mat-icon naturalIcon="more_vert" />
                 </button>
             </eco-fab-speed-dial-trigger>
             <eco-fab-speed-dial-actions>
-                <button mat-mini-fab matTooltip="Enregistrer" matTooltipPosition="left" (click)="save()">
+                <button matMiniFab matTooltip="Enregistrer" matTooltipPosition="left" (click)="save()">
                     <mat-icon naturalIcon="save" />
                 </button>
                 <button
-                    mat-mini-fab
+                    matMiniFab
                     matTooltip="Dupliquer ..."
                     matTooltipPosition="left"
                     [routerLink]="['../new', {duplicate: data.model.id}]"
@@ -215,7 +215,7 @@
                     <mat-icon naturalIcon="content_copy" />
                 </button>
                 <button
-                    mat-mini-fab
+                    matMiniFab
                     color="error"
                     matTooltip="Supprimer définitivement"
                     matTooltipPosition="left"
