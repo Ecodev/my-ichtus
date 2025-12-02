@@ -272,7 +272,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                             @if (allowBooking(element)) {
                                 <button
                                     mat-flat-button
-                                    [color]="isAlreadyPending(element) ? 'accent' : 'primary'"
+                                    [color]="isAlreadyPending(element) ? 'tertiary' : undefined"
                                     [disabled]="isFullyBooked(element) || creating.has(element.id)"
                                     (click)="createApplication(element)"
                                 >

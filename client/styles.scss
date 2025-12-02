@@ -132,9 +132,21 @@ mat-form-field.no-bottom-spacing {
 }
 
 .mat-mdc-button.big-button {
+    padding: 10px 10px !important;
+    width: 150px;
     height: auto !important; // allow button grow in height
     line-height: 24px !important;
     white-space: normal;
+
+    @include mat.button-overrides(
+        (
+            text-container-shape: var(--mat-sys-corner-small),
+        )
+    );
+
+    & > .mat-icon {
+        margin: 0;
+    }
 
     .mdc-button__label {
         display: flex;

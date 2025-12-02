@@ -84,7 +84,7 @@
                             @if (!isActive(element)) {
                                 <button
                                     mat-flat-button
-                                    [color]="isNew(element) ? 'accent' : 'primary'"
+                                    [color]="isNew(element) ? 'tertiary' : undefined"
                                     [disabled]="!isActivable(element) || activating.has(element)"
                                     [style.width.px]="150"
                                     (click)="activate(element)"
