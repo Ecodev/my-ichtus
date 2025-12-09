@@ -42,7 +42,7 @@
                         <natural-avatar [initials]="viewer.name" [gravatar]="viewer.email" [size]="60" />
                         <div class="nat-vertical nat-gap-10">
                             <div class="mat-font-headline-lg">{{ viewer.name }}</div>
-                            <div>
+                            <div class="mat-font-body-lg">
                                 {{ viewer.status | enum: 'UserStatus' | async }}
                             </div>
                             <div class="nat-horizontal nat-wrap nat-gap-15 nat-bold">

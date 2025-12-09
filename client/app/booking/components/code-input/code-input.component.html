@@ -1,6 +1,8 @@
 <div class="nat-vertical nat-margin nat-gap-30">
     <h1 class="mat-font-headline-lg">Code du matériel</h1>
-    <p>Chaque matériel dispose d'un code alphanumérique (p.ex&nbsp;C12) collé. Veuillez saisir ce code.</p>
+    <p class="mat-font-body-lg">
+        Chaque matériel dispose d'un code alphanumérique (p.ex&nbsp;C12) collé. Veuillez saisir ce code.
+    </p>
     <input placeholder="Code" appFocus [(ngModel)]="code" (keydown.enter)="goToBookable(code)" />
     <a matButton="filled" [routerLink]="['/booking', code]">Valider</a>
 </div>
