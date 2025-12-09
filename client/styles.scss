@@ -65,8 +65,8 @@ natural-sidenav-content {
 .header-toolbar {
     @include mat.toolbar-overrides(
         (
-            container-background-color: --mat-sys-surface-container,
-            container-text-color: --mat-sys-on-surface,
+            container-background-color: var(--mat-sys-surface-container),
+            container-text-color: var(--mat-sys-on-surface),
         )
     );
 }
