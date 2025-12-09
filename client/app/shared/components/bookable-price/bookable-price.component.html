@@ -1,7 +1,5 @@
 @if (bookable().periodicPrice && bookable().periodicPrice !== '0.00') {
-    <div class="-1 nat-no-margin-bottom">
-        {{ bookable().periodicPrice | currency: 'CHF' : 'symbol' : '1.2' }}&nbsp;/an
-    </div>
+    <div class="nat-no-margin-bottom">{{ bookable().periodicPrice | currency: 'CHF' : 'symbol' : '1.2' }}&nbsp;/an</div>
 }
 @if (
     bookable().periodicPrice &&
@@ -9,8 +7,8 @@
     bookable().periodicPrice !== '0.00' &&
     bookable().initialPrice !== '0.00'
 ) {
-    <span class="-1 nat-no-margin-bottom">+</span>
+    <span class="nat-no-margin-bottom">+</span>
 }
 @if (bookable().initialPrice && bookable().initialPrice !== '0.00') {
-    <span class="-1 nat-no-margin-bottom">{{ bookable().initialPrice | currency: 'CHF' : 'symbol' : '1.2' }}</span>
+    <span class="nat-no-margin-bottom">{{ bookable().initialPrice | currency: 'CHF' : 'symbol' : '1.2' }}</span>
 }
