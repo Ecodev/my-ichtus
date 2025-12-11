@@ -31,7 +31,6 @@ import {
     BookableStatus,
     BookingFilterGroupConditionEndDate,
     UserFilterGroupConditionReceivesNewsletter,
-    UserFilterGroupConditionWelcomeSessionDate,
 } from '../generated-types';
 import {AccountService} from '../../admin/accounts/services/account.service';
 import {accountHierarchicConfiguration} from '../hierarchic-selector/AccountHierarchicConfiguration';
@@ -121,13 +120,6 @@ function owner(label = 'Utilisateur'): DropdownFacet<TypeSelectNaturalConfigurat
     };
 }
 
-const userWelcomeSession: FlagFacet<UserFilterGroupConditionWelcomeSessionDate> = {
-    display: "N'a pas été accueilli",
-    name: 'userWelcomeSession',
-    field: 'welcomeSessionDate',
-    condition: {null: {}},
-};
-
 const receivesNewsletter: FlagFacet<UserFilterGroupConditionReceivesNewsletter> = {
     display: 'Abonné newsletter',
     field: 'receivesNewsletter',
@@ -176,12 +168,18 @@ const creationDate: DropdownFacet<TypeDateConfiguration> = {
     display: 'Date de création',
     field: 'creationDate',
     component: TypeDateComponent,
+    configuration: {
+        nullable: true,
+    },
 };
 
 const updateDate: DropdownFacet<TypeDateConfiguration> = {
     display: 'Date de modification',
     field: 'updateDate',
     component: TypeDateComponent,
+    configuration: {
+        nullable: true,
+    },
 };
 
 const startDate: DropdownFacet<TypeDateConfiguration> = {
@@ -194,6 +192,9 @@ const endDate: DropdownFacet<TypeDateConfiguration> = {
     display: 'Date de fin',
     field: 'endDate',
     component: TypeDateComponent,
+    configuration: {
+        nullable: true,
+    },
 };
 
 const destination: DropdownFacet<never> = {
@@ -277,6 +278,7 @@ const purchasePrice: DropdownFacet<TypeNumberConfiguration> = {
     component: TypeNumberComponent,
     configuration: {
         step: 1,
+        nullable: true,
     },
 };
 
@@ -430,12 +432,13 @@ export function users(): NaturalSearchFacets {
         } satisfies DropdownFacet<TypeSelectConfiguration>,
         licenses(),
         receivesNewsletter,
-        userWelcomeSession,
         {
             display: "Date d'accueil",
-            name: 'welcomeSessionDate',
             field: 'welcomeSessionDate',
             component: TypeDateComponent,
+            configuration: {
+                nullable: true,
+            },
         } satisfies DropdownFacet<TypeDateConfiguration>,
         {
             display: 'Mode de paiement',
@@ -445,6 +448,13 @@ export function users(): NaturalSearchFacets {
                 items: inject(NaturalEnumService).get('BillingType'),
             },
         } satisfies DropdownFacet<TypeSelectConfiguration>,
+        {
+            display: 'Date de crédit',
+            field: 'hasCreditOnDate',
+            component: TypeDateComponent,
+            configuration: {nullable: true},
+            transform: prefixOperatorWithField,
+        } satisfies DropdownFacet<TypeDateConfiguration>,
         {
             display: 'Solde',
             field: 'accountBalance',
@@ -460,6 +470,9 @@ export function users(): NaturalSearchFacets {
             display: 'Date de naissance',
             field: 'birthday',
             component: TypeDateComponent,
+            configuration: {
+                nullable: true,
+            },
         } satisfies DropdownFacet<TypeDateConfiguration>,
         creationDate,
         updateDate,
@@ -467,6 +480,9 @@ export function users(): NaturalSearchFacets {
             display: 'Date de démission',
             field: 'resignDate',
             component: TypeDateComponent,
+            configuration: {
+                nullable: true,
+            },
         } satisfies DropdownFacet<TypeDateConfiguration>,
     ];
 }
@@ -709,6 +725,7 @@ export function accounts(): NaturalSearchFacets {
             component: TypeNumberComponent,
             configuration: {
                 step: 1,
+                nullable: true,
             },
         } satisfies DropdownFacet<TypeNumberConfiguration>,
         {
@@ -717,6 +734,7 @@ export function accounts(): NaturalSearchFacets {
             component: TypeNumberComponent,
             configuration: {
                 step: 1,
+                nullable: true,
             },
         } satisfies DropdownFacet<TypeNumberConfiguration>,
         owner(),
