@@ -100,7 +100,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
     protected accountHierarchicConfig = accountHierarchicConfiguration;
     protected bookingsVariables: BookingsVariables = {};
     protected viewer!: NonNullable<CurrentUserForProfile['viewer']>;
-    public readonly availableColumnsForBookingsWithOwnerWithoutTrainers =
+    protected readonly availableColumnsForBookingsWithOwnerWithoutTrainers =
         availableColumnsForBookingsWithOwnerWithoutTrainers;
     protected readonly availableColumnsForBookingsWithOwnerOnlyTrainers =
         availableColumnsForBookingsWithOwnerOnlyTrainers;
