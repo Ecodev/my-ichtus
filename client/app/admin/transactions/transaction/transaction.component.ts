@@ -113,7 +113,7 @@ export class TransactionComponent
      */
     protected updateTransactionLines = false;
 
-    protected ExpenseClaimType = ExpenseClaimType;
+    protected readonly ExpenseClaimType = ExpenseClaimType;
 
     protected viewer!: NonNullable<CurrentUserForProfile['viewer']>;
     protected transactionLines: EditableTransactionLinesInput = {mode: 'empty'};

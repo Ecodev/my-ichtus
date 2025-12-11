@@ -44,7 +44,7 @@ export class AdminComponent {
     protected adminUserRouteActive = false;
     protected adminBookableRouteActive = false;
     protected adminBookingRouteActive = false;
-    protected UserRole = UserRole;
+    protected readonly UserRole = UserRole;
 
     public constructor() {
         const router = inject(Router);

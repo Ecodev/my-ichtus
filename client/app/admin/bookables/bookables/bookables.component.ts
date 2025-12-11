@@ -80,7 +80,7 @@ export class BookablesComponent extends ParentComponent<BookableService> impleme
     protected readonly permissionsService = inject(PermissionsService);
 
     protected readonly bookableClick = output<Bookables['bookables']['items'][0]>();
-    protected BookableStatus = BookableStatus;
+    protected readonly BookableStatus = BookableStatus;
 
     public constructor() {
         super(inject(BookableService));
