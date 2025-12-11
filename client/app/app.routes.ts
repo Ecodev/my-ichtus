@@ -33,7 +33,7 @@ export const routes: Routes = [
         // Registration
         path: 'user',
         component: HomeComponent,
-        loadChildren: () => import('./user/user-routing.module').then(m => m.routes),
+        loadChildren: () => import('./user/user.routes').then(m => m.routes),
     },
     {
         path: 'safety',
@@ -60,15 +60,15 @@ export const routes: Routes = [
             },
             {
                 path: 'booking',
-                loadChildren: () => import('./booking/booking-routing.module').then(m => m.routes),
+                loadChildren: () => import('./booking/booking.routes').then(m => m.routes),
             },
             {
                 path: 'admin',
-                loadChildren: () => import('./admin/admin-routing.module').then(m => m.routes),
+                loadChildren: () => import('./admin/admin.routes').then(m => m.routes),
             },
             {
                 path: 'profile',
-                loadChildren: () => import('./profile/profile-routing.module').then(m => m.routes),
+                loadChildren: () => import('./profile/profile.routes').then(m => m.routes),
             },
             {
                 path: 'door',
