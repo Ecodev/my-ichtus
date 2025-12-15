@@ -24,7 +24,6 @@ import {UserTagService} from '../../admin/userTags/services/userTag.service';
 import {BookableService} from '../../admin/bookables/services/bookable.service';
 import {UserService} from '../../admin/users/services/user.service';
 import {LicenseService} from '../../admin/licenses/services/license.service';
-import {TransactionService} from '../../admin/transactions/services/transaction.service';
 import {TransactionTagService} from '../../admin/transactionTags/services/transactionTag.service';
 import {
     BookableFilter,
@@ -125,18 +124,6 @@ const receivesNewsletter: FlagFacet<UserFilterGroupConditionReceivesNewsletter> 
     field: 'receivesNewsletter',
     condition: {equal: {value: true}},
 };
-
-function transaction(): DropdownFacet<TypeSelectNaturalConfiguration<TransactionService>> {
-    return {
-        display: 'Transaction',
-        field: 'transaction',
-        component: TypeNaturalSelectComponent,
-        configuration: {
-            service: inject(TransactionService),
-            placeholder: 'Transaction',
-        },
-    };
-}
 
 function bookable(): DropdownFacet<TypeSelectNaturalConfiguration<BookableService>> {
     return {
@@ -292,7 +279,7 @@ const bookableActiveBookingCount: DropdownFacet<TypeNumberConfiguration> = {
     },
 };
 
-function bokingBookableTag(): DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>> {
+function bookableBookableTag(): DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>> {
     return {
         display: 'Tag de réservable',
         field: 'bookable.bookableTags',
@@ -491,7 +478,7 @@ export function transactionLines(): NaturalSearchFacets {
     assertInInjectionContext(transactionLines);
 
     return [
-        transaction(),
+        bookableBookableTag(),
         {
             display: 'Montant',
             field: 'balance',
@@ -536,7 +523,7 @@ export function transactionLines(): NaturalSearchFacets {
             },
         } satisfies DropdownFacet<TypeHierarchicSelectorConfiguration>,
         {
-            display: 'Date de transaction',
+            display: "Date d'écriture",
             field: 'transactionDate',
             component: TypeDateComponent,
         } satisfies DropdownFacet<TypeDateConfiguration>,
@@ -565,9 +552,9 @@ export function transactionLines(): NaturalSearchFacets {
                 ],
             },
         } satisfies DropdownFacet<TypeSelectConfiguration>,
+        transactionTags(),
         remarks,
         bookable(),
-        transactionTags(),
         owner(),
         creationDate,
         updateDate,
@@ -662,7 +649,7 @@ export function bookings(): NaturalSearchFacets {
         bookable(),
         startDate,
         endDate,
-        bokingBookableTag(),
+        bookableBookableTag(),
         destination,
         participantCount,
         creationDate,
@@ -686,7 +673,7 @@ export function bookingsAdvanced(): NaturalSearchFacets {
             field: 'endDate',
             condition: {null: {}},
         } satisfies FlagFacet<BookingFilterGroupConditionEndDate>,
-        bokingBookableTag(),
+        bookableBookableTag(),
         bookable(),
         startDate,
         endDate,
