@@ -522,7 +522,7 @@ export function transactionLines(): NaturalSearchFacets {
             },
         } satisfies DropdownFacet<TypeHierarchicSelectorConfiguration>,
         {
-            display: 'Date de transaction',
+            display: "Date d'écriture",
             field: 'transactionDate',
             component: TypeDateComponent,
         } satisfies DropdownFacet<TypeDateConfiguration>,
