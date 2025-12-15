@@ -279,7 +279,7 @@ const bookableActiveBookingCount: DropdownFacet<TypeNumberConfiguration> = {
     },
 };
 
-function bokingBookableTag(): DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>> {
+function bookableBookableTag(): DropdownFacet<TypeSelectNaturalConfiguration<BookableTagService>> {
     return {
         display: 'Tag de réservable',
         field: 'bookable.bookableTags',
@@ -478,6 +478,7 @@ export function transactionLines(): NaturalSearchFacets {
     assertInInjectionContext(transactionLines);
 
     return [
+        bookableBookableTag(),
         {
             display: 'Montant',
             field: 'balance',
@@ -648,7 +649,7 @@ export function bookings(): NaturalSearchFacets {
         bookable(),
         startDate,
         endDate,
-        bokingBookableTag(),
+        bookableBookableTag(),
         destination,
         participantCount,
         creationDate,
@@ -672,7 +673,7 @@ export function bookingsAdvanced(): NaturalSearchFacets {
             field: 'endDate',
             condition: {null: {}},
         } satisfies FlagFacet<BookingFilterGroupConditionEndDate>,
-        bokingBookableTag(),
+        bookableBookableTag(),
         bookable(),
         startDate,
         endDate,
