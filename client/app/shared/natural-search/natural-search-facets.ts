@@ -478,7 +478,6 @@ export function transactionLines(): NaturalSearchFacets {
     assertInInjectionContext(transactionLines);
 
     return [
-        bookableBookableTag(),
         {
             display: 'Montant',
             field: 'balance',
@@ -555,6 +554,7 @@ export function transactionLines(): NaturalSearchFacets {
         transactionTags(),
         remarks,
         bookable(),
+        bookableBookableTag(),
         owner(),
         creationDate,
         updateDate,
