@@ -1,7 +1,7 @@
 @if (dataSource) {
     <div class="nat-vertical">
         <div class="nat-horizontal">
-            <div class="mat-headline-5 nat-no-margin nat-expand">
+            <div class="mat-font-headline-sm nat-expand">
                 {{ routeData?.seo.title }}
             </div>
             <natural-columns-picker
@@ -84,7 +84,7 @@
                             @if (!isActive(element)) {
                                 <button
                                     mat-flat-button
-                                    [color]="isNew(element) ? 'accent' : 'primary'"
+                                    [color]="isNew(element) ? 'tertiary' : undefined"
                                     [disabled]="!isActivable(element) || activating.has(element)"
                                     [style.width.px]="150"
                                     (click)="activate(element)"
@@ -114,8 +114,7 @@
                         <td *matCellDef="let element" mat-cell>
                             @if (!element.welcomeSessionDate) {
                                 <button
-                                    mat-flat-button
-                                    color="primary"
+                                    matButton="filled"
                                     [disabled]="welcoming.has(element)"
                                     (click)="flagWelcomeSessionDate(element)"
                                 >

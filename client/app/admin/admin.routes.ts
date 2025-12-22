@@ -62,7 +62,7 @@ import {
     availableColumnsForBookingsStorageApplication,
     availableColumnsForBookingsWithOwnerApplications,
 } from './bookings/bookings/abstract-bookings';
-import {servicesTabRoutes} from '../profile/profile-routing.module';
+import {servicesTabRoutes} from '../profile/profile.routes';
 
 function equipment(path: string, title: string, bookableTagId: string): Route {
     return {

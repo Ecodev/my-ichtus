@@ -84,7 +84,7 @@ import {admin_approved, bookables, storage} from '../../../shared/natural-search
 export class UsageBookablesComponent extends ParentComponent<UsageBookableService> implements OnInit {
     protected readonly permissionsService = inject(PermissionsService);
     private readonly userService = inject(UserService);
-    protected BookableStatus = BookableStatus;
+    protected readonly BookableStatus = BookableStatus;
     protected readonly bookableClick = output<UsageBookables['bookables']['items'][0]>();
 
     @Input()

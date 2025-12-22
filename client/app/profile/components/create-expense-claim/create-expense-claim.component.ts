@@ -42,7 +42,7 @@ export class CreateExpenseClaimComponent
 
     private readonly accountingDocuments = viewChild.required(AccountingDocumentsComponent);
 
-    protected ExpenseClaimType = ExpenseClaimType;
+    protected readonly ExpenseClaimType = ExpenseClaimType;
 
     public constructor() {
         super('expenseClaim', inject(ExpenseClaimService));

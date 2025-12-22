@@ -14,7 +14,7 @@
                         </div>
                     }
                     @if (!edit) {
-                        <div class="mat-subtitle-2">{{ element.name }}</div>
+                        <div class="mat-font-title-sm nat-bold">{{ element.name }}</div>
                     }
                 </td>
             </ng-container>
@@ -42,8 +42,8 @@
                 <td *matCellDef="let element" mat-cell>
                     @if (element.id) {
                         <button
-                            mat-icon-button
-                            color="warn"
+                            matIconButton
+                            color="error"
                             [disabled]="deleting.has(element)"
                             (click)="delete(element)"
                         >

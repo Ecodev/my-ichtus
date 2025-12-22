@@ -1,0 +1,8 @@
+::ng-deep {
+    .mat-mdc-unelevated-button {
+        background-color: lightgray;
+    }
+    .mat-mdc-unelevated-button.opened {
+        background-color: lawngreen !important;
+    }
+}

@@ -81,7 +81,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
     protected readonly bookableService = inject(BookableService);
     protected readonly userService = inject(UserService);
 
-    protected BookingStatus = BookingStatus;
+    protected readonly BookingStatus = BookingStatus;
     protected suggestionVariables: BookablesVariables = {};
     protected suggestionSelection: NaturalSearchSelections = [[]];
     protected readonly BookingType = BookingType;

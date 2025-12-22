@@ -5,4 +5,26 @@
     height: 36px;
     line-height: 36px;
     white-space: nowrap;
+
+    &.full {
+        background: var(--mat-sys-error-container);
+        color: var(--mat-sys-on-error-container);
+    }
+
+    // todo md3 : investigate why variable --nat-good doesn't apply when used
+    &.unlimited,
+    &.available {
+        background: rgb(71, 199, 0);
+        color: white;
+    }
+
+    &.waitingList {
+        background: var(--mat-sys-tertiary-container);
+        color: var(--mat-sys-on-tertiary-container);
+    }
+
+    &.pending-application:not(.full) {
+        background: var(--mat-sys-tertiary-container);
+        color: var(--mat-sys-on-tertiary-container);
+    }
 }

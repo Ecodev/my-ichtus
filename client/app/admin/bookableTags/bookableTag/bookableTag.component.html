@@ -14,7 +14,7 @@
                         <input matInput formControlName="name" (change)="update()" />
                         <mat-label>Nom</mat-label>
                         @if (form.get('name')?.hasError('duplicateValue')) {
-                            <mat-error> Ce tag existe déjà</mat-error>
+                            <mat-error>Ce tag existe déjà</mat-error>
                         } @else {
                             <mat-error>{{ form.get('name')?.errors | errorMessage }}</mat-error>
                         }

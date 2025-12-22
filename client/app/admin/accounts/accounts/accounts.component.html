@@ -3,16 +3,13 @@
         <div class="nat-vertical">
             <div class="nat-horizontal">
                 <div class="nat-horizontal nat-wrap nat-expand nat-align">
-                    <div
-                        class="mat-headline-5 nat-no-margin-vertical nat-margin-right"
-                        [routerLink]="getChildLink(null)"
-                    >
+                    <div class="mat-font-headline-sm nat-margin-right" [routerLink]="getChildLink(null)">
                         {{ routeData?.seo.title }}
                     </div>
                     @for (element of breadcrumbs; track element) {
                         <div>
                             /
-                            <a mat-button color="primary" [routerLink]="getChildLink(element)">{{ element.name }}</a>
+                            <a matButton="filled" [routerLink]="getChildLink(element)">{{ element.name }}</a>
                         </div>
                     }
                 </div>

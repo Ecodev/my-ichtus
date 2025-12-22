@@ -71,8 +71,8 @@ export class ExpenseClaimComponent
     protected readonly transactionLineService = inject(TransactionLineService);
     protected readonly permissionsService = inject(PermissionsService);
 
-    protected ExpenseClaimType = ExpenseClaimType;
-    protected ExpenseClaimStatus = ExpenseClaimStatus;
+    protected readonly ExpenseClaimType = ExpenseClaimType;
+    protected readonly ExpenseClaimStatus = ExpenseClaimStatus;
     protected viewer!: NonNullable<CurrentUserForProfile['viewer']>;
 
     public constructor() {
