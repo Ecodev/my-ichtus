@@ -20,6 +20,8 @@ export const userLeaveFamilyFragment = gql`
 export const userContactDataFragment = gql`
     fragment UserContactData on User {
         id
+        firstName
+        lastName
         name
         email
         mobilePhone

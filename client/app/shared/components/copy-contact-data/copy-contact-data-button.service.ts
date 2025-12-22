@@ -12,7 +12,7 @@ import {DocumentNode} from 'graphql';
 import {emailAndPhoneUsersQuery} from '../../../admin/users/services/user.queries';
 import {bookingsWithOwnerContactQuery} from '../../../admin/bookings/services/booking.queries';
 
-export type ContactType = 'bookingsWithOwnerContact' | 'emailAndPhoneUsers';
+type ContactType = 'bookingsWithOwnerContact' | 'emailAndPhoneUsers';
 
 @Injectable({
     providedIn: 'root',
@@ -21,7 +21,6 @@ export class CopyContactDataButtonService<V extends EmailAndPhoneUsersVariables 
     private readonly apollo = inject(Apollo);
     private readonly document = inject(DOCUMENT);
 
-    private type!: ContactType;
     private variablesManager!: NaturalQueryVariablesManager<V>;
     private usersEmail: string | null = null;
     private usersEmailAndName: string | null = null;
@@ -29,7 +28,6 @@ export class CopyContactDataButtonService<V extends EmailAndPhoneUsersVariables 
 
     public getButtons(variablesManager: NaturalQueryVariablesManager<V>, type: ContactType): Button[] {
         this.variablesManager = variablesManager;
-        this.type = type;
         this.usersEmail = null;
         this.usersEmailAndName = null;
         this.usersPhoneAndName = null;
@@ -38,7 +36,7 @@ export class CopyContactDataButtonService<V extends EmailAndPhoneUsersVariables 
             {
                 label: 'Copier les ...',
                 icon: 'email',
-                click: (button: Button): void => this.downloadData(button),
+                click: (button: Button): void => this.downloadData(button, type),
                 buttons: [
                     {
                         label: 'e-mails',
@@ -60,10 +58,10 @@ export class CopyContactDataButtonService<V extends EmailAndPhoneUsersVariables 
         ];
     }
 
-    private downloadData(button: Button): void {
+    private downloadData(button: Button, type: ContactType): void {
         button.buttons?.forEach(subButton => (subButton.disabled = true));
 
-        switch (this.type) {
+        switch (type) {
             case 'emailAndPhoneUsers':
                 this.doDownload<EmailAndPhoneUsers>(
                     button,
@@ -74,8 +72,11 @@ export class CopyContactDataButtonService<V extends EmailAndPhoneUsersVariables 
             case 'bookingsWithOwnerContact':
                 this.doDownload<BookingsWithOwnerContact>(button, bookingsWithOwnerContactQuery, resultData => {
                     const result: UserContactData[] = [];
+                    const seen = new Set<string>();
+
                     resultData.bookings.items.forEach(booking => {
-                        if (booking.owner) {
+                        if (booking.owner && !seen.has(booking.owner.id)) {
+                            seen.add(booking.owner.id);
                             result.push(booking.owner);
                         }
                     });
@@ -83,8 +84,6 @@ export class CopyContactDataButtonService<V extends EmailAndPhoneUsersVariables 
                     return result;
                 });
                 break;
-            default:
-                throw new Error('Unsupported contact type: ' + (this.type as string));
         }
     }
 
@@ -112,7 +111,7 @@ export class CopyContactDataButtonService<V extends EmailAndPhoneUsersVariables 
 
                 this.usersEmailAndName = users
                     .filter(u => u.email)
-                    .map(u => [u.email, u.name].join(';'))
+                    .map(u => [u.email, u.firstName, u.lastName].join(';'))
                     .join('\n');
 
                 this.usersPhoneAndName = users
