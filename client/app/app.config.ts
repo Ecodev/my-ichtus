@@ -21,7 +21,6 @@ import {
     provideErrorHandler,
     provideIcons,
     provideSeo,
-    provideThemes,
 } from '@ecodev/natural';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {MAT_PAGINATOR_DEFAULT_OPTIONS, MatPaginatorDefaultOptions, MatPaginatorIntl} from '@angular/material/paginator';
@@ -176,6 +175,5 @@ export const appConfig: ApplicationConfig = {
             };
             intl.changes.next();
         }),
-        provideThemes(['ichtus']),
     ],
 };
