@@ -72,8 +72,11 @@ export class CopyContactDataButtonService<V extends EmailAndPhoneUsersVariables 
             case 'bookingsWithOwnerContact':
                 this.doDownload<BookingsWithOwnerContact>(button, bookingsWithOwnerContactQuery, resultData => {
                     const result: UserContactData[] = [];
+                    const seen = new Set<string>();
+
                     resultData.bookings.items.forEach(booking => {
-                        if (booking.owner) {
+                        if (booking.owner && !seen.has(booking.owner.id)) {
+                            seen.add(booking.owner.id);
                             result.push(booking.owner);
                         }
                     });
