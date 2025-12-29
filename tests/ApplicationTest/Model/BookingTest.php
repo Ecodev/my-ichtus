@@ -8,6 +8,7 @@ use Application\Model\Bookable;
 use Application\Model\Booking;
 use Application\Model\User;
 use Money\Money;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class BookingTest extends TestCase
@@ -89,9 +90,7 @@ class BookingTest extends TestCase
         self::assertEquals(Money::CHF(167), $booking->getPeriodicPrice(), 'price should be divided by the number of shared booking');
     }
 
-    /**
-     * @dataProvider providerSetOwner
-     */
+    #[DataProvider('providerSetOwner')]
     public function testSetOwner(?User $currentUser, ?User $originalOwner, ?User $newOwner, ?string $exception = null): void
     {
         User::setCurrent($currentUser);

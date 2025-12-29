@@ -10,15 +10,14 @@ use ApplicationTest\Traits\TestWithTransactionAndUser;
 use Laminas\Diactoros\ServerRequest;
 use Mezzio\Template\TemplateRendererInterface;
 use Money\Money;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DatatransHandlerTest extends TestCase
 {
     use TestWithTransactionAndUser;
 
-    /**
-     * @dataProvider providerProcess
-     */
+    #[DataProvider('providerProcess')]
     public function testProcess(?array $data, ?int $accountId, Money $expectedAmount, array $expectedViewModel): void
     {
         $userId = $data['refno'] ?? null;

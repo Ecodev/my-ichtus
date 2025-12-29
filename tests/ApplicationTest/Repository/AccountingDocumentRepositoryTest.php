@@ -11,7 +11,7 @@ use Application\Repository\AccountingDocumentRepository;
 use ApplicationTest\Traits\LimitedAccessSubQuery;
 use Money\Money;
 
-class AccountingDocumentRepositoryTest extends AbstractRepositoryTest
+class AccountingDocumentRepositoryTest extends AbstractRepository
 {
     use LimitedAccessSubQuery;
 
@@ -23,7 +23,7 @@ class AccountingDocumentRepositoryTest extends AbstractRepositoryTest
         $this->repository = $this->getEntityManager()->getRepository(AccountingDocument::class);
     }
 
-    public function providerGetAccessibleSubQuery(): iterable
+    public static function providerGetAccessibleSubQuery(): iterable
     {
         $all = [9000, 9001];
         yield ['anonymous', []];

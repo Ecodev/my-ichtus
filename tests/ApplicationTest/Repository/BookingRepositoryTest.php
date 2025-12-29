@@ -13,8 +13,9 @@ use Application\Model\User;
 use Application\Repository\BookingRepository;
 use Cake\Chronos\Chronos;
 use Ecodev\Felix\Utility;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-class BookingRepositoryTest extends AbstractRepositoryTest
+class BookingRepositoryTest extends AbstractRepository
 {
     private BookingRepository $repository;
 
@@ -111,9 +112,7 @@ class BookingRepositoryTest extends AbstractRepositoryTest
         }
     }
 
-    /**
-     * @dataProvider providerGetAllToInvoiceAllCases
-     */
+    #[DataProvider('providerGetAllToInvoiceAllCases')]
     public function testGetAllToInvoiceAllCases(array $data, array $expected): void
     {
         $this->insertTestData($data);

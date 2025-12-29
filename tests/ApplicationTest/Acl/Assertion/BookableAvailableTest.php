@@ -13,6 +13,7 @@ use Application\Model\Booking;
 use Application\Model\License;
 use Application\Model\User;
 use Ecodev\Felix\Acl\ModelResource;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class BookableAvailableTest extends TestCase
@@ -22,9 +23,7 @@ class BookableAvailableTest extends TestCase
         User::setCurrent(null);
     }
 
-    /**
-     * @dataProvider providerAssert
-     */
+    #[DataProvider('providerAssert')]
     public function testAssert(
         ?string $expectedMessage,
         ?string $withUserRole,

@@ -8,7 +8,7 @@ use Application\Model\ExpenseClaim;
 use Application\Repository\ExpenseClaimRepository;
 use ApplicationTest\Traits\LimitedAccessSubQuery;
 
-class ExpenseClaimRepositoryTest extends AbstractRepositoryTest
+class ExpenseClaimRepositoryTest extends AbstractRepository
 {
     use LimitedAccessSubQuery;
 
@@ -20,7 +20,7 @@ class ExpenseClaimRepositoryTest extends AbstractRepositoryTest
         $this->repository = $this->getEntityManager()->getRepository(ExpenseClaim::class);
     }
 
-    public function providerGetAccessibleSubQuery(): iterable
+    public static function providerGetAccessibleSubQuery(): iterable
     {
         $all = [7000, 7001, 7002, 7003, 7004, 7005];
 

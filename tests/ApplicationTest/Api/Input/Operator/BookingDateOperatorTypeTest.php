@@ -7,6 +7,7 @@ namespace ApplicationTest\Api\Input\Operator;
 use Application\Model\User;
 use Cake\Chronos\ChronosDate;
 use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class BookingDateOperatorTypeTest extends OperatorType
 {
@@ -19,9 +20,7 @@ class BookingDateOperatorTypeTest extends OperatorType
         parent::setUp();
     }
 
-    /**
-     * @dataProvider providerGetDqlCondition
-     */
+    #[DataProvider('providerGetDqlCondition')]
     public function testGetDqlCondition(int $expected, string $comparison, ChronosDate $date): void
     {
         $values = [

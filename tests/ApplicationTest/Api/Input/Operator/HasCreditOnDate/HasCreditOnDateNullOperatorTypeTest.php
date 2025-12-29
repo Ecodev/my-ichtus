@@ -7,14 +7,13 @@ namespace ApplicationTest\Api\Input\Operator\HasCreditOnDate;
 use Application\Model\User;
 use ApplicationTest\Traits\TestWithTransactionAndUser;
 use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class HasCreditOnDateNullOperatorTypeTest extends OperatorType
 {
     use TestWithTransactionAndUser;
 
-    /**
-     * @dataProvider providerGetDqlCondition
-     */
+    #[DataProvider('providerGetDqlCondition')]
     public function testGetDqlCondition(int $expected, bool $not): void
     {
         $this->setCurrentUser('administrator');

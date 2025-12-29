@@ -13,7 +13,7 @@ use ApplicationTest\Traits\LimitedAccessSubQuery;
 use Cake\Chronos\Chronos;
 use Money\Money;
 
-class TransactionRepositoryTest extends AbstractRepositoryTest
+class TransactionRepositoryTest extends AbstractRepository
 {
     use LimitedAccessSubQuery;
 
@@ -25,7 +25,7 @@ class TransactionRepositoryTest extends AbstractRepositoryTest
         $this->repository = $this->getEntityManager()->getRepository(Transaction::class);
     }
 
-    public function providerGetAccessibleSubQuery(): iterable
+    public static function providerGetAccessibleSubQuery(): iterable
     {
         $all = [8000, 8001, 8002, 8003, 8004, 8005, 8006, 8007];
 

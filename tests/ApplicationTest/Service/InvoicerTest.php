@@ -14,6 +14,7 @@ use Application\Model\User;
 use Application\Service\Invoicer;
 use ApplicationTest\Traits\TestWithTransactionAndUser;
 use Money\Money;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class InvoicerTest extends TestCase
@@ -35,9 +36,7 @@ class InvoicerTest extends TestCase
         self::assertSame(0, $actual2, 'should not invoice things that are already invoiced');
     }
 
-    /**
-     * @dataProvider providerInvoiceInitial
-     */
+    #[DataProvider('providerInvoiceInitial')]
     public function testInvoiceInitial(Money $initialPrice, Money $periodicPrice, array $expected): void
     {
         $user = new User();
@@ -189,9 +188,7 @@ class InvoicerTest extends TestCase
         self::assertNull($user->getAccount(), 'invoicer is only called when we have both an owner and a bookable');
     }
 
-    /**
-     * @dataProvider providerShouldInvoiceInitial
-     */
+    #[DataProvider('providerShouldInvoiceInitial')]
     public function testShouldInvoiceInitial(array $data, int $expected): void
     {
         $user = new User();

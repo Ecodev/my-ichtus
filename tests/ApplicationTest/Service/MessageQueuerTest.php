@@ -10,12 +10,15 @@ use Application\Model\Bookable;
 use Application\Model\Message;
 use Application\Model\User;
 use Application\Service\MessageQueuer;
+use Closure;
 use Doctrine\ORM\EntityManager;
 use Ecodev\Felix\Service\MessageRenderer;
 use Laminas\View\Renderer\RendererInterface;
 use Money\Money;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 
-class MessageQueuerTest extends \PHPUnit\Framework\TestCase
+class MessageQueuerTest extends TestCase
 {
     private function createMessageQueuer(): MessageQueuer
     {
@@ -52,23 +55,22 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
         $this->assertMessage($message, $admin, 'administrator@example.com', MessageTypeType::UNREGISTER, 'Démission');
     }
 
-    /**
-     * @dataProvider providerQueueResetPassword
-     */
-    public function testQueueResetPassword(User $user, ?string $expectedEmail): void
+    #[DataProvider('providerQueueResetPassword')]
+    public function testQueueResetPassword(Closure $userGetter, ?string $expectedEmail): void
     {
+        $user = Closure::bind($userGetter, $this)();
         $messageQueuer = $this->createMessageQueuer();
         $message = $messageQueuer->queueResetPassword($user);
 
         $this->assertMessage($message, $user, $expectedEmail, MessageTypeType::RESET_PASSWORD, 'Demande de modification de mot de passe');
     }
 
-    public function providerQueueResetPassword(): iterable
+    public static function providerQueueResetPassword(): iterable
     {
-        $userWithEmail = $this->createMockUser();
-        $userWithFamilyOwner = $this->createMockUserWithFamilyOwner(true);
-        $userWithFamilyOwnerWithoutEmail = $this->createMockUserWithFamilyOwner(false);
-        $userWithoutEmail = $this->createMockUserWithoutEmail();
+        $userWithEmail = fn () => $this->createMockUser();
+        $userWithFamilyOwner = fn () => $this->createMockUserWithFamilyOwner(true);
+        $userWithFamilyOwnerWithoutEmail = fn () => $this->createMockUserWithFamilyOwner(false);
+        $userWithoutEmail = fn () => $this->createMockUserWithoutEmail();
 
         return [
             'user with email' => [$userWithEmail, 'john.doe@example.com'],

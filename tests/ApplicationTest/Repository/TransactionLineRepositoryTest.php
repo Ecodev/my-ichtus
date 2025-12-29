@@ -12,8 +12,9 @@ use ApplicationTest\Traits\LimitedAccessSubQuery;
 use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosDate;
 use Money\Money;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-class TransactionLineRepositoryTest extends AbstractRepositoryTest
+class TransactionLineRepositoryTest extends AbstractRepository
 {
     use LimitedAccessSubQuery;
 
@@ -25,7 +26,7 @@ class TransactionLineRepositoryTest extends AbstractRepositoryTest
         $this->repository = $this->getEntityManager()->getRepository(TransactionLine::class);
     }
 
-    public function providerGetAccessibleSubQuery(): iterable
+    public static function providerGetAccessibleSubQuery(): iterable
     {
         $all = range(14000, 14011);
 
@@ -161,9 +162,7 @@ class TransactionLineRepositoryTest extends AbstractRepositoryTest
         self::assertTrue(Money::CHF(1500000)->equals($totalDebitUntilDate));
     }
 
-    /**
-     * @dataProvider providerImportedExists
-     */
+    #[DataProvider('providerImportedExists')]
     public function testImportedExists(string $importedId, string $transactionDate, bool $expected): void
     {
         self::assertSame($expected, $this->repository->importedExists($importedId, new Chronos($transactionDate)));

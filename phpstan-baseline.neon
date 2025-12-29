@@ -55,7 +55,19 @@ parameters:
 			path: server/Application/Repository/TransactionRepository.php
 
 		-
+			message: '#^Undefined variable\: \$this$#'
+			identifier: variable.undefined
+			count: 2
+			path: tests/ApplicationTest/Api/Input/Operator/HasBookingWithTaggedBookableOperatorTypeTest.php
+
+		-
 			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true and ''schema passes…'' will always evaluate to true\.$#'
 			identifier: staticMethod.alreadyNarrowedType
 			count: 1
 			path: tests/ApplicationTest/Api/SchemaTest.php
+
+		-
+			message: '#^Undefined variable\: \$this$#'
+			identifier: variable.undefined
+			count: 4
+			path: tests/ApplicationTest/Service/MessageQueuerTest.php
