@@ -45,8 +45,8 @@ class AccountingDocumentHandler extends AbstractHandler
         $ext = pathinfo($path, PATHINFO_EXTENSION);
 
         $response = new Response($resource, 200, [
-            'content-type' => $type,
-            'content-length' => $size,
+            'content-type' => (string) $type,
+            'content-length' => (string) $size,
             'content-disposition' => 'inline; filename="' . $id . '.' . $ext . '"',
         ]);
 
