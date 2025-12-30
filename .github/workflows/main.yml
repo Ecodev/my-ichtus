@@ -31,7 +31,7 @@ jobs:
             - uses: shivammathur/setup-php@v2
               with:
                   php-version: '8.4'
-                  coverage: pcov
+                  coverage: none
                   tools: cs2pr
                   extensions: imagick
 
@@ -62,12 +62,7 @@ jobs:
             # Lint and tests
             - run: ./vendor/bin/php-cs-fixer fix --format=checkstyle | cs2pr
             - run: ./vendor/bin/phpstan analyse
-            - run: ./vendor/bin/phpunit --coverage-clover coverage-clover.xml
+            - run: ./vendor/bin/phpunit
             - run: yarn lint
             - run: ./node_modules/.bin/prettier --experimental-cli --check .
             - run: ./node_modules/.bin/ng test --progress false --watch=false --browsers ChromeHeadlessCustom
-
-            - name: Upload code coverage
-              run: |
-                  composer global require scrutinizer/ocular
-                  ~/.composer/vendor/bin/ocular code-coverage:upload --format=php-clover coverage-clover.xml
