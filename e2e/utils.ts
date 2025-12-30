@@ -44,7 +44,7 @@ export function menu(label: string): string {
 }
 
 function getPhpBinary(): string {
-    return execSync('which php8.2 || which php').toString().trim();
+    return execSync('which php8.4 || which php').toString().trim();
 }
 
 /**

@@ -13,7 +13,7 @@ return [
         'toOverride' => null,
     ],
     'smtp' => null,
-    'phpPath' => '/usr/bin/php8.2',
+    'phpPath' => '/usr/bin/php8.4',
     'doorsApi' => [
         'endpoint' => 'http://localhost:8888',
         'token' => 'my-token-value',
