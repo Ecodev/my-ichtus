@@ -474,7 +474,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     public function getAge(): ?int
     {
         if ($this->birthday) {
-            return (new ChronosDate())->diffInYears($this->birthday);
+            return new ChronosDate()->diffInYears($this->birthday);
         }
 
         return null;
