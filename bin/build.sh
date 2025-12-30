@@ -74,7 +74,6 @@ $PHP ./bin/clear-config-cache.php
 
 echo "Updating database..."
 $PHP ./bin/doctrine migrations:migrate --no-interaction
-$PHP ./bin/doctrine orm:generate-proxies
 $PHP ./bin/create-triggers.php
 
 echo "Delete old logs..."

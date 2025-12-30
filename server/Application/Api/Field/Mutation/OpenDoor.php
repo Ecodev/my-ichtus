@@ -80,7 +80,7 @@ abstract class OpenDoor implements FieldInterface
                 }
 
                 // Log body if we have anything
-                $body = trim($response->getBody());
+                $body = mb_trim($response->getBody());
                 if ($body) {
                     _log()->error($response->getBody(), $attrs);
                 }

@@ -208,7 +208,7 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
                 )
             SELECT id FROM parent ORDER BY id";
 
-        return trim($entireHierarchySql);
+        return mb_trim($entireHierarchySql);
     }
 
     /**

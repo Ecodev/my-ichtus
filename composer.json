@@ -49,7 +49,7 @@
         }
     },
     "require": {
-        "php": "^8.2",
+        "php": "^8.4",
         "ext-bcmath": "*",
         "ext-fileinfo": "*",
         "ext-json": "*",

@@ -29,11 +29,4 @@ return [
     'debug' => true,
     ConfigAggregator::ENABLE_CACHE => false,
     'logSql' => true, // Log all SQL queries from Doctrine (to logs/all.log)
-    'doctrine' => [
-        'configuration' => [
-            'orm_default' => [
-                'auto_generate_proxy_classes' => Doctrine\ORM\Proxy\ProxyFactory::AUTOGENERATE_ALWAYS,
-            ],
-        ],
-    ],
 ];
