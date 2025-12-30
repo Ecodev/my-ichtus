@@ -38,7 +38,7 @@ class BookableAvailableTest extends TestCase
         int $simultaneousBookingMaximum = 1,
         int $waitingListLength = 0,
     ): void {
-        $user = $this->getMockBuilder(User::class)->onlyMethods(['getRole'])->getMock();
+        $user = self::getStubBuilder(User::class)->onlyMethods(['getRole'])->getStub();
 
         $booking = null;
         if ($withBooking) {
@@ -75,8 +75,7 @@ class BookableAvailableTest extends TestCase
 
         $resource = new ModelResource(Booking::class, $booking);
         if ($withUserRole) {
-            $user->method('getRole')
-                ->willReturn($withUserRole);
+            $user->method('getRole')->willReturn($withUserRole);
 
             User::setCurrent($user);
         }

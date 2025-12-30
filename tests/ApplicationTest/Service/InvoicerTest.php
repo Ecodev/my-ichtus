@@ -192,39 +192,16 @@ class InvoicerTest extends TestCase
     public function testShouldInvoiceInitial(array $data, int $expected): void
     {
         $user = new User();
-        $bookable = $this->createMock(Bookable::class);
-        $bookable->expects(self::any())
-            ->method('getCreditAccount')
-            ->willReturn($data['bookable']['creditAccount'] ? new Account() : null);
-
-        $bookable->expects(self::any())
-            ->method('getInitialPrice')
-            ->willReturn($data['bookable']['initialPrice']);
-
-        $bookable->expects(self::any())
-            ->method('getPeriodicPrice')
-            ->willReturn($data['bookable']['periodicPrice']);
-
-        $bookable->expects(self::any())
-            ->method('getBookingType')
-            ->willReturn($data['bookable']['bookingType']);
-
-        $booking = $this->createMock(Booking::class);
-        $booking->expects(self::any())
-            ->method('getId')
-            ->willReturn($data['id']);
-
-        $booking->expects(self::any())
-            ->method('getStatus')
-            ->willReturn($data['status']);
-
-        $booking->expects(self::any())
-            ->method('getPeriodicPrice')
-            ->willReturn($data['bookable']['periodicPrice']);
-
-        $booking->expects(self::any())
-            ->method('getBookable')
-            ->willReturn($bookable);
+        $bookable = self::createStub(Bookable::class);
+        $bookable->method('getCreditAccount')->willReturn($data['bookable']['creditAccount'] ? new Account() : null);
+        $bookable->method('getInitialPrice')->willReturn($data['bookable']['initialPrice']);
+        $bookable->method('getPeriodicPrice')->willReturn($data['bookable']['periodicPrice']);
+        $bookable->method('getBookingType')->willReturn($data['bookable']['bookingType']);
+        $booking = self::createStub(Booking::class);
+        $booking->method('getId')->willReturn($data['id']);
+        $booking->method('getStatus')->willReturn($data['status']);
+        $booking->method('getPeriodicPrice')->willReturn($data['bookable']['periodicPrice']);
+        $booking->method('getBookable')->willReturn($bookable);
 
         global $container;
 
