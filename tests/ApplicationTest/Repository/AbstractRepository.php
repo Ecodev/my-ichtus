@@ -7,7 +7,7 @@ namespace ApplicationTest\Repository;
 use ApplicationTest\Traits\TestWithTransactionAndUser;
 use PHPUnit\Framework\TestCase;
 
-abstract class AbstractRepositoryTest extends TestCase
+abstract class AbstractRepository extends TestCase
 {
     use TestWithTransactionAndUser;
 

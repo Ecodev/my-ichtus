@@ -43,8 +43,8 @@ if id "$DEPLOY_USER" >/dev/null 2>&1; then
     export HOME="$TMP_DIR/home-$DEPLOY_USER"
 fi
 
-# Try to use PHP 8.2, or fallback to default version
-PHP=`which php8.2` || PHP='php'
+# Try to use PHP 8.4, or fallback to default version
+PHP=`which php8.4` || PHP='php'
 COMPOSER="$PHP `which composer` --no-interaction --no-plugins"
 
 # Exit script on any error
@@ -74,7 +74,6 @@ $PHP ./bin/clear-config-cache.php
 
 echo "Updating database..."
 $PHP ./bin/doctrine migrations:migrate --no-interaction
-$PHP ./bin/doctrine orm:generate-proxies
 $PHP ./bin/create-triggers.php
 
 echo "Delete old logs..."

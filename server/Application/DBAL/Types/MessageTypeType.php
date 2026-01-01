@@ -8,13 +8,13 @@ use Ecodev\Felix\DBAL\Types\EnumType;
 
 class MessageTypeType extends EnumType
 {
-    final public const REGISTER = 'register';
-    final public const UNREGISTER = 'unregister';
-    final public const RESET_PASSWORD = 'reset_password';
-    final public const BALANCE = 'balance';
-    final public const LEAVE_FAMILY = 'leave_family';
-    final public const ADMIN_LEAVE_FAMILY = 'admin_leave_family';
-    final public const REQUEST_USER_DELETION = 'request_user_deletion';
+    final public const string REGISTER = 'register';
+    final public const string UNREGISTER = 'unregister';
+    final public const string RESET_PASSWORD = 'reset_password';
+    final public const string BALANCE = 'balance';
+    final public const string LEAVE_FAMILY = 'leave_family';
+    final public const string ADMIN_LEAVE_FAMILY = 'admin_leave_family';
+    final public const string REQUEST_USER_DELETION = 'request_user_deletion';
 
     protected function getPossibleValues(): array
     {

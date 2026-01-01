@@ -150,6 +150,7 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
      */
     private function gatherDeletedTransaction(array &$accounts, Transaction $object): void
     {
+        /** @var int[] $accountIds */
         $accountIds = $this->getEntityManager()->getConnection()->fetchFirstColumn(
             <<<SQL
                 SELECT debit_id FROM transaction_line WHERE transaction_id = :transaction AND debit_id IS NOT NULL 

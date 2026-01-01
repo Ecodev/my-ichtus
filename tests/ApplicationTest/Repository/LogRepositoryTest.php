@@ -7,7 +7,7 @@ namespace ApplicationTest\Repository;
 use Application\Model\Log;
 use Application\Repository\LogRepository;
 
-class LogRepositoryTest extends AbstractRepositoryTest
+class LogRepositoryTest extends AbstractRepository
 {
     private LogRepository $repository;
 

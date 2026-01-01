@@ -7,6 +7,7 @@ namespace ApplicationTest\Service;
 use Application\Model\Transaction;
 use Application\Model\TransactionLine;
 use Application\Service\Importer;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ImporterTest extends TestCase
@@ -31,9 +32,7 @@ class ImporterTest extends TestCase
         return $this->extract($importer->import($filename));
     }
 
-    /**
-     * @dataProvider providerImport
-     */
+    #[DataProvider('providerImport')]
     public function testImport(string $xml, string $php): void
     {
         $actual = $this->import($xml);

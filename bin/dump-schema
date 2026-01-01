@@ -20,7 +20,7 @@ function write(folder, filename, content) {
 }
 
 const query = utilities.getIntrospectionQuery();
-const php = execSync('which php8.2 || which php').toString().trim();
+const php = execSync('which php8.4 || which php').toString().trim();
 const schemaJsonString = execFileSync(php, ['./bin/graphql.php', query], {maxBuffer: 10 * 1024 * 1024}).toString();
 const schemaLiteral = JSON.parse(schemaJsonString).data;
 const schemaObject = buildClientSchema(schemaLiteral);

@@ -8,7 +8,7 @@ use Application\Model\Message;
 use Application\Repository\MessageRepository;
 use ApplicationTest\Traits\LimitedAccessSubQuery;
 
-class MessageRepositoryTest extends AbstractRepositoryTest
+class MessageRepositoryTest extends AbstractRepository
 {
     use LimitedAccessSubQuery;
 
@@ -20,7 +20,7 @@ class MessageRepositoryTest extends AbstractRepositoryTest
         $this->repository = $this->getEntityManager()->getRepository(Message::class);
     }
 
-    public function providerGetAccessibleSubQuery(): iterable
+    public static function providerGetAccessibleSubQuery(): iterable
     {
         // Nobody can see all messages for now, even administrator, because it's useless
         $all = [11001, 11002];

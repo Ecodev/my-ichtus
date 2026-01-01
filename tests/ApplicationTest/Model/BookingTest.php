@@ -8,6 +8,7 @@ use Application\Model\Bookable;
 use Application\Model\Booking;
 use Application\Model\User;
 use Money\Money;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class BookingTest extends TestCase
@@ -59,14 +60,9 @@ class BookingTest extends TestCase
     {
         $booking = new Booking();
 
-        $bookable = $this->createMock(Bookable::class);
-        $bookable->expects(self::any())
-            ->method('getSimultaneousBookings')
-            ->willReturn([]);
-
-        $bookable->expects(self::any())
-            ->method('getPeriodicPrice')
-            ->willReturn(Money::CHF(500));
+        $bookable = self::createStub(Bookable::class);
+        $bookable->method('getSimultaneousBookings')->willReturn([]);
+        $bookable->method('getPeriodicPrice')->willReturn(Money::CHF(500));
 
         $booking->setBookable($bookable);
         self::assertEquals(Money::CHF(500), $booking->getPeriodicPrice(), 'price should be exactly the bookable price');
@@ -76,22 +72,15 @@ class BookingTest extends TestCase
     {
         $booking = new Booking();
 
-        $bookable = $this->createMock(Bookable::class);
-        $bookable->expects(self::any())
-            ->method('getPeriodicPriceDividerBookings')
-            ->willReturn([1, 2, 3]);
-
-        $bookable->expects(self::any())
-            ->method('getPeriodicPrice')
-            ->willReturn(Money::CHF(500));
+        $bookable = self::createStub(Bookable::class);
+        $bookable->method('getPeriodicPriceDividerBookings')->willReturn([1, 2, 3]);
+        $bookable->method('getPeriodicPrice')->willReturn(Money::CHF(500));
 
         $booking->setBookable($bookable);
         self::assertEquals(Money::CHF(167), $booking->getPeriodicPrice(), 'price should be divided by the number of shared booking');
     }
 
-    /**
-     * @dataProvider providerSetOwner
-     */
+    #[DataProvider('providerSetOwner')]
     public function testSetOwner(?User $currentUser, ?User $originalOwner, ?User $newOwner, ?string $exception = null): void
     {
         User::setCurrent($currentUser);

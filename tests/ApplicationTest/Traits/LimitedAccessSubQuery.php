@@ -7,6 +7,7 @@ namespace ApplicationTest\Traits;
 use Application\Model\User;
 use Application\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * Trait to test limited access sub queries.
@@ -15,9 +16,9 @@ trait LimitedAccessSubQuery
 {
     abstract public function getEntityManager(): EntityManager;
 
-    /**
-     * @dataProvider providerGetAccessibleSubQuery
-     */
+    abstract public static function providerGetAccessibleSubQuery(): iterable;
+
+    #[DataProvider('providerGetAccessibleSubQuery')]
     public function testGetAccessibleSubQuery(?string $login, array $expected): void
     {
         /** @var UserRepository $userRepository */

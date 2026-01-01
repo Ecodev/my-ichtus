@@ -49,31 +49,31 @@
         }
     },
     "require": {
-        "php": "^8.2",
+        "php": "^8.4",
         "ext-bcmath": "*",
         "ext-fileinfo": "*",
         "ext-json": "*",
         "ext-pdo": "*",
         "ext-zip": "*",
         "beberlei/doctrineextensions": "^1.5",
-        "ecodev/felix": "^16.3",
+        "ecodev/felix": "^17.0",
         "ecodev/graphql-doctrine": "^11.0",
         "ecodev/graphql-upload": "^8.0",
-        "genkgo/camt": "^2.7",
-        "laminas/laminas-config-aggregator": "^1.15",
-        "laminas/laminas-http": "^2.19",
-        "laminas/laminas-servicemanager": "^3.22",
-        "mezzio/mezzio": "^3.19",
-        "mezzio/mezzio-fastroute": "^3.11",
-        "mezzio/mezzio-helpers": "^5.16",
-        "mezzio/mezzio-laminasviewrenderer": "^2.15",
-        "mezzio/mezzio-session-ext": "^1.19",
-        "phpoffice/phpspreadsheet": "^2.1"
+        "genkgo/camt": "^2.10",
+        "laminas/laminas-config-aggregator": "^1.19",
+        "laminas/laminas-http": "^2.23",
+        "laminas/laminas-servicemanager": "^3.24",
+        "mezzio/mezzio": "^3.26",
+        "mezzio/mezzio-fastroute": "^3.14",
+        "mezzio/mezzio-helpers": "^5.20",
+        "mezzio/mezzio-laminasviewrenderer": "^2.19",
+        "mezzio/mezzio-session-ext": "^1.21",
+        "phpoffice/phpspreadsheet": "^5.3"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "@stable",
-        "laminas/laminas-development-mode": "^3.12",
+        "laminas/laminas-development-mode": "^3.15",
         "phpstan/phpstan-doctrine": "@stable",
-        "phpunit/phpunit": "^9.6"
+        "phpunit/phpunit": "@stable"
     }
 }

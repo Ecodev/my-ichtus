@@ -7,12 +7,11 @@ namespace ApplicationTest\Api\Input\Operator;
 use Application\Enum\BookingStatus;
 use Application\Model\User;
 use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class HasBookingStatusOperatorTypeTest extends OperatorType
 {
-    /**
-     * @dataProvider providerGetDqlCondition
-     */
+    #[DataProvider('providerGetDqlCondition')]
     public function testGetDqlCondition(int $expected, ?array $status, ?bool $not): void
     {
         $administrator = new User(User::ROLE_ADMINISTRATOR);

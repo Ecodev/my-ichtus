@@ -4,7 +4,7 @@
     "license": "MIT",
     "scripts": {
         "ng": "ng",
-        "client-config": "`which php8.2 || which php` ./bin/generate-client-configuration.php",
+        "client-config": "`which php8.4 || which php` ./bin/generate-client-configuration.php",
         "postinstall": "playwright install chromium",
         "prerequisite": "mkdir -p htdocs/ && cp -v server/index.php htdocs/ && yarn client-config && yarn codegen",
         "dev": "yarn prerequisite && ng serve",

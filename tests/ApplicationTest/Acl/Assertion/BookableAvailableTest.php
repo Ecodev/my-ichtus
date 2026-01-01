@@ -13,6 +13,7 @@ use Application\Model\Booking;
 use Application\Model\License;
 use Application\Model\User;
 use Ecodev\Felix\Acl\ModelResource;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class BookableAvailableTest extends TestCase
@@ -22,9 +23,7 @@ class BookableAvailableTest extends TestCase
         User::setCurrent(null);
     }
 
-    /**
-     * @dataProvider providerAssert
-     */
+    #[DataProvider('providerAssert')]
     public function testAssert(
         ?string $expectedMessage,
         ?string $withUserRole,
@@ -39,7 +38,7 @@ class BookableAvailableTest extends TestCase
         int $simultaneousBookingMaximum = 1,
         int $waitingListLength = 0,
     ): void {
-        $user = $this->getMockBuilder(User::class)->onlyMethods(['getRole'])->getMock();
+        $user = self::getStubBuilder(User::class)->onlyMethods(['getRole'])->getStub();
 
         $booking = null;
         if ($withBooking) {
@@ -76,8 +75,7 @@ class BookableAvailableTest extends TestCase
 
         $resource = new ModelResource(Booking::class, $booking);
         if ($withUserRole) {
-            $user->method('getRole')
-                ->willReturn($withUserRole);
+            $user->method('getRole')->willReturn($withUserRole);
 
             User::setCurrent($user);
         }

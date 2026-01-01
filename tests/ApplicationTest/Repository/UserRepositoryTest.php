@@ -7,8 +7,9 @@ namespace ApplicationTest\Repository;
 use Application\Model\User;
 use Application\Repository\UserRepository;
 use ApplicationTest\Traits\LimitedAccessSubQuery;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-class UserRepositoryTest extends AbstractRepositoryTest
+class UserRepositoryTest extends AbstractRepository
 {
     use LimitedAccessSubQuery;
 
@@ -20,7 +21,7 @@ class UserRepositoryTest extends AbstractRepositoryTest
         $this->repository = $this->getEntityManager()->getRepository(User::class);
     }
 
-    public function providerGetAccessibleSubQuery(): iterable
+    public static function providerGetAccessibleSubQuery(): iterable
     {
         $all = range(1000, 1015);
         yield ['anonymous', []];
@@ -83,9 +84,7 @@ class UserRepositoryTest extends AbstractRepositoryTest
         self::assertCount(0, $actual);
     }
 
-    /**
-     * @dataProvider providerGetOneByLoginOrEmail
-     */
+    #[DataProvider('providerGetOneByLoginOrEmail')]
     public function testGetOneByLoginOrEmail(?string $loginOrEmail, ?int $expected): void
     {
         $actual = $this->repository->getOneByLoginOrEmail($loginOrEmail);
@@ -171,9 +170,7 @@ class UserRepositoryTest extends AbstractRepositoryTest
         return false;
     }
 
-    /**
-     * @dataProvider providerDeletingUserMightDeleteCascadeRelation
-     */
+    #[DataProvider('providerDeletingUserMightDeleteCascadeRelation')]
     public function testDeletingUserMightDeleteCascadeRelation(string $table, string $field, bool $expectDeleted): void
     {
         $connection = $this->getEntityManager()->getConnection();

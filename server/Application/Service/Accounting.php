@@ -77,7 +77,7 @@ class Accounting
 
         // We actually generate the closure transaction at the beggining of the next day (ie. Jan 1st)
         // so that it is not taken into account by the accounting report for the closing day (ie. Dec 31th)
-        $endDateTime = (new Chronos($endDate))->addDays(1)->startOfDay();
+        $endDateTime = new Chronos($endDate)->addDays(1)->startOfDay();
 
         /** @var null|Account $closingAccount */
         $closingAccount = $this->accountRepository->findOneBy(['code' => $this->accountingConfig['closingAccountCode']]);

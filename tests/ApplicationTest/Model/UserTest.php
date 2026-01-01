@@ -11,6 +11,7 @@ use Application\Model\Account;
 use Application\Model\Booking;
 use Application\Model\User;
 use Cake\Chronos\Chronos;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
@@ -20,9 +21,7 @@ class UserTest extends TestCase
         User::setCurrent(null);
     }
 
-    /**
-     * @dataProvider providerSetRole
-     */
+    #[DataProvider('providerSetRole')]
     public function testSetRole(string $currentRole, string $oldRole, string $newRole, ?string $exception): void
     {
         User::setCurrent(null);
@@ -83,9 +82,7 @@ class UserTest extends TestCase
         $user->setOwner($owner);
     }
 
-    /**
-     * @dataProvider providerCanOpenDoor
-     */
+    #[DataProvider('providerCanOpenDoor')]
     public function testCanOpenDoor(string $role, UserStatus $status, array $doors, array $result): void
     {
         $user = new User($role);

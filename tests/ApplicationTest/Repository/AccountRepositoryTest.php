@@ -11,8 +11,9 @@ use Application\Repository\AccountRepository;
 use ApplicationTest\Traits\LimitedAccessSubQuery;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Money\Money;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-class AccountRepositoryTest extends AbstractRepositoryTest
+class AccountRepositoryTest extends AbstractRepository
 {
     use LimitedAccessSubQuery;
 
@@ -24,7 +25,7 @@ class AccountRepositoryTest extends AbstractRepositoryTest
         $this->repository = $this->getEntityManager()->getRepository(Account::class);
     }
 
-    public function providerGetAccessibleSubQuery(): iterable
+    public static function providerGetAccessibleSubQuery(): iterable
     {
         $all = range(10000, 10107);
         yield ['anonymous', []];
@@ -170,9 +171,7 @@ class AccountRepositoryTest extends AbstractRepositoryTest
         self::assertSame(0, $this->repository->deleteAccountOfNonFamilyOwnerWithoutAnyTransactions(), 'same as before, but with transaction to debit, should not delete');
     }
 
-    /**
-     * @dataProvider providerGetNextCode
-     */
+    #[DataProvider('providerGetNextCode')]
     public function testGetNextCode(?int $parentId, int $expected): void
     {
         $parent = $parentId ? $this->getEntityManager()->getReference(Account::class, $parentId) : null;
@@ -192,9 +191,7 @@ class AccountRepositoryTest extends AbstractRepositoryTest
         self::assertFalse($this->repository->hasTransaction(new Account()));
     }
 
-    /**
-     * @dataProvider providerHasTransaction
-     */
+    #[DataProvider('providerHasTransaction')]
     public function testHasTransaction(int $id, bool $expected): void
     {
         $account = $this->getEntityManager()->getReference(Account::class, $id);

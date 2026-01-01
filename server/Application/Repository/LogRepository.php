@@ -17,15 +17,15 @@ class LogRepository extends AbstractRepository implements \Ecodev\Felix\Reposito
     /**
      * Log message to be used when a door is opened.
      */
-    final public const DOOR_OPENED = 'door opened: ';
+    final public const string DOOR_OPENED = 'door opened: ';
     /**
      * Log message to be used when the datatrans webhook starts.
      */
-    final public const DATATRANS_WEBHOOK_BEGIN = 'datatrans webhook begin';
+    final public const string DATATRANS_WEBHOOK_BEGIN = 'datatrans webhook begin';
     /**
      * Log message to be used when the datatrans webhook finishes.
      */
-    final public const DATATRANS_WEBHOOK_END = 'datatrans webhook end';
+    final public const string DATATRANS_WEBHOOK_END = 'datatrans webhook end';
 
     use \Ecodev\Felix\Repository\Traits\LogRepository;
 

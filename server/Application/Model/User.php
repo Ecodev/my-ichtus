@@ -95,15 +95,15 @@ use GraphQL\Doctrine\Attribute as API;
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: 'owner', inversedBy: 'users')])]
 class User extends AbstractModel implements \Ecodev\Felix\Model\User
 {
-    final public const ROLE_ANONYMOUS = 'anonymous';
-    final public const ROLE_BOOKING_ONLY = 'booking_only';
-    final public const ROLE_INDIVIDUAL = 'individual';
-    final public const ROLE_ACCOUNTING_VERIFICATOR = 'accounting_verificator';
-    final public const ROLE_MEMBER = 'member';
-    final public const ROLE_TRAINER = 'trainer';
-    final public const ROLE_FORMATION_RESPONSIBLE = 'formation_responsible';
-    final public const ROLE_RESPONSIBLE = 'responsible';
-    final public const ROLE_ADMINISTRATOR = 'administrator';
+    final public const string ROLE_ANONYMOUS = 'anonymous';
+    final public const string ROLE_BOOKING_ONLY = 'booking_only';
+    final public const string ROLE_INDIVIDUAL = 'individual';
+    final public const string ROLE_ACCOUNTING_VERIFICATOR = 'accounting_verificator';
+    final public const string ROLE_MEMBER = 'member';
+    final public const string ROLE_TRAINER = 'trainer';
+    final public const string ROLE_FORMATION_RESPONSIBLE = 'formation_responsible';
+    final public const string ROLE_RESPONSIBLE = 'responsible';
+    final public const string ROLE_ADMINISTRATOR = 'administrator';
 
     use HasAddress;
     use HasDoorAccess;
@@ -474,7 +474,7 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
     public function getAge(): ?int
     {
         if ($this->birthday) {
-            return (new ChronosDate())->diffInYears($this->birthday);
+            return new ChronosDate()->diffInYears($this->birthday);
         }
 
         return null;

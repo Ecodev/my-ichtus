@@ -6,13 +6,13 @@ namespace ApplicationTest\Api\Input\Operator;
 
 use Application\Model\BookableTag;
 use Application\Model\User;
+use Closure;
 use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class HasBookingWithTaggedBookableOperatorTypeTest extends OperatorType
 {
-    /**
-     * @dataProvider providerGetDqlCondition
-     */
+    #[DataProvider('providerGetDqlCondition')]
     public function testGetDqlCondition(int $expected, ?array $tags, ?bool $not, bool $sameBooking = true): void
     {
         $administrator = new User(User::ROLE_ADMINISTRATOR);
@@ -43,10 +43,8 @@ class HasBookingWithTaggedBookableOperatorTypeTest extends OperatorType
         yield 'users renting a bookable without any tag (fond de réparation)' => [1, null, false];
     }
 
-    /**
-     * @dataProvider providerCanCombineFilters
-     */
-    public function testCanCombineFilters(int $expected, callable $conditions): void
+    #[DataProvider('providerCanCombineFilters')]
+    public function testCanCombineFilters(int $expected, Closure $conditions): void
     {
         $filter = [
             'groups' => [
@@ -55,7 +53,7 @@ class HasBookingWithTaggedBookableOperatorTypeTest extends OperatorType
                     'conditionsLogic' => 'AND',
                     'conditions' => [
                         [
-                            'custom' => $conditions(),
+                            'custom' => Closure::bind($conditions, $this)(),
                         ],
                     ],
                 ],
@@ -67,7 +65,7 @@ class HasBookingWithTaggedBookableOperatorTypeTest extends OperatorType
         self::assertCount($expected, $actual);
     }
 
-    public function providerCanCombineFilters(): iterable
+    public static function providerCanCombineFilters(): iterable
     {
         yield 'users with running bookings that are for SUP' => [0, fn () => [
             'hasBookingCompleted' => [

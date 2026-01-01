@@ -10,12 +10,15 @@ use Application\Model\Bookable;
 use Application\Model\Message;
 use Application\Model\User;
 use Application\Service\MessageQueuer;
+use Closure;
 use Doctrine\ORM\EntityManager;
 use Ecodev\Felix\Service\MessageRenderer;
 use Laminas\View\Renderer\RendererInterface;
 use Money\Money;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 
-class MessageQueuerTest extends \PHPUnit\Framework\TestCase
+class MessageQueuerTest extends TestCase
 {
     private function createMessageQueuer(): MessageQueuer
     {
@@ -52,23 +55,22 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
         $this->assertMessage($message, $admin, 'administrator@example.com', MessageTypeType::UNREGISTER, 'Démission');
     }
 
-    /**
-     * @dataProvider providerQueueResetPassword
-     */
-    public function testQueueResetPassword(User $user, ?string $expectedEmail): void
+    #[DataProvider('providerQueueResetPassword')]
+    public function testQueueResetPassword(Closure $userGetter, ?string $expectedEmail): void
     {
+        $user = Closure::bind($userGetter, $this)();
         $messageQueuer = $this->createMessageQueuer();
         $message = $messageQueuer->queueResetPassword($user);
 
         $this->assertMessage($message, $user, $expectedEmail, MessageTypeType::RESET_PASSWORD, 'Demande de modification de mot de passe');
     }
 
-    public function providerQueueResetPassword(): iterable
+    public static function providerQueueResetPassword(): iterable
     {
-        $userWithEmail = $this->createMockUser();
-        $userWithFamilyOwner = $this->createMockUserWithFamilyOwner(true);
-        $userWithFamilyOwnerWithoutEmail = $this->createMockUserWithFamilyOwner(false);
-        $userWithoutEmail = $this->createMockUserWithoutEmail();
+        $userWithEmail = fn () => $this->createMockUser();
+        $userWithFamilyOwner = fn () => $this->createMockUserWithFamilyOwner(true);
+        $userWithFamilyOwnerWithoutEmail = fn () => $this->createMockUserWithFamilyOwner(false);
+        $userWithoutEmail = fn () => $this->createMockUserWithoutEmail();
 
         return [
             'user with email' => [$userWithEmail, 'john.doe@example.com'],
@@ -163,62 +165,28 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
 
     private function createMockUser(?User $owner = null, bool $withEmail = true): User
     {
-        $user = $this->createMock(User::class);
+        $user = self::createStub(User::class);
 
-        $user->expects(self::any())
-            ->method('getId')
-            ->willReturn(123);
-
-        $user->expects(self::any())
-            ->method('getLogin')
-            ->willReturn('john.doe');
-
-        $user->expects(self::any())
-            ->method('getFirstName')
-            ->willReturn('John');
-
-        $user->expects(self::any())
-            ->method('getLastName')
-            ->willReturn('Doe');
-
-        $user->expects(self::any())
-            ->method('getName')
-            ->willReturn('John Doe');
-
-        $user->expects(self::any())
-            ->method('getEmail')
-            ->willReturn($withEmail ? 'john.doe@example.com' : null);
-
-        $user->expects(self::any())
-            ->method('createToken')
-            ->willReturn(str_repeat('X', 32));
-
-        $user->expects(self::any())
-            ->method('getOwner')
-            ->willReturn($owner);
+        $user->method('getId')->willReturn(123);
+        $user->method('getLogin')->willReturn('john.doe');
+        $user->method('getFirstName')->willReturn('John');
+        $user->method('getLastName')->willReturn('Doe');
+        $user->method('getName')->willReturn('John Doe');
+        $user->method('getEmail')->willReturn($withEmail ? 'john.doe@example.com' : null);
+        $user->method('createToken')->willReturn(str_repeat('X', 32));
+        $user->method('getOwner')->willReturn($owner);
 
         return $user;
     }
 
     private function createMockUserWithFamilyOwner(bool $hasEmail, bool $ownerHasEmail = false): User
     {
-        $owner = $this->createMock(User::class);
+        $owner = self::createStub(User::class);
 
-        $owner->expects(self::any())
-            ->method('getFirstName')
-            ->willReturn('Family');
-
-        $owner->expects(self::any())
-            ->method('getLastName')
-            ->willReturn('Owner');
-
-        $owner->expects(self::any())
-            ->method('getName')
-            ->willReturn('Family Owner');
-
-        $owner->expects(self::any())
-            ->method('getEmail')
-            ->willReturn($hasEmail ? 'family-owner@example.com' : null);
+        $owner->method('getFirstName')->willReturn('Family');
+        $owner->method('getLastName')->willReturn('Owner');
+        $owner->method('getName')->willReturn('Family Owner');
+        $owner->method('getEmail')->willReturn($hasEmail ? 'family-owner@example.com' : null);
 
         $user = $this->createMockUser($owner, $ownerHasEmail);
 
@@ -227,43 +195,27 @@ class MessageQueuerTest extends \PHPUnit\Framework\TestCase
 
     private function createMockUserAdmin(): User
     {
-        $user = $this->createMock(User::class);
-        $user->expects(self::any())
-            ->method('getLogin')
-            ->willReturn('admin');
-
-        $user->expects(self::any())
-            ->method('getFirstName')
-            ->willReturn('Admin');
-
-        $user->expects(self::any())
-            ->method('getLastName')
-            ->willReturn('Istrator');
-
-        $user->expects(self::any())
-            ->method('getEmail')
-            ->willReturn('administrator@example.com');
+        $user = self::createStub(User::class);
+        $user->method('getLogin')->willReturn('admin');
+        $user->method('getFirstName')->willReturn('Admin');
+        $user->method('getLastName')->willReturn('Istrator');
+        $user->method('getEmail')->willReturn('administrator@example.com');
 
         return $user;
     }
 
     private function createMockUserMinimal(): User
     {
-        $user = $this->createMock(User::class);
-        $user->expects(self::any())
-            ->method('getEmail')
-            ->willReturn('minimal@example.com');
-
-        $user->expects(self::any())
-            ->method('createToken')
-            ->willReturn(str_repeat('X', 32));
+        $user = self::createStub(User::class);
+        $user->method('getEmail')->willReturn('minimal@example.com');
+        $user->method('createToken')->willReturn(str_repeat('X', 32));
 
         return $user;
     }
 
     private function createMockUserWithoutEmail(): User
     {
-        $user = $this->createMock(User::class);
+        $user = self::createStub(User::class);
 
         return $user;
     }

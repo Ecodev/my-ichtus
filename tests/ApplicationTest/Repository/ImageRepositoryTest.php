@@ -8,7 +8,7 @@ use Application\Model\Bookable;
 use Application\Model\Image;
 use Ecodev\Felix\Service\AbstractDatabase;
 
-class ImageRepositoryTest extends AbstractRepositoryTest
+class ImageRepositoryTest extends AbstractRepository
 {
     protected function tearDown(): void
     {

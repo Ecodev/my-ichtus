@@ -6,6 +6,7 @@ namespace ApplicationTest\Api\Input\Operator;
 
 use Application\Model\User;
 use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class BookingCountOperatorTypeTest extends OperatorType
 {
@@ -18,9 +19,7 @@ class BookingCountOperatorTypeTest extends OperatorType
         parent::setUp();
     }
 
-    /**
-     * @dataProvider providerGetDqlCondition
-     */
+    #[DataProvider('providerGetDqlCondition')]
     public function testGetDqlCondition(int $expected, string $comparison, int $count): void
     {
         $values = [

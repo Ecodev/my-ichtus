@@ -195,8 +195,8 @@ class Importer
     private function addressToString(Address $a): string
     {
         $lines = [];
-        $lines[] = trim($a->getStreetName() . ' ' . $a->getBuildingNumber());
-        $lines[] = trim($a->getPostCode() . ' ' . $a->getTownName());
+        $lines[] = mb_trim($a->getStreetName() . ' ' . $a->getBuildingNumber());
+        $lines[] = mb_trim($a->getPostCode() . ' ' . $a->getTownName());
         $lines[] = $a->getCountry();
         $lines = array_merge($lines, $a->getAddressLines());
 

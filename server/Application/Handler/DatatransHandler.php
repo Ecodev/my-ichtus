@@ -82,8 +82,8 @@ class DatatransHandler extends AbstractHandler
         }
         $aliasCC = $body['aliasCC'] ?? '';
         $valueToSign = $aliasCC . @$body['merchantId'] . @$body['amount'] . @$body['currency'] . @$body['refno'];
-        $expectedSign = hash_hmac('sha256', trim($valueToSign), hex2bin(trim($key)));
-        if ($expectedSign !== $body['sign']) {
+        $expectedSign = hash_hmac('sha256', mb_trim($valueToSign), hex2bin(mb_trim($key)));
+        if (!hash_equals($expectedSign, $body['sign'])) {
             throw new Exception('Invalid HMAC signature');
         }
     }

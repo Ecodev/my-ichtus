@@ -16,7 +16,7 @@ trait HasCode
      */
     public function setCode(?string $code): void
     {
-        if (is_string($code) && trim($code) === '') {
+        if (is_string($code) && mb_trim($code) === '') {
             $code = null;
         }
 

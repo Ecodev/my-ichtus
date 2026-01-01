@@ -7,12 +7,11 @@ namespace ApplicationTest\Api\Input\Operator;
 use Application\Model\Bookable;
 use Application\Model\User;
 use Ecodev\Felix\Testing\Api\Input\Operator\OperatorType;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class BookableUsageOperatorTypeTest extends OperatorType
 {
-    /**
-     * @dataProvider providerGetDqlCondition
-     */
+    #[DataProvider('providerGetDqlCondition')]
     public function testGetDqlCondition(int $expected, array $users, bool $not): void
     {
         $values = [
