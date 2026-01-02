@@ -43,7 +43,7 @@ abstract class BankingInfos implements FieldInterface
                 $result = [
                     'iban' => $iban,
                     'paymentTo' => $paymentTo,
-                    'paymentFor' => $paymentFor,
+                    'paymentFor' => $paymentFor['name'] . PHP_EOL . $paymentFor['postalCode'] . ' ' . $paymentFor['city'],
                     'referenceNumber' => $referenceNumber,
                 ];
 
@@ -59,7 +59,7 @@ abstract class BankingInfos implements FieldInterface
     /**
      * Lazy resolve qrBill or qrCode fields for banking infos query.
      */
-    protected static function qrBill(User $user, ?Money $amount, string $iban, string $paymentFor, bool $paymentPart): array
+    protected static function qrBill(User $user, ?Money $amount, string $iban, array $paymentFor, bool $paymentPart): array
     {
         $resolve = function () use ($user, $amount, $iban, $paymentFor, $paymentPart): ?string {
             global $container;
@@ -78,16 +78,12 @@ abstract class BankingInfos implements FieldInterface
             ]);
             $request->setMethod(Request::METHOD_POST);
 
-            $creditorLines = explode("\n", (string) $paymentFor);
             $creditor = [
-                'name' => $creditorLines[0],
+                'name' => $paymentFor['name'],
+                'street' => $paymentFor['street'],
+                'postalCode' => $paymentFor['postalCode'],
+                'city' => $paymentFor['city'],
             ];
-            if (count($creditorLines) > 2) {
-                $creditor['addressLine1'] = $creditorLines[1];
-                $creditor['addressLine2'] = $creditorLines[2];
-            } else {
-                $creditor['addressLine2'] = $creditorLines[1];
-            }
 
             $attrs = [
                 'creditor' => $creditor,
@@ -100,7 +96,9 @@ abstract class BankingInfos implements FieldInterface
             if (!empty($user->getPostcode()) && !empty($user->getLocality())) {
                 $debtor = [
                     'name' => $user->getName(),
-                    'addressLine2' => implode(' ', array_filter([$user->getPostcode(), $user->getLocality()])),
+                    'street' => $user->getStreet(),
+                    'postalCode' => $user->getPostcode(),
+                    'city' => $user->getLocality(),
                 ];
                 $attrs['ultimateDebtor'] = $debtor;
             }

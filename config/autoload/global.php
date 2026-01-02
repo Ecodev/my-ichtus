@@ -33,7 +33,12 @@ return [
     'banking' => [
         'iban' => 'CH2730000001200061375', // QR-IBAN without spaces (eg: CH7030123036078110002)
         'paymentTo' => 'PostFinance AG, 3030 Bern',  // Bank coordinate the payment will be made to, eg: 'Banque Alternative Suisse SA'
-        'paymentFor' => 'Club nautique Ichtus' . PHP_EOL . '2072 St-Blaise', // Name and address of account holder, 2-3 lines separated by \n
+        'paymentFor' => [
+            'name' => 'Club nautique Ichtus',
+            'street' => '',
+            'postalCode' => '2072',
+            'city' => 'St-Blaise',
+        ],
     ],
     'accounting' => [
         // Codes of special accounts used for automatic transactions
