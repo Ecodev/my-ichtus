@@ -21,15 +21,15 @@ import {
 import {AsyncPipe, DatePipe} from '@angular/common';
 import {UserService} from '../services/user.service';
 import {
-    CurrentUserForProfile,
+    CurrentUserForProfileQuery,
     SortingOrder,
     TransactionLineSortingField,
-    TransactionLinesVariables,
+    TransactionLinesQueryVariables,
     UserFilter,
     UserFilterGroupCondition,
     UserRole,
     UserStatus,
-    UsersVariables,
+    UsersQueryVariables,
 } from '../../../shared/generated-types';
 import {LicenseService} from '../../licenses/services/license.service';
 import {UserTagService} from '../../userTags/services/userTag.service';
@@ -123,11 +123,11 @@ export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeo
     protected ibanLocked = true;
     protected readonly ibanCtrl = new FormControl('', ibanValidator);
 
-    protected transactionLinesVariables: TransactionLinesVariables = {};
+    protected transactionLinesVariables: TransactionLinesQueryVariables = {};
 
-    protected familyVariables: UsersVariables = {};
+    protected familyVariables: UsersQueryVariables = {};
 
-    protected viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    protected viewer!: NonNullable<CurrentUserForProfileQuery['viewer']>;
 
     private userRolesAvailable: UserRole[] = [];
 
@@ -145,7 +145,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeo
 
         this.route.data.subscribe(() => {
             if (this.isUpdatePage()) {
-                const qvm = new NaturalQueryVariablesManager<UsersVariables>();
+                const qvm = new NaturalQueryVariablesManager<UsersQueryVariables>();
                 qvm.set('variables', UserService.getFamilyVariables(this.data.model));
                 this.service.getAll(qvm).subscribe(family => {
                     this.showFamilyTab = family.items.length > 1;
@@ -184,7 +184,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeo
         };
     }
 
-    protected getTransactionQueryVariables(): TransactionLinesVariables {
+    protected getTransactionQueryVariables(): TransactionLinesQueryVariables {
         const account = this.isUpdatePage() ? this.data.model.account : null;
         if (!account) {
             return {};

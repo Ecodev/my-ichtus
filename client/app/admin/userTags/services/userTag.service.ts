@@ -8,11 +8,11 @@ import {
     DeleteUserTagsVariables,
     UpdateUserTag,
     UpdateUserTagVariables,
-    UserTag,
+    UserTagQuery,
     UserTagInput,
-    UserTags,
-    UserTagsVariables,
-    UserTagVariables,
+    UserTagsQuery,
+    UserTagsQueryVariables,
+    UserTagQueryVariables,
 } from '../../../shared/generated-types';
 import {Validators} from '@angular/forms';
 
@@ -20,10 +20,10 @@ import {Validators} from '@angular/forms';
     providedIn: 'root',
 })
 export class UserTagService extends NaturalAbstractModelService<
-    UserTag['userTag'],
-    UserTagVariables,
-    UserTags['userTags'],
-    UserTagsVariables,
+    UserTagQuery['userTag'],
+    UserTagQueryVariables,
+    UserTagsQuery['userTags'],
+    UserTagsQueryVariables,
     CreateUserTag['createUserTag'],
     CreateUserTagVariables,
     UpdateUserTag['updateUserTag'],
@@ -49,7 +49,7 @@ export class UserTagService extends NaturalAbstractModelService<
         };
     }
 
-    public override getFormAsyncValidators(model: UserTag['userTag']): FormAsyncValidators {
+    public override getFormAsyncValidators(model: UserTagQuery['userTag']): FormAsyncValidators {
         return {
             name: [unique('name', model.id, this)],
         };

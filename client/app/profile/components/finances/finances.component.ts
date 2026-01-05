@@ -1,6 +1,6 @@
 import {NaturalErrorMessagePipe} from '@ecodev/natural';
 import {Component, inject, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {CurrentUserForProfile, ExpenseClaims, ExpenseClaimType} from '../../../shared/generated-types';
+import {CurrentUserForProfileQuery, ExpenseClaimsQuery, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
 import {MatDialog} from '@angular/material/dialog';
@@ -78,7 +78,7 @@ export class FinancesComponent extends NaturalAbstractList<ExpenseClaimService> 
     private readonly userService = inject(UserService);
     private readonly dialog = inject(MatDialog);
 
-    @Input({required: true}) public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    @Input({required: true}) public viewer!: NonNullable<CurrentUserForProfileQuery['viewer']>;
 
     public override selectedColumns = ['name', 'updateDate', 'status', 'type', 'remarks', 'amount', 'cancel'];
 
@@ -126,7 +126,7 @@ export class FinancesComponent extends NaturalAbstractList<ExpenseClaimService> 
         this.variablesManager.set('forUser', this.service.getForUserVariables(this.viewer));
     }
 
-    protected cancelExpenseClaim(expenseClaim: ExpenseClaims['expenseClaims']['items'][0]): void {
+    protected cancelExpenseClaim(expenseClaim: ExpenseClaimsQuery['expenseClaims']['items'][0]): void {
         this.alertService
             .confirm(`Suppression`, `Veux-tu supprimer définitivement cet élément ?`, `Supprimer définitivement`)
             .subscribe(confirmed => {

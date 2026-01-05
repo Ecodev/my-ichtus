@@ -11,7 +11,7 @@ import {
     NaturalTableButtonComponent,
 } from '@ecodev/natural';
 import {AsyncPipe, CurrencyPipe, DatePipe, NgClass} from '@angular/common';
-import {BookableStatus, UsageBookables} from '../../../shared/generated-types';
+import {BookableStatus, UsageBookablesQuery} from '../../../shared/generated-types';
 import {switchMap} from 'rxjs/operators';
 import {UserService} from '../../users/services/user.service';
 import {ParentComponent} from './parent.component';
@@ -85,7 +85,7 @@ export class UsageBookablesComponent extends ParentComponent<UsageBookableServic
     protected readonly permissionsService = inject(PermissionsService);
     private readonly userService = inject(UserService);
     protected readonly BookableStatus = BookableStatus;
-    protected readonly bookableClick = output<UsageBookables['bookables']['items'][0]>();
+    protected readonly bookableClick = output<UsageBookablesQuery['bookables']['items'][0]>();
 
     @Input()
     public set selections(selections: NaturalSearchSelections) {

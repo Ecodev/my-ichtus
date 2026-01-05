@@ -78,7 +78,7 @@ export const userFieldsFragment = gql`
 `;
 
 export const usersQuery = gql`
-    query Users($filter: UserFilter, $sorting: [UserSorting!], $pagination: PaginationInput) {
+    query UsersQuery($filter: UserFilter, $sorting: [UserSorting!], $pagination: PaginationInput) {
         users(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
                 id
@@ -117,7 +117,7 @@ export const usersQuery = gql`
 `;
 
 export const emailAndPhoneUsersQuery = gql`
-    query EmailAndPhoneUsers($filter: UserFilter, $sorting: [UserSorting!], $pagination: PaginationInput) {
+    query EmailAndPhoneUsersQuery($filter: UserFilter, $sorting: [UserSorting!], $pagination: PaginationInput) {
         users(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
                 id
@@ -129,7 +129,7 @@ export const emailAndPhoneUsersQuery = gql`
 `;
 
 export const userQuery = gql`
-    query User($id: UserID!) {
+    query UserQuery($id: UserID!) {
         user(id: $id) {
             ...UserFields
             permissions {
@@ -145,7 +145,7 @@ export const userQuery = gql`
 // This query is executed as anonymous and thus **must not** include any
 // relations that could be protected by ACL. Typically we **cannot** ask for owner.
 export const userByTokenQuery = gql`
-    query UserByToken($token: Token!) {
+    query UserByTokenQuery($token: Token!) {
         userByToken(token: $token) {
             id
             login
@@ -225,7 +225,7 @@ export const loginMutation = gql`
 `;
 
 export const currentUserForProfileQuery = gql`
-    query CurrentUserForProfile {
+    query CurrentUserForProfileQuery {
         viewer {
             ...UserFields
             ...UserLeaveFamily
@@ -237,7 +237,7 @@ export const currentUserForProfileQuery = gql`
 `;
 
 export const userRolesAvailableQuery = gql`
-    query UserRolesAvailables($user: UserID) {
+    query UserRolesAvailablesQuery($user: UserID) {
         userRolesAvailable(user: $user)
     }
 `;

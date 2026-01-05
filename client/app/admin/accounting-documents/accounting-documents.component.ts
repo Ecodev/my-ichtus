@@ -1,9 +1,9 @@
 import {Component, inject, Input, input, OnInit} from '@angular/core';
 import {
     AccountingDocumentInput,
-    ExpenseClaim,
+    ExpenseClaimQuery,
     ExpenseClaimInput,
-    Transaction,
+    TransactionQuery,
     TransactionInput,
 } from '../../shared/generated-types';
 import {forkJoin, Observable} from 'rxjs';
@@ -23,7 +23,7 @@ export class AccountingDocumentsComponent implements OnInit {
     protected readonly accountingDocumentService = inject(AccountingDocumentService);
 
     public readonly model = input.required<
-        Transaction['transaction'] | ExpenseClaim['expenseClaim'] | TransactionInput | ExpenseClaimInput
+        TransactionQuery['transaction'] | ExpenseClaimQuery['expenseClaim'] | TransactionInput | ExpenseClaimInput
     >();
     public readonly fileHeight = input(250);
     public readonly fileWidth = input(250);

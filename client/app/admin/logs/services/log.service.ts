@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {NaturalAbstractModelService} from '@ecodev/natural';
-import {Logs, LogsVariables} from '../../../shared/generated-types';
+import {LogsQuery, LogsQueryVariables} from '../../../shared/generated-types';
 import {logsQuery} from './log.queries';
 import {Observable, of} from 'rxjs';
 
@@ -10,8 +10,8 @@ import {Observable, of} from 'rxjs';
 export class LogService extends NaturalAbstractModelService<
     never,
     never,
-    Logs['logs'],
-    LogsVariables,
+    LogsQuery['logs'],
+    LogsQueryVariables,
     never,
     never,
     never,
@@ -23,7 +23,7 @@ export class LogService extends NaturalAbstractModelService<
         super('log', null, logsQuery, null, null, null);
     }
 
-    public override getPartialVariablesForAll(): Observable<Partial<LogsVariables>> {
+    public override getPartialVariablesForAll(): Observable<Partial<LogsQueryVariables>> {
         return of({
             filter: {
                 groups: [

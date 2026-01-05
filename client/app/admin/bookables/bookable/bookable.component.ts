@@ -22,10 +22,10 @@ import {
     BookingFilterGroupCondition,
     BookingSortingField,
     BookingStatus,
-    BookingsVariables,
+    BookingsQueryVariables,
     BookingType,
     CreateImage,
-    CurrentUserForProfile,
+    CurrentUserForProfileQuery,
     SortingOrder,
     UserRole,
 } from '../../../shared/generated-types';
@@ -98,8 +98,8 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
     protected readonly userService = inject(UserService);
 
     protected accountHierarchicConfig = accountHierarchicConfiguration;
-    protected bookingsVariables: BookingsVariables = {};
-    protected viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    protected bookingsVariables: BookingsQueryVariables = {};
+    protected viewer!: NonNullable<CurrentUserForProfileQuery['viewer']>;
     protected readonly availableColumnsForBookingsWithOwnerWithoutTrainers =
         availableColumnsForBookingsWithOwnerWithoutTrainers;
     protected readonly availableColumnsForBookingsWithOwnerOnlyTrainers =
@@ -173,7 +173,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
         return this.data.model.bookingType === BookingType.SelfApproved;
     }
 
-    protected getBookingsVariables(): BookingsVariables {
+    protected getBookingsVariables(): BookingsQueryVariables {
         if (!this.isUpdatePage()) {
             return {};
         }

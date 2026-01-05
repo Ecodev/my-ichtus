@@ -34,7 +34,7 @@ export const transactionMetaFragment = gql`
 `;
 
 export const transactionsQuery = gql`
-    query Transactions($filter: TransactionFilter, $sorting: [TransactionSorting!], $pagination: PaginationInput) {
+    query TransactionsQuery($filter: TransactionFilter, $sorting: [TransactionSorting!], $pagination: PaginationInput) {
         transactions(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
                 ...TransactionMeta
@@ -48,7 +48,7 @@ export const transactionsQuery = gql`
 `;
 
 export const transactionQuery = gql`
-    query Transaction($id: TransactionID!) {
+    query TransactionQuery($id: TransactionID!) {
         transaction(id: $id) {
             id
             ...TransactionMeta

@@ -44,7 +44,7 @@ export const transactionLineMetaFragment = gql`
 `;
 
 export const transactionLinesQuery = gql`
-    query TransactionLines(
+    query TransactionLinesQuery(
         $filter: TransactionLineFilter
         $sorting: [TransactionLineSorting!]
         $pagination: PaginationInput
@@ -63,7 +63,7 @@ export const transactionLinesQuery = gql`
 `;
 
 export const transactionLineQuery = gql`
-    query TransactionLine($id: TransactionLineID!) {
+    query TransactionLineQuery($id: TransactionLineID!) {
         transactionLine(id: $id) {
             id
             ...TransactionLineMeta

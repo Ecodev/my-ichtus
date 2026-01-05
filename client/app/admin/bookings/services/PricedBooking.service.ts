@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {pricedBookingsQuery} from './booking.queries';
-import {PricedBookings, PricedBookingsVariables} from '../../../shared/generated-types';
+import {PricedBookingsQuery, PricedBookingsQueryVariables} from '../../../shared/generated-types';
 import {NaturalAbstractModelService} from '@ecodev/natural';
 
 @Injectable({
@@ -9,8 +9,8 @@ import {NaturalAbstractModelService} from '@ecodev/natural';
 export class PricedBookingService extends NaturalAbstractModelService<
     never,
     never,
-    PricedBookings['bookings'],
-    PricedBookingsVariables,
+    PricedBookingsQuery['bookings'],
+    PricedBookingsQueryVariables,
     never,
     never,
     never,

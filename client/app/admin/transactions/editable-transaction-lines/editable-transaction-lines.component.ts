@@ -2,7 +2,7 @@ import {NaturalErrorMessagePipe} from '@ecodev/natural';
 import {Component, inject, Input} from '@angular/core';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {BookableService} from '../../bookables/services/bookable.service';
-import {TransactionLineInput, TransactionLines} from '../../../shared/generated-types';
+import {TransactionLineInput, TransactionLinesQuery} from '../../../shared/generated-types';
 import {TransactionTagService} from '../../transactionTags/services/transactionTag.service';
 import {
     NaturalAbstractEditableList,
@@ -35,7 +35,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 export type EditableTransactionLinesInput =
     | {mode: 'fetch'; id: string}
-    | {mode: 'items'; items: (TransactionLines['transactionLines']['items'][0] | TransactionLineInput)[]}
+    | {mode: 'items'; items: (TransactionLinesQuery['transactionLines']['items'][0] | TransactionLineInput)[]}
     | {
           mode: 'empty';
       };
@@ -73,7 +73,7 @@ export type EditableTransactionLinesInput =
 })
 export class EditableTransactionLinesComponent extends NaturalAbstractEditableList<
     TransactionLineService,
-    TransactionLines['transactionLines']['items'][0] | TransactionLineInput
+    TransactionLinesQuery['transactionLines']['items'][0] | TransactionLineInput
 > {
     protected readonly transactionTagService = inject(TransactionTagService);
     protected readonly bookableService = inject(BookableService);

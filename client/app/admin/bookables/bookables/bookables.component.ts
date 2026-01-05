@@ -1,6 +1,6 @@
 import {Component, inject, OnInit, output} from '@angular/core';
 import {bookables, equipment} from '../../../shared/natural-search/natural-search-facets';
-import {Bookables, BookableStatus} from '../../../shared/generated-types';
+import {BookablesQuery, BookableStatus} from '../../../shared/generated-types';
 import {BookableService} from '../services/bookable.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {ParentComponent} from './parent.component';
@@ -79,7 +79,7 @@ import {AsyncPipe, CurrencyPipe, DatePipe, NgClass} from '@angular/common';
 export class BookablesComponent extends ParentComponent<BookableService> implements OnInit {
     protected readonly permissionsService = inject(PermissionsService);
 
-    protected readonly bookableClick = output<Bookables['bookables']['items'][0]>();
+    protected readonly bookableClick = output<BookablesQuery['bookables']['items'][0]>();
     protected readonly BookableStatus = BookableStatus;
 
     public constructor() {
@@ -87,7 +87,7 @@ export class BookablesComponent extends ParentComponent<BookableService> impleme
         this.naturalSearchFacets = this.route.snapshot.data.isEquipment ? equipment() : bookables();
     }
 
-    protected select(element: Bookables['bookables']['items'][0]): void {
+    protected select(element: BookablesQuery['bookables']['items'][0]): void {
         this.bookableClick.emit(element);
     }
 }

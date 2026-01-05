@@ -1,9 +1,9 @@
 import {inject, Injectable} from '@angular/core';
 import {bookableQuery, createBookable, deleteBookables, updateBookable, usageBookablesQuery} from './bookable.queries';
 import {
-    Bookable,
-    BookablesVariables,
-    BookableVariables,
+    BookableQuery,
+    BookablesQueryVariables,
+    BookableQueryVariables,
     CreateBookable,
     CreateBookableVariables,
     DeleteBookables,
@@ -11,8 +11,8 @@ import {
     JoinType,
     UpdateBookable,
     UpdateBookableVariables,
-    UsageBookables,
-    UsageBookablesVariables,
+    UsageBookablesQuery,
+    UsageBookablesQueryVariables,
 } from '../../../shared/generated-types';
 import {BookingService} from '../../bookings/services/booking.service';
 import {NaturalAbstractModelService} from '@ecodev/natural';
@@ -22,10 +22,10 @@ import {Observable, of} from 'rxjs';
     providedIn: 'root',
 })
 export class UsageBookableService extends NaturalAbstractModelService<
-    Bookable['bookable'],
-    BookableVariables,
-    UsageBookables['bookables'],
-    UsageBookablesVariables,
+    BookableQuery['bookable'],
+    BookableQueryVariables,
+    UsageBookablesQuery['bookables'],
+    UsageBookablesQueryVariables,
     CreateBookable['createBookable'],
     CreateBookableVariables,
     UpdateBookable['updateBookable'],
@@ -39,7 +39,7 @@ export class UsageBookableService extends NaturalAbstractModelService<
         super('bookable', bookableQuery, usageBookablesQuery, createBookable, updateBookable, deleteBookables);
     }
 
-    public override getPartialVariablesForAll(): Observable<Partial<BookablesVariables>> {
+    public override getPartialVariablesForAll(): Observable<Partial<BookablesQueryVariables>> {
         return of({
             filter: {
                 groups: [

@@ -10,22 +10,22 @@ import {
     updateAccount,
 } from './account.queries';
 import {
-    Account,
+    AccountQuery,
     AccountingClosing,
     AccountingClosingVariables,
     AccountInput,
-    Accounts,
-    AccountsVariables,
+    AccountsQuery,
+    AccountsQueryVariables,
     AccountType,
-    AccountVariables,
+    AccountQueryVariables,
     CreateAccount,
     CreateAccountVariables,
     DeleteAccounts,
     DeleteAccountsVariables,
     ExportAccountingReport,
     ExportAccountingReportVariables,
-    NextAccountCode,
-    NextAccountCodeVariables,
+    NextAccountCodeQuery,
+    NextAccountCodeQueryVariables,
     UpdateAccount,
     UpdateAccountVariables,
 } from '../../../shared/generated-types';
@@ -48,10 +48,10 @@ import {iban} from '../../../shared/validators';
     providedIn: 'root',
 })
 export class AccountService extends NaturalAbstractModelService<
-    Account['account'],
-    AccountVariables,
-    Accounts['accounts'],
-    AccountsVariables,
+    AccountQuery['account'],
+    AccountQueryVariables,
+    AccountsQuery['accounts'],
+    AccountsQueryVariables,
     CreateAccount['createAccount'],
     CreateAccountVariables,
     UpdateAccount['updateAccount'],
@@ -86,7 +86,7 @@ export class AccountService extends NaturalAbstractModelService<
         };
     }
 
-    public override getFormAsyncValidators(model: Account['account']): FormAsyncValidators {
+    public override getFormAsyncValidators(model: AccountQuery['account']): FormAsyncValidators {
         return {
             code: [unique('code', model.id, this)],
         };
@@ -94,7 +94,7 @@ export class AccountService extends NaturalAbstractModelService<
 
     public getNextCodeAvailable(parentId: string | null): Observable<number> {
         return this.apollo
-            .query<NextAccountCode, NextAccountCodeVariables>({
+            .query<NextAccountCodeQuery, NextAccountCodeQueryVariables>({
                 query: nextCodeAvailableQuery,
                 variables: {
                     parent: parentId,
@@ -103,8 +103,8 @@ export class AccountService extends NaturalAbstractModelService<
             .pipe(map(result => result.data.nextAccountCode));
     }
 
-    public getAccountByCode(code: number): Observable<Accounts['accounts']['items'][0]> {
-        const variables: AccountsVariables = {
+    public getAccountByCode(code: number): Observable<AccountsQuery['accounts']['items'][0]> {
+        const variables: AccountsQueryVariables = {
             filter: {
                 groups: [
                     {
@@ -114,7 +114,7 @@ export class AccountService extends NaturalAbstractModelService<
             },
         };
 
-        const qvm = new NaturalQueryVariablesManager<AccountsVariables>();
+        const qvm = new NaturalQueryVariablesManager<AccountsQueryVariables>();
         qvm.set('variables', variables);
 
         return this.getAll(qvm).pipe(

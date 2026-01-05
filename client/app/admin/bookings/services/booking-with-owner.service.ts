@@ -7,11 +7,11 @@ import {
     updateBooking,
 } from './booking.queries';
 import {
-    Booking,
-    BookingsVariables,
-    BookingsWithOwnerBalance,
-    BookingsWithOwnerBalanceVariables,
-    BookingVariables,
+    BookingQuery,
+    BookingsQueryVariables,
+    BookingsWithOwnerBalanceQuery,
+    BookingsWithOwnerBalanceQueryVariables,
+    BookingQueryVariables,
     DeleteBookings,
     DeleteBookingsVariables,
     JoinType,
@@ -26,10 +26,10 @@ import {BookingService} from './booking.service';
     providedIn: 'root',
 })
 export class BookingWithOwnerService extends NaturalAbstractModelService<
-    Booking['booking'],
-    BookingVariables,
-    BookingsWithOwnerBalance['bookings'],
-    BookingsWithOwnerBalanceVariables,
+    BookingQuery['booking'],
+    BookingQueryVariables,
+    BookingsWithOwnerBalanceQuery['bookings'],
+    BookingsWithOwnerBalanceQueryVariables,
     never,
     never,
     UpdateBooking['updateBooking'],
@@ -43,7 +43,7 @@ export class BookingWithOwnerService extends NaturalAbstractModelService<
         super('booking', bookingQuery, bookingsWithOwnerBalanceQuery, createBooking, updateBooking, deleteBookings);
     }
 
-    public override getPartialVariablesForAll(): Observable<Partial<BookingsVariables>> {
+    public override getPartialVariablesForAll(): Observable<Partial<BookingsQueryVariables>> {
         return of({
             filter: {
                 groups: [

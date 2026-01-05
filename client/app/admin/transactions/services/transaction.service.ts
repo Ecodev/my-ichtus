@@ -2,17 +2,17 @@ import {inject, Injectable} from '@angular/core';
 import {Validators} from '@angular/forms';
 import {formatIsoDateTime, FormValidators, Literal, NaturalAbstractModelService} from '@ecodev/natural';
 import {
-    Accounts,
+    AccountsQuery,
     CreateTransaction,
     CreateTransactionVariables,
     DeleteTransactions,
     DeleteTransactionsVariables,
-    Transaction,
+    TransactionQuery,
     TransactionInput,
     TransactionLineInput,
-    Transactions,
-    TransactionsVariables,
-    TransactionVariables,
+    TransactionsQuery,
+    TransactionsQueryVariables,
+    TransactionQueryVariables,
     UpdateTransaction,
     UpdateTransactionVariables,
 } from '../../../shared/generated-types';
@@ -33,10 +33,10 @@ import {map} from 'rxjs/operators';
     providedIn: 'root',
 })
 export class TransactionService extends NaturalAbstractModelService<
-    Transaction['transaction'],
-    TransactionVariables,
-    Transactions['transactions'],
-    TransactionsVariables,
+    TransactionQuery['transaction'],
+    TransactionQueryVariables,
+    TransactionsQuery['transactions'],
+    TransactionsQueryVariables,
     CreateTransaction['createTransaction'],
     CreateTransactionVariables,
     UpdateTransaction['updateTransaction'],
@@ -46,7 +46,7 @@ export class TransactionService extends NaturalAbstractModelService<
 > {
     private readonly transactionLineService = inject(TransactionLineService);
     private readonly accountService = inject(AccountService);
-    private readonly bankAccount: Observable<Accounts['accounts']['items'][0]>;
+    private readonly bankAccount: Observable<AccountsQuery['accounts']['items'][0]>;
 
     public constructor() {
         super(

@@ -2,7 +2,7 @@ import {Component, DestroyRef, inject, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
 import {NaturalDataSource} from '@ecodev/natural';
-import {CurrentUserForProfile, TransactionLines} from '../../../shared/generated-types';
+import {CurrentUserForProfileQuery, TransactionLinesQuery} from '../../../shared/generated-types';
 import {TransactionAmountComponent} from '../../../shared/components/transaction-amount/transaction-amount.component';
 import {
     MatCell,
@@ -43,9 +43,9 @@ export class HistoryComponent implements OnInit {
     private readonly transactionLineService = inject(TransactionLineService);
 
     private readonly destroyRef = inject(DestroyRef);
-    @Input({required: true}) public viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    @Input({required: true}) public viewer!: NonNullable<CurrentUserForProfileQuery['viewer']>;
 
-    protected transactionLinesDS!: NaturalDataSource<TransactionLines['transactionLines']>;
+    protected transactionLinesDS!: NaturalDataSource<TransactionLinesQuery['transactionLines']>;
     protected transactionsColumns = ['name', 'bookable', 'transactionDate', 'remarks', 'amount'];
 
     public ngOnInit(): void {
@@ -55,7 +55,7 @@ export class HistoryComponent implements OnInit {
             const transactionLinesQuery = this.transactionLineService
                 .getForAccount(this.viewer.account)
                 .pipe(takeUntilDestroyed(this.destroyRef));
-            this.transactionLinesDS = new NaturalDataSource<TransactionLines['transactionLines']>(
+            this.transactionLinesDS = new NaturalDataSource<TransactionLinesQuery['transactionLines']>(
                 transactionLinesQuery,
             );
         }

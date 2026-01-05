@@ -1,6 +1,6 @@
 import {NaturalErrorMessagePipe} from '@ecodev/natural';
 import {Component, inject, input, OnInit, output} from '@angular/core';
-import {CreateUser, CurrentUserForProfile, UpdateUser, Users} from '../../../shared/generated-types';
+import {CreateUser, CurrentUserForProfileQuery, UpdateUser, UsersQuery} from '../../../shared/generated-types';
 import {
     NaturalAbstractDetail,
     NaturalFixedButtonComponent,
@@ -57,8 +57,8 @@ const userDeletionRequested = new Map<string, void>();
     styleUrl: './family-member.component.scss',
 })
 export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserService> implements OnInit {
-    public readonly viewer = input.required<NonNullable<CurrentUserForProfile['viewer']>>();
-    public readonly user = input.required<Users['users']['items'][0]>();
+    public readonly viewer = input.required<NonNullable<CurrentUserForProfileQuery['viewer']>>();
+    public readonly user = input.required<UsersQuery['users']['items'][0]>();
     public readonly readonly = input(false);
     protected readonly created = output();
     protected readonly removed = output();

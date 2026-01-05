@@ -1,7 +1,7 @@
 import {gql} from '@apollo/client/core';
 
 export const permissionsQuery = gql`
-    query Permissions {
+    query PermissionsQuery {
         permissions {
             crud {
                 account {

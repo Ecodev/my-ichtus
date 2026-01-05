@@ -2,7 +2,7 @@ import {gql} from '@apollo/client/core';
 import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
 
 export const bookableTagsQuery = gql`
-    query BookableTags($filter: BookableTagFilter, $sorting: [BookableTagSorting!], $pagination: PaginationInput) {
+    query BookableTagsQuery($filter: BookableTagFilter, $sorting: [BookableTagSorting!], $pagination: PaginationInput) {
         bookableTags(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
                 id
@@ -17,7 +17,7 @@ export const bookableTagsQuery = gql`
 `;
 
 export const bookableTagQuery = gql`
-    query BookableTag($id: BookableTagID!) {
+    query BookableTagQuery($id: BookableTagID!) {
         bookableTag(id: $id) {
             id
             name

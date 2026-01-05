@@ -8,11 +8,11 @@ import {
     updateBookableTag,
 } from './bookableTag.queries';
 import {
-    BookableTag,
+    BookableTagQuery,
     BookableTagInput,
-    BookableTags,
-    BookableTagsVariables,
-    BookableTagVariables,
+    BookableTagsQuery,
+    BookableTagsQueryVariables,
+    BookableTagQueryVariables,
     CreateBookableTag,
     CreateBookableTagVariables,
     DeleteBookableTags,
@@ -26,10 +26,10 @@ import {Validators} from '@angular/forms';
     providedIn: 'root',
 })
 export class BookableTagService extends NaturalAbstractModelService<
-    BookableTag['bookableTag'],
-    BookableTagVariables,
-    BookableTags['bookableTags'],
-    BookableTagsVariables,
+    BookableTagQuery['bookableTag'],
+    BookableTagQueryVariables,
+    BookableTagsQuery['bookableTags'],
+    BookableTagsQueryVariables,
     CreateBookableTag['createBookableTag'],
     CreateBookableTagVariables,
     UpdateBookableTag['updateBookableTag'],
@@ -74,7 +74,7 @@ export class BookableTagService extends NaturalAbstractModelService<
         };
     }
 
-    public override getFormAsyncValidators(model: BookableTag['bookableTag']): FormAsyncValidators {
+    public override getFormAsyncValidators(model: BookableTagQuery['bookableTag']): FormAsyncValidators {
         return {
             name: [unique('name', model.id, this)],
         };

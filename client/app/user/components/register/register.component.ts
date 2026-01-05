@@ -9,7 +9,7 @@ import {
     NaturalIconDirective,
     validateAllFormControls,
 } from '@ecodev/natural';
-import {Bookables, Register, RegisterVariables} from '../../../shared/generated-types';
+import {BookablesQuery, Register, RegisterVariables} from '../../../shared/generated-types';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormGroup, FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
@@ -91,7 +91,7 @@ export class RegisterComponent implements OnInit {
     protected readonly bookableService = inject(BookableService);
     protected readonly privacyPolicyUrl = privacyPolicyUrl;
 
-    protected mandatoryBookables: NaturalDataSource<Bookables['bookables']> | null = null;
+    protected mandatoryBookables: NaturalDataSource<BookablesQuery['bookables']> | null = null;
 
     protected step: 1 | 2 = 1;
     protected sending = false;

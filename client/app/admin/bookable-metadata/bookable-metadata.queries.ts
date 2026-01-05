@@ -1,7 +1,7 @@
 import {gql} from '@apollo/client/core';
 
 export const bookableMetadatasQuery = gql`
-    query BookableMetadatas(
+    query BookableMetadatasQuery(
         $filter: BookableMetadataFilter
         $sorting: [BookableMetadataSorting!]
         $pagination: PaginationInput

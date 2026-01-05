@@ -15,18 +15,18 @@ import {
     transactionLinesQuery,
 } from './transactionLine.queries';
 import {
-    ExpenseClaim,
+    ExpenseClaimQuery,
     ExportTransactionLines,
     ExportTransactionLinesVariables,
     MinimalAccount,
     ReconcileTransactionLine,
     ReconcileTransactionLineVariables,
-    TransactionLine,
+    TransactionLineQuery,
     TransactionLineInput,
-    TransactionLines,
-    TransactionLinesVariables,
-    TransactionLineVariables,
-    TransactionTag,
+    TransactionLinesQuery,
+    TransactionLinesQueryVariables,
+    TransactionLineQueryVariables,
+    TransactionTagQuery,
 } from '../../../shared/generated-types';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -46,10 +46,10 @@ function atLeastOneAccount(formGroup: AbstractControl): ValidationErrors | null 
     providedIn: 'root',
 })
 export class TransactionLineService extends NaturalAbstractModelService<
-    TransactionLine['transactionLine'],
-    TransactionLineVariables,
-    TransactionLines['transactionLines'],
-    TransactionLinesVariables,
+    TransactionLineQuery['transactionLine'],
+    TransactionLineQueryVariables,
+    TransactionLinesQuery['transactionLines'],
+    TransactionLinesQueryVariables,
     never,
     {input: TransactionLineInput},
     never,
@@ -61,7 +61,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
         super('transactionLine', transactionLineQuery, transactionLinesQuery, null, null, null);
     }
 
-    public static getVariablesForExport(): TransactionLinesVariables {
+    public static getVariablesForExport(): TransactionLinesQueryVariables {
         return {
             filter: {
                 groups: [
@@ -94,7 +94,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
         ];
     }
 
-    public static getSelectionForTag(tag: TransactionTag['transactionTag']): NaturalSearchSelections {
+    public static getSelectionForTag(tag: TransactionTagQuery['transactionTag']): NaturalSearchSelections {
         return [
             [
                 {
@@ -128,12 +128,14 @@ export class TransactionLineService extends NaturalAbstractModelService<
         return ['/admin/transaction-line', toNavigationParameters(selection)];
     }
 
-    public linkToTransactionLinesForTag(tag: TransactionTag['transactionTag']): any[] {
+    public linkToTransactionLinesForTag(tag: TransactionTagQuery['transactionTag']): any[] {
         const selection = TransactionLineService.getSelectionForTag(tag);
         return ['/admin/transaction-line', toNavigationParameters(selection)];
     }
 
-    public linkToTransactionLinesForTransactions(transactions: ExpenseClaim['expenseClaim']['transactions']): any[] {
+    public linkToTransactionLinesForTransactions(
+        transactions: ExpenseClaimQuery['expenseClaim']['transactions'],
+    ): any[] {
         const selection: NaturalSearchSelections = transactions.map(transaction => [
             {
                 field: 'transaction',
@@ -162,8 +164,8 @@ export class TransactionLineService extends NaturalAbstractModelService<
         return [atLeastOneAccount];
     }
 
-    public getForAccount(account: MinimalAccount): Observable<TransactionLines['transactionLines']> {
-        const variables: TransactionLinesVariables = {
+    public getForAccount(account: MinimalAccount): Observable<TransactionLinesQuery['transactionLines']> {
+        const variables: TransactionLinesQueryVariables = {
             filter: {
                 groups: [
                     {
@@ -178,7 +180,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
             pagination: {pageIndex: 0, pageSize: 9999},
         };
 
-        const qvm = new NaturalQueryVariablesManager<TransactionLinesVariables>();
+        const qvm = new NaturalQueryVariablesManager<TransactionLinesQueryVariables>();
         qvm.set('variables', variables);
         return this.watchAll(qvm);
     }

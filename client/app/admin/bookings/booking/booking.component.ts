@@ -3,14 +3,14 @@ import {BookingService} from '../services/booking.service';
 import {
     BookableSortingField,
     BookableStatus,
-    BookablesVariables,
-    BookableTags,
+    BookablesQueryVariables,
+    BookableTagsQuery,
     BookingPartialInput,
     BookingStatus,
     BookingType,
     CreateBooking,
     SortingOrder,
-    UsageBookables,
+    UsageBookablesQuery,
 } from '../../../shared/generated-types';
 import {UserService} from '../../users/services/user.service';
 import {BookableService} from '../../bookables/services/bookable.service';
@@ -82,7 +82,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
     protected readonly userService = inject(UserService);
 
     protected readonly BookingStatus = BookingStatus;
-    protected suggestionVariables: BookablesVariables = {};
+    protected suggestionVariables: BookablesQueryVariables = {};
     protected suggestionSelection: NaturalSearchSelections = [[]];
     protected readonly BookingType = BookingType;
     protected readonly availableColumns: Readonly<AvailableColumn>[] = [
@@ -138,7 +138,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
             this.filterBookables(BookingType.AdminAssigned);
         }
 
-        const tags: BookableTags['bookableTags']['items'][0][] = this.form.get('bookable')?.value?.bookableTags;
+        const tags: BookableTagsQuery['bookableTags']['items'][0][] = this.form.get('bookable')?.value?.bookableTags;
 
         if (tags) {
             const matchingTag = tags.find(t => this.suggestionTags.includes(t.id));
@@ -216,7 +216,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
         return false;
     }
 
-    protected assignBookable(bookable: UsageBookables['bookables']['items'][0]): void {
+    protected assignBookable(bookable: UsageBookablesQuery['bookables']['items'][0]): void {
         const message =
             'Es-tu certain(e) de vouloir attribuer cette prestation ou espace de stockage ? ' +
             'Cette action va créer une nouvelle réservation et débitera automatiquement le compte du membre. ' +
@@ -229,7 +229,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
         });
     }
 
-    protected doAssignBookable(bookable: UsageBookables['bookables']['items'][0]): void {
+    protected doAssignBookable(bookable: UsageBookablesQuery['bookables']['items'][0]): void {
         const partialBooking: BookingPartialInput = {status: BookingStatus.Booked};
         this.service.createWithBookable(bookable, this.data.model.owner, partialBooking).subscribe(booking => {
             if (!this.isUpdatePage()) {
@@ -252,8 +252,8 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
         });
     }
 
-    protected getBookablesVariables(tags: string[]): BookablesVariables {
-        const variables: BookablesVariables = {
+    protected getBookablesVariables(tags: string[]): BookablesQueryVariables {
+        const variables: BookablesQueryVariables = {
             filter: {
                 groups: [
                     {

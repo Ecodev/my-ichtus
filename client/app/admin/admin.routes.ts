@@ -24,7 +24,7 @@ import {resolveBookableTag} from './bookableTags/services/bookableTag.resolver';
 import {
     BookableSortingField,
     ExpenseClaimSortingField,
-    ExpenseClaimsVariables,
+    ExpenseClaimsQueryVariables,
     SortingOrder,
     TransactionLineSortingField,
     UserRole,
@@ -663,7 +663,7 @@ export const routes: Routes = [
                             {field: ExpenseClaimSortingField.status, order: SortingOrder.ASC},
                             {field: ExpenseClaimSortingField.creationDate, order: SortingOrder.DESC},
                         ],
-                    } satisfies ExpenseClaimsVariables,
+                    } satisfies ExpenseClaimsQueryVariables,
                 },
             },
             {

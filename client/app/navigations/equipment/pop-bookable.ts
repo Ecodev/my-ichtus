@@ -4,7 +4,7 @@ import {currentTabElement, newTab} from '../general/screen';
 import {Cahier} from '../cahier/methods';
 import {popBookableHistory} from './pop-bookable-history';
 import {popAlertLessThan13Minutes} from '../general/pop-alert';
-import type {Bookings} from '../../shared/generated-types';
+import type {BookingsQuery} from '../../shared/generated-types';
 import type {Bookable} from '../types';
 
 export function popBookable(bookableId: string, justPreview = true, nbr = 0, modal: HTMLElement = openPopUp()): void {
@@ -64,7 +64,7 @@ export function popBookable(bookableId: string, justPreview = true, nbr = 0, mod
 export function actualizePopBookable(
     nbr: number,
     bookable: Bookable,
-    bookings: Bookings['bookings'],
+    bookings: BookingsQuery['bookings'],
     elem: HTMLElement,
 ): void {
     elem.getElementsByTagName('div')[2].style.backgroundImage = Cahier.getImageUrl(bookable);

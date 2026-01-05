@@ -4,8 +4,8 @@ import {inject, Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {distinctUntilChanged, filter, map, takeWhile} from 'rxjs/operators';
 import {
-    Configuration,
-    ConfigurationVariables,
+    ConfigurationQuery,
+    ConfigurationQueryVariables,
     UpdateConfiguration,
     UpdateConfigurationVariables,
 } from '../../../shared/generated-types';
@@ -18,7 +18,7 @@ export class ConfigurationService {
     private readonly apollo = inject(Apollo);
 
     public get(key: string): Observable<string> {
-        const queryRef = this.apollo.watchQuery<Configuration, ConfigurationVariables>({
+        const queryRef = this.apollo.watchQuery<ConfigurationQuery, ConfigurationQueryVariables>({
             query: configurationQuery,
             variables: {key},
             fetchPolicy: 'cache-and-network',

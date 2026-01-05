@@ -3,17 +3,17 @@ import {NaturalAbstractModelService, NaturalQueryVariablesManager} from '@ecodev
 import {from, Observable, switchMap} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {
-    CurrentUserForProfile,
+    CurrentUserForProfileQuery,
     LogicalOperator,
     Login,
     LoginVariables,
     SortingOrder,
-    User,
-    Users,
+    UserQuery,
+    UsersQuery,
     UserSortingField,
     UserStatus,
-    UsersVariables,
-    UserVariables,
+    UsersQueryVariables,
+    UserQueryVariables,
 } from '../shared/generated-types';
 import {currentUserForProfileQuery, loginMutation, userQuery, usersQuery} from '../admin/users/services/user.queries';
 import {closePopUp, getNiceTime} from './general/home';
@@ -26,10 +26,10 @@ import {BookingForVanillaService} from './booking-for-vanilla.service';
     providedIn: 'root',
 })
 export class UserForVanillaService extends NaturalAbstractModelService<
-    User['user'],
-    UserVariables,
-    Users['users'],
-    UsersVariables,
+    UserQuery['user'],
+    UserQueryVariables,
+    UsersQuery['users'],
+    UsersQueryVariables,
     never,
     never,
     never,
@@ -57,9 +57,9 @@ export class UserForVanillaService extends NaturalAbstractModelService<
         );
     }
 
-    private getViewer(): Observable<CurrentUserForProfile['viewer']> {
+    private getViewer(): Observable<CurrentUserForProfileQuery['viewer']> {
         return this.apollo
-            .query<CurrentUserForProfile>({
+            .query<CurrentUserForProfileQuery>({
                 query: currentUserForProfileQuery,
             })
             .pipe(map(result => result.data.viewer));
@@ -129,7 +129,7 @@ export class UserForVanillaService extends NaturalAbstractModelService<
 
     // getUsersList FOR user.js
     public getUsersList(text = ''): void {
-        let filter: UsersVariables;
+        let filter: UsersQueryVariables;
         const texts = [];
 
         const parts = text.split(' ');
@@ -319,7 +319,7 @@ export class UserForVanillaService extends NaturalAbstractModelService<
             },
         ];
 
-        const variables = new NaturalQueryVariablesManager<UsersVariables>();
+        const variables = new NaturalQueryVariablesManager<UsersQueryVariables>();
         variables.set('variables', filter);
 
         this.getAll(variables).subscribe(result => {

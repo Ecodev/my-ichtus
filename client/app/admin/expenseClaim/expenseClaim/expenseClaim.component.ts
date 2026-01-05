@@ -12,7 +12,7 @@ import {
     NaturalStampComponent,
 } from '@ecodev/natural';
 import {ExpenseClaimService} from '../services/expenseClaim.service';
-import {CurrentUserForProfile, ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
+import {CurrentUserForProfileQuery, ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../users/services/user.service';
 import {TransactionLineService} from '../../transactions/services/transactionLine.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -73,7 +73,7 @@ export class ExpenseClaimComponent
 
     protected readonly ExpenseClaimType = ExpenseClaimType;
     protected readonly ExpenseClaimStatus = ExpenseClaimStatus;
-    protected viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    protected viewer!: NonNullable<CurrentUserForProfileQuery['viewer']>;
 
     public constructor() {
         super('expenseClaim', inject(ExpenseClaimService));

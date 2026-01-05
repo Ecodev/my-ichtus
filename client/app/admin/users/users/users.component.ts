@@ -12,7 +12,12 @@ import {
     NaturalTableButtonComponent,
 } from '@ecodev/natural';
 import {AsyncPipe, DatePipe} from '@angular/common';
-import {BankingInfosVariables, EmailAndPhoneUsersVariables, Users, UserStatus} from '../../../shared/generated-types';
+import {
+    BankingInfosQueryVariables,
+    EmailAndPhoneUsersQueryVariables,
+    UsersQuery,
+    UserStatus,
+} from '../../../shared/generated-types';
 import {users} from '../../../shared/natural-search/natural-search-facets';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {UserService} from '../services/user.service';
@@ -77,7 +82,7 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
     protected readonly permissionsService = inject(PermissionsService);
     private readonly dialog = inject(MatDialog);
     private readonly copyContactDataButtonService =
-        inject<CopyContactDataButtonService<EmailAndPhoneUsersVariables>>(CopyContactDataButtonService);
+        inject<CopyContactDataButtonService<EmailAndPhoneUsersQueryVariables>>(CopyContactDataButtonService);
 
     public override availableColumns: AvailableColumn[] = [
         {id: 'balance', label: 'Solde'},
@@ -101,8 +106,8 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
         'emailAndPhoneUsers',
     );
 
-    protected readonly activating = new Map<Users['users']['items'][0], true>();
-    protected readonly welcoming = new Map<Users['users']['items'][0], true>();
+    protected readonly activating = new Map<UsersQuery['users']['items'][0], true>();
+    protected readonly welcoming = new Map<UsersQuery['users']['items'][0], true>();
 
     public constructor() {
         super(inject(UserService));
@@ -110,7 +115,7 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
         this.naturalSearchFacets = users();
     }
 
-    protected flagWelcomeSessionDate(user: Users['users']['items'][0]): void {
+    protected flagWelcomeSessionDate(user: UsersQuery['users']['items'][0]): void {
         this.welcoming.set(user, true);
         this.service
             .flagWelcomeSessionDate(user.id)
@@ -118,7 +123,7 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
             .subscribe();
     }
 
-    protected activate(user: Users['users']['items'][0]): void {
+    protected activate(user: UsersQuery['users']['items'][0]): void {
         if (!this.isActivable(user)) {
             return;
         }
@@ -130,15 +135,15 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
             .subscribe();
     }
 
-    protected isActive(user: Users['users']['items'][0]): boolean {
+    protected isActive(user: UsersQuery['users']['items'][0]): boolean {
         return user.status === UserStatus.Active;
     }
 
-    protected isActivable(user: Users['users']['items'][0]): boolean {
+    protected isActivable(user: UsersQuery['users']['items'][0]): boolean {
         return !!user.name && !!user.login;
     }
 
-    protected isNew(user: Users['users']['items'][0]): boolean {
+    protected isNew(user: UsersQuery['users']['items'][0]): boolean {
         return user.status === UserStatus.New;
     }
 
@@ -146,8 +151,8 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
         super.search(naturalSearchSelections);
     }
 
-    protected showProvision(user: Users['users']['items'][0]): void {
-        const config: MatDialogConfig<BankingInfosVariables> = {
+    protected showProvision(user: UsersQuery['users']['items'][0]): void {
+        const config: MatDialogConfig<BankingInfosQueryVariables> = {
             data: {
                 user: user,
             },

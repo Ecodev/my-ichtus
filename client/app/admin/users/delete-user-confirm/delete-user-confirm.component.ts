@@ -6,8 +6,8 @@ import {Apollo} from 'apollo-angular';
 import {ApolloQueryResult, gql} from '@apollo/client/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {
-    DeleteUserConfirmation,
-    DeleteUserConfirmationVariables,
+    DeleteUserConfirmationQuery,
+    DeleteUserConfirmationQueryVariables,
     ExpenseClaimStatus,
 } from '../../../shared/generated-types';
 import {FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -44,7 +44,7 @@ export type DeleteUserConfirmData = {
 export class DeleteUserConfirmComponent {
     private readonly dialog = inject<MatDialogRef<boolean>>(MatDialogRef);
 
-    protected result: ApolloQueryResult<DeleteUserConfirmation> | null = null;
+    protected result: ApolloQueryResult<DeleteUserConfirmationQuery> | null = null;
     protected readonly form = new FormControl('', {nonNullable: true});
     protected readonly accountBalanceNotZeroParams: Params;
     protected readonly nonTreatedExpenseClaimParams: Params;
@@ -94,7 +94,7 @@ export class DeleteUserConfirmComponent {
         this.familyParams = toNavigationParameters(family);
 
         apollo
-            .watchQuery<DeleteUserConfirmation, DeleteUserConfirmationVariables>({
+            .watchQuery<DeleteUserConfirmationQuery, DeleteUserConfirmationQueryVariables>({
                 fetchPolicy: 'cache-and-network',
                 variables: {
                     userId: data.user,
@@ -103,7 +103,7 @@ export class DeleteUserConfirmComponent {
                     userFilter: toGraphQLDoctrineFilter(users(), family),
                 },
                 query: gql`
-                    query DeleteUserConfirmation(
+                    query DeleteUserConfirmationQuery(
                         $userId: UserID!
                         $accountFilter: AccountFilter!
                         $expenseClaimFilter: ExpenseClaimFilter!

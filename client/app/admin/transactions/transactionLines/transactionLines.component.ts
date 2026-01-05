@@ -16,8 +16,8 @@ import {TransactionLineService} from '../services/transactionLine.service';
 import {
     ExportTransactionLinesVariables,
     MinimalAccount,
-    TransactionLine,
-    TransactionTag,
+    TransactionLineQuery,
+    TransactionTagQuery,
 } from '../../../shared/generated-types';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {union} from 'es-toolkit';
@@ -134,7 +134,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
         }
     }
 
-    protected documentCount(tl: TransactionLine['transactionLine']): number {
+    protected documentCount(tl: TransactionLineQuery['transactionLine']): number {
         const transaction = tl.transaction;
         const expenseClaim = transaction.expenseClaim;
 
@@ -144,7 +144,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
         ).length;
     }
 
-    protected filterByTag(tag: TransactionTag['transactionTag']): void {
+    protected filterByTag(tag: TransactionTagQuery['transactionTag']): void {
         if (this.hideFab()) {
             const link = this.service.linkToTransactionLinesForTag(tag);
             this.router.navigate(link);
@@ -155,7 +155,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
         }
     }
 
-    protected updateReconciled(e: MatCheckboxChange, transactionLine: TransactionLine['transactionLine']): void {
+    protected updateReconciled(e: MatCheckboxChange, transactionLine: TransactionLineQuery['transactionLine']): void {
         this.service.updateIsReconciled(transactionLine.id, e.checked).subscribe(() => {
             this.alertService.info('Pointage mis à jour');
         });

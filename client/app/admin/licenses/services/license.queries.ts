@@ -2,7 +2,7 @@ import {gql} from '@apollo/client/core';
 import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
 
 export const licensesQuery = gql`
-    query Licenses($filter: LicenseFilter, $sorting: [LicenseSorting!], $pagination: PaginationInput) {
+    query LicensesQuery($filter: LicenseFilter, $sorting: [LicenseSorting!], $pagination: PaginationInput) {
         licenses(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
                 id
@@ -16,7 +16,7 @@ export const licensesQuery = gql`
 `;
 
 export const licenseQuery = gql`
-    query License($id: LicenseID!) {
+    query LicenseQuery($id: LicenseID!) {
         license(id: $id) {
             id
             name

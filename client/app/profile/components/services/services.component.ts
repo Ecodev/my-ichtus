@@ -1,5 +1,10 @@
 import {Component, DestroyRef, inject, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {Bookings, BookingType, CurrentUserForProfile, PricedBookings} from '../../../shared/generated-types';
+import {
+    BookingsQuery,
+    BookingType,
+    CurrentUserForProfileQuery,
+    PricedBookingsQuery,
+} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
@@ -68,16 +73,16 @@ export class ServicesComponent implements OnInit, OnChanges {
     protected readonly bookingService = inject(BookingService);
     protected readonly destroyRef = inject(DestroyRef);
 
-    @Input({required: true}) public user!: NonNullable<CurrentUserForProfile['viewer']>;
+    @Input({required: true}) public user!: NonNullable<CurrentUserForProfileQuery['viewer']>;
 
     protected adminMode = false;
 
-    protected runningServicesDS!: NaturalDataSource<PricedBookings['bookings']>;
-    protected pendingApplicationsDS!: NaturalDataSource<PricedBookings['bookings']>;
+    protected runningServicesDS!: NaturalDataSource<PricedBookingsQuery['bookings']>;
+    protected pendingApplicationsDS!: NaturalDataSource<PricedBookingsQuery['bookings']>;
 
     protected servicesColumns = ['name', 'initialPrice', 'periodicPrice', 'revoke'];
     protected applicationsColumns = ['name', 'startDate', 'remarks', 'initialPrice', 'periodicPrice', 'cancel'];
-    protected readonly deleting = new Map<Bookings['bookings']['items'][0]['id'], true>();
+    protected readonly deleting = new Map<BookingsQuery['bookings']['items'][0]['id'], true>();
 
     public ngOnChanges(changes: SimpleChanges): void {
         const previousUser = changes.user?.previousValue;
@@ -103,18 +108,18 @@ export class ServicesComponent implements OnInit, OnChanges {
         const pendingApplications = this.userService
             .getPendingApplications(this.user)
             .pipe(takeUntilDestroyed(this.destroyRef));
-        this.pendingApplicationsDS = new NaturalDataSource<PricedBookings['bookings']>(pendingApplications);
+        this.pendingApplicationsDS = new NaturalDataSource<PricedBookingsQuery['bookings']>(pendingApplications);
 
         const runningServices = this.userService
             .getRunningServices(this.user)
             .pipe(takeUntilDestroyed(this.destroyRef));
-        this.runningServicesDS = new NaturalDataSource<PricedBookings['bookings']>(runningServices);
+        this.runningServicesDS = new NaturalDataSource<PricedBookingsQuery['bookings']>(runningServices);
     }
 
     /**
      * Set end date ?
      */
-    protected revokeBooking(booking: Bookings['bookings']['items'][0]): void {
+    protected revokeBooking(booking: BookingsQuery['bookings']['items'][0]): void {
         this.alertService
             .confirm(
                 'Résiliation de prestation',
@@ -128,11 +133,11 @@ export class ServicesComponent implements OnInit, OnChanges {
             });
     }
 
-    protected canRevoke(booking: Bookings['bookings']['items'][0]): boolean {
+    protected canRevoke(booking: BookingsQuery['bookings']['items'][0]): boolean {
         return booking.bookable?.bookingType !== BookingType.Mandatory;
     }
 
-    protected cancelApplication(booking: Bookings['bookings']['items'][0]): void {
+    protected cancelApplication(booking: BookingsQuery['bookings']['items'][0]): void {
         this.deleting.set(booking.id, true);
         this.bookingService
             .delete([booking])
