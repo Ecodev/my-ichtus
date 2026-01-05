@@ -128,9 +128,9 @@ export const exportAccountingReport = gql`
     }
 `;
 
-export const accountingClosing = gql`
-    mutation AccountingClosing($date: Date) {
-        accountingClosing(date: $date) {
+export const closeAccounting = gql`
+    mutation CloseAccounting($date: Date) {
+        closeAccounting(date: $date) {
             id
         }
     }

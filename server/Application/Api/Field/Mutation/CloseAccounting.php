@@ -12,11 +12,11 @@ use Ecodev\Felix\Api\Field\FieldInterface;
 use Ecodev\Felix\Api\Scalar\DateType;
 use Mezzio\Session\SessionInterface;
 
-abstract class AccountingClosing implements FieldInterface
+abstract class CloseAccounting implements FieldInterface
 {
     public static function build(): iterable
     {
-        yield 'accountingClosing' => fn () => [
+        yield 'closeAccounting' => fn () => [
             'type' => _types()->getOutput(Transaction::class),
             'description' => 'Generate the closing entries at the end of an accounting period',
             'args' => [

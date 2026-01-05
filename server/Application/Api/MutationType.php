@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Api;
 
-use Application\Api\Field\Mutation\AccountingClosing;
+use Application\Api\Field\Mutation\CloseAccounting;
 use Application\Api\Field\Mutation\ConfirmRegistration;
 use Application\Api\Field\Mutation\CreateTransaction;
 use Application\Api\Field\Mutation\DeleteUsers;
@@ -63,7 +63,7 @@ class MutationType extends ObjectType
             ImportCamt::build(),
             Utility::filterByKeys(Standard::buildMutation(Transaction::class), 'deleteTransactions'),
             UpdateConfiguration::build(),
-            AccountingClosing::build(),
+            CloseAccounting::build(),
             ExportAccountingReport::build(),
             ExportTransactionLines::build(),
             Utility::filterByKeys(Standard::buildMutation(User::class), 'createUser', 'updateUser'),
