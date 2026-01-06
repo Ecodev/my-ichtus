@@ -1,19 +1,20 @@
-@if (transactionLine && relativeToAccount && transactionLine.balance !== '0.00' && isIncome !== null) {
+@let line = transactionLine();
+@let account = relativeToAccount();
+@if (line && account && line.balance !== '0.00' && isIncome() !== null) {
     <div
-        [class.positive]="isIncome === true"
-        [class.negative]="isIncome === false"
+        [class.positive]="isIncome() === true"
+        [class.negative]="isIncome() === false"
         [class.background-decoration]="displayMode() === 'account'"
         [class.text-decoration]="displayMode() === 'amount'"
     >
         @if (displayMode() === 'amount') {
-            <span>{{ isIncome ? '➚' : '➘︎' }}&nbsp;{{ transactionLine.balance | currency: 'CHF' }}</span>
-        }
-        @if (displayMode() === 'account') {
+            <span>{{ isIncome() ? '➚' : '➘︎' }}&nbsp;{{ line.balance | currency: 'CHF' }}</span>
+        } @else {
             <a
                 matTooltip="Voir les transactions"
-                [routerLink]="transactionLineService.linkToTransactionLinesForAccount(relativeToAccount)"
-                (click)="propagateAccount(relativeToAccount)"
-                >{{ isIncome ? '➚' : '➘︎' }}&nbsp;{{ relativeToAccount.name }}</a
+                [routerLink]="transactionLineService.linkToTransactionLinesForAccount(account)"
+                (click)="propagateAccount(account)"
+                >{{ isIncome() ? '➚' : '➘︎' }}&nbsp;{{ account.name }}</a
             >
         }
     </div>
