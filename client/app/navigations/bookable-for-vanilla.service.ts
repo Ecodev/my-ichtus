@@ -1,10 +1,10 @@
 import {inject, Injectable} from '@angular/core';
 import {NaturalAbstractModelService, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {
-    BookablesQuery,
     BookableSortingField,
-    BookableStatus,
+    BookablesQuery,
     BookablesQueryVariables,
+    BookableStatus,
     BookingSortingField,
     type BookingsQueryVariables,
     BookingType,

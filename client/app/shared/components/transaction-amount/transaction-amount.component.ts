@@ -1,5 +1,5 @@
 import {Component, inject, Input, input, OnChanges, output} from '@angular/core';
-import {AccountType, MinimalAccount, TransactionLineQuery} from '../../generated-types';
+import {AccountType, MinimalAccount, type TransactionLineMeta} from '../../generated-types';
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
 import {RouterLink} from '@angular/router';
 import {MatTooltip} from '@angular/material/tooltip';
@@ -14,7 +14,7 @@ import {CurrencyPipe} from '@angular/common';
 export class TransactionAmountComponent implements OnChanges {
     protected readonly transactionLineService = inject(TransactionLineService);
 
-    @Input() public transactionLine: TransactionLineQuery['transactionLine'] | null = null;
+    @Input() public transactionLine: TransactionLineMeta | null = null;
 
     /**
      * Account we want to see the amount relative to

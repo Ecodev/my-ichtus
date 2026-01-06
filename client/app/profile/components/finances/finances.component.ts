@@ -1,11 +1,17 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
+import {
+    ifValid,
+    NaturalAbstractList,
+    NaturalEnumPipe,
+    NaturalErrorMessagePipe,
+    NaturalIconDirective,
+    TypedMatCellDef,
+} from '@ecodev/natural';
 import {Component, inject, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {CurrentUserForProfileQuery, ExpenseClaimsQuery, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateRefundComponent} from '../create-refund/create-refund.component';
-import {ifValid, NaturalAbstractList, NaturalEnumPipe, NaturalIconDirective} from '@ecodev/natural';
 import {finalize} from 'rxjs/operators';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {iban as ibanValidator} from '../../../shared/validators';
@@ -16,7 +22,6 @@ import {MoneyComponent} from '../../../shared/components/money/money.component';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {
     MatCell,
-    MatCellDef,
     MatColumnDef,
     MatHeaderCell,
     MatHeaderCellDef,
@@ -58,7 +63,7 @@ import {AsyncPipe, DatePipe} from '@angular/common';
         MatHeaderCellDef,
         MatHeaderRowDef,
         MatColumnDef,
-        MatCellDef,
+        TypedMatCellDef,
         MatRowDef,
         MatHeaderCell,
         MatCell,

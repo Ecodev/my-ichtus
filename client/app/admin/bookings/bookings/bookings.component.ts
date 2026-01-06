@@ -13,8 +13,19 @@ import {MatButton} from '@angular/material/button';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {
+    NaturalAvatarComponent,
+    NaturalColumnsPickerComponent,
+    NaturalEllipsisPipe,
+    NaturalEnumPipe,
+    NaturalFileComponent,
+    NaturalFixedButtonComponent,
+    NaturalIconDirective,
+    NaturalSearchComponent,
+    NaturalTableButtonComponent,
+    TypedMatCellDef,
+} from '@ecodev/natural';
+import {
     MatCell,
-    MatCellDef,
     MatColumnDef,
     MatFooterCell,
     MatFooterCellDef,
@@ -28,17 +39,6 @@ import {
     MatRowDef,
     MatTable,
 } from '@angular/material/table';
-import {
-    NaturalAvatarComponent,
-    NaturalColumnsPickerComponent,
-    NaturalEllipsisPipe,
-    NaturalEnumPipe,
-    NaturalFileComponent,
-    NaturalFixedButtonComponent,
-    NaturalIconDirective,
-    NaturalSearchComponent,
-    NaturalTableButtonComponent,
-} from '@ecodev/natural';
 import {AsyncPipe, DatePipe} from '@angular/common';
 
 @Component({
@@ -49,7 +49,7 @@ import {AsyncPipe, DatePipe} from '@angular/common';
         FlagComponent,
         MatButton,
         MatCell,
-        MatCellDef,
+        TypedMatCellDef,
         MatColumnDef,
         MatFooterCell,
         MatFooterCellDef,

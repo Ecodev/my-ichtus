@@ -1,7 +1,6 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
-import {Component, inject} from '@angular/core';
 import {
     NaturalAbstractDetail,
+    NaturalErrorMessagePipe,
     NaturalFixedButtonDetailComponent,
     NaturalIconDirective,
     NaturalLinkableTabDirective,
@@ -9,6 +8,7 @@ import {
     NaturalStampComponent,
     NaturalTableButtonComponent,
 } from '@ecodev/natural';
+import {Component, inject} from '@angular/core';
 import {LicenseService} from '../services/license.service';
 import {BookableService} from '../../bookables/services/bookable.service';
 import {UserService} from '../../users/services/user.service';

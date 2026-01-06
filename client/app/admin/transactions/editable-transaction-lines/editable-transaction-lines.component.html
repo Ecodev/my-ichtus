@@ -6,7 +6,7 @@
 
             <ng-container matColumnDef="name">
                 <th *matHeaderCellDef mat-header-cell>Nom</th>
-                <td *matCellDef="let element; let i = index" mat-cell [formGroupName]="i">
+                <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
                     <mat-form-field>
                         <mat-label>Nom</mat-label>
                         <input matInput formControlName="name" />
@@ -17,7 +17,7 @@
 
             <ng-container matColumnDef="balance">
                 <th *matHeaderCellDef mat-header-cell>Montant</th>
-                <td *matCellDef="let element; let i = index" mat-cell [formGroupName]="i">
+                <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
                     <mat-form-field>
                         <mat-label>Montant</mat-label>
                         <input matInput type="number" formControlName="balance" step="0.01" />
@@ -28,7 +28,7 @@
 
             <ng-container matColumnDef="debit">
                 <th *matHeaderCellDef mat-header-cell>Compte débit</th>
-                <td *matCellDef="let element; let i = index" mat-cell [formGroupName]="i">
+                <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
                     <natural-select-hierarchic
                         formControlName="debit"
                         placeholder="Compte débit"
@@ -40,7 +40,7 @@
 
             <ng-container matColumnDef="credit">
                 <th *matHeaderCellDef mat-header-cell>Compte crédit</th>
-                <td *matCellDef="let element; let i = index" mat-cell [formGroupName]="i">
+                <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
                     <natural-select-hierarchic
                         formControlName="credit"
                         placeholder="Compte crédit"
@@ -52,14 +52,14 @@
 
             <ng-container matColumnDef="isReconciled">
                 <th *matHeaderCellDef mat-header-cell style="text-align: left !important">Pointé</th>
-                <td *matCellDef="let element; let i = index" mat-cell [formGroupName]="i">
+                <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
                     <mat-checkbox formControlName="isReconciled" />
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="transactionTag">
                 <th *matHeaderCellDef mat-header-cell>Tag</th>
-                <td *matCellDef="let element; let i = index" mat-cell [formGroupName]="i">
+                <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
                     <natural-select
                         formControlName="transactionTag"
                         placeholder="Tag"
@@ -71,7 +71,7 @@
 
             <ng-container matColumnDef="bookable">
                 <th *matHeaderCellDef mat-header-cell>Réservable</th>
-                <td *matCellDef="let element; let i = index" mat-cell [formGroupName]="i">
+                <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
                     <natural-select
                         formControlName="bookable"
                         placeholder="Réservable"
@@ -83,7 +83,7 @@
 
             <ng-container matColumnDef="remarks">
                 <th *matHeaderCellDef mat-header-cell>Remarque</th>
-                <td *matCellDef="let element; let i = index" mat-cell [formGroupName]="i">
+                <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
                     <mat-form-field>
                         <mat-label>Remarques</mat-label>
                         <textarea
@@ -98,7 +98,7 @@
 
             <ng-container matColumnDef="remove">
                 <th *matHeaderCellDef mat-header-cell></th>
-                <td *matCellDef="let element; let i = index" mat-cell [formGroupName]="i">
+                <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
                     <button matIconButton color="error" [disabled]="dataSource.data.length < 2" (click)="removeAt(i)">
                         <mat-icon naturalIcon="delete" />
                     </button>

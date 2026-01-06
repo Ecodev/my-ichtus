@@ -1,6 +1,12 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
+import {
+    available,
+    deliverableEmail,
+    NaturalErrorMessagePipe,
+    NaturalIconDirective,
+    relationsToIds,
+    TypedMatCellDef,
+} from '@ecodev/natural';
 import {Component, inject, OnInit} from '@angular/core';
-import {available, deliverableEmail, NaturalIconDirective, relationsToIds} from '@ecodev/natural';
 import {pick} from 'es-toolkit';
 import {RegisterComponent} from './register.component';
 import {FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -11,7 +17,6 @@ import {MatButton} from '@angular/material/button';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {
     MatCell,
-    MatCellDef,
     MatColumnDef,
     MatFooterCell,
     MatFooterCellDef,
@@ -59,7 +64,7 @@ import {MatError, MatFormField, MatLabel, MatPrefix, MatSuffix} from '@angular/m
         MatHeaderCellDef,
         MatHeaderRowDef,
         MatColumnDef,
-        MatCellDef,
+        TypedMatCellDef,
         MatRowDef,
         MatFooterCellDef,
         MatFooterRowDef,

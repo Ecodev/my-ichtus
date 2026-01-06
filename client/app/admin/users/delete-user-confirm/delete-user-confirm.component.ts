@@ -1,4 +1,9 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
+import {
+    NaturalErrorMessagePipe,
+    NaturalSearchSelections,
+    toGraphQLDoctrineFilter,
+    toNavigationParameters,
+} from '@ecodev/natural';
 import {Component, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {MatButton} from '@angular/material/button';
@@ -14,7 +19,6 @@ import {FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
 import {escapeRegExp} from 'es-toolkit';
 import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
-import {NaturalSearchSelections, toGraphQLDoctrineFilter, toNavigationParameters} from '@ecodev/natural';
 import {accounts, expenseClaims, users} from '../../../shared/natural-search/natural-search-facets';
 import {Params, RouterLink} from '@angular/router';
 import {WarningComponent} from '../../../shared/warning.component';

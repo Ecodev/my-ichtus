@@ -8,10 +8,10 @@ import {
 } from './booking.queries';
 import {
     BookingQuery,
+    BookingQueryVariables,
     BookingsQueryVariables,
     BookingsWithOwnerBalanceQuery,
     BookingsWithOwnerBalanceQueryVariables,
-    BookingQueryVariables,
     DeleteBookings,
     DeleteBookingsVariables,
     JoinType,

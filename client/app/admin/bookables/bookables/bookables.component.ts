@@ -12,8 +12,16 @@ import {FlagComponent} from '../../../shared/components/flag/flag.component';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {
+    NaturalAvatarComponent,
+    NaturalColumnsPickerComponent,
+    NaturalFileComponent,
+    NaturalFixedButtonComponent,
+    NaturalSearchComponent,
+    NaturalTableButtonComponent,
+    TypedMatCellDef,
+} from '@ecodev/natural';
+import {
     MatCell,
-    MatCellDef,
     MatColumnDef,
     MatFooterCell,
     MatFooterCellDef,
@@ -27,14 +35,6 @@ import {
     MatRowDef,
     MatTable,
 } from '@angular/material/table';
-import {
-    NaturalAvatarComponent,
-    NaturalColumnsPickerComponent,
-    NaturalFileComponent,
-    NaturalFixedButtonComponent,
-    NaturalSearchComponent,
-    NaturalTableButtonComponent,
-} from '@ecodev/natural';
 import {AsyncPipe, CurrencyPipe, DatePipe, NgClass} from '@angular/common';
 
 @Component({
@@ -50,7 +50,7 @@ import {AsyncPipe, CurrencyPipe, DatePipe, NgClass} from '@angular/common';
         MatHeaderCellDef,
         MatHeaderRowDef,
         MatColumnDef,
-        MatCellDef,
+        TypedMatCellDef,
         MatRowDef,
         MatFooterCellDef,
         MatFooterRowDef,

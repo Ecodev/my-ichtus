@@ -9,11 +9,11 @@ import {
     LoginVariables,
     SortingOrder,
     UserQuery,
-    UsersQuery,
-    UserSortingField,
-    UserStatus,
-    UsersQueryVariables,
     UserQueryVariables,
+    UserSortingField,
+    UsersQuery,
+    UsersQueryVariables,
+    UserStatus,
 } from '../shared/generated-types';
 import {currentUserForProfileQuery, loginMutation, userQuery, usersQuery} from '../admin/users/services/user.queries';
 import {closePopUp, getNiceTime} from './general/home';

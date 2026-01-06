@@ -4,7 +4,7 @@
             <tr *matRowDef="let row; columns: columns" mat-row></tr>
 
             <ng-container matColumnDef="name">
-                <td *matCellDef="let element" mat-cell>
+                <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                     @if (edit) {
                         <div class="nat-vertical">
                             <mat-form-field class="no-bottom-spacing">
@@ -20,7 +20,7 @@
             </ng-container>
 
             <ng-container matColumnDef="value">
-                <td *matCellDef="let element" mat-cell>
+                <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                     @if (edit) {
                         <div class="nat-vertical">
                             @if (edit) {
@@ -39,7 +39,7 @@
 
             <ng-container matColumnDef="delete">
                 <th *matHeaderCellDef mat-header-cell class="natural-1em-column"></th>
-                <td *matCellDef="let element" mat-cell>
+                <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                     @if (element.id) {
                         <button
                             matIconButton

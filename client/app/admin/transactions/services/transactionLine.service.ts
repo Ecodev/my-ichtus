@@ -21,12 +21,12 @@ import {
     MinimalAccount,
     ReconcileTransactionLine,
     ReconcileTransactionLineVariables,
-    TransactionLineQuery,
     TransactionLineInput,
+    type TransactionLineMeta,
+    TransactionLineQuery,
+    TransactionLineQueryVariables,
     TransactionLinesQuery,
     TransactionLinesQueryVariables,
-    TransactionLineQueryVariables,
-    TransactionTagQuery,
 } from '../../../shared/generated-types';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -94,7 +94,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
         ];
     }
 
-    public static getSelectionForTag(tag: TransactionTagQuery['transactionTag']): NaturalSearchSelections {
+    public static getSelectionForTag(tag: {__typename: 'TransactionTag'; id: string}): NaturalSearchSelections {
         return [
             [
                 {
@@ -128,7 +128,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
         return ['/admin/transaction-line', toNavigationParameters(selection)];
     }
 
-    public linkToTransactionLinesForTag(tag: TransactionTagQuery['transactionTag']): any[] {
+    public linkToTransactionLinesForTag(tag: NonNullable<TransactionLineMeta['transactionTag']>): any[] {
         const selection = TransactionLineService.getSelectionForTag(tag);
         return ['/admin/transaction-line', toNavigationParameters(selection)];
     }

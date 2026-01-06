@@ -1,8 +1,7 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
+import {money, NaturalErrorMessagePipe} from '@ecodev/natural';
 import {Component, inject} from '@angular/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import {FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import {money} from '@ecodev/natural';
 import {MatButton} from '@angular/material/button';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {MatInput} from '@angular/material/input';

@@ -8,11 +8,11 @@ import {
     updateBookableTag,
 } from './bookableTag.queries';
 import {
-    BookableTagQuery,
     BookableTagInput,
+    BookableTagQuery,
+    BookableTagQueryVariables,
     BookableTagsQuery,
     BookableTagsQueryVariables,
-    BookableTagQueryVariables,
     CreateBookableTag,
     CreateBookableTagVariables,
     DeleteBookableTags,

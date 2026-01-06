@@ -61,21 +61,21 @@ import {
     UnregisterVariables,
     UpdateUser,
     UpdateUserVariables,
-    UserQuery,
     UserByTokenQuery,
     UserByTokenQueryVariables,
     UserInput,
     UserLeaveFamily,
     UserLoginAvailableQuery,
     UserLoginAvailableQueryVariables,
+    UserQuery,
+    UserQueryVariables,
     UserRole,
     UserRolesAvailablesQuery,
     UserRolesAvailablesQueryVariables,
-    UsersQuery,
     UserSortingField,
-    UserStatus,
+    UsersQuery,
     UsersQueryVariables,
-    UserQueryVariables,
+    UserStatus,
 } from '../../../shared/generated-types';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {PricedBookingService} from '../../bookings/services/PricedBooking.service';
@@ -399,7 +399,8 @@ export class UserService
         coursesOnly = false,
         excludeNFT = false,
     ): Observable<PricedBookingsQuery['bookings']> {
-        const variables: PricedBookingsQueryVariables = {
+        const qvm = new NaturalQueryVariablesManager<PricedBookingsQueryVariables>();
+        qvm.set('variables', {
             filter: {
                 groups: [
                     {
@@ -414,10 +415,7 @@ export class UserService
                     },
                 ],
             },
-        };
-
-        const qvm = new NaturalQueryVariablesManager<PricedBookingsQueryVariables>();
-        qvm.set('variables', variables);
+        });
         return this.pricedBookingService.watchAll(qvm);
     }
 
@@ -425,7 +423,8 @@ export class UserService
         user: NonNullable<CurrentUserForProfileQuery['viewer']> | UserQuery['user'],
         bookingTypes: BookingType[] = [BookingType.Application, BookingType.AdminApproved],
     ): Observable<PricedBookingsQuery['bookings']> {
-        const variables: PricedBookingsQueryVariables = {
+        const qvm = new NaturalQueryVariablesManager<PricedBookingsQueryVariables>();
+        qvm.set('variables', {
             filter: {
                 groups: [
                     {
@@ -450,10 +449,7 @@ export class UserService
                     },
                 ],
             },
-        };
-
-        const qvm = new NaturalQueryVariablesManager<PricedBookingsQueryVariables>();
-        qvm.set('variables', variables);
+        });
         return this.pricedBookingService.watchAll(qvm);
     }
 

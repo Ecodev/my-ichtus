@@ -16,7 +16,9 @@
 
                     <ng-container matColumnDef="name">
                         <th *matHeaderCellDef mat-header-cell>Nom</th>
-                        <td *matCellDef="let booking" mat-cell>{{ booking.bookable.name }}</td>
+                        <td *matCellDef="let booking; dataSource: runningServicesDS" mat-cell>
+                            {{ booking.bookable?.name }}
+                        </td>
                         <td *matFooterCellDef mat-footer-cell>Totaux</td>
                     </ng-container>
 
@@ -24,7 +26,11 @@
                         <th *matHeaderCellDef mat-header-cell class="natural-7em-column natural-align-right">
                             Prix périodique
                         </th>
-                        <td *matCellDef="let booking" mat-cell class="natural-align-right">
+                        <td
+                            *matCellDef="let booking; dataSource: runningServicesDS"
+                            mat-cell
+                            class="natural-align-right"
+                        >
                             @if (booking.periodicPrice) {
                                 <span>{{ booking.periodicPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}</span>
                             }
@@ -35,16 +41,20 @@
                         <th *matHeaderCellDef mat-header-cell class="natural-7em-column natural-align-right">
                             Prix initial
                         </th>
-                        <td *matCellDef="let booking" mat-cell class="natural-align-right">
-                            @if (booking.bookable.initialPrice !== '0.00') {
-                                <span>{{ booking.bookable.initialPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}</span>
+                        <td
+                            *matCellDef="let booking; dataSource: runningServicesDS"
+                            mat-cell
+                            class="natural-align-right"
+                        >
+                            @if (booking.bookable?.initialPrice !== '0.00') {
+                                <span>{{ booking.bookable?.initialPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}</span>
                             }
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="revoke">
                         <th *matHeaderCellDef mat-header-cell class="natural-1em-column"></th>
-                        <td *matCellDef="let booking" mat-cell>
+                        <td *matCellDef="let booking; dataSource: runningServicesDS" mat-cell>
                             @if (canRevoke(booking)) {
                                 <button matIconButton color="error" (click)="revokeBooking(booking)">
                                     <mat-icon naturalIcon="delete_forever" />
@@ -57,8 +67,12 @@
                         <th *matHeaderCellDef mat-header-cell class="natural-7em-column natural-align-right">
                             Utilisations
                         </th>
-                        <td *matCellDef="let booking" mat-cell class="natural-align-right">
-                            @for (b of booking.bookable.simultaneousBookings; track b) {
+                        <td
+                            *matCellDef="let booking; dataSource: runningServicesDS"
+                            mat-cell
+                            class="natural-align-right"
+                        >
+                            @for (b of booking.bookable?.simultaneousBookings; track b) {
                                 <div class="nat-horizontal">
                                     <natural-avatar [initials]="b.owner.name" [gravatar]="b.owner.email" [size]="36" />
                                     <a matButton [routerLink]="['/admin/user', b.owner.id]">
@@ -71,7 +85,7 @@
 
                     <ng-container matColumnDef="admin">
                         <th *matHeaderCellDef mat-header-cell class="natural-1em-column">Traiter</th>
-                        <td *matCellDef="let booking" mat-cell>
+                        <td *matCellDef="let booking; dataSource: runningServicesDS" mat-cell>
                             <a
                                 matIconButton
                                 class="icon-button-circle-accent"
@@ -103,19 +117,23 @@
 
                 <ng-container matColumnDef="name">
                     <th *matHeaderCellDef mat-header-cell>Nom</th>
-                    <td *matCellDef="let booking" mat-cell>{{ booking.bookable.name }}</td>
+                    <td *matCellDef="let booking; dataSource: pendingApplicationsDS" mat-cell>
+                        {{ booking.bookable?.name }}
+                    </td>
                     <td *matFooterCellDef mat-footer-cell>Totaux</td>
                 </ng-container>
 
                 <ng-container matColumnDef="startDate">
                     <th *matHeaderCellDef mat-header-cell>Date demande</th>
-                    <td *matCellDef="let booking" mat-cell>{{ booking.startDate | date }}</td>
+                    <td *matCellDef="let booking; dataSource: pendingApplicationsDS" mat-cell>
+                        {{ booking.startDate | date }}
+                    </td>
                     <td *matFooterCellDef mat-footer-cell></td>
                 </ng-container>
 
                 <ng-container matColumnDef="remarks">
                     <th *matHeaderCellDef mat-header-cell>Remarques</th>
-                    <td *matCellDef="let booking" mat-cell>{{ booking.remarks }}</td>
+                    <td *matCellDef="let booking; dataSource: pendingApplicationsDS" mat-cell>{{ booking.remarks }}</td>
                     <td *matFooterCellDef mat-footer-cell></td>
                 </ng-container>
 
@@ -123,10 +141,14 @@
                     <th *matHeaderCellDef mat-header-cell class="natural-7em-column natural-align-right">
                         Prix périodique
                     </th>
-                    <td *matCellDef="let booking" mat-cell class="natural-align-right">
-                        @if (booking.bookable.periodicPrice !== '0.00') {
+                    <td
+                        *matCellDef="let booking; dataSource: pendingApplicationsDS"
+                        mat-cell
+                        class="natural-align-right"
+                    >
+                        @if (booking.bookable?.periodicPrice !== '0.00') {
                             <span>
-                                {{ booking.bookable.periodicPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}
+                                {{ booking.bookable?.periodicPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}
                             </span>
                         }
                     </td>
@@ -146,9 +168,13 @@
                     <th *matHeaderCellDef mat-header-cell class="natural-7em-column natural-align-right">
                         Prix initial
                     </th>
-                    <td *matCellDef="let booking" mat-cell class="natural-align-right">
-                        @if (booking.bookable.initialPrice !== '0.00') {
-                            <span>{{ booking.bookable.initialPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}</span>
+                    <td
+                        *matCellDef="let booking; dataSource: pendingApplicationsDS"
+                        mat-cell
+                        class="natural-align-right"
+                    >
+                        @if (booking.bookable?.initialPrice !== '0.00') {
+                            <span>{{ booking.bookable?.initialPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}</span>
                         }
                     </td>
                     <td *matFooterCellDef mat-footer-cell class="natural-align-right">
@@ -164,7 +190,7 @@
 
                 <ng-container matColumnDef="cancel">
                     <th *matHeaderCellDef mat-header-cell class="natural-1em-column"></th>
-                    <td *matCellDef="let booking" mat-cell>
+                    <td *matCellDef="let booking; dataSource: pendingApplicationsDS" mat-cell>
                         <button
                             matIconButton
                             color="error"
@@ -179,7 +205,7 @@
 
                 <ng-container matColumnDef="admin">
                     <th *matHeaderCellDef mat-header-cell class="natural-1em-column">Traiter</th>
-                    <td *matCellDef="let booking" mat-cell>
+                    <td *matCellDef="let booking; dataSource: pendingApplicationsDS" mat-cell>
                         <a
                             matIconButton
                             class="icon-button-circle-accent"

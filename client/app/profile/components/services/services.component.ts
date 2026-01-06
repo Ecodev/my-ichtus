@@ -1,20 +1,20 @@
 import {Component, DestroyRef, inject, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {
-    BookingsQuery,
-    BookingType,
-    CurrentUserForProfileQuery,
-    PricedBookingsQuery,
-} from '../../../shared/generated-types';
+import {BookingType, CurrentUserForProfileQuery, PricedBookingsQuery} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
-import {NaturalAlertService, NaturalAvatarComponent, NaturalDataSource, NaturalIconDirective} from '@ecodev/natural';
+import {
+    NaturalAlertService,
+    NaturalAvatarComponent,
+    NaturalDataSource,
+    NaturalIconDirective,
+    TypedMatCellDef,
+} from '@ecodev/natural';
 import {finalize} from 'rxjs/operators';
 import {MatTabLink, MatTabNav, MatTabNavPanel} from '@angular/material/tabs';
 import {MatIcon} from '@angular/material/icon';
 import {
     MatCell,
-    MatCellDef,
     MatColumnDef,
     MatFooterCell,
     MatFooterCellDef,
@@ -43,7 +43,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
         MatHeaderCellDef,
         MatHeaderRowDef,
         MatColumnDef,
-        MatCellDef,
+        TypedMatCellDef,
         MatRowDef,
         MatFooterCellDef,
         MatFooterRowDef,
@@ -82,7 +82,7 @@ export class ServicesComponent implements OnInit, OnChanges {
 
     protected servicesColumns = ['name', 'initialPrice', 'periodicPrice', 'revoke'];
     protected applicationsColumns = ['name', 'startDate', 'remarks', 'initialPrice', 'periodicPrice', 'cancel'];
-    protected readonly deleting = new Map<BookingsQuery['bookings']['items'][0]['id'], true>();
+    protected readonly deleting = new Map<PricedBookingsQuery['bookings']['items'][0]['id'], true>();
 
     public ngOnChanges(changes: SimpleChanges): void {
         const previousUser = changes.user?.previousValue;
@@ -119,7 +119,7 @@ export class ServicesComponent implements OnInit, OnChanges {
     /**
      * Set end date ?
      */
-    protected revokeBooking(booking: BookingsQuery['bookings']['items'][0]): void {
+    protected revokeBooking(booking: PricedBookingsQuery['bookings']['items'][0]): void {
         this.alertService
             .confirm(
                 'Résiliation de prestation',
@@ -133,11 +133,11 @@ export class ServicesComponent implements OnInit, OnChanges {
             });
     }
 
-    protected canRevoke(booking: BookingsQuery['bookings']['items'][0]): boolean {
+    protected canRevoke(booking: PricedBookingsQuery['bookings']['items'][0]): boolean {
         return booking.bookable?.bookingType !== BookingType.Mandatory;
     }
 
-    protected cancelApplication(booking: BookingsQuery['bookings']['items'][0]): void {
+    protected cancelApplication(booking: PricedBookingsQuery['bookings']['items'][0]): void {
         this.deleting.set(booking.id, true);
         this.bookingService
             .delete([booking])

@@ -1,11 +1,10 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
+import {money, NaturalErrorMessagePipe} from '@ecodev/natural';
 import {Component, inject, viewChild} from '@angular/core';
 import {ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
 import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {BankingInfosQueryVariables, CurrentUserForProfileQuery} from '../../../shared/generated-types';
 import {BvrComponent} from '../bvr/bvr.component';
-import {money} from '@ecodev/natural';
 import {MatInput} from '@angular/material/input';
 import {MatError, MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';
 import {MatButton} from '@angular/material/button';

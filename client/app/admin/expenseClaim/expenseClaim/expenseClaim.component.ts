@@ -1,8 +1,7 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
-import {Component, inject, OnInit} from '@angular/core';
 import {
     NaturalAbstractDetail,
     NaturalDetailHeaderComponent,
+    NaturalErrorMessagePipe,
     NaturalFileComponent,
     NaturalFixedButtonDetailComponent,
     NaturalIconDirective,
@@ -11,6 +10,7 @@ import {
     NaturalSeoResolveData,
     NaturalStampComponent,
 } from '@ecodev/natural';
+import {Component, inject, OnInit} from '@angular/core';
 import {ExpenseClaimService} from '../services/expenseClaim.service';
 import {CurrentUserForProfileQuery, ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../users/services/user.service';

@@ -1,5 +1,6 @@
 import {gql} from '@apollo/client/core';
 import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
+import {minimalAccountFragment} from '../../accounts/services/account.queries';
 
 export const transactionLineMetaFragment = gql`
     fragment TransactionLineMeta on TransactionLine {
@@ -7,14 +8,10 @@ export const transactionLineMetaFragment = gql`
         name
         balance
         credit {
-            id
-            name
-            type
+            ...MinimalAccount
         }
         debit {
-            id
-            name
-            type
+            ...MinimalAccount
         }
         bookable {
             id
@@ -39,8 +36,10 @@ export const transactionLineMetaFragment = gql`
         transactionTag {
             id
             name
+            color
         }
     }
+    ${minimalAccountFragment}
 `;
 
 export const transactionLinesQuery = gql`

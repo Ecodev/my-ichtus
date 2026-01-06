@@ -1,14 +1,15 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
-import {Apollo, gql} from 'apollo-angular';
-import {Component, inject, OnInit} from '@angular/core';
 import {
     deliverableEmail,
     ifValid,
     NaturalAlertService,
     NaturalDataSource,
+    NaturalErrorMessagePipe,
     NaturalIconDirective,
+    TypedMatCellDef,
     validateAllFormControls,
 } from '@ecodev/natural';
+import {Apollo, gql} from 'apollo-angular';
+import {Component, inject, OnInit} from '@angular/core';
 import {BookablesQuery, Register, RegisterVariables} from '../../../shared/generated-types';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormGroup, FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -17,7 +18,6 @@ import {MatButton} from '@angular/material/button';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {
     MatCell,
-    MatCellDef,
     MatColumnDef,
     MatFooterCell,
     MatFooterCellDef,
@@ -66,7 +66,7 @@ import {privacyPolicyUrl} from '../../../login/login.component';
         MatHeaderCellDef,
         MatHeaderRowDef,
         MatColumnDef,
-        MatCellDef,
+        TypedMatCellDef,
         MatRowDef,
         MatFooterCellDef,
         MatFooterRowDef,

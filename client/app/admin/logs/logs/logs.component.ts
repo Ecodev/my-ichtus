@@ -5,6 +5,7 @@ import {
     NaturalSearchComponent,
     NaturalTableButtonComponent,
     SortingOrder,
+    TypedMatCellDef,
 } from '@ecodev/natural';
 import {CurrentUserForProfileQuery, LogSortingField, UserRole} from '../../../shared/generated-types';
 import {LogService} from '../services/log.service';
@@ -15,7 +16,6 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {
     MatCell,
-    MatCellDef,
     MatColumnDef,
     MatHeaderCell,
     MatHeaderCellDef,
@@ -37,7 +37,7 @@ import {DatePipe} from '@angular/common';
         MatHeaderCellDef,
         MatHeaderRowDef,
         MatColumnDef,
-        MatCellDef,
+        TypedMatCellDef,
         MatRowDef,
         MatHeaderCell,
         MatCell,

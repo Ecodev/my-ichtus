@@ -10,11 +10,11 @@ import {
 import {
     CreateTransactionTag,
     CreateTransactionTagVariables,
-    TransactionTagQuery,
     TransactionTagInput,
+    TransactionTagQuery,
+    TransactionTagQueryVariables,
     TransactionTagsQuery,
     TransactionTagsQueryVariables,
-    TransactionTagQueryVariables,
     UpdateTransactionTag,
     UpdateTransactionTagVariables,
 } from '../../../shared/generated-types';

@@ -5,8 +5,9 @@ import {
     NaturalDataSource,
     NaturalIconDirective,
     NaturalQueryVariablesManager,
+    TypedMatCellDef,
 } from '@ecodev/natural';
-import {BookableQuery, BookableMetadatasQuery, BookableMetadatasQueryVariables} from '../../shared/generated-types';
+import {BookableMetadatasQuery, BookableMetadatasQueryVariables, BookableQuery} from '../../shared/generated-types';
 import {cloneDeep} from 'es-toolkit';
 import {finalize} from 'rxjs/operators';
 import {MatIcon} from '@angular/material/icon';
@@ -16,7 +17,6 @@ import {MatInput} from '@angular/material/input';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {
     MatCell,
-    MatCellDef,
     MatColumnDef,
     MatHeaderCell,
     MatHeaderCellDef,
@@ -31,7 +31,7 @@ import {
         MatTable,
         MatHeaderCellDef,
         MatColumnDef,
-        MatCellDef,
+        TypedMatCellDef,
         MatRowDef,
         MatHeaderCell,
         MatCell,

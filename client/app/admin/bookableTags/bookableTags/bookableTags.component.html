@@ -27,14 +27,14 @@
 
                     <ng-container matColumnDef="color">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header class="natural-3em-column"></th>
-                        <td *matCellDef="let element" mat-cell>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                             <natural-avatar [bgColor]="element.color" [size]="32" [initials]="element.name" />
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="name">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>Nom</th>
-                        <td *matCellDef="let element" mat-cell>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                             <natural-table-button
                                 matTooltip="Éditer"
                                 [label]="element.name"

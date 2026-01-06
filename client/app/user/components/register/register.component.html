@@ -81,7 +81,7 @@
 
                         <ng-container matColumnDef="name">
                             <th *matHeaderCellDef mat-header-cell>Nom</th>
-                            <td *matCellDef="let bookable" mat-cell>
+                            <td *matCellDef="let bookable; dataSource: mandatoryBookables" mat-cell>
                                 {{ bookable.name }}
                             </td>
                             <td *matFooterCellDef mat-footer-cell>Totaux</td>
@@ -91,7 +91,11 @@
                             <th *matHeaderCellDef mat-header-cell class="natural-7em-column natural-align-right">
                                 Prix initial
                             </th>
-                            <td *matCellDef="let bookable" mat-cell class="natural-align-right">
+                            <td
+                                *matCellDef="let bookable; dataSource: mandatoryBookables"
+                                mat-cell
+                                class="natural-align-right"
+                            >
                                 @if (bookable.initialPrice !== '0.00') {
                                     <span>{{ bookable.initialPrice | currency: 'CHF' }}</span>
                                 }
@@ -109,7 +113,11 @@
                             <th *matHeaderCellDef mat-header-cell class="natural-7em-column natural-align-right">
                                 Prix annuel
                             </th>
-                            <td *matCellDef="let bookable" mat-cell class="natural-align-right">
+                            <td
+                                *matCellDef="let bookable; dataSource: mandatoryBookables"
+                                mat-cell
+                                class="natural-align-right"
+                            >
                                 @if (bookable.periodicPrice !== '0.00') {
                                     <span>{{ bookable.periodicPrice | currency: 'CHF' }}</span>
                                 }

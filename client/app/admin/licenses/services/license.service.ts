@@ -6,11 +6,11 @@ import {
     CreateLicenseVariables,
     DeleteLicenses,
     DeleteLicensesVariables,
-    LicenseQuery,
     LicenseInput,
+    LicenseQuery,
+    LicenseQueryVariables,
     LicensesQuery,
     LicensesQueryVariables,
-    LicenseQueryVariables,
     UpdateLicense,
     UpdateLicenseVariables,
 } from '../../../shared/generated-types';

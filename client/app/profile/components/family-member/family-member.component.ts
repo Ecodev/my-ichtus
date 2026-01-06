@@ -1,12 +1,12 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
-import {Component, inject, input, OnInit, output} from '@angular/core';
-import {CreateUser, CurrentUserForProfileQuery, UpdateUser, UsersQuery} from '../../../shared/generated-types';
 import {
     NaturalAbstractDetail,
+    NaturalErrorMessagePipe,
     NaturalFixedButtonComponent,
     NaturalIconDirective,
     NaturalSelectEnumComponent,
 } from '@ecodev/natural';
+import {Component, inject, input, OnInit, output} from '@angular/core';
+import {CreateUser, CurrentUserForProfileQuery, UpdateUser, UsersQuery} from '../../../shared/generated-types';
 import {merge} from 'es-toolkit';
 import {FamilyUserService} from './family-user.service';
 import {EMPTY, Observable} from 'rxjs';

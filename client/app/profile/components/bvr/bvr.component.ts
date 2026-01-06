@@ -1,8 +1,8 @@
 import {Apollo, gql} from 'apollo-angular';
 import {Component, DOCUMENT, inject, Input} from '@angular/core';
 import {
-    BankingInfosQuery,
     BankingInfosForExportQuery,
+    BankingInfosQuery,
     BankingInfosQueryVariables,
 } from '../../../shared/generated-types';
 import {copyToClipboard, NaturalIconDirective} from '@ecodev/natural';

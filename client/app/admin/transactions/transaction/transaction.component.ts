@@ -1,16 +1,16 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
-import {Component, inject, OnInit, viewChild} from '@angular/core';
-import {NavigationEnd, RouterLink} from '@angular/router';
 import {
     cancellableTimeout,
     NaturalAbstractDetail,
     NaturalDetailHeaderComponent,
+    NaturalErrorMessagePipe,
     NaturalFixedButtonComponent,
     NaturalIconDirective,
     NaturalLinkableTabDirective,
     NaturalSeoResolveData,
     NaturalStampComponent,
 } from '@ecodev/natural';
+import {Component, inject, OnInit, viewChild} from '@angular/core';
+import {NavigationEnd, RouterLink} from '@angular/router';
 import {TransactionService} from '../services/transaction.service';
 import {EMPTY, Observable} from 'rxjs';
 import {filter, first} from 'rxjs/operators';

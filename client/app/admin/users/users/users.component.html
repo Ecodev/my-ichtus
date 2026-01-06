@@ -28,7 +28,7 @@
 
                     <ng-container matColumnDef="name">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header="lastName">Nom</th>
-                        <td *matCellDef="let element" mat-cell>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                             <div class="nat-horizontal nat-align">
                                 <natural-avatar [initials]="element.name" [gravatar]="element.email" [size]="36" />
                                 <natural-table-button
@@ -42,24 +42,24 @@
 
                     <ng-container matColumnDef="login">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>Login</th>
-                        <td *matCellDef="let element" mat-cell>{{ element.login }}</td>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>{{ element.login }}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="age">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>Âge</th>
-                        <td *matCellDef="let element" mat-cell>{{ element.age }}</td>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>{{ element.age }}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="role">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>Rôle</th>
-                        <td *matCellDef="let element" mat-cell>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                             {{ element.role | enum: 'UserRole' | async }}
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="owner">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>Chef de famille</th>
-                        <td *matCellDef="let element" mat-cell>{{ element.owner?.name }}</td>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>{{ element.owner?.name }}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="status">
@@ -72,7 +72,7 @@
                             État
                         </th>
                         <td
-                            *matCellDef="let element"
+                            *matCellDef="let element; dataSource: dataSource"
                             mat-cell
                             class="natural-align-center"
                             matTooltip="Le nom et le login doivent être renseignés pour activer un utilisateur"
@@ -97,21 +97,21 @@
 
                     <ng-container matColumnDef="creationDate">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>Créé le</th>
-                        <td *matCellDef="let element" mat-cell>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                             {{ element.creationDate | date }}
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="updateDate">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>Modifié le</th>
-                        <td *matCellDef="let element" mat-cell>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                             {{ element.updateDate | date }}
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="flagWelcomeSessionDate">
                         <th *matHeaderCellDef mat-header-cell class="natural-7em-column">Accueil</th>
-                        <td *matCellDef="let element" mat-cell>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                             @if (!element.welcomeSessionDate) {
                                 <button
                                     matButton="filled"
@@ -131,7 +131,9 @@
                         <th *matHeaderCellDef mat-header-cell mat-sort-header class="app-date-column">
                             Date démission
                         </th>
-                        <td *matCellDef="let element" mat-cell>{{ element.resignDate | date: 'dd.MM.y' }}</td>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>
+                            {{ element.resignDate | date: 'dd.MM.y' }}
+                        </td>
                     </ng-container>
 
                     <ng-container matColumnDef="balance">
@@ -144,26 +146,26 @@
                         >
                             Solde
                         </th>
-                        <td *matCellDef="let element" mat-cell class="natural-align-right">
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell class="natural-align-right">
                             <app-money [showCurrency]="false" [showSignal]="true" [amount]="element.account?.balance" />
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="mobilePhone">
                         <th *matHeaderCellDef mat-header-cell>Tél.</th>
-                        <td *matCellDef="let element" mat-cell>{{ element.mobilePhone }}</td>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>{{ element.mobilePhone }}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="email">
                         <th *matHeaderCellDef mat-header-cell>e-mail</th>
-                        <td *matCellDef="let element" mat-cell>{{ element.email }}</td>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>{{ element.email }}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="provision">
                         <th *matHeaderCellDef mat-header-cell app-date-column class="natural-align-center">
                             Versement
                         </th>
-                        <td *matCellDef="let element" mat-cell class="natural-align-center">
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell class="natural-align-center">
                             <button mat-flat-button (click)="showProvision(element)">Faire un versement</button>
                         </td>
                     </ng-container>

@@ -1,11 +1,10 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
-import {Component, inject, OnInit} from '@angular/core';
 import {
     formatIsoDateTime,
     IEnum,
     NaturalAbstractDetail,
     NaturalAvatarComponent,
     NaturalDetailHeaderComponent,
+    NaturalErrorMessagePipe,
     NaturalFileComponent,
     NaturalFixedButtonDetailComponent,
     NaturalLinkableTabDirective,
@@ -17,12 +16,13 @@ import {
     NaturalStampComponent,
     NaturalTableButtonComponent,
 } from '@ecodev/natural';
+import {Component, inject, OnInit} from '@angular/core';
 import {BookableService} from '../services/bookable.service';
 import {
     BookingFilterGroupCondition,
     BookingSortingField,
-    BookingStatus,
     BookingsQueryVariables,
+    BookingStatus,
     BookingType,
     CreateImage,
     CurrentUserForProfileQuery,

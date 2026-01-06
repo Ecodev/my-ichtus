@@ -14,6 +14,7 @@ import {
     NaturalIconDirective,
     NaturalSearchComponent,
     NaturalTableButtonComponent,
+    TypedMatCellDef,
 } from '@ecodev/natural';
 import {AsyncPipe, DatePipe} from '@angular/common';
 import {CopyContactDataButtonService} from '../../../shared/components/copy-contact-data/copy-contact-data-button.service';
@@ -29,7 +30,6 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {
     MatCell,
-    MatCellDef,
     MatColumnDef,
     MatFooterCell,
     MatFooterCellDef,
@@ -52,7 +52,7 @@ import {
         FlagComponent,
         MatButton,
         MatCell,
-        MatCellDef,
+        TypedMatCellDef,
         MatColumnDef,
         MatFooterCell,
         MatFooterCellDef,

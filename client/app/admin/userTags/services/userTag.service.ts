@@ -8,11 +8,11 @@ import {
     DeleteUserTagsVariables,
     UpdateUserTag,
     UpdateUserTagVariables,
-    UserTagQuery,
     UserTagInput,
+    UserTagQuery,
+    UserTagQueryVariables,
     UserTagsQuery,
     UserTagsQueryVariables,
-    UserTagQueryVariables,
 } from '../../../shared/generated-types';
 import {Validators} from '@angular/forms';
 

@@ -3,8 +3,8 @@ import {UserService} from '../../../admin/users/services/user.service';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {
     BookingPartialInput,
-    BookingsQuery,
     BookingSortingField,
+    BookingsQuery,
     BookingsQueryVariables,
     BookingType,
     CurrentUserForProfileQuery,

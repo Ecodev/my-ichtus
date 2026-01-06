@@ -1,11 +1,10 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
-import {Component, inject, OnInit} from '@angular/core';
 import {
     IEnum,
     ifValid,
     NaturalAbstractDetail,
     NaturalAvatarComponent,
     NaturalDetailHeaderComponent,
+    NaturalErrorMessagePipe,
     NaturalFixedButtonDetailComponent,
     NaturalIconDirective,
     NaturalLinkableTabDirective,
@@ -18,6 +17,7 @@ import {
     NaturalTableButtonComponent,
     NaturalTimeAgoPipe,
 } from '@ecodev/natural';
+import {Component, inject, OnInit} from '@angular/core';
 import {AsyncPipe, DatePipe} from '@angular/common';
 import {UserService} from '../services/user.service';
 import {
@@ -28,8 +28,8 @@ import {
     UserFilter,
     UserFilterGroupCondition,
     UserRole,
-    UserStatus,
     UsersQueryVariables,
+    UserStatus,
 } from '../../../shared/generated-types';
 import {LicenseService} from '../../licenses/services/license.service';
 import {UserTagService} from '../../userTags/services/userTag.service';

@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {
-    closeAccounting,
     accountQuery,
     accountsQuery,
+    closeAccounting,
     createAccount,
     deleteAccounts,
     exportAccountingReport,
@@ -10,14 +10,14 @@ import {
     updateAccount,
 } from './account.queries';
 import {
-    AccountQuery,
-    CloseAccounting,
-    CloseAccountingVariables,
     AccountInput,
+    AccountQuery,
+    AccountQueryVariables,
     AccountsQuery,
     AccountsQueryVariables,
     AccountType,
-    AccountQueryVariables,
+    CloseAccounting,
+    CloseAccountingVariables,
     CreateAccount,
     CreateAccountVariables,
     DeleteAccounts,

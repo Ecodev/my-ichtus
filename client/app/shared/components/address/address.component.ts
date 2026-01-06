@@ -1,8 +1,7 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
+import {NaturalErrorMessagePipe, NaturalSelectComponent} from '@ecodev/natural';
 import {Component, inject, input, output} from '@angular/core';
 import {CountryService} from './country.service';
 import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NaturalSelectComponent} from '@ecodev/natural';
 import {MatInput} from '@angular/material/input';
 import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 

@@ -2,8 +2,8 @@ import {Component, inject, OnInit} from '@angular/core';
 import {BookingService} from '../services/booking.service';
 import {
     BookableSortingField,
-    BookableStatus,
     BookablesQueryVariables,
+    BookableStatus,
     BookableTagsQuery,
     BookingPartialInput,
     BookingStatus,

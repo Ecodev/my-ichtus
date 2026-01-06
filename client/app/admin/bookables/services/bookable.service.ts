@@ -1,14 +1,14 @@
 import {inject, Injectable} from '@angular/core';
 import {bookableQuery, bookablesQuery, createBookable, deleteBookables, updateBookable} from './bookable.queries';
 import {
-    BookableQuery,
     BookableFilterGroupCondition,
     BookableInput,
+    BookableQuery,
+    BookableQueryVariables,
     BookablesQuery,
+    BookablesQueryVariables,
     BookableState,
     BookableStatus,
-    BookablesQueryVariables,
-    BookableQueryVariables,
     BookingsQuery,
     BookingsQueryVariables,
     BookingType,

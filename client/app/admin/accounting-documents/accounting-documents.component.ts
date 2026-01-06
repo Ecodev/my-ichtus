@@ -1,10 +1,10 @@
 import {Component, inject, Input, input, OnInit} from '@angular/core';
 import {
     AccountingDocumentInput,
-    ExpenseClaimQuery,
     ExpenseClaimInput,
-    TransactionQuery,
+    ExpenseClaimQuery,
     TransactionInput,
+    TransactionQuery,
 } from '../../shared/generated-types';
 import {forkJoin, Observable} from 'rxjs';
 import {AccountingDocumentService} from './services/accounting-document.service';
