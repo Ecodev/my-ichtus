@@ -58,7 +58,7 @@ natural-sidenav-content {
     min-height: calc(100vh - 160px);
     overflow: auto;
     @media (max-width: 400px) {
-        padding: 6px;
+        padding-inline: 6px;
     }
 }
 
