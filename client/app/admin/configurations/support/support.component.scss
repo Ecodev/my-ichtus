@@ -23,20 +23,16 @@
             }
         }
 
-        // Copied from .mat-headline
         h1 {
-            // todo : official typo variable
-            margin: 0 0 16px;
+            margin-block: 1.2em 0.75em;
             font:
                 400 24px/32px Roboto,
                 'Helvetica Neue',
                 sans-serif;
         }
 
-        // Copied from .mat-title
         h2 {
-            // todo : official typo from variable
-            margin: 0 0 16px;
+            margin-block: 1.2em 0.75em;
             font:
                 500 20px/32px Roboto,
                 'Helvetica Neue',

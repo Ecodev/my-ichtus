@@ -6,11 +6,6 @@
     flex-direction: column;
 }
 
-#admin-content {
-    padding: 0;
-    overflow: auto;
-}
-
 natural-sidenav-container {
     @include mat.sidenav-overrides(
         (

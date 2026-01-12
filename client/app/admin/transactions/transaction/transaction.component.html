@@ -169,7 +169,9 @@
             }
 
             <div>
-                <div class="mat-font-title-lg">Documents justificatifs de la transaction</div>
+                <div class="mat-font-title-lg nat-margin-top nat-margin-bottom">
+                    Documents justificatifs de la transaction
+                </div>
                 <app-accounting-documents
                     #transactionDocuments
                     [canRemove]="userService.canDeleteAccountingDocument(viewer)"

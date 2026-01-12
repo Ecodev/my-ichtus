@@ -20,16 +20,21 @@
                     (keydown.enter)="goToCode()"
                     (keydown.esc)="code = ''"
                 />
-                <a matIconButton [routerLink]="['/booking', code]">
+                <a matIconButton color="primary" [routerLink]="['/booking', code]">
                     <mat-icon naturalIcon="search" />
                 </a>
             </div>
-            <a class="icon-button-circle-primary" matIconButton routerLink="/booking/by-scan">
+            <a matFab class="icon-button-circle-primary nat-flat nat-rounded" routerLink="/booking/by-scan">
                 <mat-icon naturalIcon="qr_code_scanner" />
             </a>
             <div class="nat-expand nat-sm-show"></div>
             @if (announcementActive) {
-                <a matIconButton class="icon-button-circle-primary" [routerLink]="getAnnouncementLink()">
+                <a
+                    matFab
+                    color="primary"
+                    class="icon-button-circle-primary nat-flat nat-rounded"
+                    [routerLink]="getAnnouncementLink()"
+                >
                     <mat-icon naturalIcon="announcement" />
                 </a>
             }

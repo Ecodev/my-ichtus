@@ -34,7 +34,7 @@ import {ParticleEffectDirective} from '../particle-button/particle-effect.direct
 import {MatIcon} from '@angular/material/icon';
 import {MatDivider} from '@angular/material/divider';
 import {RouterLink} from '@angular/router';
-import {MatButton, MatIconButton} from '@angular/material/button';
+import {MatButton, MatIconButton, MatMiniFabButton} from '@angular/material/button';
 import {CardComponent} from '../card/card.component';
 
 type Extended = {
@@ -81,6 +81,7 @@ function bookingsToExtended(bookings: BookingsQuery['bookings']): PaginatedExten
         FormsModule,
         CdkTextareaAutosize,
         DatePipe,
+        MatMiniFabButton,
     ],
     templateUrl: './navigations.component.html',
     styleUrl: './navigations.component.scss',

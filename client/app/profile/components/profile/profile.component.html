@@ -45,11 +45,11 @@
                             <div class="mat-font-body-lg">
                                 {{ viewer.status | enum: 'UserStatus' | async }}
                             </div>
-                            <div class="nat-horizontal nat-wrap nat-gap-15 nat-bold">
+                            <div class="nat-horizontal nat-wrap nat-gap-15">
                                 @for (license of licenses; track license) {
                                     <div class="nat-horizontal nat-gap-5 nat-align" style="padding-bottom: 10px">
                                         <natural-avatar [initials]="license.name.replace('-', '')" [size]="36" />
-                                        <span>{{ license.name }}</span>
+                                        {{ license.name }}
                                     </div>
                                 }
                             </div>

@@ -137,7 +137,7 @@
                                 mat-list-item
                                 routerLinkActive="nat-gradient-secondary"
                                 routerLink="booking/welcome-application"
-                                >Demandes de séances d'accueil</a
+                                >Demandes de SA</a
                             >
                         }
                     </mat-nav-list>
@@ -211,12 +211,12 @@
                         <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="account">Comptes</a>
                         @if (permissionsService.canAccessExpenseClaims(route.snapshot.data.viewer)) {
                             <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="expense-claim"
-                                >Frais, remboursements et factures</a
+                                >Annonces FIN</a
                             >
                         }
                         @if ((permissionsService.crud | async)?.transaction?.create) {
                             <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="import"
-                                >Import BVR</a
+                                >Import QR-R</a
                             >
                         }
                         <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="transaction-tag">Tags</a>

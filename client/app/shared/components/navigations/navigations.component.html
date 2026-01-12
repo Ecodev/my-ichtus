@@ -90,11 +90,10 @@
                                 ></textarea>
                             </mat-form-field>
                         </div>
-                        <div class="nat-horizontal">
-                            <button matIconButton color="primary" (click)="item.showComments = false">
-                                <mat-icon naturalIcon="clear" />
-                            </button>
-                        </div>
+
+                        <button matMiniFab class="nat-rounded" (click)="item.showComments = false">
+                            <mat-icon naturalIcon="clear" />
+                        </button>
                     </div>
                 </app-card>
             }

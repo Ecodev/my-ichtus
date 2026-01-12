@@ -1,9 +1,9 @@
 <div class="nat-vertical">
     <h1 class="mat-font-headline-sm nat-margin-bottom">{{ routeData.seo.title }}</h1>
     <div>
-        <p>Upload un fichier XML CAMT 054 pour importer les virements qui ont été fait par BVR:</p>
+        <p>Upload un fichier XML camt.054 pour importer les virements qui ont été fait par QR-R:</p>
         <button
-            matButton="tonal"
+            matButton="filled"
             naturalFileSelect
             accept="text/xml"
             [disabled]="!(permissionsService.crud | async)?.transaction.create || importing"

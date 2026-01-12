@@ -698,7 +698,7 @@ export const routes: Routes = [
                 component: ImportComponent,
                 data: {
                     seo: {
-                        title: 'Import des virements BVR',
+                        title: 'Import des virements QR-R',
                     } satisfies NaturalSeo,
                 },
             },
