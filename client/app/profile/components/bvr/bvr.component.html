@@ -11,7 +11,7 @@
             }
             <div class="nat-vertical nat-gap-5">
                 <div>
-                    <div class="mat-font-title-sm nat-bold">Compte (IBAN)</div>
+                    <div class="mat-font-title-sm">Compte (IBAN)</div>
                     <div class="nat-bold" style="white-space: pre-line">
                         {{ bankingInfos.iban | iban }}
                         @if (bankingInfos.iban) {
@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div>
-                    <div class="mat-font-title-sm nat-bold">Référence :</div>
+                    <div class="mat-font-title-sm">Référence :</div>
                     <div class="nat-bold">
                         {{ bankingInfos.referenceNumber }}
                         @if (bankingInfos.iban) {
@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div>
-                    <div class="mat-font-title-sm nat-bold">Payable à</div>
+                    <div class="mat-font-title-sm">Payable à</div>
                     <div class="nat-bold" style="white-space: pre-line">{{ bankingInfos.paymentFor }}</div>
                 </div>
             </div>

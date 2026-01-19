@@ -293,21 +293,21 @@
 
                 @if (isUpdatePage() && data.model.firstLogin) {
                     <div>
-                        <span class="mat-font-title-sm nat-bold">Première connexion :</span>
+                        <span class="mat-font-title-sm">Première connexion :</span>
                         {{ data.model.firstLogin | date }} ({{ data.model.firstLogin | timeAgo }})
                     </div>
                 }
 
                 @if (isUpdatePage() && data.model.lastLogin) {
                     <div>
-                        <span class="mat-font-title-sm nat-bold">Dernière connexion :</span>
+                        <span class="mat-font-title-sm">Dernière connexion :</span>
                         {{ data.model.lastLogin | date }} ({{ data.model.lastLogin | timeAgo }})
                     </div>
                 }
 
                 @if (isUpdatePage() && data.model.resignDate && data.model.status === UserStatus.Archived) {
                     <div>
-                        <span class="mat-font-title-sm nat-bold">Démission le :</span>
+                        <span class="mat-font-title-sm">Démission le :</span>
                         {{ data.model.resignDate | date }} ({{ data.model.resignDate | timeAgo }})
                     </div>
                 }

@@ -9,7 +9,7 @@
                 <mat-card>
                     <mat-icon naturalIcon="certification" [size]="160" />
                     <div class="nat-vertical nat-gap-10">
-                        <div class="mat-font-title-sm nat-bold text-center">{{ formation.bookable.name }}</div>
+                        <div class="mat-font-title-sm text-center">{{ formation.bookable.name }}</div>
                         @if (formation.bookable.owner) {
                             <mat-divider />
                             <app-user-contact-data class="nat-expand" [user]="formation.bookable.owner" />

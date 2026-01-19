@@ -11,13 +11,13 @@
                     }
                     <h2 class="mat-font-title-lg">Matériel</h2>
                     <div class="nat-horizontal nat-center nat-gap-10">
-                        <div class="mat-font-title-sm nat-bold nat-expand">
+                        <div class="mat-font-title-sm nat-expand">
                             {{ bookable?.name || 'Mon propre matériel' }}
                         </div>
                         @if (bookable) {
                             <mat-divider [vertical]="true" />
                         }
-                        <div class="mat-font-title-sm nat-bold">{{ bookable?.code }}</div>
+                        <div class="mat-font-title-sm">{{ bookable?.code }}</div>
                     </div>
                 </div>
             </app-card>
@@ -35,7 +35,7 @@
                 <div class="nat-vertical nat-gap-10 nat-center">
                     <h2 class="mat-font-title-lg">Responsable</h2>
                     <div>
-                        <span class="mat-font-title-sm nat-bold">{{ booking.owner.name }}</span>
+                        <span class="mat-font-title-sm">{{ booking.owner.name }}</span>
                     </div>
                 </div>
             </app-card>

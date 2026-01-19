@@ -11,7 +11,7 @@
         <div class="nat-horizontal nat-gap-10 nat-align">
             @if (form.get('verificationDate')?.value) {
                 <div class="nat-vertical" style="text-align: right">
-                    <div class="mat-font-title-sm nat-bold">Dernière vérification</div>
+                    <div class="mat-font-title-sm">Dernière vérification</div>
                     <div class="nat-bold">{{ form.get('verificationDate')?.value | date: 'dd.MM.y' }}</div>
                 </div>
             }

@@ -15,7 +15,7 @@
             ) {
                 <a matButton="outlined" color="basic" (click)="approve()">
                     <mat-icon naturalIcon="verified" />
-                    <span class="mat-font-title-sm nat-bold">Approuver</span>
+                    <span class="mat-font-title-sm">Approuver</span>
                 </a>
             }
             @if (isUpdatePage() && data.model.reviewer && !permissionsService.isAdministrator(viewer)) {

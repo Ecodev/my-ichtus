@@ -10,7 +10,7 @@
                     (click)="open(door)"
                 >
                     <div class="nat-vertical nat-gap-10">
-                        <div class="mat-font-title-sm nat-bold">{{ door.name }}</div>
+                        <div class="mat-font-title-sm">{{ door.name }}</div>
                         <div>
                             <button matButton="filled" [disabled]="door.opened">
                                 <mat-icon [fontIcon]="door.opened ? 'lock_open' : 'lock'" />

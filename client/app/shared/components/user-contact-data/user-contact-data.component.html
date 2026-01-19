@@ -1,7 +1,7 @@
 @let person = user();
 @if (person) {
     <div class="nat-expand">
-        <div class="mat-font-title-sm nat-bold">{{ title() }}:</div>
+        <div class="mat-font-title-sm">{{ title() }}:</div>
         <a>{{ person.name }}</a>
         @if (person.email || person.mobilePhone) {
             ,

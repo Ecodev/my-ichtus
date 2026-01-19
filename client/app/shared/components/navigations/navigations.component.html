@@ -1,6 +1,6 @@
 @if (bookings) {
     @if (!bookings.items.length && showEmptyMessage()) {
-        <div class="nat-padding mat-font-title-sm nat-bold">Aucun résultat</div>
+        <div class="nat-padding mat-font-title-sm">Aucun résultat</div>
     }
     <div class="list">
         @for (item of bookings.items; track item) {
@@ -31,7 +31,7 @@
 
                         <mat-divider />
 
-                        <div class="mat-font-title-sm nat-bold">{{ item.booking.owner?.name }}</div>
+                        <div class="mat-font-title-sm">{{ item.booking.owner?.name }}</div>
                         @if (!item.booking.endDate && item.booking.destination) {
                             <div class="nat-bold">Destination : {{ item.booking.destination }}</div>
                         }
