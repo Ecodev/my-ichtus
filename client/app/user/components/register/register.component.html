@@ -146,7 +146,7 @@
                         club.</mat-checkbox
                     >
                     @if (form.get('hasInsurance')?.touched && form.get('hasInsurance')?.hasError('required')) {
-                        <mat-error class="nat-bold">Requis</mat-error>
+                        <mat-error>Requis</mat-error>
                     }
 
                     <mat-checkbox formControlName="privacyPolicyAgreement" required>
@@ -159,13 +159,13 @@
                         form.controls.privacyPolicyAgreement.touched &&
                         form.controls.privacyPolicyAgreement.hasError('required')
                     ) {
-                        <mat-error class="nat-bold">Requis</mat-error>
+                        <mat-error>Requis</mat-error>
                     }
                 </div>
                 <mat-divider [vertical]="true" />
                 <div class="nat-expand">
                     <mat-checkbox formControlName="termsAgreement" required>Je m'engage à respecter :</mat-checkbox>
-                    <p class="nat-bold rich-text">
+                    <p class="rich-text">
                         <a href="https://ichtus.ch/oni" target="_blank"
                             >l'Ordonnance suisse sur la Navigation Intérieure (ONI)</a
                         >
@@ -176,7 +176,7 @@
                         <a href="https://ichtus.ch/statuts" target="_blank">statuts du club nautique Ichtus</a>
                     </p>
                     @if (form.get('termsAgreement')?.touched && form.get('termsAgreement')?.hasError('required')) {
-                        <mat-error class="nat-bold">Requis</mat-error>
+                        <mat-error>Requis</mat-error>
                     }
                 </div>
             </div>

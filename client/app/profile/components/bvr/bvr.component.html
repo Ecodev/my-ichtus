@@ -12,7 +12,7 @@
             <div class="nat-vertical nat-gap-5">
                 <div>
                     <div class="mat-font-title-sm">Compte (IBAN)</div>
-                    <div class="nat-bold" style="white-space: pre-line">
+                    <div style="white-space: pre-line">
                         {{ bankingInfos.iban | iban }}
                         @if (bankingInfos.iban) {
                             <button
@@ -27,7 +27,7 @@
                 </div>
                 <div>
                     <div class="mat-font-title-sm">Référence :</div>
-                    <div class="nat-bold">
+                    <div>
                         {{ bankingInfos.referenceNumber }}
                         @if (bankingInfos.iban) {
                             <button
@@ -42,7 +42,7 @@
                 </div>
                 <div>
                     <div class="mat-font-title-sm">Payable à</div>
-                    <div class="nat-bold" style="white-space: pre-line">{{ bankingInfos.paymentFor }}</div>
+                    <div style="white-space: pre-line">{{ bankingInfos.paymentFor }}</div>
                 </div>
             </div>
         </div>

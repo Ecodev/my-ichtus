@@ -9,7 +9,7 @@
             </div>
         </div>
         @if (!hasLicense || !welcomeSessionTaken) {
-            <div class="nat-vertical nat-bold nat-gap-10">
+            <div class="nat-vertical nat-gap-10">
                 @if (!hasLicense) {
                     <div class="nat-horizontal nat-align">
                         <mat-icon color="error" fontIcon="error" />
@@ -30,7 +30,7 @@
         }
         <div class="nat-horizontal nat-gap-10 nat-right nat-center">
             @if (!isAvailable && runningBooking) {
-                <div class="nat-bold">Sorti {{ runningBooking.startDate | timeago }}</div>
+                <div>Sorti {{ runningBooking.startDate | timeago }}</div>
             }
             @if (isNavigable && isAvailable) {
                 <button matButton="filled" [disabled]="!hasLicense" [routerLink]="['../new', {bookable: bookable.id}]">

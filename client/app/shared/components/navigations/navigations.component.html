@@ -33,10 +33,10 @@
 
                         <div class="mat-font-title-sm">{{ item.booking.owner?.name }}</div>
                         @if (!item.booking.endDate && item.booking.destination) {
-                            <div class="nat-bold">Destination : {{ item.booking.destination }}</div>
+                            <div>Destination : {{ item.booking.destination }}</div>
                         }
                         @if (!item.booking.endDate && item.booking.estimatedEndDate) {
-                            <div class="nat-bold">Retour prévu : {{ item.booking.estimatedEndDate }}</div>
+                            <div>Retour prévu : {{ item.booking.estimatedEndDate }}</div>
                         }
                         <div>Début : {{ item.booking.startDate | date }}</div>
                         @if (item.booking.endDate) {
