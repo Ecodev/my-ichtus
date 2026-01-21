@@ -908,10 +908,10 @@
   dependencies:
     tslib "^2.8.1"
 
-"@ecodev/natural-editor@^66.0.22":
-  version "66.0.22"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural-editor/-/natural-editor-66.0.22.tgz#fc2c1f54a5fd4ede0bbffbc8cedaeda2430f3011"
-  integrity sha512-8DkgkWIoVlkEGgMGLRkVZFb3bpJ3PJsVoKp5TzoOQQlSYHVAuGmUtm196S7UtT4j1FNN/0lGB7jStIYZxvhC3g==
+"@ecodev/natural-editor@^66.0.26":
+  version "66.0.26"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural-editor/-/natural-editor-66.0.26.tgz#62c9ded134df4af0e5873b6525fd39197bc1f6fc"
+  integrity sha512-foJ9OzqXW/bZu1SIE0vACc1dIRo/AhtP5wXSEk8E82ys+FTALOzpjSG789tX1RtksDH4opu9fFJf7pzg3a2bww==
   dependencies:
     prosemirror-commands "^1.5.2"
     prosemirror-dropcursor "^1.8.1"
@@ -933,10 +933,10 @@
   resolved "https://registry.yarnpkg.com/@ecodev/natural-layout/-/natural-layout-2.0.2.tgz#e2c64c2ddb3c60793a39236b52624fde323e610a"
   integrity sha512-BV75kFQmpfuSBNQ1jyKu+IdGkFTMESjPrtKrEyc3MqcmVhV5IiYU0LXTaghLZozuZgCT9HfMOnEsh05aS2j9uQ==
 
-"@ecodev/natural@^66.0.23":
-  version "66.0.23"
-  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-66.0.23.tgz#5bdfa946f5d2462d6b6d3eee5abaeb054b7d1e7e"
-  integrity sha512-AJ0LMX7+lfGH9Ra0twJWWAPJLhFqDOsS6f0T3ADn695+Ao8ZtA2N07k3usV+YTxSc2GWFsD8Gv9raeTi3HUdRA==
+"@ecodev/natural@^66.0.26":
+  version "66.0.26"
+  resolved "https://registry.yarnpkg.com/@ecodev/natural/-/natural-66.0.26.tgz#87e0f46b4dcb883b945fcb2c0060355a4f813511"
+  integrity sha512-4ukC6mtr4L5Xx8BS4GAjPc1El9/gfSwu1tnmWfhuMDNl9nB3sypeEwR8zvCFNSfCtXqdIDO3oqK7KjVa7MFGeg==
   dependencies:
     extract-files "^13.0.0"
     tslib "^2.8.1"
