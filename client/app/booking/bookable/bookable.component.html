@@ -33,9 +33,9 @@
                 <div>Sorti {{ runningBooking.startDate | timeago }}</div>
             }
             @if (isNavigable && isAvailable) {
-                <button matButton="filled" [disabled]="!hasLicense" [routerLink]="['../new', {bookable: bookable.id}]">
+                <a matButton="filled" [disabled]="!hasLicense" [routerLink]="['../new', {bookable: bookable.id}]">
                     Annoncer une sortie
-                </button>
+                </a>
             }
             @if (isNavigable && !isAvailable && runningBooking) {
                 <button mat-flat-button color="error" (click)="endBooking()">Terminer</button>

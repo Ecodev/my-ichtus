@@ -208,14 +208,14 @@
                 <button matMiniFab matTooltip="Enregistrer" matTooltipPosition="left" (click)="save()">
                     <mat-icon naturalIcon="save" />
                 </button>
-                <button
+                <a
                     matMiniFab
                     matTooltip="Dupliquer ..."
                     matTooltipPosition="left"
                     [routerLink]="['../new', {duplicate: data.model.id}]"
                 >
                     <mat-icon naturalIcon="content_copy" />
-                </button>
+                </a>
                 <button
                     matMiniFab
                     color="error"
