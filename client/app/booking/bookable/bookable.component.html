@@ -38,7 +38,7 @@
                 </a>
             }
             @if (isNavigable && !isAvailable && runningBooking) {
-                <button mat-flat-button color="error" (click)="endBooking()">Terminer</button>
+                <button matButton="filled" color="error" (click)="endBooking()">Terminer</button>
             }
             @if (canAccessAdmin) {
                 <a matButton="outlined" [routerLink]="['/admin/bookable', bookable.id]">Administration</a>

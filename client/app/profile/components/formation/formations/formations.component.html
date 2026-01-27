@@ -12,7 +12,7 @@
             <app-bookable-price [bookable]="element" />
             @if (allowBooking(element)) {
                 <button
-                    mat-flat-button
+                    matButton="filled"
                     [color]="isAlreadyPending(element) ? 'tertiary' : undefined"
                     [disabled]="isFullyBooked(element) || creating.has(element.id)"
                     (click)="createApplication(element)"

@@ -83,7 +83,7 @@
                             }
                             @if (!isActive(element)) {
                                 <button
-                                    mat-flat-button
+                                    matButton="filled"
                                     [color]="isNew(element) ? 'tertiary' : undefined"
                                     [disabled]="!isActivable(element) || activating.has(element)"
                                     [style.width.px]="150"
@@ -166,7 +166,7 @@
                             Versement
                         </th>
                         <td *matCellDef="let element; dataSource: dataSource" mat-cell class="natural-align-center">
-                            <button mat-flat-button (click)="showProvision(element)">Faire un versement</button>
+                            <button matButton="filled" (click)="showProvision(element)">Faire un versement</button>
                         </td>
                     </ng-container>
                 </table>

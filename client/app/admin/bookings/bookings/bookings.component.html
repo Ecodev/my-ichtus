@@ -195,7 +195,7 @@
                         <th *matHeaderCellDef mat-header-cell class="natural-5em-column"></th>
                         <td *matCellDef="let element" mat-cell>
                             @if (!element.endDate) {
-                                <button mat-flat-button color="error" (click)="maybeTerminateBooking(element.id)">
+                                <button matButton="filled" color="error" (click)="maybeTerminateBooking(element.id)">
                                     Terminer
                                 </button>
                             }

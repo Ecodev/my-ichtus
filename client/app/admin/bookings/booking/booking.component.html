@@ -8,7 +8,7 @@
         <div class="nat-horizontal nat-gap">
             @if (isUpdatePage() && !form.get('endDate')?.value && !isAdminApproved()) {
                 <button
-                    mat-flat-button
+                    matButton="filled"
                     color="error"
                     [disabled]="!data.model.permissions.update"
                     (click)="terminateBooking()"
@@ -18,7 +18,7 @@
             }
             @if (isUpdatePage() && form.get('endDate')?.value && isAdminApproved()) {
                 <button
-                    mat-flat-button
+                    matButton="filled"
                     color="error"
                     [disabled]="!data.model.permissions.update"
                     (click)="unTerminateBooking()"

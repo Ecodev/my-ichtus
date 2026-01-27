@@ -17,13 +17,13 @@
             <div class="nat-vertical nat-right nat-gap-5">
                 <app-bookable-price [bookable]="element.bookable" />
                 @if (canRevoque && canRevoke(element)) {
-                    <button mat-flat-button color="error" (click)="revokeBooking(element)">
+                    <button matButton="filled" color="error" (click)="revokeBooking(element)">
                         <mat-icon naturalIcon="delete_forever" />
                         Se désinscrire
                     </button>
                 } @else if (canCancel) {
                     <button
-                        mat-flat-button
+                        matButton="filled"
                         color="error"
                         [disabled]="deleting.has(element.id)"
                         (click)="cancelApplication(element)"

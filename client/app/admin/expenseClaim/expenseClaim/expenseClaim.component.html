@@ -49,14 +49,14 @@
             }
 
             @if (isUpdatePage() && data.model.transactions.length === 1) {
-                <a mat-flat-button [routerLink]="['/admin/transaction', data.model.transactions[0].id]"
+                <a matButton="filled" [routerLink]="['/admin/transaction', data.model.transactions[0].id]"
                     >Voir l'écriture</a
                 >
             }
 
             @if (isUpdatePage() && data.model.transactions.length > 1) {
                 <a
-                    mat-flat-button
+                    matButton="filled"
                     [routerLink]="transactionLineService.linkToTransactionLinesForTransactions(data.model.transactions)"
                     >Voir les écritures</a
                 >
