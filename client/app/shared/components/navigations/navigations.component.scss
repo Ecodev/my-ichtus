@@ -28,7 +28,7 @@ app-card {
         left: 0;
         transform: scale(1.2, 1.2);
         opacity: 0;
-        z-index: 2; // on top of mat-button
+        z-index: 2; // on top of matButton
         transition: all 0.2s;
         border-radius: 4px;
         background-color: white;
