@@ -11,7 +11,7 @@ import {
     NaturalTableButtonComponent,
     TypedMatCellDef,
 } from '@ecodev/natural';
-import {AsyncPipe, CurrencyPipe, DatePipe, NgClass} from '@angular/common';
+import {AsyncPipe, CurrencyPipe, DatePipe} from '@angular/common';
 import {BookableStatus, UsageBookablesQuery} from '../../../shared/generated-types';
 import {switchMap} from 'rxjs/operators';
 import {UserService} from '../../users/services/user.service';
@@ -45,7 +45,6 @@ import {admin_approved, bookables, storage} from '../../../shared/natural-search
 @Component({
     selector: 'app-usage-bookables',
     imports: [
-        NgClass,
         AsyncPipe,
         CurrencyPipe,
         DatePipe,

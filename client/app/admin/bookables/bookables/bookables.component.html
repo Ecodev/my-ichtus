@@ -56,11 +56,9 @@ Warning this template is used by two components BookablesComponent and UsageBook
                         <td *matCellDef="let element" mat-cell>
                             <natural-table-button
                                 matTooltip="Éditer"
-                                [ngClass]="{
-                                    inactive: [BookableStatus.Inactive, BookableStatus.Archived].includes(
-                                        element.status
-                                    ),
-                                }"
+                                [class.inactive]="
+                                    [BookableStatus.Inactive, BookableStatus.Archived].includes(element.status)
+                                "
                                 [label]="element.name"
                                 [navigate]="['/admin/bookable', element.id]"
                             />
@@ -71,7 +69,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                     <ng-container matColumnDef="readOnlyName">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header="name">Nom</th>
                         <td *matCellDef="let element" mat-cell>
-                            <span [ngClass]="{inactive: isFullyBooked(element)}">
+                            <span [class.inactive]="isFullyBooked(element)">
                                 {{ element.name }}
                             </span>
                             @if (isAlreadyPending(element)) {

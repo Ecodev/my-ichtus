@@ -35,12 +35,11 @@ import {
     MatRowDef,
     MatTable,
 } from '@angular/material/table';
-import {AsyncPipe, CurrencyPipe, DatePipe, NgClass} from '@angular/common';
+import {AsyncPipe, CurrencyPipe, DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-bookables',
     imports: [
-        NgClass,
         AsyncPipe,
         CurrencyPipe,
         DatePipe,
