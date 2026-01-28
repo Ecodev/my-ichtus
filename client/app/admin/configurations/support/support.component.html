@@ -6,8 +6,7 @@
         @defer {
             <natural-editor [(ngModel)]="text" />
         }
-    }
-    @if (readonly) {
+    } @else {
         <div class="content" [innerHTML]="text"></div>
     }
 

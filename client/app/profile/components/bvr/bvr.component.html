@@ -3,8 +3,7 @@
         <div class="nat-margin nat-vertical nat-center">
             <mat-progress-spinner mode="indeterminate" [diameter]="40" />
         </div>
-    }
-    @if (bankingInfos) {
+    } @else {
         <div class="nat-horizontal" style="justify-content: space-evenly">
             @if (bankingInfos.qrCode) {
                 <img alt="QR code" class="qrCode" [attr.src]="bankingInfos.qrCode" />

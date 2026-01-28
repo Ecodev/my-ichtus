@@ -301,7 +301,7 @@
                         />
                     }
                     <!-- Trainers only -->
-                    @if (isTrainer()) {
+                    @else {
                         <app-bookings-with-owner
                             [persistSearch]="false"
                             [forcedVariables]="bookingsVariables"

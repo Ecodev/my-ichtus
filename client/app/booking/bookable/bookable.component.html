@@ -48,9 +48,7 @@
         <div class="mat-font-title-md line-break">{{ bookable.remarks }}</div>
         <app-user-contact-data title="Responsable" [user]="bookable.owner" />
     </div>
-}
-
-@if (!bookable) {
+} @else {
     <div class="nat-expand nat-padding nat-vertical nat-center">
         <div class="mat-font-headline-lg" style="text-align: center">
             Aucun matériel correspondant à ce code n'a été trouvé

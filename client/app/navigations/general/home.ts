@@ -187,7 +187,7 @@ export function deltaTime(d1: Date, d2 = new Date(), bold = true): {text: string
 
 export function deleteElements(...elements: Element[]): void {
     for (const item of elements) {
-        if (typeof item != 'undefined' && typeof item.parentElement != 'undefined' && item.parentElement != null) {
+        if (typeof item?.parentElement != 'undefined' && item.parentElement != null) {
             item.parentElement?.removeChild(item);
         } else {
             //console.log("tried to delete a non-existent object");

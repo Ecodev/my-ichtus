@@ -1,4 +1,3 @@
-<!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
 @if (dataSource) {
     <div class="nat-vertical">
         <div class="nat-horizontal">
@@ -101,8 +100,7 @@
                                         [navigate]="['/admin/bookable/', element.bookable.id]"
                                     />
                                 </div>
-                            }
-                            @if (!element.bookable) {
+                            } @else {
                                 <button matButton [style.margin-left.px]="40">Matériel personnel</button>
                             }
                         </td>

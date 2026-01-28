@@ -551,7 +551,7 @@ export const Cahier = {
         }
     },
 
-    addBookable: function (nbr: number, _bookable: Bookable, _lastBooking: Booking | undefined = undefined): void {
+    addBookable: function (nbr: number, _bookable: Bookable, _lastBooking?: Booking): void {
         Cahier.bookings[nbr].bookables.push(_bookable);
 
         if (_bookable.id == '0') {

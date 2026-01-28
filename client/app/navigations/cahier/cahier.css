@@ -116,19 +116,19 @@
     bottom: 5px;
     transition: all 0.1s linear 0s;
     background-image: url(../../../assets/navigations/icons/sort-asc.png);
-    background-size: 0px;
-    background-repeat: no-repeat;
     background-position-x: 15px;
     background-position-y: 15px;
+    background-size: 0px;
+    background-repeat: no-repeat;
     width: 30px;
     height: 30px;
     /*background-color: red;*/
 }
 
 .TableTopBar > div:hover > div:nth-child(1) {
-    background-size: 15px;
     background-position-x: 7.5px;
     background-position-y: 7.5px;
+    background-size: 15px;
 }
 
 .TableTopBar > div * {
@@ -152,9 +152,9 @@
 }
 
 .BookingsTopBarSorted > div {
-    background-size: 20px !important;
     background-position-x: 5px !important;
     background-position-y: 5px !important;
+    background-size: 20px !important;
 }
 
 @keyframes OpacityAnimation {
@@ -361,8 +361,8 @@
     z-index: 4;
     transition: all 0.1s linear 0s;
     background-image: url(../../../assets/navigations/icons/cancel.png);
-    background-repeat: no-repeat;
     background-position-x: right;
+    background-repeat: no-repeat;
     width: 30px;
     height: 30px;
 }
@@ -516,10 +516,10 @@
     opacity: 1;
     transition: opacity 0.3s linear 0s;
     background-image: url(../../../assets/navigations/icons/sail.png);
+    background-position-y: 11px;
     background-size: 30px;
     /*background-blend-mode: exclusion;*/
     background-color: orange;
-    background-position-y: 11px;
     padding-top: 4px;
     padding-right: 12px;
     width: 164px;
@@ -542,10 +542,10 @@
         opacity 0.3s linear 0s,
         background-color 0.1s linear 0s;
     background-image: url(../../../assets/navigations/icons/edit-white.png);
-    background-size: 26px;
-    background-color: gray;
     background-position-x: 10px;
     background-position-y: 14px;
+    background-size: 26px;
+    background-color: gray;
     padding-top: 15px;
     padding-right: 12px;
     width: 190px;
@@ -594,14 +594,14 @@
     border-radius: 10px;
     background-image: none;
     background-image: url(../../../assets/navigations/icons/search-black.png);
-    background-size: 40px;
-    background-size: 34px;
-    background-repeat: no-repeat;
-    background-color: rgb(245, 245, 245);
     background-position-x: 65px;
     background-position-x: 0px;
     background-position-y: 4px;
     background-position-y: 0px;
+    background-size: 40px;
+    background-size: 34px;
+    background-repeat: no-repeat;
+    background-color: rgb(245, 245, 245);
     padding-top: 0px;
     padding-bottom: 0px;
     padding-left: 40px;

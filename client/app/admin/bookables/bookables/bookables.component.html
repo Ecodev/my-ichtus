@@ -278,8 +278,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                                 >
                                     @if (!isAlreadyPending(element)) {
                                         {{ route.snapshot.data.actionButtonLabel || 'Demander' }}
-                                    }
-                                    @if (isAlreadyPending(element)) {
+                                    } @else {
                                         Nouvelle demande
                                     }
                                 </button>

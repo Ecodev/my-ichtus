@@ -93,8 +93,7 @@
                                             [navigate]="['/admin/user/', element.item.owner.id]"
                                         />
                                     </div>
-                                }
-                                @if (!element.item.owner) {
+                                } @else {
                                     <div class="nat-horizontal nat-align">
                                         <natural-avatar initials="ichtus" [size]="36" />
                                         <button matButton>Ichtus</button>

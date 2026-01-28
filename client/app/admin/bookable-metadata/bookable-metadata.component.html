@@ -12,8 +12,7 @@
                                 <input matInput [(ngModel)]="element.name" (change)="updateOrCreate(element)" />
                             </mat-form-field>
                         </div>
-                    }
-                    @if (!edit) {
+                    } @else {
                         <div class="mat-font-title-sm">{{ element.name }}</div>
                     }
                 </td>
@@ -30,8 +29,7 @@
                                 </mat-form-field>
                             }
                         </div>
-                    }
-                    @if (!edit) {
+                    } @else {
                         <div>{{ element.value }}</div>
                     }
                 </td>

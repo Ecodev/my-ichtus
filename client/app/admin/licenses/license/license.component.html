@@ -6,8 +6,7 @@
             </a>
             @if (!form.get('name')?.value) {
                 <span>Nouvelle certification</span>
-            }
-            @if (form.get('name')?.value) {
+            } @else {
                 <span class="pageTitle">
                     <span>Certification</span>
                     {{ form.get('name')?.value }}

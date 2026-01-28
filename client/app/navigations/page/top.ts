@@ -130,7 +130,7 @@ function newLetter(i: number): void {
                 function () {
                     d.style.animationName = 'AniLettersExitRight';
                     setTimeout(
-                        function (elem) {
+                        function (elem: Element) {
                             if (running) {
                                 deleteElements(elem);
                             }
@@ -145,7 +145,7 @@ function newLetter(i: number): void {
             setTimeout(function () {
                 d.style.animationName = 'AniLettersExitLeft';
                 setTimeout(
-                    function (elem) {
+                    function (elem: Element) {
                         if (running) {
                             deleteElements(elem);
                         }

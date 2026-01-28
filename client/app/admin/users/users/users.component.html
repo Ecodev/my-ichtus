@@ -80,8 +80,7 @@
                         >
                             @if (isActive(element)) {
                                 <span>{{ element.status | enum: 'UserStatus' | async }}</span>
-                            }
-                            @if (!isActive(element)) {
+                            } @else {
                                 <button
                                     matButton="filled"
                                     [color]="isNew(element) ? 'tertiary' : undefined"
@@ -120,8 +119,7 @@
                                 >
                                     A participé
                                 </button>
-                            }
-                            @if (element.welcomeSessionDate) {
+                            } @else {
                                 <span>{{ element.welcomeSessionDate | date: 'dd.MM.y' }}</span>
                             }
                         </td>
