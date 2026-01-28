@@ -100,7 +100,7 @@ export class FinancesComponent extends NaturalAbstractList<ExpenseClaimService> 
         super(inject(ExpenseClaimService));
     }
 
-    public ngOnChanges(changes: SimpleChanges): void {
+    public ngOnChanges(changes: SimpleChanges<this>): void {
         const previousUser = changes.viewer?.previousValue;
         if (previousUser && previousUser.id !== this.viewer.id) {
             this.loadData();

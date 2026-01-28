@@ -84,7 +84,7 @@ export class ServicesComponent implements OnInit, OnChanges {
     protected applicationsColumns = ['name', 'startDate', 'remarks', 'initialPrice', 'periodicPrice', 'cancel'];
     protected readonly deleting = new Map<PricedBookingsQuery['bookings']['items'][0]['id'], true>();
 
-    public ngOnChanges(changes: SimpleChanges): void {
+    public ngOnChanges(changes: SimpleChanges<this>): void {
         const previousUser = changes.user?.previousValue;
         if (previousUser && previousUser.id !== this.user.id) {
             this.loadData();
