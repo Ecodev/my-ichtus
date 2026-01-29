@@ -8,8 +8,8 @@
                         <mat-panel-title>Carnet de sorties</mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-nav-list>
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="/admin">En cours</a>
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="booking/self-approved"
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="/admin">En cours</a>
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="booking/self-approved"
                             >Toutes</a
                         >
                     </mat-nav-list>
@@ -26,22 +26,22 @@
                             >Tous les utilisateurs</a
                         >
                         @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
-                            <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="user/newcomer"
+                            <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="user/newcomer"
                                 >Nouveaux membres</a
                             >
                         }
                         @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
-                            <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="user/member"
+                            <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="user/member"
                                 >Membres</a
                             >
                         }
                         @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
-                            <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="user/non-active"
+                            <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="user/non-active"
                                 >Non actifs</a
                             >
                         }
                         @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
-                            <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="user-tag">Tags</a>
+                            <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="user-tag">Tags</a>
                         }
                     </mat-nav-list>
                 </mat-expansion-panel>
@@ -53,29 +53,29 @@
                         <mat-panel-title>Matériel nautique</mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-nav-list>
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/sup">SUP</a>
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/planche"
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="bookable/sup">SUP</a>
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="bookable/planche"
                             >Planches</a
                         >
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/wing-foil"
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="bookable/wing-foil"
                             >Wing foil</a
                         >
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/canoe"
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="bookable/canoe"
                             >Canoës</a
                         >
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/kayak"
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="bookable/kayak"
                             >Kayaks</a
                         >
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/aviron"
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="bookable/aviron"
                             >Aviron</a
                         >
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/voile-legere"
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="bookable/voile-legere"
                             >Voile légère</a
                         >
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/voile-lestee"
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="bookable/voile-lestee"
                             >Voile lestée</a
                         >
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/bateau-moteur"
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="bookable/bateau-moteur"
                             >Bateau moteur</a
                         >
                     </mat-nav-list>
@@ -88,21 +88,21 @@
                         <mat-panel-title>Stockage</mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-nav-list>
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/armoire"
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="bookable/armoire"
                             >Armoires</a
                         >
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/casier"
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="bookable/casier"
                             >Casiers</a
                         >
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/flotteur"
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="bookable/flotteur"
                             >Flotteurs</a
                         >
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/ratelier"
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="bookable/ratelier"
                             >Râteliers WB</a
                         >
                         <a
                             mat-list-item
-                            routerLinkActive="nat-gradient-secondary"
+                            routerLinkActive="nat-gradient-dark-fixed"
                             routerLink="booking/storage-application"
                             >Demandes en attente</a
                         >
@@ -116,26 +116,26 @@
                         <mat-panel-title>Cours et accueil</mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-nav-list>
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/formation"
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="bookable/formation"
                             >Cours</a
                         >
                         @if (permissionsService.canAccessFormationApplication(route.snapshot.data.viewer)) {
                             <a
                                 mat-list-item
-                                routerLinkActive="nat-gradient-secondary"
+                                routerLinkActive="nat-gradient-dark-fixed"
                                 routerLink="booking/formation-application"
                                 >Demandes de cours</a
                             >
                         }
                         @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
-                            <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/welcome"
+                            <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="bookable/welcome"
                                 >Séances d'accueil</a
                             >
                         }
                         @if (permissionsService.gteResponsible(route.snapshot.data.viewer)) {
                             <a
                                 mat-list-item
-                                routerLinkActive="nat-gradient-secondary"
+                                routerLinkActive="nat-gradient-dark-fixed"
                                 routerLink="booking/welcome-application"
                                 >Demandes de SA</a
                             >
@@ -150,11 +150,11 @@
                         <mat-panel-title>NFT</mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-nav-list>
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/nft">NFT</a>
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="bookable/nft">NFT</a>
                         @if (permissionsService.canAccessFormationApplication(route.snapshot.data.viewer)) {
                             <a
                                 mat-list-item
-                                routerLinkActive="nat-gradient-secondary"
+                                routerLinkActive="nat-gradient-dark-fixed"
                                 routerLink="booking/nft-application"
                                 >Demandes NFT</a
                             >
@@ -169,32 +169,32 @@
                         <mat-panel-title>Administration</mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-nav-list>
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable/services"
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="bookable/services"
                             >Cotisations</a
                         >
                         <a
                             mat-list-item
-                            routerLinkActive="nat-gradient-secondary"
+                            routerLinkActive="nat-gradient-dark-fixed"
                             routerLink="booking/services-application"
                             >Demandes en attente</a
                         >
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="license"
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="license"
                             >Certifications</a
                         >
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="bookable-tag"
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="bookable-tag"
                             >Tags de réservables</a
                         >
                         @if ((permissionsService.crud | async)?.configuration?.create) {
-                            <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="support"
+                            <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="support"
                                 >Guide / Support</a
                             >
                         }
                         @if ((permissionsService.crud | async)?.configuration?.create) {
-                            <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="announcement"
+                            <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="announcement"
                                 >Annonce</a
                             >
                         }
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="log">Activité</a>
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="log">Activité</a>
                     </mat-nav-list>
                 </mat-expansion-panel>
             }
@@ -205,21 +205,23 @@
                         <mat-panel-title>Comptabilité</mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-nav-list>
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="transaction-line"
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="transaction-line"
                             >Écritures</a
                         >
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="account">Comptes</a>
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="account">Comptes</a>
                         @if (permissionsService.canAccessExpenseClaims(route.snapshot.data.viewer)) {
-                            <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="expense-claim"
+                            <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="expense-claim"
                                 >Annonces FIN</a
                             >
                         }
                         @if ((permissionsService.crud | async)?.transaction?.create) {
-                            <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="import"
+                            <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="import"
                                 >Import QR-R</a
                             >
                         }
-                        <a mat-list-item routerLinkActive="nat-gradient-secondary" routerLink="transaction-tag">Tags</a>
+                        <a mat-list-item routerLinkActive="nat-gradient-dark-fixed" routerLink="transaction-tag"
+                            >Tags</a
+                        >
                     </mat-nav-list>
                 </mat-expansion-panel>
             }

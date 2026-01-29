@@ -13,44 +13,6 @@ html {
     );
 }
 
-html,
-body,
-app-root {
-    margin: 0;
-    height: 100%;
-    min-height: 100%;
-}
-
-app-root {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-body {
-    background-color: var(--mat-sys-surface-container);
-    color: var(--mat-sys-on-surface);
-    font: var(--mat-sys-body-medium);
-
-    @include mat.table-overrides(
-        (
-            row-item-outline-color: var(--mat-sys-outline-variant),
-        )
-    );
-
-    @include mat.sidenav-overrides(
-        (
-            container-background-color: var(--mat-sys-surface-container),
-            content-background-color: var(--mat-sys-surface-container),
-        )
-    );
-}
-
-natural-sidenav-container {
-    margin: 0; //6px 0 0;
-}
-
 natural-sidenav-content {
     border-top-left-radius: var(--mat-sys-corner-large);
     background-color: var(--mat-sys-surface-bright);
