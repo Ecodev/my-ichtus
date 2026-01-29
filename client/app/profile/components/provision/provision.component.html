@@ -44,10 +44,11 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
+    <button matButton="outlined" mat-dialog-close cdkFocusInitial>Fermer</button>
+
     @if (showExportBillButton()) {
-        <button matButton (click)="exportBill()">Télécharger bulletin de paiement</button>
+        <button matButton="outlined" (click)="exportBill()">Télécharger bulletin de paiement</button>
     }
-    <button matButton mat-dialog-close cdkFocusInitial>Fermer</button>
     @if (paymentMode === 'datatrans') {
         <button matButton="filled" [mat-dialog-close]="formCtrl.value" [disabled]="!formCtrl.valid">Suivant</button>
     }

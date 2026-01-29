@@ -63,9 +63,9 @@
     </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button matButton [mat-dialog-close]="false">Annuler</button>
+    <button matButton="outlined" [mat-dialog-close]="false">Annuler</button>
     <button
-        matButton="outlined"
+        matButton="filled"
         color="error"
         [mat-dialog-close]="true"
         [disabled]="!result || result.loading || !form.valid"
