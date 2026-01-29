@@ -7,13 +7,13 @@
             ,
         }
         @if (person.email) {
-            <a class="app-link" [href]="`mailto:${person.email}?subject=${emailSubject()}`">{{ person.email }}</a>
+            <a matButton [href]="`mailto:${person.email}?subject=${emailSubject()}`">{{ person.email }}</a>
         }
         @if (person.email && person.mobilePhone) {
             ,
         }
         @if (person.mobilePhone) {
-            <a class="app-link" [href]="`tel:${person.mobilePhone}`">{{ person.mobilePhone | nbsp }}</a>
+            <a matButton [href]="`tel:${person.mobilePhone}`">{{ person.mobilePhone | nbsp }}</a>
         }
     </div>
 }
