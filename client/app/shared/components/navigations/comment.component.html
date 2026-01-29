@@ -1,12 +1,11 @@
-<h2 mat-dialog-title>{{ data.title }}</h2>
+<h2 mat-dialog-title>Commentaire de fin de sortie</h2>
 <mat-dialog-content>
-    <p>{{ data.message }}</p>
     <mat-form-field style="width: 100%">
         <mat-label>Commentaire</mat-label>
         <textarea matInput [cdkTextareaAutosize]="true" [cdkAutosizeMinRows]="4" [(ngModel)]="comment"></textarea>
     </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button matButton mat-dialog-close>{{ data.cancelText }}</button>
-    <button matButton="filled" [mat-dialog-close]="comment">{{ data.confirmText }}</button>
+    <button matButton mat-dialog-close>Annuler</button>
+    <button matButton="filled" [mat-dialog-close]="comment">Valider</button>
 </mat-dialog-actions>

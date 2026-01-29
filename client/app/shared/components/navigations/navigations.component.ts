@@ -131,15 +131,6 @@ export class NavigationsComponent implements OnInit {
             duration: 6000,
         };
 
-        const modalOptions = {
-            data: {
-                title: 'Commentaire de fin de sortie',
-                message: '',
-                cancelText: 'Annuler',
-                confirmText: 'Valider',
-            },
-        };
-
         const booking = item.booking;
         this.bookingService.terminateBooking(booking.id).subscribe(() => {
             item.explode = true;
@@ -148,7 +139,7 @@ export class NavigationsComponent implements OnInit {
                 .onAction()
                 .subscribe(() => {
                     this.dialog
-                        .open(CommentComponent, modalOptions)
+                        .open(CommentComponent)
                         .afterClosed()
                         .subscribe(comment => {
                             if (comment && comment !== '') {
