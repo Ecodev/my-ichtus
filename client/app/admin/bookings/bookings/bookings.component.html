@@ -94,9 +94,7 @@
                                     }
                                     <natural-table-button
                                         matTooltip="Éditer"
-                                        [label]="
-                                            `${element.bookable.code ? `${element.bookable.code} ` : ''}${element.bookable.name}`
-                                        "
+                                        [label]="`${element.bookable.code ? `${element.bookable.code} ` : ''}${element.bookable.name}`"
                                         [navigate]="['/admin/bookable/', element.bookable.id]"
                                     />
                                 </div>

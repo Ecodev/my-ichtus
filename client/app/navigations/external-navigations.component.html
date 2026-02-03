@@ -24,9 +24,9 @@
         <div
             id="divTabCahierActualize"
             title="Actualiser les sorties"
-            onclick="server.bookingService.getActualBookingList();"
+            onclick="server.bookingService.getActualBookingList()"
         ></div>
-        <div id="divTabCahierLogin" title="Connexion" onclick="popLogin();"></div>
+        <div id="divTabCahierLogin" title="Connexion" onclick="popLogin()"></div>
 
         <div style="text-align: center; width: 100%">
             <div
@@ -64,7 +64,7 @@
                 value=""
                 spellcheck="false"
                 placeholder="Rechercher"
-                onkeyup="bookingTableSearch($('divTabCahierTableActualBookings'));"
+                onkeyup="bookingTableSearch($('divTabCahierTableActualBookings'))"
                 style="margin-top: -10px"
             />
             <div id="divTabCahierActualBookingsSearchTitle" class="BookingsTableText" style="margin-top: 0px">
@@ -130,7 +130,7 @@
                     padding-right: 0px;
                     text-align: center;
                 "
-                onclick="this.id && newBookingTable(new Date(this.id));"
+                onclick="this.id && newBookingTable(new Date(this.id))"
             >
                 Charger plus de sorties
             </div>
@@ -150,7 +150,7 @@
     <!--Div Tab Cahier Top List-->
     <div id="divTabCahierTopList">
         <div></div>
-        <div class="Buttons ValidateButtons" onclick="newTab('divTabCahierConfirmation');" title="Suivant">Suivant</div>
+        <div class="Buttons ValidateButtons" onclick="newTab('divTabCahierConfirmation')" title="Suivant">Suivant</div>
     </div>
 
     <!--Div Tab Cahier Member-->
@@ -175,7 +175,7 @@
                     spellcheck="false"
                     placeholder="1"
                     value="1"
-                    onkeyup="writeNbrInvites(this);"
+                    onkeyup="writeNbrInvites(this)"
                     onfocusin="if (this.value == '1') { this.value = '';}; writeNbrInvites(this); focusInOrOut(this,true);"
                     onfocusout="if (this.value == '') { this.value = '1'; writeNbrInvites(this);}focusInOrOut(this,false);"
                 />
@@ -201,7 +201,7 @@
                     type="text"
                     spellcheck="false"
                     placeholder="Destination"
-                    onkeyup="writeDestination(this);"
+                    onkeyup="writeDestination(this)"
                     onfocusin="if (this.value == 'Baie') { this.value = '';}; focusInOrOut(this,true); writeDestination(this);"
                     onfocusout="focusInOrOut(this,false); writeDestination(this);"
                 />
@@ -226,7 +226,7 @@
         </div>
         <br />
         <div style="text-align: center">
-            <div class="Buttons ValidateButtons" style="display: inline-block" onclick="checkInfos();" title="Suivant">
+            <div class="Buttons ValidateButtons" style="display: inline-block" onclick="checkInfos()" title="Suivant">
                 Suivant
             </div>
         </div>
@@ -257,7 +257,11 @@
                 id="btnNext"
                 class="Buttons ValidateButtons"
                 style="display: inline-block"
-                onclick="if (this.classList.contains('activated')) {newTab('divTabCahierConfirmation'); }"
+                onclick="
+                    if (this.classList.contains('activated')) {
+                        newTab('divTabCahierConfirmation');
+                    }
+                "
                 title="Suivant"
             >
                 Suivant
@@ -288,13 +292,16 @@
     <div id="divTabCahierEquipmentElements" class="divTab">
         <div class="divCahierSpacers"></div>
         <div class="divMaterielSpacers">
-            <div class="Buttons ReturnButtons" onclick="historyBackTab();" style="position: absolute"></div>
+            <div class="Buttons ReturnButtons" onclick="historyBackTab()" style="position: absolute"></div>
             <div id="divTabCahierEquipmentElementsButtonsContainer">
                 <div style="min-width: 271px">
                     <div id="divTabCahierEquipmentElementsSelectCategorie" title="Catégorie">
                         <div class="Buttons NormalButtons"></div>
                         <select
-                            onchange="changeSelectCategorie(this); server.bookableService.getBookablesList();"
+                            onchange="
+                                changeSelectCategorie(this);
+                                server.bookableService.getBookablesList();
+                            "
                         ></select>
                     </div>
                 </div>
@@ -303,9 +310,12 @@
                         <div
                             class="Buttons NormalButtons"
                             id="divTabCahierEquipmentElementsSelectIconSort"
-                            onclick="clickSortIcon(this); server.bookableService.getBookablesList();"
+                            onclick="
+                                clickSortIcon(this);
+                                server.bookableService.getBookablesList();
+                            "
                         ></div>
-                        <select onchange="server.bookableService.getBookablesList();">
+                        <select onchange="server.bookableService.getBookablesList()">
                             <option value="code">Code</option>
                             <option value="name">Nom</option>
                         </select>
@@ -314,7 +324,7 @@
                 <div style="width: 116px">
                     <div id="divTabCahierEquipmentElementsSelectPageSize" title="Nombre d'éléments affichés par page">
                         <div class="Buttons NormalButtons"></div>
-                        <select onchange="server.bookableService.getBookablesList();">
+                        <select onchange="server.bookableService.getBookablesList()">
                             <option>25</option>
                             <option>50</option>
                             <option selected="selected">100</option>
@@ -330,7 +340,7 @@
                         type="text"
                         value=""
                         placeholder="Rechercher"
-                        onkeyup="server.bookableService.getBookablesList(this);"
+                        onkeyup="server.bookableService.getBookablesList(this)"
                     />
                 </div>
             </div>
