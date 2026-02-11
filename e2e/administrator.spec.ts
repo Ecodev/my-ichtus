@@ -69,7 +69,7 @@ test.describe('accounting', () => {
             // Init processing
             await page.click(bigButton('Administration'));
             await page.click(menuCategory('Comptabilité'));
-            await page.click(menu('Frais, remboursements et factures'));
+            await page.click(menu('Annonces FIN'));
             await page.click(`//a[contains(., 'achats Jumbo')]`);
             await page.click(`//a[contains(., 'Créditer le solde')]`);
             await page.waitForSelector(`//natural-detail-header[contains(., 'Nouvelle transaction')]`);
