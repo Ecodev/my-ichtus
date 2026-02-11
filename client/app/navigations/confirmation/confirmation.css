@@ -79,9 +79,9 @@
     bottom: 0px;
     margin-left: 0px;
     background-image: url(../../../assets/navigations/icons/edit.png);
-    background-size: 25px;
     background-position-x: 6px;
     background-position-y: 6px;
+    background-size: 25px;
     width: 110px;
 }
 .divTabCahierConfirmationContainer .ReturnButtons::after {
@@ -235,10 +235,10 @@
     background-blend-mode: exclusion;
 }
 .divTabCahierConfirmationEmbarcationBoxContainer .ReturnButtons.ButtonChose {
+    background-position-y: 3px;
     background-size: 30px;
     background-color: var(--accent);
     background-blend-mode: unset;
-    background-position-y: 3px;
     color: white;
 }
 .divTabCahierConfirmationEmbarcationBoxContainer .ReturnButtons.ButtonChose:hover {
@@ -359,11 +359,11 @@
     border-color: black;
     border-radius: 10px;
     background-image: url(../../../assets/navigations/icons/check-black.png);
+    background-position-x: 340px;
+    background-position-y: 50px;
     background-size: 40px;
     background-repeat: no-repeat;
     background-color: white; /*rgb(237,237,237);*/
-    background-position-x: 340px;
-    background-position-y: 50px;
     padding-top: 5px;
     padding-right: 10px;
     padding-bottom: 0px;

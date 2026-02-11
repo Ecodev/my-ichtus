@@ -6,7 +6,7 @@ import {mockApolloProvider} from '../../../shared/testing/MockApolloProvider';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {LOCAL_STORAGE, NaturalMemoryStorage} from '@ecodev/natural';
 import {Observable} from 'rxjs';
-import {Permissions} from 'client/app/shared/generated-types';
+import {PermissionsQuery} from 'client/app/shared/generated-types';
 
 describe('UserService', () => {
     let service: UserService;
@@ -30,7 +30,7 @@ describe('UserService', () => {
 
         // Mock permissions service
         const permissionsService = TestBed.inject(PermissionsService);
-        permissionsService.setUser = () => null as unknown as Observable<Permissions['permissions']>;
+        permissionsService.setUser = () => null as unknown as Observable<PermissionsQuery['permissions']>;
     });
 
     it('should get current user', fakeAsync(() => {

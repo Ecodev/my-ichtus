@@ -4,7 +4,7 @@ import {MatListItem, MatNavList} from '@angular/material/list';
 import {ServicesComponent} from '../../services/services.component';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {NaturalDataSource, NaturalIconDirective} from '@ecodev/natural';
-import {Bookings, BookingType, PricedBookings} from '../../../../shared/generated-types';
+import {BookingType, PricedBookingsQuery} from '../../../../shared/generated-types';
 import {NgTemplateOutlet} from '@angular/common';
 import {UserContactDataComponent} from '../../../../shared/components/user-contact-data/user-contact-data.component';
 import {BookablePriceComponent} from '../../../../shared/components/bookable-price/bookable-price.component';
@@ -34,15 +34,17 @@ export class FormationComponent extends ServicesComponent {
         const runningFormations = this.userService
             .getRunningServices(this.user, true)
             .pipe(takeUntilDestroyed(this.destroyRef));
-        this.runningServicesDS = new NaturalDataSource<PricedBookings['bookings']>(runningFormations);
+        this.runningServicesDS = new NaturalDataSource<PricedBookingsQuery['bookings']>(runningFormations);
 
         const pendingFormationApplications = this.userService
             .getPendingApplications(this.user, [BookingType.AdminApproved])
             .pipe(takeUntilDestroyed(this.destroyRef));
-        this.pendingApplicationsDS = new NaturalDataSource<PricedBookings['bookings']>(pendingFormationApplications);
+        this.pendingApplicationsDS = new NaturalDataSource<PricedBookingsQuery['bookings']>(
+            pendingFormationApplications,
+        );
     }
 
-    public override revokeBooking(booking: Bookings['bookings']['items'][0]): void {
+    public override revokeBooking(booking: PricedBookingsQuery['bookings']['items'][0]): void {
         this.alertService
             .confirm(
                 'Se désinscrire',

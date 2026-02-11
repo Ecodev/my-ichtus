@@ -13,15 +13,15 @@
                 data.model.reviewer === null &&
                 permissionsService.gteResponsible(viewer)
             ) {
-                <a mat-stroked-button color="basic" (click)="approve()">
+                <a matButton="outlined" color="basic" (click)="approve()">
                     <mat-icon naturalIcon="verified" />
-                    <span class="mat-subtitle-2">Approuver</span>
+                    <span class="mat-font-title-sm">Approuver</span>
                 </a>
             }
             @if (isUpdatePage() && data.model.reviewer && !permissionsService.isAdministrator(viewer)) {
                 <div class="nat-horizontal nat-align">
                     <mat-icon naturalIcon="verified" />
-                    <span class="mat-body">Approuvé par {{ data.model.reviewer.name }}</span>
+                    <span>Approuvé par {{ data.model.reviewer.name }}</span>
                 </div>
             }
 
@@ -31,8 +31,8 @@
                 (permissionsService.crud | async)?.transaction.create
             ) {
                 <a
-                    mat-flat-button
-                    color="accent"
+                    matButton="filled"
+                    color="tertiary"
                     [routerLink]="['/admin/transaction/new', {expenseClaim: data.model.id}]"
                 >
                     <mat-icon naturalIcon="payments" />
@@ -49,21 +49,20 @@
             }
 
             @if (isUpdatePage() && data.model.transactions.length === 1) {
-                <a mat-flat-button [routerLink]="['/admin/transaction', data.model.transactions[0].id]">
-                    Voir l'écriture
-                </a>
+                <a matButton="filled" [routerLink]="['/admin/transaction', data.model.transactions[0].id]"
+                    >Voir l'écriture</a
+                >
             }
 
             @if (isUpdatePage() && data.model.transactions.length > 1) {
                 <a
-                    mat-flat-button
+                    matButton="filled"
                     [routerLink]="transactionLineService.linkToTransactionLinesForTransactions(data.model.transactions)"
+                    >Voir les écritures</a
                 >
-                    Voir les écritures
-                </a>
             }
 
-            <app-money sizeClass="mat-headline-4" [amount]="data.model.amount" [showSignal]="false" />
+            <app-money sizeClass="mat-font-headline-lg" [amount]="data.model.amount" [showSignal]="false" />
         </div>
     </natural-detail-header>
 
@@ -102,7 +101,7 @@
                         <div matIconSuffix>
                             @if (form.get('sector')?.value !== '') {
                                 <button
-                                    mat-icon-button
+                                    matIconButton
                                     matTooltip="Aucun"
                                     (click)="form.get('sector')?.setValue(''); $event.stopPropagation(); update()"
                                 >
@@ -163,7 +162,7 @@
 
         <mat-divider />
 
-        <h2 class="mat-headline-6">Commentaires</h2>
+        <h2 class="mat-font-title-lg">Commentaires</h2>
 
         <div class="nat-vertical nat-md-horizontal nat-gap-horizontal">
             <div class="nat-expand nat-vertical">
@@ -197,7 +196,7 @@
             <mat-divider />
 
             <div>
-                <div class="mat-headline-6">Pièces justificatives</div>
+                <div class="mat-font-title-lg">Pièces justificatives</div>
                 <div class="nat-horizontal nat-gap-10">
                     @for (file of data.model.accountingDocuments; track file.id) {
                         <natural-file action="download" [model]="file" [height]="150" [style.width.px]="200" />

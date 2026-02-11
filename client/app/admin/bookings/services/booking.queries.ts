@@ -31,7 +31,7 @@ export const bookingMetaFragment = gql`
 `;
 
 export const bookingsQuery = gql`
-    query Bookings($filter: BookingFilter, $sorting: [BookingSorting!], $pagination: PaginationInput) {
+    query BookingsQuery($filter: BookingFilter, $sorting: [BookingSorting!], $pagination: PaginationInput) {
         bookings(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
                 ...BookingMeta
@@ -62,7 +62,11 @@ export const bookingsQuery = gql`
 `;
 
 export const bookingsWithOwnerBalanceQuery = gql`
-    query BookingsWithOwnerBalance($filter: BookingFilter, $sorting: [BookingSorting!], $pagination: PaginationInput) {
+    query BookingsWithOwnerBalanceQuery(
+        $filter: BookingFilter
+        $sorting: [BookingSorting!]
+        $pagination: PaginationInput
+    ) {
         bookings(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
                 ...BookingMeta
@@ -98,7 +102,11 @@ export const bookingsWithOwnerBalanceQuery = gql`
     ${bookableUsageFragment}
 `;
 export const bookingsWithOwnerContactQuery = gql`
-    query BookingsWithOwnerContact($filter: BookingFilter, $sorting: [BookingSorting!], $pagination: PaginationInput) {
+    query BookingsWithOwnerContactQuery(
+        $filter: BookingFilter
+        $sorting: [BookingSorting!]
+        $pagination: PaginationInput
+    ) {
         bookings(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
                 id
@@ -113,7 +121,7 @@ export const bookingsWithOwnerContactQuery = gql`
 `;
 
 export const pricedBookingsQuery = gql`
-    query PricedBookings($filter: BookingFilter, $sorting: [BookingSorting!], $pagination: PaginationInput) {
+    query PricedBookingsQuery($filter: BookingFilter, $sorting: [BookingSorting!], $pagination: PaginationInput) {
         bookings(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
                 ...BookingMeta
@@ -153,7 +161,7 @@ export const pricedBookingsQuery = gql`
 `;
 
 export const bookingQuery = gql`
-    query Booking($id: BookingID!) {
+    query BookingQuery($id: BookingID!) {
         booking(id: $id) {
             ...BookingMeta
             bookable {

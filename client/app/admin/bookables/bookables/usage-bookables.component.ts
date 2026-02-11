@@ -9,9 +9,10 @@ import {
     NaturalSearchComponent,
     NaturalSearchSelections,
     NaturalTableButtonComponent,
+    TypedMatCellDef,
 } from '@ecodev/natural';
-import {AsyncPipe, CurrencyPipe, DatePipe, NgClass} from '@angular/common';
-import {BookableStatus, UsageBookables} from '../../../shared/generated-types';
+import {AsyncPipe, CurrencyPipe, DatePipe} from '@angular/common';
+import {BookableStatus, UsageBookablesQuery} from '../../../shared/generated-types';
 import {switchMap} from 'rxjs/operators';
 import {UserService} from '../../users/services/user.service';
 import {ParentComponent} from './parent.component';
@@ -25,7 +26,6 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {
     MatCell,
-    MatCellDef,
     MatColumnDef,
     MatFooterCell,
     MatFooterCellDef,
@@ -45,7 +45,6 @@ import {admin_approved, bookables, storage} from '../../../shared/natural-search
 @Component({
     selector: 'app-usage-bookables',
     imports: [
-        NgClass,
         AsyncPipe,
         CurrencyPipe,
         DatePipe,
@@ -55,7 +54,7 @@ import {admin_approved, bookables, storage} from '../../../shared/natural-search
         MatHeaderCellDef,
         MatHeaderRowDef,
         MatColumnDef,
-        MatCellDef,
+        TypedMatCellDef,
         MatRowDef,
         MatFooterCellDef,
         MatFooterRowDef,
@@ -84,8 +83,8 @@ import {admin_approved, bookables, storage} from '../../../shared/natural-search
 export class UsageBookablesComponent extends ParentComponent<UsageBookableService> implements OnInit {
     protected readonly permissionsService = inject(PermissionsService);
     private readonly userService = inject(UserService);
-    protected BookableStatus = BookableStatus;
-    protected readonly bookableClick = output<UsageBookables['bookables']['items'][0]>();
+    protected readonly BookableStatus = BookableStatus;
+    protected readonly bookableClick = output<UsageBookablesQuery['bookables']['items'][0]>();
 
     @Input()
     public set selections(selections: NaturalSearchSelections) {

@@ -6,3 +6,30 @@
     border-radius: 4px;
     padding: 3px 4px;
 }
+
+.text-decoration {
+    &.positive {
+        color: #008600;
+    }
+
+    &.negative {
+        color: var(--mat-sys-error-container);
+    }
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.background-decoration {
+    &.positive {
+        background: #008600;
+        color: white;
+    }
+
+    &.negative {
+        background: var(--mat-sys-error-container);
+        color: var(--mat-sys-on-error-container);
+    }
+}

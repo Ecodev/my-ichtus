@@ -2,7 +2,7 @@
 @if (dataSource) {
     <div class="nat-vertical">
         <div class="nat-horizontal">
-            <div class="mat-headline-5 nat-no-margin nat-expand">
+            <div class="mat-font-headline-sm nat-expand">
                 {{ routeData?.seo.title }}
             </div>
             <natural-columns-picker
@@ -34,7 +34,7 @@
 
                     <ng-container matColumnDef="name">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>Nom</th>
-                        <td *matCellDef="let element" mat-cell>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                             <natural-table-button
                                 matTooltip="Éditer"
                                 [label]="element.name"
@@ -46,7 +46,7 @@
 
                     <ng-container matColumnDef="remarks">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>Remarques</th>
-                        <td *matCellDef="let element" mat-cell>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                             <div class="line-break">{{ element.remarks }}</div>
                         </td>
                         <td *matFooterCellDef mat-footer-cell></td>
@@ -62,7 +62,7 @@
                         >
                             Montant
                         </th>
-                        <td *matCellDef="let element" mat-cell class="natural-align-right">
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell class="natural-align-right">
                             <app-money [amount]="element.balance" [showCurrency]="false" [showSignal]="false" />
                         </td>
                         <td *matFooterCellDef mat-footer-cell>
@@ -78,7 +78,7 @@
 
                     <ng-container matColumnDef="account">
                         <th *matHeaderCellDef mat-header-cell>Compte</th>
-                        <td *matCellDef="let element" mat-cell>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                             <div class="nat-horizontal nat-gap-5 nat-left nat-top">
                                 @if (!relativeToAccount) {
                                     <div>
@@ -113,7 +113,7 @@
 
                     <ng-container matColumnDef="isReconciled">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header class="app-date-column">Pointé</th>
-                        <td *matCellDef="let element" mat-cell>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                             @if (!(permissionsService.crud | async)?.transaction.create) {
                                 <div>
                                     {{ element.isReconciled ? '✔︎' : '' }}
@@ -133,7 +133,7 @@
 
                     <ng-container matColumnDef="bookable">
                         <th *matHeaderCellDef mat-header-cell>Réservable</th>
-                        <td *matCellDef="let element" mat-cell>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                             @if (element.bookable) {
                                 <natural-table-button
                                     [label]="element.bookable.name"
@@ -146,7 +146,7 @@
 
                     <ng-container matColumnDef="transactionDate">
                         <th *matHeaderCellDef mat-header-cell class="app-date-column" mat-sort-header>Date</th>
-                        <td *matCellDef="let element" mat-cell>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                             {{ element.transactionDate | date }}
                         </td>
                         <td *matFooterCellDef mat-footer-cell></td>
@@ -154,7 +154,7 @@
 
                     <ng-container matColumnDef="documents">
                         <th *matHeaderCellDef mat-header-cell>Justificatifs</th>
-                        <td *matCellDef="let element" mat-cell>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                             {{ documentCount(element) || '' }}
                         </td>
                         <td *matFooterCellDef mat-footer-cell></td>
@@ -162,7 +162,7 @@
 
                     <ng-container matColumnDef="tag">
                         <th *matHeaderCellDef mat-header-cell>Tag</th>
-                        <td *matCellDef="let element" mat-cell>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                             @if (element.transactionTag) {
                                 <div class="nat-horizontal nat-left nat-top">
                                     <natural-avatar

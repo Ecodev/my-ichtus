@@ -81,8 +81,8 @@
     margin-bottom: 0px;
     background-image: url(../../../assets/navigations/icons/validated.png);
     background-position: center;
-    background-color: lightgray;
     background-position-x: 30px;
+    background-color: lightgray;
     padding-left: 0px;
     width: 100px;
 }
@@ -124,8 +124,8 @@
     margin-left: 10px;
     background-image: url(../../../assets/navigations/icons/own-sail.png);
     background-position: center;
-    background-size: 40px;
     background-position-x: 5px;
+    background-size: 40px;
     padding-left: 50px;
     width: 165px;
     height: 50px;

@@ -1,9 +1,42 @@
-.content {
-    margin: auto;
-    padding: 10px;
-    max-width: 1000px;
-}
+::ng-deep {
+    app-support {
+        .content {
+            padding: 20px 10px 10px 10px;
+            max-width: 1000px;
+        }
 
-mat-slide-toggle {
-    margin-bottom: 30px;
+        mat-slide-toggle {
+            margin-bottom: 30px;
+        }
+
+        a {
+            border-bottom-width: 2px;
+            border-bottom-style: solid;
+            border-color: var(--mat-sys-primary);
+
+            color: var(--mat-sys-primary);
+            text-decoration: none;
+
+            &:hover {
+                border-color: var(--mat-sys-tertiary-container);
+                color: var(--mat-sys-tertiary-container);
+            }
+        }
+
+        h1 {
+            margin-block: 1.2em 0.75em;
+            font:
+                400 24px/32px Roboto,
+                'Helvetica Neue',
+                sans-serif;
+        }
+
+        h2 {
+            margin-block: 1.2em 0.75em;
+            font:
+                500 20px/32px Roboto,
+                'Helvetica Neue',
+                sans-serif;
+        }
+    }
 }

@@ -6,7 +6,7 @@
         [listRoute]="['admin', 'account']"
     >
         @if (isUpdatePage()) {
-            <app-money sizeClass="mat-headline-4" [amount]="data.model.totalBalance" />
+            <app-money sizeClass="mat-font-headline-lg" [amount]="data.model.totalBalance" />
         }
     </natural-detail-header>
 
@@ -26,7 +26,7 @@
                         @if (nextCodeAvailable) {
                             <button
                                 matIconSuffix
-                                mat-icon-button
+                                matIconButton
                                 matTooltip="Utiliser le code suggéré"
                                 (click)="form.get('code')?.setValue(nextCodeAvailable); update()"
                             >

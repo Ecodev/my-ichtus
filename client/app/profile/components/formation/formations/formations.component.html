@@ -1,32 +1,31 @@
 <ng-template #displayTemplate let-element>
     <div class="nat-vertical nat-gap-10" [class.inactive]="isFullyBooked(element)">
-        <h2 class="mat-headline-5 nat-expand nat-no-margin-bottom">{{ element.name }}</h2>
+        <h2 class="mat-font-headline-sm nat-expand">{{ element.name }}</h2>
         <div class="nat-horizontal nat-top nat-gap-10 nat-wrap">
             @if (element.simultaneousBookings) {
                 <app-flag [status]="availabilityStatus(element)">{{ availabilityText(element) }}</app-flag>
             }
             @if (isAlreadyPending(element)) {
-                <app-flag status="pending-application">Déjà demandé </app-flag>
+                <app-flag status="pending-application">Déjà demandé</app-flag>
             }
             <div class="spacer nat-expand"></div>
             <app-bookable-price [bookable]="element" />
             @if (allowBooking(element)) {
                 <button
-                    mat-flat-button
-                    [color]="isAlreadyPending(element) ? 'accent' : 'primary'"
+                    matButton="filled"
+                    [color]="isAlreadyPending(element) ? 'tertiary' : undefined"
                     [disabled]="isFullyBooked(element) || creating.has(element.id)"
                     (click)="createApplication(element)"
                 >
                     @if (!isAlreadyPending(element)) {
                         Demande d'inscription
-                    }
-                    @if (isAlreadyPending(element)) {
+                    } @else {
                         Nouvelle demande
                     }
                 </button>
             }
         </div>
-        <div class="mat-body-1 description">{{ element.description }}</div>
+        <div class="mat-font-body-lg description">{{ element.description }}</div>
         @if (element.owner) {
             <app-user-contact-data class="nat-expand" [user]="element.owner" />
         }

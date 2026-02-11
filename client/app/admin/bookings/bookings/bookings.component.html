@@ -1,8 +1,7 @@
-<!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
 @if (dataSource) {
     <div class="nat-vertical">
         <div class="nat-horizontal">
-            <div class="mat-headline-5 nat-no-margin nat-expand">
+            <div class="mat-font-headline-sm nat-expand">
                 {{ routeData?.seo.title }}
             </div>
             <natural-columns-picker
@@ -95,15 +94,12 @@
                                     }
                                     <natural-table-button
                                         matTooltip="Éditer"
-                                        [label]="
-                                            `${element.bookable.code ? `${element.bookable.code} ` : ''}${element.bookable.name}`
-                                        "
+                                        [label]="`${element.bookable.code ? `${element.bookable.code} ` : ''}${element.bookable.name}`"
                                         [navigate]="['/admin/bookable/', element.bookable.id]"
                                     />
                                 </div>
-                            }
-                            @if (!element.bookable) {
-                                <button mat-button [style.margin-left.px]="40">Matériel personnel</button>
+                            } @else {
+                                <button matButton [style.margin-left.px]="40">Matériel personnel</button>
                             }
                         </td>
                         <td *matFooterCellDef mat-footer-cell></td>
@@ -195,7 +191,7 @@
                         <th *matHeaderCellDef mat-header-cell class="natural-5em-column"></th>
                         <td *matCellDef="let element" mat-cell>
                             @if (!element.endDate) {
-                                <button mat-flat-button color="warn" (click)="maybeTerminateBooking(element.id)">
+                                <button matButton="filled" color="error" (click)="maybeTerminateBooking(element.id)">
                                     Terminer
                                 </button>
                             }

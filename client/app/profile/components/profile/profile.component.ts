@@ -16,7 +16,7 @@ import {UserService} from '../../../admin/users/services/user.service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ProvisionComponent, ProvisionData} from '../provision/provision.component';
 import {filter} from 'rxjs/operators';
-import {CurrentUserForProfile, Licenses, LicensesVariables} from '../../../shared/generated-types';
+import {CurrentUserForProfileQuery, LicensesQuery, LicensesQueryVariables} from '../../../shared/generated-types';
 import {DatatransService} from '../../../shared/services/datatrans.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {LicenseService} from '../../../admin/licenses/services/license.service';
@@ -66,14 +66,14 @@ export class ProfileComponent implements OnInit {
     private readonly licenseService = inject(LicenseService);
 
     private readonly destroyRef = inject(DestroyRef);
-    protected viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    protected viewer!: NonNullable<CurrentUserForProfileQuery['viewer']>;
     protected config = localConfig;
-    protected licenses: Licenses['licenses']['items'][0][] = [];
+    protected licenses: LicensesQuery['licenses']['items'][0][] = [];
 
     public ngOnInit(): void {
         this.viewer = this.route.snapshot.data.viewer;
 
-        const licenseQueryVariables = new NaturalQueryVariablesManager<LicensesVariables>();
+        const licenseQueryVariables = new NaturalQueryVariablesManager<LicensesQueryVariables>();
         licenseQueryVariables.set('variables', {
             filter: {
                 groups: [{conditions: [{users: {have: {values: [this.viewer.id]}}}]}],
@@ -122,7 +122,7 @@ export class ProfileComponent implements OnInit {
         return this.permissionsService.canAccessServices(this.viewer);
     }
 
-    private doPayment(user: NonNullable<CurrentUserForProfile['viewer']>, amount: number): void {
+    private doPayment(user: NonNullable<CurrentUserForProfileQuery['viewer']>, amount: number): void {
         if (!localConfig?.datatrans) {
             return;
         }

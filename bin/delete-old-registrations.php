@@ -17,4 +17,6 @@ $userRepository = _em()->getRepository(User::class);
 
 $deleted = $userRepository->deleteOldRegistrations();
 
-echo sprintf('%d inscriptions non-confirmées effacées', $deleted) . PHP_EOL;
+if ($deleted) {
+    echo sprintf('%d inscriptions non-confirmées effacées', $deleted) . PHP_EOL;
+}

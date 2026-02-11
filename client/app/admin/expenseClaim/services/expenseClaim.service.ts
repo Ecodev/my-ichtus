@@ -10,17 +10,17 @@ import {
 import {
     CreateExpenseClaim,
     CreateExpenseClaimVariables,
-    CurrentUserForProfile,
+    CurrentUserForProfileQuery,
     DeleteExpenseClaims,
     DeleteExpenseClaimsVariables,
-    ExpenseClaim,
     ExpenseClaimInput,
-    ExpenseClaims,
+    ExpenseClaimQuery,
+    ExpenseClaimQueryVariables,
     ExpenseClaimSortingField,
+    ExpenseClaimsQuery,
+    ExpenseClaimsQueryVariables,
     ExpenseClaimStatus,
-    ExpenseClaimsVariables,
     ExpenseClaimType,
-    ExpenseClaimVariables,
     SortingOrder,
     UpdateExpenseClaim,
     UpdateExpenseClaimVariables,
@@ -31,10 +31,10 @@ import {Validators} from '@angular/forms';
     providedIn: 'root',
 })
 export class ExpenseClaimService extends NaturalAbstractModelService<
-    ExpenseClaim['expenseClaim'],
-    ExpenseClaimVariables,
-    ExpenseClaims['expenseClaims'],
-    ExpenseClaimsVariables,
+    ExpenseClaimQuery['expenseClaim'],
+    ExpenseClaimQueryVariables,
+    ExpenseClaimsQuery['expenseClaims'],
+    ExpenseClaimsQueryVariables,
     CreateExpenseClaim['createExpenseClaim'],
     CreateExpenseClaimVariables,
     UpdateExpenseClaim['updateExpenseClaim'],
@@ -75,8 +75,8 @@ export class ExpenseClaimService extends NaturalAbstractModelService<
         };
     }
 
-    public getForUserVariables(user: NonNullable<CurrentUserForProfile['viewer']>): ExpenseClaimsVariables {
-        const variables: ExpenseClaimsVariables = {
+    public getForUserVariables(user: NonNullable<CurrentUserForProfileQuery['viewer']>): ExpenseClaimsQueryVariables {
+        const variables: ExpenseClaimsQueryVariables = {
             filter: {
                 groups: [
                     {

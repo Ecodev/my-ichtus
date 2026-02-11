@@ -11,12 +11,12 @@
         <div class="nat-horizontal nat-gap-10 nat-align">
             @if (form.get('verificationDate')?.value) {
                 <div class="nat-vertical" style="text-align: right">
-                    <div class="mat-subtitle-2">Dernière vérification</div>
-                    <div class="mat-body-2">{{ form.get('verificationDate')?.value | date: 'dd.MM.y' }}</div>
+                    <div class="mat-font-title-sm">Dernière vérification</div>
+                    <div>{{ form.get('verificationDate')?.value | date: 'dd.MM.y' }}</div>
                 </div>
             }
             @if (isUpdatePage() && showVerified()) {
-                <button mat-flat-button color="primary" (click)="verify()">Marquer comme vérifié</button>
+                <button matButton="filled" (click)="verify()">Marquer comme vérifié</button>
             }
         </div>
     </natural-detail-header>
@@ -95,7 +95,7 @@
                     </div>
 
                     <div class="nat-md-expand-33 nat-vertical">
-                        <h2 class="mat-headline-6 nat-no-margin">Réservation</h2>
+                        <h2 class="mat-font-title-lg">Réservation</h2>
                         <natural-select-enum
                             enumName="BookableStatus"
                             formControlName="status"
@@ -167,8 +167,8 @@
                                 <mat-hint
                                     >Permet de faire des demandes de réservations au delà du nombre max. de réservations
                                     simultanées et donc de gérer une file d'attente en cas d'annulation d'une autre
-                                    personne.
-                                </mat-hint>
+                                    personne.</mat-hint
+                                >
                             </mat-form-field>
                             <br />
                         }
@@ -204,7 +204,7 @@
                     <div class="nat-md-expand-66 nat-vertical">
                         @if (isUpdatePage() && isSelfApproved()) {
                             <div>
-                                <h2 class="mat-headline-6">Certifications</h2>
+                                <h2 class="mat-font-title-lg">Certifications</h2>
                                 <natural-relations
                                     placeholder="Associer à une certification"
                                     [main]="data.model"
@@ -228,7 +228,7 @@
                     <div class="nat-md-expand-33 nat-vertical">
                         @if (isUpdatePage()) {
                             <div>
-                                <h2 class="mat-headline-6">Tags</h2>
+                                <h2 class="mat-font-title-lg">Tags</h2>
                                 <natural-relations
                                     placeholder="Ajouter un tag"
                                     [main]="data.model"
@@ -301,7 +301,7 @@
                         />
                     }
                     <!-- Trainers only -->
-                    @if (isTrainer()) {
+                    @else {
                         <app-bookings-with-owner
                             [persistSearch]="false"
                             [forcedVariables]="bookingsVariables"

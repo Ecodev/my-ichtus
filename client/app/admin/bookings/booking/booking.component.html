@@ -8,8 +8,8 @@
         <div class="nat-horizontal nat-gap">
             @if (isUpdatePage() && !form.get('endDate')?.value && !isAdminApproved()) {
                 <button
-                    mat-flat-button
-                    color="warn"
+                    matButton="filled"
+                    color="error"
                     [disabled]="!data.model.permissions.update"
                     (click)="terminateBooking()"
                 >
@@ -18,8 +18,8 @@
             }
             @if (isUpdatePage() && form.get('endDate')?.value && isAdminApproved()) {
                 <button
-                    mat-flat-button
-                    color="warn"
+                    matButton="filled"
+                    color="error"
                     [disabled]="!data.model.permissions.update"
                     (click)="unTerminateBooking()"
                 >
@@ -56,8 +56,8 @@
                                     [selected]="category.selected"
                                     [selectable]="true"
                                     (click)="filterBookables(category.value)"
-                                    >{{ category.name }}
-                                </mat-chip-option>
+                                    >{{ category.name }}</mat-chip-option
+                                >
                             }
                         </mat-chip-listbox>
                     }
@@ -76,18 +76,17 @@
                     @if (newBooking) {
                         <div>
                             <mat-divider class="nat-margin-bottom" />
-                            <p class="mat-body-2">
+                            <p>
                                 La prestation / espace de stockage
-                                <span class="mat-subtitle-2">{{ newBooking.bookable?.name }}</span>
+                                <span class="mat-font-title-sm">{{ newBooking.bookable?.name }}</span>
                                 a été attribué(e).
                             </p>
                             <a
-                                mat-stroked-button
+                                matButton="outlined"
                                 [routerLink]="['/admin/booking', newBooking.id]"
                                 (click)="newBooking = null"
+                                >Voir la réservation</a
                             >
-                                Voir la réservation
-                            </a>
                         </div>
                     }
                 </div>
@@ -102,8 +101,7 @@
                         />
                         @if (isUpdatePage() && isPendingApplication(BookingType.AdminApproved)) {
                             <button
-                                mat-flat-button
-                                color="primary"
+                                matButton="filled"
                                 [disabled]="!data.model.permissions.update"
                                 (click)="approveBooking()"
                             >
@@ -112,7 +110,7 @@
                         }
                     </div>
 
-                    <h2 class="mat-headline-6">Commentaires</h2>
+                    <h2 class="mat-font-title-lg">Commentaires</h2>
                     <mat-form-field>
                         <mat-label>Remarques</mat-label>
                         <textarea
@@ -144,7 +142,7 @@
             ) {
                 <div>
                     <mat-divider class="nat-margin-bottom" />
-                    <div class="mat-headline-6">Attribuer un stockage / service</div>
+                    <div class="mat-font-title-lg">Attribuer un stockage / service</div>
                     <app-usage-bookables
                         [availableColumns]="availableColumns"
                         [persistSearch]="false"
@@ -158,7 +156,7 @@
             @if (isSelfApproved()) {
                 <div>
                     <mat-divider class="nat-margin-vertical" />
-                    <h1 class="mat-headline-6">Sorties</h1>
+                    <h1 class="mat-font-title-lg">Sorties</h1>
                     <mat-form-field style="width: 100px">
                         <mat-label>Nb participants</mat-label>
                         <input
@@ -173,7 +171,7 @@
                     <div class="nat-vertical nat-md-horizontal nat-gap-horizontal">
                         <div class="nat-expand nat-vertical">
                             <div class="nat-horizontal nat-margin-bottom nat-gap-10 nat-align">
-                                <h2 class="mat-headline-6 nat-no-margin-bottom">Début</h2>
+                                <h2 class="mat-font-title-lg">Début</h2>
                                 <div>{{ data.model.startDate | date }}</div>
                             </div>
                             <mat-form-field>
@@ -194,7 +192,7 @@
                         </div>
                         <div class="nat-expand nat-vertical">
                             <div class="nat-horizontal nat-margin-bottom nat-gap-10 nat-align">
-                                <h2 class="mat-headline-6 nat-no-margin-bottom">Fin</h2>
+                                <h2 class="mat-font-title-lg">Fin</h2>
                                 <div class="nat-expand">{{ data.model.endDate | date }}</div>
                             </div>
                             <mat-form-field>

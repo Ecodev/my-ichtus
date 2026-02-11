@@ -24,7 +24,7 @@ export function loadElements(bookables: BookableWithExtra[], nbr = 0): void {
         const bookable = bookables[j];
         if (bookable.used && Cahier.bookings[0].currentlyEditing != undefined) {
             for (const bookingId of Cahier.editedBooking.ids) {
-                if (bookable.lastBooking && bookable.lastBooking.id == bookingId) {
+                if (bookable.lastBooking?.id == bookingId) {
                     bookable.used = false;
                     break;
                 }

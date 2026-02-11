@@ -1,12 +1,12 @@
-import type {Bookables, Bookings, Users} from '../shared/generated-types';
+import type {BookablesQuery, BookingsQuery, UsersQuery} from '../shared/generated-types';
 import {UserForVanillaService} from './user-for-vanilla.service';
 import {BookableForVanillaService} from './bookable-for-vanilla.service';
 import {BookingForVanillaService} from './booking-for-vanilla.service';
 
 // Type alias for convenience
-export type User = Users['users']['items'][0];
-export type Bookable = Bookables['bookables']['items'][0];
-export type Booking = Bookings['bookings']['items'][0];
+export type User = UsersQuery['users']['items'][0];
+export type Bookable = BookablesQuery['bookables']['items'][0];
+export type Booking = BookingsQuery['bookings']['items'][0];
 
 export type PopBookingWhich = 'confirmation' | 'infos' | 'finish';
 

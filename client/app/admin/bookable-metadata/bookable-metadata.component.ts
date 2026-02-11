@@ -5,8 +5,9 @@ import {
     NaturalDataSource,
     NaturalIconDirective,
     NaturalQueryVariablesManager,
+    TypedMatCellDef,
 } from '@ecodev/natural';
-import {Bookable, BookableMetadatas, BookableMetadatasVariables} from '../../shared/generated-types';
+import {BookableMetadatasQuery, BookableMetadatasQueryVariables, BookableQuery} from '../../shared/generated-types';
 import {cloneDeep} from 'es-toolkit';
 import {finalize} from 'rxjs/operators';
 import {MatIcon} from '@angular/material/icon';
@@ -16,7 +17,6 @@ import {MatInput} from '@angular/material/input';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {
     MatCell,
-    MatCellDef,
     MatColumnDef,
     MatHeaderCell,
     MatHeaderCellDef,
@@ -31,7 +31,7 @@ import {
         MatTable,
         MatHeaderCellDef,
         MatColumnDef,
-        MatCellDef,
+        TypedMatCellDef,
         MatRowDef,
         MatHeaderCell,
         MatCell,
@@ -51,11 +51,11 @@ export class BookableMetadataComponent implements OnInit {
     private readonly bookableMetaService = inject(BookableMetadataService);
     private readonly alertService = inject(NaturalAlertService);
 
-    public readonly bookable = input.required<Bookable['bookable']>();
+    public readonly bookable = input.required<BookableQuery['bookable']>();
     @Input() public edit = false;
-    protected readonly deleting = new Map<BookableMetadatas['bookableMetadatas']['items'][0], true>();
+    protected readonly deleting = new Map<BookableMetadatasQuery['bookableMetadatas']['items'][0], true>();
 
-    protected dataSource!: NaturalDataSource<BookableMetadatas['bookableMetadatas']>;
+    protected dataSource!: NaturalDataSource<BookableMetadatasQuery['bookableMetadatas']>;
 
     protected columns: string[] = [];
 
@@ -68,16 +68,18 @@ export class BookableMetadataComponent implements OnInit {
 
         const bookable = this.bookable();
         if (bookable) {
-            const variables: BookableMetadatasVariables = {
+            const variables: BookableMetadatasQueryVariables = {
                 filter: {groups: [{conditions: [{bookable: {equal: {value: bookable.id}}}]}]},
             };
 
-            const qvm = new NaturalQueryVariablesManager<BookableMetadatasVariables>();
+            const qvm = new NaturalQueryVariablesManager<BookableMetadatasQueryVariables>();
             qvm.set('variables', variables);
 
             // TODO : replace by watchAll because two admins may work on same object and meta data could change between two visits
             this.bookableMetaService.getAll(qvm).subscribe(bookables => {
-                this.dataSource = new NaturalDataSource<BookableMetadatas['bookableMetadatas']>(cloneDeep(bookables));
+                this.dataSource = new NaturalDataSource<BookableMetadatasQuery['bookableMetadatas']>(
+                    cloneDeep(bookables),
+                );
                 this.addLine();
             });
         } else {
@@ -91,15 +93,15 @@ export class BookableMetadataComponent implements OnInit {
     protected addLine(): void {
         if (this.edit && this.dataSource.data) {
             const lastItem = this.dataSource.data.items[this.dataSource.data.items.length - 1];
-            if (!lastItem || lastItem.name !== '' || lastItem.value !== '') {
+            if (lastItem?.name !== '' || lastItem.value !== '') {
                 this.dataSource.push(
-                    this.bookableMetaService.getDefaultForServer() as BookableMetadatas['bookableMetadatas']['items'][0],
+                    this.bookableMetaService.getDefaultForServer() as BookableMetadatasQuery['bookableMetadatas']['items'][0],
                 );
             }
         }
     }
 
-    protected updateOrCreate(meta: BookableMetadatas['bookableMetadatas']['items'][0]): void {
+    protected updateOrCreate(meta: BookableMetadatasQuery['bookableMetadatas']['items'][0]): void {
         meta.bookable = this.bookable();
 
         if (meta.name) {
@@ -115,7 +117,7 @@ export class BookableMetadataComponent implements OnInit {
         }
     }
 
-    protected delete(meta: BookableMetadatas['bookableMetadatas']['items'][0]): void {
+    protected delete(meta: BookableMetadatasQuery['bookableMetadatas']['items'][0]): void {
         this.deleting.set(meta, true);
 
         this.bookableMetaService

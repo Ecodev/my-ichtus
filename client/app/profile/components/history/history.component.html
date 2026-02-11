@@ -1,42 +1,44 @@
-<h2 class="mat-headline-5">Historique des transactions</h2>
+<h2 class="mat-font-headline-sm">Historique des transactions</h2>
 
-@if (transactionLinesDS.data?.length === 0) {
+@if (dataSource.data?.length === 0) {
     <div class="nat-vertical nat-center nat-padding">Aucun résultat</div>
 }
 
-@if (transactionLinesDS.data?.length) {
+@if (dataSource.data?.length) {
     <div class="responsive-table">
-        <table mat-table [dataSource]="transactionLinesDS">
+        <table mat-table [dataSource]="dataSource">
             <tr *matHeaderRowDef="transactionsColumns" mat-header-row></tr>
             <tr *matRowDef="let row; columns: transactionsColumns" mat-row></tr>
 
             <ng-container matColumnDef="name">
                 <th *matHeaderCellDef mat-header-cell>Nom</th>
-                <td *matCellDef="let transactionLine" mat-cell>{{ transactionLine.name }}</td>
+                <td *matCellDef="let transactionLine; dataSource: dataSource" mat-cell>{{ transactionLine.name }}</td>
             </ng-container>
 
             <ng-container matColumnDef="transactionDate">
                 <th *matHeaderCellDef mat-header-cell>Date</th>
-                <td *matCellDef="let transactionLine" mat-cell>
+                <td *matCellDef="let transactionLine; dataSource: dataSource" mat-cell>
                     {{ transactionLine.transactionDate | date: 'dd.MM.y' }}
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="amount">
                 <th *matHeaderCellDef mat-header-cell class="natural-align-right">Montant</th>
-                <td *matCellDef="let transactionLine" mat-cell class="natural-align-right">
+                <td *matCellDef="let transactionLine; dataSource: dataSource" mat-cell class="natural-align-right">
                     <app-transaction-amount [transactionLine]="transactionLine" [relativeToAccount]="viewer.account" />
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="bookable">
                 <th *matHeaderCellDef mat-header-cell></th>
-                <td *matCellDef="let transactionLine" mat-cell>{{ transactionLine.bookable?.name }}</td>
+                <td *matCellDef="let transactionLine; dataSource: dataSource" mat-cell>
+                    {{ transactionLine.bookable?.name }}
+                </td>
             </ng-container>
 
             <ng-container matColumnDef="remarks">
                 <th *matHeaderCellDef mat-header-cell>Remarques</th>
-                <td *matCellDef="let transactionLine" mat-cell>
+                <td *matCellDef="let transactionLine; dataSource: dataSource" mat-cell>
                     <div class="line-break">{{ transactionLine.remarks }}</div>
                 </td>
             </ng-container>

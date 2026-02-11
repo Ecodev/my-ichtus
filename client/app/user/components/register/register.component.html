@@ -1,7 +1,7 @@
 <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
 <form class="body nat-padding" [formGroup]="form">
     <div class="nat-vertical nat-gap">
-        <div class="mat-h1">{{ route.snapshot.data.seo.title }}</div>
+        <div class="mat-font-headline-sm">{{ route.snapshot.data.seo.title }}</div>
 
         <mat-form-field>
             <mat-label>email</mat-label>
@@ -13,7 +13,7 @@
         @if (step === 2) {
             <div class="nat-vertical nat-gap">
                 <mat-divider />
-                <h2 class="mat-headline-6">Compte</h2>
+                <h2 class="mat-font-title-lg">Compte</h2>
                 <div class="nat-vertical">
                     <mat-form-field>
                         <mat-label>Nom d'utilisateur</mat-label>
@@ -30,7 +30,7 @@
                     <app-password [form]="form" />
                 </div>
                 <mat-divider />
-                <h2 class="mat-headline-6">Coordonnées</h2>
+                <h2 class="mat-font-title-lg">Coordonnées</h2>
                 <div>
                     <div class="nat-vertical nat-sm-gap-10 nat-sm-horizontal">
                         <mat-form-field class="nat-sm-expand">
@@ -66,7 +66,7 @@
         }
 
         <div>
-            <h2 class="mat-headline-6">Cotisation</h2>
+            <h2 class="mat-font-title-lg">Cotisation</h2>
 
             <div class="responsive-table">
                 @if (mandatoryBookables) {
@@ -81,7 +81,7 @@
 
                         <ng-container matColumnDef="name">
                             <th *matHeaderCellDef mat-header-cell>Nom</th>
-                            <td *matCellDef="let bookable" mat-cell>
+                            <td *matCellDef="let bookable; dataSource: mandatoryBookables" mat-cell>
                                 {{ bookable.name }}
                             </td>
                             <td *matFooterCellDef mat-footer-cell>Totaux</td>
@@ -91,9 +91,13 @@
                             <th *matHeaderCellDef mat-header-cell class="natural-7em-column natural-align-right">
                                 Prix initial
                             </th>
-                            <td *matCellDef="let bookable" mat-cell class="natural-align-right">
+                            <td
+                                *matCellDef="let bookable; dataSource: mandatoryBookables"
+                                mat-cell
+                                class="natural-align-right"
+                            >
                                 @if (bookable.initialPrice !== '0.00') {
-                                    <span> {{ bookable.initialPrice | currency: 'CHF' }}</span>
+                                    <span>{{ bookable.initialPrice | currency: 'CHF' }}</span>
                                 }
                             </td>
                             <td *matFooterCellDef mat-footer-cell class="natural-align-right">
@@ -109,9 +113,13 @@
                             <th *matHeaderCellDef mat-header-cell class="natural-7em-column natural-align-right">
                                 Prix annuel
                             </th>
-                            <td *matCellDef="let bookable" mat-cell class="natural-align-right">
+                            <td
+                                *matCellDef="let bookable; dataSource: mandatoryBookables"
+                                mat-cell
+                                class="natural-align-right"
+                            >
                                 @if (bookable.periodicPrice !== '0.00') {
-                                    <span> {{ bookable.periodicPrice | currency: 'CHF' }}</span>
+                                    <span>{{ bookable.periodicPrice | currency: 'CHF' }}</span>
                                 }
                             </td>
                             <td *matFooterCellDef mat-footer-cell class="natural-align-right">
@@ -133,16 +141,17 @@
 
             <div class="nat-horizontal nat-gap-20">
                 <div class="nat-expand">
-                    <mat-checkbox formControlName="hasInsurance">
-                        Mon assurance RC couvre les dégâts commis par négligence au matériel nautique du club.
-                    </mat-checkbox>
+                    <mat-checkbox formControlName="hasInsurance"
+                        >Mon assurance RC couvre les dégâts commis par négligence au matériel nautique du
+                        club.</mat-checkbox
+                    >
                     @if (form.get('hasInsurance')?.touched && form.get('hasInsurance')?.hasError('required')) {
-                        <mat-error class="mat-body-2"> Requis </mat-error>
+                        <mat-error>Requis</mat-error>
                     }
 
                     <mat-checkbox formControlName="privacyPolicyAgreement" required>
-                        <span class="rich-text"
-                            >J'ai pris connaissance et approuve
+                        <span class="rich-text">
+                            J'ai pris connaissance et approuve
                             <a target="_blank" [href]="privacyPolicyUrl">la politique de confidentialité</a>
                         </span>
                     </mat-checkbox>
@@ -150,29 +159,36 @@
                         form.controls.privacyPolicyAgreement.touched &&
                         form.controls.privacyPolicyAgreement.hasError('required')
                     ) {
-                        <mat-error class="mat-body-2">Requis</mat-error>
+                        <mat-error>Requis</mat-error>
                     }
                 </div>
                 <mat-divider [vertical]="true" />
                 <div class="nat-expand">
-                    <mat-checkbox formControlName="termsAgreement" required> Je m'engage à respecter : </mat-checkbox>
-                    <p class="mat-body-2 rich-text">
+                    <mat-checkbox formControlName="termsAgreement" required>Je m'engage à respecter :</mat-checkbox>
+                    <p class="rich-text">
                         <a href="https://ichtus.ch/oni" target="_blank"
                             >l'Ordonnance suisse sur la Navigation Intérieure (ONI)</a
                         >
                         <br />
-                        ainsi que les <a href="https://ichtus.ch/reglements" target="_blank">règlements</a> et
+                        ainsi que les
+                        <a href="https://ichtus.ch/reglements" target="_blank">règlements</a>
+                        et
                         <a href="https://ichtus.ch/statuts" target="_blank">statuts du club nautique Ichtus</a>
                     </p>
                     @if (form.get('termsAgreement')?.touched && form.get('termsAgreement')?.hasError('required')) {
-                        <mat-error class="mat-body-2"> Requis </mat-error>
+                        <mat-error>Requis</mat-error>
                     }
                 </div>
             </div>
         }
 
         <div class="nat-horizontal nat-center">
-            <button mat-raised-button [color]="form.valid ? 'primary' : 'warn'" [disabled]="sending" (click)="submit()">
+            <button
+                matButton="tonal"
+                [color]="form.valid ? 'primary' : 'error'"
+                [disabled]="sending"
+                (click)="submit()"
+            >
                 <mat-icon naturalIcon="send" />
                 @if (step === 1) {
                     Adhérer

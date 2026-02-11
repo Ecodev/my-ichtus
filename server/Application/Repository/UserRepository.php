@@ -106,6 +106,7 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
             ->andWhere('user.status = :status')
             ->andWhere('user.role = :role')
             ->andWhere("user.email IS NOT NULL AND user.email != ''")
+            ->andWhere('user.id NOT IN (7082, 7100, 7104, 7221)')
             ->setParameter('status', UserStatus::Active->value)
             ->setParameter('role', User::ROLE_ADMINISTRATOR);
 

@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
 import {MatButton} from '@angular/material/button';
-import {FocusDirective} from '../../../shared/directives/focus';
+import {FocusDirective} from '../../../shared/directives/focus.directive';
 import {FormsModule} from '@angular/forms';
 
 @Component({

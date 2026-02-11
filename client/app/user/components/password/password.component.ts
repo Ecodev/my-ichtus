@@ -1,4 +1,4 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
+import {NaturalErrorMessagePipe, NaturalIconDirective} from '@ecodev/natural';
 import {Component, Input, OnInit} from '@angular/core';
 import {
     AbstractControl,
@@ -10,7 +10,6 @@ import {
     Validators,
 } from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
-import {NaturalIconDirective} from '@ecodev/natural';
 import {MatIcon} from '@angular/material/icon';
 import {MatInput} from '@angular/material/input';
 import {MatError, MatFormField, MatHint, MatLabel, MatPrefix} from '@angular/material/form-field';

@@ -1,15 +1,16 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
-import {Component, inject, Input} from '@angular/core';
-import {TransactionLineService} from '../services/transactionLine.service';
-import {BookableService} from '../../bookables/services/bookable.service';
-import {TransactionLineInput, TransactionLines} from '../../../shared/generated-types';
-import {TransactionTagService} from '../../transactionTags/services/transactionTag.service';
 import {
     NaturalAbstractEditableList,
+    NaturalErrorMessagePipe,
     NaturalIconDirective,
     NaturalSelectComponent,
     NaturalSelectHierarchicComponent,
+    TypedMatCellDef,
 } from '@ecodev/natural';
+import {Component, inject, Input} from '@angular/core';
+import {TransactionLineService} from '../services/transactionLine.service';
+import {BookableService} from '../../bookables/services/bookable.service';
+import {TransactionLineInput, TransactionLinesQuery} from '../../../shared/generated-types';
+import {TransactionTagService} from '../../transactionTags/services/transactionTag.service';
 import {accountHierarchicConfiguration} from '../../../shared/hierarchic-selector/AccountHierarchicConfiguration';
 import {map, of, Subject, switchMap} from 'rxjs';
 import {MatIcon} from '@angular/material/icon';
@@ -20,7 +21,6 @@ import {MatInput} from '@angular/material/input';
 import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 import {
     MatCell,
-    MatCellDef,
     MatColumnDef,
     MatHeaderCell,
     MatHeaderCellDef,
@@ -35,7 +35,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 export type EditableTransactionLinesInput =
     | {mode: 'fetch'; id: string}
-    | {mode: 'items'; items: (TransactionLines['transactionLines']['items'][0] | TransactionLineInput)[]}
+    | {mode: 'items'; items: (TransactionLinesQuery['transactionLines']['items'][0] | TransactionLineInput)[]}
     | {
           mode: 'empty';
       };
@@ -49,7 +49,7 @@ export type EditableTransactionLinesInput =
         MatHeaderCellDef,
         MatHeaderRowDef,
         MatColumnDef,
-        MatCellDef,
+        TypedMatCellDef,
         MatRowDef,
         MatHeaderCell,
         MatCell,
@@ -73,7 +73,7 @@ export type EditableTransactionLinesInput =
 })
 export class EditableTransactionLinesComponent extends NaturalAbstractEditableList<
     TransactionLineService,
-    TransactionLines['transactionLines']['items'][0] | TransactionLineInput
+    TransactionLinesQuery['transactionLines']['items'][0] | TransactionLineInput
 > {
     protected readonly transactionTagService = inject(TransactionTagService);
     protected readonly bookableService = inject(BookableService);

@@ -1,8 +1,7 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
-import {Component, inject, OnInit} from '@angular/core';
 import {
     NaturalAbstractDetail,
     NaturalDetailHeaderComponent,
+    NaturalErrorMessagePipe,
     NaturalFileComponent,
     NaturalFixedButtonDetailComponent,
     NaturalIconDirective,
@@ -11,8 +10,9 @@ import {
     NaturalSeoResolveData,
     NaturalStampComponent,
 } from '@ecodev/natural';
+import {Component, inject, OnInit} from '@angular/core';
 import {ExpenseClaimService} from '../services/expenseClaim.service';
-import {CurrentUserForProfile, ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
+import {CurrentUserForProfileQuery, ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../users/services/user.service';
 import {TransactionLineService} from '../../transactions/services/transactionLine.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -71,9 +71,9 @@ export class ExpenseClaimComponent
     protected readonly transactionLineService = inject(TransactionLineService);
     protected readonly permissionsService = inject(PermissionsService);
 
-    protected ExpenseClaimType = ExpenseClaimType;
-    protected ExpenseClaimStatus = ExpenseClaimStatus;
-    protected viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    protected readonly ExpenseClaimType = ExpenseClaimType;
+    protected readonly ExpenseClaimStatus = ExpenseClaimStatus;
+    protected viewer!: NonNullable<CurrentUserForProfileQuery['viewer']>;
 
     public constructor() {
         super('expenseClaim', inject(ExpenseClaimService));

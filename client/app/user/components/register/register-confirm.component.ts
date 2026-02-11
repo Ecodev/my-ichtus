@@ -1,17 +1,22 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
+import {
+    available,
+    deliverableEmail,
+    NaturalErrorMessagePipe,
+    NaturalIconDirective,
+    relationsToIds,
+    TypedMatCellDef,
+} from '@ecodev/natural';
 import {Component, inject, OnInit} from '@angular/core';
-import {available, deliverableEmail, NaturalIconDirective, relationsToIds} from '@ecodev/natural';
 import {pick} from 'es-toolkit';
 import {RegisterComponent} from './register.component';
 import {FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {loginValidator, UserService} from '../../../admin/users/services/user.service';
 import {UserByTokenResolve} from '../../../admin/users/user';
-import {ConfirmRegistrationVariables, UserByToken} from '../../../shared/generated-types';
+import {ConfirmRegistrationVariables, UserByTokenQuery} from '../../../shared/generated-types';
 import {MatButton} from '@angular/material/button';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {
     MatCell,
-    MatCellDef,
     MatColumnDef,
     MatFooterCell,
     MatFooterCellDef,
@@ -59,7 +64,7 @@ import {MatError, MatFormField, MatLabel, MatPrefix, MatSuffix} from '@angular/m
         MatHeaderCellDef,
         MatHeaderRowDef,
         MatColumnDef,
-        MatCellDef,
+        TypedMatCellDef,
         MatRowDef,
         MatFooterCellDef,
         MatFooterRowDef,
@@ -91,7 +96,7 @@ export class RegisterConfirmComponent extends RegisterComponent implements OnIni
         });
     }
 
-    private initFormFromModel(model: UserByToken['userByToken']): void {
+    private initFormFromModel(model: UserByTokenQuery['userByToken']): void {
         this.form = this.fb.group({
             // Lock e-mail, this field must not be changed
             email: [{value: model.email, disabled: true}, [Validators.required, deliverableEmail]],

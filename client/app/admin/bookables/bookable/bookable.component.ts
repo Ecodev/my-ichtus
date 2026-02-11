@@ -1,11 +1,10 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
-import {Component, inject, OnInit} from '@angular/core';
 import {
     formatIsoDateTime,
     IEnum,
     NaturalAbstractDetail,
     NaturalAvatarComponent,
     NaturalDetailHeaderComponent,
+    NaturalErrorMessagePipe,
     NaturalFileComponent,
     NaturalFixedButtonDetailComponent,
     NaturalLinkableTabDirective,
@@ -17,15 +16,16 @@ import {
     NaturalStampComponent,
     NaturalTableButtonComponent,
 } from '@ecodev/natural';
+import {Component, inject, OnInit} from '@angular/core';
 import {BookableService} from '../services/bookable.service';
 import {
     BookingFilterGroupCondition,
     BookingSortingField,
+    BookingsQueryVariables,
     BookingStatus,
-    BookingsVariables,
     BookingType,
     CreateImage,
-    CurrentUserForProfile,
+    CurrentUserForProfileQuery,
     SortingOrder,
     UserRole,
 } from '../../../shared/generated-types';
@@ -98,9 +98,9 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
     protected readonly userService = inject(UserService);
 
     protected accountHierarchicConfig = accountHierarchicConfiguration;
-    protected bookingsVariables: BookingsVariables = {};
-    protected viewer!: NonNullable<CurrentUserForProfile['viewer']>;
-    public readonly availableColumnsForBookingsWithOwnerWithoutTrainers =
+    protected bookingsVariables: BookingsQueryVariables = {};
+    protected viewer!: NonNullable<CurrentUserForProfileQuery['viewer']>;
+    protected readonly availableColumnsForBookingsWithOwnerWithoutTrainers =
         availableColumnsForBookingsWithOwnerWithoutTrainers;
     protected readonly availableColumnsForBookingsWithOwnerOnlyTrainers =
         availableColumnsForBookingsWithOwnerOnlyTrainers;
@@ -173,7 +173,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
         return this.data.model.bookingType === BookingType.SelfApproved;
     }
 
-    protected getBookingsVariables(): BookingsVariables {
+    protected getBookingsVariables(): BookingsQueryVariables {
         if (!this.isUpdatePage()) {
             return {};
         }

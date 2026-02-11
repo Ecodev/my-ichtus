@@ -9,8 +9,8 @@
                     (selectionChange)="update()"
                 />
                 <button
-                    mat-stroked-button
-                    color="warn"
+                    matButton="outlined"
+                    color="error"
                     [disabled]="!form.enabled || !service.canLeaveFamily(user())"
                     (click)="leaveFamily()"
                 >
@@ -18,7 +18,7 @@
                 </button>
             </div>
             <mat-divider class="nat-margin-bottom" />
-            <h2 class="mat-headline-6">Compte</h2>
+            <h2 class="mat-font-title-lg">Compte</h2>
             <mat-form-field>
                 <mat-label>email</mat-label>
                 <input matInput formControlName="email" (change)="update()" />
@@ -36,7 +36,7 @@
                 }
             </mat-form-field>
             <mat-divider class="nat-margin-bottom" />
-            <h2 class="mat-headline-6">Coordonnées</h2>
+            <h2 class="mat-font-title-lg">Coordonnées</h2>
             <mat-form-field>
                 <mat-label>Prénom</mat-label>
                 <input matInput formControlName="firstName" (change)="update()" />
@@ -69,22 +69,20 @@
                 <mat-datepicker #picker />
             </mat-form-field>
             <!-- Newsletter -->
-            <mat-checkbox formControlName="receivesNewsletter" (change)="update()">
-                Abonné à la newsletter</mat-checkbox
-            >
+            <mat-checkbox formControlName="receivesNewsletter" (change)="update()">Abonné à la newsletter</mat-checkbox>
         </div>
         @if (form.get('remarks')?.value) {
             <div>
                 <mat-divider class="nat-margin-vertical" />
-                <div class="mat-subtitle-2">Remarques</div>
+                <div class="mat-font-title-sm">Remarques</div>
                 <div class="line-break">{{ form.get('remarks')?.value }}</div>
             </div>
         }
         @if (isUpdatePage() && data.model.permissions.update) {
             <span matTooltip="Demande déjà envoyée" [matTooltipDisabled]="!userDeletionRequested.has(data.model.id)">
                 <button
-                    mat-stroked-button
-                    color="warn"
+                    matButton="outlined"
+                    color="error"
                     i18n
                     [disabled]="userDeletionRequested.has(data.model.id)"
                     (click)="requestUserDeletion()"
@@ -94,7 +92,7 @@
             </span>
         }
         @if (!isUpdatePage()) {
-            <natural-fixed-button icon="save" [color]="form.valid ? 'accent' : 'warn'" (click)="create(false)" />
+            <natural-fixed-button icon="save" [color]="form.valid ? 'tertiary' : 'error'" (click)="create(false)" />
         }
     </div>
 }

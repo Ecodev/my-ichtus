@@ -24,7 +24,7 @@ import {resolveBookableTag} from './bookableTags/services/bookableTag.resolver';
 import {
     BookableSortingField,
     ExpenseClaimSortingField,
-    ExpenseClaimsVariables,
+    ExpenseClaimsQueryVariables,
     SortingOrder,
     TransactionLineSortingField,
     UserRole,
@@ -62,7 +62,7 @@ import {
     availableColumnsForBookingsStorageApplication,
     availableColumnsForBookingsWithOwnerApplications,
 } from './bookings/bookings/abstract-bookings';
-import {servicesTabRoutes} from '../profile/profile-routing.module';
+import {servicesTabRoutes} from '../profile/profile.routes';
 
 function equipment(path: string, title: string, bookableTagId: string): Route {
     return {
@@ -663,7 +663,7 @@ export const routes: Routes = [
                             {field: ExpenseClaimSortingField.status, order: SortingOrder.ASC},
                             {field: ExpenseClaimSortingField.creationDate, order: SortingOrder.DESC},
                         ],
-                    } satisfies ExpenseClaimsVariables,
+                    } satisfies ExpenseClaimsQueryVariables,
                 },
             },
             {
@@ -698,7 +698,7 @@ export const routes: Routes = [
                 component: ImportComponent,
                 data: {
                     seo: {
-                        title: 'Import des virements BVR',
+                        title: 'Import des virements QR-R',
                     } satisfies NaturalSeo,
                 },
             },

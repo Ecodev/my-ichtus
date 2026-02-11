@@ -23,8 +23,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Annuler</button>
-    <button mat-button color="primary" [mat-dialog-close]="participant.value" [disabled]="!participant.valid">
-        Confirmer
-    </button>
+    <button matButton="outlined" mat-dialog-close>Annuler</button>
+    <button matButton="filled" [mat-dialog-close]="participant.value" [disabled]="!participant.valid">Confirmer</button>
 </mat-dialog-actions>

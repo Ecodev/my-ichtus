@@ -1,7 +1,7 @@
 @if (bookable) {
     <div class="nat-vertical nat-padding nat-gap-30" style="max-width: 1100px; margin: auto">
         <natural-file class="mat-elevation-z2" [model]="bookable.image" [height]="400" [style.borderRadius.px]="4" />
-        <div class="nat-horizontal mat-headline-4">
+        <div class="nat-horizontal mat-font-headline-lg">
             <div class="nat-expand">{{ bookable.name }}</div>
             <div class="nat-horizontal nat-gap">
                 <mat-divider [vertical]="true" />
@@ -9,57 +9,50 @@
             </div>
         </div>
         @if (!hasLicense || !welcomeSessionTaken) {
-            <div class="nat-vertical mat-body-2 nat-gap-10">
+            <div class="nat-vertical nat-gap-10">
                 @if (!hasLicense) {
                     <div class="nat-horizontal nat-align">
-                        <mat-icon color="warn" fontIcon="error" />
+                        <mat-icon color="error" fontIcon="error" />
                         Tu ne disposes pas des licences requises pour utiliser cette embarcation
                     </div>
                 }
                 @if (!welcomeSessionTaken) {
                     <div class="nat-horizontal nat-align">
-                        <mat-icon color="warn" fontIcon="warning" />
-                        <span
-                            >Il te faut suivre une
+                        <mat-icon color="error" fontIcon="warning" />
+                        <span>
+                            Il te faut suivre une
                             <a href="https://ichtus.ch/le-club/seance-daccueil/" target="_blank">séance d'accueil</a>
-                            avant d'utiliser le matériel du club !</span
-                        >
+                            avant d'utiliser le matériel du club !
+                        </span>
                     </div>
                 }
             </div>
         }
         <div class="nat-horizontal nat-gap-10 nat-right nat-center">
             @if (!isAvailable && runningBooking) {
-                <div class="mat-body-2">Sorti {{ runningBooking.startDate | timeago }}</div>
+                <div>Sorti {{ runningBooking.startDate | timeago }}</div>
             }
             @if (isNavigable && isAvailable) {
-                <button
-                    mat-flat-button
-                    color="primary"
-                    [disabled]="!hasLicense"
-                    [routerLink]="['../new', {bookable: bookable.id}]"
-                >
+                <a matButton="filled" [disabled]="!hasLicense" [routerLink]="['../new', {bookable: bookable.id}]">
                     Annoncer une sortie
-                </button>
+                </a>
             }
             @if (isNavigable && !isAvailable && runningBooking) {
-                <button mat-flat-button color="warn" (click)="endBooking()">Terminer</button>
+                <button matButton="filled" color="error" (click)="endBooking()">Terminer</button>
             }
             @if (canAccessAdmin) {
-                <a mat-stroked-button color="primary" [routerLink]="['/admin/bookable', bookable.id]">Administration</a>
+                <a matButton="outlined" [routerLink]="['/admin/bookable', bookable.id]">Administration</a>
             }
         </div>
-        <div class="mat-headline-5 line-break">{{ bookable.description }}</div>
-        <div class="mat-subtitle-1 line-break">{{ bookable.remarks }}</div>
+        <div class="mat-font-headline-sm line-break">{{ bookable.description }}</div>
+        <div class="mat-font-title-md line-break">{{ bookable.remarks }}</div>
         <app-user-contact-data title="Responsable" [user]="bookable.owner" />
     </div>
-}
-
-@if (!bookable) {
+} @else {
     <div class="nat-expand nat-padding nat-vertical nat-center">
-        <div class="mat-headline-4" style="text-align: center">
+        <div class="mat-font-headline-lg" style="text-align: center">
             Aucun matériel correspondant à ce code n'a été trouvé
         </div>
-        <button mat-flat-button color="primary" (click)="back()">Revenir à la page précédente</button>
+        <button matButton="filled" (click)="back()">Revenir à la page précédente</button>
     </div>
 }

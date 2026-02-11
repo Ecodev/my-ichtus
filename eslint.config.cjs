@@ -41,6 +41,19 @@ module.exports = tseslint.config(
             '@typescript-eslint/no-unsafe-return': 'off',
             '@typescript-eslint/prefer-nullish-coalescing': 'off', // Usually a good idea, but sometimes dangerous false-positive
             '@typescript-eslint/unbound-method': 'off',
+            'no-restricted-imports': [
+                'error',
+                {
+                    paths: [
+                        {
+                            name: '@angular/material/table',
+                            importNames: ['MatCellDef'],
+                            message:
+                                'Instead use `import { TypedMatCellDef } from "@ecodev/natural";` and specify `dataSource` input in template: `*matCellDef="let element; dataSource: dataSource"`.',
+                        },
+                    ],
+                },
+            ],
             '@angular-eslint/prefer-signals': [
                 'error',
                 {

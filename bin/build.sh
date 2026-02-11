@@ -43,6 +43,9 @@ if id "$DEPLOY_USER" >/dev/null 2>&1; then
     export HOME="$TMP_DIR/home-$DEPLOY_USER"
 fi
 
+# Never let Angular block the build with an interactive prompt to enable autocomplete
+export NG_FORCE_AUTOCOMPLETE=0
+
 # Try to use PHP 8.4, or fallback to default version
 PHP=`which php8.4` || PHP='php'
 COMPOSER="$PHP `which composer` --no-interaction --no-plugins"

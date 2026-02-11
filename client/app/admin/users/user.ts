@@ -1,3 +1,3 @@
-import {UserByToken} from '../../shared/generated-types';
+import {UserByTokenQuery} from '../../shared/generated-types';
 
-export type UserByTokenResolve = UserByToken['userByToken'];
+export type UserByTokenResolve = UserByTokenQuery['userByToken'];

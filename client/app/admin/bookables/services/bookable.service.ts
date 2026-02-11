@@ -1,26 +1,26 @@
 import {inject, Injectable} from '@angular/core';
 import {bookableQuery, bookablesQuery, createBookable, deleteBookables, updateBookable} from './bookable.queries';
 import {
-    Bookable,
     BookableFilterGroupCondition,
     BookableInput,
-    Bookables,
+    BookableQuery,
+    BookableQueryVariables,
+    BookablesQuery,
+    BookablesQueryVariables,
     BookableState,
     BookableStatus,
-    BookablesVariables,
-    BookableVariables,
-    Bookings,
-    BookingsVariables,
+    BookingsQuery,
+    BookingsQueryVariables,
     BookingType,
     CreateBookable,
     CreateBookableVariables,
-    CurrentUserForProfile,
+    CurrentUserForProfileQuery,
     DeleteBookables,
     DeleteBookablesVariables,
     LogicalOperator,
     UpdateBookable,
     UpdateBookableVariables,
-    User,
+    UserQuery,
 } from '../../../shared/generated-types';
 import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {Observable, of} from 'rxjs';
@@ -52,10 +52,10 @@ function creditAccountRequiredValidator(formGroup: AbstractControl): ValidationE
     providedIn: 'root',
 })
 export class BookableService extends NaturalAbstractModelService<
-    Bookable['bookable'],
-    BookableVariables,
-    Bookables['bookables'],
-    BookablesVariables,
+    BookableQuery['bookable'],
+    BookableQueryVariables,
+    BookablesQuery['bookables'],
+    BookablesQueryVariables,
     CreateBookable['createBookable'],
     CreateBookableVariables,
     UpdateBookable['updateBookable'],
@@ -65,7 +65,7 @@ export class BookableService extends NaturalAbstractModelService<
 > {
     private readonly bookingService = inject(BookingService);
 
-    public static readonly membershipServices: BookablesVariables = {
+    public static readonly membershipServices: BookablesQueryVariables = {
         filter: {
             groups: [
                 {
@@ -97,7 +97,7 @@ export class BookableService extends NaturalAbstractModelService<
         },
     };
 
-    public static readonly application: BookablesVariables = {
+    public static readonly application: BookablesQueryVariables = {
         filter: {groups: [{conditions: [{bookingType: {in: {values: [BookingType.Application]}}}]}]},
     };
 
@@ -105,7 +105,7 @@ export class BookableService extends NaturalAbstractModelService<
         super('bookable', bookableQuery, bookablesQuery, createBookable, updateBookable, deleteBookables);
     }
 
-    public static getFiltersByTagId(tagId: string): BookablesVariables {
+    public static getFiltersByTagId(tagId: string): BookablesQueryVariables {
         return {filter: {groups: [{conditions: [{bookableTags: {have: {values: [tagId]}}}]}]}};
     }
 
@@ -113,7 +113,7 @@ export class BookableService extends NaturalAbstractModelService<
         tagId: string,
         bookingTypes: BookingType[] = [BookingType.AdminAssigned, BookingType.AdminApproved],
         isActive: boolean | null = null,
-    ): BookablesVariables {
+    ): BookablesQueryVariables {
         const condition: BookableFilterGroupCondition = {
             bookingType: {in: {values: bookingTypes}},
             bookableTags: {have: {values: [tagId]}},
@@ -131,7 +131,7 @@ export class BookableService extends NaturalAbstractModelService<
         };
     }
 
-    public static formationBookable(tagId?: string): BookablesVariables {
+    public static formationBookable(tagId?: string): BookablesQueryVariables {
         const conditions: BookableFilterGroupCondition[] = [
             {
                 bookingType: {in: {values: [BookingType.AdminApproved]}},
@@ -159,8 +159,8 @@ export class BookableService extends NaturalAbstractModelService<
     }
 
     public static isLicenseGranted(
-        bookable: Bookable['bookable'],
-        user: User['user'] | NonNullable<CurrentUserForProfile['viewer']>,
+        bookable: BookableQuery['bookable'],
+        user: UserQuery['user'] | NonNullable<CurrentUserForProfileQuery['viewer']>,
     ): boolean {
         if (!bookable || !user) {
             return false;
@@ -204,7 +204,7 @@ export class BookableService extends NaturalAbstractModelService<
         };
     }
 
-    public override getFormAsyncValidators(model: Bookable['bookable']): FormAsyncValidators {
+    public override getFormAsyncValidators(model: BookableQuery['bookable']): FormAsyncValidators {
         return {
             code: [unique('code', model.id, this)],
         };
@@ -214,21 +214,21 @@ export class BookableService extends NaturalAbstractModelService<
         return [creditAccountRequiredValidator];
     }
 
-    public getMandatoryBookables(): Observable<Bookables['bookables']> {
-        const mandatoryBookablesFilter: BookablesVariables = {
+    public getMandatoryBookables(): Observable<BookablesQuery['bookables']> {
+        const mandatoryBookablesFilter: BookablesQueryVariables = {
             filter: {groups: [{conditions: [{bookingType: {in: {values: [BookingType.Mandatory]}}}]}]},
         };
 
-        const qvm = new NaturalQueryVariablesManager<BookablesVariables>();
+        const qvm = new NaturalQueryVariablesManager<BookablesQueryVariables>();
         qvm.set('variables', mandatoryBookablesFilter);
         return this.getAll(qvm); // getAll because mandatory bookables should not change
     }
 
     public getAvailability(
-        bookable: Bookable['bookable'],
-    ): Observable<{isAvailable: boolean; result: Bookings['bookings']}> {
+        bookable: BookableQuery['bookable'],
+    ): Observable<{isAvailable: boolean; result: BookingsQuery['bookings']}> {
         // Variable for pending bookings related to given bookable
-        const variables: BookingsVariables = {
+        const variables: BookingsQueryVariables = {
             filter: {
                 groups: [
                     {
@@ -243,7 +243,7 @@ export class BookableService extends NaturalAbstractModelService<
             },
         };
 
-        const qvm = new NaturalQueryVariablesManager<BookingsVariables>();
+        const qvm = new NaturalQueryVariablesManager<BookingsQueryVariables>();
         qvm.set('variables', variables);
 
         return this.bookingService.getAll(qvm).pipe(
@@ -260,10 +260,10 @@ export class BookableService extends NaturalAbstractModelService<
         );
     }
 
-    public resolveByCode(code: string): Observable<Bookables['bookables']['items'][0] | null> {
+    public resolveByCode(code: string): Observable<BookablesQuery['bookables']['items'][0] | null> {
         if (code) {
-            const qvm = new NaturalQueryVariablesManager<BookablesVariables>();
-            const variables: BookablesVariables = {
+            const qvm = new NaturalQueryVariablesManager<BookablesQueryVariables>();
+            const variables: BookablesQueryVariables = {
                 filter: {groups: [{conditions: [{code: {equal: {value: code}}}]}]},
             };
             qvm.set('variables', variables);

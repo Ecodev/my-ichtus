@@ -1,6 +1,10 @@
 import {Apollo, gql} from 'apollo-angular';
 import {Component, DOCUMENT, inject, Input} from '@angular/core';
-import {BankingInfos, BankingInfosForExport, BankingInfosVariables} from '../../../shared/generated-types';
+import {
+    BankingInfosForExportQuery,
+    BankingInfosQuery,
+    BankingInfosQueryVariables,
+} from '../../../shared/generated-types';
 import {copyToClipboard, NaturalIconDirective} from '@ecodev/natural';
 import {IbanPipe} from '../../../shared/pipes/iban.pipe';
 import {MatIcon} from '@angular/material/icon';
@@ -9,7 +13,7 @@ import {MatIconButton} from '@angular/material/button';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 
 const queryForInfos = gql`
-    query BankingInfos($user: UserID!, $amount: Money) {
+    query BankingInfosQuery($user: UserID!, $amount: Money) {
         bankingInfos(user: $user, amount: $amount) {
             referenceNumber
             paymentTo
@@ -21,7 +25,7 @@ const queryForInfos = gql`
 `;
 
 const queryForExport = gql`
-    query BankingInfosForExport($user: UserID!, $amount: Money) {
+    query BankingInfosForExportQuery($user: UserID!, $amount: Money) {
         bankingInfos(user: $user, amount: $amount) {
             qrBill
         }
@@ -38,10 +42,10 @@ export class BvrComponent {
     private readonly apollo = inject(Apollo);
     private readonly document = inject(DOCUMENT);
 
-    @Input() public set bankingData(data: BankingInfosVariables) {
+    @Input() public set bankingData(data: BankingInfosQueryVariables) {
         this.variables = data;
         this.apollo
-            .query<BankingInfos, BankingInfosVariables>({
+            .query<BankingInfosQuery, BankingInfosQueryVariables>({
                 query: queryForInfos,
                 fetchPolicy: 'cache-first',
                 variables: this.variables,
@@ -49,8 +53,8 @@ export class BvrComponent {
             .subscribe(result => (this.bankingInfos = result.data.bankingInfos));
     }
 
-    private variables!: BankingInfosVariables;
-    public bankingInfos: BankingInfos['bankingInfos'] | null = null;
+    private variables!: BankingInfosQueryVariables;
+    public bankingInfos: BankingInfosQuery['bankingInfos'] | null = null;
 
     protected copyToClipboard(text: string): void {
         copyToClipboard(this.document, text);
@@ -58,7 +62,7 @@ export class BvrComponent {
 
     public exportBill(): void {
         this.apollo
-            .query<BankingInfosForExport, BankingInfosVariables>({
+            .query<BankingInfosForExportQuery, BankingInfosQueryVariables>({
                 query: queryForExport,
                 fetchPolicy: 'cache-first',
                 variables: this.variables,

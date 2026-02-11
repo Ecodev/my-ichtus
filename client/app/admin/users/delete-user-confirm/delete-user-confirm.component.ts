@@ -1,4 +1,9 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
+import {
+    NaturalErrorMessagePipe,
+    NaturalSearchSelections,
+    toGraphQLDoctrineFilter,
+    toNavigationParameters,
+} from '@ecodev/natural';
 import {Component, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {MatButton} from '@angular/material/button';
@@ -6,15 +11,14 @@ import {Apollo} from 'apollo-angular';
 import {ApolloQueryResult, gql} from '@apollo/client/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {
-    DeleteUserConfirmation,
-    DeleteUserConfirmationVariables,
+    DeleteUserConfirmationQuery,
+    DeleteUserConfirmationQueryVariables,
     ExpenseClaimStatus,
 } from '../../../shared/generated-types';
 import {FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
 import {escapeRegExp} from 'es-toolkit';
 import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
-import {NaturalSearchSelections, toGraphQLDoctrineFilter, toNavigationParameters} from '@ecodev/natural';
 import {accounts, expenseClaims, users} from '../../../shared/natural-search/natural-search-facets';
 import {Params, RouterLink} from '@angular/router';
 import {WarningComponent} from '../../../shared/warning.component';
@@ -44,7 +48,7 @@ export type DeleteUserConfirmData = {
 export class DeleteUserConfirmComponent {
     private readonly dialog = inject<MatDialogRef<boolean>>(MatDialogRef);
 
-    protected result: ApolloQueryResult<DeleteUserConfirmation> | null = null;
+    protected result: ApolloQueryResult<DeleteUserConfirmationQuery> | null = null;
     protected readonly form = new FormControl('', {nonNullable: true});
     protected readonly accountBalanceNotZeroParams: Params;
     protected readonly nonTreatedExpenseClaimParams: Params;
@@ -94,7 +98,7 @@ export class DeleteUserConfirmComponent {
         this.familyParams = toNavigationParameters(family);
 
         apollo
-            .watchQuery<DeleteUserConfirmation, DeleteUserConfirmationVariables>({
+            .watchQuery<DeleteUserConfirmationQuery, DeleteUserConfirmationQueryVariables>({
                 fetchPolicy: 'cache-and-network',
                 variables: {
                     userId: data.user,
@@ -103,7 +107,7 @@ export class DeleteUserConfirmComponent {
                     userFilter: toGraphQLDoctrineFilter(users(), family),
                 },
                 query: gql`
-                    query DeleteUserConfirmation(
+                    query DeleteUserConfirmationQuery(
                         $userId: UserID!
                         $accountFilter: AccountFilter!
                         $expenseClaimFilter: ExpenseClaimFilter!

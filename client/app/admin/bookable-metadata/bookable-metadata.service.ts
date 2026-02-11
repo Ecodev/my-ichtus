@@ -9,8 +9,8 @@ import {Validators} from '@angular/forms';
 import {FormValidators, NaturalAbstractModelService} from '@ecodev/natural';
 import {
     BookableMetadataInput,
-    BookableMetadatas,
-    BookableMetadatasVariables,
+    BookableMetadatasQuery,
+    BookableMetadatasQueryVariables,
     DeleteBookableMetadatas,
     DeleteBookableMetadatasVariables,
     UpdateBookableMetadata,
@@ -23,8 +23,8 @@ import {
 export class BookableMetadataService extends NaturalAbstractModelService<
     never,
     never,
-    BookableMetadatas['bookableMetadatas'],
-    BookableMetadatasVariables,
+    BookableMetadatasQuery['bookableMetadatas'],
+    BookableMetadatasQueryVariables,
     never,
     UpdateBookableMetadataVariables,
     UpdateBookableMetadata['updateBookableMetadata'],

@@ -1,10 +1,10 @@
 import {DOCUMENT, inject, Injectable} from '@angular/core';
 import {Button, copyToClipboard, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {
-    BookingsWithOwnerContact,
-    BookingsWithOwnerContactVariables,
-    EmailAndPhoneUsers,
-    EmailAndPhoneUsersVariables,
+    BookingsWithOwnerContactQuery,
+    BookingsWithOwnerContactQueryVariables,
+    EmailAndPhoneUsersQuery,
+    EmailAndPhoneUsersQueryVariables,
     UserContactData,
 } from '../../generated-types';
 import {Apollo} from 'apollo-angular';
@@ -17,7 +17,9 @@ type ContactType = 'bookingsWithOwnerContact' | 'emailAndPhoneUsers';
 @Injectable({
     providedIn: 'root',
 })
-export class CopyContactDataButtonService<V extends EmailAndPhoneUsersVariables | BookingsWithOwnerContactVariables> {
+export class CopyContactDataButtonService<
+    V extends EmailAndPhoneUsersQueryVariables | BookingsWithOwnerContactQueryVariables,
+> {
     private readonly apollo = inject(Apollo);
     private readonly document = inject(DOCUMENT);
 
@@ -63,14 +65,14 @@ export class CopyContactDataButtonService<V extends EmailAndPhoneUsersVariables 
 
         switch (type) {
             case 'emailAndPhoneUsers':
-                this.doDownload<EmailAndPhoneUsers>(
+                this.doDownload<EmailAndPhoneUsersQuery>(
                     button,
                     emailAndPhoneUsersQuery,
                     resultData => resultData.users.items,
                 );
                 break;
             case 'bookingsWithOwnerContact':
-                this.doDownload<BookingsWithOwnerContact>(button, bookingsWithOwnerContactQuery, resultData => {
+                this.doDownload<BookingsWithOwnerContactQuery>(button, bookingsWithOwnerContactQuery, resultData => {
                     const result: UserContactData[] = [];
                     const seen = new Set<string>();
 

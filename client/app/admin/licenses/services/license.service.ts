@@ -6,11 +6,11 @@ import {
     CreateLicenseVariables,
     DeleteLicenses,
     DeleteLicensesVariables,
-    License,
     LicenseInput,
-    Licenses,
-    LicensesVariables,
-    LicenseVariables,
+    LicenseQuery,
+    LicenseQueryVariables,
+    LicensesQuery,
+    LicensesQueryVariables,
     UpdateLicense,
     UpdateLicenseVariables,
 } from '../../../shared/generated-types';
@@ -20,10 +20,10 @@ import {Validators} from '@angular/forms';
     providedIn: 'root',
 })
 export class LicenseService extends NaturalAbstractModelService<
-    License['license'],
-    LicenseVariables,
-    Licenses['licenses'],
-    LicensesVariables,
+    LicenseQuery['license'],
+    LicenseQueryVariables,
+    LicensesQuery['licenses'],
+    LicensesQueryVariables,
     CreateLicense['createLicense'],
     CreateLicenseVariables,
     UpdateLicense['updateLicense'],
@@ -47,7 +47,7 @@ export class LicenseService extends NaturalAbstractModelService<
         };
     }
 
-    public override getFormAsyncValidators(model: License['license']): FormAsyncValidators {
+    public override getFormAsyncValidators(model: LicenseQuery['license']): FormAsyncValidators {
         return {
             name: [unique('name', model.id, this)],
         };

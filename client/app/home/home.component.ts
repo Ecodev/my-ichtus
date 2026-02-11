@@ -11,7 +11,7 @@ import {ActivatedRoute, Router, RouterLink, RouterOutlet} from '@angular/router'
 import {ConfigurationService} from '../admin/configurations/services/configuration.service';
 import {FormsModule} from '@angular/forms';
 import {MatIcon} from '@angular/material/icon';
-import {MatIconButton} from '@angular/material/button';
+import {MatFabButton, MatIconButton} from '@angular/material/button';
 import {MatToolbar} from '@angular/material/toolbar';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
@@ -26,6 +26,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
         FormsModule,
         NaturalAvatarComponent,
         RouterOutlet,
+        MatFabButton,
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss',

@@ -1,13 +1,13 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
-import {Component, inject} from '@angular/core';
 import {
     NaturalAbstractDetail,
     NaturalDetailHeaderComponent,
+    NaturalErrorMessagePipe,
     NaturalFixedButtonDetailComponent,
     NaturalLinkableTabDirective,
     NaturalSeoResolveData,
     NaturalStampComponent,
 } from '@ecodev/natural';
+import {Component, inject} from '@angular/core';
 import {BookableTagService} from '../services/bookableTag.service';
 import {MatInput} from '@angular/material/input';
 import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';

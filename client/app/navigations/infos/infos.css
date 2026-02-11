@@ -43,11 +43,11 @@
     border-color: black;
     border-radius: 10px;
     background-image: url(../../../assets/navigations/icons/check-black.png);
+    background-position-x: 220px;
+    background-position-y: 50px;
     background-size: 40px;
     background-repeat: no-repeat;
     background-color: white;
-    background-position-x: 220px;
-    background-position-y: 50px;
     padding-top: 7px;
     padding-right: 10px;
     padding-bottom: 0px;
@@ -83,11 +83,11 @@
     border-color: black;
     border-radius: 10px;
     background-image: none;
+    background-position-x: 220px;
+    background-position-y: 4px;
     background-size: 40px;
     background-repeat: no-repeat;
     background-color: white;
-    background-position-x: 220px;
-    background-position-y: 4px;
     padding-top: 0px;
     padding-right: 0px;
     padding-bottom: 0px;

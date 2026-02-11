@@ -1,5 +1,5 @@
 <div class="nat-gap-30 nat-padding-top nat-vertical nat-center">
-    <h1 class="mat-headline-4 nat-margin-bottom">Sélectionnez la porte du local à ouvrir</h1>
+    <h1 class="mat-font-headline-lg nat-margin-bottom">Sélectionnez la porte du local à ouvrir</h1>
 
     <div class="nat-horizontal nat-wrap nat-center nat-gap">
         @for (door of doorService.doors; track door) {
@@ -10,9 +10,9 @@
                     (click)="open(door)"
                 >
                     <div class="nat-vertical nat-gap-10">
-                        <div class="mat-subtitle-2">{{ door.name }}</div>
+                        <div class="mat-font-title-sm">{{ door.name }}</div>
                         <div>
-                            <button mat-raised-button [disabled]="door.opened">
+                            <button matButton="filled" [disabled]="door.opened">
                                 <mat-icon [fontIcon]="door.opened ? 'lock_open' : 'lock'" />
                                 Ouvrir
                             </button>

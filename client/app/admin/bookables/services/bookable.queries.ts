@@ -63,7 +63,7 @@ export const bookableMetaFragment = gql`
 `;
 
 export const bookablesQuery = gql`
-    query Bookables($filter: BookableFilter, $sorting: [BookableSorting!], $pagination: PaginationInput) {
+    query BookablesQuery($filter: BookableFilter, $sorting: [BookableSorting!], $pagination: PaginationInput) {
         bookables(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
                 ...BookableMeta
@@ -81,7 +81,7 @@ export const bookablesQuery = gql`
 
 // This should be a strict superset of bookablesQuery, because it is used in the same component
 export const usageBookablesQuery = gql`
-    query UsageBookables($filter: BookableFilter, $sorting: [BookableSorting!], $pagination: PaginationInput) {
+    query UsageBookablesQuery($filter: BookableFilter, $sorting: [BookableSorting!], $pagination: PaginationInput) {
         bookables(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
                 ...BookableMeta
@@ -111,7 +111,7 @@ export const usageBookablesQuery = gql`
 `;
 
 export const bookableQuery = gql`
-    query Bookable($id: BookableID!) {
+    query BookableQuery($id: BookableID!) {
         bookable(id: $id) {
             ...BookableMeta
             permissions {

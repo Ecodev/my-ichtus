@@ -21,7 +21,7 @@ export function formControlNameXpath(name: string, index = 1): string {
 }
 
 export function buttonLabel(label: string): string {
-    return `//button[contains(., "${label}")]`;
+    return `//button[contains(., "${label}")] | //*[@matButton and contains(., "${label}")]`;
 }
 
 export async function naturalSelect(page: Page, selector: string, value: string): Promise<unknown> {

@@ -2,7 +2,7 @@ import {gql} from '@apollo/client/core';
 import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
 
 export const transactionTagsQuery = gql`
-    query TransactionTags(
+    query TransactionTagsQuery(
         $filter: TransactionTagFilter
         $sorting: [TransactionTagSorting!]
         $pagination: PaginationInput
@@ -21,7 +21,7 @@ export const transactionTagsQuery = gql`
 `;
 
 export const transactionTagQuery = gql`
-    query TransactionTag($id: TransactionTagID!) {
+    query TransactionTagQuery($id: TransactionTagID!) {
         transactionTag(id: $id) {
             id
             name

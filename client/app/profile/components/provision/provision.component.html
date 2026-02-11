@@ -1,21 +1,19 @@
 <h2 mat-dialog-title>Faire un versement</h2>
-<mat-dialog-content>
+<mat-dialog-content class="nat-margin-standard">
     @if (!paymentMode) {
         <div class="nat-vertical nat-gap-5">
             <div>
-                <p class="mat-body-2">
-                    Nous t'encourageons à payer par e-banking (BVR) qui est sans frais pour le club.
-                </p>
-                <p class="mat-body-2">
+                <p>Nous t'encourageons à payer par e-banking (BVR) qui est sans frais pour le club.</p>
+                <p>
                     Tu peux aussi payer en ligne par carte de débit / crédit (une commission sera prélevée au passage).
                 </p>
             </div>
             <div class="nat-vertical nat-gap-5">
-                <button mat-flat-button color="primary" (click)="setPaymentMode('ebanking')">
+                <button matButton="filled" (click)="setPaymentMode('ebanking')">
                     E-Banking
                     <!-- : BVR--->
                 </button>
-                <button mat-flat-button color="primary" (click)="setPaymentMode('datatrans')">
+                <button matButton="filled" (click)="setPaymentMode('datatrans')">
                     En ligne
                     <!-- : Postfinance / Visa / Mastercard-->
                 </button>
@@ -25,7 +23,7 @@
 
     @if (paymentMode === 'datatrans') {
         <div class="nat-padding">
-            <p class="mat-body">Merci d'indiquer le montant que tu souhaites verser.</p>
+            <p>Merci d'indiquer le montant que tu souhaites verser.</p>
             <div class="nat-horizontal nat-align nat-gap-5">
                 <mat-form-field>
                     <mat-label>Montant</mat-label>
@@ -46,13 +44,12 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
+    <button matButton="outlined" mat-dialog-close cdkFocusInitial>Fermer</button>
+
     @if (showExportBillButton()) {
-        <button mat-button (click)="exportBill()">Télécharger bulletin de paiement</button>
+        <button matButton="outlined" (click)="exportBill()">Télécharger bulletin de paiement</button>
     }
-    <button mat-button mat-dialog-close cdkFocusInitial>Fermer</button>
     @if (paymentMode === 'datatrans') {
-        <button mat-flat-button color="primary" [mat-dialog-close]="formCtrl.value" [disabled]="!formCtrl.valid">
-            Suivant
-        </button>
+        <button matButton="filled" [mat-dialog-close]="formCtrl.value" [disabled]="!formCtrl.valid">Suivant</button>
     }
 </mat-dialog-actions>

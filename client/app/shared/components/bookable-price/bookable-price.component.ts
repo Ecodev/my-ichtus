@@ -1,5 +1,5 @@
 import {Component, input} from '@angular/core';
-import {Bookable} from '../../generated-types';
+import {BookableQuery} from '../../generated-types';
 import {CurrencyPipe} from '@angular/common';
 
 @Component({
@@ -9,5 +9,5 @@ import {CurrencyPipe} from '@angular/common';
     styleUrl: './bookable-price.component.scss',
 })
 export class BookablePriceComponent {
-    public readonly bookable = input.required<Bookable['bookable']>();
+    public readonly bookable = input.required<BookableQuery['bookable']>();
 }

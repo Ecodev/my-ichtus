@@ -7,7 +7,7 @@
         [listRoute]="['admin', 'transaction-line']"
     >
         @if (isUpdatePage()) {
-            <app-money sizeClass="mat-headline-4" [amount]="data.model.balance" [showSignal]="false" />
+            <app-money sizeClass="mat-font-headline-lg" [amount]="data.model.balance" [showSignal]="false" />
         }
     </natural-detail-header>
 
@@ -66,7 +66,7 @@
                 <mat-divider class="nat-margin-vertical" />
                 <div>
                     <div class="nat-horizontal nat-margin-bottom nat-gap nat-align">
-                        <div class="mat-headline-6 nat-no-margin-bottom">
+                        <div class="mat-font-title-lg">
                             @if (data.model.expenseClaim.type === ExpenseClaimType.Refund) {
                                 <span>Demande de remboursement</span>
                             }
@@ -77,38 +77,38 @@
                                 <span>Facture à payer</span>
                             }
                         </div>
-                        <a mat-stroked-button [routerLink]="['/admin/expense-claim', data.model.expenseClaim.id]"
+                        <a matButton="outlined" [routerLink]="['/admin/expense-claim', data.model.expenseClaim.id]"
                             >Voir la demande</a
                         >
                     </div>
                     <div class="nat-vertical nat-gap nat-md-horizontal">
                         <div class="nat-vertical nat-gap-5" style="max-width: 300px">
-                            <div class="mat-subtitle-2">{{ data.model.expenseClaim.name }}</div>
+                            <div class="mat-font-title-sm">{{ data.model.expenseClaim.name }}</div>
                             @if (data.model.expenseClaim.description) {
                                 <div>
-                                    <span class="mat-subtitle-2">Description :</span>
+                                    <span class="mat-font-title-sm">Description :</span>
                                     {{ data.model.expenseClaim.description }}
                                 </div>
                             }
                         </div>
                         <div class="nat-vertical nat-gap-5" style="max-width: 300px">
                             <div>
-                                <span class="mat-subtitle-2">Montant :</span>
+                                <span class="mat-font-title-sm">Montant :</span>
                                 {{ data.model.expenseClaim.amount | currency: 'CHF' }}
                             </div>
                             <div>
-                                <span class="mat-subtitle-2">Membre :</span>
+                                <span class="mat-font-title-sm">Membre :</span>
                                 {{ data.model.expenseClaim.owner.name }}
                             </div>
                             @if (data.model.expenseClaim.sector) {
                                 <div>
-                                    <span class="mat-subtitle-2">Secteur :</span>
+                                    <span class="mat-font-title-sm">Secteur :</span>
                                     {{ data.model.expenseClaim.sector }}
                                 </div>
                             }
                             @if (data.model.expenseClaim.reviewer) {
                                 <div>
-                                    <span class="mat-subtitle-2">Approuvé par :</span>
+                                    <span class="mat-font-title-sm">Approuvé par :</span>
                                     {{ data.model.expenseClaim.reviewer.name }}
                                 </div>
                             }
@@ -127,17 +127,17 @@
             <!-- TODO : add selectors for ExpenseClaim -->
             <mat-divider class="nat-margin-vertical" />
             <div class="nat-horizontal nat-gap-10 nat-align nat-margin-bottom">
-                <h2 class="mat-headline-6 nat-no-margin-bottom nat-no-margin-top">Écritures</h2>
+                <h2 class="mat-font-title-lg">Écritures</h2>
                 @if (userService.canUpdateTransaction(viewer)) {
                     <div class="nat-horizontal nat-gap-10">
                         @if (!(updateTransactionLines || !isUpdatePage())) {
-                            <button mat-stroked-button (click)="updateTransactionLines = true">Éditer</button>
+                            <button matButton="outlined" (click)="updateTransactionLines = true">Éditer</button>
                         }
                         @if (updateTransactionLines && isUpdatePage()) {
-                            <button mat-stroked-button (click)="updateTransactionLines = false">Annuler</button>
+                            <button matButton="outlined" (click)="updateTransactionLines = false">Annuler</button>
                         }
                         @if (updateTransactionLines) {
-                            <button mat-flat-button color="primary" (click)="transactionLinesComponent()?.addEmpty()">
+                            <button matButton="filled" (click)="transactionLinesComponent()?.addEmpty()">
                                 Ajouter une écriture
                             </button>
                         }
@@ -169,7 +169,9 @@
             }
 
             <div>
-                <div class="mat-headline-6">Documents justificatifs de la transaction</div>
+                <div class="mat-font-title-lg nat-margin-top nat-margin-bottom">
+                    Documents justificatifs de la transaction
+                </div>
                 <app-accounting-documents
                     #transactionDocuments
                     [canRemove]="userService.canDeleteAccountingDocument(viewer)"
@@ -190,7 +192,7 @@
             icon="save"
             matTooltip="Enregistrer"
             matTooltipPosition="left"
-            [color]="form.valid ? 'accent' : 'warn'"
+            [color]="form.valid ? 'tertiary' : 'error'"
             (click)="save()"
         />
     }
@@ -198,25 +200,25 @@
     @if (isUpdatePage() && userService.canUpdateTransaction(viewer)) {
         <eco-fab-speed-dial class="detail-speed-dial">
             <eco-fab-speed-dial-trigger>
-                <button mat-fab>
+                <button matFab>
                     <mat-icon naturalIcon="more_vert" />
                 </button>
             </eco-fab-speed-dial-trigger>
             <eco-fab-speed-dial-actions>
-                <button mat-mini-fab matTooltip="Enregistrer" matTooltipPosition="left" (click)="save()">
+                <button matMiniFab matTooltip="Enregistrer" matTooltipPosition="left" (click)="save()">
                     <mat-icon naturalIcon="save" />
                 </button>
-                <button
-                    mat-mini-fab
+                <a
+                    matMiniFab
                     matTooltip="Dupliquer ..."
                     matTooltipPosition="left"
                     [routerLink]="['../new', {duplicate: data.model.id}]"
                 >
                     <mat-icon naturalIcon="content_copy" />
-                </button>
+                </a>
                 <button
-                    mat-mini-fab
-                    color="warn"
+                    matMiniFab
+                    color="error"
                     matTooltip="Supprimer définitivement"
                     matTooltipPosition="left"
                     (click)="delete()"

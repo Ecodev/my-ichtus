@@ -5,7 +5,7 @@ import {ActivatedRoute, RouterLink} from '@angular/router';
 import {PermissionsService} from '../shared/services/permissions.service';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {PricedBookings, UserRole} from '../shared/generated-types';
+import {PricedBookingsQuery, UserRole} from '../shared/generated-types';
 import {NaturalIconDirective} from '@ecodev/natural';
 import {MatIcon} from '@angular/material/icon';
 import {MatButton} from '@angular/material/button';
@@ -40,7 +40,7 @@ export class DashboardComponent {
     protected title = 'my-ichtus';
     protected readonly adminRoute: Observable<string>;
 
-    protected formations: PricedBookings['bookings']['items'] = [];
+    protected formations: PricedBookingsQuery['bookings']['items'] = [];
 
     public constructor() {
         this.adminRoute = this.route.data.pipe(

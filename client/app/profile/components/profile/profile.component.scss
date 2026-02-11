@@ -1,4 +1,5 @@
 @use '@ecodev/natural-layout' as nat;
+@use '@angular/material' as mat;
 
 :host {
     display: flex;
@@ -7,6 +8,7 @@
 }
 
 .profile-nav {
+    padding-left: 5px;
     width: 150px;
 }
 
@@ -20,4 +22,16 @@
     @include nat.media(sm) {
         padding: 30px;
     }
+}
+
+natural-sidenav-container {
+    @include mat.sidenav-overrides(
+        (
+            container-width: 160px,
+        )
+    );
+}
+
+mat-divider {
+    margin-bottom: 30px;
 }

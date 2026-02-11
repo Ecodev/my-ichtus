@@ -9,9 +9,10 @@ import {
     NaturalFixedButtonComponent,
     NaturalSearchComponent,
     NaturalTableButtonComponent,
+    TypedMatCellDef,
 } from '@ecodev/natural';
 import {AsyncPipe, DatePipe} from '@angular/common';
-import {AccountType, CurrentUserForProfile} from '../../../shared/generated-types';
+import {AccountType, CurrentUserForProfileQuery} from '../../../shared/generated-types';
 import {accounts} from '../../../shared/natural-search/natural-search-facets';
 import {AccountService} from '../services/account.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -30,7 +31,6 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {
     MatCell,
-    MatCellDef,
     MatColumnDef,
     MatHeaderCell,
     MatHeaderCellDef,
@@ -64,7 +64,7 @@ type AccountingExportDialogResult = {
         MatHeaderCellDef,
         MatHeaderRowDef,
         MatColumnDef,
-        MatCellDef,
+        TypedMatCellDef,
         MatRowDef,
         MatHeaderCell,
         MatCell,
@@ -108,7 +108,7 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
 
     protected readonly buttons: Observable<Button[]> = this.route.data.pipe(
         map(routeData => {
-            const viewer: NonNullable<CurrentUserForProfile['viewer']> = routeData.viewer;
+            const viewer: NonNullable<CurrentUserForProfileQuery['viewer']> = routeData.viewer;
 
             return [
                 {
@@ -126,7 +126,7 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
         }),
     );
 
-    protected viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    protected viewer!: NonNullable<CurrentUserForProfileQuery['viewer']>;
     private dialogConfig: MatDialogConfig<AccountingDialogData> = {
         minWidth: '400px',
         maxWidth: '60vw',

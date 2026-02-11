@@ -1,12 +1,12 @@
 import {inject, Injectable} from '@angular/core';
 import {NaturalAbstractModelService, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {
-    Bookables,
     BookableSortingField,
+    BookablesQuery,
+    BookablesQueryVariables,
     BookableStatus,
-    BookablesVariables,
     BookingSortingField,
-    type BookingsVariables,
+    type BookingsQueryVariables,
     BookingType,
     JoinType,
     LogicalOperator,
@@ -27,8 +27,8 @@ import {popAlert} from './general/pop-alert';
 export class BookableForVanillaService extends NaturalAbstractModelService<
     never,
     never,
-    Bookables['bookables'],
-    BookablesVariables,
+    BookablesQuery['bookables'],
+    BookablesQueryVariables,
     never,
     never,
     never,
@@ -76,7 +76,7 @@ export class BookableForVanillaService extends NaturalAbstractModelService<
             categorie = 'Voile lestée';
         }
 
-        const f: BookablesVariables = {
+        const f: BookablesQueryVariables = {
             filter: {
                 groups: [
                     {
@@ -168,7 +168,7 @@ export class BookableForVanillaService extends NaturalAbstractModelService<
             });
         }
 
-        const variables = new NaturalQueryVariablesManager<BookablesVariables>();
+        const variables = new NaturalQueryVariablesManager<BookablesQueryVariables>();
         variables.set('variables', f);
 
         this.getAll(variables).subscribe(result => {
@@ -187,7 +187,7 @@ export class BookableForVanillaService extends NaturalAbstractModelService<
                     };
                 });
 
-                const filter: BookingsVariables = {
+                const filter: BookingsQueryVariables = {
                     filter: {
                         groups: [
                             {
@@ -218,7 +218,7 @@ export class BookableForVanillaService extends NaturalAbstractModelService<
                         ],
                     },
                 };
-                const variables = new NaturalQueryVariablesManager<BookingsVariables>();
+                const variables = new NaturalQueryVariablesManager<BookingsQueryVariables>();
                 variables.set('variables', filter);
 
                 this.bookingService.getAll(variables).subscribe(result => {
@@ -249,7 +249,7 @@ export class BookableForVanillaService extends NaturalAbstractModelService<
             bookableTag = 'Voile lestée';
         }
 
-        const filter: BookablesVariables = {
+        const filter: BookablesQueryVariables = {
             filter: {
                 groups: [
                     {
@@ -302,7 +302,7 @@ export class BookableForVanillaService extends NaturalAbstractModelService<
             });
         }
 
-        const variables = new NaturalQueryVariablesManager<BookablesVariables>();
+        const variables = new NaturalQueryVariablesManager<BookablesQueryVariables>();
         variables.set('variables', filter);
 
         this.getAll(variables).subscribe(result => {
@@ -333,7 +333,7 @@ export class BookableForVanillaService extends NaturalAbstractModelService<
         if (!t) {
             popAlert('Vous avez déjà choisi cette embarcation');
         } else {
-            const filter: BookablesVariables = {
+            const filter: BookablesQueryVariables = {
                 filter: {
                     groups: [
                         {
@@ -357,7 +357,7 @@ export class BookableForVanillaService extends NaturalAbstractModelService<
                 },
             };
 
-            const variables = new NaturalQueryVariablesManager<BookablesVariables>();
+            const variables = new NaturalQueryVariablesManager<BookablesQueryVariables>();
             variables.set('variables', filter);
 
             this.getAll(variables).subscribe(result => {
@@ -388,7 +388,7 @@ export class BookableForVanillaService extends NaturalAbstractModelService<
     }
 
     public getBookableInfos(nbr: number, bookableId: string, elem: HTMLElement): void {
-        const filter: BookablesVariables = {
+        const filter: BookablesQueryVariables = {
             filter: {
                 groups: [{conditions: [{id: {like: {value: bookableId}}}]}],
             },
@@ -398,12 +398,12 @@ export class BookableForVanillaService extends NaturalAbstractModelService<
             },
         };
 
-        const variables = new NaturalQueryVariablesManager<BookablesVariables>();
+        const variables = new NaturalQueryVariablesManager<BookablesQueryVariables>();
         variables.set('variables', filter);
 
         this.getAll(variables).subscribe(result => {
             //console.log("getBookableInfos(): ", result);
-            const filter: BookingsVariables = {
+            const filter: BookingsQueryVariables = {
                 filter: {
                     groups: [
                         {
@@ -435,7 +435,7 @@ export class BookableForVanillaService extends NaturalAbstractModelService<
                 ],
             };
 
-            const variables = new NaturalQueryVariablesManager<BookingsVariables>();
+            const variables = new NaturalQueryVariablesManager<BookingsQueryVariables>();
             variables.set('variables', filter);
 
             this.bookingService.getAll(variables).subscribe(bookings => {
@@ -447,7 +447,7 @@ export class BookableForVanillaService extends NaturalAbstractModelService<
     }
 
     public getBookablesLicenses(_bookableIds: string[]): void {
-        const filter: BookablesVariables = {
+        const filter: BookablesQueryVariables = {
             filter: {
                 groups: [
                     {
@@ -469,7 +469,7 @@ export class BookableForVanillaService extends NaturalAbstractModelService<
             },
         };
 
-        const variables = new NaturalQueryVariablesManager<BookablesVariables>();
+        const variables = new NaturalQueryVariablesManager<BookablesQueryVariables>();
         variables.set('variables', filter);
 
         this.getAll(variables).subscribe(result => {

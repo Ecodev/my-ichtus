@@ -1,9 +1,9 @@
 <div class="nat-vertical">
-    <h1 class="mat-headline-5 nat-margin-bottom">{{ routeData.seo.title }}</h1>
-    <div>
-        <p class="mat-body">Upload un fichier XML CAMT 054 pour importer les virements qui ont été fait par BVR:</p>
+    <h1 class="mat-font-headline-sm nat-margin-bottom">{{ routeData.seo.title }}</h1>
+    <div class="nat-margin-standard">
+        <p>Upload un fichier XML camt.054 pour importer les virements qui ont été fait par QR-R:</p>
         <button
-            mat-raised-button
+            matButton="filled"
             naturalFileSelect
             accept="text/xml"
             [disabled]="!(permissionsService.crud | async)?.transaction.create || importing"
@@ -17,7 +17,7 @@
             <div>
                 <p>L'erreur suivante s'est produite durant l'import et tout le processus a été complétement annulé:</p>
                 <p>
-                    <mat-icon color="warn" fontIcon="error" />
+                    <mat-icon color="error" fontIcon="error" />
                     {{ error.message }}
                 </p>
             </div>

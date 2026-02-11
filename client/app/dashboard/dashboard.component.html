@@ -9,15 +9,15 @@
                 <mat-card>
                     <mat-icon naturalIcon="certification" [size]="160" />
                     <div class="nat-vertical nat-gap-10">
-                        <div class="mat-subtitle-2 text-center">{{ formation.bookable.name }}</div>
+                        <div class="mat-font-title-sm text-center">{{ formation.bookable.name }}</div>
                         @if (formation.bookable.owner) {
                             <mat-divider />
                             <app-user-contact-data class="nat-expand" [user]="formation.bookable.owner" />
                         }
                         <div>
-                            <a mat-flat-button color="primary" routerLink="/profile/services/bookables/formation/all">
-                                Cours et certifications
-                            </a>
+                            <a matButton="filled" routerLink="/profile/services/bookables/formation/all"
+                                >Cours et certifications</a
+                            >
                         </div>
                     </div>
                 </mat-card>
@@ -27,17 +27,17 @@
 
     @if ((permissionsService.crud | async)?.booking?.create) {
         <div class="nat-vertical nat-top nat-center">
-            <h1 class="mat-headline-3 nat-margin-bottom text-center">Annoncer une sortie</h1>
+            <h1 class="mat-font-display-md nat-margin-bottom text-center">Annoncer une sortie</h1>
             <div class="nat-horizontal nat-wrap nat-gap nat-center">
-                <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="/booking/by-scan">
+                <a matButton class="nat-vertical big-button nat-top nat-center" routerLink="/booking/by-scan">
                     <mat-icon naturalIcon="qr" [size]="70" />
                     en scannant un code QR
                 </a>
-                <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="/booking/by-code">
+                <a matButton class="nat-vertical big-button nat-top nat-center" routerLink="/booking/by-code">
                     <mat-icon naturalIcon="code" [size]="70" />
                     en saisissant un code
                 </a>
-                <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="/booking/new">
+                <a matButton class="nat-vertical big-button nat-top nat-center" routerLink="/booking/new">
                     <mat-icon naturalIcon="own_bookable" [size]="70" />
                     avec mon propre matériel
                 </a>
@@ -46,22 +46,22 @@
     }
 
     <div class="nat-vertical nat-margin-bottom nat-top nat-center">
-        <h1 class="mat-headline-3 nat-margin-bottom text-center">Autres</h1>
+        <h1 class="mat-font-display-md nat-margin-bottom text-center">Autres</h1>
         <div class="nat-horizontal nat-wrap nat-gap nat-center">
             @if (permissionsService.canAccessDoor(route.snapshot.data.viewer)) {
-                <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="door">
+                <a matButton class="nat-vertical big-button nat-top nat-center" routerLink="door">
                     <mat-icon naturalIcon="doors" [size]="70" />
                     Accéder au local
                 </a>
             }
 
-            <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="profile">
+            <a matButton class="nat-vertical big-button nat-top nat-center" routerLink="profile">
                 <mat-icon naturalIcon="family" [size]="70" />
                 Mon compte
             </a>
 
             <a
-                mat-button
+                matButton
                 class="nat-vertical big-button nat-top nat-center"
                 routerLink="/profile/services/bookables/formation/all"
             >
@@ -69,19 +69,19 @@
                 Cours et certifications
             </a>
 
-            <a mat-button class="nat-vertical big-button nat-top nat-center" routerLink="/support">
+            <a matButton class="nat-vertical big-button nat-top nat-center" routerLink="/support">
                 <mat-icon naturalIcon="support" [size]="70" />
                 Guide
             </a>
 
             @if (permissionsService.canAccessAdmin(route.snapshot.data.viewer)) {
-                <a mat-button class="nat-vertical big-button nat-top nat-center" [routerLink]="adminRoute | async">
+                <a matButton class="nat-vertical big-button nat-top nat-center" [routerLink]="adminRoute | async">
                     <mat-icon naturalIcon="administrator" [size]="70" />
                     Administration
                 </a>
             }
 
-            <a mat-button class="nat-vertical big-button nat-left nat-center" (click)="userService.logout()">
+            <a matButton class="nat-vertical big-button nat-left nat-center" (click)="userService.logout()">
                 <mat-icon naturalIcon="exit" [size]="70" />
                 Déconnexion
             </a>

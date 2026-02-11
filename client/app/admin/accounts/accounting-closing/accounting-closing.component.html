@@ -26,8 +26,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Annuler</button>
-    <button mat-button color="primary" [mat-dialog-close]="form.value" [disabled]="!form.valid">
-        Générer les écritures
-    </button>
+    <button matButton="outlined" mat-dialog-close>Annuler</button>
+    <button matButton="filled" [mat-dialog-close]="form.value" [disabled]="!form.valid">Générer les écritures</button>
 </mat-dialog-actions>

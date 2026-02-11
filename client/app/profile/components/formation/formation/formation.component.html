@@ -1,8 +1,8 @@
 <ng-template #displayTemplate let-element let-canCancel="canCancel" let-canRevoque="canRevoque">
     <div class="nat-vertical nat-gap-10">
-        <h2 class="mat-headline-5 nat-expand nat-no-margin-bottom">{{ element.bookable.name }}</h2>
+        <h2 class="mat-font-headline-sm nat-expand">{{ element.bookable.name }}</h2>
 
-        <div class="mat-body-1 description">{{ element.bookable.description }}</div>
+        <div class="mat-font-body-lg description">{{ element.bookable.description }}</div>
         <div class="nat-horizontal nat-align nat-gap-20 nat-wrap">
             <div class="nat-expand nat-horizontal nat-gap-horizontal-30 nat-gap-vertical-10 nat-wrap">
                 @if (element.bookable.owner) {
@@ -10,21 +10,21 @@
                 }
 
                 <div>
-                    <div class="mat-subtitle-2 nat-no-margin-bottom">Participant:</div>
+                    <div class="mat-font-title-sm">Participant:</div>
                     <span>{{ element.owner.name }}</span>
                 </div>
             </div>
             <div class="nat-vertical nat-right nat-gap-5">
                 <app-bookable-price [bookable]="element.bookable" />
                 @if (canRevoque && canRevoke(element)) {
-                    <button mat-flat-button color="warn" (click)="revokeBooking(element)">
+                    <button matButton="filled" color="error" (click)="revokeBooking(element)">
                         <mat-icon naturalIcon="delete_forever" />
                         Se désinscrire
                     </button>
                 } @else if (canCancel) {
                     <button
-                        mat-flat-button
-                        color="warn"
+                        matButton="filled"
+                        color="error"
                         [disabled]="deleting.has(element.id)"
                         (click)="cancelApplication(element)"
                     >
@@ -41,7 +41,7 @@
     <div class="pending-or-running nat-vertical">
         @if (runningServicesDS.data?.items.length) {
             <div class="running formation-list">
-                <h1 class="mat-headline-4">Inscriptions validées</h1>
+                <h1 class="mat-font-headline-lg">Inscriptions validées</h1>
                 <div class="nat-vertical formation-items">
                     @for (element of runningServicesDS.data?.items; track element) {
                         <ng-template
@@ -57,7 +57,7 @@
 
         @if (pendingApplicationsDS.data?.items.length) {
             <div class="pending formation-list">
-                <h1 class="mat-headline-4">Demandes en attente</h1>
+                <h1 class="mat-font-headline-lg">Demandes en attente</h1>
                 <div class="nat-vertical formation-items">
                     @for (element of pendingApplicationsDS.data?.items; track element) {
                         <ng-template
@@ -85,7 +85,7 @@
             <a mat-list-item routerLinkActive="active" routerLink="camps">Camps</a>
         </mat-nav-list>
 
-        <h1 class="list-title mat-headline-4">Nos cours et certifications</h1>
+        <h1 class="list-title mat-font-headline-lg">Nos cours et certifications</h1>
         <div class="list">
             <router-outlet />
         </div>

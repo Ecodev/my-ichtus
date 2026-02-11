@@ -1,7 +1,7 @@
 import {gql} from '@apollo/client/core';
 
 export const configurationQuery = gql`
-    query Configuration($key: String!) {
+    query ConfigurationQuery($key: String!) {
         configuration(key: $key)
     }
 `;

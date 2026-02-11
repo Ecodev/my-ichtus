@@ -1,8 +1,7 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
-import {Component, inject} from '@angular/core';
 import {
     NaturalAbstractDetail,
     NaturalDetailHeaderComponent,
+    NaturalErrorMessagePipe,
     NaturalFixedButtonDetailComponent,
     NaturalLinkableTabDirective,
     NaturalRelationsComponent,
@@ -10,6 +9,7 @@ import {
     NaturalStampComponent,
     NaturalTableButtonComponent,
 } from '@ecodev/natural';
+import {Component, inject} from '@angular/core';
 import {UserTagService} from '../services/userTag.service';
 import {UserService} from '../../users/services/user.service';
 import {MatInput} from '@angular/material/input';

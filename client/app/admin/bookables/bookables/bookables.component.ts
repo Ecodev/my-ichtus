@@ -1,6 +1,6 @@
 import {Component, inject, OnInit, output} from '@angular/core';
 import {bookables, equipment} from '../../../shared/natural-search/natural-search-facets';
-import {Bookables, BookableStatus} from '../../../shared/generated-types';
+import {BookablesQuery, BookableStatus} from '../../../shared/generated-types';
 import {BookableService} from '../services/bookable.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {ParentComponent} from './parent.component';
@@ -12,8 +12,16 @@ import {FlagComponent} from '../../../shared/components/flag/flag.component';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {
+    NaturalAvatarComponent,
+    NaturalColumnsPickerComponent,
+    NaturalFileComponent,
+    NaturalFixedButtonComponent,
+    NaturalSearchComponent,
+    NaturalTableButtonComponent,
+    TypedMatCellDef,
+} from '@ecodev/natural';
+import {
     MatCell,
-    MatCellDef,
     MatColumnDef,
     MatFooterCell,
     MatFooterCellDef,
@@ -27,20 +35,11 @@ import {
     MatRowDef,
     MatTable,
 } from '@angular/material/table';
-import {
-    NaturalAvatarComponent,
-    NaturalColumnsPickerComponent,
-    NaturalFileComponent,
-    NaturalFixedButtonComponent,
-    NaturalSearchComponent,
-    NaturalTableButtonComponent,
-} from '@ecodev/natural';
-import {AsyncPipe, CurrencyPipe, DatePipe, NgClass} from '@angular/common';
+import {AsyncPipe, CurrencyPipe, DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-bookables',
     imports: [
-        NgClass,
         AsyncPipe,
         CurrencyPipe,
         DatePipe,
@@ -50,7 +49,7 @@ import {AsyncPipe, CurrencyPipe, DatePipe, NgClass} from '@angular/common';
         MatHeaderCellDef,
         MatHeaderRowDef,
         MatColumnDef,
-        MatCellDef,
+        TypedMatCellDef,
         MatRowDef,
         MatFooterCellDef,
         MatFooterRowDef,
@@ -79,15 +78,15 @@ import {AsyncPipe, CurrencyPipe, DatePipe, NgClass} from '@angular/common';
 export class BookablesComponent extends ParentComponent<BookableService> implements OnInit {
     protected readonly permissionsService = inject(PermissionsService);
 
-    protected readonly bookableClick = output<Bookables['bookables']['items'][0]>();
-    protected BookableStatus = BookableStatus;
+    protected readonly bookableClick = output<BookablesQuery['bookables']['items'][0]>();
+    protected readonly BookableStatus = BookableStatus;
 
     public constructor() {
         super(inject(BookableService));
         this.naturalSearchFacets = this.route.snapshot.data.isEquipment ? equipment() : bookables();
     }
 
-    protected select(element: Bookables['bookables']['items'][0]): void {
+    protected select(element: BookablesQuery['bookables']['items'][0]): void {
         this.bookableClick.emit(element);
     }
 }

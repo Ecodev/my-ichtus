@@ -39,7 +39,11 @@ export const expenseClaimMetaFragment = gql`
 `;
 
 export const expenseClaimsQuery = gql`
-    query ExpenseClaims($filter: ExpenseClaimFilter, $sorting: [ExpenseClaimSorting!], $pagination: PaginationInput) {
+    query ExpenseClaimsQuery(
+        $filter: ExpenseClaimFilter
+        $sorting: [ExpenseClaimSorting!]
+        $pagination: PaginationInput
+    ) {
         expenseClaims(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
                 ...ExpenseClaimMeta
@@ -53,7 +57,7 @@ export const expenseClaimsQuery = gql`
 `;
 
 export const expenseClaimQuery = gql`
-    query ExpenseClaim($id: ExpenseClaimID!) {
+    query ExpenseClaimQuery($id: ExpenseClaimID!) {
         expenseClaim(id: $id) {
             id
             ...ExpenseClaimMeta

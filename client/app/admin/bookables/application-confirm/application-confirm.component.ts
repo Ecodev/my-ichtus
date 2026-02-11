@@ -4,7 +4,7 @@ import {MatButton} from '@angular/material/button';
 import {FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatFormField, MatHint, MatLabel} from '@angular/material/form-field';
 import {ApplicationConfirmData} from '../bookables/parent.component';
-import {UsersVariables} from '../../../shared/generated-types';
+import {UsersQueryVariables} from '../../../shared/generated-types';
 import {UserService} from '../../users/services/user.service';
 import {NaturalQueryVariablesManager} from '@ecodev/natural';
 import {MatOption, MatSelect} from '@angular/material/select';
@@ -27,7 +27,7 @@ export class ApplicationConfirmComponent {
 
         if (futureOwner) {
             // Populate the select menu with his/her family members
-            const qvm = new NaturalQueryVariablesManager<UsersVariables>();
+            const qvm = new NaturalQueryVariablesManager<UsersQueryVariables>();
             qvm.set('variables', UserService.getFamilyVariables(futureOwner));
             this.userService.getAll(qvm).subscribe(family => {
                 this.familyMembers = family.items.map(member => member.name);

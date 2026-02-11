@@ -10,15 +10,15 @@ import {
 } from '@ecodev/natural';
 import {
     type BookableFilterGroupCondition,
-    Booking,
     BookingInput,
     type BookingPartialInput,
-    Bookings,
+    BookingQuery,
+    BookingQueryVariables,
     BookingSortingField,
+    BookingsQuery,
+    BookingsQueryVariables,
     BookingStatus,
-    BookingsVariables,
     BookingType,
-    BookingVariables,
     CreateBooking,
     CreateBookingVariables,
     DeleteBookings,
@@ -80,7 +80,7 @@ export function getFormValidators(): FormValidators {
     };
 }
 
-export function getPartialVariablesForAll(): Observable<Partial<BookingsVariables>> {
+export function getPartialVariablesForAll(): Observable<Partial<BookingsQueryVariables>> {
     return of({
         filter: {
             groups: [
@@ -116,10 +116,10 @@ export function terminateBooking(apollo: Apollo, id: string, comment: string): O
     providedIn: 'root',
 })
 export class BookingForVanillaService extends NaturalAbstractModelService<
-    Booking['booking'],
-    BookingVariables,
-    Bookings['bookings'],
-    BookingsVariables,
+    BookingQuery['booking'],
+    BookingQueryVariables,
+    BookingsQuery['bookings'],
+    BookingsQueryVariables,
     CreateBooking['createBooking'],
     CreateBookingVariables,
     UpdateBooking['updateBooking'],
@@ -143,12 +143,12 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
         return terminateBooking(this.apollo, id, comment);
     }
 
-    public override getPartialVariablesForAll(): Observable<Partial<BookingsVariables>> {
+    public override getPartialVariablesForAll(): Observable<Partial<BookingsQueryVariables>> {
         return getPartialVariablesForAll();
     }
 
     public getBookableLastBooking(bookableId: string): void {
-        const filter: BookingsVariables = {
+        const filter: BookingsQueryVariables = {
             filter: {
                 groups: [
                     {
@@ -180,7 +180,7 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
             ],
         };
 
-        const variables = new NaturalQueryVariablesManager<BookingsVariables>();
+        const variables = new NaturalQueryVariablesManager<BookingsQueryVariables>();
         variables.set('variables', filter);
 
         this.getAll(variables).subscribe(bookings => {
@@ -193,7 +193,7 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
     public checksBookablesAvailabilityBeforeConfirming(_bookables: {id: string | 0}[]): void {
         const d = new Date(Cahier.bookingStartDate.getTime() - 10 * 60 * 1000); // subtract 1 minute $$
 
-        const filter: BookingsVariables = {
+        const filter: BookingsQueryVariables = {
             filter: {
                 groups: [
                     {
@@ -252,7 +252,7 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
             return;
         }
 
-        const variables = new NaturalQueryVariablesManager<BookingsVariables>();
+        const variables = new NaturalQueryVariablesManager<BookingsQueryVariables>();
         variables.set('variables', filter);
 
         this.getAll(variables).subscribe(result => {
@@ -265,7 +265,7 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
     public getActualBookingList(): void {
         //console.log("GET ACTUAL BOOKING LIST");
 
-        const filter: BookingsVariables = {
+        const filter: BookingsQueryVariables = {
             filter: {
                 groups: [
                     {
@@ -342,7 +342,7 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
             ],
         };
 
-        const variables = new NaturalQueryVariablesManager<BookingsVariables>();
+        const variables = new NaturalQueryVariablesManager<BookingsQueryVariables>();
         variables.set('variables', filter);
 
         this.getAll(variables).subscribe(result => {
@@ -356,7 +356,7 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
     public getFinishedBookingListForDay(d: Date, title: string): void {
         const start = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
         const end = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1, 0, 0, 0, 0);
-        const filter: BookingsVariables = {
+        const filter: BookingsQueryVariables = {
             filter: {
                 groups: [
                     {
@@ -449,7 +449,7 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
             ],
         };
 
-        const variables = new NaturalQueryVariablesManager<BookingsVariables>();
+        const variables = new NaturalQueryVariablesManager<BookingsQueryVariables>();
         variables.set('variables', filter);
 
         this.getAll(variables).subscribe(result => {
@@ -470,7 +470,7 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
     public getBookableHistory(bookableId: string, elem: HTMLElement, lastDate: Date, Size = 10): void {
         //console.log("getbookableHistory", bookableId, "lastDate:", lastDate, "Size",Size);
 
-        const filter: BookingsVariables = {
+        const filter: BookingsQueryVariables = {
             filter: {
                 groups: [
                     {
@@ -513,7 +513,7 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
             ],
         };
 
-        const variables = new NaturalQueryVariablesManager<BookingsVariables>();
+        const variables = new NaturalQueryVariablesManager<BookingsQueryVariables>();
         variables.set('variables', filter);
 
         this.getAll(variables).subscribe(first => {
@@ -544,7 +544,7 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
                     0,
                 );
 
-                const filter: BookingsVariables = {
+                const filter: BookingsQueryVariables = {
                     filter: {
                         groups: [
                             {
@@ -588,7 +588,7 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
                     ],
                 };
 
-                const variables = new NaturalQueryVariablesManager<BookingsVariables>();
+                const variables = new NaturalQueryVariablesManager<BookingsQueryVariables>();
                 variables.set('variables', filter);
 
                 this.getAll(variables).subscribe(addition => {
@@ -607,7 +607,7 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
         elem: HTMLElement = document.body,
         writeIfOne = true,
     ): void {
-        const filter: BookingsVariables = {
+        const filter: BookingsQueryVariables = {
             filter: {
                 groups: [
                     {
@@ -645,7 +645,7 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
             },
         };
 
-        const variables = new NaturalQueryVariablesManager<BookingsVariables>();
+        const variables = new NaturalQueryVariablesManager<BookingsQueryVariables>();
         variables.set('variables', filter);
 
         this.getAll(variables).subscribe(result => {
@@ -661,7 +661,7 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
     public getMonthlyBookingsNbr(start: Date, end: Date): void {
         end = new Date(end.getFullYear(), end.getMonth(), end.getDate(), 23, 59, 59, 99);
 
-        const filter: BookingsVariables = {
+        const filter: BookingsQueryVariables = {
             filter: {
                 groups: [
                     {
@@ -724,7 +724,7 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
             },
         };
 
-        const variables = new NaturalQueryVariablesManager<BookingsVariables>();
+        const variables = new NaturalQueryVariablesManager<BookingsQueryVariables>();
         variables.set('variables', filter);
 
         this.getAll(variables).subscribe(result => {
@@ -743,7 +743,7 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
     }
 
     public getStats(start: Date, end: Date, elem: Element): void {
-        const f: BookingsVariables = {
+        const f: BookingsQueryVariables = {
             filter: {
                 groups: [
                     {
@@ -806,7 +806,7 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
             ],
         };
 
-        const variables = new NaturalQueryVariablesManager<BookingsVariables>();
+        const variables = new NaturalQueryVariablesManager<BookingsQueryVariables>();
         variables.set('variables', f);
 
         this.getAll(variables).subscribe(result => {
@@ -817,7 +817,7 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
     }
 
     public getBookingWithBookablesInfos(_booking: BookingNav, which: PopBookingWhich, elem: Element): void {
-        const filter: BookingsVariables = {
+        const filter: BookingsQueryVariables = {
             filter: {
                 groups: [
                     {
@@ -834,7 +834,7 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
             },
         };
 
-        const variables = new NaturalQueryVariablesManager<BookingsVariables>();
+        const variables = new NaturalQueryVariablesManager<BookingsQueryVariables>();
         variables.set('variables', filter);
 
         this.getAll(variables).subscribe(result => {

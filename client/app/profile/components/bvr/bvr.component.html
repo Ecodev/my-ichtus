@@ -3,20 +3,19 @@
         <div class="nat-margin nat-vertical nat-center">
             <mat-progress-spinner mode="indeterminate" [diameter]="40" />
         </div>
-    }
-    @if (bankingInfos) {
+    } @else {
         <div class="nat-horizontal" style="justify-content: space-evenly">
             @if (bankingInfos.qrCode) {
                 <img alt="QR code" class="qrCode" [attr.src]="bankingInfos.qrCode" />
             }
             <div class="nat-vertical nat-gap-5">
                 <div>
-                    <div class="mat-subtitle-2">Compte (IBAN)</div>
-                    <div class="mat-body-2" style="white-space: pre-line">
+                    <div class="mat-font-title-sm">Compte (IBAN)</div>
+                    <div style="white-space: pre-line">
                         {{ bankingInfos.iban | iban }}
                         @if (bankingInfos.iban) {
                             <button
-                                mat-icon-button
+                                matIconButton
                                 matTooltip="Copier le IBAN"
                                 (click)="copyToClipboard(bankingInfos.iban)"
                             >
@@ -26,12 +25,12 @@
                     </div>
                 </div>
                 <div>
-                    <div class="mat-subtitle-2">Référence :</div>
-                    <div class="mat-body-2">
+                    <div class="mat-font-title-sm">Référence :</div>
+                    <div>
                         {{ bankingInfos.referenceNumber }}
                         @if (bankingInfos.iban) {
                             <button
-                                mat-icon-button
+                                matIconButton
                                 matTooltip="Copier le numéro de référence"
                                 (click)="copyToClipboard(bankingInfos.referenceNumber)"
                             >
@@ -41,15 +40,15 @@
                     </div>
                 </div>
                 <div>
-                    <div class="mat-subtitle-2">Payable à</div>
-                    <div class="mat-body-2" style="white-space: pre-line">{{ bankingInfos.paymentFor }}</div>
+                    <div class="mat-font-title-sm">Payable à</div>
+                    <div style="white-space: pre-line">{{ bankingInfos.paymentFor }}</div>
                 </div>
             </div>
         </div>
     }
 </div>
 @if (bankingInfos) {
-    <p class="mat-body">
+    <p>
         Les paiements effectués au travers d'un e-banking peuvent mettre plusieurs jours à être crédités sur votre
         solde.
     </p>

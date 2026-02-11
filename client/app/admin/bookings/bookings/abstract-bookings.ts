@@ -135,8 +135,8 @@ export abstract class AbstractBookings<
     public readonly showFabButton = input(true);
 
     public readonly buttons: Button[] | null = null;
-    public readonly usageStatus = usageStatusFunc;
-    public readonly usageText = usageText;
+    protected readonly usageStatus = usageStatusFunc;
+    protected readonly usageText = usageText;
 
     public maybeTerminateBooking(id: string): void {
         if (!(this.service instanceof BookingService)) {

@@ -1,23 +1,23 @@
-import {NaturalErrorMessagePipe} from '@ecodev/natural';
-import {Component, inject, OnInit, viewChild} from '@angular/core';
-import {NavigationEnd, RouterLink} from '@angular/router';
 import {
     cancellableTimeout,
     NaturalAbstractDetail,
     NaturalDetailHeaderComponent,
+    NaturalErrorMessagePipe,
     NaturalFixedButtonComponent,
     NaturalIconDirective,
     NaturalLinkableTabDirective,
     NaturalSeoResolveData,
     NaturalStampComponent,
 } from '@ecodev/natural';
+import {Component, inject, OnInit, viewChild} from '@angular/core';
+import {NavigationEnd, RouterLink} from '@angular/router';
 import {TransactionService} from '../services/transaction.service';
 import {EMPTY, Observable} from 'rxjs';
 import {filter, first} from 'rxjs/operators';
 import {
     CreateTransaction,
-    CurrentUserForProfile,
-    ExpenseClaim,
+    CurrentUserForProfileQuery,
+    ExpenseClaimQuery,
     ExpenseClaimType,
     TransactionLineInput,
     UpdateTransaction,
@@ -96,7 +96,7 @@ export class TransactionComponent
         TransactionService,
         NaturalSeoResolveData & {
             duplicatedTransaction?: DuplicatedTransactionResolve | null;
-            expenseClaim?: ExpenseClaim['expenseClaim'] | null;
+            expenseClaim?: ExpenseClaimQuery['expenseClaim'] | null;
         }
     >
     implements OnInit
@@ -113,9 +113,9 @@ export class TransactionComponent
      */
     protected updateTransactionLines = false;
 
-    protected ExpenseClaimType = ExpenseClaimType;
+    protected readonly ExpenseClaimType = ExpenseClaimType;
 
-    protected viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    protected viewer!: NonNullable<CurrentUserForProfileQuery['viewer']>;
     protected transactionLines: EditableTransactionLinesInput = {mode: 'empty'};
 
     public constructor() {
@@ -152,7 +152,7 @@ export class TransactionComponent
         }
     }
 
-    private prefillFromExpenseClaim(expenseClaim: ExpenseClaim['expenseClaim']): void {
+    private prefillFromExpenseClaim(expenseClaim: ExpenseClaimQuery['expenseClaim']): void {
         this.data.model.expenseClaim = expenseClaim;
         this.updateTransactionLines = true;
 

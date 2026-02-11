@@ -4,10 +4,10 @@ import {AvailableColumn, ExtractTallOne, NaturalAbstractList} from '@ecodev/natu
 import {
     BookingPartialInput,
     BookingStatus,
-    CurrentUserForProfile,
-    PricedBookings,
-    UsageBookables,
-    User,
+    CurrentUserForProfileQuery,
+    PricedBookingsQuery,
+    UsageBookablesQuery,
+    UserQuery,
 } from '../../../shared/generated-types';
 import {BookingService} from '../../bookings/services/booking.service';
 import {BookableService} from '../services/bookable.service';
@@ -41,7 +41,7 @@ export const owner: AvailableColumn = {id: 'owner', label: 'Responsable'};
 
 export type ApplicationConfirmData = FutureOwner;
 export type ApplicationConfirmResult = string;
-type FutureOwner = CurrentUserForProfile['viewer'] | User['user'] | null;
+type FutureOwner = CurrentUserForProfileQuery['viewer'] | UserQuery['user'] | null;
 
 @Directive()
 export abstract class ParentComponent<T extends UsageBookableService | BookableService>
@@ -49,7 +49,7 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
     implements OnInit
 {
     protected readonly hasUsage: boolean = false;
-    protected pendingApplications: PricedBookings['bookings']['items'] = [];
+    protected pendingApplications: PricedBookingsQuery['bookings']['items'] = [];
     protected readonly creating = new Map<ExtractTallOne<T>['id'], true>();
     private readonly apollo = inject(Apollo);
     protected readonly availabilityStatus = availabilityStatus;
@@ -162,16 +162,16 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
      *
      * This is just ergonomics considerations. API does not deny double booking on specific resources in this case
      */
-    protected allowBooking(bookable: UsageBookables['bookables']['items'][0]): boolean {
+    protected allowBooking(bookable: UsageBookablesQuery['bookables']['items'][0]): boolean {
         const alreadyBooked = this.isAlreadyPending(bookable);
         return !!this.futureOwner && (!alreadyBooked || (alreadyBooked && !this.route.snapshot.data.denyDoubleBooking));
     }
 
-    protected isAlreadyPending(bookable: UsageBookables['bookables']['items'][0]): boolean {
+    protected isAlreadyPending(bookable: UsageBookablesQuery['bookables']['items'][0]): boolean {
         return this.pendingApplications.some(applicaton => bookable.id === applicaton.bookable?.id);
     }
 
-    protected isFullyBooked(bookable: UsageBookables['bookables']['items'][0]): boolean {
+    protected isFullyBooked(bookable: UsageBookablesQuery['bookables']['items'][0]): boolean {
         return this.availabilityStatus(bookable) === 'full';
     }
 }

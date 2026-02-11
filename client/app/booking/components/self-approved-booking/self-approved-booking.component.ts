@@ -2,7 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
-import {Bookable, BookingStatus} from '../../../shared/generated-types';
+import {BookableQuery, BookingStatus} from '../../../shared/generated-types';
 import {Literal, NaturalAlertService, NaturalAvatarComponent, NaturalFixedButtonComponent} from '@ecodev/natural';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {FormsModule} from '@angular/forms';
@@ -37,14 +37,14 @@ export class SelfApprovedBookingComponent implements OnInit {
     private readonly bookableService = inject(BookableService);
     private readonly alertService = inject(NaturalAlertService);
 
-    protected bookable: Bookable['bookable'] | null = null;
+    protected bookable: BookableQuery['bookable'] | null = null;
     protected booking: Literal = {};
 
     public constructor() {
         this.route.data
             .pipe(
                 takeUntilDestroyed(),
-                switchMap(data => (data.bookable as Observable<Bookable['bookable'] | null>) ?? of(null)),
+                switchMap(data => (data.bookable as Observable<BookableQuery['bookable'] | null>) ?? of(null)),
                 first(),
             )
             .subscribe(bookable => {

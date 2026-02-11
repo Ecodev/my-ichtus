@@ -2,10 +2,10 @@ import {gql} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {bookableMetaFragment} from '../admin/bookables/services/bookable.queries';
 import {NaturalAbstractModelService} from '@ecodev/natural';
-import {SafetyBookings, SafetyBookingsVariables} from '../shared/generated-types';
+import {SafetyBookingsQuery, SafetyBookingsQueryVariables} from '../shared/generated-types';
 
 const safetyBookings = gql`
-    query SafetyBookings($filter: BookingFilter, $sorting: [BookingSorting!], $pagination: PaginationInput) {
+    query SafetyBookingsQuery($filter: BookingFilter, $sorting: [BookingSorting!], $pagination: PaginationInput) {
         bookings(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
                 id
@@ -45,8 +45,8 @@ const safetyBookings = gql`
 export class SafetyBookingService extends NaturalAbstractModelService<
     never,
     never,
-    SafetyBookings['bookings'],
-    SafetyBookingsVariables,
+    SafetyBookingsQuery['bookings'],
+    SafetyBookingsQueryVariables,
     never,
     never,
     never,

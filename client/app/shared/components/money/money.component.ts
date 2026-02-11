@@ -6,10 +6,11 @@ import {CurrencyPipe} from '@angular/common';
     selector: 'app-money',
     imports: [CurrencyPipe],
     templateUrl: './money.component.html',
+    styleUrl: './money.component.scss',
 })
 export class MoneyComponent {
     /**
-     * E.g mat-headline-4
+     * E.g mat-font-headline-lg
      */
     public readonly sizeClass = input('');
 

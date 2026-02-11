@@ -2,7 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {DoorConfig, DoorService} from './services/door.service';
 import {NaturalAlertService} from '@ecodev/natural';
 import {ActivatedRoute} from '@angular/router';
-import {CurrentUserForProfile} from '../shared/generated-types';
+import {CurrentUserForProfileQuery} from '../shared/generated-types';
 import {MatIcon} from '@angular/material/icon';
 import {MatButton} from '@angular/material/button';
 import {CardComponent} from '../shared/components/card/card.component';
@@ -18,7 +18,7 @@ export class DoorComponent implements OnInit {
     private readonly alertService = inject(NaturalAlertService);
     private readonly route = inject(ActivatedRoute);
 
-    protected viewer!: NonNullable<CurrentUserForProfile['viewer']>;
+    protected viewer!: NonNullable<CurrentUserForProfileQuery['viewer']>;
 
     protected open(door: DoorConfig): void {
         this.doorService.open({door: door.enum}).subscribe({

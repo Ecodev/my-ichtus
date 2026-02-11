@@ -4,7 +4,7 @@
             <tr *matRowDef="let row; columns: columns" mat-row></tr>
 
             <ng-container matColumnDef="name">
-                <td *matCellDef="let element" mat-cell>
+                <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                     @if (edit) {
                         <div class="nat-vertical">
                             <mat-form-field class="no-bottom-spacing">
@@ -12,15 +12,14 @@
                                 <input matInput [(ngModel)]="element.name" (change)="updateOrCreate(element)" />
                             </mat-form-field>
                         </div>
-                    }
-                    @if (!edit) {
-                        <div class="mat-subtitle-2">{{ element.name }}</div>
+                    } @else {
+                        <div class="mat-font-title-sm">{{ element.name }}</div>
                     }
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="value">
-                <td *matCellDef="let element" mat-cell>
+                <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                     @if (edit) {
                         <div class="nat-vertical">
                             @if (edit) {
@@ -30,8 +29,7 @@
                                 </mat-form-field>
                             }
                         </div>
-                    }
-                    @if (!edit) {
+                    } @else {
                         <div>{{ element.value }}</div>
                     }
                 </td>
@@ -39,11 +37,11 @@
 
             <ng-container matColumnDef="delete">
                 <th *matHeaderCellDef mat-header-cell class="natural-1em-column"></th>
-                <td *matCellDef="let element" mat-cell>
+                <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                     @if (element.id) {
                         <button
-                            mat-icon-button
-                            color="warn"
+                            matIconButton
+                            color="error"
                             [disabled]="deleting.has(element)"
                             (click)="delete(element)"
                         >

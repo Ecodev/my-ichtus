@@ -3,16 +3,16 @@ import {UserService} from '../../../admin/users/services/user.service';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {
     BookingPartialInput,
-    Bookings,
     BookingSortingField,
-    BookingsVariables,
+    BookingsQuery,
+    BookingsQueryVariables,
     BookingType,
-    CurrentUserForProfile,
+    CurrentUserForProfileQuery,
     JoinType,
     LogicalOperator,
     SortingOrder,
-    Users,
-    UsersVariables,
+    UsersQuery,
+    UsersQueryVariables,
 } from '../../generated-types';
 import {
     NaturalAlertService,
@@ -34,11 +34,11 @@ import {ParticleEffectDirective} from '../particle-button/particle-effect.direct
 import {MatIcon} from '@angular/material/icon';
 import {MatDivider} from '@angular/material/divider';
 import {RouterLink} from '@angular/router';
-import {MatButton, MatIconButton} from '@angular/material/button';
+import {MatButton, MatIconButton, MatMiniFabButton} from '@angular/material/button';
 import {CardComponent} from '../card/card.component';
 
 type Extended = {
-    booking: Readonly<Bookings['bookings']['items'][0]>;
+    booking: Readonly<BookingsQuery['bookings']['items'][0]>;
     showComments: boolean;
     terminated: boolean;
     explode: boolean;
@@ -49,7 +49,7 @@ type PaginatedExtendedBooking = {
     readonly length: number;
 };
 
-function bookingsToExtended(bookings: Bookings['bookings']): PaginatedExtendedBooking {
+function bookingsToExtended(bookings: BookingsQuery['bookings']): PaginatedExtendedBooking {
     return {
         length: bookings.length,
         items: bookings.items.map(item => {
@@ -81,6 +81,7 @@ function bookingsToExtended(bookings: Bookings['bookings']): PaginatedExtendedBo
         FormsModule,
         CdkTextareaAutosize,
         DatePipe,
+        MatMiniFabButton,
     ],
     templateUrl: './navigations.component.html',
     styleUrl: './navigations.component.scss',
@@ -92,19 +93,19 @@ export class NavigationsComponent implements OnInit {
     private readonly dialog = inject(MatDialog);
     private readonly snackbar = inject(MatSnackBar);
 
-    public readonly user = input.required<NonNullable<CurrentUserForProfile['viewer']>>();
+    public readonly user = input.required<NonNullable<CurrentUserForProfileQuery['viewer']>>();
     public readonly activeOnly = input(true);
     public readonly showEmptyMessage = input(false);
 
     protected bookings: PaginatedExtendedBooking | null = null;
 
-    private bookingsQVM = new NaturalQueryVariablesManager<BookingsVariables>();
+    private bookingsQVM = new NaturalQueryVariablesManager<BookingsQueryVariables>();
 
     private currentPage = 0;
-    private family: (NonNullable<CurrentUserForProfile['viewer']> | Users['users']['items'][0])[] = [];
+    private family: (NonNullable<CurrentUserForProfileQuery['viewer']> | UsersQuery['users']['items'][0])[] = [];
 
     public ngOnInit(): void {
-        const qvm = new NaturalQueryVariablesManager<UsersVariables>();
+        const qvm = new NaturalQueryVariablesManager<UsersQueryVariables>();
         const user = this.user();
         qvm.set('variables', {
             filter: {
@@ -130,15 +131,6 @@ export class NavigationsComponent implements OnInit {
             duration: 6000,
         };
 
-        const modalOptions = {
-            data: {
-                title: 'Commentaire de fin de sortie',
-                message: '',
-                cancelText: 'Annuler',
-                confirmText: 'Valider',
-            },
-        };
-
         const booking = item.booking;
         this.bookingService.terminateBooking(booking.id).subscribe(() => {
             item.explode = true;
@@ -147,7 +139,7 @@ export class NavigationsComponent implements OnInit {
                 .onAction()
                 .subscribe(() => {
                     this.dialog
-                        .open(CommentComponent, modalOptions)
+                        .open(CommentComponent)
                         .afterClosed()
                         .subscribe(comment => {
                             if (comment && comment !== '') {
@@ -176,11 +168,11 @@ export class NavigationsComponent implements OnInit {
         });
     }
 
-    private getNavigations(users: Users['users']['items']): Observable<Bookings['bookings']> {
+    private getNavigations(users: UsersQuery['users']['items']): Observable<BookingsQuery['bookings']> {
         const owner = {in: {values: users.map(u => u.id)}};
         const endDate = this.activeOnly() ? {null: {}} : null;
 
-        const variables: BookingsVariables = {
+        const variables: BookingsQueryVariables = {
             filter: {
                 groups: [
                     {

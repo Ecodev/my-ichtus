@@ -39,7 +39,7 @@ import {
     ConfirmRegistrationVariables,
     CreateUser,
     CreateUserVariables,
-    CurrentUserForProfile,
+    CurrentUserForProfileQuery,
     type DeleteUsers,
     type DeleteUsersVariables,
     LeaveFamily,
@@ -48,8 +48,8 @@ import {
     Login,
     LoginVariables,
     Logout,
-    PricedBookings,
-    PricedBookingsVariables,
+    PricedBookingsQuery,
+    PricedBookingsQueryVariables,
     Relationship,
     RequestPasswordReset,
     RequestPasswordResetVariables,
@@ -61,21 +61,21 @@ import {
     UnregisterVariables,
     UpdateUser,
     UpdateUserVariables,
-    User,
-    UserByToken,
-    UserByTokenVariables,
+    UserByTokenQuery,
+    UserByTokenQueryVariables,
     UserInput,
     UserLeaveFamily,
-    UserLoginAvailable,
-    UserLoginAvailableVariables,
+    UserLoginAvailableQuery,
+    UserLoginAvailableQueryVariables,
+    UserQuery,
+    UserQueryVariables,
     UserRole,
-    UserRolesAvailables,
-    UserRolesAvailablesVariables,
-    Users,
+    UserRolesAvailablesQuery,
+    UserRolesAvailablesQueryVariables,
     UserSortingField,
+    UsersQuery,
+    UsersQueryVariables,
     UserStatus,
-    UsersVariables,
-    UserVariables,
 } from '../../../shared/generated-types';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {PricedBookingService} from '../../bookings/services/PricedBooking.service';
@@ -96,10 +96,10 @@ export function loginValidator(control: FormControl): ValidationErrors | null {
 })
 export class UserService
     extends NaturalAbstractModelService<
-        User['user'],
-        UserVariables,
-        Users['users'],
-        UsersVariables,
+        UserQuery['user'],
+        UserQueryVariables,
+        UsersQuery['users'],
+        UsersQueryVariables,
         CreateUser['createUser'],
         CreateUserVariables,
         UpdateUser['updateUser'],
@@ -117,7 +117,7 @@ export class UserService
     /**
      * Should be used only by getViewer and cacheViewer
      */
-    private viewerCache: CurrentUserForProfile['viewer'] = null;
+    private viewerCache: CurrentUserForProfileQuery['viewer'] = null;
 
     /**
      * This key will be used to store the viewer ID, but that value should never
@@ -134,7 +134,7 @@ export class UserService
     /**
      * Return filters for users for given roles and statuses
      */
-    public static getFilters(roles: UserRole[], statuses: UserStatus[] | null): UsersVariables {
+    public static getFilters(roles: UserRole[], statuses: UserStatus[] | null): UsersQueryVariables {
         return {
             filter: {
                 groups: [
@@ -151,7 +151,7 @@ export class UserService
         };
     }
 
-    public static getFamilyVariables(user: NonNullable<CurrentUserForProfile['viewer']>): UsersVariables {
+    public static getFamilyVariables(user: NonNullable<CurrentUserForProfileQuery['viewer']>): UsersQueryVariables {
         const familyBoss = user.owner || user;
 
         return {
@@ -217,7 +217,7 @@ export class UserService
         };
     }
 
-    public override getFormAsyncValidators(model: User['user']): FormAsyncValidators {
+    public override getFormAsyncValidators(model: UserQuery['user']): FormAsyncValidators {
         return {
             login: [unique('login', model.id, this)],
             email: [unique('email', model.id, this)],
@@ -316,12 +316,12 @@ export class UserService
             .pipe(switchMap(() => this.refetchViewerAndGoToHome()));
     }
 
-    private postLogin(viewer: NonNullable<CurrentUserForProfile['viewer']>): void {
+    private postLogin(viewer: NonNullable<CurrentUserForProfileQuery['viewer']>): void {
         this.cacheViewer(viewer);
 
         // Inject the freshly logged in user as the current user into Apollo data store
         const data = {viewer: viewer};
-        this.apollo.client.writeQuery<CurrentUserForProfile, never>({
+        this.apollo.client.writeQuery<CurrentUserForProfileQuery, never>({
             query: currentUserForProfileQuery,
             data,
         });
@@ -334,13 +334,13 @@ export class UserService
 
     public loginAvailable(login: string, excludedId: string | null): Observable<boolean> {
         const query = gql`
-            query UserLoginAvailable($login: String!, $excluded: UserID) {
+            query UserLoginAvailableQuery($login: String!, $excluded: UserID) {
                 userLoginAvailable(login: $login, excluded: $excluded)
             }
         `;
 
         return this.apollo
-            .query<UserLoginAvailable, UserLoginAvailableVariables>({
+            .query<UserLoginAvailableQuery, UserLoginAvailableQueryVariables>({
                 query: query,
                 variables: {
                     login: login,
@@ -395,11 +395,12 @@ export class UserService
      * Impact members
      */
     public getRunningServices(
-        user: NonNullable<CurrentUserForProfile['viewer']>,
+        user: NonNullable<CurrentUserForProfileQuery['viewer']>,
         coursesOnly = false,
         excludeNFT = false,
-    ): Observable<PricedBookings['bookings']> {
-        const variables: PricedBookingsVariables = {
+    ): Observable<PricedBookingsQuery['bookings']> {
+        const qvm = new NaturalQueryVariablesManager<PricedBookingsQueryVariables>();
+        qvm.set('variables', {
             filter: {
                 groups: [
                     {
@@ -414,18 +415,16 @@ export class UserService
                     },
                 ],
             },
-        };
-
-        const qvm = new NaturalQueryVariablesManager<PricedBookingsVariables>();
-        qvm.set('variables', variables);
+        });
         return this.pricedBookingService.watchAll(qvm);
     }
 
     public getPendingApplications(
-        user: NonNullable<CurrentUserForProfile['viewer']> | User['user'],
+        user: NonNullable<CurrentUserForProfileQuery['viewer']> | UserQuery['user'],
         bookingTypes: BookingType[] = [BookingType.Application, BookingType.AdminApproved],
-    ): Observable<PricedBookings['bookings']> {
-        const variables: PricedBookingsVariables = {
+    ): Observable<PricedBookingsQuery['bookings']> {
+        const qvm = new NaturalQueryVariablesManager<PricedBookingsQueryVariables>();
+        qvm.set('variables', {
             filter: {
                 groups: [
                     {
@@ -450,20 +449,17 @@ export class UserService
                     },
                 ],
             },
-        };
-
-        const qvm = new NaturalQueryVariablesManager<PricedBookingsVariables>();
-        qvm.set('variables', variables);
+        });
         return this.pricedBookingService.watchAll(qvm);
     }
 
-    public getViewer(): Observable<CurrentUserForProfile['viewer']> {
+    public getViewer(): Observable<CurrentUserForProfileQuery['viewer']> {
         if (this.viewerCache) {
             return of(this.viewerCache);
         }
 
         return this.apollo
-            .query<CurrentUserForProfile>({
+            .query<CurrentUserForProfileQuery>({
                 query: currentUserForProfileQuery,
             })
             .pipe(
@@ -474,9 +470,9 @@ export class UserService
             );
     }
 
-    public getUserRolesAvailable(user: User['user'] | UserInput | null): Observable<UserRole[]> {
+    public getUserRolesAvailable(user: UserQuery['user'] | UserInput | null): Observable<UserRole[]> {
         return this.apollo
-            .query<UserRolesAvailables, UserRolesAvailablesVariables>({
+            .query<UserRolesAvailablesQuery, UserRolesAvailablesQueryVariables>({
                 query: userRolesAvailableQuery,
                 variables: {
                     user: user && 'id' in user ? user.id : undefined,
@@ -506,16 +502,16 @@ export class UserService
      *
      * This is kind of easiest possible "debounce" like with expiration feature
      */
-    private cacheViewer(user: CurrentUserForProfile['viewer']): void {
+    private cacheViewer(user: CurrentUserForProfileQuery['viewer']): void {
         this.viewerCache = user;
         setTimeout(() => {
             this.viewerCache = null;
         }, 1000);
     }
 
-    public resolveByToken(token: string): Observable<UserByToken['userByToken']> {
+    public resolveByToken(token: string): Observable<UserByTokenQuery['userByToken']> {
         return this.apollo
-            .query<UserByToken, UserByTokenVariables>({
+            .query<UserByTokenQuery, UserByTokenQueryVariables>({
                 query: userByTokenQuery,
                 variables: {
                     token: token,
@@ -524,7 +520,7 @@ export class UserService
             .pipe(map(result => result.data.userByToken));
     }
 
-    public unregister(user: NonNullable<CurrentUserForProfile['viewer']>): Observable<Unregister['unregister']> {
+    public unregister(user: NonNullable<CurrentUserForProfileQuery['viewer']>): Observable<Unregister['unregister']> {
         return this.apollo
             .mutate<Unregister, UnregisterVariables>({
                 mutation: unregisterMutation,
@@ -571,7 +567,7 @@ export class UserService
     /**
      * Can become a member has no owner and is not member
      */
-    public canBecomeMember(user: NonNullable<CurrentUserForProfile['viewer']>): boolean {
+    public canBecomeMember(user: NonNullable<CurrentUserForProfileQuery['viewer']>): boolean {
         if (!user) {
             return false;
         }
@@ -583,28 +579,28 @@ export class UserService
         return !isMember && !this.canLeaveFamily(user);
     }
 
-    public canUpdateTransaction(user: NonNullable<CurrentUserForProfile['viewer']>): boolean {
+    public canUpdateTransaction(user: NonNullable<CurrentUserForProfileQuery['viewer']>): boolean {
         if (!user) {
             return false;
         }
         return user.role === UserRole.administrator;
     }
 
-    public canUpdateIban(user: NonNullable<CurrentUserForProfile['viewer']>): boolean {
+    public canUpdateIban(user: NonNullable<CurrentUserForProfileQuery['viewer']>): boolean {
         if (!user) {
             return false;
         }
         return user.role === UserRole.administrator;
     }
 
-    public canDeleteAccountingDocument(user: NonNullable<CurrentUserForProfile['viewer']>): boolean {
+    public canDeleteAccountingDocument(user: NonNullable<CurrentUserForProfileQuery['viewer']>): boolean {
         if (!user) {
             return false;
         }
         return user.role === UserRole.administrator;
     }
 
-    public canCloseAccounting(user: NonNullable<CurrentUserForProfile['viewer']>): boolean {
+    public canCloseAccounting(user: NonNullable<CurrentUserForProfileQuery['viewer']>): boolean {
         if (!user) {
             return false;
         }

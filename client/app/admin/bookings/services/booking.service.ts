@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
 import {
-    Bookable,
-    Bookables,
-    Booking,
+    BookableQuery,
+    BookablesQuery,
     BookingInput,
     BookingPartialInput,
-    Bookings,
+    BookingQuery,
+    BookingQueryVariables,
     BookingSortingField,
+    BookingsQuery,
+    BookingsQueryVariables,
     BookingStatus,
-    BookingsVariables,
     BookingType,
-    BookingVariables,
     CreateBooking,
     CreateBookingVariables,
     DeleteBookings,
@@ -20,7 +20,7 @@ import {
     SortingOrder,
     UpdateBooking,
     UpdateBookingVariables,
-    UsageBookables,
+    UsageBookablesQuery,
 } from '../../../shared/generated-types';
 import {Observable} from 'rxjs';
 import {formatIsoDateTime, FormValidators, NaturalAbstractModelService} from '@ecodev/natural';
@@ -37,10 +37,10 @@ import {
     providedIn: 'root',
 })
 export class BookingService extends NaturalAbstractModelService<
-    Booking['booking'],
-    BookingVariables,
-    Bookings['bookings'],
-    BookingsVariables,
+    BookingQuery['booking'],
+    BookingQueryVariables,
+    BookingsQuery['bookings'],
+    BookingsQueryVariables,
     CreateBooking['createBooking'],
     CreateBookingVariables,
     UpdateBooking['updateBooking'],
@@ -51,7 +51,7 @@ export class BookingService extends NaturalAbstractModelService<
     /**
      * Filters for bookings with endDate with self-approved bookable or no bookable linked
      */
-    public static readonly runningSelfApprovedQV: BookingsVariables = {
+    public static readonly runningSelfApprovedQV: BookingsQueryVariables = {
         filter: {
             groups: [
                 {
@@ -80,7 +80,7 @@ export class BookingService extends NaturalAbstractModelService<
         },
     };
 
-    public static readonly selfApprovedQV: BookingsVariables = {
+    public static readonly selfApprovedQV: BookingsQueryVariables = {
         filter: {
             groups: [
                 {
@@ -105,7 +105,7 @@ export class BookingService extends NaturalAbstractModelService<
         ],
     };
 
-    public static readonly servicesApplication: BookingsVariables = {
+    public static readonly servicesApplication: BookingsQueryVariables = {
         filter: {
             groups: [
                 {
@@ -128,7 +128,7 @@ export class BookingService extends NaturalAbstractModelService<
         },
     };
 
-    public static applicationByTag(bookableTagId: string): BookingsVariables {
+    public static applicationByTag(bookableTagId: string): BookingsQueryVariables {
         return {
             filter: {
                 groups: [
@@ -168,7 +168,7 @@ export class BookingService extends NaturalAbstractModelService<
         return terminateBooking(this.apollo, id, comment);
     }
 
-    public override getPartialVariablesForAll(): Observable<Partial<BookingsVariables>> {
+    public override getPartialVariablesForAll(): Observable<Partial<BookingsQueryVariables>> {
         return getPartialVariablesForAll();
     }
 
@@ -179,9 +179,9 @@ export class BookingService extends NaturalAbstractModelService<
     public createWithBookable(
         bookable:
             | null
-            | Bookable['bookable']
-            | Bookables['bookables']['items'][0]
-            | UsageBookables['bookables']['items'][0],
+            | BookableQuery['bookable']
+            | BookablesQuery['bookables']['items'][0]
+            | UsageBookablesQuery['bookables']['items'][0],
         owner: {id: string} | null,
         booking: BookingPartialInput = {},
     ): Observable<CreateBooking['createBooking']> {

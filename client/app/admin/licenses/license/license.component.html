@@ -1,13 +1,12 @@
 <div class="detail-body" [formGroup]="form">
     <div class="nat-vertical pageHeader">
-        <div class="mat-headline-5 nat-no-margin nat-gap-5 nat-horizontal nat-align">
-            <a mat-icon-button [routerLink]="['..']">
+        <div class="mat-font-headline-sm nat-gap-5 nat-horizontal nat-align">
+            <a matIconButton [routerLink]="['..']">
                 <mat-icon naturalIcon="arrow_back" />
             </a>
             @if (!form.get('name')?.value) {
                 <span>Nouvelle certification</span>
-            }
-            @if (form.get('name')?.value) {
+            } @else {
                 <span class="pageTitle">
                     <span>Certification</span>
                     {{ form.get('name')?.value }}
@@ -24,7 +23,7 @@
                         <input matInput formControlName="name" (change)="update()" />
                         <mat-label>Nom</mat-label>
                         @if (form.get('name')?.hasError('duplicateValue')) {
-                            <mat-error> Ce nom est déjà attribué à une certification</mat-error>
+                            <mat-error>Ce nom est déjà attribué à une certification</mat-error>
                         } @else {
                             <mat-error>{{ form.get('name')?.errors | errorMessage }}</mat-error>
                         }
@@ -37,7 +36,7 @@
             @if (isUpdatePage()) {
                 <div class="nat-vertical nat-md-horizontal nat-gap-horizontal">
                     <div class="nat-expand nat-vertical">
-                        <h2 class="mat-headline-6">Utilisateurs certifiés</h2>
+                        <h2 class="mat-font-title-lg">Utilisateurs certifiés</h2>
                         <natural-relations
                             placeholder="Certifier un utilisateur"
                             [main]="data.model"
@@ -52,7 +51,7 @@
                         </natural-relations>
                     </div>
                     <div class="nat-expand nat-vertical">
-                        <h2 class="mat-headline-6">Réservables certifiés</h2>
+                        <h2 class="mat-font-title-lg">Réservables certifiés</h2>
                         <natural-relations
                             placeholder="Associer à un réservable"
                             [main]="data.model"

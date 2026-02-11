@@ -10,11 +10,11 @@ import {
 import {
     CreateTransactionTag,
     CreateTransactionTagVariables,
-    TransactionTag,
     TransactionTagInput,
-    TransactionTags,
-    TransactionTagsVariables,
-    TransactionTagVariables,
+    TransactionTagQuery,
+    TransactionTagQueryVariables,
+    TransactionTagsQuery,
+    TransactionTagsQueryVariables,
     UpdateTransactionTag,
     UpdateTransactionTagVariables,
 } from '../../../shared/generated-types';
@@ -24,10 +24,10 @@ import {Validators} from '@angular/forms';
     providedIn: 'root',
 })
 export class TransactionTagService extends NaturalAbstractModelService<
-    TransactionTag['transactionTag'],
-    TransactionTagVariables,
-    TransactionTags['transactionTags'],
-    TransactionTagsVariables,
+    TransactionTagQuery['transactionTag'],
+    TransactionTagQueryVariables,
+    TransactionTagsQuery['transactionTags'],
+    TransactionTagsQueryVariables,
     CreateTransactionTag['createTransactionTag'],
     CreateTransactionTagVariables,
     UpdateTransactionTag['updateTransactionTag'],

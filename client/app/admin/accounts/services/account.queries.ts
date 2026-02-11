@@ -36,7 +36,7 @@ export const accountMetaFragment = gql`
 `;
 
 export const accountsQuery = gql`
-    query Accounts($filter: AccountFilter, $sorting: [AccountSorting!], $pagination: PaginationInput) {
+    query AccountsQuery($filter: AccountFilter, $sorting: [AccountSorting!], $pagination: PaginationInput) {
         accounts(filter: $filter, sorting: $sorting, pagination: $pagination) {
             items {
                 ...AccountMeta
@@ -50,7 +50,7 @@ export const accountsQuery = gql`
 `;
 
 export const accountQuery = gql`
-    query Account($id: AccountID!) {
+    query AccountQuery($id: AccountID!) {
         account(id: $id) {
             id
             ...AccountMeta
@@ -83,7 +83,7 @@ export const accountQuery = gql`
 `;
 
 export const nextCodeAvailableQuery = gql`
-    query NextAccountCode($parent: AccountID) {
+    query NextAccountCodeQuery($parent: AccountID) {
         nextAccountCode(parent: $parent)
     }
 `;
@@ -128,9 +128,9 @@ export const exportAccountingReport = gql`
     }
 `;
 
-export const accountingClosing = gql`
-    mutation AccountingClosing($date: Date) {
-        accountingClosing(date: $date) {
+export const closeAccounting = gql`
+    mutation CloseAccounting($date: Date) {
+        closeAccounting(date: $date) {
             id
         }
     }

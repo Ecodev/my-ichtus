@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, inject, OnInit, viewChildren} from '@angular/core';
-import {CurrentUserForProfile, UpdateUser, Users, UsersVariables} from '../../../shared/generated-types';
+import {CurrentUserForProfileQuery, UpdateUser, UsersQuery, UsersQueryVariables} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
@@ -40,13 +40,13 @@ export class FamilyComponent implements OnInit {
     protected readonly permissionsService = inject(PermissionsService);
     private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
-    protected viewer!: NonNullable<CurrentUserForProfile['viewer']>;
-    protected familyMembers: Users['users']['items'][0][] = [];
+    protected viewer!: NonNullable<CurrentUserForProfileQuery['viewer']>;
+    protected familyMembers: UsersQuery['users']['items'][0][] = [];
 
     /**
      * Member selected when opening an accordion panel
      */
-    protected activeMember: Users['users']['items'][0] | null = null;
+    protected activeMember: UsersQuery['users']['items'][0] | null = null;
 
     private readonly expansionPanels = viewChildren(MatExpansionPanel);
     private readonly expansionPanels$ = toObservable(this.expansionPanels);
@@ -58,7 +58,7 @@ export class FamilyComponent implements OnInit {
 
     protected reload(): void {
         if (this.viewer) {
-            const qvm = new NaturalQueryVariablesManager<UsersVariables>();
+            const qvm = new NaturalQueryVariablesManager<UsersQueryVariables>();
             qvm.set('variables', UserService.getFamilyVariables(this.viewer));
             this.userService.getAll(qvm).subscribe(family => (this.familyMembers = cloneDeep(family.items)));
             this.activeMember = null;
@@ -75,7 +75,7 @@ export class FamilyComponent implements OnInit {
             this.changeDetectorRef.detectChanges();
         });
 
-        const emptyUser = this.userService.getDefaultForServer() as Users['users']['items'][0];
+        const emptyUser = this.userService.getDefaultForServer() as UsersQuery['users']['items'][0];
         this.familyMembers.push(emptyUser);
         this.activeMember = emptyUser;
     }
@@ -86,7 +86,7 @@ export class FamilyComponent implements OnInit {
      * "why the daughter can update the entire family, but the son cannot ?", when in fact the daughter has a higher
      * role than the son.
      */
-    protected canEdit(familyMember?: Users['users']['items'][0]): boolean {
+    protected canEdit(familyMember?: UsersQuery['users']['items'][0]): boolean {
         const iAmFamilyOwner = !this.viewer.owner;
         const isMyself = !!familyMember && familyMember.id === this.viewer.id;
 

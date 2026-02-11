@@ -5,8 +5,9 @@ import {
     NaturalSearchComponent,
     NaturalTableButtonComponent,
     SortingOrder,
+    TypedMatCellDef,
 } from '@ecodev/natural';
-import {CurrentUserForProfile, LogSortingField, UserRole} from '../../../shared/generated-types';
+import {CurrentUserForProfileQuery, LogSortingField, UserRole} from '../../../shared/generated-types';
 import {LogService} from '../services/log.service';
 import {logs} from '../../../shared/natural-search/natural-search-facets';
 import {MatPaginator} from '@angular/material/paginator';
@@ -15,7 +16,6 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {
     MatCell,
-    MatCellDef,
     MatColumnDef,
     MatHeaderCell,
     MatHeaderCellDef,
@@ -37,7 +37,7 @@ import {DatePipe} from '@angular/common';
         MatHeaderCellDef,
         MatHeaderRowDef,
         MatColumnDef,
-        MatCellDef,
+        TypedMatCellDef,
         MatRowDef,
         MatHeaderCell,
         MatCell,
@@ -65,7 +65,7 @@ export class LogsComponent extends NaturalAbstractList<LogService> implements On
 
     public override ngOnInit(): void {
         super.ngOnInit();
-        const viewer: NonNullable<CurrentUserForProfile['viewer']> = this.route.snapshot.data.viewer;
+        const viewer: NonNullable<CurrentUserForProfileQuery['viewer']> = this.route.snapshot.data.viewer;
 
         this.availableColumns = [
             {id: 'creationDate', label: 'Date'},

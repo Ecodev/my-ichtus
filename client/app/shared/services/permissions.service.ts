@@ -3,7 +3,7 @@ import {inject, Injectable} from '@angular/core';
 import {Literal} from '@ecodev/natural';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {concatMap, debounceTime, distinctUntilChanged, filter, map, shareReplay} from 'rxjs/operators';
-import {CurrentUserForProfile, Permissions, UserRole, UserStatus} from '../generated-types';
+import {CurrentUserForProfileQuery, PermissionsQuery, UserRole, UserStatus} from '../generated-types';
 import {isEqual} from 'es-toolkit';
 import {permissionsQuery} from './permissions.queries';
 
@@ -21,12 +21,12 @@ export class PermissionsService {
     /**
      * Observable of CRUD permissions, usually for object creations
      */
-    public readonly crud: Observable<Permissions['permissions']['crud']>;
+    public readonly crud: Observable<PermissionsQuery['permissions']['crud']>;
 
     /**
      * Observable of changed permissions
      */
-    public readonly changes: Observable<Permissions['permissions']>;
+    public readonly changes: Observable<PermissionsQuery['permissions']>;
 
     private readonly currentContexts = new BehaviorSubject<Contexts>({
         user: null,
@@ -40,7 +40,7 @@ export class PermissionsService {
             distinctUntilChanged(isEqual),
             debounceTime(5),
             concatMap(() =>
-                apollo.query<Permissions>({query: permissionsQuery}).pipe(filter(result => !result.loading)),
+                apollo.query<PermissionsQuery>({query: permissionsQuery}).pipe(filter(result => !result.loading)),
             ),
             shareReplay(), // new subscriber will get the most recent available permissions
         );
@@ -64,7 +64,7 @@ export class PermissionsService {
         this.setNewContexts(newContexts);
     }
 
-    public canAccessUsers(user: CurrentUserForProfile['viewer']): boolean {
+    public canAccessUsers(user: CurrentUserForProfileQuery['viewer']): boolean {
         if (!user) {
             return false;
         }
@@ -78,7 +78,7 @@ export class PermissionsService {
         ].includes(user.role);
     }
 
-    public canAccessNavigations(user: CurrentUserForProfile['viewer']): boolean {
+    public canAccessNavigations(user: CurrentUserForProfileQuery['viewer']): boolean {
         if (!user) {
             return false;
         }
@@ -93,7 +93,7 @@ export class PermissionsService {
         ].includes(user.role);
     }
 
-    public canAccessAccounting(user: CurrentUserForProfile['viewer']): boolean {
+    public canAccessAccounting(user: CurrentUserForProfileQuery['viewer']): boolean {
         if (!user) {
             return false;
         }
@@ -101,7 +101,7 @@ export class PermissionsService {
         return this.gteResponsible(user) || user.role === UserRole.accounting_verificator;
     }
 
-    public canAccessFormations(user: CurrentUserForProfile['viewer']): boolean {
+    public canAccessFormations(user: CurrentUserForProfileQuery['viewer']): boolean {
         if (!user) {
             return false;
         }
@@ -111,7 +111,7 @@ export class PermissionsService {
         );
     }
 
-    public canAccessNFT(user: CurrentUserForProfile['viewer']): boolean {
+    public canAccessNFT(user: CurrentUserForProfileQuery['viewer']): boolean {
         if (!user) {
             return false;
         }
@@ -119,7 +119,7 @@ export class PermissionsService {
         return this.gteResponsible(user);
     }
 
-    public canAccessFormationApplication(user: CurrentUserForProfile['viewer']): boolean {
+    public canAccessFormationApplication(user: CurrentUserForProfileQuery['viewer']): boolean {
         if (!user) {
             return false;
         }
@@ -127,7 +127,7 @@ export class PermissionsService {
         return this.gteResponsible(user) || user.role === UserRole.formation_responsible;
     }
 
-    public canAccessBookable(user: CurrentUserForProfile['viewer']): boolean {
+    public canAccessBookable(user: CurrentUserForProfileQuery['viewer']): boolean {
         if (!user) {
             return false;
         }
@@ -135,7 +135,7 @@ export class PermissionsService {
         return this.gteResponsible(user);
     }
 
-    public canAccessExpenseClaims(user: CurrentUserForProfile['viewer']): boolean {
+    public canAccessExpenseClaims(user: CurrentUserForProfileQuery['viewer']): boolean {
         if (!user) {
             return false;
         }
@@ -143,7 +143,7 @@ export class PermissionsService {
         return [UserRole.responsible, UserRole.administrator].includes(user.role);
     }
 
-    public canAccessServices(user: CurrentUserForProfile['viewer']): boolean {
+    public canAccessServices(user: CurrentUserForProfileQuery['viewer']): boolean {
         if (!user) {
             return false;
         }
@@ -151,7 +151,7 @@ export class PermissionsService {
         return [UserStatus.Active, UserStatus.New].includes(user.status);
     }
 
-    public canAccessAdmin(user: CurrentUserForProfile['viewer']): boolean {
+    public canAccessAdmin(user: CurrentUserForProfileQuery['viewer']): boolean {
         if (!user) {
             return false;
         }
@@ -165,7 +165,7 @@ export class PermissionsService {
         ].includes(user.role);
     }
 
-    public canAccessDoor(user: CurrentUserForProfile['viewer']): boolean {
+    public canAccessDoor(user: CurrentUserForProfileQuery['viewer']): boolean {
         if (!user) {
             return false;
         }
@@ -176,7 +176,7 @@ export class PermissionsService {
     /**
      * Return true if user role is greater or equal to responsible
      */
-    public gteResponsible(user: CurrentUserForProfile['viewer']): boolean {
+    public gteResponsible(user: CurrentUserForProfileQuery['viewer']): boolean {
         if (!user) {
             return false;
         }
@@ -187,7 +187,7 @@ export class PermissionsService {
     /**
      * Return true if user role is administrator
      */
-    public isAdministrator(user: CurrentUserForProfile['viewer']): boolean {
+    public isAdministrator(user: CurrentUserForProfileQuery['viewer']): boolean {
         if (!user) {
             return false;
         }

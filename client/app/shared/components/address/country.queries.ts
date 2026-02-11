@@ -2,7 +2,7 @@ import {gql} from '@apollo/client/core';
 import {permissionsFragment} from '../../queries/fragments';
 
 export const countriesQuery = gql`
-    query Countries($filter: CountryFilter, $pagination: PaginationInput) {
+    query CountriesQuery($filter: CountryFilter, $pagination: PaginationInput) {
         countries(filter: $filter, pagination: $pagination) {
             items {
                 id
@@ -17,7 +17,7 @@ export const countriesQuery = gql`
 `;
 
 export const countryQuery = gql`
-    query Country($id: CountryID!) {
+    query CountryQuery($id: CountryID!) {
         country(id: $id) {
             id
             code

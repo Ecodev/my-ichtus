@@ -2,7 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {BookableService} from '../../admin/bookables/services/bookable.service';
 import {BookingService} from '../../admin/bookings/services/booking.service';
-import {Bookable, Bookings, BookingType} from '../../shared/generated-types';
+import {BookableQuery, BookingsQuery, BookingType} from '../../shared/generated-types';
 import {PermissionsService} from '../../shared/services/permissions.service';
 import {TimeagoModule} from 'ngx-timeago';
 import {MatButton} from '@angular/material/button';
@@ -52,9 +52,9 @@ export class BookableComponent implements OnInit {
      */
     protected isNavigable = false;
     protected canAccessAdmin = false;
-    protected runningBooking: Bookings['bookings']['items'][0] | null = null;
+    protected runningBooking: BookingsQuery['bookings']['items'][0] | null = null;
 
-    protected bookable: Bookable['bookable'] | null = null;
+    protected bookable: BookableQuery['bookable'] | null = null;
 
     public ngOnInit(): void {
         this.route.data.subscribe(data => {

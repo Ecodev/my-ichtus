@@ -9,6 +9,7 @@ import {
     NaturalQueryVariablesManager,
     NaturalSearchComponent,
     NaturalTableButtonComponent,
+    TypedMatCellDef,
 } from '@ecodev/natural';
 import {AsyncPipe, DatePipe} from '@angular/common';
 import {transactionLines} from '../../../shared/natural-search/natural-search-facets';
@@ -16,8 +17,7 @@ import {TransactionLineService} from '../services/transactionLine.service';
 import {
     ExportTransactionLinesVariables,
     MinimalAccount,
-    TransactionLine,
-    TransactionTag,
+    type TransactionLineMeta,
 } from '../../../shared/generated-types';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {union} from 'es-toolkit';
@@ -31,7 +31,6 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {
     MatCell,
-    MatCellDef,
     MatColumnDef,
     MatFooterCell,
     MatFooterCellDef,
@@ -55,7 +54,7 @@ import {
         MatHeaderCellDef,
         MatHeaderRowDef,
         MatColumnDef,
-        MatCellDef,
+        TypedMatCellDef,
         MatRowDef,
         MatFooterCellDef,
         MatFooterRowDef,
@@ -134,7 +133,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
         }
     }
 
-    protected documentCount(tl: TransactionLine['transactionLine']): number {
+    protected documentCount(tl: TransactionLineMeta): number {
         const transaction = tl.transaction;
         const expenseClaim = transaction.expenseClaim;
 
@@ -144,7 +143,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
         ).length;
     }
 
-    protected filterByTag(tag: TransactionTag['transactionTag']): void {
+    protected filterByTag(tag: NonNullable<TransactionLineMeta['transactionTag']>): void {
         if (this.hideFab()) {
             const link = this.service.linkToTransactionLinesForTag(tag);
             this.router.navigate(link);
@@ -155,7 +154,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
         }
     }
 
-    protected updateReconciled(e: MatCheckboxChange, transactionLine: TransactionLine['transactionLine']): void {
+    protected updateReconciled(e: MatCheckboxChange, transactionLine: TransactionLineMeta): void {
         this.service.updateIsReconciled(transactionLine.id, e.checked).subscribe(() => {
             this.alertService.info('Pointage mis à jour');
         });
