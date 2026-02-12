@@ -10,17 +10,18 @@ $config = $container->get('config');
 $clientKeys = [
     'version',
     'datatrans',
-    'accounting',
 ];
 
 $clientConfig = array_intersect_key($config, array_flip($clientKeys));
+$clientConfig['accounting']['bankAccountCode'] = $config['accounting']['bankAccountCode'];
 $clientConfig['log']['url'] = $config['log']['url'];
-$clientConfig['signedQueries']['keys']['app'] = $config['signedQueries']['keys']['app'] ?? '';
-$clientConfig['signedQueries']['keys']['navigations'] = $config['signedQueries']['keys']['navigations'] ?? '';
+$signedQueriesKey = $config['signedQueries']['keys']['app'] ?? '';
 
 $json = json_encode($clientConfig, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+$signedQueriesKey = json_encode($signedQueriesKey, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 $code = <<<STRING
     export const localConfig = $json as const;
+    export const signedQueriesKey = $signedQueriesKey as const;
     STRING;
 
 file_put_contents('client/app/shared/generated-config.ts', $code);

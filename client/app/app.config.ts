@@ -31,7 +31,7 @@ import {
     ShowOnDirtyErrorStateMatcher,
 } from '@angular/material/core';
 import {LoggerExtraService} from './shared/services/logger-extra.service';
-import {localConfig} from './shared/generated-config';
+import {localConfig, signedQueriesKey} from './shared/generated-config';
 import {DATE_PIPE_DEFAULT_OPTIONS, DatePipeConfig, registerLocaleData} from '@angular/common';
 import localeFRCH from '@angular/common/locales/fr-CH';
 import localeDECH from '@angular/common/locales/de-CH';
@@ -143,9 +143,7 @@ export const appConfig: ApplicationConfig = {
         },
         apolloOptionsProvider,
         {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: matTooltipCustomConfig},
-        provideHttpClient(
-            withInterceptors([activityInterceptor, graphqlQuerySigner(localConfig.signedQueries.keys.app)]),
-        ),
+        provideHttpClient(withInterceptors([activityInterceptor, graphqlQuerySigner(signedQueriesKey)])),
         provideRouter(
             routes,
             withRouterConfig({
