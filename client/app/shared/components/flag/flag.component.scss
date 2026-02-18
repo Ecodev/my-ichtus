@@ -11,10 +11,9 @@
         color: var(--mat-sys-on-error-container);
     }
 
-    // todo md3 : investigate why variable --nat-good doesn't apply when used
     &.unlimited,
     &.available {
-        background: rgb(71, 199, 0);
+        background: var(--nat-good);
         color: white;
     }
 
