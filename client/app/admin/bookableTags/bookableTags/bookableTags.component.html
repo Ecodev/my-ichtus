@@ -44,10 +44,8 @@
                     </ng-container>
                 </table>
             </div>
-            @if (dataSource.data?.length === 0) {
-                <div class="nat-vertical nat-center nat-margin">
-                    <div>Pas de résultats</div>
-                </div>
+            @if (showNoResults()) {
+                <div class="nat-vertical nat-center nat-margin">Pas de résultats</div>
             }
             @if (!dataSource.data) {
                 <div class="nat-vertical nat-center nat-margin">
