@@ -6,7 +6,7 @@ import {
     validateAllFormControls,
 } from '@ecodev/natural';
 import {Component, inject} from '@angular/core';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from '../../../admin/users/services/user.service';
 import {MatButton} from '@angular/material/button';
@@ -36,20 +36,19 @@ export class RequestPasswordResetComponent {
     private readonly alertService = inject(NaturalAlertService);
     private readonly router = inject(Router);
     private readonly userService = inject(UserService);
+    private readonly fb = inject(NonNullableFormBuilder);
 
-    protected readonly form: FormGroup;
+    protected readonly form = this.fb.group({
+        login: ['', [Validators.required, Validators.maxLength(191)]],
+    });
     protected sending = false;
-
-    public constructor() {
-        this.form = new FormGroup({login: new FormControl('', [Validators.required])});
-    }
 
     protected submit(): void {
         validateAllFormControls(this.form);
         ifValid(this.form).subscribe(() => {
             this.sending = true;
 
-            this.userService.requestPasswordReset(this.form.value.login).subscribe({
+            this.userService.requestPasswordReset(this.form.getRawValue().login).subscribe({
                 next: sentToFamilyOwner => {
                     this.sending = false;
 
