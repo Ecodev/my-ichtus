@@ -128,7 +128,7 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
 
         // Keep everything in a single string to save very precious time in a single DB round trip
         $sql = $this->getSqlToComputeBalance($transactions, $accounts)
-            . 'SET @disable_triggers_for_mass_transaction_line = false;';
+            . 'SET @disable_triggers_for_mass_transaction_line = NULL;';
 
         // Compute balance for all objects that may have been affected
         $this->getEntityManager()->getConnection()->executeStatement($sql);

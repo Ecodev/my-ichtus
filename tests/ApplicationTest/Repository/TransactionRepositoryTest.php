@@ -195,5 +195,12 @@ class TransactionRepositoryTest extends AbstractRepository
 
         $this->assertAccountBalance($account1, 14995, 'balance should be increased after insertion');
         $this->assertAccountBalance($account2, 5, 'balance should be decreased after insertion');
+
+        // Normal flush should keep working after use of special flush
+        $transactionLine->setBalance(Money::CHF(10));
+        _em()->flush();
+
+        $this->assertAccountBalance($account1, 14990, 'balance should be increased after update with normal flush and normal triggers');
+        $this->assertAccountBalance($account2, 10, 'balance should be decreased after update with normal flush and normal triggers');
     }
 }
