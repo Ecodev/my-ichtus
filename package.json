@@ -30,7 +30,6 @@
         "@ecodev/natural-editor": "^69.0.0",
         "@ecodev/natural-layout": "^2.0.2",
         "@graphql-codegen/cli": "^6.0.0",
-        "@graphql-codegen/typescript-apollo-angular": "^4.0.1",
         "@graphql-codegen/typescript-operations": "^5.0.0",
         "@graphql-tools/mock": "^9.0.25",
         "animejs": "^4.1.3",
