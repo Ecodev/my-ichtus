@@ -34,13 +34,13 @@ const config: CodegenConfig = {
         omitOperationSuffix: true,
         scalars: {
             Chronos: {
-                output: 'string',
                 input: 'string | Date',
+                output: 'string',
             },
             Color: 'string',
             Date: {
-                output: 'string',
                 input: 'string | Date',
+                output: 'string',
             },
             Email: 'string',
             Login: 'string',
@@ -53,23 +53,74 @@ const config: CodegenConfig = {
             // All IDs
             // Ideally we should not use `any` at all, but we want to be able
             // to use either a string or an entire subobject.
-            AccountingDocumentID: 'string | any',
-            AccountID: 'string | any',
-            BookableMetadataID: 'string | any',
-            BookableID: 'string | any',
-            BookableTagID: 'string | any',
-            BookingID: 'string | any',
-            CountryID: 'string | any',
-            ExpenseClaimID: 'string | any',
-            ImageID: 'string | any',
-            LicenseID: 'string | any',
-            MessageID: 'string | any',
-            TransactionLineID: 'string | any',
-            TransactionID: 'string | any',
-            TransactionTagID: 'string | any',
-            UserID: 'string | any',
-            UserTagID: 'string | any',
-            LogID: 'string | any',
+            AccountingDocumentID: {
+                input: 'string | any',
+                output: 'string',
+            },
+            AccountID: {
+                input: 'string | any',
+                output: 'string',
+            },
+            BookableMetadataID: {
+                input: 'string | any',
+                output: 'string',
+            },
+            BookableID: {
+                input: 'string | any',
+                output: 'string',
+            },
+            BookableTagID: {
+                input: 'string | any',
+                output: 'string',
+            },
+            BookingID: {
+                input: 'string | any',
+                output: 'string',
+            },
+            CountryID: {
+                input: 'string | any',
+                output: 'string',
+            },
+            ExpenseClaimID: {
+                input: 'string | any',
+                output: 'string',
+            },
+            ImageID: {
+                input: 'string | any',
+                output: 'string',
+            },
+            LicenseID: {
+                input: 'string | any',
+                output: 'string',
+            },
+            MessageID: {
+                input: 'string | any',
+                output: 'string',
+            },
+            TransactionLineID: {
+                input: 'string | any',
+                output: 'string',
+            },
+            TransactionID: {
+                input: 'string | any',
+                output: 'string',
+            },
+            TransactionTagID: {
+                input: 'string | any',
+                output: 'string',
+            },
+            UserID: {
+                input: 'string | any',
+                output: 'string',
+            },
+            UserTagID: {
+                input: 'string | any',
+                output: 'string',
+            },
+            LogID: {
+                input: 'string | any',
+                output: 'string',
+            },
         },
     },
 };
