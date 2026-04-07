@@ -33,7 +33,6 @@ import {
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
 import {AddressComponent} from '../../../shared/components/address/address.component';
 import {PasswordComponent} from '../password/password.component';
-import {MatDivider} from '@angular/material/divider';
 import {CurrencyPipe} from '@angular/common';
 import {MatIcon} from '@angular/material/icon';
 import {MatInput} from '@angular/material/input';
@@ -54,7 +53,6 @@ import {MatError, MatFormField, MatLabel, MatPrefix, MatSuffix} from '@angular/m
         MatIcon,
         NaturalIconDirective,
         CurrencyPipe,
-        MatDivider,
         PasswordComponent,
         AddressComponent,
         MatDatepicker,

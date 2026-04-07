@@ -1,55 +1,53 @@
-<div class="nat-vertical overflow nat-fill nat-center">
-    <div class="nat-padding nat-gap nat-vertical nat-center nat-expand-no-collapse">
-        <img src="assets/ichtus.svg" />
+<form class="body nat-vertical nat-gap-30 nat-margin-standard" [formGroup]="form">
+    <img src="assets/ichtus.svg" alt="logo" />
 
-        <form class="nat-vertical" style="min-width: 300px" [formGroup]="form">
-            <mat-form-field>
-                <mat-label>Email ou nom d'utilisateur</mat-label>
-                <input
-                    matInput
-                    formControlName="login"
-                    autofocus
-                    autocomplete="username"
-                    autocorrect="off"
-                    autocapitalize="off"
-                    spellcheck="false"
-                    (keydown.enter)="maybeConfirm()"
-                />
-                <mat-error>{{ form.controls.login.errors | errorMessage }}</mat-error>
-            </mat-form-field>
+    <div class="nat-vertical">
+        <mat-form-field>
+            <mat-label>Email ou nom d'utilisateur</mat-label>
+            <input
+                matInput
+                formControlName="login"
+                autofocus
+                autocomplete="username"
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="false"
+                (keydown.enter)="maybeConfirm()"
+            />
+            <mat-error>{{ form.controls.login.errors | errorMessage }}</mat-error>
+        </mat-form-field>
 
-            <mat-form-field>
-                <mat-label>Mot de passe</mat-label>
-                <input
-                    matInput
-                    formControlName="password"
-                    autocomplete="current-password"
-                    autocorrect="off"
-                    autocapitalize="off"
-                    spellcheck="false"
-                    [type]="hidePassword ? 'password' : 'text'"
-                    (keydown.enter)="maybeConfirm()"
-                />
-                <button matIconButton matIconSuffix (click)="hidePassword = !hidePassword">
-                    <mat-icon [fontIcon]="hidePassword ? 'visibility' : 'visibility_off'" />
-                </button>
+        <mat-form-field>
+            <mat-label>Mot de passe</mat-label>
+            <input
+                matInput
+                formControlName="password"
+                autocomplete="current-password"
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="false"
+                [type]="hidePassword ? 'password' : 'text'"
+                (keydown.enter)="maybeConfirm()"
+            />
+            <button matIconButton matIconSuffix (click)="hidePassword = !hidePassword">
+                <mat-icon [fontIcon]="hidePassword ? 'visibility' : 'visibility_off'" />
+            </button>
 
-                <mat-error>{{ form.controls.password.errors | errorMessage }}</mat-error>
-            </mat-form-field>
-
-            <div class="nat-horizontal nat-gap-10 nat-right">
-                <a matButton routerLink="/user/request-password-reset">Mot de passe oublié ?</a>
-                <button type="submit" matButton="filled" [disabled]="!form.valid" (click)="maybeConfirm()">
-                    Se connecter
-                </button>
-            </div>
-
-            <a matButton="outlined" class="nat-margin-top" [href]="privacyPolicyUrl">Politique de confidentialité</a>
-
-            <mat-divider class="nat-margin" />
-
-            <div class="mat-font-title-md" style="text-align: center">Pas encore membre ?</div>
-            <a type="submit" matButton="outlined" routerLink="/user/new">Adhérer</a>
-        </form>
+            <mat-error>{{ form.controls.password.errors | errorMessage }}</mat-error>
+        </mat-form-field>
+        <div class="nat-horizontal nat-wra nat-wrap-reverse nat-gap-10 nat-right">
+            <a matButton="outlined" routerLink="/user/request-password-reset">Mot de passe oublié ?</a>
+            <button type="submit" matButton="filled" [disabled]="!form.valid" (click)="maybeConfirm()">
+                Se connecter
+            </button>
+        </div>
     </div>
-</div>
+
+    <mat-divider />
+
+    <div class="nat-vertical nat-gap-10">
+        <div class="mat-font-title-md" style="text-align: center">Pas encore membre ?</div>
+        <a matButton="outlined" type="submit" routerLink="/user/new">Adhérer</a>
+        <a matButton="outlined" [href]="privacyPolicyUrl">Politique de confidentialité</a>
+    </div>
+</form>

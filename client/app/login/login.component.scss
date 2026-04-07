@@ -1,0 +1,24 @@
+@use '@ecodev/natural-layout' as nat;
+
+.body {
+    box-sizing: border-box;
+    margin: auto;
+    padding: 10px;
+    width: 100%;
+    max-width: 360px;
+}
+
+@include nat.media(sm) {
+    .body {
+        padding: 20px;
+    }
+    .firstNameAndName,
+    .birthdayAndPhone {
+        grid: auto / auto;
+    }
+}
+
+img,
+.mdc-button {
+    align-self: center;
+}
