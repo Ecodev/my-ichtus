@@ -22,8 +22,6 @@ import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 })
 export class AddressComponent {
     protected readonly countryService = inject(CountryService);
-
-    public readonly vertical = input(false);
     public readonly form = input.required<FormGroup>();
     protected readonly addressChange = output();
 
