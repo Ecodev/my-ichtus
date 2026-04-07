@@ -35,7 +35,7 @@
 
             <mat-error>{{ form.controls.password.errors | errorMessage }}</mat-error>
         </mat-form-field>
-        <div class="nat-horizontal nat-wra nat-wrap-reverse nat-gap-10 nat-right">
+        <div class="nat-horizontal nat-wrap nat-wrap-reverse nat-gap-10 nat-right">
             <a matButton="outlined" routerLink="/user/request-password-reset">Mot de passe oublié ?</a>
             <button type="submit" matButton="filled" [disabled]="!form.valid" (click)="maybeConfirm()">
                 Se connecter
@@ -43,11 +43,12 @@
         </div>
     </div>
 
+    <a matButton="outlined" [href]="privacyPolicyUrl">Politique de confidentialité</a>
+
     <mat-divider />
 
     <div class="nat-vertical nat-gap-10">
         <div class="mat-font-title-md" style="text-align: center">Pas encore membre ?</div>
-        <a matButton="outlined" type="submit" routerLink="/user/new">Adhérer</a>
-        <a matButton="outlined" [href]="privacyPolicyUrl">Politique de confidentialité</a>
+        <a matButton="tonal" type="submit" routerLink="/user/new">Adhérer</a>
     </div>
 </form>
