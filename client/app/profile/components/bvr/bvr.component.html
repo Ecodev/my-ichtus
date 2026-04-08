@@ -4,14 +4,14 @@
             <mat-progress-spinner mode="indeterminate" [diameter]="40" />
         </div>
     } @else {
-        <div class="nat-horizontal" style="justify-content: space-evenly">
+        <div class="nat-horizontal nat-gap">
             @if (bankingInfos.qrCode) {
                 <img alt="QR code" class="qrCode" [attr.src]="bankingInfos.qrCode" />
             }
             <div class="nat-vertical nat-gap-5">
                 <div>
                     <div class="mat-font-title-sm">Compte (IBAN)</div>
-                    <div style="white-space: pre-line">
+                    <div style="white-space: pre-line" class="nat-horizontal nat-align">
                         {{ bankingInfos.iban | iban }}
                         @if (bankingInfos.iban) {
                             <button
@@ -26,7 +26,7 @@
                 </div>
                 <div>
                     <div class="mat-font-title-sm">Référence :</div>
-                    <div>
+                    <div class="nat-horizontal nat-align">
                         {{ bankingInfos.referenceNumber }}
                         @if (bankingInfos.iban) {
                             <button

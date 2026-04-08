@@ -156,6 +156,7 @@ export class UsersComponent extends NaturalAbstractList<UserService> implements 
             data: {
                 user: user,
             },
+            maxWidth: '650px',
         };
 
         this.dialog.open(ProvisionComponent, config);
