@@ -46,7 +46,7 @@ $ composer clear-config-cache
 
 ### Client
 
-Run `yarn dev` for a dev server. Navigate to `http://my-ichtus.lan:4200/`. The app will
+Run `pnpm dev` for a dev server. Navigate to `http://my-ichtus.lan:4200/`. The app will
 automatically reload if you change any of the source files.
 
 ## Testing

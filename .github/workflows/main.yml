@@ -24,9 +24,11 @@ jobs:
               with:
                   fetch-depth: 2
 
+            - uses: pnpm/action-setup@v5
             - uses: actions/setup-node@v4
               with:
                   node-version: '22'
+                  cache: 'pnpm'
 
             - uses: shivammathur/setup-php@v2
               with:
@@ -40,12 +42,6 @@ jobs:
                   path: ~/.cache/composer
                   key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
                   restore-keys: ${{ runner.os }}-composer-
-
-            - uses: actions/cache@v4
-              with:
-                  path: ~/.cache/yarn
-                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-                  restore-keys: ${{ runner.os }}-yarn-
 
             - name: Setup problem matchers for PHP
               run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
@@ -63,6 +59,6 @@ jobs:
             - run: ./vendor/bin/php-cs-fixer fix --format=checkstyle | cs2pr
             - run: ./vendor/bin/phpstan analyse
             - run: ./vendor/bin/phpunit
-            - run: yarn lint
+            - run: pnpm lint
             - run: ./node_modules/.bin/prettier --experimental-cli --check .
             - run: ./node_modules/.bin/ng test --progress false --watch=false --browsers ChromeHeadlessCustom

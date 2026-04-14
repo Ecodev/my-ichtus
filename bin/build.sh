@@ -67,7 +67,7 @@ echo "Installing git hooks..."
 ln -fs ../../bin/pre-commit.sh .git/hooks/pre-commit
 
 echo "Updating Node.js packages..."
-yarn install $NO_PROGRESS
+pnpm install
 
 echo "Updating all PHP dependencies via composer..."
 $COMPOSER install --classmap-authoritative $NO_PROGRESS
@@ -84,8 +84,8 @@ $PHP ./bin/delete-old-log.php
 
 if [ $IS_PRODUCTION -eq 1 ]; then
     echo "Building Angular application..."
-    yarn run prod
+    pnpm run prod
 else
     echo "Running Angular dev server..."
-    yarn run dev
+    pnpm run dev
 fi

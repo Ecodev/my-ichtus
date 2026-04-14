@@ -12,6 +12,7 @@
 /htdocs/
 /logs/
 /node_modules/
+/pnpm-lock.yaml
 /server/
 /tests/
 /vendor/
