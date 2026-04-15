@@ -28,7 +28,10 @@ class IsApplicationBookingByTag implements NamedAssertion
      *
      * Mirrors the BookingService.applicationByTag filter
      *
-     * @param null|mixed $privilege
+     * @param \Application\Acl\Acl $acl
+     * @param string $privilege
+     *
+     * @return bool
      */
     public function assert(Acl $acl, ?RoleInterface $role = null, ?ResourceInterface $resource = null, $privilege = null)
     {
