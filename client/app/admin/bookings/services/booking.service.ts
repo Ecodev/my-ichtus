@@ -128,6 +128,9 @@ export class BookingService extends NaturalAbstractModelService<
         },
     };
 
+    /**
+     * Mirrors the IsApplicationBookingByTag assertion
+     */
     public static applicationByTag(bookableTagId: string): BookingsQueryVariables {
         return {
             filter: {

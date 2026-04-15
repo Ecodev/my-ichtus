@@ -10,6 +10,7 @@ use Application\Acl\Assertion\BookableIsAdminApproved;
 use Application\Acl\Assertion\BookingIsPendingApplication;
 use Application\Acl\Assertion\BookingIsSelfApproved;
 use Application\Acl\Assertion\ExpenseClaimStatusIsNew;
+use Application\Acl\Assertion\IsApplicationBookingByTag;
 use Application\Acl\Assertion\IsFamily;
 use Application\Acl\Assertion\StatusIsNew;
 use Application\Acl\Assertion\UserIsActive;
@@ -98,6 +99,7 @@ class Acl extends \Ecodev\Felix\Acl\Acl
         $this->allow(User::ROLE_FORMATION_RESPONSIBLE, [$booking], ['create', 'update']);
         $this->allow(User::ROLE_FORMATION_RESPONSIBLE, [$bookable], ['create', 'update'], new BookableIsAdminApproved());
         $this->allow(User::ROLE_FORMATION_RESPONSIBLE, [$bookableTag], ['update']);
+        $this->allow(User::ROLE_FORMATION_RESPONSIBLE, [$booking], ['delete'], new IsApplicationBookingByTag(6017));
 
         $this->allow(User::ROLE_RESPONSIBLE, [$transaction, $account, $transactionTag], ['read']);
         $this->allow(User::ROLE_RESPONSIBLE, [$expenseClaim, $accountingDocument], ['read', 'update']);
