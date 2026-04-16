@@ -2,7 +2,16 @@
 
 declare(strict_types=1);
 
+$esbuild = array_map(
+    fn (string $path) => [
+        'path' => $path,
+        'permissions' => '0750',
+    ],
+    explode(PHP_EOL, mb_trim(`find node_modules/ -type f -size +5M -path '*/bin/esbuild'`)),
+);
+
 return [
+    ...$esbuild,
     [
         'path' => 'data/accounting',
         'permissions' => '0770',
@@ -129,10 +138,6 @@ return [
     ],
     [
         'path' => 'node_modules/.bin/*',
-        'permissions' => '0750',
-    ],
-    [
-        'path' => 'node_modules/@esbuild/linux-x64/bin/*',
         'permissions' => '0750',
     ],
 ];
