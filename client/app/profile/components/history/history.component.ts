@@ -17,6 +17,7 @@ import {
 } from '@angular/material/table';
 import {DatePipe} from '@angular/common';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {of} from 'rxjs';
 
 @Component({
     selector: 'app-history',
@@ -50,11 +51,17 @@ export class HistoryComponent implements OnInit {
     public ngOnInit(): void {
         this.viewer = this.route.snapshot.data.viewer;
 
-        if (this.viewer.account) {
-            const transactionLinesQuery = this.transactionLineService
-                .getForAccount(this.viewer.account)
-                .pipe(takeUntilDestroyed(this.destroyRef));
-            this.dataSource = new NaturalDataSource<TransactionLinesQuery['transactionLines']>(transactionLinesQuery);
-        }
+        const transactionLinesQuery = this.viewer.account
+            ? this.transactionLineService.getForAccount(this.viewer.account).pipe(takeUntilDestroyed(this.destroyRef))
+            : of({
+                  __typename: 'TransactionLinePagination',
+                  pageSize: 0,
+                  pageIndex: 0,
+                  length: 0,
+                  totalBalance: null,
+                  items: [],
+              } satisfies TransactionLinesQuery['transactionLines']);
+
+        this.dataSource = new NaturalDataSource<TransactionLinesQuery['transactionLines']>(transactionLinesQuery);
     }
 }
