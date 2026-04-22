@@ -81,11 +81,11 @@ class BookingTest extends TestCase
     }
 
     #[DataProvider('providerSetOwner')]
-    public function testSetOwner(?User $currentUser, ?User $originalOwner, ?User $newOwner, ?string $exception = null): void
+    public function testSetOwner(string $class, ?User $currentUser, ?User $originalOwner, ?User $newOwner, ?string $exception = null): void
     {
         User::setCurrent($currentUser);
 
-        $subject = new Booking();
+        $subject = new $class();
         self::assertNull($subject->getOwner());
 
         $subject->setOwner($originalOwner);
@@ -109,12 +109,20 @@ class BookingTest extends TestCase
         $u3->setLogin('u3');
         $admin = new User(User::ROLE_ADMINISTRATOR);
         $admin->setLogin('admin');
-        yield 'can change nothing to nothing' => [null, null, null];
-        yield 'can set owner for first time' => [null, null, $u3];
-        yield 'can set owner for first time to myself' => [$u1, null, $u1];
-        yield 'can set owner for first time even if it is not myself' => [$u1, null, $u3];
-        yield 'can donate my stuff' => [$u1, $u1, $u3];
-        yield 'as a member I cannot donate stuff that are not mine' => [$u1, $u2, $u3, 'u1 is not allowed to change owner to u3 because it belongs to u2'];
-        yield 'as an admin I can donate stuff that are not mine' => [$admin, $u2, $u3];
+        $responsible = new User(User::ROLE_RESPONSIBLE);
+        $responsible->setLogin('responsible');
+
+        yield 'can change nothing to nothing' => [Booking::class, null, null, null];
+        yield 'can set owner for first time' => [Booking::class, null, null, $u3];
+        yield 'can set owner for first time to myself' => [Booking::class, $u1, null, $u1];
+        yield 'can set owner for first time even if it is not myself' => [Booking::class, $u1, null, $u3];
+        yield 'can donate my stuff' => [Booking::class, $u1, $u1, $u3];
+        yield 'as a member I cannot donate stuff that are not mine' => [Booking::class, $u1, $u2, $u3, 'u1 is not allowed to change owner to u3 because it belongs to u2'];
+        yield 'as an admin I can donate stuff that are not mine' => [Booking::class, $admin, $u2, $u3];
+        yield 'as a responsible I cannot donate most of the stuff (booking)' => [Booking::class, $responsible, $u2, $u3, 'responsible is not allowed to change owner to u3 because it belongs to u2'];
+        yield 'as a responsible I cannot donate most of the stuff (user)' => [User::class, $responsible, $u2, $u3, 'responsible is not allowed to change owner to u3 because it belongs to u2'];
+        yield 'as a responsible I can donate bookable' => [Bookable::class, $responsible, $u2, $u3];
+        yield 'as a member I can donate bookable that is not mine' => [Bookable::class, $u1, $u2, $u3, 'u1 is not allowed to change owner to u3 because it belongs to u2'];
+
     }
 }

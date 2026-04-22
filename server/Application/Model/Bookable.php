@@ -403,4 +403,20 @@ class Bookable extends AbstractModel
     {
         $this->waitingListLength = $waitingListLength;
     }
+
+    public function setOwner(?User $owner): void
+    {
+        $user = User::getCurrent();
+        $isCreator = $user === $this->getCreator();
+        $isResponsible = $user && $user->getRole() === User::ROLE_RESPONSIBLE;
+
+        if ($user && !$isResponsible && !$isCreator) {
+            parent::setOwner($owner);
+
+            return;
+        }
+
+        $this->owner = $owner;
+
+    }
 }

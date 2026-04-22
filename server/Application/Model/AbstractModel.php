@@ -46,7 +46,7 @@ abstract class AbstractModel implements HasOwner, Model
 
     #[ORM\JoinColumn(onDelete: 'SET NULL')]
     #[ORM\ManyToOne(targetEntity: User::class)]
-    private ?User $owner = null;
+    protected ?User $owner = null;
 
     #[ORM\JoinColumn(onDelete: 'SET NULL')]
     #[ORM\ManyToOne(targetEntity: User::class)]
