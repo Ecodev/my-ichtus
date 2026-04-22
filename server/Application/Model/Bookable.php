@@ -408,7 +408,7 @@ class Bookable extends AbstractModel
     {
         $user = User::getCurrent();
         $isCreator = $user === $this->getCreator();
-        $isResponsible = $user && $user->getRole() === User::ROLE_RESPONSIBLE;
+        $isResponsible = $user->getRole() === User::ROLE_RESPONSIBLE;
 
         if ($user && !$isResponsible && !$isCreator) {
             parent::setOwner($owner);
