@@ -7,6 +7,7 @@ import {usageStatus as usageStatusFunc, usageText} from '../../bookables/bookabl
 
 const edit: AvailableColumn = {id: 'edit', label: 'Editer'} as const;
 const owner: AvailableColumn = {id: 'owner', label: 'Utilisateur'};
+const participant: AvailableColumn = {id: 'participant', label: 'Participant'};
 const ownerReadonly: AvailableColumn = {id: 'ownerReadonly', label: 'Utilisateur'};
 const status: AvailableColumn = {id: 'status', label: 'État'};
 const ownerBalance: AvailableColumn = {id: 'ownerBalance', label: 'Solde'};
@@ -98,6 +99,7 @@ export const availableColumnsForBookingsStorageApplication = [edit, owner, booka
 export const availableColumnsForBookingsWithOwnerApplications = [
     edit,
     owner,
+    participant,
     ownerBalance,
     ownerCreationDate,
     bookable,

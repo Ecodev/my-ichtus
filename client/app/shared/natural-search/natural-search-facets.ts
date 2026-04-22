@@ -119,6 +119,18 @@ function owner(label = 'Utilisateur'): DropdownFacet<TypeSelectNaturalConfigurat
     };
 }
 
+function participant(label = 'Participant'): DropdownFacet<TypeSelectNaturalConfiguration<UserService>> {
+    return {
+        display: label,
+        field: 'participant',
+        component: TypeNaturalSelectComponent,
+        configuration: {
+            service: inject(UserService),
+            placeholder: label,
+        },
+    };
+}
+
 const receivesNewsletter: FlagFacet<UserFilterGroupConditionReceivesNewsletter> = {
     display: 'Abonné newsletter',
     field: 'receivesNewsletter',
@@ -638,7 +650,7 @@ export function equipment(): NaturalSearchFacets {
 export function bookingsForBookable(): NaturalSearchFacets {
     assertInInjectionContext(bookingsForBookable);
 
-    return [owner(), bookable(), creationDate, updateDate];
+    return [owner(), participant(), bookable(), creationDate, updateDate];
 }
 
 export function bookings(): NaturalSearchFacets {

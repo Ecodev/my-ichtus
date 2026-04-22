@@ -56,6 +56,10 @@ class Booking extends AbstractModel
     #[ORM\ManyToOne(targetEntity: Bookable::class, inversedBy: 'bookings')]
     private ?Bookable $bookable = null;
 
+    #[ORM\JoinColumn(onDelete: 'SET NULL')]
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    private ?User $participant = null;
+
     public function __construct() {}
 
     public function setOwner(?User $owner = null): void
@@ -230,5 +234,15 @@ class Booking extends AbstractModel
         }
 
         return $bookable->getPeriodicPrice()->divide(count($bookings));
+    }
+
+    public function setParticipant(?User $participant): void
+    {
+        $this->participant = $participant;
+    }
+
+    public function getParticipant(): ?User
+    {
+        return $this->participant;
     }
 }

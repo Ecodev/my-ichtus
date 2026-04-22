@@ -20,6 +20,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MatDialog} from '@angular/material/dialog';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {UserService} from '../../users/services/user.service';
 
 export const image: AvailableColumn = {id: 'image', label: 'Image'};
 export const name: AvailableColumn = {id: 'name', label: 'Nom'};
@@ -40,7 +41,7 @@ export const createApplication: AvailableColumn = {id: 'createApplication', labe
 export const owner: AvailableColumn = {id: 'owner', label: 'Responsable'};
 
 export type ApplicationConfirmData = FutureOwner;
-export type ApplicationConfirmResult = string;
+export type ApplicationConfirmResult = ExtractTallOne<UserService>;
 type FutureOwner = CurrentUserForProfileQuery['viewer'] | UserQuery['user'] | null;
 
 @Directive()
@@ -133,18 +134,21 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
             });
         } else {
             // Otherwise, create the booking without asking for confirmation
-            this.createApplicationForReal(bookable, null);
+            this.createApplicationForReal(bookable);
         }
     }
 
     /**
      * Create a booking for the application bookable assigned to `this.futureOwner`
      * @param bookable the bookable for application to subscribe to
-     * @param participant name of the participant (for courses only)
+     * @param participant Participant (for courses only)
      */
-    private createApplicationForReal(bookable: ExtractTallOne<T>, participant: string | null): void {
+    private createApplicationForReal(
+        bookable: ExtractTallOne<T>,
+        participant: ExtractTallOne<UserService> | null = null,
+    ): void {
         this.creating.set(bookable.id, true);
-        const booking: BookingPartialInput = {status: BookingStatus.Application, remarks: participant ?? ''};
+        const booking: BookingPartialInput = {status: BookingStatus.Application, participant: participant};
         this.bookingService
             .createWithBookable(bookable, this.futureOwner, booking)
             .pipe(finalize(() => this.creating.delete(bookable.id)))

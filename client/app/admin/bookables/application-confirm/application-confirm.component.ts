@@ -6,7 +6,7 @@ import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {ApplicationConfirmData} from '../bookables/parent.component';
 import {UsersQueryVariables} from '../../../shared/generated-types';
 import {UserService} from '../../users/services/user.service';
-import {NaturalQueryVariablesManager} from '@ecodev/natural';
+import {ExtractTallOne, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {MatOption, MatSelect} from '@angular/material/select';
 
 @Component({
@@ -19,8 +19,8 @@ export class ApplicationConfirmComponent {
     private readonly userService = inject(UserService);
     private readonly futureOwner = inject<ApplicationConfirmData>(MAT_DIALOG_DATA);
 
-    protected readonly participant = new FormControl<string | null>(null, [Validators.required]);
-    protected familyMembers: string[] = [];
+    protected readonly participant = new FormControl<ExtractTallOne<UserService> | null>(null, [Validators.required]);
+    protected familyMembers: ExtractTallOne<UserService>[] = [];
 
     public constructor() {
         const futureOwner = this.futureOwner;
@@ -30,11 +30,11 @@ export class ApplicationConfirmComponent {
             const qvm = new NaturalQueryVariablesManager<UsersQueryVariables>();
             qvm.set('variables', UserService.getFamilyVariables(futureOwner));
             this.userService.getAll(qvm).subscribe(family => {
-                this.familyMembers = family.items.map(member => member.name);
+                this.familyMembers = family.items;
             });
         }
 
         // By default, the course participant will be the requesting user
-        this.participant.setValue(futureOwner ? futureOwner.name : null);
+        this.participant.setValue(futureOwner ?? null);
     }
 }

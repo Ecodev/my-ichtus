@@ -221,6 +221,7 @@ class UserRepositoryTest extends AbstractRepository
             ['booking', 'owner_id', false],
             ['booking', 'updater_id', false],
             ['booking', 'creator_id', false],
+            ['booking', 'participant_id', false],
             ['image', 'creator_id', false],
             ['image', 'owner_id', false],
             ['image', 'updater_id', false],

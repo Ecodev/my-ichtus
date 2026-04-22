@@ -1,3 +1,4 @@
+<!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
 @if (dataSource) {
     <div class="nat-vertical">
         <div class="nat-horizontal">
@@ -55,6 +56,27 @@
                                         matTooltip="Éditer"
                                         [label]="element.owner.name"
                                         [navigate]="['/admin/user/', element.owner.id]"
+                                    />
+                                </div>
+                            }
+                        </td>
+                        <td *matFooterCellDef mat-footer-cell></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="participant">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Participant</th>
+                        <td *matCellDef="let element" mat-cell>
+                            @if (element.participant) {
+                                <div class="nat-horizontal nat-align">
+                                    <natural-avatar
+                                        [initials]="element.participant.name"
+                                        [gravatar]="element.participant?.email"
+                                        [size]="36"
+                                    />
+                                    <natural-table-button
+                                        matTooltip="Éditer"
+                                        [label]="element.participant.name"
+                                        [navigate]="['/admin/user/', element.participant.id]"
                                     />
                                 </div>
                             }

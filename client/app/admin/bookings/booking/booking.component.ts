@@ -149,6 +149,10 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
         }
     }
 
+    protected showParticipant(): boolean {
+        return this.data.model.bookable.bookingType === BookingType.AdminApproved;
+    }
+
     protected terminateBooking(): void {
         if (!this.isUpdatePage()) {
             return;

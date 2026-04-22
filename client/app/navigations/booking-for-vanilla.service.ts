@@ -70,6 +70,7 @@ export function getDefaultForServer(): BookingInput {
         endDate: '',
         remarks: '',
         internalRemarks: '',
+        participant: null,
     };
 }
 

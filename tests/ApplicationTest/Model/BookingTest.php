@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ApplicationTest\Model;
 
+use Application\Model\AbstractModel;
 use Application\Model\Bookable;
 use Application\Model\Booking;
 use Application\Model\User;
@@ -86,6 +87,8 @@ class BookingTest extends TestCase
         User::setCurrent($currentUser);
 
         $subject = new $class();
+        assert($subject instanceof AbstractModel);
+
         self::assertNull($subject->getOwner());
 
         $subject->setOwner($originalOwner);

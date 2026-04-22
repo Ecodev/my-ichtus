@@ -1,3 +1,4 @@
+<!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
 <div class="detail-body" [formGroup]="form">
     <natural-detail-header
         label="Réservation"
@@ -43,6 +44,21 @@
                         "
                         (selectionChange)="update()"
                     />
+
+                    @if (showParticipant()) {
+                        <natural-select
+                            formControlName="participant"
+                            placeholder="Participant"
+                            [service]="userService"
+                            [showIcon]="false"
+                            [navigateTo]="
+                                form.get('participant')?.value?.id
+                                    ? ['/admin/user', form.get('participant')?.value.id]
+                                    : null
+                            "
+                            (selectionChange)="update()"
+                        />
+                    }
 
                     @if (!isUpdatePage()) {
                         <mat-chip-listbox

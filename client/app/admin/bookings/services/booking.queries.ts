@@ -79,6 +79,10 @@ export const bookingsWithOwnerBalanceQuery = gql`
                         id
                     }
                 }
+                participant {
+                    id
+                    ...UserMeta
+                }
                 owner {
                     id
                     creationDate
@@ -126,6 +130,9 @@ export const pricedBookingsQuery = gql`
             items {
                 ...BookingMeta
                 periodicPrice
+                participant {
+                    ...UserContactData
+                }
                 bookable {
                     id
                     name
@@ -164,6 +171,9 @@ export const bookingQuery = gql`
     query BookingQuery($id: BookingID!) {
         booking(id: $id) {
             ...BookingMeta
+            participant {
+                ...UserContactData
+            }
             bookable {
                 id
                 name
