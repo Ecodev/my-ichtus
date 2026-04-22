@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {MatButton} from '@angular/material/button';
 import {FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatFormField, MatHint, MatLabel} from '@angular/material/form-field';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {ApplicationConfirmData} from '../bookables/parent.component';
 import {UsersQueryVariables} from '../../../shared/generated-types';
 import {UserService} from '../../users/services/user.service';
@@ -11,7 +11,7 @@ import {MatOption, MatSelect} from '@angular/material/select';
 
 @Component({
     selector: 'app-application-confirm',
-    imports: [MatDialogModule, MatButton, MatHint, MatFormField, MatLabel, MatOption, ReactiveFormsModule, MatSelect],
+    imports: [MatDialogModule, MatButton, MatFormField, MatLabel, MatOption, ReactiveFormsModule, MatSelect],
     templateUrl: './application-confirm.component.html',
 })
 // This dialog is only displayed when the user submits an application for a COURSE
