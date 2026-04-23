@@ -95,7 +95,7 @@
                     </div>
 
                     <div class="nat-md-expand-33 nat-vertical">
-                        <h2 class="mat-font-title-lg">Réservation</h2>
+                        <h2>Réservation</h2>
                         <natural-select-enum
                             enumName="BookableStatus"
                             formControlName="status"
@@ -204,7 +204,7 @@
                     <div class="nat-md-expand-66 nat-vertical">
                         @if (isUpdatePage() && isSelfApproved()) {
                             <div>
-                                <h2 class="mat-font-title-lg">Certifications</h2>
+                                <h2>Certifications</h2>
                                 <natural-relations
                                     placeholder="Associer à une certification"
                                     [main]="data.model"
@@ -228,7 +228,7 @@
                     <div class="nat-md-expand-33 nat-vertical">
                         @if (isUpdatePage()) {
                             <div>
-                                <h2 class="mat-font-title-lg">Tags</h2>
+                                <h2>Tags</h2>
                                 <natural-relations
                                     placeholder="Ajouter un tag"
                                     [main]="data.model"

@@ -66,7 +66,7 @@
                 <mat-divider class="nat-margin-vertical" />
                 <div>
                     <div class="nat-horizontal nat-margin-bottom nat-gap nat-align">
-                        <div class="mat-font-title-lg">
+                        <h2>
                             @if (data.model.expenseClaim.type === ExpenseClaimType.Refund) {
                                 <span>Demande de remboursement</span>
                             }
@@ -76,7 +76,7 @@
                             @if (data.model.expenseClaim.type === ExpenseClaimType.Invoice) {
                                 <span>Facture à payer</span>
                             }
-                        </div>
+                        </h2>
                         <a matButton="outlined" [routerLink]="['/admin/expense-claim', data.model.expenseClaim.id]"
                             >Voir la demande</a
                         >
@@ -127,7 +127,7 @@
             <!-- TODO : add selectors for ExpenseClaim -->
             <mat-divider class="nat-margin-vertical" />
             <div class="nat-horizontal nat-gap-10 nat-align nat-margin-bottom">
-                <h2 class="mat-font-title-lg">Écritures</h2>
+                <h2>Écritures</h2>
                 @if (userService.canUpdateTransaction(viewer)) {
                     <div class="nat-horizontal nat-gap-10">
                         @if (!(updateTransactionLines || !isUpdatePage())) {
@@ -169,9 +169,7 @@
             }
 
             <div>
-                <div class="mat-font-title-lg nat-margin-top nat-margin-bottom">
-                    Documents justificatifs de la transaction
-                </div>
+                <h2 class="nat-margin-top nat-margin-bottom">Documents justificatifs de la transaction</h2>
                 <app-accounting-documents
                     #transactionDocuments
                     [canRemove]="userService.canDeleteAccountingDocument(viewer)"

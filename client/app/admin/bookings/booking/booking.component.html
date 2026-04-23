@@ -126,7 +126,7 @@
                         }
                     </div>
 
-                    <h2 class="mat-font-title-lg">Commentaires</h2>
+                    <h2>Commentaires</h2>
                     <mat-form-field>
                         <mat-label>Remarques</mat-label>
                         <textarea
@@ -158,7 +158,7 @@
             ) {
                 <div>
                     <mat-divider class="nat-margin-bottom" />
-                    <div class="mat-font-title-lg">Attribuer un stockage / service</div>
+                    <h2>Attribuer un stockage / service</h2>
                     <app-usage-bookables
                         [availableColumns]="availableColumns"
                         [persistSearch]="false"
@@ -172,7 +172,7 @@
             @if (isSelfApproved()) {
                 <div>
                     <mat-divider class="nat-margin-vertical" />
-                    <h1 class="mat-font-title-lg">Sorties</h1>
+                    <h2>Sorties</h2>
                     <mat-form-field style="width: 100px">
                         <mat-label>Nb participants</mat-label>
                         <input
@@ -187,7 +187,7 @@
                     <div class="nat-vertical nat-md-horizontal nat-gap-horizontal">
                         <div class="nat-expand nat-vertical">
                             <div class="nat-horizontal nat-margin-bottom nat-gap-10 nat-align">
-                                <h2 class="mat-font-title-lg">Début</h2>
+                                <h2>Début</h2>
                                 <div>{{ data.model.startDate | date }}</div>
                             </div>
                             <mat-form-field>
@@ -208,7 +208,7 @@
                         </div>
                         <div class="nat-expand nat-vertical">
                             <div class="nat-horizontal nat-margin-bottom nat-gap-10 nat-align">
-                                <h2 class="mat-font-title-lg">Fin</h2>
+                                <h2>Fin</h2>
                                 <div class="nat-expand">{{ data.model.endDate | date }}</div>
                             </div>
                             <mat-form-field>

@@ -1,6 +1,6 @@
 <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
 <form class="body nat-vertical nat-gap nat-margin-standard" [formGroup]="form">
-    <h1 class="mat-font-headline-sm">{{ route.snapshot.data.seo.title }}</h1>
+    <h1>{{ route.snapshot.data.seo.title }}</h1>
 
     <mat-form-field>
         <mat-label>email</mat-label>
@@ -11,7 +11,7 @@
 
     @if (step === 2) {
         <div class="nat-vertical nat-gap">
-            <h2 class="mat-font-title-lg">Compte</h2>
+            <h2>Compte</h2>
             <div class="nat-vertical">
                 <mat-form-field>
                     <mat-label>Nom d'utilisateur</mat-label>
@@ -27,7 +27,7 @@
                 </mat-form-field>
                 <app-password [form]="form" />
             </div>
-            <h2 class="mat-font-title-lg">Coordonnées</h2>
+            <h2>Coordonnées</h2>
             <div>
                 <div class="nat-vertical nat-sm-gap-10 nat-sm-horizontal">
                     <mat-form-field class="nat-sm-expand">
@@ -61,7 +61,7 @@
     }
 
     <div>
-        <h2 class="mat-font-title-lg">Cotisation</h2>
+        <h2>Cotisation</h2>
 
         <div class="responsive-table">
             @if (mandatoryBookables) {
