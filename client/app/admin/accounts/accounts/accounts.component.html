@@ -3,9 +3,9 @@
         <div class="nat-vertical">
             <div class="nat-horizontal">
                 <div class="nat-horizontal nat-wrap nat-expand nat-align">
-                    <div class="mat-font-headline-sm nat-margin-right" [routerLink]="getChildLink(null)">
+                    <h1 class="nat-margin-right" [routerLink]="getChildLink(null)">
                         {{ routeData?.seo.title }}
-                    </div>
+                    </h1>
                     @for (element of breadcrumbs; track element) {
                         <div>
                             /

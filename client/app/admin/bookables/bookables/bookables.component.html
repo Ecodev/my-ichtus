@@ -6,9 +6,9 @@ Warning this template is used by two components BookablesComponent and UsageBook
 @if (dataSource) {
     <div class="nat-vertical">
         <div class="nat-horizontal">
-            <div class="mat-font-headline-sm nat-expand">
+            <h1 class="nat-expand">
                 {{ routeData?.seo.title }}
-            </div>
+            </h1>
             <natural-columns-picker
                 [class.nat-hide]="!(route.snapshot.data.showColumnPicker ?? true)"
                 [availableColumns]="availableColumns"
