@@ -15,7 +15,7 @@
         <mat-tab label="Général">
             <div class="nat-vertical nat-padding-top nat-gap-horizontal nat-md-horizontal">
                 <div class="nat-vertical nat-md-expand-66">
-                    <h2 class="mat-font-title-lg">Coordonnées</h2>
+                    <h2>Coordonnées</h2>
 
                     <div class="nat-vertical nat-gap-10 nat-sm-horizontal">
                         <mat-form-field class="nat-sm-expand">
@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="nat-md-expand-33 nat-vertical">
-                    <h2 class="mat-font-title-lg">Compte</h2>
+                    <h2>Compte</h2>
                     <mat-form-field>
                         <mat-label>email</mat-label>
                         <input matInput formControlName="email" (change)="update()" />
@@ -81,7 +81,7 @@
 
                     <mat-divider class="nat-margin-bottom" />
 
-                    <h2 class="mat-font-title-lg">État</h2>
+                    <h2>État</h2>
 
                     <natural-select-enum
                         enumName="UserStatus"
@@ -111,7 +111,7 @@
 
             <div class="nat-vertical nat-md-horizontal nat-gap-0 nat-md-gap-30">
                 <div class="nat-md-expand-66 nat-vertical">
-                    <h2 class="mat-font-title-lg">Autres</h2>
+                    <h2>Autres</h2>
 
                     <natural-select
                         formControlName="owner"
@@ -180,7 +180,7 @@
                 </div>
 
                 <div class="nat-md-expand-33 nat-vertical">
-                    <h2 class="mat-font-title-lg">Commentaires</h2>
+                    <h2>Commentaires</h2>
 
                     <mat-form-field>
                         <mat-label>Remarques</mat-label>
@@ -214,7 +214,7 @@
             @if (isUpdatePage()) {
                 <div class="nat-vertical nat-md-horizontal nat-gap-0 nat-md-gap-30">
                     <div class="nat-vertical nat-expand">
-                        <h2 class="mat-font-title-lg">Certifications</h2>
+                        <h2>Certifications</h2>
                         <natural-relations
                             placeholder="Attribuer une certification"
                             [main]="data.model"
@@ -228,7 +228,7 @@
                         </natural-relations>
                     </div>
                     <div class="nat-vertical nat-expand">
-                        <h2 class="mat-font-title-lg">Tags</h2>
+                        <h2>Tags</h2>
                         <natural-relations
                             placeholder="Ajouter un tag"
                             [main]="data.model"
@@ -248,7 +248,7 @@
                         </natural-relations>
                     </div>
                     <div class="nat-vertical nat-gap-10">
-                        <h2 class="mat-font-title-lg">Portes</h2>
+                        <h2>Portes</h2>
                         <mat-slide-toggle formControlName="door1" (change)="update()">Porte&nbsp;1</mat-slide-toggle>
                         <mat-slide-toggle formControlName="door2" (change)="update()">Porte&nbsp;2</mat-slide-toggle>
                         <mat-slide-toggle formControlName="door3" (change)="update()">Porte&nbsp;3</mat-slide-toggle>
