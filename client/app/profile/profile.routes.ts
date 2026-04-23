@@ -140,7 +140,7 @@ export const routes: Routes = [
                     formation('catamaran', '6033'),
                     formation('wing-foil', '6045'),
                     formation('surprise', '6039'),
-                    formation('camps', '6050'),
+                    formation('canoe-kayak', '6049'),
                 ],
             },
         ],
