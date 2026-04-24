@@ -296,7 +296,15 @@
                             [showFabButton]="false"
                             [persistSearch]="false"
                             [forcedVariables]="bookingsVariables"
-                            [selectedColumns]="['edit', 'owner', 'startDate', 'endDate']"
+                            [selectedColumns]="[
+                                'edit',
+                                'owner',
+                                'participantReadonly',
+                                'participantEmail',
+                                'participantMobilePhone',
+                                'startDate',
+                                'endDate',
+                            ]"
                             [availableColumns]="availableColumnsForBookingsWithOwnerWithoutTrainers"
                         />
                     }
@@ -306,7 +314,12 @@
                             [persistSearch]="false"
                             [forcedVariables]="bookingsVariables"
                             [showFabButton]="false"
-                            [selectedColumns]="['ownerReadonly', 'email', 'mobilePhone', 'endDate']"
+                            [selectedColumns]="[
+                                'participantReadonly',
+                                'participantEmail',
+                                'participantMobilePhone',
+                                'endDate',
+                            ]"
                             [availableColumns]="availableColumnsForBookingsWithOwnerOnlyTrainers"
                         />
                     }

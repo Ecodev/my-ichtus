@@ -146,6 +146,9 @@ export const pricedBookingsQuery = gql`
                             id
                             name
                         }
+                        participant {
+                            ...UserContactData
+                        }
                     }
                     bookableTags {
                         id
