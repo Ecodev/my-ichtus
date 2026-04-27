@@ -48,6 +48,7 @@ import {MatChipListbox, MatChipOption} from '@angular/material/chips';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {MatButton} from '@angular/material/button';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
     selector: 'app-booking',
@@ -73,6 +74,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         NaturalStampComponent,
         NaturalFixedButtonDetailComponent,
         DatePipe,
+        MatTooltip,
     ],
     templateUrl: './booking.component.html',
     styleUrl: './booking.component.scss',
@@ -149,10 +151,6 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
         }
     }
 
-    protected showParticipant(): boolean {
-        return this.data.model.bookable.bookingType === BookingType.AdminApproved;
-    }
-
     protected terminateBooking(): void {
         if (!this.isUpdatePage()) {
             return;
@@ -178,11 +176,15 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
 
     // For admin_approved bookings (courses...)
     protected approveBooking(): void {
-        const status = this.form.get('status');
-        if (status) {
-            status.setValue(BookingStatus.Processed);
-            this.update(true);
+        if (!this.isPendingApplication(BookingType.AdminApproved)) {
+            return;
         }
+
+        this.form.patchValue({
+            status: BookingStatus.Processed,
+            owner: this.data.model.participant,
+        });
+        this.update(true);
     }
 
     protected isSelfApproved(): boolean {

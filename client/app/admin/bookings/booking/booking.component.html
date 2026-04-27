@@ -45,7 +45,7 @@
                         (selectionChange)="update()"
                     />
 
-                    @if (showParticipant()) {
+                    @if (this.isPendingApplication(BookingType.AdminApproved)) {
                         <natural-select
                             formControlName="participant"
                             placeholder="Participant"
@@ -118,6 +118,7 @@
                         @if (isUpdatePage() && isPendingApplication(BookingType.AdminApproved)) {
                             <button
                                 matButton="filled"
+                                matTooltip="Le participant devient automatiquement le responsable"
                                 [disabled]="!data.model.permissions.update"
                                 (click)="approveBooking()"
                             >
