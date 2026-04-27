@@ -60,10 +60,9 @@
                     <td *matCellDef="let booking; dataSource: runningServicesDS" mat-cell class="natural-align-right">
                         @for (b of booking.bookable?.simultaneousBookings; track b) {
                             <div class="nat-horizontal">
-                                @let user = b.participant ?? b.owner;
-                                <natural-avatar [initials]="user.name" [gravatar]="user.email" [size]="36" />
-                                <a matButton [routerLink]="['/admin/user', user.id]">
-                                    {{ user.name }}
+                                <natural-avatar [initials]="b.owner.name" [gravatar]="b.owner.email" [size]="36" />
+                                <a matButton [routerLink]="['/admin/user', b.owner.id]">
+                                    {{ b.owner.name }}
                                 </a>
                             </div>
                         }
@@ -119,14 +118,6 @@
             <ng-container matColumnDef="remarks">
                 <th *matHeaderCellDef mat-header-cell>Remarques</th>
                 <td *matCellDef="let booking; dataSource: pendingApplicationsDS" mat-cell>{{ booking.remarks }}</td>
-                <td *matFooterCellDef mat-footer-cell></td>
-            </ng-container>
-
-            <ng-container matColumnDef="participant">
-                <th *matHeaderCellDef mat-header-cell>Participant</th>
-                <td *matCellDef="let booking; dataSource: pendingApplicationsDS" mat-cell>
-                    {{ booking.participant?.name }}
-                </td>
                 <td *matFooterCellDef mat-footer-cell></td>
             </ng-container>
 

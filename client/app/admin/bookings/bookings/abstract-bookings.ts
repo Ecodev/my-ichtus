@@ -9,12 +9,10 @@ const edit: AvailableColumn = {id: 'edit', label: 'Editer'} as const;
 const owner: AvailableColumn = {id: 'owner', label: 'Utilisateur'};
 const participant: AvailableColumn = {id: 'participant', label: 'Participant'};
 const ownerReadonly: AvailableColumn = {id: 'ownerReadonly', label: 'Utilisateur'};
-const participantReadonly: AvailableColumn = {id: 'participantReadonly', label: 'Participant'};
 const status: AvailableColumn = {id: 'status', label: 'État'};
 const ownerBalance: AvailableColumn = {id: 'ownerBalance', label: 'Solde'};
 const ownerCreationDate: AvailableColumn = {id: 'ownerCreationDate', label: 'Membre depuis'};
-const participantCreationDate: AvailableColumn = {id: 'participantCreationDate', label: 'Participant membre depuis'};
-const bookable: AvailableColumn = {id: 'bookable', label: 'Réservable'};
+const bookable: AvailableColumn = {id: 'bookable', label: 'Item'};
 const destination: AvailableColumn = {id: 'destination', label: 'Destination'};
 const startDate: AvailableColumn = {id: 'startDate', label: 'Début'};
 const startComment: AvailableColumn = {id: 'startComment', label: 'Note de début'};
@@ -24,9 +22,7 @@ const participantCount: AvailableColumn = {id: 'participantCount', label: 'Nb pa
 const endComment: AvailableColumn = {id: 'endComment', label: 'Note de fin'};
 const terminateBooking: AvailableColumn = {id: 'terminateBooking', label: 'Terminer'};
 const email: AvailableColumn = {id: 'email', label: 'Email'};
-const participantEmail: AvailableColumn = {id: 'participantEmail', label: 'Email du participant'};
 const mobilePhone: AvailableColumn = {id: 'mobilePhone', label: 'Tél.'};
-const participantMobilePhone: AvailableColumn = {id: 'participantMobilePhone', label: 'Tél. du participant'};
 const usageStatus: AvailableColumn = {id: 'usageStatus', label: 'Inscriptions'};
 
 const allAvailableColumns = [
@@ -116,23 +112,19 @@ export const availableColumnsForBookingsWithOwnerWithoutTrainers = [
     owner,
     ownerBalance,
     ownerCreationDate,
-    participantReadonly,
-    participantCreationDate,
-    email,
-    mobilePhone,
-    participantEmail,
-    participantMobilePhone,
     startDate,
     endDate,
+    email,
+    mobilePhone,
 ];
 
 export const availableColumnsForBookingsWithOwnerOnlyTrainers = [
-    participantReadonly,
-    participantCreationDate,
+    ownerReadonly,
+    ownerCreationDate,
     startDate,
     endDate,
-    participantEmail,
-    participantMobilePhone,
+    email,
+    mobilePhone,
 ];
 
 export const availableColumnsForBookingsServicesApplication = [edit, owner, bookable, startDate];

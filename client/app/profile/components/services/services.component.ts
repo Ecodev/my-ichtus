@@ -81,15 +81,7 @@ export class ServicesComponent implements OnInit, OnChanges {
     protected pendingApplicationsDS!: NaturalDataSource<PricedBookingsQuery['bookings']>;
 
     protected servicesColumns = ['name', 'initialPrice', 'periodicPrice', 'revoke'];
-    protected applicationsColumns = [
-        'name',
-        'startDate',
-        'participant',
-        'remarks',
-        'initialPrice',
-        'periodicPrice',
-        'cancel',
-    ];
+    protected applicationsColumns = ['name', 'startDate', 'remarks', 'initialPrice', 'periodicPrice', 'cancel'];
     protected readonly deleting = new Map<PricedBookingsQuery['bookings']['items'][0]['id'], true>();
 
     public ngOnChanges(changes: SimpleChanges<this>): void {

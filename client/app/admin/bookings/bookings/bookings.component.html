@@ -66,17 +66,17 @@
                     <ng-container matColumnDef="participant">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>Participant</th>
                         <td *matCellDef="let element" mat-cell>
-                            @if (element.participant ?? element.owner) {
+                            @if (element.participant) {
                                 <div class="nat-horizontal nat-align">
                                     <natural-avatar
-                                        [initials]="(element.participant ?? element.owner).name"
-                                        [gravatar]="(element.participant ?? element.owner)?.email"
+                                        [initials]="element.participant.name"
+                                        [gravatar]="element.participant?.email"
                                         [size]="36"
                                     />
                                     <natural-table-button
                                         matTooltip="Éditer"
-                                        [label]="(element.participant ?? element.owner).name"
-                                        [navigate]="['/admin/user/', (element.participant ?? element.owner).id]"
+                                        [label]="element.participant.name"
+                                        [navigate]="['/admin/user/', element.participant.id]"
                                     />
                                 </div>
                             }
@@ -95,25 +95,6 @@
                                         [size]="36"
                                     />
                                     <span [style.padding-left.px]="16">{{ element.owner.name }}</span>
-                                </div>
-                            }
-                        </td>
-                        <td *matFooterCellDef mat-footer-cell></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="participantReadonly">
-                        <th *matHeaderCellDef mat-header-cell mat-sort-header="owner">Participant</th>
-                        <td *matCellDef="let element" mat-cell>
-                            @if (element.participant ?? element.owner) {
-                                <div class="nat-horizontal nat-align">
-                                    <natural-avatar
-                                        [initials]="(element.participant ?? element.owner).name"
-                                        [gravatar]="(element.participant ?? element.owner)?.email"
-                                        [size]="36"
-                                    />
-                                    <span [style.padding-left.px]="16">{{
-                                        (element.participant ?? element.owner).name
-                                    }}</span>
                                 </div>
                             }
                         </td>
@@ -152,23 +133,9 @@
                         <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
-                    <ng-container matColumnDef="participantEmail">
-                        <th *matHeaderCellDef mat-header-cell>Email</th>
-                        <td *matCellDef="let element" mat-cell>{{ (element.participant ?? element.owner).email }}</td>
-                        <td *matFooterCellDef mat-footer-cell></td>
-                    </ng-container>
-
                     <ng-container matColumnDef="mobilePhone">
                         <th *matHeaderCellDef mat-header-cell>Tél.</th>
                         <td *matCellDef="let element" mat-cell>{{ element.owner.mobilePhone }}</td>
-                        <td *matFooterCellDef mat-footer-cell></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="participantMobilePhone">
-                        <th *matHeaderCellDef mat-header-cell>Tél.</th>
-                        <td *matCellDef="let element" mat-cell>
-                            {{ (element.participant ?? element.owner).mobilePhone }}
-                        </td>
                         <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
@@ -239,13 +206,6 @@
                     <ng-container matColumnDef="ownerCreationDate">
                         <th *matHeaderCellDef mat-header-cell>Membre depuis</th>
                         <td *matCellDef="let element" mat-cell>{{ element.owner.creationDate | date: 'dd.MM.y' }}</td>
-                        <td *matFooterCellDef mat-footer-cell></td>
-                    </ng-container>
-                    <ng-container matColumnDef="participantCreationDate">
-                        <th *matHeaderCellDef mat-header-cell>Membre depuis</th>
-                        <td *matCellDef="let element" mat-cell>
-                            {{ (element.participant ?? element.owner ?? element.owner).creationDate | date: 'dd.MM.y' }}
-                        </td>
                         <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
