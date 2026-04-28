@@ -197,3 +197,19 @@ a.app-link {
         color: var(--mat-sys-tertiary-container);
     }
 }
+
+.navigations-list-parent {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+
+    & > * {
+        flex-shrink: 0;
+        width: 300px;
+    }
+
+    app-navigations {
+        display: contents;
+    }
+}

@@ -1,7 +1,7 @@
 <h2 class="mat-font-headline-sm">Historique des sorties</h2>
 
 @if (route.snapshot.data.viewer) {
-    <div>
+    <div class="navigations-list-parent">
         <app-navigations [user]="route.snapshot.data.viewer" [activeOnly]="false" [showEmptyMessage]="true" />
     </div>
 }

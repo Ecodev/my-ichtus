@@ -19,19 +19,3 @@ mat-card {
         margin-bottom: 20px;
     }
 }
-
-.header-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-
-    & > * {
-        flex-shrink: 0;
-        width: 300px;
-    }
-
-    app-navigations {
-        display: contents;
-    }
-}
