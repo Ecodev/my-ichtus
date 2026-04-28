@@ -412,11 +412,8 @@ class Bookable extends AbstractModel
 
         if ($user && !$isResponsible && !$isCreator) {
             parent::setOwner($owner);
-
-            return;
+        } else {
+            $this->owner = $owner;
         }
-
-        $this->owner = $owner;
-
     }
 }

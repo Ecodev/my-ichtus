@@ -6,6 +6,7 @@ namespace Application\Model;
 
 use Application\Api\Input\Operator\RunningServicesOperatorType;
 use Application\Enum\BookingStatus;
+use Application\Enum\BookingType;
 use Application\Repository\BookingRepository;
 use Application\Service\Invoicer;
 use Application\Traits\HasRemarks;
@@ -68,7 +69,15 @@ class Booking extends AbstractModel
             $this->getOwner()->bookingRemoved($this);
         }
 
-        parent::setOwner($owner);
+        $user = User::getCurrent();
+        $isResponsible = $user && ($user->getRole() === User::ROLE_FORMATION_RESPONSIBLE || $user->getRole() === User::ROLE_RESPONSIBLE);
+        $isAdminApproved = $this->getBookable()?->getBookingType() === BookingType::AdminApproved;
+
+        if ($isResponsible && $isAdminApproved) {
+            $this->owner = $owner;
+        } else {
+            parent::setOwner($owner);
+        }
 
         if ($this->getOwner()) {
             $this->getOwner()->bookingAdded($this);

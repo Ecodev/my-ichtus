@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace ApplicationTest\Model;
 
+use Application\Enum\BookingType;
 use Application\Model\AbstractModel;
+use Application\Model\Account;
 use Application\Model\Bookable;
 use Application\Model\Booking;
 use Application\Model\User;
@@ -82,12 +84,9 @@ class BookingTest extends TestCase
     }
 
     #[DataProvider('providerSetOwner')]
-    public function testSetOwner(string $class, ?User $currentUser, ?User $originalOwner, ?User $newOwner, ?string $exception = null): void
+    public function testSetOwner(AbstractModel $subject, ?User $currentUser, ?User $originalOwner, ?User $newOwner, ?string $exception = null): void
     {
         User::setCurrent($currentUser);
-
-        $subject = new $class();
-        assert($subject instanceof AbstractModel);
 
         self::assertNull($subject->getOwner());
 
@@ -115,17 +114,36 @@ class BookingTest extends TestCase
         $responsible = new User(User::ROLE_RESPONSIBLE);
         $responsible->setLogin('responsible');
 
-        yield 'can change nothing to nothing' => [Booking::class, null, null, null];
-        yield 'can set owner for first time' => [Booking::class, null, null, $u3];
-        yield 'can set owner for first time to myself' => [Booking::class, $u1, null, $u1];
-        yield 'can set owner for first time even if it is not myself' => [Booking::class, $u1, null, $u3];
-        yield 'can donate my stuff' => [Booking::class, $u1, $u1, $u3];
-        yield 'as a member I cannot donate stuff that are not mine' => [Booking::class, $u1, $u2, $u3, 'u1 is not allowed to change owner to u3 because it belongs to u2'];
-        yield 'as an admin I can donate stuff that are not mine' => [Booking::class, $admin, $u2, $u3];
-        yield 'as a responsible I cannot donate most of the stuff (booking)' => [Booking::class, $responsible, $u2, $u3, 'responsible is not allowed to change owner to u3 because it belongs to u2'];
-        yield 'as a responsible I cannot donate most of the stuff (user)' => [User::class, $responsible, $u2, $u3, 'responsible is not allowed to change owner to u3 because it belongs to u2'];
-        yield 'as a responsible I can donate bookable' => [Bookable::class, $responsible, $u2, $u3];
-        yield 'as a member I can donate bookable that is not mine' => [Bookable::class, $u1, $u2, $u3, 'u1 is not allowed to change owner to u3 because it belongs to u2'];
+        yield 'can change nothing to nothing' => [self::genericClass(Booking::class), null, null, null];
+        yield 'can set owner for first time' => [self::genericClass(Booking::class), null, null, $u3];
+        yield 'can set owner for first time to myself' => [self::genericClass(Booking::class), $u1, null, $u1];
+        yield 'can set owner for first time even if it is not myself' => [self::genericClass(Booking::class), $u1, null, $u3];
+        yield 'can donate my stuff' => [self::genericClass(Booking::class), $u1, $u1, $u3];
+        yield 'as a member I cannot donate stuff that are not mine' => [self::genericClass(Booking::class), $u1, $u2, $u3, 'u1 is not allowed to change owner to u3 because it belongs to u2'];
+        yield 'as an admin I can donate stuff that are not mine' => [self::genericClass(Booking::class), $admin, $u2, $u3];
+        yield 'as a responsible I cannot donate most of the stuff (account)' => [self::genericClass(Account::class), $responsible, $u2, $u3, 'responsible is not allowed to change owner to u3 because it belongs to u2'];
+        yield 'as a responsible I cannot donate most of the stuff (user)' => [self::genericClass(User::class), $responsible, $u2, $u3, 'responsible is not allowed to change owner to u3 because it belongs to u2'];
+        yield 'as a responsible I can donate bookable' => [self::genericClass(Bookable::class), $responsible, $u2, $u3];
+        yield 'as a member I cannot donate bookable that is not mine' => [self::genericClass(Bookable::class), $u1, $u2, $u3, 'u1 is not allowed to change owner to u3 because it belongs to u2'];
+        yield 'as a responsible I cannot donate generic booking that is not mine' => [self::genericClass(Booking::class), $responsible, $u2, $u3, 'responsible is not allowed to change owner to u3 because it belongs to u2'];
+        yield 'as a responsible I can donate admin approved booking that is not mine' => [self::adminApprovedBooking(), $responsible, $u2, $u3];
+    }
 
+    private static function genericClass(string $class): AbstractModel
+    {
+        $instance = new $class();
+        assert($instance instanceof AbstractModel);
+
+        return $instance;
+    }
+
+    private static function adminApprovedBooking(): Booking
+    {
+        $adminApprovedBookable = new Bookable();
+        $adminApprovedBookable->setBookingType(BookingType::AdminApproved);
+        $adminApprovedBooking = new Booking();
+        $adminApprovedBooking->setBookable($adminApprovedBookable);
+
+        return $adminApprovedBooking;
     }
 }
