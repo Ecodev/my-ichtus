@@ -38,6 +38,12 @@ class RunningServicesOperatorType extends AbstractOperator
                     'defaultValue' => false,
                     'description' => 'Exclude bookables linked to BookableTag NFT',
                 ],
+                [
+                    'name' => 'includeFamily',
+                    'type' => self::boolean(),
+                    'defaultValue' => false,
+                    'description' => 'Include booking of family members where user is provider',
+                ],
             ],
         ];
     }
@@ -61,12 +67,16 @@ class RunningServicesOperatorType extends AbstractOperator
             $excludeNFTCondition = 'AND bookable_tag_bookable.bookable_id IS NULL';
         }
 
+        $ownerCondition = $args['includeFamily']
+            ? "booking.owner_id IN (SELECT id FROM user WHERE id = $user OR owner_id = $user)"
+            : "booking.owner_id = $user";
+
         $sql = <<<SQL
             SELECT booking.id FROM booking
             INNER JOIN bookable ON booking.bookable_id = bookable.id
             $excludeNFTJoin
             WHERE
-                booking.owner_id = $user
+                $ownerCondition
                 AND booking.status IN ($status)
                 AND booking.end_date IS NULL
                 $excludeNFTCondition

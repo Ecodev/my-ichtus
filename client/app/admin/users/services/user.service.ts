@@ -398,6 +398,7 @@ export class UserService
         user: NonNullable<CurrentUserForProfileQuery['viewer']>,
         coursesOnly = false,
         excludeNFT = false,
+        includeFamily = false,
     ): Observable<PricedBookingsQuery['bookings']> {
         const qvm = new NaturalQueryVariablesManager<PricedBookingsQueryVariables>();
         qvm.set('variables', {
@@ -406,7 +407,7 @@ export class UserService
                     {
                         conditions: [
                             {
-                                custom: {runningServices: {user: user.id, coursesOnly, excludeNFT}},
+                                custom: {runningServices: {user: user.id, coursesOnly, excludeNFT, includeFamily}},
                             },
                         ],
                         joins: {

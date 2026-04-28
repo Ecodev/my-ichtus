@@ -154,6 +154,9 @@ export const pricedBookingsQuery = gql`
                         ...UserContactData
                     }
                 }
+                permissions {
+                    ...PermissionsRUD
+                }
             }
             pageSize
             pageIndex
@@ -165,6 +168,7 @@ export const pricedBookingsQuery = gql`
     }
     ${bookingMetaFragment}
     ${userContactDataFragment}
+    ${permissionsFragment}
 `;
 
 export const bookingQuery = gql`

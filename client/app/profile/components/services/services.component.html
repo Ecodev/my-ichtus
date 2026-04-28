@@ -1,3 +1,4 @@
+<!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
 @if (runningServicesDS.data?.length > 0) {
     <div>
         <div class="nat-horizontal nat-align nat-margin-bottom">
@@ -16,6 +17,16 @@
                     <th *matHeaderCellDef mat-header-cell>Nom</th>
                     <td *matCellDef="let booking; dataSource: runningServicesDS" mat-cell>
                         {{ booking.bookable?.name }}
+                    </td>
+                    <td *matFooterCellDef mat-footer-cell>Totaux</td>
+                </ng-container>
+
+                <ng-container matColumnDef="participant">
+                    <th *matHeaderCellDef mat-header-cell>Participant</th>
+                    <td *matCellDef="let booking; dataSource: runningServicesDS" mat-cell>
+                        @if (booking.owner?.id !== user.id) {
+                            {{ booking.owner?.name }}
+                        }
                     </td>
                     <td *matFooterCellDef mat-footer-cell>Totaux</td>
                 </ng-container>

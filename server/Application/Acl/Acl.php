@@ -7,6 +7,7 @@ namespace Application\Acl;
 use Application\Acl\Assertion\AccountHasNoTransaction;
 use Application\Acl\Assertion\BookableAvailable;
 use Application\Acl\Assertion\BookableIsAdminApproved;
+use Application\Acl\Assertion\BookingIsAdminApproved;
 use Application\Acl\Assertion\BookingIsPendingApplication;
 use Application\Acl\Assertion\BookingIsSelfApproved;
 use Application\Acl\Assertion\ExpenseClaimStatusIsNew;
@@ -91,6 +92,7 @@ class Acl extends \Ecodev\Felix\Acl\Acl
         $this->allow(User::ROLE_MEMBER, [$account], ['update'], new IsOwner());
         $this->allow(User::ROLE_MEMBER, [$user], ['create']);
         $this->allow(User::ROLE_MEMBER, [$user], ['update'], new One(new IsOwner(), new IsMyself()));
+        $this->allow(User::ROLE_MEMBER, [$booking], ['update'], new All(new IsFamily(), new BookingIsAdminApproved()));
 
         $this->allow(User::ROLE_TRAINER, [$userTag], ['read']);
         $this->allow(User::ROLE_TRAINER, [$bookable], ['update'], new BookableIsAdminApproved());

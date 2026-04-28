@@ -182,7 +182,7 @@ class UserRepositoryTest extends AbstractRepository
         $countBefore = $connection->fetchOne("SELECT COUNT(*) FROM `$table`");
         $expectCount = $countBefore - ($expectDeleted || $table === 'user' ? 1 : 0);
 
-        // 1035 is a user that has no relation at all in tests fixture, so we can be sure that
+        // 1015 is a user that has no relation at all in tests fixture, so we can be sure that
         // we won't trigger unique constraints when updating, and we won't delete things via another
         // pre-existing field when deleting a specific field
         $connection->executeStatement("UPDATE `$table` SET `$field` = 1015 LIMIT 1");

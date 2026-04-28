@@ -80,7 +80,7 @@ export class ServicesComponent implements OnInit, OnChanges {
     protected runningServicesDS!: NaturalDataSource<PricedBookingsQuery['bookings']>;
     protected pendingApplicationsDS!: NaturalDataSource<PricedBookingsQuery['bookings']>;
 
-    protected servicesColumns = ['name', 'initialPrice', 'periodicPrice', 'revoke'];
+    protected servicesColumns = ['name', 'participant', 'initialPrice', 'periodicPrice', 'revoke'];
     protected applicationsColumns = [
         'name',
         'startDate',
@@ -119,7 +119,7 @@ export class ServicesComponent implements OnInit, OnChanges {
         this.pendingApplicationsDS = new NaturalDataSource<PricedBookingsQuery['bookings']>(pendingApplications);
 
         const runningServices = this.userService
-            .getRunningServices(this.user)
+            .getRunningServices(this.user, false, false, true)
             .pipe(takeUntilDestroyed(this.destroyRef));
         this.runningServicesDS = new NaturalDataSource<PricedBookingsQuery['bookings']>(runningServices);
     }
@@ -142,7 +142,7 @@ export class ServicesComponent implements OnInit, OnChanges {
     }
 
     protected canRevoke(booking: PricedBookingsQuery['bookings']['items'][0]): boolean {
-        return booking.bookable?.bookingType !== BookingType.Mandatory;
+        return booking.bookable?.bookingType !== BookingType.Mandatory && booking.permissions.update;
     }
 
     protected cancelApplication(booking: PricedBookingsQuery['bookings']['items'][0]): void {
