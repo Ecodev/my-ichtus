@@ -1,5 +1,5 @@
-<div class="nat-expand-no-collapse nat-vertical nat-center nat-padding" style="gap: 50px">
-    <div class="nat-horizontal nat-wrap nat-gap-30">
+<div class="nat-vertical nat-padding" style="gap: 50px">
+    <div class="header-list">
         @if (route.snapshot.data.viewer) {
             <app-navigations [user]="route.snapshot.data.viewer" />
         }
@@ -8,7 +8,7 @@
             @if (formation.bookable) {
                 <mat-card>
                     <mat-icon naturalIcon="certification" [size]="160" />
-                    <div class="nat-vertical nat-gap-10">
+                    <div class="nat-vertical nat-gap-10 nat-align">
                         <div class="mat-font-title-sm text-center">{{ formation.bookable.name }}</div>
                         @if (formation.bookable.owner) {
                             <mat-divider />
