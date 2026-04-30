@@ -196,7 +196,7 @@ export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeo
                     {
                         conditions: [
                             {
-                                custom: {creditOrDebitAccount: {values: [account.id]}},
+                                custom: {account: {values: [account.id]}},
                             },
                         ],
                     },

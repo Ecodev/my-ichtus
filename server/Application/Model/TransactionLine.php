@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Model;
 
-use Application\Api\Input\Operator\CreditOrDebitAccountOperatorType;
+use Application\Api\Input\Operator\AccountOperatorType;
 use Application\Api\Input\Operator\TransactionExportOperatorType;
 use Application\Api\Input\Operator\TransactionWithDocumentOperatorType;
 use Application\Repository\TransactionLineRepository;
@@ -21,7 +21,7 @@ use Money\Money;
 #[ORM\UniqueConstraint(name: 'unique_import', columns: ['transaction_date', 'imported_id'])]
 #[API\Filter(field: 'custom', operator: TransactionWithDocumentOperatorType::class, type: 'boolean')]
 #[API\Filter(field: 'custom', operator: TransactionExportOperatorType::class, type: 'boolean')]
-#[API\Filter(field: 'custom', operator: CreditOrDebitAccountOperatorType::class, type: 'id')]
+#[API\Filter(field: 'custom', operator: AccountOperatorType::class, type: 'id')]
 #[ORM\Entity(TransactionLineRepository::class)]
 class TransactionLine extends AbstractModel
 {

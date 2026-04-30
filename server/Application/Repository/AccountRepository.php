@@ -13,11 +13,11 @@ use Exception;
 use Money\Money;
 
 /**
- * @extends AbstractRepository<Account>
+ * @extends AbstractHasParentRepository<Account>
  *
  * @method null|Account findOneByCode(int $code)
  */
-class AccountRepository extends AbstractRepository implements LimitedAccessSubQuery
+class AccountRepository extends AbstractHasParentRepository implements LimitedAccessSubQuery
 {
     /**
      * In memory max code that keep being incremented if we create several account at once without flushing in DB.
@@ -190,28 +190,6 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
     }
 
     /**
-     * Native query to return the IDs of myself and all recursive descendants
-     * of the one passed as parameter.
-     */
-    private function getSelfAndDescendantsSubQuery(int $itemId): string
-    {
-        $table = $this->getClassMetadata()->table['name'];
-
-        $connection = $this->getEntityManager()->getConnection();
-        $table = $connection->quoteIdentifier($table);
-
-        $entireHierarchySql = "
-            WITH RECURSIVE parent AS (
-                    SELECT $table.id, $table.parent_id FROM $table WHERE $table.id IN ($itemId)
-                    UNION
-                    SELECT $table.id, $table.parent_id FROM $table JOIN parent ON $table.parent_id = parent.id
-                )
-            SELECT id FROM parent ORDER BY id";
-
-        return mb_trim($entireHierarchySql);
-    }
-
-    /**
      * Whether the account, or any of its subaccounts, has any transaction at all.
      */
     public function hasTransaction(Account $account): bool
@@ -221,7 +199,7 @@ class AccountRepository extends AbstractRepository implements LimitedAccessSubQu
             return false;
         }
 
-        $wholeHierarchy = $this->getSelfAndDescendantsSubQuery($id);
+        $wholeHierarchy = $this->getSelfAndDescendantsSubQuery([$id]);
 
         $hierarchyHasSomeTransactionLines = $this->getEntityManager()->getConnection()->fetchOne(
             <<<SQL

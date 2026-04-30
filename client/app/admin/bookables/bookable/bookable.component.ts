@@ -97,7 +97,7 @@ export class BookableComponent extends NaturalAbstractDetail<BookableService, Na
     protected readonly permissionsService = inject(PermissionsService);
     protected readonly userService = inject(UserService);
 
-    protected accountHierarchicConfig = accountHierarchicConfiguration;
+    protected accountHierarchicConfig = accountHierarchicConfiguration();
     protected bookingsVariables: BookingsQueryVariables = {};
     protected viewer!: NonNullable<CurrentUserForProfileQuery['viewer']>;
     protected readonly availableColumnsForBookingsWithOwnerWithoutTrainers =

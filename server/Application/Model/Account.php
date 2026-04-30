@@ -8,6 +8,7 @@ use Application\Enum\AccountType;
 use Application\Repository\AccountRepository;
 use Application\Repository\TransactionLineRepository;
 use Application\Traits\HasIban;
+use Application\Traits\HasParentInterface;
 use Cake\Chronos\ChronosDate;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -22,7 +23,7 @@ use Money\Money;
  */
 #[ORM\Entity(AccountRepository::class)]
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: 'owner', inversedBy: 'accounts', joinColumns: new ORM\JoinColumn(unique: true, onDelete: 'SET NULL'))])]
-class Account extends AbstractModel
+class Account extends AbstractModel implements HasParentInterface
 {
     use HasIban;
     use HasName;
@@ -233,9 +234,9 @@ class Account extends AbstractModel
     }
 
     /**
-     * Set parent.
+     * @param null|self $parent
      */
-    public function setParent(?self $parent): void
+    public function setParent(?HasParentInterface $parent): void
     {
         if ($this->getParent()) {
             $this->getParent()->getChildren()->removeElement($this);

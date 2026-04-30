@@ -6,9 +6,9 @@ import {
     NaturalSearchFacets,
     NaturalSearchSelection,
     replaceOperatorByName,
+    TypeAccountSelectorComponent,
     TypeDateComponent,
     TypeDateConfiguration,
-    TypeHierarchicSelectorComponent,
     TypeHierarchicSelectorConfiguration,
     TypeNaturalSelectComponent,
     TypeNumberComponent,
@@ -27,6 +27,7 @@ import {LicenseService} from '../../admin/licenses/services/license.service';
 import {TransactionService} from '../../admin/transactions/services/transaction.service';
 import {TransactionTagService} from '../../admin/transactionTags/services/transactionTag.service';
 import {
+    AccountType,
     BookableFilter,
     BookableStatus,
     BookingFilterGroupConditionEndDate,
@@ -512,38 +513,23 @@ export function transactionLines(): NaturalSearchFacets {
             },
         } satisfies DropdownFacet<TypeNumberConfiguration>,
         {
-            display: 'Compte',
+            display: `Compte`,
             field: 'custom',
-            name: 'creditOrDebitAccount',
-            component: TypeHierarchicSelectorComponent,
+            name: 'account',
+            component: TypeAccountSelectorComponent,
             transform: replaceOperatorByName,
             showValidateButton: true,
             configuration: {
                 key: 'account',
                 service: inject(AccountService),
-                config: accountHierarchicConfiguration,
-            },
-        } satisfies DropdownFacet<TypeHierarchicSelectorConfiguration>,
-        {
-            display: 'Compte au débit',
-            field: 'debit',
-            component: TypeHierarchicSelectorComponent,
-            showValidateButton: true,
-            configuration: {
-                key: 'account',
-                service: inject(AccountService),
-                config: accountHierarchicConfiguration,
-            },
-        } satisfies DropdownFacet<TypeHierarchicSelectorConfiguration>,
-        {
-            display: 'Compte au crédit',
-            field: 'credit',
-            component: TypeHierarchicSelectorComponent,
-            showValidateButton: true,
-            configuration: {
-                key: 'account',
-                service: inject(AccountService),
-                config: accountHierarchicConfiguration,
+                config: accountHierarchicConfiguration([
+                    AccountType.Asset,
+                    AccountType.Equity,
+                    AccountType.Expense,
+                    AccountType.Group,
+                    AccountType.Liability,
+                    AccountType.Revenue,
+                ]),
             },
         } satisfies DropdownFacet<TypeHierarchicSelectorConfiguration>,
         {

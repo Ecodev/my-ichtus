@@ -83,7 +83,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
             [
                 {
                     field: 'custom',
-                    name: 'creditOrDebitAccount',
+                    name: 'account',
                     condition: {
                         have: {
                             values: [account.id],
@@ -171,7 +171,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
                     {
                         conditions: [
                             {
-                                custom: {creditOrDebitAccount: {values: [account.id]}},
+                                custom: {account: {values: [account.id]}},
                             },
                         ],
                     },

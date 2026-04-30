@@ -85,7 +85,7 @@ export class EditableTransactionLinesComponent extends NaturalAbstractEditableLi
 
     private readonly input$ = new Subject<EditableTransactionLinesInput>();
 
-    protected accountHierarchicConfig = accountHierarchicConfiguration;
+    protected accountHierarchicConfig = accountHierarchicConfiguration();
     protected columns = [
         'name',
         'balance',
