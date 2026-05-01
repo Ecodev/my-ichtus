@@ -182,7 +182,7 @@ export class BookingComponent extends NaturalAbstractDetail<BookingService, Natu
 
         this.form.patchValue({
             status: BookingStatus.Processed,
-            owner: this.data.model.participant,
+            owner: this.data.model.participant ?? this.data.model.owner,
         });
         this.update(true);
     }
