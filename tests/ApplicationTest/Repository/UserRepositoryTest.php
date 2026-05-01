@@ -256,6 +256,15 @@ class UserRepositoryTest extends AbstractRepository
             ['message', 'recipient_id', true], // a message that lost its recipient cannot have any purpose, so delete it
             ['message', 'owner_id', true], // owner is semantically exactly the same as recipient
             ['message', 'updater_id', false],
+            ['indicator_definition', 'creator_id', false],
+            ['indicator_definition', 'owner_id', false],
+            ['indicator_definition', 'updater_id', false],
+            ['indicator_definition_addend', 'creator_id', false],
+            ['indicator_definition_addend', 'owner_id', false],
+            ['indicator_definition_addend', 'updater_id', false],
+            ['indicator_definition_subtrahend', 'creator_id', false],
+            ['indicator_definition_subtrahend', 'owner_id', false],
+            ['indicator_definition_subtrahend', 'updater_id', false],
         ];
     }
 }

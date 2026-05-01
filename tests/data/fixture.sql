@@ -33,7 +33,7 @@ REPLACE INTO account (id, parent_id, owner_id, type, code, iban, budget_allowed,
 (10027, 10010, NULL, 'asset', '1500', '', 50000, 'Machines et appareils'),
 (10028, 10010, NULL, 'group', '1510', '', null, 'Mobilier et installations'),
 (10029, 10028, NULL, 'asset', '15101', '', null, 'Barque'),
-(10030, 10028, NULL, 'asset', '15102', '', null, 'Bateau à moteur'),
+(10030, 10028, NULL, 'asset', '15102', '', 100000, 'Bateau à moteur'),
 (10031, 10028, NULL, 'asset', '15103', '', null, 'Planche à voile'),
 (10032, 10028, NULL, 'asset', '15104', '', null, 'SUP'),
 (10033, 10028, NULL, 'asset', '15105', '', null, 'Voilier - biquille'),
@@ -88,7 +88,7 @@ REPLACE INTO account (id, parent_id, owner_id, type, code, iban, budget_allowed,
 (10082, 10054, NULL, 'expense', '610065', '', null, 'Transport'),
 (10083, 10054, NULL, 'expense', '610066', '', null, 'Inspection'),
 (10084, 10054, NULL, 'expense', '610067', '', null, 'Autres dépenses'),
-(10085, 10021, NULL, 'expense', '65001', '', null, 'Photocopies'),
+(10085, 10021, NULL, 'expense', '65001', '', 10000, 'Photocopies'),
 (10086, 10021, NULL, 'expense', '65002', '', null, 'Envois timbres'),
 (10087, 10021, NULL, 'expense', '65003', '', null, 'Frais bancaires'),
 (10088, 10021, NULL, 'expense', '65004', '', null, 'AG'),
@@ -313,5 +313,25 @@ REPLACE INTO license_user (license_id, user_id) VALUES
 
 REPLACE INTO configuration (`key`, value) VALUES
 ('test-key', 'test-value');
+
+REPLACE INTO indicator_definition (id, sorting, name) VALUES
+(14000, 100, 'Nautique - Bateau à moteur'),
+(14001, 110, 'Gestion - administration'),
+(14002, 120, 'Recette - Cours nautique'),
+(14003, 130, 'Recette - Cotisations');
+
+REPLACE INTO indicator_definition_addend (id, indicator_definition_id, account_id, multiplier) VALUES
+(14000, 14000, 10030, 10),
+(14001, 14000, 10058, 100),
+(14002, 14000, 10059, 100),
+(14003, 14000, 10060, 100),
+(14004, 14001, 10085, 100),
+(14005, 14001, 10087, 100),
+(14006, 14001, 10088, 100),
+(14007, 14002, 10037, 100),
+(14008, 14003, 10035, 100);
+
+REPLACE INTO indicator_definition_subtrahend (id, indicator_definition_id, account_id, multiplier) VALUES
+(14000, 14002, 10104, 100);
 
 COMMIT;

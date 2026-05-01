@@ -1,0 +1,117 @@
+<div class="nat-horizontal nat-align">
+    <h1 class="nat-expand">{{ route.snapshot.data.seo.title }}</h1>
+    <button matIconButton matTooltip="Exporter" [disabled]="exporting()" (click)="export()">
+        <mat-icon naturalIcon="file_download" />
+    </button>
+</div>
+
+<div class="nat-vertical nat-left nat-sm-horizontal nat-sm-align header nat-margin-top">
+    <div class="nat-horizontal nat-wrap nat-gap-horizontal-10">
+        <mat-form-field>
+            <mat-label>Du</mat-label>
+            <input
+                matInput
+                [formControl]="form.controls.dateFrom"
+                [max]="form.controls.dateTo.value || today"
+                [matDatepicker]="pickerFrom"
+            />
+            <mat-datepicker-toggle matIconSuffix [for]="pickerFrom" />
+            <mat-datepicker #pickerFrom />
+            @if (form.controls.dateFrom.hasError('matDatepickerMax')) {
+                <mat-error
+                    >Doit être inférieur ou égal à
+                    {{ form.controls.dateFrom.errors?.matDatepickerMax.max | date: 'dd.MM.y' }}
+                </mat-error>
+            } @else {
+                <mat-error>{{ form.controls.dateFrom.errors | errorMessage }}</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Au</mat-label>
+            <input
+                matInput
+                [formControl]="form.controls.dateTo"
+                [min]="form.controls.dateFrom.value"
+                [max]="today"
+                [matDatepicker]="pickerTo"
+            />
+            <mat-datepicker-toggle matIconSuffix [for]="pickerTo" />
+            <mat-datepicker #pickerTo />
+            @if (form.controls.dateTo.hasError('matDatepickerMin')) {
+                <mat-error
+                    >Doit être supérieur ou égal à
+                    {{ form.controls.dateTo.errors?.matDatepickerMin.min | date: 'dd.MM.y' }}
+                </mat-error>
+            } @else if (form.controls.dateTo.hasError('matDatepickerMax')) {
+                <mat-error
+                    >Doit être inférieur ou égal à
+                    {{ form.controls.dateTo.errors?.matDatepickerMax.max | date: 'dd.MM.y' }}
+                </mat-error>
+            } @else {
+                <mat-error>{{ form.controls.dateTo.errors | errorMessage }}</mat-error>
+            }
+        </mat-form-field>
+    </div>
+
+    <a matButton="outlined" [routerLink]="nonReconciledLink">Écritures non-pointées</a>
+</div>
+
+@if (dataSource) {
+    <div class="responsive-table">
+        <table mat-table [dataSource]="dataSource">
+            <tr *matHeaderRowDef="columns" mat-header-row></tr>
+            <tr *matRowDef="let row; columns: columns" mat-row></tr>
+
+            <ng-container matColumnDef="name">
+                <th *matHeaderCellDef mat-header-cell>Indicateur</th>
+                <td *matCellDef="let element; dataSource: dataSource" mat-cell>
+                    {{ element.indicatorDefinition.name }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="value">
+                <th *matHeaderCellDef mat-header-cell class="natural-align-right">Valeur</th>
+                <td *matCellDef="let element; dataSource: dataSource" mat-cell class="natural-align-right">
+                    <app-money [amount]="element.value" [showCurrency]="false" />
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="budgetAllowed">
+                <th *matHeaderCellDef mat-header-cell class="natural-align-right">Budget prévu</th>
+                <td *matCellDef="let element; dataSource: dataSource" mat-cell class="natural-align-right">
+                    <app-money [amount]="element.budgetAllowed" [showSignal]="false" [showCurrency]="false" />
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="budgetBalance">
+                <th *matHeaderCellDef mat-header-cell class="natural-align-right">Budget restant</th>
+                <td *matCellDef="let element; dataSource: dataSource" mat-cell class="natural-align-right">
+                    <app-money [amount]="element.budgetBalance" [showCurrency]="false" />
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="formula">
+                <th *matHeaderCellDef mat-header-cell>Comptes</th>
+                <td *matCellDef="let element; dataSource: dataSource" mat-cell>
+                    <div class="nat-horizontal nat-gap-5 nat-wrap">
+                        @for (addend of element.indicatorDefinition.addends; track addend.account.id) {
+                            <a matButton [routerLink]="getAccountLink(addend.account.id)"
+                                >+ {{ addend.account.name }} {{ formatMultiplier(addend.multiplier) }}</a
+                            >
+                        }
+                        @for (subtrahend of element.indicatorDefinition.subtrahends; track subtrahend.account.id) {
+                            <a matButton [routerLink]="getAccountLink(subtrahend.account.id)"
+                                >- {{ subtrahend.account.name }} {{ formatMultiplier(subtrahend.multiplier) }}</a
+                            >
+                        }
+                    </div>
+                </td>
+            </ng-container>
+        </table>
+    </div>
+}
+
+@if ((permissionsService.crud | async)?.transaction.create) {
+    <natural-fixed-button icon="add" [routerLink]="['/admin/transaction/new']" />
+}

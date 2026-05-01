@@ -26,6 +26,7 @@ class TypesFactory
             Output\BankingInfosType::class,
             Output\CrudPermissionsListType::class,
             Output\CrudPermissionsType::class,
+            Output\IndicatorReportRowType::class,
             Output\OpenDoorType::class,
             \Ecodev\Felix\Api\Output\PermissionsType::class,
             QueryType::class,

@@ -1,0 +1,17 @@
+.header {
+    justify-content: space-between;
+}
+
+.mat-column-formula a {
+    text-decoration: none;
+}
+
+.mat-column-value,
+.mat-column-budgetAllowed,
+.mat-column-budgetBalance {
+    text-align: right;
+}
+
+app-money {
+    font-weight: 500;
+}

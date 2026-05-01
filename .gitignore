@@ -32,6 +32,5 @@
 /client/app/shared/generated-config.ts
 .DS_Store
 
-
 # keep it at the end of the file
 !.gitkeep

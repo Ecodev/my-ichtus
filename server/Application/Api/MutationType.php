@@ -9,6 +9,7 @@ use Application\Api\Field\Mutation\ConfirmRegistration;
 use Application\Api\Field\Mutation\CreateTransaction;
 use Application\Api\Field\Mutation\DeleteUsers;
 use Application\Api\Field\Mutation\ExportAccountingReport;
+use Application\Api\Field\Mutation\ExportIndicatorReport;
 use Application\Api\Field\Mutation\ExportTransactionLines;
 use Application\Api\Field\Mutation\ImportCamt;
 use Application\Api\Field\Mutation\LeaveFamily;
@@ -65,6 +66,7 @@ class MutationType extends ObjectType
             UpdateConfiguration::build(),
             CloseAccounting::build(),
             ExportAccountingReport::build(),
+            ExportIndicatorReport::build(),
             ExportTransactionLines::build(),
             Utility::filterByKeys(Standard::buildMutation(User::class), 'createUser', 'updateUser'),
             DeleteUsers::build(),

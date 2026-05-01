@@ -89,6 +89,10 @@ const config: CodegenConfig = {
                 input: 'string | any',
                 output: 'string',
             },
+            IndicatorDefinitionID: {
+                input: 'string | any',
+                output: 'string',
+            },
             LicenseID: {
                 input: 'string | any',
                 output: 'string',

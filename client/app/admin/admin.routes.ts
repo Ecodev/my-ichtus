@@ -46,6 +46,7 @@ import {TransactionTagsComponent} from './transactionTags/transactionTags/transa
 import {TransactionTagComponent} from './transactionTags/transactionTag/transactionTag.component';
 import {resolveTransactionTag} from './transactionTags/services/transactionTag-resolver.service';
 import {TransactionLinesComponent} from './transactions/transactionLines/transactionLines.component';
+import {IndicatorReportComponent} from './indicator-report/indicator-report.component';
 import {resolveExpenseClaimParam} from './expenseClaim/services/expenseClaim.param.resolver';
 import {ImportComponent} from './import/import.component';
 import {LogsComponent} from './logs/logs/logs.component';
@@ -610,6 +611,16 @@ export const routes: Routes = [
                             },
                         ],
                     },
+                },
+            },
+            {
+                path: 'indicator-report',
+                component: IndicatorReportComponent,
+                canActivate: [canActivateAccounting],
+                data: {
+                    seo: {
+                        title: 'Indicateurs comptables',
+                    } satisfies NaturalSeo,
                 },
             },
             {
