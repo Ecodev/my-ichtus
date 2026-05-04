@@ -198,44 +198,38 @@ class IndicatorDefinitionRepository extends AbstractRepository
             [
                 'sorting' => 110,
                 'name' => 'Nautique - Canoë & kayak',
-                'addends' => [15220],
-                'subtrahends' => [610022, 610023],
+                'addends' => [[15220, 25], 610022, 610023],
+                'subtrahends' => [15221],
             ],
             [
                 'sorting' => 120,
-                'name' => 'Nautique - Planche à voile',
-                'addends' => [15230],
-                'subtrahends' => [610052, 610053],
+                'name' => 'Nautique - SUP',
+                'addends' => [[15230, 25], 610052, 610053],
+                'subtrahends' => [15231],
             ],
             [
                 'sorting' => 130,
                 'name' => 'Nautique - Planche à voile',
-                'addends' => [15240],
-                'subtrahends' => [610042, 610043, 610044],
+                'addends' => [[15240, 25], 610042, 610043, 610044],
+                'subtrahends' => [15241],
             ],
             [
                 'sorting' => 140,
                 'name' => 'Nautique - Wingfoil',
-                'addends' => [15290],
-                'subtrahends' => [610032, 610034],
+                'addends' => [[15290, 25], 610032, 610034],
+                'subtrahends' => [15291],
             ],
             [
                 'sorting' => 150,
                 'name' => 'Nautique - Voile légère',
-                'addends' => [15250],
-                'subtrahends' => [610061, 610062, 610063],
+                'addends' => [[15250, 20], 610061, 610062, 610063],
+                'subtrahends' => [15250],
             ],
             [
                 'sorting' => 160,
                 'name' => 'Nautique - Voile lestée',
-                'addends' => [15260],
-                'subtrahends' => [610071, 610072, 610073, 610074, 610075],
-            ],
-            [
-                'sorting' => 170,
-                'name' => 'Nautique - Bateau à moteur',
-                'addends' => [15270],
-                'subtrahends' => [610101, 610102, 610103],
+                'addends' => [[15260, 20], 610071, 610072, 610073, 610074, 610075],
+                'subtrahends' => [15261],
             ],
 
             // Infra
@@ -273,7 +267,7 @@ class IndicatorDefinitionRepository extends AbstractRepository
                 'sorting' => 230,
                 'name' => 'Infra - bateaux moteur',
                 'addends' => [[15270, 10], 68020, 61010],
-                'subtrahends' => [],
+                'subtrahends' => [15271],
             ],
 
             // Management

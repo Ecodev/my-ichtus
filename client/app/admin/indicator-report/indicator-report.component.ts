@@ -33,7 +33,7 @@ import {
 import {gql} from '@apollo/client/core';
 import {Apollo} from 'apollo-angular';
 import {finalize} from 'rxjs';
-import type {
+import {
     ExportIndicatorReport,
     ExportIndicatorReportVariables,
     IndicatorReportQuery,
@@ -147,7 +147,7 @@ export class IndicatorReportComponent {
     protected getAccountLink(accountId: string): RouterLink['routerLink'] {
         return linkToTransactionLines({
             field: 'custom',
-            name: 'creditOrDebitAccount',
+            name: 'account',
             condition: {have: {values: [accountId]}},
         });
     }
