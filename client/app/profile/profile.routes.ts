@@ -139,6 +139,7 @@ export const routes: Routes = [
                     formation('laser', '6032'),
                     formation('catamaran', '6033'),
                     formation('wing-foil', '6045'),
+                    formation('pumpfoil', '6052'),
                     formation('surprise', '6039'),
                     formation('canoe-kayak', '6049'),
                 ],
