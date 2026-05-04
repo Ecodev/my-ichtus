@@ -192,7 +192,7 @@ class IndicatorDefinitionRepository extends AbstractRepository
             [
                 'sorting' => 100,
                 'name' => 'Nautique - Aviron',
-                'addends' => [[15210, 20], 610012, 610013, 20309050],
+                'addends' => [[15210, 20], 610012, 610013],
                 'subtrahends' => [15211],
             ],
             [
