@@ -150,6 +150,13 @@ class AccountRepository extends AbstractHasParentRepository implements LimitedAc
         $connection->executeQuery($sql);
     }
 
+    public function transferBudgetsToNextYear(): int
+    {
+        return (int) $this->getEntityManager()->getConnection()->executeStatement(
+            'UPDATE account SET budget_las_year = budget_allowed, budget_allowed = budget_next_year, budget_next_year = NULL',
+        );
+    }
+
     /**
      * Return the next available Account code.
      */

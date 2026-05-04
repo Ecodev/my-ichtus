@@ -7,6 +7,7 @@ import {
     deleteAccounts,
     exportAccountingReport,
     nextCodeAvailableQuery,
+    transferAccountBudgets,
     updateAccount,
 } from './account.queries';
 import {
@@ -26,6 +27,7 @@ import {
     ExportAccountingReportVariables,
     NextAccountCodeQuery,
     NextAccountCodeQueryVariables,
+    TransferAccountBudgets,
     UpdateAccount,
     UpdateAccountVariables,
 } from '../../../shared/generated-types';
@@ -72,6 +74,8 @@ export class AccountService extends NaturalAbstractModelService<
             name: '',
             iban: '',
             budgetAllowed: null,
+            budgetLasYear: null,
+            budgetNextYear: null,
             totalBalanceFormer: '0',
         };
     }
@@ -83,6 +87,8 @@ export class AccountService extends NaturalAbstractModelService<
             iban: [iban],
             totalBalanceFormer: [Validators.required, money],
             budgetAllowed: [money, Validators.min(0)],
+            budgetLasYear: [money, Validators.min(0)],
+            budgetNextYear: [money, Validators.min(0)],
         };
     }
 
@@ -156,5 +162,13 @@ export class AccountService extends NaturalAbstractModelService<
                 },
             })
             .pipe(map(result => result.data!.closeAccounting));
+    }
+
+    public transferBudgets(): Observable<TransferAccountBudgets['transferAccountBudgets']> {
+        return this.apollo
+            .mutate<TransferAccountBudgets>({
+                mutation: transferAccountBudgets,
+            })
+            .pipe(map(result => result.data!.transferAccountBudgets));
     }
 }

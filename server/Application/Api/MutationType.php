@@ -21,6 +21,7 @@ use Application\Api\Field\Mutation\Register;
 use Application\Api\Field\Mutation\RequestPasswordReset;
 use Application\Api\Field\Mutation\RequestUserDeletion;
 use Application\Api\Field\Mutation\TerminateBooking;
+use Application\Api\Field\Mutation\TransferAccountBudgets;
 use Application\Api\Field\Mutation\Unregister;
 use Application\Api\Field\Mutation\UpdateConfiguration;
 use Application\Api\Field\Mutation\UpdatePassword;
@@ -65,6 +66,7 @@ class MutationType extends ObjectType
             Utility::filterByKeys(Standard::buildMutation(Transaction::class), 'deleteTransactions'),
             UpdateConfiguration::build(),
             CloseAccounting::build(),
+            TransferAccountBudgets::build(),
             ExportAccountingReport::build(),
             ExportIndicatorReport::build(),
             ExportTransactionLines::build(),

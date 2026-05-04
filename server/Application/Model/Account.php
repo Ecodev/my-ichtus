@@ -66,6 +66,12 @@ class Account extends AbstractModel implements HasParentInterface
     #[ORM\Column(type: 'Money', nullable: true)]
     private ?Money $budgetAllowed = null;
 
+    #[ORM\Column(type: 'Money', nullable: true)]
+    private ?Money $budgetLasYear = null;
+
+    #[ORM\Column(type: 'Money', nullable: true)]
+    private ?Money $budgetNextYear = null;
+
     #[ORM\Column(type: 'Money', nullable: true, columnDefinition: 'INT AS (IF(type = \'asset\', budget_allowed - (total_balance - total_balance_former), budget_allowed - total_balance)) PERSISTENT')]
     private ?Money $budgetBalance = null;
 
@@ -114,6 +120,26 @@ class Account extends AbstractModel implements HasParentInterface
     public function setBudgetAllowed(?Money $budgetAllowed): void
     {
         $this->budgetAllowed = $budgetAllowed;
+    }
+
+    public function getBudgetLasYear(): ?Money
+    {
+        return $this->budgetLasYear;
+    }
+
+    public function setBudgetLasYear(?Money $budgetLasYear): void
+    {
+        $this->budgetLasYear = $budgetLasYear;
+    }
+
+    public function getBudgetNextYear(): ?Money
+    {
+        return $this->budgetNextYear;
+    }
+
+    public function setBudgetNextYear(?Money $budgetNextYear): void
+    {
+        $this->budgetNextYear = $budgetNextYear;
     }
 
     public function getBudgetBalance(): ?Money

@@ -100,7 +100,9 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
         {id: 'iban', label: 'IBAN', checked: false},
         {id: 'totalBalance', label: 'Solde'},
         {id: 'totalBalanceFormer', label: 'Solde précédent'},
-        {id: 'budgetAllowed', label: 'Budget prévu'},
+        {id: 'budgetLasYear', label: 'Budget année passée'},
+        {id: 'budgetAllowed', label: 'Budget courant'},
+        {id: 'budgetNextYear', label: 'Budget année suivante'},
         {id: 'budgetBalance', label: 'Budget restant'},
         {id: 'creationDate', label: 'Créé le', checked: false},
         {id: 'updateDate', label: 'Modifié le', checked: false},
@@ -115,6 +117,12 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
                     label: `Exporter rapport comptable`,
                     icon: 'file_download',
                     click: (button: Button): void => this.export(button),
+                },
+                {
+                    label: `Décaler les budgets`,
+                    icon: 'move_up',
+                    show: this.permissionsService.isAdministrator(viewer),
+                    click: (button: Button): void => this.transferBudgets(button),
                 },
                 {
                     label: `Bouclement comptable`,
@@ -167,6 +175,20 @@ export class AccountsComponent extends NaturalAbstractNavigableList<AccountServi
                         .subscribe(url => {
                             window.location.href = url;
                         });
+                }
+            });
+    }
+
+    protected transferBudgets(button: Button): void {
+        this.alertService
+            .confirm('Décaler les budgets', "Les budgets vont être décalés d'une année dans le passé", 'Décaler')
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    button.disabled = true;
+                    this.service
+                        .transferBudgets()
+                        .pipe(finalize(() => (button.disabled = false)))
+                        .subscribe(() => this.search(this.naturalSearchSelections, undefined, false));
                 }
             });
     }

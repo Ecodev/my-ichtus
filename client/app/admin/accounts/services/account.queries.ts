@@ -19,6 +19,8 @@ export const accountMetaFragment = gql`
         iban
         totalBalance
         budgetAllowed
+        budgetLasYear
+        budgetNextYear
         budgetBalance
         totalBalanceFormer
         type
@@ -106,6 +108,8 @@ export const updateAccount = gql`
             id
             name
             fullName
+            budgetLasYear
+            budgetNextYear
             budgetBalance
             updateDate
             updater {
@@ -133,5 +137,11 @@ export const closeAccounting = gql`
         closeAccounting(date: $date) {
             id
         }
+    }
+`;
+
+export const transferAccountBudgets = gql`
+    mutation TransferAccountBudgets {
+        transferAccountBudgets
     }
 `;
