@@ -1,6 +1,5 @@
 import {AsyncPipe, DatePipe} from '@angular/common';
 import {Component, inject, signal} from '@angular/core';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {DateAdapter} from '@angular/material/core';
 import {MatButton, MatIconButton} from '@angular/material/button';
@@ -33,7 +32,7 @@ import {
 } from '@ecodev/natural';
 import {gql} from '@apollo/client/core';
 import {Apollo} from 'apollo-angular';
-import {filter, finalize, startWith, switchMap} from 'rxjs';
+import {finalize} from 'rxjs';
 import type {
     ExportIndicatorReport,
     ExportIndicatorReportVariables,
@@ -176,19 +175,16 @@ export class IndicatorReportComponent {
             });
     }
 
-    private getReport(): void {
-        this.form.valueChanges
-            .pipe(
-                takeUntilDestroyed(),
-                startWith(this.form.getRawValue()),
-                filter(() => this.form.valid),
-                switchMap(() =>
-                    this.apollo.query<IndicatorReportQuery, IndicatorReportQueryVariables>({
-                        query: indicatorQuery,
-                        variables: this.getVariables()!,
-                    }),
-                ),
-            )
+    protected getReport(): void {
+        if (!this.form.valid) {
+            return;
+        }
+
+        this.apollo
+            .query<IndicatorReportQuery, IndicatorReportQueryVariables>({
+                query: indicatorQuery,
+                variables: this.getVariables()!,
+            })
             .subscribe(result => {
                 this.dataSource = new MatTableDataSource<IndicatorReportRow>(result.data.indicatorReport);
             });
