@@ -223,7 +223,7 @@ class IndicatorDefinitionRepository extends AbstractRepository
                 'sorting' => 150,
                 'name' => 'Nautique - Voile légère',
                 'addends' => [[15250, 20], 610061, 610062, 610063],
-                'subtrahends' => [15250],
+                'subtrahends' => [15251],
             ],
             [
                 'sorting' => 160,
@@ -248,8 +248,8 @@ class IndicatorDefinitionRepository extends AbstractRepository
             [
                 'sorting' => 200,
                 'name' => 'Infra - gilets, combis',
-                'addends' => [[15280, 25], 15281, 61020],
-                'subtrahends' => [],
+                'addends' => [[15280, 25], 61020],
+                'subtrahends' => [15281],
             ],
             [
                 'sorting' => 210,
@@ -266,7 +266,7 @@ class IndicatorDefinitionRepository extends AbstractRepository
             [
                 'sorting' => 230,
                 'name' => 'Infra - bateaux moteur',
-                'addends' => [[15270, 10], 68020, 61010],
+                'addends' => [[15270, 10], 61010],
                 'subtrahends' => [15271],
             ],
 
