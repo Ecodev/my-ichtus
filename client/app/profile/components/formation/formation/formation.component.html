@@ -86,7 +86,14 @@
             <a mat-list-item routerLinkActive="active" routerLink="surprise">Surprise</a>
         </mat-nav-list>
 
-        <h1 class="list-title mat-font-headline-lg">Nos cours et certifications</h1>
+        <div class="list-header">
+            <h1 class="list-title mat-font-headline-lg">Nos cours et certifications</h1>
+            <div class="nat-margin-bottom mat-font-body-lg">
+                Inscription pour les semaines et camps nautiques:
+                <a matButton href="https://ichtus.ch/camps" title="camps et semaines nautiques">ichtus.ch/camps</a>
+            </div>
+        </div>
+
         <div class="list">
             <router-outlet />
         </div>
