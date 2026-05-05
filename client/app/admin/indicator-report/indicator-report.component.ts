@@ -77,8 +77,8 @@ const exportIndicatorReport = gql`
     }
 `;
 
-function linkToTransactionLines(selection: NaturalSearchSelection): RouterLink['routerLink'] {
-    return ['/admin/transaction-line', toNavigationParameters([[selection]])];
+function linkToTransactionLines(selections: NaturalSearchSelection[]): RouterLink['routerLink'] {
+    return ['/admin/transaction-line', toNavigationParameters([selections])];
 }
 
 @Component({
@@ -133,10 +133,12 @@ export class IndicatorReportComponent {
         dateTo: new FormControl<Date | null>(null),
     });
     protected readonly exporting = signal(false);
-    protected readonly nonReconciledLink = linkToTransactionLines({
-        field: 'isReconciled',
-        condition: {in: {values: [false]}},
-    });
+    protected readonly nonReconciledLink = linkToTransactionLines([
+        {
+            field: 'isReconciled',
+            condition: {in: {values: [false]}},
+        },
+    ]);
 
     protected dataSource: MatTableDataSource<IndicatorReportRow> | null = null;
 
@@ -145,11 +147,14 @@ export class IndicatorReportComponent {
     }
 
     protected getAccountLink(accountId: string): RouterLink['routerLink'] {
-        return linkToTransactionLines({
-            field: 'custom',
-            name: 'account',
-            condition: {have: {values: [accountId]}},
-        });
+        return linkToTransactionLines([
+            {
+                field: 'custom',
+                name: 'account',
+                condition: {have: {values: [accountId]}},
+            },
+            ...this.getDateSelections(),
+        ]);
     }
 
     protected formatMultiplier(multiplier: number): string {
@@ -200,5 +205,42 @@ export class IndicatorReportComponent {
         }
 
         return {dateFrom, dateTo};
+    }
+
+    private getDateSelections(): NaturalSearchSelection[] {
+        const dateFrom = this.form.controls.dateFrom.value;
+        const dateTo = this.form.controls.dateTo.value;
+
+        if (!dateTo) {
+            return [
+                {
+                    field: 'transactionDate',
+                    condition: {
+                        greaterOrEqual: {
+                            value: formatIsoDate(dateFrom),
+                        },
+                    },
+                },
+            ];
+        }
+
+        return [
+            {
+                field: 'transactionDate',
+                condition: {
+                    greaterOrEqual: {
+                        value: formatIsoDate(dateFrom),
+                    },
+                },
+            },
+            {
+                field: 'transactionDate',
+                condition: {
+                    lessOrEqual: {
+                        value: formatIsoDate(dateTo),
+                    },
+                },
+            },
+        ];
     }
 }
