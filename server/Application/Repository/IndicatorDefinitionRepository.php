@@ -313,7 +313,7 @@ class IndicatorDefinitionRepository extends AbstractRepository
                 'sorting' => 300,
                 'name' => 'Recette - Cotisation et licences',
                 'addends' => [34001],
-                'subtrahends' => [3900],
+                'subtrahends' => [],
             ],
             [
                 'sorting' => 310,
@@ -336,7 +336,7 @@ class IndicatorDefinitionRepository extends AbstractRepository
             [
                 'sorting' => 340,
                 'name' => 'Recette - Subsides (J+S, Swiss Olympic…)',
-                'addends' => [36004],
+                'addends' => [36004, 36008],
                 'subtrahends' => [],
             ],
             [
