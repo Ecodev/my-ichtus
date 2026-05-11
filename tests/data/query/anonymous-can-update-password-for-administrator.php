@@ -19,11 +19,11 @@ return [
             'user',
             [
                 'token' => '09876543210987654321098765432109',
-                'token_creation_date' => Cake\Chronos\Chronos::now()->subMinutes(1)->toIso8601String(),
+                'token_creation_date' => Cake\Chronos\Chronos::now()->subMinutes(1),
             ],
             [
                 'login' => 'administrator',
-            ]
+            ],
         );
     },
 ];

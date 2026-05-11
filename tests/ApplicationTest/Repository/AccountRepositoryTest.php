@@ -9,6 +9,7 @@ use Application\Model\Account;
 use Application\Model\User;
 use Application\Repository\AccountRepository;
 use ApplicationTest\Traits\LimitedAccessSubQuery;
+use Cake\Chronos\Chronos;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Money\Money;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -40,7 +41,7 @@ class AccountRepositoryTest extends AbstractRepository
     public function testOneUserCanHaveOnlyOneAccount(): void
     {
         $this->expectException(UniqueConstraintViolationException::class);
-        $this->getEntityManager()->getConnection()->insert('account', ['owner_id' => 1000, 'iban' => uniqid()]);
+        $this->getEntityManager()->getConnection()->insert('account', ['owner_id' => 1000, 'iban' => uniqid(), 'code' => 99999]);
     }
 
     public function testGetOrCreate(): void
@@ -151,6 +152,8 @@ class AccountRepositoryTest extends AbstractRepository
         $connection->insert('transaction_line', [
             'transaction_id' => 8000,
             'credit_id' => $accountId,
+            'balance' => '0',
+            'transaction_date' => Chronos::now(),
         ]);
         $transactionLineId = $connection->lastInsertId();
         self::assertSame(0, $this->repository->deleteAccountOfNonFamilyOwnerWithoutAnyTransactions(), 'same as before, but with transaction to credit, should not delete');
@@ -167,6 +170,8 @@ class AccountRepositoryTest extends AbstractRepository
         $connection->insert('transaction_line', [
             'transaction_id' => 8000,
             'debit_id' => $id,
+            'balance' => '0',
+            'transaction_date' => Chronos::now(),
         ]);
         self::assertSame(0, $this->repository->deleteAccountOfNonFamilyOwnerWithoutAnyTransactions(), 'same as before, but with transaction to debit, should not delete');
     }

@@ -86,7 +86,7 @@ END ~~
 CREATE OR REPLACE PROCEDURE update_transaction_balance (IN transaction_id INT)
 BEGIN
     UPDATE transaction
-    SET transaction.balance = (SELECT SUM(IF(tl.debit_id IS NOT NULL, tl.balance, 0)) FROM transaction_line tl WHERE tl.transaction_id = transaction_id)
+    SET transaction.balance = (SELECT IFNULL(SUM(IF(tl.debit_id IS NOT NULL, tl.balance, 0)), 0) FROM transaction_line tl WHERE tl.transaction_id = transaction_id)
     WHERE transaction.id = transaction_id;
 END ~~
 
