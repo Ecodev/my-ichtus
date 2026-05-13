@@ -219,28 +219,91 @@ class Accounting
 
     private function checkAccounts(): void
     {
+        global $container;
+        $config = $container->get('config');
+
+        // Raw totals
         $assets = $this->accountRepository->totalBalanceByType(AccountType::Asset);
         $liabilities = $this->accountRepository->totalBalanceByType(AccountType::Liability);
         $revenue = $this->accountRepository->totalBalanceByType(AccountType::Revenue);
         $expense = $this->accountRepository->totalBalanceByType(AccountType::Expense);
-        $equity = $this->accountRepository->totalBalanceByType(AccountType::Equity);
-
+        $equities = $this->accountRepository->totalBalanceByType(AccountType::Equity);
         $income = $revenue->subtract($expense);
+        $discrepancy = $assets->subtract($income)->subtract($liabilities);
 
-        $discrepancy = $assets->subtract($income)->subtract($liabilities->add($equity));
+        // Report output
+        /** @var AccountRepository $accountRepository */
+        $accountRepository = _em()->getRepository(Account::class);
+        $reportAccounts = $accountRepository->getAccountsForReport($config['accounting'], ChronosDate::today());
+        $reportAssets = $this->sumReportAccounts($reportAccounts, AccountType::Asset->value);
+        $reportLiabilities = $this->sumReportAccounts($reportAccounts, AccountType::Liability->value);
+        $reportRevenue = $this->sumReportAccounts($reportAccounts, AccountType::Revenue->value);
+        $reportExpense = $this->sumReportAccounts($reportAccounts, AccountType::Expense->value);
+        $reportIncome = $reportRevenue->subtract($reportExpense);
+        $reportDiscrepancy = $reportAssets->subtract($reportIncome)->subtract($reportLiabilities);
 
         echo '
-Produits  : ' . Format::money($revenue) . '
-Charges   : ' . Format::money($expense) . '
-' . ($income->isNegative() ? 'Déficit   : ' : 'Bénéfice  : ') . Format::money($income) . '
-Actifs    : ' . Format::money($assets) . '
-Passifs   : ' . Format::money($liabilities) . '
-Capital   : ' . Format::money($equity) . '
-Écart     : ' . Format::money($discrepancy) . PHP_EOL;
+Produits       : ' . $this->formatMoneyComparison($revenue, $reportRevenue) . '
+Charges        : ' . $this->formatMoneyComparison($expense, $reportExpense) . '
+Bénéfice       : ' . $this->formatMoneyComparison($income, $reportIncome) . '
+Actifs         : ' . $this->formatMoneyComparison($assets, $reportAssets) . '
+Passifs        : ' . $this->formatMoneyComparison($liabilities, $reportLiabilities) . '
+Résultat       : ' . $this->formatMoney($equities) . '
+Écart          : ' . $this->formatMoneyComparison($discrepancy, $reportDiscrepancy)
+. PHP_EOL;
 
-        if (!$discrepancy->isZero()) {
-            $this->error(sprintf('ERREUR: écart de %s au bilan des comptes', Format::money($discrepancy)));
+        if (!$revenue->equals($reportRevenue)) {
+            $this->error(sprintf('ERREUR: produits différents de %s avec le rapport', $this->formatMoney($revenue->subtract($reportRevenue))));
         }
+        if (!$expense->equals($reportExpense)) {
+            $this->error(sprintf('ERREUR: charges différents de %s avec le rapport', $this->formatMoney($expense->subtract($reportExpense))));
+        }
+        if (!$assets->equals($reportAssets)) {
+            $this->error(sprintf('ERREUR: actifs différents de %s avec le rapport', $this->formatMoney($assets->subtract($reportAssets))));
+        }
+        if (!$liabilities->equals($reportLiabilities)) {
+            $this->error(sprintf('ERREUR: passifs différents de %s avec le rapport', $this->formatMoney($liabilities->subtract($reportLiabilities))));
+        }
+        if (!$discrepancy->equals($reportDiscrepancy)) {
+            $this->error(sprintf('ERREUR: écarts différents de %s avec le rapport', $this->formatMoney($expense->subtract($reportExpense))));
+        }
+        if (!$discrepancy->isZero()) {
+            $this->error(sprintf('ERREUR: écart de %s au total des comptes', $this->formatMoney($discrepancy)));
+        }
+        if (!$reportDiscrepancy->isZero()) {
+            $this->error(sprintf('ERREUR: écart de %s au bilan des comptes', $this->formatMoney($discrepancy)));
+        }
+        if (!$equities->isZero()) {
+            $this->error(sprintf('ERREUR: comptes de résultats non nulls : %s', $this->formatMoney($discrepancy)));
+        }
+    }
+
+    private function formatMoneyComparison(Money $amount1, Money $amount2): string
+    {
+        if ($amount1->equals($amount2)) {
+            return $this->formatMoney($amount1);
+        }
+
+        $diff = $amount2->subtract($amount1);
+        $sign = $diff->isNegative() ? '' : '+';
+
+        return $this->formatMoney($amount1) . ' ≠ ' . $this->formatMoney($amount2) . ' (' . $sign . $this->formatMoney($diff) . ')';
+    }
+
+    private function sumReportAccounts(array $reportAccounts, string $type): Money
+    {
+        return array_reduce(
+            array_filter($reportAccounts, fn ($account) => $account['type'] === $type && $account['parent_id'] === null),
+            fn ($sum, $account) => $sum->add(Money::CHF($account['balance'])),
+            Money::CHF(0),
+        );
+    }
+
+    private function formatMoney(mixed $amount): string
+    {
+        $money = $amount instanceof Money ? $amount : Money::CHF($amount);
+
+        return Format::money($money) . ' CHF';
     }
 
     private function checkTransactionsAreBalanced(): void

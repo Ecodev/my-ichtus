@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Application\Service\Exporter;
 
 use Application\Enum\AccountType;
-use Application\Model\Account;
+use Application\Repository\AccountRepository;
 use Cake\Chronos\ChronosDate;
-use Ecodev\Felix\Api\Exception;
-use Ecodev\Felix\Format;
 use Money\Money;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
@@ -18,20 +16,22 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 /**
- * @extends AbstractExcel<Account>
+ * @extends AbstractExcel<AccountForReport>
  *
- * @phpstan-type Data array{
- *     account: ?Account,
- *     code: int | '',
- *     name: string,
- *     depth: int,
- *     balance: Money,
- *     balancePrevious: ?Money,
- *     budgetAllowed: ?Money,
- *     budgetBalance: ?Money,
- *     format?: array,
- *     formatPrevious?: array,
- * }
+ * @phpstan-import-type AccountForReport from AccountRepository
+ *
+ * @phpstan-type ProfitOrLoss array{
+ *      code:  '',
+ *      name: string,
+ *      depth: 1,
+ *      balance: int,
+ *      previousBalance: null | int,
+ *      previousFormat: null | array,
+ *      budget_allowed: null,
+ *      budget_balance: null,
+ *      format: array,
+ *  }
+ * @phpstan-type Data AccountForReport|ProfitOrLoss
  */
 class AccountingReport extends AbstractExcel
 {
@@ -102,22 +102,22 @@ class AccountingReport extends AbstractExcel
         ],
     ];
 
+    /**
+     * @var array<string, int>
+     */
     private static array $columnWidth = [
-        'accountCode' => 14,
+        'accountCode' => 11,
         'accountName' => 38,
         'balance' => 12,
     ];
 
-    public function __construct(
-        string $hostname,
-        private readonly array $accountingConfig,
-    ) {
+    public function __construct(string $hostname)
+    {
         parent::__construct($hostname);
 
         $this->zebra = false;
         $this->autoFilter = false;
         $this->date = ChronosDate::today();
-
         $this->sheet->setTitle(_tr('Bilan') . ' & ' . _tr('Résultat'));
     }
 
@@ -154,58 +154,21 @@ class AccountingReport extends AbstractExcel
         ++$this->row;
     }
 
-    private function processAccount(Account $account, int $depth): void
-    {
-        $balance = $account->getBalanceAtDate($this->date);
-        $balancePrevious = $this->datePrevious ? $account->getBalanceAtDate($this->datePrevious) : null;
-        // Skip the account if:
-        // - accounting is configured to hide accounts with zero balance
-        // - AND account at report date has zero balance
-        // - AND account at previous date has zero balance (but only if "show previous year" mode is enabled)
-        if ($this->accountingConfig['report']['showAccountsWithZeroBalance'] === false && $depth > 1 && $balance->isZero() && (!$this->datePrevious || ($balancePrevious && $balancePrevious->isZero()))) {
-            return;
-        }
-
-        if ($account->getType() === AccountType::Equity) {
-            // Don't show special accounts since it's an interim statement, their balance will be computed manually
-            return;
-        }
-
-        $data = [
-            'code' => $account->getCode(),
-            'name' => Format::truncate($account->getName(), 55),
-            'depth' => $depth,
-            'balance' => $balance,
-            'balancePrevious' => $balancePrevious,
-            'budgetAllowed' => $this->showBudget ? $account->getBudgetAllowed() : null,
-            'budgetBalance' => $this->showBudget ? $account->getBudgetBalance() : null,
-            'account' => $account,
-        ];
-
-        if ($this->isAccountType($account, AccountType::Asset)) {
-            $this->assets[] = $data;
-        } elseif ($this->isAccountType($account, AccountType::Liability)) {
-            $this->liabilities[] = $data;
-        } elseif ($this->isAccountType($account, AccountType::Revenue)) {
-            $this->revenues[] = $data;
-        } elseif ($this->isAccountType($account, AccountType::Expense)) {
-            $this->expenses[] = $data;
-        }
-
-        if ($account->getType() === AccountType::Group && $depth <= $this->accountingConfig['report']['maxAccountDepth']) {
-            foreach ($account->getChildren() as $child) {
-                $this->processAccount($child, $depth + 1);
-            }
-        }
-    }
-
     /**
-     * @param Account $item
+     * @param AccountForReport $account
      */
-    protected function writeItem($item): void
+    protected function writeItem($account): void
     {
         // This is unusual because we don't write anything but only collect data for later
-        $this->processAccount($item, 1);
+        if ($account['type'] === AccountType::Asset->value) {
+            $this->assets[] = $account;
+        } elseif ($account['type'] === AccountType::Liability->value) {
+            $this->liabilities[] = $account;
+        } elseif ($account['type'] === AccountType::Revenue->value) {
+            $this->revenues[] = $account;
+        } elseif ($account['type'] === AccountType::Expense->value) {
+            $this->expenses[] = $account;
+        }
     }
 
     /**
@@ -213,9 +176,9 @@ class AccountingReport extends AbstractExcel
      */
     private function insertProfitOrLoss(): void
     {
-        $profitOrLoss = $this->getProfitOrLoss(false);
+        $profitOrLoss = $this->getProfitOrLoss('balance');
 
-        if ($profitOrLoss->isZero()) {
+        if ($profitOrLoss === 0) {
             return; // If financial result is balanced, it likely a final accounting report so we don't show the intermediate result
         }
 
@@ -223,18 +186,18 @@ class AccountingReport extends AbstractExcel
             'depth' => 1,
             'code' => '',
             'name' => _tr('Résultat intermédiaire (bénéfice / -perte)'),
-            'account' => null,
             'balance' => $profitOrLoss, // can be positive of negative
-            'balancePrevious' => null,
-            'budgetAllowed' => null,
-            'budgetBalance' => null,
+            'previousBalance' => null,
+            'previousFormat' => null,
+            'budget_allowed' => null,
+            'budget_balance' => null,
             'format' => $this->color($profitOrLoss),
         ];
 
         if ($this->datePrevious) {
-            $profitOrLossPrevious = $this->getProfitOrLoss(true);
-            $data['balancePrevious'] = $profitOrLossPrevious;
-            $data['formatPrevious'] = $this->color($profitOrLossPrevious);
+            $profitOrLossPrevious = $this->getProfitOrLoss('previousBalance');
+            $data['previousBalance'] = $profitOrLossPrevious;
+            $data['previousFormat'] = $this->color($profitOrLossPrevious);
         }
 
         // A profit is reported as a POSITIVE green number, and a loss is reported a NEGATIVE red number.
@@ -311,14 +274,13 @@ class AccountingReport extends AbstractExcel
         $this->sheet->getPageSetup()->setPrintAreaByColumnAndRow(1, $initialRow - 3, $this->lastDataColumn, $this->lastDataRow + 1, 1, 'I');
     }
 
-    private function getProfitOrLoss(bool $isPreviousDate): Money
+    private function getProfitOrLoss(string $attribute): int
     {
         // Sum the profit and loss root accounts
-        $totalRevenues = $this->sumBalance($this->revenues, $isPreviousDate);
+        $totalRevenues = $this->sumRoot($this->revenues, $attribute);
+        $totalExpenses = $this->sumRoot($this->expenses, $attribute);
 
-        $totalExpenses = $this->sumBalance($this->expenses, $isPreviousDate);
-
-        return $totalRevenues->subtract($totalExpenses);
+        return $totalRevenues - $totalExpenses;
     }
 
     protected function finalize(string $path): void
@@ -349,22 +311,21 @@ class AccountingReport extends AbstractExcel
         foreach ([$accountsColumn1, $accountsColumn2] as $col => $accounts) {
             // Account.code
             $this->write(mb_strtoupper(_tr('Contrôle')));
+
             // Account.name
             $this->write('');
+
             // Account.balance
-            $cellsToSum = $this->cellsToSum($accounts, 1);
-            $this->write($cellsToSum ? '=SUM(' . implode(',', $cellsToSum) . ')' : '', self::$balanceFormat, self::$totalFormat);
+            $this->write($this->toMoney($this->sumRoot($accounts, 'balance')), self::$balanceFormat, self::$totalFormat);
+
             // Account previous balance (optional)
             if ($this->datePrevious) {
-                $cellsToSum = $this->cellsToSum($accounts, 1, 'cellPrevious');
-                $this->write($cellsToSum ? '=SUM(' . implode(',', $cellsToSum) . ')' : '', self::$balanceFormat, self::$totalFormat);
+                $this->write($this->toMoney($this->sumRoot($accounts, 'previousBalance')), self::$balanceFormat, self::$totalFormat);
             }
+
             // Budget columns (optional)
             if ($this->showBudget) {
-                $cellsToSum = $this->cellsToSum($accounts, 1, 'cellBudgetAllowed');
-                $this->write($cellsToSum ? '=SUM(' . implode(',', $cellsToSum) . ')' : '', self::$balanceFormat, self::$totalFormat);
-                $cellsToSum = $this->cellsToSum($accounts, 1, 'cellBudgetBalance');
-                $this->write($cellsToSum ? '=SUM(' . implode(',', $cellsToSum) . ')' : '', self::$balanceFormat, self::$totalFormat);
+                $this->column += 2;
             }
             if ($col === 0) {
                 // Inner columns gap
@@ -372,6 +333,7 @@ class AccountingReport extends AbstractExcel
             }
         }
         $this->lastDataRow = $this->row;
+
         // Apply style
         $range = Coordinate::stringFromColumnIndex($this->firstDataColumn) . $this->row . ':' . Coordinate::stringFromColumnIndex($this->column - 1) . $this->row;
         $this->sheet->getStyle($range)->applyFromArray(self::$ctrlFormat);
@@ -401,39 +363,17 @@ class AccountingReport extends AbstractExcel
         }
     }
 
-    private function cellsToSum(array $data, int $depth, string $dataIndex = 'cell'): array
-    {
-        $equityAccountsClasses = $this->accountingConfig['report']['accountClasses']['equity'];
-        $cells = array_reduce($data, function (array $carry, $data) use ($equityAccountsClasses, $depth, $dataIndex) {
-            // We only sum accounts at the given depth, plus equity special accounts
-            if (isset($data[$dataIndex]) && ($data['depth'] === $depth || in_array(mb_substr((string) $data['code'], 0, 1), $equityAccountsClasses, true))) {
-                $carry[] = $data[$dataIndex];
-            }
-
-            return $carry;
-        }, []);
-
-        return $cells;
-    }
-
     /**
-     * Sum root or special accounts balance (for the profit and loss calculation)
-     * - Root accounts have depth = 1
-     * - Special accounts have code 7xxx, 8xxx, 9xxx.
+     * Sum root or equity accounts balance (for the profit and loss calculation)
+     * - Root accounts have depth = 1.
      *
      * @param Data[] $data profits or expenses
      */
-    private function sumBalance(array $data, bool $isPreviousDate): Money
+    private function sumRoot(array $data, string $attribute): int
     {
-        $sum = array_reduce($data, function (Money $carry, $data) use ($isPreviousDate) {
-            if ($data['depth'] === 1 || (int) mb_substr((string) $data['code'], 0, 1) > 6) {
-                return $carry->add($isPreviousDate ? $data['balancePrevious'] : $data['balance']);
-            }
+        $rootAccounts = array_filter($data, fn ($account) => !isset($account['parent_id']));
 
-            return $carry;
-        }, Money::CHF(0));
-
-        return $sum;
+        return array_sum(array_column($rootAccounts, $attribute));
     }
 
     private function balanceSheetHeaders(int $initialColumn): void
@@ -491,13 +431,10 @@ class AccountingReport extends AbstractExcel
      */
     private function balanceSheet(int $initialColumn, array &$allData): void
     {
-        // Store coordinates (ie. E3) of the 2nd level account budget cells to later use in formula
-        $budgetAllowedTotalCells = '';
-        $budgetBalanceTotalCells = '';
-
         $firstLine = true;
 
         foreach ($allData as $index => $data) {
+
             // Column: account code
             if ($firstLine) {
                 $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['accountCode']);
@@ -525,7 +462,7 @@ class AccountingReport extends AbstractExcel
             }
             // Store the coordinate of the cell to later compute totals
             $allData[$index]['cell'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
-            $this->write($data['balance'], self::$balanceFormat, $maybeBold, $data['format'] ?? []);
+            $this->write($this->toMoney($data['balance']), self::$balanceFormat, $maybeBold, $data['format'] ?? []);
 
             // Column: balance at previous date (optional)
             if ($this->datePrevious) {
@@ -533,7 +470,7 @@ class AccountingReport extends AbstractExcel
                 if ($firstLine) {
                     $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['balance']);
                 }
-                $this->write($data['balancePrevious'], $maybeBold, $data['formatPrevious'] ?? []);
+                $this->write($this->toMoney($data['previousBalance']), $maybeBold, $data['previousFormat'] ?? []);
             }
 
             // Budget columns (optional)
@@ -541,16 +478,14 @@ class AccountingReport extends AbstractExcel
                 $allData[$index]['cellBudgetAllowed'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
                 if ($firstLine) {
                     $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['balance']);
-                    $budgetAllowedTotalCells = Coordinate::stringFromColumnIndex($this->column) . $this->row;
                 }
-                $this->write($data['budgetAllowed'] ?? '', self::$balanceFormat, $maybeBold);
+                $this->write($this->toMoney($data['budget_allowed'], true), self::$balanceFormat, $maybeBold);
 
                 $allData[$index]['cellBudgetBalance'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
                 if ($firstLine) {
                     $this->sheet->getColumnDimensionByColumn($this->column)->setWidth(self::$columnWidth['balance']);
-                    $budgetBalanceTotalCells = Coordinate::stringFromColumnIndex($this->column) . $this->row;
                 }
-                $this->write($data['budgetBalance'] ?? '', self::$balanceFormat, $maybeBold);
+                $this->write($this->toMoney($data['budget_balance'], true), self::$balanceFormat, $maybeBold);
             }
 
             $firstLine = false;
@@ -558,20 +493,6 @@ class AccountingReport extends AbstractExcel
             $this->column = $initialColumn;
 
             $this->lastDataRow = max($this->lastDataRow, $this->row);
-        }
-
-        // Compute the sum of budgets columns using an Excel formula
-        // We don't do it for account balance, since the total of group accounts is computed in DB
-        // Level 2 (= direct child accounts)
-        if ($this->showBudget) {
-            $cellsToSum = $this->cellsToSum($allData, 2, 'cellBudgetAllowed');
-            if ($cellsToSum) {
-                $this->sheet->setCellValue($budgetAllowedTotalCells, '=SUM(' . implode(',', $cellsToSum) . ')');
-            }
-            $cellsToSum = $this->cellsToSum($allData, 2, 'cellBudgetBalance');
-            if ($cellsToSum) {
-                $this->sheet->setCellValue($budgetBalanceTotalCells, '=SUM(' . implode(',', $cellsToSum) . ')');
-            }
         }
     }
 
@@ -635,7 +556,6 @@ class AccountingReport extends AbstractExcel
 
         $this->column = $initialColumn;
         $this->writeHeaders($headers);
-        $this->sheet->getRowDimension($this->row)->setRowHeight(1.2, 'cm');
     }
 
     /**
@@ -663,21 +583,21 @@ class AccountingReport extends AbstractExcel
             // Column: balance at date
             // Store the coordinate of the cell to later compute totals
             $allData[$index]['cell'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
-            $this->write($data['balance'], self::$balanceFormat, $maybeBold, $data['format'] ?? []);
+            $this->write($this->toMoney($data['balance']), self::$balanceFormat, $maybeBold, $data['format'] ?? []);
 
             // Column: balance at previous date (optional)
             if ($this->datePrevious) {
                 $allData[$index]['cellPrevious'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
-                $this->write($data['balancePrevious'], $maybeBold, $data['formatPrevious'] ?? []);
+                $this->write($this->toMoney($data['previousBalance']), $maybeBold, $data['previousFormat'] ?? []);
             }
 
             // Budget columns (optional)
             if ($this->showBudget) {
                 $allData[$index]['cellBudgetAllowed'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
-                $this->write($data['budgetAllowed'] ?? '', self::$balanceFormat, $maybeBold);
+                $this->write($this->toMoney($data['budget_allowed'], true), self::$balanceFormat, $maybeBold);
 
                 $allData[$index]['cellBudgetBalance'] = $this->sheet->getCell([$this->column, $this->row])->getCoordinate();
-                $this->write($data['budgetBalance'] ?? '', self::$balanceFormat, $maybeBold);
+                $this->write($this->toMoney($data['budget_balance'], true), self::$balanceFormat, $maybeBold);
             }
 
             ++$this->row;
@@ -688,37 +608,26 @@ class AccountingReport extends AbstractExcel
         }
     }
 
-    private function color(Money $profitOrLoss): array
+    /**
+     * @param null|int|numeric-string $value
+     */
+    private function toMoney(int|string|null $value, bool $empty = false): Money|string
+    {
+        if ($value === null) {
+            return $empty ? '' : Money::CHF(0);
+        }
+
+        return Money::CHF($value);
+    }
+
+    private function color(int $profitOrLoss): array
     {
         return [
             'font' => [
                 'color' => [
-                    'argb' => $profitOrLoss->isPositive() ? Color::COLOR_DARKGREEN : Color::COLOR_RED,
+                    'argb' => $profitOrLoss > 0 ? Color::COLOR_DARKGREEN : Color::COLOR_RED,
                 ],
             ],
         ];
-    }
-
-    private function isAccountType(Account $account, AccountType $accountType): bool
-    {
-        return $account->getType() === $accountType
-            || (
-                $account->getType() === AccountType::Group
-                && $this->isCodeAccountType($account->getCode(), $accountType)
-            );
-    }
-
-    private function isCodeAccountType(string|int $code, AccountType $accountType): bool
-    {
-        $accountClasses = $this->accountingConfig['report']['accountClasses'];
-        $class = match ($accountType) {
-            AccountType::Asset => $accountClasses['assets'],
-            AccountType::Liability => $accountClasses['liabilities'],
-            AccountType::Revenue => $accountClasses['revenues'],
-            AccountType::Expense => $accountClasses['expenses'],
-            default => throw new Exception('Non supported related account type: ' . $accountType->value),
-        };
-
-        return in_array(mb_substr((string) $code, 0, 1), $class, true);
     }
 }

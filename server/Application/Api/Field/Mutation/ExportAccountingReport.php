@@ -29,6 +29,7 @@ abstract class ExportAccountingReport implements FieldInterface
 
                 /** @var AccountingReport $exporter */
                 $exporter = $container->get(AccountingReport::class);
+                $config = $container->get('config');
 
                 if ($args['date']) {
                     $exporter->setDate($args['date']);
@@ -41,9 +42,9 @@ abstract class ExportAccountingReport implements FieldInterface
                 // Select root accounts
                 /** @var AccountRepository $accountRepository */
                 $accountRepository = _em()->getRepository(Account::class);
-                $rootAccountsQuery = $accountRepository->getRootAccountsQuery();
+                $accounts = $accountRepository->getAccountsForReport($config['accounting'], $args['date'], $args['datePrevious']);
 
-                return $exporter->export($rootAccountsQuery->getResult());
+                return $exporter->export($accounts);
             },
         ];
     }
