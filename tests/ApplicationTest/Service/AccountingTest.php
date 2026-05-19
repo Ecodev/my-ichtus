@@ -37,13 +37,13 @@ class AccountingTest extends TestCase
         $this->expectOutputString(
             <<<STRING
 
-                Produits  : 240.00
-                Charges   : 112.50
-                Bénéfice  : 127.50
-                Actifs    : 35187.50
-                Passifs   : 60.00
-                Capital   : 35000.00
-                Écart     : 0.00
+                Produits       : 240.00 CHF
+                Charges        : 112.50 CHF
+                Bénéfice       : 127.50 CHF
+                Actifs         : 35187.50 CHF
+                Passifs        : 35060.00 CHF
+                Résultat       : 0.00 CHF
+                Écart          : 0.00 CHF
                 Création du compte 20300010 pour l'utilisateur 1003...
                 Création du compte 20300011 pour l'utilisateur 1004...
                 Création du compte 20300012 pour l'utilisateur 1005...

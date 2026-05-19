@@ -101,10 +101,10 @@ class AccountRepositoryTest extends AbstractRepository
         $totalEquity = $this->repository->totalBalanceByType(AccountType::Equity);
 
         self::assertTrue(Money::CHF(3518750)->equals($totalAssets));
-        self::assertTrue(Money::CHF(6000)->equals($totalLiabilities));
+        self::assertTrue(Money::CHF(3506000)->equals($totalLiabilities));
         self::assertTrue(Money::CHF(24000)->equals($totalRevenue));
         self::assertTrue(Money::CHF(11250)->equals($totalExpense));
-        self::assertTrue(Money::CHF(3500000)->equals($totalEquity));
+        self::assertTrue(Money::CHF(0)->equals($totalEquity));
 
         $groupAccount = $this->repository->getOneById(10001); // 2. Passifs
         self::assertSame(AccountType::Group, $groupAccount->getType(), 'is a group');
