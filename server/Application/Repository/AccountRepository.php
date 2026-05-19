@@ -129,16 +129,11 @@ class AccountRepository extends AbstractHasParentRepository implements LimitedAc
      */
     public function totalBalanceByType(AccountType $accountType): Money
     {
-        $qb = $this->getEntityManager()->getConnection()->createQueryBuilder()
-            ->select('SUM(balance)')
-            ->from($this->getClassMetadata()->getTableName())
-            ->where('type = :type');
+        $amount = $this->getEntityManager()->getConnection()->fetchOne('SELECT IFNULL(SUM(balance), 0) FROM account WHERE type = :type', [
+            'type' => $accountType->value,
+        ]);
 
-        $qb->setParameter('type', $accountType->value);
-
-        $result = $qb->executeQuery();
-
-        return Money::CHF($result->fetchOne());
+        return Money::CHF($amount);
     }
 
     /**
@@ -195,29 +190,77 @@ class AccountRepository extends AbstractHasParentRepository implements LimitedAc
 
         $today = ChronosDate::today();
 
-        // Decides if we need to compute transactions lines (if any date is in the past) and join TL
+        // Decides if we need to compute transaction lines if any date is in the past.
         $isReferenceDateInThePast = $date->lessThan($today);
         $isPreviousDateInThePast = $previousDate !== null && $previousDate->lessThan($today);
-        $transactionsJoin = '';
+        $balanceCTE = '';
+        $balancesJoin = '';
         if ($isReferenceDateInThePast || $isPreviousDateInThePast) {
             $queryParams['mostRecentPastDate'] = max(array_filter([$date, $previousDate]));
-            $transactionsJoin = 'LEFT JOIN transaction_line tl ON (tl.debit_id = a.id OR tl.credit_id = a.id) AND DATE(tl.transaction_date) <= :mostRecentPastDate';
+            $debitBalanceSelects = [];
+            $creditBalanceSelects = [];
+            $balanceColumns = [];
+
+            if ($isReferenceDateInThePast) {
+                $debitBalanceSelects[] = $this->getLineBalanceSelect('reportDate', 'balance', 'debit_account', "'asset', 'expense'");
+                $creditBalanceSelects[] = $this->getLineBalanceSelect('reportDate', 'balance', 'credit_account', "'liability', 'equity', 'revenue'");
+                $balanceColumns[] = 'COALESCE(SUM(balance), 0) AS balance';
+            } else {
+                $debitBalanceSelects[] = '0 AS balance';
+                $creditBalanceSelects[] = '0 AS balance';
+                $balanceColumns[] = '0 AS balance';
+            }
+
+            if ($isPreviousDateInThePast) {
+                $debitBalanceSelects[] = $this->getLineBalanceSelect('previousDate', 'previousBalance', 'debit_account', "'asset', 'expense'");
+                $creditBalanceSelects[] = $this->getLineBalanceSelect('previousDate', 'previousBalance', 'credit_account', "'liability', 'equity', 'revenue'");
+                $balanceColumns[] = 'COALESCE(SUM(previousBalance), 0) AS previousBalance';
+            } else {
+                $debitBalanceSelects[] = '0 AS previousBalance';
+                $creditBalanceSelects[] = '0 AS previousBalance';
+                $balanceColumns[] = '0 AS previousBalance';
+            }
+
+            $debitSelects = implode(', ', $debitBalanceSelects);
+            $creditSelects = implode(', ', $creditBalanceSelects);
+            $balanceSelects = implode(', ', $balanceColumns);
+            $balanceCTE = <<<SQL
+                
+                line_amounts AS (
+                    SELECT tl.debit_id AS account_id, $debitSelects
+                    FROM transaction_line tl
+                    INNER JOIN account debit_account ON debit_account.id = tl.debit_id
+                    WHERE DATE(tl.transaction_date) <= :mostRecentPastDate
+                    UNION ALL
+                    SELECT tl.credit_id AS account_id, $creditSelects
+                    FROM transaction_line tl
+                    INNER JOIN account credit_account ON credit_account.id = tl.credit_id
+                    WHERE DATE(tl.transaction_date) <= :mostRecentPastDate
+                ),
+                
+                balances AS (
+                    SELECT account_id, $balanceSelects
+                    FROM line_amounts
+                    GROUP BY account_id
+                ),
+                SQL;
+            $balancesJoin = 'LEFT JOIN balances b ON b.account_id = a.id';
         }
 
         if ($isReferenceDateInThePast) {
             // If reference date is in the past, determines balance by summing transactions
             $paramName = 'reportDate';
-            $querySelects[] = $this->getBalanceSelect($paramName, 'balance');
+            $querySelects[] = 'COALESCE(b.balance, 0) AS balance';
             $queryParams[$paramName] = $date;
         } else {
             // If today date, use "cache" account.balance
-            $querySelects[] = 'a.balance';
+            $querySelects[] = 'a.balance AS balance';
         }
 
         // If we have a previous date, sum their transactions
         if ($isPreviousDateInThePast) {
             $paramName = 'previousDate';
-            $querySelects[] = $this->getBalanceSelect($paramName, 'previousBalance');
+            $querySelects[] = 'COALESCE(b.previousBalance, 0) AS previousBalance';
             $queryParams[$paramName] = $previousDate;
         } else {
             $querySelects[] = '0 as previousBalance';
@@ -227,11 +270,12 @@ class AccountRepository extends AbstractHasParentRepository implements LimitedAc
         $sql = <<<SQL
             
                 WITH RECURSIVE 
+                $balanceCTE
                 
                 children AS (
                     SELECT a.id, a.code, IF(CHAR_LENGTH(a.name) > 55, CONCAT(SUBSTRING(a.name, 1, 55), '...'), a.name) as name, a.type, a.parent_id, parent.code AS parent_code, a.budget_allowed, a.code AS path, $selects
                     FROM account a 
-                    $transactionsJoin
+                    $balancesJoin
                     LEFT JOIN account parent ON parent.id = a.parent_id
                     WHERE a.type != :groupType
                     GROUP BY a.id
@@ -275,20 +319,17 @@ class AccountRepository extends AbstractHasParentRepository implements LimitedAc
     }
 
     /**
-     * Returns SQL string for a balance select that sum transaction balances.
+     * Returns SQL string for a transaction line balance select.
      */
-    private function getBalanceSelect(string $dateParamName, string $columnName): string
+    private function getLineBalanceSelect(string $dateParamName, string $columnName, string $accountAlias, string $positiveTypes): string
     {
         return <<<SQL
-            COALESCE(SUM(
-                CASE WHEN DATE(tl.transaction_date) <= :$dateParamName THEN
-                    CASE
-                        WHEN tl.debit_id  = a.id AND a.type IN ('asset', 'expense')               THEN tl.balance
-                        WHEN tl.credit_id = a.id AND a.type IN ('liability', 'equity', 'revenue') THEN tl.balance
-                        ELSE -tl.balance
-                    END
+            CASE WHEN DATE(tl.transaction_date) <= :$dateParamName THEN
+                CASE
+                    WHEN $accountAlias.type IN ($positiveTypes) THEN tl.balance
+                    ELSE -tl.balance
                 END
-            ), 0) AS $columnName
+            END AS $columnName
             SQL;
     }
 
