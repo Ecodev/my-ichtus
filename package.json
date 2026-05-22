@@ -14,7 +14,7 @@
         "e2e": "playwright test",
         "codegen": "./bin/dump-schema && graphql-codegen --config codegen.ts"
     },
-    "packageManager": "pnpm@11.0.1",
+    "packageManager": "pnpm@11.2.2",
     "dependencies": {
         "@angular/cdk": "^21.2.0",
         "@angular/common": "^21.2.0",
