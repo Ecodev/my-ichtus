@@ -56,6 +56,7 @@ export const accountQuery = gql`
         account(id: $id) {
             id
             ...AccountMeta
+            hasChildren
             parent {
                 id
                 name

@@ -285,11 +285,20 @@ class Account extends AbstractModel implements HasParentInterface
         return $this->children;
     }
 
+    public function hasChildren(): bool
+    {
+        return !$this->children->isEmpty();
+    }
+
     /**
      * Set type.
      */
     public function setType(AccountType $type): void
     {
+        if (isset($this->type) && $this->type === AccountType::Group && $type !== AccountType::Group && $this->hasChildren()) {
+            throw new Exception('Cannot change account type when account has children');
+        }
+
         $this->type = $type;
     }
 

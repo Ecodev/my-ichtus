@@ -66,6 +66,7 @@ export class AccountComponent extends NaturalAbstractDetail<AccountService, Natu
     protected readonly userService = inject(UserService);
 
     protected nextCodeAvailable: number | null = null;
+    protected typeTooltip: string | null = null;
     protected accountHierarchicConfig = groupAccountHierarchicConfiguration;
     protected readonly AccountType = AccountType;
 
@@ -114,6 +115,11 @@ export class AccountComponent extends NaturalAbstractDetail<AccountService, Natu
 
         // Format IBAN coming from server to be user friendly
         this.form.get('iban')?.setValue(friendlyFormatIBAN(this.form.get('iban')?.value));
+
+        if (this.isUpdatePage() && this.data.model.type === AccountType.Group && this.data.model.hasChildren) {
+            this.form.get('type')?.disable({emitEvent: false});
+            this.typeTooltip = "Le type n'est pas modifiable car le groupe a des sous-comptes";
+        }
     }
 
     protected updateLinkedFields(): void {

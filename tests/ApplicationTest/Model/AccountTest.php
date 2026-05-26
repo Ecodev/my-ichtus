@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ApplicationTest\Model;
 
+use Application\Enum\AccountType;
 use Application\Model\Account;
 use Application\Model\User;
 use Application\Repository\AccountRepository;
@@ -53,6 +54,45 @@ class AccountTest extends TestCase
         $c->setParent(null);
 
         self::assertCount(1, $a->getChildren());
+    }
+
+    public function testHasChildren(): void
+    {
+        $parent = new Account();
+        $child = new Account();
+
+        self::assertFalse($parent->hasChildren());
+
+        $child->setParent($parent);
+
+        self::assertTrue($parent->hasChildren());
+    }
+
+    public function testCannotRemoveGroupTypeWithChildren(): void
+    {
+        $parent = new Account();
+        $parent->setType(AccountType::Group);
+
+        $child = new Account();
+        $child->setParent($parent);
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Cannot change account type when account has children');
+
+        $parent->setType(AccountType::Asset);
+    }
+
+    public function testCanChangeNonGroupTypeWithChildren(): void
+    {
+        $parent = new Account();
+        $parent->setType(AccountType::Asset);
+
+        $child = new Account();
+        $child->setParent($parent);
+
+        $parent->setType(AccountType::Group);
+
+        self::assertSame(AccountType::Group, $parent->getType());
     }
 
     public function testIban(): void
