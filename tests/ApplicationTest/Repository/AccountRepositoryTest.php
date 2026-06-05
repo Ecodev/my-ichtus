@@ -56,8 +56,9 @@ class AccountRepositoryTest extends AbstractRepository
         self::assertSame('Foo Bar', $account->getName());
         self::assertSame(AccountType::Liability, $account->getType());
         self::assertSame(20300010, $account->getCode());
-        self::assertNotNull($account->getParent());
-        self::assertSame('Acomptes de clients', $account->getParent()->getName());
+        $parent = $account->getParent();
+        self::assertNotNull($parent);
+        self::assertSame('Acomptes de clients', $parent->getName());
         self::assertSame($account, $user->getAccount());
 
         $account2 = $this->repository->getOrCreate($user);

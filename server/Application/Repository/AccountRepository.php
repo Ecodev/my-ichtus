@@ -19,7 +19,7 @@ use Money\Money;
  * @method null|Account findOneByCode(int $code)
  *
  * @phpstan-type AccountForReport array{
- *      code: int,
+ *      code: string,
  *      name: string,
  *      depth: int,
  *      path: string,

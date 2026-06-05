@@ -107,9 +107,7 @@ class Account extends AbstractModel implements HasParentInterface
 
         parent::setOwner($owner);
 
-        if ($this->getOwner()) {
-            $owner?->accountAdded($this);
-        }
+        $owner?->accountAdded($this);
     }
 
     public function getBudgetAllowed(): ?Money
