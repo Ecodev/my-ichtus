@@ -91,7 +91,11 @@
             </span>
         }
         @if (!isUpdatePage()) {
-            <natural-fixed-button icon="save" [color]="form.valid ? 'tertiary' : 'error'" (click)="create(false)" />
+            <natural-fixed-button
+                label="Enregistrer"
+                [color]="form.valid ? 'tertiary' : 'error'"
+                (click)="create(false)"
+            />
         }
     </div>
 }
