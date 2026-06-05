@@ -57,6 +57,7 @@ class TransactionLineRepositoryTest extends AbstractRepository
             'debit_id' => $account1,
             'credit_id' => $account2,
             'balance' => 500,
+            'transaction_date' => Chronos::now(),
         ]);
 
         $id = $connection->lastInsertId();

@@ -7,6 +7,7 @@ namespace ApplicationTest\Repository;
 use Application\Model\User;
 use Application\Repository\UserRepository;
 use ApplicationTest\Traits\LimitedAccessSubQuery;
+use Monolog\Level;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 class UserRepositoryTest extends AbstractRepository
@@ -176,7 +177,10 @@ class UserRepositoryTest extends AbstractRepository
         $connection = $this->getEntityManager()->getConnection();
 
         if ($table === 'log') {
-            $connection->insert('log', []);
+            $connection->insert('log', [
+                'level' => Level::Debug->value,
+                'message' => '',
+            ]);
         }
 
         $countBefore = $connection->fetchOne("SELECT COUNT(*) FROM `$table`");

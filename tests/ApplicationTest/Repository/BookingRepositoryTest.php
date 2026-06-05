@@ -67,6 +67,7 @@ class BookingRepositoryTest extends AbstractRepository
         $connection = $this->getEntityManager()->getConnection();
         $connection->executeQuery('DELETE FROM booking');
 
+        $accountCode = 9999;
         foreach ($data as $user) {
             $bookings = $user['bookings'] ?? [];
             $account = $user['account'] ?? null;
@@ -93,13 +94,17 @@ class BookingRepositoryTest extends AbstractRepository
             if ($account) {
                 $connection->insert('account', [
                     'owner_id' => $userId,
+                    'code' => $accountCode++,
                 ]);
                 $accountId = $connection->lastInsertId();
 
-                $connection->insert('transaction', []);
+                $transactionLines = $account['transaction_lines'];
+                $connection->insert('transaction', [
+                    'transaction_date' => $transactionLines[0]['transaction_date'],
+                ]);
                 $transactionId = $connection->lastInsertId();
 
-                foreach ($account['transaction_lines'] as $line) {
+                foreach ($transactionLines as $line) {
                     $line['transaction_id'] = $transactionId;
                     $line['debit_id'] = $accountId;
 
@@ -130,6 +135,8 @@ class BookingRepositoryTest extends AbstractRepository
     {
         $normal = [
             [
+                'first_name' => 'John',
+                'last_name' => 'Doe',
                 'role' => User::ROLE_MEMBER,
                 'status' => UserStatus::Active->value,
                 'bookings' => [
