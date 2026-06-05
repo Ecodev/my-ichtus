@@ -287,7 +287,7 @@ class AccountRepository extends AbstractHasParentRepository implements LimitedAc
                 $balanceCTE
                 
                 children AS (
-                    SELECT a.id, a.code, IF(CHAR_LENGTH(a.name) > 55, CONCAT(SUBSTRING(a.name, 1, 55), '...'), a.name) as name, a.type, a.parent_id, parent.code AS parent_code, a.budget_allowed, a.code AS path, $selects
+                    SELECT a.id, a.code, IF(CHAR_LENGTH(a.name) > 55, CONCAT(SUBSTRING(a.name, 1, 55), '...'), a.name) as name, a.type, a.parent_id, parent.code AS parent_code, a.budget_allowed, CAST(a.code AS CHAR(255)) AS path, $selects
                     FROM account a 
                     $balancesJoin
                     LEFT JOIN account parent ON parent.id = a.parent_id
