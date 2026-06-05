@@ -21,7 +21,7 @@ abstract class Helper
     {
         $acl = new Acl();
         if (!$acl->isCurrentUserAllowed($model, $privilege)) {
-            throw new Exception($acl->getLastDenialMessage());
+            throw new Exception($acl->getLastDenialMessage() ?? '');
         }
     }
 

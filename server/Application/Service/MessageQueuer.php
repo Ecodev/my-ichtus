@@ -147,7 +147,11 @@ class MessageQueuer
     private function queueBalanceForEachUsers(array $users): int
     {
         foreach ($users as $user) {
-            $bookables = $user->getRunningBookings()->map(fn (Booking $booking) => $booking->getBookable());
+            /** @var list<Bookable> $bookables */
+            $bookables = array_values(array_filter(
+                $user->getRunningBookings()->map(fn (Booking $booking) => $booking->getBookable())->toArray(),
+                static fn (?Bookable $b): bool => $b !== null,
+            ));
 
             $this->queueBalance($user, $bookables);
         }

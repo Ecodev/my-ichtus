@@ -11,6 +11,7 @@ class UserInfos extends AbstractHelper
 {
     public function __invoke(User $user): string
     {
+        assert($this->view !== null);
         $url = $this->view->serverUrl . '/admin/user/' . $user->getId();
 
         $result = '<ul>';

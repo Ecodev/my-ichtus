@@ -382,10 +382,11 @@ class User extends AbstractModel implements \Ecodev\Felix\Model\User
 
         parent::setOwner($owner);
 
-        if ($this->getOwner()) {
-            $this->getOwner()->getEmail(); // Trigger lazy loading
-            $this->getOwner()->users->add($this);
-            $this->setStatus($this->getOwner()->getStatus());
+        $newOwner = $this->getOwner();
+        if ($newOwner) {
+            $newOwner->getEmail(); // Trigger lazy loading
+            $newOwner->users->add($this);
+            $this->setStatus($newOwner->getStatus());
         }
     }
 

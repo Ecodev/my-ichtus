@@ -56,6 +56,7 @@ class AccountRepositoryTest extends AbstractRepository
         self::assertSame('Foo Bar', $account->getName());
         self::assertSame(AccountType::Liability, $account->getType());
         self::assertSame(20300010, $account->getCode());
+        self::assertNotNull($account->getParent());
         self::assertSame('Acomptes de clients', $account->getParent()->getName());
         self::assertSame($account, $user->getAccount());
 
@@ -200,6 +201,7 @@ class AccountRepositoryTest extends AbstractRepository
     public function testHasTransaction(int $id, bool $expected): void
     {
         $account = $this->getEntityManager()->getReference(Account::class, $id);
+        self::assertNotNull($account);
 
         self::assertSame($expected, $this->repository->hasTransaction($account));
     }

@@ -132,9 +132,10 @@ class Transaction extends AbstractModel
 
         $this->expenseClaim = $expenseClaim;
 
-        if ($this->expenseClaim) {
-            $this->expenseClaim->transactionAdded($this);
-            $this->expenseClaim->setStatus(ExpenseClaimStatus::Processed);
+        $ec = $this->expenseClaim;
+        if ($ec) {
+            $ec->transactionAdded($this);
+            $ec->setStatus(ExpenseClaimStatus::Processed);
         }
     }
 

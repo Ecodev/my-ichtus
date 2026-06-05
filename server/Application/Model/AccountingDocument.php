@@ -39,7 +39,7 @@ class AccountingDocument extends AbstractModel implements \Ecodev\Felix\Model\Fi
         $this->expenseClaim = $expenseClaim;
 
         if ($this->expenseClaim) {
-            $expenseClaim->accountingDocumentAdded($this);
+            $expenseClaim?->accountingDocumentAdded($this);
         }
     }
 
@@ -57,7 +57,7 @@ class AccountingDocument extends AbstractModel implements \Ecodev\Felix\Model\Fi
         $this->transaction = $transaction;
 
         if ($this->transaction) {
-            $transaction->accountingDocumentAdded($this);
+            $transaction?->accountingDocumentAdded($this);
         }
     }
 

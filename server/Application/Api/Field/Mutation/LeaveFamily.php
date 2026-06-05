@@ -51,7 +51,7 @@ abstract class LeaveFamily implements FieldInterface
                 $user->setStatus(UserStatus::Inactive);
 
                 // Append a line to internal remarks
-                $internalRemarks = implode(PHP_EOL . PHP_EOL, array_filter([$user->getInternalRemarks(), ChronosDate::now()->toDateString() . ': détaché du ménage par ' . User::getCurrent()->getName()]));
+                $internalRemarks = implode(PHP_EOL . PHP_EOL, array_filter([$user->getInternalRemarks(), ChronosDate::now()->toDateString() . ': détaché du ménage par ' . User::getCurrent()?->getName()]));
                 $user->setInternalRemarks($internalRemarks);
 
                 // Create account so the user can top-up money and start purchasing services

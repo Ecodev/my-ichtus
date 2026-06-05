@@ -373,7 +373,7 @@ class AccountingReport extends AbstractExcel
     {
         $rootAccounts = array_filter($data, fn ($account) => !isset($account['parent_id']));
 
-        return array_sum(array_column($rootAccounts, $attribute));
+        return (int) array_sum(array_column($rootAccounts, $attribute));
     }
 
     private function balanceSheetHeaders(int $initialColumn): void

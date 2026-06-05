@@ -125,6 +125,7 @@ class BookingRepositoryTest extends AbstractRepository
 
         $actual = [];
         foreach ($bookings as $a) {
+            self::assertNotNull($a->getBookable());
             $actual[] = $a->getBookable()->getName();
         }
 

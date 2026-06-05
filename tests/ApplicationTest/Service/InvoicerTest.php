@@ -63,6 +63,7 @@ class InvoicerTest extends TestCase
         if ($expected === []) {
             self::assertNull($account);
         } else {
+            self::assertNotNull($account);
             $all = array_merge(
                 $account->getCreditTransactionLines()->toArray(),
                 $account->getDebitTransactionLines()->toArray(),
@@ -78,11 +79,17 @@ class InvoicerTest extends TestCase
                     self::assertSame($transaction, $t->getTransaction(), 'all lines should belong to same transaction');
                 }
 
+                $bookable = $t->getBookable();
+                self::assertNotNull($bookable);
+                $debit = $t->getDebit();
+                self::assertNotNull($debit);
+                $credit = $t->getCredit();
+                self::assertNotNull($credit);
                 $actual[] = [
                     $t->getName(),
-                    $t->getBookable()->getName(),
-                    $t->getDebit()->getName(),
-                    $t->getCredit()->getName(),
+                    $bookable->getName(),
+                    $debit->getName(),
+                    $credit->getName(),
                     $t->getBalance()->getAmount(),
                 ];
             }

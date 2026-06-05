@@ -36,7 +36,12 @@ abstract class RequestUserDeletion implements FieldInterface
                 /** @var MessageQueuer $messageQueuer */
                 $messageQueuer = $container->get(MessageQueuer::class);
 
-                $message = $messageQueuer->queueRequestUserDeletion(User::getCurrent(), $user);
+                $currentUser = User::getCurrent();
+                if (!$currentUser) {
+                    return false;
+                }
+
+                $message = $messageQueuer->queueRequestUserDeletion($currentUser, $user);
                 if ($message) {
                     $mailer->sendMessageAsync($message);
                 }

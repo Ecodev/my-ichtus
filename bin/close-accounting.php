@@ -25,7 +25,7 @@ $accounting = $container->get(Accounting::class);
 $output = [];
 $transaction = $accounting->close($endDate, $output);
 
-foreach ($output as $line) {
+foreach ($output ?? [] as $line) {
     echo $line . PHP_EOL;
 }
 

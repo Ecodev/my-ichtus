@@ -36,6 +36,8 @@ class BookableMetadata extends AbstractModel
 
     public function getBookable(): Bookable
     {
+        assert($this->bookable !== null);
+
         return $this->bookable;
     }
 

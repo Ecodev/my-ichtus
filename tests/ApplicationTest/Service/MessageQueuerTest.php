@@ -156,6 +156,7 @@ class MessageQueuerTest extends TestCase
     {
         $userToDelete = $this->createMockUserWithFamilyOwner(true, true);
         $requestingUser = $userToDelete->getOwner();
+        self::assertNotNull($requestingUser);
         $messageQueuer = $this->createMessageQueuer();
 
         $message = $messageQueuer->queueRequestUserDeletion($requestingUser, $userToDelete);
@@ -228,6 +229,7 @@ class MessageQueuerTest extends TestCase
             return;
         }
 
+        self::assertNotNull($message);
         self::assertSame($type, $message->getType());
         self::assertSame($email, $message->getEmail());
         self::assertSame($user, $message->getRecipient());

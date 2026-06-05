@@ -17,6 +17,19 @@ use Money\Money;
  * @extends AbstractHasParentRepository<Account>
  *
  * @method null|Account findOneByCode(int $code)
+ *
+ * @phpstan-type AccountForReport array{
+ *      code: int,
+ *      name: string,
+ *      depth: int,
+ *      path: string,
+ *      type: string,
+ *      balance: int,
+ *      previousBalance: int,
+ *      budget_allowed: int,
+ *      budget_balance: int,
+ *      parent_id?: int
+ * }
  */
 class AccountRepository extends AbstractHasParentRepository implements LimitedAccessSubQuery
 {
@@ -103,6 +116,7 @@ class AccountRepository extends AbstractHasParentRepository implements LimitedAc
             $config = $container->get('config');
             $parentCode = (int) $config['accounting']['customerDepositsAccountCode'];
             $parent = $this->getAclFilter()->runWithoutAcl(fn () => $this->findOneByCode($parentCode));
+            assert($parent !== null);
 
             // Find the max account code, using the liability parent code as prefix
             if (!$this->maxCode) {
@@ -315,7 +329,10 @@ class AccountRepository extends AbstractHasParentRepository implements LimitedAc
                 WHERE :showZero OR balance != 0 OR previousBalance != 0 OR alwaysShow = 1
             SQL;
 
-        return _em()->getConnection()->executeQuery($sql, $queryParams)->fetchAllAssociative();
+        /** @var list<AccountForReport> $result */
+        $result = _em()->getConnection()->executeQuery($sql, $queryParams)->fetchAllAssociative();
+
+        return $result;
     }
 
     /**

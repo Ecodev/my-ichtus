@@ -12,6 +12,6 @@ class AccountingReportFactory
     {
         $config = $container->get('config');
 
-        return new AccountingReport($config['hostname'], $config['accounting']);
+        return new AccountingReport($config['hostname']);
     }
 }

@@ -61,6 +61,7 @@ class ImageRepositoryTest extends AbstractRepository
 
         // Affect existing image to an existing bookable
         $bookable = $this->getEntityManager()->find(Bookable::class, 3000);
+        self::assertNotNull($bookable);
         $image = $this->getEntityManager()->find(Image::class, 5007);
         self::assertNotNull($image);
         $bookable->setImage($image);

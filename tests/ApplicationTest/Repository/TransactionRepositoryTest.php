@@ -45,7 +45,9 @@ class TransactionRepositoryTest extends AbstractRepository
         User::setCurrent($user);
 
         $credit = $user->getAccount();
+        self::assertNotNull($credit);
         $debit = $this->getEntityManager()->getRepository(Account::class)->findOneBy(['code' => 10101]);
+        self::assertNotNull($debit);
 
         $transaction = new Transaction();
         $transaction->setName('foo');
@@ -150,6 +152,7 @@ class TransactionRepositoryTest extends AbstractRepository
         // DELETE
         $this->setCurrentUser('administrator');
         $transaction = _em()->getReference(Transaction::class, 8000);
+        self::assertNotNull($transaction);
         $this->getEntityManager()->remove($transaction);
         $this->repository->flushWithFastTransactionLineTriggers();
 
@@ -187,7 +190,9 @@ class TransactionRepositoryTest extends AbstractRepository
         $this->getEntityManager()->persist($transactionLine);
         $transactionLine->setBalance(Money::CHF(5));
         $transactionLine->setTransactionDate(Chronos::now());
-        $transactionLine->setTransaction($this->getEntityManager()->getReference(Transaction::class, 8000));
+        $ref = $this->getEntityManager()->getReference(Transaction::class, 8000);
+        self::assertNotNull($ref);
+        $transactionLine->setTransaction($ref);
         $transactionLine->setDebit($this->getEntityManager()->getReference(Account::class, $account1));
         $transactionLine->setCredit($this->getEntityManager()->getReference(Account::class, $account2));
 

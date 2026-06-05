@@ -28,6 +28,11 @@ class StatusIsNew implements NamedAssertion
      */
     public function assert(Acl $acl, ?RoleInterface $role = null, ?ResourceInterface $resource = null, $privilege = null)
     {
+
+        if (!$resource) {
+            return false;
+        }
+
         /** @var ExpenseClaim $expenseClaim */
         $expenseClaim = $resource->getInstance();
 

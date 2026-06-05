@@ -82,6 +82,10 @@ class Invoicer
             return false;
         }
 
+        if (!$bookable) {
+            return false;
+        }
+
         // Cannot invoice if we don't know where the money goes
         if (!$bookable->getCreditAccount()) {
             return false;
@@ -141,6 +145,7 @@ class Invoicer
     private function calculateInitialBalance(Booking $booking): Money
     {
         $bookable = $booking->getBookable();
+        assert($bookable !== null);
 
         // TODO: https://support.ecodev.ch/issues/6227
 

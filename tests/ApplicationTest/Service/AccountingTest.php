@@ -71,6 +71,7 @@ class AccountingTest extends TestCase
         $closingTransaction = $this->accounting->close($closingDate, $output);
         self::assertSame($expectedLog, $output);
 
+        self::assertNotNull($closingTransaction);
         $actualDate = $closingTransaction->getTransactionDate();
         $expectedDateTime = new Chronos('2020-01-01 00:00:00');
         self::assertTrue($actualDate->equals($expectedDateTime), 'Closing transaction was not created on ' . $closingDate);

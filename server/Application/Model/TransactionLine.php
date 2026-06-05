@@ -96,6 +96,8 @@ class TransactionLine extends AbstractModel
 
     public function getTransaction(): Transaction
     {
+        assert($this->transaction !== null);
+
         return $this->transaction;
     }
 

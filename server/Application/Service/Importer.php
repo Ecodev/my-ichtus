@@ -143,11 +143,12 @@ class Importer
             return '';
         }
 
-        $referenceNumber = $detail->getRemittanceInformation()->getStructuredBlock()->getCreditorReferenceInformation()->getRef();
+        $referenceNumber = $detail->getRemittanceInformation()?->getStructuredBlock()?->getCreditorReferenceInformation()?->getRef() ?? '';
         $user = $this->loadUser($referenceNumber);
         $userAccount = $this->accountRepository->getOrCreate($user);
         $remarks = $this->getRemarks($detail, $referenceNumber);
         $amount = $detail->getAmount();
+        assert($amount !== null);
 
         $line = new TransactionLine();
         $line->setTransaction($transaction);

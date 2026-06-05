@@ -362,8 +362,8 @@ Résultat       : ' . $this->formatMoney($equities) . '
                     'User#%d (%s) ne devrait pas avoir son propre compte débiteur mais partager celui du User#%d (%s)',
                     $user->getId(),
                     $user->getName(),
-                    $user->getOwner()->getId(),
-                    $user->getOwner()->getName(),
+                    $user->getOwner()?->getId(),
+                    $user->getOwner()?->getName(),
                 ),
             );
         }
