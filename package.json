@@ -51,7 +51,7 @@
         "@angular/build": "^21.2.0",
         "@angular/cli": "^21.2.0",
         "@angular/compiler-cli": "^21.2.0",
-        "@playwright/test": "^1.55.0",
+        "@playwright/test": "^1.60.0",
         "@types/big.js": "^6.2.2",
         "@types/jasmine": "~5.1.9",
         "@types/node": "^22.14.1",
