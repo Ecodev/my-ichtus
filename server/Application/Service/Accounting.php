@@ -357,15 +357,38 @@ Résultat       : ' . $this->formatMoney($equities) . '
     {
         // Make sure users of the same family share the same account
         foreach ($this->userRepository->getAllNonFamilyOwnersWithAccount() as $user) {
-            $this->error(
-                sprintf(
-                    'User#%d (%s) ne devrait pas avoir son propre compte débiteur mais partager celui du User#%d (%s)',
-                    $user->getId(),
-                    $user->getName(),
-                    $user->getOwner()?->getId(),
-                    $user->getOwner()?->getName(),
-                ),
-            );
+            $child = $this->formatUser($user);
+            $userAccount = $this->formatAccount($user);
+            $owner = $this->formatUser($user->getOwner());
+            $ownerAccount = $this->formatAccount($user->getOwner());
+
+            $this->error("$child $userAccount");
+            $this->error('ne devrait pas avoir son propre compte débiteur mais partager celui de');
+            $this->error("$owner $ownerAccount");
+            $this->error('');
         }
+    }
+
+    private function getHostname(): string
+    {
+        global $container;
+        $config = $container->get('config');
+
+        return $config['hostname'];
+    }
+
+    private function formatUser(User $user): string
+    {
+        $userId = $user->getId();
+        $userName = $user->getName();
+
+        return '"' . $userName . '" https://' . $this->getHostname() . "/admin/user/$userId";
+    }
+
+    private function formatAccount(User $user): string
+    {
+        $userId = $user->getId();
+
+        return 'https://' . $this->getHostname() . '/admin/account;ns=%22%5B%5B%7B%5C%22f%5C%22:%5C%22owner%5C%22,%5C%22c%5C%22:%7B%5C%22have%5C%22:%7B%5C%22values%5C%22:%5B%5C%22' . $userId . '%5C%22%5D%7D%7D%7D%5D%5D%22';
     }
 }
