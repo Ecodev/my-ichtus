@@ -357,10 +357,14 @@ Résultat       : ' . $this->formatMoney($equities) . '
     {
         // Make sure users of the same family share the same account
         foreach ($this->userRepository->getAllNonFamilyOwnersWithAccount() as $user) {
+            $familyOwner = $user->getOwner();
+            if (!$familyOwner) {
+                continue;
+            }
             $child = $this->formatUser($user);
             $userAccount = $this->formatAccount($user);
-            $owner = $this->formatUser($user->getOwner());
-            $ownerAccount = $this->formatAccount($user->getOwner());
+            $owner = $this->formatUser($familyOwner);
+            $ownerAccount = $this->formatAccount($familyOwner);
 
             $this->error("$child $userAccount");
             $this->error('ne devrait pas avoir son propre compte débiteur mais partager celui de');
