@@ -26,7 +26,6 @@ return [
         'driver' => [
             'orm_default' => [
                 'class' => Doctrine\ORM\Mapping\Driver\AttributeDriver::class,
-                'cache' => 'array',
                 'paths' => ['server/Application/Model'],
             ],
         ],
