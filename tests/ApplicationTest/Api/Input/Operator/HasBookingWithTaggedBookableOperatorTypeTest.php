@@ -30,6 +30,7 @@ class HasBookingWithTaggedBookableOperatorTypeTest extends OperatorType
     {
         yield 'users renting any Stockage (with shared join booking)' => [3, [6008], null, false];
         yield 'users renting any Stockage' => [3, [6008], null];
+        yield 'users with no Stockage booking at all (sameBooking=false, not=true)' => [13, [6008], true, false];
         yield 'users renting any Service' => [2, [6007], null];
         yield 'users renting any Voile légère' => [1, [6005], null];
         yield 'users renting a bookable with at least one of those tags' => [3, [6005, 6007], null];

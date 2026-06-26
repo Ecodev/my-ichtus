@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Application\Api\Input\Operator;
 
 use Application\Model\BookableTag;
-use Application\Model\Booking;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
 use Ecodev\Felix\ORM\Query\NativeIn;
@@ -46,14 +45,26 @@ class HasBookingWithTaggedBookableOperatorType extends AbstractOperator
             return '';
         }
 
-        if ($args['sameBooking']) {
-            $bookingAlias = HasBookingCompletedOperatorType::useSharedJoinBooking($alias, $queryBuilder);
-        } else {
-            $bookingAlias = $uniqueNameFactory->createAliasName(Booking::class);
-            $queryBuilder->innerJoin($alias . '.bookings', $bookingAlias);
+        $ids = Utility::modelToId($args['values']);
+
+        if (!$args['sameBooking']) {
+            // Evaluate at user level: sameBooking=false means "globally, across all bookings"
+            if ($ids) {
+                return NativeIn::dql(
+                    $alias . '.id',
+                    'SELECT DISTINCT owner_id FROM booking WHERE owner_id IS NOT NULL AND bookable_id IN (SELECT bookable_tag_bookable.bookable_id FROM bookable_tag_bookable WHERE bookable_tag_bookable.bookable_tag_id IN (' . Utility::quoteArray($ids) . '))',
+                    (bool) $args['not'],
+                );
+            }
+
+            return NativeIn::dql(
+                $alias . '.id',
+                'SELECT DISTINCT owner_id FROM booking WHERE owner_id IS NOT NULL AND bookable_id IN (SELECT DISTINCT bookable_tag_bookable.bookable_id FROM bookable_tag_bookable)',
+                $args['not'],
+            );
         }
 
-        $ids = Utility::modelToId($args['values']);
+        $bookingAlias = HasBookingCompletedOperatorType::useSharedJoinBooking($alias, $queryBuilder);
 
         // Users with bookings for bookables with, or without, the given tag(s)
         if ($ids) {
