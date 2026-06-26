@@ -34,6 +34,6 @@ class TransactionLinesTest extends TestCase
         self::assertSame('Date', $sheet->getCell('A1')->getCalculatedValue());
         self::assertSame('Pointé', $sheet->getCell('M1')->getCalculatedValue());
         self::assertSame('Inscription cours nautique Active Member', $sheet->getCell('C2')->getCalculatedValue());
-        self::assertSame(45562.5, $sheet->getCell('L14')->getCalculatedValue());
+        self::assertSame(45612.5, $sheet->getCell('L15')->getCalculatedValue());
     }
 }

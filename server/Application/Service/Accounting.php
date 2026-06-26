@@ -49,13 +49,16 @@ class Accounting
      */
     public function check(): bool
     {
+        // This service is shared, so its state must not leak between calls
+        $this->hasError = false;
+
         // Update all accounts' balance from transactions
         $this->accountRepository->updateAccountsBalance();
 
         $this->checkAccounts();
         $this->checkTransactionsAreBalanced();
         $this->checkMissingAccountsForUsers();
-        $this->checkUnnecessaryAccounts();
+        $this->checkUselessAccounts();
         $this->checkFamilyMembersShareSameAccount();
 
         return $this->hasError;
@@ -344,55 +347,83 @@ Résultat       : ' . $this->formatMoney($equities) . '
         }
     }
 
-    private function checkUnnecessaryAccounts(): void
+    private function checkUselessAccounts(): void
     {
-        $deletedAccount = $this->accountRepository->deleteAccountOfNonFamilyOwnerWithoutAnyTransactions();
+        $deletedAccount = $this->accountRepository->deleteUselessAccounts();
         if ($deletedAccount) {
-            // Strictly speaking this is not an error, but we would like to be informed by email when it happens
-            $this->error("$deletedAccount compte(s) été effacé parce qu'il appartenait à un utilisateur qui n'était pas chef de famille et que le compte avait aucune transaction");
+            echo "$deletedAccount compte(s) orphelin(s) ont été effacé(s)" . PHP_EOL;
         }
     }
 
     private function checkFamilyMembersShareSameAccount(): void
     {
-        // Make sure users of the same family share the same account
-        foreach ($this->userRepository->getAllNonFamilyOwnersWithAccount() as $user) {
-            $familyOwner = $user->getOwner();
-            if (!$familyOwner) {
+        // Make sure users of the same family share the same account, regularizing them automatically when possible
+        $consolidatedAccount = 0;
+        foreach ($this->accountRepository->getAllOwnedByNonFamilyOwner() as $childAccount) {
+            // Guaranteed by the join conditions of getAllOwnedByNonFamilyOwner()
+            $childUser = $childAccount->getOwner();
+            assert($childUser !== null);
+            $parentUser = $childUser->getOwner();
+            assert($parentUser !== null);
+
+            // The family owner's account is already eagerly loaded, but may not exist (eg. no login yet)
+            $parentAccount = $parentUser->getAccount();
+            if (!$parentAccount) {
+                $this->error('Le ménage de ' . $parentUser->getName() . " n'a pas pu consolider ses comptes car le responsable n'en a pas (probablement car il n'a pas de login non plus)");
+
                 continue;
             }
-            $child = $this->formatUser($user);
-            $userAccount = $this->formatAccount($user);
-            $owner = $this->formatUser($familyOwner);
-            $ownerAccount = $this->formatAccount($familyOwner);
 
-            $this->error("$child $userAccount");
-            $this->error('ne devrait pas avoir son propre compte débiteur mais partager celui de');
-            $this->error("$owner $ownerAccount");
-            $this->error('');
+            $balance = $childAccount->getBalance();
+
+            if (!$balance->isZero()) {
+                $now = Chronos::now();
+
+                $transaction = new Transaction();
+                $transaction->setName('Consolidation des comptes de ménage');
+                $transaction->setTransactionDate($now);
+                _em()->persist($transaction);
+
+                $line = new TransactionLine();
+                $line->setName('Consolidation des comptes de ménage');
+                $line->setBalance($balance->absolute());
+                $line->setTransactionDate($now);
+                $line->setTransaction($transaction);
+
+                if ($balance->isPositive()) {
+                    $line->setDebit($childAccount);
+                    $line->setCredit($parentAccount);
+                } else {
+                    $line->setDebit($parentAccount);
+                    $line->setCredit($childAccount);
+                }
+
+                _em()->persist($line);
+
+                $this->transactionRepository->flushWithFastTransactionLineTriggers();
+                _em()->refresh($childAccount);
+                _em()->refresh($parentAccount);
+
+                // Must be done after flushWithFastTransactionLineTriggers(), which only allows pending changes on Transaction/TransactionLine/Account
+                // The member always "transfers" to the owner, and the owner always "receives" from the member, even if the amount is negative
+                $amount = $this->formatMoney($balance);
+                $this->addInternalRemark($childUser, "Consolidation automatique des comptes du ménage : a transféré $amount à " . $parentUser->getName());
+                $this->addInternalRemark($parentUser, "Consolidation automatique des comptes du ménage : a reçu $amount de " . $childUser->getName());
+            }
+
+            $childAccount->detach();
+            _em()->flush();
+            ++$consolidatedAccount;
+        }
+
+        if ($consolidatedAccount) {
+            echo "$consolidatedAccount compte(s) de famille consolidé(s)" . PHP_EOL;
         }
     }
 
-    private function getHostname(): string
+    private function addInternalRemark(User $user, string $remark): void
     {
-        global $container;
-        $config = $container->get('config');
-
-        return $config['hostname'];
-    }
-
-    private function formatUser(User $user): string
-    {
-        $userId = $user->getId();
-        $userName = $user->getName();
-
-        return '"' . $userName . '" https://' . $this->getHostname() . "/admin/user/$userId";
-    }
-
-    private function formatAccount(User $user): string
-    {
-        $userId = $user->getId();
-
-        return 'https://' . $this->getHostname() . '/admin/account;ns=%22%5B%5B%7B%5C%22f%5C%22:%5C%22owner%5C%22,%5C%22c%5C%22:%7B%5C%22have%5C%22:%7B%5C%22values%5C%22:%5B%5C%22' . $userId . '%5C%22%5D%7D%7D%7D%5D%5D%22';
+        $existing = $user->getInternalRemarks();
+        $user->setInternalRemarks($existing === '' ? $remark : $existing . "\n" . $remark);
     }
 }

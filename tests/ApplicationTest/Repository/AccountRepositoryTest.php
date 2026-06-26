@@ -28,11 +28,11 @@ class AccountRepositoryTest extends AbstractRepository
 
     public static function providerGetAccessibleSubQuery(): iterable
     {
-        $all = range(10000, 10107);
+        $all = range(10000, 10109);
         yield ['anonymous', []];
         yield ['bookingonly', []];
-        yield ['individual', [10096]];
-        yield ['member', [10096]];
+        yield ['individual', [10096, 10108]];
+        yield ['member', [10096, 10108]];
         yield ['formationresponsible', $all];
         yield ['responsible', $all];
         yield ['administrator', $all];
@@ -128,22 +128,28 @@ class AccountRepositoryTest extends AbstractRepository
         $this->repository->getOneById(-9999);
     }
 
-    public function testDeleteAccountOfNonFamilyOwnerWithoutAnyTransactions(): void
+    public function testDeleteUselessAccounts(): void
     {
-        self::assertSame(0, $this->repository->deleteAccountOfNonFamilyOwnerWithoutAnyTransactions(), 'nothing should be deleted from fixture data');
         $connection = $this->getEntityManager()->getConnection();
+
+        // Unrelated to this test, and would otherwise also be deleted by deleteUselessAccounts()
+        $connection->delete('account', ['id' => 10109]);
+
+        self::assertSame(0, $this->repository->deleteUselessAccounts(), 'nothing should be deleted from fixture data');
 
         $connection->insert('account', [
             'code' => '999001',
         ]);
-        self::assertSame(0, $this->repository->deleteAccountOfNonFamilyOwnerWithoutAnyTransactions(), 'orphan account without any owner should not be deleted');
+        self::assertSame(0, $this->repository->deleteUselessAccounts(), 'orphan account without any owner should not be deleted');
 
         $connection->insert('account', [
             'code' => '999003',
             'owner_id' => '1008',
         ]);
-        self::assertSame(1, $this->repository->deleteAccountOfNonFamilyOwnerWithoutAnyTransactions(), 'account of son (not family owner) without any transactionLine should be deleted');
-        self::assertSame(0, $this->repository->deleteAccountOfNonFamilyOwnerWithoutAnyTransactions(), 'nothing left to delete');
+        $countBefore = (int) $connection->fetchOne('SELECT COUNT(*) FROM account');
+        self::assertSame(1, $this->repository->deleteUselessAccounts(), 'account of son (not family owner) without any transactionLine should be deleted');
+        self::assertSame($countBefore - 1, (int) $connection->fetchOne('SELECT COUNT(*) FROM account'), 'exactly one account should have been deleted, no more');
+        self::assertSame(0, $this->repository->deleteUselessAccounts(), 'nothing left to delete');
 
         $connection->insert('account', [
             'code' => '999003',
@@ -158,7 +164,7 @@ class AccountRepositoryTest extends AbstractRepository
             'transaction_date' => Chronos::now(),
         ]);
         $transactionLineId = $connection->lastInsertId();
-        self::assertSame(0, $this->repository->deleteAccountOfNonFamilyOwnerWithoutAnyTransactions(), 'same as before, but with transaction to credit, should not delete');
+        self::assertSame(0, $this->repository->deleteUselessAccounts(), 'same as before, but with transaction to credit, should not delete');
 
         // Delete temp records
         $connection->delete('transaction_line', ['id' => $transactionLineId]);
@@ -175,7 +181,7 @@ class AccountRepositoryTest extends AbstractRepository
             'balance' => '0',
             'transaction_date' => Chronos::now(),
         ]);
-        self::assertSame(0, $this->repository->deleteAccountOfNonFamilyOwnerWithoutAnyTransactions(), 'same as before, but with transaction to debit, should not delete');
+        self::assertSame(0, $this->repository->deleteUselessAccounts(), 'same as before, but with transaction to debit, should not delete');
     }
 
     #[DataProvider('providerGetNextCode')]

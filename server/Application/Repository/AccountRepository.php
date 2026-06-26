@@ -8,7 +8,6 @@ use Application\Enum\AccountType;
 use Application\Model\Account;
 use Application\Model\User;
 use Cake\Chronos\ChronosDate;
-use Doctrine\ORM\Query;
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 use Exception;
 use Money\Money;
@@ -136,6 +135,24 @@ class AccountRepository extends AbstractHasParentRepository implements LimitedAc
         }
 
         return $account;
+    }
+
+    /**
+     * Return all accounts owned by a family member who is not the family owner.
+     *
+     * Eagerly loads the owner, the family owner, and the family owner's account, since callers need
+     * all of that to regularize the situation without any further query.
+     */
+    public function getAllOwnedByNonFamilyOwner(): array
+    {
+        $qb = $this->createQueryBuilder('account')
+            ->addSelect('owner', 'familyOwner', 'familyOwnerAccount')
+            ->join('account.owner', 'owner')
+            ->join('owner.owner', 'familyOwner')
+            ->leftJoin('familyOwner.accounts', 'familyOwnerAccount')
+            ->addOrderBy('owner.id');
+
+        return $qb->getQuery()->getResult();
     }
 
     /**
@@ -350,20 +367,26 @@ class AccountRepository extends AbstractHasParentRepository implements LimitedAc
             SQL;
     }
 
-    public function deleteAccountOfNonFamilyOwnerWithoutAnyTransactions(): int
+    /**
+     * Delete useless accounts without any transaction: a family member's own account, or an orphan account.
+     */
+    public function deleteUselessAccounts(): int
     {
-        $sql = <<<STRING
-                DELETE account FROM account
-                INNER JOIN user ON account.owner_id = user.id
-                AND user.owner_id IS NOT NULL
-                AND user.owner_id != user.id
-                WHERE
-                account.id NOT IN (SELECT credit_id FROM transaction_line WHERE credit_id IS NOT NULL)
-                AND account.id NOT IN (SELECT debit_id FROM transaction_line WHERE debit_id IS NOT NULL) 
-            STRING;
+        global $container;
+        $config = $container->get('config');
+        $groupCode = (int) $config['accounting']['customerDepositsAccountCode'];
+
+        $sql = <<<SQL
+            DELETE account FROM account
+            LEFT JOIN account parent ON account.parent_id = parent.id
+            LEFT JOIN user ON account.owner_id = user.id
+            WHERE ((account.owner_id IS NULL AND parent.code = :groupCode) OR (user.owner_id IS NOT NULL AND user.owner_id != user.id))
+            AND account.id NOT IN (SELECT credit_id FROM transaction_line WHERE credit_id IS NOT NULL)
+            AND account.id NOT IN (SELECT debit_id FROM transaction_line WHERE debit_id IS NOT NULL)
+            SQL;
 
         /** @var int $count */
-        $count = $this->getEntityManager()->getConnection()->executeStatement($sql);
+        $count = $this->getEntityManager()->getConnection()->executeStatement($sql, ['groupCode' => $groupCode]);
 
         return $count;
     }

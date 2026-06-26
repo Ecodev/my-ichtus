@@ -38,7 +38,7 @@ return [
                             'balance' => '100.00',
                         ],
                         'debit' => [
-                            'balance' => '50.00',
+                            'balance' => '100.00',
                         ],
                     ],
                 ],

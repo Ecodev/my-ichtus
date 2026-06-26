@@ -160,21 +160,6 @@ class UserRepository extends AbstractRepository implements LimitedAccessSubQuery
         return $qb->getQuery()->getResult();
     }
 
-    /**
-     * Return all users that are not family owners but still have an Account.
-     *
-     * @return User[]
-     */
-    public function getAllNonFamilyOwnersWithAccount(): array
-    {
-        $qb = $this->createQueryBuilder('user')
-            ->join('user.accounts', 'account')
-            ->andWhere('user.owner IS NOT NULL')
-            ->addOrderBy('user.id');
-
-        return $qb->getQuery()->getResult();
-    }
-
     public function exists(string $login, ?int $excludedId): bool
     {
         if (null === $excludedId) {

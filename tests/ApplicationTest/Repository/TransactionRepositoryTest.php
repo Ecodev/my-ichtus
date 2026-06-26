@@ -27,9 +27,9 @@ class TransactionRepositoryTest extends AbstractRepository
 
     public static function providerGetAccessibleSubQuery(): iterable
     {
-        $all = [8000, 8001, 8002, 8003, 8004, 8005, 8006, 8007];
+        $all = [8000, 8001, 8002, 8003, 8004, 8005, 8006, 8007, 8008];
 
-        $family = [8000, 8002, 8002, 8003, 8004, 8006];
+        $family = [8000, 8002, 8002, 8003, 8004, 8006, 8008];
         yield ['anonymous', []];
         yield ['bookingonly', []];
         yield ['individual', $family];
@@ -130,14 +130,14 @@ class TransactionRepositoryTest extends AbstractRepository
         $account1 = 10096;
         $account2 = 10037;
 
-        $this->assertAccountBalance($account1, 5000, 'initial balance');
+        $this->assertAccountBalance($account1, 10000, 'initial balance');
         $this->assertAccountBalance($account2, 10000, 'initial balance');
 
         $connection = $this->getEntityManager()->getConnection();
         $count = $connection->delete('transaction', ['id' => 8000]);
 
         self::assertSame(1, $count);
-        $this->assertAccountBalance($account1, 15000, 'balance should be increased after deletion');
+        $this->assertAccountBalance($account1, 20000, 'balance should be increased after deletion');
         $this->assertAccountBalance($account2, 0, 'balance should be decreased after deletion');
     }
 
@@ -146,7 +146,7 @@ class TransactionRepositoryTest extends AbstractRepository
         $account1 = 10096;
         $account2 = 10037;
 
-        $this->assertAccountBalance($account1, 5000, 'initial balance');
+        $this->assertAccountBalance($account1, 10000, 'initial balance');
         $this->assertAccountBalance($account2, 10000, 'initial balance');
 
         // DELETE
@@ -156,7 +156,7 @@ class TransactionRepositoryTest extends AbstractRepository
         $this->getEntityManager()->remove($transaction);
         $this->repository->flushWithFastTransactionLineTriggers();
 
-        $this->assertAccountBalance($account1, 15000, 'balance should be increased after deletion');
+        $this->assertAccountBalance($account1, 20000, 'balance should be increased after deletion');
         $this->assertAccountBalance($account2, 0, 'balance should be decreased after deletion');
     }
 
@@ -165,7 +165,7 @@ class TransactionRepositoryTest extends AbstractRepository
         $account1 = 10096;
         $account2 = 10037;
 
-        $this->assertAccountBalance($account1, 5000, 'initial balance');
+        $this->assertAccountBalance($account1, 10000, 'initial balance');
         $this->assertAccountBalance($account2, 10000, 'initial balance');
 
         // UPDATE
@@ -175,14 +175,14 @@ class TransactionRepositoryTest extends AbstractRepository
         $transactionLine->setBalance(Money::CHF(1));
         $this->repository->flushWithFastTransactionLineTriggers();
 
-        $this->assertAccountBalance($account1, 14999, 'balance should be increased after update');
+        $this->assertAccountBalance($account1, 19999, 'balance should be increased after update');
         $this->assertAccountBalance($account2, 1, 'balance should be decreased after update');
 
         // DELETE
         $this->getEntityManager()->remove($transactionLine);
         $this->repository->flushWithFastTransactionLineTriggers();
 
-        $this->assertAccountBalance($account1, 15000, 'balance should be increased after deletion');
+        $this->assertAccountBalance($account1, 20000, 'balance should be increased after deletion');
         $this->assertAccountBalance($account2, 0, 'balance should be decreased after deletion');
 
         // INSERT
@@ -198,14 +198,14 @@ class TransactionRepositoryTest extends AbstractRepository
 
         $this->repository->flushWithFastTransactionLineTriggers();
 
-        $this->assertAccountBalance($account1, 14995, 'balance should be increased after insertion');
+        $this->assertAccountBalance($account1, 19995, 'balance should be increased after insertion');
         $this->assertAccountBalance($account2, 5, 'balance should be decreased after insertion');
 
         // Normal flush should keep working after use of special flush
         $transactionLine->setBalance(Money::CHF(10));
         _em()->flush();
 
-        $this->assertAccountBalance($account1, 14990, 'balance should be increased after update with normal flush and normal triggers');
+        $this->assertAccountBalance($account1, 19990, 'balance should be increased after update with normal flush and normal triggers');
         $this->assertAccountBalance($account2, 10, 'balance should be decreased after update with normal flush and normal triggers');
     }
 }

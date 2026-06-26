@@ -110,6 +110,21 @@ class Account extends AbstractModel implements HasParentInterface
         $owner?->accountAdded($this);
     }
 
+    /**
+     * Remove the owner, without the usual permission check.
+     *
+     * For scripts that run with no logged in user.
+     */
+    #[API\Exclude]
+    public function detach(): void
+    {
+        if ($this->getOwner()) {
+            $this->getOwner()->accountRemoved();
+        }
+
+        $this->owner = null;
+    }
+
     public function getBudgetAllowed(): ?Money
     {
         return $this->budgetAllowed;

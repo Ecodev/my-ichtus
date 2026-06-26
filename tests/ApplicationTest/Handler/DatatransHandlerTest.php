@@ -70,7 +70,7 @@ class DatatransHandlerTest extends TestCase
                 'sign' => 'e591bc45430b1a14ad7e1a3a14a8218fb9a5ae944557c96366ec98feae6b17f4',
             ],
             10096,
-            Money::CHF(15000),
+            Money::CHF(20000),
             [
                 'message' => [
                     'status' => 'success',
@@ -90,7 +90,7 @@ class DatatransHandlerTest extends TestCase
                 'sign' => 'e591bc45430b1a14ad7e1a3a14a8218fb9a5ae944557c96366ec98feae6b17f4',
             ],
             10096,
-            Money::CHF(15000),
+            Money::CHF(20000),
             [
                 'message' => [
                     'status' => 'success',
@@ -110,7 +110,7 @@ class DatatransHandlerTest extends TestCase
                 'sign' => 'a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0',
             ],
             10096,
-            Money::CHF(5000),
+            Money::CHF(10000),
             [
                 'message' => [
                     'status' => 'error',
@@ -129,7 +129,7 @@ class DatatransHandlerTest extends TestCase
                 'responseMessage' => 'Payment was successful',
             ],
             10096,
-            Money::CHF(5000),
+            Money::CHF(10000),
             [
                 'message' => [
                     'status' => 'error',
@@ -149,7 +149,7 @@ class DatatransHandlerTest extends TestCase
                 'sign' => '3005b015945fb625ee25d7d804a65cc17f9dacd4fcba72329d34c8081230c146',
             ],
             10096,
-            Money::CHF(15000),
+            Money::CHF(20000),
             [
                 'message' => [
                     'status' => 'success',
@@ -167,7 +167,7 @@ class DatatransHandlerTest extends TestCase
                 'sign' => '38151b15a4c680cccafe9dfff6edb236fa9bf1eeec65799b2720312ae9c4b233',
             ],
             10096,
-            Money::CHF(5000),
+            Money::CHF(10000),
             [
                 'message' => [
                     'status' => 'error',
@@ -184,7 +184,7 @@ class DatatransHandlerTest extends TestCase
                 'sign' => '38151b15a4c680cccafe9dfff6edb236fa9bf1eeec65799b2720312ae9c4b233',
             ],
             10096,
-            Money::CHF(5000),
+            Money::CHF(10000),
             [
                 'message' => [
                     'status' => 'cancel',
@@ -215,7 +215,7 @@ class DatatransHandlerTest extends TestCase
                 'sign' => 'e591bc45430b1a14ad7e1a3a14a8218fb9a5ae944557c96366ec98feae6b17f4',
             ],
             10096,
-            Money::CHF(5000),
+            Money::CHF(10000),
             [
                 'message' => [
                     'status' => 'error',
@@ -253,7 +253,7 @@ class DatatransHandlerTest extends TestCase
                 'sign' => 'e2ca709347d5bec5fd169cd3e1243a95d2eae0abf23a34e26e57698d30b3645d',
             ],
             10096,
-            Money::CHF(5000),
+            Money::CHF(10000),
             [
                 'message' => [
                     'status' => 'error',
@@ -273,7 +273,7 @@ class DatatransHandlerTest extends TestCase
                 'sign' => 'a591b4bb76872f8fcb01f841e4b0cf092ae7c26561e93326243d7f48a9181849',
             ],
             10096,
-            Money::CHF(5000),
+            Money::CHF(10000),
             [
                 'message' => [
                     'status' => 'error',

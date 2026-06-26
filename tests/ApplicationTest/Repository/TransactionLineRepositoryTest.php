@@ -28,9 +28,9 @@ class TransactionLineRepositoryTest extends AbstractRepository
 
     public static function providerGetAccessibleSubQuery(): iterable
     {
-        $all = range(14000, 14011);
+        $all = range(14000, 14012);
 
-        $family = [14000, 14002, 14003, 14004, 14008, 14011];
+        $family = [14000, 14002, 14003, 14004, 14008, 14011, 14012];
         yield ['anonymous', []];
         yield ['bookingonly', []];
         yield ['individual', $family];
@@ -46,7 +46,7 @@ class TransactionLineRepositoryTest extends AbstractRepository
         $account3 = 10085;
         $account4 = 10025;
 
-        $this->assertAccountBalance($account1, 5000, 'initial balance');
+        $this->assertAccountBalance($account1, 10000, 'initial balance');
         $this->assertAccountBalance($account2, 10000, 'initial balance');
         $this->assertAccountBalance($account3, 1250, 'initial balance');
         $this->assertAccountBalance($account4, 818750, 'initial balance');
@@ -62,7 +62,7 @@ class TransactionLineRepositoryTest extends AbstractRepository
 
         $id = $connection->lastInsertId();
 
-        $this->assertAccountBalance($account1, 4500, 'balance should be reduced when line is inserted');
+        $this->assertAccountBalance($account1, 9500, 'balance should be reduced when line is inserted');
         $this->assertAccountBalance($account2, 10500, 'balance should be increased when line is inserted');
 
         $count = $connection->update(
@@ -75,7 +75,7 @@ class TransactionLineRepositoryTest extends AbstractRepository
             ],
         );
         self::assertSame(1, $count);
-        $this->assertAccountBalance($account1, 1000, 'balance should be reduced even more after update');
+        $this->assertAccountBalance($account1, 6000, 'balance should be reduced even more after update');
         $this->assertAccountBalance($account2, 14000, 'balance should be increased even more after update');
 
         $count = $connection->update(
@@ -89,7 +89,7 @@ class TransactionLineRepositoryTest extends AbstractRepository
             ],
         );
         self::assertSame(1, $count);
-        $this->assertAccountBalance($account1, 9000, 'balance should be twice increased after swapping both accounts');
+        $this->assertAccountBalance($account1, 14000, 'balance should be twice increased after swapping both accounts');
         $this->assertAccountBalance($account2, 6000, 'balance should be reduced increased after swapping both accounts');
 
         $count = $connection->update(
@@ -103,7 +103,7 @@ class TransactionLineRepositoryTest extends AbstractRepository
             ],
         );
         self::assertSame(1, $count);
-        $this->assertAccountBalance($account1, 5000, 'balance should be restored to its original value after deletion');
+        $this->assertAccountBalance($account1, 10000, 'balance should be restored to its original value after deletion');
         $this->assertAccountBalance($account2, 6000, 'balance should be unchanged');
 
         $count = $connection->update(
@@ -117,7 +117,7 @@ class TransactionLineRepositoryTest extends AbstractRepository
             ],
         );
         self::assertSame(1, $count);
-        $this->assertAccountBalance($account1, 5000, 'balance should be unchanged');
+        $this->assertAccountBalance($account1, 10000, 'balance should be unchanged');
         $this->assertAccountBalance($account2, 14000, 'balance should be twice increased after swapping a single account');
 
         $count = $connection->update(
@@ -131,14 +131,14 @@ class TransactionLineRepositoryTest extends AbstractRepository
             ],
         );
         self::assertSame(1, $count);
-        $this->assertAccountBalance($account1, 5000, 'balance should be restored to its original value after deletion');
+        $this->assertAccountBalance($account1, 10000, 'balance should be restored to its original value after deletion');
         $this->assertAccountBalance($account2, 10000, 'balance should be restored to its original value after deletion');
         $this->assertAccountBalance($account3, 5250, 'balance should be increased after swapped account');
         $this->assertAccountBalance($account4, 814750, 'balance should be reduced after swapped account');
 
         $count = $connection->delete('transaction_line', ['id' => $id]);
         self::assertSame(1, $count);
-        $this->assertAccountBalance($account1, 5000, 'balance should be restored to its original value after deletion');
+        $this->assertAccountBalance($account1, 10000, 'balance should be restored to its original value after deletion');
         $this->assertAccountBalance($account2, 10000, 'balance should be restored to its original value after deletion');
         $this->assertAccountBalance($account3, 1250, 'balance should be restored to its original value after deletion');
         $this->assertAccountBalance($account4, 818750, 'balance should be restored to its original value after deletion');
