@@ -20,6 +20,10 @@ export const transactionLineMetaFragment = gql`
         }
         remarks
         isReconciled
+        updateDate
+        updater {
+            ...UserMeta
+        }
         transaction {
             id
             expenseClaim {
@@ -40,6 +44,7 @@ export const transactionLineMetaFragment = gql`
         }
     }
     ${minimalAccountFragment}
+    ${userMetaFragment}
 `;
 
 export const transactionLinesQuery = gql`

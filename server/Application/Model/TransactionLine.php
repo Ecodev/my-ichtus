@@ -101,6 +101,16 @@ class TransactionLine extends AbstractModel
         return $this->transaction;
     }
 
+    public function getCreationDate(): ?Chronos
+    {
+        return $this->transaction ? $this->transaction->getCreationDate() : parent::getCreationDate();
+    }
+
+    public function getCreator(): ?User
+    {
+        return $this->transaction ? $this->transaction->getCreator() : parent::getCreator();
+    }
+
     /**
      * Set debit account.
      */

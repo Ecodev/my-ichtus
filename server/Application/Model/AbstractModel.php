@@ -79,7 +79,7 @@ abstract class AbstractModel implements HasOwner, Model
     /**
      * Set update date.
      */
-    private function setUpdateDate(Chronos $updateDate): void
+    protected function setUpdateDate(Chronos $updateDate): void
     {
         $this->updateDate = $updateDate;
     }
@@ -143,7 +143,7 @@ abstract class AbstractModel implements HasOwner, Model
     /**
      * Set updater.
      */
-    private function setUpdater(?User $updater): void
+    protected function setUpdater(?User $updater): void
     {
         $this->updater = $updater;
     }

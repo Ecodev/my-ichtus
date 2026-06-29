@@ -54,6 +54,18 @@ class TransactionLineTest extends TestCase
         self::assertCount(1, $account2->getDebitTransactionLines());
     }
 
+    public function testCreationStampDelegatesToTransaction(): void
+    {
+        $line = new TransactionLine();
+        self::assertNull($line->getCreationDate());
+        self::assertNull($line->getCreator());
+
+        $transaction = new Transaction();
+        $line->setTransaction($transaction);
+        self::assertSame($transaction->getCreationDate(), $line->getCreationDate());
+        self::assertSame($transaction->getCreator(), $line->getCreator());
+    }
+
     public function testCreditAccountRelation(): void
     {
         $account1 = new Account();

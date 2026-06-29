@@ -87,6 +87,8 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
 
     public override availableColumns: AvailableColumn[] = [
         {id: 'transactionDate', label: 'Date'},
+        {id: 'updateDate', label: 'Modifié le', checked: false},
+        {id: 'updater', label: 'Modifié par', checked: false},
         {id: 'name', label: 'Nom'},
         {id: 'bookable', label: 'Réservable'},
         {id: 'remarks', label: 'Remarques'},

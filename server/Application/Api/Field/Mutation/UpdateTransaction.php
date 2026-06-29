@@ -32,6 +32,8 @@ abstract class UpdateTransaction implements FieldInterface
 
                 // Check ACL
                 Helper::throwIfDenied($transaction, 'update');
+
+                $transaction->markUpdated();
                 $lines = $args['lines'] ?? null;
 
                 if ($lines !== null) {
