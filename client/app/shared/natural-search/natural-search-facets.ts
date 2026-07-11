@@ -701,7 +701,11 @@ export function accounts(): NaturalSearchFacets {
 
     return [
         name,
-        code,
+        {
+            display: 'Code',
+            field: 'code',
+            component: TypeNumberComponent,
+        } satisfies DropdownFacet<TypeNumberConfiguration>,
         {
             display: 'Type',
             field: 'type',
