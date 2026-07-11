@@ -19,5 +19,5 @@ import {MatIcon} from '@angular/material/icon';
 })
 export class WarningComponent {
     public readonly type = input<'warning' | 'check'>('warning');
-    protected readonly color = computed(() => (this.type() === 'warning' ? 'warn' : null));
+    protected readonly color = computed(() => (this.type() === 'warning' ? 'error' : null));
 }
