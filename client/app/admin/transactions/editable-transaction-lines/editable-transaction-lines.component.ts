@@ -30,8 +30,65 @@ import {
     MatRowDef,
     MatTable,
 } from '@angular/material/table';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AbstractControl, FormArray, FormsModule, ReactiveFormsModule, ValidationErrors} from '@angular/forms';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {WarningComponent} from '../../../shared/warning.component';
+import {CurrencyPipe} from '@angular/common';
+import {Big} from 'big.js';
+
+export type TransactionLinesBalance = {
+    totalDebit: number;
+    totalCredit: number;
+};
+
+function toBig(value: unknown): Big | null {
+    if (value === null || value === undefined || value === '') {
+        return null;
+    }
+
+    try {
+        return new Big(value as Big.BigSource);
+    } catch {
+        return null;
+    }
+}
+
+/**
+ * Mirrors the server-side check for overall balanced credits and debits (multi line)
+ */
+function transactionLinesBalanceValidator(control: AbstractControl): ValidationErrors | null {
+    if (!(control instanceof FormArray)) {
+        return null;
+    }
+
+    let totalDebit = new Big(0);
+    let totalCredit = new Big(0);
+
+    for (const row of control.controls) {
+        const balance = toBig(row.get('balance')?.value);
+        if (!balance) {
+            continue;
+        }
+
+        if (row.get('debit')?.value) {
+            totalDebit = totalDebit.plus(balance);
+        }
+        if (row.get('credit')?.value) {
+            totalCredit = totalCredit.plus(balance);
+        }
+    }
+
+    if (totalDebit.eq(totalCredit)) {
+        return null;
+    }
+
+    const unbalanced: TransactionLinesBalance = {
+        totalDebit: totalDebit.toNumber(),
+        totalCredit: totalCredit.toNumber(),
+    };
+
+    return {unbalanced};
+}
 
 export type EditableTransactionLinesInput =
     | {mode: 'fetch'; id: string}
@@ -67,6 +124,8 @@ export type EditableTransactionLinesInput =
         MatIconButton,
         MatIcon,
         NaturalIconDirective,
+        WarningComponent,
+        CurrencyPipe,
     ],
     templateUrl: './editable-transaction-lines.component.html',
     styleUrl: './editable-transaction-lines.component.scss',
@@ -98,8 +157,19 @@ export class EditableTransactionLinesComponent extends NaturalAbstractEditableLi
         'remove',
     ];
 
+    /**
+     * Non-null when total debits and total credits of the transaction don't match,
+     * see transactionLinesBalanceValidator()
+     */
+    protected get unbalanced(): TransactionLinesBalance | null {
+        return (this.formArray.errors?.unbalanced as TransactionLinesBalance | undefined) ?? null;
+    }
+
     public constructor() {
         super(inject(TransactionLineService));
+
+        this.formArray.addValidators(transactionLinesBalanceValidator);
+        this.formArray.updateValueAndValidity();
 
         this.input$
             .pipe(

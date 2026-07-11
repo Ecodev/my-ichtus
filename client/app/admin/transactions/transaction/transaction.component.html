@@ -188,7 +188,7 @@
         <natural-fixed-button
             class="detail-speed-dial"
             label="Créer"
-            [color]="form.valid ? 'tertiary' : 'error'"
+            [color]="form.valid && (transactionLinesComponent()?.form.valid ?? true) ? 'tertiary' : 'error'"
             (click)="save()"
         />
     }

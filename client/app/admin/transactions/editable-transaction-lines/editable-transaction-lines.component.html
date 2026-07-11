@@ -106,4 +106,13 @@
             </ng-container>
         </table>
     </div>
+
+    @if (unbalanced) {
+        <app-warning type="warning" class="unbalanced-warning">
+            <span
+                >Transaction déséquilibrée : débits {{ unbalanced.totalDebit | currency: 'CHF' }}, crédits
+                {{ unbalanced.totalCredit | currency: 'CHF' }}</span
+            >
+        </app-warning>
+    }
 }
