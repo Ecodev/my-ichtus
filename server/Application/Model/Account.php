@@ -22,6 +22,7 @@ use Money\Money;
  * Financial account.
  */
 #[ORM\Entity(AccountRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 #[ORM\AssociationOverrides([new ORM\AssociationOverride(name: 'owner', inversedBy: 'accounts', joinColumns: new ORM\JoinColumn(unique: true, onDelete: 'SET NULL'))])]
 class Account extends AbstractModel implements HasParentInterface
 {
@@ -391,5 +392,16 @@ class Account extends AbstractModel implements HasParentInterface
     public function getCreditTransactionLines(): Collection
     {
         return $this->creditTransactionLines;
+    }
+
+    /**
+     * Automatically called by Doctrine whenever an account is updated.
+     */
+    #[ORM\PostUpdate]
+    public function updateBalance(): void
+    {
+        _em()->getConnection()->executeQuery('CALL update_account_balance(:account)', [
+            'account' => $this->getId(),
+        ]);
     }
 }

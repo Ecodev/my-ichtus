@@ -132,11 +132,10 @@ class AccountRepositoryTest extends AbstractRepository
         $this->assertAccountTotalBalance(10001, 3506000, 'group of groups of liabilities only should have a total');
         $this->assertAccountTotalBalance(10007, 0, 'group mixing only revenue and expense should still have a total');
 
-        // Move an asset account inside a group of liabilities, totals are recomputed via updateAccountsBalance()
+        // Move an asset account inside a group of liabilities, totals are recomputed on flush via Account::updateBalance()
         $assetAccount = $this->repository->getOneById(10026); // 1020. Banque > Raiffeisen (courant)
         $assetAccount->setParent($this->repository->getOneById(10011)); // 2030. Acomptes de clients
         $this->getEntityManager()->flush();
-        $this->repository->updateAccountsBalance();
 
         $this->assertAccountTotalBalance(10011, null, 'group mixing asset and liability cannot have a total');
         $this->assertAccountTotalBalance(10001, null, 'ancestor group is affected by a mix deeper in its hierarchy');
@@ -156,7 +155,6 @@ class AccountRepositoryTest extends AbstractRepository
         $assetAccount = $this->repository->getOneById(10026);
         $assetAccount->setParent($this->repository->getOneById(10024)); // 1020. Banque
         $this->getEntityManager()->flush();
-        $this->repository->updateAccountsBalance();
 
         $this->assertAccountTotalBalance(10011, 5000, 'total should be restored when the mix is gone');
         $this->assertAccountTotalBalance(10001, 3506000, 'total should be restored when the mix is gone');
@@ -175,11 +173,10 @@ class AccountRepositoryTest extends AbstractRepository
         $this->assertAccountTotalBalance(10002, 24000, 'group of revenues only should have a total');
         $this->assertAccountTotalBalance(10005, 11250, 'group of expenses only should have a total');
 
-        // Move an expense account inside a group of revenues, totals are recomputed via updateAccountsBalance()
+        // Move an expense account inside a group of revenues, totals are recomputed on flush via Account::updateBalance()
         $expenseAccount = $this->repository->getOneById(10022); // 6600. Publicité
         $expenseAccount->setParent($this->repository->getOneById(10002)); // 3. Produits
         $this->getEntityManager()->flush();
-        $this->repository->updateAccountsBalance();
 
         $this->assertAccountTotalBalance(10002, 34000, 'group mixing only revenue and expense should still have a total');
         $this->assertAccountTotalBalance(10005, 1250, 'group that lost its expense child should still have a total');
@@ -187,10 +184,23 @@ class AccountRepositoryTest extends AbstractRepository
         // Move the expense account back to its original place
         $expenseAccount->setParent($this->repository->getOneById(10005)); // 6. Autres charges exploitation, amortissement, ajustement de valeur
         $this->getEntityManager()->flush();
-        $this->repository->updateAccountsBalance();
 
         $this->assertAccountTotalBalance(10002, 24000, 'total should be restored when the mix is gone');
         $this->assertAccountTotalBalance(10005, 11250, 'total should be restored when the mix is gone');
+    }
+
+    public function testChangingAccountTypeAutomaticallyRecomputesBalance(): void
+    {
+        $this->setCurrentUser('administrator');
+
+        $account = $this->repository->getOneById(10026); // 10202. Raiffeisen (courant)
+        self::assertSame(AccountType::Asset, $account->getType());
+        $this->assertAccountBalance(10026, 1700000, 'sanity check: asset balance is debit - credit');
+
+        $account->setType(AccountType::Liability);
+        $this->getEntityManager()->flush();
+
+        $this->assertAccountBalance(10026, -1700000, 'balance must be recomputed for the new type as soon as the account is flushed, with no explicit recompute call');
     }
 
     public function testGetOneById(): void
