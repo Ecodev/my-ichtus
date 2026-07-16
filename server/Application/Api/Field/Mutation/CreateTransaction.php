@@ -27,11 +27,17 @@ abstract class CreateTransaction implements FieldInterface
                 // Do it
                 $transaction = new Transaction();
                 $input = $args['input'];
+                $lines = $args['lines'];
+
+                Helper::throwIfFutureTransactionDate($input['transactionDate'] ?? null);
+                foreach ($lines as $line) {
+                    Helper::throwIfFutureTransactionDate($line['transactionDate'] ?? null);
+                }
+
                 Helper::hydrate($transaction, $input);
 
                 // Check ACL
                 Helper::throwIfDenied($transaction, 'create');
-                $lines = $args['lines'];
 
                 /** @var TransactionRepository $transactionRepository */
                 $transactionRepository = _em()->getRepository(Transaction::class);
