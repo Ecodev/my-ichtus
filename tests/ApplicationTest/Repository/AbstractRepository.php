@@ -17,4 +17,11 @@ abstract class AbstractRepository extends TestCase
         $actual = $connection->fetchOne('SELECT balance FROM account WHERE id = ' . $id);
         self::assertSame($expected, (int) $actual, $message);
     }
+
+    protected function assertAccountTotalBalance(int $id, ?int $expected, string $message): void
+    {
+        $connection = $this->getEntityManager()->getConnection();
+        $actual = $connection->fetchOne('SELECT total_balance FROM account WHERE id = ' . $id);
+        self::assertSame($expected, $actual === null ? null : (int) $actual, $message);
+    }
 }

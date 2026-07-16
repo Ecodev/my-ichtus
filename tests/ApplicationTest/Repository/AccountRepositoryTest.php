@@ -112,12 +112,85 @@ class AccountRepositoryTest extends AbstractRepository
         $groupAccount = $this->repository->getOneById(10001); // 2. Passifs
         self::assertSame(AccountType::Group, $groupAccount->getType(), 'is a group');
         self::assertTrue(Money::CHF(0)->equals($groupAccount->getBalance()), 'balance for group account is always 0');
-        self::assertTrue(Money::CHF(3506000)->equals($groupAccount->getTotalBalance()), 'total balance for group account should have been computed via DB triggers');
+        $groupTotalBalance = $groupAccount->getTotalBalance();
+        self::assertNotNull($groupTotalBalance);
+        self::assertTrue(Money::CHF(3506000)->equals($groupTotalBalance), 'total balance for group account should have been computed via DB triggers');
 
         $otherAccount = $this->repository->getOneById(10025); // 10201. PostFinance
         self::assertNotSame(AccountType::Group, $otherAccount->getType(), 'not a group');
         self::assertTrue(Money::CHF(818750)->equals($otherAccount->getBalance()), 'balance for non-group should have been computed via DB triggers');
-        self::assertTrue($otherAccount->getBalance()->equals($otherAccount->getTotalBalance()), 'total balance for non-group should be equal to balance');
+        $otherTotalBalance = $otherAccount->getTotalBalance();
+        self::assertNotNull($otherTotalBalance);
+        self::assertTrue($otherAccount->getBalance()->equals($otherTotalBalance), 'total balance for non-group should be equal to balance');
+    }
+
+    public function testGroupTotalBalanceIsNullWhenMixingIncompatibleAccountTypes(): void
+    {
+        $this->setCurrentUser('administrator');
+
+        $this->assertAccountTotalBalance(10011, 5000, 'group of liabilities only should have a total');
+        $this->assertAccountTotalBalance(10001, 3506000, 'group of groups of liabilities only should have a total');
+        $this->assertAccountTotalBalance(10007, 0, 'group mixing only revenue and expense should still have a total');
+
+        // Move an asset account inside a group of liabilities, totals are recomputed via updateAccountsBalance()
+        $assetAccount = $this->repository->getOneById(10026); // 1020. Banque > Raiffeisen (courant)
+        $assetAccount->setParent($this->repository->getOneById(10011)); // 2030. Acomptes de clients
+        $this->getEntityManager()->flush();
+        $this->repository->updateAccountsBalance();
+
+        $this->assertAccountTotalBalance(10011, null, 'group mixing asset and liability cannot have a total');
+        $this->assertAccountTotalBalance(10001, null, 'ancestor group is affected by a mix deeper in its hierarchy');
+        $this->assertAccountTotalBalance(10009, 818750, 'group that lost its asset child should still have a total');
+        $this->assertAccountTotalBalance(10000, 1818750, 'ancestor of group that lost its asset child should still have a total');
+        $this->assertAccountTotalBalance(10007, 0, 'group mixing only revenue and expense should still have a total');
+
+        // The missing total must survive Doctrine hydration up to the PHP model. Clear the
+        // entity manager first, because totals were recomputed in DB behind Doctrine's back.
+        $this->getEntityManager()->clear();
+        self::assertNull($this->repository->getOneById(10011)->getTotalBalance(), 'model should expose null for group mixing asset and liability');
+        self::assertNull($this->repository->getOneById(10001)->getTotalBalance(), 'model should expose null for ancestor group');
+
+        // Move the asset account back to its original place. The current user must be set
+        // again because it was detached from the entity manager when we cleared it.
+        $this->setCurrentUser('administrator');
+        $assetAccount = $this->repository->getOneById(10026);
+        $assetAccount->setParent($this->repository->getOneById(10024)); // 1020. Banque
+        $this->getEntityManager()->flush();
+        $this->repository->updateAccountsBalance();
+
+        $this->assertAccountTotalBalance(10011, 5000, 'total should be restored when the mix is gone');
+        $this->assertAccountTotalBalance(10001, 3506000, 'total should be restored when the mix is gone');
+        $this->assertAccountTotalBalance(10000, 3518750, 'total should be restored when the mix is gone');
+
+        $this->getEntityManager()->clear();
+        $restoredTotalBalance = $this->repository->getOneById(10011)->getTotalBalance();
+        self::assertNotNull($restoredTotalBalance, 'model should expose the total again when the mix is gone');
+        self::assertTrue(Money::CHF(5000)->equals($restoredTotalBalance), 'model should expose the restored total');
+    }
+
+    public function testGroupTotalBalanceStillComputedWhenMixingRevenueAndExpense(): void
+    {
+        $this->setCurrentUser('administrator');
+
+        $this->assertAccountTotalBalance(10002, 24000, 'group of revenues only should have a total');
+        $this->assertAccountTotalBalance(10005, 11250, 'group of expenses only should have a total');
+
+        // Move an expense account inside a group of revenues, totals are recomputed via updateAccountsBalance()
+        $expenseAccount = $this->repository->getOneById(10022); // 6600. Publicité
+        $expenseAccount->setParent($this->repository->getOneById(10002)); // 3. Produits
+        $this->getEntityManager()->flush();
+        $this->repository->updateAccountsBalance();
+
+        $this->assertAccountTotalBalance(10002, 34000, 'group mixing only revenue and expense should still have a total');
+        $this->assertAccountTotalBalance(10005, 1250, 'group that lost its expense child should still have a total');
+
+        // Move the expense account back to its original place
+        $expenseAccount->setParent($this->repository->getOneById(10005)); // 6. Autres charges exploitation, amortissement, ajustement de valeur
+        $this->getEntityManager()->flush();
+        $this->repository->updateAccountsBalance();
+
+        $this->assertAccountTotalBalance(10002, 24000, 'total should be restored when the mix is gone');
+        $this->assertAccountTotalBalance(10005, 11250, 'total should be restored when the mix is gone');
     }
 
     public function testGetOneById(): void

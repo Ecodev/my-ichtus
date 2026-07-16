@@ -60,8 +60,8 @@ class Account extends AbstractModel implements HasParentInterface
     #[ORM\OneToMany(targetEntity: TransactionLine::class, mappedBy: 'credit')]
     private Collection $creditTransactionLines;
 
-    #[ORM\Column(type: 'Money', options: ['default' => 0])]
-    private Money $totalBalance;
+    #[ORM\Column(type: 'Money', nullable: true, options: ['default' => 0])]
+    private ?Money $totalBalance;
 
     #[ORM\Column(type: 'Money', nullable: true)]
     private ?Money $budgetAllowed = null;
@@ -195,8 +195,11 @@ class Account extends AbstractModel implements HasParentInterface
 
     /**
      * Total balance, recursively including all child account if this account is a group.
+     *
+     * It is null when the group mixes incompatible types of accounts anywhere in its
+     * descendants. Only revenue and expense can be mixed together.
      */
-    public function getTotalBalance(): Money
+    public function getTotalBalance(): ?Money
     {
         return $this->totalBalance;
     }
@@ -212,17 +215,22 @@ class Account extends AbstractModel implements HasParentInterface
             throw new Exception('Cannot compute balance of account #' . $this->getId() . ' in the future on ' . $date->format('d.m.Y'));
         }
 
+        $isGroup = $this->getType() === AccountType::Group;
         if ($date->equals($today)) {
-            if ($this->getType() === AccountType::Group) {
-                return $this->getTotalBalance();
+            if (!$isGroup) {
+                return $this->getBalance();
             }
 
-            return $this->getBalance();
+            $totalBalance = $this->getTotalBalance();
+            // If the group mixes incompatible account types, fall back on summing its children
+            if ($totalBalance !== null) {
+                return $totalBalance;
+            }
         }
 
         $connection = _em()->getConnection();
 
-        if ($this->getType() === AccountType::Group) {
+        if ($isGroup) {
             // Get all child accounts that are not group account (= they have their own balance)
             $sql = 'WITH RECURSIVE child AS
               (SELECT id, parent_id, `type`, balance
