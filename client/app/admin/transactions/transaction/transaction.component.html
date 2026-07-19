@@ -27,11 +27,7 @@
                             <input matInput formControlName="transactionDate" [matDatepicker]="picker2" [max]="today" />
                             <mat-datepicker-toggle matIconSuffix [for]="picker2" />
                             <mat-datepicker #picker2 />
-                            @if (form.get('transactionDate')?.hasError('matDatepickerMax')) {
-                                <mat-error>La date ne peut pas être dans le futur</mat-error>
-                            } @else {
-                                <mat-error>{{ form.get('transactionDate')?.errors | errorMessage }}</mat-error>
-                            }
+                            <mat-error>{{ form.get('transactionDate')?.errors | errorMessage }}</mat-error>
                         </mat-form-field>
 
                         <mat-form-field>

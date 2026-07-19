@@ -1,4 +1,4 @@
-import {AsyncPipe, DatePipe} from '@angular/common';
+import {AsyncPipe} from '@angular/common';
 import {Component, inject, signal} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {DateAdapter} from '@angular/material/core';
@@ -85,7 +85,6 @@ function linkToTransactionLines(selections: NaturalSearchSelection[]): RouterLin
     selector: 'app-indicator-report',
     imports: [
         AsyncPipe,
-        DatePipe,
         FormsModule,
         MatButton,
         MatCell,

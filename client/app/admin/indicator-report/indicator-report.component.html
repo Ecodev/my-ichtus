@@ -18,14 +18,7 @@
             />
             <mat-datepicker-toggle matIconSuffix [for]="pickerFrom" />
             <mat-datepicker #pickerFrom />
-            @if (form.controls.dateFrom.hasError('matDatepickerMax')) {
-                <mat-error
-                    >Doit être inférieur ou égal à
-                    {{ form.controls.dateFrom.errors?.matDatepickerMax.max | date: 'dd.MM.y' }}
-                </mat-error>
-            } @else {
-                <mat-error>{{ form.controls.dateFrom.errors | errorMessage }}</mat-error>
-            }
+            <mat-error>{{ form.controls.dateFrom.errors | errorMessage }}</mat-error>
         </mat-form-field>
 
         <mat-form-field>
@@ -40,19 +33,7 @@
             />
             <mat-datepicker-toggle matIconSuffix [for]="pickerTo" />
             <mat-datepicker #pickerTo />
-            @if (form.controls.dateTo.hasError('matDatepickerMin')) {
-                <mat-error
-                    >Doit être supérieur ou égal à
-                    {{ form.controls.dateTo.errors?.matDatepickerMin.min | date: 'dd.MM.y' }}
-                </mat-error>
-            } @else if (form.controls.dateTo.hasError('matDatepickerMax')) {
-                <mat-error
-                    >Doit être inférieur ou égal à
-                    {{ form.controls.dateTo.errors?.matDatepickerMax.max | date: 'dd.MM.y' }}
-                </mat-error>
-            } @else {
-                <mat-error>{{ form.controls.dateTo.errors | errorMessage }}</mat-error>
-            }
+            <mat-error>{{ form.controls.dateTo.errors | errorMessage }}</mat-error>
         </mat-form-field>
     </div>
 

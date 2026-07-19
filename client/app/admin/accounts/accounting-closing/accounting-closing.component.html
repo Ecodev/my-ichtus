@@ -16,11 +16,7 @@
             <input matInput [formControl]="form" [max]="today" [matDatepicker]="picker" />
             <mat-datepicker-toggle matIconSuffix [for]="picker" />
             <mat-datepicker #picker />
-            @if (form.hasError('matDatepickerMax')) {
-                <mat-error>La date du bouclement ne peut pas être dans le futur</mat-error>
-            } @else {
-                <mat-error>{{ form.errors | errorMessage }}</mat-error>
-            }
+            <mat-error>{{ form.errors | errorMessage }}</mat-error>
         </mat-form-field>
     </div>
 </mat-dialog-content>
