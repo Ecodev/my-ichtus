@@ -30,6 +30,9 @@ class AuthenticationMiddleware implements MiddlewareInterface
         if ($session->has('user')) {
             $user = $this->userRepository->getOneById($session->get('user'));
 
+            // Moving window session
+            $session->set('touchedAt', time());
+
             if ($user && $user->canLogin()) {
                 User::setCurrent($user);
             }
