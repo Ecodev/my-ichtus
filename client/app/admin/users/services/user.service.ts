@@ -214,6 +214,8 @@ export class UserService
             email: [deliverableEmail],
             familyRelationship: [Validators.required],
             birthday: [Validators.required],
+            phone: [Validators.maxLength(25)],
+            mobilePhone: [Validators.maxLength(25)],
         };
     }
 

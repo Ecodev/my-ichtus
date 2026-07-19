@@ -45,12 +45,14 @@
                             <mat-label>Téléphone fixe</mat-label>
                             <mat-hint>032 xxx xx xx</mat-hint>
                             <input matInput formControlName="phone" (change)="update()" />
+                            <mat-error>{{ form.get('phone')?.errors | errorMessage }}</mat-error>
                         </mat-form-field>
 
                         <mat-form-field class="nat-sm-expand">
                             <mat-label>Téléphone mobile</mat-label>
                             <mat-hint>07x xxx xx xx</mat-hint>
                             <input matInput formControlName="mobilePhone" (change)="update()" />
+                            <mat-error>{{ form.get('mobilePhone')?.errors | errorMessage }}</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
