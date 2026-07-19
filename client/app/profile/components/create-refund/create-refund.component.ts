@@ -1,4 +1,4 @@
-import {money, NaturalErrorMessagePipe} from '@ecodev/natural';
+import {NaturalErrorMessagePipe, unsignedMoney} from '@ecodev/natural';
 import {Component, inject} from '@angular/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import {FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -32,7 +32,7 @@ export class CreateRefundComponent {
      * Form for ExpenseClaimInput
      */
     protected readonly form = this.fb.group({
-        amount: ['', [Validators.required, Validators.min(1), money]],
+        amount: ['', [Validators.required, Validators.min(1), unsignedMoney]],
         name: ['Demande de remboursement', [Validators.required, Validators.maxLength(50)]],
         description: ['', []],
     });
