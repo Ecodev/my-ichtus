@@ -29,8 +29,10 @@ abstract class CreateTransaction implements FieldInterface
                 $input = $args['input'];
                 $lines = $args['lines'];
 
-                // Lines always get their date overwritten to match the transaction's, so only validate that one.
                 Helper::throwIfFutureTransactionDate($input['transactionDate'] ?? null);
+                foreach ($lines as $line) {
+                    Helper::throwIfFutureTransactionDate($line['transactionDate'] ?? null);
+                }
 
                 Helper::hydrate($transaction, $input);
 
