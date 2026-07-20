@@ -89,7 +89,7 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
         {id: 'transactionDate', label: 'Date'},
         {id: 'updateDate', label: 'Modifié le', checked: false},
         {id: 'updater', label: 'Modifié par', checked: false},
-        {id: 'name', label: 'Libellé'},
+        {id: 'name', label: 'Nom'},
         {id: 'bookable', label: 'Réservable'},
         {id: 'remarks', label: 'Remarques'},
         {id: 'balance', label: 'Montant'},

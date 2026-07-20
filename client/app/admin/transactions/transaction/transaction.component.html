@@ -16,7 +16,7 @@
             <div class="nat-vertical nat-padding-top nat-gap-horizontal nat-md-horizontal">
                 <div class="nat-vertical nat-md-expand-66">
                     <mat-form-field>
-                        <mat-label>Libellé</mat-label>
+                        <mat-label>Nom</mat-label>
                         <input matInput formControlName="name" />
                         <mat-error>{{ form.get('name')?.errors | errorMessage }}</mat-error>
                     </mat-form-field>
@@ -24,7 +24,7 @@
                     <div class="nat-expand-50 nat-vertical">
                         <mat-form-field>
                             <mat-label>Date</mat-label>
-                            <input matInput formControlName="transactionDate" [matDatepicker]="picker2" [max]="today" />
+                            <input matInput formControlName="transactionDate" [matDatepicker]="picker2" />
                             <mat-datepicker-toggle matIconSuffix [for]="picker2" />
                             <mat-datepicker #picker2 />
                             <mat-error>{{ form.get('transactionDate')?.errors | errorMessage }}</mat-error>

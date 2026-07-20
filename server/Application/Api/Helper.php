@@ -10,8 +10,6 @@ use Application\Model\Bookable;
 use Application\Model\Booking;
 use Application\Model\TransactionLine;
 use Application\Model\User;
-use Cake\Chronos\Chronos;
-use Cake\Chronos\ChronosDate;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Ecodev\Felix\Api\Exception;
@@ -24,19 +22,6 @@ abstract class Helper
         $acl = new Acl();
         if (!$acl->isCurrentUserAllowed($model, $privilege)) {
             throw new Exception($acl->getLastDenialMessage() ?? '');
-        }
-    }
-
-    /**
-     * Refuse manually entered transaction dates in the future.
-     *
-     * Only applies to user input (create/update transaction mutations), because internal
-     * usages
-     */
-    public static function throwIfFutureTransactionDate(?Chronos $transactionDate): void
-    {
-        if ($transactionDate && new ChronosDate($transactionDate)->greaterThan(ChronosDate::today())) {
-            throw new Exception(_tr("La date d'écriture ne peut pas être dans le futur"));
         }
     }
 

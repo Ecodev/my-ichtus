@@ -28,19 +28,13 @@ abstract class UpdateTransaction implements FieldInterface
                 /** @var Transaction $transaction */
                 $transaction = $args['id']->getEntity();
                 $input = $args['input'];
-                $lines = $args['lines'] ?? null;
-
-                Helper::throwIfFutureTransactionDate($input['transactionDate'] ?? null);
-                foreach ($lines ?? [] as $line) {
-                    Helper::throwIfFutureTransactionDate($line['transactionDate'] ?? null);
-                }
-
                 Helper::hydrate($transaction, $input);
 
                 // Check ACL
                 Helper::throwIfDenied($transaction, 'update');
 
                 $transaction->markUpdated();
+                $lines = $args['lines'] ?? null;
 
                 if ($lines !== null) {
                     /** @var TransactionRepository $transactionRepository */

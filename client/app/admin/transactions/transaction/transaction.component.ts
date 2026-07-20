@@ -114,7 +114,6 @@ export class TransactionComponent
     protected updateTransactionLines = false;
 
     protected readonly ExpenseClaimType = ExpenseClaimType;
-    protected readonly today = new Date();
 
     protected viewer!: NonNullable<CurrentUserForProfileQuery['viewer']>;
     protected transactionLines: EditableTransactionLinesInput = {mode: 'empty'};
