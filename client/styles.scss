@@ -60,13 +60,6 @@ app-admin router-outlet + * {
     padding-bottom: 100px;
 }
 
-.detail-speed-dial {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    z-index: 999; // < than 1000 that is the z-index of overlay contents
-}
-
 .overflow {
     overflow: auto;
 }

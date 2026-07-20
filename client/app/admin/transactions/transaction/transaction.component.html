@@ -186,7 +186,6 @@
 
     @if (!isUpdatePage() && userService.canUpdateTransaction(viewer)) {
         <natural-fixed-button
-            class="detail-speed-dial"
             label="Créer"
             [color]="form.valid && (transactionLinesComponent()?.form.valid ?? true) ? 'tertiary' : 'error'"
             (click)="save()"
@@ -194,7 +193,7 @@
     }
 
     @if (isUpdatePage() && userService.canUpdateTransaction(viewer)) {
-        <eco-fab-speed-dial class="detail-speed-dial">
+        <eco-fab-speed-dial class="nat-fixed-fab">
             <eco-fab-speed-dial-trigger>
                 <button matFab>
                     <mat-icon naturalIcon="more_vert" />
