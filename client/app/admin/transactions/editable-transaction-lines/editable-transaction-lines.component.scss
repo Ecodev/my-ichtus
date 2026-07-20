@@ -5,7 +5,9 @@
 }
 
 .mat-column-balance {
-    max-width: 7em;
+    mat-form-field {
+        width: 120px;
+    }
 }
 
 .mat-column-credit {

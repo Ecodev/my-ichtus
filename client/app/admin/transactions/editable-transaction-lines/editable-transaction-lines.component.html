@@ -5,10 +5,10 @@
             <tr *matRowDef="let row; columns: columns" mat-row></tr>
 
             <ng-container matColumnDef="name">
-                <th *matHeaderCellDef mat-header-cell>Nom</th>
+                <th *matHeaderCellDef mat-header-cell>Libellé</th>
                 <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
                     <mat-form-field>
-                        <mat-label>Nom</mat-label>
+                        <mat-label>Libellé</mat-label>
                         <input matInput formControlName="name" />
                         <mat-error>{{ formArray.at(i).get('name')?.errors | errorMessage }}</mat-error>
                     </mat-form-field>
