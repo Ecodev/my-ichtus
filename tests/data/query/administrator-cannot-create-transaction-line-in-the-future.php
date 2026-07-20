@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Cake\Chronos\Chronos;
 
 $today = Chronos::now()->format('Y-m-d');
-$todayIso = Chronos::now()->startOfDay()->format(DateTime::ATOM);
 $tomorrow = Chronos::now()->addDays(1)->format('Y-m-d');
 
 return [
@@ -13,43 +12,38 @@ return [
         'query' => 'mutation ($inputTransaction: TransactionInput!, $lines: [TransactionLineInput!]!) {
             createTransaction(input: $inputTransaction, lines: $lines) {
                 name
-                transactionLines {
-                    transactionDate
-                }
             }
         }',
         'variables' => [
             'inputTransaction' => [
-                'name' => 'Transaction with a future line',
+                'name' => 'Transaction avec ligne du futur',
                 'transactionDate' => $today,
             ],
             'lines' => [
                 [
-                    'name' => 'Cash payment',
+                    'name' => 'Paiement cash',
                     'balance' => '100.00',
                     'transactionDate' => $tomorrow,
                     'credit' => 10026,
-                ],
-                [
-                    'name' => 'Cash payment',
-                    'balance' => '100.00',
-                    'transactionDate' => $tomorrow,
-                    'debit' => 10034,
                 ],
             ],
         ],
     ],
     [
-        'data' => [
-            'createTransaction' => [
-                'name' => 'Transaction with a future line',
-                'transactionLines' => [
+        'errors' => [
+            [
+                'message' => 'La date d\'écriture ne peut pas être dans le futur',
+                'extensions' => [
+                    'showSnack' => true,
+                ],
+                'locations' => [
                     [
-                        'transactionDate' => $todayIso,
+                        'line' => 2,
+                        'column' => 13,
                     ],
-                    [
-                        'transactionDate' => $todayIso,
-                    ],
+                ],
+                'path' => [
+                    'createTransaction',
                 ],
             ],
         ],
