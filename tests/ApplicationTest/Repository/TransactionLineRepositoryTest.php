@@ -28,7 +28,7 @@ class TransactionLineRepositoryTest extends AbstractRepository
 
     public static function providerGetAccessibleSubQuery(): iterable
     {
-        $all = range(14000, 14012);
+        $all = range(14000, 14013);
 
         $family = [14000, 14002, 14003, 14004, 14008, 14011, 14012];
         yield ['anonymous', []];

@@ -124,6 +124,63 @@ class AccountRepositoryTest extends AbstractRepository
         self::assertTrue($otherAccount->getBalance()->equals($otherTotalBalance), 'total balance for non-group should be equal to balance');
     }
 
+    // ex-future = transaction that past from future to past.
+    public function testCronUpdatesExFutureTransactionBalance(): void
+    {
+        $connection = $this->getEntityManager()->getConnection();
+
+        $transactionDate = new Chronos($connection->fetchOne('SELECT transaction_date FROM transaction_line WHERE id = 14013'));
+        self::assertTrue($transactionDate->greaterThan(Chronos::now()), 'fixture transaction must stay dated in the future for this test to be meaningful');
+
+        // 8500: Charges extraordinaires, exceptionnelles ou hors période (would be 5000 if the future transaction were wrongly included)
+        $this->assertAccountBalance(10102, 0, 'balance must exclude the transaction dated in the future');
+        $this->assertAccountTotalBalance(10007, 0, 'group total must exclude the transaction dated in the future'); // 8: Résultats extraordinaires et hors exploitation
+
+        // Easiest way to grant update_account_balance excludes the future is to recompute them all (acceptable on fixtures).
+        $this->repository->updateAccountsBalance();
+        $this->assertAccountBalance(10102, 0, 'explicit recompute must also exclude the transaction dated in the future');
+
+        // Move the future transaction into the past. Changing only the date does not change balance
+        $connection->update('transaction_line', ['transaction_date' => Chronos::yesterday()], ['id' => 14013]);
+        $this->assertAccountBalance(10102, 0, 'balance stays stale after the date alone changes, with no explicit recompute');
+
+        $this->repository->updateAccountsBalance();
+        $this->assertAccountBalance(10102, 5000, 'once dated in the past, the transaction must be added to the balance on next recompute');
+        $this->assertAccountTotalBalance(10007, 5000, 'group total must include it too');
+    }
+
+    public function testTriggerUpdatesExFutureTransactionBalance(): void
+    {
+        $connection = $this->getEntityManager()->getConnection();
+
+        // 8500: Charges extraordinaires, exceptionnelles ou hors période
+        $this->assertAccountBalance(10102, 0, 'sanity check: excluded while the fixture transaction is still dated in the future');
+
+        // Move the future transaction into the past. Changing only the date does not change balance
+        $connection->update('transaction_line', ['transaction_date' => Chronos::yesterday()], ['id' => 14013]);
+        $this->assertAccountBalance(10102, 0, 'balance stays stale after the date alone changes, with no explicit recompute');
+
+        // A brand new, unrelated transaction touches the same account
+        $connection->insert('transaction', [
+            'transaction_date' => Chronos::now(),
+            'name' => 'Nouvel amortissement',
+            'remarks' => '',
+        ]);
+        $transactionId = $connection->lastInsertId();
+
+        $connection->insert('transaction_line', [
+            'transaction_id' => $transactionId,
+            'debit_id' => 10102,
+            'credit_id' => 10086,
+            'balance' => 2000,
+            'transaction_date' => Chronos::now(),
+        ]);
+
+        // Trigger recompute new total on the ex future task
+        $this->assertAccountBalance(10102, 5000 + 2000, 'balance must include both the newly inserted line and the stale one that just turned past');
+        $this->assertAccountTotalBalance(10007, 0 + 5000 + 2000, 'group total must reflect both lines too'); // 8: Résultats extraordinaires et hors exploitation
+    }
+
     public function testGroupTotalBalanceIsNullWhenMixingIncompatibleAccountTypes(): void
     {
         $this->setCurrentUser('administrator');

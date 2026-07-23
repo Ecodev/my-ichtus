@@ -267,7 +267,8 @@ REPLACE INTO transaction (id, creator_id, owner_id, transaction_date, name, rema
 (8005, 1000, 1000, '2019-02-04', 'Achat d''un nouveau voilier', 'Paiement partiel par banque et poste', NULL),
 (8006, 1002, 1002, '2019-04-05', 'Versement en ligne', '', NULL),
 (8007, 1000, 1000, '2019-01-01', 'Solde à nouveau', 'Ouverture des comptes en début d\'exercice', NULL),
-(8008, 1000, 1007, '2019-05-01', 'Frais attribués par erreur au compte du conjoint', '', NULL);
+(8008, 1000, 1007, '2019-05-01', 'Frais attribués par erreur au compte du conjoint', '', NULL),
+(8009, 1002, 1002, DATE_ADD(NOW(), INTERVAL 10 YEAR), 'Amortissement exceptionnel', '', NULL); -- Grant future to test trigger exclusion
 
 REPLACE INTO transaction_tag (id, name) VALUES
 (15000, 'Régate 2019'),
@@ -290,7 +291,8 @@ REPLACE INTO transaction_line (id, transaction_id, debit_id, credit_id, bookable
 (14009, 8007, 10025, 10106, NULL, NULL, 1500000, '2019-01-01', 1, NULL, 'Solde à nouveau', 'Ouverture du CCP'),
 (14010, 8007, 10026, 10106, NULL, NULL, 2000000, '2019-01-01', 1, NULL, 'Solde à nouveau', 'Ouverture de Raiffeisen'),
 (14011, 8002, 10096, 10104, NULL, NULL, 1000, '2019-03-12', 1, NULL, 'Contribution au fond de réparation interne', ''),
-(14012, 8008, 10108, 10096, NULL, NULL, 5000, '2019-05-01', 1, NULL, 'Frais attribués par erreur au compte du conjoint', '');
+(14012, 8008, 10108, 10096, NULL, NULL, 5000, '2019-05-01', 1, NULL, 'Frais attribués par erreur au compte du conjoint', ''),
+(14013, 8009, 10102, 10086, NULL, NULL, 5000, DATE_ADD(NOW(), INTERVAL 10 YEAR), 0, NULL, 'Amortissement exceptionnel', ''); -- Grant future to test trigger exclusion
 
 REPLACE INTO accounting_document (id, expense_claim_id, transaction_id, owner_id, filename, mime) VALUES
 (9000, 7000, NULL, 1002, 'dw4jV3zYSPsqE2CB8BcP8ABD0.pdf', 'application/pdf'),

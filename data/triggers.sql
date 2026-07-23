@@ -40,8 +40,8 @@ this_procedure:BEGIN
             LEAVE updateLoop;
         END IF;
 
-        SELECT IFNULL(SUM(balance), 0) INTO debit FROM transaction_line AS tl WHERE tl.debit_id = _id;
-        SELECT IFNULL(SUM(balance), 0) INTO credit FROM transaction_line AS tl WHERE tl.credit_id = _id;
+        SELECT IFNULL(SUM(balance), 0) INTO debit FROM transaction_line AS tl WHERE tl.debit_id = _id AND tl.transaction_date <= NOW();
+        SELECT IFNULL(SUM(balance), 0) INTO credit FROM transaction_line AS tl WHERE tl.credit_id = _id AND tl.transaction_date <= NOW();
 
         UPDATE account
         SET balance = IF(
