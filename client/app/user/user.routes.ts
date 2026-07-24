@@ -1,10 +1,10 @@
-import {Routes} from '@angular/router';
+import {type Routes} from '@angular/router';
 import {RegisterComponent} from './components/register/register.component';
 import {RegisterConfirmComponent} from './components/register/register-confirm.component';
 import {resolveUserByToken} from '../admin/users/services/userByToken.resolver';
 import {RequestPasswordResetComponent} from './components/request-password-reset/request-password-reset.component';
 import {ChangePasswordComponent} from './components/change-password/change-password.component';
-import {NaturalSeo} from '@ecodev/natural';
+import {type NaturalSeo} from '@ecodev/natural';
 
 export const routes: Routes = [
     {

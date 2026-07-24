@@ -1,21 +1,21 @@
 import {assertInInjectionContext, inject} from '@angular/core';
 import {
-    DropdownFacet,
-    FlagFacet,
+    type DropdownFacet,
+    type FlagFacet,
     NaturalEnumService,
-    NaturalSearchFacets,
-    NaturalSearchSelection,
+    type NaturalSearchFacets,
+    type NaturalSearchSelection,
     replaceOperatorByName,
     TypeAccountSelectorComponent,
     TypeDateComponent,
-    TypeDateConfiguration,
-    TypeHierarchicSelectorConfiguration,
+    type TypeDateConfiguration,
+    type TypeHierarchicSelectorConfiguration,
     TypeNaturalSelectComponent,
     TypeNumberComponent,
-    TypeNumberConfiguration,
+    type TypeNumberConfiguration,
     TypeSelectComponent,
-    TypeSelectConfiguration,
-    TypeSelectNaturalConfiguration,
+    type TypeSelectConfiguration,
+    type TypeSelectNaturalConfiguration,
     TypeTextComponent,
     upperCaseFirstLetter,
     wrapLike,
@@ -28,10 +28,10 @@ import {TransactionService} from '../../admin/transactions/services/transaction.
 import {TransactionTagService} from '../../admin/transactionTags/services/transactionTag.service';
 import {
     AccountType,
-    BookableFilter,
+    type BookableFilter,
     BookableStatus,
-    BookingFilterGroupConditionEndDate,
-    UserFilterGroupConditionReceivesNewsletter,
+    type BookingFilterGroupConditionEndDate,
+    type UserFilterGroupConditionReceivesNewsletter,
 } from '../generated-types';
 import {AccountService} from '../../admin/accounts/services/account.service';
 import {accountHierarchicConfiguration} from '../hierarchic-selector/AccountHierarchicConfiguration';

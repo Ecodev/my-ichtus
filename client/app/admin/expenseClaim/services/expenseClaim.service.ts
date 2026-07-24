@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {FormValidators, NaturalAbstractModelService, unsignedMoney} from '@ecodev/natural';
+import {type FormValidators, NaturalAbstractModelService, unsignedMoney} from '@ecodev/natural';
 import {
     createExpenseClaim,
     deleteExpenseClaims,
@@ -8,22 +8,22 @@ import {
     updateExpenseClaim,
 } from './expenseClaim.queries';
 import {
-    CreateExpenseClaim,
-    CreateExpenseClaimVariables,
-    CurrentUserForProfileQuery,
-    DeleteExpenseClaims,
-    DeleteExpenseClaimsVariables,
-    ExpenseClaimInput,
-    ExpenseClaimQuery,
-    ExpenseClaimQueryVariables,
+    type CreateExpenseClaim,
+    type CreateExpenseClaimVariables,
+    type CurrentUserForProfileQuery,
+    type DeleteExpenseClaims,
+    type DeleteExpenseClaimsVariables,
+    type ExpenseClaimInput,
+    type ExpenseClaimQuery,
+    type ExpenseClaimQueryVariables,
     ExpenseClaimSortingField,
-    ExpenseClaimsQuery,
-    ExpenseClaimsQueryVariables,
+    type ExpenseClaimsQuery,
+    type ExpenseClaimsQueryVariables,
     ExpenseClaimStatus,
     ExpenseClaimType,
     SortingOrder,
-    UpdateExpenseClaim,
-    UpdateExpenseClaimVariables,
+    type UpdateExpenseClaim,
+    type UpdateExpenseClaimVariables,
 } from '../../../shared/generated-types';
 import {Validators} from '@angular/forms';
 

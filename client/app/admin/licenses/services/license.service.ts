@@ -1,18 +1,18 @@
 import {Injectable} from '@angular/core';
-import {FormAsyncValidators, FormValidators, NaturalAbstractModelService, unique} from '@ecodev/natural';
+import {type FormAsyncValidators, type FormValidators, NaturalAbstractModelService, unique} from '@ecodev/natural';
 import {createLicense, deleteLicenses, licenseQuery, licensesQuery, updateLicense} from './license.queries';
 import {
-    CreateLicense,
-    CreateLicenseVariables,
-    DeleteLicenses,
-    DeleteLicensesVariables,
-    LicenseInput,
-    LicenseQuery,
-    LicenseQueryVariables,
-    LicensesQuery,
-    LicensesQueryVariables,
-    UpdateLicense,
-    UpdateLicenseVariables,
+    type CreateLicense,
+    type CreateLicenseVariables,
+    type DeleteLicenses,
+    type DeleteLicensesVariables,
+    type LicenseInput,
+    type LicenseQuery,
+    type LicenseQueryVariables,
+    type LicensesQuery,
+    type LicensesQueryVariables,
+    type UpdateLicense,
+    type UpdateLicenseVariables,
 } from '../../../shared/generated-types';
 import {Validators} from '@angular/forms';
 

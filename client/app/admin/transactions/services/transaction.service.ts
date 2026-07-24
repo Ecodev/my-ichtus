@@ -1,20 +1,20 @@
 import {inject, Injectable} from '@angular/core';
 import {Validators} from '@angular/forms';
-import {formatIsoDateTime, FormValidators, Literal, NaturalAbstractModelService} from '@ecodev/natural';
+import {formatIsoDateTime, type FormValidators, type Literal, NaturalAbstractModelService} from '@ecodev/natural';
 import {
-    AccountsQuery,
-    CreateTransaction,
-    CreateTransactionVariables,
-    DeleteTransactions,
-    DeleteTransactionsVariables,
-    TransactionInput,
-    TransactionLineInput,
-    TransactionQuery,
-    TransactionQueryVariables,
-    TransactionsQuery,
-    TransactionsQueryVariables,
-    UpdateTransaction,
-    UpdateTransactionVariables,
+    type AccountsQuery,
+    type CreateTransaction,
+    type CreateTransactionVariables,
+    type DeleteTransactions,
+    type DeleteTransactionsVariables,
+    type TransactionInput,
+    type TransactionLineInput,
+    type TransactionQuery,
+    type TransactionQueryVariables,
+    type TransactionsQuery,
+    type TransactionsQueryVariables,
+    type UpdateTransaction,
+    type UpdateTransactionVariables,
 } from '../../../shared/generated-types';
 import {
     createTransaction,
@@ -26,7 +26,7 @@ import {
 import {TransactionLineService} from './transactionLine.service';
 import {localConfig} from '../../../shared/generated-config';
 import {AccountService} from '../../accounts/services/account.service';
-import {Observable} from 'rxjs';
+import {type Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 @Injectable({

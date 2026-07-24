@@ -5,11 +5,16 @@ import {
     NaturalIconDirective,
     NaturalSelectEnumComponent,
 } from '@ecodev/natural';
-import {Component, inject, input, OnInit, output} from '@angular/core';
-import {CreateUser, CurrentUserForProfileQuery, UpdateUser, UsersQuery} from '../../../shared/generated-types';
+import {Component, inject, input, type OnInit, output} from '@angular/core';
+import {
+    type CreateUser,
+    type CurrentUserForProfileQuery,
+    type UpdateUser,
+    type UsersQuery,
+} from '../../../shared/generated-types';
 import {merge} from 'es-toolkit';
 import {FamilyUserService} from './family-user.service';
-import {EMPTY, Observable} from 'rxjs';
+import {EMPTY, type Observable} from 'rxjs';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
 import {AddressComponent} from '../../../shared/components/address/address.component';

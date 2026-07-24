@@ -1,35 +1,35 @@
 import {Injectable} from '@angular/core';
 import {Validators} from '@angular/forms';
-import {Observable, of} from 'rxjs';
+import {type Observable, of} from 'rxjs';
 import {
     formatIsoDateTime,
-    FormValidators,
+    type FormValidators,
     NaturalAbstractModelService,
     NaturalQueryVariablesManager,
     type WithId,
 } from '@ecodev/natural';
 import {
     type BookableFilterGroupCondition,
-    BookingInput,
+    type BookingInput,
     type BookingPartialInput,
-    BookingQuery,
-    BookingQueryVariables,
+    type BookingQuery,
+    type BookingQueryVariables,
     BookingSortingField,
-    BookingsQuery,
-    BookingsQueryVariables,
+    type BookingsQuery,
+    type BookingsQueryVariables,
     BookingStatus,
     BookingType,
-    CreateBooking,
-    CreateBookingVariables,
-    DeleteBookings,
-    DeleteBookingsVariables,
+    type CreateBooking,
+    type CreateBookingVariables,
+    type DeleteBookings,
+    type DeleteBookingsVariables,
     JoinType,
     LogicalOperator,
     SortingOrder,
-    TerminateBooking,
-    TerminateBookingVariables,
-    UpdateBooking,
-    UpdateBookingVariables,
+    type TerminateBooking,
+    type TerminateBookingVariables,
+    type UpdateBooking,
+    type UpdateBookingVariables,
 } from '../shared/generated-types';
 import {
     bookingQuery,
@@ -107,7 +107,7 @@ export function terminateBooking(apollo: Apollo, id: string, comment: string): O
     });
 
     observable.subscribe(() => {
-        apollo.client.reFetchObservableQueries();
+        apollo.client.refetchObservableQueries();
     });
 
     return observable;

@@ -1,6 +1,6 @@
 import {
     formatIsoDateTime,
-    IEnum,
+    type IEnum,
     NaturalAbstractDetail,
     NaturalAvatarComponent,
     NaturalDetailHeaderComponent,
@@ -12,20 +12,20 @@ import {
     NaturalSelectComponent,
     NaturalSelectEnumComponent,
     NaturalSelectHierarchicComponent,
-    NaturalSeoResolveData,
+    type NaturalSeoResolveData,
     NaturalStampComponent,
     NaturalTableButtonComponent,
 } from '@ecodev/natural';
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, type OnInit} from '@angular/core';
 import {BookableService} from '../services/bookable.service';
 import {
-    BookingFilterGroupCondition,
+    type BookingFilterGroupCondition,
     BookingSortingField,
-    BookingsQueryVariables,
+    type BookingsQueryVariables,
     BookingStatus,
     BookingType,
-    CreateImage,
-    CurrentUserForProfileQuery,
+    type CreateImage,
+    type CurrentUserForProfileQuery,
     SortingOrder,
     UserRole,
 } from '../../../shared/generated-types';
@@ -34,7 +34,7 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 import {ImageService} from '../services/image.service';
 import {accountHierarchicConfiguration} from '../../../shared/hierarchic-selector/AccountHierarchicConfiguration';
-import {Observable, of} from 'rxjs';
+import {type Observable, of} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
 import {
     availableColumnsForBookingsWithOwnerOnlyTrainers,

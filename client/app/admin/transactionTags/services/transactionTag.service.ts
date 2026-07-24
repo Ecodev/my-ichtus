@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {FormValidators, NaturalAbstractModelService} from '@ecodev/natural';
+import {type FormValidators, NaturalAbstractModelService} from '@ecodev/natural';
 import {
     createTransactionTag,
     deleteTransactionTags,
@@ -8,15 +8,15 @@ import {
     updateTransactionTag,
 } from './transactionTag.queries';
 import {
-    CreateTransactionTag,
-    CreateTransactionTagVariables,
-    TransactionTagInput,
-    TransactionTagQuery,
-    TransactionTagQueryVariables,
-    TransactionTagsQuery,
-    TransactionTagsQueryVariables,
-    UpdateTransactionTag,
-    UpdateTransactionTagVariables,
+    type CreateTransactionTag,
+    type CreateTransactionTagVariables,
+    type TransactionTagInput,
+    type TransactionTagQuery,
+    type TransactionTagQueryVariables,
+    type TransactionTagsQuery,
+    type TransactionTagsQueryVariables,
+    type UpdateTransactionTag,
+    type UpdateTransactionTagVariables,
 } from '../../../shared/generated-types';
 import {Validators} from '@angular/forms';
 

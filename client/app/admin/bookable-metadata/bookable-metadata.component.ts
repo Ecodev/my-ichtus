@@ -1,4 +1,4 @@
-import {Component, inject, Input, input, OnInit} from '@angular/core';
+import {Component, inject, Input, input, type OnInit} from '@angular/core';
 import {BookableMetadataService} from './bookable-metadata.service';
 import {
     NaturalAlertService,
@@ -7,7 +7,11 @@ import {
     NaturalQueryVariablesManager,
     TypedMatCellDef,
 } from '@ecodev/natural';
-import {BookableMetadatasQuery, BookableMetadatasQueryVariables, BookableQuery} from '../../shared/generated-types';
+import {
+    type BookableMetadatasQuery,
+    type BookableMetadatasQueryVariables,
+    type BookableQuery,
+} from '../../shared/generated-types';
 import {cloneDeep} from 'es-toolkit';
 import {finalize} from 'rxjs/operators';
 import {MatIcon} from '@angular/material/icon';

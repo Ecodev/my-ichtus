@@ -1,7 +1,6 @@
 import {execFileSync, execSync} from 'node:child_process';
-import {DocumentNode} from '@apollo/client/core';
 import {Page, Response} from '@playwright/test';
-import {getOperationName} from '@apollo/client/utilities';
+import {DocumentNode, getOperationAST} from 'graphql';
 
 export function quoteXpath(xpath: string): string {
     const parts = xpath.split('"');
@@ -61,7 +60,7 @@ export function runSql(sql: string): void {
  * Wait for a network response to a request that contains at least the given GraphQL query
  */
 export function graphqlRequest(document: DocumentNode): (response: Response) => boolean {
-    const operationName = getOperationName(document);
+    const operationName = getOperationAST(document)?.name?.value ?? '';
 
     return response => {
         if (response.url().match(/\/graphql($|\?)/)) {

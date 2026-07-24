@@ -1,9 +1,14 @@
 import {Apollo} from 'apollo-angular';
 import {inject, Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {type Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {openDoorMutation} from './door.queries';
-import {CurrentUserForProfileQuery, Door, OpenDoor, OpenDoorVariables} from '../../shared/generated-types';
+import {
+    type CurrentUserForProfileQuery,
+    Door,
+    type OpenDoor,
+    type OpenDoorVariables,
+} from '../../shared/generated-types';
 
 export type DoorConfig = {
     readonly id: keyof Pick<NonNullable<CurrentUserForProfileQuery['viewer']>, 'door1' | 'door2' | 'door3' | 'door4'>;

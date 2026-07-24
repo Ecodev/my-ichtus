@@ -1,22 +1,22 @@
 import {inject, Injectable} from '@angular/core';
 import {bookableQuery, createBookable, deleteBookables, updateBookable, usageBookablesQuery} from './bookable.queries';
 import {
-    BookableQuery,
-    BookableQueryVariables,
-    BookablesQueryVariables,
-    CreateBookable,
-    CreateBookableVariables,
-    DeleteBookables,
-    DeleteBookablesVariables,
+    type BookableQuery,
+    type BookableQueryVariables,
+    type BookablesQueryVariables,
+    type CreateBookable,
+    type CreateBookableVariables,
+    type DeleteBookables,
+    type DeleteBookablesVariables,
     JoinType,
-    UpdateBookable,
-    UpdateBookableVariables,
-    UsageBookablesQuery,
-    UsageBookablesQueryVariables,
+    type UpdateBookable,
+    type UpdateBookableVariables,
+    type UsageBookablesQuery,
+    type UsageBookablesQueryVariables,
 } from '../../../shared/generated-types';
 import {BookingService} from '../../bookings/services/booking.service';
 import {NaturalAbstractModelService} from '@ecodev/natural';
-import {Observable, of} from 'rxjs';
+import {type Observable, of} from 'rxjs';
 
 @Injectable({
     providedIn: 'root',

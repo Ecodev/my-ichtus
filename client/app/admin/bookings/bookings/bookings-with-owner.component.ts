@@ -4,7 +4,7 @@ import {PermissionsService} from '../../../shared/services/permissions.service';
 import {BookingWithOwnerService} from '../services/booking-with-owner.service';
 import {AbstractBookings} from './abstract-bookings';
 import {
-    Button,
+    type Button,
     NaturalAvatarComponent,
     NaturalColumnsPickerComponent,
     NaturalEllipsisPipe,
@@ -18,7 +18,7 @@ import {
 } from '@ecodev/natural';
 import {AsyncPipe, DatePipe} from '@angular/common';
 import {CopyContactDataButtonService} from '../../../shared/components/copy-contact-data/copy-contact-data-button.service';
-import {BookingsWithOwnerContactQueryVariables} from '../../../shared/generated-types';
+import {type BookingsWithOwnerContactQueryVariables} from '../../../shared/generated-types';
 import {RouterLink} from '@angular/router';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';

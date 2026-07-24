@@ -9,7 +9,7 @@ import {
 import {Component, inject, Input} from '@angular/core';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {BookableService} from '../../bookables/services/bookable.service';
-import {TransactionLineInput, TransactionLinesQuery} from '../../../shared/generated-types';
+import {type TransactionLineInput, type TransactionLinesQuery} from '../../../shared/generated-types';
 import {TransactionTagService} from '../../transactionTags/services/transactionTag.service';
 import {accountHierarchicConfiguration} from '../../../shared/hierarchic-selector/AccountHierarchicConfiguration';
 import {map, of, Subject, switchMap} from 'rxjs';
@@ -30,7 +30,7 @@ import {
     MatRowDef,
     MatTable,
 } from '@angular/material/table';
-import {AbstractControl, FormArray, FormsModule, ReactiveFormsModule, ValidationErrors} from '@angular/forms';
+import {type AbstractControl, FormArray, FormsModule, ReactiveFormsModule, type ValidationErrors} from '@angular/forms';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {WarningComponent} from '../../../shared/warning.component';
 import {CurrencyPipe} from '@angular/common';

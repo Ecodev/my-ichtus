@@ -1,5 +1,5 @@
 import {Apollo} from 'apollo-angular';
-import {Component, DestroyRef, inject, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, type OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationStart, Router, RouterLink, RouterOutlet} from '@angular/router';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {
@@ -13,10 +13,14 @@ import {
     NaturalSidenavContentComponent,
 } from '@ecodev/natural';
 import {UserService} from '../../../admin/users/services/user.service';
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {ProvisionComponent, ProvisionData} from '../provision/provision.component';
+import {MatDialog, type MatDialogConfig} from '@angular/material/dialog';
+import {ProvisionComponent, type ProvisionData} from '../provision/provision.component';
 import {filter} from 'rxjs/operators';
-import {CurrentUserForProfileQuery, LicensesQuery, LicensesQueryVariables} from '../../../shared/generated-types';
+import {
+    type CurrentUserForProfileQuery,
+    type LicensesQuery,
+    type LicensesQueryVariables,
+} from '../../../shared/generated-types';
 import {DatatransService} from '../../../shared/services/datatrans.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {LicenseService} from '../../../admin/licenses/services/license.service';
@@ -150,7 +154,7 @@ export class ProfileComponent implements OnInit {
 
                 // Restore store, to refetch queries that are watched
                 // this.apollo.client.resetStore();
-                this.apollo.client.reFetchObservableQueries(false);
+                this.apollo.client.refetchObservableQueries(false);
             },
             error: (data: {message: string}) => {
                 this.alertService.error("Le paiement n'a pas abouti: " + data.message);

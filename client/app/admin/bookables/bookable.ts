@@ -1,4 +1,4 @@
-import {BookableUsage} from '../../shared/generated-types';
+import {type BookableUsage} from '../../shared/generated-types';
 
 export type AvailabilityStatus = 'unlimited' | 'available' | 'waitingList' | 'full';
 

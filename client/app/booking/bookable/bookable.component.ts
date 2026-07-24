@@ -1,8 +1,8 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, type OnInit} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {BookableService} from '../../admin/bookables/services/bookable.service';
 import {BookingService} from '../../admin/bookings/services/booking.service';
-import {BookableQuery, BookingsQuery, BookingType} from '../../shared/generated-types';
+import {type BookableQuery, type BookingsQuery, BookingType} from '../../shared/generated-types';
 import {PermissionsService} from '../../shared/services/permissions.service';
 import {TimeagoModule} from 'ngx-timeago';
 import {MatButton} from '@angular/material/button';

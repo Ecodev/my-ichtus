@@ -1,7 +1,7 @@
 import {gql} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {userMetaFragment} from '../../../shared/queries/fragments';
-import {CreateImage, CreateImageVariables, ImageInput} from '../../../shared/generated-types';
+import {type CreateImage, type CreateImageVariables, type ImageInput} from '../../../shared/generated-types';
 import {NaturalAbstractModelService} from '@ecodev/natural';
 
 export const createImageMutation = gql`

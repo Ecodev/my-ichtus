@@ -1,4 +1,4 @@
-import {AbstractControl, ValidationErrors} from '@angular/forms';
+import {type AbstractControl, type ValidationErrors} from '@angular/forms';
 import {extractIBAN, isSEPACountry} from 'ibantools';
 
 function isEmptyInputValue(value: any): boolean {

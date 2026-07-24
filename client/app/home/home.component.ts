@@ -1,9 +1,9 @@
-import {Component, DestroyRef, inject, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, type OnInit} from '@angular/core';
 import {
     LOCAL_STORAGE,
     NaturalAvatarComponent,
     NaturalIconDirective,
-    NaturalSidenavContainerComponent,
+    type NaturalSidenavContainerComponent,
     NaturalSidenavStackService,
 } from '@ecodev/natural';
 import {filter, switchMap} from 'rxjs/operators';

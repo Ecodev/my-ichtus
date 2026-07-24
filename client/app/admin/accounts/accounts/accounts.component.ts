@@ -1,7 +1,7 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, type OnInit} from '@angular/core';
 import {
-    AvailableColumn,
-    Button,
+    type AvailableColumn,
+    type Button,
     NaturalAbstractNavigableList,
     NaturalAvatarComponent,
     NaturalColumnsPickerComponent,
@@ -12,16 +12,16 @@ import {
     TypedMatCellDef,
 } from '@ecodev/natural';
 import {AsyncPipe, DatePipe} from '@angular/common';
-import {AccountType, CurrentUserForProfileQuery} from '../../../shared/generated-types';
+import {AccountType, type CurrentUserForProfileQuery} from '../../../shared/generated-types';
 import {accounts} from '../../../shared/natural-search/natural-search-facets';
 import {AccountService} from '../services/account.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {TransactionLineService} from '../../transactions/services/transactionLine.service';
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {MatDialog, type MatDialogConfig} from '@angular/material/dialog';
 import {UserService} from '../../users/services/user.service';
 import {AccountingClosingComponent} from '../accounting-closing/accounting-closing.component';
 import {AccountingReportComponent} from '../accounting-report/accounting-report.component';
-import {Observable} from 'rxjs';
+import {type Observable} from 'rxjs';
 import {finalize, map} from 'rxjs/operators';
 import {IbanPipe} from '../../../shared/pipes/iban.pipe';
 import {MatPaginator} from '@angular/material/paginator';

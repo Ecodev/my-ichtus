@@ -1,4 +1,4 @@
-import {gql} from '@apollo/client/core';
+import {gql} from '@apollo/client';
 
 export const logsQuery = gql`
     query LogsQuery($filter: LogFilter, $sorting: [LogSorting!], $pagination: PaginationInput) {
