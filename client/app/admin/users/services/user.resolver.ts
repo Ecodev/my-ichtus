@@ -2,7 +2,7 @@ import {inject} from '@angular/core';
 import {ActivatedRouteSnapshot} from '@angular/router';
 import {last} from 'rxjs';
 import {UserService} from './user.service';
-import {ErrorService} from '../../../shared/components/error/error.service';
+import {ErrorService} from '@ecodev/natural';
 
 export function resolveUser(route: ActivatedRouteSnapshot): ReturnType<UserService['resolve']> {
     const userService = inject(UserService);

@@ -8,6 +8,7 @@ import {
     formatIsoDateTime,
     FormControls,
     FormValidators,
+    ignoreErrors,
     Literal,
     LOCAL_STORAGE,
     NaturalAbstractModelService,
@@ -40,6 +41,7 @@ import {
     CreateUser,
     CreateUserVariables,
     CurrentUserForProfileQuery,
+    CurrentUserForProfileQueryVariables,
     type DeleteUsers,
     type DeleteUsersVariables,
     LeaveFamily,
@@ -323,7 +325,7 @@ export class UserService
 
         // Inject the freshly logged in user as the current user into Apollo data store
         const data = {viewer: viewer};
-        this.apollo.client.writeQuery<CurrentUserForProfileQuery, never>({
+        this.apollo.client.writeQuery<CurrentUserForProfileQuery, CurrentUserForProfileQueryVariables>({
             query: currentUserForProfileQuery,
             data,
         });
@@ -350,7 +352,10 @@ export class UserService
                 },
                 fetchPolicy: 'network-only',
             })
-            .pipe(map(result => result.data.userLoginAvailable));
+            .pipe(
+                ignoreErrors(),
+                map(result => result.data.userLoginAvailable),
+            );
     }
 
     public flagWelcomeSessionDate(
@@ -466,6 +471,7 @@ export class UserService
                 query: currentUserForProfileQuery,
             })
             .pipe(
+                ignoreErrors(),
                 map(result => {
                     this.cacheViewer(result.data.viewer);
                     return result.data.viewer;
@@ -482,6 +488,7 @@ export class UserService
                 },
             })
             .pipe(
+                ignoreErrors(),
                 map(result => {
                     return result.data.userRolesAvailable;
                 }),
@@ -520,7 +527,10 @@ export class UserService
                     token: token,
                 },
             })
-            .pipe(map(result => result.data.userByToken));
+            .pipe(
+                ignoreErrors(),
+                map(result => result.data.userByToken),
+            );
     }
 
     public unregister(user: NonNullable<CurrentUserForProfileQuery['viewer']>): Observable<Unregister['unregister']> {

@@ -1,7 +1,7 @@
 import {inject} from '@angular/core';
 import {ActivatedRouteSnapshot} from '@angular/router';
 import {Observable, of} from 'rxjs';
-import {ErrorService} from '../../../shared/components/error/error.service';
+import {ErrorService} from '@ecodev/natural';
 import {ExpenseClaimService} from './expenseClaim.service';
 import {ExpenseClaimQuery} from '../../../shared/generated-types';
 

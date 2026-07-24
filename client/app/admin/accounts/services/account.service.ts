@@ -36,6 +36,7 @@ import {
     FormAsyncValidators,
     formatIsoDateTime,
     FormValidators,
+    ignoreErrors,
     integer,
     NaturalAbstractModelService,
     NaturalQueryVariablesManager,
@@ -107,7 +108,10 @@ export class AccountService extends NaturalAbstractModelService<
                     parent: parentId,
                 },
             })
-            .pipe(map(result => result.data.nextAccountCode));
+            .pipe(
+                ignoreErrors(),
+                map(result => result.data.nextAccountCode),
+            );
     }
 
     public getAccountByCode(code: number): Observable<AccountsQuery['accounts']['items'][0]> {

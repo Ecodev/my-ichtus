@@ -107,7 +107,7 @@ export function terminateBooking(apollo: Apollo, id: string, comment: string): O
     });
 
     observable.subscribe(() => {
-        apollo.client.reFetchObservableQueries();
+        apollo.client.refetchObservableQueries();
     });
 
     return observable;

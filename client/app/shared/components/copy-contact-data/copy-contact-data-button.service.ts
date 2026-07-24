@@ -1,5 +1,5 @@
 import {DOCUMENT, inject, Injectable} from '@angular/core';
-import {Button, copyToClipboard, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {Button, copyToClipboard, ignoreErrors, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {
     BookingsWithOwnerContactQuery,
     BookingsWithOwnerContactQueryVariables,
@@ -100,8 +100,9 @@ export class CopyContactDataButtonService<
         this.apollo
             .query<T, V>({
                 query: query,
-                variables: qvm.variables.value,
+                variables: qvm.variables.value!,
             })
+            .pipe(ignoreErrors())
             .subscribe(result => {
                 button.buttons?.forEach(subButton => (subButton.disabled = false));
                 const users = mapResultFunction(result.data);

@@ -23,6 +23,7 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {
     formatIsoDate,
+    ignoreErrors,
     NaturalErrorMessagePipe,
     NaturalFixedButtonComponent,
     NaturalIconDirective,
@@ -30,7 +31,7 @@ import {
     toNavigationParameters,
     TypedMatCellDef,
 } from '@ecodev/natural';
-import {gql} from '@apollo/client/core';
+import {gql} from '@apollo/client';
 import {Apollo} from 'apollo-angular';
 import {finalize} from 'rxjs';
 import {
@@ -189,6 +190,7 @@ export class IndicatorReportComponent {
                 query: indicatorQuery,
                 variables: this.getVariables()!,
             })
+            .pipe(ignoreErrors())
             .subscribe(result => {
                 this.dataSource = new MatTableDataSource<IndicatorReportRow>(result.data.indicatorReport);
             });
