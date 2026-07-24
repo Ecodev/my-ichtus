@@ -1,4 +1,4 @@
-import {gql} from '@apollo/client/core';
+import {gql} from '@apollo/client';
 import {permissionsFragment, userContactDataFragment, userMetaFragment} from '../../../shared/queries/fragments';
 import {bookableMetaFragment, bookableUsageFragment} from '../../bookables/services/bookable.queries';
 

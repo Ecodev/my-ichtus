@@ -1,6 +1,6 @@
 import {ActivatedRouteSnapshot} from '@angular/router';
 import {last} from 'rxjs';
-import {ErrorService} from '../../../shared/components/error/error.service';
+import {ErrorService} from '@ecodev/natural';
 import {TransactionTagService} from './transactionTag.service';
 import {inject} from '@angular/core';
 

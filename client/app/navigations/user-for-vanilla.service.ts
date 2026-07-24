@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {NaturalAbstractModelService, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {ignoreErrors, NaturalAbstractModelService, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {from, Observable, switchMap} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {
@@ -62,7 +62,10 @@ export class UserForVanillaService extends NaturalAbstractModelService<
             .query<CurrentUserForProfileQuery>({
                 query: currentUserForProfileQuery,
             })
-            .pipe(map(result => result.data.viewer));
+            .pipe(
+                ignoreErrors(),
+                map(result => result.data.viewer),
+            );
     }
 
     public login(pwd: string): void {

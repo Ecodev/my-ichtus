@@ -7,8 +7,8 @@ import {
 import {Component, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {MatButton} from '@angular/material/button';
-import {Apollo} from 'apollo-angular';
-import {ApolloQueryResult, gql} from '@apollo/client/core';
+import {Apollo, onlyCompleteData} from 'apollo-angular';
+import {gql, ObservableQuery} from '@apollo/client';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {
     DeleteUserConfirmationQuery,
@@ -48,7 +48,7 @@ export type DeleteUserConfirmData = {
 export class DeleteUserConfirmComponent {
     private readonly dialog = inject<MatDialogRef<boolean>>(MatDialogRef);
 
-    protected result: ApolloQueryResult<DeleteUserConfirmationQuery> | null = null;
+    protected result: ObservableQuery.Result<DeleteUserConfirmationQuery, 'complete'> | null = null;
     protected readonly form = new FormControl('', {nonNullable: true});
     protected readonly accountBalanceNotZeroParams: Params;
     protected readonly nonTreatedExpenseClaimParams: Params;
@@ -132,8 +132,9 @@ export class DeleteUserConfirmComponent {
                         }
                     }
                 `,
+                notifyOnNetworkStatusChange: false,
             })
-            .valueChanges.pipe(takeUntilDestroyed())
+            .valueChanges.pipe(takeUntilDestroyed(), onlyCompleteData())
             .subscribe(result => {
                 this.result = result;
                 this.form.setValidators([

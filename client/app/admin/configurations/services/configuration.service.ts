@@ -1,8 +1,8 @@
-import {Apollo} from 'apollo-angular';
-import {NetworkStatus} from '@apollo/client/core';
+import {Apollo, onlyCompleteData} from 'apollo-angular';
+import {NetworkStatus} from '@apollo/client';
 import {inject, Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {distinctUntilChanged, filter, map, takeWhile} from 'rxjs/operators';
+import {distinctUntilChanged, map, takeWhile} from 'rxjs/operators';
 import {
     ConfigurationQuery,
     ConfigurationQueryVariables,
@@ -22,10 +22,11 @@ export class ConfigurationService {
             query: configurationQuery,
             variables: {key},
             fetchPolicy: 'cache-and-network',
+            notifyOnNetworkStatusChange: false,
         });
 
         return queryRef.valueChanges.pipe(
-            filter(result => !!result.data),
+            onlyCompleteData(),
             takeWhile(result => result.networkStatus !== NetworkStatus.ready, true),
             map(result => result.data.configuration),
             distinctUntilChanged(),

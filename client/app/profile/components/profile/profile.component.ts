@@ -150,7 +150,7 @@ export class ProfileComponent implements OnInit {
 
                 // Restore store, to refetch queries that are watched
                 // this.apollo.client.resetStore();
-                this.apollo.client.reFetchObservableQueries(false);
+                this.apollo.client.refetchObservableQueries(false);
             },
             error: (data: {message: string}) => {
                 this.alertService.error("Le paiement n'a pas abouti: " + data.message);

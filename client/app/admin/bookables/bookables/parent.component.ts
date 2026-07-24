@@ -153,7 +153,7 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
             .createWithBookable(bookable, this.futureOwner, booking)
             .pipe(finalize(() => this.creating.delete(bookable.id)))
             .subscribe({
-                error: () => this.apollo.client.reFetchObservableQueries(),
+                error: () => this.apollo.client.refetchObservableQueries(),
                 complete: () => {
                     this.snackbar.open('Demande enregistrée', '', {duration: 3000});
                 },
